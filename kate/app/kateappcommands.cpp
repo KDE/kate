@@ -39,15 +39,15 @@ KateAppCommands::KateAppCommands()
         iface->registerCommand(this);
     }
 
-    re_write.setPattern(QLatin1String("w(a)?"));
-    re_close.setPattern(QLatin1String("bd(elete)?|tabc(lose)?"));
-    re_quit.setPattern(QLatin1String("(w)?q(a|all)?(!)?"));
-    re_exit.setPattern(QLatin1String("x(a)?"));
-    re_edit.setPattern(QLatin1String("e(dit)?|tabe(dit)?|tabnew"));
-    re_new.setPattern(QLatin1String("(v)?new"));
-    re_split.setPattern(QLatin1String("sp(lit)?"));
-    re_vsplit.setPattern(QLatin1String("vs(plit)?"));
-    re_only.setPattern(QLatin1String("on(ly)?"));
+    re_write.setPattern(QStringLiteral("w(a)?"));
+    re_close.setPattern(QStringLiteral("bd(elete)?|tabc(lose)?"));
+    re_quit.setPattern(QStringLiteral("(w)?q(a|all)?(!)?"));
+    re_exit.setPattern(QStringLiteral("x(a)?"));
+    re_edit.setPattern(QStringLiteral("e(dit)?|tabe(dit)?|tabnew"));
+    re_new.setPattern(QStringLiteral("(v)?new"));
+    re_split.setPattern(QStringLiteral("sp(lit)?"));
+    re_vsplit.setPattern(QStringLiteral("vs(plit)?"));
+    re_only.setPattern(QStringLiteral("on(ly)?"));
 }
 
 KateAppCommands::~KateAppCommands()
@@ -66,11 +66,11 @@ const QStringList& KateAppCommands::cmds()
     static QStringList l;
 
     if (l.empty()) {
-        l << QLatin1String("q") << QLatin1String("qa") << QLatin1String("qall") << QLatin1String("q!") << QLatin1String("qa!") << QLatin1String("qall!")
-          << QLatin1String("wq") << QLatin1String("wa") << QLatin1String("wqa") << QLatin1String("x") << QLatin1String("xa") << QLatin1String("new")
-          << QLatin1String("vnew") << QLatin1String("e") << QLatin1String("edit") << QLatin1String("enew") << QLatin1String("sp") << QLatin1String("split") << QLatin1String("vs")
-          << QLatin1String("vsplit") << QLatin1String("only") << QLatin1String("tabe") << QLatin1String("tabedit") << QLatin1String("tabnew") << QLatin1String("bd")
-          << QLatin1String("bdelete") << QLatin1String("tabc") << QLatin1String("tabclose");
+        l << QStringLiteral("q") << QStringLiteral("qa") << QStringLiteral("qall") << QStringLiteral("q!") << QStringLiteral("qa!") << QStringLiteral("qall!")
+          << QStringLiteral("wq") << QStringLiteral("wa") << QStringLiteral("wqa") << QStringLiteral("x") << QStringLiteral("xa") << QStringLiteral("new")
+          << QStringLiteral("vnew") << QStringLiteral("e") << QStringLiteral("edit") << QStringLiteral("enew") << QStringLiteral("sp") << QStringLiteral("split") << QStringLiteral("vs")
+          << QStringLiteral("vsplit") << QStringLiteral("only") << QStringLiteral("tabe") << QStringLiteral("tabedit") << QStringLiteral("tabnew") << QStringLiteral("bd")
+          << QStringLiteral("bdelete") << QStringLiteral("tabc") << QStringLiteral("tabclose");
     }
 
     return l;
@@ -78,7 +78,7 @@ const QStringList& KateAppCommands::cmds()
 
 bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString &msg)
 {
-    QStringList args(cmd.split( QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) ;
+    QStringList args(cmd.split( QRegExp(QStringLiteral("\\s+")), QString::SkipEmptyParts)) ;
     QString command( args.takeFirst() );
 
     KateMainWindow *mainWin = KateApp::self()->activeKateMainWindow();
@@ -146,7 +146,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     }
     else if (re_edit.exactMatch(command)) {
         QString argument = args.join(QLatin1Char(' '));
-        if (argument.isEmpty() || argument == QLatin1String("!")) {
+        if (argument.isEmpty() || argument == QStringLiteral("!")) {
             view->document()->documentReload();
         } else {
             QUrl base = mainWin->activeDocumentUrl();
@@ -155,7 +155,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
             if (base.isValid()) { // first try to use the same path as the current open document has
               url = QUrl(base.resolved(arg2path));  //resolved handles the case where the args is a relative path, and is the same as using QUrl(args) elsewise
             } else { // else use the cwd
-              url = QUrl(QUrl(QDir::currentPath() + QLatin1String("/")).resolved(arg2path)); // + "/" is needed because of http://lists.qt.nokia.com/public/qt-interest/2011-May/033913.html
+              url = QUrl(QUrl(QDir::currentPath() + QStringLiteral("/")).resolved(arg2path)); // + "/" is needed because of http://lists.qt.nokia.com/public/qt-interest/2011-May/033913.html
             }
             QFileInfo file( url.toLocalFile() );
             KTextEditor::Document *doc = KateDocManager::self()->findDocument( url );
@@ -169,14 +169,14 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         }
     }
     else if (re_new.exactMatch(command)) {
-        if (re_new.cap(1) == QLatin1String("v")) { // vertical split
+        if (re_new.cap(1) == QStringLiteral("v")) { // vertical split
             mainWin->viewManager()->slotSplitViewSpaceVert();
         } else {                    // horizontal split
             mainWin->viewManager()->slotSplitViewSpaceHoriz();
         }
         mainWin->viewManager()->slotDocumentNew();
     }
-    else if (command == QLatin1String("enew")) {
+    else if (command == QStringLiteral("enew")) {
         mainWin->viewManager()->slotDocumentNew();
     }
     else if (re_split.exactMatch(command)) {

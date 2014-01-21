@@ -214,7 +214,7 @@ void KateViewSpace::setActive( bool active, bool )
 void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QString& viewConfGrp)
 {
 //   qCDebug(LOG_KATE)<<"KateViewSpace::saveConfig("<<myIndex<<", "<<viewConfGrp<<") - currentView: "<<currentView()<<")";
-  QString groupname = QString(viewConfGrp + QLatin1String("-ViewSpace %1")).arg( myIndex );
+  QString groupname = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg( myIndex );
 
   KConfigGroup group (config, groupname);
   group.writeEntry ("Count", mViewList.count());
@@ -328,10 +328,10 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
 #endif
 
   installEventFilter( this );
-  m_modPm = QIcon::fromTheme(QLatin1String("document-save")).pixmap(16);
-  m_modDiscPm = QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(16);
-  QIcon icon = KIconUtils::addOverlay(QIcon::fromTheme(QLatin1String("document-save")),
-                                      QIcon::fromTheme(QLatin1String("emblem-important")),
+  m_modPm = QIcon::fromTheme(QStringLiteral("document-save")).pixmap(16);
+  m_modDiscPm = QIcon::fromTheme(QStringLiteral("dialog-warning")).pixmap(16);
+  QIcon icon = KIconUtils::addOverlay(QIcon::fromTheme(QStringLiteral("document-save")),
+                                      QIcon::fromTheme(QStringLiteral("emblem-important")),
                                       Qt::TopLeftCorner);
   m_modmodPm = icon.pixmap(16);
 }
@@ -342,7 +342,7 @@ KateVSStatusBar::~KateVSStatusBar ()
 void KateVSStatusBar::showMenu()
 {
   KXmlGuiWindow* mainWindow = static_cast<KXmlGuiWindow*>( window() );
-  QMenu* menu = static_cast<QMenu*>( mainWindow->factory()->container(QLatin1String("viewspace_popup"), mainWindow ) );
+  QMenu* menu = static_cast<QMenu*>( mainWindow->factory()->container(QStringLiteral("viewspace_popup"), mainWindow ) );
 
   if (menu)
     menu->exec(QCursor::pos());

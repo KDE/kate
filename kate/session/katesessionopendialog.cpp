@@ -76,7 +76,7 @@ KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCanceled()));
   buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
 
-  m_openButton = new QPushButton(QIcon::fromTheme(QLatin1String("document-open")), i18n("&Open"));
+  m_openButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-open")), i18n("&Open"));
   m_openButton->setDefault(true);
   m_openButton->setEnabled(false);
   connect(m_openButton, SIGNAL(clicked()), this, SLOT(slotOpen()));

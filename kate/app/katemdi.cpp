@@ -88,9 +88,9 @@ namespace KateMDI
 
 //BEGIN GUICLIENT
 
-  static const QString actionListName = QLatin1String("kate_mdi_view_actions");
+  static const QString actionListName = QStringLiteral("kate_mdi_view_actions");
 
-  static const QString guiDescription = QLatin1String(""
+  static const QString guiDescription = QStringLiteral(""
                                       "<!DOCTYPE kpartgui><kpartgui name=\"kate_mdi_view_actions\">"
                                       "<MenuBar>"
                                       "    <Menu name=\"view\">"
@@ -115,9 +115,9 @@ namespace KateMDI
     }
 
     m_toolMenu = new KActionMenu(i18n("Tool &Views"), this);
-    actionCollection()->addAction(QLatin1String("kate_mdi_toolview_menu"), m_toolMenu);
+    actionCollection()->addAction(QStringLiteral("kate_mdi_toolview_menu"), m_toolMenu);
     m_showSidebarsAction = new KToggleAction( i18n("Show Side&bars"), this );
-    actionCollection()->addAction( QLatin1String("kate_mdi_sidebar_visibility"), m_showSidebarsAction );
+    actionCollection()->addAction( QStringLiteral("kate_mdi_sidebar_visibility"), m_showSidebarsAction );
     m_showSidebarsAction->setShortcut(  Qt::CTRL | Qt::ALT | Qt::SHIFT | Qt::Key_F );
 
     m_showSidebarsAction->setChecked( m_mw->sidebarsVisible() );
@@ -130,7 +130,7 @@ namespace KateMDI
     m_toolMenu->addAction( sep_act );
 
     // read shortcuts
-    actionCollection()->setConfigGroup( QLatin1String("Shortcuts") );
+    actionCollection()->setConfigGroup( QStringLiteral("Shortcuts") );
     actionCollection()->readSettings();
 
     actionCollection()->addAssociatedWidget(m_mw);
@@ -498,24 +498,24 @@ namespace KateMDI
             }
           }
 
-          menu->addSection(SmallIcon(QLatin1String("view_remove")), i18n("Behavior"));
+          menu->addSection(SmallIcon(QStringLiteral("view_remove")), i18n("Behavior"));
 
-          menu->addAction(w->persistent ? QIcon::fromTheme(QLatin1String("view-restore")) : QIcon::fromTheme(QLatin1String("view-fullscreen")),
+          menu->addAction(w->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen")),
                        w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent") ) -> setData(10);
 
-          menu->addSection(SmallIcon(QLatin1String("move")), i18n("Move To"));
+          menu->addSection(SmallIcon(QStringLiteral("move")), i18n("Move To"));
 
           if (position() != 0)
-            menu->addAction(QIcon::fromTheme(QLatin1String("go-previous")), i18n("Left Sidebar"))->setData(0);
+            menu->addAction(QIcon::fromTheme(QStringLiteral("go-previous")), i18n("Left Sidebar"))->setData(0);
 
           if (position() != 1)
-            menu->addAction(QIcon::fromTheme(QLatin1String("go-next")), i18n("Right Sidebar"))->setData(1);
+            menu->addAction(QIcon::fromTheme(QStringLiteral("go-next")), i18n("Right Sidebar"))->setData(1);
 
           if (position() != 2)
-            menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Top Sidebar"))->setData(2);
+            menu->addAction(QIcon::fromTheme(QStringLiteral("go-up")), i18n("Top Sidebar"))->setData(2);
 
           if (position() != 3)
-            menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Bottom Sidebar"))->setData(3);
+            menu->addAction(QIcon::fromTheme(QStringLiteral("go-down")), i18n("Bottom Sidebar"))->setData(3);
 
           connect(menu, SIGNAL(triggered(QAction*)),
                   this, SLOT(buttonPopupActivate(QAction*)));
@@ -862,7 +862,7 @@ namespace KateMDI
                                      "invoke <b>View &gt; Tool Views &gt; Show Sidebars</b> "
                                      "in the menu. It is still possible to show/hide "
                                      "the tool views with the assigned shortcuts.</qt>"),
-                                QString(), QLatin1String("Kate hide sidebars notification message") );
+                                QString(), QStringLiteral("Kate hide sidebars notification message") );
     }
   }
 

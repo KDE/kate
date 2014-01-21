@@ -34,15 +34,15 @@ KateBookmarkHandler::KateBookmarkHandler( KateFileBrowser *parent, QMenu* kpopup
   mParent( parent ),
   m_menu( kpopupmenu )
 {
-  setObjectName( QLatin1String ("KateBookmarkHandler") );
+  setObjectName( QStringLiteral ("KateBookmarkHandler") );
   if (!m_menu)
     m_menu = new QMenu( parent);
 
-  QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("kate/fsbookmarks.xml"));
+  QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kate/fsbookmarks.xml"));
   if ( file.isEmpty() )
-    file = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/kate/fsbookmarks.xml");
+    file = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/fsbookmarks.xml");
 
-  KBookmarkManager *manager = KBookmarkManager::managerForFile( file, QLatin1String("kate") );
+  KBookmarkManager *manager = KBookmarkManager::managerForFile( file, QStringLiteral("kate") );
   manager->setUpdate( true );
 
   m_bookmarkMenu = new KBookmarkMenu( manager, this, m_menu, parent->actionCollection() );

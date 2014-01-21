@@ -57,7 +57,7 @@ KatePluginManager *KatePluginManager::self()
 
 void KatePluginManager::setupPluginList ()
 {
-  KService::List traderList = KServiceTypeTrader::self()->query(QLatin1String("KTextEditor/Plugin"));
+  KService::List traderList = KServiceTypeTrader::self()->query(QStringLiteral("KTextEditor/Plugin"));
 
   KatePluginList alwaysLoad;
   KatePluginList others;
@@ -67,7 +67,7 @@ void KatePluginManager::setupPluginList ()
     info.service = ptr;
     
     // decide if this is an integral plugin
-    if (info.service->library() == QLatin1String("katefiletreeplugin"))
+    if (info.service->library() == QStringLiteral("katefiletreeplugin"))
       info.alwaysLoad = true;
     else
       info.alwaysLoad = false;
@@ -104,7 +104,7 @@ void KatePluginManager::loadConfig (KConfig* config)
    * ask config object
    */
   if (config) {
-    KConfigGroup cg = KConfigGroup(config, QLatin1String("Kate Plugins"));
+    KConfigGroup cg = KConfigGroup(config, QStringLiteral("Kate Plugins"));
 
     // disable all plugin if no config...
     for (int i = 0; i < m_pluginList.size(); ++i)
@@ -133,7 +133,7 @@ void KatePluginManager::writeConfig(KConfig* config)
 {
   Q_ASSERT( config );
 
-  KConfigGroup cg = KConfigGroup( config, QLatin1String("Kate Plugins") );
+  KConfigGroup cg = KConfigGroup( config, QStringLiteral("Kate Plugins") );
   foreach(const KatePluginInfo &plugin, m_pluginList)
   {
     QString saveName = plugin.saveName();

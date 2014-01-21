@@ -37,38 +37,38 @@
 
 extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 {
-  KAboutData aboutData ( QLatin1String("kwrite"), QString(),
+  KAboutData aboutData ( QStringLiteral("kwrite"), QString(),
                          i18n("KWrite"),
-                         QLatin1String(KATE_VERSION),
+                         QStringLiteral(KATE_VERSION),
                          i18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
-                         i18n( "(c) 2000-2014 The Kate Authors" ), QString(), QLatin1String("http://kate-editor.org") );
+                         i18n( "(c) 2000-2014 The Kate Authors" ), QString(), QStringLiteral("http://kate-editor.org") );
   
   /**
    * right dbus prefix == org.kde.
    */
   aboutData.setOrganizationDomain (QByteArray("kde.org"));
   
-  aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), QLatin1String("cullmann@kde.org"), QLatin1String("http://www.cullmann.io"));
-  aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), QLatin1String("anders@alweb.dk"), QLatin1String("http://www.alweb.dk"));
-  aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), QLatin1String("jowenn@kde.org"), QLatin1String("http://stud3.tuwien.ac.at/~e9925371"));
-  aboutData.addAuthor (i18n("Hamish Rodda"),i18n("Core Developer"), QLatin1String("rodda@kde.org"));
-  aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), QLatin1String("dhdev@gmx.de"));
-  aboutData.addAuthor (i18n("Waldo Bastian"), i18n("The cool buffersystem"), QLatin1String("bastian@kde.org") );
-  aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), QLatin1String("charles@kde.org"));
-  aboutData.addAuthor (i18n("Matt Newell"), i18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."), QLatin1String("newellm@proaxis.com"));
-  aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), QLatin1String("michael.bartl1@chello.at"));
-  aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), QLatin1String("gholam@xtra.co.nz"));
-  aboutData.addAuthor (i18n("Jochen Wilhemly"), i18n("KWrite Author"), QLatin1String("digisnap@cs.tu-berlin.de") );
-  aboutData.addAuthor (i18n("Michael Koch"),i18n("KWrite port to KParts"), QLatin1String("koch@kde.org"));
-  aboutData.addAuthor (i18n("Christian Gebauer"), QString(), QLatin1String("gebauer@kde.org") );
-  aboutData.addAuthor (i18n("Simon Hausmann"), QString(), QLatin1String("hausmann@kde.org") );
-  aboutData.addAuthor (i18n("Glen Parker"),i18n("KWrite Undo History, Kspell integration"), QLatin1String("glenebob@nwlink.com"));
-  aboutData.addAuthor (i18n("Scott Manson"),i18n("KWrite XML Syntax highlighting support"), QLatin1String("sdmanson@alltel.net"));
-  aboutData.addAuthor (i18n("John Firebaugh"),i18n("Patches and more"), QLatin1String("jfirebaugh@kde.org"));
-  aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), QLatin1String("oss@senarclens.eu"), QLatin1String("http://find-santa.eu/"));
+  aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("http://www.cullmann.io"));
+  aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("http://www.alweb.dk"));
+  aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), QStringLiteral("jowenn@kde.org"), QStringLiteral("http://stud3.tuwien.ac.at/~e9925371"));
+  aboutData.addAuthor (i18n("Hamish Rodda"),i18n("Core Developer"), QStringLiteral("rodda@kde.org"));
+  aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), QStringLiteral("dhdev@gmx.de"));
+  aboutData.addAuthor (i18n("Waldo Bastian"), i18n("The cool buffersystem"), QStringLiteral("bastian@kde.org") );
+  aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), QStringLiteral("charles@kde.org"));
+  aboutData.addAuthor (i18n("Matt Newell"), i18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."), QStringLiteral("newellm@proaxis.com"));
+  aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), QStringLiteral("michael.bartl1@chello.at"));
+  aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), QStringLiteral("gholam@xtra.co.nz"));
+  aboutData.addAuthor (i18n("Jochen Wilhemly"), i18n("KWrite Author"), QStringLiteral("digisnap@cs.tu-berlin.de") );
+  aboutData.addAuthor (i18n("Michael Koch"),i18n("KWrite port to KParts"), QStringLiteral("koch@kde.org"));
+  aboutData.addAuthor (i18n("Christian Gebauer"), QString(), QStringLiteral("gebauer@kde.org") );
+  aboutData.addAuthor (i18n("Simon Hausmann"), QString(), QStringLiteral("hausmann@kde.org") );
+  aboutData.addAuthor (i18n("Glen Parker"),i18n("KWrite Undo History, Kspell integration"), QStringLiteral("glenebob@nwlink.com"));
+  aboutData.addAuthor (i18n("Scott Manson"),i18n("KWrite XML Syntax highlighting support"), QStringLiteral("sdmanson@alltel.net"));
+  aboutData.addAuthor (i18n("John Firebaugh"),i18n("Patches and more"), QStringLiteral("jfirebaugh@kde.org"));
+  aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), QStringLiteral("oss@senarclens.eu"), QStringLiteral("http://find-santa.eu/"));
 
-  aboutData.addCredit (i18n("Matteo Merli"),i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QLatin1String("merlim@libero.it"));
-  aboutData.addCredit (i18n("Rocky Scaletta"),i18n("Highlighting for VHDL"), QLatin1String("rocky@purdue.edu"));
+  aboutData.addCredit (i18n("Matteo Merli"),i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QStringLiteral("merlim@libero.it"));
+  aboutData.addCredit (i18n("Rocky Scaletta"),i18n("Highlighting for VHDL"), QStringLiteral("rocky@purdue.edu"));
   aboutData.addCredit (i18n("Yury Lebedev"),i18n("Highlighting for SQL"));
   aboutData.addCredit (i18n("Chris Ross"),i18n("Highlighting for Ferite"));
   aboutData.addCredit (i18n("Nick Roux"),i18n("Highlighting for ILERPG"));
@@ -81,7 +81,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
   aboutData.addCredit (i18n("Carsten Pfeiffer"), i18nc("Credit text for someone that helped a lot", "Very nice help"));
   aboutData.addCredit (i18n("All people who have contributed and I have forgotten to mention"));
 
-  aboutData.setProgramIconName (QLatin1String("accessories-text-editor"));
+  aboutData.setProgramIconName (QStringLiteral("accessories-text-editor"));
   aboutData.setProductName(QByteArray("kate/kwrite"));
   
   /**
@@ -108,27 +108,27 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
   parser.addVersionOption();
   
   // -e/--encoding option
-  const QCommandLineOption useEncoding (QStringList () << QLatin1String("e") << QLatin1String("encoding"), i18n("Set encoding for the file to open."), QLatin1String("encoding"));
+  const QCommandLineOption useEncoding (QStringList () << QStringLiteral("e") << QStringLiteral("encoding"), i18n("Set encoding for the file to open."), QStringLiteral("encoding"));
   parser.addOption (useEncoding);
   
   // -l/--line option
-  const QCommandLineOption gotoLine (QStringList () << QLatin1String("l") << QLatin1String("line"), i18n("Navigate to this line."), QLatin1String("line"));
+  const QCommandLineOption gotoLine (QStringList () << QStringLiteral("l") << QStringLiteral("line"), i18n("Navigate to this line."), QStringLiteral("line"));
   parser.addOption (gotoLine);
   
   // -c/--column option
-  const QCommandLineOption gotoColumn (QStringList () << QLatin1String("c") << QLatin1String("column"), i18n("Navigate to this column."), QLatin1String("column"));
+  const QCommandLineOption gotoColumn (QStringList () << QStringLiteral("c") << QStringLiteral("column"), i18n("Navigate to this column."), QStringLiteral("column"));
   parser.addOption (gotoColumn);
 
   // -i/--stdin option
-  const QCommandLineOption readStdIn (QStringList () << QLatin1String("i") << QLatin1String("stdin"), i18n("Read the contents of stdin."));
+  const QCommandLineOption readStdIn (QStringList () << QStringLiteral("i") << QStringLiteral("stdin"), i18n("Read the contents of stdin."));
   parser.addOption (readStdIn);
 
   // --tempfile option
-  const QCommandLineOption tempfile (QStringList () << QLatin1String("tempfile"), i18n("The files/URLs opened by the application will be deleted after use"));
+  const QCommandLineOption tempfile (QStringList () << QStringLiteral("tempfile"), i18n("The files/URLs opened by the application will be deleted after use"));
   parser.addOption (tempfile);
   
   // urls to open
-  parser.addPositionalArgument(QLatin1String("urls"), i18n("Documents to open."), QLatin1String("[urls...]"));
+  parser.addPositionalArgument(QStringLiteral("urls"), i18n("Documents to open."), QStringLiteral("[urls...]"));
   
   /**
    * do the command line parsing
@@ -147,17 +147,17 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     bool nav = false;
     int line = 0, column = 0;
 
-    QTextCodec *codec = parser.isSet(QLatin1String("encoding")) ? QTextCodec::codecForName(parser.value(QLatin1String("encoding")).toLocal8Bit()) : 0;
+    QTextCodec *codec = parser.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(parser.value(QStringLiteral("encoding")).toLocal8Bit()) : 0;
 
-    if (parser.isSet (QLatin1String("line")))
+    if (parser.isSet (QStringLiteral("line")))
     {
-      line = parser.value (QLatin1String("line")).toInt() - 1;
+      line = parser.value (QStringLiteral("line")).toInt() - 1;
       nav = true;
     }
 
-    if (parser.isSet (QLatin1String("column")))
+    if (parser.isSet (QStringLiteral("column")))
     {
-      column = parser.value (QLatin1String("column")).toInt() - 1;
+      column = parser.value (QStringLiteral("column")).toInt() - 1;
       nav = true;
     }
 
@@ -165,7 +165,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     {
         KWrite *t = new KWrite;
 
-        if( parser.isSet( QLatin1String("stdin") ) )
+        if( parser.isSet( QStringLiteral("stdin") ) )
         {
           QTextStream input(stdin, QIODevice::ReadOnly);
 
@@ -199,7 +199,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
         QUrl url;
 
         // convert to an url
-        QRegExp withProtocol(QLatin1String("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
+        QRegExp withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
         if (withProtocol.indexIn(positionalArgument) == 0) {
           url = QUrl::fromUserInput(positionalArgument);
         } else {

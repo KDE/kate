@@ -49,11 +49,11 @@ static bool isGit(const QString& filename)
   QProcess git;
   git.setWorkingDirectory (dir.absolutePath());
   QStringList args;
-  args << QLatin1String("ls-files") << fi.fileName();
-  git.start(QLatin1String("git"), args);
+  args << QStringLiteral("ls-files") << fi.fileName();
+  git.start(QStringLiteral("git"), args);
   bool isGit = false;
   if (git.waitForStarted() && git.waitForFinished()) {
-    QStringList files = QString::fromLocal8Bit (git.readAllStandardOutput ()).split (QRegExp(QLatin1String("[\n\r]")), QString::SkipEmptyParts);
+    QStringList files = QString::fromLocal8Bit (git.readAllStandardOutput ()).split (QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
     isGit = files.contains(fi.fileName());
   }
   return isGit;
@@ -82,7 +82,7 @@ void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint&
    */
   QMenu menu;
 
-  QAction *copyAction = menu.addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy Filename"));
+  QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy Filename"));
     
   /**
    * handle "open with"
@@ -90,7 +90,7 @@ void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint&
    */
   QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
   QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
-  KService::List offers = KMimeTypeTrader::self()->query(mimeType.name(), QLatin1String("Application"));
+  KService::List offers = KMimeTypeTrader::self()->query(mimeType.name(), QStringLiteral("Application"));
 
   /**
    * for each one, insert a menu item...
@@ -98,7 +98,7 @@ void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint&
   for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
   {
     KService::Ptr service = *it;
-    if (service->name() == QLatin1String("Kate")) continue; // omit Kate
+    if (service->name() == QStringLiteral("Kate")) continue; // omit Kate
     QAction *action = openWithMenu->addAction(QIcon::fromTheme(service->icon()), service->name());
     action->setData(service->entryPath());
   }
@@ -111,19 +111,19 @@ void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint&
   QList<QAction*> appActions;
   if (isGit(filename)) {
     QMenu* git = menu.addMenu(i18n("Git Tools"));
-    if (appExists(QLatin1String("gitk"))) {
+    if (appExists(QStringLiteral("gitk"))) {
       QAction* action = git->addAction(i18n("Launch gitk"));
-      action->setData(QLatin1String("gitk"));
+      action->setData(QStringLiteral("gitk"));
       appActions.append(action);
     }
-    if (appExists(QLatin1String("qgit"))) {
+    if (appExists(QStringLiteral("qgit"))) {
       QAction* action = git->addAction(i18n("Launch qgit"));
-      action->setData(QLatin1String("qgit"));
+      action->setData(QStringLiteral("qgit"));
       appActions.append(action);
     }
-    if (appExists(QLatin1String("git-cola"))) {
+    if (appExists(QStringLiteral("git-cola"))) {
       QAction* action = git->addAction(i18n("Launch git-cola"));
-      action->setData(QLatin1String("git-cola"));
+      action->setData(QStringLiteral("git-cola"));
       appActions.append(action);
     }
 

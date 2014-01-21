@@ -77,7 +77,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   // dialog text
   QLabel *icon = new QLabel(this);
   hb->addWidget(icon);
-  icon->setPixmap( DesktopIcon(QLatin1String("dialog-warning")) );
+  icon->setPixmap( DesktopIcon(QStringLiteral("dialog-warning")) );
 
   QLabel *t = new QLabel(i18n(
                             "<qt>The documents listed below have changed on disk.<p>Select one "
@@ -109,7 +109,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   hb = new QHBoxLayout;
   mainLayout->addLayout(hb);
 
-  QPushButton *btnDiff = new QPushButton(QIcon::fromTheme(QLatin1String("document-preview")), i18n("&View Difference"), this);
+  QPushButton *btnDiff = new QPushButton(QIcon::fromTheme(QStringLiteral("document-preview")), i18n("&View Difference"), this);
   btnDiff->setWhatsThis(i18n(
                           "Calculates the difference between the editor contents and the disk "
                           "file for the selected document, and shows the difference with the "
@@ -121,7 +121,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   QDialogButtonBox *buttons = new QDialogButtonBox(this);
   mainLayout->addWidget(buttons);
 
-  QPushButton *ignoreButton = new QPushButton(QIcon::fromTheme(QLatin1String("dialog-warning")), i18n("&Ignore Changes"));
+  QPushButton *ignoreButton = new QPushButton(QIcon::fromTheme(QStringLiteral("dialog-warning")), i18n("&Ignore Changes"));
   ignoreButton->setToolTip(i18n("Remove modified flag from selected documents"));
   buttons->addButton(ignoreButton, QDialogButtonBox::RejectRole);
   connect(ignoreButton, SIGNAL(clicked()), this, SLOT(slotIgnore()));
@@ -132,7 +132,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   connect(overwriteButton, SIGNAL(clicked()), this, SLOT(slotOverwrite()));
 
 
-  QPushButton *reloadButton = new QPushButton(QIcon::fromTheme(QLatin1String("view-refresh")), i18n("&Reload"));
+  QPushButton *reloadButton = new QPushButton(QIcon::fromTheme(QStringLiteral("view-refresh")), i18n("&Reload"));
   reloadButton->setDefault(true);
   reloadButton->setToolTip(i18n("Reload selected documents from disk"));
   connect(reloadButton, SIGNAL(clicked()), this, SLOT(slotReload()));
@@ -253,7 +253,7 @@ void KateMwModOnHdDialog::slotDiff()
   // Start a KProcess that creates a diff
   m_proc = new KProcess( this );
   m_proc->setOutputChannelMode( KProcess::MergedChannels );
-  *m_proc << QLatin1String("diff") << QLatin1String("-ub") << QLatin1String("-") << doc->url().toLocalFile();
+  *m_proc << QStringLiteral("diff") << QStringLiteral("-ub") << QStringLiteral("-") << doc->url().toLocalFile();
   connect( m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()) );
   connect( m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotPDone()) );
 
@@ -313,7 +313,7 @@ void KateMwModOnHdDialog::slotPDone()
   m_diffFile = 0;
 
   // KRun::runUrl should delete the file, once the client exits
-  KRun::runUrl( url, QLatin1String("text/x-patch"), this, true );
+  KRun::runUrl( url, QStringLiteral("text/x-patch"), this, true );
 }
 
 void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)

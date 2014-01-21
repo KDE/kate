@@ -57,7 +57,7 @@ KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
     KTextEditor::Plugin ( parent )
 {
   m_previousEditorEnv=qgetenv("EDITOR");
-  if (!KAuthorized::authorizeKAction(QLatin1String("shell_access")))
+  if (!KAuthorized::authorizeKAction(QStringLiteral("shell_access")))
   {
     KMessageBox::sorry(0, i18n ("You do not have enough karma to access a shell or terminal emulation"));
   }
@@ -96,7 +96,7 @@ QString KateKonsolePlugin::configPageFullName (int number) const
 QIcon KateKonsolePlugin::configPageIcon (int number) const
 {
   if (number != 0) return QIcon();
-  return QIcon::fromTheme(QLatin1String("utilities-terminal"));
+  return QIcon::fromTheme(QStringLiteral("utilities-terminal"));
 }
 
 void KateKonsolePlugin::readConfig()
@@ -109,7 +109,7 @@ KateKonsolePluginView::KateKonsolePluginView (KateKonsolePlugin* plugin, KTextEd
     : QObject(mainWindow),m_plugin(plugin)
 {
   // init console
-  QWidget *toolview = mainWindow->createToolView (plugin, QLatin1String("kate_private_plugin_katekonsoleplugin"), KTextEditor::MainWindow::Bottom, SmallIcon(QLatin1String("utilities-terminal")), i18n("Terminal"));
+  QWidget *toolview = mainWindow->createToolView (plugin, QStringLiteral("kate_private_plugin_katekonsoleplugin"), KTextEditor::MainWindow::Bottom, SmallIcon(QStringLiteral("utilities-terminal")), i18n("Terminal"));
   m_console = new KateConsole(m_plugin, mainWindow, toolview);
   
   // register this view
@@ -139,23 +139,23 @@ KateConsole::KateConsole (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mw
     , m_toolView (parent)
     , m_plugin(plugin)
 {
-  KXMLGUIClient::setComponentName (QLatin1String("katekonsole"), i18n ("Kate Terminal"));
-  setXMLFile( QLatin1String("ui.rc") );
+  KXMLGUIClient::setComponentName (QStringLiteral("katekonsole"), i18n ("Kate Terminal"));
+  setXMLFile( QStringLiteral("ui.rc") );
   
   // make sure we have a vertical layout
   new QVBoxLayout(this);
 
-  QAction* a = actionCollection()->addAction(QLatin1String("katekonsole_tools_pipe_to_terminal"));
-  a->setIcon(QIcon::fromTheme(QLatin1String("utilities-terminal")));
+  QAction* a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_pipe_to_terminal"));
+  a->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
   a->setText(i18nc("@action", "&Pipe to Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotPipeToConsole()));
 
-  a = actionCollection()->addAction(QLatin1String("katekonsole_tools_sync"));
+  a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_sync"));
   a->setText(i18nc("@action", "S&ynchronize Terminal with Current Document"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotManualSync()));
 
-  a = actionCollection()->addAction(QLatin1String("katekonsole_tools_toggle_focus"));
-  a->setIcon(QIcon::fromTheme(QLatin1String("utilities-terminal")));
+  a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_focus"));
+  a->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
   a->setText(i18nc("@action", "&Focus Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotToggleFocus()));
 
@@ -179,7 +179,7 @@ void KateConsole::loadConsoleIfNeeded()
   if (!window() || !isVisibleTo(window())) return;
 
   KPluginFactory* factory = 0;
-  KService::Ptr service = KService::serviceByDesktopName(QLatin1String("konsolepart"));
+  KService::Ptr service = KService::serviceByDesktopName(QStringLiteral("konsolepart"));
   if (service) {
       factory = KPluginLoader(service->library()).factory();
   }
@@ -241,7 +241,7 @@ void KateConsole::cd (const QString & path)
     return;
 
   m_currentPath = path;
-  sendInput(QLatin1String("cd ") + KShell::quoteArg(m_currentPath) + QLatin1Char('\n'));
+  sendInput(QStringLiteral("cd ") + KShell::quoteArg(m_currentPath) + QLatin1Char('\n'));
 }
 
 void KateConsole::sendInput( const QString& text )
@@ -263,7 +263,7 @@ void KateConsole::slotPipeToConsole ()
       (m_mw->window()
        , i18n ("Do you really want to pipe the text to the console? This will execute any contained commands with your user rights.")
        , i18n ("Pipe to Terminal?")
-       , KGuiItem(i18n("Pipe to Terminal")), KStandardGuiItem::cancel(), QLatin1String("Pipe To Terminal Warning")) != KMessageBox::Continue)
+       , KGuiItem(i18n("Pipe to Terminal")), KStandardGuiItem::cancel(), QStringLiteral("Pipe To Terminal Warning")) != KMessageBox::Continue)
     return;
 
   KTextEditor::View *v = m_mw->activeView();
@@ -285,7 +285,7 @@ void KateConsole::slotSync(KTextEditor::View *)
       QFileInfo fi(u.toLocalFile());
       cd(fi.absoluteFilePath() );
     } else if ( !u.isEmpty() ) {
-      sendInput( QLatin1String("### ") + i18n("Sorry, cannot cd into '%1'", u.toLocalFile() ) + QLatin1Char('\n') );
+      sendInput( QStringLiteral("### ") + i18n("Sorry, cannot cd into '%1'", u.toLocalFile() ) + QLatin1Char('\n') );
     }
   }
 }
@@ -299,7 +299,7 @@ void KateConsole::slotManualSync()
 }
 void KateConsole::slotToggleFocus()
 {
-  QAction *action = actionCollection()->action(QLatin1String("katekonsole_tools_toggle_focus"));
+  QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_focus"));
   if ( ! m_part ) {
     m_mw->showToolView( parentWidget() );
     action->setText( i18n("Defocus Terminal") );

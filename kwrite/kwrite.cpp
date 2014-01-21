@@ -101,7 +101,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   setAcceptDrops(true);
   connect(m_view,SIGNAL(dropEventPass(QDropEvent*)),this,SLOT(slotDropEvent(QDropEvent*)));
 
-  setXMLFile(QLatin1String("kwriteui.rc"));
+  setXMLFile(QStringLiteral("kwriteui.rc"));
   createShellGUI( true );
   guiFactory()->addClient( m_view );
 
@@ -111,7 +111,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
 */
 
   // FIXME: make sure the config dir exists, any idea how to do it more cleanly?
-  QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation)).mkpath(QLatin1String("."));
+  QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation)).mkpath(QStringLiteral("."));
 
   // call it as last thing, must be sure everything is already set up ;)
   setAutoSaveSettings ();
@@ -147,21 +147,21 @@ KWrite::~KWrite()
 
 void KWrite::setupActions()
 {
-  actionCollection()->addAction( KStandardAction::Close, QLatin1String("file_close"), this, SLOT(slotFlush()) )
+  actionCollection()->addAction( KStandardAction::Close, QStringLiteral("file_close"), this, SLOT(slotFlush()) )
     ->setWhatsThis(i18n("Use this command to close the current document"));
 
   // setup File menu
-  actionCollection()->addAction( KStandardAction::New, QLatin1String("file_new"), this, SLOT(slotNew()) )
+  actionCollection()->addAction( KStandardAction::New, QStringLiteral("file_new"), this, SLOT(slotNew()) )
     ->setWhatsThis(i18n("Use this command to create a new document"));
-  actionCollection()->addAction( KStandardAction::Open, QLatin1String("file_open"), this, SLOT(slotOpen()) )
+  actionCollection()->addAction( KStandardAction::Open, QStringLiteral("file_open"), this, SLOT(slotOpen()) )
     ->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
   m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(QUrl)), this);
   actionCollection()->addAction(m_recentFiles->objectName(), m_recentFiles);
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
-  QAction *a = actionCollection()->addAction( QLatin1String("view_new_view") );
-  a->setIcon( QIcon::fromTheme(QLatin1String("window-new")) );
+  QAction *a = actionCollection()->addAction( QStringLiteral("view_new_view") );
+  a->setIcon( QIcon::fromTheme(QStringLiteral("window-new")) );
   a->setText( i18n("&New Window") );
   connect( a, SIGNAL(triggered()), this, SLOT(newView()) );
   a->setWhatsThis(i18n("Create another view containing the current document"));
@@ -173,22 +173,22 @@ void KWrite::setupActions()
   setStandardToolBarMenuEnabled(true);
 
   m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), this);
-  actionCollection()->addAction( QLatin1String("settings_show_statusbar"), m_paShowStatusBar);
+  actionCollection()->addAction( QStringLiteral("settings_show_statusbar"), m_paShowStatusBar);
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
   m_paShowPath = new KToggleAction( i18n("Sho&w Path"), this );
-  actionCollection()->addAction( QLatin1String("set_showPath"), m_paShowPath );
+  actionCollection()->addAction( QStringLiteral("set_showPath"), m_paShowPath );
   connect( m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()) );
   m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 
   a= actionCollection()->addAction( KStandardAction::KeyBindings, this, SLOT(editKeys()) );
   a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-  a = actionCollection()->addAction( KStandardAction::ConfigureToolbars, QLatin1String("options_configure_toolbars"),
+  a = actionCollection()->addAction( KStandardAction::ConfigureToolbars, QStringLiteral("options_configure_toolbars"),
                                      this, SLOT(editToolbars()) );
   a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
-  a = actionCollection()->addAction( QLatin1String("help_about_editor") );
+  a = actionCollection()->addAction( QStringLiteral("help_about_editor") );
   a->setText( i18n("&About Editor Component") );
   connect( a, SIGNAL(triggered()), this, SLOT(aboutEditor()) );
 
@@ -442,7 +442,7 @@ void KWrite::readProperties(const KConfigGroup &config)
   readConfig();
 
   if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view))
-    iface->readSessionConfig(KConfigGroup(&config, QLatin1String("General Options")));
+    iface->readSessionConfig(KConfigGroup(&config, QStringLiteral("General Options")));
 }
 
 void KWrite::saveProperties(KConfigGroup &config)
@@ -452,7 +452,7 @@ void KWrite::saveProperties(KConfigGroup &config)
   config.writeEntry("DocumentNumber",docList.indexOf(m_view->document()) + 1);
 
   if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view)) {
-    KConfigGroup cg(&config, QLatin1String("General Options"));
+    KConfigGroup cg(&config, QStringLiteral("General Options"));
     iface->writeSessionConfig(cg);
   }
 }
@@ -568,7 +568,7 @@ void KWrite::modifiedChanged()
     bool mod = m_view->document()->isModified();
 
     if (mod && m_modPm.isNull()) {
-        m_modPm = QIcon::fromTheme(QLatin1String("document-properties")).pixmap(16);
+        m_modPm = QIcon::fromTheme(QStringLiteral("document-properties")).pixmap(16);
     }
 
    /* const KateDocumentInfo *info
@@ -609,7 +609,7 @@ void KWrite::documentNameChanged ()
 
       //File name shouldn't be too long - Maciek
       if (c.length() > 64)
-        c = c.left(64) + QLatin1String("...");
+        c = c.left(64) + QStringLiteral("...");
     }
     else
     {
@@ -617,7 +617,7 @@ void KWrite::documentNameChanged ()
 
       //File name shouldn't be too long - Maciek
       if (c.length() > 64)
-        c = QLatin1String("...") + c.right(64);
+        c = QStringLiteral("...") + c.right(64);
     }
 
     setCaption (c+readOnlyCaption, m_view->document()->isModified());

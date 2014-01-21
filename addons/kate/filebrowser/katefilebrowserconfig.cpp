@@ -104,7 +104,7 @@ void KateFileBrowserConfigPage::apply()
   KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
   QStringList l;
   ActionLBItem *aItem;
-  QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QLatin1String("*"), Qt::MatchWildcard);
+  QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QStringLiteral("*"), Qt::MatchWildcard);
   foreach(QListWidgetItem *item, list)
   {
     aItem = static_cast<ActionLBItem*>(item);
@@ -128,24 +128,24 @@ void KateFileBrowserConfigPage::init()
   // toolbar
   QStringList l = config.readEntry( "toolbar actions", QStringList() );
   if ( l.isEmpty() ) // default toolbar
-    l << QLatin1String("back") << QLatin1String("forward") << QLatin1String("bookmarks") << QLatin1String("sync_dir") << QLatin1String("configure");
+    l << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
 
   // actions from diroperator + two of our own
   QStringList allActions;
-  allActions << QLatin1String("up") << QLatin1String("back") << QLatin1String("forward") << QLatin1String("home")
-             << QLatin1String("reload") << QLatin1String("mkdir") << QLatin1String("delete")
-             << QLatin1String("short view") << QLatin1String("detailed view")
-             << QLatin1String("tree view") << QLatin1String("detailed tree view")
-             << QLatin1String("show hidden") /*<< QLatin1String("view menu") << QLatin1String("properties")*/
-             << QLatin1String("bookmarks") << QLatin1String("sync_dir") << QLatin1String("configure");
-  QRegExp re(QLatin1String ("&(?=[^&])"));
+  allActions << QStringLiteral("up") << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("home")
+             << QStringLiteral("reload") << QStringLiteral("mkdir") << QStringLiteral("delete")
+             << QStringLiteral("short view") << QStringLiteral("detailed view")
+             << QStringLiteral("tree view") << QStringLiteral("detailed tree view")
+             << QStringLiteral("show hidden") /*<< QStringLiteral("view menu") << QStringLiteral("properties")*/
+             << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
+  QRegExp re(QStringLiteral ("&(?=[^&])"));
   QAction *ac = 0;
   QListWidget *lb;
   for ( QStringList::Iterator it = allActions.begin(); it != allActions.end(); ++it )
   {
     lb = l.contains( *it ) ? acSel->selectedListWidget() : acSel->availableListWidget();
 
-    if ( *it == QLatin1String ("bookmarks") || *it == QLatin1String ("sync_dir") || *it == QLatin1String ("configure") )
+    if ( *it == QStringLiteral ("bookmarks") || *it == QStringLiteral ("sync_dir") || *it == QStringLiteral ("configure") )
       ac = fileBrowser->actionCollection()->action( *it );
     else
       ac = fileBrowser->dirOperator()->actionCollection()->action( *it );

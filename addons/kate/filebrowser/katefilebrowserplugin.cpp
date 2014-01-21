@@ -84,7 +84,7 @@ QString KateFileBrowserPlugin::configPageFullName (int number) const
 QIcon KateFileBrowserPlugin::configPageIcon (int number) const
 {
   if (number != 0) return QIcon();
-  return QIcon::fromTheme(QLatin1String("document-open"));
+  return QIcon::fromTheme(QStringLiteral("document-open"));
 }
 //END KateFileBrowserPlugin
 
@@ -95,9 +95,9 @@ KateFileBrowserPluginView::KateFileBrowserPluginView (KTextEditor::Plugin *plugi
   : QObject (mainWindow)
   , m_toolView(
         mainWindow->createToolView(plugin,
-            QLatin1String ("kate_private_plugin_katefileselectorplugin")
+            QStringLiteral ("kate_private_plugin_katefileselectorplugin")
           , KTextEditor::MainWindow::Left
-          , QIcon::fromTheme(QLatin1String("document-open"))
+          , QIcon::fromTheme(QStringLiteral("document-open"))
           , i18n("Filesystem Browser")
           )
       )

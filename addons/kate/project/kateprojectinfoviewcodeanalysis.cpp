@@ -45,7 +45,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis (KateProjectPlu
   m_treeView->setEditTriggers (QAbstractItemView::NoEditTriggers);
   m_treeView->setUniformRowHeights (true);
   m_treeView->setRootIsDecorated (false);
-  m_model->setHorizontalHeaderLabels (QStringList () << QLatin1String("File") << QLatin1String("Line") << QLatin1String("Severity") << QLatin1String("Message"));
+  m_model->setHorizontalHeaderLabels (QStringList () << QStringLiteral("File") << QStringLiteral("Line") << QStringLiteral("Severity") << QStringLiteral("Message"));
 
   /**
    * attach model
@@ -84,7 +84,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
   /**
    * get files for cppcheck
    */
-  QStringList files = m_project->files ().filter (QRegExp (QLatin1String("\\.(cpp|cxx|cc|c\\+\\+|c|tpp|txx)$")));
+  QStringList files = m_project->files ().filter (QRegExp (QStringLiteral("\\.(cpp|cxx|cc|c\\+\\+|c|tpp|txx)$")));
 
   /**
    * clear existing entries
@@ -100,8 +100,8 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
   connect (m_analyzer, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
 
   QStringList args;
-  args << QLatin1String("-q") << QLatin1String("--inline-suppr") << QLatin1String("--enable=all") << QLatin1String("--template={file}////{line}////{severity}////{message}") << QLatin1String("--file-list=-");
-  m_analyzer->start(QLatin1String("cppcheck"), args);
+  args << QStringLiteral("-q") << QStringLiteral("--inline-suppr") << QStringLiteral("--enable=all") << QStringLiteral("--template={file}////{line}////{severity}////{message}") << QStringLiteral("--file-list=-");
+  m_analyzer->start(QStringLiteral("cppcheck"), args);
   
   if (m_messageWidget) {
     delete m_messageWidget;
@@ -121,7 +121,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
   /**
    * write files list and close write channel
    */
-  m_analyzer->write(files.join(QLatin1String("\n")).toLocal8Bit());
+  m_analyzer->write(files.join(QStringLiteral("\n")).toLocal8Bit());
   m_analyzer->closeWriteChannel();
 }
 
@@ -135,7 +135,7 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead ()
      * get one line, split it, skip it, if too few elements
      */
     QString line = QString::fromLocal8Bit (m_analyzer->readLine());
-    QStringList elements = line.split (QRegExp(QLatin1String("////")), QString::SkipEmptyParts);
+    QStringList elements = line.split (QRegExp(QStringLiteral("////")), QString::SkipEmptyParts);
     if (elements.size() < 4)
       continue;
 

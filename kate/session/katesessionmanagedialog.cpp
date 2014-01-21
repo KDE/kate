@@ -89,7 +89,7 @@ KateSessionManageDialog::KateSessionManageDialog (QWidget *parent)
   bottomButtons->addButton(closeButton, QDialogButtonBox::RejectRole);
   connect(closeButton, SIGNAL(clicked()), this, SLOT(slotClose()));
 
-  m_openButton = new QPushButton(QIcon::fromTheme(QLatin1String("document-open")), i18n("&Open"));
+  m_openButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-open")), i18n("&Open"));
   bottomButtons->addButton(m_openButton, QDialogButtonBox::AcceptRole);
   connect(m_openButton, SIGNAL(clicked()), this, SLOT(open()));
 

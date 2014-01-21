@@ -118,14 +118,14 @@ bool KateProject::reload (bool force)
   /**
    * no name, bad => bail out
    */
-  if (globalProject[QLatin1String("name")].toString().isEmpty())
+  if (globalProject[QStringLiteral("name")].toString().isEmpty())
     return false;
 
   /**
    * support out-of-source project files
    */
-  if (!globalProject[QLatin1String("directory")].toString().isEmpty())
-    m_baseDir = QFileInfo (globalProject[QLatin1String("directory")].toString()).canonicalFilePath ();
+  if (!globalProject[QStringLiteral("directory")].toString().isEmpty())
+    m_baseDir = QFileInfo (globalProject[QStringLiteral("directory")].toString()).canonicalFilePath ();
 
   /**
    * anything changed?
@@ -206,13 +206,13 @@ QFile *KateProject::projectLocalFile (const QString &file) const
   /**
    * create dir to store local files, else fail
    */
-  if (!QDir().mkpath (m_fileName + QLatin1String(".d")))
+  if (!QDir().mkpath (m_fileName + QStringLiteral(".d")))
     return 0;
   
   /**
    * try to open file read-write
    */
-  QFile *readWriteFile = new QFile (m_fileName + QLatin1String(".d") + QDir::separator() + file);
+  QFile *readWriteFile = new QFile (m_fileName + QStringLiteral(".d") + QDir::separator() + file);
   if (!readWriteFile->open (QIODevice::ReadWrite)) {
     delete readWriteFile;
     return 0;
@@ -241,7 +241,7 @@ QTextDocument* KateProject::notesDocument ()
   /**
    * and load text if possible
    */
-  if (QFile *inFile = projectLocalFile (QLatin1String("notes.txt"))) {
+  if (QFile *inFile = projectLocalFile (QStringLiteral("notes.txt"))) {
     {
       QTextStream inStream (inFile);
       inStream.setCodec ("UTF-8");
@@ -267,7 +267,7 @@ void KateProject::saveNotesDocument ()
   /**
    * try to get file to save to
    */
-  if (QFile *outFile = projectLocalFile (QLatin1String("notes.txt"))) {
+  if (QFile *outFile = projectLocalFile (QStringLiteral("notes.txt"))) {
     outFile->resize (0);
     {
       QTextStream outStream (outFile);

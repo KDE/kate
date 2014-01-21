@@ -81,37 +81,37 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
   /**
    * construct about data for Kate
    */
-  KAboutData aboutData (QLatin1String("kate"), QString(), i18n("Kate"), QLatin1String(KATE_VERSION),
+  KAboutData aboutData (QStringLiteral("kate"), QString(), i18n("Kate"), QStringLiteral(KATE_VERSION),
                         i18n( "Kate - Advanced Text Editor" ), KAboutData::License_LGPL_V2,
-                        i18n( "(c) 2000-2014 The Kate Authors" ), QString(), QLatin1String("http://kate-editor.org"));
+                        i18n( "(c) 2000-2014 The Kate Authors" ), QString(), QStringLiteral("http://kate-editor.org"));
 
   /**
    * right dbus prefix == org.kde.
    */
   aboutData.setOrganizationDomain ("kde.org");
   
-  aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), QLatin1String("cullmann@kde.org"), QLatin1String("http://www.cullmann.io"));
-  aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), QLatin1String("anders@alweb.dk"), QLatin1String("http://www.alweb.dk"));
-  aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), QLatin1String("jowenn@kde.org"), QLatin1String("http://stud3.tuwien.ac.at/~e9925371"));
-  aboutData.addAuthor (i18n("Hamish Rodda"), i18n("Core Developer"), QLatin1String("rodda@kde.org"));
-  aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), QLatin1String("dhdev@gmx.de"));
-  aboutData.addAuthor (i18n("Waldo Bastian"), i18n("The cool buffersystem"), QLatin1String("bastian@kde.org") );
-  aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), QLatin1String("charles@kde.org"));
-  aboutData.addAuthor (i18n("Matt Newell"), i18n("Testing, ..."), QLatin1String("newellm@proaxis.com"));
-  aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), QLatin1String("michael.bartl1@chello.at"));
-  aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), QLatin1String("gholam@xtra.co.nz"));
-  aboutData.addAuthor (i18n("Jochen Wilhemly"), i18n("KWrite Author"), QLatin1String("digisnap@cs.tu-berlin.de") );
-  aboutData.addAuthor (i18n("Michael Koch"), i18n("KWrite port to KParts"), QLatin1String("koch@kde.org"));
-  aboutData.addAuthor (i18n("Christian Gebauer"), QString(), QLatin1String("gebauer@kde.org") );
-  aboutData.addAuthor (i18n("Simon Hausmann"), QString(), QLatin1String("hausmann@kde.org") );
-  aboutData.addAuthor (i18n("Glen Parker"), i18n("KWrite Undo History, Kspell integration"), QLatin1String("glenebob@nwlink.com"));
-  aboutData.addAuthor (i18n("Scott Manson"), i18n("KWrite XML Syntax highlighting support"), QLatin1String("sdmanson@alltel.net"));
-  aboutData.addAuthor (i18n("John Firebaugh"), i18n("Patches and more"), QLatin1String("jfirebaugh@kde.org"));
-  aboutData.addAuthor (i18n("Pablo Martín"), i18n("Python Plugin Developer"), QLatin1String("goinnn@gmail.com"), QLatin1String("http://github.com/goinnn/"));
-  aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), QLatin1String("oss@senarclens.eu"), QLatin1String("http://find-santa.eu/"));
+  aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("http://www.cullmann.io"));
+  aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("http://www.alweb.dk"));
+  aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), QStringLiteral("jowenn@kde.org"), QStringLiteral("http://stud3.tuwien.ac.at/~e9925371"));
+  aboutData.addAuthor (i18n("Hamish Rodda"), i18n("Core Developer"), QStringLiteral("rodda@kde.org"));
+  aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), QStringLiteral("dhdev@gmx.de"));
+  aboutData.addAuthor (i18n("Waldo Bastian"), i18n("The cool buffersystem"), QStringLiteral("bastian@kde.org") );
+  aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), QStringLiteral("charles@kde.org"));
+  aboutData.addAuthor (i18n("Matt Newell"), i18n("Testing, ..."), QStringLiteral("newellm@proaxis.com"));
+  aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), QStringLiteral("michael.bartl1@chello.at"));
+  aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), QStringLiteral("gholam@xtra.co.nz"));
+  aboutData.addAuthor (i18n("Jochen Wilhemly"), i18n("KWrite Author"), QStringLiteral("digisnap@cs.tu-berlin.de") );
+  aboutData.addAuthor (i18n("Michael Koch"), i18n("KWrite port to KParts"), QStringLiteral("koch@kde.org"));
+  aboutData.addAuthor (i18n("Christian Gebauer"), QString(), QStringLiteral("gebauer@kde.org") );
+  aboutData.addAuthor (i18n("Simon Hausmann"), QString(), QStringLiteral("hausmann@kde.org") );
+  aboutData.addAuthor (i18n("Glen Parker"), i18n("KWrite Undo History, Kspell integration"), QStringLiteral("glenebob@nwlink.com"));
+  aboutData.addAuthor (i18n("Scott Manson"), i18n("KWrite XML Syntax highlighting support"), QStringLiteral("sdmanson@alltel.net"));
+  aboutData.addAuthor (i18n("John Firebaugh"), i18n("Patches and more"), QStringLiteral("jfirebaugh@kde.org"));
+  aboutData.addAuthor (i18n("Pablo Martín"), i18n("Python Plugin Developer"), QStringLiteral("goinnn@gmail.com"), QStringLiteral("http://github.com/goinnn/"));
+  aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), QStringLiteral("oss@senarclens.eu"), QStringLiteral("http://find-santa.eu/"));
 
-  aboutData.addCredit (i18n("Matteo Merli"), i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QLatin1String("merlim@libero.it"));
-  aboutData.addCredit (i18n("Rocky Scaletta"), i18n("Highlighting for VHDL"), QLatin1String("rocky@purdue.edu"));
+  aboutData.addCredit (i18n("Matteo Merli"), i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QStringLiteral("merlim@libero.it"));
+  aboutData.addCredit (i18n("Rocky Scaletta"), i18n("Highlighting for VHDL"), QStringLiteral("rocky@purdue.edu"));
   aboutData.addCredit (i18n("Yury Lebedev"), i18n("Highlighting for SQL"));
   aboutData.addCredit (i18n("Chris Ross"), i18n("Highlighting for Ferite"));
   aboutData.addCredit (i18n("Nick Roux"), i18n("Highlighting for ILERPG"));
@@ -149,47 +149,47 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
   parser.addVersionOption ();
   
   // -s/--start session option
-  const QCommandLineOption startSessionOption (QStringList () << QLatin1String("s") << QLatin1String("start"), i18n("Start Kate with a given session."), QLatin1String("session"));
+  const QCommandLineOption startSessionOption (QStringList () << QStringLiteral("s") << QStringLiteral("start"), i18n("Start Kate with a given session."), QStringLiteral("session"));
   parser.addOption (startSessionOption);
   
   // --startanon session option
-  const QCommandLineOption startAnonymousSessionOption (QStringList () << QLatin1String("startanon"), i18n("Start Kate with a new anonymous session, implies '-n'."));
+  const QCommandLineOption startAnonymousSessionOption (QStringList () << QStringLiteral("startanon"), i18n("Start Kate with a new anonymous session, implies '-n'."));
   parser.addOption (startAnonymousSessionOption);
   
   // -n/--new option
-  const QCommandLineOption startNewInstanceOption (QStringList () << QLatin1String("n") << QLatin1String("new"), i18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no URLs are given at all."));
+  const QCommandLineOption startNewInstanceOption (QStringList () << QStringLiteral("n") << QStringLiteral("new"), i18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no URLs are given at all."));
   parser.addOption (startNewInstanceOption);
   
   // -b/--block option
-  const QCommandLineOption startBlockingOption (QStringList () << QLatin1String("b") << QLatin1String("block"), i18n("If using an already running kate instance, block until it exits, if URLs given to open."));
+  const QCommandLineOption startBlockingOption (QStringList () << QStringLiteral("b") << QStringLiteral("block"), i18n("If using an already running kate instance, block until it exits, if URLs given to open."));
   parser.addOption (startBlockingOption);
   
   // -p/--pid option
-  const QCommandLineOption usePidOption (QStringList () << QLatin1String("p") << QLatin1String("pid"), i18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)."), QLatin1String("pid"));
+  const QCommandLineOption usePidOption (QStringList () << QStringLiteral("p") << QStringLiteral("pid"), i18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)."), QStringLiteral("pid"));
   parser.addOption (usePidOption);
   
   // -e/--encoding option
-  const QCommandLineOption useEncodingOption (QStringList () << QLatin1String("e") << QLatin1String("encoding"), i18n("Set encoding for the file to open."), QLatin1String("encoding"));
+  const QCommandLineOption useEncodingOption (QStringList () << QStringLiteral("e") << QStringLiteral("encoding"), i18n("Set encoding for the file to open."), QStringLiteral("encoding"));
   parser.addOption (useEncodingOption);
   
   // -l/--line option
-  const QCommandLineOption gotoLineOption (QStringList () << QLatin1String("l") << QLatin1String("line"), i18n("Navigate to this line."), QLatin1String("line"));
+  const QCommandLineOption gotoLineOption (QStringList () << QStringLiteral("l") << QStringLiteral("line"), i18n("Navigate to this line."), QStringLiteral("line"));
   parser.addOption (gotoLineOption);
   
   // -c/--column option
-  const QCommandLineOption gotoColumnOption (QStringList () << QLatin1String("c") << QLatin1String("column"), i18n("Navigate to this column."), QLatin1String("column"));
+  const QCommandLineOption gotoColumnOption (QStringList () << QStringLiteral("c") << QStringLiteral("column"), i18n("Navigate to this column."), QStringLiteral("column"));
   parser.addOption (gotoColumnOption);
   
   // -i/--stdin option
-  const QCommandLineOption readStdInOption (QStringList () << QLatin1String("i") << QLatin1String("stdin"), i18n("Read the contents of stdin."));
+  const QCommandLineOption readStdInOption (QStringList () << QStringLiteral("i") << QStringLiteral("stdin"), i18n("Read the contents of stdin."));
   parser.addOption (readStdInOption);
 
   // --tempfile option
-  const QCommandLineOption tempfileOption (QStringList () << QLatin1String("tempfile"), i18n("The files/URLs opened by the application will be deleted after use"));
+  const QCommandLineOption tempfileOption (QStringList () << QStringLiteral("tempfile"), i18n("The files/URLs opened by the application will be deleted after use"));
   parser.addOption (tempfileOption);
   
   // urls to open
-  parser.addPositionalArgument(QLatin1String("urls"), i18n("Documents to open."), QLatin1String("[urls...]"));
+  parser.addPositionalArgument(QStringLiteral("urls"), i18n("Documents to open."), QStringLiteral("[urls...]"));
   
   /**
    * do the command line parsing
@@ -256,7 +256,7 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
         parser.value(usePidOption) :
         QString::fromLocal8Bit(qgetenv("KATE_PID"));
       
-      serviceName = QLatin1String("org.kde.kate-") + usePid;
+      serviceName = QStringLiteral("org.kde.kate-") + usePid;
       if (!kateServices.contains(serviceName)) serviceName.clear();
     }
   }
@@ -283,7 +283,7 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
     if (parser.isSet(startSessionOption) && (!session_already_opened) )
     {
       QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-              QLatin1String("/MainApplication"), QLatin1String("org.kde.Kate.Application"), QLatin1String("activateSession"));
+              QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("activateSession"));
 
       QList<QVariant> dbusargs;
       dbusargs.append(parser.value(startSessionOption));
@@ -305,12 +305,12 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
     foreach(const QString &url, urls)
     {
       QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-              QLatin1String("/MainApplication"), QLatin1String("org.kde.Kate.Application"), QLatin1String("tokenOpenUrl"));
+              QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("tokenOpenUrl"));
 
       QList<QVariant> dbusargs;
       
       // convert to an url
-      QRegExp withProtocol(QLatin1String("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
+      QRegExp withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
       if (withProtocol.indexIn(url) == 0) {
         dbusargs.append(QUrl::fromUserInput(url));
       } else {
@@ -331,7 +331,7 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
             if (v.isValid())
             {
               QString s=v.toString();
-              if ((!s.isEmpty()) && (s != QLatin1String("ERROR")))
+              if ((!s.isEmpty()) && (s != QStringLiteral("ERROR")))
               {
                 tokens<<s;
               }
@@ -362,7 +362,7 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
       while( !line.isNull() );
 
       QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-              QLatin1String("/MainApplication"), QLatin1String("org.kde.Kate.Application"), QLatin1String("openInput"));
+              QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("openInput"));
 
       QList<QVariant> dbusargs;
       dbusargs.append(text);
@@ -390,7 +390,7 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
     if (nav)
     {
       QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-              QLatin1String("/MainApplication"), QLatin1String("org.kde.Kate.Application"), QLatin1String("setCursor"));
+              QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("setCursor"));
 
       QList<QVariant> args;
       args.append(line);
@@ -402,14 +402,14 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
 
     // activate the used instance
     QDBusMessage activateMsg = QDBusMessage::createMethodCall (serviceName,
-      QLatin1String("/MainApplication"), QLatin1String("org.kde.Kate.Application"), QLatin1String("activate"));
+      QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("activate"));
     QDBusConnection::sessionBus().call (activateMsg);
     
     // connect dbus signal
     if (needToBlock) {
       KateWaiter *waiter = new KateWaiter (&app, serviceName,tokens);
-      QDBusConnection::sessionBus().connect(serviceName, QLatin1String("/MainApplication"), QLatin1String("org.kde.Kate.Application"), QLatin1String("exiting"), waiter, SLOT(exiting()));
-      QDBusConnection::sessionBus().connect(serviceName, QLatin1String("/MainApplication"), QLatin1String("org.kde.Kate.Application"), QLatin1String("documentClosed"), waiter, SLOT(documentClosed(QString)));
+      QDBusConnection::sessionBus().connect(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("exiting"), waiter, SLOT(exiting()));
+      QDBusConnection::sessionBus().connect(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("documentClosed"), waiter, SLOT(documentClosed(QString)));
     }
     
 #ifdef Q_WS_X11

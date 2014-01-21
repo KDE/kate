@@ -63,7 +63,7 @@ void KateProjectInfoViewTerminal::loadTerminal ()
   /**
    * get konsole part service
    */
-  KService::Ptr service = KService::serviceByDesktopName(QLatin1String("konsolepart"));
+  KService::Ptr service = KService::serviceByDesktopName(QStringLiteral("konsolepart"));
   if (!service)
     return;
 

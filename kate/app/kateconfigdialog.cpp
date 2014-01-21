@@ -54,7 +54,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   setFaceType( Tree );
   setWindowTitle( i18n("Configure") );
   setStandardButtons( QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help );
-  setObjectName(QLatin1String("configdialog"));
+  setObjectName(QStringLiteral("configdialog"));
   // FIXME KF5 setHelp( QString(), KGlobal::mainComponent().componentName() );
 
   KSharedConfig::Ptr config = KSharedConfig::openConfig();
@@ -63,7 +63,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);
 
   KPageWidgetItem *applicationItem = addPage( new QWidget, i18n("Application") );
-  applicationItem->setIcon( QIcon::fromTheme( QLatin1String("preferences-other") ) );
+  applicationItem->setIcon( QIcon::fromTheme( QStringLiteral("preferences-other") ) );
   applicationItem->setHeader( i18n("Application Options") );
   m_applicationPage = applicationItem;
 
@@ -71,7 +71,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   QFrame* generalFrame = new QFrame;
   KPageWidgetItem *item = addSubPage( applicationItem, generalFrame, i18n("General") );
   item->setHeader( i18n("General Options") );
-  item->setIcon( QIcon::fromTheme( QLatin1String("go-home") ) );
+  item->setIcon( QIcon::fromTheme( QStringLiteral("go-home") ) );
   setCurrentPage (item);
 
   QVBoxLayout *layout = new QVBoxLayout( generalFrame );
@@ -141,7 +141,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   QFrame* sessionsFrame = new QFrame;
   item = addSubPage( applicationItem, sessionsFrame, i18n("Sessions") );
   item->setHeader( i18n("Session Management") );
-  item->setIcon( QIcon::fromTheme( QLatin1String("view-history") ) );
+  item->setIcon( QIcon::fromTheme( QStringLiteral("view-history") ) );
 
   layout = new QVBoxLayout( sessionsFrame );
   layout->setMargin(0);
@@ -170,9 +170,9 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   m_manuallyChooseSessionRadioButton = new QRadioButton( i18n("&Manually choose a session"), sessionsStart );
 
   QString sesStart (cgGeneral.readEntry ("Startup Session", "manual"));
-  if (sesStart == QLatin1String("new"))
+  if (sesStart == QStringLiteral("new"))
     m_startNewSessionRadioButton->setChecked (true);
-  else if (sesStart == QLatin1String("last"))
+  else if (sesStart == QStringLiteral("last"))
     m_loadLastUserSessionRadioButton->setChecked (true);
   else
     m_manuallyChooseSessionRadioButton->setChecked (true);
@@ -201,7 +201,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   item = addSubPage( applicationItem, page, i18n("Plugins") );
   item->setHeader( i18n("Plugin Manager") );
-  item->setIcon( QIcon::fromTheme( QLatin1String("preferences-plugin") ) );
+  item->setIcon( QIcon::fromTheme( QStringLiteral("preferences-plugin") ) );
 
   KatePluginList &pluginList (KatePluginManager::self()->pluginList());
   foreach (const KatePluginInfo &plugin, pluginList)
@@ -214,7 +214,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
 // editor widgets from kwrite/kwdialog
   m_editorPage = addPage( new QWidget, i18n("Editor Component") );
-  m_editorPage->setIcon( QIcon::fromTheme( QLatin1String("accessories-text-editor") ) );
+  m_editorPage->setIcon( QIcon::fromTheme( QStringLiteral("accessories-text-editor") ) );
   m_editorPage->setHeader( i18n("Editor Component Options") );
 
   addEditorPages();

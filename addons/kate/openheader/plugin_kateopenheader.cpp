@@ -49,9 +49,9 @@ PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,
   , m_plugin(plugin)
   , m_mainWindow(mainwindow)
 {
-    KXMLGUIClient::setComponentName (QLatin1String("kateopenheaderplugin"), i18n ("Open Header"));
-    setXMLFile( QLatin1String("ui.rc") );
-    QAction *a = actionCollection()->addAction(QLatin1String("file_openheader"));
+    KXMLGUIClient::setComponentName (QStringLiteral("kateopenheaderplugin"), i18n ("Open Header"));
+    setXMLFile( QStringLiteral("ui.rc") );
+    QAction *a = actionCollection()->addAction(QStringLiteral("file_openheader"));
     a->setText(i18n("Open .h/.cpp/.c"));
     a->setShortcut( Qt::Key_F12 );
     connect( a, SIGNAL(triggered(bool)), plugin, SLOT(slotOpenHeader()) );
@@ -110,8 +110,8 @@ void PluginKateOpenHeader::slotOpenHeader ()
   QFileInfo info( url.path() );
   QString extension = info.suffix().toLower();
 
-  QStringList headers( QStringList() << QLatin1String("h") << QLatin1String("H") << QLatin1String("hh") << QLatin1String("hpp") );
-  QStringList sources( QStringList() << QLatin1String("c") << QLatin1String("cpp") << QLatin1String("cc") << QLatin1String("cp") << QLatin1String("cxx") );
+  QStringList headers( QStringList() << QStringLiteral("h") << QStringLiteral("H") << QStringLiteral("hh") << QStringLiteral("hpp") );
+  QStringList sources( QStringList() << QStringLiteral("c") << QStringLiteral("cpp") << QStringLiteral("cc") << QStringLiteral("cp") << QStringLiteral("cxx") );
 
   if( sources.contains( extension ) ) {
     tryOpen( url, headers );
@@ -126,18 +126,18 @@ void PluginKateOpenHeader::tryOpen( const QUrl& url, const QStringList& extensio
   if (!application->activeMainWindow())
     return;
 
-  qDebug() << "Trying to open " << url.toString() << " with extensions " << extensions.join(QLatin1String(" "));
+  qDebug() << "Trying to open " << url.toString() << " with extensions " << extensions.join(QStringLiteral(" "));
   QString basename = QFileInfo( url.path() ).baseName();
   QUrl newURL( url );
     
   
   for( QStringList::ConstIterator it = extensions.begin(); it != extensions.end(); ++it ) {
-    setFileName( &newURL,basename + QLatin1String(".") + *it );
+    setFileName( &newURL,basename + QStringLiteral(".") + *it );
     if( fileExists( newURL) ) {
       application->activeMainWindow()->openUrl( newURL );
       return;
     }
-    setFileName(&newURL, basename + QLatin1String(".") + (*it).toUpper() );
+    setFileName(&newURL, basename + QStringLiteral(".") + (*it).toUpper() );
     if( fileExists( newURL) ) {
       application->activeMainWindow()->openUrl( newURL );
       return;
@@ -172,7 +172,7 @@ void PluginKateOpenHeader::setFileName(QUrl *url,const QString &_txt)
     QString path = url->path();
     if (path.isEmpty())
 #ifdef Q_OS_WIN
-        path = url->isLocalFile() ? QDir::rootPath() : QLatin1String("/");
+        path = url->isLocalFile() ? QDir::rootPath() : QStringLiteral("/");
 #else
         path = QDir::rootPath();
 #endif    
@@ -196,7 +196,7 @@ const QStringList& PluginViewKateOpenHeader::cmds()
     static QStringList l;
 
     if (l.empty()) {
-        l << QLatin1String("toggle-header");
+        l << QStringLiteral("toggle-header");
     }
 
     return l;

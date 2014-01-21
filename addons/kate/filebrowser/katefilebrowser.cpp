@@ -56,7 +56,6 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
   : QWidget (parent)
   , m_mainWindow(mainWindow)
 {
-  setObjectName( QLatin1String (name) );
 
   QVBoxLayout *mainLayout = new QVBoxLayout(this);
   mainLayout->setMargin(0);
@@ -85,7 +84,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
 
   // Mime filter for the KDirOperator
   QStringList filter;
-  filter << QLatin1String("text/plain") << QLatin1String("text/html") << QLatin1String("inode/directory");
+  filter << QStringLiteral("text/plain") << QStringLiteral("text/html") << QStringLiteral("inode/directory");
   m_dirOperator->setNewFileMenuSupportedMimeTypes(filter);
 
   setFocusProxy(m_dirOperator);
@@ -140,7 +139,7 @@ void KateFileBrowser::setupToolbar()
   KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
   QStringList actions = config.readEntry( "toolbar actions", QStringList() );
   if ( actions.isEmpty() ) // default toolbar
-    actions << QLatin1String("back") << QLatin1String("forward") << QLatin1String("bookmarks") << QLatin1String("sync_dir") << QLatin1String("configure");
+    actions << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
 
   // remove all actions from the toolbar (there should be none)
   m_toolbar->clear();
@@ -150,7 +149,7 @@ void KateFileBrowser::setupToolbar()
   {
     QAction *ac = 0;
     if (it.isEmpty()) continue;
-    if (it == QLatin1String("bookmarks") || it == QLatin1String("sync_dir") || it == QLatin1String("configure"))
+    if (it == QStringLiteral("bookmarks") || it == QStringLiteral("sync_dir") || it == QStringLiteral("configure"))
       ac = actionCollection()->action(it);
     else
       ac = m_dirOperator->actionCollection()->action(it);
@@ -187,7 +186,7 @@ void KateFileBrowser::writeSessionConfig (KConfigGroup& cg)
 void KateFileBrowser::slotFilterChange(const QString & nf)
 {
   QString f = nf.trimmed();
-  const bool empty = f.isEmpty() || f == QLatin1String("*");
+  const bool empty = f.isEmpty() || f == QStringLiteral("*");
 
   if (empty) {
     m_dirOperator->clearFilter();
@@ -219,7 +218,7 @@ void KateFileBrowser::setDir(QUrl u)
   newurl.setPath(newurl.path() + QLatin1Char('/'));
 
   if (!kateFileSelectorIsReadable(newurl)) {
-    newurl.setPath(newurl.path() + QLatin1String("../"));
+    newurl.setPath(newurl.path() + QStringLiteral("../"));
     newurl = newurl.adjusted(QUrl::NormalizePathSegments);
   }
 
@@ -304,7 +303,7 @@ QUrl KateFileBrowser::activeDocumentUrl()
 void KateFileBrowser::setupActions()
 {
   // bookmarks action!
-  KActionMenu *acmBookmarks = new KActionMenu(QIcon::fromTheme(QLatin1String("bookmarks")), i18n("Bookmarks"), this);
+  KActionMenu *acmBookmarks = new KActionMenu(QIcon::fromTheme(QStringLiteral("bookmarks")), i18n("Bookmarks"), this);
   acmBookmarks->setDelayed(false);
   m_bookmarkHandler = new KateBookmarkHandler(this, acmBookmarks->menu());
   acmBookmarks->setShortcutContext(Qt::WidgetWithChildrenShortcut);
@@ -313,31 +312,31 @@ void KateFileBrowser::setupActions()
   QAction* syncFolder = new QAction(this);
   syncFolder->setShortcutContext(Qt::WidgetWithChildrenShortcut);
   syncFolder->setText(i18n("Current Document Folder"));
-  syncFolder->setIcon(QIcon::fromTheme(QLatin1String("system-switch-user")));
+  syncFolder->setIcon(QIcon::fromTheme(QStringLiteral("system-switch-user")));
   connect(syncFolder, SIGNAL(triggered()), this, SLOT(setActiveDocumentDir()));
 
-  m_actionCollection->addAction(QLatin1String("sync_dir"), syncFolder);
-  m_actionCollection->addAction(QLatin1String("bookmarks"), acmBookmarks);
+  m_actionCollection->addAction(QStringLiteral("sync_dir"), syncFolder);
+  m_actionCollection->addAction(QStringLiteral("bookmarks"), acmBookmarks);
 
   // section for settings menu
-  KActionMenu *optionsMenu = new KActionMenu(QIcon::fromTheme(QLatin1String("configure")), i18n("Options"), this);
+  KActionMenu *optionsMenu = new KActionMenu(QIcon::fromTheme(QStringLiteral("configure")), i18n("Options"), this);
   optionsMenu->setDelayed(false);
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QLatin1String("short view")));
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QLatin1String("detailed view")));
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QLatin1String("tree view")));
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QLatin1String("detailed tree view")));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("short view")));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("detailed view")));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("tree view")));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("detailed tree view")));
   optionsMenu->addSeparator();
-  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QLatin1String("show hidden")));
+  optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("show hidden")));
 
   // action for synchronising the dir operator with the current document path
   m_autoSyncFolder = new QAction(this);
   m_autoSyncFolder->setCheckable(true);
   m_autoSyncFolder->setText(i18n("Automatically synchronize with current document"));
-  m_autoSyncFolder->setIcon(QIcon::fromTheme(QLatin1String("system-switch-user")));
+  m_autoSyncFolder->setIcon(QIcon::fromTheme(QStringLiteral("system-switch-user")));
   connect(m_autoSyncFolder, SIGNAL(triggered()), this, SLOT(autoSyncFolder()));
   optionsMenu->addAction(m_autoSyncFolder);
 
-  m_actionCollection->addAction(QLatin1String("configure"), optionsMenu);
+  m_actionCollection->addAction(QStringLiteral("configure"), optionsMenu);
   
   //
   // Remove all shortcuts due to shortcut clashes (e.g. F5: reload, Ctrl+B: bookmark)

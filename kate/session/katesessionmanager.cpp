@@ -51,7 +51,7 @@ KateSessionManager::KateSessionManager (QObject *parent, const QString &sessions
   : QObject (parent)
 {
   if (sessionsDir.isEmpty()) {
-    m_sessionsDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/kate/sessions");
+    m_sessionsDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/sessions");
   } else {
     m_sessionsDir = sessionsDir;
   }
@@ -83,7 +83,7 @@ void KateSessionManager::updateSessionList()
   QStringList list;
 
   // Let's get a list of all session we have atm
-  QDir dir (m_sessionsDir, QLatin1String("*.katesession"));
+  QDir dir (m_sessionsDir, QStringLiteral("*.katesession"));
 
   for (unsigned int i = 0; i < dir.count(); ++i) {
     QString name = dir[i];
@@ -133,9 +133,9 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
     if (instances.contains(session->name()))
     {
       if (KMessageBox::questionYesNo(0,i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?",session->name()),
-            QString(),KStandardGuiItem::yes(),KStandardGuiItem::no(),QLatin1String("katesessionmanager_switch_instance"))==KMessageBox::Yes)
+            QString(),KStandardGuiItem::yes(),KStandardGuiItem::no(),QStringLiteral("katesessionmanager_switch_instance"))==KMessageBox::Yes)
       {
-        instances[session->name()]->dbus_if->call(QLatin1String("activate"));
+        instances[session->name()]->dbus_if->call(QStringLiteral("activate"));
         cleanupRunningKateAppInstanceMap(&instances);
         return false;
       }
@@ -364,13 +364,13 @@ bool KateSessionManager::chooseSession ()
   const QString sesStart (c.readEntry ("Startup Session", "manual"));
 
   // uhh, just open last used session, show no chooser
-  if (sesStart == QLatin1String("last")) {
+  if (sesStart == QStringLiteral("last")) {
     activateSession(lastSession, false);
     return true;
   }
 
   // start with empty new session or in case no sessions exist
-  if (sesStart == QLatin1String("new") || sessionList().size() == 0) {
+  if (sesStart == QStringLiteral("new") || sessionList().size() == 0) {
     activateAnonymousSession();
     return true;
   }
@@ -406,7 +406,7 @@ bool KateSessionManager::chooseSession ()
   // write back our nice boolean :)
   if (success && chooser->reopenLastSession())
   {
-    KConfigGroup generalConfig(KSharedConfig::openConfig(), QLatin1String("General"));
+    KConfigGroup generalConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
 
     if (res == KateSessionChooser::resultOpen) {
       generalConfig.writeEntry ("Startup Session", "last");
@@ -500,7 +500,7 @@ void KateSessionManager::sessionManage ()
 
 QString KateSessionManager::anonymousSessionFile() const
 {
-  const QString file = m_sessionsDir + QLatin1String("/../anonymous.katesession");
+  const QString file = m_sessionsDir + QStringLiteral("/../anonymous.katesession");
   return QDir().cleanPath(file);
 }
 
@@ -508,7 +508,7 @@ QString KateSessionManager::sessionFileForName(const QString &name) const
 {
   Q_ASSERT(!name.isEmpty());
   const QString sname = QString::fromLatin1(QUrl::toPercentEncoding(name, QByteArray(), QByteArray(".")));
-  return m_sessionsDir + QLatin1String("/") + sname + QLatin1String(".katesession");
+  return m_sessionsDir + QStringLiteral("/") + sname + QStringLiteral(".katesession");
 }
 
 KateSessionList KateSessionManager::sessionList()

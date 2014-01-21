@@ -114,70 +114,70 @@ void KateViewManager::setupActions ()
   /**
    * view splitting
    */
-  a = m_mainWindow->actionCollection()->addAction(QLatin1String("view_split_vert"));
-  a->setIcon( QIcon::fromTheme(QLatin1String("view-split-left-right")) );
+  a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_vert"));
+  a->setIcon( QIcon::fromTheme(QStringLiteral("view-split-left-right")) );
   a->setText( i18n("Split Ve&rtical") );
   a->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_L );
   connect(a, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceVert()));
 
   a->setWhatsThis(i18n("Split the currently active view vertically into two views."));
 
-  a = m_mainWindow->actionCollection()->addAction(QLatin1String("view_split_horiz"));
-  a->setIcon( QIcon::fromTheme(QLatin1String("view-split-top-bottom")) );
+  a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_horiz"));
+  a->setIcon( QIcon::fromTheme(QStringLiteral("view-split-top-bottom")) );
   a->setText( i18n("Split &Horizontal") );
   a->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_T );
   connect(a, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceHoriz()));
 
   a->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
 
-  m_closeView = m_mainWindow->actionCollection()->addAction(QLatin1String("view_close_current_space"));
-  m_closeView->setIcon( QIcon::fromTheme(QLatin1String("view-close")) );
+  m_closeView = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_close_current_space"));
+  m_closeView->setIcon( QIcon::fromTheme(QStringLiteral("view-close")) );
   m_closeView->setText( i18n("Cl&ose Current View") );
   m_closeView->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_R );
   connect(m_closeView, SIGNAL(triggered()), this, SLOT(slotCloseCurrentViewSpace()));
 
   m_closeView->setWhatsThis(i18n("Close the currently active split view"));
 
-  m_closeOtherViews = m_mainWindow->actionCollection()->addAction(QLatin1String("view_close_others"));
-  m_closeOtherViews->setIcon(QIcon::fromTheme(QLatin1String("view-close")));
+  m_closeOtherViews = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_close_others"));
+  m_closeOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
   m_closeOtherViews->setText(i18n("Close Inactive Views"));
   connect(m_closeOtherViews, SIGNAL(triggered()), this, SLOT(slotCloseOtherViews()));
 
   m_closeOtherViews->setWhatsThis(i18n("Close every view but the active one"));
 
-  goNext = m_mainWindow->actionCollection()->addAction( QLatin1String("go_next_split_view") );
+  goNext = m_mainWindow->actionCollection()->addAction( QStringLiteral("go_next_split_view") );
   goNext->setText( i18n("Next Split View") );
   goNext->setShortcut( Qt::Key_F8 );
   connect(goNext, SIGNAL(triggered()), this, SLOT(activateNextView()));
 
   goNext->setWhatsThis(i18n("Make the next split view the active one."));
 
-  goPrev = m_mainWindow->actionCollection()->addAction( QLatin1String("go_prev_split_view") );
+  goPrev = m_mainWindow->actionCollection()->addAction( QStringLiteral("go_prev_split_view") );
   goPrev->setText( i18n("Previous Split View") );
   goPrev->setShortcut( Qt::SHIFT + Qt::Key_F8 );
   connect(goPrev, SIGNAL(triggered()), this, SLOT(activatePrevView()));
 
   goPrev->setWhatsThis(i18n("Make the previous split view the active one."));
 
-  a = m_mainWindow->actionCollection()->addAction(QLatin1String("view_split_move_right"));
+  a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_right"));
   a->setText( i18n("Move Splitter Right") );
   connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterRight()));
 
   a->setWhatsThis(i18n("Move the splitter of the current view to the right"));
 
-  a = m_mainWindow->actionCollection()->addAction(QLatin1String("view_split_move_left"));
+  a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_left"));
   a->setText( i18n("Move Splitter Left") );
   connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterLeft()));
 
   a->setWhatsThis(i18n("Move the splitter of the current view to the left"));
 
-  a = m_mainWindow->actionCollection()->addAction(QLatin1String("view_split_move_up"));
+  a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_up"));
   a->setText( i18n("Move Splitter Up") );
   connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterUp()));
 
   a->setWhatsThis(i18n("Move the splitter of the current view up"));
 
-  a = m_mainWindow->actionCollection()->addAction(QLatin1String("view_split_move_down"));
+  a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_down"));
   a->setText( i18n("Move Splitter Down") );
   connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterDown()));
 
@@ -187,32 +187,32 @@ void KateViewManager::setupActions ()
    * Status Bar Items menu
    */
   m_cursorPosToggle = new KToggleAction(i18n("Show Cursor Position"), this);
-  m_mainWindow->actionCollection()->addAction( QLatin1String("show_cursor_pos"), m_cursorPosToggle );
+  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_cursor_pos"), m_cursorPosToggle );
   connect(m_cursorPosToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(cursorPositionItemVisibilityChanged(bool)));
 
   m_charCountToggle = new KToggleAction(i18n("Show Characters Count"), this);
-  m_mainWindow->actionCollection()->addAction( QLatin1String("show_char_count"), m_charCountToggle );
+  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_char_count"), m_charCountToggle );
   connect(m_charCountToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(charactersCountItemVisibilityChanged(bool)));
 
   m_insertModeToggle = new KToggleAction(i18n("Show Insertion Mode"), this);
-  m_mainWindow->actionCollection()->addAction( QLatin1String("show_insert_mode"), m_insertModeToggle );
+  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_insert_mode"), m_insertModeToggle );
   connect(m_insertModeToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(insertModeItemVisibilityChanged(bool)));
 
   m_selectModeToggle = new KToggleAction(i18n("Show Selection Mode"), this);
-  m_mainWindow->actionCollection()->addAction( QLatin1String("show_select_mode"), m_selectModeToggle );
+  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_select_mode"), m_selectModeToggle );
   connect(m_selectModeToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(selectModeItemVisibilityChanged(bool)));
 
   m_encodingToggle = new KToggleAction(i18n("Show Encoding"), this);
-  m_mainWindow->actionCollection()->addAction( QLatin1String("show_encoding"), m_encodingToggle );
+  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_encoding"), m_encodingToggle );
   connect(m_encodingToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(encodingItemVisibilityChanged(bool)));
 
   m_docNameToggle = new KToggleAction(i18n("Show Document Name"), this);
-  m_mainWindow->actionCollection()->addAction( QLatin1String("show_doc_name"), m_docNameToggle );
+  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_doc_name"), m_docNameToggle );
   connect(m_docNameToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(documentNameItemVisibilityChanged(bool)));
 }
@@ -439,8 +439,8 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
   m_activeStates[view] = false;
 
   // disable settings dialog action
-  delete view->actionCollection()->action( QLatin1String("set_confdlg") );
-  delete view->actionCollection()->action( QLatin1String("editor_options") );
+  delete view->actionCollection()->action( QStringLiteral("set_confdlg") );
+  delete view->actionCollection()->action( QStringLiteral("editor_options") );
 
   //view->setContextMenu(view->defaultContextMenu());
 
@@ -905,7 +905,7 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
   m_minAge = 0;
 
   // start recursion for the root splitter (Splitter 0)
-  restoreSplitter( config.config(), config.name() + QLatin1String("-Splitter 0"), this, config.name() );
+  restoreSplitter( config.config(), config.name() + QStringLiteral("-Splitter 0"), this, config.name() );
 
   // finally, make the correct view from the last session active
   int lastViewSpace = config.readEntry("Active ViewSpace", 0);
@@ -962,7 +962,7 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
 
 void KateViewManager::saveSplitterConfig( QSplitter* s, KConfigBase* configBase, const QString& viewConfGrp )
 {
-  QString grp = QString(viewConfGrp + QLatin1String("-Splitter %1")).arg(m_splitterIndex);
+  QString grp = QString(viewConfGrp + QStringLiteral("-Splitter %1")).arg(m_splitterIndex);
   KConfigGroup config( configBase, grp );
 
   // Save sizes, orient, children for this splitter
@@ -981,7 +981,7 @@ void KateViewManager::saveSplitterConfig( QSplitter* s, KConfigBase* configBase,
     // For KateViewSpaces, ask them to save the file list.
     if ( kvs )
     {
-      n = QString(viewConfGrp + QLatin1String("-ViewSpace %1")).arg( m_viewSpaceList.indexOf(kvs) );
+      n = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg( m_viewSpaceList.indexOf(kvs) );
       kvs->saveConfig ( configBase, m_viewSpaceList.indexOf(kvs), viewConfGrp);
       // save active viewspace
       if ( kvs->isActiveSpace() )
@@ -994,7 +994,7 @@ void KateViewManager::saveSplitterConfig( QSplitter* s, KConfigBase* configBase,
     else if ( QSplitter* splitter = qobject_cast<QSplitter*>(obj) )
     {
       ++m_splitterIndex;
-      n = QString(viewConfGrp + QLatin1String("-Splitter %1")).arg( m_splitterIndex );
+      n = QString(viewConfGrp + QStringLiteral("-Splitter %1")).arg( m_splitterIndex );
       saveSplitterConfig( splitter, configBase, viewConfGrp);
     }
 
@@ -1015,7 +1015,7 @@ void KateViewManager::restoreSplitter( const KConfigBase* configBase, const QStr
   for (QStringList::Iterator it = children.begin(); it != children.end(); ++it)
   {
     // for a viewspace, create it and open all documents therein.
-    if ( (*it).startsWith(viewConfGrp + QLatin1String("-ViewSpace")) )
+    if ( (*it).startsWith(viewConfGrp + QStringLiteral("-ViewSpace")) )
     {
       KateViewSpace* vs = new KateViewSpace( this, 0 );
       m_viewSpaceList.append( vs );

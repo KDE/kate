@@ -34,7 +34,7 @@ class KateRunningInstanceInfo: public QObject {
     KateRunningInstanceInfo(const QString& serviceName_):
       QObject(),valid(false),
       serviceName(serviceName_),
-      dbus_if(new QDBusInterface(serviceName_,QLatin1String("/MainApplication"),
+      dbus_if(new QDBusInterface(serviceName_,QStringLiteral("/MainApplication"),
           QString(), //I don't know why it does not work if I specify org.kde.Kate.Application here
           QDBusConnection::sessionBus(),this)) {
       if (!dbus_if->isValid()) {

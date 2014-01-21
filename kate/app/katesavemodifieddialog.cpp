@@ -61,11 +61,11 @@ class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
           setIcon(0, QIcon());
           break;
         case SaveOKState:
-          setIcon(0, loader->loadIcon(QLatin1String("dialog-ok"), KIconLoader::NoGroup,/*height()*/16));
-          // QLatin1String("ok") icon should probably be QLatin1String("dialog-success"), but we don't have that icon in KDE 4.0
+          setIcon(0, loader->loadIcon(QStringLiteral("dialog-ok"), KIconLoader::NoGroup,/*height()*/16));
+          // QStringLiteral("ok") icon should probably be QStringLiteral("dialog-success"), but we don't have that icon in KDE 4.0
           break;
         case SaveFailedState:
-          setIcon(0, loader->loadIcon(QLatin1String("dialog-error"), KIconLoader::NoGroup,/*height()*/16));
+          setIcon(0, loader->loadIcon(QStringLiteral("dialog-error"), KIconLoader::NoGroup,/*height()*/16));
           break;
       }
     }
@@ -178,7 +178,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
     QDialog(parent)
 {
   setWindowTitle(i18n("Save Documents"));
-  setObjectName(QLatin1String("KateSaveModifiedDialog"));
+  setObjectName(QStringLiteral("KateSaveModifiedDialog"));
   setModal(true);
 
   QVBoxLayout *mainLayout = new QVBoxLayout;

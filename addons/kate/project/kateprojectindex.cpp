@@ -29,7 +29,7 @@
 #include "ctags/readtags.c"
 
 KateProjectIndex::KateProjectIndex (const QStringList &files)
- : m_ctagsIndexFile (QDir::tempPath () + QLatin1String("/kate.project.ctags"))
+ : m_ctagsIndexFile (QDir::tempPath () + QStringLiteral("/kate.project.ctags"))
  , m_ctagsIndexHandle (0)
 {
   /**
@@ -69,15 +69,15 @@ void KateProjectIndex::loadCtags (const QStringList &files)
    */
   QProcess ctags;
   QStringList args;
-  args << QLatin1String("-L") << QLatin1String("-") << QLatin1String("-f") << m_ctagsIndexFile.fileName() << QLatin1String("--fields=+K+n");
-  ctags.start(QLatin1String("ctags"), args);
+  args << QStringLiteral("-L") << QStringLiteral("-") << QStringLiteral("-f") << m_ctagsIndexFile.fileName() << QStringLiteral("--fields=+K+n");
+  ctags.start(QStringLiteral("ctags"), args);
   if (!ctags.waitForStarted())
     return;
   
   /**
    * write files list and close write channel
    */
-  ctags.write(files.join(QLatin1String("\n")).toLocal8Bit());
+  ctags.write(files.join(QStringLiteral("\n")).toLocal8Bit());
   ctags.closeWriteChannel();
     
   /**

@@ -226,7 +226,7 @@ void KateQuickOpen::update ()
     /**
      * insert all project files, if any project around
      */
-    if (QObject *projectView = m_mainWindow->pluginView (QLatin1String("kateprojectplugin"))) {
+    if (QObject *projectView = m_mainWindow->pluginView (QStringLiteral("kateprojectplugin"))) {
       QStringList projectFiles = projectView->property ("projectFiles").toStringList();
       foreach (const QString &file, projectFiles) {
         /**

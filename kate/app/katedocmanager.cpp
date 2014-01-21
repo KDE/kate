@@ -61,7 +61,7 @@ KateDocManager::KateDocManager (QObject *parent)
   // read in editor config
   KTextEditor::Editor::instance()->readConfig(KSharedConfig::openConfig().data());
 
-  m_metaInfos = new KConfig(QLatin1String("metainfos"), KConfig::NoGlobals, QStandardPaths::DataLocation );
+  m_metaInfos = new KConfig(QStringLiteral("metainfos"), KConfig::NoGlobals, QStandardPaths::DataLocation );
 
   createDoc ();
 }
@@ -701,7 +701,7 @@ void KateDocManager::documentOpened()
   disconnect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
   if (doc->openingError())
   {
-    m_openingErrors += QLatin1Char('\n') + doc->openingErrorMessage() + QLatin1String("\n\n");
+    m_openingErrors += QLatin1Char('\n') + doc->openingErrorMessage() + QStringLiteral("\n\n");
     KateDocumentInfo* info = documentInfo(doc);
     if (info) {
       info->openSuccess = false;

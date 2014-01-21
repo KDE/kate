@@ -62,7 +62,7 @@ QVariant KateProjectCompletion::data(const QModelIndex& index, int role) const
     return m_matches.item ( index.row() )->data (Qt::DisplayRole);
 
   if( index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole ) {
-    static QIcon icon(QIcon::fromTheme(QLatin1String("insert-text")).pixmap(QSize(16, 16)));
+    static QIcon icon(QIcon::fromTheme(QStringLiteral("insert-text")).pixmap(QSize(16, 16)));
     return icon;
   }
 

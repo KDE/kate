@@ -55,6 +55,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   m_sessions->header()->resizeSection(0,(m_sessions->size().width()-32)*2/3);
   m_sessions->header()->resizeSection(1,(m_sessions->size().width()-32)/3);
   m_sessions->header()->resizeSection(2,32);
+  m_sessions->header()->setSectionResizeMode(QHeaderView::Fixed);
   m_sessions->setRootIsDecorated( false );
   m_sessions->setItemsExpandable( false );
   m_sessions->setAllColumnsShowFocus( true );
@@ -120,7 +121,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   selectionChanged (NULL, NULL);
 }
 
-void KateSessionChooser::resizeEvent(QResizeEvent * event)
+void KateSessionChooser::resizeEvent(QResizeEvent *)
 {
   m_sessions->header()->resizeSection(0,(m_sessions->size().width()-32)*2/3);
   m_sessions->header()->resizeSection(1,(m_sessions->size().width()-32)/3);

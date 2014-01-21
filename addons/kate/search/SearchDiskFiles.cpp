@@ -61,7 +61,7 @@ void SearchDiskFiles::run()
             emit searching(fileName);
         }
 
-        if (m_regExp.pattern().contains(QLatin1String("\\n"))) {
+        if (m_regExp.pattern().contains(QStringLiteral("\\n"))) {
             searchMultiLineRegExp(fileName);
         }
         else {
@@ -136,10 +136,10 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
             lineStart << i+1;
         }
     }
-    if (tmpRegExp.pattern().endsWith(QLatin1String("$"))) {
+    if (tmpRegExp.pattern().endsWith(QStringLiteral("$"))) {
         fullDoc += QLatin1Char('\n');
         QString newPatern = tmpRegExp.pattern();
-        newPatern.replace(QLatin1String("$"), QLatin1String("(?=\\n)"));
+        newPatern.replace(QStringLiteral("$"), QStringLiteral("(?=\\n)"));
         tmpRegExp.setPattern(newPatern);
     }
 

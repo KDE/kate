@@ -47,9 +47,9 @@ K_PLUGIN_FACTORY_WITH_JSON(KateBtBrowserFactory, "katebacktracebrowserplugin.jso
 
 KateBtBrowserPlugin *KateBtBrowserPlugin::s_self = 0L;
 static QStringList fileExtensions =
-    QStringList() << QLatin1String("*.cpp") << QLatin1String("*.cxx") <<
-    QLatin1String("*.c") << QLatin1String("*.cc") << QLatin1String("*.h") <<
-    QLatin1String("*.hpp") << QLatin1String("*.hxx") << QLatin1String("*.moc");
+    QStringList() << QStringLiteral("*.cpp") << QStringLiteral("*.cxx") <<
+    QStringLiteral("*.c") << QStringLiteral("*.cc") << QStringLiteral("*.h") <<
+    QStringLiteral("*.hpp") << QStringLiteral("*.hxx") << QStringLiteral("*.moc");
 
 KateBtBrowserPlugin::KateBtBrowserPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
@@ -58,7 +58,7 @@ KateBtBrowserPlugin::KateBtBrowserPlugin(QObject *parent, const QList<QVariant> 
 {
     s_self = this;
     db.loadFromFile(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
-                    + QLatin1String("/katebtbrowser/backtracedatabase.db"));
+                    + QStringLiteral("/katebtbrowser/backtracedatabase.db"));
 }
 
 KateBtBrowserPlugin::~KateBtBrowserPlugin()
@@ -69,9 +69,9 @@ KateBtBrowserPlugin::~KateBtBrowserPlugin()
     }
 
     const QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
-                       + QLatin1String("/katebtbrowser");
+                       + QStringLiteral("/katebtbrowser");
     QDir().mkpath(path);
-    db.saveToFile(path + QLatin1String("/backtracedatabase.db"));
+    db.saveToFile(path + QStringLiteral("/backtracedatabase.db"));
 
     s_self = 0;
 }
@@ -142,7 +142,7 @@ QString KateBtBrowserPlugin::configPageFullName(int number) const
 
 QIcon KateBtBrowserPlugin::configPageIcon(int) const
 {
-    return QIcon::fromTheme(QLatin1String("kbugbuster"));
+    return QIcon::fromTheme(QStringLiteral("kbugbuster"));
 }
 
 
@@ -154,9 +154,9 @@ KateBtBrowserPluginView::KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KT
 {
     // init console
     QWidget *toolview = mainWindow->createToolView(plugin,
-                        QLatin1String("kate_private_plugin_katebacktracebrowserplugin"),
+                        QStringLiteral("kate_private_plugin_katebacktracebrowserplugin"),
                         KTextEditor::MainWindow::Bottom,
-                        QIcon::fromTheme(QLatin1String("kbugbuster")),
+                        QIcon::fromTheme(QStringLiteral("kbugbuster")),
                         i18n("Backtrace Browser"));
     m_widget = new KateBtBrowserWidget(mainWindow, toolview);
 
@@ -267,12 +267,12 @@ void KateBtBrowserWidget::itemActivated(QTreeWidgetItem *item, int column)
         // if not absolute path + exists, try to find with index
         if (!QFile::exists(path)) {
             // try to match the backtrace forms ".*/foo/bar.txt" and "foo/bar.txt"
-            static QRegExp rx1(QLatin1String("/([^/]+)/([^/]+)$"));
+            static QRegExp rx1(QStringLiteral("/([^/]+)/([^/]+)$"));
             int idx = rx1.indexIn(file);
             if (idx != -1) {
                 file = rx1.cap(1) + QLatin1Char('/') + rx1.cap(2);
             } else {
-                static QRegExp rx2(QLatin1String("([^/]+)/([^/]+)$"));
+                static QRegExp rx2(QStringLiteral("([^/]+)/([^/]+)$"));
                 idx = rx2.indexIn(file);
                 if (idx != -1) {
                     // file is of correct form
@@ -354,13 +354,13 @@ void KateBtConfigWidget::reset()
     KConfigGroup cg(KSharedConfig::openConfig(), "backtracebrowser");
     lstFolders->clear();
     lstFolders->addItems(cg.readEntry("search-folders", QStringList()));
-    edtExtensions->setText(cg.readEntry("file-extensions", fileExtensions).join(QLatin1String(" ")));
+    edtExtensions->setText(cg.readEntry("file-extensions", fileExtensions).join(QStringLiteral(" ")));
 }
 
 void KateBtConfigWidget::defaults()
 {
     lstFolders->clear();
-    edtExtensions->setText(fileExtensions.join(QLatin1String(" ")));
+    edtExtensions->setText(fileExtensions.join(QStringLiteral(" ")));
 
     m_changed = true;
 }

@@ -60,7 +60,7 @@ void FolderFilesList::generateList(const QString &folder,
     m_types        = types.split(QLatin1Char(','), QString::SkipEmptyParts);
 
     if (m_types.isEmpty()) {
-        m_types << QLatin1String("*");
+        m_types << QStringLiteral("*");
     }
 
     QStringList tmpExcludes = excludes.split(QLatin1Char(','));

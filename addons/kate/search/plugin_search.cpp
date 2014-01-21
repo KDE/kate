@@ -178,7 +178,7 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
 
     // we use the object names here because there can be multiple replaceButtons (on multiple result tabs)
     if (next) {
-        if (currentWidget->objectName() == QLatin1String("tree")) {
+        if (currentWidget->objectName() == QStringLiteral("tree")) {
             m_ui.newTabButton->setFocus();
             *found = true;
             return;
@@ -216,7 +216,7 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
             return;
         }
         else {
-            if (currentWidget->objectName() == QLatin1String("tree")) {
+            if (currentWidget->objectName() == QStringLiteral("tree")) {
                 m_ui.displayOptions->setFocus();
                 *found = true;
                 return;
@@ -236,12 +236,12 @@ m_searchOpenFilesDone(true),
 m_projectPluginView(0),
 m_mainWindow (mainWin)
 {
-    KXMLGUIClient::setComponentName (QLatin1String("katesearch"), i18n ("Kate Search & Replace"));
-    setXMLFile( QLatin1String("ui.rc") );
+    KXMLGUIClient::setComponentName (QStringLiteral("katesearch"), i18n ("Kate Search & Replace"));
+    setXMLFile( QStringLiteral("ui.rc") );
   
-    m_toolView = mainWin->createToolView (plugin, QLatin1String("kate_plugin_katesearch"),
+    m_toolView = mainWin->createToolView (plugin, QStringLiteral("kate_plugin_katesearch"),
                                           KTextEditor::MainWindow::Bottom,
-                                          SmallIcon(QLatin1String("edit-find")),
+                                          SmallIcon(QStringLiteral("edit-find")),
                                           i18n("Search and Replace"));
 
     ContainerWidget *container = new ContainerWidget(m_toolView);
@@ -249,35 +249,35 @@ m_mainWindow (mainWin)
     container->setFocusProxy(m_ui.searchCombo);
     connect(container, SIGNAL(nextFocus(QWidget*,bool*,bool)), this, SLOT(nextFocus(QWidget*,bool*,bool)));
 
-    QAction *a = actionCollection()->addAction(QLatin1String("search_in_files"));
+    QAction *a = actionCollection()->addAction(QStringLiteral("search_in_files"));
     a->setText(i18n("Search in Files"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
 
-    a = actionCollection()->addAction(QLatin1String("search_in_files_new_tab"));
+    a = actionCollection()->addAction(QStringLiteral("search_in_files_new_tab"));
     a->setText(i18n("Search in Files (in new tab)"));
     // first add tab, then open search view, since open search view switches to show the search options
     connect(a, SIGNAL(triggered(bool)), this, SLOT(addTab()));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
 
-    a = actionCollection()->addAction(QLatin1String("go_to_next_match"));
+    a = actionCollection()->addAction(QStringLiteral("go_to_next_match"));
     a->setText(i18n("Go to Next Match"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(goToNextMatch()));
 
-    a = actionCollection()->addAction(QLatin1String("go_to_prev_match"));
+    a = actionCollection()->addAction(QStringLiteral("go_to_prev_match"));
     a->setText(i18n("Go to Previous Match"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(goToPreviousMatch()));
 
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
-    m_ui.displayOptions->setIcon(SmallIcon(QLatin1String("arrow-down-double")));
-    m_ui.searchButton->setIcon(SmallIcon(QLatin1String("edit-find")));
-    m_ui.stopButton->setIcon(SmallIcon(QLatin1String("process-stop")));
-    m_ui.searchPlaceCombo->setItemIcon(0, SmallIcon(QLatin1String("text-plain")));
-    m_ui.searchPlaceCombo->setItemIcon(1, SmallIcon(QLatin1String("folder")));
-    m_ui.folderUpButton->setIcon(SmallIcon(QLatin1String("go-up")));
-    m_ui.currentFolderButton->setIcon(SmallIcon(QLatin1String("view-refresh")));
-    m_ui.newTabButton->setIcon(SmallIcon(QLatin1String("tab-new")));
+    m_ui.displayOptions->setIcon(SmallIcon(QStringLiteral("arrow-down-double")));
+    m_ui.searchButton->setIcon(SmallIcon(QStringLiteral("edit-find")));
+    m_ui.stopButton->setIcon(SmallIcon(QStringLiteral("process-stop")));
+    m_ui.searchPlaceCombo->setItemIcon(0, SmallIcon(QStringLiteral("text-plain")));
+    m_ui.searchPlaceCombo->setItemIcon(1, SmallIcon(QStringLiteral("folder")));
+    m_ui.folderUpButton->setIcon(SmallIcon(QStringLiteral("go-up")));
+    m_ui.currentFolderButton->setIcon(SmallIcon(QStringLiteral("view-refresh")));
+    m_ui.newTabButton->setIcon(SmallIcon(QStringLiteral("tab-new")));
 
     m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"));
     m_ui.excludeCombo->setToolTip(i18n("Comma separated list of files and directories to exclude from the search. Example: \"build*\""));
@@ -376,7 +376,7 @@ m_mainWindow (mainWin)
 
 
     // update once project plugin state manually
-    m_projectPluginView = m_mainWindow->pluginView (QLatin1String("kateprojectplugin"));
+    m_projectPluginView = m_mainWindow->pluginView (QStringLiteral("kateprojectplugin"));
     slotProjectFileNameChanged ();
 
     m_replacer.setDocumentManager(m_kateApp);
@@ -521,7 +521,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
 {
     QString types = m_ui.filterCombo->currentText();
     QString excludes = m_ui.excludeCombo->currentText();
-    if (((types.isEmpty() || types == QLatin1String("*"))) && (excludes.isEmpty())) {
+    if (((types.isEmpty() || types == QStringLiteral("*"))) && (excludes.isEmpty())) {
         // shortcut for use all files
         return files;
     }
@@ -703,12 +703,12 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
     bool replace = ((sender() == &m_replacer) || (sender() == 0) || (sender() == m_ui.replaceButton));
     if (replace) {
         QColor replaceColor(Qt::green);
-        if (ciface) replaceColor = ciface->configValue(QLatin1String("replace-highlight-color")).value<QColor>();
+        if (ciface) replaceColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
         attr->setBackground(replaceColor);
     }
     else {
         QColor searchColor(Qt::yellow);
-        if (ciface) searchColor = ciface->configValue(QLatin1String("search-highlight-color")).value<QColor>();
+        if (ciface) searchColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
         attr->setBackground(searchColor);
     }
     // calculate end line in case of multi-line match
@@ -725,9 +725,9 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
     if (m_curResults && !replace) {
         // special handling for "(?=\\n)" in multi-line search
         QRegExp tmpReg = m_curResults->regExp;
-        if (m_curResults->regExp.pattern().endsWith(QLatin1String("(?=\\n)"))) {
+        if (m_curResults->regExp.pattern().endsWith(QStringLiteral("(?=\\n)"))) {
             QString newPatern = tmpReg.pattern();
-            newPatern.replace(QLatin1String("(?=\\n)"), QLatin1String("$"));
+            newPatern.replace(QStringLiteral("(?=\\n)"), QStringLiteral("$"));
             tmpReg.setPattern(newPatern);
         }
 
@@ -763,10 +763,10 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
 
     QString pre = lineContent.left(column).toHtmlEscaped();
     QString match = lineContent.mid(column, matchLen).toHtmlEscaped();
-    match.replace(QLatin1Char('\n'), QLatin1String("\\n"));
+    match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
     QString post = lineContent.mid(column + matchLen).toHtmlEscaped();
     QStringList row;
-    row << i18n("Line: <b>%1</b>: %2", line+1, pre+QLatin1String("<b>")+match+QLatin1String("</b>")+post);
+    row << i18n("Line: <b>%1</b>: %2", line+1, pre+QStringLiteral("<b>")+match+QStringLiteral("</b>")+post);
 
     TreeWidgetItem *item = new TreeWidgetItem(rootFileItem(url, fName), row);
     item->setData(0, ReplaceMatches::FileUrlRole, url);
@@ -1216,20 +1216,20 @@ void KatePluginSearchView::replaceSingleMatch()
 
 
     QString replaceText = m_ui.replaceCombo->currentText();
-    replaceText.replace(QLatin1String("\\\\"), QLatin1String("¤Search&Replace¤"));
+    replaceText.replace(QStringLiteral("\\\\"), QStringLiteral("¤Search&Replace¤"));
     for (int j=1; j<=res->regExp.captureCount(); j++) {
-        replaceText.replace(QString(QLatin1String("\\%1")).arg(j), res->regExp.cap(j));
+        replaceText.replace(QString(QStringLiteral("\\%1")).arg(j), res->regExp.cap(j));
     }
-    replaceText.replace(QLatin1String("\\n"), QLatin1String("\n"));
-    replaceText.replace(QLatin1String("¤Search&Replace¤"), QLatin1String("\\\\"));
+    replaceText.replace(QStringLiteral("\\n"), QStringLiteral("\n"));
+    replaceText.replace(QStringLiteral("¤Search&Replace¤"), QStringLiteral("\\\\"));
 
     doc->replaceText(m_matchRanges[i]->toRange(), replaceText);
     addMatchMark(doc, dLine, dColumn, replaceText.size());
 
-    replaceText.replace(QLatin1Char('\n'), QLatin1String("\\n"));
+    replaceText.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
     QString html = item->data(0, ReplaceMatches::PreMatchRole).toString();
-    html += QLatin1String("<i><s>") + item->data(0, ReplaceMatches::MatchRole).toString() + QLatin1String("</s></i> ");
-    html += QLatin1String("<b>") + replaceText + QLatin1String("</b>");
+    html += QStringLiteral("<i><s>") + item->data(0, ReplaceMatches::MatchRole).toString() + QStringLiteral("</s></i> ");
+    html += QStringLiteral("<b>") + replaceText + QStringLiteral("</b>");
     html += item->data(0, ReplaceMatches::PostMatchRole).toString();
     item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",m_matchRanges[i]->start().line()+1, html));
 
@@ -1624,37 +1624,37 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
         QMenu* menu = contextMenu->addMenu(i18n("Add..."));
         if (!menu) return;
 
-        menu->setIcon(SmallIcon(QLatin1String("list-add")));
+        menu->setIcon(SmallIcon(QStringLiteral("list-add")));
 
-        actionPointers << menuEntry(menu, QLatin1String("^"), QLatin1String(""), i18n("Beginning of line"));
-        actionPointers << menuEntry(menu, QLatin1String("$"), QLatin1String(""), i18n("End of line"));
+        actionPointers << menuEntry(menu, QStringLiteral("^"), QStringLiteral(""), i18n("Beginning of line"));
+        actionPointers << menuEntry(menu, QStringLiteral("$"), QStringLiteral(""), i18n("End of line"));
         menu->addSeparator();
-        actionPointers << menuEntry(menu, QLatin1String("."), QLatin1String(""), i18n("Any single character (excluding line breaks)"));
+        actionPointers << menuEntry(menu, QStringLiteral("."), QStringLiteral(""), i18n("Any single character (excluding line breaks)"));
         menu->addSeparator();
-        actionPointers << menuEntry(menu, QLatin1String("+"), QLatin1String(""), i18n("One or more occurrences"));
-        actionPointers << menuEntry(menu, QLatin1String("*"), QLatin1String(""), i18n("Zero or more occurrences"));
-        actionPointers << menuEntry(menu, QLatin1String("?"), QLatin1String(""), i18n("Zero or one occurrences"));
-        actionPointers << menuEntry(menu, QLatin1String("{"), QLatin1String(",}"), i18n("<a> through <b> occurrences"), QLatin1String("{a"), QLatin1String(",b}"));
+        actionPointers << menuEntry(menu, QStringLiteral("+"), QStringLiteral(""), i18n("One or more occurrences"));
+        actionPointers << menuEntry(menu, QStringLiteral("*"), QStringLiteral(""), i18n("Zero or more occurrences"));
+        actionPointers << menuEntry(menu, QStringLiteral("?"), QStringLiteral(""), i18n("Zero or one occurrences"));
+        actionPointers << menuEntry(menu, QStringLiteral("{"), QStringLiteral(",}"), i18n("<a> through <b> occurrences"), QStringLiteral("{a"), QStringLiteral(",b}"));
         menu->addSeparator();
-        actionPointers << menuEntry(menu, QLatin1String("("), QLatin1String(")"), i18n("Group, capturing"));
-        actionPointers << menuEntry(menu, QLatin1String("|"), QLatin1String(""), i18n("Or"));
-        actionPointers << menuEntry(menu, QLatin1String("["), QLatin1String("]"), i18n("Set of characters"));
-        actionPointers << menuEntry(menu, QLatin1String("[^"), QLatin1String("]"), i18n("Negative set of characters"));
-        actionPointers << menuEntry(menu, QLatin1String("(?:"), QLatin1String(")"), i18n("Group, non-capturing"), QLatin1String("(?:E"));
-        actionPointers << menuEntry(menu, QLatin1String("(?="), QLatin1String(")"), i18n("Lookahead"), QLatin1String("(?=E"));
-        actionPointers << menuEntry(menu, QLatin1String("(?!"), QLatin1String(")"), i18n("Negative lookahead"), QLatin1String("(?!E"));
+        actionPointers << menuEntry(menu, QStringLiteral("("), QStringLiteral(")"), i18n("Group, capturing"));
+        actionPointers << menuEntry(menu, QStringLiteral("|"), QStringLiteral(""), i18n("Or"));
+        actionPointers << menuEntry(menu, QStringLiteral("["), QStringLiteral("]"), i18n("Set of characters"));
+        actionPointers << menuEntry(menu, QStringLiteral("[^"), QStringLiteral("]"), i18n("Negative set of characters"));
+        actionPointers << menuEntry(menu, QStringLiteral("(?:"), QStringLiteral(")"), i18n("Group, non-capturing"), QStringLiteral("(?:E"));
+        actionPointers << menuEntry(menu, QStringLiteral("(?="), QStringLiteral(")"), i18n("Lookahead"), QStringLiteral("(?=E"));
+        actionPointers << menuEntry(menu, QStringLiteral("(?!"), QStringLiteral(")"), i18n("Negative lookahead"), QStringLiteral("(?!E"));
 
         menu->addSeparator();
-        actionPointers << menuEntry(menu, QLatin1String("\\n"), QLatin1String(""), i18n("Line break"));
-        actionPointers << menuEntry(menu, QLatin1String("\\t"), QLatin1String(""), i18n("Tab"));
-        actionPointers << menuEntry(menu, QLatin1String("\\b"), QLatin1String(""), i18n("Word boundary"));
-        actionPointers << menuEntry(menu, QLatin1String("\\B"), QLatin1String(""), i18n("Not word boundary"));
-        actionPointers << menuEntry(menu, QLatin1String("\\d"), QLatin1String(""), i18n("Digit"));
-        actionPointers << menuEntry(menu, QLatin1String("\\D"), QLatin1String(""), i18n("Non-digit"));
-        actionPointers << menuEntry(menu, QLatin1String("\\s"), QLatin1String(""), i18n("Whitespace (excluding line breaks)"));
-        actionPointers << menuEntry(menu, QLatin1String("\\S"), QLatin1String(""), i18n("Non-whitespace (excluding line breaks)"));
-        actionPointers << menuEntry(menu, QLatin1String("\\w"), QLatin1String(""), i18n("Word character (alphanumerics plus '_')"));
-        actionPointers << menuEntry(menu, QLatin1String("\\W"), QLatin1String(""), i18n("Non-word character"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\n"), QStringLiteral(""), i18n("Line break"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\t"), QStringLiteral(""), i18n("Tab"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\b"), QStringLiteral(""), i18n("Word boundary"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\B"), QStringLiteral(""), i18n("Not word boundary"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\d"), QStringLiteral(""), i18n("Digit"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\D"), QStringLiteral(""), i18n("Non-digit"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\s"), QStringLiteral(""), i18n("Whitespace (excluding line breaks)"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\S"), QStringLiteral(""), i18n("Non-whitespace (excluding line breaks)"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\w"), QStringLiteral(""), i18n("Word character (alphanumerics plus '_')"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\W"), QStringLiteral(""), i18n("Non-word character"));
     }
     // Show menu
     QAction * const result = contextMenu->exec(m_ui.searchCombo->mapToGlobal(pos));
@@ -1674,7 +1674,7 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
 void KatePluginSearchView::slotPluginViewCreated (const QString &name, QObject *pluginView)
 {
     // add view
-    if (name == QLatin1String("kateprojectplugin")) {
+    if (name == QStringLiteral("kateprojectplugin")) {
         m_projectPluginView = pluginView;
         slotProjectFileNameChanged ();
         connect (pluginView, SIGNAL(projectFileNameChanged()), this, SLOT(slotProjectFileNameChanged()));
@@ -1684,7 +1684,7 @@ void KatePluginSearchView::slotPluginViewCreated (const QString &name, QObject *
 void KatePluginSearchView::slotPluginViewDeleted (const QString &name, QObject *)
 {
     // remove view
-    if (name == QLatin1String("kateprojectplugin")) {
+    if (name == QStringLiteral("kateprojectplugin")) {
         m_projectPluginView = 0;
         slotProjectFileNameChanged ();
     }
@@ -1701,7 +1701,7 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
     if (!projectFileName.isEmpty()) {
         if (m_ui.searchPlaceCombo->count() < 3) {
             // add "in Project"
-            m_ui.searchPlaceCombo->addItem (SmallIcon(QLatin1String("project-open")), i18n("in Project"));
+            m_ui.searchPlaceCombo->addItem (SmallIcon(QStringLiteral("project-open")), i18n("in Project"));
             if (m_switchToProjectModeWhenAvailable) {
                 // switch to search "in Project"
                 m_switchToProjectModeWhenAvailable = false;
@@ -1730,9 +1730,9 @@ KateSearchCommand::KateSearchCommand(QObject *parent)
 
 const QStringList& KateSearchCommand::cmds()
 {
-    static QStringList sl = QStringList() << QLatin1String("grep") << QLatin1String("newGrep")
-        << QLatin1String("search") << QLatin1String("newSearch")
-        << QLatin1String("pgrep") << QLatin1String("newPGrep");
+    static QStringList sl = QStringList() << QStringLiteral("grep") << QStringLiteral("newGrep")
+        << QStringLiteral("search") << QStringLiteral("newSearch")
+        << QStringLiteral("pgrep") << QStringLiteral("newPGrep");
     return sl;
 }
 
@@ -1743,22 +1743,22 @@ bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, Q
     QString command = args.takeFirst();
     QString searchText = args.join(QLatin1Char(' '));
 
-    if (command == QLatin1String("grep") || command == QLatin1String("newGrep")) {
+    if (command == QStringLiteral("grep") || command == QStringLiteral("newGrep")) {
         emit setSearchPlace(1);
         emit setCurrentFolder();
-        if (command == QLatin1String("newGrep"))
+        if (command == QStringLiteral("newGrep"))
             emit newTab();
     }
     
-    else if (command == QLatin1String("search") || command == QLatin1String("newSearch")) {
+    else if (command == QStringLiteral("search") || command == QStringLiteral("newSearch")) {
         emit setSearchPlace(0);
-        if (command == QLatin1String("newSearch"))
+        if (command == QStringLiteral("newSearch"))
             emit newTab();
     }
     
-    else if (command == QLatin1String("pgrep") || command == QLatin1String("newPGrep")) {
+    else if (command == QStringLiteral("pgrep") || command == QStringLiteral("newPGrep")) {
         emit setSearchPlace(2);
-        if (command == QLatin1String("newPGrep"))
+        if (command == QStringLiteral("newPGrep"))
             emit newTab();
     }
     
@@ -1770,24 +1770,24 @@ bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, Q
 
 bool KateSearchCommand::help (KTextEditor::View */*view*/, const QString &cmd, QString & msg)
 {
-    if (cmd.startsWith(QLatin1String("grep"))) {
+    if (cmd.startsWith(QStringLiteral("grep"))) {
         msg = i18n("Usage: grep [pattern to search for in folder]");
     }
-    else if (cmd.startsWith(QLatin1String("newGrep"))) {
+    else if (cmd.startsWith(QStringLiteral("newGrep"))) {
         msg = i18n("Usage: newGrep [pattern to search for in folder]");
     }
 
-    else if (cmd.startsWith(QLatin1String("search"))) {
+    else if (cmd.startsWith(QStringLiteral("search"))) {
         msg = i18n("Usage: search [pattern to search for in open files]");
     }
-    else if (cmd.startsWith(QLatin1String("newSearch"))) {
+    else if (cmd.startsWith(QStringLiteral("newSearch"))) {
         msg = i18n("Usage: search [pattern to search for in open files]");
     }
     
-    else if (cmd.startsWith(QLatin1String("pgrep"))) {
+    else if (cmd.startsWith(QStringLiteral("pgrep"))) {
         msg = i18n("Usage: pgrep [pattern to search for in current project]");
     }
-    else if (cmd.startsWith(QLatin1String("newPGrep"))) {
+    else if (cmd.startsWith(QStringLiteral("newPGrep"))) {
         msg = i18n("Usage: newPGrep [pattern to search for in current project]");
     }
     

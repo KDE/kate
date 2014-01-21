@@ -32,6 +32,9 @@ set (KATE_APPLICATION_SRCS
    app/katesavemodifieddialog.cpp
    app/katemwmodonhddialog.cpp
 
+   app/katetabbutton.cpp
+   app/katetabbar.cpp
+
    # session
    session/katesessionchooser.cpp
    session/katesessionsaction.cpp
@@ -45,7 +48,8 @@ set (KATE_APPLICATION_SRCS
    app/kateappcommands.cpp
    app/katequickopen.cpp
    app/katewaiter.h
-   app/main.cpp)
+   app/main.cpp
+)
 
 # create kde init executable
 kf5_add_kdeinit_executable(kate ${KATE_APPLICATION_SRCS})

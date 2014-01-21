@@ -27,11 +27,14 @@
 
 #include <QList>
 #include <QFrame>
+#include <QHash>
 
 class KConfigBase;
 class KateViewManager;
 class KateViewSpace;
 class QStackedWidget;
+class QLabel;
+class KateTabBar;
 
 class KateViewSpace : public QFrame
 {
@@ -69,6 +72,7 @@ class KateViewSpace : public QFrame
 
   private Q_SLOTS:
     void statusBarToggled ();
+    void changeView(int buttonId);
 
   private:
     QStackedWidget* stack;
@@ -80,6 +84,8 @@ class KateViewSpace : public QFrame
     QList<KTextEditor::View*> mViewList;
     KateViewManager *m_viewManager;
     QString m_group;
+    KateTabBar * m_tabBar;
+    QHash<KTextEditor::View*, int> m_viewToTabId;
 };
 
 #endif

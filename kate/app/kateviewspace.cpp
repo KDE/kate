@@ -27,6 +27,7 @@
 #include "kateapp.h"
 #include "katesessionmanager.h"
 #include "katedebug.h"
+#include "katetabbar.h"
 
 #include <KSqueezedTextLabel>
 #include <KStringHandler>
@@ -52,6 +53,10 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->setSpacing(0);
   layout->setMargin(0);
+
+  m_tabBar = new KateTabBar(this);
+  layout->addWidget(m_tabBar);
+  connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
 
   stack = new QStackedWidget( this );
   stack->setFocus();
@@ -108,14 +113,27 @@ KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
     }
   }
 
+  // add to tab bar
+  const int index = m_tabBar->addTab(doc->url().toString(), doc->documentName());
+  Q_ASSERT(index >= 0);
+  m_viewToTabId[v] = index;
+
+  // insert into stack
   stack->addWidget(v);
   mViewList.append(v);
   showView( v );
+
   return v;
 }
 
 void KateViewSpace::removeView(KTextEditor::View* v)
 {
+  // remove from tab bar
+  Q_ASSERT(m_viewToTabId.contains(v));
+  m_tabBar->removeTab(m_viewToTabId[v]);
+  m_viewToTabId.remove(v);
+
+  // remove from view space
   bool active = ( v == currentView() );
 
   mViewList.removeAt ( mViewList.indexOf ( v ) );
@@ -145,12 +163,26 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
       stack->setCurrentWidget( kv );
       kv->show();
 
+      // raise tab in tab bar
+      Q_ASSERT(m_viewToTabId.contains(kv));
+//       m_tabBar->raiseTab(m_viewToTabId[kv]);
+      m_tabBar->setCurrentTab(m_viewToTabId[kv]);
+
       return true;
     }
   }
   return false;
 }
 
+void KateViewSpace::changeView(int buttonId)
+{
+  KTextEditor::View * view = m_viewToTabId.key(buttonId);
+  Q_ASSERT(view);
+
+  if (view != currentView()) {
+    showView(view);
+  }
+}
 
 KTextEditor::View* KateViewSpace::currentView()
 {

@@ -30,6 +30,8 @@ ecm_optional_add_subdirectory (xmltools)
 
 ecm_optional_add_subdirectory( openheader )
 
+ecm_optional_add_subdirectory( close-except-like )
+
 
 if(NOT WIN32)
   add_subdirectory( gdbplugin )  # should be tested on windows...
@@ -55,7 +57,6 @@ endif(NOT WIN32)
 #add_subdirectory( tabify )
 
 
-#add_subdirectory( close-except-like )
 
 #macro_optional_add_subdirectory(pate)
 

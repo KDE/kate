@@ -28,9 +28,14 @@
 // Standard includes
 #include <KConfig>
 #include <KLocalizedString>                                 /// \todo Where is \c i18n() defiend?
-#include <KVBox>
-#include <QtGui/QLabel>
-#include <QtGui/QHeaderView>
+#include <KIconLoader>
+#include <KSharedConfig>
+#include <KConfigGroup>
+#include <QBoxLayout>
+#include <QLabel>
+#include <QHeaderView>
+#include <QPushButton>
+
 #include <cassert>
 
 namespace kate { namespace {
@@ -43,7 +48,7 @@ class KateDocItem : public QTreeWidgetItem
       , document(doc)
     {
         setText(0, doc->documentName());
-        setText(1, doc->url().prettyUrl());
+        setText(1, doc->url().toString());
         setCheckState(0, Qt::Checked);
     }
     KTextEditor::Document* document;
@@ -55,34 +60,22 @@ CloseConfirmDialog::CloseConfirmDialog(
   , KToggleAction* show_confirmation_action
   , QWidget* const parent
   )
-  : KDialog(parent)
+  : QDialog(parent)
   , m_docs(docs)
 {
     assert("Documents container expected to be non empty" && !docs.isEmpty());
-
-    setCaption(i18nc("@title:window", "Close files confirmation"));
-    setButtons(Ok | Cancel);
+    setupUi(this);
+    
+    setWindowTitle(i18nc("@title:window", "Close files confirmation"));
     setModal(true);
-    setDefaultButton(KDialog::Ok);
+    buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
+    
+    icon->setPixmap(KIconLoader::global()->loadIcon(QStringLiteral("dialog-warning"),KIconLoader::Desktop,KIconLoader::SizeLarge));
 
-    KVBox* w = new KVBox(this);
-    setMainWidget(w);
-    w->setSpacing(KDialog::spacingHint());
-
-    KHBox* lo1 = new KHBox(w);
-
-    // dialog text
-    QLabel* icon = new QLabel(lo1);
-    icon->setPixmap(DesktopIcon("dialog-warning"));
-
-    QLabel* t = new QLabel(
+    text->setText(
         i18nc("@label:listbox", "You are about to close the following documents:")
-      , lo1
-      );
-    lo1->setStretchFactor(t, 1000);
-
-    // document list
-    m_docs_tree = new QTreeWidget(w);
+    );
+    
     QStringList headers;
     headers << i18nc("@title:column", "Document") << i18nc("@title:column", "Location");
     m_docs_tree->setHeaderLabels(headers);
@@ -94,10 +87,10 @@ CloseConfirmDialog::CloseConfirmDialog(
         new KateDocItem(m_docs[i], m_docs_tree);
     }
     m_docs_tree->header()->setStretchLastSection(false);
-    m_docs_tree->header()->setResizeMode(0, QHeaderView::ResizeToContents);
-    m_docs_tree->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+    m_docs_tree->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    m_docs_tree->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
-    m_dont_ask_again = new QCheckBox(i18nc("option:check", "Do not ask again"), w);
+    m_dont_ask_again->setText(i18nc("option:check", "Do not ask again"));
     // NOTE If we are here, it means that 'Show Confirmation' action is enabled,
     // so not needed to read config...
     assert("Sanity check" && show_confirmation_action->isChecked());
@@ -107,14 +100,14 @@ CloseConfirmDialog::CloseConfirmDialog(
     // Update documents list according checkboxes
     connect(this, SIGNAL(accepted()), this, SLOT(updateDocsList()));
 
-    KConfigGroup gcg(KGlobal::config(), "CloseConfirmationDialog");
-    restoreDialogSize(gcg);                                 // restore dialog geometry from config
+    KConfigGroup gcg(KSharedConfig::openConfig(), "kate-close-except-like-CloseConfirmationDialog");
+    KWindowConfig::restoreWindowSize(windowHandle(),gcg);                                 // restore dialog geometry from config
 }
 
 CloseConfirmDialog::~CloseConfirmDialog()
 {
-    KConfigGroup gcg(KGlobal::config(), "CloseConfirmationDialog");
-    saveDialogSize(gcg);                                    // write dialog geometry to config
+    KConfigGroup gcg(KSharedConfig::openConfig(), "kate-close-except-like-CloseConfirmationDialog");
+    KWindowConfig::saveWindowSize(windowHandle(),gcg);                                    // write dialog geometry to config
     gcg.sync();
 }
 
@@ -131,7 +124,7 @@ void CloseConfirmDialog::updateDocsList()
     {
         KateDocItem* item = static_cast<KateDocItem*>(*it);
         m_docs.removeAll(item->document);
-        qDebug() << "do not close the file " << item->document->url().prettyUrl();
+        qDebug() << "do not close the file " << item->document->url().toString();
     }
 }
 

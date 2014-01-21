@@ -28,16 +28,20 @@
 // Project specific includes
 
 // Standard includes
-# include <kate/plugin.h>
+# include <KTextEditor/Editor>
+# include <KTextEditor/Plugin>
+# include <ktexteditor/sessionconfiginterface.h>
 # include <ktexteditor/configpageinterface.h>
 # include <KActionMenu>
 # include <KTextEditor/Document>
 # include <KTextEditor/View>
 # include <KToggleAction>
+# include <KConfigGroup>
 # include <QtCore/QSignalMapper>
+# include <QPointer>
 # include <cassert>
 # include <set>
-
+ 
 namespace kate {
 class CloseExceptPlugin;                                    // forward declaration
 
@@ -45,15 +49,15 @@ class CloseExceptPlugin;                                    // forward declarati
  * \brief Plugin to close docs grouped by extension or location
  */
 class CloseExceptPluginView
-  : public Kate::PluginView
-  , public Kate::XMLGUIClient
+  : public QObject
+  , public KXMLGUIClient
 {
     Q_OBJECT
-    typedef QMap<QString, QPointer<KAction> > actions_map_type;
+    typedef QMap<QString, QPointer<QAction> > actions_map_type;
 
 public:
     /// Default constructor
-    CloseExceptPluginView(Kate::MainWindow*, const KComponentData&, CloseExceptPlugin*);
+    CloseExceptPluginView(KTextEditor::MainWindow*, CloseExceptPlugin*);
     /// Destructor
     ~CloseExceptPluginView();
 
@@ -75,17 +79,23 @@ private:
     void connectToDocument(KTextEditor::Document*);
     void updateMenu();
     QPointer<QSignalMapper> updateMenu(
-        const std::set<QString>&
+        const std::set<QUrl>&
       , const std::set<QString>&
       , actions_map_type&
       , KActionMenu*
       );
     void appendActionsFrom(
-        const std::set<QString>&
+        const std::set<QUrl>&
       , actions_map_type&
       , KActionMenu*
       , QSignalMapper*
       );
+    void appendActionsFrom(
+    const std::set<QString>& masks
+  , actions_map_type& actions
+  , KActionMenu* menu
+  , QSignalMapper* mapper
+  );
 
     CloseExceptPlugin* m_plugin;
     QPointer<KToggleAction> m_show_confirmation_action;
@@ -95,26 +105,27 @@ private:
     QPointer<QSignalMapper> m_like_mapper;
     actions_map_type m_except_actions;
     actions_map_type m_like_actions;
+    KTextEditor::MainWindow *m_mainWindow;
 };
 
 /**
  * \brief Plugin view class
  */
-class CloseExceptPlugin : public Kate::Plugin
+class CloseExceptPlugin : public KTextEditor::Plugin, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
-
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 public:
     /// Default constructor
     CloseExceptPlugin(QObject* = 0, const QList<QVariant>& = QList<QVariant>());
     /// Destructor
     virtual ~CloseExceptPlugin() {}
     /// Create a new view of this plugin for the given main window
-    Kate::PluginView* createView(Kate::MainWindow*);
+    QObject* createView(KTextEditor::MainWindow*);
     /// \name Plugin interface implementation
     //@{
-    void readSessionConfig(KConfigBase*, const QString&);
-    void writeSessionConfig(KConfigBase*, const QString&);
+    void readSessionConfig(const KConfigGroup&);
+    void writeSessionConfig(KConfigGroup&);
     //@}
     bool showConfirmationNeeded() const
     {

@@ -28,20 +28,23 @@
 #include "close_confirm_dialog.h"
 
 // Standard includes
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <kate/mainwindow.h>
+#include <KLocalizedString>
+#include <KTextEditor/Application>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Editor>
 #include <KAboutData>
 #include <KActionCollection>
-#include <KDebug>
 #include <KPassivePopup>
 #include <KPluginFactory>
 #include <KPluginLoader>
 #include <KTextEditor/Editor>
 #include <QtCore/QFileInfo>
+#include <QUrl>
+#include <kio/global.h>
+#include <KXMLGUIFactory>
 
-K_PLUGIN_FACTORY(CloseExceptPluginFactory, registerPlugin<kate::CloseExceptPlugin>();)
-K_EXPORT_PLUGIN(
+K_PLUGIN_FACTORY_WITH_JSON(CloseExceptPluginFactory, "katecloseexceptplugin.json",registerPlugin<kate::CloseExceptPlugin>();)
+/*K_EXPORT_PLUGIN(
     CloseExceptPluginFactory(
         KAboutData(
             "katecloseexceptplugin"
@@ -52,7 +55,7 @@ K_EXPORT_PLUGIN(
           , KAboutData::License_LGPL_V3
           )
       )
-  )
+  )*/
 
 namespace kate {
 //BEGIN CloseExceptPlugin
@@ -60,37 +63,36 @@ CloseExceptPlugin::CloseExceptPlugin(
     QObject* application
   , const QList<QVariant>&
   )
-  : Kate::Plugin(static_cast<Kate::Application*>(application), "katecloseexceptplugin")
+  : KTextEditor::Plugin(application)
 {
 }
 
-Kate::PluginView* CloseExceptPlugin::createView(Kate::MainWindow* parent)
+QObject* CloseExceptPlugin::createView(KTextEditor::MainWindow* parent)
 {
-    return new CloseExceptPluginView(parent, CloseExceptPluginFactory::componentData(), this);
+    return new CloseExceptPluginView(parent, this);
 }
 
-void CloseExceptPlugin::readSessionConfig(KConfigBase* config, const QString& groupPrefix)
+void CloseExceptPlugin::readSessionConfig(const KConfigGroup& config)
 {
-    KConfigGroup scg(config, groupPrefix + "menu");
-    m_show_confirmation_needed = scg.readEntry("ShowConfirmation", true);
+    const KConfigGroup scg(&config, QStringLiteral("menu"));
+    m_show_confirmation_needed = scg.readEntry(QStringLiteral("ShowConfirmation"), true);
 }
 
-void CloseExceptPlugin::writeSessionConfig(KConfigBase* config, const QString& groupPrefix)
+void CloseExceptPlugin::writeSessionConfig(KConfigGroup& config)
 {
-    KConfigGroup scg(config, groupPrefix + "menu");
-    scg.writeEntry("ShowConfirmation", m_show_confirmation_needed);
+    KConfigGroup scg(&config, QStringLiteral("menu"));
+    scg.writeEntry(QStringLiteral("ShowConfirmation"), m_show_confirmation_needed);
     scg.sync();
 }
 //END CloseExceptPlugin
 
 //BEGIN CloseExceptPluginView
 CloseExceptPluginView::CloseExceptPluginView(
-    Kate::MainWindow* mw
-  , const KComponentData& data
+    KTextEditor::MainWindow* mw
   , CloseExceptPlugin* plugin
   )
-  : Kate::PluginView(mw)
-  , Kate::XMLGUIClient(data)
+  : QObject(mw)
+  , KXMLGUIClient()
   , m_plugin(plugin)
   , m_show_confirmation_action(new KToggleAction(i18nc("@action:inmenu", "Show Confirmation"), this))
   , m_except_menu(new KActionMenu(
@@ -101,13 +103,17 @@ CloseExceptPluginView::CloseExceptPluginView(
         i18nc("@action:inmenu close docs like the following...", "Close Like")
       , this
       ))
-{
-    actionCollection()->addAction("file_close_except", m_except_menu);
-    actionCollection()->addAction("file_close_like", m_like_menu);
+  , m_mainWindow(mw)
+{ 
+    KXMLGUIClient::setComponentName (QStringLiteral("katecloseexceptplugin"), i18n("Close Except/Like Plugin"));
+    setXMLFile( QStringLiteral("ui.rc") );
+    
+    actionCollection()->addAction(QStringLiteral("file_close_except"), m_except_menu);
+    actionCollection()->addAction(QStringLiteral("file_close_like"), m_like_menu);
 
     // Subscribe self to document creation
     connect(
-        m_plugin->application()->editor()
+        KTextEditor::Editor::instance()
       , SIGNAL(documentCreated(KTextEditor::Editor*, KTextEditor::Document*))
       , this
       , SLOT(documentCreated(KTextEditor::Editor*, KTextEditor::Document*))
@@ -122,7 +128,7 @@ CloseExceptPluginView::CloseExceptPluginView(
       );
     //
     connect(
-        mainWindow()
+        m_mainWindow
       , SIGNAL(viewCreated(KTextEditor::View*))
       , this
       , SLOT(viewCreated(KTextEditor::View*))
@@ -130,12 +136,12 @@ CloseExceptPluginView::CloseExceptPluginView(
     // Fill menu w/ currently opened document masks/groups
     updateMenu();
 
-    mainWindow()->guiFactory()->addClient(this);
+    m_mainWindow->guiFactory()->addClient(this);
 }
 
 CloseExceptPluginView::~CloseExceptPluginView()
 {
-    mainWindow()->guiFactory()->removeClient(this);
+    m_mainWindow->guiFactory()->removeClient(this);
 }
 
 void CloseExceptPluginView::viewCreated(KTextEditor::View* view)
@@ -179,16 +185,33 @@ void CloseExceptPluginView::updateMenuSlotStub(KTextEditor::Document*)
 }
 
 void CloseExceptPluginView::appendActionsFrom(
-    const std::set<QString>& paths
+    const std::set<QUrl>& paths
   , actions_map_type& actions
   , KActionMenu* menu
   , QSignalMapper* mapper
   )
 {
-    Q_FOREACH(const QString& path, paths)
+    Q_FOREACH(const QUrl& path, paths)
     {
-        QString action = path.startsWith('*') ? path : path + '*';
-        actions[action] = QPointer<KAction>(new KAction(action, menu));
+        QString action = path.path() + QLatin1Char('*');
+        actions[action] = QPointer<QAction>(new QAction(action, menu));
+        menu->addAction(actions[action]);
+        connect(actions[action], SIGNAL(triggered()), mapper, SLOT(map()));
+        mapper->setMapping(actions[action], action);
+    }
+}
+
+void CloseExceptPluginView::appendActionsFrom(
+    const std::set<QString>& masks
+  , actions_map_type& actions
+  , KActionMenu* menu
+  , QSignalMapper* mapper
+  )
+{
+    Q_FOREACH(const QString& mask, masks)
+    {
+        QString action = mask.startsWith(QLatin1Char('*')) ? mask : mask + QLatin1Char('*');
+        actions[action] = QPointer<QAction>(new QAction(action, menu));
         menu->addAction(actions[action]);
         connect(actions[action], SIGNAL(triggered()), mapper, SLOT(map()));
         mapper->setMapping(actions[action], action);
@@ -196,7 +219,7 @@ void CloseExceptPluginView::appendActionsFrom(
 }
 
 QPointer<QSignalMapper> CloseExceptPluginView::updateMenu(
-    const std::set<QString>& paths
+    const std::set<QUrl>& paths
   , const std::set<QString>& masks
   , actions_map_type& actions
   , KActionMenu* menu
@@ -228,7 +251,7 @@ QPointer<QSignalMapper> CloseExceptPluginView::updateMenu(
 
 void CloseExceptPluginView::updateMenu()
 {
-    const QList<KTextEditor::Document*>& docs = m_plugin->application()->documentManager()->documents();
+    const QList<KTextEditor::Document*>& docs = KTextEditor::Editor::instance()->application()->documents();
     if (docs.size() < 2)
     {
         qDebug() << "No docs r (or the only) opened right now --> disable menu";
@@ -241,15 +264,16 @@ void CloseExceptPluginView::updateMenu()
     else
     {
         // Iterate over documents and form a set of candidates
-        typedef std::set<QString> paths_set_type;
+        typedef std::set<QUrl> paths_set_type;
+        typedef std::set<QString> paths_set_type_masks;
         paths_set_type doc_paths;
-        paths_set_type masks;
+        paths_set_type_masks masks;
         Q_FOREACH(KTextEditor::Document* document, docs)
         {
             const QString& ext = QFileInfo(document->url().path()).completeSuffix();
             if (!ext.isEmpty())
-                masks.insert("*." + ext);
-            doc_paths.insert(document->url().upUrl().path());
+                masks.insert(QStringLiteral("*.") + ext);
+            doc_paths.insert(KIO::upUrl(document->url()));
         }
         paths_set_type paths = doc_paths;
         qDebug() << "stage #1: Collected" << paths.size() << "paths and" << masks.size() << "masks";
@@ -257,18 +281,18 @@ void CloseExceptPluginView::updateMenu()
         for (paths_set_type::iterator it = doc_paths.begin(), last = doc_paths.end(); it != last; ++it)
         {
             for (
-                KUrl url = *it
-              ; url.hasPath() && url.path() != "/"
-              ; url = url.upUrl()
+                QUrl url = *it
+              ; (!url.path().isEmpty()) && url.path() != QStringLiteral("/")
+              ; url = KIO::upUrl(url)
               )
             {
                 paths_set_type::iterator not_it = it;
                 for (++not_it; not_it != last; ++not_it)
-                    if (!not_it->startsWith(url.path()))
+                    if (!not_it->path().startsWith(url.path()))
                         break;
                 if (not_it == last)
                 {
-                    paths.insert(url.path());
+                    paths.insert(url);
                     break;
                 }
             }
@@ -284,22 +308,23 @@ void CloseExceptPluginView::updateMenu()
 
 void CloseExceptPluginView::close(const QString& item, const bool close_if_match)
 {
+    QChar asterisk=QLatin1Char('*');
     assert(
         "Parameter seems invalid! Is smth has changed in the code?"
-      && !item.isEmpty() && (item[0] == '*' || item[item.size() - 1] == '*')
+      && !item.isEmpty() && (item[0] == asterisk || item[item.size() - 1] == asterisk)
       );
 
-    const bool is_path = item[0] != '*';
+    const bool is_path = item[0] != asterisk;
     const QString mask = is_path ? item.left(item.size() - 1) : item;
     qDebug() << "Going to close items [" << close_if_match << "/" << is_path << "]: " << mask;
 
     QList<KTextEditor::Document*> docs2close;
-    const QList<KTextEditor::Document*>& docs = m_plugin->application()->documentManager()->documents();
+    const QList<KTextEditor::Document*>& docs = KTextEditor::Editor::instance()->application()->documents();
     Q_FOREACH(KTextEditor::Document* document, docs)
     {
-        const QString& path = document->url().upUrl().path();
+        const QString& path = KIO::upUrl(document->url()).path();
         /// \note Take a dot in account, so \c *.c would not match for \c blah.kcfgc
-        const QString& ext = '.' + QFileInfo(document->url().fileName()).completeSuffix();
+        const QString& ext = QLatin1Char('.') + QFileInfo(document->url().fileName()).completeSuffix();
         const bool match = (!is_path && mask.endsWith(ext))
           || (is_path && path.startsWith(mask))
           ;
@@ -334,7 +359,7 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
         else
         {
             // Close 'em all!
-            m_plugin->application()->documentManager()->closeDocumentList(docs2close);
+            KTextEditor::Editor::instance()->application()->closeDocuments(docs2close);
             updateMenu();
             KPassivePopup::message(
                 i18nc("@title:window", "Done")
@@ -346,5 +371,7 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
 }
 //END CloseExceptPluginView
 }                                                           // namespace kate
+
+#include "close_except_plugin.moc"
 
 // kate: hl C++11/Qt4;

@@ -28,13 +28,15 @@
 // Project specific includes
 
 // Standard includes
-# include <KDialog>
+# include <QDialog>
 # include <KTextEditor/Document>
 # include <KToggleAction>
+# include <kwindowconfig.h>
 # include <QtCore/QList>
-# include <QtGui/QTreeWidget>
-# include <QtGui/QTreeWidgetItem>
-# include <QtGui/QCheckBox>
+# include <QTreeWidget>
+# include <QTreeWidgetItem>
+# include <QCheckBox>
+# include "ui_close_confirm_dialog.h"
 
 namespace kate {
 
@@ -44,7 +46,7 @@ namespace kate {
  * [More detailed description here]
  *
  */
-class CloseConfirmDialog : public KDialog
+class CloseConfirmDialog : public QDialog, public Ui::CloseConfirmDialog 
 {
     Q_OBJECT
 public:
@@ -57,8 +59,6 @@ private Q_SLOTS:
 
 private:
     QList<KTextEditor::Document*>& m_docs;
-    QTreeWidget* m_docs_tree;
-    QCheckBox* m_dont_ask_again;
 };
 
 }                                                           // namespace kate

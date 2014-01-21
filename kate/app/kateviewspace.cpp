@@ -58,37 +58,12 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
   stack->setSizePolicy (QSizePolicy (QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
   layout->addWidget(stack);
 
-  mStatusBar = new KateVSStatusBar(this);
-  layout->addWidget(mStatusBar);
-
   mIsActiveSpace = false;
 
-  setMinimumWidth (mStatusBar->minimumWidth());
   m_group.clear();
 
   // connect signal to hide/show statusbar
   connect (m_viewManager->mainWindow(), SIGNAL(statusBarToggled()), this, SLOT(statusBarToggled()));
-
-  connect (m_viewManager, SIGNAL(cursorPositionItemVisibilityChanged(bool)),
-           mStatusBar, SLOT(cursorPositionItemVisibilityChanged(bool)));
-  connect (m_viewManager, SIGNAL(charactersCountItemVisibilityChanged(bool)),
-           mStatusBar, SLOT(charactersCountItemVisibilityChanged(bool)));
-  connect (m_viewManager, SIGNAL(insertModeItemVisibilityChanged(bool)),
-           mStatusBar, SLOT(insertModeItemVisibilityChanged(bool)));
-  connect (m_viewManager, SIGNAL(selectModeItemVisibilityChanged(bool)),
-           mStatusBar, SLOT(selectModeItemVisibilityChanged(bool)));
-  connect (m_viewManager, SIGNAL(encodingItemVisibilityChanged(bool)),
-           mStatusBar, SLOT(encodingItemVisibilityChanged(bool)));
-  connect (m_viewManager, SIGNAL(documentNameItemVisibilityChanged(bool)),
-           mStatusBar, SLOT(documentNameItemVisibilityChanged(bool)));
-
-  // init the visibility of the statusbar items
-  mStatusBar->cursorPositionItemVisibilityChanged(m_viewManager->isCursorPositionVisible());
-  mStatusBar->charactersCountItemVisibilityChanged(m_viewManager->isCharactersCountVisible());
-  mStatusBar->insertModeItemVisibilityChanged(m_viewManager->isInsertModeVisible());
-  mStatusBar->selectModeItemVisibilityChanged(m_viewManager->isSelectModeVisible());
-  mStatusBar->encodingItemVisibilityChanged(m_viewManager->isEncodingVisible());
-  mStatusBar->documentNameItemVisibilityChanged(m_viewManager->isDocumentNameVisible());
 
   // init the statusbar...
   statusBarToggled ();
@@ -100,10 +75,11 @@ KateViewSpace::~KateViewSpace()
 void KateViewSpace::statusBarToggled ()
 {
   // show or hide the bar?
-  if (m_viewManager->mainWindow()->showStatusBar())
+/*  FIXME KF5 if (m_viewManager->mainWindow()->showStatusBar())
     mStatusBar->show ();
   else
     mStatusBar->hide ();
+  */
 }
 
 KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
@@ -135,17 +111,6 @@ KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
   stack->addWidget(v);
   mViewList.append(v);
   showView( v );
-  
-  // signals for the statusbar
-  connect(v, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), mStatusBar, SLOT(cursorPositionChanged(KTextEditor::View*)));
-  connect(v, SIGNAL(viewModeChanged(KTextEditor::View*)), mStatusBar, SLOT(viewModeChanged(KTextEditor::View*)));
-  connect(v, SIGNAL(selectionChanged(KTextEditor::View*)), mStatusBar, SLOT(selectionChanged(KTextEditor::View*)));
-  connect(v, SIGNAL(informationMessage(KTextEditor::View*,QString)), mStatusBar, SLOT(informationMessage(KTextEditor::View*,QString)));
-  connect(v->document(), SIGNAL(modifiedChanged(KTextEditor::Document*)), mStatusBar, SLOT(modifiedChanged()));
-  connect(v->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)), mStatusBar, SLOT(modifiedChanged()) );
-  connect(v->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), mStatusBar, SLOT(documentNameChanged()));
-  connect(v->document(), SIGNAL(configChanged()), mStatusBar, SLOT(documentConfigChanged()));
-
   return v;
 }
 
@@ -180,8 +145,6 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
       stack->setCurrentWidget( kv );
       kv->show();
 
-      mStatusBar->updateStatus ();
-
       return true;
     }
   }
@@ -206,7 +169,7 @@ void KateViewSpace::setActive( bool active, bool )
   mIsActiveSpace = active;
 
   // change the statusbar palette according to the activation state
-  mStatusBar->setEnabled(active);
+  // FIXME KF5 mStatusBar->setEnabled(active);
 }
 
 void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QString& viewConfGrp)
@@ -271,237 +234,3 @@ void KateViewSpace::restoreConfig ( KateViewManager *viewMan, const KConfigBase*
   m_group = groupname; // used for restroing view configs later
 }
 //END KateViewSpace
-
-//BEGIN KateVSStatusBar
-KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
-    : QStatusBar( parent),
-    m_viewSpace( parent )
-{
-  QString lineColText = i18n(" Line: %1 Col: %2 ", QLocale().toString(4444), QLocale().toString(44));
-
-  m_lineColLabel = new QLabel( this );
-  m_lineColLabel->setMinimumWidth( m_lineColLabel->fontMetrics().width( lineColText ) );
-  addWidget( m_lineColLabel, 0 );
-  m_lineColLabel->installEventFilter( this );
-
-  QString charsText = i18n(" Characters: %1 ", QLocale().toString(4444));
-
-  m_charsLabel = new QLabel( this );
-  m_charsLabel->setMinimumWidth( m_charsLabel->fontMetrics().width( charsText ) );
-  addWidget( m_charsLabel, 0 );
-  m_charsLabel->installEventFilter( this );
-
-  m_modifiedLabel = new QLabel( this );
-  m_modifiedLabel->setFixedSize( 16, 16 );
-  addWidget( m_modifiedLabel, 0 );
-  m_modifiedLabel->setAlignment( Qt::AlignCenter );
-  m_modifiedLabel->installEventFilter( this );
-
-  m_selectModeLabel = new QLabel( i18n(" LINE "), this );
-  addWidget( m_selectModeLabel, 0 );
-  m_selectModeLabel->setAlignment( Qt::AlignCenter );
-  m_selectModeLabel->installEventFilter( this );
-
-  m_insertModeLabel = new QLabel( i18n(" INS "), this );
-  addWidget( m_insertModeLabel, 0 );
-  m_insertModeLabel->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
-  m_insertModeLabel->installEventFilter( this );
-
-  m_fileNameLabel = new KSqueezedTextLabel( this );
-  addPermanentWidget( m_fileNameLabel, 1 );
-  m_fileNameLabel->setTextFormat(Qt::PlainText);
-  m_fileNameLabel->setMinimumSize( 0, 0 );
-  m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
-  m_fileNameLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
-  m_fileNameLabel->installEventFilter( this );
-
-  m_encodingLabel = new QLabel( QString(), this );
-  addPermanentWidget( m_encodingLabel, 0 );
-  m_encodingLabel->setAlignment( Qt::AlignCenter );
-  m_encodingLabel->installEventFilter( this );
-
-#ifdef Q_WS_MAC
-  setSizeGripEnabled( false );
-  addPermanentWidget( new QSizeGrip( this ) );
-#endif
-
-  installEventFilter( this );
-  m_modPm = QIcon::fromTheme(QStringLiteral("document-save")).pixmap(16);
-  m_modDiscPm = QIcon::fromTheme(QStringLiteral("dialog-warning")).pixmap(16);
-  QIcon icon = KIconUtils::addOverlay(QIcon::fromTheme(QStringLiteral("document-save")),
-                                      QIcon::fromTheme(QStringLiteral("emblem-important")),
-                                      Qt::TopLeftCorner);
-  m_modmodPm = icon.pixmap(16);
-}
-
-KateVSStatusBar::~KateVSStatusBar ()
-{}
-
-void KateVSStatusBar::showMenu()
-{
-  KXmlGuiWindow* mainWindow = static_cast<KXmlGuiWindow*>( window() );
-  QMenu* menu = static_cast<QMenu*>( mainWindow->factory()->container(QStringLiteral("viewspace_popup"), mainWindow ) );
-
-  if (menu)
-    menu->exec(QCursor::pos());
-}
-
-bool KateVSStatusBar::eventFilter(QObject*, QEvent *e)
-{
-  if (e->type() == QEvent::MouseButtonPress)
-  {
-    if ( m_viewSpace->currentView() )
-      m_viewSpace->currentView()->setFocus();
-
-    if ( ((QMouseEvent*)e)->button() == Qt::RightButton)
-      showMenu();
-
-    return true;
-  }
-
-  return false;
-}
-
-void KateVSStatusBar::updateStatus ()
-{
-  if (!m_viewSpace->currentView())
-    return;
-
-  KTextEditor::View* view = m_viewSpace->currentView();
-  viewModeChanged (view);
-  cursorPositionChanged (view);
-  selectionChanged (view);
-  modifiedChanged ();
-  documentNameChanged ();
-  documentConfigChanged ();
-}
-
-void KateVSStatusBar::viewModeChanged ( KTextEditor::View *view )
-{
-  if (view != m_viewSpace->currentView())
-    return;
-
-  m_insertModeLabel->setText( QString::fromLatin1(" %1 ").arg (view->viewMode()) );
-}
-
-void KateVSStatusBar::cursorPositionChanged ( KTextEditor::View *view )
-{
-  if (view != m_viewSpace->currentView())
-    return;
-
-  KTextEditor::Cursor position (view->cursorPositionVirtual());
-
-  m_lineColLabel->setText(
-      i18n(
-          " Line: %1 of %2 Col: %3 "
-        , QLocale().toString(position.line() + 1)
-        , view->document()->lines()
-        , QLocale().toString(position.column() + 1)
-        )
-    );
-
-  if (!m_charsLabel->isHidden())
-  {
-    m_charsLabel->setText(
-      i18n(" Characters: %1 ", QLocale().toString(view->document()->totalCharacters())));
-  }
-}
-
-void KateVSStatusBar::selectionChanged (KTextEditor::View *view)
-{
-  if (view != m_viewSpace->currentView())
-    return;
-
-  m_selectModeLabel->setText( view->blockSelection() ? i18n(" BLOCK ") : i18n(" LINE ") );
-}
-
-void KateVSStatusBar::informationMessage (KTextEditor::View *view, const QString &message)
-{
-  if (view != m_viewSpace->currentView())
-    return;
-
-  m_fileNameLabel->setText( message );
-
-  // timer to reset this after 4 seconds
-  QTimer::singleShot(4000, this, SLOT(documentNameChanged()));
-}
-
-void KateVSStatusBar::modifiedChanged()
-{
-  KTextEditor::View *v = m_viewSpace->currentView();
-
-  if ( v )
-  {
-    bool mod = v->document()->isModified();
-
-    const KateDocumentInfo *info
-    = KateDocManager::self()->documentInfo ( v->document() );
-
-    bool modOnHD = info && info->modifiedOnDisc;
-
-    m_modifiedLabel->setPixmap(
-      mod ?
-      info && modOnHD ?
-      m_modmodPm :
-  m_modPm :
-      info && modOnHD ?
-      m_modDiscPm :
-      QPixmap()
-    );
-  }
-}
-
-void KateVSStatusBar::documentNameChanged ()
-{
-  KTextEditor::View *v = m_viewSpace->currentView();
-
-  if ( v )
-    m_fileNameLabel->setText( KStringHandler::lsqueeze(v->document()->documentName (), 64) );
-}
-
-void KateVSStatusBar::documentConfigChanged ()
-{
-  KTextEditor::View *v = m_viewSpace->currentView();
-
-  if ( v )
-    m_encodingLabel->setText( QString::fromLatin1(" %1 ").arg (v->document()->encoding()) );
-}
-
-void KateVSStatusBar::cursorPositionItemVisibilityChanged(bool visible)
-{
-  m_lineColLabel->setVisible(visible);
-}
-
-void KateVSStatusBar::charactersCountItemVisibilityChanged(bool visible)
-{
-  m_charsLabel->setVisible(visible);
-
-  if (visible)
-  {
-    updateStatus();
-  }
-}
-
-void KateVSStatusBar::insertModeItemVisibilityChanged(bool visible)
-{
-  m_insertModeLabel->setVisible(visible);
-}
-
-void KateVSStatusBar::selectModeItemVisibilityChanged(bool visible)
-{
-  m_selectModeLabel->setVisible(visible);
-}
-
-void KateVSStatusBar::encodingItemVisibilityChanged(bool visible)
-{
-  m_encodingLabel->setVisible(visible);
-}
-
-void KateVSStatusBar::documentNameItemVisibilityChanged(bool visible)
-{
-  m_fileNameLabel->setVisible(visible);
-}
-
-//END KateVSStatusBar
-
-// kate: space-indent on; indent-width 2; replace-tabs on;

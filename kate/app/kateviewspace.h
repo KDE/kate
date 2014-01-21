@@ -26,67 +26,12 @@
 #include <ktexteditor/modificationinterface.h>
 
 #include <QList>
-#include <QPixmap>
 #include <QFrame>
-#include <QStatusBar>
 
 class KConfigBase;
-class KSqueezedTextLabel;
 class KateViewManager;
 class KateViewSpace;
 class QStackedWidget;
-class QLabel;
-
-class KateVSStatusBar : public QStatusBar
-{
-    Q_OBJECT
-
-  public:
-    KateVSStatusBar ( KateViewSpace *parent = 0L);
-    virtual ~KateVSStatusBar ();
-
-    /**
-     * stuff to update the statusbar on view changes
-     */
-  public Q_SLOTS:
-    void updateStatus ();
-
-    void viewModeChanged ( KTextEditor::View *view );
-
-    void cursorPositionChanged ( KTextEditor::View *view );
-
-    void selectionChanged (KTextEditor::View *view);
-
-    void modifiedChanged();
-
-    void documentNameChanged ();
-
-    void documentConfigChanged ();
-
-    void informationMessage (KTextEditor::View *view, const QString &message);
-
-    void cursorPositionItemVisibilityChanged(bool visible);
-    void charactersCountItemVisibilityChanged(bool visible);
-    void insertModeItemVisibilityChanged(bool visible);
-    void selectModeItemVisibilityChanged(bool visible);
-    void encodingItemVisibilityChanged(bool visible);
-    void documentNameItemVisibilityChanged(bool visible);
-
-  protected:
-    virtual bool eventFilter (QObject*, QEvent *);
-    virtual void showMenu ();
-
-  private:
-    QLabel* m_lineColLabel;
-    QLabel* m_charsLabel;
-    QLabel* m_modifiedLabel;
-    QLabel* m_insertModeLabel;
-    QLabel* m_selectModeLabel;
-    QLabel* m_encodingLabel;
-    KSqueezedTextLabel* m_fileNameLabel;
-    QPixmap m_modPm, m_modDiscPm, m_modmodPm;
-    class KateViewSpace *m_viewSpace;
-};
 
 class KateViewSpace : public QFrame
 {
@@ -128,7 +73,6 @@ class KateViewSpace : public QFrame
   private:
     QStackedWidget* stack;
     bool mIsActiveSpace;
-    KateVSStatusBar* mStatusBar;
     /// This list is necessary to only save the order of the accessed views.
     /// The order is important. The least recently viewed view is always the
     /// last entry in the list, i.e. mViewList.last()

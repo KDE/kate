@@ -1,7 +1,7 @@
 <!DOCTYPE kpartgui>
 <gui name="katebuild-plugin" library="katebuildplugin" version="8">
     <MenuBar>
-        <Menu name="Build"><text>&amp;Build</text>
+        <Menu name="Build Menubar"><text>&amp;Build</text>
             <Action name="run_make"/>
             <Action name="select_target" />
             <Action name="build_previous_target" />

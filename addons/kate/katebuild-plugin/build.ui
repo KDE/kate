@@ -18,7 +18,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="KTabWidget" name="ktabwidget">
+    <widget class="QTabWidget" name="u_tabWidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -152,18 +152,10 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>errTreeWidget</tabstop>
   <tabstop>plainTextEdit</tabstop>
-  <tabstop>ktabwidget</tabstop>
+  <tabstop>u_tabWidget</tabstop>
  </tabstops>
  <resources/>
  <connections/>

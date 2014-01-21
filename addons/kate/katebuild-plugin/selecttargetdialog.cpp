@@ -26,9 +26,11 @@
 #include <QLineEdit>
 #include <QListWidget>
 
+#include <KLocalizedString>
+
 
 SelectTargetDialog::SelectTargetDialog(QList<KateBuildView::TargetSet>& targetSets, QWidget* parent)
-:KDialog(parent)
+:QDialog(parent)
 ,m_currentTargetSet(0)
 ,m_targetName(0)
 ,m_targetsList(0)
@@ -36,7 +38,7 @@ SelectTargetDialog::SelectTargetDialog(QList<KateBuildView::TargetSet>& targetSe
 ,m_targetSets(targetSets)
 ,m_targets(0)
 {
-    setButtons( KDialog::Ok | KDialog::Cancel);
+    //KF5 FIXME setButtons( KDialog::Ok | KDialog::Cancel);
 
     QWidget* container = new QWidget();
 
@@ -72,7 +74,9 @@ SelectTargetDialog::SelectTargetDialog(QList<KateBuildView::TargetSet>& targetSe
 
     container->setLayout(mainLayout);
 
-    this->setMainWidget(container);
+    QVBoxLayout *dialogLayout = new QVBoxLayout;
+    setLayout(dialogLayout);
+    dialogLayout->addWidget(container);
 
     connect(m_currentTargetSet, SIGNAL(currentIndexChanged(int)), this, SLOT(slotTargetSetSelected(int)));
     connect(m_targetName, SIGNAL(textEdited(const QString&)), this, SLOT(slotFilterTargets(const QString&)));
@@ -97,7 +101,7 @@ void SelectTargetDialog::setTargetSet(const QString& name)
     m_targets = NULL;
     m_allTargets.clear();
     m_targetsList->clear();
-    m_command->setText("");
+    m_command->setText(QString());
     m_targetName->clear();
 
     for (int i=0; i<m_targetSets.size(); i++) {
@@ -192,7 +196,7 @@ bool SelectTargetDialog::eventFilter(QObject *obj, QEvent *event)
             }
         }
     }
-    return KDialog::eventFilter(obj, event);
+    return QDialog::eventFilter(obj, event);
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

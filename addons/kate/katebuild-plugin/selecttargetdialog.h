@@ -20,7 +20,7 @@
 //  Boston, MA 02110-1301, USA.
 
 
-#include <kdialog.h>
+#include <QDialog>
 
 #include "plugin_katebuild.h"
 
@@ -35,7 +35,7 @@ class QListWidget;
 class QListWidgetItem;
 
 
-class SelectTargetDialog : public KDialog
+class SelectTargetDialog : public QDialog
 {
     Q_OBJECT
     public:

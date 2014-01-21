@@ -2,17 +2,14 @@
 #ifndef TARGETS_H
 #define TARGETS_H
 
-#include <QtGui/QComboBox>
-#include <QtGui/QFrame>
-#include <QtGui/QGridLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QToolButton>
-#include <QtGui/QTableWidget>
-#include <QtGui/QWidget>
-#include "klineedit.h"
-#include "kpushbutton.h"
-#include <kcombobox.h>
+#include <QComboBox>
+#include <QFrame>
+#include <QGridLayout>
+#include <QLabel>
+#include <QToolButton>
+#include <QTableWidget>
+#include <QWidget>
+#include <QLineEdit>
 
 
 #define COL_DEFAULT_TARGET 0
@@ -35,7 +32,7 @@ public:
     QToolButton *deleteTarget;
 
     QLabel      *dirLabel;
-    KLineEdit   *buildDir;
+    QLineEdit   *buildDir;
     QToolButton *browse;
     QTableWidget *targetsList;
 

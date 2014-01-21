@@ -1,7 +1,7 @@
 //
 // Description: Widget for configuring build targets
 //
-// Copyright (c) 2011 Kåre Särs <kare.sars@iki.fi>
+// Copyright (c) 2011-2014 Kåre Särs <kare.sars@iki.fi>
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Library General Public
@@ -18,9 +18,8 @@
 //  Boston, MA 02110-1301, USA.
 
 #include "targets.h"
-#include "targets.moc"
 #include <klocalizedstring.h>
-#include <QApplication>
+//#include <QApplication>
 #include <QHeaderView>
 
 TargetsUi::TargetsUi(QWidget *parent):
@@ -29,7 +28,7 @@ QWidget(parent)
 
     targetLabel = new QLabel(i18n("Target set"), this);
 
-    targetCombo = new KComboBox(this);
+    targetCombo = new QComboBox(this);
     targetCombo->setEditable(true);
     targetCombo->setInsertPolicy(QComboBox::InsertAtCurrent);
     connect(targetCombo, SIGNAL(editTextChanged(QString)), this, SLOT(editTarget(QString)));
@@ -37,22 +36,22 @@ QWidget(parent)
 
     newTarget = new QToolButton(this);
     newTarget->setToolTip(i18n("Create new set of targets"));
-    newTarget->setIcon(KIcon("document-new"));
+    newTarget->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
 
     copyTarget = new QToolButton(this);
     copyTarget->setToolTip(i18n("Copy set of targets"));
-    copyTarget->setIcon(KIcon("edit-copy"));
+    copyTarget->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
 
     deleteTarget = new QToolButton(this);
     deleteTarget->setToolTip(i18n("Delete current set of targets"));
-    deleteTarget->setIcon(KIcon("edit-delete"));
+    deleteTarget->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
 
     dirLabel = new QLabel(i18n("Working directory"), this);
-    buildDir = new KLineEdit(this);
+    buildDir = new QLineEdit(this);
     buildDir->setToolTip(i18n("Leave empty to use the directory of the current document. "));
-    buildDir->setClearButtonShown(true);
+    // KF5 FIXME buildDir->setClearButtonShown(true);
     browse = new QToolButton(this);
-    browse->setIcon(KIcon("inode-directory"));
+    browse->setIcon(QIcon::fromTheme(QStringLiteral("inode-directory")));
 
 //    quickCmd->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
 
@@ -65,20 +64,20 @@ QWidget(parent)
     targetsList->setSelectionMode(QAbstractItemView::SingleSelection);
     targetsList->setSelectionBehavior(QAbstractItemView::SelectItems); //SelectRows);
     QStringList headerLabels;
-    headerLabels << QString("Def") << QString("Clean") << QString("Name") << QString("Command");
+    headerLabels << QStringLiteral("Def") << QStringLiteral("Clean") << QStringLiteral("Name") << QStringLiteral("Command");
     targetsList->setHorizontalHeaderLabels(headerLabels);
     targetsList->verticalHeader()->setVisible(false);
 
     addButton = new QToolButton(this);
-    addButton->setIcon(KIcon("list-add"));
+    addButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
     addButton->setToolTip(i18n("Add new target"));
 
     deleteButton = new QToolButton(this);
-    deleteButton->setIcon(KIcon("list-remove"));
+    deleteButton->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
     deleteButton->setToolTip(i18n("Delete selected target"));
 
     buildButton = new QToolButton(this);
-    buildButton->setIcon(KIcon("dialog-ok"));
+    buildButton->setIcon(QIcon::fromTheme(QStringLiteral("dialog-ok")));
     buildButton->setToolTip(i18n("Build selected target"));
     
     // calculate the approximate height to exceed before going to "Side Layout"
@@ -171,3 +170,4 @@ void TargetsUi::editTarget(const QString &text)
     targetCombo->lineEdit()->setCursorPosition(curPos);
 }
 
+#include "targets.moc"

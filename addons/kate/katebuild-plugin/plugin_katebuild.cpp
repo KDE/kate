@@ -25,38 +25,32 @@
 ** MA 02110-1301, USA.
 */
 
-#include "plugin_katebuild.moc"
+#include "plugin_katebuild.h"
 
 #include <cassert>
 
-#include <qfile.h>
-#include <qinputdialog.h>
-#include <qregexp.h>
-#include <qstring.h>
-#include <qtextstream.h>
-#include <qpalette.h>
-#include <qlabel.h>
-#include <QApplication>
+#include <QRegExp>
+#include <QString>
+#include <QScrollBar>
 #include <QCompleter>
 #include <QDirModel>
-#include <QScrollBar>
 #include <QKeyEvent>
 #include <QFileInfo>
 #include <QDir>
-
+#include <QFileDialog>
 
 #include <QAction>
-#include <kactioncollection.h>
-#include <kcursor.h>
-#include <kcomponentdata.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kstandarddirs.h>
-#include <kpassivepopup.h>
-#include <klineedit.h>
-#include <kconfig.h>
-#include <kfiledialog.h>
 
+#include <KTextEditor/Application>
+#include <KXMLGUIFactory>
+#include <KActionCollection>
+
+#include <QAction>
+#include <kmessagebox.h>
+
+#include <knotification.h>
+
+#include <klocalizedstring.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
@@ -64,92 +58,89 @@
 
 #include "selecttargetdialog.h"
 
-K_PLUGIN_FACTORY(KateBuildPluginFactory, registerPlugin<KateBuildPlugin>();)
-K_EXPORT_PLUGIN(KateBuildPluginFactory(KAboutData("katebuild",
-                                                  "katebuild-plugin",
-                                                  ki18n("Build Plugin"),
-                                                  "0.1",
-                                                  ki18n( "Build Plugin"))))
+K_PLUGIN_FACTORY_WITH_JSON (KateBuildPluginFactory, "katebuildplugin.json", registerPlugin<KateBuildPlugin>();)
 
-static const QString DefConfigCmd = "cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../";
-static const QString DefConfClean = "";
-static const QString DefTargetName = "all";
-static const QString DefBuildCmd = "make";
-static const QString DefCleanCmd = "make clean";
+static const QString DefConfigCmd = QStringLiteral("cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../");
+static const QString DefConfClean;
+static const QString DefTargetName = QStringLiteral("all");
+static const QString DefBuildCmd = QStringLiteral("make");
+static const QString DefCleanCmd = QStringLiteral("make clean");
 
 
 /******************************************************************/
 KateBuildPlugin::KateBuildPlugin(QObject *parent, const VariantList&):
-Kate::Plugin ((Kate::Application*)parent, "kate-build-plugin")
+KTextEditor::Plugin(parent)
 {
-    KGlobal::locale()->insertCatalog("katebuild-plugin");
+    // KF5 FIXME KGlobal::locale()->insertCatalog("katebuild-plugin");
 }
 
 /******************************************************************/
-Kate::PluginView *KateBuildPlugin::createView (Kate::MainWindow *mainWindow)
+QObject *KateBuildPlugin::createView (KTextEditor::MainWindow *mainWindow)
 {
-    return new KateBuildView(mainWindow);
+    return new KateBuildView(this, mainWindow);
 }
 
 /******************************************************************/
-KateBuildView::KateBuildView(Kate::MainWindow *mw)
-    : Kate::PluginView (mw)
-    , Kate::XMLGUIClient(KateBuildPluginFactory::componentData())
-     , m_toolView (mw->createToolView ("kate_private_plugin_katebuildplugin",
-                Kate::MainWindow::Bottom,
-                SmallIcon("application-x-ms-dos-executable"),
-                i18n("Build Output"))
-               )
+KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
+    : QObject (mw)
     , m_proc(0)
     // NOTE this will not allow spaces in file names.
-    , m_filenameDetector("([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+:[0-9]+"),
-    m_newDirDetector("make\\[.+\\]: .+ `.*'")
+    , m_filenameDetector(QStringLiteral("([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+:[0-9]+")),
+    m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ `.*'"))
 {
     m_win=mw;
 
-    KAction *a = actionCollection()->addAction("run_make");
+    KXMLGUIClient::setComponentName (QLatin1String("katebuild"), i18n ("Kate Build Plugin"));
+    setXMLFile(QLatin1String("ui.rc"));
+
+    m_toolView  = mw->createToolView(plugin, QStringLiteral("kate_plugin_katebuildplugin"),
+                                      KTextEditor::MainWindow::Bottom,
+                                      QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
+                                      i18n("Build Output"));
+
+    QAction *a = actionCollection()->addAction(QStringLiteral("run_make"));
     a->setText(i18n("Build default target"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotMake()));
 
-    a = actionCollection()->addAction("make_clean");
+    a = actionCollection()->addAction(QStringLiteral("make_clean"));
     a->setText(i18n("Clean"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotMakeClean()));
 
-    a = actionCollection()->addAction("stop");
+    a = actionCollection()->addAction(QStringLiteral("stop"));
     a->setText(i18n("Stop"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotStop()));
 
-    a = actionCollection()->addAction("select_target");
+    a = actionCollection()->addAction(QStringLiteral("select_target"));
     a->setText(i18n("Build Target..."));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotSelectTarget()));
 
-    a = actionCollection()->addAction("build_previous_target");
+    a = actionCollection()->addAction(QStringLiteral("build_previous_target"));
     a->setText(i18n("Build previous target again"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotBuildPreviousTarget()));
 
-    a = actionCollection()->addAction("goto_next");
+    a = actionCollection()->addAction(QStringLiteral("goto_next"));
     a->setText(i18n("Next Error"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Right));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotNext()));
 
-    a = actionCollection()->addAction("goto_prev");
+    a = actionCollection()->addAction(QStringLiteral("goto_prev"));
     a->setText(i18n("Previous Error"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Left));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotPrev()));
 
-    m_targetSelectAction = actionCollection()->add<KSelectAction>( "targets" );
-    m_targetSelectAction->setText( i18n( "Sets of Targets" ) );
-    connect(m_targetSelectAction, SIGNAL(triggered(int)), this, SLOT(targetSelected(int)));
+    // KF5 FIXME m_targetSelectAction = actionCollection()->add<KSelectAction>( "targets" );
+    // m_targetSelectAction->setText( i18n( "Sets of Targets" ) );
+    // connect(m_targetSelectAction, SIGNAL(triggered(int)), this, SLOT(targetSelected(int)));
 
-    a = actionCollection()->addAction("target_next");
+    a = actionCollection()->addAction(QStringLiteral("target_next"));
     a->setText(i18n("Next Set of Targets"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(targetNext()));
 
     QWidget *buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(buildWidget);
-    m_targetsUi = new TargetsUi(m_buildUi.ktabwidget);
-    m_buildUi.ktabwidget->addTab(m_targetsUi, i18nc("Tab label", "Target Settings"));
-    m_buildUi.ktabwidget->setCurrentWidget(m_targetsUi);
+    m_targetsUi = new TargetsUi(m_buildUi.u_tabWidget);
+    m_buildUi.u_tabWidget->addTab(m_targetsUi, i18nc("Tab label", "Target Settings"));
+    m_buildUi.u_tabWidget->setCurrentWidget(m_targetsUi);
 
 
     connect(m_buildUi.errTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
@@ -171,11 +162,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 
     connect(m_targetsUi->targetsList->horizontalHeader(), SIGNAL(sectionDoubleClicked(int)), this, SLOT(slotResizeColumn(int)));
 
-    // set the default values of the build settings. (I think loading a plugin should also trigger
-    // a read of the session config data, but it does not)
-   //m_targetsUi->buildCmds->setText("make");
-   //m_targetsUi->cleanCmds->setText("make clean");
-
     QCompleter* dirCompleter = new QCompleter(this);
     QStringList filter;
     dirCompleter->setModel(new QDirModel(filter, QDir::AllDirs|QDir::NoDotAndDotDot, QDir::Name, this));
@@ -184,7 +170,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     m_targetsUi->deleteButton->setEnabled(false);
     m_targetsUi->buildButton->setEnabled(false);
 
-    m_proc = new KProcess();
+    m_proc = new QProcess();
 
     connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcExited(int,QProcess::ExitStatus)));
     connect(m_proc, SIGNAL(readyReadStandardError()),this, SLOT(slotReadReadyStdErr()));
@@ -196,22 +182,22 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(m_targetsUi->copyTarget, SIGNAL(clicked()), this, SLOT(targetCopy()));
     connect(m_targetsUi->deleteTarget, SIGNAL(clicked()), this, SLOT(targetDelete()));
 
-    connect(mainWindow(), SIGNAL(unhandledShortcutOverride(QEvent*)),
+    connect(m_win, SIGNAL(unhandledShortcutOverride(QEvent*)),
             this, SLOT(handleEsc(QEvent*)));
 
     m_toolView->installEventFilter(this);
 
-    mainWindow()->guiFactory()->addClient(this);
+    m_win->guiFactory()->addClient(this);
 
     // watch for project plugin view creation/deletion
-    connect(mainWindow(), SIGNAL(pluginViewCreated (const QString &, Kate::PluginView *))
-        , this, SLOT(slotPluginViewCreated (const QString &, Kate::PluginView *)));
+    connect(m_win, SIGNAL(pluginViewCreated (const QString &, QObject *))
+        , this, SLOT(slotPluginViewCreated (const QString &, QObject *)));
 
-    connect(mainWindow(), SIGNAL(pluginViewDeleted (const QString &, Kate::PluginView *))
-        , this, SLOT(slotPluginViewDeleted (const QString &, Kate::PluginView *)));
+    connect(m_win, SIGNAL(pluginViewDeleted (const QString &, QObject *))
+        , this, SLOT(slotPluginViewDeleted (const QString &, QObject *)));
 
     // update once project plugin state manually
-    m_projectPluginView = mainWindow()->pluginView ("kateprojectplugin");
+    m_projectPluginView = m_win->pluginView (QStringLiteral("kateprojectplugin"));
     slotProjectMapChanged ();
     slotSelectionChanged();
 }
@@ -220,7 +206,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 /******************************************************************/
 KateBuildView::~KateBuildView()
 {
-    mainWindow()->guiFactory()->removeClient( this );
+    m_win->guiFactory()->removeClient( this );
     delete m_proc;
     delete m_toolView;
 }
@@ -232,12 +218,12 @@ QWidget *KateBuildView::toolView() const
 }
 
 /******************************************************************/
-void KateBuildView::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
+void KateBuildView::readSessionConfig(const KConfigGroup& cg)
 {
+    qDebug() << "";
     m_targetsUi->targetCombo->blockSignals(true);
 
-    KConfigGroup cg(config, groupPrefix + ":build-plugin");
-    int numTargets = cg.readEntry("NumTargets", 0);
+    int numTargets = cg.readEntry(QStringLiteral("NumTargets"), 0);
     m_targetsUi->targetCombo->clear();
     m_targetList.clear();
     m_targetIndex = 0;
@@ -246,20 +232,20 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
         // either the config is empty or uses the older format
         m_targetList.append(TargetSet());
 
-        m_targetList[0].name = "Default";
-        m_targetList[0].defaultTarget = QString("build");
-        m_targetList[0].cleanTarget = QString("clean");
-        m_targetList[0].defaultDir = cg.readEntry(QString("Make Path"), QString());
+        m_targetList[0].name = QStringLiteral("Default");
+        m_targetList[0].defaultTarget = QStringLiteral("build");
+        m_targetList[0].cleanTarget = QStringLiteral("clean");
+        m_targetList[0].defaultDir = cg.readEntry(QStringLiteral("Make Path"), QString());
 
         m_targetList[0].prevTarget.clear();
 
-        m_targetList[0].targets["config"] = DefConfigCmd;
-        m_targetList[0].targets["build"] = cg.readEntry(QString("Make Command"), DefBuildCmd);
-        m_targetList[0].targets["clean"] = cg.readEntry(QString("Make Command"), DefCleanCmd);
+        m_targetList[0].targets[QStringLiteral("config")] = DefConfigCmd;
+        m_targetList[0].targets[QStringLiteral("build")] = cg.readEntry(QStringLiteral("Make Command"), DefBuildCmd);
+        m_targetList[0].targets[QStringLiteral("clean")] = cg.readEntry(QStringLiteral("Make Command"), DefCleanCmd);
 
-        QString quickCmd = cg.readEntry(QString("Quick Compile Command"));
+        QString quickCmd = cg.readEntry(QStringLiteral("Quick Compile Command"));
         if (!quickCmd.isEmpty()) {
-            m_targetList[0].targets["quick"] = quickCmd;
+            m_targetList[0].targets[QStringLiteral("quick")] = quickCmd;
         }
 
         tmpIndex = 0;
@@ -268,25 +254,25 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
 
         for (int i=0; i<numTargets; i++) {
             m_targetList.append(TargetSet());
-            m_targetList[i].name = cg.readEntry(QString("%1 Target").arg(i), QString("Target %1").arg(i+1));
+            m_targetList[i].name = cg.readEntry(QStringLiteral("%1 Target").arg(i), QStringLiteral("Target %1").arg(i+1));
 
-            QStringList targetNames = cg.readEntry(QString("%1 Target Names").arg(i), QStringList());
-            QString defaultTarget = cg.readEntry(QString("%1 Target Default").arg(i), QString());
-            QString cleanTarget = cg.readEntry(QString("%1 Target Clean").arg(i), QString());
-            QString defaultDir = cg.readEntry(QString("%1 BuildPath").arg(i), QString());
+            QStringList targetNames = cg.readEntry(QStringLiteral("%1 Target Names").arg(i), QStringList());
+            QString defaultTarget = cg.readEntry(QStringLiteral("%1 Target Default").arg(i), QString());
+            QString cleanTarget = cg.readEntry(QStringLiteral("%1 Target Clean").arg(i), QString());
+            QString defaultDir = cg.readEntry(QStringLiteral("%1 BuildPath").arg(i), QString());
 
             if (targetNames.isEmpty()) {
-                m_targetList[i].defaultTarget = QString("build");
-                m_targetList[i].cleanTarget = QString("clean");
+                m_targetList[i].defaultTarget = QStringLiteral("build");
+                m_targetList[i].cleanTarget = QStringLiteral("clean");
                 m_targetList[i].prevTarget.clear();
                 m_targetList[i].defaultDir = defaultDir;
 
-                m_targetList[i].targets["build"] = cg.readEntry(QString("%1 BuildCmd").arg(i), DefBuildCmd);
-                m_targetList[i].targets["clean"] = cg.readEntry(QString("%1 CleanCmd").arg(i), DefCleanCmd);
+                m_targetList[i].targets[QStringLiteral("build")] = cg.readEntry(QStringLiteral("%1 BuildCmd").arg(i), DefBuildCmd);
+                m_targetList[i].targets[QStringLiteral("clean")] = cg.readEntry(QStringLiteral("%1 CleanCmd").arg(i), DefCleanCmd);
 
-                QString quickCmd = cg.readEntry(QString("%1 QuickCmd").arg(i));
+                QString quickCmd = cg.readEntry(QStringLiteral("%1 QuickCmd").arg(i));
                 if (!quickCmd.isEmpty()) {
-                    m_targetList[i].targets["quick"] = quickCmd;
+                    m_targetList[i].targets[QStringLiteral("quick")] = quickCmd;
                 }
             }
             else {
@@ -295,7 +281,7 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
                     if (defaultTarget.isEmpty() && (tn==0)) {
                         defaultTarget = targetName;
                     }
-                    m_targetList[i].targets[targetName] = cg.readEntry(QString("%1 BuildCmd %2").arg(i).arg(targetName), DefBuildCmd);
+                    m_targetList[i].targets[targetName] = cg.readEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(targetName), DefBuildCmd);
                 }
 
                 m_targetList[i].defaultTarget = defaultTarget;
@@ -305,7 +291,7 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
             }
 
         }
-        tmpIndex = cg.readEntry(QString("Active Target Index"), 0);
+        tmpIndex = cg.readEntry(QStringLiteral("Active Target Index"), 0);
     }
 
     for(int i=0; i<m_targetList.size(); i++) {
@@ -323,15 +309,15 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
 }
 
 /******************************************************************/
-void KateBuildView::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
+void KateBuildView::writeSessionConfig(KConfigGroup& cg)
 {
-    KConfigGroup cg(config, groupPrefix + ":build-plugin");
-    cg.writeEntry("NumTargets", m_targetList.size());
+    qDebug() << "";
+    cg.writeEntry(QStringLiteral("NumTargets"), m_targetList.size());
     for (int i=0; i<m_targetList.size(); i++) {
-        cg.writeEntry(QString("%1 Target").arg(i), m_targetList[i].name);
-        cg.writeEntry(QString("%1 Target Default").arg(i), m_targetList[i].defaultTarget);
-        cg.writeEntry(QString("%1 Target Clean").arg(i), m_targetList[i].cleanTarget);
-        cg.writeEntry(QString("%1 BuildPath").arg(i), m_targetList[i].defaultDir);
+        cg.writeEntry(QStringLiteral("%1 Target").arg(i), m_targetList[i].name);
+        cg.writeEntry(QStringLiteral("%1 Target Default").arg(i), m_targetList[i].defaultTarget);
+        cg.writeEntry(QStringLiteral("%1 Target Clean").arg(i), m_targetList[i].cleanTarget);
+        cg.writeEntry(QStringLiteral("%1 BuildPath").arg(i), m_targetList[i].defaultDir);
 
         QStringList targetNames;
 
@@ -342,12 +328,12 @@ void KateBuildView::writeSessionConfig (KConfigBase* config, const QString& grou
 
             targetNames << tgtName;
 
-            cg.writeEntry(QString("%1 BuildCmd %2").arg(i).arg(tgtName), buildCmd);
+            cg.writeEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(tgtName), buildCmd);
         }
 
-        cg.writeEntry(QString("%1 Target Names").arg(i), targetNames);
+        cg.writeEntry(QStringLiteral("%1 Target Names").arg(i), targetNames);
     }
-    cg.writeEntry(QString("Active Target Index"), m_targetIndex);
+    cg.writeEntry(QStringLiteral("Active Target Index"), m_targetIndex);
 }
 
 
@@ -409,7 +395,7 @@ void KateBuildView::slotItemSelected(QTreeWidgetItem *item)
     const int column = item->data(2, Qt::UserRole).toInt();
 
     // open file (if needed, otherwise, this will activate only the right view...)
-    m_win->openUrl(KUrl(filename));
+    m_win->openUrl(QUrl::fromUserInput(filename));
 
     // any view active?
     if (!m_win->activeView()) {
@@ -431,9 +417,9 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     QTreeWidgetItem* item = new QTreeWidgetItem(m_buildUi.errTreeWidget);
     item->setBackground(1, Qt::gray);
     // The strings are twice in case kate is translated but not make.
-    if (message.contains("error") ||
+    if (message.contains(QStringLiteral("error")) ||
         message.contains(i18nc("The same word as 'make' uses to mark an error.","error")) ||
-        message.contains("undefined reference") ||
+        message.contains(QStringLiteral("undefined reference")) ||
         message.contains(i18nc("The same word as 'ld' uses to mark an ...","undefined reference"))
        )
     {
@@ -442,7 +428,7 @@ void KateBuildView::addError(const QString &filename, const QString &line,
         m_numErrors++;
         item->setHidden(!m_buildUi.showErrorsButton->isChecked());
     }
-    if (message.contains("warning") ||
+    if (message.contains(QStringLiteral("warning")) ||
         message.contains(i18nc("The same word as 'make' uses to mark a warning.","warning"))
        )
     {
@@ -455,7 +441,7 @@ void KateBuildView::addError(const QString &filename, const QString &line,
 
     // visible text
     //remove path from visible file name
-    KUrl file(filename);
+    QFileInfo file(filename);
     item->setText(0, file.fileName());
     item->setText(1, line);
     item->setText(2, message.trimmed());
@@ -475,17 +461,17 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     // add tooltips in all columns
     // The enclosing <qt>...</qt> enables word-wrap for long error messages
     item->setData(0, Qt::ToolTipRole, filename);
-    item->setData(1, Qt::ToolTipRole, QString("<qt>" + message + "</qt>"));
-    item->setData(2, Qt::ToolTipRole, QString("<qt>" + message + "</qt>"));
+    item->setData(1, Qt::ToolTipRole, QStringLiteral("<qt>%1</qt>").arg(message));
+    item->setData(2, Qt::ToolTipRole, QStringLiteral("<qt>%1</qt>").arg(message));
 }
 
 /******************************************************************/
-KUrl KateBuildView::docUrl()
+QUrl KateBuildView::docUrl()
 {
-    KTextEditor::View *kv = mainWindow()->activeView();
+    KTextEditor::View *kv = m_win->activeView();
     if (!kv) {
         qDebug() << "no KTextEditor::View" << endl;
-        return KUrl();
+        return QUrl();
     }
 
     if (kv->document()->isModified()) kv->document()->save();
@@ -493,7 +479,7 @@ KUrl KateBuildView::docUrl()
 }
 
 /******************************************************************/
-bool KateBuildView::checkLocal(const KUrl &dir)
+bool KateBuildView::checkLocal(const QUrl &dir)
 {
     if (dir.path().isEmpty()) {
         KMessageBox::sorry(0, i18n("There is no file or directory specified for building."));
@@ -558,7 +544,7 @@ bool KateBuildView::slotMakeClean(void)
 }
 
 /******************************************************************/
-bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
+bool KateBuildView::startProcess(const QString &dir, const QString &command)
 {
     if (m_proc->state() != QProcess::NotRunning) {
         return false;
@@ -573,16 +559,15 @@ bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
     m_make_dir_stack.clear();
 
     // activate the output tab
-    m_buildUi.ktabwidget->setCurrentIndex(1);
-    mainWindow()->showToolView(m_toolView);
+    m_buildUi.u_tabWidget->setCurrentIndex(1);
+    m_win->showToolView(m_toolView);
 
     // set working directory
     m_make_dir = dir;
     m_make_dir_stack.push(m_make_dir);
-    m_proc->setWorkingDirectory(m_make_dir.toLocalFile(KUrl::AddTrailingSlash));
-    m_proc->setShellCommand(command);
-    m_proc->setOutputChannelMode(KProcess::SeparateChannels);
-    m_proc->start();
+    // FIXME check
+    m_proc->setWorkingDirectory(m_make_dir);
+    m_proc->start(command);
 
     if(!m_proc->waitForStarted(500)) {
         KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc->exitStatus()));
@@ -637,7 +622,7 @@ KateBuildView::TargetSet* KateBuildView::currentTargetSet()
 /******************************************************************/
 bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget)
 {
-    KUrl dir(docUrl()); // docUrl() saves the current document
+    QFileInfo docFInfo = docUrl().toLocalFile(); // docUrl() saves the current document
 
     TargetSet* targetSet = currentTargetSet();
 
@@ -652,16 +637,17 @@ bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget
     }
 
     QString buildCmd = tgtIt->second;
-
+    qDebug() << targetName << docUrl() << targetSet->defaultDir;
+    QString dir;
     if (targetSet->defaultDir.isEmpty()) {
-        if (!checkLocal(dir)) {
+        dir = docFInfo.absolutePath();
+        if (dir.isEmpty()) {
+            KMessageBox::sorry(0, i18n("There is no local file or directory specified for building."));
             return false;
         }
-        // dir is a file -> remove the file with upUrl().
-        dir = dir.upUrl();
     }
     else {
-        dir = KUrl(targetSet->defaultDir);
+        dir = targetSet->defaultDir;
     }
 
     if (keepAsPrevTarget) {
@@ -669,23 +655,38 @@ bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget
     }
 
     // Check if the command contains the file name or directory
-    if (buildCmd.contains("%f") || buildCmd.contains("%d") || buildCmd.contains("%n")) {
-        KUrl docURL(docUrl());
-        KUrl docDir = docURL.upUrl();// url is a file -> remove the file with upUrl()
+    if (buildCmd.contains(QStringLiteral("%f")) ||
+        buildCmd.contains(QStringLiteral("%d")) ||
+        buildCmd.contains(QStringLiteral("%n")))
+    {
 
-        if (!checkLocal(docURL)) {
+        if (docFInfo.absoluteFilePath().isEmpty()) {
             return false;
         }
 
-        buildCmd.replace("%n", QFileInfo(docURL.toLocalFile()).baseName());
-        buildCmd.replace("%f", docURL.toLocalFile());
-        buildCmd.replace("%d", docDir.toLocalFile());
+        buildCmd.replace(QStringLiteral("%n"), docFInfo.baseName());
+        buildCmd.replace(QStringLiteral("%f"), docFInfo.absoluteFilePath());
+        buildCmd.replace(QStringLiteral("%d"), docFInfo.absolutePath());
     }
 
     return startProcess(dir, buildCmd);
 }
 
+/******************************************************************/
+void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message::MessageType level)
+{
+    KTextEditor::View *kv = m_win->activeView();
+    if (!kv) return;
 
+    KTextEditor::MessageInterface* iface = qobject_cast<KTextEditor::MessageInterface*>(kv->document());
+    if (iface) {
+        QPointer<KTextEditor::Message> message = new KTextEditor::Message(
+            i18nc("@info", "<title>Make Results:</title><nl/><pre><code>%1</code></pre>", msg), level);
+        message->setWordWrap(true);
+        message->setAutoHide(1000);
+        iface->postMessage(message);
+    }
+}
 
 /******************************************************************/
 void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
@@ -694,7 +695,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 
     // did we get any errors?
     if (m_numErrors || m_numWarnings || (exitCode != 0)) {
-       m_buildUi.ktabwidget->setCurrentIndex(0);
+       m_buildUi.u_tabWidget->setCurrentIndex(0);
        m_buildUi.errTreeWidget->resizeColumnToContents(0);
        m_buildUi.errTreeWidget->resizeColumnToContents(1);
        m_buildUi.errTreeWidget->resizeColumnToContents(2);
@@ -711,13 +712,13 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         if (m_numWarnings) {
             msgs << i18np("Found one warning.", "Found %1 warnings.", m_numWarnings);
         }
-        KPassivePopup::message(i18n("Make Results"), msgs.join("\n"), m_toolView);
+        displayBuildResult(msgs.join(QLatin1Char('\n')), m_numErrors ? KTextEditor::Message::Error : KTextEditor::Message::Warning);
     }
     else if (exitCode != 0) {
-        KPassivePopup::message(i18n("Make Results"), i18n("Build failed."), m_toolView);
+        displayBuildResult(i18n("Build failed."), KTextEditor::Message::Warning);
     }
     else {
-        KPassivePopup::message(i18n("Make Results"), i18n("Build completed without problems."), m_toolView);
+        displayBuildResult(i18n("Build completed without problems."), KTextEditor::Message::Positive);
     }
 
 }
@@ -730,7 +731,7 @@ void KateBuildView::slotReadReadyStdOut()
     // the text to the end of the output
     // FIXME This works for utf8 but not for all charsets
     QString l= QString::fromUtf8(m_proc->readAllStandardOutput());
-    l.remove('\r');
+    l.remove(QLatin1Char('\r'));
     m_output_lines += l;
 
     QString tmp;
@@ -740,18 +741,18 @@ void KateBuildView::slotReadReadyStdOut()
 
     // handle one line at a time
     do {
-        end = m_output_lines.indexOf('\n');
+        end = m_output_lines.indexOf(QLatin1Char('\n'));
         if (end < 0) break;
         end++;
         tmp = m_output_lines.mid(0, end);
-        tmp.remove('\n');
+        tmp.remove(QLatin1Char('\n'));
         m_buildUi.plainTextEdit->appendPlainText(tmp);
         //qDebug() << tmp;
         if (tmp.indexOf(m_newDirDetector) >=0) {
             //qDebug() << "Enter/Exit dir found";
-            int open = tmp.indexOf("`");
-            int close = tmp.indexOf("'");
-            KUrl newDir = KUrl(tmp.mid(open+1, close-open-1));
+            int open = tmp.indexOf(QLatin1Char('`'));
+            int close = tmp.indexOf(QLatin1Char('\''));
+            QString newDir = tmp.mid(open+1, close-open-1);
             qDebug () << "New dir = " << newDir;
 
             if ((m_make_dir_stack.size() > 1) && (m_make_dir_stack.top() == newDir)) {
@@ -777,7 +778,7 @@ void KateBuildView::slotReadReadyStdErr()
 {
     // FIXME This works for utf8 but not for all charsets
     QString l= QString::fromUtf8(m_proc->readAllStandardError());
-    l.remove('\r');
+    l.remove(QLatin1Char('\r'));
     m_output_lines += l;
 
     QString tmp;
@@ -785,11 +786,11 @@ void KateBuildView::slotReadReadyStdErr()
     int end=0;
 
     do {
-        end = m_output_lines.indexOf('\n');
+        end = m_output_lines.indexOf(QLatin1Char('\n'));
         if (end < 0) break;
         end++;
         tmp = m_output_lines.mid(0, end);
-        tmp.remove('\n');
+        tmp.remove(QLatin1Char('\n'));
         m_buildUi.plainTextEdit->appendPlainText(tmp);
 
         processLine(tmp);
@@ -809,7 +810,7 @@ void KateBuildView::processLine(const QString &line)
     //look for a filename
     if (l.indexOf(m_filenameDetector)<0)
     {
-        addError(QString(), 0, QString(), l);
+        addError(QString(), QStringLiteral("0"), QString(), l);
         //qDebug() << "A filename was not found in the line ";
         return;
     }
@@ -819,15 +820,15 @@ void KateBuildView::processLine(const QString &line)
 
     QString file_n_line = l.mid(match_start, match_len);
 
-    int name_end = file_n_line.lastIndexOf(':');
+    int name_end = file_n_line.lastIndexOf(QLatin1Char(':'));
     QString filename = file_n_line.left(name_end);
     QString line_n = file_n_line.mid(name_end+1);
     QString msg = l.remove(m_filenameDetector);
 
     //qDebug() << "File Name:"<<filename<< " msg:"<< msg;
     //add path to file
-    if (QFile::exists(m_make_dir.toLocalFile(KUrl::AddTrailingSlash)+filename)) {
-        filename = m_make_dir.toLocalFile(KUrl::AddTrailingSlash)+filename;
+    if (QFile::exists(m_make_dir + QLatin1Char('/') + filename)) {
+        filename = m_make_dir + QLatin1Char('/') + filename;
     }
 
     // Now we have the data we need show the error/warning
@@ -838,17 +839,17 @@ void KateBuildView::processLine(const QString &line)
 /******************************************************************/
 void KateBuildView::slotBrowseClicked()
 {
-    KUrl defDir(m_targetsUi->buildDir->text());
+    QUrl defDir = QUrl::fromUserInput(m_targetsUi->buildDir->text());
 
     if (m_targetsUi->buildDir->text().isEmpty()) {
         // try current document dir
-        KTextEditor::View *kv = mainWindow()->activeView();
+        KTextEditor::View *kv = m_win->activeView();
         if (kv != 0) {
             defDir = kv->document()->url();
         }
     }
 
-    QString newDir = KFileDialog::getExistingDirectory(defDir, 0, QString());
+    QString newDir = QFileDialog::getExistingDirectory(0, QString(), defDir.toLocalFile());
     if (!newDir.isEmpty()) {
         m_targetsUi->buildDir->setText(newDir);
     }
@@ -940,7 +941,7 @@ QString KateBuildView::makeTargetNameUnique(const QString& name)
     int count = 2;
 
     while (m_targetList[m_targetIndex].targets.find(uniqueName) != m_targetList[m_targetIndex].targets.end()) {
-        uniqueName = QString("%1_%2").arg(name).arg(count);
+        uniqueName = QStringLiteral("%1_%2").arg(name).arg(count);
         count++;
     }
 
@@ -1008,7 +1009,7 @@ void KateBuildView::slotDeleteTargetClicked()
 
     QString target = m_targetsUi->targetsList->item(row, COL_NAME)->text();
 
-    int result = KMessageBox::questionYesNo(0, QString(i18n("Really delete target %1?")).arg(target));
+    int result = KMessageBox::questionYesNo(0, i18n("Really delete target %1?", target));
     if (result == KMessageBox::No) {
         return;
     }
@@ -1016,11 +1017,11 @@ void KateBuildView::slotDeleteTargetClicked()
     m_targetsUi->targetsList->removeRow(row);
 
     if (tgtSet->cleanTarget == target) {
-        tgtSet->cleanTarget = QString("");
+        tgtSet->cleanTarget.clear();
     }
 
     if (tgtSet->defaultTarget == target) {
-        tgtSet->defaultTarget = QString("");
+        tgtSet->defaultTarget.clear();
     }
 
     tgtSet->targets.erase(target);
@@ -1060,7 +1061,7 @@ void KateBuildView::targetSelected(int index)
 
     // make sure that both the combo box and the menu are updated
     m_targetsUi->targetCombo->setCurrentIndex(index);
-    m_targetSelectAction->setCurrentItem(index);
+    //m_targetSelectAction->setCurrentItem(index);
 
     const bool enableButtons = (m_targetsUi->targetsList->currentItem() != 0);
 
@@ -1097,8 +1098,8 @@ void KateBuildView::targetsChanged()
     for( int i = 0; i < m_targetList.size(); ++i ) {
         items.append( m_targetList[i].name );
     }
-    m_targetSelectAction->setItems( items );
-    m_targetSelectAction->setCurrentItem( m_targetIndex );
+    // m_targetSelectAction->setItems( items );
+    // m_targetSelectAction->setCurrentItem( m_targetIndex );
 }
 
 /******************************************************************/
@@ -1110,7 +1111,7 @@ QString KateBuildView::makeUniqueTargetSetName() const
     bool nameAlreadyUsed = false;
     do {
         count++;
-        uniqueName = i18n("Target Set %1").arg(count);
+        uniqueName = i18n("Target Set %1", count);
 
         nameAlreadyUsed = false;
         for (int i=0; i<m_targetList.size(); i++) {
@@ -1130,14 +1131,14 @@ void KateBuildView::targetNew()
     m_targetList.append(TargetSet());
     m_targetIndex = m_targetList.size()-1;
     m_targetList[m_targetIndex].name = makeUniqueTargetSetName();
-    m_targetList[m_targetIndex].defaultTarget = "Build";
+    m_targetList[m_targetIndex].defaultTarget = QStringLiteral("Build");
     m_targetList[m_targetIndex].prevTarget.clear();
-    m_targetList[m_targetIndex].cleanTarget = "Clean";
-    m_targetList[m_targetIndex].defaultDir = QString();
+    m_targetList[m_targetIndex].cleanTarget = QStringLiteral("Clean");
+    m_targetList[m_targetIndex].defaultDir.clear();
 
-    m_targetList[m_targetIndex].targets[QString("Build")] = DefBuildCmd;
-    m_targetList[m_targetIndex].targets[QString("Clean")] = DefCleanCmd;
-    m_targetList[m_targetIndex].targets[QString("Config")] = DefConfigCmd;
+    m_targetList[m_targetIndex].targets[QStringLiteral("Build")] = DefBuildCmd;
+    m_targetList[m_targetIndex].targets[QStringLiteral("Clean")] = DefCleanCmd;
+    m_targetList[m_targetIndex].targets[QStringLiteral("Config")] = DefConfigCmd;
 
     m_targetsUi->targetCombo->addItem(m_targetList[m_targetIndex].name);
     m_targetsUi->targetCombo->setCurrentIndex(m_targetIndex);
@@ -1181,15 +1182,15 @@ void KateBuildView::targetDelete()
 
         m_targetList.append(TargetSet());
         m_targetList[0].name = i18n("Target");
-        m_targetList[0].defaultTarget = "Build";
-        m_targetList[0].cleanTarget = "Clean";
+        m_targetList[0].defaultTarget = QStringLiteral("Build");
+        m_targetList[0].cleanTarget = QStringLiteral("Clean");
         m_targetList[0].prevTarget.clear();
-        m_targetList[0].defaultDir = QString();
+        m_targetList[0].defaultDir.clear();
 
-        m_targetList[0].targets["Build"] = DefBuildCmd;
-        m_targetList[0].targets["Clean"] = DefCleanCmd;
-        m_targetList[0].targets["Config"] = DefConfigCmd;
-        m_targetList[0].targets["ConfigClean"] = DefConfClean;
+        m_targetList[0].targets[QStringLiteral("Build")] = DefBuildCmd;
+        m_targetList[0].targets[QStringLiteral("Clean")] = DefCleanCmd;
+        m_targetList[0].targets[QStringLiteral("Config")] = DefConfigCmd;
+        m_targetList[0].targets[QStringLiteral("ConfigClean")] = DefConfClean;
 
         m_targetsUi->targetCombo->addItem(m_targetList[0].name);
 
@@ -1206,7 +1207,7 @@ void KateBuildView::targetDelete()
 /******************************************************************/
 void KateBuildView::targetNext()
 {
-    if (m_toolView->isVisible() && m_buildUi.ktabwidget->currentIndex() == 2) {
+    if (m_toolView->isVisible() && m_buildUi.u_tabWidget->currentIndex() == 2) {
         int index = m_targetsUi->targetCombo->currentIndex();
         index++;
         if (index == m_targetsUi->targetCombo->count()) index = 0;
@@ -1215,7 +1216,7 @@ void KateBuildView::targetNext()
     }
     else {
         m_win->showToolView(m_toolView);
-        m_buildUi.ktabwidget->setCurrentIndex(2);
+        m_buildUi.u_tabWidget->setCurrentIndex(2);
     }
 }
 
@@ -1225,7 +1226,7 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent*>(event);
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
-            mainWindow()->hideToolView(m_toolView);
+            m_win->hideToolView(m_toolView);
             event->accept();
             return true;
         }
@@ -1236,12 +1237,12 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
 /******************************************************************/
 void KateBuildView::handleEsc(QEvent *e)
 {
-    if (!mainWindow()) return;
+    if (!m_win) return;
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         if (m_toolView->isVisible()) {
-            mainWindow()->hideToolView(m_toolView);
+            m_win->hideToolView(m_toolView);
         }
     }
 }
@@ -1287,10 +1288,10 @@ void KateBuildView::slotShowOthers(bool showItems) {
 }
 
 /******************************************************************/
-void KateBuildView::slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView)
+void KateBuildView::slotPluginViewCreated (const QString &name, QObject *pluginView)
 {
     // add view
-    if (name == "kateprojectplugin") {
+    if (name == QLatin1String("kateprojectplugin")) {
         m_projectPluginView = pluginView;
         slotProjectMapChanged ();
         connect (pluginView, SIGNAL(projectMapChanged()), this, SLOT(slotProjectMapChanged()));
@@ -1298,10 +1299,10 @@ void KateBuildView::slotPluginViewCreated (const QString &name, Kate::PluginView
 }
 
 /******************************************************************/
-void KateBuildView::slotPluginViewDeleted (const QString &name, Kate::PluginView *)
+void KateBuildView::slotPluginViewDeleted (const QString &name, QObject *)
 {
     // remove view
-    if (name == "kateprojectplugin") {
+    if (name == QLatin1String("kateprojectplugin")) {
         m_projectPluginView = 0;
         slotRemoveProjectTarget();
     }
@@ -1326,7 +1327,7 @@ void KateBuildView::slotAddProjectTarget()
     QVariantMap projectMap = m_projectPluginView->property("projectMap").toMap();
 
     // do we have a valid map for build settings?
-    QVariantMap buildMap = projectMap.value("build").toMap();
+    QVariantMap buildMap = projectMap.value(QStringLiteral("build")).toMap();
     if (buildMap.isEmpty()) {
         return;
     }
@@ -1334,19 +1335,19 @@ void KateBuildView::slotAddProjectTarget()
     int index = m_targetList.size();
     m_targetList.append(TargetSet());
     m_targetList[index].name = i18n("Project Plugin Targets");
-    m_targetList[index].cleanTarget = buildMap.value("clean_target").toString();
-    m_targetList[index].defaultTarget = buildMap.value("default_target").toString();
+    m_targetList[index].cleanTarget = buildMap.value(QStringLiteral("clean_target")).toString();
+    m_targetList[index].defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
     m_targetList[index].prevTarget.clear();
-    m_targetList[index].defaultDir = buildMap.value("directory").toString();
+    m_targetList[index].defaultDir = buildMap.value(QStringLiteral("directory")).toString();
 
     // get build dir
-    QString defaultBuildDir = buildMap.value("directory").toString();
+    QString defaultBuildDir = buildMap.value(QStringLiteral("directory")).toString();
 
-    QVariantList targets = buildMap.value("targets").toList();
+    QVariantList targets = buildMap.value(QStringLiteral("targets")).toList();
     foreach (const QVariant &targetVariant, targets) {
         QVariantMap targetMap = targetVariant.toMap();
-        QString tgtName = targetMap["name"].toString();
-        QString buildCmd = targetMap["build_cmd"].toString();
+        QString tgtName = targetMap[QStringLiteral("name")].toString();
+        QString buildCmd = targetMap[QStringLiteral("build_cmd")].toString();
 
         if (tgtName.isEmpty() || buildCmd.isEmpty()) {
             continue;
@@ -1357,17 +1358,17 @@ void KateBuildView::slotAddProjectTarget()
 
     if (targets.empty()) {
         // support "old" project files
-        QString buildCmd = buildMap.value("build").toString();
-        QString cleanCmd = buildMap.value("clean").toString();
-        QString quickCmd = buildMap.value("quick").toString();
+        QString buildCmd = buildMap.value(QStringLiteral("build")).toString();
+        QString cleanCmd = buildMap.value(QStringLiteral("clean")).toString();
+        QString quickCmd = buildMap.value(QStringLiteral("quick")).toString();
         if (!buildCmd.isEmpty()) {
             // we have loaded an "old" project file (<= 4.12)
-            m_targetList[index].cleanTarget = "clean";
-            m_targetList[index].defaultTarget = "build";
+            m_targetList[index].cleanTarget = QStringLiteral("clean");
+            m_targetList[index].defaultTarget = QStringLiteral("build");
             m_targetList[index].prevTarget.clear();
-            m_targetList[index].targets["build"] = buildCmd;
-            m_targetList[index].targets["clean"] = cleanCmd;
-            m_targetList[index].targets["quick"] = quickCmd;
+            m_targetList[index].targets[QStringLiteral("build")] = buildCmd;
+            m_targetList[index].targets[QStringLiteral("clean")] = cleanCmd;
+            m_targetList[index].targets[QStringLiteral("quick")] = quickCmd;
         }
     }
 
@@ -1401,5 +1402,6 @@ void KateBuildView::slotRemoveProjectTarget()
     targetDelete();
 }
 
+#include "plugin_katebuild.moc"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

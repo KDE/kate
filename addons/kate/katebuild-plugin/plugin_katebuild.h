@@ -2,7 +2,7 @@
 #define PLUGIN_KATEBUILD_H
 /* plugin_katebuild.h                    Kate Plugin
 **
-** Copyright (C) 2008 by Kåre Särs <kare.sars@iki.fi>
+** Copyright (C) 2008-2014 by Kåre Särs <kare.sars@iki.fi>
 **
 ** This code is almost a total rewrite of the GPL'ed Make plugin
 ** by Adriaan de Groot.
@@ -25,22 +25,19 @@
 ** MA 02110-1301, USA.
 */
 
-class QRegExp;
-
-#include <QTreeWidgetItem>
+#include <QRegExp>
 #include <QString>
 #include <QStack>
+#include <QProcess>
 
-#include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
-
-#include <kate/plugin.h>
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <kate/mainwindow.h>
-
-#include <kprocess.h>
-#include <kselectaction.h>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Document>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/View>
+#include <KXMLGUIClient>
+#include <KTextEditor/SessionConfigInterface>
+#include <KTextEditor/MessageInterface>
+#include <KConfigGroup>
 
 #include <map>
 
@@ -48,9 +45,10 @@ class QRegExp;
 #include "targets.h"
 
 /******************************************************************/
-class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
+class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
     public:
 
@@ -62,13 +60,13 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
          QString prevTarget;
          std::map<QString, QString> targets;
        };
-  
-        KateBuildView(Kate::MainWindow *mw);
+
+       KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
         ~KateBuildView();
 
-        // overwritten: read and write session config
-        void readSessionConfig(KConfigBase* config, const QString& groupPrefix);
-        void writeSessionConfig(KConfigBase* config, const QString& groupPrefix);
+        // reimplemented: read and write session config
+        void readSessionConfig(const KConfigGroup& config);
+        void writeSessionConfig(KConfigGroup& config);
 
         QWidget *toolView() const;
 
@@ -111,8 +109,8 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         /**
          * keep track if the project plugin is alive and if the project map did change
          */
-        void slotPluginViewCreated(const QString &name, Kate::PluginView *pluginView);
-        void slotPluginViewDeleted(const QString &name, Kate::PluginView *pluginView);
+        void slotPluginViewCreated(const QString &name, QObject *pluginView);
+        void slotPluginViewDeleted(const QString &name, QObject *pluginView);
         void slotProjectMapChanged();
         void slotAddProjectTarget();
         void slotRemoveProjectTarget();
@@ -131,41 +129,43 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void processLine(const QString &);
         void addError(const QString &filename, const QString &line,
                       const QString &column, const QString &message);
-        bool startProcess(const KUrl &dir, const QString &command);
-        KUrl docUrl();
-        bool checkLocal(const KUrl &dir);
+        bool startProcess(const QString &dir, const QString &command);
+        QUrl docUrl();
+        bool checkLocal(const QUrl &dir);
         void setTargetRowContents(int row, const TargetSet& tgtSet, const QString& name, const QString& buildCmd);
         QString makeTargetNameUnique(const QString& name);
         QString makeUniqueTargetSetName() const;
 
-        Kate::MainWindow *m_win;
+        void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
+
+        KTextEditor::MainWindow *m_win;
         QWidget          *m_toolView;
         Ui::build         m_buildUi;
         TargetsUi        *m_targetsUi;
-        KProcess         *m_proc;
+        QProcess         *m_proc;
         QString           m_output_lines;
-        KUrl              m_make_dir;
-        QStack<KUrl>      m_make_dir_stack;
+        QString           m_make_dir;
+        QStack<QString>   m_make_dir_stack;
         QRegExp           m_filenameDetector;
         QRegExp           m_newDirDetector;
         unsigned int      m_numErrors;
         unsigned int      m_numWarnings;
         QList<TargetSet>  m_targetList;
         int               m_targetIndex;
-        KSelectAction*    m_targetSelectAction;
+        // KF5 FIXME KSelectAction*    m_targetSelectAction;
         QString           m_prevItemContent;
 
         /**
         * current project plugin view, if any
         */
-        Kate::PluginView *m_projectPluginView;
+        QObject *m_projectPluginView;
 };
 
 
 typedef QList<QVariant> VariantList;
 
 /******************************************************************/
-class KateBuildPlugin : public Kate::Plugin
+class KateBuildPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
@@ -173,8 +173,7 @@ class KateBuildPlugin : public Kate::Plugin
         explicit KateBuildPlugin(QObject* parent = 0, const VariantList& = VariantList());
         virtual ~KateBuildPlugin() {}
 
-        Kate::PluginView *createView(Kate::MainWindow *mainWindow);
-
+        QObject *createView(KTextEditor::MainWindow *mainWindow);
  };
 
 #endif

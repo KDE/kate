@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=Kate/Plugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katebuildplugin
-X-Kate-Version=2.9
 Name=Build Plugin
 Name[ast]=Complementu de construcción
 Name[bg]=Приставка за построяване

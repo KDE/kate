@@ -34,19 +34,21 @@ ecm_optional_add_subdirectory( close-except-like )
 
 
 if(NOT WIN32)
-  add_subdirectory( gdbplugin )  # should be tested on windows...
+  ecm_optional_add_subdirectory (gdbplugin)  # should be tested on windows...
 endif(NOT WIN32)
+
+# build plugin
+ecm_optional_add_subdirectory (katebuild-plugin)
 
 #add_subdirectory( textfilter )
 
 #add_subdirectory( mailfiles )
 
 #add_subdirectory( tabbarextension )
+
 #add_subdirectory( symbolviewer )
 
 #add_subdirectory( filetemplates )
-
-#add_subdirectory( katebuild-plugin )
 
 #add_subdirectory( kttsd )
 

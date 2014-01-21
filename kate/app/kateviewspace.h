@@ -90,7 +90,6 @@ class KateVSStatusBar : public QStatusBar
 
 class KateViewSpace : public QFrame
 {
-    friend class KateViewManager;
     friend class KateVSStatusBar;
 
     Q_OBJECT

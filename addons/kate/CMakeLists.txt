@@ -28,6 +28,9 @@ ecm_optional_add_subdirectory (filebrowser)
 # xml completion
 ecm_optional_add_subdirectory (xmltools)
 
+ecm_optional_add_subdirectory( openheader )
+
+
 if(NOT WIN32)
   add_subdirectory( gdbplugin )  # should be tested on windows...
 endif(NOT WIN32)
@@ -45,7 +48,6 @@ endif(NOT WIN32)
 
 #add_subdirectory( kttsd )
 
-add_subdirectory( openheader )
 
 #add_subdirectory( xmlcheck )
 

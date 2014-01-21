@@ -21,7 +21,6 @@
 #include "config.h"
 
 #include "katesessionmanager.h"
-#include "katesessionmanager.moc"
 
 #include "katesessionchooser.h"
 #include "katesessionmanagedialog.h"

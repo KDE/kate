@@ -19,7 +19,7 @@
  */
 
 #include "katesessionsaction.h"
-#include "katesessionsaction.moc"
+
 #include "katesessionmanager.h"
 
 #include <QMenu>

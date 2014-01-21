@@ -19,7 +19,6 @@
  */
 
 #include "katesessionopendialog.h"
-#include "katesessionopendialog.moc"
 
 #include "katesessionmanager.h"
 #include "katesessionchooseritem.h"

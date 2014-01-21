@@ -110,15 +110,46 @@ void PluginKateOpenHeader::slotOpenHeader ()
   QFileInfo info( url.path() );
   QString extension = info.suffix().toLower();
 
-  QStringList headers( QStringList() << QStringLiteral("h") << QStringLiteral("H") << QStringLiteral("hh") << QStringLiteral("hpp") );
-  QStringList sources( QStringList() << QStringLiteral("c") << QStringLiteral("cpp") << QStringLiteral("cc") << QStringLiteral("cp") << QStringLiteral("cxx") );
+  QStringList headers( QStringList() << QStringLiteral("h") << QStringLiteral("H") << QStringLiteral("hh") << QStringLiteral("hpp") << QStringLiteral("cuh"));
+  QStringList sources( QStringList() << QStringLiteral("c") << QStringLiteral("cpp") << QStringLiteral("cc") << QStringLiteral("cp") << QStringLiteral("cxx") << QStringLiteral("m")<< QStringLiteral("cu"));
 
   if( sources.contains( extension ) ) {
+    if (tryOpenInternal(url, headers)) return;
     tryOpen( url, headers );
   } else if ( headers.contains( extension ) ) {
+    if (tryOpenInternal(url, sources)) return;
     tryOpen( url, sources );
   }
 }
+
+
+bool PluginKateOpenHeader::tryOpenInternal( const QUrl& url, const QStringList& extensions )
+{
+  KTextEditor::Application *application=KTextEditor::Editor::instance()->application();
+  if (!application->activeMainWindow())
+    return false;
+
+  qDebug() << "Trying to find already opened" << url.toString() << " with extensions " << extensions.join(QStringLiteral(" "));
+  QString basename = QFileInfo( url.path() ).baseName();
+  QUrl newURL( url );
+    
+  for( QStringList::ConstIterator it = extensions.begin(); it != extensions.end(); ++it ) {
+    setFileName( &newURL,basename + QStringLiteral(".") + *it );
+    KTextEditor::Document *doc= application->findUrl(newURL);
+    if (doc) {
+      application->activeMainWindow()->openUrl(newURL);
+      return true;
+    }
+    setFileName(&newURL, basename + QStringLiteral(".") + (*it).toUpper() );
+    doc= application->findUrl(newURL);
+    if (doc) {
+      application->activeMainWindow()->openUrl(newURL);
+      return true;
+    }   
+  }
+  return false;
+}
+
 
 void PluginKateOpenHeader::tryOpen( const QUrl& url, const QStringList& extensions )
 {

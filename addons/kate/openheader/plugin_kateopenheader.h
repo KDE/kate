@@ -42,6 +42,7 @@ class PluginKateOpenHeader : public KTextEditor::Plugin
   public Q_SLOTS:
     void slotOpenHeader ();
     void tryOpen( const QUrl& url, const QStringList& extensions );
+    bool tryOpenInternal( const QUrl& url, const QStringList& extensions );
   private:
     bool fileExists(const QUrl &url);    
     void setFileName(QUrl *url,const QString &_txt);

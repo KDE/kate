@@ -182,39 +182,6 @@ void KateViewManager::setupActions ()
   connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterDown()));
 
   a->setWhatsThis(i18n("Move the splitter of the current view down"));
-
-  /*
-   * Status Bar Items menu
-   */
-  m_cursorPosToggle = new KToggleAction(i18n("Show Cursor Position"), this);
-  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_cursor_pos"), m_cursorPosToggle );
-  connect(m_cursorPosToggle, SIGNAL(toggled(bool)),
-          this, SIGNAL(cursorPositionItemVisibilityChanged(bool)));
-
-  m_charCountToggle = new KToggleAction(i18n("Show Characters Count"), this);
-  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_char_count"), m_charCountToggle );
-  connect(m_charCountToggle, SIGNAL(toggled(bool)),
-          this, SIGNAL(charactersCountItemVisibilityChanged(bool)));
-
-  m_insertModeToggle = new KToggleAction(i18n("Show Insertion Mode"), this);
-  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_insert_mode"), m_insertModeToggle );
-  connect(m_insertModeToggle, SIGNAL(toggled(bool)),
-          this, SIGNAL(insertModeItemVisibilityChanged(bool)));
-
-  m_selectModeToggle = new KToggleAction(i18n("Show Selection Mode"), this);
-  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_select_mode"), m_selectModeToggle );
-  connect(m_selectModeToggle, SIGNAL(toggled(bool)),
-          this, SIGNAL(selectModeItemVisibilityChanged(bool)));
-
-  m_encodingToggle = new KToggleAction(i18n("Show Encoding"), this);
-  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_encoding"), m_encodingToggle );
-  connect(m_encodingToggle, SIGNAL(toggled(bool)),
-          this, SIGNAL(encodingItemVisibilityChanged(bool)));
-
-  m_docNameToggle = new KToggleAction(i18n("Show Document Name"), this);
-  m_mainWindow->actionCollection()->addAction( QStringLiteral("show_doc_name"), m_docNameToggle );
-  connect(m_docNameToggle, SIGNAL(toggled(bool)),
-          this, SIGNAL(documentNameItemVisibilityChanged(bool)));
 }
 
 void KateViewManager::updateViewSpaceActions ()
@@ -361,38 +328,6 @@ KateMainWindow *KateViewManager::mainWindow()
 {
   return m_mainWindow;
 }
-
-bool KateViewManager::isCursorPositionVisible() const
-{
-  return m_cursorPosToggle->isChecked();
-}
-
-bool KateViewManager::isCharactersCountVisible() const
-{
-  return m_charCountToggle->isChecked();
-}
-
-bool KateViewManager::isInsertModeVisible() const
-{
-  return m_insertModeToggle->isChecked();
-}
-
-bool KateViewManager::isSelectModeVisible() const
-{
-  return m_selectModeToggle->isChecked();
-}
-
-bool KateViewManager::isEncodingVisible() const
-{
-  return m_encodingToggle->isChecked();
-}
-
-bool KateViewManager::isDocumentNameVisible() const
-{
-  return m_docNameToggle->isChecked();
-}
-
-// VIEWSPACE
 
 void KateViewManager::documentCreated (KTextEditor::Document *doc)
 {
@@ -870,14 +805,6 @@ void KateViewManager::saveViewConfiguration(KConfigGroup& config)
 
   m_splitterIndex = 0;
   saveSplitterConfig(this, config.config(), config.name());
-
-  // Status Bar Items
-  config.writeEntry("Cursor Position Visible", m_cursorPosToggle->isChecked());
-  config.writeEntry("Characters Count Visible", m_charCountToggle->isChecked());
-  config.writeEntry("Insertion Mode Visible", m_insertModeToggle->isChecked());
-  config.writeEntry("Selection Mode Visible", m_selectModeToggle->isChecked());
-  config.writeEntry("Encoding Visible", m_encodingToggle->isChecked());
-  config.writeEntry("Document Name Visible", m_docNameToggle->isChecked());
 }
 
 void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
@@ -927,31 +854,6 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
     vs->setActive( true );
     m_viewSpaceList.append(vs);
   }
-
-  // Status Bar Items
-  bool cursorPosVisible = config.readEntry("Cursor Position Visible", true);
-  m_cursorPosToggle->setChecked(cursorPosVisible);
-  emit cursorPositionItemVisibilityChanged(cursorPosVisible);
-
-  bool charCountVisible = config.readEntry("Characters Count Visible", false);
-  m_charCountToggle->setChecked(charCountVisible);
-  emit charactersCountItemVisibilityChanged(charCountVisible);
-
-  bool insertModeVisible = config.readEntry("Insertion Mode Visible", true);
-  m_insertModeToggle->setChecked(insertModeVisible);
-  emit insertModeItemVisibilityChanged(insertModeVisible);
-
-  bool selectModeVisible = config.readEntry("Selection Mode Visible", true);
-  m_selectModeToggle->setChecked(selectModeVisible);
-  emit selectModeItemVisibilityChanged(selectModeVisible);
-
-  bool encodingVisible = config.readEntry("Encoding Visible", true);
-  m_encodingToggle->setChecked(encodingVisible);
-  emit encodingItemVisibilityChanged(encodingVisible);
-
-  bool docNameVisible = config.readEntry("Document Name Visible", true);
-  m_docNameToggle->setChecked(docNameVisible);
-  emit documentNameItemVisibilityChanged(docNameVisible);
 
   updateViewSpaceActions();
 }

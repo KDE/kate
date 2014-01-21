@@ -274,10 +274,7 @@ void KWrite::newView()
 
 void KWrite::toggleStatusBar()
 {
- /* FIXME KF5 if( m_paShowStatusBar->isChecked() )
-    statusBar()->show();
-  else
-    statusBar()->hide();*/
+  m_view->setStatusBarEnabled(m_paShowStatusBar->isChecked());
 }
 
 void KWrite::editKeys()
@@ -356,12 +353,7 @@ void KWrite::readConfig(KSharedConfigPtr config)
   if (config != KSharedConfig::openConfig())
     KTextEditor::Editor::instance()->readConfig(config.data());
 
-  /* FIXME KF5
-  if( m_paShowStatusBar->isChecked() )
-    statusBar()->show();
-  else
-    statusBar()->hide();
-  */
+  m_view->setStatusBarEnabled(m_paShowStatusBar->isChecked());
 }
 
 void KWrite::writeConfig(KSharedConfigPtr config)

@@ -74,12 +74,9 @@ KateViewSpace::~KateViewSpace()
 
 void KateViewSpace::statusBarToggled ()
 {
-  // show or hide the bar?
-/*  FIXME KF5 if (m_viewManager->mainWindow()->showStatusBar())
-    mStatusBar->show ();
-  else
-    mStatusBar->hide ();
-  */
+  Q_FOREACH(auto view, mViewList) {
+    view->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
+  }
 }
 
 KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
@@ -88,6 +85,9 @@ KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
    * Create a fresh view
    */
   KTextEditor::View *v = doc->createView (stack, m_viewManager->mainWindow()->wrapper());
+
+  // set status bar to right state
+  v->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
 
   // restore the config of this view if possible
   if ( !m_group.isEmpty() )

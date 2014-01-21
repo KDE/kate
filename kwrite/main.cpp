@@ -109,6 +109,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
    * Create command line parser and feed it with known options
    */  
   QCommandLineParser parser;
+  aboutData.setupCommandLine (&parser);
   parser.setApplicationDescription(aboutData.shortDescription());
   parser.addHelpOption();
   parser.addVersionOption();
@@ -140,6 +141,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
    * do the command line parsing
    */
   parser.process (app);
+
+  /**
+   * handle standard options
+   */
+  aboutData.processCommandLine (&parser);
 
   // read from global config once
   KTextEditor::Editor::instance()->readConfig(KSharedConfig::openConfig().data());

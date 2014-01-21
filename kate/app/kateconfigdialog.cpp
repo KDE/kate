@@ -37,6 +37,7 @@
 #include <KLocalizedString>
 #include <KConfigGroup>
 
+#include <QDesktopServices>
 #include <QCheckBox>
 #include <QDialogButtonBox>
 #include <QFrame>
@@ -55,7 +56,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   setWindowTitle( i18n("Configure") );
   setStandardButtons( QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help );
   setObjectName(QStringLiteral("configdialog"));
-  // FIXME KF5 setHelp( QString(), KGlobal::mainComponent().componentName() );
 
   KSharedConfig::Ptr config = KSharedConfig::openConfig();
   KConfigGroup cgGeneral = KConfigGroup( config, "General" );
@@ -221,6 +221,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   connect(this, SIGNAL(accepted()), this, SLOT(slotApply()));
   connect(buttonBox()->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(slotApply()));
+  connect(buttonBox()->button(QDialogButtonBox::Help), SIGNAL(clicked()), this, SLOT(slotHelp()));
   connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
           this, SLOT(slotCurrentPageChanged(KPageWidgetItem*,KPageWidgetItem*)));
   m_dataChanged = false;
@@ -389,5 +390,7 @@ void KateConfigDialog::showAppPluginPage(KTextEditor::ConfigPageInterface *confi
   }
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
-
+void KateConfigDialog::slotHelp()
+{
+  QDesktopServices::openUrl(QUrl(QStringLiteral("help:/")));
+}

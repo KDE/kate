@@ -62,6 +62,7 @@ class KateConfigDialog : public KPageDialog
   protected Q_SLOTS:
     void slotApply();
     void slotChanged();
+    void slotHelp();
 
     void slotCurrentPageChanged( KPageWidgetItem *current, KPageWidgetItem *before );
 

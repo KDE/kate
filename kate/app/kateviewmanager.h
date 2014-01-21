@@ -47,9 +47,6 @@ class KateViewManager : public QSplitter
 {
     Q_OBJECT
 
-    friend class KateViewSpace;
-    friend class KateVSStatusBar;
-
   public:
     KateViewManager (QWidget *parentW, KateMainWindow *parent);
     ~KateViewManager ();
@@ -139,13 +136,13 @@ class KateViewManager : public QSplitter
       return m_viewList;
     }
 
-  private:
     /**
      * create and activate a new view for doc, if doc == 0, then
      * create a new document
      */
     bool createView ( KTextEditor::Document *doc = 0L );
 
+  private:
     bool deleteView ( KTextEditor::View *view, bool delViewSpace = true);
 
     void moveViewtoSplit (KTextEditor::View *view);

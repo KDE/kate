@@ -97,10 +97,16 @@ class KateViewSpace : public QFrame
   public:
     explicit KateViewSpace(KateViewManager *, QWidget* parent = 0, const char* name = 0);
     ~KateViewSpace();
+    
     bool isActiveSpace();
     void setActive(bool b, bool showled = false);
-    QStackedWidget* stack;
-    void addView(KTextEditor::View* v, bool show = true);
+
+    /**
+     * Create new view for given document
+     * @param doc document to create view for
+     * @return new created view
+     */
+    KTextEditor::View *createView (KTextEditor::Document *doc);
     void removeView(KTextEditor::View* v);
 
     bool showView(KTextEditor::View *view)
@@ -122,6 +128,7 @@ class KateViewSpace : public QFrame
     void statusBarToggled ();
 
   private:
+    QStackedWidget* stack;
     bool mIsActiveSpace;
     KateVSStatusBar* mStatusBar;
     /// This list is necessary to only save the order of the accessed views.

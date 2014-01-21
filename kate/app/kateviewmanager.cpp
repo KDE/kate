@@ -433,7 +433,7 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
    * create view, registers its XML gui itself
    * pass the view the correct main window
    */
-  KTextEditor::View *view = (KTextEditor::View *) doc->createView (activeViewSpace()->stack, m_mainWindow->wrapper());
+  KTextEditor::View *view = activeViewSpace()->createView (doc);
 
   m_viewList.append (view);
   m_activeStates[view] = false;
@@ -442,12 +442,8 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
   delete view->actionCollection()->action( QStringLiteral("set_confdlg") );
   delete view->actionCollection()->action( QStringLiteral("editor_options") );
 
-  //view->setContextMenu(view->defaultContextMenu());
-
   connect(view, SIGNAL(dropEventPass(QDropEvent*)), mainWindow(), SLOT(slotDropEvent(QDropEvent*)));
   connect(view, SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(activateSpace(KTextEditor::View*)));
-
-  activeViewSpace()->addView( view );
 
   viewCreated(view);
 

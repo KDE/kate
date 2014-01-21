@@ -106,8 +106,13 @@ void KateViewSpace::statusBarToggled ()
     mStatusBar->hide ();
 }
 
-void KateViewSpace::addView(KTextEditor::View* v, bool show)
+KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
 {
+  /**
+   * Create a fresh view
+   */
+  KTextEditor::View *v = doc->createView (stack, m_viewManager->mainWindow()->wrapper());
+
   // restore the config of this view if possible
   if ( !m_group.isEmpty() )
   {
@@ -128,18 +133,9 @@ void KateViewSpace::addView(KTextEditor::View* v, bool show)
   }
 
   stack->addWidget(v);
-  if (show)
-  {
-    mViewList.append(v);
-    showView( v );
-  }
-  else
-  {
-    KTextEditor::View* c = (KTextEditor::View*)stack->currentWidget();
-    mViewList.prepend( v );
-    showView( c );
-  }
-
+  mViewList.append(v);
+  showView( v );
+  
   // signals for the statusbar
   connect(v, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), mStatusBar, SLOT(cursorPositionChanged(KTextEditor::View*)));
   connect(v, SIGNAL(viewModeChanged(KTextEditor::View*)), mStatusBar, SLOT(viewModeChanged(KTextEditor::View*)));
@@ -149,6 +145,8 @@ void KateViewSpace::addView(KTextEditor::View* v, bool show)
   connect(v->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)), mStatusBar, SLOT(modifiedChanged()) );
   connect(v->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), mStatusBar, SLOT(documentNameChanged()));
   connect(v->document(), SIGNAL(configChanged()), mStatusBar, SLOT(documentConfigChanged()));
+
+  return v;
 }
 
 void KateViewSpace::removeView(KTextEditor::View* v)

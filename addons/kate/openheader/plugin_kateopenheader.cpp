@@ -18,12 +18,12 @@
 */
 
 #include "plugin_kateopenheader.h"
-#include "plugin_kateopenheader.moc"
 
-#include <kate/application.h>
+#include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
+#include <ktexteditor/application.h>
 
 #include <QFileInfo>
 #include <kpluginfactory.h>
@@ -31,22 +31,27 @@
 #include <kaboutdata.h>
 #include <QAction>
 #include <klocalizedstring.h>
-#include <kurl.h>
-#include <kio/netaccess.h>
 #include <kactioncollection.h>
+#include <KXMLGUIFactory>
+#include <KJobWidgets>
+#include <KIO/StatJob>
+#include <QDir>
 
 
-K_PLUGIN_FACTORY(KateOpenHeaderFactory, registerPlugin<PluginKateOpenHeader>();)
-K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheader",ki18n("Open Header"), "0.1", ki18n("Open header for a source file"), KAboutData::License_LGPL_V2)) )
+K_PLUGIN_FACTORY_WITH_JSON(KateOpenHeaderFactory,"kateopenheaderplugin.json", registerPlugin<PluginKateOpenHeader>();)
+//K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheader",ki18n("Open Header"), "0.1", ki18n("Open header for a source file"), KAboutData::License_LGPL_V2)) )
 
 
-PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin, Kate::MainWindow *mainwindow)
-  : Kate::PluginView(mainwindow)
-  , Kate::XMLGUIClient(KateOpenHeaderFactory::componentData())
+PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin, KTextEditor::MainWindow *mainwindow)
+  : QObject(mainwindow)
+  , KXMLGUIClient()
   , KTextEditor::Command()
   , m_plugin(plugin)
+  , m_mainWindow(mainwindow)
 {
-    KAction *a = actionCollection()->addAction("file_openheader");
+    KXMLGUIClient::setComponentName (QLatin1String("kateopenheaderplugin"), i18n ("Open Header"));
+    setXMLFile( QLatin1String("ui.rc") );
+    QAction *a = actionCollection()->addAction(QLatin1String("file_openheader"));
     a->setText(i18n("Open .h/.cpp/.c"));
     a->setShortcut( Qt::Key_F12 );
     connect( a, SIGNAL(triggered(bool)), plugin, SLOT(slotOpenHeader()) );
@@ -54,7 +59,7 @@ PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,
     mainwindow->guiFactory()->addClient (this);
 
     KTextEditor::CommandInterface* cmdIface =
-      qobject_cast<KTextEditor::CommandInterface*>( Kate::application()->editor() );
+      qobject_cast<KTextEditor::CommandInterface*>( KTextEditor::Editor::instance());
 
     if( cmdIface ) {
         cmdIface->registerCommand( this );
@@ -63,10 +68,10 @@ PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,
 
 PluginViewKateOpenHeader::~PluginViewKateOpenHeader()
 {
-      mainWindow()->guiFactory()->removeClient (this);
+      m_mainWindow->guiFactory()->removeClient (this);
 
       KTextEditor::CommandInterface* cmdIface =
-      qobject_cast<KTextEditor::CommandInterface*>( Kate::application()->editor() );
+      qobject_cast<KTextEditor::CommandInterface*>( KTextEditor::Editor::instance());
 
       if( cmdIface ) {
           cmdIface->unregisterCommand( this );
@@ -74,7 +79,7 @@ PluginViewKateOpenHeader::~PluginViewKateOpenHeader()
 }
 
 PluginKateOpenHeader::PluginKateOpenHeader( QObject* parent, const QList<QVariant>& )
-    : Kate::Plugin ( (Kate::Application *)parent, "open-header-plugin" )
+    : KTextEditor::Plugin ( parent )
 {
 }
 
@@ -82,27 +87,31 @@ PluginKateOpenHeader::~PluginKateOpenHeader()
 {
 }
 
-Kate::PluginView *PluginKateOpenHeader::createView (Kate::MainWindow *mainWindow)
+QObject *PluginKateOpenHeader::createView (KTextEditor::MainWindow *mainWindow)
 {
     return new PluginViewKateOpenHeader(this,mainWindow);
 }
 
 void PluginKateOpenHeader::slotOpenHeader ()
 {
-  if (!application()->activeMainWindow())
+  KTextEditor::Application *application=KTextEditor::Editor::instance()->application();
+  if (!application->activeMainWindow())
     return;
 
-  KTextEditor::View * kv (application()->activeMainWindow()->activeView());
+  KTextEditor::View * kv (application->activeMainWindow()->activeView());
   if (!kv) return;
 
-  KUrl url=kv->document()->url();
+  QUrl url=kv->document()->url();
   if ((!url.isValid()) || (url.isEmpty())) return;
 
-  QFileInfo info( url.toLocalFile() );
+  qDebug() << "Trying to open opposite of " << url.toString();
+  qDebug() << "Trying to open opposite of toLocalFile:" << url.toLocalFile();
+  qDebug() << "Trying to open opposite of path:" << url.path();
+  QFileInfo info( url.path() );
   QString extension = info.suffix().toLower();
 
-  QStringList headers( QStringList() << "h" << "H" << "hh" << "hpp" );
-  QStringList sources( QStringList() << "c" << "cpp" << "cc" << "cp" << "cxx" );
+  QStringList headers( QStringList() << QLatin1String("h") << QLatin1String("H") << QLatin1String("hh") << QLatin1String("hpp") );
+  QStringList sources( QStringList() << QLatin1String("c") << QLatin1String("cpp") << QLatin1String("cc") << QLatin1String("cp") << QLatin1String("cxx") );
 
   if( sources.contains( extension ) ) {
     tryOpen( url, headers );
@@ -111,30 +120,83 @@ void PluginKateOpenHeader::slotOpenHeader ()
   }
 }
 
-void PluginKateOpenHeader::tryOpen( const KUrl& url, const QStringList& extensions )
+void PluginKateOpenHeader::tryOpen( const QUrl& url, const QStringList& extensions )
 {
-  if (!application()->activeMainWindow())
+  KTextEditor::Application *application=KTextEditor::Editor::instance()->application();
+  if (!application->activeMainWindow())
     return;
 
-  qDebug() << "Trying to open " << url.pathOrUrl() << " with extensions " << extensions.join(" ");
+  qDebug() << "Trying to open " << url.toString() << " with extensions " << extensions.join(QLatin1String(" "));
   QString basename = QFileInfo( url.path() ).baseName();
-  KUrl newURL( url );
+  QUrl newURL( url );
+    
+  
   for( QStringList::ConstIterator it = extensions.begin(); it != extensions.end(); ++it ) {
-    newURL.setFileName( basename + '.' + *it );
-    if( KIO::NetAccess::exists( newURL , KIO::NetAccess::SourceSide, application()->activeMainWindow()->window()) )
-      application()->activeMainWindow()->openUrl( newURL );
-    newURL.setFileName( basename + '.' + (*it).toUpper() );
-    if( KIO::NetAccess::exists( newURL , KIO::NetAccess::SourceSide, application()->activeMainWindow()->window()) )
-      application()->activeMainWindow()->openUrl( newURL );
+    setFileName( &newURL,basename + QLatin1String(".") + *it );
+    if( fileExists( newURL) ) {
+      application->activeMainWindow()->openUrl( newURL );
+      return;
+    }
+    setFileName(&newURL, basename + QLatin1String(".") + (*it).toUpper() );
+    if( fileExists( newURL) ) {
+      application->activeMainWindow()->openUrl( newURL );
+      return;
+    }    
   }
 }
+
+bool PluginKateOpenHeader::fileExists(const QUrl &url)
+{
+    if (url.isLocalFile()) {
+        return QFile::exists(url.toLocalFile());
+    }
+    
+    KIO::JobFlags flags =  KIO::DefaultFlags;
+    KIO::StatJob *job = KIO::stat(url, flags);
+    KJobWidgets::setWindow(job, KTextEditor::Editor::instance()->application()->activeMainWindow()->window());
+    job->setSide(KIO::StatJob::DestinationSide/*SourceSide*/);
+    job->exec();
+    return !job->error();
+
+}
+
+void PluginKateOpenHeader::setFileName(QUrl *url,const QString &_txt)
+{
+    url->setFragment(QString());
+    int i = 0;
+    while (i < _txt.length() && _txt[i] == QLatin1Char('/')) {
+        ++i;
+    }
+    QString tmp = i ? _txt.mid(i) : _txt;
+
+    QString path = url->path();
+    if (path.isEmpty())
+#ifdef Q_OS_WIN
+        path = url->isLocalFile() ? QDir::rootPath() : QLatin1String("/");
+#else
+        path = QDir::rootPath();
+#endif    
+    else {
+        int lastSlash = path.lastIndexOf(QLatin1Char('/'));
+        if (lastSlash == -1) {
+            path.clear();    // there's only the file name, remove it
+        } else if (!path.endsWith(QLatin1Char('/'))) {
+            path.truncate(lastSlash + 1);    // keep the "/"
+        }
+    }
+
+    path += tmp;
+    url->setPath(path);
+}
+
+
 
 const QStringList& PluginViewKateOpenHeader::cmds()
 {
     static QStringList l;
 
     if (l.empty()) {
-        l << "toggle-header";
+        l << QLatin1String("toggle-header");
     }
 
     return l;
@@ -155,7 +217,7 @@ bool PluginViewKateOpenHeader::help(KTextEditor::View *view, const QString &cmd,
     Q_UNUSED(view)
     Q_UNUSED(cmd)
 
-    msg = "<p><b>toggle-header &mdash; switch between header and corresponding c/cpp file</b></p>"
+    msg = i18n("<p><b>toggle-header &mdash; switch between header and corresponding c/cpp file</b></p>"
             "<p>usage: <tt><b>toggle-header</b></tt></p>"
             "<p>When editing C or C++ code, this command will switch between a header file and "
             "its corresponding C/C++ file or vice verca.</p>"
@@ -163,7 +225,9 @@ bool PluginViewKateOpenHeader::help(KTextEditor::View *view, const QString &cmd,
             "to myclass.h if this file is available.</p>"
             "<p>Pairs of the following filename suffixes will work:<br />"
             " Header files: h, H, hh, hpp<br />"
-            " Source files: c, cpp, cc, cp, cxx</p>";
+            " Source files: c, cpp, cc, cp, cxx</p>");
 
     return true;
 }
+
+#include "plugin_kateopenheader.moc"

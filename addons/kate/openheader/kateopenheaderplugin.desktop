@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=Kate/Plugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=kateopenheaderplugin
-X-Kate-Version=2.8
 Name=Open Header
 Name[ast]=Abrir cabecera
 Name[bg]=Отваряне на header

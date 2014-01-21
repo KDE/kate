@@ -21,11 +21,15 @@
 #ifndef PLUGIN_KATEOPENHEADER_H
 #define PLUGIN_KATEOPENHEADER_H
 
-#include <kate/plugin.h>
-#include <kate/mainwindow.h>
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/commandinterface.h>
+#include <KXMLGUIClient>
+#include <kpluginfactory.h>
+#include <QObject>
+#include <QUrl>
 
-class PluginKateOpenHeader : public Kate::Plugin
+class PluginKateOpenHeader : public KTextEditor::Plugin
 {
   Q_OBJECT
 
@@ -33,21 +37,24 @@ class PluginKateOpenHeader : public Kate::Plugin
     explicit PluginKateOpenHeader( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~PluginKateOpenHeader();
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    QObject *createView (KTextEditor::MainWindow *mainWindow);
 
   public Q_SLOTS:
     void slotOpenHeader ();
-    void tryOpen( const KUrl& url, const QStringList& extensions );
+    void tryOpen( const QUrl& url, const QStringList& extensions );
+  private:
+    bool fileExists(const QUrl &url);    
+    void setFileName(QUrl *url,const QString &_txt);
 };
 
 class PluginViewKateOpenHeader
-  : public Kate::PluginView
-  , public Kate::XMLGUIClient
+  : public QObject
+  , public KXMLGUIClient
   , public KTextEditor::Command
 {
     Q_OBJECT
     public:
-        PluginViewKateOpenHeader(PluginKateOpenHeader* plugin, Kate::MainWindow *mainwindow);
+        PluginViewKateOpenHeader(PluginKateOpenHeader* plugin, KTextEditor::MainWindow *mainwindow);
         virtual ~PluginViewKateOpenHeader();
 
         virtual const QStringList &cmds ();
@@ -56,6 +63,7 @@ class PluginViewKateOpenHeader
 
     private:
         PluginKateOpenHeader* m_plugin;
+        KTextEditor::MainWindow *m_mainWindow;
 };
 
 #endif // PLUGIN_KATEOPENHEADER_H

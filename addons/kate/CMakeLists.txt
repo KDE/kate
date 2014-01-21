@@ -45,7 +45,7 @@ endif(NOT WIN32)
 
 #add_subdirectory( kttsd )
 
-#add_subdirectory( openheader )
+add_subdirectory( openheader )
 
 #add_subdirectory( xmlcheck )
 

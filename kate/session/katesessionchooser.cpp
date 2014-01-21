@@ -69,11 +69,13 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   foreach(const KateSession::Ptr &session, slist) {
     KateSessionChooserItem *item = new KateSessionChooserItem (m_sessions, session);
     QPushButton *tmp=new QPushButton(QIcon::fromTheme(QStringLiteral("document")),QString(),m_sessions);
-    QMenu* popup = new QMenu(this);
-    QAction *a = popup->addAction(i18n("New cloned session"));
+    QMenu* popup = new QMenu(tmp);
+    QAction *a = popup->addAction(i18n("Clone session settings"));
     a->setData(QVariant::fromValue((void*)item));
     connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
-    a=popup->addAction(i18n("Delete session"));
+    a=popup->addAction(i18n("Delete this session"));
+    a->setData(QVariant::fromValue((void*)item));
+    connect(a, SIGNAL(triggered()), this, SLOT(slotDeleteSession()));
     tmp->setMenu(popup); 
     m_sessions->setItemWidget (item, 2, tmp );
   
@@ -134,6 +136,19 @@ void KateSessionChooser::slotCopySession()
   Q_ASSERT(static_cast<KateSessionChooserItem *>(m_sessions->currentItem()));
   done(resultCopy);
 }
+
+void KateSessionChooser::slotDeleteSession()
+{
+  KateSessionChooserItem* item=(KateSessionChooserItem*) ((QAction*)sender())->data().value<void*>();
+  if (!item)
+    return;
+
+  KateSessionManager::self()->deleteSession(item->session);
+  m_sessions->removeItemWidget(item,2);
+  delete item;
+
+}
+
 
 KateSession::Ptr KateSessionChooser::selectedSession ()
 {

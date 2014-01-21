@@ -54,6 +54,7 @@ class KateSessionChooser : public QDialog
     void slotOpen();
     void slotNew();
     void slotCopySession();
+    void slotDeleteSession();
 
     /**
      * selection has changed

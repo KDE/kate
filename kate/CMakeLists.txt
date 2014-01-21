@@ -44,6 +44,7 @@ set (KATE_APPLICATION_SRCS
    app/katerunninginstanceinfo.cpp
    app/kateappcommands.cpp
    app/katequickopen.cpp
+   app/katewaiter.h
    app/main.cpp)
 
 # create kde init executable

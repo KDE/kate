@@ -21,6 +21,7 @@
 
 #include "kateapp.h"
 #include "katerunninginstanceinfo.h"
+#include "katewaiter.h"
 
 #include <KAboutData>
 #include <KLocalizedString>
@@ -28,51 +29,15 @@
 
 #include <QByteArray>
 #include <QCommandLineParser>
-#include <QCoreApplication>
 #include <QLoggingCategory>
 #include <QTextCodec>
 #include <QUrl>
 #include <QVariant>
-#include <QDBusConnection>
-#include <QDBusConnectionInterface>
 #include <QDBusInterface>
 #include <QDBusMessage>
 #include <QDBusReply>
 #include <QApplication>
 #include <QDir>
-
-class KateWaiter : public QObject {
-  Q_OBJECT
-  
-  private:
-    QCoreApplication *m_app;
-    QString m_service;
-    QStringList m_tokens;
-  public:
-    KateWaiter (QCoreApplication *app, const QString &service,const QStringList &tokens)
-      : QObject (app), m_app (app), m_service (service),m_tokens(tokens) {
-      connect ( QDBusConnection::sessionBus().interface(), SIGNAL(serviceOwnerChanged(QString,QString,QString))
-          , this, SLOT(serviceOwnerChanged(QString,QString,QString)) ); 
-    }
-
-  public Q_SLOTS:
-    void exiting () {
-      m_app->quit ();
-    }
-    
-    void documentClosed(const QString& token) {
-      m_tokens.removeAll(token);
-      if (m_tokens.count()==0) m_app->quit();
-    }
-    
-    void serviceOwnerChanged( const QString & name, const QString &, const QString &) {
-      if (name != m_service)
-          return;
-      
-      m_app->quit ();
-    }
-};
-
 
 extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
 {
@@ -446,5 +411,3 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
    */
   return app.exec();
 }
-
-#include "main.moc"

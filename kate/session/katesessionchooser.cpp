@@ -32,6 +32,8 @@
 #include <QMenu>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QPushButton>
+#include <QHeaderView>
 
 //BEGIN CHOOSER DIALOG
 
@@ -47,7 +49,12 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   QStringList header;
   header << i18n("Session Name");
   header << i18nc("The number of open documents", "Open Documents");
+  header << QString();
   m_sessions->setHeaderLabels(header);
+  m_sessions->header()->setStretchLastSection(false);
+  m_sessions->header()->resizeSection(0,(m_sessions->size().width()-32)*2/3);
+  m_sessions->header()->resizeSection(1,(m_sessions->size().width()-32)/3);
+  m_sessions->header()->resizeSection(2,32);
   m_sessions->setRootIsDecorated( false );
   m_sessions->setItemsExpandable( false );
   m_sessions->setAllColumnsShowFocus( true );
@@ -61,7 +68,15 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
 
   foreach(const KateSession::Ptr &session, slist) {
     KateSessionChooserItem *item = new KateSessionChooserItem (m_sessions, session);
-
+    QPushButton *tmp=new QPushButton(QIcon::fromTheme(QStringLiteral("")),QString(),m_sessions);
+    QMenu* popup = new QMenu(this);
+    QAction *a = popup->addAction(i18n("New cloned session"));
+    a->setData(QVariant::fromValue((void*)item));
+    connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
+    a=popup->addAction(i18n("Delete session"));
+    tmp->setMenu(popup); 
+    m_sessions->setItemWidget (item, 2, tmp );
+  
     if (session->name() == lastSession) {
       m_sessions->setCurrentItem (item);
     }
@@ -94,18 +109,20 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   buttonBox->addButton(m_openButton, QDialogButtonBox::ActionRole);
   connect(m_openButton, SIGNAL(clicked()), this, SLOT(slotOpen()));
 
-  QMenu* popup = new QMenu(this);
-  m_openButton->setMenu(popup); // KF5 FIXME: setDelayedMenu is not supported by QPushButton
-  QAction *a = popup->addAction(i18n("Use selected session as template"));
-  connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
-
   QPushButton *newButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-new")), i18n("New Session"));
   buttonBox->addButton(newButton, QDialogButtonBox::ActionRole);
   connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
 
   setResult (resultNone);
-  m_sessions->resizeColumnToContents(0);
+  //m_sessions->resizeColumnToContents(0);
   selectionChanged (NULL, NULL);
+}
+
+void KateSessionChooser::resizeEvent(QResizeEvent * event)
+{
+  m_sessions->header()->resizeSection(0,(m_sessions->size().width()-32)*2/3);
+  m_sessions->header()->resizeSection(1,(m_sessions->size().width()-32)/3);
+  m_sessions->header()->resizeSection(2,32);
 }
 
 KateSessionChooser::~KateSessionChooser ()
@@ -113,6 +130,7 @@ KateSessionChooser::~KateSessionChooser ()
 
 void KateSessionChooser::slotCopySession()
 {
+  m_sessions->setCurrentItem( (KateSessionChooserItem*) ((QAction*)sender())->data().value<void*>() );
   Q_ASSERT(static_cast<KateSessionChooserItem *>(m_sessions->currentItem()));
   done(resultCopy);
 }

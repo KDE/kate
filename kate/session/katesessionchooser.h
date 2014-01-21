@@ -60,6 +60,9 @@ class KateSessionChooser : public QDialog
      */
     void selectionChanged (QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
+  protected:
+    void resizeEvent(QResizeEvent * event);
+    
   private:
     QTreeWidget *m_sessions;
     QCheckBox *m_useLast;

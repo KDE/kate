@@ -2853,7 +2853,8 @@ QStringList KateView::configKeys() const
   return QStringList() << "icon-bar" << "line-numbers" << "dynamic-word-wrap"
                        << "background-color" << "selection-color"
                        << "search-highlight-color" << "replace-highlight-color"
-                       << "folding-bar";
+                       << "folding-bar" << "icon-border-color" << "folding-marker-color"
+                       << "line-number-color" << "modification-markers";
 }
 
 QVariant KateView::configValue(const QString &key)
@@ -2878,6 +2879,14 @@ QVariant KateView::configValue(const QString &key)
     return config()->allowMarkMenu();
   else if (key == "folding-bar")
     return config()->foldingBar();
+  else if (key == "icon-border-color")
+    return renderer()->config()->iconBarColor();
+  else if (key == "folding-marker-color")
+    return renderer()->config()->foldingColor();
+  else if (key == "line-number-color")
+    return renderer()->config()->lineNumberColor();
+  else if (key == "modification-markers")
+    return config()->lineModification();
 
   // return invalid variant
   return QVariant();
@@ -2894,6 +2903,12 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
       renderer()->config()->setSearchHighlightColor(value.value<QColor>());
     else if (key == "replace-highlight-color")
       renderer()->config()->setReplaceHighlightColor(value.value<QColor>());
+    else if (key == "icon-border-color")
+      renderer()->config()->setIconBarColor(value.value<QColor>());
+    else if (key == "folding-marker-color")
+      renderer()->config()->setFoldingColor(value.value<QColor>());
+    else if (key == "line-number-color")
+      renderer()->config()->setLineNumberColor(value.value<QColor>());
   } else if ( value.type() == QVariant::Bool ) {
     // Note explicit type check above. If we used canConvert, then
     // values of type UInt will be trapped here.
@@ -2907,6 +2922,8 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
       config()->setAllowMarkMenu(value.toBool());
     else if (key == "folding-bar")
       config()->setFoldingBar(value.toBool());
+    else if (key == "modification-markers")
+      config()->setLineModification(value.toBool());
   } else if ( value.canConvert(QVariant::UInt) ) {
     if (key == "default-mark-type")
       config()->setDefaultMarkType(value.toUInt());

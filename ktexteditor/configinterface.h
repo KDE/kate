@@ -76,6 +76,11 @@ namespace KTextEditor
  *  - allow-mark-menu [bool], enable/disable the menu shown when right clicking
  *    on the left gutter. When disabled, click on the gutter will always set
  *    or clear the mark of default type.
+ *  - icon-border-color [QColor] read/set the icon border color (on the left,
+ *    with the line numbers)
+ *  - folding-marker-color [QColor] read/set folding marker colors (in the icon border)
+ *  - line-number-color [QColor] read/set line number colors (in the icon border)
+ *  - modification-markers [bool] read/set whether the modification markers are shown
  *
  * KTextEditor::Document has support for the following:
  *  - backup-on-save-local [bool], enable/disable backup when saving local files

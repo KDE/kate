@@ -366,11 +366,11 @@ m_mainWindow (mainWin)
             this, SLOT(handleEsc(QEvent*)));
 
     // watch for project plugin view creation/deletion
-    connect(m_mainWindow, SIGNAL(pluginViewCreated (const QString &, Kate::PluginView *))
-        , this, SLOT(slotPluginViewCreated (const QString &, Kate::PluginView *)));
+    connect(m_mainWindow, SIGNAL(pluginViewCreated (const QString &, QObject *))
+        , this, SLOT(slotPluginViewCreated (const QString &, QObject *)));
 
-    connect(m_mainWindow, SIGNAL(pluginViewDeleted (const QString &, Kate::PluginView *))
-        , this, SLOT(slotPluginViewDeleted (const QString &, Kate::PluginView *)));
+    connect(m_mainWindow, SIGNAL(pluginViewDeleted (const QString &, QObject *))
+        , this, SLOT(slotPluginViewDeleted (const QString &, QObject *)));
 
     connect(m_mainWindow, SIGNAL(viewChanged(KTextEditor::View *)), this, SLOT(docViewChanged()));
 

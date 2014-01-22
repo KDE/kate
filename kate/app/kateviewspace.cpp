@@ -113,12 +113,21 @@ KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
     }
   }
 
-  // add to tab bar
-  const int index = m_tabBar->addTab(doc->url().toString(), doc->documentName());
-  Q_ASSERT(index >= 0);
-  m_viewToTabId[v] = index;
+  // check whether the document is in lazy list
+  if (m_docToTabId.contains(doc)) {
+    // reuse tab id by moving it from doc mapper to view mapper
+    m_viewToTabId[v] = m_docToTabId[doc];
+    // no need to track it here anymore
+    m_docToTabId.remove(doc);
+    disconnect(doc, SIGNAL(destroyed(QObject*)), this, SLOT(documentDestroyed(QObject*)));
+  } else {
+    // create new tab bar button
+    const int index = m_tabBar->addTab(doc->url().toString(), doc->documentName());
+    Q_ASSERT(index >= 0);
+    m_viewToTabId[v] = index;
+  }
 
-  // insert into stack
+  // insert View into stack
   stack->addWidget(v);
   mViewList.append(v);
   showView( v );
@@ -176,12 +185,21 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
 
 void KateViewSpace::changeView(int buttonId)
 {
-  KTextEditor::View * view = m_viewToTabId.key(buttonId);
-  Q_ASSERT(view);
+  // lazy button?
+  KTextEditor::Document * doc = m_docToTabId.key(buttonId);
+  if (doc) {
+    // make sure this view space is active, so that the view is created in this view
+    m_viewManager->setActiveSpace(this);
+    m_viewManager->createView(doc);
+  } else {
+    KTextEditor::View * view = m_viewToTabId.key(buttonId);
+    Q_ASSERT(view);
 
-  if (view != currentView()) {
-    showView(view);
+    if (view != currentView()) {
+      showView(view);
+    }
   }
+  Q_ASSERT(! m_docToTabId.contains(doc));
 }
 
 KTextEditor::View* KateViewSpace::currentView()
@@ -202,6 +220,24 @@ void KateViewSpace::setActive( bool active, bool )
 
   // change the statusbar palette according to the activation state
   // FIXME KF5 mStatusBar->setEnabled(active);
+}
+
+void KateViewSpace::registerDocumentWhileActive(KTextEditor::Document *doc)
+{
+  Q_ASSERT( ! m_docToTabId.contains(doc));
+  // add lazy to tab bar
+  const int index = m_tabBar->addTab(doc->url().toString(), doc->documentName());
+  m_docToTabId[doc] = index;
+
+  connect(doc, SIGNAL(destroyed(QObject*)), this, SLOT(documentDestroyed(QObject*)));
+}
+
+void KateViewSpace::documentDestroyed(QObject * doc)
+{
+  Q_ASSERT(m_docToTabId.contains(static_cast<KTextEditor::Document*>(doc)));
+  const int index = m_docToTabId[static_cast<KTextEditor::Document*>(doc)];
+  m_tabBar->removeTab(index);
+  m_docToTabId.remove(static_cast<KTextEditor::Document*>(doc));
 }
 
 void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QString& viewConfGrp)

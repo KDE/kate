@@ -70,6 +70,15 @@ class KateViewSpace : public QFrame
     void saveConfig (KConfigBase* config, int myIndex, const QString& viewConfGrp);
     void restoreConfig ( KateViewManager *viewMan, const KConfigBase* config, const QString &group );
 
+    /**
+     * Called by the view manager to notify that new documents were created
+     * while this view space was active.
+     */
+    void registerDocumentWhileActive(KTextEditor::Document *doc);
+
+  public Q_SLOTS:
+    void documentDestroyed(QObject * doc);
+
   private Q_SLOTS:
     void statusBarToggled ();
     void changeView(int buttonId);
@@ -84,8 +93,13 @@ class KateViewSpace : public QFrame
     QList<KTextEditor::View*> mViewList;
     KateViewManager *m_viewManager;
     QString m_group;
+
+    // tab bar that contains viewspace tabs
     KateTabBar * m_tabBar;
+    // map from View to button id
     QHash<KTextEditor::View*, int> m_viewToTabId;
+    // map from lazy Document to button id. contains only Documents that have no view
+    QHash<KTextEditor::Document*, int> m_docToTabId;
 };
 
 #endif

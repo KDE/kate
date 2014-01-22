@@ -355,9 +355,9 @@ void KateMainWindow::setupActions()
   a->setText( i18n("&About Editor Component") );
   connect( a, SIGNAL(triggered()), this, SLOT(aboutEditor()) );
 
-  connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotWindowActivated()));
-  connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateOpenWith()));
-  connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateBottomViewBar()));
+  connect(m_viewManager, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotWindowActivated()));
+  connect(m_viewManager, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotUpdateOpenWith()));
+  connect(m_viewManager, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotUpdateBottomViewBar()));
   
   // re-route signals to our wrapper
   connect (m_viewManager, SIGNAL(viewChanged(KTextEditor::View*)), m_wrapper, SIGNAL(viewChanged(KTextEditor::View*)));

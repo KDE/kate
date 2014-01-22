@@ -84,7 +84,7 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
   vs->setActive( true );
   m_viewSpaceList.append(vs);
 
-  connect( this, SIGNAL(viewChanged()), this, SLOT(slotViewChanged()) );
+  connect( this, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotViewChanged()) );
 
   connect(KateDocManager::self(), SIGNAL(documentCreatedViewManager(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
   connect(KateDocManager::self(), SIGNAL(documentDeleted(KTextEditor::Document*)), this, SLOT(documentDeleted(KTextEditor::Document*)));
@@ -570,7 +570,6 @@ void KateViewManager::activateView ( KTextEditor::View *view )
     // remember age of this view
     m_lruViews[view] = m_minAge--;
 
-    emit viewChanged();
     emit viewChanged(view);
   }
 }
@@ -646,7 +645,12 @@ void KateViewManager::closeViews(KTextEditor::Document *doc)
     deleteView( closeList.takeFirst(), true );
 
   if (m_blockViewCreationAndActivation) return;
-  QTimer::singleShot(0, this, SIGNAL(viewChanged()));
+  QTimer::singleShot(0, this, SLOT(slotDelayedViewChanged()));
+}
+
+void KateViewManager::slotDelayedViewChanged ()
+{
+  emit viewChanged (activeView());
 }
 
 void KateViewManager::splitViewSpace( KateViewSpace* vs, // = 0
@@ -777,7 +781,6 @@ void KateViewManager::removeViewSpace (KateViewSpace *viewspace)
 
   updateViewSpaceActions ();
 
-  emit viewChanged();
   emit viewChanged(v);
 }
 

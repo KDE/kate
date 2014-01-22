@@ -80,7 +80,7 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, KTextEd
    * connect to important signals, e.g. for auto project view creation
    */
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
-  connect (m_mainWindow, SIGNAL(viewChanged ()), this, SLOT(slotViewChanged ()));
+  connect (m_mainWindow, SIGNAL(viewChanged (KTextEditor::View *)), this, SLOT(slotViewChanged ()));
   connect (m_projectsCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentChanged (int)));
   connect (m_mainWindow, SIGNAL(viewCreated (KTextEditor::View *)), this, SLOT(slotViewCreated (KTextEditor::View *)));
   connect (m_reloadButton, SIGNAL(clicked (bool)), this, SLOT(slotProjectReload ()));

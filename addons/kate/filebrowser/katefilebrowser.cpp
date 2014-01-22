@@ -125,7 +125,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
   m_filter->setWhatsThis(i18n("Enter a name filter to limit which files are displayed."));
 
   connect(m_dirOperator, SIGNAL(fileSelected(KFileItem)), this, SLOT(fileSelected(KFileItem)));
-  connect(m_mainWindow, SIGNAL(viewChanged()), this, SLOT(autoSyncFolder()));
+  connect(m_mainWindow, SIGNAL(viewChanged(KTextEditor::View *)), this, SLOT(autoSyncFolder()));
 }
 
 KateFileBrowser::~KateFileBrowser()

@@ -57,7 +57,7 @@ PluginView::PluginView( Kate::MainWindow* mainwindow )
            this, SLOT(slotDocumentCreated(KTextEditor::Document*)) );
   connect( Kate::application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document*)),
            this, SLOT(slotDocumentDeleted(KTextEditor::Document*)) );
-  connect( mainWindow(), SIGNAL(viewChanged()),
+  connect( mainWindow(), SIGNAL(viewChanged(KTextEditor::View *)),
            this, SLOT(slotViewChanged()) );
 
   connect( tabbar, SIGNAL(currentChanged(int)),

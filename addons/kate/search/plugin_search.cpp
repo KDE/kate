@@ -372,7 +372,7 @@ m_mainWindow (mainWin)
     connect(m_mainWindow, SIGNAL(pluginViewDeleted (const QString &, Kate::PluginView *))
         , this, SLOT(slotPluginViewDeleted (const QString &, Kate::PluginView *)));
 
-    connect(m_mainWindow, SIGNAL(viewChanged()), this, SLOT(docViewChanged()));
+    connect(m_mainWindow, SIGNAL(viewChanged(KTextEditor::View *)), this, SLOT(docViewChanged()));
 
 
     // update once project plugin state manually

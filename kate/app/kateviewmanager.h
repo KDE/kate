@@ -94,6 +94,7 @@ class KateViewManager : public QSplitter
   private Q_SLOTS:
     void activateView ( KTextEditor::View *view );
     void activateSpace ( KTextEditor::View* v );
+    void slotDelayedViewChanged ();
 
   public Q_SLOTS:
     void slotDocumentNew ();
@@ -112,7 +113,6 @@ class KateViewManager : public QSplitter
 
   Q_SIGNALS:
     void statChanged ();
-    void viewChanged ();
     void viewChanged (KTextEditor::View *);
     void viewCreated (KTextEditor::View *);
 

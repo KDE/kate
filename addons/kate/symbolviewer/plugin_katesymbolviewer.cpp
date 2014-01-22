@@ -120,7 +120,7 @@ m_plugin(plugin)
   connect(m_symbols, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(goToSymbol(QTreeWidgetItem*)));
   connect(m_symbols, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotShowContextMenu(QPoint)));
 
-  connect(mainWindow(), SIGNAL(viewChanged()), this, SLOT(slotDocChanged()));
+  connect(mainWindow(), SIGNAL(viewChanged(KTextEditor::View *)), this, SLOT(slotDocChanged()));
 
   QStringList titles;
   titles << i18nc("@title:column", "Symbols") << i18nc("@title:column", "Position");

@@ -25,9 +25,9 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/modificationinterface.h>
 
-#include <QList>
-#include <QFrame>
 #include <QHash>
+#include <QList>
+#include <QWidget>
 
 class KConfigBase;
 class KateViewManager;
@@ -36,7 +36,7 @@ class QStackedWidget;
 class QLabel;
 class KateTabBar;
 
-class KateViewSpace : public QFrame
+class KateViewSpace : public QWidget
 {
     Q_OBJECT
 

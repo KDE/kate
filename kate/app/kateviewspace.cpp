@@ -30,26 +30,18 @@
 #include "katetabbar.h"
 #include "kactioncollection.h"
 
-#include <KSqueezedTextLabel>
-#include <KStringHandler>
 #include <KLocalizedString>
-#include <kiconutils.h>
 #include <KConfigGroup>
-#include <KXMLGUIFactory>
 
-#include <QTimer>
 #include <QToolButton>
-#include <QCursor>
 #include <QMouseEvent>
-#include <QMenu>
-#include <QSizeGrip>
 #include <QStackedWidget>
 
 //BEGIN KateViewSpace
 KateViewSpace::KateViewSpace( KateViewManager *viewManager,
                               QWidget* parent, const char* name )
-    : QFrame(parent),
-    m_viewManager( viewManager )
+    : QWidget(parent)
+    , m_viewManager(viewManager)
 {
   setObjectName(QString::fromLatin1(name));
   QVBoxLayout *layout = new QVBoxLayout(this);
@@ -61,7 +53,6 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
 
   // add tab bar
   m_tabBar = new KateTabBar(this);
-  layout->addWidget(m_tabBar);
   connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
   hLayout->addWidget(m_tabBar);
 
@@ -239,6 +230,12 @@ void KateViewSpace::changeView(int buttonId)
   KTextEditor::Document * doc = m_docToTabId.key(buttonId);
   Q_ASSERT(doc);
 
+  // make sure we open the view in this view space
+  if (! isActiveSpace()) {
+    m_viewManager->setActiveSpace(this);
+  }
+
+  // tell the view manager to show the view
   m_viewManager->activateView(doc);
 }
 

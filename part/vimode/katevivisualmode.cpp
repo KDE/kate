@@ -368,12 +368,20 @@ void KateViVisualMode::initializeCommands()
   ADDMOTION("<pageup>", motionPageUp, 0 );
   ADDMOTION("gj", motionToNextVisualLine, 0 );
   ADDMOTION("gk", motionToPrevVisualLine, 0);
+  ADDMOTION("(", motionToPreviousSentence, 0 );
+  ADDMOTION(")", motionToNextSentence, 0 );
   ADDMOTION("{", motionToBeforeParagraph, 0 );
   ADDMOTION("}", motionToAfterParagraph, 0 );
 
   // text objects
   ADDMOTION("iw", textObjectInnerWord, 0 );
   ADDMOTION("aw", textObjectAWord, 0 );
+  ADDMOTION("iW", textObjectInnerWORD, 0 );
+  ADDMOTION("aW", textObjectAWORD, IS_NOT_LINEWISE );
+  ADDMOTION("is", textObjectInnerSentence, IS_NOT_LINEWISE );
+  ADDMOTION("as", textObjectASentence, IS_NOT_LINEWISE );
+  ADDMOTION("ip", textObjectInnerParagraph, IS_NOT_LINEWISE );
+  ADDMOTION("ap", textObjectAParagraph, IS_NOT_LINEWISE );
   ADDMOTION("i\"", textObjectInnerQuoteDouble, CAN_CHANGE_WHOLE_VISUAL_MODE_SELECTION);
   ADDMOTION("a\"", textObjectAQuoteDouble, 0 );
   ADDMOTION("i'", textObjectInnerQuoteSingle, CAN_CHANGE_WHOLE_VISUAL_MODE_SELECTION );

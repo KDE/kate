@@ -12,7 +12,7 @@
  ** http://tools.ietf.org/html/rfc4627
  ***************************************************************************
 -->
-<language name="JSON" section="Markup" version="1.2" kateversion="2.3" extensions="*.json" mimetype="application/json" author="Sebastian Pipping (sebastian@pipping.org)" license="GPL">
+<language name="JSON" section="Markup" version="1.3" kateversion="2.3" extensions="*.json" mimetype="application/json" author="Sebastian Pipping (sebastian@pipping.org)" license="GPL">
   <highlighting>
     <list name="Constants">
       <item>null</item>
@@ -82,17 +82,17 @@
     <itemDatas>
       <itemData name="Style_Normal"             defStyleNum="dsNormal" />
 
-      <itemData name="Style_Seperator_Pair"     defStyleNum="dsNormal" bold="1" color="#EF0000" />
-      <itemData name="Style_Seperator_Array"    defStyleNum="dsNormal" bold="1" color="#0000AF" />
+      <itemData name="Style_Seperator_Pair"     defStyleNum="dsFunction" bold="true" />
+      <itemData name="Style_Seperator_Array"    defStyleNum="dsOthers" bold="true" />
 
       <itemData name="Style_Decimal"            defStyleNum="dsDecVal" />
       <itemData name="Style_Float"              defStyleNum="dsFloat" />
       <itemData name="Style_String_Key"         defStyleNum="dsDataType" />
-      <itemData name="Style_String_Value"       defStyleNum="dsString" color="#FF00FF" />
-      <itemData name="Style_String_Key_Char"    defStyleNum="dsDataType" underline="1" />
-      <itemData name="Style_String_Value_Char"  defStyleNum="dsString" color="#FF00FF" underline="1" />
+      <itemData name="Style_String_Value"       defStyleNum="dsString" />
+      <itemData name="Style_String_Key_Char"    defStyleNum="dsChar" />
+      <itemData name="Style_String_Value_Char"  defStyleNum="dsChar" />
 
-      <itemData name="Style_Keyword"            defStyleNum="dsDecVal" bold="1" />
+      <itemData name="Style_Keyword"            defStyleNum="dsKeyword" />
 
       <itemData name="Style_Error"              defStyleNum="dsError" />
     </itemDatas>

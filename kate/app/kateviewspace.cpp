@@ -113,18 +113,10 @@ KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
     }
   }
 
-  // check whether the document is in lazy list
-  if (m_docToTabId.contains(doc)) {
-    // reuse tab id by moving it from doc mapper to view mapper
-    m_viewToTabId[v] = m_docToTabId[doc];
-    // no need to track it here anymore
-    m_docToTabId.remove(doc);
-    disconnect(doc, SIGNAL(destroyed(QObject*)), this, SLOT(documentDestroyed(QObject*)));
-  } else {
-    // create new tab bar button
-    const int index = m_tabBar->addTab(doc->url().toString(), doc->documentName());
-    Q_ASSERT(index >= 0);
-    m_viewToTabId[v] = index;
+  // make sure the document is registered
+  if ( ! m_docToTabId.contains(doc)) {
+    registerDocument(doc);
+    Q_ASSERT(m_docToTabId.contains(doc));
   }
 
   // insert View into stack
@@ -138,9 +130,8 @@ KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
 void KateViewSpace::removeView(KTextEditor::View* v)
 {
   // remove from tab bar
-  Q_ASSERT(m_viewToTabId.contains(v));
-  m_tabBar->removeTab(m_viewToTabId[v]);
-  m_viewToTabId.remove(v);
+  Q_ASSERT(m_docToTabId.contains(v->document()));
+  documentDestroyed(v->document());
 
   // remove from view space
   bool active = ( v == currentView() );
@@ -154,6 +145,18 @@ void KateViewSpace::removeView(KTextEditor::View* v)
   // the last recently used viewspace is always at the end of the list
   if (!mViewList.isEmpty())
     showView(mViewList.last());
+}
+
+KTextEditor::View * KateViewSpace::viewForDocument(KTextEditor::Document * doc) const
+{
+  QList<KTextEditor::View*>::const_iterator it = mViewList.constEnd();
+  while (it != mViewList.constBegin()) {
+    --it;
+    if ((*it)->document() == doc) {
+      return *it;
+    }
+  }
+  return 0;
 }
 
 bool KateViewSpace::showView(KTextEditor::Document *document)
@@ -173,9 +176,9 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
       kv->show();
 
       // raise tab in tab bar
-      Q_ASSERT(m_viewToTabId.contains(kv));
-//       m_tabBar->raiseTab(m_viewToTabId[kv]);
-      m_tabBar->setCurrentTab(m_viewToTabId[kv]);
+      Q_ASSERT(m_docToTabId.contains(document));
+//       m_tabBar->raiseTab(m_docToTabId[document]);
+      m_tabBar->setCurrentTab(m_docToTabId[document]);
 
       return true;
     }
@@ -185,21 +188,10 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
 
 void KateViewSpace::changeView(int buttonId)
 {
-  // lazy button?
   KTextEditor::Document * doc = m_docToTabId.key(buttonId);
-  if (doc) {
-    // make sure this view space is active, so that the view is created in this view
-    m_viewManager->setActiveSpace(this);
-    m_viewManager->createView(doc);
-  } else {
-    KTextEditor::View * view = m_viewToTabId.key(buttonId);
-    Q_ASSERT(view);
+  Q_ASSERT(doc);
 
-    if (view != currentView()) {
-      showView(view);
-    }
-  }
-  Q_ASSERT(! m_docToTabId.contains(doc));
+  showView(doc);
 }
 
 KTextEditor::View* KateViewSpace::currentView()
@@ -222,10 +214,10 @@ void KateViewSpace::setActive( bool active, bool )
   // FIXME KF5 mStatusBar->setEnabled(active);
 }
 
-void KateViewSpace::registerDocumentWhileActive(KTextEditor::Document *doc)
+void KateViewSpace::registerDocument(KTextEditor::Document *doc)
 {
   Q_ASSERT( ! m_docToTabId.contains(doc));
-  // add lazy to tab bar
+  // add to tab bar
   const int index = m_tabBar->addTab(doc->url().toString(), doc->documentName());
   m_docToTabId[doc] = index;
 
@@ -238,6 +230,15 @@ void KateViewSpace::documentDestroyed(QObject * doc)
   const int index = m_docToTabId[static_cast<KTextEditor::Document*>(doc)];
   m_tabBar->removeTab(index);
   m_docToTabId.remove(static_cast<KTextEditor::Document*>(doc));
+  disconnect(doc, SIGNAL(destroyed(QObject*)), this, SLOT(documentDestroyed(QObject*)));
+}
+
+void KateViewSpace::updateDocumentName(KTextEditor::Document* doc)
+{
+  const int buttonId = m_docToTabId[doc];
+  Q_ASSERT(buttonId >= 0);
+  m_tabBar->setTabText(buttonId, doc->documentName());
+  m_tabBar->setTabURL(buttonId, doc->url().toDisplayString());
 }
 
 void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QString& viewConfGrp)

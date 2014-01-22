@@ -61,6 +61,8 @@ class KateViewSpace : public QFrame
     }
     bool showView(KTextEditor::Document *document);
 
+    KTextEditor::View * viewForDocument(KTextEditor::Document *document) const;
+
     KTextEditor::View* currentView();
     int viewCount() const
     {
@@ -74,10 +76,11 @@ class KateViewSpace : public QFrame
      * Called by the view manager to notify that new documents were created
      * while this view space was active.
      */
-    void registerDocumentWhileActive(KTextEditor::Document *doc);
+    void registerDocument(KTextEditor::Document *doc);
 
   public Q_SLOTS:
     void documentDestroyed(QObject * doc);
+    void updateDocumentName(KTextEditor::Document* doc);
 
   private Q_SLOTS:
     void statusBarToggled ();
@@ -96,9 +99,7 @@ class KateViewSpace : public QFrame
 
     // tab bar that contains viewspace tabs
     KateTabBar * m_tabBar;
-    // map from View to button id
-    QHash<KTextEditor::View*, int> m_viewToTabId;
-    // map from lazy Document to button id. contains only Documents that have no view
+    // map from Document to button id
     QHash<KTextEditor::Document*, int> m_docToTabId;
 };
 

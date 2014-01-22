@@ -332,7 +332,7 @@ KateMainWindow *KateViewManager::mainWindow()
 void KateViewManager::documentCreated (KTextEditor::Document *doc)
 {
   // forward to currently active view space
-  activeViewSpace()->registerDocumentWhileActive(doc);
+  activeViewSpace()->registerDocument(doc);
 
   // to update open recent files on saving
   connect (doc, SIGNAL(documentSavedOrUploaded(KTextEditor::Document*,bool)), this, SLOT(documentSavedOrUploaded(KTextEditor::Document*,bool)));

@@ -528,7 +528,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 
 void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
 {
-  if(!isVisible() && !viewLinesScrolled )
+  if(!isVisible() && !viewLinesScrolled && !changed )
     return; //When this view is not visible, don't do anything
 
   m_updatingView = true;

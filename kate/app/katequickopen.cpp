@@ -165,6 +165,10 @@ void KateQuickOpen::update ()
         i2.next();
 
         KTextEditor::Document *doc = i2.value()->document();
+
+        if (alreadySeenDocs.contains(doc))
+          continue;
+
         alreadySeenDocs.insert (doc);
 
         //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));

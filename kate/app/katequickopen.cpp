@@ -274,32 +274,17 @@ void KateQuickOpen::update ()
     m_listView->resizeColumnToContents(0);
 }
 
-/**
- * just quick switch to a previous document without displaying any list
- */
-void KateQuickOpen::justSwitchToPreviousDocument ()
-{
-  if (m_model->hasIndex(1, 0)) {
-    switchTo(m_model->index(1, 0));
-  }
-}
-
 void KateQuickOpen::slotReturnPressed ()
-{
-  switchTo(m_listView->currentIndex());
-}
-
-void KateQuickOpen::switchTo (const QModelIndex& index)
 {
   /**
    * open document for first element, if possible
    * prefer to use the document pointer
    */
-  KTextEditor::Document *doc = index.data(DocumentRole).value<QPointer<KTextEditor::Document> >();
+  KTextEditor::Document *doc = m_listView->currentIndex().data (DocumentRole).value<QPointer<KTextEditor::Document> >();
   if (doc) {
     m_mainWindow->mainWindow()->activateView (doc);
   } else {
-    KUrl url = index.data(UrlRole).value<KUrl>();
+    KUrl url = m_listView->currentIndex().data (UrlRole).value<KUrl>();
     if (!url.isEmpty())
       m_mainWindow->mainWindow()->openUrl (url);
   }

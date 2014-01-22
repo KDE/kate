@@ -318,7 +318,7 @@ void KateMainWindow::setupActions()
   scuts << QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O)
         << QKeySequence(Qt::CTRL + Qt::Key_Tab);
   a->setShortcuts(scuts);
-  connect( a, SIGNAL(triggered()), this, SLOT(slotPreQuickOpen()) );
+  connect( a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()) );
   a->setWhatsThis(i18n("Open a form to quick open documents."));
 
   KToggleAction* showFullScreenAction = KStandardAction::fullScreen( 0, 0, this, this);
@@ -1019,33 +1019,15 @@ Kate::PluginView *KateMainWindow::pluginView (const QString &name)
   return m_pluginViews.contains(plugin) ? m_pluginViews.value (plugin) : 0;
 }
 
-/**
- * just wait a little to make sure that user intended to see
- * a documents list and (still) holds a \c Ctrl key to indicate that...
- */
-void KateMainWindow::slotPreQuickOpen ()
-{
-  QTimer::singleShot(200, this, SLOT(slotQuickOpen()));
-}
-
-/**
- * show quick open and pass focus to it if \c Ctrl key still pressed,
- * otherwise just switch to a previous document quickly!
- */
 void KateMainWindow::slotQuickOpen ()
 {
+  /**
+   * show quick open and pass focus to it
+   */
   m_quickOpen->update ();
-  Qt::KeyboardModifiers mod = QApplication::keyboardModifiers ();
-  if (mod & Qt::ControlModifier)
-  {
-    m_mainStackedWidget->setCurrentWidget (m_quickOpen);
-    centralWidget()->setFocusProxy (m_quickOpen);
-    m_quickOpen->setFocus ();
-  }
-  else
-  {
-    m_quickOpen->justSwitchToPreviousDocument ();
-  }
+  m_mainStackedWidget->setCurrentWidget (m_quickOpen);
+  centralWidget()->setFocusProxy (m_quickOpen);
+  m_quickOpen->setFocus ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

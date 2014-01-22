@@ -113,7 +113,7 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     }
 
     // draw text
-    style()->drawItemText(&p, rect(), Qt::AlignHCenter, pal, true, text());
+    style()->drawItemText(&p, rect(), Qt::AlignHCenter | Qt::AlignVCenter, pal, true, text());
 
     if (m_highlightColor.isValid()) {
         p.fillRect(QRect(0, height() - 3, width(), 10), m_highlightColor);

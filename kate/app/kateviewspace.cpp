@@ -113,7 +113,7 @@ KTextEditor::View *KateViewSpace::createView (KTextEditor::Document *doc)
     }
   }
 
-  // make sure the document is registered
+  // just register document, it is shown below through showView() then
   if ( ! m_docToTabId.contains(doc)) {
     registerDocument(doc);
     Q_ASSERT(m_docToTabId.contains(doc));
@@ -221,6 +221,8 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
   const int index = m_tabBar->addTab(doc->url().toString(), doc->documentName());
   m_docToTabId[doc] = index;
 
+  connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
+          this, SLOT(updateDocumentName(KTextEditor::Document*)));
   connect(doc, SIGNAL(destroyed(QObject*)), this, SLOT(documentDestroyed(QObject*)));
 }
 
@@ -230,7 +232,7 @@ void KateViewSpace::documentDestroyed(QObject * doc)
   const int index = m_docToTabId[static_cast<KTextEditor::Document*>(doc)];
   m_tabBar->removeTab(index);
   m_docToTabId.remove(static_cast<KTextEditor::Document*>(doc));
-  disconnect(doc, SIGNAL(destroyed(QObject*)), this, SLOT(documentDestroyed(QObject*)));
+  disconnect(doc, 0, this, 0);
 }
 
 void KateViewSpace::updateDocumentName(KTextEditor::Document* doc)

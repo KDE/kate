@@ -642,6 +642,8 @@ void KateViewManager::closeViews(KTextEditor::Document *doc)
     deleteView( closeList.takeFirst());
 
   if (m_blockViewCreationAndActivation) return;
+  
+  setUpdatesEnabled(false);
   QTimer::singleShot(0, this, SLOT(slotDelayedViewChanged()));
 }
 
@@ -658,6 +660,8 @@ void KateViewManager::slotDelayedViewChanged ()
   }
   
   emit viewChanged (newActiveView);
+  
+  setUpdatesEnabled(true);
 }
 
 void KateViewManager::splitViewSpace( KateViewSpace* vs, // = 0

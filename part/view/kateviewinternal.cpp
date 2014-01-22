@@ -42,6 +42,7 @@
 #include "spellcheck/spellingmenu.h"
 #include "kateviewaccessible.h"
 #include "katetextanimation.h"
+#include "katemessagewidget.h"
 
 #include <ktexteditor/movingrange.h>
 #include <kcursor.h>
@@ -483,6 +484,14 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
       // scroll excluding child widgets (floating notifications)
       scroll(0, scrollHeight, rect());
       m_leftBorder->scroll(0, scrollHeight);
+
+      if ((m_view->m_floatTopMessageWidget && m_view->m_floatTopMessageWidget->isVisible())
+        || (m_view->m_bottomMessageWidget && m_view->m_bottomMessageWidget->isVisible()))
+      {
+        // NOTE: on some machines we must update if the floating widget is visible
+        //       otherwise strange painting bugs may occur during scrolling...
+        update();
+      }
 
       emit m_view->verticalScrollPositionChanged( m_view, c );
       emit m_view->displayRangeChanged(m_view);

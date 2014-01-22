@@ -168,9 +168,14 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void queueModifiedOnDisc(KTextEditor::Document *doc);
 
     /**
-     * slots used for actions in the menus/toolbars
-     * or internal signal connections
+     * Show quick open
      */
+    void slotQuickOpen ();
+
+  /**
+   * slots used for actions in the menus/toolbars
+   * or internal signal connections
+   */
   private Q_SLOTS:
     void newWindow ();
 
@@ -187,12 +192,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void editKeys();
     void mSlotFixOpenWithMenu();
 
-    /**
-     * Show quick open
-     */
-    void slotPreQuickOpen ();
-    void slotQuickOpen ();
-    
     /* to update the caption */
     void slotDocumentCreated (KTextEditor::Document *doc);
     void updateCaption (KTextEditor::Document *doc);
@@ -429,7 +428,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * quick open to fast switch documents
      */
     KateQuickOpen *m_quickOpen;
-
+    
     /**
      * keeps track of views
      */

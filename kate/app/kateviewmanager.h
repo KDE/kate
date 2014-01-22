@@ -129,7 +129,7 @@ class KateViewManager : public QSplitter
     bool createView ( KTextEditor::Document *doc = 0L );
 
   private:
-    bool deleteView ( KTextEditor::View *view, bool delViewSpace = true);
+    bool deleteView ( KTextEditor::View *view);
 
     void moveViewtoSplit (KTextEditor::View *view);
     void moveViewtoStack (KTextEditor::View *view);

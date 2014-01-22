@@ -396,7 +396,7 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
   return true;
 }
 
-bool KateViewManager::deleteView (KTextEditor::View *view, bool delViewSpace)
+bool KateViewManager::deleteView (KTextEditor::View *view)
 {
   if (!view) return true;
 
@@ -418,10 +418,6 @@ bool KateViewManager::deleteView (KTextEditor::View *view, bool delViewSpace)
   m_activeStates.remove (view);
   delete view;
   view = 0L;
-
-  if (delViewSpace)
-    if ( viewspace->viewCount() == 0 )
-      removeViewSpace( viewspace );
 
   return true;
 }
@@ -642,7 +638,7 @@ void KateViewManager::closeViews(KTextEditor::Document *doc)
   }
 
   while ( !closeList.isEmpty() )
-    deleteView( closeList.takeFirst(), true );
+    deleteView( closeList.takeFirst());
 
   if (m_blockViewCreationAndActivation) return;
   QTimer::singleShot(0, this, SLOT(slotDelayedViewChanged()));
@@ -650,7 +646,17 @@ void KateViewManager::closeViews(KTextEditor::Document *doc)
 
 void KateViewManager::slotDelayedViewChanged ()
 {
-  emit viewChanged (activeView());
+  KTextEditor::View * const newActiveView = activeView();
+  
+  /**
+   * check if we have any empty viewspaces and give them a view
+   */
+  Q_FOREACH (KateViewSpace *vs, m_viewSpaceList) {
+     if (!vs->currentView())
+        vs->createView (newActiveView->document());
+  }
+  
+  emit viewChanged (newActiveView);
 }
 
 void KateViewManager::splitViewSpace( KateViewSpace* vs, // = 0
@@ -729,9 +735,8 @@ void KateViewManager::removeViewSpace (KateViewSpace *viewspace)
     return;
 
   // delete views of the viewspace
-  while (viewspace->viewCount() > 0 && viewspace->currentView())
-  {
-    deleteView( viewspace->currentView(), false );
+  while (viewspace->currentView()) {
+    deleteView( viewspace->currentView());
   }
 
   // cu viewspace

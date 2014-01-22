@@ -126,7 +126,7 @@ class KateViewManager : public QSplitter
      * create and activate a new view for doc, if doc == 0, then
      * create a new document
      */
-    bool createView ( KTextEditor::Document *doc = 0L );
+    bool createView ( KTextEditor::Document *doc = 0L, KateViewSpace *vs = nullptr );
 
   private:
     bool deleteView ( KTextEditor::View *view);

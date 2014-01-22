@@ -359,7 +359,7 @@ void KateViewManager::documentSavedOrUploaded(KTextEditor::Document *doc, bool)
     m_mainWindow->fileOpenRecent()->addUrl( doc->url() );
 }
 
-bool KateViewManager::createView ( KTextEditor::Document *doc )
+bool KateViewManager::createView ( KTextEditor::Document *doc, KateViewSpace *vs )
 {
   if (m_blockViewCreationAndActivation) return false;
 
@@ -371,7 +371,7 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
    * create view, registers its XML gui itself
    * pass the view the correct main window
    */
-  KTextEditor::View *view = activeViewSpace()->createView (doc);
+  KTextEditor::View *view = (vs ? vs : activeViewSpace())->createView (doc);
 
   m_viewList.append (view);
   m_activeStates[view] = false;
@@ -391,7 +391,8 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
   m_activityResources[view]->setUri(doc->url());
 #endif
 
-  activateView( view );
+  if (!vs)
+    activateView( view );
 
   return true;
 }
@@ -653,7 +654,7 @@ void KateViewManager::slotDelayedViewChanged ()
    */
   Q_FOREACH (KateViewSpace *vs, m_viewSpaceList) {
      if (!vs->currentView())
-        vs->createView (newActiveView->document());
+        createView (newActiveView->document(), vs);
   }
   
   emit viewChanged (newActiveView);

@@ -25,7 +25,9 @@
 #include <kconfiggroup.h>
 #include <kiconloader.h>
 #include <kstringhandler.h>
+#include <KLocalizedString>
 
+#include <QToolButton>
 #include <QApplication> // QApplication::sendEvent
 #include <QtAlgorithms> // qSort
 #include <QDebug>
@@ -122,7 +124,11 @@ KateTabBar::KateTabBar(QWidget *parent)
     m_activeButton = 0L;
 
     // functions called in ::load() will set settings for the nav buttons
-    m_configureButton = new KateTabButton(QStringLiteral("Show Quick Open"), QStringLiteral("..."), -1, this);
+    m_moreButton = new QToolButton(this);
+    m_moreButton->setAutoRaise(true);
+    m_moreButton->setText(i18n("..."));
+    m_moreButton->setToolTip(i18n("Quick Open"));
+    connect(m_moreButton, SIGNAL(clicked()), this, SIGNAL(moreButtonClicked()));
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     updateFixedHeight();
@@ -715,8 +721,8 @@ void KateTabBar::updateFixedHeight()
  */
 void KateTabBar::updateHelperButtons(QSize new_size)
 {
-    m_configureButton->setGeometry(new_size.width() - m_configureButton->minimumSizeHint().width(),
-                                   0, m_configureButton->minimumSizeHint().width(), tabHeight());
+    m_moreButton->setGeometry(new_size.width() - m_moreButton->minimumSizeHint().width(),
+                              0, m_moreButton->minimumSizeHint().width(), tabHeight());
 }
 
 void KateTabBar::updateSort()

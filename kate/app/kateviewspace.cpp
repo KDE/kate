@@ -57,6 +57,7 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
   m_tabBar = new KateTabBar(this);
   layout->addWidget(m_tabBar);
   connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
+  connect(m_tabBar, &KateTabBar::moreButtonClicked, m_viewManager->mainWindow(), &KateMainWindow::slotQuickOpen);
 
   stack = new QStackedWidget( this );
   stack->setFocus();
@@ -191,7 +192,7 @@ void KateViewSpace::changeView(int buttonId)
   KTextEditor::Document * doc = m_docToTabId.key(buttonId);
   Q_ASSERT(doc);
 
-  showView(doc);
+  m_viewManager->activateView(doc);
 }
 
 KTextEditor::View* KateViewSpace::currentView()

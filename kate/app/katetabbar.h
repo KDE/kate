@@ -30,6 +30,7 @@
 
 class KateTabButton;
 class KConfigBase;
+class QToolButton;
 
 /**
  * The \p KateTabBar class provides a tab bar, e.g. for tabbed documents and
@@ -114,14 +115,16 @@ Q_SIGNALS:
      * This signal is emitted whenever the current activated tab changes.
      */
     void currentChanged(int button_id);
+
     /**
      * This signal is emitted whenever a tab should be closed.
      */
     void closeRequest(int button_id);
+
     /**
-     * This signal is emitted whenever a setting entry changes.
+     * This signal is emitted whenever the more button is clicked.
      */
-    void settingsChanged(KateTabBar *tabbar);
+    void moreButtonClicked();
 
     /**
      * This signal is emitted whenever a highlight mark changes.
@@ -155,8 +158,8 @@ private:
 
     KateTabButton *m_activeButton;
 
-    // buttons on the right to navigate and configure
-    KateTabButton *m_configureButton;
+    // config/more button
+    QToolButton * m_moreButton;
     int m_navigateSize;
 
     int m_nextID;

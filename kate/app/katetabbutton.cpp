@@ -29,6 +29,7 @@
 #include <QIcon>
 #include <QMenu>
 #include <QPainter>
+#include <QStyle>
 
 QColor KateTabButton::s_predefinedColors[] = { Qt::red, Qt::yellow, Qt::green, Qt::cyan, Qt::blue, Qt::magenta };
 const int KateTabButton::s_colorCount = 6;
@@ -101,20 +102,26 @@ bool KateTabButton::isActivated() const
 
 void KateTabButton::paintEvent(QPaintEvent *ev)
 {
-    const int opac = 30;
-    const int comp = 100 - opac;
+    Q_UNUSED(ev)
 
     QPalette pal = QApplication::palette();
-    if (m_highlightColor.isValid()) {
-        QColor col(pal.button().color());
-        col.setRed((col.red()*comp + m_highlightColor.red()*opac) / 100);
-        col.setGreen((col.green()*comp + m_highlightColor.green()*opac) / 100);
-        col.setBlue((col.blue()*comp + m_highlightColor.blue()*opac) / 100);
-        pal.setColor(QPalette::Button, col);
-        pal.setColor(QPalette::Background, col);
+
+    QPainter p(this);
+    if (underMouse()) {
+        QColor c = pal.color(QPalette::Background);
+        p.fillRect(rect(), c.lighter(110));
     }
-    setPalette(pal);
-    QPushButton::paintEvent(ev);
+
+    // draw text
+    style()->drawItemText(&p, rect(), Qt::AlignHCenter, pal, true, text());
+
+    if (m_highlightColor.isValid()) {
+        p.fillRect(QRect(0, height() - 3, width(), 10), m_highlightColor);
+    }
+
+    if (isActivated()) {
+        p.fillRect(QRect(0, height() - 3, width(), 10), QColor(0, 0, 255, 128));
+    }
 }
 
 void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)

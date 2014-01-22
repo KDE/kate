@@ -1,7 +1,0 @@
-<!DOCTYPE kpartgui>
-<gui name="tabifyplugin" library="katetabifyplugin" version="1">
-<ToolBar>
-  <text>Tabify Plugin</text>
-  <Action name="tabbar_widget"/>
-</ToolBar>
-</gui>

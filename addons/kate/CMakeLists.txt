@@ -28,14 +28,14 @@ ecm_optional_add_subdirectory (filebrowser)
 # xml completion
 ecm_optional_add_subdirectory (xmltools)
 
-ecm_optional_add_subdirectory( openheader )
+# open header matching to current file
+ecm_optional_add_subdirectory (openheader)
 
-ecm_optional_add_subdirectory( close-except-like )
+# close document except this one (or similar)
+ecm_optional_add_subdirectory (close-except-like)
 
-
-if(NOT WIN32)
-  ecm_optional_add_subdirectory (gdbplugin)  # should be tested on windows...
-endif(NOT WIN32)
+# debugger plugin, needs windows love
+ecm_optional_add_subdirectory (gdbplugin)
 
 # build plugin
 ecm_optional_add_subdirectory (katebuild-plugin)
@@ -44,22 +44,12 @@ ecm_optional_add_subdirectory (katebuild-plugin)
 
 #add_subdirectory( mailfiles )
 
-#add_subdirectory( tabbarextension )
-
 #add_subdirectory( symbolviewer )
 
 #add_subdirectory( filetemplates )
 
 #add_subdirectory( kttsd )
 
-
 #add_subdirectory( xmlcheck )
 
-
-#add_subdirectory( tabify )
-
-
-
 #macro_optional_add_subdirectory(pate)
-
-#

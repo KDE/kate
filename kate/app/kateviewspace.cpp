@@ -28,6 +28,7 @@
 #include "katesessionmanager.h"
 #include "katedebug.h"
 #include "katetabbar.h"
+#include "kactioncollection.h"
 
 #include <KSqueezedTextLabel>
 #include <KStringHandler>
@@ -37,6 +38,7 @@
 #include <KXMLGUIFactory>
 
 #include <QTimer>
+#include <QToolButton>
 #include <QCursor>
 #include <QMouseEvent>
 #include <QMenu>
@@ -54,10 +56,40 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
   layout->setSpacing(0);
   layout->setMargin(0);
 
+  //BEGIN tab bar
+  QHBoxLayout * hLayout = new QHBoxLayout();
+
+  // add tab bar
   m_tabBar = new KateTabBar(this);
   layout->addWidget(m_tabBar);
   connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
-  connect(m_tabBar, &KateTabBar::moreButtonClicked, m_viewManager->mainWindow(), &KateMainWindow::slotQuickOpen);
+  hLayout->addWidget(m_tabBar);
+
+  // add vertical split view space
+  QToolButton * split = new QToolButton(this);
+  split->setAutoRaise(true);
+  split->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert")));
+  split->setWhatsThis(i18n("Split this view horizontally into two views."));
+  split->installEventFilter(this); // on click, active this view space
+  hLayout->addWidget(split);
+
+  // add horizontally split view space
+  split = new QToolButton(this);
+  split->setAutoRaise(true);
+  split->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
+  split->setWhatsThis(i18n("Split this view vertically into two views."));
+  split->installEventFilter(this); // on click, active this view space
+  hLayout->addWidget(split);
+
+  // add quick open
+  QToolButton * quickOpen = new QToolButton(this);
+  quickOpen->setAutoRaise(true);
+  quickOpen->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open")));
+  quickOpen->installEventFilter(this); // on click, active this view space
+  hLayout->addWidget(quickOpen);
+
+  layout->addLayout(hLayout);
+  //END tab bar
 
   stack = new QStackedWidget( this );
   stack->setFocus();
@@ -77,6 +109,15 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
 
 KateViewSpace::~KateViewSpace()
 {}
+
+bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
+{
+  if (! isActiveSpace() && qobject_cast<QToolButton*>(obj) && event->type() == QEvent::MouseButtonPress) {
+    m_viewManager->setActiveSpace(this);
+    m_viewManager->activateView(currentView()->document());
+  }
+  return false;
+}
 
 void KateViewSpace::statusBarToggled ()
 {
@@ -144,8 +185,14 @@ void KateViewSpace::removeView(KTextEditor::View* v)
     return;
 
   // the last recently used viewspace is always at the end of the list
-  if (!mViewList.isEmpty())
+  if (!mViewList.isEmpty()) {
     showView(mViewList.last());
+  }
+  // if we still have tabs, use these
+  else if (! m_docToTabId.isEmpty()) {
+    QList<KTextEditor::Document*> keys = m_docToTabId.keys();
+    m_viewManager->createView(keys.first());
+  }
 }
 
 KTextEditor::View * KateViewSpace::viewForDocument(KTextEditor::Document * doc) const

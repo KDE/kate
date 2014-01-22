@@ -195,8 +195,6 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   connect(KateSessionManager::self(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
 
   connect(this,SIGNAL(sigShowPluginConfigPage(KTextEditor::ConfigPageInterface *,uint)),this,SLOT(showPluginConfigPage(KTextEditor::ConfigPageInterface *,uint)));
-
-
 }
 
 KateMainWindow::~KateMainWindow()

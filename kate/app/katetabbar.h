@@ -122,11 +122,6 @@ Q_SIGNALS:
     void closeRequest(int button_id);
 
     /**
-     * This signal is emitted whenever the more button is clicked.
-     */
-    void moreButtonClicked();
-
-    /**
      * This signal is emitted whenever a highlight mark changes.
      * Usually this is used to synchronice several tabbars.
      */
@@ -146,7 +141,6 @@ protected:
     void updateFixedHeight();
     void triggerResizeEvent();
     void updateSort();
-    void updateHelperButtons(QSize new_size);
 
 private:
     int m_minimumTabWidth;
@@ -157,10 +151,6 @@ private:
     QMap< int, KateTabButton * > m_IDToTabButton;
 
     KateTabButton *m_activeButton;
-
-    // config/more button
-    QToolButton * m_moreButton;
-    int m_navigateSize;
 
     int m_nextID;
 

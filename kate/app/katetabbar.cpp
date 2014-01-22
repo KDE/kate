@@ -123,13 +123,6 @@ KateTabBar::KateTabBar(QWidget *parent)
 
     m_activeButton = 0L;
 
-    // functions called in ::load() will set settings for the nav buttons
-    m_moreButton = new QToolButton(this);
-    m_moreButton->setAutoRaise(true);
-    m_moreButton->setText(i18n("..."));
-    m_moreButton->setToolTip(i18n("Quick Open"));
-    connect(m_moreButton, SIGNAL(clicked()), this, SIGNAL(moreButtonClicked()));
-
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     updateFixedHeight();
 }
@@ -663,14 +656,12 @@ void KateTabBar::tabButtonCloseAllRequest()
 void KateTabBar::resizeEvent(QResizeEvent *event)
 {
 //     qDebug() << "resizeEvent";
-    // if there are no tabs there is nothing to do. Do not delete otherwise
-    // division by zero is possible.
+    // if there are no tabs there is nothing to do
     if (m_tabButtons.count() == 0) {
-        updateHelperButtons(event->size());
         return;
     }
 
-    int tabbar_width = event->size().width() - m_navigateSize;
+    int tabbar_width = event->size().width();
     int tabs_per_row = tabbar_width / minimumTabWidth();
     if (tabs_per_row == 0) {
         tabs_per_row = 1;
@@ -683,8 +674,6 @@ void KateTabBar::resizeEvent(QResizeEvent *event)
     // greater than maximumTabWidth(), but that does not matter as it looks
     // more ugly if there is a lot wasted space on the right.
     tab_width = tabbar_width / tabs_per_row;
-
-    updateHelperButtons(event->size());
 
     KateTabButton *tabButton;
 
@@ -713,16 +702,6 @@ void KateTabBar::updateFixedHeight()
 {
     setFixedHeight(tabHeight());
     triggerResizeEvent();
-}
-
-/**
- * May modifies current row if more tabs fit into a row.
- * Sets geometry for the buttons 'up', 'down' and 'configure'.
- */
-void KateTabBar::updateHelperButtons(QSize new_size)
-{
-    m_moreButton->setGeometry(new_size.width() - m_moreButton->minimumSizeHint().width(),
-                              0, m_moreButton->minimumSizeHint().width(), tabHeight());
 }
 
 void KateTabBar::updateSort()

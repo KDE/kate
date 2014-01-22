@@ -78,6 +78,11 @@ class KateViewSpace : public QFrame
      */
     void registerDocument(KTextEditor::Document *doc);
 
+    /**
+     * Event filter to catch events from view space tool buttons.
+     */
+    bool eventFilter(QObject *obj, QEvent *event);
+
   public Q_SLOTS:
     void documentDestroyed(QObject * doc);
     void updateDocumentName(KTextEditor::Document* doc);

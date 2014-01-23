@@ -29,61 +29,7 @@
 
 #include <QToolButton>
 #include <QApplication> // QApplication::sendEvent
-#include <QtAlgorithms> // qSort
 #include <QDebug>
-
-KateTabBar::SortType global_sortType;
-
-// public operator < for two tab buttons
-bool tabLessThan(const KateTabButton *a, const KateTabButton *b)
-{
-    switch (global_sortType) {
-    case KateTabBar::OpeningOrder: {
-        return a->buttonID() < b->buttonID();
-    }
-
-    case KateTabBar::Name: {
-        // fall back to ID
-        if (a->text().toLower() == b->text().toLower()) {
-            return a->buttonID() < b->buttonID();
-        }
-
-        return a->text() < b->text();
-//             return KStringHandler::naturalCompare(a->text(), b->text(), Qt::CaseInsensitive) < 0; // FIXME KF5
-    }
-
-    case KateTabBar::Extension: {
-        // sort by extension, but check whether the files have an
-        // extension first
-        const int apos = a->text().lastIndexOf(QLatin1Char('.'));
-        const int bpos = b->text().lastIndexOf(QLatin1Char('.'));
-
-        if (apos == -1 && bpos == -1) {
-            return a->text().toLower() < b->text().toLower();
-        } else if (apos == -1) {
-            return true;
-        } else if (bpos == -1) {
-            return false;
-        } else {
-            const int aright = a->text().size() - apos;
-            const int bright = b->text().size() - bpos;
-            QString aExt = a->text().right(aright).toLower();
-            QString bExt = b->text().right(bright).toLower();
-            QString aFile = a->text().left(apos).toLower();
-            QString bFile = b->text().left(bpos).toLower();
-
-            if (aExt == bExt)
-                return (aFile == bFile) ? a->buttonID() < b->buttonID()
-                       : aFile < bFile;
-            else {
-                return aExt < bExt;
-            }
-        }
-    }
-    }
-
-    return true;
-}
 
 /**
  * Creates a new tab bar with the given \a parent and \a name.
@@ -95,9 +41,9 @@ KateTabBar::KateTabBar(QWidget *parent)
     m_minimumTabWidth = 150;
     m_maximumTabWidth = 350;
 
-    m_tabHeight = 22;
+    // FIXME: better additional size
+    setFixedHeight(QFontMetrics(font()).height() + 10);
 
-    m_sortType = OpeningOrder;
     m_nextID = 0;
 
     m_activeButton = 0L;
@@ -134,8 +80,6 @@ void KateTabBar::load(KConfigBase *config, const QString &group)
     // tabbar properties
     setMinimumTabWidth(cg.readEntry("minimum width", m_minimumTabWidth));
     setMaximumTabWidth(cg.readEntry("maximum width", m_maximumTabWidth));
-    setTabHeight(cg.readEntry("fixed height", m_tabHeight));
-    setTabSortType((SortType) cg.readEntry("sort type", (int)OpeningOrder));
 
     // highlighted entries
     QStringList documents = cg.readEntry("highlighted documents", QStringList());
@@ -162,8 +106,6 @@ void KateTabBar::save(KConfigBase *config, const QString &group) const
     // tabbar properties
     cg.writeEntry("minimum width", minimumTabWidth());
     cg.writeEntry("maximum width", maximumTabWidth());
-    cg.writeEntry("fixed height", tabHeight());
-    cg.writeEntry("sort type", (int)tabSortType());
 
     // highlighted entries
     cg.writeEntry("highlighted documents", m_highlightedTabs.keys());
@@ -180,7 +122,7 @@ void KateTabBar::setMinimumTabWidth(int min_pixel)
     }
 
     m_minimumTabWidth = min_pixel;
-    triggerResizeEvent();
+    updateButtonPositions();
 }
 
 /**
@@ -193,7 +135,7 @@ void KateTabBar::setMaximumTabWidth(int max_pixel)
     }
 
     m_maximumTabWidth = max_pixel;
-    triggerResizeEvent();
+    updateButtonPositions();
 }
 
 /**
@@ -213,52 +155,31 @@ int KateTabBar::maximumTabWidth() const
 }
 
 /**
- * Set the fixed height in pixels all tabs have.
- * \note If you also show icons use a height of iconheight + 2.
- *       E.g. for 16x16 pixel icons, a tab height of 18 pixel looks best.
- *       For 22x22 pixel icons a height of 24 pixel is best etc.
- */
-void KateTabBar::setTabHeight(int height_pixel)
-{
-    if (m_tabHeight == height_pixel) {
-        return;
-    }
-
-    m_tabHeight = height_pixel;
-    updateFixedHeight();
-}
-
-/**
- * Get the fixed tab height in pixels.
- */
-int KateTabBar::tabHeight() const
-{
-    return m_tabHeight;
-}
-
-/**
- * Adds a new tab with text \a text. Returns the new tab's ID.
- */
-int KateTabBar::addTab(const QString &text)
-{
-    return addTab(QIcon(), text);
-}
-
-/**
  * This is an overloaded member function, provided for convenience.
  * It behaves essentially like the above function.
  *
- * Adds a new tab with \a icon and \a text. Returns the new tab's index.
+ * Adds a new tab with \a text. Returns the new tab's id.
  */
-int KateTabBar::addTab(const QIcon &icon, const QString &text)
+int KateTabBar::addTab(const QString &text)
 {
+    return insertTab(m_tabButtons.size(), text);
+}
+
+int KateTabBar::insertTab(int position, const QString & text)
+{
+    Q_ASSERT(position <= m_tabButtons.size());
+
+    // -1 is append
+    if (position < 0) {
+        position = m_tabButtons.size();
+    }
+
     KateTabButton *tabButton = new KateTabButton(text, m_nextID, this);
-    tabButton->setIcon(icon);
     if (m_highlightedTabs.contains(text)) {
         tabButton->setHighlightColor(QColor(m_highlightedTabs[text]));
     }
 
-    m_tabButtons.append(tabButton);
+    m_tabButtons.insert(position, tabButton);
     m_IDToTabButton[m_nextID] = tabButton;
     connect(tabButton, SIGNAL(activated(KateTabButton*)),
             this, SLOT(tabButtonActivated(KateTabButton*)));
@@ -271,26 +192,9 @@ int KateTabBar::addTab(const QIcon &icon, const QString &text)
     connect(tabButton, SIGNAL(closeAllTabsRequest()),
             this, SLOT(tabButtonCloseAllRequest()));
 
-    if (!isVisible()) {
-        show();
-    }
-
-    updateSort();
+    updateButtonPositions();
 
     return m_nextID++;
-}
-
-void KateTabBar::raiseTab(int buttonId)
-{
-    Q_ASSERT(m_IDToTabButton.contains(buttonId));
-
-    KateTabButton *button = m_IDToTabButton[buttonId];
-    int tabIndex = m_tabButtons.indexOf(button);
-    Q_ASSERT(tabIndex > -1);
-
-    m_tabButtons.move(tabIndex, 0);
-
-    triggerResizeEvent();
 }
 
 /**
@@ -328,22 +232,26 @@ void KateTabBar::setCurrentTab(int index)
 }
 
 /**
- * Removes the tab with ID \a index.
+ * Removes the tab with ID \a id.
+ * @return the position where the tab was
  */
-void KateTabBar::removeTab(int index)
+int KateTabBar::removeTab(int id)
 {
-    if (!m_IDToTabButton.contains(index)) {
-        return;
+    if (!m_IDToTabButton.contains(id)) {
+        Q_ASSERT(false);
+        return -1;
     }
 
-    KateTabButton *tabButton = m_IDToTabButton[index];
+    KateTabButton *tabButton = m_IDToTabButton[id];
 
     if (tabButton == m_activeButton) {
         m_activeButton = 0L;
     }
 
-    m_IDToTabButton.remove(index);
-    m_tabButtons.removeAll(tabButton);
+    const int position = m_tabButtons.indexOf(tabButton);
+
+    m_IDToTabButton.remove(id);
+    m_tabButtons.removeAt(position);
     // delete the button with deleteLater() because the button itself might
     // have send a close-request. So the app-execution is still in the
     // button, a delete tabButton; would lead to a crash.
@@ -354,7 +262,9 @@ void KateTabBar::removeTab(int index)
         hide();
     }
 
-    triggerResizeEvent();
+    updateButtonPositions();
+
+    return position;
 }
 
 /**
@@ -387,10 +297,6 @@ void KateTabBar::setTabText(int index, const QString &text)
     }
 
     m_IDToTabButton[index]->setText(text);
-
-    if (tabSortType() == Name || tabSortType() == Extension) {
-        updateSort();
-    }
 }
 
 /**
@@ -462,27 +368,6 @@ QIcon KateTabBar::tabIcon(int index) const
 int KateTabBar::count() const
 {
     return m_tabButtons.count();
-}
-
-/**
- * Set the sort tye to @p sort.
- */
-void KateTabBar::setTabSortType(SortType sort)
-{
-    if (m_sortType == sort) {
-        return;
-    }
-
-    m_sortType = sort;
-    updateSort();
-}
-
-/**
- * Get the sort type.
- */
-KateTabBar::SortType KateTabBar::tabSortType() const
-{
-    return m_sortType;
 }
 
 void KateTabBar::setTabModified(int index, bool modified)
@@ -620,12 +505,27 @@ void KateTabBar::tabButtonCloseAllRequest()
  */
 void KateTabBar::resizeEvent(QResizeEvent *event)
 {
+    Q_UNUSED(event)
+
+    // fix button positions
+    updateButtonPositions();
+
+    const int tabDiff = maxTabCount() - m_tabButtons.size();
+    if (tabDiff > 0) {
+        emit moreTabsRequested(tabDiff);
+    } else if (tabDiff < 0) {
+        emit lessTabsRequested(-tabDiff);
+    }
+}
+
+void KateTabBar::updateButtonPositions()
+{
     // if there are no tabs there is nothing to do
     if (m_tabButtons.count() == 0) {
         return;
     }
 
-    int barWidth = event->size().width();
+    const int barWidth = width();
     const int maxCount = maxTabCount();
 
     // how many tabs do we show?
@@ -643,12 +543,10 @@ void KateTabBar::resizeEvent(QResizeEvent *event)
             tabButton->hide();
         } else {
             const int w = ceil(tabWidth);
-            tabButton->setGeometry(i * w, 0, w, tabHeight());
+            tabButton->setGeometry(i * w, 0, w, m_tabHeight);
             tabButton->show();
         }
     }
-
-//     if (visibleTabCount
 }
 
 /**
@@ -659,35 +557,3 @@ int KateTabBar::maxTabCount() const
 {
     return qMax(1, width() / minimumTabWidth());
 }
-
-/**
- * Updates the fixed height. Called when the tab height or the number of rows
- * changed.
- */
-void KateTabBar::updateFixedHeight()
-{
-    setFixedHeight(tabHeight());
-    triggerResizeEvent();
-}
-
-void KateTabBar::updateSort()
-{
-    global_sortType = tabSortType();
-    qSort(m_tabButtons.begin(), m_tabButtons.end(), tabLessThan);
-    triggerResizeEvent();
-}
-
-/**
- * Triggers a resizeEvent. This is used whenever the tab buttons need
- * a rearrange. By using \p QApplication::sendEvent() multiple calls are
- * combined into only one call.
- *
- * \see addTab(), removeTab(), setMinimumWidth(), setMaximumWidth(),
- *      setFixedHeight()
- */
-void KateTabBar::triggerResizeEvent()
-{
-    QResizeEvent ev(size(), size());
-    QApplication::sendEvent(this, &ev);
-}
-

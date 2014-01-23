@@ -42,7 +42,6 @@ class KateViewSpace : public QWidget
 
 public:
     explicit KateViewSpace(KateViewManager *, QWidget *parent = 0, const char *name = 0);
-    ~KateViewSpace();
 
     bool isActiveSpace();
     void setActive(bool b, bool showled = false);
@@ -60,12 +59,7 @@ public:
     }
     bool showView(KTextEditor::Document *document);
 
-    KTextEditor::View *viewForDocument(KTextEditor::Document *document) const;
-
     KTextEditor::View *currentView();
-    int viewCount() const {
-        return mViewList.count();
-    }
 
     void saveConfig(KConfigBase *config, int myIndex, const QString &viewConfGrp);
     void restoreConfig(KateViewManager *viewMan, const KConfigBase *config, const QString &group);
@@ -89,19 +83,53 @@ private Q_SLOTS:
     void statusBarToggled();
     void changeView(int buttonId);
 
+    /**
+     * Add a tab for @p doc at position @p index.
+     */
+    void insertTab(int index, KTextEditor::Document * doc);
+
+    /**
+     * Remove tab for @p doc, and return the index (position)
+     * of the removed tab.
+     */
+    int removeTab(KTextEditor::Document * doc);
+
+    /**
+     * Remove @p count tabs, since the tab bar shrinked.
+     */
+    void removeTabs(int count);
+
+    /**
+     * Add @p count tabs, since the tab bar grew.
+     */
+    void addTabs(int count);
+
 private:
-    QStackedWidget *stack;
-    bool mIsActiveSpace;
-    /// This list is necessary to only save the order of the accessed views.
-    /// The order is important. The least recently viewed view is always the
-    /// last entry in the list, i.e. mViewList.last()
-    /// mViewList.count() == stack.count() is always true!
-    QList<KTextEditor::View *> mViewList;
+    // Kate's view manager
     KateViewManager *m_viewManager;
+
+    // config group string, used for restoring View session configuration
     QString m_group;
+
+    // flag that indicates whether this view space is the active one.
+    // correct setter: m_viewManager->setActiveSpace(this);
+    bool mIsActiveSpace;
+
+    // widget stack that contains all KTE::Views
+    QStackedWidget *stack;
+
+    // document's in the view space, sorted in LRU mode:
+    // the least recently used Document is at the end of the list
+    QVector<KTextEditor::Document *> m_lruDocList;
+
+    // the list of views that are contained in this view space,
+    // mapped through a hash from Document to View.
+    // note: the number of entries match stack->count();
+    QHash<KTextEditor::Document*, KTextEditor::View*> m_docToView;
 
     // tab bar that contains viewspace tabs
     KateTabBar *m_tabBar;
+
     // map from Document to button id
     QHash<KTextEditor::Document *, int> m_docToTabId;
 };

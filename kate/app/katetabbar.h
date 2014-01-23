@@ -44,17 +44,6 @@ class KateTabBar : public QWidget
     Q_OBJECT
 
 public:
-    /**
-     * Sort types.
-     */
-    enum SortType {
-        OpeningOrder = 0, ///< opening order
-        Name,           ///< alphabetically
-        Extension       ///< by file extension (suffix)
-    };
-    Q_DECLARE_FLAGS(SortTypes, SortType)
-
-public:
     // NOTE: as the API here is very self-explaining the docs are in the cpp
     //       file, more clean imho.
 
@@ -74,8 +63,8 @@ public:
     int tabHeight() const;
 
     int addTab(const QString &text);
-    int addTab(const QIcon &pixmap, const QString &text);
-    void removeTab(int index);
+    int insertTab(int position, const QString & text);
+    int removeTab(int index);
 
     int currentTab() const;
     // corresponding SLOT: void setCurrentTab( int index );
@@ -96,9 +85,6 @@ public:
 
     int count() const;
 
-    void setTabSortType(SortType sort);
-    SortType tabSortType() const;
-
     void setHighlightMarks(const QMap<QString, QString> &marks);
     QMap<QString, QString> highlightMarks() const;
 
@@ -107,7 +93,6 @@ public:
 public Q_SLOTS:
     void setCurrentTab(int index);   // does not emit signal
     void removeHighlightMarks();
-    void raiseTab(int index);
 
 Q_SIGNALS:
     /**
@@ -126,6 +111,20 @@ Q_SIGNALS:
      */
     void highlightMarksChanged(KateTabBar *tabbar);
 
+    /**
+     * This signal is emitted whenever the tab bar's width allows to
+     * show more tabs than currently available. In other words,
+     * you can safely add @p count tabs which are guaranteed to be visible.
+     */
+    void moreTabsRequested(int count);
+
+    /**
+     * This signal is emitted whenever the tab bar's width is too small,
+     * such that not all tabs can be shown.
+     * Therefore, @p count tabs should be removed.
+     */
+    void lessTabsRequested(int count);
+
 protected Q_SLOTS:
     void tabButtonActivated(KateTabButton *tabButton);
     void tabButtonHighlightChanged(KateTabButton *tabButton);
@@ -138,8 +137,7 @@ protected:
 
 protected:
     void updateFixedHeight();
-    void triggerResizeEvent();
-    void updateSort();
+    void updateButtonPositions();
 
 private:
     int m_minimumTabWidth;
@@ -155,8 +153,6 @@ private:
 
     // map of highlighted tabs and colors
     QMap< QString, QString > m_highlightedTabs;
-    SortType m_sortType;
 };
 
 #endif // KATE_TAB_BAR_H
-

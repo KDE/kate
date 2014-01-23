@@ -296,7 +296,7 @@ m_mainWindow (mainWin)
     cmbUrl->setAutoDeleteCompletionObject(true);
 
     connect(m_ui.newTabButton,     SIGNAL(clicked()), this, SLOT(addTab()));
-    connect(m_ui.resultTabWidget,  SIGNAL(closeRequest(QWidget*)), this, SLOT(closeTab(QWidget*)));
+    connect(m_ui.resultTabWidget,  SIGNAL(tabCloseRequested(int)), this, SLOT(tabCloseRequested(int)));
     connect(m_ui.resultTabWidget,  SIGNAL(currentChanged(int)), this, SLOT(resultTabChanged(int)));
 
     connect(m_ui.folderUpButton,   SIGNAL(clicked()), this, SLOT(navigateFolderUp()));
@@ -1533,9 +1533,9 @@ void KatePluginSearchView::addTab()
     res->tree->installEventFilter(this);
 }
 
-void KatePluginSearchView::closeTab(QWidget *widget)
+void KatePluginSearchView::tabCloseRequested(int index)
 {
-    Results *tmp = qobject_cast<Results *>(widget);
+    Results *tmp = qobject_cast<Results *>(m_ui.resultTabWidget->widget(index));
     if (m_curResults == tmp) {
         m_searchOpenFiles.cancelSearch();
         m_searchDiskFiles.cancelSearch();

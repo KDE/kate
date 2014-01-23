@@ -114,7 +114,7 @@ private Q_SLOTS:
     void nextFocus(QWidget *currentWidget, bool *found, bool next);
 
     void addTab();
-    void closeTab(QWidget *widget);
+    void tabCloseRequested(int index);
     void toggleOptions(bool show);
 
     void searchContextMenu(const QPoint& pos);

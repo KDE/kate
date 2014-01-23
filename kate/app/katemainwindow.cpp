@@ -34,6 +34,7 @@
 #include "katesessionmanager.h"
 #include "kateviewspace.h"
 #include "katequickopen.h"
+#include "kateupdatedisabler.h"
 #include "katedebug.h"
 
 #include <KActionMenu>
@@ -105,6 +106,11 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     : KateMDI::MainWindow(0)
     , m_wrapper(new KTextEditor::MainWindow(this))
 {
+    /**
+     * we don't want any flicker here
+     */
+    KateUpdateDisabler disableUpdates (this);
+    
     setObjectName(QString::fromLatin1("__KateMainWindow#%1").arg(uniqueID));
     // first the very important id
     myID = uniqueID;

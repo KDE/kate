@@ -186,26 +186,25 @@ void KateViewSpace::removeView(KTextEditor::View *v)
     // remove view mappings
     Q_ASSERT(m_docToView.contains(v->document()));
     m_docToView.remove(v->document());
-    Q_ASSERT(m_docToTabId.contains(v->document()));
-    documentDestroyed(v->document());
 
-    // remove from view space
-    bool active = (v == currentView());
+    // first check wheter this view is the active one
+    const bool wasActive = (v == currentView());
 
+    // ...and now: remove from view space
     stack->removeWidget(v);
 
-    if (! active) {
-        return;
-    }
-
     // the last recently used view/document is always at the end of the list
-    if (! m_lruDocList.isEmpty()) {
+    if (wasActive && m_lruDocList.size() >= 2) {
+        m_lruDocList.prepend(m_lruDocList.takeLast());
         KTextEditor::Document * doc = m_lruDocList.last();
         if (m_docToView.contains(doc)) {
             showView(doc);
         } else {
             m_viewManager->createView(doc, this);
         }
+    } else  {
+        // FIXME: what to do?
+        //m_viewManager->createView(some document?!, this);
     }
 }
 
@@ -323,8 +322,6 @@ int KateViewSpace::removeTab(KTextEditor::Document * doc)
 
 void KateViewSpace::removeTabs(int count)
 {
-    qDebug() << "________the tab bar wants LESS tabs:" << count;
-
     while (count > 0) {
         const int tabCount = m_tabBar->count();
         KTextEditor::Document * removeDoc = m_lruDocList[m_lruDocList.size() - tabCount];
@@ -336,8 +333,6 @@ void KateViewSpace::removeTabs(int count)
 
 void KateViewSpace::addTabs(int count)
 {
-    qDebug() << "________the tab bar wants MORE tabs:" << count;
-
     while (count > 0) {
         const int tabCount = m_tabBar->count();
         if (m_lruDocList.size() <= tabCount) {

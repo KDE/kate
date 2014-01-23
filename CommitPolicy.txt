@@ -39,34 +39,10 @@ you don't, the same basic rules apply for sending patches, too.
 
 == Coding style ==
 
-# Respect coding conventions and style
+# Respect coding conventions and style, kate.git follows the kdelibs coding style: http://techbase.kde.org/Policies/Kdelibs_Coding_Style
 #* Don't just write in your personal style. Tastes differ, and if we mix all sorts of styles, the code just gets harder to read.
 #* In general, please try to follow the coding style of the surrounding code.
-
-Here are two examples of used style
-
-  void KateSomething::foo( int a )
-  {
-    int b = 5;
-    // I'll foo you
-    while ( bar )
-    {
-      baz( a );
-    }
-  }
-
-or
-
-  void KateSomething::foo(int a)
-  {
-    int b = 5;
-    // I'll foo you
-    while (bar) {
-      baz(a);
-    }
-  }
-
-# Use two spaces to indent.
+# Use four spaces to indent.
 # Whenever possible use title case includes without directory, e.g. '''#include <QLabel>'''
 
 == Kate specific rules ==

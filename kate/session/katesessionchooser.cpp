@@ -20,6 +20,7 @@
 
 #include "katesessionchooser.h"
 
+#include "kateapp.h"
 #include "katesessionmanager.h"
 #include "katesessionchooseritem.h"
 #include "katedebug.h"
@@ -64,7 +65,7 @@ KateSessionChooser::KateSessionChooser(QWidget *parent, const QString &lastSessi
 
     qCDebug(LOG_KATE) << "Last session is:" << lastSession;
 
-    KateSessionList slist = KateSessionManager::self()->sessionList();
+    KateSessionList slist = KateApp::self()->sessionManager()->sessionList();
     qSort(slist.begin(), slist.end(), KateSession::compareByName);
 
     foreach(const KateSession::Ptr & session, slist) {
@@ -145,7 +146,7 @@ void KateSessionChooser::slotDeleteSession()
         return;
     }
 
-    KateSessionManager::self()->deleteSession(item->session);
+    KateApp::self()->sessionManager()->deleteSession(item->session);
     m_sessions->removeItemWidget(item, 2);
     delete item;
 

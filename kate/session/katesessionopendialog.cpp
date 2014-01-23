@@ -20,6 +20,7 @@
 
 #include "katesessionopendialog.h"
 
+#include "kateapp.h"
 #include "katesessionmanager.h"
 #include "katesessionchooseritem.h"
 
@@ -54,7 +55,7 @@ KateSessionOpenDialog::KateSessionOpenDialog(QWidget *parent)
     m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_sessions->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    KateSessionList slist = KateSessionManager::self()->sessionList();
+    KateSessionList slist = KateApp::self()->sessionManager()->sessionList();
     qSort(slist.begin(), slist.end(), KateSession::compareByName);
 
     foreach(const KateSession::Ptr & session, slist) {

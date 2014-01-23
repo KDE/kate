@@ -20,6 +20,7 @@
 
 #include "katesessionsaction.h"
 
+#include "kateapp.h"
 #include "katesessionmanager.h"
 
 #include <QMenu>
@@ -27,7 +28,7 @@
 KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager)
     : KActionMenu(text, parent)
 {
-    m_manager = manager ? manager : KateSessionManager::self();
+    m_manager = manager ? manager : KateApp::self()->sessionManager();
 
     connect(menu(), SIGNAL(aboutToShow()), this, SLOT(slotAboutToShow()));
 

@@ -20,6 +20,7 @@
 
 #include "katesessionmanagedialog.h"
 
+#include "kateapp.h"
 #include "katesessionmanager.h"
 #include "katesessionchooseritem.h"
 
@@ -110,7 +111,7 @@ void KateSessionManageDialog::selectionChanged(QTreeWidgetItem *current, QTreeWi
     const bool validItem = (current != NULL);
 
     m_rename->setEnabled(validItem);
-    m_del->setEnabled(validItem && (static_cast<KateSessionChooserItem *>(current))->session != KateSessionManager::self()->activeSession());
+    m_del->setEnabled(validItem && (static_cast<KateSessionChooserItem *>(current))->session != KateApp::self()->sessionManager()->activeSession());
     m_openButton->setEnabled(true);
 }
 
@@ -136,7 +137,7 @@ void KateSessionManageDialog::rename()
         return;
     }
 
-    if (KateSessionManager::self()->renameSession(item->session, name)) {
+    if (KateApp::self()->sessionManager()->renameSession(item->session, name)) {
         updateSessionList();
     }
 }
@@ -149,7 +150,7 @@ void KateSessionManageDialog::del()
         return;
     }
 
-    KateSessionManager::self()->deleteSession(item->session);
+    KateApp::self()->sessionManager()->deleteSession(item->session);
     updateSessionList();
 }
 
@@ -162,7 +163,7 @@ void KateSessionManageDialog::open()
     }
 
     hide();
-    KateSessionManager::self()->activateSession(item->session);
+    KateApp::self()->sessionManager()->activateSession(item->session);
     done(0);
 }
 
@@ -170,7 +171,7 @@ void KateSessionManageDialog::updateSessionList()
 {
     m_sessions->clear();
 
-    KateSessionList slist = KateSessionManager::self()->sessionList();
+    KateSessionList slist = KateApp::self()->sessionManager()->sessionList();
     qSort(slist.begin(), slist.end(), KateSession::compareByName);
 
     foreach(const KateSession::Ptr & session, slist) {

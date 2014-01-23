@@ -144,7 +144,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
         if (! fn.isEmpty()) {
             QString vgroup = QString::fromLatin1("%1 %2").arg(m_group).arg(fn);
 
-            KateSession::Ptr as = KateSessionManager::self()->activeSession();
+            KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession();
             if (as->config() && as->config()->hasGroup(vgroup)) {
                 KConfigGroup cg(as->config(), vgroup);
 

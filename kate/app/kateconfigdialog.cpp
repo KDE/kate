@@ -354,7 +354,7 @@ void KateConfigDialog::slotApply()
         m_mainWindow->saveOptions();
 
         // save plugin config !!
-        KateSessionManager *sessionmanager = KateSessionManager::self();
+        KateSessionManager *sessionmanager = KateApp::self()->sessionManager();
         KConfig *sessionConfig = sessionmanager->activeSession()->config();
         KateApp::self()->pluginManager()->writeConfig(sessionConfig);
     }

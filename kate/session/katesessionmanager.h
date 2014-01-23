@@ -37,12 +37,6 @@ public:
     ~KateSessionManager();
 
     /**
-     * allow access to this, equivalent of calling `KateApp::self()->sessionManager();`
-     * @return instance of the session manager
-     */
-    static KateSessionManager *self();
-
-    /**
      * allow access to the session list
      * kept up to date by watching the dir
      */

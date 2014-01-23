@@ -72,11 +72,6 @@ KateSessionManager::~KateSessionManager()
     delete m_dirWatch;
 }
 
-KateSessionManager *KateSessionManager::self()
-{
-    return KateApp::self()->sessionManager();
-}
-
 void KateSessionManager::updateSessionList()
 {
     QStringList list;

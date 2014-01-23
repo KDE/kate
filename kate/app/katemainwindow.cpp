@@ -201,7 +201,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
 
     setAcceptDrops(true);
 
-    connect(KateSessionManager::self(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
+    connect(KateApp::self()->sessionManager(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
 
     connect(this, SIGNAL(sigShowPluginConfigPage(KTextEditor::ConfigPageInterface*,uint)), this, SLOT(showPluginConfigPage(KTextEditor::ConfigPageInterface*,uint)));
 }
@@ -377,25 +377,25 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
     a->setText(i18nc("Menu entry Session->New", "&New"));
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionNew()), Qt::QueuedConnection);
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionNew()), Qt::QueuedConnection);
     a = actionCollection()->addAction(QStringLiteral("sessions_open"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
     a->setText(i18n("&Open Session"));
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionOpen()), Qt::QueuedConnection);
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionOpen()), Qt::QueuedConnection);
     a = actionCollection()->addAction(QStringLiteral("sessions_save"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
     a->setText(i18n("&Save Session"));
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionSave()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionSave()));
     a = actionCollection()->addAction(QStringLiteral("sessions_save_as"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-as")));
     a->setText(i18n("Save Session &As..."));
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionSaveAs()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionSaveAs()));
     a = actionCollection()->addAction(QStringLiteral("sessions_manage"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("view-choose")));
     a->setText(i18n("&Manage Sessions..."));
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionManage()), Qt::QueuedConnection);
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionManage()), Qt::QueuedConnection);
 
     // quick open menu ;)
     a = new KateSessionsAction(i18n("&Quick Open Session"), this);

@@ -2053,6 +2053,7 @@ bool KateDocument::openFile()
     // this file can't be saved again without modifications
     setReadWrite( false );
     
+    m_readWriteStateBeforeLoading = false;
     QPointer<KTextEditor::Message> message
       = new KTextEditor::Message(i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters).<br />"
                                        "Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.",

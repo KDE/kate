@@ -19,6 +19,7 @@
 
 #include "katemwmodonhddialog.h"
 
+#include "kateapp.h"
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 
@@ -95,7 +96,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
 
     m_stateTexts << QString() << i18n("Modified") << i18n("Created") << i18n("Deleted");
     for (int i = 0; i < docs.size(); i++) {
-        new KateDocItem(docs[i], m_stateTexts[(uint)KateDocManager::self()->documentInfo(docs[i])->modifiedOnDiscReason ], twDocuments);
+        new KateDocItem(docs[i], m_stateTexts[(uint)KateApp::self()->documentManager()->documentInfo(docs[i])->modifiedOnDiscReason ], twDocuments);
     }
     twDocuments->header()->setStretchLastSection(false);
     twDocuments->header()->setSectionResizeMode(0, QHeaderView::Stretch);
@@ -171,7 +172,7 @@ void KateMwModOnHdDialog::handleSelected(int action)
     for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
         KateDocItem *item = (KateDocItem *) * it;
         if (item->checkState(0) == Qt::Checked) {
-            KTextEditor::ModificationInterface::ModifiedOnDiskReason reason = KateDocManager::self()->documentInfo(item->document)->modifiedOnDiscReason;
+            KTextEditor::ModificationInterface::ModifiedOnDiskReason reason = KateApp::self()->documentManager()->documentInfo(item->document)->modifiedOnDiscReason;
             bool success = true;
 
             if (KTextEditor::ModificationInterface *iface = qobject_cast<KTextEditor::ModificationInterface *>(item->document)) {
@@ -221,7 +222,7 @@ void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWi
 {
     // set the diff button enabled
     btnDiff->setEnabled(current &&
-                        KateDocManager::self()->documentInfo((static_cast<KateDocItem *>(current))->document)->modifiedOnDiscReason != KTextEditor::ModificationInterface::OnDiskDeleted);
+                        KateApp::self()->documentManager()->documentInfo((static_cast<KateDocItem *>(current))->document)->modifiedOnDiscReason != KTextEditor::ModificationInterface::OnDiskDeleted);
 }
 
 // ### the code below is slightly modified from kdelibs/kate/part/katedialogs,
@@ -239,7 +240,7 @@ void KateMwModOnHdDialog::slotDiff()
     KTextEditor::Document *doc = (static_cast<KateDocItem *>(twDocuments->currentItem()))->document;
 
     // don't try to diff a deleted file
-    if (KateDocManager::self()->documentInfo(doc)->modifiedOnDiscReason == KTextEditor::ModificationInterface::OnDiskDeleted) {
+    if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason == KTextEditor::ModificationInterface::OnDiskDeleted) {
         return;
     }
 
@@ -323,7 +324,7 @@ void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
             break;
         }
     }
-    new KateDocItem(doc, m_stateTexts[(uint)KateDocManager::self()->documentInfo(doc)->modifiedOnDiscReason ], twDocuments);
+    new KateDocItem(doc, m_stateTexts[(uint)KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason ], twDocuments);
 }
 
 void KateMwModOnHdDialog::keyPressEvent(QKeyEvent *event)

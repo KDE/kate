@@ -151,7 +151,7 @@ bool KateSessionManager::activateSession(KateSession::Ptr session,
         saveActiveSession();
 
         // really close last
-        KateDocManager::self()->closeAllDocuments();
+        KateApp::self()->documentManager()->closeAllDocuments();
     }
 
     // set the new session
@@ -302,7 +302,7 @@ void KateSessionManager::saveSessionTo(KConfig *sc) const
     KateApp::self()->pluginManager()->writeConfig(sc);
 
     // save document configs + which documents to load
-    KateDocManager::self()->saveDocumentList(sc);
+    KateApp::self()->documentManager()->saveDocumentList(sc);
 
     sc->group("Open MainWindows").writeEntry("Count", KateApp::self()->mainWindowsCount());
 

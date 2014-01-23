@@ -84,7 +84,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
 
     if (re_write.exactMatch(command)) {  //TODO: handle writing to specific file
         if (!re_write.cap(1).isEmpty()) { // [a]ll
-            KateDocManager::self()->saveAll();
+            KateApp::self()->documentManager()->saveAll();
             msg = i18n("All documents written to disk");
         } else {
             view->document()->documentSave();
@@ -101,11 +101,11 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
 
         if (allDocuments) {
             if (save) {
-                KateDocManager::self()->saveAll();
+                KateApp::self()->documentManager()->saveAll();
             }
 
             if (doNotPromptForSave) {
-                foreach(KTextEditor::Document * doc, KateDocManager::self()->documentList())
+                foreach(KTextEditor::Document * doc, KateApp::self()->documentManager()->documentList())
                 if (doc->isModified()) {
                     doc->setModified(false);
                 }
@@ -124,7 +124,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
             if (mainWin->viewManager()->count() > 1) {
                 QTimer::singleShot(0, mainWin->viewManager(), SLOT(slotCloseCurrentViewSpace()));
             } else {
-                if (KateDocManager::self()->documents() > 1) {
+                if (KateApp::self()->documentManager()->documents() > 1) {
                     QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
                 } else {
                     QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
@@ -133,14 +133,14 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         }
     } else if (re_exit.exactMatch(command)) {
         if (!re_exit.cap(1).isEmpty()) { // a[ll]
-            KateDocManager::self()->saveAll();
+            KateApp::self()->documentManager()->saveAll();
             QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
         } else {
             if (view->document()->isModified()) {
                 view->document()->documentSave();
             }
 
-            if (KateDocManager::self()->documents() > 1) {
+            if (KateApp::self()->documentManager()->documents() > 1) {
                 QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
             } else {
                 QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
@@ -161,7 +161,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
                 url = QUrl(QUrl(QDir::currentPath() + QStringLiteral("/")).resolved(arg2path)); // + "/" is needed because of http://lists.qt.nokia.com/public/qt-interest/2011-May/033913.html
             }
             QFileInfo file(url.toLocalFile());
-            KTextEditor::Document *doc = KateDocManager::self()->findDocument(url);
+            KTextEditor::Document *doc = KateApp::self()->documentManager()->findDocument(url);
             if (doc) {
                 mainWin->viewManager()->activateView(doc);
             } else if (file.exists()) {

@@ -21,6 +21,7 @@
 //BEGIN Includes
 #include "kateviewmanager.h"
 
+#include "kateapp.h"
 #include "katemainwindow.h"
 #include "katedocmanager.h"
 #include "kateviewspace.h"
@@ -87,12 +88,12 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
 
     connect(this, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotViewChanged()));
 
-    connect(KateDocManager::self(), SIGNAL(documentCreatedViewManager(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
-    connect(KateDocManager::self(), SIGNAL(documentDeleted(KTextEditor::Document*)), this, SLOT(documentDeleted(KTextEditor::Document*)));
+    connect(KateApp::self()->documentManager(), SIGNAL(documentCreatedViewManager(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
+    connect(KateApp::self()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document*)), this, SLOT(documentDeleted(KTextEditor::Document*)));
 
     // register all already existing documents
     m_blockViewCreationAndActivation = true;
-    const QList<KTextEditor::Document *> &docs = KateDocManager::self()->documentList();
+    const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
     foreach(KTextEditor::Document * doc, docs)
     documentCreated(doc);
     m_blockViewCreationAndActivation = false;
@@ -246,7 +247,7 @@ void KateViewManager::slotDocumentClose(KTextEditor::Document *document)
 {
 // prevent close document if only one view alive and the document of
     // it is not modified and empty !!!
-    if ((KateDocManager::self()->documents() == 1)
+    if ((KateApp::self()->documentManager()->documents() == 1)
             && !document->isModified()
             && document->url().isEmpty()
             && document->documentEnd() == KTextEditor::Cursor::start()) {
@@ -255,7 +256,7 @@ void KateViewManager::slotDocumentClose(KTextEditor::Document *document)
     }
 
     // close document
-    KateDocManager::self()->closeDocument(document);
+    KateApp::self()->documentManager()->closeDocument(document);
 }
 
 void KateViewManager::slotDocumentClose()
@@ -275,7 +276,7 @@ KTextEditor::Document *KateViewManager::openUrl(const QUrl &url,
         bool isTempFile,
         const KateDocumentInfo &docInfo)
 {
-    KTextEditor::Document *doc = KateDocManager::self()->openUrl(url, encoding, isTempFile, docInfo);
+    KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding, isTempFile, docInfo);
 
     if (!doc->url().isEmpty()) {
         m_mainWindow->fileOpenRecent()->addUrl(doc->url());
@@ -293,7 +294,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls,
         bool isTempFile,
         const KateDocumentInfo &docInfo)
 {
-    QList<KTextEditor::Document *> docs = KateDocManager::self()->openUrls(urls, encoding, isTempFile, docInfo);
+    QList<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, isTempFile, docInfo);
 
     foreach(const KTextEditor::Document * doc, docs) {
         if (!doc->url().isEmpty()) {
@@ -306,7 +307,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls,
 
 KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QString &encoding)
 {
-    KTextEditor::Document *doc = KateDocManager::self()->openUrl(url, encoding);
+    KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding);
 
     if (!doc) {
         return 0;
@@ -356,8 +357,8 @@ void KateViewManager::documentDeleted(KTextEditor::Document *)
 
     // just for the case we close a document out of many and this was the active one
     // if all docs are closed, this will be handled by the documentCreated
-    if (!activeView() && (KateDocManager::self()->documents() > 0)) {
-        createView(KateDocManager::self()->document(KateDocManager::self()->documents() - 1));
+    if (!activeView() && (KateApp::self()->documentManager()->documents() > 0)) {
+        createView(KateApp::self()->documentManager()->document(KateApp::self()->documentManager()->documents() - 1));
     }
 }
 
@@ -376,7 +377,7 @@ bool KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)
 
     // create doc
     if (!doc) {
-        doc = KateDocManager::self()->createDoc();
+        doc = KateApp::self()->documentManager()->createDoc();
     }
 
     /**

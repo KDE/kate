@@ -63,8 +63,6 @@ public:
     KateDocManager(QObject *parent);
     ~KateDocManager();
 
-    static KateDocManager *self();
-
     KTextEditor::Document *createDoc(const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     void deleteDoc(KTextEditor::Document *doc);

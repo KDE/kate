@@ -183,11 +183,11 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     KateApp::self()->pluginManager()->enableAllPluginsGUI(this, sconfig);
 
     // caption update
-    for (uint i = 0; i < KateDocManager::self()->documents(); i++) {
-        slotDocumentCreated(KateDocManager::self()->document(i));
+    for (uint i = 0; i < KateApp::self()->documentManager()->documents(); i++) {
+        slotDocumentCreated(KateApp::self()->documentManager()->document(i));
     }
 
-    connect(KateDocManager::self(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(slotDocumentCreated(KTextEditor::Document*)));
+    connect(KateApp::self()->documentManager(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(slotDocumentCreated(KTextEditor::Document*)));
 
     readOptions();
 
@@ -284,17 +284,17 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
     a->setText(i18n("Save A&ll"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_L));
-    connect(a, SIGNAL(triggered()), KateDocManager::self(), SLOT(saveAll()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(saveAll()));
     a->setWhatsThis(i18n("Save all open, modified documents to disk."));
 
     a = actionCollection()->addAction(QStringLiteral("file_reload_all"));
     a->setText(i18n("&Reload All"));
-    connect(a, SIGNAL(triggered()), KateDocManager::self(), SLOT(reloadAll()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(reloadAll()));
     a->setWhatsThis(i18n("Reload all open documents."));
 
     a = actionCollection()->addAction(QStringLiteral("file_close_orphaned"));
     a->setText(i18n("Close Orphaned"));
-    connect(a, SIGNAL(triggered()), KateDocManager::self(), SLOT(closeOrphaned()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(closeOrphaned()));
     a->setWhatsThis(i18n("Close all documents in the file list that could not be reopened, because they are not accessible anymore."));
 
     actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), m_viewManager, SLOT(slotDocumentClose()))
@@ -404,14 +404,14 @@ void KateMainWindow::setupActions()
 
 void KateMainWindow::slotDocumentCloseAll()
 {
-    if (KateDocManager::self()->documents() >= 1 && KMessageBox::warningContinueCancel(this,
+    if (KateApp::self()->documentManager()->documents() >= 1 && KMessageBox::warningContinueCancel(this,
             i18n("This will close all open documents. Are you sure you want to continue?"),
             i18n("Close all documents"),
             KStandardGuiItem::cont(),
             KStandardGuiItem::cancel(),
             QStringLiteral("closeAll")) != KMessageBox::Cancel) {
         if (queryClose_internal()) {
-            KateDocManager::self()->closeAllDocuments(false);
+            KateApp::self()->documentManager()->closeAllDocuments(false);
         }
     }
 }
@@ -419,7 +419,7 @@ void KateMainWindow::slotDocumentCloseAll()
 void KateMainWindow::slotDocumentCloseOther(KTextEditor::Document *document)
 {
     if (queryClose_internal(document)) {
-        KateDocManager::self()->closeOtherDocuments(document);
+        KateApp::self()->documentManager()->closeOtherDocuments(document);
     }
 }
 
@@ -432,25 +432,25 @@ void KateMainWindow::slotDocumentCloseSelected(const QList<KTextEditor::Document
         }
     }
 
-    KateDocManager::self()->closeDocuments(documents);
+    KateApp::self()->documentManager()->closeDocuments(documents);
 }
 
 void KateMainWindow::slotDocumentCloseOther()
 {
     if (queryClose_internal(m_viewManager->activeView()->document())) {
-        KateDocManager::self()->closeOtherDocuments(m_viewManager->activeView()->document());
+        KateApp::self()->documentManager()->closeOtherDocuments(m_viewManager->activeView()->document());
     }
 }
 
 bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
 {
-    uint documentCount = KateDocManager::self()->documents();
+    uint documentCount = KateApp::self()->documentManager()->documents();
 
     if (! showModOnDiskPrompt()) {
         return false;
     }
 
-    QList<KTextEditor::Document *> modifiedDocuments = KateDocManager::self()->modifiedDocumentList();
+    QList<KTextEditor::Document *> modifiedDocuments = KateApp::self()->documentManager()->modifiedDocumentList();
     modifiedDocuments.removeAll(doc);
     bool shutdown = (modifiedDocuments.count() == 0);
 
@@ -458,7 +458,7 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
         shutdown = KateSaveModifiedDialog::queryClose(this, modifiedDocuments);
     }
 
-    if (KateDocManager::self()->documents() > documentCount) {
+    if (KateApp::self()->documentManager()->documents() > documentCount) {
         KMessageBox::information(this,
                                  i18n("New file opened while trying to close Kate, closing aborted."),
                                  i18n("Closing Aborted"));
@@ -540,8 +540,8 @@ void KateMainWindow::readOptions()
 
     const KConfigGroup generalGroup(config, "General");
     m_modNotification = generalGroup.readEntry("Modified Notification", false);
-    KateDocManager::self()->setSaveMetaInfos(generalGroup.readEntry("Save Meta Infos", true));
-    KateDocManager::self()->setDaysMetaInfos(generalGroup.readEntry("Days Meta Infos", 30));
+    KateApp::self()->documentManager()->setSaveMetaInfos(generalGroup.readEntry("Save Meta Infos", true));
+    KateApp::self()->documentManager()->setDaysMetaInfos(generalGroup.readEntry("Days Meta Infos", 30));
 
     m_paShowPath->setChecked(generalGroup.readEntry("Show Full Path in Title", false));
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
@@ -556,9 +556,9 @@ void KateMainWindow::saveOptions()
 
     KConfigGroup generalGroup(config, "General");
 
-    generalGroup.writeEntry("Save Meta Infos", KateDocManager::self()->getSaveMetaInfos());
+    generalGroup.writeEntry("Save Meta Infos", KateApp::self()->documentManager()->getSaveMetaInfos());
 
-    generalGroup.writeEntry("Days Meta Infos", KateDocManager::self()->getDaysMetaInfos());
+    generalGroup.writeEntry("Days Meta Infos", KateApp::self()->documentManager()->getDaysMetaInfos());
 
     generalGroup.writeEntry("Show Full Path in Title", m_paShowPath->isChecked());
     generalGroup.writeEntry("Show Status Bar", m_paShowStatusBar->isChecked());
@@ -656,7 +656,7 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
     //
     else if (event->mimeData()->hasText()) {
         KTextEditor::Document *doc =
-            KateDocManager::self()->createDoc();
+            KateApp::self()->documentManager()->createDoc();
         doc->setText(event->mimeData()->text());
         m_viewManager->activateView(doc);
     }
@@ -691,7 +691,7 @@ void KateMainWindow::editKeys()
     }
     dlg.configure();
 
-    QList<KTextEditor::Document *>  l = KateDocManager::self()->documentList();
+    QList<KTextEditor::Document *>  l = KateApp::self()->documentManager()->documentList();
     for (int i = 0; i < l.count(); i++) {
 //     qCDebug(LOG_KATE)<<"reloading Keysettings for document "<<i;
         l.at(i)->reloadXML();
@@ -836,9 +836,9 @@ bool KateMainWindow::showModOnDiskPrompt()
     KTextEditor::Document *doc;
 
     DocVector list;
-    list.reserve(KateDocManager::self()->documents());
-    foreach(doc, KateDocManager::self()->documentList()) {
-        if (KateDocManager::self()->documentInfo(doc)->modifiedOnDisc) {
+    list.reserve(KateApp::self()->documentManager()->documents());
+    foreach(doc, KateApp::self()->documentManager()->documentList()) {
+        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc) {
             list.append(doc);
         }
     }
@@ -941,7 +941,7 @@ void KateMainWindow::readProperties(const KConfigGroup &config)
 
 void KateMainWindow::saveGlobalProperties(KConfig *sessionConfig)
 {
-    KateDocManager::self()->saveDocumentList(sessionConfig);
+    KateApp::self()->documentManager()->saveDocumentList(sessionConfig);
 
     KConfigGroup cg(sessionConfig, "General");
     cg.writeEntry("Last Session", KateApp::self()->sessionManager()->activeSession()->name());

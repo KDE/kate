@@ -335,7 +335,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     QString fn = group.readEntry("Active View");
 
     if (!fn.isEmpty()) {
-        KTextEditor::Document *doc = KateDocManager::self()->findDocument(QUrl(fn));
+        KTextEditor::Document *doc = KateApp::self()->documentManager()->findDocument(QUrl(fn));
 
         if (doc) {
             // view config, group: "ViewSpace <n> url"
@@ -353,7 +353,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     }
 
     if (mViewList.isEmpty()) {
-        viewMan->createView(KateDocManager::self()->document(0));
+        viewMan->createView(KateApp::self()->documentManager()->document(0));
     }
 
     m_group = groupname; // used for restroing view configs later

@@ -82,6 +82,9 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     quickOpen->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(quickOpen);
 
+    // FIXME: better additional size
+    m_tabBar->setFixedHeight(QFontMetrics(font()).height() * 1.2);
+
     layout->addLayout(hLayout);
     //END tab bar
 

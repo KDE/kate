@@ -41,9 +41,6 @@ KateTabBar::KateTabBar(QWidget *parent)
     m_minimumTabWidth = 150;
     m_maximumTabWidth = 350;
 
-    // FIXME: better additional size
-    setFixedHeight(QFontMetrics(font()).height() + 10);
-
     m_nextID = 0;
 
     m_activeButton = 0L;
@@ -253,10 +250,6 @@ int KateTabBar::removeTab(int id)
     // button, a delete tabButton; would lead to a crash.
     tabButton->hide();
     tabButton->deleteLater();
-
-    if (m_tabButtons.count() == 0) {
-        hide();
-    }
 
     updateButtonPositions();
 

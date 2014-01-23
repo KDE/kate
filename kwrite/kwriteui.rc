@@ -51,7 +51,6 @@
   <Menu name="settings"><text>&amp;Settings</text>
     <Merge name="StandardToolBarMenuHandler" />
     <DefineGroup name="show_toolbar_merge" />
-    <Action name="settings_show_statusbar" append="show_merge"/>
     <Action name="set_showPath" append="show_merge"/>
     <DefineGroup name="show_merge" />
     <DefineGroup name="configure_merge" append="save_merge"/>

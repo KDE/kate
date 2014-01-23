@@ -165,7 +165,7 @@ void KWrite::setupActions()
   setStandardToolBarMenuEnabled(true);
 
   m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), this);
-  actionCollection()->addAction( QStringLiteral("settings_show_statusbar"), m_paShowStatusBar);
+  actionCollection()->addAction( m_paShowStatusBar->objectName(), m_paShowStatusBar);
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
   m_paShowPath = new KToggleAction( i18n("Sho&w Path"), this );

@@ -227,7 +227,26 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     stack->setCurrentWidget(kv);
     kv->show();
 
-    // raise tab in view space tab bar
+    // in case a tab does not exist, add one
+    if (! m_docToTabId.contains(document)) {
+        // if space is available, add button
+        if (m_tabBar->count() < m_tabBar->maxTabCount()) {
+            // just insert
+            insertTab(m_tabBar->count(), document);
+        } else {
+            // remove "oldest" button and replace with new one
+            Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
+
+            KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount()];
+            Q_ASSERT(m_docToTabId.contains(docToHide));
+            const int insertIndex = removeTab(docToHide);
+
+            // add new one at removed position
+            insertTab(insertIndex, document);
+        }
+    }
+
+    // follow current view
     Q_ASSERT(m_docToTabId.contains(document));
     m_tabBar->setCurrentTab(m_docToTabId[document]);
 
@@ -344,7 +363,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
         // remove "oldest" button and replace with new one
         Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
 
-        KTextEditor::Document * docToHide = m_lruDocList[m_tabBar->count() - 1];
+        KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount()];
         Q_ASSERT(m_docToTabId.contains(docToHide));
         const int insertIndex = removeTab(docToHide);
 
@@ -361,6 +380,9 @@ void KateViewSpace::documentDestroyed(QObject *doc)
     Q_ASSERT(m_lruDocList.contains(invalidDoc));
     m_lruDocList.remove(m_lruDocList.indexOf(invalidDoc));
 
+    // disconnect entirely
+    disconnect(doc, 0, this, 0);
+
     // case: there was no view created yet, but still a button was added
     if (m_docToTabId.contains(invalidDoc)) {
         const int insertIndex = removeTab(invalidDoc);
@@ -368,16 +390,13 @@ void KateViewSpace::documentDestroyed(QObject *doc)
         if (m_lruDocList.size() >= m_tabBar->maxTabCount()
             && m_tabBar->count() < m_tabBar->maxTabCount()
         ) {
-            KTextEditor::Document * docToShow = m_lruDocList[m_tabBar->count() - 1];
+            KTextEditor::Document * docToShow = m_lruDocList[m_lruDocList.size() - m_tabBar->count() - 1];
             Q_ASSERT(! m_docToTabId.contains(docToShow));
 
             // add tab that now fits into the bar
             insertTab(insertIndex, docToShow);
         }
     }
-
-    // disconnect entirely
-    disconnect(doc, 0, this, 0);
 
     // at this point, the doc should be completely unknown
     Q_ASSERT(! m_lruDocList.contains(invalidDoc));

@@ -42,7 +42,6 @@ class KateViewSpace : public QWidget
 
 public:
     explicit KateViewSpace(KateViewManager *, QWidget *parent = 0, const char *name = 0);
-    ~KateViewSpace();
 
     bool isActiveSpace();
     void setActive(bool b, bool showled = false);

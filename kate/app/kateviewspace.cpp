@@ -99,9 +99,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     statusBarToggled();
 }
 
-KateViewSpace::~KateViewSpace()
-{}
-
 bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 {
     QToolButton *button = qobject_cast<QToolButton *>(obj);

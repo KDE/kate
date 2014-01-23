@@ -134,14 +134,14 @@ void KateViewManager::setupActions ()
   m_closeView->setIcon( QIcon::fromTheme(QStringLiteral("view-close")) );
   m_closeView->setText( i18n("Cl&ose Current View") );
   m_closeView->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_R );
-  connect(m_closeView, SIGNAL(triggered()), this, SLOT(slotCloseCurrentViewSpace()));
+  connect(m_closeView, SIGNAL(triggered()), this, SLOT(slotCloseCurrentViewSpace()), Qt::QueuedConnection);
 
   m_closeView->setWhatsThis(i18n("Close the currently active split view"));
 
   m_closeOtherViews = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_close_others"));
   m_closeOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
   m_closeOtherViews->setText(i18n("Close Inactive Views"));
-  connect(m_closeOtherViews, SIGNAL(triggered()), this, SLOT(slotCloseOtherViews()));
+  connect(m_closeOtherViews, SIGNAL(triggered()), this, SLOT(slotCloseOtherViews()), Qt::QueuedConnection);
 
   m_closeOtherViews->setWhatsThis(i18n("Close every view but the active one"));
 

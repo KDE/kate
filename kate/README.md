@@ -14,14 +14,6 @@ kate/app/katemainwindow.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateviewspace.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateviewmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/katedocmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreeproxymodel.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/metatype_qlist_ktexteditor_document_pointer.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletree.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreeconfigpage.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreedebug.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreepluginsettings.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreeplugin.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreemodel.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 
 ### *.cpp
 
@@ -41,9 +33,3 @@ kate/app/kateviewspace.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateviewmanager.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/katedocmanager.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateapp.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletree.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreeconfigpage.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreepluginsettings.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreeproxymodel.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreeplugin.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/filetree/katefiletreemodel.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1

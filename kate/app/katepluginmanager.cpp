@@ -50,11 +50,6 @@ KatePluginManager::~KatePluginManager()
     unloadAllPlugins();
 }
 
-KatePluginManager *KatePluginManager::self()
-{
-    return KateApp::self()->pluginManager();
-}
-
 void KatePluginManager::setupPluginList()
 {
     KService::List traderList = KServiceTypeTrader::self()->query(QStringLiteral("KTextEditor/Plugin"));

@@ -180,7 +180,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     KateApp::self()->addMainWindow(this);
 
     // enable plugin guis
-    KatePluginManager::self()->enableAllPluginsGUI(this, sconfig);
+    KateApp::self()->pluginManager()->enableAllPluginsGUI(this, sconfig);
 
     // caption update
     for (uint i = 0; i < KateDocManager::self()->documents(); i++) {
@@ -219,7 +219,7 @@ KateMainWindow::~KateMainWindow()
     KateApp::self()->removeMainWindow(this);
 
     // disable all plugin guis, delete all pluginViews
-    KatePluginManager::self()->disableAllPluginsGUI(this);
+    KateApp::self()->pluginManager()->disableAllPluginsGUI(this);
 
     // delete the view manager, before KateMainWindow's wrapper is dead
     delete m_viewManager;
@@ -350,7 +350,7 @@ void KateMainWindow::setupActions()
     QAction *settingsConfigure = KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
     settingsConfigure->setWhatsThis(i18n("Configure various aspects of this application and the editing component."));
 
-    if (KatePluginManager::self()->pluginList().count() > 0) {
+    if (KateApp::self()->pluginManager()->pluginList().count() > 0) {
         a = actionCollection()->addAction(QStringLiteral("help_plugins_contents"));
         a->setText(i18n("&Plugins Handbook"));
         connect(a, SIGNAL(triggered()), this, SLOT(pluginHelp()));
@@ -910,7 +910,7 @@ void KateMainWindow::saveProperties(KConfigGroup &config)
 
     // store all plugin view states
     int id = KateApp::self()->mainWindowID(this);
-    foreach(const KatePluginInfo & item, KatePluginManager::self()->pluginList()) {
+    foreach(const KatePluginInfo & item, KateApp::self()->pluginManager()->pluginList()) {
         if (item.plugin && pluginViews().contains(item.plugin)) {
             if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (pluginViews().value(item.plugin))) {
                 KConfigGroup group(config.config(), QString::fromLatin1("Plugin:%1:MainWindow:%2").arg(item.saveName()).arg(id));
@@ -931,7 +931,7 @@ void KateMainWindow::readProperties(const KConfigGroup &config)
     startRestore(configBase, config.name());
 
     // perhaps enable plugin guis
-    KatePluginManager::self()->enableAllPluginsGUI(this, configBase);
+    KateApp::self()->pluginManager()->enableAllPluginsGUI(this, configBase);
 
     finishRestore();
 

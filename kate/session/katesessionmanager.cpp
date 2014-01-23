@@ -178,7 +178,7 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
     // if we have no session config object, try to load the default
     // (anonymous/unnamed sessions)
     // load plugin config + plugins
-    KatePluginManager::self()->loadConfig(sc);
+    KateApp::self()->pluginManager()->loadConfig(sc);
 
     if (loadDocs) {
         KateApp::self()->documentManager()->restoreDocumentList(sc);
@@ -299,7 +299,7 @@ bool KateSessionManager::renameSession(KateSession::Ptr session, const QString &
 void KateSessionManager::saveSessionTo(KConfig *sc) const
 {
     // save plugin configs and which plugins to load
-    KatePluginManager::self()->writeConfig(sc);
+    KateApp::self()->pluginManager()->writeConfig(sc);
 
     // save document configs + which documents to load
     KateDocManager::self()->saveDocumentList(sc);

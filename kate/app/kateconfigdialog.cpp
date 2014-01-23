@@ -203,7 +203,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     item->setHeader(i18n("Plugin Manager"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-plugin")));
 
-    KatePluginList &pluginList(KatePluginManager::self()->pluginList());
+    KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
     foreach(const KatePluginInfo & plugin, pluginList) {
         if (plugin.load
                 && qobject_cast<KTextEditor::ConfigPageInterface *>(plugin.plugin)) {

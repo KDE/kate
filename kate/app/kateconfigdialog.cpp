@@ -20,6 +20,8 @@
 
 #include "kateconfigdialog.h"
 
+#include "ui_sessionconfigwidget.h"
+
 #include "katemainwindow.h"
 
 #include "katedocmanager.h"
@@ -43,7 +45,6 @@
 #include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
-#include <QRadioButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
 
@@ -137,56 +138,29 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     //END General page
 
     //BEGIN Session page
-    QFrame *sessionsFrame = new QFrame;
-    item = addSubPage(applicationItem, sessionsFrame, i18n("Sessions"));
+    QWidget *sessionsPage = new QWidget();
+    item = addSubPage(applicationItem, sessionsPage, i18n("Sessions"));
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
 
-    layout = new QVBoxLayout(sessionsFrame);
-    layout->setMargin(0);
-
-    // GROUP with the one below: "Startup"
-    buttonGroup = new QGroupBox(i18n("Elements of Sessions"), sessionsFrame);
-    vbox = new QVBoxLayout;
-    layout->addWidget(buttonGroup);
+    sessionConfigUi = new Ui::SessionConfigWidget();
+    sessionConfigUi->setupUi(sessionsPage);
 
     // restore view  config
-    m_restoreVC = new QCheckBox(buttonGroup);
-    m_restoreVC->setText(i18n("Include &window configuration"));
-    m_restoreVC->setChecked(cgGeneral.readEntry("Restore Window Configuration", true));
-    m_restoreVC->setWhatsThis(i18n("Check this if you want all your views and frames restored each time you open Kate"));
-    connect(m_restoreVC, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    sessionConfigUi->restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
+    connect(sessionConfigUi->restoreVC, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
-    vbox->addWidget(m_restoreVC);
-    buttonGroup->setLayout(vbox);
+    QString sesStart (cgGeneral.readEntry ("Startup Session", "manual"));
+    if (sesStart == QStringLiteral("new"))
+        sessionConfigUi->startNewSessionRadioButton->setChecked (true);
+    else if (sesStart == QStringLiteral("last"))
+        sessionConfigUi->loadLastUserSessionRadioButton->setChecked (true);
+    else
+        sessionConfigUi->manuallyChooseSessionRadioButton->setChecked (true);
 
-    QGroupBox *sessionsStart = new QGroupBox(i18n("Behavior on Application Startup"), sessionsFrame);
-    vbox = new QVBoxLayout;
-    layout->addWidget(sessionsStart);
-
-    m_startNewSessionRadioButton = new QRadioButton(i18n("&Start new session"), sessionsStart);
-    m_loadLastUserSessionRadioButton = new QRadioButton(i18n("&Load last-used session"), sessionsStart);
-    m_manuallyChooseSessionRadioButton = new QRadioButton(i18n("&Manually choose a session"), sessionsStart);
-
-    QString sesStart(cgGeneral.readEntry("Startup Session", "manual"));
-    if (sesStart == QStringLiteral("new")) {
-        m_startNewSessionRadioButton->setChecked(true);
-    } else if (sesStart == QStringLiteral("last")) {
-        m_loadLastUserSessionRadioButton->setChecked(true);
-    } else {
-        m_manuallyChooseSessionRadioButton->setChecked(true);
-    }
-
-    connect(m_startNewSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-    connect(m_loadLastUserSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-    connect(m_manuallyChooseSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-    vbox->addWidget(m_startNewSessionRadioButton);
-    vbox->addWidget(m_loadLastUserSessionRadioButton);
-    vbox->addWidget(m_manuallyChooseSessionRadioButton);
-    sessionsStart->setLayout(vbox);
-
-    layout->addStretch(1); // :-] works correct without autoadd
+    connect(sessionConfigUi->startNewSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    connect(sessionConfigUi->loadLastUserSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    connect(sessionConfigUi->manuallyChooseSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
     //END Session page
 
     //BEGIN Plugins page
@@ -230,7 +204,9 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 }
 
 KateConfigDialog::~KateConfigDialog()
-{}
+{
+    delete sessionConfigUi;
+}
 
 void KateConfigDialog::addEditorPages()
 {
@@ -325,11 +301,11 @@ void KateConfigDialog::slotApply()
     if (m_dataChanged) {
         KConfigGroup cg = KConfigGroup(config, "General");
 
-        cg.writeEntry("Restore Window Configuration", m_restoreVC->isChecked());
+        cg.writeEntry("Restore Window Configuration", sessionConfigUi->restoreVC->isChecked());
 
-        if (m_startNewSessionRadioButton->isChecked()) {
+        if (sessionConfigUi->startNewSessionRadioButton->isChecked()) {
             cg.writeEntry("Startup Session", "new");
-        } else if (m_loadLastUserSessionRadioButton->isChecked()) {
+        } else if (sessionConfigUi->loadLastUserSessionRadioButton->isChecked()) {
             cg.writeEntry("Startup Session", "last");
         } else {
             cg.writeEntry("Startup Session", "manual");

@@ -34,8 +34,10 @@
 
 class QCheckBox;
 class QSpinBox;
-class QRadioButton;
 class KateMainWindow;
+namespace Ui {
+    class SessionConfigWidget;
+}
 
 struct PluginPageListItem {
     KTextEditor::Plugin *plugin;
@@ -74,12 +76,9 @@ private:
     QCheckBox *m_modNotifications;
     QCheckBox *m_saveMetaInfos;
     QSpinBox *m_daysMetaInfos;
-    QCheckBox *m_restoreVC;
-
-    // sessions start group:
-    QRadioButton *m_startNewSessionRadioButton;
-    QRadioButton *m_loadLastUserSessionRadioButton;
-    QRadioButton *m_manuallyChooseSessionRadioButton;
+    
+    // Sessions Page
+    Ui::SessionConfigWidget *sessionConfigUi;    
 
     QHash<KPageWidgetItem *, PluginPageListItem *> m_pluginPages;
     QList<KTextEditor::ConfigPage *> m_editorPages;

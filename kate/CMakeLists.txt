@@ -51,6 +51,10 @@ set (KATE_APPLICATION_SRCS
    app/main.cpp
 )
 
+qt5_wrap_ui(KATE_APPLICATION_SRCS
+    app/ui/sessionconfigwidget.ui
+)
+
 # create kde init executable
 kf5_add_kdeinit_executable(kate ${KATE_APPLICATION_SRCS})
 target_link_libraries(kdeinit_kate

@@ -59,16 +59,12 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
   // add vertical split view space
   QToolButton * split = new QToolButton(this);
   split->setAutoRaise(true);
-  split->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert")));
-  split->setWhatsThis(i18n("Split this view horizontally into two views."));
-  split->installEventFilter(this); // on click, active this view space
-  hLayout->addWidget(split);
-
-  // add horizontally split view space
-  split = new QToolButton(this);
-  split->setAutoRaise(true);
-  split->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
-  split->setWhatsThis(i18n("Split this view vertically into two views."));
+  split->setPopupMode(QToolButton::InstantPopup);
+  split->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
+  split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert")));
+  split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
+  split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_current_space")));
+  split->setWhatsThis(i18n("Control view space splitting"));
   split->installEventFilter(this); // on click, active this view space
   hLayout->addWidget(split);
 

@@ -36,6 +36,8 @@
 #include <QToolButton>
 #include <QMouseEvent>
 #include <QStackedWidget>
+#include <QHelpEvent>
+#include <QToolTip>
 
 //BEGIN KateViewSpace
 KateViewSpace::KateViewSpace( KateViewManager *viewManager,
@@ -50,6 +52,8 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
 
   //BEGIN tab bar
   QHBoxLayout * hLayout = new QHBoxLayout();
+  hLayout->setSpacing(0);
+  hLayout->setMargin(0);
 
   // add tab bar
   m_tabBar = new KateTabBar(this);
@@ -99,7 +103,20 @@ KateViewSpace::~KateViewSpace()
 
 bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 {
-  if (! isActiveSpace() && qobject_cast<QToolButton*>(obj) && event->type() == QEvent::MouseButtonPress) {
+  QToolButton * button = qobject_cast<QToolButton*>(obj);
+
+  // maybe a tool tip of a QToolButton: show shortcuts
+  if (button && event->type() == QEvent::ToolTip) {
+    QHelpEvent * e = static_cast<QHelpEvent *>(event);
+    if (button->defaultAction()) {
+      QToolTip::showText(e->globalPos(),
+                         button->toolTip() + QStringLiteral(" (%1)").arg(button->defaultAction()->shortcut().toString()), button);
+      return true;
+    }
+  }
+
+  // on mouse press on view space bar tool buttons: activate this space
+  if (button && ! isActiveSpace() && event->type() == QEvent::MouseButtonPress) {
     m_viewManager->setActiveSpace(this);
     m_viewManager->activateView(currentView()->document());
   }

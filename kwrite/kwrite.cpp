@@ -55,10 +55,10 @@
 #include <QLabel>
 #include <QDragEnterEvent>
 
-QList<KTextEditor::Document*> KWrite::docList;
-QList<KWrite*> KWrite::winList;
+QList<KTextEditor::Document *> KWrite::docList;
+QList<KWrite *> KWrite::winList;
 
-KWrite::KWrite (KTextEditor::Document *doc)
+KWrite::KWrite(KTextEditor::Document *doc)
     : m_view(0),
       m_recentFiles(0),
       m_paShowPath(0),
@@ -67,122 +67,122 @@ KWrite::KWrite (KTextEditor::Document *doc)
       , m_activityResource(0)
 #endif
 {
-  if ( !doc )
-  {
-    doc = KTextEditor::Editor::instance()->createDocument(0);
+    if (!doc) {
+        doc = KTextEditor::Editor::instance()->createDocument(0);
 
-    // enable the modified on disk warning dialogs if any
-    if (qobject_cast<KTextEditor::ModificationInterface *>(doc))
-      qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning (true);
+        // enable the modified on disk warning dialogs if any
+        if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
+            qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(true);
+        }
 
-    docList.append(doc);
-  }
+        docList.append(doc);
+    }
 
-  m_view = doc->createView (this);
+    m_view = doc->createView(this);
 
-  setCentralWidget(m_view);
+    setCentralWidget(m_view);
 
-  setupActions();
+    setupActions();
 
-  // signals for the statusbar
-  connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
-  connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
-  connect(m_view->document(), SIGNAL(readWriteChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
-  connect(m_view->document(),SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(urlChanged()));
+    // signals for the statusbar
+    connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
+    connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
+    connect(m_view->document(), SIGNAL(readWriteChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
+    connect(m_view->document(), SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(urlChanged()));
 
-  setAcceptDrops(true);
-  connect(m_view,SIGNAL(dropEventPass(QDropEvent*)),this,SLOT(slotDropEvent(QDropEvent*)));
+    setAcceptDrops(true);
+    connect(m_view, SIGNAL(dropEventPass(QDropEvent*)), this, SLOT(slotDropEvent(QDropEvent*)));
 
-  setXMLFile(QStringLiteral("kwriteui.rc"));
-  createShellGUI( true );
-  guiFactory()->addClient( m_view );
+    setXMLFile(QStringLiteral("kwriteui.rc"));
+    createShellGUI(true);
+    guiFactory()->addClient(m_view);
 
-  // init with more useful size, stolen from konq :)
-/* FIXME KF5  if (!initialGeometrySet())
-    resize( QSize(700, 480).expandedTo(minimumSizeHint()));
-*/
+    // init with more useful size, stolen from konq :)
+    /* FIXME KF5  if (!initialGeometrySet())
+        resize( QSize(700, 480).expandedTo(minimumSizeHint()));
+    */
 
-  // FIXME: make sure the config dir exists, any idea how to do it more cleanly?
-  QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation)).mkpath(QStringLiteral("."));
+    // FIXME: make sure the config dir exists, any idea how to do it more cleanly?
+    QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation)).mkpath(QStringLiteral("."));
 
-  // call it as last thing, must be sure everything is already set up ;)
-  setAutoSaveSettings ();
+    // call it as last thing, must be sure everything is already set up ;)
+    setAutoSaveSettings();
 
-  readConfig ();
+    readConfig();
 
-  winList.append (this);
+    winList.append(this);
 
-  documentNameChanged ();
-  show ();
+    documentNameChanged();
+    show();
 
-  // give view focus
-  m_view->setFocus (Qt::OtherFocusReason);
+    // give view focus
+    m_view->setFocus(Qt::OtherFocusReason);
 }
 
 KWrite::~KWrite()
 {
-  guiFactory()->removeClient(m_view);
+    guiFactory()->removeClient(m_view);
 
-  winList.removeAll(this);
-  
-  KTextEditor::Document *doc = m_view->document();
-  delete m_view;
+    winList.removeAll(this);
 
-  // kill document, if last view is closed
-  if (doc->views().isEmpty()) {
-    docList.removeAll(doc);
-    delete doc;
-  }
+    KTextEditor::Document *doc = m_view->document();
+    delete m_view;
 
-  KSharedConfig::openConfig()->sync();
+    // kill document, if last view is closed
+    if (doc->views().isEmpty()) {
+        docList.removeAll(doc);
+        delete doc;
+    }
+
+    KSharedConfig::openConfig()->sync();
 }
 
 void KWrite::setupActions()
 {
-  actionCollection()->addAction( KStandardAction::Close, QStringLiteral("file_close"), this, SLOT(slotFlush()) )
+    actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), this, SLOT(slotFlush()))
     ->setWhatsThis(i18n("Use this command to close the current document"));
 
-  // setup File menu
-  actionCollection()->addAction( KStandardAction::New, QStringLiteral("file_new"), this, SLOT(slotNew()) )
+    // setup File menu
+    actionCollection()->addAction(KStandardAction::New, QStringLiteral("file_new"), this, SLOT(slotNew()))
     ->setWhatsThis(i18n("Use this command to create a new document"));
-  actionCollection()->addAction( KStandardAction::Open, QStringLiteral("file_open"), this, SLOT(slotOpen()) )
+    actionCollection()->addAction(KStandardAction::Open, QStringLiteral("file_open"), this, SLOT(slotOpen()))
     ->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
-  m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(QUrl)), this);
-  actionCollection()->addAction(m_recentFiles->objectName(), m_recentFiles);
-  m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
+    m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(QUrl)), this);
+    actionCollection()->addAction(m_recentFiles->objectName(), m_recentFiles);
+    m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
-  QAction *a = actionCollection()->addAction( QStringLiteral("view_new_view") );
-  a->setIcon( QIcon::fromTheme(QStringLiteral("window-new")) );
-  a->setText( i18n("&New Window") );
-  connect( a, SIGNAL(triggered()), this, SLOT(newView()) );
-  a->setWhatsThis(i18n("Create another view containing the current document"));
+    QAction *a = actionCollection()->addAction(QStringLiteral("view_new_view"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));
+    a->setText(i18n("&New Window"));
+    connect(a, SIGNAL(triggered()), this, SLOT(newView()));
+    a->setWhatsThis(i18n("Create another view containing the current document"));
 
-  actionCollection()->addAction( KStandardAction::Quit, this, SLOT(close()) )
+    actionCollection()->addAction(KStandardAction::Quit, this, SLOT(close()))
     ->setWhatsThis(i18n("Close the current document view"));
 
-  // setup Settings menu
-  setStandardToolBarMenuEnabled(true);
+    // setup Settings menu
+    setStandardToolBarMenuEnabled(true);
 
-  m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), this);
-  actionCollection()->addAction( m_paShowStatusBar->objectName(), m_paShowStatusBar);
-  m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
+    m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), this);
+    actionCollection()->addAction(m_paShowStatusBar->objectName(), m_paShowStatusBar);
+    m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
-  m_paShowPath = new KToggleAction( i18n("Sho&w Path"), this );
-  actionCollection()->addAction( QStringLiteral("set_showPath"), m_paShowPath );
-  connect( m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()) );
-  m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
+    m_paShowPath = new KToggleAction(i18n("Sho&w Path"), this);
+    actionCollection()->addAction(QStringLiteral("set_showPath"), m_paShowPath);
+    connect(m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()));
+    m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 
-  a= actionCollection()->addAction( KStandardAction::KeyBindings, this, SLOT(editKeys()) );
-  a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
+    a = actionCollection()->addAction(KStandardAction::KeyBindings, this, SLOT(editKeys()));
+    a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-  a = actionCollection()->addAction( KStandardAction::ConfigureToolbars, QStringLiteral("options_configure_toolbars"),
-                                     this, SLOT(editToolbars()) );
-  a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
+    a = actionCollection()->addAction(KStandardAction::ConfigureToolbars, QStringLiteral("options_configure_toolbars"),
+                                      this, SLOT(editToolbars()));
+    a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
-  a = actionCollection()->addAction( QStringLiteral("help_about_editor") );
-  a->setText( i18n("&About Editor Component") );
-  connect( a, SIGNAL(triggered()), this, SLOT(aboutEditor()) );
+    a = actionCollection()->addAction(QStringLiteral("help_about_editor"));
+    a->setText(i18n("&About Editor Component"));
+    connect(a, SIGNAL(triggered()), this, SLOT(aboutEditor()));
 
 }
 
@@ -190,318 +190,319 @@ void KWrite::setupActions()
 void KWrite::loadURL(const QUrl &url)
 {
 #ifdef KActivities_FOUND
-  if (!m_activityResource) {
-    m_activityResource = new KActivities::ResourceInstance(winId(), this);
-  }
-  m_activityResource->setUri(url);
+    if (!m_activityResource) {
+        m_activityResource = new KActivities::ResourceInstance(winId(), this);
+    }
+    m_activityResource->setUri(url);
 #endif
-  m_view->document()->openUrl(url);
+    m_view->document()->openUrl(url);
 }
 
 // is closing the window wanted by user ?
 bool KWrite::queryClose()
 {
-  if (m_view->document()->views().count() > 1)
-    return true;
+    if (m_view->document()->views().count() > 1) {
+        return true;
+    }
 
-  if (m_view->document()->queryClose())
-  {
-    writeConfig();
+    if (m_view->document()->queryClose()) {
+        writeConfig();
 
-    return true;
-  }
+        return true;
+    }
 
-  return false;
+    return false;
 }
 
-void KWrite::slotFlush ()
+void KWrite::slotFlush()
 {
-   m_view->document()->closeUrl();
+    m_view->document()->closeUrl();
 }
 
 void KWrite::slotNew()
 {
-  new KWrite();
+    new KWrite();
 }
 
 void KWrite::slotOpen()
 {
-  const KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(KTextEditor::Editor::instance()->defaultEncoding(), m_view->document()->url(),QString(),this,i18n("Open File"));
-  Q_FOREACH (QUrl url, r.URLs) {
-    encoding = r.encoding;
-    slotOpen ( url );
-  }
+    const KEncodingFileDialog::Result r = KEncodingFileDialog::getOpenUrlsAndEncoding(KTextEditor::Editor::instance()->defaultEncoding(), m_view->document()->url(), QString(), this, i18n("Open File"));
+    Q_FOREACH(QUrl url, r.URLs) {
+        encoding = r.encoding;
+        slotOpen(url);
+    }
 }
 
-void KWrite::slotOpen( const QUrl& url )
+void KWrite::slotOpen(const QUrl &url)
 {
-  if (url.isEmpty()) return;
+    if (url.isEmpty()) {
+        return;
+    }
 
-  KIO::StatJob *job = KIO::stat(url, KIO::StatJob::SourceSide, 0);
-  KJobWidgets::setWindow(job, this);
-  if (!job->exec())
-  {
-    KMessageBox::error (this, i18n("The file given could not be read; check whether it exists or is readable for the current user."));
-    return;
-  }
+    KIO::StatJob *job = KIO::stat(url, KIO::StatJob::SourceSide, 0);
+    KJobWidgets::setWindow(job, this);
+    if (!job->exec()) {
+        KMessageBox::error(this, i18n("The file given could not be read; check whether it exists or is readable for the current user."));
+        return;
+    }
 
-  if (m_view->document()->isModified() || !m_view->document()->url().isEmpty())
-  {
-    KWrite *t = new KWrite();
-    t->m_view->document()->setEncoding(encoding);
-    t->loadURL(url);
-  }
-  else
-  {
-    m_view->document()->setEncoding(encoding);
-    loadURL(url);
-  }
+    if (m_view->document()->isModified() || !m_view->document()->url().isEmpty()) {
+        KWrite *t = new KWrite();
+        t->m_view->document()->setEncoding(encoding);
+        t->loadURL(url);
+    } else {
+        m_view->document()->setEncoding(encoding);
+        loadURL(url);
+    }
 }
 
 void KWrite::urlChanged()
 {
-  if ( ! m_view->document()->url().isEmpty() )
-    m_recentFiles->addUrl( m_view->document()->url() );
-  
-  // update caption
-  documentNameChanged ();
+    if (! m_view->document()->url().isEmpty()) {
+        m_recentFiles->addUrl(m_view->document()->url());
+    }
+
+    // update caption
+    documentNameChanged();
 }
 
 void KWrite::newView()
 {
-  new KWrite(m_view->document());
+    new KWrite(m_view->document());
 }
 
 void KWrite::toggleStatusBar()
 {
-  m_view->setStatusBarEnabled(m_paShowStatusBar->isChecked());
+    m_view->setStatusBarEnabled(m_paShowStatusBar->isChecked());
 }
 
 void KWrite::editKeys()
 {
-  KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this);
-  dlg.addCollection(actionCollection());
-  if( m_view )
-    dlg.addCollection(m_view->actionCollection());
-  dlg.configure();
+    KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this);
+    dlg.addCollection(actionCollection());
+    if (m_view) {
+        dlg.addCollection(m_view->actionCollection());
+    }
+    dlg.configure();
 }
 
 void KWrite::editToolbars()
 {
-  KConfigGroup cfg = KSharedConfig::openConfig()->group( "MainWindow" );
-  saveMainWindowSettings(cfg);
-  KEditToolBar dlg(guiFactory(), this);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group("MainWindow");
+    saveMainWindowSettings(cfg);
+    KEditToolBar dlg(guiFactory(), this);
 
-  connect( &dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()) );
-  dlg.exec();
+    connect(&dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()));
+    dlg.exec();
 }
 
 void KWrite::slotNewToolbarConfig()
 {
-    applyMainWindowSettings( KSharedConfig::openConfig()->group( "MainWindow" ) );
+    applyMainWindowSettings(KSharedConfig::openConfig()->group("MainWindow"));
 }
 
-void KWrite::dragEnterEvent( QDragEnterEvent *event )
+void KWrite::dragEnterEvent(QDragEnterEvent *event)
 {
-  const QList<QUrl> uriList = event->mimeData()->urls();
-  event->setAccepted( ! uriList.isEmpty());
+    const QList<QUrl> uriList = event->mimeData()->urls();
+    event->setAccepted(! uriList.isEmpty());
 }
 
-void KWrite::dropEvent( QDropEvent *event )
+void KWrite::dropEvent(QDropEvent *event)
 {
-  slotDropEvent(event);
+    slotDropEvent(event);
 }
 
-void KWrite::slotDropEvent( QDropEvent *event )
+void KWrite::slotDropEvent(QDropEvent *event)
 {
-  const QList<QUrl> textlist = event->mimeData()->urls();
+    const QList<QUrl> textlist = event->mimeData()->urls();
 
-  foreach (const QUrl & url, textlist)
-    slotOpen (url);
+    foreach(const QUrl & url, textlist)
+    slotOpen(url);
 }
 
-void KWrite::slotEnableActions( bool enable )
+void KWrite::slotEnableActions(bool enable)
 {
-  QList<QAction *> actions = actionCollection()->actions();
-  QList<QAction *>::ConstIterator it = actions.constBegin();
-  QList<QAction *>::ConstIterator end = actions.constEnd();
+    QList<QAction *> actions = actionCollection()->actions();
+    QList<QAction *>::ConstIterator it = actions.constBegin();
+    QList<QAction *>::ConstIterator end = actions.constEnd();
 
-  for (; it != end; ++it )
-      (*it)->setEnabled( enable );
+    for (; it != end; ++it) {
+        (*it)->setEnabled(enable);
+    }
 
-  actions = m_view->actionCollection()->actions();
-  it = actions.constBegin();
-  end = actions.constEnd();
+    actions = m_view->actionCollection()->actions();
+    it = actions.constBegin();
+    end = actions.constEnd();
 
-  for (; it != end; ++it )
-      (*it)->setEnabled( enable );
+    for (; it != end; ++it) {
+        (*it)->setEnabled(enable);
+    }
 }
 
 //common config
 void KWrite::readConfig(KSharedConfigPtr config)
 {
-  KConfigGroup cfg( config, "General Options");
+    KConfigGroup cfg(config, "General Options");
 
-  m_paShowStatusBar->setChecked( cfg.readEntry("ShowStatusBar", true) );
-  m_paShowPath->setChecked( cfg.readEntry("ShowPath", false) );
+    m_paShowStatusBar->setChecked(cfg.readEntry("ShowStatusBar", true));
+    m_paShowPath->setChecked(cfg.readEntry("ShowPath", false));
 
-  m_recentFiles->loadEntries( config->group( "Recent Files" ));
+    m_recentFiles->loadEntries(config->group("Recent Files"));
 
-  // editor config already read from KSharedConfig::openConfig() in KWriteApp constructor.
-  // so only load, if the config is a different one (this is only the case on
-  // session restore)
-  if (config != KSharedConfig::openConfig())
-    KTextEditor::Editor::instance()->readConfig(config.data());
+    // editor config already read from KSharedConfig::openConfig() in KWriteApp constructor.
+    // so only load, if the config is a different one (this is only the case on
+    // session restore)
+    if (config != KSharedConfig::openConfig()) {
+        KTextEditor::Editor::instance()->readConfig(config.data());
+    }
 
-  m_view->setStatusBarEnabled(m_paShowStatusBar->isChecked());
+    m_view->setStatusBarEnabled(m_paShowStatusBar->isChecked());
 }
 
 void KWrite::writeConfig(KSharedConfigPtr config)
 {
-  KConfigGroup generalOptions( config, "General Options");
+    KConfigGroup generalOptions(config, "General Options");
 
-  generalOptions.writeEntry("ShowStatusBar",m_paShowStatusBar->isChecked());
-  generalOptions.writeEntry("ShowPath",m_paShowPath->isChecked());
+    generalOptions.writeEntry("ShowStatusBar", m_paShowStatusBar->isChecked());
+    generalOptions.writeEntry("ShowPath", m_paShowPath->isChecked());
 
-  m_recentFiles->saveEntries(KConfigGroup(config, "Recent Files"));
+    m_recentFiles->saveEntries(KConfigGroup(config, "Recent Files"));
 
-  // Writes into its own group
-  KTextEditor::Editor::instance()->writeConfig(config.data());
+    // Writes into its own group
+    KTextEditor::Editor::instance()->writeConfig(config.data());
 
-  config->sync ();
+    config->sync();
 }
 
 //config file
 void KWrite::readConfig()
 {
-  readConfig(KSharedConfig::openConfig());
+    readConfig(KSharedConfig::openConfig());
 }
 
 void KWrite::writeConfig()
 {
-  writeConfig(KSharedConfig::openConfig());
+    writeConfig(KSharedConfig::openConfig());
 }
 
 // session management
 void KWrite::restore(KConfig *config, int n)
 {
-  readPropertiesInternal(config, n);
+    readPropertiesInternal(config, n);
 }
 
 void KWrite::readProperties(const KConfigGroup &config)
 {
-  readConfig();
+    readConfig();
 
-  if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view))
-    iface->readSessionConfig(KConfigGroup(&config, QStringLiteral("General Options")));
+    if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view)) {
+        iface->readSessionConfig(KConfigGroup(&config, QStringLiteral("General Options")));
+    }
 }
 
 void KWrite::saveProperties(KConfigGroup &config)
 {
-  writeConfig();
+    writeConfig();
 
-  config.writeEntry("DocumentNumber",docList.indexOf(m_view->document()) + 1);
+    config.writeEntry("DocumentNumber", docList.indexOf(m_view->document()) + 1);
 
-  if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view)) {
-    KConfigGroup cg(&config, QStringLiteral("General Options"));
-    iface->writeSessionConfig(cg);
-  }
+    if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view)) {
+        KConfigGroup cg(&config, QStringLiteral("General Options"));
+        iface->writeSessionConfig(cg);
+    }
 }
 
 void KWrite::saveGlobalProperties(KConfig *config) //save documents
 {
-  config->group("Number").writeEntry("NumberOfDocuments",docList.count());
+    config->group("Number").writeEntry("NumberOfDocuments", docList.count());
 
-  for (int z = 1; z <= docList.count(); z++)
-  {
-     QString buf = QString::fromLatin1("Document %1").arg(z);
-     KConfigGroup cg( config, buf );
-     KTextEditor::Document *doc = docList.at(z - 1);
+    for (int z = 1; z <= docList.count(); z++) {
+        QString buf = QString::fromLatin1("Document %1").arg(z);
+        KConfigGroup cg(config, buf);
+        KTextEditor::Document *doc = docList.at(z - 1);
 
-     if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-       iface->writeSessionConfig(cg);
-  }
+        if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc)) {
+            iface->writeSessionConfig(cg);
+        }
+    }
 
-  for (int z = 1; z <= winList.count(); z++)
-  {
-     QString buf = QString::fromLatin1("Window %1").arg(z);
-     KConfigGroup cg( config, buf );
-     cg.writeEntry("DocumentNumber",docList.indexOf(winList.at(z-1)->view()->document()) + 1);
-  }
+    for (int z = 1; z <= winList.count(); z++) {
+        QString buf = QString::fromLatin1("Window %1").arg(z);
+        KConfigGroup cg(config, buf);
+        cg.writeEntry("DocumentNumber", docList.indexOf(winList.at(z - 1)->view()->document()) + 1);
+    }
 }
 
 //restore session
 void KWrite::restore()
 {
-  KConfig *config = KConfigGui::sessionConfig();
+    KConfig *config = KConfigGui::sessionConfig();
 
-  if (!config)
-    return;
+    if (!config) {
+        return;
+    }
 
-  int docs, windows;
-  QString buf;
-  KTextEditor::Document *doc;
-  KWrite *t;
+    int docs, windows;
+    QString buf;
+    KTextEditor::Document *doc;
+    KWrite *t;
 
-  KConfigGroup numberConfig(config, "Number");
-  docs = numberConfig.readEntry("NumberOfDocuments", 0);
-  windows = numberConfig.readEntry("NumberOfWindows", 0);
+    KConfigGroup numberConfig(config, "Number");
+    docs = numberConfig.readEntry("NumberOfDocuments", 0);
+    windows = numberConfig.readEntry("NumberOfWindows", 0);
 
-  for (int z = 1; z <= docs; z++)
-  {
-     buf = QString::fromLatin1("Document %1").arg(z);
-     KConfigGroup cg(config, buf);
-     doc=KTextEditor::Editor::instance()->createDocument(0);
+    for (int z = 1; z <= docs; z++) {
+        buf = QString::fromLatin1("Document %1").arg(z);
+        KConfigGroup cg(config, buf);
+        doc = KTextEditor::Editor::instance()->createDocument(0);
 
-     if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-       iface->readSessionConfig(cg);
-     docList.append(doc);
-  }
+        if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc)) {
+            iface->readSessionConfig(cg);
+        }
+        docList.append(doc);
+    }
 
-  for (int z = 1; z <= windows; z++)
-  {
-    buf = QString::fromLatin1("Window %1").arg(z);
-    KConfigGroup cg(config, buf);
-    t = new KWrite(docList.at(cg.readEntry("DocumentNumber", 0) - 1));
-    t->restore(config,z);
-  }
+    for (int z = 1; z <= windows; z++) {
+        buf = QString::fromLatin1("Window %1").arg(z);
+        KConfigGroup cg(config, buf);
+        t = new KWrite(docList.at(cg.readEntry("DocumentNumber", 0) - 1));
+        t->restore(config, z);
+    }
 }
 
 void KWrite::aboutEditor()
 {
-  KAboutApplicationDialog dlg(KTextEditor::Editor::instance()->aboutData(), this);
-  dlg.exec();
+    KAboutApplicationDialog dlg(KTextEditor::Editor::instance()->aboutData(), this);
+    dlg.exec();
 }
 
-void KWrite::documentNameChanged ()
+void KWrite::documentNameChanged()
 {
-  QString readOnlyCaption;
-  if  (!m_view->document()->isReadWrite())
-    readOnlyCaption=i18n(" [read only]");
-  
-  if (m_view->document()->url().isEmpty()) {
-    setCaption(i18n("Untitled")+readOnlyCaption+QStringLiteral(" [*]"),m_view->document()->isModified());
-  }
-  else
-  {
-    QString c;
-    if (!m_paShowPath->isChecked())
-    {
-      c = m_view->document()->url().fileName();
-
-      //File name shouldn't be too long - Maciek
-      if (c.length() > 64)
-        c = c.left(64) + QStringLiteral("...");
-    }
-    else
-    {
-      c = m_view->document()->url().toString();
-
-      //File name shouldn't be too long - Maciek
-      if (c.length() > 64)
-        c = QStringLiteral("...") + c.right(64);
+    QString readOnlyCaption;
+    if (!m_view->document()->isReadWrite()) {
+        readOnlyCaption = i18n(" [read only]");
     }
 
-    setCaption (c+readOnlyCaption, m_view->document()->isModified());
-  }
+    if (m_view->document()->url().isEmpty()) {
+        setCaption(i18n("Untitled") + readOnlyCaption + QStringLiteral(" [*]"), m_view->document()->isModified());
+    } else {
+        QString c;
+        if (!m_paShowPath->isChecked()) {
+            c = m_view->document()->url().fileName();
+
+            //File name shouldn't be too long - Maciek
+            if (c.length() > 64) {
+                c = c.left(64) + QStringLiteral("...");
+            }
+        } else {
+            c = m_view->document()->url().toString();
+
+            //File name shouldn't be too long - Maciek
+            if (c.length() > 64) {
+                c = QStringLiteral("...") + c.right(64);
+            }
+        }
+
+        setCaption(c + readOnlyCaption, m_view->document()->isModified());
+    }
 }

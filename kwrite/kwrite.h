@@ -33,7 +33,10 @@
 class QLabel;
 
 #ifdef KActivities_FOUND
-namespace KActivities { class ResourceInstance; }
+namespace KActivities
+{
+class ResourceInstance;
+}
 #endif
 
 class KToggleAction;
@@ -42,88 +45,91 @@ class KSqueezedTextLabel;
 
 class KWrite : public KParts::MainWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     KWrite(KTextEditor::Document * = 0L);
     ~KWrite();
 
     void loadURL(const QUrl &url);
 
-    KTextEditor::View *view() const { return m_view; }
+    KTextEditor::View *view() const {
+        return m_view;
+    }
 
-    static bool noWindows () { return winList.isEmpty(); }
+    static bool noWindows() {
+        return winList.isEmpty();
+    }
 
-  private:
+private:
     void setupActions();
 
     bool queryClose();
 
-    void dragEnterEvent( QDragEnterEvent * );
-    void dropEvent( QDropEvent * );
+    void dragEnterEvent(QDragEnterEvent *);
+    void dropEvent(QDropEvent *);
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void slotNew();
-    void slotFlush ();
+    void slotFlush();
     void slotOpen();
-    void slotOpen( const QUrl& url);
+    void slotOpen(const QUrl &url);
     void newView();
     void toggleStatusBar();
     void editKeys();
     void editToolbars();
     void aboutEditor();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void slotNewToolbarConfig();
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void slotDropEvent(QDropEvent *);
 
-    void slotEnableActions( bool enable );
+    void slotEnableActions(bool enable);
 
     /**
      * adds a changed URL to the recent files
      */
     void urlChanged();
 
-  //config file functions
-  public:
-    void readConfig (KSharedConfigPtr);
-    void writeConfig (KSharedConfigPtr);
+    //config file functions
+public:
+    void readConfig(KSharedConfigPtr);
+    void writeConfig(KSharedConfigPtr);
 
-    void readConfig ();
-    void writeConfig ();
+    void readConfig();
+    void writeConfig();
 
-  //session management
-  public:
-    void restore(KConfig *,int);
+    //session management
+public:
+    void restore(KConfig *, int);
     static void restore();
 
-  private:
+private:
     void readProperties(const KConfigGroup &);
     void saveProperties(KConfigGroup &);
     void saveGlobalProperties(KConfig *);
 
-  private:
-    KTextEditor::View * m_view;
+private:
+    KTextEditor::View *m_view;
 
-    KRecentFilesAction * m_recentFiles;
-    KToggleAction * m_paShowPath;
-    KToggleAction * m_paShowStatusBar;
+    KRecentFilesAction *m_recentFiles;
+    KToggleAction *m_paShowPath;
+    KToggleAction *m_paShowStatusBar;
 
 #ifdef KActivities_FOUND
-    KActivities::ResourceInstance * m_activityResource;
+    KActivities::ResourceInstance *m_activityResource;
 #endif
 
     QString encoding;
 
-    static QList<KTextEditor::Document*> docList;
-    static QList<KWrite*> winList;
+    static QList<KTextEditor::Document *> docList;
+    static QList<KWrite *> winList;
 
-  public Q_SLOTS:
-    void documentNameChanged ();
+public Q_SLOTS:
+    void documentNameChanged();
 };
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

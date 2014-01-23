@@ -37,224 +37,217 @@
 
 extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 {
-  /**
-   * first init the app
-   */
-  QApplication app (argc, argv);
+    /**
+     * first init the app
+     */
+    QApplication app(argc, argv);
 
-  /**
-   * then use i18n and co
-   */
-  KAboutData aboutData ( QStringLiteral("kwrite"), QString(),
+    /**
+     * then use i18n and co
+     */
+    KAboutData aboutData(QStringLiteral("kwrite"), QString(),
                          i18n("KWrite"),
                          QStringLiteral(KATE_VERSION),
-                         i18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
-                         i18n( "(c) 2000-2014 The Kate Authors" ), QString(), QStringLiteral("http://kate-editor.org") );
-  
-  /**
-   * right dbus prefix == org.kde.
-   */
-  aboutData.setOrganizationDomain (QByteArray("kde.org"));
-  
-  aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("http://www.cullmann.io"));
-  aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("http://www.alweb.dk"));
-  aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), QStringLiteral("jowenn@kde.org"), QStringLiteral("http://stud3.tuwien.ac.at/~e9925371"));
-  aboutData.addAuthor (i18n("Hamish Rodda"),i18n("Core Developer"), QStringLiteral("rodda@kde.org"));
-  aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), QStringLiteral("dhdev@gmx.de"));
-  aboutData.addAuthor (i18n("Waldo Bastian"), i18n("The cool buffersystem"), QStringLiteral("bastian@kde.org") );
-  aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), QStringLiteral("charles@kde.org"));
-  aboutData.addAuthor (i18n("Matt Newell"), i18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."), QStringLiteral("newellm@proaxis.com"));
-  aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), QStringLiteral("michael.bartl1@chello.at"));
-  aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), QStringLiteral("gholam@xtra.co.nz"));
-  aboutData.addAuthor (i18n("Jochen Wilhemly"), i18n("KWrite Author"), QStringLiteral("digisnap@cs.tu-berlin.de") );
-  aboutData.addAuthor (i18n("Michael Koch"),i18n("KWrite port to KParts"), QStringLiteral("koch@kde.org"));
-  aboutData.addAuthor (i18n("Christian Gebauer"), QString(), QStringLiteral("gebauer@kde.org") );
-  aboutData.addAuthor (i18n("Simon Hausmann"), QString(), QStringLiteral("hausmann@kde.org") );
-  aboutData.addAuthor (i18n("Glen Parker"),i18n("KWrite Undo History, Kspell integration"), QStringLiteral("glenebob@nwlink.com"));
-  aboutData.addAuthor (i18n("Scott Manson"),i18n("KWrite XML Syntax highlighting support"), QStringLiteral("sdmanson@alltel.net"));
-  aboutData.addAuthor (i18n("John Firebaugh"),i18n("Patches and more"), QStringLiteral("jfirebaugh@kde.org"));
-  aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), QStringLiteral("oss@senarclens.eu"), QStringLiteral("http://find-santa.eu/"));
+                         i18n("KWrite - Text Editor"), KAboutData::License_LGPL_V2,
+                         i18n("(c) 2000-2014 The Kate Authors"), QString(), QStringLiteral("http://kate-editor.org"));
 
-  aboutData.addCredit (i18n("Matteo Merli"),i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QStringLiteral("merlim@libero.it"));
-  aboutData.addCredit (i18n("Rocky Scaletta"),i18n("Highlighting for VHDL"), QStringLiteral("rocky@purdue.edu"));
-  aboutData.addCredit (i18n("Yury Lebedev"),i18n("Highlighting for SQL"));
-  aboutData.addCredit (i18n("Chris Ross"),i18n("Highlighting for Ferite"));
-  aboutData.addCredit (i18n("Nick Roux"),i18n("Highlighting for ILERPG"));
-  aboutData.addCredit (i18n("Carsten Niehaus"), i18n("Highlighting for LaTeX"));
-  aboutData.addCredit (i18n("Per Wigren"), i18n("Highlighting for Makefiles, Python"));
-  aboutData.addCredit (i18n("Jan Fritz"), i18n("Highlighting for Python"));
-  aboutData.addCredit (i18n("Daniel Naber"));
-  aboutData.addCredit (i18n("Roland Pabel"),i18n("Highlighting for Scheme"));
-  aboutData.addCredit (i18n("Cristi Dumitrescu"),i18n("PHP Keyword/Datatype list"));
-  aboutData.addCredit (i18n("Carsten Pfeiffer"), i18nc("Credit text for someone that helped a lot", "Very nice help"));
-  aboutData.addCredit (i18n("All people who have contributed and I have forgotten to mention"));
+    /**
+     * right dbus prefix == org.kde.
+     */
+    aboutData.setOrganizationDomain(QByteArray("kde.org"));
 
-  aboutData.setProgramIconName (QStringLiteral("accessories-text-editor"));
-  aboutData.setProductName(QByteArray("kate/kwrite"));
-  
-  /**
-   * register about data
-   */
-  KAboutData::setApplicationData (aboutData);
+    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("http://www.cullmann.io"));
+    aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("http://www.alweb.dk"));
+    aboutData.addAuthor(i18n("Joseph Wenninger"), i18n("Core Developer"), QStringLiteral("jowenn@kde.org"), QStringLiteral("http://stud3.tuwien.ac.at/~e9925371"));
+    aboutData.addAuthor(i18n("Hamish Rodda"), i18n("Core Developer"), QStringLiteral("rodda@kde.org"));
+    aboutData.addAuthor(i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), QStringLiteral("dhdev@gmx.de"));
+    aboutData.addAuthor(i18n("Waldo Bastian"), i18n("The cool buffersystem"), QStringLiteral("bastian@kde.org"));
+    aboutData.addAuthor(i18n("Charles Samuels"), i18n("The Editing Commands"), QStringLiteral("charles@kde.org"));
+    aboutData.addAuthor(i18n("Matt Newell"), i18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."), QStringLiteral("newellm@proaxis.com"));
+    aboutData.addAuthor(i18n("Michael Bartl"), i18n("Former Core Developer"), QStringLiteral("michael.bartl1@chello.at"));
+    aboutData.addAuthor(i18n("Michael McCallum"), i18n("Core Developer"), QStringLiteral("gholam@xtra.co.nz"));
+    aboutData.addAuthor(i18n("Jochen Wilhemly"), i18n("KWrite Author"), QStringLiteral("digisnap@cs.tu-berlin.de"));
+    aboutData.addAuthor(i18n("Michael Koch"), i18n("KWrite port to KParts"), QStringLiteral("koch@kde.org"));
+    aboutData.addAuthor(i18n("Christian Gebauer"), QString(), QStringLiteral("gebauer@kde.org"));
+    aboutData.addAuthor(i18n("Simon Hausmann"), QString(), QStringLiteral("hausmann@kde.org"));
+    aboutData.addAuthor(i18n("Glen Parker"), i18n("KWrite Undo History, Kspell integration"), QStringLiteral("glenebob@nwlink.com"));
+    aboutData.addAuthor(i18n("Scott Manson"), i18n("KWrite XML Syntax highlighting support"), QStringLiteral("sdmanson@alltel.net"));
+    aboutData.addAuthor(i18n("John Firebaugh"), i18n("Patches and more"), QStringLiteral("jfirebaugh@kde.org"));
+    aboutData.addAuthor(i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), QStringLiteral("oss@senarclens.eu"), QStringLiteral("http://find-santa.eu/"));
 
-  /**
-   * set app stuff from about data component name and org. name from KAboutData
-   */
-  app.setApplicationName (aboutData.componentName());
-  app.setApplicationDisplayName (aboutData.displayName());
-  app.setOrganizationDomain (aboutData.organizationDomain());
-  app.setApplicationVersion (aboutData.version());
-  
-  /**
-   * Create command line parser and feed it with known options
-   */  
-  QCommandLineParser parser;
-  aboutData.setupCommandLine (&parser);
-  parser.setApplicationDescription(aboutData.shortDescription());
-  parser.addHelpOption();
-  parser.addVersionOption();
-  
-  // -e/--encoding option
-  const QCommandLineOption useEncoding (QStringList () << QStringLiteral("e") << QStringLiteral("encoding"), i18n("Set encoding for the file to open."), QStringLiteral("encoding"));
-  parser.addOption (useEncoding);
-  
-  // -l/--line option
-  const QCommandLineOption gotoLine (QStringList () << QStringLiteral("l") << QStringLiteral("line"), i18n("Navigate to this line."), QStringLiteral("line"));
-  parser.addOption (gotoLine);
-  
-  // -c/--column option
-  const QCommandLineOption gotoColumn (QStringList () << QStringLiteral("c") << QStringLiteral("column"), i18n("Navigate to this column."), QStringLiteral("column"));
-  parser.addOption (gotoColumn);
+    aboutData.addCredit(i18n("Matteo Merli"), i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QStringLiteral("merlim@libero.it"));
+    aboutData.addCredit(i18n("Rocky Scaletta"), i18n("Highlighting for VHDL"), QStringLiteral("rocky@purdue.edu"));
+    aboutData.addCredit(i18n("Yury Lebedev"), i18n("Highlighting for SQL"));
+    aboutData.addCredit(i18n("Chris Ross"), i18n("Highlighting for Ferite"));
+    aboutData.addCredit(i18n("Nick Roux"), i18n("Highlighting for ILERPG"));
+    aboutData.addCredit(i18n("Carsten Niehaus"), i18n("Highlighting for LaTeX"));
+    aboutData.addCredit(i18n("Per Wigren"), i18n("Highlighting for Makefiles, Python"));
+    aboutData.addCredit(i18n("Jan Fritz"), i18n("Highlighting for Python"));
+    aboutData.addCredit(i18n("Daniel Naber"));
+    aboutData.addCredit(i18n("Roland Pabel"), i18n("Highlighting for Scheme"));
+    aboutData.addCredit(i18n("Cristi Dumitrescu"), i18n("PHP Keyword/Datatype list"));
+    aboutData.addCredit(i18n("Carsten Pfeiffer"), i18nc("Credit text for someone that helped a lot", "Very nice help"));
+    aboutData.addCredit(i18n("All people who have contributed and I have forgotten to mention"));
 
-  // -i/--stdin option
-  const QCommandLineOption readStdIn (QStringList () << QStringLiteral("i") << QStringLiteral("stdin"), i18n("Read the contents of stdin."));
-  parser.addOption (readStdIn);
+    aboutData.setProgramIconName(QStringLiteral("accessories-text-editor"));
+    aboutData.setProductName(QByteArray("kate/kwrite"));
 
-  // --tempfile option
-  const QCommandLineOption tempfile (QStringList () << QStringLiteral("tempfile"), i18n("The files/URLs opened by the application will be deleted after use"));
-  parser.addOption (tempfile);
-  
-  // urls to open
-  parser.addPositionalArgument(QStringLiteral("urls"), i18n("Documents to open."), QStringLiteral("[urls...]"));
-  
-  /**
-   * do the command line parsing
-   */
-  parser.process (app);
+    /**
+     * register about data
+     */
+    KAboutData::setApplicationData(aboutData);
 
-  /**
-   * handle standard options
-   */
-  aboutData.processCommandLine (&parser);
+    /**
+     * set app stuff from about data component name and org. name from KAboutData
+     */
+    app.setApplicationName(aboutData.componentName());
+    app.setApplicationDisplayName(aboutData.displayName());
+    app.setOrganizationDomain(aboutData.organizationDomain());
+    app.setApplicationVersion(aboutData.version());
 
-  // read from global config once
-  KTextEditor::Editor::instance()->readConfig(KSharedConfig::openConfig().data());
-  
-  if ( app.isSessionRestored() )
-  {
-    KWrite::restore();
-  }
-  else
-  {
-    bool nav = false;
-    int line = 0, column = 0;
+    /**
+     * Create command line parser and feed it with known options
+     */
+    QCommandLineParser parser;
+    aboutData.setupCommandLine(&parser);
+    parser.setApplicationDescription(aboutData.shortDescription());
+    parser.addHelpOption();
+    parser.addVersionOption();
 
-    QTextCodec *codec = parser.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(parser.value(QStringLiteral("encoding")).toLocal8Bit()) : 0;
+    // -e/--encoding option
+    const QCommandLineOption useEncoding(QStringList() << QStringLiteral("e") << QStringLiteral("encoding"), i18n("Set encoding for the file to open."), QStringLiteral("encoding"));
+    parser.addOption(useEncoding);
 
-    if (parser.isSet (QStringLiteral("line")))
-    {
-      line = parser.value (QStringLiteral("line")).toInt() - 1;
-      nav = true;
-    }
+    // -l/--line option
+    const QCommandLineOption gotoLine(QStringList() << QStringLiteral("l") << QStringLiteral("line"), i18n("Navigate to this line."), QStringLiteral("line"));
+    parser.addOption(gotoLine);
 
-    if (parser.isSet (QStringLiteral("column")))
-    {
-      column = parser.value (QStringLiteral("column")).toInt() - 1;
-      nav = true;
-    }
+    // -c/--column option
+    const QCommandLineOption gotoColumn(QStringList() << QStringLiteral("c") << QStringLiteral("column"), i18n("Navigate to this column."), QStringLiteral("column"));
+    parser.addOption(gotoColumn);
 
-    if ( parser.positionalArguments().count() == 0 )
-    {
-        KWrite *t = new KWrite;
+    // -i/--stdin option
+    const QCommandLineOption readStdIn(QStringList() << QStringLiteral("i") << QStringLiteral("stdin"), i18n("Read the contents of stdin."));
+    parser.addOption(readStdIn);
 
-        if( parser.isSet( QStringLiteral("stdin") ) )
-        {
-          QTextStream input(stdin, QIODevice::ReadOnly);
+    // --tempfile option
+    const QCommandLineOption tempfile(QStringList() << QStringLiteral("tempfile"), i18n("The files/URLs opened by the application will be deleted after use"));
+    parser.addOption(tempfile);
 
-          // set chosen codec
-          if (codec)
-            input.setCodec (codec);
+    // urls to open
+    parser.addPositionalArgument(QStringLiteral("urls"), i18n("Documents to open."), QStringLiteral("[urls...]"));
 
-          QString line;
-          QString text;
+    /**
+     * do the command line parsing
+     */
+    parser.process(app);
 
-          do
-          {
-            line = input.readLine();
-            text.append( line + QLatin1Char('\n') );
-          } while( !line.isNull() );
+    /**
+     * handle standard options
+     */
+    aboutData.processCommandLine(&parser);
 
+    // read from global config once
+    KTextEditor::Editor::instance()->readConfig(KSharedConfig::openConfig().data());
 
-          KTextEditor::Document *doc = t->view()->document();
-          if( doc )
-              doc->setText( text );
+    if (app.isSessionRestored()) {
+        KWrite::restore();
+    } else {
+        bool nav = false;
+        int line = 0, column = 0;
+
+        QTextCodec *codec = parser.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(parser.value(QStringLiteral("encoding")).toLocal8Bit()) : 0;
+
+        if (parser.isSet(QStringLiteral("line"))) {
+            line = parser.value(QStringLiteral("line")).toInt() - 1;
+            nav = true;
         }
 
-        if (nav && t->view())
-          t->view()->setCursorPosition (KTextEditor::Cursor (line, column));
-    }
-    else
-    {
-      int docs_opened = 0;
-      Q_FOREACH (const QString positionalArgument, parser.positionalArguments())
-      {
-        QUrl url;
+        if (parser.isSet(QStringLiteral("column"))) {
+            column = parser.value(QStringLiteral("column")).toInt() - 1;
+            nav = true;
+        }
 
-        // convert to an url
-        QRegExp withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
-        if (withProtocol.indexIn(positionalArgument) == 0) {
-          url = QUrl::fromUserInput(positionalArgument);
+        if (parser.positionalArguments().count() == 0) {
+            KWrite *t = new KWrite;
+
+            if (parser.isSet(QStringLiteral("stdin"))) {
+                QTextStream input(stdin, QIODevice::ReadOnly);
+
+                // set chosen codec
+                if (codec) {
+                    input.setCodec(codec);
+                }
+
+                QString line;
+                QString text;
+
+                do {
+                    line = input.readLine();
+                    text.append(line + QLatin1Char('\n'));
+                } while (!line.isNull());
+
+                KTextEditor::Document *doc = t->view()->document();
+                if (doc) {
+                    doc->setText(text);
+                }
+            }
+
+            if (nav && t->view()) {
+                t->view()->setCursorPosition(KTextEditor::Cursor(line, column));
+            }
         } else {
-          url = QUrl::fromLocalFile(positionalArgument);
+            int docs_opened = 0;
+            Q_FOREACH(const QString positionalArgument, parser.positionalArguments()) {
+                QUrl url;
+
+                // convert to an url
+                QRegExp withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
+                if (withProtocol.indexIn(positionalArgument) == 0) {
+                    url = QUrl::fromUserInput(positionalArgument);
+                } else {
+                    url = QUrl::fromLocalFile(positionalArgument);
+                }
+
+                // this file is no local dir, open it, else warn
+                bool noDir = !url.isLocalFile() || !QFileInfo(url.toLocalFile()).isDir();
+
+                if (noDir) {
+                    ++docs_opened;
+                    KWrite *t = new KWrite();
+
+                    if (codec) {
+                        t->view()->document()->setEncoding(QString::fromLatin1(codec->name()));
+                    }
+
+                    t->loadURL(url);
+
+                    if (nav) {
+                        t->view()->setCursorPosition(KTextEditor::Cursor(line, column));
+                    }
+                } else {
+                    KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.toString()));
+                }
+            }
+            if (!docs_opened) {
+                ::exit(1);    // see http://bugs.kde.org/show_bug.cgi?id=124708
+            }
         }
-
-        // this file is no local dir, open it, else warn
-        bool noDir = !url.isLocalFile() || !QFileInfo (url.toLocalFile()).isDir();
-
-        if (noDir)
-        {
-          ++docs_opened;
-          KWrite *t = new KWrite();
-
-          if (codec)
-            t->view()->document()->setEncoding(QString::fromLatin1(codec->name()));
-
-          t->loadURL( url );
-
-          if (nav)
-            t->view()->setCursorPosition (KTextEditor::Cursor (line, column));
-        }
-        else
-        {
-          KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.toString()));
-        }
-      }
-      if (!docs_opened) ::exit(1); // see http://bugs.kde.org/show_bug.cgi?id=124708
     }
-  }
 
-  // no window there, uh, ohh, for example borked session config !!!
-  // create at least one !!
-  if (KWrite::noWindows())
-    new KWrite();
+    // no window there, uh, ohh, for example borked session config !!!
+    // create at least one !!
+    if (KWrite::noWindows()) {
+        new KWrite();
+    }
 
-  /**
-   * finally register this kwrite instance for dbus
-   */
-  const KDBusService dbusService (KDBusService::Multiple);
+    /**
+     * finally register this kwrite instance for dbus
+     */
+    const KDBusService dbusService(KDBusService::Multiple);
 
-  /**
-   * Run the event loop
-   */
-  return app.exec ();
+    /**
+     * Run the event loop
+     */
+    return app.exec();
 }

@@ -52,7 +52,6 @@ public:
     enum SortType {
         OpeningOrder = 0, ///< opening order
         Name,           ///< alphabetically
-        URL,            ///< alphabetically URL based
         Extension       ///< by file extension (suffix)
     };
     Q_DECLARE_FLAGS(SortTypes, SortType)
@@ -76,8 +75,8 @@ public:
     void setTabHeight(int height_pixel);
     int tabHeight() const;
 
-    int addTab(const QString &docurl, const QString &text);
-    int addTab(const QString &docurl, const QIcon &pixmap, const QString &text);
+    int addTab(const QString &text);
+    int addTab(const QIcon &pixmap, const QString &text);
     void removeTab(int button_id);
 
     int currentTab() const;
@@ -85,8 +84,8 @@ public:
 
     bool containsTab(int button_id) const;
 
-    void setTabURL(int button_id, const QString &docurl);
-    QString tabURL(int button_id) const;
+    void setTabToolTip(int button_id, const QString &tip);
+    QString tabToolTip(int button_id) const;
 
     void setTabText(int button_id, const QString &text);
     QString tabText(int button_id) const;

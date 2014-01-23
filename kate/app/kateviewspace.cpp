@@ -276,7 +276,8 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
 {
   Q_ASSERT( ! m_docToTabId.contains(doc));
   // add to tab bar
-  const int index = m_tabBar->addTab(doc->url().toString(), doc->documentName());
+  const int index = m_tabBar->addTab(doc->documentName());
+  m_tabBar->setTabToolTip(index, doc->url().toString());
   m_docToTabId[doc] = index;
 
   connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
@@ -298,7 +299,7 @@ void KateViewSpace::updateDocumentName(KTextEditor::Document* doc)
   const int buttonId = m_docToTabId[doc];
   Q_ASSERT(buttonId >= 0);
   m_tabBar->setTabText(buttonId, doc->documentName());
-  m_tabBar->setTabURL(buttonId, doc->url().toDisplayString());
+  m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
 }
 
 void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QString& viewConfGrp)

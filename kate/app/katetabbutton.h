@@ -40,10 +40,8 @@ class KateTabButton : public QPushButton
 public:
     /**
      * Constructs a new tab bar button with \a caption and \a parent.
-     * If the @p docurl is unknown, pass QString().
      */
-    KateTabButton(const QString &docurl, const QString &caption, int button_id,
-                  QWidget *parent = 0);
+    KateTabButton(const QString &caption, int button_id, QWidget *parent = 0);
 
     virtual ~KateTabButton();
 
@@ -69,16 +67,6 @@ public:
      * Get the unique id number.
      */
     int buttonID() const;
-
-    /**
-     * Set the document's url to @p docurl. If unknown, pass QString().
-     */
-    void setURL(const QString &docurl);
-
-    /**
-     * Get the document's url.
-     */
-    QString url() const;
 
     /**
      * Set the highlighted state. If @p color.isValid() is \e false the
@@ -142,7 +130,6 @@ protected:
 
 
 private:
-    QString m_url;
     int m_buttonId;
     bool m_modified;
 

@@ -36,7 +36,7 @@ const int KateTabButton::s_colorCount = 6;
 int KateTabButton::s_currentColor = 0;
 
 
-KateTabButton::KateTabButton(const QString &docurl, const QString &caption,
+KateTabButton::KateTabButton(const QString &caption,
                              int button_id, QWidget *parent)
     : QPushButton(parent)
 {
@@ -52,28 +52,12 @@ KateTabButton::KateTabButton(const QString &docurl, const QString &caption,
 
     setIcon(QIcon());
     setText(caption);
-    setURL(docurl);
 
     connect(this, SIGNAL(clicked()), this, SLOT(buttonClicked()));
 }
 
 KateTabButton::~KateTabButton()
 {
-}
-
-void KateTabButton::setURL(const QString &docurl)
-{
-    m_url = docurl;
-    if (!m_url.isEmpty()) {
-        setToolTip(m_url);
-    } else {
-        setToolTip(text());
-    }
-}
-
-QString KateTabButton::url() const
-{
-    return m_url;
 }
 
 void KateTabButton::buttonClicked()

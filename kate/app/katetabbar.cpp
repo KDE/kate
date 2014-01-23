@@ -52,21 +52,6 @@ bool tabLessThan(const KateTabButton *a, const KateTabButton *b)
 //             return KStringHandler::naturalCompare(a->text(), b->text(), Qt::CaseInsensitive) < 0; // FIXME KF5
     }
 
-    case KateTabBar::URL: {
-        // fall back, if infos not available
-        if (a->url().isEmpty() && b->url().isEmpty()) {
-            if (a->text().toLower() == b->text().toLower()) {
-                return a->buttonID() < b->buttonID();
-            }
-
-            return a->text() < b->text();
-//                 return KStringHandler::naturalCompare(a->text(), b->text(), Qt::CaseInsensitive) < 0; FIXME KF5
-        }
-
-        return a->url() < b->url();
-        //             return KStringHandler::naturalCompare(a->url(), b->url(), Qt::CaseInsensitive) < 0; FIXME KF5
-    }
-
     case KateTabBar::Extension: {
         // sort by extension, but check whether the files have an
         // extension first
@@ -258,12 +243,11 @@ int KateTabBar::tabHeight() const
 }
 
 /**
- * Adds a new tab with text \a text. Returns the new tab's ID. The document's
- * url @p docurl is used to sort the documents by URL.
+ * Adds a new tab with text \a text. Returns the new tab's ID.
  */
-int KateTabBar::addTab(const QString &docurl, const QString &text)
+int KateTabBar::addTab(const QString &text)
 {
-    return addTab(docurl, QIcon(), text);
+    return addTab(QIcon(), text);
 }
 
 /**
@@ -272,9 +256,9 @@ int KateTabBar::addTab(const QString &docurl, const QString &text)
  *
  * Adds a new tab with \a icon and \a text. Returns the new tab's index.
  */
-int KateTabBar::addTab(const QString &docurl, const QIcon &icon, const QString &text)
+int KateTabBar::addTab(const QIcon &icon, const QString &text)
 {
-    KateTabButton *tabButton = new KateTabButton(docurl, text, m_nextID, this);
+    KateTabButton *tabButton = new KateTabButton(text, m_nextID, this);
     tabButton->setIcon(icon);
     if (m_highlightedTabs.contains(text)) {
         tabButton->setHighlightColor(QColor(m_highlightedTabs[text]));
@@ -410,7 +394,7 @@ void KateTabBar::setTabText(int button_id, const QString &text)
 
     m_IDToTabButton[button_id]->setText(text);
 
-    if (tabSortType() == Name || tabSortType() == URL || tabSortType() == Extension) {
+    if (tabSortType() == Name || tabSortType() == Extension) {
         updateSort();
     }
 }
@@ -430,28 +414,24 @@ QString KateTabBar::tabText(int button_id) const
 }
 
 /**
- * Set the button @p button_id's url to @p docurl.
+ * Set the button @p button_id's tool tip to @p tip.
  */
-void KateTabBar::setTabURL(int button_id, const QString &docurl)
+void KateTabBar::setTabToolTip(int button_id, const QString &tip)
 {
     if (!m_IDToTabButton.contains(button_id)) {
         return;
     }
 
-    m_IDToTabButton[button_id]->setURL(docurl);
-
-    if (tabSortType() == URL) {
-        updateSort();
-    }
+    m_IDToTabButton[button_id]->setToolTip(tip);
 }
 
 /**
  * Get the button @p button_id's url. Result is QStrint() if not available.
  */
-QString KateTabBar::tabURL(int button_id) const
+QString KateTabBar::tabToolTip(int button_id) const
 {
     if (m_IDToTabButton.contains(button_id)) {
-        return m_IDToTabButton[button_id]->url();
+        return m_IDToTabButton[button_id]->toolTip();
     }
 
     return QString();

@@ -224,6 +224,12 @@ public Q_SLOTS:
 
     /** closes every view but the active one */
     void slotCloseOtherViews();
+    
+    /** hide every view but the active one */
+    void slotHideOtherViews();
+    
+    /** show every view but the active one */
+    void slotShowOtherViews();
 
     void reactivateActiveView();
 
@@ -242,6 +248,8 @@ private:
 
     QAction *m_closeView;
     QAction *m_closeOtherViews;
+    QAction *m_hideOtherViews;
+    QAction *m_showOtherViews;
     QAction *goNext;
     QAction *goPrev;
 

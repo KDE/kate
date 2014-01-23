@@ -145,6 +145,20 @@ void KateViewManager::setupActions()
 
     m_closeOtherViews->setWhatsThis(i18n("Close every view but the active one"));
 
+    m_hideOtherViews = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_hide_others"));
+    m_hideOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-fullscreen")));
+    m_hideOtherViews->setText(i18n("Hide Inactive Views"));
+    connect(m_hideOtherViews, SIGNAL(triggered()), this, SLOT(slotHideOtherViews()), Qt::QueuedConnection);
+
+    m_hideOtherViews->setWhatsThis(i18n("Hide every view but the active one"));
+
+    m_showOtherViews = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_show_others"));
+    m_showOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-restore")));
+    m_showOtherViews->setText(i18n("Show Inactive Views"));
+    connect(m_showOtherViews, SIGNAL(triggered()), this, SLOT(slotShowOtherViews()), Qt::QueuedConnection);
+
+    m_showOtherViews->setWhatsThis(i18n("Show the currently not active views"));
+
     goNext = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_next_split_view"));
     goNext->setText(i18n("Next Split View"));
     goNext->setShortcut(Qt::Key_F8);
@@ -852,6 +866,32 @@ void KateViewManager::slotCloseOtherViews()
     foreach(KateViewSpace  * v, m_viewSpaceList) {
         if (active != v) {
             removeViewSpace(v);
+        }
+    }
+}
+
+void KateViewManager::slotHideOtherViews()
+{
+    // avoid flicker
+    KateUpdateDisabler disableUpdates (mainWindow());
+    
+    KateViewSpace *active = activeViewSpace();
+    foreach(KateViewSpace  * v, m_viewSpaceList) {
+        if (active != v) {
+            v->hide();
+        }
+    }
+}
+
+void KateViewManager::slotShowOtherViews()
+{
+    // avoid flicker
+    KateUpdateDisabler disableUpdates (mainWindow());
+    
+    KateViewSpace *active = activeViewSpace();
+    foreach(KateViewSpace  * v, m_viewSpaceList) {
+        if (active != v) {
+            v->show();
         }
     }
 }

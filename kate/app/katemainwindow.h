@@ -456,6 +456,8 @@ private:
 
     KToggleAction *settingsShowFileselector;
 
+    KToggleAction *m_showFullScreenAction;
+    
     bool m_modignore;
 
     // all plugin views for this mainwindow, used by the pluginmanager

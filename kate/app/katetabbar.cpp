@@ -45,7 +45,7 @@ KateTabBar::KateTabBar(QWidget *parent)
 
     m_activeButton = 0L;
 
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 }
 
 /**

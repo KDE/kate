@@ -95,8 +95,9 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
         p.fillRect(rect(), c.lighter(110));
     }
 
-    // draw text
-    style()->drawItemText(&p, rect(), Qt::AlignHCenter | Qt::AlignVCenter, pal, true, text());
+    // draw text, we need to elide to xxx...xxx is too long
+    const QString elidedText = QFontMetrics(font()).elidedText (text(), Qt::ElideMiddle, rect().width());
+    style()->drawItemText(&p, rect(), Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText);
 
     if (m_highlightColor.isValid()) {
         p.fillRect(QRect(0, height() - 3, width(), 10), m_highlightColor);

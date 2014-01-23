@@ -70,7 +70,10 @@
 #include <QDropEvent>
 #include <QApplication>
 #include <QMenu>
+#include <QMenuBar>
+#include <QToolButton>
 #include <QTimer>
+#include <QFontDatabase>
 
 #include <ktexteditor/sessionconfiginterface.h>
 
@@ -322,9 +325,9 @@ void KateMainWindow::setupActions()
     connect(a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()));
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
-    KToggleAction *showFullScreenAction = KStandardAction::fullScreen(0, 0, this, this);
-    actionCollection()->addAction(showFullScreenAction->objectName(), showFullScreenAction);
-    connect(showFullScreenAction, SIGNAL(toggled(bool)), this, SLOT(slotFullScreen(bool)));
+    m_showFullScreenAction = KStandardAction::fullScreen(0, 0, this, this);
+    actionCollection()->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);
+    connect(m_showFullScreenAction, SIGNAL(toggled(bool)), this, SLOT(slotFullScreen(bool)));
 
     documentOpenWith = new KActionMenu(i18n("Open W&ith"), this);
     actionCollection()->addAction(QStringLiteral("file_open_with"), documentOpenWith);
@@ -805,6 +808,21 @@ void KateMainWindow::aboutEditor()
 void KateMainWindow::slotFullScreen(bool t)
 {
     KToggleFullScreenAction::setFullScreen(this, t);
+    QMenuBar *mb = menuBar();
+    if (t) {
+            
+            QToolButton *b = new QToolButton(mb);
+            b->setDefaultAction(m_showFullScreenAction);
+            b->setSizePolicy(QSizePolicy(QSizePolicy::Minimum,QSizePolicy::Ignored));
+            b->setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
+            mb->setCornerWidget(b,Qt::TopRightCorner);
+            b->setVisible(true);
+            b->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    } else {
+        QWidget *w=mb->cornerWidget(Qt::TopRightCorner);
+        if (w) w->deleteLater();
+    }
+    
 }
 
 bool KateMainWindow::showModOnDiskPrompt()

@@ -95,7 +95,8 @@ KateTabBar::KateTabBar(QWidget *parent)
     m_minimumTabWidth = 150;
     m_maximumTabWidth = 350;
 
-    m_tabHeight = 22;
+    // fixme: better additional size
+    m_tabHeight = QFontMetrics(font()).height() + 10;
 
     m_sortType = OpeningOrder;
     m_nextID = 0;
@@ -134,7 +135,6 @@ void KateTabBar::load(KConfigBase *config, const QString &group)
     // tabbar properties
     setMinimumTabWidth(cg.readEntry("minimum width", m_minimumTabWidth));
     setMaximumTabWidth(cg.readEntry("maximum width", m_maximumTabWidth));
-    setTabHeight(cg.readEntry("fixed height", m_tabHeight));
     setTabSortType((SortType) cg.readEntry("sort type", (int)OpeningOrder));
 
     // highlighted entries
@@ -162,7 +162,6 @@ void KateTabBar::save(KConfigBase *config, const QString &group) const
     // tabbar properties
     cg.writeEntry("minimum width", minimumTabWidth());
     cg.writeEntry("maximum width", maximumTabWidth());
-    cg.writeEntry("fixed height", tabHeight());
     cg.writeEntry("sort type", (int)tabSortType());
 
     // highlighted entries
@@ -210,30 +209,6 @@ int KateTabBar::minimumTabWidth() const
 int KateTabBar::maximumTabWidth() const
 {
     return m_maximumTabWidth;
-}
-
-/**
- * Set the fixed height in pixels all tabs have.
- * \note If you also show icons use a height of iconheight + 2.
- *       E.g. for 16x16 pixel icons, a tab height of 18 pixel looks best.
- *       For 22x22 pixel icons a height of 24 pixel is best etc.
- */
-void KateTabBar::setTabHeight(int height_pixel)
-{
-    if (m_tabHeight == height_pixel) {
-        return;
-    }
-
-    m_tabHeight = height_pixel;
-    updateFixedHeight();
-}
-
-/**
- * Get the fixed tab height in pixels.
- */
-int KateTabBar::tabHeight() const
-{
-    return m_tabHeight;
 }
 
 /**
@@ -643,7 +618,7 @@ void KateTabBar::resizeEvent(QResizeEvent *event)
             tabButton->hide();
         } else {
             const int w = ceil(tabWidth);
-            tabButton->setGeometry(i * w, 0, w, tabHeight());
+            tabButton->setGeometry(i * w, 0, w, m_tabHeight);
             tabButton->show();
         }
     }
@@ -666,7 +641,7 @@ int KateTabBar::maxTabCount() const
  */
 void KateTabBar::updateFixedHeight()
 {
-    setFixedHeight(tabHeight());
+    setFixedHeight(m_tabHeight);
     triggerResizeEvent();
 }
 

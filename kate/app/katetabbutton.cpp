@@ -44,7 +44,6 @@ KateTabButton::KateTabButton(const QString &caption,
     setFocusPolicy(Qt::NoFocus);
     setMinimumWidth(1);
     setFlat(true);
-//     setAutoFillBackground(true);
 
     m_buttonId = button_id;
     m_modified = false;

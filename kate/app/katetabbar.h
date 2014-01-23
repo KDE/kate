@@ -70,9 +70,6 @@ public:
     int minimumTabWidth() const;
     int maximumTabWidth() const;
 
-    void setTabHeight(int height_pixel);
-    int tabHeight() const;
-
     int addTab(const QString &text);
     int addTab(const QIcon &pixmap, const QString &text);
     void removeTab(int index);

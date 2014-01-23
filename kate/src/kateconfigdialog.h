@@ -31,6 +31,7 @@
 
 #include <KPageDialog>
 #include <QList>
+#include <KSharedConfig>
 
 class QCheckBox;
 class QSpinBox;
@@ -55,6 +56,13 @@ class KateConfigDialog : public KPageDialog
 public:
     KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view);
     ~KateConfigDialog();
+    
+public: // static
+    /**
+     * Reads the value from the given open config. If not present in config yet then
+     * the default value 10 is used.
+     */
+    static int readRecentFilesMaxCount(KSharedConfig::Ptr config);
 
 public:
     void addPluginPage(KTextEditor::Plugin *plugin);

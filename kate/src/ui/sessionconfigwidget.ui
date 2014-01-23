@@ -32,7 +32,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Number of entries in recent file list:</string>
+           <string>Maximum number of entries in recent file list:</string>
           </property>
           <property name="buddy">
            <cstring>spinBoxRecentFilesCount</cstring>

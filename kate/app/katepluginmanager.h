@@ -52,8 +52,6 @@ public:
     KatePluginManager(QObject *parent);
     ~KatePluginManager();
 
-    static KatePluginManager *self();
-
     void unloadAllPlugins();
 
     void enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config = 0);
@@ -97,4 +95,3 @@ private:
 };
 
 #endif
-

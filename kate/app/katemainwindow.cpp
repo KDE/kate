@@ -34,6 +34,7 @@
 #include "katesessionmanager.h"
 #include "kateviewspace.h"
 #include "katequickopen.h"
+#include "kateupdatedisabler.h"
 #include "katedebug.h"
 
 #include <KActionMenu>
@@ -70,7 +71,10 @@
 #include <QDropEvent>
 #include <QApplication>
 #include <QMenu>
+#include <QMenuBar>
+#include <QToolButton>
 #include <QTimer>
+#include <QFontDatabase>
 
 #include <ktexteditor/sessionconfiginterface.h>
 
@@ -105,6 +109,11 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     : KateMDI::MainWindow(0)
     , m_wrapper(new KTextEditor::MainWindow(this))
 {
+    /**
+     * we don't want any flicker here
+     */
+    KateUpdateDisabler disableUpdates (this);
+    
     setObjectName(QString::fromLatin1("__KateMainWindow#%1").arg(uniqueID));
     // first the very important id
     myID = uniqueID;
@@ -171,14 +180,14 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     KateApp::self()->addMainWindow(this);
 
     // enable plugin guis
-    KatePluginManager::self()->enableAllPluginsGUI(this, sconfig);
+    KateApp::self()->pluginManager()->enableAllPluginsGUI(this, sconfig);
 
     // caption update
-    for (uint i = 0; i < KateDocManager::self()->documents(); i++) {
-        slotDocumentCreated(KateDocManager::self()->document(i));
+    for (uint i = 0; i < KateApp::self()->documentManager()->documents(); i++) {
+        slotDocumentCreated(KateApp::self()->documentManager()->document(i));
     }
 
-    connect(KateDocManager::self(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(slotDocumentCreated(KTextEditor::Document*)));
+    connect(KateApp::self()->documentManager(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(slotDocumentCreated(KTextEditor::Document*)));
 
     readOptions();
 
@@ -192,7 +201,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
 
     setAcceptDrops(true);
 
-    connect(KateSessionManager::self(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
+    connect(KateApp::self()->sessionManager(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
 
     connect(this, SIGNAL(sigShowPluginConfigPage(KTextEditor::ConfigPageInterface*,uint)), this, SLOT(showPluginConfigPage(KTextEditor::ConfigPageInterface*,uint)));
 }
@@ -210,7 +219,7 @@ KateMainWindow::~KateMainWindow()
     KateApp::self()->removeMainWindow(this);
 
     // disable all plugin guis, delete all pluginViews
-    KatePluginManager::self()->disableAllPluginsGUI(this);
+    KateApp::self()->pluginManager()->disableAllPluginsGUI(this);
 
     // delete the view manager, before KateMainWindow's wrapper is dead
     delete m_viewManager;
@@ -275,17 +284,17 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
     a->setText(i18n("Save A&ll"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_L));
-    connect(a, SIGNAL(triggered()), KateDocManager::self(), SLOT(saveAll()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(saveAll()));
     a->setWhatsThis(i18n("Save all open, modified documents to disk."));
 
     a = actionCollection()->addAction(QStringLiteral("file_reload_all"));
     a->setText(i18n("&Reload All"));
-    connect(a, SIGNAL(triggered()), KateDocManager::self(), SLOT(reloadAll()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(reloadAll()));
     a->setWhatsThis(i18n("Reload all open documents."));
 
     a = actionCollection()->addAction(QStringLiteral("file_close_orphaned"));
     a->setText(i18n("Close Orphaned"));
-    connect(a, SIGNAL(triggered()), KateDocManager::self(), SLOT(closeOrphaned()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(closeOrphaned()));
     a->setWhatsThis(i18n("Close all documents in the file list that could not be reopened, because they are not accessible anymore."));
 
     actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), m_viewManager, SLOT(slotDocumentClose()))
@@ -322,9 +331,9 @@ void KateMainWindow::setupActions()
     connect(a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()));
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
-    KToggleAction *showFullScreenAction = KStandardAction::fullScreen(0, 0, this, this);
-    actionCollection()->addAction(showFullScreenAction->objectName(), showFullScreenAction);
-    connect(showFullScreenAction, SIGNAL(toggled(bool)), this, SLOT(slotFullScreen(bool)));
+    m_showFullScreenAction = KStandardAction::fullScreen(0, 0, this, this);
+    actionCollection()->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);
+    connect(m_showFullScreenAction, SIGNAL(toggled(bool)), this, SLOT(slotFullScreen(bool)));
 
     documentOpenWith = new KActionMenu(i18n("Open W&ith"), this);
     actionCollection()->addAction(QStringLiteral("file_open_with"), documentOpenWith);
@@ -341,7 +350,7 @@ void KateMainWindow::setupActions()
     QAction *settingsConfigure = KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
     settingsConfigure->setWhatsThis(i18n("Configure various aspects of this application and the editing component."));
 
-    if (KatePluginManager::self()->pluginList().count() > 0) {
+    if (KateApp::self()->pluginManager()->pluginList().count() > 0) {
         a = actionCollection()->addAction(QStringLiteral("help_plugins_contents"));
         a->setText(i18n("&Plugins Handbook"));
         connect(a, SIGNAL(triggered()), this, SLOT(pluginHelp()));
@@ -368,25 +377,25 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
     a->setText(i18nc("Menu entry Session->New", "&New"));
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionNew()), Qt::QueuedConnection);
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionNew()), Qt::QueuedConnection);
     a = actionCollection()->addAction(QStringLiteral("sessions_open"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
     a->setText(i18n("&Open Session"));
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionOpen()), Qt::QueuedConnection);
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionOpen()), Qt::QueuedConnection);
     a = actionCollection()->addAction(QStringLiteral("sessions_save"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
     a->setText(i18n("&Save Session"));
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionSave()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionSave()));
     a = actionCollection()->addAction(QStringLiteral("sessions_save_as"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-as")));
     a->setText(i18n("Save Session &As..."));
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionSaveAs()));
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionSaveAs()));
     a = actionCollection()->addAction(QStringLiteral("sessions_manage"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("view-choose")));
     a->setText(i18n("&Manage Sessions..."));
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
-    connect(a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionManage()), Qt::QueuedConnection);
+    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionManage()), Qt::QueuedConnection);
 
     // quick open menu ;)
     a = new KateSessionsAction(i18n("&Quick Open Session"), this);
@@ -395,14 +404,14 @@ void KateMainWindow::setupActions()
 
 void KateMainWindow::slotDocumentCloseAll()
 {
-    if (KateDocManager::self()->documents() >= 1 && KMessageBox::warningContinueCancel(this,
+    if (KateApp::self()->documentManager()->documents() >= 1 && KMessageBox::warningContinueCancel(this,
             i18n("This will close all open documents. Are you sure you want to continue?"),
             i18n("Close all documents"),
             KStandardGuiItem::cont(),
             KStandardGuiItem::cancel(),
             QStringLiteral("closeAll")) != KMessageBox::Cancel) {
         if (queryClose_internal()) {
-            KateDocManager::self()->closeAllDocuments(false);
+            KateApp::self()->documentManager()->closeAllDocuments(false);
         }
     }
 }
@@ -410,7 +419,7 @@ void KateMainWindow::slotDocumentCloseAll()
 void KateMainWindow::slotDocumentCloseOther(KTextEditor::Document *document)
 {
     if (queryClose_internal(document)) {
-        KateDocManager::self()->closeOtherDocuments(document);
+        KateApp::self()->documentManager()->closeOtherDocuments(document);
     }
 }
 
@@ -423,25 +432,25 @@ void KateMainWindow::slotDocumentCloseSelected(const QList<KTextEditor::Document
         }
     }
 
-    KateDocManager::self()->closeDocuments(documents);
+    KateApp::self()->documentManager()->closeDocuments(documents);
 }
 
 void KateMainWindow::slotDocumentCloseOther()
 {
     if (queryClose_internal(m_viewManager->activeView()->document())) {
-        KateDocManager::self()->closeOtherDocuments(m_viewManager->activeView()->document());
+        KateApp::self()->documentManager()->closeOtherDocuments(m_viewManager->activeView()->document());
     }
 }
 
 bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
 {
-    uint documentCount = KateDocManager::self()->documents();
+    uint documentCount = KateApp::self()->documentManager()->documents();
 
     if (! showModOnDiskPrompt()) {
         return false;
     }
 
-    QList<KTextEditor::Document *> modifiedDocuments = KateDocManager::self()->modifiedDocumentList();
+    QList<KTextEditor::Document *> modifiedDocuments = KateApp::self()->documentManager()->modifiedDocumentList();
     modifiedDocuments.removeAll(doc);
     bool shutdown = (modifiedDocuments.count() == 0);
 
@@ -449,7 +458,7 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
         shutdown = KateSaveModifiedDialog::queryClose(this, modifiedDocuments);
     }
 
-    if (KateDocManager::self()->documents() > documentCount) {
+    if (KateApp::self()->documentManager()->documents() > documentCount) {
         KMessageBox::information(this,
                                  i18n("New file opened while trying to close Kate, closing aborted."),
                                  i18n("Closing Aborted"));
@@ -531,8 +540,8 @@ void KateMainWindow::readOptions()
 
     const KConfigGroup generalGroup(config, "General");
     m_modNotification = generalGroup.readEntry("Modified Notification", false);
-    KateDocManager::self()->setSaveMetaInfos(generalGroup.readEntry("Save Meta Infos", true));
-    KateDocManager::self()->setDaysMetaInfos(generalGroup.readEntry("Days Meta Infos", 30));
+    KateApp::self()->documentManager()->setSaveMetaInfos(generalGroup.readEntry("Save Meta Infos", true));
+    KateApp::self()->documentManager()->setDaysMetaInfos(generalGroup.readEntry("Days Meta Infos", 30));
 
     m_paShowPath->setChecked(generalGroup.readEntry("Show Full Path in Title", false));
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
@@ -547,9 +556,9 @@ void KateMainWindow::saveOptions()
 
     KConfigGroup generalGroup(config, "General");
 
-    generalGroup.writeEntry("Save Meta Infos", KateDocManager::self()->getSaveMetaInfos());
+    generalGroup.writeEntry("Save Meta Infos", KateApp::self()->documentManager()->getSaveMetaInfos());
 
-    generalGroup.writeEntry("Days Meta Infos", KateDocManager::self()->getDaysMetaInfos());
+    generalGroup.writeEntry("Days Meta Infos", KateApp::self()->documentManager()->getDaysMetaInfos());
 
     generalGroup.writeEntry("Show Full Path in Title", m_paShowPath->isChecked());
     generalGroup.writeEntry("Show Status Bar", m_paShowStatusBar->isChecked());
@@ -647,7 +656,7 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
     //
     else if (event->mimeData()->hasText()) {
         KTextEditor::Document *doc =
-            KateDocManager::self()->createDoc();
+            KateApp::self()->documentManager()->createDoc();
         doc->setText(event->mimeData()->text());
         m_viewManager->activateView(doc);
     }
@@ -682,7 +691,7 @@ void KateMainWindow::editKeys()
     }
     dlg.configure();
 
-    QList<KTextEditor::Document *>  l = KateDocManager::self()->documentList();
+    QList<KTextEditor::Document *>  l = KateApp::self()->documentManager()->documentList();
     for (int i = 0; i < l.count(); i++) {
 //     qCDebug(LOG_KATE)<<"reloading Keysettings for document "<<i;
         l.at(i)->reloadXML();
@@ -805,6 +814,21 @@ void KateMainWindow::aboutEditor()
 void KateMainWindow::slotFullScreen(bool t)
 {
     KToggleFullScreenAction::setFullScreen(this, t);
+    QMenuBar *mb = menuBar();
+    if (t) {
+            
+            QToolButton *b = new QToolButton(mb);
+            b->setDefaultAction(m_showFullScreenAction);
+            b->setSizePolicy(QSizePolicy(QSizePolicy::Minimum,QSizePolicy::Ignored));
+            b->setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
+            mb->setCornerWidget(b,Qt::TopRightCorner);
+            b->setVisible(true);
+            b->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    } else {
+        QWidget *w=mb->cornerWidget(Qt::TopRightCorner);
+        if (w) w->deleteLater();
+    }
+    
 }
 
 bool KateMainWindow::showModOnDiskPrompt()
@@ -812,9 +836,9 @@ bool KateMainWindow::showModOnDiskPrompt()
     KTextEditor::Document *doc;
 
     DocVector list;
-    list.reserve(KateDocManager::self()->documents());
-    foreach(doc, KateDocManager::self()->documentList()) {
-        if (KateDocManager::self()->documentInfo(doc)->modifiedOnDisc) {
+    list.reserve(KateApp::self()->documentManager()->documents());
+    foreach(doc, KateApp::self()->documentManager()->documentList()) {
+        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc) {
             list.append(doc);
         }
     }
@@ -886,7 +910,7 @@ void KateMainWindow::saveProperties(KConfigGroup &config)
 
     // store all plugin view states
     int id = KateApp::self()->mainWindowID(this);
-    foreach(const KatePluginInfo & item, KatePluginManager::self()->pluginList()) {
+    foreach(const KatePluginInfo & item, KateApp::self()->pluginManager()->pluginList()) {
         if (item.plugin && pluginViews().contains(item.plugin)) {
             if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (pluginViews().value(item.plugin))) {
                 KConfigGroup group(config.config(), QString::fromLatin1("Plugin:%1:MainWindow:%2").arg(item.saveName()).arg(id));
@@ -907,7 +931,7 @@ void KateMainWindow::readProperties(const KConfigGroup &config)
     startRestore(configBase, config.name());
 
     // perhaps enable plugin guis
-    KatePluginManager::self()->enableAllPluginsGUI(this, configBase);
+    KateApp::self()->pluginManager()->enableAllPluginsGUI(this, configBase);
 
     finishRestore();
 
@@ -917,7 +941,7 @@ void KateMainWindow::readProperties(const KConfigGroup &config)
 
 void KateMainWindow::saveGlobalProperties(KConfig *sessionConfig)
 {
-    KateDocManager::self()->saveDocumentList(sessionConfig);
+    KateApp::self()->documentManager()->saveDocumentList(sessionConfig);
 
     KConfigGroup cg(sessionConfig, "General");
     cg.writeEntry("Last Session", KateApp::self()->sessionManager()->activeSession()->name());

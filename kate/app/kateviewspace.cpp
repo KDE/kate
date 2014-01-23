@@ -70,6 +70,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert")));
     split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
     split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_current_space")));
+    split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_others")));
     split->setWhatsThis(i18n("Control view space splitting"));
     split->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(split);
@@ -150,7 +151,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
         if (! fn.isEmpty()) {
             QString vgroup = QString::fromLatin1("%1 %2").arg(m_group).arg(fn);
 
-            KateSession::Ptr as = KateSessionManager::self()->activeSession();
+            KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession();
             if (as->config() && as->config()->hasGroup(vgroup)) {
                 KConfigGroup cg(as->config(), vgroup);
 
@@ -434,7 +435,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     QString fn = group.readEntry("Active View");
 
     if (!fn.isEmpty()) {
-        KTextEditor::Document *doc = KateDocManager::self()->findDocument(QUrl(fn));
+        KTextEditor::Document *doc = KateApp::self()->documentManager()->findDocument(QUrl(fn));
 
         if (doc) {
             // view config, group: "ViewSpace <n> url"
@@ -453,7 +454,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
     // avoid empty view space
     if (m_docToView.isEmpty()) {
-        viewMan->createView(KateDocManager::self()->document(0), this);
+        viewMan->createView(KateApp::self()->documentManager()->document(0), this);
     }
 
     m_group = groupname; // used for restroing view configs later

@@ -93,11 +93,6 @@ KateDocManager::~KateDocManager()
     delete m_metaInfos;
 }
 
-KateDocManager *KateDocManager::self()
-{
-    return KateApp::self()->documentManager();
-}
-
 KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo)
 {
     qCDebug(LOG_KATE) << "createDoc" << endl;

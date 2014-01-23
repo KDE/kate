@@ -49,7 +49,6 @@ KateTabBar::KateTabBar(QWidget *parent)
     m_activeButton = 0L;
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    updateFixedHeight();
 }
 
 /**
@@ -155,9 +154,6 @@ int KateTabBar::maximumTabWidth() const
 }
 
 /**
- * This is an overloaded member function, provided for convenience.
- * It behaves essentially like the above function.
- *
  * Adds a new tab with \a text. Returns the new tab's id.
  */
 int KateTabBar::addTab(const QString &text)

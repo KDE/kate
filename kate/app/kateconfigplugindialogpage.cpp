@@ -20,8 +20,10 @@
 
 #include "kateconfigplugindialogpage.h"
 
+#include "kateapp.h"
 #include "katepluginmanager.h"
 #include "kateconfigdialog.h"
+
 #include <KLocalizedString>
 
 #include <QVBoxLayout>
@@ -79,7 +81,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     listView->setHeaderLabels(headers);
     listView->setWhatsThis(i18n("Here you can see all available Kate plugins. Those with a check mark are loaded, and will be loaded again the next time Kate is started."));
 
-    KatePluginList &pluginList(KatePluginManager::self()->pluginList());
+    KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
     for (KatePluginList::iterator it = pluginList.begin(); it != pluginList.end(); ++it) {
         if (it->alwaysLoad) {
             continue;
@@ -108,8 +110,8 @@ void KateConfigPluginPage::stateChange(KatePluginListItem *item, bool b)
 
 void KateConfigPluginPage::loadPlugin(KatePluginListItem *item)
 {
-    KatePluginManager::self()->loadPlugin(item->info());
-    KatePluginManager::self()->enablePluginGUI(item->info());
+    KateApp::self()->pluginManager()->loadPlugin(item->info());
+    KateApp::self()->pluginManager()->enablePluginGUI(item->info());
     myDialog->addPluginPage(item->info()->plugin);
 
     item->setCheckState(0, Qt::Checked);
@@ -118,7 +120,7 @@ void KateConfigPluginPage::loadPlugin(KatePluginListItem *item)
 void KateConfigPluginPage::unloadPlugin(KatePluginListItem *item)
 {
     myDialog->removePluginPage(item->info()->plugin);
-    KatePluginManager::self()->unloadPlugin(item->info());
+    KateApp::self()->pluginManager()->unloadPlugin(item->info());
 
     item->setCheckState(0, Qt::Unchecked);
 }

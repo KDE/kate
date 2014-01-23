@@ -105,7 +105,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     // save meta infos
     m_saveMetaInfos = new QCheckBox(buttonGroup);
     m_saveMetaInfos->setText(i18n("Keep &meta-information past sessions"));
-    m_saveMetaInfos->setChecked(KateDocManager::self()->getSaveMetaInfos());
+    m_saveMetaInfos->setChecked(KateApp::self()->documentManager()->getSaveMetaInfos());
     m_saveMetaInfos->setWhatsThis(i18n(
                                       "Check this if you want document configuration like for example "
                                       "bookmarks to be saved past editor sessions. The configuration will be "
@@ -118,13 +118,13 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     QFrame *metaInfos = new QFrame(buttonGroup);
     QHBoxLayout *hlayout = new QHBoxLayout(metaInfos);
 
-    metaInfos->setEnabled(KateDocManager::self()->getSaveMetaInfos());
+    metaInfos->setEnabled(KateApp::self()->documentManager()->getSaveMetaInfos());
     QLabel *label = new QLabel(i18n("&Delete unused meta-information after:"), metaInfos);
     hlayout->addWidget(label);
     m_daysMetaInfos = new QSpinBox(metaInfos);
     m_daysMetaInfos->setMaximum(180);
     m_daysMetaInfos->setSpecialValueText(i18n("(never)"));
-    m_daysMetaInfos->setValue(KateDocManager::self()->getDaysMetaInfos());
+    m_daysMetaInfos->setValue(KateApp::self()->documentManager()->getDaysMetaInfos());
     hlayout->addWidget(m_daysMetaInfos);
     label->setBuddy(m_daysMetaInfos);
     connect(m_saveMetaInfos, SIGNAL(toggled(bool)), metaInfos, SLOT(setEnabled(bool)));
@@ -203,7 +203,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     item->setHeader(i18n("Plugin Manager"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-plugin")));
 
-    KatePluginList &pluginList(KatePluginManager::self()->pluginList());
+    KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
     foreach(const KatePluginInfo & plugin, pluginList) {
         if (plugin.load
                 && qobject_cast<KTextEditor::ConfigPageInterface *>(plugin.plugin)) {
@@ -336,16 +336,16 @@ void KateConfigDialog::slotApply()
         }
 
         cg.writeEntry("Save Meta Infos", m_saveMetaInfos->isChecked());
-        KateDocManager::self()->setSaveMetaInfos(m_saveMetaInfos->isChecked());
+        KateApp::self()->documentManager()->setSaveMetaInfos(m_saveMetaInfos->isChecked());
 
         cg.writeEntry("Days Meta Infos", m_daysMetaInfos->value());
-        KateDocManager::self()->setDaysMetaInfos(m_daysMetaInfos->value());
+        KateApp::self()->documentManager()->setDaysMetaInfos(m_daysMetaInfos->value());
 
         cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
         m_mainWindow->setModNotificationEnabled(m_modNotifications->isChecked());
 
         // patch document modified warn state
-        const QList<KTextEditor::Document *> &docs = KateDocManager::self()->documentList();
+        const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
         foreach(KTextEditor::Document * doc, docs)
         if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
             qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
@@ -354,7 +354,7 @@ void KateConfigDialog::slotApply()
         m_mainWindow->saveOptions();
 
         // save plugin config !!
-        KateSessionManager *sessionmanager = KateSessionManager::self();
+        KateSessionManager *sessionmanager = KateApp::self()->sessionManager();
         KConfig *sessionConfig = sessionmanager->activeSession()->config();
         KateApp::self()->pluginManager()->writeConfig(sessionConfig);
     }

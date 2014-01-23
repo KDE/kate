@@ -85,21 +85,15 @@ bool tabLessThan(const KateTabButton *a, const KateTabButton *b)
     return true;
 }
 
-//BEGIN public member functions
 /**
  * Creates a new tab bar with the given \a parent and \a name.
- *
- * The default values are in detail:
- *  - minimum tab width: 150 pixel
- *  - maximum tab width: 200 pixel
- *  - fixed tab height : 22 pixel. Note that the icon's size is 16 pixel.
  *  .
  */
 KateTabBar::KateTabBar(QWidget *parent)
     : QWidget(parent)
 {
     m_minimumTabWidth = 150;
-    m_maximumTabWidth = 200;
+    m_maximumTabWidth = 350;
 
     m_tabHeight = 22;
 
@@ -138,9 +132,9 @@ void KateTabBar::load(KConfigBase *config, const QString &group)
     KConfigGroup cg(config, group);
 
     // tabbar properties
-    setMinimumTabWidth(cg.readEntry("minimum width", 150));
-    setMaximumTabWidth(cg.readEntry("maximum width", 300));
-    setTabHeight(cg.readEntry("fixed height", 20));
+    setMinimumTabWidth(cg.readEntry("minimum width", m_minimumTabWidth));
+    setMaximumTabWidth(cg.readEntry("maximum width", m_maximumTabWidth));
+    setTabHeight(cg.readEntry("fixed height", m_tabHeight));
     setTabSortType((SortType) cg.readEntry("sort type", (int)OpeningOrder));
 
     // highlighted entries
@@ -291,10 +285,10 @@ void KateTabBar::raiseTab(int buttonId)
     Q_ASSERT(m_IDToTabButton.contains(buttonId));
 
     KateTabButton *button = m_IDToTabButton[buttonId];
-    int index = m_tabButtons.indexOf(button);
-    Q_ASSERT(index > -1);
+    int tabIndex = m_tabButtons.indexOf(button);
+    Q_ASSERT(tabIndex > -1);
 
-    m_tabButtons.move(index, 0);
+    m_tabButtons.move(tabIndex, 0);
 
     triggerResizeEvent();
 }
@@ -312,15 +306,15 @@ int KateTabBar::currentTab() const
 }
 
 /**
- * Activate the tab with ID \a button_id. No signal is emitted.
+ * Activate the tab with ID \a index. No signal is emitted.
  */
-void KateTabBar::setCurrentTab(int button_id)
+void KateTabBar::setCurrentTab(int index)
 {
-    if (!m_IDToTabButton.contains(button_id)) {
+    if (!m_IDToTabButton.contains(index)) {
         return;
     }
 
-    KateTabButton *tabButton = m_IDToTabButton[button_id];
+    KateTabButton *tabButton = m_IDToTabButton[index];
     if (m_activeButton == tabButton) {
         return;
     }
@@ -334,21 +328,21 @@ void KateTabBar::setCurrentTab(int button_id)
 }
 
 /**
- * Removes the tab with ID \a button_id.
+ * Removes the tab with ID \a index.
  */
-void KateTabBar::removeTab(int button_id)
+void KateTabBar::removeTab(int index)
 {
-    if (!m_IDToTabButton.contains(button_id)) {
+    if (!m_IDToTabButton.contains(index)) {
         return;
     }
 
-    KateTabButton *tabButton = m_IDToTabButton[button_id];
+    KateTabButton *tabButton = m_IDToTabButton[index];
 
     if (tabButton == m_activeButton) {
         m_activeButton = 0L;
     }
 
-    m_IDToTabButton.remove(button_id);
+    m_IDToTabButton.remove(index);
     m_tabButtons.removeAll(tabButton);
     // delete the button with deleteLater() because the button itself might
     // have send a close-request. So the app-execution is still in the
@@ -364,27 +358,27 @@ void KateTabBar::removeTab(int button_id)
 }
 
 /**
- * Returns whether a tab with ID \a button_id exists.
+ * Returns whether a tab with ID \a index exists.
  */
-bool KateTabBar::containsTab(int button_id) const
+bool KateTabBar::containsTab(int index) const
 {
-    return m_IDToTabButton.contains(button_id);
+    return m_IDToTabButton.contains(index);
 }
 
 /**
- * Sets the text of the tab with ID \a button_id to \a text.
+ * Sets the text of the tab with ID \a index to \a text.
  * \see tabText()
  */
-void KateTabBar::setTabText(int button_id, const QString &text)
+void KateTabBar::setTabText(int index, const QString &text)
 {
-    if (!m_IDToTabButton.contains(button_id)) {
+    if (!m_IDToTabButton.contains(index)) {
         return;
     }
 
     // change highlight key, if entry exists
-    if (m_highlightedTabs.contains(m_IDToTabButton[button_id]->text())) {
-        QString value = m_highlightedTabs[m_IDToTabButton[button_id]->text()];
-        m_highlightedTabs.remove(m_IDToTabButton[button_id]->text());
+    if (m_highlightedTabs.contains(m_IDToTabButton[index]->text())) {
+        QString value = m_highlightedTabs[m_IDToTabButton[index]->text()];
+        m_highlightedTabs.remove(m_IDToTabButton[index]->text());
         m_highlightedTabs[text] = value;
 
         // do not emit highlightMarksChanged(), because every tabbar gets this
@@ -392,7 +386,7 @@ void KateTabBar::setTabText(int button_id, const QString &text)
         // emit highlightMarksChanged( this );
     }
 
-    m_IDToTabButton[button_id]->setText(text);
+    m_IDToTabButton[index]->setText(text);
 
     if (tabSortType() == Name || tabSortType() == Extension) {
         updateSort();
@@ -400,38 +394,38 @@ void KateTabBar::setTabText(int button_id, const QString &text)
 }
 
 /**
- * Returns the text of the tab with ID \a button_id. If the button id does not
+ * Returns the text of the tab with ID \a index. If the button id does not
  * exist \a QString() is returned.
  * \see setTabText()
  */
-QString KateTabBar::tabText(int button_id) const
+QString KateTabBar::tabText(int index) const
 {
-    if (m_IDToTabButton.contains(button_id)) {
-        return m_IDToTabButton[button_id]->text();
+    if (m_IDToTabButton.contains(index)) {
+        return m_IDToTabButton[index]->text();
     }
 
     return QString();
 }
 
 /**
- * Set the button @p button_id's tool tip to @p tip.
+ * Set the button @p index's tool tip to @p tip.
  */
-void KateTabBar::setTabToolTip(int button_id, const QString &tip)
+void KateTabBar::setTabToolTip(int index, const QString &tip)
 {
-    if (!m_IDToTabButton.contains(button_id)) {
+    if (!m_IDToTabButton.contains(index)) {
         return;
     }
 
-    m_IDToTabButton[button_id]->setToolTip(tip);
+    m_IDToTabButton[index]->setToolTip(tip);
 }
 
 /**
- * Get the button @p button_id's url. Result is QStrint() if not available.
+ * Get the button @p index's url. Result is QStrint() if not available.
  */
-QString KateTabBar::tabToolTip(int button_id) const
+QString KateTabBar::tabToolTip(int index) const
 {
-    if (m_IDToTabButton.contains(button_id)) {
-        return m_IDToTabButton[button_id]->toolTip();
+    if (m_IDToTabButton.contains(index)) {
+        return m_IDToTabButton[index]->toolTip();
     }
 
     return QString();
@@ -439,25 +433,25 @@ QString KateTabBar::tabToolTip(int button_id) const
 
 
 /**
- * Sets the icon of the tab with ID \a button_id to \a icon.
+ * Sets the icon of the tab with ID \a index to \a icon.
  * \see tabIcon()
  */
-void KateTabBar::setTabIcon(int button_id, const QIcon &icon)
+void KateTabBar::setTabIcon(int index, const QIcon &icon)
 {
-    if (m_IDToTabButton.contains(button_id)) {
-        m_IDToTabButton[button_id]->setIcon(icon);
+    if (m_IDToTabButton.contains(index)) {
+        m_IDToTabButton[index]->setIcon(icon);
     }
 }
 
 /**
- * Returns the icon of the tab with ID \a button_id. If the button id does not
+ * Returns the icon of the tab with ID \a index. If the button id does not
  * exist \a QIcon() is returned.
  * \see setTabIcon()
  */
-QIcon KateTabBar::tabIcon(int button_id) const
+QIcon KateTabBar::tabIcon(int index) const
 {
-    if (m_IDToTabButton.contains(button_id)) {
-        return m_IDToTabButton[button_id]->icon();
+    if (m_IDToTabButton.contains(index)) {
+        return m_IDToTabButton[index]->icon();
     }
 
     return QIcon();
@@ -492,17 +486,17 @@ KateTabBar::SortType KateTabBar::tabSortType() const
     return m_sortType;
 }
 
-void KateTabBar::setTabModified(int button_id, bool modified)
+void KateTabBar::setTabModified(int index, bool modified)
 {
-    if (m_IDToTabButton.contains(button_id)) {
-        m_IDToTabButton[button_id]->setModified(modified);
+    if (m_IDToTabButton.contains(index)) {
+        m_IDToTabButton[index]->setModified(modified);
     }
 }
 
-bool KateTabBar::isTabModified(int button_id) const
+bool KateTabBar::isTabModified(int index) const
 {
-    if (m_IDToTabButton.contains(button_id)) {
-        return m_IDToTabButton[button_id]->isModified();
+    if (m_IDToTabButton.contains(index)) {
+        return m_IDToTabButton[index]->isModified();
     }
 
     return false;
@@ -541,14 +535,6 @@ QMap<QString, QString> KateTabBar::highlightMarks() const
 {
     return m_highlightedTabs;
 }
-//END public member functions
-
-
-
-
-
-
-//BEGIN protected / private member functions
 
 /**
  * Active button changed. Emit signal \p currentChanged() with the button's ID.
@@ -591,7 +577,7 @@ void KateTabBar::tabButtonHighlightChanged(KateTabButton *tabButton)
  */
 void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
 {
-    emit closeRequest(tabButton->buttonID());
+    emit tabCloseRequested(tabButton->buttonID());
 }
 
 /**
@@ -609,7 +595,7 @@ void KateTabBar::tabButtonCloseOtherRequest(KateTabButton *tabButton)
     }
 
     for (int i = 0; i < tabToCloseID.size(); i++) {
-        emit closeRequest(tabToCloseID.at(i));
+        emit tabCloseRequested(tabToCloseID.at(i));
     }
 }
 
@@ -626,7 +612,7 @@ void KateTabBar::tabButtonCloseAllRequest()
     }
 
     for (int i = 0; i < tabToCloseID.size(); i++) {
-        emit closeRequest(tabToCloseID.at(i));
+        emit tabCloseRequested(tabToCloseID.at(i));
     }
 }
 
@@ -635,43 +621,44 @@ void KateTabBar::tabButtonCloseAllRequest()
  */
 void KateTabBar::resizeEvent(QResizeEvent *event)
 {
-//     qDebug() << "resizeEvent";
     // if there are no tabs there is nothing to do
     if (m_tabButtons.count() == 0) {
         return;
     }
 
-    int tabbar_width = event->size().width();
-    int tabs_per_row = tabbar_width / minimumTabWidth();
-    if (tabs_per_row == 0) {
-        tabs_per_row = 1;
-    }
+    int barWidth = event->size().width();
+    const int maxCount = maxTabCount();
 
-    int tab_width = minimumTabWidth();
+    // how many tabs do we show?
+    const int visibleTabCount = qMin(count(), maxCount);
 
-    // On this point, we really know the value of tabs_per_row. So a final
-    // calculation gives us the tab_width. With this the width can even get
-    // greater than maximumTabWidth(), but that does not matter as it looks
-    // more ugly if there is a lot wasted space on the right.
-    tab_width = tabbar_width / tabs_per_row;
+    // new tab width of each tab
+    const qreal tabWidth = qMin(static_cast<qreal>(barWidth) / visibleTabCount,
+                                static_cast<qreal>(m_maximumTabWidth));
 
-    KateTabButton *tabButton;
-
-    foreach(tabButton, m_tabButtons)
-    tabButton->hide();
-
-    qDebug() << "---> tab width, items per row:" << tab_width << tabs_per_row;
-
-    for (int i = 0; i < 10; ++i) {
-        // value returns 0L, if index is out of bounds
-        tabButton = m_tabButtons.value(i);
-
-        if (tabButton) {
-            tabButton->setGeometry(i * tab_width, 0,
-                                   tab_width, tabHeight());
+    // now set the sizes
+    const int maxi = m_tabButtons.size();
+    for (int i = 0; i < maxi; ++i) {
+        KateTabButton *tabButton = m_tabButtons.value(i);
+        if (i >= maxCount) {
+            tabButton->hide();
+        } else {
+            const int w = ceil(tabWidth);
+            tabButton->setGeometry(i * w, 0, w, tabHeight());
             tabButton->show();
         }
     }
+
+//     if (visibleTabCount
+}
+
+/**
+ * Return the maximum amount of tabs that fit into the tab bar given
+ * the minimumTabWidth().
+ */
+int KateTabBar::maxTabCount() const
+{
+    return qMax(1, width() / minimumTabWidth());
 }
 
 /**
@@ -704,7 +691,5 @@ void KateTabBar::triggerResizeEvent()
     QResizeEvent ev(size(), size());
     QApplication::sendEvent(this, &ev);
 }
-
-//END protected / private member functions
 
 // kate: space-indent on; indent-width 4; tab-width 4; replace-tabs on; eol unix;

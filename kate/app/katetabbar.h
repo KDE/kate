@@ -33,11 +33,9 @@ class KConfigBase;
 class QToolButton;
 
 /**
- * The \p KateTabBar class provides a tab bar, e.g. for tabbed documents and
- * supports multiple rows. The tab bar hides itself if there are no tabs.
+ * The \p KateTabBar class provides a tab bar, e.g. for tabbed documents.
  *
- * It implements the API from TrollTech's \p QTabBar with some minor changes
- * and additions.
+ * The API closely follows the API of QTabBar.
  *
  * @author Dominik Haumann
  */
@@ -77,24 +75,24 @@ public:
 
     int addTab(const QString &text);
     int addTab(const QIcon &pixmap, const QString &text);
-    void removeTab(int button_id);
+    void removeTab(int index);
 
     int currentTab() const;
-    // corresponding SLOT: void setCurrentTab( int button_id );
+    // corresponding SLOT: void setCurrentTab( int index );
 
-    bool containsTab(int button_id) const;
+    bool containsTab(int index) const;
 
-    void setTabToolTip(int button_id, const QString &tip);
-    QString tabToolTip(int button_id) const;
+    void setTabToolTip(int index, const QString &tip);
+    QString tabToolTip(int index) const;
 
-    void setTabText(int button_id, const QString &text);
-    QString tabText(int button_id) const;
+    void setTabText(int index, const QString &text);
+    QString tabText(int index) const;
 
-    void setTabIcon(int button_id, const QIcon &pixmap);
-    QIcon tabIcon(int button_id) const;
+    void setTabIcon(int index, const QIcon &pixmap);
+    QIcon tabIcon(int index) const;
 
-    void setTabModified(int button_id, bool modified);
-    bool isTabModified(int button_id) const;
+    void setTabModified(int index, bool modified);
+    bool isTabModified(int index) const;
 
     int count() const;
 
@@ -104,21 +102,23 @@ public:
     void setHighlightMarks(const QMap<QString, QString> &marks);
     QMap<QString, QString> highlightMarks() const;
 
+    int maxTabCount() const;
+
 public Q_SLOTS:
-    void setCurrentTab(int button_id);   // does not emit signal
+    void setCurrentTab(int index);   // does not emit signal
     void removeHighlightMarks();
-    void raiseTab(int buttonId);
+    void raiseTab(int index);
 
 Q_SIGNALS:
     /**
      * This signal is emitted whenever the current activated tab changes.
      */
-    void currentChanged(int button_id);
+    void currentChanged(int index);
 
     /**
      * This signal is emitted whenever a tab should be closed.
      */
-    void closeRequest(int button_id);
+    void tabCloseRequested(int index);
 
     /**
      * This signal is emitted whenever a highlight mark changes.

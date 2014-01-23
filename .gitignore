@@ -20,3 +20,6 @@ build
 
 # from dolphin
 .directory
+
+# from CMake
+CMakeFiles/cmake.check_cache

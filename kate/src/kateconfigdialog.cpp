@@ -149,6 +149,9 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     // restore view  config
     sessionConfigUi->restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
     connect(sessionConfigUi->restoreVC, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+    
+    sessionConfigUi->spinBoxRecentFilesCount->setValue(cgGeneral.readEntry("Recent File List Entry Count", 10));
+    connect(sessionConfigUi->spinBoxRecentFilesCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
     QString sesStart (cgGeneral.readEntry ("Startup Session", "manual"));
     if (sesStart == QStringLiteral("new"))
@@ -302,6 +305,8 @@ void KateConfigDialog::slotApply()
         KConfigGroup cg = KConfigGroup(config, "General");
 
         cg.writeEntry("Restore Window Configuration", sessionConfigUi->restoreVC->isChecked());
+        
+        cg.writeEntry("Recent File List Entry Count", sessionConfigUi->spinBoxRecentFilesCount->value());
 
         if (sessionConfigUi->startNewSessionRadioButton->isChecked()) {
             cg.writeEntry("Startup Session", "new");

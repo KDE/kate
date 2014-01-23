@@ -49,6 +49,11 @@ public:
     
 private:
     /**
+     * No copying please
+     */
+    Q_DISABLE_COPY(KateUpdateDisabler)
+    
+    /**
      * pointer to widget, if not null, enable/disable widgets
      */
     QPointer<QWidget> m_widget;

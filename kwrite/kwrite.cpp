@@ -480,7 +480,7 @@ void KWrite::documentNameChanged ()
     readOnlyCaption=i18n(" [read only]");
   
   if (m_view->document()->url().isEmpty()) {
-    setCaption(i18n("Untitled")+readOnlyCaption,m_view->document()->isModified());
+    setCaption(i18n("Untitled")+readOnlyCaption+QStringLiteral(" [*]"),m_view->document()->isModified());
   }
   else
   {

@@ -878,7 +878,7 @@ void KateMainWindow::updateCaption (KTextEditor::Document *doc)
   if  (!m_viewManager->activeView()->document()->isReadWrite())
     readOnlyCaption=i18n(" [read only]");
 
-  setCaption( sessName + c+readOnlyCaption,
+  setCaption( sessName + c+readOnlyCaption+QStringLiteral(" [*]"),
               m_viewManager->activeView()->document()->isModified());
 }
 

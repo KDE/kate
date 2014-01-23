@@ -77,7 +77,7 @@ endfunction()
 # install_pate_plugin(gdb)
 
 install_pate_plugin(block)
-install_pate_plugin(color_tools FILE color_tools_toolview.ui)
+install_pate_plugin(color_tools)
 install_pate_plugin(commentar)
 install_pate_plugin(format)
 install_pate_plugin(gid)

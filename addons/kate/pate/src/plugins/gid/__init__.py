@@ -505,8 +505,9 @@ class SearchBar(QObject):
     def __del__(self):
         """Plugins that use a toolview need to delete it for reloading to work."""
         if self.toolView:
+            self.hide()
             self.toolView.deleteLater()
-            self.toolView = None
+            #self.toolView = None
 
     @pyqtSlot()
     def literalSearch(self):
@@ -717,12 +718,12 @@ def destroy():
     """Plugins that use a toolview need to delete it for reloading to work."""
     global searchBar
     if searchBar:
-        searchBar.__del__()
-        searchBar = None
+        del searchBar
+        #searchBar = None
     global completionModel
     if completionModel:
-        completionModel.__del__()
-        completionModel = None
+        del completionModel
+        #completionModel = None
 
 @kate.viewChanged
 def viewChanged():

@@ -260,14 +260,14 @@ int KateTabBar::addTab(const QIcon &icon, const QString &text)
 
     m_tabButtons.append(tabButton);
     m_IDToTabButton[m_nextID] = tabButton;
-    connect(tabButton, SIGNAL(activated(KateTabButton *)),
-            this, SLOT(tabButtonActivated(KateTabButton *)));
-    connect(tabButton, SIGNAL(highlightChanged(KateTabButton *)),
-            this, SLOT(tabButtonHighlightChanged(KateTabButton *)));
-    connect(tabButton, SIGNAL(closeRequest(KateTabButton *)),
-            this, SLOT(tabButtonCloseRequest(KateTabButton *)));
-    connect(tabButton, SIGNAL(closeOtherTabsRequest(KateTabButton *)),
-            this, SLOT(tabButtonCloseOtherRequest(KateTabButton *)));
+    connect(tabButton, SIGNAL(activated(KateTabButton*)),
+            this, SLOT(tabButtonActivated(KateTabButton*)));
+    connect(tabButton, SIGNAL(highlightChanged(KateTabButton*)),
+            this, SLOT(tabButtonHighlightChanged(KateTabButton*)));
+    connect(tabButton, SIGNAL(closeRequest(KateTabButton*)),
+            this, SLOT(tabButtonCloseRequest(KateTabButton*)));
+    connect(tabButton, SIGNAL(closeOtherTabsRequest(KateTabButton*)),
+            this, SLOT(tabButtonCloseOtherRequest(KateTabButton*)));
     connect(tabButton, SIGNAL(closeAllTabsRequest()),
             this, SLOT(tabButtonCloseAllRequest()));
 
@@ -430,7 +430,6 @@ QString KateTabBar::tabToolTip(int index) const
 
     return QString();
 }
-
 
 /**
  * Sets the icon of the tab with ID \a index to \a icon.
@@ -692,4 +691,3 @@ void KateTabBar::triggerResizeEvent()
     QApplication::sendEvent(this, &ev);
 }
 
-// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs on; eol unix;

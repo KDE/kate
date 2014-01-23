@@ -2,7 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001 Anders Lund <anders.lund@lund.tdcadsl.dk>
-    
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
@@ -34,7 +34,7 @@ class KateMainWindow;
 
 class KatePluginInfo
 {
-  public:
+public:
     bool load;
     bool alwaysLoad;
     KService::Ptr service;
@@ -48,48 +48,47 @@ class KatePluginManager : public QObject
 {
     Q_OBJECT
 
-  public:
+public:
     KatePluginManager(QObject *parent);
     ~KatePluginManager();
 
     static KatePluginManager *self();
 
-    void unloadAllPlugins ();
+    void unloadAllPlugins();
 
-    void enableAllPluginsGUI (KateMainWindow *win, KConfigBase *config = 0);
-    void disableAllPluginsGUI (KateMainWindow *win);
+    void enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config = 0);
+    void disableAllPluginsGUI(KateMainWindow *win);
 
-    void loadConfig (KConfig*);
-    void writeConfig (KConfig*);
+    void loadConfig(KConfig *);
+    void writeConfig(KConfig *);
 
-    void loadPlugin (KatePluginInfo *item);
-    void unloadPlugin (KatePluginInfo *item);
+    void loadPlugin(KatePluginInfo *item);
+    void unloadPlugin(KatePluginInfo *item);
 
-    void enablePluginGUI (KatePluginInfo *item, KateMainWindow *win, KConfigBase *config = 0);
-    void enablePluginGUI (KatePluginInfo *item);
+    void enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, KConfigBase *config = 0);
+    void enablePluginGUI(KatePluginInfo *item);
 
-    void disablePluginGUI (KatePluginInfo *item, KateMainWindow *win);
-    void disablePluginGUI (KatePluginInfo *item);
+    void disablePluginGUI(KatePluginInfo *item, KateMainWindow *win);
+    void disablePluginGUI(KatePluginInfo *item);
 
-    inline KatePluginList & pluginList ()
-    {
-      return m_pluginList;
+    inline KatePluginList &pluginList() {
+        return m_pluginList;
     }
 
-    KTextEditor::Plugin *plugin (const QString &name);
-    bool pluginAvailable (const QString &name);
+    KTextEditor::Plugin *plugin(const QString &name);
+    bool pluginAvailable(const QString &name);
 
-    KTextEditor::Plugin *loadPlugin (const QString &name, bool permanent = true);
-    void unloadPlugin (const QString &name, bool permanent = true);
+    KTextEditor::Plugin *loadPlugin(const QString &name, bool permanent = true);
+    void unloadPlugin(const QString &name, bool permanent = true);
 
-  private:
-    void setupPluginList ();
+private:
+    void setupPluginList();
 
     /**
      * all known plugins
      */
     KatePluginList m_pluginList;
-    
+
     /**
      * fast access map from name => plugin info
      * uses the info stored in the plugin list
@@ -98,5 +97,4 @@ class KatePluginManager : public QObject
 };
 
 #endif
-// kate: space-indent on; indent-width 2; replace-tabs on;
 

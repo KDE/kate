@@ -39,7 +39,7 @@ class QCommandLineParser;
 
 namespace KTextEditor
 {
-  class Document;
+class Document;
 }
 
 /**
@@ -53,67 +53,66 @@ class KATE_TESTS_EXPORT KateApp : public QObject
     /**
      * constructors & accessor to app object + plugin interface for it
      */
-  public:
+public:
     /**
      * application constructor
      */
-    KateApp (const QCommandLineParser &args);
-    
+    KateApp(const QCommandLineParser &args);
+
     /**
      * get kate inited
      * @return false, if application should exit
      */
-    bool init ();
+    bool init();
 
     /**
      * application destructor
      */
-    ~KateApp ();
+    ~KateApp();
 
     /**
      * static accessor to avoid casting ;)
      * @return app instance
      */
-    static KateApp *self ();
-    
+    static KateApp *self();
+
     /**
      * KTextEditor::Application wrapper
      * @return KTextEditor::Application wrapper.
      */
-    KTextEditor::Application *wrapper ()
-    {
-      return m_wrapper;
+    KTextEditor::Application *wrapper() {
+        return m_wrapper;
     }
 
     /**
      * kate init
      */
-  private:
+private:
     /**
      * restore a old kate session
      */
-    void restoreKate ();
+    void restoreKate();
 
     /**
      * try to start kate
      * @return success, if false, kate should exit
      */
-    bool startupKate ();
+    bool startupKate();
 
     /**
      * kate shutdown
      */
-  public:
+public:
     /**
      * shutdown kate application
      * @param win mainwindow which is used for dialogs
      */
-    void shutdownKate (KateMainWindow *win);
+    void shutdownKate(KateMainWindow *win);
 
     /**
      * other accessors for global unique instances
      */
-  public:
+public:
     /**
      * accessor to plugin manager
      * @return plugin manager instance
@@ -124,66 +123,66 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      * accessor to document manager
      * @return document manager instance
      */
-    KateDocManager *documentManager ();
+    KateDocManager *documentManager();
 
     /**
      * accessor to session manager
      * @return session manager instance
      */
-    KateSessionManager *sessionManager ();
+    KateSessionManager *sessionManager();
 
     /**
      * window management
      */
-  public:
+public:
     /**
      * create a new main window, use given config if any for restore
      * @param sconfig session config object
      * @param sgroup session group for this window
      * @return new constructed main window
      */
-    KateMainWindow *newMainWindow (KConfig *sconfig = 0, const QString &sgroup = QString());
+    KateMainWindow *newMainWindow(KConfig *sconfig = 0, const QString &sgroup = QString());
 
     /**
      * add the mainwindow given
      * should be called in mainwindow constructor
      * @param mainWindow window to remove
      */
-    void addMainWindow (KateMainWindow *mainWindow);
+    void addMainWindow(KateMainWindow *mainWindow);
 
     /**
      * removes the mainwindow given, DOES NOT DELETE IT
      * should be called in mainwindow destructor
      * @param mainWindow window to remove
      */
-    void removeMainWindow (KateMainWindow *mainWindow);
+    void removeMainWindow(KateMainWindow *mainWindow);
 
     /**
      * give back current active main window
      * can only be 0 at app start or exit
      * @return current active main window
      */
-    KateMainWindow *activeKateMainWindow ();
+    KateMainWindow *activeKateMainWindow();
 
     /**
      * give back number of existing main windows
      * @return number of main windows
      */
-    int mainWindowsCount () const;
+    int mainWindowsCount() const;
 
     /**
      * give back the window you want
      * @param n window index
      * @return requested main window
      */
-    KateMainWindow *mainWindow (int n);
+    KateMainWindow *mainWindow(int n);
 
     int mainWindowID(KateMainWindow *window);
 
     /**
      * some stuff for the dcop API
      */
-  public:
+public:
     /**
      * open url with given encoding
      * used by kate if --use given
@@ -191,19 +190,19 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      * @param encoding encoding name
      * @return success
      */
-    bool openUrl (const QUrl &url, const QString &encoding, bool isTempFile);
+    bool openUrl(const QUrl &url, const QString &encoding, bool isTempFile);
 
-    KTextEditor::Document* openDocUrl (const QUrl &url, const QString &encoding, bool isTempFile);
-    
-    void emitDocumentClosed(const QString& token);
-    
+    KTextEditor::Document *openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile);
+
+    void emitDocumentClosed(const QString &token);
+
     /**
      * position cursor in current active view
      * @param line line to set
      * @param column column to set
      * @return success
      */
-    bool setCursor (int line, int column);
+    bool setCursor(int line, int column);
 
     /**
      * helper to handle stdin input
@@ -211,45 +210,44 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      * @param text text to fill in the new doc/view
      * @return success
      */
-    bool openInput (const QString &text);
-  
-  //
-  // KTextEditor::Application interface, called by wrappers via invokeMethod
-  //
-  public Q_SLOTS:
+    bool openInput(const QString &text);
+
+    //
+    // KTextEditor::Application interface, called by wrappers via invokeMethod
+    //
+public Q_SLOTS:
     /**
      * Get a list of all main windows.
      * @return all main windows
      */
-    QList<KTextEditor::MainWindow *> mainWindows ()
-    {
-      // assemble right list
-      QList<KTextEditor::MainWindow *> windows;
-      for (int i = 0; i < m_mainWindows.size(); ++i)
-        windows.push_back (m_mainWindows[i]->wrapper());
-      return windows;
+    QList<KTextEditor::MainWindow *> mainWindows() {
+        // assemble right list
+        QList<KTextEditor::MainWindow *> windows;
+        for (int i = 0; i < m_mainWindows.size(); ++i) {
+            windows.push_back(m_mainWindows[i]->wrapper());
+        }
+        return windows;
     }
-    
+
     /**
      * Accessor to the active main window.
      * \return a pointer to the active mainwindow
      */
-    KTextEditor::MainWindow *activeMainWindow ()
-    {
-      // either return wrapper or nullptr
-      if (KateMainWindow *a = activeKateMainWindow ())
-        return a->wrapper ();
-      return nullptr;
+    KTextEditor::MainWindow *activeMainWindow() {
+        // either return wrapper or nullptr
+        if (KateMainWindow *a = activeKateMainWindow()) {
+            return a->wrapper();
+        }
+        return nullptr;
     }
-      
+
     /**
      * Get a list of all documents that are managed by the application.
      * This might contain less documents than the editor has in his documents () list.
      * @return all documents the application manages
      */
-    QList<KTextEditor::Document *> documents ()
-    {
-      return m_docManager->documentList ();
+    QList<KTextEditor::Document *> documents() {
+        return m_docManager->documentList();
     }
 
     /**
@@ -258,9 +256,8 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      * \param url the document's URL
      * \return the document with the given \p url or NULL, if none found
      */
-    KTextEditor::Document *findUrl (const QUrl &url)
-    {
-      return m_docManager->findDocument (url);
+    KTextEditor::Document *findUrl(const QUrl &url) {
+        return m_docManager->findDocument(url);
     }
 
     /**
@@ -271,9 +268,8 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      *        encoding will be guessed or the default encoding will be used.
      * \return a pointer to the created document
      */
-    KTextEditor::Document *openUrl (const QUrl &url, const QString &encoding = QString())
-    {
-      return m_docManager->openUrl (url, encoding);
+    KTextEditor::Document *openUrl(const QUrl &url, const QString &encoding = QString()) {
+        return m_docManager->openUrl(url, encoding);
     }
 
     /**
@@ -281,9 +277,8 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      * \param document the document to be closed
      * \return \e true on success, otherwise \e false
      */
-    bool closeDocument (KTextEditor::Document *document)
-    {
-      return m_docManager->closeDocument (document);
+    bool closeDocument(KTextEditor::Document *document) {
+        return m_docManager->closeDocument(document);
     }
 
     /**
@@ -293,9 +288,8 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      * \param documents list of documents to be closed
      * \return \e true on success, otherwise \e false
      */
-    bool closeDocuments (const QList<KTextEditor::Document *> &documents)
-    {
-      return m_docManager->closeDocumentList (documents);
+    bool closeDocuments(const QList<KTextEditor::Document *> &documents) {
+        return m_docManager->closeDocumentList(documents);
     }
 
     /**
@@ -303,14 +297,14 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      * \param name the plugin's name
      * \return pointer to the plugin if a plugin with \p name is loaded, otherwise nullptr
      */
-    KTextEditor::Plugin *plugin (const QString &name);
+    KTextEditor::Plugin *plugin(const QString &name);
 
-  private:
+private:
     /**
      * Singleton instance
      */
     static KateApp *s_self;
-    
+
     /**
      * kate's command line args
      */
@@ -339,11 +333,11 @@ class KATE_TESTS_EXPORT KateApp : public QObject
     /**
      * known main windows
      */
-    QList<KateMainWindow*> m_mainWindows;
+    QList<KateMainWindow *> m_mainWindows;
 
     // various vim-inspired command line commands
     KateAppCommands *m_appCommands;
-    
+
     /**
      * Wrapper of application for KTextEditor
      */
@@ -352,5 +346,4 @@ class KATE_TESTS_EXPORT KateApp : public QObject
 };
 
 #endif
-// kate: space-indent on; indent-width 2; replace-tabs on;
 

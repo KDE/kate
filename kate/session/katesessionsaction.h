@@ -30,18 +30,17 @@ class KATE_TESTS_EXPORT KateSessionsAction : public KActionMenu
 {
     Q_OBJECT
 
-  public:
-    KateSessionsAction(const QString& text, QObject *parent, KateSessionManager *manager = 0);
-    ~KateSessionsAction()
-    {
+public:
+    KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager = 0);
+    ~KateSessionsAction() {
     }
 
-  public  Q_SLOTS:
+public  Q_SLOTS:
     void slotAboutToShow();
     void openSession(QAction *action);
     void slotSessionChanged();
 
-  private:
+private:
     friend class KateSessionsActionTest; // tfuj
     QActionGroup *sessionsGroup;
     KateSessionManager *m_manager;
@@ -49,4 +48,3 @@ class KATE_TESTS_EXPORT KateSessionsAction : public KActionMenu
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

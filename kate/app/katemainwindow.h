@@ -44,8 +44,8 @@ class QMenu;
 
 namespace KIO
 {
-  class UDSEntry;
-  typedef class QList<UDSEntry> UDSEntryList;
+class UDSEntry;
+typedef class QList<UDSEntry> UDSEntryList;
 }
 
 class KFileItem;
@@ -58,25 +58,24 @@ class KateQuickOpen;
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  KateContainerStackedLayout(QWidget* parent);
-  virtual QSize sizeHint() const;
-  virtual QSize minimumSize() const;
+    KateContainerStackedLayout(QWidget *parent);
+    virtual QSize sizeHint() const;
+    virtual QSize minimumSize() const;
 };
-
 
 class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBase
 {
     Q_OBJECT
 
-  public:
+public:
     /**
      * Construct the window and restore its state from given config if any
      * @param sconfig session config for this window, 0 if none
      * @param sgroup session config group to use
      */
-    KateMainWindow (KConfig *sconfig, const QString &sgroup);
+    KateMainWindow(KConfig *sconfig, const QString &sgroup);
 
     /**
      * Destruct the nice window
@@ -86,29 +85,26 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     /**
      * Accessor methodes for interface and child objects
      */
-  public:
-    KateViewManager *viewManager ()
-    {
-      return m_viewManager;
+public:
+    KateViewManager *viewManager() {
+        return m_viewManager;
     }
-    
+
     /**
      * KTextEditor::MainWindow wrapper
      * @return KTextEditor::MainWindow wrapper.
      */
-    KTextEditor::MainWindow *wrapper ()
-    {
-      return m_wrapper;
+    KTextEditor::MainWindow *wrapper() {
+        return m_wrapper;
     }
 
-  public:
+public:
     /** Returns the URL of the current document.
      * anders: I add this for use from the file selector. */
     QUrl activeDocumentUrl();
 
-    uint mainWindowNumber () const
-    {
-      return myID;
+    uint mainWindowNumber() const {
+        return myID;
     }
 
     /**
@@ -120,12 +116,12 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      */
     bool showModOnDiskPrompt();
 
-  public:
-    /*reimp*/ void readProperties(const KConfigGroup& config);
-    /*reimp*/ void saveProperties(KConfigGroup& config);
-    /*reimp*/ void saveGlobalProperties( KConfig* sessionConfig );
+public:
+    /*reimp*/ void readProperties(const KConfigGroup &config);
+    /*reimp*/ void saveProperties(KConfigGroup &config);
+    /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig);
 
-  public:
+public:
     bool queryClose_internal(KTextEditor::Document *doc = NULL);
 
     /**
@@ -144,11 +140,11 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      */
     void saveOptions();
 
-  private:
+private:
     /**
      * Setup actions which pointers are needed already in setupMainWindow
      */
-    void setupImportantActions ();
+    void setupImportantActions();
 
     void setupMainWindow();
     void setupActions();
@@ -159,10 +155,10 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      */
     void readOptions();
 
-    void dragEnterEvent( QDragEnterEvent * );
-    void dropEvent( QDropEvent * );
+    void dragEnterEvent(QDragEnterEvent *);
+    void dropEvent(QDropEvent *);
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void slotFileClose();
     void slotFileQuit();
     void queueModifiedOnDisc(KTextEditor::Document *doc);
@@ -170,18 +166,18 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     /**
      * Show quick open
      */
-    void slotQuickOpen ();
+    void slotQuickOpen();
 
-  /**
-   * slots used for actions in the menus/toolbars
-   * or internal signal connections
-   */
-  private Q_SLOTS:
-    void newWindow ();
+    /**
+     * slots used for actions in the menus/toolbars
+     * or internal signal connections
+     */
+private Q_SLOTS:
+    void newWindow();
 
     void slotConfigure();
 
-    void slotOpenWithMenuAction(QAction* a);
+    void slotOpenWithMenuAction(QAction *a);
 
     void slotEditToolbars();
     void slotNewToolbarConfig();
@@ -193,94 +189,121 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void mSlotFixOpenWithMenu();
 
     /* to update the caption */
-    void slotDocumentCreated (KTextEditor::Document *doc);
-    void updateCaption (KTextEditor::Document *doc);
+    void slotDocumentCreated(KTextEditor::Document *doc);
+    void updateCaption(KTextEditor::Document *doc);
     // calls updateCaption(doc) with the current document
-    void updateCaption ();
+    void updateCaption();
 
-    void pluginHelp ();
+    void pluginHelp();
     void aboutEditor();
     void slotFullScreen(bool);
 
     void slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list);
 
-  private Q_SLOTS:
-    void toggleShowStatusBar ();
+private Q_SLOTS:
+    void toggleShowStatusBar();
 
-  public:
-    bool showStatusBar ();
+public:
+    bool showStatusBar();
 
-  Q_SIGNALS:
-    void statusBarToggled ();
-    void unhandledShortcutOverride (QEvent *e);
+Q_SIGNALS:
+    void statusBarToggled();
+    void unhandledShortcutOverride(QEvent *e);
 
-  public:
-    void openUrl (const QString &name = QString());
+public:
+    void openUrl(const QString &name = QString());
 
-    QHash<KTextEditor::Plugin*, QObject*> &pluginViews ()
-    {
-      return m_pluginViews;
+    QHash<KTextEditor::Plugin *, QObject *> &pluginViews() {
+        return m_pluginViews;
     }
 
-    inline QWidget *bottomViewBarContainer() {return m_bottomViewBarContainer;}
-    inline void addToBottomViewBarContainer(KTextEditor::View *view,QWidget *bar){m_bottomContainerStack->addWidget (bar); m_bottomViewBarMapping[view]=BarState(bar);}
-    inline void hideBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.value(view); bar=state.bar(); if (bar) {m_bottomContainerStack->setCurrentWidget(bar); bar->hide(); state.setState(false); m_bottomViewBarMapping[view]=state;} m_bottomViewBarContainer->hide();}
-    inline void showBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.value(view); bar=state.bar();  if (bar) {m_bottomContainerStack->setCurrentWidget(bar); bar->show(); state.setState(true); m_bottomViewBarMapping[view]=state;  m_bottomViewBarContainer->show();}}
-    inline void deleteBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_bottomContainerStack->currentWidget()==bar) m_bottomViewBarContainer->hide(); delete bar;}}
-
-    bool modNotificationEnabled () const
-    {
-      return m_modNotification;
+    inline QWidget *bottomViewBarContainer() {
+        return m_bottomViewBarContainer;
+    }
+    inline void addToBottomViewBarContainer(KTextEditor::View *view, QWidget *bar) {
+        m_bottomContainerStack->addWidget(bar);
+        m_bottomViewBarMapping[view] = BarState(bar);
+    }
+    inline void hideBottomViewBarForView(KTextEditor::View *view) {
+        QWidget *bar;
+        BarState state = m_bottomViewBarMapping.value(view);
+        bar = state.bar();
+        if (bar) {
+            m_bottomContainerStack->setCurrentWidget(bar);
+            bar->hide();
+            state.setState(false);
+            m_bottomViewBarMapping[view] = state;
+        } m_bottomViewBarContainer->hide();
+    }
+    inline void showBottomViewBarForView(KTextEditor::View *view) {
+        QWidget *bar;
+        BarState state = m_bottomViewBarMapping.value(view);
+        bar = state.bar();
+        if (bar) {
+            m_bottomContainerStack->setCurrentWidget(bar);
+            bar->show();
+            state.setState(true);
+            m_bottomViewBarMapping[view] = state;
+            m_bottomViewBarContainer->show();
+        }
+    }
+    inline void deleteBottomViewBarForView(KTextEditor::View *view) {
+        QWidget *bar;
+        BarState state = m_bottomViewBarMapping.take(view);
+        bar = state.bar();
+        if (bar) {
+            if (m_bottomContainerStack->currentWidget() == bar) {
+                m_bottomViewBarContainer->hide();
+            } delete bar;
+        }
     }
 
-    void setModNotificationEnabled (bool e)
-    {
-      m_modNotification = e;
+    bool modNotificationEnabled() const {
+        return m_modNotification;
     }
 
-    KRecentFilesAction *fileOpenRecent () const
-    {
-      return m_fileOpenRecent;
+    void setModNotificationEnabled(bool e) {
+        m_modNotification = e;
     }
 
-  //
-  // KTextEditor::MainWindow interface, get called by invokeMethod from our wrapper object!
-  //
-  public Q_SLOTS:
+    KRecentFilesAction *fileOpenRecent() const {
+        return m_fileOpenRecent;
+    }
+
+    //
+    // KTextEditor::MainWindow interface, get called by invokeMethod from our wrapper object!
+    //
+public Q_SLOTS:
     /**
      * get the toplevel widget.
      * \return the real main window widget.
      */
-    QWidget *window ()
-    {
-      return this;
-    } 
-      
+    QWidget *window() {
+        return this;
+    }
+
     /**
      * Accessor to the XMLGUIFactory.
      * \return the mainwindow's KXMLGUIFactory.
      */
-    KXMLGUIFactory *guiFactory ()
-    {
-      return KateMDI::MainWindow::guiFactory ();
+    KXMLGUIFactory *guiFactory() {
+        return KateMDI::MainWindow::guiFactory();
     }
-    
+
     /**
      * Get a list of all views for this main window.
      * @return all views
      */
-    QList<KTextEditor::View *> views ()
-    {
-      return viewManager()->viewList();
+    QList<KTextEditor::View *> views() {
+        return viewManager()->viewList();
     }
-    
+
     /**
      * Access the active view.
      * \return active view
      */
-    KTextEditor::View *activeView ()
-    {
-      return viewManager()->activeView();
+    KTextEditor::View *activeView() {
+        return viewManager()->activeView();
     }
 
     /**
@@ -289,9 +312,8 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * \param document the document
      * \return activated view of this document
      */
-    KTextEditor::View *activateView (KTextEditor::Document *document)
-    {
-      return viewManager()->activateView (document);
+    KTextEditor::View *activateView(KTextEditor::Document *document) {
+        return viewManager()->activateView(document);
     }
 
     /**
@@ -302,28 +324,25 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * \return a pointer to the created view for the new document, if a document
      *         with this url is already existing, its view will be activated
      */
-    KTextEditor::View *openUrl (const QUrl &url, const QString &encoding = QString())
-    {
-      return viewManager()->openUrlWithView (url, encoding);
+    KTextEditor::View *openUrl(const QUrl &url, const QString &encoding = QString()) {
+        return viewManager()->openUrlWithView(url, encoding);
     }
-      
+
     /**
      * Try to create a view bar for the given view.
      * @param view view for which we want an view bar
      * @return suitable widget that can host view bars widgets or nullptr
     */
-    QWidget *createViewBar (KTextEditor::View *)
-    {
-      return bottomViewBarContainer ();
+    QWidget *createViewBar(KTextEditor::View *) {
+        return bottomViewBarContainer();
     }
 
     /**
      * Delete the view bar for the given view.
      * @param view view for which we want an view bar
      */
-    void deleteViewBar (KTextEditor::View *view)
-    {
-      deleteBottomViewBarForView (view);
+    void deleteViewBar(KTextEditor::View *view) {
+        deleteBottomViewBarForView(view);
     }
 
     /**
@@ -331,29 +350,26 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * @param view view for which the view bar is used
      * @param bar bar widget, shall have the viewBarParent() as parent widget
      */
-    void addWidgetToViewBar (KTextEditor::View *view, QWidget *bar)
-    {
-      addToBottomViewBarContainer (view, bar);
+    void addWidgetToViewBar(KTextEditor::View *view, QWidget *bar) {
+        addToBottomViewBarContainer(view, bar);
     }
-    
+
     /**
      * Show the view bar for the given view
      * @param view view for which the view bar is used
      */
-    void showViewBar (KTextEditor::View *view)
-    {
-      showBottomViewBarForView (view);
+    void showViewBar(KTextEditor::View *view) {
+        showBottomViewBarForView(view);
     }
-    
+
     /**
      * Hide the view bar for the given view
      * @param view view for which the view bar is used
      */
-    void hideViewBar (KTextEditor::View *view)
-    {
-      hideBottomViewBarForView (view);
+    void hideViewBar(KTextEditor::View *view) {
+        hideBottomViewBarForView(view);
     }
-    
+
     /**
      * Create a new toolview with unique \p identifier at side \p pos
      * with \p icon and caption \p text. Use the returned widget to embedd
@@ -366,7 +382,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * \param text translated text (i18n()) to use in addition to icon
      * \return created toolview on success, otherwise NULL
      */
-    QWidget *createToolView (KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text);
+    QWidget *createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text);
 
     /**
      * Move the toolview \p widget to position \p pos.
@@ -375,7 +391,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * \param pos new position to move widget to
      * \return \e true on success, otherwise \e false
      */
-    bool moveToolView (QWidget *widget, KTextEditor::MainWindow::ToolViewPosition pos);
+    bool moveToolView(QWidget *widget, KTextEditor::MainWindow::ToolViewPosition pos);
 
     /**
      * Show the toolview \p widget.
@@ -384,7 +400,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * \return \e true on success, otherwise \e false
      * \todo add focus parameter: bool showToolView (QWidget *widget, bool giveFocus );
      */
-    bool showToolView (QWidget *widget);
+    bool showToolView(QWidget *widget);
 
     /**
      * Hide the toolview \p widget.
@@ -392,25 +408,25 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      *        by createToolView().
      * \return \e true on success, otherwise \e false
      */
-    bool hideToolView (QWidget *widget);
- 
+    bool hideToolView(QWidget *widget);
+
     /**
      * Get a plugin view for the plugin with with identifier \p name.
      * \param name the plugin's name
      * \return pointer to the plugin view if a plugin with \p name is loaded and has a view for this mainwindow,
      *         otherwise NULL
      */
-    QObject *pluginView (const QString &name);
-    
-  private Q_SLOTS:
+    QObject *pluginView(const QString &name);
+
+private Q_SLOTS:
     void slotUpdateBottomViewBar();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void slotDocumentCloseAll();
     void slotDocumentCloseOther();
     void slotDocumentCloseOther(KTextEditor::Document *document);
-    void slotDocumentCloseSelected(const QList<KTextEditor::Document*>&);
-  private:
+    void slotDocumentCloseSelected(const QList<KTextEditor::Document *> &);
+private:
     static uint uniqueID;
     uint myID;
 
@@ -423,12 +439,12 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * stacked widget containing the central area, aka view manager, quickopen, ...
      */
     QStackedWidget *m_mainStackedWidget;
-    
+
     /**
      * quick open to fast switch documents
      */
     KateQuickOpen *m_quickOpen;
-    
+
     /**
      * keeps track of views
      */
@@ -436,14 +452,14 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
     KRecentFilesAction *m_fileOpenRecent;
 
-    KActionMenu* documentOpenWith;
+    KActionMenu *documentOpenWith;
 
-    KToggleAction* settingsShowFileselector;
+    KToggleAction *settingsShowFileselector;
 
     bool m_modignore;
 
     // all plugin views for this mainwindow, used by the pluginmanager
-    QHash<KTextEditor::Plugin*, QObject*> m_pluginViews;
+    QHash<KTextEditor::Plugin *, QObject *> m_pluginViews;
 
     // options: show statusbar + show path
     KToggleAction *m_paShowPath;
@@ -451,41 +467,49 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     QWidget *m_bottomViewBarContainer;
     KateContainerStackedLayout *m_bottomContainerStack;
 
-    class BarState{
-      public:
-        BarState():m_bar(0),m_state(false){}
-        BarState(QWidget* bar):m_bar(bar),m_state(false){}
-        ~BarState(){}
-        QWidget *bar(){return m_bar;}
-        bool state(){return m_state;}
-        void setState(bool state){m_state=state;}
-      private:
+    class BarState
+    {
+    public:
+        BarState(): m_bar(0), m_state(false) {}
+        BarState(QWidget *bar): m_bar(bar), m_state(false) {}
+        ~BarState() {}
+        QWidget *bar() {
+            return m_bar;
+        }
+        bool state() {
+            return m_state;
+        }
+        void setState(bool state) {
+            m_state = state;
+        }
+    private:
         QWidget *m_bar;
         bool m_state;
     };
-    QHash<KTextEditor::View*,BarState> m_bottomViewBarMapping;
+    QHash<KTextEditor::View *, BarState> m_bottomViewBarMapping;
 
-  public:
-    static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog* diag) {
-      if (s_modOnHdDialog==diag) s_modOnHdDialog=0;
+public:
+    static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog *diag) {
+        if (s_modOnHdDialog == diag) {
+            s_modOnHdDialog = 0;
+        }
     }
-  private:
+private:
     static KateMwModOnHdDialog *s_modOnHdDialog;
-    
+
     /**
      * Wrapper of main window for KTextEditor
      */
     KTextEditor::MainWindow *m_wrapper;
 
-  public Q_SLOTS:
-    void showPluginConfigPage(KTextEditor::ConfigPageInterface *configpageinterface,uint id);
+public Q_SLOTS:
+    void showPluginConfigPage(KTextEditor::ConfigPageInterface *configpageinterface, uint id);
 
-    void slotWindowActivated ();
-    
-  protected:
-    virtual bool event( QEvent *e );
+    void slotWindowActivated();
+
+protected:
+    virtual bool event(QEvent *e);
 };
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

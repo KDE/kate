@@ -24,53 +24,52 @@
 
 #include <QMenu>
 
-KateSessionsAction::KateSessionsAction(const QString& text, QObject* parent, KateSessionManager *manager)
-  : KActionMenu(text, parent)
+KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager)
+    : KActionMenu(text, parent)
 {
-  m_manager = manager ? manager : KateSessionManager::self();
+    m_manager = manager ? manager : KateSessionManager::self();
 
-  connect(menu(), SIGNAL(aboutToShow()), this, SLOT(slotAboutToShow()));
+    connect(menu(), SIGNAL(aboutToShow()), this, SLOT(slotAboutToShow()));
 
-  sessionsGroup = new QActionGroup(menu());
+    sessionsGroup = new QActionGroup(menu());
 
-  // reason for Qt::QueuedConnection: when switching session with N mainwindows
-  // to e.g. 1 mainwindow, the last N - 1 mainwindows are deleted. Invoking
-  // a session switch without queued connection deletes a mainwindow in which
-  // the current code path is executed ---> crash. See bug #227008.
-  connect(sessionsGroup, SIGNAL(triggered(QAction*)), this, SLOT(openSession(QAction*)), Qt::QueuedConnection);
+    // reason for Qt::QueuedConnection: when switching session with N mainwindows
+    // to e.g. 1 mainwindow, the last N - 1 mainwindows are deleted. Invoking
+    // a session switch without queued connection deletes a mainwindow in which
+    // the current code path is executed ---> crash. See bug #227008.
+    connect(sessionsGroup, SIGNAL(triggered(QAction*)), this, SLOT(openSession(QAction*)), Qt::QueuedConnection);
 
-  connect(m_manager, SIGNAL(sessionChanged()), this, SLOT(slotSessionChanged()));
+    connect(m_manager, SIGNAL(sessionChanged()), this, SLOT(slotSessionChanged()));
 
-  setDisabled(m_manager->sessionList().size() == 0);
+    setDisabled(m_manager->sessionList().size() == 0);
 }
 
 void KateSessionsAction::slotAboutToShow()
 {
-  qDeleteAll(sessionsGroup->actions());
+    qDeleteAll(sessionsGroup->actions());
 
-  KateSessionList slist = m_manager->sessionList();
-  qSort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
+    KateSessionList slist = m_manager->sessionList();
+    qSort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
 
-  slist = slist.mid(0, 10); // take first 10
+    slist = slist.mid(0, 10); // take first 10
 
-  foreach(const KateSession::Ptr &session, slist) {
-    QString sessionName = session->name();
-    sessionName.replace(QStringLiteral("&"), QStringLiteral("&&"));
-    QAction *action = new QAction(sessionName, sessionsGroup);
-    action->setData(QVariant(session->name()));
-    menu()->addAction(action);
-  }
+    foreach(const KateSession::Ptr & session, slist) {
+        QString sessionName = session->name();
+        sessionName.replace(QStringLiteral("&"), QStringLiteral("&&"));
+        QAction *action = new QAction(sessionName, sessionsGroup);
+        action->setData(QVariant(session->name()));
+        menu()->addAction(action);
+    }
 }
 
-void KateSessionsAction::openSession (QAction *action)
+void KateSessionsAction::openSession(QAction *action)
 {
-  const QString name = action->data().toString();
-  m_manager->activateSession(name);
+    const QString name = action->data().toString();
+    m_manager->activateSession(name);
 }
 
 void KateSessionsAction::slotSessionChanged()
 {
-  setDisabled(m_manager->sessionList().size() == 0);
+    setDisabled(m_manager->sessionList().size() == 0);
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

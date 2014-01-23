@@ -35,145 +35,146 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 
-KateSessionManageDialog::KateSessionManageDialog (QWidget *parent)
+KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)
     : QDialog(parent)
 {
-  setWindowTitle(i18n("Manage Sessions"));
+    setWindowTitle(i18n("Manage Sessions"));
 
-  QVBoxLayout *mainLayout = new QVBoxLayout(this);
-  setLayout(mainLayout);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    setLayout(mainLayout);
 
-  QHBoxLayout *hb = new QHBoxLayout();
-  mainLayout->addLayout(hb);
+    QHBoxLayout *hb = new QHBoxLayout();
+    mainLayout->addLayout(hb);
 
-  m_sessions = new QTreeWidget(this);
-  m_sessions->setMinimumSize(400, 200);
-  hb->addWidget(m_sessions);
-  m_sessions->setColumnCount(2);
-  QStringList header;
-  header << i18n("Session Name");
-  header << i18nc("The number of open documents", "Open Documents");
-  m_sessions->setHeaderLabels(header);
-  m_sessions->setRootIsDecorated( false );
-  m_sessions->setItemsExpandable( false );
-  m_sessions->setAllColumnsShowFocus( true );
-  m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
-  m_sessions->setSelectionMode (QAbstractItemView::SingleSelection);
+    m_sessions = new QTreeWidget(this);
+    m_sessions->setMinimumSize(400, 200);
+    hb->addWidget(m_sessions);
+    m_sessions->setColumnCount(2);
+    QStringList header;
+    header << i18n("Session Name");
+    header << i18nc("The number of open documents", "Open Documents");
+    m_sessions->setHeaderLabels(header);
+    m_sessions->setRootIsDecorated(false);
+    m_sessions->setItemsExpandable(false);
+    m_sessions->setAllColumnsShowFocus(true);
+    m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_sessions->setSelectionMode(QAbstractItemView::SingleSelection);
 
-  connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
+    connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
 
-  updateSessionList ();
-  m_sessions->resizeColumnToContents(0);
+    updateSessionList();
+    m_sessions->resizeColumnToContents(0);
 
-  // right column buttons
-  QDialogButtonBox *rightButtons = new QDialogButtonBox(this);
-  rightButtons->setOrientation(Qt::Vertical);
-  hb->addWidget(rightButtons);
+    // right column buttons
+    QDialogButtonBox *rightButtons = new QDialogButtonBox(this);
+    rightButtons->setOrientation(Qt::Vertical);
+    hb->addWidget(rightButtons);
 
-  m_rename = new QPushButton(i18n("&Rename..."));
-  connect (m_rename, SIGNAL(clicked()), this, SLOT(rename()));
-  rightButtons->addButton(m_rename, QDialogButtonBox::ApplyRole);
+    m_rename = new QPushButton(i18n("&Rename..."));
+    connect(m_rename, SIGNAL(clicked()), this, SLOT(rename()));
+    rightButtons->addButton(m_rename, QDialogButtonBox::ApplyRole);
 
-  m_del = new QPushButton();
-  KGuiItem::assign(m_del, KStandardGuiItem::del());
-  connect (m_del, SIGNAL(clicked()), this, SLOT(del()));
-  rightButtons->addButton(m_del, QDialogButtonBox::ApplyRole);
+    m_del = new QPushButton();
+    KGuiItem::assign(m_del, KStandardGuiItem::del());
+    connect(m_del, SIGNAL(clicked()), this, SLOT(del()));
+    rightButtons->addButton(m_del, QDialogButtonBox::ApplyRole);
 
-  // dialog buttons
-  QDialogButtonBox *bottomButtons = new QDialogButtonBox(this);
-  mainLayout->addWidget(bottomButtons);
+    // dialog buttons
+    QDialogButtonBox *bottomButtons = new QDialogButtonBox(this);
+    mainLayout->addWidget(bottomButtons);
 
-  QPushButton *closeButton = new QPushButton;
-  KGuiItem::assign(closeButton, KStandardGuiItem::close());
-  closeButton->setDefault(true);
-  bottomButtons->addButton(closeButton, QDialogButtonBox::RejectRole);
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(slotClose()));
+    QPushButton *closeButton = new QPushButton;
+    KGuiItem::assign(closeButton, KStandardGuiItem::close());
+    closeButton->setDefault(true);
+    bottomButtons->addButton(closeButton, QDialogButtonBox::RejectRole);
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(slotClose()));
 
-  m_openButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-open")), i18n("&Open"));
-  bottomButtons->addButton(m_openButton, QDialogButtonBox::AcceptRole);
-  connect(m_openButton, SIGNAL(clicked()), this, SLOT(open()));
+    m_openButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-open")), i18n("&Open"));
+    bottomButtons->addButton(m_openButton, QDialogButtonBox::AcceptRole);
+    connect(m_openButton, SIGNAL(clicked()), this, SLOT(open()));
 
-  // trigger action update
-  selectionChanged (NULL, NULL);
+    // trigger action update
+    selectionChanged(NULL, NULL);
 }
 
-KateSessionManageDialog::~KateSessionManageDialog ()
+KateSessionManageDialog::~KateSessionManageDialog()
 {}
 
 void KateSessionManageDialog::slotClose()
 {
-  done(0);
+    done(0);
 }
 
-void KateSessionManageDialog::selectionChanged (QTreeWidgetItem *current, QTreeWidgetItem *)
+void KateSessionManageDialog::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
-  const bool validItem = (current != NULL);
+    const bool validItem = (current != NULL);
 
-  m_rename->setEnabled (validItem);
-  m_del->setEnabled (validItem && (static_cast<KateSessionChooserItem*>(current))->session!=KateSessionManager::self()->activeSession());
-  m_openButton->setEnabled(true);
+    m_rename->setEnabled(validItem);
+    m_del->setEnabled(validItem && (static_cast<KateSessionChooserItem *>(current))->session != KateSessionManager::self()->activeSession());
+    m_openButton->setEnabled(true);
 }
 
-void KateSessionManageDialog::rename ()
+void KateSessionManageDialog::rename()
 {
-  KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem ());
+    KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem());
 
-  if (!item)
-    return;
+    if (!item) {
+        return;
+    }
 
-  bool ok = false;
-  QString name = QInputDialog::getText(QApplication::activeWindow(), // nasty trick:)
-                    i18n("Specify New Name for Session"), i18n("Session name:"),
-                    QLineEdit::Normal, item->session->name(), &ok);
+    bool ok = false;
+    QString name = QInputDialog::getText(QApplication::activeWindow(), // nasty trick:)
+                                         i18n("Specify New Name for Session"), i18n("Session name:"),
+                                         QLineEdit::Normal, item->session->name(), &ok);
 
-  if (!ok)
-    return;
+    if (!ok) {
+        return;
+    }
 
-  if (name.isEmpty())
-  {
-    KMessageBox::sorry (this, i18n("To save a session, you must specify a name."), i18n ("Missing Session Name"));
-    return;
-  }
+    if (name.isEmpty()) {
+        KMessageBox::sorry(this, i18n("To save a session, you must specify a name."), i18n("Missing Session Name"));
+        return;
+    }
 
-  if (KateSessionManager::self()->renameSession(item->session, name)) {
+    if (KateSessionManager::self()->renameSession(item->session, name)) {
+        updateSessionList();
+    }
+}
+
+void KateSessionManageDialog::del()
+{
+    KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem());
+
+    if (!item) {
+        return;
+    }
+
+    KateSessionManager::self()->deleteSession(item->session);
     updateSessionList();
-  }
 }
 
-void KateSessionManageDialog::del ()
+void KateSessionManageDialog::open()
 {
-  KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem ());
+    KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem());
 
-  if (!item) {
-    return;
-  }
+    if (!item) {
+        return;
+    }
 
-  KateSessionManager::self()->deleteSession(item->session);
-  updateSessionList ();
+    hide();
+    KateSessionManager::self()->activateSession(item->session);
+    done(0);
 }
 
-void KateSessionManageDialog::open ()
+void KateSessionManageDialog::updateSessionList()
 {
-  KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem ());
+    m_sessions->clear();
 
-  if (!item)
-    return;
+    KateSessionList slist = KateSessionManager::self()->sessionList();
+    qSort(slist.begin(), slist.end(), KateSession::compareByName);
 
-  hide();
-  KateSessionManager::self()->activateSession (item->session);
-  done(0);
+    foreach(const KateSession::Ptr & session, slist) {
+        new KateSessionChooserItem(m_sessions, session);
+    }
 }
 
-void KateSessionManageDialog::updateSessionList ()
-{
-  m_sessions->clear ();
-
-  KateSessionList slist = KateSessionManager::self()->sessionList();
-  qSort(slist.begin(), slist.end(), KateSession::compareByName);
-
-  foreach(const KateSession::Ptr &session, slist) {
-    new KateSessionChooserItem(m_sessions, session);
-  }
-}
-
-// kate: space-indent on; indent-width 2; replace-tabs on;

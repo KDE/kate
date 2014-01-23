@@ -30,20 +30,22 @@ class KConfig;
 
 class KATE_TESTS_EXPORT KateSession : public QSharedData
 {
-  public:
+public:
     /**
      * Define a Shared-Pointer type
      */
     typedef QExplicitlySharedDataPointer<KateSession> Ptr;
 
-  public:
+public:
     ~KateSession();
 
     /**
      * session name
      * @return name for this session
      */
-    const QString &name() const { return m_name; }
+    const QString &name() const {
+        return m_name;
+    }
 
     /**
      * session config
@@ -59,7 +61,9 @@ class KATE_TESTS_EXPORT KateSession : public QSharedData
      * count of documents in this session
      * @return documents count
      */
-    unsigned int documents() const { return m_documents; }
+    unsigned int documents() const {
+        return m_documents;
+    }
 
     /**
      * update @number of openned documents in session
@@ -69,7 +73,9 @@ class KATE_TESTS_EXPORT KateSession : public QSharedData
     /**
      * @return true if this is anonymouse/new session
      */
-    bool isAnonymous() const { return m_anonymous; }
+    bool isAnonymous() const {
+        return m_anonymous;
+    }
 
     /**
      * @return path to session file
@@ -79,12 +85,14 @@ class KATE_TESTS_EXPORT KateSession : public QSharedData
     /**
      * returns last save time of this session
      */
-    const QDateTime &timestamp() const { return m_timestamp; };
+    const QDateTime &timestamp() const {
+        return m_timestamp;
+    };
 
     /**
      * Factories
      */
-  public:
+public:
     static KateSession::Ptr create(const QString &file, const QString &name);
     static KateSession::Ptr createFrom(const KateSession::Ptr &session, const QString &file, const QString &name);
     static KateSession::Ptr createAnonymous(const QString &file);
@@ -93,7 +101,7 @@ class KATE_TESTS_EXPORT KateSession : public QSharedData
     static bool compareByName(const KateSession::Ptr &s1, const KateSession::Ptr &s2);
     static bool compareByTimeDesc(const KateSession::Ptr &s1, const KateSession::Ptr &s2);
 
-  private:
+private:
     friend class KateSessionManager;
     friend class KateSessionTest;
     /**
@@ -115,7 +123,7 @@ class KATE_TESTS_EXPORT KateSession : public QSharedData
      */
     KateSession(const QString &file, const QString &name, const bool anonymous, const KConfig *config = 0);
 
-  private:
+private:
     QString m_name;
     QString m_file;
     bool m_anonymous;
@@ -126,4 +134,3 @@ class KATE_TESTS_EXPORT KateSession : public QSharedData
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

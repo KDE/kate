@@ -32,24 +32,23 @@ class QPushButton;
 class KateSaveModifiedDialog: public QDialog
 {
     Q_OBJECT
-  public:
-    KateSaveModifiedDialog(QWidget *parent, QList<KTextEditor::Document*> documents);
+public:
+    KateSaveModifiedDialog(QWidget *parent, QList<KTextEditor::Document *> documents);
     virtual ~KateSaveModifiedDialog();
-    static bool queryClose(QWidget *parent, QList<KTextEditor::Document*> documents);
-  protected:
+    static bool queryClose(QWidget *parent, QList<KTextEditor::Document *> documents);
+protected:
     bool doSave();
-  protected Q_SLOTS:
+protected Q_SLOTS:
     void slotSelectAll();
-    void slotItemActivated(QTreeWidgetItem*, int);
+    void slotItemActivated(QTreeWidgetItem *, int);
     void slotSaveSelected();
     void slotDoNotSave();
 
-  private:
+private:
     QTreeWidgetItem *m_documentRoot;
     QTreeWidget *m_list;
     QPushButton *m_saveButton;
 };
 
 #endif
-// kate: space-indent on; indent-width 2; replace-tabs on;
 

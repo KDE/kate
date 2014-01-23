@@ -36,290 +36,300 @@
 
 QString KatePluginInfo::saveName() const
 {
-  return service->library();
+    return service->library();
 }
 
-KatePluginManager::KatePluginManager(QObject *parent) : QObject (parent)
+KatePluginManager::KatePluginManager(QObject *parent) : QObject(parent)
 {
-  setupPluginList ();
+    setupPluginList();
 }
 
 KatePluginManager::~KatePluginManager()
 {
-  // than unload the plugins
-  unloadAllPlugins ();
+    // than unload the plugins
+    unloadAllPlugins();
 }
 
 KatePluginManager *KatePluginManager::self()
 {
-  return KateApp::self()->pluginManager ();
+    return KateApp::self()->pluginManager();
 }
 
-void KatePluginManager::setupPluginList ()
+void KatePluginManager::setupPluginList()
 {
-  KService::List traderList = KServiceTypeTrader::self()->query(QStringLiteral("KTextEditor/Plugin"));
+    KService::List traderList = KServiceTypeTrader::self()->query(QStringLiteral("KTextEditor/Plugin"));
 
-  KatePluginList alwaysLoad;
-  KatePluginList others;
-  foreach(const KService::Ptr &ptr, traderList)
-  {
-    KatePluginInfo info;
-    info.service = ptr;
-    
-    // decide if this is an integral plugin
-    if (info.service->library() == QStringLiteral("katefiletreeplugin"))
-      info.alwaysLoad = true;
-    else
-      info.alwaysLoad = false;
-    
-    info.load = false;
-    info.plugin = 0L;
+    KatePluginList alwaysLoad;
+    KatePluginList others;
+    foreach(const KService::Ptr & ptr, traderList) {
+        KatePluginInfo info;
+        info.service = ptr;
 
-    if (info.alwaysLoad)
-      alwaysLoad.push_back (info);
-    else
-      others.push_back (info);
-  }
+        // decide if this is an integral plugin
+        if (info.service->library() == QStringLiteral("katefiletreeplugin")) {
+            info.alwaysLoad = true;
+        } else {
+            info.alwaysLoad = false;
+        }
 
-  /**
-   * prefer always load plugins in handling
-   */
-  m_pluginList = alwaysLoad;
-  m_pluginList << others;
+        info.load = false;
+        info.plugin = 0L;
 
-  /**
-   * construct fast lookup map
-   */
-  m_name2Plugin.clear ();
-  for (int i = 0; i < m_pluginList.size(); ++i)
-    m_name2Plugin[m_pluginList[i].service->library()] = &(m_pluginList[i]);
+        if (info.alwaysLoad) {
+            alwaysLoad.push_back(info);
+        } else {
+            others.push_back(info);
+        }
+    }
+
+    /**
+     * prefer always load plugins in handling
+     */
+    m_pluginList = alwaysLoad;
+    m_pluginList << others;
+
+    /**
+     * construct fast lookup map
+     */
+    m_name2Plugin.clear();
+    for (int i = 0; i < m_pluginList.size(); ++i) {
+        m_name2Plugin[m_pluginList[i].service->library()] = &(m_pluginList[i]);
+    }
 }
 
-void KatePluginManager::loadConfig (KConfig* config)
+void KatePluginManager::loadConfig(KConfig *config)
 {
-  // first: unload the plugins
-  unloadAllPlugins ();
+    // first: unload the plugins
+    unloadAllPlugins();
 
-  /**
-   * ask config object
-   */
-  if (config) {
+    /**
+     * ask config object
+     */
+    if (config) {
+        KConfigGroup cg = KConfigGroup(config, QStringLiteral("Kate Plugins"));
+
+        // disable all plugin if no config...
+        for (int i = 0; i < m_pluginList.size(); ++i) {
+            m_pluginList[i].load = cg.readEntry(m_pluginList[i].service->library(), false);
+        }
+    }
+
+    /**
+     * load plugins, some are always enforced to load!
+     */
+    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
+        if (it->load || it->alwaysLoad) {
+            loadPlugin(&(*it));
+
+            // restore config
+            if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (it->plugin)) {
+                KConfigGroup group(config, QString::fromLatin1("Plugin:%1:").arg(it->saveName()));
+                interface->readSessionConfig(group);
+            }
+        }
+    }
+}
+
+void KatePluginManager::writeConfig(KConfig *config)
+{
+    Q_ASSERT(config);
+
     KConfigGroup cg = KConfigGroup(config, QStringLiteral("Kate Plugins"));
+    foreach(const KatePluginInfo & plugin, m_pluginList) {
+        QString saveName = plugin.saveName();
 
-    // disable all plugin if no config...
-    for (int i = 0; i < m_pluginList.size(); ++i)
-      m_pluginList[i].load = cg.readEntry (m_pluginList[i].service->library(), false);
-  }
+        cg.writeEntry(saveName, plugin.load);
 
-  /**
-   * load plugins, some are always enforced to load!
-   */
-  for (KatePluginList::iterator it = m_pluginList.begin();it != m_pluginList.end(); ++it)
-  {
-    if (it->load || it->alwaysLoad)
-    {
-      loadPlugin(&(*it));
-
-      // restore config
-      if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (it->plugin)) {
-        KConfigGroup group (config, QString::fromLatin1("Plugin:%1:").arg(it->saveName()));
-        interface->readSessionConfig (group);
-      }
+        // save config
+        if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (plugin.plugin)) {
+            KConfigGroup group(config, QString::fromLatin1("Plugin:%1:").arg(saveName));
+            interface->writeSessionConfig(group);
+        }
     }
-  }
 }
 
-void KatePluginManager::writeConfig(KConfig* config)
+void KatePluginManager::unloadAllPlugins()
 {
-  Q_ASSERT( config );
-
-  KConfigGroup cg = KConfigGroup( config, QStringLiteral("Kate Plugins") );
-  foreach(const KatePluginInfo &plugin, m_pluginList)
-  {
-    QString saveName = plugin.saveName();
-
-    cg.writeEntry (saveName, plugin.load);
-
-    // save config
-    if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (plugin.plugin)) {
-      KConfigGroup group (config, QString::fromLatin1("Plugin:%1:").arg(saveName));
-      interface->writeSessionConfig (group);
+    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
+        if (it->plugin) {
+            unloadPlugin(&(*it));
+        }
     }
-  }
 }
 
-void KatePluginManager::unloadAllPlugins ()
+void KatePluginManager::enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config)
 {
-  for (KatePluginList::iterator it = m_pluginList.begin();it != m_pluginList.end(); ++it)
-  {
-    if (it->plugin)
-      unloadPlugin(&(*it));
-  }
-}
-
-void KatePluginManager::enableAllPluginsGUI (KateMainWindow *win, KConfigBase *config)
-{
-  for (KatePluginList::iterator it = m_pluginList.begin();it != m_pluginList.end(); ++it)
-  {
-    if (it->plugin)
-      enablePluginGUI(&(*it), win, config);
-  }
-}
-
-void KatePluginManager::disableAllPluginsGUI (KateMainWindow *win)
-{
-  for (KatePluginList::iterator it = m_pluginList.begin();it != m_pluginList.end(); ++it)
-  {
-    if (it->plugin)
-      disablePluginGUI(&(*it), win);
-  }
-}
-
-void KatePluginManager::loadPlugin (KatePluginInfo *item)
-{
-  const QString pluginName = item->service->library();
-  item->load = (item->plugin = item->service->createInstance<KTextEditor::Plugin>(this, QVariantList() << pluginName));
-  if (item->plugin)
-    emit KateApp::self ()->wrapper()->pluginCreated (pluginName, item->plugin);
-}
-
-void KatePluginManager::unloadPlugin (KatePluginInfo *item)
-{
-  disablePluginGUI (item);
-  delete item->plugin;
-  KTextEditor::Plugin *plugin = item->plugin;
-  item->plugin = 0L;
-  item->load=false;
-  emit KateApp::self ()->wrapper()->pluginDeleted (item->service->library(), plugin);
-}
-
-void KatePluginManager::enablePluginGUI (KatePluginInfo *item, KateMainWindow *win, KConfigBase *config)
-{
-  // plugin around at all?
-  if (!item->plugin)
-    return;
-
-  // lookup if there is already a view for it..
-  QObject *createdView = nullptr;
-  if (!win->pluginViews().contains(item->plugin))
-  {
-    // create the view + try to correctly load shortcuts, if it's a GUI Client
-    createdView = item->plugin->createView(win->wrapper());
-    if (createdView)
-      win->pluginViews().insert (item->plugin, createdView);
-  }
-
-  // load session config if needed
-  if (config && win->pluginViews().contains(item->plugin))
-  {
-    if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (win->pluginViews().value(item->plugin))) {
-      KConfigGroup group (config, QString::fromLatin1("Plugin:%1:MainWindow:0").arg(item->saveName()));
-      interface->readSessionConfig (group);
+    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
+        if (it->plugin) {
+            enablePluginGUI(&(*it), win, config);
+        }
     }
-  }
-
-  if (createdView)
-    emit win->wrapper()->pluginViewCreated (item->service->library(), createdView);
 }
 
-void KatePluginManager::enablePluginGUI (KatePluginInfo *item)
+void KatePluginManager::disableAllPluginsGUI(KateMainWindow *win)
 {
-  // plugin around at all?
-  if (!item->plugin)
-    return;
-
-  // enable the gui for all mainwindows...
-  for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++)
-    enablePluginGUI (item, KateApp::self()->mainWindow(i), 0);
+    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
+        if (it->plugin) {
+            disablePluginGUI(&(*it), win);
+        }
+    }
 }
 
-void KatePluginManager::disablePluginGUI (KatePluginInfo *item, KateMainWindow *win)
+void KatePluginManager::loadPlugin(KatePluginInfo *item)
 {
-  // plugin around at all?
-  if (!item->plugin)
-    return;
-
-  // lookup if there is a view for it..
-  if (!win->pluginViews().contains(item->plugin))
-    return;
-
-  // really delete the view of this plugin
-  QObject *deletedView = win->pluginViews().value(item->plugin);
-  delete deletedView;
-  win->pluginViews().remove (item->plugin);
-  emit win->wrapper()->pluginViewDeleted (item->service->library(), deletedView);
+    const QString pluginName = item->service->library();
+    item->load = (item->plugin = item->service->createInstance<KTextEditor::Plugin>(this, QVariantList() << pluginName));
+    if (item->plugin) {
+        emit KateApp::self()->wrapper()->pluginCreated(pluginName, item->plugin);
+    }
 }
 
-void KatePluginManager::disablePluginGUI (KatePluginInfo *item)
+void KatePluginManager::unloadPlugin(KatePluginInfo *item)
 {
-  // plugin around at all?
-  if (!item->plugin)
-    return;
-
-  // disable the gui for all mainwindows...
-  for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++)
-    disablePluginGUI (item, KateApp::self()->mainWindow(i));
+    disablePluginGUI(item);
+    delete item->plugin;
+    KTextEditor::Plugin *plugin = item->plugin;
+    item->plugin = 0L;
+    item->load = false;
+    emit KateApp::self()->wrapper()->pluginDeleted(item->service->library(), plugin);
 }
 
-KTextEditor::Plugin *KatePluginManager::plugin (const QString &name)
+void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, KConfigBase *config)
 {
-  /**
-   * name known?
-   */
-  if (!m_name2Plugin.contains(name))
-    return 0;
+    // plugin around at all?
+    if (!item->plugin) {
+        return;
+    }
 
-  /**
-   * real plugin instance, if any ;)
-   */
-  return m_name2Plugin.value(name)->plugin;
+    // lookup if there is already a view for it..
+    QObject *createdView = nullptr;
+    if (!win->pluginViews().contains(item->plugin)) {
+        // create the view + try to correctly load shortcuts, if it's a GUI Client
+        createdView = item->plugin->createView(win->wrapper());
+        if (createdView) {
+            win->pluginViews().insert(item->plugin, createdView);
+        }
+    }
+
+    // load session config if needed
+    if (config && win->pluginViews().contains(item->plugin)) {
+        if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (win->pluginViews().value(item->plugin))) {
+            KConfigGroup group(config, QString::fromLatin1("Plugin:%1:MainWindow:0").arg(item->saveName()));
+            interface->readSessionConfig(group);
+        }
+    }
+
+    if (createdView) {
+        emit win->wrapper()->pluginViewCreated(item->service->library(), createdView);
+    }
 }
 
-bool KatePluginManager::pluginAvailable (const QString &name)
+void KatePluginManager::enablePluginGUI(KatePluginInfo *item)
 {
-  return m_name2Plugin.contains (name);
+    // plugin around at all?
+    if (!item->plugin) {
+        return;
+    }
+
+    // enable the gui for all mainwindows...
+    for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
+        enablePluginGUI(item, KateApp::self()->mainWindow(i), 0);
+    }
 }
 
-class KTextEditor::Plugin *KatePluginManager::loadPlugin (const QString &name, bool permanent)
+void KatePluginManager::disablePluginGUI(KatePluginInfo *item, KateMainWindow *win)
 {
-  /**
-   * name known?
-   */
-  if (!m_name2Plugin.contains(name))
-    return 0;
+    // plugin around at all?
+    if (!item->plugin) {
+        return;
+    }
 
-  /**
-   * load, bail out on error
-   */
-  loadPlugin (m_name2Plugin.value(name));
-  if (!m_name2Plugin.value(name)->plugin)
-    return 0;
+    // lookup if there is a view for it..
+    if (!win->pluginViews().contains(item->plugin)) {
+        return;
+    }
 
-  /**
-   * perhaps patch not load again back to "ok, load it once again on next loadConfig"
-   */
-  m_name2Plugin.value(name)->load = permanent;
-  return m_name2Plugin.value(name)->plugin;
+    // really delete the view of this plugin
+    QObject *deletedView = win->pluginViews().value(item->plugin);
+    delete deletedView;
+    win->pluginViews().remove(item->plugin);
+    emit win->wrapper()->pluginViewDeleted(item->service->library(), deletedView);
 }
 
-void KatePluginManager::unloadPlugin (const QString &name, bool permanent)
+void KatePluginManager::disablePluginGUI(KatePluginInfo *item)
 {
-  /**
-   * name known?
-   */
-  if (!m_name2Plugin.contains(name))
-    return;
+    // plugin around at all?
+    if (!item->plugin) {
+        return;
+    }
 
-  /**
-   * unload
-   */
-  unloadPlugin (m_name2Plugin.value(name));
-
-  /**
-   * perhaps patch load again back to "ok, load it once again on next loadConfig"
-   */
-  m_name2Plugin.value(name)->load = !permanent;
+    // disable the gui for all mainwindows...
+    for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
+        disablePluginGUI(item, KateApp::self()->mainWindow(i));
+    }
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+KTextEditor::Plugin *KatePluginManager::plugin(const QString &name)
+{
+    /**
+     * name known?
+     */
+    if (!m_name2Plugin.contains(name)) {
+        return 0;
+    }
+
+    /**
+     * real plugin instance, if any ;)
+     */
+    return m_name2Plugin.value(name)->plugin;
+}
+
+bool KatePluginManager::pluginAvailable(const QString &name)
+{
+    return m_name2Plugin.contains(name);
+}
+
+class KTextEditor::Plugin *KatePluginManager::loadPlugin(const QString &name, bool permanent)
+{
+    /**
+     * name known?
+     */
+    if (!m_name2Plugin.contains(name)) {
+        return 0;
+    }
+
+    /**
+     * load, bail out on error
+     */
+    loadPlugin(m_name2Plugin.value(name));
+    if (!m_name2Plugin.value(name)->plugin) {
+        return 0;
+    }
+
+    /**
+     * perhaps patch not load again back to "ok, load it once again on next loadConfig"
+     */
+    m_name2Plugin.value(name)->load = permanent;
+    return m_name2Plugin.value(name)->plugin;
+}
+
+void KatePluginManager::unloadPlugin(const QString &name, bool permanent)
+{
+    /**
+     * name known?
+     */
+    if (!m_name2Plugin.contains(name)) {
+        return;
+    }
+
+    /**
+     * unload
+     */
+    unloadPlugin(m_name2Plugin.value(name));
+
+    /**
+     * perhaps patch load again back to "ok, load it once again on next loadConfig"
+     */
+    m_name2Plugin.value(name)->load = !permanent;
+}
 

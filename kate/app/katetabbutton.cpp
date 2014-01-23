@@ -35,7 +35,6 @@ QColor KateTabButton::s_predefinedColors[] = { Qt::red, Qt::yellow, Qt::green, Q
 const int KateTabButton::s_colorCount = 6;
 int KateTabButton::s_currentColor = 0;
 
-
 KateTabButton::KateTabButton(const QString &caption,
                              int button_id, QWidget *parent)
     : QPushButton(parent)
@@ -232,4 +231,3 @@ bool KateTabButton::isModified() const
     return m_modified;
 }
 
-// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs on; eol unix;

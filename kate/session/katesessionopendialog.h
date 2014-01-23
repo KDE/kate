@@ -33,31 +33,30 @@ class KateSessionOpenDialog : public QDialog
 {
     Q_OBJECT
 
-  public:
-    KateSessionOpenDialog (QWidget *parent);
-    ~KateSessionOpenDialog ();
+public:
+    KateSessionOpenDialog(QWidget *parent);
+    ~KateSessionOpenDialog();
 
-    KateSession::Ptr selectedSession ();
+    KateSession::Ptr selectedSession();
 
     enum {
-      resultOk,
-      resultCancel
-  };
+        resultOk,
+        resultCancel
+    };
 
-  protected Q_SLOTS:
+protected Q_SLOTS:
     void slotCanceled();
     void slotOpen();
 
     /**
      * selection has changed
      */
-    void selectionChanged (QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
-  private:
+private:
     QTreeWidget *m_sessions;
     QPushButton *m_openButton;
 };
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

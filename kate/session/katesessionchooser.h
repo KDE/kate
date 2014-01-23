@@ -34,22 +34,22 @@ class KateSessionChooser : public QDialog
 {
     Q_OBJECT
 
-  public:
-    KateSessionChooser (QWidget *parent, const QString &lastSession);
-    ~KateSessionChooser ();
+public:
+    KateSessionChooser(QWidget *parent, const QString &lastSession);
+    ~KateSessionChooser();
 
-    KateSession::Ptr selectedSession ();
-    bool reopenLastSession ();
+    KateSession::Ptr selectedSession();
+    bool reopenLastSession();
 
     enum {
-      resultQuit = QDialog::Rejected,
-      resultOpen,
-      resultNew,
-      resultNone,
-      resultCopy
+        resultQuit = QDialog::Rejected,
+        resultOpen,
+        resultNew,
+        resultNone,
+        resultCopy
     };
 
-  protected Q_SLOTS:
+protected Q_SLOTS:
     void slotCancel();
     void slotOpen();
     void slotNew();
@@ -59,12 +59,12 @@ class KateSessionChooser : public QDialog
     /**
      * selection has changed
      */
-    void selectionChanged (QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
-  protected:
+protected:
     void resizeEvent(QResizeEvent *);
-    
-  private:
+
+private:
     QTreeWidget *m_sessions;
     QCheckBox *m_useLast;
     QPushButton *m_openButton;
@@ -72,4 +72,3 @@ class KateSessionChooser : public QDialog
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

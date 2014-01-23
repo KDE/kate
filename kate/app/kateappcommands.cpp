@@ -2,7 +2,6 @@
    Copyright (C) 2009 Erlend Hamberg <ehamberg@gmail.com>
    Copyright (C) 2011 Svyatoslav Kuzmich <svatoslav1@gmail.com>
 
-
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -28,12 +27,12 @@
 #include "katedocmanager.h"
 #include "kateviewmanager.h"
 
-KateAppCommands* KateAppCommands::m_instance = 0;
+KateAppCommands *KateAppCommands::m_instance = 0;
 
 KateAppCommands::KateAppCommands()
     : KTextEditor::Command()
 {
-    KTextEditor::CommandInterface *iface = qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
+    KTextEditor::CommandInterface *iface = qobject_cast<KTextEditor::CommandInterface *>(KTextEditor::Editor::instance());
 
     if (iface) {
         iface->registerCommand(this);
@@ -52,7 +51,7 @@ KateAppCommands::KateAppCommands()
 
 KateAppCommands::~KateAppCommands()
 {
-    KTextEditor::CommandInterface *iface = qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
+    KTextEditor::CommandInterface *iface = qobject_cast<KTextEditor::CommandInterface *>(KTextEditor::Editor::instance());
 
     if (iface) {
         iface->unregisterCommand(this);
@@ -61,7 +60,7 @@ KateAppCommands::~KateAppCommands()
     m_instance = 0;
 }
 
-const QStringList& KateAppCommands::cmds()
+const QStringList &KateAppCommands::cmds()
 {
     static QStringList l;
 
@@ -78,8 +77,8 @@ const QStringList& KateAppCommands::cmds()
 
 bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString &msg)
 {
-    QStringList args(cmd.split( QRegExp(QStringLiteral("\\s+")), QString::SkipEmptyParts)) ;
-    QString command( args.takeFirst() );
+    QStringList args(cmd.split(QRegExp(QStringLiteral("\\s+")), QString::SkipEmptyParts)) ;
+    QString command(args.takeFirst());
 
     KateMainWindow *mainWin = KateApp::self()->activeKateMainWindow();
 
@@ -95,37 +94,41 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     // Other buffer commands are implemented by the KateFileTree plugin
     else if (re_close.exactMatch(command)) {
         QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
-    }
-    else if (re_quit.exactMatch(command)) {
+    } else if (re_quit.exactMatch(command)) {
         const bool save = !re_quit.cap(1).isEmpty(); // :[w]q
         const bool allDocuments = !re_quit.cap(2).isEmpty(); // :q[all]
         const bool doNotPromptForSave = !re_quit.cap(3).isEmpty(); // :q[!]
 
         if (allDocuments) {
-            if (save)
+            if (save) {
                 KateDocManager::self()->saveAll();
+            }
 
             if (doNotPromptForSave) {
-              foreach ( KTextEditor::Document *doc, KateDocManager::self()->documentList() )
-                if ( doc->isModified() )
-                  doc->setModified(false);
+                foreach(KTextEditor::Document * doc, KateDocManager::self()->documentList())
+                if (doc->isModified()) {
+                    doc->setModified(false);
+                }
             }
 
             QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
         } else {
-            if (save && view->document()->isModified())
+            if (save && view->document()->isModified()) {
                 view->document()->documentSave();
+            }
 
-            if (doNotPromptForSave)
+            if (doNotPromptForSave) {
                 view->document()->setModified(false);
+            }
 
             if (mainWin->viewManager()->count() > 1) {
-              QTimer::singleShot(0, mainWin->viewManager(), SLOT(slotCloseCurrentViewSpace()));
+                QTimer::singleShot(0, mainWin->viewManager(), SLOT(slotCloseCurrentViewSpace()));
             } else {
-                if (KateDocManager::self()->documents() > 1)
-                  QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
-                else
-                  QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
+                if (KateDocManager::self()->documents() > 1) {
+                    QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
+                } else {
+                    QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
+                }
             }
         }
     } else if (re_exit.exactMatch(command)) {
@@ -137,14 +140,14 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
                 view->document()->documentSave();
             }
 
-            if (KateDocManager::self()->documents() > 1)
+            if (KateDocManager::self()->documents() > 1) {
                 QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
-            else
+            } else {
                 QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
+            }
         }
         QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
-    }
-    else if (re_edit.exactMatch(command)) {
+    } else if (re_edit.exactMatch(command)) {
         QString argument = args.join(QLatin1Char(' '));
         if (argument.isEmpty() || argument == QStringLiteral("!")) {
             view->document()->documentReload();
@@ -153,39 +156,35 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
             QUrl url;
             QUrl arg2path(argument);
             if (base.isValid()) { // first try to use the same path as the current open document has
-              url = QUrl(base.resolved(arg2path));  //resolved handles the case where the args is a relative path, and is the same as using QUrl(args) elsewise
+                url = QUrl(base.resolved(arg2path));  //resolved handles the case where the args is a relative path, and is the same as using QUrl(args) elsewise
             } else { // else use the cwd
-              url = QUrl(QUrl(QDir::currentPath() + QStringLiteral("/")).resolved(arg2path)); // + "/" is needed because of http://lists.qt.nokia.com/public/qt-interest/2011-May/033913.html
+                url = QUrl(QUrl(QDir::currentPath() + QStringLiteral("/")).resolved(arg2path)); // + "/" is needed because of http://lists.qt.nokia.com/public/qt-interest/2011-May/033913.html
             }
-            QFileInfo file( url.toLocalFile() );
-            KTextEditor::Document *doc = KateDocManager::self()->findDocument( url );
+            QFileInfo file(url.toLocalFile());
+            KTextEditor::Document *doc = KateDocManager::self()->findDocument(url);
             if (doc) {
-                mainWin->viewManager()->activateView( doc );
+                mainWin->viewManager()->activateView(doc);
             } else if (file.exists()) {
-                mainWin->viewManager()->openUrl( url, QString(), true );
+                mainWin->viewManager()->openUrl(url, QString(), true);
             } else {
-                mainWin->viewManager()->openUrl( QUrl(), QString(), true )->saveAs ( url );
+                mainWin->viewManager()->openUrl(QUrl(), QString(), true)->saveAs(url);
             }
         }
-    }
-    else if (re_new.exactMatch(command)) {
+    } else if (re_new.exactMatch(command)) {
         if (re_new.cap(1) == QStringLiteral("v")) { // vertical split
             mainWin->viewManager()->slotSplitViewSpaceVert();
         } else {                    // horizontal split
             mainWin->viewManager()->slotSplitViewSpaceHoriz();
         }
         mainWin->viewManager()->slotDocumentNew();
-    }
-    else if (command == QStringLiteral("enew")) {
+    } else if (command == QStringLiteral("enew")) {
         mainWin->viewManager()->slotDocumentNew();
-    }
-    else if (re_split.exactMatch(command)) {
+    } else if (re_split.exactMatch(command)) {
         mainWin->viewManager()->slotSplitViewSpaceHoriz();
-    }
-    else if (re_vsplit.exactMatch(command)) {
+    } else if (re_vsplit.exactMatch(command)) {
         mainWin->viewManager()->slotSplitViewSpaceVert();
     } else if (re_only.exactMatch(command)) {
-      mainWin->viewManager()->slotCloseOtherViews();
+        mainWin->viewManager()->slotCloseOtherViews();
     }
 
     return true;
@@ -205,8 +204,7 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
                    "<p>If no file name is associated with the document, "
                    "a file dialog will be shown.</p>");
         return true;
-    }
-    else if (re_quit.exactMatch(cmd)) {
+    } else if (re_quit.exactMatch(cmd)) {
         msg = i18n("<p><b>q/qa/wq/wqa &mdash; [write and] quit</b></p>"
                    "<p>Usage: <tt><b>[w]q[a]</b></tt></p>"
                    "<p>Quits the application. If <tt>w</tt> is prepended, it also writes"
@@ -220,8 +218,7 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
                    "If no file name is associated with the document and it should be written to disk, "
                    "a file dialog will be shown.</p>");
         return true;
-    }
-    else if (re_exit.exactMatch(cmd)) {
+    } else if (re_exit.exactMatch(cmd)) {
         msg = i18n("<p><b>x/xa &mdash; write and quit</b></p>"
                    "<p>Usage: <tt><b>x[a]</b></tt></p>"
                    "<p>Saves document(s) and quits (e<b>x</b>its). This command "
@@ -234,20 +231,17 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
                    "<p>Unlike the 'w' commands, this command only writes the document if it is modified."
                    "</p>");
         return true;
-    }
-    else if (re_split.exactMatch(cmd)) {
+    } else if (re_split.exactMatch(cmd)) {
         msg = i18n("<p><b>sp,split&mdash; Split horizontally the current view into two</b></p>"
                    "<p>Usage: <tt><b>sp[lit]</b></tt></p>"
                    "<p>The result is two views on the same document.</p>");
         return true;
-    }
-    else if (re_vsplit.exactMatch(cmd)) {
+    } else if (re_vsplit.exactMatch(cmd)) {
         msg = i18n("<p><b>vs,vsplit&mdash; Split vertically the current view into two</b></p>"
                    "<p>Usage: <tt><b>vs[plit]</b></tt></p>"
                    "<p>The result is two views on the same document.</p>");
         return true;
-    }
-    else if (re_new.exactMatch(cmd)) {
+    } else if (re_new.exactMatch(cmd)) {
         msg = i18n("<p><b>[v]new &mdash; split view and create new document</b></p>"
                    "<p>Usage: <tt><b>[v]new</b></tt></p>"
                    "<p>Splits the current view and opens a new document in the new view."
@@ -256,8 +250,7 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
                    " <tt>vnew</tt> &mdash; splits the view vertically and opens a new document.<br />"
                    "</p>");
         return true;
-    }
-    else if (re_edit.exactMatch(cmd)) {
+    } else if (re_edit.exactMatch(cmd)) {
         msg = i18n("<p><b>e[dit] &mdash; reload current document</b></p>"
                    "<p>Usage: <tt><b>e[dit]</b></tt></p>"
                    "<p>Starts <b>e</b>diting the current document again. This is useful to re-edit"

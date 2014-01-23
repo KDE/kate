@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
-  
-   Copyright (C) 2009 Joseph Wenninger <jowenn@kde.org>   
+
+   Copyright (C) 2009 Joseph Wenninger <jowenn@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -23,46 +23,48 @@
 #include <QCoreApplication>
 #include <QDBusConnectionInterface>
 
-int KateRunningInstanceInfo::dummy_session=0;
+int KateRunningInstanceInfo::dummy_session = 0;
 
 bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
 {
-  QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface ();
-  
-  // look up all running kate instances and there sessions
-  QDBusReply<QStringList> servicesReply = i->registeredServiceNames ();
-  QStringList services;
-  if (servicesReply.isValid())
-    services = servicesReply.value ();
+    QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface();
 
-  QString serviceName;
-
-  QString my_pid = QString::number(QCoreApplication::applicationPid());
-
-  foreach (const QString &s, services)
-  {
-    if (s.startsWith (QStringLiteral("org.kde.kate-")))
-    {
-      if (s.contains(my_pid)) continue;
-      KateRunningInstanceInfo* rii=new KateRunningInstanceInfo(s);
-      if (rii->valid)
-      {
-        if (map->contains(rii->sessionName)) return false; //ERROR no two instances may have the same session name
-        map->insert(rii->sessionName,rii);        
-        //std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
-      } else delete rii;
+    // look up all running kate instances and there sessions
+    QDBusReply<QStringList> servicesReply = i->registeredServiceNames();
+    QStringList services;
+    if (servicesReply.isValid()) {
+        services = servicesReply.value();
     }
-  }
-  return true;
+
+    QString serviceName;
+
+    QString my_pid = QString::number(QCoreApplication::applicationPid());
+
+    foreach(const QString & s, services) {
+        if (s.startsWith(QStringLiteral("org.kde.kate-"))) {
+            if (s.contains(my_pid)) {
+                continue;
+            }
+            KateRunningInstanceInfo *rii = new KateRunningInstanceInfo(s);
+            if (rii->valid) {
+                if (map->contains(rii->sessionName)) {
+                    return false;    //ERROR no two instances may have the same session name
+                }
+                map->insert(rii->sessionName, rii);
+                //std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
+            } else {
+                delete rii;
+            }
+        }
+    }
+    return true;
 }
 
-void cleanupRunningKateAppInstanceMap(KateRunningInstanceMap *map) 
+void cleanupRunningKateAppInstanceMap(KateRunningInstanceMap *map)
 {
-  for(KateRunningInstanceMap::const_iterator it=map->constBegin();it!=map->constEnd();++it)
-  {
-    delete it.value();
-  }
-  map->clear();
+    for (KateRunningInstanceMap::const_iterator it = map->constBegin(); it != map->constEnd(); ++it) {
+        delete it.value();
+    }
+    map->clear();
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

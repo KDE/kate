@@ -30,42 +30,43 @@ class QStandardItemModel;
 class QSortFilterProxyModel;
 class QTreeView;
 
-class KateQuickOpen : public QWidget {
+class KateQuickOpen : public QWidget
+{
     Q_OBJECT
-    public:
-        KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow);
-        /**
-         * update state
-         * will fill model with current open documents, project documents, ...
-         */
-        void update ();
+public:
+    KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow);
+    /**
+     * update state
+     * will fill model with current open documents, project documents, ...
+     */
+    void update();
 
-    protected:
-        bool eventFilter(QObject *obj, QEvent *event);
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
 
-    private Q_SLOTS:
-        void reselectFirst();
+private Q_SLOTS:
+    void reselectFirst();
 
-        /**
-         * Return pressed, activate the selected document
-         * and go back to background
-         */
-        void slotReturnPressed ();
+    /**
+     * Return pressed, activate the selected document
+     * and go back to background
+     */
+    void slotReturnPressed();
 
-    private:
-        KateMainWindow *m_mainWindow;
-        QTreeView *m_listView;
-        KLineEdit *m_inputLine;
+private:
+    KateMainWindow *m_mainWindow;
+    QTreeView *m_listView;
+    KLineEdit *m_inputLine;
 
-        /**
-         * our model we search in
-         */
-        QStandardItemModel *m_base_model;
+    /**
+     * our model we search in
+     */
+    QStandardItemModel *m_base_model;
 
-        /**
-         * filtered model we search in
-         */
-        QSortFilterProxyModel *m_model;
+    /**
+     * filtered model we search in
+     */
+    QSortFilterProxyModel *m_model;
 };
 
 #endif

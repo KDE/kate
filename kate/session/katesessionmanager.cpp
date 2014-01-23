@@ -46,475 +46,466 @@
 
 //BEGIN KateSessionManager
 
-KateSessionManager::KateSessionManager (QObject *parent, const QString &sessionsDir)
-  : QObject (parent)
+KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsDir)
+    : QObject(parent)
 {
-  if (sessionsDir.isEmpty()) {
-    m_sessionsDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/sessions");
-  } else {
-    m_sessionsDir = sessionsDir;
-  }
+    if (sessionsDir.isEmpty()) {
+        m_sessionsDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/sessions");
+    } else {
+        m_sessionsDir = sessionsDir;
+    }
 
-  QDir().mkpath(m_sessionsDir); // create dir if needed
-  qCDebug(LOG_KATE) << "LOCAL SESSION DIR: " << m_sessionsDir;
+    QDir().mkpath(m_sessionsDir); // create dir if needed
+    qCDebug(LOG_KATE) << "LOCAL SESSION DIR: " << m_sessionsDir;
 
-  m_dirWatch = new KDirWatch(this);
-  m_dirWatch->addDir(m_sessionsDir);
-  connect(m_dirWatch, SIGNAL(dirty(const QString &)), this, SLOT(updateSessionList()));
+    m_dirWatch = new KDirWatch(this);
+    m_dirWatch->addDir(m_sessionsDir);
+    connect(m_dirWatch, SIGNAL(dirty(QString)), this, SLOT(updateSessionList()));
 
-  updateSessionList();
+    updateSessionList();
 
-  m_activeSession = KateSession::createAnonymous(anonymousSessionFile());
+    m_activeSession = KateSession::createAnonymous(anonymousSessionFile());
 }
 
 KateSessionManager::~KateSessionManager()
 {
-  delete m_dirWatch;
+    delete m_dirWatch;
 }
 
 KateSessionManager *KateSessionManager::self()
 {
-  return KateApp::self()->sessionManager();
+    return KateApp::self()->sessionManager();
 }
 
 void KateSessionManager::updateSessionList()
 {
-  QStringList list;
+    QStringList list;
 
-  // Let's get a list of all session we have atm
-  QDir dir (m_sessionsDir, QStringLiteral("*.katesession"));
+    // Let's get a list of all session we have atm
+    QDir dir(m_sessionsDir, QStringLiteral("*.katesession"));
 
-  for (unsigned int i = 0; i < dir.count(); ++i) {
-    QString name = dir[i];
-    name.chop(12); // .katesession
-    list << QUrl::fromPercentEncoding(name.toLatin1());
-  }
-
-  // delete old items;
-  QMutableHashIterator<QString, KateSession::Ptr> i(m_sessions);
-
-  while (i.hasNext()) {
-    i.next();
-    const int idx = list.indexOf(i.key());
-    if (idx == -1) { // the key is invalid, remove it from m_session
-      if (i.value() != m_activeSession) { // if active, ignore missing config
-        i.remove();
-      }
-    } else { // remove it from scan list
-      list.removeAt(idx);
+    for (unsigned int i = 0; i < dir.count(); ++i) {
+        QString name = dir[i];
+        name.chop(12); // .katesession
+        list << QUrl::fromPercentEncoding(name.toLatin1());
     }
-  }
 
-  // load the new ones
-  foreach(const QString &newName, list) {
-    const QString file = sessionFileForName(newName);
-    m_sessions[newName] = KateSession::create(file, newName);
-  }
+    // delete old items;
+    QMutableHashIterator<QString, KateSession::Ptr> i(m_sessions);
+
+    while (i.hasNext()) {
+        i.next();
+        const int idx = list.indexOf(i.key());
+        if (idx == -1) { // the key is invalid, remove it from m_session
+            if (i.value() != m_activeSession) { // if active, ignore missing config
+                i.remove();
+            }
+        } else { // remove it from scan list
+            list.removeAt(idx);
+        }
+    }
+
+    // load the new ones
+    foreach(const QString & newName, list) {
+        const QString file = sessionFileForName(newName);
+        m_sessions[newName] = KateSession::create(file, newName);
+    }
 }
 
-bool KateSessionManager::activateSession (KateSession::Ptr session,
-                                          const bool closeAndSaveLast,
-                                          const bool loadNew)
+bool KateSessionManager::activateSession(KateSession::Ptr session,
+        const bool closeAndSaveLast,
+        const bool loadNew)
 {
-  if (m_activeSession == session) {
-    return true;
-  }
-
-  if (!session->isAnonymous()) {
-    //check if the requested session is already open in another instance
-    KateRunningInstanceMap instances;
-    if (!fillinRunningKateAppInstances(&instances))
-    {
-      KMessageBox::error(0,i18n("Internal error: there is more than one instance open for a given session."));
-      return false;
-    }
-
-    if (instances.contains(session->name()))
-    {
-      if (KMessageBox::questionYesNo(0,i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?",session->name()),
-            QString(),KStandardGuiItem::yes(),KStandardGuiItem::no(),QStringLiteral("katesessionmanager_switch_instance"))==KMessageBox::Yes)
-      {
-        instances[session->name()]->dbus_if->call(QStringLiteral("activate"));
-        cleanupRunningKateAppInstanceMap(&instances);
-        return false;
-      }
-    }
-
-    cleanupRunningKateAppInstanceMap(&instances);
-  }
-  // try to close and save last session
-  if (closeAndSaveLast) {
-    if (KateApp::self()->activeKateMainWindow()) {
-      if (!KateApp::self()->activeKateMainWindow()->queryClose_internal())
+    if (m_activeSession == session) {
         return true;
     }
 
-    // save last session or not?
-    saveActiveSession ();
+    if (!session->isAnonymous()) {
+        //check if the requested session is already open in another instance
+        KateRunningInstanceMap instances;
+        if (!fillinRunningKateAppInstances(&instances)) {
+            KMessageBox::error(0, i18n("Internal error: there is more than one instance open for a given session."));
+            return false;
+        }
 
-    // really close last
-    KateDocManager::self()->closeAllDocuments ();
-  }
+        if (instances.contains(session->name())) {
+            if (KMessageBox::questionYesNo(0, i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?", session->name()),
+                                           QString(), KStandardGuiItem::yes(), KStandardGuiItem::no(), QStringLiteral("katesessionmanager_switch_instance")) == KMessageBox::Yes) {
+                instances[session->name()]->dbus_if->call(QStringLiteral("activate"));
+                cleanupRunningKateAppInstanceMap(&instances);
+                return false;
+            }
+        }
 
-  // set the new session
-  m_activeSession = session;
+        cleanupRunningKateAppInstanceMap(&instances);
+    }
+    // try to close and save last session
+    if (closeAndSaveLast) {
+        if (KateApp::self()->activeKateMainWindow()) {
+            if (!KateApp::self()->activeKateMainWindow()->queryClose_internal()) {
+                return true;
+            }
+        }
 
-  // there is one case in which we don't want the restoration and that is
-  // when restoring session from session manager.
-  // In that case the restore is handled by the caller
-  if (loadNew) {
-    loadSession(session);
-  }
+        // save last session or not?
+        saveActiveSession();
 
-  emit sessionChanged();
-  return true;
+        // really close last
+        KateDocManager::self()->closeAllDocuments();
+    }
+
+    // set the new session
+    m_activeSession = session;
+
+    // there is one case in which we don't want the restoration and that is
+    // when restoring session from session manager.
+    // In that case the restore is handled by the caller
+    if (loadNew) {
+        loadSession(session);
+    }
+
+    emit sessionChanged();
+    return true;
 }
 
-void KateSessionManager::loadSession(const KateSession::Ptr& session) const
+void KateSessionManager::loadSession(const KateSession::Ptr &session) const
 {
-  // open the new session
-  KSharedConfigPtr sharedConfig = KSharedConfig::openConfig();
-  KConfig *sc = session->config();
-  const bool loadDocs = !session->isAnonymous(); // do not load docs for new sessions
+    // open the new session
+    KSharedConfigPtr sharedConfig = KSharedConfig::openConfig();
+    KConfig *sc = session->config();
+    const bool loadDocs = !session->isAnonymous(); // do not load docs for new sessions
 
-  // if we have no session config object, try to load the default
-  // (anonymous/unnamed sessions)
-  // load plugin config + plugins
-  KatePluginManager::self()->loadConfig (sc);
+    // if we have no session config object, try to load the default
+    // (anonymous/unnamed sessions)
+    // load plugin config + plugins
+    KatePluginManager::self()->loadConfig(sc);
 
-  if (loadDocs)
-    KateApp::self()->documentManager()->restoreDocumentList (sc);
-
-  // window config
-  KConfigGroup c(sharedConfig, "General");
-
-  if (c.readEntry("Restore Window Configuration", true))
-  {
-    KConfig *cfg = sc;
-    bool delete_cfg = false;
-    // a new, named session, read settings of the default session.
-    if ( ! sc->hasGroup("Open MainWindows") ) {
-      delete_cfg = true;
-      cfg = new KConfig(anonymousSessionFile(), KConfig::SimpleConfig);
+    if (loadDocs) {
+        KateApp::self()->documentManager()->restoreDocumentList(sc);
     }
 
-    int wCount = cfg->group("Open MainWindows").readEntry("Count", 1);
+    // window config
+    KConfigGroup c(sharedConfig, "General");
 
-    for (int i = 0; i < wCount; ++i)
-    {
-      if (i >= KateApp::self()->mainWindowsCount())
-      {
-        KateApp::self()->newMainWindow(cfg, QString::fromLatin1("MainWindow%1").arg(i));
-      }
-      else
-      {
-        KateApp::self()->mainWindow(i)->readProperties(KConfigGroup(cfg, QString::fromLatin1("MainWindow%1").arg(i) ));
-      }
+    if (c.readEntry("Restore Window Configuration", true)) {
+        KConfig *cfg = sc;
+        bool delete_cfg = false;
+        // a new, named session, read settings of the default session.
+        if (! sc->hasGroup("Open MainWindows")) {
+            delete_cfg = true;
+            cfg = new KConfig(anonymousSessionFile(), KConfig::SimpleConfig);
+        }
 
-      KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(cfg, QString::fromLatin1("MainWindow%1 Settings").arg(i)));
+        int wCount = cfg->group("Open MainWindows").readEntry("Count", 1);
+
+        for (int i = 0; i < wCount; ++i) {
+            if (i >= KateApp::self()->mainWindowsCount()) {
+                KateApp::self()->newMainWindow(cfg, QString::fromLatin1("MainWindow%1").arg(i));
+            } else {
+                KateApp::self()->mainWindow(i)->readProperties(KConfigGroup(cfg, QString::fromLatin1("MainWindow%1").arg(i)));
+            }
+
+            KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(cfg, QString::fromLatin1("MainWindow%1 Settings").arg(i)));
+        }
+
+        if (delete_cfg) {
+            delete cfg;
+        }
+
+        // remove mainwindows we need no longer...
+        if (wCount > 0) {
+            while (wCount < KateApp::self()->mainWindowsCount()) {
+                delete KateApp::self()->mainWindow(KateApp::self()->mainWindowsCount() - 1);
+            }
+        }
     }
-
-    if (delete_cfg) {
-      delete cfg;
-    }
-
-    // remove mainwindows we need no longer...
-    if (wCount > 0)
-    {
-      while (wCount < KateApp::self()->mainWindowsCount())
-        delete KateApp::self()->mainWindow(KateApp::self()->mainWindowsCount() - 1);
-    }
-  }
 }
 
 bool KateSessionManager::activateSession(const QString &name, const bool closeAndSaveLast, const bool loadNew)
 {
-  return activateSession(giveSession(name), closeAndSaveLast, loadNew);
+    return activateSession(giveSession(name), closeAndSaveLast, loadNew);
 }
 
 bool KateSessionManager::activateAnonymousSession()
 {
-  return activateSession(QString(), false);
+    return activateSession(QString(), false);
 }
 
 KateSession::Ptr KateSessionManager::giveSession(const QString &name)
 {
-  if (name.isEmpty()) {
-    return KateSession::createAnonymous(anonymousSessionFile());
-  }
+    if (name.isEmpty()) {
+        return KateSession::createAnonymous(anonymousSessionFile());
+    }
 
-  if (m_sessions.contains(name)) {
-    return m_sessions.value(name);
-  }
+    if (m_sessions.contains(name)) {
+        return m_sessions.value(name);
+    }
 
-  KateSession::Ptr s = KateSession::create(sessionFileForName(name), name);
-  saveSessionTo(s->config());
-  m_sessions[name] = s;
-  return s;
+    KateSession::Ptr s = KateSession::create(sessionFileForName(name), name);
+    saveSessionTo(s->config());
+    m_sessions[name] = s;
+    return s;
 }
 
 void KateSessionManager::deleteSession(KateSession::Ptr session)
 {
-  QFile::remove(session->file());
-  if (session != activeSession()) {
-    m_sessions.remove(session->name());
-  }
+    QFile::remove(session->file());
+    if (session != activeSession()) {
+        m_sessions.remove(session->name());
+    }
 }
 
 bool KateSessionManager::renameSession(KateSession::Ptr session, const QString &newName)
 {
-  Q_ASSERT(!newName.isEmpty());
+    Q_ASSERT(!newName.isEmpty());
 
-  if (session->name() == newName) {
+    if (session->name() == newName) {
+        return true;
+    }
+
+    const QString newFile = sessionFileForName(newName);
+
+    if (QFile::exists(newFile)) {
+        KMessageBox::sorry(QApplication::activeWindow(),
+                           i18n("The session could not be renamed to \"%1\", there already exists another session with the same name", newName),
+                           i18n("Session Renaming"));
+        return false;
+    }
+
+    session->config()->sync();
+
+    const QUrl srcUrl = QUrl::fromLocalFile(session->file());
+    const QUrl dstUrl = QUrl::fromLocalFile(newFile);
+    KIO::CopyJob *job = KIO::move(srcUrl, dstUrl, KIO::HideProgressInfo);
+
+    if (!job->exec()) {
+        KMessageBox::sorry(QApplication::activeWindow(),
+                           i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile),
+                           i18n("Session Renaming"));
+        return false;
+    }
+
+    m_sessions[newName] = m_sessions.take(session->name());
+    session->setName(newName);
+    session->setFile(newFile);
+
+    if (session == activeSession()) {
+        emit sessionChanged();
+    }
+
     return true;
-  }
-
-  const QString newFile = sessionFileForName(newName);
-
-  if (QFile::exists(newFile)) {
-    KMessageBox::sorry(QApplication::activeWindow(),
-                       i18n("The session could not be renamed to \"%1\", there already exists another session with the same name", newName),
-                       i18n("Session Renaming"));
-    return false;
-  }
-
-  session->config()->sync();
-
-  const QUrl srcUrl = QUrl::fromLocalFile(session->file());
-  const QUrl dstUrl = QUrl::fromLocalFile(newFile);
-  KIO::CopyJob *job = KIO::move(srcUrl, dstUrl, KIO::HideProgressInfo);
-
-  if (!job->exec()) {
-    KMessageBox::sorry(QApplication::activeWindow(),
-                       i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile),
-                       i18n("Session Renaming"));
-    return false;
-  }
-
-  m_sessions[newName] = m_sessions.take(session->name());
-  session->setName(newName);
-  session->setFile(newFile);
-
-  if (session == activeSession()) {
-    emit sessionChanged();
-  }
-
-  return true;
 }
 
 void KateSessionManager::saveSessionTo(KConfig *sc) const
 {
-  // save plugin configs and which plugins to load
-  KatePluginManager::self()->writeConfig(sc);
+    // save plugin configs and which plugins to load
+    KatePluginManager::self()->writeConfig(sc);
 
-  // save document configs + which documents to load
-  KateDocManager::self()->saveDocumentList (sc);
+    // save document configs + which documents to load
+    KateDocManager::self()->saveDocumentList(sc);
 
-  sc->group("Open MainWindows").writeEntry ("Count", KateApp::self()->mainWindowsCount ());
+    sc->group("Open MainWindows").writeEntry("Count", KateApp::self()->mainWindowsCount());
 
-  // save config for all windows around ;)
-  bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
-  for (int i = 0; i < KateApp::self()->mainWindowsCount (); ++i )
-  {
-    KConfigGroup cg(sc, QString::fromLatin1("MainWindow%1").arg(i) );
-    KateApp::self()->mainWindow(i)->saveProperties (cg);
-    if (saveWindowConfig)
-      KateApp::self()->mainWindow(i)->saveWindowConfig(KConfigGroup(sc, QString::fromLatin1("MainWindow%1 Settings").arg(i)));
-  }
+    // save config for all windows around ;)
+    bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
+    for (int i = 0; i < KateApp::self()->mainWindowsCount(); ++i) {
+        KConfigGroup cg(sc, QString::fromLatin1("MainWindow%1").arg(i));
+        KateApp::self()->mainWindow(i)->saveProperties(cg);
+        if (saveWindowConfig) {
+            KateApp::self()->mainWindow(i)->saveWindowConfig(KConfigGroup(sc, QString::fromLatin1("MainWindow%1 Settings").arg(i)));
+        }
+    }
 
-  sc->sync();
+    sc->sync();
 
-  /**
-   * try to sync file to disk
-   */
-  QFile fileToSync (sc->name());
-  if (fileToSync.open (QIODevice::ReadOnly)) {
+    /**
+     * try to sync file to disk
+     */
+    QFile fileToSync(sc->name());
+    if (fileToSync.open(QIODevice::ReadOnly)) {
 #ifndef Q_OS_WIN
-    // ensure that the file is written to disk
+        // ensure that the file is written to disk
 #ifdef HAVE_FDATASYNC
-    fdatasync (fileToSync.handle());
+        fdatasync(fileToSync.handle());
 #else
-    fsync (fileToSync.handle());
+        fsync(fileToSync.handle());
 #endif
 #endif
-  }
+    }
 }
 
-bool KateSessionManager::saveActiveSession (bool rememberAsLast)
+bool KateSessionManager::saveActiveSession(bool rememberAsLast)
 {
-  KConfig *sc = activeSession()->config();
+    KConfig *sc = activeSession()->config();
 
-  saveSessionTo(sc);
+    saveSessionTo(sc);
 
-  if (rememberAsLast) {
-    KSharedConfigPtr c = KSharedConfig::openConfig();
-    c->group("General").writeEntry("Last Session", activeSession()->name());
-    c->sync();
-  }
-  return true;
+    if (rememberAsLast) {
+        KSharedConfigPtr c = KSharedConfig::openConfig();
+        c->group("General").writeEntry("Last Session", activeSession()->name());
+        c->sync();
+    }
+    return true;
 }
 
-bool KateSessionManager::chooseSession ()
+bool KateSessionManager::chooseSession()
 {
-  const KConfigGroup c(KSharedConfig::openConfig(), "General");
+    const KConfigGroup c(KSharedConfig::openConfig(), "General");
 
-  // get last used session, default to default session
-  const QString lastSession (c.readEntry ("Last Session", QString()));
-  const QString sesStart (c.readEntry ("Startup Session", "manual"));
+    // get last used session, default to default session
+    const QString lastSession(c.readEntry("Last Session", QString()));
+    const QString sesStart(c.readEntry("Startup Session", "manual"));
 
-  // uhh, just open last used session, show no chooser
-  if (sesStart == QStringLiteral("last")) {
-    activateSession(lastSession, false);
-    return true;
-  }
+    // uhh, just open last used session, show no chooser
+    if (sesStart == QStringLiteral("last")) {
+        activateSession(lastSession, false);
+        return true;
+    }
 
-  // start with empty new session or in case no sessions exist
-  if (sesStart == QStringLiteral("new") || sessionList().size() == 0) {
-    activateAnonymousSession();
-    return true;
-  }
+    // start with empty new session or in case no sessions exist
+    if (sesStart == QStringLiteral("new") || sessionList().size() == 0) {
+        activateAnonymousSession();
+        return true;
+    }
 
-  QScopedPointer<KateSessionChooser> chooser(new KateSessionChooser(0, lastSession));
-  const int res = chooser->exec();
-  bool success = true;
+    QScopedPointer<KateSessionChooser> chooser(new KateSessionChooser(0, lastSession));
+    const int res = chooser->exec();
+    bool success = true;
 
-  switch (res) {
+    switch (res) {
     case KateSessionChooser::resultOpen: {
-      KateSession::Ptr s = chooser->selectedSession(); // dialog guarantees this to be valid
-      success = activateSession(s, false);
-      break;
+        KateSession::Ptr s = chooser->selectedSession(); // dialog guarantees this to be valid
+        success = activateSession(s, false);
+        break;
     }
 
     case KateSessionChooser::resultCopy: {
-      KateSession::Ptr s = chooser->selectedSession(); // dialog guarantees this to be valid
-      KateSession::Ptr ns = KateSession::createAnonymousFrom(s, anonymousSessionFile());
-      activateSession(ns, false);
-      break;
+        KateSession::Ptr s = chooser->selectedSession(); // dialog guarantees this to be valid
+        KateSession::Ptr ns = KateSession::createAnonymousFrom(s, anonymousSessionFile());
+        activateSession(ns, false);
+        break;
     }
 
     // exit the app lateron
     case KateSessionChooser::resultQuit:
-      return false;
+        return false;
 
     case KateSessionChooser::resultNew:
     default:
-      activateAnonymousSession();
-      break;
-  }
-
-  // write back our nice boolean :)
-  if (success && chooser->reopenLastSession())
-  {
-    KConfigGroup generalConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
-
-    if (res == KateSessionChooser::resultOpen) {
-      generalConfig.writeEntry ("Startup Session", "last");
-    } else if (res == KateSessionChooser::resultNew) {
-      generalConfig.writeEntry ("Startup Session", "new");
+        activateAnonymousSession();
+        break;
     }
 
-    generalConfig.sync();
-  }
+    // write back our nice boolean :)
+    if (success && chooser->reopenLastSession()) {
+        KConfigGroup generalConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
 
-  return success;
+        if (res == KateSessionChooser::resultOpen) {
+            generalConfig.writeEntry("Startup Session", "last");
+        } else if (res == KateSessionChooser::resultNew) {
+            generalConfig.writeEntry("Startup Session", "new");
+        }
+
+        generalConfig.sync();
+    }
+
+    return success;
 }
 
-void KateSessionManager::sessionNew ()
+void KateSessionManager::sessionNew()
 {
-  activateSession(giveSession(QString()));
+    activateSession(giveSession(QString()));
 }
 
-void KateSessionManager::sessionOpen ()
+void KateSessionManager::sessionOpen()
 {
-  QScopedPointer<KateSessionOpenDialog> chooser(new KateSessionOpenDialog(0));
+    QScopedPointer<KateSessionOpenDialog> chooser(new KateSessionOpenDialog(0));
 
-  const int res = chooser->exec();
+    const int res = chooser->exec();
 
-  if (res == KateSessionOpenDialog::resultCancel) {
-    return;
-  }
+    if (res == KateSessionOpenDialog::resultCancel) {
+        return;
+    }
 
-  KateSession::Ptr s = chooser->selectedSession();
+    KateSession::Ptr s = chooser->selectedSession();
 
-  if (s) {
-    activateSession (s);
-  }
+    if (s) {
+        activateSession(s);
+    }
 }
 
-void KateSessionManager::sessionSave ()
+void KateSessionManager::sessionSave()
 {
-  saveActiveSession(); // this is the optional point to handle saveSessionAs for anonymous session
+    saveActiveSession(); // this is the optional point to handle saveSessionAs for anonymous session
 }
 
-void KateSessionManager::sessionSaveAs ()
+void KateSessionManager::sessionSaveAs()
 {
-  if (newSessionName()) {
-    saveActiveSession ();
-    emit sessionChanged();
-  }
+    if (newSessionName()) {
+        saveActiveSession();
+        emit sessionChanged();
+    }
 }
 
 bool KateSessionManager::newSessionName()
 {
-  bool alreadyExists = false;
+    bool alreadyExists = false;
 
-  do {
-    bool ok = false;
-    const QString name = QInputDialog::getText (QApplication::activeWindow(),
-             i18n("Specify New Name for Current Session"),
-             alreadyExists ? i18n("There is already an existing session with your chosen name.\nPlease choose a different one\nSession name:") : i18n("Session name:"),
-             QLineEdit::Normal, activeSession()->name(), &ok);
+    do {
+        bool ok = false;
+        const QString name = QInputDialog::getText(QApplication::activeWindow(),
+                             i18n("Specify New Name for Current Session"),
+                             alreadyExists ? i18n("There is already an existing session with your chosen name.\nPlease choose a different one\nSession name:") : i18n("Session name:"),
+                             QLineEdit::Normal, activeSession()->name(), &ok);
 
-    if (!ok) {
-      return false;
-    }
+        if (!ok) {
+            return false;
+        }
 
-    if (name.isEmpty()) {
-      KMessageBox::sorry (0, i18n("To save a session, you must specify a name."), i18n ("Missing Session Name"));
-      continue;
-    }
+        if (name.isEmpty()) {
+            KMessageBox::sorry(0, i18n("To save a session, you must specify a name."), i18n("Missing Session Name"));
+            continue;
+        }
 
-    const QString file = sessionFileForName(name);
-    if (QFile::exists(file)) {
-      alreadyExists = true;
-      continue;
-    }
+        const QString file = sessionFileForName(name);
+        if (QFile::exists(file)) {
+            alreadyExists = true;
+            continue;
+        }
 
-    activeSession()->config()->sync();
-    KateSession::Ptr ns = KateSession::createFrom(activeSession(), file, name);
-    m_activeSession = ns;
+        activeSession()->config()->sync();
+        KateSession::Ptr ns = KateSession::createFrom(activeSession(), file, name);
+        m_activeSession = ns;
 
-    emit sessionChanged();
+        emit sessionChanged();
 
-    alreadyExists = false;
-  }
-  while (alreadyExists);
-  return true;
+        alreadyExists = false;
+    } while (alreadyExists);
+    return true;
 }
 
-void KateSessionManager::sessionManage ()
+void KateSessionManager::sessionManage()
 {
-  QScopedPointer<KateSessionManageDialog>(new KateSessionManageDialog(0))->exec();
+    QScopedPointer<KateSessionManageDialog>(new KateSessionManageDialog(0))->exec();
 }
 
 QString KateSessionManager::anonymousSessionFile() const
 {
-  const QString file = m_sessionsDir + QStringLiteral("/../anonymous.katesession");
-  return QDir().cleanPath(file);
+    const QString file = m_sessionsDir + QStringLiteral("/../anonymous.katesession");
+    return QDir().cleanPath(file);
 }
 
 QString KateSessionManager::sessionFileForName(const QString &name) const
 {
-  Q_ASSERT(!name.isEmpty());
-  const QString sname = QString::fromLatin1(QUrl::toPercentEncoding(name, QByteArray(), QByteArray(".")));
-  return m_sessionsDir + QStringLiteral("/") + sname + QStringLiteral(".katesession");
+    Q_ASSERT(!name.isEmpty());
+    const QString sname = QString::fromLatin1(QUrl::toPercentEncoding(name, QByteArray(), QByteArray(".")));
+    return m_sessionsDir + QStringLiteral("/") + sname + QStringLiteral(".katesession");
 }
 
 KateSessionList KateSessionManager::sessionList()
 {
-  return m_sessions.values();
+    return m_sessions.values();
 }
 
 //END KateSessionManager
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

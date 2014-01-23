@@ -32,7 +32,7 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
 {
     Q_OBJECT
 
-  public:
+public:
     KateSessionManager(QObject *parent = 0, const QString &sessionsDir = QString());
     ~KateSessionManager();
 
@@ -76,13 +76,17 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
      * sessionFile == empty means we have no session around for this instance of kate
      * @return session active atm
      */
-    inline KateSession::Ptr activeSession() { return m_activeSession; }
+    inline KateSession::Ptr activeSession() {
+        return m_activeSession;
+    }
 
     /**
      * session dir
      * @return global session dir
      */
-    inline const QString &sessionsDir() const { return m_sessionsDir; }
+    inline const QString &sessionsDir() const {
+        return m_sessionsDir;
+    }
 
     /**
      * initial session chooser, on app start
@@ -90,7 +94,7 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
      */
     bool chooseSession();
 
-  public Q_SLOTS:
+public Q_SLOTS:
     /**
      * try to start a new session
      * asks user first for name
@@ -117,16 +121,16 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
      */
     void sessionManage();
 
-  Q_SIGNALS:
+Q_SIGNALS:
     /**
      * Emitted, whenever the session changes, e.g. when it was renamed.
      */
     void sessionChanged();
 
-  /**
-   * module internal APIs
-   */
-  public:
+    /**
+     * module internal APIs
+     */
+public:
     /**
      * return session with given name
      * if no existing session matches, create new one with this name
@@ -156,13 +160,13 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
      */
     bool activateSession(KateSession::Ptr session, const bool closeAndSaveLast = true, const bool loadNew = true);
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * trigger update of session list
      */
     void updateSessionList();
 
-  private:
+private:
     /**
      * Asks the user for a new session name. Used by save as for example.
      */
@@ -188,7 +192,7 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
      */
     void loadSession(const KateSession::Ptr &session) const;
 
-  private:
+private:
     /**
      * absolute path to dir in home dir where to store the sessions
      */
@@ -209,4 +213,3 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

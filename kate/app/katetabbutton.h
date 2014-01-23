@@ -128,7 +128,6 @@ protected:
     /** middle mouse button changes color */
     virtual void mousePressEvent(QMouseEvent *ev);
 
-
 private:
     int m_buttonId;
     bool m_modified;
@@ -142,4 +141,3 @@ private:
 
 #endif
 
-// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs on; eol unix;

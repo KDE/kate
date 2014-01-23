@@ -160,4 +160,3 @@ private:
 
 #endif // KATE_TAB_BAR_H
 
-// kate: space-indent on; indent-width 4; tab-width 4; replace-tabs on; eol unix;

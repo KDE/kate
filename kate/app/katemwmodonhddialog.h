@@ -1,6 +1,6 @@
 /*
    Copyright (C) 2004, Anders Lund <anders@alweb.dk>
-    
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
@@ -30,7 +30,7 @@ class QTemporaryFile;
 class QTreeWidget;
 class QTreeWidgetItem;
 
-typedef  QVector<KTextEditor::Document*> DocVector;
+typedef  QVector<KTextEditor::Document *> DocVector;
 
 /**
  * A dialog for handling multiple documents modified on disk
@@ -39,12 +39,12 @@ typedef  QVector<KTextEditor::Document*> DocVector;
 class KateMwModOnHdDialog : public QDialog
 {
     Q_OBJECT
-  public:
-    explicit KateMwModOnHdDialog( DocVector docs, QWidget *parent = 0, const char *name = 0 );
+public:
+    explicit KateMwModOnHdDialog(DocVector docs, QWidget *parent = 0, const char *name = 0);
     ~KateMwModOnHdDialog();
     void addDocument(KTextEditor::Document *doc);
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void slotIgnore();
     void slotOverwrite();
     void slotReload();
@@ -53,20 +53,19 @@ class KateMwModOnHdDialog : public QDialog
     void slotDataAvailable();
     void slotPDone();
 
-  private:
+private:
     enum Action { Ignore, Overwrite, Reload };
-    void handleSelected( int action );
+    void handleSelected(int action);
     class QTreeWidget *twDocuments;
     class QPushButton *btnDiff;
     KProcess *m_proc;
     QTemporaryFile *m_diffFile;
     QStringList m_stateTexts;
 
-  protected:
-    virtual void closeEvent( QCloseEvent *e );
-    virtual void keyPressEvent( QKeyEvent* );
+protected:
+    virtual void closeEvent(QCloseEvent *e);
+    virtual void keyPressEvent(QKeyEvent *);
 
 };
 
 #endif // _KATE_MW_MODONHD_DIALOG_H_
-// kate: space-indent on; indent-width 2; replace-tabs on;

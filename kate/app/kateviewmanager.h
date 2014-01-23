@@ -33,7 +33,10 @@
 #include <config.h>
 
 #ifdef KActivities_FOUND
-namespace KActivities { class ResourceInstance; }
+namespace KActivities
+{
+class ResourceInstance;
+}
 #endif
 
 class KateDocumentInfo;
@@ -47,127 +50,124 @@ class KateViewManager : public QSplitter
 {
     Q_OBJECT
 
-  public:
-    KateViewManager (QWidget *parentW, KateMainWindow *parent);
-    ~KateViewManager ();
+public:
+    KateViewManager(QWidget *parentW, KateMainWindow *parent);
+    ~KateViewManager();
 
-    void updateViewSpaceActions ();
+    void updateViewSpaceActions();
 
-  private:
+private:
     /**
      * create all actions needed for the view manager
      */
-    void setupActions ();
+    void setupActions();
 
-  public:
+public:
     /* This will save the splitter configuration */
-    void saveViewConfiguration(KConfigGroup& group);
+    void saveViewConfiguration(KConfigGroup &group);
 
     /* restore it */
-    void restoreViewConfiguration (const KConfigGroup& group);
+    void restoreViewConfiguration(const KConfigGroup &group);
 
-    KTextEditor::Document *openUrl (const QUrl &url,
-                                    const QString& encoding,
-                                    bool activate = true,
+    KTextEditor::Document *openUrl(const QUrl &url,
+                                   const QString &encoding,
+                                   bool activate = true,
+                                   bool isTempFile = false,
+                                   const KateDocumentInfo &docInfo = KateDocumentInfo());
+
+    KTextEditor::Document *openUrls(const QList<QUrl> &url,
+                                    const QString &encoding,
                                     bool isTempFile = false,
-                                    const KateDocumentInfo& docInfo = KateDocumentInfo());
+                                    const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    KTextEditor::Document *openUrls (const QList<QUrl> &url,
-                                     const QString& encoding,
-                                     bool isTempFile = false,
-                                     const KateDocumentInfo& docInfo = KateDocumentInfo());
+    KTextEditor::View *openUrlWithView(const QUrl &url, const QString &encoding);
 
-    KTextEditor::View *openUrlWithView (const QUrl &url, const QString& encoding);
+public Q_SLOTS:
+    void openUrl(const QUrl &url);
 
-  public Q_SLOTS:
-    void openUrl (const QUrl &url);
+public:
 
-  public:
+    void setViewActivationBlocked(bool block);
 
-    void setViewActivationBlocked (bool block);
-
-
-  public:
+public:
     void closeViews(KTextEditor::Document *doc);
     KateMainWindow *mainWindow();
 
-  private Q_SLOTS:
-    void activateView ( KTextEditor::View *view );
-    void activateSpace ( KTextEditor::View* v );
-    void slotDelayedViewChanged ();
+private Q_SLOTS:
+    void activateView(KTextEditor::View *view);
+    void activateSpace(KTextEditor::View *v);
+    void slotDelayedViewChanged();
 
-  public Q_SLOTS:
-    void slotDocumentNew ();
-    void slotDocumentOpen ();
-    void slotDocumentClose ();
-    void slotDocumentClose (KTextEditor::Document *document);
+public Q_SLOTS:
+    void slotDocumentNew();
+    void slotDocumentOpen();
+    void slotDocumentClose();
+    void slotDocumentClose(KTextEditor::Document *document);
 
-    void setActiveSpace ( KateViewSpace* vs );
-    void setActiveView ( KTextEditor::View* view );
+    void setActiveSpace(KateViewSpace *vs);
+    void setActiveView(KTextEditor::View *view);
 
     void activateNextView();
     void activatePrevView();
 
-  protected:
+protected:
     QPointer<KTextEditor::View> guiMergedView;
 
-  Q_SIGNALS:
-    void statChanged ();
-    void viewChanged (KTextEditor::View *);
-    void viewCreated (KTextEditor::View *);
+Q_SIGNALS:
+    void statChanged();
+    void viewChanged(KTextEditor::View *);
+    void viewCreated(KTextEditor::View *);
 
-  public:
-    inline QList<KTextEditor::View*> &viewList ()
-    {
-      return m_viewList;
+public:
+    inline QList<KTextEditor::View *> &viewList() {
+        return m_viewList;
     }
 
     /**
      * create and activate a new view for doc, if doc == 0, then
      * create a new document
      */
-    bool createView ( KTextEditor::Document *doc = 0L, KateViewSpace *vs = nullptr );
+    bool createView(KTextEditor::Document *doc = 0L, KateViewSpace *vs = nullptr);
 
-  private:
-    bool deleteView ( KTextEditor::View *view);
+private:
+    bool deleteView(KTextEditor::View *view);
 
-    void moveViewtoSplit (KTextEditor::View *view);
-    void moveViewtoStack (KTextEditor::View *view);
+    void moveViewtoSplit(KTextEditor::View *view);
+    void moveViewtoStack(KTextEditor::View *view);
 
     /* Save the configuration of a single splitter.
      * If child splitters are found, it calls it self with those as the argument.
      * If a viewspace child is found, it is asked to save its filelist.
      */
-    void saveSplitterConfig(QSplitter* s, KConfigBase* config, const QString& viewConfGrp);
+    void saveSplitterConfig(QSplitter *s, KConfigBase *config, const QString &viewConfGrp);
 
     /** Restore a single splitter.
      * This is all the work is done for @see saveSplitterConfig()
      */
-    void restoreSplitter ( const KConfigBase* config, const QString &group, QSplitter* parent, const QString& viewConfGrp);
+    void restoreSplitter(const KConfigBase *config, const QString &group, QSplitter *parent, const QString &viewConfGrp);
 
-    void removeViewSpace (KateViewSpace *viewspace);
+    void removeViewSpace(KateViewSpace *viewspace);
 
-  public:
-    KTextEditor::View* activeView ();
-    KateViewSpace* activeViewSpace ();
+public:
+    KTextEditor::View *activeView();
+    KateViewSpace *activeViewSpace();
 
-    int viewCount () const;
-    int viewSpaceCount () const;
+    int viewCount() const;
+    int viewSpaceCount() const;
 
-    bool isViewActivationBlocked()
-    {
-      return m_blockViewCreationAndActivation;
+    bool isViewActivationBlocked() {
+        return m_blockViewCreationAndActivation;
     }
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void slotViewChanged();
 
-    void documentCreated (KTextEditor::Document *doc);
-    void documentDeleted (KTextEditor::Document *doc);
+    void documentCreated(KTextEditor::Document *doc);
+    void documentDeleted(KTextEditor::Document *doc);
 
-    void documentSavedOrUploaded(KTextEditor::Document* document,bool saveAs);
-    
-  public Q_SLOTS:
+    void documentSavedOrUploaded(KTextEditor::Document *document, bool saveAs);
+
+public Q_SLOTS:
     /**
      * Splits a KateViewSpace into two in the following steps:
      * 1. create a QSplitter in the parent of the KateViewSpace to be split
@@ -179,55 +179,49 @@ class KateViewManager : public QSplitter
      * The orientation of the new splitter is determined by the value of o.
      * Note: horizontal splitter means vertically aligned views.
      */
-    void splitViewSpace( KateViewSpace* vs = 0L, Qt::Orientation o = Qt::Horizontal );
+    void splitViewSpace(KateViewSpace *vs = 0L, Qt::Orientation o = Qt::Horizontal);
 
     /**
      * activate view for given document
      * @param doc document to activate view for
      */
-    KTextEditor::View *activateView ( KTextEditor::Document *doc );
+    KTextEditor::View *activateView(KTextEditor::Document *doc);
 
     /** Splits the active viewspace horizontally */
-    void slotSplitViewSpaceHoriz ()
-    {
-      splitViewSpace(0L, Qt::Vertical);
+    void slotSplitViewSpaceHoriz() {
+        splitViewSpace(0L, Qt::Vertical);
     }
 
     /** Splits the active viewspace vertically */
-    void slotSplitViewSpaceVert ()
-    {
-      splitViewSpace();
+    void slotSplitViewSpaceVert() {
+        splitViewSpace();
     }
 
     /**  moves the splitter according to the key that has been pressed */
     void moveSplitter(Qt::Key key, int repeats = 1);
 
     /** moves the splitter to the right  */
-    void moveSplitterRight()
-    {
+    void moveSplitterRight() {
         moveSplitter(Qt::Key_Right);
     }
 
     /** moves the splitter to the left  */
-    void moveSplitterLeft()
-    {
+    void moveSplitterLeft() {
         moveSplitter(Qt::Key_Left);
     }
 
     /** moves the splitter up  */
-    void moveSplitterUp()
-    {
+    void moveSplitterUp() {
         moveSplitter(Qt::Key_Up);
     }
 
     /** moves the splitter down  */
-    void moveSplitterDown()
-    {
+    void moveSplitterDown() {
         moveSplitter(Qt::Key_Down);
     }
 
     void slotCloseCurrentViewSpace();
-    
+
     /** closes every view but the active one */
     void slotCloseOtherViews();
 
@@ -238,12 +232,11 @@ class KateViewManager : public QSplitter
      * useful to show views in a LRU way
      * important: smallest age ==> latest used view
      */
-    const QHash<KTextEditor::View *, qint64> &lruViews () const
-    {
-      return m_lruViews;
+    const QHash<KTextEditor::View *, qint64> &lruViews() const {
+        return m_lruViews;
     }
 
-  private:
+private:
     KateMainWindow *m_mainWindow;
     bool m_init;
 
@@ -252,12 +245,12 @@ class KateViewManager : public QSplitter
     QAction *goNext;
     QAction *goPrev;
 
-    QList<KateViewSpace*> m_viewSpaceList;
-    QList<KTextEditor::View*> m_viewList;
-    QHash<KTextEditor::View*, bool> m_activeStates;
+    QList<KateViewSpace *> m_viewSpaceList;
+    QList<KTextEditor::View *> m_viewList;
+    QHash<KTextEditor::View *, bool> m_activeStates;
 
 #ifdef KActivities_FOUND
-    QHash<KTextEditor::View*, KActivities::ResourceInstance*> m_activityResources;
+    QHash<KTextEditor::View *, KActivities::ResourceInstance *> m_activityResources;
 #endif
 
     bool m_blockViewCreationAndActivation;
@@ -279,5 +272,4 @@ class KateViewManager : public QSplitter
 };
 
 #endif
-// kate: space-indent on; indent-width 2; replace-tabs on;
 

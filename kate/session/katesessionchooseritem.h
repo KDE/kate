@@ -28,18 +28,16 @@
 class KateSessionChooserItem : public QTreeWidgetItem
 {
 public:
-  KateSessionChooserItem (QTreeWidget *tw, KateSession::Ptr s)
-  : QTreeWidgetItem (tw, QStringList(s->name()))
-  , session (s)
-  {
-    QString docs;
-    docs.setNum (s->documents());
-    setText (1, docs);
-  }
+    KateSessionChooserItem(QTreeWidget *tw, KateSession::Ptr s)
+        : QTreeWidgetItem(tw, QStringList(s->name()))
+        , session(s) {
+        QString docs;
+        docs.setNum(s->documents());
+        setText(1, docs);
+    }
 
-  KateSession::Ptr session;
+    KateSession::Ptr session;
 };
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

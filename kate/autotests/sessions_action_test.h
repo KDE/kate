@@ -23,9 +23,9 @@
 
 class KateSessionsActionTest : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void basic();
     void timesorted();
     void limit();
@@ -35,7 +35,7 @@ class KateSessionsActionTest : public QObject
     void initTestCase();
     void cleanupTestCase();
 
-  private:
+private:
     class QTemporaryDir *m_tempdir;
     class KateSessionManager *m_manager;
     class KateApp *m_app; // dependency, sigh...
@@ -44,4 +44,3 @@ class KateSessionsActionTest : public QObject
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -37,39 +37,38 @@ class QSpinBox;
 class QRadioButton;
 class KateMainWindow;
 
-struct PluginPageListItem
-{
-  KTextEditor::Plugin *plugin;
-  KTextEditor::ConfigPageInterface *configPageInterface;
-  uint idInPlugin;
-  KTextEditor::ConfigPage *pluginPage;
-  QWidget *pageParent;
-  KPageWidgetItem *pageWidgetItem;
+struct PluginPageListItem {
+    KTextEditor::Plugin *plugin;
+    KTextEditor::ConfigPageInterface *configPageInterface;
+    uint idInPlugin;
+    KTextEditor::ConfigPage *pluginPage;
+    QWidget *pageParent;
+    KPageWidgetItem *pageWidgetItem;
 };
 
 class KateConfigDialog : public KPageDialog
 {
     Q_OBJECT
 
-  public:
-    KateConfigDialog (KateMainWindow *parent, KTextEditor::View *view);
-    ~KateConfigDialog ();
+public:
+    KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view);
+    ~KateConfigDialog();
 
-  public:
-    void addPluginPage (KTextEditor::Plugin *plugin);
-    void removePluginPage (KTextEditor::Plugin *plugin);
-    void showAppPluginPage(KTextEditor::ConfigPageInterface *configpageinterface,uint id);
-  protected Q_SLOTS:
+public:
+    void addPluginPage(KTextEditor::Plugin *plugin);
+    void removePluginPage(KTextEditor::Plugin *plugin);
+    void showAppPluginPage(KTextEditor::ConfigPageInterface *configpageinterface, uint id);
+protected Q_SLOTS:
     void slotApply();
     void slotChanged();
     void slotHelp();
 
-    void slotCurrentPageChanged( KPageWidgetItem *current, KPageWidgetItem *before );
+    void slotCurrentPageChanged(KPageWidgetItem *current, KPageWidgetItem *before);
 
-  private:
+private:
     KateMainWindow *m_mainWindow;
 
-    KTextEditor::View* m_view;
+    KTextEditor::View *m_view;
     bool m_dataChanged;
 
     QCheckBox *m_modNotifications;
@@ -82,7 +81,7 @@ class KateConfigDialog : public KPageDialog
     QRadioButton *m_loadLastUserSessionRadioButton;
     QRadioButton *m_manuallyChooseSessionRadioButton;
 
-    QHash<KPageWidgetItem*, PluginPageListItem*> m_pluginPages;
+    QHash<KPageWidgetItem *, PluginPageListItem *> m_pluginPages;
     QList<KTextEditor::ConfigPage *> m_editorPages;
     KPageWidgetItem *m_applicationPage;
     KPageWidgetItem *m_editorPage;
@@ -91,5 +90,4 @@ class KateConfigDialog : public KPageDialog
 };
 
 #endif
-// kate: space-indent on; indent-width 2; replace-tabs on;
 

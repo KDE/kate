@@ -37,159 +37,159 @@
 
 //BEGIN CHOOSER DIALOG
 
-KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSession)
-  : QDialog (parent)
+KateSessionChooser::KateSessionChooser(QWidget *parent, const QString &lastSession)
+    : QDialog(parent)
 {
-  setWindowTitle(i18n("Session Chooser"));
-  QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    setWindowTitle(i18n("Session Chooser"));
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-  m_sessions = new QTreeWidget(this);
-  m_sessions->setMinimumSize(400, 200);
-  mainLayout->addWidget(m_sessions);
-  QStringList header;
-  header << i18n("Session Name");
-  header << i18nc("The number of open documents", "Open Documents");
-  header << QString();
-  m_sessions->setHeaderLabels(header);
-  m_sessions->header()->setStretchLastSection(false);
-  m_sessions->header()->resizeSection(0,(m_sessions->size().width()-32)*2/3);
-  m_sessions->header()->resizeSection(1,(m_sessions->size().width()-32)/3);
-  m_sessions->header()->resizeSection(2,32);
-  m_sessions->header()->setSectionResizeMode(QHeaderView::Fixed);
-  m_sessions->setRootIsDecorated( false );
-  m_sessions->setItemsExpandable( false );
-  m_sessions->setAllColumnsShowFocus( true );
-  m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
-  m_sessions->setSelectionMode (QAbstractItemView::SingleSelection);
+    m_sessions = new QTreeWidget(this);
+    m_sessions->setMinimumSize(400, 200);
+    mainLayout->addWidget(m_sessions);
+    QStringList header;
+    header << i18n("Session Name");
+    header << i18nc("The number of open documents", "Open Documents");
+    header << QString();
+    m_sessions->setHeaderLabels(header);
+    m_sessions->header()->setStretchLastSection(false);
+    m_sessions->header()->resizeSection(0, (m_sessions->size().width() - 32) * 2 / 3);
+    m_sessions->header()->resizeSection(1, (m_sessions->size().width() - 32) / 3);
+    m_sessions->header()->resizeSection(2, 32);
+    m_sessions->header()->setSectionResizeMode(QHeaderView::Fixed);
+    m_sessions->setRootIsDecorated(false);
+    m_sessions->setItemsExpandable(false);
+    m_sessions->setAllColumnsShowFocus(true);
+    m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_sessions->setSelectionMode(QAbstractItemView::SingleSelection);
 
-  qCDebug(LOG_KATE) << "Last session is:" << lastSession;
+    qCDebug(LOG_KATE) << "Last session is:" << lastSession;
 
-  KateSessionList slist = KateSessionManager::self()->sessionList();
-  qSort(slist.begin(), slist.end(), KateSession::compareByName);
+    KateSessionList slist = KateSessionManager::self()->sessionList();
+    qSort(slist.begin(), slist.end(), KateSession::compareByName);
 
-  foreach(const KateSession::Ptr &session, slist) {
-    KateSessionChooserItem *item = new KateSessionChooserItem (m_sessions, session);
-    QPushButton *tmp=new QPushButton(QIcon::fromTheme(QStringLiteral("document")),QString(),m_sessions);
-    QMenu* popup = new QMenu(tmp);
-    QAction *a = popup->addAction(i18n("Clone session settings"));
-    a->setData(QVariant::fromValue((void*)item));
-    connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
-    a=popup->addAction(i18n("Delete this session"));
-    a->setData(QVariant::fromValue((void*)item));
-    connect(a, SIGNAL(triggered()), this, SLOT(slotDeleteSession()));
-    tmp->setMenu(popup); 
-    m_sessions->setItemWidget (item, 2, tmp );
-  
-    if (session->name() == lastSession) {
-      m_sessions->setCurrentItem (item);
+    foreach(const KateSession::Ptr & session, slist) {
+        KateSessionChooserItem *item = new KateSessionChooserItem(m_sessions, session);
+        QPushButton *tmp = new QPushButton(QIcon::fromTheme(QStringLiteral("document")), QString(), m_sessions);
+        QMenu *popup = new QMenu(tmp);
+        QAction *a = popup->addAction(i18n("Clone session settings"));
+        a->setData(QVariant::fromValue((void *)item));
+        connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
+        a = popup->addAction(i18n("Delete this session"));
+        a->setData(QVariant::fromValue((void *)item));
+        connect(a, SIGNAL(triggered()), this, SLOT(slotDeleteSession()));
+        tmp->setMenu(popup);
+        m_sessions->setItemWidget(item, 2, tmp);
+
+        if (session->name() == lastSession) {
+            m_sessions->setCurrentItem(item);
+        }
     }
-  }
 
-  connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
-  connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotOpen()));
+    connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
+    connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotOpen()));
 
-  // bottom box
-  QHBoxLayout *hb = new QHBoxLayout();
-  hb->setMargin(0);
-  mainLayout->addLayout(hb);
+    // bottom box
+    QHBoxLayout *hb = new QHBoxLayout();
+    hb->setMargin(0);
+    mainLayout->addLayout(hb);
 
-  m_useLast = new QCheckBox (i18n ("&Always use this choice"), this);
-  hb->addWidget(m_useLast);
+    m_useLast = new QCheckBox(i18n("&Always use this choice"), this);
+    hb->addWidget(m_useLast);
 
-  // buttons
-  QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
-  hb->addWidget(buttonBox);
+    // buttons
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
+    hb->addWidget(buttonBox);
 
-  QPushButton *cancelButton = new QPushButton();
-  KGuiItem::assign(cancelButton, KStandardGuiItem::quit());
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancel()));
-  buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
+    QPushButton *cancelButton = new QPushButton();
+    KGuiItem::assign(cancelButton, KStandardGuiItem::quit());
+    connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancel()));
+    buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
 
-  m_openButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-open")), i18n("Open Session"));
-  m_openButton->setEnabled(m_sessions->currentIndex().isValid());
-  m_openButton->setDefault(true);
-  m_openButton->setFocus();
-  buttonBox->addButton(m_openButton, QDialogButtonBox::ActionRole);
-  connect(m_openButton, SIGNAL(clicked()), this, SLOT(slotOpen()));
+    m_openButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-open")), i18n("Open Session"));
+    m_openButton->setEnabled(m_sessions->currentIndex().isValid());
+    m_openButton->setDefault(true);
+    m_openButton->setFocus();
+    buttonBox->addButton(m_openButton, QDialogButtonBox::ActionRole);
+    connect(m_openButton, SIGNAL(clicked()), this, SLOT(slotOpen()));
 
-  QPushButton *newButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-new")), i18n("New Session"));
-  buttonBox->addButton(newButton, QDialogButtonBox::ActionRole);
-  connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
+    QPushButton *newButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-new")), i18n("New Session"));
+    buttonBox->addButton(newButton, QDialogButtonBox::ActionRole);
+    connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
 
-  setResult (resultNone);
-  //m_sessions->resizeColumnToContents(0);
-  selectionChanged (NULL, NULL);
+    setResult(resultNone);
+    //m_sessions->resizeColumnToContents(0);
+    selectionChanged(NULL, NULL);
 }
 
 void KateSessionChooser::resizeEvent(QResizeEvent *)
 {
-  m_sessions->header()->resizeSection(0,(m_sessions->size().width()-32)*2/3);
-  m_sessions->header()->resizeSection(1,(m_sessions->size().width()-32)/3);
-  m_sessions->header()->resizeSection(2,32);
+    m_sessions->header()->resizeSection(0, (m_sessions->size().width() - 32) * 2 / 3);
+    m_sessions->header()->resizeSection(1, (m_sessions->size().width() - 32) / 3);
+    m_sessions->header()->resizeSection(2, 32);
 }
 
-KateSessionChooser::~KateSessionChooser ()
+KateSessionChooser::~KateSessionChooser()
 {}
 
 void KateSessionChooser::slotCopySession()
 {
-  m_sessions->setCurrentItem( (KateSessionChooserItem*) ((QAction*)sender())->data().value<void*>() );
-  Q_ASSERT(static_cast<KateSessionChooserItem *>(m_sessions->currentItem()));
-  done(resultCopy);
+    m_sessions->setCurrentItem((KateSessionChooserItem *)((QAction *)sender())->data().value<void *>());
+    Q_ASSERT(static_cast<KateSessionChooserItem *>(m_sessions->currentItem()));
+    done(resultCopy);
 }
 
 void KateSessionChooser::slotDeleteSession()
 {
-  KateSessionChooserItem* item=(KateSessionChooserItem*) ((QAction*)sender())->data().value<void*>();
-  if (!item)
-    return;
+    KateSessionChooserItem *item = (KateSessionChooserItem *)((QAction *)sender())->data().value<void *>();
+    if (!item) {
+        return;
+    }
 
-  KateSessionManager::self()->deleteSession(item->session);
-  m_sessions->removeItemWidget(item,2);
-  delete item;
+    KateSessionManager::self()->deleteSession(item->session);
+    m_sessions->removeItemWidget(item, 2);
+    delete item;
 
 }
 
-
-KateSession::Ptr KateSessionChooser::selectedSession ()
+KateSession::Ptr KateSessionChooser::selectedSession()
 {
-  KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem ());
+    KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem());
 
-  Q_ASSERT(item || ((result() != resultOpen) && (result() != resultCopy)));
+    Q_ASSERT(item || ((result() != resultOpen) && (result() != resultCopy)));
 
-  if (!item)
-    return KateSession::Ptr();
+    if (!item) {
+        return KateSession::Ptr();
+    }
 
-  return item->session;
+    return item->session;
 }
 
-bool KateSessionChooser::reopenLastSession ()
+bool KateSessionChooser::reopenLastSession()
 {
-  return m_useLast->isChecked ();
+    return m_useLast->isChecked();
 }
 
 void KateSessionChooser::slotOpen()
 {
-  Q_ASSERT(static_cast<KateSessionChooserItem *>(m_sessions->currentItem()));
-  done(resultOpen);
+    Q_ASSERT(static_cast<KateSessionChooserItem *>(m_sessions->currentItem()));
+    done(resultOpen);
 }
 
 void KateSessionChooser::slotNew()
 {
-  done(resultNew);
+    done(resultNew);
 }
 
 void KateSessionChooser::slotCancel()
 {
-  done(resultQuit);
+    done(resultQuit);
 }
 
 void KateSessionChooser::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
-  Q_UNUSED(current);
-  m_openButton->setEnabled(true);
+    Q_UNUSED(current);
+    m_openButton->setEnabled(true);
 }
 
 //END CHOOSER DIALOG
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -31,13 +31,13 @@ class KatePluginListView : public QTreeWidget
 {
     Q_OBJECT
 
-  public:
-    KatePluginListView (QWidget *parent = 0);
+public:
+    KatePluginListView(QWidget *parent = 0);
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void stateChange(KatePluginListItem *, bool);
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void stateChanged(QTreeWidgetItem *);
 };
 
@@ -45,22 +45,21 @@ class KateConfigPluginPage: public QFrame
 {
     Q_OBJECT
 
-  public:
+public:
     KateConfigPluginPage(QWidget *parent, class KateConfigDialog *dialog);
 
-  private:
+private:
     class KateConfigDialog *myDialog;
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void changed();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void stateChange(KatePluginListItem *, bool);
 
-    void loadPlugin (KatePluginListItem *);
-    void unloadPlugin (KatePluginListItem *);
+    void loadPlugin(KatePluginListItem *);
+    void unloadPlugin(KatePluginListItem *);
 };
 
 #endif
-// kate: space-indent on; indent-width 2; replace-tabs on;
 

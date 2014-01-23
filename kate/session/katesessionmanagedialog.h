@@ -31,43 +31,43 @@ class KateSessionManageDialog : public QDialog
 {
     Q_OBJECT
 
-  public:
-    KateSessionManageDialog (QWidget *parent);
-    ~KateSessionManageDialog ();
+public:
+    KateSessionManageDialog(QWidget *parent);
+    ~KateSessionManageDialog();
 
-  protected Q_SLOTS:
+protected Q_SLOTS:
     /**
      * close pressed
      */
-    void slotClose ();
+    void slotClose();
 
     /**
      * selection has changed
      */
-    void selectionChanged (QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
     /**
      * try to rename session
      */
-    void rename ();
+    void rename();
 
     /**
      * try to delete session
      */
-    void del ();
+    void del();
 
     /**
      * close dialog and open the selected session
      */
-    void open ();
+    void open();
 
-  private:
+private:
     /**
      * update our list
      */
-    void updateSessionList ();
+    void updateSessionList();
 
-  private:
+private:
     QTreeWidget *m_sessions;
     QPushButton *m_rename;
     QPushButton *m_del;
@@ -76,4 +76,3 @@ class KateSessionManageDialog : public QDialog
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

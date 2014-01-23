@@ -46,9 +46,9 @@
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
-const int DocumentRole = Qt::UserRole + 1;
-const int UrlRole = Qt::UserRole + 2;
-const int SortFilterRole = Qt::UserRole + 3;
+static const int DocumentRole = Qt::UserRole + 1;
+static const int UrlRole = Qt::UserRole + 2;
+static const int SortFilterRole = Qt::UserRole + 3;
 
 KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     : QWidget(parent)

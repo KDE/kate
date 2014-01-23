@@ -533,13 +533,15 @@ void KateTabBar::updateButtonPositions()
 
     // now set the sizes
     const int maxi = m_tabButtons.size();
+    const int w = ceil(tabWidth);
+    const int h = height();
     for (int i = 0; i < maxi; ++i) {
         KateTabButton *tabButton = m_tabButtons.value(i);
         if (i >= maxCount) {
             tabButton->hide();
         } else {
-            const int w = ceil(tabWidth);
-            tabButton->setGeometry(i * w, 0, w, m_tabHeight);
+
+            tabButton->setGeometry(ceil(i * tabWidth), 0, w, h);
             tabButton->show();
         }
     }

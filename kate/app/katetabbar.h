@@ -139,7 +139,6 @@ protected:
 private:
     int m_minimumTabWidth;
     int m_maximumTabWidth;
-    int m_tabHeight;
 
     QList< KateTabButton * > m_tabButtons;
     QMap< int, KateTabButton * > m_IDToTabButton;

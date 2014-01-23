@@ -14,45 +14,45 @@ add_subdirectory (icons)
 
 # includes
 include_directories(
-  ${CMAKE_CURRENT_SOURCE_DIR}/app
-  ${CMAKE_CURRENT_SOURCE_DIR}/session
+  ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/session
 )
 
 # collect the needed source files
 set (KATE_APPLICATION_SRCS
-   app/kateappadaptor.cpp
-   app/kateapp.cpp
-   app/kateconfigdialog.cpp
-   app/kateconfigplugindialogpage.cpp
-   app/katedocmanager.cpp
-   app/katemainwindow.cpp
-   app/katepluginmanager.cpp
-   app/kateviewmanager.cpp
-   app/kateviewspace.cpp
-   app/katesavemodifieddialog.cpp
-   app/katemwmodonhddialog.cpp
+   src/kateappadaptor.cpp
+   src/kateapp.cpp
+   src/kateconfigdialog.cpp
+   src/kateconfigplugindialogpage.cpp
+   src/katedocmanager.cpp
+   src/katemainwindow.cpp
+   src/katepluginmanager.cpp
+   src/kateviewmanager.cpp
+   src/kateviewspace.cpp
+   src/katesavemodifieddialog.cpp
+   src/katemwmodonhddialog.cpp
 
-   app/katetabbutton.cpp
-   app/katetabbar.cpp
+   src/katetabbutton.cpp
+   src/katetabbar.cpp
 
    # session
-   session/katesessionchooser.cpp
-   session/katesessionsaction.cpp
-   session/katesessionmanager.cpp
-   session/katesessionmanagedialog.cpp
-   session/katesessionopendialog.cpp
-   session/katesession.cpp
+   src/session/katesessionchooser.cpp
+   src/session/katesessionsaction.cpp
+   src/session/katesessionmanager.cpp
+   src/session/katesessionmanagedialog.cpp
+   src/session/katesessionopendialog.cpp
+   src/session/katesession.cpp
 
-   app/katemdi.cpp
-   app/katerunninginstanceinfo.cpp
-   app/kateappcommands.cpp
-   app/katequickopen.cpp
-   app/katewaiter.h
-   app/main.cpp
+   src/katemdi.cpp
+   src/katerunninginstanceinfo.cpp
+   src/kateappcommands.cpp
+   src/katequickopen.cpp
+   src/katewaiter.h
+   src/main.cpp
 )
 
 qt5_wrap_ui(KATE_APPLICATION_SRCS
-    app/ui/sessionconfigwidget.ui
+    src/ui/sessionconfigwidget.ui
 )
 
 # create kde init executable

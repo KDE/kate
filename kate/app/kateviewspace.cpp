@@ -83,14 +83,14 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     hLayout->addWidget(quickOpen);
 
     // FIXME: better additional size
-    m_tabBar->setMinimumHeight(int (QFontMetrics(font()).height() * 1.2));
+//     m_tabBar->setMinimumHeight(int (QFontMetrics(font()).height() * 1.2));
 
     layout->addLayout(hLayout);
     //END tab bar
 
     stack = new QStackedWidget(this);
     stack->setFocus();
-    stack->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+    stack->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding));
     layout->addWidget(stack);
 
     mIsActiveSpace = false;

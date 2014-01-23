@@ -24,6 +24,7 @@
 #include "katemainwindow.h"
 #include "katedocmanager.h"
 #include "kateviewspace.h"
+#include "kateupdatedisabler.h"
 #include "katedebug.h"
 
 #include <KTextEditor/View>
@@ -551,6 +552,9 @@ void KateViewManager::activateView(KTextEditor::View *view)
 #endif
 
     if (!m_activeStates[view]) {
+        // avoid flicker
+        KateUpdateDisabler disableUpdates (mainWindow());
+        
         if (!activeViewSpace()->showView(view)) {
             // since it wasn't found, give'em a new one
             createView(view->document());
@@ -559,7 +563,6 @@ void KateViewManager::activateView(KTextEditor::View *view)
 
         setActiveView(view);
 
-        mainWindow()->setUpdatesEnabled(false);
         bool toolbarVisible = mainWindow()->toolBar()->isVisible();
         if (toolbarVisible) {
             mainWindow()->toolBar()->hide();    // hide to avoid toolbar flickering
@@ -578,7 +581,6 @@ void KateViewManager::activateView(KTextEditor::View *view)
         if (toolbarVisible) {
             mainWindow()->toolBar()->show();
         }
-        mainWindow()->setUpdatesEnabled(true);
 
         // remember age of this view
         m_lruViews[view] = m_minAge--;
@@ -665,7 +667,10 @@ void KateViewManager::closeViews(KTextEditor::Document *doc)
         return;
     }
 
-    setUpdatesEnabled(false);
+    /**
+     * disable updates hard (we can't use KateUpdateDisabler here, we have delayed signal
+     */
+    mainWindow()->setUpdatesEnabled(false);
     QTimer::singleShot(0, this, SLOT(slotDelayedViewChanged()));
 }
 
@@ -684,7 +689,10 @@ void KateViewManager::slotDelayedViewChanged()
 
     emit viewChanged(newActiveView);
 
-    setUpdatesEnabled(true);
+    /**
+     * enable updates hard (we can't use KateUpdateDisabler here, we have delayed signal
+     */
+    mainWindow()->setUpdatesEnabled(true);
 }
 
 void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
@@ -703,6 +711,9 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
     if (!currentSplitter) {
         return;
     }
+    
+    // avoid flicker
+    KateUpdateDisabler disableUpdates (mainWindow());
 
     // index where to insert new splitter/viewspace
     const int index = currentSplitter->indexOf(vs);
@@ -770,6 +781,9 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     if (!currentSplitter) {
         return;
     }
+    
+    // avoid flicker
+    KateUpdateDisabler disableUpdates (mainWindow());
 
     // delete views of the viewspace
     while (viewspace->currentView()) {
@@ -830,6 +844,9 @@ void KateViewManager::slotCloseCurrentViewSpace()
 
 void KateViewManager::slotCloseOtherViews()
 {
+    // avoid flicker
+    KateUpdateDisabler disableUpdates (mainWindow());
+    
     KateViewSpace *active = activeViewSpace();
     foreach(KateViewSpace  * v, m_viewSpaceList) {
         if (active != v) {

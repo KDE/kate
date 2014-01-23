@@ -24,14 +24,14 @@
 #include "katemainwindow.h"
 #include "katedocmanager.h"
 #include "kateviewspace.h"
+#include "katedebug.h"
 
-#include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
-#include <ktexteditor/attribute.h>
-#include <ktexteditor/highlightinterface.h>
+#include <KTextEditor/View>
+#include <KTextEditor/Document>
+#include <KTextEditor/Attribute>
+#include <KTextEditor/HighlightInterface>
 
 #include <KActionCollection>
-#include "katedebug.h"
 #include <KEncodingFileDialog>
 #include <KIconLoader>
 #include <KToolBar>
@@ -103,18 +103,16 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
 KateViewManager::~KateViewManager ()
 {
   // make sure all xml gui clients are removed to avoid warnings on exit
-  foreach (KTextEditor::View* view, m_viewList)
+  Q_FOREACH (KTextEditor::View* view, m_viewList)
     mainWindow()->guiFactory()->removeClient(view);
 }
 
 void KateViewManager::setupActions ()
 {
-  QAction *a;
-
   /**
    * view splitting
    */
-  a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_vert"));
+  QAction *a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_vert"));
   a->setIcon( QIcon::fromTheme(QStringLiteral("view-split-left-right")) );
   a->setText( i18n("Split Ve&rtical") );
   a->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_L );
@@ -205,43 +203,42 @@ void KateViewManager::slotDocumentNew ()
 void KateViewManager::slotDocumentOpen ()
 {
   KTextEditor::View *cv = activeView();
+  if (!cv)
+    return;
 
-  if (cv)
+  KEncodingFileDialog::Result r = KEncodingFileDialog::getOpenUrlsAndEncoding(
+                                    KTextEditor::Editor::instance()->defaultEncoding(),
+                                    cv->document()->url(),
+                                    QString(), m_mainWindow, i18n("Open File"));
+
+  KateDocumentInfo docInfo;
+  docInfo.openedByUser = true;
+
+  QString fileList;
+
+  foreach ( const QUrl &url, r.URLs )
   {
-    KEncodingFileDialog::Result r = KEncodingFileDialog::getOpenUrlsAndEncoding(
-                                      KTextEditor::Editor::instance()->defaultEncoding(),
-                                      cv->document()->url(),
-                                      QString(), m_mainWindow, i18n("Open File"));
+    qint64 size = QFile( url.toLocalFile() ).size();
 
-    KateDocumentInfo docInfo;
-    docInfo.openedByUser = true;
-
-    QString fileList;
-
-    foreach ( const QUrl &url, r.URLs )
+    if ( size > FileSizeAboveToAskUserIfProceedWithOpen )
     {
-      qint64 size = QFile( url.toLocalFile() ).size();
-
-      if ( size > FileSizeAboveToAskUserIfProceedWithOpen )
-      {
-        fileList += QString::fromLatin1("<li>%1 (%2MB)</li>").arg( url.fileName() ).arg( size / 1024 / 1024 );
-      }
+      fileList += QString::fromLatin1("<li>%1 (%2MB)</li>").arg( url.fileName() ).arg( size / 1024 / 1024 );
     }
-
-    if ( !fileList.isEmpty() )
-    {
-      QString text = i18n( "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>" );
-
-      int ret = KMessageBox::warningYesNo( this, text.arg( fileList ), i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop() );
-      if ( ret == KMessageBox::No )
-        return;
-    }
-
-    KTextEditor::Document *lastID = openUrls(r.URLs, r.encoding, false, docInfo);
-
-    if (lastID)
-      activateView (lastID);
   }
+
+  if ( !fileList.isEmpty() )
+  {
+    QString text = i18n( "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>" );
+
+    int ret = KMessageBox::warningYesNo( this, text.arg( fileList ), i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop() );
+    if ( ret == KMessageBox::No )
+      return;
+  }
+
+  KTextEditor::Document *lastID = openUrls(r.URLs, r.encoding, false, docInfo);
+
+  if (lastID)
+    activateView (lastID);
 }
 
 void KateViewManager::slotDocumentClose(KTextEditor::Document *document) {

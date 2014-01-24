@@ -53,6 +53,13 @@ class KateConfigDialog : public KPageDialog
 public:
     KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view);
     ~KateConfigDialog();
+    
+public: // static
+    /**
+     * Reads the value from the given open config. If not present in config yet then
+     * the default value 10 is used.
+     */
+    static int recentFilesMaxCount();
 
 public:
     void addPluginPage(KTextEditor::Plugin *plugin);

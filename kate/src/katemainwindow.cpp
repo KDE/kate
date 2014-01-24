@@ -183,8 +183,8 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     KateApp::self()->pluginManager()->enableAllPluginsGUI(this, sconfig);
 
     // caption update
-    for (uint i = 0; i < KateApp::self()->documentManager()->documents(); i++) {
-        slotDocumentCreated(KateApp::self()->documentManager()->document(i));
+    Q_FOREACH (auto doc, KateApp::self()->documentManager()->documentList()) {
+        slotDocumentCreated(doc);
     }
 
     connect(KateApp::self()->documentManager(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(slotDocumentCreated(KTextEditor::Document*)));

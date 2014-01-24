@@ -456,7 +456,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
     // avoid empty view space
     if (m_docToView.isEmpty()) {
-        viewMan->createView(KateApp::self()->documentManager()->document(0), this);
+        viewMan->createView (KateApp::self()->documentManager()->documentList().first(), this);
     }
 
     m_group = groupname; // used for restroing view configs later

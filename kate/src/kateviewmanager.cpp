@@ -375,8 +375,8 @@ void KateViewManager::documentDeleted(KTextEditor::Document *)
 
     // just for the case we close a document out of many and this was the active one
     // if all docs are closed, this will be handled by the documentCreated
-    if (!activeView() && (KateApp::self()->documentManager()->documents() > 0)) {
-        createView(KateApp::self()->documentManager()->document(KateApp::self()->documentManager()->documents() - 1));
+    if (!activeView() && !KateApp::self()->documentManager()->documentList().isEmpty()) {
+        createView(KateApp::self()->documentManager()->documentList().last());
     }
 }
 

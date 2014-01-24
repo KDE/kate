@@ -67,8 +67,6 @@ public:
 
     void deleteDoc(KTextEditor::Document *doc);
 
-    KTextEditor::Document *document(uint n);
-
     KateDocumentInfo *documentInfo(KTextEditor::Document *doc);
 
     int findDocument(KTextEditor::Document *doc);
@@ -98,7 +96,6 @@ public:
     bool closeDocumentList(QList<KTextEditor::Document *> documents);
     bool closeAllDocuments(bool closeUrl = true);
     bool closeOtherDocuments(KTextEditor::Document *);
-    bool closeOtherDocuments(uint);
 
     QList<KTextEditor::Document *> modifiedDocumentList();
     bool queryCloseDocuments(KateMainWindow *w);

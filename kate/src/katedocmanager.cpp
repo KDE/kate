@@ -138,11 +138,6 @@ void KateDocManager::deleteDoc(KTextEditor::Document *doc)
     emit documentDeleted(doc);
 }
 
-KTextEditor::Document *KateDocManager::document(uint n)
-{
-    return m_docList.at(n);
-}
-
 KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
 {
     return m_docInfos.contains(doc) ? m_docInfos[doc] : 0;
@@ -306,11 +301,6 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
     documents.append(doc);
 
     return closeDocuments(documents, closeUrl);
-}
-
-bool KateDocManager::closeOtherDocuments(uint n)
-{
-    return closeOtherDocuments(document(n));
 }
 
 bool KateDocManager::closeDocumentList(QList<KTextEditor::Document *> documents)
@@ -535,7 +525,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
         KTextEditor::Document *doc = 0;
 
         if (i == 0) {
-            doc = document(0);
+            doc = m_docList.first();
         } else {
             doc = createDoc();
         }

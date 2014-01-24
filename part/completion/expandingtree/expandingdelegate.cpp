@@ -251,14 +251,15 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
 
   QTextOption to;
   
-  to.setAlignment( m_cachedAlignment );
+  to.setAlignment( static_cast<Qt::Alignment>(m_cachedAlignment | option.displayAlignment) );
   
   to.setWrapMode(QTextOption::WrapAnywhere);
   layout.setTextOption(to);
 
   layout.beginLayout();
   QTextLine line = layout.createLine();
-  line.setLineWidth(rect.width());
+  // Leave some extra space when the text is right-aligned
+  line.setLineWidth(rect.width() - (option.displayAlignment == Qt::AlignRight ? 8 : 0));
   layout.endLayout();
 
   //We need to do some hand layouting here

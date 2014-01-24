@@ -109,6 +109,7 @@ KateViewManager::~KateViewManager()
      */
     if (guiMergedView) {
         mainWindow()->guiFactory()->removeClient(guiMergedView);
+        guiMergedView = nullptr;
     }
 }
 
@@ -594,12 +595,13 @@ void KateViewManager::activateView(KTextEditor::View *view)
 
         if (guiMergedView) {
             mainWindow()->guiFactory()->removeClient(guiMergedView);
+            guiMergedView = nullptr;
         }
 
-        guiMergedView = view;
 
         if (!m_blockViewCreationAndActivation) {
             mainWindow()->guiFactory()->addClient(view);
+            guiMergedView = view;
         }
 
         if (toolbarVisible) {
@@ -921,9 +923,12 @@ void KateViewManager::saveViewConfiguration(KConfigGroup &config)
 
 void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
 {
-    // remove all views and viewspaces + remove their xml gui clients
-    for (int i = 0; i < m_viewList.count(); ++i) {
-        mainWindow()->guiFactory()->removeClient(m_viewList.at(i));
+    /**
+     * remove the single client that is registered at the factory, if any
+     */
+    if (guiMergedView) {
+        mainWindow()->guiFactory()->removeClient(guiMergedView);
+        guiMergedView = nullptr;
     }
 
     qDeleteAll(m_viewList);

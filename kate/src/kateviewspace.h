@@ -65,10 +65,22 @@ public:
     void restoreConfig(KateViewManager *viewMan, const KConfigBase *config, const QString &group);
 
     /**
-     * Called by the view manager to notify that new documents were created
-     * while this view space was active.
+     * Returns the document LRU list of this view space.
      */
-    void registerDocument(KTextEditor::Document *doc);
+    QVector<KTextEditor::Document*> lruDocumentList() const;
+
+    /**
+     * Called by the view manager if a viewspace was closed.
+     * The documents of the closed are merged into this viewspace
+     */
+    void mergeLruList(const QVector<KTextEditor::Document*> & lruList);
+
+    /**
+     * Called by the view manager to notify that new documents were created
+     * while this view space was active. If @p append is @e true, the @p doc
+     * is appended to the lru document list, otherwise, it is prepended.
+     */
+    void registerDocument(KTextEditor::Document *doc, bool append = true);
 
     /**
      * Event filter to catch events from view space tool buttons.

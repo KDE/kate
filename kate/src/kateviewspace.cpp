@@ -138,6 +138,24 @@ void KateViewSpace::statusBarToggled()
     }
 }
 
+QVector<KTextEditor::Document*> KateViewSpace::lruDocumentList() const
+{
+    return m_lruDocList;
+}
+
+void KateViewSpace::mergeLruList(const QVector<KTextEditor::Document*> & lruList)
+{
+    // merge lruList documents that are not in m_lruDocList
+    QVectorIterator<KTextEditor::Document*> it(lruList);
+    it.toBack();
+    while (it.hasPrevious()) {
+        KTextEditor::Document *doc = it.previous();
+        if (! m_lruDocList.contains(doc)) {
+            registerDocument(doc, false);
+        }
+    }
+}
+
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 {
     // should only be called if a view does not yet exist
@@ -328,20 +346,25 @@ void KateViewSpace::addTabs(int count)
     }
 }
 
-void KateViewSpace::registerDocument(KTextEditor::Document *doc)
+void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
 {
     // at this point, the doc should be completely unknown
     Q_ASSERT(! m_lruDocList.contains(doc));
     Q_ASSERT(! m_docToView.contains(doc));
     Q_ASSERT(! m_docToTabId.contains(doc));
 
-    m_lruDocList.append(doc);
+    if (append) {
+        m_lruDocList.append(doc);
+    } else {
+        // prepending == merge doc of closed viewspace
+        m_lruDocList.prepend(doc);
+    }
     connect(doc, SIGNAL(destroyed(QObject*)), this, SLOT(documentDestroyed(QObject*)));
 
     // if space is available, add button
     if (m_tabBar->count() < m_tabBar->maxTabCount()) {
         insertTab(m_tabBar->count(), doc);
-    } else {
+    } else if (append) {
         // remove "oldest" button and replace with new one
         Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
 

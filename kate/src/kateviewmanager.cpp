@@ -820,7 +820,16 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     if (!currentSplitter) {
         return;
     }
-    
+
+    //
+    // 1. get LRU document list from current viewspace
+    // 2. delete current view space
+    // 3. add LRU documents from deleted viewspace to new active viewspace
+    //
+
+    // backup LRU list
+    const QVector<KTextEditor::Document*> lruDocumntsList = viewspace->lruDocumentList();
+
     // avoid flicker
     KateUpdateDisabler disableUpdates (mainWindow());
 
@@ -864,6 +873,9 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
         delete splitter;
         currentSplitter->setSizes(sizes);
     }
+
+    // merge docuemnts of closed view space
+    activeViewSpace()->mergeLruList(lruDocumntsList);
 
     // find the view that is now active.
     KTextEditor::View *v = activeViewSpace()->currentView();

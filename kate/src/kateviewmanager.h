@@ -54,13 +54,13 @@ public:
     KateViewManager(QWidget *parentW, KateMainWindow *parent);
     ~KateViewManager();
 
-    void updateViewSpaceActions();
-
 private:
     /**
      * create all actions needed for the view manager
      */
     void setupActions();
+
+    void updateViewSpaceActions();
 
 public:
     /* This will save the splitter configuration */
@@ -103,9 +103,6 @@ public Q_SLOTS:
 
     void activateNextView();
     void activatePrevView();
-
-protected:
-    QPointer<KTextEditor::View> guiMergedView;
 
 Q_SIGNALS:
     void viewChanged(KTextEditor::View *);
@@ -276,6 +273,11 @@ private:
      * current minimal age
      */
     qint64 m_minAge;
+    
+    /**
+     * the view that is ATM merged to the xml gui factory
+     */
+    QPointer<KTextEditor::View> m_guiMergedView;
 };
 
 #endif

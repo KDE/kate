@@ -62,14 +62,13 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     , m_blockViewCreationAndActivation(false)
     , m_activeViewRunning(false)
     , m_minAge(0)
+    , m_guiMergedView(nullptr)
 {
     // while init
     m_init = true;
 
     // important, set them up, as we use them in other methodes
     setupActions();
-
-    guiMergedView = 0;
 
     // resize mode
     setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, this));
@@ -119,9 +118,9 @@ KateViewManager::~KateViewManager()
     /**
      * remove the single client that is registered at the factory, if any
      */
-    if (guiMergedView) {
-        mainWindow()->guiFactory()->removeClient(guiMergedView);
-        guiMergedView = nullptr;
+    if (m_guiMergedView) {
+        mainWindow()->guiFactory()->removeClient(m_guiMergedView);
+        m_guiMergedView = nullptr;
     }
 }
 
@@ -498,9 +497,9 @@ bool KateViewManager::deleteView(KTextEditor::View *view)
     /**
      * deregister if needed
      */
-    if (guiMergedView == view) {
-        mainWindow()->guiFactory()->removeClient(guiMergedView);
-        guiMergedView = nullptr;
+    if (m_guiMergedView == view) {
+        mainWindow()->guiFactory()->removeClient(m_guiMergedView);
+        m_guiMergedView = nullptr;
     }
 
 #ifdef KActivities_FOUND
@@ -647,15 +646,15 @@ void KateViewManager::activateView(KTextEditor::View *view)
             mainWindow()->toolBar()->hide();    // hide to avoid toolbar flickering
         }
 
-        if (guiMergedView) {
-            mainWindow()->guiFactory()->removeClient(guiMergedView);
-            guiMergedView = nullptr;
+        if (m_guiMergedView) {
+            mainWindow()->guiFactory()->removeClient(m_guiMergedView);
+            m_guiMergedView = nullptr;
         }
 
 
         if (!m_blockViewCreationAndActivation) {
             mainWindow()->guiFactory()->addClient(view);
-            guiMergedView = view;
+            m_guiMergedView = view;
         }
 
         if (toolbarVisible) {
@@ -940,9 +939,9 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     /**
      * remove the single client that is registered at the factory, if any
      */
-    if (guiMergedView) {
-        mainWindow()->guiFactory()->removeClient(guiMergedView);
-        guiMergedView = nullptr;
+    if (m_guiMergedView) {
+        mainWindow()->guiFactory()->removeClient(m_guiMergedView);
+        m_guiMergedView = nullptr;
     }
 
     /**

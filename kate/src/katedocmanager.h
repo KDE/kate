@@ -65,8 +65,6 @@ public:
 
     KTextEditor::Document *createDoc(const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    void deleteDoc(KTextEditor::Document *doc);
-
     KateDocumentInfo *documentInfo(KTextEditor::Document *doc);
 
     /** Returns the documentNumber of the doc with url URL or -1 if no such doc is found */

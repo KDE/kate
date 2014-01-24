@@ -122,22 +122,6 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
     return doc;
 }
 
-void KateDocManager::deleteDoc(KTextEditor::Document *doc)
-{
-    KateApp::self()->emitDocumentClosed(QString::number((qptrdiff)doc));
-    qCDebug(LOG_KATE) << "deleting document with name:" << doc->documentName();
-
-    // document will be deleted, soon
-    emit documentWillBeDeleted(doc);
-
-    // really delete the document and its infos
-    delete m_docInfos.take(doc);
-    delete m_docList.takeAt(m_docList.indexOf(doc));
-
-    // document is gone, emit our signals
-    emit documentDeleted(doc);
-}
-
 KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
 {
     return m_docInfos.contains(doc) ? m_docInfos[doc] : 0;
@@ -264,7 +248,20 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
             }
         }
 
-        deleteDoc(doc);
+        qCDebug(LOG_KATE) << "deleting document with name:" << doc->documentName();
+        
+        KateApp::self()->emitDocumentClosed(QString::number((qptrdiff)doc));
+        
+        // document will be deleted, soon
+        emit documentWillBeDeleted(doc);
+
+        // really delete the document and its infos
+        delete m_docInfos.take(doc);
+        delete m_docList.takeAt(m_docList.indexOf(doc));
+
+        // document is gone, emit our signals
+        emit documentDeleted(doc);
+        
         last++;
     }
 

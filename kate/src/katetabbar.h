@@ -53,12 +53,6 @@ public:
     void load(KConfigBase *config, const QString &group);
     void save(KConfigBase *config, const QString &group) const;
 
-    void setMinimumTabWidth(int min_pixel);
-    void setMaximumTabWidth(int max_pixel);
-
-    int minimumTabWidth() const;
-    int maximumTabWidth() const;
-
     int addTab(const QString &text);
     int insertTab(int position, const QString & text);
     int removeTab(int index);
@@ -151,7 +145,7 @@ private:
     int m_maximumTabWidth;
 
     QList< KateTabButton * > m_tabButtons;
-    QMap< int, KateTabButton * > m_IDToTabButton;
+    QMap< int, KateTabButton * > m_idToTab;
 
     KateTabButton *m_activeButton;
 

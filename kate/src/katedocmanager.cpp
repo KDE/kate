@@ -260,12 +260,15 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
         last++;
     }
 
-    emit documentsDeleted(documents.mid(last));
-
-    // never ever empty the whole document list
+    /**
+     * never ever empty the whole document list
+     * do this before documentsDeleted is emited, to have no flicker
+     */
     if (m_docList.isEmpty()) {
         createDoc();
     }
+
+    emit documentsDeleted(documents.mid(last));
 
     return success;
 }

@@ -230,7 +230,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     return doc;
 }
 
-bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl)
+bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl)
 {
     if (documents.isEmpty()) {
         return false;
@@ -241,13 +241,11 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
     emit aboutToDeleteDocuments(documents);
 
     int last = 0;
+    bool success = true;
     foreach(KTextEditor::Document * doc, documents) {
         if (closeUrl && !doc->closeUrl()) {
-            return false;    // get out on first error
-        }
-
-        for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
-            KateApp::self()->mainWindow(i)->viewManager()->closeViews(doc);
+            success = false;    // get out on first error
+            break;
         }
 
         if (closeUrl && m_tempFiles.contains(doc)) {
@@ -277,7 +275,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
         createDoc();
     }
 
-    return true;
+    return success;
 }
 
 bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
@@ -294,12 +292,6 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
 
 bool KateDocManager::closeDocumentList(QList<KTextEditor::Document *> documents)
 {
-    bool res = true;
-
-    for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
-        KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
-    }
-
     QList<KTextEditor::Document *> modifiedDocuments;
     foreach(KTextEditor::Document * document, documents) {
         if (document->isModified()) {
@@ -311,60 +303,25 @@ bool KateDocManager::closeDocumentList(QList<KTextEditor::Document *> documents)
         return false;
     }
 
-    res = closeDocuments(documents, false);   // Do not show save/discard dialog
-
-    for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
-        KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
-        if (!KateApp::self()->mainWindow(i)->viewManager()->activeView()) {
-            KateApp::self()->mainWindow(i)->viewManager()->activateView(m_docList.at(0));
-        } else {
-            KateApp::self()->mainWindow(i)->viewManager()->reactivateActiveView();
-        }
-    }
-
-    return res;
+    return closeDocuments(documents, false);   // Do not show save/discard dialog
 }
 
 bool KateDocManager::closeAllDocuments(bool closeUrl)
 {
-    bool res = true;
-
-    QList<KTextEditor::Document *> docs = m_docList;
-
-    for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
-        KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
-    }
-
-    res = closeDocuments(docs, closeUrl);
-
-    for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
-        KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
-        KateApp::self()->mainWindow(i)->viewManager()->activateView(m_docList.at(0));
-    }
-
-    return res;
+    /**
+     * just close all documents
+     */
+    return closeDocuments(m_docList, closeUrl);
 }
 
 bool KateDocManager::closeOtherDocuments(KTextEditor::Document *doc)
 {
-    bool res = true;
-
+    /**
+     * close all documents beside the passed one
+     */
     QList<KTextEditor::Document *> documents = m_docList;
-
-    for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
-        KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
-    }
-
     documents.removeOne(doc);
-
-    res = closeDocuments(documents);
-
-    for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
-        KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
-        KateApp::self()->mainWindow(i)->viewManager()->activateView(m_docList.at(0));
-    }
-
-    return res;
+    return closeDocuments(documents);
 }
 
 /**

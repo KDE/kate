@@ -50,12 +50,6 @@
 #include <kactivities/resourceinstance.h>
 #endif
 
-#include <QApplication>
-#include <QObject>
-#include <QFileInfo>
-#include <QToolButton>
-#include <QTimer>
-#include <QMenu>
 #include <QStyle>
 
 //END Includes
@@ -89,13 +83,31 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     connect(this, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotViewChanged()));
 
     connect(KateApp::self()->documentManager(), SIGNAL(documentCreatedViewManager(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
-    connect(KateApp::self()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document*)), this, SLOT(documentDeleted(KTextEditor::Document*)));
-
+    
+    /**
+     * before document is really deleted: cleanup all views!
+     */
+    connect(KateApp::self()->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*))
+        , this, SLOT(documentWillBeDeleted(KTextEditor::Document*)));
+ 
+    /**
+     * handle document deletion transactions
+     * disable view creation in between
+     * afterwards ensure we have views ;)
+     */
+    connect(KateApp::self()->documentManager(), SIGNAL(aboutToDeleteDocuments(const QList<KTextEditor::Document *> &))
+        , this, SLOT(aboutToDeleteDocuments(const QList<KTextEditor::Document *> &)));
+    connect(KateApp::self()->documentManager(), SIGNAL(documentsDeleted(const QList<KTextEditor::Document *> &))
+        , this, SLOT(documentsDeleted(const QList<KTextEditor::Document *> &)));
+    
     // register all already existing documents
     m_blockViewCreationAndActivation = true;
+    
     const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
-    foreach(KTextEditor::Document * doc, docs)
-    documentCreated(doc);
+    foreach(KTextEditor::Document * doc, docs) {
+        documentCreated(doc);
+    }
+    
     m_blockViewCreationAndActivation = false;
 
     // init done
@@ -208,11 +220,6 @@ void KateViewManager::updateViewSpaceActions()
     m_closeOtherViews->setEnabled(viewSpaceCount() > 1);
     goNext->setEnabled(viewSpaceCount() > 1);
     goPrev->setEnabled(viewSpaceCount() > 1);
-}
-
-void KateViewManager::setViewActivationBlocked(bool block)
-{
-    m_blockViewCreationAndActivation = block;
 }
 
 void KateViewManager::slotDocumentNew()
@@ -367,17 +374,52 @@ void KateViewManager::documentCreated(KTextEditor::Document *doc)
     }
 }
 
-void KateViewManager::documentDeleted(KTextEditor::Document *)
+void KateViewManager::aboutToDeleteDocuments(const QList<KTextEditor::Document *> &)
 {
-    if (m_blockViewCreationAndActivation) {
-        return;
-    }
+    /**
+     * block view creation until the transaction is done
+     * this shall not stack!
+     */
+    Q_ASSERT (!m_blockViewCreationAndActivation);
+    m_blockViewCreationAndActivation = true;
 
-    // just for the case we close a document out of many and this was the active one
-    // if all docs are closed, this will be handled by the documentCreated
+    /**
+     * disable updates hard (we can't use KateUpdateDisabler here, we have delayed signal
+     */
+    mainWindow()->setUpdatesEnabled(false);
+}
+
+void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
+{
+    /**
+     * again allow view creation
+     */
+    m_blockViewCreationAndActivation = false;
+
+    /**
+     * try to have active view around!
+     */
     if (!activeView() && !KateApp::self()->documentManager()->documentList().isEmpty()) {
         createView(KateApp::self()->documentManager()->documentList().last());
     }
+    
+    KTextEditor::View *const newActiveView = activeView();
+
+    /**
+     * check if we have any empty viewspaces and give them a view
+     */
+    Q_FOREACH(KateViewSpace * vs, m_viewSpaceList) {
+        if (!vs->currentView()) {
+            createView(newActiveView->document(), vs);
+        }
+    }
+
+    emit viewChanged(newActiveView);
+
+    /**
+     * enable updates hard (we can't use KateUpdateDisabler here, we have delayed signal
+     */
+    mainWindow()->setUpdatesEnabled(true);
 }
 
 void KateViewManager::documentSavedOrUploaded(KTextEditor::Document *doc, bool)
@@ -669,51 +711,21 @@ void KateViewManager::activatePrevView()
     activateView(m_viewSpaceList.at(i)->currentView());
 }
 
-void KateViewManager::closeViews(KTextEditor::Document *doc)
+void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)
 {
+    /**
+     * collect all views of that document that belong to this manager
+     */
     QList<KTextEditor::View *> closeList;
-    QHashIterator<KTextEditor::View *, QPair<bool, qint64> > it(m_views);
-    while (it.hasNext()) {
-        it.next();
-        if (it.key()->document() == doc) {
-            closeList.append(it.key());
+    Q_FOREACH (KTextEditor::View *v, doc->views()) {
+        if (m_views.contains(v)) {
+            closeList.append(v);
         }
     }
     
     while (!closeList.isEmpty()) {
         deleteView(closeList.takeFirst());
     }
-
-    if (m_blockViewCreationAndActivation) {
-        return;
-    }
-
-    /**
-     * disable updates hard (we can't use KateUpdateDisabler here, we have delayed signal
-     */
-    mainWindow()->setUpdatesEnabled(false);
-    QTimer::singleShot(0, this, SLOT(slotDelayedViewChanged()));
-}
-
-void KateViewManager::slotDelayedViewChanged()
-{
-    KTextEditor::View *const newActiveView = activeView();
-
-    /**
-     * check if we have any empty viewspaces and give them a view
-     */
-    Q_FOREACH(KateViewSpace * vs, m_viewSpaceList) {
-        if (!vs->currentView()) {
-            createView(newActiveView->document(), vs);
-        }
-    }
-
-    emit viewChanged(newActiveView);
-
-    /**
-     * enable updates hard (we can't use KateUpdateDisabler here, we have delayed signal
-     */
-    mainWindow()->setUpdatesEnabled(true);
 }
 
 void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0

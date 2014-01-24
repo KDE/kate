@@ -86,17 +86,11 @@ public Q_SLOTS:
     void openUrl(const QUrl &url);
 
 public:
-
-    void setViewActivationBlocked(bool block);
-
-public:
-    void closeViews(KTextEditor::Document *doc);
     KateMainWindow *mainWindow();
 
 private Q_SLOTS:
     void activateView(KTextEditor::View *view);
     void activateSpace(KTextEditor::View *v);
-    void slotDelayedViewChanged();
 
 public Q_SLOTS:
     void slotDocumentNew();
@@ -158,10 +152,28 @@ private Q_SLOTS:
     void slotViewChanged();
 
     void documentCreated(KTextEditor::Document *doc);
-    void documentDeleted(KTextEditor::Document *doc);
+    void documentWillBeDeleted(KTextEditor::Document *doc);
 
     void documentSavedOrUploaded(KTextEditor::Document *document, bool saveAs);
 
+    /**
+     * This signal is emitted before the documents batch is going to be deleted
+     *
+     * note that the batch can be interupted in the middle and only some
+     * of the documents may be actually deleted. See documentsDeleted() signal.
+     * 
+     * @param documents documents we want to delete, may not be deleted
+     */
+    void aboutToDeleteDocuments(const QList<KTextEditor::Document *> &documents);
+
+    /**
+     * This singnal is emitted after the documents batch was deleted
+     *
+     * This is the batch closing signal for aboutToDeleteDocuments
+     * @param documents the documents that weren't deleted after all
+     */
+    void documentsDeleted(const QList<KTextEditor::Document *> &documents);
+    
 public Q_SLOTS:
     /**
      * Splits a KateViewSpace into two in the following steps:

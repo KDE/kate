@@ -31,7 +31,7 @@
 #include <KMessageBox>
 #include <KStartupInfo>
 #include <KLocalizedString>
-#include <kconfiggui.h>
+#include <KConfigGui>
 #include <KConfigGroup>
 
 #include <QCommandLineParser>
@@ -231,10 +231,6 @@ bool KateApp::startupKate()
         openInput(text);
     } else if (doc) {
         activeKateMainWindow()->viewManager()->activateView(doc);
-    }
-
-    if (activeKateMainWindow()->viewManager()->viewCount() == 0) {
-        activeKateMainWindow()->viewManager()->activateView(m_docManager->document(0));
     }
 
     int line = 0;

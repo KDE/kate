@@ -71,6 +71,8 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
     split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_current_space")));
     split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_others")));
+    split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_hide_others")));
+    split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_show_others")));
     split->setWhatsThis(i18n("Control view space splitting"));
     split->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(split);
@@ -184,27 +186,9 @@ void KateViewSpace::removeView(KTextEditor::View *v)
     // remove view mappings
     Q_ASSERT(m_docToView.contains(v->document()));
     m_docToView.remove(v->document());
-    Q_ASSERT(m_docToTabId.contains(v->document()));
-    documentDestroyed(v->document());
 
-    // remove from view space
-    bool active = (v == currentView());
-
+    // ...and now: remove from view space
     stack->removeWidget(v);
-
-    if (! active) {
-        return;
-    }
-
-    // the last recently used view/document is always at the end of the list
-    if (! m_lruDocList.isEmpty()) {
-        KTextEditor::Document * doc = m_lruDocList.last();
-        if (m_docToView.contains(doc)) {
-            showView(doc);
-        } else {
-            m_viewManager->createView(doc, this);
-        }
-    }
 }
 
 bool KateViewSpace::showView(KTextEditor::Document *document)
@@ -237,7 +221,8 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
             // remove "oldest" button and replace with new one
             Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
 
-            KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount()];
+            // we need to subtract by 1 more, as we just added ourself to the end of the lru list!
+            KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
             Q_ASSERT(m_docToTabId.contains(docToHide));
             const int insertIndex = removeTab(docToHide);
 
@@ -321,8 +306,6 @@ int KateViewSpace::removeTab(KTextEditor::Document * doc)
 
 void KateViewSpace::removeTabs(int count)
 {
-    qDebug() << "________the tab bar wants LESS tabs:" << count;
-
     while (count > 0) {
         const int tabCount = m_tabBar->count();
         KTextEditor::Document * removeDoc = m_lruDocList[m_lruDocList.size() - tabCount];
@@ -334,8 +317,6 @@ void KateViewSpace::removeTabs(int count)
 
 void KateViewSpace::addTabs(int count)
 {
-    qDebug() << "________the tab bar wants MORE tabs:" << count;
-
     while (count > 0) {
         const int tabCount = m_tabBar->count();
         if (m_lruDocList.size() <= tabCount) {
@@ -476,7 +457,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
     // avoid empty view space
     if (m_docToView.isEmpty()) {
-        viewMan->createView(KateApp::self()->documentManager()->document(0), this);
+        viewMan->createView (KateApp::self()->documentManager()->documentList().first(), this);
     }
 
     m_group = groupname; // used for restroing view configs later

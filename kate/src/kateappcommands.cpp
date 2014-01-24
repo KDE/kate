@@ -124,7 +124,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
             if (mainWin->viewManager()->count() > 1) {
                 QTimer::singleShot(0, mainWin->viewManager(), SLOT(slotCloseCurrentViewSpace()));
             } else {
-                if (KateApp::self()->documentManager()->documents() > 1) {
+                if (KateApp::self()->documentManager()->documentList().size() > 1) {
                     QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
                 } else {
                     QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
@@ -140,7 +140,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
                 view->document()->documentSave();
             }
 
-            if (KateApp::self()->documentManager()->documents() > 1) {
+            if (KateApp::self()->documentManager()->documentList().size() > 1) {
                 QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
             } else {
                 QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));

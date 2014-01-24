@@ -65,19 +65,10 @@ public:
 
     KTextEditor::Document *createDoc(const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    void deleteDoc(KTextEditor::Document *doc);
-
-    KTextEditor::Document *document(uint n);
-
     KateDocumentInfo *documentInfo(KTextEditor::Document *doc);
 
-    int findDocument(KTextEditor::Document *doc);
     /** Returns the documentNumber of the doc with url URL or -1 if no such doc is found */
     KTextEditor::Document *findDocument(const QUrl &url) const;
-
-    bool isOpen(QUrl url);
-
-    uint documents();
 
     const QList<KTextEditor::Document *> &documentList() const {
         return m_docList;
@@ -94,11 +85,10 @@ public:
                                             const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
-    bool closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl = true);
+    bool closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl = true);
     bool closeDocumentList(QList<KTextEditor::Document *> documents);
     bool closeAllDocuments(bool closeUrl = true);
     bool closeOtherDocuments(KTextEditor::Document *);
-    bool closeOtherDocuments(uint);
 
     QList<KTextEditor::Document *> modifiedDocumentList();
     bool queryCloseDocuments(KateMainWindow *w);

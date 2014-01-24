@@ -5,7 +5,7 @@ include_directories(
 )
 
 # Plugin Kate Backtrace Browser
-set(BtBrowserSrc btbrowsertest.cpp ${CMAKE_SOURCE_DIR}/addons/kate/backtracebrowser/btparser.cpp)
+set(BtBrowserSrc btbrowsertest.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../btparser.cpp)
 add_executable(btbrowser_test ${BtBrowserSrc})
 add_test(plugin-btbrowser_test btbrowser_test)
 target_link_libraries(btbrowser_test kdeinit_kate Qt5::Test)

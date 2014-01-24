@@ -23,7 +23,6 @@
 #include "ui_sessionconfigwidget.h"
 
 #include "katemainwindow.h"
-
 #include "katedocmanager.h"
 #include "katepluginmanager.h"
 #include "kateconfigplugindialogpage.h"
@@ -32,7 +31,7 @@
 #include "katesessionmanager.h"
 #include "katedebug.h"
 
-#include <ktexteditor/configpage.h>
+#include <KTextEditor/ConfigPage>
 
 #include <KIconLoader>
 #include <KStandardAction>

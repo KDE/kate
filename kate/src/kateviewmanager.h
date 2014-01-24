@@ -54,13 +54,13 @@ public:
     KateViewManager(QWidget *parentW, KateMainWindow *parent);
     ~KateViewManager();
 
-    void updateViewSpaceActions();
-
 private:
     /**
      * create all actions needed for the view manager
      */
     void setupActions();
+
+    void updateViewSpaceActions();
 
 public:
     /* This will save the splitter configuration */
@@ -86,17 +86,11 @@ public Q_SLOTS:
     void openUrl(const QUrl &url);
 
 public:
-
-    void setViewActivationBlocked(bool block);
-
-public:
-    void closeViews(KTextEditor::Document *doc);
     KateMainWindow *mainWindow();
 
 private Q_SLOTS:
     void activateView(KTextEditor::View *view);
     void activateSpace(KTextEditor::View *v);
-    void slotDelayedViewChanged();
 
 public Q_SLOTS:
     void slotDocumentNew();
@@ -110,19 +104,11 @@ public Q_SLOTS:
     void activateNextView();
     void activatePrevView();
 
-protected:
-    QPointer<KTextEditor::View> guiMergedView;
-
 Q_SIGNALS:
-    void statChanged();
     void viewChanged(KTextEditor::View *);
     void viewCreated(KTextEditor::View *);
 
 public:
-    inline QList<KTextEditor::View *> &viewList() {
-        return m_viewList;
-    }
-
     /**
      * create and activate a new view for doc, if doc == 0, then
      * create a new document
@@ -152,21 +138,32 @@ public:
     KTextEditor::View *activeView();
     KateViewSpace *activeViewSpace();
 
-    int viewCount() const;
-    int viewSpaceCount() const;
-
-    bool isViewActivationBlocked() {
-        return m_blockViewCreationAndActivation;
-    }
-
 private Q_SLOTS:
     void slotViewChanged();
 
     void documentCreated(KTextEditor::Document *doc);
-    void documentDeleted(KTextEditor::Document *doc);
+    void documentWillBeDeleted(KTextEditor::Document *doc);
 
     void documentSavedOrUploaded(KTextEditor::Document *document, bool saveAs);
 
+    /**
+     * This signal is emitted before the documents batch is going to be deleted
+     *
+     * note that the batch can be interupted in the middle and only some
+     * of the documents may be actually deleted. See documentsDeleted() signal.
+     * 
+     * @param documents documents we want to delete, may not be deleted
+     */
+    void aboutToDeleteDocuments(const QList<KTextEditor::Document *> &documents);
+
+    /**
+     * This singnal is emitted after the documents batch was deleted
+     *
+     * This is the batch closing signal for aboutToDeleteDocuments
+     * @param documents the documents that weren't deleted after all
+     */
+    void documentsDeleted(const QList<KTextEditor::Document *> &documents);
+    
 public Q_SLOTS:
     /**
      * Splits a KateViewSpace into two in the following steps:
@@ -224,16 +221,22 @@ public Q_SLOTS:
 
     /** closes every view but the active one */
     void slotCloseOtherViews();
+    
+    /** hide every view but the active one */
+    void slotHideOtherViews();
+    
+    /** show every view but the active one */
+    void slotShowOtherViews();
 
     void reactivateActiveView();
 
     /**
-     * get views => age mapping
-     * useful to show views in a LRU way
+     * central storage of all views known in the view manager
+     * maps the view to active state + lru age of the view
      * important: smallest age ==> latest used view
      */
-    const QHash<KTextEditor::View *, qint64> &lruViews() const {
-        return m_lruViews;
+    const QHash<KTextEditor::View *, QPair<bool, qint64> > &views() const {
+        return m_views;
     }
 
 private:
@@ -242,12 +245,12 @@ private:
 
     QAction *m_closeView;
     QAction *m_closeOtherViews;
+    QAction *m_hideOtherViews;
+    QAction *m_showOtherViews;
     QAction *goNext;
     QAction *goPrev;
 
     QList<KateViewSpace *> m_viewSpaceList;
-    QList<KTextEditor::View *> m_viewList;
-    QHash<KTextEditor::View *, bool> m_activeStates;
 
 #ifdef KActivities_FOUND
     QHash<KTextEditor::View *, KActivities::ResourceInstance *> m_activityResources;
@@ -260,16 +263,21 @@ private:
     int m_splitterIndex; // used during saving splitter config.
 
     /**
-     * history of view activations
-     * map view => number, the lower, the more recent activated
+     * central storage of all views known in the view manager
+     * maps the view to active state + lru age of the view
+     * important: smallest age ==> latest used view
      */
-    QHash<KTextEditor::View *, qint64> m_lruViews;
+    QHash<KTextEditor::View *, QPair<bool, qint64> > m_views;
 
     /**
      * current minimal age
      */
     qint64 m_minAge;
+    
+    /**
+     * the view that is ATM merged to the xml gui factory
+     */
+    QPointer<KTextEditor::View> m_guiMergedView;
 };
 
 #endif
-

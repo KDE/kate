@@ -372,6 +372,15 @@ void KateViewManager::documentCreated(KTextEditor::Document *doc)
     if (!activeView()) {
         activateView(doc);
     }
+    
+    /**
+     * check if we have any empty viewspaces and give them a view
+     */
+    Q_FOREACH(KateViewSpace * vs, m_viewSpaceList) {
+        if (!vs->currentView()) {
+            createView(activeView()->document(), vs);
+        }
+    }
 }
 
 void KateViewManager::aboutToDeleteDocuments(const QList<KTextEditor::Document *> &)

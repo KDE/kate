@@ -31,7 +31,7 @@
 #include <KMessageBox>
 #include <KStartupInfo>
 #include <KLocalizedString>
-#include <kconfiggui.h>
+#include <KConfigGui>
 #include <KConfigGroup>
 
 #include <QCommandLineParser>

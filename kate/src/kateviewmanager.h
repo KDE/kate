@@ -108,7 +108,6 @@ protected:
     QPointer<KTextEditor::View> guiMergedView;
 
 Q_SIGNALS:
-    void statChanged();
     void viewChanged(KTextEditor::View *);
     void viewCreated(KTextEditor::View *);
 
@@ -141,12 +140,6 @@ private:
 public:
     KTextEditor::View *activeView();
     KateViewSpace *activeViewSpace();
-
-    int viewSpaceCount() const;
-
-    bool isViewActivationBlocked() {
-        return m_blockViewCreationAndActivation;
-    }
 
 private Q_SLOTS:
     void slotViewChanged();

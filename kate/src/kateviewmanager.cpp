@@ -216,10 +216,10 @@ void KateViewManager::setupActions()
 
 void KateViewManager::updateViewSpaceActions()
 {
-    m_closeView->setEnabled(viewSpaceCount() > 1);
-    m_closeOtherViews->setEnabled(viewSpaceCount() > 1);
-    goNext->setEnabled(viewSpaceCount() > 1);
-    goPrev->setEnabled(viewSpaceCount() > 1);
+    m_closeView->setEnabled(m_viewSpaceList.count() > 1);
+    m_closeOtherViews->setEnabled(m_viewSpaceList.count() > 1);
+    goNext->setEnabled(m_viewSpaceList.count() > 1);
+    goPrev->setEnabled(m_viewSpaceList.count() > 1);
 }
 
 void KateViewManager::slotDocumentNew()
@@ -579,7 +579,7 @@ void KateViewManager::setActiveSpace(KateViewSpace *vs)
         activeViewSpace()->setActive(false);
     }
 
-    vs->setActive(true, viewSpaceCount() > 1);
+    vs->setActive(true, m_viewSpaceList.count() > 1);
 }
 
 void KateViewManager::setActiveView(KTextEditor::View *view)
@@ -685,11 +685,6 @@ KTextEditor::View *KateViewManager::activateView(KTextEditor::Document *d)
     // create new view otherwise
     createView(d);
     return activeView();
-}
-
-int KateViewManager::viewSpaceCount() const
-{
-    return m_viewSpaceList.count();
 }
 
 void KateViewManager::slotViewChanged()

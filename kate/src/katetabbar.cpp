@@ -153,9 +153,7 @@ int KateTabBar::currentTab() const
  */
 void KateTabBar::setCurrentTab(int id)
 {
-    if (!m_idToTab.contains(id)) {
-        return;
-    }
+    Q_ASSERT(m_idToTab.contains(id));
 
     KateTabButton *tabButton = m_idToTab[id];
     if (m_activeButton == tabButton) {
@@ -176,10 +174,7 @@ void KateTabBar::setCurrentTab(int id)
  */
 int KateTabBar::removeTab(int id)
 {
-    if (!m_idToTab.contains(id)) {
-        Q_ASSERT(false);
-        return -1;
-    }
+    Q_ASSERT(m_idToTab.contains(id));
 
     KateTabButton *tabButton = m_idToTab[id];
 
@@ -216,9 +211,7 @@ bool KateTabBar::containsTab(int id) const
  */
 void KateTabBar::setTabText(int id, const QString &text)
 {
-    if (!m_idToTab.contains(id)) {
-        return;
-    }
+    Q_ASSERT(m_idToTab.contains(id));
 
     // change highlight key, if entry exists
     if (m_highlightedTabs.contains(m_idToTab[id]->text())) {
@@ -241,11 +234,8 @@ void KateTabBar::setTabText(int id, const QString &text)
  */
 QString KateTabBar::tabText(int id) const
 {
-    if (m_idToTab.contains(id)) {
-        return m_idToTab[id]->text();
-    }
-
-    return QString();
+    Q_ASSERT(m_idToTab.contains(id));
+    return m_idToTab[id]->text();
 }
 
 /**
@@ -253,10 +243,7 @@ QString KateTabBar::tabText(int id) const
  */
 void KateTabBar::setTabToolTip(int id, const QString &tip)
 {
-    if (!m_idToTab.contains(id)) {
-        return;
-    }
-
+    Q_ASSERT(m_idToTab.contains(id));
     m_idToTab[id]->setToolTip(tip);
 }
 
@@ -265,11 +252,8 @@ void KateTabBar::setTabToolTip(int id, const QString &tip)
  */
 QString KateTabBar::tabToolTip(int id) const
 {
-    if (m_idToTab.contains(id)) {
-        return m_idToTab[id]->toolTip();
-    }
-
-    return QString();
+    Q_ASSERT(m_idToTab.contains(id));
+    return m_idToTab[id]->toolTip();
 }
 
 /**
@@ -278,9 +262,8 @@ QString KateTabBar::tabToolTip(int id) const
  */
 void KateTabBar::setTabIcon(int id, const QIcon &icon)
 {
-    if (m_idToTab.contains(id)) {
-        m_idToTab[id]->setIcon(icon);
-    }
+    Q_ASSERT(m_idToTab.contains(id));
+    m_idToTab[id]->setIcon(icon);
 }
 
 /**
@@ -290,11 +273,8 @@ void KateTabBar::setTabIcon(int id, const QIcon &icon)
  */
 QIcon KateTabBar::tabIcon(int id) const
 {
-    if (m_idToTab.contains(id)) {
-        return m_idToTab[id]->icon();
-    }
-
-    return QIcon();
+    Q_ASSERT(m_idToTab.contains(id));
+    return m_idToTab[id]->icon();
 }
 
 /**
@@ -307,18 +287,14 @@ int KateTabBar::count() const
 
 void KateTabBar::setTabModified(int id, bool modified)
 {
-    if (m_idToTab.contains(id)) {
-        m_idToTab[id]->setModified(modified);
-    }
+    Q_ASSERT(m_idToTab.contains(id));
+    m_idToTab[id]->setModified(modified);
 }
 
 bool KateTabBar::isTabModified(int id) const
 {
-    if (m_idToTab.contains(id)) {
-        return m_idToTab[id]->isModified();
-    }
-
-    return false;
+    Q_ASSERT(m_idToTab.contains(id));
+    return m_idToTab[id]->isModified();
 }
 
 void KateTabBar::removeHighlightMarks()

@@ -29,7 +29,6 @@
 #include <KTextEditor/View>
 
 #include <KPageDialog>
-#include <KSharedConfig>
 
 class QCheckBox;
 class QSpinBox;
@@ -60,7 +59,7 @@ public: // static
      * Reads the value from the given open config. If not present in config yet then
      * the default value 10 is used.
      */
-    static int readRecentFilesMaxCount(KSharedConfig::Ptr config);
+    static int recentFilesMaxCount();
 
 public:
     void addPluginPage(KTextEditor::Plugin *plugin);

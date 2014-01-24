@@ -149,7 +149,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     sessionConfigUi->restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
     connect(sessionConfigUi->restoreVC, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
     
-    sessionConfigUi->spinBoxRecentFilesCount->setValue(readRecentFilesMaxCount(config));
+    sessionConfigUi->spinBoxRecentFilesCount->setValue(recentFilesMaxCount());
     connect(sessionConfigUi->spinBoxRecentFilesCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
     QString sesStart (cgGeneral.readEntry ("Startup Session", "manual"));
@@ -383,9 +383,9 @@ void KateConfigDialog::slotHelp()
     QDesktopServices::openUrl(QUrl(QStringLiteral("help:/")));
 }
 
-int KateConfigDialog::readRecentFilesMaxCount(KSharedConfig::Ptr config)
+int KateConfigDialog::recentFilesMaxCount()
 {
-    int maxItems = KConfigGroup(config, "General").readEntry("Recent File List Entry Count", 10);
+    int maxItems = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Recent File List Entry Count", 10);
     return maxItems;
 }
 

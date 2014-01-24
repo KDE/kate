@@ -277,7 +277,7 @@ void KateMainWindow::setupActions()
     ->setWhatsThis(i18n("Open an existing document for editing"));
 
     m_fileOpenRecent = KStandardAction::openRecent(m_viewManager, SLOT(openUrl(QUrl)), this);
-    m_fileOpenRecent->setMaxItems(KateConfigDialog::readRecentFilesMaxCount(KSharedConfig::openConfig()));
+    m_fileOpenRecent->setMaxItems(KateConfigDialog::recentFilesMaxCount());
     actionCollection()->addAction(m_fileOpenRecent->objectName(), m_fileOpenRecent);
     m_fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
@@ -726,7 +726,7 @@ void KateMainWindow::showPluginConfigPage(KTextEditor::ConfigPageInterface *conf
     }
     
     if (dlg->exec() == QDialog::Accepted) {
-        m_fileOpenRecent->setMaxItems(KateConfigDialog::readRecentFilesMaxCount(KSharedConfig::openConfig()));
+        m_fileOpenRecent->setMaxItems(KateConfigDialog::recentFilesMaxCount());
     }
 
     delete dlg;

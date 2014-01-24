@@ -30,6 +30,65 @@
 #include <QMenu>
 #include <QPainter>
 #include <QStyle>
+#include <QStyleOption>
+#include <QHBoxLayout>
+
+TabCloseButton::TabCloseButton(QWidget * parent)
+    : QAbstractButton(parent)
+{
+    // should never have focus
+    setFocusPolicy(Qt::NoFocus);
+
+    // closing a tab closes the document
+    setToolTip(i18n("Close Document"));
+}
+
+void TabCloseButton::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event)
+
+    // get the tab this close button belongs to
+    KateTabButton *tabButton = qobject_cast<KateTabButton*>(parent());
+    const bool isActive = underMouse()
+        || (tabButton && tabButton->isChecked());
+
+    // set style options depending on current state
+    QStyleOption opt;
+    opt.init(this);
+    if (isActive && !isDown()) {
+        opt.state |= QStyle::State_Raised;
+    }
+    if (isDown()) {
+        opt.state |= QStyle::State_Sunken;
+    }
+
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_IndicatorTabClose, &opt, &p, this);
+}
+
+QSize TabCloseButton::sizeHint() const
+{
+    // make sure the widget is polished
+    ensurePolished();
+
+    // read the metrics from the style
+    const int w = style()->pixelMetric(QStyle::PM_TabCloseIndicatorWidth, 0, this);
+    const int h = style()->pixelMetric(QStyle::PM_TabCloseIndicatorHeight, 0, this);
+    return QSize(w, h);
+}
+
+void TabCloseButton::enterEvent(QEvent *event)
+{
+    update(); // repaint on hover
+    QAbstractButton::enterEvent(event);
+}
+
+void TabCloseButton::leaveEvent(QEvent *event)
+{
+    update(); // repaint on hover
+    QAbstractButton::leaveEvent(event);
+}
+
 
 QColor KateTabButton::s_predefinedColors[] = { Qt::red, Qt::yellow, Qt::green, Qt::cyan, Qt::blue, Qt::magenta };
 const int KateTabButton::s_colorCount = 6;
@@ -50,6 +109,17 @@ KateTabButton::KateTabButton(const QString &caption, QWidget *parent)
     setText(caption);
 
     connect(this, SIGNAL(clicked()), this, SLOT(buttonClicked()));
+
+    // add close button
+    const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, 0, this);
+    m_closeButton = new TabCloseButton(this);
+    QHBoxLayout * hbox = new QHBoxLayout(this);
+    hbox->setSpacing(0);
+    hbox->setContentsMargins(0, 0, margin, 0);
+    hbox->addStretch();
+    hbox->addWidget(m_closeButton);
+    setLayout(hbox);
+    connect(m_closeButton, SIGNAL(clicked()), this, SLOT(closeButtonClicked()));
 }
 
 KateTabButton::~KateTabButton()
@@ -64,6 +134,11 @@ void KateTabButton::buttonClicked()
     } else {
         setChecked(true);
     }
+}
+
+void KateTabButton::closeButtonClicked()
+{
+    emit closeRequest(this);
 }
 
 void KateTabButton::setActivated(bool active)
@@ -87,14 +162,10 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     QPalette pal = QApplication::palette();
 
     QPainter p(this);
-    if (underMouse()) {
+    if (isChecked() || underMouse()) {
         QColor c = pal.color(QPalette::Background);
         p.fillRect(rect(), c.lighter(110));
     }
-
-    // draw text, we need to elide to xxx...xxx is too long
-    const QString elidedText = QFontMetrics(font()).elidedText (text(), Qt::ElideMiddle, rect().width());
-    style()->drawItemText(&p, rect(), Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText);
 
     if (m_highlightColor.isValid()) {
         p.fillRect(QRect(0, height() - 3, width(), 10), m_highlightColor);
@@ -103,6 +174,15 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     if (isActivated()) {
         p.fillRect(QRect(0, height() - 3, width(), 10), QColor(0, 0, 255, 128));
     }
+
+    // the width of the text is reduced by the close button + 2 * margin
+    const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, 0, this);
+    const int w = width() - m_closeButton->width() - 2 * margin;
+
+    // draw text, we need to elide to xxx...xxx is too long
+    const QString elidedText = QFontMetrics(font()).elidedText (text(), Qt::ElideMiddle, w);
+    const QRect textRect(0, 0, w, height());
+    style()->drawItemText(&p, textRect, Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText);
 }
 
 void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)

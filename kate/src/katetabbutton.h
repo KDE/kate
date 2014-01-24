@@ -24,6 +24,23 @@
 #include <QPushButton>
 #include "katetabbar.h"
 
+class TabCloseButton : public QAbstractButton
+{
+    Q_OBJECT
+
+public:
+    // constructor
+    TabCloseButton(QWidget * parent = 0);
+    // paint close button depending on its state
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    // returns the size hint depending on the style
+    QSize sizeHint() const Q_DECL_OVERRIDE;
+
+protected:
+    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+};
+
 /**
  * A \p KateTabButton represents a button on the tab bar. It can either be
  * \e activated or \e deactivated. If the state is \e deactivated it will
@@ -97,6 +114,7 @@ Q_SIGNALS:
 
 protected Q_SLOTS:
     void buttonClicked();
+    void closeButtonClicked();
 
 protected:
     /** paint eyecandy rectangles around the button */
@@ -107,6 +125,7 @@ protected:
     virtual void mousePressEvent(QMouseEvent *ev);
 
 private:
+    TabCloseButton * m_closeButton;
     bool m_modified;
 
     QColor m_highlightColor;

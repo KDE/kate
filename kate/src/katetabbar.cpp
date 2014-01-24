@@ -130,10 +130,6 @@ int KateTabBar::insertTab(int position, const QString & text)
             this, SLOT(tabButtonHighlightChanged(KateTabButton*)));
     connect(tabButton, SIGNAL(closeRequest(KateTabButton*)),
             this, SLOT(tabButtonCloseRequest(KateTabButton*)));
-    connect(tabButton, SIGNAL(closeOtherTabsRequest(KateTabButton*)),
-            this, SLOT(tabButtonCloseOtherRequest(KateTabButton*)));
-    connect(tabButton, SIGNAL(closeAllTabsRequest()),
-            this, SLOT(tabButtonCloseAllRequest()));
 
     updateButtonPositions();
 
@@ -377,28 +373,6 @@ void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
     const int id = m_idToTab.key(tabButton, -1);
     Q_ASSERT(id >= 0);
     emit closeTabRequested(id);
-}
-
-/**
- * If the user wants to close all tabs except the current one using the context
- * menu, it sends multiple close requests.
- * Throw the close requests by emitting the signal @p closeRequest().
- */
-void KateTabBar::tabButtonCloseOtherRequest(KateTabButton *tabButton)
-{
-    const int id = m_idToTab.key(tabButton, -1);
-    Q_ASSERT(id >= 0);
-    emit closeOtherTabsRequested(id);
-}
-
-/**
- * If the user wants to close all the tabs using the context menu, it sends
- * multiple close requests.
- * Throw the close requests by emitting the signal @p closeRequest().
- */
-void KateTabBar::tabButtonCloseAllRequest()
-{
-    emit closeAllTabsRequested();
 }
 
 /**

@@ -130,9 +130,7 @@ Q_SIGNALS:
 protected Q_SLOTS:
     void tabButtonActivated(KateTabButton *tabButton);
     void tabButtonHighlightChanged(KateTabButton *tabButton);
-    void tabButtonCloseAllRequest();
     void tabButtonCloseRequest(KateTabButton *tabButton);
-    void tabButtonCloseOtherRequest(KateTabButton *tabButton);
 
 protected:
     virtual void resizeEvent(QResizeEvent *event);

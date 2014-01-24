@@ -148,7 +148,6 @@ public:
     KTextEditor::View *activeView();
     KateViewSpace *activeViewSpace();
 
-    int viewCount() const;
     int viewSpaceCount() const;
 
     bool isViewActivationBlocked() {

@@ -633,11 +633,6 @@ KTextEditor::View *KateViewManager::activateView(KTextEditor::Document *d)
     return activeView();
 }
 
-int KateViewManager::viewCount() const
-{
-    return m_views.count();
-}
-
 int KateViewManager::viewSpaceCount() const
 {
     return m_viewSpaceList.count();

@@ -233,10 +233,6 @@ bool KateApp::startupKate()
         activeKateMainWindow()->viewManager()->activateView(doc);
     }
 
-    if (activeKateMainWindow()->viewManager()->viewCount() == 0) {
-        activeKateMainWindow()->viewManager()->activateView(m_docManager->document(0));
-    }
-
     int line = 0;
     int column = 0;
     bool nav = false;

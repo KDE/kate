@@ -229,8 +229,8 @@ public Q_SLOTS:
     void reactivateActiveView();
 
     /**
-     * get views => active state + age mapping
-     * useful to show views in a LRU way
+     * central storage of all views known in the view manager
+     * maps the view to active state + lru age of the view
      * important: smallest age ==> latest used view
      */
     const QHash<KTextEditor::View *, QPair<bool, qint64> > &views() const {
@@ -261,8 +261,9 @@ private:
     int m_splitterIndex; // used during saving splitter config.
 
     /**
-     * history of view activations
-     * map view => number, the lower, the more recent activated
+     * central storage of all views known in the view manager
+     * maps the view to active state + lru age of the view
+     * important: smallest age ==> latest used view
      */
     QHash<KTextEditor::View *, QPair<bool, qint64> > m_views;
 
@@ -273,4 +274,3 @@ private:
 };
 
 #endif
-

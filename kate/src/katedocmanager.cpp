@@ -161,12 +161,6 @@ KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
     return 0;
 }
 
-bool KateDocManager::isOpen(QUrl url)
-{
-    // return just if we found some document with this url
-    return findDocument(url) != 0;
-}
-
 QList<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
 {
     QList<KTextEditor::Document *> docs;

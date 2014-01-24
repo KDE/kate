@@ -72,8 +72,6 @@ public:
     /** Returns the documentNumber of the doc with url URL or -1 if no such doc is found */
     KTextEditor::Document *findDocument(const QUrl &url) const;
 
-    bool isOpen(QUrl url);
-
     uint documents();
 
     const QList<KTextEditor::Document *> &documentList() const {

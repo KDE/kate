@@ -95,18 +95,6 @@ Q_SIGNALS:
      */
     void closeRequest(KateTabButton *tabbutton);
 
-    /**
-     * Emitted whenever the user wants to close all the tab button except the
-     * selected one.
-     * @param tabbutton the button that emitted this signal
-     */
-    void closeOtherTabsRequest(KateTabButton *tabbutton);
-
-    /**
-     * Emitted whenever the user wants to close all the tabs.
-     */
-    void closeAllTabsRequest();
-
 protected Q_SLOTS:
     void buttonClicked();
 

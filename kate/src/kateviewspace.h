@@ -104,6 +104,12 @@ private Q_SLOTS:
      */
     void addTabs(int count);
 
+    /**
+     * This slot is called by the tabbar, if tab @p id was closed through the
+     * context menu.
+     */
+    void closeTabRequest(int id);
+
 private:
     // Kate's view manager
     KateViewManager *m_viewManager;

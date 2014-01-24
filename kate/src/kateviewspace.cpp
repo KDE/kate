@@ -60,6 +60,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     connect(m_tabBar, &KateTabBar::moreTabsRequested, this, &KateViewSpace::addTabs);
     connect(m_tabBar, &KateTabBar::lessTabsRequested, this, &KateViewSpace::removeTabs);
+    connect(m_tabBar, &KateTabBar::closeTabRequested, this, &KateViewSpace::closeTabRequest, Qt::QueuedConnection);
     hLayout->addWidget(m_tabBar);
 
     // add vertical split view space
@@ -391,6 +392,13 @@ void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
     Q_ASSERT(buttonId >= 0);
     m_tabBar->setTabText(buttonId, doc->documentName());
     m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
+}
+
+void KateViewSpace::closeTabRequest(int id)
+{
+    KTextEditor::Document *doc = m_docToTabId.key(id);
+    Q_ASSERT(doc);
+    KateApp::self()->documentManager()->closeDocument(doc);
 }
 
 void KateViewSpace::saveConfig(KConfigBase *config, int myIndex , const QString &viewConfGrp)

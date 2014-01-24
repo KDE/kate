@@ -129,9 +129,7 @@ void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)
                                 QIcon::fromTheme(QStringLiteral("colors")), i18n("C&ustom Color..."));
     menu.addSeparator();
 
-    QAction *aCloseTab = menu.addAction(i18n("&Close Tab"));
-    QAction *aCloseOtherTabs = menu.addAction(i18n("Close &Other Tabs"));
-    QAction *aCloseAllTabs = menu.addAction(i18n("Close &All Tabs"));
+    QAction *aCloseTab = menu.addAction(i18n("&Close Document"));
 
     QAction *choice = menu.exec(ev->globalPos());
 
@@ -167,10 +165,6 @@ void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)
         }
     } else if (choice == aCloseTab) {
         emit closeRequest(this);
-    } else if (choice == aCloseOtherTabs) {
-        emit closeOtherTabsRequest(this);
-    } else if (choice == aCloseAllTabs) {
-        emit closeAllTabsRequest();
     }
 }
 

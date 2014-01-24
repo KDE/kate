@@ -187,25 +187,8 @@ void KateViewSpace::removeView(KTextEditor::View *v)
     Q_ASSERT(m_docToView.contains(v->document()));
     m_docToView.remove(v->document());
 
-    // first check wheter this view is the active one
-    const bool wasActive = (v == currentView());
-
     // ...and now: remove from view space
     stack->removeWidget(v);
-
-    // the last recently used view/document is always at the end of the list
-    if (wasActive && m_lruDocList.size() >= 2) {
-        m_lruDocList.prepend(m_lruDocList.takeLast());
-        KTextEditor::Document * doc = m_lruDocList.last();
-        if (m_docToView.contains(doc)) {
-            showView(doc);
-        } else {
-            m_viewManager->createView(doc, this);
-        }
-    } else  {
-        // FIXME: what to do?
-        //m_viewManager->createView(some document?!, this);
-    }
 }
 
 bool KateViewSpace::showView(KTextEditor::Document *document)

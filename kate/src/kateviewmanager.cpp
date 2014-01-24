@@ -402,19 +402,22 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
     if (!activeView() && !KateApp::self()->documentManager()->documentList().isEmpty()) {
         createView(KateApp::self()->documentManager()->documentList().last());
     }
-    
-    KTextEditor::View *const newActiveView = activeView();
 
     /**
-     * check if we have any empty viewspaces and give them a view
+     * if we have one now, show them in all viewspaces that got empty!
      */
-    Q_FOREACH(KateViewSpace * vs, m_viewSpaceList) {
-        if (!vs->currentView()) {
-            createView(newActiveView->document(), vs);
+    if (KTextEditor::View *const newActiveView = activeView()) {
+        /**
+         * check if we have any empty viewspaces and give them a view
+         */
+        Q_FOREACH(KateViewSpace * vs, m_viewSpaceList) {
+            if (!vs->currentView()) {
+                createView(newActiveView->document(), vs);
+            }
         }
-    }
 
-    emit viewChanged(newActiveView);
+        emit viewChanged(newActiveView);
+    }
 
     /**
      * enable updates hard (we can't use KateUpdateDisabler here, we have delayed signal

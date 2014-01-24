@@ -59,14 +59,7 @@ void KatePluginManager::setupPluginList()
     foreach(const KService::Ptr & ptr, traderList) {
         KatePluginInfo info;
         info.service = ptr;
-
-        // decide if this is an integral plugin
-        if (info.service->library() == QStringLiteral("katefiletreeplugin")) {
-            info.alwaysLoad = true;
-        } else {
-            info.alwaysLoad = false;
-        }
-
+        info.alwaysLoad = false;
         info.load = false;
         info.plugin = 0L;
 

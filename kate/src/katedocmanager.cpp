@@ -143,11 +143,6 @@ KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
     return m_docInfos.contains(doc) ? m_docInfos[doc] : 0;
 }
 
-int KateDocManager::findDocument(KTextEditor::Document *doc)
-{
-    return m_docList.indexOf(doc);
-}
-
 uint KateDocManager::documents()
 {
     return m_docList.count();

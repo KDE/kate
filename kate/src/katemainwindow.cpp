@@ -404,7 +404,7 @@ void KateMainWindow::setupActions()
 
 void KateMainWindow::slotDocumentCloseAll()
 {
-    if (KateApp::self()->documentManager()->documents() >= 1 && KMessageBox::warningContinueCancel(this,
+    if (KateApp::self()->documentManager()->documentList().size() >= 1 && KMessageBox::warningContinueCancel(this,
             i18n("This will close all open documents. Are you sure you want to continue?"),
             i18n("Close all documents"),
             KStandardGuiItem::cont(),
@@ -444,7 +444,7 @@ void KateMainWindow::slotDocumentCloseOther()
 
 bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
 {
-    uint documentCount = KateApp::self()->documentManager()->documents();
+    int documentCount = KateApp::self()->documentManager()->documentList().size();
 
     if (! showModOnDiskPrompt()) {
         return false;
@@ -458,7 +458,7 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
         shutdown = KateSaveModifiedDialog::queryClose(this, modifiedDocuments);
     }
 
-    if (KateApp::self()->documentManager()->documents() > documentCount) {
+    if (KateApp::self()->documentManager()->documentList().size() > documentCount) {
         KMessageBox::information(this,
                                  i18n("New file opened while trying to close Kate, closing aborted."),
                                  i18n("Closing Aborted"));
@@ -836,7 +836,7 @@ bool KateMainWindow::showModOnDiskPrompt()
     KTextEditor::Document *doc;
 
     DocVector list;
-    list.reserve(KateApp::self()->documentManager()->documents());
+    list.reserve(KateApp::self()->documentManager()->documentList().size());
     foreach(doc, KateApp::self()->documentManager()->documentList()) {
         if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc) {
             list.append(doc);

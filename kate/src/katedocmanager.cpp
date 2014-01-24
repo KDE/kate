@@ -127,11 +127,6 @@ KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
     return m_docInfos.contains(doc) ? m_docInfos[doc] : 0;
 }
 
-uint KateDocManager::documents()
-{
-    return m_docList.count();
-}
-
 KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
 {
     QUrl u(url.adjusted(QUrl::NormalizePathSegments));

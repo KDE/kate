@@ -272,7 +272,7 @@ void KateViewManager::slotDocumentClose(KTextEditor::Document *document)
 {
 // prevent close document if only one view alive and the document of
     // it is not modified and empty !!!
-    if ((KateApp::self()->documentManager()->documents() == 1)
+    if ((KateApp::self()->documentManager()->documentList().size() == 1)
             && !document->isModified()
             && document->url().isEmpty()
             && document->documentEnd() == KTextEditor::Cursor::start()) {

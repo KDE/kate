@@ -221,7 +221,8 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
             // remove "oldest" button and replace with new one
             Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
 
-            KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount()];
+            // we need to subtract by 1 more, as we just added ourself to the end of the lru list!
+            KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
             Q_ASSERT(m_docToTabId.contains(docToHide));
             const int insertIndex = removeTab(docToHide);
 

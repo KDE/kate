@@ -95,12 +95,23 @@ Q_SIGNALS:
     /**
      * This signal is emitted whenever the current activated tab changes.
      */
-    void currentChanged(int index);
+    void currentChanged(int id);
 
     /**
-     * This signal is emitted whenever a tab should be closed.
+     * This signal is emitted whenever tab @p id should be closed.
      */
-    void tabCloseRequested(int index);
+    void closeTabRequested(int id);
+
+    /**
+     * This signal is emitted whenever all tabs except tab @p id
+     * should be closed.
+     */
+    void closeOtherTabsRequested(int id);
+
+    /**
+     * This signal is emitted whenever all tabs should be closed.
+     */
+    void closeAllTabsRequested();
 
     /**
      * This signal is emitted whenever a highlight mark changes.
@@ -133,7 +144,6 @@ protected:
     virtual void resizeEvent(QResizeEvent *event);
 
 protected:
-    void updateFixedHeight();
     void updateButtonPositions();
 
 private:

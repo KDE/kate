@@ -41,7 +41,7 @@ public:
     /**
      * Constructs a new tab bar button with \a caption and \a parent.
      */
-    KateTabButton(const QString &caption, int button_id, QWidget *parent = 0);
+    KateTabButton(const QString &caption, QWidget *parent = 0);
 
     virtual ~KateTabButton();
 
@@ -57,16 +57,6 @@ public:
      * down.
      */
     bool isActivated() const;
-
-    /**
-     * Set a unique button id number.
-     */
-    void setButtonID(int button_id);
-
-    /**
-     * Get the unique id number.
-     */
-    int buttonID() const;
 
     /**
      * Set the highlighted state. If @p color.isValid() is \e false the
@@ -129,7 +119,6 @@ protected:
     virtual void mousePressEvent(QMouseEvent *ev);
 
 private:
-    int m_buttonId;
     bool m_modified;
 
     QColor m_highlightColor;

@@ -35,8 +35,7 @@ QColor KateTabButton::s_predefinedColors[] = { Qt::red, Qt::yellow, Qt::green, Q
 const int KateTabButton::s_colorCount = 6;
 int KateTabButton::s_currentColor = 0;
 
-KateTabButton::KateTabButton(const QString &caption,
-                             int button_id, QWidget *parent)
+KateTabButton::KateTabButton(const QString &caption, QWidget *parent)
     : QPushButton(parent)
 {
     setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
@@ -45,7 +44,6 @@ KateTabButton::KateTabButton(const QString &caption,
     setMinimumWidth(1);
     setFlat(true);
 
-    m_buttonId = button_id;
     m_modified = false;
 
     setIcon(QIcon());
@@ -192,16 +190,6 @@ void KateTabButton::mousePressEvent(QMouseEvent *ev)
     } else {
         QPushButton::mousePressEvent(ev);
     }
-}
-
-void KateTabButton::setButtonID(int button_id)
-{
-    m_buttonId = button_id;
-}
-
-int KateTabButton::buttonID() const
-{
-    return m_buttonId;
 }
 
 void KateTabButton::setHighlightColor(const QColor &color)

@@ -167,7 +167,7 @@ int KateTabBar::insertTab(int position, const QString & text)
         position = m_tabButtons.size();
     }
 
-    KateTabButton *tabButton = new KateTabButton(text, m_nextID, this);
+    KateTabButton *tabButton = new KateTabButton(text, this);
     if (m_highlightedTabs.contains(text)) {
         tabButton->setHighlightColor(QColor(m_highlightedTabs[text]));
     }
@@ -195,11 +195,7 @@ int KateTabBar::insertTab(int position, const QString & text)
  */
 int KateTabBar::currentTab() const
 {
-    if (m_activeButton != 0L) {
-        return m_activeButton->buttonID();
-    }
-
-    return -1;
+    return m_IDToTabButton.key(m_activeButton, -1);
 }
 
 /**
@@ -425,7 +421,9 @@ void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
     m_activeButton = tabButton;
     m_activeButton->setActivated(true);
 
-    emit currentChanged(tabButton->buttonID());
+    const int id = m_IDToTabButton.key(m_activeButton, -1);
+    Q_ASSERT(id >= 0);
+    emit currentChanged(id);
 }
 
 /**
@@ -450,7 +448,9 @@ void KateTabBar::tabButtonHighlightChanged(KateTabButton *tabButton)
  */
 void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
 {
-    emit tabCloseRequested(tabButton->buttonID());
+    const int id = m_IDToTabButton.key(tabButton, -1);
+    Q_ASSERT(id >= 0);
+    emit closeTabRequested(id);
 }
 
 /**
@@ -460,16 +460,9 @@ void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
  */
 void KateTabBar::tabButtonCloseOtherRequest(KateTabButton *tabButton)
 {
-    QList <int> tabToCloseID;
-    for (int i = 0; i < m_tabButtons.size(); ++i) {
-        if ((m_tabButtons.at(i))->buttonID() != tabButton->buttonID()) {
-            tabToCloseID << (m_tabButtons.at(i))->buttonID();
-        }
-    }
-
-    for (int i = 0; i < tabToCloseID.size(); i++) {
-        emit tabCloseRequested(tabToCloseID.at(i));
-    }
+    const int id = m_IDToTabButton.key(tabButton, -1);
+    Q_ASSERT(id >= 0);
+    emit closeOtherTabsRequested(id);
 }
 
 /**
@@ -479,14 +472,7 @@ void KateTabBar::tabButtonCloseOtherRequest(KateTabButton *tabButton)
  */
 void KateTabBar::tabButtonCloseAllRequest()
 {
-    QList <int> tabToCloseID;
-    for (int i = 0; i < m_tabButtons.size(); ++i) {
-        tabToCloseID << (m_tabButtons.at(i))->buttonID();
-    }
-
-    for (int i = 0; i < tabToCloseID.size(); i++) {
-        emit tabCloseRequested(tabToCloseID.at(i));
-    }
+    emit closeAllTabsRequested();
 }
 
 /**

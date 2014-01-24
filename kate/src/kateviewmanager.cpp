@@ -404,8 +404,10 @@ bool KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)
      */
     KTextEditor::View *view = (vs ? vs : activeViewSpace())->createView(doc);
 
-    m_viewList.append(view);
-    m_activeStates[view] = false;
+    /**
+     * remember this view, active == false, min age set
+     */
+    m_views[view] = QPair<bool, qint64> (false, m_minAge--);
 
     // disable settings dialog action
     delete view->actionCollection()->action(QStringLiteral("set_confdlg"));
@@ -451,15 +453,9 @@ bool KateViewManager::deleteView(KTextEditor::View *view)
     m_activityResources.remove(view);
 #endif
 
-    // kill LRU mapping
-    m_lruViews.remove(view);
-
-    // remove view from list and memory !!
-    m_viewList.removeAt(m_viewList.indexOf(view));
-    m_activeStates.remove(view);
+    // remove view from mapping and memory !!
+    m_views.remove(view);
     delete view;
-    view = 0L;
-
     return true;
 }
 
@@ -490,11 +486,12 @@ KTextEditor::View *KateViewManager::activeView()
 
     m_activeViewRunning = true;
 
-    for (QList<KTextEditor::View *>::const_iterator it = m_viewList.constBegin();
-            it != m_viewList.constEnd(); ++it) {
-        if (m_activeStates[*it]) {
+    QHashIterator<KTextEditor::View *, QPair<bool, qint64> > it(m_views);
+    while (it.hasNext()) {
+        it.next();
+        if (it.value().first) {
             m_activeViewRunning = false;
-            return *it;
+            return it.key();
         }
     }
 
@@ -509,11 +506,11 @@ KTextEditor::View *KateViewManager::activeView()
     }
 
     // last attempt: just pick first
-    if (!m_viewList.isEmpty()) {
-        activateView(m_viewList.first());
-
+    if (!m_views.isEmpty()) {
+        KTextEditor::View *v = m_views.begin().key();
+        activateView(v);
         m_activeViewRunning = false;
-        return m_viewList.first();
+        return v;
     }
 
     m_activeViewRunning = false;
@@ -534,10 +531,12 @@ void KateViewManager::setActiveSpace(KateViewSpace *vs)
 void KateViewManager::setActiveView(KTextEditor::View *view)
 {
     if (activeView()) {
-        m_activeStates[activeView()] = false;
+        m_views[activeView()].first = false;
     }
 
-    m_activeStates[view] = true;
+    if (view) {
+        m_views[view].first = true;
+    }
 }
 
 void KateViewManager::activateSpace(KTextEditor::View *v)
@@ -558,7 +557,7 @@ void KateViewManager::reactivateActiveView()
 {
     KTextEditor::View *view = activeView();
     if (view) {
-        m_activeStates[view] = false;
+        m_views[view].first = false;
         activateView(view);
     }
 }
@@ -576,7 +575,8 @@ void KateViewManager::activateView(KTextEditor::View *view)
     }
 #endif
 
-    if (!m_activeStates[view]) {
+    Q_ASSERT (m_views.contains(view));
+    if (!m_views[view].first) {
         // avoid flicker
         KateUpdateDisabler disableUpdates (mainWindow());
         
@@ -609,7 +609,7 @@ void KateViewManager::activateView(KTextEditor::View *view)
         }
 
         // remember age of this view
-        m_lruViews[view] = m_minAge--;
+        m_views[view].second = m_minAge--;
 
         emit viewChanged(view);
     }
@@ -635,7 +635,7 @@ KTextEditor::View *KateViewManager::activateView(KTextEditor::Document *d)
 
 int KateViewManager::viewCount() const
 {
-    return m_viewList.count();
+    return m_views.count();
 }
 
 int KateViewManager::viewSpaceCount() const
@@ -677,14 +677,14 @@ void KateViewManager::activatePrevView()
 void KateViewManager::closeViews(KTextEditor::Document *doc)
 {
     QList<KTextEditor::View *> closeList;
-
-    for (QList<KTextEditor::View *>::const_iterator it = m_viewList.constBegin();
-            it != m_viewList.constEnd(); ++it) {
-        if ((*it)->document() == doc) {
-            closeList.append(*it);
+    QHashIterator<KTextEditor::View *, QPair<bool, qint64> > it(m_views);
+    while (it.hasNext()) {
+        it.next();
+        if (it.key()->document() == doc) {
+            closeList.append(it.key());
         }
     }
-
+    
     while (!closeList.isEmpty()) {
         deleteView(closeList.takeFirst());
     }
@@ -931,18 +931,22 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
         guiMergedView = nullptr;
     }
 
-    qDeleteAll(m_viewList);
-    m_viewList.clear();
+    /**
+     * delete viewspaces, they will delete the views
+     */
     qDeleteAll(m_viewSpaceList);
     m_viewSpaceList.clear();
-    m_activeStates.clear();
+    
+    /**
+     * delete mapping of now deleted views
+     */
+    m_views.clear();
 
 #ifdef KActivities_FOUND
     m_activityResources.clear();
 #endif
 
     // reset lru history, too!
-    m_lruViews.clear();
     m_minAge = 0;
 
     // start recursion for the root splitter (Splitter 0)

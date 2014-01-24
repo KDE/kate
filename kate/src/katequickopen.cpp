@@ -151,10 +151,10 @@ void KateQuickOpen::update()
      * get views in lru order
      */
     QMap<qint64, KTextEditor::View *> sortedViews;
-    QHashIterator<KTextEditor::View *, qint64> i(m_mainWindow->viewManager()->lruViews());
+    QHashIterator<KTextEditor::View *, QPair<bool, qint64> > i(m_mainWindow->viewManager()->views());
     while (i.hasNext()) {
         i.next();
-        sortedViews[i.value()] = i.key();
+        sortedViews[i.value().second] = i.key();
     }
 
     /**

@@ -119,10 +119,6 @@ Q_SIGNALS:
     void viewCreated(KTextEditor::View *);
 
 public:
-    inline QList<KTextEditor::View *> &viewList() {
-        return m_viewList;
-    }
-
     /**
      * create and activate a new view for doc, if doc == 0, then
      * create a new document
@@ -234,12 +230,12 @@ public Q_SLOTS:
     void reactivateActiveView();
 
     /**
-     * get views => age mapping
+     * get views => active state + age mapping
      * useful to show views in a LRU way
      * important: smallest age ==> latest used view
      */
-    const QHash<KTextEditor::View *, qint64> &lruViews() const {
-        return m_lruViews;
+    const QHash<KTextEditor::View *, QPair<bool, qint64> > &views() const {
+        return m_views;
     }
 
 private:
@@ -254,8 +250,6 @@ private:
     QAction *goPrev;
 
     QList<KateViewSpace *> m_viewSpaceList;
-    QList<KTextEditor::View *> m_viewList;
-    QHash<KTextEditor::View *, bool> m_activeStates;
 
 #ifdef KActivities_FOUND
     QHash<KTextEditor::View *, KActivities::ResourceInstance *> m_activityResources;
@@ -271,7 +265,7 @@ private:
      * history of view activations
      * map view => number, the lower, the more recent activated
      */
-    QHash<KTextEditor::View *, qint64> m_lruViews;
+    QHash<KTextEditor::View *, QPair<bool, qint64> > m_views;
 
     /**
      * current minimal age

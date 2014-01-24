@@ -60,7 +60,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     connect(m_tabBar, &KateTabBar::moreTabsRequested, this, &KateViewSpace::addTabs);
     connect(m_tabBar, &KateTabBar::lessTabsRequested, this, &KateViewSpace::removeTabs);
-    connect(m_tabBar, &KateTabBar::closeTabRequested, this, &KateViewSpace::closeTabRequest, Qt::QueuedConnection);
+    connect(m_tabBar, &KateTabBar::closeTabRequested, this, &KateViewSpace::closeTabRequest);
     hLayout->addWidget(m_tabBar);
 
     // add vertical split view space

@@ -104,9 +104,12 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
 
 KateViewManager::~KateViewManager()
 {
-    // make sure all xml gui clients are removed to avoid warnings on exit
-    Q_FOREACH(KTextEditor::View * view, m_viewList)
-    mainWindow()->guiFactory()->removeClient(view);
+    /**
+     * remove the single client that is registered at the factory, if any
+     */
+    if (guiMergedView) {
+        mainWindow()->guiFactory()->removeClient(guiMergedView);
+    }
 }
 
 void KateViewManager::setupActions()
@@ -435,7 +438,13 @@ bool KateViewManager::deleteView(KTextEditor::View *view)
 
     viewspace->removeView(view);
 
-    mainWindow()->guiFactory()->removeClient(view);
+    /**
+     * deregister if needed
+     */
+    if (guiMergedView == view) {
+        mainWindow()->guiFactory()->removeClient(guiMergedView);
+        guiMergedView = nullptr;
+    }
 
 #ifdef KActivities_FOUND
     m_activityResources.remove(view);

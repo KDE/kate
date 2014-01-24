@@ -223,10 +223,7 @@ public Q_SLOTS:
     void slotCloseOtherViews();
     
     /** hide every view but the active one */
-    void slotHideOtherViews();
-    
-    /** show every view but the active one */
-    void slotShowOtherViews();
+    void slotHideOtherViews(bool hideOthers);
 
     void reactivateActiveView();
 
@@ -243,10 +240,11 @@ private:
     KateMainWindow *m_mainWindow;
     bool m_init;
 
+    QAction *m_splitViewVert;
+    QAction *m_splitViewHoriz;
     QAction *m_closeView;
     QAction *m_closeOtherViews;
     QAction *m_hideOtherViews;
-    QAction *m_showOtherViews;
     QAction *goNext;
     QAction *goPrev;
 

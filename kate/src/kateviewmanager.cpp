@@ -129,21 +129,21 @@ void KateViewManager::setupActions()
     /**
      * view splitting
      */
-    QAction *a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_vert"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
-    a->setText(i18n("Split Ve&rtical"));
-    a->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_L);
-    connect(a, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceVert()));
+    m_splitViewVert = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_vert"));
+    m_splitViewVert->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
+    m_splitViewVert->setText(i18n("Split Ve&rtical"));
+    m_splitViewVert->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_L);
+    connect(m_splitViewVert, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceVert()));
 
-    a->setWhatsThis(i18n("Split the currently active view vertically into two views."));
+    m_splitViewVert->setWhatsThis(i18n("Split the currently active view vertically into two views."));
 
-    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_horiz"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("view-split-top-bottom")));
-    a->setText(i18n("Split &Horizontal"));
-    a->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_T);
-    connect(a, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceHoriz()));
+    m_splitViewHoriz = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_horiz"));
+    m_splitViewHoriz->setIcon(QIcon::fromTheme(QStringLiteral("view-split-top-bottom")));
+    m_splitViewHoriz->setText(i18n("Split &Horizontal"));
+    m_splitViewHoriz->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_T);
+    connect(m_splitViewHoriz, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceHoriz()));
 
-    a->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
+    m_splitViewHoriz->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
 
     m_closeView = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_close_current_space"));
     m_closeView->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
@@ -163,16 +163,10 @@ void KateViewManager::setupActions()
     m_hideOtherViews = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_hide_others"));
     m_hideOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-fullscreen")));
     m_hideOtherViews->setText(i18n("Hide Inactive Views"));
-    connect(m_hideOtherViews, SIGNAL(triggered()), this, SLOT(slotHideOtherViews()), Qt::QueuedConnection);
+    m_hideOtherViews->setCheckable(true);
+    connect(m_hideOtherViews, SIGNAL(triggered(bool)), this, SLOT(slotHideOtherViews(bool)), Qt::QueuedConnection);
 
     m_hideOtherViews->setWhatsThis(i18n("Hide every view but the active one"));
-
-    m_showOtherViews = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_show_others"));
-    m_showOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-restore")));
-    m_showOtherViews->setText(i18n("Show Inactive Views"));
-    connect(m_showOtherViews, SIGNAL(triggered()), this, SLOT(slotShowOtherViews()), Qt::QueuedConnection);
-
-    m_showOtherViews->setWhatsThis(i18n("Show the currently not active views"));
 
     goNext = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_next_split_view"));
     goNext->setText(i18n("Next Split View"));
@@ -188,7 +182,7 @@ void KateViewManager::setupActions()
 
     goPrev->setWhatsThis(i18n("Make the previous split view the active one."));
 
-    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_right"));
+    QAction * a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_right"));
     a->setText(i18n("Move Splitter Right"));
     connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterRight()));
 
@@ -896,9 +890,9 @@ void KateViewManager::slotCloseCurrentViewSpace()
 void KateViewManager::slotCloseOtherViews()
 {
     // avoid flicker
-    KateUpdateDisabler disableUpdates (mainWindow());
-    
-    KateViewSpace *active = activeViewSpace();
+    KateUpdateDisabler disableUpdates(mainWindow());
+
+    const KateViewSpace *active = activeViewSpace();
     foreach(KateViewSpace  * v, m_viewSpaceList) {
         if (active != v) {
             removeViewSpace(v);
@@ -906,36 +900,28 @@ void KateViewManager::slotCloseOtherViews()
     }
 }
 
-void KateViewManager::slotHideOtherViews()
+void KateViewManager::slotHideOtherViews(bool hideOthers)
 {
     // avoid flicker
-    KateUpdateDisabler disableUpdates (mainWindow());
-    
-    KateViewSpace *active = activeViewSpace();
-    foreach(KateViewSpace  * v, m_viewSpaceList) {
-        if (active != v) {
-            v->hide();
-        }
-    }
-}
+    KateUpdateDisabler disableUpdates(mainWindow());
 
-void KateViewManager::slotShowOtherViews()
-{
-    // avoid flicker
-    KateUpdateDisabler disableUpdates (mainWindow());
-    
-    KateViewSpace *active = activeViewSpace();
-    foreach(KateViewSpace  * v, m_viewSpaceList) {
+    const KateViewSpace *active = activeViewSpace();
+    foreach(KateViewSpace * v, m_viewSpaceList) {
         if (active != v) {
-            v->show();
+            v->setVisible(!hideOthers);
         }
     }
+
+    // disable the split actions, if we are in single-view-mode
+    m_splitViewVert->setDisabled(hideOthers);
+    m_splitViewHoriz->setDisabled(hideOthers);
+    m_closeView->setDisabled(hideOthers);
+    m_closeOtherViews->setDisabled(hideOthers);
 }
 
 /**
  * session config functions
  */
-
 void KateViewManager::saveViewConfiguration(KConfigGroup &config)
 {
     // set Active ViewSpace to 0, just in case there is none active (would be

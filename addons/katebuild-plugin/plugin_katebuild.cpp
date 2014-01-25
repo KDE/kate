@@ -181,7 +181,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_proc, SIGNAL(readyReadStandardOutput()),this, SLOT(slotReadReadyStdOut()));
 
     connect(m_targetsUi->targetCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(targetSelected(int)));
-    connect(m_targetsUi->targetCombo->lineEdit(), SIGNAL(textEdited(QString)), this, SLOT(slotTargetSetNameChanged(const QString&)));
+    connect(m_targetsUi->targetCombo->lineEdit(), SIGNAL(textEdited(const QString&)), this, SLOT(slotTargetSetNameChanged(const QString&)));
     connect(m_targetsUi->newTarget, SIGNAL(clicked()), this, SLOT(targetNew()));
     connect(m_targetsUi->copyTarget, SIGNAL(clicked()), this, SLOT(targetCopy()));
     connect(m_targetsUi->deleteTarget, SIGNAL(clicked()), this, SLOT(targetDelete()));

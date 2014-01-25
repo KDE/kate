@@ -49,8 +49,6 @@ KatePluginListItem::KatePluginListItem(bool checked, KatePluginInfo *info)
     , mInfo(info)
 {
     setCheckState(0, checked ? Qt::Checked : Qt::Unchecked);
-    // skip plugins that will be loaded always!
-    setDisabled(info->alwaysLoad);
 }
 
 KatePluginListView::KatePluginListView(QWidget *parent)
@@ -83,9 +81,6 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
 
     KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
     for (KatePluginList::iterator it = pluginList.begin(); it != pluginList.end(); ++it) {
-        if (it->alwaysLoad) {
-            continue;
-        }
         QTreeWidgetItem *item = new KatePluginListItem(it->load, &(*it));
         item->setText(0, it->service->name());
         item->setText(1, it->service->comment());

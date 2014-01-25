@@ -36,7 +36,7 @@ class KatePluginInfo
 {
 public:
     bool load;
-    bool alwaysLoad;
+    bool defaultLoad;
     KService::Ptr service;
     KTextEditor::Plugin *plugin;
     QString saveName() const;

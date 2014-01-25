@@ -54,27 +54,15 @@ void KatePluginManager::setupPluginList()
 {
     KService::List traderList = KServiceTypeTrader::self()->query(QStringLiteral("KTextEditor/Plugin"));
 
-    KatePluginList alwaysLoad;
-    KatePluginList others;
+    m_pluginList.clear ();
     foreach(const KService::Ptr & ptr, traderList) {
         KatePluginInfo info;
         info.service = ptr;
-        info.alwaysLoad = false;
+        info.defaultLoad = info.service->property(QStringLiteral("X-KTextEditor-Load-Default")).toStringList().contains(QStringLiteral("kate"));
         info.load = false;
-        info.plugin = 0L;
-
-        if (info.alwaysLoad) {
-            alwaysLoad.push_back(info);
-        } else {
-            others.push_back(info);
-        }
+        info.plugin = nullptr;
+        m_pluginList.push_back(info);
     }
-
-    /**
-     * prefer always load plugins in handling
-     */
-    m_pluginList = alwaysLoad;
-    m_pluginList << others;
 
     /**
      * construct fast lookup map
@@ -96,17 +84,17 @@ void KatePluginManager::loadConfig(KConfig *config)
     if (config) {
         KConfigGroup cg = KConfigGroup(config, QStringLiteral("Kate Plugins"));
 
-        // disable all plugin if no config...
+        // disable all plugin if no config, beside the ones marked as default load
         for (int i = 0; i < m_pluginList.size(); ++i) {
-            m_pluginList[i].load = cg.readEntry(m_pluginList[i].service->library(), false);
+            m_pluginList[i].load = cg.readEntry(m_pluginList[i].service->library(), m_pluginList[i].defaultLoad);
         }
     }
 
     /**
-     * load plugins, some are always enforced to load!
+     * load plugins
      */
     for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
-        if (it->load || it->alwaysLoad) {
+        if (it->load) {
             loadPlugin(&(*it));
 
             // restore config

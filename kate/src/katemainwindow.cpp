@@ -235,7 +235,7 @@ void KateMainWindow::setupImportantActions()
     m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleShowStatusBar()), actionCollection());
     m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
-    m_paShowTabBar = new KToggleAction(i18n("Sho&w Tabs"), this);
+    m_paShowTabBar = new KToggleAction(i18n("Show &Tabs"), this);
     actionCollection()->addAction(QStringLiteral("settings_show_tab_bar"), m_paShowTabBar);
     connect(m_paShowTabBar, SIGNAL(toggled(bool)), this, SLOT(toggleShowTabBar()));
     m_paShowTabBar->setWhatsThis(i18n("Use this command to show or hide the tabs for the views"));

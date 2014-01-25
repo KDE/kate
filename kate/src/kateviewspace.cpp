@@ -65,6 +65,13 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     connect(m_tabBar, &KateTabBar::newTabRequested, this, &KateViewSpace::createNewDocument);
     hLayout->addWidget(m_tabBar);
 
+    // add quick open
+    m_quickOpen = new QToolButton(this);
+    m_quickOpen->setAutoRaise(true);
+    m_quickOpen->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open")));
+    m_quickOpen->installEventFilter(this); // on click, active this view space
+    hLayout->addWidget(m_quickOpen);
+
     // add vertical split view space
     m_split = new QToolButton(this);
     m_split->setAutoRaise(true);
@@ -78,13 +85,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     m_split->setWhatsThis(i18n("Control view space splitting"));
     m_split->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_split);
-
-    // add quick open
-    m_quickOpen = new QToolButton(this);
-    m_quickOpen->setAutoRaise(true);
-    m_quickOpen->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open")));
-    m_quickOpen->installEventFilter(this); // on click, active this view space
-    hLayout->addWidget(m_quickOpen);
 
     // FIXME: better additional size
 //     m_tabBar->setMinimumHeight(int (QFontMetrics(font()).height() * 1.2));

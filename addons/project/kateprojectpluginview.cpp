@@ -45,33 +45,15 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, KTextEd
     : QObject ( mainWin )
     , m_plugin (plugin)
     , m_mainWindow (mainWin)
+    , m_toolView (nullptr)
+    , m_toolInfoView (nullptr)
 {
   KXMLGUIClient::setComponentName (QStringLiteral("kateproject"), i18n ("Kate Project Manager"));
   setXMLFile( QStringLiteral("ui.rc") );
   
   /**
-   * create toolviews
-   */
-  m_toolView = m_mainWindow->createToolView (m_plugin, QStringLiteral("kateproject"), KTextEditor::MainWindow::Left, SmallIcon(QStringLiteral("project-open")), i18n("Projects"));
-  m_toolInfoView = m_mainWindow->createToolView (m_plugin, QStringLiteral("kateprojectinfo"), KTextEditor::MainWindow::Bottom, SmallIcon(QStringLiteral("view-choose")), i18n("Current Project"));
-
-  /**
-   * create the combo + buttons for the toolViews + stacked widgets
-   */
-  m_projectsCombo = new QComboBox (m_toolView);
-  m_reloadButton = new QToolButton (m_toolView);
-  m_reloadButton->setIcon (SmallIcon(QStringLiteral("view-refresh")));
-  QHBoxLayout *layout = new QHBoxLayout ();
-  layout->setSpacing (0);
-  layout->addWidget (m_projectsCombo);
-  layout->addWidget (m_reloadButton);
-  m_toolView->layout()->addItem (layout);
-
-  m_stackedProjectViews = new QStackedWidget (m_toolView);
-  m_stackedProjectInfoViews = new QStackedWidget (m_toolInfoView);
-
-  /**
    * create views for all already existing projects
+   * will create toolviews on demand!
    */
   foreach (KateProject *project, m_plugin->projects())
     viewForProject (project);
@@ -81,9 +63,7 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, KTextEd
    */
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
   connect (m_mainWindow, SIGNAL(viewChanged (KTextEditor::View *)), this, SLOT(slotViewChanged ()));
-  connect (m_projectsCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentChanged (int)));
   connect (m_mainWindow, SIGNAL(viewCreated (KTextEditor::View *)), this, SLOT(slotViewCreated (KTextEditor::View *)));
-  connect (m_reloadButton, SIGNAL(clicked (bool)), this, SLOT(slotProjectReload ()));
 
   /**
    * connect for all already existing views
@@ -123,7 +103,9 @@ KateProjectPluginView::~KateProjectPluginView()
    * cu toolviews
    */
   delete m_toolView;
+  m_toolView = nullptr;
   delete m_toolInfoView;
+  m_toolInfoView = nullptr;
 
   /**
    * cu gui client
@@ -137,6 +119,35 @@ QPair<KateProjectView *,KateProjectInfoView *> KateProjectPluginView::viewForPro
    * needs valid project
    */
   Q_ASSERT (project);
+  
+  /**
+   * create toolviews on demand
+   */
+  if (!m_toolView) {
+    /**
+     * create toolviews
+     */
+    m_toolView = m_mainWindow->createToolView (m_plugin, QStringLiteral("kateproject"), KTextEditor::MainWindow::Left, SmallIcon(QStringLiteral("project-open")), i18n("Projects"));
+    m_toolInfoView = m_mainWindow->createToolView (m_plugin, QStringLiteral("kateprojectinfo"), KTextEditor::MainWindow::Bottom, SmallIcon(QStringLiteral("view-choose")), i18n("Current Project"));
+
+    /**
+     * create the combo + buttons for the toolViews + stacked widgets
+     */
+    m_projectsCombo = new QComboBox (m_toolView);
+    m_reloadButton = new QToolButton (m_toolView);
+    m_reloadButton->setIcon (SmallIcon(QStringLiteral("view-refresh")));
+    QHBoxLayout *layout = new QHBoxLayout ();
+    layout->setSpacing (0);
+    layout->addWidget (m_projectsCombo);
+    layout->addWidget (m_reloadButton);
+    m_toolView->layout()->addItem (layout);
+
+    m_stackedProjectViews = new QStackedWidget (m_toolView);
+    m_stackedProjectInfoViews = new QStackedWidget (m_toolInfoView);
+    
+    connect (m_projectsCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentChanged (int)));
+    connect (m_reloadButton, SIGNAL(clicked (bool)), this, SLOT(slotProjectReload ()));
+  }
 
   /**
    * existing view?
@@ -166,6 +177,10 @@ QPair<KateProjectView *,KateProjectInfoView *> KateProjectPluginView::viewForPro
 
 QString KateProjectPluginView::projectFileName () const
 {
+  // nothing there, skip
+  if (!m_toolView)
+    return QString ();
+  
   QWidget *active = m_stackedProjectViews->currentWidget ();
   if (!active)
     return QString ();
@@ -175,6 +190,10 @@ QString KateProjectPluginView::projectFileName () const
 
 QString KateProjectPluginView::projectName () const
 {
+  // nothing there, skip
+  if (!m_toolView)
+    return QString ();
+
   QWidget *active = m_stackedProjectViews->currentWidget ();
   if (!active)
     return QString ();
@@ -184,6 +203,10 @@ QString KateProjectPluginView::projectName () const
 
 QString KateProjectPluginView::projectBaseDir () const
 {
+  // nothing there, skip
+  if (!m_toolView)
+    return QString ();
+  
   QWidget *active = m_stackedProjectViews->currentWidget ();
   if (!active)
     return QString ();
@@ -193,6 +216,10 @@ QString KateProjectPluginView::projectBaseDir () const
 
 QVariantMap KateProjectPluginView::projectMap () const
 {
+  // nothing there, skip
+  if (!m_toolView)
+    return QVariantMap ();
+  
   QWidget *active = m_stackedProjectViews->currentWidget ();
   if (!active)
     return QVariantMap ();
@@ -202,6 +229,10 @@ QVariantMap KateProjectPluginView::projectMap () const
 
 QStringList KateProjectPluginView::projectFiles () const
 {
+  // nothing there, skip
+  if (!m_toolView)
+    return QStringList ();
+  
   KateProjectView *active = static_cast<KateProjectView *> (m_stackedProjectViews->currentWidget ());
   if (!active)
     return QStringList ();
@@ -242,6 +273,10 @@ void KateProjectPluginView::slotViewChanged ()
 
 void KateProjectPluginView::slotCurrentChanged (int index)
 {
+  // nothing there, skip
+  if (!m_toolView)
+    return;
+  
   /**
    * trigger change of stacked widgets
    */
@@ -323,6 +358,10 @@ void KateProjectPluginView::slotViewDestroyed (QObject *view)
 
 void KateProjectPluginView::slotProjectPrev ()
 {
+  // nothing there, skip
+  if (!m_toolView)
+    return;
+
   if (!m_projectsCombo->count())
     return;
 
@@ -334,6 +373,10 @@ void KateProjectPluginView::slotProjectPrev ()
 
 void KateProjectPluginView::slotProjectNext ()
 {
+  // nothing there, skip
+  if (!m_toolView)
+    return;
+  
   if (!m_projectsCombo->count())
     return;
 
@@ -345,6 +388,10 @@ void KateProjectPluginView::slotProjectNext ()
 
 void KateProjectPluginView::slotProjectReload ()
 {
+  // nothing there, skip
+  if (!m_toolView)
+    return;
+  
   /**
    * force reload if any active project
    */

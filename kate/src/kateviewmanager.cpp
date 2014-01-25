@@ -987,6 +987,14 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
         addWidget(vs);
         vs->setActive(true);
         m_viewSpaceList.append(vs);
+
+        /**
+         * activate at least one document!
+         */
+        activateView(KateApp::self()->documentManager()->documentList().last());
+        if (!vs->currentView()) {
+            createView(activeView()->document(), vs);
+        }
     }
 
     updateViewSpaceActions();

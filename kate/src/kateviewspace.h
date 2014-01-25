@@ -34,6 +34,7 @@ class KateViewManager;
 class KateViewSpace;
 class QStackedWidget;
 class QLabel;
+class QToolButton;
 class KateTabBar;
 
 class KateViewSpace : public QWidget
@@ -93,6 +94,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void statusBarToggled();
+    void tabBarToggled();
     void changeView(int buttonId);
 
     /**
@@ -147,6 +149,12 @@ private:
 
     // tab bar that contains viewspace tabs
     KateTabBar *m_tabBar;
+    
+    // split action
+    QToolButton *m_split;
+    
+    // quick open action
+    QToolButton *m_quickOpen;
 
     // map from Document to button id
     QHash<KTextEditor::Document *, int> m_docToTabId;

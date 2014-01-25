@@ -29,6 +29,7 @@
 #include "katedebug.h"
 #include "katetabbar.h"
 #include "kactioncollection.h"
+#include "kateupdatedisabler.h"
 
 #include <KLocalizedString>
 #include <KConfigGroup>
@@ -64,25 +65,25 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     hLayout->addWidget(m_tabBar);
 
     // add vertical split view space
-    QToolButton *split = new QToolButton(this);
-    split->setAutoRaise(true);
-    split->setPopupMode(QToolButton::InstantPopup);
-    split->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
-    split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert")));
-    split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
-    split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_current_space")));
-    split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_others")));
-    split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_hide_others")));
-    split->setWhatsThis(i18n("Control view space splitting"));
-    split->installEventFilter(this); // on click, active this view space
-    hLayout->addWidget(split);
+    m_split = new QToolButton(this);
+    m_split->setAutoRaise(true);
+    m_split->setPopupMode(QToolButton::InstantPopup);
+    m_split->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
+    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert")));
+    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
+    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_current_space")));
+    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_others")));
+    m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_hide_others")));
+    m_split->setWhatsThis(i18n("Control view space splitting"));
+    m_split->installEventFilter(this); // on click, active this view space
+    hLayout->addWidget(m_split);
 
     // add quick open
-    QToolButton *quickOpen = new QToolButton(this);
-    quickOpen->setAutoRaise(true);
-    quickOpen->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open")));
-    quickOpen->installEventFilter(this); // on click, active this view space
-    hLayout->addWidget(quickOpen);
+    m_quickOpen = new QToolButton(this);
+    m_quickOpen->setAutoRaise(true);
+    m_quickOpen->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open")));
+    m_quickOpen->installEventFilter(this); // on click, active this view space
+    hLayout->addWidget(m_quickOpen);
 
     // FIXME: better additional size
 //     m_tabBar->setMinimumHeight(int (QFontMetrics(font()).height() * 1.2));
@@ -101,9 +102,11 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
 
     // connect signal to hide/show statusbar
     connect(m_viewManager->mainWindow(), SIGNAL(statusBarToggled()), this, SLOT(statusBarToggled()));
+    connect(m_viewManager->mainWindow(), SIGNAL(tabBarToggled()), this, SLOT(tabBarToggled()));
 
-    // init the statusbar...
+    // init the bars...
     statusBarToggled();
+    tabBarToggled();
 }
 
 bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
@@ -130,6 +133,7 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 
 void KateViewSpace::statusBarToggled()
 {
+    KateUpdateDisabler updatesDisabled (m_viewManager->mainWindow());
     Q_FOREACH(KTextEditor::Document * doc, m_lruDocList) {
         if (m_docToView.contains(doc)) {
             m_docToView[doc]->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
@@ -153,6 +157,14 @@ void KateViewSpace::mergeLruList(const QVector<KTextEditor::Document*> & lruList
             registerDocument(doc, false);
         }
     }
+}
+
+void KateViewSpace::tabBarToggled()
+{
+    KateUpdateDisabler updatesDisabled (m_viewManager->mainWindow());
+    m_tabBar->setVisible(m_viewManager->mainWindow()->showTabBar());
+    m_split->setVisible(m_viewManager->mainWindow()->showTabBar());
+    m_quickOpen->setVisible(m_viewManager->mainWindow()->showTabBar());
 }
 
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)

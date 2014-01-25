@@ -232,10 +232,14 @@ KateMainWindow::~KateMainWindow()
 
 void KateMainWindow::setupImportantActions()
 {
-    // settings
     m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleShowStatusBar()), actionCollection());
     m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
+    m_paShowTabBar = new KToggleAction(i18n("Sho&w Tabs"), this);
+    actionCollection()->addAction(QStringLiteral("settings_show_tab_bar"), m_paShowTabBar);
+    connect(m_paShowTabBar, SIGNAL(toggled(bool)), this, SLOT(toggleShowTabBar()));
+    m_paShowTabBar->setWhatsThis(i18n("Use this command to show or hide the tabs for the views"));
+    
     m_paShowPath = new KToggleAction(i18n("Sho&w Path in Titlebar"), this);
     actionCollection()->addAction(QStringLiteral("settings_show_full_path"), m_paShowPath);
     connect(m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()));
@@ -546,9 +550,11 @@ void KateMainWindow::readOptions()
 
     m_paShowPath->setChecked(generalGroup.readEntry("Show Full Path in Title", false));
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
+    m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
 
     // emit signal to hide/show statusbars
     toggleShowStatusBar();
+    toggleShowTabBar();
 }
 
 void KateMainWindow::saveOptions()
@@ -563,6 +569,7 @@ void KateMainWindow::saveOptions()
 
     generalGroup.writeEntry("Show Full Path in Title", m_paShowPath->isChecked());
     generalGroup.writeEntry("Show Status Bar", m_paShowStatusBar->isChecked());
+    generalGroup.writeEntry("Show Tab Bar", m_paShowTabBar->isChecked());
 }
 
 void KateMainWindow::toggleShowStatusBar()
@@ -573,6 +580,16 @@ void KateMainWindow::toggleShowStatusBar()
 bool KateMainWindow::showStatusBar()
 {
     return m_paShowStatusBar->isChecked();
+}
+
+void KateMainWindow::toggleShowTabBar()
+{
+    emit tabBarToggled();
+}
+
+bool KateMainWindow::showTabBar()
+{
+    return m_paShowTabBar->isChecked();
 }
 
 void KateMainWindow::slotWindowActivated()

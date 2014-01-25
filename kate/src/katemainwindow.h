@@ -202,12 +202,15 @@ private Q_SLOTS:
 
 private Q_SLOTS:
     void toggleShowStatusBar();
+    void toggleShowTabBar();
 
 public:
     bool showStatusBar();
+    bool showTabBar();
 
 Q_SIGNALS:
     void statusBarToggled();
+    void tabBarToggled();
     void unhandledShortcutOverride(QEvent *e);
 
 public:
@@ -466,6 +469,7 @@ private:
     // options: show statusbar + show path
     KToggleAction *m_paShowPath;
     KToggleAction *m_paShowStatusBar;
+    KToggleAction *m_paShowTabBar;
     QWidget *m_bottomViewBarContainer;
     KateContainerStackedLayout *m_bottomContainerStack;
 

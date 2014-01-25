@@ -124,6 +124,11 @@ private Q_SLOTS:
      */
     void closeTabRequest(int id);
 
+    /**
+     * Called to create a new empty document.
+     */
+    void createNewDocument();
+
 private:
     // Kate's view manager
     KateViewManager *m_viewManager;

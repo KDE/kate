@@ -118,11 +118,13 @@ protected Q_SLOTS:
 
 protected:
     /** paint eyecandy rectangles around the button */
-    virtual void paintEvent(QPaintEvent *ev);
+    void paintEvent(QPaintEvent *ev) Q_DECL_OVERRIDE;
     /** support for context menu */
-    virtual void contextMenuEvent(QContextMenuEvent *ev);
+    void contextMenuEvent(QContextMenuEvent *ev) Q_DECL_OVERRIDE;
     /** middle mouse button changes color */
-    virtual void mousePressEvent(QMouseEvent *ev);
+    void mousePressEvent(QMouseEvent *ev) Q_DECL_OVERRIDE;
+    /** eat double click events */
+    void mouseDoubleClickEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 private:
     TabCloseButton * m_closeButton;

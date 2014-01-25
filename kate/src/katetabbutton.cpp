@@ -266,6 +266,11 @@ void KateTabButton::mousePressEvent(QMouseEvent *ev)
     }
 }
 
+void KateTabButton::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    event->accept();
+}
+
 void KateTabButton::setHighlightColor(const QColor &color)
 {
     if (color.isValid()) {

@@ -434,3 +434,12 @@ int KateTabBar::maxTabCount() const
 {
     return qMax(1, width() / m_minimumTabWidth);
 }
+
+/**
+ * Override to request a new tab.
+ */
+void KateTabBar::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    event->accept();
+    emit newTabRequested();
+}

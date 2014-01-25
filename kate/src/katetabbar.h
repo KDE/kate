@@ -127,13 +127,21 @@ Q_SIGNALS:
      */
     void lessTabsRequested(int count);
 
+    /**
+     * This signal is emitted whenever the users double clicks on the free
+     * space next to the tab bar. Typically, a new document should be
+     * created.
+     */
+    void newTabRequested();
+
 protected Q_SLOTS:
     void tabButtonActivated(KateTabButton *tabButton);
     void tabButtonHighlightChanged(KateTabButton *tabButton);
     void tabButtonCloseRequest(KateTabButton *tabButton);
 
 protected:
-    virtual void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void mouseDoubleClickEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 protected:
     void updateButtonPositions();

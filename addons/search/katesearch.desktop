@@ -2,6 +2,7 @@
 Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katesearchplugin
+X-KTextEditor-Load-Default=kate
 Name=Search & Replace
 Name[bg]=Търсене и &замяна
 Name[bs]=Pretraži i zamjeni

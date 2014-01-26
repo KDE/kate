@@ -271,9 +271,9 @@ void KateViewManager::slotDocumentOpen ()
 
     if ( !fileList.isEmpty() )
     {
-      QString text = i18n( "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>" );
+      QString text = i18n( "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>", fileList );
 
-      int ret = KMessageBox::warningYesNo( this, text.arg( fileList ), i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop() );
+      int ret = KMessageBox::warningYesNo( this, text, i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop() );
       if ( ret == KMessageBox::No )
         return;
     }

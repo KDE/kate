@@ -684,7 +684,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
             plugin.m_broken = true;
             reason += i18nc(
                 "@info:tooltip"
-              , "<p>Failure on module load <application>%1</application>:</p><pre>%3</pre>"
+              , "<p>Failure on module load <application>%1</application>:</p><pre>%2</pre>"
               , dependency
               , py.lastTraceback()
               );

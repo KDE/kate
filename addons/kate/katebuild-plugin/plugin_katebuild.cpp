@@ -654,7 +654,7 @@ bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget
 
     std::map<QString, QString>::const_iterator tgtIt = targetSet->targets.find(targetName);
     if (tgtIt == targetSet->targets.end()) {
-        KMessageBox::sorry(0, i18n("Target \"%1\" not found for building.").arg(targetName));
+        KMessageBox::sorry(0, i18n("Target \"%1\" not found for building.", targetName));
         return false;
     }
 
@@ -1045,7 +1045,7 @@ void KateBuildView::slotDeleteTargetClicked()
 
     QString target = m_targetsUi->targetsList->item(row, COL_NAME)->text();
 
-    int result = KMessageBox::questionYesNo(0, QString(i18n("Really delete target %1?")).arg(target));
+    int result = KMessageBox::questionYesNo(0, i18n("Really delete target %1?", target));
     if (result == KMessageBox::No) {
         return;
     }
@@ -1161,7 +1161,7 @@ QString KateBuildView::makeUniqueTargetSetName() const
     bool nameAlreadyUsed = false;
     do {
         count++;
-        uniqueName = i18n("Target Set %1").arg(count);
+        uniqueName = i18n("Target Set %1", count);
 
         nameAlreadyUsed = false;
         for (int i=0; i<m_targetList.size(); i++) {

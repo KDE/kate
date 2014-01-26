@@ -45,10 +45,8 @@ class FileTreeModelTest : public QObject
     void buildTreeBatchPrefill_data();
     void buildTreeBatchPrefill();
     
-#if 0
     void listMode_data();
     void listMode();
-#endif
 
     void deleteDocument_data();
     void deleteDocument();

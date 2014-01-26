@@ -438,7 +438,7 @@ void KateFileTreeModel::clearModel()
   // remove all items
   // can safely ignore documentClosed here
 
-  beginRemoveRows(QModelIndex(), 0, m_root->childCount() - 1);
+  beginRemoveRows(QModelIndex(), 0, qMax(m_root->childCount() - 1, 0));
 
   delete m_root;
   m_root = new ProxyItemDir(QLatin1String("m_root"), 0);

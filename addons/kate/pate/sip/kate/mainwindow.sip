@@ -64,8 +64,13 @@ public:
     bool                 moveToolView (QWidget*, Kate::MainWindow::Position);
     bool                 showToolView (QWidget*);
     bool                 hideToolView (QWidget*);
+    // NOTE This method do not exist in C++ class, but needed for Python code!
+    void                 destroyToolView(QWidget*);
+%MethodCode
+    a0->blockSignals(true);
+    a0->deleteLater();
+%End
 
 };  // class MainWindow
 
 };  // namespace Kate
-

@@ -79,14 +79,14 @@ class PaletteView(QObject):
 
 
     def __del__(self):
-        #'''Plugins that use a toolview need to delete it for reloading to work.'''
+        '''Plugins that use a toolview need to delete it for reloading to work.'''
         assert(self.toolView is not None)
         mw = kate.mainInterfaceWindow()
         if mw:
             mw.hideToolView(self.toolView)
-        self.toolView.removeEventFilter(self)
-        self.toolView.blockSignals(True)
-        self.toolView.deleteLater()
+            mw.destroyToolView(self.toolView)
+            self.toolView.removeEventFilter(self)
+        self.colorCellsWidget = None
         self.toolView = None
 
 

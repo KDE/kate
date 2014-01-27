@@ -79,8 +79,10 @@ class ColorChooser(QFrame):
 
 
     def __del__(self):
-        self.removeEventFilter(self)
-        self.blockSignals(True)
+        mw = kate.mainInterfaceWindow()
+        if mw:
+            self.blockSignals(True)
+            self.removeEventFilter(self)
 
 
     def updateColors(self, document):

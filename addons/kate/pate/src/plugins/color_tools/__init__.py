@@ -37,6 +37,8 @@
 
 '''
 
+import sys
+
 import kate
 
 from .color_chooser import ColorChooser
@@ -101,3 +103,8 @@ def destroy():
     assert(colorChooserWidget is not None)
     del colorChooserWidget
     colorChooserWidget = None
+
+    del sys.modules['color_tools.color_palette']
+    del sys.modules['color_tools.color_chooser']
+    del sys.modules['color_tools.color_swatcher']
+    del sys.modules['color_tools.utils']

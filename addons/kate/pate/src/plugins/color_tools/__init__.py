@@ -40,6 +40,7 @@
 import sys
 
 import kate
+import kate.view
 
 from .color_chooser import ColorChooser
 from .color_palette import PaletteView
@@ -74,6 +75,13 @@ def viewChanged(view=None):
     global paletteView
     if paletteView is not None:
         paletteView.update(view)
+
+
+@kate.view.selectionChanged
+def selectionChanged(view):
+    global swatcher
+    if swatcher is not None and view is not None:
+        swatcher.show_swatch(view)
 
 
 @kate.init

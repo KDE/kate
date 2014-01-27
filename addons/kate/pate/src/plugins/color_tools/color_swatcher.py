@@ -31,15 +31,6 @@ class ColorSwatcher:
 
     def __init__(self):
         self.old_palette = None
-        kate.viewChanged(self.view_changed)
-        self.view_changed()
-
-
-    def view_changed(self):
-        '''Connects a swatch showing slot to each view’s selection change signal'''
-        view = kate.activeView()
-        if view:
-            view.selectionChanged.connect(self.show_swatch)
 
 
     def show_swatch(self, view):
@@ -50,6 +41,8 @@ class ColorSwatcher:
                 cursor_pos = view.cursorPositionCoordinates()
                 QToolTip.showText(cursor_pos, ColorSwatcher._SWATCH_TEMPLATE)
                 self.change_palette(color)
+        else:
+            QToolTip.hideText()
 
 
     def change_palette(self, color):

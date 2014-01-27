@@ -962,13 +962,11 @@ def init():
 @kate.unload
 def destroy():
     '''Plugins that use a toolview need to delete it for reloading to work.'''
-    kate.kDebug('Unloading...')
     global _cmake_completion_model
     assert(_cmake_completion_model is not None)
     del _cmake_completion_model
     _cmake_completion_model = None
 
-    kate.kDebug('Unloading2...')
     global _cmake_tool_view
     assert(_cmake_tool_view is not None)
     del _cmake_tool_view

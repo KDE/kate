@@ -284,5 +284,3 @@ def get_cache_content(build_dir, is_advanced = False):
               , "Specified path %1 does not look like a CMake build directory", build_dir
               )
           )
-
-# kate: indent-width 4;

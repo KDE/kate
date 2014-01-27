@@ -857,5 +857,3 @@ def register_command_completer(completers):
     completers['variable_watch'] = [Value([(ANY, ONE_OR_MORE)])]
 
     # NOTE while() implemented as a separate module
-
-# kate: indent-width 4;

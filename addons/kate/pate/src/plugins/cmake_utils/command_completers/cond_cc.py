@@ -77,6 +77,3 @@ def register_command_completer(completers):
     completers['if'] = _conditions_completer
     completers['elseif'] = _conditions_completer
     completers['while'] = _conditions_completer
-
-
-# kate: indent-width 4;

@@ -483,8 +483,8 @@ class CMakeToolView(QObject):
     '''
     cmakeCache = []
 
-    def __init__(self, parent):
-        super(CMakeToolView, self).__init__(parent)
+    def __init__(self):
+        super(CMakeToolView, self).__init__(None)
         self.toolView = kate.mainInterfaceWindow().createToolView(
             'cmake_utils'
           , kate.Kate.MainWindow.Bottom
@@ -555,11 +555,15 @@ class CMakeToolView(QObject):
         self._updateCacheView(self.cacheViewPage.buildDir.text())
 
 
-    #def __del__(self):
-        #"""Plugins that use a toolview need to delete it for reloading to work."""
-        #if self.toolView:
-            #self.toolView.deleteLater()
-            #self.toolView = None
+    def __del__(self):
+        '''Plugins that use a toolview need to delete it for reloading to work.'''
+        assert(self.toolView is not None)
+        mw = kate.mainInterfaceWindow()
+        if mw:
+            mw.hideToolView(self.toolView)
+            mw.destroyToolView(self.toolView)
+            self.toolView.removeEventFilter(self)
+        self.toolView = None
 
 
     def eventFilter(self, obj, event):
@@ -952,7 +956,7 @@ def init():
     global _cmake_tool_view
     if _cmake_tool_view is None:
         kate.kDebug('CMake Helper Plugin: Create a tool view')
-        _cmake_tool_view = CMakeToolView(kate.mainWindow())
+        _cmake_tool_view = CMakeToolView()
 
 
 @kate.unload
@@ -960,11 +964,16 @@ def destroy():
     '''Plugins that use a toolview need to delete it for reloading to work.'''
     kate.kDebug('Unloading...')
     global _cmake_completion_model
-    if _cmake_completion_model:
-        _cmake_completion_model = None
+    assert(_cmake_completion_model is not None)
+    del _cmake_completion_model
+    _cmake_completion_model = None
 
+    kate.kDebug('Unloading2...')
     global _cmake_tool_view
-    if _cmake_tool_view:
-        _cmake_tool_view = None
+    assert(_cmake_tool_view is not None)
+    del _cmake_tool_view
+    _cmake_tool_view = None
 
-# kate: indent-width 4;
+    del sys.modules['cmake_utils.settings']
+    del sys.modules['cmake_utils.cmake_help_parser']
+    del sys.modules['cmake_utils.command_completers']

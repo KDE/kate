@@ -461,8 +461,8 @@ class CompletionModel(KTextEditor.CodeCompletionModel):
             return None
 
 class SearchBar(QObject):
-    def __init__(self, parent, dataSource):
-        super(SearchBar, self).__init__(parent)
+    def __init__(self, dataSource):
+        super(SearchBar, self).__init__(None)
         self.lastToken = None
         self.lastOffset = None
         self.lastName = None
@@ -504,10 +504,12 @@ class SearchBar(QObject):
 
     def __del__(self):
         """Plugins that use a toolview need to delete it for reloading to work."""
-        if self.toolView:
+        assert(self.toolView is not None)
+        mw = kate.mainInterfaceWindow()
+        if mw:
             self.hide()
-            self.toolView.deleteLater()
-            #self.toolView = None
+            mw.destroyToolView(self.toolView)
+        self.toolView = None
 
     @pyqtSlot()
     def literalSearch(self):
@@ -671,7 +673,7 @@ def show():
     global searchBar
     if searchBar is None:
         idDatabase = Lookup()
-        searchBar = SearchBar(kate.mainWindow(), idDatabase)
+        searchBar = SearchBar(idDatabase)
     global completionModel
     if completionModel is None:
         completionModel = CompletionModel(kate.mainWindow(), idDatabase)

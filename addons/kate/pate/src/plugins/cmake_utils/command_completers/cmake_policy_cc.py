@@ -58,6 +58,3 @@ def _cmake_policy_completer(document, cursor, word, comp_list):
 
 def register_command_completer(completers):
     completers['cmake_policy'] = _cmake_policy_completer
-
-
-# kate: indent-width 4;

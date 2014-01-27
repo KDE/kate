@@ -32,6 +32,7 @@
 #include <QStyle>
 #include <QStyleOption>
 #include <QHBoxLayout>
+#include <KColorScheme>
 
 TabCloseButton::TabCloseButton(QWidget * parent)
     : QAbstractButton(parent)
@@ -159,20 +160,24 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
 {
     Q_UNUSED(ev)
 
-    QPalette pal = QApplication::palette();
+    const KColorScheme activeView(QPalette::Active, KColorScheme::View);
+    const QColor bar(activeView.decoration(KColorScheme::FocusColor).color());
 
     QPainter p(this);
     if (isChecked() || underMouse()) {
-        QColor c = pal.color(QPalette::Background);
-        p.fillRect(rect(), c.lighter(110));
+        p.setOpacity(0.5);
+        p.fillRect(rect(), Qt::white);
+        p.setOpacity(1.0);
     }
 
     if (m_highlightColor.isValid()) {
+        p.setOpacity(0.3);
         p.fillRect(QRect(0, height() - 3, width(), 10), m_highlightColor);
+        p.setOpacity(1.0);
     }
 
     if (isActivated()) {
-        p.fillRect(QRect(0, height() - 3, width(), 10), QColor(0, 0, 255, 128));
+        p.fillRect(QRect(0, height() - 3, width(), 10), bar);
     }
 
     // the width of the text is reduced by the close button + 2 * margin
@@ -182,6 +187,7 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     // draw text, we need to elide to xxx...xxx is too long
     const QString elidedText = QFontMetrics(font()).elidedText (text(), Qt::ElideMiddle, w);
     const QRect textRect(0, 0, w, height());
+    const QPalette pal = QApplication::palette();
     style()->drawItemText(&p, textRect, Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText);
 }
 

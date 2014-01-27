@@ -6,7 +6,7 @@
   Copyright 2004 Alexander Neundorf (neundorf@kde.org)
   Copyright 2005 Dominik Haumann (dhdev@gmx.de)
   Copyright 2007,2008,2013 Matthew Woehlke (mw_triad@users.sourceforge.net)
-  Copyright 2013 Alex Turbov (i.zaufi@gmail.com)
+  Copyright 2013,2014 Alex Turbov (i.zaufi@gmail.com)
 
  **********************************************************************
  * This library is free software; you can redistribute it and/or      *
@@ -25,13 +25,14 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<!-- generated for "cmake version 2.8.11.1" -->
-<language name="CMake" version="1.24" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<!-- generated for "cmake version 2.8.12.1" -->
+<language name="CMake" version="1.25" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <!-- ATTENTION Do not change the list name! Or change a generation script accordingly -->
     <list name = "commands">
       <!-- generated list -->
+      <item> add_compile_options </item>
       <item> add_custom_command </item>
       <item> add_custom_target </item>
       <item> add_definitions </item>
@@ -44,6 +45,7 @@
       <item> break </item>
       <item> build_command </item>
       <item> build_name </item>
+      <item> cmake_host_system_information </item>
       <item> cmake_minimum_required </item>
       <item> cmake_policy </item>
       <item> configure_file </item>
@@ -118,6 +120,7 @@
       <item> subdir_depends </item>
       <item> subdirs </item>
       <item> target_compile_definitions </item>
+      <item> target_compile_options </item>
       <item> target_include_directories </item>
       <item> target_link_libraries </item>
       <item> try_compile </item>
@@ -143,6 +146,7 @@
     <list name="special_args">
       <!-- generated list -->
       <item> AFTER </item>
+      <item> ALIAS </item>
       <item> ALL </item>
       <item> ALPHABET </item>
       <item> AND </item>
@@ -170,14 +174,17 @@
       <item> COMPILE_RESULT_VAR </item>
       <item> COMPONENT </item>
       <item> COMPONENTS </item>
+      <item> CONDITION </item>
       <item> CONFIG </item>
       <item> CONFIGS </item>
       <item> CONFIGURATION </item>
       <item> CONFIGURATIONS </item>
       <item> CONFIGURE </item>
+      <item> CONTENT </item>
       <item> COPY </item>
       <item> COPYONLY </item>
       <item> COPY_FILE </item>
+      <item> COPY_FILE_ERROR </item>
       <item> CRLF </item>
       <item> DEFINED </item>
       <item> DEFINITION </item>
@@ -202,6 +209,7 @@
       <item> EXPECTED_HASH </item>
       <item> EXPECTED_MD5 </item>
       <item> EXPORT </item>
+      <item> EXPORT_LINK_INTERFACE_LIBRARIES </item>
       <item> EXPR </item>
       <item> EXTRA_INCLUDE </item>
       <item> FATAL_ERROR </item>
@@ -215,6 +223,7 @@
       <item> FRAMEWORK </item>
       <item> FULL_DOCS </item>
       <item> FUNCTION </item>
+      <item> GENERATE </item>
       <item> GET </item>
       <item> GLOB </item>
       <item> GLOBAL </item>
@@ -229,8 +238,10 @@
       <item> IMPORTED </item>
       <item> IN </item>
       <item> INACTIVITY_TIMEOUT </item>
+      <item> INCLUDES </item>
       <item> INCLUDE_INTERNALS </item>
       <item> INHERITED </item>
+      <item> INPUT </item>
       <item> INPUT_FILE </item>
       <item> INSERT </item>
       <item> INSTALL </item>
@@ -258,6 +269,7 @@
       <item> LOG </item>
       <item> MACOSX_BUNDLE </item>
       <item> MAIN_DEPENDENCY </item>
+      <item> MAKE_C_IDENTIFIER </item>
       <item> MAKE_DIRECTORY </item>
       <item> MATCH </item>
       <item> MATCHALL </item>
@@ -329,6 +341,7 @@
       <item> PUBLIC </item>
       <item> PUBLIC_HEADER </item>
       <item> PUSH </item>
+      <item> QUERY </item>
       <item> QUIET </item>
       <item> RANDOM </item>
       <item> RANDOM_SEED </item>
@@ -350,6 +363,7 @@
       <item> REQUIRED_VARIABLE1 </item>
       <item> REQUIRED_VARIABLE2 </item>
       <item> RESOURCE </item>
+      <item> RESULT </item>
       <item> RESULT_VAR </item>
       <item> RESULT_VARIABLE </item>
       <item> RETURN_VALUE </item>
@@ -428,6 +442,15 @@
       <item> STRING </item>
       <item> BOOL </item>
       <item> INTERNAL </item>
+      <!-- key values to the QUERY parameter of cmake_host_system_information() -->
+      <item> NUMBER_OF_LOGICAL_CORES </item>
+      <item> NUMBER_OF_PHYSICAL_CORES </item>
+      <item> HOSTNAME </item>
+      <item> FQDN </item>
+      <item> TOTAL_VIRTUAL_MEMORY </item>
+      <item> AVAILABLE_VIRTUAL_MEMORY </item>
+      <item> TOTAL_PHYSICAL_MEMORY </item>
+      <item> AVAILABLE_PHYSICAL_MEMORY </item>
     </list>
 
     <!-- ATTENTION Do not change the list name! Or change a generation script accordingly -->
@@ -436,6 +459,7 @@
       <item> ABSTRACT </item>
       <item> ADDITIONAL_MAKE_CLEAN_FILES </item>
       <item> ADVANCED </item>
+      <item> ALIASED_TARGET </item>
       <item> ALLOW_DUPLICATE_CUSTOM_TARGETS </item>
       <item> ARCHIVE_OUTPUT_DIRECTORY </item>
       <item> ARCHIVE_OUTPUT_NAME </item>
@@ -443,6 +467,7 @@
       <item> ATTACHED_FILES_ON_FAIL </item>
       <item> AUTOMOC </item>
       <item> AUTOMOC_MOC_OPTIONS </item>
+      <item> AUTOMOC_TARGETS_FOLDER </item>
       <item> BUILD_WITH_INSTALL_RPATH </item>
       <item> BUNDLE </item>
       <item> BUNDLE_EXTENSION </item>
@@ -452,6 +477,7 @@
       <item> COMPATIBLE_INTERFACE_STRING </item>
       <item> COMPILE_DEFINITIONS </item>
       <item> COMPILE_FLAGS </item>
+      <item> COMPILE_OPTIONS </item>
       <item> COST </item>
       <item> DEBUG_CONFIGURATIONS </item>
       <item> DEBUG_POSTFIX </item>
@@ -465,6 +491,7 @@
       <item> ENVIRONMENT </item>
       <item> EXCLUDE_FROM_ALL </item>
       <item> EXCLUDE_FROM_DEFAULT_BUILD </item>
+      <item> EXPORT_NAME </item>
       <item> EXTERNAL_OBJECT </item>
       <item> EchoString </item>
       <item> FAIL_REGULAR_EXPRESSION </item>
@@ -501,8 +528,11 @@
       <item> INSTALL_RPATH </item>
       <item> INSTALL_RPATH_USE_LINK_PATH </item>
       <item> INTERFACE_COMPILE_DEFINITIONS </item>
+      <item> INTERFACE_COMPILE_OPTIONS </item>
       <item> INTERFACE_INCLUDE_DIRECTORIES </item>
+      <item> INTERFACE_LINK_LIBRARIES </item>
       <item> INTERFACE_POSITION_INDEPENDENT_CODE </item>
+      <item> INTERFACE_SYSTEM_INCLUDE_DIRECTORIES </item>
       <item> INTERPROCEDURAL_OPTIMIZATION </item>
       <item> IN_TRY_COMPILE </item>
       <item> KEEP_EXTENSION </item>
@@ -526,9 +556,11 @@
       <item> MACOSX_BUNDLE_INFO_PLIST </item>
       <item> MACOSX_FRAMEWORK_INFO_PLIST </item>
       <item> MACOSX_PACKAGE_LOCATION </item>
+      <item> MACOSX_RPATH </item>
       <item> MACROS </item>
       <item> MEASUREMENT </item>
       <item> MODIFIED </item>
+      <item> NAME </item>
       <item> NO_SONAME </item>
       <item> OBJECT_DEPENDS </item>
       <item> OBJECT_OUTPUTS </item>
@@ -576,9 +608,12 @@
       <item> VALUE </item>
       <item> VARIABLES </item>
       <item> VERSION </item>
+      <item> VISIBILITY_INLINES_HIDDEN </item>
       <item> VS_DOTNET_REFERENCES </item>
+      <item> VS_DOTNET_TARGET_FRAMEWORK_VERSION </item>
       <item> VS_GLOBAL_KEYWORD </item>
       <item> VS_GLOBAL_PROJECT_TYPES </item>
+      <item> VS_GLOBAL_ROOTNAMESPACE </item>
       <item> VS_KEYWORD </item>
       <item> VS_SCC_AUXPATH </item>
       <item> VS_SCC_LOCALPATH </item>
@@ -639,6 +674,7 @@
       <item> CMAKE_DEBUG_TARGET_PROPERTIES </item>
       <item> CMAKE_DL_LIBS </item>
       <item> CMAKE_EDIT_COMMAND </item>
+      <item> CMAKE_ERROR_DEPRECATED </item>
       <item> CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION </item>
       <item> CMAKE_EXECUTABLE_SUFFIX </item>
       <item> CMAKE_EXE_LINKER_FLAGS </item>
@@ -690,7 +726,9 @@
       <item> CMAKE_MAJOR_VERSION </item>
       <item> CMAKE_MAKE_PROGRAM </item>
       <item> CMAKE_MFC_FLAG </item>
+      <item> CMAKE_MINIMUM_REQUIRED_VERSION </item>
       <item> CMAKE_MINOR_VERSION </item>
+      <item> CMAKE_MODULE_LINKER_FLAGS </item>
       <item> CMAKE_MODULE_PATH </item>
       <item> CMAKE_NOT_USING_CONFIG_FLAGS </item>
       <item> CMAKE_NO_BUILTIN_CHRPATH </item>
@@ -708,6 +746,7 @@
       <item> CMAKE_SCRIPT_MODE_FILE </item>
       <item> CMAKE_SHARED_LIBRARY_PREFIX </item>
       <item> CMAKE_SHARED_LIBRARY_SUFFIX </item>
+      <item> CMAKE_SHARED_LINKER_FLAGS </item>
       <item> CMAKE_SHARED_MODULE_PREFIX </item>
       <item> CMAKE_SHARED_MODULE_SUFFIX </item>
       <item> CMAKE_SIZEOF_VOID_P </item>
@@ -719,6 +758,7 @@
       <item> CMAKE_STANDARD_LIBRARIES </item>
       <item> CMAKE_STATIC_LIBRARY_PREFIX </item>
       <item> CMAKE_STATIC_LIBRARY_SUFFIX </item>
+      <item> CMAKE_STATIC_LINKER_FLAGS </item>
       <item> CMAKE_SYSTEM </item>
       <item> CMAKE_SYSTEM_IGNORE_PATH </item>
       <item> CMAKE_SYSTEM_INCLUDE_PATH </item>
@@ -734,16 +774,20 @@
       <item> CMAKE_USE_RELATIVE_PATHS </item>
       <item> CMAKE_VERBOSE_MAKEFILE </item>
       <item> CMAKE_VERSION </item>
+      <item> CMAKE_VISIBILITY_INLINES_HIDDEN </item>
       <item> CMAKE_VS_PLATFORM_TOOLSET </item>
+      <item> CMAKE_WARN_DEPRECATED </item>
       <item> CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION </item>
       <item> CMAKE_WIN32_EXECUTABLE </item>
       <item> CMAKE_XCODE_PLATFORM_TOOLSET </item>
       <item> CYGWIN </item>
+      <item> ENV </item>
       <item> EXECUTABLE_OUTPUT_PATH </item>
       <item> LIBRARY_OUTPUT_PATH </item>
       <item> MSVC </item>
       <item> MSVC10 </item>
       <item> MSVC11 </item>
+      <item> MSVC12 </item>
       <item> MSVC60 </item>
       <item> MSVC70 </item>
       <item> MSVC71 </item>
@@ -773,15 +817,27 @@
       <item> CONFIG </item>
       <item> BOOL </item>
       <item> STREQUAL </item>
+      <item> JOIN </item>
       <item> TARGET_NAME </item>
       <item> INSTALL_INTERFACE </item>
       <item> BUILD_INTERFACE </item>
+      <item> C_COMPILER_ID </item>
+      <item> CXX_COMPILER_ID </item>
+      <item> VERSION_GREATER </item>
+      <item> VERSION_LESS </item>
+      <item> VERSION_EQUAL </item>
+      <item> C_COMPILER_VERSION </item>
+      <item> CXX_COMPILER_VERSION </item>
       <item> TARGET_FILE </item>
       <item> TARGET_LINKER_FILE </item>
       <item> TARGET_SONAME_FILE </item>
+      <item> TARGET_FILE_DIR </item>
+      <item> TARGET_FILE_NAME </item>
       <item> TARGET_DIR </item>
-      <item> TARGET_LINKER_DIR </item>
-      <item> TARGET_SONAME_DIR </item>
+      <item> TARGET_LINKER_FILE_DIR </item>
+      <item> TARGET_LINKER_FILE_NAME </item>
+      <item> TARGET_SONAME_FILE_DIR </item>
+      <item> TARGET_SONAME_FILE_NAME </item>
       <item> TARGET_PROPERTY </item>
       <item> TARGET_OBJECTS </item>
       <item> TARGET_POLICY </item>
@@ -828,7 +884,10 @@
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_COMPILER_IS_GNU[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_DISABLE_FIND_PACKAGE_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_EXE_LINKER_FLAGS_[A-Za-z_][A-Za-z_0-9]*\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_MODULE_LINKER_FLAGS_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_POLICY_DEFAULT_CMP[0-9]+\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_SHARED_LINKER_FLAGS_[A-Za-z_][A-Za-z_0-9]*\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_STATIC_LINKER_FLAGS_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_USER_MAKE_RULES_OVERRIDE_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_ARCHIVE_APPEND\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_ARCHIVE_CREATE\b" />
@@ -842,6 +901,7 @@
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_CREATE_SHARED_LIBRARY\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_CREATE_SHARED_MODULE\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_CREATE_STATIC_LIBRARY\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_FLAGS\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_FLAGS_DEBUG\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_FLAGS_MINSIZEREL\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_FLAGS_RELEASE\b" />
@@ -860,6 +920,7 @@
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_POSTFIX\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_SIZEOF_DATA_PTR\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_SOURCE_FILE_EXTENSIONS\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_VISIBILITY_PRESET\b" />
       </context>
       <context attribute="Normal Text" lineEndContext="#stay" name="Detect Builtin Variables">
         <keyword attribute="Builtin CMake Variable" context="#stay" String="cmake_vars" insensitive="false"/>

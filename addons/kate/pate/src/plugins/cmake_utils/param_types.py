@@ -58,7 +58,7 @@ def _minimum_expected_params(params):
 
 
 class Option(object):
-    '''Class to represent a single option w/o parameters'''
+    '''Class to represent a single option possible parameters'''
 
     def __init__(self, name, count=1, args=None, description=None, exppos=None):
         self.name = name

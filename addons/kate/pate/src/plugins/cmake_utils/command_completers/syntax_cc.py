@@ -22,6 +22,10 @@ from cmake_utils.param_types import *
 
 
 def register_command_completer(completers):
+    completers['add_compile_options'] = [
+        Value([(ANY, ONE_OR_MORE)])
+      ]
+
     add_custom_command_sig_1 = [
         Option('OUTPUT', 1, [(ANY, ONE_OR_MORE)])
       , Option('COMMAND', ONE_OR_MORE, [(ANY, ONE_OR_MORE)])
@@ -136,6 +140,20 @@ def register_command_completer(completers):
       , Option('TARGET', ZERO_OR_ONE, [(ANY, 1)])
       ]
 
+    completers['cmake_host_system_information'] = [
+        Option('RESULT', 1, [(ANY, 1)])
+      , Option('QUERY', ZERO_OR_ONE, [(ONE_OF, [
+            'NUMBER_OF_LOGICAL_CORES'
+          , 'NUMBER_OF_PHYSICAL_CORES'
+          , 'HOSTNAME'
+          , 'FQDN'
+          , 'TOTAL_VIRTUAL_MEMORY'
+          , 'AVAILABLE_VIRTUAL_MEMORY'
+          , 'TOTAL_PHYSICAL_MEMORY'
+          , 'AVAILABLE_PHYSICAL_MEMORY'
+          ])])
+      ]
+
     completers['cmake_minimum_required'] = [
         Option('VERSION', 1, [(VERSION, 1)])
       , Option('FATAL_ERROR', ZERO_OR_ONE)
@@ -206,6 +224,7 @@ def register_command_completer(completers):
       , Option('NAMESPACE', ZERO_OR_ONE, [(ANY, 1)])
       , Option('APPEND', ZERO_OR_ONE)
       , Option('FILE', 1, [(FILE, 1)])
+      , Option('EXPORT_LINK_INTERFACE_LIBRARIES', ZERO_OR_ONE)
       ]
     export_sig_2 = [
         Option('PACKAGE', 1, [(ANY, 1)], exppos=0)
@@ -808,9 +827,9 @@ def register_command_completer(completers):
 
     # TODO implement target_compile_definitions() as a separate module
 
-    # TODO implement target_include_directories() as a separate module
+    # TODO implement target_compile_options() as a separate module
 
-    # TODO implement target_link_libraries() as a separate module
+    # TODO implement target_include_directories() as a separate module
 
     # TODO implement target_link_libraries() as a separate module
 

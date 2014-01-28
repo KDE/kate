@@ -975,3 +975,6 @@ def destroy():
     del sys.modules['cmake_utils.settings']
     del sys.modules['cmake_utils.cmake_help_parser']
     del sys.modules['cmake_utils.command_completers']
+
+# TODO
+# * completers for generator expressions

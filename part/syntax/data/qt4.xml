@@ -1551,10 +1551,10 @@
   </list>
 
   <contexts>
-    <!-- Base context for C++11 and Qt highlighting to be used as standalone syntax -->
+    <!-- Base context for C++ and Qt highlighting to be used as standalone syntax -->
     <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
       <IncludeRules context="DetectQt4Extensions" />
-      <IncludeRules context="##C++11" />
+      <IncludeRules context="##C++" />
     </context>
 
     <!-- This context can be used from other (alternative) C++ syntax files

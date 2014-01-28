@@ -15,7 +15,7 @@
 -->
 
 
-<language name="Octave" version="1.01" kateversion="2.3" section="Scientific" extensions="*.octave;*.m;*.M" mimetype="text/octave" casesensitive="1" license="GPL" author="Luis Silvestre and Federico Zenith">
+<language name="Octave" version="1.02" kateversion="2.3" section="Scientific" extensions="*.octave;*.m;*.M" mimetype="text/octave" casesensitive="1" license="GPL" author="Luis Silvestre and Federico Zenith">
 
   <highlighting>
 
@@ -2189,20 +2189,20 @@
     </contexts>
 
     <itemDatas>
-      <itemData name="Normal Text" defStyleNum="dsNormal" />
-      <itemData name="Variable" defStyleNum="dsNormal" />
-      <itemData name="Operator" defStyleNum="dsNormal"/>
-      <itemData name="Number" defStyleNum="dsFloat" />
-      <itemData name="Delimiter" defStyleNum="dsNormal" />
+      <itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Variable" defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Operator" defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Number" defStyleNum="dsFloat" spellChecking="false"/>
+      <itemData name="Delimiter" defStyleNum="dsNormal" spellChecking="false"/>
       <itemData name="String" defStyleNum="dsString" color="#b20000"/>
       <itemData name="String Char"  defStyleNum="dsChar"/>
-      <itemData name="Incomplete String" defStyleNum="dsChar" color="#a020f0"/>
-      <itemData name="Keyword"  defStyleNum="dsNormal" color="#0000ff"/>
+      <itemData name="Incomplete String" defStyleNum="dsChar" color="#a020f0" spellChecking="false"/>
+      <itemData name="Keyword"  defStyleNum="dsNormal" color="#0000ff" spellChecking="false"/>
       <itemData name="Comment" defStyleNum="dsComment" color="#009900"/>
-      <itemData name="Functions" defStyleNum="dsFunction" color="#0000ff" selColor="#00ff00" bold="1" italic="1" />
-      <itemData name="Forge" defStyleNum="dsFunction" color="#000099" selColor="#009900" bold="1" italic="1" />
-      <itemData name="Builtin" defStyleNum="dsBaseN" color="#b28c00" />
-      <itemData name="Commands" defStyleNum="dsFunction" color="#b28c00" />
+      <itemData name="Functions" defStyleNum="dsFunction" color="#0000ff" selColor="#00ff00" bold="1" italic="1" spellChecking="false"/>
+      <itemData name="Forge" defStyleNum="dsFunction" color="#000099" selColor="#009900" bold="1" italic="1" spellChecking="false"/>
+      <itemData name="Builtin" defStyleNum="dsBaseN" color="#b28c00" spellChecking="false"/>
+      <itemData name="Commands" defStyleNum="dsFunction" color="#b28c00" spellChecking="false"/>
     </itemDatas>
 
   </highlighting>

@@ -9,9 +9,9 @@
   Copyright (c) 2012 by Alex Turbov (i.zaufi@gmail.com)
   -->
 <language
-    name="C++11/Qt4"
+    name="C++/Qt4"
     section="Sources"
-    version="1.0"
+    version="1.1"
     kateversion="2.4"
     indenter="cstyle"
     extensions="*.moc"

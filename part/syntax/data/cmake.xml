@@ -5,7 +5,7 @@
 
   Copyright 2004 Alexander Neundorf (neundorf@kde.org)
   Copyright 2005 Dominik Haumann (dhdev@gmx.de)
-  Copyright 2007,2008,2013 Matthew Woehlke (mw_triad@users.sourceforge.net)
+  Copyright 2007,2008,2013,2014 Matthew Woehlke (mw_triad@users.sourceforge.net)
   Copyright 2013,2014 Alex Turbov (i.zaufi@gmail.com)
 
  **********************************************************************
@@ -961,8 +961,7 @@
       </context>
       <context attribute="Normal Text" lineEndContext="#stay" name="Macro Args">
         <DetectChar attribute="Normal Text" context="#pop" char=")"/>
-        <!-- TODO Hmm... this rule looks strange... being in the Normal context -->
-        <StringDetect attribute="Escapes" context="#stay" String="\&quot;"/>
+        <RegExpr attribute="Escapes" context="#stay" String="\\[&quot;$n\\]"/>
         <DetectChar attribute="Strings" context="String" char="&quot;"/>
         <RegExpr attribute="Strings" context="Bracketed String" String="\[(=*)\[" />
         <DetectChar attribute="Comment" context="Comment" char="#"/>

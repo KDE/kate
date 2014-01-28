@@ -71,7 +71,7 @@ function dbg()
 //BEGIN global variables and functions
 var gIndentWidth = 4;
 var gSameLineCommentStartAt = 60;                           ///< Position for same-line-comments (inline comments)
-var gMode = "C++11";
+var gMode = "C++";
 var gAttr = "Normal Text";
 var gBraceMap = {
     '(': ')', ')': '('

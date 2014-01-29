@@ -63,6 +63,7 @@ class ExpandsCompletionModel(AbstractCodeCompletionModel):
                 if len(params):
                     params += ', '
                 params += '[{}]'.format(fp[1])
+
             # Append to result completions list
             self.resultList.append(
                 self.createItemAutoComplete(

@@ -342,7 +342,7 @@ def sw(*args):
   ))
 @expand.jinja('function.cpp.tpl')
 @expand.postprocess
-def _dynamic_function(params, match):
+def __dynamic_function(params, match):
     '''Generate function w/ desired number of parameters'''
     kate.kDebug('@dynamic function: got params={}, match={}'.format(params, match.groups()))
     data = {}
@@ -397,7 +397,7 @@ def _dynamic_function(params, match):
   ))
 @expand.jinja('for.cpp.tpl')
 @expand.postprocess
-def _dynamic_for(params, match):
+def __dynamic_for(params, match):
     kate.kDebug('@dynamic `for`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     for_type = match.group('type')
@@ -438,7 +438,7 @@ def _dynamic_for(params, match):
 @expand.dynamic(re.compile('^if((?P<else_count>[0-9]+)?e)?(?P<br>{)?'))
 @expand.jinja('if-else.cpp.tpl')
 @expand.postprocess
-def _dynamic_if(params, match):
+def __dynamic_if(params, match):
     kate.kDebug('@dynamic `if`: got params={}, match={}'.format(params, match.groups()))
     data = {}
 
@@ -455,7 +455,7 @@ def _dynamic_if(params, match):
 @expand.dynamic(re.compile('^sw((?P<case_count>[0-9]+)?c)?(?P<default>d)?'))
 @expand.jinja('switch.cpp.tpl')
 @expand.postprocess
-def _dynamic_switch(params, match):
+def __dynamic_switch(params, match):
     kate.kDebug('@dynamic `switch`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     cases = []
@@ -482,7 +482,7 @@ def _dynamic_switch(params, match):
 @expand.dynamic(re.compile('^e(?P<is_class>c)?(?P<has_type>:)?'))
 @expand.jinja('enum.cpp.tpl')
 @expand.postprocess
-def _dynamic_enum(params, match):
+def __dynamic_enum(params, match):
     kate.kDebug('@dynamic `enum`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     data['is_class'] = match.group('is_class') is not None
@@ -493,7 +493,7 @@ def _dynamic_enum(params, match):
 @expand.dynamic(re.compile('^try(?P<count>[0-9]+)?(?P<catch_all>(?:a|\.))?'))
 @expand.jinja('try.cpp.tpl')
 @expand.postprocess
-def _dynamic_try(params, match):
+def __dynamic_try(params, match):
     kate.kDebug('@dynamic `try`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     data['catch_count'] = int(match.group('count')) if match.group('count') is not None else 0
@@ -511,7 +511,7 @@ def _dynamic_try(params, match):
   ))
 @expand.jinja('class.cpp.tpl')
 @expand.postprocess
-def _dynamic_class(params, match):
+def __dynamic_class(params, match):
     kate.kDebug('@dynamic `class`: got params={}, match={}'.format(params, match.groups()))
     data = {}
 
@@ -562,7 +562,7 @@ def _dynamic_class(params, match):
 @expand.dynamic(re.compile('^ns(?P<names>.*)?'))
 @expand.jinja('namespace.cpp.tpl')
 @expand.postprocess
-def _dynamic_namespace(params, match):
+def __dynamic_namespace(params, match):
     kate.kDebug('@dynamic `namespace`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     if match.group('names'):
@@ -582,7 +582,7 @@ def _dynamic_namespace(params, match):
 @expand.dynamic(re.compile('^st(?P<template>t(?P<tarity>[0-9]+)?)?'))
 @expand.jinja('struct.cpp.tpl')
 @expand.postprocess
-def _dynamic_struct(params, match):
+def __dynamic_struct(params, match):
     kate.kDebug('@dynamic `struct`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     data['entity_type'] = 'struct'

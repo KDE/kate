@@ -19,6 +19,7 @@
 
 '''Completion model for User Defined expand Functions (UDFs)'''
 
+import inspect
 
 from PyKDE4.kdecore import i18nc
 

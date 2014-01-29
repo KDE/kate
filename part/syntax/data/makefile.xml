@@ -64,6 +64,7 @@
     <contexts>
       <context name="normal" attribute="Normal" lineEndContext="#stay">
         <DetectSpaces/>
+        <RegExpr attribute="Comment"  context="#stay" String="#.*$"/>
         <keyword attribute="Keyword"  context="#stay" String="keywords"/>
         <RegExpr attribute="Variable" context="assign" String="[^\s:+?]*\s*(?=:=|=|\+=|\?=)"/>
         <RegExpr attribute="Section"  context="prereq" String="^[.].*:"/>
@@ -75,7 +76,6 @@
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="\"/>
         <AnyChar attribute="Operator" context="silent" String="@-" firstNonSpace="1"/>
-        <RegExpr attribute="Comment"  context="#stay" String="#.*$"/>
       </context>
 
       <context name="prereq" attribute="Prereq" lineEndContext="rule">

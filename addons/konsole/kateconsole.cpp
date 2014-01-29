@@ -279,12 +279,12 @@ void KateConsole::slotPipeToConsole ()
 
 void KateConsole::slotSync(KTextEditor::View *)
 {
-  if (m_mw->activeView() ) {
+  if (m_mw->activeView()) {
     QUrl u = m_mw->activeView()->document()->url();
-    if ( u.isValid() && u.isLocalFile() ) {
+    if (u.isValid() && u.isLocalFile()) {
       QFileInfo fi(u.toLocalFile());
-      cd(fi.absoluteFilePath() );
-    } else if ( !u.isEmpty() ) {
+      cd(fi.absolutePath());
+    } else if (!u.isEmpty()) {
       sendInput( QStringLiteral("### ") + i18n("Sorry, cannot cd into '%1'", u.toLocalFile() ) + QLatin1Char('\n') );
     }
   }

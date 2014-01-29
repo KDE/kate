@@ -23,4 +23,4 @@ template <
         typedef ${action:typename } type;
     };
 };/*% endblock %*/
-//# kate: hl C++11; remove-trailing-spaces false;
+//# kate: hl C++; remove-trailing-spaces false;

@@ -1,4 +1,4 @@
-//# kate: hl C++11
+//# kate: hl C++
 if (${cond})/*%- if br %*/
 {
     ${cursor}

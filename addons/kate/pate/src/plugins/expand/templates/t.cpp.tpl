@@ -3,5 +3,5 @@ template </*% for tp in template_params %*//*% if not loop.first %*/, /*% endif 
 /*%- else -%*/
 template <${tparams:typename T}>
 /*%- endif -%*/
-//# kate: hl C++11
+//# kate: hl C++
 

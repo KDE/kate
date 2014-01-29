@@ -790,7 +790,7 @@ def toggleSelectionSensitiveActions(view):
     clnt = kate.getXmlGuiClient()
     has_selection = view.selection()
 
-    if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'JavaScript'] and not has_selection:
+    if doc_type in ['C++', 'C++/Qt4', 'JavaScript'] and not has_selection:
         clnt.stateChanged('doxygen_actions')
     else:
         clnt.stateChanged('doxygen_actions', KXMLGUIClient.StateReverse)
@@ -811,7 +811,7 @@ def toggleDocTypeSeisitiveActions():
     kate.kDebug('toggleDocTypeSeisitiveActions: doc_type={}'.format(doc_type))
     clnt = kate.getXmlGuiClient()
 
-    if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'C']:
+    if doc_type in ['C++', 'C++/Qt4', 'C']:
         clnt.stateChanged('if0_actions')
     else:
         clnt.stateChanged('if0_actions', KXMLGUIClient.StateReverse)

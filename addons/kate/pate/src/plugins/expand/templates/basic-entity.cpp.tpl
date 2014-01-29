@@ -6,4 +6,4 @@
     /*%- endif %*/ \c /*< entity_name | editable >*/
  */
 /*%- block declaration -%*//*%- endblock -%*/
-//# kate: hl C++11
+//# kate: hl C++

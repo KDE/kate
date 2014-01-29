@@ -24,4 +24,4 @@ for (
 }
 /*%- else -%*/
 for (${type:auto} /*< var | editable(name='var') >*/ = ${start:0}; /*< var | editable(name='var') >*/ != ${last}; ++i){$cursor}
-/*%- endif -%*///# kate: hl C++11
+/*%- endif -%*///# kate: hl C++

@@ -2,4 +2,4 @@ enum/*% if is_class %*/ class/*% endif %*/ ${name}/*% if has_type %*/ : ${type}/
 {
     ${cursor}
 };
-//# kate: hl C++11
+//# kate: hl C++

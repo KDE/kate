@@ -220,6 +220,6 @@ std::string comment = "comment";
 char other_commented;
 #endif
 
-// Modelines: switch to C++11 mode
-// kate: hl C++11;
+// Modelines: switch to C++ mode
+// kate: hl C++;
 // kate: indent-width 4;

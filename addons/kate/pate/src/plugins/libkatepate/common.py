@@ -28,8 +28,7 @@ _COMMENT_STRINGS_MAP = {
   , 'CMake'         : '#'
   , 'Bash'          : '#'
   , 'C++'           : '//'
-  , 'C++11'         : '//'
-  , 'C++11/Qt4'     : '//'
+  , 'C++/Qt4'       : '//'
   , 'JavaScript'    : '//'
 }
 

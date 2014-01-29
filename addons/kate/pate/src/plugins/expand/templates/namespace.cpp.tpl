@@ -10,4 +10,4 @@ namespace {
 ${cursor}
 }                                                           // anonymous namespace
 /*%- endif -%*/
-//# kate: hl C++11
+//# kate: hl C++

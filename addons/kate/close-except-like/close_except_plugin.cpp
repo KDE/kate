@@ -346,5 +346,3 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
 }
 //END CloseExceptPluginView
 }                                                           // namespace kate
-
-// kate: hl C++11/Qt4;

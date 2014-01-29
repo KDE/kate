@@ -60,4 +60,4 @@ public:
     }/*< nl >*/
 /*%- endif -%*/
 };/*% endblock %*/
-//# kate: hl C++11; remove-trailing-spaces false;
+//# kate: hl C++; remove-trailing-spaces false;

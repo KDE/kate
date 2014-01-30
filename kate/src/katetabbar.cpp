@@ -41,6 +41,8 @@ KateTabBar::KateTabBar(QWidget *parent)
     m_minimumTabWidth = 150;
     m_maximumTabWidth = 350;
 
+    m_isActiveViewSpace = false;
+
     m_nextID = 0;
 
     m_activeButton = 0L;
@@ -53,6 +55,19 @@ KateTabBar::KateTabBar(QWidget *parent)
  */
 KateTabBar::~KateTabBar()
 {
+}
+
+void KateTabBar::setActiveViewSpace(bool active)
+{
+    if (active != m_isActiveViewSpace) {
+        m_isActiveViewSpace = active;
+        update();
+    }
+}
+
+bool KateTabBar::isActiveViewSpace() const
+{
+    return m_isActiveViewSpace;
 }
 
 /**

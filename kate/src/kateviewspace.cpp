@@ -297,6 +297,7 @@ bool KateViewSpace::isActiveSpace()
 void KateViewSpace::setActive(bool active, bool)
 {
     mIsActiveSpace = active;
+    m_tabBar->setActiveViewSpace(active);
 }
 
 void KateViewSpace::insertTab(int index, KTextEditor::Document * doc)

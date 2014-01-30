@@ -42,6 +42,7 @@ class QToolButton;
 class KateTabBar : public QWidget
 {
     Q_OBJECT
+    Q_PROPERTY(bool isActiveViewSpace READ isActiveViewSpace WRITE setActiveViewSpace)
 
 public:
     // NOTE: as the API here is very self-explaining the docs are in the cpp
@@ -80,6 +81,9 @@ public:
     QMap<QString, QString> highlightMarks() const;
 
     int maxTabCount() const;
+
+    void setActiveViewSpace(bool active);
+    bool isActiveViewSpace() const;
 
 public Q_SLOTS:
     void setCurrentTab(int index);   // does not emit signal
@@ -149,6 +153,8 @@ protected:
 private:
     int m_minimumTabWidth;
     int m_maximumTabWidth;
+
+    bool m_isActiveViewSpace;
 
     QList< KateTabButton * > m_tabButtons;
     QMap< int, KateTabButton * > m_idToTab;

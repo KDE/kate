@@ -162,7 +162,18 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
 
     QColor barColor(palette().color(QPalette::Highlight));
 
+    // read from the parent widget (=KateTabBar) the isActiveViewSpace property
+    if (parentWidget()) {
+        if (! parentWidget()->property("isActiveViewSpace").toBool()) {
+            // if inactive, convert color to gray value
+            const int g = qGray(barColor.rgb());
+            barColor = QColor(g, g, g);
+        }
+    }
+
     QPainter p(this);
+
+    // paint background rect
     if (isChecked() || underMouse()) {
         QStyleOptionViewItemV4 option;
         option.initFrom(this);
@@ -174,6 +185,7 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     }
 
 
+    // paint bar
     if (isActivated()) {
         barColor.setAlpha(255);
         p.fillRect(QRect(0, height() - 3, width(), 10), barColor);

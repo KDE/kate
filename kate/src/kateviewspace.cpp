@@ -334,6 +334,8 @@ int KateViewSpace::removeTab(KTextEditor::Document * doc)
 
     disconnect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
                this, SLOT(updateDocumentName(KTextEditor::Document*)));
+    disconnect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
+              this, SLOT(updateDocumentState(KTextEditor::Document*)));
 
     return removeIndex;
 }

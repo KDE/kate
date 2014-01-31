@@ -1,4 +1,3 @@
-//# kate: hl C++
 if (${cond})/*%- if br %*/
 {
     ${cursor}
@@ -11,7 +10,8 @@ else if (${cond/*< e >*/})/*% if br %*/
 /*%- endfor -%*/
 /*%- endif -%*/
 /*%- if else_count %*/
-else
+else/*%- if br %*/
 {
-}
+}/*%- endif -%*/
 /*%- endif -%*/
+//# kate: hl C++

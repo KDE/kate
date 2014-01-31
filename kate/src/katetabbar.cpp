@@ -28,7 +28,6 @@
 #include <KLocalizedString>
 
 #include <QToolButton>
-#include <QApplication> // QApplication::sendEvent
 #include <QDebug>
 
 /**
@@ -232,18 +231,6 @@ QIcon KateTabBar::tabIcon(int id) const
 int KateTabBar::count() const
 {
     return m_tabButtons.count();
-}
-
-void KateTabBar::setTabModified(int id, bool modified)
-{
-    Q_ASSERT(m_idToTab.contains(id));
-    m_idToTab[id]->setModified(modified);
-}
-
-bool KateTabBar::isTabModified(int id) const
-{
-    Q_ASSERT(m_idToTab.contains(id));
-    return m_idToTab[id]->isModified();
 }
 
 void KateTabBar::removeHighlightMarks()

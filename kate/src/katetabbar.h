@@ -138,9 +138,6 @@ public:
      */
     QIcon tabIcon(int index) const;
 
-    void setTabModified(int index, bool modified);
-    bool isTabModified(int index) const;
-
     /**
      * Returns the number of tabs in the tab bar.
      */

@@ -104,8 +104,6 @@ KateTabButton::KateTabButton(const QString &caption, QWidget *parent)
     setMinimumWidth(1);
     setFlat(true);
 
-    m_modified = false;
-
     setIcon(QIcon());
     setText(caption);
 
@@ -183,7 +181,6 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
         option.viewItemPosition = QStyleOptionViewItemV4::OnlyOne;
         style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, &p, this);
     }
-
 
     // paint bar
     if (isActivated()) {
@@ -306,16 +303,5 @@ void KateTabButton::setHighlightColor(const QColor &color)
 QColor KateTabButton::highlightColor() const
 {
     return m_highlightColor;
-}
-
-void KateTabButton::setModified(bool modified)
-{
-    m_modified = modified;
-    update();
-}
-
-bool KateTabButton::isModified() const
-{
-    return m_modified;
 }
 

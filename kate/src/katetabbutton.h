@@ -89,9 +89,6 @@ public:
      */
     QColor highlightColor() const;
 
-    void setModified(bool modified);
-    bool isModified() const;
-
 Q_SIGNALS:
     /**
      * Emitted whenever the button changes state from deactivated to activated.
@@ -128,7 +125,6 @@ protected:
 
 private:
     TabCloseButton * m_closeButton;
-    bool m_modified;
 
     QColor m_highlightColor;
 

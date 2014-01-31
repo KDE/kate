@@ -70,20 +70,6 @@ bool KateTabBar::isActiveViewSpace() const
     return m_isActiveViewSpace;
 }
 
-/**
- * Loads the settings from \a config from section \a group.
- * Remembered properties are:
- *  - minimum and maximum tab width
- *  - fixed tab height
- *  - button colors
- *  - much more!
- *  .
- * The original group is saved and restored at the end of this function.
- *
- * \note Call @p load() immediately after you created the tabbar, otherwise
- *       some properties might not be restored correctly (like highlighted
- *       buttons).
- */
 void KateTabBar::load(KConfigBase *config, const QString &group)
 {
     KConfigGroup cg(config, group);
@@ -101,11 +87,6 @@ void KateTabBar::load(KConfigBase *config, const QString &group)
     setHighlightMarks(highlightMarks());
 }
 
-/**
- * Saves the settings to \a config into section \a group.
- * The original group is saved and restored at the end of this function.
- * See @p load() for more information.
- */
 void KateTabBar::save(KConfigBase *config, const QString &group) const
 {
     KConfigGroup cg(config, group);
@@ -115,9 +96,6 @@ void KateTabBar::save(KConfigBase *config, const QString &group) const
     cg.writeEntry("highlighted colors", m_highlightedTabs.values());
 }
 
-/**
- * Adds a new tab with \a text. Returns the new tab's id.
- */
 int KateTabBar::addTab(const QString &text)
 {
     return insertTab(m_tabButtons.size(), text);
@@ -151,17 +129,11 @@ int KateTabBar::insertTab(int position, const QString & text)
     return m_nextID++;
 }
 
-/**
- * Get the ID of the tab bar's activated tab. Returns -1 if no tab is activated.
- */
 int KateTabBar::currentTab() const
 {
     return m_idToTab.key(m_activeButton, -1);
 }
 
-/**
- * Activate the tab with \p id. No signal is emitted.
- */
 void KateTabBar::setCurrentTab(int id)
 {
     Q_ASSERT(m_idToTab.contains(id));
@@ -179,10 +151,6 @@ void KateTabBar::setCurrentTab(int id)
     m_activeButton->setActivated(true);
 }
 
-/**
- * Removes the tab with ID \a id.
- * @return the position where the tab was
- */
 int KateTabBar::removeTab(int id)
 {
     Q_ASSERT(m_idToTab.contains(id));
@@ -208,18 +176,11 @@ int KateTabBar::removeTab(int id)
     return position;
 }
 
-/**
- * Returns whether a tab with ID \a id exists.
- */
 bool KateTabBar::containsTab(int id) const
 {
     return m_idToTab.contains(id);
 }
 
-/**
- * Sets the text of the tab with ID \a id to \a text.
- * \see tabText()
- */
 void KateTabBar::setTabText(int id, const QString &text)
 {
     Q_ASSERT(m_idToTab.contains(id));
@@ -238,59 +199,36 @@ void KateTabBar::setTabText(int id, const QString &text)
     m_idToTab[id]->setText(text);
 }
 
-/**
- * Returns the text of the tab with ID \a id. If the button id does not
- * exist \a QString() is returned.
- * \see setTabText()
- */
 QString KateTabBar::tabText(int id) const
 {
     Q_ASSERT(m_idToTab.contains(id));
     return m_idToTab[id]->text();
 }
 
-/**
- * Set the button @p id's tool tip to @p tip.
- */
 void KateTabBar::setTabToolTip(int id, const QString &tip)
 {
     Q_ASSERT(m_idToTab.contains(id));
     m_idToTab[id]->setToolTip(tip);
 }
 
-/**
- * Get the button @p id's url. Result is QStrint() if not available.
- */
 QString KateTabBar::tabToolTip(int id) const
 {
     Q_ASSERT(m_idToTab.contains(id));
     return m_idToTab[id]->toolTip();
 }
 
-/**
- * Sets the icon of the tab with ID \a id to \a icon.
- * \see tabIcon()
- */
 void KateTabBar::setTabIcon(int id, const QIcon &icon)
 {
     Q_ASSERT(m_idToTab.contains(id));
     m_idToTab[id]->setIcon(icon);
 }
 
-/**
- * Returns the icon of the tab with ID \a id. If the button id does not
- * exist \a QIcon() is returned.
- * \see setTabIcon()
- */
 QIcon KateTabBar::tabIcon(int id) const
 {
     Q_ASSERT(m_idToTab.contains(id));
     return m_idToTab[id]->icon();
 }
 
-/**
- * Returns the number of tabs in the tab bar.
- */
 int KateTabBar::count() const
 {
     return m_tabButtons.count();
@@ -342,9 +280,6 @@ QMap<QString, QString> KateTabBar::highlightMarks() const
     return m_highlightedTabs;
 }
 
-/**
- * Active button changed. Emit signal \p currentChanged() with the button's ID.
- */
 void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
 {
     if (tabButton == m_activeButton) {
@@ -363,10 +298,6 @@ void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
     emit currentChanged(id);
 }
 
-/**
- * The \e tabButton's highlight color changed, so update the list of documents
- * and colors.
- */
 void KateTabBar::tabButtonHighlightChanged(KateTabButton *tabButton)
 {
     if (tabButton->highlightColor().isValid()) {
@@ -379,10 +310,6 @@ void KateTabBar::tabButtonHighlightChanged(KateTabButton *tabButton)
     }
 }
 
-/**
- * If the user wants to close a tab with the context menu, it sends a close
- * request. Throw the close request by emitting the signal @p closeRequest().
- */
 void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
 {
     const int id = m_idToTab.key(tabButton, -1);
@@ -390,9 +317,6 @@ void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
     emit closeTabRequested(id);
 }
 
-/**
- * Recalculate geometry for all children.
- */
 void KateTabBar::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event)
@@ -441,18 +365,11 @@ void KateTabBar::updateButtonPositions()
     }
 }
 
-/**
- * Return the maximum amount of tabs that fit into the tab bar given
- * the minimumTabWidth().
- */
 int KateTabBar::maxTabCount() const
 {
     return qMax(1, width() / m_minimumTabWidth);
 }
 
-/**
- * Override to request a new tab.
- */
 void KateTabBar::mouseDoubleClickEvent(QMouseEvent *event)
 {
     event->accept();

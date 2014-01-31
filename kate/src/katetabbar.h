@@ -45,48 +45,120 @@ class KateTabBar : public QWidget
     Q_PROPERTY(bool isActiveViewSpace READ isActiveViewSpace WRITE setActiveViewSpace)
 
 public:
-    // NOTE: as the API here is very self-explaining the docs are in the cpp
-    //       file, more clean imho.
-
     KateTabBar(QWidget *parent = 0);
     virtual ~KateTabBar();
 
+    /**
+     * Loads the settings from \a config from section \a group.
+     * Remembered properties are:
+     *  - minimum and maximum tab width
+     *  - fixed tab height
+     *  - button colors
+     *  - much more!
+     *  .
+     * The original group is saved and restored at the end of this function.
+     *
+     * \note Call @p load() immediately after you created the tabbar, otherwise
+     *       some properties might not be restored correctly (like highlighted
+     *       buttons).
+     */
     void load(KConfigBase *config, const QString &group);
+    
+    /**
+     * Saves the settings to \a config into section \a group.
+     * The original group is saved and restored at the end of this function.
+     * See @p load() for more information.
+     */
     void save(KConfigBase *config, const QString &group) const;
-
+    
+    /**
+     * Adds a new tab with \a text. Returns the new tab's id.
+     */
     int addTab(const QString &text);
+
+    /**
+     * Insert a tab at \p position with \a text. Returns the new tab's id.
+     * @param position index of the tab, i.e. 0, ..., count()
+     */
     int insertTab(int position, const QString & text);
+
+    /**
+     * Removes the tab with ID \a id.
+     * @return the position where the tab was
+     */
     int removeTab(int index);
 
+    /**
+     * Get the ID of the tab bar's activated tab. Returns -1 if no tab is activated.
+     */
     int currentTab() const;
-    // corresponding SLOT: void setCurrentTab( int index );
 
+public Q_SLOTS:
+    /**
+     * Activate the tab with \p id. No signal is emitted.
+     */
+    void setCurrentTab(int index);   // does not emit signal
+
+public:
+    /**
+     * Returns whether a tab with ID \a id exists.
+     */
     bool containsTab(int index) const;
 
+    /**
+     * Set the button @p id's tool tip to @p tip.
+     */
     void setTabToolTip(int index, const QString &tip);
+    /**
+     * Get the button @p id's url. Result is QStrint() if not available.
+     */
     QString tabToolTip(int index) const;
 
+    /**
+     * Sets the text of the tab with ID \a id to \a text.
+     * \see tabText()
+     */
     void setTabText(int index, const QString &text);
+    /**
+     * Returns the text of the tab with ID \a id. If the button id does not
+     * exist \a QString() is returned.
+     * \see setTabText()
+     */
     QString tabText(int index) const;
 
+    /**
+     * Sets the icon of the tab with ID \a id to \a icon.
+     * \see tabIcon()
+     */
     void setTabIcon(int index, const QIcon &pixmap);
+    /**
+     * Returns the icon of the tab with ID \a id. If the button id does not
+     * exist \a QIcon() is returned.
+     * \see setTabIcon()
+     */
     QIcon tabIcon(int index) const;
 
     void setTabModified(int index, bool modified);
     bool isTabModified(int index) const;
 
+    /**
+     * Returns the number of tabs in the tab bar.
+     */
     int count() const;
 
     void setHighlightMarks(const QMap<QString, QString> &marks);
     QMap<QString, QString> highlightMarks() const;
 
+    /**
+     * Return the maximum amount of tabs that fit into the tab bar given
+     * the minimumTabWidth().
+     */
     int maxTabCount() const;
 
     void setActiveViewSpace(bool active);
     bool isActiveViewSpace() const;
 
 public Q_SLOTS:
-    void setCurrentTab(int index);   // does not emit signal
     void removeHighlightMarks();
 
 Q_SIGNALS:
@@ -139,15 +211,38 @@ Q_SIGNALS:
     void newTabRequested();
 
 protected Q_SLOTS:
+    /**
+     * Active button changed. Emit signal \p currentChanged() with the button's ID.
+     */
     void tabButtonActivated(KateTabButton *tabButton);
+
+    /**
+     * The \e tabButton's highlight color changed, so update the list of documents
+     * and colors.
+     */
     void tabButtonHighlightChanged(KateTabButton *tabButton);
+
+    /**
+     * If the user wants to close a tab with the context menu, it sends a close
+     * request. Throw the close request by emitting the signal @p closeRequest().
+     */
     void tabButtonCloseRequest(KateTabButton *tabButton);
 
 protected:
+    /**
+     * Recalculate geometry for all tabs.
+     */
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+
+    /**
+     * Override to avoid requesting a new tab.
+     */
     void mouseDoubleClickEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 protected:
+    /**
+     * Set tab geometry.
+     */
     void updateButtonPositions();
 
 private:

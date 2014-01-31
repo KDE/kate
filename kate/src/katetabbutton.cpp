@@ -32,6 +32,7 @@
 #include <QStyle>
 #include <QStyleOption>
 #include <QHBoxLayout>
+// #include <QStyleOptionTab>
 #include <KColorScheme>
 
 TabCloseButton::TabCloseButton(QWidget * parent)
@@ -192,15 +193,42 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
         p.setOpacity(1.0);
     }
 
-    // the width of the text is reduced by the close button + 2 * margin
+    // icon, if applicable
     const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, 0, this);
-    const int w = width() - m_closeButton->width() - 2 * margin;
+    int leftMargin = margin;
+    if (! icon().isNull()) {
+        const int y = (height() - 16) / 2;
+        icon().paint(&p, margin, y, 16, 16);
+        leftMargin += 16;
+        leftMargin += margin;
+    }
+
+    // the width of the text is reduced by the close button + 2 * margin
+    const int w = width() // width of widget
+                - m_closeButton->width() - 2 * margin // close button
+                - leftMargin; // modified button
 
     // draw text, we need to elide to xxx...xxx is too long
     const QString elidedText = QFontMetrics(font()).elidedText (text(), Qt::ElideMiddle, w);
-    const QRect textRect(0, 0, w, height());
+    const QRect textRect(leftMargin, 0, w, height());
     const QPalette pal = QApplication::palette();
     style()->drawItemText(&p, textRect, Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText);
+
+//     QStyleOptionTab option;
+//     option.init(this);
+//     option.cornerWidgets = QStyleOptionTab::NoCornerWidgets;
+//     option.documentMode = true;
+//     option.icon = icon();
+//     option.iconSize = QSize(16, 16);
+// // QSize   leftButtonSize
+//     option.position = QStyleOptionTab::Middle;
+//     option.rightButtonSize = QSize(16, 16);
+//     option.row = 0;
+//     option.selectedPosition = QStyleOptionTab::NotAdjacent;
+//     option.shape = QTabBar::RoundedNorth;
+//     option.text = text();
+//
+//    style()->drawControl(QStyle::CE_TabBarTabLabel, &option, &p);
 }
 
 void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)

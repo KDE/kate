@@ -314,6 +314,8 @@ void KateViewSpace::insertTab(int index, KTextEditor::Document * doc)
 
     connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
             this, SLOT(updateDocumentName(KTextEditor::Document*)));
+    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
+            this, SLOT(updateDocumentState(KTextEditor::Document*)));
 }
 
 int KateViewSpace::removeTab(KTextEditor::Document * doc)
@@ -428,6 +430,18 @@ void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
     Q_ASSERT(buttonId >= 0);
     m_tabBar->setTabText(buttonId, doc->documentName());
     m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
+}
+
+void KateViewSpace::updateDocumentState(KTextEditor::Document *doc)
+{
+    QIcon icon;
+    if (doc->isModified()) {
+        icon = QIcon::fromTheme(QLatin1String("document-save"));
+    }
+
+    Q_ASSERT(m_docToTabId.contains(doc));
+    const int buttonId = m_docToTabId[doc];
+    m_tabBar->setTabIcon(buttonId, icon);
 }
 
 void KateViewSpace::closeTabRequest(int id)

@@ -11,7 +11,7 @@
 <language
     name="C++/Qt4"
     section="Sources"
-    version="1.1"
+    version="1.2"
     kateversion="2.4"
     indenter="cstyle"
     extensions="*.moc"
@@ -1582,11 +1582,11 @@
 
   <itemDatas>
     <itemData name="Normal Text"    defStyleNum="dsNormal" spellChecking="false" />
-    <itemData name="Qt4 Extensions" defStyleNum="dsNormal" spellChecking="false" />
-    <itemData name="Qt4 Types"      defStyleNum="dsNormal" spellChecking="false" />
-    <itemData name="Qt4 Classes"    defStyleNum="dsNormal" spellChecking="false" />
-    <itemData name="Qt4 Functions"  defStyleNum="dsNormal" spellChecking="false" />
-    <itemData name="Qt4 Macros"     defStyleNum="dsNormal" spellChecking="false" />
+    <itemData name="Qt4 Extensions" defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="Qt4 Types"      defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="Qt4 Classes"    defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="Qt4 Functions"  defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="Qt4 Macros"     defStyleNum="dsOthers" spellChecking="false" />
   </itemDatas>
 </highlighting>
 

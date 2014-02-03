@@ -94,16 +94,14 @@ QColor KateTabButton::s_predefinedColors[] = { Qt::red, Qt::yellow, Qt::green, Q
 const int KateTabButton::s_colorCount = 6;
 int KateTabButton::s_currentColor = 0;
 
-KateTabButton::KateTabButton(const QString &caption, QWidget *parent)
+KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     : QAbstractButton(parent)
 {
     setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
     setCheckable(true);
     setFocusPolicy(Qt::NoFocus);
-    setMinimumWidth(1);
 
-    setIcon(QIcon());
-    setText(caption);
+    setText(text);
 
     // add close button
     const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, 0, this);

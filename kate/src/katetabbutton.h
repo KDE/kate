@@ -45,8 +45,8 @@ protected:
  * A \p KateTabButton represents a button on the tab bar. It can either be
  * \e activated or \e deactivated. If the state is \e deactivated it will
  * be @e activated when the mouse is pressed. It then emits the signal
- * @p activated(). The \p KateTabButton's caption can be set with \p setText()
- * and an additional pixmap can be shown with \p setPixmap().
+ * @p activated(). The \p KateTabButton's text can be set with \p setText()
+ * and an additional icon can be shown with \p setIcon().
  *
  * @author Dominik Haumann
  */
@@ -56,9 +56,9 @@ class KateTabButton : public QAbstractButton
 
 public:
     /**
-     * Constructs a new tab bar button with \a caption and \a parent.
+     * Constructs a new tab bar button with \a text and \a parent.
      */
-    KateTabButton(const QString &caption, QWidget *parent = 0);
+    KateTabButton(const QString &text, QWidget *parent = 0);
 
     virtual ~KateTabButton();
 

@@ -67,7 +67,7 @@
         <RegExpr attribute="Comment"  context="#stay" String="#.*$"/>
         <keyword attribute="Keyword"  context="#stay" String="keywords"/>
         <RegExpr attribute="Variable" context="assign" String="[^\s:+?]*\s*(?=:=|=|\+=|\?=)"/>
-        <RegExpr attribute="Section"  context="prereq" String="^[.].*:"/>
+        <RegExpr attribute="Section"  context="prereq" String="^\.[^.].*:"/>
         <RegExpr attribute="Target"   context="prereq" String="^.*:"/>
         <DetectIdentifier/>
         <DetectChar attribute="String" context="string&quot;" char="&quot;"/>

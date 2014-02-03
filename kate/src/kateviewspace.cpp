@@ -294,7 +294,7 @@ bool KateViewSpace::isActiveSpace()
     return mIsActiveSpace;
 }
 
-void KateViewSpace::setActive(bool active, bool)
+void KateViewSpace::setActive(bool active)
 {
     mIsActiveSpace = active;
     m_tabBar->setActiveViewSpace(active);

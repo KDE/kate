@@ -572,7 +572,7 @@ void KateViewManager::setActiveSpace(KateViewSpace *vs)
         activeViewSpace()->setActive(false);
     }
 
-    vs->setActive(true, m_viewSpaceList.count() > 1);
+    vs->setActive(true);
 }
 
 void KateViewManager::setActiveView(KTextEditor::View *view)
@@ -787,7 +787,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
 
     m_viewSpaceList.append(vsNew);
     activeViewSpace()->setActive(false);
-    vsNew->setActive(true, true);
+    vsNew->setActive(true);
     vsNew->show();
 
     createView((KTextEditor::Document *)activeView()->document());

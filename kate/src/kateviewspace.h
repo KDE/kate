@@ -45,7 +45,12 @@ public:
     explicit KateViewSpace(KateViewManager *, QWidget *parent = 0, const char *name = 0);
 
     bool isActiveSpace();
-    void setActive(bool b, bool showled = false);
+
+    /**
+     * Depending on @p active, mark this view space as active or inactive.
+     * Called from the view manager.
+     */
+    void setActive(bool active);
 
     /**
      * Create new view for given document

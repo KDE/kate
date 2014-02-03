@@ -81,6 +81,7 @@
       <context name="prereq" attribute="Prereq" lineEndContext="rule">
         <DetectSpaces/>
         <DetectIdentifier/>
+        <LineContinue attribute="Operator" context="#stay"/>
         <DetectChar attribute="Operator" context="dollar" char="$"/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="\"/>

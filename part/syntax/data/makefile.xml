@@ -7,7 +7,7 @@
 <!-- small priority to allow for example Makefile.cpp to be detected as cpp file -->
 <language name="Makefile" section="Other"
           version="2.0" kateversion="2.4"
-          extensions="GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*"
+          extensions="GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*;*.mk"
           mimetype="text/x-makefile"
           author="Per Wigren (wigren@home.se)" license="">
   <highlighting>

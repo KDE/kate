@@ -244,6 +244,17 @@ void KateMainWindow::setupImportantActions()
     actionCollection()->addAction(QStringLiteral("settings_show_full_path"), m_paShowPath);
     connect(m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()));
     m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
+
+    // the quick open action is used by the KateViewSpace "quick open button"
+    QAction * a = actionCollection()->addAction(QStringLiteral("view_quick_open"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
+    a->setText(i18n("&Quick Open"));
+    QList<QKeySequence> scuts;
+    scuts << QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O)
+          << QKeySequence(Qt::CTRL + Qt::Key_Tab);
+    a->setShortcuts(scuts);
+    connect(a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()));
+    a->setWhatsThis(i18n("Open a form to quick open documents."));
 }
 
 void KateMainWindow::setupMainWindow()
@@ -325,16 +336,6 @@ void KateMainWindow::setupActions()
     a->setText(i18n("&New Window"));
     connect(a, SIGNAL(triggered()), this, SLOT(newWindow()));
     a->setWhatsThis(i18n("Create a new Kate view (a new window with the same document list)."));
-
-    a = actionCollection()->addAction(QStringLiteral("view_quick_open"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("fork")));
-    a->setText(i18n("&Quick Open"));
-    QList<QKeySequence> scuts;
-    scuts << QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O)
-          << QKeySequence(Qt::CTRL + Qt::Key_Tab);
-    a->setShortcuts(scuts);
-    connect(a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()));
-    a->setWhatsThis(i18n("Open a form to quick open documents."));
 
     m_showFullScreenAction = KStandardAction::fullScreen(0, 0, this, this);
     actionCollection()->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);

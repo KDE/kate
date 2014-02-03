@@ -30,7 +30,6 @@
 
 class KateTabButton;
 class KConfigBase;
-class QToolButton;
 
 /**
  * The \p KateTabBar class provides a tab bar, e.g. for tabbed documents.

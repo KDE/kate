@@ -21,7 +21,7 @@
 #ifndef KATE_TAB_BUTTON
 #define KATE_TAB_BUTTON
 
-#include <QPushButton>
+#include <QAbstractButton>
 #include "katetabbar.h"
 
 class TabCloseButton : public QAbstractButton
@@ -50,7 +50,7 @@ protected:
  *
  * @author Dominik Haumann
  */
-class KateTabButton : public QPushButton
+class KateTabButton : public QAbstractButton
 {
     Q_OBJECT
 
@@ -61,19 +61,6 @@ public:
     KateTabButton(const QString &caption, QWidget *parent = 0);
 
     virtual ~KateTabButton();
-
-    /**
-     * Activate or deactivate the button. If the button is already down
-     * and \a active is \e true nothing happens, otherwise the state toggles.
-     * \note The signal \p activated is \e not emitted.
-     */
-    void setActivated(bool active);
-
-    /**
-     * Check the button status. The return value is \e true, if the button is
-     * down.
-     */
-    bool isActivated() const;
 
     /**
      * Set the highlighted state. If @p color.isValid() is \e false the
@@ -116,7 +103,6 @@ Q_SIGNALS:
     void closeRequest(KateTabButton *tabbutton);
 
 protected Q_SLOTS:
-    void buttonClicked();
     void closeButtonClicked();
 
 protected:
@@ -128,6 +114,10 @@ protected:
     void mousePressEvent(QMouseEvent *ev) Q_DECL_OVERRIDE;
     /** eat double click events */
     void mouseDoubleClickEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    /** trigger repaint on hover enter event */
+    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    /** trigger repaint on hover leave event */
+    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
 
 private:
     TabCloseButton * m_closeButton;

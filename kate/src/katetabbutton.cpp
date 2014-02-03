@@ -95,18 +95,15 @@ const int KateTabButton::s_colorCount = 6;
 int KateTabButton::s_currentColor = 0;
 
 KateTabButton::KateTabButton(const QString &caption, QWidget *parent)
-    : QPushButton(parent)
+    : QAbstractButton(parent)
 {
     setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
     setCheckable(true);
     setFocusPolicy(Qt::NoFocus);
     setMinimumWidth(1);
-    setFlat(true);
 
     setIcon(QIcon());
     setText(caption);
-
-    connect(this, SIGNAL(clicked()), this, SLOT(buttonClicked()));
 
     // add close button
     const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, 0, this);
@@ -124,35 +121,9 @@ KateTabButton::~KateTabButton()
 {
 }
 
-void KateTabButton::buttonClicked()
-{
-    // once down, stay down until another tab is activated
-    if (! isChecked()) {
-        // make sure we stay checked
-        setChecked(true);
-    }
-
-    // notify that this button was activated
-    emit activated(this);
-}
-
 void KateTabButton::closeButtonClicked()
 {
     emit closeRequest(this);
-}
-
-void KateTabButton::setActivated(bool active)
-{
-    if (isChecked() == active) {
-        return;
-    }
-    setChecked(active);
-    update();
-}
-
-bool KateTabButton::isActivated() const
-{
-    return isChecked();
 }
 
 void KateTabButton::paintEvent(QPaintEvent *ev)
@@ -182,7 +153,7 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     }
 
     // paint bar
-    if (isActivated()) {
+    if (isChecked()) {
         barColor.setAlpha(255);
         p.fillRect(QRect(0, height() - 3, width(), 10), barColor);
     } else if (m_highlightColor.isValid()) {
@@ -278,6 +249,7 @@ void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)
 
 void KateTabButton::mousePressEvent(QMouseEvent *ev)
 {
+    ev->accept();
     if (ev->button() == Qt::MidButton) {
         if (ev->modifiers() & Qt::ControlModifier) {
             // clear tab highlight
@@ -288,15 +260,34 @@ void KateTabButton::mousePressEvent(QMouseEvent *ev)
                 s_currentColor = 0;
             }
         }
-        ev->accept();
+    } else if (ev->button() == Qt::LeftButton) {
+        if (! isChecked()) {
+            // make sure we stay checked
+            setChecked(true);
+        }
+
+        // notify that this button was activated
+        emit activated(this);
     } else {
-        QPushButton::mousePressEvent(ev);
+        ev->ignore();
     }
 }
 
 void KateTabButton::mouseDoubleClickEvent(QMouseEvent *event)
 {
     event->accept();
+}
+
+void KateTabButton::enterEvent(QEvent *event)
+{
+    update(); // repaint on hover
+    QAbstractButton::enterEvent(event);
+}
+
+void KateTabButton::leaveEvent(QEvent *event)
+{
+    update(); // repaint on hover
+    QAbstractButton::leaveEvent(event);
 }
 
 void KateTabButton::setHighlightColor(const QColor &color)

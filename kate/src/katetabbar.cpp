@@ -143,11 +143,11 @@ void KateTabBar::setCurrentTab(int id)
     }
 
     if (m_activeButton) {
-        m_activeButton->setActivated(false);
+        m_activeButton->setChecked(false);
     }
 
     m_activeButton = tabButton;
-    m_activeButton->setActivated(true);
+    m_activeButton->setChecked(true);
 }
 
 int KateTabBar::removeTab(int id)
@@ -278,11 +278,11 @@ void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
     }
 
     if (m_activeButton) {
-        m_activeButton->setActivated(false);
+        m_activeButton->setChecked(false);
     }
 
     m_activeButton = tabButton;
-    m_activeButton->setActivated(true);
+    m_activeButton->setChecked(true);
 
     const int id = m_idToTab.key(m_activeButton, -1);
     Q_ASSERT(id >= 0);

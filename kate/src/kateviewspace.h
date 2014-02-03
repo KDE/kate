@@ -44,6 +44,9 @@ class KateViewSpace : public QWidget
 public:
     explicit KateViewSpace(KateViewManager *, QWidget *parent = 0, const char *name = 0);
 
+    /**
+     * Returns \e true, if this view space is currently the active view space.
+     */
     bool isActiveSpace();
 
     /**
@@ -102,6 +105,13 @@ private Q_SLOTS:
     void statusBarToggled();
     void tabBarToggled();
     void changeView(int buttonId);
+
+    /**
+     * Calls this slot to make this view space the currently active view space.
+     * Making it active goes through the KateViewManager.
+     * @param focusCurrentView if @e true, the current view will get focus
+     */
+    void makeActive(bool focusCurrentView = true);
 
     /**
      * Add a tab for @p doc at position @p index.

@@ -207,6 +207,12 @@ Q_SIGNALS:
      */
     void newTabRequested();
 
+    /**
+     * This signal is emitted whenever the tab bar was clicked while the
+     * tab bar is not the active view space tab bar.
+     */
+    void activateViewSpaceRequested();
+
 protected Q_SLOTS:
     /**
      * Active button changed. Emit signal \p currentChanged() with the button's ID.
@@ -221,7 +227,7 @@ protected Q_SLOTS:
 
     /**
      * If the user wants to close a tab with the context menu, it sends a close
-     * request. Throw the close request by emitting the signal @p closeRequest().
+     * request.
      */
     void tabButtonCloseRequest(KateTabButton *tabButton);
 
@@ -235,6 +241,11 @@ protected:
      * Override to avoid requesting a new tab.
      */
     void mouseDoubleClickEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+
+    /**
+     * Override to request making the tab bar active.
+     */
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 protected:
     /**

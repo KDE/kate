@@ -32,7 +32,6 @@
 #include <QStyle>
 #include <QStyleOption>
 #include <QHBoxLayout>
-#include <KColorScheme>
 
 TabCloseButton::TabCloseButton(QWidget * parent)
     : QAbstractButton(parent)
@@ -56,10 +55,10 @@ void TabCloseButton::paintEvent(QPaintEvent *event)
     // set style options depending on current state
     QStyleOption opt;
     opt.init(this);
-    if (isActive && !isDown()) {
+    if (isActive && !isChecked()) {
         opt.state |= QStyle::State_Raised;
     }
-    if (isDown()) {
+    if (isChecked()) {
         opt.state |= QStyle::State_Sunken;
     }
 
@@ -128,11 +127,13 @@ KateTabButton::~KateTabButton()
 void KateTabButton::buttonClicked()
 {
     // once down, stay down until another tab is activated
-    if (isChecked()) {
-        emit activated(this);
-    } else {
+    if (! isChecked()) {
+        // make sure we stay checked
         setChecked(true);
     }
+
+    // notify that this button was activated
+    emit activated(this);
 }
 
 void KateTabButton::closeButtonClicked()
@@ -161,12 +162,10 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     QColor barColor(palette().color(QPalette::Highlight));
 
     // read from the parent widget (=KateTabBar) the isActiveViewSpace property
-    if (parentWidget()) {
-        if (! parentWidget()->property("isActiveViewSpace").toBool()) {
-            // if inactive, convert color to gray value
-            const int g = qGray(barColor.rgb());
-            barColor = QColor(g, g, g);
-        }
+    if (isActiveViewSpace()) {
+        // if inactive, convert color to gray value
+        const int g = qGray(barColor.rgb());
+        barColor = QColor(g, g, g);
     }
 
     QPainter p(this);
@@ -316,3 +315,10 @@ QColor KateTabButton::highlightColor() const
     return m_highlightColor;
 }
 
+bool KateTabButton::isActiveViewSpace() const
+{
+    Q_ASSERT(parentWidget());
+
+    // read from the parent widget (=KateTabBar) the isActiveViewSpace property
+    return ! parentWidget()->property("isActiveViewSpace").toBool();
+}

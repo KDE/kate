@@ -73,7 +73,7 @@ void KateTabBar::load(KConfigBase *config, const QString &group)
 {
     KConfigGroup cg(config, group);
 
-//     // highlighted entries
+    // highlighted entries
     QStringList documents = cg.readEntry("highlighted documents", QStringList());
     QStringList colors = cg.readEntry("highlighted colors", QStringList());
 
@@ -270,6 +270,10 @@ QMap<QString, QString> KateTabBar::highlightMarks() const
 void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
 {
     if (tabButton == m_activeButton) {
+        // make sure we are the currently active view space
+        if (! isActiveViewSpace()) {
+            emit activateViewSpaceRequested();
+        }
         return;
     }
 
@@ -361,4 +365,12 @@ void KateTabBar::mouseDoubleClickEvent(QMouseEvent *event)
 {
     event->accept();
     emit newTabRequested();
+}
+
+void KateTabBar::mousePressEvent(QMouseEvent *event)
+{
+    if (! isActiveViewSpace()) {
+        emit activateViewSpaceRequested();
+    }
+    QWidget::mousePressEvent(event);
 }

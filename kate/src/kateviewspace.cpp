@@ -63,6 +63,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     connect(m_tabBar, &KateTabBar::lessTabsRequested, this, &KateViewSpace::removeTabs);
     connect(m_tabBar, &KateTabBar::closeTabRequested, this, &KateViewSpace::closeTabRequest);
     connect(m_tabBar, &KateTabBar::newTabRequested, this, &KateViewSpace::createNewDocument);
+    connect(m_tabBar, SIGNAL(activateViewSpaceRequested()), this, SLOT(makeActive()));
     hLayout->addWidget(m_tabBar);
 
     // add quick open
@@ -298,6 +299,17 @@ void KateViewSpace::setActive(bool active)
 {
     mIsActiveSpace = active;
     m_tabBar->setActiveViewSpace(active);
+}
+
+void KateViewSpace::makeActive(bool focusCurrentView)
+{
+    if (! isActiveSpace()) {
+        m_viewManager->setActiveSpace(this);
+        if (focusCurrentView && currentView()) {
+            m_viewManager->activateView(currentView()->document());
+        }
+    }
+    Q_ASSERT(isActiveSpace());
 }
 
 void KateViewSpace::insertTab(int index, KTextEditor::Document * doc)

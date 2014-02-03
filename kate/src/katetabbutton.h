@@ -89,9 +89,15 @@ public:
      */
     QColor highlightColor() const;
 
+    /**
+     * Returns @e true, if the tabbar is the currently active tab bar.
+     */
+    bool isActiveViewSpace() const;
+
 Q_SIGNALS:
     /**
-     * Emitted whenever the button changes state from deactivated to activated.
+     * Emitted whenever the button changes state from deactivated to activated,
+     * or when the button was clicked although it was already active.
      * @param tabbutton the pressed button (this)
      */
     void activated(KateTabButton *tabbutton);

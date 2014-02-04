@@ -48,6 +48,7 @@
 #include "kateviemulatedcommandbar.h"
 #include "katepartpluginmanager.h"
 #include "katewordcompletion.h"
+#include "katekeywordcompletion.h"
 #include "katelayoutcache.h"
 #include "spellcheck/spellcheck.h"
 #include "spellcheck/spellcheckdialog.h"
@@ -1706,8 +1707,11 @@ void KateView::updateConfig ()
 
   // register/unregister word completion...
   unregisterCompletionModel (KateGlobal::self()->wordCompletionModel());
+  unregisterCompletionModel (KateGlobal::self()->keywordCompletionModel());
   if (config()->wordCompletion ())
     registerCompletionModel (KateGlobal::self()->wordCompletionModel());
+  if (config()->keywordCompletion ())
+    registerCompletionModel (KateGlobal::self()->keywordCompletionModel());
 
   // add snippet completion, later with option
   unregisterCompletionModel (KateGlobal::self()->snippetGlobal()->completionModel());

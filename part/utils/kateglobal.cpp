@@ -36,6 +36,7 @@
 #include "katepartpluginmanager.h"
 #include "kateviglobal.h"
 #include "katewordcompletion.h"
+#include "katekeywordcompletion.h"
 #include "spellcheck/spellcheck.h"
 #include "snippet/katesnippetglobal.h"
 
@@ -190,6 +191,8 @@ KateGlobal::KateGlobal ()
 
   // global word completion model
   m_wordCompletionModel = new KateWordCompletionModel (this);
+  // global keyword completion model
+  m_keywordCompletionModel = new KateKeywordCompletionModel (this);
 
   //
   // finally setup connections

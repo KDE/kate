@@ -52,6 +52,7 @@ class KatePartPluginManager;
 class KateSpellCheckManager;
 class KateViGlobal;
 class KateWordCompletionModel;
+class KateKeywordCompletionModel;
 class KateSnippetGlobal;
 
 namespace Kate {
@@ -350,6 +351,12 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     KateWordCompletionModel *wordCompletionModel () { return m_wordCompletionModel; }
 
     /**
+     * global instance of the language-aware keyword completion model
+     * @return global instance of the keyword completion model
+     */
+    KateKeywordCompletionModel *keywordCompletionModel () { return m_keywordCompletionModel; }
+
+    /**
      * global instance of the snippet handling
      * lazy constructed on first use to allow it to use the session config
      * set after editor is constructed
@@ -546,6 +553,11 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * global instance of the simple word completion mode
      */
     KateWordCompletionModel *m_wordCompletionModel;
+
+    /**
+     * global instance of the language-specific keyword completion model
+     */
+    KateKeywordCompletionModel *m_keywordCompletionModel;
 
     /**
      * global instance of the snippet handling

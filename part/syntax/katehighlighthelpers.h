@@ -189,6 +189,7 @@ class KateHlKeyword : public KateHlItem
 
     void addList(const QStringList &);
     virtual int checkHgl(const QString& text, int offset, int len);
+    QSet<QString> allKeywords() const;
 
   private:
     QVector< QSet<QString>* > dict;

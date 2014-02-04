@@ -259,7 +259,8 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *_prevLine,
                                      Kate::TextLineData *textLine,
                                      const Kate::TextLineData *nextLine,
                                      bool &ctxChanged,
-                                     int tabWidth )
+                                     int tabWidth,
+                                     QVector<ContextChange>* contextChanges)
 {
   if (!textLine)
     return;
@@ -352,8 +353,16 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *_prevLine,
      * loop over line content!
      */
     QChar lastDelimChar = 0;
+    KateHlContext* previous = context;
     while (offset < len)
     {
+      // If requested (happens from completion), return where context changes occur.
+      if ( contextChanges && ( offset == 0 || context != previous ) )
+      {
+        previous = context;
+        const ContextChange change = {context, offset};
+        contextChanges->append(change);
+      }
       bool anItemMatched = false;
       bool customStartEnableDetermined = false;
 

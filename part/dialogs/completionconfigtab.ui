@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>CompletionConfigTab</class>
  <widget class="QWidget" name="CompletionConfigTab">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>465</width>
+    <height>228</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="margin">
     <number>0</number>
@@ -68,6 +76,28 @@
         </property>
         <property name="text">
          <string>Remove tail on complete</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbKeywordCompletion">
+     <property name="title">
+      <string>Keyword completion</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Keyword completion provides suggestions based on the keywords which exist in the document's language.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

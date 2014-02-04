@@ -1159,6 +1159,7 @@ KateViewConfig::KateViewConfig ()
    m_viInputModeEmulateCommandBarSet(false),
    m_automaticCompletionInvocationSet (false),
    m_wordCompletionSet (false),
+   m_keywordCompletionSet (false),
    m_wordCompletionMinimalWordLengthSet (false),
    m_smartCopyCutSet (false),
    m_scrollPastEndSet (false),
@@ -1199,6 +1200,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_viInputModeEmulateCommandBarSet(false),
    m_automaticCompletionInvocationSet (false),
    m_wordCompletionSet (false),
+   m_keywordCompletionSet (false),
    m_wordCompletionMinimalWordLengthSet (false),
    m_smartCopyCutSet (false),
    m_scrollPastEndSet (false),
@@ -1240,6 +1242,7 @@ namespace
   const char * const KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR = "Vi Input Mode Emulate Command Bar";
   const char * const KEY_AUTOMATIC_COMPLETION_INVOCATION = "Auto Completion";
   const char * const KEY_WORD_COMPLETION = "Word Completion";
+  const char * const KEY_KEYWORD_COMPLETION = "Keyword Completion";
   const char * const KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH = "Word Completion Minimal Word Length";
   const char * const KEY_WORD_COMPLETION_REMOVE_TAIL = "Word Completion Remove Tail";
   const char * const KEY_SMART_COPY_CUT = "Smart Copy Cut";
@@ -1293,6 +1296,7 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setAutomaticCompletionInvocation (config.readEntry( KEY_AUTOMATIC_COMPLETION_INVOCATION, true ));
   setWordCompletion (config.readEntry( KEY_WORD_COMPLETION, true ));
+  setKeywordCompletion (config.readEntry( KEY_KEYWORD_COMPLETION, true ));
   setWordCompletionMinimalWordLength (config.readEntry( KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH, 3 ));
   setWordCompletionRemoveTail (config.readEntry( KEY_WORD_COMPLETION_REMOVE_TAIL, true ));
   setSmartCopyCut (config.readEntry( KEY_SMART_COPY_CUT, false ));
@@ -1351,6 +1355,7 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry( KEY_AUTOMATIC_COMPLETION_INVOCATION, automaticCompletionInvocation());
   config.writeEntry( KEY_WORD_COMPLETION, wordCompletion());
+  config.writeEntry( KEY_KEYWORD_COMPLETION, keywordCompletion());
   config.writeEntry( KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH, wordCompletionMinimalWordLength());
   config.writeEntry( KEY_WORD_COMPLETION_REMOVE_TAIL, wordCompletionRemoveTail());
 
@@ -1882,6 +1887,23 @@ void KateViewConfig::setWordCompletion (bool on)
   m_wordCompletionSet = true;
   m_wordCompletion = on;
   configEnd ();
+}
+
+bool KateViewConfig::keywordCompletion() const
+{
+  if (m_keywordCompletionSet || isGlobal())
+    return m_keywordCompletion;
+  return s_global->keywordCompletion();
+}
+
+void KateViewConfig::setKeywordCompletion(bool on)
+{
+  if (m_keywordCompletionSet && m_keywordCompletion == on)
+    return;
+  configStart();
+  m_keywordCompletionSet = true;
+  m_keywordCompletion = on;
+  configEnd();
 }
 
 int KateViewConfig::wordCompletionMinimalWordLength () const

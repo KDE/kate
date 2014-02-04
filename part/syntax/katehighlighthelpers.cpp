@@ -287,6 +287,18 @@ KateHlKeyword::~KateHlKeyword ()
   qDeleteAll(dict);
 }
 
+QSet<QString> KateHlKeyword::allKeywords() const
+{
+  QSet<QString> result;
+  foreach ( const QSet<QString>* v, dict ) {
+    if ( ! v ) {
+      continue;
+    }
+    result.unite(*v);
+  }
+  return result;
+}
+
 void KateHlKeyword::addList(const QStringList& list)
 {
   for(int i=0; i < list.count(); ++i)

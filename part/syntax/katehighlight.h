@@ -134,6 +134,11 @@ class KateHighlighting
     void makeNoneContext();
 
   public:
+    struct ContextChange {
+      KateHlContext* toContext;
+      int pos;
+    };
+
     /**
      * Parse the text and fill in the context array and folding list array
      *
@@ -147,7 +152,8 @@ class KateHighlighting
                        Kate::TextLineData *textLine,
                        const Kate::TextLineData *nextLine,
                        bool &ctxChanged,
-                       int tabWidth = 0);
+                       int tabWidth = 0,
+                       QVector<ContextChange>* contextChanges = 0);
 
     void setKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &,
       KConfig* cfg=0 /*if 0  standard kate config*/, bool writeDefaultsToo=false);

@@ -25,6 +25,8 @@
 #include "kateconfig.h"
 #include "katedocument.h"
 #include "kateglobal.h"
+#include <katehighlight.h>
+#include <katehighlighthelpers.h>
 
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/movingrange.h>

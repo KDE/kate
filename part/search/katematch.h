@@ -44,8 +44,8 @@ private:
     QString buildReplacement(const QString &replacement, bool blockMode, int replacementCounter) const;
 
 private:
-    KateDocument *const m_document;
-    const KTextEditor::Search::SearchOptions m_options;
+    KateDocument *m_document;
+    KTextEditor::Search::SearchOptions m_options;
     QVector<KTextEditor::Range> m_resultRanges;
 };
 

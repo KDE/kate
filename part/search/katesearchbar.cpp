@@ -32,7 +32,6 @@
 
 #include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>
-#include <ktexteditor/messageinterface.h>
 
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
@@ -277,16 +276,32 @@ void KateSearchBar::findPrevious() {
     }
 }
 
+void KateSearchBar::updateMessage(QPointer<KTextEditor::Message>& message, bool visible, const QString& text,
+                                  KTextEditor::Message::MessageType type, KTextEditor::Message::MessagePosition position,
+                                  KTextEditor::Message::AutoHideMode autoHideMode, int durationMs, bool blink)
+{
+    // It the message is visible now and we want it to be visible and we don't want the message to blink,
+    // then just leave it.
+    if (message && visible && !blink)
+        return;
+
+    delete message;
+
+    if (!visible)
+        return;
+
+    message = new KTextEditor::Message(text, type);
+    message->setPosition(position);
+    message->setAutoHide(durationMs);
+    message->setAutoHideMode(autoHideMode);
+
+    m_view->doc()->postMessage(message);
+}
+
 void KateSearchBar::showInfoMessage(const QString& text)
 {
-    delete m_infoMessage;
-
-    m_infoMessage = new KTextEditor::Message(text, KTextEditor::Message::Positive);
-    m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
-    m_infoMessage->setAutoHide(3000); // 3 seconds
-    m_infoMessage->setView(m_view);
-
-    m_view->doc()->postMessage(m_infoMessage);
+    typedef KTextEditor::Message KTEM;
+    updateMessage(m_infoMessage, true, text, KTEM::Positive, KTEM::BottomInView, KTEM::AfterUserInteraction, 3000, false);
 }
 
 void KateSearchBar::highlightMatch(const Range & range) {
@@ -334,34 +349,17 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
         break;
     }
 
-    // Update status label
-    if (m_incUi != NULL) {
-        QPalette foreground(m_incUi->status->palette());
-        switch (matchResult) {
-        case MatchFound: // FALLTHROUGH
-        case MatchNothing:
-            KColorScheme::adjustForeground(foreground, KColorScheme::NormalText, QPalette::WindowText, KColorScheme::Window);
-            m_incUi->status->clear();
-            break;
-        case MatchWrappedForward:
-        case MatchWrappedBackward:
-            KColorScheme::adjustForeground(foreground, KColorScheme::NormalText, QPalette::WindowText, KColorScheme::Window);
-            if (matchResult == MatchWrappedBackward) {
-                m_incUi->status->setText(i18n("Reached top, continued from bottom"));
-            } else {
-                m_incUi->status->setText(i18n("Reached bottom, continued from top"));
-            }
-            break;
-        case MatchMismatch:
-            KColorScheme::adjustForeground(foreground, KColorScheme::NegativeText, QPalette::WindowText, KColorScheme::Window);
-            m_incUi->status->setText(i18n("Not found"));
-            break;
-        case MatchNeutral:
-            /* do nothing */
-            break;
-        }
-        m_incUi->status->setPalette(foreground);
-    }
+    typedef KTextEditor::Message KTEM;
+    const int messageDuration = 2000;  // ms
+
+    updateMessage(m_wrappedTopMessage, matchResult == MatchWrappedForward, i18n("Continuing search from top"),
+                  KTEM::Information, KTEM::TopInView, KTEM::Immediate, messageDuration, true);
+
+    updateMessage(m_wrappedBottomMessage, matchResult == MatchWrappedBackward, i18n("Continuing search from bottom"),
+                  KTEM::Information, KTEM::BottomInView, KTEM::Immediate, messageDuration, true);
+
+    updateMessage(m_notFoundMessage, matchResult == MatchMismatch, i18n("Not found"),
+                  KTEM::Warning, KTEM::BottomInView, KTEM::Immediate, messageDuration, false);
 
     lineEdit->setPalette(background);
 }
@@ -627,40 +625,28 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
     bool askWrap = !match.isValid() && (!selection.isValid() || !selectionOnly());
     bool wrap = false;
+    KateMatch matchAfterWarp(m_view->doc(), enabledOptions);
 
-    if (m_unitTestMode && askWrap)
-    {
-        askWrap = false;
-        wrap = true;
+    if (askWrap) {
+        matchAfterWarp.searchText(m_view->document()->documentRange(), searchPattern());
+        if (!matchAfterWarp.isValid())
+            askWrap = false;
     }
 
     if (askWrap) {
-        QString question = searchDirection == SearchForward  ? i18n("Bottom of file reached. Continue from top?")
-                                                             : i18n("Top of file reached. Continue from bottom?");
-        wrap = (KMessageBox::questionYesNo( 0, question, i18n("Continue search?"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
-                                            QString("DoNotShowAgainContinueSearchDialog")) == KMessageBox::Yes );
-
-    }
-    if (wrap) {
-        // show message widget when wrapping (if not already present)
-        if (searchDirection == SearchForward && !m_wrappedTopMessage) {
-            const QString msg = i18n("Continuing search from top");
-            m_wrappedTopMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
-            m_wrappedTopMessage->setPosition(KTextEditor::Message::TopInView);
-            m_wrappedTopMessage->setAutoHide(2000);
-            m_wrappedTopMessage->setAutoHideMode(KTextEditor::Message::Immediate);
-            m_view->doc()->postMessage(m_wrappedTopMessage);
-        } else if (searchDirection == SearchBackward && !m_wrappedBottomMessage) {
-            const QString msg = i18n("Continuing search from bottom");
-            m_wrappedBottomMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
-            m_wrappedBottomMessage->setPosition(KTextEditor::Message::BottomInView);
-            m_wrappedBottomMessage->setAutoHide(2000);
-            m_wrappedBottomMessage->setAutoHideMode(KTextEditor::Message::Immediate);
-            m_view->doc()->postMessage(m_wrappedBottomMessage);
+        if (m_unitTestMode) {
+            wrap = true;
         }
+        else {
+            QString question = searchDirection == SearchForward  ? i18n("Bottom of file reached. Continue from top?")
+                                                                : i18n("Top of file reached. Continue from bottom?");
+            wrap = (KMessageBox::questionYesNo( 0, question, i18n("Continue search?"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
+                                                QString("DoNotShowAgainContinueSearchDialog")) == KMessageBox::Yes );
+        }
+    }
 
-        inputRange = m_view->document()->documentRange();
-        match.searchText(inputRange, searchPattern());
+    if (wrap) {
+        match = matchAfterWarp;
     }
 
     if (match.isValid()) {
@@ -1508,9 +1494,6 @@ void KateSearchBar::enterIncrementalMode() {
 
         // Ensure minimum size
         m_incUi->pattern->setMinimumWidth(12 * m_incUi->pattern->fontMetrics().height());
-
-	// Customize status area
-	m_incUi->status->setTextElideMode(Qt::ElideLeft);
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_incUi->pattern);

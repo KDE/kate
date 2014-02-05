@@ -26,6 +26,7 @@
 #include "katepartprivate_export.h"
 
 #include <ktexteditor/attribute.h>
+#include <ktexteditor/messageinterface.h>
 #include <ktexteditor/searchinterface.h>
 
 class KateView;
@@ -40,7 +41,6 @@ namespace Ui {
 
 namespace KTextEditor {
     class MovingRange;
-    class Message;
 }
 
 
@@ -171,6 +171,15 @@ private:
     void sendConfig();
     void fixForSingleLine(KTextEditor::Range & range, SearchDirection searchDirection);
 
+    /**
+     * If @p visible is true, create a new message with specified parameters and show it
+     * (if the message was already shown and @p blink is true it will be hidden and shown again).
+     * If @p visible is false, hide message.
+     */
+    void updateMessage(QPointer<KTextEditor::Message>& message, bool visible, const QString& text,
+                       KTextEditor::Message::MessageType type, KTextEditor::Message::MessagePosition position,
+                       KTextEditor::Message::AutoHideMode autoHideMode, int durationMs, bool blink);
+
     void showInfoMessage(const QString& text);
 
 private:
@@ -180,6 +189,7 @@ private:
     QPointer<KTextEditor::Message> m_infoMessage;
     QPointer<KTextEditor::Message> m_wrappedTopMessage;
     QPointer<KTextEditor::Message> m_wrappedBottomMessage;
+    QPointer<KTextEditor::Message> m_notFoundMessage;
 
     // Shared by both dialogs
     QVBoxLayout *const m_layout;

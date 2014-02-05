@@ -121,25 +121,6 @@
       </widget>
      </item>
      <item>
-      <widget class="KSqueezedTextLabel" name="status">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <property name="wordWrap">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QToolButton" name="mutate">
        <property name="toolTip">
         <string>Switch to power search and replace bar</string>
@@ -162,11 +143,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KSqueezedTextLabel</class>
-   <extends>QLabel</extends>
-   <header>ksqueezedtextlabel.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

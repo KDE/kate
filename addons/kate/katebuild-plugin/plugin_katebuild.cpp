@@ -113,7 +113,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     m_win=mw;
 
     KAction *a = actionCollection()->addAction("run_make");
-    a->setText(i18n("Build default target"));
+    a->setText(i18n("Build Default Target"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotMake()));
 
     a = actionCollection()->addAction("make_clean");
@@ -129,7 +129,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotSelectTarget()));
 
     a = actionCollection()->addAction("build_previous_target");
-    a->setText(i18n("Build previous target again"));
+    a->setText(i18n("Build Previous Target Again"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotBuildPreviousTarget()));
 
     a = actionCollection()->addAction("goto_next");

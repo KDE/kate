@@ -145,6 +145,18 @@ private Q_SLOTS:
      */
     void createNewDocument();
 
+    /**
+     * Update the quick open button to reflect the currently hidden tabs.
+     */
+    void updateQuickOpen();
+
+private:
+    /**
+     * Returns the amount of documents in KateDocManager that currently
+     * have no tab in this tab bar.
+     */
+    int hiddenDocuments() const;
+
 private:
     // Kate's view manager
     KateViewManager *m_viewManager;

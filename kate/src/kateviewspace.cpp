@@ -33,12 +33,14 @@
 
 #include <KLocalizedString>
 #include <KConfigGroup>
+#include <KAcceleratorManager>
 
 #include <QToolButton>
 #include <QMouseEvent>
 #include <QStackedWidget>
 #include <QHelpEvent>
 #include <QToolTip>
+#include <QWhatsThis>
 
 //BEGIN KateViewSpace
 KateViewSpace::KateViewSpace(KateViewManager *viewManager,
@@ -69,9 +71,19 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     // add quick open
     m_quickOpen = new QToolButton(this);
     m_quickOpen->setAutoRaise(true);
-    m_quickOpen->setDefaultAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open")));
+    KAcceleratorManager::setNoAccel(m_quickOpen);
     m_quickOpen->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_quickOpen);
+
+    // forward tab bar quick open action to globa quick open action
+    QAction * bridge = new QAction(QIcon::fromTheme(QStringLiteral("tab-duplicate")),
+                                   i18nc("indicator for more documents", "+%1", 100), this);
+    m_quickOpen->setDefaultAction(bridge);
+    QAction * quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
+    Q_ASSERT(quickOpen);
+    bridge->setToolTip(quickOpen->toolTip());
+    bridge->setWhatsThis(i18n("Click here to switch to the Quick Open view."));
+    connect(bridge, SIGNAL(triggered()), quickOpen, SLOT(trigger()));
 
     // add vertical split view space
     m_split = new QToolButton(this);
@@ -86,9 +98,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     m_split->setWhatsThis(i18n("Control view space splitting"));
     m_split->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_split);
-
-    // FIXME: better additional size
-//     m_tabBar->setMinimumHeight(int (QFontMetrics(font()).height() * 1.2));
 
     layout->addLayout(hLayout);
     //END tab bar
@@ -109,20 +118,38 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     // init the bars...
     statusBarToggled();
     tabBarToggled();
+
+    // make sure we show correct number of hidden documents
+    updateQuickOpen();
+    connect(KateApp::self()->documentManager(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(updateQuickOpen()));
+    connect(KateApp::self()->documentManager(), SIGNAL(documentsDeleted(const QList<KTextEditor::Document*>&)), this, SLOT(updateQuickOpen()));
 }
 
 bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 {
     QToolButton *button = qobject_cast<QToolButton *>(obj);
 
-    // maybe a tool tip of a QToolButton: show shortcuts
-    if (button && event->type() == QEvent::ToolTip) {
+    // quick open button: show tool tip with shortcut
+    if (button == m_quickOpen && event->type() == QEvent::ToolTip) {
         QHelpEvent *e = static_cast<QHelpEvent *>(event);
-        if (button->defaultAction()) {
-            QToolTip::showText(e->globalPos(),
-                               button->toolTip() + QStringLiteral(" (%1)").arg(button->defaultAction()->shortcut().toString()), button);
-            return true;
-        }
+        QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
+        Q_ASSERT(quickOpen);
+        QToolTip::showText(e->globalPos(),
+                           button->toolTip() + QStringLiteral(" (%1)").arg(quickOpen->shortcut().toString()), button);
+        return true;
+    }
+
+    // quick open button: What's This
+    if (button == m_quickOpen && event->type() == QEvent::WhatsThis) {
+        QHelpEvent *e = static_cast<QHelpEvent *>(event);
+        const int hiddenDocs = hiddenDocuments();
+        QString helpText = (hiddenDocs == 0)
+                         ? i18n("Click here to switch to the Quick Open view.")
+                         : i18np("Currently, there is one more document open. To see all open documents, switch to the Quick Open view by clicking here.",
+                                 "Currently, there are %1 more documents open. To see all open documents, switch to the Quick Open view by clicking here.",
+                                 hiddenDocs);
+        QWhatsThis::showText(e->globalPos(), helpText, m_quickOpen);
+        return true;
     }
 
     // on mouse press on view space bar tool buttons: activate this space
@@ -354,6 +381,9 @@ int KateViewSpace::removeTab(KTextEditor::Document * doc)
 
 void KateViewSpace::removeTabs(int count)
 {
+    const int start = count;
+
+    /// remove @p count tabs from the tab bar, as they to not fit
     while (count > 0) {
         const int tabCount = m_tabBar->count();
         KTextEditor::Document * removeDoc = m_lruDocList[m_lruDocList.size() - tabCount];
@@ -361,10 +391,18 @@ void KateViewSpace::removeTabs(int count)
         Q_ASSERT(! m_docToTabId.contains(removeDoc));
         --count;
     }
+
+    // make sure quick open shows the correct number of hidden documents
+    if (start != count) {
+        updateQuickOpen();
+    }
 }
 
 void KateViewSpace::addTabs(int count)
 {
+    const int start = count;
+
+    /// @p count tabs still fit into the tab bar: add as man as possible
     while (count > 0) {
         const int tabCount = m_tabBar->count();
         if (m_lruDocList.size() <= tabCount) {
@@ -372,6 +410,11 @@ void KateViewSpace::addTabs(int count)
         }
         insertTab(tabCount, m_lruDocList[m_lruDocList.size() - tabCount - 1]);
         --count;
+    }
+
+    // make sure quick open shows the correct number of hidden documents
+    if (start != count) {
+        updateQuickOpen();
     }
 }
 
@@ -393,6 +436,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
     // if space is available, add button
     if (m_tabBar->count() < m_tabBar->maxTabCount()) {
         insertTab(m_tabBar->count(), doc);
+        updateQuickOpen();
     } else if (append) {
         // remove "oldest" button and replace with new one
         Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
@@ -477,6 +521,26 @@ void KateViewSpace::createNewDocument()
 
     // tell the view manager to show the document
     m_viewManager->activateView(doc);
+}
+
+void KateViewSpace::updateQuickOpen()
+{
+    const int hiddenDocs = hiddenDocuments();
+
+    if (hiddenDocs == 0) {
+        m_quickOpen->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    } else {
+        m_quickOpen->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+        m_quickOpen->defaultAction()->setText(i18nc("indicator for more documents", "+%1",
+                                              hiddenDocs));
+    }
+}
+
+int KateViewSpace::hiddenDocuments() const
+{
+    const int hiddenDocs = KateApp::self()->documents().count() - m_tabBar->count();
+    Q_ASSERT(hiddenDocs >= 0);
+    return hiddenDocs;
 }
 
 void KateViewSpace::saveConfig(KConfigBase *config, int myIndex , const QString &viewConfGrp)

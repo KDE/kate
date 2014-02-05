@@ -153,7 +153,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     QWidget *buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(buildWidget);
     m_targetsUi = new TargetsUi(m_buildUi.ktabwidget);
-    m_buildUi.ktabwidget->addTab(m_targetsUi, i18nc("Tab label", "Target Settings"));
+    m_buildUi.ktabwidget->insertTab(0, m_targetsUi, i18nc("Tab label", "Target Settings"));
     m_buildUi.ktabwidget->setCurrentWidget(m_targetsUi);
 
 
@@ -707,7 +707,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 
     // did we get any errors?
     if (m_numErrors || m_numWarnings || (exitCode != 0)) {
-       m_buildUi.ktabwidget->setCurrentIndex(0);
+       m_buildUi.ktabwidget->setCurrentIndex(2);
        m_buildUi.errTreeWidget->resizeColumnToContents(0);
        m_buildUi.errTreeWidget->resizeColumnToContents(1);
        m_buildUi.errTreeWidget->resizeColumnToContents(2);
@@ -1266,7 +1266,7 @@ void KateBuildView::targetDelete()
 /******************************************************************/
 void KateBuildView::targetNext()
 {
-    if (m_toolView->isVisible() && m_buildUi.ktabwidget->currentIndex() == 2) {
+    if (m_toolView->isVisible() && m_buildUi.ktabwidget->currentIndex() == 0) {
         int index = m_targetsUi->targetCombo->currentIndex();
         index++;
         if (index == m_targetsUi->targetCombo->count()) index = 0;
@@ -1275,7 +1275,7 @@ void KateBuildView::targetNext()
     }
     else {
         m_win->showToolView(m_toolView);
-        m_buildUi.ktabwidget->setCurrentIndex(2);
+        m_buildUi.ktabwidget->setCurrentIndex(0);
     }
 }
 

@@ -139,6 +139,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void setTargetRowContents(int row, const TargetSet& tgtSet, const QString& name, const QString& buildCmd);
         QString makeTargetNameUnique(const QString& name);
         QString makeUniqueTargetSetName() const;
+        void clearBuildResults();
 
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;

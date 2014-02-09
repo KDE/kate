@@ -53,6 +53,22 @@ KateViewTest::~KateViewTest()
 {
 }
 
+void KateViewTest::testCoordinatesToCursor()
+{
+    KateDocument doc(false, false, false);
+    doc.setText("Hi World!\nHi\n");
+
+    KateView* view1 = new KateView(&doc, 0);
+    int charWidth = view1->renderer()->currentFontMetrics().averageCharWidth();
+    int charHeight = view1->renderer()->lineHeight();
+    // keep a few pixels away from the borders between chars or lines (that's what the .2 and .7 is for)
+    // to avoid placing the pointer exactly on the border between two lines or characters
+    QVERIFY(view1->coordinatesToCursor(QPoint(2.7 * charWidth, 0.2 * charHeight)) == KTextEditor::Cursor(0, 2));
+    QVERIFY(view1->coordinatesToCursor(QPoint(1.7 * charWidth, 1.2 * charHeight)) == KTextEditor::Cursor(1, 1));
+    // behind end of line should give an invalid cursor
+    QVERIFY(view1->coordinatesToCursor(QPoint(2.7 * charWidth, 1.2 * charHeight)) == KTextEditor::Cursor::invalid());
+}
+
 void KateViewTest::testReloadMultipleViews()
 {
     KTemporaryFile file;

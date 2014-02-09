@@ -2793,6 +2793,12 @@ KTextEditor::Cursor KateViewInternal::coordinatesToCursor(const QPoint& _coord, 
   if (thisLine.isValid())
     ret = renderer()->xToCursor(thisLine, coord.x(), !m_view->wrapCursor());
 
+  if (ret.column() == view()->document()->lineLength(ret.line())) {
+    // The cursor is beyond the end of the line; in that case the renderer
+    // gives the index of the character behind the last one.
+    return KTextEditor::Cursor::invalid();
+  }
+
   return ret;
 }
 

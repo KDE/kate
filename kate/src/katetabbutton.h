@@ -24,6 +24,8 @@
 #include <QAbstractButton>
 #include "katetabbar.h"
 
+class QPropertyAnimation;
+
 class TabCloseButton : public QAbstractButton
 {
     Q_OBJECT
@@ -81,6 +83,13 @@ public:
      */
     bool isActiveViewSpace() const;
 
+public Q_SLOTS:
+    /**
+     * Animate the button's geometry from @p startGeom to @p endGeom
+     * with linear interpolation.
+     */
+    void setAnimatedGeometry(const QRect & startGeom, const QRect & endGeom);
+
 Q_SIGNALS:
     /**
      * Emitted whenever the button changes state from deactivated to activated,
@@ -121,6 +130,7 @@ protected:
 
 private:
     TabCloseButton * m_closeButton;
+    QPropertyAnimation * m_geometryAnimation;
 
     QColor m_highlightColor;
 

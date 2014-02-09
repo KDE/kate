@@ -29,6 +29,7 @@
 #include <QIcon>
 #include <QMenu>
 #include <QPainter>
+#include <QPropertyAnimation>
 #include <QStyle>
 #include <QStyleOption>
 #include <QHBoxLayout>
@@ -96,6 +97,7 @@ int KateTabButton::s_currentColor = 0;
 
 KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     : QAbstractButton(parent)
+    , m_geometryAnimation(0)
 {
     setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
     setCheckable(true);
@@ -310,4 +312,37 @@ bool KateTabButton::isActiveViewSpace() const
 
     // read from the parent widget (=KateTabBar) the isActiveViewSpace property
     return ! parentWidget()->property("isActiveViewSpace").toBool();
+}
+
+void KateTabButton::setAnimatedGeometry(const QRect & startGeom,
+                                        const QRect & endGeom)
+{
+    // stop animation in case it is running
+    if (m_geometryAnimation &&
+        m_geometryAnimation->state() != QAbstractAnimation::Stopped) {
+        m_geometryAnimation->stop();
+    }
+
+    // already at desired position
+    if (startGeom == geometry() && endGeom == startGeom) {
+        return;
+    }
+
+    // if the style does not want animations, just set geometry
+    if (! style()->styleHint(QStyle::SH_Widget_Animate, 0, this)
+        || (isVisible() && endGeom == startGeom))
+    {
+        setGeometry(endGeom);
+        return;
+    }
+
+    if (! m_geometryAnimation) {
+        m_geometryAnimation = new QPropertyAnimation(this, "geometry");
+        m_geometryAnimation->setDuration(100);
+    }
+
+    // finally start geometry animation
+    m_geometryAnimation->setStartValue(startGeom);
+    m_geometryAnimation->setEndValue(endGeom);
+    m_geometryAnimation->start();
 }

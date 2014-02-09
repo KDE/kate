@@ -74,7 +74,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
 
         TargetSet* currentTargetSet();
 
-        bool buildTarget(const QString& targetName, bool keepAsPrevTarget);
+        bool buildTarget(const QString& targetName);
 
     private Q_SLOTS:
         // selecting warnings

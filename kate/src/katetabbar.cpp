@@ -1,6 +1,6 @@
 /*   This file is part of the KDE project
  *
- *   Copyright (C) 2014 Dominik Haumann <dhauumann@kde.org>
+ *   Copyright (C) 2014 Dominik Haumann <dhaumann@kde.org>
  *
  *   This library is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU Library General Public
@@ -39,6 +39,8 @@ KateTabBar::KateTabBar(QWidget *parent)
 {
     m_minimumTabWidth = 150;
     m_maximumTabWidth = 350;
+    m_currentTabWidth = 350;
+    m_keepTabWidth = false;
 
     m_isActiveViewSpace = false;
 
@@ -305,6 +307,12 @@ void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
 {
     const int id = m_idToTab.key(tabButton, -1);
     Q_ASSERT(id >= 0);
+
+    // keep width
+    if (underMouse()) {
+        m_keepTabWidth = true;
+    }
+
     emit closeTabRequested(id);
 }
 
@@ -313,7 +321,9 @@ void KateTabBar::resizeEvent(QResizeEvent *event)
     Q_UNUSED(event)
 
     // fix button positions
-    updateButtonPositions();
+    if (!m_keepTabWidth || event->size().width() < event->oldSize().width()) {
+        updateButtonPositions();
+    }
 
     const int tabDiff = maxTabCount() - m_tabButtons.size();
     if (tabDiff > 0) {
@@ -337,8 +347,26 @@ void KateTabBar::updateButtonPositions()
     const int visibleTabCount = qMin(count(), maxCount);
 
     // new tab width of each tab
-    const qreal tabWidth = qMin(static_cast<qreal>(barWidth) / visibleTabCount,
-                                static_cast<qreal>(m_maximumTabWidth));
+    qreal tabWidth;
+    const bool keepWidth = m_keepTabWidth && ceil(m_currentTabWidth) * visibleTabCount < barWidth;
+    if (keepWidth) {
+        // only keep tab width if the tabs still fit
+        tabWidth = m_currentTabWidth;
+    } else {
+        tabWidth = qMin(static_cast<qreal>(barWidth) / visibleTabCount, static_cast<qreal>(m_maximumTabWidth));
+    }
+
+    // if the last tab was closed through the close button, make sure the
+    // close button of the new tab is again under the mouse
+    if (keepWidth) {
+        const int xPos = mapFromGlobal(QCursor::pos()).x();
+        if (tabWidth * visibleTabCount < xPos) {
+            tabWidth = qMin(tabWidth * (visibleTabCount + 1.0) / visibleTabCount, static_cast<qreal>(m_maximumTabWidth));
+        }
+    }
+
+    // now save the current tab width for future adaptation
+    m_currentTabWidth = tabWidth;
 
     // now set the sizes
     const int maxi = m_tabButtons.size();
@@ -349,8 +377,10 @@ void KateTabBar::updateButtonPositions()
         if (i >= maxCount) {
             tabButton->hide();
         } else {
-
-            tabButton->setGeometry(ceil(i * tabWidth), 0, w, h);
+            const QRect startGeometry = tabButton->isVisible() ? tabButton->geometry()
+                                                               : QRect(ceil(i * tabWidth), 0, 0, h);
+            const QRect endGeometry(ceil(i * tabWidth), 0, w, h);
+            tabButton->setAnimatedGeometry(startGeometry, endGeometry);
             tabButton->show();
         }
     }
@@ -373,4 +403,14 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
         emit activateViewSpaceRequested();
     }
     QWidget::mousePressEvent(event);
+}
+
+void KateTabBar::leaveEvent(QEvent *event) 
+{
+    if (m_keepTabWidth) {
+        m_keepTabWidth = false;
+        updateButtonPositions();
+    }
+
+    QWidget::leaveEvent(event);
 }

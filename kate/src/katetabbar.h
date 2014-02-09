@@ -1,6 +1,6 @@
 /*   This file is part of the KDE project
  *
- *   Copyright (C) 2014 Dominik Haumann <dhauumann@kde.org>
+ *   Copyright (C) 2014 Dominik Haumann <dhaumann@kde.org>
  *
  *   This library is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU Library General Public
@@ -246,6 +246,9 @@ protected:
      */
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
+    /** trigger repaint on hover leave event */
+    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+
 protected:
     /**
      * Set tab geometry.
@@ -253,8 +256,16 @@ protected:
     void updateButtonPositions();
 
 private:
+    // minimum and maximum tab width
     int m_minimumTabWidth;
     int m_maximumTabWidth;
+
+    // current tab width: when closing tabs with the mouse, we keep
+    // the tab width fixed until the mouse leaves the tab bar. This
+    // way the user can keep klicking the close button without moving
+    // the ouse.
+    qreal m_currentTabWidth;
+    bool m_keepTabWidth;
 
     bool m_isActiveViewSpace;
 

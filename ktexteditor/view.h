@@ -391,7 +391,14 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
     virtual QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor) const = 0;
 
     /**
-     * Get the screen coordinates (x/y) of the cursor position in pixels.
+     * Get the coordinates (x/y) of the cursor position in pixels.
+     * The returned coordinates are relative to the View.
+     * If global screen coordinates are required, e.g. for showing a QToolTip,
+     * conversion as follows is required:
+     * \code
+     * QPoint viewCoordinates = view->cursorPositionCoordinates();
+     * QPoint globalCoorinates = view->mapToGlobal(viewCoordinates);
+     * \endcode
      * \return cursor screen coordinates
      */
     virtual QPoint cursorPositionCoordinates () const = 0;

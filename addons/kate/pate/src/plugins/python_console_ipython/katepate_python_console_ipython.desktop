@@ -31,6 +31,7 @@ Name[uk]=Консоль IPython
 Name[x-test]=xxIPython Consolexx
 Name[zh_TW]=IPython 主控台
 Comment=Interactive console for hacking kate and doing science
+Comment[bs]=Interaktivna konzola za naukovanje o hakiranju Kate
 Comment[ca]=Consola interactiva per a hackejar el Kate i fer ciència
 Comment[de]=interaktive Konsole für das Hacken von Kate und wissenschaftliches Arbeiten
 Comment[es]=Consola interactiva para hacerse con el control de Kate y hacer ciencia

@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/PythonPlugin
 X-KDE-Library=python_autocomplete
 Name=Python Autocompletion
+Name[bs]=Automatsko kompletiranje za Python
 Name[ca]=Autocompleció per al Python
 Name[de]=Python-Autovervollständigung
 Name[es]=Terminación automática de Python

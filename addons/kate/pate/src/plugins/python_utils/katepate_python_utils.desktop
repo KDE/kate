@@ -31,6 +31,7 @@ Name[uk]=Інструменти Python
 Name[x-test]=xxPython Utilitiesxx
 Name[zh_TW]=Python 工具
 Comment=Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets
+Comment[bs]=Parse provjera, PEP8 provjera, Pyflakes provjera, Isječci
 Comment[ca]=Verificador d'anàlisi, verificador PEP8, verificador Pyflakes, retalls
 Comment[de]=Python-Werkzeuge: Parse-Überprüfung, PEP8-Überprüfung, Pyflakes-Überprüfung, Textbausteine
 Comment[es]=Comprobación de análisis sintáctico, comprobador de PEP8, comprobador de Pyflakes, fragmentos de código

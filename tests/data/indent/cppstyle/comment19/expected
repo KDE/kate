@@ -1,0 +1,1 @@
+auto i = ok() == ok();                                      // some

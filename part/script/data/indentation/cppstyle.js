@@ -168,27 +168,10 @@ function addCharOrJumpOverIt(line, column, char)
     view.setCursorPosition(line, column + 1);
 }
 
-function tryIndentRelativePrevLine(line)
-{
-    var current_line = line - 1;
-    while (0 <= current_line && isStringOrComment(current_line, document.firstColumn(current_line)))
-        --current_line;
-    if (current_line == -1)
-        return -2;
-
-    var prevLineFirstChar = document.firstChar(current_line);
-    var needHalfUnindent = !(
-        prevLineFirstChar == ','
-      || prevLineFirstChar == ':'
-      || prevLineFirstChar == '?'
-      || prevLineFirstChar == '<'
-      || prevLineFirstChar == '>'
-      || prevLineFirstChar == '&'
-      );
-    return document.firstColumn(current_line) - (needHalfUnindent ? 2 : 0);
-}
-
-/// Try to (re)align (to 60th position) inline comment if present
+/**
+ * Try to (re)align (to 60th position) inline comment if present
+ * \return \c true if comment line was moved above
+ */
 function alignInlineComment(line)
 {
     // Check is there any comment on the current line
@@ -198,6 +181,7 @@ function alignInlineComment(line)
     if (sc.hasComment && !isStringOrComment(line, sc.before.length - 1))
     {
         var rbefore = sc.before.rtrim();
+        var cursor = view.cursorPosition();
         /// \attention Kate has a BUG: even if everything is Ok and no realign
         /// required, document gets modified anyway! So condition below
         /// designed to prevent document modification w/o real actions won't
@@ -216,6 +200,8 @@ function alignInlineComment(line)
             else
                 // Need to remove a redundant padding
                 document.removeText(line, gSameLineCommentStartAt, line, sc.before.length);
+            // Keep cursor at the place we've found it before
+            view.setCursorPosition(cursor);
         }
         else if (gSameLineCommentStartAt < rbefore.length)
         {
@@ -224,8 +210,12 @@ function alignInlineComment(line)
             currentLineText = String().fill(' ', startPos) + "//" + sc.after.rtrim() + "\n";
             document.removeText(line, rbefore.length, line, document.lineLength(line));
             document.insertText(line, 0, currentLineText);
+            // Keep cursor at the place we've found it before
+            view.setCursorPosition(new Cursor(line + 1, cursor.column));
+            return true;
         }
     }
+    return false;
 }
 
 /**
@@ -235,6 +225,26 @@ function alignInlineComment(line)
 function justEnteredCharIsFirstOnLine(line, column, char)
 {
     return document.firstChar(line) == char && document.firstColumn(line) == (column - 1);
+}
+
+function tryIndentRelativePrevLine(line)
+{
+    var current_line = line - 1;
+    while (0 <= current_line && isStringOrComment(current_line, document.firstColumn(current_line)))
+        --current_line;
+    if (current_line == -1)
+        return -2;
+
+    var prevLineFirstChar = document.firstChar(current_line);
+    var needHalfUnindent = !(
+        prevLineFirstChar == ','
+      || prevLineFirstChar == ':'
+      || prevLineFirstChar == '?'
+      || prevLineFirstChar == '<'
+      || prevLineFirstChar == '>'
+      || prevLineFirstChar == '&'
+      );
+    return document.firstColumn(current_line) - (needHalfUnindent ? 2 : 0);
 }
 
 /**
@@ -2172,6 +2182,20 @@ function processChar(line, ch)
         default:
             break;                                          // Nothing to do...
     }
+
+    // Make sure it is not a pure comment line
+    var currentLineText = document.line(cursor.line).ltrim();
+    if (ch != '\n' && !currentLineText.startsWith("//"))
+    {
+        // Ok, try to keep an inline comment aligned (if any)...
+        // BUG If '=' was inserted (and a space added) in a code line w/ inline comment,
+        // it seems kate do not update highlighting, so position, where comment was before,
+        // still counted as a 'Comment' attribute, but actually it should be 'Normal Text'...
+        // It is why adding '=' will not realign an inline comment...
+        if (alignInlineComment(cursor.line) && ch == ' ')
+            document.insertText(view.cursorPosition(), ' ');
+    }
+
     document.editEnd();
     return result;
 }

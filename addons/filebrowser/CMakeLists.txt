@@ -18,6 +18,6 @@ install(TARGETS katefilebrowserplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-kservice_desktop_to_json (katefilebrowserplugin.desktop)
+kservice_desktop_to_json (katefilebrowserplugin katefilebrowserplugin.desktop)
 install( FILES katefilebrowserplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 

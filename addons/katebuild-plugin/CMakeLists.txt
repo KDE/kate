@@ -14,5 +14,5 @@ install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katebuild)
 install(TARGETS katebuildplugin DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES katebuildplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 ecm_install_icons (${ICON_INSTALL_DIR})
-kservice_desktop_to_json (katebuildplugin.desktop)
+kservice_desktop_to_json (katebuildplugin katebuildplugin.desktop)
 

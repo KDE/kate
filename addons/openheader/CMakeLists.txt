@@ -24,7 +24,7 @@ target_link_libraries(kateopenheaderplugin
 install(TARGETS kateopenheaderplugin DESTINATION ${PLUGIN_INSTALL_DIR} )  
   
 ########### install files ###############
-kservice_desktop_to_json (kateopenheaderplugin.desktop)
+kservice_desktop_to_json (kateopenheaderplugin kateopenheaderplugin.desktop)
 install( FILES kateopenheaderplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 install(TARGETS kateopenheaderplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

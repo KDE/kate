@@ -23,6 +23,6 @@ install(TARGETS katekonsoleplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/katekonsole )
 
-kservice_desktop_to_json (katekonsoleplugin.desktop)
+kservice_desktop_to_json (katekonsoleplugin katekonsoleplugin.desktop)
 install( FILES katekonsoleplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )
 

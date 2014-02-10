@@ -21,5 +21,5 @@ install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katesearch)
 
 
-kservice_desktop_to_json (katesearch.desktop)
+kservice_desktop_to_json (katesearchplugin katesearch.desktop)
 install(FILES katesearch.desktop DESTINATION ${SERVICES_INSTALL_DIR})

@@ -18,5 +18,5 @@ target_link_libraries(katectagsplugin KF5::TextEditor KF5::I18n KF5::IconThemes)
 install(TARGETS katectagsplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katectags)
 
-kservice_desktop_to_json (katectagsplugin.desktop)
+kservice_desktop_to_json (katectagsplugin katectagsplugin.desktop)
 install(FILES katectagsplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )

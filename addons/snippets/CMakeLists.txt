@@ -34,7 +34,7 @@ install(TARGETS katesnippetsplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-kservice_desktop_to_json (katesnippetsplugin.desktop)
+kservice_desktop_to_json (katesnippetsplugin katesnippetsplugin.desktop)
 install( FILES katesnippetsplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 # install the snippet stuff

@@ -30,5 +30,5 @@ install( FILES html4-loose.dtd.xml  html4-strict.dtd.xml kde-docbook.dtd.xml sim
                testcases.xml language.dtd.xml kpartgui.dtd.xml kcfg.dtd.xml
                DESTINATION  ${DATA_INSTALL_DIR}/katexmltools )
 
-kservice_desktop_to_json (katexmltools.desktop)
+kservice_desktop_to_json (katexmltoolsplugin katexmltools.desktop)
 install( FILES katexmltools.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

@@ -29,6 +29,7 @@ Comment[sv]=Kate Python-insticksprogram
 Comment[tr]=Kate Python Eklentisi
 Comment[uk]=Додаток Python для Kate
 Comment[x-test]=xxKate Python Pluginxx
+Comment[zh_CN]=Kate Python 插件
 Comment[zh_TW]=Kate Python 外掛程式
 
 [PropertyDef::X-Python-2-Compatible]

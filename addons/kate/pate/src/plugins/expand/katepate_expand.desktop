@@ -28,6 +28,7 @@ Name[sv]=Användardefinierad textexpansion
 Name[tr]=Kullanıcı tanımlı metin açılımları
 Name[uk]=Визначені користувачем засоби розгортання коду
 Name[x-test]=xxUser defined text expansionsxx
+Name[zh_CN]=用户定义的文本展开
 Name[zh_TW]=使用預定義的文字擴展
 Comment=Execute expansion function and insert output into a document
 Comment[bs]=Izvrši funkciju proširenja i ubaci izlaz u dokument
@@ -55,5 +56,6 @@ Comment[sv]=Utför expansionsfunktion och infoga utdata i ett dokument
 Comment[tr]=Genişleme fonksiyonu uygulayın ve çıktıyı bir belgeye ekleyin
 Comment[uk]=Виконати функцію розширення і вставити виведені нею дані до документа
 Comment[x-test]=xxExecute expansion function and insert output into a documentxx
+Comment[zh_CN]=执行展开函数并将输出插入到文档
 Comment[zh_TW]=執行擴展函式並將輸出插入到文件中
 X-Python-Dependencies=jinja2(>=2.7)

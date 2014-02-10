@@ -29,6 +29,7 @@ Name[sv]=Python-verktyg
 Name[tr]=Python Yardımcı Programları
 Name[uk]=Інструменти Python
 Name[x-test]=xxPython Utilitiesxx
+Name[zh_CN]=Python 工具
 Name[zh_TW]=Python 工具
 Comment=Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets
 Comment[bs]=Parse provjera, PEP8 provjera, Pyflakes provjera, Isječci
@@ -55,6 +56,7 @@ Comment[sv]=Tolkningskontroll, PEP8-kontroll, Pyflakes-kontroll, snuttar
 Comment[tr]=Ayıklama Denetleyici, PEP8 Denetleyici, Pyflakes Denetleyici, Kod Parçacıkları
 Comment[uk]=Перевірка обробки, перевірка PEP8, перевірка Pyflakes, фрагменти
 Comment[x-test]=xxParse Checker, PEP8 Checker, Pyflakes Checker, Snippetsxx
+Comment[zh_CN]=Parse 检查器，PEP8 检查器，Pyflakes 检查器
 Comment[zh_TW]=剖析檢查器，PEP8 檢查器，Pyflakes 檢查器，片段
 X-Python-2-Compatible=true
 X-Python-Dependencies=pep8(>=1.4.2),pyflakes(>=0.7.3)

@@ -28,6 +28,7 @@ Name[sv]=Python automatisk komplettering
 Name[tr]=Python Otomatik Tamamlama
 Name[uk]=Автодоповнення Python
 Name[x-test]=xxPython Autocompletionxx
+Name[zh_CN]=Python 自动补全
 Name[zh_TW]=Python 自動補完
 Comment=Based on the Jedi library
 Comment[bs]=Zasnovano na biblioteci jedi.
@@ -55,6 +56,7 @@ Comment[sv]=Baserat på Jedi-biblioteket
 Comment[tr]=Jedi kütüphanesine dayanmaktadır
 Comment[uk]=Засновано на бібліотеці Jedi
 Comment[x-test]=xxBased on the Jedi libraryxx
+Comment[zh_CN]=基于 Jedi 库
 Comment[zh_TW]=基於 Jedi 函式庫
 X-Python-2-Compatible=true
 X-Python-Dependencies=jedi(>=0.7.0)

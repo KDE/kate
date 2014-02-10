@@ -95,64 +95,105 @@ function isInsideBraces(line, column, ch)
  *   \li \c before -- text before the comment
  *   \li \c after -- text of the comment
  *
- * \todo Make it smart and check highlighting style where \c '//' string is found.
  * \todo Possible it would be quite reasonable to analyze a type of the comment:
  * Is it C++ or Doxygen? Is it single or w/ some text before?
  */
-function splitByComment(text)
+function splitByComment(line)
 {
-    var commentStartPos = text.indexOf("//");
     var before = "";
     var after = "";
-    var found = commentStartPos != -1;
-    if (found)
+    var text = document.line(line);
+    dbg("splitByComment: text='"+text+"'");
+
+    // NOTE JS have no indexOf() w/ initial position, so
+    // the simplest way is to find a comment char by char... ;-(
+    var found = false;
+    var seen_slash = false;
+    for (var i = 0; i < text.length; i++)
     {
-        before = text.substring(0, commentStartPos);
-        after = text.substring(commentStartPos + 2, text.length);
+        if (seen_slash)
+        {
+            if (text[i] == '/')
+            {
+                // Ok, it looks like a comment...
+                // Check attribute...
+                if (isComment(line, i + 1))
+                {
+                    // Got it!
+                    before = text.substring(0, i - 1);
+                    after = text.substring(i + 1, text.length);
+                    found = true;
+                    break;
+                }
+            }
+            seen_slash = false;
+            dbg("splitByComment: drop seen_slash");
+        }
+        else if (text[i] == '/')
+        {
+            seen_slash = true;
+            dbg("splitByComment: set seen_slash");
+        }
     }
-    else before = text;
     return {hasComment: found, before: before, after: after};
 }
 
 /**
  * \brief Remove possible comment from text
  */
-function stripComment(text)
+function stripComment(line)
 {
-    var result = splitByComment(text);
+    var result = splitByComment(line);
     if (result.hasComment)
         return result.before.rtrim();
-    return text.rtrim();
+    return result.before.rtrim();
 }
 
-/// Return \c true if attribute at given position is a \e Comment
+/**
+ * \return \c true if attribute at given position is a \e Comment
+ *
+ * \note C++ highlighter use \em RegionMarker for special comments,
+ * soit must be counted as well...
+ */
 function isComment(line, column)
 {
-    // Check if we are not withing a string or a comment
+    // Check if we are not withing a comment
     var c = new Cursor(line, column);
     var mode = document.attributeName(c);
     dbg("isComment: Check mode @ " + c + ": " + mode);
-    return gMode == "Doxygen" || document.isComment(c);
+    return gMode == "Doxygen" || document.isComment(c) || document.isRegionMarker(c);
 }
 
-/// Return \c true if attribute at given position is a \e String
+/**
+ * \return \c true if attribute at given position is a \e String
+ */
 function isString(line, column)
 {
-    // Check if we are not withing a string or a comment
+    // Check if we are not withing a string
     var c = new Cursor(line, column);
     var mode = document.attributeName(c);
     dbg("isString: Check mode @ " + c + ": " + mode);
     return document.isString(c) || document.isChar(c);
 }
 
-/// Return \c true if attribute at given position is a \e String or \e Comment
+/**
+ * \return \c true if attribute at given position is a \e String or \e Comment
+ *
+ * \note C++ highlighter use \e RegionMarker for special comments,
+ * soit must be counted as well...
+ */
 function isStringOrComment(line, column)
 {
     // Check if we are not withing a string or a comment
     var c = new Cursor(line, column);
     var mode = document.attributeName(c);
     dbg("isStringOrComment: Check mode @ " + c + ": " + mode);
-    return gMode == "Doxygen" || document.isString(c) || document.isChar(c) || document.isComment(c);
+    return gMode == "Doxygen"
+      || document.isString(c)
+      || document.isChar(c)
+      || document.isComment(c)
+      || document.isRegionMarker(c)
+      ;
 }
 
 /**
@@ -175,8 +216,7 @@ function addCharOrJumpOverIt(line, column, char)
 function alignInlineComment(line)
 {
     // Check is there any comment on the current line
-    var currentLineText = document.line(line);
-    var sc = splitByComment(currentLineText);
+    var sc = splitByComment(line);
     // Did we found smth and if so, make sure it is not a string or comment...
     if (sc.hasComment && !isStringOrComment(line, sc.before.length - 1))
     {
@@ -207,7 +247,7 @@ function alignInlineComment(line)
         {
             // Move inline comment before the current line
             var startPos = document.firstColumn(line);
-            currentLineText = String().fill(' ', startPos) + "//" + sc.after.rtrim() + "\n";
+            var currentLineText = String().fill(' ', startPos) + "//" + sc.after.rtrim() + "\n";
             document.removeText(line, rbefore.length, line, document.lineLength(line));
             document.insertText(line, 0, currentLineText);
             // Keep cursor at the place we've found it before
@@ -259,10 +299,11 @@ function tryToKeepInlineComment(line)
     if (document.line(line - 1).trim().length == 0)
         return;
 
-    // Check is there any comment on the current line
-    var currentLineText = document.line(line);
-    var sc = splitByComment(currentLineText);
-    if (sc.hasComment && !isStringOrComment(line, sc.before.length - 1) && sc.after.length > 0)
+    // Check is there any comment on the current (non empty) line
+    var sc = splitByComment(line);
+    dbg("sc.hasComment="+sc.hasComment);
+    dbg("sc.before.rtrim().length="+sc.before.rtrim().length);
+    if (sc.hasComment)
     {
         // Ok, here is few cases possible when ENTER pressed in different positions
         // |  |smth|was here; |        |// comment
@@ -283,7 +324,7 @@ function tryToKeepInlineComment(line)
               );
             // Remove it from current line starting from current position
             // 'till the line end
-            document.removeText(line, sc.before.rtrim().length, line, currentLineText.length);
+            document.removeText(line, sc.before.rtrim().length, line, document.lineLength(line));
         }
         else
         {
@@ -399,7 +440,7 @@ function tryToAlignAfterOpenBrace_ch(line)
         if (document.charAt(line - 1, pos - 1) != '<')
             result = document.firstColumn(line - 1) + gIndentWidth;
         else
-            result = document.firstColumn(line - 1) + 2;
+            result = document.firstColumn(line - 1) + (gIndentWidth / 2);
     }
 
     if (result != -1)
@@ -624,13 +665,12 @@ function tryIndentAfterSomeKeywords_ch(line)
         r = /^\s*\belse\b.*$/.exec(prevString)
         if (r != null)
         {
-            var prevPrevString = document.line(line - 2);
-            prevPrevString = stripComment(prevPrevString);
+            var prevPrevString = stripComment(line - 2);
             dbg("tryIndentAfterSomeKeywords_ch prevPrevString="+prevPrevString);
             if (prevPrevString.endsWith('}'))
                 result = document.firstColumn(line - 2);
             else if (prevPrevString.match(/^\s*[\])>]/))
-                result = document.firstColumn(line - 2) - gIndentWidth - (gIndentWidth/2);
+                result = document.firstColumn(line - 2) - gIndentWidth - (gIndentWidth / 2);
             else
                 result = document.firstColumn(line - 2) - gIndentWidth;
             // Realign 'else' statement if needed
@@ -862,6 +902,97 @@ function tryAfterBreakContinue_ch(line)
     return result;
 }
 
+/// \internal
+function getStringAligmentAfterSplit(line)
+{
+    var prevLineFirstChar = document.firstChar(line - 1);
+    var halfIndent = prevLineFirstChar == ','
+      || prevLineFirstChar == ':'
+      || prevLineFirstChar == '?'
+      || prevLineFirstChar == '<'
+      || prevLineFirstChar == '>'
+      || prevLineFirstChar == '&'
+      ;
+    return document.firstColumn(line - 1) + (
+        prevLineFirstChar != '"'
+      ? (halfIndent ? (gIndentWidth / 2) : gIndentWidth)
+      : 0
+      );
+}
+
+/**
+ * Handle the case when \c ENTER has pressed in the middle of a string.
+ * Find a string begin (a quote char) and analyze if it is a C++11 raw
+ * string literal. If it is not, add a "closing" quote to a previous line
+ * and to the current one. Align a 2nd part (the moved down one) of a string
+ * according a previous line. If latter is a pure string, then give the same
+ * indentation level, otherwise incrase it to one \c TAB.
+ *
+ * Here is few cases possible:
+ * - \c ENTER has pressed in a line <code>auto some = ""|</code>, so a new
+ *   line just have an empty string or some text which is doesn't matter now;
+ * - \c ENTER has pressed in a line <code>auto some = "possible some text here| and here"</code>,
+ *   then a new line will have <code> and here"</code> text
+ *
+ * In both cases attribute at (line-1, lastColumn-1) will be \c String
+ */
+function trySplitString_ch(line)
+{
+    var result = -1;
+    var column = document.lastColumn(line - 1);
+
+    // Check if last char on a prev line has string attribute
+    var lastColumnIsString = isString(line - 1, column);
+    var firstColumnIsString = isString(line, 0);
+    var firstChar = (document.charAt(line, 0) == '"');
+    if (!lastColumnIsString)                                // If it is not,
+    {
+        // TODO TBD
+        if (firstColumnIsString && firstChar == '"')
+            result = getStringAligmentAfterSplit(line);
+        return result;                                      // then nothing to do...
+    }
+
+    var lastChar = (document.charAt(line - 1, column) == '"');
+    var prevLastColumnIsString = isString(line - 1, column - 1);
+    var prevLastChar = (document.charAt(line - 1, column - 1) == '"');
+    dbg("trySplitString_ch: lastColumnIsString="+lastColumnIsString);
+    dbg("trySplitString_ch: lastChar="+lastChar);
+    dbg("trySplitString_ch: prevLastColumnIsString="+prevLastColumnIsString);
+    dbg("trySplitString_ch: prevLastChar="+prevLastChar);
+    dbg("trySplitString_ch: isString(line,0)="+firstColumnIsString);
+    dbg("trySplitString_ch: firstChar="+firstChar);
+    var startOfString = firstColumnIsString && firstChar;
+    var endOfString = !(firstColumnIsString || firstChar);
+    var should_proceed = !lastChar && prevLastColumnIsString && (endOfString || !prevLastChar && startOfString)
+      || lastChar && !prevLastColumnIsString && !prevLastChar && (endOfString || startOfString)
+      ;
+    dbg("trySplitString_ch: ------ should_proceed="+should_proceed);
+    if (should_proceed)
+    {
+        // Add closing quote to the previous line
+        document.insertText(line - 1, document.lineLength(line - 1), '"');
+        // and open quote to the current one
+        document.insertText(line, 0, '"');
+        // NOTE If AutoBrace plugin is used, it won't add a quote
+        // char, if cursor positioned right before another quote char
+        // (which was moved from a line above in this case)...
+        // So, lets force it!
+        if (startOfString && document.charAt(line, 1) != '"')
+        {
+            document.insertText(line, 1, '"');              // Add one more!
+            view.setCursorPosition(line, 1);                // Step back inside of string
+        }
+        result = getStringAligmentAfterSplit(line);
+    }
+    if (result != -1)
+    {
+        dbg("trySplitString_ch result="+result);
+        tryToKeepInlineComment(line);
+    }
+    return result;
+}
+
 /// Wrap \c tryToKeepInlineComment as \e caret-handler
 function tryToKeepInlineComment_ch(line)
 {
@@ -900,6 +1031,7 @@ function caretPressed(cursor)
       , tryPreprocessor_ch
       , tryAfterBlockComment_ch
       , tryAfterBreakContinue_ch
+      , trySplitString_ch                                   // Handle ENTER pressed in the middle of a string
       , tryToKeepInlineComment_ch                           // NOTE This must be a last checker!
     ];
 
@@ -940,7 +1072,6 @@ function caretPressed(cursor)
  *  std::string bug = "some text//
  * \endcode
  *
- * \todo Refactoring required to avoid regex here... better to use \c splitByComment()
  */
 function trySameLineComment(cursor)
 {
@@ -951,7 +1082,7 @@ function trySameLineComment(cursor)
     if (document.isString(line, column))
         return;
 
-    var sc = splitByComment(document.line(line));
+    var sc = splitByComment(line);
     if (sc.hasComment)                                      // Is there any comment on a line?
     {
         // Make sure we r not in a comment already
@@ -1847,7 +1978,8 @@ function tryStringLiteral(cursor, ch)
         // Ok, just check attribute of the char right before '"'
         new_string_just_started = !isString(line, column - 2);
 
-    //
+    // TODO Add a space after possible operator right before just
+    // started string literal...
     if (new_string_just_started)
     {
         // Is there anything after just entered '"'?

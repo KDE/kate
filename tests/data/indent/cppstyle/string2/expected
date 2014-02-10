@@ -1,0 +1,3 @@
+auto some = "some really long text "
+    "ok here we wanted "
+    "ok to split";

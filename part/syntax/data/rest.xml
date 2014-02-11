@@ -20,7 +20,6 @@
         <RegExpr attribute="Bold" context="#stay" String="&inlinestart;\*\*[^\s].*\*\*&inlineend;" minimal="true"/>
         <RegExpr attribute="Italic" context="#stay" String="&inlinestart;\*[^\s].*\*&inlineend;" minimal="true"/>
         <IncludeRules context="InlineMarkup"/>
-        <RegExpr attribute="Field" String=":(?=([^:]*\\:)*[^:]*:(\s|$))" context="Field" firstNonSpace="true"/>
         <RegExpr attribute="Footnote" context="#stay" String="\.\. \[(\d+|#|\*|#[&SimpleReferenceNameChars;]+)\]\s" minimal="true" firstNonSpace="true"/>
         <RegExpr attribute="Citation" context="#stay" String="\.\. \[[&SimpleReferenceNameChars;]+\]\s" minimal="true" firstNonSpace="true"/>
         <RegExpr attribute="HyperlinkTarget" context="#stay" String="(\.\. (__:|_[&SimpleReferenceNameChars; ]+:(\s|$))|__ )" minimal="true" firstNonSpace="true"/>
@@ -29,6 +28,7 @@
         <RegExpr attribute="Directive" context="#stay" String="\.\. [\w-_\.]+::(\s|$)" minimal="true" firstNonSpace="true"/>
         <RegExpr attribute="Code" String="::$" context="CodeBlock" />
         <RegExpr attribute="SubstitutionDefinition" context="#stay" String="\.\. \|[&SimpleReferenceNameChars; ]+\|\s+[&SimpleReferenceNameChars;]+::\s" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="Field" String=":(?=([^:]*\\:)*[^:]*:(\s|$))" context="Field" firstNonSpace="true"/>
       </context>
 
       <context name="InlineMarkup" attribute="Normal" lineEndContext="#stay">

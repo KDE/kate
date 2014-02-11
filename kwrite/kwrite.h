@@ -64,6 +64,9 @@ public:
 private:
     void setupActions();
 
+    void addMenuBarActionToContextMenu();
+    void removeMenuBarActionFromContextMenu();
+
     bool queryClose();
 
     void dragEnterEvent(QDragEnterEvent *);
@@ -76,6 +79,7 @@ public Q_SLOTS:
     void slotOpen(const QUrl &url);
     void newView();
     void toggleStatusBar();
+    void toggleMenuBar(bool showMessage = true);
     void editKeys();
     void editToolbars();
     void aboutEditor();
@@ -116,6 +120,7 @@ private:
 
     KRecentFilesAction *m_recentFiles;
     KToggleAction *m_paShowPath;
+    KToggleAction *m_paShowMenuBar;
     KToggleAction *m_paShowStatusBar;
 
 #ifdef KActivities_FOUND

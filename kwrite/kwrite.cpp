@@ -54,15 +54,17 @@
 #include <QApplication>
 #include <QLabel>
 #include <QDragEnterEvent>
+#include <QMenuBar>
 
 QList<KTextEditor::Document *> KWrite::docList;
 QList<KWrite *> KWrite::winList;
 
 KWrite::KWrite(KTextEditor::Document *doc)
-    : m_view(0),
-      m_recentFiles(0),
-      m_paShowPath(0),
-      m_paShowStatusBar(0)
+    : m_view(0)
+    , m_recentFiles(0)
+    , m_paShowPath(0)
+    , m_paShowMenuBar(0)
+    , m_paShowStatusBar(0)
 #ifdef KActivities_FOUND
       , m_activityResource(0)
 #endif
@@ -164,6 +166,8 @@ void KWrite::setupActions()
     // setup Settings menu
     setStandardToolBarMenuEnabled(true);
 
+    m_paShowMenuBar = KStandardAction::showMenubar(this, SLOT(toggleMenuBar()), actionCollection());
+
     m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), this);
     actionCollection()->addAction(m_paShowStatusBar->objectName(), m_paShowStatusBar);
     m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
@@ -183,7 +187,6 @@ void KWrite::setupActions()
     a = actionCollection()->addAction(QStringLiteral("help_about_editor"));
     a->setText(i18n("&About Editor Component"));
     connect(a, SIGNAL(triggered()), this, SLOT(aboutEditor()));
-
 }
 
 // load on url
@@ -271,6 +274,34 @@ void KWrite::newView()
     new KWrite(m_view->document());
 }
 
+void KWrite::toggleMenuBar(bool showMessage)
+{
+    if (m_paShowMenuBar->isChecked()) {
+        menuBar()->show();
+        removeMenuBarActionFromContextMenu();
+    } else {
+        if (showMessage) {
+            const QString accel = m_paShowMenuBar->shortcut().toString();
+            KMessageBox::information(this, i18n("This will hide the menu bar completely."
+                                                " You can show it again by typing %1.", accel),
+                                     i18n("Hide menu bar"),
+                                     QLatin1String("HideMenuBarWarning"));
+        }
+        menuBar()->hide();
+        addMenuBarActionToContextMenu();
+    }
+}
+
+void KWrite::addMenuBarActionToContextMenu()
+{
+    m_view->contextMenu()->addAction(m_paShowMenuBar);
+}
+
+void KWrite::removeMenuBarActionFromContextMenu()
+{
+    m_view->contextMenu()->removeAction(m_paShowMenuBar);
+}
+
 void KWrite::toggleStatusBar()
 {
     m_view->setStatusBarEnabled(m_paShowStatusBar->isChecked());
@@ -344,6 +375,7 @@ void KWrite::readConfig(KSharedConfigPtr config)
 {
     KConfigGroup cfg(config, "General Options");
 
+    m_paShowMenuBar->setChecked(cfg.readEntry("ShowMenuBar", true));
     m_paShowStatusBar->setChecked(cfg.readEntry("ShowStatusBar", true));
     m_paShowPath->setChecked(cfg.readEntry("ShowPath", false));
 
@@ -356,6 +388,8 @@ void KWrite::readConfig(KSharedConfigPtr config)
         KTextEditor::Editor::instance()->readConfig(config.data());
     }
 
+    // update visibility of menu bar and status bar
+    toggleMenuBar(false);
     m_view->setStatusBarEnabled(m_paShowStatusBar->isChecked());
 }
 
@@ -363,6 +397,7 @@ void KWrite::writeConfig(KSharedConfigPtr config)
 {
     KConfigGroup generalOptions(config, "General Options");
 
+    generalOptions.writeEntry("ShowMenuBar", m_paShowMenuBar->isChecked());
     generalOptions.writeEntry("ShowStatusBar", m_paShowStatusBar->isChecked());
     generalOptions.writeEntry("ShowPath", m_paShowPath->isChecked());
 

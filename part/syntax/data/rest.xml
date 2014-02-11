@@ -109,7 +109,7 @@
       <itemData name="HyperlinkTarget" defStyleNum="dsDataType" />
       <itemData name="Directive" defStyleNum="dsDataType" />
       <itemData name="SubstitutionDefinition" defStyleNum="dsDataType" />
-      <itemData name="Role" defStyleNum="dsNormal" bold="1" />
+      <itemData name="Role" defStyleNum="dsKeyword" />
       <itemData name="CMakeCode" defStyleNum="dsDataType" />
       <itemData name="CppCode" defStyleNum="dsDataType" />
       <itemData name="Code" defStyleNum="dsDataType" />

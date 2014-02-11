@@ -5,29 +5,34 @@
         <!ENTITY inlineend "([\s’”»‐‑‒–— &apos;&quot;\)\]}&gt;-/:\.,;!\?\\]|$)">
         <!ENTITY SimpleReferenceNameChars "\w-_\.:\+">
 ]>
-<!-- Copyright Matt Williams <matt@milliams.com> June 2010 -->
+<!--
+  This file is part of KDE's kate project.
+
+  Copyright 2010 Matt Williams (matt@milliams.com)
+  Copyright 2014 Matthew Woehlke (mw_triad@users.sourceforge.net)
+  -->
 <language name="reStructuredText" extensions="*.rst" section="Markup" mimetype="text/x-rst" version="1.03" kateversion="2.4" casesensitive="1">
-	
-	<highlighting>
-		
-		<contexts>
-			<context name="Normal" attribute="Normal" lineEndContext="#stay">
-				<RegExpr attribute="Bold" context="#stay" String="&inlinestart;\*\*[^\s].*\*\*&inlineend;" minimal="true"/>
-				<RegExpr attribute="Italic" context="#stay" String="&inlinestart;\*[^\s].*\*&inlineend;" minimal="true"/>
+
+  <highlighting>
+
+    <contexts>
+      <context name="Normal" attribute="Normal" lineEndContext="#stay">
+        <RegExpr attribute="Bold" context="#stay" String="&inlinestart;\*\*[^\s].*\*\*&inlineend;" minimal="true"/>
+        <RegExpr attribute="Italic" context="#stay" String="&inlinestart;\*[^\s].*\*&inlineend;" minimal="true"/>
         <IncludeRules context="InlineMarkup"/>
-				<RegExpr attribute="Normal" context="#stay" String="&inlinestart;\[[^\s].*\]&inlineend;" minimal="true"/> <!--This is to stop greedy matching of [foo]-->
+        <RegExpr attribute="Normal" context="#stay" String="&inlinestart;\[[^\s].*\]&inlineend;" minimal="true"/> <!--This is to stop greedy matching of [foo]-->
         <IncludeRules context="InlineReferences"/>
         <RegExpr attribute="Field" String=":(?=([^:]*\\:)*[^:]*:(\s|$))" context="Field" firstNonSpace="true"/>
         <RegExpr attribute="Role" String=":[^:]+:" context="Role" />
-				<RegExpr attribute="Footnote" context="#stay" String="^\s*\.\. \[(\d+|#|\*|#[&SimpleReferenceNameChars;]+)\]\s" minimal="true" firstNonSpace="true"/>
-				<RegExpr attribute="Citation" context="#stay" String="^\s*\.\. \[[&SimpleReferenceNameChars;]+\]\s" minimal="true" firstNonSpace="true"/>
-				<RegExpr attribute="HyperlinkTarget" context="#stay" String="^\s*(\.\. (__:|_[&SimpleReferenceNameChars; ]+:(\s|$))|__ )" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="Footnote" context="#stay" String="^\s*\.\. \[(\d+|#|\*|#[&SimpleReferenceNameChars;]+)\]\s" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="Citation" context="#stay" String="^\s*\.\. \[[&SimpleReferenceNameChars;]+\]\s" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="HyperlinkTarget" context="#stay" String="^\s*(\.\. (__:|_[&SimpleReferenceNameChars; ]+:(\s|$))|__ )" minimal="true" firstNonSpace="true"/>
         <RegExpr attribute="CMakeCode" String="\s*\.\. code-block::\s*cmake$" context="CMakeCodeBlock" />
         <RegExpr attribute="CppCode" String="\s*\.\. code-block::\s*c\+\+" context="CppCodeBlock" />
-				<RegExpr attribute="Directive" context="#stay" String="^\s*\.\. [\w-_\.]+::(\s|$)" minimal="true" firstNonSpace="true"/>
-				<RegExpr attribute="Code" String="::$" context="CodeBlock" />
-				<RegExpr attribute="SubstitutionDefinition" context="#stay" String="^\s*\.\. \|[&SimpleReferenceNameChars; ]+\|\s+[&SimpleReferenceNameChars;]+::\s" minimal="true" firstNonSpace="true"/>
-			</context>
+        <RegExpr attribute="Directive" context="#stay" String="^\s*\.\. [\w-_\.]+::(\s|$)" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="Code" String="::$" context="CodeBlock" />
+        <RegExpr attribute="SubstitutionDefinition" context="#stay" String="^\s*\.\. \|[&SimpleReferenceNameChars; ]+\|\s+[&SimpleReferenceNameChars;]+::\s" minimal="true" firstNonSpace="true"/>
+      </context>
 
       <context name="InlineMarkup" attribute="Normal" lineEndContext="#stay">
         <RegExpr attribute="InlineLiteral" context="#stay" String="&inlinestart;``[^\s].*``&inlineend;" minimal="true"/>
@@ -40,15 +45,15 @@
         <RegExpr attribute="HyperlinkReference" context="#stay" String="\w+_(\s|$)" minimal="true"/>
       </context>
 
-			<context name="Field" attribute="Field" lineEndContext="#stay">
-				<DetectChar attribute="Field" context="#pop" char=":"/>
-				<Detect2Chars attribute="Field" context="#stay" char="\" char1=":"/>
+      <context name="Field" attribute="Field" lineEndContext="#stay">
+        <DetectChar attribute="Field" context="#pop" char=":"/>
+        <Detect2Chars attribute="Field" context="#stay" char="\" char1=":"/>
         <RegExpr attribute="FieldBold" context="#stay" String="&inlinestart;\*\*[^\s].*\*\*&inlineend;" minimal="true"/>
         <RegExpr attribute="FieldItalic" context="#stay" String="&inlinestart;\*[^\s].*\*&inlineend;" minimal="true"/>
         <IncludeRules context="InlineMarkup"/>
         <RegExpr attribute="Field" context="#stay" String="&inlinestart;\[[^\s].*\]&inlineend;" minimal="true"/> <!--This is to stop greedy matching of [foo]-->
         <IncludeRules context="InlineReferences"/>
-			</context>
+      </context>
       <context name="HyperlinkRefOrInterpretedText" attribute="HyperlinkRefOrInterpretedText" lineEndContext="#pop">
         <DetectChar attribute="HyperlinkRefOrInterpretedText" char="`" context="#pop" />
       </context>
@@ -77,37 +82,37 @@
       <context name="Code" attribute="Code" lineEndContext="#stay">
         <RegExpr attribute="Normal" String="^\S" lookAhead="true" context="#pop#pop" />
       </context>
-		</contexts>
-		
-		<itemDatas>
-			<itemData name="Normal" defStyleNum="dsNormal" />
-			<itemData name="Bold" defStyleNum="dsNormal" bold="1" />
-			<itemData name="Italic" defStyleNum="dsNormal" italic="1" />
-			<itemData name="InlineLiteral" defStyleNum="dsDataType" />
-			<itemData name="SubstitutionReference" defStyleNum="dsFunction" />
-			<itemData name="InlineInternalTarget" defStyleNum="dsFunction" />
-			<itemData name="FootnoteReference" defStyleNum="dsOthers" />
-			<itemData name="HyperlinkRefOrInterpretedText" defStyleNum="dsOthers" />
-			<itemData name="HyperlinkReference" defStyleNum="dsOthers" />
-			<itemData name="Monospaced" defStyleNum="dsNormal" color="#006600" />
-			<itemData name="Field" defStyleNum="dsFunction" />
+    </contexts>
+
+    <itemDatas>
+      <itemData name="Normal" defStyleNum="dsNormal" />
+      <itemData name="Bold" defStyleNum="dsNormal" bold="1" />
+      <itemData name="Italic" defStyleNum="dsNormal" italic="1" />
+      <itemData name="InlineLiteral" defStyleNum="dsDataType" />
+      <itemData name="SubstitutionReference" defStyleNum="dsFunction" />
+      <itemData name="InlineInternalTarget" defStyleNum="dsFunction" />
+      <itemData name="FootnoteReference" defStyleNum="dsOthers" />
+      <itemData name="HyperlinkRefOrInterpretedText" defStyleNum="dsOthers" />
+      <itemData name="HyperlinkReference" defStyleNum="dsOthers" />
+      <itemData name="Monospaced" defStyleNum="dsNormal" color="#006600" />
+      <itemData name="Field" defStyleNum="dsFunction" />
       <itemData name="FieldBold" defStyleNum="dsFunction" bold="1" />
       <itemData name="FieldItalic" defStyleNum="dsFunction" italic="1" />
-			<itemData name="Footnote" defStyleNum="dsDataType" />
-			<itemData name="Citation" defStyleNum="dsDataType" />
-			<itemData name="HyperlinkTarget" defStyleNum="dsDataType" />
-			<itemData name="Directive" defStyleNum="dsDataType" />
-			<itemData name="SubstitutionDefinition" defStyleNum="dsDataType" />
+      <itemData name="Footnote" defStyleNum="dsDataType" />
+      <itemData name="Citation" defStyleNum="dsDataType" />
+      <itemData name="HyperlinkTarget" defStyleNum="dsDataType" />
+      <itemData name="Directive" defStyleNum="dsDataType" />
+      <itemData name="SubstitutionDefinition" defStyleNum="dsDataType" />
       <itemData name="Role" defStyleNum="dsNormal" bold="1" />
       <itemData name="CMakeCode" defStyleNum="dsDataType" />
       <itemData name="CppCode" defStyleNum="dsDataType" />
       <itemData name="Code" defStyleNum="dsDataType" />
-		</itemDatas>
-		
-	</highlighting>
-	
-	<general>
-		<folding indentationsensitive="true" />
-	</general>
-	
+    </itemDatas>
+
+  </highlighting>
+
+  <general>
+    <folding indentationsensitive="true" />
+  </general>
+
 </language>

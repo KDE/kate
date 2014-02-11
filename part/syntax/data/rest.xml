@@ -29,6 +29,7 @@
         <RegExpr attribute="Code" String="::$" context="CodeBlock" />
         <RegExpr attribute="SubstitutionDefinition" context="#stay" String="\.\. \|[&SimpleReferenceNameChars; ]+\|\s+[&SimpleReferenceNameChars;]+::\s" minimal="true" firstNonSpace="true"/>
         <RegExpr attribute="Field" String=":(?=([^:]*\\:)*[^:]*:(\s|$))" context="Field" firstNonSpace="true"/>
+        <RegExpr attribute="Comment" context="Comment" String="\.\.\s" firstNonSpace="true"/>
       </context>
 
       <context name="InlineMarkup" attribute="Normal" lineEndContext="#stay">
@@ -57,6 +58,9 @@
       </context>
       <context name="TrailingRole" attribute="Role" lineEndContext="#pop">
         <RegExpr attribute="Role" String=":[\w-_\.\+]+:" context="#pop"/>
+      </context>
+      <context name="Comment" attribute="Comment" lineEndContext="#pop">
+        <IncludeRules context="##Alerts"/>
       </context>
 
       <context name="CMakeCodeBlock" attribute="CMakeCode" lineEndContext="#stay">
@@ -116,12 +120,16 @@
       <itemData name="CMakeCode" defStyleNum="dsDataType" />
       <itemData name="CppCode" defStyleNum="dsDataType" />
       <itemData name="Code" defStyleNum="dsDataType" />
+      <itemData name="Comment" defStyleNum="dsComment" />
     </itemDatas>
 
   </highlighting>
 
   <general>
     <folding indentationsensitive="true" />
+    <comments>
+      <comment name="singleLine" start=".."/>
+    </comments>
   </general>
 
 </language>

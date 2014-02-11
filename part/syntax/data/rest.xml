@@ -61,26 +61,38 @@
         <RegExpr attribute="Keyword" String="\w+" context="#stay" />
         <DetectChar attribute="HyperlinkRefOrInterpretedText" char="`" context="#pop!HyperlinkRefOrInterpretedText" />
       </context>
+
       <context name="CMakeCodeBlock" attribute="CMakeCode" lineEndContext="#stay">
-        <RegExpr attribute="CMakeCode" String="^\s" context="CMakeCode" />
+        <RegExpr attribute="CMakeCode" String="^(\s+)(?=\S)" context="CMakeCodeRegion" />
       </context>
       <context name="CppCodeBlock" attribute="CppCode" lineEndContext="#stay">
-        <RegExpr attribute="CppCode" String="^\s" context="CppCode" />
+        <RegExpr attribute="CppCode" String="^(\s+)(?=\S)" context="CppCodeRegion" />
       </context>
       <context name="CodeBlock" attribute="Code" lineEndContext="#stay">
-        <RegExpr attribute="Code" String="^\s" context="Code" />
+        <RegExpr attribute="Code" String="^(\s+)(?=\S)" context="Code" />
       </context>
 
-      <context name="CMakeCode" attribute="CMakeCode" lineEndContext="#stay">
-        <RegExpr attribute="Normal" String="^\S" lookAhead="true" context="#pop#pop" />
+      <context name="CMakeCodeRegion" attribute="CMakeCode" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="CMakeCode" String="^%1" lookAhead="true" context="CMakeCode" dynamic="true"/>
+        <RegExpr attribute="Normal" String="^(.|$)" lookAhead="true" context="#pop#pop"/>
+        <IncludeRules context="CMakeCode"/>
+      </context>
+      <context name="CMakeCode" attribute="CMakeCode" lineEndContext="#pop">
         <IncludeRules context="##CMake" includeAttrib="true"/>
       </context>
-      <context name="CppCode" attribute="CppCode" lineEndContext="#stay">
-        <RegExpr attribute="Normal" String="^\S" lookAhead="true" context="#pop#pop" />
+
+      <context name="CppCodeRegion" attribute="CppCode" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="CppCode" String="^%1" lookAhead="true" context="CppCode" dynamic="true"/>
+        <RegExpr attribute="Normal" String="^(.|$)" lookAhead="true" context="#pop#pop"/>
+        <IncludeRules context="CppCode"/>
+      </context>
+      <context name="CppCode" attribute="CppCode" lineEndContext="#pop">
         <IncludeRules context="##C++" includeAttrib="true"/>
       </context>
-      <context name="Code" attribute="Code" lineEndContext="#stay">
-        <RegExpr attribute="Normal" String="^\S" lookAhead="true" context="#pop#pop" />
+
+      <context name="Code" attribute="Code" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="Code" String="^%1" context="#stay" dynamic="true"/>
+        <RegExpr attribute="Normal" String="^(.|$)" lookAhead="true" context="#pop#pop"/>
       </context>
     </contexts>
 

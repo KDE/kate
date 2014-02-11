@@ -24,14 +24,14 @@
         <IncludeRules context="InlineReferences"/>
         <RegExpr attribute="Field" String=":(?=([^:]*\\:)*[^:]*:(\s|$))" context="Field" firstNonSpace="true"/>
         <RegExpr attribute="Role" String=":[^:]+:" context="Role" />
-        <RegExpr attribute="Footnote" context="#stay" String="^\s*\.\. \[(\d+|#|\*|#[&SimpleReferenceNameChars;]+)\]\s" minimal="true" firstNonSpace="true"/>
-        <RegExpr attribute="Citation" context="#stay" String="^\s*\.\. \[[&SimpleReferenceNameChars;]+\]\s" minimal="true" firstNonSpace="true"/>
-        <RegExpr attribute="HyperlinkTarget" context="#stay" String="^\s*(\.\. (__:|_[&SimpleReferenceNameChars; ]+:(\s|$))|__ )" minimal="true" firstNonSpace="true"/>
-        <RegExpr attribute="CMakeCode" String="\s*\.\. code-block::\s*cmake$" context="CMakeCodeBlock" />
-        <RegExpr attribute="CppCode" String="\s*\.\. code-block::\s*c\+\+" context="CppCodeBlock" />
-        <RegExpr attribute="Directive" context="#stay" String="^\s*\.\. [\w-_\.]+::(\s|$)" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="Footnote" context="#stay" String="\.\. \[(\d+|#|\*|#[&SimpleReferenceNameChars;]+)\]\s" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="Citation" context="#stay" String="\.\. \[[&SimpleReferenceNameChars;]+\]\s" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="HyperlinkTarget" context="#stay" String="(\.\. (__:|_[&SimpleReferenceNameChars; ]+:(\s|$))|__ )" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="CMakeCode" String="\.\. code-block::\s*cmake$" context="CMakeCodeBlock" firstNonSpace="true"/>
+        <RegExpr attribute="CppCode" String="\.\. code-block::\s*c\+\+" context="CppCodeBlock" firstNonSpace="true"/>
+        <RegExpr attribute="Directive" context="#stay" String="\.\. [\w-_\.]+::(\s|$)" minimal="true" firstNonSpace="true"/>
         <RegExpr attribute="Code" String="::$" context="CodeBlock" />
-        <RegExpr attribute="SubstitutionDefinition" context="#stay" String="^\s*\.\. \|[&SimpleReferenceNameChars; ]+\|\s+[&SimpleReferenceNameChars;]+::\s" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="SubstitutionDefinition" context="#stay" String="\.\. \|[&SimpleReferenceNameChars; ]+\|\s+[&SimpleReferenceNameChars;]+::\s" minimal="true" firstNonSpace="true"/>
       </context>
 
       <context name="InlineMarkup" attribute="Normal" lineEndContext="#stay">

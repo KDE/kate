@@ -50,6 +50,7 @@
 #include <ksqueezedtextlabel.h>
 #include <kstringhandler.h>
 #include <kxmlguifactory.h>
+#include <kmenubar.h>
 
 #ifdef KActivities_FOUND
 #include <KActivities/ResourceInstance>
@@ -65,7 +66,8 @@ KWrite::KWrite (KTextEditor::Document *doc)
     : m_view(0),
       m_recentFiles(0),
       m_paShowPath(0),
-      m_paShowStatusBar(0)
+      m_paShowStatusBar(0),
+      m_paShowMenuBar(0)
 #ifdef KActivities_FOUND
       , m_activityResource(0)
 #endif
@@ -169,6 +171,8 @@ void KWrite::setupActions()
 
   // setup Settings menu
   setStandardToolBarMenuEnabled(true);
+
+  m_paShowMenuBar = KStandardAction::showMenubar(this, SLOT(toggleMenuBar()), actionCollection());
 
   m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), this);
   actionCollection()->addAction( "settings_show_statusbar", m_paShowStatusBar);
@@ -313,6 +317,33 @@ void KWrite::newView()
   new KWrite(m_view->document());
 }
 
+void KWrite::toggleMenuBar(bool silentMode)
+{
+  if (m_paShowMenuBar->isChecked()) {
+    menuBar()->show();
+    removeMenuBarActionFromContextMenu();
+  } else {
+    if (!silentMode) {
+      const QString accel = m_paShowMenuBar->shortcut().toString();
+      KMessageBox::information(this, i18n("This will hide the menu bar completely."
+                                          " You can show it again by typing %1.", accel),
+                               i18n("Hide menu bar"), QLatin1String("HideMenuBarWarning"));
+    }
+    menuBar()->hide();
+    addMenuBarActionToContextMenu();
+  }
+}
+
+void KWrite::addMenuBarActionToContextMenu()
+{
+  m_view->contextMenu()->addAction(m_paShowMenuBar);
+}
+
+void KWrite::removeMenuBarActionFromContextMenu()
+{
+  m_view->contextMenu()->removeAction(m_paShowMenuBar);
+}
+
 void KWrite::toggleStatusBar()
 {
   if( m_paShowStatusBar->isChecked() )
@@ -389,6 +420,7 @@ void KWrite::readConfig(KSharedConfigPtr config)
 {
   KConfigGroup cfg( config, "General Options");
 
+  m_paShowMenuBar->setChecked(cfg.readEntry("ShowMenuBar", true));
   m_paShowStatusBar->setChecked( cfg.readEntry("ShowStatusBar", true) );
   m_paShowPath->setChecked( cfg.readEntry("ShowPath", false) );
 
@@ -401,16 +433,18 @@ void KWrite::readConfig(KSharedConfigPtr config)
     m_view->document()->editor()->readConfig(config.data());
   }
 
-  if( m_paShowStatusBar->isChecked() )
-    statusBar()->show();
-  else
-    statusBar()->hide();
+  // update visibility of menu bar
+  toggleMenuBar(true);
+
+  // update visibility of status bar
+  toggleStatusBar();
 }
 
 void KWrite::writeConfig(KSharedConfigPtr config)
 {
   KConfigGroup generalOptions( config, "General Options");
 
+  generalOptions.writeEntry("ShowMenuBar",m_paShowMenuBar->isChecked());
   generalOptions.writeEntry("ShowStatusBar",m_paShowStatusBar->isChecked());
   generalOptions.writeEntry("ShowPath",m_paShowPath->isChecked());
 

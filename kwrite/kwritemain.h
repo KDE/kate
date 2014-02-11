@@ -62,6 +62,9 @@ class KWrite : public KParts::MainWindow
     void setupActions();
     void setupStatusBar();
 
+    void addMenuBarActionToContextMenu();
+    void removeMenuBarActionFromContextMenu();
+
     bool queryClose();
 
     void dragEnterEvent( QDragEnterEvent * );
@@ -74,6 +77,7 @@ class KWrite : public KParts::MainWindow
     void slotOpen( const KUrl& url);
     void newView();
     void toggleStatusBar();
+    void toggleMenuBar(bool silentMode = false);
     void editKeys();
     void editToolbars();
     void aboutEditor();
@@ -115,6 +119,7 @@ class KWrite : public KParts::MainWindow
     KRecentFilesAction * m_recentFiles;
     KToggleAction * m_paShowPath;
     KToggleAction * m_paShowStatusBar;
+    KToggleAction *m_paShowMenuBar;
 
 #ifdef KActivities_FOUND
     KActivities::ResourceInstance * m_activityResource;

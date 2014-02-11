@@ -20,8 +20,6 @@
         <RegExpr attribute="Bold" context="#stay" String="&inlinestart;\*\*[^\s].*\*\*&inlineend;" minimal="true"/>
         <RegExpr attribute="Italic" context="#stay" String="&inlinestart;\*[^\s].*\*&inlineend;" minimal="true"/>
         <IncludeRules context="InlineMarkup"/>
-        <RegExpr attribute="Normal" context="#stay" String="&inlinestart;\[[^\s].*\]&inlineend;" minimal="true"/> <!--This is to stop greedy matching of [foo]-->
-        <IncludeRules context="InlineReferences"/>
         <RegExpr attribute="Field" String=":(?=([^:]*\\:)*[^:]*:(\s|$))" context="Field" firstNonSpace="true"/>
         <RegExpr attribute="Role" String=":[^:]+:" context="Role" />
         <RegExpr attribute="Footnote" context="#stay" String="\.\. \[(\d+|#|\*|#[&SimpleReferenceNameChars;]+)\]\s" minimal="true" firstNonSpace="true"/>
@@ -38,9 +36,7 @@
         <RegExpr attribute="InlineLiteral" context="#stay" String="&inlinestart;``[^\s].*``&inlineend;" minimal="true"/>
         <RegExpr attribute="SubstitutionReference" context="#stay" String="&inlinestart;\|[^\s].*\|&inlineend;" minimal="true"/>
         <RegExpr attribute="InlineInternalTarget" context="#stay" String="&inlinestart;_`[^\s].*`&inlineend;" minimal="true"/>
-      </context>
-      <context name="InlineReferences" attribute="Normal" lineEndContext="#stay">
-        <RegExpr attribute="FootnoteReference" context="#stay" String="&inlinestart;\[[^\s].*\]_&inlineend;" minimal="true"/>
+        <RegExpr attribute="FootnoteReference" context="#stay" String="&inlinestart;\[[&SimpleReferenceNameChars;]+\]_&inlineend;" minimal="true"/>
         <RegExpr attribute="HyperlinkRefOrInterpretedText" context="#stay" String="&inlinestart;`[^\s].*(`|`_)&inlineend;" minimal="true"/>
         <RegExpr attribute="HyperlinkReference" context="#stay" String="\w+_(\s|$)" minimal="true"/>
       </context>
@@ -51,8 +47,6 @@
         <RegExpr attribute="FieldBold" context="#stay" String="&inlinestart;\*\*[^\s].*\*\*&inlineend;" minimal="true"/>
         <RegExpr attribute="FieldItalic" context="#stay" String="&inlinestart;\*[^\s].*\*&inlineend;" minimal="true"/>
         <IncludeRules context="InlineMarkup"/>
-        <RegExpr attribute="Field" context="#stay" String="&inlinestart;\[[^\s].*\]&inlineend;" minimal="true"/> <!--This is to stop greedy matching of [foo]-->
-        <IncludeRules context="InlineReferences"/>
       </context>
       <context name="HyperlinkRefOrInterpretedText" attribute="HyperlinkRefOrInterpretedText" lineEndContext="#pop">
         <DetectChar attribute="HyperlinkRefOrInterpretedText" char="`" context="#pop" />

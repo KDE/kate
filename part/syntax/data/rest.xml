@@ -121,7 +121,6 @@
       <itemData name="FootnoteReference" defStyleNum="dsOthers" />
       <itemData name="InterpretedText" defStyleNum="dsDecVal" />
       <itemData name="HyperlinkReference" defStyleNum="dsOthers" />
-      <itemData name="Monospaced" defStyleNum="dsNormal" color="#006600" />
       <itemData name="Field" defStyleNum="dsFunction" />
       <itemData name="FieldBold" defStyleNum="dsFunction" bold="1" />
       <itemData name="FieldItalic" defStyleNum="dsFunction" italic="1" />

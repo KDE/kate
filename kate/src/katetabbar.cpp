@@ -30,6 +30,8 @@
 #include <QToolButton>
 #include <QDebug>
 
+#include "math.h"
+
 /**
  * Creates a new tab bar with the given \a parent and \a name.
  *  .

@@ -90,6 +90,9 @@ class DummyDocument : public KTextEditor::Document
     virtual void printPreview() {}
     virtual QStringList embeddedHighlightingModes() const { return QStringList(); }
     virtual QString highlightingModeAt(const KTextEditor::Cursor &) { return QString(); }
+    virtual bool lineModified(int) const { return false; }
+    virtual bool lineSaved(int) const { return false; }
+    virtual bool lineTouched(int) const { return false; }
 
     // KParts::ReadWritePart
     virtual bool saveFile() { return false; }

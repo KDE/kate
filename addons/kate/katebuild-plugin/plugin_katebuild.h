@@ -104,9 +104,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void slotBuildDirChanged(const QString& dir);
         void slotTargetSetNameChanged(const QString& name);
 
-        void slotShowErrors(bool);
-        void slotShowWarnings(bool);
-        void slotShowOthers(bool);
+        void slotDisplayMode(int mode);
 
         void handleEsc(QEvent *e);
 
@@ -147,6 +145,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         TargetsUi        *m_targetsUi;
         KProcess         *m_proc;
         QString           m_output_lines;
+        int               m_displayModeBeforeBuild;
         KUrl              m_make_dir;
         QStack<KUrl>      m_make_dir_stack;
         QRegExp           m_filenameDetector;

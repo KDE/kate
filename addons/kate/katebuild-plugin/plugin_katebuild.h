@@ -145,6 +145,8 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         TargetsUi        *m_targetsUi;
         KProcess         *m_proc;
         QString           m_output_lines;
+        QString           m_currentlyBuildingTarget;
+        bool              m_buildCancelled;
         int               m_displayModeBeforeBuild;
         KUrl              m_make_dir;
         QStack<KUrl>      m_make_dir_stack;

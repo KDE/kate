@@ -27,7 +27,7 @@
   Boston, MA  02110-1301, USA.
 -->
 
-<language name="Puppet" section="Scripts" version="2.0" kateversion="2.4" extensions="*.pp" priority="10" mimetype="application/x-puppet" style="puppet" indenter="cstyle" author="Michal Humpula (michal.humpula@seznam.cz)" license="LGPL" >
+<language name="Puppet" section="Scripts" version="2.1" kateversion="2.4" extensions="*.pp" priority="10" mimetype="application/x-puppet" style="puppet" indenter="cstyle" author="Michal Humpula (michal.humpula@seznam.cz)" license="LGPL" >
   <highlighting>
     <list name="keywords">
       <item>import</item>
@@ -248,8 +248,10 @@
 
       <!-- BEGIN Function -->
       <context name="statement" attribute="Normal Text" lineEndContext="#pop">
-        <!-- TODO: can end with "," in which case the params continue on the next line -->
+        <DetectSpaces/>
+        <LineContinue attribute="Normal Text" char="," context="#stay"/>
         <IncludeRules context="parameter values"/>
+        <DetectChar attribute="String" char="," context="#stay"/>
       </context>
 
       <context name="function" attribute="Normal Text" lineEndContext="#stay">
@@ -561,7 +563,7 @@
 
       <context name="collector in" attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="collector content"/>
-        <DetectChar char="|" char1="&gt;" lookAhead="true" context="#pop"/>
+        <Detect2Chars char="|" char1="&gt;" lookAhead="true" context="#pop"/>
       </context>
       <!-- END Collector -->
 

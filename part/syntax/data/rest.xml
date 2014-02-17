@@ -81,7 +81,7 @@
       <context name="CMakeCodeRegion" attribute="CMakeCode" lineEndContext="#stay" dynamic="true">
         <RegExpr attribute="CMakeCode" String="^%1" lookAhead="true" context="CMakeCode" dynamic="true"/>
         <RegExpr attribute="Normal" String="^(.|$)" lookAhead="true" context="#pop#pop"/>
-        <IncludeRules context="CMakeCode"/>
+        <IncludeRules context="CMakeCode" includeAttrib="true"/>
       </context>
       <context name="CMakeCode" attribute="CMakeCode" lineEndContext="#pop">
         <IncludeRules context="##CMake" includeAttrib="true"/>
@@ -90,7 +90,7 @@
       <context name="CppCodeRegion" attribute="CppCode" lineEndContext="#stay" dynamic="true">
         <RegExpr attribute="CppCode" String="^%1" lookAhead="true" context="CppCode" dynamic="true"/>
         <RegExpr attribute="Normal" String="^(.|$)" lookAhead="true" context="#pop#pop"/>
-        <IncludeRules context="CppCode"/>
+        <IncludeRules context="CppCode" includeAttrib="true"/>
       </context>
       <context name="CppCode" attribute="CppCode" lineEndContext="#pop">
         <IncludeRules context="##C++" includeAttrib="true"/>
@@ -99,7 +99,7 @@
       <context name="PythonCodeRegion" attribute="PythonCode" lineEndContext="#stay" dynamic="true">
         <RegExpr attribute="PythonCode" String="^%1" lookAhead="true" context="PythonCode" dynamic="true"/>
         <RegExpr attribute="Normal" String="^(.|$)" lookAhead="true" context="#pop#pop"/>
-        <IncludeRules context="PythonCode"/>
+        <IncludeRules context="PythonCode" includeAttrib="true"/>
       </context>
       <context name="PythonCode" attribute="PythonCode" lineEndContext="#pop">
         <IncludeRules context="##Python" includeAttrib="true"/>

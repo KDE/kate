@@ -283,7 +283,7 @@
         <LineContinue attribute="String" context="#stay" />
         <HlCStringChar attribute="String Char" context="#stay" />
         <IncludeRules context="Universal Char" />
-        <RegExpr attribute="String Char" context="#stay" String="%[^&quot;&convspec;]*[&convspec;]" />
+        <RegExpr attribute="String Char" context="#stay" String="%[^&quot;&convspec;\s]*[&convspec;]" />
         <DetectChar attribute="String" context="UDLStringSuffix" char="&quot;" />
       </context>
 
@@ -303,7 +303,7 @@
 
       <context name="RawString" attribute="String" lineEndContext="#stay" dynamic="true">
         <LineContinue attribute="String" context="#stay" />
-        <RegExpr attribute="String Char" context="#stay" String="%[^&quot;&convspec;]*[&convspec;]" />
+        <RegExpr attribute="String Char" context="#stay" String="%[^&quot;&convspec;\s]*[&convspec;]" />
         <RegExpr attribute="String" context="#pop" String="\)%2&quot;" dynamic="true"/>
       </context>
 

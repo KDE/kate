@@ -244,11 +244,14 @@ class KateHlCHex : public KateHlItem
 class KateHlLineContinue : public KateHlItem
 {
   public:
-    KateHlLineContinue(int attribute, KateHlContextModification context, signed char regionId,signed char regionId2);
+    KateHlLineContinue(int attribute, KateHlContextModification context, signed char regionId,signed char regionId2, QChar);
 
     virtual bool endEnable(QChar c) {return c == '\0';}
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool lineContinue(){return true;}
+
+  private:
+    QChar m_trailer;
 };
 
 class KateHlCStringChar : public KateHlItem

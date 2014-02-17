@@ -827,11 +827,10 @@ will not find strings spanning over a line break.</para>
 <varlistentry>
 <term>LineContinue</term>
 <listitem>
-<para>Matches a backslash (<userinput>'\'</userinput>) at the end of a line.</para>
-<programlisting>&lt;LineContinue (common attributes) /&gt;</programlisting>
-<para>This rule has no specific attributes.</para>
-<para>This rule is useful for switching context at end of line, if the last
-character is a backslash (<userinput>'\'</userinput>). This is needed for
+<para>Matches a specified char at the end of a line.</para>
+<programlisting>&lt;LineContinue (common attributes) [char="\"] /&gt;</programlisting>
+<para><userinput>char</userinput> optional character to match, default is backslash (<userinput>'\'</userinput>). New since KDE 4.13.</para>
+<para>This rule is useful for switching context at end of line. This is needed for
 example in C/C++ to continue macros or strings.</para>
 </listitem>
 </varlistentry>

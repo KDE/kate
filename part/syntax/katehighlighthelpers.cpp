@@ -696,13 +696,15 @@ KateHlItem *KateHlRegExpr::clone(const QStringList *args)
 // //END
 
 //BEGIN KateHlLineContinue
-KateHlLineContinue::KateHlLineContinue(int attribute, KateHlContextModification context, signed char regionId,signed char regionId2)
-  : KateHlItem(attribute,context,regionId,regionId2) {
+KateHlLineContinue::KateHlLineContinue(int attribute, KateHlContextModification context, signed char regionId, signed char regionId2, QChar c)
+  : KateHlItem(attribute, context, regionId, regionId2)
+  , m_trailer(c.isNull() ? QLatin1Char('\\') : c)
+{
 }
 
 int KateHlLineContinue::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len == 1) && (text[offset] == '\\'))
+  if ((len == 1) && (text[offset] == m_trailer))
     return ++offset;
 
   return 0;

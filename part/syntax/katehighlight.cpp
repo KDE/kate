@@ -1018,7 +1018,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   else if (dataname=="DetectChar") tmpItem=(new KateHlCharDetect(attr,context,regionId,regionId2,chr));
   else if (dataname=="Detect2Chars") tmpItem=(new KateHl2CharDetect(attr,context,regionId,regionId2,chr,chr1));
   else if (dataname=="RangeDetect") tmpItem=(new KateHlRangeDetect(attr,context,regionId,regionId2, chr, chr1));
-  else if (dataname=="LineContinue") tmpItem=(new KateHlLineContinue(attr,context,regionId,regionId2));
+  else if (dataname=="LineContinue") tmpItem=(new KateHlLineContinue(attr, context, regionId, regionId2, chr));
   else if (dataname=="StringDetect") tmpItem=(new KateHlStringDetect(attr,context,regionId,regionId2,stringdata,insensitive));
   else if (dataname=="WordDetect") tmpItem=(new KateHlWordDetect(attr,context,regionId,regionId2,stringdata,insensitive));
   else if (dataname=="AnyChar") tmpItem=(new KateHlAnyChar(attr,context,regionId,regionId2,stringdata));

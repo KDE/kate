@@ -432,10 +432,12 @@ TODO
 
 <!-- Detect a line continuation
   commonAttributes: Common attributes
+  char:             The char marking the end of line [char,  optional,  default='\\']
 -->
 <!ELEMENT LineContinue EMPTY>
 <!ATTLIST LineContinue
   %commonAttributes;
+  char          CDATA  #IMPLIED
 >
 
 <!-- Detect a C-style escaped character

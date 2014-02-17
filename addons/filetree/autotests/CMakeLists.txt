@@ -1,12 +1,6 @@
 
 include(ECMMarkAsTest)
 
-include_directories(
-  ${CMAKE_SOURCE_DIR}/kate/app
-  ${CMAKE_SOURCE_DIR}/kate/session
-  ${CMAKE_SOURCE_DIR}/addons/kate/filetree
-)
-
 macro(filetree_executable_tests)
   foreach(_testname ${ARGN})
     add_executable(${_testname} ${_testname}.cpp document_dummy.cpp)

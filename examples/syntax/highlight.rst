@@ -36,6 +36,8 @@ Nor is :role:`text`. But `text`:role: should also be a role.
 This text [here] should not be special, but [this]_ is a footnote.
 This [isn't]_ a footnote; no special characters allowed!
 
+Full Stop_. That should make 'stop' a single-word link.
+
 * Let's try some indented stuff...
   ::
     I should be code!
@@ -44,9 +46,9 @@ This [isn't]_ a footnote; no special characters allowed!
 
   .. note:: This should be a directive, not be a comment.
 
-  The definition of this `example`_ link (below) should also not be a comment:
+  The definition of `this example`_ link (below) should also not be a comment:
 
-  .. _example: http://www.example.com
+  .. _this example: http://www.example.com
 
 * Still a list.
 

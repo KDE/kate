@@ -682,7 +682,7 @@ to match. The <userinput>insensitive</userinput> attribute defaults to
 <emphasis>false</emphasis> and is passed to the string comparison
 function. If the value is <emphasis>true</emphasis> insensitive
 comparing is used.</para>
-<para>Since: Kate 3.5 (KDE 4.5)</para>
+<para>Since: &kate; 3.5 (&kde; 4.5)</para>
 </listitem>
 </varlistentry>
 
@@ -829,7 +829,7 @@ will not find strings spanning over a line break.</para>
 <listitem>
 <para>Matches a specified char at the end of a line.</para>
 <programlisting>&lt;LineContinue (common attributes) [char="\"] /&gt;</programlisting>
-<para><userinput>char</userinput> optional character to match, default is backslash (<userinput>'\'</userinput>). New since KDE 4.13.</para>
+<para><userinput>char</userinput> optional character to match, default is backslash (<userinput>'\'</userinput>). New since &kde; 4.13.</para>
 <para>This rule is useful for switching context at end of line. This is needed for
 example in C/C++ to continue macros or strings.</para>
 </listitem>

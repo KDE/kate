@@ -59,7 +59,7 @@ Comment[sv]=Interaktiv terminal för att programmera &kate; och vetenskapligt ar
 Comment[tr]=Kate'te geliştirme ve bilim yapmak için interaktif konsol
 Comment[uk]=Інтерактивна консоль для роботи з kate та вивчення роботи системи
 Comment[x-test]=xxInteractive console for hacking kate and doing sciencexx
-Comment[zh_CN]=深入研究和实验 kate 功能的交互式终端
+Comment[zh_CN]=折腾(Hack) Kate 做实验用的交互式终端
 Comment[zh_TW]=互動式主控台，深究 Kate 用
 X-Python-2-Compatible=true
 X-Python-Dependencies=IPython(>=0.13.1)

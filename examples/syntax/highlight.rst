@@ -14,6 +14,10 @@ Test Content
 .. code-block:: c++
   int foo = 5; // 'foo' should not have the attribute of the above line
 
+Here is a |TLA|. Does it highlight if it is only |TLA|-like? It should...
+
+.. |TLA| replace:: Three Letter Acronym
+
 :This: ...is a field.
 :An *exciting* field: Isn't it, though?
 :A ``literal`` like this: ...is often used in e.g. CMake documentation.

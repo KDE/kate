@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd"
 [
-        <!ENTITY inlinestart "(^|[\s&apos;&quot;\(\[-{&lt;/:‘“’«¡¿‐‑‒–— ])">
-        <!ENTITY inlineend "(?=[\s’”»‐‑‒–— &apos;&quot;\)\]}&gt;-/:\.,;!\?\\]|$)">
-        <!ENTITY SimpleReferenceNameChars "\w-_\.:\+">
+        <!ENTITY inlinestart "(^|[-\s&apos;&quot;\(\[{&lt;/:‘“’«¡¿‐‑‒–— ])">
+        <!ENTITY inlineend "(?=[-\s’”»‐‑‒–— &apos;&quot;\)\]}&gt;/:\.,;!\?\\]|$)">
+        <!ENTITY SimpleReferenceNameChars "\w_\.:\+-">
 ]>
 <!--
   This file is part of KDE's kate project.

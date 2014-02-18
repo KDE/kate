@@ -27,7 +27,7 @@
   Boston, MA  02110-1301, USA.
 -->
 
-<language name="Puppet" section="Scripts" version="2.1" kateversion="2.4" extensions="*.pp" priority="10" mimetype="application/x-puppet" style="puppet" indenter="cstyle" author="Michal Humpula (michal.humpula@seznam.cz)" license="LGPL" >
+<language name="Puppet" section="Scripts" version="2.2" kateversion="3.13" extensions="*.pp" priority="10" mimetype="application/x-puppet" style="puppet" indenter="cstyle" author="Michal Humpula (michal.humpula@seznam.cz)" license="LGPL" >
   <highlighting>
     <list name="keywords">
       <item>import</item>

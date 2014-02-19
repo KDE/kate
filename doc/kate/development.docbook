@@ -1314,6 +1314,60 @@ int document.lines();
 
 <varlistentry>
 <term><synopsis>
+bool document.isLineModified(<parameter>int <replaceable>line</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+    Returns <literal>true</literal>, if <replaceable>line</replaceable> currently contains unsaved data.
+</para>
+<para>
+    Since: &kde; 5.0
+</para></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
+bool document.isLineSaved(<parameter>int <replaceable>line</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+    Returns <literal>true</literal>, if <replaceable>line</replaceable> was changed, but the document was saved.
+    Hence, the line currently does not contain any unsaved data.
+</para>
+<para>
+    Since: &kde; 5.0
+</para></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
+bool document.isLineTouched(<parameter>int <replaceable>line</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+    Returns <literal>true</literal>, if <replaceable>line</replaceable> currently contains unsaved data or was changed before.
+</para>
+<para>
+    Since: &kde; 5.0
+</para></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
+bool document.findTouchedLine(<parameter>int <replaceable>startLine</replaceable></parameter>, <parameter>bool <replaceable>down</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+    Search for the next touched line starting at <replaceable>line</replaceable>.
+    The search is performed either upwards or downwards depending on the search direction specified in <replaceable>down</replaceable>.
+</para>
+<para>
+    Since: &kde; 5.0
+</para></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
 int document.length();
 </synopsis></term>
 <listitem><para>

@@ -253,7 +253,7 @@ View.</para></listitem>
 
 </sect1>
 
-&configuring-part-sections;
+<!--FIXME: link to katepart config chapter-->
 
 <sect1 id="config-variables">
 <title>Configuring With Document Variables</title>

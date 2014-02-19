@@ -8,7 +8,6 @@
   <!ENTITY gdb "<acronym>GDB</acronym>">
   <!ENTITY pate "Pâté">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
-  <!ENTITY configuring-part-sections SYSTEM "../katepart/configuring-part.docbook">
   <!ENTITY highlighting-appendix SYSTEM "../katepart/highlighting.docbook">
   <!ENTITY advanced-chapter SYSTEM "../katepart/advanced.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">

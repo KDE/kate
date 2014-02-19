@@ -62,6 +62,7 @@ class DummyDocument : public KTextEditor::Document
     virtual QChar characterAt( const KTextEditor::Cursor&) const { return QChar(); }
     virtual QString wordAt(const KTextEditor::Cursor&) const { return QString(); }
     virtual KTextEditor::Range wordRangeAt(const KTextEditor::Cursor&) const { return KTextEditor::Range(); }
+    virtual bool isValidTextPosition(const KTextEditor::Cursor&) const { return true; }
     virtual QStringList textLines ( const KTextEditor::Range&, bool = false ) const { return QStringList(); }
     virtual QString line ( int ) const { return QString(); }
     virtual int lines () const { return 0; }
@@ -90,9 +91,9 @@ class DummyDocument : public KTextEditor::Document
     virtual void printPreview() {}
     virtual QStringList embeddedHighlightingModes() const { return QStringList(); }
     virtual QString highlightingModeAt(const KTextEditor::Cursor &) { return QString(); }
-    virtual bool lineModified(int) const { return false; }
-    virtual bool lineSaved(int) const { return false; }
-    virtual bool lineTouched(int) const { return false; }
+    virtual bool isLineModified(int) const { return false; }
+    virtual bool isLineSaved(int) const { return false; }
+    virtual bool isLineTouched(int) const { return false; }
 
     // KParts::ReadWritePart
     virtual bool saveFile() { return false; }

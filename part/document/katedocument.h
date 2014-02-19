@@ -1166,6 +1166,9 @@ Q_SIGNALS:
     int defStyleNum(int line, int column);
     bool isComment(int line, int column);
 
+public:
+    int findModifiedLine(int startLine, bool down);
+
   private Q_SLOTS:
     /**
      * watch for all started io jobs to remember if file is perhaps loading atm

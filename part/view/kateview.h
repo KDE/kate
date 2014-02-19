@@ -483,6 +483,8 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void shiftBottom();
     void toMatchingBracket();
     void shiftToMatchingBracket();
+    void toPrevModifiedLine();
+    void toNextModifiedLine();
     void insertTab();
 
     void gotoLine();

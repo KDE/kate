@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="66">
+<kpartgui name="KatePartView" version="67">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -34,6 +34,8 @@
     </Menu>
     <Action name="edit_replace" group="edit_find_merge" />
     <Separator group="edit_find_merge" />
+    <Action name="modified_line_up" group="edit_find_merge"/>
+    <Action name="modified_line_down" group="edit_find_merge"/>
     <Action name="go_goto_line" group="edit_find_merge"/>
   </Menu>
 

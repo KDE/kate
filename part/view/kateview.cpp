@@ -483,6 +483,16 @@ void KateView::setupActions()
   a = ac->addAction( KStandardAction::GotoLine, this, SLOT(gotoLine()) );
   a->setWhatsThis(i18n("This command opens a dialog and lets you choose a line that you want the cursor to move to."));
 
+  a = ac->addAction(QLatin1String("modified_line_up"));
+  a->setText(i18n("Move to Previous Modified Line"));
+  a->setWhatsThis(i18n("Move upwards to the previous modified line."));
+  connect(a, SIGNAL(triggered(bool)), SLOT(toPrevModifiedLine()));
+
+  a = ac->addAction(QLatin1String("modified_line_down"));
+  a->setText(i18n("Move to Next Modified Line"));
+  a->setWhatsThis(i18n("Move downwards to the next modified line."));
+  connect(a, SIGNAL(triggered(bool)), SLOT(toNextModifiedLine()));
+
   a = ac->addAction("set_confdlg");
   a->setText(i18n("&Configure Editor..."));
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
@@ -2751,6 +2761,28 @@ void KateView::toMatchingBracket( )
 void KateView::shiftToMatchingBracket( )
 {
   m_viewInternal->cursorToMatchingBracket(true);
+}
+
+void KateView::toPrevModifiedLine()
+{
+  const int startLine = m_viewInternal->m_cursor.line() - 1;
+  const int line = m_doc->findModifiedLine(startLine, false);
+  if (line >= 0) {
+    KTextEditor::Cursor c(line, 0);
+    m_viewInternal->updateSelection(c, false);
+    m_viewInternal->updateCursor(c);
+  }
+}
+
+void KateView::toNextModifiedLine()
+{
+  const int startLine = m_viewInternal->m_cursor.line() + 1;
+  const int line = m_doc->findModifiedLine(startLine, true);
+  if (line >= 0) {
+    KTextEditor::Cursor c(line, 0);
+    m_viewInternal->updateSelection(c, false);
+    m_viewInternal->updateCursor(c);
+  }
 }
 
 const KTextEditor::Range & KateView::selectionRange( ) const

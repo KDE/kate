@@ -44,6 +44,7 @@ qt5_wrap_ui(KATE_APPLICATION_SRCS
 # create kde init executable
 kf5_add_kdeinit_executable(kate ${KATE_APPLICATION_SRCS})
 target_link_libraries(kdeinit_kate
+PUBLIC
     KF5::TextEditor
     KF5::I18n
     KF5::KIOFileWidgets

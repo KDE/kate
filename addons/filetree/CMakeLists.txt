@@ -9,6 +9,7 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 add_library (katefiletree STATIC  ${katefiletree_PART_SRCS})
 
 target_link_libraries(katefiletree
+PUBLIC
   KF5::TextEditor
   KF5::I18n
   KF5::GuiAddons

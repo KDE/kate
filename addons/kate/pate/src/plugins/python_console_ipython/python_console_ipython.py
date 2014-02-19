@@ -307,9 +307,10 @@ class ConsoleToolView(QObject):
 
     def __del__(self):
         """Plugins that use a toolview need to delete it for reloading to work."""
-        if self.toolView:
-            self.toolView.deleteLater()
-            self.toolView = None
+        mw = kate.mainInterfaceWindow()
+        if mw:
+            mw.destroyToolView(self.toolView)
+        self.console = None
 
     def eventFilter(self, obj, event):
         """Hide the IPython console tool view on ESCAPE key"""

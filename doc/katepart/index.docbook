@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN"
 "dtd/kdex.dtd" [
-  <!ENTITY kappname "&kwrite;">
+  <!ENTITY kappname "&katepart;">
   <!ENTITY package "kdebase">
   <!ENTITY imgpath "../kate/">
   <!ENTITY rcfile "kwriterc">
@@ -15,10 +15,10 @@
   <!ENTITY % English "INCLUDE" > <!-- change language only here -->
 ]>
 
-<book id="kwrite" lang="&language;">
+<book id="katepart" lang="&language;">
 
 <bookinfo>
-<title>The &kwrite; Handbook</title>
+<title>The &katepart; Handbook</title>
 <authorgroup>
 <author>&Thad.McGinnis; &Thad.McGinnis.mail;</author>
 <author>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail;</author>
@@ -57,11 +57,13 @@
 <releaseinfo>4.12 (&kde; 4.12)</releaseinfo>
 
 <abstract>
-<para>&kwrite; is a text editor for &kde; allowing you to edit one file at the time per window.</para>
+<para>&katepart; is a fully featured editor component for &Qt; and &kde;
+applications.</para>
 </abstract>
 
 <keywordset>
 <keyword>KDE</keyword>
+<keyword>KatePart</keyword>
 <keyword>KWrite</keyword>
 <keyword>text</keyword>
 <keyword>editor</keyword>
@@ -73,17 +75,19 @@
 <title>Introduction</title>
 
 <para>
-&kwrite; is more than a text editor for the &kde; Desktop. It is meant
-to be a programmer's editor, and could be considered as at least a
-partial alternative to more powerful editors.  It may be best used in
-conjunction with &konqueror; or &dolphin; for source file browsing for different
-languages. &kwrite; also works very well as a simple text editor.  One
-of &kwrite;'s main features is the colorized syntax, customized for many
-different programming languages such as: C/C++, &Java;, Python, Perl,
+&katepart; is a fully featured text editor component used by many &Qt; and &kde;
+applications.  
+&katepart; is more than a text editor; it is meant to be a programmer's editor, 
+and could be considered as at least a partial alternative to more powerful 
+editors. One of &katepart;'s main features is the colorized syntax, customized
+for many different programming languages such as: C/C++, &Java;, Python, Perl,
 Bash, Modula 2, &HTML;, and Ada.
 </para>
-<para>&kwrite; has a single document interface (<acronym>SDI</acronym>)
-allowing you to edit one file at the time per window.
+<para>&kwrite; is a simple text editor application based on &katepart;.  It has
+a single document interface (<acronym>SDI</acronym>) allowing you to edit one 
+file at the time per window.  Since &kwrite; is a very simple implementation of
+&katepart;, it does not require its own documentation.  If you know how to use
+&kwrite;, you can use &katepart; anywhere!
 </para>
 </chapter>
 
@@ -98,7 +102,7 @@ allowing you to edit one file at the time per window.
 <chapter id="credits">
 <title>Credits and License</title>
 
-<para>&kwrite; Copyright 2001 by the &kate; team.</para>
+<para>&katepart; and &kwrite; Copyright 2001-2014 by the &kate; team.</para>
 
 <para>
 Based on the original &kwrite;, which was Copyright 2000 by Jochen Wilhelmy
@@ -162,22 +166,22 @@ Based on the original &kwrite;, which was Copyright 2000 by Jochen Wilhelmy
 </itemizedlist>
 
 <para>
-Original documentation by &Thad.McGinnis; &Thad.McGinnis.mail;
+The &katepart; documentation is based on the original &kwrite; documentation,
+modified to be relevant to all &katepart; consumers.
 </para>
 
 <para>
-Updated  by &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; and
-&Anders.Lund; &Anders.Lund.mail;
+The original &kwrite; documentation was written by &Thad.McGinnis;
+&Thad.McGinnis.mail;, with lots of modificaions from
+&Cristian.Tibirna; &Cristian.Tibirna.mail;. Converted to docbook/proofreading by
+&Lauri.Watts; &Lauri.Watts.mail; and updated by &Anne-Marie.Mahfouf;
+&Anne-Marie.Mahfouf.mail; and &Anders.Lund; &Anders.Lund.mail;
 </para>
 
-<para>
-This version of the &kwrite; Handbook is based on the original by
-&Cristian.Tibirna; &Cristian.Tibirna.mail;
-</para>
-
-<para>
-Converted to docbook/proofreading by &Lauri.Watts; &Lauri.Watts.mail;
-</para>
+<para>The current &katepart; documentation is maintained by &TC.Hollingsworth;
+&TC.Hollingsworth.mail;.  Please send comments or suggestions to the &katepart;
+development mailing list at <email>kwrite-devel@kde.org</email> or file a bug
+in the <ulink url="https://bugs.kde.org/">KDE Bugtracking System</ulink>.</para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 

@@ -898,10 +898,10 @@ the endianness (byte order) of a text file or stream, for more information see
  <listitem>
 <para>This submenu contains a list of all scripted actions. The list can easily be
 modified by <ulink url="help:/kate/dev-scripting.html#dev-scripting-command-line">writing
-own scripts</ulink>. This way, &kwrite; can be extended with user-defined tools.
+own scripts</ulink>. This way, &katepart; can be extended with user-defined tools.
 </para>
 
-<para>For more information about the scripts included with &kate;, see
+<para>For more information about the scripts included with &katepart;, see
 <ulink url="help:/kate/scripts.html">Scripts</ulink>.</para>
 </listitem>
 </varlistentry>

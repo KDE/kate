@@ -2,17 +2,17 @@
 <title>Some Fundamentals</title>
 
 <para>
-&kwrite; is very simple to use. Anyone that has used a text editor
-should have no problems.
+&kwrite; and many other &katepart; users are very simple to use. Anyone that has
+used a text editor should have no problems.
 </para>
 
 <sect1 id="drag-and-drop">
 <title>Drag and Drop</title>
 
 <para>
-&kwrite; uses the &kde; Drag and Drop protocol. Files may be dragged and
-dropped onto &kwrite; from the Desktop, the filemanager &dolphin;, or some remote &FTP;
-site opened in one of &dolphin;'s windows.
+&katepart; uses the &kde; Drag and Drop protocol. Files may be dragged and
+dropped onto &katepart; from the Desktop, the filemanager &dolphin;, or some
+remote &FTP; site opened in one of &dolphin;'s windows.
 </para>
 </sect1>
 
@@ -25,6 +25,9 @@ a desktop icon, it can also be opened at the command line prompt of a
 terminal window.  There are a few useful options that are available when
 doing this.
 </para>
+
+<para>Many other applications that use &katepart; offer similar command line
+options.</para>
 
 <sect2 id="specify-a-file">
 <title>Specify a File</title>
@@ -146,7 +149,7 @@ Shift+Home
 <title>Shortcuts</title>
 
 <para>Many of the shortcuts are configurable by way of the <link
- linkend="settings">Settings</link> menu.  By default &kwrite; honors the
+ linkend="settings">Settings</link> menu.  By default &katepart; honors the
 following shortcuts:</para>
 <informaltable>
 <tgroup cols="2">

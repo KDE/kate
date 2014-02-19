@@ -1546,6 +1546,40 @@ String document.commentEnd(<parameter>int <replaceable>attribute</replaceable></
 </varlistentry>
 
 
+<varlistentry>
+<term><synopsis>
+Range document.documentRange();
+</synopsis></term>
+<listitem><para>
+    Returns a range that encompasses the whole document.
+</para></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
+Cursor documentEnd();
+</synopsis></term>
+<listitem><para>
+    Returns a cursor positioned at the last column of the last line in the document.
+</para></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
+bool isValidTextPosition(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
+bool isValidTextPosition(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+    Returns <literal>true</literal>, if the given cursor position is positioned at a valid text position.
+    A text position is valid only if it locate at the start, in the middle, or the end of a valid line.
+    Further, a text position is invalid if it is located in a Unicode surrogate.
+</para><para>
+    Since: &kde; 5.0
+</para></listitem>
+</varlistentry>
+
 
 <varlistentry>
 <term><synopsis>

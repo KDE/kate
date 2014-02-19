@@ -3,14 +3,14 @@
 "dtd/kdex.dtd" [
   <!ENTITY kappname "&katepart;">
   <!ENTITY package "kdebase">
-  <!ENTITY imgpath "../kate/">
+  <!ENTITY imgpath "./">
   <!ENTITY rcfile "kwriterc">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
-  <!ENTITY configuring-part-sections SYSTEM "../kate/configuring-part.docbook">
+  <!ENTITY configuring-part-sections SYSTEM "configuring-part.docbook">
   <!ENTITY menus-chapter SYSTEM "menus.docbook">
-  <!ENTITY part-chapter SYSTEM "../kate/part.docbook">
-  <!ENTITY plugins-part-sections SYSTEM "../kate/plugins-part.docbook">
+  <!ENTITY part-chapter SYSTEM "part.docbook">
+  <!ENTITY plugins-part-sections SYSTEM "plugins-part.docbook">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE" > <!-- change language only here -->
 ]>

@@ -3,19 +3,19 @@
 "dtd/kdex.dtd" [
   <!ENTITY kappname "&kate;">
   <!ENTITY package "kdesdk">
-  <!ENTITY imgpath "./">
+  <!ENTITY imgpath "../katepart/">
   <!ENTITY rcfile "katerc">
   <!ENTITY gdb "<acronym>GDB</acronym>">
   <!ENTITY pate "Pâté">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
-  <!ENTITY configuring-part-sections SYSTEM "configuring-part.docbook">
+  <!ENTITY configuring-part-sections SYSTEM "../katepart/configuring-part.docbook">
   <!ENTITY highlighting-appendix SYSTEM "highlighting.docbook">
   <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
-  <!ENTITY part-chapter SYSTEM "part.docbook">
+  <!ENTITY part-chapter SYSTEM "../katepart/part.docbook">
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
-  <!ENTITY plugins-part-sections SYSTEM "plugins-part.docbook">
+  <!ENTITY plugins-part-sections SYSTEM "../katepart/plugins-part.docbook">
   <!ENTITY development-chapter SYSTEM "development.docbook">
   <!ENTITY vi-chapter SYSTEM "vi.docbook">
   <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">

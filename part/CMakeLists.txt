@@ -171,6 +171,7 @@ utils/kateprinter.cpp
 utils/kateglobal.cpp
 utils/katecmd.cpp
 utils/katepartpluginmanager.cpp
+utils/katedefaultcolors.cpp
 
 # schema
 schema/kateschema.cpp

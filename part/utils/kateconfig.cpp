@@ -20,6 +20,7 @@
 #include "kateconfig.h"
 
 #include "kateglobal.h"
+#include "katedefaultcolors.h"
 #include "katerenderer.h"
 #include "kateview.h"
 #include "katedocument.h"
@@ -2163,77 +2164,46 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
 
   KConfigGroup config = KateGlobal::self()->schemaManager()->schema(schema);
 
-  // NOTE keep in sync with KateSchemaConfigColorTab::schemaChanged
-  KColorScheme schemeView(QPalette::Active, KColorScheme::View);
-  KColorScheme schemeWindow(QPalette::Active, KColorScheme::Window);
-  KColorScheme schemeSelection(QPalette::Active, KColorScheme::Selection);
-  QColor tmp0( schemeView.background().color() );
-  QColor tmp1( schemeSelection.background().color() );
-  QColor tmp2( schemeView.background(KColorScheme::AlternateBackground).color() );
-  // using KColorUtils::shade wasn't working really well
-  qreal bgLuma = KColorUtils::luma( tmp0 );
-  QColor tmp3( KColorUtils::tint(tmp0, schemeView.decoration(KColorScheme::HoverColor).color()) );
-  QColor tmp4( KColorUtils::shade( tmp0, bgLuma > 0.3 ? -0.15 : 0.03 ) );
-  QColor tmp5( KColorUtils::shade( tmp0, bgLuma > 0.7 ? -0.35 : 0.3 ) );
-  QColor tmp6( schemeWindow.background().color() );
-  QColor tmp7( schemeWindow.foreground().color() );
-  QColor tmp8( schemeView.foreground(KColorScheme::NegativeText).color() );
-  QColor tmp9( schemeView.background(KColorScheme::NegativeBackground).color() );
-  QColor tmp10( schemeView.background(KColorScheme::PositiveBackground).color() );
-  QColor tmp11( schemeView.background(KColorScheme::NeutralBackground).color() );
-  QColor tmp12( KColorScheme(QPalette::Inactive, KColorScheme::Selection).background().color() );
-  QColor tmp13( schemeView.foreground(KColorScheme::InactiveText).color() );
+  KateDefaultColors colors;
 
-  m_backgroundColor = config.readEntry("Color Background", tmp0);
+  m_backgroundColor = config.readEntry("Color Background", colors.color(Kate::Background));
   m_backgroundColorSet = true;
-  m_selectionColor = config.readEntry("Color Selection", tmp1);
+  m_selectionColor = config.readEntry("Color Selection", colors.color(Kate::SelectionBackground));
   m_selectionColorSet = true;
-  m_highlightedLineColor  = config.readEntry("Color Highlighted Line", tmp2);
+  m_highlightedLineColor  = config.readEntry("Color Highlighted Line", colors.color(Kate::HighlightedLineBackground));
   m_highlightedLineColorSet = true;
-  m_highlightedBracketColor = config.readEntry("Color Highlighted Bracket", tmp3);
+  m_highlightedBracketColor = config.readEntry("Color Highlighted Bracket", colors.color(Kate::HighlightedBracket));
   m_highlightedBracketColorSet = true;
-  m_wordWrapMarkerColor = config.readEntry("Color Word Wrap Marker", tmp4);
+  m_wordWrapMarkerColor = config.readEntry("Color Word Wrap Marker", colors.color(Kate::WordWrapMarker));
   m_wordWrapMarkerColorSet = true;
-  m_tabMarkerColor = config.readEntry("Color Tab Marker", tmp5);
+  m_tabMarkerColor = config.readEntry("Color Tab Marker", colors.color(Kate::TabMarker));
   m_tabMarkerColorSet = true;
-  m_indentationLineColor = config.readEntry("Color Indentation Line", tmp5);
+  m_indentationLineColor = config.readEntry("Color Indentation Line", colors.color(Kate::IndentationLine));
   m_indentationLineColorSet = true;
-  m_iconBarColor  = config.readEntry("Color Icon Bar", tmp6);
+  m_iconBarColor  = config.readEntry("Color Icon Bar", colors.color(Kate::IconBar));
   m_iconBarColorSet = true;
-  m_foldingColor  = config.readEntry("Color Code Folding", tmp12);
+  m_foldingColor  = config.readEntry("Color Code Folding", colors.color(Kate::CodeFolding));
   m_foldingColorSet = true;
-  m_lineNumberColor = config.readEntry("Color Line Number", tmp7);
+  m_lineNumberColor = config.readEntry("Color Line Number", colors.color(Kate::LineNumber));
   m_lineNumberColorSet = true;
-  m_separatorColor = config.readEntry("Color Separator", tmp13);
+  m_separatorColor = config.readEntry("Color Separator", colors.color(Kate::Separator));
   m_separatorColorSet = true;
-  m_spellingMistakeLineColor = config.readEntry("Color Spelling Mistake Line", tmp8);
+  m_spellingMistakeLineColor = config.readEntry("Color Spelling Mistake Line", colors.color(Kate::SpellingMistakeLine));
   m_spellingMistakeLineColorSet = true;
 
-  m_modifiedLineColor = config.readEntry("Color Modified Lines", tmp9);
+  m_modifiedLineColor = config.readEntry("Color Modified Lines", colors.color(Kate::ModifiedLine));
   m_modifiedLineColorSet = true;
-  m_savedLineColor = config.readEntry("Color Saved Lines", tmp10);
+  m_savedLineColor = config.readEntry("Color Saved Lines", colors.color(Kate::SavedLine));
   m_savedLineColorSet = true;
-  m_searchHighlightColor = config.readEntry("Color Search Highlight", QColor(Qt::yellow)); // tmp11);
+  m_searchHighlightColor = config.readEntry("Color Search Highlight", colors.color(Kate::SearchHighlight));
   m_searchHighlightColorSet = true;
-  m_replaceHighlightColor = config.readEntry("Color Replace Highlight", QColor(Qt::green)); // tmp10);
+  m_replaceHighlightColor = config.readEntry("Color Replace Highlight", colors.color(Kate::ReplaceHighlight));
   m_replaceHighlightColorSet = true;
 
-
-    // same std colors like in KateDocument::markColor
-  QColor mark[7];
-  mark[0] = Qt::blue;
-  mark[1] = Qt::red;
-  mark[2] = Qt::yellow;
-  mark[3] = Qt::magenta;
-  mark[4] = Qt::gray;
-  mark[5] = Qt::green;
-  mark[6] = Qt::red;
-
-  for (int i = 1; i <= KTextEditor::MarkInterface::reservedMarkersCount(); i++) {
-    QColor col = config.readEntry(QString("Color MarkType %1").arg(i), mark[i - 1]);
-    int index = i-1;
-    m_lineMarkerColorSet[index] = true;
-    m_lineMarkerColor[index] = col;
+  for (int i = Kate::FIRST_MARK; i <= Kate::LAST_MARK; i++) {
+    QColor col = config.readEntry(QString("Color MarkType %1").arg(i + 1), colors.mark(i));
+    m_lineMarkerColorSet[i] = true;
+    m_lineMarkerColor[i] = col;
   }
 
   QFont f (KGlobalSettings::fixedFont());
@@ -2242,17 +2212,16 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_fontMetrics = QFontMetricsF (m_font);
   m_fontSet = true;
 
-  QColor c = schemeWindow.background().color();
-  m_templateBackgroundColor = config.readEntry(QString("Color Template Background"), c);
+  m_templateBackgroundColor = config.readEntry(QString("Color Template Background"), colors.color(Kate::TemplateBackground));
 
-  c = schemeView.background(KColorScheme::PositiveBackground).color();
-  m_templateFocusedEditablePlaceholderColor = config.readEntry(QString("Color Template Focused Editable Placeholder"), c);
+  m_templateFocusedEditablePlaceholderColor = config.readEntry(QString("Color Template Focused Editable Placeholder"),
+                                                               colors.color(Kate::TemplateFocusedEditablePlaceholder));
 
-  c = schemeWindow.background(KColorScheme::PositiveBackground).color();
-  m_templateEditablePlaceholderColor = config.readEntry(QString("Color Template Editable Placeholder"), c);
+  m_templateEditablePlaceholderColor = config.readEntry(QString("Color Template Editable Placeholder"),
+                                                        colors.color(Kate::TemplateEditablePlaceholder));
 
-  c = schemeView.background(KColorScheme::NegativeBackground).color();
-  m_templateNotEditablePlaceholderColor = config.readEntry(QString("Color Template Not Editable Placeholder"), c);
+  m_templateNotEditablePlaceholderColor = config.readEntry(QString("Color Template Not Editable Placeholder"),
+                                                           colors.color(Kate::TemplateNotEditablePlaceholder));
 
   m_templateColorsSet=true;
 }

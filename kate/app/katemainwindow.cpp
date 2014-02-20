@@ -76,6 +76,8 @@
 
 #include <assert.h>
 #include <unistd.h>
+#include <kmenubar.h>
+#include <kstandardaction.h>
 //END
 
 uint KateMainWindow::uniqueID = 1;
@@ -201,7 +203,9 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 
   connect(this,SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)),this,SLOT(showPluginConfigPage(Kate::PluginConfigPageInterface *,uint)));
 
-
+  // prior to this there was (possibly) no view, therefore not context menu.
+  // Hence, we have to take care of the menu bar here
+  toggleShowMenuBar(false);
 }
 
 KateMainWindow::~KateMainWindow()
@@ -224,6 +228,7 @@ void KateMainWindow::setupImportantActions ()
   // settings
   m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleShowStatusBar()), actionCollection());
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
+  m_paShowMenuBar = KStandardAction::showMenubar(this, SLOT(toggleShowMenuBar()), actionCollection());
 
   m_paShowPath = new KToggleAction( i18n("Sho&w Path in Titlebar"), this );
   actionCollection()->addAction( "settings_show_full_path", m_paShowPath );
@@ -537,9 +542,13 @@ void KateMainWindow::readOptions ()
 
   m_paShowPath->setChecked (generalGroup.readEntry("Show Full Path in Title", false));
   m_paShowStatusBar->setChecked (generalGroup.readEntry("Show Status Bar", true));
+  m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
 
   // emit signal to hide/show statusbars
   toggleShowStatusBar ();
+
+  // update visibility of menu bar
+  toggleShowMenuBar(false);
 }
 
 void KateMainWindow::saveOptions ()
@@ -554,6 +563,38 @@ void KateMainWindow::saveOptions ()
 
   generalGroup.writeEntry("Show Full Path in Title", m_paShowPath->isChecked());
   generalGroup.writeEntry("Show Status Bar", m_paShowStatusBar->isChecked());
+  generalGroup.writeEntry("Show Menu Bar", m_paShowMenuBar->isChecked());
+}
+
+void KateMainWindow::toggleShowMenuBar(bool showMessage)
+{
+  if (m_paShowMenuBar->isChecked()) {
+    menuBar()->show();
+    removeMenuBarActionFromContextMenu();
+  } else {
+    if (showMessage) {
+      const QString accel = m_paShowMenuBar->shortcut().toString();
+      KMessageBox::information(this, i18n("This will hide the menu bar completely."
+                                          " You can show it again by typing %1.", accel),
+                               i18n("Hide menu bar"), QLatin1String("HideMenuBarWarning"));
+    }
+    menuBar()->hide();
+    addMenuBarActionToContextMenu();
+  }
+}
+
+void KateMainWindow::addMenuBarActionToContextMenu()
+{
+  if (m_viewManager->activeView()) {
+    m_viewManager->activeView()->contextMenu()->addAction(m_paShowMenuBar);
+  }
+}
+
+void KateMainWindow::removeMenuBarActionFromContextMenu()
+{
+  if (m_viewManager->activeView()) {
+    m_viewManager->activeView()->contextMenu()->removeAction(m_paShowMenuBar);
+  }
 }
 
 void KateMainWindow::toggleShowStatusBar ()

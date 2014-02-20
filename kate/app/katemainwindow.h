@@ -163,6 +163,8 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void setupMainWindow();
     void setupActions();
     bool queryClose();
+    void addMenuBarActionToContextMenu();
+    void removeMenuBarActionFromContextMenu();
 
     /**
      * read some global options from katerc
@@ -223,6 +225,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
   private Q_SLOTS:
     void toggleShowStatusBar ();
+    void toggleShowMenuBar(bool showMessage = true);
 
   public:
     bool showStatusBar ();
@@ -297,6 +300,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     // options: show statusbar + show path
     KToggleAction *m_paShowPath;
     KToggleAction *m_paShowStatusBar;
+    KToggleAction *m_paShowMenuBar;
     QWidget *m_bottomViewBarContainer;
     KateContainerStackedLayout *m_bottomContainerStack;
     QWidget *m_topViewBarContainer;

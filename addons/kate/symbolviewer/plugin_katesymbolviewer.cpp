@@ -316,7 +316,7 @@ void KatePluginSymbolViewerView::parseSymbols(void)
   /** Get the current highlighting mode */
   QString hlModeName = doc->mode();
 
-  if (hlModeName == "C++" || hlModeName == "C" || hlModeName == "ANSI C89")
+  if (hlModeName.contains("C++") || hlModeName == "C" || hlModeName == "ANSI C89")
      parseCppSymbols();
  else if (hlModeName == "PHP (HTML)")
     parsePhpSymbols();

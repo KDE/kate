@@ -118,7 +118,7 @@ void LumenPluginView::urlChanged(Document* document)
     QStringList paths;
     for (KUrl url = document->url(); !url.equals(KUrl("/")); url.cd("..")) {
         url = url.directory();
-        url.addPath(".kdev_include_paths");
+        url.addPath(".lumenconfig");
 
         QFile file(url.path());
         if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {

@@ -34,6 +34,7 @@
 #include "kateschema.h"
 #include "kateconfig.h"
 #include "kateextendedattribute.h"
+#include "katedefaultcolors.h"
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
@@ -622,13 +623,10 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
 
       QString tmp=s[0]; if (!tmp.isEmpty()) p->setDefaultStyleIndex(tmp.toInt());
 
-      QRgb col;
 
-      tmp=s[1]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); p->setForeground(QColor(col)); }
+      tmp=s[1]; if (!tmp.isEmpty()) p->setForeground(QColor(tmp));
 
-      tmp=s[2]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); p->setSelectedForeground(QColor(col)); }
+      tmp=s[2]; if (!tmp.isEmpty()) p->setSelectedForeground(QColor(tmp));
 
       tmp=s[3]; if (!tmp.isEmpty()) p->setFontBold(tmp!="0");
 
@@ -638,11 +636,9 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
 
       tmp=s[6]; if (!tmp.isEmpty()) p->setFontUnderline(tmp!="0");
 
-      tmp=s[7]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); p->setBackground(QColor(col)); }
+      tmp=s[7]; if (!tmp.isEmpty()) p->setBackground(QColor(tmp));
 
-      tmp=s[8]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); p->setSelectedBackground(QColor(col)); }
+      tmp=s[8]; if (!tmp.isEmpty()) p->setSelectedBackground(QColor(tmp));
 
       tmp=s[9]; if (!tmp.isEmpty() && tmp!=QLatin1String("---")) p->setFontFamily(tmp);
 
@@ -811,6 +807,7 @@ void KateHighlighting::addToKateExtendedAttributeList()
   KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
   KateSyntaxContextData *data = KateHlManager::self()->syntax->getGroupInfo("highlighting","itemData");
 
+  KateDefaultColors colors;
   //begin with the real parsing
   while (KateHlManager::self()->syntax->nextGroup(data))
   {
@@ -831,15 +828,19 @@ void KateHighlighting::addToKateExtendedAttributeList()
             KateExtendedAttribute::indexForStyleName(KateHlManager::self()->syntax->groupData(data,QString("defStyleNum")))));
 
     /* here the custom style overrides are specified, if needed */
-    if (!color.isEmpty()) newData->setForeground(QColor(color));
-    if (!selColor.isEmpty()) newData->setSelectedForeground(QColor(selColor));
+    if (!color.isEmpty())
+      newData->setForeground(colors.adaptToScheme(QColor(color), KateDefaultColors::ForegroundColor));
+    if (!selColor.isEmpty())
+      newData->setSelectedForeground(colors.adaptToScheme(QColor(selColor), KateDefaultColors::ForegroundColor));
     if (!bold.isEmpty()) newData->setFontBold( IS_TRUE(bold) );
     if (!italic.isEmpty()) newData->setFontItalic( IS_TRUE(italic) );
     // new attributes for the new rendering view
     if (!underline.isEmpty()) newData->setFontUnderline( IS_TRUE(underline) );
     if (!strikeOut.isEmpty()) newData->setFontStrikeOut( IS_TRUE(strikeOut) );
-    if (!bgColor.isEmpty()) newData->setBackground(QColor(bgColor));
-    if (!selBgColor.isEmpty()) newData->setSelectedBackground(QColor(selBgColor));
+    if (!bgColor.isEmpty())
+      newData->setBackground(colors.adaptToScheme(QColor(bgColor), KateDefaultColors::BackgroundColor));
+    if (!selBgColor.isEmpty())
+      newData->setSelectedBackground(colors.adaptToScheme(QColor(selBgColor), KateDefaultColors::BackgroundColor));
     // is spellchecking desired?
     if (!spellChecking.isEmpty()) newData->setPerformSpellchecking( IS_TRUE(spellChecking) );
     if (!fontFamily.isEmpty()) newData->setFontFamily(fontFamily);

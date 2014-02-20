@@ -76,13 +76,21 @@ public:
   QColor mark(Kate::Mark mark) const;
   QColor mark(int mark) const;
 
+  enum ColorType {
+    ForegroundColor,
+    BackgroundColor
+  };
+  QColor adaptToScheme(const QColor& color, ColorType type) const;
+
 private:
   KColorScheme m_view;
   KColorScheme m_window;
   KColorScheme m_selection;
   KColorScheme m_inactiveSelection;
   QColor m_background;
+  QColor m_foreground;
   qreal m_backgroundLuma;
+  qreal m_foregroundLuma;
 };
 
 #endif // __KATE_DEFAULTCOLORS_H__

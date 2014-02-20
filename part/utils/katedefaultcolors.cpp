@@ -32,7 +32,9 @@ KateDefaultColors::KateDefaultColors()
   , m_selection(QPalette::Active, KColorScheme::Selection)
   , m_inactiveSelection(QPalette::Inactive, KColorScheme::Selection)
   , m_background(m_view.background().color())
+  , m_foreground(m_view.foreground().color())
   , m_backgroundLuma(KColorUtils::luma(m_background))
+  , m_foregroundLuma(KColorUtils::luma(m_foreground))
 {
 }
 
@@ -68,9 +70,9 @@ QColor KateDefaultColors::color(ColorRole role) const
     case SavedLine:
       return m_view.background(KColorScheme::PositiveBackground).color();
     case SearchHighlight:
-      return QColor(Qt::yellow); // TODO: adapt to color scheme
+      return adaptToScheme(Qt::yellow, BackgroundColor);
     case ReplaceHighlight:
-      return QColor(Qt::green); // TODO: adapt to color scheme
+      return adaptToScheme(Qt::green, BackgroundColor);
     case TemplateBackground:
       return m_window.background().color();
     case TemplateFocusedEditablePlaceholder:
@@ -95,12 +97,20 @@ QColor KateDefaultColors::mark(Mark mark) const
     Qt::green,
     Qt::red
   };
-   // TODO: adapt to color scheme
-  return colors[mark];
+  return adaptToScheme(colors[mark], BackgroundColor);
 }
 
 QColor KateDefaultColors::mark(int i) const
 {
   Q_ASSERT(i >= FIRST_MARK && i <= LAST_MARK);
   return mark(static_cast<Mark>(i));
+}
+
+QColor KateDefaultColors::adaptToScheme(const QColor& color, ColorType type) const
+{
+  if (m_foregroundLuma > m_backgroundLuma) {
+    // for dark color schemes, produce a fitting color by tinting with the foreground/background color
+    return KColorUtils::tint(type == ForegroundColor ? m_foreground : m_background, color, 0.5);
+  }
+  return color;
 }

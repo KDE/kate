@@ -1207,7 +1207,6 @@ void KateBuildView::targetCopy()
 
     m_targetsUi->targetCombo->addItem(m_targetList[m_targetIndex].name);
     m_targetsUi->targetCombo->setCurrentIndex(m_targetIndex);
-    m_targetsUi->deleteTarget->setDisabled(false);
 
     // update the targets menu
     targetsChanged();
@@ -1423,7 +1422,6 @@ void KateBuildView::slotAddProjectTarget()
     }
 
     m_targetsUi->targetCombo->addItem(m_targetList[index].name);
-    m_targetsUi->deleteTarget->setDisabled(true);
 
     targetSelected(index);
 

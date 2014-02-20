@@ -550,6 +550,16 @@ bool KateBuildView::slotMakeClean(void)
 }
 
 /******************************************************************/
+void KateBuildView::clearBuildResults()
+{
+    m_buildUi.plainTextEdit->clear();
+    m_buildUi.errTreeWidget->clear();
+    m_output_lines.clear();
+    m_numErrors = 0;
+    m_numWarnings = 0;
+    m_make_dir_stack.clear();
+}
+
 bool KateBuildView::startProcess(const QString &dir, const QString &command)
 {
     if (m_proc->state() != QProcess::NotRunning) {
@@ -557,12 +567,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     }
 
     // clear previous runs
-    m_buildUi.plainTextEdit->clear();
-    m_buildUi.errTreeWidget->clear();
-    m_output_lines.clear();
-    m_numErrors = 0;
-    m_numWarnings = 0;
-    m_make_dir_stack.clear();
+    clearBuildResults();
 
     // activate the output tab
     m_buildUi.u_tabWidget->setCurrentIndex(1);
@@ -1105,6 +1110,8 @@ void KateBuildView::targetSelected(int index)
 
     m_targetsUi->deleteButton->setEnabled(enableButtons);
     m_targetsUi->buildButton->setEnabled(enableButtons);
+
+    clearBuildResults();
 }
 
 /******************************************************************/

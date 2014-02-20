@@ -137,6 +137,7 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         void setTargetRowContents(int row, const TargetSet& tgtSet, const QString& name, const QString& buildCmd);
         QString makeTargetNameUnique(const QString& name);
         QString makeUniqueTargetSetName() const;
+        void clearBuildResults();
 
         void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
 

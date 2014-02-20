@@ -513,7 +513,7 @@ void KateBuildView::slotBuildPreviousTarget() {
         return;
     }
 
-    buildTarget(tgtSet->prevTarget, false);
+    buildTarget(tgtSet->prevTarget);
 }
 
 
@@ -530,7 +530,7 @@ bool KateBuildView::slotMake(void)
         return false;
     }
 
-    return buildTarget(tgtSet->defaultTarget, false);
+    return buildTarget(tgtSet->defaultTarget);
 }
 
 /******************************************************************/
@@ -546,7 +546,7 @@ bool KateBuildView::slotMakeClean(void)
         return false;
     }
 
-    return buildTarget(tgtSet->cleanTarget, false);
+    return buildTarget(tgtSet->cleanTarget);
 }
 
 /******************************************************************/
@@ -612,7 +612,7 @@ void KateBuildView::slotSelectTarget() {
     int result = dlg->exec();
     if (result == QDialog::Accepted) {
         QString target = dlg->selectedTarget();
-        buildTarget(target, true);
+        buildTarget(target);
     }
     delete dlg;
     dlg = 0;
@@ -631,7 +631,7 @@ KateBuildView::TargetSet* KateBuildView::currentTargetSet()
 
 
 /******************************************************************/
-bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget)
+bool KateBuildView::buildTarget(const QString& targetName)
 {
     QFileInfo docFInfo = docUrl().toLocalFile(); // docUrl() saves the current document
 
@@ -661,9 +661,7 @@ bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget
         dir = targetSet->defaultDir;
     }
 
-    if (keepAsPrevTarget) {
-        targetSet->prevTarget = targetName;
-    }
+    targetSet->prevTarget = targetName;
 
     // Check if the command contains the file name or directory
     if (buildCmd.contains(QStringLiteral("%f")) ||
@@ -1030,7 +1028,7 @@ void KateBuildView::slotBuildTargetClicked()
 
     QString target = m_targetsUi->targetsList->item(row, COL_NAME)->text();
 
-    buildTarget(target, true);
+    buildTarget(target);
 }
 
 /******************************************************************/

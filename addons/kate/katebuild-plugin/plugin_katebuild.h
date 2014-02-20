@@ -142,6 +142,8 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;
         Ui::build         m_buildUi;
+        QWidget          *m_buildWidget;
+        int               m_outputWidgetWidth;
         TargetsUi        *m_targetsUi;
         KProcess         *m_proc;
         QString           m_output_lines;

@@ -150,6 +150,9 @@ private:
     void setupActions();
     bool queryClose();
 
+    void addMenuBarActionToContextMenu();
+    void removeMenuBarActionFromContextMenu();
+
     /**
      * read some global options from katerc
      */
@@ -201,6 +204,7 @@ private Q_SLOTS:
     void slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list);
 
 private Q_SLOTS:
+    void toggleShowMenuBar(bool showMessage = true);
     void toggleShowStatusBar();
     void toggleShowTabBar();
 
@@ -468,6 +472,7 @@ private:
 
     // options: show statusbar + show path
     KToggleAction *m_paShowPath;
+    KToggleAction *m_paShowMenuBar;
     KToggleAction *m_paShowStatusBar;
     KToggleAction *m_paShowTabBar;
     QWidget *m_bottomViewBarContainer;

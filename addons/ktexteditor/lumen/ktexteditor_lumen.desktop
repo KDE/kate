@@ -1,0 +1,18 @@
+[Desktop Entry]
+X-KDE-Library=ktexteditor_lumen
+X-KDE-PluginInfo-Author=David Herberth
+X-KDE-PluginInfo-Email=kde@dav1d.de
+X-KDE-PluginInfo-Name=ktexteditorlumen
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://kate.kde.org
+X-KDE-PluginInfo-Category=Editor
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=LGPLv2
+X-KDE-PluginInfo-EnabledByDefault=false
+X-KDE-ParentApp=kate
+X-KDE-Version=4.0
+X-KDE-ServiceTypes=KTextEditor/Plugin
+Type=Service
+Icon=task-delegate
+Name=Lumen
+Comment=Lumen is a Autocompletion Plugin for D, using the DCD autocompletion server

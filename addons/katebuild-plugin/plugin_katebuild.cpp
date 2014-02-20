@@ -1222,7 +1222,9 @@ void KateBuildView::targetDelete()
     if (m_targetList.size() > 1) {
         m_targetList.removeAt(m_targetIndex);
         m_targetsUi->targetCombo->removeItem(m_targetIndex);
-        newTargetIndex = m_targetIndex - 1;
+        if (m_targetIndex > 0) {
+            newTargetIndex = m_targetIndex - 1;
+        }
 
     }
     else {

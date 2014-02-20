@@ -103,7 +103,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
                                       i18n("Build Output"));
 
     QAction *a = actionCollection()->addAction(QStringLiteral("run_make"));
-    a->setText(i18n("Build default target"));
+    a->setText(i18n("Build Default Target"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotMake()));
 
     a = actionCollection()->addAction(QStringLiteral("make_clean"));
@@ -119,7 +119,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotSelectTarget()));
 
     a = actionCollection()->addAction(QStringLiteral("build_previous_target"));
-    a->setText(i18n("Build previous target again"));
+    a->setText(i18n("Build Previous Target Again"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotBuildPreviousTarget()));
 
     a = actionCollection()->addAction(QStringLiteral("goto_next"));

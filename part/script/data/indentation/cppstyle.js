@@ -31,6 +31,8 @@
  *
  * Ok, you've been warned :-)
  *
+ * More info available here: http://zaufi.github.io/programming/2013/11/29/kate-cppstyle-indenter/
+ *
  * Some settings it assumes being in effect:
  * indent-width 4;
  * space-indent true;
@@ -1495,7 +1497,16 @@ function trySemicolon(cursor)
                 // Append ';' to the end of line
                 document.insertText(line, lineLength - 1, ";");
                 view.setCursorPosition(line, lineLength);
+                cursor = view.cursorPosition();
+                column = cursor.column;
             }
+        }
+        // In C++ there is no need to have more than one semicolon.
+        // So remove a redundant one!
+        if (document.charAt(line, column - 2) == ';')
+        {
+            // Remove just entered ';'
+            document.removeText(line, column - 1, line, column);
         }
     }
     return result;
@@ -1812,22 +1823,47 @@ function tryColon(cursor)
                 }
             }
         }
-        else if (document.charAt(line, column - 2) == ' ' && currentLine.ltrim().startsWith("for ("))
+        else if (document.charAt(line, column - 2) == ' ')
         {
-            // Looks like a range based `for'!
-            // Add a space after ':'
-            document.insertText(line, column, " ");
-        }
-        else if (document.charAt(line, column - 2) == '>')
-        {
-            // Add one more ':'
-            // Example some<T>: --> some<T>::
-            document.insertText(line, column, ":");
+            // Is it looks like a range based `for' or class/struct/enum?
+            var add_space = currentLine.ltrim().startsWith("for (")
+              || currentLine.ltrim().startsWith("class ")
+              || currentLine.ltrim().startsWith("struct ")
+              || currentLine.ltrim().startsWith("enum ")
+              ;
+            if (add_space)
+            {
+                // Add a space after ':'
+                document.insertText(line, column, " ");
+            }
+            else if (document.charAt(line, column - 3) == ':')
+            {
+                // Transform ': :' -> '::'
+                document.removeText(line, column - 2, line, column - 1);
+            }
         }
         else
         {
-            cursor = tryJumpOverParenthesis(cursor);        // Try to jump out of parenthesis
-            tryAddSpaceAfterClosedBracketOrQuote(cursor);   // Try add a space after close bracket
+            // Check that it is not a 'case' and not a magic sequence.
+            // NOTE "Magic sequence" means support for dynamic expand functions.
+            // http://zaufi.github.io/programming/2014/02/13/kate-c++-stuff/
+            var is_magic_sequence = document.charAt(
+                line
+              , document.wordRangeAt(line, column - 1).start.column - 1
+              ) == ';';
+            if (!currentLine.ltrim().startsWith("case ") && !is_magic_sequence)
+            {
+                // Add one more ':'
+                // Example some<T>: --> some<T>:: or std: --> std::
+                document.insertText(line, column, ":");
+            }
+            else
+            {
+                // Try to jump out of parenthesis
+                cursor = tryJumpOverParenthesis(cursor);
+                // Try add a space after close bracket
+                tryAddSpaceAfterClosedBracketOrQuote(cursor);
+            }
         }
     }
     return result;

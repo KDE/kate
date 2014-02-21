@@ -1842,6 +1842,17 @@ function tryColon(cursor)
                 document.removeText(line, column - 2, line, column - 1);
             }
         }
+        else if (document.charAt(line, column - 2) == ':')
+        {
+            // A char before is (already) a one more colon.
+            // Make sure there is no more than two colons...
+            // NOTE In C++ it is not possible to have more than two of them adjacent!
+            if (document.charAt(line, column - 3) == ':')
+            {
+                // Remove the current (just entered) one...
+                document.removeText(line, column - 1, line, column);
+            }
+        }
         else
         {
             // Check that it is not a 'case' and not a magic sequence.

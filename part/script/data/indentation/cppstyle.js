@@ -1781,6 +1781,9 @@ function tryColon(cursor)
     var line = cursor.line;
     var column = cursor.column;
 
+    if (isStringOrComment(line, column))
+        return result;                                      // Do nothing for comments and strings
+
     // Check if just entered ':' is a first on a line
     if (justEnteredCharIsFirstOnLine(line, column, ':'))
     {
@@ -1982,7 +1985,7 @@ function tryDoxygenGrouping(cursor)
     var column = cursor.column;
     var firstColumn = document.firstColumn(line);
     // Check the symbol before the just entered
-    var looks_like_doxgorup = isStringOrComment(line, column - 2)// ")
+    var looks_like_doxgorup = isStringOrComment(line, column - 2)
       && firstColumn == (column - 4)
       && document.line(line).ltrim().startsWith("// ")
       ;
@@ -2153,7 +2156,7 @@ function tryEqualOperator(cursor)
     var line = cursor.line;
     var column = cursor.column;
 
-    // Do nothing for comments of string literals or lines shorter than 2
+    // Do nothing for comments or string literals or lines shorter than 2
     if (2 < column && isStringOrComment(line, column))
         return cursor;
 

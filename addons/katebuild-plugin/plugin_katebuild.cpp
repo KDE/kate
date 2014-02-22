@@ -620,7 +620,7 @@ bool KateBuildView::slotStop()
 {
     if (m_proc->state() != QProcess::NotRunning) {
         m_buildCancelled = true;
-        QString msg = i18n("Building <b>%1</b> cancelled").arg(m_currentlyBuildingTarget);
+        QString msg = i18n("Building <b>%1</b> cancelled", m_currentlyBuildingTarget);
         m_buildUi.buildStatusLabel->setText(msg);
         m_buildUi.buildStatusLabel2->setText(msg);
         m_proc->terminate();
@@ -673,7 +673,7 @@ bool KateBuildView::buildTarget(const QString& targetName)
 
     std::map<QString, QString>::const_iterator tgtIt = targetSet->targets.find(targetName);
     if (tgtIt == targetSet->targets.end()) {
-        KMessageBox::sorry(0, i18n("Target \"%1\" not found for building.").arg(targetName));
+        KMessageBox::sorry(0, i18n("Target \"%1\" not found for building.", targetName));
         return false;
     }
 
@@ -710,7 +710,7 @@ bool KateBuildView::buildTarget(const QString& targetName)
     m_filenameDetectorGccWorked = false;
     m_currentlyBuildingTarget = targetName;
     m_buildCancelled = false;
-    QString msg = i18n("Building target <b>%1</b> ...").arg(m_currentlyBuildingTarget);
+    QString msg = i18n("Building target <b>%1</b> ...", m_currentlyBuildingTarget);
     m_buildUi.buildStatusLabel->setText(msg);
     m_buildUi.buildStatusLabel2->setText(msg);
     return startProcess(dir, buildCmd);
@@ -741,7 +741,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     m_buildUi.buildAgainButton->setEnabled(true);
     m_buildUi.buildAgainButton2->setEnabled(true);
 
-    QString buildStatus = i18n("Building <b>%1</b> completed.").arg(m_currentlyBuildingTarget);
+    QString buildStatus = i18n("Building <b>%1</b> completed.", m_currentlyBuildingTarget);
 
     // did we get any errors?
     if (m_numErrors || m_numWarnings || (exitCode != 0)) {
@@ -761,11 +761,11 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         QStringList msgs;
         if (m_numErrors) {
             msgs << i18np("Found one error.", "Found %1 errors.", m_numErrors);
-            buildStatus = i18n("Building <b>%1</b> had errors.").arg(m_currentlyBuildingTarget);
+            buildStatus = i18n("Building <b>%1</b> had errors.", m_currentlyBuildingTarget);
         }
         else if (m_numWarnings) {
             msgs << i18np("Found one warning.", "Found %1 warnings.", m_numWarnings);
-            buildStatus = i18n("Building <b>%1</b> had warnings.").arg(m_currentlyBuildingTarget);
+            buildStatus = i18n("Building <b>%1</b> had warnings.", m_currentlyBuildingTarget);
         }
         displayBuildResult(msgs.join(QLatin1Char('\n')), m_numErrors ? KTextEditor::Message::Error : KTextEditor::Message::Warning);
     }

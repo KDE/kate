@@ -21,7 +21,8 @@
 #include "dcd.h"
 #include <kprocess.h>
 #include <kdebug.h>
-#include <QList>
+#include <QtCore/QFile>
+
 
 char DCDCompletionItemType::toChar(DCDCompletionItemType::DCDCompletionItemType e)
 {
@@ -300,8 +301,11 @@ void DCD::addImportPath(QStringList paths)
 
     QStringList arguments = QStringList(QString("-p%1").arg(m_port));
     foreach(QString path, paths) {
-        arguments << QString("-I%1").arg(path);
+        if (QFile::exists(path))
+            arguments << QString("-I%1").arg(path);
     }
+
+    kDebug() << "ARGUMENTS:" << arguments;
 
     KProcess proc;
     proc.setOutputChannelMode(KProcess::MergedChannels);

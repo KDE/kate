@@ -29,11 +29,14 @@
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/texthintinterface.h>
 #include <kactioncollection.h>
-#include <qfile.h>
+#include <QtCore/QFile>
+#include <QtCore/QDir>
+
 
 K_PLUGIN_FACTORY_DEFINITION(
-    LumenPluginFactory, registerPlugin<LumenPlugin>("lumen");
+    LumenPluginFactory, registerPlugin<LumenPlugin>("ktexteditor_lumen");
 )
+
 K_EXPORT_PLUGIN(
     LumenPluginFactory(
         KAboutData(
@@ -116,17 +119,26 @@ void LumenPluginView::urlChanged(Document* document)
     registerCompletion();
 
     QStringList paths;
-    for (KUrl url = document->url(); !url.equals(KUrl("/")); url.cd("..")) {
+    for (KUrl url = document->url(); !url.equals(KUrl("/")); url = url.upUrl()) {
         url = url.directory();
         url.addPath(".lumenconfig");
 
         QFile file(url.path());
         if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            while(!file.atEnd()) {
-                paths.append(file.readLine().trimmed());
+            while (!file.atEnd()) {
+                QString path = file.readLine().trimmed();
+                // KUrl doesn really provide this functionallity
+                if (QDir::isRelativePath(path)){
+                    path = QDir::cleanPath(
+                      url.directory() + QDir::separator() + path
+                    );
+                }
+
+                paths.append(path);
             }
         }
     }
+
     if (!paths.isEmpty()) {
         m_plugin->dcd()->addImportPath(paths);
     }

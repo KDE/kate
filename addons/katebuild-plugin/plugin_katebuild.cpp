@@ -83,6 +83,8 @@ QObject *KateBuildPlugin::createView (KTextEditor::MainWindow *mainWindow)
 /******************************************************************/
 KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
     : QObject (mw)
+    , m_buildWidget(0)
+    , m_outputWidgetWidth(0)
     , m_proc(0)
     , m_buildCancelled(false)
     , m_displayModeBeforeBuild(1)
@@ -142,12 +144,21 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     a->setText(i18n("Next Set of Targets"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(targetNext()));
 
-    QWidget *buildWidget = new QWidget(m_toolView);
-    m_buildUi.setupUi(buildWidget);
+    m_buildWidget = new QWidget(m_toolView);
+    m_buildUi.setupUi(m_buildWidget);
     m_targetsUi = new TargetsUi(m_buildUi.u_tabWidget);
     m_buildUi.u_tabWidget->insertTab(0, m_targetsUi, i18nc("Tab label", "Target Settings"));
     m_buildUi.u_tabWidget->setCurrentWidget(m_targetsUi);
 
+    m_buildWidget->installEventFilter(this);
+
+    m_buildUi.buildAgainButton->setVisible(true);
+    m_buildUi.cancelBuildButton->setVisible(true);
+    m_buildUi.buildStatusLabel->setVisible(true);
+    m_buildUi.buildAgainButton2->setVisible(false);
+    m_buildUi.cancelBuildButton2->setVisible(false);
+    m_buildUi.buildStatusLabel2->setVisible(false);
+    m_buildUi.extraLineLayout->setAlignment(Qt::AlignRight);
 
     connect(m_buildUi.errTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
             SLOT(slotItemSelected(QTreeWidgetItem*)));
@@ -159,6 +170,8 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     connect(m_buildUi.buildAgainButton, SIGNAL(clicked()), this, SLOT(slotBuildPreviousTarget()));
     connect(m_buildUi.cancelBuildButton, SIGNAL(clicked()), this, SLOT(slotStop()));
+    connect(m_buildUi.buildAgainButton2, SIGNAL(clicked()), this, SLOT(slotBuildPreviousTarget()));
+    connect(m_buildUi.cancelBuildButton2, SIGNAL(clicked()), this, SLOT(slotStop()));
 
     connect(m_targetsUi->browse, SIGNAL(clicked()), this, SLOT(slotBrowseClicked()));
 
@@ -600,7 +613,9 @@ bool KateBuildView::slotStop()
 {
     if (m_proc->state() != QProcess::NotRunning) {
         m_buildCancelled = true;
-        m_buildUi.buildStatusLabel->setText(i18n("Building <b>%1</b> cancelled").arg(m_currentlyBuildingTarget));
+        QString msg = i18n("Building <b>%1</b> cancelled").arg(m_currentlyBuildingTarget);
+        m_buildUi.buildStatusLabel->setText(msg);
+        m_buildUi.buildStatusLabel2->setText(msg);
         m_proc->terminate();
         return true;
     }
@@ -688,7 +703,9 @@ bool KateBuildView::buildTarget(const QString& targetName)
     m_filenameDetectorGccWorked = false;
     m_currentlyBuildingTarget = targetName;
     m_buildCancelled = false;
-    m_buildUi.buildStatusLabel->setText(i18n("Building target <b>%1</b> ...").arg(m_currentlyBuildingTarget));
+    QString msg = i18n("Building target <b>%1</b> ...").arg(m_currentlyBuildingTarget);
+    m_buildUi.buildStatusLabel->setText(msg);
+    m_buildUi.buildStatusLabel2->setText(msg);
     return startProcess(dir, buildCmd);
 }
 
@@ -749,6 +766,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 
     if (!m_buildCancelled) {
         m_buildUi.buildStatusLabel->setText(buildStatus);
+        m_buildUi.buildStatusLabel2->setText(buildStatus);
         m_buildCancelled = false;
     }
 
@@ -1134,6 +1152,7 @@ void KateBuildView::targetSelected(int index)
     clearBuildResults();
     m_currentlyBuildingTarget.clear();
     m_buildUi.buildStatusLabel->setText(i18n("Nothing built yet."));
+    m_buildUi.buildStatusLabel2->setText(i18n("Nothing built yet."));
 }
 
 /******************************************************************/
@@ -1311,6 +1330,22 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
             return true;
         }
     }
+    if ((event->type() == QEvent::Resize) && (obj == m_buildWidget)) {
+        if (m_buildUi.u_tabWidget->currentIndex() == 1) {
+            if ((m_outputWidgetWidth == 0) && m_buildUi.buildAgainButton->isVisible()) {
+                QSize msh = m_buildWidget->minimumSizeHint();
+                m_outputWidgetWidth = msh.width();
+            }
+        }
+        bool useVertLayout = (m_buildWidget->width() < m_outputWidgetWidth);
+        m_buildUi.buildAgainButton->setVisible(!useVertLayout);
+        m_buildUi.cancelBuildButton->setVisible(!useVertLayout);
+        m_buildUi.buildStatusLabel->setVisible(!useVertLayout);
+        m_buildUi.buildAgainButton2->setVisible(useVertLayout);
+        m_buildUi.cancelBuildButton2->setVisible(useVertLayout);
+        m_buildUi.buildStatusLabel2->setVisible(useVertLayout);
+    }
+
     return QObject::eventFilter(obj, event);
 }
 

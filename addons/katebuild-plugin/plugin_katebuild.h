@@ -142,6 +142,8 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         KTextEditor::MainWindow *m_win;
         QWidget          *m_toolView;
         Ui::build         m_buildUi;
+        QWidget          *m_buildWidget;
+        int               m_outputWidgetWidth;
         TargetsUi        *m_targetsUi;
         QProcess         *m_proc;
         QString           m_output_lines;

@@ -26,7 +26,7 @@
       <attribute name="title">
        <string>Output</string>
       </attribute>
-      <layout class="QVBoxLayout" name="outputVerticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
@@ -103,6 +103,31 @@
          </item>
          <item>
           <widget class="QPushButton" name="cancelBuildButton">
+           <property name="text">
+            <string>Cancel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="extraLineLayout">
+         <item>
+          <widget class="QLabel" name="buildStatusLabel2">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buildAgainButton2">
+           <property name="text">
+            <string>Build again</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cancelBuildButton2">
            <property name="text">
             <string>Cancel</string>
            </property>

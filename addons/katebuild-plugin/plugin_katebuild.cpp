@@ -159,6 +159,8 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_buildUi.cancelBuildButton2->setVisible(false);
     m_buildUi.buildStatusLabel2->setVisible(false);
     m_buildUi.extraLineLayout->setAlignment(Qt::AlignRight);
+    m_buildUi.cancelBuildButton->setEnabled(false);
+    m_buildUi.cancelBuildButton2->setEnabled(false);
 
     connect(m_buildUi.errTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
             SLOT(slotItemSelected(QTreeWidgetItem*)));
@@ -604,6 +606,11 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
         return false;
     }
 
+    m_buildUi.cancelBuildButton->setEnabled(true);
+    m_buildUi.cancelBuildButton2->setEnabled(true);
+    m_buildUi.buildAgainButton->setEnabled(false);
+    m_buildUi.buildAgainButton2->setEnabled(false);
+
     QApplication::setOverrideCursor(QCursor(Qt::BusyCursor));
     return true;
 }
@@ -729,6 +736,11 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
 void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 {
     QApplication::restoreOverrideCursor();
+    m_buildUi.cancelBuildButton->setEnabled(false);
+    m_buildUi.cancelBuildButton2->setEnabled(false);
+    m_buildUi.buildAgainButton->setEnabled(true);
+    m_buildUi.buildAgainButton2->setEnabled(true);
+
     QString buildStatus = i18n("Building <b>%1</b> completed.").arg(m_currentlyBuildingTarget);
 
     // did we get any errors?

@@ -84,6 +84,7 @@ QObject *KateBuildPlugin::createView (KTextEditor::MainWindow *mainWindow)
 KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
     : QObject (mw)
     , m_proc(0)
+    , m_buildCancelled(false)
     , m_displayModeBeforeBuild(1)
     // NOTE this will not allow spaces in file names.
     // e.g. from gcc: "main.cpp:14: error: cannot convert ‘std::string’ to ‘int’ in return"
@@ -155,6 +156,9 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     slotDisplayMode(0);
 
     connect(m_buildUi.displayModeSlider, SIGNAL(valueChanged(int)), this, SLOT(slotDisplayMode(int)));
+
+    connect(m_buildUi.buildAgainButton, SIGNAL(clicked()), this, SLOT(slotBuildPreviousTarget()));
+    connect(m_buildUi.cancelBuildButton, SIGNAL(clicked()), this, SLOT(slotStop()));
 
     connect(m_targetsUi->browse, SIGNAL(clicked()), this, SLOT(slotBrowseClicked()));
 
@@ -595,6 +599,8 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
 bool KateBuildView::slotStop()
 {
     if (m_proc->state() != QProcess::NotRunning) {
+        m_buildCancelled = true;
+        m_buildUi.buildStatusLabel->setText(i18n("Building <b>%1</b> cancelled").arg(m_currentlyBuildingTarget));
         m_proc->terminate();
         return true;
     }
@@ -680,6 +686,9 @@ bool KateBuildView::buildTarget(const QString& targetName)
         buildCmd.replace(QStringLiteral("%d"), docFInfo.absolutePath());
     }
     m_filenameDetectorGccWorked = false;
+    m_currentlyBuildingTarget = targetName;
+    m_buildCancelled = false;
+    m_buildUi.buildStatusLabel->setText(i18n("Building target <b>%1</b> ...").arg(m_currentlyBuildingTarget));
     return startProcess(dir, buildCmd);
 }
 
@@ -703,6 +712,7 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
 void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 {
     QApplication::restoreOverrideCursor();
+    QString buildStatus = i18n("Building <b>%1</b> completed.").arg(m_currentlyBuildingTarget);
 
     // did we get any errors?
     if (m_numErrors || m_numWarnings || (exitCode != 0)) {
@@ -722,9 +732,11 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         QStringList msgs;
         if (m_numErrors) {
             msgs << i18np("Found one error.", "Found %1 errors.", m_numErrors);
+            buildStatus = i18n("Building <b>%1</b> had errors.").arg(m_currentlyBuildingTarget);
         }
-        if (m_numWarnings) {
+        else if (m_numWarnings) {
             msgs << i18np("Found one warning.", "Found %1 warnings.", m_numWarnings);
+            buildStatus = i18n("Building <b>%1</b> had warnings.").arg(m_currentlyBuildingTarget);
         }
         displayBuildResult(msgs.join(QLatin1Char('\n')), m_numErrors ? KTextEditor::Message::Error : KTextEditor::Message::Warning);
     }
@@ -733,6 +745,11 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     }
     else {
         displayBuildResult(i18n("Build completed without problems."), KTextEditor::Message::Positive);
+    }
+
+    if (!m_buildCancelled) {
+        m_buildUi.buildStatusLabel->setText(buildStatus);
+        m_buildCancelled = false;
     }
 
 }
@@ -1115,6 +1132,8 @@ void KateBuildView::targetSelected(int index)
     m_targetsUi->buildButton->setEnabled(enableButtons);
 
     clearBuildResults();
+    m_currentlyBuildingTarget.clear();
+    m_buildUi.buildStatusLabel->setText(i18n("Nothing built yet."));
 }
 
 /******************************************************************/

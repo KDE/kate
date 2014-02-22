@@ -87,6 +87,27 @@
            </property>
           </spacer>
          </item>
+         <item>
+          <widget class="QLabel" name="buildStatusLabel">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buildAgainButton">
+           <property name="text">
+            <string>Build again</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cancelBuildButton">
+           <property name="text">
+            <string>Cancel</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>

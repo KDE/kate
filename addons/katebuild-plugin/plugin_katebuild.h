@@ -145,6 +145,8 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         TargetsUi        *m_targetsUi;
         QProcess         *m_proc;
         QString           m_output_lines;
+        QString           m_currentlyBuildingTarget;
+        bool              m_buildCancelled;
         int               m_displayModeBeforeBuild;
         QString           m_make_dir;
         QStack<QString>   m_make_dir_stack;

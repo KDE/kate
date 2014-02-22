@@ -84,6 +84,7 @@ QObject *KateBuildPlugin::createView (KTextEditor::MainWindow *mainWindow)
 KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
     : QObject (mw)
     , m_proc(0)
+    , m_displayModeBeforeBuild(1)
     // NOTE this will not allow spaces in file names.
     // e.g. from gcc: "main.cpp:14: error: cannot convert ‘std::string’ to ‘int’ in return"
     , m_filenameDetector(QStringLiteral("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+):([0-9]+)(.*)"))
@@ -151,10 +152,9 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
             SLOT(slotItemSelected(QTreeWidgetItem*)));
 
     m_buildUi.plainTextEdit->setReadOnly(true);
+    slotDisplayMode(0);
 
-    connect(m_buildUi.showErrorsButton, SIGNAL(toggled(bool)), this, SLOT(slotShowErrors(bool)));
-    connect(m_buildUi.showWarningsButton, SIGNAL(toggled(bool)), this, SLOT(slotShowWarnings(bool)));
-    connect(m_buildUi.showOthersButton, SIGNAL(toggled(bool)), this, SLOT(slotShowOthers(bool)));
+    connect(m_buildUi.displayModeSlider, SIGNAL(valueChanged(int)), this, SLOT(slotDisplayMode(int)));
 
     connect(m_targetsUi->browse, SIGNAL(clicked()), this, SLOT(slotBrowseClicked()));
 
@@ -432,7 +432,7 @@ void KateBuildView::addError(const QString &filename, const QString &line,
         isError=true;
         item->setForeground(1, Qt::red);
         m_numErrors++;
-        item->setHidden(!m_buildUi.showErrorsButton->isChecked());
+        item->setHidden(false);
     }
     if (message.contains(QStringLiteral("warning")) ||
         message.contains(i18nc("The same word as 'make' uses to mark a warning.","warning"))
@@ -441,7 +441,7 @@ void KateBuildView::addError(const QString &filename, const QString &line,
         isWarning=true;
         item->setForeground(1, Qt::yellow);
         m_numWarnings++;
-        item->setHidden(!m_buildUi.showWarningsButton->isChecked());
+        item->setHidden(m_buildUi.displayModeSlider->value() > 2);
     }
     item->setTextAlignment(1, Qt::AlignRight);
 
@@ -458,7 +458,7 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     item->setData(2, Qt::UserRole, column);
 
     if ((isError==false) && (isWarning==false)) {
-      item->setHidden(!m_buildUi.showOthersButton->isChecked());
+      item->setHidden(m_buildUi.displayModeSlider->value() > 1);
     }
 
     item->setData(0,Qt::UserRole+1,isError);
@@ -571,6 +571,8 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
 
     // activate the output tab
     m_buildUi.u_tabWidget->setCurrentIndex(1);
+    m_displayModeBeforeBuild = m_buildUi.displayModeSlider->value();
+    m_buildUi.displayModeSlider->setValue(0);
     m_win->showToolView(m_toolView);
 
     // set working directory
@@ -704,7 +706,10 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 
     // did we get any errors?
     if (m_numErrors || m_numWarnings || (exitCode != 0)) {
-       m_buildUi.u_tabWidget->setCurrentIndex(2);
+       m_buildUi.u_tabWidget->setCurrentIndex(1);
+       if (m_buildUi.displayModeSlider->value() == 0) {
+           m_buildUi.displayModeSlider->setValue(m_displayModeBeforeBuild > 0 ? m_displayModeBeforeBuild: 1);
+       }
        m_buildUi.errTreeWidget->resizeColumnToContents(0);
        m_buildUi.errTreeWidget->resizeColumnToContents(1);
        m_buildUi.errTreeWidget->resizeColumnToContents(2);
@@ -1305,40 +1310,48 @@ void KateBuildView::handleEsc(QEvent *e)
 
 
 /******************************************************************/
-void KateBuildView::slotShowErrors(bool showItems) {
+void KateBuildView::slotDisplayMode(int mode) {
     QTreeWidget *tree=m_buildUi.errTreeWidget;
-    const int itemCount = tree->topLevelItemCount();
+    tree->setVisible(mode != 0);
+    m_buildUi.plainTextEdit->setVisible(mode == 0);
 
-    for (int i=0;i<itemCount;i++) {
-        QTreeWidgetItem* item=tree->topLevelItem(i);
-        if (item->data(0,Qt::UserRole+1).toBool()==true) {
-            item->setHidden(!showItems);
-        }
+    QString modeText;
+    switch(mode)
+    {
+        case 3:
+            modeText = i18n("Only Errors");
+            break;
+        case 2:
+            modeText = i18n("Errors and Warnings");
+            break;
+        case 1:
+            modeText = i18n("Parsed Output");
+            break;
+        case 0:
+            modeText = i18n("Full Output");
+            break;
     }
-}
+    m_buildUi.displayModeLabel->setText(modeText);
 
-/******************************************************************/
-void KateBuildView::slotShowWarnings(bool showItems) {
-    QTreeWidget *tree=m_buildUi.errTreeWidget;
-    const int itemCount = tree->topLevelItemCount();
-
-    for (int i=0;i<itemCount;i++) {
-        QTreeWidgetItem* item=tree->topLevelItem(i);
-        if (item->data(0,Qt::UserRole+2).toBool()==true) {
-            item->setHidden(!showItems);
-        }
+    if (mode < 1) {
+        return;
     }
-}
 
-/******************************************************************/
-void KateBuildView::slotShowOthers(bool showItems) {
-    QTreeWidget *tree=m_buildUi.errTreeWidget;
     const int itemCount = tree->topLevelItemCount();
 
     for (int i=0;i<itemCount;i++) {
         QTreeWidgetItem* item=tree->topLevelItem(i);
+
         if ( (item->data(0,Qt::UserRole+1).toBool()==false) && (item->data(0,Qt::UserRole+2).toBool()==false) ) {
-            item->setHidden(!showItems);
+            item->setHidden(mode > 1);
+        }
+
+        if (item->data(0,Qt::UserRole+2).toBool()==true) {
+            item->setHidden(mode > 2);
+        }
+
+        if (item->data(0,Qt::UserRole+1).toBool()==true) {
+            item->setHidden(false);
         }
     }
 }

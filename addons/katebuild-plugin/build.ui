@@ -22,75 +22,55 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="output">
+     <widget class="QWidget" name="errs">
       <attribute name="title">
        <string>Output</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QPlainTextEdit" name="plainTextEdit">
-         <property name="tabChangesFocus">
-          <bool>true</bool>
-         </property>
-         <property name="undoRedoEnabled">
-          <bool>false</bool>
-         </property>
-         <property name="lineWrapMode">
-          <enum>QPlainTextEdit::WidgetWidth</enum>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-         <property name="textInteractionFlags">
-          <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="errs">
-      <attribute name="title">
-       <string>Errors &amp;&amp; Warnings</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QVBoxLayout" name="outputVerticalLayout">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="showErrorsButton">
+          <widget class="QLabel" name="showLabel">
            <property name="text">
-            <string>Errors</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
+            <string>Show:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="showWarningsButton">
-           <property name="text">
-            <string>Warnings</string>
+          <widget class="QSlider" name="displayModeSlider">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="checkable">
-            <bool>true</bool>
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>0</height>
+            </size>
            </property>
-           <property name="checked">
-            <bool>true</bool>
+           <property name="maximum">
+            <number>3</number>
+           </property>
+           <property name="pageStep">
+            <number>1</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="tickPosition">
+            <enum>QSlider::TicksAbove</enum>
+           </property>
+           <property name="tickInterval">
+            <number>1</number>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="showOthersButton">
+          <widget class="QLabel" name="displayModeLabel">
            <property name="text">
-            <string>Others</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
+            <string/>
            </property>
           </widget>
          </item>
@@ -146,6 +126,13 @@
          </column>
         </widget>
        </item>
+       <item>
+        <widget class="QPlainTextEdit" name="plainTextEdit">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -154,8 +141,6 @@
  </widget>
  <tabstops>
   <tabstop>errTreeWidget</tabstop>
-  <tabstop>plainTextEdit</tabstop>
-  <tabstop>u_tabWidget</tabstop>
  </tabstops>
  <resources/>
  <connections/>

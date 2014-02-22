@@ -2255,6 +2255,8 @@ void ViModeTest::CommandModeTests() {
     DoTest("foo\nfoo\nfoo\nfoo", "jlma2jmbgg\\:'b,'as/foo/bar\\","foo\nbar\nbar\nbar");
     DoTest("foo", "\\:s/$/x/g\\","foox");
     DoTest("foo", "\\:s/.*/x/g\\","x");
+    DoTest("abc", "\\:s/\\\\s*/x/g\\", "xaxbxc");
+    //DoTest("abc\n123", "\\:s/\\\\s*/x/g\\", "xaxbxc\nx1x2x3"); // currently not working properly
 
     DoTest("foo/bar", "\\:s-/--\\","foobar");
     DoTest("foo/bar", "\\:s_/__\\","foobar");

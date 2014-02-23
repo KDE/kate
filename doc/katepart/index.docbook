@@ -9,6 +9,10 @@
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY menus-chapter SYSTEM "menus.docbook">
   <!ENTITY part-chapter SYSTEM "part.docbook">
+  <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
+  <!ENTITY dev-chapter SYSTEM "development.docbook">
+  <!ENTITY vi-appendix SYSTEM "vi.docbook">
+  <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE" > <!-- change language only here -->
 ]>
@@ -94,6 +98,10 @@ file at the time per window.  Since &kwrite; is a very simple implementation of
 &part-chapter;
 
 &menus-chapter;
+
+&advanced-chapter;
+
+&dev-chapter;
 
 &configuring-chapter;
 
@@ -186,6 +194,10 @@ in the <ulink url="https://bugs.kde.org/">KDE Bugtracking System</ulink>.</para>
 &underFDL;
 &underGPL;
 </chapter>
+
+&vi-appendix;
+
+&regexp-appendix;
 
 &documentation.index;
 </book>

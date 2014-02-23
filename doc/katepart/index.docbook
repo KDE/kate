@@ -50,13 +50,13 @@
 <holder>&Anders.Lund; &Anders.Lund.mail;</holder>
 </copyright>
 <copyright>
-<year>2011</year><year>2012</year><year>2013</year>
+<year>2011</year><year>2012</year><year>2013</year><year>2014</year>
 <holder>&TC.Hollingsworth; &TC.Hollingsworth.mail;</holder>
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2013-11-28</date>
-<releaseinfo>4.12 (&kde; 4.12)</releaseinfo>
+<date>2014-02-22</date>
+<releaseinfo>5.0 (&kde; 5.0)</releaseinfo>
 
 <abstract>
 <para>&katepart; is a fully featured editor component for &Qt; and &kde;

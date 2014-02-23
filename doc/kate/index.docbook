@@ -14,7 +14,6 @@
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
   <!ENTITY part-chapter SYSTEM "../katepart/part.docbook">
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
-  <!ENTITY plugins-part-sections SYSTEM "../katepart/plugins-part.docbook">
   <!ENTITY development-chapter SYSTEM "development.docbook">
   <!ENTITY vi-chapter SYSTEM "../katepart/vi.docbook">
   <!ENTITY regexp-appendix SYSTEM "../katepart/regular-expressions.docbook">

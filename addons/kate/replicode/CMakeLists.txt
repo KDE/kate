@@ -1,5 +1,5 @@
 # Set source variables
-set(katereplicode_SRCS replicodeplugin.cpp replicodeconfigpage.cpp replicodeconfig.cpp replicodeview.cpp replicodesettings.cpp)
+set(katereplicode_SRCS replicodeplugin.cpp replicodeconfigpage.cpp replicodeconfig.cpp replicodesettings.cpp)
 
 # Generate files
 kde4_add_ui_files(ui_SRCS config.ui)

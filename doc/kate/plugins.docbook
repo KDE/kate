@@ -26,7 +26,14 @@ and you can search the web for more. A few plugins are shipped with the
 editor component, for inserting automatic braces, inserting files,
 and exporting text as &HTML;.</para>
 
-&plugins-part-sections;
+<sect1 id="editor-component-plugins">
+<title>Editor Component Extensions</title>
+
+<para>For information about available plugins, see the 
+<ulink url="help:katepart/editor-component-plugins.html">Editor Component
+Extensions section of the &katepart; Handbook</ulink>.</para>
+
+</sect1>
 
 <sect1 id="scripts">
 <title>Scripts</title>

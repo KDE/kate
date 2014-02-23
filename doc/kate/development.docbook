@@ -23,17 +23,31 @@ enhancements with the world!</para>
 
 </sect1>
 
+<sect1 id="highlight">
+<title>Working with Syntax Highlighting</title>
+
+<para>For information about adding or modifying syntax highlighting definitions,
+see the <ulink url="help:katepart/dev-scripting.html">Working with Syntax
+Highlighting section of the Development chapter of the &katepart;
+Handbook</ulink>.</para>
+
+</sect1>
+
 <sect1 id="dev-scripting">
 <title>Scripting with JavaScript</title>
 
-<!--FIXME: link to katepart js api doc-->
+<para>For information about scripting with JavaScript, see the
+<ulink url="help:katepart/dev-scripting.html">Scripting with JavaScript
+section of the Development chapter of the &katepart; Handbook</ulink>.</para>
 
 </sect1>
 
 <sect1 id="dev-part">
 <title>Editor Component Extensions</title>
 
-<!--FIXME: link to katepart ece doc-->
+<para>For information about writing &katepart; plugins, see the
+<ulink url="help:katepart/dev-part.html">Editor Component Extensions
+section of the Development chapter of the &katepart; Handbook</ulink>.</para>
 
 </sect1>
 

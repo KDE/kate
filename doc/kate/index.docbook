@@ -8,14 +8,10 @@
   <!ENTITY gdb "<acronym>GDB</acronym>">
   <!ENTITY pate "Pâté">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
-  <!ENTITY highlighting-appendix SYSTEM "../katepart/highlighting.docbook">
-  <!ENTITY advanced-chapter SYSTEM "../katepart/advanced.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
-  <!ENTITY part-chapter SYSTEM "../katepart/part.docbook">
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
   <!ENTITY development-chapter SYSTEM "development.docbook">
-  <!ENTITY vi-chapter SYSTEM "../katepart/vi.docbook">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
 ]>
@@ -111,15 +107,31 @@ configuration files.  This document was written in &kate;.
 
 &fundamentals-chapter;
 
-&part-chapter;
+<chapter id="kate-part">
+<title>Working with the &kate; Editor</title>
+<para>For information about the basics of working with the editor component
+underlying &kate;, see the 
+<ulink url="help:katepart/kate-part.html">Working with the
+&katepart; Editor chapter of the &katepart; Handbook</ulink>.</para>
+</chapter>
 
 &plugins-chapter;
 
-&advanced-chapter;
+<chapter id="advanced-editing-tools">
+<title>Advanced Editing Tools</title>
+<para>For information about the advanced editing tools included with &kate;,
+see the <ulink url="help:katepart/advanced-editing-tools.html">Advanced Editing Tools chapter
+of the &katepart; Handbook</ulink>.</para>
+</chapter>
 
 &development-chapter;
 
-&vi-chapter;
+<chapter id="vi-input-mode-chapter">
+<title>The VI Input Mode</title>
+<para>For information about &kate;'s VI input mode, see the 
+<ulink url="help:katepart/vi-input-mode-chapter.html">VI Input Mode chapter
+of the &katepart; Handbook</ulink>.</para>
+</chapter>
 
 &menu-chapter;
 
@@ -259,7 +271,14 @@ documentation</para></listitem>
 
 </chapter>
 
-&regexp-appendix;
+<appendix id="regular-expressions">
+<title>Regular Expressions</title>
+
+<para>For information about using regular expressions in &kate;, see the
+<ulink url="help:katepart/regular-expressions.html">Regular Expressions appendix
+to the &katepart; Handbook</ulink>.</para>
+
+</appendix>
 
 <appendix id="installation">
 <title>Installation</title>

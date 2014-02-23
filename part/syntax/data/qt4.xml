@@ -11,7 +11,7 @@
 <language
     name="C++/Qt4"
     section="Sources"
-    version="1.3"
+    version="1.4"
     kateversion="2.4"
     indenter="cstyle"
     extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc"
@@ -398,6 +398,11 @@
     <item> QT_WA </item>
     <item> QT_WA_INLINE </item>
     <item> QT_WIN_CALLBACK </item>
+    <item> QT_USE_NAMESPACE </item>
+    <item> QT_BEGIN_NAMESPACE </item>
+    <item> QT_END_NAMESPACE </item>
+    <item> QT_BEGIN_HEADER </item>
+    <item> QT_END_HEADER </item>
     <item> Q_ALIGNOF </item>
     <item> Q_ASSERT </item>
     <item> Q_ASSERT_X </item>
@@ -570,6 +575,12 @@
     <item> Q_WS_WINCE </item>
     <item> Q_WS_WINCE_WM </item>
     <item> Q_WS_X11 </item>
+    <!-- arguments for Q_DECLARE_TYPEINFO, not really macros but good if highlighted like that -->
+    <item> Q_COMPLEX_TYPE </item>
+    <item> Q_PRIMITIVE_TYPE </item>
+    <item> Q_STATIC_TYPE </item>
+    <item> Q_MOVABLE_TYPE </item>
+    <item> Q_DUMMY_TYPE </item>
   </list>
 
   <list name="Qt4Classes">
@@ -641,6 +652,7 @@
     <item> QBitArray </item>
     <item> QBitmap </item>
     <item> QBoxLayout </item>
+    <item> QBool </item>
     <item> QBrush </item>
     <item> QBuffer </item>
     <item> QButtonGroup </item>

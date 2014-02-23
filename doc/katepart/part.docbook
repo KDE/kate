@@ -340,8 +340,8 @@ expression. The <guibutton>Add</guibutton> menuitem at the
 bottom of the context menu of the text boxes will be enabled
 and allows you to add regular expression items to the
 search pattern from a predefined list.</para>
-<para>See <ulink url="help:/kate/regular-expressions.html">Regular
-Expressions</ulink> for more on these.</para>
+<para>See <link linkend="regular-expressions">Regular
+Expressions</link> for more on these.</para>
 </listitem>
 </varlistentry>
 
@@ -435,13 +435,13 @@ switch to the incremental search bar.
 <tip>
 <para>If you are using a regular expression to find the text to replace, you can
 employ backreferences to reuse text captured in parenthesized subpatterns of the expression.</para>
-<para>See <ulink url="help:/kate/regular-expressions.html">Regular Expressions</ulink> for more
+<para>See <link linkend="regular-expressions">Regular Expressions</link> for more
 on those.</para>
 </tip>
 
 <tip><para>You can do <command>find</command>, <command>replace</command> and
 <command>ifind</command> (incremental search) from the
-<ulink url="help:/kate/advanced-editing-tools-commandline.html">command line</ulink>.</para>
+<link linkend="advanced-editing-tools-commandline">command line</link>.</para>
 </tip>
 
 </sect2>
@@ -536,7 +536,7 @@ document.</para>
 
 <tip><para>You can set all sorts of configuration variables, including
 those related to indentation using
-<ulink url="help:/kate/config-variables.html">Document Variables</ulink> and
+<link linkend="config-variables">Document Variables</link> and
 <link linkend="pref-open-save-modes-filetypes">File types</link>.</para></tip>
 
 <variablelist>

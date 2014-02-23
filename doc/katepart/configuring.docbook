@@ -26,7 +26,7 @@ process. The categories <guilabel>Appearance</guilabel>,
 <para>This group contains all pages related to the editor component of
 &kappname;. Most of the settings here are defaults, they can be overridden by
 <link linkend="pref-open-save-modes-filetypes">defining a filetype</link>,
-by <ulink url="help:/kate/config-variables.html">Document Variables</ulink> or
+by <link linkend="config-variables">Document Variables</link> or
 by changing them per document during an editing session.</para>
 <sect2 id="appearance">
 <title>Appearance</title>
@@ -301,8 +301,8 @@ wrap marker.</para></listitem>
 <listitem><para>This color is used to highlight the section of code that would
 be folded when you click on the code folding arrow to the left of a document.
 For more information, see
-<ulink url="help:/kate/advanced-editing-tools-code-folding.html">the code
-folding documentation</ulink>.</para></listitem>
+<link linkend="advanced-editing-tools-code-folding">the code
+folding documentation</link>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1018,7 +1018,7 @@ one is not already present upon saving the file.</para>
 <para>The editor will search the given number of folder levels upwards
 for &kappname; config file and load the settings line from it.
 Further information about these hidden folder config files you find in the
-<ulink url="help:/kate/config-variables.html">document variables section</ulink>.
+<link linkend="config-variables">document variables section</link>.
 </para>
 </listitem>
 </varlistentry>
@@ -1144,8 +1144,8 @@ variable and then set the value of the variable on the right.  Some variables
 provide a drop-down box to select possible values from while others require you
 to enter a valid value manually.</para>
 <para>For complete information on these variables, see
-<ulink url="help:/kate/config-variables.html">Configuring with Document
-Variables</ulink>.</para>
+<link linkend="config-variables">Configuring with Document
+Variables</link>.</para>
 </listitem>
 </varlistentry>
 
@@ -1366,7 +1366,7 @@ off.</para></listitem>
 <varlistentry id="variable-folding-markers">
 <term><cmdsynopsis><command>folding-markers</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set the display of
-<ulink url="help:/kate/advanced-editing-tools-code-folding.html">folding markers</ulink>
+<link linkend="advanced-editing-tools-code-folding">folding markers</link>
 on or off.
 </para></listitem>
 </varlistentry>

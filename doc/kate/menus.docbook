@@ -1484,8 +1484,8 @@ modified by
 your own scripts</ulink>. This way, &kate; can be extended with user-defined tools.
 </para>
 
-<para>For more information about the scripts included with &kate;, see
-<xref linkend="scripts"/>.</para>
+<para><ulink url="help:katepart/tools.html#scripts">There is a complete list of
+scripts in the &katepart; documentation.</ulink></para>
 </listitem>
 </varlistentry>
 

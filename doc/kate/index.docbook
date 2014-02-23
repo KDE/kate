@@ -16,7 +16,6 @@
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
   <!ENTITY development-chapter SYSTEM "development.docbook">
   <!ENTITY vi-chapter SYSTEM "../katepart/vi.docbook">
-  <!ENTITY regexp-appendix SYSTEM "../katepart/regular-expressions.docbook">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
 ]>
@@ -259,8 +258,6 @@ documentation</para></listitem>
 &underGPL;               <!-- GPL License -->
 
 </chapter>
-
-&highlighting-appendix;
 
 &regexp-appendix;
 

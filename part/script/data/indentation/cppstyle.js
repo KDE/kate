@@ -83,11 +83,55 @@ var gBraceMap = {
   };
 //END global variables and functions
 
-/// Check if given line/column located withing a braces
-function isInsideBraces(line, column, ch)
+/**
+ * \return \c true if attribute at given position is a \e Comment
+ *
+ * \note C++ highlighter use \em RegionMarker for special comments,
+ * soit must be counted as well...
+ */
+function isComment(line, column)
 {
-    var cursor = document.anchor(line, column, ch);
-    return cursor.isValid();
+    // Check if we are not withing a comment
+    var c = new Cursor(line, column);
+    var mode = document.attributeName(c);
+    dbg("isComment: Check mode @ " + c + ": " + mode);
+    return mode.startsWith("Doxygen")
+      || mode.startsWith("Alerts")
+      || document.isComment(c)
+      || document.isRegionMarker(c)
+      ;
+}
+
+/**
+ * \return \c true if attribute at given position is a \e String
+ */
+function isString(line, column)
+{
+    // Check if we are not withing a string
+    var c = new Cursor(line, column);
+    var mode = document.attributeName(c);
+    dbg("isString: Check mode @ " + c + ": " + mode);
+    return document.isString(c) || document.isChar(c);
+}
+
+/**
+ * \return \c true if attribute at given position is a \e String or \e Comment
+ *
+ * \note C++ highlighter use \e RegionMarker for special comments,
+ * soit must be counted as well...
+ */
+function isStringOrComment(line, column)
+{
+    // Check if we are not withing a string or a comment
+    var c = new Cursor(line, column);
+    var mode = document.attributeName(c);
+    dbg("isStringOrComment: Check mode @ " + c + ": " + mode);
+    return gMode == "Doxygen"
+      || document.isString(c)
+      || document.isChar(c)
+      || document.isComment(c)
+      || document.isRegionMarker(c)
+      ;
 }
 
 /**
@@ -149,53 +193,6 @@ function stripComment(line)
     if (result.hasComment)
         return result.before.rtrim();
     return result.before.rtrim();
-}
-
-/**
- * \return \c true if attribute at given position is a \e Comment
- *
- * \note C++ highlighter use \em RegionMarker for special comments,
- * soit must be counted as well...
- */
-function isComment(line, column)
-{
-    // Check if we are not withing a comment
-    var c = new Cursor(line, column);
-    var mode = document.attributeName(c);
-    dbg("isComment: Check mode @ " + c + ": " + mode);
-    return gMode == "Doxygen" || document.isComment(c) || document.isRegionMarker(c);
-}
-
-/**
- * \return \c true if attribute at given position is a \e String
- */
-function isString(line, column)
-{
-    // Check if we are not withing a string
-    var c = new Cursor(line, column);
-    var mode = document.attributeName(c);
-    dbg("isString: Check mode @ " + c + ": " + mode);
-    return document.isString(c) || document.isChar(c);
-}
-
-/**
- * \return \c true if attribute at given position is a \e String or \e Comment
- *
- * \note C++ highlighter use \e RegionMarker for special comments,
- * soit must be counted as well...
- */
-function isStringOrComment(line, column)
-{
-    // Check if we are not withing a string or a comment
-    var c = new Cursor(line, column);
-    var mode = document.attributeName(c);
-    dbg("isStringOrComment: Check mode @ " + c + ": " + mode);
-    return gMode == "Doxygen"
-      || document.isString(c)
-      || document.isChar(c)
-      || document.isComment(c)
-      || document.isRegionMarker(c)
-      ;
 }
 
 /**
@@ -942,6 +939,9 @@ function trySplitString_ch(line)
 {
     var result = -1;
     var column = document.lastColumn(line - 1);
+
+    if (isComment(line - 1, column))
+        return;                                             // Do nothing for comments
 
     // Check if last char on a prev line has string attribute
     var lastColumnIsString = isString(line - 1, column);

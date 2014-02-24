@@ -59,7 +59,7 @@ require ("string.js");
 // TBD <others>
 triggerCharacters = "{}()[]<>/:;,#\\?!|&/%.@ '\"=*^";
 
-var debugMode = false;
+var debugMode = true;
 
 /// \todo Move to a separate library?
 function dbg()
@@ -659,7 +659,7 @@ function tryIndentAfterSomeKeywords_ch(line)
     // Check if ENTER was pressed after some keywords...
     var prevString = document.line(line - 1);
     dbg("tryIndentAfterSomeKeywords_ch prevString='"+prevString+"'");
-    var r = /^(\s*)((if|for|while)\s*\(|\bdo\b|(((public|protected|private)(\s+(slots|Q_SLOTS))?)|default|case\s+.*)\s*:).*$/
+    var r = /^(\s*)((if|for|while)\s*\(|\bdo\b|\breturn\b|(((public|protected|private)(\s+(slots|Q_SLOTS))?)|default|case\s+.*)\s*:).*$/
       .exec(prevString);
     if (r != null)
     {
@@ -673,7 +673,6 @@ function tryIndentAfterSomeKeywords_ch(line)
         {
             var prevPrevString = stripComment(line - 2);
             dbg("tryIndentAfterSomeKeywords_ch prevPrevString='"+prevPrevString+"'");
-            dbg("tryIndentAfterSomeKeywords_ch prevPrevString2='"+document.line(line-2)+"'");
             if (prevPrevString.endsWith('}'))
                 result = document.firstColumn(line - 2);
             else if (prevPrevString.match(/^\s*[\])>]/))

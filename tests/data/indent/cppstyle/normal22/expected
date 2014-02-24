@@ -1,0 +1,6 @@
+    if (some)
+    {
+        some;
+    }
+    else
+        ok;

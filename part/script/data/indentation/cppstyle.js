@@ -1256,8 +1256,8 @@ function tryTemplate(cursor)
 }
 
 /**
- * This function called for some characters and try to do the following:
- * if cursor (right after a trigger character is entered) positioned withing
+ * This function called for some characters and trying to do the following:
+ * if the cursor (right after a trigger character is entered) is positioned withing
  * a parenthesis, move the entered character out of parenthesis.
  *
  * For example:
@@ -1541,7 +1541,8 @@ function trySemicolon(cursor)
             var lineLength = document.lineLength(line);
             for (var i = column; i < lineLength; ++i)
             {
-                if (document.charAt(line, i) != ')')
+                var c = document.charAt(line, i);
+                if (!(c == ')' || c == ']'))
                 {
                     should_proceed = false;
                     break;

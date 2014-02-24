@@ -1,0 +1,8 @@
+        std::foreach(
+            begin(c)
+          , end(c)
+          , [=](const value_type& v)
+            {
+                ok;
+            }
+          );

@@ -59,7 +59,7 @@ require ("string.js");
 // TBD <others>
 triggerCharacters = "{}()[]<>/:;,#\\?!|&/%.@ '\"=*^";
 
-var debugMode = true;
+var debugMode = false;
 
 /// \todo Move to a separate library?
 function dbg()
@@ -657,14 +657,16 @@ function tryIndentAfterSomeKeywords_ch(line)
 {
     var result = -1;
     // Check if ENTER was pressed after some keywords...
-    var prevString = document.line(line - 1);
+    var sr = splitByComment(line - 1);
+    var prevString = sr.before;
     dbg("tryIndentAfterSomeKeywords_ch prevString='"+prevString+"'");
     var r = /^(\s*)((if|for|while)\s*\(|\bdo\b|\breturn\b|(((public|protected|private)(\s+(slots|Q_SLOTS))?)|default|case\s+.*)\s*:).*$/
       .exec(prevString);
     if (r != null)
     {
         dbg("r=",r);
-        result = r[1].length + gIndentWidth;
+        if (!r[2].startsWith("return") || !prevString.rtrim().endsWith(';'))
+            result = r[1].length + gIndentWidth;
     }
     else
     {
@@ -948,7 +950,7 @@ function trySplitString_ch(line)
     var column = document.lastColumn(line - 1);
 
     if (isComment(line - 1, column))
-        return;                                             // Do nothing for comments
+        return result;                                      // Do nothing for comments
 
     // Check if last char on a prev line has string attribute
     var lastColumnIsString = isString(line - 1, column);
@@ -1002,6 +1004,54 @@ function trySplitString_ch(line)
     return result;
 }
 
+/**
+ * Here is few cases possible:
+ * \code
+ *  // set some var to lambda function
+ *  auto some = [foo](bar)|
+ *
+ *  // lambda as a parameter (possible the first one,
+ *  // i.e. w/o a leading comma)
+ *  std::foreach(
+ *      begin(container)
+ *    , end(container)
+ *    , [](const value_type& v)|
+ *    );
+ * \endcode
+ */
+function tryAfterLambda_ch(line)
+{
+    var result = -1;
+    var column = document.lastColumn(line - 1);
+
+    if (isComment(line - 1, column))
+        return result;                                      // Do nothing for comments
+
+    var sr = splitByComment(line - 1);
+    if (sr.before.match(/\[[^\]]*\]\([^{]*\)[^{}]*$/))
+    {
+        var align = document.firstColumn(line - 1);
+        var before = sr.before.ltrim();
+        if (before.startsWith(','))
+            align += 2;
+        var padding = String().fill(' ', align);
+        var tail = before.startsWith('auto ') ? "};" : "}";
+        document.insertText(
+            line
+          , 0
+          , padding + "{\n" + padding + String().fill(' ', gIndentWidth) + "\n" + padding + tail
+          );
+        view.setCursorPosition(line + 1, align + gIndentWidth);
+        result = -2;
+    }
+
+    if (result != -1)
+    {
+        dbg("tryAfterLambda_ch result="+result);
+    }
+    return result;
+}
+
 /// Wrap \c tryToKeepInlineComment as \e caret-handler
 function tryToKeepInlineComment_ch(line)
 {
@@ -1041,6 +1091,7 @@ function caretPressed(cursor)
       , tryAfterBlockComment_ch
       , tryAfterBreakContinue_ch
       , trySplitString_ch                                   // Handle ENTER pressed in the middle of a string
+      , tryAfterLambda_ch                                   // Handle ENTER after lambda prototype and before body
       , tryToKeepInlineComment_ch                           // NOTE This must be a last checker!
     ];
 

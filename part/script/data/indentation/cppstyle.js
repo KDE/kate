@@ -1596,7 +1596,7 @@ function tryOperator(cursor, ch)
     var halfTabNeeded = justEnteredCharIsFirstOnLine(line, column, ch)
       && document.line(line - 1).search(/^\s*[A-Za-z_][A-Za-z0-9_]*/) != -1
       ;
-    dbg("tryOperator: halfTabNeeded=",halfTabNeeded);
+    dbg("tryOperator: halfTabNeeded =", halfTabNeeded);
     if (halfTabNeeded)
     {
         // check if we r at function call or array index
@@ -1604,16 +1604,16 @@ function tryOperator(cursor, ch)
           || document.anchor(line, document.firstColumn(line), '[').isValid()
           || document.anchor(line, document.firstColumn(line), '{').isValid()
           ;
-        dbg("tryOperator: insideBraces=",insideBraces);
+        dbg("tryOperator: insideBraces =",insideBraces);
         result = document.firstColumn(line - 1) + (insideBraces && ch != '.' ? -2 : 2);
     }
-    var prev = cursor;
+    var prev_pos = cursor;
     cursor = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
     cursor = tryAddSpaceAfterClosedBracketOrQuote(cursor);
 
     // Check if a space before '?' still needed
-    if (prev == cursor && ch == '?' && document.charAt(line, cursor.column - 1) != ' ')
-        document.insertText(line, cursor.column - 1, ' ');  // Add it!
+    if (prev_pos == cursor && ch == '?' && document.charAt(line, cursor.column - 1) != ' ')
+        document.insertText(line, cursor.column - 1, " ");  // Add it!
 
     cursor = view.cursorPosition();                         // Update cursor position
     line = cursor.line;
@@ -1639,63 +1639,116 @@ function tryOperator(cursor, ch)
          * 6b) <tt> ||</tt> -- remove the last bar and add a space after 2nd bar if needed
          * 6c) <tt>||</tt> -- add a space after if needed
          */
-        var prev = document.charAt(line, column - 4)
-          + document.charAt(line, column - 3)
-          + document.charAt(line, column - 2)
-          ;
+        var prev = document.text(line, column - 4, line, column - 1);
         dbg("tryOperator: checking @Cursor("+line+","+(column - 4)+"), prev='"+prev+"'");
-        if (prev.endsWith(' | '))
+        var space_offset = 0;
+        if (prev.endsWith(" | "))
         {
             // case 5: remove the mid space
             document.removeText(line, column - 2, line, column - 1);
             space_offset = -1;
         }
-        else if (prev.endsWith('|| '))
+        else if (prev.endsWith("|| "))
         {
             // case 6a: add a space before 1st bar if needed, remove the last bar
             document.removeText(line, column - 1, line, column);
             var space_has_added = addCharOrJumpOverIt(line, column - 4, ' ');
             space_offset = (space_has_added ? 1 : 0) - 2;
         }
-        else if (prev.endsWith(' ||'))
+        else if (prev.endsWith(" ||"))
         {
             // case 6b: remove the last bar
             document.removeText(line, column - 1, line, column);
             space_offset = -1;
         }
-        else if (prev.endsWith('||'))
+        else if (prev.endsWith("||"))
         {
             // case 6a: add a space before and remove the last bar
             document.removeText(line, column - 1, line, column);
-            document.insertText(line, column - 3, ' ');
-            space_offset = 0;
+            document.insertText(line, column - 3, " ");
         }
-        else if (prev.endsWith('| '))
+        else if (prev.endsWith("| "))
         {
             // case 4: add a space before 1st bar, remove the mid one
             document.removeText(line, column - 2, line, column - 1);
-            document.insertText(line, column - 3, ' ');
-            space_offset = 0;
+            document.insertText(line, column - 3, " ");
         }
-        else if (prev.endsWith(' |') || prev.endsWith(' '))
+        else if (prev.endsWith(" |") || prev.endsWith(" "))
         {
-            // case 3: add a space after the 2nd bar if needed
-            // case 1: add a space before 1st bar
-            space_offset = 0;
-        }
-        else if (prev.endsWith('|'))
-        {
-            // case 2: add a space before 1st bar
-            document.insertText(line, column - 2, ' ');
-            space_offset = 1;
+            // case 3 and 1
         }
         else
         {
+            // case 2: add a space before 1st bar
+            if (prev.endsWith('|'))
+                space_offset = 1;
             // case 0: add a space before bar
-            document.insertText(line, column - 1, ' ');
+            document.insertText(line, column - 1 - space_offset, " ");
             space_offset = 1;
         }
         addCharOrJumpOverIt(line, column + space_offset, ' ');
+    }
+    // Handle operator% and/or operator^
+    else if (ch == '%' || ch == '^')
+    {
+        var prev = document.text(line, column - 4, line, column - 1);
+        dbg("tryOperator: checking2 @Cursor("+line+","+(column - 4)+"), prev='"+prev+"'");
+        var patterns = [" % ", "% ", " %", "%", " "];
+        for (
+            var i = 0
+          ; i < patterns.length
+          ; i++
+          ) patterns[i] = patterns[i].replace('%', ch);
+
+        var space_offset = 0;
+        if (prev.endsWith(patterns[0]))
+        {
+            // case 0: remove just entered char
+            document.removeText(line, column - 1, line, column);
+            space_offset = -2;
+        }
+        else if (prev.endsWith(patterns[1]))
+        {
+            // case 1: remove just entered char, add a space before
+            document.removeText(line, column - 1, line, column);
+            document.insertText(line, column - 3, " ");
+            space_offset = -1;
+        }
+        else if (prev.endsWith(patterns[2]))
+        {
+            // case 2: remove just entered char
+            document.removeText(line, column - 1, line, column);
+            space_offset = -1;
+        }
+        else if (prev.endsWith(patterns[3]))
+        {
+            // case 3: add a space before
+            document.removeText(line, column - 1, line, column);
+            document.insertText(line, column - 2, " ");
+            space_offset = 0;
+        }
+        else if (prev.endsWith(patterns[4]))
+        {
+            // case 4: no space needed before
+            space_offset = 0;
+        }
+        else
+        {
+            // case everything else: surround operator w/ spaces
+            document.insertText(line, column - 1, " ");
+            space_offset = 1;
+        }
+        addCharOrJumpOverIt(line, column + space_offset, ' ');
+
+
+//         var space_offset = addCharOrJumpOverIt(line, column - 1, ' ') ? 1 : 0;
+//         // If just entered char the same as @ previous position...
+//         if (prev == ch)
+//         {
+//             // Remove it!
+//             document.removeText(line, column - 2 - space_offset, line, column - 1 - space_offset);
+//         }
+//         addCharOrJumpOverIt(line, column + space_offset, ' ');
     }
     if (result != -2)
     {
@@ -2341,6 +2394,13 @@ function tryEqualOperator(cursor)
                 {
                     case '=':                               // Stick the current '=' to the previous char
                     case '|':
+                    case '&':
+                    case '^':
+                    case '<':
+                    case '>':
+                    case '*':
+                    case '/':
+                    case '%':
                         document.removeText(line, column - 1, line, column);
                         document.insertText(line, column - 2, '=');
                         break;

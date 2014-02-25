@@ -225,7 +225,48 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
           if (m_plugin->expandedOn) m_symbols->expandItem(node);
         }
       } // (look for functions)
-      
+
+
+      // look for QML id: ....
+      if (stripped.midRef(c, 3) == QLatin1String("id:")) {
+        c += 3;
+        identifier = "";
+        // parse the id name
+        for (c = c; c < stripped.length(); c++) {
+          current = stripped.at(c);
+          // look for the beginning of the id
+          if (current == ';') {
+            c--;
+            break;
+          }
+          else {
+            identifier += current;
+          }
+        }
+
+        identifier = identifier.trimmed();
+
+        // if we have an id, make a node
+        if (identifier.length() > 0) {
+          QTreeWidgetItem *parent = NULL;
+          if (! nodes.isEmpty()) {
+            parent = nodes.last();
+          }
+          if ((m_plugin->treeOn) && (parent != NULL))
+            node = new QTreeWidgetItem(parent);
+          else
+            node = new QTreeWidgetItem(m_symbols);
+
+          // mark the node as a class
+          node->setIcon(0, QIcon(cls));
+
+          // add the id
+          node->setText(0, identifier);
+          node->setText(1, QString::number(line, 10));
+          if (m_plugin->expandedOn) m_symbols->expandItem(node);
+        }
+      }
+
       // keep track of brace depth
       if (current == '{') {
         brace_depth++;

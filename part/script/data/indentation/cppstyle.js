@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 21
+ * revision: 30
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++, C++/Qt4
@@ -34,11 +34,11 @@
  * More info available here: http://zaufi.github.io/programming/2013/11/29/kate-cppstyle-indenter/
  *
  * Some settings it assumes being in effect:
- * indent-width 4;
- * space-indent true;
- * auto-brackets true;
- * replace-tabs true;
- * replace-tabs-save true;
+ * - indent-width 4;
+ * - space-indent true;
+ * - auto-brackets true; <-- TODO REALLY?
+ * - replace-tabs true;
+ * - replace-tabs-save true;
  *
  * \todo Better to check (assert) some of that modelines...
  */
@@ -1739,16 +1739,6 @@ function tryOperator(cursor, ch)
             space_offset = 1;
         }
         addCharOrJumpOverIt(line, column + space_offset, ' ');
-
-
-//         var space_offset = addCharOrJumpOverIt(line, column - 1, ' ') ? 1 : 0;
-//         // If just entered char the same as @ previous position...
-//         if (prev == ch)
-//         {
-//             // Remove it!
-//             document.removeText(line, column - 2 - space_offset, line, column - 1 - space_offset);
-//         }
-//         addCharOrJumpOverIt(line, column + space_offset, ' ');
     }
     if (result != -2)
     {

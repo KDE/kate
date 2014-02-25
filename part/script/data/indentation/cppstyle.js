@@ -208,9 +208,15 @@ function addCharOrJumpOverIt(line, column, char)
 {
     // Make sure there is a space at given position
     dbg("addCharOrJumpOverIt: checking @Cursor("+line+","+column+"), c='"+document.charAt(line, column)+"'");
+    var result = false;
     if (document.lineLength(line) <= column || document.charAt(line, column) != char)
+    {
         document.insertText(line, column, char);
+        result = true;
+    }
+    /// \todo Does it really needed?
     view.setCursorPosition(line, column + 1);
+    return result;
 }
 
 /**
@@ -1617,26 +1623,79 @@ function tryOperator(cursor, ch)
     {
         addCharOrJumpOverIt(line, column, ' ');
     }
+    // Handle operator| and/or operator||
     else if (ch == '|')
     {
-        // Check if there was another '|' before
-        // TODO Generalize this pattern... it happens really often.
-        var pc = document.charAt(line, column - 3);
-        var space_offset = 0;
-        dbg("tryOperator: checking @Cursor("+line+","+(column - 3)+"), c='"+pc+"'");
-        if (pc == '|')
+        /**
+         * Here is 6+3 cases possible (the last bar is just entered):
+         * 0) <tt>???</tt> -- add a space before bar and after if needed
+         * 1) <tt>?? </tt> -- add a space after if needed
+         * 2) <tt>??|</tt> -- add a space before 1st bar and after the 2nd if needed
+         * 3) <tt>? |</tt> -- add a space after the 2nd bar if needed
+         * 4) <tt>?| </tt> -- add a space before 1st bar, remove the mid one, add a space after 2nd bar
+         * 5) <tt> | </tt> -- remove the mid space, add one after 2nd bar
+         * and finally,
+         * 6a) <tt>|| </tt> -- add a space before 1st bar if needed, remove the last bar
+         * 6b) <tt> ||</tt> -- remove the last bar and add a space after 2nd bar if needed
+         * 6c) <tt>||</tt> -- add a space after if needed
+         */
+        var prev = document.charAt(line, column - 4)
+          + document.charAt(line, column - 3)
+          + document.charAt(line, column - 2)
+          ;
+        dbg("tryOperator: checking @Cursor("+line+","+(column - 4)+"), prev='"+prev+"'");
+        if (prev.endsWith(' | '))
         {
-            document.removeText(line, column - 1, line, column);
-            document.insertText(line, column - 2, "|");
+            // case 5: remove the mid space
+            document.removeText(line, column - 2, line, column - 1);
             space_offset = -1;
         }
-        else if (pc != ' ')
+        else if (prev.endsWith('|| '))
         {
-            document.insertText(line, column - 1, " ");
-            space_offset = space_offset + 1;
+            // case 6a: add a space before 1st bar if needed, remove the last bar
+            document.removeText(line, column - 1, line, column);
+            var space_has_added = addCharOrJumpOverIt(line, column - 4, ' ');
+            space_offset = (space_has_added ? 1 : 0) - 2;
         }
-        if (space_offset != -1)
-            addCharOrJumpOverIt(line, column + space_offset, ' ');
+        else if (prev.endsWith(' ||'))
+        {
+            // case 6b: remove the last bar
+            document.removeText(line, column - 1, line, column);
+            space_offset = -1;
+        }
+        else if (prev.endsWith('||'))
+        {
+            // case 6a: add a space before and remove the last bar
+            document.removeText(line, column - 1, line, column);
+            document.insertText(line, column - 3, ' ');
+            space_offset = 0;
+        }
+        else if (prev.endsWith('| '))
+        {
+            // case 4: add a space before 1st bar, remove the mid one
+            document.removeText(line, column - 2, line, column - 1);
+            document.insertText(line, column - 3, ' ');
+            space_offset = 0;
+        }
+        else if (prev.endsWith(' |') || prev.endsWith(' '))
+        {
+            // case 3: add a space after the 2nd bar if needed
+            // case 1: add a space before 1st bar
+            space_offset = 0;
+        }
+        else if (prev.endsWith('|'))
+        {
+            // case 2: add a space before 1st bar
+            document.insertText(line, column - 2, ' ');
+            space_offset = 1;
+        }
+        else
+        {
+            // case 0: add a space before bar
+            document.insertText(line, column - 1, ' ');
+            space_offset = 1;
+        }
+        addCharOrJumpOverIt(line, column + space_offset, ' ');
     }
     if (result != -2)
     {

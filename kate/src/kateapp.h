@@ -347,9 +347,6 @@ private:
      */
     QList<KateMainWindow *> m_mainWindows;
 
-    // various vim-inspired command line commands
-    KateAppCommands *m_appCommands;
-
     /**
      * Wrapper of application for KTextEditor
      */

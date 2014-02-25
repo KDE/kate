@@ -24,7 +24,6 @@
 #include "kateviewmanager.h"
 #include "katesessionmanager.h"
 #include "katemainwindow.h"
-#include "kateappcommands.h"
 #include "katedebug.h"
 
 #include <KConfig>
@@ -63,8 +62,6 @@ KateApp::KateApp(const QCommandLineParser &args)
     // dbus
     m_adaptor = new KateAppAdaptor(this);
 
-    m_appCommands = KateAppCommands::self();
-
     /**
      * re-route some signals to application wrapper
      */
@@ -81,9 +78,6 @@ KateApp::~KateApp()
     m_adaptor->emitExiting();
     QDBusConnection::sessionBus().unregisterObject(QStringLiteral("/MainApplication"));
     delete m_adaptor;
-
-    // l8r, app commands
-    delete m_appCommands;
 
     // cu session manager
     delete m_sessionManager;

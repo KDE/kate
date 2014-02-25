@@ -31,7 +31,6 @@ set (KATE_APPLICATION_SRCS
 
    katemdi.cpp
    katerunninginstanceinfo.cpp
-   kateappcommands.cpp
    katequickopen.cpp
    katewaiter.h
    main.cpp

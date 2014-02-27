@@ -86,6 +86,7 @@ public Q_SLOTS:
     void openUrl(const QUrl &url);
 
 public:
+    void closeView(KTextEditor::View *view);
     KateMainWindow *mainWindow();
 
 private Q_SLOTS:

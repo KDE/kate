@@ -336,6 +336,26 @@ public Q_SLOTS:
     }
 
     /**
+     * Close selected view
+     * \param view the view
+     * \return true if view was closed
+     */
+    bool closeView(KTextEditor::View *view)
+    {
+        m_viewManager->closeView(view);
+        return true;
+    }
+
+    /**
+     * Split current view space according to @orientation
+     * \param orientation in which line split the view
+     */
+    void splitView(Qt::Orientation orientation)
+    {
+        m_viewManager->splitViewSpace(0L, orientation);
+    }
+
+    /**
      * Try to create a view bar for the given view.
      * @param view view for which we want an view bar
      * @return suitable widget that can host view bars widgets or nullptr

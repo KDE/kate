@@ -728,6 +728,11 @@ void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)
     }
 }
 
+void KateViewManager::closeView(KTextEditor::View *view)
+{
+    deleteView(view);
+}
+
 void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
                                      Qt::Orientation o) // = Qt::Horizontal
 {

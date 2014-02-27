@@ -7,7 +7,7 @@ set(katefiletreeplugin_PART_SRCS katefiletreeplugin.cpp katefiletreeconfigpage.c
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 add_library (katefiletree STATIC  ${katefiletree_PART_SRCS})
-
+set_target_properties(katefiletree PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 target_link_libraries(katefiletree
 PUBLIC
   KF5::TextEditor

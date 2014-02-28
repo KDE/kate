@@ -8,18 +8,23 @@
   <!ENTITY scripts "\d+|accent|marcato|staccat(issim)?o|espressivo|tenuto|portato|(up|down)(bow|mordent|prall)|flageolet|thumb|[lr](heel|toe)|open|stopped|turn|reverseturn|trill|mordent|prall(prall|mordent|down|up)?|lineprall|signumcongruentiae|(short|long|verylong)?fermata|segno|(var)?coda|snappizzicato|halfopen">
   <!ENTITY keywords "accepts|alias|consists|defaultchild|denies|description|grobdescriptions|include|invalid|language|name|objectid|once|remove|sequential|simultaneous|type|version|score|book|bookpart">
   <!ENTITY deprecatedkeywords "consistsend">
-  
+
   <!-- predefined commands, grouped, TODO: unravel other commands -->
   <!ENTITY commands-heads "(aiken|funk|sacredHarp|southernHarmony|walker)Heads(Minor)?">
-  <!ENTITY commands-other "acciaccatura|addQuote|afterGrace|allowPageTurn|alternative|apply(Context|Music|Output)|appoggiatura|arpeggio(Arrow(Down|Up)|Bracket|Normal|Parenthesis)?|(a|de)scendens|auctum|augmentum|autoBeamO(ff|n)|autochange|balloon(Grob)?Text|bar|barNumberCheck|bendAfter|breathe|break|cadenzaO(ff|n)|cavum|clef(\s+(treble|violin|G|alto|C|tenor|(sub)?bass|F|french|(mezzo)?soprano|(var)?baritone|percussion|tab))?|(end)?(de)?cr|cresc(TextCresc|Hairpin)|(cue|transposedCue)During|default|deminutum|dim(Text(Decresc|Decr|Dim)|Hairpin)|display(Lily)?Music|divisio(Maior|Maxima|Minima)|(dynamic|dots|phrasingSlur|slur|stem|tie|tuplet)(Down|Neutral|Up)|(balloon|text)LengthO(ff|n)|featherDurations|figure(mode|s)|finalis|flexa|(french|german|italian|semiGerman)Chords|glissando|grace|harmonic|(unH|h)ideNotes|(hide|show)StaffSwitch|inclinatum|(keep|remove)WithTag|key(\s+&pitch;)?|killCues|label|laissezVibrer|linea|makeClusters|mark|maxima|melisma(End)?|mergeDifferently(Head|Dott)edO(ff|n)|newSpacingSection|no(Beam|Break|PageBreak|PageTurn)|normalsize|numericTimeSignature|octaveCheck|oneVoice|oriscus|ottava|page(-ref|Break|Turn)|parallelMusic|parenthesize|partcombine|partial(\s*&duration;)?|pes|pitchedTrill|pointAndClickO(ff|n)|quilisma|quoteDuring|relative(\s+&pitch;)?|RemoveEmptyStaffContext|repeat(\s+(unfold|volta|tremolo|percent)(\s+\d+)?)?|repeatTie|resetRelativeOctave|rest|scaleDurations|scoreTweak|easyHeadsO(ff|n)|shift(Durations|Off|On{1,3})|(slur|tie)(Both|Dashed|Dotted|Solid)|small|spacingTweaks|(start|stop)(Group|(Text|Trill)Span|Staff)|stemBoth|stropha|super|(sustain|sostenuto)O(ff|n)|table-of-contents|tag|times?(\s*\d+/\d+)?|tiny|tocItem|transpose(\s+&pitch;\s*&pitch;)?|transposition(\s+&pitch;)|tweak|unfoldRepeats|virg(ul)?a|voice(One|Two|Three|Four)|withMusicProperty|cm|mm|in|pt|major|minor|ionian|locrian|aeolian|mixolydian|lydian|phrygian|dorian">
-  <!ENTITY commands "&commands-heads;|&commands-other;">
-  
+  <!ENTITY commands-other1 "acciaccatura|addQuote|afterGrace|allowPageTurn|alternative|apply(Context|Music|Output)|appoggiatura|arpeggio(Arrow(Down|Up)|Bracket|Normal|Parenthesis)?|(a|de)scendens|auctum|augmentum|autoBeamO(ff|n)|autochange|balloon(Grob)?Text|bar|barNumberCheck|bendAfter|breathe|break|cadenzaO(ff|n)|cavum|clef(\s+(treble|violin|G|alto|C|tenor|(sub)?bass|F|french|(mezzo)?soprano|(var)?baritone|percussion|tab))?|(end)?(de)?cr|cresc(TextCresc|Hairpin)">
+  <!ENTITY commands-other2 "(cue|transposedCue)During|default|deminutum|dim(Text(Decresc|Decr|Dim)|Hairpin)|display(Lily)?Music|divisio(Maior|Maxima|Minima)|(dynamic|dots|phrasingSlur|slur|stem|tie|tuplet)(Down|Neutral|Up)|(balloon|text)LengthO(ff|n)|featherDurations|figure(mode|s)|finalis|flexa|(french|german|italian|semiGerman)Chords|glissando|grace|harmonic|(unH|h)ideNotes|(hide|show)StaffSwitch|inclinatum|(keep|remove)WithTag|key(\s+&pitch;)?|killCues">
+  <!ENTITY commands-other3 "label|laissezVibrer|linea|makeClusters|mark|maxima|melisma(End)?|mergeDifferently(Head|Dott)edO(ff|n)|newSpacingSection|no(Beam|Break|PageBreak|PageTurn)|normalsize|numericTimeSignature|octaveCheck|oneVoice|oriscus|ottava|page(-ref|Break|Turn)|parallelMusic|parenthesize|partcombine|partial(\s*&duration;)?|pes|pitchedTrill">
+  <!ENTITY commands-other4 "pointAndClickO(ff|n)|quilisma|quoteDuring|relative(\s+&pitch;)?|RemoveEmptyStaffContext|repeat(\s+(unfold|volta|tremolo|percent)(\s+\d+)?)?|repeatTie|resetRelativeOctave|rest|scaleDurations|scoreTweak|easyHeadsO(ff|n)|shift(Durations|Off|On{1,3})|(slur|tie)(Both|Dashed|Dotted|Solid)|small|spacingTweaks">
+  <!ENTITY commands-other5 "(start|stop)(Group|(Text|Trill)Span|Staff)|stemBoth|stropha|super|(sustain|sostenuto)O(ff|n)|table-of-contents|tag|times?(\s*\d+/\d+)?|tiny|tocItem">
+  <!ENTITY commands-other6 "transpose(\s+&pitch;\s*&pitch;)?|transposition(\s+&pitch;)">
+  <!ENTITY commands-other7 "tweak|unfoldRepeats|virg(ul)?a|voice(One|Two|Three|Four)|withMusicProperty|cm|mm|in|pt|major|minor|ionian|locrian|aeolian|mixolydian|lydian|phrygian|dorian">
+
   <!ENTITY deprecatedcommands "arpeggio(Up|Down|Neutral)|newpage|script(Up|Down|Both)|(empty|fat)Text|setEasyHeads|(default|voice|modernVoice|piano|forget)Accidentals|(modern(Voice)?|piano)Cautionaries|noResetKey|compressMusic|octave|(sustain|sostenuto)(Down|Up)|set(Hairpin|Text)(Cresc|Decresc|Dim)|setTextDecr">
   <!ENTITY markupnotextargs "arrow-head|beam|char|(semi|sesqui|double)?(flat|sharp)|draw-(circle|line)|epsfile|eyeglasses|filled-box|fret-diagram(-terse|-verbose)?|fromproperty|harp-pedal|(justify|wordwrap)-(field|string)|left-brace|lookup|markalphabet|markletter|musicglyph|natural|note-by-number|note|null|path|right-brace|simple|(back)?slashed-digit|stencil|strut|tied-lyric|triangle|verbatim-file">
   <!ENTITY markupwithtextargs "markup|bold|(rounded-)?box|bracket|caps|(center|general|left|right)-align|circle|((center|dir|left|right)-)?column|combine|concat|dynamic|fill-line|finger|fontCaps|(abs-)?fontsize|fraction|halign|hbracket|hcenter-in|hcenter|hspace|huge|italic|justify|larger?|line|lower|magnify|medium|normal-size-(sub|super)|normal-text|normalsize|number|on-the-fly|override|pad-(around|markup|to-box|x)|page-ref|postscript|put-adjacent|raise|roman|rotate|sans|small(er)?|smallCaps|sub|super|teeny|text|tiny|translate(-scaled)?|transparent|typewriter|underline|upright|vcenter|whiteout|with-(color|dimensions|url)|wordwrap|(markup|column-|justified-|override-|wordwrap-)lines|wordwrap-(string-)?internal">
   <!ENTITY deprecatedmarkup "bigger|h?center">
   <!ENTITY headervars "dedication|(sub){,2}title|poet|composer|meter|opus|arranger|instrument|piece|breakbefore|copyright|tagline|mutopia(title|composer|poet|opus|instrument)|date|enteredby|source|style|maintainer(Email|Web)?|moreInfo|lastupdated|texidoc|footer">
-  
+
   <!-- The '-new' entities are for for LilyPond 2.13.4 and higher, and '-old' for LilyPond up to 2.12 -->
   <!ENTITY paper-margin "(top|bottom|left|right)-margin|(foot|head)-separation|indent|short-indent|paper-(height|width)|horizontal-shift|line-width">
   <!ENTITY paper-margin-new "(inner|outer)-margin|two-sided|binding-offset">
@@ -30,15 +35,24 @@
   <!ENTITY paper-other "annotate-spacing|auto-first-page-number|blank-(last-)?page-force|first-page-number|page-count|page-limit-inter-system-space|page-limit-inter-system-space-factor|page-spacing-weight|print-all-headers|print-first-page-number|print-page-number|ragged-(bottom|right)|ragged-last(-bottom)?|system-separator-markup|force-assignment|input-encoding|output-scale">
   <!ENTITY paper-markup "((even|odd)(Footer|Header)|(book|score|toc)Title|tocItem)Markup">
   <!ENTITY papervars "&paper-margin;|&paper-margin-new;|&paper-spacing-old;|&paper-spacing-new;|&paper-systems;|&paper-systems-new;|&paper-other;|&paper-markup;">
-  
+
   <!ENTITY layoutvars "system-count|(short-)?indent">
   <!ENTITY toplevelvars "dash(Hat|Plus|Dash|Bar|Larger|Dot|Underscore)|fermataMarkup|pipeSymbol|slashSeparator">
   <!ENTITY performer "Beam|Control_track|Drum_note|Dynamic|Key|Lyric|Note|Piano_pedal|Slur|Staff|Swallow|Tempo|Tie|Time_signature">
   <!ENTITY translator "Note_swallow|Rest_swallow|Skip_event_swallow|Timing">
-  <!ENTITY engraver "Accidental|Ambitus|Arpeggio|Auto_beam|Axis_group|Balloon|Bar|Bar_number|Beam|Bend|Break_align|Breathing_sign|Chord_name|Chord_tremolo|Clef|Cluster_spanner|Collision|Completion_heads|Custos|Default_bar_line|Dot_column|Dots|Drum_notes|Dynami_align|Dynamic|Episema|Extender|Figured_bass|Figured_bass_position|Fingering|Font_size|Forbid_line_break|Fretboard|Glissando|Grace_beam|Grace|Grace_spacing|Grid_line_span|Grid_point|Grob_pq|Hara_kiri|Horizontal_bracket|Hyphen|Instrument_name|Instrument_switch|Key|Laissez_vibrer|Ledger_line|Ligature_bracket|Lyric|Mark|Measure_grouping|Melody|Mensural_ligature|Metronome_mark|Multi_measure_rest|New_dynamic|New_fingering|Note_head_line|Note_heads|Note_name|Note_spacing|Ottava_spanner|Output_property|Page_turn|Paper_column|Parenthesis|Part_combine|Percent_repeat|Phrasing_slur|Piano_pedal_align|Piano_pedal|Pitch_squash|Pitched_trill|Repeat_acknowledge|Repeat_tie|Rest_collision|Rest|Rhythmic_column|Scheme|Script_column|Script|Script_row|Separating_line_group|Slash_repeat|Slur|Spacing|Span_arpeggio|Span_bar|Spanner_break_forbid|Staff_collecting|Staff_symbol|Stanza_number_align|Stanza_number|Stem|String_number|Swallow|System_start_delimiter|Tab_harmonic|Tab_note_heads|Tab_staff_symbol|Text|Text_spanner|Tie|Time_signature|Trill_spanner|Tuplet|Tweak|Vaticana_ligature|Vertical_align|Vertically_spaced_contexts|Volta">
-  <!ENTITY engravers "(&engraver;)_engraver|(&performer;)_performer|(&translator;)_translator">
+  <!ENTITY engraver0 "Accidental|Ambitus|Arpeggio|Auto_beam|Axis_group|Balloon|Bar|Bar_number|Beam|Bend|Break_align|Breathing_sign|Chord_name|Chord_tremolo|Clef|Cluster_spanner|Collision|Completion_heads|Custos|Default_bar_line|Dot_column|Dots|Drum_notes|Dynami_align|Dynamic|Episema|Extender|Figured_bass|Figured_bass_position|Fingering|Font_size|Forbid_line_break|Fretboard|Glissando|Grace_beam|Grace|Grace_spacing|Grid_line_span|Grid_point|Grob_pq|Hara_kiri|Horizontal_bracket">
+  <!ENTITY engraver1 "Hyphen|Instrument_name|Instrument_switch|Key|Laissez_vibrer|Ledger_line|Ligature_bracket|Lyric|Mark|Measure_grouping|Melody|Mensural_ligature|Metronome_mark|Multi_measure_rest|New_dynamic|New_fingering|Note_head_line|Note_heads|Note_name|Note_spacing|Ottava_spanner|Output_property|Page_turn|Paper_column|Parenthesis|Part_combine|Percent_repeat|Phrasing_slur|Piano_pedal_align|Piano_pedal|Pitch_squash|Pitched_trill|Repeat_acknowledge|Repeat_tie|Rest_collision|Rest|Rhythmic_column|Scheme|Script_column|Script|Script_row">
+  <!ENTITY engraver2 "Separating_line_group|Slash_repeat|Slur|Spacing|Span_arpeggio|Span_bar|Spanner_break_forbid|Staff_collecting|Staff_symbol|Stanza_number_align|Stanza_number|Stem|String_number|Swallow|System_start_delimiter|Tab_harmonic|Tab_note_heads|Tab_staff_symbol|Text|Text_spanner|Tie|Time_signature|Trill_spanner|Tuplet|Tweak|Vaticana_ligature|Vertical_align|Vertically_spaced_contexts|Volta">
+  <!ENTITY engravers00 "(&engraver0;)_engraver">
+  <!ENTITY engravers01 "(&engraver1;)_engraver">
+  <!ENTITY engravers02 "(&engraver2;)_engraver">
+  <!ENTITY engravers1 "(&performer;)_performer">
+  <!ENTITY engravers2 "(&translator;)_translator">
+
   <!ENTITY schemename "[a-zA-Z#][^\s(){}[\];$&quot;]*">
-  <!ENTITY schemefunc "\b(define|defined\?|define\*(-public)?|define-(\*|builtin-markup-(list-)?command|class|(extra-)?display-method|fonts?|grob-property|ly-syntax(-loc|-simple)?|macro(-public)?|markup-(list-)command|method|module|music-function|post-event-display-method|public(-macro|-toplevel)?|safe-public|span-event-display-method)|defmacro(\*(-public)?)?|lambda\*?|and|or|if|cond|case|let\*?|letrec|begin|do|delay|set!|else|(quasi)?quote|unquote(-splicing)?|(define|let|letrec)-syntax|syntax-rules|not|boolean\?|eq\?|eqv\?|equal\?|pair\?|cons|set-c[ad]r!|c[ad]{1,4}r|null\?|list\?|list|length|append|reverse|list-ref|mem[qv]|member|ass[qv]|assoc|symbol\?|symbol-&gt;string|string-&gt;symbol|number\?|complex\?|real\?|rational\?|integer\?|exact\?|inexact\?|zero\?|positive\?|negative\?|odd\?|even\?|max|min|abs|quotient|remainder|modulo|gcd|lcm|numerator|denominator|floor|ceiling|truncate|round|rationalize|exp|log|sin|cos|tan|asin|acos|atan|sqrt|expt|make-rectangular|make-polar|real-part|imag-part|magnitude|angle|exact-&gt;inexact|inexact-&gt;exact|number-&gt;string|string-&gt;number|char((-ci)?(=\?|&lt;\?|&gt;\?|&lt;=\?|&gt;=\?)|-alphabetic\?|\?|-numeric\?|-whitespace\?|-upper-case\?|-lower-case\?|-&gt;integer|-upcase|-downcase|-ready\?)|integer-&gt;char|make-string|string(\?|-copy|-fill!|-length|-ref|-set!|(-ci)?(=\?|&lt;\?|&gt;\?|&lt;=\?|&gt;=\?)|-append)|substring|make-vector|vector(\?|-length|-ref|-set!|-fill!)?|procedure\?|apply|map|for-each|force|call-with-(current-continuation|(in|out)put-file)|(in|out)put-port\?|current-(in|out)put-port|open-(in|out)put-file|close-(in|out)put-port|eof-object\?|read|(read|peek)-char|write(-char)?|display|newline|call/cc|list-tail|string-&gt;list|list-&gt;string|vector-&gt;list|list-&gt;vector|with-input-from-file|with-output-to-file|load|transcript-(on|off)|eval|dynamic-wind|port\?|values|call-with-values|(scheme-report-|null-|interaction-)environment)(?=($|\s|\)))">
+  <!ENTITY schemefunc0 "\b(define|defined\?|define\*(-public)?|define-(\*|builtin-markup-(list-)?command|class|(extra-)?display-method|fonts?|grob-property|ly-syntax(-loc|-simple)?|macro(-public)?|markup-(list-)command|method|module|music-function|post-event-display-method|public(-macro|-toplevel)?|safe-public|span-event-display-method)|defmacro(\*(-public)?)?|lambda\*?|and|or|if|cond|case|let\*?|letrec|begin|do|delay|set!|else|(quasi)?quote|unquote(-splicing)?|(define|let|letrec)-syntax|syntax-rules)(?=($|\s|\)))">
+  <!ENTITY schemefunc1 "\b(not|boolean\?|eq\?|eqv\?|equal\?|pair\?|cons|set-c[ad]r!|c[ad]{1,4}r|null\?|list\?|list|length|append|reverse|list-ref|mem[qv]|member|ass[qv]|assoc|symbol\?|symbol-&gt;string|string-&gt;symbol|number\?|complex\?|real\?|rational\?|integer\?|exact\?|inexact\?|zero\?|positive\?|negative\?|odd\?|even\?|max|min|abs|quotient|remainder|modulo|gcd|lcm|numerator|denominator|floor|ceiling|truncate|round|rationalize|exp|log|sin|cos|tan|asin|acos|atan|sqrt|expt|make-rectangular|make-polar|real-part|imag-part|magnitude|angle|exact-&gt;inexact|inexact-&gt;exact|number-&gt;string|string-&gt;number)(?=($|\s|\)))">
+  <!ENTITY schemefunc2 "\b(char((-ci)?(=\?|&lt;\?|&gt;\?|&lt;=\?|&gt;=\?)|-alphabetic\?|\?|-numeric\?|-whitespace\?|-upper-case\?|-lower-case\?|-&gt;integer|-upcase|-downcase|-ready\?)|integer-&gt;char|make-string|string(\?|-copy|-fill!|-length|-ref|-set!|(-ci)?(=\?|&lt;\?|&gt;\?|&lt;=\?|&gt;=\?)|-append)|substring|make-vector|vector(\?|-length|-ref|-set!|-fill!)?|procedure\?|apply|map|for-each|force|call-with-(current-continuation|(in|out)put-file)|(in|out)put-port\?|current-(in|out)put-port|open-(in|out)put-file|close-(in|out)put-port|eof-object\?|read|(read|peek)-char|write(-char)?|display|newline|call/cc|list-tail|string-&gt;list|list-&gt;string|vector-&gt;list|list-&gt;vector|with-input-from-file|with-output-to-file|load|transcript-(on|off)|eval|dynamic-wind|port\?|values|call-with-values|(scheme-report-|null-|interaction-)environment)(?=($|\s|\)))">
 ]>
 <language name="LilyPond" section="Other"
           style="lilypond" indenter="lilypond"
@@ -48,21 +62,21 @@
           author="Wilbert Berendsen (info@wilbertberendsen.nl)" license="LGPL">
 
   <!--
-  
+
     Fall 2010
     Minor updates by Wilbert Berendsen
-    
+
     Changes:
     - add some new commands (\path, \eyeglasses, etc), contexts and grobs for LilyPond 2.14
     - cleaned up papervars mess by using nested entities categorizing different variables
-    
+
     November, 2009
     Minor updates by Wilbert Berendsen
-    
+
     Changes:
     - add makeClusters
     - fix chords in drummode
-    
+
     October, 2008
     Minor updates by Wilbert Berendsen
 
@@ -748,7 +762,14 @@
         <RegExpr String="\\skip&b;" attribute="Command" context="duration"/>
         <RegExpr String="\\tempo&b;" attribute="Command" context="tempo"/>
         <RegExpr String="\\(&keywords;)&b;" attribute="Keyword"/>
-        <RegExpr String="\\(&commands;)&b;" attribute="Command"/>
+        <RegExpr String="\\(&commands-heads;)&b;" attribute="Command"/>
+        <RegExpr String="\\(&commands-other1;)&b;" attribute="Command"/>
+        <RegExpr String="\\(&commands-other2;)&b;" attribute="Command"/>
+        <RegExpr String="\\(&commands-other3;)&b;" attribute="Command"/>
+        <RegExpr String="\\(&commands-other4;)&b;" attribute="Command"/>
+        <RegExpr String="\\(&commands-other5;)&b;" attribute="Command"/>
+        <RegExpr String="\\(&commands-other6;)&b;" attribute="Command"/>
+        <RegExpr String="\\(&commands-other7;)&b;" attribute="Command"/>
         <RegExpr String="\\(&toplevelvars;)&b;" attribute="Variable"/>
         <RegExpr String="\\(&deprecatedkeywords;)&b;" attribute="Deprecated Keyword"/>
         <RegExpr String="\\(&deprecatedcommands;)&b;" attribute="Deprecated Command"/>
@@ -851,13 +872,17 @@
         <RegExpr String="#(t|f|b[-+]?[01.]+|o[-+]?[0-7.]+|d[-+]?[0-9.]+|x[-+]?[0-9a-f.]+)"
                  insensitive="true" attribute="Scheme Value"/>
         <RegExpr String="[+-](inf|nan)\.0" attribute="Scheme Value"/>
-        <RegExpr String="&schemefunc;" attribute="Scheme Keyword"/>
+        <RegExpr String="&schemefunc0;" attribute="Scheme Keyword"/>
+        <RegExpr String="&schemefunc1;" attribute="Scheme Keyword"/>
+        <RegExpr String="&schemefunc2;" attribute="Scheme Keyword"/>
         <RegExpr String="&schemename;"/>
       </context>
 
       <context name="schemequote" attribute="Scheme" lineEndContext="#pop"
                fallthrough="true" fallthroughContext="#pop">
-        <RegExpr String="&schemefunc;"/>
+        <RegExpr String="&schemefunc0;"/>
+        <RegExpr String="&schemefunc1;"/>
+        <RegExpr String="&schemefunc2;"/>
       </context>
 
       <context name="schemelily" attribute="Normal Text" lineEndContext="#stay">
@@ -921,7 +946,7 @@
         <keyword attribute="Other Text" String="drumpitchnames" context="duration"/>
         <IncludeRules context="music"/>
       </context>
-      
+
       <context name="drumchord" attribute="Normal Text" lineEndContext="#stay">
         <keyword attribute="Other Text" String="drumpitchnames"/>
         <IncludeRules context="chord"/>
@@ -1058,7 +1083,11 @@
         <DetectChar char="{" attribute="Keyword" context="sectionrules" beginRegion="section"/>
         <keyword String="contexts" attribute="Context"/>
         <keyword String="deprecatedcontexts" attribute="Deprecated Context"/>
-        <RegExpr String="(&quot;?)\b(&engravers;)\b\1" attribute="Engraver"/>
+        <RegExpr String="(&quot;?)\b(&engravers00;)\b\1" attribute="Engraver"/>
+        <RegExpr String="(&quot;?)\b(&engravers01;)\b\1" attribute="Engraver"/>
+        <RegExpr String="(&quot;?)\b(&engravers02;)\b\1" attribute="Engraver"/>
+        <RegExpr String="(&quot;?)\b(&engravers1;)\b\1" attribute="Engraver"/>
+        <RegExpr String="(&quot;?)\b(&engravers2;)\b\1" attribute="Engraver"/>
         <keyword String="layoutobjects" attribute="Layout Object"/>
         <keyword String="properties" attribute="Property"/>
         <RegExpr String="\b(&headervars;|&papervars;|&layoutvars;)\b" attribute="Variable"/>
@@ -1105,7 +1134,7 @@
         <RegExpr String="[A-Za-z]+(?=\s*\.)" attribute="User Command"/>
         <RegExpr String="[A-Za-z]+" attribute="User Command" context="#pop"/>
       </context>
-      
+
       <!-- special cases for individual commands -->
       <!-- \tempo -->
       <context name="tempo" attribute="Normal Text" lineEndContext="#stay"
@@ -1115,7 +1144,7 @@
         <DetectSpaces/>
         <IncludeRules context="basic"/>
       </context>
-        
+
     </contexts>
     <itemDatas>
       <itemData name="Pitch" defStyleNum="dsNormal"/>

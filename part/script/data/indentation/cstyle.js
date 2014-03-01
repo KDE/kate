@@ -805,7 +805,7 @@ function processChar(line, c)
                 return document.toVirtualColumn(openParen.line, indentation);
             }
         }
-    } else if (firstPos == column - 1 && c == '#' && ( gMode == 'C' || gMode == 'C++' ) ) {
+    } else if (firstPos == column - 1 && c == '#' && ( gMode == 'C' || gMode == 'C++' || gMode == 'ISO C++' ) ) {
         // always put preprocessor stuff upfront
         return 0;
     }

@@ -5,7 +5,7 @@
  * revision: 30
  * kate-version: 3.4
  * priority: 10
- * indent-languages: C++, C++/Qt4
+ * indent-languages: C++,ISO C++
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public

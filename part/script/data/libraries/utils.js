@@ -19,6 +19,12 @@
  */
 
 //BEGIN Utils
+/**
+ * \brief Print or suppress debug output depending on \c debugMode variable.
+ *
+ * The mentioned \c debugMode supposed to be defined by a particular indenter
+ * (external code).
+ */
 function dbg()
 {
     if (debugMode)
@@ -96,24 +102,23 @@ function splitByComment(line)
     var text = document.line(line);
     dbg("splitByComment: text='"+text+"'");
 
-    // NOTE JS have no indexOf() w/ initial position, so
-    // the simplest way is to find a comment char by char... ;-(
+    var comment_marker = document.commentMarker(document.attribute(line, 0));
+    var text = document.line(line);
     var found = false;
-    var seen_slash = false;
-    for (var i = 0; i < text.length; i++)
+    for (
+        var pos = text.indexOf(comment_marker)
+      ; pos != -1
+      ; pos = text.indexOf(comment_marker, pos + 1)
+      )
     {
-        if (text[i] == '/')
+        // Check attribute to be sure...
+        if (isComment(line, pos))
         {
-            // Ok, it looks like a comment...
-            // Check attribute...
-            if (isComment(line, i + 1))
-            {
-                // Got it!
-                before = text.substring(0, i);
-                after = text.substring(i + 2, text.length);
-                found = true;
-                break;
-            }
+            // Got it!
+            before = text.substring(0, pos);
+            after = text.substring(pos + comment_marker.length, text.length);
+            found = true;
+            break;
         }
     }
     // If no comment actually found, then set text before to the original
@@ -164,5 +169,9 @@ function justEnteredCharIsFirstOnLine(line, column, char)
     return document.firstChar(line) == char && document.firstColumn(line) == (column - 1);
 }
 //END Utils
+
+/**
+ * \todo Unit tests! How?
+ */
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

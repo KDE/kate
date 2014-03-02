@@ -5,7 +5,7 @@
  * revision: 30
  * kate-version: 3.4
  * priority: 10
- * indent-languages: C++,ISO C++
+ * indent-languages: C++, C++/Qt4, ISO C++
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -316,9 +316,9 @@ function tryToAlignBeforeCloseBrace_ch(line)
     if (ch == '}' || ch == ')' || ch == ']')
     {
         var openBracePos = document.anchor(line, pos, ch);
-        dbg("Found open brace @ "+openBracePos)
+        dbg("Found open brace @", openBracePos);
         if (openBracePos.isValid())
-            result = document.firstColumn(openBracePos.line) + (ch == '}' ? 0 : 2);
+            result = document.firstColumn(openBracePos.line) + (ch == '}' ? 0 : (gIndentWidth / 2));
     }
     else if (ch == '>')
     {

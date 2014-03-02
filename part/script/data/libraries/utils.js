@@ -38,6 +38,8 @@ function dbg()
  *
  * \note C++ highlighter use \em RegionMarker for special comments,
  * soit must be counted as well...
+ *
+ * \todo Provide an "overload" which accepts a \c Cursor
  */
 function isComment(line, column)
 {
@@ -54,6 +56,8 @@ function isComment(line, column)
 
 /**
  * \return \c true if attribute at given position is a \e String
+ *
+ * \todo Provide an "overload" which accepts a \c Cursor
  */
 function isString(line, column)
 {
@@ -69,6 +73,8 @@ function isString(line, column)
  *
  * \note C++ highlighter use \e RegionMarker for special comments,
  * soit must be counted as well...
+ *
+ * \todo Provide an "overload" which accepts a \c Cursor
  */
 function isStringOrComment(line, column)
 {
@@ -144,6 +150,8 @@ function stripComment(line)
  * Set new cursor position to the next one after the current.
  *
  * \return \c true if a desired char was added
+ *
+ * \todo Provide an "overload" which accepts a \c Cursor
  */
 function addCharOrJumpOverIt(line, column, char)
 {
@@ -163,6 +171,8 @@ function addCharOrJumpOverIt(line, column, char)
 /**
  * Check if a character right before cursor is the very first on the line
  * and the same as a given one.
+ *
+ * \todo Provide an "overload" which accepts a \c Cursor
  */
 function justEnteredCharIsFirstOnLine(line, column, char)
 {

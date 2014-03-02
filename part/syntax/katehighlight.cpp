@@ -65,7 +65,18 @@
 //END defines
 
 //BEGIN STATICS
-static const QString stdDeliminator = QString (" \t.():!+,-<=>%&*/;?[]^{|}~\\");
+namespace {
+const QString stdDeliminator = QString (" \t.():!+,-<=>%&*/;?[]^{|}~\\");
+
+QColor toColor(const QString& configEntry)
+{
+  // note: color is stored in hex format in the config files, i.e.: ffafafae
+  // it's not using the leading hash though so the QString ctor taking a QStirng
+  // fails.
+  return QColor(QRgb(configEntry.toUInt(0, 16)));
+}
+
+}
 //END
 
 //BEGIN KateHighlighting
@@ -623,10 +634,9 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
 
       QString tmp=s[0]; if (!tmp.isEmpty()) p->setDefaultStyleIndex(tmp.toInt());
 
+      tmp=s[1]; if (!tmp.isEmpty()) p->setForeground(toColor(tmp));
 
-      tmp=s[1]; if (!tmp.isEmpty()) p->setForeground(QColor(tmp));
-
-      tmp=s[2]; if (!tmp.isEmpty()) p->setSelectedForeground(QColor(tmp));
+      tmp=s[2]; if (!tmp.isEmpty()) p->setSelectedForeground(toColor(tmp));
 
       tmp=s[3]; if (!tmp.isEmpty()) p->setFontBold(tmp!="0");
 
@@ -636,9 +646,9 @@ void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QLis
 
       tmp=s[6]; if (!tmp.isEmpty()) p->setFontUnderline(tmp!="0");
 
-      tmp=s[7]; if (!tmp.isEmpty()) p->setBackground(QColor(tmp));
+      tmp=s[7]; if (!tmp.isEmpty()) p->setBackground(toColor(tmp));
 
-      tmp=s[8]; if (!tmp.isEmpty()) p->setSelectedBackground(QColor(tmp));
+      tmp=s[8]; if (!tmp.isEmpty()) p->setSelectedBackground(toColor(tmp));
 
       tmp=s[9]; if (!tmp.isEmpty() && tmp!=QLatin1String("---")) p->setFontFamily(tmp);
 

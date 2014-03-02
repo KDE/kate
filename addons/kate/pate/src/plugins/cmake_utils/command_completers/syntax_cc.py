@@ -79,6 +79,7 @@ def register_command_completer(completers):
         Value([(IDENTIFIER, ONE_OR_MORE)])
       ]
 
+    # TODO Add ALIAS option
     completers['add_executable'] = [
         Value([(IDENTIFIER, 1)])
       , Option('WIN32', ZERO_OR_ONE, description='The property WIN32_EXECUTABLE will be set on the target')
@@ -87,6 +88,7 @@ def register_command_completer(completers):
       , Value([(FILE, ONE_OR_MORE)])
       ]
 
+    # TODO Add ALIAS option
     add_library_sig_1 = [
         Value([(IDENTIFIER, 1)])
       , OneOf(Option('STATIC'), Option('SHARED'), Option('MODULE'))

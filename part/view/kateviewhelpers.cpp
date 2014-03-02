@@ -1315,9 +1315,9 @@ void KateIconBorder::setAnnotationBorderOn( bool enable )
 void KateIconBorder::removeAnnotationHovering()
 {
   // remove hovering if it's still there
-  if (m_annotationBorderOn && !m_hoveredAnnotationText.isEmpty())
+  if (m_annotationBorderOn && !m_hoveredAnnotationGroupIdentifier.isEmpty())
   {
-    m_hoveredAnnotationText.clear();
+    m_hoveredAnnotationGroupIdentifier.clear();
     hideAnnotationTooltip();
     QTimer::singleShot( 0, this, SLOT(update()) );
   }
@@ -1625,7 +1625,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         }
 
         // Draw a border around all adjacent entries that have the same text as the currently hovered one
-        if( m_hoveredAnnotationText == text.toString() )
+        const QVariant identifier = model->data( realLine, (Qt::ItemDataRole) KTextEditor::AnnotationModel::GroupIdentifierRole );
+        if( m_hoveredAnnotationGroupIdentifier == identifier.toString() )
         {
           p.drawLine( lnX, y, lnX, y+h );
           p.drawLine( lnX+borderWidth, y, lnX+borderWidth, y+h );
@@ -1926,7 +1927,8 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
         m_view->annotationModel() : m_doc->annotationModel();
       if (model)
       {
-        m_hoveredAnnotationText = model->data( t.line(), Qt::DisplayRole ).toString();
+        m_hoveredAnnotationGroupIdentifier = model->data( t.line(),
+                                                          (Qt::ItemDataRole) KTextEditor::AnnotationModel::GroupIdentifierRole ).toString();
         showAnnotationTooltip( t.line(), e->globalPos() );
         QTimer::singleShot( 0, this, SLOT(update()) );
       }
@@ -1936,7 +1938,7 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
       if( positionToArea( e->pos() ) == IconBorder )
         m_doc->requestMarkTooltip( t.line(), e->globalPos() );
 
-      m_hoveredAnnotationText.clear();
+      m_hoveredAnnotationGroupIdentifier.clear();
       hideAnnotationTooltip();
       QTimer::singleShot( 0, this, SLOT(update()) );
     }

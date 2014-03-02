@@ -57,6 +57,10 @@ class KTEXTEDITOR_EXPORT AnnotationModel : public QObject
 
     virtual ~AnnotationModel() {}
 
+    enum {
+      GroupIdentifierRole = Qt::UserRole
+    };
+
     /**
      * data() is used to retrieve the information needed to present the
      * annotation information from the annotation model. The provider
@@ -67,6 +71,9 @@ class KTEXTEDITOR_EXPORT AnnotationModel : public QObject
      * - Qt::TooltipRole - a tooltip information, longer text possible
      * - Qt::BackgroundRole - a brush to be used to paint the background on the border
      * - Qt::ForegroundRole - a brush to be used to paint the text on the border
+     * - AnnotationModel::GroupIdentifierRole - a string which identifies a
+     *   group of items which will be highlighted on mouseover; return the same
+     *   string for all items in a group (KDevelop uses a VCS revision number, for example)
      *
      * \param line the line for which the data is to be retrieved
      * \param role the role to identify which kind of annotation is to be retrieved

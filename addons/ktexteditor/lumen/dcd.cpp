@@ -24,7 +24,7 @@
 #include <QtCore/QFile>
 
 
-char DCDCompletionItemType::toChar(DCDCompletionItemType::DCDCompletionItemType e)
+char DCDCompletionItemType::toChar(DCDCompletionItemType e)
 {
     switch (e) {
         case Invalid: return 0;

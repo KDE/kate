@@ -36,6 +36,9 @@ private slots:
   void testCppstyle_data();
   void testCppstyle();
 
+  void testCMake_data();
+  void testCMake();
+
   void testRuby_data();
   void testRuby();
 

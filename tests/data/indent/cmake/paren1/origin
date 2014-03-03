@@ -1,0 +1,8 @@
+function(some)
+    if(smth)
+        if(some_other)
+            set(foo)
+            endif
+            endif
+            endfunction
+// The last line is failed for some reason ;-(

@@ -108,7 +108,11 @@ function splitByComment(line)
     var text = document.line(line);
     dbg("splitByComment: text='"+text+"'");
 
-    var comment_marker = document.commentMarker(document.attribute(line, 0));
+    /// \note Always ask a comment marker for Normal Text attribute
+    /// of the current syntax, but not for a given line, cuz latter
+    /// can be a Doxygen comment, which do not have a comment marker
+    /// defined at all...
+    var comment_marker = document.commentMarker(0);
     var text = document.line(line);
     var found = false;
     for (

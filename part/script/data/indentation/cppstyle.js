@@ -2748,6 +2748,8 @@ function indent(line, indentWidth, ch)
 
 /**
  * \todo Better to use \c defStyleNum() instead of \c attributeName() and string comparison
+ *
+ * \todo Prevent second '//' on a line... ? Fix the current way anyway...
  */
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -1526,6 +1526,11 @@ bool KateView::viInputModeStealKeys() const
   return m_viewInternal->m_viInputModeStealKeys;
 }
 
+bool KateView::viRelativeLineNumbers() const
+{
+  return m_viewInternal->m_viRelLineNumbers;
+}
+
 void KateView::toggleViInputMode()
 {
   config()->setViInputMode (!config()->viInputMode());
@@ -1712,6 +1717,9 @@ void KateView::updateConfig ()
 
   // whether vi input mode should override actions or not
   m_viewInternal->m_viInputModeStealKeys = config()->viInputModeStealKeys();
+
+  // whether relative line numbers should be used or not.
+  m_viewInternal->m_leftBorder->setViRelLineNumbersOn(config()->viRelativeLineNumbers());
 
   reflectOnTheFlySpellCheckStatus(m_doc->isOnTheFlySpellCheckingEnabled());
 

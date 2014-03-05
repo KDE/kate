@@ -2,8 +2,25 @@
 <ui version="4.0">
  <class>ViInputModeConfigWidget</class>
  <widget class="QWidget" name="ViInputModeConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>439</width>
+    <height>411</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -29,6 +46,16 @@
         </property>
         <property name="text">
          <string>Let Vi commands override Kate shortcuts</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkViRelLineNumbers">
+        <property name="whatsThis">
+         <string>Show the line number relative to the line with the cursor in front of each line.</string>
+        </property>
+        <property name="text">
+         <string>Display relative line numbers</string>
         </property>
        </widget>
       </item>

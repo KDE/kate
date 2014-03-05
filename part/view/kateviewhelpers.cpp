@@ -1255,6 +1255,8 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_viewInternal( internalView )
   , m_iconBorderOn( false )
   , m_lineNumbersOn( false )
+  , m_viRelLineNumbersOn( false )
+  , m_updateViRelLineNumbers ( false )
   , m_foldingMarkersOn( false )
   , m_dynWrapIndicatorsOn( false )
   , m_annotationBorderOn( false )
@@ -1334,6 +1336,29 @@ void KateIconBorder::setLineNumbersOn( bool enable )
   updateGeometry();
 
   QTimer::singleShot( 0, this, SLOT(update()) );
+}
+
+void KateIconBorder::setViRelLineNumbersOn(bool enable)
+{
+  if( enable == m_viRelLineNumbersOn )
+    return;
+
+  m_viRelLineNumbersOn = enable;
+  /*
+   * We don't have to touch the m_dynWrapIndicatorsOn because
+   * we already got it right from the m_lineNumbersOn
+   */
+  updateGeometry();
+
+  QTimer::singleShot( 0, this, SLOT(update()) );
+}
+
+void KateIconBorder::updateViRelLineNumbers()
+{
+  if (m_viRelLineNumbersOn) {
+    m_updateViRelLineNumbers = true;
+    update();
+  }
 }
 
 void KateIconBorder::setDynWrapIndicators( int state )
@@ -1507,6 +1532,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = m_viewInternal->cache()->viewCacheLineCount();
+  uint currentLine = m_view->cursorPosition().line();
 
   // center the folding boxes
   int m_px = (h - 11) / 2;
@@ -1676,7 +1702,20 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
       if (realLine > -1) {
         if (m_viewInternal->cache()->viewLine(z).startCol() == 0) {
-          if (m_lineNumbersOn) {
+          if (m_viRelLineNumbersOn) {
+            int diff = abs(realLine - currentLine);
+            if (diff > 0) {
+              p.drawText( lnX + m_maxCharWidth / 2, y, lnWidth - m_maxCharWidth, h,
+                          Qt::TextDontClip|Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg(diff) );
+            } else {
+              p.drawText( lnX + m_maxCharWidth / 2, y, lnWidth - m_maxCharWidth, h,
+                          Qt::TextDontClip|Qt::AlignLeft|Qt::AlignVCenter, QString("%1").arg(realLine + 1) );
+            }
+            if (m_updateViRelLineNumbers) {
+              m_updateViRelLineNumbers = false;
+              update();
+            }
+          } else if (m_lineNumbersOn) {
             p.drawText( lnX + m_maxCharWidth / 2, y, lnWidth - m_maxCharWidth, h,
                         Qt::TextDontClip|Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
           }

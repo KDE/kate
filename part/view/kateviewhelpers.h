@@ -162,6 +162,7 @@ class KateIconBorder : public QWidget
 
     void setIconBorderOn(       bool enable );
     void setLineNumbersOn(      bool enable );
+    void setViRelLineNumbersOn( bool enable );
     void setAnnotationBorderOn( bool enable );
     void setDynWrapIndicators(int state );
     int dynWrapIndicators()  const { return m_dynWrapIndicators; }
@@ -172,8 +173,11 @@ class KateIconBorder : public QWidget
     void toggleFoldingMarkers() { setFoldingMarkersOn( !foldingMarkersOn() ); }
     inline bool iconBorderOn()       const { return m_iconBorderOn;       }
     inline bool lineNumbersOn()      const { return m_lineNumbersOn;      }
+    inline bool viRelNumbersOn()     const { return m_viRelLineNumbersOn; }
     inline bool foldingMarkersOn()   const { return m_foldingMarkersOn;   }
     inline bool annotationBorderOn() const { return m_annotationBorderOn; }
+
+    void updateViRelLineNumbers();
 
     enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers, AnnotationBorder, ModificationBorder };
     BorderArea positionToArea( const QPoint& ) const;
@@ -208,6 +212,8 @@ class KateIconBorder : public QWidget
 
     bool m_iconBorderOn:1;
     bool m_lineNumbersOn:1;
+    bool m_viRelLineNumbersOn:1;
+    bool m_updateViRelLineNumbers:1;
     bool m_foldingMarkersOn:1;
     bool m_dynWrapIndicatorsOn:1;
     bool m_annotationBorderOn:1;

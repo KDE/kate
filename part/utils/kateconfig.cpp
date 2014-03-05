@@ -1157,6 +1157,7 @@ KateViewConfig::KateViewConfig ()
    m_persistentSelectionSet (false),
    m_viInputModeSet (false),
    m_viInputModeStealKeysSet (false),
+   m_viRelativeLineNumbersSet (false),
    m_viInputModeEmulateCommandBarSet(false),
    m_automaticCompletionInvocationSet (false),
    m_wordCompletionSet (false),
@@ -1198,6 +1199,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_persistentSelectionSet (false),
    m_viInputModeSet (false),
    m_viInputModeStealKeysSet (false),
+   m_viRelativeLineNumbersSet (false),
    m_viInputModeEmulateCommandBarSet(false),
    m_automaticCompletionInvocationSet (false),
    m_wordCompletionSet (false),
@@ -1240,6 +1242,7 @@ namespace
   const char * const KEY_PERSISTENT_SELECTION = "Persistent Selection";
   const char * const KEY_VI_INPUT_MODE = "Vi Input Mode";
   const char * const KEY_VI_INPUT_MODE_STEAL_KEYS = "Vi Input Mode Steal Keys";
+  const char * const KEY_VI_RELATIVE_LINE_NUMBERS = "Vi Relative Line Numbers";
   const char * const KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR = "Vi Input Mode Emulate Command Bar";
   const char * const KEY_AUTOMATIC_COMPLETION_INVOCATION = "Auto Completion";
   const char * const KEY_WORD_COMPLETION = "Word Completion";
@@ -1293,6 +1296,7 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setViInputMode (config.readEntry( KEY_VI_INPUT_MODE, false));
   setViInputModeStealKeys (config.readEntry( KEY_VI_INPUT_MODE_STEAL_KEYS, false));
+  setViRelativeLineNumbers(config.readEntry( KEY_VI_RELATIVE_LINE_NUMBERS, false));
   setViInputModeEmulateCommandBar (config.readEntry( KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR, false));
 
   setAutomaticCompletionInvocation (config.readEntry( KEY_AUTOMATIC_COMPLETION_INVOCATION, true ));
@@ -1364,9 +1368,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( KEY_SCROLL_PAST_END , scrollPastEnd() );
 
   config.writeEntry( KEY_VI_INPUT_MODE, viInputMode());
-
   config.writeEntry( KEY_VI_INPUT_MODE_STEAL_KEYS, viInputModeStealKeys());
-
+  config.writeEntry( KEY_VI_RELATIVE_LINE_NUMBERS, viRelativeLineNumbers());
   config.writeEntry( KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR, viInputModeEmulateCommandBar());
 
 
@@ -1832,6 +1835,24 @@ void KateViewConfig::setViInputModeStealKeys (bool on)
   configEnd ();
 }
 
+bool KateViewConfig::viRelativeLineNumbers() const
+{
+  if (m_viRelativeLineNumbersSet  || isGlobal())
+    return m_viRelativeLineNumbers;
+
+  return s_global->viRelativeLineNumbers();
+}
+
+void KateViewConfig::setViRelativeLineNumbers(bool on)
+{
+  if (m_viRelativeLineNumbersSet && m_viRelativeLineNumbers ==  on)
+    return;
+
+  configStart();
+  m_viRelativeLineNumbersSet = true;
+  m_viRelativeLineNumbers = on;
+  configEnd();
+}
 
 bool KateViewConfig::viInputModeEmulateCommandBar() const
 {

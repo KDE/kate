@@ -1,6 +1,6 @@
 /*
  * name: Helper Functions (copied from cppstyle.js to be reused by other indenters)
- * license: LGPL v3
+ * license: LGPL v2+
  * author: Alex Turbov <i.zaufi@gmail.com>
  *
  * This library is free software; you can redistribute it and/or

@@ -34,14 +34,18 @@
  */
 
 // required katepart js libraries
+require ("cmake_indenter_config.js")
 require ("range.js");
 require ("string.js");
 require ("utils.js")
 require ("underscore.js")
 
-triggerCharacters = "()<{\"";
+triggerCharacters = "()$<{\"";
 
+//BEGIN Configuration
 var debugMode = false;
+//END Configuration
+
 /// Global var to store indentation width for current document type
 var gIndentWidth = 4;
 /// Map of CMake calls where a key is the \e end of a corresponding \e start call
@@ -548,6 +552,60 @@ function tryJumpOutOfParenthesis(cursor)
 }
 
 /**
+ * \brief Append <tt>'{}'</tt> after \c '$'
+ */
+function insertVariableExpansion(cursor)
+{
+    if (!cmi_cfg_vgShortcut || isComment(cursor.line, cursor.column))
+        return;                                             // Do nothing for comments
+
+    var next_ch = document.charAt(cursor);
+    dbg("insertVariableExpansion: next_ch ='"+next_ch+"'");
+    if (!next_ch.match(/[A-Za-z_]/))
+    {
+        document.insertText(cursor, "{}");
+        view.setCursorPosition(cursor.line, cursor.column + 1);
+    }
+}
+
+/**
+ * \brief Handle <tt>'$'</tt> character
+ *
+ * Insert <tt>'{}'</tt> after first \c '$' and position cursor inside -- i.e.
+ * prepare to insert a variable expansion. Then, here is possble few
+ * transformations: if \c '<' pressed after \c '$', transform <tt>'${<}'</tt>
+ * to <tt>'$<>'</tt> to be ready for generator expression and vise versa
+ */
+function tryVariableOrGeneratorExpression(cursor, ch)
+{
+    if (!cmi_cfg_vgShortcut || isComment(cursor.line, cursor.column))
+        return;                                             // Do nothing for comments and strings
+
+    var tail = document.text(
+        cursor.line
+      , document.firstColumn(cursor.line)
+      , cursor.line
+      , cursor.column
+      );
+    var next_ch = document.charAt(cursor);
+    dbg("tryVariableOrGeneratorExpression: tail ='"+tail+"'");
+    var fix_text = function(text)
+    {
+        document.removeText(cursor.line, cursor.column - 2, cursor.line, cursor.column + 1);
+        document.insertText(cursor.line, cursor.column - 2, text);
+        view.setCursorPosition(cursor.line, cursor.column - 1);
+    };
+    if (tail.endsWith("${<") && next_ch == '}')
+    {
+        fix_text("<>");                                     // Transform '${}' -> '$<>'
+    }
+    else if (tail.endsWith("$<{") && next_ch == '>')
+    {
+        fix_text("{}");                                     // Transform '$<>' -> '${}'
+    }
+}
+
+/**
  * \brief Process one character
  *
  * NOTE Cursor positioned right after just entered character and has \c +1 in column.
@@ -576,6 +634,13 @@ function processChar(line, ch)
             break;
         case ')':
             result = tryAlignCloseParenthesis(cursor);
+            break;
+        case '$':
+            insertVariableExpansion(cursor);
+            break;
+        case '{':
+        case '<':
+            tryVariableOrGeneratorExpression(cursor, ch);
             break;
         default:
             break;                                          // Nothing to do...

@@ -134,23 +134,32 @@ function calcSteps(code) {
 //   -1: keep last indent
 //   -2: do nothing
 function indent(lineNr, indentWidth, char) {
-    dbg("lineNr: " + lineNr);
-    dbg("char: " + char);
+    dbg("lineNr: " + lineNr + " indentWidth: " + indentWidth + " char: " + char);
     if (lineNr == 0)  // don't ever act on document's first line
         return -2;
 
+    var lastLineNr = lineNr - 1;
+    var lastLine = getCode(lastLineNr);
+    dbg("lastLine1: " + lastLine);
+    while (lastLine == "") {
+        lastLineNr--;
+        if (lastLineNr <= 0) {
+            return -1;
+        }
+        lastLine = getCode(lastLineNr);
+    }
+    dbg("lastLine2: " + lastLine);
+
     // default action (for char == '\n' or char == '')
-    var indent = _calcAttributeIndent(lineNr - 1, indentWidth);
+    var indent = _calcAttributeIndent(lastLineNr, indentWidth);
     if (indent != -1) {
         return indent;
     }
+    dbg("indent: " + indent);
 
-    indent = Math.max(document.firstVirtualColumn(lineNr - 1), 0);
-    var lastLine = getCode(lineNr - 1);
-    dbg("lastLine: " + lastLine);
-    if (lastLine == "") {
-        return -1;
-    }
+    indent = Math.max(document.firstVirtualColumn(lastLineNr), 0);
+    dbg("indent: " + indent);
+
 
     var steps = calcSteps(lastLine);
     // unindenting separate closing tags are dealt with by last line

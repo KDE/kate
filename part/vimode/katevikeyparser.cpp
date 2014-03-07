@@ -232,6 +232,7 @@ void KateViKeyParser::initKeyTables()
       i != m_qt2katevi->constEnd(); ++i) {
     m_katevi2qt->insert( i.value(), i.key() );
   }
+  m_katevi2qt->insert( QString("cr"), Qt::Key_Enter);
 
   m_nameToKeyCode->insert( QString( "invalid" ), -1 );
   m_nameToKeyCode->insert( QString( "esc" ), 1 );
@@ -485,6 +486,7 @@ void KateViKeyParser::initKeyTables()
   m_nameToKeyCode->insert( QString("7"), 347);
   m_nameToKeyCode->insert( QString("8"), 348);
   m_nameToKeyCode->insert( QString("9"), 349);
+  m_nameToKeyCode->insert( QString("cr"), 350);
 
 
   for (QHash<QString, int>::const_iterator i = m_nameToKeyCode->constBegin();

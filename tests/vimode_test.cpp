@@ -7611,6 +7611,11 @@ void ViModeTest::keyParsingTests()
   clearAllMappings();
   KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, char_o_diaeresis, "ifoo", KateViGlobal::Recursive);
   DoTest("hello", QString("ll%1bar").arg(char_o_diaeresis), "hefoobarllo");
+
+  // Test that <cr> is parsed like <enter>
+  QCOMPARE(KateViKeyParser::self()->vi2qt("cr"), int(Qt::Key_Enter));
+  const QString &enter = KateViKeyParser::self()->encodeKeySequence(QLatin1String("<cr>"));
+  QCOMPARE(KateViKeyParser::self()->decodeKeySequence(enter), QLatin1String("<cr>"));
 }
 
 void ViModeTest::AltGr()

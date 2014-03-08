@@ -49,40 +49,21 @@ Q_LOGGING_CATEGORY(FILETREE, "kate-filetree")
 
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
-  : KTextEditor::Plugin (parent),
-    m_fileCommand(0)
+  : KTextEditor::Plugin (parent)
 {
 // TODO: Remove once Qt allows an external app to change a debug category (ETA Qt 5.3)
   QLoggingCategory::setFilterRules(QStringLiteral("kate-filetree.debug = true"));
-
-  KTextEditor::CommandInterface* iface =
-  qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
-  if (iface) {
-    m_fileCommand = new KateFileTreeCommand(this);
-    iface->registerCommand(m_fileCommand);
-  }
 }
 
 KateFileTreePlugin::~KateFileTreePlugin()
 {
   m_settings.save();
-  KTextEditor::CommandInterface* iface =
-  qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
-  if (iface && m_fileCommand) {
-    iface->unregisterCommand(m_fileCommand);
-  }
 }
 
 QObject *KateFileTreePlugin::createView (KTextEditor::MainWindow *mainWindow)
 {
   KateFileTreePluginView* view = new KateFileTreePluginView (mainWindow, this);
   connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
-  connect(m_fileCommand, SIGNAL(showToolView()), view, SLOT(showToolView()));
-  connect(m_fileCommand, SIGNAL(slotDocumentPrev()), view->tree(), SLOT(slotDocumentPrev()));
-  connect(m_fileCommand, SIGNAL(slotDocumentNext()), view->tree(), SLOT(slotDocumentNext()));
-  connect(m_fileCommand, SIGNAL(slotDocumentFirst()), view->tree(), SLOT(slotDocumentFirst()));
-  connect(m_fileCommand, SIGNAL(slotDocumentLast()), view->tree(), SLOT(slotDocumentLast()));
-  connect(m_fileCommand, SIGNAL(switchDocument(QString)), view->tree(), SLOT(switchDocument(QString)));
   m_views.append(view);
 
   return view;
@@ -352,11 +333,6 @@ void KateFileTreePluginView::hideToolView()
   m_mainWindow->hideToolView(m_toolView);
 }
 
-void KateFileTreePluginView::switchDocument(const QString &doc)
-{
-  m_fileTree->switchDocument(doc);
-}
-
 void KateFileTreePluginView::showActiveDocument()
 {
   // hack?
@@ -421,95 +397,5 @@ void KateFileTreePluginView::slotDocumentsCreated(const QList<KTextEditor::Docum
 }
 
 //END KateFileTreePluginView
-
-//BEGIN KateFileTreeCommand
-KateFileTreeCommand::KateFileTreeCommand(QObject *parent)
-  : QObject(parent), KTextEditor::Command()
-{
-}
-
-const QStringList& KateFileTreeCommand::cmds()
-{
-  static QStringList sl;
-
-  if (sl.empty()) {
-   sl << QLatin1String("ls")
-      << QLatin1String("b") << QLatin1String("buffer")
-      << QLatin1String("bn") << QLatin1String("bnext") << QLatin1String("bp") << QLatin1String("bprevious")
-      << QLatin1String("tabn") << QLatin1String("tabnext") << QLatin1String("tabp") << QLatin1String("tabprevious")
-      << QLatin1String("bf") << QLatin1String("bfirst") << QLatin1String("bl") << QLatin1String("blast")
-      << QLatin1String("tabf") << QLatin1String("tabfirst") << QLatin1String("tabl") << QLatin1String("tablast");
-  }
-
-  return sl;
-}
-
-bool KateFileTreeCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, QString & /*msg*/)
-{
-  // create list of args
-  QStringList args(cmd.split(QLatin1Char(' '), QString::KeepEmptyParts));
-  QString command = args.takeFirst(); // same as cmd if split failed
-  QString argument = args.join(QLatin1String(" "));
-
-  if (command == QLatin1String("ls")) {
-    emit showToolView();
-  } else if (command == QLatin1String("b") || command == QLatin1String("buffer")) {
-    emit switchDocument(argument);
-  } else if (command == QLatin1String("bp") || command == QLatin1String("bprevious") ||
-             command == QLatin1String("tabp") || command == QLatin1String("tabprevious")) {
-    emit slotDocumentPrev();
-  } else if (command == QLatin1String("bn") || command == QLatin1String("bnext") ||
-             command == QLatin1String("tabn") || command == QLatin1String("tabnext")) {
-    emit slotDocumentNext();
-  } else if (command == QLatin1String("bf") || command == QLatin1String("bfirst") ||
-             command == QLatin1String("tabf") || command == QLatin1String("tabfirst")) {
-    emit slotDocumentFirst();
-  } else if (command == QLatin1String("bl") || command == QLatin1String("blast") ||
-             command == QLatin1String("tabl") || command == QLatin1String("tablast")) {
-    emit slotDocumentLast();
-  }
-
-  return true;
-}
-
-bool KateFileTreeCommand::help(KTextEditor::View * /*view*/, const QString &cmd, QString &msg)
-{
-  if (cmd == QLatin1String("b") || cmd == QLatin1String("buffer")) {
-      msg = i18n("<p><b>b,buffer &mdash; Edit document N from the document list</b></p>"
-                 "<p>Usage: <tt><b>b[uffer] [N]</b></tt></p>");
-      return true;
-  } else if (cmd == QLatin1String("bp") || cmd == QLatin1String("bprevious") ||
-             cmd == QLatin1String("tabp") || cmd == QLatin1String("tabprevious")) {
-      msg = i18n("<p><b>bp,bprev &mdash; previous buffer</b></p>"
-                 "<p>Usage: <tt><b>bp[revious] [N]</b></tt></p>"
-                 "<p>Goes to <b>[N]</b>th previous document (\"<b>b</b>uffer\") in document list. </p>"
-                 "<p> <b>[N]</b> defaults to one. </p>"
-                 "<p>Wraps around the start of the document list.</p>");
-      return true;
-  } else if (cmd == QLatin1String("bn") || cmd == QLatin1String("bnext") ||
-             cmd == QLatin1String("tabn") || cmd == QLatin1String("tabnext")) {
-      msg = i18n("<p><b>bn,bnext &mdash; switch to next document</b></p>"
-                 "<p>Usage: <tt><b>bn[ext] [N]</b></tt></p>"
-                 "<p>Goes to <b>[N]</b>th next document (\"<b>b</b>uffer\") in document list."
-                 "<b>[N]</b> defaults to one. </p>"
-                 "<p>Wraps around the end of the document list.</p>");
-      return true;
-  } else if (cmd == QLatin1String("bf") || cmd == QLatin1String("bfirst") ||
-             cmd == QLatin1String("tabf") || cmd == QLatin1String("tabfirst")) {
-      msg = i18n("<p><b>bf,bfirst &mdash; first document</b></p>"
-                 "<p>Usage: <tt><b>bf[irst]</b></tt></p>"
-                 "<p>Goes to the <b>f</b>irst document (\"<b>b</b>uffer\") in document list.</p>");
-      return true;
-  } else if (cmd == QLatin1String("bl") || cmd == QLatin1String("blast") ||
-             cmd == QLatin1String("tabl") || cmd == QLatin1String("tablast")) {
-      msg = i18n("<p><b>bl,blast &mdash; last document</b></p>"
-                 "<p>Usage: <tt><b>bl[ast]</b></tt></p>"
-                 "<p>Goes to the <b>l</b>ast document (\"<b>b</b>uffer\") in document list.</p>");
-      return true;
-  }
-
-  return false;
-}
-//END KateFileTreeCommand
 
 #include "katefiletreeplugin.moc"

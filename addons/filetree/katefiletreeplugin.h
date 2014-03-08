@@ -70,7 +70,6 @@ class KateFileTreePlugin: public KTextEditor::Plugin, public KTextEditor::Config
     QList<KateFileTreePluginView *> m_views;
     KateFileTreeConfigPage *m_confPage;
     KateFileTreePluginSettings m_settings;
-    KateFileTreeCommand* m_fileCommand;
 };
 
 class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
@@ -127,7 +126,6 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTex
   private Q_SLOTS:
     void showToolView();
     void hideToolView();
-    void switchDocument(const QString &doc);
     void showActiveDocument();
     void activateDocument(KTextEditor::Document *);
     void viewChanged(KTextEditor::View * = nullptr);
@@ -137,27 +135,6 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTex
     void sortRoleChanged(int);
     void slotAboutToCreateDocuments();
     void slotDocumentsCreated(const QList<KTextEditor::Document *> &);
-};
-
-class KateFileTreeCommand : public QObject, public KTextEditor::Command
-{
-  Q_OBJECT
-
-  public:
-    KateFileTreeCommand(QObject *parent);
-
-  Q_SIGNALS:
-    void showToolView();
-    void slotDocumentPrev();
-    void slotDocumentNext();
-    void slotDocumentFirst();
-    void slotDocumentLast();
-    void switchDocument(const QString&);
-
-  public:
-    const QStringList& cmds();
-    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg);
-    bool help(KTextEditor::View *view, const QString &cmd, QString &msg);
 };
 
 #endif //KATE_FILETREE_PLUGIN_H

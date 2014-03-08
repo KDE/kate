@@ -47,7 +47,6 @@ class KateFileTree: public QTreeView
     void slotDocumentReload();
     void slotCopyFilename();
     void slotCurrentChanged( const QModelIndex &current, const QModelIndex &previous );
-    void switchDocument( const QString &doc );
     void slotDocumentFirst();
     void slotDocumentLast();
     void slotDocumentNext();

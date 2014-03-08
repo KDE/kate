@@ -357,36 +357,6 @@ void KateFileTree::slotCopyFilename()
   }
 }
 
-void KateFileTree::switchDocument( const QString &doc )
-{
-  if (doc.isEmpty()) {
-    // no argument: switch to the previous document
-    slotDocumentPrev();
-  } else if (doc.toInt() > 0 &&
-             doc.toInt() <= model()->rowCount( model()->parent(currentIndex()) )) {
-    // numerical argument: switch to the nth document
-    int i = doc.toInt() - 1;
-    KTextEditor::Document *doc =
-      model()->data(model()->index(i - 1, 0),
-                    KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-    if (doc) {
-      emit activateDocument(doc);
-    }
-  } else {
-    // string argument: switch to the given file
-    QModelIndexList matches =
-      model()->match(model()->index(0, 0), Qt::DisplayRole, QVariant(doc), 1, Qt::MatchContains);
-    if (!matches.isEmpty()) {
-      KTextEditor::Document *doc =
-        model()->data(matches.takeFirst(),
-                      KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-      if (doc) {
-        emit activateDocument(doc);
-      }
-    }
-  }
-}
-
 void KateFileTree::slotDocumentFirst()
 {
   KTextEditor::Document *doc =

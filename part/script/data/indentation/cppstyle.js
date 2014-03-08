@@ -5,11 +5,14 @@
  * revision: 30
  * kate-version: 3.4
  * priority: 10
- * indent-languages: C++, C++/Qt4
+ * indent-languages: C++, C++/Qt4, ISO C++
+ *
+ * This file is part of the Kate Project.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
- * License version 2 as published by the Free Software Foundation.
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -46,6 +49,7 @@
 // required katepart js libraries
 require ("range.js");
 require ("string.js");
+require ("utils.js")
 
 // specifies the characters which should trigger indent, beside the default '\n'
 // ':' is for `case'/`default' and class access specifiers: public, protected, private
@@ -61,20 +65,9 @@ triggerCharacters = "{}()[]<>/:;,#\\?!|&/%.@ '\"=*^";
 
 var debugMode = false;
 
-/// \todo Move to a separate library?
-function dbg()
-{
-    if (debugMode)
-    {
-        debug.apply(this, arguments);
-    }
-}
-
 //BEGIN global variables and functions
 var gIndentWidth = 4;
 var gSameLineCommentStartAt = 60;                           ///< Position for same-line-comments (inline comments)
-var gMode = "C++";
-var gAttr = "Normal Text";
 var gBraceMap = {
     '(': ')', ')': '('
   , '<': '>', '>': '<'
@@ -82,142 +75,6 @@ var gBraceMap = {
   , '[': ']', ']': '['
   };
 //END global variables and functions
-
-/**
- * \return \c true if attribute at given position is a \e Comment
- *
- * \note C++ highlighter use \em RegionMarker for special comments,
- * soit must be counted as well...
- */
-function isComment(line, column)
-{
-    // Check if we are not withing a comment
-    var c = new Cursor(line, column);
-    var mode = document.attributeName(c);
-    dbg("isComment: Check mode @ " + c + ": " + mode);
-    return mode.startsWith("Doxygen")
-      || mode.startsWith("Alerts")
-      || document.isComment(c)
-      || document.isRegionMarker(c)
-      ;
-}
-
-/**
- * \return \c true if attribute at given position is a \e String
- */
-function isString(line, column)
-{
-    // Check if we are not withing a string
-    var c = new Cursor(line, column);
-    var mode = document.attributeName(c);
-    dbg("isString: Check mode @ " + c + ": " + mode);
-    return document.isString(c) || document.isChar(c);
-}
-
-/**
- * \return \c true if attribute at given position is a \e String or \e Comment
- *
- * \note C++ highlighter use \e RegionMarker for special comments,
- * soit must be counted as well...
- */
-function isStringOrComment(line, column)
-{
-    // Check if we are not withing a string or a comment
-    var c = new Cursor(line, column);
-    var mode = document.attributeName(c);
-    dbg("isStringOrComment: Check mode @ " + c + ": " + mode);
-    return gMode == "Doxygen"
-      || document.isString(c)
-      || document.isChar(c)
-      || document.isComment(c)
-      || document.isRegionMarker(c)
-      ;
-}
-
-/**
- * Split a given text line by comment into parts \e before and \e after the comment
- * \return an object w/ the following fields:
- *   \li \c hasComment -- boolean: \c true if comment present on the line, \c false otherwise
- *   \li \c before -- text before the comment
- *   \li \c after -- text of the comment
- *
- * \todo Possible it would be quite reasonable to analyze a type of the comment:
- * Is it C++ or Doxygen? Is it single or w/ some text before?
- */
-function splitByComment(line)
-{
-    var before = "";
-    var after = "";
-    var text = document.line(line);
-    dbg("splitByComment: text='"+text+"'");
-
-    // NOTE JS have no indexOf() w/ initial position, so
-    // the simplest way is to find a comment char by char... ;-(
-    var found = false;
-    var seen_slash = false;
-    for (var i = 0; i < text.length; i++)
-    {
-        if (seen_slash)
-        {
-            if (text[i] == '/')
-            {
-                // Ok, it looks like a comment...
-                // Check attribute...
-                if (isComment(line, i + 1))
-                {
-                    // Got it!
-                    before = text.substring(0, i - 1);
-                    after = text.substring(i + 1, text.length);
-                    found = true;
-                    break;
-                }
-                dbg("splitByComment: doesn't looks like a comment");
-            }
-            seen_slash = false;
-            dbg("splitByComment: drop seen_slash");
-        }
-        else if (text[i] == '/')
-        {
-            seen_slash = true;
-            dbg("splitByComment: set seen_slash");
-        }
-    }
-    // If no comment actually found, then set text before to the original
-    if (!found)
-        before = text;
-    dbg("splitByComment result: hasComment="+found+", before='"+before+"', after='"+after+"'");
-    return {hasComment: found, before: before, after: after};
-}
-
-/**
- * \brief Remove possible comment from text
- */
-function stripComment(line)
-{
-    var result = splitByComment(line);
-    if (result.hasComment)
-        return result.before.rtrim();
-    return result.before.rtrim();
-}
-
-/**
- * Add a character \c c to the given position if absent.
- * Set new cursor position to the next one after the current.
- */
-function addCharOrJumpOverIt(line, column, char)
-{
-    // Make sure there is a space at given position
-    dbg("addCharOrJumpOverIt: checking @Cursor("+line+","+column+"), c='"+document.charAt(line, column)+"'");
-    var result = false;
-    if (document.lineLength(line) <= column || document.charAt(line, column) != char)
-    {
-        document.insertText(line, column, char);
-        result = true;
-    }
-    /// \todo Does it really needed?
-    view.setCursorPosition(line, column + 1);
-    return result;
-}
 
 /**
  * Try to (re)align (to 60th position) inline comment if present
@@ -268,16 +125,8 @@ function alignInlineComment(line)
     return false;
 }
 
-/**
- * Check if a character right before cursor is the very first on the line
- * and the same as a given one.
- */
-function justEnteredCharIsFirstOnLine(line, column, char)
-{
-    return document.firstChar(line) == char && document.firstColumn(line) == (column - 1);
-}
 
-function tryIndentRelativePrevLine(line)
+function tryIndentRelativePrevNonCommentLine(line)
 {
     var current_line = line - 1;
     while (0 <= current_line && isStringOrComment(current_line, document.firstColumn(current_line)))
@@ -470,9 +319,9 @@ function tryToAlignBeforeCloseBrace_ch(line)
     if (ch == '}' || ch == ')' || ch == ']')
     {
         var openBracePos = document.anchor(line, pos, ch);
-        dbg("Found open brace @ "+openBracePos)
+        dbg("Found open brace @", openBracePos);
         if (openBracePos.isValid())
-            result = document.firstColumn(openBracePos.line) + (ch == '}' ? 0 : 2);
+            result = document.firstColumn(openBracePos.line) + (ch == '}' ? 0 : (gIndentWidth / 2));
     }
     else if (ch == '>')
     {
@@ -1227,7 +1076,7 @@ function tryTemplate(cursor)
     }
     else if (justEnteredCharIsFirstOnLine(line, column, '<'))
     {
-        result = tryIndentRelativePrevLine(line);
+        result = tryIndentRelativePrevNonCommentLine(line);
     }
     // Add a space after 2nd '<' if a word before is not a 'operator'
     else if (document.charAt(line, column - 2) == '<')
@@ -1422,7 +1271,7 @@ function tryComma(cursor)
     var column = cursor.column;
     // Check is comma a very first character on a line...
     if (justEnteredCharIsFirstOnLine(line, column, ','))
-        result = tryIndentRelativePrevLine(line);
+        result = tryIndentRelativePrevNonCommentLine(line);
 
     cursor = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
     if (document.charAt(cursor) != ' ')
@@ -1739,6 +1588,20 @@ function tryOperator(cursor, ch)
             space_offset = 1;
         }
         addCharOrJumpOverIt(line, column + space_offset, ' ');
+    }
+    else if (ch == '.')                                     // Replace '..' w/ '...'
+    {
+        var prev = document.text(line, column - 3, line, column);
+        dbg("tryOperator: checking3 @Cursor("+line+","+(column - 4)+"), prev='"+prev+"'");
+        if (prev == "...")                                  // If there is already 3 dots
+        {
+            // Remove just entered (redundant) one
+            document.removeText(line, column - 1, line, column);
+        }
+        else if (prev[1] == '.' && prev[2] == '.')          // Append one more if only two here
+        {
+            addCharOrJumpOverIt(line, column, '.');
+        }                                                   // Otherwise, do nothing...
     }
     if (result != -2)
     {
@@ -2872,14 +2735,13 @@ function indent(line, indentWidth, ch)
 {
     // NOTE Update some global variables
     gIndentWidth = indentWidth;
-    gMode = document.highlightingModeAt(view.cursorPosition());
-    gAttr = document.attributeName(view.cursorPosition());
+    var crsr = view.cursorPosition();
 
     dbg("indentWidth: " + indentWidth);
-    dbg("      gMode: " + gMode);
-    dbg("      gAttr: " + gAttr);
+    dbg("       Mode: " + document.highlightingModeAt(crsr));
+    dbg("  Attribute: " + document.attributeName(crsr));
     dbg("       line: " + line);
-    dbg("         ch: '" + ch + "'");
+    dbg("       char: " + crsr + " -> '" + ch + "'");
 
     if (ch != "")
         return processChar(line, ch);
@@ -2889,6 +2751,8 @@ function indent(line, indentWidth, ch)
 
 /**
  * \todo Better to use \c defStyleNum() instead of \c attributeName() and string comparison
+ *
+ * \todo Prevent second '//' on a line... ? Fix the current way anyway...
  */
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

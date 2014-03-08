@@ -107,7 +107,7 @@ void LumenPluginView::getTextHint(const Cursor& cursor, QString& text)
     int offset = utf8.length();
     utf8.append(document->text(rangece, false).toUtf8());
 
-    text = m_plugin->dcd()->doc(utf8, offset).trimmed();
+    text = m_plugin->dcd()->doc(utf8, offset).trimmed().replace("\\n", "\n");
 }
 
 LumenPluginView::~LumenPluginView()

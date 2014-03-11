@@ -81,7 +81,7 @@ This will prepend &quot;-- &quot; to a line when pressing F2.</string>
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="normalTab">
          <attribute name="title">
           <string>Normal mode</string>
          </attribute>
@@ -117,50 +117,126 @@ This will prepend &quot;-- &quot; to a line when pressing F2.</string>
             </column>
            </widget>
           </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="insertTab">
+         <attribute name="title">
+          <string>Insert mode</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
-             <widget class="QPushButton" name="btnRemoveSelectedNormal">
-              <property name="text">
-               <string>Remove selected</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnAddNewNormal">
-              <property name="text">
-               <string>Add new mapping</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnImportNormal">
-              <property name="toolTip">
-               <string>Read a vimrc file and attempt to import mappings specified with the &quot;[n]noremap&quot; command.</string>
-              </property>
-              <property name="text">
-               <string>Import from vimrc file</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>1</width>
-                <height>0</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
+           <widget class="QTableWidget" name="tblInsertModeMappings">
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::ContiguousSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="columnCount">
+             <number>3</number>
+            </property>
+            <column>
+             <property name="text">
+              <string>Command</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Replacement</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Recursive?</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="visualTab">
+         <attribute name="title">
+          <string>Visual mode</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="QTableWidget" name="tblVisualModeMappings">
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::ContiguousSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="columnCount">
+             <number>3</number>
+            </property>
+            <column>
+             <property name="text">
+              <string>Command</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Replacement</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Recursive?</string>
+             </property>
+            </column>
+           </widget>
           </item>
          </layout>
         </widget>
        </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="btnRemoveSelectedRows">
+          <property name="text">
+           <string>Remove selected</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnAddNewRow">
+          <property name="text">
+           <string>Add new mapping</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnImportNormal">
+          <property name="toolTip">
+           <string>Read a vimrc file and attempt to import mappings specified with the &quot;[n]noremap&quot; command.</string>
+          </property>
+          <property name="text">
+           <string>Import from vimrc file</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>0</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

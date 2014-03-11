@@ -333,164 +333,200 @@ void KateCompletionConfigTab::reload ()
 
 //BEGIN KateViInputModeConfigTab
 KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
-  : KateConfigPage(parent)
+    : KateConfigPage(parent)
 {
-  // This will let us have more separation between this page and
-  // the KTabWidget edge (ereslibre)
-  QVBoxLayout *layout = new QVBoxLayout;
-  QWidget *newWidget = new QWidget(this);
+    // This will let us have more separation between this page and
+    // the QTabWidget edge (ereslibre)
+    QVBoxLayout *layout = new QVBoxLayout;
+    QWidget *newWidget = new QWidget(this);
 
-  ui = new Ui::ViInputModeConfigWidget ();
-  ui->setupUi( newWidget );
+    ui = new Ui::ViInputModeConfigWidget();
+    ui->setupUi(newWidget);
 
-  // What's This? help can be found in the ui file
+    // Make the header take all the width in equal parts.
+    ui->tblNormalModeMappings->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    ui->tblInsertModeMappings->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    ui->tblVisualModeMappings->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 
-  reload ();
+    // What's This? help can be found in the ui file
+    reload();
 
-  //
-  // after initial reload, connect the stuff for the changed () signal
-  //
+    //
+    // after initial reload, connect the stuff for the changed () signal
+    //
 
-  connect(ui->chkViInputModeDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkViCommandsOverride, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkViRelLineNumbers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->tblNormalModeMappings, SIGNAL(cellChanged(int,int)), this, SLOT(slotChanged()));
-  connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(addNewNormalModeMappingRow()));
-  connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(slotChanged()));
-  connect(ui->btnRemoveSelectedNormal, SIGNAL(clicked()), this, SLOT(removeSelectedNormalMappingRow()));
-  connect(ui->btnRemoveSelectedNormal, SIGNAL(clicked()), this, SLOT(slotChanged()));
-  connect(ui->btnImportNormal, SIGNAL(clicked()), this, SLOT(importNormalMappingRow()));
-  connect(ui->btnImportNormal, SIGNAL(clicked()), this, SLOT(slotChanged()));
+    connect(ui->chkViInputModeDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    connect(ui->chkViCommandsOverride, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    connect(ui->chkViRelLineNumbers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    connect(ui->tblNormalModeMappings, SIGNAL(cellChanged(int,int)), this, SLOT(slotChanged()));
+    connect(ui->btnAddNewRow, SIGNAL(clicked()), this, SLOT(addMappingRow()));
+    connect(ui->btnAddNewRow, SIGNAL(clicked()), this, SLOT(slotChanged()));
+    connect(ui->btnRemoveSelectedRows, SIGNAL(clicked()), this, SLOT(removeSelectedMappingRows()));
+    connect(ui->btnRemoveSelectedRows, SIGNAL(clicked()), this, SLOT(slotChanged()));
+    connect(ui->btnImportNormal, SIGNAL(clicked()), this, SLOT(importNormalMappingRow()));
+    connect(ui->btnImportNormal, SIGNAL(clicked()), this, SLOT(slotChanged()));
 
-  layout->addWidget(newWidget);
-  setLayout(layout);
+    layout->addWidget(newWidget);
+    setLayout(layout);
 }
 
 KateViInputModeConfigTab::~KateViInputModeConfigTab()
 {
-  delete ui;
+    delete ui;
 }
 
-void KateViInputModeConfigTab::showWhatsThis(const QString& text)
+void KateViInputModeConfigTab::applyTab(QTableWidget *mappingsTable, KateViGlobal::MappingMode mode)
 {
-  QWhatsThis::showText(QCursor::pos(), text);
-}
+    for (int i = 0; i < mappingsTable->rowCount(); i++) {
+        QTableWidgetItem *from = mappingsTable->item(i, 0);
+        QTableWidgetItem *to = mappingsTable->item(i, 1);
+        QTableWidgetItem *recursive = mappingsTable->item(i, 2);
 
-void KateViInputModeConfigTab::apply ()
-{
-  // nothing changed, no need to apply stuff
-  if (!hasChanged())
-    return;
-  m_changed = false;
-
-  KateViewConfig::global()->configStart ();
-  KateViewConfig::global()->setViInputMode (ui->chkViInputModeDefault->isChecked());
-  KateViewConfig::global()->setViRelativeLineNumbers(ui->chkViRelLineNumbers->isChecked());
-  KateViewConfig::global()->setViInputModeStealKeys (ui->chkViCommandsOverride->isChecked());
-  KateGlobal::self()->viInputModeGlobal()->clearMappings( KateViGlobal::NormalModeMapping );
-  for ( int i = 0; i < ui->tblNormalModeMappings->rowCount(); i++ ) {
-    QTableWidgetItem* from = ui->tblNormalModeMappings->item( i, 0 );
-    QTableWidgetItem* to = ui->tblNormalModeMappings->item( i, 1 );
-    QTableWidgetItem* recursive = ui->tblNormalModeMappings->item( i, 2 );
-
-    if ( from && to && recursive) {
-      const KateViGlobal::MappingRecursion recursion = recursive->checkState() == Qt::Checked ?
-        KateViGlobal::Recursive :
-        KateViGlobal::NonRecursive;
-      KateGlobal::self()->viInputModeGlobal()->addMapping( KateViGlobal::NormalModeMapping, from->text(), to->text(), recursion);
+        if (from && to && recursive) {
+            const KateViGlobal::MappingRecursion recursion = recursive->checkState() == Qt::Checked ?
+                    KateViGlobal::Recursive :
+                    KateViGlobal::NonRecursive;
+            KateGlobal::self()->viInputModeGlobal()->addMapping(mode, from->text(), to->text(), recursion);
+        }
     }
-  }
-  KateViewConfig::global()->configEnd ();
 }
 
-void KateViInputModeConfigTab::reload ()
+void KateViInputModeConfigTab::reloadTab(QTableWidget *mappingsTable, KateViGlobal::MappingMode mode)
 {
-  ui->chkViInputModeDefault->setChecked( KateViewConfig::global()->viInputMode () );
-  ui->chkViRelLineNumbers->setChecked( KateViewConfig::global()->viRelativeLineNumbers () );
-  ui->chkViCommandsOverride->setChecked( KateViewConfig::global()->viInputModeStealKeys () );
+    QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings(mode);
+    mappingsTable->setRowCount(l.size());
 
-  ui->chkViCommandsOverride->setEnabled(ui->chkViInputModeDefault->isChecked());
+    int i = 0;
+    foreach (const QString &f, l) {
+        QTableWidgetItem *from = new QTableWidgetItem(KateViKeyParser::self()->decodeKeySequence(f));
+        QString s = KateGlobal::self()->viInputModeGlobal()->getMapping(mode, f);
+        QTableWidgetItem *to = new QTableWidgetItem(KateViKeyParser::self()->decodeKeySequence(s));
+        QTableWidgetItem *recursive = new QTableWidgetItem();
+        recursive->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+        const bool isRecursive = KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(mode, f);
+        recursive->setCheckState(isRecursive ? Qt::Checked : Qt::Unchecked);
 
-  QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( KateViGlobal::NormalModeMapping );
-  ui->tblNormalModeMappings->setRowCount( l.size() );
+        mappingsTable->setItem(i, 0, from);
+        mappingsTable->setItem(i, 1, to);
+        mappingsTable->setItem(i, 2, recursive);
 
-  // Make the two columns fill most of the width.
-  // TODO - note that this has never worked, except by fluke: we don't actual know the table
-  // width at this point.
-  ui->tblNormalModeMappings->setColumnWidth( 0, 4 * ui->tblNormalModeMappings->width()/16 );
-  ui->tblNormalModeMappings->setColumnWidth( 1, 4 * ui->tblNormalModeMappings->width()/16 );
-  ui->tblNormalModeMappings->horizontalHeader()->setStretchLastSection(true);
+        i++;
+    }
+}
 
-  int i = 0;
-  foreach( const QString &f, l ) {
-    QTableWidgetItem *from
-      = new QTableWidgetItem( KateViKeyParser::self()->decodeKeySequence( f ) );
-    QString s = KateGlobal::self()->viInputModeGlobal()->getMapping( KateViGlobal::NormalModeMapping, f );
-    QTableWidgetItem *to =
-      new QTableWidgetItem( KateViKeyParser::self()->decodeKeySequence( s ) );
-    QTableWidgetItem *recursive =
-      new QTableWidgetItem();
+void KateViInputModeConfigTab::apply()
+{
+    // nothing changed, no need to apply stuff
+    if (!hasChanged()) {
+        return;
+    }
+    m_changed = false;
+
+    KateViewConfig::global()->configStart();
+
+    // General options.
+    KateViewConfig::global()->setViInputMode(ui->chkViInputModeDefault->isChecked());
+    KateViewConfig::global()->setViRelativeLineNumbers(ui->chkViRelLineNumbers->isChecked());
+    KateViewConfig::global()->setViInputModeStealKeys(ui->chkViCommandsOverride->isChecked());
+
+    // Mappings.
+    KateGlobal::self()->viInputModeGlobal()->clearMappings(KateViGlobal::NormalModeMapping);
+    applyTab(ui->tblNormalModeMappings, KateViGlobal::NormalModeMapping);
+    applyTab(ui->tblInsertModeMappings, KateViGlobal::InsertModeMapping);
+    applyTab(ui->tblVisualModeMappings, KateViGlobal::VisualModeMapping);
+
+    KateViewConfig::global()->configEnd();
+}
+
+void KateViInputModeConfigTab::reload()
+{
+    // General options.
+    ui->chkViInputModeDefault->setChecked(KateViewConfig::global()->viInputMode());
+    ui->chkViRelLineNumbers->setChecked( KateViewConfig::global()->viRelativeLineNumbers () );
+    ui->chkViCommandsOverride->setChecked(KateViewConfig::global()->viInputModeStealKeys());
+    ui->chkViCommandsOverride->setEnabled(ui->chkViInputModeDefault->isChecked());
+
+    // Mappings.
+    reloadTab(ui->tblNormalModeMappings, KateViGlobal::NormalModeMapping);
+    reloadTab(ui->tblInsertModeMappings, KateViGlobal::InsertModeMapping);
+    reloadTab(ui->tblVisualModeMappings, KateViGlobal::VisualModeMapping);
+}
+
+void KateViInputModeConfigTab::showWhatsThis(const QString &text)
+{
+    QWhatsThis::showText(QCursor::pos(), text);
+}
+
+void KateViInputModeConfigTab::addMappingRow()
+{
+    // Pick the current widget.
+    QTableWidget *mappingsTable = ui->tblNormalModeMappings;
+    if (ui->tabMappingModes->currentIndex() == 1) {
+        mappingsTable = ui->tblInsertModeMappings;
+    } else if (ui->tabMappingModes->currentIndex() == 2) {
+        mappingsTable = ui->tblVisualModeMappings;
+    }
+
+    // And add a new row.
+    int rows = mappingsTable->rowCount();
+    mappingsTable->insertRow(rows);
+    QTableWidgetItem *recursive = new QTableWidgetItem();
     recursive->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-    const bool isRecursive = KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(KateViGlobal::NormalModeMapping, f);
-    recursive->setCheckState(isRecursive ? Qt::Checked : Qt::Unchecked);
-
-    ui->tblNormalModeMappings->setItem(i, 0, from);
-    ui->tblNormalModeMappings->setItem(i, 1, to);
-    ui->tblNormalModeMappings->setItem(i, 2, recursive);
-
-    i++;
-  }
+    recursive->setCheckState(Qt::Unchecked);
+    mappingsTable->setItem(rows, 2, recursive);
+    mappingsTable->setCurrentCell(rows, 0);
+    mappingsTable->editItem(mappingsTable->currentItem());
 }
 
-void KateViInputModeConfigTab::addNewNormalModeMappingRow()
+void KateViInputModeConfigTab::removeSelectedMappingRows()
 {
-  int rows = ui->tblNormalModeMappings->rowCount();
-  ui->tblNormalModeMappings->insertRow( rows );
-  QTableWidgetItem *recursive = new QTableWidgetItem();
-  recursive->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-  recursive->setCheckState(Qt::Unchecked);
-  ui->tblNormalModeMappings->setItem(rows, 2, recursive);
-  ui->tblNormalModeMappings->setCurrentCell( rows, 0 );
-  ui->tblNormalModeMappings->editItem( ui->tblNormalModeMappings->currentItem() );
+    // Pick the current widget.
+    QTableWidget *mappingsTable = ui->tblNormalModeMappings;
+    if (ui->tabMappingModes->currentIndex() == 1) {
+        mappingsTable = ui->tblInsertModeMappings;
+    } else if (ui->tabMappingModes->currentIndex() == 2) {
+        mappingsTable = ui->tblVisualModeMappings;
+    }
+
+    // And remove the selected rows.
+    QList<QTableWidgetSelectionRange> l = mappingsTable->selectedRanges();
+    foreach (const QTableWidgetSelectionRange &range, l) {
+        for (int i = 0; i < range.bottomRow() - range.topRow() + 1; i++) {
+            mappingsTable->removeRow(range.topRow());
+        }
+    }
 }
 
 void KateViInputModeConfigTab::importNormalMappingRow()
 {
-  QString fileName = KFileDialog::getOpenFileName();
-  if(fileName.isEmpty()) return;
-  QFile configFile(fileName);
-  if(! configFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    KMessageBox::error(this, i18n("Unable to open the config file for reading."), i18n("Unable to open file"));
-    return;
-  }
-  QTextStream stream(&configFile);
-  while(! stream.atEnd()) {
-    QStringList line = stream.readLine().split(" ");
+    QString fileName = KFileDialog::getOpenFileName();
 
-    // TODO - allow recursive mappings to be read.
-    if(line.size() > 2 && (line[0] == "noremap" || line[0] == "no"
-          || line[0] == "nnoremap" || line [0] == "nn")) {
-      int rows = ui->tblNormalModeMappings->rowCount();
-      ui->tblNormalModeMappings->insertRow( rows );
-      ui->tblNormalModeMappings->setItem(rows, 0, new QTableWidgetItem(line[1]));
-      ui->tblNormalModeMappings->setItem(rows, 1, new QTableWidgetItem(line[2]));
-      QTableWidgetItem *recursive = new QTableWidgetItem();
-      recursive->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-      recursive->setCheckState(Qt::Unchecked);
-      ui->tblNormalModeMappings->setItem(rows, 2, recursive);
+    if (fileName.isEmpty()) {
+        return;
     }
-  }
-}
 
-void KateViInputModeConfigTab::removeSelectedNormalMappingRow()
-{
-  QList<QTableWidgetSelectionRange> l = ui->tblNormalModeMappings->selectedRanges();
-
-  foreach( const QTableWidgetSelectionRange &range, l ) {
-    for ( int i = 0; i < range.bottomRow()-range.topRow()+1; i++ ) {
-      ui->tblNormalModeMappings->removeRow( range.topRow() );
+    QFile configFile(fileName);
+    if (! configFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        KMessageBox::error(this, i18n("Unable to open the config file for reading."), i18n("Unable to open file"));
+        return;
     }
-  }
+    QTextStream stream(&configFile);
+    while (! stream.atEnd()) {
+        QStringList line = stream.readLine().split(QLatin1String(" "));
+
+        // TODO - allow recursive mappings to be read.
+        if (line.size() > 2 && (line[0] == QLatin1String("noremap") || line[0] == QLatin1String("no")
+                                || line[0] == QLatin1String("nnoremap") || line [0] == QLatin1String("nn"))) {
+            int rows = ui->tblNormalModeMappings->rowCount();
+            ui->tblNormalModeMappings->insertRow(rows);
+            ui->tblNormalModeMappings->setItem(rows, 0, new QTableWidgetItem(line[1]));
+            ui->tblNormalModeMappings->setItem(rows, 1, new QTableWidgetItem(line[2]));
+            QTableWidgetItem *recursive = new QTableWidgetItem();
+            recursive->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+            recursive->setCheckState(Qt::Unchecked);
+            ui->tblNormalModeMappings->setItem(rows, 2, recursive);
+        }
+    }
 }
 //END KateViInputModeConfigTab
 

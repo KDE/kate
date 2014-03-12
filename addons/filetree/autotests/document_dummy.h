@@ -48,6 +48,7 @@ class DummyDocument : public KTextEditor::Document
     virtual QString documentName() const { return m_name; }
 
     virtual QString mimeType() { return QString(); }
+    virtual QByteArray checksum() const { return QByteArray(); }
     virtual bool setEncoding (const QString &) { return false; }
     virtual QString encoding () const { return m_encoding; }
 

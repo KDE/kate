@@ -64,27 +64,6 @@ KTextEditor::ConfigPage* KateSQLPlugin::configPage(int number, QWidget *parent)
   return page;
 }
 
-
-QString KateSQLPlugin::configPageName (int number) const
-{
-  if (number != 0) return QString();
-    return i18nc("@title", "SQL");
-}
-
-
-QString KateSQLPlugin::configPageFullName (int number) const
-{
-  if (number != 0) return QString();
-    return i18nc("@title:window", "SQL Plugin Settings");
-}
-
-
-QIcon KateSQLPlugin::configPageIcon (int number) const
-{
-  if (number != 0) return QIcon();
-  return QIcon::fromTheme(QLatin1String ("server-database"));
-}
-
 //END KateSQLPlugin
 
 #include "katesqlplugin.moc"

@@ -94,6 +94,21 @@ KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, KateFileB
   init();
 }
 
+QString KateFileBrowserConfigPage::name() const
+{
+  return i18n("Filesystem Browser");
+}
+
+QString KateFileBrowserConfigPage::fullName() const
+{
+  return i18n("Filesystem Browser Settings");
+}
+
+QIcon KateFileBrowserConfigPage::icon() const
+{
+  return QIcon::fromTheme(QStringLiteral("document-open"));
+}
+
 void KateFileBrowserConfigPage::apply()
 {
   if ( ! m_changed )

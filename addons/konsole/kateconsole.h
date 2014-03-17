@@ -57,9 +57,6 @@ class KateKonsolePlugin: public KTextEditor::Plugin, public KTextEditor::ConfigP
     // PluginConfigPageInterface
     int configPages() const { return 1; };
     KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
-    QString configPageName (int number = 0) const;
-    QString configPageFullName (int number = 0) const;
-    QIcon configPageIcon (int number = 0) const;
 
     void readConfig();
 
@@ -203,6 +200,10 @@ class KateKonsoleConfigPage : public KTextEditor::ConfigPage {
     explicit KateKonsoleConfigPage( QWidget* parent = 0, KateKonsolePlugin *plugin = 0 );
     virtual ~KateKonsoleConfigPage()
     {}
+
+    virtual QString name() const;
+    virtual QString fullName() const;
+    virtual QIcon icon() const;
 
     virtual void apply();
     virtual void reset();

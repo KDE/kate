@@ -81,24 +81,6 @@ KTextEditor::ConfigPage *KateKonsolePlugin::configPage (int number, QWidget *par
   return new KateKonsoleConfigPage(parent, this);
 }
 
-QString KateKonsolePlugin::configPageName (int number) const
-{
-  if (number != 0) return QString();
-  return i18n("Terminal");
-}
-
-QString KateKonsolePlugin::configPageFullName (int number) const
-{
-  if (number != 0) return QString();
-  return i18n("Terminal Settings");
-}
-
-QIcon KateKonsolePlugin::configPageIcon (int number) const
-{
-  if (number != 0) return QIcon();
-  return QIcon::fromTheme(QStringLiteral("utilities-terminal"));
-}
-
 void KateKonsolePlugin::readConfig()
 {
   foreach ( KateKonsolePluginView *view, mViews )
@@ -354,6 +336,21 @@ KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin
   lo->addStretch();
   connect( cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()) );
   connect( cbSetEditor, SIGNAL(stateChanged(int)), SIGNAL(changed()) );
+}
+
+QString KateKonsoleConfigPage::name() const
+{
+  return i18n("Terminal");
+}
+
+QString KateKonsoleConfigPage::fullName() const
+{
+  return i18n("Terminal Settings");
+}
+
+QIcon KateKonsoleConfigPage::icon() const
+{
+  return QIcon::fromTheme(QStringLiteral("utilities-terminal"));
 }
 
 void KateKonsoleConfigPage::apply()

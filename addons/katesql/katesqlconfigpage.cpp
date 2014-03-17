@@ -57,6 +57,20 @@ KateSQLConfigPage::~KateSQLConfigPage()
 {
 }
 
+QString KateSQLConfigPage::name() const
+{
+    return i18nc("@title", "SQL");
+}
+
+QString KateSQLConfigPage::fullName() const
+{
+    return i18nc("@title:window", "SQL ConfigPage Settings");
+}
+
+QIcon KateSQLConfigPage::icon() const
+{
+    return QIcon::fromTheme(QLatin1String ("server-database"));
+}
 
 void KateSQLConfigPage::apply()
 {

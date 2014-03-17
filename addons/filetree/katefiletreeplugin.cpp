@@ -80,31 +80,6 @@ int KateFileTreePlugin::configPages() const
   return 1;
 }
 
-
-QString KateFileTreePlugin::configPageName (int number) const
-{
-  if(number != 0)
-    return QString();
-
-  return QString(i18n("Documents"));
-}
-
-QString KateFileTreePlugin::configPageFullName (int number) const
-{
-  if(number != 0)
-    return QString();
-
-  return QString(i18n("Configure Documents"));
-}
-
-QIcon KateFileTreePlugin::configPageIcon (int number) const
-{
-  if(number != 0)
-    return QIcon();
-
-  return QIcon::fromTheme(QLatin1String("view-list-tree"));
-}
-
 KTextEditor::ConfigPage *KateFileTreePlugin::configPage (int number, QWidget *parent)
 {
   if(number != 0)

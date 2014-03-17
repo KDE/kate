@@ -217,9 +217,9 @@ void KateConfigDialog::addEditorPages()
         KTextEditor::ConfigPage *page = KTextEditor::Editor::instance()->configPage(i, this);
         connect(page, SIGNAL(changed()), this, SLOT(slotChanged()));
         m_editorPages.push_back(page);
-        KPageWidgetItem *item = addSubPage(m_editorPage, page, KTextEditor::Editor::instance()->configPageName(i));
-        item->setHeader(KTextEditor::Editor::instance()->configPageFullName(i));
-        item->setIcon(KTextEditor::Editor::instance()->configPageIcon(i));
+        KPageWidgetItem *item = addSubPage(m_editorPage, page, page->name());
+        item->setHeader(page->fullName());
+        item->setIcon(page->icon());
     }
 }
 
@@ -235,18 +235,22 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
         layout->setSpacing(0);
         layout->setMargin(0);
 
-        KPageWidgetItem *item = addSubPage(m_applicationPage, page, qobject_cast<KTextEditor::ConfigPageInterface *>(plugin)->configPageName(i));
-        item->setHeader(qobject_cast<KTextEditor::ConfigPageInterface *>(plugin)->configPageFullName(i));
-        item->setIcon(qobject_cast<KTextEditor::ConfigPageInterface *>(plugin)->configPageIcon(i));
+        KTextEditor::ConfigPageInterface *cpi = qobject_cast<KTextEditor::ConfigPageInterface *>(plugin);
+        KTextEditor::ConfigPage *cp = cpi->configPage(i, page);
+        page->layout()->addWidget(cp);
+
+        KPageWidgetItem *item = addSubPage(m_applicationPage, page, cp->name());
+        item->setHeader(cp->fullName());
+        item->setIcon(cp->icon());
 
         PluginPageListItem *info = new PluginPageListItem;
         info->plugin = plugin;
-        info->configPageInterface = qobject_cast<KTextEditor::ConfigPageInterface *>(plugin);
+        info->configPageInterface = cpi;
         info->pageParent = page;
-        info->pluginPage = 0; //info->configPageInterface->configPage (i, page);
+        info->pluginPage = cp;
         info->idInPlugin = i;
         info->pageWidgetItem = item;
-        //connect( info->page, SIGNAL(changed()), this, SLOT(slotChanged()) );
+        connect(info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()));
         m_pluginPages.insert(item, info);
     }
 }
@@ -260,7 +264,7 @@ void KateConfigDialog::slotCurrentPageChanged(KPageWidgetItem *current, KPageWid
     if (info->pluginPage) {
         return;
     }
-    qCDebug(LOG_KATE) << "creating config page";
+    qCDebug(LOG_KATE) << "creating config page (shouldnt get here)";
     info->pluginPage = info->configPageInterface->configPage(info->idInPlugin, info->pageParent);
     info->pageParent->layout()->addWidget(info->pluginPage);
     info->pluginPage->show();

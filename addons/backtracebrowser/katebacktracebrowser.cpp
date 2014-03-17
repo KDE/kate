@@ -124,27 +124,6 @@ KTextEditor::ConfigPage *KateBtBrowserPlugin::configPage(int number, QWidget *pa
     return 0L;
 }
 
-QString KateBtBrowserPlugin::configPageName(int number) const
-{
-    if (number == 0) {
-        return i18n("Backtrace Browser");
-    }
-    return QString();
-}
-
-QString KateBtBrowserPlugin::configPageFullName(int number) const
-{
-    if (number == 0) {
-        return i18n("Backtrace Browser Settings");
-    }
-    return QString();
-}
-
-QIcon KateBtBrowserPlugin::configPageIcon(int) const
-{
-    return QIcon::fromTheme(QStringLiteral("kbugbuster"));
-}
-
 
 
 
@@ -328,6 +307,21 @@ KateBtConfigWidget::KateBtConfigWidget(QWidget *parent)
 
 KateBtConfigWidget::~KateBtConfigWidget()
 {
+}
+
+QString KateBtConfigWidget::name() const
+{
+    return i18n("Backtrace ");
+}
+
+QString KateBtConfigWidget::fullName() const
+{
+    return i18n("Backtrace  Settings");
+}
+
+QIcon KateBtConfigWidget::icon() const
+{
+    return QIcon::fromTheme(QStringLiteral("kbugbuster"));
 }
 
 void KateBtConfigWidget::apply()

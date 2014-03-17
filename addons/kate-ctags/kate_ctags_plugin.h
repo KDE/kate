@@ -49,9 +49,6 @@ class KateCTagsPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPa
         // PluginConfigPageInterface
         int configPages() const { return 1; };
         KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
-        QString configPageName (int number = 0) const;
-        QString configPageFullName (int number = 0) const;
-        QIcon configPageIcon (int number = 0) const;
         void readConfig();
         
         KateCTagsView *m_view;
@@ -63,6 +60,10 @@ class KateCTagsConfigPage : public KTextEditor::ConfigPage {
 public:
     explicit KateCTagsConfigPage( QWidget* parent = 0, KateCTagsPlugin *plugin = 0 );
     ~KateCTagsConfigPage() {}
+
+    virtual QString name() const;
+    virtual QString fullName() const;
+    virtual QIcon icon() const;
     
     void apply();
     void reset();

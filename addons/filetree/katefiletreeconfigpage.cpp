@@ -134,6 +134,21 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
   connect( cbShowFullPath, SIGNAL(stateChanged(int)), this, SLOT(slotMyChanged()) );
 }
 
+QString KateFileTreeConfigPage::name() const
+{
+  return QString(i18n("Documents"));
+}
+
+QString KateFileTreeConfigPage::fullName() const
+{
+  return QString(i18n("Configure Documents"));
+}
+
+QIcon KateFileTreeConfigPage::icon() const
+{
+  return QIcon::fromTheme(QLatin1String("view-list-tree"));
+}
+
 void KateFileTreeConfigPage::apply()
 {
   if ( ! m_changed ) {

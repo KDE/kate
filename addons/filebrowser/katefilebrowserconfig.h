@@ -39,6 +39,10 @@ class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
     virtual ~KateFileBrowserConfigPage()
     {}
 
+    virtual QString name() const;
+    virtual QString fullName() const;
+    virtual QIcon icon() const;
+
     virtual void apply();
     virtual void reset();
     virtual void defaults()

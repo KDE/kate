@@ -63,27 +63,6 @@ KTextEditor::ConfigPage *KateCTagsPlugin::configPage (int number, QWidget *paren
 }
 
 /******************************************************************/
-QString KateCTagsPlugin::configPageName (int number) const
-{
-    if (number != 0) return QString();
-    return i18n("CTags");
-}
-
-/******************************************************************/
-QString KateCTagsPlugin::configPageFullName (int number) const
-{
-    if (number != 0) return QString();
-    return i18n("CTags Settings");
-}
-
-/******************************************************************/
-QIcon KateCTagsPlugin::configPageIcon (int number) const
-{
-    if (number != 0) return QIcon();
-    return QIcon::fromTheme(QStringLiteral("text-x-csrc"));
-}
-
-/******************************************************************/
 void KateCTagsPlugin::readConfig()
 {
 }
@@ -116,6 +95,24 @@ KateCTagsConfigPage::KateCTagsConfigPage( QWidget* parent, KateCTagsPlugin *plug
             this,    SLOT(updateDone(int,QProcess::ExitStatus)));
     
     reset();
+}
+
+/******************************************************************/
+QString KateCTagsConfigPage::name() const
+{
+    return i18n("CTags");
+}
+
+/******************************************************************/
+QString KateCTagsConfigPage::fullName() const
+{
+    return i18n("CTags Settings");
+}
+
+/******************************************************************/
+QIcon KateCTagsConfigPage::icon() const
+{
+    return QIcon::fromTheme(QStringLiteral("text-x-csrc"));
 }
 
 /******************************************************************/

@@ -61,9 +61,6 @@ class KateFileBrowserPlugin: public KTextEditor::Plugin, public KTextEditor::Con
 
     virtual int configPages() const;
     virtual KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
-    virtual QString configPageName (int number = 0) const;
-    virtual QString configPageFullName (int number = 0) const;
-    virtual QIcon configPageIcon (int number = 0) const;
     
   public Q_SLOTS:
     void viewDestroyed(QObject* view);

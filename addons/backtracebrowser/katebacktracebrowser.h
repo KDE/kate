@@ -64,9 +64,6 @@ Q_SIGNALS:
 public:
     virtual int configPages() const;
     virtual KTextEditor::ConfigPage *configPage(int number, QWidget *parent = 0);
-    virtual QString configPageName(int number) const;
-    virtual QString configPageFullName(int number) const;
-    virtual QIcon configPageIcon(int number) const;
 
     //
     // private data
@@ -126,6 +123,10 @@ class KateBtConfigWidget : public KTextEditor::ConfigPage, private Ui::BtConfigW
 public:
     explicit KateBtConfigWidget(QWidget *parent = 0);
     virtual ~KateBtConfigWidget();
+
+    virtual QString name() const;
+    virtual QString fullName() const;
+    virtual QIcon icon() const;
 
 public Q_SLOTS:
     virtual void apply();

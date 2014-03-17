@@ -68,24 +68,6 @@ KTextEditor::ConfigPage *KateFileBrowserPlugin::configPage (int number, QWidget 
     return 0;
   return new KateFileBrowserConfigPage(parent, m_views[0]->m_fileBrowser);
 }
-
-QString KateFileBrowserPlugin::configPageName (int number) const
-{
-  if (number != 0) return QString();
-  return i18n("Filesystem Browser");
-}
-
-QString KateFileBrowserPlugin::configPageFullName (int number) const
-{
-  if (number != 0) return QString();
-  return i18n("Filesystem Browser Settings");
-}
-
-QIcon KateFileBrowserPlugin::configPageIcon (int number) const
-{
-  if (number != 0) return QIcon();
-  return QIcon::fromTheme(QStringLiteral("document-open"));
-}
 //END KateFileBrowserPlugin
 
 

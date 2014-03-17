@@ -36,6 +36,10 @@ class KateSQLConfigPage : public KTextEditor::ConfigPage
     explicit KateSQLConfigPage( QWidget* parent = 0 );
     virtual ~KateSQLConfigPage();
 
+    virtual QString name() const;
+    virtual QString fullName() const;
+    virtual QIcon icon() const;
+
   public Q_SLOTS:
     virtual void apply();
     virtual void reset();

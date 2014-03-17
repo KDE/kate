@@ -22,7 +22,6 @@
 
 #include "katemdi.h"
 
-#include <ktexteditor/configpageinterface.h>
 #include "katedebug.h"
 
 #include <KActionCollection>
@@ -484,11 +483,8 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
                 QMenu *menu = new QMenu(this);
 
                 if (!w->plugin.isNull()) {
-                    KTextEditor::ConfigPageInterface *pcpi = dynamic_cast<KTextEditor::ConfigPageInterface *>(w->plugin.data());
-                    if (pcpi) {
-                        if (pcpi->configPages() > 0) {
-                            menu->addAction(i18n("Configure ..."))->setData(20);
-                        }
+                    if (w->plugin.data()->configPages() > 0) {
+                        menu->addAction(i18n("Configure ..."))->setData(20);
                     }
                 }
 
@@ -563,11 +559,8 @@ void Sidebar::buttonPopupActivate(QAction *a)
     // configure actionCollection
     if (id == 20) {
         if (!w->plugin.isNull()) {
-            KTextEditor::ConfigPageInterface *pcpi = dynamic_cast<KTextEditor::ConfigPageInterface *>(w->plugin.data());
-            if (pcpi) {
-                if (pcpi->configPages() > 0) {
-                    emit sigShowPluginConfigPage(pcpi, 0);
-                }
+            if (w->plugin.data()->configPages() > 0) {
+                emit sigShowPluginConfigPage(w->plugin.data(), 0);
             }
         }
     }
@@ -765,7 +758,7 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_sidebars[KMultiTabBar::Right]->setSplitter(m_hSplitter);
 
     for (int i = 0; i < 4; i++) {
-        connect(m_sidebars[i], SIGNAL(sigShowPluginConfigPage(KTextEditor::ConfigPageInterface*,uint)), this, SIGNAL(sigShowPluginConfigPage(KTextEditor::ConfigPageInterface*,uint)));
+        connect(m_sidebars[i], SIGNAL(sigShowPluginConfigPage(KTextEditor::Plugin*,uint)), this, SIGNAL(sigShowPluginConfigPage(KTextEditor::Plugin*,uint)));
     }
 
 }

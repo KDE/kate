@@ -23,14 +23,12 @@
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/application.h>
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/configpageinterface.h>
 
 #include <kpluginfactory.h>
 
-class KateSQLPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
+class KateSQLPlugin : public KTextEditor::Plugin
 {
   Q_OBJECT
-  Q_INTERFACES(KTextEditor::ConfigPageInterface)
 
   public:
     explicit KateSQLPlugin(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
@@ -38,8 +36,6 @@ class KateSQLPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPage
     virtual ~KateSQLPlugin();
 
     QObject *createView(KTextEditor::MainWindow *mainWindow);
-
-    // PluginConfigPageInterface
 
     int configPages() const { return 1; };
     KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);

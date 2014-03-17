@@ -31,7 +31,6 @@
 # include <KTextEditor/Editor>
 # include <KTextEditor/Plugin>
 # include <ktexteditor/sessionconfiginterface.h>
-# include <ktexteditor/configpageinterface.h>
 # include <KActionMenu>
 # include <KTextEditor/Document>
 # include <KTextEditor/View>

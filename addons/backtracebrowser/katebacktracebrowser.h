@@ -21,7 +21,6 @@
 
 #include <KTextEditor/Plugin>
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/configpageinterface.h>
 #include <ktexteditor/configpage.h>
 
 #include "ui_btbrowserwidget.h"
@@ -37,10 +36,9 @@
 class KateBtConfigWidget;
 class KateBtBrowserWidget;
 
-class KateBtBrowserPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
+class KateBtBrowserPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::ConfigPageInterface)
 
 public:
     explicit KateBtBrowserPlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
@@ -58,9 +56,6 @@ public:
 Q_SIGNALS:
     void newStatus(const QString &);
 
-    //
-    // PluginConfigPageInterface
-    //
 public:
     virtual int configPages() const;
     virtual KTextEditor::ConfigPage *configPage(int number, QWidget *parent = 0);

@@ -27,7 +27,6 @@
 
 #include <ktexteditor/application.h>
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/configpageinterface.h>
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/Plugin>
 
@@ -35,10 +34,9 @@
 #include "ui_CTagsGlobalConfig.h"
 
 //******************************************************************/
-class KateCTagsPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
+class KateCTagsPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::ConfigPageInterface)
 
     public:
         explicit KateCTagsPlugin(QObject* parent = 0, const QList<QVariant> & = QList<QVariant>());
@@ -46,7 +44,6 @@ class KateCTagsPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPa
 
         QObject *createView(KTextEditor::MainWindow *mainWindow);
    
-        // PluginConfigPageInterface
         int configPages() const { return 1; };
         KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
         void readConfig();

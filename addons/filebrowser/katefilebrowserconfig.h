@@ -26,7 +26,6 @@
 #include <KActionSelector>
 
 #include <ktexteditor/configpage.h>
-#include <ktexteditor/configpageinterface.h>
 
 #include "katefilebrowser.h"
 

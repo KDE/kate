@@ -53,7 +53,6 @@ static QStringList fileExtensions =
 
 KateBtBrowserPlugin::KateBtBrowserPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
-    , KTextEditor::ConfigPageInterface()
     , indexer(&db)
 {
     s_self = this;

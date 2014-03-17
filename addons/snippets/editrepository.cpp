@@ -165,5 +165,3 @@ void EditRepository::updateFileTypes()
         repoFileTypesListLabel->setText(types.join(QLatin1String(", ")));
     }
 }
-
-#include "editrepository.moc"

@@ -203,7 +203,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
 
     connect(KateApp::self()->sessionManager(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
 
-    connect(this, SIGNAL(sigShowPluginConfigPage(KTextEditor::ConfigPageInterface*,uint)), this, SLOT(showPluginConfigPage(KTextEditor::ConfigPageInterface*,uint)));
+    connect(this, SIGNAL(sigShowPluginConfigPage(KTextEditor::Plugin*,uint)), this, SLOT(showPluginConfigPage(KTextEditor::Plugin*,uint)));
 
     // prior to this there was (possibly) no view, therefore not context menu.
     // Hence, we have to take care of the menu bar here
@@ -770,7 +770,7 @@ void KateMainWindow::slotConfigure()
     showPluginConfigPage(0, 0);
 }
 
-void KateMainWindow::showPluginConfigPage(KTextEditor::ConfigPageInterface *configpageinterface, uint id)
+void KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterface, uint id)
 {
     if (!m_viewManager->activeView()) {
         return;

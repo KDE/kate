@@ -253,7 +253,7 @@ private:
     int m_popupButton;
 
 Q_SIGNALS:
-    void sigShowPluginConfigPage(KTextEditor::ConfigPageInterface *configpageinterface, uint id);
+    void sigShowPluginConfigPage(KTextEditor::Plugin*configpageinterface, uint id);
 
 };
 
@@ -447,7 +447,7 @@ private:
     GUIClient *m_guiClient;
 
 Q_SIGNALS:
-    void sigShowPluginConfigPage(KTextEditor::ConfigPageInterface *configpageinterface, uint id);
+    void sigShowPluginConfigPage(KTextEditor::Plugin*configpageinterface, uint id);
 
 };
 

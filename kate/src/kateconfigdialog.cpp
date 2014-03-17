@@ -181,8 +181,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 
     KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
     foreach(const KatePluginInfo & plugin, pluginList) {
-        if (plugin.load
-                && qobject_cast<KTextEditor::ConfigPageInterface *>(plugin.plugin)) {
+        if (plugin.load) {
             addPluginPage(plugin.plugin);
         }
     }
@@ -225,18 +224,13 @@ void KateConfigDialog::addEditorPages()
 
 void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
 {
-    if (!qobject_cast<KTextEditor::ConfigPageInterface *>(plugin)) {
-        return;
-    }
-
-    for (int i = 0; i < qobject_cast<KTextEditor::ConfigPageInterface *>(plugin)->configPages(); i++) {
+    for (int i = 0; i < plugin->configPages(); i++) {
         QFrame *page = new QFrame();
         QVBoxLayout *layout = new QVBoxLayout(page);
         layout->setSpacing(0);
         layout->setMargin(0);
 
-        KTextEditor::ConfigPageInterface *cpi = qobject_cast<KTextEditor::ConfigPageInterface *>(plugin);
-        KTextEditor::ConfigPage *cp = cpi->configPage(i, page);
+        KTextEditor::ConfigPage *cp = plugin->configPage(i, page);
         page->layout()->addWidget(cp);
 
         KPageWidgetItem *item = addSubPage(m_applicationPage, page, cp->name());
@@ -245,7 +239,6 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
 
         PluginPageListItem *info = new PluginPageListItem;
         info->plugin = plugin;
-        info->configPageInterface = cpi;
         info->pageParent = page;
         info->pluginPage = cp;
         info->idInPlugin = i;
@@ -265,7 +258,7 @@ void KateConfigDialog::slotCurrentPageChanged(KPageWidgetItem *current, KPageWid
         return;
     }
     qCDebug(LOG_KATE) << "creating config page (shouldnt get here)";
-    info->pluginPage = info->configPageInterface->configPage(info->idInPlugin, info->pageParent);
+    info->pluginPage = info->plugin->configPage(info->idInPlugin, info->pageParent);
     info->pageParent->layout()->addWidget(info->pluginPage);
     info->pluginPage->show();
     connect(info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()));
@@ -273,10 +266,6 @@ void KateConfigDialog::slotCurrentPageChanged(KPageWidgetItem *current, KPageWid
 
 void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)
 {
-    if (!qobject_cast<KTextEditor::ConfigPageInterface *>(plugin)) {
-        return;
-    }
-
     QList<KPageWidgetItem *> remove;
     for (QHash<KPageWidgetItem *, PluginPageListItem *>::const_iterator it = m_pluginPages.constBegin(); it != m_pluginPages.constEnd(); ++it) {
         PluginPageListItem *pli = it.value();
@@ -372,10 +361,10 @@ void KateConfigDialog::slotChanged()
     m_daysMetaInfos->setSuffix(i18ncp("The suffix of 'Delete unused meta-information after'", " day", " days", m_daysMetaInfos->value()));
 }
 
-void KateConfigDialog::showAppPluginPage(KTextEditor::ConfigPageInterface *configpageinterface, uint id)
+void KateConfigDialog::showAppPluginPage(KTextEditor::Plugin *p, uint id)
 {
     foreach(PluginPageListItem * plugin, m_pluginPages.values()) {
-        if ((plugin->configPageInterface == configpageinterface) && (id == plugin->idInPlugin)) {
+        if ((plugin->plugin == p) && (id == plugin->idInPlugin)) {
             setCurrentPage(plugin->pageWidgetItem);
             break;
         }

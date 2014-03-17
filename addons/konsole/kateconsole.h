@@ -23,7 +23,6 @@
 
 #include <KTextEditor/Plugin>
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/configpageinterface.h>
 #include <ktexteditor/configpage.h>
 
 #include <QList>
@@ -41,10 +40,9 @@ namespace KParts
 class KateConsole;
 class KateKonsolePluginView;
 
-class KateKonsolePlugin: public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
+class KateKonsolePlugin: public KTextEditor::Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::ConfigPageInterface)
     
   friend class KateKonsolePluginView;
   
@@ -54,7 +52,6 @@ class KateKonsolePlugin: public KTextEditor::Plugin, public KTextEditor::ConfigP
 
     QObject *createView (KTextEditor::MainWindow *mainWindow);
 
-    // PluginConfigPageInterface
     int configPages() const { return 1; };
     KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
 

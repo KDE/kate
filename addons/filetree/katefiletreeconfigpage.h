@@ -25,7 +25,6 @@
 
 #include <QWidget>
 
-#include <ktexteditor/configpageinterface.h>
 #include <ktexteditor/configpage.h>
 
 class KateFileTreePlugin;

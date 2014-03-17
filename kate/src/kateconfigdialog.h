@@ -23,7 +23,7 @@
 #define __kate_configdialog_h__
 
 #include <KTextEditor/Plugin>
-#include <KTextEditor/ConfigPageInterface>
+#include <KTextEditor/ConfigPage>
 #include <KTextEditor/Editor>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
@@ -39,7 +39,6 @@ namespace Ui {
 
 struct PluginPageListItem {
     KTextEditor::Plugin *plugin;
-    KTextEditor::ConfigPageInterface *configPageInterface;
     uint idInPlugin;
     KTextEditor::ConfigPage *pluginPage;
     QWidget *pageParent;
@@ -64,7 +63,7 @@ public: // static
 public:
     void addPluginPage(KTextEditor::Plugin *plugin);
     void removePluginPage(KTextEditor::Plugin *plugin);
-    void showAppPluginPage(KTextEditor::ConfigPageInterface *configpageinterface, uint id);
+    void showAppPluginPage(KTextEditor::Plugin *plugin, uint id);
 protected Q_SLOTS:
     void slotApply();
     void slotChanged();

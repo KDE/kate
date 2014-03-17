@@ -26,7 +26,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/configpageinterface.h>
 #include <ktexteditor/configpage.h>
 #include <KTextEditor/SessionConfigInterface>
 
@@ -47,10 +46,9 @@ class QSpinBox;
 class KateFileBrowser;
 class KateFileBrowserPluginView;
 
-class KateFileBrowserPlugin: public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
+class KateFileBrowserPlugin: public KTextEditor::Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::ConfigPageInterface)
 
   public:
     explicit KateFileBrowserPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );

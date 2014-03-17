@@ -24,7 +24,6 @@
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
 #include <ktexteditor/view.h>
-#include <ktexteditor/configpageinterface.h>
 
 #include <QMenu>
 #include <qevent.h>
@@ -135,10 +134,9 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
 
 };
 
-class KatePluginSymbolViewer : public Kate::Plugin, KTextEditor::ConfigPageInterface
+class KatePluginSymbolViewer : public Kate::Plugin
 {
   Q_OBJECT
-  Q_INTERFACES(KTextEditor::ConfigPageInterface)
   public:
     explicit KatePluginSymbolViewer( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KatePluginSymbolViewer();

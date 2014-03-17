@@ -144,7 +144,7 @@ def _createSignalAutocompleteExpands(view):
 @kate.view.contextMenuAboutToShow
 @kate.view.focusOut
 @kate.view.selectionChanged
-@kate.view.viewEditModeChanged
+@kate.view.viewInputModeChanged
 @kate.view.viewModeChanged
 def _resetTracker0(*args, **kw):
     global _input_tracker

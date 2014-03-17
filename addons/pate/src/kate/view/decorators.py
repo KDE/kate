@@ -118,14 +118,14 @@ def verticalScrollPositionChanged(receiver):
     return receiver
 
 
-def viewEditModeChanged(receiver):
+def viewInputModeChanged(receiver):
     _queue_view_event_subscriber(
-        'viewEditModeChanged(KTextEditor::View*, KTextEditor::View::EditMode)'
+        'viewInputModeChanged(KTextEditor::View*, KTextEditor::View::InputMode)'
       , receiver
       )
     return receiver
 
 
 def viewModeChanged(receiver):
-    _queue_view_event_subscriber('viewModeChanged(KTextEditor::View*)', receiver)
+    _queue_view_event_subscriber('viewModeChanged(KTextEditor::View*, KTextEditor::View::ViewMode)', receiver)
     return receiver

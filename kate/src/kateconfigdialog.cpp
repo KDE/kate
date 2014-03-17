@@ -345,9 +345,6 @@ void KateConfigDialog::slotApply()
     foreach(KTextEditor::ConfigPage * page, m_editorPages)
     page->apply();
 
-    // write back the editor config
-    KTextEditor::Editor::instance()->writeConfig(config.data());
-
     config->sync();
 
     m_dataChanged = false;

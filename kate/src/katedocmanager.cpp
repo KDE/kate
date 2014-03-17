@@ -58,9 +58,6 @@ KateDocManager::KateDocManager(QObject *parent)
     // set our application wrapper
     KTextEditor::Editor::instance()->setApplication(KateApp::self()->wrapper());
 
-    // read in editor config
-    KTextEditor::Editor::instance()->readConfig(KSharedConfig::openConfig().data());
-
     m_metaInfos = new KConfig(QStringLiteral("metainfos"), KConfig::NoGlobals, QStandardPaths::DataLocation);
 
     createDoc();
@@ -68,9 +65,6 @@ KateDocManager::KateDocManager(QObject *parent)
 
 KateDocManager::~KateDocManager()
 {
-    // write editor config
-    KTextEditor::Editor::instance()->writeConfig(KSharedConfig::openConfig().data());
-
     // write metainfos?
     if (m_saveMetaInfos) {
         // saving meta-infos when file is saved is not enough, we need to do it once more at the end

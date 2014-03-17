@@ -147,9 +147,6 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
      */
     aboutData.processCommandLine(&parser);
 
-    // read from global config once
-    KTextEditor::Editor::instance()->readConfig(KSharedConfig::openConfig().data());
-
     if (app.isSessionRestored()) {
         KWrite::restore();
     } else {

@@ -381,13 +381,6 @@ void KWrite::readConfig(KSharedConfigPtr config)
 
     m_recentFiles->loadEntries(config->group("Recent Files"));
 
-    // editor config already read from KSharedConfig::openConfig() in KWriteApp constructor.
-    // so only load, if the config is a different one (this is only the case on
-    // session restore)
-    if (config != KSharedConfig::openConfig()) {
-        KTextEditor::Editor::instance()->readConfig(config.data());
-    }
-
     // update visibility of menu bar and status bar
     toggleMenuBar(false);
     m_view->setStatusBarEnabled(m_paShowStatusBar->isChecked());
@@ -402,9 +395,6 @@ void KWrite::writeConfig(KSharedConfigPtr config)
     generalOptions.writeEntry("ShowPath", m_paShowPath->isChecked());
 
     m_recentFiles->saveEntries(KConfigGroup(config, "Recent Files"));
-
-    // Writes into its own group
-    KTextEditor::Editor::instance()->writeConfig(config.data());
 
     config->sync();
 }

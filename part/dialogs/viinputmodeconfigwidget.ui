@@ -269,8 +269,24 @@ This will prepend &quot;-- &quot; to a line when pressing F2.</string>
      <y>48</y>
     </hint>
     <hint type="destinationlabel">
-     <x>192</x>
-     <y>77</y>
+     <x>204</x>
+     <y>74</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chkViInputModeDefault</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>chkViRelLineNumbers</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>43</x>
+     <y>91</y>
     </hint>
    </hints>
   </connection>

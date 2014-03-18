@@ -782,7 +782,7 @@ bool KateViNormalMode::commandDeleteToEOL()
         m = Block;
     default:
         /* InsertMode and ReplaceMode will never call this method. */
-        ;
+        Q_ASSERT(false);
     }
 
     bool r = deleteRange(m_commandRange, m);

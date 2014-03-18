@@ -763,59 +763,59 @@ bool KateViNormalMode::commandDelete()
 
 bool KateViNormalMode::commandDeleteToEOL()
 {
-  Cursor c( m_view->cursorPosition() );
-  OperationMode m = CharWise;
+    Cursor c(m_view->cursorPosition());
+    OperationMode m = CharWise;
 
-  if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
-    m_commandRange.startLine = c.line();
-    m_commandRange.startColumn = c.column();
-    m_commandRange.endLine = c.line()+getCount()-1;
-    m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine )-1;
-  }
-
-  if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
-    m = LineWise;
-  } else if ( m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-    m_commandRange.normalize();
     m_commandRange.endColumn = KateVi::EOL;
-    m = Block;
-  }
+    switch (m_viInputModeManager->getCurrentViMode()) {
+    case NormalMode:
+        m_commandRange.startLine = c.line();
+        m_commandRange.startColumn = c.column();
+        m_commandRange.endLine = c.line() + getCount() - 1;
+        break;
+    case VisualMode:
+    case VisualLineMode:
+        m = LineWise;
+        break;
+    case VisualBlockMode:
+        m_commandRange.normalize();
+        m = Block;
+    }
 
-  bool r = deleteRange( m_commandRange, m );
+    bool r = deleteRange(m_commandRange, m);
 
-  switch (m) {
-  case CharWise:
-    c.setColumn( doc()->lineLength( c.line() )-1 );
-    break;
-  case LineWise:
-    c.setLine( m_commandRange.startLine );
-    c.setColumn( 0 ); // FIXME: should be first non-blank
-    break;
-  case Block:
-    c.setLine( m_commandRange.startLine );
-    c.setColumn( m_commandRange.startColumn-1 );
-    break;
-  }
+    switch (m) {
+    case CharWise:
+        c.setColumn(doc()->lineLength(c.line()) - 1);
+        break;
+    case LineWise:
+        c.setLine(m_commandRange.startLine);
+        c.setColumn(0);   // FIXME: should be first non-blank
+        break;
+    case Block:
+        c.setLine(m_commandRange.startLine);
+        c.setColumn(m_commandRange.startColumn - 1);
+        break;
+    }
 
-  // make sure cursor position is valid after deletion
-  if ( c.line() < 0 ) {
-    c.setLine( 0 );
-  }
-  if ( c.line() > doc()->lastLine() ) {
-    c.setLine( doc()->lastLine() );
-  }
-  if ( c.column() > doc()->lineLength( c.line() )-1 ) {
-    c.setColumn( doc()->lineLength( c.line() )-1 );
-  }
-  if ( c.column() < 0 ) {
-    c.setColumn( 0 );
-  }
+    // make sure cursor position is valid after deletion
+    if (c.line() < 0) {
+        c.setLine(0);
+    }
+    if (c.line() > doc()->lastLine()) {
+        c.setLine(doc()->lastLine());
+    }
+    if (c.column() > doc()->lineLength(c.line()) - 1) {
+        c.setColumn(doc()->lineLength(c.line()) - 1);
+    }
+    if (c.column() < 0) {
+        c.setColumn(0);
+    }
 
-  updateCursor( c );
+    updateCursor(c);
 
-  m_deleteCommand = true;
-  return r;
+    m_deleteCommand = true;
+    return r;
 }
 
 bool KateViNormalMode::commandMakeLowercase()

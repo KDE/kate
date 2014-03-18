@@ -27,7 +27,6 @@
 #include "katedebug.h"
 
 #include <ktexteditor/view.h>
-#include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/editor.h>
 
 #include <KCodecs>
@@ -428,11 +427,7 @@ void KateDocManager::saveDocumentList(KConfig *config)
     int i = 0;
     foreach(KTextEditor::Document * doc, m_docList) {
         KConfigGroup cg(config, QString::fromLatin1("Document %1").arg(i));
-        if (KTextEditor::ParameterizedSessionConfigInterface *iface =
-                    qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc)) {
-            iface->writeParameterizedSessionConfig(cg, KTextEditor::ParameterizedSessionConfigInterface::SkipNone);
-        }
-
+        doc->writeSessionConfig(cg);
         i++;
     }
 }
@@ -468,10 +463,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
         connect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
         connect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
 
-        if (KTextEditor::ParameterizedSessionConfigInterface *iface =
-                    qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc)) {
-            iface->readParameterizedSessionConfig(cg, KTextEditor::ParameterizedSessionConfigInterface::SkipNone);
-        }
+        doc->readSessionConfig(cg);
 
         progress.setValue(i);
     }
@@ -507,15 +499,11 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
         const QString old_md5 = urlGroup.readEntry("MD5");
 
         if (QString::fromLatin1(md5) == old_md5) {
-            if (KTextEditor::ParameterizedSessionConfigInterface *iface =
-                        qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc)) {
-                KTextEditor::ParameterizedSessionConfigInterface::SessionConfigParameter flags =
-                    KTextEditor::ParameterizedSessionConfigInterface::SkipNone;
-                if (documentInfo(doc)->openedByUser) {
-                    flags = KTextEditor::ParameterizedSessionConfigInterface::SkipEncoding;
-                }
-                iface->readParameterizedSessionConfig(urlGroup, flags);
+            QSet<QString> flags;
+            if (documentInfo(doc)->openedByUser) {
+                flags << QStringLiteral ("SkipEncoding");
             }
+            doc->readSessionConfig(urlGroup, flags);
         } else {
             urlGroup.deleteGroup();
             ok = false;
@@ -540,17 +528,14 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
     QByteArray md5;
     QDateTime now = QDateTime::currentDateTime();
 
-    foreach(const KTextEditor::Document * doc, documents) {
+    foreach(KTextEditor::Document * doc, documents) {
         if (doc->isModified()) {
             continue;
         }
 
         if (computeUrlMD5(doc->url(), md5)) {
             KConfigGroup urlGroup(m_metaInfos, doc->url().toString());
-
-            if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc)) {
-                iface->writeSessionConfig(urlGroup);
-            }
+            doc->writeSessionConfig(urlGroup);
 
             urlGroup.writeEntry("MD5", md5.constData());
             urlGroup.writeEntry("Time", now);

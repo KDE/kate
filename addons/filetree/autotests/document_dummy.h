@@ -106,6 +106,9 @@ class DummyDocument : public KTextEditor::Document
   public:
     void setUrl(const QString &url) { KParts::ReadOnlyPart::setUrl(QUrl(url)); }
     void setName(const QString &name) { m_name = name; }
+    
+    void readSessionConfig(const KConfigGroup &, const QSet<QString> & = QSet<QString>()) {}
+    void writeSessionConfig(KConfigGroup &, const QSet<QString> & = QSet<QString>()) {}
 
   private:
     QString m_name, m_encoding;

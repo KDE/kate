@@ -22,7 +22,6 @@
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
-#include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/editor.h>
 
@@ -420,9 +419,7 @@ void KWrite::readProperties(const KConfigGroup &config)
 {
     readConfig();
 
-    if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view)) {
-        iface->readSessionConfig(KConfigGroup(&config, QStringLiteral("General Options")));
-    }
+    m_view->readSessionConfig(KConfigGroup(&config, QStringLiteral("General Options")));
 }
 
 void KWrite::saveProperties(KConfigGroup &config)
@@ -431,10 +428,8 @@ void KWrite::saveProperties(KConfigGroup &config)
 
     config.writeEntry("DocumentNumber", docList.indexOf(m_view->document()) + 1);
 
-    if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view)) {
-        KConfigGroup cg(&config, QStringLiteral("General Options"));
-        iface->writeSessionConfig(cg);
-    }
+    KConfigGroup cg(&config, QStringLiteral("General Options"));
+    m_view->writeSessionConfig(cg);
 }
 
 void KWrite::saveGlobalProperties(KConfig *config) //save documents
@@ -445,10 +440,7 @@ void KWrite::saveGlobalProperties(KConfig *config) //save documents
         QString buf = QString::fromLatin1("Document %1").arg(z);
         KConfigGroup cg(config, buf);
         KTextEditor::Document *doc = docList.at(z - 1);
-
-        if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc)) {
-            iface->writeSessionConfig(cg);
-        }
+        doc->writeSessionConfig(cg);
     }
 
     for (int z = 1; z <= winList.count(); z++) {
@@ -480,10 +472,7 @@ void KWrite::restore()
         buf = QString::fromLatin1("Document %1").arg(z);
         KConfigGroup cg(config, buf);
         doc = KTextEditor::Editor::instance()->createDocument(0);
-
-        if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc)) {
-            iface->readSessionConfig(cg);
-        }
+        doc->readSessionConfig(cg);
         docList.append(doc);
     }
 

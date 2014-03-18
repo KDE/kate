@@ -19,8 +19,6 @@
 */
 #include "kateviewspace.h"
 
-#include <ktexteditor/sessionconfiginterface.h>
-
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
 #include "katedocmanager.h"
@@ -218,10 +216,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
             KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession();
             if (as->config() && as->config()->hasGroup(vgroup)) {
                 KConfigGroup cg(as->config(), vgroup);
-
-                if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(v)) {
-                    iface->readSessionConfig(cg);
-                }
+                v->readSessionConfig(cg);
             }
         }
     }
@@ -572,10 +567,7 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex , const QString 
             // view config, group: "ViewSpace <n> url"
             QString vgroup = QString::fromLatin1("%1 %2").arg(groupname).arg((*it)->document()->url().toString());
             KConfigGroup viewGroup(config, vgroup);
-
-            if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(*it)) {
-                iface->writeSessionConfig(viewGroup);
-            }
+            (*it)->writeSessionConfig(viewGroup);
         }
 
         ++idx;
@@ -597,11 +589,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
             viewMan->createView(doc, this);
 
-            KTextEditor::View *v = viewMan->activeView();
-
-            if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(v)) {
-                iface->readSessionConfig(configGroup);
-            }
+            viewMan->activeView()->readSessionConfig(configGroup);
         }
     }
 

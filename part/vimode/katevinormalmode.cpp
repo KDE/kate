@@ -780,6 +780,9 @@ bool KateViNormalMode::commandDeleteToEOL()
     case VisualBlockMode:
         m_commandRange.normalize();
         m = Block;
+    default:
+        /* InsertMode and ReplaceMode will never call this method. */
+        ;
     }
 
     bool r = deleteRange(m_commandRange, m);

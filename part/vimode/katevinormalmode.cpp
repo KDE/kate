@@ -1273,39 +1273,44 @@ bool KateViNormalMode::commandYankLine()
 
 bool KateViNormalMode::commandYankToEOL()
 {
-  Cursor c( m_view->cursorPosition() );
+    OperationMode m = CharWise;
+    Cursor c(m_view->cursorPosition());
 
-  bool r = false;
-  QString yankedText;
+    ViMotion::MotionType motion = m_commandRange.motionType;
+    m_commandRange.endLine = c.line() + getCount() - 1;
+    m_commandRange.endColumn = doc()->lineLength(m_commandRange.endLine) - 1;
+    m_commandRange.motionType = ViMotion::InclusiveMotion;
 
-  m_commandRange.endLine = c.line()+getCount()-1;
-  m_commandRange.endColumn = doc()->lineLength( m_commandRange.endLine )-1;
+    switch (m_viInputModeManager->getCurrentViMode()) {
+    case NormalMode:
+        m_commandRange.startLine = c.line();
+        m_commandRange.startColumn = c.column();
+        break;
+    case VisualMode:
+    case VisualLineMode:
+        m = LineWise;
+        {
+            KateViVisualMode *visual = static_cast<KateViVisualMode *>(this);
+            visual->setStart(Cursor(visual->getStart().line(), 0));
+        }
+        break;
+    case VisualBlockMode:
+        m = Block;
+        break;
+    default:
+        /* InsertMode and ReplaceMode will never call this method. */
+        Q_ASSERT(false);
+    }
 
-  OperationMode m = CharWise;
+    const QString &yankedText = getRange(m_commandRange, m);
+    m_commandRange.motionType = motion;
+    highlightYank(m_commandRange);
 
-  if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
-    m = LineWise;
-    KateViVisualMode* visualmode = static_cast<KateViVisualMode*>(this);
-    visualmode->setStart( Cursor(visualmode->getStart().line(),0) );
-  } else if (m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
-    m = Block;;
-  }
+    QChar chosen_register =  getChosenRegister(QLatin1Char('0'));
+    fillRegister(chosen_register,  yankedText, m);
+    yankToClipBoard(chosen_register, yankedText);
 
-  if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
-    m_commandRange.startLine = c.line();
-    m_commandRange.startColumn = c.column();
-  }
-
-  yankedText = getRange( m_commandRange, m );
-
-  highlightYank(m_commandRange);
-
-  QChar  chosen_register =  getChosenRegister( '0' );
-  fillRegister(chosen_register,  yankedText, m );
-  yankToClipBoard(chosen_register, yankedText);
-
-  return r;
+    return true;
 }
 
 // Insert the text in the given register after the cursor position.

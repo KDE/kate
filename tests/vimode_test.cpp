@@ -1631,6 +1631,9 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("123\n", "d10l", "\n");
   DoTest("123\n", "10lx", "12\n");
 
+  // Testing "Y"
+  DoTest("qwerty", "ld Yep", "qertyerty");
+
   // Testing "X"
   DoTest("ABCD", "$XX", "AD");
   DoTest("foo", "XP", "foo");

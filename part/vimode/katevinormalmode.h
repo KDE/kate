@@ -304,6 +304,16 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     void joinLines(unsigned int from, unsigned int to) const;
     void reformatLines(unsigned int from, unsigned int to) const;
 
+    /**
+     * Get the index of the first non-blank character from the given line.
+     *
+     * @param line The line to be picked. The current line will picked instead
+     * if this parameter is set to a negative value.
+     * @returns the index of the first non-blank character from the given line.
+     * If a non-space character cannot be found, the 0 is returned.
+     */
+    int getFirstNonBlank(int line = -1) const;
+
     KateViRange textObjectComma(bool inner);
     void shrinkRangeAroundCursor(KateViRange& toShrink, const KateViRange& rangeToShrinkTo);
     Cursor findSentenceStart();

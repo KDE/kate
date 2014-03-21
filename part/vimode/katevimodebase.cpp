@@ -116,18 +116,9 @@ const QString KateViModeBase::getRange( KateViRange &r, OperationMode mode) cons
   return s;
 }
 
-const QString KateViModeBase::getLine( int lineNumber ) const
+const QString KateViModeBase::getLine(int line) const
 {
-  QString line;
-
-  if ( lineNumber == -1 ) {
-    Cursor cursor ( m_view->cursorPosition() );
-    line = m_view->currentTextLine();
-  } else {
-    line = doc()->line( lineNumber );
-  }
-
-  return line;
+    return (line < 0) ? m_view->currentTextLine() : doc()->line(line);
 }
 
 const QChar KateViModeBase::getCharUnderCursor() const

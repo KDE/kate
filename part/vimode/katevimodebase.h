@@ -94,7 +94,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     void yankToClipBoard(QChar chosen_register, QString text);
     bool deleteRange( KateViRange &r, OperationMode mode = LineWise, bool addToRegister = true );
     const QString getRange( KateViRange &r, OperationMode mode = LineWise ) const;
-    const QString getLine( int lineNumber = -1 ) const;
+    const QString getLine(int line = -1) const;
     const QChar getCharUnderCursor() const;
     const QString getWordUnderCursor() const;
     const Range getWordRangeUnderCursor() const;

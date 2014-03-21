@@ -363,9 +363,9 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             // special case: When using the "w" motion in combination with an operator and
             // the last word moved over is at the end of a line, the end of that word
             // becomes the end of the operated text, not the first word in the next line.
-            if ( m_motions.at(i)->pattern() == "w" || m_motions.at(i)->pattern() == "W" ) {
-               if(m_commandRange.endLine != m_commandRange.startLine &&
-                   m_commandRange.endColumn == getLine(m_commandRange.endLine).indexOf( QRegExp("\\S") )){
+            if (m_motions.at(i)->pattern() == "w" || m_motions.at(i)->pattern() == "W") {
+               if (m_commandRange.endLine != m_commandRange.startLine &&
+                   m_commandRange.endColumn == getFirstNonBlank(m_commandRange.endLine)) {
                      m_commandRange.endLine--;
                      m_commandRange.endColumn = doc()->lineLength(m_commandRange.endLine );
                    }
@@ -614,11 +614,7 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
 bool KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine()
 {
   Cursor cursor( m_view->cursorPosition() );
-  QRegExp nonSpace( "\\S" );
-  int c = getLine().indexOf( nonSpace );
-  if ( c == -1 ) {
-    c = 0;
-  }
+  int c = getFirstNonBlank();
   cursor.setColumn( c );
   updateCursor( cursor );
 
@@ -794,7 +790,7 @@ bool KateViNormalMode::commandDeleteToEOL()
         break;
     case LineWise:
         c.setLine(m_commandRange.startLine);
-        c.setColumn(0);   // FIXME: should be first non-blank
+        c.setColumn(getFirstNonBlank(m_commandRange.startLine));
         break;
     case Block:
         c.setLine(m_commandRange.startLine);
@@ -2000,13 +1996,7 @@ KateViRange KateViNormalMode::motionDownToFirstNonBlank()
 {
   Cursor c( m_view->cursorPosition() );
   KateViRange r = goLineDown();
-
-  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\\S" ) );
-
-  if ( r.endColumn < 0 ) {
-    r.endColumn = 0;
-  }
-
+  r.endColumn = getFirstNonBlank(r.endLine);
   return r;
 }
 
@@ -2014,13 +2004,7 @@ KateViRange KateViNormalMode::motionUpToFirstNonBlank()
 {
   Cursor c( m_view->cursorPosition() );
   KateViRange r = goLineUp();
-
-  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\\S" ) );
-
-  if ( r.endColumn < 0 ) {
-    r.endColumn = 0;
-  }
-
+  r.endColumn = getFirstNonBlank(r.endLine);
   return r;
 }
 
@@ -2245,11 +2229,9 @@ KateViRange KateViNormalMode::motionToColumn0()
 KateViRange KateViNormalMode::motionToFirstCharacterOfLine()
 {
   m_stickyColumn = -1;
+  int c = getFirstNonBlank();
 
   Cursor cursor ( m_view->cursorPosition() );
-  QRegExp nonSpace( "\\S" );
-  int c = getLine().indexOf( nonSpace );
-
   KateViRange r( cursor.line(), c, ViMotion::ExclusiveMotion );
 
   return r;
@@ -2565,7 +2547,7 @@ KateViRange KateViNormalMode::motionToMark()
 KateViRange KateViNormalMode::motionToMarkLine()
 {
   KateViRange r = motionToMark();
-  r.endColumn = 0; // FIXME: should be first non-blank on line
+  r.endColumn = getFirstNonBlank();
 
   m_stickyColumn = -1;
 
@@ -2848,13 +2830,7 @@ KateViRange KateViNormalMode::motionToFirstLineOfWindow() {
 
     KateViRange r = goLineUpDown(lines_to_go);
 
-    // Finding first non-blank character
-    QRegExp nonSpace( "\\S" );
-    int c = getLine(r.endLine).indexOf( nonSpace );
-    if ( c == -1 )
-      c = 0;
-
-    r.endColumn = c;
+    r.endColumn = getFirstNonBlank(r.endLine);
     return r;
 }
 
@@ -2866,13 +2842,7 @@ KateViRange KateViNormalMode::motionToMiddleLineOfWindow() {
         lines_to_go = m_viewInternal->endLine()/2 - m_view->cursorPosition().line();
     KateViRange r = goLineUpDown(lines_to_go);
 
-    // Finding first non-blank character
-    QRegExp nonSpace( "\\S" );
-    int c = getLine(r.endLine).indexOf( nonSpace );
-    if ( c == -1 )
-      c = 0;
-
-    r.endColumn = c;
+    r.endColumn = getFirstNonBlank(r.endLine);
     return r;
 }
 
@@ -2885,13 +2855,7 @@ KateViRange KateViNormalMode::motionToLastLineOfWindow() {
 
     KateViRange r = goLineUpDown(lines_to_go);
 
-    // Finding first non-blank character
-    QRegExp nonSpace( "\\S" );
-    int c = getLine(r.endLine).indexOf( nonSpace );
-    if ( c == -1 )
-      c = 0;
-
-    r.endColumn = c;
+    r.endColumn = getFirstNonBlank(r.endLine);
     return r;
 }
 
@@ -3992,6 +3956,20 @@ void KateViNormalMode::reformatLines(unsigned int from, unsigned int to) const
 {
   joinLines( from, to );
   doc()->wrapText( from, to );
+}
+
+int KateViNormalMode::getFirstNonBlank(int line) const
+{
+    if (line < 0) {
+        line = m_view->cursorPosition().line();
+    }
+
+    // doc()->plainKateTextLine returns NULL if the line is out of bounds.
+    Kate::TextLine l = doc()->plainKateTextLine(line);
+    Q_ASSERT(l);
+
+    int c = l->firstChar();
+    return (c < 0) ? 0 : c;
 }
 
 // Tries to shrinks toShrink so that it fits tightly around rangeToShrinkTo.

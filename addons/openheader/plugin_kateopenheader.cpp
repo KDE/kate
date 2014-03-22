@@ -57,24 +57,14 @@ PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,
 
     mainwindow->guiFactory()->addClient (this);
 
-    KTextEditor::CommandInterface* cmdIface =
-      qobject_cast<KTextEditor::CommandInterface*>( KTextEditor::Editor::instance());
-
-    if( cmdIface ) {
-        cmdIface->registerCommand( this );
-    }
+    KTextEditor::Editor::instance()->registerCommand( this );
 }
 
 PluginViewKateOpenHeader::~PluginViewKateOpenHeader()
 {
       m_mainWindow->guiFactory()->removeClient (this);
 
-      KTextEditor::CommandInterface* cmdIface =
-      qobject_cast<KTextEditor::CommandInterface*>( KTextEditor::Editor::instance());
-
-      if( cmdIface ) {
-          cmdIface->unregisterCommand( this );
-      }
+      KTextEditor::Editor::instance()->unregisterCommand( this );
 }
 
 PluginKateOpenHeader::PluginKateOpenHeader( QObject* parent, const QList<QVariant>& )

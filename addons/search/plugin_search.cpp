@@ -126,20 +126,14 @@ KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
     // FIXME KF5
     //KGlobal::locale()->insertCatalog("katesearch");
 
-    KTextEditor::CommandInterface* iface =
-    qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
-    if (iface) {
-        m_searchCommand = new KateSearchCommand(this);
-        iface->registerCommand(m_searchCommand);
-    }
+    m_searchCommand = new KateSearchCommand(this);
+    KTextEditor::Editor::instance()->registerCommand(m_searchCommand);
 }
 
 KatePluginSearch::~KatePluginSearch()
 {
-    KTextEditor::CommandInterface* iface =
-    qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
-    if (iface && m_searchCommand) {
-        iface->unregisterCommand(m_searchCommand);
+    if (m_searchCommand) {
+        KTextEditor::Editor::instance()->unregisterCommand(m_searchCommand);
     }
 }
 

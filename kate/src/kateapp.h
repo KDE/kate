@@ -355,4 +355,3 @@ private:
 };
 
 #endif
-

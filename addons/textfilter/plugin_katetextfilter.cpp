@@ -21,7 +21,7 @@
 #include "ui_textfilterwidget.h"
 
 #include <ktexteditor/editor.h>
-#include <ktexteditor/messageinterface.h>
+#include <ktexteditor/message.h>
 
 #include <kdialog.h>
 #include <QAction>
@@ -118,10 +118,6 @@ void PluginKateTextFilter::slotFilterProcessExited(int, QProcess::ExitStatus)
   // Is there any error output to display?
   if (!mergeOutput && !m_stderrOutput.isEmpty())
   {
-    KTextEditor::MessageInterface* iface =
-      qobject_cast<KTextEditor::MessageInterface*>(kv->document());
-    if (iface)
-    {
       QPointer<KTextEditor::Message> message = new KTextEditor::Message(
           i18nc(
               "@info"
@@ -133,8 +129,7 @@ void PluginKateTextFilter::slotFilterProcessExited(int, QProcess::ExitStatus)
         );
       message->setWordWrap(true);
       message->setAutoHide(1000);
-      iface->postMessage(message);
-    }
+      kv->document()->postMessage(message);
   }
 
   if (copyResult) {

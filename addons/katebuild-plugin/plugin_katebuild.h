@@ -34,9 +34,10 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
-#include <KXMLGUIClient>
 #include <KTextEditor/SessionConfigInterface>
-#include <KTextEditor/MessageInterface>
+#include <KTextEditor/Message>
+
+#include <KXMLGUIClient>
 #include <KConfigGroup>
 
 #include <map>

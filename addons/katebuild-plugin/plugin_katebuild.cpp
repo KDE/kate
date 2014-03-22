@@ -722,14 +722,10 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
     KTextEditor::View *kv = m_win->activeView();
     if (!kv) return;
 
-    KTextEditor::MessageInterface* iface = qobject_cast<KTextEditor::MessageInterface*>(kv->document());
-    if (iface) {
-        QPointer<KTextEditor::Message> message = new KTextEditor::Message(
-            i18nc("@info", "<title>Make Results:</title><nl/><pre><code>%1</code></pre>", msg), level);
-        message->setWordWrap(true);
-        message->setAutoHide(1000);
-        iface->postMessage(message);
-    }
+    QPointer<KTextEditor::Message> message = new KTextEditor::Message(i18nc("@info", "<title>Make Results:</title><nl/><pre><code>%1</code></pre>", msg), level);
+    message->setWordWrap(true);
+    message->setAutoHide(1000);
+    kv->document()->postMessage(message);
 }
 
 /******************************************************************/

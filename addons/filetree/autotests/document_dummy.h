@@ -110,6 +110,8 @@ class DummyDocument : public KTextEditor::Document
     void readSessionConfig(const KConfigGroup &, const QSet<QString> & = QSet<QString>()) {}
     void writeSessionConfig(KConfigGroup &, const QSet<QString> & = QSet<QString>()) {}
 
+    bool postMessage(KTextEditor::Message *) { return false; }
+
   private:
     QString m_name, m_encoding;
     QList<KTextEditor::View*> m_views;

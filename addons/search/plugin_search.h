@@ -24,7 +24,7 @@
 #include <ktexteditor/mainwindow.h>
 #include <KTextEditor/Plugin>
 #include <ktexteditor/application.h>
-#include <ktexteditor/commandinterface.h>
+#include <KTextEditor/Command>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <QAction>
 
@@ -212,7 +212,6 @@ Q_SIGNALS:
     // KTextEditor::Command
     //
 public:
-    const QStringList &cmds ();
     bool exec (KTextEditor::View *view, const QString &cmd, QString &msg,
                       const KTextEditor::Range &range = KTextEditor::Range::invalid());
     bool help (KTextEditor::View *view, const QString &cmd, QString &msg);

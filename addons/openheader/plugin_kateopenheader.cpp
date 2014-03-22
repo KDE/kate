@@ -43,7 +43,7 @@ K_PLUGIN_FACTORY_WITH_JSON(KateOpenHeaderFactory,"kateopenheaderplugin.json", re
 
 
 PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin, KTextEditor::MainWindow *mainwindow)
-  : KTextEditor::Command(mainwindow)
+  : KTextEditor::Command(QStringList() << QStringLiteral("toggle-header"), mainwindow)
   , KXMLGUIClient()
   , m_plugin(plugin)
   , m_mainWindow(mainwindow)
@@ -56,15 +56,11 @@ PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,
     connect( a, SIGNAL(triggered(bool)), plugin, SLOT(slotOpenHeader()) );
 
     mainwindow->guiFactory()->addClient (this);
-
-    KTextEditor::Editor::instance()->registerCommand( this );
 }
 
 PluginViewKateOpenHeader::~PluginViewKateOpenHeader()
 {
       m_mainWindow->guiFactory()->removeClient (this);
-
-      KTextEditor::Editor::instance()->unregisterCommand( this );
 }
 
 PluginKateOpenHeader::PluginKateOpenHeader( QObject* parent, const QList<QVariant>& )
@@ -207,19 +203,6 @@ void PluginKateOpenHeader::setFileName(QUrl *url,const QString &_txt)
 
     path += tmp;
     url->setPath(path);
-}
-
-
-
-const QStringList& PluginViewKateOpenHeader::cmds()
-{
-    static QStringList l;
-
-    if (l.empty()) {
-        l << QStringLiteral("toggle-header");
-    }
-
-    return l;
 }
 
 bool PluginViewKateOpenHeader::exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &)

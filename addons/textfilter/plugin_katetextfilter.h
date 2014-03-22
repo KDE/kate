@@ -25,7 +25,7 @@
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
-#include <ktexteditor/commandinterface.h>
+#include <KTextEditor/Command>
 
 #include <QProcess>
 #include <QVariantList>
@@ -43,7 +43,6 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
     // Kate::Command
-    const QStringList& cmds ();
     bool exec(KTextEditor::View *view, const QString &cmd, QString &msg);
     bool help(KTextEditor::View *view, const QString &cmd, QString &msg);
   private:

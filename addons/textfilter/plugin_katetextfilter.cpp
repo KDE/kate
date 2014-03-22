@@ -65,28 +65,16 @@ PluginViewKateTextFilter::~PluginViewKateTextFilter()
 
 PluginKateTextFilter::PluginKateTextFilter(QObject* parent, const QVariantList&)
   : Kate::Plugin((Kate::Application *)parent, "kate-text-filter-plugin")
-  , KTextEditor::Command()
+  , KTextEditor::Command(QStringList dummy("textfilter"))
   , m_pFilterProcess(NULL)
   , copyResult(false)
   , mergeOutput(true)
 {
-  KTextEditor::CommandInterface* cmdIface =
-    qobject_cast<KTextEditor::CommandInterface*>(application()->editor());
-
-  if (cmdIface) {
-    cmdIface->registerCommand(this);
-  }
 }
 
 PluginKateTextFilter::~PluginKateTextFilter()
 {
   delete m_pFilterProcess;
-  KTextEditor::CommandInterface* cmdIface =
-    qobject_cast<KTextEditor::CommandInterface*>(application()->editor());
-
-  if (cmdIface) {
-    cmdIface->unregisterCommand(this);
-  }
 }
 
 
@@ -253,12 +241,6 @@ void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filte
 }
 
 //BEGIN Kate::Command methods
-const QStringList &PluginKateTextFilter::cmds()
-{
-  static QStringList dummy("textfilter");
-  return dummy;
-}
-
 bool PluginKateTextFilter::help(KTextEditor::View *, const QString&, QString &msg)
 {
   msg = i18n("<qt><p>Usage: <code>textfilter COMMAND</code></p>"

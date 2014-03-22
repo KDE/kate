@@ -22,7 +22,7 @@
 
 #include <QIcon>
 
-#include <ktexteditor/commandinterface.h>
+#include <KTextEditor/Command>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 #include <KTextEditor/Plugin>

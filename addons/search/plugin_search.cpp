@@ -127,14 +127,11 @@ KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
     //KGlobal::locale()->insertCatalog("katesearch");
 
     m_searchCommand = new KateSearchCommand(this);
-    KTextEditor::Editor::instance()->registerCommand(m_searchCommand);
 }
 
 KatePluginSearch::~KatePluginSearch()
 {
-    if (m_searchCommand) {
-        KTextEditor::Editor::instance()->unregisterCommand(m_searchCommand);
-    }
+    delete m_searchCommand;
 }
 
 QObject *KatePluginSearch::createView(KTextEditor::MainWindow *mainWindow)
@@ -1718,16 +1715,10 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
 }
 
 KateSearchCommand::KateSearchCommand(QObject *parent)
-: KTextEditor::Command(parent)
-{
-}
-
-const QStringList& KateSearchCommand::cmds()
-{
-    static QStringList sl = QStringList() << QStringLiteral("grep") << QStringLiteral("newGrep")
+: KTextEditor::Command(QStringList() << QStringLiteral("grep") << QStringLiteral("newGrep")
         << QStringLiteral("search") << QStringLiteral("newSearch")
-        << QStringLiteral("pgrep") << QStringLiteral("newPGrep");
-    return sl;
+        << QStringLiteral("pgrep") << QStringLiteral("newPGrep"), parent)
+{
 }
 
 bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, QString& /*msg*/, const KTextEditor::Range &)

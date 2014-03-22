@@ -23,7 +23,7 @@
 
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/commandinterface.h>
+#include <KTextEditor/Command>
 #include <KXMLGUIClient>
 #include <kpluginfactory.h>
 #include <QObject>
@@ -57,7 +57,6 @@ class PluginViewKateOpenHeader
         PluginViewKateOpenHeader(PluginKateOpenHeader* plugin, KTextEditor::MainWindow *mainwindow);
         virtual ~PluginViewKateOpenHeader();
 
-        virtual const QStringList &cmds ();
         virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid());
         virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
 

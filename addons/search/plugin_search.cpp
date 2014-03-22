@@ -1724,7 +1724,7 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
 }
 
 KateSearchCommand::KateSearchCommand(QObject *parent)
-: QObject(parent), KTextEditor::Command()
+: KTextEditor::Command(parent)
 {
 }
 
@@ -1736,7 +1736,7 @@ const QStringList& KateSearchCommand::cmds()
     return sl;
 }
 
-bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, QString& /*msg*/)
+bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, QString& /*msg*/, const KTextEditor::Range &)
 {
     //create a list of args
     QStringList args(cmd.split(QLatin1Char(' '), QString::KeepEmptyParts));

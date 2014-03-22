@@ -43,9 +43,8 @@ K_PLUGIN_FACTORY_WITH_JSON(KateOpenHeaderFactory,"kateopenheaderplugin.json", re
 
 
 PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin, KTextEditor::MainWindow *mainwindow)
-  : QObject(mainwindow)
+  : KTextEditor::Command(mainwindow)
   , KXMLGUIClient()
-  , KTextEditor::Command()
   , m_plugin(plugin)
   , m_mainWindow(mainwindow)
 {
@@ -233,7 +232,7 @@ const QStringList& PluginViewKateOpenHeader::cmds()
     return l;
 }
 
-bool PluginViewKateOpenHeader::exec(KTextEditor::View *view, const QString &cmd, QString &msg)
+bool PluginViewKateOpenHeader::exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &)
 {
     Q_UNUSED(view)
     Q_UNUSED(cmd)

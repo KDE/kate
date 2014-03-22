@@ -195,7 +195,7 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
 };
 
-class KateSearchCommand : public QObject, public KTextEditor::Command
+class KateSearchCommand : public KTextEditor::Command
 {
     Q_OBJECT
 public:
@@ -213,7 +213,8 @@ Q_SIGNALS:
     //
 public:
     const QStringList &cmds ();
-    bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
+    bool exec (KTextEditor::View *view, const QString &cmd, QString &msg,
+                      const KTextEditor::Range &range = KTextEditor::Range::invalid());
     bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
 };
 

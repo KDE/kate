@@ -49,9 +49,8 @@ class PluginKateOpenHeader : public KTextEditor::Plugin
 };
 
 class PluginViewKateOpenHeader
-  : public QObject
+  : public KTextEditor::Command
   , public KXMLGUIClient
-  , public KTextEditor::Command
 {
     Q_OBJECT
     public:
@@ -59,7 +58,7 @@ class PluginViewKateOpenHeader
         virtual ~PluginViewKateOpenHeader();
 
         virtual const QStringList &cmds ();
-        virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
+        virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid());
         virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
 
     private:

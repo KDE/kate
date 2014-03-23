@@ -31,7 +31,6 @@
 #include <KTextEditor/View>
 #include <KTextEditor/Document>
 #include <KTextEditor/Attribute>
-#include <KTextEditor/HighlightInterface>
 
 #include <KActionCollection>
 #include <KEncodingFileDialog>
@@ -1098,9 +1097,8 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
 
     int move = 4 * repeats;
     // try to use font height in pixel to move splitter
-    KTextEditor::HighlightInterface *hi = qobject_cast<KTextEditor::HighlightInterface *>(vs->currentView()->document());
-    if (hi) {
-        KTextEditor::Attribute::Ptr attrib(hi->defaultStyle(KTextEditor::HighlightInterface::dsNormal));
+    {
+        KTextEditor::Attribute::Ptr attrib(vs->currentView()->defaultStyleAttribute(KTextEditor::dsNormal));
         QFontMetrics fm(attrib->font());
         move = fm.height() * repeats;
     }

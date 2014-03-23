@@ -25,8 +25,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include <ktexteditor/highlightinterface.h>
-
 #include "snippetstore.h"
 #include "snippetrepository.h"
 #include "snippet.h"

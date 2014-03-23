@@ -21,8 +21,6 @@
  */
 #include "katesnippetglobal.h"
 
-#include <ktexteditor/highlightinterface.h>
-
 #include "snippetview.h"
 #include "snippetcompletionmodel.h"
 #include "snippetstore.h"
@@ -40,7 +38,6 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/codecompletioninterface.h>
-#include <ktexteditor/highlightinterface.h>
 #include <KToolBar>
 #include <KLocalizedString>
 

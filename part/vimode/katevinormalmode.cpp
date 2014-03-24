@@ -1122,8 +1122,7 @@ bool KateViNormalMode::commandJoinLines()
 
   // Position cursor just before first non-whitesspace character of what was the last line joined.
   c.setColumn(doc()->lineLength(from) - leftTrimmedLastLine.length() - 1);
-  if (c.column() != -1)
-  {
+  if (c.column() >= 0) {
     updateCursor( c );
   }
 

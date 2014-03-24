@@ -80,7 +80,7 @@ class DummyDocument : public KTextEditor::Document
     virtual bool insertLine ( int, const QString & ) { return false; }
     virtual bool insertLines ( int, const QStringList & ) { return false; }
     virtual bool removeLine ( int ) { return false; }
-    virtual KTextEditor::DefaultStyle defaultStyleAt(const KTextEditor::Cursor &position) const { return KTextEditor::dsNormal; }
+    virtual KTextEditor::DefaultStyle defaultStyleAt(const KTextEditor::Cursor &) const { return KTextEditor::dsNormal; }
     virtual QString mode() const { return QString(); }
     virtual QString highlightingMode() const { return QString(); }
     virtual QStringList modes() const { return QStringList(); }
@@ -112,6 +112,10 @@ class DummyDocument : public KTextEditor::Document
     void writeSessionConfig(KConfigGroup &, const QSet<QString> & = QSet<QString>()) {}
 
     bool postMessage(KTextEditor::Message *) { return false; }
+
+    bool isDataRecoveryAvailable() const { return false; }
+    void recoverData() {}
+    void discardDataRecovery() {}
 
   private:
     QString m_name, m_encoding;

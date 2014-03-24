@@ -2602,11 +2602,10 @@ String document.variable(<parameter>String <replaceable>key</replaceable></param
 
 <varlistentry>
 <term><synopsis>
-String document.setVariable(<parameter>String <replaceable>key</replaceable></parameter>, <parameter>String <replaceable>value</replaceable></parameter>);
+void document.setVariable(<parameter>String <replaceable>key</replaceable></parameter>, <parameter>String <replaceable>value</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
     Set the value of the requested document variable <replaceable>key</replaceable>.
-    Returns the value of the set variable.
 </para>
 <para>
     See also: <link linkend="config-variables">Kate document variables</link>

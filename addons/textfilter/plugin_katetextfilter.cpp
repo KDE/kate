@@ -140,7 +140,7 @@ void PluginKateTextFilter::slotFilterProcessExited(int, QProcess::ExitStatus)
   kv->setCursorPosition(start); // for block selection
 
   kv->insertText(m_strFilterOutput);
-  kv->document()->endEditing();
+  kv->document()->finishEditing();
 }
 
 

@@ -603,7 +603,7 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
 
         kv->setCursorPosition(curPos);
 
-        doc->endEditing();
+        doc->finishEditing();
     }
 }
 

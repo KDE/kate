@@ -57,7 +57,7 @@ class DummyDocument : public KTextEditor::Document
     virtual bool documentSaveAs () { return true; }
 
     virtual bool startEditing () { return true; }
-    virtual bool endEditing () { return true; }
+    virtual bool finishEditing () { return true; }
     virtual QString text () const { return QString(); }
     virtual QString text ( const KTextEditor::Range&, bool = false ) const { return QString(); }
     virtual QChar characterAt( const KTextEditor::Cursor&) const { return QChar(); }

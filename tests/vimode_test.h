@@ -172,6 +172,9 @@ private Q_SLOTS:
   void debuggingTests();
   void keyParsingTests();
   void AltGr();
+
+  void clipboardTests_data();
+  void clipboardTests();
 private:
   enum Expectation { ShouldPass, ShouldFail };
   void BeginTest(const QString& original_text);

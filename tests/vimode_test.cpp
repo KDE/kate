@@ -7674,4 +7674,31 @@ void ViModeTest::AltGr()
   FinishTest(ugrave);
 }
 
+void ViModeTest::clipboardTests_data()
+{
+  QTest::addColumn<QString>("text");
+  QTest::addColumn<QString>("commands");
+  QTest::addColumn<QString>("clipboard");
+
+  QTest::newRow("yank") << "yyfoo\nbar" << "yy" << "yyfoo\n";
+  QTest::newRow("delete") << "ddfoo\nbar" << "dd" << "ddfoo\n";
+  QTest::newRow("yank empty line") << "\nbar" << "yy" << QString();
+  QTest::newRow("delete word") << "word foo" << "dw" << "word ";
+  QTest::newRow("delete onechar word") << "w foo" << "dw" << "w ";
+  QTest::newRow("delete onechar") << "word foo" << "dc" << QString();
+  QTest::newRow("delete empty lines") << " \t\n\n  \nfoo" << "d3d" << QString();
+}
+
+void ViModeTest::clipboardTests()
+{
+  QFETCH(QString, text);
+  QFETCH(QString, commands);
+  QFETCH(QString, clipboard);
+
+  QApplication::clipboard()->clear();
+  BeginTest(text);
+  TestPressKey(commands);
+  QCOMPARE(QApplication::clipboard()->text(), clipboard);
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

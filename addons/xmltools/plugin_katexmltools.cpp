@@ -589,7 +589,7 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
             marked = kv->selectionText();
         }
 
-        doc->startEditing();
+        KTextEditor::Document::EditingTransaction transaction(doc);
 
         if (! marked.isEmpty()) {
             kv->removeSelectionText();
@@ -602,8 +602,6 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
         kv->insertText(pre + marked + post);
 
         kv->setCursorPosition(curPos);
-
-        doc->finishEditing();
     }
 }
 

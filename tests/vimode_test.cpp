@@ -6540,6 +6540,79 @@ void ViModeTest::visualLineUpDownTests()
   kate_document->config()->setTabWidth(oldTabWidth);
 }
 
+void ViModeTest::ScrollViewTests()
+{
+    // First of all, we have to initialize some sizes and fonts.
+    ensureKateViewVisible();
+    const QSize oldSize = kate_view->size();
+    kate_view->resize(200, 200);
+    const QFont oldFont = kate_view->renderer()->config()->font();
+    QFont fixedWidthFont("Monospace");
+    fixedWidthFont.setStyleHint(QFont::TypeWriter);
+    fixedWidthFont.setPixelSize(14);
+    Q_ASSERT_X(QFontInfo(fixedWidthFont).fixedPitch(),
+               "setting up ScrollViewTests", "Need a fixed pitch font!");
+    kate_view->renderer()->config()->setFont(fixedWidthFont);
+
+    // Generating our text here.
+    QString text;
+    for (int i = 0; i < 20; i++) {
+        text += "    aaaaaaaaaaaaaaaa\n";
+    }
+
+    // zz
+    BeginTest(text);
+    TestPressKey("10l9jzz");
+    QCOMPARE(kate_view->cursorPosition().line(), 9);
+    QCOMPARE(kate_view->cursorPosition().column(), 10);
+    QCOMPARE(kate_view->visibleRange(), Range(4, 0, 14, 20));
+    FinishTest(text);
+
+    // z.
+    BeginTest(text);
+    TestPressKey("10l9jz.");
+    QCOMPARE(kate_view->cursorPosition().line(), 9);
+    QCOMPARE(kate_view->cursorPosition().column(), 4);
+    QCOMPARE(kate_view->visibleRange(), Range(4, 0, 14, 20));
+    FinishTest(text);
+
+    // zt
+    BeginTest(text);
+    TestPressKey("10l9jzt");
+    QCOMPARE(kate_view->cursorPosition().line(), 9);
+    QCOMPARE(kate_view->cursorPosition().column(), 10);
+    QCOMPARE(kate_view->visibleRange(), Range(9, 0, 19, 20));
+    FinishTest(text);
+
+    // z<cr>
+    BeginTest(text);
+    TestPressKey("10l9jz\\return");
+    QCOMPARE(kate_view->cursorPosition().line(), 9);
+    QCOMPARE(kate_view->cursorPosition().column(), 4);
+    QCOMPARE(kate_view->visibleRange(), Range(9, 0, 19, 20));
+    FinishTest(text);
+
+    // zb
+    BeginTest(text);
+    TestPressKey("10l9jzb");
+    QCOMPARE(kate_view->cursorPosition().line(), 9);
+    QCOMPARE(kate_view->cursorPosition().column(), 10);
+    QCOMPARE(kate_view->visibleRange(), Range(0, 0, 10, 20));
+    FinishTest(text);
+
+    // z-
+    BeginTest(text);
+    TestPressKey("10l9jz-");
+    QCOMPARE(kate_view->cursorPosition().line(), 9);
+    QCOMPARE(kate_view->cursorPosition().column(), 4);
+    QCOMPARE(kate_view->visibleRange(), Range(0, 0, 10, 20));
+    FinishTest(text);
+
+    // Restore back to how we were before.
+    kate_view->resize(oldSize);
+    kate_view->renderer()->config()->setFont(oldFont);
+}
+
 void ViModeTest::MacroTests()
 {
   // Update the status on qa.

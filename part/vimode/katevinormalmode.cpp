@@ -1621,15 +1621,76 @@ bool KateViNormalMode::commandScrollHalfPageDown()
   return true;
 }
 
-bool KateViNormalMode::commandCentreViewOnCursor()
+bool KateViNormalMode::commandCenterView(bool onFirst)
 {
-  Cursor c( m_view->cursorPosition() );
-  const int virtualCenterLine = m_viewInternal->startLine() + linesDisplayed() / 2;
-  const int virtualCursorLine = m_view->textFolding().lineToVisibleLine( c.line() );
+    Cursor c(m_view->cursorPosition());
+    const int virtualCenterLine = m_viewInternal->startLine() + linesDisplayed() / 2;
+    const int virtualCursorLine = m_view->textFolding().lineToVisibleLine(c.line());
 
-  scrollViewLines( virtualCursorLine - virtualCenterLine );
+    scrollViewLines(virtualCursorLine - virtualCenterLine);
+    if (onFirst) {
+        c.setColumn(getFirstNonBlank());
+        updateCursor(c);
+    }
+    return true;
+}
 
-  return true;
+bool KateViNormalMode::commandCenterViewOnNonBlank()
+{
+    return commandCenterView(true);
+}
+
+bool KateViNormalMode::commandCenterViewOnCursor()
+{
+    return commandCenterView(false);
+}
+
+bool KateViNormalMode::commandTopView(bool onFirst)
+{
+    Cursor c(m_view->cursorPosition());
+    const int virtualCenterLine = m_viewInternal->startLine();
+    const int virtualCursorLine = m_view->textFolding().lineToVisibleLine(c.line());
+
+    scrollViewLines(virtualCursorLine - virtualCenterLine);
+    if (onFirst) {
+        c.setColumn(getFirstNonBlank());
+        updateCursor(c);
+    }
+    return true;
+}
+
+bool KateViNormalMode::commandTopViewOnNonBlank()
+{
+    return commandTopView(true);
+}
+
+bool KateViNormalMode::commandTopViewOnCursor()
+{
+    return commandTopView(false);
+}
+
+bool KateViNormalMode::commandBottomView(bool onFirst)
+{
+    Cursor c(m_view->cursorPosition());
+    const int virtualCenterLine = m_viewInternal->endLine();
+    const int virtualCursorLine = m_view->textFolding().lineToVisibleLine(c.line());
+
+    scrollViewLines(virtualCursorLine - virtualCenterLine);
+    if (onFirst) {
+        c.setColumn(getFirstNonBlank());
+        updateCursor(c);
+    }
+    return true;
+}
+
+bool KateViNormalMode::commandBottomViewOnNonBlank()
+{
+    return commandBottomView(true);
+}
+
+bool KateViNormalMode::commandBottomViewOnCursor()
+{
+    return commandBottomView(false);
 }
 
 bool KateViNormalMode::commandAbort()
@@ -3634,7 +3695,12 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("<pageup>", commandScrollPageUp, 0 );
   ADDCMD("<c-u>", commandScrollHalfPageUp, 0 );
   ADDCMD("<c-d>", commandScrollHalfPageDown, 0 );
-  ADDCMD("zz", commandCentreViewOnCursor, 0 );
+  ADDCMD("z.", commandCenterViewOnNonBlank, 0);
+  ADDCMD("zz", commandCenterViewOnCursor, 0);
+  ADDCMD("z<return>", commandTopViewOnNonBlank, 0);
+  ADDCMD("zt", commandTopViewOnCursor, 0);
+  ADDCMD("z-", commandBottomViewOnNonBlank, 0);
+  ADDCMD("zb", commandBottomViewOnCursor, 0);
   ADDCMD("ga", commandPrintCharacterCode, SHOULD_NOT_RESET );
   ADDCMD(".", commandRepeatLastChange, 0 );
   ADDCMD("==", commandAlignLine, IS_CHANGE );

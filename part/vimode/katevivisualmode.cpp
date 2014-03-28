@@ -315,6 +315,12 @@ void KateViVisualMode::initializeCommands()
 
   ADDCMD("q.", commandStartRecordingMacro, REGEX_PATTERN | SHOULD_NOT_RESET);
   ADDCMD("@.", commandReplayMacro, REGEX_PATTERN | SHOULD_NOT_RESET);
+  ADDCMD("z.", commandCenterViewOnNonBlank, 0);
+  ADDCMD("zz", commandCenterViewOnCursor, 0);
+  ADDCMD("z<return>", commandTopViewOnNonBlank, 0);
+  ADDCMD("zt", commandTopViewOnCursor, 0);
+  ADDCMD("z-", commandBottomViewOnNonBlank, 0);
+  ADDCMD("zb", commandBottomViewOnCursor, 0);
 
   // regular motions
   ADDMOTION("h", motionLeft, 0 );

@@ -129,7 +129,15 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandScrollHalfPageUp();
     bool commandScrollHalfPageDown();
 
-    bool commandCentreViewOnCursor();
+    bool commandCenterView(bool onFirst);
+    bool commandCenterViewOnNonBlank();
+    bool commandCenterViewOnCursor();
+    bool commandTopView(bool onFirst);
+    bool commandTopViewOnNonBlank();
+    bool commandTopViewOnCursor();
+    bool commandBottomView(bool onFirst);
+    bool commandBottomViewOnNonBlank();
+    bool commandBottomViewOnCursor();
 
     bool commandAbort();
 

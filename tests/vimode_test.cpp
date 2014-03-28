@@ -1836,6 +1836,13 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("foo\nbar\nxyz\n123", "jdju`.r.", "foo\n.ar\nxyz\n123");
   DoTest("foo\nbar\nxyz\n123", "jdju`]r]", "foo\nbar\n]yz\n123");
   DoTest("foo\nbar\nxyz\n123", "jVj~u\\esc`[r[", "foo\n[ar\nxyz\n123", ShouldFail, "Vim is weird.");
+
+  // BUG #332523
+  BeginTest("asdasdasd\nasdasdasdasdasdasdasd");
+  kate_document->setWordWrap(true);
+  kate_document->setWordWrapAt( 10 );
+  TestPressKey("Jii");
+  FinishTest("iasdasdasd\n \nasdasdasda \nsdasdasdas \nd");
 }
 
 

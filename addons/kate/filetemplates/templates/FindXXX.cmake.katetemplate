@@ -19,7 +19,7 @@ katetemplate: Description=CMake finder skeleton wrapper based on pkg-config
 
 # Check if already in cache
 # NOTE Feel free to check/change/add any other vars
-if(%{package}_LIBRARIES)
+if(NOT %{package}_LIBRARIES)
 
     if(%{package}_FIND_QUIETLY)
         set(_pkg_find_quietly QUIET)

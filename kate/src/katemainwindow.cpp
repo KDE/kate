@@ -56,6 +56,7 @@
 #include <KToolBar>
 #include <KLocalizedString>
 #include <KConfigGroup>
+#include <KSharedConfig>
 #include <kwindowconfig.h>
 #include <KXMLGUIFactory>
 

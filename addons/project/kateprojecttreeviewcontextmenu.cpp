@@ -25,6 +25,7 @@
 #include <KRun>
 
 #include <QMenu>
+#include <QStandardPaths>
 #include <QFileInfo>
 #include <QDir>
 #include <QIcon>

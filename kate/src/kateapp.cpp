@@ -27,6 +27,7 @@
 #include "katedebug.h"
 
 #include <KConfig>
+#include <KSharedConfig>
 #include <KMessageBox>
 #include <KStartupInfo>
 #include <KLocalizedString>

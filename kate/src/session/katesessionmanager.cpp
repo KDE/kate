@@ -32,6 +32,7 @@
 #include "katedebug.h"
 
 #include <KConfigGroup>
+#include <KSharedConfig>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KIO/CopyJob>

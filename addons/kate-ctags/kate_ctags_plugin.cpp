@@ -26,6 +26,7 @@
 #include <QCheckBox>
 
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <kactioncollection.h>
 #include <kstringhandler.h>

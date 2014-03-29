@@ -49,6 +49,7 @@
 #include <kpluginfactory.h>
 #include <kauthorized.h>
 #include <KConfigGroup>
+#include <KSharedConfig>
 #include <KXMLGUIFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON (KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)

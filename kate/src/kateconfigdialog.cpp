@@ -37,6 +37,7 @@
 #include <KStandardAction>
 #include <KLocalizedString>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <QDesktopServices>
 #include <QCheckBox>

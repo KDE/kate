@@ -46,13 +46,7 @@
 /// Name of the file where per-plugin configuration is stored.
 #define CONFIG_FILE "katepaterc"
 
-#if PY_MAJOR_VERSION < 3
-# define PATE_INIT initpate
-#else
-# define PATE_INIT PyInit_pate
-#endif
-
-PyMODINIT_FUNC PATE_INIT();                                 // fwd decl
+PyMODINIT_FUNC PyInit_pate();                                 // fwd decl
 
 /// \note Namespace name written in uppercase intentionally!
 /// It will appear in debug output from Python plugins...
@@ -89,7 +83,7 @@ void pythonInitwrapper(Pate::Engine* const engine)
     Q_ASSERT("Sanity check" && !s_engine_instance);
     s_engine_instance = engine;
     // Call initialize explicitly to initialize embedded interpreter.
-    PATE_INIT();
+    PyInit_pate();
 }
 
 /**
@@ -127,12 +121,8 @@ PyMethodDef pateMethods[] =
 }                                                           // anonymous namespace
 
 //BEGIN Python module registration
-PyMODINIT_FUNC PATE_INIT()
+PyMODINIT_FUNC PyInit_pate()
 {
-#if PY_MAJOR_VERSION < 3
-    s_pate = Py_InitModule3("pate", pateMethods, "The pate module");
-    PyModule_AddStringConstant(s_pate, "__file__", __FILE__);
-#else
     static struct PyModuleDef moduledef =
     {
         PyModuleDef_HEAD_INIT
@@ -148,7 +138,6 @@ PyMODINIT_FUNC PATE_INIT()
     s_pate = PyModule_Create(&moduledef);
     PyModule_AddStringConstant(s_pate, "__file__", __FILE__);
     return s_pate;
-#endif
 }
 //END Python module registration
 
@@ -216,7 +205,7 @@ void Pate::Engine::unloadAllModules()
 QString Pate::Engine::tryInitializeGetFailureReason()
 {
     qDebug() << "Construct the Python engine for Python" << PY_MAJOR_VERSION << PY_MINOR_VERSION;
-    if (0 != PyImport_AppendInittab(Python::PATE_ENGINE, PATE_INIT))
+    if (0 != PyImport_AppendInittab(Python::PATE_ENGINE, PyInit_pate))
         return i18nc("@info:tooltip ", "Cannot load built-in <icode>pate</icode> module");
 
     Python::libraryLoad();
@@ -445,18 +434,6 @@ bool Pate::Engine::isServiceUsable(const KService::Ptr& service)
         return false;
     }
     // Check Python compatibility
-    // ATTENTION Python 3 is a default platform! Assume all modules are
-    // compatible! Do checks only if someone tries to build kate w/ Python 2.
-    // So, Python 2 modules must be marked explicitly!
-#if PY_MAJOR_VERSION < 3
-    const QVariant is_compatible = service->property("X-Python-2-Compatible", QVariant::Bool);
-    if (!(is_compatible.isValid() && is_compatible.toBool()))
-    {
-        qDebug() << service->name() << "is incompatible w/ embedded Python version";
-        // Do not even show incompatible modules in the manager...
-        return false;
-    }
-#endif
     // ATTENTION If some module is Python 2 only, it must be marked w/
     // the property 'X-Python-2-Only' of type bool and ANY (valid) value...
     const QVariant is_py2_only = service->property("X-Python-2-Only", QVariant::Bool);
@@ -585,15 +562,6 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
     QStringList dependencies = plugin.m_service
       ->property("X-Python-Dependencies", QVariant::StringList)
       .toStringList();
-#if PY_MAJOR_VERSION < 3
-    {
-        // Try to get Py2 only dependencies
-        QStringList py2_dependencies = plugin.m_service
-          ->property("X-Python-2-Dependencies", QVariant::StringList)
-          .toStringList();
-        dependencies.append(py2_dependencies);
-    }
-#endif
 
     Python py = Python();
     QString reason = i18nc("@info:tooltip", "<title>Dependency check</title>");
@@ -820,4 +788,3 @@ void Pate::Engine::unloadModule(int idx)
 }
 
 // kate: space-indent on; indent-width 4;
-#undef PATE_INIT

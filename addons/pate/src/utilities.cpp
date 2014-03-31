@@ -340,60 +340,11 @@ void Python::traceback(const QString& description)
 
 PyObject* Python::unicode(const QString& string)
 {
-#if PY_MAJOR_VERSION < 3
-    /* Python 2.x. http://docs.python.org/2/c-api/unicode.html */
-    PyObject* s = PyString_FromString(PQ(string));
-    PyObject* u = PyUnicode_FromEncodedObject(s, "utf-8", "strict");
-    Py_DECREF(s);
-    return u;
-#elif PY_MINOR_VERSION < 3
-    /* Python 3.2 or less. http://docs.python.org/3.2/c-api/unicode.html#unicode-objects */
-# ifdef Py_UNICODE_WIDE
-    return PyUnicode_DecodeUTF16((const char* )string.constData(), string.length() * 2, 0, 0);
-# else
-    return PyUnicode_FromUnicode(string.constData(), string.length());
-# endif
-#else /* Python 3.3 or greater. http://docs.python.org/3.3/c-api/unicode.html#unicode-objects */
     return PyUnicode_FromKindAndData(PyUnicode_2BYTE_KIND, string.constData(), string.length());
-#endif
 }
 
 QString Python::unicode(PyObject* const string)
 {
-#if PY_MAJOR_VERSION < 3
-    /* Python 2.x. http://docs.python.org/2/c-api/unicode.html */
-    if (PyString_Check(string))
-        return QString(PyString_AsString(string));
-    else if (PyUnicode_Check(string))
-    {
-        const int unichars = PyUnicode_GetSize(string);
-# ifdef HAVE_USABLE_WCHAR_T
-        return QString::fromWCharArray(PyUnicode_AsUnicode(string), unichars);
-# else
-#   ifdef Py_UNICODE_WIDE
-        return QString::fromUcs4((const unsigned int* )PyUnicode_AsUnicode(string), unichars);
-#   else
-        return QString::fromUtf16(PyUnicode_AsUnicode(string), unichars);
-#   endif
-# endif
-    }
-    else return QString();
-#elif PY_MINOR_VERSION < 3
-    /* Python 3.2 or less. http://docs.python.org/3.2/c-api/unicode.html#unicode-objects */
-    if (!PyUnicode_Check(string))
-        return QString();
-
-    const int unichars = PyUnicode_GetSize(string);
-# ifdef HAVE_USABLE_WCHAR_T
-    return QString::fromWCharArray(PyUnicode_AsUnicode(string), unichars);
-# else
-#   ifdef Py_UNICODE_WIDE
-    return QString::fromUcs4(PyUnicode_AsUnicode(string), unichars);
-#   else
-    return QString::fromUtf16(PyUnicode_AsUnicode(string), unichars);
-#   endif
-# endif
-#else /* Python 3.3 or greater. http://docs.python.org/3.3/c-api/unicode.html#unicode-objects */
     if (!PyUnicode_Check(string))
         return QString();
 
@@ -413,16 +364,11 @@ QString Python::unicode(PyObject* const string)
         break;
     }
     return QString();
-#endif
 }
 
 bool Python::isUnicode(PyObject* const string)
 {
-#if PY_MAJOR_VERSION < 3
-    return PyString_Check(string) || PyUnicode_Check(string);
-#else
     return PyUnicode_Check(string);
-#endif
 }
 
 void Python::updateConfigurationFromDictionary(KConfigBase* const config, PyObject* const dictionary)
@@ -460,11 +406,7 @@ void Python::updateConfigurationFromDictionary(KConfigBase* const config, PyObje
             PyObject* pickled = functionCall("dumps", "pickle", arguments);
             if (pickled)
             {
-#if PY_MAJOR_VERSION < 3
-                QString ascii(unicode(pickled));
-#else
                 QString ascii(PyBytes_AsString(pickled));
-#endif
                 group.writeEntry(unicode(key), ascii);
                 Py_DECREF(pickled);
             }
@@ -487,11 +429,7 @@ void Python::updateDictionaryFromConfiguration(PyObject* const dictionary, const
         Q_FOREACH(QString key, group.keyList())
         {
             QString pickled = group.readEntry(key);
-#if PY_MAJOR_VERSION < 3
-            PyObject* arguments = Py_BuildValue("(s)", PQ(pickled));
-#else
             PyObject* arguments = Py_BuildValue("(y)", PQ(pickled));
-#endif
             PyObject* value = functionCall("loads", "pickle", arguments);
             if (value)
             {

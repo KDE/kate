@@ -433,16 +433,6 @@ bool Pate::Engine::isServiceUsable(const KService::Ptr& service)
         qDebug() << "Ignore desktop file w/o a module to import";
         return false;
     }
-    // Check Python compatibility
-    // ATTENTION If some module is Python 2 only, it must be marked w/
-    // the property 'X-Python-2-Only' of type bool and ANY (valid) value...
-    const QVariant is_py2_only = service->property("X-Python-2-Only", QVariant::Bool);
-    if (is_py2_only.isValid())
-    {
-        qDebug() << service->name() << "is marked as Python 2 ONLY... >/dev/null";
-        // Do not even show incompatible modules in the manager...
-        return false;
-    }
     return true;
 }
 

@@ -75,7 +75,7 @@ function indent(line, indentWidth, character) {
     // invocations triggered by a space character should be ignored unless the
     // line starts with one of the words in re_spaceIndent
     if (character == ' ') {
-        if (currentLine.search(re_spaceIndent) == -1 ||
+        if (currentLine.stripWhiteSpace().search(re_spaceIndent) != 0 ||
                 !document.isCode(line, document.lineLength(line) - 2)) {
             dbg("skipping...");
             return -2;

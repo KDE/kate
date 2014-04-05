@@ -1568,9 +1568,15 @@ void KatePluginSearchView::resultTabChanged(int index)
         return;
     }
 
+    m_ui.searchCombo->blockSignals(true);
+    m_ui.matchCase->blockSignals(true);
+    m_ui.useRegExp->blockSignals(true);
     m_ui.searchCombo->lineEdit()->setText(m_ui.resultTabWidget->tabText(index));
     m_ui.matchCase->setChecked(res->regExp.caseSensitivity() == Qt::CaseSensitive);
     m_ui.useRegExp->setChecked(res->regExp.patternSyntax() != QRegExp::FixedString);
+    m_ui.searchCombo->blockSignals(false);
+    m_ui.matchCase->blockSignals(false);
+    m_ui.useRegExp->blockSignals(false);
 }
 
 

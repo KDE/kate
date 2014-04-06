@@ -4,7 +4,7 @@
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
 	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
-<language name="HTML" version="1.99" kateversion="2.4" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL" priority="10">
+<language name="HTML" version="2.0" kateversion="2.4" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL" priority="10">
 
 <highlighting>
 <contexts>
@@ -27,6 +27,15 @@
     <RegExpr attribute="Element" context="El Open" String="&lt;ul\b" insensitive="TRUE" beginRegion="ul" />
     <RegExpr attribute="Element" context="El Open" String="&lt;ol\b" insensitive="TRUE" beginRegion="ol" />
     <RegExpr attribute="Element" context="El Open" String="&lt;dl\b" insensitive="TRUE" beginRegion="dl" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;article\b" insensitive="TRUE" beginRegion="article" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;aside\b" insensitive="TRUE" beginRegion="aside" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;details\b" insensitive="TRUE" beginRegion="details" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;figure\b" insensitive="TRUE" beginRegion="figure" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;footer\b" insensitive="TRUE" beginRegion="footer" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;header\b" insensitive="TRUE" beginRegion="header" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;main\b" insensitive="TRUE" beginRegion="main" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;nav\b" insensitive="TRUE" beginRegion="nav" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;section\b" insensitive="TRUE" beginRegion="section" />
     <RegExpr attribute="Element" context="El Open" String="&lt;&name;" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/pre\b" insensitive="TRUE" endRegion="pre" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/div\b" insensitive="TRUE" endRegion="div" />
@@ -34,6 +43,15 @@
     <RegExpr attribute="Element" context="El Close" String="&lt;/ul\b" insensitive="TRUE" endRegion="ul" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/ol\b" insensitive="TRUE" endRegion="ol" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/dl\b" insensitive="TRUE" endRegion="dl" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/article\b" insensitive="TRUE" endRegion="article" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/aside\b" insensitive="TRUE" endRegion="aside" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/details\b" insensitive="TRUE" endRegion="details" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/figure\b" insensitive="TRUE" endRegion="figure" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/footer\b" insensitive="TRUE" endRegion="footer" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/header\b" insensitive="TRUE" endRegion="header" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/main\b" insensitive="TRUE" endRegion="main" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/nav\b" insensitive="TRUE" endRegion="nav" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/section\b" insensitive="TRUE" endRegion="section" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/&name;" />
     <!-- as long as kde gives DTDs the text/html mimetype--><IncludeRules context="FindDTDRules" />
     <IncludeRules context="FindEntityRefs" />

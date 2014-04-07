@@ -1,0 +1,3 @@
+function(['asdf']) {
+  'use strict';
+// kate: hl JavaScript;

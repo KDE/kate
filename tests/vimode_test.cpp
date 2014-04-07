@@ -1453,6 +1453,7 @@ void ViModeTest::NormalModeCommandsTest() {
   // Testing "D"
   DoTest("foo bar", "lllD", "foo");
   DoTest("foo\nfoo2\nfoo3", "l2D", "f\nfoo3");
+  DoTest("qwerty", "d frDai", "wei");
 
   // Testing "d"
   DoTest("foobar", "ld2l", "fbar");

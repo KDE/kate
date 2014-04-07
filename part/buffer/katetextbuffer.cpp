@@ -732,8 +732,9 @@ bool TextBuffer::save (const QString &filename)
   /**
    * try to open or fail
    */
-  if (!saveFile.open())
+  if (!saveFile.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
     return false;
+  }
 
   /**
    * construct correct filter device and try to open
@@ -747,7 +748,7 @@ bool TextBuffer::save (const QString &filename)
    * try to open, if new file
    */
   if (deleteFile) {
-    if (!file->open (QIODevice::WriteOnly)) {
+    if (!file->open (QIODevice::WriteOnly | QIODevice::Truncate)) {
       delete file;
       return false;
     }

@@ -2607,7 +2607,7 @@ KateViRange KateViNormalMode::motionToMark()
 KateViRange KateViNormalMode::motionToMarkLine()
 {
   KateViRange r = motionToMark();
-  r.endColumn = getFirstNonBlank();
+  r.endColumn = getFirstNonBlank(r.endLine);
 
   m_stickyColumn = -1;
 

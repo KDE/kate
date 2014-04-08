@@ -1794,54 +1794,6 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("\\foo bar", "cWxyz\\esc", "xyz bar");
   DoTest("foo   ", "lllcwxyz\\esc", "fooxyz");
 
-  // Last edit markers.
-  DoTest("foo", "ean\\escgg`.r.", "foo.");
-  DoTest("foo", "ean\\escgg`[r[", "foo[");
-  DoTest("foo", "ean\\escgg`]r]", "foo]");
-  DoTest("foo bar", "ean\\escgg`]r]", "foon]bar");
-  DoTest("", "ibar\\escgg`.r.", "ba.");
-  DoTest("", "ibar\\escgggUiw`.r.", ".AR");
-  DoTest("", "2ibar\\escgg`]r]", "barba]");
-  DoTest("", "2ibar\\escgg`[r[", "[arbar");
-  DoTest("", "3ibar\\escgg`.r.", "barbar.ar"); // Vim is weird.
-  DoTest("", "abar\\esc.gg`]r]", "barba]");
-  DoTest("foo bar", "wgUiwgg`]r]", "foo BA]");
-  DoTest("foo bar", "wgUiwgg`.r.", "foo .AR");
-  DoTest("foo bar", "gUiwgg`]r.", "FO. bar");
-  DoTest("foo bar", "wdiwgg`[r[", "foo[");
-  DoTest("foo bar", "wdiwgg`]r]", "foo]");
-  DoTest("foo bar", "wdiwgg`.r.", "foo.");
-  DoTest("foo bar", "wciwnose\\escgg`.r.", "foo nos.");
-  DoTest("foo bar", "wciwnose\\escgg`[r[", "foo [ose");
-  DoTest("foo bar", "wciwnose\\escgg`]r]", "foo nos]");
-  DoTest("foo", "~ibar\\escgg`[r[", "F[aroo");
-  DoTest("foo bar", "lragg`.r.", "f.o bar");
-  DoTest("foo bar", "lragg`[r[", "f[o bar");
-  DoTest("foo bar", "lragg`]r]", "f]o bar");
-  DoTest("", "ifoo\\ctrl-hbar\\esc`[r[", "[obar");
-  DoTest("", "ifoo\\ctrl-wbar\\esc`[r[", "[ar");
-  DoTest("", "if\\ctrl-hbar\\esc`[r[", "[ar");
-  DoTest("", "5ofoo\\escgg`[r[", "\n[oo\nfoo\nfoo\nfoo\nfoo");
-  DoTest("", "5ofoo\\escgg`]r]", "\nfoo\nfoo\nfoo\nfoo\nfo]");
-  DoTest("", "5ofoo\\escgg`.r.", "\nfoo\nfoo\nfoo\nfoo\n.oo");
-  DoTest("foo", "yyp`[r[", "foo\n[oo");
-  DoTest("xyz\nfoo", "ja\\returnbar\\esc`[r[", "xyz\n[\nbaroo");
-  DoTest("foo", "lrayypgg`[r[", "fao\n[ao");
-  DoTest("foo", "l~u`[r[", "[oo");
-  DoTest("foo", "l~u`.r.", ".oo");
-  DoTest("foo", "l~u`]r]", "]oo");
-  DoTest("foo", "lia\\escu`[r[", "[oo");
-  DoTest("foo", "lia\\escu`.r.", ".oo");
-  DoTest("foo", "lia\\escu`]r]", "]oo");
-  DoTest("foo", "l~u~`[r[", "f[o");
-  DoTest("foo\nbar\nxyz", "jyypu`[r[", "foo\nbar\n[yz");
-  DoTest("foo\nbar\nxyz", "jyypu`.r.", "foo\nbar\n.yz");
-  DoTest("foo\nbar\nxyz", "jyypu`]r]", "foo\nbar\n]yz");
-  DoTest("foo\nbar\nxyz\n123", "jdju`[r[", "foo\n[ar\nxyz\n123");
-  DoTest("foo\nbar\nxyz\n123", "jdju`.r.", "foo\n.ar\nxyz\n123");
-  DoTest("foo\nbar\nxyz\n123", "jdju`]r]", "foo\nbar\n]yz\n123");
-  DoTest("foo\nbar\nxyz\n123", "jVj~u\\esc`[r[", "foo\n[ar\nxyz\n123", ShouldFail, "Vim is weird.");
-
   // BUG #332523
   const bool oldDynWordWrap = KateViewConfig::global()->dynWordWrap();
   BeginTest("asdasdasd\nasdasdasdasdasdasdasd");
@@ -6612,6 +6564,61 @@ void ViModeTest::ScrollViewTests()
     // Restore back to how we were before.
     kate_view->resize(oldSize);
     kate_view->renderer()->config()->setFont(oldFont);
+}
+
+void ViModeTest::MarkTests()
+{
+    // Difference between ` and '
+    DoTest("  a\n    b", "jmak'aii", "  a\n    ib");
+    DoTest("  a\n    b", "jmak`aii", "  a\ni    b");
+
+    // Last edit markers.
+    DoTest("foo", "ean\\escgg`.r.", "foo.");
+    DoTest("foo", "ean\\escgg`[r[", "foo[");
+    DoTest("foo", "ean\\escgg`]r]", "foo]");
+    DoTest("foo bar", "ean\\escgg`]r]", "foon]bar");
+    DoTest("", "ibar\\escgg`.r.", "ba.");
+    DoTest("", "ibar\\escgggUiw`.r.", ".AR");
+    DoTest("", "2ibar\\escgg`]r]", "barba]");
+    DoTest("", "2ibar\\escgg`[r[", "[arbar");
+    DoTest("", "3ibar\\escgg`.r.", "barbar.ar"); // Vim is weird.
+    DoTest("", "abar\\esc.gg`]r]", "barba]");
+    DoTest("foo bar", "wgUiwgg`]r]", "foo BA]");
+    DoTest("foo bar", "wgUiwgg`.r.", "foo .AR");
+    DoTest("foo bar", "gUiwgg`]r.", "FO. bar");
+    DoTest("foo bar", "wdiwgg`[r[", "foo[");
+    DoTest("foo bar", "wdiwgg`]r]", "foo]");
+    DoTest("foo bar", "wdiwgg`.r.", "foo.");
+    DoTest("foo bar", "wciwnose\\escgg`.r.", "foo nos.");
+    DoTest("foo bar", "wciwnose\\escgg`[r[", "foo [ose");
+    DoTest("foo bar", "wciwnose\\escgg`]r]", "foo nos]");
+    DoTest("foo", "~ibar\\escgg`[r[", "F[aroo");
+    DoTest("foo bar", "lragg`.r.", "f.o bar");
+    DoTest("foo bar", "lragg`[r[", "f[o bar");
+    DoTest("foo bar", "lragg`]r]", "f]o bar");
+    DoTest("", "ifoo\\ctrl-hbar\\esc`[r[", "[obar");
+    DoTest("", "ifoo\\ctrl-wbar\\esc`[r[", "[ar");
+    DoTest("", "if\\ctrl-hbar\\esc`[r[", "[ar");
+    DoTest("", "5ofoo\\escgg`[r[", "\n[oo\nfoo\nfoo\nfoo\nfoo");
+    DoTest("", "5ofoo\\escgg`]r]", "\nfoo\nfoo\nfoo\nfoo\nfo]");
+    DoTest("", "5ofoo\\escgg`.r.", "\nfoo\nfoo\nfoo\nfoo\n.oo");
+    DoTest("foo", "yyp`[r[", "foo\n[oo");
+    DoTest("xyz\nfoo", "ja\\returnbar\\esc`[r[", "xyz\n[\nbaroo");
+    DoTest("foo", "lrayypgg`[r[", "fao\n[ao");
+    DoTest("foo", "l~u`[r[", "[oo");
+    DoTest("foo", "l~u`.r.", ".oo");
+    DoTest("foo", "l~u`]r]", "]oo");
+    DoTest("foo", "lia\\escu`[r[", "[oo");
+    DoTest("foo", "lia\\escu`.r.", ".oo");
+    DoTest("foo", "lia\\escu`]r]", "]oo");
+    DoTest("foo", "l~u~`[r[", "f[o");
+    DoTest("foo\nbar\nxyz", "jyypu`[r[", "foo\nbar\n[yz");
+    DoTest("foo\nbar\nxyz", "jyypu`.r.", "foo\nbar\n.yz");
+    DoTest("foo\nbar\nxyz", "jyypu`]r]", "foo\nbar\n]yz");
+    DoTest("foo\nbar\nxyz\n123", "jdju`[r[", "foo\n[ar\nxyz\n123");
+    DoTest("foo\nbar\nxyz\n123", "jdju`.r.", "foo\n.ar\nxyz\n123");
+    DoTest("foo\nbar\nxyz\n123", "jdju`]r]", "foo\nbar\n]yz\n123");
+    DoTest("foo\nbar\nxyz\n123", "jVj~u\\esc`[r[", "foo\n[ar\nxyz\n123", ShouldFail, "Vim is weird.");
 }
 
 void ViModeTest::MacroTests()

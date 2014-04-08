@@ -168,7 +168,7 @@ private Q_SLOTS:
   void visualLineUpDownTests();
 
   void ScrollViewTests();
-
+  void MarkTests();
   void MacroTests();
 
   void debuggingTests();

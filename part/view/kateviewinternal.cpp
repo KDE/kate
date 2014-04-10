@@ -792,6 +792,7 @@ KTextEditor::Cursor KateViewInternal::findMatchingBracket()
 void KateViewInternal::doReturn()
 {
   doc()->newLine( m_view );
+  m_leftBorder->updateViRelLineNumbers();
   updateView();
 }
 

@@ -665,9 +665,10 @@ function tryComment(line, newLine)
         indent = document.firstVirtualColumn(line);
         if( indent >= 0 ) {
             dbg("tryComment: keeping relative indent of existing comment");
-            indent += gShift;
+            if( indent + gShift >= 0) indent += gShift;
         } else {
             dbg("tryComment: new comment line follows previous one");
+            indent = document.firstVirtualColumn(pline);
         }
     } else {
         dbg("tryComment: aligning leading '*' in comments");
@@ -1106,11 +1107,6 @@ function tryParens(line, newLine)
             }
         }
 
-        // just align brackets, not args
-        if( !newLine ) {
-            return indent;
-        }
-
         // look for previous line ending with unclosed paren like "func(" {comment}
         // and no args following open paren
         var bpos = plineStr.search(/[,(\[]\s*(\/\/.*|\{.*\}|\(\*.*\*\))?\s*$/ );
@@ -1125,32 +1121,35 @@ function tryParens(line, newLine)
             //dbg("lastChar is '" + lastChar + "', openLine is " + (openLine? "true": "false") );
         }
 
-        if( openLine ) {
-            dbg("tryParens: opening line for new argument");
-            //dbg(lastChar == ','? "following trailing ',' ": "parens match");
-            /* on entry, we have one of 2 scenarios:
-             *    arg,  <--- pline, , ==> new arg to be inserted
-             *    )     <--- line
-             * or
-             *    xxx(  <--- pline
-             *    )     <--- line
-             *
-             * in both cases, we need to open a line for the new arg and 
-             * place right anchor in same column as the opening anchor
-             * we leave cursor on the blank line
-             */
-            document.insertText(line, document.firstColumn(line), "\n");
-            var anchorLine = line+1;
-            // indent closing anchor 
-            view.setCursorPosition(line, indent);
-            document.indent(new Range(anchorLine, 0, anchorLine, 1), indent / gIndentWidth);
-            // make sure we add spaces to align perfectly on left anchor
-            var padding =  indent % gIndentWidth;
-            if ( padding > 0 ) {
-                document.insertText(anchorLine, 
-                                    document.fromVirtualColumn(anchorLine, indent - padding),
-                                    String().fill(' ', padding));
-            }
+        // just align brackets, not args
+        if( !newLine || !openLine ) {
+            return indent;
+        }
+
+        dbg("tryParens: opening line for new argument");
+        //dbg(lastChar == ','? "following trailing ',' ": "parens match");
+        /* on entry, we have one of 2 scenarios:
+         *    arg,  <--- pline, , ==> new arg to be inserted
+         *    )     <--- line
+         * or
+         *    xxx(  <--- pline
+         *    )     <--- line
+         *
+         * in both cases, we need to open a line for the new arg and 
+         * place right anchor in same column as the opening anchor
+         * we leave cursor on the blank line
+         */
+        document.insertText(line, document.firstColumn(line), "\n");
+        var anchorLine = line+1;
+        // indent closing anchor 
+        view.setCursorPosition(line, indent);
+        document.indent(new Range(anchorLine, 0, anchorLine, 1), indent / gIndentWidth);
+        // make sure we add spaces to align perfectly on left anchor
+        var padding =  indent % gIndentWidth;
+        if ( padding > 0 ) {
+            document.insertText(anchorLine, 
+                                document.fromVirtualColumn(anchorLine, indent - padding),
+                                String().fill(' ', padding));
         }
     } // leading close paren
 
@@ -1368,10 +1367,10 @@ function tryStatement(line)
 
 
 // specifies the characters which should trigger indent, beside the default '\n'
-triggerCharacters = " \t)]#;";
+triggerCharacters = " \t)]}#;";
 
 // possible outdent for lines that match this regexp
-var PascalReIndent = /^\s*((end|const|type|var|begin|until|function|procedure|operator|else|otherwise|\w+\s*:)\s+|[#\)\]]|end;)(.*)$/;
+var PascalReIndent = /^\s*((end|const|type|var|begin|until|function|procedure|operator|else|otherwise|\w+\s*:)\s+|[#\)\]\}]|end;)(.*)$/;
 
 // check if the trigger characters are in the right context,
 // otherwise running the indenter might be annoying to the user
@@ -1424,19 +1423,19 @@ function indent(line, indentWidth, ch)
     if( line < 0 ) return -1;
 
     var t = document.variable("debugMode");
-    debugMode = /^(true|on|enabled|1)$/i.test( t );
+    if(t) debugMode = /^(true|on|enabled|1)$/i.test( t );
 
     dbg("\n------------------------------------ (" + line + ")");
 
     t = document.variable("cfgIndentCase");
-    cfgIndentCase = /^(true|on|enabled|1)$/i.test( t );
+    if(t) cfgIndentCase = /^(true|on|enabled|1)$/i.test( t );
     t = document.variable("cfgIndentBegin");
     if(/^[0-9]+$/.test(t)) cfgIndentBegin = parseInt(t);
 
     t = document.variable("cfgAutoInsertStar");
-    cfgAutoInsertStar = /^(true|on|enabled|1)$/i.test( t );
+    if(t) cfgAutoInsertStar = /^(true|on|enabled|1)$/i.test( t );
     t = document.variable("cfgSnapParen");
-    cfgSnapParen = /^(true|on|enabled|1)$/i.test( t );
+    if(t) cfgSnapParen = /^(true|on|enabled|1)$/i.test( t );
 
     gIndentWidth = indentWidth;
     gCaseValue = -99;

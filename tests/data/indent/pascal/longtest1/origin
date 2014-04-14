@@ -1,19 +1,12 @@
 // kate: space-indent on; indent-width 3; replace-tabs on; remove-trailing-spaces all;
 // kate: syntax pascal; indent-mode pascal;
 
-// these variables are understood by the pascal indenter ...
-// kate: cfgIndentCase true;          // indent elements in a case statement
-// kate: cfgIndentBegin 0;            // indent 'begin' this many spaces
-// kate: debugMode false;              // show how indent is determined
-// kate: cfgAutoInsertStar true;      // auto insert '*' in (* ... *)-comments
-// kate: cfgSnapParen true;           // snap ')' to '*)' in comments
-
 (**********************************************   // check: indent OK?
- *                                            *
- *       Commment to test alignment           *
- *                                            *
- *                                            *
- **********************************************)
+         *                                            *
+    *       Commment to test alignment           *
+           *                                            *
+  *                                            *
+         **********************************************)
 
  (*************************************************************************
  Another Comment
@@ -62,7 +55,7 @@ end;
             otherTypeDef = integer;
 
 // CHECK: next line should keep its relative alignment
-           {ant}
+         {next}
             ant = RECORD CASE F: BOOLEAN OF
 TRUE: ( fred : REAL;
 joe  : INTEGER;
@@ -168,7 +161,7 @@ end;
           when annotating, behavior of "external", "end" and possibly other keywords
           depends on whether we are in procedure declaration,
           item (var/const/type) declaration, or statements
- }
+          }
 
 
    procedure AVeryVeryLongFunctionName(const A : tRealArrayType;

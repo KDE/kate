@@ -789,14 +789,40 @@ void ViModeTest::VisualModeTests() {
 
 void ViModeTest::ReplaceModeTests()
 {
-  // TODO - more of these!
-  DoTest("foo bar", "R\\ctrl-\\rightX", "foo Xar");
-  DoTest("foo bar", "R\\ctrl-\\right\\ctrl-\\rightX", "foo barX");
-  DoTest("foo bar", "R\\ctrl-\\leftX", "Xoo bar");
-  DoTest("foo bar", "R\\ctrl-\\left\\delete", "oo bar");
+    // Basic stuff.
+    DoTest("", "Rqwerty", "qwerty");
+    DoTest("qwerty", "R\\rightXX", "qXXrty");
 
-  DoTest("foo\nbar\nbaz", "R\\downX", "foo\nXar\nbaz");
-  DoTest("foo\nbar\nbaz", "jjR\\upX", "foo\nXar\nbaz");
+    // Enter replace and go to the next/previous word.
+    DoTest("foo bar", "R\\ctrl-\\rightX", "foo Xar");
+    DoTest("foo bar", "R\\ctrl-\\right\\ctrl-\\rightX", "foo barX");
+    DoTest("foo bar", "R\\ctrl-\\leftX", "Xoo bar");
+    DoTest("foo bar", "R\\ctrl-\\left\\delete", "oo bar");
+
+    // Enter replace mode and go up/down.
+    DoTest("foo\nbar\nbaz", "R\\downX", "foo\nXar\nbaz");
+    DoTest("foo\nbar\nbaz", "jjR\\upX", "foo\nXar\nbaz");
+
+    // Backspace.
+    DoTest("", "R\\backspace", "");
+    DoTest("qwerty", "lR\\backspaceX", "Xwerty");
+    DoTest("qwerty", "lRX\\backspace\\backspaceX", "Xwerty");
+
+    // Ctrl-E: replace the current column with the column of the next line.
+    DoTest("", "R\\ctrl-e", "");
+    DoTest("\n", "jR\\ctrl-e", "\n");
+    DoTest("\nqwerty", "R\\ctrl-e\\ctrl-e", "qw\nqwerty");
+    DoTest("a\nbb", "R\\ctrl-e\\ctrl-e", "bb\nbb");
+    DoTest("aa\n b", "R\\ctrl-e\\ctrl-e", " b\n b");
+    DoTest("\n\tb", "R\\ctrl-e\\ctrl-e", "\tb\n\tb");
+
+    // Ctrl-Y: replace the current column with the column of the previous line.
+    DoTest("", "R\\ctrl-y", "");
+    DoTest("qwerty\n", "jR\\ctrl-y\\ctrl-y", "qwerty\nqw");
+    DoTest("aa\nb", "jR\\ctrl-y\\ctrl-y", "aa\naa");
+    DoTest(" a\nbb", "jR\\ctrl-y\\ctrl-y", " a\n a");
+    DoTest("\tb\n", "jR\\ctrl-y\\ctrl-y", "\tb\n\tb");
+
 }
 
 void ViModeTest::InsertModeTests() {

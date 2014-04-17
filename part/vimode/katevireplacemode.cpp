@@ -38,24 +38,28 @@ KateViReplaceMode::~KateViReplaceMode()
 
 bool KateViReplaceMode::commandInsertFromLine( int offset )
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-  KTextEditor::Cursor c2( c.line(), c.column()+1 );
+  KTextEditor::Cursor c(m_view->cursorPosition());
+  KTextEditor::Cursor c2(c.line(), c.column() + 1);
 
-  if ( c.line()+offset > doc()->lines() || c.line()+offset < 0 ) {
+  if (c.line() + offset >= doc()->lines() || c.line() + offset < 0) {
     return false;
   }
 
-  QString line = doc()->line( c.line()+offset );
+  QString line = doc()->line(c.line() + offset);
   int tabWidth = doc()->config()->tabWidth();
-  QChar ch = getCharAtVirtualColumn( line, m_view->virtualCursorColumn(), tabWidth );
-  QChar removed = doc()->line( c.line() ).at( c.column() );
+  QChar ch = getCharAtVirtualColumn(line, m_view->virtualCursorColumn(), tabWidth);
 
-  if ( ch == QChar::Null ) {
+  if (ch == QChar::Null) {
     return false;
   }
 
-  if ( doc()->replaceText( KTextEditor::Range( c, c2 ), ch ) ) {
-    overwrittenChar( removed );
+  if (c.column() == doc()->lineLength(c.line())) {
+    return doc()->insertText(c, ch);
+  }
+
+  QChar removed = doc()->line(c.line()).at(c.column());
+  if (doc()->replaceText(KTextEditor::Range(c, c2), ch)) {
+    overwrittenChar(removed);
     return true;
   }
 

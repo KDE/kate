@@ -114,7 +114,6 @@ bool KateViReplaceMode::handleKeypress( const QKeyEvent *e )
       m_overwritten.clear();
       startNormalMode();
       return true;
-      break;
     case Qt::Key_Left:
       m_overwritten.clear();
       m_view->cursorLeft();
@@ -155,7 +154,6 @@ bool KateViReplaceMode::handleKeypress( const QKeyEvent *e )
       return true;
     default:
       return false;
-      break;
     }
   } else if ( e->modifiers() == Qt::ControlModifier ) {
     switch( e->key() ) {
@@ -163,25 +161,26 @@ bool KateViReplaceMode::handleKeypress( const QKeyEvent *e )
     case Qt::Key_C:
       startNormalMode();
       return true;
-      break;
     case Qt::Key_E:
       commandInsertFromLine( 1 );
       return true;
-      break;
     case Qt::Key_Y:
       commandInsertFromLine( -1 );
       return true;
-      break;
+    case Qt::Key_W:
+      commandBackWord();
+      return true;
+    case Qt::Key_U:
+      commandBackLine();
+      return true;
     case Qt::Key_Left:
       m_overwritten.clear();
       commandMoveOneWordLeft();
       return true;
-      break;
     case Qt::Key_Right:
       m_overwritten.clear();
       commandMoveOneWordRight();
       return true;
-      break;
     default:
       return false;
     }
@@ -203,4 +202,28 @@ void KateViReplaceMode::backspace()
     }
     updateCursor( c2 );
   }
+}
+
+void KateViReplaceMode::commandBackWord()
+{
+    KTextEditor::Cursor current(m_view->cursorPosition());
+    KTextEditor::Cursor to(findPrevWordStart(current.line(), current.column()));
+
+    if (!to.isValid()) {
+        return;
+    }
+
+    while (current.isValid() && current != to) {
+        backspace();
+        current = m_view->cursorPosition();
+    }
+}
+
+void KateViReplaceMode::commandBackLine()
+{
+    const int column = m_view->cursorPosition().column();
+
+    for (int i = column; i >= 0 && !m_overwritten.isEmpty(); i--) {
+        backspace();
+    }
 }

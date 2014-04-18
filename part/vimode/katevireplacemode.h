@@ -47,6 +47,8 @@ class KateViReplaceMode : public KateViModeBase
 
     void overwrittenChar( const QChar &s ) { m_overwritten += s; }
     void backspace();
+    void commandBackWord();
+    void commandBackLine();
 
   private:
     QString m_overwritten;

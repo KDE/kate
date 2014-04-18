@@ -809,6 +809,20 @@ void ViModeTest::ReplaceModeTests()
     DoTest("qwerty", "lR\\backspaceX", "Xwerty");
     DoTest("qwerty", "lRX\\backspace\\backspaceX", "Xwerty");
 
+    // Ctrl-W
+    DoTest("", "R\\ctrl-w", "");
+    DoTest("Hello", "lRXX\\ctrl-w", "Hello");
+    DoTest("Hello", "lR\t\\ctrl-w", "Hello");
+    DoTest("Hello", "lRXX\\left\\ctrl-w", "HXXlo");
+
+    // Ctrl-U
+    DoTest("", "R\\ctrl-u", "");
+    DoTest("Hello", "lRXX\\ctrl-u", "Hello");
+    DoTest("Hello", "lR\t\\ctrl-u", "Hello");
+    DoTest("Hello", "lRXX\\left\\ctrl-u", "HXXlo");
+    DoTest("Hello World", "3lRXX XX\\ctrl-u", "Hello World");
+
+
     // Ctrl-E: replace the current column with the column of the next line.
     DoTest("", "R\\ctrl-e", "");
     DoTest("\n", "jR\\ctrl-e", "\n");

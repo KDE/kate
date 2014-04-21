@@ -1,0 +1,59 @@
+# -*- coding: utf-8 -*-
+#
+# CMake related expansion functions
+#
+# NOTE Expansion plugin can complete available expansion functions for current
+# document. To get help (via tooltip) for the selected expansion function use
+# Ctrl+Shift+E shotcut.
+#
+# Copyright (C) 2014 Alex Turbov <i.zaufi@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import re
+import sys
+
+from PyKDE4.kdecore import i18nc
+
+import kate
+
+import expand
+import expand.args as arg_helpers
+
+
+@expand.jinja_environment_configurator
+def __setup_jinga__(env):
+    env.block_start_string = '#%'
+    env.block_end_string = '%#'
+    env.variable_start_string = '#<'
+    env.variable_end_string = '>#'
+    env.line_statement_prefix = '##%'
+    env.line_comment_prefix = '###'
+    return env
+
+
+@expand.dynamic(re.compile('^if(?P<want_else>e)?(?P<duplicate_condition>c)?$'))
+@expand.jinja('if-else.cmake.tpl')
+@expand.postprocess
+def __dynamic_struct(params, match):
+    kate.kDebug('@dynamic `if`: got params={}, match={}'.format(params, match.groups()))
+
+    data = {}
+    data['want_else'] = match.group('want_else') is not None
+    data['duplicate_condition'] = match.group('duplicate_condition') is not None
+
+    return data
+
+
+# kate: hl python;

@@ -1153,8 +1153,12 @@ bool KateViNormalMode::commandChange()
     // block substitute can be simulated by first deleting the text
     // (done above) and then starting block prepend.
     return commandPrependToBlock();
-  } else
+  } else {
+    if (m_commandRange.startLine < m_commandRange.endLine) {
+      c.setLine(m_commandRange.startLine);
+    }
     c.setColumn(m_commandRange.startColumn);
+  }
 
   updateCursor(c);
   setCount(0); // The count was for the motion, not the insertion.

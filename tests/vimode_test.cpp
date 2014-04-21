@@ -785,6 +785,11 @@ void ViModeTest::VisualModeTests() {
     DoTest("Three. Different. Sentences.", "viscX", "X Different. Sentences.");
     DoTest("Three. Different. Sentences.", "vapcX", "X");
     DoTest("Three. Different. Sentences.", "vipcX", "X");
+
+    // Get the range right.
+    DoTest("\n", "vjcX", "X");
+    DoTest("Hello.\nWorld", "2lvjcX", "HeXld");
+    DoTest("Three. Different. Sentences.\n\n", "vapcX", "X");
 }
 
 void ViModeTest::ReplaceModeTests()

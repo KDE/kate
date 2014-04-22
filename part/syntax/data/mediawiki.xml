@@ -379,12 +379,12 @@
 
       <context name="JavaScriptSourceContent" attribute="NoWiki" lineEndContext="#stay">
         <IncludeRules context="SourceEnd" />
-        <IncludeRules context="##JavaScript" />
+        <IncludeRules context="Normal##JavaScript" />
       </context>
       <context name="JavaScriptSyntaxHighlightContent" attribute="NoWiki" lineEndContext="#stay">
         <StringDetect String="&lt;/syntaxhighlight&gt;" context="#pop#pop#pop" attribute="HtmlTag" />
         <IncludeRules context="SyntaxHighlightEnd" />
-        <IncludeRules context="##JavaScript" />
+        <IncludeRules context="Normal##JavaScript" />
       </context>
 
 

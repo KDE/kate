@@ -47,7 +47,7 @@
 
 	<context name="NoMakoJS" attribute="Normal Text" lineEndContext="#stay">
 		<StringDetect attribute="MakoKeyword" context="#pop" String="&lt;/%text&gt;" endRegion="nomako" />
-		<IncludeRules context="##JavaScript" includeAttrib="true"/>
+		<IncludeRules context="Normal##JavaScript" includeAttrib="true"/>
 	</context>
 
 	<context name="FindHTML" attribute="Normal Text" lineEndContext="#stay">
@@ -192,7 +192,7 @@
 		<RegExpr attribute="Comment" context="JS comment close" String="//(?=.*&lt;/script\b)" insensitive="TRUE" />
 		<RegExpr attribute="MakoKeyword" context="NoMakoJS" String="&lt;%text(?:\s+[^&gt;]*)?&gt;" beginRegion="nomako" />
 		<IncludeRules context="FindMako" />
-		<IncludeRules context="##JavaScript" includeAttrib="true"/>
+		<IncludeRules context="Normal##JavaScript" includeAttrib="true"/>
 	</context>
 
 	<context name="JS comment close" attribute="Comment" lineEndContext="#pop">

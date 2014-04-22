@@ -5559,7 +5559,7 @@ Changes:
       <context name="javascriptheredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
         <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" endRegion="Heredoc" />
         <IncludeRules context="commonheredoc" />
-        <IncludeRules context="##JavaScript" />
+        <IncludeRules context="Normal##JavaScript" />
       </context>
       <context name="heredoc" attribute="String" lineEndContext="#stay" dynamic="true">
         <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" endRegion="Heredoc" />
@@ -5588,7 +5588,7 @@ Changes:
       <context name="javascriptnowdoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
         <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" endRegion="Heredoc" />
         <IncludeRules context="commonnowdoc" />
-        <IncludeRules context="##JavaScript" />
+        <IncludeRules context="Normal##JavaScript" />
       </context>
       <context name="nowdoc" attribute="String" lineEndContext="#stay" dynamic="true">
         <RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" endRegion="Heredoc" />

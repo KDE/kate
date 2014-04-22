@@ -104,7 +104,7 @@
         <WordDetect attribute="Signal" context="Signal" String="signal" />
         <WordDetect attribute="Keywords" context="Property" String="default property" />
         <WordDetect attribute="Keywords" context="Property" String="property" />
-        <IncludeRules context="##JavaScript" />
+        <IncludeRules context="Normal##JavaScript" />
       </context>
       <context attribute="ImportValue" lineEndContext="#pop" name="Import">
       </context>

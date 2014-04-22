@@ -64,6 +64,17 @@
       <item> undefined </item>
     </list>
     <contexts>
+
+      <!-- Shebang: ("#!") Detect shebang and fallthrough to Normal -->
+      <!-- Based on the similar clause from prolog.xml, which notes the following BUG:
+        If the file starts with whitespace and a shebang on a line other than the first line,
+        this rule will still match it as a shebang, even tough the shebang is only valid on
+        the very first line.
+      -->
+      <context name="Shebang" lineEndContext="Normal" attribute="Syntax Error" fallthrough="true" fallthroughContext="Normal" >
+        <Detect2Chars column="0" char="#" char1="!" context="Comment" attribute="Comment" />
+      </context>
+
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces/>
         <StringDetect attribute="Region Marker" context="region_marker" String="//BEGIN" beginRegion="Region1" />

@@ -1598,7 +1598,8 @@ function tryOperator(cursor, ch)
             // Remove just entered (redundant) one
             document.removeText(line, column - 1, line, column);
         }
-        else if (prev[1] == '.' && prev[2] == '.')          // Append one more if only two here
+        // Append one more if only two here and we are in 'Normal Mode'
+        else if (prev[1] == '.' && prev[2] == '.' && document.defStyleNum(line, column) == 0)
         {
             addCharOrJumpOverIt(line, column, '.');
         }                                                   // Otherwise, do nothing...

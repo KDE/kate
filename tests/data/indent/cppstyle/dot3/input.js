@@ -1,4 +1,4 @@
-# BUG: #333696
+// BUG: #333696
 
 v.setCursorPosition(0,10);
 v.type(".");

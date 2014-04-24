@@ -3481,6 +3481,7 @@ KateViRange KateViNormalMode::textObjectAParagraph()
       for (int i = r.endLine + 1; i < lines && doc()->line(i).isEmpty(); i++) {
         r.endLine++;
       }
+      r.endColumn = 0;
     } else {
       Cursor prev = m_view->cursorPosition();
       Cursor c(r.endLine + 1, 0);
@@ -3499,7 +3500,6 @@ KateViRange KateViNormalMode::textObjectAParagraph()
     updateCursor(Cursor(r.startLine, r.startColumn));
   } else {
     // We went too far and we're on empty lines, do nothing.
-    updateCursor(original);
     return KateViRange::invalid();
   }
   return r;

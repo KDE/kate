@@ -51,6 +51,9 @@ private slots:
   void testPascal_data();
   void testPascal();
 
+  void testAda_data();
+  void testAda();
+
   void testXml_data();
   void testXml();
 

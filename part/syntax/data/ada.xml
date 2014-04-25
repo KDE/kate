@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Ada" version="1.07" kateversion="2.4" section="Sources" extensions="*.adb;*.ads;*.ada;*.a" mimetype="text/x-adasrc">
+<language name="Ada"
+          version="1.08"
+          kateversion="2.5"
+          section="Sources"
+          extensions="*.adb;*.ads;*.ada;*.a"
+          indenter="ada"
+          mimetype="text/x-adasrc">
   <highlighting>
     <list name="keywords">
       <item> abort </item>

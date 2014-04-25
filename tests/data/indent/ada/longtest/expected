@@ -1,0 +1,628 @@
+--
+--
+
+
+--
+
+with text_io;
+use text_io;
+
+with Ada.Integer_Text_IO;
+use  Ada.Integer_Text_IO;
+
+
+package Package_With_Private is
+
+   type Private_Type is private;
+
+private
+
+   type Private_Type is array (1 .. 10) of Integer;
+
+end Package_With_Private;
+
+
+procedure Range_1( i : integer );   -- forward declaration
+
+
+Block_Name :   -- CHECK: block labels are handled sensibly
+declare
+   A_Variable : The_Type;
+begin
+   Use A_Variable
+end Block_Name;
+
+generic
+   Max: Positive;
+   type Element_T is private;
+package Generic_Stack is
+   procedure Push (E: Element_T);
+   function Pop return Element_T;
+end Generic_Stack;
+
+
+procedure Generic_Swap is
+   generic
+      type Item is private;
+   procedure Exchange(X, Y: in out Item);
+   procedure Exchange(X, Y: in out Item) is
+      Temp: Item;
+   begin
+      Temp := X;
+      Result.Elements (i, Result.Elements'Last (2))
+         := 3 + Right.Elements (i);
+      a := long_expression
+           + another_long_expression;     -- CHECK: this should be indented
+      func
+         ( a,
+           b
+         );
+      Y := func
+              ( a,
+                b
+              );
+      Y :=
+         func
+            ( a,
+              b
+            );
+   end;
+
+   A, B : Integer;
+   procedure Swap is new Exchange(integer);
+
+begin
+   A := 1;
+   B := 2;
+   Swap(A,B);
+   Ada.Float_Text_IO.put                        --  Float literal
+      (Item => gamma(i), Fore => 1, Aft => 1, Exp => 0);
+   new_line;
+   Ada.Float_Text_IO.put(                        --  Float literal
+                           Item => gamma(i), Fore => 1, Aft => 1, Exp => 0);
+   new_line;
+   return( a+b );
+   return(
+            a+b );
+   return
+      ( a
+        +b);
+
+end Generic_Swap;
+
+
+function SUBSTRING (DSTR: DYN_STRING;   -- this is a forward reference
+                    START  : natural;
+                    LENGTH : natural := 0)
+   return DYN_STRING;
+
+function SUBSTRING (DSTR: DYN_STRING;
+                    LENGTH : natural := 0)
+   return DYN_STRING is
+   DS: DYN_STRING;
+   L : natural := LENGTH;
+
+   type Degrees is new Float range -273.15 .. Float'Last;
+   Temperature : Degrees;
+
+   type Car is record
+      Identity       : Long_Long_Integer;
+      Number_Wheels  : Positive range 1 .. 10;
+      Paint          : Color;
+      Horse_Power_kW : Float range 0.0 .. 2_000.0;
+      Consumption    : Float range 0.0 .. 100.0;
+   end record;
+
+   BMW : Car :=
+      (Identity       => 2007_752_83992434,
+       Number_Wheels  => 5,
+       Horse_Power_kW => 190.0,
+       Consumption    => 10.1,
+       Paint          => Blue);
+
+   type Directions is (North, South, East, West);
+   Heading : Directions;
+
+begin
+   put_line("It works!");
+
+   case long_expression
+      + Another_long_expression is
+      when 89 ==>
+         s1;
+         s2;
+<<lab>>         -- CHECK: label should be aligned with begin
+#
+      when 1 =>
+         Walk_The_Dog;
+
+      when 16#5# ==>
+         a := 5;
+         a := 9;
+         f(18);
+         s1;
+
+#include "fred"
+
+      when 5 =>
+         case Heading is
+            when North =>
+               Y := Y + 1;
+            when South =>
+               Y := Y - 1;
+            when East =>
+               X := X + 1;
+            when West =>
+               X := X - 1;
+         end case;
+
+      when 8 | 10 =>
+
+         Sell_All_Stock;
+
+      when others =>
+
+         if Temperature >= 40.0 then
+            Put_Line ("Wow!");
+            Put_Line ("It's extremely hot");
+         elsif Temperature >= 30.0 then
+            Put_Line ("It's hot");
+         elsif Temperature >= 20.0 then
+            Put_Line ("It's warm");
+         elsif Temperature >= 10.0 then
+            Put_Line ("It's cool");
+         elsif Temperature >= 0.0 then
+            Put_Line ("It's cold");
+         else
+            Put_Line ("It's freezing");
+         end if;
+
+   end case;
+
+   DS3.DATA(1..DS3.SIZE):=   DS1.DATA(1..DS1.SIZE)
+                             & DS2.DATA(1..DS2.SIZE);
+   return DS3;  -- CHECK: should align with DS3 above
+end main;
+
+
+procedure Quadratic_Equation
+             (A, B, C :     Float;   -- By default it is "in".
+              R1, R2  : out Float;
+              Valid   : out Boolean)
+is
+   Z : Float;
+
+   type Discriminated_Record (Size : Natural) is
+      record
+         A : String (1 .. Size);
+         B : Integer;
+      end record;
+
+begin
+   Z := B**2 - 4.0 * A * C;
+
+   if At_Location > In_Text'Last
+      or else At_Location + Pattern'Length - 1 >
+      In_Text'Last
+      or else Slided_Text_T (In_Text (
+                                        At_Location .. At_Location + Pattern'Length - 1)) /=
+         Slided_Pattern
+   then
+      Valid := False;  -- Being out parameter, it should be modified at least once.
+      R1    := 0.0;
+      R2    := 0.0;
+<<lab>>
+   else
+      Valid := True;
+      R1    := (-B + Sqrt (Z)) / (2.0 * A);
+      R2    := (-B - Sqrt (Z)) / (2.0 * A);
+   end if;
+end Quadratic_Equation;
+
+
+procedure Error_Handling_4 is
+
+   Float_Error : exception;
+
+   type DEVICE is (PRINTER, DISK, DRUM);
+   type STATE  is (OPEN, CLOSED);
+
+   type PERIPHERAL(UNIT : DEVICE := DISK) is
+      record
+         STATUS : STATE;
+         case UNIT is
+            when PRINTER =>
+               LINE_COUNT : INTEGER range 1 .. PAGE_SIZE;
+            when others =>
+               CYLINDER   : CYLINDER_INDEX;
+               TRACK      : TRACK_NUMBER;
+         end case;
+      end record;
+
+
+   function Square_Root (X : in Float) return Float is
+      use Ada.Numerics.Elementary_Functions;
+   begin
+      if (X < 0.0) then
+         raise Float_Error;
+      else
+         return Sqrt (X);
+      end if;
+   end Square_Root;
+
+begin
+
+   begin
+      C := Square_Root (A ** 2 + B ** 2);
+
+      T_IO.Put ("C is ");
+      F_IO.Put
+         (Item => C,
+          Fore => (F_IO.Default_Fore +
+                   1 ),
+          Aft  => F_IO.Default_Aft,
+          Exp  => F_IO.Default_Exp);
+   exception
+      when Constraint_Error =>
+         T_IO.Put ("C cannot be calculated!");
+   end;
+
+   return;
+end Error_Handling_4;
+
+
+procedure Range_1 is
+   type Range_Type is range -5 .. 10;
+
+   Default_String : constant String := "This is the long string returned by" &
+                                       " default.  It is broken into multiple" &
+                                       " Ada source lines for convenience.";
+
+   Another_Default_String : constant String :=
+      "This is the long string returned by" &
+      " default.  It is broken into multiple" &
+      " Ada source lines for convenience.";
+
+   type Op_Codes_In_Column is
+           ( Push,
+             Pop,
+             Add );
+
+   package T_IO renames Ada.Text_IO;
+   package I_IO is
+      new  Ada.Text_IO.Integer_IO (Range_Type);
+
+   a: real;
+
+
+begin
+   for A in Range_Type loop
+      I_IO.Put (Item  => A,
+                Width => 3,                   -- CHECK: params should line up
+                Base  => 10);
+
+      if A < Range_Type'Last then
+         Process_Each_Page:
+         loop
+
+            declare
+               package Float_100_Stack is new Generic_Stack (100, Float);
+               use Float_100_Stack;
+            begin
+               Push (45.8);
+            end;
+
+            Process_All_The_Lines_On_This_Page:
+            loop
+               s1;
+               exit Process_All_The_Lines_On_This_Page when Line_Number = Max_Lines_On_Page;
+               s2;
+               Look_For_Sentinel_Value:
+               loop
+                  s3;
+                  exit Look_For_Sentinel_Value when Current_Symbol = Sentinel;
+                  s4;
+               end loop Look_For_Sentinel_Value;
+               s5;
+            end loop Process_All_The_Lines_On_This_Page;
+            s6;
+            exit Process_Each_Page when Page_Number = Maximum_Pages;
+            s7;
+         end loop Process_Each_Page;
+      else
+         T_IO.New_Line;
+
+         -- comment below scans back to here !!??
+         for I in  A'Range (1) loop
+            for J in  A'Range (2) loop
+               Sum := 0.0;
+               for R in  A'Range (2) loop
+                  Sum := Sum + A.all (I, R) * B.all (R, J);
+               end loop;
+               C.all (I, J) := Sum +
+                               second_part_of_long_expression +
+                               third_part_of_long_expression;
+               if Input_Found then
+                  Count_Characters;
+
+               else  --not Input_Found
+                  Reset_State;
+                  Character_Total :=
+                     First_Part_Total  * First_Part_Scale_Factor  +
+                     Second_Part_Total * Second_Part_Scale_Factor +
+                     Default_String'Length + Delimiter_Size;
+               end if;
+
+            end loop;
+         end loop;
+      end if;
+   end loop;
+end Range_1;
+
+-- generic instantiation   -- TODO: wrong, ...
+-- ... statementIndent() scans back to for R in A'Range ... ??? ...
+-- ... because it skips over the ends
+
+package Day_Of_Month_IO is  -- TODO: scans back to beginning of file: generic? should have stopped at 'procedure'
+   new Ada.Text_IO.Integer_IO (Day_Of_Month);
+
+procedure f;
+
+-- CHECK: these should be recognised as forward procedures ...
+procedure Day_Of (Day, Month, Year : in Integer;
+                  Result           : out Integer);
+procedure x;
+procedure x1;
+
+procedure TRAVERSE_TREE;
+procedure INCREMENT(X : in out INTEGER);
+procedure RIGHT_INDENT(MARGIN : out LINE_SIZE);          --  see 3.5.4
+procedure SWITCH(FROM, TO : in out LINK);                --  see 3.8.1
+
+function RANDOM return PROBABILITY;                      --  see 3.5.7
+
+function MIN_CELL(X : LINK) return CELL;                 --  see 3.8.1
+function NEXT_FRAME(K : POSITIVE) return FRAME;          --  see 3.8
+function DOT_PRODUCT(LEFT,RIGHT: VECTOR) return REAL;    --  see 3.6
+
+function "*"(LEFT,RIGHT : MATRIX) return MATRIX;         --  see 3.6
+
+procedure Nesting is
+
+   procedure Triple is
+
+      procedure Second_Layer(Persistence : in out Persistence_View;
+                             Stream      : not null access Root_Stream_Type'Class)
+      is
+
+         procedure Bottom_Layer is
+         begin
+            Put_Line("This is the Bottom Layer talking.");
+            Do_Something;
+
+            if Test then
+               goto Exit_Use_Goto;
+            end if;
+            Do_Something_Else;
+         <<Label>>
+
+         <<Exit_Use_Goto>>  -- CHECK: should align with 'begin'
+            return;
+         end Bottom_Layer;
+
+      begin -- Second_Layer
+         Put_Line("This is the Second Layer talking.");
+         Bottom_Layer;
+      <<Exit_Use_Goto>>  -- CHECK: should align with 'begin'
+         Put_Line("We are back up to the Second Layer.");
+      end Second_Layer;
+
+   begin -- Triple
+      Put_Line("This is procedure Triple talking to you.");
+      Second_Layer;
+      Put_Line("We are back up to the procedure named Triple.");
+   end Triple;
+
+begin -- Nesting
+   Put_Line("Start the triple nesting here.");
+   Triple;
+   Put_Line("Finished, and back to the top level.");
+end Nesting;
+
+
+procedure Proced3 is
+
+   Dogs, Cats, Animals : INTEGER;
+
+   -- This is a procedure specification
+   procedure Total_Number_Of_Animals(Variety1 : in     INTEGER;
+                                     Variety2 : in     INTEGER;
+                                     Total    :    out INTEGER);
+
+   -- This is a procedure body
+   procedure Total_Number_Of_Animals(Variety1 : in     INTEGER;
+                                     Variety2 : in     INTEGER;
+                                     Total    :    out INTEGER) is
+   begin
+      Total := Variety1 + Variety2;
+   end Total_Number_Of_Animals;
+
+begin
+   Dogs := 3;
+   Cats := 4;
+   if some_condition
+      or some_other_condition
+      or yet_another_condition
+   then
+      action( a,
+              b+c,
+              c + d
+              + e +f +g,  -- would be nice if this was indented
+            );
+
+   end if;
+
+   Total_Number_Of_Animals(Dogs, Cats, Animals);
+   Put("The total number of animals is");
+   Put(Animals, 3);
+   if cond then
+      while c loop
+         for i in integer  -- multiline for loop
+            range 1..1000
+         loop
+            a := long_expression
+                 + long_expression
+                 + long_expression;
+            a(i) := 10;
+         end loop;
+         a := long_expression
+              + long_expression
+              + long_expression;
+
+         while x > 0
+            and x <= 100
+         loop                -- CHECK: not indented
+            loop             -- CHECK: indented
+               a := q1 +
+                    q2 +
+                    q3;
+            end loop;
+         end loop;
+
+         while x > 0 loop
+            loop -- forever loop
+               aaaaaaa :=
+                  q1 +
+                  q2 +
+                  q3;
+            end loop;
+         end loop;
+      end loop;
+
+      end loop;
+
+      fredzarmplezzzzzzzzzzzz(       arg1,
+                                     arg1,
+                                     arg2,
+                                     arg3
+                             );
+      x := f(a) + f(b);
+      fffffffffffff(    func0(  func1(    func2( f3(       arg1,
+                                                           arg2,
+                                                           arg3,
+                                                           arg4
+                                                   ),
+                                                 a1,  -- should be aligned with arg f3, not '('
+                                                 a2,
+                                                 a3,
+                                                 a4
+                                               ),
+
+                                          aa2,
+                                          aa3,
+                                          aa4,
+                                          aa5
+                                     ),
+                                bb1,
+                                bb2,
+                                bb3,
+                                bb4
+                             ),
+                        cc1,
+                        cc2,
+                        cc3,
+                        cc4
+                   );
+
+      s1;
+   end if;
+
+   New_Line;
+end Proced3;
+
+
+procedure Main is
+   task Sub is
+      entry Wake_Up(I: Integer);
+   end Sub;
+
+   task body Sub is
+      Stop: Boolean := False;
+   begin
+      while not Stop loop
+         Put("Sub:  Wait"); New_Line(1);
+         accept Wake_Up(I: Integer) do
+            Put("Sub:  "); Put(I); New_Line(1);
+            if I = 0 then
+               Stop := True;
+            end if;
+         end Wake_Up;
+      end loop;
+      Put("Sub:  Stop"); New_Line(1);
+   end Sub;
+begin
+   Extract_Publisher:
+   for Index in Base_11_Digits (Item.Country + 1) ..
+      Base_11_Digits (Item.Publisher) loop
+      declare
+
+         Digit : constant Natural range 0 .. 9
+            := Natural (Item.Number (Index));
+         Power : constant Natural range 0 .. 9
+            := Item.Publisher - Natural (Index);
+
+      begin
+         Publisher := Publisher + Digit * (10 ** Power);
+      end;
+   end loop Extract_Publisher;   -- CHECK: matches 'for' above
+
+   Put("Main: Stop"); New_Line(1);
+   declare
+   begin
+   end;
+   if c
+      and c2
+   then
+      s1;
+      for i in a'range
+      loop
+         loop
+            s12;
+            s13;
+         end lop;
+      end loop;
+   elsif c05
+      or c06
+   then
+      s12;
+   elsif c1 then
+      s2;
+   else
+      s3;
+      a12 :=
+         f(13);
+   end if;
+end;
+end;
+
+
+package Utilities is
+   generic
+      type Item is private;
+   procedure Swap(L, R : in out Item);
+   -- A handy package at the project-specific level
+   -- A constrained generic formal parameter
+   generic
+      type Item is (<>);
+   function Next (Data : Item) return Item;
+   -- A discrete type generic formal parameter
+   generic
+      type Item is (<>);
+      -- A discrete type generic formal parameter
+   function Prev (Data : Item) return Item;
+   -- more generic subprograms as appropriate to your particular project needs
+end Utilities;
+
+
+// kate: line-numbers true; indent-width 3; replace-tabs on
+// kate: debugMode off

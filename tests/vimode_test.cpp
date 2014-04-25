@@ -2889,6 +2889,13 @@ void ViModeTest::MappingTests()
   QApplication::sendPostedEvents();
   FinishTest("foo bar");
 
+  // Mapping the u and the U commands to other keys.
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, "t", "u", KateViGlobal::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, "r", "U", KateViGlobal::Recursive);
+  DoTest("", "ihello\\esct", "");
+  DoTest("", "ihello\\esctr", "hello");
+
   // Clear mappings for subsequent tests.
   clearAllMappings();
 }

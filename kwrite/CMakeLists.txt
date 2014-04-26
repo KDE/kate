@@ -1,7 +1,7 @@
 project (kwrite)
 
 # Load the frameworks we need
-find_package(KF5 CONFIG REQUIRED COMPONENTS DBusAddons)
+find_package(KF5 REQUIRED COMPONENTS DBusAddons)
 
 set(kwrite_KDEINIT_SRCS main.cpp kwrite.cpp)
 

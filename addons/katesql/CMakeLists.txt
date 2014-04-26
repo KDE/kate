@@ -1,7 +1,7 @@
 project(katesqlplugin)
 
 # Load the frameworks we need
-find_package(KF5 CONFIG REQUIRED COMPONENTS Wallet)
+find_package(KF5 REQUIRED COMPONENTS Wallet)
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 

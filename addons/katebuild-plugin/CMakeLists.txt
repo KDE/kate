@@ -1,5 +1,5 @@
 # Load the frameworks we need
-find_package(KF5 CONFIG REQUIRED COMPONENTS Notifications)
+find_package(KF5 REQUIRED COMPONENTS Notifications)
 
 set(katebuild_SRCS plugin_katebuild.cpp targets.cpp selecttargetdialog.cpp)
 

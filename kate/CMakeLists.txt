@@ -4,7 +4,7 @@
 project(kate)
 
 # Load the frameworks we need
-find_package(KF5 CONFIG REQUIRED COMPONENTS DBusAddons)
+find_package(KF5 REQUIRED COMPONENTS DBusAddons)
 
 # .desktop files and co
 add_subdirectory (data)

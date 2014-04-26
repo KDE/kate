@@ -1,5 +1,5 @@
 project (kateopenheader)
-find_package(KF5 CONFIG REQUIRED COMPONENTS TextEditor
+find_package(KF5 REQUIRED COMPONENTS TextEditor
     KIO
     Parts
     XmlGui )

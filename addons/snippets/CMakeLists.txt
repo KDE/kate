@@ -1,7 +1,7 @@
 project (katesnippets)
 
 # Load the frameworks we need
-find_package(KF5 CONFIG REQUIRED COMPONENTS NewStuff)
+find_package(KF5 REQUIRED COMPONENTS NewStuff)
 
 ########### next target ###############
 

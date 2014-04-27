@@ -12,5 +12,5 @@ install(TARGETS katefiletemplates  DESTINATION ${PLUGIN_INSTALL_DIR} )
 ########### install files ###############
 
 install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/katefiletemplates )
-install( FILES katetemplate.xml  DESTINATION  ${DATA_INSTALL_DIR}/katepart/syntax )
+install( FILES katetemplate.xml  DESTINATION  ${DATA_INSTALL_DIR}/katepart5/syntax )
 install( FILES katefiletemplates.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

@@ -230,7 +230,7 @@
         <DetectIdentifier />
         <!-- Match comments -->
         <IncludeRules context="##Doxygen" />
-        <IncludeRules context="AlignedComments" />
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/" />
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment" />
         <!-- Match scope regions -->
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
@@ -368,7 +368,7 @@
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;" />
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*" beginRegion="Comment2" />
-        <IncludeRules context="AlignedComments" />
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/" />
       </context>
 
       <context name="Define" attribute="Preprocessor" lineEndContext="#pop">
@@ -390,7 +390,7 @@
         <IncludeRules context="##Modelines" />
         <DetectIdentifier />
         <IncludeRules context="##Doxygen" />
-        <IncludeRules context="AlignedComments" />
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/" />
         <!-- Do not try to detect "C" style comments inside outscoped text
              to prevent incorrect highlighting in case of overlapped (or not closed properly)
              comment block...
@@ -425,30 +425,10 @@
         <IncludeRules context="##Modelines" />
         <DetectIdentifier />
         <IncludeRules context="##Doxygen" />
-        <IncludeRules context="AlignedComments" />
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/" />
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment" />
         <RegExpr attribute="Comment" context="Outscoped intern" String="(#|%\:|\?\?=)\s*if" beginRegion="PP" firstNonSpace="true" insensitive="false" />
         <RegExpr attribute="Comment" context="#pop" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" insensitive="false" />
-      </context>
-
-      <context name="AlignedComments" lineEndContext="#stay" attribute="Comment">
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="0" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="4" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="8" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="12" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="16" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="20" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="24" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="28" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="32" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="36" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="40" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="44" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="48" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="52" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="56" char="/" char1="/" />
-        <Detect2Chars attribute="Region Marker" context="Commentar 1" column="60" char="/" char1="/" />
-        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/" />
       </context>
     </contexts>
 

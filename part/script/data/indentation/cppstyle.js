@@ -1000,8 +1000,12 @@ function trySameLineComment(cursor)
     var sc = splitByComment(line);
     if (sc.hasComment)                                      // Is there any comment on a line?
     {
-        // Make sure we r not in a comment already
-        if (document.isComment(line, document.firstColumn(line)) && (document.line(line) != '///'))
+        // Make sure we r not in a comment already -- it can be a multiline one...
+        var fc = document.firstColumn(line);
+        var text = document.line(line).ltrim();
+        var nothing_to_do = (fc < (column - 1)) && document.isComment(line, fc);
+        // Also check that line has smth that needs to be "fixed"...
+        if (nothing_to_do && text != "//" && text != "// /" && text != "///" && text != "/// /")
             return;
         // If no text after the comment and it still not aligned
         var text_len = sc.before.rtrim().length;
@@ -1029,6 +1033,11 @@ function trySameLineComment(cursor)
             // Form a Doxygen comment!
             document.removeText(line, column, line, column + sc.after.length);
             document.insertText(line, column, text_len != 0 ? "< " : " ");
+        }
+        else if (sc.after == "/ /")
+        {
+            // Looks like user wants to "draw a fence" w/ '/'s
+            document.removeText(line, column - 2, line, column - 1);
         }
         else if (text_len == 0 && sc.after.length == 0)
         {

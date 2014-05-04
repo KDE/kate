@@ -7,13 +7,13 @@
     <!ENTITY punctuators ":&ns_punctuators;">
 ]>
 <!--
-  Copyright (c) 2012 by Alex Turbov (i.zaufi@gmail.com)
+  Copyright (c) 2012-2014 by Alex Turbov (i.zaufi@gmail.com)
 
   Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language
     name="GCCExtensions"
-    version="0.3"
+    version="0.4"
     kateversion="2.4"
     section="Sources"
     extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;"
@@ -552,6 +552,11 @@
 
     <context name="Close" attribute="GNU Extensions" lineEndContext="#stay">
       <DetectChar attribute="GNU Extensions" context="#pop" char=")" />
+      <DetectChar attribute="String" context="AttrStringArg" char="&quot;" />
+    </context>
+
+    <context name="AttrStringArg" attribute="String" lineEndContext="#stay">
+      <DetectChar attribute="String" context="#pop" char="&quot;" />
     </context>
 
   </contexts>
@@ -562,6 +567,7 @@
     <itemData name="GNU Functions"  defStyleNum="dsOthers" spellChecking="false" />
     <itemData name="GNU Macros"     defStyleNum="dsOthers" spellChecking="false" />
     <itemData name="GNU Types"      defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="String"         defStyleNum="dsString" spellChecking="false" />
   </itemDatas>
 </highlighting>
 

@@ -33,7 +33,7 @@
     section="Other"
     extensions="CMakeLists.txt;*.cmake;*.cmake.in"
     style="CMake"
-    mimetype=""
+    mimetype="text/x-cmake"
     author="Alexander Neundorf (neundorf@kde.org)"
     license="LGPL"
   >

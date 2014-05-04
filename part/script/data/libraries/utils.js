@@ -37,7 +37,7 @@ function dbg()
  * \return \c true if attribute at given position is a \e Comment
  *
  * \note C++ highlighter use \em RegionMarker for special comments,
- * soit must be counted as well...
+ * so it must be counted as well...
  *
  * \todo Provide an "overload" which accepts a \c Cursor
  */

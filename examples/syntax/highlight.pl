@@ -21,6 +21,7 @@ sub prg($)
 	
 	$foo = <<__EOF;
 d ahfdklf klsdfl sdf sd
+  SHOULD NOT MATCH: __EOF <--
 fsd sdf sdfsdlkf sd
 __EOF
 

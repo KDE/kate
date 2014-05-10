@@ -29,7 +29,7 @@
  -->
 
 <language name="Doxygen"
-          version="1.35"
+          version="1.36"
           kateversion="2.4"
           section="Markup"
           extensions="*.dox;*.doxygen"
@@ -53,15 +53,19 @@
       <item> \date </item>             <item> @date </item>
       <item> \deprecated </item>       <item> @deprecated </item>
       <item> \details </item>          <item> @details </item>
+      <item> \docbookonly </item>      <item> @docbookonly </item>
       <item> \else </item>             <item> @else </item>
       <item> \endcond </item>          <item> @endcond </item>
+      <item> \enddocbookonly </item>   <item> @enddocbookonly </item>
       <item> \endhtmlonly </item>      <item> @endhtmlonly </item>
       <item> \endif </item>            <item> @endif </item>
-      <item> \enditernal </item>       <item> @enditernal </item>
+      <item> \endinternal </item>      <item> @endinternal </item>
       <item> \endlatexonly </item>     <item> @endlatexonly </item>
       <item> \endlink </item>          <item> @endlink </item>
       <item> \endmanonly </item>       <item> @endmanonly </item>
+      <item> \endparblock </item>      <item> @endparblock </item>
       <item> \endrtfonly </item>       <item> @endrtfonly </item>
+      <item> \endsecreflist </item>    <item> @endsecreflist </item>
       <item> \endxmlonly </item>       <item> @endxmlonly </item>
       <item> \f[ </item>               <item> @f[ </item>
       <item> \f] </item>               <item> @f] </item>
@@ -78,6 +82,7 @@
       <item> \n </item>                <item> @n </item>
       <item> \nosubgrouping </item>    <item> @nosubgrouping </item>
       <item> \only </item>             <item> @only </item>
+      <item> \parblock </item>         <item> @parblock </item>
       <item> \post </item>             <item> @post </item>
       <item> \pre </item>              <item> @pre </item>
       <item> \private </item>          <item> @pivate </item>
@@ -86,16 +91,20 @@
       <item> \protectedsection </item> <item> @protectedsection </item>
       <item> \public </item>           <item> @public </item>
       <item> \publicsection </item>    <item> @publicsection </item>
+      <item> \pure </item>             <item> @pure </item>
+      <item> \remark </item>           <item> @remark </item>
       <item> \remarks </item>          <item> @remarks </item>
       <item> \return </item>           <item> @return </item>
       <item> \returns </item>          <item> @returns </item>
       <item> \result </item>           <item> @result </item>
       <item> \rtfonly </item>          <item> @rtfonly </item>
       <item> \sa </item>               <item> @sa </item>
+      <item> \secreflist </item>       <item> @secreflist </item>
       <item> \see </item>              <item> @see </item>
       <item> \short </item>            <item> @short </item>
       <item> \showinitializer </item>  <item> @showinitializer </item>
       <item> \since </item>            <item> @since </item>
+      <item> \static </item>           <item> @static </item>
       <item> \tableofcontents </item>  <item> @tableofcontents </item>
       <item> \test </item>             <item> @test </item>
       <item> \version </item>          <item> @version </item>
@@ -112,6 +121,9 @@
       <item> \@ </item>                <item> @@ </item>
       <item> \\ </item>                <item> @\ </item>
       <item> \~ </item>                <item> @~ </item>
+      <item> \. </item>                <item> @. </item>
+      <item> \-- </item>               <item> @-- </item>
+      <item> \--- </item>              <item> @--- </item>
     </list>
 
     <list name="TagWord">
@@ -119,6 +131,7 @@
       <item> \anchor </item>           <item> @anchor </item>
       <item> \b </item>                <item> @b </item>
       <item> \c </item>                <item> @c </item>
+      <item> \cite </item>             <item> @cite </item>
       <item> \cond </item>             <item> @cond </item>
       <item> \copybrief </item>        <item> @copybrief </item>
       <item> \copydetails </item>      <item> @copydetails </item>
@@ -136,11 +149,13 @@
       <item> \extends </item>          <item> @extends </item>
       <item> \file </item>             <item> @file </item>
       <item> \htmlinclude </item>      <item> @htmlinclude </item>
+      <item> \idlexcept </item>m>      <item> @idlexcept </item>
       <item> \if </item>               <item> @if </item>
       <item> \ifnot </item>            <item> @ifnot </item>
       <item> \implements </item>       <item> @implements </item>
       <item> \include </item>          <item> @include </item>
       <item> \includelineno </item>    <item> @includelineno </item>
+      <item> \latexinclude </item>     <item> @latexinclude </item>
       <item> \link </item>             <item> @link </item>
       <item> \memberof </item>         <item> @memberof </item>
       <item> \namespace </item>        <item> @namespace </item>
@@ -176,6 +191,7 @@
       <item> \addtogroup </item>       <item> @addtogroup </item>
       <item> \category </item>         <item> @category </item>
       <item> \class </item>            <item> @class </item>
+      <item> \diafile </item>          <item> @diafile </item>
       <item> \dotfile </item>          <item> @dotfile </item>
       <item> \defgroup </item>         <item> @defgroup </item>
       <item> \interface </item>        <item> @interface </item>
@@ -209,6 +225,7 @@
       <item> \typedef </item>          <item> @typedef </item>
       <item> \until </item>            <item> @until </item>
       <item> \var </item>              <item> @var </item>
+      <item> \vhdlflow </item>         <item> @vhdlflow </item>
     </list>
     <list name="Note">
       <item> \note </item>             <item> @note </item>
@@ -469,7 +486,7 @@
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal" />
       <itemData name="Tags"         defStyleNum="dsKeyword" color="#ca60ca" bold="1" italic="0" />
-      <itemData name="Custom Tags"   defStyleNum="dsNormal"  color="#458C61" bold="1" italic="0" />
+      <itemData name="Custom Tags"  defStyleNum="dsNormal"  color="#458C61" bold="1" italic="0" />
       <itemData name="Word"         defStyleNum="dsKeyword" color="#0095ff" bold="1" italic="0" />
       <itemData name="HTML Tag"     defStyleNum="dsKeyword" color="#000000" bold="1" italic="0" />
       <itemData name="Entities"     defStyleNum="dsOthers" color="#4086C0" bold="1" italic="1" />

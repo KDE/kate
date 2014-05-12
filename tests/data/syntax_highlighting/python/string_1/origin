@@ -1,0 +1,4 @@
+# bugs: 313007, 320813
+dictionary = {
+    "key": "value",
+}

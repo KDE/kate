@@ -21,6 +21,8 @@
 #include <QtCore/QStringList>
 #include <QtCore/QPair>
 
+#define FAILURE( test, comment ) qMakePair<const char*, const char*>( (test), (comment) )
+
 class TestScriptEnv;
 class KateDocument;
 class KateView;

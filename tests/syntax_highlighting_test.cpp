@@ -1,7 +1,7 @@
 /**
  * This file is part of the KDE project
  *
- * Copyright (C) 2013 Gerald Senarclens de Grancy <oss@senarclens.eu>
+ * Copyright (C) 2014 Gerald Senarclens de Grancy <oss@senarclens.eu>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,7 +21,7 @@
  */
 
 //BEGIN Includes
-#include "scripting_test.h"
+#include "syntax_highlighting_test.h"
 
 #include "kateview.h"
 #include "katedocument.h"
@@ -78,23 +78,22 @@
 #include "script_test_base.h"
 #include "testutils.h"
 
-QTEST_KDEMAIN(ScriptingTest, GUI)
+QTEST_KDEMAIN(SyntaxHighlightingTest, GUI)
 
 
-void ScriptingTest::initTestCase()
+void SyntaxHighlightingTest::initTestCase()
 {
   ScriptTestBase::initTestCase();
-  m_section = "scripting";
-  m_script_dir = "";
+  m_section = "syntax_highlighting";
 }
 
 
-void ScriptingTest::bugs_data()
+void SyntaxHighlightingTest::testPython_data()
 {
-  getTestData( "bugs" );
+    getTestData( "python" );
 }
 
-void ScriptingTest::bugs()
+void SyntaxHighlightingTest::testPython()
 {
     runTest( ExpectedFailures() );
 }

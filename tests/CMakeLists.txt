@@ -235,6 +235,18 @@ kde4_add_unit_test(scripting_test TESTNAME kate-scripting_test ${scripting_test_
 
 target_link_libraries(scripting_test ${KATE_TEST_LINK_LIBS})
 
+########### syntax highlighting test ################
+
+set(syntax_highlighting_test_SRCS
+  syntax_highlighting_test.cpp
+  script_test_base.cpp
+  testutils.cpp
+)
+
+kde4_add_unit_test(syntax_highlighting_test TESTNAME kate-syntax_highlighting_test ${syntax_highlighting_test_SRCS})
+
+target_link_libraries(syntax_highlighting_test ${KATE_TEST_LINK_LIBS})
+
 ########### bug 286887 test ###############
 
 kde4_add_unit_test(bug286887_test TESTNAME kate-bug286887_test bug286887.cpp)

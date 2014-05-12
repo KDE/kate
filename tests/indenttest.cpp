@@ -85,7 +85,6 @@
 
 QTEST_KDEMAIN(IndentTest, GUI)
 
-#define FAILURE( test, comment ) qMakePair<const char*, const char*>( (test), (comment) )
 
 void IndentTest::initTestCase()
 {

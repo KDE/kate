@@ -6,6 +6,7 @@
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++, C++/Qt4, ISO C++
+ * required-syntax-style: C++
  *
  * This file is part of the Kate Project.
  *

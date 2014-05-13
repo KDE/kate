@@ -1055,7 +1055,7 @@ and in the configuration dialog.
 <literal>kate-version</literal> [required]: Minimum required &kappname; version.
 </para></listitem>
 <listitem><para>
-<literal>required-syntax-style</literal> [optional]: Comma separated list of required syntax highlighting styles. This is important for indenters that rely on specific highlight information in the document. If a required syntax style is specified, the indenter is available only when the appropriate highlighter is active. This prevents <quote>undefined behavior</quote> caused by using the indenter without the expected highlighting schema. For instance, the Ruby indenter makes use of this in the files <filename>ruby.js</filename> and <filename>ruby.xml</filename>.
+<literal>required-syntax-style</literal> [optional]: The required syntax style, which matches the specified <literal>style</literal> in syntax highlighting files. This is important for indenters that rely on specific highlight information in the document. If a required syntax style is specified, the indenter is available only when the appropriate highlighter is active. This prevents <quote>undefined behavior</quote> caused by using the indenter without the expected highlighting schema. For instance, the Ruby indenter makes use of this in the files <filename>ruby.js</filename> and <filename>ruby.xml</filename>.
 </para></listitem>
 <listitem><para>
 <literal>indent-languages</literal> [optional]: Comma separated list of syntax styles the indenter can indent correctly, &eg;: c++, java.

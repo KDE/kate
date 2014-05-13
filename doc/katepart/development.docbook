@@ -262,6 +262,7 @@ Available attributes are:</term>
 <para><userinput>priority</userinput> is necessary if another highlight definition file uses the same extensions. The higher priority will win.</para>
 <para><userinput>author</userinput> contains the name of the author and his email-address.</para>
 <para><userinput>license</userinput> contains the license, usually LGPL, Artistic, GPL or others.</para>
+<para><userinput>style</userinput> contains the provided language and is used by the indenters for the attribute <literal>required-syntax-style</literal>.</para>
 <para><userinput>hidden</userinput> defines whether the name should appear in &kappname;'s menus.</para>
 <para>So the next line may look like this:</para>
 <programlisting>

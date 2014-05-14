@@ -45,10 +45,10 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     /**
      * then use i18n and co
      */
-    KAboutData aboutData(QStringLiteral("kwrite"), QString(),
+    KAboutData aboutData(QStringLiteral("kwrite"),
                          i18n("KWrite"),
                          QStringLiteral(KATE_VERSION),
-                         i18n("KWrite - Text Editor"), KAboutData::License_LGPL_V2,
+                         i18n("KWrite - Text Editor"), KAboutLicense::LGPL_V2,
                          i18n("(c) 2000-2014 The Kate Authors"), QString(), QStringLiteral("http://kate-editor.org"));
 
     /**

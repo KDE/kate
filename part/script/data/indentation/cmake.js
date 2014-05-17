@@ -563,7 +563,8 @@ function insertVariableExpansion(cursor)
     dbg("insertVariableExpansion: next_ch ='"+next_ch+"'");
     if (!next_ch.match(/[A-Za-z_]/))
     {
-        document.insertText(cursor, "{}");
+        if (next_ch != '{')
+            document.insertText(cursor, "{}");
         view.setCursorPosition(cursor.line, cursor.column + 1);
     }
 }

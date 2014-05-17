@@ -9,3 +9,7 @@ v.type("ok");
 v.setCursorPosition(2,7);
 v.type("{");
 v.type("ok");
+
+v.setCursorPosition(3,5);
+v.type("$");
+v.type("ok");

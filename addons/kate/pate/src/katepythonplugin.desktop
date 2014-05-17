@@ -41,8 +41,14 @@ Comment[x-test]=xxKate Python Pluginxx
 Comment[zh_CN]=Kate Python 插件
 Comment[zh_TW]=Kate Python 外掛程式
 
+[PropertyDef::X-Python-Dependencies]
+Type=QStringList
+
+[PropertyDef::X-Python-2-Dependencies]
+Type=QStringList
+
 [PropertyDef::X-Python-2-Compatible]
 Type=bool
 
-[PropertyDef::X-Python-3-Compatible]
+[PropertyDef::X-Python-2-Only]
 Type=bool

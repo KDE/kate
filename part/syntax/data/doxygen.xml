@@ -30,7 +30,7 @@
 
 <language name="Doxygen"
           version="1.36"
-          kateversion="2.4"
+          kateversion="2.5"
           section="Markup"
           extensions="*.dox;*.doxygen"
           mimetype="text/x-doxygen"
@@ -508,7 +508,7 @@
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="0" weakDeliminator="\$~" />
+    <keywords casesensitive="1" weakDeliminator="\$~" />
   </general>
 </language>
 <!-- kate: indent-width 2; -->

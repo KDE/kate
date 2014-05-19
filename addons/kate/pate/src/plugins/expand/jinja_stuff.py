@@ -68,7 +68,6 @@ def _is_int(s):
     return isinstance(s,int)
 
 
-@functools.lru_cache()
 def _getJinjaEnvironment(baseDir):
     kate.kDebug('Make a templates loader for a base dir: {}'.format(baseDir))
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(baseDir))

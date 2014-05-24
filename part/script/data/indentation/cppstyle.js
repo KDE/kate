@@ -1149,8 +1149,6 @@ function tryTemplate(cursor)
  * \param cursor initial cursor position
  * \param es edit session instance
  * \return new (possible modified) cursor position
- *
- * \attention This function \b never calls \c editEnd() for a given \c es instance!
  */
 function tryJumpOverParenthesis(cursor)
 {
@@ -1281,13 +1279,24 @@ function tryComma(cursor)
     var column = cursor.column;
     // Check is comma a very first character on a line...
     if (justEnteredCharIsFirstOnLine(line, column, ','))
+    {
         result = tryIndentRelativePrevNonCommentLine(line);
+    }
+    else
+    {
+        // Try to stick a comma to a previous non-space char
+        var lastWordPos = document.text(line, 0, line, column - 1).rtrim().length;
+        if (lastWordPos < column)
+        {
+            document.removeText(line, column - 1, line, column);
+            document.insertText(line, lastWordPos, ",");
+            cursor = new Cursor(line, lastWordPos + 1);
+            view.setCursorPosition(cursor);
+        }
+    }
 
     cursor = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
-    if (document.charAt(cursor) != ' ')
-        document.insertText(cursor, " ");                   // Add space only if not present
-    else
-        view.setCursorPosition(line, column + 1);           // Otherwise just move cursor after it
+    addCharOrJumpOverIt(cursor.line, cursor.column, ' ');
     return result;
 }
 
@@ -2184,7 +2193,7 @@ function tryKeywordsWithBrackets(cursor)
 }
 
 /**
- * Try to add space before, after some equal operators.
+ * Try to add space before and after some equal operators.
  */
 function tryEqualOperator(cursor)
 {
@@ -2200,7 +2209,7 @@ function tryEqualOperator(cursor)
 
     switch (c)
     {
-        // Two chars operators: !=, ==
+        // Two chars operators: !=, ==, ...
         case '*':
         case '%':
         case '/':
@@ -2222,6 +2231,7 @@ function tryEqualOperator(cursor)
         case '}':                                           // It can be a ctor of some proxy object
             // Add a space between closing bracket and just entered '='
             document.insertText(line, column - 1, " ");
+            addCharOrJumpOverIt(line, column + 1, ' ');     // Make sure there is a space after it!
             break;
         case '<':
             // Shortcut: transfrom "some<=|>" -> "some <= |"
@@ -2628,7 +2638,7 @@ function alignInsideBraces(line)
               ;
             var desiredIndent = parentIndent + (
                 mustAddHalfTab
-              ? 2
+              ? (gIndentWidth / 2)
               : (doNotAddAnything ? 0 : gIndentWidth)
               );
             result = desiredIndent;                         // Reassign a result w/ desired value!

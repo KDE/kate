@@ -8,7 +8,7 @@
   Copyright (c) 2012-2014 by Alex Turbov (i.zaufi@gmail.com)
   -->
 <language name="Modelines"
-          version="1.1"
+          version="1.2"
           kateversion="2.4"
           section="Other"
           extensions=""
@@ -34,18 +34,19 @@
     <!-- NOTE Deprecated since KDE 4.10 -->
     <!-- <item> auto-brackets </item> -->
     <item> auto-insert-doxygen </item>
+    <item> automatic-spell-checking </item>                 <!-- NOTE Since KDE 4.?? -->
     <item> backspace-indents </item>
     <item> block-selection </item>
+    <item> bookmark-sorting </item>
     <item> bom </item>
     <item> byte-order-marker </item>
+    <item> dynamic-word-wrap </item>
     <item> folding-markers </item>
     <item> icon-border </item>
-    <!-- Since KDE 4.11 -->
-    <item> indent-pasted-text </item>
+    <item> indent-pasted-text </item>                       <!-- Since KDE 4.11 -->
     <item> keep-extra-spaces </item>
     <item> line-numbers </item>
-    <!-- Since KDE 4.9 -->
-    <item> newline-at-eof </item>
+    <item> newline-at-eof </item>                           <!-- Since KDE 4.9 -->
     <item> overwrite-mode </item>
     <item> persistent-selection </item>
     <!-- NOTE Deprecated since KDE 4.10 -->
@@ -53,8 +54,10 @@
     <item> replace-tabs-save </item>
     <item> replace-tabs </item>
     <item> replace-trailing-space-save </item>
+    <item> smart-home </item>
     <item> space-indent </item>
     <item> show-tabs </item>
+    <item> show-trailing-spaces </item>                     <!-- NOTE Since KDE 4.?? -->
     <item> tab-indents </item>
     <item> word-wrap </item>
     <item> wrap-cursor </item>
@@ -75,8 +78,8 @@
   <list name="Integrals">
     <item> auto-center-lines </item>
     <item> font-size </item>
+    <item> indent-mode </item>
     <item> indent-width </item>
-    <item> smart-home </item>
     <item> tab-width </item>
     <item> undo-steps </item>
     <item> word-wrap-column </item>
@@ -87,15 +90,16 @@
     <item> bracket-highlight-color </item>
     <item> current-line-color </item>
     <item> default-dictionary </item>
-    <item> dynamic-word-wrap </item>
-    <item> eol </item>
-    <item> end-of-line </item> <!-- Valid settings are unix, mac and dos -->
+    <item> encoding </item>                                 <!-- NOTE Since KDE 4.?? -->
+    <item> eol </item>                                      <!-- Valid settings are unix, mac and dos -->
+    <item> end-of-line </item>                              <!-- Valid settings are unix, mac and dos -->
     <item> font </item>
     <item> hl </item>
     <item> icon-bar-color </item>
-    <item> indent-mode </item>
+    <item> mode </item>                                     <!-- NOTE Since KDE 4.?? -->
     <item> scheme </item>
     <item> selection-color </item>
+    <item> syntax </item>
     <item> word-wrap-marker-color </item>
   </list>
 

@@ -116,5 +116,5 @@ Type=Application
 Terminal=false
 InitialPreference=8
 X-DBUS-StartupType=Multi
-X-DBUS-ServiceName=org.kate-editor.kwrite
+X-DBUS-ServiceName=org.kde.kwrite
 Categories=Qt;KDE;Utility;TextEditor;

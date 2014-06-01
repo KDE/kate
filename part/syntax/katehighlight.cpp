@@ -875,8 +875,9 @@ void KateHighlighting::addToKateExtendedAttributeList()
  */
 int  KateHighlighting::lookupAttrName(const QString& name, QList<KateExtendedAttribute::Ptr> &iDl)
 {
+  const QString needle = buildPrefix + name;
   for (int i = 0; i < iDl.count(); i++)
-    if (iDl.at(i)->name() == buildPrefix+name)
+    if (iDl.at(i)->name() == needle)
       return i;
 
 #ifdef HIGHLIGHTING_DEBUG

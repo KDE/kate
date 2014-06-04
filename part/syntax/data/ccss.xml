@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE language SYSTEM "language.dtd">
+<!DOCTYPE language SYSTEM "language.dtd"
+[
+  <!-- http://www.w3.org/TR/CSS21/syndata.html#tokenization -->
+  <!ENTITY nmstart "[_a-zA-Z]|(\\[0-9a-fA-F]{1,6})|(\\[^\n\r\f0-9a-fA-F])">
+  <!ENTITY nmchar  "[_a-zA-Z0-9-]|(\\[0-9a-fA-F]{1,6})|(\\[^\n\r\f0-9a-fA-F])">
+]>
 
-<language name="CleanCSS" version="1.0" kateversion="2.4" section="Markup" extensions="*.ccss" author="Massimiliano Torromeo" license="BSD">
+<language name="CleanCSS" version="1.1" kateversion="2.4" section="Markup" extensions="*.ccss" author="Massimiliano Torromeo" license="BSD">
 
 <highlighting>
 	<list name="properties">
@@ -547,7 +552,7 @@
 
 		<context name="Selector" attribute="Normal Text" lineEndContext="#pop">
 			<DetectChar attribute="Selector Attr" context="SelAttr" char="[" />
-			<RegExpr attribute="Selector Id" context="#stay" String="#([a-zA-Z0-9\-_]|[\x80-\xFF]|\\[0-9A-Fa-f]{1,6})*" />
+			<RegExpr attribute="Selector Id" context="#stay" String="#(-)?(&nmstart;)(&nmchar;)*" />
 			<RegExpr attribute="Selector Class" context="#stay" String="\.([a-zA-Z0-9\-_]|[\x80-\xFF]|\\[0-9A-Fa-f]{1,6})*" />
 			<DetectChar attribute="Selector Pseudo" context="SelPseudo" char=":" />
 			<keyword attribute="Media" context="#stay" String="mediatypes" />

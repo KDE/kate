@@ -1,2 +1,2 @@
-kate: indent-mode cppstyle; replace-tabs true; indent-width 4; dynamic-word-wrap off; hl C++;
+kate: hl C++; indent-mode cppstyle; replace-tabs true; indent-width 4; dynamic-word-wrap off;
 

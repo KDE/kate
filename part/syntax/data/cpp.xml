@@ -11,10 +11,10 @@
 <language
     name="C++"
     section="Sources"
-    version="2.1"
+    version="2.2"
     kateversion="2.4"
     indenter="cstyle"
-    syntax="C++"
+    style="C++"
     mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
     extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc"
     author="Alex Turbov (i.zaufi@gmail.com)"

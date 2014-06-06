@@ -95,5 +95,5 @@ void SyntaxHighlightingTest::testPython_data()
 
 void SyntaxHighlightingTest::testPython()
 {
-    runTest( ExpectedFailures() );
+    runTest( ExpectedFailures() << FAILURE( "comment_1", "not a fail: ### is a alert in comments" ));
 }

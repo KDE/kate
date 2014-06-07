@@ -105,7 +105,7 @@ to make the rules more expressive. -->
     <!ENTITY bs         "\">
 ]>
 <language name="Prolog" section="Sources"
-	  version="1.1" kateversion="2.3"
+	  version="1.2" kateversion="2.3"
 	  mimetype="text/x-prolog"
 	  extensions="*.prolog;*.dcg;*.pro"
 	  author="Torsten Eichstädt (torsten.eichstaedt@web.de)"
@@ -656,7 +656,6 @@ TODO sorted by priority
 		<DetectChar char="&cut;" context="#stay" attribute="Normal Text" />
 		<DetectChar char="&bar;" context="#stay" attribute="other built-in operator" />
 		<Detect2Chars lookAhead="true" char="&dot;" char1="(" context="list_functor" attribute="Normal Text" />
-		<RegExpr String="&fullstop_iso;" context="#stay" attribute="Warning (!use background)" />
 		<IncludeRules context="atomic" />
 	    </context>
 	    <context name="curly" lineEndContext="#stay" attribute="Syntax Error" noIndentationBasedFolding="true" >
@@ -669,7 +668,6 @@ TODO sorted by priority
 		<DetectChar char="&cut;" context="#stay" attribute="Logic &amp; Control" />
 		<DetectChar char="&bar;" context="#stay" attribute="Normal Text" />
 		<Detect2Chars lookAhead="true" char="&dot;" char1="(" context="list_functor" attribute="Normal Text" />
-		<RegExpr String="&fullstop_iso;" context="#stay" attribute="Warning (!use background)" />
 		<IncludeRules context="atomic" />
 	    </context>
 
@@ -702,7 +700,6 @@ TODO sorted by priority
 		<DetectChar char="&comma;" context="#stay" attribute="Syntax Error" />
 		<!-- bar & dot could be a user-def'd op, pre-def'd ops could be redef'd; else these were errors -->
 		<DetectChar char="&bar;" context="#stay" attribute="Normal Text" />
-		<RegExpr String="&fullstop_iso;" context="#stay" attribute="Warning (!use background)" />
 		<RegExpr String="&logic_control_ops_iso;" context="#stay" attribute="other built-in operator" />
 		<IncludeRules context="arith_expr_common" />
 	    </context>

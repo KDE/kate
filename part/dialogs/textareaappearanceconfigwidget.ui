@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>TextareaAppearanceConfigWidget</class>
  <widget class="QWidget" name="TextareaAppearanceConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>528</width>
+    <height>380</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout">
    <item>
     <widget class="QGroupBox" name="gbWordWrap">
@@ -142,6 +150,19 @@
         </property>
         <property name="text">
          <string>Animate bracket matching</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkFoldFirstLine">
+        <property name="toolTip">
+         <string>When this setting is enabled, the editor view automatically folds
+comment blocks that start on the first line of the document. This is
+helpful to hide license headers which are commonly placed at the
+beginning of a file.</string>
+        </property>
+        <property name="text">
+         <string>Fold First Line</string>
         </property>
        </widget>
       </item>

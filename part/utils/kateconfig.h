@@ -542,6 +542,9 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool scrollPastEnd() const;
     void setScrollPastEnd(bool on);
 
+    bool foldFirstLine() const;
+    void setFoldFirstLine(bool on);
+
   private:
     bool m_dynWordWrap;
     int m_dynWordWrapIndicators;
@@ -574,6 +577,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_wordCompletionRemoveTail;
     bool m_smartCopyCut;
     bool m_scrollPastEnd;
+    bool m_foldFirstLine;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -604,6 +608,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_scrollPastEndSet : 1;
     bool m_allowMarkMenu : 1;
     bool m_wordCompletionRemoveTailSet : 1;
+    bool m_foldFirstLineSet : 1;
 
   private:
     static KateViewConfig *s_global;

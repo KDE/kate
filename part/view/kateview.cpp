@@ -97,6 +97,17 @@
 
 //END includes
 
+namespace {
+
+bool hasCommentInFirstLine(KateDocument* doc)
+{
+  const Kate::TextLine& line = doc->kateTextLine(0);
+  Q_ASSERT(line);
+  return doc->isComment(0, line->firstChar());
+}
+
+}
+
 void KateView::blockFix(KTextEditor::Range& range)
 {
   if (range.start().column() > range.end().column())
@@ -1743,6 +1754,14 @@ void KateView::updateConfig ()
   m_viewInternal->cache()->clear();
   tagAll ();
   updateView (true);
+
+  if (hasCommentInFirstLine(m_doc)) {
+    if (config()->foldFirstLine()) {
+      foldLine(0);
+    } else {
+      unfoldLine(0);
+    }
+  }
 
   emit configChanged();
 }

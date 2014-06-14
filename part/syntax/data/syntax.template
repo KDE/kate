@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!--
-        You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://kate-editor.org/article/writing_a_kate_highlighting_xml_file
+        You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://docs.kde.org/stable/en/applications/kate/highlight.html
 	
         This is a template for the XML format used for syntax highlight descriptions
         for the Kate text editor (http://kate.kde.org), which is part of the KDE

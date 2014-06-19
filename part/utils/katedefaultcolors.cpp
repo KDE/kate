@@ -103,9 +103,8 @@ QColor KateDefaultColors::mark(Mark mark) const
       return adaptToScheme(Qt::gray, BackgroundColor);
     case Warning:
       return m_view.foreground(KColorScheme::NeutralText).color();
-    case Error: {
+    case Error:
       return m_view.foreground(KColorScheme::NegativeText).color();
-    }
   }
   qFatal("Unhandled color for mark requested: %d\n", mark);
   return QColor();

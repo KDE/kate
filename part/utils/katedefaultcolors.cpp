@@ -88,16 +88,27 @@ QColor KateDefaultColors::color(ColorRole role) const
 
 QColor KateDefaultColors::mark(Mark mark) const
 {
-  static const QColor colors[LAST_MARK + 1] = {
-    Qt::blue,
-    Qt::red,
-    Qt::yellow,
-    Qt::magenta,
-    Qt::gray,
-    Qt::green,
-    Qt::red
-  };
-  return adaptToScheme(colors[mark], BackgroundColor);
+  // note: the mark color is used as background color at very low opacity (around 0.1)
+  // hence, make sure the color returned here has a high saturation
+  switch (mark) {
+    case Bookmark:
+      return adaptToScheme(Qt::blue, BackgroundColor);
+    case ActiveBreakpoint:
+      return adaptToScheme(Qt::red, BackgroundColor);
+    case ReachedBreakpoint:
+      return adaptToScheme(Qt::yellow, BackgroundColor);
+    case DisabledBreakpoint:
+      return adaptToScheme(Qt::magenta, BackgroundColor);
+    case Execution:
+      return adaptToScheme(Qt::gray, BackgroundColor);
+    case Warning:
+      return m_view.foreground(KColorScheme::NeutralText).color();
+    case Error: {
+      return m_view.foreground(KColorScheme::NegativeText).color();
+    }
+  }
+  qFatal("Unhandled color for mark requested: %d\n", mark);
+  return QColor();
 }
 
 QColor KateDefaultColors::mark(int i) const

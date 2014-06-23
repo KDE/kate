@@ -180,17 +180,18 @@ class TextLoader
           // try to load more text if something is around
           if (!m_eof)
           {
-            int c = m_file->read (m_buffer.data(), m_buffer.size());
-
-            // update md5 hash sum
-            m_digest.addData (m_buffer.data(), c);
-
             // kill the old lines...
             m_text.remove (0, m_lastLineStart);
+
+            // try to read new data
+            const int c = m_file->read(m_buffer.data(), m_buffer.size());
 
             // if any text is there, append it....
             if (c > 0)
             {
+              // update md5 hash sum
+              m_digest.addData (m_buffer.data(), c);
+
               // detect byte order marks & codec for byte order markers on first read
               int bomBytes = 0;
               if (m_firstRead) {

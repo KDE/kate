@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 -->
 
 
-<language name="Go" version="1.04" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
+<language name="Go" version="1.05" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
     <highlighting>
     <list name="keywords">
 <!-- Keywords have been taken from The Go Programming Language Specification -> Keywords section -->
@@ -103,20 +103,23 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     </list>
     <contexts>
       <context name="normal" attribute="Normal Text" lineEndContext="#stay">
-      <keyword attribute="Keyword" context="#stay" String="keywords" />
-      <keyword attribute="Predeclared Identifier" context="#stay" String="predeclared"  />
-      <keyword attribute="Data Type" context="#stay" String="types"       />
-      <keyword attribute="Builtin Function" context="#stay" String="builtin"  />
-      <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
-      <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1"   />
-      <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"   />
-      <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"   />
-      <HlCOct attribute="Octal" context="#stay"/>
-      <HlCHex attribute="Hex" context="#stay"/>
-      <HlCChar attribute="Char" context="#stay" />
-      <DetectChar attribute="String" context="String" char="&quot;" />
-      <DetectChar attribute="String" context="Multiline String" char="`"/>
-      <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <keyword attribute="Predeclared Identifier" context="#stay" String="predeclared"  />
+        <keyword attribute="Data Type" context="#stay" String="types"       />
+        <keyword attribute="Builtin Function" context="#stay" String="builtin"  />
+        <DetectIdentifier />
+        <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1"   />
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"   />
+        <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"   />
+        <Int attribute="Decimal" context="#stay" />
+        <Float attribute="Float" context="#stay" />
+        <HlCOct attribute="Octal" context="#stay"/>
+        <HlCHex attribute="Hex" context="#stay"/>
+        <HlCChar attribute="Char" context="#stay" />
+        <DetectChar attribute="String" context="String" char="&quot;" />
+        <DetectChar attribute="String" context="Multiline String" char="`"/>
+        <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
@@ -154,8 +157,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <itemData name="String Char"  defStyleNum="dsChar"    />
       <itemData name="String"       defStyleNum="dsString"  />
       <itemData name="Comment"      defStyleNum="dsComment" />
+      <itemData name="Decimal"      defStyleNum="dsDecVal" spellChecking="false"/>
       <itemData name="Octal"        defStyleNum="dsBaseN" spellChecking="false"/>
       <itemData name="Hex"          defStyleNum="dsBaseN" spellChecking="false"/>
+      <itemData name="Float"        defStyleNum="dsFloat" spellChecking="false"/>
       <itemData name="Char"         defStyleNum="dsChar"   spellChecking="false"/>
       <itemData name="Symbol"       defStyleNum="dsNormal" spellChecking="false"/>
       <itemData name="Error"        defStyleNum="dsError" spellChecking="false"/>

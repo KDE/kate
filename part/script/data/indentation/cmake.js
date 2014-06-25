@@ -572,10 +572,9 @@ function insertVariableExpansion(cursor)
 /**
  * \brief Handle <tt>'$'</tt> character
  *
- * Insert <tt>'{}'</tt> after first \c '$' and position cursor inside -- i.e.
- * prepare to insert a variable expansion. Then, here is possble few
- * transformations: if \c '<' pressed after \c '$', transform <tt>'${<}'</tt>
- * to <tt>'$<>'</tt> to be ready for generator expression and vise versa
+ * Here is possble few transformations: if \c '<' pressed after \c '$',
+ * transform <tt>'${<}'</tt> to <tt>'$<>'</tt> to be ready for
+ * generator expression and vise versa.
  */
 function tryVariableOrGeneratorExpression(cursor, ch)
 {
@@ -604,6 +603,44 @@ function tryVariableOrGeneratorExpression(cursor, ch)
     {
         fix_text("{}");                                     // Transform '$<>' -> '${}'
     }
+    else if (tail.endsWith("${{") && next_ch == '}')
+    {
+        // Transform '${{|}' --> '${|}'
+        document.removeText(cursor.line, cursor.column - 1, cursor.line, cursor.column);
+    }
+    else if (tail.endsWith("$<<") && next_ch == '>')
+    {
+        // Transform '$<<|>' --> '$<|>'
+        document.removeText(cursor.line, cursor.column - 1, cursor.line, cursor.column);
+    }
+}
+
+/**
+ * \brief Open/close string literal
+ *
+ * \attention Autobracket extension w/ add quote char doesn't work
+ * for CMake files (file a BUG?)...
+ */
+function tryString(cursor)
+{
+    if (isComment(cursor.line, cursor.column))
+        return;                                             // Do nothing for comments
+
+    // NOTE If cursor has a string attribute, then it was an open quote
+    // character just entered...
+    if (isString(cursor.line, cursor.column))
+    {
+        // Check if next char is not a quote already
+        // and/or maybe some punctualtion... Particularly
+        // ')' remains after some function call -- i.e. smth like
+        //   message(STATUS "|)
+        var ch = document.charAt(cursor);
+        if (ch != '"' && (ch == ')' || ch == ' '))
+        {
+            document.insertText(cursor, '"')
+            view.setCursorPosition(cursor);
+        }
+    }                                                       // Do nothing for closing quote char
 }
 
 /**
@@ -642,6 +679,9 @@ function processChar(line, ch)
         case '{':
         case '<':
             tryVariableOrGeneratorExpression(cursor, ch);
+            break;
+        case '"':
+            tryString(cursor);
             break;
         default:
             break;                                          // Nothing to do...

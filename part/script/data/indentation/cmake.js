@@ -628,14 +628,23 @@ function tryString(cursor)
 
     // NOTE If cursor has a string attribute, then it was an open quote
     // character just entered...
-    if (isString(cursor.line, cursor.column))
+    // ATTENTION If cursor positioned at the end of a line,
+    // isString() returns 'false' for some unknown reason...
+    // so check the attribute for the just entered quote symbol...
+    if (isString(cursor.line, cursor.column - 1))
     {
         // Check if next char is not a quote already
         // and/or maybe some punctualtion... Particularly
         // ')' remains after some function call -- i.e. smth like
         //   message(STATUS "|)
+        // or just entered quot char is a first on a line and
+        // no other chars are here...
         var ch = document.charAt(cursor);
-        if (ch != '"' && (ch == ')' || ch == ' '))
+        if ((ch != '"' && (ch == ')' || ch == ' '))
+          || (justEnteredCharIsFirstOnLine(cursor.line, cursor.column, '"')
+              && document.lineLength(cursor.line) == cursor.column
+              )
+          )
         {
             document.insertText(cursor, '"')
             view.setCursorPosition(cursor);

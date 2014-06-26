@@ -1,3 +1,7 @@
 some("ok")
 some("ok${})
 some("ok")
+some(
+    "ok"
+    "ok${some}
+  )

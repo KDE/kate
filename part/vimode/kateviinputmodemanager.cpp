@@ -842,8 +842,16 @@ void KateViInputModeManager::syncViMarksAndBookmarks() {
     }
   }
 
-  // For each vi mark line should be bookmarked.
-  foreach( QChar markerChar, m_marks.keys() ) {
+  // For specific vi mark line should be bookmarked.
+  QList<QChar> marksToSync;
+
+  foreach(QChar markerChar, m_marks.keys()) {
+    if (QLatin1Char('a') <= markerChar && markerChar <= QLatin1Char('z')) {
+      marksToSync << markerChar;
+    }
+  }
+
+  foreach(QChar markerChar, marksToSync) {
     bool thereIsKateMarkForThisLine = false;
     for (QHash<int, Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it) {
       if (it.value()->type & MarkInterface::markType01 ) {

@@ -47,6 +47,7 @@ public:
   const QString decodeKeySequence( const QString &keys ) const;
   QString qt2vi( int key ) const;
   int vi2qt( const QString &keypress ) const;
+  int encoded2qt(const QString &keypress) const;
   const QChar KeyEventToQChar(const QKeyEvent &keyEvent);
 
 private:

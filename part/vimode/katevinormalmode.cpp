@@ -1408,6 +1408,19 @@ bool KateViNormalMode::commandDeleteCharBackward()
 
 bool KateViNormalMode::commandReplaceCharacter()
 {
+    QString key = KateViKeyParser::self()->decodeKeySequence(m_keys.right(1));
+
+    // Filter out some special keys.
+    const int keyCode = KateViKeyParser::self()->encoded2qt(m_keys.right(1));
+    switch (keyCode) {
+        case Qt::Key_Left: case Qt::Key_Right: case Qt::Key_Up:
+        case Qt::Key_Down: case Qt::Key_Home: case Qt::Key_End:
+        case Qt::Key_PageUp: case Qt::Key_PageDown: case Qt::Key_Delete:
+        case Qt::Key_Insert: case Qt::Key_Backspace: case Qt::Key_CapsLock:
+            return true;
+        case Qt::Key_Return: case Qt::Key_Enter:
+            key = QLatin1String("\n");
+    }
 
   bool r;
   if ( m_viInputModeManager->isAnyVisualMode()) {
@@ -1418,7 +1431,7 @@ bool KateViNormalMode::commandReplaceCharacter()
     if (m == LineWise)
       text = text.left(text.size() - 1); // don't need '\n' at the end;
 
-    text.replace( QRegExp( "[^\n]" ), m_keys.right( 1 ) );
+    text.replace( QRegExp( "[^\n]" ), key );
 
     m_commandRange.normalize();
     Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
@@ -1438,7 +1451,7 @@ bool KateViNormalMode::commandReplaceCharacter()
       return false;
     }
 
-    r = doc()->replaceText( Range( c1, c2 ), m_keys.right( 1 ).repeated(getCount()) );
+    r = doc()->replaceText( Range( c1, c2 ), key.repeated(getCount()) );
     updateCursor( c1 );
 
   }

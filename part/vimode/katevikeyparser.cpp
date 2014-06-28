@@ -503,6 +503,16 @@ int KateViKeyParser::vi2qt( const QString &keypress ) const
   return ( m_katevi2qt->contains( keypress ) ? m_katevi2qt->value( keypress ) : -1 );
 }
 
+int KateViKeyParser::encoded2qt(const QString &keypress) const
+{
+    QString key = KateViKeyParser::self()->decodeKeySequence(keypress);
+    if (key.length() > 2 && key[0] == QLatin1Char('<') &&
+        key[key.length() - 1] == QLatin1Char('>')) {
+
+        key = key.mid(1, key.length() - 2);
+    }
+    return (m_katevi2qt->contains(key) ? m_katevi2qt->value(key) : -1);
+}
 
 const QString KateViKeyParser::encodeKeySequence( const QString &keys ) const
 {

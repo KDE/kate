@@ -829,6 +829,12 @@ void ViModeTest::ReplaceModeTests()
     DoTest(" a\nbb", "jR\\ctrl-y\\ctrl-y", " a\n a");
     DoTest("\tb\n", "jR\\ctrl-y\\ctrl-y", "\tb\n\tb");
 
+    // Replace character.
+    DoTest("", "rr", "");
+    DoTest("a", "rb", "b");
+    DoTest("abc", "lr\\enter", "a\nc");
+    DoTest("abc", "l\\backspace", "abc");
+    DoTest("abc", "l\\left", "abc");
 }
 
 void ViModeTest::InsertModeTests() {

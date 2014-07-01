@@ -68,6 +68,7 @@ void KateViewTest::testCoordinatesToCursor()
     // behind end of line should give an invalid cursor
     QCOMPARE(view1->coordinatesToCursor(view1->cursorToCoordinate(KTextEditor::Cursor(1, 5))),
              KTextEditor::Cursor::invalid());
+    QCOMPARE(view1->cursorToCoordinate(KTextEditor::Cursor(3, 1)), QPoint(-1, -1));
 }
 
 void KateViewTest::testReloadMultipleViews()

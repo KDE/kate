@@ -738,6 +738,9 @@ int KateViewInternal::linesDisplayed() const
 
 QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor, bool realCursor, bool includeBorder ) const
 {
+  if (cursor.line() >= doc()->lines()) {
+    return QPoint(-1, -1);
+  }
   int viewLine = cache()->displayViewLine(realCursor ? toVirtualCursor(cursor) : cursor, true);
 
   if (viewLine < 0 || viewLine >= cache()->viewCacheLineCount())

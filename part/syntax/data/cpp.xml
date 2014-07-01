@@ -11,7 +11,7 @@
 <language
     name="C++"
     section="Sources"
-    version="1.7"
+    version="1.8"
     kateversion="2.4"
     indenter="cstyle"
     style="C++"
@@ -473,8 +473,10 @@
     <item> Q_DECL_CONSTEXPR </item>
     <item> Q_DECL_CONSTRUCTOR_DEPRECATED </item>
     <item> Q_DECL_DEPRECATED </item>
+    <item> Q_DECL_FINAL </item>
     <item> Q_DECL_HIDDEN </item>
     <item> Q_DECL_IMPORT </item>
+    <item> Q_DECL_OVERRIDE </item>
     <item> Q_DECL_VARIABLE_DEPRECATED </item>
     <item> Q_DESTRUCTOR_FUNCTION </item>
     <item> Q_DESTRUCTOR_FUNCTION0 </item>

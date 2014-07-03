@@ -317,8 +317,11 @@ void ConfigView::slotAddTarget()
 void ConfigView::slotCopyTarget()
 {
     QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
+    if (tmp.size() < 1) {
+        slotAddTarget();
+        return;
+    }
     tmp[NameIndex] = i18n("Target %1", m_targetCombo->count()+1);
-
     m_targetCombo->addItem(tmp[NameIndex], tmp);
     m_targetCombo->setCurrentIndex(m_targetCombo->count()-1);
 }

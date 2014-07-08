@@ -337,7 +337,7 @@ void KateTabButton::setAnimatedGeometry(const QRect & startGeom,
     }
 
     if (! m_geometryAnimation) {
-        m_geometryAnimation = new QPropertyAnimation(this, "geometry");
+        m_geometryAnimation = new QPropertyAnimation(this, "geometry", this);
         m_geometryAnimation->setDuration(100);
     }
 

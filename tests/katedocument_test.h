@@ -44,6 +44,8 @@ private Q_SLOTS:
   void testInsertNewline();
 
   void testDigest();
+
+  void testDefStyleNum();
 };
 
 #endif // KATE_DOCUMENT_TEST_H

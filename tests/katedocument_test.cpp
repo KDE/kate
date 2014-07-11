@@ -345,4 +345,11 @@ void KateDocumentTest::testDigest()
   QCOMPARE(docDigest, fileDigest);
 }
 
+void KateDocumentTest::testDefStyleNum()
+{
+  KateDocument doc;
+  doc.setText("foo\nbar\nasdf");
+  QCOMPARE(doc.defStyleNum(0, 0), -1);
+}
+
 #include "katedocument_test.moc"

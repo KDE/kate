@@ -5489,11 +5489,13 @@ int KateDocument::defStyleNum(int line, int column)
     return -1;
 
   KateView* view = static_cast<KateView*>(activeView());
-  if (!view && !m_views.isEmpty()) {
-    view = m_views.first();
-  } else {
-    //FIXME: find a way to use this function without any view, or move it to the KateView.
-    return -1;
+  if (!view) {
+    if (!m_views.isEmpty()) {
+      view = m_views.first();
+    } else {
+      //FIXME: find a way to use this function without any view, or move it to the KateView.
+      return -1;
+    }
   }
 
   QList<KTextEditor::Attribute::Ptr> attributes = highlight()->attributes(

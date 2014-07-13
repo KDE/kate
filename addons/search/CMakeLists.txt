@@ -18,7 +18,7 @@ target_link_libraries(katesearchplugin
 
 ########### install files ###############
 install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katesearch)
+install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katesearch)
 
 
 kservice_desktop_to_json (katesearchplugin katesearch.desktop)

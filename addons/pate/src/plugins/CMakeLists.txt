@@ -39,9 +39,14 @@ function(install_pate_plugin name)
     endif()
     if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${name}.py)
         install(FILES katepate_${name}.desktop DESTINATION ${SERVICES_INSTALL_DIR})
-        foreach(_f ${name}.py ${name}.ui ${name}_ui.rc ${install_pate_plugin_FILE})
+        foreach(_f ${name}.py ${name}.ui ${install_pate_plugin_FILE})
             if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${_f})
                 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/${_f} DESTINATION ${DATA_INSTALL_DIR}/kate/pate)
+            endif()
+        endforeach()
+        foreach(_f ${name}_ui.rc ${install_pate_plugin_FILE})
+            if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${_f})
+                install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/${_f} DESTINATION ${KXMLGUI_INSTALL_DIR}/kate/pate)
             endif()
         endforeach()
     elseif(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${name})
@@ -52,6 +57,12 @@ function(install_pate_plugin name)
             FILES_MATCHING
                 PATTERN "*.py"
                 PATTERN "*.ui"
+                PATTERN "__pycache__*" EXCLUDE
+           )
+        install(
+            DIRECTORY ${name}
+            DESTINATION ${KXMLGUI_INSTALL_DIR}/kate/pate
+            FILES_MATCHING
                 PATTERN "*_ui.rc"
                 PATTERN "__pycache__*" EXCLUDE
            )

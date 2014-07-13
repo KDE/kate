@@ -1,5 +1,3 @@
-
-
 ########### next target ###############
 
 set(katexmlcheckplugin_PART_SRCS plugin_katexmlcheck.cpp )
@@ -10,11 +8,7 @@ target_link_libraries(katexmlcheckplugin ${KDE4_KDEUI_LIBS} ktexteditor kateinte
 
 install(TARGETS katexmlcheckplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
-
 ########### install files ###############
 
-install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/katexmlcheck )
+install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/kate/plugins/katexmlcheck )
 install( FILES katexmlcheck.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
-
-
-

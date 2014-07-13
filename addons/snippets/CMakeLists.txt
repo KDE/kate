@@ -40,4 +40,4 @@ install( FILES katesnippetsplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} 
 # install the snippet stuff
 install( FILES ktexteditor_codesnippets_core.knsrc DESTINATION  ${CONFIG_INSTALL_DIR} )
 
-install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katesnippets)
+install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katesnippets)

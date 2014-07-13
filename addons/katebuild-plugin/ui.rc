@@ -1,18 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
 <gui name="katebuild-plugin" library="katebuildplugin" version="8">
-    <MenuBar>
-        <Menu name="Build Menubar"><text>&amp;Build</text>
-            <Action name="run_make"/>
-            <Action name="select_target" />
-            <Action name="build_previous_target" />
-            <Action name="make_clean" />
-            <Action name="stop" />
-            <Separator/>
-            <Action name="goto_prev" />
-            <Action name="goto_next" />
-            <Separator/>
-            <Action name="targets" />
-            <Action name="target_next" />
-        </Menu>
-    </MenuBar>
+  <MenuBar>
+    <Menu name="Build Menubar">
+      <text>&amp;Build</text>
+      <Action name="run_make"/>
+      <Action name="select_target"/>
+      <Action name="build_previous_target"/>
+      <Action name="make_clean"/>
+      <Action name="stop"/>
+      <Separator/>
+      <Action name="goto_prev"/>
+      <Action name="goto_next"/>
+      <Separator/>
+      <Action name="targets"/>
+      <Action name="target_next"/>
+    </Menu>
+  </MenuBar>
 </gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

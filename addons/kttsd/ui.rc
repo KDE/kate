@@ -1,11 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
 <gui name="kate_kttsd" library="kate_kttsd" version="3">
-    <MenuBar>
-        <Menu name="tools"><text>&amp;Tools</text>
-            <Action name="tools_kttsd" />
-        </Menu>
-    </MenuBar>
-    <ToolBar name="mainToolBar"><text>Main Toolbar</text>
-        <Action name="tools_kttsd" />
-    </ToolBar>
+  <MenuBar>
+    <Menu name="tools">
+      <text>&amp;Tools</text>
+      <Action name="tools_kttsd"/>
+    </Menu>
+  </MenuBar>
+  <ToolBar name="mainToolBar">
+    <text>Main Toolbar</text>
+    <Action name="tools_kttsd"/>
+  </ToolBar>
 </gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

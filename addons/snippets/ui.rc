@@ -1,10 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
 <gui name="katesnippets" library="katesnippetsplugin" version="1">
-    <MenuBar>
-        <Menu name="tools">
-            <text>&amp;Tools</text>
-              <Action name="tools_create_snippet" group="tools_operations" />
-              <Action name="tools_snippets" group="tools_operations" />
-        </Menu>
-    </MenuBar>
+  <MenuBar>
+    <Menu name="tools">
+      <text>&amp;Tools</text>
+      <Action name="tools_create_snippet" group="tools_operations"/>
+      <Action name="tools_snippets" group="tools_operations"/>
+    </Menu>
+  </MenuBar>
 </gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

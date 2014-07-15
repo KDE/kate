@@ -1585,14 +1585,20 @@ bool KateViNormalMode::commandUnindentLine()
 bool KateViNormalMode::commandIndentLines()
 {
   Cursor c( m_view->cursorPosition() );
+  const bool downwards = m_commandRange.startLine < m_commandRange.endLine;
 
   m_commandRange.normalize();
 
   int line1 = m_commandRange.startLine;
   int line2 = m_commandRange.endLine;
   int col = getLine( line2 ).length();
-
   doc()->indent( KTextEditor::Range( line1, 0, line2, col ), getCount() );
+
+  if (downwards) {
+      updateCursor(Cursor(m_commandRange.startLine, m_commandRange.startColumn));
+  } else {
+      updateCursor(Cursor(m_commandRange.endLine, m_commandRange.endColumn));
+  }
 
   return true;
 }
@@ -1600,13 +1606,19 @@ bool KateViNormalMode::commandIndentLines()
 bool KateViNormalMode::commandUnindentLines()
 {
   Cursor c( m_view->cursorPosition() );
+  const bool downwards = m_commandRange.startLine < m_commandRange.endLine;
 
   m_commandRange.normalize();
 
   int line1 = m_commandRange.startLine;
   int line2 = m_commandRange.endLine;
-
   doc()->indent( KTextEditor::Range( line1, 0, line2, doc()->lineLength( line2 ) ), -getCount() );
+
+  if (downwards) {
+      updateCursor(Cursor(m_commandRange.startLine, m_commandRange.startColumn));
+  } else {
+      updateCursor(Cursor(m_commandRange.endLine, m_commandRange.endColumn));
+  }
 
   return true;
 }

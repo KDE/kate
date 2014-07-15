@@ -602,9 +602,11 @@ void ViModeTest::VisualModeTests() {
     DoTest("indent\nrepeat", "V>.", "    indent\nrepeat");
     DoTest("indent\nrepeat", "Vj>.", "    indent\n    repeat");
     DoTest("indent\nrepeat\non\nothers", "Vj>jj.", "  indent\n  repeat\n  on\n  others");
+    DoTest("foo\nbar\nbaz", "jjVk>.", "foo\n    bar\n    baz");
 
     // Testing "<"
     DoTest(" foo","vl<", "foo");
+    DoTest("foo\n    bar\n    baz", "jjVk<.", "foo\nbar\nbaz");
 
     // Testing "o"
     DoTest("foobar","lv2lo2ld","fooar");

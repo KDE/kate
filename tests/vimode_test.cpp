@@ -712,12 +712,27 @@ void ViModeTest::VisualModeTests() {
     kate_view->setSelection(Range(0, 1, 0 , 4)); // Actually selects "oo " (i.e. without the "b").
     TestPressKey("d");
     FinishTest("fbar");
-    // Undoing a command that we executed in Visual Mode should also return us to Visual Mode.
-    BeginTest("foo bar");
-    TestPressKey("lvllldu");
-    QCOMPARE(kate_view->getCurrentViMode(), VisualMode);
-    QCOMPARE(kate_view->selectionText(), QString("oo b"));
-    FinishTest("foo bar");
+
+    // Always return to normal mode when undoing/redoing.
+    BeginTest("");
+    TestPressKey("iHello World!\\esc");
+    TestPressKey("0wvlldu");
+    QCOMPARE(kate_view->getCurrentViMode(), NormalMode);
+    QCOMPARE(kate_view->selectionText(), QString(""));
+    QCOMPARE(kate_document->text(), QString("Hello World!"));
+    TestPressKey("u");
+    QCOMPARE(kate_view->getCurrentViMode(), NormalMode);
+    QCOMPARE(kate_document->text(), QString(""));
+    TestPressKey("\\ctrl-r");
+    QCOMPARE(kate_view->getCurrentViMode(), NormalMode);
+    FinishTest("Hello World!");
+
+    // Make sure that we don't screw up selection after an undo.
+    BeginTest("Hola\nHola\nHello\nHallo\n");
+    TestPressKey("jVjduVk");
+    QCOMPARE(kate_view->getCurrentViMode(), VisualLineMode);
+    QCOMPARE(kate_view->selectionText(), QString("Hola\nHello"));
+    FinishTest("Hola\nHola\nHello\nHallo\n");
 
     // Test that, if kate_view has a selection before the Vi mode stuff is loaded, then we
     // end up in Visual Mode: this mimics what happens if we click on a Find result in
@@ -737,9 +752,6 @@ void ViModeTest::VisualModeTests() {
     QCOMPARE(kate_document->text(kate_view->selectionRange()), QString("oo b"));
     TestPressKey("d");
     QCOMPARE(kate_document->text(), QString("far"));
-
-    // Regression test for bug 309191
-    DoTest("foo bar", "vedud", " bar");
 
     // test returning to correct mode when selecting ranges with mouse
     BeginTest("foo bar\nbar baz");

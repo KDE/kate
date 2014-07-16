@@ -228,7 +228,7 @@ bool ConnectionSQLiteServerPage::validatePage()
 
   if (!wiz->manager()->testConnection(c, e))
   {
-    KMessageBox::error(this, i18nc("@info", "Unable to connect to database.<nl/><message>%1</message>", e.text()));
+    KMessageBox::error(this, xi18nc("@info", "Unable to connect to database.<nl/><message>%1</message>", e.text()));
     return false;
   }
 

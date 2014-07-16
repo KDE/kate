@@ -206,7 +206,7 @@ QString Pate::Engine::tryInitializeGetFailureReason()
 {
     qDebug() << "Construct the Python engine for Python" << PY_MAJOR_VERSION << PY_MINOR_VERSION;
     if (0 != PyImport_AppendInittab(Python::PATE_ENGINE, PyInit_pate))
-        return i18nc("@info:tooltip ", "Cannot load built-in <icode>pate</icode> module");
+        return xi18nc("@info:tooltip ", "Cannot load built-in <icode>pate</icode> module");
 
     Python::libraryLoad();
     Python py = Python();
@@ -238,7 +238,7 @@ QString Pate::Engine::tryInitializeGetFailureReason()
     // Initialize our built-in module.
     pythonInitwrapper(this);
     if (!s_pate)
-        return i18nc("@info:tooltip ", "No <icode>pate</icode> built-in module");
+        return xi18nc("@info:tooltip ", "No <icode>pate</icode> built-in module");
 
     // Setup global configuration
     m_configuration = PyDict_New();
@@ -457,7 +457,7 @@ bool Pate::Engine::setModuleProperties(PluginState& plugin)
     if (module_path.isEmpty())
     {
         plugin.m_broken = true;
-        plugin.m_errorReason = i18nc(
+        plugin.m_errorReason = xi18nc(
             "@info:tooltip"
             , "Unable to find the module specified <application>%1</application>"
             , plugin.m_service->library()
@@ -481,7 +481,7 @@ QPair<QString, Pate::version_checker> Pate::Engine::parseDependency(const QStrin
         if (!(checker.isValid() && d.endsWith(')')))
         {
             qDebug() << "Invalid version spec " << d;
-            QString reason = i18nc(
+            QString reason = xi18nc(
                 "@info:tooltip"
                 , "<p>Specified version has invalid format for dependency <application>%1</application>: "
                 "<icode>%2</icode>. Skipped</p>"
@@ -554,7 +554,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
       .toStringList();
 
     Python py = Python();
-    QString reason = i18nc("@info:tooltip", "<title>Dependency check</title>");
+    QString reason = xi18nc("@info:tooltip", "<title>Dependency check</title>");
     Q_FOREACH(const QString& d, dependencies)
     {
         QPair<QString, version_checker> info_pair = parseDependency(d);
@@ -588,7 +588,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
                   << "[" << plugin.m_service->name() << "]:\n" << py.lastTraceback()
                   ;
                 plugin.m_unstable = true;
-                reason += i18nc(
+                reason += xi18nc(
                     "@info:tooltip"
                   , "<p>Failed to check version of dependency <application>%1</application>: "
                     "Module do not have PEP396 <code>__version__</code> attribute. "
@@ -608,7 +608,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
                 // Dunno what is this... Giving up!
                 qDebug() << "***: Can't parse module version for" << dependency;
                 plugin.m_unstable = true;
-                reason += i18nc(
+                reason += xi18nc(
                     "@info:tooltip"
                   , "<p><application>%1</application>: Unexpected module's version format"
                   , dependency
@@ -623,7 +623,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
                   << ", but found" << QString(dep_version)
                   ;
                 plugin.m_broken = true;
-                reason += i18nc(
+                reason += xi18nc(
                     "@info:tooltip"
                   , "<p><application>%1</application>: No suitable version found. "
                     "Required version %2 %3, but found %4</p>"
@@ -640,7 +640,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
         {
             qDebug() << "Load failure [" << plugin.m_service->name() << "]:\n" << py.lastTraceback();
             plugin.m_broken = true;
-            reason += i18nc(
+            reason += xi18nc(
                 "@info:tooltip"
               , "<p>Failure on module load <application>%1</application>:</p><pre>%3</pre>"
               , dependency
@@ -737,7 +737,7 @@ void Pate::Engine::loadModule(const int idx)
     }
     else
     {
-        plugin.m_errorReason = i18nc(
+        plugin.m_errorReason = xi18nc(
             "@info:tooltip"
             , "Module not loaded:<nl/>%1"
             , py.lastTraceback()

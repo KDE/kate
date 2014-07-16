@@ -220,7 +220,7 @@ class _catchAllHandler(object):
             KMessageBox.error(
                 None
               , txt
-              , i18nc('@title:window', 'Error in action <icode>%1</icode>', self.f.__name__)
+              , xi18nc('@title:window', 'Error in action <icode>%1</icode>', self.f.__name__)
               )
             raise _HandledException(txt)
 
@@ -305,7 +305,7 @@ def action(func):
 
     if not found:
         raise InvalidAction(
-            i18nc(
+            xi18nc(
                 '@info:tooltip'
               , 'Invalid <filename>%1</filename> file: No action with name <icode>%2</icode> defined'
               , ui_file

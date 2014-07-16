@@ -330,7 +330,7 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugi
     }
     else
     {
-        m_plugin->setFailureReason(i18nc("@info:tooltip ", "Cannot load <icode>kate</icode> module"));
+        m_plugin->setFailureReason(xi18nc("@info:tooltip ", "Cannot load <icode>kate</icode> module"));
         m_plugin->engine().setBroken();
     }
     m_plugin->checkEngineShowPopup();

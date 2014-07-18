@@ -245,6 +245,8 @@ void KateViVisualMode::updateSelection( ) {
 
   // If not valid going back to normal mode
   if (!r.isValid()) {
+    // Don't screw up the cursor's position. See BUG #337286.
+    m_pendingResetIsDueToExit = true;
     reset();
     return;
   }

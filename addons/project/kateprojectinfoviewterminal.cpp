@@ -34,9 +34,9 @@ KateProjectInfoViewTerminal::KateProjectInfoViewTerminal (KateProjectPluginView 
   /**
    * layout widget
    */
-  m_layout = new QVBoxLayout;
+  m_layout = new QVBoxLayout (this);
   m_layout->setSpacing (0);
-  setLayout (m_layout);
+  m_layout->setContentsMargins(0, 0, 0, 0);
   
   /**
    * initial terminal creation

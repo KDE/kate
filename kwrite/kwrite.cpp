@@ -98,11 +98,6 @@ KWrite::KWrite(KTextEditor::Document *doc)
     createShellGUI(true);
     guiFactory()->addClient(m_view);
 
-    // init with more useful size, stolen from konq :)
-    /* FIXME KF5  if (!initialGeometrySet())
-        resize( QSize(700, 480).expandedTo(minimumSizeHint()));
-    */
-
     // FIXME: make sure the config dir exists, any idea how to do it more cleanly?
     QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation)).mkpath(QStringLiteral("."));
 
@@ -136,6 +131,14 @@ KWrite::~KWrite()
     }
 
     KSharedConfig::openConfig()->sync();
+}
+
+QSize KWrite::sizeHint () const
+{
+    /**
+     * have some useful size hint, else we have mini windows per default
+     */
+    return (QSize(640, 480).expandedTo(minimumSizeHint()));
 }
 
 void KWrite::setupActions()

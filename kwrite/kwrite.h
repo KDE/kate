@@ -96,6 +96,12 @@ public Q_SLOTS:
      * adds a changed URL to the recent files
      */
     void urlChanged();
+    
+    /**
+     * Overwrite size hint for better default window sizes
+     * @return size hint
+     */
+    QSize sizeHint () const;
 
     //config file functions
 public:

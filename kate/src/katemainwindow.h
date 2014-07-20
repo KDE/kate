@@ -358,6 +358,16 @@ public Q_SLOTS:
     }
 
     /**
+     * @returns true if the two given views share the same split view,
+     * false otherwise.
+     */
+    bool viewsInSameSplitView(KTextEditor::View *view1,
+                              KTextEditor::View *view2)
+    {
+        return m_viewManager->viewsInSameViewSpace(view1, view2);
+    }
+
+    /**
      * Split current view space according to @orientation
      * \param orientation in which line split the view
      */

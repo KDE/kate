@@ -811,6 +811,21 @@ void KateViewManager::closeViewSpace(KTextEditor::View *view)
     removeViewSpace(space);
 }
 
+bool KateViewManager::viewsInSameViewSpace(KTextEditor::View *view1,
+                                           KTextEditor::View *view2)
+{
+    if (!view1 || !view2) {
+        return false;
+    }
+    if (m_viewSpaceList.size() == 1) {
+        return true;
+    }
+
+    KateViewSpace *vs1 = static_cast<KateViewSpace *>(view1->parentWidget()->parentWidget());
+    KateViewSpace *vs2 = static_cast<KateViewSpace *>(view2->parentWidget()->parentWidget());
+    return vs1 && (vs1 == vs2);
+}
+
 void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
 {
     // abort if viewspace is 0

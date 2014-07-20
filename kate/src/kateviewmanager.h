@@ -186,6 +186,12 @@ public Q_SLOTS:
     void closeViewSpace(KTextEditor::View *view = nullptr);
 
     /**
+     * @returns true of the two given views share the same view space.
+     */
+    bool viewsInSameViewSpace(KTextEditor::View *view1,
+                              KTextEditor::View *view2);
+
+    /**
      * activate view for given document
      * @param doc document to activate view for
      */

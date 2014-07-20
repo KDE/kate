@@ -29,7 +29,6 @@
 
 #include <QByteArray>
 #include <QCommandLineParser>
-#include <QLoggingCategory>
 #include <QTextCodec>
 #include <QUrl>
 #include <QVariant>
@@ -45,11 +44,6 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
      * Create application first
      */
     QApplication app(argc, argv);
-
-    /**
-     * FIXME: activate debug
-     */
-    QLoggingCategory::setFilterRules(QStringLiteral("kate = true"));
 
     /**
      * construct about data for Kate

@@ -290,10 +290,10 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
                 // convert to an url
                 QRegExp withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
                 if (withProtocol.indexIn(url) == 0) {
-                    dbusargs.append(QUrl::fromUserInput(url));
+                    dbusargs.append(QUrl::fromUserInput(url).toString());
                 } else {
                     const QString path = QDir::current().absoluteFilePath(url);
-                    dbusargs.append(QUrl::fromLocalFile(path));
+                    dbusargs.append(QUrl::fromLocalFile(path).toString());
                 }
 
                 dbusargs.append(enc);

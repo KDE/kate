@@ -180,6 +180,12 @@ public Q_SLOTS:
     void splitViewSpace(KateViewSpace *vs = 0L, Qt::Orientation o = Qt::Horizontal);
 
     /**
+     * Close the view space that contains the given view. If no view was
+     * given, then the active view space will be closed instead.
+     */
+    void closeViewSpace(KTextEditor::View *view = nullptr);
+
+    /**
      * activate view for given document
      * @param doc document to activate view for
      */
@@ -218,7 +224,10 @@ public Q_SLOTS:
         moveSplitter(Qt::Key_Down);
     }
 
-    void slotCloseCurrentViewSpace();
+    /** closes the current view space. */
+    void slotCloseCurrentViewSpace() {
+        closeViewSpace();
+    }
 
     /** closes every view but the active one */
     void slotCloseOtherViews();

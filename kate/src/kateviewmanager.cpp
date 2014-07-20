@@ -799,6 +799,18 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
     updateViewSpaceActions();
 }
 
+void KateViewManager::closeViewSpace(KTextEditor::View *view)
+{
+    KateViewSpace *space;
+
+    if (view) {
+        space = static_cast<KateViewSpace *>(view->parentWidget()->parentWidget());
+    } else {
+        space = activeViewSpace();
+    }
+    removeViewSpace(space);
+}
+
 void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
 {
     // abort if viewspace is 0
@@ -884,11 +896,6 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     updateViewSpaceActions();
 
     emit viewChanged(v);
-}
-
-void KateViewManager::slotCloseCurrentViewSpace()
-{
-    removeViewSpace(activeViewSpace());
 }
 
 void KateViewManager::slotCloseOtherViews()

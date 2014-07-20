@@ -347,6 +347,17 @@ public Q_SLOTS:
     }
 
     /**
+     * Close the split view where the given view is contained.
+     * \param view the view.
+     * \return true if the split view was closed.
+     */
+    bool closeSplitView(KTextEditor::View *view)
+    {
+        m_viewManager->closeViewSpace(view);
+        return true;
+    }
+
+    /**
      * Split current view space according to @orientation
      * \param orientation in which line split the view
      */

@@ -301,7 +301,7 @@ KateViRange KateViModeBase::findPatternForMotion( const QString& pattern, bool b
   kDebug( 13070 ) << "searching for pattern \"" << pattern << "\", backwards = " << backwards
     << ", caseSensitive = " << caseSensitive << ", count = " << count;
   if ( pattern.isEmpty() ) {
-    return KateViRange::invalid();
+    return KateViRange();
   }
 
   Range match = findPattern(pattern, backwards, caseSensitive, startFrom, count);

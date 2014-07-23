@@ -2530,6 +2530,9 @@ KateViRange KateViNormalMode::motionFindPrev()
 
   KateViRange match = findPatternForMotion( pattern, !backwards, caseSensitive, m_view->cursorPosition(), getCount() );
 
+  if (!match.valid) {
+    return match;
+  }
   if (!placeCursorAtEndOfMatch)
   {
     return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);
@@ -2549,6 +2552,9 @@ KateViRange KateViNormalMode::motionFindNext()
 
   KateViRange match = findPatternForMotion( pattern, backwards, caseSensitive, m_view->cursorPosition(), getCount() );
 
+  if (!match.valid) {
+    return match;
+  }
   if (!placeCursorAtEndOfMatch)
   {
     return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);

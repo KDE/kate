@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="katetextfilter" library="libkatetextfilterplugin" version="3">
+  <MenuBar>
+    <Menu name="tools">
+      <text>&amp;Tools</text>
+      <Action name="edit_filter"/>
+    </Menu>
+  </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="katefiletemplates" library="libkatefiletemplates" version="2">
+  <MenuBar>
+    <Menu name="file">
+      <text>&amp;File</text>
+      <Action name="file_new_fromtemplate" group="new_merge"/>
+    </Menu>
+    <Menu name="settings">
+      <text>&amp;Settings</text>
+      <Separator/>
+      <Action name="settings_manage_templates"/>
+    </Menu>
+  </MenuBar>
+  <!--   <Toolbar name="mainToolBar"><text>Main Toolbar</text> -->
+  <!--   <Action name="file_new_fromtemplate" group="file_open" /> -->
+  <!-- </Toolbar> -->
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

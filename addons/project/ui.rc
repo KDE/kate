@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="kateprojectplugin" library="kateprojectplugin" version="6">
+  <MenuBar>
+    <Menu name="projects">
+      <text>&amp;Projects</text>
+      <Action name="projects_prev_project"/>
+      <Action name="projects_next_project"/>
+    </Menu>
+  </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

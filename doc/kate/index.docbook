@@ -1,24 +1,17 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN"
-"dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
   <!ENTITY kappname "&kate;">
   <!ENTITY package "kdesdk">
-  <!ENTITY imgpath "./">
+  <!ENTITY imgpath "../katepart/">
   <!ENTITY rcfile "katerc">
   <!ENTITY gdb "<acronym>GDB</acronym>">
   <!ENTITY pate "Pâté">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
-  <!ENTITY configuring-part-sections SYSTEM "configuring-part.docbook">
-  <!ENTITY highlighting-appendix SYSTEM "highlighting.docbook">
-  <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
-  <!ENTITY part-chapter SYSTEM "part.docbook">
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
-  <!ENTITY plugins-part-sections SYSTEM "plugins-part.docbook">
   <!ENTITY development-chapter SYSTEM "development.docbook">
-  <!ENTITY vi-chapter SYSTEM "vi.docbook">
-  <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"><!-- change language only here -->
 ]>
@@ -49,13 +42,13 @@
 <holder>&Dominik.Haumann;</holder>
 </copyright>
 <copyright>
-<year>2011</year><year>2012</year><year>2013</year>
+<year>2011</year><year>2012</year><year>2013</year><year>2014</year>
 <holder>&TC.Hollingsworth;</holder>
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2013-11-28</date>
-<releaseinfo>3.12 &kde; 4.12</releaseinfo>
+<date>2013-02-22</date>
+<releaseinfo>5.0 &kde; 5.0</releaseinfo>
 
 <abstract>
 <para>&kate; is a programmer's text editor for &kde; 4 and above.</para>
@@ -114,15 +107,31 @@ configuration files.  This document was written in &kate;.
 
 &fundamentals-chapter;
 
-&part-chapter;
+<chapter id="kate-part">
+<title>Working with the &kate; Editor</title>
+<para>For information about the basics of working with the editor component
+underlying &kate;, see the 
+<ulink url="help:katepart/kate-part.html">Working with the
+&katepart; Editor chapter of the &katepart; Handbook</ulink>.</para>
+</chapter>
 
 &plugins-chapter;
 
-&advanced-chapter;
+<chapter id="advanced-editing-tools">
+<title>Advanced Editing Tools</title>
+<para>For information about the advanced editing tools included with &kate;,
+see the <ulink url="help:katepart/advanced-editing-tools.html">Advanced Editing Tools chapter
+of the &katepart; Handbook</ulink>.</para>
+</chapter>
 
 &development-chapter;
 
-&vi-chapter;
+<chapter id="vi-input-mode-chapter">
+<title>The VI Input Mode</title>
+<para>For information about &kate;'s VI input mode, see the 
+<ulink url="help:katepart/vi-input-mode-chapter.html">VI Input Mode chapter
+of the &katepart; Handbook</ulink>.</para>
+</chapter>
 
 &menu-chapter;
 
@@ -262,16 +271,21 @@ documentation</para></listitem>
 
 </chapter>
 
-&highlighting-appendix;
+<appendix id="regular-expressions">
+<title>Regular Expressions</title>
 
-&regexp-appendix;
+<para>For information about using regular expressions in &kate;, see the
+<ulink url="help:katepart/regular-expressions.html">Regular Expressions appendix
+to the &katepart; Handbook</ulink>.</para>
+
+</appendix>
 
 <appendix id="installation">
 <title>Installation</title>
 
-&install.intro.documentation;
-
-&install.compile.documentation;
+<para>To learn how to install &kate; and other &kde; applications on your system,
+see the <ulink url="help:fundamentals/install.html">Installing chapter of the
+&kde; Fundamentals documentation</ulink>.</para>
 
 </appendix>
 

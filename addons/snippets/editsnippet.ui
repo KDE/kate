@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditSnippetBase</class>
+ <widget class="QWidget" name="EditSnippetBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>525</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>0</height>
+   </size>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+     <widget class="KMessageWidget" name="messageWidget">
+       <property name="visible">
+         <bool>false</bool>
+       </property>
+       <property name="closeButtonVisible">
+         <bool>false</bool>
+       </property>
+       <property name="messageType">
+           <enum>KMessageWidget::Warning</enum>
+       </property>
+     </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="snippetName">
+       <property name="text">
+        <string>&amp;Name:</string>
+       </property>
+       <property name="buddy">
+        <cstring>snippetNameEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="KLineEdit" name="snippetNameEdit">
+       <property name="toolTip">
+        <string>&lt;p&gt;The name will also be used as the identifier during code completion.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; No spaces allowed.&lt;/p&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="snippetPrefixLabel">
+       <property name="text">
+        <string>Display &amp;Prefix:</string>
+       </property>
+       <property name="buddy">
+        <cstring>snippetPrefixEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="KLineEdit" name="snippetPrefixEdit">
+       <property name="toolTip">
+        <string>The display prefix will be shown during code completion.</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="snippetArgumentsLabel">
+       <property name="text">
+        <string>Display &amp;Arguments:</string>
+       </property>
+       <property name="buddy">
+        <cstring>snippetArgumentsEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="KLineEdit" name="snippetArgumentsEdit">
+       <property name="toolTip">
+        <string>The arguments will be shown during code completion.</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="snippetPostfixLabel">
+       <property name="text">
+        <string>Display P&amp;ostfix:</string>
+       </property>
+       <property name="buddy">
+        <cstring>snippetPostfixEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="KLineEdit" name="snippetPostfixEdit">
+       <property name="toolTip">
+        <string>The postfix will be shown during code completion.</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="snippetShortcutLabel">
+       <property name="text">
+        <string>Shortcut:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="KShortcutWidget" name="snippetShortcutWidget" native="true"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="editorTabs">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="snippetTab">
+      <attribute name="title">
+       <string>&amp;Snippet</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="scriptTab">
+      <attribute name="title">
+       <string>S&amp;cripts</string>
+      </attribute>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KShortcutWidget</class>
+   <extends>QWidget</extends>
+   <header>kshortcutwidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>snippetPrefixEdit</tabstop>
+  <tabstop>snippetArgumentsEdit</tabstop>
+  <tabstop>snippetPostfixEdit</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

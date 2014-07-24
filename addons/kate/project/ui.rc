@@ -1,9 +1,0 @@
-<!DOCTYPE kpartgui>
-<gui name="kateprojectplugin" library="kateprojectplugin" version="6">
-  <MenuBar>
-    <Menu name="projects"><text>&amp;Projects</text>
-      <Action name="projects_prev_project" />
-      <Action name="projects_next_project" />
-    </Menu>
-  </MenuBar>
-</gui>

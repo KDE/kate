@@ -1,3 +1,0 @@
-#include <../foo.hh>
-auto literal = "some ... text";
-// comment...

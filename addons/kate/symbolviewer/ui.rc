@@ -1,9 +1,0 @@
-<!DOCTYPE kpartgui>
-<gui name="katesymbolviewer" library="libkatesymbolviewerplugin" version="2">
-<MenuBar>
- <Menu name="view"><text>&amp;Settings</text>
-    <Separator />
-    <Action name="view_insert_symbolviewer" />
- </Menu>
-</MenuBar>
-</gui>

@@ -1,5 +1,0 @@
-def foo
-    if check
-       bar
-    end
-end

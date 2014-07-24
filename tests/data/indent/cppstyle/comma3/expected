@@ -1,3 +1,0 @@
-class test
-  : public base
-  , public ok

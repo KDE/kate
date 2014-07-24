@@ -1,4 +1,0 @@
-if test1 &&
-# still part of condition
-   test2
-  foo

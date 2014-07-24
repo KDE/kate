@@ -1,5 +1,0 @@
-# comment5.txt
-if foo
-     # Misplaced comment
-  bar
-end

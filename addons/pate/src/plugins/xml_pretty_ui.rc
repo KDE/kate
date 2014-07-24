@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui xmlns="http://www.kde.org/standards/kxmlgui/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="xml_pretty" version="3" xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0                          http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
+  <MenuBar>
+    <Menu name="xml">
+      <text>&amp;XML</text>
+      <Action name="prettyXMLFormat" text="Pretty XML" shortcut="Ctrl+Alt+X"/>
+    </Menu>
+  </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

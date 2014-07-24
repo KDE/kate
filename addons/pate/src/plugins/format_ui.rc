@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui xmlns="http://www.kde.org/standards/kxmlgui/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="args-format" version="2" xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0                          http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
+  <MenuBar>
+    <Menu name="pate">
+      <text>&amp;Pate</text>
+      <Separator/>
+      <Action name="boostFormat" text="Boost-like Format Params" shortcut="Meta+F" whatsthis="Move cursor inside brackets and run this action" group="bottom_tools_operations"/>
+      <Action name="boostUnformat" text="Unformat Function Params" shortcut="Meta+Shift+F" whatsthis="Move cursor inside brackets and run this action" group="bottom_tools_operations"/>
+    </Menu>
+  </MenuBar>
+  <!-- To format parameters there shouldn't be selected text -->
+  <State name="has_no_selection">
+    <enable>
+      <Action name="boostFormat"/>
+      <Action name="boostUnformat"/>
+    </enable>
+  </State>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

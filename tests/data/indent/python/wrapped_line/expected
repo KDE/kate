@@ -1,3 +1,0 @@
-long_statement = "a" + \  # doesn't fit on a line
-    "b"
-pass

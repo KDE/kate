@@ -26,303 +26,12 @@ and you can search the web for more. A few plugins are shipped with the
 editor component, for inserting automatic braces, inserting files,
 and exporting text as &HTML;.</para>
 
-&plugins-part-sections;
+<sect1 id="editor-component-plugins">
+<title>Editor Component Extensions</title>
 
-<sect1 id="scripts">
-<title>Scripts</title>
-
-<variablelist>
-
-<varlistentry id="scripts-emmet">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
-<guisubmenu>Emmet</guisubmenu>
-</menuchoice></term>
-<listitem><variablelist>
-
-<varlistentry id="scripts-emmet-expand-abbreviation">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Expand abbreviation</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Converts the selected text to a pair of opening and closing &HTML; or &XML; tags.
-For example, if <userinput>div</userinput> is selected, this item will replace 
-that with  <computeroutput>&lt;div&gt;&lt;/div&gt;</computeroutput>.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-wrap-with-tag">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Wrap with tag</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Wraps the selected text with the tag provided on the
-<link linkend="dev-scripting-command-line">command line</link>.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-select-tag-inwards">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Select &HTML;/&XML; tag contents inwards</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-When the cursor is inside a pair of &HTML;/&XML; tags, this option will change the
-selection to include the contents of those &HTML;/&XML; tags, without selecting the
-tags themselves.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-select-tag-outwards">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Select &HTML;/&XML; tag contents outwards</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-When the cursor is inside a pair of &HTML;/&XML; tags, this item will change the
-selection to include the contents of those &HTML;/&XML; tags, including the tags
-themselves.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-move-cursor-to-matching-tag">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Move cursor to matching tag</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-If the cursor is inside an opening &HTML;/&XML; tag, this item will move it to the
-closing tag.  If the cursor is inside the closing tag, it will instead move it
-to the opening tag.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-toggle-comment">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Toggle Comment</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-If the selected portion is not a comment, this item will enclose that portion
-in &HTML;/&XML; comments (&eg;
-<computeroutput>&lt;!-- selected text --&gt;</computeroutput>). If the selected 
-portion is a comment, the comment tags will be removed instead.
-</para></listitem>
-</varlistentry>
-
-<!--FIXME: (Go to|Select next) (previous|next) edit point -->
-
-<varlistentry id="scripts-emmet-toggle-delete-tag">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Delete tag under cursor</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-If the cursor is presently inside a &HTML;/&XML; tag, this item will delete the
-entire tag.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-decrement-number-by-1">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Decrement number by 1</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-This item will subtract one from the currently selected text, if it is a number.  
-For example, if <userinput>5</userinput> is selected, it will become 
-<computeroutput>4</computeroutput>.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-decrement-number-by-10">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Decrement number by 10</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-This item will subtract 10 from the currently selected text, if it is a number.  
-For example, if <userinput>15</userinput> is selected, it will become 
-<computeroutput>5</computeroutput>.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-decrement-number-by-0_1">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Decrement number by 0.1</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-This item will subtract 0.1 from the currently selected text, if it is a number.  
-For example, if <userinput>4.5</userinput> is selected, it will become 
-<computeroutput>4.4</computeroutput>.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-increment-number-by-1">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Increment number by 1</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-This item will add one to the currently selected text, if it is a number.  
-For example, if <userinput>5</userinput> is selected, it will become 
-<computeroutput>6</computeroutput>.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-increment-number-by-10">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Increment number by 10</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-This item will add 10 to the currently selected text, if it is a number.  
-For example, if <userinput>5</userinput> is selected, it will become 
-<computeroutput>15</computeroutput>.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-emmet-increment-number-by-0_1">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Increment number by 0.1</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-This item will add 0.1 to the currently selected text, if it is a number.  
-For example, if <userinput>4.5</userinput> is selected, it will become 
-<computeroutput>4.6</computeroutput>.
-</para></listitem>
-</varlistentry>
-
-</variablelist></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-navigation">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
-<guisubmenu>Navigation</guisubmenu>
-</menuchoice></term>
-<listitem><variablelist>
-
-<varlistentry id="scripts-navigation-previous-indent">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Alt;&Shift;<keysym>Up</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Navigation</guisubmenu>
-<guimenuitem>Move cursor to previous matching indent</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Moves the cursor to the first line above the current line that is indented at
-the same level as the current line.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-navigation-next-indent">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Alt;&Shift;<keysym>Down</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Navigation</guisubmenu>
-<guimenuitem>Move cursor to next matching indent</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Moves the cursor to the first line below the current line that is indented at
-the same level as the current line.
-</para></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem></varlistentry>
-
-<!--FIXME: Quick Coding -> Expand Abbreviation (CTRL+ALT+#) -->
-
-<varlistentry id="scripts-editing">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
-<guisubmenu>Editing</guisubmenu>
-</menuchoice></term>
-<listitem><variablelist>
-
-<varlistentry id="scripts-editing-sort">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Sort Selected Text</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Sorts the selected text or whole document in ascending order.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-move-down">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Shift;<keysym>Down</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Move Lines Down</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Move selected lines down.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-move-up">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Shift;<keysym>Up</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Move Lines Up</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Move selected lines up.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-dupe-down">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Down</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Duplicate Selected Lines Down</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Duplicates the selected lines down.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-dupe-up">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Up</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Duplicate Selected Lines Up</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Duplicates the selected lines up.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-uri-encode">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>URI-encode selected text</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Encodes the selected text so that it can be used as part of a query string in a 
-&URL;, replacing the selection with the encoded text.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-uri-decode">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>URI-decode selected text</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-If part of the query string of a &URL; is selected, this will decode it and
-replace the selection with the original raw text.
-</para></listitem>
-</varlistentry>
-
-</variablelist></listitem>
-</varlistentry>
-
-</variablelist>
+<para>For information about available plugins, see the 
+<ulink url="help:katepart/editor-component-plugins.html">Editor Component
+Extensions section of the &katepart; Handbook</ulink>.</para>
 
 </sect1>
 
@@ -1275,11 +984,11 @@ Export your file in &HTML; format so your document can be viewed as a web page.
 <sect2 id="searchinfiles-intro">
 <title>Introduction</title>
 <para>&kappname;'s Search &amp; Replace plugin allows you to search for text or
-<link linkend="regular-expressions">regular expressions</link> in many different
-files at once.  You can search all open files, all the files in one directory
-and optionally its subdirectories, or all files in the current project.  You can
-even filter by filename, for instance searching only files that end with a
-particular file extension.</para>
+<ulink url="help:katepart/regular-expressions.html">regular expressions</ulink>
+in many different files at once.  You can search all open files, all the files
+in one directory and optionally its subdirectories, or all files in the current
+project.  You can even filter by filename, for instance searching only files
+that end with a particular file extension.</para>
 
 </sect2>
 
@@ -1387,8 +1096,8 @@ of upper and lower case letters as your search query.
 <varlistentry>
 <term><guilabel>Regular expressions</guilabel></term>
 <listitem><para>
-Permits you to use <link linkend="regular-expressions">regular expressions</link>
-instead of simple text as your search query.
+Permits you to use <ulink url="help:katepart/regular-expressions.html">regular
+expressions</ulink> instead of simple text as your search query.
 </para></listitem>
 </varlistentry>
 

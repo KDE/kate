@@ -1,0 +1,599 @@
+# -*- coding: utf-8 -*-
+#
+# C/C++ related expansion functions
+#
+# NOTE Expansion plugin can complete available expansion functions for current
+# document. To get help (via tooltip) for the selected expansion function use
+# Ctrl+Shift+E shotcut.
+#
+# Copyright (C) 2010-2013 Alex Turbov <i.zaufi@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import re
+import sys
+
+from PyKDE4.kdecore import i18nc
+
+import kate
+
+import expand
+import expand.args as arg_helpers
+
+
+_CL_SHORTCUT_MAPPINGS = {
+    'c'    : 'default_ctor'
+  , 'cc'   : 'default_copy_ctor'
+  , 'mc'   : 'default_move_ctor'
+  , 'd'    : 'destructor'
+  , 'dtor' : 'destructor'
+  , 'dv'   : 'virtual_destructor'
+  , 'vd'   : 'virtual_destructor'
+  , 'tf'   : 'template_full_spec'
+}
+
+
+@expand.jinja_environment_configurator
+def __setup_jinga__(env):
+    env.block_start_string = '/*%'
+    env.block_end_string = '%*/'
+    env.variable_start_string = '/*<'
+    env.variable_end_string = '>*/'
+    env.line_statement_prefix = '//%'
+    env.line_comment_prefix = '//#'
+    return env
+
+
+@expand.jinja('struct.cpp.tpl')
+@expand.postprocess
+@expand.description(i18nc('@item:inlistbox', 'Insert a structure definition'))
+@expand.details(i18nc('@info', '''<icode>st(foo, T1..3, U, V)</icode><nl/>
+The first mandatory parameter is a structure name, everything after it, will be template parameters.
+'''))
+def st(*args, **kw):
+    data = {}
+    data['entity_type'] = 'struct'
+
+    # If 'name' parameter present -- use it!
+    if 'name' in kw:
+        data['entity_name'] = kw['name']
+
+    template_params = []
+    for arg in args:
+        if arg == 't':
+            data['template'] = True                         # It will be a template despite of other params...
+        elif 'entity_name' not in data:
+            # Assume first not recognized parameter is a class name
+            # (if latter was not provided via named parameters)
+            data['entity_name'] = arg
+        else:
+            data['template'] = True
+            template_params += arg_helpers.try_expand_params_seq(arg)
+    if template_params:
+        data['template_params'] = template_params
+
+    if 'entity_name' not in data:
+        data['entity_name'] = 'name'
+
+    return data
+
+
+@expand.jinja('metafunction-class.cpp.tpl')
+@expand.postprocess
+@expand.description(
+    i18nc(
+        '@item:inlistbox "metafunction class" is a term of boost::mpl library (http://www.boost.org/doc/libs/1_55_0/libs/mpl/doc/tutorial/details.html)'
+      , 'Insert a metafunction class definition'
+      )
+  )
+@expand.details(i18nc('@info', '''<icode>mfc(foo, T, U, -, V1..3)</icode><nl/>
+The first mandatory parameter is a structure name, everything after it, will be template parameters.
+Arguments after <icode>'-'</icode>, became template parameters of the outer structure.
+'''))
+def mfc(*argc, **kw):
+    data = {}
+    data['entity_type'] = 'struct'
+    data['entity_description'] = 'Metafunction-class'
+
+    # If 'name' parameter present -- use it!
+    if 'name' in kw:
+        data['entity_name'] = kw['name']
+
+    template_params = [[], []]
+    idx = 0
+    for arg in argc:
+        if arg == '-':
+            data['template'] = True                         # It will be a template despite of other params...
+            idx = 1
+        elif 'entity_name' not in data:
+            # Assume first not recognized parameter is a class name
+            # (if latter was not provided via named parameters)
+            data['entity_name'] = arg
+        else:
+            template_params[idx] += arg_helpers.try_expand_params_seq(arg)
+
+    if template_params[0]:
+        data['mfc_params'] = template_params[0]
+
+    if template_params[1]:
+        data['template_params'] = template_params[1]
+
+    if 'entity_name' not in data:
+        data['entity_name'] = 'name'
+
+    return data
+
+
+@expand.jinja('class.cpp.tpl')
+@expand.postprocess
+@expand.description(i18nc('@item:inlistbox', 'C++ skeleton class generator'))
+@expand.details(i18nc('@info "namespace" is a C++ term', '''<icode>cl(name,c,cc,mc,d,vd,t,template-params)</icode><nl/>
+All parameters are optional and their order is not important. Class name can be a named parameter.
+<ul>
+<li><icode>c</icode> generate default constructor</li>
+<li><icode>cN</icode> generate constructor with <icode>N</icode> parameters</li>
+<li><icode>cc</icode> generate copy constructor and assign operator</li>
+<li><icode>mc</icode> generate move constructor and assign operator</li>
+<li><icode>d</icode> generate destructor</li>
+<li><icode>t</icode> all parameters after considered as a template parameter name</li>
+<li><icode>0</icode> back to "normal" mode</li>
+</ul>
+<icode>c</icode>, <icode>cc</icode>, <icode>mc</icode> may have the following prefixes:
+<ul>
+<li> <icode>@</icode> to generate defaulted member </li>
+<li> <icode>-</icode> to generate deleted member</li>
+</ul>
+Any template parameter may have a numeric range at the end (like <icode>T0..4</icode>).
+'''))
+def cl(*args, **kw):
+    ''' NOTE Class name can be given as a named parameter. If no named parameter present,
+        first 'unknown' parameter will be used as class name.
+    '''
+    kate.qDebug('@class renderer: arguments: {}'.format(repr(args)))
+    kate.qDebug('@class renderer: named arguments: {}'.format(repr(kw)))
+
+    data = {}
+    data['entity_type'] = 'class'
+
+    # If 'name' parameter present -- use it!
+    if 'name' in kw:
+        data['entity_name'] = kw['name']
+
+    data['ctor_arity'] = 0
+
+    # Map positional args to various class properties
+    template_params = []
+    template_mode = False
+    for arg in args:
+        if template_mode:                                   # Collect template parameter names
+            if arg == '-' or arg == '0':                    # Switch to 'normal' mode
+                template_mode = False
+            else:
+                template_params += arg_helpers.try_expand_params_seq(arg)
+        elif arg[0] == '@' or arg[0] == '-':                # Handle defaulted and deleted functions
+            fn_kind = 'default' if arg[0] == '@' else 'delete'
+            fn_val = arg[1:]
+            if fn_val in _CL_SHORTCUT_MAPPINGS:
+                data[_CL_SHORTCUT_MAPPINGS[fn_val]] = fn_kind
+            else:
+                kate.qDebug('Ignore invalid param: {}'.format(arg))
+        elif arg in _CL_SHORTCUT_MAPPINGS:
+            data[_CL_SHORTCUT_MAPPINGS[arg]] = True
+        elif 1 < len(arg) and arg[0] == 'c':                # get default ctor arity
+            try:
+                arity = int(arg[1:])
+                if arity:
+                    data['ctor_arity'] = arity
+                elif arity == 0:
+                    data['default_ctor'] = True
+            except:
+                kate.qDebug('Ignore invalid param: {}'.format(arg))
+        elif arg == 't':                                    # 't' == class is a template, next params are names
+            data['template'] = True
+            template_mode = True
+        elif 'entity_name' not in data:
+            # Assume first not recognized parameter is a class name
+            # (if latter was not provided via named parameters)
+            data['entity_name'] = arg
+        else:
+            kate.qDebug('Ignore invalid param: {}'.format(arg))
+
+    if template_params:
+        data['template_params'] = template_params
+
+    if 'entity_name' not in data:
+        data['entity_name'] = 'name'
+
+    if 'virtual_destructor' in data:
+        data['destructor'] = True
+
+    return data
+
+@expand.jinja('t.cpp.tpl')
+@expand.postprocess
+@expand.description(i18nc('@item:inlistbox', 'Render a <icode>template</icode> header with a given parameters list'))
+@expand.details(i18nc('@info', '''<icode>t(type1, ..., typeN)</icode><nl/>
+If <icode>type</icode> ends with a range of numbers (like <icode>T0..3</icode>), then generate a
+sequence of numbered parameters (<icode>T0, T1, T2, T3</icode>)
+'''))
+def t(*args):
+    data = {}
+    template_params = []
+    for arg in args:
+        template_params += arg_helpers.try_expand_params_seq(arg)
+    data['template_params'] = template_params
+    return data
+
+
+@expand.jinja('brief.cpp.tpl')
+@expand.postprocess
+@expand.description(
+    i18nc('@item:inlistbox', 'Render a <application>Doxygen</application> <icode>brief</icode> header')
+  )
+def brief():
+    return {}
+
+
+@expand.jinja('namespace.cpp.tpl')
+@expand.postprocess
+@expand.description(i18nc('@item:inlistbox', 'Insert named or anonymous namespace'))
+@expand.details(i18nc('@info "namespace" is a C++ term', '''<icode>ns([name[::nested[::name]]])</icode><nl/>
+If no name provided, anonyous namespace will be inserted
+'''))
+def ns(name = None):
+    data = {}
+    if bool(name):
+        # TODO Move this shared configuration settings to some module
+        pos = 60
+        if 'commentStartPos' in kate.configuration:
+            pos = kate.configuration['commentStartPos']
+
+        namespaces = [ns.strip() for ns in name.split('::')]
+        data['namespaces'] = namespaces
+        data['close_braces'] = '}' * len(namespaces)
+        assert(len(namespaces) < pos)
+        data['padding'] = ' ' * (pos - len(namespaces))
+    return data
+
+
+@expand.jinja('getter-setter.cpp.tpl')
+@expand.postprocess
+@expand.description(i18nc('@item:inlistbox', 'Insert getter/setter for a data member'))
+@expand.details(i18nc('@info', '''<icode>gs(member-name, member-type[, ref=0][, srs=0])</icode><nl/>
+Boolean parameters:<nl/>
+<icode>ref</icode> -- getter returns a reference, setter accepts a new value by reference<nl/>
+<icode>srs</icode> -- setter returns self
+'''))
+def gs(member_name=None, member_type=None, ref = False, srs = False):
+    ''' NOTE If the member has a one of "standard" prefix <code>'m_'</code> or suffix <code>'_'</code>,
+        accessor name will be w/o it!
+    '''
+    data = {}
+    data['use_reference'] = arg_helpers.looks_like_true(ref)
+    data['setter_returns_self'] = arg_helpers.looks_like_true(srs)
+    data['member_type'] = member_type if member_type is not None else 'type'
+    member_name = member_name if member_name is not None else 'member_name'
+    data['member_name'] = member_name
+
+    if member_name.startswith('m_'):                        # Usual code style: members start w/ 'm_' prefix
+        pure_name = member_name[2:]
+    elif member_name.endswith('_'):                         # Google code style: members end w/ '_' suffix
+        pure_name = member_name[0:-1]
+    else:
+        pure_name = member_name
+
+    data['getter_name'] = pure_name
+    data['setter_name'] = pure_name
+
+    return data
+
+
+@expand.jinja('main.cpp.tpl')
+@expand.postprocess
+@expand.description(i18nc('@item:inlistbox', 'Render a <icode>main()</icode> function skeleton'))
+@expand.details(i18nc('@info', '''<icode>main([1])</icode><nl/>
+Optional boolean parameter means whether arguments of <icode>main()</icode> should be added
+'''))
+def main(need_args=False):
+    return {'need_args': arg_helpers.looks_like_true(need_args) }
+
+
+@expand.jinja('switch.cpp.tpl')
+@expand.postprocess
+@expand.description(i18nc('@item:inlistbox', 'Render a <icode>switch()</icode> statement w/ a list of cases'))
+@expand.details(i18nc('@info', '''<icode>sw(expr, case1, ..., caseN)</icode><nl/>
+If <icode>caseX</icode> equals to <icode>d</icode> or <icode>default</icode>, then
+render <icode>default: break;</icode> instead of case
+'''))
+def sw(*args):
+    data = {}
+    cases = []
+
+    if args:
+        data['expression'] = args[0]
+
+    for arg in args[1:]:
+        if arg == 'd':
+            data['default'] = True
+        else:
+            cases.append(arg)
+
+    if cases:
+        data['cases'] = cases
+    return data
+
+
+@expand.dynamic(re.compile(
+    '^fn(?P<arity>[0-9]*)?'
+    '(?P<template>t(?P<tarity>[0-9]+))?'
+    '((?P<inline>i)|(?P<static>s)|(?P<virtual>v)|(?P<const>c)|(?P<pure>p)|(?P<final>f)|(?P<override>o))*'
+    '(?P<br>{)?'
+  ))
+@expand.jinja('function.cpp.tpl')
+@expand.postprocess
+def _dynamic_function(params, match):
+    '''Generate function w/ desired number of parameters'''
+    kate.qDebug('@dynamic function: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+
+    data['arity'] = int(match.group('arity')) if match.group('arity') else 0
+    data['static'] = 'static ' if match.group('static') is not None else ''
+    data['inline'] = 'inline ' if match.group('inline') is not None else ''
+    data['virtual'] = 'virtual ' if match.group('virtual') is not None else ''
+    data['const'] = ' const' if match.group('const') is not None else ''
+    data['final'] = ' final' if match.group('final') is not None else ''
+    data['override'] = ' override' if match.group('override') is not None else ''
+    data['pure'] = ' = 0' if match.group('pure') is not None else ''
+    data['template'] = match.group('template') is not None
+    data['template_arity'] = int(match.group('tarity')) if match.group('tarity') is not None else 0
+    data['br'] = match.group('br') is not None
+
+    # Turn some invalid combinations to a (some) valid state
+    if not data['virtual']:
+        if data['final']:
+            # TODO Issue a warning?
+            data['final'] = ''
+        if data['override']:
+            # TODO Issue a warning?
+            data['override'] = ''
+        if data['pure']:
+            # TODO Issue a warning?
+            data['pure'] = ''
+    else:
+        if data['static']:
+            # TODO Issue a warning?
+            data['static'] = ''
+        if data['pure']:
+            if data['final']:
+                # TODO Issue a warning?
+                data['final'] = ''
+            if data['override']:
+                # TODO Issue a warning?
+                data['override'] = ''
+
+    if data['static'] and data['const']:
+        # TODO Issue a warning?
+        pass
+
+    return data
+
+
+@expand.dynamic(re.compile(
+    '^f(?:or)?'
+    '(?P<type>a|i(?P<subtype>3|11)?)?'
+    '(?P<const>c)?(?P<ref1>&|r|ref)?(?P<ref2>&|r|ref)?'
+    '(?P<tail1>[^{]*)?(?P<br>{)?(?P<tail2>.*)'
+  ))
+@expand.jinja('for.cpp.tpl')
+@expand.postprocess
+def _dynamic_for(params, match):
+    kate.qDebug('@dynamic `for`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    for_type = match.group('type')
+    if for_type == 'a':
+        data['for_type'] = 'auto'
+    elif for_type.startswith('i'):
+        data['for_type'] = 'iter'
+    else:
+        data['for_sub_type'] = ''
+
+    for_sub_type = match.group('subtype')
+    if for_sub_type == '3':
+        data['for_sub_type'] = 'c++03'
+    elif for_sub_type == '11':
+        data['for_sub_type'] = 'c++11'
+    else:
+        # NOTE Default is C++11 w/ ADL
+        data['for_sub_type'] = ''
+
+    data['const'] = (match.group('const') is not None)
+
+    if match.group('ref2') is not None:
+        data['ref'] = '&&'
+        if data['const']:
+            # TODO Issue a warning?
+            data['const'] = False
+    elif match.group('ref1') is not None:
+        data['ref'] = '&'
+    else:
+        data['ref'] = ''
+
+    data['br'] = match.group('br') is not None
+    data['var'] = match.group('tail2') if data['br'] else match.group('tail1')
+
+    return data
+
+
+@expand.dynamic(re.compile('^if((?P<else_count>[0-9]+)?e)?(?P<br>{)?'))
+@expand.jinja('if-else.cpp.tpl')
+@expand.postprocess
+def _dynamic_if(params, match):
+    kate.qDebug('@dynamic `if`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+
+    if match.group(1) is not None:
+        data['else_count'] = int(match.group('else_count')) if match.group('else_count') else 1
+    else:
+        data['else_count'] = 0
+
+    data['br'] = match.group('br') is not None
+
+    return data
+
+
+@expand.dynamic(re.compile('^sw((?P<case_count>[0-9]+)?c)?(?P<default>d)?'))
+@expand.jinja('switch.cpp.tpl')
+@expand.postprocess
+def _dynamic_switch(params, match):
+    kate.qDebug('@dynamic `switch`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    cases = []
+
+    data['default'] = match.group('default') is not None
+
+    if match.group(1) is not None:
+        data['case_count'] = int(match.group('case_count')) if match.group('case_count') else 1
+    else:
+        data['case_count'] = 0
+
+    if data['case_count']:
+        for c in range(0, data['case_count']):
+            cases.append('case_{}'.format(c))
+
+    if cases:
+        data['cases'] = cases
+
+    data['editable_cases'] = True
+
+    return data
+
+
+@expand.dynamic(re.compile('^e(?P<is_class>c)?(?P<has_type>:)?'))
+@expand.jinja('enum.cpp.tpl')
+@expand.postprocess
+def _dynamic_enum(params, match):
+    kate.qDebug('@dynamic `enum`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    data['is_class'] = match.group('is_class') is not None
+    data['has_type'] = match.group('has_type') is not None
+    return data
+
+
+@expand.dynamic(re.compile('^try(?P<count>[0-9]+)?(?P<catch_all>(?:a|\.))?'))
+@expand.jinja('try.cpp.tpl')
+@expand.postprocess
+def _dynamic_try(params, match):
+    kate.qDebug('@dynamic `try`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    data['catch_count'] = int(match.group('count')) if match.group('count') is not None else 0
+    data['catch_all'] = match.group('catch_all') is not None
+    if not data['catch_all'] and data['catch_count'] == 0:
+        data['catch_count'] = 1
+    return data
+
+
+@expand.dynamic(re.compile(
+    '^cl('
+        '(?P<cctor>[@\-]?cc)|(?P<ctor>c(?P<ctor_arity>[0-9]+)?)|(?P<mctor>[@\-]?mc)|'
+        '(?P<vdtor>vd)|(?P<dtor>d)|(?P<template>t(?P<tarity>[0-9]+)?)'
+    ')*'
+  ))
+@expand.jinja('class.cpp.tpl')
+@expand.postprocess
+def _dynamic_class(params, match):
+    kate.qDebug('@dynamic `class`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+
+    data['entity_type'] = 'class'
+    data['entity_name'] = 'name'
+    data['ctor_arity'] = 0
+
+    if match.group('ctor'):
+        data['ctor_arity'] = int(match.group('ctor_arity')) if match.group('ctor_arity') is not None else 0
+        if data['ctor_arity'] == 0:
+            data['default_ctor'] = True
+
+    if match.group('cctor') is not None:
+        fn_val = match.group('cctor')
+        if fn_val[0] == '@':
+            data['default_copy_ctor'] = 'default'
+        elif fn_val[0] == '-':
+            data['default_copy_ctor'] = 'delete'
+        else:
+            data['default_copy_ctor'] = True
+
+    if match.group('mctor') is not None:
+        fn_val = match.group('cctor')
+        if fn_val[0] == '@':
+            data['default_move_ctor'] = 'default'
+        elif fn_val[0] == '-':
+            data['default_move_ctor'] = 'delete'
+        else:
+            data['default_move_ctor'] = True
+
+    data['virtual_destructor'] = match.group('vdtor') is not None
+    data['destructor'] = match.group('dtor') is not None
+
+    if data['virtual_destructor']:
+        data['destructor'] = True
+
+    if match.group('template') is not None:
+        data['template'] = True
+        tarity = int(match.group('tarity')) if match.group('tarity') is not None else 1
+        template_params = []
+        for tp in range(0, tarity):
+            template_params.append('T{}'.format(tp))
+        data['template_params'] = template_params
+
+    return data
+
+
+@expand.dynamic(re.compile('^ns(?P<names>.*)?'))
+@expand.jinja('namespace.cpp.tpl')
+@expand.postprocess
+def _dynamic_namespace(params, match):
+    kate.qDebug('@dynamic `namespace`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    if match.group('names'):
+        # TODO Move this shared configuration settings to some module
+        pos = 60
+        if 'commentStartPos' in kate.configuration:
+            pos = kate.configuration['commentStartPos']
+
+        namespaces = [ns.strip() for ns in match.group('names').split('::')]
+        data['namespaces'] = namespaces
+        data['close_braces'] = '}' * len(namespaces)
+        assert(len(namespaces) < pos)
+        data['padding'] = ' ' * (pos - len(namespaces))
+    return data
+
+
+@expand.dynamic(re.compile('^st(?P<template>t(?P<tarity>[0-9]+)?)?'))
+@expand.jinja('struct.cpp.tpl')
+@expand.postprocess
+def _dynamic_struct(params, match):
+    kate.qDebug('@dynamic `struct`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    data['entity_type'] = 'struct'
+    data['entity_name'] = 'name'
+
+    data['template'] = match.group('template') is not None
+    if data['template']:
+        tarity = int(match.group('tarity')) if match.group('tarity') is not None else 1
+        template_params = []
+        for tp in range(0, tarity):
+            template_params.append('T{}'.format(tp))
+        data['template_params'] = template_params
+
+    return data

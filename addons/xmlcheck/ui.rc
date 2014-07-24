@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="katexmlcheck" library="libkatexmlcheckplugin" version="4">
+  <MenuBar>
+    <Menu name="xml">
+      <text>&amp;XML</text>
+      <Action name="xml_check"/>
+    </Menu>
+  </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

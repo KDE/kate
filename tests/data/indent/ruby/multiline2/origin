@@ -1,3 +1,0 @@
-# multiline2.txt
-if (foo == "bar" and
-    bar == "foo")

@@ -1,2 +1,0 @@
-kate: replace-tabs on; remove-trailing-spaces all;
-kate: hl ada; indent-mode ada; indent-width 3; 

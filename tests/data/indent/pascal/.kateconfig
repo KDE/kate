@@ -1,3 +1,0 @@
-kate: replace-tabs on; remove-trailing-spaces all;
-kate: hl pascal; indent-mode pascal; indent-width 3; 
-kate: cfgIndentBegin 0; cfgIndentCase on;

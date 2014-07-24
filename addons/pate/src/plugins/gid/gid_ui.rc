@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui xmlns="http://www.kde.org/standards/kxmlgui/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="gid" version="1" xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0                          http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
+  <MenuBar>
+    <Menu name="gid">
+      <text>&amp;Gid</text>
+      <Separator/>
+      <Action name="show" text="Browse Tokens" shortcut="Alt+1" icon="edit-find"/>
+      <Action name="lookup" text="Lookup Current Token" shortcut="Alt+2" icon="edit-find"/>
+      <Action name="gotoDefinition" text="Go to Definition" shortcut="Alt+3" icon="go-jump-definition"/>
+    </Menu>
+  </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

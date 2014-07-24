@@ -509,8 +509,9 @@ Mode</guimenuitem></menuchoice></term>
 and motions from vim's normal and visual mode and has an optional vi mode status bar.
 This status bar shows commands while they are being entered, output from commands and
 the current mode.The behavior of this mode can be configured in the
-<link linkend="pref-edit-vi-input-mode">Vi Input Mode</link> section of the
-<guilabel>Editing</guilabel> page in &kappname;'s settings dialog.</para>
+<ulink url="help:katepart/config-dialog-editor.html#pref-edit-vi-input-mode">Vi
+Input Mode</ulink> section of the <guilabel>Editing</guilabel> page in 
+&kappname;'s settings dialog.</para>
 </listitem>
 </varlistentry>
 
@@ -1018,7 +1019,8 @@ enabled by default.</para>
 <guimenu>View</guimenu><guimenuitem>Switch to Command Line</guimenuitem>
 </menuchoice></term>
 <listitem><para>This command will toggle the display of the
-<link linkend="advanced-editing-tools-commandline">built-in command line</link>.
+<ulink url="help:katepart/advanced-editing-tools-commandline.html">built-in 
+command line</ulink>.
 </para></listitem>
 </varlistentry>
 
@@ -1037,8 +1039,8 @@ interactively. For more information, see
 </menuchoice></term>
 <listitem><para>This menu lists the available color schemes. You can change the 
 schema for the current view here, to change the default schema you need to
-use the <link linkend="prefcolors">Fonts &amp; Colors</link> page
-of the config dialog.</para>
+use the <ulink url="help:katepart/config-dialog-editor.html#prefcolors">Fonts 
+&amp; Colors</ulink> page of the config dialog.</para>
 </listitem>
 </varlistentry>
 
@@ -1070,9 +1072,10 @@ Wrap</guilabel> option is checked.</para>
 <term><menuchoice><guimenu>View</guimenu><guimenuitem>Show Static Word
 Wrap Marker</guimenuitem></menuchoice></term>
 <listitem><para>Toggles the display of a vertical line indicating the position
-of the wrap width as configured in the <link
-linkend="pref-wrap-words-at">config dialog</link>. This
-feature requires that you use a true fixed-width font.</para>
+of the wrap width as configured in the
+<ulink url="help:katepart/config-dialog-editor.html#pref-wrap-words-at">config
+dialog</ulink>. This feature requires that you use a true fixed-width font.
+</para>
 </listitem>
 </varlistentry>
 
@@ -1121,8 +1124,9 @@ to a position near the mark.</para></listitem>
 <term><menuchoice><guimenu>View</guimenu><guimenuitem>Show Scrollbar
 Minimap</guimenuitem></menuchoice></term>
 <listitem><para>This will replace the scrollbar with a visualization of the
-current document. For more information on the scrollbar minimap, see
-<xref linkend="kate-part-scrollbar-minimap"/></para></listitem>
+current document. For more information on the scrollbar minimap, see the
+<ulink url="help:katepart/kate-part-scrollbar-minimap.html">Scrollbar Minimap
+section of the &katepart; Handbook</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1131,8 +1135,9 @@ current document. For more information on the scrollbar minimap, see
 <guimenu>View</guimenu><guimenuitem>Show Folding Markers</guimenuitem>
 </menuchoice></term>
 <listitem><para>Toggles the display of the folding marker pane in the left
-side of the view. See <link linkend="advanced-editing-tools-code-folding">Using
-Code Folding</link>.</para></listitem>
+side of the view. See 
+<ulink url="help:katepart/advanced-editing-tools-code-folding.html">Using Code 
+Folding</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1142,7 +1147,8 @@ Code Folding</link>.</para></listitem>
 <guimenu>View</guimenu><guimenuitem>Code Folding</guimenuitem>
 </menuchoice></term>
 <listitem><para>These options pertain to
-<link linkend="advanced-editing-tools-code-folding">code folding</link>:</para>
+<ulink url="help:katepart/advanced-editing-tools-code-folding.html">code 
+folding</ulink>:</para>
 <variablelist>
 
 <varlistentry>
@@ -1394,7 +1400,8 @@ addition and any changes in the document formatting.</para>
 <guimenuitem>Mode</guimenuitem></menuchoice></term>
  <listitem>
 <para>Choose the filetype scheme you prefer for the active document. This
-overwrites the global <link linkend="pref-open-save-modes-filetypes">filetype</link>
+overwrites the global
+<ulink url="help:katepart/pref-open-save-modes-filetypes.html">filetype</ulink>
 mode set in <menuchoice> <guimenu>Settings</guimenu> <guimenuitem>Configure
 &kate;...</guimenuitem></menuchoice> in the Filetypes tab for your current
 document only.</para>
@@ -1418,8 +1425,8 @@ overwrites the global highlighting mode set in <menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Indentation</guisubmenu></menuchoice></term>
  <listitem>
-<para>Choose the <link linkend="kate-part-autoindent">style of
-indentation</link> you want for your active document.
+<para>Choose the <ulink url="help:katepart/kate-part-autoindent.html">style of
+indentation</ulink> you want for your active document.
 This overwrites the global indentation mode set in <menuchoice>
 <guimenu>Settings</guimenu> <guimenuitem>Configure Editor...</guimenuitem>
 </menuchoice> for your current document only.</para>
@@ -1472,12 +1479,13 @@ the endianness (byte order) of a text file or stream, for more information see
 <guisubmenu>Scripts</guisubmenu></menuchoice></term>
  <listitem>
 <para>This submenu contains a list of all scripted actions. The list can easily be
-modified by <link linkend="dev-scripting-command-line">writing your
-own scripts</link>. This way, &kate; can be extended with user-defined tools.
+modified by 
+<ulink url="help:katepart/dev-scripting.html#dev-scripting-command-line">writing 
+your own scripts</ulink>. This way, &kate; can be extended with user-defined tools.
 </para>
 
-<para>For more information about the scripts included with &kate;, see
-<xref linkend="scripts"/>.</para>
+<para><ulink url="help:katepart/tools.html#scripts">There is a complete list of
+scripts in the &katepart; documentation.</ulink></para>
 </listitem>
 </varlistentry>
 
@@ -1724,7 +1732,8 @@ may insert in any part of any document.</para>
 </varlistentry>
 
 </variablelist>
-<para>Menu items for the selected <link linkend="pref-plugins">plugins</link>
+<para>Menu items for the selected
+<ulink url="help:katepart/config-dialog-editor.html#pref-plugins">plugins</ulink>
 are displayed at the end of this menu.
 </para>
 

@@ -31,19 +31,23 @@ you don't, the same basic rules apply for sending patches, too.
 #* Make sure you are aware of the current [http://techbase.kde.org/Schedules Release Schedules], and the associated freezes in the different branches.
 #* Generally it is a good idea to have a look at the last few weeks of the [http://lists.kde.org/?l=kwrite-devel&r=1&w=2 mailing list archive], to see if there may be any reasons against committing certain changes at that time.
 #* If in any doubt: Ask.
-# Respect coding conventions and style
-#* Don't just write in your personal style. Tastes differ, and if we mix all sorts of styles, the code just gets harder to read.
-#* In general, please try to follow the coding style of the surrounding code. For more in-depth information, refer to http://techbase.kde.org/Policies/Kdelibs_Coding_Style .
 # Respect copyright and licences.
 #* In the open source world, a lot of copying and re-use of code is permitted. But please make sure you have checked and understood the applicable terms, in each case.
 #* If in any doubt: Ask.
 # Use bugs.kde.org
 #* If the bug you are about to fix has been annoying you for ages, probably others have noted it before, too. If you think the feature you're about to implement is a must have, then others might have had the same idea. Please be sure to check bugs.kde.org for existing reports / requests. This might contain important considerations that you did not think about, yet. And of course it is important to close the corresponding reports after the bug has been fixed / feature committed, in order to keep bug database managable. Taking some time for bookkeeping is an important part of developing in a community project.
 
+== Coding style ==
+
+# Respect coding conventions and style, kate.git follows the kdelibs coding style: http://techbase.kde.org/Policies/Kdelibs_Coding_Style
+#* Don't just write in your personal style. Tastes differ, and if we mix all sorts of styles, the code just gets harder to read.
+#* In general, please try to follow the coding style of the surrounding code.
+# Use four spaces to indent.
+# Whenever possible use title case includes without directory, e.g. '''#include <QLabel>'''
 
 == Kate specific rules ==
 
-The main sub-directories of this repository are "kate", "kwrite", "part", and "ktexteditor". Very
+The main sub-directories of this repository are "kate" and "kwrite". Very
 differnt guidelines apply to these, so make sure you understand what is or is not allowed in each sub-project.
 
 === kate / kwrite ===
@@ -61,29 +65,3 @@ should be implemented in the kate part, in order to make them accessible to all 
 generic rule of thumb: If the feature (or a similar feature) could be useful in kwrite, then it should probably 
 go into katepart. If the feature might be useful in applications such as kdevelop, kile, quanta, rkward, etc. then it
 should probably be implemented in katepart. If in any doubt: Ask.
-
-=== part ===
-
-This directory holds the implementation of the kate "part". We assume that you know what a KPart is (and if you don't,
-then please read up on it), but as a short summary: Any KDE application can embed this part, in order to gain advanced
-text-editor features in very few lines of code. And many, many applications do, inside and outside of kde.org.
-These external applications are not compiled or linked against the katepart. Thus many concerns about source and binary
-compatibility do not apply. However, several types of changes in katepart code can potentially have non-obvious
-negative side-effects on applications that embed katepart. Thus, please be sure you understand the following issues,
-and think twice before doing such changes:
-
-# Shortcuts
-#* Embedding applications will typically inherit the complete GUI from katepart, including all shortcuts. More often than not, these applications will also define a considerable number of application-specific shortcuts in addition to that. This has a lot of potential to create clashes between shortcuts in the katepart, and the
-embedding application. Thus, please think twice before adding new shortcuts, or changing the default keys for existing shortcuts. Ask yourself: Does this action really need a shortcut ''by default''?
-# Action names
-#* The names of actions and menus may seem like a fully internal implementation detail, on first glance. But they are not. In fact embedding applications sometimes have the need to hide specific actions, to re-arrange them, or to modify them in other ways (e.g. changing the text to avoid ambiguities, etc.). To do so, they will reference the actions by their id / name (not their text label). So please do not change existing action names without very strong reasons to do so.
-#* The same point applies for names of merge points and groups in the ui.rc.
-# Syntax highlighting names
-#* Similarly, embedding applications may want to set a specific highlighting mode under some circumstances. To do so they will probably use KTextEditor::Document::setHighlightingMode(), which takes the name of the highlighting mode as parameter. Thus, please be very careful when changing names.
-# Removing the implementation of KTextEditor Extension interfaces
-#* Theoretically, embedding applications may not assume that a certain extension interface (such as KTextEditor::SmartInterface) is implemented by the embedded part. In practice they do. Thus, if you ever have the need to remove a certain interface implementation, be sure you announce this '''very''' visibly, and to allow ample time for embedding applications to adjust to the change.
-
-=== ktexteditor ===
-
-'''This directory is actually part of kdelibs'''. It is synced with kdelibs, regularly, but technically it belongs to kdelibs (at least for KDE 4.x.y). Thus, any changes you do, here, ''must'' follow the kdelibs library code policy: http://techbase.kde.org/Policies/Library_Code_Policy . Before you touch anything, in this directory, please be sure to read and understand that in full. In particular you should have a firm undersanding of API and ABI compatibility issues. '''If in any doubt: Ask'''.
-In any case, notify kwrite-devel about changes in that directory.

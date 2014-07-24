@@ -1,5 +1,0 @@
-# no-do4.txt
-if foo
-  puts "nothing" # nothing to do
-  f
-end

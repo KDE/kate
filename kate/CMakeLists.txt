@@ -1,13 +1,19 @@
+#
+# The Kate Application
+#
 project(kate)
 
-add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13001 )
+# Load the frameworks we need
+find_package(KF5 REQUIRED COMPONENTS DBusAddons)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/interfaces)
+# .desktop files and co
+add_subdirectory (data)
 
-add_subdirectory( interfaces/kate )
-add_subdirectory( app )
-add_subdirectory( filetree )
-add_subdirectory( data )
+# icons
+add_subdirectory (icons)
 
+# the app itself
+add_subdirectory (src)
 
-install( FILES interfaces/kate_export.h DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
+# automatic unit tests
+ecm_optional_add_subdirectory (autotests)

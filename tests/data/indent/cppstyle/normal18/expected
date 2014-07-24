@@ -1,6 +1,0 @@
-    for (auto i : container)
-        if (some)
-            break;
-        else if (other)
-            continue;
-        ok

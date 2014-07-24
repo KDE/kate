@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="katekonsole" library="katekonsoleplugin" version="3">
+  <MenuBar>
+    <Menu name="tools">
+      <text>&amp;Tools</text>
+      <Action name="katekonsole_tools_pipe_to_terminal" group="tools_operations"/>
+      <Action name="katekonsole_tools_sync" group="tools_operations"/>
+      <Action name="katekonsole_tools_toggle_focus" group="tools_operations"/>
+    </Menu>
+  </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

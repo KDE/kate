@@ -1,8 +1,0 @@
-[Makefile]
-Variables=kate: tab-width 8; indent-width 8; replace-tabs off; replace-tabs-save off;
-
-[Python]
-Variables=kate: indent-pasted-text false;
-
-[YAML]
-Variables=kate: space-indent true;

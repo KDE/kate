@@ -1,3 +1,0 @@
-a_dict = {0: 'a',  # opening dictionary w/ elements indents to opening
-          1: 'b', }
-pass

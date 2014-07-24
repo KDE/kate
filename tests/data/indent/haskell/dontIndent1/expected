@@ -1,6 +1,0 @@
-main = do
-    -- This is a comment
-    something
-    something
-
-    foo bar

@@ -1,8 +1,0 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="ktexteditor_iconinserterui" library="ktexteditor_iconinserter" version="4">
-
-<Menu name="ktexteditor_popup">
-  <Action name="iconinserter_inserticon" group="popup_operations"/>
-</Menu>
-
-</gui>

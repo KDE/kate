@@ -1,8 +1,0 @@
-# basic1.txt
-def foo
-  if gets
-    puts
-  else
-    exit
-  end
-end

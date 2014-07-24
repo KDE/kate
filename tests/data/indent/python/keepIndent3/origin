@@ -1,3 +1,0 @@
-while True:
-    returnFunc()
-    myVar = 3

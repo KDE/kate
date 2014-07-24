@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui xmlns="http://www.kde.org/standards/kxmlgui/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="js_utils" version="1" xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0                          http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
+  <MenuBar>
+    <Menu name="javascript">
+      <text>&amp;JavaScript</text>
+      <Action name="lint_js_action" text="Lint JavaScript" shortcut="Alt+9"/>
+      <Action name="insert_jquery_ready_action" text="jQuery Ready" shortcut="Ctrl+Shift+J"/>
+      <Action name="prettify_JSON_action" text="Prettify JSON" shortcut="Ctrl+Alt+J"/>
+    </Menu>
+  </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

@@ -1,1 +1,0 @@
-for (auto it = begin(list); it != ok; ++it)

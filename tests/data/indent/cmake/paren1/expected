@@ -1,8 +1,0 @@
-function(some)
-    if(smth)
-        if(some_other)
-            set(foo)
-        endif()ok
-    endif()ok
-endfunction(ok
-// The last line is failed for some reason ;-(

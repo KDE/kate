@@ -82,9 +82,10 @@ def _get_1st_arg_if_add_subdirectory_cmd(document, line):
 def _find_current_context(document, cursor):
     '''Determinate current context under cursor'''
     # Parse whole document starting from a very first line!
-    in_a_string = False
-    in_a_command = False
-    in_a_comment = False
+    in_string = False
+    in_command = False
+    in_comment = False
+    in_var = False
     skip_next = False
     nested_var_level = 0
     command = None
@@ -92,13 +93,14 @@ def _find_current_context(document, cursor):
     for current_line in range(0, cursor.line() + 1):
         line_str = document.line(current_line)
         prev = None
-        in_a_comment = False
+        in_comment = False
         should_count_pos = (current_line == cursor.line())
         for pos, c in enumerate(line_str):
+            print("c='{}'".format(c))
             if should_count_pos and pos == cursor.column():
                 break
-            if c == '#' and not in_a_string:
-                in_a_comment = True
+            if c == '#' and not in_string:
+                in_comment = True
                 # TODO Syntax error if we r in a var expansion
                 break                                       # Ignore everything till the end of line
             if skip_next:                                   # Should we skip current char?
@@ -106,20 +108,24 @@ def _find_current_context(document, cursor):
             elif c == '\\':                                 # Found a backslash:
                 skip_next = True                            #  skip next char!
             elif c == '"':                                  # Found a quote char
-                in_a_string = not in_a_string               # Switch 'in a string' state
+                in_string = not in_string                   # Switch 'in a string' state
                 # TODO Syntax error if we r in a var expansion
             elif c == '{' and prev == '$':                  # Looks like a variable expansion?
                 nested_var_level += 1                       # Yep, incrase var level
+                in_var = True
             elif c == '}':                                  # End of a variable expansion
-                nested_var_level -= 1
-            elif c == '(' and not in_a_string:              # Command params started
+                if in_var:
+                    nested_var_level -= 1
+                    if nested_var_level == 0:
+                        in_var = False
+            elif c == '(' and not in_string:                # Command params started
                 command = line_str[0:pos].strip()
                 # TODO Syntax error if we r in a var expansion
-                in_a_command = True
+                in_command = True
                 fn_params_start = KTextEditor.Cursor(current_line, pos + 1)
-            elif c == ')' and not in_a_string:
+            elif c == ')' and not in_string:
                 # TODO Syntax error if we r in a var expansion
-                in_a_command = False
+                in_command = False
                 command = None
                 fn_params_start = None
 
@@ -131,7 +137,7 @@ def _find_current_context(document, cursor):
         fn_params_range = KTextEditor.Range(fn_params_start, cursor)
     else:
         fn_params_range = KTextEditor.Range(-1, -1, -1, -1)
-    return (command, in_a_string, nested_var_level != 0, in_a_comment, fn_params_range)
+    return (command, in_string, in_var, in_comment, fn_params_range)
 
 
 def _is_there_CMakeLists(path):
@@ -234,8 +240,8 @@ def openCMakeList():
     else:
         # Ok, nothing selected. Lets check the context: are we inside a command?
         cursor = view.cursorPosition()
-        command, in_a_string, in_a_var, in_a_comment, fn_params_range = _find_current_context(document, cursor)
-        kate.kDebug('CMakeHelper: command="{}", in_a_string={}, in_a_var={}'.format(command, in_a_string, in_a_var))
+        command, in_string, in_var, in_comment, fn_params_range = _find_current_context(document, cursor)
+        kate.kDebug('CMakeHelper: command="{}", in_string={}, in_var={}'.format(command, in_string, in_var))
         selected_dir = cur_dir
         if command == 'add_subdirectory':
             # Check if the command have some parameters already entered
@@ -322,19 +328,19 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
         cursor = view.cursorPosition()
         # Try to detect completion context
-        command, in_a_string, in_a_var, in_a_comment, fn_params_range = _find_current_context(document, cursor)
+        command, in_string, in_var, in_comment, fn_params_range = _find_current_context(document, cursor)
         kate.kDebug(
-            'CMakeCC: command="{}", in_a_string={}, in_a_var={}, in_a_comment={}'.
-            format(command, in_a_string, in_a_var, in_a_comment)
+            'CMakeCC: command="{}", in_string={}, in_var={}, in_comment={}'.
+            format(command, in_string, in_var, in_comment)
           )
         if fn_params_range.isValid():
             kate.kDebug('CMakeCC: params="{}"'.format(document.text(fn_params_range)))
 
-        if in_a_comment:
+        if in_comment:
             # Nothing to complete if we r in a comment
             return
 
-        if in_a_var:
+        if in_var:
             # Try to complete a variable name
             self.TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'CMake Variables Completion')
             for var in cmake_help_parser.get_cmake_vars():
@@ -346,7 +352,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
                       )
                   )
             return
-        if in_a_string:
+        if in_string:
             # If we a not in a variable expansion, but inside a string
             # there is nothing to complete!
             return

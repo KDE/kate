@@ -11,7 +11,7 @@
   Copyright 2010 Matt Williams (matt@milliams.com)
   Copyright 2014 Matthew Woehlke (mw_triad@users.sourceforge.net)
   -->
-<language name="reStructuredText" extensions="*.rst" section="Markup" mimetype="text/x-rst" version="1.03" kateversion="2.4" casesensitive="1">
+<language name="reStructuredText" extensions="*.rst" section="Markup" mimetype="text/x-rst" version="1.4" kateversion="2.4" casesensitive="1">
 
   <highlighting>
 
@@ -23,9 +23,6 @@
         <RegExpr attribute="Footnote" context="#stay" String="^\s*\.\. \[(\d+|#|\*|#[&SimpleReferenceNameChars;]+)\]\s" minimal="true" column="0"/>
         <RegExpr attribute="Citation" context="#stay" String="^\s*\.\. \[[&SimpleReferenceNameChars;]+\]\s" minimal="true" column="0"/>
         <RegExpr attribute="HyperlinkTarget" context="#stay" String="^\s*(\.\. (__:|_[&SimpleReferenceNameChars; ]+:(\s|$))|__ )" minimal="true" column="0"/>
-        <RegExpr attribute="CMakeCode" String="^\s*\.\. code-block::\s*cmake$" context="CMakeCodeBlock" column="0"/>
-        <RegExpr attribute="CppCode" String="^\s*\.\. code-block::\s*c\+\+$" context="CppCodeBlock" column="0"/>
-        <RegExpr attribute="PythonCode" String="^\s*\.\. code-block::\s*python$" context="PythonCodeBlock" column="0"/>
         <RegExpr attribute="Code" String="^\s*\.\. code-block::" context="CodeBlock" column="0"/>
         <RegExpr attribute="Directive" context="#stay" String="^\s*\.\. [\w-_\.]+::(\s|$)" minimal="true" column="0"/>
         <RegExpr attribute="Code" String="::$" context="CodeBlock" />
@@ -67,44 +64,8 @@
         <IncludeRules context="##Alerts"/>
       </context>
 
-      <context name="CMakeCodeBlock" attribute="CMakeCode" lineEndContext="#stay">
-        <RegExpr attribute="CMakeCode" String="^(\s+)(?=\S)" context="CMakeCodeRegion" column="0"/>
-      </context>
-      <context name="CppCodeBlock" attribute="CppCode" lineEndContext="#stay">
-        <RegExpr attribute="CppCode" String="^(\s+)(?=\S)" context="CppCodeRegion" column="0"/>
-      </context>
-      <context name="PythonCodeBlock" attribute="PythonCode" lineEndContext="#stay">
-        <RegExpr attribute="PythonCode" String="^(\s+)(?=\S)" context="PythonCodeRegion" column="0"/>
-      </context>
       <context name="CodeBlock" attribute="Code" lineEndContext="#stay">
         <RegExpr attribute="Code" String="^(\s+)(?=\S)" context="Code" column="0"/>
-      </context>
-
-      <context name="CMakeCodeRegion" attribute="CMakeCode" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="CMakeCode" String="^%1" lookAhead="true" context="CMakeCode" column="0" dynamic="true"/>
-        <RegExpr attribute="Normal" String="^(.|$)" lookAhead="true" context="#pop#pop" column="0"/>
-        <IncludeRules context="CMakeCode" includeAttrib="true"/>
-      </context>
-      <context name="CMakeCode" attribute="CMakeCode" lineEndContext="#pop">
-        <IncludeRules context="##CMake" includeAttrib="true"/>
-      </context>
-
-      <context name="CppCodeRegion" attribute="CppCode" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="CppCode" String="^%1" lookAhead="true" context="CppCode" column="0" dynamic="true"/>
-        <RegExpr attribute="Normal" String="^(.|$)" lookAhead="true" context="#pop#pop" column="0"/>
-        <IncludeRules context="CppCode" includeAttrib="true"/>
-      </context>
-      <context name="CppCode" attribute="CppCode" lineEndContext="#pop">
-        <IncludeRules context="##C++" includeAttrib="true"/>
-      </context>
-
-      <context name="PythonCodeRegion" attribute="PythonCode" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="PythonCode" String="^%1" lookAhead="true" context="PythonCode" column="0" dynamic="true"/>
-        <RegExpr attribute="Normal" String="^(.|$)" lookAhead="true" context="#pop#pop" column="0"/>
-        <IncludeRules context="PythonCode" includeAttrib="true"/>
-      </context>
-      <context name="PythonCode" attribute="PythonCode" lineEndContext="#pop">
-        <IncludeRules context="##Python" includeAttrib="true"/>
       </context>
 
       <context name="Code" attribute="Code" lineEndContext="#stay" dynamic="true">
@@ -132,9 +93,6 @@
       <itemData name="Directive" defStyleNum="dsDataType" />
       <itemData name="SubstitutionDefinition" defStyleNum="dsDataType" />
       <itemData name="Role" defStyleNum="dsKeyword" />
-      <itemData name="CMakeCode" defStyleNum="dsDataType" />
-      <itemData name="CppCode" defStyleNum="dsDataType" />
-      <itemData name="PythonCode" defStyleNum="dsDataType" />
       <itemData name="Code" defStyleNum="dsDataType" />
       <itemData name="Comment" defStyleNum="dsComment" />
     </itemDatas>

@@ -35,7 +35,7 @@
 <!ENTITY strikeoutregex "[~]{2}[^~].*[^~][~]{2}">
 <!-- pandoc style -->
 ]>
-<language name="Markdown" version="1.3" kateversion="3.7" section="Markup" extensions="*.md;*.mmd;*.markdown" priority="15" author="Darrin Yeager, Claes Holmerson" license="GPL,BSD">
+<language name="Markdown" version="1.4" kateversion="3.7" section="Markup" extensions="*.md;*.mmd;*.markdown" priority="15" author="Darrin Yeager, Claes Holmerson" license="GPL,BSD">
   <highlighting>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
@@ -56,17 +56,17 @@
         <RegExpr attribute="meta" String="^(Title|Author|Date|Copyright|Revision|CSS|LaTeX\ XSLT|Categories|Tags|BaseName|Excerpt):(.*)+$"/>
         <IncludeRules context="inc"/>
       </context>
-      <context attribute="blockquote" lineEndContext="#pop" name="blockquote">
+      <context attribute="blockquote" lineEndContext="#stay" lineEmptyContext="#pop" name="blockquote">
         <RegExpr attribute="bq-strong" String="&strongregex;"/>
         <RegExpr attribute="bq-emphasis" String="&emphasisregex;"/>
         <IncludeRules context="inc"/>
       </context>
-      <context attribute="bullet" lineEndContext="#pop" name="bullet">
+      <context attribute="bullet" lineEndContext="#stay" lineEmptyContext="#pop" name="bullet">
         <RegExpr attribute="bl-strong" String="&strongregex;"/>
         <RegExpr attribute="bl-emphasis" String="&emphasisregex;"/>
         <IncludeRules context="inc"/>
       </context>
-      <context attribute="numlist" lineEndContext="#pop" name="numlist">
+      <context attribute="numlist" lineEndContext="#stay" lineEmptyContext="#pop" name="numlist">
         <RegExpr attribute="nl-strong" String="&strongregex;"/>
         <RegExpr attribute="nl-emphasis" String="&emphasisregex;"/>
         <IncludeRules context="inc"/>

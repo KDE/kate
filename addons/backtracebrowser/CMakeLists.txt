@@ -13,7 +13,7 @@ set(katebacktracebrowserplugin_PART_UI
     btbrowserwidget.ui
     btconfigwidget.ui
 )
-qt5_wrap_ui(katebacktracebrowserplugin_PART_SRCS ${katebacktracebrowserplugin_PART_UI} )
+ki18n_wrap_ui(katebacktracebrowserplugin_PART_SRCS ${katebacktracebrowserplugin_PART_UI} )
 add_library(katebacktracebrowserplugin MODULE ${katebacktracebrowserplugin_PART_SRCS})
 target_link_libraries(katebacktracebrowserplugin
     KF5::TextEditor

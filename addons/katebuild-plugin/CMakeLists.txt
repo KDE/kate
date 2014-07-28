@@ -3,7 +3,7 @@ find_package(KF5 REQUIRED COMPONENTS Notifications)
 
 set(katebuild_SRCS plugin_katebuild.cpp targets.cpp selecttargetdialog.cpp)
 
-qt5_wrap_ui(katebuild_SRCS build.ui)
+ki18n_wrap_ui(katebuild_SRCS build.ui)
 
 add_library(katebuildplugin MODULE ${katebuild_SRCS})
 

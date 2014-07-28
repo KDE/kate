@@ -7,7 +7,7 @@ set(katesearchplugin_PART_SRCS
     htmldelegate.cpp
 )
 
-qt5_wrap_ui (katesearchplugin_PART_SRCS search.ui results.ui)
+ki18n_wrap_ui (katesearchplugin_PART_SRCS search.ui results.ui)
 
 add_library(katesearchplugin MODULE ${katesearchplugin_PART_SRCS})
 

@@ -8,7 +8,7 @@ set(ctagsplugin_SRC
     kate_ctags_plugin.cpp
 )
 
-qt5_wrap_ui(ctagsplugin_SRC kate_ctags.ui CTagsGlobalConfig.ui)
+ki18n_wrap_ui(ctagsplugin_SRC kate_ctags.ui CTagsGlobalConfig.ui)
 
 add_library(katectagsplugin MODULE ${ctagsplugin_SRC})
 

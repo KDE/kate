@@ -36,7 +36,7 @@ set (KATE_APPLICATION_SRCS
    main.cpp
 )
 
-qt5_wrap_ui(KATE_APPLICATION_SRCS
+ki18n_wrap_ui(KATE_APPLICATION_SRCS
     ui/sessionconfigwidget.ui
 )
 

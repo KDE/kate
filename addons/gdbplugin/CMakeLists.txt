@@ -9,7 +9,7 @@ set(kategdbplugin_PART_SRCS
     advanced_settings.cpp
 )
 
-qt5_wrap_ui(kategdbplugin_PART_SRCS advanced_settings.ui)
+ki18n_wrap_ui(kategdbplugin_PART_SRCS advanced_settings.ui)
 
 add_library(kategdbplugin MODULE ${kategdbplugin_PART_SRCS})
 

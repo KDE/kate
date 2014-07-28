@@ -17,7 +17,7 @@ snippet.cpp
 editrepository.cpp
 editsnippet.cpp )
 
-qt5_wrap_ui(katesnippetsplugin_PART_SRCS 
+ki18n_wrap_ui(katesnippetsplugin_PART_SRCS 
 snippetview.ui
 editrepository.ui
 editsnippet.ui)

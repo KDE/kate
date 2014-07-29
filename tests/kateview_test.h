@@ -39,6 +39,7 @@ private Q_SLOTS:
   void testFolding();
 
   void testCoordinatesToCursor();
+  void testCursorToCoordinates();
 
   void testBug287291();
 

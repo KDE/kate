@@ -71,6 +71,22 @@ void KateViewTest::testCoordinatesToCursor()
     QCOMPARE(view1->cursorToCoordinate(KTextEditor::Cursor(3, 1)), QPoint(-1, -1));
 }
 
+void KateViewTest::testCursorToCoordinates()
+{
+    KateDocument doc(false, false, false);
+    doc.setText("int a;");
+
+    KateView* view = static_cast<KateView*>(doc.createView(0));
+    // this is important
+    view->config()->setDynWordWrap(true);
+    view->show();
+
+    // don't crash, see https://bugs.kde.org/show_bug.cgi?id=337863
+    view->cursorToCoordinate(Cursor(0, 0));
+    view->cursorToCoordinate(Cursor(1, 0));
+    view->cursorToCoordinate(Cursor(-1, 0));
+}
+
 void KateViewTest::testReloadMultipleViews()
 {
     KTemporaryFile file;

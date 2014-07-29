@@ -569,7 +569,7 @@ void KateFileTree::slotDocumentDelete()
   QUrl url = doc->url();
 
   bool go = (KMessageBox::warningContinueCancel(this,
-              i18n("Do you realy want to delete file \"%1\" from storage?", url.toDisplayString()),
+              i18n("Do you really want to delete file \"%1\" from storage?", url.toDisplayString()),
               i18n("Delete file?"),
               KStandardGuiItem::yes(), KStandardGuiItem::no(), QLatin1String("filetreedeletefile")
             ) == KMessageBox::Continue);

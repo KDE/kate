@@ -223,7 +223,7 @@ bool PluginViewKateOpenHeader::help(KTextEditor::View *view, const QString &cmd,
     msg = i18n("<p><b>toggle-header &mdash; switch between header and corresponding c/cpp file</b></p>"
             "<p>usage: <tt><b>toggle-header</b></tt></p>"
             "<p>When editing C or C++ code, this command will switch between a header file and "
-            "its corresponding C/C++ file or vice verca.</p>"
+            "its corresponding C/C++ file or vice versa.</p>"
             "<p>For example, if you are editing myclass.cpp, <tt>toggle-header</tt> will change "
             "to myclass.h if this file is available.</p>"
             "<p>Pairs of the following filename suffixes will work:<br />"

@@ -1296,7 +1296,7 @@ The fields for one action are as follows:
 <listitem><para><literal>function</literal> [required]: The function that should appear in the menu <menuchoice><guimenu>Tools</guimenu> <guisubmenu>Scripts</guisubmenu></menuchoice>.</para></listitem>
 <listitem><para><literal>name</literal> [required]: The text appears in the script menu.</para></listitem>
 <listitem><para><literal>icon</literal> [optional]: The icon appears next to the text in the menu. All &kde; icon names can be used here.</para></listitem>
-<listitem><para><literal>category</literal> [optional]: If a category is specified, the script appears in a submenu.</listitem>
+<listitem><para><literal>category</literal> [optional]: If a category is specified, the script appears in a submenu.</para></listitem>
 <listitem><para><literal>shortcut</literal> [optional]: The shortcut given here is the default shortcut. Example: <literal>Ctrl+Alt+t</literal>. See the <ulink url="http://qt-project.org/doc/qt-5/qt.html#Key-enum">Qt documentation</ulink> for further details.</para></listitem>
 <listitem><para><literal>interactive</literal> [optional]: If the script needs user input in the command line, set this to <literal>true</literal>.</para></listitem>
 </itemizedlist>

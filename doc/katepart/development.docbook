@@ -228,7 +228,9 @@ the highlight detection rules.</para>
 <para>The formal definition, also known as the <acronym>DTD</acronym>, is stored
 in the file <filename>language.dtd</filename> which should be
 installed on your system in the folder
-<filename>$<envar>KDEDIR</envar>/share/apps/katepart/syntax</filename>.
+<filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/syntax</filename>. Therein,
+the environment variable <envar>XDG_DATA_DIRS</envar> typically expands to
+<filename>/usr/share</filename>.
 </para>
 
 <variablelist>
@@ -989,8 +991,8 @@ expression.</para>
 <title>Scripting with JavaScript</title>
 
 <para>
-Since &kappname; 3.4 in &kde; 4.4 the &kappname; editor component is easily extensible by
-writing scripts. The scripting language is ECMAScript (widely known as JavaScript).
+The &kappname; editor component is easily extensible by writing scripts.
+The scripting language is ECMAScript (widely known as JavaScript).
 &kappname; supports two kinds of scripts: indentation and command line scripts.
 </para>
 
@@ -1007,37 +1009,32 @@ the indentation level often increases.
 The following sections describe step by step how to create the skeleton for a
 simple indenter. As a first step, create a new <filename>*.js</filename> file
 called &eg; <filename>javascript.js</filename> in the local home folder
-<filename>$KDEHOME/share/apps/katepart/script/indentation</filename>.
+<filename>$<envar>XDG_DATA_HOME</envar>/katepart5/script/indentation</filename>.
+Therein, the environment variable <envar>XDG_DATA_HOME</envar> typically expands to
+either <filename>~/.local</filename> or <filename>~/.local/share</filename>.
 </para>
 
 <sect3 id="dev-scripting-indentation-header">
 <title>The Indentation Script Header</title>
 <para>
-The header of the file <filename>javascript.js</filename> is embedded in a
-comment and is of the following form:
+The header of the file <filename>javascript.js</filename> is embedded as JSON at the beginning of the document as follows:
 
 <programlisting>
-/* kate-script
- * name: JavaScript
- * author: Example Name &lt;example.name@some.address.org&gt;
- * license: BSD
- * revision: 1
- * kate-version: 3.4
- * required-syntax-style: javascript
- * indent-languages: javascript
- * priority: 0
- * i18n-catalog: mycatalog
- *
- * A line without a colon ':' stops header parsing. That is, you can add optional
- * text here such as a detailed license.
- */
+var katescript = {
+    "name": "JavaScript",
+    "author": "Example Name &lt;example.name@some.address.org&gt;",
+    "license": "BSD License",
+    "revision": 1,
+    "kate-version": "5.1",
+    "required-syntax-style": "javascript",
+    "indent-languages": ["javascript"],
+    "priority": 0,
+    "i18n-catalog": "mycatalog"
+}; // kate-script-header, must be at the start of the file without comments
 </programlisting>
 
 Each entry is explained in detail now:
 <itemizedlist>
-<listitem><para>
-<literal>kate-script</literal> [required]: This text string has to appear in the first line of the <filename>*.js</filename> file, otherwise &kappname; skips the script.
-</para></listitem>
 <listitem><para>
 <literal>name</literal> [required]: This is the indenter name that appears in the menu
 <menuchoice><guimenu>Tools</guimenu><guimenuitem>Indentation</guimenuitem></menuchoice>
@@ -1047,7 +1044,7 @@ and in the configuration dialog.
 <literal>author</literal> [optional]: The author's name and contact information.
 </para></listitem>
 <listitem><para>
-<literal>license</literal> [optional]: Short form of the license, such as BSD or LGPLv3.
+<literal>license</literal> [optional]: Short form of the license, such as BSD License or LGPLv3.
 </para></listitem>
 <listitem><para>
 <literal>revision</literal> [required]: The revision of the script. This number should be increased whenever the script is modified.
@@ -1059,20 +1056,13 @@ and in the configuration dialog.
 <literal>required-syntax-style</literal> [optional]: The required syntax style, which matches the specified <literal>style</literal> in syntax highlighting files. This is important for indenters that rely on specific highlight information in the document. If a required syntax style is specified, the indenter is available only when the appropriate highlighter is active. This prevents <quote>undefined behavior</quote> caused by using the indenter without the expected highlighting schema. For instance, the Ruby indenter makes use of this in the files <filename>ruby.js</filename> and <filename>ruby.xml</filename>.
 </para></listitem>
 <listitem><para>
-<literal>indent-languages</literal> [optional]: Comma separated list of syntax styles the indenter can indent correctly, &eg;: c++, java.
+<literal>indent-languages</literal> [optional]: JSON array of syntax styles the indenter can indent correctly, &eg;: <literal>["c++", "java"]</literal>.
 </para></listitem>
 <listitem><para>
 <literal>priority</literal> [optional]: If several indenters are suited for a certain highlighted file, the priority decides which indenter is chosen as default indenter.
 </para></listitem>
 <listitem><para><literal>i18n-catalog</literal> [optional]: Additional message catalog (<literal>po</literal> file) loaded for translation of 3rd-party indenters.</para></listitem>
 </itemizedlist>
-</para>
-
-<para>
-&kappname; reads all pairs of the form
-<quote><replaceable>key</replaceable>:<replaceable>value</replaceable></quote>
-until it cannot find a colon anymore. This implies that the header can contain
-arbitrary text such as a license as shown in the example.
 </para>
 
 </sect3>
@@ -1140,7 +1130,7 @@ with a different tab width.
 
 <para>
 A default &kde; installation ships &kappname; with several indenters. The
-corresponding JavaScript source code can be found in <filename>$KDEDIR/share/apps/katepart/script/indentation</filename>.
+corresponding JavaScript source code can be found in <filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/script/indentation</filename>.
 </para>
 
 <para>
@@ -1173,48 +1163,54 @@ For instance, the command
 Command line scripts are located in the same folder as indentation scripts.
 So as a first step, create a new <filename>*.js</filename> file called
 <filename>myutils.js</filename> in the local home folder
-<filename>$KDEHOME/share/apps/katepart/script/commands</filename>.
+<filename>$<envar>XDG_DATA_HOME</envar>/katepart5/script/commands</filename>.
+Therein, the environment variable <envar>XDG_DATA_HOME</envar> typically expands to
+either <filename>~/.local</filename> or <filename>~/.local/share</filename>.
 </para>
 
 <sect3 id="dev-scripting-command-line-header">
 <title>The Command Line Script Header</title>
 <para>
-The header of each command line script is embedded in a comment and is of the
-following form:
+The header of each command line script is embedded in JSON at the beginning of the script as follows:
 
 <programlisting>
-/* kate-script
- * author: Example Name &lt;example.name@some.address.org&gt;
- * license: BSD
- * revision: 1
- * kate-version: 3.4
- * functions: sort, format-paragraph
- * i18n-catalog: mycatalog
- *
- * A line without a colon ':' stops header parsing. That is, you can add optional
- * text here such as a detailed license.
- */
+var katescript = {
+    "author": "Example Name &lt;example.name@some.address.org&gt;",
+    "license": "LGPLv2+",
+    "revision": 1,
+    "kate-version": "5.1",
+    "functions": ["sort", "moveLinesDown"],
+    "i18n-catalog": "mycatalog",
+    "actions": [
+        {   "function": "sort",
+            "name": "Sort Selected Text",
+            "category": "Editing",
+            "interactive": "false"
+        },
+        {   "function": "moveLinesDown",
+            "name": "Move Lines Down",
+            "category": "Editing",
+            "shortcut": "Ctrl+Shift+Down",
+            "interactive": "false"
+        }
+    ]
+}; // kate-script-header, must be at the start of the file without comments
 </programlisting>
 
 Each entry is explained in detail now:
 <itemizedlist>
-<listitem><para><literal>kate-script</literal> [required]: This text string has to appear in the first line of the <filename>*.js</filename> file, otherwise &kappname; skips the script.</para></listitem>
 <listitem><para><literal>author</literal> [optional]: The author's name and contact information.</para></listitem>
-<listitem><para><literal>license</literal> [optional]: Short form of the license, such as BSD or LGPLv3.</para></listitem>
+<listitem><para><literal>license</literal> [optional]: Short form of the license, such as BSD License or LGPLv2.</para></listitem>
 <listitem><para><literal>revision</literal> [required]: The revision of the script. This number should be increased whenever the script is modified.</para></listitem>
 <listitem><para><literal>kate-version</literal> [required]: Minimum required &kappname; version.</para></listitem>
-<listitem><para><literal>functions</literal> [required]: Comma separated list of commands in the script.</para></listitem>
+<listitem><para><literal>functions</literal> [required]: JSON array of commands in the script.</para></listitem>
 <listitem><para><literal>i18n-catalog</literal> [optional]: Additional message catalog (<literal>po</literal> file) loaded for translation of 3rd-party scripts.</para></listitem>
+<listitem><para><literal>actions</literal> [optional]: JSON Array of JSON objects that defines the actions that appear in the application menu. Detailed information is provided in the section <link linkend="advanced-editing-tools-commandline">Binding Shortcuts</link>.</para></listitem>
 </itemizedlist>
 </para>
 
 <para>
-&kappname; reads all pairs of the form
-<quote><replaceable>key</replaceable>:<replaceable>value</replaceable></quote>
-until it cannot find a colon
-anymore. This implies that the header can contain arbitrary text such as a license
-as shown in the example. The value of the key functions is a comma separated list
-of command line commands. This means a single script contains an arbitrary number
+Since the value of <literal>functions</literal> is a JSON array, a single script is able contain an arbitrary number
 of command line commands. Each function is available through &kappname;'s
 <link linkend="advanced-editing-tools-commandline">built-in command line</link>.
 </para>
@@ -1226,7 +1222,7 @@ of command line commands. Each function is available through &kappname;'s
 <para>
 All functions specified in the header have to be implemented in the script.
 For instance, the script file from the example above needs to implement the two
-functions <command>sort</command> and <command>format-paragraph</command>.
+functions <command>sort</command> and <command>moveLinesDown</command>.
 All functions have the following syntax:
 
 <programlisting>
@@ -1264,43 +1260,46 @@ documentation to the user. Make sure to
 <link linkend="dev-scripting-api-i18n">translate the strings</link>.
 </para>
 
-<sect4 id="dev-scripting-command-line-shortcuts">
-<title>Binding Shortcuts</title>
-<para>In order to be able to assign shortcuts, the script needs to provide a
-function called <literal>action</literal> as follows:
-<programlisting>
-function action(cmd)
-{
-    var a = new Object();
-    if (cmd == "sort") {
-        a.text = i18n("Sort Selected Text");
-        a.icon = "";
-        a.category = "";
-        a.interactive = false;
-        a.shortcut = "";
-    } else if (cmd == "moveLinesDown") {
-        // same for next action
-    }
-    return a;
-}
-</programlisting>
-The parameter <literal>cmd</literal> of the function specifies the command for
-which a shortcut is requested. There are several fields you have to specify in
-the returned javascript object:
-<itemizedlist>
-<listitem><para><literal>a.text</literal> [required]: The text appears in the menu <menuchoice><guimenu>Tools</guimenu> <guisubmenu>Scripts</guisubmenu></menuchoice>. Make sure to use <literal>i18n</literal> for translation.</para></listitem>
-<listitem><para><literal>a.icon</literal> [optional]: The icon appears next to the text in the menu. All &kde; icon names can be used here.</para></listitem>
-<listitem><para><literal>a.category</literal> [optional]: If a category is specified, the script appears in a submenu. Make sure to use <literal>i18n</literal> for translation.</para></listitem>
-<listitem><para><literal>a.interactive</literal> [optional]: If the script needs user input, set this to <literal>true</literal>.</para></listitem>
-<listitem><para><literal>a.shortcut</literal> [optional]: The shortcut given here is the default shortcut. Example: Ctrl+Alt+t. See the <ulink url="http://qt-project.org/doc/qt-4.8/qt.html#Key-enum">Qt documentation</ulink> for further details.</para></listitem>
-</itemizedlist>
-</para>
-
-
 <para>
 Developing a command line script requires reloading the scripts to see whether
 the changes behave appropriately. Instead of restarting the application, simply
 switch to the command line and invoke the command <command>reload-scripts</command>.
+</para>
+
+<sect4 id="dev-scripting-command-line-shortcuts">
+<title>Binding Shortcuts</title>
+<para>In order to make the scripts accessible in the application menu and assign shortcuts, the script needs to provide an appropriate
+script header. In the above example, both functions <literal>sort</literal> and <literal>moveLinesDown</literal> appear in the menu
+due to the following part in the script header:
+<programlisting>
+var katescript = {
+    ...
+    "actions": [
+        {   "function": "sort",
+            "name": "Sort Selected Text",
+            "icon": "",
+            "category": "Editing",
+            "interactive": "false"
+        },
+        {   "function": "moveLinesDown",
+            "name": "Move Lines Down",
+            "icon": "",
+            "category": "Editing",
+            "shortcut": "Ctrl+Shift+Down",
+            "interactive": "false"
+        }
+    ]
+};
+</programlisting>
+The fields for one action are as follows:
+<itemizedlist>
+<listitem><para><literal>function</literal> [required]: The function that should appear in the menu <menuchoice><guimenu>Tools</guimenu> <guisubmenu>Scripts</guisubmenu></menuchoice>.</para></listitem>
+<listitem><para><literal>name</literal> [required]: The text appears in the script menu.</para></listitem>
+<listitem><para><literal>icon</literal> [optional]: The icon appears next to the text in the menu. All &kde; icon names can be used here.</para></listitem>
+<listitem><para><literal>category</literal> [optional]: If a category is specified, the script appears in a submenu.</listitem>
+<listitem><para><literal>shortcut</literal> [optional]: The shortcut given here is the default shortcut. Example: <literal>Ctrl+Alt+t</literal>. See the <ulink url="http://qt-project.org/doc/qt-5/qt.html#Key-enum">Qt documentation</ulink> for further details.</para></listitem>
+<listitem><para><literal>interactive</literal> [optional]: If the script needs user input in the command line, set this to <literal>true</literal>.</para></listitem>
+</itemizedlist>
 </para>
 
 <para>
@@ -1318,7 +1317,7 @@ by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
 <para>
 The scripting API presented here is available to all scripts, &ie; indentation
 scripts and command line commands. 
-The <classname>Cursor</classname> and <classname>Range</classname> classes are provided by library files in <filename>$KDEDIR/share/apps/katepart/libraries</filename>.
+The <classname>Cursor</classname> and <classname>Range</classname> classes are provided by library files in <filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/libraries</filename>.
 If you want to use them in your script, which needs to use some of the <classname>Document</classname> or <classname>View</classname> functions, please include the necessary library by using:
 
 <programlisting>
@@ -1330,7 +1329,7 @@ require ("range.js");
 <para>
 To extend the standard scripting API with your own functions and prototypes simply
 create a new file in &kde;'s local configuration folder
-<filename>$KDEHOME/share/apps/katepart/libraries</filename> and include it into your script using:
+<filename>$<envar>XDG_DATA_HOME</envar>/katepart5/libraries</filename> and include it into your script using:
 
 <programlisting>
 require ("myscriptnamehere.js");

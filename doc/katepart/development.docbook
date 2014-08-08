@@ -1210,7 +1210,7 @@ Each entry is explained in detail now:
 </para>
 
 <para>
-Since the value of <literal>functions</literal> is a JSON array, a single script is able contain an arbitrary number
+Since the value of <literal>functions</literal> is a JSON array, a single script is able to contain an arbitrary number
 of command line commands. Each function is available through &kappname;'s
 <link linkend="advanced-editing-tools-commandline">built-in command line</link>.
 </para>

@@ -225,8 +225,8 @@ format. Based on a small example it will describe the main components
 and their meaning and usage. The next section will go into detail with
 the highlight detection rules.</para>
 
-<para>The formal definition, also known as the <acronym>DTD</acronym>, is stored
-in the file <filename>language.dtd</filename> which should be
+<para>The formal definition, also known as the <acronym>XSD</acronym>, is stored
+in the file <filename>language.xsd</filename> which should be
 installed on your system in the folder
 <filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/syntax</filename>. Therein,
 the environment variable <envar>XDG_DATA_DIRS</envar> typically expands to
@@ -237,11 +237,10 @@ the environment variable <envar>XDG_DATA_DIRS</envar> typically expands to
 <title>Main sections of &kappname; Highlight Definition files</title>
 
 <varlistentry>
-<term>A highlighting file contains a header that sets the XML version and the doctype:</term>
+<term>A highlighting file contains a header that sets the XML version:</term>
 <listitem>
 <programlisting>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE language SYSTEM &quot;language.dtd&quot;&gt;
 </programlisting>
 </listitem>
 </varlistentry>

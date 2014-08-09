@@ -29,7 +29,7 @@
  -->
 
 <language name="Doxygen"
-          version="1.36"
+          version="1.37"
           kateversion="2.5"
           section="Markup"
           extensions="*.dox;*.doxygen"
@@ -149,7 +149,7 @@
       <item> \extends </item>          <item> @extends </item>
       <item> \file </item>             <item> @file </item>
       <item> \htmlinclude </item>      <item> @htmlinclude </item>
-      <item> \idlexcept </item>m>      <item> @idlexcept </item>
+      <item> \idlexcept </item>        <item> @idlexcept </item>
       <item> \if </item>               <item> @if </item>
       <item> \ifnot </item>            <item> @ifnot </item>
       <item> \implements </item>       <item> @implements </item>

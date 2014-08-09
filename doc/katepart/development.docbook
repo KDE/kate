@@ -963,7 +963,7 @@ keep the matched string for the next context.
 </listitem>
 <listitem>
 <para>You can validate every XML file by using the command
-<command>xmllint --dtdvalid language.dtd mySyntax.xml</command>.</para>
+<command>xmllint --schema language.xsd mySyntax.xml</command>.</para>
 </listitem>
 <listitem>
 <para>If you repeat complex regular expression very often you can use

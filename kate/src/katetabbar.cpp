@@ -126,6 +126,9 @@ int KateTabBar::insertTab(int position, const QString & text)
     connect(tabButton, SIGNAL(closeRequest(KateTabButton*)),
             this, SLOT(tabButtonCloseRequest(KateTabButton*)));
 
+    // abort potential keeping of width
+    m_keepTabWidth = false;
+
     updateButtonPositions(true);
 
     return m_nextID++;

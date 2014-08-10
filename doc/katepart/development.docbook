@@ -1028,7 +1028,6 @@ var katescript = {
     "required-syntax-style": "javascript",
     "indent-languages": ["javascript"],
     "priority": 0,
-    "i18n-catalog": "mycatalog"
 }; // kate-script-header, must be at the start of the file without comments
 </programlisting>
 
@@ -1060,7 +1059,6 @@ and in the configuration dialog.
 <listitem><para>
 <literal>priority</literal> [optional]: If several indenters are suited for a certain highlighted file, the priority decides which indenter is chosen as default indenter.
 </para></listitem>
-<listitem><para><literal>i18n-catalog</literal> [optional]: Additional message catalog (<literal>po</literal> file) loaded for translation of 3rd-party indenters.</para></listitem>
 </itemizedlist>
 </para>
 
@@ -1179,7 +1177,6 @@ var katescript = {
     "revision": 1,
     "kate-version": "5.1",
     "functions": ["sort", "moveLinesDown"],
-    "i18n-catalog": "mycatalog",
     "actions": [
         {   "function": "sort",
             "name": "Sort Selected Text",
@@ -1203,7 +1200,6 @@ Each entry is explained in detail now:
 <listitem><para><literal>revision</literal> [required]: The revision of the script. This number should be increased whenever the script is modified.</para></listitem>
 <listitem><para><literal>kate-version</literal> [required]: Minimum required &kappname; version.</para></listitem>
 <listitem><para><literal>functions</literal> [required]: JSON array of commands in the script.</para></listitem>
-<listitem><para><literal>i18n-catalog</literal> [optional]: Additional message catalog (<literal>po</literal> file) loaded for translation of 3rd-party scripts.</para></listitem>
 <listitem><para><literal>actions</literal> [optional]: JSON Array of JSON objects that defines the actions that appear in the application menu. Detailed information is provided in the section <link linkend="advanced-editing-tools-commandline">Binding Shortcuts</link>.</para></listitem>
 </itemizedlist>
 </para>
@@ -1747,12 +1743,11 @@ exactly like <ulink url="http://techbase.kde.org/Development/Tutorials/Localizat
 translation system to the language used in the application. Strings in scripts
 being developed in the official &kappname; sources are automatically extracted and
 translatable. In other words, as a &kappname; developer you do not have to bother with
-message extraction and translation. However, for 3rd-party scripts developed
-outside of &kde;, you have to extract and translate the messages yourself. Along
-with your scripts you have to also distribute a translation catalog, that
-includes all translated strings. Further, your script header then must
-explicitly state the catalog to load by specifying
-<literal>i18n-catalog</literal>.
+message extraction and translation. It should be noted though, that the translation
+only works inside the &kde; infrastructure, &ie;, new strings in 3rd-party
+scripts developed outside of &kde; are not translated.
+Therefore, please consider contributing your scripts to &kate; such that
+proper translation is possible.
 </para>
 
 <variablelist><varlistentry>

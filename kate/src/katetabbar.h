@@ -251,9 +251,9 @@ protected:
 
 protected:
     /**
-     * Set tab geometry.
+     * Set tab geometry. The tabs are animated only if @p animate is @e true.
      */
-    void updateButtonPositions();
+    void updateButtonPositions(bool animate = false);
 
 private:
     // minimum and maximum tab width

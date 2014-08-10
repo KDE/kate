@@ -33,8 +33,7 @@
 #include "math.h"
 
 /**
- * Creates a new tab bar with the given \a parent and \a name.
- *  .
+ * Creates a new tab bar with the given \a parent.
  */
 KateTabBar::KateTabBar(QWidget *parent)
     : QWidget(parent)
@@ -127,7 +126,7 @@ int KateTabBar::insertTab(int position, const QString & text)
     connect(tabButton, SIGNAL(closeRequest(KateTabButton*)),
             this, SLOT(tabButtonCloseRequest(KateTabButton*)));
 
-    updateButtonPositions();
+    updateButtonPositions(true);
 
     return m_nextID++;
 }
@@ -174,7 +173,7 @@ int KateTabBar::removeTab(int id)
     tabButton->hide();
     tabButton->deleteLater();
 
-    updateButtonPositions();
+    updateButtonPositions(true);
 
     return position;
 }
@@ -335,7 +334,7 @@ void KateTabBar::resizeEvent(QResizeEvent *event)
     }
 }
 
-void KateTabBar::updateButtonPositions()
+void KateTabBar::updateButtonPositions(bool animate)
 {
     // if there are no tabs there is nothing to do
     if (m_tabButtons.count() == 0) {
@@ -379,10 +378,15 @@ void KateTabBar::updateButtonPositions()
         if (i >= maxCount) {
             tabButton->hide();
         } else {
-            const QRect startGeometry = tabButton->isVisible() ? tabButton->geometry()
-                                                               : QRect(ceil(i * tabWidth), 0, 0, h);
             const QRect endGeometry(ceil(i * tabWidth), 0, w, h);
-            tabButton->setAnimatedGeometry(startGeometry, endGeometry);
+            if (animate) {
+                const QRect startGeometry = tabButton->isVisible() ? tabButton->geometry()
+                                                                   : QRect(ceil(i * tabWidth), 0, 0, h);
+                tabButton->setAnimatedGeometry(startGeometry, endGeometry);
+            } else {
+                // two times endGeometry. Takes care of stopping a running animation
+                tabButton->setAnimatedGeometry(endGeometry, endGeometry);
+            }
             tabButton->show();
         }
     }
@@ -411,7 +415,7 @@ void KateTabBar::leaveEvent(QEvent *event)
 {
     if (m_keepTabWidth) {
         m_keepTabWidth = false;
-        updateButtonPositions();
+        updateButtonPositions(true);
     }
 
     QWidget::leaveEvent(event);

@@ -80,7 +80,6 @@
 #include <ktexteditor/sessionconfiginterface.h>
 
 #include <assert.h>
-#include <unistd.h>
 //END
 
 uint KateMainWindow::uniqueID = 1;

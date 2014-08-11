@@ -86,7 +86,8 @@ void ToggleToolViewAction::slotToggled(bool t)
 
 static const QString actionListName = QStringLiteral("kate_mdi_view_actions");
 
-static const QString guiDescription = QStringLiteral(""
+// please don't use QStringLiteral since it can't be used with a concatenated string parameter on all platforms
+static const QString guiDescription = QLatin1String(""
                                       "<!DOCTYPE kpartgui><kpartgui name=\"kate_mdi_view_actions\">"
                                       "<MenuBar>"
                                       "    <Menu name=\"view\">"

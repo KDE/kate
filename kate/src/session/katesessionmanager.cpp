@@ -43,7 +43,9 @@
 #include <QInputDialog>
 #include <QUrl>
 
+#ifndef Q_OS_WIN
 #include <unistd.h>
+#endif
 
 //BEGIN KateSessionManager
 

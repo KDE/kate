@@ -66,7 +66,7 @@ KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
 
 KateKonsolePlugin::~KateKonsolePlugin()
 {
-  ::setenv( "EDITOR", m_previousEditorEnv.data(), 1 );
+  qputenv("EDITOR", m_previousEditorEnv.data());
 }
 
 QObject *KateKonsolePlugin::createView (KTextEditor::MainWindow *mainWindow)
@@ -314,9 +314,9 @@ void KateConsole::readConfig()
   }
 
   if ( KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("SetEditor", false) )
-    ::setenv( "EDITOR", "kate -b",1);
+    qputenv( "EDITOR", "kate -b");
   else
-    ::setenv( "EDITOR", m_plugin->previousEditorEnv().data(), 1 );
+    qputenv( "EDITOR", m_plugin->previousEditorEnv().data());
 }
 
 KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin *plugin )

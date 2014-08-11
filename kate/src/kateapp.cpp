@@ -99,7 +99,7 @@ bool KateApp::init()
 {
 
     qCDebug(LOG_KATE) << "Setting KATE_PID: '" << QCoreApplication::applicationPid() << "'";
-    ::setenv("KATE_PID", QString::fromLatin1("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData(), 1);
+    qputenv("KATE_PID", QString::fromLatin1("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData());
 
     // handle restore different
     if (qApp->isSessionRestored()) {

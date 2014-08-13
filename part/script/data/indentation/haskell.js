@@ -2,8 +2,9 @@
  * name: Haskell
  * license: LGPL
  * author: Erlend Hamberg <ehamberg@gmail.com>
- * revision: 2
+ * revision: 3
  * kate-version: 3.4
+ * required-syntax-style: haskell
  */
 
 // required katepart js libraries

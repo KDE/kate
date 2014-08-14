@@ -128,6 +128,15 @@ void KateHighlighting::makeNoneContext()
   m_additionalData["none"]->wordWrapDeliminator = stdDeliminator;
   m_hlIndex[0] = "none";
   m_ctxIndex[0]= "none";
+  m_contexts.push_back(new KateHlContext("None",
+                                         0,
+                                         KateHlContextModification(),
+                                         false,
+                                         KateHlContextModification(),
+                                         false,
+                                         false,
+                                         false,
+                                         KateHlContextModification()));
 }
 
 void KateHighlighting::cleanup ()
@@ -1740,7 +1749,7 @@ void KateHighlighting::handleKateHlIncludeRules()
   // needed, this doesn't need to be changed, only the addToContextList
   // method.
 
-  //resolove context names
+  //resolve context names
   for (KateHlIncludeRules::iterator it=includeRules.begin(); it!=includeRules.end(); )
   {
     if ((*it)->incCtx.newContext==-1) // context unresolved ?
@@ -1970,7 +1979,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         kDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc.newContext;
 #endif
       }
-      //END falltrhough props
+      //END fallthrough props
       
       // empty line context
       QString emptyLineContext = KateHlManager::self()->syntax->groupData( data, QString("lineEmptyContext") );

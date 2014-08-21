@@ -35,7 +35,7 @@
       <item row="1" column="1">
        <widget class="QSpinBox" name="parentDirsLookupCnt">
         <property name="toolTip">
-         <string>&lt;p&gt;How many parent directories to check for &lt;filename&gt;CMakeLists.txt&lt;/filename&gt; if the latter is absent in a current document's path&lt;/p&gt;</string>
+         <string>&lt;p&gt;How many parent directories to check for &lt;tt&gt;CMakeLists.txt&lt;/tt&gt; if the latter is absent in a current document's path&lt;/p&gt;</string>
         </property>
         <property name="maximum">
          <number>32</number>
@@ -45,7 +45,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label">
         <property name="toolTip">
-         <string>&lt;p&gt;How many parent directories to check for &lt;filename&gt;CMakeLists.txt&lt;/filename&gt; if the latter is absent in a current document's path&lt;/p&gt;</string>
+         <string>&lt;p&gt;How many parent directories to check for &lt;tt&gt;CMakeLists.txt&lt;/tt&gt; if the latter is absent in a current document's path&lt;/p&gt;</string>
         </property>
         <property name="text">
          <string>CMakeLists lookup parents:</string>

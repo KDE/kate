@@ -372,17 +372,17 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
   if (query.isSelect())
   {
     if (!query.driver()->hasFeature(QSqlDriver::QuerySize))
-      message = i18nc("@info/plain", "Query completed successfully");
+      message = i18nc("@info", "Query completed successfully");
     else
     {
       int nRowsSelected = query.size();
-      message = i18ncp("@info/plain", "%1 record selected", "%1 records selected", nRowsSelected);
+      message = i18ncp("@info", "%1 record selected", "%1 records selected", nRowsSelected);
     }
   }
   else
   {
     int nRowsAffected = query.numRowsAffected();
-    message = i18ncp("@info/plain", "%1 row affected", "%1 rows affected", nRowsAffected);
+    message = i18ncp("@info", "%1 row affected", "%1 rows affected", nRowsAffected);
   }
 
   emit success(message);

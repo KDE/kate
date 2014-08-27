@@ -3,7 +3,7 @@
 <!-- Oracle10g SQL and PL/SQL syntax - ANSI SQL 2003 superset -->
 <!-- This file is maintained by Anders Lund <anders@alweb.dk> since 2005-11-06 -->
 <!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
-<language name="SQL" version="1.16" kateversion="2.4" section="Database" extensions="*.sql;*.SQL;*.ddl;*.DDL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="LGPL">
+<language name="SQL" version="1.17" kateversion="2.4" section="Database" extensions="*.sql;*.SQL;*.ddl;*.DDL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -15,8 +15,8 @@
       <item> AFTER </item>
       <item> AGENT </item>
       <item> ALL </item>
-      <item> ALL_ROWS </item>
       <item> ALLOCATE </item>
+      <item> ALL_ROWS </item>
       <item> ALTER </item>
       <item> ANALYZE </item>
       <item> ANCILLARY </item>
@@ -49,8 +49,8 @@
       <item> BLOCK </item>
       <item> BLOCK_RANGE </item>
       <item> BODY </item>
-      <item> BOUND </item>
       <item> BOTH </item>
+      <item> BOUND </item>
       <item> BREAK </item>
       <item> BROADCAST </item>
       <item> BTITLE </item>
@@ -282,12 +282,12 @@
       <item> MAXSIZE </item>
       <item> MAXTRANS </item>
       <item> MAXVALUE </item>
-      <item> METHOD </item>
       <item> MEMBER </item>
       <item> MERGE </item>
+      <item> METHOD </item>
+      <item> MINEXTENTS </item>
       <item> MINIMIZE </item>
       <item> MINIMUM </item>
-      <item> MINEXTENTS </item>
       <item> MINUS </item>
       <item> MINUTE </item>
       <item> MINVALUE </item>
@@ -482,8 +482,8 @@
       <item> SERIALIZABLE </item>
       <item> SERVERERROR </item>
       <item> SESSION </item>
-      <item> SESSION_CACHED_CURSORS </item>
       <item> SESSIONS_PER_USER </item>
+      <item> SESSION_CACHED_CURSORS </item>
       <item> SET </item>
       <item> SHARE </item>
       <item> SHARED </item>
@@ -505,8 +505,8 @@
       <item> START </item>
       <item> STARTUP </item>
       <item> STATEMENT_ID </item>
-      <item> STATISTICS </item>
       <item> STATIC </item>
+      <item> STATISTICS </item>
       <item> STOP </item>
       <item> STORAGE </item>
       <item> STORE </item>
@@ -519,14 +519,14 @@
       <item> SUPPLEMENTAL </item>
       <item> SUSPEND </item>
       <item> SWITCH </item>
-      <item> SYS_OP_BITVEC </item>
-      <item> SYS_OP_ENFORCE_NOT_NULL$ </item>
-      <item> SYS_OP_NOEXPAND </item>
-      <item> SYS_OP_NTCIMG$ </item>
       <item> SYNONYM </item>
       <item> SYSDBA </item>
       <item> SYSOPER </item>
       <item> SYSTEM </item>
+      <item> SYS_OP_BITVEC </item>
+      <item> SYS_OP_ENFORCE_NOT_NULL$ </item>
+      <item> SYS_OP_NOEXPAND </item>
+      <item> SYS_OP_NTCIMG$ </item>
       <item> TABLE </item>
       <item> TABLES </item>
       <item> TABLESPACE </item>
@@ -569,14 +569,14 @@
       <item> UNTIL </item>
       <item> UNUSABLE </item>
       <item> UNUSED </item>
-      <item> UPD_INDEXES </item>
       <item> UPDATABLE </item>
       <item> UPDATE </item>
+      <item> UPD_INDEXES </item>
       <item> UPPPER </item>
       <item> USAGE </item>
       <item> USE </item>
-      <item> USE_STORED_OUTLINES </item>
       <item> USER_DEFINED </item>
+      <item> USE_STORED_OUTLINES </item>
       <item> USING </item>
       <item> VALIDATE </item>
       <item> VALIDATION </item>
@@ -864,8 +864,8 @@
       <item> PLS_INTEGER </item>
       <item> PRECISION </item>
       <item> RAW </item>
-      <item> RECORD </item>
       <item> REAL </item>
+      <item> RECORD </item>
       <item> ROWID </item>
       <item> SECOND </item>
       <item> SINGLE </item>
@@ -877,48 +877,50 @@
       <item> UROWID </item>
       <item> VARCHAR </item>
       <item> VARCHAR2 </item>
-      <item> VARYING </item>
       <item> VARRAY </item>
+      <item> VARYING </item>
       <item> XMLTYPE </item>
       <item> YEAR </item>
       <item> ZONE </item>
     </list>
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
-        <DetectSpaces />
+        <DetectSpaces/>
 
         <keyword attribute="Keyword" String="keywords" context="#stay"/>
         <keyword attribute="Operator" String="operators" context="#stay"/>
         <keyword attribute="Function" String="functions" context="#stay"/>
         <keyword attribute="Data Type" String="types" context="#stay"/>
 
-        <DetectIdentifier />
-
+        <DetectIdentifier/>
+        <!-- extra data types -->
         <RegExpr attribute="Data Type" context="#stay" String="%(?:bulk_(?:exceptions|rowcount)|found|isopen|notfound|rowcount|rowtype|type)\b" insensitive="true"/>
-
+        <!-- numbers -->
         <HlCHex attribute="Hex" context="#stay"/>
         <Float attribute="Float" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
-
+        <!-- strings -->
         <DetectChar attribute="String" context="String literal" char="'"/>
+        <!-- comments -->
         <Detect2Chars attribute="Comment" context="Singleline PL/SQL-style comment" char="-" char1="-"/>
-        <Detect2Chars attribute="Comment" context="Multiline C-style comment" char="/" char1="*"/>
+        <Detect2Chars attribute="Comment" context="Multiline C-style comment" char="/" char1="*" beginRegion="Comment"/>
         <RegExpr attribute="Comment" context="SQL*Plus remark directive" String="^rem\b" insensitive="true" column="0"/>
+
         <DetectChar attribute="Identifier" context="User-defined identifier" char="&quot;"/>
         <RegExpr attribute="External Variable" context="#stay" String="(:|&amp;&amp;?)\w+"/>
         <RegExpr attribute="Symbol" context="#stay" String="^/$" column="0"/>
         <RegExpr attribute="Preprocessor" context="SQL*Plus directive to include file" String="^@@?[^@ \t\r\n]" column="0"/>
       </context>
       <context name="String literal" attribute="String" lineEndContext="#stay">
-        <Detect2Chars attribute="String" context="#pop" char="\" char1="'" />
+        <Detect2Chars attribute="String" context="#pop" char="\" char1="'"/>
         <HlCStringChar attribute="String Char" context="#stay"/>
         <RegExpr attribute="External Variable" context="#stay" String="&amp;&amp;?\w+"/>
-        <Detect2Chars attribute="String Char" context="#stay" char="'" char1="'" />
+        <Detect2Chars attribute="String Char" context="#stay" char="'" char1="'"/>
         <DetectChar attribute="String" context="#pop" char="'"/>
       </context>
       <context name="Singleline PL/SQL-style comment" attribute="Comment" lineEndContext="#pop"/>
       <context name="Multiline C-style comment" attribute="Comment" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
       <context name="SQL*Plus remark directive" attribute="Comment" lineEndContext="#pop"/>
       <context name="User-defined identifier" attribute="Identifier" lineEndContext="#pop">
@@ -933,7 +935,7 @@
       <itemData name="Function"          defStyleNum="dsFunction"/>
       <itemData name="Data Type"         defStyleNum="dsDataType"/>
       <itemData name="Decimal"           defStyleNum="dsDecVal"/>
-      <itemData name="Hex"             defStyleNum="dsBaseN"/>
+      <itemData name="Hex"               defStyleNum="dsBaseN"/>
       <itemData name="Float"             defStyleNum="dsFloat"/>
       <itemData name="String"            defStyleNum="dsString"/>
       <itemData name="String Char"       defStyleNum="dsChar"/>

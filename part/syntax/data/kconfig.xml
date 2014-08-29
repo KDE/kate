@@ -66,9 +66,7 @@ Newer changes in the configuration language:
 
 -->
 
-<language name="Kconfig" section="Configuration" extensions="Kconfig*"
-	version="3.15" kateversion="3.13.0" casesensitive="true" priority="0"
-	author="Martin Walch (walch.martin@web.de)" license="GPLv3">
+<language name="Kconfig" section="Configuration" extensions="Kconfig*" version="3.15" kateversion="3.13" casesensitive="true" priority="0" author="Martin Walch (walch.martin@web.de)" license="GPLv3">
 
 	<highlighting>
 		<contexts>

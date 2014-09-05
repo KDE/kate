@@ -24,12 +24,12 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include <QContextMenuEvent>
-#include <QSortFilterProxyModel>
 #include <KMimeTypeTrader>
-#include <QMenu>
 #include <KRun>
 #include <KLineEdit>
+#include <KLocalizedString>
+
+#include <QSortFilterProxyModel>
 #include <QVBoxLayout>
 #include <QTimer>
 
@@ -51,8 +51,10 @@ KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject
   setLayout (layout);
   
   /**
-   * do some stuff if line edit is changed
+   * setup filter line edit
    */
+  m_filter->setPlaceholderText(i18n("Search"));
+  m_filter->setClearButtonEnabled(true);
   connect (m_filter, SIGNAL(textChanged(QString)), this, SLOT(filterTextChanged(QString)));
 }
 

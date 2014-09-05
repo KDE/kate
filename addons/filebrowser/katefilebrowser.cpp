@@ -96,17 +96,11 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
   setupActions();
   setupToolbar();
 
-  QHBoxLayout *filterBox = new QHBoxLayout(this);
-  filterBox->setMargin(0);
-  mainLayout->addLayout(filterBox);
-
-  QLabel* filterLabel = new QLabel(i18n("Filter:"), this);
-  filterBox->addWidget(filterLabel);
   m_filter = new KHistoryComboBox(true, this);
-  filterLabel->setBuddy(m_filter);
   m_filter->setMaxCount(10);
   m_filter->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
-  filterBox->addWidget(m_filter);
+  m_filter->lineEdit()->setPlaceholderText(i18n("Search"));
+  mainLayout->addWidget(m_filter);
 
   connect(m_filter, SIGNAL(editTextChanged(QString)),
           SLOT(slotFilterChange(QString)));

@@ -29,20 +29,6 @@
 #include <ktexteditor/configpage.h>
 #include <KTextEditor/SessionConfigInterface>
 
-#include <kurlcombobox.h>
-#include <KFile>
-
-class KActionCollection;
-class KActionSelector;
-class KDirOperator;
-class KFileItem;
-class KHistoryComboBox;
-class KToolBar;
-
-class QToolButton;
-class QCheckBox;
-class QSpinBox;
-
 class KateFileBrowser;
 class KateFileBrowserPluginView;
 

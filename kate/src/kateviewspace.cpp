@@ -29,14 +29,13 @@
 #include "kactioncollection.h"
 #include "kateupdatedisabler.h"
 
-#include <KLocalizedString>
-#include <KConfigGroup>
 #include <KAcceleratorManager>
+#include <KConfigGroup>
+#include <KLocalizedString>
 
-#include <QToolButton>
-#include <QMouseEvent>
-#include <QStackedWidget>
 #include <QHelpEvent>
+#include <QStackedWidget>
+#include <QToolButton>
 #include <QToolTip>
 #include <QWhatsThis>
 

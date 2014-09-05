@@ -22,19 +22,22 @@
 #include "katefilebrowserconfig.h"
 #include "katefilebrowserconfig.moc"
 
+#include "katefilebrowser.h"
+
+#include <QAction>
+#include <QApplication>
 #include <QGroupBox>
 #include <QListWidget>
 #include <QRegExp>
-#include <QToolButton>
-#include <QVBoxLayout>
-#include <QApplication>
 #include <QStyle>
+#include <QVBoxLayout>
 
 #include <KActionCollection>
-#include <KLocalizedString>
-#include <KDirOperator>
-#include <KSharedConfig>
+#include <KActionSelector>
 #include <KConfigGroup>
+#include <KDirOperator>
+#include <KLocalizedString>
+#include <KSharedConfig>
 
 //BEGIN ACtionLBItem
 /*

@@ -23,9 +23,6 @@
 
 #include "katedocmanager.h"
 
-#include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
-
 #include <QPointer>
 #include <QList>
 #include <QSplitter>
@@ -35,9 +32,14 @@
 #ifdef KActivities_FOUND
 namespace KActivities
 {
-class ResourceInstance;
+    class ResourceInstance;
 }
 #endif
+
+namespace KTextEditor {
+    class View;
+    class Document;
+}
 
 class KateDocumentInfo;
 

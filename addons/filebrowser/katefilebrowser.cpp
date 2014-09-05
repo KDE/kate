@@ -44,9 +44,7 @@
 #include <QAbstractItemView>
 #include <QAction>
 #include <QDir>
-#include <QLabel>
 #include <QLineEdit>
-#include <QToolButton>
 #include <QVBoxLayout>
 
 //END Includes

@@ -23,10 +23,8 @@
 
 #include "kateapp.h"
 #include "katemainwindow.h"
-#include "katedocmanager.h"
 #include "kateviewspace.h"
 #include "kateupdatedisabler.h"
-#include "katedebug.h"
 
 #include <KTextEditor/View>
 #include <KTextEditor/Document>
@@ -34,14 +32,11 @@
 
 #include <KActionCollection>
 #include <KEncodingFileDialog>
-#include <KIconLoader>
 #include <KToolBar>
 #include <KMessageBox>
 #include <KRecentFilesAction>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KStandardAction>
-#include <KStandardShortcut>
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
 

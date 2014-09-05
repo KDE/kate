@@ -23,11 +23,10 @@
 #ifndef KATE_FILEBROWSER_CONFIG_H
 #define KATE_FILEBROWSER_CONFIG_H
 
-#include <KActionSelector>
-
 #include <ktexteditor/configpage.h>
 
-#include "katefilebrowser.h"
+class KateFileBrowser;
+class KActionSelector;
 
 class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
 {

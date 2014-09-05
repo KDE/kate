@@ -24,8 +24,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include <KMimeTypeTrader>
-#include <KRun>
 #include <KLineEdit>
 #include <KLocalizedString>
 

@@ -26,14 +26,11 @@
 #include <ktexteditor/modificationinterface.h>
 
 #include <QHash>
-#include <QList>
 #include <QWidget>
 
 class KConfigBase;
 class KateViewManager;
-class KateViewSpace;
 class QStackedWidget;
-class QLabel;
 class QToolButton;
 class KateTabBar;
 

@@ -25,14 +25,11 @@
 #include "katefilebrowserconfig.h"
 #include "katefilebrowser.h"
 
-#include <ktexteditor/mainwindow.h>
-#include <ktexteditor/view.h>
-
-#include <kaboutdata.h>
 #include <KLocalizedString>
 #include <KPluginFactory>
 
 #include <QKeyEvent>
+#include <QIcon>
 //END Includes
 
 K_PLUGIN_FACTORY_WITH_JSON (KateFileBrowserPluginFactory, "katefilebrowserplugin.json", registerPlugin<KateFileBrowserPlugin>();)

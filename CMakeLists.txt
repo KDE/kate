@@ -12,7 +12,7 @@ set (KATE_VERSION_MICRO 0)
 set (KATE_VERSION ${KATE_VERSION_MAJOR}.${KATE_VERSION_MINOR}.${KATE_VERSION_MICRO})
 
 # we need some parts of the ECM CMake helpers
-find_package (ECM 0.0.9 REQUIRED NO_MODULE)
+find_package (ECM 1.1.0 REQUIRED NO_MODULE)
 set (CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 include(ECMOptionalAddSubdirectory)
 include(ECMInstallIcons)

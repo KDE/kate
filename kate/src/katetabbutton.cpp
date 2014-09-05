@@ -23,7 +23,6 @@
 #include <klocalizedstring.h>
 
 #include <QApplication>
-#include <QColorDialog>
 #include <QContextMenuEvent>
 #include <QFontDatabase>
 #include <QIcon>
@@ -91,10 +90,6 @@ void TabCloseButton::leaveEvent(QEvent *event)
 }
 
 
-QColor KateTabButton::s_predefinedColors[] = { Qt::red, Qt::yellow, Qt::green, Qt::cyan, Qt::blue, Qt::magenta };
-const int KateTabButton::s_colorCount = 6;
-int KateTabButton::s_currentColor = 0;
-
 KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     : QAbstractButton(parent)
     , m_geometryAnimation(0)
@@ -156,10 +151,6 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     if (isChecked()) {
         barColor.setAlpha(255);
         p.fillRect(QRect(0, height() - 3, width(), 10), barColor);
-    } else if (m_highlightColor.isValid()) {
-        p.setOpacity(0.3);
-        p.fillRect(QRect(0, height() - 3, width(), 10), m_highlightColor);
-        p.setOpacity(1.0);
     }
 
     // icon, if applicable
@@ -186,63 +177,12 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
 
 void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)
 {
-    QPixmap colorIcon(22, 22);
     QMenu menu(/*text(),*/ this);
-    QMenu *colorMenu = menu.addMenu(i18n("&Highlight Tab"));
-    QAction *aNone = colorMenu->addAction(i18n("&None"));
-    colorMenu->addSeparator();
-    colorIcon.fill(Qt::red);
-    QAction *aRed = colorMenu->addAction(colorIcon, i18n("&Red"));
-    colorIcon.fill(Qt::yellow);
-    QAction *aYellow = colorMenu->addAction(colorIcon, i18n("&Yellow"));
-    colorIcon.fill(Qt::green);
-    QAction *aGreen = colorMenu->addAction(colorIcon, i18n("&Green"));
-    colorIcon.fill(Qt::cyan);
-    QAction *aCyan = colorMenu->addAction(colorIcon, i18n("&Cyan"));
-    colorIcon.fill(Qt::blue);
-    QAction *aBlue = colorMenu->addAction(colorIcon, i18n("&Blue"));
-    colorIcon.fill(Qt::magenta);
-    QAction *aMagenta = colorMenu->addAction(colorIcon, i18n("&Magenta"));
-    colorMenu->addSeparator();
-    QAction *aCustomColor = colorMenu->addAction(
-                                QIcon::fromTheme(QStringLiteral("colors")), i18n("C&ustom Color..."));
-    menu.addSeparator();
-
     QAction *aCloseTab = menu.addAction(i18n("&Close Document"));
 
     QAction *choice = menu.exec(ev->globalPos());
 
-    // process the result
-    if (choice == aNone) {
-        if (m_highlightColor.isValid()) {
-            setHighlightColor(QColor());
-            emit highlightChanged(this);
-        }
-    } else if (choice == aRed) {
-        setHighlightColor(Qt::red);
-        emit highlightChanged(this);
-    } else if (choice == aYellow) {
-        setHighlightColor(Qt::yellow);
-        emit highlightChanged(this);
-    } else if (choice == aGreen) {
-        setHighlightColor(Qt::green);
-        emit highlightChanged(this);
-    } else if (choice == aCyan) {
-        setHighlightColor(Qt::cyan);
-        emit highlightChanged(this);
-    } else if (choice == aBlue) {
-        setHighlightColor(Qt::blue);
-        emit highlightChanged(this);
-    } else if (choice == aMagenta) {
-        setHighlightColor(Qt::magenta);
-        emit highlightChanged(this);
-    } else if (choice == aCustomColor) {
-        QColor newColor = QColorDialog::getColor(m_highlightColor, this);
-        if (newColor.isValid()) {
-            setHighlightColor(newColor);
-            emit highlightChanged(this);
-        }
-    } else if (choice == aCloseTab) {
+    if (choice == aCloseTab) {
         emit closeRequest(this);
     }
 }
@@ -250,17 +190,7 @@ void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)
 void KateTabButton::mousePressEvent(QMouseEvent *ev)
 {
     ev->accept();
-    if (ev->button() == Qt::MidButton) {
-        if (ev->modifiers() & Qt::ControlModifier) {
-            // clear tab highlight
-            setHighlightColor(QColor());
-        } else {
-            setHighlightColor(s_predefinedColors[s_currentColor]);
-            if (++s_currentColor >= s_colorCount) {
-                s_currentColor = 0;
-            }
-        }
-    } else if (ev->button() == Qt::LeftButton) {
+    if (ev->button() == Qt::LeftButton) {
         if (! isChecked()) {
             // make sure we stay checked
             setChecked(true);
@@ -288,22 +218,6 @@ void KateTabButton::leaveEvent(QEvent *event)
 {
     update(); // repaint on hover
     QAbstractButton::leaveEvent(event);
-}
-
-void KateTabButton::setHighlightColor(const QColor &color)
-{
-    if (color.isValid()) {
-        m_highlightColor = color;
-        update();
-    } else if (m_highlightColor.isValid()) {
-        m_highlightColor = QColor();
-        update();
-    }
-}
-
-QColor KateTabButton::highlightColor() const
-{
-    return m_highlightColor;
 }
 
 bool KateTabButton::isActiveViewSpace() const

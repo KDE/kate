@@ -72,32 +72,6 @@ bool KateTabBar::isActiveViewSpace() const
     return m_isActiveViewSpace;
 }
 
-void KateTabBar::load(KConfigBase *config, const QString &group)
-{
-    KConfigGroup cg(config, group);
-
-    // highlighted entries
-    QStringList documents = cg.readEntry("highlighted documents", QStringList());
-    QStringList colors = cg.readEntry("highlighted colors", QStringList());
-
-    // restore highlight map
-    m_highlightedTabs.clear();
-    for (int i = 0; i < documents.size() && i < colors.size(); ++i) {
-        m_highlightedTabs[documents[i]] = colors[i];
-    }
-
-    setHighlightMarks(highlightMarks());
-}
-
-void KateTabBar::save(KConfigBase *config, const QString &group) const
-{
-    KConfigGroup cg(config, group);
-
-    // highlighted entries
-    cg.writeEntry("highlighted documents", m_highlightedTabs.keys());
-    cg.writeEntry("highlighted colors", m_highlightedTabs.values());
-}
-
 int KateTabBar::addTab(const QString &text)
 {
     return insertTab(m_tabButtons.size(), text);
@@ -113,16 +87,11 @@ int KateTabBar::insertTab(int position, const QString & text)
     }
 
     KateTabButton *tabButton = new KateTabButton(text, this);
-    if (m_highlightedTabs.contains(text)) {
-        tabButton->setHighlightColor(QColor(m_highlightedTabs[text]));
-    }
 
     m_tabButtons.insert(position, tabButton);
     m_idToTab[m_nextID] = tabButton;
     connect(tabButton, SIGNAL(activated(KateTabButton*)),
             this, SLOT(tabButtonActivated(KateTabButton*)));
-    connect(tabButton, SIGNAL(highlightChanged(KateTabButton*)),
-            this, SLOT(tabButtonHighlightChanged(KateTabButton*)));
     connect(tabButton, SIGNAL(closeRequest(KateTabButton*)),
             this, SLOT(tabButtonCloseRequest(KateTabButton*)));
 
@@ -189,18 +158,6 @@ bool KateTabBar::containsTab(int id) const
 void KateTabBar::setTabText(int id, const QString &text)
 {
     Q_ASSERT(m_idToTab.contains(id));
-
-    // change highlight key, if entry exists
-    if (m_highlightedTabs.contains(m_idToTab[id]->text())) {
-        QString value = m_highlightedTabs[m_idToTab[id]->text()];
-        m_highlightedTabs.remove(m_idToTab[id]->text());
-        m_highlightedTabs[text] = value;
-
-        // do not emit highlightMarksChanged(), because every tabbar gets this
-        // change (usually)
-        // emit highlightMarksChanged( this );
-    }
-
     m_idToTab[id]->setText(text);
 }
 
@@ -239,40 +196,6 @@ int KateTabBar::count() const
     return m_tabButtons.count();
 }
 
-void KateTabBar::removeHighlightMarks()
-{
-    KateTabButton *tabButton;
-    foreach(tabButton, m_tabButtons) {
-        if (tabButton->highlightColor().isValid()) {
-            tabButton->setHighlightColor(QColor());
-        }
-    }
-
-    m_highlightedTabs.clear();
-    emit highlightMarksChanged(this);
-}
-
-void KateTabBar::setHighlightMarks(const QMap<QString, QString> &marks)
-{
-    m_highlightedTabs = marks;
-
-    KateTabButton *tabButton;
-    foreach(tabButton, m_tabButtons) {
-        if (marks.contains(tabButton->text())) {
-            if (tabButton->highlightColor().name() != marks[tabButton->text()]) {
-                tabButton->setHighlightColor(QColor(marks[tabButton->text()]));
-            }
-        } else if (tabButton->highlightColor().isValid()) {
-            tabButton->setHighlightColor(QColor());
-        }
-    }
-}
-
-QMap<QString, QString> KateTabBar::highlightMarks() const
-{
-    return m_highlightedTabs;
-}
-
 void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
 {
     if (tabButton == m_activeButton) {
@@ -293,18 +216,6 @@ void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
     const int id = m_idToTab.key(m_activeButton, -1);
     Q_ASSERT(id >= 0);
     emit currentChanged(id);
-}
-
-void KateTabBar::tabButtonHighlightChanged(KateTabButton *tabButton)
-{
-    if (tabButton->highlightColor().isValid()) {
-        m_highlightedTabs[tabButton->text()] = tabButton->highlightColor().name();
-        emit highlightMarksChanged(this);
-    } else if (m_highlightedTabs.contains(tabButton->text())) {
-        // invalid color, so remove the item
-        m_highlightedTabs.remove(tabButton->text());
-        emit highlightMarksChanged(this);
-    }
 }
 
 void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)

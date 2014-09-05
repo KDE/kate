@@ -48,29 +48,6 @@ public:
     virtual ~KateTabBar();
 
     /**
-     * Loads the settings from \a config from section \a group.
-     * Remembered properties are:
-     *  - minimum and maximum tab width
-     *  - fixed tab height
-     *  - button colors
-     *  - much more!
-     *  .
-     * The original group is saved and restored at the end of this function.
-     *
-     * \note Call @p load() immediately after you created the tabbar, otherwise
-     *       some properties might not be restored correctly (like highlighted
-     *       buttons).
-     */
-    void load(KConfigBase *config, const QString &group);
-    
-    /**
-     * Saves the settings to \a config into section \a group.
-     * The original group is saved and restored at the end of this function.
-     * See @p load() for more information.
-     */
-    void save(KConfigBase *config, const QString &group) const;
-    
-    /**
      * Adds a new tab with \a text. Returns the new tab's id.
      */
     int addTab(const QString &text);
@@ -154,9 +131,6 @@ public:
     void setActiveViewSpace(bool active);
     bool isActiveViewSpace() const;
 
-public Q_SLOTS:
-    void removeHighlightMarks();
-
 Q_SIGNALS:
     /**
      * This signal is emitted whenever the current activated tab changes.
@@ -219,12 +193,6 @@ protected Q_SLOTS:
     void tabButtonActivated(KateTabButton *tabButton);
 
     /**
-     * The \e tabButton's highlight color changed, so update the list of documents
-     * and colors.
-     */
-    void tabButtonHighlightChanged(KateTabButton *tabButton);
-
-    /**
      * If the user wants to close a tab with the context menu, it sends a close
      * request.
      */
@@ -275,9 +243,6 @@ private:
     KateTabButton *m_activeButton;
 
     int m_nextID;
-
-    // map of highlighted tabs and colors
-    QMap< QString, QString > m_highlightedTabs;
 };
 
 #endif // KATE_TAB_BAR_H

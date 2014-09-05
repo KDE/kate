@@ -65,20 +65,6 @@ public:
     virtual ~KateTabButton();
 
     /**
-     * Set the highlighted state. If @p color.isValid() is \e false the
-     * button is not highlighted. This does \e not emit the signal
-     * @p highlightChanged().
-     * @param color the color
-     */
-    void setHighlightColor(const QColor &color);
-
-    /**
-     * Get the highlight color. If the button is not highlighted then the color
-     * is invalid, i.e. \p QColor::isValid() returns \e flase.
-     */
-    QColor highlightColor() const;
-
-    /**
      * Returns @e true, if the tabbar is the currently active tab bar.
      */
     bool isActiveViewSpace() const;
@@ -97,13 +83,6 @@ Q_SIGNALS:
      * @param tabbutton the pressed button (this)
      */
     void activated(KateTabButton *tabbutton);
-
-    /**
-     * Emitted whenever the user changes the highlighted state. This can be
-     * done only via the context menu.
-     * @param tabbutton the changed button (this)
-     */
-    void highlightChanged(KateTabButton *tabbutton);
 
     /**
      * Emitted whenever the user wants to close the tab button.
@@ -131,12 +110,6 @@ protected:
 private:
     TabCloseButton * m_closeButton;
     QPropertyAnimation * m_geometryAnimation;
-
-    QColor m_highlightColor;
-
-    static QColor s_predefinedColors[6];
-    static const int s_colorCount;
-    static int s_currentColor;
 };
 
 #endif

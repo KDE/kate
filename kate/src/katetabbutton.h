@@ -22,7 +22,6 @@
 #define KATE_TAB_BUTTON
 
 #include <QAbstractButton>
-#include "katetabbar.h"
 
 class QPropertyAnimation;
 

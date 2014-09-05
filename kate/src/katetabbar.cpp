@@ -21,16 +21,9 @@
 #include "katetabbar.h"
 #include "katetabbutton.h"
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kiconloader.h>
-#include <kstringhandler.h>
-#include <KLocalizedString>
-
-#include <QToolButton>
-#include <QDebug>
-
 #include "math.h"
+
+#include <QResizeEvent>
 
 /**
  * Creates a new tab bar with the given \a parent.

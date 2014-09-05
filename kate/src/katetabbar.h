@@ -26,8 +26,8 @@
 #include <QList>
 #include <QMap>
 #include <QIcon>
-#include <QResizeEvent>
 
+class QResizeEvent;
 class KateTabButton;
 class KConfigBase;
 

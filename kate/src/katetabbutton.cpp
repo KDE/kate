@@ -20,18 +20,17 @@
 
 #include "katetabbutton.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QApplication>
 #include <QContextMenuEvent>
 #include <QFontDatabase>
-#include <QIcon>
+#include <QHBoxLayout>
 #include <QMenu>
 #include <QPainter>
 #include <QPropertyAnimation>
 #include <QStyle>
 #include <QStyleOption>
-#include <QHBoxLayout>
 
 TabCloseButton::TabCloseButton(QWidget * parent)
     : QAbstractButton(parent)

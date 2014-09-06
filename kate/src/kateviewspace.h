@@ -138,6 +138,12 @@ private Q_SLOTS:
     void closeTabRequest(int id);
 
     /**
+     * This slot is called by the tabbar, if all tabs except @p id should be
+     * closed through the context menu.
+     */
+    void closeOtherTabsRequest(int id);
+
+    /**
      * Called to create a new empty document.
      */
     void createNewDocument();

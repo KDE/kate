@@ -198,6 +198,12 @@ protected Q_SLOTS:
      */
     void tabButtonCloseRequest(KateTabButton *tabButton);
 
+    /**
+     * If the user wants to close all tabs except @p tabButton with the context
+     * menu, it sends a close others request.
+     */
+    void tabButtonCloseOthersRequest(KateTabButton *tabButton);
+
 protected:
     /**
      * Recalculate geometry for all tabs.

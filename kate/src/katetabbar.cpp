@@ -87,6 +87,8 @@ int KateTabBar::insertTab(int position, const QString & text)
             this, SLOT(tabButtonActivated(KateTabButton*)));
     connect(tabButton, SIGNAL(closeRequest(KateTabButton*)),
             this, SLOT(tabButtonCloseRequest(KateTabButton*)));
+    connect(tabButton, SIGNAL(closeOthersRequest(KateTabButton*)),
+            this, SLOT(tabButtonCloseOthersRequest(KateTabButton*)));
 
     // abort potential keeping of width
     m_keepTabWidth = false;
@@ -222,6 +224,14 @@ void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
     }
 
     emit closeTabRequested(id);
+}
+
+void KateTabBar::tabButtonCloseOthersRequest(KateTabButton *tabButton)
+{
+    const int id = m_idToTab.key(tabButton, -1);
+    Q_ASSERT(id >= 0);
+
+    emit closeOtherTabsRequested(id);
 }
 
 void KateTabBar::resizeEvent(QResizeEvent *event)

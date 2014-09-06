@@ -61,6 +61,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     connect(m_tabBar, &KateTabBar::moreTabsRequested, this, &KateViewSpace::addTabs);
     connect(m_tabBar, &KateTabBar::lessTabsRequested, this, &KateViewSpace::removeTabs);
     connect(m_tabBar, &KateTabBar::closeTabRequested, this, &KateViewSpace::closeTabRequest);
+    connect(m_tabBar, &KateTabBar::closeOtherTabsRequested, this, &KateViewSpace::closeOtherTabsRequest);
     connect(m_tabBar, &KateTabBar::newTabRequested, this, &KateViewSpace::createNewDocument);
     connect(m_tabBar, SIGNAL(activateViewSpaceRequested()), this, SLOT(makeActive()));
     hLayout->addWidget(m_tabBar);
@@ -501,6 +502,13 @@ void KateViewSpace::closeTabRequest(int id)
     KTextEditor::Document *doc = m_docToTabId.key(id);
     Q_ASSERT(doc);
     KateApp::self()->documentManager()->closeDocument(doc);
+}
+
+void KateViewSpace::closeOtherTabsRequest(int id)
+{
+    KTextEditor::Document *doc = m_docToTabId.key(id);
+    Q_ASSERT(doc);
+    KateApp::self()->documentManager()->closeOtherDocuments(doc);
 }
 
 void KateViewSpace::createNewDocument()

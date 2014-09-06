@@ -1,6 +1,8 @@
 # Load the frameworks we need
 find_package(KF5 REQUIRED COMPONENTS Notifications)
 
+add_definitions(-DTRANSLATION_DOMAIN=\"katebuild-plugin\")
+
 set(katebuild_SRCS plugin_katebuild.cpp targets.cpp selecttargetdialog.cpp)
 
 ki18n_wrap_ui(katebuild_SRCS build.ui)

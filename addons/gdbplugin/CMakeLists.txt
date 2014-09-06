@@ -1,3 +1,4 @@
+add_definitions(-DTRANSLATION_DOMAIN=\"kategdbplugin\")
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 set(kategdbplugin_PART_SRCS

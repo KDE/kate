@@ -1,3 +1,4 @@
+add_definitions(-DTRANSLATION_DOMAIN=\"katemailfilesplugin\")
 set(katemailfilesplugin_PART_SRCS katemailfiles.cpp katemailfilesdialog.cpp )
 
 kde4_add_plugin(katemailfilesplugin ${katemailfilesplugin_PART_SRCS})

@@ -1,6 +1,10 @@
 ########### next target ###############
 
+add_definitions(-DTRANSLATION_DOMAIN=\"katexmlcheck\")
+
 set(katexmlcheckplugin_PART_SRCS plugin_katexmlcheck.cpp )
+
+
 
 kde4_add_plugin(katexmlcheckplugin ${katexmlcheckplugin_PART_SRCS})
 

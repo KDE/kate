@@ -5,7 +5,7 @@ kde4_add_plugin(katemailfilesplugin ${katemailfilesplugin_PART_SRCS})
 
 target_link_libraries(katemailfilesplugin ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} kateinterfaces )
 
-install(TARGETS katemailfilesplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS katemailfilesplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
 ########### install files ###############
 

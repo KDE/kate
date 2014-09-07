@@ -10,7 +10,7 @@ kde4_add_plugin(katexmlcheckplugin ${katexmlcheckplugin_PART_SRCS})
 
 target_link_libraries(katexmlcheckplugin ${KDE4_KDEUI_LIBS} ktexteditor kateinterfaces )
 
-install(TARGETS katexmlcheckplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS katexmlcheckplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
 ########### install files ###############
 

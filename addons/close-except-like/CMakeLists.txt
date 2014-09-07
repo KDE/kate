@@ -31,8 +31,8 @@ target_link_libraries(katecloseexceptplugin
 
 configure_file(config.h.in config.h)
 
-install(TARGETS katecloseexceptplugin DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS katecloseexceptplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
 
-kservice_desktop_to_json(katecloseexceptplugin katecloseexceptplugin.desktop)
+kcoreaddons_desktop_to_json(katecloseexceptplugin katecloseexceptplugin.desktop)
 install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}//katecloseexceptplugin)
 install(FILES katecloseexceptplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR})

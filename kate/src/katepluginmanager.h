@@ -24,11 +24,12 @@
 
 #include <KTextEditor/Plugin>
 
-#include <KService>
+#include <KPluginMetaData>
 #include <KConfigBase>
 
 #include <QObject>
-#include <QLinkedList>
+#include <QList>
+#include <QMap>
 
 class KConfig;
 class KateMainWindow;
@@ -38,7 +39,7 @@ class KatePluginInfo
 public:
     bool load;
     bool defaultLoad;
-    KService::Ptr service;
+    KPluginMetaData metaData;
     KTextEditor::Plugin *plugin;
     QString saveName() const;
 };

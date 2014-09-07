@@ -49,7 +49,7 @@ target_link_libraries(
     kateinterfaces
   )
 
-install(TARGETS katepateplugin DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS katepateplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
 install(FILES katepythonplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR})
 install(FILES pate.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kate/plugins/katepateplugin)

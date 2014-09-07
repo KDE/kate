@@ -15,8 +15,8 @@ add_library(katectagsplugin MODULE ${ctagsplugin_SRC})
 target_link_libraries(katectagsplugin KF5::TextEditor KF5::I18n KF5::IconThemes)
 
 ########### install files ###############
-install(TARGETS katectagsplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS katectagsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katectags)
 
-kservice_desktop_to_json (katectagsplugin katectagsplugin.desktop)
+kcoreaddons_desktop_to_json (katectagsplugin katectagsplugin.desktop)
 install(FILES katectagsplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )

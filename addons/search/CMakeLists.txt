@@ -17,9 +17,9 @@ target_link_libraries(katesearchplugin
     Qt5::Script KF5::ItemViews)
 
 ########### install files ###############
-install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
 install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katesearch)
 
 
-kservice_desktop_to_json (katesearchplugin katesearch.desktop)
+kcoreaddons_desktop_to_json (katesearchplugin katesearch.desktop)
 install(FILES katesearch.desktop DESTINATION ${SERVICES_INSTALL_DIR})

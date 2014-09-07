@@ -18,7 +18,7 @@ target_link_libraries(kategdbplugin KF5::TextEditor KF5::I18n KF5::IconThemes)
 
 ########### install files ###############
 install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kategdb)
-install(TARGETS kategdbplugin DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS kategdbplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
 install(FILES kategdbplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 ecm_install_icons (${ICON_INSTALL_DIR})
-kservice_desktop_to_json (kategdbplugin kategdbplugin.desktop)
+kcoreaddons_desktop_to_json (kategdbplugin kategdbplugin.desktop)

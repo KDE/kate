@@ -6,7 +6,7 @@ kde4_add_plugin(katesymbolviewerplugin ${katesymbolviewerplugin_PART_SRCS})
 
 target_link_libraries(katesymbolviewerplugin  ${KDE4_KDEUI_LIBS} kateinterfaces ktexteditor )
 
-install(TARGETS katesymbolviewerplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS katesymbolviewerplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
 ########### install files ###############
 install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/kate/plugins/katesymbolviewer )

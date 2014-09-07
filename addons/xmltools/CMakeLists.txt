@@ -22,7 +22,7 @@ target_link_libraries(katexmltoolsplugin
 )
 
 ########### install files ###############
-install(TARGETS katexmltoolsplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS katexmltoolsplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
 install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/katexmltools )
 install( FILES html4-loose.dtd.xml  html4-strict.dtd.xml kde-docbook.dtd.xml simplify_dtd.xsl
@@ -30,5 +30,5 @@ install( FILES html4-loose.dtd.xml  html4-strict.dtd.xml kde-docbook.dtd.xml sim
                testcases.xml language.dtd.xml kpartgui.dtd.xml kcfg.dtd.xml
                DESTINATION  ${DATA_INSTALL_DIR}/katexmltools )
 
-kservice_desktop_to_json (katexmltoolsplugin katexmltools.desktop)
+kcoreaddons_desktop_to_json (katexmltoolsplugin katexmltools.desktop)
 install( FILES katexmltools.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

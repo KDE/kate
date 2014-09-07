@@ -29,12 +29,12 @@ target_link_libraries(katesnippetsplugin
     KF5::Parts KF5::I18n
     KF5::NewStuff Qt5::Script KF5::ItemViews KF5::IconThemes)
 
-install(TARGETS katesnippetsplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS katesnippetsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
 
 ########### install files ###############
 
-kservice_desktop_to_json (katesnippetsplugin katesnippetsplugin.desktop)
+kcoreaddons_desktop_to_json (katesnippetsplugin katesnippetsplugin.desktop)
 install( FILES katesnippetsplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 # install the snippet stuff

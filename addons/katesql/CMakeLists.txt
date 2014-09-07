@@ -35,11 +35,11 @@ target_link_libraries(katesqlplugin
     KF5::Parts KF5::I18n KF5::Wallet
     Qt5::Script Qt5::Sql KF5::ItemViews KF5::IconThemes)
 
-install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
 ########### install files ###############
 
 install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/katesql )
 
-kservice_desktop_to_json (katesqlplugin katesql.desktop)
+kcoreaddons_desktop_to_json (katesqlplugin katesql.desktop)
 install( FILES katesql.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

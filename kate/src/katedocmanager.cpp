@@ -88,8 +88,6 @@ KateDocManager::~KateDocManager()
 
 KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo)
 {
-    qCDebug(LOG_KATE) << "createDoc" << endl;
-
     KTextEditor::Document *doc = KTextEditor::Editor::instance()->createDocument(this);
 
     // turn of the editorpart's own modification dialog, we have our own one, too!

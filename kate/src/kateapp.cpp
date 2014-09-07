@@ -24,7 +24,6 @@
 #include "kateviewmanager.h"
 #include "katesessionmanager.h"
 #include "katemainwindow.h"
-#include "katedebug.h"
 
 #include <KConfig>
 #include <KSharedConfig>
@@ -97,8 +96,7 @@ KateApp *KateApp::self()
 
 bool KateApp::init()
 {
-
-    qCDebug(LOG_KATE) << "Setting KATE_PID: '" << QCoreApplication::applicationPid() << "'";
+    // set KATE_PID for use in child processes
     qputenv("KATE_PID", QString::fromLatin1("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData());
 
     // handle restore different
@@ -108,7 +106,7 @@ bool KateApp::init()
         // let us handle our command line args and co ;)
         // we can exit here if session chooser decides
         if (!startupKate()) {
-            qCDebug(LOG_KATE) << "startupKate returned false";
+            // session chooser telled to exit kate
             return false;
         }
     }
@@ -153,9 +151,8 @@ bool KateApp::startupKate()
     } else if (!m_args.isSet(QStringLiteral("stdin")) && (m_args.positionalArguments().count() == 0)) { // only start session if no files specified
         // let the user choose session if possible
         if (!sessionManager()->chooseSession()) {
-            qCDebug(LOG_KATE) << "chooseSession returned false, exiting";
-            // we will exit kate now, notify the rest of the world we are done
 #ifdef Q_WS_X11
+            // we will exit kate now, notify the rest of the world we are done
             KStartupInfo::appStarted(startupId());
 #endif
             return false;
@@ -248,7 +245,6 @@ bool KateApp::startupKate()
 
     activeKateMainWindow()->setAutoSaveSettings();
 
-    qCDebug(LOG_KATE) << "KateApplication::init finished successful";
     return true;
 }
 

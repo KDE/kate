@@ -257,7 +257,7 @@ void KateMainWindow::setupImportantActions()
     QList<QKeySequence> scuts;
     scuts << QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O)
           << QKeySequence(Qt::CTRL + Qt::Key_Tab);
-    a->setShortcuts(scuts);
+    actionCollection()->setDefaultShortcuts(a, scuts);
     connect(a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()));
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 }

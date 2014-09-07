@@ -157,7 +157,7 @@ void GUIClient::registerToolView(ToolView *tv)
     }
 
     KToggleAction *a = new ToggleToolViewAction(i18n("Show %1", tv->text), tv, this);
-    a->setShortcuts(shortcuts);
+    actionCollection()->setDefaultShortcuts(a, shortcuts);
     actionCollection()->addAction(aname, a);
 
     m_toolViewActions.append(a);

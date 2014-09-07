@@ -119,7 +119,7 @@ private Q_SLOTS:
      * Remove tab for @p doc, and return the index (position)
      * of the removed tab.
      */
-    int removeTab(KTextEditor::Document * doc);
+    int removeTab(KTextEditor::Document * doc, bool documentDestroyed);
 
     /**
      * Remove @p count tabs, since the tab bar shrinked.

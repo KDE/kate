@@ -278,7 +278,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
             // we need to subtract by 1 more, as we just added ourself to the end of the lru list!
             KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
             Q_ASSERT(m_docToTabId.contains(docToHide));
-            const int insertIndex = removeTab(docToHide);
+            const int insertIndex = removeTab(docToHide, false);
 
             // add new one at removed position
             insertTab(insertIndex, document);
@@ -352,7 +352,7 @@ void KateViewSpace::insertTab(int index, KTextEditor::Document * doc)
             this, SLOT(updateDocumentState(KTextEditor::Document*)));
 }
 
-int KateViewSpace::removeTab(KTextEditor::Document * doc)
+int KateViewSpace::removeTab(KTextEditor::Document * doc, bool documentDestroyed)
 {
     //
     // WARNING: removeTab() is also called from documentDestroyed().
@@ -366,10 +366,12 @@ int KateViewSpace::removeTab(KTextEditor::Document * doc)
     const int removeIndex = m_tabBar->removeTab(id);
     m_docToTabId.remove(doc);
 
-    disconnect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
+    if (!documentDestroyed) {
+        disconnect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
                this, SLOT(updateDocumentName(KTextEditor::Document*)));
-    disconnect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
+        disconnect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
               this, SLOT(updateDocumentState(KTextEditor::Document*)));
+    }
 
     return removeIndex;
 }
@@ -382,7 +384,7 @@ void KateViewSpace::removeTabs(int count)
     while (count > 0) {
         const int tabCount = m_tabBar->count();
         KTextEditor::Document * removeDoc = m_lruDocList[m_lruDocList.size() - tabCount];
-        removeTab(removeDoc);
+        removeTab(removeDoc, false);
         Q_ASSERT(! m_docToTabId.contains(removeDoc));
         --count;
     }
@@ -438,7 +440,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
 
         KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
         Q_ASSERT(m_docToTabId.contains(docToHide));
-        const int insertIndex = removeTab(docToHide);
+        const int insertIndex = removeTab(docToHide, false);
 
         // add new one at removed position
         insertTab(insertIndex, doc);
@@ -458,7 +460,7 @@ void KateViewSpace::documentDestroyed(QObject *doc)
 
     // case: there was no view created yet, but still a button was added
     if (m_docToTabId.contains(invalidDoc)) {
-        const int insertIndex = removeTab(invalidDoc);
+        const int insertIndex = removeTab(invalidDoc, true);
         // maybe show another tab button in its stead
         if (m_lruDocList.size() >= m_tabBar->maxTabCount()
             && m_tabBar->count() < m_tabBar->maxTabCount()

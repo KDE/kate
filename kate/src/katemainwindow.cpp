@@ -304,7 +304,7 @@ void KateMainWindow::setupActions()
     a = actionCollection()->addAction(QStringLiteral("file_save_all"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
     a->setText(i18n("Save A&ll"));
-    a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_L));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_L));
     connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(saveAll()));
     a->setWhatsThis(i18n("Save all open, modified documents to disk."));
 

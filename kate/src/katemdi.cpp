@@ -114,7 +114,7 @@ GUIClient::GUIClient(MainWindow *mw)
     actionCollection()->addAction(QStringLiteral("kate_mdi_toolview_menu"), m_toolMenu);
     m_showSidebarsAction = new KToggleAction(i18n("Show Side&bars"), this);
     actionCollection()->addAction(QStringLiteral("kate_mdi_sidebar_visibility"), m_showSidebarsAction);
-    m_showSidebarsAction->setShortcut(Qt::CTRL | Qt::ALT | Qt::SHIFT | Qt::Key_F);
+    actionCollection()->setDefaultShortcut(m_showSidebarsAction, Qt::CTRL | Qt::ALT | Qt::SHIFT | Qt::Key_F);
 
     m_showSidebarsAction->setChecked(m_mw->sidebarsVisible());
     connect(m_showSidebarsAction, SIGNAL(toggled(bool)),

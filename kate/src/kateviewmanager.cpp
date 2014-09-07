@@ -126,7 +126,7 @@ void KateViewManager::setupActions()
     m_splitViewVert = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_vert"));
     m_splitViewVert->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
     m_splitViewVert->setText(i18n("Split Ve&rtical"));
-    m_splitViewVert->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_L);
+    m_mainWindow->actionCollection()->setDefaultShortcut(m_splitViewVert, Qt::CTRL + Qt::SHIFT + Qt::Key_L);
     connect(m_splitViewVert, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceVert()));
 
     m_splitViewVert->setWhatsThis(i18n("Split the currently active view vertically into two views."));
@@ -134,7 +134,7 @@ void KateViewManager::setupActions()
     m_splitViewHoriz = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_horiz"));
     m_splitViewHoriz->setIcon(QIcon::fromTheme(QStringLiteral("view-split-top-bottom")));
     m_splitViewHoriz->setText(i18n("Split &Horizontal"));
-    m_splitViewHoriz->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_T);
+    m_mainWindow->actionCollection()->setDefaultShortcut(m_splitViewHoriz, Qt::CTRL + Qt::SHIFT + Qt::Key_T);
     connect(m_splitViewHoriz, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceHoriz()));
 
     m_splitViewHoriz->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
@@ -142,7 +142,7 @@ void KateViewManager::setupActions()
     m_closeView = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_close_current_space"));
     m_closeView->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
     m_closeView->setText(i18n("Cl&ose Current View"));
-    m_closeView->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_R);
+    m_mainWindow->actionCollection()->setDefaultShortcut(m_closeView, Qt::CTRL + Qt::SHIFT + Qt::Key_R);
     connect(m_closeView, SIGNAL(triggered()), this, SLOT(slotCloseCurrentViewSpace()), Qt::QueuedConnection);
 
     m_closeView->setWhatsThis(i18n("Close the currently active split view"));
@@ -164,14 +164,14 @@ void KateViewManager::setupActions()
 
     goNext = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_next_split_view"));
     goNext->setText(i18n("Next Split View"));
-    goNext->setShortcut(Qt::Key_F8);
+    m_mainWindow->actionCollection()->setDefaultShortcut(goNext, Qt::Key_F8);
     connect(goNext, SIGNAL(triggered()), this, SLOT(activateNextView()));
 
     goNext->setWhatsThis(i18n("Make the next split view the active one."));
 
     goPrev = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_prev_split_view"));
     goPrev->setText(i18n("Previous Split View"));
-    goPrev->setShortcut(Qt::SHIFT + Qt::Key_F8);
+    m_mainWindow->actionCollection()->setDefaultShortcut(goPrev, Qt::SHIFT + Qt::Key_F8);
     connect(goPrev, SIGNAL(triggered()), this, SLOT(activatePrevView()));
 
     goPrev->setWhatsThis(i18n("Make the previous split view the active one."));

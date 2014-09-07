@@ -29,7 +29,6 @@
 #include "kateapp.h"
 #include "katepluginmanager.h"
 #include "katerunninginstanceinfo.h"
-#include "katedebug.h"
 
 #include <KConfigGroup>
 #include <KSharedConfig>
@@ -58,8 +57,8 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
         m_sessionsDir = sessionsDir;
     }
 
-    QDir().mkpath(m_sessionsDir); // create dir if needed
-    qCDebug(LOG_KATE) << "LOCAL SESSION DIR: " << m_sessionsDir;
+    // create dir if needed
+    QDir().mkpath(m_sessionsDir);
 
     m_dirWatch = new KDirWatch(this);
     m_dirWatch->addDir(m_sessionsDir);

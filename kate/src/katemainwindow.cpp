@@ -82,7 +82,6 @@
 #include <assert.h>
 //END
 
-uint KateMainWindow::uniqueID = 1;
 KateMwModOnHdDialog *KateMainWindow::s_modOnHdDialog = 0;
 
 KateContainerStackedLayout::KateContainerStackedLayout(QWidget *parent)
@@ -113,11 +112,6 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
      * we don't want any flicker here
      */
     KateUpdateDisabler disableUpdates (this);
-    
-    setObjectName(QString::fromLatin1("__KateMainWindow#%1").arg(uniqueID));
-    // first the very important id
-    myID = uniqueID;
-    uniqueID++;
 
     m_modignore = false;
 

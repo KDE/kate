@@ -103,10 +103,6 @@ public:
      * anders: I add this for use from the file selector. */
     QUrl activeDocumentUrl();
 
-    uint mainWindowNumber() const {
-        return myID;
-    }
-
     /**
      * Prompts the user for what to do with files that are modified on disk if any.
      * This is optionally run when the window receives focus, and when the last
@@ -475,9 +471,6 @@ private Q_SLOTS:
     void slotDocumentCloseOther(KTextEditor::Document *document);
     void slotDocumentCloseSelected(const QList<KTextEditor::Document *> &);
 private:
-    static uint uniqueID;
-    uint myID;
-
     /**
      * Notify about file modifications from other processes?
      */

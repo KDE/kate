@@ -89,7 +89,9 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     aboutData.addCredit(i18n("Carsten Pfeiffer"), i18nc("Credit text for someone that helped a lot", "Very nice help"));
     aboutData.addCredit(i18n("All people who have contributed and I have forgotten to mention"));
 
-    aboutData.setProgramIconName(QStringLiteral("accessories-text-editor"));
+    /**
+     * bugzilla
+     */
     aboutData.setProductName(QByteArray("kate/kwrite"));
 
     /**
@@ -105,6 +107,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     app.setOrganizationDomain(aboutData.organizationDomain());
     app.setApplicationVersion(aboutData.version());
 
+    /**
+     * set the program icon
+     */
+    QApplication::setWindowIcon(QIcon::fromTheme(QLatin1String("accessories-text-editor")));
+    
     /**
      * Create command line parser and feed it with known options
      */

@@ -107,6 +107,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     app.setQuitOnLastWindowClosed(false);
 
     /**
+     * set the program icon
+     */
+    QApplication::setWindowIcon(QIcon::fromTheme(QLatin1String("kate")));
+    
+    /**
      * Create command line parser and feed it with known options
      */
     QCommandLineParser parser;

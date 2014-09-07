@@ -234,8 +234,6 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
             }
         }
 
-        qCDebug(LOG_KATE) << "deleting document with name:" << doc->documentName();
-        
         KateApp::self()->emitDocumentClosed(QString::number((qptrdiff)doc));
         
         // document will be deleted, soon

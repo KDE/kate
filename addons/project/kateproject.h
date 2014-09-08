@@ -48,38 +48,22 @@ Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
  */
 class KateProjectWorkerThread : public QThread
 {
-    public:
-        /**
-         * Construct thread for given worker
-         */
-        KateProjectWorkerThread (QObject *worker)
-          : QThread()
-          , m_worker (worker)
-        {
-        }
+public:
+    KateProjectWorkerThread (QObject *worker)
+    : QThread()
+    , m_worker (worker)
+    {
+    }
 
-    protected:
-        /**
-         * start the thread event loop
-         */
-        virtual void run()
-        {
-            /**
-             * run event loop
-             */
-            exec ();
+protected:
+    virtual void run()
+    {
+        exec();
+        delete m_worker;
+    }
 
-            /**
-             * kill worker in THIS thread
-             */
-            delete m_worker;
-        }
-
-    private:
-        /**
-         * Worker object
-         */
-        QObject *m_worker;
+private:
+    QObject *m_worker;
 };
 
 /**
@@ -88,18 +72,18 @@ class KateProjectWorkerThread : public QThread
  */
 class KateProject : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     /**
      * construct empty project
      */
-    KateProject ();
+    KateProject();
 
     /**
      * deconstruct project
      */
-    ~KateProject ();
+    ~KateProject();
 
     /**
      * Load a project.
@@ -107,7 +91,7 @@ class KateProject : public QObject
      * @param fileName name of project file
      * @return success
      */
-    bool load (const QString &fileName);
+    bool load(const QString &fileName);
 
     /**
      * Try to reload a project.
@@ -115,60 +99,60 @@ class KateProject : public QObject
      * @param force will enforce the worker to update files list and co even if the content of the file was not changed!
      * @return success
      */
-    bool reload (bool force = false);
+    bool reload(bool force = false);
 
     /**
      * Accessor to file name.
      * @return file name
      */
-    const QString &fileName () const
+    const QString &fileName() const
     {
-      return m_fileName;
+        return m_fileName;
     }
-   
+
     /**
      * Return the base directory of this project.
      * @return base directory of project, might not be the directory of the fileName!
      */
-    const QString &baseDir () const
+    const QString &baseDir() const
     {
-      return m_baseDir;
+        return m_baseDir;
     }
 
     /**
      * Accessor to project map containing the whole project info.
      * @return project info
      */
-    const QVariantMap &projectMap () const
+    const QVariantMap &projectMap() const
     {
-      return m_projectMap;
+        return m_projectMap;
     }
 
     /**
      * Accessor to project name.
      * @return project name
      */
-    QString name () const
+    QString name() const
     {
-      return m_projectMap[QStringLiteral("name")].toString ();
+        return m_projectMap[QStringLiteral("name")].toString();
     }
 
     /**
      * Accessor for the model.
      * @return model of this project
      */
-    QStandardItemModel *model ()
+    QStandardItemModel *model()
     {
-      return &m_model;
+        return &m_model;
     }
 
     /**
      * Flat list of all files in the project
      * @return list of files in project
      */
-    QStringList files ()
+    QStringList files()
     {
-      return m_file2Item ? m_file2Item->keys () : QStringList ();
+        return m_file2Item ? m_file2Item->keys() : QStringList();
     }
 
     /**
@@ -176,9 +160,9 @@ class KateProject : public QObject
      * @param file file to get item for
      * @return item for given file or 0
      */
-    KateProjectItem *itemForFile (const QString &file)
+    KateProjectItem *itemForFile(const QString &file)
     {
-      return m_file2Item ? m_file2Item->value (file) : 0;
+        return m_file2Item ? m_file2Item->value(file) : 0;
     }
 
     /**
@@ -187,84 +171,84 @@ class KateProject : public QObject
      * Don't store this pointer, might change.
      * @return project index
      */
-    KateProjectIndex *projectIndex ()
+    KateProjectIndex *projectIndex()
     {
-      return m_projectIndex.data();
+        return m_projectIndex.data();
     }
-    
+
     /**
      * Will try to open a project local file.
      * Such files will be stored as .kateproject.d/file in the project directory.
      * @param file wanted file name, relative to .kateproject.d folder in project directory
      * @return either a pointer to a read-write opened file or null on error
      */
-    QFile *projectLocalFile (const QString &file) const;
+    QFile *projectLocalFile(const QString &file) const;
 
     /**
      * Document with project local notes.
      * Will be stored in a projectLocalFile "notes.txt".
      * @return notes document
      */
-    QTextDocument *notesDocument ();
+    QTextDocument *notesDocument();
     
     /**
      * Save the notes document to "notes.txt" if any document around.
      */
-    void saveNotesDocument ();
+    void saveNotesDocument();
     
     /**
      * Register a document for this project.
      * @param document document to register
      */
-    void registerDocument (KTextEditor::Document *document);
+    void registerDocument(KTextEditor::Document *document);
     
     /**
      * Unregister a document for this project.
      * @param document document to unregister
      */
-    void unregisterDocument (KTextEditor::Document *document);
+    void unregisterDocument(KTextEditor::Document *document);
     
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * Used for worker to send back the results of project loading
      * @param topLevel new toplevel element for model
      * @param file2Item new file => item mapping
      */
-    void loadProjectDone (KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);
+    void loadProjectDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);
 
     /**
      * Used for worker to send back the results of index loading
      * @param projectIndex new project index
      */
-    void loadIndexDone (KateProjectSharedProjectIndex projectIndex);
+    void loadIndexDone(KateProjectSharedProjectIndex projectIndex);
 
     void slotModifiedChanged(KTextEditor::Document*);
     
     
-    void slotModifiedOnDisk (KTextEditor::Document *document,
+    void slotModifiedOnDisk(KTextEditor::Document *document,
       bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
 
     
-  Q_SIGNALS:
+Q_SIGNALS:
     /**
      * Emitted on project map changes.
      * This includes the name!
      */
-    void projectMapChanged ();
+    void projectMapChanged();
 
     /**
      * Emitted on model changes.
      * This includes the files list, itemForFile mapping!
      */
-    void modelChanged ();
+    void modelChanged();
 
     /**
      * Emitted when the index creation is finished.
      * This includes the ctags index.
      */
-    void indexChanged ();
+    void indexChanged();
 
-  private:
+private:
     /**
      * the worker inside the background thread
      * if this is NULL, we are in our deconstruction state and should
@@ -331,5 +315,3 @@ class KateProject : public QObject
 };
 
 #endif
-
-// kate: space-indent on; indent-width 2; replace-tabs on;

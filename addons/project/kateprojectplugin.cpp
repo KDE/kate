@@ -41,222 +41,163 @@
 #include <unistd.h>
 #endif
 
-KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
-  : KTextEditor::Plugin (parent)
-  , m_completion (this)
+namespace
 {
-  /**
-   * register some data types
-   */
-  qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
-  qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");
-  qRegisterMetaType<KateProjectSharedProjectIndex>("KateProjectSharedProjectIndex");
- 
-  /**
-   * connect to important signals, e.g. for auto project loading
-   */
-  connect (KTextEditor::Editor::instance()->application(), SIGNAL(documentCreated (KTextEditor::Document *)), this, SLOT(slotDocumentCreated (KTextEditor::Document *)));
-  connect (&m_fileWatcher, SIGNAL(directoryChanged (const QString &)), this, SLOT(slotDirectoryChanged (const QString &)));
-  
-#ifdef HAVE_CTERMID
-  /**
-   * open project for our current working directory, if this kate has a terminal
-   * http://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
-   */
-  char tty[L_ctermid+1] = {0};
-  ctermid (tty);
-  int fd = ::open(tty, O_RDONLY);
-  if (fd >= 0) {
-    /**
-     * open project for working dir!
-     */
-    projectForDir (QDir::current ());
+const QString ProjectFileName = QLatin1String(".kateproject");
+}
 
+KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant>&)
+    : KTextEditor::Plugin(parent)
+    , m_completion(this)
+{
+    qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
+    qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");
+    qRegisterMetaType<KateProjectSharedProjectIndex>("KateProjectSharedProjectIndex");
+
+    connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentCreated(KTextEditor::Document *)), this, SLOT(slotDocumentCreated(KTextEditor::Document *)));
+    connect(&m_fileWatcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(slotDirectoryChanged(const QString &)));
+
+#ifdef HAVE_CTERMID
     /**
-     * close again
+     * open project for our current working directory, if this kate has a terminal
+     * http://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
      */
-    ::close (fd);
-  }
+    char tty[L_ctermid + 1] = {0};
+    ctermid(tty);
+    int fd = ::open(tty, O_RDONLY);
+
+    if (fd >= 0) {
+        projectForDir(QDir::current());
+        ::close(fd);
+    }
 #endif
-  
-  /**
-   * connect for all already existing documents
-   */
-  foreach (KTextEditor::Document *document, KTextEditor::Editor::instance()->application()->documents())
-    slotDocumentCreated (document);
+
+    foreach (KTextEditor::Document *document, KTextEditor::Editor::instance()->application()->documents()) {
+        slotDocumentCreated(document);
+    }
 }
 
 KateProjectPlugin::~KateProjectPlugin()
 {
-  /**
-   * cleanup open projects
-   */
-  foreach (KateProject *project, m_projects) {
-    /**
-     * remove path
-     */
-    m_fileWatcher.removePath (QFileInfo (project->fileName()).canonicalPath());
-
-    /**
-     * let events still be handled!
-     */
-    delete project;
-  }
-
-  /**
-   * cleanup list
-   */
-  m_projects.clear ();
+    Q_FOREACH (KateProject *project, m_projects) {
+        m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
+        delete project;
+    }
+    m_projects.clear();
 }
 
-QObject *KateProjectPlugin::createView( KTextEditor::MainWindow *mainWindow )
+QObject *KateProjectPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-  return new KateProjectPluginView ( this, mainWindow );
+    return new KateProjectPluginView(this, mainWindow);
 }
 
-KateProject *KateProjectPlugin::createProjectForFileName (const QString &fileName)
+KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName)
 {
-  /**
-   * try to load or fail
-   */
-  KateProject *project = new KateProject ();
-  if (!project->load (fileName)) {
-    delete project;
-    return 0;
-  }
+    KateProject *project = new KateProject();
 
-  /**
-   * remember project and emit & return it
-   */
-  m_projects.append(project);
-  m_fileWatcher.addPath (QFileInfo(fileName).canonicalPath());
-  emit projectCreated (project);
-  return project;
-}
-
-KateProject *KateProjectPlugin::projectForDir (QDir dir)
-{
-  /**
-   * search projects upwards
-   * with recursion guard
-   */
-  QSet<QString> seenDirectories;
-  while (!seenDirectories.contains (dir.absolutePath ())) {
-    /**
-     * fill recursion guard
-     */
-    seenDirectories.insert (dir.absolutePath ());
-
-    /**
-     * check for project and load it if found
-     */
-    QString canonicalPath = dir.canonicalPath();
-    QString canonicalFileName = canonicalPath + QStringLiteral("/.kateproject");
-
-    foreach (KateProject *project, m_projects) {
-      if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName)
-        return project;
+    if (!project->load(fileName)) {
+        delete project;
+        return 0;
     }
 
-    if (dir.exists (QStringLiteral(".kateproject")))
-      return createProjectForFileName (canonicalFileName);
+    m_projects.append(project);
+    m_fileWatcher.addPath(QFileInfo(fileName).canonicalPath());
+    emit projectCreated(project);
+    return project;
+}
 
+KateProject *KateProjectPlugin::projectForDir(QDir dir)
+{
     /**
-     * else: cd up, if possible or abort
+     * search projects upwards
+     * with recursion guard
      */
-    if (!dir.cdUp())
-      break;
-  }
+    QSet<QString> seenDirectories;
+    while (!seenDirectories.contains(dir.absolutePath())) {
+        /**
+         * fill recursion guard
+         */
+        seenDirectories.insert(dir.absolutePath());
 
-  /**
-   * nothing there
-   */
-  return 0;
-}
+        /**
+         * check for project and load it if found
+         */
+        QString canonicalPath = dir.canonicalPath();
+        QString canonicalFileName = dir.filePath(ProjectFileName);
 
-KateProject *KateProjectPlugin::projectForUrl (const QUrl &url)
-{
-  /**
-   * abort if empty url or no local path
-   */
-  if (url.isEmpty() || !url.isLocalFile())
-    return 0;
+        Q_FOREACH(KateProject *project, m_projects) {
+            if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName) {
+                return project;
+            }
+        }
 
-  /**
-   * else get local filename and then the dir for it
-   * pass this to right search function
-   */
-  return projectForDir (QFileInfo(url.toLocalFile ()).absoluteDir ());
-}
+        if (dir.exists(ProjectFileName)) {
+            return createProjectForFileName(canonicalFileName);
+        }
 
-void KateProjectPlugin::slotDocumentCreated (KTextEditor::Document *document)
-{
-  /**
-   * connect to url changed, for auto load and destroyed
-   */
-  connect (document, SIGNAL(documentUrlChanged (KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged (KTextEditor::Document *)));
-  connect (document, SIGNAL(destroyed (QObject *)), this, SLOT(slotDocumentDestroyed (QObject *)));
-
-  /**
-   * trigger slot once, for existing docs
-   */
-  slotDocumentUrlChanged (document);
-}
-
-void KateProjectPlugin::slotDocumentDestroyed (QObject *document)
-{
-  /**
-   * remove mapping to project
-   */
-  if (KateProject *project = m_document2Project.value (document))
-    project->unregisterDocument (static_cast<KTextEditor::Document *> (document));
-    
-  /**
-   * remove mapping
-   */
-  m_document2Project.remove (document);
-}
-
-void KateProjectPlugin::slotDocumentUrlChanged (KTextEditor::Document *document)
-{
-  /**
-   * search matching project
-   */
-  KateProject *project = projectForUrl (document->url());
-  
-  /**
-   * remove mapping to project
-   */
-  if (KateProject *project = m_document2Project.value (document))
-    project->unregisterDocument (document);    
-  
-  /**
-   * update mapping document => project
-   */
-  if (!project)
-    m_document2Project.remove (document);
-  else
-    m_document2Project[document] = project;
-  
-  /**
-   * add mapping to project
-   */
-  if (KateProject *project = m_document2Project.value (document))
-    project->registerDocument (document);
-}
-
-void KateProjectPlugin::slotDirectoryChanged (const QString &path)
-{
-  /**
-   * auto-reload, if there
-   */
-  QString fileName = path + QStringLiteral("/.kateproject");
-  foreach (KateProject *project, m_projects) {
-    if (project->fileName() == fileName) {
-      project->reload();
-      break;
+        /**
+         * else: cd up, if possible or abort
+         */
+        if (!dir.cdUp()) {
+            break;
+        }
     }
-  }
+
+    return 0;
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+KateProject* KateProjectPlugin::projectForUrl(const QUrl &url)
+{
+    if (url.isEmpty() || !url.isLocalFile()) {
+        return 0;
+    }
+
+    return projectForDir(QFileInfo(url.toLocalFile()).absoluteDir());
+}
+
+void KateProjectPlugin::slotDocumentCreated(KTextEditor::Document *document)
+{
+    connect(document, SIGNAL(documentUrlChanged(KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged(KTextEditor::Document *)));
+    connect(document, SIGNAL(destroyed(QObject *)), this, SLOT(slotDocumentDestroyed(QObject *)));
+
+    slotDocumentUrlChanged(document);
+}
+
+void KateProjectPlugin::slotDocumentDestroyed(QObject *document)
+{
+    if (KateProject *project = m_document2Project.value(document)) {
+        project->unregisterDocument(static_cast<KTextEditor::Document *>(document));
+    }
+
+    m_document2Project.remove(document);
+}
+
+void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
+{
+    KateProject *project = projectForUrl(document->url());
+
+    if (KateProject *project = m_document2Project.value(document)) {
+        project->unregisterDocument(document);
+    }
+
+    if (!project) {
+        m_document2Project.remove(document);
+    } else {
+        m_document2Project[document] = project;
+    }
+
+    if (KateProject *project = m_document2Project.value(document)) {
+        project->registerDocument(document);
+    }
+}
+
+void KateProjectPlugin::slotDirectoryChanged(const QString &path)
+{
+    QString fileName = QDir(path).filePath(ProjectFileName);
+    Q_FOREACH(KateProject *project, m_projects) {
+        if (project->fileName() == fileName) {
+            project->reload();
+            break;
+        }
+    }
+}

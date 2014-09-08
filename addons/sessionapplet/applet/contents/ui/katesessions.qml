@@ -30,11 +30,16 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 Item {
     id: main
 
-/*    width: units.gridUnit * 13
-    height: units.gridUnit * 10*/
+      /*  width: isContainment ? undefined : units.gridUnit * 14
+        height: isContainment ? undefined : units.gridUnit * 16
 
-    Plasmoid.switchWidth: units.gridUnit * 10
-    Plasmoid.switchHeight: units.gridUnit * 8
+     property bool isContainment: ("containmentType" in plasmoid)
+*/
+    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
+
+
+    Plasmoid.switchWidth: units.gridUnit * 6
+    Plasmoid.switchHeight: units.gridUnit * 5
     Plasmoid.status: PlasmaCore.Types.ActiveStatus
     Plasmoid.toolTipMainText: i18n("Kate Sessions")
     Plasmoid.icon: "kate"
@@ -46,6 +51,7 @@ Item {
     Component.onCompleted: {
         plasmoid.removeAction("configure");
         plasmoid.setAction("configure", i18n("Configure"), "configure", "alt+d, s");
+
     }
 
     PlasmaCore.DataSource {
@@ -68,9 +74,13 @@ Item {
     }
 
     Plasmoid.fullRepresentation: Item {
+
         id: dialogItem
         Layout.minimumWidth: units.iconSizes.medium * 9
-        Layout.minimumHeight: units.gridUnit * 26
+        Layout.minimumHeight: units.gridUnit * 16
+
+        width: units.gridUnit * 14
+        height: units.gridUnit * 16
 
         focus: true
 

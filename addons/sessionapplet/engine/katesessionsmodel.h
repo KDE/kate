@@ -1,4 +1,5 @@
 /***************************************************************************
+ *   Copyright (C) 2014 Joseph Wenninger <jowenn@kde.org>                  *
  *   Copyright (C) 2008 by Montel Laurent <montel@kde.org>                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -17,61 +18,51 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA          *
  ***************************************************************************/
 
-#ifndef _KATESESSIONAPPLET_H_
-#define _KATESESSIONAPPLET_H_
+#ifndef _KATESESSIONSMODEL_H_
+#define _KATESESSIONSMODEL_H_
 
+/*
 #include <plasma/popupapplet.h>
 
 #include "ui_katesessionConfig.h"
+*/
+
+#include <QStandardItemModel>
 
 class QTreeView;
 class QGraphicsProxyWidget;
-class QStandardItemModel;
+
 class QModelIndex;
 class KConfigDialog;
 class QStringList;
-class KateSessionConfigInterface : public QWidget {
-    // Wrapper widget class for the configuration interface.
-    Q_OBJECT
-public:
-    KateSessionConfigInterface(const QStringList& all, const QStringList& hidden);
-    QStringList hideList() const;
-private:
-    QStringList m_all;
-    Ui::KateSessionConfig m_config;
-};
 
-
-class KateSessionApplet : public Plasma::PopupApplet
+class KateSessionsModel : public QStandardItemModel
 {
     Q_OBJECT
 public:
-    KateSessionApplet(QObject *parent, const QVariantList &args);
-    ~KateSessionApplet();
-
-    QWidget *widget();
-
+    KateSessionsModel(QObject *parent);
+    ~KateSessionsModel();
+    QHash< int, QByteArray > roleNames() const override;
     enum SpecificRoles {
-        Index = Qt::UserRole+1
+        Uuid = Qt::UserRole+3,
+        TypeRole = Qt::UserRole+4
     };
 
+
 protected Q_SLOTS:
-    void slotOnItemClicked(const QModelIndex &index);
+//    void slotOnItemClicked(const QModelIndex &index);
     void slotUpdateSessionMenu();
-    void slotSaveConfig();
+//    void slotSaveConfig();
 
 protected:
     void initSessionFiles();
-    void createConfigurationInterface(KConfigDialog *parent);
-    void configChanged();
+/*    void createConfigurationInterface(KConfigDialog *parent);
+    void configChanged();*/
 private:
-    QTreeView *m_listView;
-    QStandardItemModel *m_kateModel;
+
     QStringList m_sessions;
     QStringList m_fullList;
-    KateSessionConfigInterface *m_config;
+    QString m_sessionsDir;
+//    KateSessionConfigInterface *m_config;
 };
-
-K_EXPORT_PLASMA_APPLET(katesession, KateSessionApplet )
-
 #endif

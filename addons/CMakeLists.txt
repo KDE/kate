@@ -52,6 +52,6 @@ ecm_optional_add_subdirectory (katebuild-plugin)
 
 #add_subdirectory( xmlcheck )
 
-#add_subdirectory( sessionapplet )
+ecm_optional_add_subdirectory( sessionapplet )
 
 #macro_optional_add_subdirectory(pate)

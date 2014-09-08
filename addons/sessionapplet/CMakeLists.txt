@@ -1,13 +1,9 @@
 project(katesessionapplet)
 
-set(katesessionapplet_SRCS
-    katesessionapplet.cpp)
+find_package(KF5 REQUIRED
+    I18n WindowSystem Service Completion WidgetsAddons KIO CoreAddons Wallet ItemViews XmlGui
+    ConfigWidgets IconThemes Solid DBusAddons Notifications Plasma Declarative Init KDELibs4Support)
 
-kde4_add_ui_files(katesessionapplet_SRCS
-                  katesessionConfig.ui)
 
-kde4_add_plugin(plasma_applet_katesession ${katesessionapplet_SRCS})
-target_link_libraries(plasma_applet_katesession ${KDE4_PLASMA_LIBS} ${KDE4_KIO_LIBS})
-
-install(TARGETS plasma_applet_katesession DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-install(FILES plasma-applet-katesession.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+plasma_install_package(applet org.kde.plasma.katesessions)
+add_subdirectory(engine)

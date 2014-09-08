@@ -1,4 +1,5 @@
 /***************************************************************************
+ *   Copyright (C) 2014 Joseph Wenninger <jowenn@kde.org>                  *
  *   Copyright (C) 2008 by Montel Laurent <montel@kde.org>                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -17,149 +18,128 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA          *
  ***************************************************************************/
 
-#include "katesessionapplet.h"
+#include "katesessionsmodel.h"
 #include <QStyleOptionGraphicsItem>
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QGraphicsGridLayout>
-#include <KStandardDirs>
 #include <KIconLoader>
-#include <KInputDialog>
-#include <KMessageBox>
-#include <KStandardGuiItem>
 #include <QGraphicsProxyWidget>
 #include <QListWidgetItem>
 #include <QStandardItemModel>
-#include <KIcon>
 #include <KToolInvocation>
 #include <KDirWatch>
 #include <QGraphicsLinearLayout>
-#include <KGlobalSettings>
-#include <KUrl>
 #include <KStringHandler>
 #include <QFile>
-#include <KConfigDialog>
-
+#include <QDir>
+#include <QIcon>
+#include <KLocalizedString>
+#include <QStandardPaths>
+#include <QDebug>
 
 bool katesessions_compare_sessions(const QString &s1, const QString &s2) {
-    return KStringHandler::naturalCompare(s1,s2)==-1;
+    //return KStringHandler::naturalCompare(s1,s2)==-1;
+    return s1.compare(s2)==-1;
 }
 
 
-KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
-    : Plasma::PopupApplet(parent, args), m_listView( 0 ), m_config(0)
+KateSessionsModel::KateSessionsModel(QObject *parent)
+    : QStandardItemModel(parent) /*, m_config(0)*/
 {
     KDirWatch *dirwatch = new KDirWatch( this );
-    QStringList lst = KGlobal::dirs()->findDirs( "data", "kate/sessions/" );
-    for ( int i = 0; i < lst.count(); i++ )
-    {
-        dirwatch->addDir( lst[i] );
-    }
+    m_sessionsDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/sessions");
+    
+    dirwatch->addDir( m_sessionsDir );
+    
     connect( dirwatch, SIGNAL(dirty(QString)), this, SLOT(slotUpdateSessionMenu()) );
-    setPopupIcon( "kate" );
+    slotUpdateSessionMenu();
+    /*setPopupIcon( "kate" );
     setHasConfigurationInterface(true);
-    setAspectRatioMode(Plasma::IgnoreAspectRatio);
+    setAspectRatioMode(Plasma::IgnoreAspectRatio);*/
 }
 
-KateSessionApplet::~KateSessionApplet()
+KateSessionsModel::~KateSessionsModel()
 {
-    delete m_listView;
-}
-
-QWidget *KateSessionApplet::widget()
-{
-    if ( !m_listView )
-    {
-        m_listView= new QTreeView();
-        m_listView->setAttribute(Qt::WA_NoSystemBackground);
-        m_listView->setEditTriggers( QAbstractItemView::NoEditTriggers );
-        m_listView->setRootIsDecorated(false);
-        m_listView->setHeaderHidden(true);
-        m_listView->setMouseTracking(true);
-
-        m_kateModel = new QStandardItemModel(this);
-        m_listView->setModel(m_kateModel);
-        m_listView->setMouseTracking(true);
-
-        initSessionFiles();
-
-        connect(m_listView, SIGNAL(activated(QModelIndex)),
-            this, SLOT(slotOnItemClicked(QModelIndex)));
-    }
-    return m_listView;
 }
 
 
-void KateSessionApplet::slotUpdateSessionMenu()
+void KateSessionsModel::slotUpdateSessionMenu()
 {
-   m_kateModel->clear();
+   clear();
    m_sessions.clear();
    m_fullList.clear();
    initSessionFiles();
 }
 
-void KateSessionApplet::initSessionFiles()
+void KateSessionsModel::initSessionFiles()
 {
     // Obtain list of items previously configured as hidden
-    const QStringList hideList = config().readEntry("hideList", QStringList());
+    const QStringList hideList; // = config().readEntry("hideList", QStringList());
 
     // Construct a full list of items (m_fullList) so we can display them
     // in the config dialog, but leave out the hidden stuff for m_kateModel
     // that is actually displayed
-    int index=0;
+
     QStandardItem *item = new QStandardItem();
     item->setData(i18n("Start Kate (no arguments)"), Qt::DisplayRole);
-    item->setData( KIcon( "kate" ), Qt::DecorationRole );
-    item->setData( index++, Index );
+    item->setData( QIcon::fromTheme( QStringLiteral("kate") ), Qt::DecorationRole );
+    item->setData( QStringLiteral("_kate_noargs"), Uuid );
+    item->setData(0,TypeRole);
     m_fullList << item->data(Qt::DisplayRole).toString();
     if (!hideList.contains(item->data(Qt::DisplayRole).toString())) {
-        m_kateModel->appendRow(item);
+        appendRow(item);
     }
 
     item = new QStandardItem();
     item->setData( i18n("New Kate Session"), Qt::DisplayRole);
-    item->setData( KIcon( "document-new" ), Qt::DecorationRole );
-    item->setData( index++, Index );
+    item->setData( QIcon::fromTheme( QStringLiteral("document-new") ), Qt::DecorationRole );
+    qDebug()<<QIcon::fromTheme( QStringLiteral("document-new"));
+    item->setData( QStringLiteral("_kate_newsession"), Uuid );
+    item->setData(1,TypeRole);
     m_fullList << item->data(Qt::DisplayRole).toString();
     if (!hideList.contains(item->data(Qt::DisplayRole).toString())) {
-        m_kateModel->appendRow(item);
+        appendRow(item);
     }
 
     item = new QStandardItem();
     item->setData( i18n("New Anonymous Session"), Qt::DisplayRole);
-    item->setData( index++, Index );
-    item->setData( KIcon( "document-new" ), Qt::DecorationRole );
+    item->setData( QStringLiteral("_kate_anon_newsession"), Uuid );
+    item->setData(0,TypeRole);
+    item->setData( QIcon::fromTheme( QStringLiteral("document-new") ), Qt::DecorationRole );
     m_fullList << item->data(Qt::DisplayRole).toString();
     if (!hideList.contains(item->data(Qt::DisplayRole).toString())) {
-        m_kateModel->appendRow(item);
+        appendRow(item);
     }
 
-    const QStringList list = KGlobal::dirs()->findAllResources( "data", "kate/sessions/*.katesession", KStandardDirs::NoDuplicates );
-    KUrl url;
-    for (QStringList::ConstIterator it = list.constBegin(); it != list.constEnd(); ++it)
-    {
-        url.setPath(*it);
-        QString name=url.fileName();
-        name = QUrl::fromPercentEncoding(QFile::encodeName(url.fileName()));
-        name.chop(12);///.katesession==12
-/*        KConfig _config( *it, KConfig::SimpleConfig );
-        KConfigGroup config(&_config, "General" );
-        QString name =  config.readEntry( "Name" );*/
-        m_sessions.append( name );
+    //const QStringList list = KGlobal::dirs()->findAllResources( "data", "kate/sessions/*.katesession", KStandardDirs::NoDuplicates );
+   
+    QDir dir(m_sessionsDir, QStringLiteral("*.katesession"));
+
+    for (unsigned int i = 0; i < dir.count(); ++i) {
+        QString name = dir[i];
+        name.chop(12); // .katesession
+        m_sessions << QUrl::fromPercentEncoding(name.toLatin1());
     }
+    
+   
     qSort(m_sessions.begin(),m_sessions.end(),katesessions_compare_sessions);
+    QString ext(".katesession");
     for(QStringList::ConstIterator it=m_sessions.constBegin();it!=m_sessions.constEnd();++it)
     {
         m_fullList << *it;
         if (!hideList.contains(*it)) {
             item = new QStandardItem();
             item->setData(*it, Qt::DisplayRole);
-            item->setData( index++, Index );
-            m_kateModel->appendRow( item);
+            item->setData( QString((*it)+ext), Uuid );
+            item->setData( QIcon::fromTheme( QStringLiteral("document-open") ), Qt::DecorationRole );
+            item->setData(2,TypeRole);
+            appendRow( item);
         }
     }
 }
 
+/*
 void KateSessionApplet::slotOnItemClicked(const QModelIndex &index)
 {
     hidePopup();
@@ -227,7 +207,8 @@ void KateSessionApplet::configChanged()
     // refresh menu from config
     slotUpdateSessionMenu();
 }
-
+*/
+/*
 KateSessionConfigInterface::KateSessionConfigInterface(const QStringList& all, const QStringList& hidden)
 {
     m_all = all;
@@ -256,5 +237,16 @@ QStringList KateSessionConfigInterface::hideList() const
     }
     return hideList;
 }
+*/
 
-#include "katesessionapplet.moc"
+QHash< int, QByteArray > KateSessionsModel::roleNames() const
+{
+    QHash<int, QByteArray> hash;
+    hash.insert(Qt::DisplayRole, QByteArrayLiteral("DisplayRole"));
+    hash.insert(Qt::DecorationRole, QByteArrayLiteral("DecorationRole"));
+    hash.insert(Qt::UserRole+3, QByteArrayLiteral("UuidRole"));
+    hash.insert(Qt::UserRole+4, QByteArrayLiteral("TypeRole"));
+    return hash;
+}
+
+#include "katesessionsmodel.moc"

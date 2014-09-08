@@ -96,7 +96,6 @@ KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     : QAbstractButton(parent)
     , m_geometryAnimation(0)
 {
-//     setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
     setCheckable(true);
     setFocusPolicy(Qt::NoFocus);
 
@@ -107,7 +106,7 @@ KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     m_closeButton = new TabCloseButton(this);
     QHBoxLayout * hbox = new QHBoxLayout(this);
     hbox->setSpacing(0);
-    hbox->setContentsMargins(0, 0, margin, 0);
+    hbox->setContentsMargins(margin, 0, margin, 0);
     hbox->addStretch();
     hbox->addWidget(m_closeButton);
     setLayout(hbox);

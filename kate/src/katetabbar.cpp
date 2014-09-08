@@ -364,6 +364,12 @@ void KateTabBar::paintEvent(QPaintEvent *event)
     option.rect.moveTop(0);
 
     QPainter painter(this);
+
+    // first separator
+    option.rect.moveLeft(m_tabButtons[0]->geometry().left() - offset);
+    style()->drawPrimitive(QStyle::PE_IndicatorToolBarSeparator, &option, &painter);
+
+    // all other separators
     for (int i = 0; i < buttonCount; ++i) {
         option.rect.moveLeft(m_tabButtons[i]->geometry().right() - offset);
         style()->drawPrimitive(QStyle::PE_IndicatorToolBarSeparator, &option, &painter);

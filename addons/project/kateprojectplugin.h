@@ -43,6 +43,9 @@ public:
 
     QObject *createView(KTextEditor::MainWindow *mainWindow);
 
+    virtual int configPages() const;
+    virtual KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
+
     /**
      * Create new project for given project filename.
      * Null pointer if no project can be opened.
@@ -95,6 +98,11 @@ public:
         return m_document2Project.value(document);
     }
 
+    void setAutoRepository(bool onGit, bool onSubversion, bool onMercurial);
+    bool autoGit() const;
+    bool autoSubversion() const;
+    bool autoMercurial() const;
+
 Q_SIGNALS:
     /**
      * Signal that a new project got created.
@@ -127,6 +135,15 @@ public Q_SLOTS:
     void slotDirectoryChanged(const QString &path);
 
 private:
+    KateProject *createProjectForRepository(const QString &type, const QDir &dir);
+    KateProject *detectGit(const QDir &dir);
+    KateProject *detectSubversion(const QDir &dir);
+    KateProject *detectMercurial(const QDir &dir);
+
+    void readConfig();
+    void writeConfig();
+
+private:
     /**
      * open plugins, maps project base directory => project
      */
@@ -147,6 +164,10 @@ private:
      * Project completion
      */
     KateProjectCompletion m_completion;
+
+    bool m_autoGit : 1;
+    bool m_autoSubversion : 1;
+    bool m_autoMercurial : 1;
 };
 
 #endif

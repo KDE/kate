@@ -72,7 +72,7 @@ KateProject::~KateProject()
     saveNotesDocument();
 }
 
-bool KateProject::load(const QString &fileName)
+bool KateProject::loadFromFile(const QString &fileName)
 {
     /**
      * bail out if already fileName set!
@@ -109,15 +109,25 @@ bool KateProject::reload(bool force)
     const QByteArray jsonData = file.readAll();
     QJsonParseError parseError;
     QJsonDocument project(QJsonDocument::fromJson(jsonData, &parseError));
+
     if (parseError.error != QJsonParseError::NoError) {
         return false;
     }
 
-    /**
-     * now: get global group
-     */
     QVariantMap globalProject = project.toVariant().toMap();
 
+    return load(globalProject, force);
+}
+
+bool KateProject::loadFromData(const QVariantMap& globalProject, const QString& directory)
+{
+    m_baseDir = directory;
+    m_fileName = QDir(directory).filePath(QLatin1String(".kateproject"));
+    return load(globalProject);
+}
+
+bool KateProject::load(const QVariantMap &globalProject, bool force)
+{
     /**
      * no name, bad => bail out
      */

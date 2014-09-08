@@ -51,11 +51,13 @@ class KateProjectWorkerThread : public QThread
 public:
     KateProjectWorkerThread(QObject *worker)
         : QThread()
-        , m_worker(worker) {
+        , m_worker (worker)
+    {
     }
 
 protected:
-    virtual void run() {
+    virtual void run()
+    {
         exec();
         delete m_worker;
     }
@@ -84,12 +86,13 @@ public:
     ~KateProject();
 
     /**
-     * Load a project.
+     * Load a project from project file
      * Only works once, afterwards use reload().
      * @param fileName name of project file
      * @return success
      */
-    bool load(const QString &fileName);
+    bool loadFromFile(const QString &fileName);
+    bool loadFromData(const QVariantMap &globalProject, const QString &directory);
 
     /**
      * Try to reload a project.
@@ -200,6 +203,8 @@ public:
     void unregisterDocument(KTextEditor::Document *document);
 
 private Q_SLOTS:
+    bool load(const QVariantMap &globalProject, bool force = false);
+
     /**
      * Used for worker to send back the results of project loading
      * @param topLevel new toplevel element for model

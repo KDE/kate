@@ -19,6 +19,7 @@ set(kateprojectplugin_PART_SRCS
   kateprojectinfoviewterminal.cpp
   kateprojectinfoviewcodeanalysis.cpp
   kateprojectinfoviewnotes.cpp
+  kateprojectconfigpage.cpp
 )
 
 add_library (kateprojectplugin MODULE ${kateprojectplugin_PART_SRCS})

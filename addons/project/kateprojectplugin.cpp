@@ -22,11 +22,15 @@
 #include "kateprojectplugin.moc"
 
 #include "kateproject.h"
+#include "kateprojectconfigpage.h"
 #include "kateprojectpluginview.h"
 
 #include <ktexteditor/editor.h>
 #include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
+
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include <QFileInfo>
 #include <QTime>
@@ -43,12 +47,22 @@
 
 namespace
 {
-const QString ProjectFileName = QLatin1String(".kateproject");
+const QString ProjectFileName = QStringLiteral(".kateproject");
+const QString GitFolderName = QStringLiteral(".git");
+const QString SubversionFolderName = QStringLiteral(".svn");
+const QString MercurialFolderName = QStringLiteral(".hg");
+
+const QString GitConfig = QStringLiteral("git");
+const QString SubversionConfig = QStringLiteral("subversion");
+const QString MercurialConfig = QStringLiteral("mercurial");
+
+const QStringList DefaultConfig = QStringList() << GitConfig << SubversionConfig << MercurialConfig;
 }
 
 KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
     , m_completion(this)
+    , m_autoGit(true)
 {
     qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
     qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");
@@ -72,6 +86,8 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     }
 #endif
 
+    readConfig();
+
     foreach(KTextEditor::Document * document, KTextEditor::Editor::instance()->application()->documents()) {
         slotDocumentCreated(document);
     }
@@ -91,11 +107,24 @@ QObject *KateProjectPlugin::createView(KTextEditor::MainWindow *mainWindow)
     return new KateProjectPluginView(this, mainWindow);
 }
 
+int KateProjectPlugin::configPages() const
+{
+    return 1;
+}
+
+KTextEditor::ConfigPage *KateProjectPlugin::configPage(int number, QWidget *parent)
+{
+    if (number != 0) {
+        return 0;
+    }
+    return new KateProjectConfigPage(parent, this);
+}
+
 KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName)
 {
     KateProject *project = new KateProject();
 
-    if (!project->load(fileName)) {
+    if (!project->loadFromFile(fileName)) {
         delete project;
         return 0;
     }
@@ -133,6 +162,11 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
 
         if (dir.exists(ProjectFileName)) {
             return createProjectForFileName(canonicalFileName);
+        }
+
+        KateProject *project;
+        if ((project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir))) {
+            return project;
         }
 
         /**
@@ -200,4 +234,111 @@ void KateProjectPlugin::slotDirectoryChanged(const QString &path)
             break;
         }
     }
+}
+
+KateProject* KateProjectPlugin::detectGit(const QDir &dir)
+{
+
+    if (m_autoGit && dir.exists(GitFolderName) && QFileInfo(dir, GitFolderName).isDir()) {
+        return createProjectForRepository(QStringLiteral("git"), dir);
+    }
+
+    return nullptr;
+}
+
+KateProject* KateProjectPlugin::detectSubversion(const QDir &dir)
+{
+    if (m_autoSubversion && dir.exists(SubversionFolderName) && QFileInfo(dir, SubversionFolderName).isDir()) {
+        return createProjectForRepository(QStringLiteral("svn"), dir);
+    }
+
+    return nullptr;
+}
+
+KateProject* KateProjectPlugin::detectMercurial(const QDir &dir)
+{
+    if (m_autoMercurial && dir.exists(MercurialFolderName) && QFileInfo(dir, MercurialFolderName).isDir()) {
+        return createProjectForRepository(QStringLiteral("hg"), dir);
+    }
+
+    return nullptr;
+}
+
+KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir)
+{
+    QVariantMap cnf, files;
+    files[type] = 1;
+    cnf[QLatin1String("name")] = dir.dirName();
+    cnf[QLatin1String("files")] = (QVariantList() << files);
+
+    KateProject *project = new KateProject ();
+    project->loadFromData(cnf, dir.canonicalPath());
+
+    m_projects.append(project);
+
+    emit projectCreated(project);
+    return project;
+}
+
+void KateProjectPlugin::setAutoRepository(bool onGit, bool onSubversion, bool onMercurial)
+{
+    m_autoGit = onGit;
+    m_autoSubversion = onSubversion;
+    m_autoMercurial = onMercurial;
+    writeConfig();
+}
+
+bool KateProjectPlugin::autoGit() const
+{
+    return m_autoGit;
+}
+
+bool KateProjectPlugin::autoSubversion() const
+{
+    return m_autoSubversion;
+}
+
+bool KateProjectPlugin::autoMercurial() const
+{
+    return m_autoMercurial;
+}
+
+void KateProjectPlugin::readConfig()
+{
+    KConfigGroup config(KSharedConfig::openConfig(), "project");
+    QStringList autorepository = config.readEntry("autorepository", DefaultConfig);
+
+    m_autoGit = m_autoSubversion = m_autoMercurial = false;
+
+    if (autorepository.contains(GitConfig)) {
+        m_autoGit = true;
+    }
+
+    if (autorepository.contains(SubversionConfig)) {
+        m_autoSubversion = true;
+    }
+
+    if (autorepository.contains(MercurialConfig)) {
+        m_autoMercurial = true;
+    }
+}
+
+void KateProjectPlugin::writeConfig()
+{
+    KConfigGroup config(KSharedConfig::openConfig(), "project");
+    QStringList repos;
+
+    if (m_autoGit) {
+        repos << GitConfig;
+    }
+
+    if (m_autoSubversion) {
+        repos << SubversionConfig;
+    }
+
+    if (m_autoMercurial) {
+        repos << MercurialConfig;
+    }
+
+    config.writeEntry("autorepository", repos);
 }

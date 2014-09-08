@@ -23,7 +23,8 @@
 
 #include <klocalizedstring.h>
 #include <kde_terminal_interface.h>
-#include <kservice.h>
+#include <KPluginLoader>
+#include <KPluginFactory>
 
 KateProjectInfoViewTerminal::KateProjectInfoViewTerminal (KateProjectPluginView *pluginView, KateProject *project)
   : QWidget ()
@@ -61,16 +62,16 @@ void KateProjectInfoViewTerminal::loadTerminal ()
   m_konsolePart = 0;
   
   /**
-   * get konsole part service
+   * get konsole part factory
    */
-  KService::Ptr service = KService::serviceByDesktopName(QStringLiteral("konsolepart"));
-  if (!service)
+  KPluginFactory *factory = KPluginLoader(QStringLiteral("konsolepart")).factory();
+  if (!factory)
     return;
 
   /**
    * create part
    */
-  m_konsolePart = service->createInstance<KParts::ReadOnlyPart>(this, this, QVariantList());
+  m_konsolePart = factory->create<KParts::ReadOnlyPart>(this, this);
   if (!m_konsolePart)
     return;
 

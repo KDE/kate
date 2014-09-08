@@ -43,8 +43,8 @@
 #include <QVBoxLayout>
 #include <QFileInfo>
 
-#include <kpluginloader.h>
-#include <kservice.h>
+#include <KPluginLoader>
+#include <KPluginFactory>
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
 #include <kauthorized.h>
@@ -161,16 +161,16 @@ void KateConsole::loadConsoleIfNeeded()
 
   if (!window() || !parentWidget()) return;
   if (!window() || !isVisibleTo(window())) return;
+  
+  
+  /**
+   * get konsole part factory
+   */
+  KPluginFactory *factory = KPluginLoader(QStringLiteral("konsolepart")).factory();
+  if (!factory)
+    return;
 
-  KPluginFactory* factory = 0;
-  KService::Ptr service = KService::serviceByDesktopName(QStringLiteral("konsolepart"));
-  if (service) {
-      factory = KPluginLoader(service->library()).factory();
-  }
-
-  if (!factory) return;
-
-  m_part = static_cast<KParts::ReadOnlyPart *>(factory->create<QObject>(this, this));
+  m_part = factory->create<KParts::ReadOnlyPart>(this, this);
 
   if (!m_part) return;
 

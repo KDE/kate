@@ -84,12 +84,6 @@ Q_SIGNALS:
     void activated(KateTabButton *tabbutton);
 
     /**
-     * This signal is emitted whenever the user clicks the right mouse button
-     * at position @p globalPos on the button @p tabbutton.
-     */
-    void contextMenuRequest(KateTabButton *tabbutton, const QPoint& globalPos);
-
-    /**
      * Emitted whenever the user wants to close the tab button.
      * @param tabbutton the button that emitted this signal
      */
@@ -101,8 +95,6 @@ protected Q_SLOTS:
 protected:
     /** paint eyecandy rectangles around the button */
     void paintEvent(QPaintEvent *ev) Q_DECL_OVERRIDE;
-    /** support for context menu */
-    void contextMenuEvent(QContextMenuEvent *ev) Q_DECL_OVERRIDE;
     /** middle mouse button changes color */
     void mousePressEvent(QMouseEvent *ev) Q_DECL_OVERRIDE;
     /** eat double click events */

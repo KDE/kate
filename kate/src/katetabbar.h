@@ -119,9 +119,6 @@ public:
      */
     int count() const;
 
-    void setHighlightMarks(const QMap<QString, QString> &marks);
-    QMap<QString, QString> highlightMarks() const;
-
     /**
      * Return the maximum amount of tabs that fit into the tab bar given
      * the minimumTabWidth().
@@ -185,11 +182,6 @@ protected Q_SLOTS:
     void tabButtonActivated(KateTabButton *tabButton);
 
     /**
-     * Propagate context menu request.
-     */
-    void tabButtonContextMenuRequest(KateTabButton *tabButton, const QPoint& globalPos);
-
-    /**
      * If the user wants to close a tab with the context menu, it sends a close
      * request.
      */
@@ -216,6 +208,9 @@ protected:
 
     /** Paint tab separators */
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+
+    /** Request context menu */
+    void contextMenuEvent(QContextMenuEvent *ev);
 
 protected:
     /**

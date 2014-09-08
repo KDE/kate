@@ -87,8 +87,6 @@ int KateTabBar::insertTab(int position, const QString & text)
     m_idToTab[m_nextID] = tabButton;
     connect(tabButton, SIGNAL(activated(KateTabButton*)),
             this, SLOT(tabButtonActivated(KateTabButton*)));
-    connect(tabButton, SIGNAL(contextMenuRequest(KateTabButton*, const QPoint&)),
-            this, SLOT(tabButtonContextMenuRequest(KateTabButton*, const QPoint&)));
     connect(tabButton, SIGNAL(closeRequest(KateTabButton*)),
             this, SLOT(tabButtonCloseRequest(KateTabButton*)));
 
@@ -213,14 +211,6 @@ void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
     const int id = m_idToTab.key(m_activeButton, -1);
     Q_ASSERT(id >= 0);
     emit currentChanged(id);
-}
-
-void KateTabBar::tabButtonContextMenuRequest(KateTabButton *tabButton, const QPoint& globalPos)
-{
-    const int id = m_idToTab.key(tabButton, -1);
-    Q_ASSERT(id >= 0);
-
-    emit contextMenuRequest(id, globalPos);
 }
 
 void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
@@ -374,4 +364,18 @@ void KateTabBar::paintEvent(QPaintEvent *event)
         option.rect.moveLeft(m_tabButtons[i]->geometry().right() - offset);
         style()->drawPrimitive(QStyle::PE_IndicatorToolBarSeparator, &option, &painter);
     }
+}
+
+void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
+{
+    int id = -1;
+    foreach (KateTabButton * button, m_tabButtons) {
+        if (button->rect().contains(button->mapFromGlobal(ev->globalPos()))) {
+            id = m_idToTab.key(button, -1);
+            Q_ASSERT(id >= 0);
+            break;
+        }
+    }
+
+    emit contextMenuRequest(id, ev->globalPos());
 }

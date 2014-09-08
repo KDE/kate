@@ -23,9 +23,9 @@
 #include <KLocalizedString>
 
 #include <QApplication>
-#include <QContextMenuEvent>
 #include <QFontDatabase>
 #include <QHBoxLayout>
+#include <QMoveEvent>
 #include <QPainter>
 #include <QPropertyAnimation>
 #include <QStyle>
@@ -169,11 +169,6 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     const QRect textRect(leftMargin, 0, w, height());
     const QPalette pal = QApplication::palette();
     style()->drawItemText(&p, textRect, Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText);
-}
-
-void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)
-{
-    emit contextMenuRequest(this, ev->globalPos());
 }
 
 void KateTabButton::mousePressEvent(QMouseEvent *ev)

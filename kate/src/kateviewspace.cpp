@@ -548,7 +548,7 @@ void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
         return;
     }
 
-    QMenu menu(/*text(),*/ this);
+    QMenu menu(this);
     QAction *aCloseTab = menu.addAction(i18n("&Close Document"));
     QAction *aCloseOthers = menu.addAction(i18n("&Close Other Documents"));
     if (KateApp::self()->documentManager()->documentList().count() < 2) {

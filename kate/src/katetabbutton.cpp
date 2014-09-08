@@ -96,7 +96,7 @@ KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     : QAbstractButton(parent)
     , m_geometryAnimation(0)
 {
-    setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
+//     setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
     setCheckable(true);
     setFocusPolicy(Qt::NoFocus);
 
@@ -136,27 +136,26 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
         barColor = QColor(g, g, g);
     }
 
+    // compute sane margins
+    const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, 0, this);
+    const int barMargin = margin / 2;
+    const int barHeight = ceil(height() / 10.0);
+
     QPainter p(this);
 
-    // paint background rect
-    if (isChecked() || underMouse()) {
-        QStyleOptionViewItemV4 option;
-        option.initFrom(this);
-        barColor.setAlpha(50);
-        option.backgroundBrush = barColor;
-        option.state = QStyle::State_Enabled | QStyle::State_MouseOver;
-        option.viewItemPosition = QStyleOptionViewItemV4::OnlyOne;
-        style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, &p, this);
+    // paint bar if inactive but hovered
+    if (!isChecked() && underMouse()) {
+        barColor.setAlpha(80);
+        p.fillRect(QRect(barMargin, height() - barHeight, width() - 2 * barMargin, barHeight), barColor);
     }
 
     // paint bar
     if (isChecked()) {
         barColor.setAlpha(255);
-        p.fillRect(QRect(0, height() - 3, width(), 10), barColor);
+        p.fillRect(QRect(barMargin, height() - barHeight, width() - 2 * barMargin, barHeight), barColor);
     }
 
     // icon, if applicable
-    const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, 0, this);
     int leftMargin = margin;
     if (! icon().isNull()) {
         const int y = (height() - 16) / 2;
@@ -226,6 +225,21 @@ void KateTabButton::leaveEvent(QEvent *event)
 {
     update(); // repaint on hover
     QAbstractButton::leaveEvent(event);
+}
+
+void KateTabButton::moveEvent(QMoveEvent *event)
+{
+    // tell the tabbar to redraw its separators. Since the separators overlap
+    // the tab buttons geometry, we need to adjust the width by the separator's
+    // width to avoid artifacts
+    if (parentWidget()) {
+        const int w = style()->pixelMetric(QStyle::PM_ToolBarSeparatorExtent, 0, this);
+        QRect rect = geometry();
+        rect.moveLeft(event->oldPos().x());
+        rect.adjust(-w, 0, w, 0);
+        parentWidget()->update(rect);
+    }
+    QAbstractButton::moveEvent(event);
 }
 
 bool KateTabButton::isActiveViewSpace() const

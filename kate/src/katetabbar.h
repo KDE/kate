@@ -223,6 +223,9 @@ protected:
     /** trigger repaint on hover leave event */
     void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
 
+    /** Paint tab separators */
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+
 protected:
     /**
      * Set tab geometry. The tabs are animated only if @p animate is @e true.

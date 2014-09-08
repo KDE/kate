@@ -111,6 +111,8 @@ protected:
     void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
     /** trigger repaint on hover leave event */
     void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    /** track geometry changes to trigger proper repaint*/
+    void moveEvent(QMoveEvent *event) Q_DECL_OVERRIDE;
 
 private:
     TabCloseButton * m_closeButton;

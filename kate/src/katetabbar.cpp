@@ -23,7 +23,9 @@
 
 #include "math.h"
 
+#include <QPainter>
 #include <QResizeEvent>
+#include <QStyleOptionTab>
 
 /**
  * Creates a new tab bar with the given \a parent.
@@ -40,7 +42,7 @@ KateTabBar::KateTabBar(QWidget *parent)
 
     m_nextID = 0;
 
-    m_activeButton = 0L;
+    m_activeButton = Q_NULLPTR;
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 }
@@ -127,7 +129,7 @@ int KateTabBar::removeTab(int id)
     KateTabButton *tabButton = m_idToTab[id];
 
     if (tabButton == m_activeButton) {
-        m_activeButton = 0L;
+        m_activeButton = Q_NULLPTR;
     }
 
     const int position = m_tabButtons.indexOf(tabButton);
@@ -295,10 +297,15 @@ void KateTabBar::updateButtonPositions(bool animate)
         if (i >= maxCount) {
             tabButton->hide();
         } else {
-            const QRect endGeometry(ceil(i * tabWidth), 0, w, h);
+            QRect endGeometry(i * tabWidth, 0, w, h);
+            if (i > 0) {
+                // make sure the tab button starts exactly next to the previous tab (avoid rounding errors)
+                endGeometry.setLeft((i-1) * tabWidth + w);
+            }
+
             if (animate) {
                 const QRect startGeometry = tabButton->isVisible() ? tabButton->geometry()
-                                                                   : QRect(ceil(i * tabWidth), 0, 0, h);
+                                                                   : QRect(i * tabWidth, 0, 0, h);
                 tabButton->setAnimatedGeometry(startGeometry, endGeometry);
             } else {
                 // two times endGeometry. Takes care of stopping a running animation
@@ -336,4 +343,29 @@ void KateTabBar::leaveEvent(QEvent *event)
     }
 
     QWidget::leaveEvent(event);
+}
+
+void KateTabBar::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event)
+
+    const int buttonCount = m_tabButtons.size();
+    if (buttonCount < 1) {
+        return;
+    }
+
+    // draw separators
+    QStyleOption option;
+    option.initFrom(m_tabButtons[0]);
+    option.state |= QStyle::State_Horizontal;
+    const int w = style()->pixelMetric(QStyle::PM_ToolBarSeparatorExtent, 0, this);
+    const int offset = w / 2;
+    option.rect.setWidth(w);
+    option.rect.moveTop(0);
+
+    QPainter painter(this);
+    for (int i = 0; i < buttonCount; ++i) {
+        option.rect.moveLeft(m_tabButtons[i]->geometry().right() - offset);
+        style()->drawPrimitive(QStyle::PE_IndicatorToolBarSeparator, &option, &painter);
+    }
 }

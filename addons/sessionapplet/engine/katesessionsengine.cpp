@@ -27,30 +27,15 @@ static const QString s_clipboardSourceName = QStringLiteral("katesessions");
 
 KateSessionsEngine::KateSessionsEngine(QObject *parent, const QVariantList &args)
     : Plasma::DataEngine(parent, args)
-//    , m_klipper(new Klipper(this, KSharedConfig::openConfig("klipperrc"), KlipperMode::DataEngine))
 {
     qDebug()<<"JOWENN";
     setData(s_clipboardSourceName,QStringLiteral("test_data"),QString("This is just for testing"));  
     setModel(s_clipboardSourceName,new KateSessionsModel(this));
-//    setModel(s_clipboardSourceName, m_klipper->history()->model());
-
-/*    auto updateCurrent = [this]() {
-        setData(s_clipboardSourceName,
-                QStringLiteral("current"),
-                m_klipper->history()->empty() ? QString() : m_klipper->history()->first()->text());
-    };
-    connect(m_klipper->history(), &History::topChanged, this, updateCurrent);
-    updateCurrent();
-    auto updateEmpty = [this]() {
-        setData(s_clipboardSourceName, QStringLiteral("empty"), m_klipper->history()->empty());
-    };
-    connect(m_klipper->history(), &History::changed, this, updateEmpty);
-    updateEmpty();*/
 }
 
 KateSessionsEngine::~KateSessionsEngine()
 {
-//    m_klipper->saveClipboardHistory();
+    
 }
 
 Plasma::Service *KateSessionsEngine::serviceForSource(const QString &source)

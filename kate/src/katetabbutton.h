@@ -84,16 +84,16 @@ Q_SIGNALS:
     void activated(KateTabButton *tabbutton);
 
     /**
+     * This signal is emitted whenever the user clicks the right mouse button
+     * at position @p globalPos on the button @p tabbutton.
+     */
+    void contextMenuRequest(KateTabButton *tabbutton, const QPoint& globalPos);
+
+    /**
      * Emitted whenever the user wants to close the tab button.
      * @param tabbutton the button that emitted this signal
      */
     void closeRequest(KateTabButton *tabbutton);
-
-    /**
-     * Emitted whenever the user wants to close all tabs except @p tabbutton.
-     * @param tabbutton the button that emitted this signal
-     */
-    void closeOthersRequest(KateTabButton *tabbutton);
 
 protected Q_SLOTS:
     void closeButtonClicked();

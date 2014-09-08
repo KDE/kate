@@ -20,16 +20,12 @@
 
 #include "katetabbutton.h"
 
-#include "kateapp.h"
-#include "katedocmanager.h"
-
 #include <KLocalizedString>
 
 #include <QApplication>
 #include <QContextMenuEvent>
 #include <QFontDatabase>
 #include <QHBoxLayout>
-#include <QMenu>
 #include <QPainter>
 #include <QPropertyAnimation>
 #include <QStyle>
@@ -177,20 +173,7 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
 
 void KateTabButton::contextMenuEvent(QContextMenuEvent *ev)
 {
-    QMenu menu(/*text(),*/ this);
-    QAction *aCloseTab = menu.addAction(i18n("&Close Document"));
-    QAction *aCloseOthers = menu.addAction(i18n("&Close Other Documents"));
-    if (KateApp::self()->documentManager()->documentList().count() < 2) {
-        aCloseOthers->setEnabled(false);
-    }
-
-    QAction *choice = menu.exec(ev->globalPos());
-
-    if (choice == aCloseTab) {
-        emit closeRequest(this);
-    } else if (choice == aCloseOthers) {
-        emit closeOthersRequest(this);
-    }
+    emit contextMenuRequest(this, ev->globalPos());
 }
 
 void KateTabButton::mousePressEvent(QMouseEvent *ev)

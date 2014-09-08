@@ -138,10 +138,13 @@ private Q_SLOTS:
     void closeTabRequest(int id);
 
     /**
-     * This slot is called by the tabbar, if all tabs except @p id should be
-     * closed through the context menu.
+     * This slot is called when the context menu is requested for button
+     * @p id at position @p globalPos.
+     * @param id the button, or -1 if the context menu was requested on
+     *        at a place where no tab exists
+     * @param globalPos the position of the context menu in global coordinates
      */
-    void closeOtherTabsRequest(int id);
+    void showContextMenu(int id, const QPoint & globalPos);
 
     /**
      * Called to create a new empty document.

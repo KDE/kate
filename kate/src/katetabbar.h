@@ -143,21 +143,13 @@ Q_SIGNALS:
     void closeTabRequested(int id);
 
     /**
-     * This signal is emitted whenever all tabs except tab @p id
-     * should be closed.
+     * This signal is emitted whenever the context menu is requested for
+     * button @p id at position @p globalPos.
+     * @param id the button, or -1 if the context menu was requested on
+     *        at a place where no tab exists
+     * @param globalPos the position of the context menu in global coordinates
      */
-    void closeOtherTabsRequested(int id);
-
-    /**
-     * This signal is emitted whenever all tabs should be closed.
-     */
-    void closeAllTabsRequested();
-
-    /**
-     * This signal is emitted whenever a highlight mark changes.
-     * Usually this is used to synchronice several tabbars.
-     */
-    void highlightMarksChanged(KateTabBar *tabbar);
+    void contextMenuRequest(int id, const QPoint & globalPos);
 
     /**
      * This signal is emitted whenever the tab bar's width allows to
@@ -193,16 +185,15 @@ protected Q_SLOTS:
     void tabButtonActivated(KateTabButton *tabButton);
 
     /**
+     * Propagate context menu request.
+     */
+    void tabButtonContextMenuRequest(KateTabButton *tabButton, const QPoint& globalPos);
+
+    /**
      * If the user wants to close a tab with the context menu, it sends a close
      * request.
      */
     void tabButtonCloseRequest(KateTabButton *tabButton);
-
-    /**
-     * If the user wants to close all tabs except @p tabButton with the context
-     * menu, it sends a close others request.
-     */
-    void tabButtonCloseOthersRequest(KateTabButton *tabButton);
 
 protected:
     /**

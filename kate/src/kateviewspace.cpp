@@ -34,6 +34,7 @@
 #include <KLocalizedString>
 
 #include <QHelpEvent>
+#include <QMenu>
 #include <QStackedWidget>
 #include <QToolButton>
 #include <QToolTip>
@@ -60,8 +61,8 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     connect(m_tabBar, &KateTabBar::moreTabsRequested, this, &KateViewSpace::addTabs);
     connect(m_tabBar, &KateTabBar::lessTabsRequested, this, &KateViewSpace::removeTabs);
-    connect(m_tabBar, &KateTabBar::closeTabRequested, this, &KateViewSpace::closeTabRequest);
-    connect(m_tabBar, &KateTabBar::closeOtherTabsRequested, this, &KateViewSpace::closeOtherTabsRequest);
+    connect(m_tabBar, &KateTabBar::closeTabRequested, this, &KateViewSpace::closeTabRequest, Qt::QueuedConnection);
+    connect(m_tabBar, &KateTabBar::contextMenuRequest, this, &KateViewSpace::showContextMenu, Qt::QueuedConnection);
     connect(m_tabBar, &KateTabBar::newTabRequested, this, &KateViewSpace::createNewDocument);
     connect(m_tabBar, SIGNAL(activateViewSpaceRequested()), this, SLOT(makeActive()));
     hLayout->addWidget(m_tabBar);
@@ -506,13 +507,6 @@ void KateViewSpace::closeTabRequest(int id)
     KateApp::self()->documentManager()->closeDocument(doc);
 }
 
-void KateViewSpace::closeOtherTabsRequest(int id)
-{
-    KTextEditor::Document *doc = m_docToTabId.key(id);
-    Q_ASSERT(doc);
-    KateApp::self()->documentManager()->closeOtherDocuments(doc);
-}
-
 void KateViewSpace::createNewDocument()
 {
     // make sure we open the view in this view space
@@ -545,6 +539,31 @@ int KateViewSpace::hiddenDocuments() const
     const int hiddenDocs = KateApp::self()->documents().count() - m_tabBar->count();
     Q_ASSERT(hiddenDocs >= 0);
     return hiddenDocs;
+}
+
+void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
+{
+    // right now, show no context menu on empty tab bar space
+    if (id < 0) {
+        return;
+    }
+
+    QMenu menu(/*text(),*/ this);
+    QAction *aCloseTab = menu.addAction(i18n("&Close Document"));
+    QAction *aCloseOthers = menu.addAction(i18n("&Close Other Documents"));
+    if (KateApp::self()->documentManager()->documentList().count() < 2) {
+        aCloseOthers->setEnabled(false);
+    }
+
+    QAction *choice = menu.exec(globalPos);
+
+    if (choice == aCloseTab) {
+        closeTabRequest(id);
+    } else if (choice == aCloseOthers) {
+        KTextEditor::Document *doc = m_docToTabId.key(id);
+        Q_ASSERT(doc);
+        KateApp::self()->documentManager()->closeOtherDocuments(doc);
+    }
 }
 
 void KateViewSpace::saveConfig(KConfigBase *config, int myIndex , const QString &viewConfGrp)

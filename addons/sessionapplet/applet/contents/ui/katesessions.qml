@@ -148,11 +148,6 @@ Item {
                     clearButtonShown: true
                     Layout.fillWidth: true
                 }
-                PlasmaComponents.ToolButton {
-                    iconSource: "edit-delete"
-                    tooltip: i18n("Clear history")
-                    onClicked: clipboardSource.service("", "clearHistory")
-                }
             }
             Menu {
                 id: clipboardMenu

@@ -39,14 +39,9 @@ Item {
     Plasmoid.toolTipMainText: i18n("Kate Sessions")
     Plasmoid.icon: "kate"
 
-    function action_configure() {
-        clipboardSource.service("", "configureKlipper");
-    }
 
     Component.onCompleted: {
         plasmoid.removeAction("configure");
-        plasmoid.setAction("configure", i18n("Configure"), "configure", "alt+d, s");
-
     }
 
     PlasmaCore.DataSource {

@@ -33,12 +33,13 @@
 
 #include <KXMLGUIClient>
 
+class KToolBar;
+
 class KateFileTree;
 class KateFileTreeModel;
 class KateFileTreeProxyModel;
 class KateFileTreeConfigPage;
 class KateFileTreePluginView;
-class KateFileTreeCommand;
 
 class KateFileTreePlugin: public KTextEditor::Plugin
 {
@@ -83,8 +84,8 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTex
      */
     ~KateFileTreePluginView ();
 
-    void readSessionConfig (const KConfigGroup& config);
-    void writeSessionConfig (KConfigGroup& config);
+    void readSessionConfig (const KConfigGroup& config) Q_DECL_OVERRIDE;
+    void writeSessionConfig (KConfigGroup& config) Q_DECL_OVERRIDE;
 
     /**
      * The file tree model.
@@ -107,8 +108,12 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTex
     bool hasLocalPrefs();
     void setHasLocalPrefs(bool);
 
+  protected:
+    void setupActions();
+
   private:
     QWidget *m_toolView;
+    KToolBar *m_toolbar;
     KateFileTree *m_fileTree;
     KateFileTreeProxyModel *m_proxyModel;
     KateFileTreeModel *m_documentModel;

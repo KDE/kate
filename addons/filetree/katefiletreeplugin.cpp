@@ -35,9 +35,11 @@
 #include <KConfigGroup>
 #include <KIconLoader>
 #include <KXMLGUIFactory>
+#include <KToolBar>
 
 #include <QAction>
 #include <QApplication>
+#include <QVBoxLayout>
 
 #include "katefiletreedebug.h"
 
@@ -129,8 +131,23 @@ KateFileTreePluginView::KateFileTreePluginView (KTextEditor::MainWindow *mainWin
   setXMLFile(QLatin1String("ui.rc"));
 
   m_toolView = mainWindow->createToolView (plug,QLatin1String("kate_private_plugin_katefiletreeplugin"), KTextEditor::MainWindow::Left, SmallIcon(QLatin1String("document-open")), i18n("Documents"));
+
+  Q_ASSERT(m_toolView->layout());
+  m_toolView->layout()->setMargin(0);
+  m_toolView->layout()->setSpacing(0);
+  auto mainLayout = m_toolView->layout();
+
+  // create toolbar
+  m_toolbar = new KToolBar(m_toolView);
+  m_toolbar->setMovable(false);
+  m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+  m_toolbar->setContextMenuPolicy(Qt::NoContextMenu);
+  mainLayout->addWidget(m_toolbar);
+
+  // create filetree
   m_fileTree = new KateFileTree(m_toolView);
   m_fileTree->setSortingEnabled(true);
+  mainLayout->addWidget(m_fileTree);
 
   connect(m_fileTree, SIGNAL(activateDocument(KTextEditor::Document*)),
           this, SLOT(activateDocument(KTextEditor::Document*)));
@@ -177,16 +194,10 @@ KateFileTreePluginView::KateFileTreePluginView (KTextEditor::MainWindow *mainWin
 
   connect(mainWindow, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(viewChanged(KTextEditor::View*)));
 
-  QAction *show_active = actionCollection()->addAction(QLatin1String("filetree_show_active_document"), mainWindow);
-  show_active->setText(i18n("&Show Active"));
-  show_active->setIcon(QIcon::fromTheme(QLatin1String("folder-sync")));
-  connect( show_active, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()) );
-
-  /**
-   * back + forward
-   */
-  actionCollection()->addAction( KStandardAction::Back, QLatin1String("filetree_prev_document"), m_fileTree, SLOT(slotDocumentPrev()) )->setText(i18n("Previous Document"));
-  actionCollection()->addAction( KStandardAction::Forward, QLatin1String("filetree_next_document"), m_fileTree, SLOT(slotDocumentNext()) )->setText(i18n("Next Document"));
+  //
+  // actions
+  //
+  setupActions();
 
   mainWindow->guiFactory()->addClient(this);
 
@@ -205,6 +216,31 @@ KateFileTreePluginView::~KateFileTreePluginView ()
   // delete m_toolView;
   // and TreeModel
   delete m_documentModel;
+}
+
+void KateFileTreePluginView::setupActions()
+{
+    auto aPrev = actionCollection()->addAction(QLatin1String("filetree_prev_document"),
+                                               m_fileTree, SLOT(slotDocumentPrev()));
+    aPrev->setText(i18n("Previous Docment"));
+    aPrev->setIcon(QIcon::fromTheme(QLatin1String("go-up")));
+
+    auto aNext = actionCollection()->addAction(QLatin1String("filetree_next_document"),
+                                               m_fileTree, SLOT(slotDocumentNext()));
+    aNext->setText(i18n("Next Document"));
+    aNext->setIcon(QIcon::fromTheme(QLatin1String("go-down")));
+
+    auto aShowActive = actionCollection()->addAction(QLatin1String("filetree_show_active_document"), m_mainWindow);
+    aShowActive->setText(i18n("&Show Active"));
+    aShowActive->setIcon(QIcon::fromTheme(QLatin1String("folder-sync")));
+
+    m_toolbar->addAction(aPrev);
+    m_toolbar->addAction(aNext);
+    m_toolbar->addSeparator();
+    m_toolbar->addAction(aShowActive);
+
+    // setup connections
+    connect( aShowActive, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()) );
 }
 
 KateFileTreeModel *KateFileTreePluginView::model()

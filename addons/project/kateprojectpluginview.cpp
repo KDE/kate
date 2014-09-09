@@ -142,6 +142,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
         layout->addWidget(m_projectsCombo);
         layout->addWidget(m_reloadButton);
         m_toolView->layout()->addItem(layout);
+        m_toolView->layout()->setSpacing(0);
 
         m_stackedProjectViews = new QStackedWidget(m_toolView);
         m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);

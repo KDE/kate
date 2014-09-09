@@ -200,36 +200,20 @@ void KateProject::loadIndexDone(KateProjectSharedProjectIndex projectIndex)
     emit indexChanged();
 }
 
-QFile *KateProject::projectLocalFile(const QString &file) const
+QString KateProject::projectLocalFileName(const QString &suffix) const
 {
     /**
      * nothing on empty file names for project
      * should not happen
      */
-    if (m_fileName.isEmpty()) {
-        return 0;
+    if (m_baseDir.isEmpty() || suffix.isEmpty()) {
+        return QString();
     }
-
+  
     /**
-     * create dir to store local files, else fail
+     * compute full file name
      */
-    if (!QDir().mkpath(m_fileName + QStringLiteral(".d"))) {
-        return 0;
-    }
-
-    /**
-     * try to open file read-write
-     */
-    QFile *readWriteFile = new QFile(m_fileName + QStringLiteral(".d") + QDir::separator() + file);
-    if (!readWriteFile->open(QIODevice::ReadWrite)) {
-        delete readWriteFile;
-        return 0;
-    }
-
-    /**
-     * all fine, return file
-     */
-    return readWriteFile;
+    return m_baseDir + QStringLiteral(".kateproject.") + suffix;
 }
 
 QTextDocument *KateProject::notesDocument()
@@ -240,23 +224,29 @@ QTextDocument *KateProject::notesDocument()
     if (m_notesDocument) {
         return m_notesDocument;
     }
-
+    
     /**
      * else create it
      */
     m_notesDocument = new QTextDocument(this);
     m_notesDocument->setDocumentLayout(new QPlainTextDocumentLayout(m_notesDocument));
-
+    
+    /**
+     * get file name
+     */
+    const QString notesFileName = projectLocalFileName(QStringLiteral("notes"));
+    if (notesFileName.isEmpty()) {
+        return m_notesDocument;
+    }
+    
     /**
      * and load text if possible
      */
-    if (QFile *inFile = projectLocalFile(QStringLiteral("notes.txt"))) {
-        {
-            QTextStream inStream(inFile);
-            inStream.setCodec("UTF-8");
-            m_notesDocument->setPlainText(inStream.readAll());
-        }
-        delete inFile;
+    QFile inFile(notesFileName);
+    if (inFile.open(QIODevice::ReadOnly)) {
+        QTextStream inStream(&inFile);
+        inStream.setCodec("UTF-8");
+        m_notesDocument->setPlainText(inStream.readAll());
     }
 
     /**
@@ -273,18 +263,34 @@ void KateProject::saveNotesDocument()
     if (!m_notesDocument) {
         return;
     }
-
+    
     /**
-     * try to get file to save to
+     * get content & filename
      */
-    if (QFile *outFile = projectLocalFile(QStringLiteral("notes.txt"))) {
-        outFile->resize(0);
-        {
-            QTextStream outStream(outFile);
-            outStream.setCodec("UTF-8");
-            outStream << m_notesDocument->toPlainText();
+    const QString content = m_notesDocument->toPlainText();
+    const QString notesFileName = projectLocalFileName(QStringLiteral("notes"));
+    if (notesFileName.isEmpty()) {
+        return;
+    }
+    
+    /**
+     * no content => unlink file, if there
+     */
+    if (content.isEmpty()) {
+        if (QFile::exists(notesFileName)) {
+            QFile::remove(notesFileName);
         }
-        delete outFile;
+        return;
+    }
+    
+    /**
+     * else: save content to file
+     */
+    QFile outFile(projectLocalFileName(QStringLiteral("notes")));
+    if (outFile.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        QTextStream outStream(&outFile);
+        outStream.setCodec("UTF-8");
+        outStream << content;
     }
 }
 

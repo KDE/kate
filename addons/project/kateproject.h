@@ -167,12 +167,13 @@ public:
     }
 
     /**
-     * Will try to open a project local file.
-     * Such files will be stored as .kateproject.d/file in the project directory.
-     * @param file wanted file name, relative to .kateproject.d folder in project directory
-     * @return either a pointer to a read-write opened file or null on error
+     * Computes a suitable file name for the given suffix.
+     * If you e.g. want to store a "notes" file, you could pass "notes" and get
+     * the full path to projectbasedir/.kateproject.notes
+     * @param suffix suffix for the file
+     * @return full path for project local file, on error => empty string
      */
-    QFile *projectLocalFile(const QString &file) const;
+    QString projectLocalFileName(const QString &suffix) const;
 
     /**
      * Document with project local notes.

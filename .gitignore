@@ -5,7 +5,6 @@ build
 *.out
 
 # kate
-.kateproject.d
 *~
 *-swp
 

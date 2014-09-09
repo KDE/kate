@@ -43,114 +43,113 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
     Q_PROPERTY(QVariantMap projectMap READ projectMap NOTIFY projectMapChanged)
     Q_PROPERTY(QStringList projectFiles READ projectFiles)
 
-  public:
-    KateProjectPluginView( KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWindow );
+public:
+    KateProjectPluginView(KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWindow);
     ~KateProjectPluginView();
 
     /**
      * content of current active project, as variant map
      * @return empty map if no project active, else content of project JSON
      */
-    QVariantMap projectMap () const;
+    QVariantMap projectMap() const;
 
     /**
      * which project file is currently active?
      * @return empty string if none, else project file name
      */
-    QString projectFileName () const;
+    QString projectFileName() const;
 
-    /** 
+    /**
      * Returns the name of the project
      */
-    QString projectName () const;
+    QString projectName() const;
 
-    /** 
+    /**
      * Returns the base directory of the project
      */
-    QString projectBaseDir () const;
+    QString projectBaseDir() const;
 
     /**
      * files for the current active project?
      * @return empty list if none, else project files as stringlist
      */
-    QStringList projectFiles () const;
-    
+    QStringList projectFiles() const;
+
     /**
      * the main window we belong to
      * @return our main window
      */
-    KTextEditor::MainWindow *mainWindow () const
-    {
-      return m_mainWindow;
+    KTextEditor::MainWindow *mainWindow() const {
+        return m_mainWindow;
     }
 
-  public Q_SLOTS:
+public Q_SLOTS:
     /**
      * Create views for given project.
      * Either gives existing ones or creates new one
      * @param project project we want view for
      * @return views (normal + info view)
      */
-    QPair<KateProjectView *,KateProjectInfoView *> viewForProject (KateProject *project);
+    QPair<KateProjectView *, KateProjectInfoView *> viewForProject(KateProject *project);
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * New view got created, we need to update our connections
      * @param view new created view
      */
-    void slotViewCreated (KTextEditor::View *view);
+    void slotViewCreated(KTextEditor::View *view);
 
     /**
      * View got destroyed.
      * @param view deleted view
      */
-    void slotViewDestroyed (QObject *view);
+    void slotViewDestroyed(QObject *view);
 
     /**
      * Activate the previous project.
      */
-    void slotProjectPrev ();
+    void slotProjectPrev();
 
     /**
      * Activate the next project.
      */
-    void slotProjectNext ();
+    void slotProjectNext();
 
     /**
      * Reload current project, if any.
      * This will trigger a reload with force.
      */
-    void slotProjectReload ();
+    void slotProjectReload();
 
-  Q_SIGNALS:
+Q_SIGNALS:
     /**
      * Emitted if projectFileName changed.
      */
-    void projectFileNameChanged ();
+    void projectFileNameChanged();
 
     /**
      * Emitted if projectMap changed.
      */
-    void projectMapChanged ();
+    void projectMapChanged();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * This slot is called whenever the active view changes in our main window.
      */
-    void slotViewChanged ();
+    void slotViewChanged();
 
     /**
      * Current project changed.
      * @param index index in toolbox
      */
-    void slotCurrentChanged (int index);
+    void slotCurrentChanged(int index);
 
     /**
      * Url changed, to auto-load projects
      */
-    void slotDocumentUrlChanged (KTextEditor::Document *document);
+    void slotDocumentUrlChanged(KTextEditor::Document *document);
 
-  private:
+private:
     /**
      * our plugin
      */
@@ -160,7 +159,7 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
      * the main window we belong to
      */
     KTextEditor::MainWindow *m_mainWindow;
-    
+
     /**
      * our projects toolview
      */
@@ -194,7 +193,7 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
     /**
      * project => view
      */
-    QMap<KateProject *, QPair<KateProjectView *,KateProjectInfoView *> > m_project2View;
+    QMap<KateProject *, QPair<KateProjectView *, KateProjectInfoView *> > m_project2View;
 
     /**
      * remember current active view text editor view
@@ -209,6 +208,4 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
 };
 
 #endif
-
-// kate: space-indent on; indent-width 2; replace-tabs on;
 

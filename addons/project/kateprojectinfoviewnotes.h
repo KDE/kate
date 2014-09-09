@@ -33,31 +33,30 @@ class KateProjectPluginView;
  */
 class KateProjectInfoViewNotes : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     /**
      * construct project info view for given project
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectInfoViewNotes (KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectInfoViewNotes(KateProjectPluginView *pluginView, KateProject *project);
 
     /**
      * deconstruct info view
      */
-    ~KateProjectInfoViewNotes ();
+    ~KateProjectInfoViewNotes();
 
     /**
      * our project.
      * @return project
      */
-    KateProject *project () const
-    {
-      return m_project;
+    KateProject *project() const {
+        return m_project;
     }
 
-  private:
+private:
     /**
      * our plugin view
      */
@@ -67,7 +66,7 @@ class KateProjectInfoViewNotes : public QWidget
      * our project
      */
     KateProject *m_project;
-    
+
     /**
      * edit widget bound to notes document of project
      */
@@ -76,4 +75,3 @@ class KateProjectInfoViewNotes : public QWidget
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -32,26 +32,26 @@
  */
 class KateProjectWorker : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     /**
      * Type for QueuedConnection
      */
     typedef QMap<QString, KateProjectItem *> MapString2Item;
-    
+
     /**
      * construct project worker for given project
      * @param project our project
      */
-    KateProjectWorker (QObject *project);
+    KateProjectWorker(QObject *project);
 
     /**
      * deconstruct worker
      */
-    ~KateProjectWorker ();
-    
-  private Q_SLOTS:
+    ~KateProjectWorker();
+
+private Q_SLOTS:
     /**
      * Load the project.
      * Will be used to load project in background.
@@ -59,9 +59,9 @@ class KateProjectWorker : public QObject
      * @param baseDir project file name, should stay the same after initial setup
      * @param projectMap full map containing the whole project as copy to work on
      */
-    void loadProject (QString baseDir, QVariantMap projectMap);
-    
-  private:
+    void loadProject(QString baseDir, QVariantMap projectMap);
+
+private:
     /**
      * Load one project inside the project tree.
      * Fill data from JSON storage to model and recurse to sub-projects.
@@ -69,7 +69,7 @@ class KateProjectWorker : public QObject
      * @param project variant map for this group
      * @param file2Item mapping file => item, will be filled
      */
-    void loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, KateProjectItem *> *file2Item);
+    void loadProject(QStandardItem *parent, const QVariantMap &project, QMap<QString, KateProjectItem *> *file2Item);
 
     /**
      * Load one files entry in the current parent item.
@@ -77,20 +77,20 @@ class KateProjectWorker : public QObject
      * @param filesEntry one files entry specification to load
      * @param file2Item mapping file => item, will be filled
      */
-    void loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, KateProjectItem *> *file2Item);
-    
+    void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, KateProjectItem *> *file2Item);
+
     /**
      * Load index for whole project.
      * @param files list of all project files to index
      */
-    void loadIndex (const QStringList &files);
-    
-  private:
+    void loadIndex(const QStringList &files);
+
+private:
     /**
      * our project, only as QObject, we only send messages back and forth!
      */
     QObject *m_project;
-    
+
     /**
      * project base directory name
      */
@@ -99,4 +99,3 @@ class KateProjectWorker : public QObject
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

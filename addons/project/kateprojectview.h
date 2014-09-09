@@ -33,49 +33,48 @@ class KateProjectPluginView;
  */
 class KateProjectView : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     /**
      * construct project view for given project
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectView (KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectView(KateProjectPluginView *pluginView, KateProject *project);
 
     /**
      * deconstruct project
      */
-    ~KateProjectView ();
+    ~KateProjectView();
 
     /**
      * our project.
      * @return project
      */
-    KateProject *project () const
-    {
-      return m_project;
+    KateProject *project() const {
+        return m_project;
     }
 
     /**
      * Select given file in the view.
      * @param file select this file in the view, will be shown if invisible
      */
-    void selectFile (const QString &file);
+    void selectFile(const QString &file);
 
     /**
      * Open the selected document, if any.
      */
-    void openSelectedDocument ();
-    
-  private Q_SLOTS:
+    void openSelectedDocument();
+
+private Q_SLOTS:
     /**
      * React on filter change
      * @param filterText new filter text
      */
-    void filterTextChanged (QString filterText);
+    void filterTextChanged(QString filterText);
 
-  private:
+private:
     /**
      * our plugin view
      */
@@ -85,12 +84,12 @@ class KateProjectView : public QWidget
      * our project
      */
     KateProject *m_project;
-    
+
     /**
      * our tree view
      */
     KateProjectViewTree *m_treeView;
-    
+
     /**
      * filter
      */
@@ -99,4 +98,3 @@ class KateProjectView : public QWidget
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

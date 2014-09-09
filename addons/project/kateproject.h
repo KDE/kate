@@ -49,15 +49,13 @@ Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
 class KateProjectWorkerThread : public QThread
 {
 public:
-    KateProjectWorkerThread (QObject *worker)
-    : QThread()
-    , m_worker (worker)
-    {
+    KateProjectWorkerThread(QObject *worker)
+        : QThread()
+        , m_worker(worker) {
     }
 
 protected:
-    virtual void run()
-    {
+    virtual void run() {
         exec();
         delete m_worker;
     }
@@ -105,8 +103,7 @@ public:
      * Accessor to file name.
      * @return file name
      */
-    const QString &fileName() const
-    {
+    const QString &fileName() const {
         return m_fileName;
     }
 
@@ -114,8 +111,7 @@ public:
      * Return the base directory of this project.
      * @return base directory of project, might not be the directory of the fileName!
      */
-    const QString &baseDir() const
-    {
+    const QString &baseDir() const {
         return m_baseDir;
     }
 
@@ -123,8 +119,7 @@ public:
      * Accessor to project map containing the whole project info.
      * @return project info
      */
-    const QVariantMap &projectMap() const
-    {
+    const QVariantMap &projectMap() const {
         return m_projectMap;
     }
 
@@ -132,8 +127,7 @@ public:
      * Accessor to project name.
      * @return project name
      */
-    QString name() const
-    {
+    QString name() const {
         return m_projectMap[QStringLiteral("name")].toString();
     }
 
@@ -141,8 +135,7 @@ public:
      * Accessor for the model.
      * @return model of this project
      */
-    QStandardItemModel *model()
-    {
+    QStandardItemModel *model() {
         return &m_model;
     }
 
@@ -150,8 +143,7 @@ public:
      * Flat list of all files in the project
      * @return list of files in project
      */
-    QStringList files()
-    {
+    QStringList files() {
         return m_file2Item ? m_file2Item->keys() : QStringList();
     }
 
@@ -160,8 +152,7 @@ public:
      * @param file file to get item for
      * @return item for given file or 0
      */
-    KateProjectItem *itemForFile(const QString &file)
-    {
+    KateProjectItem *itemForFile(const QString &file) {
         return m_file2Item ? m_file2Item->value(file) : 0;
     }
 
@@ -171,8 +162,7 @@ public:
      * Don't store this pointer, might change.
      * @return project index
      */
-    KateProjectIndex *projectIndex()
-    {
+    KateProjectIndex *projectIndex() {
         return m_projectIndex.data();
     }
 
@@ -190,24 +180,24 @@ public:
      * @return notes document
      */
     QTextDocument *notesDocument();
-    
+
     /**
      * Save the notes document to "notes.txt" if any document around.
      */
     void saveNotesDocument();
-    
+
     /**
      * Register a document for this project.
      * @param document document to register
      */
     void registerDocument(KTextEditor::Document *document);
-    
+
     /**
      * Unregister a document for this project.
      * @param document document to unregister
      */
     void unregisterDocument(KTextEditor::Document *document);
-    
+
 private Q_SLOTS:
     /**
      * Used for worker to send back the results of project loading
@@ -222,13 +212,11 @@ private Q_SLOTS:
      */
     void loadIndexDone(KateProjectSharedProjectIndex projectIndex);
 
-    void slotModifiedChanged(KTextEditor::Document*);
-    
-    
-    void slotModifiedOnDisk(KTextEditor::Document *document,
-      bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+    void slotModifiedChanged(KTextEditor::Document *);
 
-    
+    void slotModifiedOnDisk(KTextEditor::Document *document,
+                            bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+
 Q_SIGNALS:
     /**
      * Emitted on project map changes.
@@ -297,17 +285,17 @@ private:
      * project index, if any
      */
     KateProjectSharedProjectIndex m_projectIndex;
-    
+
     /**
      * notes buffer for project local notes
      */
     QTextDocument *m_notesDocument;
-    
+
     /**
      * Set of existing documents for this project.
      */
     QMap<KTextEditor::Document *, QString> m_documents;
-    
+
     /**
      * Parent item for existing documents that are not in the project tree
      */

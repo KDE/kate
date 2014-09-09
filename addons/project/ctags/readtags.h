@@ -53,38 +53,37 @@ typedef struct sTagFile tagFile;
 /* This structure contains information about the tag file. */
 typedef struct {
 
-	struct {
-		    /* was the tag file successfully opened? */
-		int opened;
+    struct {
+        /* was the tag file successfully opened? */
+        int opened;
 
-		    /* errno value when 'opened' is false */
-		int error_number;
-	} status;
+        /* errno value when 'opened' is false */
+        int error_number;
+    } status;
 
-	    /* information about the structure of the tag file */
-	struct {
-		    /* format of tag file (1 = original, 2 = extended) */
-		short format;
+    /* information about the structure of the tag file */
+    struct {
+        /* format of tag file (1 = original, 2 = extended) */
+        short format;
 
-		    /* how is the tag file sorted? */
-		sortType sort;
-	} file;
+        /* how is the tag file sorted? */
+        sortType sort;
+    } file;
 
+    /* information about the program which created this tag file */
+    struct {
+        /* name of author of generating program (may be null) */
+        const char *author;
 
-	    /* information about the program which created this tag file */
-	struct {
-		    /* name of author of generating program (may be null) */
-		const char *author;
+        /* name of program (may be null) */
+        const char *name;
 
-		    /* name of program (may be null) */
-		const char *name;
+        /* URL of distribution (may be null) */
+        const char *url;
 
-		    /* URL of distribution (may be null) */
-		const char *url;
-
-		    /* program version (may be null) */
-		const char *version;
-	} program;
+        /* program version (may be null) */
+        const char *version;
+    } program;
 
 } tagFileInfo;
 
@@ -93,51 +92,50 @@ typedef struct {
  */
 typedef struct {
 
-	    /* the key of the extension field */
-	const char *key;
+    /* the key of the extension field */
+    const char *key;
 
-	    /* the value of the extension field (may be an empty string) */
-	const char *value;
+    /* the value of the extension field (may be an empty string) */
+    const char *value;
 
 } tagExtensionField;
 
 /* This structure contains information about a specific tag. */
 typedef struct {
 
-	    /* name of tag */
-	const char *name;
+    /* name of tag */
+    const char *name;
 
-	    /* path of source file containing definition of tag */
-	const char *file;
+    /* path of source file containing definition of tag */
+    const char *file;
 
-	    /* address for locating tag in source file */
-	struct {
-		    /* pattern for locating source line
-		     * (may be NULL if not present) */
-		const char *pattern;
+    /* address for locating tag in source file */
+    struct {
+        /* pattern for locating source line
+         * (may be NULL if not present) */
+        const char *pattern;
 
-		    /* line number in source file of tag definition
-		     * (may be zero if not known) */
-		unsigned long lineNumber;
-	} address;
+        /* line number in source file of tag definition
+         * (may be zero if not known) */
+        unsigned long lineNumber;
+    } address;
 
-	    /* kind of tag (may by name, character, or NULL if not known) */
-	const char *kind;
+    /* kind of tag (may by name, character, or NULL if not known) */
+    const char *kind;
 
-	    /* is tag of file-limited scope? */
-	short fileScope;
+    /* is tag of file-limited scope? */
+    short fileScope;
 
-	    /* miscellaneous extension fields */
-	struct {
-		    /* number of entries in `list' */
-		unsigned short count;
+    /* miscellaneous extension fields */
+    struct {
+        /* number of entries in `list' */
+        unsigned short count;
 
-		    /* list of key value pairs */
-		tagExtensionField *list;
-	} fields;
+        /* list of key value pairs */
+        tagExtensionField *list;
+    } fields;
 
 } tagEntry;
-
 
 /*
 *  FUNCTION PROTOTYPES
@@ -154,7 +152,7 @@ typedef struct {
 *  be set to the errno value representing the system error preventing the tag
 *  file from being successfully opened.
 */
-extern tagFile *tagsOpen (const char *const filePath, tagFileInfo *const info);
+extern tagFile *tagsOpen(const char *const filePath, tagFileInfo *const info);
 
 /*
 *  This function allows the client to override the normal automatic detection
@@ -169,7 +167,7 @@ extern tagFile *tagsOpen (const char *const filePath, tagFileInfo *const info);
 *  it actually is not. The function will return TagSuccess if called on an
 *  open tag file or TagFailure if not.
 */
-extern tagResult tagsSetSortType (tagFile *const file, const sortType type);
+extern tagResult tagsSetSortType(tagFile *const file, const sortType type);
 
 /*
 *  Reads the first tag in the file, if any. It is passed the handle to an
@@ -178,7 +176,7 @@ extern tagResult tagsSetSortType (tagFile *const file, const sortType type);
 *  The function will return TagSuccess another tag entry is found, or
 *  TagFailure if not (i.e. it reached end of file).
 */
-extern tagResult tagsFirst (tagFile *const file, tagEntry *const entry);
+extern tagResult tagsFirst(tagFile *const file, tagEntry *const entry);
 
 /*
 *  Step to the next tag in the file, if any. It is passed the handle to an
@@ -188,7 +186,7 @@ extern tagResult tagsFirst (tagFile *const file, tagEntry *const entry);
 *  if not (i.e. it reached end of file). It will always read the first tag in
 *  the file immediately after calling tagsOpen().
 */
-extern tagResult tagsNext (tagFile *const file, tagEntry *const entry);
+extern tagResult tagsNext(tagFile *const file, tagEntry *const entry);
 
 /*
 *  Retrieve the value associated with the extension field for a specified key.
@@ -197,7 +195,7 @@ extern tagResult tagsNext (tagFile *const file, tagEntry *const entry);
 *  containing the key of the desired extension field. If no such field of the
 *  specified key exists, the function will return null.
 */
-extern const char *tagsField (const tagEntry *const entry, const char *const key);
+extern const char *tagsField(const tagEntry *const entry, const char *const key);
 
 /*
 *  Find the first tag matching `name'. The structure pointed to by `entry'
@@ -224,7 +222,7 @@ extern const char *tagsField (const tagEntry *const entry, const char *const key
 *  The function will return TagSuccess if a tag matching the name is found, or
 *  TagFailure if not.
 */
-extern tagResult tagsFind (tagFile *const file, tagEntry *const entry, const char *const name, const int options);
+extern tagResult tagsFind(tagFile *const file, tagEntry *const entry, const char *const name, const int options);
 
 /*
 *  Find the next tag matching the name and options supplied to the most recent
@@ -233,14 +231,14 @@ extern tagResult tagsFind (tagFile *const file, tagEntry *const entry, const cha
 *  function will return TagSuccess if another tag matching the name is found,
 *  or TagFailure if not.
 */
-extern tagResult tagsFindNext (tagFile *const file, tagEntry *const entry);
+extern tagResult tagsFindNext(tagFile *const file, tagEntry *const entry);
 
 /*
 *  Call tagsTerminate() at completion of reading the tag file, which will
 *  close the file and free any internal memory allocated. The function will
 *  return TagFailure is no file is currently open, TagSuccess otherwise.
 */
-extern tagResult tagsClose (tagFile *const file);
+extern tagResult tagsClose(tagFile *const file);
 
 #ifdef __cplusplus
 }

@@ -36,48 +36,47 @@ class QProcess;
  */
 class KateProjectInfoViewCodeAnalysis : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     /**
      * construct project info view for given project
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectInfoViewCodeAnalysis (KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectInfoViewCodeAnalysis(KateProjectPluginView *pluginView, KateProject *project);
 
     /**
      * deconstruct info view
      */
-    ~KateProjectInfoViewCodeAnalysis ();
+    ~KateProjectInfoViewCodeAnalysis();
 
     /**
      * our project.
      * @return project
      */
-    KateProject *project () const
-    {
-      return m_project;
+    KateProject *project() const {
+        return m_project;
     }
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * Called if start/stop button is clicked.
      */
-    void slotStartStopClicked ();
+    void slotStartStopClicked();
 
     /**
      * More checker output is available
      */
-    void slotReadyRead ();
+    void slotReadyRead();
 
     /**
      * item got clicked, do stuff, like open document
      * @param index model index of clicked item
      */
-    void slotClicked (const QModelIndex &index);
+    void slotClicked(const QModelIndex &index);
 
-  private:
+private:
     /**
      * our plugin view
      */
@@ -116,4 +115,3 @@ class KateProjectInfoViewCodeAnalysis : public QWidget
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

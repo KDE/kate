@@ -28,122 +28,125 @@
 #include <QContextMenuEvent>
 #include <krecursivefilterproxymodel.h>
 
-KateProjectViewTree::KateProjectViewTree (KateProjectPluginView *pluginView, KateProject *project)
-  : QTreeView ()
-  , m_pluginView (pluginView)
-  , m_project (project)
+KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, KateProject *project)
+    : QTreeView()
+    , m_pluginView(pluginView)
+    , m_project(project)
 {
-  /**
-   * default style
-   */
-  setHeaderHidden (true);
-  setEditTriggers (QAbstractItemView::NoEditTriggers);
+    /**
+     * default style
+     */
+    setHeaderHidden(true);
+    setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-  /**
-   * attach view => project
-   * do this once, model is stable for whole project life time
-   * kill selection model
-   * create sort proxy model
-   */
-  QItemSelectionModel *m = selectionModel();
-  QSortFilterProxyModel *sortModel = new KRecursiveFilterProxyModel (this);
-  //sortModel->setFilterRole(SortFilterRole);
-  //sortModel->setSortRole(SortFilterRole);
-  sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-  sortModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-  sortModel->setSourceModel (m_project->model ());
-  setModel (sortModel);
-  delete m;
+    /**
+     * attach view => project
+     * do this once, model is stable for whole project life time
+     * kill selection model
+     * create sort proxy model
+     */
+    QItemSelectionModel *m = selectionModel();
+    QSortFilterProxyModel *sortModel = new KRecursiveFilterProxyModel(this);
+    //sortModel->setFilterRole(SortFilterRole);
+    //sortModel->setSortRole(SortFilterRole);
+    sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    sortModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+    sortModel->setSourceModel(m_project->model());
+    setModel(sortModel);
+    delete m;
 
-  /**
-   * connect needed signals
-   */
-  connect (this, SIGNAL(clicked (const QModelIndex &)), this, SLOT(slotClicked (const QModelIndex &)));
-  connect (m_project, SIGNAL(modelChanged ()), this, SLOT(slotModelChanged ()));
+    /**
+     * connect needed signals
+     */
+    connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(slotClicked(const QModelIndex &)));
+    connect(m_project, SIGNAL(modelChanged()), this, SLOT(slotModelChanged()));
 
-  /**
-   * trigger once some slots
-   */
-  slotModelChanged ();
+    /**
+     * trigger once some slots
+     */
+    slotModelChanged();
 }
 
-KateProjectViewTree::~KateProjectViewTree ()
+KateProjectViewTree::~KateProjectViewTree()
 {
 }
 
-void KateProjectViewTree::selectFile (const QString &file)
+void KateProjectViewTree::selectFile(const QString &file)
 {
-  /**
-   * get item if any
-   */
-  QStandardItem *item = m_project->itemForFile (file);
-  if (!item)
-    return;
+    /**
+     * get item if any
+     */
+    QStandardItem *item = m_project->itemForFile(file);
+    if (!item) {
+        return;
+    }
 
-  /**
-   * select it
-   */
-  QModelIndex index = static_cast<QSortFilterProxyModel *>(model())->mapFromSource (m_project->model()->indexFromItem (item));
-  scrollTo (index, QAbstractItemView::EnsureVisible);
-  selectionModel()->setCurrentIndex (index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+    /**
+     * select it
+     */
+    QModelIndex index = static_cast<QSortFilterProxyModel *>(model())->mapFromSource(m_project->model()->indexFromItem(item));
+    scrollTo(index, QAbstractItemView::EnsureVisible);
+    selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
 }
 
-void KateProjectViewTree::openSelectedDocument ()
+void KateProjectViewTree::openSelectedDocument()
 {
-  /**
-   * anything selected?
-   */
-  QModelIndexList selecteStuff = selectedIndexes ();
-  if (selecteStuff.isEmpty())
-    return;
+    /**
+     * anything selected?
+     */
+    QModelIndexList selecteStuff = selectedIndexes();
+    if (selecteStuff.isEmpty()) {
+        return;
+    }
 
-  /**
-   * open document for first element, if possible
-   */
-  QString filePath = selecteStuff[0].data (Qt::UserRole).toString();
-  if (!filePath.isEmpty())
-    m_pluginView->mainWindow()->openUrl (QUrl::fromLocalFile (filePath));
+    /**
+     * open document for first element, if possible
+     */
+    QString filePath = selecteStuff[0].data(Qt::UserRole).toString();
+    if (!filePath.isEmpty()) {
+        m_pluginView->mainWindow()->openUrl(QUrl::fromLocalFile(filePath));
+    }
 }
 
-void KateProjectViewTree::slotClicked (const QModelIndex &index)
+void KateProjectViewTree::slotClicked(const QModelIndex &index)
 {
-  /**
-   * open document, if any usable user data
-   */
-  QString filePath = index.data (Qt::UserRole).toString();
-  if (!filePath.isEmpty()) {
-    m_pluginView->mainWindow()->openUrl (QUrl::fromLocalFile (filePath));
-    selectionModel()->setCurrentIndex (index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
-  }
+    /**
+     * open document, if any usable user data
+     */
+    QString filePath = index.data(Qt::UserRole).toString();
+    if (!filePath.isEmpty()) {
+        m_pluginView->mainWindow()->openUrl(QUrl::fromLocalFile(filePath));
+        selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+    }
 }
 
-void KateProjectViewTree::slotModelChanged ()
+void KateProjectViewTree::slotModelChanged()
 {
-  /**
-   * model was updated
-   * perhaps we need to highlight again new file
-   */
-  KTextEditor::View *activeView = m_pluginView->mainWindow()->activeView ();
-  if (activeView && activeView->document()->url().isLocalFile())
-    selectFile (activeView->document()->url().toLocalFile ());
+    /**
+     * model was updated
+     * perhaps we need to highlight again new file
+     */
+    KTextEditor::View *activeView = m_pluginView->mainWindow()->activeView();
+    if (activeView && activeView->document()->url().isLocalFile()) {
+        selectFile(activeView->document()->url().toLocalFile());
+    }
 }
 
-void KateProjectViewTree::contextMenuEvent (QContextMenuEvent *event)
+void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)
 {
-  /**
-   * get path file path or don't do anything
-   */
-  QModelIndex index = selectionModel()->currentIndex();
-  QString filePath = index.data (Qt::UserRole).toString();
-  if (filePath.isEmpty()) {
-    QTreeView::contextMenuEvent (event);
-    return;
-  }
+    /**
+     * get path file path or don't do anything
+     */
+    QModelIndex index = selectionModel()->currentIndex();
+    QString filePath = index.data(Qt::UserRole).toString();
+    if (filePath.isEmpty()) {
+        QTreeView::contextMenuEvent(event);
+        return;
+    }
 
-  KateProjectTreeViewContextMenu menu;
-  menu.exec(filePath, viewport()->mapToGlobal(event->pos()), this);
+    KateProjectTreeViewContextMenu menu;
+    menu.exec(filePath, viewport()->mapToGlobal(event->pos()), this);
 
-  event->accept();
+    event->accept();
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

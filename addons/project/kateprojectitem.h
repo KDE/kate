@@ -24,9 +24,10 @@
 #include <QStandardItem>
 #include <KTextEditor/ModificationInterface>
 
-namespace KTextEditor {
-  class Document;
-  
+namespace KTextEditor
+{
+class Document;
+
 }
 
 /**
@@ -36,14 +37,14 @@ namespace KTextEditor {
 class KateProjectItem : public QStandardItem
 {
 
-  public:
+public:
     /**
      * Possible Types
      */
     enum Type {
         Project
-      , Directory
-      , File
+        , Directory
+        , File
     };
 
     /**
@@ -51,21 +52,21 @@ class KateProjectItem : public QStandardItem
      * @param type type for this item
      * @param text text for this item
      */
-    KateProjectItem (Type type, const QString &text);
+    KateProjectItem(Type type, const QString &text);
 
     /**
      * deconstruct project
      */
-    ~KateProjectItem ();
+    ~KateProjectItem();
 
     /**
      * Overwritten data methode for on-demand icon creation and co.
      * @param role role to get data for
      * @return data for role
      */
-    QVariant data (int role = Qt::UserRole + 1) const;
+    QVariant data(int role = Qt::UserRole + 1) const;
 
-  private:
+private:
     /**
      * type
      */
@@ -80,15 +81,13 @@ class KateProjectItem : public QStandardItem
      * for document icons
      */
     QString *m_emblem;
-    
-  public:
-    void slotModifiedChanged(KTextEditor::Document*);
-    void slotModifiedOnDisk (KTextEditor::Document *document,
-      bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
 
-    
+public:
+    void slotModifiedChanged(KTextEditor::Document *);
+    void slotModifiedOnDisk(KTextEditor::Document *document,
+                            bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+
 };
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

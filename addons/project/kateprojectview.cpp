@@ -31,57 +31,57 @@
 #include <QVBoxLayout>
 #include <QTimer>
 
-KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject *project)
-  : QWidget ()
-  , m_pluginView (pluginView)
-  , m_project (project)
-  , m_treeView (new KateProjectViewTree(pluginView, project))
-  , m_filter (new KLineEdit ())
+KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject *project)
+    : QWidget()
+    , m_pluginView(pluginView)
+    , m_project(project)
+    , m_treeView(new KateProjectViewTree(pluginView, project))
+    , m_filter(new KLineEdit())
 {
-  /**
-   * layout tree view and co.
-   */
-  QVBoxLayout *layout = new QVBoxLayout ();
-  layout->setSpacing (0);
-  layout->setContentsMargins (0, 0, 0, 0);
-  layout->addWidget (m_treeView);
-  layout->addWidget (m_filter);
-  setLayout (layout);
-  
-  /**
-   * setup filter line edit
-   */
-  m_filter->setPlaceholderText(i18n("Search"));
-  m_filter->setClearButtonEnabled(true);
-  connect (m_filter, SIGNAL(textChanged(QString)), this, SLOT(filterTextChanged(QString)));
+    /**
+     * layout tree view and co.
+     */
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(m_treeView);
+    layout->addWidget(m_filter);
+    setLayout(layout);
+
+    /**
+     * setup filter line edit
+     */
+    m_filter->setPlaceholderText(i18n("Search"));
+    m_filter->setClearButtonEnabled(true);
+    connect(m_filter, SIGNAL(textChanged(QString)), this, SLOT(filterTextChanged(QString)));
 }
 
-KateProjectView::~KateProjectView ()
+KateProjectView::~KateProjectView()
 {
 }
 
-void KateProjectView::selectFile (const QString &file)
+void KateProjectView::selectFile(const QString &file)
 {
-  m_treeView->selectFile (file);
+    m_treeView->selectFile(file);
 }
 
-void KateProjectView::openSelectedDocument ()
+void KateProjectView::openSelectedDocument()
 {
-  m_treeView->openSelectedDocument ();
+    m_treeView->openSelectedDocument();
 }
 
-void KateProjectView::filterTextChanged (QString filterText)
+void KateProjectView::filterTextChanged(QString filterText)
 {
-  /**
-   * filter
-   */
-  static_cast<QSortFilterProxyModel *>(m_treeView->model ())->setFilterFixedString (filterText);
-  
-  /**
-   * expand
-   */
-  if (!filterText.isEmpty())
-    QTimer::singleShot (100, m_treeView, SLOT(expandAll ()));
+    /**
+     * filter
+     */
+    static_cast<QSortFilterProxyModel *>(m_treeView->model())->setFilterFixedString(filterText);
+
+    /**
+     * expand
+     */
+    if (!filterText.isEmpty()) {
+        QTimer::singleShot(100, m_treeView, SLOT(expandAll()));
+    }
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

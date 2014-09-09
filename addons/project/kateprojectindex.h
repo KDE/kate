@@ -42,18 +42,18 @@
  */
 class KateProjectIndex
 {
-  public:
+public:
     /**
      * construct new index for given files
      * @param files files to index
      */
-    KateProjectIndex (const QStringList &files);
+    KateProjectIndex(const QStringList &files);
 
     /**
      * deconstruct project
      */
-    ~KateProjectIndex ();
-    
+    ~KateProjectIndex();
+
     /**
      * Which kind of match items should be created in the passed model
      * of the findMatches function?
@@ -63,7 +63,7 @@ class KateProjectIndex
          * Completion matches, containing only name and same name only once
          */
         CompletionMatches,
-        
+
         /**
          * Find matches, containing name, kind, file, line, ...
          */
@@ -77,31 +77,30 @@ class KateProjectIndex
      * @param searchWord word to search for
      * @param type type of matches
      */
-    void findMatches (QStandardItemModel &model, const QString &searchWord, MatchType type);
+    void findMatches(QStandardItemModel &model, const QString &searchWord, MatchType type);
 
     /**
      * Check if running ctags was successful. This can be used
      * as indicator whether ctags is installed or not.
      * @return true if a valid index exists, otherwise false
      */
-    bool isValid () const
-    {
-      return m_ctagsIndexHandle;
+    bool isValid() const {
+        return m_ctagsIndexHandle;
     }
 
-  private:
+private:
     /**
      * Load ctags tags.
      * @param files files to index
      */
-    void loadCtags (const QStringList &files);
-    
-  private:
+    void loadCtags(const QStringList &files);
+
+private:
     /**
      * ctags index file
      */
     QTemporaryFile m_ctagsIndexFile;
-    
+
     /**
      * handle to ctags file for querying, if possible
      */
@@ -110,4 +109,3 @@ class KateProjectIndex
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

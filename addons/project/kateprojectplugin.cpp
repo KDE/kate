@@ -46,7 +46,7 @@ namespace
 const QString ProjectFileName = QLatin1String(".kateproject");
 }
 
-KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant>&)
+KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
     , m_completion(this)
 {
@@ -72,14 +72,14 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant>&)
     }
 #endif
 
-    foreach (KTextEditor::Document *document, KTextEditor::Editor::instance()->application()->documents()) {
+    foreach(KTextEditor::Document * document, KTextEditor::Editor::instance()->application()->documents()) {
         slotDocumentCreated(document);
     }
 }
 
 KateProjectPlugin::~KateProjectPlugin()
 {
-    Q_FOREACH (KateProject *project, m_projects) {
+    Q_FOREACH(KateProject * project, m_projects) {
         m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
         delete project;
     }
@@ -125,7 +125,7 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
         QString canonicalPath = dir.canonicalPath();
         QString canonicalFileName = dir.filePath(ProjectFileName);
 
-        Q_FOREACH(KateProject *project, m_projects) {
+        Q_FOREACH(KateProject * project, m_projects) {
             if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName) {
                 return project;
             }
@@ -146,7 +146,7 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
     return 0;
 }
 
-KateProject* KateProjectPlugin::projectForUrl(const QUrl &url)
+KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
 {
     if (url.isEmpty() || !url.isLocalFile()) {
         return 0;
@@ -194,7 +194,7 @@ void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
 void KateProjectPlugin::slotDirectoryChanged(const QString &path)
 {
     QString fileName = QDir(path).filePath(ProjectFileName);
-    Q_FOREACH(KateProject *project, m_projects) {
+    Q_FOREACH(KateProject * project, m_projects) {
         if (project->fileName() == fileName) {
             project->reload();
             break;

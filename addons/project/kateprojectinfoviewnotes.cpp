@@ -23,24 +23,23 @@
 
 #include <QVBoxLayout>
 
-KateProjectInfoViewNotes::KateProjectInfoViewNotes (KateProjectPluginView *pluginView, KateProject *project)
-  : QWidget ()
-  , m_pluginView (pluginView)
-  , m_project (project)
-  , m_edit (new QPlainTextEdit ())
+KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProjectPluginView *pluginView, KateProject *project)
+    : QWidget()
+    , m_pluginView(pluginView)
+    , m_project(project)
+    , m_edit(new QPlainTextEdit())
 {
-  /*
-   * layout widget
-   */
-  QVBoxLayout *layout = new QVBoxLayout;
-  layout->setSpacing (0);
-  layout->addWidget (m_edit);
-  setLayout (layout);
-  m_edit->setDocument(project->notesDocument());
+    /*
+     * layout widget
+     */
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setSpacing(0);
+    layout->addWidget(m_edit);
+    setLayout(layout);
+    m_edit->setDocument(project->notesDocument());
 }
 
-KateProjectInfoViewNotes::~KateProjectInfoViewNotes ()
+KateProjectInfoViewNotes::~KateProjectInfoViewNotes()
 {
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

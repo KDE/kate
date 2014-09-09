@@ -27,34 +27,33 @@
 
 #include "klocalizedstring.h"
 
-KateProjectInfoView::KateProjectInfoView (KateProjectPluginView *pluginView, KateProject *project)
-  : QTabWidget ()
-  , m_pluginView (pluginView)
-  , m_project (project)
+KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, KateProject *project)
+    : QTabWidget()
+    , m_pluginView(pluginView)
+    , m_project(project)
 {
-  /**
-   * terminal
-   */
-  addTab (new KateProjectInfoViewTerminal (pluginView, project), i18n("Terminal"));
+    /**
+     * terminal
+     */
+    addTab(new KateProjectInfoViewTerminal(pluginView, project), i18n("Terminal"));
 
-  /**
-   * index
-   */
-  addTab (new KateProjectInfoViewIndex (pluginView, project), i18n("Code Index"));
+    /**
+     * index
+     */
+    addTab(new KateProjectInfoViewIndex(pluginView, project), i18n("Code Index"));
 
-  /**
-   * code analysis
-   */
-  addTab (new KateProjectInfoViewCodeAnalysis (pluginView, project), i18n("Code Analysis"));
+    /**
+     * code analysis
+     */
+    addTab(new KateProjectInfoViewCodeAnalysis(pluginView, project), i18n("Code Analysis"));
 
-  /**
-   * notes
-   */
-  addTab (new KateProjectInfoViewNotes (pluginView, project), i18n("Notes"));
+    /**
+     * notes
+     */
+    addTab(new KateProjectInfoViewNotes(pluginView, project), i18n("Notes"));
 }
 
-KateProjectInfoView::~KateProjectInfoView ()
+KateProjectInfoView::~KateProjectInfoView()
 {
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -26,85 +26,87 @@
 #include <KPluginLoader>
 #include <KPluginFactory>
 
-KateProjectInfoViewTerminal::KateProjectInfoViewTerminal (KateProjectPluginView *pluginView, KateProject *project)
-  : QWidget ()
-  , m_pluginView (pluginView)
-  , m_project (project)
-  , m_konsolePart (0)
+KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *pluginView, KateProject *project)
+    : QWidget()
+    , m_pluginView(pluginView)
+    , m_project(project)
+    , m_konsolePart(0)
 {
-  /**
-   * layout widget
-   */
-  m_layout = new QVBoxLayout (this);
-  m_layout->setSpacing (0);
-  m_layout->setContentsMargins(0, 0, 0, 0);
-  
-  /**
-   * initial terminal creation
-   */
-  loadTerminal ();
+    /**
+     * layout widget
+     */
+    m_layout = new QVBoxLayout(this);
+    m_layout->setSpacing(0);
+    m_layout->setContentsMargins(0, 0, 0, 0);
+
+    /**
+     * initial terminal creation
+     */
+    loadTerminal();
 }
 
-KateProjectInfoViewTerminal::~KateProjectInfoViewTerminal ()
+KateProjectInfoViewTerminal::~KateProjectInfoViewTerminal()
 {
-  /**
-   * avoid endless loop
-   */
-  if (m_konsolePart)
-    disconnect (m_konsolePart, SIGNAL(destroyed()), this, SLOT(loadTerminal()));
+    /**
+     * avoid endless loop
+     */
+    if (m_konsolePart) {
+        disconnect(m_konsolePart, SIGNAL(destroyed()), this, SLOT(loadTerminal()));
+    }
 }
 
-void KateProjectInfoViewTerminal::loadTerminal ()
+void KateProjectInfoViewTerminal::loadTerminal()
 {
-  /**
-   * null in any case, if loadTerminal fails below and we are in the destroyed event
-   */
-  m_konsolePart = 0;
-  
-  /**
-   * get konsole part factory
-   */
-  KPluginFactory *factory = KPluginLoader(QStringLiteral("konsolepart")).factory();
-  if (!factory)
-    return;
+    /**
+     * null in any case, if loadTerminal fails below and we are in the destroyed event
+     */
+    m_konsolePart = 0;
 
-  /**
-   * create part
-   */
-  m_konsolePart = factory->create<KParts::ReadOnlyPart>(this, this);
-  if (!m_konsolePart)
-    return;
+    /**
+     * get konsole part factory
+     */
+    KPluginFactory *factory = KPluginLoader(QStringLiteral("konsolepart")).factory();
+    if (!factory) {
+        return;
+    }
 
-  /**
-   * init locale translation stuff
-   */
-  // FIXME KF5 KGlobal::locale()->insertCatalog("konsole");
-  
-  /**
-   * switch to right directory
-   */
-  qobject_cast<TerminalInterface*>(m_konsolePart)->showShellInDir (QFileInfo (m_project->fileName()).absolutePath());
-  
-  /**
-   * add to widget
-   */
-  m_layout->addWidget (m_konsolePart->widget());
-  setFocusProxy(m_konsolePart->widget());
-  
-  /**
-   * guard destruction, create new terminal!
-   */
-  connect (m_konsolePart, SIGNAL(destroyed()), this, SLOT(loadTerminal()));
-  connect (m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent*,bool&)),
-                    this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
+    /**
+     * create part
+     */
+    m_konsolePart = factory->create<KParts::ReadOnlyPart>(this, this);
+    if (!m_konsolePart) {
+        return;
+    }
+
+    /**
+     * init locale translation stuff
+     */
+    // FIXME KF5 KGlobal::locale()->insertCatalog("konsole");
+
+    /**
+     * switch to right directory
+     */
+    qobject_cast<TerminalInterface *>(m_konsolePart)->showShellInDir(QFileInfo(m_project->fileName()).absolutePath());
+
+    /**
+     * add to widget
+     */
+    m_layout->addWidget(m_konsolePart->widget());
+    setFocusProxy(m_konsolePart->widget());
+
+    /**
+     * guard destruction, create new terminal!
+     */
+    connect(m_konsolePart, SIGNAL(destroyed()), this, SLOT(loadTerminal()));
+    connect(m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent *, bool &)),
+            this, SLOT(overrideShortcut(QKeyEvent *, bool &)));
 }
 
-void KateProjectInfoViewTerminal::overrideShortcut (QKeyEvent *, bool &override)
+void KateProjectInfoViewTerminal::overrideShortcut(QKeyEvent *, bool &override)
 {
-  /**
-   * let konsole handle all shortcuts
-   */
-  override = true;
+    /**
+     * let konsole handle all shortcuts
+     */
+    override = true;
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

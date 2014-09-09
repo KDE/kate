@@ -35,124 +35,124 @@
 #include <QMimeType>
 #include <QMimeDatabase>
 
-KateProjectTreeViewContextMenu::KateProjectTreeViewContextMenu ()
+KateProjectTreeViewContextMenu::KateProjectTreeViewContextMenu()
 {
 }
 
-KateProjectTreeViewContextMenu::~KateProjectTreeViewContextMenu ()
+KateProjectTreeViewContextMenu::~KateProjectTreeViewContextMenu()
 {
 }
 
-static bool isGit(const QString& filename)
+static bool isGit(const QString &filename)
 {
-  QFileInfo fi(filename);
-  QDir dir (fi.absoluteDir());
-  QProcess git;
-  git.setWorkingDirectory (dir.absolutePath());
-  QStringList args;
-  args << QStringLiteral("ls-files") << fi.fileName();
-  git.start(QStringLiteral("git"), args);
-  bool isGit = false;
-  if (git.waitForStarted() && git.waitForFinished()) {
-    QStringList files = QString::fromLocal8Bit (git.readAllStandardOutput ()).split (QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
-    isGit = files.contains(fi.fileName());
-  }
-  return isGit;
-}
-
-static bool appExists(const QString& appname)
-{
-  return ! QStandardPaths::findExecutable(appname).isEmpty();
-}
-
-static void launchApp(const QString &app, const QString& file)
-{
-  QFileInfo fi(file);
-  QDir dir (fi.absoluteDir());
-
-  QStringList args;
-  args << file;
-
-  QProcess::startDetached(app, QStringList(), dir.absolutePath());
-}
-
-void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint& pos, QWidget* parent)
-{
-  /**
-   * create context menu
-   */
-  QMenu menu;
-
-  QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy Filename"));
-    
-  /**
-   * handle "open with"
-   * find correct mimetype to query for possible applications
-   */
-  QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
-  QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
-  KService::List offers = KMimeTypeTrader::self()->query(mimeType.name(), QStringLiteral("Application"));
-
-  /**
-   * for each one, insert a menu item...
-   */
-  for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
-  {
-    KService::Ptr service = *it;
-    if (service->name() == QStringLiteral("Kate")) continue; // omit Kate
-    QAction *action = openWithMenu->addAction(QIcon::fromTheme(service->icon()), service->name());
-    action->setData(service->entryPath());
-  }
-
-  /**
-   * perhaps disable menu, if no entries!
-   */
-  openWithMenu->setEnabled (!openWithMenu->isEmpty());
-
-  QList<QAction*> appActions;
-  if (isGit(filename)) {
-    QMenu* git = menu.addMenu(i18n("Git Tools"));
-    if (appExists(QStringLiteral("gitk"))) {
-      QAction* action = git->addAction(i18n("Launch gitk"));
-      action->setData(QStringLiteral("gitk"));
-      appActions.append(action);
+    QFileInfo fi(filename);
+    QDir dir(fi.absoluteDir());
+    QProcess git;
+    git.setWorkingDirectory(dir.absolutePath());
+    QStringList args;
+    args << QStringLiteral("ls-files") << fi.fileName();
+    git.start(QStringLiteral("git"), args);
+    bool isGit = false;
+    if (git.waitForStarted() && git.waitForFinished()) {
+        QStringList files = QString::fromLocal8Bit(git.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+        isGit = files.contains(fi.fileName());
     }
-    if (appExists(QStringLiteral("qgit"))) {
-      QAction* action = git->addAction(i18n("Launch qgit"));
-      action->setData(QStringLiteral("qgit"));
-      appActions.append(action);
-    }
-    if (appExists(QStringLiteral("git-cola"))) {
-      QAction* action = git->addAction(i18n("Launch git-cola"));
-      action->setData(QStringLiteral("git-cola"));
-      appActions.append(action);
+    return isGit;
+}
+
+static bool appExists(const QString &appname)
+{
+    return ! QStandardPaths::findExecutable(appname).isEmpty();
+}
+
+static void launchApp(const QString &app, const QString &file)
+{
+    QFileInfo fi(file);
+    QDir dir(fi.absoluteDir());
+
+    QStringList args;
+    args << file;
+
+    QProcess::startDetached(app, QStringList(), dir.absolutePath());
+}
+
+void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint &pos, QWidget *parent)
+{
+    /**
+     * create context menu
+     */
+    QMenu menu;
+
+    QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy Filename"));
+
+    /**
+     * handle "open with"
+     * find correct mimetype to query for possible applications
+     */
+    QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
+    QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
+    KService::List offers = KMimeTypeTrader::self()->query(mimeType.name(), QStringLiteral("Application"));
+
+    /**
+     * for each one, insert a menu item...
+     */
+    for (KService::List::Iterator it = offers.begin(); it != offers.end(); ++it) {
+        KService::Ptr service = *it;
+        if (service->name() == QStringLiteral("Kate")) {
+            continue;    // omit Kate
+        }
+        QAction *action = openWithMenu->addAction(QIcon::fromTheme(service->icon()), service->name());
+        action->setData(service->entryPath());
     }
 
-    if (appActions.size() == 0) {
-      delete git;
-    }
-  }
+    /**
+     * perhaps disable menu, if no entries!
+     */
+    openWithMenu->setEnabled(!openWithMenu->isEmpty());
 
-  /**
-   * run menu and handle the triggered action
-   */
-  if (QAction *action = menu.exec (pos)) {
+    QList<QAction *> appActions;
+    if (isGit(filename)) {
+        QMenu *git = menu.addMenu(i18n("Git Tools"));
+        if (appExists(QStringLiteral("gitk"))) {
+            QAction *action = git->addAction(i18n("Launch gitk"));
+            action->setData(QStringLiteral("gitk"));
+            appActions.append(action);
+        }
+        if (appExists(QStringLiteral("qgit"))) {
+            QAction *action = git->addAction(i18n("Launch qgit"));
+            action->setData(QStringLiteral("qgit"));
+            appActions.append(action);
+        }
+        if (appExists(QStringLiteral("git-cola"))) {
+            QAction *action = git->addAction(i18n("Launch git-cola"));
+            action->setData(QStringLiteral("git-cola"));
+            appActions.append(action);
+        }
 
-    // handle apps
-    if (copyAction == action) {
-      QApplication::clipboard()->setText(filename);
-    } else if (appActions.contains(action)) {
-      launchApp(action->data().toString(), filename);
-    } else {
-      // handle "open with"
-      const QString openWith = action->data().toString();
-      if (KService::Ptr app = KService::serviceByDesktopPath(openWith)) {
-        QList<QUrl> list;
-        list << QUrl::fromLocalFile (filename);
-        KRun::run(*app, list, parent);
-      }
+        if (appActions.size() == 0) {
+            delete git;
+        }
     }
-  }
+
+    /**
+     * run menu and handle the triggered action
+     */
+    if (QAction *action = menu.exec(pos)) {
+
+        // handle apps
+        if (copyAction == action) {
+            QApplication::clipboard()->setText(filename);
+        } else if (appActions.contains(action)) {
+            launchApp(action->data().toString(), filename);
+        } else {
+            // handle "open with"
+            const QString openWith = action->data().toString();
+            if (KService::Ptr app = KService::serviceByDesktopPath(openWith)) {
+                QList<QUrl> list;
+                list << QUrl::fromLocalFile(filename);
+                KRun::run(*app, list, parent);
+            }
+        }
+    }
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

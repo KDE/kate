@@ -28,28 +28,27 @@ class QWidget;
 
 class KateProjectTreeViewContextMenu
 {
-  public:
+public:
     /**
      * construct project view for given project
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectTreeViewContextMenu ();
+    KateProjectTreeViewContextMenu();
 
     /**
      * deconstruct project
      */
-    ~KateProjectTreeViewContextMenu ();
+    ~KateProjectTreeViewContextMenu();
 
     /**
      * our project.
      * @return project
      */
-    void exec(const QString& filename, const QPoint& pos, QWidget* parent);
+    void exec(const QString &filename, const QPoint &pos, QWidget *parent);
 
-  protected:
+protected:
 };
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

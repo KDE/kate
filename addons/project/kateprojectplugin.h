@@ -38,7 +38,7 @@ class KateProjectPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KateProjectPlugin(QObject *parent = 0, const QList<QVariant>& = QList<QVariant>());
+    explicit KateProjectPlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
     virtual ~KateProjectPlugin();
 
     QObject *createView(KTextEditor::MainWindow *mainWindow);
@@ -74,8 +74,7 @@ public:
      * get list of all current open projects
      * @return list of all open projects
      */
-    QList<KateProject *> projects() const
-    {
+    QList<KateProject *> projects() const {
         return m_projects;
     }
 
@@ -83,8 +82,7 @@ public:
      * Get global code completion.
      * @return global completion object for KTextEditor::View
      */
-    KateProjectCompletion *completion()
-    {
+    KateProjectCompletion *completion() {
         return &m_completion;
     }
 
@@ -93,8 +91,7 @@ public:
      * @param document document we want to know which project it belongs to
      * @return project or 0 if none found for this document
      */
-    KateProject *projectForDocument(KTextEditor::Document *document)
-    {
+    KateProject *projectForDocument(KTextEditor::Document *document) {
         return m_document2Project.value(document);
     }
 

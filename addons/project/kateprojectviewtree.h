@@ -32,62 +32,61 @@ class KateProjectPluginView;
  */
 class KateProjectViewTree : public QTreeView
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     /**
      * construct project view for given project
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectViewTree (KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectViewTree(KateProjectPluginView *pluginView, KateProject *project);
 
     /**
      * deconstruct project
      */
-    ~KateProjectViewTree ();
+    ~KateProjectViewTree();
 
     /**
      * our project.
      * @return project
      */
-    KateProject *project () const
-    {
-      return m_project;
+    KateProject *project() const {
+        return m_project;
     }
 
     /**
      * Select given file in the view.
      * @param file select this file in the view, will be shown if invisible
      */
-    void selectFile (const QString &file);
+    void selectFile(const QString &file);
 
     /**
      * Open the selected document, if any.
      */
-    void openSelectedDocument ();
+    void openSelectedDocument();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * item got clicked, do stuff, like open document
      * @param index model index of clicked item
      */
-    void slotClicked (const QModelIndex &index);
+    void slotClicked(const QModelIndex &index);
 
     /**
      * Triggered on model changes.
      * This includes the files list, itemForFile mapping!
      */
-    void slotModelChanged ();
+    void slotModelChanged();
 
-  protected:
+protected:
     /**
      * Create matching context menu.
      * @param event context menu event
      */
-    void contextMenuEvent (QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
 
-  private:
+private:
     /**
      * our plugin view
      */
@@ -101,4 +100,3 @@ class KateProjectViewTree : public QTreeView
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

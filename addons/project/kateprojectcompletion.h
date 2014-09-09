@@ -33,21 +33,21 @@
  */
 class KateProjectCompletion : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface
 {
-  Q_OBJECT
-  
-  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
+    Q_OBJECT
 
-  public:
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
+
+public:
     /**
      * Construct project completion.
      * @param plugin our plugin
      */
-    KateProjectCompletion (class KateProjectPlugin *plugin);
+    KateProjectCompletion(class KateProjectPlugin *plugin);
 
     /**
      * Deconstruct project completion.
      */
-    ~KateProjectCompletion ();
+    ~KateProjectCompletion();
 
     /**
      * This function is responsible to generating / updating the list of current
@@ -59,29 +59,26 @@ class KateProjectCompletion : public KTextEditor::CodeCompletionModel, public KT
      * @param view The view to generate completions for
      * @param range The range of text to generate completions for
      * */
-    void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
+    void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType);
 
-    
-    bool shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position);
-    bool shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::Range &range, const QString &currentCompletion);
+    bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position);
+    bool shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion);
 
-    
-    
-    void saveMatches( KTextEditor::View* view,
-                            const KTextEditor::Range& range);
+    void saveMatches(KTextEditor::View *view,
+                     const KTextEditor::Range &range);
 
-    int rowCount ( const QModelIndex & parent ) const;
+    int rowCount(const QModelIndex &parent) const;
 
-    QVariant data(const QModelIndex& index, int role) const;
-    virtual QModelIndex index(int row, int column, const QModelIndex& parent=QModelIndex()) const;
-    virtual QModelIndex parent(const QModelIndex& index) const;
-    virtual MatchReaction matchingItem(const QModelIndex& matched);
+    QVariant data(const QModelIndex &index, int role) const;
+    virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
+    virtual QModelIndex parent(const QModelIndex &index) const;
+    virtual MatchReaction matchingItem(const QModelIndex &matched);
 
-    virtual KTextEditor::Range completionRange(KTextEditor::View* view, const KTextEditor::Cursor &position);
+    virtual KTextEditor::Range completionRange(KTextEditor::View *view, const KTextEditor::Cursor &position);
 
-    void allMatches( QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range ) const;
+    void allMatches(QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range) const;
 
-  private:
+private:
     /**
      * our plugin view
      */
@@ -91,7 +88,7 @@ class KateProjectCompletion : public KTextEditor::CodeCompletionModel, public KT
      * model with matching data
      */
     QStandardItemModel m_matches;
-    
+
     /**
      * automatic invocation?
      */
@@ -100,4 +97,3 @@ class KateProjectCompletion : public KTextEditor::CodeCompletionModel, public KT
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

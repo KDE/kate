@@ -35,50 +35,49 @@ class KMessageWidget;
  */
 class KateProjectInfoViewIndex : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     /**
      * construct project info view for given project
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectInfoViewIndex (KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectInfoViewIndex(KateProjectPluginView *pluginView, KateProject *project);
 
     /**
      * deconstruct info view
      */
-    ~KateProjectInfoViewIndex ();
+    ~KateProjectInfoViewIndex();
 
     /**
      * our project.
      * @return project
      */
-    KateProject *project () const
-    {
-      return m_project;
+    KateProject *project() const {
+        return m_project;
     }
-    
-  private Q_SLOTS:
+
+private Q_SLOTS:
     /**
      * Called if text in lineedit changes, then we need to search
      * @param text new text
      */
-    void slotTextChanged (const QString &text);
-    
+    void slotTextChanged(const QString &text);
+
     /**
      * item got clicked, do stuff, like open document
      * @param index model index of clicked item
      */
-    void slotClicked (const QModelIndex &index);
+    void slotClicked(const QModelIndex &index);
 
     /**
      * called whenever the index of the project was updated. Here,
      * it's used to show a warning, if ctags is not installed.
      */
-    void indexAvailable ();
+    void indexAvailable();
 
-  private:
+private:
     /**
      * our plugin view
      */
@@ -103,7 +102,7 @@ class KateProjectInfoViewIndex : public QWidget
      * tree view for results
      */
     QTreeView *m_treeView;
-    
+
     /**
      * standard item model for results
      */
@@ -112,4 +111,3 @@ class KateProjectInfoViewIndex : public QWidget
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

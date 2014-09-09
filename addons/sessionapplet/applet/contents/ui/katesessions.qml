@@ -69,9 +69,6 @@ Item {
         Layout.minimumWidth: units.iconSizes.medium * 9
         Layout.minimumHeight: units.gridUnit * 16
 
-        width: units.gridUnit * 14
-        height: units.gridUnit * 16
-
         focus: true
 
         property alias listMargins: listItemSvg.margins

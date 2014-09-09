@@ -37,7 +37,7 @@ PlasmaComponents.ListItem {
     property bool showInput: false
     
     width: parent.width - units.gridUnit * 2
-    height: Math.max(label.height, toolButtonsLayout.implicitHeight) + 2 * units.smallSpacing
+    height: Math.max(Math.max(label.height, toolButtonsLayout.implicitHeight),sessionnameditlayout.implicitHeight) + 2 * units.smallSpacing
 
     x: -listMargins.left
 
@@ -91,12 +91,13 @@ PlasmaComponents.ListItem {
         }
 
         RowLayout {
+                id:sessionnameditlayout
                 visible:showInput
                 height: implicitHeight
                 anchors {
                     left: parent.left
                     right: parent.right
-                    rightMargin: units.gridUnit
+                    rightMargin: 0
                     leftMargin: units.gridUnit * 2
                 }
                 /*Layout.fillWidth: true*/

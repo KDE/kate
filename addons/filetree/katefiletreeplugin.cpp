@@ -269,7 +269,6 @@ void KateFileTreePluginView::setupActions()
      */
     m_toolbar->addAction(aPrev);
     m_toolbar->addAction(aNext);
-    m_toolbar->addAction(aShowActive);
     m_toolbar->addSeparator();
     m_toolbar->addAction(aSave);
     m_toolbar->addAction(aSaveAs);

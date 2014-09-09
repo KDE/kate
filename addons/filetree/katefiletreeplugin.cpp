@@ -221,24 +221,27 @@ KateFileTreePluginView::~KateFileTreePluginView ()
 
 void KateFileTreePluginView::setupActions()
 {
-    auto aPrev = actionCollection()->addAction(QLatin1String("filetree_prev_document"),
-                                               m_fileTree, SLOT(slotDocumentPrev()));
+    auto aPrev = actionCollection()->addAction(QLatin1String("filetree_prev_document"));
     aPrev->setText(i18n("Previous Docment"));
     aPrev->setIcon(QIcon::fromTheme(QLatin1String("go-up")));
+    aPrev->setShortcut(QKeySequence(Qt::ALT+Qt::Key_Up));
+    connect(aPrev, SIGNAL(triggered(bool)), m_fileTree, SLOT(slotDocumentPrev()));
 
-    auto aNext = actionCollection()->addAction(QLatin1String("filetree_next_document"),
-                                               m_fileTree, SLOT(slotDocumentNext()));
+    auto aNext = actionCollection()->addAction(QLatin1String("filetree_next_document"));
     aNext->setText(i18n("Next Document"));
     aNext->setIcon(QIcon::fromTheme(QLatin1String("go-down")));
+    aNext->setShortcut(QKeySequence(Qt::ALT+Qt::Key_Down));
+    connect(aNext, SIGNAL(triggered(bool)), m_fileTree, SLOT(slotDocumentNext()));
 
-    auto aShowActive = actionCollection()->addAction(QLatin1String("filetree_show_active_document"), m_mainWindow);
+    auto aShowActive = actionCollection()->addAction(QLatin1String("filetree_show_active_document"));
     aShowActive->setText(i18n("&Show Active"));
     aShowActive->setIcon(QIcon::fromTheme(QLatin1String("folder-sync")));
+    connect(aShowActive, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()));
 
     auto aSave = actionCollection()->addAction(QLatin1String("filetree_save"), this, SLOT(slotDocumentSave()));
     aSave->setWhatsThis(i18n("Save the current document"));
     aSave->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
-    
+
     auto aSaveAs = actionCollection()->addAction(QLatin1String("filetree_save_as"), this, SLOT(slotDocumentSaveAs()));
     aSaveAs->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));
     aSaveAs->setIcon(QIcon::fromTheme(QLatin1String("document-save-as")));
@@ -270,9 +273,6 @@ void KateFileTreePluginView::setupActions()
     m_toolbar->addSeparator();
     m_toolbar->addAction(aSave);
     m_toolbar->addAction(aSaveAs);
-    
-    // setup connections
-    connect( aShowActive, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()) );
 }
 
 KateFileTreeModel *KateFileTreePluginView::model()

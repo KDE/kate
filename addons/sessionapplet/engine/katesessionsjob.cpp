@@ -40,7 +40,7 @@ void KateSessionsJob::start()
     const QString operation = operationName();
     // first check for operations not needing an item
    if (operation == QLatin1String("newSession")) {
-     QString sessionName=parameters().value("sessionName").toString();
+     QString sessionName=parameters().value(QLatin1String("sessionName")).toString();
      if (sessionName.isEmpty()) {
          setResult(false);
          emitResult();
@@ -48,33 +48,33 @@ void KateSessionsJob::start()
      }
      //CHECK IF SESSION EXISTS
      QStringList args;
-     args <<"-n"<<"--start"<< sessionName;
-     KToolInvocation::kdeinitExec("kate", args);
+     args <<QLatin1String("-n")<<QLatin1String("--start")<< sessionName;
+     KToolInvocation::kdeinitExec(QLatin1String("kate"), args);
      setResult(true);
      emitResult();
      return;
    } else if (operation == QLatin1String("invoke")) {
         QString dest=destination();
         QStringList args;
-        if (dest=="_kate_noargs") {
+        if (dest==QLatin1String("_kate_noargs")) {
             //do nothing
-        } else if (dest=="_kate_anon_newsession") {
-            args << "--startanon";
-        } else if (dest=="_kate_newsession") {
-            args << "--startanon";
+        } else if (dest==QLatin1String("_kate_anon_newsession")) {
+            args << QLatin1String("--startanon");
+        } else if (dest==QLatin1String("_kate_newsession")) {
+            args << QLatin1String("--startanon");
             qDebug()<<"This should not be reached";
         } else {
             dest.chop(12); // .katesession
-            args <<"-n"<<"--start"<<QUrl::fromPercentEncoding(dest.toLatin1());
+            args <<QLatin1String("-n")<<QLatin1String("--start")<<QUrl::fromPercentEncoding(dest.toLatin1());
             //args <<"-n"<< "--start"<<m_sessions[ id-3 ];
         }
         
-        KToolInvocation::kdeinitExec("kate", args);
+        KToolInvocation::kdeinitExec(QLatin1String("kate"), args);
         setResult(true);
         emitResult();
         return;
     } else  if (operation == QLatin1String("remove")) {
-        qDebug()<<operation<<" "<<destination();
+        qDebug()<<operation<<destination();
         setResult(true);
         emitResult();
         return;

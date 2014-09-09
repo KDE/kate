@@ -29,7 +29,7 @@ KateSessionsEngine::KateSessionsEngine(QObject *parent, const QVariantList &args
     : Plasma::DataEngine(parent, args)
 {
     qDebug()<<"JOWENN";
-    setData(s_clipboardSourceName,QStringLiteral("test_data"),QString("This is just for testing"));  
+    setData(s_clipboardSourceName,QStringLiteral("test_data"),QLatin1String("This is just for testing"));  
     setModel(s_clipboardSourceName,new KateSessionsModel(this));
 }
 

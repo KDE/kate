@@ -31,6 +31,8 @@
 #include <QStyle>
 #include <QStyleOption>
 
+#include <math.h>
+
 TabCloseButton::TabCloseButton(QWidget * parent)
     : QAbstractButton(parent)
 {

@@ -308,7 +308,7 @@ void KateFileTree::slotOpenWithMenuAction(QAction *a)
     }
 }
 
-#include "metatype_qlist_ktexteditor_document_pointer.h"
+Q_DECLARE_METATYPE(QList<KTextEditor::Document *>)
 
 void KateFileTree::slotDocumentClose()
 {

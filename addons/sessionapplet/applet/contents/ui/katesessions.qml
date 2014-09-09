@@ -29,14 +29,9 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 
 Item {
     id: main
-
-      /*  width: isContainment ? undefined : units.gridUnit * 14
-        height: isContainment ? undefined : units.gridUnit * 16
-
-     property bool isContainment: ("containmentType" in plasmoid)
-*/
-    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
-
+    width: (Plasmoid.formFactor==PlasmaCore.Types.Planar)? units.gridUnit * 14 : undefined
+    height: (Plasmoid.formFactor==PlasmaCore.Types.Planar)? units.gridUnit * 16: undefined
+    
 
     Plasmoid.switchWidth: units.gridUnit * 6
     Plasmoid.switchHeight: units.gridUnit * 5

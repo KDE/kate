@@ -7,8 +7,6 @@ set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
-find_package(KF5 REQUIRED COMPONENTS Parts TextEditor XmlGui Notifications)
-
 set(KATE_CLOSE_EXCEPT_PLUGIN_SOURCES
     close_confirm_dialog.cpp
     close_except_plugin.cpp

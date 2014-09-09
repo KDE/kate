@@ -1,8 +1,4 @@
 project (kateopenheader)
-find_package(KF5 REQUIRED COMPONENTS TextEditor
-    KIO
-    Parts
-    XmlGui )
 
 ########### next target ###############
 set(kateopenheaderplugin_PART_SRCS plugin_kateopenheader.cpp )

@@ -1,8 +1,5 @@
 project(kateprojectplugin)
 
-# Load the frameworks we need
-find_package(KF5 REQUIRED COMPONENTS ItemModels)
-
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 add_definitions(-DTRANSLATION_DOMAIN=\"kateproject\")

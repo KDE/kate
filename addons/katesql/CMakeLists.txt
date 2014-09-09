@@ -1,8 +1,5 @@
 project(katesqlplugin)
 
-# Load the frameworks we need
-find_package(KF5 REQUIRED COMPONENTS Wallet)
-
 add_definitions(-DTRANSLATION_DOMAIN=\"katesql\")
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 

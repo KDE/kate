@@ -8,6 +8,8 @@
       <Action name="filetree_prev_document" group="switch_document"/>
       <Action name="filetree_next_document" group="switch_document"/>
       <Action name="filetree_show_active_document" group="switch_document"/>
+      <Action name="filetree_save" group="save_document"/>
+      <Action name="filetree_save_as" group="save_document"/>
     </Menu>
   </MenuBar>
   <!-- merge in main toolbar -->

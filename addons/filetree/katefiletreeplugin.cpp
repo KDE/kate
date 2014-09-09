@@ -35,6 +35,7 @@
 #include <KConfigGroup>
 #include <KIconLoader>
 #include <KXMLGUIFactory>
+#include <KXmlGuiWindow>
 #include <KToolBar>
 
 #include <QAction>
@@ -234,11 +235,42 @@ void KateFileTreePluginView::setupActions()
     aShowActive->setText(i18n("&Show Active"));
     aShowActive->setIcon(QIcon::fromTheme(QLatin1String("folder-sync")));
 
+    auto aSave = actionCollection()->addAction(QLatin1String("filetree_save"), this, SLOT(slotDocumentSave()));
+    aSave->setWhatsThis(i18n("Save the current document"));
+    aSave->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
+    
+    auto aSaveAs = actionCollection()->addAction(QLatin1String("filetree_save_as"), this, SLOT(slotDocumentSaveAs()));
+    aSaveAs->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));
+    aSaveAs->setIcon(QIcon::fromTheme(QLatin1String("document-save-as")));
+
+    /**
+     * add new & open, if hosting application has it
+     */
+    if (KXmlGuiWindow *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window())) {
+        bool newOrOpen = false;
+        if (auto a = parentClient->action("file_new")) {
+            m_toolbar->addAction(a);
+            newOrOpen = true;
+        }
+        if (auto a = parentClient->action("file_open")) {
+            m_toolbar->addAction(a);
+            newOrOpen = true;
+        }
+        if (newOrOpen) {
+            m_toolbar->addSeparator();
+        }
+    }
+        
+    /**
+     * add own actions
+     */
     m_toolbar->addAction(aPrev);
     m_toolbar->addAction(aNext);
-    m_toolbar->addSeparator();
     m_toolbar->addAction(aShowActive);
-
+    m_toolbar->addSeparator();
+    m_toolbar->addAction(aSave);
+    m_toolbar->addAction(aSaveAs);
+    
     // setup connections
     connect( aShowActive, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()) );
 }
@@ -403,6 +435,18 @@ void KateFileTreePluginView::slotDocumentsCreated(const QList<KTextEditor::Docum
   m_documentModel->documentsOpened(docs);
   m_loadingDocuments = false;
   viewChanged();
+}
+
+void KateFileTreePluginView::slotDocumentSave()
+{
+    if (auto view = m_mainWindow->activeView())
+        view->document()->documentSave();
+}
+
+void KateFileTreePluginView::slotDocumentSaveAs()
+{
+    if (auto view = m_mainWindow->activeView())
+        view->document()->documentSaveAs();
 }
 
 //END KateFileTreePluginView

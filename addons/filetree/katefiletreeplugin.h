@@ -134,6 +134,8 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTex
     void sortRoleChanged(int);
     void slotAboutToCreateDocuments();
     void slotDocumentsCreated(const QList<KTextEditor::Document *> &);
+    void slotDocumentSave();
+    void slotDocumentSaveAs();
 };
 
 #endif //KATE_FILETREE_PLUGIN_H

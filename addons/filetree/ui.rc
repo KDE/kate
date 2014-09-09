@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katefiletreeplugin" library="katefiletreeplugin" version="6">
+<gui name="katefiletreeplugin" library="katefiletreeplugin" version="7">
   <!-- merge in view -->
   <MenuBar>
     <Menu name="view">
@@ -12,11 +12,5 @@
       <Action name="filetree_save_as" group="save_document"/>
     </Menu>
   </MenuBar>
-  <!-- merge in main toolbar -->
-  <ToolBar name="mainToolBar">
-    <text>Main Toolbar</text>
-    <Action name="filetree_prev_document" group="switch_document"/>
-    <Action name="filetree_next_document" group="switch_document"/>
-  </ToolBar>
 </gui>
 <!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

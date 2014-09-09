@@ -11,7 +11,7 @@
 <language
     name="ISO C++"
     section="Sources"
-    version="2.4"
+    version="2.5"
     kateversion="2.4"
     indenter="cstyle"
     style="C++"
@@ -352,21 +352,28 @@
       </context>
 
       <context name="AfterHash" attribute="Error" lineEndContext="#pop">
-        <!-- define, elif, else, endif, error, if, ifdef, ifndef, include, include_next, line, pragma, undef, warning -->
+        <RegExpr attribute="Preprocessor" context="Include" String="#\s*(?:include|include_next)" insensitive="true" firstNonSpace="true" />
+
+        <!-- define, elif, else, endif, error, if, ifdef, ifndef, line, pragma, undef, warning -->
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*if(?:def|ndef)?(?=(?:\(|\s+)\S)" beginRegion="PP" firstNonSpace="true" insensitive="false" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" insensitive="false" />
         <!-- Switch to seperate context for multiline #defines -->
         <RegExpr attribute="Preprocessor" context="Define" String="(#|%\:|\?\?=)\s*(cmake)?define.*((?=\\))" firstNonSpace="true" lookAhead="true" insensitive="false" />
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*(?:el(?:se|if)|include(?:_next)?|(cmake)?define|undef|line|error|warning|pragma)" insensitive="false" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*(?:el(?:se|if)|(cmake)?define|undef|line|error|warning|pragma)" insensitive="false" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s+[0-9]+" firstNonSpace="true" insensitive="false" />
+      </context>
+
+      <context attribute="Preprocessor" lineEndContext="#pop" name="Include">
+        <LineContinue attribute="Preprocessor" context="#stay"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
+        <IncludeRules context="Preprocessor" />
       </context>
 
       <context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop">
         <LineContinue attribute="Preprocessor" context="#stay" />
         <keyword attribute="Standard Macros" context="#stay" String="StdMacros" />
         <IncludeRules context="GNUMacros##GCCExtensions" />
-        <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;" />
-        <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;" />
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="Comment/Preprocessor" char="/" char1="*" beginRegion="Comment2" />
         <Detect2Chars attribute="Comment" context="Comment 1" char="/" char1="/" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="C" section="Sources"
-          version="1.45" kateversion="2.4"
+          version="1.46" kateversion="2.4"
           indenter="cstyle"
           extensions="*.c;*.C;*.h"
           mimetype="text/x-csrc;text/x-c++src;text/x-chdr"
@@ -120,7 +120,9 @@
       </context>
 
       <context attribute="Error" lineEndContext="#pop" name="AfterHash">
-        <!-- define, elif, else, endif, error, if, ifdef, ifndef, include, include_next, line, pragma, undef, warning -->
+        <RegExpr attribute="Preprocessor" context="Include" String="#\s*(?:include|include_next)" insensitive="true" firstNonSpace="true" />
+
+        <!-- define, elif, else, endif, error, if, ifdef, ifndef, line, pragma, undef, warning -->
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*if(?:def|ndef)?(?=\s+\S)" insensitive="true" beginRegion="PP" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*endif" insensitive="true" endRegion="PP" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Define" String="#\s*define.*((?=\\))" insensitive="true" firstNonSpace="true" />
@@ -128,15 +130,20 @@
         <!-- folding for apple style #pragma mark - label -->
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*pragma\s+mark\s+-\s*$" insensitive="true" firstNonSpace="true" endRegion="pragma_mark" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*pragma\s+mark" insensitive="true" firstNonSpace="true" endRegion="pragma_mark" beginRegion="pragma_mark" />
-        
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*(?:el(?:se|if)|include(?:_next)?|define|undef|line|error|warning|pragma)" insensitive="true" firstNonSpace="true" />
+
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*(?:el(?:se|if)|define|undef|line|error|warning|pragma)" insensitive="true" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s+[0-9]+" insensitive="true" firstNonSpace="true" />
+      </context>
+
+      <context attribute="Preprocessor" lineEndContext="#pop" name="Include">
+        <LineContinue attribute="Preprocessor" context="#stay"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
+        <IncludeRules context="Preprocessor" />
       </context>
 
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
         <LineContinue attribute="Preprocessor" context="#stay"/>
-        <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
-        <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*" beginRegion="Comment2" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/" />

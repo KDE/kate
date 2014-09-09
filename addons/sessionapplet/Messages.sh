@@ -1,2 +1,4 @@
 #! /usr/bin/env bash
-$XGETTEXT *.cpp -o $podir/plasma_applet_katesession.pot
+$EXTRACTRC `find . -name \*.rc -o -name \*.ui -o -name \*.kcfg` >> rc.cpp
+$XGETTEXT `find . -name \*.qml -o -name \*.cpp` -o $podir/plasma_applet_org.kde.plasma.katesessions.pot
+rm -f rc.cpp

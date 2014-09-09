@@ -26,7 +26,7 @@
 // Geh, should make this into a proper class, setters and getters.
 class KateFileTreePluginSettings
 {
-  public:
+public:
     KateFileTreePluginSettings();
 
     void save();
@@ -45,23 +45,22 @@ class KateFileTreePluginSettings
 
     int sortRole() const;
     void setSortRole(int);
-    
+
     bool showFullPathOnRoots() const;
     void setShowFullPathOnRoots(bool);
-    
-  private:
+
+private:
     KConfigGroup m_group;
-    
+
     bool m_shadingEnabled;
     QColor m_viewShade;
     QColor m_editShade;
 
     bool m_listMode;
     int m_sortRole;
-    
+
     bool m_showFullPathOnRoots;
 };
 
 #endif //KATE_FILETREE_PLUGIN_H
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -43,25 +43,25 @@ class KateFileTreePluginView;
 
 class KateFileTreePlugin: public KTextEditor::Plugin
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit KateFileTreePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
+public:
+    explicit KateFileTreePlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
     virtual ~KateFileTreePlugin();
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow);
 
     virtual int configPages() const;
-    virtual KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0 );
+    virtual KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = 0);
 
     const KateFileTreePluginSettings &settings();
 
     void applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole, bool showFulPath);
 
-  public Q_SLOTS:
-    void viewDestroyed(QObject* view);
+public Q_SLOTS:
+    void viewDestroyed(QObject *view);
 
-  private:
+private:
     QList<KateFileTreePluginView *> m_views;
     KateFileTreeConfigPage *m_confPage;
     KateFileTreePluginSettings m_settings;
@@ -69,23 +69,23 @@ class KateFileTreePlugin: public KTextEditor::Plugin
 
 class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
-  Q_OBJECT
-    
-  Q_INTERFACES(KTextEditor::SessionConfigInterface)
+    Q_OBJECT
 
-  public:
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
+
+public:
     /**
       * Constructor.
       */
-    KateFileTreePluginView (KTextEditor::MainWindow *mainWindow, KateFileTreePlugin *plug);
+    KateFileTreePluginView(KTextEditor::MainWindow *mainWindow, KateFileTreePlugin *plug);
 
     /**
      * Virtual destructor.
      */
-    ~KateFileTreePluginView ();
+    ~KateFileTreePluginView();
 
-    void readSessionConfig (const KConfigGroup& config) Q_DECL_OVERRIDE;
-    void writeSessionConfig (KConfigGroup& config) Q_DECL_OVERRIDE;
+    void readSessionConfig(const KConfigGroup &config) Q_DECL_OVERRIDE;
+    void writeSessionConfig(KConfigGroup &config) Q_DECL_OVERRIDE;
 
     /**
      * The file tree model.
@@ -108,10 +108,10 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTex
     bool hasLocalPrefs();
     void setHasLocalPrefs(bool);
 
-  protected:
+protected:
     void setupActions();
 
-  private:
+private:
     QWidget *m_toolView;
     KToolBar *m_toolbar;
     KateFileTree *m_fileTree;
@@ -122,7 +122,7 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTex
     KateFileTreePlugin *m_plug;
     KTextEditor::MainWindow *m_mainWindow;
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void showToolView();
     void hideToolView();
     void showActiveDocument();
@@ -140,4 +140,3 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTex
 
 #endif //KATE_FILETREE_PLUGIN_H
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

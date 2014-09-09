@@ -24,8 +24,9 @@
 #include <QColor>
 
 #include <ktexteditor/modificationinterface.h>
-namespace KTextEditor {
-  class Document;
+namespace KTextEditor
+{
+class Document;
 }
 
 class ProxyItem;
@@ -36,24 +37,24 @@ QDebug operator<<(QDebug dbg, ProxyItemDir *item);
 
 class KateFileTreeModel : public QAbstractItemModel
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     enum { DocumentRole = Qt::UserRole + 1, PathRole, OpeningOrderRole, DocumentTreeRole };
 
     KateFileTreeModel(QObject *p);
     virtual ~KateFileTreeModel();
 
     /* QAbstractItemModel implementations */
-    virtual Qt::ItemFlags flags( const QModelIndex & index ) const;
-    virtual QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const;
-    virtual QVariant headerData( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
-    virtual int rowCount( const QModelIndex & parent = QModelIndex() ) const;
-    virtual int columnCount( const QModelIndex & parent = QModelIndex() ) const;
+    virtual Qt::ItemFlags flags(const QModelIndex &index) const;
+    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-    virtual QModelIndex parent( const QModelIndex & index ) const;
-    virtual QModelIndex index( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-    virtual bool hasChildren( const QModelIndex & parent = QModelIndex() ) const;
+    virtual QModelIndex parent(const QModelIndex &index) const;
+    virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
+    virtual bool hasChildren(const QModelIndex &parent = QModelIndex()) const;
 
     /* extra api for view */
     QModelIndex docIndex(const KTextEditor::Document *) const;
@@ -81,19 +82,19 @@ class KateFileTreeModel : public QAbstractItemModel
     void documentEdited(const KTextEditor::Document *);
     void resetHistory();
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void documentOpened(KTextEditor::Document *);
     void documentClosed(KTextEditor::Document *);
     void documentNameChanged(KTextEditor::Document *);
-    void documentModifiedChanged( KTextEditor::Document *);
-    void documentModifiedOnDisc(KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
+    void documentModifiedChanged(KTextEditor::Document *);
+    void documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
     void slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &);
     void slotDocumentsDeleted(const QList<KTextEditor::Document *> &);
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void triggerViewChangeAfterNameChange();
 
-  private:
+private:
     ProxyItemDir *findRootNode(const QString &name, const int r = 1) const;
     ProxyItemDir *findChildNode(const ProxyItemDir *parent, const QString &name) const;
     void insertItemInto(ProxyItemDir *root, ProxyItem *item);
@@ -110,7 +111,7 @@ class KateFileTreeModel : public QAbstractItemModel
     void clearModel();
     void connectDocument(const KTextEditor::Document *);
 
-  private:
+private:
     ProxyItemDir *m_root;
     QHash<const KTextEditor::Document *, ProxyItem *> m_docmap;
 
@@ -128,4 +129,3 @@ class KateFileTreeModel : public QAbstractItemModel
 
 #endif /* KATEFILETREEMODEL_H */
 
-// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

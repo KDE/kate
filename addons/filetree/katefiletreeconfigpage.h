@@ -29,28 +29,29 @@
 
 class KateFileTreePlugin;
 
-class KateFileTreeConfigPage : public KTextEditor::ConfigPage {
-  Q_OBJECT
-  public:
-    explicit KateFileTreeConfigPage( QWidget* parent=0, KateFileTreePlugin *plug=0 );
+class KateFileTreeConfigPage : public KTextEditor::ConfigPage
+{
+    Q_OBJECT
+public:
+    explicit KateFileTreeConfigPage(QWidget *parent = 0, KateFileTreePlugin *plug = 0);
     ~KateFileTreeConfigPage() {};
 
     virtual QString name() const;
     virtual QString fullName() const;
     virtual QIcon icon() const;
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void apply();
     void defaults();
     void reset();
-    
-  //Q_SIGNALS:
-  //  void changed();
 
-  private Q_SLOTS:
+    //Q_SIGNALS:
+    //  void changed();
+
+private Q_SLOTS:
     void slotMyChanged();
 
-  private:
+private:
     class QGroupBox *gbEnableShading;
     class KColorButton *kcbViewShade, *kcbEditShade;
     class QLabel *lEditShade, *lViewShade, *lSort, *lMode;
@@ -63,4 +64,3 @@ class KateFileTreeConfigPage : public KTextEditor::ConfigPage {
 
 #endif /* KATE_FILETREE_CONFIGPAGE_H */
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

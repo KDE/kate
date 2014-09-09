@@ -22,25 +22,25 @@
 
 #include <QSortFilterProxyModel>
 
-namespace KTextEditor {
-   class Document;
+namespace KTextEditor
+{
+class Document;
 }
 
 class KateFileTreeProxyModel : public QSortFilterProxyModel
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     KateFileTreeProxyModel(QObject *p = 0);
     QModelIndex docIndex(const KTextEditor::Document *) const;
     bool isDir(const QModelIndex &i) const;
     virtual void setSourceModel(QAbstractItemModel *model);
 
-  protected:
+protected:
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 
 };
 
 #endif /* KATE_FILETREEPROXYMODEL_H */
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

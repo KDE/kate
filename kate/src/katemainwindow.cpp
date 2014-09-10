@@ -78,8 +78,6 @@
 #include <QFontDatabase>
 
 #include <ktexteditor/sessionconfiginterface.h>
-
-#include <assert.h>
 //END
 
 KateMwModOnHdDialog *KateMainWindow::s_modOnHdDialog = 0;

@@ -113,6 +113,14 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
      */
     KateUpdateDisabler disableUpdates (this);
 
+    /**
+     * get and set config revision
+     */
+    static const int currentConfigRevision = 10;
+    const int readConfigRevision = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Config Revision", 0);
+    KConfigGroup(KSharedConfig::openConfig(), "General").writeEntry("Config Revision", currentConfigRevision);
+    const bool firstStart = readConfigRevision < currentConfigRevision;
+    
     m_modignore = false;
 
     int scnum = QApplication::desktop()->screenNumber(parentWidget());
@@ -202,6 +210,10 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     // prior to this there was (possibly) no view, therefore not context menu.
     // Hence, we have to take care of the menu bar here
     toggleShowMenuBar(false);
+    
+    // on first start: deactivate toolbar
+    if (firstStart)
+        toolBar(QLatin1String("mainToolBar"))->hide();
 }
 
 KateMainWindow::~KateMainWindow()

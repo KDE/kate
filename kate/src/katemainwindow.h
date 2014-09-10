@@ -166,6 +166,12 @@ public Q_SLOTS:
      * Show quick open
      */
     void slotQuickOpen();
+    
+    /**
+     * Overwrite size hint for better default window sizes
+     * @return size hint
+     */
+    QSize sizeHint() const;
 
     /**
      * slots used for actions in the menus/toolbars

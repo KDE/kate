@@ -106,6 +106,7 @@ QSize KateContainerStackedLayout::minimumSize() const
 
 KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     : KateMDI::MainWindow(0)
+    , m_modignore(false)
     , m_wrapper(new KTextEditor::MainWindow(this))
 {
     /**
@@ -120,45 +121,6 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     const int readConfigRevision = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Config Revision", 0);
     KConfigGroup(KSharedConfig::openConfig(), "General").writeEntry("Config Revision", currentConfigRevision);
     const bool firstStart = readConfigRevision < currentConfigRevision;
-    
-    m_modignore = false;
-
-    int scnum = QApplication::desktop()->screenNumber(parentWidget());
-    QRect desk = QApplication::desktop()->screenGeometry(scnum);
-
-    QSize size;
-
-    // try to load size
-    if (sconfig) {
-        KConfigGroup cg(sconfig, sgroup);
-        size.setWidth(cg.readEntry(QString::fromLatin1("Width %1").arg(desk.width()), 0));
-        size.setHeight(cg.readEntry(QString::fromLatin1("Height %1").arg(desk.height()), 0));
-    }
-
-    // if thats fails, try to reuse size
-    if (size.isEmpty()) {
-        // first try to reuse size known from current or last created main window ;=)
-        if (KateApp::self()->mainWindowsCount() > 0) {
-            KateMainWindow *win = KateApp::self()->activeKateMainWindow();
-
-            if (!win) {
-                win = KateApp::self()->mainWindow(KateApp::self()->mainWindowsCount() - 1);
-            }
-
-            size = win->size();
-        } else { // now fallback to hard defaults ;)
-            // first try global app config
-            KConfigGroup cg(KSharedConfig::openConfig(), "MainWindow");
-            size.setWidth(cg.readEntry(QString::fromLatin1("Width %1").arg(desk.width()), 0));
-            size.setHeight(cg.readEntry(QString::fromLatin1("Height %1").arg(desk.height()), 0));
-
-            if (size.isEmpty()) {
-                size = QSize(qMin(700, desk.width()), qMin(480, desk.height()));
-            }
-        }
-
-        resize(size);
-    }
 
     // start session restore if needed
     startRestore(sconfig, sgroup);
@@ -238,6 +200,14 @@ KateMainWindow::~KateMainWindow()
     // kill the wrapper object, now that all views are dead
     delete m_wrapper;
     m_wrapper = 0;
+}
+
+QSize KateMainWindow::sizeHint() const
+{
+    /**
+     * have some useful size hint, else we have mini windows per default
+     */
+    return (QSize(640, 480).expandedTo(minimumSizeHint()));
 }
 
 void KateMainWindow::setupImportantActions()

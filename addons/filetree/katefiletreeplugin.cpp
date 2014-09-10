@@ -223,7 +223,7 @@ KateFileTreePluginView::~KateFileTreePluginView()
 void KateFileTreePluginView::setupActions()
 {
     auto aPrev = actionCollection()->addAction(QLatin1String("filetree_prev_document"));
-    aPrev->setText(i18n("Previous Docment"));
+    aPrev->setText(i18n("Previous Document"));
     aPrev->setIcon(QIcon::fromTheme(QLatin1String("go-up")));
     actionCollection()->setDefaultShortcut(aPrev, Qt::ALT + Qt::Key_Up);
     connect(aPrev, SIGNAL(triggered(bool)), m_fileTree, SLOT(slotDocumentPrev()));

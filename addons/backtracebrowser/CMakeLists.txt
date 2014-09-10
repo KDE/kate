@@ -23,7 +23,6 @@ target_link_libraries(katebacktracebrowserplugin
 ########### install files ###############
 install( TARGETS katebacktracebrowserplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 kcoreaddons_desktop_to_json (katebacktracebrowserplugin katebacktracebrowserplugin.desktop)
-install( FILES katebacktracebrowserplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 ############# unit tests ################
 ecm_optional_add_subdirectory (autotests)

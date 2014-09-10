@@ -21,5 +21,4 @@ install(TARGETS katekonsoleplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor
 install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/katekonsole )
 
 kcoreaddons_desktop_to_json (katekonsoleplugin katekonsoleplugin.desktop)
-install( FILES katekonsoleplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )
 

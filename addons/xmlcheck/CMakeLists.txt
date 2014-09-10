@@ -15,4 +15,3 @@ install(TARGETS katexmlcheckplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktextedito
 ########### install files ###############
 
 install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/kate/plugins/katexmlcheck )
-install( FILES katexmlcheck.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

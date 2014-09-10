@@ -31,4 +31,3 @@ install( FILES html4-loose.dtd.xml  html4-strict.dtd.xml kde-docbook.dtd.xml sim
                DESTINATION  ${DATA_INSTALL_DIR}/katexmltools )
 
 kcoreaddons_desktop_to_json (katexmltoolsplugin katexmltools.desktop)
-install( FILES katexmltools.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

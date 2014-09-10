@@ -36,4 +36,3 @@ install( FILES ui.rc DESTINATION  ${KXMLGUI_INSTALL_DIR}/kateproject )
 install( FILES kateproject.example DESTINATION  ${DATA_INSTALL_DIR}/kateproject )
 
 kcoreaddons_desktop_to_json (kateprojectplugin kateprojectplugin.desktop)
-install( FILES kateprojectplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )

@@ -35,7 +35,6 @@ install(TARGETS katesnippetsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor
 ########### install files ###############
 
 kcoreaddons_desktop_to_json (katesnippetsplugin katesnippetsplugin.desktop)
-install( FILES katesnippetsplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 # install the snippet stuff
 install( FILES ktexteditor_codesnippets_core.knsrc DESTINATION  ${CONFIG_INSTALL_DIR} )

@@ -22,7 +22,6 @@ target_link_libraries(katefiletreeplugin katefiletree)
 install(TARGETS katefiletreeplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
 kcoreaddons_desktop_to_json (katefiletreeplugin katefiletreeplugin.desktop)
-install( FILES katefiletreeplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 ########### install files ###############
 

@@ -19,4 +19,3 @@ install(TARGETS katectagsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katectags)
 
 kcoreaddons_desktop_to_json (katectagsplugin katectagsplugin.desktop)
-install(FILES katectagsplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )

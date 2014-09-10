@@ -22,4 +22,3 @@ install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katesearch)
 
 
 kcoreaddons_desktop_to_json (katesearchplugin katesearch.desktop)
-install(FILES katesearch.desktop DESTINATION ${SERVICES_INSTALL_DIR})

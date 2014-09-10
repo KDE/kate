@@ -39,4 +39,3 @@ install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/katesql )
 
 kcoreaddons_desktop_to_json (katesqlplugin katesql.desktop)
-install( FILES katesql.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

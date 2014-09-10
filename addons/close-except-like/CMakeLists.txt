@@ -33,4 +33,3 @@ install(TARGETS katecloseexceptplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktextedi
 
 kcoreaddons_desktop_to_json(katecloseexceptplugin katecloseexceptplugin.desktop)
 install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}//katecloseexceptplugin)
-install(FILES katecloseexceptplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR})

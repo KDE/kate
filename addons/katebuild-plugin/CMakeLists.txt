@@ -11,5 +11,4 @@ target_link_libraries(katebuildplugin KF5::TextEditor KF5::I18n KF5::IconThemes 
 ########### install files ###############
 install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katebuild)
 install(TARGETS katebuildplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-install(FILES katebuildplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 kcoreaddons_desktop_to_json (katebuildplugin katebuildplugin.desktop)

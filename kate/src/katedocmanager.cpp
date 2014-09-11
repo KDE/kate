@@ -31,7 +31,6 @@
 
 #include <KCodecs>
 #include <KMessageBox>
-#include <KEncodingFileDialog>
 #include <KIO/DeleteJob>
 #include <KIconLoader>
 #include <KColorScheme>
@@ -47,6 +46,7 @@
 #include <QApplication>
 #include <QListView>
 #include <QProgressDialog>
+#include <QFileDialog>
 
 KateDocManager::KateDocManager(QObject *parent)
     : QObject(parent)
@@ -340,14 +340,9 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
             }
 
             if (msgres == KMessageBox::Yes) {
-                KEncodingFileDialog::Result r = KEncodingFileDialog::getSaveUrlAndEncoding(doc->encoding(), QUrl(), QString(), w, i18n("Save As"));
-
-                doc->setEncoding(r.encoding);
-
-                if (!r.URLs.isEmpty()) {
-                    QUrl tmp = r.URLs.first();
-
-                    if (!doc->saveAs(tmp)) {
+                const QUrl url = QFileDialog::getSaveFileUrl(w, i18n("Save As"));
+                if (!url.isEmpty()) {
+                    if (!doc->saveAs(url)) {
                         return false;
                     }
                 } else {

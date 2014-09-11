@@ -32,7 +32,6 @@
 #include <KSharedConfig>
 
 #include <ktexteditor/editor.h>
-#include <ktexteditor/templateinterface2.h>
 
 Q_DECLARE_METATYPE(KSharedConfig::Ptr)
 

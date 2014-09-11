@@ -240,11 +240,13 @@ void KateFileTreePluginView::setupActions()
     connect(aShowActive, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()));
 
     auto aSave = actionCollection()->addAction(QLatin1String("filetree_save"), this, SLOT(slotDocumentSave()));
-    aSave->setWhatsThis(i18n("Save the current document"));
+    aSave->setText(i18n("Save Current Document"));
+    aSave->setToolTip(i18n("Save the current document"));
     aSave->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
 
     auto aSaveAs = actionCollection()->addAction(QLatin1String("filetree_save_as"), this, SLOT(slotDocumentSaveAs()));
-    aSaveAs->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));
+    aSaveAs->setText(i18n("Save Current Document As"));
+    aSaveAs->setToolTip(i18n("Save current document under new name"));
     aSaveAs->setIcon(QIcon::fromTheme(QLatin1String("document-save-as")));
 
     /**

@@ -56,7 +56,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * will create toolviews on demand!
      */
     foreach(KateProject * project, m_plugin->projects())
-    viewForProject(project);
+        viewForProject(project);
 
     /**
      * connect to important signals, e.g. for auto project view creation
@@ -69,7 +69,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * connect for all already existing views
      */
     foreach(KTextEditor::View * view, m_mainWindow->views())
-    slotViewCreated(view);
+        slotViewCreated(view);
 
     /**
      * trigger once view change, to highlight right document
@@ -79,8 +79,10 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     /**
      * back + forward
      */
-    actionCollection()->addAction(KStandardAction::Back, QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()))->setShortcut(Qt::CTRL | Qt::ALT | Qt::Key_Left);
-    actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()))->setShortcut(Qt::CTRL | Qt::ALT | Qt::Key_Right);
+    auto a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
+    a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
 
     /**
      * add us to gui

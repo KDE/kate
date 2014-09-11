@@ -29,7 +29,6 @@
 #include <KActionCollection>
 #include <KToggleAction>
 #include <KEditToolBar>
-#include <KEncodingFileDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KRecentFilesAction>
@@ -54,6 +53,8 @@
 #include <QLabel>
 #include <QDragEnterEvent>
 #include <QMenuBar>
+#include <QDir>
+#include <QFileDialog>
 
 QList<KTextEditor::Document *> KWrite::docList;
 QList<KWrite *> KWrite::winList;
@@ -231,9 +232,8 @@ void KWrite::slotNew()
 
 void KWrite::slotOpen()
 {
-    const KEncodingFileDialog::Result r = KEncodingFileDialog::getOpenUrlsAndEncoding(KTextEditor::Editor::instance()->defaultEncoding(), m_view->document()->url(), QString(), this, i18n("Open File"));
-    Q_FOREACH(QUrl url, r.URLs) {
-        encoding = r.encoding;
+    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(this, i18n("Open File"), m_view->document()->url());
+    Q_FOREACH(QUrl url, urls) {
         slotOpen(url);
     }
 }
@@ -253,10 +253,8 @@ void KWrite::slotOpen(const QUrl &url)
 
     if (m_view->document()->isModified() || !m_view->document()->url().isEmpty()) {
         KWrite *t = new KWrite();
-        t->m_view->document()->setEncoding(encoding);
         t->loadURL(url);
     } else {
-        m_view->document()->setEncoding(encoding);
         loadURL(url);
     }
 }

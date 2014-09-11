@@ -133,8 +133,6 @@ private:
     KActivities::ResourceInstance *m_activityResource;
 #endif
 
-    QString encoding;
-
     static QList<KTextEditor::Document *> docList;
     static QList<KWrite *> winList;
 

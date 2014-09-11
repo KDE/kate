@@ -31,7 +31,6 @@
 #include <KTextEditor/Attribute>
 
 #include <KActionCollection>
-#include <KEncodingFileDialog>
 #include <KToolBar>
 #include <KMessageBox>
 #include <KRecentFilesAction>
@@ -44,6 +43,7 @@
 #include <kactivities/resourceinstance.h>
 #endif
 
+#include <QFileDialog>
 #include <QStyle>
 
 //END Includes
@@ -221,17 +221,13 @@ void KateViewManager::slotDocumentOpen()
         return;
     }
 
-    KEncodingFileDialog::Result r = KEncodingFileDialog::getOpenUrlsAndEncoding(
-                                        KTextEditor::Editor::instance()->defaultEncoding(),
-                                        cv->document()->url(),
-                                        QString(), m_mainWindow, i18n("Open File"));
-
     KateDocumentInfo docInfo;
     docInfo.openedByUser = true;
 
     QString fileList;
 
-    foreach(const QUrl & url, r.URLs) {
+    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(m_mainWindow, i18n("Open File"), cv->document()->url());
+    Q_FOREACH(const QUrl & url, urls) {
         qint64 size = QFile(url.toLocalFile()).size();
 
         if (size > FileSizeAboveToAskUserIfProceedWithOpen) {
@@ -248,7 +244,7 @@ void KateViewManager::slotDocumentOpen()
         }
     }
 
-    KTextEditor::Document *lastID = openUrls(r.URLs, r.encoding, false, docInfo);
+    KTextEditor::Document *lastID = openUrls(urls, QString(), false, docInfo);
 
     if (lastID) {
         activateView(lastID);

@@ -170,7 +170,9 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     if (!doc) {
         doc = createDoc(docInfo);
 
-        doc->setEncoding(encoding);
+        if (!encoding.isEmpty()) {
+            doc->setEncoding(encoding);
+        }
 
         if (!u.isEmpty()) {
             if (!loadMetaInfos(doc, u)) {

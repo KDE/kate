@@ -24,13 +24,13 @@
 #include <KStandardGuiItem>
 #include <KIconLoader>
 #include <KMessageBox>
-#include <KEncodingFileDialog>
 #include <KLocalizedString>
 
 #include <QLabel>
 #include <QPushButton>
 #include <QTreeWidget>
 #include <QVBoxLayout>
+#include <QFileDialog>
 
 class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
 {
@@ -80,15 +80,11 @@ public:
     {}
     virtual bool synchronousSave(QWidget *dialogParent) {
         if (m_document->url().isEmpty()) {
-            KEncodingFileDialog::Result r = KEncodingFileDialog::getSaveUrlAndEncoding(
-                                                m_document->encoding(), QUrl(), QString(), dialogParent, i18n("Save As (%1)", m_document->documentName()));
-
-            if (!r.URLs.isEmpty()) {
-                QUrl tmp = r.URLs.first();
-
+            const QUrl url = QFileDialog::getSaveFileUrl(dialogParent, i18n("Save As (%1)", m_document->documentName()));
+            if (!url.isEmpty()) {
                 // check for overwriting a file
-                if (tmp.isLocalFile()) {
-                    QFileInfo info(tmp.path());
+                if (url.isLocalFile()) {
+                    QFileInfo info(url.path());
                     if (info.exists()) {
                         if (KMessageBox::Cancel == KMessageBox::warningContinueCancel(dialogParent,
                                 i18n("A file named \"%1\" already exists. "
@@ -101,9 +97,7 @@ public:
                     }
                 }
 
-                m_document->setEncoding(r.encoding);
-
-                if (!m_document->saveAs(tmp)) {
+                if (!m_document->saveAs(url)) {
                     setState(SaveFailedState);
                     setText(1, m_document->url().toString());
                     return false;

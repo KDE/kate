@@ -125,14 +125,14 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
     setXMLFile(QLatin1String("ui.rc"));
 
     QAction *actionInsert = new QAction(i18n("&Insert Element..."), this);
-    actionInsert->setShortcut(Qt::CTRL + Qt::Key_Return);
     connect(actionInsert, SIGNAL(triggered()), &m_model, SLOT(slotInsertElement()));
     actionCollection()->addAction("xml_tool_insert_element", actionInsert);
+    actionCollection()->setDefaultShortcut(actionInsert, Qt::CTRL + Qt::Key_Return);
 
     QAction *actionClose = new QAction(i18n("&Close Element"), this);
-    actionClose->setShortcut(Qt::CTRL + Qt::Key_Less);
     connect(actionClose, SIGNAL(triggered()), &m_model, SLOT(slotCloseElement()));
     actionCollection()->addAction("xml_tool_close_element", actionClose);
+    actionCollection()->setDefaultShortcut(actionClose, Qt::CTRL + Qt::Key_Less);
 
     QAction *actionAssignDTD = new QAction(i18n("Assign Meta &DTD..."), this);
     connect(actionAssignDTD, SIGNAL(triggered()), &m_model, SLOT(getDTD()));

@@ -52,7 +52,7 @@ PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,
 {
   KAction* a = actionCollection()->addAction("edit_filter");
   a->setText(i18n("Filter Te&xt..."));
-  a->setShortcut(Qt::CTRL + Qt::Key_Backslash);
+  actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_Backslash);
   connect(a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditFilter()));
 
   mainwindow->guiFactory()->addClient(this);

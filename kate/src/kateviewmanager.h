@@ -244,6 +244,11 @@ public Q_SLOTS:
     void slotHideOtherViews(bool hideOthers);
 
     void reactivateActiveView();
+    
+    /**
+     * Toogle the orientation of current split view
+     */
+    void toggleSplitterOrientation();
 
     /**
      * central storage of all views known in the view manager
@@ -262,6 +267,7 @@ private:
     QAction *m_splitViewHoriz;
     QAction *m_closeView;
     QAction *m_closeOtherViews;
+    QAction *m_toggleSplitterOrientation;
     QAction *m_hideOtherViews;
     QAction *goNext;
     QAction *goPrev;

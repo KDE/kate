@@ -162,6 +162,12 @@ void KateViewManager::setupActions()
 
     m_hideOtherViews->setWhatsThis(i18n("Hide every view but the active one"));
 
+    m_toggleSplitterOrientation = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_toggle"));
+    m_toggleSplitterOrientation->setText(i18n("Toggle Orientation"));
+    connect(m_toggleSplitterOrientation, SIGNAL(triggered()), this, SLOT(toggleSplitterOrientation()), Qt::QueuedConnection);
+
+    m_toggleSplitterOrientation->setWhatsThis(i18n("Toggles the orientation of the current split view"));
+
     goNext = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_next_split_view"));
     goNext->setText(i18n("Next Split View"));
     m_mainWindow->actionCollection()->setDefaultShortcut(goNext, Qt::Key_F8);
@@ -205,6 +211,7 @@ void KateViewManager::updateViewSpaceActions()
 {
     m_closeView->setEnabled(m_viewSpaceList.count() > 1);
     m_closeOtherViews->setEnabled(m_viewSpaceList.count() > 1);
+    m_toggleSplitterOrientation->setEnabled(m_viewSpaceList.count() > 1);
     goNext->setEnabled(m_viewSpaceList.count() > 1);
     goPrev->setEnabled(m_viewSpaceList.count() > 1);
 }
@@ -802,6 +809,30 @@ void KateViewManager::closeViewSpace(KTextEditor::View *view)
     removeViewSpace(space);
 }
 
+void KateViewManager::toggleSplitterOrientation()
+{
+    KateViewSpace *vs = activeViewSpace();
+    if (!vs) {
+        return;
+    }
+
+    // get current splitter, and abort if null
+    QSplitter *currentSplitter = qobject_cast<QSplitter *>(vs->parentWidget());
+    if (!currentSplitter || (currentSplitter->count() == 1)) {
+        return;
+    }
+    
+    // avoid flicker
+    KateUpdateDisabler disableUpdates (mainWindow());
+
+    // toggle orientation
+    if (currentSplitter->orientation() == Qt::Horizontal) {
+        currentSplitter->setOrientation(Qt::Vertical);
+    } else {
+        currentSplitter->setOrientation(Qt::Horizontal);
+    }
+}
+
 bool KateViewManager::viewsInSameViewSpace(KTextEditor::View *view1,
                                            KTextEditor::View *view2)
 {
@@ -934,6 +965,7 @@ void KateViewManager::slotHideOtherViews(bool hideOthers)
     m_splitViewHoriz->setDisabled(hideOthers);
     m_closeView->setDisabled(hideOthers);
     m_closeOtherViews->setDisabled(hideOthers);
+    m_toggleSplitterOrientation->setDisabled(hideOthers);
 }
 
 /**

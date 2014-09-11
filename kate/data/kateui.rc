@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="78">
+<kpartgui name="kate" version="79">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -56,6 +56,7 @@
         <Separator/>
         <Action name="view_split_vert"/>
         <Action name="view_split_horiz"/>
+        <Action name="view_split_toggle"/>
         <Separator/>
         <Action name="view_close_current_space"/>
         <Action name="view_close_others"/>

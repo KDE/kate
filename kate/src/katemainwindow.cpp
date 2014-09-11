@@ -224,8 +224,18 @@ void KateMainWindow::setupImportantActions()
     connect(m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()));
     m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 
+    QAction * a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("view_prev_tab"));
+    a->setText(i18n("&Previous Tab"));
+    a->setWhatsThis(i18n("Focus the previous tab."));
+    connect(a, SIGNAL(triggered()), this, SLOT(slotFocusPrevTab()));
+
+    a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("view_next_tab"));
+    a->setText(i18n("&Next Tab"));
+    a->setWhatsThis(i18n("Focus the next tab."));
+    connect(a, SIGNAL(triggered()), this, SLOT(slotFocusNextTab()));
+
     // the quick open action is used by the KateViewSpace "quick open button"
-    QAction * a = actionCollection()->addAction(QStringLiteral("view_quick_open"));
+    a = actionCollection()->addAction(QStringLiteral("view_quick_open"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
     a->setText(i18n("&Quick Open"));
     QList<QKeySequence> scuts;
@@ -1059,6 +1069,20 @@ QObject *KateMainWindow::pluginView(const QString &name)
     }
 
     return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : 0;
+}
+
+void KateMainWindow::slotFocusPrevTab()
+{
+    if (m_viewManager->activeViewSpace()) {
+        m_viewManager->activeViewSpace()->focusPrevTab();
+    }
+}
+
+void KateMainWindow::slotFocusNextTab()
+{
+    if (m_viewManager->activeViewSpace()) {
+        m_viewManager->activeViewSpace()->focusNextTab();
+    }
 }
 
 void KateMainWindow::slotQuickOpen()

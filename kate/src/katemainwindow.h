@@ -162,6 +162,9 @@ public Q_SLOTS:
     void slotFileQuit();
     void queueModifiedOnDisc(KTextEditor::Document *doc);
 
+    void slotFocusPrevTab();
+    void slotFocusNextTab();
+
     /**
      * Show quick open
      */

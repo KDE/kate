@@ -534,6 +534,22 @@ void KateViewSpace::updateQuickOpen()
     }
 }
 
+void KateViewSpace::focusPrevTab()
+{
+    const int id = m_tabBar->prevTab();
+    if (id >= 0) {
+        changeView(id);
+    }
+}
+
+void KateViewSpace::focusNextTab()
+{
+    const int id = m_tabBar->nextTab();
+    if (id >= 0) {
+        changeView(id);
+    }
+}
+
 int KateViewSpace::hiddenDocuments() const
 {
     const int hiddenDocs = KateApp::self()->documents().count() - m_tabBar->count();

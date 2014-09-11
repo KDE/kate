@@ -93,6 +93,16 @@ public:
      */
     bool eventFilter(QObject *obj, QEvent *event);
 
+    /**
+     * Focus the previous tab in the tabbar.
+     */
+    void focusPrevTab();
+
+    /**
+     * Focus the next tab in the tabbar.
+     */
+    void focusNextTab();
+
 public Q_SLOTS:
     void documentDestroyed(QObject *doc);
     void updateDocumentName(KTextEditor::Document *doc);

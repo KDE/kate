@@ -69,6 +69,18 @@ public:
      */
     int currentTab() const;
 
+    /**
+     * Get the ID of the tab that is located left of the current tab.
+     * The return value is -1, if there is no previous tab.
+     */
+    int prevTab() const;
+
+    /**
+     * Get the ID of the tab that is located right of the current tab.
+     * The return value is -1, if there is no next tab.
+     */
+    int nextTab() const;
+
 public Q_SLOTS:
     /**
      * Activate the tab with \p id. No signal is emitted.

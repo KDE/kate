@@ -120,6 +120,40 @@ void KateTabBar::setCurrentTab(int id)
     m_activeButton->setChecked(true);
 }
 
+int KateTabBar::prevTab() const
+{
+    const int curId = currentTab();
+
+    if (curId >= 0) {
+        KateTabButton *tabButton = m_idToTab[curId];
+        const int index = m_tabButtons.indexOf(tabButton);
+        Q_ASSERT(index >= 0);
+
+        if (index > 0) {
+            return m_idToTab.key(m_tabButtons[index - 1], -1);
+        }
+    }
+
+    return -1;
+}
+
+int KateTabBar::nextTab() const
+{
+    const int curId = currentTab();
+
+    if (curId >= 0) {
+        KateTabButton *tabButton = m_idToTab[curId];
+        const int index = m_tabButtons.indexOf(tabButton);
+        Q_ASSERT(index >= 0);
+
+        if (index < m_tabButtons.size() - 1) {
+            return m_idToTab.key(m_tabButtons[index + 1], -1);
+        }
+    }
+
+    return -1;
+}
+
 int KateTabBar::removeTab(int id)
 {
     Q_ASSERT(m_idToTab.contains(id));

@@ -30,7 +30,6 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
-#include <ktexteditor/templateinterface.h>
 
 #include "snippet.h"
 #include "snippetrepository.h"
@@ -90,9 +89,8 @@ QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const 
 
 void SnippetCompletionItem::execute( KTextEditor::View* view, const KTextEditor::Range& word )
 {
-    auto iface = qobject_cast<KTextEditor::TemplateInterface*>(view);
     // Replace matched text...
     view->document()->removeText(word);
     // ... with snippet content
-    iface->insertTemplateText(word.start(), m_snippet, m_repo->script());
+    view->insertTemplate(word.start(), m_snippet, m_repo->script());
 }

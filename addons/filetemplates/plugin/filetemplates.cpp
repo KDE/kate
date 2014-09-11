@@ -66,7 +66,6 @@
 
 #include <stdlib.h>
 
-#include <ktexteditor/templateinterface.h>
 #include <krecentfilesaction.h>
 
 #include <kpluginfactory.h>
@@ -464,7 +463,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
     m_emailstuff = 0;
     if (isTemplate) {
       auto ti = static_cast<KTextEditor::TemplateInterface*>(doc->activeView());
-      ti->insertTemplateText({0, 0}, str);
+      ti->insertTemplate({0, 0}, str);
     } else {
       doc->insertText( KTextEditor::Cursor(0, 0), str );
       view->setCursorPosition(KTextEditor::Cursor(line, col));

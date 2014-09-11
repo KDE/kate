@@ -42,7 +42,12 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
+struct ViewTabButtonPair {
+    KTextEditor::View* view;
+    QToolButton* button;
+};
+
+ViewTabButtonPair createViewForTab(QWidget* tabWidget)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     tabWidget->setLayout(layout);
@@ -66,7 +71,7 @@ QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
     hlayout->addWidget(button);
     layout->addLayout(hlayout);
 
-    return qMakePair(view, button);
+    return {view, button};
 }
 
 EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidget* parent)
@@ -100,20 +105,20 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
     ///TODO: highlighting and documentation of template handler variables
-    QPair<KTextEditor::View*, QToolButton*> pair = getViewForTab(m_ui->snippetTab);
-    m_snippetView = pair.first;
+    auto snippet_tab = createViewForTab(m_ui->snippetTab);
+    m_snippetView = snippet_tab.view;
     if (!m_repo->fileTypes().isEmpty()) {
         m_snippetView->document()->setMode(m_repo->fileTypes().first());
     }
-    connect(pair.second, SIGNAL(clicked(bool)),
+    connect(snippet_tab.button, SIGNAL(clicked(bool)),
             this, SLOT(slotSnippetDocumentation()));
     ///TODO: highlighting and documentation of KTextEditor API
-    pair = getViewForTab(m_ui->scriptTab);
-    m_scriptsView = pair.first;
+    auto script_tab = createViewForTab(m_ui->scriptTab);
+    m_scriptsView = script_tab.view;
     m_scriptsView->document()->setMode(QLatin1String("JavaScript"));
     m_scriptsView->document()->setText(m_repo->script());
     m_scriptsView->document()->setModified(false);
-    connect(pair.second, SIGNAL(clicked(bool)),
+    connect(script_tab.button, SIGNAL(clicked(bool)),
             this, SLOT(slotScriptDocumentation()));
 
     m_ui->verticalLayout->setMargin(0);

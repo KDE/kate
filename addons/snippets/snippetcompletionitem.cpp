@@ -27,11 +27,10 @@
 #include <QTextEdit>
 #include <QModelIndex>
 
-#include <ktexteditor/templateinterface.h>
-#include <ktexteditor/templateinterface2.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
+#include <ktexteditor/templateinterface.h>
 
 #include "snippet.h"
 #include "snippetrepository.h"
@@ -49,7 +48,7 @@ SnippetCompletionItem::~SnippetCompletionItem()
 {
 }
 
-QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const KTextEditor::CodeCompletionModel2* model ) const
+QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const KTextEditor::CodeCompletionModel* model ) const
 {
     // as long as the snippet completion model is not a kdevelop code completion model,
     // model will usually be 0. hence don't use it.
@@ -91,13 +90,9 @@ QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const 
 
 void SnippetCompletionItem::execute( KTextEditor::View* view, const KTextEditor::Range& word )
 {
-    QMap< QString, QString > values = QMap<QString, QString>();
-    KTextEditor::TemplateInterface2* templateIface2 = qobject_cast<KTextEditor::TemplateInterface2*>(view);
-    if (templateIface2)
-    {
-      // Replace matched text...
-      view->document()->removeText(word);
-      // ... with snippet content
-      templateIface2->insertTemplateText(word.start(), m_snippet, values, m_repo->registeredScript());
-    }
+    auto iface = qobject_cast<KTextEditor::TemplateInterface*>(view);
+    // Replace matched text...
+    view->document()->removeText(word);
+    // ... with snippet content
+    iface->insertTemplateText(word.start(), m_snippet, m_repo->script());
 }

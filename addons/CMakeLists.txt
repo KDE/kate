@@ -37,8 +37,8 @@ ecm_optional_add_subdirectory (project)
 # terminal tool view
 ecm_optional_add_subdirectory (konsole)
 
-# snippets => disabled in KF 5.0, we need to have a improved template interface
-#ecm_optional_add_subdirectory (snippets)
+# snippets
+ecm_optional_add_subdirectory (snippets)
 
 # ctags
 ecm_optional_add_subdirectory (kate-ctags)

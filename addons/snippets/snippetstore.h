@@ -62,23 +62,6 @@ public:
      * Returns the repository for the given @p file if there is any.
      */
     SnippetRepository* repositoryForFile(const QString &file);
-
-    /**
-     * Register @p script to make it available in snippets.
-     * 
-     * @return token identifying the script
-     * 
-     * @since KDE 4.5
-     */
-    KTextEditor::TemplateScript* registerScript(const QString& script);
-
-    /**
-     * Unregister script identified by @p token.
-     *
-     * @since KDE 4.5
-     */
-    void unregisterScript(KTextEditor::TemplateScript* token);
-
 private:
     SnippetStore(KateSnippetGlobal* plugin);
 
@@ -86,7 +69,6 @@ private:
 
     static SnippetStore* m_self;
     KateSnippetGlobal* m_plugin;
-    KTextEditor::TemplateScriptRegistrar* m_scriptregistrar;
 };
 
 #endif

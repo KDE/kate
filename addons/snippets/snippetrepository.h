@@ -27,6 +27,7 @@
 #include <QObject>
 #include <QStandardItem>
 #include <QStringList>
+#include <QDir>
 
 namespace KTextEditor
 {
@@ -117,10 +118,7 @@ public:
      * @since KDE 4.5
      */
     QString script() const;
-    /**
-     * The token identifying the script in this repository.
-     */
-    KTextEditor::TemplateScript* registeredScript() const;
+
     /**
      * Sets the QtScript(s) associated with this repository.
      * 
@@ -137,6 +135,11 @@ public:
      * Save this repository to disk.
      */
     void save();
+
+    /**
+     * Get directory for data storage from QStandardPaths
+     */
+    static QDir dataPath();
 
     virtual QVariant data(int role = Qt::UserRole + 1) const;
     virtual void setData(const QVariant& value, int role = Qt::UserRole + 1);
@@ -156,10 +159,8 @@ private:
     QStringList m_filetypes;
     /// filtering namespace for code completion
     QString m_namespace;
-    /// QtScript with functions to be used in the snippet
+    /// QtScript with functions to be used in the snippets; common to all snippets
     QString m_script;
-    /// registered script
-    KTextEditor::TemplateScript* m_registeredScript;
 };
 
 #endif

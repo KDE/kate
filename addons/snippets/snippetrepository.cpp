@@ -37,6 +37,7 @@
 #include <KLocalizedString>
 #include <QApplication>
 #include <QDebug>
+#include <QDir>
 
 #include <KColorScheme>
 
@@ -45,10 +46,11 @@
 #include "snippetstore.h"
 
 SnippetRepository::SnippetRepository(const QString& file)
- : QStandardItem(i18n("<empty repository>")), m_file(file), m_registeredScript(0)
+ : QStandardItem(i18n("<empty repository>")), m_file(file)
 {
     setIcon( QIcon::fromTheme(QLatin1String("folder")) );
-    bool activated = SnippetStore::self()->getConfig().readEntry<QStringList>("enabledRepositories", QStringList()).contains(file);
+    const auto& config = SnippetStore::self()->getConfig();
+    bool activated = config.readEntry<QStringList>("enabledRepositories", QStringList()).contains(file);
     setCheckState(activated ? Qt::Checked : Qt::Unchecked);
 
     if ( QFile::exists(file) ) {
@@ -65,15 +67,26 @@ SnippetRepository::~SnippetRepository()
     removeRows( 0, rowCount() );
 }
 
+QDir SnippetRepository::dataPath()
+{
+    auto dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    const auto& subdir = QLatin1String("ktexteditor_snippets/data/");
+    bool success = dir.mkpath(dir.absoluteFilePath(subdir));
+    Q_ASSERT(success);
+    dir.setPath(dir.path() + QLatin1String("/") + subdir);
+    return dir;
+}
+
 SnippetRepository* SnippetRepository::createRepoFromName(const QString& name)
 {
     QString cleanName = name;
     cleanName.replace(QLatin1Char('/'), QLatin1Char('-'));
 
-    const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                                QLatin1String("ktexteditor_snippets/data/") + cleanName + QLatin1String(".xml"));
-    SnippetRepository* repo = new SnippetRepository(path);
+    const auto& dir = dataPath();
+    const auto& path = dir.absoluteFilePath(cleanName + QLatin1String(".xml"));
+    qDebug() << "repo path:" << path << cleanName;
 
+    SnippetRepository* repo = new SnippetRepository(path);
     repo->setText(name);
     repo->setCheckState(Qt::Checked);
     KUser user;
@@ -136,18 +149,9 @@ QString SnippetRepository::script() const
     return m_script;
 }
 
-KTextEditor::TemplateScript* SnippetRepository::registeredScript() const
-{
-    return m_registeredScript;
-}
-
 void SnippetRepository::setScript(const QString& script)
 {
     m_script = script;
-    if ( m_registeredScript ) {
-        SnippetStore::self()->unregisterScript(m_registeredScript);
-    }
-    m_registeredScript = SnippetStore::self()->registerScript(m_script);
 }
 
 void SnippetRepository::remove()
@@ -168,6 +172,7 @@ static void addAndCreateElement(QDomDocument& doc, QDomElement& item, const QStr
 
 void SnippetRepository::save()
 {
+    qDebug() << "*** called";
     ///based on the code from snippets_tng/lib/completionmodel.cpp
     ///@copyright 2009 Joseph Wenninger <jowenn@kde.org>
     /*
@@ -216,21 +221,23 @@ void SnippetRepository::save()
     }
     //KMessageBox::information(0,doc.toString());
     QFileInfo fi(m_file);
-    QString outname = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                             QLatin1String("ktexteditor_snippets/data/") + fi.fileName());
-    if ( m_file != outname) {
+    QDir dir = dataPath();
+    QString outname = dir.absoluteFilePath(fi.fileName());
+    qDebug() << "output file name:" << outname << dir.path();
+
+    if (m_file != outname) {
         QFileInfo fiout(outname);
-//      if (fiout.exists()) {
-// there could be cases that new new name clashes with a global file, but I guess it is not that often.
+        // there could be cases that new new name clashes with a global file, but I guess it is not that often.
         int i = 0;
-        while(QFile::exists(outname)) {
-            outname = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                             QString::fromLatin1("ktexteditor_snippets/data/%1_").arg(i++) + fi.fileName());
+        while (QFile::exists(outname)) {
+            i++;
+            outname = dir.absoluteFilePath(QString::number(i) + fi.fileName());
         }
         KMessageBox::information(QApplication::activeWindow(),
             i18n("You have edited a data file not located in your personal data directory; as such, a renamed clone of the original data file has been created within your personal data directory."));
     }
 
+    qDebug() << "output name:" << outname;
     QFile outfile(outname);
     if (!outfile.open(QIODevice::WriteOnly)) {
         KMessageBox::error(0, i18n("Output file '%1' could not be opened for writing", outname));

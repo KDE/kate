@@ -463,8 +463,8 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
     delete m_emailstuff;
     m_emailstuff = 0;
     if (isTemplate) {
-	    KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(doc->activeView());
-	    ti->insertTemplateText(KTextEditor::Cursor(0,0),str,QMap<QString,QString>());
+      auto ti = static_cast<KTextEditor::TemplateInterface*>(doc->activeView());
+      ti->insertTemplateText({0, 0}, str);
     } else {
       doc->insertText( KTextEditor::Cursor(0, 0), str );
       view->setCursorPosition(KTextEditor::Cursor(line, col));

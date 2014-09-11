@@ -72,10 +72,7 @@ bool SnippetFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex 
 
     Snippet* snippet = dynamic_cast<Snippet*>( item );
     if (snippet) {
-        if ( snippet->text().contains( filter_) )
-            return true;
-        else
-            return false;
+        return snippet->text().contains( filter_);
     }
 
     // if it's not a snippet; allow it...

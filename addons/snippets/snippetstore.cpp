@@ -39,18 +39,15 @@ Q_DECLARE_METATYPE(KSharedConfig::Ptr)
 SnippetStore* SnippetStore::m_self = 0;
 
 SnippetStore::SnippetStore(KateSnippetGlobal* plugin)
-    : m_plugin(plugin), m_scriptregistrar(0)
+    : m_plugin(plugin)
 {
     m_self = this;
-  //required for setting sessionConfig property
-  qRegisterMetaType<KSharedConfig::Ptr>("KSharedConfig::Ptr");
-
-    QStringList files;
 
     const QStringList dirs =
-      QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("ktexteditor_snippets/data"), QStandardPaths::LocateDirectory)
-      << QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("ktexteditor_snippets/ghns"), QStandardPaths::LocateDirectory);
+      QStandardPaths::locateAll(QStandardPaths::DataLocation, QStringLiteral("ktexteditor_snippets/data"), QStandardPaths::LocateDirectory)
+      << QStandardPaths::locateAll(QStandardPaths::DataLocation, QStringLiteral("ktexteditor_snippets/ghns"), QStandardPaths::LocateDirectory);
 
+    QStringList files;
     foreach (const QString& dir, dirs) {
       const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.xml"));
       foreach (const QString& file, fileNames) {
@@ -62,8 +59,6 @@ SnippetStore::SnippetStore(KateSnippetGlobal* plugin)
         SnippetRepository* repo = new SnippetRepository(file);
         appendRow(repo);
     }
-
-    m_scriptregistrar = qobject_cast<KTextEditor::TemplateScriptRegistrar *> (KTextEditor::Editor::instance());
 }
 
 SnippetStore::~SnippetStore()
@@ -83,7 +78,7 @@ SnippetStore* SnippetStore::self()
     return m_self;
 }
 
-Qt::ItemFlags SnippetStore::flags(const QModelIndex & index) const
+Qt::ItemFlags SnippetStore::flags(const QModelIndex& index) const
 {
     Qt::ItemFlags flags = Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
     if ( !index.parent().isValid() ) {
@@ -94,10 +89,7 @@ Qt::ItemFlags SnippetStore::flags(const QModelIndex & index) const
 
 KConfigGroup SnippetStore::getConfig()
 {
-  /**
-   * use KTextEditor::Editor session config object
-   */
-  return KTextEditor::Editor::instance()->property("sessionConfig").value<KSharedConfig::Ptr>()->group("Snippets");
+    return KSharedConfig::openConfig()->group("Snippets");
 }
 
 bool SnippetStore::setData(const QModelIndex& index, const QVariant& value, int role)
@@ -135,21 +127,6 @@ SnippetRepository* SnippetStore::repositoryForFile(const QString& file)
                 return repo;
             }
         }
-    }
-    return 0;
-}
-
-void SnippetStore::unregisterScript(KTextEditor::TemplateScript* script)
-{
-    if ( m_scriptregistrar ) {
-        m_scriptregistrar->unregisterTemplateScript(script);
-    }
-}
-
-KTextEditor::TemplateScript* SnippetStore::registerScript(const QString& script)
-{
-    if ( m_scriptregistrar ) {
-        return m_scriptregistrar->registerTemplateScript(this, script);
     }
     return 0;
 }

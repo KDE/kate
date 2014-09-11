@@ -261,3 +261,9 @@ void KateTabButton::setAnimatedGeometry(const QRect & startGeom,
     m_geometryAnimation->setEndValue(endGeom);
     m_geometryAnimation->start();
 }
+
+bool KateTabButton::geometryAnimationRunning() const
+{
+    return m_geometryAnimation
+        && (m_geometryAnimation->state() != QAbstractAnimation::Stopped);
+}

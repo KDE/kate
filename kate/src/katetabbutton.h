@@ -68,6 +68,11 @@ public:
      */
     bool isActiveViewSpace() const;
 
+    /**
+     * Check whether a geometry animation is running.
+     */
+    bool geometryAnimationRunning() const;
+
 public Q_SLOTS:
     /**
      * Animate the button's geometry from @p startGeom to @p endGeom

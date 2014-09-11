@@ -290,6 +290,18 @@ void KateTabBar::updateButtonPositions(bool animate)
         return;
     }
 
+    // check whether an animation is still running, in that case,
+    // continue animations to avoid jumping tabs
+    const int maxi = m_tabButtons.size();
+    if (!animate) {
+        for (int i = 0; i < maxi; ++i) {
+            if (m_tabButtons.value(i)->geometryAnimationRunning()) {
+                animate = true;
+                break;
+            }
+        }
+    }
+
     const int barWidth = width();
     const int maxCount = maxTabCount();
 
@@ -319,7 +331,6 @@ void KateTabBar::updateButtonPositions(bool animate)
     m_currentTabWidth = tabWidth;
 
     // now set the sizes
-    const int maxi = m_tabButtons.size();
     const int w = ceil(tabWidth);
     const int h = height();
     for (int i = 0; i < maxi; ++i) {

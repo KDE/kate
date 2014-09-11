@@ -131,6 +131,9 @@ int KateTabBar::prevTab() const
 
         if (index > 0) {
             return m_idToTab.key(m_tabButtons[index - 1], -1);
+        } else if (count() > 1) {
+            // cycle through tabbar
+            return m_idToTab.key(m_tabButtons.last(), -1);
         }
     }
 
@@ -148,6 +151,9 @@ int KateTabBar::nextTab() const
 
         if (index < m_tabButtons.size() - 1) {
             return m_idToTab.key(m_tabButtons[index + 1], -1);
+        } else if (count() > 1) {
+            // cycle through tabbar
+            return m_idToTab.key(m_tabButtons.first(), -1);
         }
     }
 

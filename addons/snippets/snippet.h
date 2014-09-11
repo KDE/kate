@@ -58,33 +58,6 @@ public:
     void setSnippet(const QString& snippet);
 
     /**
-     * Returns the display prefix of this snippet.
-     */
-    QString prefix() const;
-    /**
-     * Sets the display prefix of this snippet.
-     */
-    void setPrefix(const QString& prefix);
-
-    /**
-     * Returns the display postfix of this snippet.
-     */
-    QString postfix() const;
-    /**
-     * Sets the display postfix of this snippet.
-     */
-    void setPostfix(const QString& postfix);
-
-    /**
-     * Returns the display arguments of this snippet.
-     */
-    QString arguments() const;
-    /**
-     * Sets the display arguments of this snippet.
-     */
-    void setArguments(const QString& arguments);
-
-    /**
      * Action to trigger insertion of this snippet.
      */
     QAction* action();
@@ -94,12 +67,6 @@ public:
 private:
     /// the actual snippet contents aka \code<fillin>\endcode
     QString m_snippet;
-    /// the display postfix aka \code<displaypostfix>\endcode
-    QString m_postfix;
-    /// the display prefix aka \code<displayprefix>\endcode
-    QString m_prefix;
-    /// the display arguments aka \code<displayarguments>\endcode
-    QString m_arguments;
     /// the insertion action for this snippet.
     QAction* m_action;
 };

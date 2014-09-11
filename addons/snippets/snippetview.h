@@ -4,6 +4,7 @@
  *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
+ *  Copyright (C) 2014 Sven Brauch <svenbrauch@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -26,10 +27,10 @@
 
 #include "ui_snippetview.h"
 
-class SnippetFilterProxyModel;
 class QStandardItem;
 class KateSnippetGlobal;
 class QAction;
+class QSortFilterProxyModel;
 
 /**
  * This class gets embedded into the right tool view by the KateSnippetGlobal.
@@ -42,7 +43,6 @@ class SnippetView : public QWidget, public Ui::SnippetViewBase
 
 public:
     explicit SnippetView(KateSnippetGlobal* plugin, QWidget* parent = 0);
-    virtual ~SnippetView();
 
 private Q_SLOTS:
     /**
@@ -90,11 +90,6 @@ private Q_SLOTS:
      */
     void slotSnippetToGHNS();
 
-    /**
-     * Changes the filter of the proxy.
-     */
-    void slotFilterChanged();
-
     void contextMenu (const QPoint & pos);
     /// disables or enables available actions based on the currently selected item
     void validateActions();
@@ -105,7 +100,7 @@ private:
     QStandardItem* currentItem();
 
     KateSnippetGlobal* m_plugin;
-    SnippetFilterProxyModel* m_proxy;
+    QSortFilterProxyModel* m_proxy;
 
     QAction *m_addRepoAction;
     QAction *m_removeRepoAction;

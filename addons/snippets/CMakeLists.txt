@@ -10,7 +10,6 @@ katesnippetglobal.cpp
 snippetview.cpp
 snippetstore.cpp
 snippetrepository.cpp
-snippetfilterproxymodel.cpp
 snippetcompletionmodel.cpp
 snippetcompletionitem.cpp
 snippet.cpp

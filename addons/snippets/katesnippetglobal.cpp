@@ -50,16 +50,14 @@ KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
   : QObject(parent)
 {
     s_self = this;
-  
+
     SnippetStore::init(this);
-    m_model = new SnippetCompletionModel;
+    m_model.reset(new SnippetCompletionModel);
 }
 
 KateSnippetGlobal::~KateSnippetGlobal ()
 {
-    delete m_model;
     delete SnippetStore::self();
-    
     s_self = nullptr;
 }
 
@@ -135,9 +133,9 @@ void KateSnippetGlobal::insertSnippetFromActionData()
 
 void KateSnippetGlobal::createSnippet (KTextEditor::View *view)
 {
-   // no active view, bad
-   if (!view)
-     return;
+    // no active view, bad
+    if (!view)
+        return;
 
     // get mode
     QString mode = view->document()->highlightingModeAt(view->selectionRange().isValid() ? view->selectionRange().start() : view->cursorPosition());

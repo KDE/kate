@@ -212,10 +212,7 @@ void SnippetRepository::save()
             continue;
         }
         QDomElement item = doc.createElement(QLatin1String("item"));
-        addAndCreateElement(doc, item, QLatin1String("displayprefix"), snippet->prefix());
         addAndCreateElement(doc, item, QLatin1String("match"), snippet->text());
-        addAndCreateElement(doc, item, QLatin1String("displaypostfix"), snippet->postfix());
-        addAndCreateElement(doc, item, QLatin1String("displayarguments"), snippet->arguments());
         addAndCreateElement(doc, item, QLatin1String("fillin"), snippet->snippet());
         root.appendChild(item);
     }
@@ -332,12 +329,6 @@ void SnippetRepository::slotParseFile()
                 snippet->setText(child.text());
             } else if ( child.tagName() == QLatin1String("fillin") ) {
                 snippet->setSnippet(child.text());
-            } else if ( child.tagName() == QLatin1String("displayprefix") ) {
-                snippet->setPrefix(child.text());
-            } else if ( child.tagName() == QLatin1String("displaypostfix") ) {
-                snippet->setPostfix(child.text());
-            } else if ( child.tagName() == QLatin1String("displayarguments") ) {
-                snippet->setArguments(child.text());
             }
         }
         // require at least a non-empty name and snippet

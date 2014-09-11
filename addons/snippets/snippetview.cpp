@@ -29,16 +29,34 @@
 #include "snippetstore.h"
 #include "editrepository.h"
 #include "editsnippet.h"
-#include "snippetfilterproxymodel.h"
 
 #include <KLocalizedString>
 #include <KMessageBox>
 
 #include <QContextMenuEvent>
+#include <QSortFilterProxyModel>
 #include <QMenu>
 
 #include <kns3/downloaddialog.h>
 #include <kns3/uploaddialog.h>
+
+
+class SnippetFilterModel : public QSortFilterProxyModel {
+public:
+    SnippetFilterModel(QObject* parent = 0) : QSortFilterProxyModel(parent) { };
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const {
+        auto index = sourceModel()->index(sourceRow, 0, sourceParent);
+        auto item = SnippetStore::self()->itemFromIndex(index);
+        if ( ! item ) {
+            return false;
+        }
+        auto snippet = dynamic_cast<Snippet*>(item);
+        if ( ! snippet ) {
+            return true;
+        }
+        return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
+    }
+};
 
 SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
  : QWidget(parent), Ui::SnippetViewBase(), m_plugin(plugin)
@@ -46,25 +64,21 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     Ui::SnippetViewBase::setupUi(this);
 
     setWindowTitle(i18n("Snippets"));
-    setWindowIcon (QIcon::fromTheme(QLatin1String("document-new")));
-
-    connect(filterText, SIGNAL(clearButtonClicked()),
-            this, SLOT(slotFilterChanged()));
-    connect(filterText, SIGNAL(textChanged(QString)),
-            this, SLOT(slotFilterChanged()));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("document-new")));
 
     snippetTree->setContextMenuPolicy( Qt::CustomContextMenu );
     snippetTree->viewport()->installEventFilter( this );
     connect(snippetTree, SIGNAL(customContextMenuRequested(QPoint)),
             this, SLOT(contextMenu(QPoint)));
 
-    m_proxy = new SnippetFilterProxyModel(this);
+    m_proxy = new SnippetFilterModel(this);
+    m_proxy->setFilterKeyColumn(0);
+    m_proxy->setSourceModel(SnippetStore::self());
 
-    m_proxy->setSourceModel( SnippetStore::self() );
+    connect(filterText, &KLineEdit::textChanged,
+            m_proxy, &QSortFilterProxyModel::setFilterFixedString);
 
-    snippetTree->setModel( m_proxy );
-//     snippetTree->setModel( SnippetStore::instance() );
-
+    snippetTree->setModel(m_proxy);
     snippetTree->header()->hide();
 
     m_addRepoAction = new QAction(QIcon::fromTheme(QLatin1String("folder-new")), i18n("Add Repository"), this);
@@ -105,13 +119,8 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     validateActions();
 }
 
-SnippetView::~SnippetView()
-{
-}
-
 void SnippetView::validateActions()
 {
-
     QStandardItem* item = currentItem();
 
     Snippet* selectedSnippet = dynamic_cast<Snippet*>( item );
@@ -278,11 +287,6 @@ void SnippetView::slotRemoveRepo()
     if ( ans == KMessageBox::Continue ) {
         repo->remove();
     }
-}
-
-void SnippetView::slotFilterChanged()
-{
-    m_proxy->changeFilter( filterText->text() );
 }
 
 void SnippetView::slotGHNS()

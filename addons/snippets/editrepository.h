@@ -43,16 +43,12 @@ class EditRepository : public QDialog, public Ui::EditRepositoryBase
 public:
     /// @p repo set to 0 when you want to create a new repository.
     explicit EditRepository(SnippetRepository* repo, QWidget* parent = 0);
-    virtual ~EditRepository();
 
 private:
     SnippetRepository* m_repo;
-    QPushButton *m_okButton;
-    QPushButton *m_applyButton;
 
 private Q_SLOTS:
     void save();
-    void saveAndAccept();
     void validate();
     void updateFileTypes();
 };

@@ -51,36 +51,6 @@ void Snippet::setSnippet(const QString& snippet)
     m_snippet = snippet;
 }
 
-QString Snippet::prefix() const
-{
-    return m_prefix;
-}
-
-void Snippet::setPrefix(const QString& prefix)
-{
-    m_prefix = prefix;
-}
-
-QString Snippet::postfix() const
-{
-    return m_postfix;
-}
-
-void Snippet::setPostfix(const QString& postfix)
-{
-    m_postfix = postfix;
-}
-
-QString Snippet::arguments() const
-{
-    return m_arguments;
-}
-
-void Snippet::setArguments(const QString& arguments)
-{
-    m_arguments = arguments;
-}
-
 QAction* Snippet::action()
 {
     ///TODO: this is quite ugly, or is it? if someone knows how to do it better, please refactor

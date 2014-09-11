@@ -36,8 +36,7 @@
 
 
 SnippetCompletionItem::SnippetCompletionItem( Snippet* snippet, SnippetRepository* repo )
-    : m_name(snippet->text()), m_snippet(snippet->snippet()), m_prefix(snippet->prefix()),
-      m_arguments(snippet->arguments()), m_postfix(snippet->postfix()), m_repo(repo)
+    : m_name(snippet->text()), m_snippet(snippet->snippet()), m_repo(repo)
 {
     Q_ASSERT(m_repo);
     m_name.prepend( repo->completionNamespace() );
@@ -59,11 +58,11 @@ QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const 
             case KTextEditor::CodeCompletionModel::Name:
                 return m_name;
             case KTextEditor::CodeCompletionModel::Prefix:
-                return m_prefix;
+                return QString();
             case KTextEditor::CodeCompletionModel::Postfix:
-                return m_postfix;
+                return QString();
             case KTextEditor::CodeCompletionModel::Arguments:
-                return m_arguments;
+                return QString();
         }
         break;
     case KTextEditor::CodeCompletionModel::IsExpandable:

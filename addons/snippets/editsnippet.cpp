@@ -42,36 +42,15 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-struct ViewTabButtonPair {
-    KTextEditor::View* view;
-    QToolButton* button;
-};
-
-ViewTabButtonPair createViewForTab(QWidget* tabWidget)
+KTextEditor::View* createViewForTab(QWidget* tabWidget)
 {
-    QVBoxLayout* layout = new QVBoxLayout;
-    tabWidget->setLayout(layout);
+    auto document = KTextEditor::Editor::instance()->createDocument(tabWidget);
+    auto view = document->createView(tabWidget);
 
-    KTextEditor::Document *document = KTextEditor::Editor::instance()->createDocument (tabWidget);
-    KTextEditor::View *view = document->createView (tabWidget);
-
-    Q_ASSERT(view);
-    Q_ASSERT(view->action("file_save"));
     view->action("file_save")->setEnabled(false);
-
-    layout->addWidget(view);
-
-    QHBoxLayout* hlayout = new QHBoxLayout;
-    hlayout->addStretch();
-
-    QToolButton* button = new QToolButton;
-    button->setText(i18n("Help"));
-    button->setIcon(QIcon::fromTheme(QLatin1String("help-contents")));
-    button->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    hlayout->addWidget(button);
-    layout->addLayout(hlayout);
-
-    return {view, button};
+    tabWidget->layout()->addWidget(view);
+    view->setStatusBarEnabled(false);
+    return view;
 }
 
 EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidget* parent)
@@ -79,70 +58,41 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     , m_snippet(snippet), m_topBoxModified(false)
 {
     Q_ASSERT(m_repo);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    setLayout(mainLayout);
+    m_ui->setupUi(this);
 
-    QWidget *w = new QWidget(this);
-    mainLayout->addWidget(w);
-    m_ui->setupUi(w);
+    connect(this, &QDialog::accepted, this, &EditSnippet::save);
 
-    QDialogButtonBox *buttons = new QDialogButtonBox(this);
-    mainLayout->addWidget(buttons);
-
-    m_okButton = new QPushButton;
+    m_okButton = m_ui->buttons->button(QDialogButtonBox::Ok);
     KGuiItem::assign(m_okButton, KStandardGuiItem::ok());
-    buttons->addButton(m_okButton, QDialogButtonBox::AcceptRole);
-    connect(m_okButton, SIGNAL(clicked()), this, SLOT(saveAndAccept()));
+    m_ui->buttons->addButton(m_okButton, QDialogButtonBox::AcceptRole);
+    connect(m_okButton, &QPushButton::clicked, this, &QDialog::accept);
 
-    m_applyButton = new QPushButton;
-    KGuiItem::assign(m_applyButton, KStandardGuiItem::apply());
-    buttons->addButton(m_applyButton, QDialogButtonBox::ApplyRole);
-    connect(m_applyButton, SIGNAL(clicked()), this, SLOT(save()));
-
-    QPushButton *cancelButton = new QPushButton;
+    auto cancelButton = m_ui->buttons->button(QDialogButtonBox::Cancel);
     KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
-    buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+    m_ui->buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
+    connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
 
-    ///TODO: highlighting and documentation of template handler variables
-    auto snippet_tab = createViewForTab(m_ui->snippetTab);
-    m_snippetView = snippet_tab.view;
-    if (!m_repo->fileTypes().isEmpty()) {
+    m_snippetView = createViewForTab(m_ui->snippetTab);
+    if ( !m_repo->fileTypes().isEmpty() ) {
         m_snippetView->document()->setMode(m_repo->fileTypes().first());
     }
-    connect(snippet_tab.button, SIGNAL(clicked(bool)),
-            this, SLOT(slotSnippetDocumentation()));
-    ///TODO: highlighting and documentation of KTextEditor API
-    auto script_tab = createViewForTab(m_ui->scriptTab);
-    m_scriptsView = script_tab.view;
+
+    m_scriptsView = createViewForTab(m_ui->scriptTab);
     m_scriptsView->document()->setMode(QLatin1String("JavaScript"));
     m_scriptsView->document()->setText(m_repo->script());
     m_scriptsView->document()->setModified(false);
-    connect(script_tab.button, SIGNAL(clicked(bool)),
-            this, SLOT(slotScriptDocumentation()));
 
-    m_ui->verticalLayout->setMargin(0);
-    m_ui->formLayout->setMargin(0);
-
-    m_ui->snippetShortcutWidget->layout()->setMargin(0);
-
-    connect(m_ui->snippetNameEdit,       SIGNAL(textEdited(QString)), this, SLOT(topBoxModified()));
-    connect(m_ui->snippetNameEdit,       SIGNAL(textEdited(QString)), this, SLOT(validate()));
-    connect(m_ui->snippetArgumentsEdit,  SIGNAL(textEdited(QString)), this, SLOT(topBoxModified()));
-    connect(m_ui->snippetPostfixEdit,    SIGNAL(textEdited(QString)), this, SLOT(topBoxModified()));
-    connect(m_ui->snippetPrefixEdit,     SIGNAL(textEdited(QString)), this, SLOT(topBoxModified()));
-    connect(m_ui->snippetShortcutWidget, SIGNAL(shortcutChanged(QList<QKeySequence>)), this, SLOT(topBoxModified()));
-    connect(m_snippetView->document(), SIGNAL(textChanged(KTextEditor::Document*)), this, SLOT(validate()));
+    connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::topBoxModified);
+    connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::validate);
+    connect(m_ui->snippetShortcutWidget, &KShortcutWidget::shortcutChanged, this, &EditSnippet::topBoxModified);
+    connect(m_snippetView->document(), &KTextEditor::Document::textChanged, this, &EditSnippet::validate);
 
     // if we edit a snippet, add all existing data
     if ( m_snippet ) {
         setWindowTitle(i18n("Edit Snippet %1 in %2", m_snippet->text(), m_repo->text()));
 
-        m_ui->snippetArgumentsEdit->setText(m_snippet->arguments());
         m_snippetView->document()->setText(m_snippet->snippet());
         m_ui->snippetNameEdit->setText(m_snippet->text());
-        m_ui->snippetPostfixEdit->setText(m_snippet->postfix());
-        m_ui->snippetPrefixEdit->setText(m_snippet->prefix());
         m_ui->snippetShortcutWidget->setShortcut(m_snippet->action()->shortcuts());
 
         // unset modified flags
@@ -175,29 +125,17 @@ void EditSnippet::validate()
 {
     const QString& name = m_ui->snippetNameEdit->text();
     bool valid = !name.isEmpty() && !m_snippetView->document()->isEmpty();
-    if (valid) {
-        // make sure the snippetname includes no spaces
-        for ( int i = 0; i < name.length(); ++i ) {
-            if ( name.at(i).isSpace() ) {
-                valid = false;
-                m_ui->messageWidget->setText(i18n("Snippet name cannot contain spaces"));
-                m_ui->messageWidget->animatedShow();
-                break;
-            }
-        }
-        if (valid) {
-            // hide message widget if snippet does not include spaces
-            m_ui->messageWidget->animatedHide();
-        }
+    // make sure the snippetname includes no spaces
+    if ( name.contains(QLatin1Char(' ')) || name.contains(QLatin1Char('\t')) ) {
+        m_ui->messageWidget->setText(i18n("Snippet name cannot contain spaces"));
+        m_ui->messageWidget->animatedShow();
+        valid = false;
+    }
+    else {
+        // hide message widget if snippet does not include spaces
+        m_ui->messageWidget->animatedHide();
     }
     m_okButton->setEnabled(valid);
-    m_applyButton->setEnabled(valid);
-}
-
-void EditSnippet::saveAndAccept()
-{
-  save();
-  accept();
 }
 
 void EditSnippet::save()
@@ -209,12 +147,9 @@ void EditSnippet::save()
         m_snippet = new Snippet();
         m_repo->appendRow(m_snippet);
     }
-    m_snippet->setArguments(m_ui->snippetArgumentsEdit->text());
     m_snippet->setSnippet(m_snippetView->document()->text());
     m_snippetView->document()->setModified(false);
     m_snippet->setText(m_ui->snippetNameEdit->text());
-    m_snippet->setPostfix(m_ui->snippetPostfixEdit->text());
-    m_snippet->setPrefix(m_ui->snippetPrefixEdit->text());
     m_snippet->action()->setShortcuts(m_ui->snippetShortcutWidget->shortcut());
     m_repo->setScript(m_scriptsView->document()->text());
     m_scriptsView->document()->setModified(false);
@@ -222,16 +157,6 @@ void EditSnippet::save()
     m_repo->save();
 
     setWindowTitle(i18n("Edit Snippet %1 in %2", m_snippet->text(), m_repo->text()));
-}
-
-void EditSnippet::slotSnippetDocumentation()
-{
-    KHelpClient::invokeHelp(QLatin1String("kate-application-plugin-snippets"), QLatin1String("kate"));
-}
-
-void EditSnippet::slotScriptDocumentation()
-{
-    KHelpClient::invokeHelp(QLatin1String("dev-scripting-api"), QLatin1String("kate"));
 }
 
 void EditSnippet::reject()

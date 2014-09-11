@@ -18,17 +18,14 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-     <widget class="KMessageWidget" name="messageWidget">
-       <property name="visible">
-         <bool>false</bool>
-       </property>
-       <property name="closeButtonVisible">
-         <bool>false</bool>
-       </property>
-       <property name="messageType">
-           <enum>KMessageWidget::Warning</enum>
-       </property>
-     </widget>
+    <widget class="KMessageWidget" name="messageWidget" native="true">
+     <property name="visible">
+      <bool>false</bool>
+     </property>
+     <property name="closeButtonVisible" stdset="0">
+      <bool>false</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QFormLayout" name="formLayout">
@@ -51,68 +48,33 @@
         <string>&lt;p&gt;The name will also be used as the identifier during code completion.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; No spaces allowed.&lt;/p&gt;</string>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="snippetPrefixLabel">
-       <property name="text">
-        <string>Display &amp;Prefix:</string>
-       </property>
-       <property name="buddy">
-        <cstring>snippetPrefixEdit</cstring>
+       <property name="clickMessage">
+        <string>will be shown in the completion list</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="KLineEdit" name="snippetPrefixEdit">
-       <property name="toolTip">
-        <string>The display prefix will be shown during code completion.</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="snippetArgumentsLabel">
-       <property name="text">
-        <string>Display &amp;Arguments:</string>
-       </property>
-       <property name="buddy">
-        <cstring>snippetArgumentsEdit</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="KLineEdit" name="snippetArgumentsEdit">
-       <property name="toolTip">
-        <string>The arguments will be shown during code completion.</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="snippetPostfixLabel">
-       <property name="text">
-        <string>Display P&amp;ostfix:</string>
-       </property>
-       <property name="buddy">
-        <cstring>snippetPostfixEdit</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="KLineEdit" name="snippetPostfixEdit">
-       <property name="toolTip">
-        <string>The postfix will be shown during code completion.</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="snippetShortcutLabel">
-       <property name="text">
-        <string>Shortcut:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="KShortcutWidget" name="snippetShortcutWidget" native="true"/>
+     <item row="1" column="0" colspan="2">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="snippetShortcutLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Shortcut:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KShortcutWidget" name="snippetShortcutWidget"/>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -125,12 +87,21 @@
       <attribute name="title">
        <string>&amp;Snippet</string>
       </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout"/>
      </widget>
      <widget class="QWidget" name="scriptTab">
       <attribute name="title">
        <string>S&amp;cripts</string>
       </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_2"/>
      </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttons">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
     </widget>
    </item>
   </layout>
@@ -146,12 +117,12 @@
    <extends>QWidget</extends>
    <header>kshortcutwidget.h</header>
   </customwidget>
+  <customwidget>
+   <class>KMessageWidget</class>
+   <extends>QWidget</extends>
+   <header>kmessagewidget.h</header>
+  </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>snippetPrefixEdit</tabstop>
-  <tabstop>snippetArgumentsEdit</tabstop>
-  <tabstop>snippetPostfixEdit</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>

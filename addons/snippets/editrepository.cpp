@@ -4,6 +4,7 @@
  *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
+ *  Copyright (C) 2014 Sven Brauch <svenbrauch@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -38,97 +39,67 @@
 EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
     : QDialog(parent), Ui::EditRepositoryBase(), m_repo(repository)
 {
-  QVBoxLayout *mainLayout = new QVBoxLayout;
-  setLayout(mainLayout);
+    setupUi(this);
 
-  QWidget *mainWidget = new QWidget;
-  setupUi(mainWidget);
-  mainWidget->layout()->setMargin(0);
-  mainLayout->addWidget(mainWidget);
+    connect(repoNameEdit, &KLineEdit::textEdited, this, &EditRepository::validate);
+    connect(this, &QDialog::accepted, this, &EditRepository::save);
 
-  connect(repoNameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
+    auto ok = buttonBox->button(QDialogButtonBox::Ok);
+    KGuiItem::assign(ok, KStandardGuiItem::ok());
+    connect(ok, SIGNAL(clicked()), this, SLOT(accept()));
 
-  QDialogButtonBox *buttons = new QDialogButtonBox(this);
-  mainLayout->addWidget(buttons);
+    auto cancel = buttonBox->button(QDialogButtonBox::Cancel);
+    KGuiItem::assign(cancel, KStandardGuiItem::cancel());
+    connect(cancel, SIGNAL(clicked()), this, SLOT(reject()));
 
-  m_okButton = new QPushButton;
-  KGuiItem::assign(m_okButton, KStandardGuiItem::ok());
-  buttons->addButton(m_okButton, QDialogButtonBox::AcceptRole);
-  connect(m_okButton, SIGNAL(clicked()), this, SLOT(saveAndAccept()));
+    // fill list of available modes
+    QSharedPointer<KTextEditor::Document> document(KTextEditor::Editor::instance()->createDocument(0));
+    repoFileTypesList->addItems(document->highlightingModes());
+    repoFileTypesList->sortItems();
+    repoFileTypesList->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    connect(repoFileTypesList->selectionModel(), &QItemSelectionModel::selectionChanged,
+            this, &EditRepository::updateFileTypes);
 
-  m_applyButton = new QPushButton;
-  KGuiItem::assign(m_applyButton, KStandardGuiItem::apply());
-  buttons->addButton(m_applyButton, QDialogButtonBox::ApplyRole);
-  connect(m_applyButton, SIGNAL(clicked()), this, SLOT(save()));
+    // add default licenses
+    repoLicenseEdit->addItems(QStringList() << QLatin1String("BSD") << QLatin1String("Artistic") << QLatin1String("LGPL v2+") << QLatin1String("LGPL v3+"));
+    repoLicenseEdit->setEditable(true);
 
-  QPushButton *cancelButton = new QPushButton;
-  KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
-  buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-  ///
+    // if we edit a repo, add all existing data
+    if ( m_repo ) {
+        repoNameEdit->setText(m_repo->text());
+        repoAuthorsEdit->setText(m_repo->authors());
+        repoNamespaceEdit->setText(m_repo->completionNamespace());
+        if ( !m_repo->license().isEmpty() ) {
+            int index = repoLicenseEdit->findText(m_repo->license());
+            if ( index == -1 ) {
+                repoLicenseEdit->addItem(m_repo->license());
+                repoLicenseEdit->model()->sort(0);
+                index = repoLicenseEdit->findText(m_repo->license());
+            }
+            repoLicenseEdit->setCurrentIndex(index);
+        }
+        foreach ( const QString& type, m_repo->fileTypes() ) {
+            foreach( QListWidgetItem* item, repoFileTypesList->findItems(type, Qt::MatchExactly) ) {
+                item->setSelected(true);
+            }
+        }
 
-  // fill list of available modes
-  KTextEditor::Document *document = KTextEditor::Editor::instance()->createDocument(0);
-  repoFileTypesList->addItems(document->highlightingModes());
-  repoFileTypesList->sortItems();
-  repoFileTypesList->setSelectionMode(QAbstractItemView::ExtendedSelection);
-  connect(repoFileTypesList->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-          this, SLOT(updateFileTypes()));
+        setWindowTitle(i18n("Edit Snippet Repository %1", m_repo->text()));
+    } else {
+        setWindowTitle(i18n("Create New Snippet Repository"));
+        KUser user;
+        repoAuthorsEdit->setText(user.property(KUser::FullName).toString());
+    }
 
-  delete document;
-
-  // add default licenses
-  repoLicenseEdit->addItems(QStringList() << QLatin1String("Artistic") << QLatin1String("BSD") << QLatin1String("LGPL v2+") << QLatin1String("LGPL v3+"));
-  repoLicenseEdit->setCurrentIndex(1); // preselect BSD
-  repoLicenseEdit->setEditable(true);
-
-  // if we edit a repo, add all existing data
-  if ( m_repo ) {
-      repoNameEdit->setText(m_repo->text());
-      repoAuthorsEdit->setText(m_repo->authors());
-      repoNamespaceEdit->setText(m_repo->completionNamespace());
-      if ( !m_repo->license().isEmpty() ) {
-          int index = repoLicenseEdit->findText(m_repo->license());
-          if ( index == -1 ) {
-              repoLicenseEdit->addItem(m_repo->license());
-              repoLicenseEdit->model()->sort(0);
-              index = repoLicenseEdit->findText(m_repo->license());
-          }
-          repoLicenseEdit->setCurrentIndex(index);
-      }
-      foreach ( const QString& type, m_repo->fileTypes() ) {
-          foreach( QListWidgetItem* item, repoFileTypesList->findItems(type, Qt::MatchExactly) ) {
-              item->setSelected(true);
-          }
-      }
-
-      setWindowTitle(i18n("Edit Snippet Repository %1", m_repo->text()));
-  } else {
-      setWindowTitle(i18n("Create New Snippet Repository"));
-      KUser user;
-      repoAuthorsEdit->setText(user.property(KUser::FullName).toString());
-  }
-
-  validate();
-  updateFileTypes();
-  repoNameEdit->setFocus();
-}
-
-EditRepository::~EditRepository()
-{
+    validate();
+    updateFileTypes();
+    repoNameEdit->setFocus();
 }
 
 void EditRepository::validate()
 {
-  bool valid = !repoNameEdit->text().isEmpty() && !repoNameEdit->text().contains(QLatin1Char('/'));
-  m_okButton->setEnabled(valid);
-  m_applyButton->setEnabled(valid);
-}
-
-void EditRepository::saveAndAccept()
-{
-  save();
-  accept();
+    bool valid = !repoNameEdit->text().isEmpty() && !repoNameEdit->text().contains(QLatin1Char('/'));
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(valid);
 }
 
 void EditRepository::save()

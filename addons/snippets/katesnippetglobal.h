@@ -56,7 +56,7 @@ public:
      * Code completion model.
      * @return code completion model for snippets
      */
-    SnippetCompletionModel *completionModel () { return m_model; }
+    SnippetCompletionModel *completionModel () { return m_model.data(); }
 
     /**
      * Create a new snippet widget, to allow to manage and insert snippets
@@ -82,7 +82,7 @@ public Q_SLOTS:
 
 private:
     static KateSnippetGlobal *s_self;
-    class SnippetCompletionModel* m_model;
+    QScopedPointer<SnippetCompletionModel> m_model;
     QPointer<KTextEditor::View> m_activeViewForDialog;
 };
 

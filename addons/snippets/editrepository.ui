@@ -38,6 +38,9 @@
         <property name="toolTip">
          <string>The name of the repository. Must not be empty or contain forward slashes (/).</string>
         </property>
+        <property name="clickMessage">
+         <string>A short name for the repository</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="0">
@@ -55,6 +58,9 @@
         <property name="toolTip">
          <string>&lt;p&gt;If non-empty this will be used as a prefix for all snippets in this repository during code completion.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; No spaces allowed.&lt;/p&gt;</string>
+        </property>
+        <property name="clickMessage">
+         <string>Prefix to show in code completion</string>
         </property>
        </widget>
       </item>
@@ -103,6 +109,13 @@
       </item>
       <item row="5" column="0" colspan="2">
        <widget class="QListWidget" name="repoFileTypesList"/>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="QDialogButtonBox" name="buttonBox">
+        <property name="standardButtons">
+         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

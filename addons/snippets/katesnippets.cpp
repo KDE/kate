@@ -35,9 +35,9 @@
 
 K_PLUGIN_FACTORY_WITH_JSON (KateSnippetsPluginFactory, "katesnippetsplugin.json", registerPlugin<KateSnippetsPlugin>();)
 
-KateSnippetsPlugin::KateSnippetsPlugin( QObject* parent, const QList<QVariant>& ):
-    KTextEditor::Plugin ( parent )
-    , m_snippetGlobal (new KateSnippetGlobal (this))
+KateSnippetsPlugin::KateSnippetsPlugin( QObject* parent, const QList<QVariant>& )
+    : KTextEditor::Plugin(parent)
+    , m_snippetGlobal(new KateSnippetGlobal(this))
 {
 }
 
@@ -81,12 +81,16 @@ KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, KTex
   a = actionCollection()->addAction( QLatin1String("tools_snippets") );
   a->setText( i18n("Snippets...") );
   connect(a, SIGNAL(triggered(bool)), SLOT(showSnippetsDialog()));
+
+  connect(mainWindow, &KTextEditor::MainWindow::viewCreated,
+          this, &KateSnippetsPluginView::slotViewCreated);
   
   /**
    * connect for all already existing views
    */
-  foreach (KTextEditor::View *view, mainWindow->views())
+  foreach (KTextEditor::View *view, mainWindow->views()) {
     slotViewCreated (view);
+  }
 
   m_mainWindow->guiFactory()->addClient (this);
 }
@@ -94,15 +98,16 @@ KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, KTex
 KateSnippetsPluginView::~KateSnippetsPluginView ()
 {
   // cleanup for all views
-  foreach (QObject *view, m_textViews)
-    if (auto iface = qobject_cast<KTextEditor::CodeCompletionInterface *> (view))
-      iface->unregisterCompletionModel (KateSnippetGlobal::self()->completionModel());
-  
+  foreach (QObject *view, m_textViews) {
+    auto iface = qobject_cast<KTextEditor::CodeCompletionInterface*>(view);
+    iface->unregisterCompletionModel(KateSnippetGlobal::self()->completionModel());
+  }
+
   m_mainWindow->guiFactory()->removeClient (this);
-  
+
   // unregister this view
   m_plugin->mViews.removeAll (this);
-  
+
   // cleanup, kill toolview
   delete m_snippets;
   delete m_toolView;
@@ -121,6 +126,7 @@ void KateSnippetsPluginView::slotViewCreated (KTextEditor::View *view)
   m_textViews.insert (view);
   
   // add snippet completion
+  qDebug() << "VIEW CREATED, REGISTER COMPLETION MODEL" << qobject_cast<KTextEditor::CodeCompletionInterface *> (view);
   if (auto iface = qobject_cast<KTextEditor::CodeCompletionInterface *> (view)) {
     iface->unregisterCompletionModel (KateSnippetGlobal::self()->completionModel());
     iface->registerCompletionModel (KateSnippetGlobal::self()->completionModel());  

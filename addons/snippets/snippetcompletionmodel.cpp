@@ -70,7 +70,7 @@ QVariant SnippetCompletionModel::data( const QModelIndex& idx, int role ) const
 void SnippetCompletionModel::executeCompletionItem (KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const
 {
     if ( index.parent().isValid() ) {
-        m_snippets[index.row()]->execute(view, word);
+        m_snippets[index.row()]->execute(view);
     }
 }
 

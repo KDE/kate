@@ -39,7 +39,11 @@ SnippetCompletionItem::SnippetCompletionItem( Snippet* snippet, SnippetRepositor
     : m_name(snippet->text()), m_snippet(snippet->snippet()), m_repo(repo)
 {
     Q_ASSERT(m_repo);
-    m_name.prepend( repo->completionNamespace() );
+    const auto& namespace_ = repo->completionNamespace();
+    if ( !namespace_.isEmpty() ) {
+        m_name.prepend( QLatin1String(":") );
+        m_name.prepend( repo->completionNamespace() );
+    }
 }
 
 SnippetCompletionItem::~SnippetCompletionItem()

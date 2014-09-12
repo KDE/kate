@@ -20,7 +20,7 @@
    <item>
     <widget class="KMessageWidget" name="messageWidget" native="true">
      <property name="visible">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="closeButtonVisible" stdset="0">
       <bool>false</bool>
@@ -79,21 +79,54 @@
     </layout>
    </item>
    <item>
-    <widget class="QTabWidget" name="editorTabs">
-     <property name="currentIndex">
-      <number>0</number>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <widget class="QWidget" name="snippetTab">
-      <attribute name="title">
-       <string>&amp;Snippet</string>
-      </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout"/>
+     <widget class="QTabWidget" name="editorTabs">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="snippetTab">
+       <attribute name="title">
+        <string>&amp;Snippet</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout"/>
+      </widget>
+      <widget class="QWidget" name="scriptTab">
+       <attribute name="title">
+        <string>S&amp;cripts</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+      </widget>
      </widget>
-     <widget class="QWidget" name="scriptTab">
-      <attribute name="title">
-       <string>S&amp;cripts</string>
-      </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+     <widget class="QWidget" name="testWidget" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="dotest_button">
+           <property name="text">
+            <string>Test this snippet</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

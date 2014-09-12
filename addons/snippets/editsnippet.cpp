@@ -42,7 +42,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-KTextEditor::View* createViewForTab(QWidget* tabWidget)
+KTextEditor::View* createView(QWidget* tabWidget)
 {
     auto document = KTextEditor::Editor::instance()->createDocument(tabWidget);
     auto view = document->createView(tabWidget);
@@ -72,16 +72,23 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     m_ui->buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
     connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
 
-    m_snippetView = createViewForTab(m_ui->snippetTab);
+    m_snippetView = createView(m_ui->snippetTab);
     if ( !m_repo->fileTypes().isEmpty() ) {
         m_snippetView->document()->setMode(m_repo->fileTypes().first());
     }
 
-    m_scriptsView = createViewForTab(m_ui->scriptTab);
+    m_scriptsView = createView(m_ui->scriptTab);
     m_scriptsView->document()->setMode(QLatin1String("JavaScript"));
     m_scriptsView->document()->setText(m_repo->script());
     m_scriptsView->document()->setModified(false);
 
+    // view for testing the snippet
+    m_testView = createView(m_ui->testWidget);
+    // splitter default size ratio
+    m_ui->splitter->setSizes(QList<int>() << 400 << 150);
+    connect(m_ui->dotest_button, &QPushButton::clicked, this, &EditSnippet::test);
+
+    // modified notifications tuff
     connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::topBoxModified);
     connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::validate);
     connect(m_ui->snippetShortcutWidget, &KShortcutWidget::shortcutChanged, this, &EditSnippet::topBoxModified);
@@ -102,6 +109,7 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
         setWindowTitle(i18n("Create New Snippet in Repository %1", m_repo->text()));
     }
 
+    m_ui->messageWidget->hide();
     validate();
 
     m_ui->snippetNameEdit->setFocus();
@@ -109,6 +117,15 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
 
     QSize initSize = sizeHint();
     initSize.setHeight( initSize.height() + 200 );
+}
+
+void EditSnippet::test()
+{
+    m_testView->document()->clear();
+    m_testView->insertTemplate(KTextEditor::Cursor(0, 0),
+                               m_snippetView->document()->text(),
+                               m_scriptsView->document()->text());
+    m_testView->setFocus();
 }
 
 EditSnippet::~EditSnippet()
@@ -135,6 +152,9 @@ void EditSnippet::validate()
     else {
         // hide message widget if snippet does not include spaces
         m_ui->messageWidget->animatedHide();
+    }
+    if ( valid ) {
+        m_ui->messageWidget->hide();
     }
     m_okButton->setEnabled(valid);
 }

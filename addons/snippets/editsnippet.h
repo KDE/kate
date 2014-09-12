@@ -59,10 +59,12 @@ class EditSnippet : public QDialog
     Snippet* m_snippet;
     KTextEditor::View* m_snippetView;
     KTextEditor::View* m_scriptsView;
+    KTextEditor::View* m_testView;
     bool m_topBoxModified;
     QPushButton* m_okButton;
 
   private Q_SLOTS:
+    void test();
     void save();
     void validate();
     void topBoxModified();

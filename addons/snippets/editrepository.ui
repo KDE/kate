@@ -26,45 +26,18 @@
       <item row="0" column="0">
        <widget class="QLabel" name="repoNameLabel">
         <property name="text">
-         <string>&amp;Name:</string>
-        </property>
-        <property name="buddy">
-         <cstring>repoNameEdit</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="KLineEdit" name="repoNameEdit">
-        <property name="toolTip">
-         <string>The name of the repository. Must not be empty or contain forward slashes (/).</string>
-        </property>
-        <property name="clickMessage">
-         <string>A short name for the repository</string>
+         <string>Name:</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="repoNamespaceLabel">
         <property name="text">
-         <string>Na&amp;mespace:</string>
-        </property>
-        <property name="buddy">
-         <cstring>repoNamespaceEdit</cstring>
+         <string>Namespace:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="KLineEdit" name="repoNamespaceEdit">
-        <property name="toolTip">
-         <string>&lt;p&gt;If non-empty this will be used as a prefix for all snippets in this repository during code completion.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; No spaces allowed.&lt;/p&gt;</string>
-        </property>
-        <property name="clickMessage">
-         <string>Prefix to show in code completion</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="repoLicenseLabel">
         <property name="text">
          <string>&amp;License:</string>
@@ -74,10 +47,10 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="3" column="1">
        <widget class="QComboBox" name="repoLicenseEdit"/>
       </item>
-      <item row="3" column="0">
+      <item row="4" column="0">
        <widget class="QLabel" name="repoAuthorsLabel">
         <property name="text">
          <string>&amp;Authors:</string>
@@ -87,10 +60,10 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="4" column="1">
        <widget class="KLineEdit" name="repoAuthorsEdit"/>
       </item>
-      <item row="4" column="0">
+      <item row="5" column="0">
        <widget class="QLabel" name="repoFileTypesLabel">
         <property name="text">
          <string>&amp;File types:</string>
@@ -100,20 +73,34 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="5" column="1">
        <widget class="QLabel" name="repoFileTypesListLabel">
         <property name="text">
          <string notr="true">list of selected filetypes</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="0" colspan="2">
+      <item row="6" column="0" colspan="2">
        <widget class="QListWidget" name="repoFileTypesList"/>
       </item>
-      <item row="6" column="0" colspan="2">
+      <item row="7" column="0" colspan="2">
        <widget class="QDialogButtonBox" name="buttonBox">
         <property name="standardButtons">
          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="repoNameEdit">
+        <property name="placeholderText">
+         <string>A short name for the repository</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="repoNamespaceEdit">
+        <property name="placeholderText">
+         <string>Prefix to show in code completion</string>
         </property>
        </widget>
       </item>

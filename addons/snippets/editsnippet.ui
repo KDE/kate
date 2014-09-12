@@ -35,21 +35,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="snippetName">
        <property name="text">
-        <string>&amp;Name:</string>
-       </property>
-       <property name="buddy">
-        <cstring>snippetNameEdit</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="KLineEdit" name="snippetNameEdit">
-       <property name="toolTip">
-        <string>&lt;p&gt;The name will also be used as the identifier during code completion.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; No spaces allowed.&lt;/p&gt;</string>
-       </property>
-       <property name="clickMessage">
-        <string>will be shown in the completion list</string>
+        <string>Name:</string>
        </property>
       </widget>
      </item>
@@ -75,6 +61,13 @@
         <widget class="KShortcutWidget" name="snippetShortcutWidget"/>
        </item>
       </layout>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="snippetNameEdit">
+       <property name="placeholderText">
+        <string>will be shown in the completion list</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -140,11 +133,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KShortcutWidget</class>
    <extends>QWidget</extends>

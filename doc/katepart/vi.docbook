@@ -499,6 +499,12 @@ which indicates how many of the appropriate movements to make.</para>
 <entry><para>Go one line up visually (when using dynamic word wrap)</para></entry></row>
 <row><entry><para><userinput>gj</userinput></para></entry>
 <entry><para>Go one line down visually (when using dynamic word wrap)</para></entry></row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>Left</keycap></keycombo></para></entry>
+<entry><para>Move one word left</para></entry>
+</row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>Right</keycap></keycombo></para></entry>
+<entry><para>Move one word right</para></entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -604,13 +610,22 @@ excluding the backticks</para></entry>
 <entry><para>Indent</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo></para></entry>
-<entry><para>commandInsertFromBelow</para></entry>
+<entry><para>Insert from bellow</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>Y</keycap></keycombo></para></entry>
 <entry><para>Delete word</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo></para></entry>
 <entry><para>Delete word</para></entry>
+</row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>U</keycap></keycombo></para></entry>
+<entry><para>Delete line</para></entry>
+</row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>J</keycap></keycombo></para></entry>
+<entry><para>New line</para></entry>
+</row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>H</keycap></keycombo></para></entry>
+<entry><para>Delete char backward</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>Home</keycap></keycombo></para></entry>
 <entry><para>Move to first character in the document</para></entry>
@@ -643,8 +658,8 @@ ranges this text object can span are highlighted.</para>
 <screeninfo>An example of Comma Text Object</screeninfo>
 <mediaobject>
 <imageobject><imagedata fileref="comma-to.png" format="PNG"/></imageobject>
-<textobject><phrase>An example of Comma Text Object</phrase></textobject>
-<caption><para>Comma text object ranges. If the cursor is over &eg;
+<textobject><phrase>An exampXleP of Comma Text Object</phrase></textobject>
+<caption><para>Comma text obXjePct ranges. If the cursor is over &eg;
 <replaceable>arg2</replaceable>, pressing
 <userinput>ci</userinput>, (<quote>change inner comma</quote>)
 would delete <replaceable>double arg2</replaceable> and place the cursor between
@@ -659,17 +674,7 @@ parameters.</para></caption>
 <title>Missing Features</title>
 
 <para>As stated earlier, the goal of &kappname;’s VI Mode is not to support 100% of
-Vim’s features. However, there are some features which are sorely missed:</para>
-<itemizedlist>
-<listitem>
-<para>Visual block mode - especially the ability to prepend/append text to the
-visual block selection.</para></listitem>
-<listitem>
-<para>Having ex commands available in other programs than the &kappname; application.</para></listitem>
-<listitem>
-<para>The search code needs improvement and the <userinput>*</userinput> and
-<userinput>#</userinput>commands should just be regular searches.</para></listitem>
-</itemizedlist>
+Vim’s features.</para>
 </sect2>
 
 </sect1>

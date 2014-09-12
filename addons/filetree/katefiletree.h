@@ -81,6 +81,8 @@ private Q_SLOTS:
     void slotFixOpenWithMenu();
     void slotOpenWithMenuAction(QAction *a);
 
+    void slotRenameFile();
+    
 private:
     QAction *setupOption(QActionGroup *group, const QIcon &, const QString &, const QString &, const char *slot, bool checked = false);
 
@@ -89,6 +91,7 @@ private:
     QAction *m_filelistCloseOtherDocument;
     QAction *m_filelistReloadDocument;
     QAction *m_filelistCopyFilename;
+    QAction *m_filelistRenameFile;
     QAction *m_filelistPrintDocument;
     QAction *m_filelistPrintDocumentPreview;
     QAction *m_filelistDeleteDocument;

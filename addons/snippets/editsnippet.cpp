@@ -105,6 +105,7 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     validate();
 
     m_ui->snippetNameEdit->setFocus();
+    setTabOrder(m_ui->snippetNameEdit, m_snippetView);
 
     QSize initSize = sizeHint();
     initSize.setHeight( initSize.height() + 200 );

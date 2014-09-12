@@ -238,10 +238,7 @@ void KateMainWindow::setupImportantActions()
     a = actionCollection()->addAction(QStringLiteral("view_quick_open"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
     a->setText(i18n("&Quick Open"));
-    QList<QKeySequence> scuts;
-    scuts << QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O)
-          << QKeySequence(Qt::CTRL + Qt::Key_Tab);
-    actionCollection()->setDefaultShortcuts(a, scuts);
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O));
     connect(a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()));
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 }

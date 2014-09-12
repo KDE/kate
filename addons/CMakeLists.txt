@@ -37,6 +37,9 @@ ecm_optional_add_subdirectory (project)
 # terminal tool view
 ecm_optional_add_subdirectory (konsole)
 
+# ALT+Tab like tab switcher
+ecm_optional_add_subdirectory (tabswitcher)
+
 # snippets
 ecm_optional_add_subdirectory (snippets)
 
@@ -47,7 +50,7 @@ ecm_optional_add_subdirectory (kate-ctags)
 ecm_optional_add_subdirectory (backtracebrowser)
 
 # kate sql
-ecm_optional_add_subdirectory(katesql)
+ecm_optional_add_subdirectory (katesql)
 
 # file browser
 ecm_optional_add_subdirectory (filebrowser)

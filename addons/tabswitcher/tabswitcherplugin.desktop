@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KTextEditor/Plugin
+X-KDE-Library=tabswitcherplugin
+Name=Document switcher
+Comment=Quick document switching with ALT+Tab behavior

@@ -184,12 +184,12 @@ void SnippetView::contextMenu (const QPoint& pos)
         QMenu menu(this);
         menu.addSection(i18n("Repository: %1", repo->text()));
 
+        menu.addAction(m_addSnippetAction);
+        menu.addSeparator();
+
         menu.addAction(m_editRepoAction);
         menu.addAction(m_removeRepoAction);
         menu.addAction(m_putNewStuffAction);
-        menu.addSeparator();
-
-        menu.addAction(m_addSnippetAction);
 
         menu.exec(snippetTree->mapToGlobal(pos));
     }

@@ -26,6 +26,8 @@
 
 #include "kateprojectitem.h"
 
+class QDir;
+
 /**
  * Class representing a project background worker.
  * This worker will build up the model for the project on load and do other stuff in the background.
@@ -84,6 +86,13 @@ private:
      * @param files list of all project files to index
      */
     void loadIndex(const QStringList &files);
+
+    QStringList findFiles(const QDir &dir, const QVariantMap &filesEntry);
+
+    QStringList filesFromGit(const QDir &dir, bool recursive);
+    QStringList filesFromMercurial(const QDir &dir, bool recursive);
+    QStringList filesFromSubversion(const QDir &dir, bool recursive);
+    QStringList filesFromDirectory(const QDir &dir, bool recursive, const QStringList &filters);
 
 private:
     /**

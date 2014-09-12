@@ -163,199 +163,17 @@ static QStandardItem *directoryParent(QMap<QString, QStandardItem *> &dir2Item, 
 
 void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, KateProjectItem *> *file2Item)
 {
-    /**
-     * get directory to open or skip
-     */
     QDir dir(m_baseDir);
     if (!dir.cd(filesEntry[QStringLiteral("directory")].toString())) {
         return;
     }
 
-    /**
-     * get recursive attribute, default is TRUE
-     */
-    const bool recursive = !filesEntry.contains(QStringLiteral("recursive")) || filesEntry[QStringLiteral("recursive")].toBool();
+    QStringList files = findFiles(dir, filesEntry);
 
-    /**
-     * now: choose between different methodes to get files in the directory
-     */
-    QStringList files;
-
-    /**
-     * use GIT
-     */
-    if (filesEntry[QStringLiteral("git")].toBool()) {
-        /**
-         * try to run git with ls-files for this directory
-         */
-        QProcess git;
-        git.setWorkingDirectory(dir.absolutePath());
-        QStringList args;
-        args << QStringLiteral("ls-files") << QStringLiteral(".");
-        git.start(QStringLiteral("git"), args);
-        if (!git.waitForStarted() || !git.waitForFinished()) {
-            return;
-        }
-
-        /**
-         * get output and split up into files
-         */
-        QStringList relFiles = QString::fromLocal8Bit(git.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
-
-        /**
-         * prepend the directory path
-         */
-        foreach(QString relFile, relFiles) {
-            /**
-             * skip non-direct files if not recursive
-             */
-            if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
-                continue;
-            }
-
-            files.append(dir.absolutePath() + QLatin1Char('/') + relFile);
-        }
+    if (files.isEmpty()) {
+        return;
     }
 
-    /**
-     * use MERCURIAL
-     */
-    else if (filesEntry[QStringLiteral("hg")].toBool()) {
-        /**
-         * try to run QStringLiteral("hg manifest") for this directory
-         */
-        QProcess hg;
-        hg.setWorkingDirectory(dir.absolutePath());
-        QStringList args;
-        args << QStringLiteral("manifest") << QStringLiteral(".");
-        hg.start(QStringLiteral("hg"), args);
-        if (!hg.waitForStarted() || !hg.waitForFinished()) {
-            return;
-        }
-
-        /**
-         * get output and split up into files
-         */
-        QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
-
-        /**
-         * prepend the directory path
-         */
-        foreach(QString relFile, relFiles) {
-            /**
-             * skip non-direct files if not recursive
-             */
-            if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
-                continue;
-            }
-
-            files.append(dir.absolutePath() + QLatin1Char('/') + relFile);
-        }
-    }
-
-    /**
-     * use SVN
-     */
-    else if (filesEntry[QStringLiteral("svn")].toBool()) {
-        /**
-         * try to run git with ls-files for this directory
-         */
-        QProcess svn;
-        svn.setWorkingDirectory(dir.absolutePath());
-        QStringList args;
-        args << QStringLiteral("status") << QStringLiteral("--verbose") << QStringLiteral(".");
-        if (recursive) {
-            args << QStringLiteral("--depth=infinity");
-        } else {
-            args << QStringLiteral("--depth=files");
-        }
-        svn.start(QStringLiteral("svn"), args);
-        if (!svn.waitForStarted() || !svn.waitForFinished()) {
-            return;
-        }
-
-        /**
-         * get output and split up into lines
-         */
-        QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
-
-        /**
-         * remove start of line that is no filename, sort out unknown and ignore
-         */
-        bool first = true;
-        int prefixLength = -1;
-        foreach(QString line, lines) {
-            /**
-             * get length of stuff to cut
-             */
-            if (first) {
-                /**
-                 * try to find ., else fail
-                 */
-                prefixLength = line.lastIndexOf(QStringLiteral("."));
-                if (prefixLength < 0) {
-                    break;
-                }
-
-                /**
-                 * skip first
-                 */
-                first = false;
-                continue;
-            }
-
-            /**
-             * get file, if not unknown or ignored
-             * prepend directory path
-             */
-            if ((line.size() > prefixLength) && line[0] != QLatin1Char('?') && line[0] != QLatin1Char('I')) {
-                files.append(dir.absolutePath() + QLatin1Char('/') + line.right(line.size() - prefixLength));
-            }
-        }
-    }
-
-    else {
-        files = filesEntry[QStringLiteral("list")].toStringList();
-
-        /**
-        * fallback to use QDirIterator and search files ourself!
-        */
-        if (files.empty()) {
-            /**
-            * default filter: only files!
-            */
-            dir.setFilter(QDir::Files);
-
-            /**
-            * set name filters, if any
-            */
-            QStringList filters = filesEntry[QStringLiteral("filters")].toStringList();
-            if (!filters.isEmpty()) {
-                dir.setNameFilters(filters);
-            }
-
-            /**
-            * construct flags for iterator
-            */
-            QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
-            if (recursive) {
-                flags = flags | QDirIterator::Subdirectories;
-            }
-
-            /**
-            * create iterator and collect all files
-            */
-            QDirIterator dirIterator(dir, flags);
-            while (dirIterator.hasNext()) {
-                dirIterator.next();
-                files.append(dirIterator.filePath());
-            }
-        }
-    }
-
-    /**
-     * sort them
-     */
     files.sort();
 
     /**
@@ -364,19 +182,19 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     QMap<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
     QList<QPair<QStandardItem *, QStandardItem *> > item2ParentPath;
-    foreach(QString filePath, files) {
+    Q_FOREACH(auto filePath, files) {
+        /**
+          * skip dupes
+          */
+        if (file2Item->contains(filePath)) {
+            continue;
+        }
+
         /**
          * get file info and skip NON-files
          */
         QFileInfo fileInfo(filePath);
         if (!fileInfo.isFile()) {
-            continue;
-        }
-
-        /**
-          * skip dupes
-          */
-        if (file2Item->contains(filePath)) {
             continue;
         }
 
@@ -401,6 +219,172 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     }
 }
 
+QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& filesEntry)
+{
+    const bool recursive = !filesEntry.contains(QStringLiteral("recursive")) || filesEntry[QStringLiteral("recursive")].toBool();
+
+    if (filesEntry[QStringLiteral("git")].toBool()) {
+        return filesFromGit(dir, recursive);
+    } else if (filesEntry[QStringLiteral("hg")].toBool()) {
+        return filesFromMercurial(dir, recursive);
+    } else if (filesEntry[QStringLiteral("svn")].toBool()) {
+        return filesFromSubversion(dir, recursive);
+    } else {
+        QStringList files = filesEntry[QStringLiteral("list")].toStringList();
+
+        if (files.empty()) {
+            QStringList filters = filesEntry[QStringLiteral("filters")].toStringList();
+            files = filesFromDirectory(dir, recursive, filters);
+        }
+
+        return files;
+    }
+}
+
+QStringList KateProjectWorker::filesFromGit(const QDir& dir, bool recursive)
+{
+    QStringList files;
+
+    QProcess git;
+    git.setWorkingDirectory(dir.absolutePath());
+    QStringList args;
+    args << QStringLiteral("ls-files") << QStringLiteral(".");
+    git.start(QStringLiteral("git"), args);
+    if (!git.waitForStarted() || !git.waitForFinished()) {
+        return files;
+    }
+
+    QStringList relFiles = QString::fromLocal8Bit(git.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+
+    Q_FOREACH(auto relFile, relFiles) {
+        if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
+            continue;
+        }
+
+        files.append(dir.absolutePath() + QLatin1Char('/') + relFile);
+    }
+
+    return files;
+}
+
+QStringList KateProjectWorker::filesFromMercurial(const QDir& dir, bool recursive)
+{
+    QStringList files;
+
+    QProcess hg;
+    hg.setWorkingDirectory(dir.absolutePath());
+    QStringList args;
+    args << QStringLiteral("manifest") << QStringLiteral(".");
+    hg.start(QStringLiteral("hg"), args);
+    if (!hg.waitForStarted() || !hg.waitForFinished()) {
+        return files;
+    }
+
+    QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+
+    Q_FOREACH(auto relFile, relFiles) {
+        if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
+            continue;
+        }
+
+        files.append(dir.absolutePath() + QLatin1Char('/') + relFile);
+    }
+
+    return files;
+}
+
+QStringList KateProjectWorker::filesFromSubversion(const QDir& dir, bool recursive)
+{
+    QStringList files;
+
+    QProcess svn;
+    svn.setWorkingDirectory(dir.absolutePath());
+    QStringList args;
+    args << QStringLiteral("status") << QStringLiteral("--verbose") << QStringLiteral(".");
+    if (recursive) {
+        args << QStringLiteral("--depth=infinity");
+    } else {
+        args << QStringLiteral("--depth=files");
+    }
+    svn.start(QStringLiteral("svn"), args);
+    if (!svn.waitForStarted() || !svn.waitForFinished()) {
+        return files;
+    }
+
+    /**
+     * get output and split up into lines
+     */
+    QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+
+    /**
+     * remove start of line that is no filename, sort out unknown and ignore
+     */
+    bool first = true;
+    int prefixLength = -1;
+
+    Q_FOREACH(auto line, lines) {
+        /**
+         * get length of stuff to cut
+         */
+        if (first) {
+            /**
+             * try to find ., else fail
+             */
+            prefixLength = line.lastIndexOf(QStringLiteral("."));
+            if (prefixLength < 0) {
+                break;
+            }
+
+            /**
+             * skip first
+             */
+            first = false;
+            continue;
+        }
+
+        /**
+         * get file, if not unknown or ignored
+         * prepend directory path
+         */
+        if ((line.size() > prefixLength) && line[0] != QLatin1Char('?') && line[0] != QLatin1Char('I')) {
+            files.append(dir.absolutePath() + QLatin1Char('/') + line.right(line.size() - prefixLength));
+        }
+    }
+
+    return files;
+}
+
+QStringList KateProjectWorker::filesFromDirectory(const QDir& _dir, bool recursive, const QStringList &filters)
+{
+    QStringList files;
+
+    QDir dir(_dir);
+    dir.setFilter(QDir::Files);
+
+    if (!filters.isEmpty()) {
+        dir.setNameFilters(filters);
+    }
+
+    /**
+     * construct flags for iterator
+     */
+    QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
+    if (recursive) {
+        flags = flags | QDirIterator::Subdirectories;
+    }
+
+    /**
+     * create iterator and collect all files
+     */
+    QDirIterator dirIterator(dir, flags);
+    while (dirIterator.hasNext()) {
+        dirIterator.next();
+        files.append(dirIterator.filePath());
+    }
+
+    return files;
+}
+
 void KateProjectWorker::loadIndex(const QStringList &files)
 {
     /**
@@ -414,4 +398,3 @@ void KateProjectWorker::loadIndex(const QStringList &files)
      */
     QMetaObject::invokeMethod(m_project, "loadIndexDone", Qt::QueuedConnection, Q_ARG(KateProjectSharedProjectIndex, index));
 }
-

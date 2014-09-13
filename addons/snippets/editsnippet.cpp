@@ -37,6 +37,7 @@
 
 #include <QToolButton>
 #include <QPushButton>
+#include <QWhatsThis>
 
 #include <KTextEditor/Editor>
 #include <KTextEditor/Document>
@@ -93,6 +94,12 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::validate);
     connect(m_ui->snippetShortcutWidget, &KShortcutWidget::shortcutChanged, this, &EditSnippet::topBoxModified);
     connect(m_snippetView->document(), &KTextEditor::Document::textChanged, this, &EditSnippet::validate);
+
+    auto showHelp = [](const QString& text) {
+        QWhatsThis::showText(QCursor::pos(), text);
+    };
+    connect(m_ui->snippetLabel, &QLabel::linkActivated, showHelp);
+    connect(m_ui->scriptLabel, &QLabel::linkActivated, showHelp);
 
     // if we edit a snippet, add all existing data
     if ( m_snippet ) {

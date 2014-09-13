@@ -610,7 +610,7 @@ excluding the backticks</para></entry>
 <entry><para>Indent</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo></para></entry>
-<entry><para>Insert from bellow</para></entry>
+<entry><para>Insert from below</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>Y</keycap></keycombo></para></entry>
 <entry><para>Delete word</para></entry>
@@ -658,8 +658,8 @@ ranges this text object can span are highlighted.</para>
 <screeninfo>An example of Comma Text Object</screeninfo>
 <mediaobject>
 <imageobject><imagedata fileref="comma-to.png" format="PNG"/></imageobject>
-<textobject><phrase>An exampXleP of Comma Text Object</phrase></textobject>
-<caption><para>Comma text obXjePct ranges. If the cursor is over &eg;
+<textobject><phrase>An example of Comma Text Object</phrase></textobject>
+<caption><para>Comma text object ranges. If the cursor is over &eg;
 <replaceable>arg2</replaceable>, pressing
 <userinput>ci</userinput>, (<quote>change inner comma</quote>)
 would delete <replaceable>double arg2</replaceable> and place the cursor between

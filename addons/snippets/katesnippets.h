@@ -33,48 +33,48 @@ class KateSnippetsPluginView;
 class KateSnippetsPlugin: public KTextEditor::Plugin
 {
     Q_OBJECT
-    
-  friend class KateSnippetsPluginView;
-  
-  public:
-    explicit KateSnippetsPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
+
+    friend class KateSnippetsPluginView;
+
+public:
+    explicit KateSnippetsPlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
     virtual ~KateSnippetsPlugin();
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow);
-  
-  private:
+    QObject *createView(KTextEditor::MainWindow *mainWindow);
+
+private:
     KateSnippetGlobal *m_snippetGlobal;
-    QList<KateSnippetsPluginView*> mViews;
+    QList<KateSnippetsPluginView *> mViews;
 };
 
 class KateSnippetsPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
 
-  public:
+public:
     /**
       * Constructor.
       */
-    KateSnippetsPluginView (KateSnippetsPlugin* plugin, KTextEditor::MainWindow *mainWindow);
+    KateSnippetsPluginView(KateSnippetsPlugin *plugin, KTextEditor::MainWindow *mainWindow);
 
     /**
      * Virtual destructor.
      */
-    ~KateSnippetsPluginView ();
+    ~KateSnippetsPluginView();
 
     void readConfig();
- 
-  private Q_SLOTS:
+
+private Q_SLOTS:
     /**
      * New view got created, we need to update our connections
      * @param view new created view
      */
-    void slotViewCreated (KTextEditor::View *view);
+    void slotViewCreated(KTextEditor::View *view);
 
-    void createSnippet ();
-    void showSnippetsDialog ();
+    void createSnippet();
+    void showSnippetsDialog();
 
-  private:
+private:
     KateSnippetsPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     QScopedPointer<QWidget> m_toolView;
@@ -88,4 +88,3 @@ class KateSnippetsPluginView : public QObject, public KXMLGUIClient
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;

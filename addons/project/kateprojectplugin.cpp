@@ -63,6 +63,8 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
     , m_completion(this)
     , m_autoGit(true)
+    , m_autoSubversion(true)
+    , m_autoMercurial(true)
 {
     qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
     qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");

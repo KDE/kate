@@ -70,8 +70,8 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");
     qRegisterMetaType<KateProjectSharedProjectIndex>("KateProjectSharedProjectIndex");
 
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentCreated(KTextEditor::Document *)), this, SLOT(slotDocumentCreated(KTextEditor::Document *)));
-    connect(&m_fileWatcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(slotDirectoryChanged(const QString &)));
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KateProjectPlugin::slotDocumentCreated);
+    connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged, this, &KateProjectPlugin::slotDirectoryChanged);
 
 #ifdef HAVE_CTERMID
     /**
@@ -193,8 +193,8 @@ KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
 
 void KateProjectPlugin::slotDocumentCreated(KTextEditor::Document *document)
 {
-    connect(document, SIGNAL(documentUrlChanged(KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged(KTextEditor::Document *)));
-    connect(document, SIGNAL(destroyed(QObject *)), this, SLOT(slotDocumentDestroyed(QObject *)));
+    connect(document, &KTextEditor::Document::documentUrlChanged, this, &KateProjectPlugin::slotDocumentUrlChanged);
+    connect(document, &KTextEditor::Document::destroyed, this, &KateProjectPlugin::slotDocumentDestroyed);
 
     slotDocumentUrlChanged(document);
 }

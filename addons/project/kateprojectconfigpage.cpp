@@ -55,9 +55,9 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
 
     reset();
 
-    connect(m_cbAutoGit, SIGNAL(stateChanged(int)), this, SLOT(slotMyChanged()));
-    connect(m_cbAutoSubversion, SIGNAL(stateChanged(int)), this, SLOT(slotMyChanged()));
-    connect(m_cbAutoMercurial, SIGNAL(stateChanged(int)), this, SLOT(slotMyChanged()));
+    connect(m_cbAutoGit, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
+    connect(m_cbAutoSubversion, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
+    connect(m_cbAutoMercurial, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
 }
 
 QString KateProjectConfigPage::name() const

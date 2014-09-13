@@ -61,9 +61,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     /**
      * connect to important signals, e.g. for auto project view creation
      */
-    connect(m_plugin, SIGNAL(projectCreated(KateProject *)), this, SLOT(viewForProject(KateProject *)));
-    connect(m_mainWindow, SIGNAL(viewChanged(KTextEditor::View *)), this, SLOT(slotViewChanged()));
-    connect(m_mainWindow, SIGNAL(viewCreated(KTextEditor::View *)), this, SLOT(slotViewCreated(KTextEditor::View *)));
+    connect(m_plugin, &KateProjectPlugin::projectCreated, this, &KateProjectPluginView::viewForProject);
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateProjectPluginView::slotViewChanged);
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &KateProjectPluginView::slotViewCreated);
 
     /**
      * connect for all already existing views
@@ -150,7 +150,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
         m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);
 
         connect(m_projectsCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCurrentChanged(int)));
-        connect(m_reloadButton, SIGNAL(clicked(bool)), this, SLOT(slotProjectReload()));
+        connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
     }
 
     /**
@@ -280,7 +280,7 @@ void KateProjectPluginView::slotViewChanged()
     /**
      * connect to url changed, for auto load
      */
-    connect(m_activeTextEditorView->document(), SIGNAL(documentUrlChanged(KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged(KTextEditor::Document *)));
+    connect(m_activeTextEditorView->document(), &KTextEditor::Document::documentUrlChanged, this, &KateProjectPluginView::slotDocumentUrlChanged);
 
     /**
      * trigger slot once
@@ -355,7 +355,7 @@ void KateProjectPluginView::slotViewCreated(KTextEditor::View *view)
     /**
      * connect to destroyed
      */
-    connect(view, SIGNAL(destroyed(QObject *)), this, SLOT(slotViewDestroyed(QObject *)));
+    connect(view, &KTextEditor::View::destroyed, this, &KateProjectPluginView::slotViewDestroyed);
 
     /**
      * add completion model if possible

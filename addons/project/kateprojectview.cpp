@@ -53,7 +53,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
      */
     m_filter->setPlaceholderText(i18n("Search"));
     m_filter->setClearButtonEnabled(true);
-    connect(m_filter, SIGNAL(textChanged(QString)), this, SLOT(filterTextChanged(QString)));
+    connect(m_filter, &KLineEdit::textChanged, this, &KateProjectView::filterTextChanged);
 }
 
 KateProjectView::~KateProjectView()

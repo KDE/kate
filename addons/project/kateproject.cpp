@@ -341,13 +341,13 @@ void KateProject::registerDocument(KTextEditor::Document *document)
 
     // if we got one, we are done, else create a dummy!
     if (item) {
-        disconnect(document, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(slotModifiedChanged(KTextEditor::Document *)));
+        disconnect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
         disconnect(document, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
         item->slotModifiedChanged(document);
 
         /*FIXME    item->slotModifiedOnDisk(document,document->isModified(),qobject_cast<KTextEditor::ModificationInterface*>(document)->modifiedOnDisk()); FIXME*/
 
-        connect(document, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(slotModifiedChanged(KTextEditor::Document *)));
+        connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
         connect(document, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
         return;
@@ -364,7 +364,7 @@ void KateProject::registerDocument(KTextEditor::Document *document)
     KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileInfo.fileName());
     fileItem->setData(document->url().toLocalFile(), Qt::ToolTipRole);
     fileItem->slotModifiedChanged(document);
-    connect(document, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(slotModifiedChanged(KTextEditor::Document *)));
+    connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
     connect(document, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
     bool inserted = false;
@@ -398,7 +398,7 @@ void KateProject::unregisterDocument(KTextEditor::Document *document)
     // perhaps kill the item we have generated
     bool empty = false;
     if (KateProjectItem *item = (KateProjectItem *)itemForFile(m_documents.value(document))) {
-        disconnect(document, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(slotModifiedChanged(KTextEditor::Document *)));
+        disconnect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
         if (m_documentsParent && item->data(Qt::UserRole + 3).toBool()) {
             for (int i = 0; i < m_documentsParent->rowCount(); ++i) {
                 if (m_documentsParent->child(i) == item) {

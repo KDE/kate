@@ -1236,6 +1236,9 @@ void KateSchemaConfigPage::deleteSchema ()
   // remove schema from combo box
   schemaCombo->removeItem(comboIndex);
   defaultSchemaCombo->removeItem(comboIndex);
+
+  // Reload the color tab, since it uses cached schemas
+  m_colorTab->reload();
 }
 
 bool KateSchemaConfigPage::newSchema (const QString& newName)

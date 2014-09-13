@@ -71,25 +71,19 @@ class KateSnippetsPluginView : public QObject, public KXMLGUIClient
      */
     void slotViewCreated (KTextEditor::View *view);
 
-    /**
-     * View got destroyed.
-     * @param view deleted view
-     */
-    void slotViewDestroyed (QObject *view);
-    
     void createSnippet ();
     void showSnippetsDialog ();
 
   private:
     KateSnippetsPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
-    QWidget *m_toolView;
-    QWidget *m_snippets;
+    QScopedPointer<QWidget> m_toolView;
+    QScopedPointer<QWidget> m_snippets;
 
     /**
      * remember for which text views we might need to cleanup stuff
      */
-    QSet<QObject *> m_textViews;
+    QVector< QPointer<KTextEditor::View> > m_textViews;
 };
 
 #endif

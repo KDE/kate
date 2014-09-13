@@ -58,14 +58,17 @@ KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, KTex
   setXMLFile(QLatin1String("ui.rc"));
   
   // Toolview for snippets
-  m_toolView = mainWindow->createToolView (0, QLatin1String("kate_private_plugin_katesnippetsplugin"), KTextEditor::MainWindow::Right, SmallIcon(QLatin1String("document-new")), i18n("Snippets"));
+  m_toolView.reset(mainWindow->createToolView(0, QLatin1String("kate_private_plugin_katesnippetsplugin"),
+                                              KTextEditor::MainWindow::Right,
+                                              SmallIcon(QLatin1String("document-new")),
+                                              i18n("Snippets")));
   
   // add snippets widget
-  m_snippets = KateSnippetGlobal::self()->snippetWidget();
-  m_snippets->setParent (m_toolView);
+  m_snippets.reset(KateSnippetGlobal::self()->snippetWidget());
+  m_snippets->setParent(m_toolView.data());
   
   // snippets toolbar
-  KToolBar *topToolbar = new KToolBar (m_toolView, "snippetsToolBar");
+  KToolBar *topToolbar = new KToolBar (m_toolView.data(), "snippetsToolBar");
   topToolbar->setToolButtonStyle (Qt::ToolButtonIconOnly);
   topToolbar->addActions (m_snippets->actions());
 
@@ -92,13 +95,16 @@ KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, KTex
     slotViewCreated (view);
   }
 
-  m_mainWindow->guiFactory()->addClient (this);
+  m_mainWindow->guiFactory()->addClient(this);
 }
 
 KateSnippetsPluginView::~KateSnippetsPluginView ()
 {
   // cleanup for all views
-  foreach (QObject *view, m_textViews) {
+  Q_FOREACH ( auto view, m_textViews ) {
+    if ( ! view ) {
+      continue;
+    }
     auto iface = qobject_cast<KTextEditor::CodeCompletionInterface*>(view);
     iface->unregisterCompletionModel(KateSnippetGlobal::self()->completionModel());
   }
@@ -107,38 +113,17 @@ KateSnippetsPluginView::~KateSnippetsPluginView ()
 
   // unregister this view
   m_plugin->mViews.removeAll (this);
-
-  // cleanup, kill toolview
-  delete m_snippets;
-  delete m_toolView;
 }
 
 void KateSnippetsPluginView::slotViewCreated (KTextEditor::View *view)
 {
-  /**
-   * connect to destroyed
-   */
-  connect (view, SIGNAL(destroyed (QObject *)), this, SLOT(slotViewDestroyed (QObject *)));
-
-  /**
-   * remember for this view we need to cleanup!
-   */
-  m_textViews.insert (view);
+  m_textViews.append(QPointer<KTextEditor::View>(view));
   
   // add snippet completion
-  qDebug() << "VIEW CREATED, REGISTER COMPLETION MODEL" << qobject_cast<KTextEditor::CodeCompletionInterface *> (view);
-  if (auto iface = qobject_cast<KTextEditor::CodeCompletionInterface *> (view)) {
-    iface->unregisterCompletionModel (KateSnippetGlobal::self()->completionModel());
-    iface->registerCompletionModel (KateSnippetGlobal::self()->completionModel());  
-  }
-}
-
-void KateSnippetsPluginView::slotViewDestroyed (QObject *view)
-{
-  /**
-   * remove remembered views for which we need to cleanup on exit!
-   */
-  m_textViews.remove (view);
+  auto model = KateSnippetGlobal::self()->completionModel();
+  auto iface = qobject_cast<KTextEditor::CodeCompletionInterface*>(view);
+  iface->unregisterCompletionModel(model);
+  iface->registerCompletionModel(model);
 }
 
 void KateSnippetsPluginView::createSnippet ()

@@ -23,6 +23,7 @@
 #include "katesnippetglobal.h"
 
 #include <QAction>
+#include <QBoxLayout>
 
 #include <KActionCollection>
 #include <KXMLGUIFactory>
@@ -96,6 +97,7 @@ KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, KTex
   }
 
   m_mainWindow->guiFactory()->addClient(this);
+    static_cast<QBoxLayout*>(m_toolView->layout())->insertWidget(0, topToolbar);
 }
 
 KateSnippetsPluginView::~KateSnippetsPluginView ()

@@ -45,6 +45,7 @@
 #include <QMenu>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <QDir>
 //END Includes
 
 //BEGIN KateFileTree
@@ -72,9 +73,9 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     m_filelistCopyFilename = new QAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18nc("@action:inmenu", "Copy Filename"), this);
     connect(m_filelistCopyFilename, SIGNAL(triggered()), this, SLOT(slotCopyFilename()));
     m_filelistCopyFilename->setWhatsThis(i18n("Copy the filename of the file."));
-    
-    m_filelistRenameFile=new QAction(QIcon::fromTheme(QLatin1String("edit-rename")),i18nc("@action:inmenu", "Rename File"),this);
-    connect(m_filelistRenameFile,SIGNAL(triggered()),this,SLOT(slotRenameFile()));
+
+    m_filelistRenameFile = new QAction(QIcon::fromTheme(QLatin1String("edit-rename")), i18nc("@action:inmenu", "Rename File"), this);
+    connect(m_filelistRenameFile, &QAction::triggered, this, &KateFileTree::slotRenameFile);
     m_filelistRenameFile->setWhatsThis(i18n("Rename the selected file."));
 
     m_filelistPrintDocument = KStandardAction::print(this, SLOT(slotPrintDocument()), this);
@@ -226,14 +227,14 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
         menu.addAction(m_filelistCloseOtherDocument);
         menu.addSeparator();
         menu.addAction(m_filelistCopyFilename);
-        menu.addAction(m_filelistRenameFile);;
+        menu.addAction(m_filelistRenameFile);
         menu.addAction(m_filelistPrintDocument);
         menu.addAction(m_filelistPrintDocumentPreview);
         QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));
         connect(openWithMenu, SIGNAL(aboutToShow()), this, SLOT(slotFixOpenWithMenu()));
         connect(openWithMenu, SIGNAL(triggered(QAction *)), this, SLOT(slotOpenWithMenuAction(QAction *)));
 
-        const bool hasFileName=doc->url().isValid();
+        const bool hasFileName = doc->url().isValid();
         m_filelistCopyFilename->setEnabled(hasFileName);
         m_filelistRenameFile->setEnabled(hasFileName);
         m_filelistDeleteDocument->setEnabled(hasFileName);
@@ -370,42 +371,49 @@ void KateFileTree::slotCopyFilename()
 }
 
 void KateFileTree::slotRenameFile() {
-    KTextEditor::Document *doc=model()->data(m_indexContextMenu,
-    KateFileTreeModel::DocumentRole).value<KTextEditor::Document*>();
-    if (doc) {
-        const QUrl oldFileUrl=doc->url();
-        const QString oldFileName = doc->url().fileName();
-        bool ok;
-        QString newFileName = QInputDialog::getText(this,i18n("Rename file"),i18n("New file name"), QLineEdit::Normal,
-            oldFileName,&ok);
-        if (!ok) return;
-        //ok
-        QUrl newFileUrl = oldFileUrl.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash);
-        newFileUrl.setPath(newFileUrl.path()+QLatin1Char('/')+newFileName);
-        
-        if (newFileUrl.isValid()) {
-            if (!doc->closeUrl()) return;
-            /*if (!*/doc->waitSaveComplete();/*) {
-                KMessageBox::sorry(this,i18n("Modifications could not be saved, not renaming file"));
-                return;
-            }*/
-            KIO::CopyJob* job = KIO::move(oldFileUrl, newFileUrl);
-            QSharedPointer<QMetaObject::Connection> sc(new QMetaObject::Connection());
-            *sc=connect(job,&KIO::CopyJob::copyingDone,doc, [doc,sc ](KIO::Job*, const QUrl&, const QUrl &realNewFileUrl,
-                const QDateTime&,bool, bool) {
-                    doc->openUrl(realNewFileUrl);
-                    doc->documentSavedOrUploaded(doc, true);
-                    QObject::disconnect(*sc);
-                });
-            if (!job->exec()) {
-                KMessageBox::sorry(this, i18n("File \"%1\" could not be moved to \"%2\"", oldFileUrl.toDisplayString(),newFileUrl.toDisplayString()));
-                doc->openUrl(oldFileUrl);
-            }
-        }
+    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    if (!doc) {
+        return;
+    }
 
+    const QUrl oldFileUrl = doc->url();
+    const QString oldFileName = doc->url().fileName();
+    bool ok;
+
+    QString newFileName = QInputDialog::getText(this,
+        i18n("Rename file"), i18n("New file name"), QLineEdit::Normal, oldFileName, &ok);
+    if (!ok) {
+        return;
+    }
+
+    QUrl newFileUrl = oldFileUrl.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash);
+    newFileUrl.setPath(newFileUrl.path() + QDir::separator() + newFileName);
+
+    if (!newFileUrl.isValid()) {
+        return;
+    }
+
+    if (!doc->closeUrl()) {
+        return;
+    }
+
+    doc->waitSaveComplete();
+
+    KIO::CopyJob* job = KIO::move(oldFileUrl, newFileUrl);
+    QSharedPointer<QMetaObject::Connection> sc(new QMetaObject::Connection());
+    auto success = [doc, sc] (KIO::Job*, const QUrl&, const QUrl &realNewFileUrl, const QDateTime&, bool, bool) {
+            doc->openUrl(realNewFileUrl);
+            doc->documentSavedOrUploaded(doc, true);
+            QObject::disconnect(*sc);
+        };
+    *sc = connect(job, &KIO::CopyJob::copyingDone, doc, success);
+
+    if (!job->exec()) {
+        KMessageBox::sorry(this, i18n("File \"%1\" could not be moved to \"%2\"", oldFileUrl.toDisplayString(), newFileUrl.toDisplayString()));
+        doc->openUrl(oldFileUrl);
     }
 }
-    
+
 void KateFileTree::slotDocumentFirst()
 {
     KTextEditor::Document *doc =

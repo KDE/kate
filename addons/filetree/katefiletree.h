@@ -82,7 +82,7 @@ private Q_SLOTS:
     void slotOpenWithMenuAction(QAction *a);
 
     void slotRenameFile();
-    
+
 private:
     QAction *setupOption(QActionGroup *group, const QIcon &, const QString &, const QString &, const char *slot, bool checked = false);
 

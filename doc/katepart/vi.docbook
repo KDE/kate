@@ -38,11 +38,11 @@ keyboard shortcuts.  That means that <userinput>y</userinput> and
 <userinput>Y</userinput> are different commands.  To enter the
 <userinput>y</userinput> (yank) command, make sure <keysym>Caps Lock</keysym> is
 disabled and press <keycap>Y</keycap>.  To enter the <userinput>Y</userinput>
-(yank to end of line) command, 
+(yank to end of line) command,
 <keycombo action="simul">&Shift;<keycap>Y</keycap></keycombo>.</para>
 
 <para>This does not apply to commands that use the &Ctrl; key, which may be
-entered regardless of <keycap>Caps Lock</keycap> mode and without pressing 
+entered regardless of <keycap>Caps Lock</keycap> mode and without pressing
 &Shift;.  However, some commands require the use of a &Ctrl;-key combination
 followed by another key which is case sensitive.  For instance, to input
 <quote><keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo>,
@@ -185,11 +185,26 @@ created.</para>
 <row><entry><para><userinput>i</userinput></para></entry>
 <entry><para>Enter Insert Mode; insert before cursor</para></entry>
 </row>
+<row><entry><para><keycap>Insert</keycap></para></entry>
+<entry><para>Enter Insert Mode; insert before cursor</para></entry>
+</row>
+<row><entry><para><userinput>I</userinput></para></entry>
+<entry><para>Enter Insert Mode; insert before first non-blank char on line</para></entry>
+</row>
+<row><entry><para><userinput>gi</userinput></para></entry>
+<entry><para>Enter Insert Mode; insert before place, where leaving the last insert mode</para></entry>
+</row>
 <row><entry><para><userinput>v</userinput></para></entry>
 <entry><para>Enter Visual Mode; select characters</para></entry>
 </row>
 <row><entry><para><userinput>V</userinput></para></entry>
 <entry><para>Enter Visual Mode; select lines</para></entry>
+</row>
+<row><entry><para><keycombo action="simul">&Ctrl;<keycap>v</keycap></keycombo></para></entry>
+<entry><para>Enter Visual Mode; select blocks</para></entry>
+</row>
+<row><entry><para><userinput>gb</userinput></para></entry>
+<entry><para>Enter Visual Mode; reselect the last selection</para></entry>
 </row>
 <row><entry><para><userinput>o</userinput></para></entry>
 <entry><para>Open a new line below current line</para></entry>
@@ -227,19 +242,22 @@ created.</para>
 <row><entry><para><userinput>x</userinput></para></entry>
 <entry><para>Delete character to right of cursor</para></entry>
 </row>
+<row><entry><para><keycap>Delete</keycap></para></entry>
+<entry><para>Delete character to right of cursor</para></entry>
+</row>
 <row><entry><para><userinput>X</userinput></para></entry>
 <entry><para>Delete character to left of cursor</para></entry>
 </row>
 <row><entry><para><userinput>gu</userinput></para></entry>
 <entry><para>Follow with a motion to make lowercase</para></entry>
 </row>
-<row><entry><para><userinput>g</userinput></para></entry>
+<row><entry><para><userinput>guu</userinput></para></entry>
 <entry><para>Make the current line lowercase</para></entry>
 </row>
 <row><entry><para><userinput>gU</userinput></para></entry>
 <entry><para>Follow with a motion to make uppercase</para></entry>
 </row>
-<row><entry><para><userinput>g</userinput></para></entry>
+<row><entry><para><userinput>gUU</userinput></para></entry>
 <entry><para>Make the current line uppercase</para></entry>
 </row>
 <row><entry><para><userinput>y</userinput></para></entry>
@@ -257,8 +275,17 @@ created.</para>
 <row><entry><para><userinput>P</userinput></para></entry>
 <entry><para>Paste before cursor</para></entry>
 </row>
+<row><entry><para><userinput>]p</userinput></para></entry>
+<entry><para>Paste after cursor indented</para></entry>
+</row>
+<row><entry><para><userinput>[p</userinput></para></entry>
+<entry><para>Paste before cursor indented</para></entry>
+</row>
 <row><entry><para><userinput>r</userinput></para></entry>
 <entry><para>Follow with a character to replace the character after the cursor</para></entry>
+</row>
+<row><entry><para><userinput>R</userinput></para></entry>
+<entry><para>Enter Replace Mode</para></entry>
 </row>
 <row><entry><para><userinput>:</userinput></para></entry>
 <entry><para>Enter Command Mode</para></entry>

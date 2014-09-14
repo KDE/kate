@@ -230,7 +230,6 @@ void SnippetRepository::save()
     QFileInfo fi(m_file);
     QDir dir = dataPath();
     QString outname = dir.absoluteFilePath(fi.fileName());
-    qDebug() << "output file name:" << outname << dir.path();
 
     if (m_file != outname) {
         QFileInfo fiout(outname);
@@ -244,7 +243,6 @@ void SnippetRepository::save()
             i18n("You have edited a data file not located in your personal data directory; as such, a renamed clone of the original data file has been created within your personal data directory."));
     }
 
-    qDebug() << "output name:" << outname;
     QFile outfile(outname);
     if (!outfile.open(QIODevice::WriteOnly)) {
         KMessageBox::error(0, i18n("Output file '%1' could not be opened for writing", outname));

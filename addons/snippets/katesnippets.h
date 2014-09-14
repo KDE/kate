@@ -28,6 +28,7 @@
 
 #include "katesnippetglobal.h"
 
+class SnippetView;
 class KateSnippetsPluginView;
 
 class KateSnippetsPlugin: public KTextEditor::Plugin
@@ -78,7 +79,7 @@ private:
     KateSnippetsPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     QScopedPointer<QWidget> m_toolView;
-    QScopedPointer<QWidget> m_snippets;
+    QScopedPointer<SnippetView> m_snippets;
 
     /**
      * remember for which text views we might need to cleanup stuff

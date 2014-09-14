@@ -23,6 +23,9 @@
 
 #include "snippet.h"
 #include "katesnippetglobal.h"
+#include "ktexteditor/editor.h"
+#include "ktexteditor/application.h"
+#include "ktexteditor/mainwindow.h"
 
 #include <KLocalizedString>
 #include <KColorScheme>
@@ -51,20 +54,24 @@ void Snippet::setSnippet(const QString& snippet)
     m_snippet = snippet;
 }
 
+void Snippet::registerActionForView(QWidget* view)
+{
+    if ( view->actions().contains(m_action) ) {
+        return;
+    }
+    view->addAction(m_action);
+}
+
 QAction* Snippet::action()
 {
     ///TODO: this is quite ugly, or is it? if someone knows how to do it better, please refactor
     if ( !m_action ) {
         static int actionCount = 0;
+        actionCount += 1;
         m_action = new QAction(QString::fromLatin1("insertSnippet%1").arg(actionCount), KateSnippetGlobal::self());
         m_action->setData(QVariant::fromValue<Snippet*>(this));
-        KateSnippetGlobal::self()->connect(m_action, SIGNAL(triggered()),
-                                       KateSnippetGlobal::self(), SLOT(insertSnippetFromActionData()));
-
-#if 0 // FIXME
-        // action needs to be added to a widget before it can work...
-        KDevelop::ICore::self()->uiController()->activeMainWindow()->addAction(m_action);
-#endif
+        KateSnippetGlobal::self()->connect(m_action, &QAction::triggered,
+                                           KateSnippetGlobal::self(), &KateSnippetGlobal::insertSnippetFromActionData);
     }
     m_action->setText(i18n("insert snippet %1", text()));
     return m_action;

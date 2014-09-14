@@ -92,7 +92,7 @@ void KateSnippetGlobal::showDialog (KTextEditor::View *view)
   m_activeViewForDialog = 0;
 }
 
-QWidget *KateSnippetGlobal::snippetWidget ()
+SnippetView* KateSnippetGlobal::snippetWidget ()
 {
   return new SnippetView (this, 0);
 }

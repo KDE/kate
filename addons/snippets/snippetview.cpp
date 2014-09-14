@@ -35,6 +35,7 @@
 
 #include <QContextMenuEvent>
 #include <QSortFilterProxyModel>
+#include <QTimer>
 #include <QMenu>
 
 #include <kns3/downloaddialog.h>
@@ -57,6 +58,28 @@ public:
         return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
     }
 };
+
+void SnippetView::setupActionsForWindow(QWidget* widget)
+{
+    const auto& model = SnippetStore::self();
+    for ( int i = 0; i < model->rowCount(); i++ ) {
+        auto index = model->index(i, 0, QModelIndex());
+        auto item = model->itemFromIndex(index);
+        auto repo = dynamic_cast<SnippetRepository*>(item);
+        if ( ! repo ) {
+            continue;
+        }
+        for ( int j = 0; j < model->rowCount(index); j++ ) {
+            auto item = model->itemFromIndex(model->index(j, 0, index));
+            auto snippet = dynamic_cast<Snippet*>(item);
+            qDebug() << "snippet at" << j << snippet;
+            if ( ! snippet ) {
+                continue;
+            }
+            snippet->registerActionForView(widget);
+        }
+    }
+}
 
 SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
  : QWidget(parent), Ui::SnippetViewBase(), m_plugin(plugin)
@@ -117,6 +140,9 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
 
     connect(snippetTree->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(validateActions()));
     validateActions();
+
+    connect(snippetTree->model(), &QAbstractItemModel::rowsInserted,
+            this, [this]() { setupActionsForWindow(this); });
 }
 
 void SnippetView::validateActions()

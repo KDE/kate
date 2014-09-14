@@ -62,6 +62,8 @@ public:
      */
     QAction* action();
 
+    void registerActionForView(QWidget* view);
+
     virtual QVariant data(int role = Qt::UserRole + 1) const;
 
 private:

@@ -32,6 +32,10 @@ class KateSnippetGlobal;
 class QAction;
 class QSortFilterProxyModel;
 
+namespace KTextEditor {
+    class MainWindow;
+}
+
 /**
  * This class gets embedded into the right tool view by the KateSnippetGlobal.
  * @author Robert Gruber <rgruber@users.sourceforge.net>
@@ -43,6 +47,9 @@ class SnippetView : public QWidget, public Ui::SnippetViewBase
 
 public:
     explicit SnippetView(KateSnippetGlobal* plugin, QWidget* parent = 0);
+
+public:
+    void setupActionsForWindow(QWidget* widget);
 
 private Q_SLOTS:
     /**

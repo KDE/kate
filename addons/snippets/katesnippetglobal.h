@@ -28,6 +28,7 @@
 
 #include <KTextEditor/View>
 
+class SnippetView;
 class SnippetCompletionModel;
 class Snippet;
 
@@ -62,7 +63,7 @@ public:
      * Create a new snippet widget, to allow to manage and insert snippets
      * @return new snippet widget
      */
-    QWidget *snippetWidget ();
+    SnippetView *snippetWidget ();
 
 public Q_SLOTS:
     /**

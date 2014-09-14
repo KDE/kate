@@ -21,6 +21,7 @@
 #include "katesnippets.h"
 #include "snippetcompletionmodel.h"
 #include "katesnippetglobal.h"
+#include "snippetview.h"
 
 #include <QAction>
 #include <QBoxLayout>
@@ -67,6 +68,7 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     // add snippets widget
     m_snippets.reset(KateSnippetGlobal::self()->snippetWidget());
     m_snippets->setParent(m_toolView.data());
+    m_snippets->setupActionsForWindow(m_toolView.data());
 
     // snippets toolbar
     KToolBar *topToolbar = new KToolBar(m_toolView.data(), "snippetsToolBar");

@@ -90,8 +90,9 @@ QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const 
     return QVariant();
 }
 
-void SnippetCompletionItem::execute(KTextEditor::View* view)
+void SnippetCompletionItem::execute(KTextEditor::View* view, const KTextEditor::Range& word)
 {
     // insert snippet content
     view->insertTemplate(view->cursorPosition(), m_snippet, m_repo->script());
+    view->document()->removeText(word);
 }

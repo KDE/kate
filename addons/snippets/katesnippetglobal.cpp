@@ -112,7 +112,7 @@ void KateSnippetGlobal::insertSnippet(Snippet* snippet)
 
   // try to insert snippet
   SnippetCompletionItem item(snippet, static_cast<SnippetRepository*>(snippet->parent()));
-  item.execute(view);
+  item.execute(view, KTextEditor::Range(view->cursorPosition(), view->cursorPosition()));
 
   // set focus to view
   view->setFocus ();

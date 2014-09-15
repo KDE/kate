@@ -65,6 +65,7 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
                      SmallIcon(QLatin1String("document-new")),
                      i18n("Snippets")));
 
+    m_toolView->setLayout(new QHBoxLayout());
     // add snippets widget
     m_snippets.reset(KateSnippetGlobal::self()->snippetWidget());
     m_snippets->setParent(m_toolView.data());
@@ -99,7 +100,10 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
         slotViewCreated(view);
     }
 
-    m_mainWindow->guiFactory()->addClient(this);
+    auto factory = m_mainWindow->guiFactory();
+    if ( factory ) {
+        factory->addClient(this);
+    }
 }
 
 KateSnippetsPluginView::~KateSnippetsPluginView()

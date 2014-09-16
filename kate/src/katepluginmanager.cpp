@@ -67,6 +67,7 @@ void KatePluginManager::setupPluginList()
      */
     QSet<QString> defaultPlugins;
     defaultPlugins.insert (QLatin1String("katefiletreeplugin"));
+    defaultPlugins.insert (QLatin1String("tabswitcherplugin"));
     defaultPlugins.insert (QLatin1String("kateprojectplugin"));
     defaultPlugins.insert (QLatin1String("katesearchplugin"));
     m_pluginList.clear ();

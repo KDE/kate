@@ -170,7 +170,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     // prior to this there was (possibly) no view, therefore not context menu.
     // Hence, we have to take care of the menu bar here
     toggleShowMenuBar(false);
-    
+
     // on first start: deactivate toolbar
     if (firstStart)
         toolBar(QLatin1String("mainToolBar"))->hide();
@@ -218,7 +218,7 @@ void KateMainWindow::setupImportantActions()
     actionCollection()->addAction(QStringLiteral("settings_show_tab_bar"), m_paShowTabBar);
     connect(m_paShowTabBar, SIGNAL(toggled(bool)), this, SLOT(toggleShowTabBar()));
     m_paShowTabBar->setWhatsThis(i18n("Use this command to show or hide the tabs for the views"));
-    
+
     m_paShowPath = new KToggleAction(i18n("Sho&w Path in Titlebar"), this);
     actionCollection()->addAction(QStringLiteral("settings_show_full_path"), m_paShowPath);
     connect(m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()));
@@ -761,7 +761,7 @@ void KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterfa
     if (configpageinterface) {
         dlg->showAppPluginPage(configpageinterface, id);
     }
-    
+
     if (dlg->exec() == QDialog::Accepted) {
         m_fileOpenRecent->setMaxItems(KateConfigDialog::recentFilesMaxCount());
     }
@@ -857,7 +857,7 @@ void KateMainWindow::slotFullScreen(bool t)
     KToggleFullScreenAction::setFullScreen(this, t);
     QMenuBar *mb = menuBar();
     if (t) {
-            
+
             QToolButton *b = new QToolButton(mb);
             b->setDefaultAction(m_showFullScreenAction);
             b->setSizePolicy(QSizePolicy(QSizePolicy::Minimum,QSizePolicy::Ignored));
@@ -869,7 +869,7 @@ void KateMainWindow::slotFullScreen(bool t)
         QWidget *w=mb->cornerWidget(Qt::TopRightCorner);
         if (w) w->deleteLater();
     }
-    
+
 }
 
 bool KateMainWindow::showModOnDiskPrompt()
@@ -900,6 +900,7 @@ void KateMainWindow::slotDocumentCreated(KTextEditor::Document *doc)
     connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
     connect(doc, SIGNAL(readWriteChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
     connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
+    connect(doc, SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
     connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(slotUpdateOpenWith()));
 
     updateCaption(doc);

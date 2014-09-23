@@ -131,7 +131,8 @@ public:
      * @return project name
      */
     QString name() const {
-        return m_projectMap[QStringLiteral("name")].toString();
+        //MSVC doesn't support QStringLiteral here
+        return m_projectMap[QLatin1String("name")].toString();
     }
 
     /**

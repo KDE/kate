@@ -45,14 +45,14 @@
 
 #include "snippetstore.h"
 
-static const QString defaultScript = QStringLiteral(
-"function fileName() { return document.fileName(); }\n"
-"function fileUrl() { return document.url(); }\n"
-"function encoding() { return document.encoding(); }\n"
-"function selection() { return view.selectedText(); }\n"
-"function year() { return new Date().getFullYear(); }\n"
-"function upper(x) { return x.toUpperCase(); }\n"
-"function lower(x) { return x.toLowerCase(); }\n"
+static const QString defaultScript = QStringLiteral("\
+function fileName() { return document.fileName(); }\n\
+function fileUrl() { return document.url(); }\n\
+function encoding() { return document.encoding(); }\n\
+function selection() { return view.selectedText(); }\n\
+function year() { return new Date().getFullYear(); }\n\
+function upper(x) { return x.toUpperCase(); }\n\
+function lower(x) { return x.toLowerCase(); }\n"
 );
 
 SnippetRepository::SnippetRepository(const QString& file)

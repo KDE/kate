@@ -125,6 +125,14 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
             }
         }
     }
+
+    // hide on focus out, if neither input field nor list have focus!
+    else if (event->type() == QEvent::FocusOut && !(m_inputLine->hasFocus() || m_listView->hasFocus())) {
+        m_mainWindow->slotWindowActivated();
+        m_inputLine->clear();
+        return true;
+    }
+
     return QWidget::eventFilter(obj, event);
 }
 

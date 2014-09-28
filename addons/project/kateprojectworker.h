@@ -92,6 +92,7 @@ private:
     QStringList filesFromGit(const QDir &dir, bool recursive);
     QStringList filesFromMercurial(const QDir &dir, bool recursive);
     QStringList filesFromSubversion(const QDir &dir, bool recursive);
+    QStringList filesFromDarcs(const QDir &dir, bool recursive);
     QStringList filesFromDirectory(const QDir &dir, bool recursive, const QStringList &filters);
 
 private:

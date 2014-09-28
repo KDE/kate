@@ -26,6 +26,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QProcess>
+#include <QRegularExpression>
 #include <QSet>
 #include <QTime>
 
@@ -229,6 +230,8 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& fil
         return filesFromMercurial(dir, recursive);
     } else if (filesEntry[QStringLiteral("svn")].toBool()) {
         return filesFromSubversion(dir, recursive);
+    } else if (filesEntry[QStringLiteral("darcs")].toBool()) {
+        return filesFromDarcs(dir, recursive);
     } else {
         QStringList files = filesEntry[QStringLiteral("list")].toStringList();
 
@@ -349,6 +352,65 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir& dir, bool recursi
         if ((line.size() > prefixLength) && line[0] != QLatin1Char('?') && line[0] != QLatin1Char('I')) {
             files.append(dir.absolutePath() + QLatin1Char('/') + line.right(line.size() - prefixLength));
         }
+    }
+
+    return files;
+}
+
+QStringList KateProjectWorker::filesFromDarcs(const QDir& dir, bool recursive)
+{
+    QStringList files;
+
+    const QString cmd = QStringLiteral("darcs");
+    QString root;
+
+    {
+        QProcess darcs;
+        darcs.setWorkingDirectory(dir.absolutePath());
+        QStringList args;
+        args << QStringLiteral("list") << QStringLiteral("repo");
+
+        darcs.start(cmd, args);
+
+        if (!darcs.waitForStarted() || !darcs.waitForFinished())
+            return files;
+
+        auto str = QString::fromLocal8Bit(darcs.readAllStandardOutput());
+        QRegularExpression exp(QStringLiteral("Root: ([^\\n\\r]*)"));
+        auto match = exp.match(str);
+
+        if(!match.hasMatch())
+            return files;
+
+        root = match.captured(1);
+    }
+
+    QStringList relFiles;
+    {
+        QProcess darcs;
+        QStringList args;
+        darcs.setWorkingDirectory(dir.absolutePath());
+        args << QStringLiteral("list") << QStringLiteral("files")
+             << QStringLiteral("--no-directories") << QStringLiteral("--pending");
+
+        darcs.start(cmd, args);
+
+        if(!darcs.waitForStarted() || !darcs.waitForFinished())
+            return files;
+
+        relFiles = QString::fromLocal8Bit(darcs.readAllStandardOutput())
+            .split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    }
+
+    Q_FOREACH(auto relFile, relFiles) {
+        const QString path = dir.relativeFilePath(root + QStringLiteral("/") + relFile);
+
+        if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1))
+            continue;
+        else if (recursive && (relFile.indexOf(QStringLiteral("..")) == 0))
+            continue;
+
+        files.append(dir.absoluteFilePath(path));
     }
 
     return files;

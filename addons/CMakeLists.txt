@@ -7,35 +7,19 @@ set_package_properties(KF5Service PROPERTIES PURPOSE "Required to build the sess
 set_package_properties(KF5ItemModels PROPERTIES PURPOSE "Required to build the project, konsole addon")
 set_package_properties(KF5Notifications PROPERTIES PURPOSE "Required to build the katebuild, close-except-like  addon")
 
-if (NOT(KF5Plasma_FOUND AND KF5Service_FOUND))
-    set(BUILD_sessionapplet OFF)
-endif()
-
-if(NOT(KF5ItemModels_FOUND))
-    set(BUILD_project OFF)
-    set(BUILD_konsole OFF)
-endif()
-
-if(NOT(KF5Wallet_FOUND))
-    set(BUILD_katesql OFF)
-endif()
-
-if(NOT(KF5Notifications_FOUND))
-    set(BUILD_katebuild-plugin OFF)
-    set(BUILD_close-except-like OFF)
-endif()
-
 # document switcher
 ecm_optional_add_subdirectory (filetree)
 
 # search in open documents and files
 ecm_optional_add_subdirectory (search)
 
-# small & smart project manager
-ecm_optional_add_subdirectory (project)
+if(KF5ItemModels_FOUND)
+    # small & smart project manager
+    ecm_optional_add_subdirectory (project)
 
-# terminal tool view
-ecm_optional_add_subdirectory (konsole)
+    # terminal tool view
+    ecm_optional_add_subdirectory (konsole)
+endif()
 
 # ALT+Tab like tab switcher
 ecm_optional_add_subdirectory (tabswitcher)
@@ -49,8 +33,10 @@ ecm_optional_add_subdirectory (kate-ctags)
 # backtrace
 ecm_optional_add_subdirectory (backtracebrowser)
 
-# kate sql
-ecm_optional_add_subdirectory (katesql)
+if(KF5Wallet_FOUND)
+    # kate sql
+    ecm_optional_add_subdirectory (katesql)
+endif()
 
 # file browser
 ecm_optional_add_subdirectory (filebrowser)
@@ -61,14 +47,16 @@ ecm_optional_add_subdirectory (xmltools)
 # open header matching to current file
 ecm_optional_add_subdirectory (openheader)
 
-# close document except this one (or similar)
-ecm_optional_add_subdirectory (close-except-like)
-
 # debugger plugin, needs windows love
 ecm_optional_add_subdirectory (gdbplugin)
 
-# build plugin
-ecm_optional_add_subdirectory (katebuild-plugin)
+if(KF5Notifications_FOUND)
+    # close document except this one (or similar)
+    ecm_optional_add_subdirectory (close-except-like)
+
+    # build plugin
+    ecm_optional_add_subdirectory (katebuild-plugin)
+endif()
 
 #add_subdirectory( textfilter )
 
@@ -82,6 +70,8 @@ ecm_optional_add_subdirectory (katebuild-plugin)
 
 #add_subdirectory( xmlcheck )
 
-ecm_optional_add_subdirectory(sessionapplet)
+if (KF5Plasma_FOUND AND KF5Service_FOUND)
+    ecm_optional_add_subdirectory(sessionapplet)
+endif()
 
 #macro_optional_add_subdirectory(pate)

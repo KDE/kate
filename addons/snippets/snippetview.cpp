@@ -143,6 +143,9 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
 
     connect(snippetTree->model(), &QAbstractItemModel::rowsInserted,
             this, [this]() { setupActionsForWindow(this); });
+
+    m_proxy->setDynamicSortFilter(true);
+    m_proxy->sort(0, Qt::AscendingOrder);
 }
 
 void SnippetView::validateActions()

@@ -4198,8 +4198,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         } else {
           m_config->setRemoveSpaces(0);
         }
-
-        m_config->setRemoveSpaces( state ? 1 : 0 );
       }
       else if ( var == "syntax" || var == "hl" )
       {

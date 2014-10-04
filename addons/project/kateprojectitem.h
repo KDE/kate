@@ -66,6 +66,14 @@ public:
      */
     QVariant data(int role = Qt::UserRole + 1) const;
 
+public:
+    void slotModifiedChanged(KTextEditor::Document *);
+    void slotModifiedOnDisk(KTextEditor::Document *document,
+                            bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+
+private:
+    QIcon *icon() const;
+
 private:
     /**
      * type
@@ -80,12 +88,7 @@ private:
     /**
      * for document icons
      */
-    QString *m_emblem;
-
-public:
-    void slotModifiedChanged(KTextEditor::Document *);
-    void slotModifiedOnDisk(KTextEditor::Document *document,
-                            bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+    QString m_emblem;
 
 };
 

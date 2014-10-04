@@ -58,8 +58,8 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     /**
      * connect needed signals
      */
-    connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(slotClicked(const QModelIndex &)));
-    connect(m_project, SIGNAL(modelChanged()), this, SLOT(slotModelChanged()));
+    connect(this, &KateProjectViewTree::clicked, this, &KateProjectViewTree::slotClicked);
+    connect(m_project, &KateProject::modelChanged, this, &KateProjectViewTree::slotModelChanged);
 
     /**
      * trigger once some slots
@@ -149,4 +149,3 @@ void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)
 
     event->accept();
 }
-

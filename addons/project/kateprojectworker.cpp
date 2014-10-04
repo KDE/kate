@@ -106,8 +106,9 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
      * load all specified files
      */
     QVariantList files = project[QStringLiteral("files")].toList();
-    foreach(const QVariant & fileVariant, files)
-    loadFilesEntry(parent, fileVariant.toMap(), file2Item);
+    for (const QVariant &fileVariant : files) {
+        loadFilesEntry(parent, fileVariant.toMap(), file2Item);
+    }
 }
 
 /**

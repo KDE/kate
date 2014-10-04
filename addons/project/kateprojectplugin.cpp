@@ -90,14 +90,14 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
 
     readConfig();
 
-    foreach(KTextEditor::Document * document, KTextEditor::Editor::instance()->application()->documents()) {
+    for (auto document : KTextEditor::Editor::instance()->application()->documents()) {
         slotDocumentCreated(document);
     }
 }
 
 KateProjectPlugin::~KateProjectPlugin()
 {
-    Q_FOREACH(KateProject * project, m_projects) {
+    for (KateProject *project : m_projects) {
         m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
         delete project;
     }
@@ -117,7 +117,7 @@ int KateProjectPlugin::configPages() const
 KTextEditor::ConfigPage *KateProjectPlugin::configPage(int number, QWidget *parent)
 {
     if (number != 0) {
-        return 0;
+        return nullptr;
     }
     return new KateProjectConfigPage(parent, this);
 }
@@ -128,7 +128,7 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
 
     if (!project->loadFromFile(fileName)) {
         delete project;
-        return 0;
+        return nullptr;
     }
 
     m_projects.append(project);
@@ -156,7 +156,7 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
         QString canonicalPath = dir.canonicalPath();
         QString canonicalFileName = dir.filePath(ProjectFileName);
 
-        Q_FOREACH(KateProject * project, m_projects) {
+        for (KateProject *project : m_projects) {
             if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName) {
                 return project;
             }
@@ -185,7 +185,7 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
 {
     if (url.isEmpty() || !url.isLocalFile()) {
-        return 0;
+        return nullptr;
     }
 
     return projectForDir(QFileInfo(url.toLocalFile()).absoluteDir());
@@ -230,7 +230,7 @@ void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
 void KateProjectPlugin::slotDirectoryChanged(const QString &path)
 {
     QString fileName = QDir(path).filePath(ProjectFileName);
-    Q_FOREACH(KateProject * project, m_projects) {
+    for (KateProject * project : m_projects) {
         if (project->fileName() == fileName) {
             project->reload();
             break;

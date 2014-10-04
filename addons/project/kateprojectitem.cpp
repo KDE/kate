@@ -34,34 +34,28 @@
 KateProjectItem::KateProjectItem(Type type, const QString &text)
     : QStandardItem(text)
     , m_type(type)
-    , m_icon(0)
-    , m_emblem(0)
+    , m_icon(nullptr)
 {
 }
 
 KateProjectItem::~KateProjectItem()
 {
-    /**
-     * cleanup
-     */
     delete m_icon;
-    delete m_emblem;
 }
 
 void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc)
 {
     if (m_icon) {
         delete m_icon;
-        m_icon = 0;
+        m_icon = nullptr;
     }
 
     if (doc->isModified()) {
-        if (m_emblem) {
-            QStringList emblems;
-            emblems << *m_emblem;
-            m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("document-save") , KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
-        } else {
+        if (m_emblem.isEmpty()) {
             m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("document-save"), KIconLoader::Small));
+        } else {
+            QStringList emblems(m_emblem);
+            m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("document-save") , KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
         }
     }
     emitDataChanged();
@@ -75,25 +69,19 @@ void KateProjectItem::slotModifiedOnDisk(KTextEditor::Document *document,
 
     if (m_icon) {
         delete m_icon;
-        m_icon = 0;
+        m_icon = nullptr;
     }
 
-    if (m_emblem) {
-        delete m_emblem;
-        m_emblem = 0;
-    }
+    m_emblem.clear();
 
     if (reason != KTextEditor::ModificationInterface::OnDiskUnmodified) {
-        m_emblem = new QString(QStringLiteral("emblem-important"));
+        m_emblem = QStringLiteral("emblem-important");
     }
     emitDataChanged();
 }
 
 QVariant KateProjectItem::data(int role) const
 {
-    /**
-     * create icons on demand
-     */
     if (role == Qt::DecorationRole) {
         /**
          * this should only happen in main thread
@@ -102,43 +90,37 @@ QVariant KateProjectItem::data(int role) const
          */
         Q_ASSERT(QThread::currentThread() == QCoreApplication::instance()->thread());
 
-        /**
-         * create icon, on demand
-         */
-        if (!m_icon) {
-            /**
-             * use right type
-             */
-            switch (m_type) {
-            case Project:
-                m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("folder-documents"), KIconLoader::Small));
-                break;
-
-            case Directory:
-                m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("folder"), KIconLoader::Small));
-                break;
-
-            case File: {
-                QString iconName = QMimeDatabase().mimeTypeForUrl(QUrl::fromLocalFile(data(Qt::UserRole).toString())).iconName();
-                QStringList emblems;
-                if (m_emblem) {
-                    emblems << *m_emblem;
-                }
-                m_icon = new QIcon(KIconLoader::global()->loadMimeTypeIcon(iconName, KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
-                break;
-            }
-            }
-        }
-
-        /**
-         * return the cached icon
-         */
-        return QVariant(*m_icon);
+        return QVariant(*icon());
     }
 
-    /**
-     * use normal data method
-     */
     return QStandardItem::data(role);
 }
 
+QIcon* KateProjectItem::icon() const
+{
+    if (m_icon) {
+        return m_icon;
+    }
+
+    switch (m_type) {
+        case Project:
+            m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("folder-documents"), KIconLoader::Small));
+            break;
+
+        case Directory:
+            m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("folder"), KIconLoader::Small));
+            break;
+
+        case File: {
+            QString iconName = QMimeDatabase().mimeTypeForUrl(QUrl::fromLocalFile(data(Qt::UserRole).toString())).iconName();
+            QStringList emblems;
+            if (!m_emblem.isEmpty()) {
+                emblems << m_emblem;
+            }
+            m_icon = new QIcon(KIconLoader::global()->loadMimeTypeIcon(iconName, KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
+            break;
+        }
+    }
+
+    return m_icon;
+}

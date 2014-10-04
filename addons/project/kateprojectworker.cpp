@@ -30,6 +30,12 @@
 #include <QSet>
 #include <QTime>
 
+#ifdef HAVE_GIT2
+#include <git2.h>
+#include <git2/oid.h>
+#include <git2/repository.h>
+#endif
+
 KateProjectWorker::KateProjectWorker(QObject *project)
     : QObject()
     , m_project(project)
@@ -244,6 +250,80 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& fil
     }
 }
 
+#ifdef HAVE_GIT2
+namespace {
+    struct git_walk_payload {
+        QStringList *files;
+        bool recursive;
+        QString basedir;
+    };
+}
+
+QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
+{
+    QStringList files;
+    git_repository *repo = nullptr;
+    git_object *root_tree = nullptr, *tree = nullptr;
+    const char *working_dir;
+    QDir workdir;
+    QString relpath;
+    struct git_walk_payload payload = {&files, recursive, dir.absolutePath()};
+
+    auto callback = [] (const char *root, const git_tree_entry *entry, void *payload) -> int {
+        struct git_walk_payload *data = static_cast<git_walk_payload *>(payload);
+
+        if (git_tree_entry_type(entry) == GIT_OBJ_BLOB) {
+            QString name = QString::fromUtf8(git_tree_entry_name(entry));
+            QString dir = QString::fromUtf8(root);
+            QString filepath = QDir(data->basedir + QDir::separator() + dir).filePath(name);
+            data->files->append(filepath);
+        } else if (git_tree_entry_type(entry) == GIT_OBJ_TREE && !data->recursive) {
+            return 1; // don't walk that way
+        }
+
+        return 0;
+    };
+
+    if (git_repository_open_ext(&repo, dir.path().toUtf8().data(), 0, NULL)) {
+        return QStringList();
+    }
+
+    if ((working_dir = git_repository_workdir(repo)) == nullptr) {
+        git_repository_free(repo);
+        return files;
+    }
+
+    workdir.setPath(QString::fromUtf8(working_dir));
+    relpath = workdir.relativeFilePath(dir.path());
+
+    if (git_revparse_single(&root_tree, repo, "HEAD^{tree}")) {
+        git_repository_free(repo);
+        return files;
+    }
+
+    if (relpath.isEmpty()) { // git_object_lookup_bypath is not able to resolv "." as path
+        tree = root_tree;
+    } else {
+        if (git_object_lookup_bypath(&tree, root_tree, relpath.toUtf8().data(), GIT_OBJ_TREE)) {
+            git_object_free(root_tree);
+            git_repository_free(repo);
+            return files;
+        }
+    }
+
+    git_tree_walk((git_tree *)tree, GIT_TREEWALK_PRE, callback, (void *)&payload);
+
+    if (tree != root_tree) {
+        git_object_free(tree);
+    }
+
+    git_object_free(root_tree);
+    git_repository_free(repo);
+    return files;
+}
+
+#else
+
 QStringList KateProjectWorker::filesFromGit(const QDir& dir, bool recursive)
 {
     QStringList files;
@@ -269,6 +349,7 @@ QStringList KateProjectWorker::filesFromGit(const QDir& dir, bool recursive)
 
     return files;
 }
+#endif
 
 QStringList KateProjectWorker::filesFromMercurial(const QDir& dir, bool recursive)
 {

@@ -37,7 +37,7 @@ KateProject::KateProject()
     , m_worker(new KateProjectWorker(this))
     , m_thread(m_worker)
     , m_notesDocument(nullptr)
-    , m_documentsParent(nullptr)
+    , m_untrackedDocumentsRoot(nullptr)
 {
     /**
      * move worker object over and start our worker thread
@@ -178,7 +178,7 @@ void KateProject::loadProjectDone(KateProjectSharedQStandardItem topLevel, KateP
     /**
      * readd the documents that are open atm
      */
-    m_documentsParent = nullptr;
+    m_untrackedDocumentsRoot = nullptr;
     for (auto i = m_documents.constBegin(); i != m_documents.constEnd(); i++) {
         registerDocument(i.key());
     }
@@ -340,10 +340,15 @@ void KateProject::registerDocument(KTextEditor::Document *document)
         return;
     }
 
+    registerUntrackedDocument(document);
+}
+
+void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
+{
     // perhaps create the parent item
-    if (!m_documentsParent) {
-        m_documentsParent = new KateProjectItem(KateProjectItem::Directory, i18n("<untracked>"));
-        m_model.insertRow(0, m_documentsParent);
+    if (!m_untrackedDocumentsRoot) {
+        m_untrackedDocumentsRoot = new KateProjectItem(KateProjectItem::Directory, i18n("<untracked>"));
+        m_model.insertRow(0, m_untrackedDocumentsRoot);
     }
 
     // create document item
@@ -355,15 +360,15 @@ void KateProject::registerDocument(KTextEditor::Document *document)
     connect(document, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
     bool inserted = false;
-    for (int i = 0; i < m_documentsParent->rowCount(); ++i) {
-        if (m_documentsParent->child(i)->data(Qt::UserRole).toString() > document->url().toLocalFile()) {
-            m_documentsParent->insertRow(i, fileItem);
+    for (int i = 0; i < m_untrackedDocumentsRoot->rowCount(); ++i) {
+        if (m_untrackedDocumentsRoot->child(i)->data(Qt::UserRole).toString() > document->url().toLocalFile()) {
+            m_untrackedDocumentsRoot->insertRow(i, fileItem);
             inserted = true;
             break;
         }
     }
     if (!inserted) {
-        m_documentsParent->appendRow(fileItem);
+        m_untrackedDocumentsRoot->appendRow(fileItem);
     }
 
     fileItem->setData(document->url().toLocalFile(), Qt::UserRole);
@@ -377,35 +382,36 @@ void KateProject::registerDocument(KTextEditor::Document *document)
 
 void KateProject::unregisterDocument(KTextEditor::Document *document)
 {
-    // skip if no works
     if (!m_documents.contains(document)) {
         return;
     }
 
-    // perhaps kill the item we have generated
-    bool empty = false;
-    if (KateProjectItem *item = (KateProjectItem *)itemForFile(m_documents.value(document))) {
-        disconnect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
-        if (m_documentsParent && item->data(Qt::UserRole + 3).toBool()) {
-            for (int i = 0; i < m_documentsParent->rowCount(); ++i) {
-                if (m_documentsParent->child(i) == item) {
-                    m_documentsParent->removeRow(i);
-                    break;
-                }
-            }
+    disconnect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
 
-            empty = !m_documentsParent->rowCount();
+    const QString &file = m_documents.value(document);
 
-            m_file2Item->remove(m_documents.value(document));
+    if (m_untrackedDocumentsRoot) {
+        KateProjectItem *item = static_cast<KateProjectItem *>(itemForFile(file));
+        if (item && item->data(Qt::UserRole + 3).toBool()) {
+            unregisterUntrackedItem(item);
         }
     }
 
-    // forget the document
+    m_file2Item->remove(file);
     m_documents.remove(document);
+}
 
-    // perhaps remove parent item
-    if (m_documentsParent && empty) {
+void KateProject::unregisterUntrackedItem(const KateProjectItem *item)
+{
+    for (int i = 0; i < m_untrackedDocumentsRoot->rowCount(); ++i) {
+        if (m_untrackedDocumentsRoot->child(i) == item) {
+            m_untrackedDocumentsRoot->removeRow(i);
+            break;
+        }
+    }
+
+    if (m_untrackedDocumentsRoot->rowCount() < 1) {
         m_model.removeRow(0);
-        m_documentsParent = 0;
+        m_untrackedDocumentsRoot = nullptr;
     }
 }

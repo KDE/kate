@@ -244,6 +244,10 @@ Q_SIGNALS:
     void indexChanged();
 
 private:
+    void registerUntrackedDocument(KTextEditor::Document *document);
+    void unregisterUntrackedItem(const KateProjectItem *item);
+
+private:
     /**
      * the worker inside the background thread
      * if this is NULL, we are in our deconstruction state and should
@@ -306,7 +310,7 @@ private:
     /**
      * Parent item for existing documents that are not in the project tree
      */
-    QStandardItem *m_documentsParent;
+    QStandardItem *m_untrackedDocumentsRoot;
 };
 
 #endif

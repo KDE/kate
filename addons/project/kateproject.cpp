@@ -36,8 +36,8 @@ KateProject::KateProject()
     : QObject()
     , m_worker(new KateProjectWorker(this))
     , m_thread(m_worker)
-    , m_notesDocument(0)
-    , m_documentsParent(0)
+    , m_notesDocument(nullptr)
+    , m_documentsParent(nullptr)
 {
     /**
      * move worker object over and start our worker thread
@@ -64,7 +64,7 @@ KateProject::~KateProject()
     /**
      * marks as deleted
      */
-    m_worker = 0;
+    m_worker = nullptr;
 
     /**
      * save notes document, if any
@@ -165,35 +165,24 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
      */
     QMetaObject::invokeMethod(m_worker, "loadProject", Qt::QueuedConnection, Q_ARG(QString, m_baseDir), Q_ARG(QVariantMap, m_projectMap));
 
-    /**
-     * done ok ;)
-     */
     return true;
 }
 
 void KateProject::loadProjectDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item)
 {
-    /**
-     * setup model data
-     */
     m_model.clear();
     m_model.invisibleRootItem()->appendColumn(topLevel->takeColumn(0));
 
-    /**
-     * setup file => item map
-     */
     m_file2Item = file2Item;
 
     /**
      * readd the documents that are open atm
      */
-    m_documentsParent = 0;
-    foreach(KTextEditor::Document * document, m_documents.keys())
-    registerDocument(document);
+    m_documentsParent = nullptr;
+    for (auto i = m_documents.constBegin(); i != m_documents.constEnd(); i++) {
+        registerDocument(i.key());
+    }
 
-    /**
-     * model changed
-     */
     emit modelChanged();
 }
 
@@ -219,7 +208,7 @@ QString KateProject::projectLocalFileName(const QString &suffix) const
     if (m_baseDir.isEmpty() || suffix.isEmpty()) {
         return QString();
     }
-  
+
     /**
      * compute full file name
      */
@@ -234,13 +223,13 @@ QTextDocument *KateProject::notesDocument()
     if (m_notesDocument) {
         return m_notesDocument;
     }
-    
+
     /**
      * else create it
      */
     m_notesDocument = new QTextDocument(this);
     m_notesDocument->setDocumentLayout(new QPlainTextDocumentLayout(m_notesDocument));
-    
+
     /**
      * get file name
      */
@@ -248,7 +237,7 @@ QTextDocument *KateProject::notesDocument()
     if (notesFileName.isEmpty()) {
         return m_notesDocument;
     }
-    
+
     /**
      * and load text if possible
      */
@@ -273,7 +262,7 @@ void KateProject::saveNotesDocument()
     if (!m_notesDocument) {
         return;
     }
-    
+
     /**
      * get content & filename
      */
@@ -282,7 +271,7 @@ void KateProject::saveNotesDocument()
     if (notesFileName.isEmpty()) {
         return;
     }
-    
+
     /**
      * no content => unlink file, if there
      */
@@ -292,7 +281,7 @@ void KateProject::saveNotesDocument()
         }
         return;
     }
-    
+
     /**
      * else: save content to file
      */
@@ -318,7 +307,6 @@ void KateProject::slotModifiedChanged(KTextEditor::Document *document)
 void KateProject::slotModifiedOnDisk(KTextEditor::Document *document,
                                      bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
 {
-
     KateProjectItem *item = itemForFile(m_documents.value(document));
 
     if (!item) {
@@ -326,7 +314,6 @@ void KateProject::slotModifiedOnDisk(KTextEditor::Document *document,
     }
 
     item->slotModifiedOnDisk(document, isModified, reason);
-
 }
 
 void KateProject::registerDocument(KTextEditor::Document *document)

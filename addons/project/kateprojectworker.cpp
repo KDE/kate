@@ -85,7 +85,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
      * recurse to sub-projects FIRST
      */
     QVariantList subGroups = project[QStringLiteral("projects")].toList();
-    foreach(const QVariant & subGroupVariant, subGroups) {
+    for (const QVariant &subGroupVariant: subGroups) {
         /**
          * convert to map and get name, else skip
          */
@@ -150,8 +150,8 @@ static QStandardItem *directoryParent(QMap<QString, QStandardItem *> &dir2Item, 
     /**
      * else, split and recurse
      */
-    QString leftPart = path.left(slashIndex);
-    QString rightPart = path.right(path.size() - (slashIndex + 1));
+    const QString leftPart = path.left(slashIndex);
+    const QString rightPart = path.right(path.size() - (slashIndex + 1));
 
     /**
      * special handling if / with nothing on one side are found
@@ -189,7 +189,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     QMap<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
     QList<QPair<QStandardItem *, QStandardItem *> > item2ParentPath;
-    Q_FOREACH(auto filePath, files) {
+    for (const QString &filePath : files) {
         /**
           * skip dupes
           */
@@ -219,7 +219,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     /**
      * plug in the file items to the tree
      */
-    QList<QPair<QStandardItem *, QStandardItem *> >::const_iterator i = item2ParentPath.constBegin();
+    auto i = item2ParentPath.constBegin();
     while (i != item2ParentPath.constEnd()) {
         i->second->appendRow(i->first);
         ++i;
@@ -324,7 +324,7 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 
 #else
 
-QStringList KateProjectWorker::filesFromGit(const QDir& dir, bool recursive)
+QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 {
     QStringList files;
 
@@ -337,9 +337,9 @@ QStringList KateProjectWorker::filesFromGit(const QDir& dir, bool recursive)
         return files;
     }
 
-    QStringList relFiles = QString::fromLocal8Bit(git.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    const QStringList relFiles = QString::fromLocal8Bit(git.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 
-    Q_FOREACH(auto relFile, relFiles) {
+    for (const QString &relFile : relFiles) {
         if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
             continue;
         }
@@ -351,7 +351,7 @@ QStringList KateProjectWorker::filesFromGit(const QDir& dir, bool recursive)
 }
 #endif
 
-QStringList KateProjectWorker::filesFromMercurial(const QDir& dir, bool recursive)
+QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive)
 {
     QStringList files;
 
@@ -364,9 +364,9 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir& dir, bool recursiv
         return files;
     }
 
-    QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 
-    Q_FOREACH(auto relFile, relFiles) {
+    for (const QString &relFile : relFiles) {
         if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
             continue;
         }
@@ -377,7 +377,7 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir& dir, bool recursiv
     return files;
 }
 
-QStringList KateProjectWorker::filesFromSubversion(const QDir& dir, bool recursive)
+QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive)
 {
     QStringList files;
 
@@ -398,7 +398,7 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir& dir, bool recursi
     /**
      * get output and split up into lines
      */
-    QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    const QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 
     /**
      * remove start of line that is no filename, sort out unknown and ignore
@@ -406,7 +406,7 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir& dir, bool recursi
     bool first = true;
     int prefixLength = -1;
 
-    Q_FOREACH(auto line, lines) {
+    for (const QString &line : lines) {
         /**
          * get length of stuff to cut
          */
@@ -438,7 +438,7 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir& dir, bool recursi
     return files;
 }
 
-QStringList KateProjectWorker::filesFromDarcs(const QDir& dir, bool recursive)
+QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
 {
     QStringList files;
 
@@ -483,13 +483,14 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir& dir, bool recursive)
             .split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
     }
 
-    Q_FOREACH(auto relFile, relFiles) {
+    for (const QString &relFile: relFiles) {
         const QString path = dir.relativeFilePath(root + QStringLiteral("/") + relFile);
 
-        if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1))
+        if ((!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) ||
+            (recursive && (relFile.indexOf(QStringLiteral("..")) == 0))
+        ) {
             continue;
-        else if (recursive && (relFile.indexOf(QStringLiteral("..")) == 0))
-            continue;
+        }
 
         files.append(dir.absoluteFilePath(path));
     }
@@ -497,7 +498,7 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir& dir, bool recursive)
     return files;
 }
 
-QStringList KateProjectWorker::filesFromDirectory(const QDir& _dir, bool recursive, const QStringList &filters)
+QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursive, const QStringList &filters)
 {
     QStringList files;
 

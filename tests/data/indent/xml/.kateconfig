@@ -1,1 +1,1 @@
-kate: hl Xml; indent-mode xml; replace-tabs true; indent-width 2;
+kate: hl Xml; indent-mode xml; replace-tabs true; indent-width 2; remove-trailing-spaces all;

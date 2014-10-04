@@ -36,42 +36,31 @@
 #include <git2/repository.h>
 #endif
 
-KateProjectWorker::KateProjectWorker(QObject *project)
+KateProjectWorker::KateProjectWorker(const QString &baseDir, const QVariantMap &projectMap)
     : QObject()
-    , m_project(project)
+    , ThreadWeaver::Job()
+    , m_baseDir(baseDir)
+    , m_projectMap(projectMap)
 {
+    Q_ASSERT(m_baseDir.isEmpty());
 }
 
-KateProjectWorker::~KateProjectWorker()
+void KateProjectWorker::run(ThreadWeaver::JobPointer, ThreadWeaver::Thread *)
 {
-}
-
-void KateProjectWorker::loadProject(QString baseDir, QVariantMap projectMap)
-{
-    /**
-     * setup project base directory
-     * this should be FIX after initial setting
-     */
-    Q_ASSERT(m_baseDir.isEmpty() || (m_baseDir == baseDir));
-    m_baseDir = baseDir;
-
     /**
      * Create dummy top level parent item and empty map inside shared pointers
      * then load the project recursively
      */
     KateProjectSharedQStandardItem topLevel(new QStandardItem());
     KateProjectSharedQMapStringItem file2Item(new QMap<QString, KateProjectItem *> ());
-    loadProject(topLevel.data(), projectMap, file2Item.data());
+    loadProject(topLevel.data(), m_projectMap, file2Item.data());
 
     /**
      * create some local backup of some data we need for further processing!
      */
     QStringList files = file2Item->keys();
 
-    /**
-     * feed back our results
-     */
-    QMetaObject::invokeMethod(m_project, "loadProjectDone", Qt::QueuedConnection, Q_ARG(KateProjectSharedQStandardItem, topLevel), Q_ARG(KateProjectSharedQMapStringItem, file2Item));
+    emit loadDone(topLevel, file2Item);
 
     /**
      * load index
@@ -538,8 +527,5 @@ void KateProjectWorker::loadIndex(const QStringList &files)
      */
     KateProjectSharedProjectIndex index(new KateProjectIndex(files));
 
-    /**
-     * send new index object back to project
-     */
-    QMetaObject::invokeMethod(m_project, "loadIndexDone", Qt::QueuedConnection, Q_ARG(KateProjectSharedProjectIndex, index));
+    emit loadIndexDone(index);
 }

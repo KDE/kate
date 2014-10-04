@@ -1,11 +1,12 @@
 # detect aditional frameworks
-find_package(KF5 OPTIONAL_COMPONENTS Wallet Plasma Service ItemModels Notifications)
+find_package(KF5 OPTIONAL_COMPONENTS Wallet Plasma Service ItemModels Notifications ThreadWeaver)
 
 set_package_properties(KF5Wallet PROPERTIES PURPOSE "Required to build the katesql addon")
 set_package_properties(KF5Plasma PROPERTIES PURPOSE "Required to build the sessionapplet addon")
 set_package_properties(KF5Service PROPERTIES PURPOSE "Required to build the sessionapplet addon")
 set_package_properties(KF5ItemModels PROPERTIES PURPOSE "Required to build the project, konsole addon")
 set_package_properties(KF5Notifications PROPERTIES PURPOSE "Required to build the katebuild, close-except-like  addon")
+set_package_properties(KF5ThreadWeaver PROPERTIES PURPOSE "Required to build the project addon")
 
 # document switcher
 ecm_optional_add_subdirectory (filetree)
@@ -13,10 +14,11 @@ ecm_optional_add_subdirectory (filetree)
 # search in open documents and files
 ecm_optional_add_subdirectory (search)
 
-if(KF5ItemModels_FOUND)
+if(KF5ItemModels_FOUND AND KF5ThreadWeaver_FOUND)
     # small & smart project manager
     ecm_optional_add_subdirectory (project)
-
+endif()
+if(KF5ItemModels_FOUND)
     # terminal tool view
     ecm_optional_add_subdirectory (konsole)
 endif()

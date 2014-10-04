@@ -33,6 +33,10 @@
 #include "kateproject.h"
 #include "kateprojectcompletion.h"
 
+namespace ThreadWeaver {
+    class Queue;
+}
+
 class KateProjectPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
@@ -168,6 +172,8 @@ private:
     bool m_autoGit : 1;
     bool m_autoSubversion : 1;
     bool m_autoMercurial : 1;
+
+    ThreadWeaver::Queue *m_weaver;
 };
 
 #endif

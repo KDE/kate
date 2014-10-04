@@ -25,6 +25,8 @@
 
 #include <ktexteditor/document.h>
 
+#include <ThreadWeaver/Queue>
+
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -32,43 +34,16 @@
 #include <QJsonDocument>
 #include <QJsonParseError>
 
-KateProject::KateProject()
+KateProject::KateProject(ThreadWeaver::Queue *weaver)
     : QObject()
-    , m_worker(new KateProjectWorker(this))
-    , m_thread(m_worker)
     , m_notesDocument(nullptr)
     , m_untrackedDocumentsRoot(nullptr)
+    , m_weaver(weaver)
 {
-    /**
-     * move worker object over and start our worker thread
-     * thread will delete worker on run() exit
-     */
-    m_worker->moveToThread(&m_thread);
-    m_thread.start();
 }
 
 KateProject::~KateProject()
 {
-    /**
-     * only do this once
-     */
-    Q_ASSERT(m_worker);
-
-    /**
-     * quit the thread event loop and wait for completion
-     * will delete worker on thread run() exit
-     */
-    m_thread.quit();
-    m_thread.wait();
-
-    /**
-     * marks as deleted
-     */
-    m_worker = nullptr;
-
-    /**
-     * save notes document, if any
-     */
     saveNotesDocument();
 }
 
@@ -160,10 +135,11 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
      */
     emit projectMapChanged();
 
-    /**
-     * trigger worker to REALLY load the project model and stuff
-     */
-    QMetaObject::invokeMethod(m_worker, "loadProject", Qt::QueuedConnection, Q_ARG(QString, m_baseDir), Q_ARG(QVariantMap, m_projectMap));
+
+    KateProjectWorker * w = new KateProjectWorker(m_baseDir, m_projectMap);
+    connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone);
+    connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone);
+    m_weaver->stream() << w;
 
     return true;
 }

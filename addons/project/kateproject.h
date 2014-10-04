@@ -21,7 +21,6 @@
 #ifndef KATE_PROJECT_H
 #define KATE_PROJECT_H
 
-#include <QThread>
 #include <QMap>
 #include <QSharedPointer>
 #include <QTextDocument>
@@ -42,29 +41,9 @@ Q_DECLARE_METATYPE(KateProjectSharedQMapStringItem)
 typedef QSharedPointer<KateProjectIndex> KateProjectSharedProjectIndex;
 Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
 
-/**
- * Private worker thread.
- * Will take care of worker object deletion.
- */
-class KateProjectWorkerThread : public QThread
-{
-public:
-    KateProjectWorkerThread(QObject *worker)
-        : QThread()
-        , m_worker (worker)
-    {
-    }
-
-protected:
-    virtual void run()
-    {
-        exec();
-        delete m_worker;
-    }
-
-private:
-    QObject *m_worker;
-};
+namespace ThreadWeaver {
+class Queue;
+}
 
 /**
  * Class representing a project.
@@ -78,7 +57,7 @@ public:
     /**
      * construct empty project
      */
-    KateProject();
+    KateProject(ThreadWeaver::Queue *weaver);
 
     /**
      * deconstruct project
@@ -249,20 +228,6 @@ private:
 
 private:
     /**
-     * the worker inside the background thread
-     * if this is NULL, we are in our deconstruction state and should
-     * ignore the feedback of our already stopped thread that
-     * may still come in because of queued connects
-     * only DELETE all stuff we need to cleanup in the slots
-     */
-    QObject *m_worker;
-
-    /**
-     * our internal thread to load stuff and do things in background
-     */
-    KateProjectWorkerThread m_thread;
-
-    /**
      * project file name
      */
     QString m_fileName;
@@ -311,6 +276,8 @@ private:
      * Parent item for existing documents that are not in the project tree
      */
     QStandardItem *m_untrackedDocumentsRoot;
+
+    ThreadWeaver::Queue *m_weaver;
 };
 
 #endif

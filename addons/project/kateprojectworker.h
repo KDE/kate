@@ -21,10 +21,13 @@
 #ifndef KATE_PROJECT_WORKER_H
 #define KATE_PROJECT_WORKER_H
 
+#include "kateprojectitem.h"
+#include "kateproject.h"
+
+#include <ThreadWeaver/Job>
+
 #include <QStandardItemModel>
 #include <QMap>
-
-#include "kateprojectitem.h"
 
 class QDir;
 
@@ -32,7 +35,7 @@ class QDir;
  * Class representing a project background worker.
  * This worker will build up the model for the project on load and do other stuff in the background.
  */
-class KateProjectWorker : public QObject
+class KateProjectWorker : public QObject, public ThreadWeaver::Job
 {
     Q_OBJECT
 
@@ -42,26 +45,13 @@ public:
      */
     typedef QMap<QString, KateProjectItem *> MapString2Item;
 
-    /**
-     * construct project worker for given project
-     * @param project our project
-     */
-    KateProjectWorker(QObject *project);
+    explicit KateProjectWorker(const QString &baseDir, const QVariantMap &projectMap);
 
-    /**
-     * deconstruct worker
-     */
-    ~KateProjectWorker();
+    void run(ThreadWeaver::JobPointer self, ThreadWeaver::Thread *thread);
 
-private Q_SLOTS:
-    /**
-     * Load the project.
-     * Will be used to load project in background.
-     * Will inform the project after loading was done and pass over all needed data!
-     * @param baseDir project file name, should stay the same after initial setup
-     * @param projectMap full map containing the whole project as copy to work on
-     */
-    void loadProject(QString baseDir, QVariantMap projectMap);
+Q_SIGNALS:
+    void loadDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);
+    void loadIndexDone(KateProjectSharedProjectIndex index);
 
 private:
     /**
@@ -105,6 +95,7 @@ private:
      * project base directory name
      */
     QString m_baseDir;
+    QVariantMap m_projectMap;
 };
 
 #endif

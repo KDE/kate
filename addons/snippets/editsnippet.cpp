@@ -89,10 +89,10 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     m_ui->splitter->setSizes(QList<int>() << 400 << 150);
     connect(m_ui->dotest_button, &QPushButton::clicked, this, &EditSnippet::test);
 
-    // modified notifications tuff
+    // modified notification stuff
     connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::topBoxModified);
     connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::validate);
-    connect(m_ui->snippetShortcutWidget, &KShortcutWidget::shortcutChanged, this, &EditSnippet::topBoxModified);
+    connect(m_ui->snippetShortcut, &KKeySequenceWidget::keySequenceChanged, this, &EditSnippet::topBoxModified);
     connect(m_snippetView->document(), &KTextEditor::Document::textChanged, this, &EditSnippet::validate);
 
     auto showHelp = [](const QString& text) {
@@ -107,7 +107,7 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
 
         m_snippetView->document()->setText(m_snippet->snippet());
         m_ui->snippetNameEdit->setText(m_snippet->text());
-        m_ui->snippetShortcutWidget->setShortcut(m_snippet->action()->shortcuts());
+        m_ui->snippetShortcut->setKeySequence(m_snippet->action()->shortcut());
 
         // unset modified flags
         m_snippetView->document()->setModified(false);
@@ -178,7 +178,7 @@ void EditSnippet::save()
     m_snippet->setSnippet(m_snippetView->document()->text());
     m_snippetView->document()->setModified(false);
     m_snippet->setText(m_ui->snippetNameEdit->text());
-    m_snippet->action()->setShortcuts(m_ui->snippetShortcutWidget->shortcut());
+    m_snippet->action()->setShortcut(m_ui->snippetShortcut->keySequence());
     m_repo->setScript(m_scriptsView->document()->text());
     m_scriptsView->document()->setModified(false);
     m_topBoxModified = false;

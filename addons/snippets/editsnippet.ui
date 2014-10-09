@@ -28,46 +28,23 @@
     </widget>
    </item>
    <item>
-    <layout class="QFormLayout" name="formLayout">
-     <property name="fieldGrowthPolicy">
-      <enum>QFormLayout::ExpandingFieldsGrow</enum>
-     </property>
-     <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
       <widget class="QLabel" name="snippetName">
        <property name="text">
         <string>Name:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" colspan="2">
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QLabel" name="snippetShortcutLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Shortcut:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="KShortcutWidget" name="snippetShortcutWidget"/>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="1">
+     <item>
       <widget class="QLineEdit" name="snippetNameEdit">
        <property name="placeholderText">
         <string>will be shown in the completion list</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="KKeySequenceWidget" name="snippetShortcut"/>
      </item>
     </layout>
    </item>
@@ -123,6 +100,13 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
+          <widget class="QPushButton" name="dotest_button">
+           <property name="text">
+            <string>Test this snippet</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -134,13 +118,6 @@
             </size>
            </property>
           </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="dotest_button">
-           <property name="text">
-            <string>Test this snippet</string>
-           </property>
-          </widget>
          </item>
         </layout>
        </item>
@@ -159,9 +136,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KShortcutWidget</class>
+   <class>KKeySequenceWidget</class>
    <extends>QWidget</extends>
-   <header>kshortcutwidget.h</header>
+   <header>kkeysequencewidget.h</header>
   </customwidget>
   <customwidget>
    <class>KMessageWidget</class>

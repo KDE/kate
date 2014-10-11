@@ -188,7 +188,7 @@ private:
     QStackedWidget *stack;
 
     // document's in the view space, sorted in LRU mode:
-    // the least recently used Document is at the end of the list
+    // the most recently used Document is at the end of the list
     QVector<KTextEditor::Document *> m_lruDocList;
 
     // the list of views that are contained in this view space,

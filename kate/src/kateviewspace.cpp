@@ -589,13 +589,16 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex , const QString 
 
     // aggregate all views in view space (LRU ordered)
     QVector<KTextEditor::View*> views;
+    QStringList lruList;
     Q_FOREACH(KTextEditor::Document* doc, m_lruDocList) {
+        lruList << doc->url().toString();
         if (m_docToView.contains(doc)) {
             views.append(m_docToView[doc]);
         }
     }
 
     KConfigGroup group(config, groupname);
+    group.writeEntry("Documents", lruList);
     group.writeEntry("Count", views.count());
 
     if (currentView()) {
@@ -621,8 +624,25 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex , const QString 
 void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *config, const QString &groupname)
 {
     KConfigGroup group(config, groupname);
-    QString fn = group.readEntry("Active View");
 
+    // restore Document lru list so that all tabs from the last session reappear
+    const QStringList lruList = group.readEntry("Documents", QStringList());
+    for (int i = 0; i < lruList.size(); ++i) {
+        auto doc = KateApp::self()->documentManager()->findDocument(QUrl(lruList[i]));
+        if (doc) {
+            const int index = m_lruDocList.indexOf(doc);
+            if (index < 0) {
+                registerDocument(doc);
+                Q_ASSERT(m_lruDocList.contains(doc));
+            } else {
+                m_lruDocList.removeAt(index);
+                m_lruDocList.append(doc);
+            }
+        }
+    }
+
+    // restore active view properties
+    const QString fn = group.readEntry("Active View");
     if (!fn.isEmpty()) {
         KTextEditor::Document *doc = KateApp::self()->documentManager()->findDocument(QUrl(fn));
 

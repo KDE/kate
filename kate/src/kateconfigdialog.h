@@ -33,6 +33,8 @@
 class QCheckBox;
 class QSpinBox;
 class KateMainWindow;
+class KPluralHandlingSpinBox;
+
 namespace Ui {
     class SessionConfigWidget;
 }
@@ -52,7 +54,7 @@ class KateConfigDialog : public KPageDialog
 public:
     KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view);
     ~KateConfigDialog();
-    
+
 public: // static
     /**
      * Reads the value from the given open config. If not present in config yet then
@@ -79,10 +81,10 @@ private:
 
     QCheckBox *m_modNotifications;
     QCheckBox *m_saveMetaInfos;
-    QSpinBox *m_daysMetaInfos;
-    
+    KPluralHandlingSpinBox *m_daysMetaInfos;
+
     // Sessions Page
-    Ui::SessionConfigWidget *sessionConfigUi;    
+    Ui::SessionConfigWidget *sessionConfigUi;
 
     QHash<KPageWidgetItem *, PluginPageListItem *> m_pluginPages;
     QList<KTextEditor::ConfigPage *> m_editorPages;

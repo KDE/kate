@@ -38,6 +38,7 @@
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <KSharedConfig>
+#include <KPluralHandlingSpinBox>
 
 #include <QDesktopServices>
 #include <QCheckBox>
@@ -45,7 +46,6 @@
 #include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
-#include <QSpinBox>
 #include <QVBoxLayout>
 
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view)
@@ -122,9 +122,10 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     metaInfos->setEnabled(KateApp::self()->documentManager()->getSaveMetaInfos());
     QLabel *label = new QLabel(i18n("&Delete unused meta-information after:"), metaInfos);
     hlayout->addWidget(label);
-    m_daysMetaInfos = new QSpinBox(metaInfos);
+    m_daysMetaInfos = new KPluralHandlingSpinBox(metaInfos);
     m_daysMetaInfos->setMaximum(180);
-    m_daysMetaInfos->setSpecialValueText(i18n("(never)"));
+    m_daysMetaInfos->setSpecialValueText(i18nc("The special case of 'Delete unused meta-information after'", "(never)"));
+    m_daysMetaInfos->setSuffix(ki18ncp("The suffix of 'Delete unused meta-information after'", " day", " days"));
     m_daysMetaInfos->setValue(KateApp::self()->documentManager()->getDaysMetaInfos());
     hlayout->addWidget(m_daysMetaInfos);
     label->setBuddy(m_daysMetaInfos);
@@ -149,7 +150,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     // restore view  config
     sessionConfigUi->restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
     connect(sessionConfigUi->restoreVC, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
-    
+
     sessionConfigUi->spinBoxRecentFilesCount->setValue(recentFilesMaxCount());
     connect(sessionConfigUi->spinBoxRecentFilesCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
@@ -298,7 +299,7 @@ void KateConfigDialog::slotApply()
         KConfigGroup cg = KConfigGroup(config, "General");
 
         cg.writeEntry("Restore Window Configuration", sessionConfigUi->restoreVC->isChecked());
-        
+
         cg.writeEntry("Recent File List Entry Count", sessionConfigUi->spinBoxRecentFilesCount->value());
 
         if (sessionConfigUi->startNewSessionRadioButton->isChecked()) {
@@ -356,7 +357,6 @@ void KateConfigDialog::slotChanged()
 {
     m_dataChanged = true;
     buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(true);
-    m_daysMetaInfos->setSuffix(i18ncp("The suffix of 'Delete unused meta-information after'", " day", " days", m_daysMetaInfos->value()));
 }
 
 void KateConfigDialog::showAppPluginPage(KTextEditor::Plugin *p, uint id)

@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=KTextEditor/Plugin
 X-KDE-Derived=
 Comment=KTextEditor Plugin
+Comment[ar]=ملحقة محرّر نصوصك
 Comment[bg]=Приставка за KTextEditor
 Comment[bs]=Priključak za KTextEditor
 Comment[ca]=Connector del KTextEditor

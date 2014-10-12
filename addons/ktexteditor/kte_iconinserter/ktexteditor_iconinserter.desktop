@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Comment=Select an icon and use it as a KIcon in your source-code
+Comment[ar]=اختر أيقونة واستخدمها كأيقونتك في الشِفرة المصدرية
 Comment[bg]=Избор на икона и използване като KIcon в изходния код
 Comment[bs]=Odabira ikonu i koristi je kao KIcon u izvornom kodu
 Comment[ca]=Seleccioneu una icona i utilitzeu-la com a «KIcon» en el codi font
@@ -53,6 +54,7 @@ Comment[x-test]=xxSelect an icon and use it as a KIcon in your source-codexx
 Comment[zh_CN]=选择一个图标并在代码中作为 KIcon 使用
 Comment[zh_TW]=選擇一個圖示，並在您的程式碼中做為 KIcon
 Name=IconInserter
+Name[ar]=مُدرج الأيقونات
 Name[bs]=Ubacivač ikona
 Name[ca]=Inserció d'icona
 Name[ca@valencia]=Inserció d'icona

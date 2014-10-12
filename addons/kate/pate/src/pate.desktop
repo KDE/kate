@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katepateplugin
 X-Kate-Version=2.8
 Name=Python Plugins
+Name[ar]=ملحقات بيثون
 Name[bg]=Приставки на Python
 Name[bs]=Priključak za Python
 Name[ca]=Connectors del Python

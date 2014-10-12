@@ -43,6 +43,7 @@ Name[x-test]=xxPython Autocompletionxx
 Name[zh_CN]=Python 自动补全
 Name[zh_TW]=Python 自動補完
 Comment=Beta, only for Python 2
+Comment[ar]=بيتا، فقط لبيثون 2
 Comment[bs]=Beta, samo za Python 2
 Comment[ca]=Beta, només pel Python 2
 Comment[ca@valencia]=Beta, només pel Python 2

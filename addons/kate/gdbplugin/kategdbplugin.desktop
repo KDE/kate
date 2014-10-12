@@ -59,6 +59,7 @@ Name[x-test]=xxGDBxx
 Name[zh_CN]=GDB
 Name[zh_TW]=GDB
 Comment=Provides a simple GDB frontend
+Comment[ar]=يوفّر سَنَد GDB بسيط
 Comment[bg]=Предоставя прост интерфейс за GDB
 Comment[bs]=Jednostavno pročelje za GDB
 Comment[ca]=Proporciona un frontal GDB senzill

@@ -61,6 +61,7 @@ Name[x-test]=xxFile Templatesxx
 Name[zh_CN]=文件模板
 Name[zh_TW]=檔案樣本
 Comment=Create new files from templates
+Comment[ar]=أنشئ ملفات جديدة من القوالب
 Comment[ast]=Facer ficheros nuevos a partir de plantíes
 Comment[bg]=Създаване на нови файлове от шаблони
 Comment[bs]=Pravite nove datoteke prema šablonima

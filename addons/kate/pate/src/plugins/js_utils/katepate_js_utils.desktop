@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/PythonPlugin
 X-KDE-Library=js_utils
 Name=JavaScript Utilities
+Name[ar]=أدوات جافاسكرِبت
 Name[bs]=JavaScript alati
 Name[ca]=Utilitats JavaScript
 Name[ca@valencia]=Utilitats JavaScript

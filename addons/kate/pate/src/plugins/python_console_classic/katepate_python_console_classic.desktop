@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/PythonPlugin
 X-KDE-Library=python_console_classic
 Name=Simple Python Console
+Name[ar]=مِعراض بيثون بسيط
 Name[bs]=Prosta Python konzola
 Name[ca]=Consola senzilla del Python
 Name[ca@valencia]=Consola senzilla del Python

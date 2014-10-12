@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katebuildplugin
 X-Kate-Version=2.9
 Name=Build Plugin
+Name[ar]=ملحقة بناء
 Name[ast]=Complementu de construcción
 Name[bg]=Приставка за построяване
 Name[bs]=Priključak za gradnju

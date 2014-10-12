@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katesymbolviewerplugin
 X-Kate-Version=2.8
 Name=Symbol Viewer
+Name[ar]=عارض الرموز
 Name[ast]=Visor de símbolos
 Name[bg]=Преглед на символи
 Name[bs]=Prikazivač simbola

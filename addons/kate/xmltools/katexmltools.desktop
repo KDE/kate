@@ -4,6 +4,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katexmltoolsplugin
 X-Kate-Version=2.9
 Name=XML Completion
+Name[ar]=إكمال XML
 Name[ast]=Terminación XML
 Name[bg]=Довършване на XML
 Name[bs]=Dopuna XML‑a

@@ -1,6 +1,6 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"katebuild-plugin\")
 
-set(katebuild_SRCS plugin_katebuild.cpp targets.cpp selecttargetdialog.cpp)
+set(katebuild_SRCS plugin_katebuild.cpp targets.cpp selecttargetdialog.cpp KBProcess.cpp)
 
 ki18n_wrap_ui(katebuild_SRCS build.ui)
 

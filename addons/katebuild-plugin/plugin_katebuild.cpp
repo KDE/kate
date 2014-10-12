@@ -193,7 +193,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_targetsUi->deleteButton->setEnabled(false);
     m_targetsUi->buildButton->setEnabled(false);
 
-    m_proc = new QProcess();
+    m_proc = new KBProcess();
 
     connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcExited(int,QProcess::ExitStatus)));
     connect(m_proc, SIGNAL(readyReadStandardError()),this, SLOT(slotReadReadyStdErr()));
@@ -599,7 +599,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_make_dir_stack.push(m_make_dir);
     // FIXME check
     m_proc->setWorkingDirectory(m_make_dir);
-    m_proc->start(command);
+    m_proc->startShellCommand(command);
 
     if(!m_proc->waitForStarted(500)) {
         KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc->exitStatus()));

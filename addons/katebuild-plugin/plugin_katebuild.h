@@ -28,7 +28,7 @@
 #include <QRegExp>
 #include <QString>
 #include <QStack>
-#include <QProcess>
+#include "KBProcess.h"
 
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Document>
@@ -146,7 +146,7 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         QWidget          *m_buildWidget;
         int               m_outputWidgetWidth;
         TargetsUi        *m_targetsUi;
-        QProcess         *m_proc;
+        KBProcess        *m_proc;
         QString           m_output_lines;
         QString           m_currentlyBuildingTarget;
         bool              m_buildCancelled;

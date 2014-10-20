@@ -25,41 +25,45 @@
 #include <QObject>
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
+#include <QDBusServiceWatcher>
 
 class KateWaiter : public QObject
 {
     Q_OBJECT
 
-private:
-    QCoreApplication *m_app;
-    QString m_service;
-    QStringList m_tokens;
 public:
     KateWaiter(QCoreApplication *app, const QString &service, const QStringList &tokens)
-        : QObject(app), m_app(app), m_service(service), m_tokens(tokens) {
-        connect(QDBusConnection::sessionBus().interface(), SIGNAL(serviceOwnerChanged(QString, QString, QString))
-                , this, SLOT(serviceOwnerChanged(QString, QString, QString)));
+        : QObject(app)
+        , m_app(app)
+        , m_tokens(tokens)
+        , m_watcher(service, QDBusConnection::sessionBus())
+    {
+        connect(&m_watcher, &QDBusServiceWatcher::serviceOwnerChanged, this, &KateWaiter::serviceOwnerChanged);
     }
 
 public Q_SLOTS:
-    void exiting() {
+    void exiting()
+    {
         m_app->quit();
     }
 
-    void documentClosed(const QString &token) {
+    void documentClosed(const QString &token)
+    {
         m_tokens.removeAll(token);
         if (m_tokens.count() == 0) {
             m_app->quit();
         }
     }
 
-    void serviceOwnerChanged(const QString &name, const QString &, const QString &) {
-        if (name != m_service) {
-            return;
-        }
-
+    void serviceOwnerChanged(const QString &, const QString &, const QString &)
+    {
         m_app->quit();
     }
+
+private:
+    QCoreApplication *m_app;
+    QStringList m_tokens;
+    QDBusServiceWatcher m_watcher;
 };
 
 #endif

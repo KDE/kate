@@ -1,0 +1,151 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY kappname "&kwrite;">
+<!ENTITY % English "INCLUDE" > <!-- change language only here -->
+]>
+
+<article id="kwrite" lang="&language;">
+
+<articleinfo>
+<title>The &kwrite; Handbook</title>
+<authorgroup>
+<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="developer">
+&Christoph.Cullmann; &Christoph.Cullmann.mail;
+<!-- <contrib>Core Developer and Maintainer</contrib> -->
+</othercredit>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+</authorgroup>
+
+<copyright>
+<year>2014</year>
+<holder>&TC.Hollingsworth; &TC.Hollingsworth.mail;</holder>
+</copyright>
+<legalnotice>&FDLNotice;</legalnotice>
+
+<date>2014-10-21</date>
+<releaseinfo>5</releaseinfo>
+
+<abstract>
+<para>&kwrite; is a text editor for &kde; allowing you to edit one file at the time per window.</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>KWrite</keyword>
+<keyword>text</keyword>
+<keyword>editor</keyword>
+</keywordset>
+
+</articleinfo>
+
+<sect1 id="introduction">
+<title>Introduction</title>
+
+<para>
+&kwrite; is more than a text editor for the &kde; Desktop. It is meant
+to be a programmer's editor, and could be considered as at least a
+partial alternative to more powerful editors.  It may be best used in
+conjunction with &konqueror; or &dolphin; for source file browsing for different
+languages. &kwrite; also works very well as a simple text editor.  One
+of &kwrite;'s main features is the colorized syntax, customized for many
+different programming languages such as: C/C++, &Java;, Python, Perl,
+Bash, Modula 2, &HTML;, and Ada.  &kwrite; has a single document interface
+(<acronym>SDI</acronym>) allowing you to edit one file at the time per window.
+</para>
+
+<para>
+&kwrite; is a simple interface to the &katepart; component also used by &kate;,
+KDevelop, and other applications from &kde; that require advanced text editing.
+Therefore, complete documentation for all the features of &kwrite; can be found
+in the <ulink url="help:/katepart">&katepart; Handbook</ulink>.
+</para>
+</sect1>
+
+<sect1 id="credits">
+<title>Credits and License</title>
+
+<para>&kwrite; Copyright 2001-2014 by the &kate; team.</para>
+
+<para>
+Based on the original &kwrite;, which was Copyright 2000 by Jochen Wilhelmy
+<email>digisnap@cs.tu-berlin.de</email>
+</para>
+
+<para>Contributions:</para>
+
+<itemizedlist>
+<listitem>
+<para>&Christoph.Cullmann; &Christoph.Cullmann.mail;</para>
+</listitem>
+
+<listitem>
+<para>Michael Bartl <email>michael.bartl1@chello.at</email></para>
+</listitem>
+
+<listitem>
+<para>Phlip <email>phlip_cpp@my-deja.com</email></para>
+</listitem>
+
+<listitem>
+<para>&Anders.Lund; &Anders.Lund.mail;</para>
+</listitem>
+
+<listitem>
+<para>Matt Newell <email>newellm@proaxis.com</email></para>
+</listitem>
+
+<listitem>
+<para>&Joseph.Wenninger; &Joseph.Wenninger.mail;</para>
+</listitem>
+
+<listitem>
+<para>Jochen Wilhelmy <email>digisnap@cs.tu-berlin.de</email></para>
+</listitem>
+
+<listitem>
+<para>&Michael.Koch; &Michael.Koch.mail;</para>
+</listitem>
+
+<listitem>
+<para>&Christian.Gebauer; &Christian.Gebauer.mail;</para>
+</listitem>
+
+<listitem>
+<para>&Simon.Hausmann; &Simon.Hausmann.mail;</para>
+</listitem>
+
+<listitem>
+<para>Glen Parker <email>glenebob@nwlink.com</email></para>
+</listitem>
+
+<listitem>
+<para>Scott Manson <email>sdmanson@altel.net</email></para>
+</listitem>
+
+<listitem>
+<para>&John.Firebaugh; &John.Firebaugh.mail;</para>
+</listitem>
+</itemizedlist>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;
+&underGPL;
+</sect1>
+
+&documentation.index;
+</article>
+<!--
+Local Variables:
+mode: sgml
+sgml-namecase-general: t
+sgml-namecase-entity: nil
+sgml-general-insert-case: lower
+sgml-minimize-attributes: nil
+sgml-omittag: nil
+End:
+-->

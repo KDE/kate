@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Changelog" version="0.69" kateversion="2.4" section="Other" extensions="" mimetype="">
+<language name="Debian Changelog" version="0.70" kateversion="2.4" section="Other" extensions="" mimetype="">
     <highlighting>
         <list name="keywords">
             <item>urgency</item>
@@ -140,6 +140,11 @@
             <item>utopic-proposed</item>
             <item>utopic-updates</item>
             <item>utopic-backports</item>
+            <item>vivid</item>
+            <item>vivid-security</item>
+            <item>vivid-proposed</item>
+            <item>vivid-updates</item>
+            <item>vivid-backports</item>
         </list>
 
         <list name="urgencies">

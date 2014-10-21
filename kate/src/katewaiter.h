@@ -32,9 +32,8 @@ class KateWaiter : public QObject
     Q_OBJECT
 
 public:
-    KateWaiter(QCoreApplication *app, const QString &service, const QStringList &tokens)
-        : QObject(app)
-        , m_app(app)
+    KateWaiter(const QString &service, const QStringList &tokens)
+        : QObject(QCoreApplication::instance())
         , m_tokens(tokens)
         , m_watcher(service, QDBusConnection::sessionBus())
     {
@@ -44,24 +43,23 @@ public:
 public Q_SLOTS:
     void exiting()
     {
-        m_app->quit();
+        QCoreApplication::instance()->quit();
     }
 
     void documentClosed(const QString &token)
     {
         m_tokens.removeAll(token);
         if (m_tokens.count() == 0) {
-            m_app->quit();
+            QCoreApplication::instance()->quit();
         }
     }
 
     void serviceOwnerChanged(const QString &, const QString &, const QString &)
     {
-        m_app->quit();
+        QCoreApplication::instance()->quit();
     }
 
 private:
-    QCoreApplication *m_app;
     QStringList m_tokens;
     QDBusServiceWatcher m_watcher;
 };

@@ -110,7 +110,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
      * set the program icon
      */
     QApplication::setWindowIcon(QIcon::fromTheme(QLatin1String("kate")));
-    
+
     /**
      * Create command line parser and feed it with known options
      */
@@ -375,7 +375,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 
             // connect dbus signal
             if (needToBlock) {
-                KateWaiter *waiter = new KateWaiter(&app, serviceName, tokens);
+                KateWaiter *waiter = new KateWaiter(serviceName, tokens);
                 QDBusConnection::sessionBus().connect(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("exiting"), waiter, SLOT(exiting()));
                 QDBusConnection::sessionBus().connect(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("documentClosed"), waiter, SLOT(documentClosed(QString)));
             }
@@ -389,7 +389,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
             return needToBlock ? app.exec() : 0;
         }
     }
-    
+
     /**
      * if we arrive here, we need to start a new kate instance!
      */

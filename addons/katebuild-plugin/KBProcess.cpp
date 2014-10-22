@@ -25,6 +25,8 @@
 
 #include "KBProcess.h"
 #include <QStringList>
+#include <QStandardPaths>
+#include <QFile>
 
 void KBProcess::startShellCommand(const QString &cmd)
 {

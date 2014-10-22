@@ -146,6 +146,7 @@ constexpr auto c = 0x123;                                   // hex
 constexpr auto c = 0x1234'5678'9abc;                        // hex w/ delimiters
 constexpr auto z = 0b1010110001110;                         // binary w/ delimiters
 constexpr auto z1 = 0b1'0101'1000'1110;                     // binary w/ delimiters
+constexpr auto segmentedDouble = 1'2.4'57'8e12'1;
 constexpr auto binary_invalid = 0b012;
 
 

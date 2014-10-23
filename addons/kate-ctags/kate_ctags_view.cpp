@@ -73,7 +73,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_gotoDef=m_menu->menu()->addAction(i18n("Go to Definition: %1",QString()), this, SLOT(gotoDefinition()));
     m_lookup=m_menu->menu()->addAction(i18n("Lookup: %1",QString()), this, SLOT(lookupTag()));
 
-    connect(m_menu, SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
+    connect(m_menu->menu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
 
     QWidget *ctagsWidget = new QWidget(m_toolView);
     m_ctagsUi.setupUi(ctagsWidget);

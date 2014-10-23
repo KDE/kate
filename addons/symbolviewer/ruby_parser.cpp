@@ -17,7 +17,7 @@
 
 void KatePluginSymbolViewerView::parseRubySymbols(void)
 {
-  if (!mainWindow()->activeView())
+  if (!m_mainWindow->activeView())
    return;
 
  m_macro->setText(i18n("Show Globals"));
@@ -36,7 +36,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
  QTreeWidgetItem *mtdNode = NULL, *clsNode = NULL;
  QTreeWidgetItem *lastMtdNode = NULL, *lastClsNode = NULL;
 
- KTextEditor::Document *kv = mainWindow()->activeView()->document();
+ KTextEditor::Document *kv = m_mainWindow->activeView()->document();
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
 
  if(m_plugin->treeOn)
@@ -58,7 +58,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
     cl = kv->line(i);
     cl = cl.trimmed();
 
-     if (cl.indexOf( QRegExp("^class [a-zA-Z0-9]+[^#]") ) >= 0)
+     if (cl.indexOf( QRegExp(QLatin1String("^class [a-zA-Z0-9]+[^#]")) ) >= 0)
        {
         name = cl.mid(6);
           if (func_on == true)
@@ -77,12 +77,12 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
              node->setText(1, QString::number( i, 10));
             }
        }
-     if (cl.indexOf( QRegExp("^def [a-zA-Z_]+[^#]") ) >= 0 )
+     if (cl.indexOf( QRegExp(QLatin1String("^def [a-zA-Z_]+[^#]")) ) >= 0 )
        {
         name = cl.mid(4);
         if (m_plugin->typesOn == false)
           {
-           name = name.left(name.indexOf('('));
+           name = name.left(name.indexOf(QLatin1Char('(')));
           }
         if (struct_on == true)
           {

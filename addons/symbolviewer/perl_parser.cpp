@@ -17,7 +17,7 @@
 
 void KatePluginSymbolViewerView::parsePerlSymbols(void)
 {
- if (!mainWindow()->activeView())
+ if (!m_mainWindow->activeView())
    return;
 
  m_macro->setText(i18n("Show Uses"));
@@ -34,7 +34,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  QTreeWidgetItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL;
  QTreeWidgetItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL;
 
- KTextEditor::Document *kv = mainWindow()->activeView()->document();
+ KTextEditor::Document *kv = m_mainWindow->activeView()->document();
 
      //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
  if(m_plugin->treeOn)
@@ -63,11 +63,11 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  for (int i=0; i<kv->lines(); i++)
    {
     cl = kv->line(i);
-    qDebug(13000)<<"Line " << i << " : "<< cl;
+    //qDebug()<< "Line " << i << " : "<< cl;
 
-    if(cl.isEmpty() || cl.at(0) == '#') continue;
-    if(cl.indexOf(QRegExp("^=[a-zA-Z]")) >= 0) comment = 1;
-    if(cl.indexOf(QRegExp("^=cut$")) >= 0)
+    if(cl.isEmpty() || cl.at(0) == QLatin1Char('#')) continue;
+    if(cl.indexOf(QRegExp(QLatin1String("^=[a-zA-Z]"))) >= 0) comment = 1;
+    if(cl.indexOf(QRegExp(QLatin1String("^=cut$"))) >= 0)
        {
         comment = 0;
         continue;
@@ -76,13 +76,13 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
         continue;
     
     cl = cl.trimmed();
-    qDebug(13000)<<"Trimmed line " << i << " : "<< cl;
+    //qDebug()<<"Trimmed line " << i << " : "<< cl;
 
-    if(cl.indexOf(QRegExp("^use +[A-Z]")) == 0 && macro_on)
+    if(cl.indexOf(QRegExp(QLatin1String("^use +[A-Z]"))) == 0 && macro_on)
       {
-       QString stripped=cl.remove( QRegExp("^use +") );
-       //stripped=stripped.replace( QRegExp(";$"), "" ); // Doesn't work ??
-       stripped = stripped.left(stripped.indexOf(';'));
+       QString stripped=cl.remove( QRegExp(QLatin1String("^use +")) );
+       //stripped=stripped.replace( QRegExp(QLatin1String(";$")), "" ); // Doesn't work ??
+       stripped = stripped.left(stripped.indexOf(QLatin1Char(';')));
        if (m_plugin->treeOn)
          {
           node = new QTreeWidgetItem(mcrNode, lastMcrNode);
@@ -96,10 +96,10 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
        node->setText(1, QString::number( i, 10));
       }
 #if 1
-    if(cl.indexOf(QRegExp("^use +[a-z]")) == 0 && struct_on)
+    if(cl.indexOf(QRegExp(QLatin1String("^use +[a-z]"))) == 0 && struct_on)
       {
-       QString stripped=cl.remove( QRegExp("^use +") );
-       stripped=stripped.remove( QRegExp(";$") );
+       QString stripped=cl.remove( QRegExp(QLatin1String("^use +")) );
+       stripped=stripped.remove( QRegExp(QLatin1String(";$")) );
        if (m_plugin->treeOn)
          {
           node = new QTreeWidgetItem(sctNode, lastSctNode);
@@ -114,10 +114,10 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
       }
 #endif
 #if 1
-    if(cl.indexOf(QRegExp("^sub +"))==0 && func_on)
+    if(cl.indexOf(QRegExp(QLatin1String("^sub +")))==0 && func_on)
       {
-       QString stripped=cl.remove( QRegExp("^sub +") );
-       stripped=stripped.remove( QRegExp("[{;] *$") );
+       QString stripped=cl.remove( QRegExp(QLatin1String("^sub +")) );
+       stripped=stripped.remove( QRegExp(QLatin1String("[{;] *$")) );
        if (m_plugin->treeOn)
          {
           node = new QTreeWidgetItem(clsNode, lastClsNode);
@@ -127,7 +127,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
           node = new QTreeWidgetItem(m_symbols);
         node->setText(0, stripped);
 
-        if (!stripped.isEmpty() && stripped.at(0)=='_')
+        if (!stripped.isEmpty() && stripped.at(0)==QLatin1Char('_'))
              node->setIcon(0, QIcon(cls_int));
         else
              node->setIcon(0, QIcon(cls));

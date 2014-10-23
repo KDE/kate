@@ -50,7 +50,7 @@ RockType *
  if(I_Have_Failed() >= 0 && /* comments everywhere :} */
     This_Appears() == 1)
      {
-      printf("Damn !!! Better going to bed :((");
+      printf(QLatin1String("Damn !!! Better going to bed :(("));
       if ( vs ) // here you are ;}
      activateSpace( vs->currentView() );
      } 

@@ -58,11 +58,12 @@ if(KF5Notifications_FOUND)
     ecm_optional_add_subdirectory (katebuild-plugin)
 endif()
 
+# list symbols and functions in a file
+ecm_optional_add_subdirectory (symbolviewer)
+
 #add_subdirectory( textfilter )
 
 #add_subdirectory( mailfiles )
-
-#add_subdirectory( symbolviewer )
 
 #add_subdirectory( filetemplates )
 

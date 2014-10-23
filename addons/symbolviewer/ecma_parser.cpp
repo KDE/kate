@@ -18,7 +18,7 @@
 void KatePluginSymbolViewerView::parseEcmaSymbols(void)
 {
   // make sure there is an active view to attach to
-  if (!mainWindow()->activeView()) return;
+  if (!m_mainWindow->activeView()) return;
 
   // the current line
   QString cl;
@@ -27,7 +27,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
   // a parsed class/function identifier
   QString identifier;
   // temporary characters
-  QChar current, next, string_start = '\0';
+  QChar current, next, string_start = QLatin1Char('\0');
   // whether we are in a multiline comment
   bool in_comment = false;
   // the current line index
@@ -51,34 +51,34 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
   }
 
   // read the document line by line
-  KTextEditor::Document *kv = mainWindow()->activeView()->document();
+  KTextEditor::Document *kv = m_mainWindow->activeView()->document();
   for (line=0; line < kv->lines(); line++) {
     // get a line to process, trimming off whitespace
     cl = kv->line(line);
     cl = cl.trimmed();
-    stripped = "";
+    stripped.clear();
     bool in_string = false;
     for (c = 0; c < cl.length(); c++) {
       // get the current character and the next
       current = cl.at(c);
       if ((c+1) < cl.length()) next = cl.at(c+1);
-      else next = '\0';
+      else next = QLatin1Char('\0');
       // skip the rest of the line if we find a line comment
-      if ((! in_comment) && (current == '/') && (next == '/')) break;
+      if ((! in_comment) && (current == QLatin1Char('/')) && (next == QLatin1Char('/'))) break;
       // open/close multiline comments
-      if ((! in_string) && (current == '/') && (next == '*')) {
+      if ((! in_string) && (current == QLatin1Char('/')) && (next == QLatin1Char('*'))) {
         in_comment = true;
         c++;
         continue;
       }
-      else if ((in_comment) && (current == '*') && (next == '/')) {
+      else if ((in_comment) && (current == QLatin1Char('*')) && (next == QLatin1Char('/'))) {
         in_comment = false;
         c++;
         continue;
       }
       // open strings
       if ((! in_comment) && (! in_string)) {
-        if ((current == '\'') || (current == '"')) {
+        if ((current == QLatin1Char('\'')) || (current == QLatin1Char('"'))) {
           string_start = current;
           in_string = true;
           continue;
@@ -87,12 +87,12 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
       // close strings
       if (in_string) {
         // skip escaped backslashes
-        if ((current == '\\') && (next == '\\')) {
+        if ((current == QLatin1Char('\\')) && (next == QLatin1Char('\\'))) {
           c++;
           continue;
         }
         // skip escaped string closures
-        if ((current == '\\') && (next == string_start)) {
+        if ((current == QLatin1Char('\\')) && (next == string_start)) {
           c++;
           continue;
         }
@@ -112,13 +112,13 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
       current = stripped.at(c);
       
       // look for class definitions (for ActionScript)
-      if ((current == 'c') && (stripped.indexOf("class", c) == c)) {
-        identifier = "";
+      if ((current == QLatin1Char('c')) && (stripped.indexOf(QLatin1String("class"), c) == c)) {
+        identifier.clear();
         c += 6;
         for (c = c; c < stripped.length(); c++) {
           current = stripped.at(c);
           // look for the beginning of the class itself
-          if ((current == '(') || (current == '{')) {
+          if ((current == QLatin1Char('(')) || (current == QLatin1Char('{'))) {
             c--;
             break;
           }
@@ -144,15 +144,15 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
       } // (look for classes)
       
       // look for function definitions
-      if ((current == 'f') && (stripped.indexOf("function", c) == c)) {
+      if ((current == QLatin1Char('f')) && (stripped.indexOf(QLatin1String("function"), c) == c)) {
         function_start = c;
         c += 8;
         // look for the beginning of the parameters
-        identifier = "";
+        identifier.clear();
         for (c = c; c < stripped.length(); c++) {
           current = stripped.at(c);
           // look for the beginning of the function definition
-          if ((current == '(') || (current == '{')) {
+          if ((current == QLatin1Char('(')) || (current == QLatin1Char('{'))) {
             c--;
             break;
           }
@@ -164,27 +164,27 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         identifier = identifier.trimmed();
         // if we have an anonymous function, back up to see if it's assigned to anything
         if (! (identifier.length() > 0)) {
-          QChar ch = '\0';
+          QChar ch = QLatin1Char('\0');
           for (int end = function_start - 1; end >= 0; end--) {
             ch = stripped.at(end);
             // skip whitespace
-            if ((ch == ' ') || (ch == '\t')) continue;
+            if ((ch == QLatin1Char(' ')) || (ch == QLatin1Char('\t'))) continue;
             // if we hit an assignment or object property operator,
             //  get the preceding identifier
-            if ((ch == '=') || (ch == ':')) {
+            if ((ch == QLatin1Char('=')) || (ch == QLatin1Char(':'))) {
               end--;
               while (end >= 0) {
                 ch = stripped.at(end);
-                if ((ch != ' ') && (ch != '\t')) break;
+                if ((ch != QLatin1Char(' ')) && (ch != QLatin1Char('\t'))) break;
                 end--;
               }
               int start = end;
               while (start >= 0) {
                 ch = stripped.at(start);
-                if (((ch >= 'a') && (ch <= 'z')) ||
-                    ((ch >= 'A') && (ch <= 'Z')) ||
-                    ((ch >= '0') && (ch <= '9')) ||
-                    (ch == '_')) start--;
+                if (((ch >= QLatin1Char('a')) && (ch <= QLatin1Char('z'))) ||
+                    ((ch >= QLatin1Char('A')) && (ch <= QLatin1Char('Z'))) ||
+                    ((ch >= QLatin1Char('0')) && (ch <= QLatin1Char('9'))) ||
+                    (ch == QLatin1Char('_'))) start--;
                 else {
                   start++;
                   break;
@@ -230,12 +230,12 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
       // look for QML id: ....
       if (stripped.midRef(c, 3) == QLatin1String("id:")) {
         c += 3;
-        identifier = "";
+        identifier.clear();
         // parse the id name
         for (c = c; c < stripped.length(); c++) {
           current = stripped.at(c);
           // look for the beginning of the id
-          if (current == ';') {
+          if (current == QLatin1Char(';')) {
             c--;
             break;
           }
@@ -268,7 +268,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
       }
 
       // keep track of brace depth
-      if (current == '{') {
+      if (current == QLatin1Char('{')) {
         brace_depth++;
         // if a node has been added at this level or above, 
         //  use it to extend the stack
@@ -278,7 +278,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         else if (! nodes.isEmpty()) 
           nodes.append(nodes.last());
       }
-      else if (current == '}') {
+      else if (current == QLatin1Char('}')) {
         brace_depth--;
         // pop the last node off the stack
         node = NULL;

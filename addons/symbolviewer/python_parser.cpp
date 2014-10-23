@@ -17,7 +17,7 @@
 
 void KatePluginSymbolViewerView::parsePythonSymbols(void)
 {
-  if (!mainWindow()->activeView())
+  if (!m_mainWindow->activeView())
    return;
 
   m_macro->setText(i18n("Show Globals"));
@@ -36,7 +36,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
   QTreeWidgetItem *mcrNode = NULL, *mtdNode = NULL, *clsNode = NULL;
   QTreeWidgetItem *lastMcrNode = NULL, *lastMtdNode = NULL, *lastClsNode = NULL;
   
-  KTextEditor::Document *kv = mainWindow()->activeView()->document();
+  KTextEditor::Document *kv = m_mainWindow->activeView()->document();
 
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
   if(m_plugin->treeOn)
@@ -66,7 +66,7 @@ for (int i=0; i<kv->lines(); i++)
     cl = kv->line(i);
     // concatenate continued lines and remove continuation marker
     if (cl.length()==0) continue;
-    while (cl[cl.length()-1]=='\\')
+    while (cl[cl.length()-1]==QLatin1Char('\\'))
     {
       cl=cl.left(cl.length()-1);
       i++;
@@ -76,27 +76,27 @@ for (int i=0; i<kv->lines(); i++)
         break;
     }
 
-    if(cl.indexOf( QRegExp("^class [a-zA-Z0-9_,\\s\\(\\).]+:") ) >= 0) in_class = 1;
+    if(cl.indexOf( QRegExp(QLatin1String("^class [a-zA-Z0-9_,\\s\\(\\).]+:")) ) >= 0) in_class = 1;
 
-     //if(cl.find( QRegExp("[\\s]+def [a-zA-Z_]+[^#]*:") ) >= 0) in_class = 2;
-     if(cl.indexOf( QRegExp("^def\\s+[a-zA-Z_]+[^#]*:") ) >= 0 ) in_class = 0;
+     //if(cl.find( QRegExp(QLatin1String("[\\s]+def [a-zA-Z_]+[^#]*:")) ) >= 0) in_class = 2;
+     if(cl.indexOf( QRegExp(QLatin1String("^def\\s+[a-zA-Z_]+[^#]*:")) ) >= 0 ) in_class = 0;
 
-     if (cl.indexOf("def ") >= 0 || (cl.indexOf("class ") >= 0 && in_class == 1))
+     if (cl.indexOf(QLatin1String("def ")) >= 0 || (cl.indexOf(QLatin1String("class ")) >= 0 && in_class == 1))
        {
-        if (cl.indexOf("def ") >= 0 && in_class == 1) in_class = 2;
+        if (cl.indexOf(QLatin1String("def ")) >= 0 && in_class == 1) in_class = 2;
         state = 1;
-        if (cl.indexOf(":") >= 0) state = 3; // found in the same line. Done
-        else if (cl.indexOf("(") >= 0) state = 2;
+        if (cl.indexOf(QLatin1Char(':')) >= 0) state = 3; // found in the same line. Done
+        else if (cl.indexOf(QLatin1Char('(')) >= 0) state = 2;
 
-        if (state == 2 || state == 3) name = cl.left (cl.indexOf ("("));
+        if (state == 2 || state == 3) name = cl.left (cl.indexOf (QLatin1Char('(')));
        }
 
      if (state > 0 && state < 3)
        {
         for (j = 0; j < cl.length(); j++)
            {
-            if (cl.at(j) == '(') state = 2;
-            else if (cl.at(j) == ':') { state = 3; break; }
+            if (cl.at(j) == QLatin1Char('(')) state = 2;
+            else if (cl.at(j) == QLatin1Char(':')) { state = 3; break; }
 
             if (state == 1) name += cl.at(j);
            }
@@ -155,7 +155,7 @@ for (int i=0; i<kv->lines(); i++)
             }
 
          state = 0;
-         name = "";
+         name.clear();
         }
     }
 

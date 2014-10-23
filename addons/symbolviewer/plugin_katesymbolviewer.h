@@ -18,16 +18,15 @@
 #ifndef _PLUGIN_KATE_SYMBOLVIEWER_H_
 #define _PLUGIN_KATE_SYMBOLVIEWER_H_
 
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <ktexteditor/document.h>
-#include <kate/mainwindow.h>
-#include <kate/plugin.h>
-#include <ktexteditor/view.h>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Document>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/View>
+#include <KTextEditor/SessionConfigInterface>
+#include <KTextEditor/ConfigPage>
 
 #include <QMenu>
-#include <qevent.h>
-#include <qcheckbox.h>
+#include <QCheckBox>
 
 #include <QPixmap>
 #include <QLabel>
@@ -35,9 +34,11 @@
 #include <QTreeWidget>
 #include <QList>
 #include <QTimer>
+
 #include <klocalizedstring.h>
-#include <kiconloader.h>
-#include <kconfig.h>
+
+//#include <kiconloader.h>
+//#include <kconfig.h>
 
 /**
  * Plugin's config page
@@ -56,6 +57,10 @@ class KatePluginSymbolViewerConfigPage : public KTextEditor::ConfigPage
      * Reimplemented from KTextEditor::ConfigPage
      * just emits configPageApplyRequest( this ).
      */
+    virtual QString name() const;
+    virtual QString fullName() const;
+    virtual QIcon icon() const;
+
     virtual void apply();
     virtual void reset () { ; }
     virtual void defaults () { ; }
@@ -80,12 +85,12 @@ class KatePluginSymbolViewerConfigPage : public KTextEditor::ConfigPage
 
 class KatePluginSymbolViewer;
 
-class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUIClient
+class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
 {
   Q_OBJECT
 
   public:
-    KatePluginSymbolViewerView (Kate::MainWindow *w, KatePluginSymbolViewer *plugin);
+    KatePluginSymbolViewerView (KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
     virtual ~KatePluginSymbolViewerView ();
 
     void parseSymbols(void);
@@ -109,6 +114,7 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     bool eventFilter(QObject *obj, QEvent *ev);
 
   private:
+    KTextEditor::MainWindow *m_mainWindow;
     KatePluginSymbolViewer *m_plugin;
     QMenu       *m_popup;
     QWidget     *m_toolview;
@@ -134,21 +140,17 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
 
 };
 
-class KatePluginSymbolViewer : public Kate::Plugin
+class KatePluginSymbolViewer : public KTextEditor::Plugin
 {
   Q_OBJECT
   public:
-    explicit KatePluginSymbolViewer( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
+    explicit KatePluginSymbolViewer(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
     virtual ~KatePluginSymbolViewer();
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    QObject *createView (KTextEditor::MainWindow *mainWindow);
 
-    uint configPages () const { return 1; }
-    KTextEditor::ConfigPage *configPage (uint , QWidget *w, const char *name=0);
-    QString configPageName(uint) const { return i18n("Symbol Viewer"); }
-    QString configPageFullName(uint) const { return i18n("Symbol Viewer Configuration Page"); }
-    QPixmap configPagePixmap (uint, int) const { return 0L; }
-    KIcon configPageIcon (uint number = 0) const;
+    int configPages () const { return 1; }
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
 
   public Q_SLOTS:
     void applyConfig( KatePluginSymbolViewerConfigPage* p );

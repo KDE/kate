@@ -17,7 +17,7 @@
 
 void KatePluginSymbolViewerView::parseCppSymbols(void)
 {
-  if (!mainWindow()->activeView())
+  if (!m_mainWindow->activeView())
    return;
 
  QString cl; // Current Line
@@ -41,7 +41,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
  QTreeWidgetItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL, *mtdNode = NULL;
  QTreeWidgetItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL, *lastMtdNode = NULL;
 
- KTextEditor::Document *kv = mainWindow()->activeView()->document();
+ KTextEditor::Document *kv = m_mainWindow->activeView()->document();
 
  //qDebug(13000)<<"Lines counted :"<<kv->lines();
  if(m_plugin->treeOn)
@@ -73,31 +73,31 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
     cl = kv->line(i);
     cl = cl.trimmed();
     func_close = 0;
-    if ( (cl.length()>=2) && (cl.at(0) == '/' && cl.at(1) == '/')) continue;
-    if(cl.indexOf("/*") == 0 && (cl.indexOf("*/") == ((signed)cl.length() - 2)) && graph == 0) continue; // workaround :(
-    if(cl.indexOf("/*") >= 0 && graph == 0) comment = 1;
-    if(cl.indexOf("*/") >= 0 && graph == 0) comment = 0;
-    if(cl.indexOf('#') >= 0 && graph == 0 ) macro = 1;
+    if ( (cl.length()>=2) && (cl.at(0) == QLatin1Char('/') && cl.at(1) == QLatin1Char('/'))) continue;
+    if(cl.indexOf(QLatin1String("/*")) == 0 && (cl.indexOf(QLatin1String("*/")) == ((signed)cl.length() - 2)) && graph == 0) continue; // workaround :(
+    if(cl.indexOf(QLatin1String("/*")) >= 0 && graph == 0) comment = 1;
+    if(cl.indexOf(QLatin1String("*/")) >= 0 && graph == 0) comment = 0;
+    if(cl.indexOf(QLatin1Char('#')) >= 0 && graph == 0 ) macro = 1;
     if (comment != 1)
       {
        /* *********************** MACRO PARSING *****************************/
        if(macro == 1)
          {
-          //macro_pos = cl.indexOf('#');
+          //macro_pos = cl.indexOf(QLatin1Char('#'));
           for (j = 0; j < cl.length(); j++)
              {
-              if ( ((j+1) <cl.length()) &&  (cl.at(j)=='/' && cl.at(j+1)=='/')) { macro = 4; break; }
-              if(  cl.indexOf("define") == j &&
-                 !(cl.indexOf("defined") == j))
+              if ( ((j+1) <cl.length()) &&  (cl.at(j)==QLatin1Char('/') && cl.at(j+1)==QLatin1Char('/'))) { macro = 4; break; }
+              if (  cl.indexOf(QLatin1String("define")) == j &&
+                 !(cl.indexOf(QLatin1String("defined")) == j))
                     {
                      macro = 2;
                      j += 6; // skip the word "define"
                     }
-              if(macro == 2 && j<cl.length() &&cl.at(j) != ' ') macro = 3;
+              if(macro == 2 && j<cl.length() &&cl.at(j) != QLatin1Char(' ')) macro = 3;
               if(macro == 3)
                 {
                  if (cl.at(j) >= 0x20) stripped += cl.at(j);
-                 if (cl.at(j) == ' ' || j == cl.length() - 1)
+                 if (cl.at(j) == QLatin1Char(' ') || j == cl.length() - 1)
                          macro = 4;
                 }
               //qDebug(13000)<<"Macro -- Stripped : "<<stripped<<" macro = "<<macro;
@@ -106,7 +106,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
            if(j == cl.length() && macro == 1) macro = 0;
            if(macro == 4)
              {
-              //stripped.replace(0x9, " ");
+              //stripped.replace(0x9, QLatin1String(" "));
               stripped = stripped.trimmed();
               if (macro_on == true)
                  {
@@ -122,28 +122,28 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                  }
               macro = 0;
               //macro_pos = 0;
-              stripped = "";
+              stripped.clear();
               //qDebug(13000)<<"Macro -- Inserted : "<<stripped<<" at row : "<<i;
-              if (cl.at(cl.length() - 1) == '\\') macro = 5; // continue in rows below
+              if (cl.at(cl.length() - 1) == QLatin1Char('\\')) macro = 5; // continue in rows below
               continue;
              }
           }
        if (macro == 5)
           {
-           if (cl.length() == 0 || cl.at(cl.length() - 1) != '\\')
+           if (cl.length() == 0 || cl.at(cl.length() - 1) != QLatin1Char('\\'))
                macro = 0;
            continue;
           }
 
        /* ******************************************************************** */
 
-       if ((cl.indexOf("class") >= 0 && graph == 0 && block == 0))
+       if ((cl.indexOf(QLatin1String("class")) >= 0 && graph == 0 && block == 0))
          {
           mclass = 1;
           for (j = 0; j < cl.length(); j++)
              {
-              if(((j+1) < cl.length()) && (cl.at(j)=='/' && cl.at(j+1)=='/')) { mclass = 2; break; }
-              if(cl.at(j)=='{') { mclass = 4; break;}
+              if(((j+1) < cl.length()) && (cl.at(j)==QLatin1Char('/') && cl.at(j+1)==QLatin1Char('/'))) { mclass = 2; break; }
+              if(cl.at(j)==QLatin1Char('{')) { mclass = 4; break;}
               stripped += cl.at(j);
              }
           if(func_on == true)
@@ -160,52 +160,52 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
              node->setText(0, stripped);
              node->setIcon(0, QIcon(cls));
              node->setText(1, QString::number( i, 10));
-             stripped = "";
+             stripped.clear();
              if (mclass == 1) mclass = 3;
             }
           continue;
          }
        if (mclass == 3)
          {
-          if (cl.indexOf('{') >= 0)
+          if (cl.indexOf(QLatin1Char('{')) >= 0)
             {
-             cl = cl.mid(cl.indexOf('{'));
+             cl = cl.mid(cl.indexOf(QLatin1Char('{')));
              mclass = 4;
             }
          }
 
-       if(cl.indexOf('(') >= 0 && cl.at(0) != '#' && block == 0 && comment != 2)
+       if(cl.indexOf(QLatin1Char('(')) >= 0 && cl.at(0) != QLatin1Char('#') && block == 0 && comment != 2)
           { structure = false; block = 1; }
-       if((cl.indexOf("typedef") >= 0 || cl.indexOf("struct") >= 0) &&
+       if((cl.indexOf(QLatin1String("typedef")) >= 0 || cl.indexOf(QLatin1String("struct")) >= 0) &&
           graph == 0 && block == 0)
-         { structure = true; block = 2; stripped = ""; }
-       //if(cl.indexOf(';') >= 0 && graph == 0)
+         { structure = true; block = 2; stripped.clear(); }
+       //if(cl.indexOf(QLatin1Char(';')) >= 0 && graph == 0)
        //    block = 0;
        if(block > 0 && mclass != 1 )
          {
           for (j = 0; j < cl.length(); j++)
             {
-             if ( ((j+1) < cl.length()) && (cl.at(j) == '/' && (cl.at(j + 1) == '*') && comment != 3)) comment = 2;
-             if ( ((j+1) < cl.length()) && (cl.at(j) == '*' && (cl.at(j + 1) == '/') && comment != 3) )
+             if ( ((j+1) < cl.length()) && (cl.at(j) == QLatin1Char('/') && (cl.at(j + 1) == QLatin1Char('*')) && comment != 3)) comment = 2;
+             if ( ((j+1) < cl.length()) && (cl.at(j) == QLatin1Char('*') && (cl.at(j + 1) == QLatin1Char('/')) && comment != 3) )
                    {  comment = 0; j+=2; if (j>=cl.length()) break;}
              // Handles a string. Those are freaking evilish !
-             if (cl.at(j) == '"' && comment == 3) { comment = 0; j++; if (j>=cl.length()) break;}
-             else if (cl.at(j) == '"' && comment == 0) comment = 3;
-             if ( ((j+1) <cl.length()) &&(cl.at(j)=='/' && cl.at(j+1)=='/') && comment == 0 )
+             if (cl.at(j) == QLatin1Char('"') && comment == 3) { comment = 0; j++; if (j>=cl.length()) break;}
+             else if (cl.at(j) == QLatin1Char('"') && comment == 0) comment = 3;
+             if ( ((j+1) <cl.length()) &&(cl.at(j)==QLatin1Char('/') && cl.at(j+1)==QLatin1Char('/')) && comment == 0 )
                { if(block == 1 && stripped.isEmpty()) block = 0; break; }
              if (comment != 2 && comment != 3)
                {
                 if (block == 1 && graph == 0 )
                   {
                    if(cl.at(j) >= 0x20) stripped += cl.at(j);
-                   if(cl.at(j) == '(') par++;
-                   if(cl.at(j) == ')')
+                   if(cl.at(j) == QLatin1Char('(')) par++;
+                   if(cl.at(j) == QLatin1Char(')'))
                      {
                       par--;
                       if(par == 0)
                         {
                          stripped = stripped.trimmed();
-                         stripped.remove("static ");
+                         stripped.remove(QLatin1String("static "));
                          //qDebug(13000)<<"Function -- Inserted : "<<stripped<<" at row : "<<i;
                          block = 2;
                          tmpPos = i;
@@ -214,37 +214,37 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                   } // BLOCK 1
                 if(block == 2 && graph == 0)
                   {
-                   if ( ((j+1)<cl.length()) && (cl.at(j)=='/' && cl.at(j+1)=='/') && comment == 0) break;
-                   //if(cl.at(j)==':' || cl.at(j)==',') { block = 1; continue; }
-                   if(cl.at(j)==':') { block = 1; continue; }
-                   if(cl.at(j)==';')
+                   if ( ((j+1)<cl.length()) && (cl.at(j)==QLatin1Char('/') && cl.at(j+1)==QLatin1Char('/')) && comment == 0) break;
+                   //if(cl.at(j)==QLatin1Char(':') || cl.at(j)==QLatin1Char(',')) { block = 1; continue; }
+                   if(cl.at(j)==QLatin1Char(':')) { block = 1; continue; }
+                   if(cl.at(j)==QLatin1Char(';'))
                      {
-                      stripped = "";
+                      stripped.clear();
                       block = 0;
                       structure = false;
                       break;
                      }
 
-                   if((cl.at(j)=='{' && structure == false && cl.indexOf(';') < 0) ||
-                      (cl.at(j)=='{' && structure == false && cl.indexOf('}') > (int)j))
+                   if((cl.at(j)==QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char(';')) < 0) ||
+                      (cl.at(j)==QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char('}')) > (int)j))
                      {
-                      stripped.replace(0x9, " ");
+                      stripped.replace(0x9, QLatin1String(" "));
                       if(func_on == true)
                         {
                          if (m_plugin->typesOn == false)
                            {
-                            while (stripped.indexOf('(') >= 0)
-                              stripped = stripped.left(stripped.indexOf('('));
-                            while (stripped.indexOf("::") >= 0)
-                              stripped = stripped.mid(stripped.indexOf("::") + 2);
+                            while (stripped.indexOf(QLatin1Char('(')) >= 0)
+                              stripped = stripped.left(stripped.indexOf(QLatin1Char('(')));
+                            while (stripped.indexOf(QLatin1String("::")) >= 0)
+                              stripped = stripped.mid(stripped.indexOf(QLatin1String("::")) + 2);
                             stripped = stripped.trimmed();
                             while (stripped.indexOf(0x20) >= 0)
                               stripped = stripped.mid(stripped.indexOf(0x20, 0) + 1);
                             while ( 
                                 (stripped.length()>0) &&
                                   ( 
-                                    (stripped.at(0)=='*') ||
-                                    (stripped.at(0)=='&')
+                                    (stripped.at(0)==QLatin1Char('*')) ||
+                                    (stripped.at(0)==QLatin1Char('&'))
                                   )
                               ) stripped=stripped.right(stripped.length()-1);
                            }
@@ -268,22 +268,22 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                          else node->setIcon(0, QIcon(cls));
                          node->setText(1, QString::number( tmpPos, 10));
                         }
-                      stripped = "";
+                      stripped.clear();
                       //retry = 0;
                       block = 3;
                      }
-                   if(cl.at(j)=='{' && structure == true)
+                   if(cl.at(j)==QLatin1Char('{') && structure == true)
                      {
                       block = 3;
                       tmpPos = i;
                      }
-                   if(cl.at(j)=='(' && structure == true)
+                   if(cl.at(j)==QLatin1Char('(') && structure == true)
                      {
                       //retry = 1;
                       block = 0;
                       j = 0;
                       //qDebug(13000)<<"Restart from the beginning of line...";
-                      stripped = "";
+                      stripped.clear();
                       break; // Avoid an infinite loop :(
                      }
                    if(structure == true && cl.at(j) >= 0x20) stripped += cl.at(j);
@@ -292,9 +292,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                 if (block == 3)
                   {
                    // A comment...there can be anything
-                   if( ((j+1)<cl.length()) && (cl.at(j)=='/' && cl.at(j+1)=='/') && comment == 0 ) break;
-                   if(cl.at(j)=='{') graph++;
-                   if(cl.at(j)=='}')
+                   if( ((j+1)<cl.length()) && (cl.at(j)==QLatin1Char('/') && cl.at(j+1)==QLatin1Char('/')) && comment == 0 ) break;
+                   if(cl.at(j)==QLatin1Char('{')) graph++;
+                   if(cl.at(j)==QLatin1Char('}'))
                      {
                       graph--;
                       if (graph == 0 && structure == false)  { block = 0; func_close = 1; }
@@ -304,11 +304,11 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
 
                 if (block == 4)
                   {
-                   if(cl.at(j) == ';')
+                   if(cl.at(j) == QLatin1Char(';'))
                      {
-                      //stripped.replace(0x9, " ");
-                      stripped.remove('{');
-                      stripped.replace('}', " ");
+                      //stripped.replace(0x9, QLatin1String(" "));
+                      stripped.remove(QLatin1Char('{'));
+                      stripped.replace(QLatin1Char('}'), QLatin1String(" "));
                       if(struct_on == true)
                         {
                          if (m_plugin->treeOn)
@@ -322,7 +322,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                          node->setText(1, QString::number( tmpPos, 10));
                         }
                       //qDebug(13000)<<"Structure -- Inserted : "<<stripped<<" at row : "<<i;
-                      stripped = "";
+                      stripped.clear();
                       block = 0;
                       structure = false;
                       //break;
@@ -336,9 +336,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
          } // BLOCK > 0
        if (mclass == 4 && block == 0 && func_close == 0)
          {
-          if (cl.indexOf('}') >= 0)
+          if (cl.indexOf(QLatin1Char('}')) >= 0)
             {
-             cl = cl.mid(cl.indexOf('}'));
+             cl = cl.mid(cl.indexOf(QLatin1Char('}')));
              mclass = 0;
             }
          }

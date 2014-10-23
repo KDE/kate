@@ -19,7 +19,7 @@
 
 void KatePluginSymbolViewerView::parsePhpSymbols(void)
 {
-  if (mainWindow()->activeView())
+  if (m_mainWindow->activeView())
   {
     QString line, lineWithliterals;
     QPixmap namespacePix( ( const char** ) class_int_xpm );
@@ -34,7 +34,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     QTreeWidgetItem *lastNamespaceNode = NULL, *lastDefineNode = NULL, \
         *lastClassNode = NULL, *lastFunctionNode = NULL;
 
-    KTextEditor::Document *kv = mainWindow()->activeView()->document();
+    KTextEditor::Document *kv = m_mainWindow->activeView()->document();
 
     if (m_plugin->treeOn)
     {
@@ -69,30 +69,30 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     }
 
     // Namespaces: http://www.php.net/manual/en/language.namespaces.php
-    QRegExp namespaceRegExp("^namespace\\s+([^;\\s]+)", Qt::CaseInsensitive);
+    QRegExp namespaceRegExp(QLatin1String("^namespace\\s+([^;\\s]+)"), Qt::CaseInsensitive);
     // defines: http://www.php.net/manual/en/function.define.php
-    QRegExp defineRegExp("(^|\\W)define\\s*\\(\\s*['\"]([^'\"]+)['\"]", Qt::CaseInsensitive);
+    QRegExp defineRegExp(QLatin1String("(^|\\W)define\\s*\\(\\s*['\"]([^'\"]+)['\"]"), Qt::CaseInsensitive);
     // classes: http://www.php.net/manual/en/language.oop5.php
-    QRegExp classRegExp("^((abstract\\s+|final\\s+)?)class\\s+([\\w_][\\w\\d_]*)\\s*(implements\\s+[\\w\\d_]*)?", Qt::CaseInsensitive);
+    QRegExp classRegExp(QLatin1String("^((abstract\\s+|final\\s+)?)class\\s+([\\w_][\\w\\d_]*)\\s*(implements\\s+[\\w\\d_]*)?"), Qt::CaseInsensitive);
     // interfaces: http://www.php.net/manual/en/language.oop5.php
-    QRegExp interfaceRegExp("^interface\\s+([\\w_][\\w\\d_]*)", Qt::CaseInsensitive);
+    QRegExp interfaceRegExp(QLatin1String("^interface\\s+([\\w_][\\w\\d_]*)"), Qt::CaseInsensitive);
     // classes constants: http://www.php.net/manual/en/language.oop5.constants.php
-    QRegExp constantRegExp("^const\\s+([\\w_][\\w\\d_]*)", Qt::CaseInsensitive);
+    QRegExp constantRegExp(QLatin1String("^const\\s+([\\w_][\\w\\d_]*)"), Qt::CaseInsensitive);
     // functions: http://www.php.net/manual/en/language.oop5.constants.php
-    QRegExp functionRegExp("^((public|protected|private)?(\\s*static)?\\s+)?function\\s+&?\\s*([\\w_][\\w\\d_]*)\\s*(.*)$", Qt::CaseInsensitive);
+    QRegExp functionRegExp(QLatin1String("^((public|protected|private)?(\\s*static)?\\s+)?function\\s+&?\\s*([\\w_][\\w\\d_]*)\\s*(.*)$"), Qt::CaseInsensitive);
     // variables: http://www.php.net/manual/en/language.oop5.properties.php
-    QRegExp varRegExp("^((var|public|protected|private)?(\\s*static)?\\s+)?\\$([\\w_][\\w\\d_]*)", Qt::CaseInsensitive);
+    QRegExp varRegExp(QLatin1String("^((var|public|protected|private)?(\\s*static)?\\s+)?\\$([\\w_][\\w\\d_]*)"), Qt::CaseInsensitive);
 
     // function args detection: “function a($b, $c=null)” => “$b, $v”
-    QRegExp functionArgsRegExp("(\\$[\\w_]+)", Qt::CaseInsensitive);
+    QRegExp functionArgsRegExp(QLatin1String("(\\$[\\w_]+)"), Qt::CaseInsensitive);
     QStringList functionArgsList;
     QString functionArgs;
 
     // replace literals by empty strings: “function a($b='nothing', $c="pretty \"cool\" string")” => “function ($b='', $c="")”
-    QRegExp literalRegExp("([\"'])(?:\\\\.|[^\\\\])*\\1");
+    QRegExp literalRegExp(QLatin1String("([\"'])(?:\\\\.|[^\\\\])*\\1"));
     literalRegExp.setMinimal(true);
     // remove useless comments: “public/* static */ function a($b, $c=null) /* test */” => “public function a($b, $c=null)”
-    QRegExp blockCommentInline("/\\*.*\\*/");
+    QRegExp blockCommentInline(QLatin1String("/\\*.*\\*/"));
     blockCommentInline.setMinimal(true);
 
     int i, pos;
@@ -113,30 +113,30 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       lineWithliterals = line;
 
       // reduce literals to empty strings to not match comments separators in literals
-      line.replace(literalRegExp, "\\1\\1");
+      line.replace(literalRegExp, QLatin1String("\\1\\1"));
       //kdDebug(13000) << debugBuffer.arg(i, 4).arg("-literals", 10).arg(line);
 
-      line.replace(blockCommentInline, "");
+      line.remove(blockCommentInline);
       //kdDebug(13000) << debugBuffer.arg(i, 4).arg("-comments", 10).arg(line);
 
       // trying to find comments and to remove commented parts
-      pos = line.indexOf("#");
+      pos = line.indexOf(QLatin1Char('#'));
       if (pos >= 0)
       {
           line = line.left(pos);
       }
-      pos = line.indexOf("//");
+      pos = line.indexOf(QLatin1String("//"));
       if (pos >= 0)
       {
           line = line.left(pos);
       }
-      pos = line.indexOf("/*");
+      pos = line.indexOf(QLatin1String("/*"));
       if (pos >= 0)
       {
           line = line.left(pos);
           inBlockComment = true;
       }
-      pos = line.indexOf("*/");
+      pos = line.indexOf(QLatin1String("*/"));
       if (pos >= 0)
       {
           line = line.right(line.length() - pos - 2);
@@ -212,15 +212,15 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         {
           if (m_plugin->typesOn && !classRegExp.cap(1).trimmed().isEmpty() && !classRegExp.cap(4).trimmed().isEmpty())
           {
-            node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+','+classRegExp.cap(4).trimmed()+']');
+            node->setText(0, classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(1).trimmed()+QLatin1Char(',')+classRegExp.cap(4).trimmed()+QLatin1Char(']'));
           }
           else if (m_plugin->typesOn && !classRegExp.cap(1).trimmed().isEmpty())
           {
-            node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+']');
+            node->setText(0, classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(1).trimmed()+QLatin1Char(']'));
           }
           else if (m_plugin->typesOn && !classRegExp.cap(4).trimmed().isEmpty())
           {
-            node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(4).trimmed()+']');
+            node->setText(0, classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(4).trimmed()+QLatin1Char(']'));
           }
           else
           {
@@ -231,7 +231,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         {
           if (m_plugin->typesOn)
           {
-            node->setText(0, interfaceRegExp.cap(1) + " [interface]");
+            node->setText(0, interfaceRegExp.cap(1) + QLatin1String(" [interface]"));
           }
           else
           {
@@ -306,7 +306,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
               functionArgsList += functionArgsRegExp.cap(1);
             }
           }
-          node->setText(0, functionRegExp.cap(4) + '(' + functionArgsList.join(", ") + ')');
+          node->setText(0, functionRegExp.cap(4) + QLatin1Char('(') + functionArgsList.join(QLatin1String(", ")) + QLatin1Char(')'));
           functionArgsList.clear();
         }
         else

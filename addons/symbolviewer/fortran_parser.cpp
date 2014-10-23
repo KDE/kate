@@ -18,15 +18,15 @@
 
 void KatePluginSymbolViewerView::parseFortranSymbols(void)
 {
- if (!mainWindow()->activeView())
+ if (!m_mainWindow->activeView())
    return;
 
  QString currline;
- QString subrStr("subroutine ");
- QString funcStr("function ");
- QString modStr("module ");
+ QString subrStr(QLatin1String("subroutine "));
+ QString funcStr(QLatin1String("function "));
+ QString modStr(QLatin1String("module "));
 
- QString stripped="";
+ QString stripped;
  int i;
  int fnd,block=0,blockend=0,paro=0,parc=0;
  bool mainprog;
@@ -68,7 +68,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
  else
    m_symbols->setRootIsDecorated(0);
 
- KTextEditor::Document *kDoc = mainWindow()->activeView()->document();
+ KTextEditor::Document *kDoc = m_mainWindow->activeView()->document();
 
  for (i = 0; i < kDoc->lines(); i++)
    {
@@ -79,8 +79,8 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
     currline = currline.toLower();
     bool comment = false;
     //kdDebug(13000)<<currline<<endl;
-    if(currline == "") continue;
-    if(currline.at(0) == '!' || currline.at(0) == 'c') comment = true;
+    if(currline.isEmpty()) continue;
+    if(currline.at(0) == QLatin1Char('!') || currline.at(0) == QLatin1Char('c')) comment = true;
     //block=0;
 
     mainprog=false;
@@ -88,67 +88,67 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
     if(!comment)
       {
        //Subroutines
-       if(currline.startsWith(subrStr) || currline.startsWith("program "))
+       if(currline.startsWith(subrStr) || currline.startsWith(QLatin1String("program ")))
          {
           block=1;
-          stripped="";
+          stripped.clear();
          }
        //Modules
         else if(currline.startsWith(modStr))
          {
           block=2;
-          stripped="";
+          stripped.clear();
          }
        //Functions
-        else if(((( currline.startsWith("real") || 
-                    currline.startsWith("double") || 
-                    currline.startsWith("integer") || 
-                    currline.startsWith("character")) || 
-                    currline.startsWith("logical") || 
-                    currline.startsWith("pure") ||
-                    currline.startsWith("elemental") ||
-                    currline.startsWith("recursive") ||
-                    currline.startsWith("type")) &&   
+        else if(((( currline.startsWith(QLatin1String("real")) ||
+                    currline.startsWith(QLatin1String("double")) ||
+                    currline.startsWith(QLatin1String("integer")) ||
+                    currline.startsWith(QLatin1String("character"))) ||
+                    currline.startsWith(QLatin1String("logical")) ||
+                    currline.startsWith(QLatin1String("pure")) ||
+                    currline.startsWith(QLatin1String("elemental")) ||
+                    currline.startsWith(QLatin1String("recursive")) ||
+                    currline.startsWith(QLatin1String("type"))) &&
                     currline.indexOf(funcStr) > 0) || 
                     currline.startsWith(funcStr)                    
                 )
          {
           block=3;
-          stripped="";
+          stripped.clear();
          }
 
        //Subroutines
        if(block==1)
          {
-          if(currline.startsWith("program "))
+          if(currline.startsWith(QLatin1String("program ")))
                mainprog=true;
           if (macro_on == true) // not really a macro, but a subroutines
             {
              stripped += currline.right(currline.length());
              stripped = stripped.simplified();
-             stripped.remove('*');
-             stripped.remove('+');
-             stripped.remove('$');
+             stripped.remove(QLatin1Char('*'));
+             stripped.remove(QLatin1Char('+'));
+             stripped.remove(QLatin1Char('$'));
              if(blockend==0)
                {
-                fnd = stripped.indexOf(' ');
+                fnd = stripped.indexOf(QLatin1Char(' '));
                 stripped = currline.right(currline.length()-fnd-1);
                }
-             stripped.remove(' ');
-             fnd = stripped.indexOf('!');
+             stripped.remove(QLatin1Char(' '));
+             fnd = stripped.indexOf(QLatin1Char('!'));
              if(fnd>0)
                {
                 stripped = stripped.left(fnd);
                }
-             paro+=currline.count(')', Qt::CaseSensitive);
-             parc+=currline.count('(', Qt::CaseSensitive);
+             paro+=currline.count(QLatin1Char(')'), Qt::CaseSensitive);
+             parc+=currline.count(QLatin1Char('('), Qt::CaseSensitive);
 
-             if((paro==parc || mainprog) && stripped.endsWith('&', Qt::CaseInsensitive)==false)
+             if((paro==parc || mainprog) && stripped.endsWith(QLatin1Char('&'), Qt::CaseInsensitive)==false)
                {
-                stripped.remove('&');
-                if(mainprog && stripped.indexOf('(')<0 && stripped.indexOf(')')<0)
-                    stripped.prepend("Main: ");
-                if(stripped.indexOf('=')==-1)
+                stripped.remove(QLatin1Char('&'));
+                if(mainprog && stripped.indexOf(QLatin1Char('('))<0 && stripped.indexOf(QLatin1Char(')'))<0)
+                    stripped.prepend(QLatin1String("Main: "));
+                if(stripped.indexOf(QLatin1Char('='))==-1)
                   {
                    if (m_plugin->treeOn)
                      {
@@ -161,7 +161,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                    node->setIcon(0, QIcon(subr));
                    node->setText(1, QString::number( i, 10));
                   }
-                stripped="";
+                stripped.clear();
                 block=0;
                 blockend=0;
                 paro=0;
@@ -181,14 +181,14 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
            {
             stripped = currline.right(currline.length());
             stripped = stripped.simplified();
-            fnd = stripped.indexOf(' ');
+            fnd = stripped.indexOf(QLatin1Char(' '));
             stripped = currline.right(currline.length()-fnd-1);
-            fnd = stripped.indexOf('!');
+            fnd = stripped.indexOf(QLatin1Char('!'));
             if(fnd>0)
               {
                stripped = stripped.left(fnd);
               }
-            if(stripped.indexOf('=')==-1)
+            if(stripped.indexOf(QLatin1Char('='))==-1)
               {
                if (m_plugin->treeOn)
                  {
@@ -201,7 +201,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                node->setIcon(0, QIcon(mod));
                node->setText(1, QString::number( i, 10));
               }
-            stripped = "";
+            stripped.clear();
            }
           block=0;
           blockend=0;
@@ -214,23 +214,23 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
            {
             stripped += currline.right(currline.length());
             stripped = stripped.trimmed();
-            stripped.remove( "function" );
-            stripped.remove('*');
-            stripped.remove('+');
-            stripped.remove('$');
+            stripped.remove( QLatin1String("function") );
+            stripped.remove(QLatin1Char('*'));
+            stripped.remove(QLatin1Char('+'));
+            stripped.remove(QLatin1Char('$'));
             stripped = stripped.simplified();
-            fnd = stripped.indexOf('!');
+            fnd = stripped.indexOf(QLatin1Char('!'));
             if(fnd>0)
               {
                stripped = stripped.left(fnd);
               }
             stripped = stripped.trimmed();
-            paro+=currline.count(')', Qt::CaseSensitive);
-            parc+=currline.count('(', Qt::CaseSensitive);
+            paro+=currline.count(QLatin1Char(')'), Qt::CaseSensitive);
+            parc+=currline.count(QLatin1Char('('), Qt::CaseSensitive);
 
-            if(paro==parc && stripped.endsWith('&')==false)
+            if(paro==parc && stripped.endsWith(QLatin1Char('&'))==false)
               {
-               stripped.remove('&');
+               stripped.remove(QLatin1Char('&'));
               if (m_plugin->treeOn)
                 {
                  node = new QTreeWidgetItem(funcNode, lastFuncNode);
@@ -241,7 +241,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
               node->setText(0, stripped);
               node->setIcon(0, QIcon(func));
               node->setText(1, QString::number( i, 10));
-              stripped = "";
+              stripped.clear();
               block=0;
               paro=0;
               parc=0;

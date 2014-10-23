@@ -24,11 +24,11 @@
 
 void KatePluginSymbolViewerView::parseBashSymbols(void)
 {
-       if (!mainWindow()->activeView())
+       if (!m_mainWindow->activeView())
                return;
 
        QString currline;
-       QString funcStr("function ");
+       QString funcStr(QLatin1String("function "));
 
        int i;
        //bool mainprog;
@@ -59,7 +59,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
        else
                m_symbols->setRootIsDecorated(0);
 
-       KTextEditor::Document *kDoc = mainWindow()->activeView()->document();
+       KTextEditor::Document *kDoc = m_mainWindow->activeView()->document();
 
        for (i = 0; i < kDoc->lines(); i++)
        {
@@ -69,8 +69,8 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
 
                bool comment = false;
                //qDebug(13000)<<currline<<endl;
-               if(currline == "") continue;
-               if(currline.at(0) == '#') comment = true;
+               if(currline.isEmpty()) continue;
+               if(currline.at(0) == QLatin1Char('#')) comment = true;
 
                //mainprog=false;
                if(!comment && func_on)
@@ -79,16 +79,16 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
 
                        // skip line if no function defined
                        // note: function name must match regex: [a-zA-Z0-9-_]+
-                       if(!currline.contains(QRegExp("^(function )*[a-zA-Z0-9-_]+ *\\( *\\)"))
-                               && !currline.contains(QRegExp("^function [a-zA-Z0-9-_]+")))
+                       if(!currline.contains(QRegExp(QLatin1String("^(function )*[a-zA-Z0-9-_]+ *\\( *\\)")))
+                               && !currline.contains(QRegExp(QLatin1String("^function [a-zA-Z0-9-_]+"))))
                                continue;
 
                        // strip everything unneeded and get the function's name
-                       currline.remove(QRegExp("^(function )*"));
-                       funcName = currline.split(QRegExp("((\\( *\\))|[^a-zA-Z0-9-_])"))[0].simplified();
+                       currline.remove(QRegExp(QLatin1String("^(function )*")));
+                       funcName = currline.split(QRegExp(QLatin1String("((\\( *\\))|[^a-zA-Z0-9-_])")))[0].simplified();
                        if(!funcName.size())
                                continue;
-                       funcName.append("()");
+                       funcName.append(QLatin1String("()"));
 
                        if (m_plugin->treeOn)
                        {

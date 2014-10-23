@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=Kate/Plugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katesymbolviewerplugin
-X-Kate-Version=2.8
 Name=Symbol Viewer
 Name[ast]=Visor de símbolos
 Name[bg]=Преглед на символи

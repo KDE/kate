@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katesymbolviewer" library="libkatesymbolviewerplugin" version="2">
+<gui name="katesymbolviewerplugin" library="katesymbolviewerplugin" version="2">
   <MenuBar>
     <Menu name="view">
       <text>&amp;Settings</text>

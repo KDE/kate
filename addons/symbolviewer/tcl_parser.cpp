@@ -19,13 +19,13 @@
 
 void KatePluginSymbolViewerView::parseTclSymbols(void)
 {
-  if (!mainWindow()->activeView())
+  if (!m_mainWindow->activeView())
    return;
 
  QString currline, prevline;
  bool    prevComment = false;
- QString varStr("set ");
- QString procStr("proc");
+ QString varStr(QLatin1String("set "));
+ QString procStr(QLatin1String("proc"));
  QString stripped;
  int i, j, args_par = 0, graph = 0;
  char block = 0, parse_func = 0;
@@ -57,7 +57,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
  else
    m_symbols->setRootIsDecorated(0);
 
- KTextEditor::Document *kDoc = mainWindow()->activeView()->document();
+ KTextEditor::Document *kDoc = m_mainWindow->activeView()->document();
 
  //positions.resize(kDoc->numLines() + 3); // Maximum m_symbols number o.O
  //positions.fill(0);
@@ -68,13 +68,13 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
     currline = currline.trimmed();
     bool comment = false;
     //qDebug(13000)<<currline;
-    if(currline == "") continue;
-    if(currline.at(0) == '#') comment = true;
+    if(currline.isEmpty()) continue;
+    if(currline.at(0) == QLatin1Char('#')) comment = true;
 
     if(i > 0)
       {
        prevline = kDoc->line(i-1);
-       if(prevline.endsWith("\\") && prevComment) comment = true;
+       if(prevline.endsWith(QLatin1String("\\")) && prevComment) comment = true;
       }
     prevComment = comment;
 
@@ -86,8 +86,8 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
             {
              stripped = currline.right(currline.length() - 3);
              stripped = stripped.simplified();
-             int fnd = stripped.indexOf(' ');
-             //fnd = stripped.indexOf(';');
+             int fnd = stripped.indexOf(QLatin1Char(' '));
+             //fnd = stripped.indexOf(QLatin1Char(';'));
              if(fnd > 0) stripped = stripped.left(fnd);
 
              if (m_plugin->treeOn)
@@ -100,7 +100,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
              node->setText(0, stripped);
              node->setIcon(0, QIcon(mcr));
              node->setText(1, QString::number( i, 10));
-             stripped = "";
+             stripped.clear();
             }//macro
           } // starts with "set"
 
@@ -112,8 +112,8 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                  {
                   if (block == 1)
                     {
-                     if(currline.at(j)=='{') graph++;
-                     if(currline.at(j)=='}')
+                     if(currline.at(j)==QLatin1Char('{')) graph++;
+                     if(currline.at(j)==QLatin1Char('}'))
                        {
                         graph--;
                         if (graph == 0) { block = 0; parse_func = 0; continue; }
@@ -122,8 +122,8 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                   if (block == 0)
                     {
                      stripped += currline.at(j);
-                     if(currline.at(j) == '{') args_par++;
-                     if(currline.at(j) == '}')
+                     if(currline.at(j) == QLatin1Char('{')) args_par++;
+                     if(currline.at(j) == QLatin1Char('}'))
                          {
                           args_par--;
                           if (args_par == 0)
@@ -142,7 +142,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                                 node->setIcon(0, QIcon(cls));
                                 node->setText(1, QString::number( i, 10));
                                }
-                             stripped = "";
+                             stripped.clear();
                              block = 1;
                             }
                          }

@@ -9,5 +9,5 @@ target_link_libraries(katesymbolviewerplugin KF5::TextEditor KF5::I18n KF5::Icon
 ########### install files ###############
 install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katesymbolviewer)
 install(TARGETS katesymbolviewerplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-install(FILES katesymbolviewer.desktop DESTINATION ${SERVICES_INSTALL_DIR})
-kcoreaddons_desktop_to_json (katesymbolviewerplugin katesymbolviewer.desktop)
+install(FILES katesymbolviewerplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+kcoreaddons_desktop_to_json (katesymbolviewerplugin katesymbolviewerplugin.desktop)

@@ -40,6 +40,20 @@ bool Tags::hasTag( const QString & tag )
 	return found;
 }
 
+bool Tags::hasTag( const QString & fileName, const QString & tag )
+{
+	setTagsFile( fileName );
+	ctags::tagFileInfo info;
+	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit().constData(), &info );
+	ctags::tagEntry entry;
+
+	bool found = ( ctags::tagsFind( file, &entry, tag.toLocal8Bit().constData(), TAG_FULLMATCH | TAG_OBSERVECASE ) == ctags::TagSuccess );
+
+	ctags::tagsClose( file );
+
+	return found;
+}
+
 unsigned int Tags::numberOfMatches( const QString & tagpart, bool partial )
 {
 	unsigned int n = 0;

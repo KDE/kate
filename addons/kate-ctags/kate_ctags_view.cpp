@@ -138,7 +138,7 @@ void KateCTagsView::aboutToShow()
         return;
     }
 
-    if (Tags::hasTag(currWord)) {
+    if (Tags::hasTag(m_commonDB, currWord) || Tags::hasTag(m_ctagsUi.tagsFile->text(), currWord)) {
         QString squeezed = KStringHandler::csqueeze(currWord, 30);
 
         m_gotoDec->setText(i18n("Go to Declaration: %1",squeezed));
@@ -530,7 +530,9 @@ void KateCTagsView::updateDone(int exitCode, QProcess::ExitStatus status)
     if (status == QProcess::CrashExit) {
         KMessageBox::error(m_toolView, i18n("The CTags executable crashed."));
     } else if (exitCode != 0) {
-        KMessageBox::error(m_toolView, i18n("The CTags program exited with code %1", exitCode));
+        KMessageBox::error(m_toolView, i18n("The CTags program exited with code %1: %2"
+        , exitCode
+        , QString::fromLocal8Bit(m_proc.readAllStandardError())));
     }
 
     m_ctagsUi.updateButton->setDisabled(false);

@@ -47,6 +47,7 @@ public:
 	 * @return returns true if tag database contains 'tag'
 	 */
 	static bool hasTag( const QString & tag );
+	static bool hasTag( const QString & fileName, const QString & tag );
 
 	static unsigned int numberOfPartialMatches( const QString & tagpart );
 	static unsigned int numberOfExactMatches( const QString & tag );

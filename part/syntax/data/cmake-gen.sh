@@ -1,6 +1,14 @@
 #!/bin/env bash
 # Copyright 2008, 2009 Matthew Woehlke (mw_triad@users.sourceforge.net)
 # Copyright 2013, Alex Turbov (i.zaufi@gmail.com)
+#
+# ATTENTION Since CMake 3.x this generator is broken! So last time
+# (making version 1.31 of cmake.xml syntax) I had to use `kdiff3`
+# to manually merge changes!
+#
+# TODO CMake 2 and 3 has some difference in syntax... So, this
+# generator do not feasible anymore if we are trying to keep a single
+# syntax files for both CMake generations. It must be fixed! (somehow)
 
 export LC_ALL=C
 
@@ -66,6 +74,7 @@ grep -v '^[A-Za-z_0-9]\+\s*$' $t.all_vars \
   | sed 's,<LANG>,[A-Za-z_][A-Za-z_0-9]*,' \
   | sed 's,<CONFIG>,[A-Za-z_][A-Za-z_0-9]*,' \
   | sed 's,<PackageName>,[A-Za-z_][A-Za-z_0-9]*,' \
+  | sed 's,<PROJECT-NAME>,[A-Za-z_][A-Za-z_0-9]*,' \
   | sed 's,CMP<NNNN>,CMP[0-9]+,' \
   | sed 's,\[CMAKE_BUILD_TYPE\],[A-Za-z_][A-Za-z_0-9]*,' \
   | sort -u \

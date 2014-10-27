@@ -24,6 +24,7 @@
 
 #include <QVBoxLayout>
 #include <QFile>
+#include <QDir>
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QScrollBar>
@@ -202,7 +203,7 @@ void IOView::addStdErrText(const QString &text)
 
 QString IOView::createFifo(const QString &prefix)
 {
-    QString fifo = QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation) + prefix + KRandom::randomString(3);
+    QString fifo = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + prefix + KRandom::randomString(3);
     int result = mkfifo(QFile::encodeName(fifo).data(), 0666);
     if (result != 0) return QString();
     return fifo;

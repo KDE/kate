@@ -1,6 +1,8 @@
 /***************************************************************************
  *                        plugin_katesymbolviewer.cpp  -  description
  *                           -------------------
+ * Copyright (C) 2014 by Kåre Särs <kare.sars@iki.fi>
+ *
  *  begin                : Apr 2 2003
  *  author               : 2003 Massimo Callegari
  *  email                : massimocallegari@yahoo.it
@@ -64,6 +66,7 @@
 #include <QResizeEvent>
 #include <QMenu>
 #include <QPainter>
+#include <QTimer>
 
 K_PLUGIN_FACTORY_WITH_JSON (KatePluginSymbolViewerFactory, "katesymbolviewerplugin.json", registerPlugin<KatePluginSymbolViewer>();)
 
@@ -143,7 +146,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KTextEditor::Plugin *plug
   m_toolview->installEventFilter(this);
 
   /* First Symbols parsing here...*/
-  parseSymbols();
+  QTimer::singleShot(10, this, SLOT(slotRefreshSymbol()));
   if (m_plugin->sortOn == true) m_symbols->sortItems(0, Qt::AscendingOrder);
 }
 

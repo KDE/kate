@@ -26,7 +26,6 @@
 
 #include <QStandardItem>
 
-class SnippetRepository;
 class QAction;
 
 /**

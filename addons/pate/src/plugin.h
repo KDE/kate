@@ -34,9 +34,6 @@
 # include "ui_manager.h"
 
 // Fwd decls
-class QPushButton;
-class QCheckBox;
-class QTreeView;
 
 namespace Pate
 {

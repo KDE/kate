@@ -29,8 +29,6 @@
 
 #include <QStandardItemModel>
 
-class QTreeView;
-class QGraphicsProxyWidget;
 
 class QModelIndex;
 class KConfigDialog;

@@ -33,7 +33,6 @@ class QAction;
 class QSortFilterProxyModel;
 
 namespace KTextEditor {
-    class MainWindow;
 }
 
 /**

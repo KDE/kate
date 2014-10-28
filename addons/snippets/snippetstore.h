@@ -31,8 +31,6 @@ class SnippetRepository;
 class KateSnippetGlobal;
 
 namespace KTextEditor {
-class TemplateScriptRegistrar;
-class TemplateScript;
 }
 
 /**

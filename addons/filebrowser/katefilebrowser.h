@@ -38,7 +38,6 @@ class KHistoryComboBox;
 class KToolBar;
 class KConfigGroup;
 class KUrlNavigator;
-class KConfigBase;
 
 class QAbstractItemView;
 class QAction;

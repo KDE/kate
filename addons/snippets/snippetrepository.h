@@ -31,7 +31,6 @@
 
 namespace KTextEditor
 {
-class TemplateScript;
 }
 
 /**

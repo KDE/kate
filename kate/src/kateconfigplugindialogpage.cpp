@@ -55,7 +55,7 @@ KatePluginListView::KatePluginListView(QWidget *parent)
     : QTreeWidget(parent)
 {
     setRootIsDecorated(false);
-    connect(this, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(stateChanged(QTreeWidgetItem*)));
+    connect(this, &KatePluginListView::itemChanged, this, &KatePluginListView::stateChanged);
 }
 
 void KatePluginListView::stateChanged(QTreeWidgetItem *item)
@@ -89,7 +89,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
 
     listView->resizeColumnToContents(0);
     listView->sortByColumn(0, Qt::AscendingOrder);
-    connect(listView, SIGNAL(stateChange(KatePluginListItem*,bool)), this, SLOT(stateChange(KatePluginListItem*,bool)));
+    connect(listView, &KatePluginListView::stateChange, this, &KateConfigPluginPage::stateChange);
 }
 
 void KateConfigPluginPage::stateChange(KatePluginListItem *item, bool b)

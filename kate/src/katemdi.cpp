@@ -54,8 +54,8 @@ ToggleToolViewAction::ToggleToolViewAction(const QString &text, ToolView *tv,
     : KToggleAction(text, parent)
     , m_tv(tv)
 {
-    connect(this, SIGNAL(toggled(bool)), this, SLOT(slotToggled(bool)));
-    connect(m_tv, SIGNAL(toolVisibleChanged(bool)), this, SLOT(toolVisibleChanged(bool)));
+    connect(this, &ToggleToolViewAction::toggled, this, &ToggleToolViewAction::slotToggled);
+    connect(m_tv, &ToolView::toolVisibleChanged, this, &ToggleToolViewAction::toolVisibleChanged);
 
     setChecked(m_tv->toolVisible());
 }
@@ -117,8 +117,7 @@ GUIClient::GUIClient(MainWindow *mw)
     actionCollection()->setDefaultShortcut(m_showSidebarsAction, Qt::CTRL | Qt::ALT | Qt::SHIFT | Qt::Key_F);
 
     m_showSidebarsAction->setChecked(m_mw->sidebarsVisible());
-    connect(m_showSidebarsAction, SIGNAL(toggled(bool)),
-            m_mw, SLOT(setSidebarsVisible(bool)));
+    connect(m_showSidebarsAction, &KToggleAction::toggled, m_mw, &MainWindow::setSidebarsVisible);
 
     m_toolMenu->addAction(m_showSidebarsAction);
     QAction *sep_act = new QAction(this);
@@ -512,8 +511,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
                     menu->addAction(QIcon::fromTheme(QStringLiteral("go-down")), i18n("Bottom Sidebar"))->setData(3);
                 }
 
-                connect(menu, SIGNAL(triggered(QAction*)),
-                        this, SLOT(buttonPopupActivate(QAction*)));
+                connect(menu, &QMenu::triggered, this, &Sidebar::buttonPopupActivate);
 
                 menu->exec(e->globalPos());
                 delete menu;

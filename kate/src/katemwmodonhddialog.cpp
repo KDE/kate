@@ -102,7 +102,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     twDocuments->header()->setSectionResizeMode(0, QHeaderView::Stretch);
     twDocuments->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
-    connect(twDocuments, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(slotSelectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
+    connect(twDocuments, &QTreeWidget::currentItemChanged, this, &KateMwModOnHdDialog::slotSelectionChanged);
 
     // Diff line
     hb = new QHBoxLayout;
@@ -114,7 +114,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
                               "file for the selected document, and shows the difference with the "
                               "default application. Requires diff(1)."));
     hb->addWidget(btnDiff);
-    connect(btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()));
+    connect(btnDiff, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotDiff);
 
     // Dialog buttons
     QDialogButtonBox *buttons = new QDialogButtonBox(this);
@@ -123,17 +123,17 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     QPushButton *ignoreButton = new QPushButton(QIcon::fromTheme(QStringLiteral("dialog-warning")), i18n("&Ignore Changes"));
     ignoreButton->setToolTip(i18n("Remove modified flag from selected documents"));
     buttons->addButton(ignoreButton, QDialogButtonBox::RejectRole);
-    connect(ignoreButton, SIGNAL(clicked()), this, SLOT(slotIgnore()));
+    connect(ignoreButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotIgnore);
 
     QPushButton *overwriteButton = new QPushButton;
     KGuiItem::assign(overwriteButton, KStandardGuiItem::overwrite());
     overwriteButton->setToolTip(i18n("Overwrite selected documents, discarding disk changes"));
-    connect(overwriteButton, SIGNAL(clicked()), this, SLOT(slotOverwrite()));
+    connect(overwriteButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotOverwrite);
 
     QPushButton *reloadButton = new QPushButton(QIcon::fromTheme(QStringLiteral("view-refresh")), i18n("&Reload"));
     reloadButton->setDefault(true);
     reloadButton->setToolTip(i18n("Reload selected documents from disk"));
-    connect(reloadButton, SIGNAL(clicked()), this, SLOT(slotReload()));
+    connect(reloadButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotReload);
 
     slotSelectionChanged(NULL, NULL);
 }
@@ -255,8 +255,8 @@ void KateMwModOnHdDialog::slotDiff()
     m_proc = new KProcess(this);
     m_proc->setOutputChannelMode(KProcess::MergedChannels);
     *m_proc << QStringLiteral("diff") << QStringLiteral("-ub") << QStringLiteral("-") << doc->url().toLocalFile();
-    connect(m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()));
-    connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotPDone()));
+    connect(m_proc, &KProcess::readyRead, this, &KateMwModOnHdDialog::slotDataAvailable);
+    connect(m_proc, static_cast<void (KProcess::*)(int, QProcess::ExitStatus)>(&KProcess::finished), this, &KateMwModOnHdDialog::slotPDone);
 
     setCursor(Qt::WaitCursor);
     btnDiff->setEnabled(false);

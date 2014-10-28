@@ -108,7 +108,7 @@ KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     hbox->addStretch();
     hbox->addWidget(m_closeButton);
     setLayout(hbox);
-    connect(m_closeButton, SIGNAL(clicked()), this, SLOT(closeButtonClicked()));
+    connect(m_closeButton, &TabCloseButton::clicked, this, &KateTabButton::closeButtonClicked);
 }
 
 KateTabButton::~KateTabButton()

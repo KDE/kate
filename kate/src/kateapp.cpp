@@ -65,11 +65,11 @@ KateApp::KateApp(const QCommandLineParser &args)
     /**
      * re-route some signals to application wrapper
      */
-    connect(m_docManager, SIGNAL(documentCreated(KTextEditor::Document*)), m_wrapper, SIGNAL(documentCreated(KTextEditor::Document*)));
-    connect(m_docManager, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)), m_wrapper, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)));
-    connect(m_docManager, SIGNAL(documentDeleted(KTextEditor::Document*)), m_wrapper, SIGNAL(documentDeleted(KTextEditor::Document*)));
-    connect(m_docManager, SIGNAL(aboutToCreateDocuments()), m_wrapper, SIGNAL(aboutToCreateDocuments()));
-    connect(m_docManager, SIGNAL(documentsCreated(QList<KTextEditor::Document*>)), m_wrapper, SIGNAL(documentsCreated(QList<KTextEditor::Document*>)));
+    connect(m_docManager, &KateDocManager::documentCreated, m_wrapper, &KTextEditor::Application::documentCreated);
+    connect(m_docManager, &KateDocManager::documentWillBeDeleted, m_wrapper, &KTextEditor::Application::documentWillBeDeleted);
+    connect(m_docManager, &KateDocManager::documentDeleted, m_wrapper, &KTextEditor::Application::documentDeleted);
+    connect(m_docManager, &KateDocManager::aboutToCreateDocuments, m_wrapper, &KTextEditor::Application::aboutToCreateDocuments);
+    connect(m_docManager, &KateDocManager::documentsCreated, m_wrapper, &KTextEditor::Application::documentsCreated);
 }
 
 KateApp::~KateApp()

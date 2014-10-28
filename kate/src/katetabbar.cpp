@@ -85,10 +85,8 @@ int KateTabBar::insertTab(int position, const QString & text)
 
     m_tabButtons.insert(position, tabButton);
     m_idToTab[m_nextID] = tabButton;
-    connect(tabButton, SIGNAL(activated(KateTabButton*)),
-            this, SLOT(tabButtonActivated(KateTabButton*)));
-    connect(tabButton, SIGNAL(closeRequest(KateTabButton*)),
-            this, SLOT(tabButtonCloseRequest(KateTabButton*)));
+    connect(tabButton, &KateTabButton::activated, this, &KateTabBar::tabButtonActivated);
+    connect(tabButton, &KateTabButton::closeRequest, this, &KateTabBar::tabButtonCloseRequest);
 
     // abort potential keeping of width
     m_keepTabWidth = false;

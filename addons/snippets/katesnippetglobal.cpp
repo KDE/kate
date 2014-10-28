@@ -82,7 +82,7 @@ void KateSnippetGlobal::showDialog (KTextEditor::View *view)
   QDialogButtonBox *buttons = new QDialogButtonBox(&dialog);
   layout->addWidget(buttons);
   buttons->setStandardButtons(QDialogButtonBox::Ok);
-  connect(buttons, SIGNAL(accepted()), &dialog, SLOT(close()));
+  connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::close);
 
   /**
    * set document to work on and trigger dialog

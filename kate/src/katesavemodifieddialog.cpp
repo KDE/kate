@@ -169,11 +169,11 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
     }
     m_list->resizeColumnToContents(0);
 
-    connect(m_list, SIGNAL(itemChanged(QTreeWidgetItem*,int)), SLOT(slotItemActivated(QTreeWidgetItem*,int)));
+    connect(m_list, &QTreeWidget::itemChanged, this, &KateSaveModifiedDialog::slotItemActivated);
 
     QPushButton *selectAllButton = new QPushButton(i18n("Se&lect All"), this);
     mainLayout->addWidget(selectAllButton);
-    connect(selectAllButton, SIGNAL(clicked()), this, SLOT(slotSelectAll()));
+    connect(selectAllButton, &QPushButton::clicked, this, &KateSaveModifiedDialog::slotSelectAll);
 
     // dialog buttons
     QDialogButtonBox *buttons = new QDialogButtonBox(this);
@@ -182,19 +182,19 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
     m_saveButton = new QPushButton;
     KGuiItem::assign(m_saveButton, KStandardGuiItem::save());
     buttons->addButton(m_saveButton, QDialogButtonBox::YesRole);
-    connect(m_saveButton, SIGNAL(clicked()), this, SLOT(slotSaveSelected()));
+    connect(m_saveButton, &QPushButton::clicked, this, &KateSaveModifiedDialog::slotSaveSelected);
 
     QPushButton *discardButton = new QPushButton;
     KGuiItem::assign(discardButton, KStandardGuiItem::discard());
     buttons->addButton(discardButton, QDialogButtonBox::NoRole);
-    connect(discardButton, SIGNAL(clicked()), this, SLOT(slotDoNotSave()));
+    connect(discardButton, &QPushButton::clicked, this, &KateSaveModifiedDialog::slotDoNotSave);
 
     QPushButton *cancelButton = new QPushButton;
     KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
     cancelButton->setDefault(true);
     cancelButton->setFocus();
     buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(cancelButton, &QPushButton::clicked, this, &KateSaveModifiedDialog::reject);
 }
 
 KateSaveModifiedDialog::~KateSaveModifiedDialog()

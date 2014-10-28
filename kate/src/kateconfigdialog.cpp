@@ -92,8 +92,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
                                          "files that have been modified on the hard disk. If not enabled, you will "
                                          "be asked what to do with a file that has been modified on the hard disk only "
                                          "when that file is tried to be saved."));
-    connect(m_modNotifications, SIGNAL(toggled(bool)),
-            this, SLOT(slotChanged()));
+    connect(m_modNotifications, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     vbox->addWidget(m_modNotifications);
     buttonGroup->setLayout(vbox);
@@ -111,7 +110,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
                                       "Check this if you want document configuration like for example "
                                       "bookmarks to be saved past editor sessions. The configuration will be "
                                       "restored if the document has not changed when reopened."));
-    connect(m_saveMetaInfos, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    connect(m_saveMetaInfos, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     vbox->addWidget(m_saveMetaInfos);
 
@@ -129,8 +128,8 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     m_daysMetaInfos->setValue(KateApp::self()->documentManager()->getDaysMetaInfos());
     hlayout->addWidget(m_daysMetaInfos);
     label->setBuddy(m_daysMetaInfos);
-    connect(m_saveMetaInfos, SIGNAL(toggled(bool)), metaInfos, SLOT(setEnabled(bool)));
-    connect(m_daysMetaInfos, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+    connect(m_saveMetaInfos, &QCheckBox::toggled, metaInfos, &QFrame::setEnabled);
+    connect(m_daysMetaInfos, static_cast<void (KPluralHandlingSpinBox::*)(int)>(&KPluralHandlingSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
 
     vbox->addWidget(metaInfos);
     buttonGroup->setLayout(vbox);
@@ -149,10 +148,10 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 
     // restore view  config
     sessionConfigUi->restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
-    connect(sessionConfigUi->restoreVC, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+    connect(sessionConfigUi->restoreVC, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     sessionConfigUi->spinBoxRecentFilesCount->setValue(recentFilesMaxCount());
-    connect(sessionConfigUi->spinBoxRecentFilesCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+    connect(sessionConfigUi->spinBoxRecentFilesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
 
     QString sesStart (cgGeneral.readEntry ("Startup Session", "manual"));
     if (sesStart == QStringLiteral("new"))
@@ -162,9 +161,9 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     else
         sessionConfigUi->manuallyChooseSessionRadioButton->setChecked (true);
 
-    connect(sessionConfigUi->startNewSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-    connect(sessionConfigUi->loadLastUserSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-    connect(sessionConfigUi->manuallyChooseSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    connect(sessionConfigUi->startNewSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi->loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi->manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
     //END Session page
 
     //BEGIN Plugins page
@@ -175,7 +174,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 
     KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
     vlayout->addWidget(configPluginPage);
-    connect(configPluginPage, SIGNAL(changed()), this, SLOT(slotChanged()));
+    connect(configPluginPage, &KateConfigPluginPage::changed, this, &KateConfigDialog::slotChanged);
 
     item = addSubPage(applicationItem, page, i18n("Plugins"));
     item->setHeader(i18n("Plugin Manager"));
@@ -196,11 +195,10 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 
     addEditorPages();
 
-    connect(this, SIGNAL(accepted()), this, SLOT(slotApply()));
-    connect(buttonBox()->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(slotApply()));
-    connect(buttonBox()->button(QDialogButtonBox::Help), SIGNAL(clicked()), this, SLOT(slotHelp()));
-    connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
-            this, SLOT(slotCurrentPageChanged(KPageWidgetItem*,KPageWidgetItem*)));
+    connect(this, &KateConfigDialog::accepted, this, &KateConfigDialog::slotApply);
+    connect(buttonBox()->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KateConfigDialog::slotApply);
+    connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
+    connect(this, &KateConfigDialog::currentPageChanged, this, &KateConfigDialog::slotCurrentPageChanged);
     m_dataChanged = false;
 
     resize(minimumSizeHint());
@@ -216,7 +214,7 @@ void KateConfigDialog::addEditorPages()
 
     for (int i = 0; i < KTextEditor::Editor::instance()->configPages(); ++i) {
         KTextEditor::ConfigPage *page = KTextEditor::Editor::instance()->configPage(i, this);
-        connect(page, SIGNAL(changed()), this, SLOT(slotChanged()));
+        connect(page, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
         m_editorPages.push_back(page);
         KPageWidgetItem *item = addSubPage(m_editorPage, page, page->name());
         item->setHeader(page->fullName());
@@ -245,7 +243,7 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
         info->pluginPage = cp;
         info->idInPlugin = i;
         info->pageWidgetItem = item;
-        connect(info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()));
+        connect(info->pluginPage, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
         m_pluginPages.insert(item, info);
     }
 }
@@ -263,7 +261,7 @@ void KateConfigDialog::slotCurrentPageChanged(KPageWidgetItem *current, KPageWid
     info->pluginPage = info->plugin->configPage(info->idInPlugin, info->pageParent);
     info->pageParent->layout()->addWidget(info->pluginPage);
     info->pluginPage->show();
-    connect(info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()));
+    connect(info->pluginPage, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
 }
 
 void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)

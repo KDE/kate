@@ -84,14 +84,13 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     QAction *a = actionCollection()->addAction(QLatin1String("tools_create_snippet"));
     a->setIcon(QIcon::fromTheme(QLatin1String("document-new")));
     a->setText(i18n("Create Snippet"));
-    connect(a, SIGNAL(triggered(bool)), SLOT(createSnippet()));
+    connect(a, &QAction::triggered, this, &KateSnippetsPluginView::createSnippet);
 
     a = actionCollection()->addAction(QLatin1String("tools_snippets"));
     a->setText(i18n("Snippets..."));
-    connect(a, SIGNAL(triggered(bool)), SLOT(showSnippetsDialog()));
+    connect(a, &QAction::triggered, this, &KateSnippetsPluginView::showSnippetsDialog);
 
-    connect(mainWindow, &KTextEditor::MainWindow::viewCreated,
-            this, &KateSnippetsPluginView::slotViewCreated);
+    connect(mainWindow, &KTextEditor::MainWindow::viewCreated, this, &KateSnippetsPluginView::slotViewCreated);
 
     /**
      * connect for all already existing views

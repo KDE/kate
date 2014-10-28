@@ -91,31 +91,29 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
 
     snippetTree->setContextMenuPolicy( Qt::CustomContextMenu );
     snippetTree->viewport()->installEventFilter( this );
-    connect(snippetTree, SIGNAL(customContextMenuRequested(QPoint)),
-            this, SLOT(contextMenu(QPoint)));
+    connect(snippetTree, &QTreeView::customContextMenuRequested, this, &SnippetView::contextMenu);
 
     m_proxy = new SnippetFilterModel(this);
     m_proxy->setFilterKeyColumn(0);
     m_proxy->setSourceModel(SnippetStore::self());
 
-    connect(filterText, &KLineEdit::textChanged,
-            m_proxy, &QSortFilterProxyModel::setFilterFixedString);
+    connect(filterText, &KLineEdit::textChanged, m_proxy, &QSortFilterProxyModel::setFilterFixedString);
 
     snippetTree->setModel(m_proxy);
     snippetTree->header()->hide();
 
     m_addRepoAction = new QAction(QIcon::fromTheme(QLatin1String("folder-new")), i18n("Add Repository"), this);
-    connect(m_addRepoAction, SIGNAL(triggered()), this, SLOT(slotAddRepo()));
+    connect(m_addRepoAction, &QAction::triggered, this, &SnippetView::slotAddRepo);
     addAction(m_addRepoAction);
     m_editRepoAction = new QAction(QIcon::fromTheme(QLatin1String("folder-txt")), i18n("Edit Repository"), this);
-    connect(m_editRepoAction, SIGNAL(triggered()), this, SLOT(slotEditRepo()));
+    connect(m_editRepoAction, &QAction::triggered, this, &SnippetView::slotEditRepo);
     addAction(m_editRepoAction);
     m_removeRepoAction = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Repository"), this);
-    connect(m_removeRepoAction, SIGNAL(triggered()), this, SLOT(slotRemoveRepo()));
+    connect(m_removeRepoAction, &QAction::triggered, this, &SnippetView::slotRemoveRepo);
     addAction(m_removeRepoAction);
 
     m_putNewStuffAction = new QAction(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")), i18n("Publish Repository"), this);
-    connect(m_putNewStuffAction, SIGNAL(triggered()), this, SLOT(slotSnippetToGHNS()));
+    connect(m_putNewStuffAction, &QAction::triggered, this, &SnippetView::slotSnippetToGHNS);
     addAction(m_putNewStuffAction);
 
     QAction* separator = new QAction(this);
@@ -123,26 +121,25 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     addAction(separator);
 
     m_addSnippetAction = new QAction(QIcon::fromTheme(QLatin1String("document-new")), i18n("Add Snippet"), this);
-    connect(m_addSnippetAction, SIGNAL(triggered()), this, SLOT(slotAddSnippet()));
+    connect(m_addSnippetAction, &QAction::triggered, this, &SnippetView::slotAddSnippet);
     addAction(m_addSnippetAction);
     m_editSnippetAction = new QAction(QIcon::fromTheme(QLatin1String("document-edit")), i18n("Edit Snippet"), this);
-    connect(m_editSnippetAction, SIGNAL(triggered()), this, SLOT(slotEditSnippet()));
+    connect(m_editSnippetAction, &QAction::triggered, this, &SnippetView::slotEditSnippet);
     addAction(m_editSnippetAction);
     m_removeSnippetAction = new QAction(QIcon::fromTheme(QLatin1String("document-close")), i18n("Remove Snippet"), this);
-    connect(m_removeSnippetAction, SIGNAL(triggered()), this, SLOT(slotRemoveSnippet()));
+    connect(m_removeSnippetAction, &QAction::triggered, this, &SnippetView::slotRemoveSnippet);
     addAction(m_removeSnippetAction);
 
     addAction(separator);
 
     m_getNewStuffAction = new QAction(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")), i18n("Get New Snippets"), this);
-    connect(m_getNewStuffAction, SIGNAL(triggered()), this, SLOT(slotGHNS()));
+    connect(m_getNewStuffAction, &QAction::triggered, this, &SnippetView::slotGHNS);
     addAction(m_getNewStuffAction);
 
     connect(snippetTree->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(validateActions()));
     validateActions();
 
-    connect(snippetTree->model(), &QAbstractItemModel::rowsInserted,
-            this, [this]() { setupActionsForWindow(this); });
+    connect(snippetTree->model(), &QAbstractItemModel::rowsInserted, this, [this]() { setupActionsForWindow(this); });
 
     m_proxy->setDynamicSortFilter(true);
     m_proxy->sort(0, Qt::AscendingOrder);

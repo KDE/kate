@@ -21,7 +21,7 @@
 #include "TargetModel.h"
 #include <QDebug>
 #include <QTimer>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 
 

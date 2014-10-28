@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "UrlInserter.h"
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <QHBoxLayout>
 #include <QFileDialog>
 #include <QIcon>

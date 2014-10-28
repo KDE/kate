@@ -40,8 +40,6 @@
 #include <KXMLGUIClient>
 #include <KConfigGroup>
 
-#include <map>
-
 #include "ui_build.h"
 #include "targets.h"
 
@@ -53,14 +51,17 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
 
     public:
 
-       struct TargetSet {
-         QString name;
-         QString defaultDir;
-         QString defaultTarget;
-         QString cleanTarget;
-         QString prevTarget;
-         std::map<QString, QString> targets;
-       };
+        enum ResultDetails {
+            FullOutput,
+            ParsedOutput,
+            ErrorsAndWarnings,
+            OnlyErrors
+        };
+
+        enum TreeWidgetRoles {
+            IsErrorRole = Qt::UserRole+1,
+            IsWarningRole
+        };
 
        KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
         ~KateBuildView();
@@ -71,37 +72,33 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
 
         QWidget *toolView() const;
 
-        TargetSet* currentTargetSet();
-
-        bool buildTarget(const QString& targetName);
+        bool buildCurrentTarget();
 
     private Q_SLOTS:
-        // selecting warnings
-        void slotItemSelected(QTreeWidgetItem *item);
-        void slotNext();
-        void slotPrev();
 
-        bool slotMake();
-        bool slotMakeClean();
+        // Building
+        void slotSelectTarget();
+        void slotBuildActiveTarget();
+        void slotBuildPreviousTarget();
+        void slotBuildDefaultTarget();
         bool slotStop();
 
+        // Parse output
         void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
         void slotReadReadyStdErr();
         void slotReadReadyStdOut();
 
-        void slotSelectTarget();
-        void slotBuildPreviousTarget();
+        // Selecting warnings/errors
+        void slotNext();
+        void slotPrev();
+        void slotErrorSelected(QTreeWidgetItem *item);
 
-        // settings
-        void slotBrowseClicked();
-        void targetSelected(int index);
-        void targetsChanged();
-        void targetNew();
-        void targetCopy();
+        // Settings
+        void targetSetNew();
+        void targetOrSetCopy();
         void targetDelete();
-        void targetNext();
-        void slotBuildDirChanged(const QString& dir);
-        void slotTargetSetNameChanged(const QString& name);
+
+        void slotAddTargetClicked();
 
         void slotDisplayMode(int mode);
 
@@ -114,16 +111,8 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         void slotPluginViewDeleted(const QString &name, QObject *pluginView);
         void slotProjectMapChanged();
         void slotAddProjectTarget();
-        void slotRemoveProjectTarget();
 
-        void slotAddTargetClicked();
-        void slotBuildTargetClicked();
-        void slotDeleteTargetClicked();
-        void slotCellChanged(int row, int column);
-        void slotSelectionChanged();
-        void slotResizeColumn(int column);
-
-    protected:
+protected:
         bool eventFilter(QObject *obj, QEvent *ev);
 
     private:
@@ -133,9 +122,6 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         bool startProcess(const QString &dir, const QString &command);
         QUrl docUrl();
         bool checkLocal(const QUrl &dir);
-        void setTargetRowContents(int row, const TargetSet& tgtSet, const QString& name, const QString& buildCmd);
-        QString makeTargetNameUnique(const QString& name);
-        QString makeUniqueTargetSetName() const;
         void clearBuildResults();
 
         void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
@@ -159,10 +145,8 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         QRegExp           m_newDirDetector;
         unsigned int      m_numErrors;
         unsigned int      m_numWarnings;
-        QList<TargetSet>  m_targetList;
-        int               m_targetIndex;
-        // KF5 FIXME KSelectAction*    m_targetSelectAction;
         QString           m_prevItemContent;
+        QModelIndex       m_previousIndex;
 
         /**
         * current project plugin view, if any

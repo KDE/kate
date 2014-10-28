@@ -19,7 +19,7 @@
 
 #include "targets.h"
 #include "targets.moc"
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <QIcon>
 #include <QEvent>
 #include <QKeyEvent>

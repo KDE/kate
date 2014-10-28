@@ -637,7 +637,10 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
 
     QPointer<KTextEditor::Message> message = new KTextEditor::Message(xi18nc("@info", "<title>Make Results:</title><nl/><pre><code>%1</code></pre>", msg), level);
     message->setWordWrap(true);
-    message->setAutoHide(5);
+    message->setPosition(KTextEditor::Message::BottomInView);
+    message->setAutoHide(5000);
+    message->setAutoHideMode(KTextEditor::Message::Immediate);
+    message->setView(kv);
     kv->document()->postMessage(message);
 }
 

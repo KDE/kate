@@ -43,6 +43,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     QApplication app(argc, argv);
 
     /**
+     * Connect application with translation catalogs
+     */
+    KLocalizedString::setApplicationDomain("kwrite");
+
+    /**
      * then use i18n and co
      */
     KAboutData aboutData(QStringLiteral("kwrite"),

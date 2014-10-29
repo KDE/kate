@@ -46,6 +46,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     QApplication app(argc, argv);
 
     /**
+     * Connect application with translation catalogs
+     */
+    KLocalizedString::setApplicationDomain("kate");
+
+    /**
      * construct about data for Kate
      */
     KAboutData aboutData(QStringLiteral("kate"), i18n("Kate"), QStringLiteral(KATE_VERSION),

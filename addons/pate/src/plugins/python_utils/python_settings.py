@@ -23,7 +23,7 @@ PY_MENU = "Python"
 PY_CHECKERS = i18n("Checkers")
 
 KATE_ACTIONS = {
-    'insertIPDB': {'text': 'ipdb', 'shortcut': 'Ctrl+I',
+    'insertIPDB': {'text': i18n('ipdb'), 'shortcut': 'Ctrl+I',
                    'menu': PY_MENU, 'icon': 'tools-report-bug'},
     'insertInit': {'text': i18n('__init__ method'), 'shortcut': 'Ctrl+,',
                    'menu': PY_MENU, 'icon': None},
@@ -33,11 +33,11 @@ KATE_ACTIONS = {
                       'menu': PY_MENU, 'icon': None},
     'checkAll': {'text': i18n('Check all'), 'shortcut': 'Alt+5',
                  'menu': PY_CHECKERS, 'icon': None},
-    'checkPyflakes': {'text': 'Pyflakes', 'shortcut': 'Alt+7',
+    'checkPyflakes': {'text': i18n('Pyflakes'), 'shortcut': 'Alt+7',
                       'menu': PY_CHECKERS, 'icon': None},
     'parseCode': {'text': i18n('Syntax Errors'), 'shortcut': 'Alt+6',
                   'menu': PY_CHECKERS, 'icon': None},
-    'checkPep8': {'text': 'Pep8', 'shortcut': 'Alt+8',
+    'checkPep8': {'text': i18n('Pep8'), 'shortcut': 'Alt+8',
                   'menu': PY_CHECKERS, 'icon': None},
 }
 

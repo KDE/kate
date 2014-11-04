@@ -25,7 +25,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 
-TargetsUi::TargetsUi(QWidget *parent):
+TargetsUi::TargetsUi(QObject *view, QWidget *parent):
 QWidget(parent)
 {
     targetLabel = new QLabel(i18n("Active target-set:"));
@@ -58,7 +58,7 @@ QWidget(parent)
     targetsView->setAlternatingRowColors(true);
 
     targetsView->setModel(&targetsModel);
-    m_delegate = new TargetHtmlDelegate(targetsView);
+    m_delegate = new TargetHtmlDelegate(view);
     targetsView->setItemDelegate(m_delegate);
     targetsView->setSelectionBehavior(QAbstractItemView::SelectItems);
     targetsView->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked | QAbstractItemView::EditKeyPressed);

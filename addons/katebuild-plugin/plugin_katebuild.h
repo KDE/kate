@@ -48,6 +48,7 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
+    Q_PROPERTY(QUrl docUrl READ docUrl)
 
     public:
 
@@ -73,6 +74,8 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         QWidget *toolView() const;
 
         bool buildCurrentTarget();
+
+        QUrl docUrl();
 
     private Q_SLOTS:
 
@@ -112,7 +115,7 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         void slotProjectMapChanged();
         void slotAddProjectTarget();
 
-protected:
+    protected:
         bool eventFilter(QObject *obj, QEvent *ev);
 
     private:
@@ -120,7 +123,6 @@ protected:
         void addError(const QString &filename, const QString &line,
                       const QString &column, const QString &message);
         bool startProcess(const QString &dir, const QString &command);
-        QUrl docUrl();
         bool checkLocal(const QUrl &dir);
         void clearBuildResults();
 

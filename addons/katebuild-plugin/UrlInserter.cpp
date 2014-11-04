@@ -22,9 +22,11 @@
 #include <klocalizedstring.h>
 #include <QHBoxLayout>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QIcon>
+#include <QDebug>
 
-UrlInserter::UrlInserter(QWidget* parent): QWidget(parent)
+UrlInserter::UrlInserter(const QUrl &startUrl, QWidget* parent): QWidget(parent), m_startUrl(startUrl), m_replace(false)
 {
     m_lineEdit = new QLineEdit();
     m_toolButton = new QToolButton();
@@ -44,10 +46,26 @@ UrlInserter::UrlInserter(QWidget* parent): QWidget(parent)
 
 void UrlInserter::insertFolder()
 {
+    QUrl startUrl;
+    if (QFileInfo(m_lineEdit->text()).exists()) {
+        startUrl.setPath(m_lineEdit->text());
+    }
+    else {
+        startUrl = m_startUrl;
+    }
     QString folder = QFileDialog::getExistingDirectory(this, i18n("Select directory to insert"),
-                                                       m_lineEdit->text());
+                                                       startUrl.path());
     if (!folder.isEmpty()) {
-        m_lineEdit->insert(folder);
+        if (!m_replace) {
+            m_lineEdit->insert(folder);
+        }
+        else {
+            m_lineEdit->setText(folder);
+        }
     }
 }
 
+void UrlInserter::setReplace(bool replace)
+{
+    m_replace = replace;
+}

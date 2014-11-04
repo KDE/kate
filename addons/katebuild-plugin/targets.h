@@ -34,7 +34,7 @@ class TargetsUi: public QWidget
     Q_OBJECT
 
 public:
-    TargetsUi(QWidget *parent = 0);
+    TargetsUi(QObject *view, QWidget *parent = 0);
 
     QLabel      *targetLabel;
     QComboBox   *targetCombo;

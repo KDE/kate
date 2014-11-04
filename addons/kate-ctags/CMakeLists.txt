@@ -1,3 +1,5 @@
+add_definitions(-DTRANSLATION_DOMAIN=\"kate-ctags-plugin\")
+
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(ctagsplugin_SRC

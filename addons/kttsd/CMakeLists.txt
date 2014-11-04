@@ -1,4 +1,4 @@
-
+add_definitions(-DTRANSLATION_DOMAIN=\"kate_kttsd\")
 set(kate_kttsd_PART_SRCS katekttsd.cpp )
 
 kde4_add_plugin(kate_kttsd ${kate_kttsd_PART_SRCS})

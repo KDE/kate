@@ -1,4 +1,5 @@
 ########### next target ###############
+add_definitions(-DTRANSLATION_DOMAIN=\"katetextfilter\")
 set(katetextfilterplugin_PART_SRCS plugin_katetextfilter.cpp )
 
 set(katetextfilterplugin_PART_UI textfilterwidget.ui)

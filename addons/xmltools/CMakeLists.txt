@@ -1,4 +1,5 @@
 project(katexmltoolsplugin)
+add_definitions(-DTRANSLATION_DOMAIN=\"katexmltools\")
 
 # Maybe remove these later
 remove_definitions(-DQT_NO_CAST_TO_ASCII)

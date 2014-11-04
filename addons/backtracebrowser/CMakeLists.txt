@@ -1,4 +1,5 @@
 ########### next target ###############
+add_definitions(-DTRANSLATION_DOMAIN=\"katebacktracebrowserplugin\")
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 

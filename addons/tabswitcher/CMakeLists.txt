@@ -1,4 +1,5 @@
 project(tabswitcherplugin)
+add_definitions(-DTRANSLATION_DOMAIN=\"tabswitcherplugin\")
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 

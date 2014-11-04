@@ -1,4 +1,5 @@
 project (kateopenheader)
+add_definitions(-DTRANSLATION_DOMAIN=\"kateopenheader\")
 
 ########### next target ###############
 set(kateopenheaderplugin_PART_SRCS plugin_kateopenheader.cpp )

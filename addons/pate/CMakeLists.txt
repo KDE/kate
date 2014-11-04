@@ -19,6 +19,7 @@
 # Boston, MA 02110-1301, USA.
 
 project(pate)
+add_definitions(-DTRANSLATION_DOMAIN=\"pate\")
 
 macro_optional_find_package(PythonLibrary)
 macro_log_feature(PYTHON_LIBRARY "PythonLibrary" "Python Library" "")

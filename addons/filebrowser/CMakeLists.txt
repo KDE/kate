@@ -1,4 +1,5 @@
 project(katefilebrowserplugin)
+add_definitions(-DTRANSLATION_DOMAIN=\"katefilebrowserplugin\")
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 

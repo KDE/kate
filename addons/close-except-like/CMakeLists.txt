@@ -1,5 +1,5 @@
 project(katecloseexceptplugin)
-
+add_definitions(-DTRANSLATION_DOMAIN=\"katecloseexceptplugin\")
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 3)
 set(VERSION_PATCH 5)

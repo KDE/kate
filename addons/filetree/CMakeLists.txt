@@ -1,4 +1,4 @@
-
+add_definitions(-DTRANSLATION_DOMAIN=\"katefiletree\")
 project(katefiletreeplugin)
 
 set(katefiletree_PART_SRCS katefiletree.cpp katefiletreemodel.cpp katefiletreeproxymodel.cpp )

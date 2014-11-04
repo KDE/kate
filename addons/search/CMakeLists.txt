@@ -1,3 +1,5 @@
+add_definitions(-DTRANSLATION_DOMAIN=\"katesearch\")
+
 set(katesearchplugin_PART_SRCS
     plugin_search.cpp
     search_open_files.cpp

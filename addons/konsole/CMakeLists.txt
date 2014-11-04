@@ -1,4 +1,5 @@
 project(katekonsoleplugin)
+add_definitions(-DTRANSLATION_DOMAIN=\"katekonsoleplugin\")
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 

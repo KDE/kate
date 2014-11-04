@@ -1,4 +1,5 @@
 ########### next target ###############
+add_definitions(-DTRANSLATION_DOMAIN=\"katefiletemplates\")
 
 set(katefiletemplates_PART_SRCS filetemplates.cpp )
 

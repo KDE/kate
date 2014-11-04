@@ -27,9 +27,8 @@
 #include <QAbstractTextDocumentLayout>
 #include <QTextCharFormat>
 #include <QLineEdit>
-#include <KLineEdit>
-#include <kurlrequester.h>
 #include <klocalizedstring.h>
+#include <QToolButton>
 
 #include "UrlInserter.h"
 
@@ -102,24 +101,22 @@ QSize TargetHtmlDelegate::sizeHint(const QStyleOptionViewItem& /* option */, con
     return doc.size().toSize();
 }
 
-
-
-QWidget *TargetHtmlDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &index) const
+QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionViewItem &/* option */, const QModelIndex &index) const
 {
     QWidget *editor;
     if (index.internalId() == TargetModel::InvalidIndex && index.column() == 1) {
-        KUrlRequester *requester = new KUrlRequester(parent);
-        requester->setMode(KFile::Directory | KFile::ExistingOnly |KFile::LocalOnly);
+        UrlInserter *requester = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
+        requester->setReplace(true);
         editor = requester;
         editor->setToolTip(i18n("Leave empty to use the directory of the current document."));
     }
     else if (index.column() == 1) {
-        UrlInserter *urlEditor = new UrlInserter(parent);
+        UrlInserter *urlEditor = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
         editor = urlEditor;
         editor->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
     }
     else {
-        editor =  new QLineEdit(parent);
+        editor =  new QLineEdit(dparent);
     }
     editor->setAutoFillBackground(true);
     emit sendEditStart();
@@ -131,11 +128,7 @@ void TargetHtmlDelegate::setEditorData(QWidget *editor,  const QModelIndex &inde
 {
     QString value = index.model()->data(index, Qt::EditRole).toString();
 
-    if (index.internalId() == TargetModel::InvalidIndex && index.column() == 1) {
-        KUrlRequester *ledit = static_cast<KUrlRequester*>(editor);
-        if (ledit) ledit->lineEdit()->setText(value);
-    }
-    else if (index.column() == 1) {
+    if (index.column() == 1) {
         UrlInserter *ledit = static_cast<UrlInserter*>(editor);
         if (ledit) ledit->lineEdit()->setText(value);
     }
@@ -148,11 +141,7 @@ void TargetHtmlDelegate::setEditorData(QWidget *editor,  const QModelIndex &inde
 void TargetHtmlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     QString value;
-    if (index.internalId() == TargetModel::InvalidIndex && index.column() == 1) {
-        KUrlRequester *ledit = static_cast<KUrlRequester*>(editor);
-        value = ledit->lineEdit()->text();
-    }
-    else if (index.column() == 1) {
+    if (index.column() == 1) {
         UrlInserter *ledit = static_cast<UrlInserter*>(editor);
         value = ledit->lineEdit()->text();
     }
@@ -166,7 +155,7 @@ void TargetHtmlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model
 void TargetHtmlDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QRect rect = option.rect;
-    int heightDiff = KUrlRequester().sizeHint().height() - rect.height();
+    int heightDiff = QToolButton().sizeHint().height() - rect.height();
     int half = heightDiff/2;
     rect.adjust(0, -half, 0, heightDiff-half);
     if (index.column() == 0 && index.internalId() != TargetModel::InvalidIndex) {

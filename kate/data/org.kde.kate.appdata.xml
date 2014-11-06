@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<component type="desktop">
+  <id>org.kde.kate.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-2.1+</project_license>
+  <name>Kate</name>
+  <summary>Advanced Text Editor</summary>
+  <description>
+    <p>
+      Kate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting,
+      dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>MDI, window splitting, window tabbing</li>
+      <li>Spell checking</li>
+      <li>CR, CRLF, LF newline support</li>
+      <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
+      <li>Encoding conversion</li>
+      <li>Regular expression based find &amp; replace</li>
+      <li>Powerful syntax highlighting and bracket matching</li>
+      <li>Code and text folding</li>
+      <li>Infinite undo/redo support</li>
+      <li>Block selection mode</li>
+      <li>Auto indentation</li>
+      <li>Auto completion support</li>
+      <li>Shell integration</li>
+      <li>Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
+      <li>Plugin architecture for the application and editor component</li>
+      <li>Customizable shortcuts</li>
+      <li>Integrated command line</li>
+      <li>Scriptable using JavaScript</li>
+    </ul>
+  </description>
+  <url type="homepage">http://kate-editor.org/</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kate</url>
+  <url type="help">http://docs.kde.org/stable/en/applications/kate/index.html</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>http://kde.org/images/screenshots/kate.png</image>
+    </screenshot>
+  </screenshots>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>kate</binary>
+  </provides>
+</component>

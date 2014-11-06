@@ -16,5 +16,6 @@ target_link_libraries(kdeinit_kwrite
 
 install(TARGETS kwrite         ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kwrite ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(PROGRAMS org.kde.kwrite.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(PROGRAMS org.kde.kwrite.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(FILES org.kde.kwrite.appdata.xml DESTINATION ${CMAKE_INSTALL_METAINFODIR} )
 install(FILES kwriteui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kwrite)

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<component type="desktop">
+  <id>org.kde.kwrite.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-2.1+</project_license>
+  <name>KWrite</name>
+  <summary>Text Editor</summary>
+  <description>
+    <p>
+      KWrite is a text editor for KDE, based on the Kate's editor component.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Syntax highlighting according to the file type</li>
+      <li>Word completion</li>
+      <li>Auto-indentation</li>
+      <li>Plugin support</li>
+      <li>Vi input mode</li>
+    </ul>
+  </description>
+  <url type="homepage">http://kate-editor.org/</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kwrite</url>
+  <url type="help">http://docs.kde.org/stable/en/applications/kwrite/index.html</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>http://kde.org/images/screenshots/kwrite.png</image>
+    </screenshot>
+  </screenshots>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>kwrite</binary>
+  </provides>
+</component>

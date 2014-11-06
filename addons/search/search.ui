@@ -382,21 +382,15 @@
     </widget>
    </item>
    <item row="0" column="2" colspan="2">
-    <widget class="KHistoryComboBox" name="searchCombo">
+    <widget class="QComboBox" name="searchCombo">
      <property name="editable">
-      <bool>true</bool>
-     </property>
-     <property name="autoCompletion">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item row="1" column="2" colspan="2">
-    <widget class="KHistoryComboBox" name="replaceCombo">
+    <widget class="QComboBox" name="replaceCombo">
      <property name="editable">
-      <bool>true</bool>
-     </property>
-     <property name="autoCompletion">
       <bool>true</bool>
      </property>
     </widget>

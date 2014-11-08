@@ -1,35 +1,79 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <component type="desktop">
   <id>org.kde.kate.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <name>Kate</name>
+  <name xml:lang="uk">Kate</name>
+  <name xml:lang="x-test">xxKatexx</name>
   <summary>Advanced Text Editor</summary>
+  <summary xml:lang="uk">Потужний текстовий редактор</summary>
+  <summary xml:lang="x-test">xxAdvanced Text Editorxx</summary>
   <description>
     <p>
       Kate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting,
       dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.
     </p>
+    <p xml:lang="uk">Kate — текстовий редактор для KDE, у якому передбачено можливість одночасної роботи з декількома документами на декількох панелях перегляду. У програмі передбачено багато корисних можливостей, зокрема згортання коду, підсвічування синтаксичних конструкцій, динамічне перенесення рядків, вбудована консоль, гнучкий інтерфейс для роботи з додатками та базова підтримка роботи зі скриптами.</p>
+    <p xml:lang="x-test">xxKate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.xx</p>
     <p>Features:</p>
+    <p xml:lang="uk">Можливості:</p>
+    <p xml:lang="x-test">xxFeatures:xx</p>
     <ul>
       <li>MDI, window splitting, window tabbing</li>
+      <li xml:lang="uk">Інтерфейс для одночасної роботи з багатьма документами, поділ вікна програми, можливість роботи із вкладками.</li>
+      <li xml:lang="x-test">xxMDI, window splitting, window tabbingxx</li>
       <li>Spell checking</li>
+      <li xml:lang="uk">Перевірка правопису.</li>
+      <li xml:lang="x-test">xxSpell checkingxx</li>
       <li>CR, CRLF, LF newline support</li>
+      <li xml:lang="uk">Підтримка форматів розриву рядків CR, CRLF та LF.</li>
+      <li xml:lang="x-test">xxCR, CRLF, LF newline supportxx</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
+      <li xml:lang="uk">Підтримка різноманітних кодувань (utf-8, utf-16, ascii тощо).</li>
+      <li xml:lang="x-test">xxEncoding support (utf-8, utf-16, ascii etc.)xx</li>
       <li>Encoding conversion</li>
+      <li xml:lang="uk">Підтримка можливості перетворення даних у різних кодуваннях.</li>
+      <li xml:lang="x-test">xxEncoding conversionxx</li>
       <li>Regular expression based find &amp; replace</li>
+      <li xml:lang="uk">Пошук і заміна фрагментів тексту на основі формальних виразів.</li>
+      <li xml:lang="x-test">xxRegular expression based find &amp; replacexx</li>
       <li>Powerful syntax highlighting and bracket matching</li>
+      <li xml:lang="uk">Потужні засоби підсвічування синтаксичних конструкцій та відповідних дужок.</li>
+      <li xml:lang="x-test">xxPowerful syntax highlighting and bracket matchingxx</li>
       <li>Code and text folding</li>
+      <li xml:lang="uk">Засоби згортання коду та тексту.</li>
+      <li xml:lang="x-test">xxCode and text foldingxx</li>
       <li>Infinite undo/redo support</li>
+      <li xml:lang="uk">Підтримка нескінченного буфера скасування і повторення дій.</li>
+      <li xml:lang="x-test">xxInfinite undo/redo supportxx</li>
       <li>Block selection mode</li>
+      <li xml:lang="uk">Режим прямокутного вибору.</li>
+      <li xml:lang="x-test">xxBlock selection modexx</li>
       <li>Auto indentation</li>
+      <li xml:lang="uk">Автовідступ.</li>
+      <li xml:lang="x-test">xxAuto indentationxx</li>
       <li>Auto completion support</li>
+      <li xml:lang="uk">Підтримка автодоповнення.</li>
+      <li xml:lang="x-test">xxAuto completion supportxx</li>
       <li>Shell integration</li>
+      <li xml:lang="uk">Інтеграція з командною оболонкою.</li>
+      <li xml:lang="x-test">xxShell integrationxx</li>
       <li>Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
+      <li xml:lang="uk">Широка підтримка протоколів (http, ftp, ssh, webdav тощо) на основі допоміжних засобів KIO.</li>
+      <li xml:lang="x-test">xxWide protocol support (http, ftp, ssh, webdav etc.) using kioslavesxx</li>
       <li>Plugin architecture for the application and editor component</li>
+      <li xml:lang="uk">Архітектура роботи з додатками для компонентів програми та редактора.</li>
+      <li xml:lang="x-test">xxPlugin architecture for the application and editor componentxx</li>
       <li>Customizable shortcuts</li>
+      <li xml:lang="uk">Придатні до налаштовування клавіатурні скорочення.</li>
+      <li xml:lang="x-test">xxCustomizable shortcutsxx</li>
       <li>Integrated command line</li>
+      <li xml:lang="uk">Інтегрований засіб роботи з командним рядком.</li>
+      <li xml:lang="x-test">xxIntegrated command linexx</li>
       <li>Scriptable using JavaScript</li>
+      <li xml:lang="uk">Можливість керування програмою за допомогою скриптів мовою JavaScript.</li>
+      <li xml:lang="x-test">xxScriptable using JavaScriptxx</li>
     </ul>
   </description>
   <url type="homepage">http://kate-editor.org/</url>

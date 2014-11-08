@@ -1,21 +1,39 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <component type="desktop">
   <id>org.kde.kwrite.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <name>KWrite</name>
+  <name xml:lang="uk">KWrite</name>
+  <name xml:lang="x-test">xxKWritexx</name>
   <summary>Text Editor</summary>
+  <summary xml:lang="uk">Текстовий редактор</summary>
+  <summary xml:lang="x-test">xxText Editorxx</summary>
   <description>
     <p>
       KWrite is a text editor for KDE, based on the Kate's editor component.
     </p>
+    <p xml:lang="uk">KWrite — текстовий редактор для KDE, заснований на компоненті редактора Kate.</p>
+    <p xml:lang="x-test">xxKWrite is a text editor for KDE, based on the Kate's editor component.xx</p>
     <p>Features:</p>
+    <p xml:lang="uk">Можливості:</p>
+    <p xml:lang="x-test">xxFeatures:xx</p>
     <ul>
       <li>Syntax highlighting according to the file type</li>
+      <li xml:lang="uk">Підсвічування синтаксичних конструкцій відповідно до типу файла.</li>
+      <li xml:lang="x-test">xxSyntax highlighting according to the file typexx</li>
       <li>Word completion</li>
+      <li xml:lang="uk">Завершення слів.</li>
+      <li xml:lang="x-test">xxWord completionxx</li>
       <li>Auto-indentation</li>
+      <li xml:lang="uk">Автовідступ.</li>
+      <li xml:lang="x-test">xxAuto-indentationxx</li>
       <li>Plugin support</li>
+      <li xml:lang="uk">Підтримка додатків.</li>
+      <li xml:lang="x-test">xxPlugin supportxx</li>
       <li>Vi input mode</li>
+      <li xml:lang="uk">Режим введення Vi.</li>
+      <li xml:lang="x-test">xxVi input modexx</li>
     </ul>
   </description>
   <url type="homepage">http://kate-editor.org/</url>

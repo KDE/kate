@@ -4,34 +4,74 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <name>KWrite</name>
+  <name xml:lang="de">KWrite</name>
+  <name xml:lang="es">KWrite</name>
+  <name xml:lang="nl">KWrite</name>
+  <name xml:lang="pl">KWrite</name>
+  <name xml:lang="sk">KWrite</name>
   <name xml:lang="uk">KWrite</name>
   <name xml:lang="x-test">xxKWritexx</name>
   <summary>Text Editor</summary>
+  <summary xml:lang="de">Texteditor</summary>
+  <summary xml:lang="es">Editor de texto</summary>
+  <summary xml:lang="nl">Teksteditor</summary>
+  <summary xml:lang="pl">Edytor tekstu</summary>
+  <summary xml:lang="sk">Textový editor</summary>
   <summary xml:lang="uk">Текстовий редактор</summary>
   <summary xml:lang="x-test">xxText Editorxx</summary>
   <description>
     <p>
       KWrite is a text editor for KDE, based on the Kate's editor component.
     </p>
+    <p xml:lang="de">KWrite ist ein Texteditor für KDE auf der Basis der Kate-Editorkomponente.</p>
+    <p xml:lang="es">KWrite es un editor de texto para KDE basado en el componente de edición de Kate.</p>
+    <p xml:lang="nl">KWrite is een tekstbewerker voor KDE, gebaseerd op de tekstbewerkercomponent van Kate.</p>
+    <p xml:lang="pl">KWrite jest edytorem tekstu dla KDE, opartym na edytorze Kate.</p>
+    <p xml:lang="sk">KWrite je textový editor pre KDE, založený na komponente editora Kate.</p>
     <p xml:lang="uk">KWrite — текстовий редактор для KDE, заснований на компоненті редактора Kate.</p>
     <p xml:lang="x-test">xxKWrite is a text editor for KDE, based on the Kate's editor component.xx</p>
     <p>Features:</p>
+    <p xml:lang="de">Funktionen:</p>
+    <p xml:lang="es">Funcionalidades:</p>
+    <p xml:lang="nl">Mogelijkheden:</p>
+    <p xml:lang="pl">Możliwości:</p>
+    <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <ul>
       <li>Syntax highlighting according to the file type</li>
+      <li xml:lang="de">Syntaxhervorhebung passend zum Dateityp</li>
+      <li xml:lang="nl">Syntaxisaccentuering volgens bestandstype</li>
+      <li xml:lang="pl">Podświetlanie składni według rodzaju pliku</li>
+      <li xml:lang="sk">Zvýrazňovanie syntaxe podľa typu súboru</li>
       <li xml:lang="uk">Підсвічування синтаксичних конструкцій відповідно до типу файла.</li>
       <li xml:lang="x-test">xxSyntax highlighting according to the file typexx</li>
       <li>Word completion</li>
+      <li xml:lang="de">Wortvervollständigung</li>
+      <li xml:lang="nl">Woordaanvulling</li>
+      <li xml:lang="pl">Uzupełnianie słów</li>
+      <li xml:lang="sk">Dopĺňanie slov</li>
       <li xml:lang="uk">Завершення слів.</li>
       <li xml:lang="x-test">xxWord completionxx</li>
       <li>Auto-indentation</li>
+      <li xml:lang="de">Automatisches einrücken</li>
+      <li xml:lang="nl">Automatisch inspringen</li>
+      <li xml:lang="pl">Automatyczne wcięcia</li>
+      <li xml:lang="sk">Automatické odsadzovanie</li>
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="x-test">xxAuto-indentationxx</li>
       <li>Plugin support</li>
+      <li xml:lang="de">Unterstützung für Module</li>
+      <li xml:lang="nl">Ondersteuning van plug-ins</li>
+      <li xml:lang="pl">Obsługa wtyczek</li>
+      <li xml:lang="sk">Podpora pluginov</li>
       <li xml:lang="uk">Підтримка додатків.</li>
       <li xml:lang="x-test">xxPlugin supportxx</li>
       <li>Vi input mode</li>
+      <li xml:lang="de">VI-Eingabemodus</li>
+      <li xml:lang="nl">VI-invoermethode</li>
+      <li xml:lang="pl">Tryb wprowadzania Vi</li>
+      <li xml:lang="sk">Vi vkladací mód</li>
       <li xml:lang="uk">Режим введення Vi.</li>
       <li xml:lang="x-test">xxVi input modexx</li>
     </ul>

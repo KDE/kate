@@ -64,12 +64,14 @@
       <li xml:lang="uk">Підтримка різноманітних кодувань (utf-8, utf-16, ascii тощо).</li>
       <li xml:lang="x-test">xxEncoding support (utf-8, utf-16, ascii etc.)xx</li>
       <li>Encoding conversion</li>
+      <li xml:lang="de">Umwandlung von Kodierungen</li>
       <li xml:lang="nl">Conversie van codering</li>
       <li xml:lang="pl">Przekształcanie kodowań</li>
       <li xml:lang="sk">Konverzia kódovania</li>
       <li xml:lang="uk">Підтримка можливості перетворення даних у різних кодуваннях.</li>
       <li xml:lang="x-test">xxEncoding conversionxx</li>
       <li>Regular expression based find &amp; replace</li>
+      <li xml:lang="de">Reguläre Ausdrücke für Suchen und Ersetzen</li>
       <li xml:lang="nl">Op reguliere expressies gebaseerd zoeken &amp; vervangen</li>
       <li xml:lang="pl">Znajdź i zastąp oparte na wyrażeniach regularnych</li>
       <li xml:lang="sk">Regulárne výrazy založené na hľadaj a nahraď</li>

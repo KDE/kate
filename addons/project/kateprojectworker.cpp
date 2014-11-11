@@ -42,7 +42,7 @@ KateProjectWorker::KateProjectWorker(const QString &baseDir, const QVariantMap &
     , m_baseDir(baseDir)
     , m_projectMap(projectMap)
 {
-    Q_ASSERT(m_baseDir.isEmpty());
+    Q_ASSERT(!m_baseDir.isEmpty());
 }
 
 void KateProjectWorker::run(ThreadWeaver::JobPointer, ThreadWeaver::Thread *)

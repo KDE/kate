@@ -12,8 +12,6 @@ target_link_libraries(kateopenheaderplugin
   KF5::I18n
   KF5::Parts)
 
-install(TARGETS kateopenheaderplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
-
 ########### install files ###############
 kcoreaddons_desktop_to_json (kateopenheaderplugin kateopenheaderplugin.desktop)
 install(TARGETS kateopenheaderplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )

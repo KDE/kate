@@ -1069,7 +1069,7 @@ InsertElement::InsertElement(const QStringList & completions, QWidget * parent)
     // label
     QString text = i18n("Enter XML tag name and attributes (\"<\", \">\" and closing tag will be supplied):");
     QLabel *label = new QLabel(text, this);
-
+    label->setWordWrap(true);
     // combo box
     m_cmbElements = new KHistoryComboBox(this);
     static_cast<KHistoryComboBox*>(m_cmbElements)->setHistoryItems(completions, true);

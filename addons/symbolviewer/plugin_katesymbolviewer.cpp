@@ -44,7 +44,6 @@
 
 #include <QAction>
 #include <klocalizedstring.h>
-//#include <kstandarddirs.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>

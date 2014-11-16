@@ -108,7 +108,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     hb = new QHBoxLayout;
     mainLayout->addLayout(hb);
 
-    QPushButton *btnDiff = new QPushButton(QIcon::fromTheme(QStringLiteral("document-preview")), i18n("&View Difference"), this);
+    btnDiff = new QPushButton(QIcon::fromTheme(QStringLiteral("document-preview")), i18n("&View Difference"), this);
     btnDiff->setWhatsThis(i18n(
                               "Calculates the difference between the editor contents and the disk "
                               "file for the selected document, and shows the difference with the "
@@ -128,11 +128,13 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     QPushButton *overwriteButton = new QPushButton;
     KGuiItem::assign(overwriteButton, KStandardGuiItem::overwrite());
     overwriteButton->setToolTip(i18n("Overwrite selected documents, discarding disk changes"));
+    buttons->addButton(overwriteButton, QDialogButtonBox::DestructiveRole);
     connect(overwriteButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotOverwrite);
 
     QPushButton *reloadButton = new QPushButton(QIcon::fromTheme(QStringLiteral("view-refresh")), i18n("&Reload"));
     reloadButton->setDefault(true);
     reloadButton->setToolTip(i18n("Reload selected documents from disk"));
+    buttons->addButton(reloadButton, QDialogButtonBox::DestructiveRole);
     connect(reloadButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotReload);
 
     slotSelectionChanged(NULL, NULL);
@@ -220,9 +222,10 @@ void KateMwModOnHdDialog::handleSelected(int action)
 
 void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
+    KateDocItem *currentDocItem = static_cast<KateDocItem *>(current);
     // set the diff button enabled
-    btnDiff->setEnabled(current &&
-                        KateApp::self()->documentManager()->documentInfo((static_cast<KateDocItem *>(current))->document)->modifiedOnDiscReason != KTextEditor::ModificationInterface::OnDiskDeleted);
+    btnDiff->setEnabled(currentDocItem &&
+                        KateApp::self()->documentManager()->documentInfo(currentDocItem->document)->modifiedOnDiscReason != KTextEditor::ModificationInterface::OnDiskDeleted);
 }
 
 // ### the code below is slightly modified from kdelibs/kate/part/katedialogs,

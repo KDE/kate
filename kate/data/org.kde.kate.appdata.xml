@@ -11,7 +11,12 @@
   <name xml:lang="nl">Kate</name>
   <name xml:lang="pl">Kate</name>
   <name xml:lang="pt">Kate</name>
+  <name xml:lang="pt-BR">Kate</name>
   <name xml:lang="sk">Kate</name>
+  <name xml:lang="sr">Кејт</name>
+  <name xml:lang="sr-Latn">Kate</name>
+  <name xml:lang="sr-ijekavian">Кејт</name>
+  <name xml:lang="sr-ijekavianlatin">Kate</name>
   <name xml:lang="uk">Kate</name>
   <name xml:lang="x-test">xxKatexx</name>
   <summary>Advanced Text Editor</summary>
@@ -22,7 +27,12 @@
   <summary xml:lang="nl">Geavanceerde teksteditor</summary>
   <summary xml:lang="pl">Zaawansowany edytor tekstu</summary>
   <summary xml:lang="pt">Editor de Texto Avançado</summary>
+  <summary xml:lang="pt-BR">Editor de Texto Avançado</summary>
   <summary xml:lang="sk">Pokročilý textový editor</summary>
+  <summary xml:lang="sr">Напредни уређивач текста</summary>
+  <summary xml:lang="sr-Latn">Napredni uređivač teksta</summary>
+  <summary xml:lang="sr-ijekavian">Напредни уређивач текста</summary>
+  <summary xml:lang="sr-ijekavianlatin">Napredni uređivač teksta</summary>
   <summary xml:lang="uk">Потужний текстовий редактор</summary>
   <summary xml:lang="x-test">xxAdvanced Text Editorxx</summary>
   <description>
@@ -34,7 +44,12 @@
     <p xml:lang="nl">Kate is een multi-document, multi-view tekstbewerker voor KDE. Het bevat functies zoals opvouwen van code, accentuering van syntaxis, dynamisch afbreken van de regel, een ingebed console, een extensieve plug-in-interface en enige beginnende ondersteuning voor scripts.</p>
     <p xml:lang="pl">Kate jest wielodokumentowym, wielowidokowym edytorem tekstu dla KDE. Umożliwia zwijanie kodu, podświetlanie składni, dynamiczne zawijanie wyrazów, osadzoną konsolę, rozbudowany interfejs dla wtyczek i zapewnia podstawową obsługę skryptów.</p>
     <p xml:lang="pt">O Kate é um editor de texto multi-documentos e multi-janelas para o KDE. Oferece algumas funcionalidades como a dobragem de código, realce de sintaxe, mudanças de linha dinâmicas, uma consola incorporada, uma interface em 'plugins' alargada e algum suporte preliminar para programação.</p>
+    <p xml:lang="pt-BR">Kate é um editor de texto multi-documentos e multi-janelas para o KDE. Oferece algumas funcionalidades como a dobradura de código, realce de sintaxe, quebra de linha dinâmica, um console incorporado, uma interface em plugins extensa e um suporte preliminar para criação de scripts.</p>
     <p xml:lang="sk">Kate je viacdokumentový, viacpohľadový textový editor pre KDE. Podporuje zabaľovanie kódu, zvýrazňovanie syntaxe, dynamické zalamovanie slov, vstavanú konzolu, rozšíriteľnú architektúru pluginov a základnú podporu skriptovania.</p>
+    <p xml:lang="sr">Кејт је вишедокументски, вишеприказни уређивач текста за КДЕ. Поседује могућности као што су сажимање кода, истицање синтаксе, динамички прелом текста, угнежђени терминал, опсежно сучеље за прикључке и основна подршка за скриптовање.</p>
+    <p xml:lang="sr-Latn">Kate je višedokumentski, višeprikazni uređivač teksta za KDE. Poseduje mogućnosti kao što su sažimanje koda, isticanje sintakse, dinamički prelom teksta, ugnežđeni terminal, opsežno sučelje za priključke i osnovna podrška za skriptovanje.</p>
+    <p xml:lang="sr-ijekavian">Кејт је вишедокументски, вишеприказни уређивач текста за КДЕ. Поседује могућности као што су сажимање кода, истицање синтаксе, динамички прелом текста, угнежђени терминал, опсежно сучеље за прикључке и основна подршка за скриптовање.</p>
+    <p xml:lang="sr-ijekavianlatin">Kate je višedokumentski, višeprikazni uređivač teksta za KDE. Poseduje mogućnosti kao što su sažimanje koda, isticanje sintakse, dinamički prelom teksta, ugnežđeni terminal, opsežno sučelje za priključke i osnovna podrška za skriptovanje.</p>
     <p xml:lang="uk">Kate — текстовий редактор для KDE, у якому передбачено можливість одночасної роботи з декількома документами на декількох панелях перегляду. У програмі передбачено багато корисних можливостей, зокрема згортання коду, підсвічування синтаксичних конструкцій, динамічне перенесення рядків, вбудована консоль, гнучкий інтерфейс для роботи з додатками та базова підтримка роботи зі скриптами.</p>
     <p xml:lang="x-test">xxKate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.xx</p>
     <p>Features:</p>
@@ -45,7 +60,12 @@
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
+    <p xml:lang="pt-BR">Funcionalidades:</p>
     <p xml:lang="sk">Funkcie:</p>
+    <p xml:lang="sr">Могућности:</p>
+    <p xml:lang="sr-Latn">Mogućnosti:</p>
+    <p xml:lang="sr-ijekavian">Могућности:</p>
+    <p xml:lang="sr-ijekavianlatin">Mogućnosti:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <ul>
@@ -54,7 +74,12 @@
       <li xml:lang="nl">MDI, splitsing van vensters, tabbladen</li>
       <li xml:lang="pl">MDI, dzielenie okna, okna w kartach</li>
       <li xml:lang="pt">MDI, divisão de janelas, janelas em páginas</li>
+      <li xml:lang="pt-BR">MDI, divisão de janelas, janelas em abas</li>
       <li xml:lang="sk">MDI, rozdeľovanie okien, záložky okien</li>
+      <li xml:lang="sr">МДИ, подела прозора, прозори под језичцима</li>
+      <li xml:lang="sr-Latn">MDI, podela prozora, prozori pod jezičcima</li>
+      <li xml:lang="sr-ijekavian">МДИ, подела прозора, прозори под језичцима</li>
+      <li xml:lang="sr-ijekavianlatin">MDI, podela prozora, prozori pod jezičcima</li>
       <li xml:lang="uk">Інтерфейс для одночасної роботи з багатьма документами, поділ вікна програми, можливість роботи із вкладками.</li>
       <li xml:lang="x-test">xxMDI, window splitting, window tabbingxx</li>
       <li>Spell checking</li>
@@ -64,7 +89,12 @@
       <li xml:lang="nl">Spellingcontrole</li>
       <li xml:lang="pl">Sprawdzanie pisowni</li>
       <li xml:lang="pt">Verificação ortográfica</li>
+      <li xml:lang="pt-BR">Verificação ortográfica</li>
       <li xml:lang="sk">Kontrola pravopisu</li>
+      <li xml:lang="sr">провера правописа</li>
+      <li xml:lang="sr-Latn">provera pravopisa</li>
+      <li xml:lang="sr-ijekavian">провера правописа</li>
+      <li xml:lang="sr-ijekavianlatin">provera pravopisa</li>
       <li xml:lang="uk">Перевірка правопису.</li>
       <li xml:lang="x-test">xxSpell checkingxx</li>
       <li>CR, CRLF, LF newline support</li>
@@ -72,7 +102,12 @@
       <li xml:lang="nl">Ondersteuning van CR, CRLF, LF nieuwe-regel</li>
       <li xml:lang="pl">Obsługa znaków nowego wiersza CR, CRLF, LF</li>
       <li xml:lang="pt">suporte de mudanças de linha com CR, CRLF, LF</li>
+      <li xml:lang="pt-BR">Suporte de mudança de linha com CR, CRLF, LF</li>
       <li xml:lang="sk">Podpora nových riadkov CR, CRLF, LF</li>
+      <li xml:lang="sr">подршка за различите крајеве редова (ЦР, ЛФ, ЦР+ЛФ)</li>
+      <li xml:lang="sr-Latn">podrška za različite krajeve redova (CR, LF, CR+LF)</li>
+      <li xml:lang="sr-ijekavian">подршка за различите крајеве редова (ЦР, ЛФ, ЦР+ЛФ)</li>
+      <li xml:lang="sr-ijekavianlatin">podrška za različite krajeve redova (CR, LF, CR+LF)</li>
       <li xml:lang="uk">Підтримка форматів розриву рядків CR, CRLF та LF.</li>
       <li xml:lang="x-test">xxCR, CRLF, LF newline supportxx</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
@@ -80,7 +115,12 @@
       <li xml:lang="nl">Ondersteuning voor codering (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="pl">Obsługa kodowań (utf-8, utf-16, ascii itp.)</li>
       <li xml:lang="pt">Suporte para codificações de caracteres (utf-8, utf-16, ascii etc.)</li>
+      <li xml:lang="pt-BR">Suporte para codificação de caracteres (utf-8, utf-16, ascii, etc.)</li>
       <li xml:lang="sk">Podpora kódovania (utf-8, utf-16, ascii atď.)</li>
+      <li xml:lang="sr">подршка за кодирања (УТФ‑8, УТФ‑16, аски, итд.)</li>
+      <li xml:lang="sr-Latn">podrška za kodiranja (UTF‑8, UTF‑16, ASCII, itd.)</li>
+      <li xml:lang="sr-ijekavian">подршка за кодирања (УТФ‑8, УТФ‑16, аски, итд.)</li>
+      <li xml:lang="sr-ijekavianlatin">podrška za kodiranja (UTF‑8, UTF‑16, ASCII, itd.)</li>
       <li xml:lang="uk">Підтримка різноманітних кодувань (utf-8, utf-16, ascii тощо).</li>
       <li xml:lang="x-test">xxEncoding support (utf-8, utf-16, ascii etc.)xx</li>
       <li>Encoding conversion</li>
@@ -89,7 +129,12 @@
       <li xml:lang="nl">Conversie van codering</li>
       <li xml:lang="pl">Przekształcanie kodowań</li>
       <li xml:lang="pt">Conversão de codificações</li>
+      <li xml:lang="pt-BR">Conversão de codificação de caracteres</li>
       <li xml:lang="sk">Konverzia kódovania</li>
+      <li xml:lang="sr">претварање кодирања</li>
+      <li xml:lang="sr-Latn">pretvaranje kodiranja</li>
+      <li xml:lang="sr-ijekavian">претварање кодирања</li>
+      <li xml:lang="sr-ijekavianlatin">pretvaranje kodiranja</li>
       <li xml:lang="uk">Підтримка можливості перетворення даних у різних кодуваннях.</li>
       <li xml:lang="x-test">xxEncoding conversionxx</li>
       <li>Regular expression based find &amp; replace</li>
@@ -98,7 +143,12 @@
       <li xml:lang="nl">Op reguliere expressies gebaseerd zoeken &amp; vervangen</li>
       <li xml:lang="pl">Znajdź i zastąp oparte na wyrażeniach regularnych</li>
       <li xml:lang="pt">Pesquisa &amp; substituição com base em expressões regulares</li>
+      <li xml:lang="pt-BR">Pesquisa e substituição com base em expressões regulares</li>
       <li xml:lang="sk">Regulárne výrazy založené na hľadaj a nahraď</li>
+      <li xml:lang="sr">тражење и замена помоћу регуларних израза</li>
+      <li xml:lang="sr-Latn">traženje i zamena pomoću regularnih izraza</li>
+      <li xml:lang="sr-ijekavian">тражење и замена помоћу регуларних израза</li>
+      <li xml:lang="sr-ijekavianlatin">traženje i zamena pomoću regularnih izraza</li>
       <li xml:lang="uk">Пошук і заміна фрагментів тексту на основі формальних виразів.</li>
       <li xml:lang="x-test">xxRegular expression based find &amp; replacexx</li>
       <li>Powerful syntax highlighting and bracket matching</li>
@@ -106,7 +156,12 @@
       <li xml:lang="nl">Krachtige syntaxisaccentuering en overeenkomende haakjes</li>
       <li xml:lang="pl">Zaawansowane podświetlanie składni i par nawiasów</li>
       <li xml:lang="pt">Realce de sintaxe e correspondência de parêntesis</li>
+      <li xml:lang="pt-BR">Realce de sintaxe e correspondência de parênteses</li>
       <li xml:lang="sk">Silné zvýrazňovanie syntaxe a párovanie zátvoriek</li>
+      <li xml:lang="sr">моћно истицање синтаксе и поклапање заграда</li>
+      <li xml:lang="sr-Latn">moćno isticanje sintakse i poklapanje zagrada</li>
+      <li xml:lang="sr-ijekavian">моћно истицање синтаксе и поклапање заграда</li>
+      <li xml:lang="sr-ijekavianlatin">moćno isticanje sintakse i poklapanje zagrada</li>
       <li xml:lang="uk">Потужні засоби підсвічування синтаксичних конструкцій та відповідних дужок.</li>
       <li xml:lang="x-test">xxPowerful syntax highlighting and bracket matchingxx</li>
       <li>Code and text folding</li>
@@ -115,7 +170,12 @@
       <li xml:lang="nl">Code en tekst invouwen</li>
       <li xml:lang="pl">Zwijanie kodu i tekstu</li>
       <li xml:lang="pt">Dobragem de código e texto</li>
+      <li xml:lang="pt-BR">Dobradura de código e texto</li>
       <li xml:lang="sk">Zabaľovanie kódu a textu</li>
+      <li xml:lang="sr">сажимање кода и текста</li>
+      <li xml:lang="sr-Latn">sažimanje koda i teksta</li>
+      <li xml:lang="sr-ijekavian">сажимање кода и текста</li>
+      <li xml:lang="sr-ijekavianlatin">sažimanje koda i teksta</li>
       <li xml:lang="uk">Засоби згортання коду та тексту.</li>
       <li xml:lang="x-test">xxCode and text foldingxx</li>
       <li>Infinite undo/redo support</li>
@@ -124,7 +184,12 @@
       <li xml:lang="nl">Ondersteuning van oneindig ongedaan maken/opnieuw</li>
       <li xml:lang="pl">Nieskończona historia cofania/przywracania</li>
       <li xml:lang="pt">Suporte para desfazer/refazer ilimitado</li>
+      <li xml:lang="pt-BR">Suporte para desfazer/refazer sem limite de ações</li>
       <li xml:lang="sk">Nekonečná podpora späť/znova</li>
+      <li xml:lang="sr">неограничено опозивање и понављање</li>
+      <li xml:lang="sr-Latn">neograničeno opozivanje i ponavljanje</li>
+      <li xml:lang="sr-ijekavian">неограничено опозивање и понављање</li>
+      <li xml:lang="sr-ijekavianlatin">neograničeno opozivanje i ponavljanje</li>
       <li xml:lang="uk">Підтримка нескінченного буфера скасування і повторення дій.</li>
       <li xml:lang="x-test">xxInfinite undo/redo supportxx</li>
       <li>Block selection mode</li>
@@ -133,7 +198,12 @@
       <li xml:lang="nl">Blokselectiemodus</li>
       <li xml:lang="pl">Tryb zaznaczania bloków</li>
       <li xml:lang="pt">Modo de selecção em bloco</li>
+      <li xml:lang="pt-BR">Modo de seleção de blocos</li>
       <li xml:lang="sk">Režim výberu bloku</li>
+      <li xml:lang="sr">режим блоковског избора</li>
+      <li xml:lang="sr-Latn">režim blokovskog izbora</li>
+      <li xml:lang="sr-ijekavian">режим блоковског избора</li>
+      <li xml:lang="sr-ijekavianlatin">režim blokovskog izbora</li>
       <li xml:lang="uk">Режим прямокутного вибору.</li>
       <li xml:lang="x-test">xxBlock selection modexx</li>
       <li>Auto indentation</li>
@@ -143,7 +213,12 @@
       <li xml:lang="nl">Automatisch inspringen</li>
       <li xml:lang="pl">Automatyczne wcięcia</li>
       <li xml:lang="pt">Indentação automática</li>
+      <li xml:lang="pt-BR">Recuo automático</li>
       <li xml:lang="sk">Automatické odsadzovanie</li>
+      <li xml:lang="sr">аутоматско увлачење</li>
+      <li xml:lang="sr-Latn">automatsko uvlačenje</li>
+      <li xml:lang="sr-ijekavian">аутоматско увлачење</li>
+      <li xml:lang="sr-ijekavianlatin">automatsko uvlačenje</li>
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="x-test">xxAuto indentationxx</li>
       <li>Auto completion support</li>
@@ -152,7 +227,12 @@
       <li xml:lang="nl">Ondersteuning voor automatische aanvulling</li>
       <li xml:lang="pl">Obsługa samouzupełniania</li>
       <li xml:lang="pt">Modo de completação automática</li>
+      <li xml:lang="pt-BR">Suporte para complementação automática</li>
       <li xml:lang="sk">Podpora automatického ukončovania</li>
+      <li xml:lang="sr">аутоматска допуна</li>
+      <li xml:lang="sr-Latn">automatska dopuna</li>
+      <li xml:lang="sr-ijekavian">аутоматска допуна</li>
+      <li xml:lang="sr-ijekavianlatin">automatska dopuna</li>
       <li xml:lang="uk">Підтримка автодоповнення.</li>
       <li xml:lang="x-test">xxAuto completion supportxx</li>
       <li>Shell integration</li>
@@ -161,7 +241,12 @@
       <li xml:lang="nl">Integratie van de shell</li>
       <li xml:lang="pl">Integracja z powłoką</li>
       <li xml:lang="pt">Integração com a consola</li>
+      <li xml:lang="pt-BR">Integração com o console</li>
       <li xml:lang="sk">Integrácia shellu</li>
+      <li xml:lang="sr">уклапање шкољке</li>
+      <li xml:lang="sr-Latn">uklapanje školjke</li>
+      <li xml:lang="sr-ijekavian">уклапање шкољке</li>
+      <li xml:lang="sr-ijekavianlatin">uklapanje školjke</li>
       <li xml:lang="uk">Інтеграція з командною оболонкою.</li>
       <li xml:lang="x-test">xxShell integrationxx</li>
       <li>Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
@@ -170,7 +255,12 @@
       <li xml:lang="nl">Brede ondersteuning van protocollen (http, ftp, ssh, webdav etc.) met kioslaves</li>
       <li xml:lang="pl">Szeroka obsługa protokołów (http, ftp, ssh, webdav itp.) wykorzystująca kioslaves</li>
       <li xml:lang="pt">Suporte abrangente de protocolos (HTTP, FTP, SSH, WebDAV etc.) com os kioslaves</li>
+      <li xml:lang="pt-BR">Suporte abrangente de protocolos (HTTP, FTP, SSH, WebDAV, etc.) usando kioslaves</li>
       <li xml:lang="sk">Široká podpora protokolov (http, ftp, ssh, webdav atď.) pomocou kioslaves</li>
+      <li xml:lang="sr">подршка за многобројне протоколе преко У/И захвата (ХТТП, ФТП, ССХ, вебДАВ, итд.)</li>
+      <li xml:lang="sr-Latn">podrška za mnogobrojne protokole preko U/I zahvata (HTTP, FTP, SSH, WebDAV, itd.)</li>
+      <li xml:lang="sr-ijekavian">подршка за многобројне протоколе преко У/И захвата (ХТТП, ФТП, ССХ, вебДАВ, итд.)</li>
+      <li xml:lang="sr-ijekavianlatin">podrška za mnogobrojne protokole preko U/I zahvata (HTTP, FTP, SSH, WebDAV, itd.)</li>
       <li xml:lang="uk">Широка підтримка протоколів (http, ftp, ssh, webdav тощо) на основі допоміжних засобів KIO.</li>
       <li xml:lang="x-test">xxWide protocol support (http, ftp, ssh, webdav etc.) using kioslavesxx</li>
       <li>Plugin architecture for the application and editor component</li>
@@ -179,7 +269,12 @@
       <li xml:lang="nl">Plug-in-architectuur voor de applicatie- en editor-component</li>
       <li xml:lang="pl">Architektura wtyczek dla programów i składników edytora</li>
       <li xml:lang="pt">Arquitectura modular para o componente de edição e a aplicação</li>
+      <li xml:lang="pt-BR">Arquitetura modular para o aplicativo e componente de edição</li>
       <li xml:lang="sk">Architektúra pluginov pre aplikáciu a komponent editora</li>
+      <li xml:lang="sr">архитектура прикључка за компоненте програма и уређивача</li>
+      <li xml:lang="sr-Latn">arhitektura priključka za komponente programa i uređivača</li>
+      <li xml:lang="sr-ijekavian">архитектура прикључка за компоненте програма и уређивача</li>
+      <li xml:lang="sr-ijekavianlatin">arhitektura priključka za komponente programa i uređivača</li>
       <li xml:lang="uk">Архітектура роботи з додатками для компонентів програми та редактора.</li>
       <li xml:lang="x-test">xxPlugin architecture for the application and editor componentxx</li>
       <li>Customizable shortcuts</li>
@@ -188,7 +283,12 @@
       <li xml:lang="nl">Aanpasbare sneltoetsen</li>
       <li xml:lang="pl">Dostosowywalne skróty</li>
       <li xml:lang="pt">Atalhos de teclado personalizados</li>
+      <li xml:lang="pt-BR">Atalhos de teclado personalizados</li>
       <li xml:lang="sk">Prispôsobiteľné skratky</li>
+      <li xml:lang="sr">прилагодљиве пречице</li>
+      <li xml:lang="sr-Latn">prilagodljive prečice</li>
+      <li xml:lang="sr-ijekavian">прилагодљиве пречице</li>
+      <li xml:lang="sr-ijekavianlatin">prilagodljive prečice</li>
       <li xml:lang="uk">Придатні до налаштовування клавіатурні скорочення.</li>
       <li xml:lang="x-test">xxCustomizable shortcutsxx</li>
       <li>Integrated command line</li>
@@ -197,7 +297,12 @@
       <li xml:lang="nl">Geïntegreerde opdrachtregel</li>
       <li xml:lang="pl">Zintegrowany wiersz poleceń</li>
       <li xml:lang="pt">Linha de comandos integrada</li>
+      <li xml:lang="pt-BR">Linha de comando integrada</li>
       <li xml:lang="sk">Integrovaný príkazový riadok</li>
+      <li xml:lang="sr">уклопљена командна линија</li>
+      <li xml:lang="sr-Latn">uklopljena komandna linija</li>
+      <li xml:lang="sr-ijekavian">уклопљена командна линија</li>
+      <li xml:lang="sr-ijekavianlatin">uklopljena komandna linija</li>
       <li xml:lang="uk">Інтегрований засіб роботи з командним рядком.</li>
       <li xml:lang="x-test">xxIntegrated command linexx</li>
       <li>Scriptable using JavaScript</li>
@@ -206,7 +311,12 @@
       <li xml:lang="nl">JavaScript te gebruiken in scripts</li>
       <li xml:lang="pl">Możliwość używania skryptów JavaScript</li>
       <li xml:lang="pt">Programável através de JavaScript</li>
+      <li xml:lang="pt-BR">Possibilidade de uso de scripts feitos em JavaScript</li>
       <li xml:lang="sk">Skriptovateľný pomocou JavaScriptu</li>
+      <li xml:lang="sr">скриптовање помоћу јаваскрипта</li>
+      <li xml:lang="sr-Latn">skriptovanje pomoću JavaScripta</li>
+      <li xml:lang="sr-ijekavian">скриптовање помоћу јаваскрипта</li>
+      <li xml:lang="sr-ijekavianlatin">skriptovanje pomoću JavaScripta</li>
       <li xml:lang="uk">Можливість керування програмою за допомогою скриптів мовою JavaScript.</li>
       <li xml:lang="x-test">xxScriptable using JavaScriptxx</li>
     </ul>

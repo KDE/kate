@@ -182,7 +182,7 @@ private:
 
     // flag that indicates whether this view space is the active one.
     // correct setter: m_viewManager->setActiveSpace(this);
-    bool mIsActiveSpace;
+    bool m_isActiveSpace;
 
     // widget stack that contains all KTE::Views
     QStackedWidget *stack;

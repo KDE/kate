@@ -45,6 +45,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
                              QWidget *parent, const char *name)
     : QWidget(parent)
     , m_viewManager(viewManager)
+    , m_isActiveSpace(false)
 {
     setObjectName(QString::fromLatin1(name));
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -105,8 +106,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     stack->setFocus();
     stack->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding));
     layout->addWidget(stack);
-
-    mIsActiveSpace = false;
 
     m_group.clear();
 
@@ -315,12 +314,12 @@ KTextEditor::View *KateViewSpace::currentView()
 
 bool KateViewSpace::isActiveSpace()
 {
-    return mIsActiveSpace;
+    return m_isActiveSpace;
 }
 
 void KateViewSpace::setActive(bool active)
 {
-    mIsActiveSpace = active;
+    m_isActiveSpace = active;
     m_tabBar->setActiveViewSpace(active);
 }
 

@@ -170,6 +170,10 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
         // Value
         start = end + 3;
         end = start;
+        if (start < 0 || start > vString.size()) {
+            kDebug() << vString << start;
+            break;
+        }
         if (vString[start] == '{') {
             start++;
             end++;

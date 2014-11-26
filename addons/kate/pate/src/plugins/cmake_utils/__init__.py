@@ -33,6 +33,7 @@ from PyQt4.QtCore import QEvent, QObject, QUrl, Qt, pyqtSlot
 from PyQt4.QtGui import (
     QBrush
   , QColor
+  , QDialog
   , QPalette
   , QSplitter
   , QTabWidget
@@ -96,7 +97,6 @@ def _find_current_context(document, cursor):
         in_comment = False
         should_count_pos = (current_line == cursor.line())
         for pos, c in enumerate(line_str):
-            print("c='{}'".format(c))
             if should_count_pos and pos == cursor.column():
                 break
             if c == '#' and not in_string:
@@ -179,17 +179,22 @@ def openDocument(url):
 
 
 def _ask_for_CMakeLists_location_and_try_open(start_dir_to_show, cur_doc_dir):
-    selected_dir = KUrlRequesterDialog.getUrl(
+    url_requester = KUrlRequesterDialog(
         start_dir_to_show
-      , kate.mainInterfaceWindow().window()
       , i18nc('@title:window', '<filename>CMakeLists.txt</filename> location')
+      , kate.mainInterfaceWindow().window()
       )
+
+    if url_requester.exec() == QDialog.Rejected:
+        return
+
+    selected_dir = url_requester.urlRequester().text()
     kate.kDebug('CMakeHelper: selected_dir={}'.format(selected_dir))
 
-    if selected_dir.isEmpty():
-        return                                              # User pressed 'Cancel'
+    if not selected_dir:
+        return                                              # User has pressed 'Ok' on empty line
 
-    selected_dir = selected_dir.toLocalFile()               # Get selected path
+    selected_dir = KUrl(selected_dir).toLocalFile()         # Get selected path
     # Is it relative?
     if not os.path.isabs(selected_dir):
         # Yep, join w/ a path of the current doc
@@ -222,6 +227,7 @@ def openCMakeList():
     # First of all check the document's MIME-type
     document = kate.activeDocument()
     cur_dir = os.path.dirname(document.url().toLocalFile())
+    kate.kDebug('CMakeHelper: cur_doc_dir="{}"'.format(cur_dir))
     mimetype = document.mimeType()
     if mimetype != _CMAKE_MIME_TYPE:
         # Ok, current document is not a CMakeLists.txt, lets try to open

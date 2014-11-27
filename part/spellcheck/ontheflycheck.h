@@ -133,7 +133,7 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
     void handleModifiedRanges();
     void handleInsertedText(const KTextEditor::Range &range);
     void handleRemovedText(const KTextEditor::Range &range);
-    void handleRespellCheckBlock(KateDocument *document, int start, int end);
+    void handleRespellCheckBlock(int start, int end);
     bool removeRangeFromModificationList(KTextEditor::MovingRange *range);
     void clearModificationList();
 };

@@ -100,7 +100,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     /**
      * set the new Kate mascot
      */
-    aboutData.setProgramLogo (QImage(QLatin1String(":/ktexteditor/mascot.png")));
+    aboutData.setProgramLogo (QImage(QLatin1String(":/kate/mascot.png")));
 
     /**
      * register about data

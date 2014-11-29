@@ -40,6 +40,8 @@ ki18n_wrap_ui(KATE_APPLICATION_SRCS
     ui/sessionconfigwidget.ui
 )
 
+qt5_add_resources( KATE_APPLICATION_SRCS data/kate.qrc )
+
 # create kde init executable
 kf5_add_kdeinit_executable(kate ${KATE_APPLICATION_SRCS})
 target_link_libraries(kdeinit_kate

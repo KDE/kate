@@ -77,7 +77,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
 
-    connect(m_inputLine, &KLineEdit::textChanged, m_model, &QSortFilterProxyModel::setFilterFixedString);
+    connect(m_inputLine, &KLineEdit::textChanged, m_model, &QSortFilterProxyModel::setFilterWildcard);
     connect(m_inputLine, &KLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_model, &QSortFilterProxyModel::rowsInserted, this, &KateQuickOpen::reselectFirst);
     connect(m_model, &QSortFilterProxyModel::rowsRemoved, this, &KateQuickOpen::reselectFirst);

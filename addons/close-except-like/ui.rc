@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katecloseexcept" library="katecloseexceptplugin" version="3">
+<gui name="katecloseexcept" library="katecloseexceptplugin" version="4" translationDomain="katecloseexceptplugin">
   <MenuBar>
     <Menu name="file">
       <text>&amp;File</text>

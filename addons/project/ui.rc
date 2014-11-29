@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="kateprojectplugin" library="kateprojectplugin" version="6">
+<gui name="kateprojectplugin" library="kateprojectplugin" version="7" translationDomain="kateproject">
   <MenuBar>
     <Menu name="projects">
       <text>&amp;Projects</text>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="kate_kttsd" library="kate_kttsd" version="3">
+<gui name="kate_kttsd" library="kate_kttsd" version="4" translationDomain="kate_kttsd">
   <MenuBar>
     <Menu name="tools">
       <text>&amp;Tools</text>

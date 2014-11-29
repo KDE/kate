@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katectags-plugin" library="katectagsplugin" version="2">
+<gui name="katectags-plugin" library="katectagsplugin" version="3" translationDomain="kate-ctags-plugin">
   <MenuBar>
     <Menu name="CTags Menubar">
       <text>CTags</text>

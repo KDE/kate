@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui xmlns="http://www.kde.org/standards/kxmlgui/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="cmake_utils" version="1" xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0                          http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
+<gui xmlns="http://www.kde.org/standards/kxmlgui/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="cmake_utils" version="2"  translationDomain="pate" xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0                          http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
   <MenuBar>
     <Menu name="file">
       <text>&amp;File</text>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katesnippets" library="katesnippetsplugin" version="1">
+<gui name="katesnippets" library="katesnippetsplugin" version="2" translationDomain="katesnippetsplugin">
   <MenuBar>
     <Menu name="tools">
       <text>&amp;Tools</text>

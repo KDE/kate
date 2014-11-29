@@ -98,6 +98,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     aboutData.addCredit(i18n("All people who have contributed and I have forgotten to mention"));
 
     /**
+     * set the new Kate mascot
+     */
+    aboutData.setProgramLogo (QImage(QLatin1String(":/ktexteditor/mascot.png")));
+
+    /**
      * register about data
      */
     KAboutData::setApplicationData(aboutData);

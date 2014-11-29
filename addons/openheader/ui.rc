@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="kateopenheader" library="libkateopenheaderplugin" version="3">
+<gui name="kateopenheader" library="libkateopenheaderplugin" version="4" translationDomain="kateopenheader">
   <MenuBar>
     <Menu name="file">
       <text>&amp;File</text>

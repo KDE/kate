@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katefiletreeplugin" library="katefiletreeplugin" version="8">
+<gui name="katefiletreeplugin" library="katefiletreeplugin" version="9" translationDomain="katefiletree">
   <!-- merge in view -->
   <MenuBar>
     <Menu name="view">

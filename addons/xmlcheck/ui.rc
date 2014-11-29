@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katexmlcheck" library="libkatexmlcheckplugin" version="4">
+<gui name="katexmlcheck" library="libkatexmlcheckplugin" version="5" translationDomain="katexmlcheck">
   <MenuBar>
     <Menu name="xml">
       <text>&amp;XML</text>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katesql" library="katesqlplugin" version="8">
+<gui name="katesql" library="katesqlplugin" version="9" translationDomain="katesql">
   <MenuBar>
     <Menu name="SQL">
       <text>&amp;SQL</text>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="kategdbplugin" library="kategdbplugin" version="1">
+<gui name="kategdbplugin" library="kategdbplugin" version="2" translationDomain="kategdbplugin">
   <MenuBar>
     <Menu name="debug">
       <Text>&amp;Debug</Text>

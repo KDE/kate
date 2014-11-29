@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katefiletemplates" library="libkatefiletemplates" version="2">
+<gui name="katefiletemplates" library="libkatefiletemplates" version="3" translationDomain="katefiletemplates">
   <MenuBar>
     <Menu name="file">
       <text>&amp;File</text>

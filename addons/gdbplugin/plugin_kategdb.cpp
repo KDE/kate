@@ -560,7 +560,7 @@ void KatePluginGDBView::slotSendCommand()
     if (cmd.isEmpty()) cmd = m_lastCommand;
 
     m_inputArea->addToHistory(cmd);
-    m_inputArea->setCurrentItem(QStringLiteral());
+    m_inputArea->setCurrentItem(QString());
     m_focusOnInput = true;
     m_lastCommand = cmd;
     m_debugView->issueCommand(cmd);
@@ -701,7 +701,7 @@ void KatePluginGDBView::slotValue()
     QString cmd = QStringLiteral("print %1").arg(variable);
     m_debugView->issueCommand(cmd);
     m_inputArea->addToHistory(cmd);
-    m_inputArea->setCurrentItem(QStringLiteral());
+    m_inputArea->setCurrentItem(QString());
 
     m_mainWin->showToolView(m_toolView);
     m_tabWidget->setCurrentWidget(m_gdbPage);

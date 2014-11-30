@@ -1467,10 +1467,10 @@ void KatePluginSearchView::goToPreviousMatch()
 void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
 {
     m_ui.searchCombo->clear();
-    m_ui.searchCombo->addItem(QStringLiteral()); // Add empty Item
+    m_ui.searchCombo->addItem(QString()); // Add empty Item
     m_ui.searchCombo->addItems(cg.readEntry("Search", QStringList()));
     m_ui.replaceCombo->clear();
-    m_ui.replaceCombo->addItem(QStringLiteral()); // Add empty Item
+    m_ui.replaceCombo->addItem(QString()); // Add empty Item
     m_ui.replaceCombo->addItems(cg.readEntry("Replaces", QStringList()));
     m_ui.matchCase->setChecked(cg.readEntry("MatchCase", false));
     m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", false));

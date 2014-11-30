@@ -43,6 +43,9 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
     Q_PROPERTY(QVariantMap projectMap READ projectMap NOTIFY projectMapChanged)
     Q_PROPERTY(QStringList projectFiles READ projectFiles)
 
+    Q_PROPERTY(QString allProjectsCommonBaseDir READ allProjectsCommonBaseDir)
+    Q_PROPERTY(QStringList allProjectsFiles READ allProjectsFiles)
+
 public:
     KateProjectPluginView(KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWindow);
     ~KateProjectPluginView();
@@ -74,6 +77,19 @@ public:
      * @return empty list if none, else project files as stringlist
      */
     QStringList projectFiles() const;
+
+    /**
+     * Example: Two projects are loaded with baseDir1="/home/dev/project1" and
+     * baseDir2="/home/dev/project2". Then "/home/dev/" is returned.
+     * @see projectBaseDir().
+     * Used for the Search&Replace plugin for option "Search in all open projects".
+     */
+    QString allProjectsCommonBaseDir() const;
+
+    /**
+     * @returns a flat list of files for all open projects (@see also projectFiles())
+     */
+    QStringList allProjectsFiles() const;
 
     /**
      * the main window we belong to

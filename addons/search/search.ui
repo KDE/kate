@@ -289,7 +289,7 @@
             <item>
              <widget class="QLabel" name="label">
               <property name="text">
-               <string>Se&amp;arch:</string>
+               <string>Se&amp;arch in:</string>
               </property>
               <property name="buddy">
                <cstring>searchPlaceCombo</cstring>
@@ -300,12 +300,12 @@
              <widget class="KComboBox" name="searchPlaceCombo">
               <item>
                <property name="text">
-                <string>in Open files</string>
+                <string>Open Files</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>in Folder</string>
+                <string>Folder</string>
                </property>
               </item>
              </widget>

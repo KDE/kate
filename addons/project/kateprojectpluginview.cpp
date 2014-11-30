@@ -19,6 +19,7 @@
  */
 
 #include "kateprojectpluginview.h"
+#include "fileutil.h"
 
 #include <ktexteditor/editor.h>
 #include <ktexteditor/application.h>
@@ -253,6 +254,38 @@ QStringList KateProjectPluginView::projectFiles() const
     }
 
     return active->project()->files();
+}
+
+QString KateProjectPluginView::allProjectsCommonBaseDir() const
+{
+    auto projects = m_plugin->projects();
+
+    if (projects.empty()) {
+        return QString();
+    }
+
+    if (projects.size() == 1) {
+        return projects[0]->baseDir();
+    }
+
+    QString commonParent1 = FileUtil::commonParent(projects[0]->baseDir(), projects[1]->baseDir());
+
+    for (int i = 2; i < projects.size(); i++) {
+        commonParent1 = FileUtil::commonParent(commonParent1, projects[i]->baseDir());
+    }
+
+    return commonParent1;
+}
+
+QStringList KateProjectPluginView::allProjectsFiles() const
+{
+    QStringList fileList;
+
+    foreach (auto project, m_plugin->projects()) {
+        fileList.append(project->files());
+    }
+
+    return fileList;
 }
 
 void KateProjectPluginView::slotViewChanged()

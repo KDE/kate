@@ -11,6 +11,7 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 add_definitions(-DTRANSLATION_DOMAIN=\"kateproject\")
 set(kateprojectplugin_PART_SRCS
+  fileutil.cpp
   kateprojectplugin.cpp
   kateprojectpluginview.cpp
   kateproject.cpp
@@ -45,3 +46,6 @@ install( FILES ui.rc DESTINATION  ${KXMLGUI_INSTALL_DIR}/kateproject )
 install( FILES kateproject.example DESTINATION  ${DATA_INSTALL_DIR}/kateproject )
 
 kcoreaddons_desktop_to_json (kateprojectplugin kateprojectplugin.desktop)
+
+############# unit tests ################
+ecm_optional_add_subdirectory (autotests)

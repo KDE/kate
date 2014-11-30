@@ -79,14 +79,15 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
          * convert to map and get name, else skip
          */
         QVariantMap subProject = subGroupVariant.toMap();
-        if (subProject[QStringLiteral("name")].toString().isEmpty()) {
+        const QString keyName = QStringLiteral("name");
+        if (subProject[keyName].toString().isEmpty()) {
             continue;
         }
 
         /**
          * recurse
          */
-        QStandardItem *subProjectItem = new KateProjectItem(KateProjectItem::Project, subProject[QStringLiteral("name")].toString());
+        QStandardItem *subProjectItem = new KateProjectItem(KateProjectItem::Project, subProject[keyName].toString());
         loadProject(subProjectItem, subProject, file2Item);
         parent->appendRow(subProjectItem);
     }
@@ -94,7 +95,8 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
     /**
      * load all specified files
      */
-    QVariantList files = project[QStringLiteral("files")].toList();
+    const QString keyFiles = QStringLiteral("files");
+    QVariantList files = project[keyFiles].toList();
     for (const QVariant &fileVariant : files) {
         loadFilesEntry(parent, fileVariant.toMap(), file2Item);
     }

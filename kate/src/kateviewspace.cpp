@@ -526,6 +526,7 @@ void KateViewSpace::updateQuickOpen()
 
     if (hiddenDocs == 0) {
         m_quickOpen->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        m_quickOpen->defaultAction()->setText(QString());
     } else {
         m_quickOpen->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
         m_quickOpen->defaultAction()->setText(i18nc("indicator for more documents", "+%1",

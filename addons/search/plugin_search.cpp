@@ -125,9 +125,6 @@ KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
     : KTextEditor::Plugin (parent),
     m_searchCommand(0)
 {
-    // FIXME KF5
-    //KGlobal::locale()->insertCatalog("katesearch");
-
     m_searchCommand = new KateSearchCommand(this);
 }
 
@@ -649,11 +646,13 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
         return 0;
     }
 
-    // FIXME KF5
-    QUrl kurl = QUrl::fromUserInput(url);
-    QString path = kurl.isLocalFile() ? localFileDirUp (kurl).path() : kurl.url();
+    QUrl fullUrl = QUrl::fromUserInput(url);
+    QString path = fullUrl.isLocalFile() ? localFileDirUp (fullUrl).path() : fullUrl.url();
+    if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
+        path += QLatin1Char('/');
+    }
     path.replace(m_resultBaseDir, QString());
-    QString name = kurl.fileName();
+    QString name = fullUrl.fileName();
     if (url.isEmpty()) {
         name = fName;
     }
@@ -911,7 +910,9 @@ void KatePluginSearchView::startSearch()
         m_searchOpenFiles.startSearch(documents, reg);
     }
     else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
-        m_resultBaseDir = m_ui.folderRequester->text();
+        m_resultBaseDir = m_ui.folderRequester->url().path();
+        if (!m_resultBaseDir.isEmpty() && !m_resultBaseDir.endsWith(QLatin1Char('/')))
+            m_resultBaseDir += QLatin1Char('/');
         addHeaderItem();
         m_folderFilesList.generateList(m_ui.folderRequester->text(),
                                        m_ui.recursiveCheckBox->isChecked(),

@@ -11,6 +11,7 @@
   <name xml:lang="en-GB">Kate</name>
   <name xml:lang="es">Kate</name>
   <name xml:lang="fi">Kate</name>
+  <name xml:lang="nb">Kate</name>
   <name xml:lang="nl">Kate</name>
   <name xml:lang="pl">Kate</name>
   <name xml:lang="pt">Kate</name>
@@ -29,6 +30,7 @@
   <summary xml:lang="en-GB">Advanced Text Editor</summary>
   <summary xml:lang="es">Editor de texto avanzado</summary>
   <summary xml:lang="fi">Kehittynyt tekstimuokkain</summary>
+  <summary xml:lang="nb">Avansert skriveprogram</summary>
   <summary xml:lang="nl">Geavanceerde teksteditor</summary>
   <summary xml:lang="pl">Zaawansowany edytor tekstu</summary>
   <summary xml:lang="pt">Editor de Texto Avançado</summary>
@@ -48,6 +50,7 @@
     <p xml:lang="ca">El Kate és un editor de text multidocument, i multivista pel KDE. Té funcionalitats com el plegat de codi, ressaltat de sintaxi, ajust dinàmic de paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per crear scripts.</p>
     <p xml:lang="en-GB">Kate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.</p>
     <p xml:lang="fi">Kate on usean tiedoston ja usean näkymän tekstimuokkain eli tekstieditori KDE:lle. Siinä on koodin laskostus, syntaksin korostus, dynaaminen rivitys, upotettu konsoli, kattava liitännäisrajapinta sekä alustava skriptaustuki.</p>
+    <p xml:lang="nb">Kate er en tekstredigerer for KDE som kan behandle flere dokumenter og flere visninger samtidig. Den har funksjoner som kodebryting, syntaksmerking, dymamisk ordbryting, et grensesnitt for mange programtillegg og litt preliminær støtte for skripting.</p>
     <p xml:lang="nl">Kate is een multi-document, multi-view tekstbewerker voor KDE. Het bevat functies zoals opvouwen van code, accentuering van syntaxis, dynamisch afbreken van de regel, een ingebed console, een extensieve plug-in-interface en enige beginnende ondersteuning voor scripts.</p>
     <p xml:lang="pl">Kate jest wielodokumentowym, wielowidokowym edytorem tekstu dla KDE. Umożliwia zwijanie kodu, podświetlanie składni, dynamiczne zawijanie wyrazów, osadzoną konsolę, rozbudowany interfejs dla wtyczek i zapewnia podstawową obsługę skryptów.</p>
     <p xml:lang="pt">O Kate é um editor de texto multi-documentos e multi-janelas para o KDE. Oferece algumas funcionalidades como a dobragem de código, realce de sintaxe, mudanças de linha dinâmicas, uma consola incorporada, uma interface em 'plugins' alargada e algum suporte preliminar para programação.</p>
@@ -66,6 +69,7 @@
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funcionalidades:</p>
     <p xml:lang="fi">Ominaisuuksia:</p>
+    <p xml:lang="nb">Funksjoner:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
@@ -82,6 +86,7 @@
       <li xml:lang="ca">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
       <li xml:lang="en-GB">MDI, window splitting, window tabbing</li>
       <li xml:lang="fi">Monen tiedoston käyttöliittymä (MDI), ikkunoiden jakaminen ja välilehdet</li>
+      <li xml:lang="nb">MDI, vindusdeling, vindusfaner</li>
       <li xml:lang="nl">MDI, splitsing van vensters, tabbladen</li>
       <li xml:lang="pl">MDI, dzielenie okna, okna w kartach</li>
       <li xml:lang="pt">MDI, divisão de janelas, janelas em páginas</li>
@@ -99,6 +104,7 @@
       <li xml:lang="de">Rechtschreibprüfung</li>
       <li xml:lang="en-GB">Spell checking</li>
       <li xml:lang="fi">Oikeinkirjoituksen tarkistus</li>
+      <li xml:lang="nb">Stavekontroll</li>
       <li xml:lang="nl">Spellingcontrole</li>
       <li xml:lang="pl">Sprawdzanie pisowni</li>
       <li xml:lang="pt">Verificação ortográfica</li>
@@ -114,6 +120,7 @@
       <li xml:lang="ca">Implementació per línia nova CR, CRLF, LF</li>
       <li xml:lang="en-GB">CR, CRLF, LF newline support</li>
       <li xml:lang="fi">Tuki useille rivinvaihdoille: CR, CRLF ja LF</li>
+      <li xml:lang="nb">Støtte for ny linje med CR, CRLF eller LF</li>
       <li xml:lang="nl">Ondersteuning van CR, CRLF, LF nieuwe-regel</li>
       <li xml:lang="pl">Obsługa znaków nowego wiersza CR, CRLF, LF</li>
       <li xml:lang="pt">suporte de mudanças de linha com CR, CRLF, LF</li>
@@ -129,6 +136,7 @@
       <li xml:lang="ca">Implementació de codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="en-GB">Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="fi">Merkistökoodaustuki (UTF-8, UTF-16, ASCII jne.)</li>
+      <li xml:lang="nb">Støtte for tegnkoding (utf-8. utf-16, ascii osv.)</li>
       <li xml:lang="nl">Ondersteuning voor codering (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="pl">Obsługa kodowań (utf-8, utf-16, ascii itp.)</li>
       <li xml:lang="pt">Suporte para codificações de caracteres (utf-8, utf-16, ascii etc.)</li>
@@ -145,6 +153,7 @@
       <li xml:lang="de">Umwandlung von Kodierungen</li>
       <li xml:lang="en-GB">Encoding conversion</li>
       <li xml:lang="fi">Merkistökoodauksen muuntaminen</li>
+      <li xml:lang="nb">Kodekonvertering</li>
       <li xml:lang="nl">Conversie van codering</li>
       <li xml:lang="pl">Przekształcanie kodowań</li>
       <li xml:lang="pt">Conversão de codificações</li>
@@ -161,6 +170,7 @@
       <li xml:lang="de">Reguläre Ausdrücke für Suchen und Ersetzen</li>
       <li xml:lang="en-GB">Regular expression based find &amp; replace</li>
       <li xml:lang="fi">Säännöllisiin lausekkeisiin perustuva Etsi ja korvaa</li>
+      <li xml:lang="nb">Finn og erstatt basert på regulære uttrykk</li>
       <li xml:lang="nl">Op reguliere expressies gebaseerd zoeken &amp; vervangen</li>
       <li xml:lang="pl">Znajdź i zastąp oparte na wyrażeniach regularnych</li>
       <li xml:lang="pt">Pesquisa &amp; substituição com base em expressões regulares</li>
@@ -176,6 +186,7 @@
       <li xml:lang="ca">Ressaltat potent de sintaxi i emparellament de parèntesis</li>
       <li xml:lang="en-GB">Powerful syntax highlighting and bracket matching</li>
       <li xml:lang="fi">Tehokas syntaksin korostus; mukana myös toisiaan vastaavien sulkeiden korostus</li>
+      <li xml:lang="nb">Kraftig syntaksfremheving og parentesparing</li>
       <li xml:lang="nl">Krachtige syntaxisaccentuering en overeenkomende haakjes</li>
       <li xml:lang="pl">Zaawansowane podświetlanie składni i par nawiasów</li>
       <li xml:lang="pt">Realce de sintaxe e correspondência de parêntesis</li>
@@ -192,6 +203,7 @@
       <li xml:lang="de">Quelltext- und Textausblendung</li>
       <li xml:lang="en-GB">Code and text folding</li>
       <li xml:lang="fi">Koodin ja tekstin laskostus</li>
+      <li xml:lang="nb">Kode- og tekstbryting</li>
       <li xml:lang="nl">Code en tekst invouwen</li>
       <li xml:lang="pl">Zwijanie kodu i tekstu</li>
       <li xml:lang="pt">Dobragem de código e texto</li>
@@ -208,6 +220,7 @@
       <li xml:lang="de">Unterstützung für unbegrenztes Zurücknehmen und Wiederherstellen</li>
       <li xml:lang="en-GB">Infinite undo/redo support</li>
       <li xml:lang="fi">Tuki rajattomalle kumoamiselle ja uudelleen tekemiselle</li>
+      <li xml:lang="nb">Ubegrenset støtte for angring/omgjøring</li>
       <li xml:lang="nl">Ondersteuning van oneindig ongedaan maken/opnieuw</li>
       <li xml:lang="pl">Nieskończona historia cofania/przywracania</li>
       <li xml:lang="pt">Suporte para desfazer/refazer ilimitado</li>
@@ -224,6 +237,7 @@
       <li xml:lang="de">Blockauswahlmodus</li>
       <li xml:lang="en-GB">Block selection mode</li>
       <li xml:lang="fi">Lohkovalintatila</li>
+      <li xml:lang="nb">Blokkmerkingsmodus</li>
       <li xml:lang="nl">Blokselectiemodus</li>
       <li xml:lang="pl">Tryb zaznaczania bloków</li>
       <li xml:lang="pt">Modo de selecção em bloco</li>
@@ -241,6 +255,7 @@
       <li xml:lang="de">Automatisches einrücken</li>
       <li xml:lang="en-GB">Auto indentation</li>
       <li xml:lang="fi">Automaattinen sisennys</li>
+      <li xml:lang="nb">Automatisk innrykk</li>
       <li xml:lang="nl">Automatisch inspringen</li>
       <li xml:lang="pl">Automatyczne wcięcia</li>
       <li xml:lang="pt">Indentação automática</li>
@@ -257,6 +272,7 @@
       <li xml:lang="de">Unterstützung für Autovervollständigung</li>
       <li xml:lang="en-GB">Auto completion support</li>
       <li xml:lang="fi">Automaattitäydennyksen tuki</li>
+      <li xml:lang="nb">Autofullføring</li>
       <li xml:lang="nl">Ondersteuning voor automatische aanvulling</li>
       <li xml:lang="pl">Obsługa samouzupełniania</li>
       <li xml:lang="pt">Modo de completação automática</li>
@@ -273,6 +289,7 @@
       <li xml:lang="de">Einbindung einer Shell</li>
       <li xml:lang="en-GB">Shell integration</li>
       <li xml:lang="fi">Komentotulkki-integraatio</li>
+      <li xml:lang="nb">Skall-integrasjon</li>
       <li xml:lang="nl">Integratie van de shell</li>
       <li xml:lang="pl">Integracja z powłoką</li>
       <li xml:lang="pt">Integração com a consola</li>
@@ -289,6 +306,7 @@
       <li xml:lang="de">Unterstützung für viele Protokolle (http, ftp, ssh, webdav usw.) unter Verwendung von Ein-/Ausgabemodulen</li>
       <li xml:lang="en-GB">Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
       <li xml:lang="fi">Laaja yhteyskäytäntötuki (HTTP, FTP, SSH, WebDAV jne.) käyttäen KIO-palveluita</li>
+      <li xml:lang="nb">Bred protokollstøtte (http, ftp, ssh, webdav osv.) ved bruk av kioslaver</li>
       <li xml:lang="nl">Brede ondersteuning van protocollen (http, ftp, ssh, webdav etc.) met kioslaves</li>
       <li xml:lang="pl">Szeroka obsługa protokołów (http, ftp, ssh, webdav itp.) wykorzystująca kioslaves</li>
       <li xml:lang="pt">Suporte abrangente de protocolos (HTTP, FTP, SSH, WebDAV etc.) com os kioslaves</li>
@@ -305,6 +323,7 @@
       <li xml:lang="de">Modul-Architektur für das Programm und die Editorkomponente</li>
       <li xml:lang="en-GB">Plugin architecture for the application and editor component</li>
       <li xml:lang="fi">Liitännäisarkkitehtuuri sovellukselle ja muokkainosalle</li>
+      <li xml:lang="nb">Modularkitektur for programmet og redigeringskomponenten</li>
       <li xml:lang="nl">Plug-in-architectuur voor de applicatie- en editor-component</li>
       <li xml:lang="pl">Architektura wtyczek dla programów i składników edytora</li>
       <li xml:lang="pt">Arquitectura modular para o componente de edição e a aplicação</li>
@@ -321,6 +340,7 @@
       <li xml:lang="de">Benutzerdefinierte Kurzbefehle</li>
       <li xml:lang="en-GB">Customisable shortcuts</li>
       <li xml:lang="fi">Mukautettavat pikanäppäimet</li>
+      <li xml:lang="nb">Brukerstyrte snarveier</li>
       <li xml:lang="nl">Aanpasbare sneltoetsen</li>
       <li xml:lang="pl">Dostosowywalne skróty</li>
       <li xml:lang="pt">Atalhos de teclado personalizados</li>
@@ -337,6 +357,7 @@
       <li xml:lang="de">Integrierte Befehlszeile</li>
       <li xml:lang="en-GB">Integrated command line</li>
       <li xml:lang="fi">Integroitu komentorivi</li>
+      <li xml:lang="nb">Integrert kommandolinje</li>
       <li xml:lang="nl">Geïntegreerde opdrachtregel</li>
       <li xml:lang="pl">Zintegrowany wiersz poleceń</li>
       <li xml:lang="pt">Linha de comandos integrada</li>
@@ -353,6 +374,7 @@
       <li xml:lang="de">Skriptfähig über JavaScript</li>
       <li xml:lang="en-GB">Scriptable using JavaScript</li>
       <li xml:lang="fi">Skriptattavissa JavaScriptillä</li>
+      <li xml:lang="nb">Kan skriptes med Javascript</li>
       <li xml:lang="nl">JavaScript te gebruiken in scripts</li>
       <li xml:lang="pl">Możliwość używania skryptów JavaScript</li>
       <li xml:lang="pt">Programável através de JavaScript</li>

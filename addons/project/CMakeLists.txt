@@ -1,7 +1,7 @@
 project(kateprojectplugin)
 
 # libgit2 integration
-find_package(LibGit2 "0.20.0")
+find_package(LibGit2 "0.22.0")
 if(LIBGIT2_FOUND)
     add_definitions(-DHAVE_GIT2)
     set (PROJECT_OPTIONAL_LIBS LibGit2::LibGit2)

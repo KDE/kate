@@ -88,9 +88,7 @@ class AutoBracePluginDocument
 
   private:
     void insertAutoBracket(KTextEditor::Document *document,const KTextEditor::Range& range,
-                         const QString& brace);
-    const QString previousToken(KTextEditor::Document *document,const KTextEditor::Range& range);
-    const QString nextToken(KTextEditor::Document *document,const KTextEditor::Range& range);
+                           const QChar& brace);
 
     int m_insertionLine;
     QString m_indentation;

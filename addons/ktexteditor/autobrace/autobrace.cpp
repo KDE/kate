@@ -31,6 +31,32 @@
 
 AutoBracePlugin *AutoBracePlugin::plugin = 0;
 
+namespace {
+
+/**
+ * Returns next character after specified text range in document.
+ * @param document Current document.
+ * @param position Text cursor position
+ * @return Next character after text position
+ */
+QChar nextToken(KTextEditor::Document* document, const KTextEditor::Cursor& position)
+{
+    return document->character(position + KTextEditor::Cursor(0, 1));
+}
+
+/**
+ * Returns previous character before specified text range in document.
+ * @param document Current document.
+ * @param position Text cursor position
+ * @return Next character after text position
+ */
+QChar previousToken(KTextEditor::Document* document, const KTextEditor::Cursor& position)
+{
+    return document->character(position - KTextEditor::Cursor(0, 1));
+}
+
+}
+
 K_PLUGIN_FACTORY_DEFINITION(AutoBracePluginFactory,
         registerPlugin<AutoBracePlugin>("ktexteditor_autobrace");
         registerPlugin<AutoBraceConfig>("ktexteditor_autobrace_config");
@@ -222,22 +248,27 @@ void AutoBracePluginDocument::slotTextRemoved(KTextEditor::Document* document, c
 void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
                                                const KTextEditor::Range& range)
 {
+    if (!range.onSingleLine() || range.columnWidth() != 1) {
+        return;
+    }
+    const KTextEditor::Cursor position = range.start();
+    const QChar insertedToken = document->character(position);
+
     // Fill brackets map matching opening and closing brackets.
-    QMap<QString,QString> brackets;
-    brackets["("] = ")";
-    brackets["["] = "]";
-    
+    QMap<QChar,QChar> brackets;
+    brackets['('] = ')';
+    brackets['['] = ']';
+
     // latex wants {, too
     if (document->mode() == "LaTeX")
-        brackets["{"] = "}";
-    
+        brackets['{'] = '}';
+
     // List of Tokens after which an automatic bracket expanion
     // is allowed.
-    const static QStringList allowedNextToken = QStringList() << "]" << ")" << ","
-                                                << "." << ";" << "\n" << "\t" << " " << "";
-    const QString text = document->text(range);
+    const static QVector<QChar> allowedNextToken = QVector<QChar>()
+        << ']' << ')' << ',' << '.' << ';' << '\n' << '\t' << ' ' << QChar();
 
-    // An insertion operation cancels any last range removal
+    // An insertion operation cancels any last position removal
     // operation
     m_lastRange = KTextEditor::Range::invalid();
 
@@ -247,14 +278,14 @@ void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
     // 3.) Quotation marks like " and '
 
     // Handle brace openers
-    if (text == "\n") {
+    if (insertedToken == '\n') {
         // Remember this position as insertion candidate.
         // We don't directly insert this here because of KatePart specifics:
         // a) Setting the cursor position crashes at this point, and
         // b) textChanged() only gets called once per edit operation, so we can
         //    ignore the same braces when they're being inserted via paste.
-        if (isInsertionCandidate(document, range.start().line())) {
-            m_insertionLine = range.end().line();
+        if (isInsertionCandidate(document, position.line())) {
+            m_insertionLine = position.line();
             connect(document, SIGNAL(textChanged(KTextEditor::Document*)),
                     this, SLOT(slotTextChanged(KTextEditor::Document*)));
         }
@@ -263,21 +294,21 @@ void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
         }
     }
     // Opening brackets (defined in ctor)
-    else if (m_autoBrackets && brackets.contains(text)) {
-        // Only insert auto closing brackets if current text range
+    else if (m_autoBrackets && brackets.contains(insertedToken)) {
+        // Only insert auto closing brackets if current text position
         // is followed by one of the allowed next tokens.
-        if (allowedNextToken.contains(nextToken(document,range))) {
-            insertAutoBracket(document, range, brackets[text]);
+        if (allowedNextToken.contains(nextToken(document, position))) {
+            insertAutoBracket(document, range, brackets[insertedToken]);
         }
 
     }
     // Check whether closing brackets are allowed.
     // If a brace is not allowed remove it
-    // and set the cursor to the position after that text range.
+    // and set the cursor to the position after that text position.
     // Bracket tests bases on this simple idea: A bracket can only be inserted
     // if it is NOT followed by the same bracket. This results in overwriting closing brackets.
-    else if (m_autoBrackets && brackets.values().contains(text)) {
-        if (nextToken(document,range) == text) {
+    else if (m_autoBrackets && brackets.values().contains(insertedToken)) {
+        if (nextToken(document, position) == insertedToken) {
             KTextEditor::Cursor saved = range.end();
             document->removeText(range);
             document->activeView()->setCursorPosition(saved);
@@ -287,10 +318,10 @@ void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
     // applies here: double quotation marks are eaten up and only inserted if not
     // followed by the same quoation mark. Additionally automatic quotation marks
     // are inserted only if NOT followed by a back slash (escaping character).
-    else if (m_autoQuotations && (text == "\"" || text == "\'") && previousToken(document, range) != "\\") {
-        const QString next = nextToken(document, range);
+    else if (m_autoQuotations && (insertedToken == '\"' || insertedToken == '\'') && previousToken(document, position) != '\\') {
+        const QChar next = nextToken(document, position);
         // Eat it if already there
-        if (next == text) {
+        if (next == insertedToken) {
             KTextEditor::Cursor saved = range.end();
             document->removeText(range);
             document->activeView()->setCursorPosition(saved);
@@ -299,8 +330,8 @@ void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
         // next tokens and the number of marks in the insertion line is even
         // (excluding the already inserted mark)
         else if (allowedNextToken.contains(next)
-            && (document->line(range.start().line()).count(text) % 2) ) {
-            insertAutoBracket(document, range, text);
+            && (document->line(position.line()).count(insertedToken) % 2) ) {
+            insertAutoBracket(document, range, insertedToken);
         }
     }
 }
@@ -314,7 +345,7 @@ void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
  */
 void AutoBracePluginDocument::insertAutoBracket(KTextEditor::Document *document,
                                                 const KTextEditor::Range& range,
-                                                const QString& brace) {
+                                                const QChar& brace) {
     // Disconnect Slots to avoid check for redundant closing brackets
     disconnectSlots(document);
 
@@ -329,35 +360,6 @@ void AutoBracePluginDocument::insertAutoBracket(KTextEditor::Document *document,
 
     // Re-Enable insertion slot.
     connectSlots(document);
-}
-
-/**
- * Returns next character after specified text range in document.
- * @param document Current document.
- * @param range Inserted text range (by text-inserted slot)
- * @return Next character after text range
- */
-const QString AutoBracePluginDocument::nextToken(KTextEditor::Document* document, const KTextEditor::Range& range)
-{
-    // Calculate range after insertion (exactly one character)
-    KTextEditor::Range afterRange(range.end(), range.end().line(), range.end().column()+1);
-
-    return (afterRange.isValid() ? document->text(afterRange) : "");
-}
-
-/**
- * Returns previous character before specified text range in document.
- * @param document Current document.
- * @param range Inserted text range (by text-inserted slot)
- * @return Next character after text range
- */
-const QString AutoBracePluginDocument::previousToken(KTextEditor::Document* document, const KTextEditor::Range& range)
-{
-    // Calculate range before insertion (exactly one character)
-    KTextEditor::Range beforeRange(range.start().line(), range.start().column()-1, range.start().line(),
-                                   range.start().column());
-
-    return (beforeRange.isValid() ? document->text(beforeRange) : "");
 }
 
 bool AutoBracePluginDocument::isInsertionCandidate(KTextEditor::Document *document, int openingBraceLine) {

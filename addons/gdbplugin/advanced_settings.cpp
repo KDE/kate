@@ -23,12 +23,11 @@
 
 AdvancedGDBSettings::AdvancedGDBSettings(QWidget *parent) : QDialog(parent)
 {
-    QWidget *widget = new QWidget(this);
-    setupUi(widget);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    setLayout(mainLayout);
-    mainLayout->addWidget(widget);
+    setupUi(this);
     connect(u_gdbBrowse, SIGNAL(clicked()), this, SLOT(slotBrowseGDB()));
+    connect(u_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(u_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    
 }
 
 AdvancedGDBSettings::~AdvancedGDBSettings()
@@ -138,7 +137,7 @@ void AdvancedGDBSettings::slotBrowseGDB()
     }
 }
 
-void AdvancedGDBSettings::setComboText(KComboBox *combo, const QString &str)
+void AdvancedGDBSettings::setComboText(QComboBox *combo, const QString &str)
 {
     if (!combo) return;
 
@@ -152,5 +151,3 @@ void AdvancedGDBSettings::setComboText(KComboBox *combo, const QString &str)
     combo->addItem(str);
     combo->setCurrentIndex(combo->count()-1);
 }
-
-#include "advanced_settings.moc"

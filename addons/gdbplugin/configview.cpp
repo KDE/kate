@@ -428,7 +428,7 @@ void ConfigView::slotAdvancedClicked()
     }
 
     m_advanced->setConfigs(tmp);
-    if (m_advanced->exec()) {
+    if (m_advanced->exec() == QDialog::Accepted) {
         // save the new values
         newList << m_advanced->configs();
         m_targetCombo->setItemData(m_targetCombo->currentIndex(), newList);

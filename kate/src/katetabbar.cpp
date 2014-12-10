@@ -321,7 +321,7 @@ void KateTabBar::updateButtonPositions(bool animate)
     if (keepWidth) {
         const int xPos = mapFromGlobal(QCursor::pos()).x();
         if (tabWidth * visibleTabCount < xPos) {
-            tabWidth = qMin(tabWidth * (visibleTabCount + 1.0) / visibleTabCount, static_cast<qreal>(m_maximumTabWidth));
+            tabWidth = qMin(static_cast<qreal>(tabWidth * (visibleTabCount + 1.0)) / visibleTabCount, static_cast<qreal>(m_maximumTabWidth));
         }
     }
 

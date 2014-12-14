@@ -518,6 +518,6 @@ void KWrite::documentNameChanged()
             }
         }
 
-        setCaption(c + readOnlyCaption, m_view->document()->isModified());
+        setCaption(c + readOnlyCaption + QStringLiteral(" [*]"), m_view->document()->isModified());
     }
 }

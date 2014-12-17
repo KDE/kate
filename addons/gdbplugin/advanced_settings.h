@@ -34,6 +34,7 @@ public:
         RemoteBaudIndex,
         SoAbsoluteIndex,
         SoRelativeIndex,
+        SrcPathsIndex,
         CustomStartIndex
     };
 
@@ -50,6 +51,15 @@ private:
 private Q_SLOTS:
     void slotBrowseGDB();
 
+    void slotSetSoPrefix();
+
+    void slotAddSoPath();
+    void slotDelSoPath();
+
+    void slotAddSrcPath();
+    void slotDelSrcPath();
+
+    void slotLocalRemoteChanged();
 };
 
 #endif

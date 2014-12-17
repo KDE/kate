@@ -36,6 +36,12 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 
+#ifdef WIN32
+static const QLatin1Char pathSeparator(';');
+#else
+static const QLatin1Char pathSeparator(':');
+#endif
+
 ConfigView::ConfigView(QWidget* parent, KTextEditor::MainWindow* mainWin)
 :   QWidget(parent),
     m_mainWindow(mainWin)
@@ -71,7 +77,7 @@ ConfigView::ConfigView(QWidget* parent, KTextEditor::MainWindow* mainWin)
                                          QDir::AllDirs|QDir::NoDotAndDotDot,
                                          QDir::Name, this));
     m_executable->setCompleter(completer1);
-    // FIXME KF5 m_executable->setClearButtonShown(true);
+    m_executable->setClearButtonEnabled(true);
     m_browseExe = new QToolButton(this);
     m_browseExe->setIcon(QIcon::fromTheme(QStringLiteral("application-x-executable")));
 
@@ -79,14 +85,14 @@ ConfigView::ConfigView(QWidget* parent, KTextEditor::MainWindow* mainWin)
     QCompleter* completer2 = new QCompleter(this);
     completer2->setModel(new QDirModel(completer2));
     m_workingDirectory->setCompleter(completer2);
-    // FIXME KF5 m_workingDirectory->setClearButtonShown(true);
+    m_workingDirectory->setClearButtonEnabled(true);
     m_workDirLabel = new QLabel(i18n("Working Directory:"));
     m_workDirLabel->setBuddy(m_workingDirectory);
     m_browseDir = new QToolButton(this);
     m_browseDir->setIcon(QIcon::fromTheme(QStringLiteral("inode-directory")));
 
     m_arguments = new QLineEdit();
-    // FIXME KF5 m_arguments->setClearButtonShown(true);
+    m_arguments->setClearButtonEnabled(true);
     m_argumentsLabel = new QLabel(i18nc("Program argument list", "Arguments:"));
     m_argumentsLabel->setBuddy(m_arguments);
 
@@ -106,9 +112,6 @@ ConfigView::ConfigView(QWidget* parent, KTextEditor::MainWindow* mainWin)
     resizeEvent(0);
     m_useBottomLayout = true;
     resizeEvent(0);
-
-    // calculate the approximate height to exceed before going to "Side Layout"
-    m_widgetHeights = (m_execLabel->sizeHint().height() + /*layout spacing */6) * 12;
 
     m_advanced = new AdvancedGDBSettings(this);
     m_advanced->hide();
@@ -202,7 +205,8 @@ void ConfigView::readConfig(const KConfigGroup& group)
     }
     m_targetSelectAction->setItems(targetNames);
 
-    m_targetCombo->setCurrentIndex((lastTarget < m_targetCombo->count()) ? lastTarget: 0);
+    if (lastTarget<0 || lastTarget >= m_targetCombo->count()) lastTarget=0;
+    m_targetCombo->setCurrentIndex(lastTarget);
 
     m_takeFocus->setChecked(group.readEntry("alwaysFocusOnInput",false));
 
@@ -250,6 +254,11 @@ const GDBTargetConf ConfigView::currentTarget() const
     while (i>=0) {
         if (cfg.customInit[i].isEmpty()) {
             cfg.customInit.removeAt(i);
+        }
+        else if (cfg.customInit[i].startsWith(QStringLiteral("set directories "))) {
+            QString paths = cfg.customInit[i];
+            paths.remove(QStringLiteral("set directories "));
+            cfg.srcPaths = paths.split(pathSeparator, QString::SkipEmptyParts);
         }
         i--;
     }
@@ -338,7 +347,7 @@ void ConfigView::slotDeleteTarget()
 
 void ConfigView::resizeEvent(QResizeEvent *)
 {
-    if (m_useBottomLayout && (size().height() > m_widgetHeights)) {
+    if (m_useBottomLayout && size().height() > size().width()) {
         // Set layout for the side
         delete m_checBoxLayout;
         m_checBoxLayout = 0;
@@ -372,7 +381,7 @@ void ConfigView::resizeEvent(QResizeEvent *)
         layout->setRowStretch(12, 1);
         m_useBottomLayout = false;
     }
-    else if (!m_useBottomLayout && (size().height() < m_widgetHeights)) {
+    else if (!m_useBottomLayout && (size().height() < size().width())) {
         // Set layout for the bottom
         delete m_checBoxLayout;
         delete layout();

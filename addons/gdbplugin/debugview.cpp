@@ -661,6 +661,13 @@ QUrl DebugView::resolveFileName(const QString &fileName)
         return QUrl::fromUserInput(fInfo.absoluteFilePath());
     }
 
+    foreach (QString srcPath, m_targetConf.srcPaths) {
+        fInfo = QFileInfo(srcPath + QDir::separator() + fileName);
+        if (fInfo.exists()) {
+            return QUrl::fromUserInput(fInfo.absoluteFilePath());
+        }
+    }
+
     // we can not do anything just return the fileName
     return QUrl::fromUserInput(fileName);
 }

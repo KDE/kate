@@ -48,6 +48,7 @@ struct GDBTargetConf {
     QString     arguments;
     QString     gdbCmd;
     QStringList customInit;
+    QStringList srcPaths;
 };
 
 class ConfigView : public QWidget
@@ -119,7 +120,6 @@ private:
     QBoxLayout*         m_checBoxLayout;
 
     bool                m_useBottomLayout;
-    int                 m_widgetHeights;
     QLabel*             m_execLabel;
     QLabel*             m_workDirLabel;
     QLabel*             m_argumentsLabel;

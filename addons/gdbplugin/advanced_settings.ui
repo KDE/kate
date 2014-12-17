@@ -6,14 +6,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>722</width>
-    <height>476</height>
+    <width>637</width>
+    <height>580</height>
    </rect>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,10">
-   <property name="margin">
-    <number>0</number>
-   </property>
+  <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,10,0">
    <item row="0" column="0">
     <widget class="QLabel" name="u_gdbLabel">
      <property name="text">
@@ -22,27 +19,73 @@
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
+     <property name="buddy">
+      <cstring>u_gdbCmd</cstring>
+     </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout">
+   <item row="0" column="3">
+    <widget class="QToolButton" name="u_gdbBrowse">
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="u_srcPathsLabel">
+     <property name="text">
+      <string>Source file search paths</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+     </property>
+     <property name="buddy">
+      <cstring>u_srcPaths</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QListWidget" name="u_srcPaths">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QLineEdit" name="u_gdbCmd">
-       <property name="showClearButton" stdset="0">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="u_gdbBrowse">
+      <widget class="QToolButton" name="u_addSrcPath">
        <property name="text">
         <string>...</string>
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QToolButton" name="u_delSrcPath">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>2</width>
+         <height>2</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </item>
-   <item row="1" column="0">
+   <item row="3" column="0">
     <widget class="QComboBox" name="u_localRemote">
      <item>
       <property name="text">
@@ -61,10 +104,10 @@
      </item>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="3" column="1" colspan="2">
     <widget class="QStackedWidget" name="u_remoteStack">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -72,7 +115,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="empty"/>
+     <widget class="QWidget" name="empty_2"/>
      <widget class="QWidget" name="u_remoteTcp">
       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,2,0,1">
        <property name="margin">
@@ -182,7 +225,7 @@
      </widget>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="4" column="0">
     <widget class="QLabel" name="u_soAbsPrefixLabel">
      <property name="text">
       <string>solib-absolute-prefix</string>
@@ -192,40 +235,86 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="4" column="3">
+    <widget class="QToolButton" name="u_setSoPrefix">
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="u_soSearchLabel">
+     <property name="text">
+      <string>solib-search-path</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1" colspan="2">
+    <widget class="QListWidget" name="u_soSearchPaths">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3">
+    <widget class="QWidget" name="u_addDelSoPaths" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QToolButton" name="u_addSoSearchPath">
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="u_delSoSearchPath">
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>13</width>
+          <height>13</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="1" colspan="2">
     <widget class="QLineEdit" name="u_soAbsPrefix">
      <property name="showClearButton" stdset="0">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="u_soSearchLabel">
-     <property name="text">
-      <string>solib-search-path</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLineEdit" name="u_soSearchPath">
-     <property name="showClearButton" stdset="0">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="2">
-    <widget class="QGroupBox" name="u_customInitGroup">
+   <item row="6" column="0" colspan="4">
+    <widget class="QGroupBox" name="u_customInitGB">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="title">
-      <string>Custom Startup Commands</string>
+      <string>Custom Init Commands</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -235,33 +324,64 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QDialogButtonBox" name="u_buttonBox">
-        <property name="standardButtons">
-         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-        </property>
-       </widget>
-      </item>
      </layout>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QLineEdit" name="u_gdbCmd">
+     <property name="showClearButton" stdset="0">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="4">
+    <widget class="QDialogButtonBox" name="u_buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="4">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
     </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>u_gdbCmd</tabstop>
+  <tabstop>u_localRemote</tabstop>
+  <tabstop>u_soAbsPrefix</tabstop>
+  <tabstop>u_setSoPrefix</tabstop>
+  <tabstop>u_soSearchPaths</tabstop>
+  <tabstop>u_addSoSearchPath</tabstop>
+  <tabstop>u_delSoSearchPath</tabstop>
+  <tabstop>u_srcPaths</tabstop>
+  <tabstop>u_addSrcPath</tabstop>
+  <tabstop>u_delSrcPath</tabstop>
+  <tabstop>u_customInit</tabstop>
+  <tabstop>u_tcpHost</tabstop>
+  <tabstop>u_tcpPort</tabstop>
+  <tabstop>u_ttyPort</tabstop>
+  <tabstop>u_baudCombo</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
    <sender>u_localRemote</sender>
-   <signal>activated(int)</signal>
+   <signal>currentIndexChanged(int)</signal>
    <receiver>u_remoteStack</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>56</x>
-     <y>38</y>
+     <x>106</x>
+     <y>162</y>
     </hint>
     <hint type="destinationlabel">
-     <x>292</x>
-     <y>39</y>
+     <x>230</x>
+     <y>153</y>
     </hint>
    </hints>
   </connection>

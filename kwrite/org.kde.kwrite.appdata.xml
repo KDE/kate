@@ -25,6 +25,7 @@
   <name xml:lang="uk">KWrite</name>
   <name xml:lang="x-test">xxKWritexx</name>
   <name xml:lang="zh-CN">KWrite</name>
+  <name xml:lang="zh-TW">KWrite</name>
   <summary>Text Editor</summary>
   <summary xml:lang="ca">Editor de text</summary>
   <summary xml:lang="cs">Textový editor</summary>
@@ -46,6 +47,7 @@
   <summary xml:lang="uk">Текстовий редактор</summary>
   <summary xml:lang="x-test">xxText Editorxx</summary>
   <summary xml:lang="zh-CN">文本编辑器</summary>
+  <summary xml:lang="zh-TW">文字編輯器</summary>
   <description>
     <p>
       KWrite is a text editor for KDE, based on the Kate's editor component.
@@ -69,6 +71,7 @@
     <p xml:lang="uk">KWrite — текстовий редактор для KDE, заснований на компоненті редактора Kate.</p>
     <p xml:lang="x-test">xxKWrite is a text editor for KDE, based on the Kate's editor component.xx</p>
     <p xml:lang="zh-CN">KWrite 是 KDE 的文本编辑器，基于 Kate 的编辑器组件。</p>
+    <p xml:lang="zh-TW">KWrite 是一套 KDE 的文字編輯器，基於 Kate 的編輯器組件。</p>
     <p>Features:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
@@ -90,6 +93,7 @@
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <p xml:lang="zh-CN">功能：</p>
+    <p xml:lang="zh-TW">功能：</p>
     <ul>
       <li>Syntax highlighting according to the file type</li>
       <li xml:lang="ca">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
@@ -111,6 +115,7 @@
       <li xml:lang="uk">Підсвічування синтаксичних конструкцій відповідно до типу файла.</li>
       <li xml:lang="x-test">xxSyntax highlighting according to the file typexx</li>
       <li xml:lang="zh-CN">按文件类型进行语法高亮</li>
+      <li xml:lang="zh-TW">根據檔案型態做語法突顯</li>
       <li>Word completion</li>
       <li xml:lang="ca">Compleció de paraules</li>
       <li xml:lang="cs">Dokončování slov</li>
@@ -132,6 +137,7 @@
       <li xml:lang="uk">Завершення слів.</li>
       <li xml:lang="x-test">xxWord completionxx</li>
       <li xml:lang="zh-CN">单词补全</li>
+      <li xml:lang="zh-TW">文字補完</li>
       <li>Auto-indentation</li>
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="cs">Automaticky odsadit</li>
@@ -153,6 +159,7 @@
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="x-test">xxAuto-indentationxx</li>
       <li xml:lang="zh-CN">自动缩进</li>
+      <li xml:lang="zh-TW">自動縮排</li>
       <li>Plugin support</li>
       <li xml:lang="ca">Implementació de connectors</li>
       <li xml:lang="cs">Podpora modulů</li>
@@ -174,6 +181,7 @@
       <li xml:lang="uk">Підтримка додатків.</li>
       <li xml:lang="x-test">xxPlugin supportxx</li>
       <li xml:lang="zh-CN">插件支持</li>
+      <li xml:lang="zh-TW">外掛程式支援</li>
       <li>Vi input mode</li>
       <li xml:lang="ca">Mode d'entrada del Vi</li>
       <li xml:lang="cs">Vstupní režim VI</li>
@@ -195,6 +203,7 @@
       <li xml:lang="uk">Режим введення Vi.</li>
       <li xml:lang="x-test">xxVi input modexx</li>
       <li xml:lang="zh-CN">Vi 输入模式</li>
+      <li xml:lang="zh-TW">VI 輸入模式</li>
     </ul>
   </description>
   <url type="homepage">http://kate-editor.org/</url>

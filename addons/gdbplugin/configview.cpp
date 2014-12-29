@@ -303,6 +303,8 @@ void ConfigView::slotTargetSelected(int index)
     loadFromIndex(index);
     m_currentTarget = index;
 
+    setAdvancedOptions();
+
     // Keep combo box and menu in sync
     m_targetSelectAction->setCurrentItem(index);
 }
@@ -419,7 +421,8 @@ void ConfigView::resizeEvent(QResizeEvent *)
     }
 }
 
-void ConfigView::slotAdvancedClicked()
+
+void ConfigView::setAdvancedOptions()
 {
     QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
     QStringList newList;
@@ -437,6 +440,18 @@ void ConfigView::slotAdvancedClicked()
     }
 
     m_advanced->setConfigs(tmp);
+}
+
+void ConfigView::slotAdvancedClicked()
+{
+    setAdvancedOptions();
+
+    QStringList newList = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
+    // make sure we have enough strings;
+    while (newList.count() < GDBIndex) newList << QString();
+    // Remove old advanced settings
+    while (newList.count() >= GDBIndex) newList.takeLast();
+
     if (m_advanced->exec() == QDialog::Accepted) {
         // save the new values
         newList << m_advanced->configs();

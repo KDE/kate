@@ -96,7 +96,8 @@ protected:
 private:
     void saveCurrentToIndex(int index);
     void loadFromIndex(int index);
- 
+    void setAdvancedOptions();
+
 private:
     KTextEditor::MainWindow*   m_mainWindow;
     QComboBox*          m_targetCombo;

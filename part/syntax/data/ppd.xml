@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE language SYSTEM "language.dtd" []>
 
@@ -9,7 +9,7 @@ The following documentation is available for PPD:
 - CUPS PPD Extensions: http://www.cups.org/documentation.php/doc-1.4/spec-ppd.html
 -->
 
-<language name="PostScript Printer Description" version="0.1" kateversion="2.4" section="Markup" extensions="*.ppd" author="Lukas Sommer" mimetype="application/vnd.cups-ppd" license="public domain">
+<language name="PostScript Printer Description" version="0.2" kateversion="2.4" section="Markup" extensions="*.ppd" author="Lukas Sommer" mimetype="application/vnd.cups-ppd" license="public domain">
 
     <highlighting>
 
@@ -26,7 +26,17 @@ The following documentation is available for PPD:
             <context attribute="Comment" lineEndContext="#pop" name="contextComment">
                 <IncludeRules context="##Alerts"/>
             </context>
-            <context attribute="Value" lineEndContext="#pop" name="contextValue"></context>
+            <context attribute="Value" lineEndContext="#pop" name="contextValue">
+                <DetectSpaces/>
+                <DetectChar attribute="Value" context="contextValueMultiLine" char="&quot;" />
+                <RegExpr attribute="Value" context="contextValueSingleLine" String="."/>
+            </context>
+            <context attribute="Value" lineEndContext="#stay" name="contextValueMultiLine">
+                <DetectSpaces/>
+                <DetectChar attribute="Value" context="#pop" char="&quot;" />
+            </context>
+            <context attribute="Value" lineEndContext="#pop" name="contextValueSingleLine">
+            </context>
         </contexts>
 
         <itemDatas>

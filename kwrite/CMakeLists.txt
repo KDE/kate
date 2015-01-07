@@ -14,8 +14,8 @@ target_link_libraries(kdeinit_kwrite
   KF5::IconThemes
 )
 
-install(TARGETS kwrite         ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
-install(TARGETS kdeinit_kwrite ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kwrite         ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kdeinit_kwrite ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(PROGRAMS org.kde.kwrite.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES org.kde.kwrite.appdata.xml DESTINATION ${CMAKE_INSTALL_METAINFODIR} )
 install(FILES kwriteui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kwrite)

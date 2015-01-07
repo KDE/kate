@@ -60,5 +60,5 @@ generate_export_header(kdeinit_kate
 )
 
 # install executable + kdeinit lib
-install(TARGETS kate         ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
-install(TARGETS kdeinit_kate ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kate         ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kdeinit_kate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

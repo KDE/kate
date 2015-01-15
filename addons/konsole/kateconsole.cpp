@@ -225,7 +225,20 @@ void KateConsole::cd (const QString & path)
     return;
 
   m_currentPath = path;
-  sendInput(QStringLiteral("cd ") + KShell::quoteArg(m_currentPath) + QLatin1Char('\n'));
+  QString command = QStringLiteral("cd ") + KShell::quoteArg(m_currentPath) + QLatin1Char('\n');
+
+  // special handling for some interpreters
+  TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part);
+  if (t) {
+    // ghci doesn't allow \space dir names, does allow spaces in dir names
+    // irb can take spaces or \space but doesn't allow " 'path' "
+    if (t->foregroundProcessName() == QStringLiteral("irb") ) {
+      command = QStringLiteral("Dir.chdir(\"") + path + QStringLiteral("\") \n") ;
+    } else if(t->foregroundProcessName() == QStringLiteral("ghc")) {
+      command = QStringLiteral(":cd ") + path + QStringLiteral("\n");
+    }
+  }
+  sendInput(command);
 }
 
 void KateConsole::sendInput( const QString& text )

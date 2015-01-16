@@ -149,6 +149,7 @@
       <li xml:lang="zh-TW">拼字檢查</li>
       <li>CR, CRLF, LF newline support</li>
       <li xml:lang="ca">Implementació per línia nova CR, CRLF, LF</li>
+      <li xml:lang="de">Unterstützung für CR, CRLF, LF am Zeilenende</li>
       <li xml:lang="en-GB">CR, CRLF, LF newline support</li>
       <li xml:lang="es">Admite fin de línea CR, CRLF, LF</li>
       <li xml:lang="fi">Tuki useille rivinvaihdoille: CR, CRLF ja LF</li>
@@ -170,6 +171,7 @@
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="ca">Implementació de codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
+      <li xml:lang="de">Unterstützung für Kodierungen (utf-8, utf-16, ascii usw.)</li>
       <li xml:lang="en-GB">Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="es">Admite codificación ( (utf-8, utf-16, ascii, etc.)</li>
       <li xml:lang="fi">Merkistökoodaustuki (UTF-8, UTF-16, ASCII jne.)</li>
@@ -235,6 +237,7 @@
       <li xml:lang="zh-TW">搜尋與取代支援正規表示式</li>
       <li>Powerful syntax highlighting and bracket matching</li>
       <li xml:lang="ca">Ressaltat potent de sintaxi i emparellament de parèntesis</li>
+      <li xml:lang="de">Leistungsfähige Syntaxhervorhebung und Übereinstimmung von Klammern</li>
       <li xml:lang="en-GB">Powerful syntax highlighting and bracket matching</li>
       <li xml:lang="es">Potente resaltado de sintaxis y de emparejado de paréntesis</li>
       <li xml:lang="fi">Tehokas syntaksin korostus; mukana myös toisiaan vastaavien sulkeiden korostus</li>

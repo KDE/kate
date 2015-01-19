@@ -12,6 +12,7 @@
   <name xml:lang="es">KWrite</name>
   <name xml:lang="fi">KWrite</name>
   <name xml:lang="hu">KWrite</name>
+  <name xml:lang="ko">KWrite</name>
   <name xml:lang="nb">KWrite</name>
   <name xml:lang="nl">KWrite</name>
   <name xml:lang="pl">KWrite</name>
@@ -36,6 +37,7 @@
   <summary xml:lang="es">Editor de texto</summary>
   <summary xml:lang="fi">Tekstimuokkain</summary>
   <summary xml:lang="hu">Szövegszerkesztő</summary>
+  <summary xml:lang="ko">텍스트 편집기</summary>
   <summary xml:lang="nb">Tekstredigering</summary>
   <summary xml:lang="nl">Teksteditor</summary>
   <summary xml:lang="pl">Edytor tekstu</summary>
@@ -62,6 +64,7 @@
     <p xml:lang="es">KWrite es un editor de texto para KDE basado en el componente de edición de Kate.</p>
     <p xml:lang="fi">KWrite on tekstimuokkain eli tekstieditori KDE:lle. Se perustuu Katen muokkainosaan.</p>
     <p xml:lang="hu">A KWrite egy, a Kate szerkesztőkomponensén alapuló szövegszerkesztő a KDE-hez.</p>
+    <p xml:lang="ko">KWrite는 Kate 편집기 구성 요소를 사용하는 KDE 텍스트 편집기입니다.</p>
     <p xml:lang="nb">KWrite er en tekstredigerer for KDE, basert på Kates redigeringskomponent.</p>
     <p xml:lang="nl">KWrite is een tekstbewerker voor KDE, gebaseerd op de tekstbewerkercomponent van Kate.</p>
     <p xml:lang="pl">KWrite jest edytorem tekstu dla KDE, opartym na edytorze Kate.</p>
@@ -86,6 +89,7 @@
     <p xml:lang="es">Funcionalidades:</p>
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="hu">Szolgáltatások:</p>
+    <p xml:lang="ko">기능:</p>
     <p xml:lang="nb">Funksjoner:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pl">Możliwości:</p>
@@ -110,6 +114,7 @@
       <li xml:lang="es">Resaltado de sintaxis según el tipo de archivo</li>
       <li xml:lang="fi">Syntaksin korostus tiedostotyypin perusteella</li>
       <li xml:lang="hu">Szintaxiskiemelés a fájlnak megfelelően</li>
+      <li xml:lang="ko">파일 형식별 구문 강조</li>
       <li xml:lang="nb">Syntaksfremheving etter filtype</li>
       <li xml:lang="nl">Syntaxisaccentuering volgens bestandstype</li>
       <li xml:lang="pl">Podświetlanie składni według rodzaju pliku</li>
@@ -134,6 +139,7 @@
       <li xml:lang="es">Comletado de palabras</li>
       <li xml:lang="fi">Sanantäydennys</li>
       <li xml:lang="hu">Szókiegészítés</li>
+      <li xml:lang="ko">단어 완성</li>
       <li xml:lang="nb">Fullføring av ord</li>
       <li xml:lang="nl">Woordaanvulling</li>
       <li xml:lang="pl">Uzupełnianie słów</li>
@@ -158,6 +164,7 @@
       <li xml:lang="es">Sangrado automático</li>
       <li xml:lang="fi">Automaattinen sisennys</li>
       <li xml:lang="hu">Automatikus behúzás</li>
+      <li xml:lang="ko">자동 들여쓰기</li>
       <li xml:lang="nb">Automatisk innrykk</li>
       <li xml:lang="nl">Automatisch inspringen</li>
       <li xml:lang="pl">Automatyczne wcięcia</li>
@@ -182,6 +189,7 @@
       <li xml:lang="es">Uso de complementos</li>
       <li xml:lang="fi">Liitännäistuki</li>
       <li xml:lang="hu">Bővíthetőség kiegészítőkkel</li>
+      <li xml:lang="ko">플러그인 지 원</li>
       <li xml:lang="nb">Støtte for programtillegg</li>
       <li xml:lang="nl">Ondersteuning van plug-ins</li>
       <li xml:lang="pl">Obsługa wtyczek</li>
@@ -206,6 +214,7 @@
       <li xml:lang="es">Modo de entrada Vi</li>
       <li xml:lang="fi">VI-syöttötila</li>
       <li xml:lang="hu">Vi beviteli mód</li>
+      <li xml:lang="ko">VI 입력 모드</li>
       <li xml:lang="nb">Inndatamodus som i Vi</li>
       <li xml:lang="nl">VI-invoermethode</li>
       <li xml:lang="pl">Tryb wprowadzania Vi</li>

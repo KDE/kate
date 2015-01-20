@@ -1,7 +1,7 @@
 # Plasma Data Engine
 set(plasma_engine_katesessions_SRCS katesessionsengine.cpp katesessionsmodel.cpp katesessionsjob.cpp katesessionsservice.cpp)
 add_library(plasma_engine_katesessions MODULE ${plasma_engine_katesessions_SRCS})
-kservice_desktop_to_json(plasma_engine_katesessions plasma-dataengine-katesessions.desktop)
+kcoreaddons_desktop_to_json(plasma_engine_katesessions plasma-dataengine-katesessions.desktop)
 target_link_libraries(plasma_engine_katesessions
 #    Qt5::DBus
     Qt5::Widgets       # QAction

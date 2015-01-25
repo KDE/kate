@@ -336,6 +336,7 @@
       <li xml:lang="sv">Blockmarkeringsläge</li>
       <li xml:lang="uk">Режим прямокутного вибору.</li>
       <li xml:lang="x-test">xxBlock selection modexx</li>
+      <li xml:lang="zh-CN">块选择模式</li>
       <li xml:lang="zh-TW">區塊選擇模式</li>
       <li>Auto indentation</li>
       <li xml:lang="ca">Sagnat automàtic</li>
@@ -360,6 +361,7 @@
       <li xml:lang="sv">Automatisk indentering</li>
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="x-test">xxAuto indentationxx</li>
+      <li xml:lang="zh-CN">自动缩进</li>
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Auto completion support</li>
       <li xml:lang="ca">Implementació de compleció automàtica</li>

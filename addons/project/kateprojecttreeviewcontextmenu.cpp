@@ -150,7 +150,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
             if (KService::Ptr app = KService::serviceByDesktopPath(openWith)) {
                 QList<QUrl> list;
                 list << QUrl::fromLocalFile(filename);
-                KRun::run(*app, list, parent);
+                KRun::runService(*app, list, parent);
             }
         }
     }

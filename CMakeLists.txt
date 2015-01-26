@@ -4,6 +4,7 @@ project (kate)
 # minimal requirements
 cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
 set (QT_MIN_VERSION "5.2.0")
+set(KF5_DEP_VERSION "5.6.0")
 
 # set the kate version, used for part / kate / kwrite
 set (KATE_VERSION_MAJOR 5)
@@ -33,7 +34,7 @@ include(KDECompilerSettings)
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Script Sql Test)
 
 # Load the frameworks we need
-find_package(KF5 REQUIRED COMPONENTS
+find_package(KF5 "${KF5_DEP_VERSION}" REQUIRED COMPONENTS
   Config
   DocTools
   GuiAddons

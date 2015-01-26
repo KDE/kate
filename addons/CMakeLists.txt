@@ -1,12 +1,13 @@
 # detect aditional frameworks
-find_package(KF5 OPTIONAL_COMPONENTS Wallet Plasma Service ItemModels Notifications ThreadWeaver)
+find_package(KF5 OPTIONAL_COMPONENTS Wallet Plasma Service ItemModels Notifications ThreadWeaver NewStuff)
 
 set_package_properties(KF5Wallet PROPERTIES PURPOSE "Required to build the katesql addon")
 set_package_properties(KF5Plasma PROPERTIES PURPOSE "Required to build the sessionapplet addon")
 set_package_properties(KF5Service PROPERTIES PURPOSE "Required to build the sessionapplet addon")
 set_package_properties(KF5ItemModels PROPERTIES PURPOSE "Required to build the project, konsole addon")
-set_package_properties(KF5Notifications PROPERTIES PURPOSE "Required to build the katebuild, close-except-like  addon")
+set_package_properties(KF5Notifications PROPERTIES PURPOSE "Required to build the katebuild, close-except-like addons")
 set_package_properties(KF5ThreadWeaver PROPERTIES PURPOSE "Required to build the project addon")
+set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the snippets addon")
 
 # document switcher
 ecm_optional_add_subdirectory (filetree)
@@ -26,8 +27,10 @@ endif()
 # ALT+Tab like tab switcher
 ecm_optional_add_subdirectory (tabswitcher)
 
-# snippets
-ecm_optional_add_subdirectory (snippets)
+if(KF5NewStuff_FOUND)
+    # snippets
+    ecm_optional_add_subdirectory (snippets)
+endif()
 
 # ctags
 ecm_optional_add_subdirectory (kate-ctags)

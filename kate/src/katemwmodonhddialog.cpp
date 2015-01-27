@@ -327,7 +327,14 @@ void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
             break;
         }
     }
-    new KateDocItem(doc, m_stateTexts[(uint)KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason ], twDocuments);
+    uint reason = (uint)KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason;
+    if (reason) {
+        new KateDocItem(doc, m_stateTexts[reason], twDocuments);
+    }
+
+    if (! twDocuments->topLevelItemCount()) {
+        accept();
+    }
 }
 
 void KateMwModOnHdDialog::keyPressEvent(QKeyEvent *event)

@@ -565,12 +565,8 @@ void KateDocManager::slotModChanged(KTextEditor::Document *doc)
 
 void KateDocManager::slotModChanged1(KTextEditor::Document *doc)
 {
-    const KateDocumentInfo *info = documentInfo(doc);
-
-    if (info && info->modifiedOnDisc) {
-        QMetaObject::invokeMethod(KateApp::self()->activeKateMainWindow(), "queueModifiedOnDisc",
+    QMetaObject::invokeMethod(KateApp::self()->activeKateMainWindow(), "queueModifiedOnDisc",
                                   Qt::QueuedConnection, Q_ARG(KTextEditor::Document *, doc));
-    }
 }
 
 void KateDocManager::documentOpened()

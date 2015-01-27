@@ -1,9 +1,6 @@
 project (katesnippets)
 add_definitions(-DTRANSLATION_DOMAIN=\"katesnippetsplugin\")
 
-# Load the frameworks we need
-find_package(KF5 REQUIRED COMPONENTS NewStuff)
-
 ########### next target ###############
 
 set(katesnippetsplugin_PART_SRCS katesnippets.cpp

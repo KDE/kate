@@ -404,4 +404,3 @@ void SnippetRepository::setData(const QVariant& value, int role)
     QStandardItem::setData(value, role);
 }
 
-#include "snippetrepository.moc"

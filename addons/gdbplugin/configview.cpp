@@ -522,5 +522,4 @@ void ConfigView::loadFromIndex(int index)
     m_arguments->setText(tmp[ArgsIndex]);
 }
 
-#include "configview.moc"
 

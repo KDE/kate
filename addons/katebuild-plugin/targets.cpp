@@ -18,7 +18,6 @@
 //  Boston, MA 02110-1301, USA.
 
 #include "targets.h"
-#include "targets.moc"
 #include <klocalizedstring.h>
 #include <QIcon>
 #include <QEvent>

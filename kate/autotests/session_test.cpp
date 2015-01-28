@@ -146,5 +146,4 @@ void KateSessionTest::setName()
     QCOMPARE(s->file(), m_tmpfile->fileName()); // on purpose, orthogonal
 }
 
-#include "session_test.moc"
 

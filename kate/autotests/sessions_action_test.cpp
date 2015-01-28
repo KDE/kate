@@ -95,5 +95,4 @@ void KateSessionsActionTest::timesorted()
     */
 }
 
-#include "sessions_action_test.moc"
 

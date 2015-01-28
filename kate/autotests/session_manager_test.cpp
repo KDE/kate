@@ -165,5 +165,4 @@ void KateSessionManagerTest::startNonEmpty()
     QCOMPARE(m.sessionList().size(), 2);
 }
 
-#include "session_manager_test.moc"
 

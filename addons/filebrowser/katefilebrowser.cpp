@@ -22,7 +22,6 @@
 
 //BEGIN Includes
 #include "katefilebrowser.h"
-#include "katefilebrowser.moc"
 
 #include "katebookmarkhandler.h"
 

@@ -131,4 +131,3 @@ SnippetRepository* SnippetStore::repositoryForFile(const QString& file)
 }
 
 
-#include "snippetstore.moc"

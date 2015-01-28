@@ -893,6 +893,5 @@ void FileTreeModelTest::rename()
   qDeleteAll(documents);
 }
 
-#include "filetree_model_test.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

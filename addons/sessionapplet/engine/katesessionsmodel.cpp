@@ -130,4 +130,3 @@ QHash< int, QByteArray > KateSessionsModel::roleNames() const
     return hash;
 }
 
-#include "katesessionsmodel.moc"

@@ -19,7 +19,6 @@
  */
 
 #include "kateprojectplugin.h"
-#include "kateprojectplugin.moc"
 
 #include "kateproject.h"
 #include "kateprojectconfigpage.h"

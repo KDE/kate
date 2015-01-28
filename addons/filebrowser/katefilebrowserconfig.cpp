@@ -20,7 +20,6 @@
 */
 
 #include "katefilebrowserconfig.h"
-#include "katefilebrowserconfig.moc"
 
 #include "katefilebrowser.h"
 

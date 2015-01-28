@@ -19,4 +19,3 @@
 */
 
 #include "document_dummy.h"
-#include "document_dummy.moc"

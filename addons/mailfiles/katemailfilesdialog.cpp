@@ -129,6 +129,5 @@ void KateMailDialog::slotShowButton()
 
   resize( width(), minimumHeight() );
 }
-#include "katemailfilesdialog.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

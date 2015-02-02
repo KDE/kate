@@ -15,6 +15,7 @@
   <name xml:lang="ko">Kate</name>
   <name xml:lang="nb">Kate</name>
   <name xml:lang="nl">Kate</name>
+  <name xml:lang="pa">ਕੇਟ</name>
   <name xml:lang="pl">Kate</name>
   <name xml:lang="pt">Kate</name>
   <name xml:lang="pt-BR">Kate</name>
@@ -40,6 +41,7 @@
   <summary xml:lang="ko">고급 텍스트 편집기</summary>
   <summary xml:lang="nb">Avansert skriveprogram</summary>
   <summary xml:lang="nl">Geavanceerde teksteditor</summary>
+  <summary xml:lang="pa">ਤਕਨੀਕੀ ਟੈਕਸਟ ਐਡੀਟਰ</summary>
   <summary xml:lang="pl">Zaawansowany edytor tekstu</summary>
   <summary xml:lang="pt">Editor de Texto Avançado</summary>
   <summary xml:lang="pt-BR">Editor de Texto Avançado</summary>
@@ -91,6 +93,7 @@
     <p xml:lang="ko">기능:</p>
     <p xml:lang="nb">Funksjoner:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
+    <p xml:lang="pa">ਫੀਚਰ:</p>
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Funcionalidades:</p>
@@ -115,6 +118,7 @@
       <li xml:lang="ko">MDI, 창 나누기, 탭 기능</li>
       <li xml:lang="nb">MDI, vindusdeling, vindusfaner</li>
       <li xml:lang="nl">MDI, splitsing van vensters, tabbladen</li>
+      <li xml:lang="pa">MDI, ਵਿੰਡੋ ਵੰਡਣਾ, ਵਿੰਡੋ ਟੈਬ ਦੇ ਰੂਪ ਵਿੱਚ ਰੱਖਣਾ</li>
       <li xml:lang="pl">MDI, dzielenie okna, okna w kartach</li>
       <li xml:lang="pt">MDI, divisão de janelas, janelas em páginas</li>
       <li xml:lang="pt-BR">MDI, divisão de janelas, janelas em abas</li>
@@ -139,6 +143,7 @@
       <li xml:lang="ko">맞춤법 검사</li>
       <li xml:lang="nb">Stavekontroll</li>
       <li xml:lang="nl">Spellingcontrole</li>
+      <li xml:lang="pa">ਸ਼ਬਦ-ਜੋੜ ਜਾਂਚ</li>
       <li xml:lang="pl">Sprawdzanie pisowni</li>
       <li xml:lang="pt">Verificação ortográfica</li>
       <li xml:lang="pt-BR">Verificação ortográfica</li>
@@ -163,6 +168,7 @@
       <li xml:lang="ko">CR, CRLF, LF 새 줄 지원</li>
       <li xml:lang="nb">Støtte for ny linje med CR, CRLF eller LF</li>
       <li xml:lang="nl">Ondersteuning van CR, CRLF, LF nieuwe-regel</li>
+      <li xml:lang="pa">CR, CRLF, LF ਨਵੀਂ-ਲਾਈਨ ਸਹਿਯੋਗ</li>
       <li xml:lang="pl">Obsługa znaków nowego wiersza CR, CRLF, LF</li>
       <li xml:lang="pt">suporte de mudanças de linha com CR, CRLF, LF</li>
       <li xml:lang="pt-BR">Suporte de mudança de linha com CR, CRLF, LF</li>
@@ -186,6 +192,7 @@
       <li xml:lang="ko">인코딩 지원(UTF-8, UTF-16, ASCII 등)</li>
       <li xml:lang="nb">Støtte for tegnkoding (utf-8. utf-16, ascii osv.)</li>
       <li xml:lang="nl">Ondersteuning voor codering (utf-8, utf-16, ascii etc.)</li>
+      <li xml:lang="pa">ਇੰਕੋਡਿੰਗ ਸਹਿਯੋਗ (utf-8, utf-16, ascii ਆਦਿ)</li>
       <li xml:lang="pl">Obsługa kodowań (utf-8, utf-16, ascii itp.)</li>
       <li xml:lang="pt">Suporte para codificações de caracteres (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="pt-BR">Suporte para codificação de caracteres (utf-8, utf-16, ascii, etc.)</li>
@@ -209,6 +216,7 @@
       <li xml:lang="ko">인코딩 변환</li>
       <li xml:lang="nb">Kodekonvertering</li>
       <li xml:lang="nl">Conversie van codering</li>
+      <li xml:lang="pa">ਇੰਕੋਡਿੰਗ ਤਬਦੀਲੀ</li>
       <li xml:lang="pl">Przekształcanie kodowań</li>
       <li xml:lang="pt">Conversão de codificações</li>
       <li xml:lang="pt-BR">Conversão de codificação de caracteres</li>
@@ -232,6 +240,7 @@
       <li xml:lang="ko">정규 표현식 기반 찾기 및 바꾸기</li>
       <li xml:lang="nb">Finn og erstatt basert på regulære uttrykk</li>
       <li xml:lang="nl">Op reguliere expressies gebaseerd zoeken &amp; vervangen</li>
+      <li xml:lang="pa">ਨਿਯਮਤ ਸਮੀਕਰਨ ਦੇ ਨਾਲ ਲੈਸ ਖੋਜ ਤੇ ਤਬਦੀਲ ਕਰਨਾ</li>
       <li xml:lang="pl">Znajdź i zastąp oparte na wyrażeniach regularnych</li>
       <li xml:lang="pt">Pesquisa &amp; substituição com base em expressões regulares</li>
       <li xml:lang="pt-BR">Pesquisa e substituição com base em expressões regulares</li>
@@ -278,6 +287,7 @@
       <li xml:lang="ko">코드 및 텍스트 접기</li>
       <li xml:lang="nb">Kode- og tekstbryting</li>
       <li xml:lang="nl">Code en tekst invouwen</li>
+      <li xml:lang="pa">ਕੋਡ ਅਤੇ ਟੈਕਸਟ ਸਮੇਟਣਾ</li>
       <li xml:lang="pl">Zwijanie kodu i tekstu</li>
       <li xml:lang="pt">Dobragem de código e texto</li>
       <li xml:lang="pt-BR">Dobradura de código e texto</li>
@@ -301,6 +311,7 @@
       <li xml:lang="ko">무한 실행 취소/다시 실행 지원</li>
       <li xml:lang="nb">Ubegrenset støtte for angring/omgjøring</li>
       <li xml:lang="nl">Ondersteuning van oneindig ongedaan maken/opnieuw</li>
+      <li xml:lang="pa">ਬੇਅੰਤ ਵਾਪਸ/ਪਰਤਾਉਣ ਸਹਿਯੋਗ</li>
       <li xml:lang="pl">Nieskończona historia cofania/przywracania</li>
       <li xml:lang="pt">Suporte para desfazer/refazer ilimitado</li>
       <li xml:lang="pt-BR">Suporte para desfazer/refazer sem limite de ações</li>
@@ -396,6 +407,7 @@
       <li xml:lang="ko">셸 통합</li>
       <li xml:lang="nb">Skall-integrasjon</li>
       <li xml:lang="nl">Integratie van de shell</li>
+      <li xml:lang="pa">ਸ਼ੈੱਲ ਨਾਲ ਜੋੜ</li>
       <li xml:lang="pl">Integracja z powłoką</li>
       <li xml:lang="pt">Integração com a consola</li>
       <li xml:lang="pt-BR">Integração com o console</li>
@@ -442,6 +454,7 @@
       <li xml:lang="ko">프로그램과 편집기 구성 요소 플러그인 구조</li>
       <li xml:lang="nb">Modularkitektur for programmet og redigeringskomponenten</li>
       <li xml:lang="nl">Plug-in-architectuur voor de applicatie- en editor-component</li>
+      <li xml:lang="pa">ਐਪਲੀਕੇਸ਼ਨ ਅਤੇ ਐਡੀਟਰ ਭਾਗਾਂ ਲਈ ਪਲੱਗਇਨ ਢਾਂਚਾ</li>
       <li xml:lang="pl">Architektura wtyczek dla programów i składników edytora</li>
       <li xml:lang="pt">Arquitectura modular para o componente de edição e a aplicação</li>
       <li xml:lang="pt-BR">Arquitetura modular para o aplicativo e componente de edição</li>
@@ -488,6 +501,7 @@
       <li xml:lang="ko">내장 명령행</li>
       <li xml:lang="nb">Integrert kommandolinje</li>
       <li xml:lang="nl">Geïntegreerde opdrachtregel</li>
+      <li xml:lang="pa">ਵਿਚੇ ਮੌਜੂਦ ਕਮਾਂਡ ਲਾਈਨ</li>
       <li xml:lang="pl">Zintegrowany wiersz poleceń</li>
       <li xml:lang="pt">Linha de comandos integrada</li>
       <li xml:lang="pt-BR">Linha de comando integrada</li>

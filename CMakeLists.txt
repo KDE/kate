@@ -31,7 +31,11 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
 
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Script Sql Test)
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Script Sql)
+
+if(BUILD_TESTING)
+  find_package(Qt5Test ${QT_MIN_VERSION} CONFIG REQUIRED)
+endif()
 
 # Load the frameworks we need
 find_package(KF5 "${KF5_DEP_VERSION}" REQUIRED COMPONENTS

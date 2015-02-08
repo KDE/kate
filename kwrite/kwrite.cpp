@@ -175,7 +175,7 @@ void KWrite::setupActions()
     actionCollection()->addAction(m_paShowStatusBar->objectName(), m_paShowStatusBar);
     m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
-    m_paShowPath = new KToggleAction(i18n("Sho&w Path"), this);
+    m_paShowPath = new KToggleAction(i18n("Sho&w Path in Titlebar"), this);
     actionCollection()->addAction(QStringLiteral("set_showPath"), m_paShowPath);
     connect(m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()));
     m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
@@ -500,24 +500,31 @@ void KWrite::documentNameChanged()
 
     if (m_view->document()->url().isEmpty()) {
         setCaption(i18n("Untitled") + readOnlyCaption + QStringLiteral(" [*]"), m_view->document()->isModified());
-    } else {
-        QString c;
-        if (!m_paShowPath->isChecked()) {
-            c = m_view->document()->url().fileName();
+        return;
+    }
 
-            //File name shouldn't be too long - Maciek
-            if (c.length() > 64) {
-                c = c.left(64) + QStringLiteral("...");
-            }
-        } else {
-            c = m_view->document()->url().toString();
+    QString c;
 
-            //File name shouldn't be too long - Maciek
-            if (c.length() > 64) {
-                c = QStringLiteral("...") + c.right(64);
-            }
+    if (m_paShowPath->isChecked()) {
+        c = m_view->document()->url().toString(QUrl::PreferLocalFile);
+
+        const QString homePath = QDir::homePath();
+        if (c.startsWith(homePath)) {
+            c = QStringLiteral("~") + c.right(c.length() - homePath.length());
         }
 
-        setCaption(c + readOnlyCaption + QStringLiteral(" [*]"), m_view->document()->isModified());
+        //File name shouldn't be too long - Maciek
+        if (c.length() > 64) {
+            c = QStringLiteral("...") + c.right(64);
+        }
+    } else {
+        c = m_view->document()->url().fileName();
+
+        //File name shouldn't be too long - Maciek
+        if (c.length() > 64) {
+            c = c.left(64) + QStringLiteral("...");
+        }
     }
+
+    setCaption(c + readOnlyCaption + QStringLiteral(" [*]"), m_view->document()->isModified());
 }

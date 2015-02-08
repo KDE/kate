@@ -76,6 +76,7 @@
 #include <QToolButton>
 #include <QTimer>
 #include <QFontDatabase>
+#include <QDir>
 
 #include <ktexteditor/sessionconfiginterface.h>
 //END
@@ -929,7 +930,12 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
     if (m_viewManager->activeView()->document()->url().isEmpty() || (!m_paShowPath || !m_paShowPath->isChecked())) {
         c = ((KTextEditor::Document *)m_viewManager->activeView()->document())->documentName();
     } else {
-        c = m_viewManager->activeView()->document()->url().toString();
+        c = m_viewManager->activeView()->document()->url().toString(QUrl::PreferLocalFile);
+
+        const QString homePath = QDir::homePath();
+        if (c.startsWith(homePath)) {
+            c = QStringLiteral("~") + c.right(c.length() - homePath.length());
+        }
     }
 
     QString sessName = KateApp::self()->sessionManager()->activeSession()->name();

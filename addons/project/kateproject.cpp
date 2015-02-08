@@ -370,10 +370,10 @@ void KateProject::unregisterDocument(KTextEditor::Document *document)
         KateProjectItem *item = static_cast<KateProjectItem *>(itemForFile(file));
         if (item && item->data(Qt::UserRole + 3).toBool()) {
             unregisterUntrackedItem(item);
+            m_file2Item->remove(file);
         }
     }
 
-    m_file2Item->remove(file);
     m_documents.remove(document);
 }
 

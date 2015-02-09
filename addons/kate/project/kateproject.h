@@ -21,6 +21,7 @@
 #ifndef KATE_PROJECT_H
 #define KATE_PROJECT_H
 
+#include <QDateTime>
 #include <QThread>
 #include <QMap>
 #include <QSharedPointer>
@@ -134,6 +135,13 @@ class KateProject : public QObject
     {
       return m_baseDir;
     }
+
+
+    /**
+     * Return the time when the project file has been modified last.
+     * @return QFileInfo::lastModified()
+     */
+    QDateTime fileLastModified() const { return m_fileLastModified; }
 
     /**
      * Accessor to project map containing the whole project info.
@@ -278,6 +286,8 @@ class KateProject : public QObject
      * our internal thread to load stuff and do things in background
      */
     KateProjectWorkerThread m_thread;
+
+    QDateTime m_fileLastModified;
 
     /**
      * project file name

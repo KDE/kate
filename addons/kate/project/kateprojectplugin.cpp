@@ -253,7 +253,10 @@ void KateProjectPlugin::slotDirectoryChanged (const QString &path)
   QString fileName = path + QString("/.kateproject");
   foreach (KateProject *project, m_projects) {
     if (project->fileName() == fileName) {
-      project->reload();
+      QDateTime lastModified = QFileInfo(fileName).lastModified();
+      if (project->fileLastModified().isNull() || (lastModified > project->fileLastModified())) {
+        project->reload();
+      }
       break;
     }
   }

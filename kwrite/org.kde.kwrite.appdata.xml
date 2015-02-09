@@ -26,6 +26,7 @@
   <name xml:lang="sr-ijekavian">К‑писање</name>
   <name xml:lang="sr-ijekavianlatin">K‑pisanje</name>
   <name xml:lang="sv">Kwrite</name>
+  <name xml:lang="tr">KWrite</name>
   <name xml:lang="uk">KWrite</name>
   <name xml:lang="x-test">xxKWritexx</name>
   <name xml:lang="zh-CN">KWrite</name>
@@ -52,6 +53,7 @@
   <summary xml:lang="sr-ijekavian">Уређивач текста</summary>
   <summary xml:lang="sr-ijekavianlatin">Uređivač teksta</summary>
   <summary xml:lang="sv">Texteditor</summary>
+  <summary xml:lang="tr">Metin Düzenleyici</summary>
   <summary xml:lang="uk">Текстовий редактор</summary>
   <summary xml:lang="x-test">xxText Editorxx</summary>
   <summary xml:lang="zh-CN">文本编辑器</summary>
@@ -79,6 +81,7 @@
     <p xml:lang="sr-ijekavian">К‑писање је уређивач текста за КДЕ, на основу уређивачке компоненте Кејт.</p>
     <p xml:lang="sr-ijekavianlatin">K‑pisanje je uređivač teksta za KDE, na osnovu uređivačke komponente Kate.</p>
     <p xml:lang="sv">Kwrite är en texteditor för KDE, baserad på editorkomponenten i Kate.</p>
+    <p xml:lang="tr">KWrite, Kate'in düzenleyici bileşeni tabanlı KDE için bir metin düzenleyicisidir.</p>
     <p xml:lang="uk">KWrite — текстовий редактор для KDE, заснований на компоненті редактора Kate.</p>
     <p xml:lang="x-test">xxKWrite is a text editor for KDE, based on the Kate's editor component.xx</p>
     <p xml:lang="zh-CN">KWrite 是 KDE 的文本编辑器，基于 Kate 的编辑器组件。</p>
@@ -105,6 +108,7 @@
     <p xml:lang="sr-ijekavian">Могућности:</p>
     <p xml:lang="sr-ijekavianlatin">Mogućnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
+    <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <p xml:lang="zh-CN">功能：</p>
@@ -130,6 +134,7 @@
       <li xml:lang="sr-ijekavian">истицање синтаксе према типу фајла</li>
       <li xml:lang="sr-ijekavianlatin">isticanje sintakse prema tipu fajla</li>
       <li xml:lang="sv">Syntaxfärgläggning enligt filtyp</li>
+      <li xml:lang="tr">Dosya türüne göre sözdizimi vurgulama</li>
       <li xml:lang="uk">Підсвічування синтаксичних конструкцій відповідно до типу файла.</li>
       <li xml:lang="x-test">xxSyntax highlighting according to the file typexx</li>
       <li xml:lang="zh-CN">按文件类型进行语法高亮</li>
@@ -156,6 +161,7 @@
       <li xml:lang="sr-ijekavian">допуна речи</li>
       <li xml:lang="sr-ijekavianlatin">dopuna reči</li>
       <li xml:lang="sv">Ordkomplettering</li>
+      <li xml:lang="tr">Kelime tamamlama</li>
       <li xml:lang="uk">Завершення слів.</li>
       <li xml:lang="x-test">xxWord completionxx</li>
       <li xml:lang="zh-CN">单词补全</li>
@@ -182,6 +188,7 @@
       <li xml:lang="sr-ijekavian">аутоматско увлачење</li>
       <li xml:lang="sr-ijekavianlatin">automatsko uvlačenje</li>
       <li xml:lang="sv">Automatisk indentering</li>
+      <li xml:lang="tr">Otomatik girintileme</li>
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="x-test">xxAuto-indentationxx</li>
       <li xml:lang="zh-CN">自动缩进</li>
@@ -208,6 +215,7 @@
       <li xml:lang="sr-ijekavian">подршка за прикључке</li>
       <li xml:lang="sr-ijekavianlatin">podrška za priključke</li>
       <li xml:lang="sv">Stöd för insticksprogram</li>
+      <li xml:lang="tr">Eklenti desteği</li>
       <li xml:lang="uk">Підтримка додатків.</li>
       <li xml:lang="x-test">xxPlugin supportxx</li>
       <li xml:lang="zh-CN">插件支持</li>
@@ -234,6 +242,7 @@
       <li xml:lang="sr-ijekavian">Вијев режим уноса</li>
       <li xml:lang="sr-ijekavianlatin">Vijev režim unosa</li>
       <li xml:lang="sv">VI-inmatningsläge</li>
+      <li xml:lang="tr">Vi girdi kipi</li>
       <li xml:lang="uk">Режим введення Vi.</li>
       <li xml:lang="x-test">xxVi input modexx</li>
       <li xml:lang="zh-CN">Vi 输入模式</li>

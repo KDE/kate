@@ -26,6 +26,7 @@
   <name xml:lang="sr-ijekavian">Кејт</name>
   <name xml:lang="sr-ijekavianlatin">Kate</name>
   <name xml:lang="sv">Kate</name>
+  <name xml:lang="tr">Kate</name>
   <name xml:lang="uk">Kate</name>
   <name xml:lang="x-test">xxKatexx</name>
   <name xml:lang="zh-CN">Kate</name>
@@ -52,6 +53,7 @@
   <summary xml:lang="sr-ijekavian">Напредни уређивач текста</summary>
   <summary xml:lang="sr-ijekavianlatin">Napredni uređivač teksta</summary>
   <summary xml:lang="sv">Avancerad texteditor</summary>
+  <summary xml:lang="tr">Gelişmiş Metin Düzenleyici</summary>
   <summary xml:lang="uk">Потужний текстовий редактор</summary>
   <summary xml:lang="x-test">xxAdvanced Text Editorxx</summary>
   <summary xml:lang="zh-CN">高级文本编辑器</summary>

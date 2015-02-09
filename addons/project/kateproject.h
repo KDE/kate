@@ -21,6 +21,7 @@
 #ifndef KATE_PROJECT_H
 #define KATE_PROJECT_H
 
+#include <QDateTime>
 #include <QMap>
 #include <QSharedPointer>
 #include <QTextDocument>
@@ -96,6 +97,12 @@ public:
     const QString &baseDir() const {
         return m_baseDir;
     }
+
+    /**
+     * Return the time when the project file has been modified last.
+     * @return QFileInfo::lastModified()
+     */
+    QDateTime fileLastModified() const { return m_fileLastModified; }
 
     /**
      * Accessor to project map containing the whole project info.
@@ -227,6 +234,12 @@ private:
     void unregisterUntrackedItem(const KateProjectItem *item);
 
 private:
+
+    /**
+     * Last modification time of the project file
+     */
+    QDateTime m_fileLastModified;
+
     /**
      * project file name
      */

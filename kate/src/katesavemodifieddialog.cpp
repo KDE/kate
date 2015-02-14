@@ -78,7 +78,7 @@ public:
     }
     virtual ~KateSaveModifiedDocumentCheckListItem()
     {}
-    virtual bool synchronousSave(QWidget *dialogParent) {
+    virtual bool synchronousSave(QWidget *dialogParent) Q_DECL_OVERRIDE {
         if (m_document->url().isEmpty()) {
             const QUrl url = QFileDialog::getSaveFileUrl(dialogParent, i18n("Save As (%1)", m_document->documentName()));
             if (!url.isEmpty()) {

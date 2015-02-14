@@ -45,7 +45,7 @@
 class SnippetFilterModel : public QSortFilterProxyModel {
 public:
     SnippetFilterModel(QObject* parent = 0) : QSortFilterProxyModel(parent) { };
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const {
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const Q_DECL_OVERRIDE {
         auto index = sourceModel()->index(sourceRow, 0, sourceParent);
         auto item = SnippetStore::self()->itemFromIndex(index);
         if ( ! item ) {

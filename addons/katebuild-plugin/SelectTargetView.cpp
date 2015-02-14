@@ -30,7 +30,7 @@ class TargetFilterProxyModel: public QSortFilterProxyModel {
 public:
     TargetFilterProxyModel(QObject *parent): QSortFilterProxyModel(parent) {}
 
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const Q_DECL_OVERRIDE
     {
         if (m_filter.isEmpty()) {
             return true;
@@ -58,7 +58,7 @@ public:
         invalidateFilter();
     }
 
-    Qt::ItemFlags flags(const QModelIndex &index) const
+    Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE
     {
         if (!index.isValid()) {
             return 0;

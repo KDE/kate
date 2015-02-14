@@ -89,7 +89,7 @@ public:
     TreeWidgetItem(QTreeWidget* parent, const QStringList &list):QTreeWidgetItem(parent, list){}
     TreeWidgetItem(QTreeWidgetItem* parent, const QStringList &list):QTreeWidgetItem(parent, list){}
 private:
-    bool operator<(const QTreeWidgetItem &other)const {
+    bool operator<(const QTreeWidgetItem &other) const Q_DECL_OVERRIDE {
         if (childCount() == 0) {
             int line = data(0, ReplaceMatches::LineRole).toInt();
             int column = data(0, ReplaceMatches::ColumnRole).toInt();

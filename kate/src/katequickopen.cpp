@@ -260,9 +260,6 @@ void KateQuickOpen::update()
             itemName->setData(qVariantFromValue(QUrl::fromLocalFile(file)), UrlRole);
             itemName->setData(QString::fromLatin1("%1: %2").arg(fi.fileName()).arg(file), SortFilterRole);
             itemName->setEditable(false);
-            QFont font = itemName->font();
-            font.setBold(true);
-            itemName->setFont(font);
 
             QStandardItem *itemUrl = new QStandardItem(file);
             itemUrl->setEditable(false);

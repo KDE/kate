@@ -81,6 +81,7 @@
     <p xml:lang="sr-ijekavian">Кејт је вишедокументски, вишеприказни уређивач текста за КДЕ. Поседује могућности као што су сажимање кода, истицање синтаксе, динамички прелом текста, угнежђени терминал, опсежно сучеље за прикључке и основна подршка за скриптовање.</p>
     <p xml:lang="sr-ijekavianlatin">Kate je višedokumentski, višeprikazni uređivač teksta za KDE. Poseduje mogućnosti kao što su sažimanje koda, isticanje sintakse, dinamički prelom teksta, ugnežđeni terminal, opsežno sučelje za priključke i osnovna podrška za skriptovanje.</p>
     <p xml:lang="sv">Kate är en texteditor för KDE med flera dokument och multipla vyer. Den har funktioner som kodvikning, syntaxfärgläggning, dynamisk radbrytning, en inbäddad terminal, ett omfattande insticksgränssnitt och visst preliminärt stöd för skript.</p>
+    <p xml:lang="tr">Kate KDE için çoklu belge ile çalışabilen, çoklu görünümlü bir metin düzenleyicisidir. Kod katlama, sözdizimi vurgulaması, dinamik sözcük kaydırma, gömülü bir uç birim, geniş eklenti arayüzü ve bazı basit betik desteği özellikleri vardır.</p>
     <p xml:lang="uk">Kate — текстовий редактор для KDE, у якому передбачено можливість одночасної роботи з декількома документами на декількох панелях перегляду. У програмі передбачено багато корисних можливостей, зокрема згортання коду, підсвічування синтаксичних конструкцій, динамічне перенесення рядків, вбудована консоль, гнучкий інтерфейс для роботи з додатками та базова підтримка роботи зі скриптами.</p>
     <p xml:lang="x-test">xxKate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.xx</p>
     <p xml:lang="zh-TW">Kate 是 KDE 內的進階編輯器，可同時編輯多個文件。它的功能包括像是源碼封裝，語法突顯，動態折行，嵌入主控台，延伸外掛程式介面與一些基本的文稿支援等等。</p>
@@ -106,6 +107,7 @@
     <p xml:lang="sr-ijekavian">Могућности:</p>
     <p xml:lang="sr-ijekavianlatin">Mogućnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
+    <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <p xml:lang="zh-CN">功能：</p>
@@ -131,6 +133,7 @@
       <li xml:lang="sr-ijekavian">МДИ, подела прозора, прозори под језичцима</li>
       <li xml:lang="sr-ijekavianlatin">MDI, podela prozora, prozori pod jezičcima</li>
       <li xml:lang="sv">Flerfönster, fönsterdelning, fönsterflikar</li>
+      <li xml:lang="tr">MDI, pencere bölme, sekmeli pencereler</li>
       <li xml:lang="uk">Інтерфейс для одночасної роботи з багатьма документами, поділ вікна програми, можливість роботи із вкладками.</li>
       <li xml:lang="x-test">xxMDI, window splitting, window tabbingxx</li>
       <li xml:lang="zh-TW">MDI，視窗分割，視窗分頁</li>
@@ -156,6 +159,7 @@
       <li xml:lang="sr-ijekavian">провера правописа</li>
       <li xml:lang="sr-ijekavianlatin">provera pravopisa</li>
       <li xml:lang="sv">Stavningskontroll</li>
+      <li xml:lang="tr">Yazım denetimi</li>
       <li xml:lang="uk">Перевірка правопису.</li>
       <li xml:lang="x-test">xxSpell checkingxx</li>
       <li xml:lang="zh-CN">拼写检查</li>
@@ -181,6 +185,7 @@
       <li xml:lang="sr-ijekavian">подршка за различите крајеве редова (ЦР, ЛФ, ЦР+ЛФ)</li>
       <li xml:lang="sr-ijekavianlatin">podrška za različite krajeve redova (CR, LF, CR+LF)</li>
       <li xml:lang="sv">Stöd för nyrad med CR, CRLF, LF</li>
+      <li xml:lang="tr">CR, CRLF, LF yeni satır desteği</li>
       <li xml:lang="uk">Підтримка форматів розриву рядків CR, CRLF та LF.</li>
       <li xml:lang="x-test">xxCR, CRLF, LF newline supportxx</li>
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
@@ -205,6 +210,7 @@
       <li xml:lang="sr-ijekavian">подршка за кодирања (УТФ‑8, УТФ‑16, аски, итд.)</li>
       <li xml:lang="sr-ijekavianlatin">podrška za kodiranja (UTF‑8, UTF‑16, ASCII, itd.)</li>
       <li xml:lang="sv">Kodningsstöd (UTF-8, UTF-16, ASCII etc.)</li>
+      <li xml:lang="tr">Kodlama desteği (utf-8, utf-16, ascii vb.)</li>
       <li xml:lang="uk">Підтримка різноманітних кодувань (utf-8, utf-16, ascii тощо).</li>
       <li xml:lang="x-test">xxEncoding support (utf-8, utf-16, ascii etc.)xx</li>
       <li xml:lang="zh-TW">編碼支援（UTF-8，UTF-16，ASCII 等）</li>
@@ -229,6 +235,7 @@
       <li xml:lang="sr-ijekavian">претварање кодирања</li>
       <li xml:lang="sr-ijekavianlatin">pretvaranje kodiranja</li>
       <li xml:lang="sv">Kodningskonvertering</li>
+      <li xml:lang="tr">Kodlama dönüştürme</li>
       <li xml:lang="uk">Підтримка можливості перетворення даних у різних кодуваннях.</li>
       <li xml:lang="x-test">xxEncoding conversionxx</li>
       <li xml:lang="zh-TW">編碼轉換</li>
@@ -253,6 +260,7 @@
       <li xml:lang="sr-ijekavian">тражење и замена помоћу регуларних израза</li>
       <li xml:lang="sr-ijekavianlatin">traženje i zamena pomoću regularnih izraza</li>
       <li xml:lang="sv">Sök och ersätt baserad på reguljära uttryck</li>
+      <li xml:lang="tr">Bul &amp; değiştir için düzenli ifade desteği</li>
       <li xml:lang="uk">Пошук і заміна фрагментів тексту на основі формальних виразів.</li>
       <li xml:lang="x-test">xxRegular expression based find &amp; replacexx</li>
       <li xml:lang="zh-TW">搜尋與取代支援正規表示式</li>
@@ -276,6 +284,7 @@
       <li xml:lang="sr-ijekavian">моћно истицање синтаксе и поклапање заграда</li>
       <li xml:lang="sr-ijekavianlatin">moćno isticanje sintakse i poklapanje zagrada</li>
       <li xml:lang="sv">Kraftfull syntaxfärgläggning och parentesmatchning</li>
+      <li xml:lang="tr">Güçlü siz dizimi vurgulaması ve parantez eşleştirme</li>
       <li xml:lang="uk">Потужні засоби підсвічування синтаксичних конструкцій та відповідних дужок.</li>
       <li xml:lang="x-test">xxPowerful syntax highlighting and bracket matchingxx</li>
       <li xml:lang="zh-TW">強大的語法突顯與括號對應</li>
@@ -300,6 +309,7 @@
       <li xml:lang="sr-ijekavian">сажимање кода и текста</li>
       <li xml:lang="sr-ijekavianlatin">sažimanje koda i teksta</li>
       <li xml:lang="sv">Kod- och textvikning</li>
+      <li xml:lang="tr">Kod ve metin katlama</li>
       <li xml:lang="uk">Засоби згортання коду та тексту.</li>
       <li xml:lang="x-test">xxCode and text foldingxx</li>
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
@@ -324,6 +334,7 @@
       <li xml:lang="sr-ijekavian">неограничено опозивање и понављање</li>
       <li xml:lang="sr-ijekavianlatin">neograničeno opozivanje i ponavljanje</li>
       <li xml:lang="sv">Obegränsat stöd för ångra och gör om</li>
+      <li xml:lang="tr">Sınırsız geri alma/yeniden yapma desteği</li>
       <li xml:lang="uk">Підтримка нескінченного буфера скасування і повторення дій.</li>
       <li xml:lang="x-test">xxInfinite undo/redo supportxx</li>
       <li xml:lang="zh-TW">無限的復原/重做支援</li>
@@ -347,6 +358,7 @@
       <li xml:lang="sr-ijekavian">режим блоковског избора</li>
       <li xml:lang="sr-ijekavianlatin">režim blokovskog izbora</li>
       <li xml:lang="sv">Blockmarkeringsläge</li>
+      <li xml:lang="tr">Blok seçim kipi</li>
       <li xml:lang="uk">Режим прямокутного вибору.</li>
       <li xml:lang="x-test">xxBlock selection modexx</li>
       <li xml:lang="zh-CN">块选择模式</li>
@@ -372,6 +384,7 @@
       <li xml:lang="sr-ijekavian">аутоматско увлачење</li>
       <li xml:lang="sr-ijekavianlatin">automatsko uvlačenje</li>
       <li xml:lang="sv">Automatisk indentering</li>
+      <li xml:lang="tr">Otomatik girintileme</li>
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="x-test">xxAuto indentationxx</li>
       <li xml:lang="zh-CN">自动缩进</li>
@@ -396,6 +409,7 @@
       <li xml:lang="sr-ijekavian">аутоматска допуна</li>
       <li xml:lang="sr-ijekavianlatin">automatska dopuna</li>
       <li xml:lang="sv">Stöd för automatisk komplettering</li>
+      <li xml:lang="tr">Otomatik tamamlama desteği</li>
       <li xml:lang="uk">Підтримка автодоповнення.</li>
       <li xml:lang="x-test">xxAuto completion supportxx</li>
       <li xml:lang="zh-TW">自動補完支援</li>
@@ -420,6 +434,7 @@
       <li xml:lang="sr-ijekavian">уклапање шкољке</li>
       <li xml:lang="sr-ijekavianlatin">uklapanje školjke</li>
       <li xml:lang="sv">Skalintegrering</li>
+      <li xml:lang="tr">Tümleşik kabuk desteği</li>
       <li xml:lang="uk">Інтеграція з командною оболонкою.</li>
       <li xml:lang="x-test">xxShell integrationxx</li>
       <li xml:lang="zh-TW">Shell 整合</li>
@@ -443,6 +458,7 @@
       <li xml:lang="sr-ijekavian">подршка за многобројне протоколе преко У/И захвата (ХТТП, ФТП, ССХ, вебДАВ, итд.)</li>
       <li xml:lang="sr-ijekavianlatin">podrška za mnogobrojne protokole preko U/I zahvata (HTTP, FTP, SSH, WebDAV, itd.)</li>
       <li xml:lang="sv">Brett protokollstöd (HTTP, FTP, SSH, WebDav, etc.) med användning av I/O-slavar</li>
+      <li xml:lang="tr">Kioslaves kullanımıyla geniş protokol (http, ftp, ssh, webdav vb.) desteği</li>
       <li xml:lang="uk">Широка підтримка протоколів (http, ftp, ssh, webdav тощо) на основі допоміжних засобів KIO.</li>
       <li xml:lang="x-test">xxWide protocol support (http, ftp, ssh, webdav etc.) using kioslavesxx</li>
       <li xml:lang="zh-TW">用 kioslave 提供廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
@@ -467,6 +483,7 @@
       <li xml:lang="sr-ijekavian">архитектура прикључка за компоненте програма и уређивача</li>
       <li xml:lang="sr-ijekavianlatin">arhitektura priključka za komponente programa i uređivača</li>
       <li xml:lang="sv">Insticksarkitektur för programmet och editorkomponenten</li>
+      <li xml:lang="tr">Uygulama ve düzenleyici bileşeni için eklenti mimarisi</li>
       <li xml:lang="uk">Архітектура роботи з додатками для компонентів програми та редактора.</li>
       <li xml:lang="x-test">xxPlugin architecture for the application and editor componentxx</li>
       <li xml:lang="zh-TW">用於應用程式與編輯器組件的外掛架構</li>
@@ -490,6 +507,7 @@
       <li xml:lang="sr-ijekavian">прилагодљиве пречице</li>
       <li xml:lang="sr-ijekavianlatin">prilagodljive prečice</li>
       <li xml:lang="sv">Anpassningsbara genvägar</li>
+      <li xml:lang="tr">Özelleştirilebilir kısayollar</li>
       <li xml:lang="uk">Придатні до налаштовування клавіатурні скорочення.</li>
       <li xml:lang="x-test">xxCustomizable shortcutsxx</li>
       <li xml:lang="zh-TW">自定快捷鍵</li>
@@ -514,6 +532,7 @@
       <li xml:lang="sr-ijekavian">уклопљена командна линија</li>
       <li xml:lang="sr-ijekavianlatin">uklopljena komandna linija</li>
       <li xml:lang="sv">Integrerad kommandorad</li>
+      <li xml:lang="tr">Tümleşik komut satırı</li>
       <li xml:lang="uk">Інтегрований засіб роботи з командним рядком.</li>
       <li xml:lang="x-test">xxIntegrated command linexx</li>
       <li xml:lang="zh-TW">整合指令行</li>
@@ -537,6 +556,7 @@
       <li xml:lang="sr-ijekavian">скриптовање помоћу јаваскрипта</li>
       <li xml:lang="sr-ijekavianlatin">skriptovanje pomoću JavaScripta</li>
       <li xml:lang="sv">Skriptbar med användning av Javascript</li>
+      <li xml:lang="tr">JavaScript betik desteği</li>
       <li xml:lang="uk">Можливість керування програмою за допомогою скриптів мовою JavaScript.</li>
       <li xml:lang="x-test">xxScriptable using JavaScriptxx</li>
       <li xml:lang="zh-TW">可使用 JavaScript</li>

@@ -83,6 +83,7 @@ public Q_SLOTS:
     void editKeys();
     void editToolbars();
     void aboutEditor();
+    void modifiedChanged();
 
 private Q_SLOTS:
     void slotNewToolbarConfig();
@@ -96,7 +97,7 @@ public Q_SLOTS:
      * adds a changed URL to the recent files
      */
     void urlChanged();
-    
+
     /**
      * Overwrite size hint for better default window sizes
      * @return size hint
@@ -128,6 +129,7 @@ private:
     KToggleAction *m_paShowPath;
     KToggleAction *m_paShowMenuBar;
     KToggleAction *m_paShowStatusBar;
+    QAction *m_closeAction;
 
 #ifdef KActivities_FOUND
     KActivities::ResourceInstance *m_activityResource;

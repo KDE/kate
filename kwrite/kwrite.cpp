@@ -87,7 +87,7 @@ KWrite::KWrite(KTextEditor::Document *doc)
     setupActions();
 
     // signals for the statusbar
-    connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
+    connect(m_view->document(), &KTextEditor::Document::modifiedChanged, this, &KWrite::modifiedChanged);
     connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
     connect(m_view->document(), SIGNAL(readWriteChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
     connect(m_view->document(), SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(urlChanged()));
@@ -144,8 +144,9 @@ QSize KWrite::sizeHint () const
 
 void KWrite::setupActions()
 {
-    actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), this, SLOT(slotFlush()))
-    ->setWhatsThis(i18n("Use this command to close the current document"));
+    m_closeAction = actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), this, SLOT(slotFlush()));
+    m_closeAction->setWhatsThis(i18n("Use this command to close the current document"));
+    m_closeAction->setDisabled(true);
 
     // setup File menu
     actionCollection()->addAction(KStandardAction::New, QStringLiteral("file_new"), this, SLOT(slotNew()))
@@ -202,6 +203,7 @@ void KWrite::loadURL(const QUrl &url)
     m_activityResource->setUri(url);
 #endif
     m_view->document()->openUrl(url);
+    m_closeAction->setEnabled(true);
 }
 
 // is closing the window wanted by user ?
@@ -222,7 +224,15 @@ bool KWrite::queryClose()
 
 void KWrite::slotFlush()
 {
-    m_view->document()->closeUrl();
+    if (m_view->document()->closeUrl()) {
+        m_closeAction->setDisabled(true);
+    }
+}
+
+void KWrite::modifiedChanged()
+{
+    documentNameChanged();
+    m_closeAction->setEnabled(true);
 }
 
 void KWrite::slotNew()

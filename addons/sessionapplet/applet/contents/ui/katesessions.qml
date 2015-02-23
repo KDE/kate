@@ -159,9 +159,9 @@ Item {
                 onRemove: clipboardSource.service(uuid, "remove")
                 onNewSession:clipboardSource.newSession(sessionName)
             }
-            NewSessionDialog {
-                id: newsessiondialog
-            }
+            //NewSessionDialog {
+            //    id: newsessiondialog
+            //}
         }
     }
 }

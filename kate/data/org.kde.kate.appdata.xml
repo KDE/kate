@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <name>Kate</name>
+  <name xml:lang="bs">Kate</name>
   <name xml:lang="ca">Kate</name>
   <name xml:lang="cs">Kate</name>
   <name xml:lang="da">Kate</name>
@@ -32,6 +33,7 @@
   <name xml:lang="zh-CN">Kate</name>
   <name xml:lang="zh-TW">Kate</name>
   <summary>Advanced Text Editor</summary>
+  <summary xml:lang="bs">Napredni uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text avançat</summary>
   <summary xml:lang="cs">Pokročilý textový editor</summary>
   <summary xml:lang="de">Erweiterter Texteditor</summary>
@@ -86,6 +88,7 @@
     <p xml:lang="x-test">xxKate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.xx</p>
     <p xml:lang="zh-TW">Kate 是 KDE 內的進階編輯器，可同時編輯多個文件。它的功能包括像是源碼封裝，語法突顯，動態折行，嵌入主控台，延伸外掛程式介面與一些基本的文稿支援等等。</p>
     <p>Features:</p>
+    <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
     <p xml:lang="de">Funktionen:</p>
@@ -138,6 +141,7 @@
       <li xml:lang="x-test">xxMDI, window splitting, window tabbingxx</li>
       <li xml:lang="zh-TW">MDI，視窗分割，視窗分頁</li>
       <li>Spell checking</li>
+      <li xml:lang="bs">Provjera ispravnog pisanja riječi</li>
       <li xml:lang="ca">Verificació de l'ortografia</li>
       <li xml:lang="cs">Kontrola pravopisu</li>
       <li xml:lang="de">Rechtschreibprüfung</li>
@@ -364,6 +368,7 @@
       <li xml:lang="zh-CN">块选择模式</li>
       <li xml:lang="zh-TW">區塊選擇模式</li>
       <li>Auto indentation</li>
+      <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="cs">Automaticky odsadit</li>
       <li xml:lang="de">Automatisches einrücken</li>

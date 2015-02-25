@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <name>KWrite</name>
+  <name xml:lang="bs">Kwrite</name>
   <name xml:lang="ca">KWrite</name>
   <name xml:lang="cs">KWrite</name>
   <name xml:lang="da">KWrite</name>
@@ -32,6 +33,7 @@
   <name xml:lang="zh-CN">KWrite</name>
   <name xml:lang="zh-TW">KWrite</name>
   <summary>Text Editor</summary>
+  <summary xml:lang="bs">Uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text</summary>
   <summary xml:lang="cs">Textový editor</summary>
   <summary xml:lang="de">Texteditor</summary>
@@ -87,6 +89,7 @@
     <p xml:lang="zh-CN">KWrite 是 KDE 的文本编辑器，基于 Kate 的编辑器组件。</p>
     <p xml:lang="zh-TW">KWrite 是一套 KDE 的文字編輯器，基於 Kate 的編輯器組件。</p>
     <p>Features:</p>
+    <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
     <p xml:lang="de">Funktionen:</p>
@@ -140,6 +143,7 @@
       <li xml:lang="zh-CN">按文件类型进行语法高亮</li>
       <li xml:lang="zh-TW">根據檔案型態做語法突顯</li>
       <li>Word completion</li>
+      <li xml:lang="bs">Dopuna riječi</li>
       <li xml:lang="ca">Compleció de paraules</li>
       <li xml:lang="cs">Dokončování slov</li>
       <li xml:lang="de">Wortvervollständigung</li>
@@ -167,6 +171,7 @@
       <li xml:lang="zh-CN">单词补全</li>
       <li xml:lang="zh-TW">文字補完</li>
       <li>Auto-indentation</li>
+      <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="cs">Automaticky odsadit</li>
       <li xml:lang="de">Automatisches einrücken</li>
@@ -221,6 +226,7 @@
       <li xml:lang="zh-CN">插件支持</li>
       <li xml:lang="zh-TW">外掛程式支援</li>
       <li>Vi input mode</li>
+      <li xml:lang="bs">Vi editor režim unosa</li>
       <li xml:lang="ca">Mode d'entrada del Vi</li>
       <li xml:lang="cs">Vstupní režim VI</li>
       <li xml:lang="de">VI-Eingabemodus</li>

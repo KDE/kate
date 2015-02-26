@@ -2,13 +2,12 @@
 # Copyright 2008, 2009 Matthew Woehlke (mw_triad@users.sourceforge.net)
 # Copyright 2013, Alex Turbov (i.zaufi@gmail.com)
 #
-# ATTENTION Since CMake 3.x this generator is broken! So last time
-# (making version 1.31 of cmake.xml syntax) I had to use `kdiff3`
-# to manually merge changes!
+# ATTENTION Since Thu Feb 26 2015 this generator is CMake 3.x only!
+# Use this generator with care and merge a results with a previous cmake.xml
+# to keep older CMake compatibility.
 #
-# TODO CMake 2 and 3 has some difference in syntax... So, this
-# generator do not feasible anymore if we are trying to keep a single
-# syntax files for both CMake generations. It must be fixed! (somehow)
+# NOTE CMake 3.x seem do not have any (useless) heading for --help-xxx commands.
+# So, no need to strip the first line anymore. ( | sed '1d' | )
 
 export LC_ALL=C
 
@@ -38,7 +37,7 @@ sed "1,$(wc -l < $t.4)d" $t._4 | sed -e '/<\/list\s*>/ba' -e 'd' -e ':a' -e 'n;b
 sed -n -e '/<context.*"Detect More Builtin Variables"/{p;q}' -e 'p' $t._5 > $t.5
 sed "1,$(wc -l < $t.5)d" $t._5 | sed -e '/<\/context\s*>/ba' -e 'd' -e ':a' -e 'n;ba' > $t.6
 
-cmake --help-command-list | sed '1d' | sort > $t.commands
+"$CMAKE" --help-command-list | sort > $t.commands
 echo "$(count commands) commands"
 
 extract_args() {
@@ -64,14 +63,17 @@ while read COMMAND ; do
 done < $t.commands
 sed '/^#/d' $t.args | sort -u > $t.argsu
 echo "$(count args) arguments, $(count argsu) unique"
-cmake --help-property-list | sed -e '1d' -e '/[<>]/d' | sort -u > $t.props
+"$CMAKE" --help-property-list | sed -e '/[<>]/d' | sort -u > $t.props
 echo "$(count props) properties"
 
 # Get builtin CMake variables list
-cmake --help-variable-list | sed -e '1d' | grep -v 'Project name' > $t.all_vars
+# ATTENTION CMake 3.x doesn't have "Project name" string anymore in output of this command
+# ( | grep -v 'Project name' | )
+"$CMAKE" --help-variable-list > $t.all_vars
 grep '^[A-Za-z_0-9]\+\s*$' $t.all_vars | sort -u > $t.vars
 grep -v '^[A-Za-z_0-9]\+\s*$' $t.all_vars \
   | sed 's,<LANG>,[A-Za-z_][A-Za-z_0-9]*,' \
+  | sed 's,<an-attribute>,[A-Za-z_][A-Za-z_0-9]*,' \
   | sed 's,<CONFIG>,[A-Za-z_][A-Za-z_0-9]*,' \
   | sed 's,<PackageName>,[A-Za-z_][A-Za-z_0-9]*,' \
   | sed 's,<PROJECT-NAME>,[A-Za-z_][A-Za-z_0-9]*,' \
@@ -84,7 +86,7 @@ echo "$(count all_vars) builtin variables"
 
 # Generate new .xml
 {
-    sed '/<!-- generated for/s/^.*$/<!-- generated for "'"$(cmake --version)"'" -->/' $t.1
+    cat $t.1
     echo "      <!-- generated list -->"
     sed 's!.*!      <item> & </item>!' $t.commands
     cat $t.2

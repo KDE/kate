@@ -3,7 +3,6 @@ Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=kategdbplugin
 Name=GDB
-Name[ast]=GDB
 Name[bg]=GDB
 Name[bs]=GDB
 Name[ca]=GDB

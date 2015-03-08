@@ -70,14 +70,23 @@ void KatePluginManager::setupPluginList()
     defaultPlugins.insert (QLatin1String("tabswitcherplugin"));
     defaultPlugins.insert (QLatin1String("kateprojectplugin"));
     defaultPlugins.insert (QLatin1String("katesearchplugin"));
-    m_pluginList.clear ();
-    Q_FOREACH(const KPluginMetaData &metaData, plugins) {
+    m_pluginList.clear();
+    QVectorIterator<KPluginMetaData> i(plugins);
+    i.toBack();
+    QSet<QString> unique;
+    while (i.hasPrevious()) {
         KatePluginInfo info;
-        info.metaData = metaData;
+        info.metaData = i.previous();
+        
+        // only load plugins once, even if found multiple times!
+        if (unique.contains(info.saveName()))
+            continue;
+        
         info.defaultLoad = defaultPlugins.contains(info.saveName());
         info.load = false;
         info.plugin = nullptr;
         m_pluginList.push_back(info);
+        unique.insert (info.saveName());
     }
 
     /**

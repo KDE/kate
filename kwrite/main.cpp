@@ -43,6 +43,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     QApplication app(argc, argv);
 
     /**
+     * enable high dpi support
+     */
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+
+    /**
      * Connect application with translation catalogs
      */
     KLocalizedString::setApplicationDomain("kwrite");
@@ -116,7 +121,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
      * set the program icon
      */
     QApplication::setWindowIcon(QIcon::fromTheme(QLatin1String("accessories-text-editor")));
-    
+
     /**
      * Create command line parser and feed it with known options
      */

@@ -62,6 +62,12 @@ void TargetHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     else {
         str = index.data().toString();
     }
+
+    if (option.state & QStyle::State_Selected) {
+        str = QStringLiteral("<font color=\"%1\">").arg(option.palette.highlightedText().color().name())
+        + str
+        + QStringLiteral("</font>");
+    }
     doc.setHtml(str);
     doc.setDocumentMargin(2);
 
@@ -83,8 +89,7 @@ void TargetHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     if (index.column() == 0 && index.internalId() != TargetModel::InvalidIndex) {
         painter->translate(25, 0);
     }
-    QAbstractTextDocumentLayout::PaintContext pcontext;
-    doc.documentLayout()->draw(painter, pcontext);
+    doc.drawContents(painter);
 
     painter->restore();
 }

@@ -46,6 +46,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     QApplication app(argc, argv);
 
     /**
+     * enable high dpi support
+     */
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+
+    /**
      * Connect application with translation catalogs
      */
     KLocalizedString::setApplicationDomain("kate");

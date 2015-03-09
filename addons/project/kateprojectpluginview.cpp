@@ -33,7 +33,6 @@
 #include <kaboutdata.h>
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
-#include <KIconLoader>
 
 #include <QAction>
 #include <QDialog>
@@ -131,15 +130,15 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
         /**
          * create toolviews
          */
-        m_toolView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateproject"), KTextEditor::MainWindow::Left, SmallIcon(QStringLiteral("project-open")), i18n("Projects"));
-        m_toolInfoView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateprojectinfo"), KTextEditor::MainWindow::Bottom, SmallIcon(QStringLiteral("view-choose")), i18n("Current Project"));
+        m_toolView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateproject"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QStringLiteral("project-open")), i18n("Projects"));
+        m_toolInfoView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateprojectinfo"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("view-choose")), i18n("Current Project"));
 
         /**
          * create the combo + buttons for the toolViews + stacked widgets
          */
         m_projectsCombo = new QComboBox(m_toolView);
         m_reloadButton = new QToolButton(m_toolView);
-        m_reloadButton->setIcon(SmallIcon(QStringLiteral("view-refresh")));
+        m_reloadButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
         QHBoxLayout *layout = new QHBoxLayout();
         layout->setSpacing(0);
         layout->addWidget(m_projectsCombo);
@@ -173,7 +172,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
      */
     m_stackedProjectViews->addWidget(view);
     m_stackedProjectInfoViews->addWidget(infoView);
-    m_projectsCombo->addItem(SmallIcon(QStringLiteral("project-open")), project->name(), project->fileName());
+    m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
 
     /**
      * remember and return it

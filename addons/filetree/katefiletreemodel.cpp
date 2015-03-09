@@ -29,7 +29,7 @@
 #include <KColorScheme>
 #include <KColorUtils>
 #include <KLocalizedString>
-#include <kiconutils.h>
+#include <KIconUtils>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>

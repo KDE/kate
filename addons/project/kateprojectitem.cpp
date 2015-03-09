@@ -28,7 +28,8 @@
 #include <QCoreApplication>
 #include <QMimeDatabase>
 
-#include <KIconLoader>
+#include <KIconUtils>
+
 #include <KTextEditor/Document>
 
 KateProjectItem::KateProjectItem(Type type, const QString &text)
@@ -52,10 +53,9 @@ void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc)
 
     if (doc->isModified()) {
         if (m_emblem.isEmpty()) {
-            m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("document-save"), KIconLoader::Small));
+            m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("document-save")));
         } else {
-            QStringList emblems(m_emblem);
-            m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("document-save") , KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
+            m_icon = new QIcon(KIconUtils::addOverlay(QIcon::fromTheme(QStringLiteral("document-save")), QIcon(m_emblem), Qt::TopLeftCorner));
         }
     }
     emitDataChanged();
@@ -89,7 +89,6 @@ QVariant KateProjectItem::data(int role) const
          * but never query gui stuff!
          */
         Q_ASSERT(QThread::currentThread() == QCoreApplication::instance()->thread());
-
         return QVariant(*icon());
     }
 
@@ -104,20 +103,21 @@ QIcon* KateProjectItem::icon() const
 
     switch (m_type) {
         case Project:
-            m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("folder-documents"), KIconLoader::Small));
+            m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("folder-documents")));
             break;
 
         case Directory:
-            m_icon = new QIcon(KIconLoader::global()->loadIcon(QStringLiteral("folder"), KIconLoader::Small));
+            m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("folder")));
             break;
 
         case File: {
             QString iconName = QMimeDatabase().mimeTypeForUrl(QUrl::fromLocalFile(data(Qt::UserRole).toString())).iconName();
             QStringList emblems;
             if (!m_emblem.isEmpty()) {
-                emblems << m_emblem;
+                m_icon = new QIcon(KIconUtils::addOverlay(QIcon::fromTheme(iconName), QIcon(m_emblem), Qt::TopLeftCorner));
+            } else {
+                m_icon = new QIcon(QIcon::fromTheme(iconName));
             }
-            m_icon = new QIcon(KIconLoader::global()->loadMimeTypeIcon(iconName, KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
             break;
         }
     }

@@ -66,6 +66,9 @@ endif()
 # list symbols and functions in a file
 ecm_optional_add_subdirectory (symbolviewer)
 
+# replicode integration
+ecm_optional_add_subdirectory (replicode)
+
 #add_subdirectory( textfilter )
 
 #add_subdirectory( mailfiles )

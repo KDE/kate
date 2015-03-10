@@ -23,8 +23,6 @@
 
 #include "katemailfilesdialog.h"
 
-#include <kicon.h>
-#include <kiconloader.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 

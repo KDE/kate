@@ -21,7 +21,6 @@
 
 #include "kateconsole.h"
 
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>

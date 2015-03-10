@@ -22,7 +22,6 @@
 #include "dataoutputwidget.h"
 #include "textoutputwidget.h"
 #include "klocalizedstring.h"
-#include "kiconloader.h"
 
 KateSQLOutputWidget::KateSQLOutputWidget (QWidget *parent)
   : QTabWidget (parent)

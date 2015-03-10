@@ -27,7 +27,6 @@
 #include <KTextEditor/View>
 
 #include <KActionCollection>
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
@@ -129,8 +128,7 @@ void TabSwitcherPluginView::setupActions()
 
 static QIcon iconForDocument(KTextEditor::Document * doc)
 {
-    const QString iconName = QMimeDatabase().mimeTypeForUrl(doc->url()).iconName();
-    return QIcon(KIconLoader::global()->loadMimeTypeIcon(iconName, KIconLoader::Small));
+    return QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(doc->url()).iconName());
 }
 
 void TabSwitcherPluginView::setupModel()

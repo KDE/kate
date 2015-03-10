@@ -37,9 +37,6 @@
 
 #include <klocalizedstring.h>
 
-//#include <kiconloader.h>
-//#include <kconfig.h>
-
 /**
  * Plugin's config page
  */

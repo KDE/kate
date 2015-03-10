@@ -49,7 +49,6 @@
 #include <kaboutdata.h>
 #include <ktoggleaction.h>
 #include <KActionCollection>
-#include <kiconloader.h>
 #include <KXMLGUIFactory>
 #include <KConfigGroup>
 #include <KSharedConfig>

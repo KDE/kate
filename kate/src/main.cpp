@@ -25,6 +25,7 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
+#include <KStartupInfo>
 #include <kdbusservice.h>
 
 #include <QByteArray>
@@ -395,10 +396,12 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
                 QDBusConnection::sessionBus().connect(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("documentClosed"), waiter, SLOT(documentClosed(QString)));
             }
 
-    #ifdef Q_WS_X11
+            // KToolInvocation (and KRun) will wait until we register on dbus
+            KDBusService dbusService(KDBusService::Multiple);
+            dbusService.unregister();
+
             // make the world happy, we are started, kind of...
             KStartupInfo::appStarted();
-    #endif
 
             // this will wait until exiting is emitted by the used instance, if wanted...
             return needToBlock ? app.exec() : 0;

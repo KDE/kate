@@ -151,10 +151,8 @@ bool KateApp::startupKate()
     } else if (!m_args.isSet(QStringLiteral("stdin")) && (m_args.positionalArguments().count() == 0)) { // only start session if no files specified
         // let the user choose session if possible
         if (!sessionManager()->chooseSession()) {
-#ifdef Q_WS_X11
             // we will exit kate now, notify the rest of the world we are done
-            KStartupInfo::appStarted(startupId());
-#endif
+            KStartupInfo::appStarted(KStartupInfo::startupId());
             return false;
         }
     } else {
@@ -167,9 +165,7 @@ bool KateApp::startupKate()
     }
 
     // notify about start
-#ifdef Q_WS_X11
-    KStartupInfo::setNewStartupId(activeKateMainWindow(), startupId());
-#endif
+    KStartupInfo::setNewStartupId(activeKateMainWindow(), KStartupInfo::startupId());
 
     QTextCodec *codec = m_args.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(m_args.value(QStringLiteral("encoding")).toUtf8()) : 0;
     bool tempfileSet = m_args.isSet(QStringLiteral("tempfile"));

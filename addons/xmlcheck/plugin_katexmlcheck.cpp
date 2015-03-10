@@ -77,7 +77,7 @@ Kate::PluginView *PluginKateXMLCheck::createView(Kate::MainWindow *mainWindow)
 PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
     : Kate::PluginView (mainwin), Kate::XMLGUIClient(PluginKateXMLCheckFactory::componentData()),win(mainwin)
 {
-    dock = win->createToolView("kate_plugin_xmlcheck_ouputview", Kate::MainWindow::Bottom, SmallIcon("misc"), i18n("XML Checker Output"));
+    dock = win->createToolView("kate_plugin_xmlcheck_ouputview", Kate::MainWindow::Bottom, QIcon::fromTheme("misc"), i18n("XML Checker Output"));
     listview = new QTreeWidget( dock );
     m_tmp_file=0;
     m_proc=0;

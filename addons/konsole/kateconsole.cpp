@@ -92,7 +92,7 @@ KateKonsolePluginView::KateKonsolePluginView (KateKonsolePlugin* plugin, KTextEd
     : QObject(mainWindow),m_plugin(plugin)
 {
   // init console
-  QWidget *toolview = mainWindow->createToolView (plugin, QStringLiteral("kate_private_plugin_katekonsoleplugin"), KTextEditor::MainWindow::Bottom, SmallIcon(QStringLiteral("utilities-terminal")), i18n("Terminal"));
+  QWidget *toolview = mainWindow->createToolView (plugin, QStringLiteral("kate_private_plugin_katekonsoleplugin"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Terminal"));
   m_console = new KateConsole(m_plugin, mainWindow, toolview);
   
   // register this view

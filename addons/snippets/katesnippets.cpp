@@ -28,7 +28,6 @@
 
 #include <KActionCollection>
 #include <KXMLGUIFactory>
-#include <KIconLoader>
 #include <KToolBar>
 #include <KLocalizedString>
 #include <KPluginFactory>
@@ -62,7 +61,7 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     // Toolview for snippets
     m_toolView.reset(mainWindow->createToolView(0, QLatin1String("kate_private_plugin_katesnippetsplugin"),
                      KTextEditor::MainWindow::Right,
-                     SmallIcon(QLatin1String("document-new")),
+                     QIcon::fromTheme(QLatin1String("document-new")),
                      i18n("Snippets")));
 
     m_toolView->setLayout(new QHBoxLayout());

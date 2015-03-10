@@ -33,7 +33,6 @@
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KConfigGroup>
-#include <KIconLoader>
 #include <KXMLGUIFactory>
 #include <KXmlGuiWindow>
 #include <KToolBar>
@@ -132,7 +131,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     KXMLGUIClient::setComponentName(QLatin1String("katefiletree"), i18n("Kate File Tree"));
     setXMLFile(QLatin1String("ui.rc"));
 
-    m_toolView = mainWindow->createToolView(plug, QLatin1String("kate_private_plugin_katefiletreeplugin"), KTextEditor::MainWindow::Left, SmallIcon(QLatin1String("document-open")), i18n("Documents"));
+    m_toolView = mainWindow->createToolView(plug, QLatin1String("kate_private_plugin_katefiletreeplugin"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QLatin1String("document-open")), i18n("Documents"));
 
     Q_ASSERT(m_toolView->layout());
     m_toolView->layout()->setMargin(0);

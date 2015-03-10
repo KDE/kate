@@ -27,7 +27,6 @@
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KConfigGroup>
-#include <KIconLoader>
 #include <KMessageBox>
 #include <KXMLGUIFactory>
 #include <KLocalizedString>
@@ -488,12 +487,12 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
                     }
                 }
 
-                menu->addSection(SmallIcon(QStringLiteral("view_remove")), i18n("Behavior"));
+                menu->addSection(QIcon::fromTheme(QStringLiteral("view_remove")), i18n("Behavior"));
 
                 menu->addAction(w->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen")),
                                 w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent")) -> setData(10);
 
-                menu->addSection(SmallIcon(QStringLiteral("move")), i18n("Move To"));
+                menu->addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
 
                 if (position() != 0) {
                     menu->addAction(QIcon::fromTheme(QStringLiteral("go-previous")), i18n("Left Sidebar"))->setData(0);

@@ -40,7 +40,6 @@
 #include <kurlcompletion.h>
 #include <klineedit.h>
 #include <kcolorscheme.h>
-#include <kiconloader.h>
 
 #include <KXMLGUIFactory>
 #include <KConfigGroup>
@@ -231,7 +230,7 @@ m_mainWindow (mainWin)
   
     m_toolView = mainWin->createToolView (plugin, QStringLiteral("kate_plugin_katesearch"),
                                           KTextEditor::MainWindow::Bottom,
-                                          SmallIcon(QStringLiteral("edit-find")),
+                                          QIcon::fromTheme(QStringLiteral("edit-find")),
                                           i18n("Search and Replace"));
 
     ContainerWidget *container = new ContainerWidget(m_toolView);
@@ -260,14 +259,14 @@ m_mainWindow (mainWin)
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
-    m_ui.displayOptions->setIcon(SmallIcon(QStringLiteral("arrow-down-double")));
-    m_ui.searchButton->setIcon(SmallIcon(QStringLiteral("edit-find")));
-    m_ui.stopButton->setIcon(SmallIcon(QStringLiteral("process-stop")));
-    m_ui.searchPlaceCombo->setItemIcon(0, SmallIcon(QStringLiteral("text-plain")));
-    m_ui.searchPlaceCombo->setItemIcon(1, SmallIcon(QStringLiteral("folder")));
-    m_ui.folderUpButton->setIcon(SmallIcon(QStringLiteral("go-up")));
-    m_ui.currentFolderButton->setIcon(SmallIcon(QStringLiteral("view-refresh")));
-    m_ui.newTabButton->setIcon(SmallIcon(QStringLiteral("tab-new")));
+    m_ui.displayOptions->setIcon(QIcon::fromTheme(QStringLiteral("arrow-down-double")));
+    m_ui.searchButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
+    m_ui.stopButton->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
+    m_ui.searchPlaceCombo->setItemIcon(0, QIcon::fromTheme(QStringLiteral("text-plain")));
+    m_ui.searchPlaceCombo->setItemIcon(1, QIcon::fromTheme(QStringLiteral("folder")));
+    m_ui.folderUpButton->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
+    m_ui.currentFolderButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    m_ui.newTabButton->setIcon(QIcon::fromTheme(QStringLiteral("tab-new")));
 
     m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"));
     m_ui.excludeCombo->setToolTip(i18n("Comma separated list of files and directories to exclude from the search. Example: \"build*\""));
@@ -1690,7 +1689,7 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
         QMenu* menu = contextMenu->addMenu(i18n("Add..."));
         if (!menu) return;
 
-        menu->setIcon(SmallIcon(QStringLiteral("list-add")));
+        menu->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
 
         actionPointers << menuEntry(menu, QStringLiteral("^"), QStringLiteral(""), i18n("Beginning of line"));
         actionPointers << menuEntry(menu, QStringLiteral("$"), QStringLiteral(""), i18n("End of line"));
@@ -1767,7 +1766,7 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
     if (!projectFileName.isEmpty()) {
         if (m_ui.searchPlaceCombo->count() < 3) {
             // add "in Project"
-            m_ui.searchPlaceCombo->addItem (SmallIcon(QStringLiteral("project-open")), i18n("Current Project"));
+            m_ui.searchPlaceCombo->addItem (QIcon::fromTheme(QStringLiteral("project-open")), i18n("Current Project"));
             if (m_switchToProjectModeWhenAvailable) {
                 // switch to search "in Project"
                 m_switchToProjectModeWhenAvailable = false;
@@ -1775,7 +1774,7 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
             }
 
             // add "in Open Projects"
-            m_ui.searchPlaceCombo->addItem(SmallIcon(QStringLiteral("project-open")), i18n("All Open Projects"));
+            m_ui.searchPlaceCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), i18n("All Open Projects"));
         }
     }
 

@@ -224,7 +224,7 @@ void KateConsole::cd (const QString & path)
     return;
 
   m_currentPath = path;
-  QString command = QStringLiteral("cd ") + KShell::quoteArg(m_currentPath) + QLatin1Char('\n');
+  QString command = QStringLiteral(" cd ") + KShell::quoteArg(m_currentPath) + QLatin1Char('\n');
 
   // special handling for some interpreters
   TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part);

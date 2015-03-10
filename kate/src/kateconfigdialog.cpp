@@ -33,7 +33,6 @@
 
 #include <KTextEditor/ConfigPage>
 
-#include <KIconLoader>
 #include <KStandardAction>
 #include <KLocalizedString>
 #include <KConfigGroup>

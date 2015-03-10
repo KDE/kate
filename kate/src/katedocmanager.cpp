@@ -32,7 +32,6 @@
 #include <KCodecs>
 #include <KMessageBox>
 #include <KIO/DeleteJob>
-#include <KIconLoader>
 #include <KColorScheme>
 #include <KLocalizedString>
 #include <KConfigGroup>

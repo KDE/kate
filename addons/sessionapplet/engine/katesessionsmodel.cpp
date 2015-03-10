@@ -23,7 +23,6 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QGraphicsGridLayout>
-#include <KIconLoader>
 #include <QGraphicsProxyWidget>
 #include <QListWidgetItem>
 #include <QStandardItemModel>

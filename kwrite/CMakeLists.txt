@@ -12,6 +12,7 @@ target_link_libraries(kdeinit_kwrite
   KF5::KIOFileWidgets
   KF5::DBusAddons
   KF5::IconThemes
+  KF5::Crash
 )
 
 install(TARGETS kwrite         ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

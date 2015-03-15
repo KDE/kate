@@ -24,6 +24,8 @@
 #include <QFileInfo>
 #include <QFileInfoList>
 #include <QDebug>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 FolderFilesList::FolderFilesList(QObject *parent) : QThread(parent) {}
 
@@ -87,8 +89,11 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         return;
     }
     if (item.isFile()) {
-        if (!m_binary && false /* KMimeType::isBinaryData(item.absoluteFilePath()) FIXME KF5 */) {
-            return;
+        if (!m_binary) {
+            QMimeType mimeType = QMimeDatabase().mimeTypeForFile(item);
+            if (!mimeType.inherits(QStringLiteral("text/plain"))) {
+                return;
+            }
         }
         m_files << item.absoluteFilePath();
     }

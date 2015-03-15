@@ -586,7 +586,7 @@ void KatePluginSearchView::folderFileListChanged()
 
     QList<KTextEditor::Document*> openList;
     for (int i=0; i<m_kateApp->documents().size(); i++) {
-        int index = fileList.indexOf(m_kateApp->documents()[i]->url().toString());
+        int index = fileList.indexOf(m_kateApp->documents()[i]->url().toLocalFile());
         if (index != -1) {
             openList << m_kateApp->documents()[i];
             fileList.removeAt(index);

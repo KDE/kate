@@ -59,6 +59,7 @@
       <item> cmake_minimum_required </item>
       <item> cmake_policy </item>
       <item> configure_file </item>
+      <item> continue </item>
       <item> create_test_sourcelist </item>
       <item> ctest_build </item>
       <item> ctest_configure </item>
@@ -186,8 +187,11 @@
       <item> BRIEF_DOCS </item>
       <item> BUILD </item>
       <item> BUNDLE </item>
+      <item> BYPRODUCTS </item>
       <item> CACHE </item>
       <item> CACHED_VARIABLE </item>
+      <item> CDASH_UPLOAD </item>
+      <item> CDASH_UPLOAD_TYPE </item>
       <item> CLEAR </item>
       <item> CMAKE_FIND_ROOT_PATH_BOTH </item>
       <item> CMAKE_FLAGS </item>
@@ -262,6 +266,7 @@
       <item> GREATER </item>
       <item> GROUP_EXECUTE </item>
       <item> GROUP_READ </item>
+      <item> GUARD </item>
       <item> GUID </item>
       <item> HEX </item>
       <item> HINTS </item>
@@ -301,6 +306,7 @@
       <item> LINK_PRIVATE </item>
       <item> LINK_PUBLIC </item>
       <item> LISTS </item>
+      <item> LOCK </item>
       <item> LOG </item>
       <item> MACOSX_BUNDLE </item>
       <item> MAIN_DEPENDENCY </item>
@@ -373,6 +379,7 @@
       <item> PRE_LINK </item>
       <item> PRIVATE </item>
       <item> PRIVATE_HEADER </item>
+      <item> PROCESS </item>
       <item> PROGRAM </item>
       <item> PROGRAMS </item>
       <item> PROGRAM_ARGS </item>
@@ -393,6 +400,7 @@
       <item> REGULAR_EXPRESSION </item>
       <item> RELATIVE </item>
       <item> RELATIVE_PATH </item>
+      <item> RELEASE </item>
       <item> REMOVE </item>
       <item> REMOVE_AT </item>
       <item> REMOVE_DUPLICATES </item>
@@ -460,6 +468,7 @@
       <item> UNKNOWN </item>
       <item> UPLOAD </item>
       <item> UPPER </item>
+      <item> USES_TERMINAL </item>
       <item> USE_SOURCE_PERMISSIONS </item>
       <item> UTC </item>
       <item> UUID </item>
@@ -512,6 +521,7 @@
       <item> ALIASED_TARGET </item>
       <item> ALLOW_DUPLICATE_CUSTOM_TARGETS </item>
       <item> ANDROID_API </item>
+      <item> ANDROID_API_MIN </item>
       <item> ANDROID_GUI </item>
       <item> ARCHIVE_OUTPUT_DIRECTORY </item>
       <item> ARCHIVE_OUTPUT_NAME </item>
@@ -706,6 +716,7 @@
       <item> VS_SCC_PROJECTNAME </item>
       <item> VS_SCC_PROVIDER </item>
       <item> VS_SHADER_ENTRYPOINT </item>
+      <item> VS_SHADER_FLAGS </item>
       <item> VS_SHADER_MODEL </item>
       <item> VS_SHADER_TYPE </item>
       <item> VS_WINRT_COMPONENT </item>
@@ -717,7 +728,6 @@
       <item> WRAP_EXCLUDE </item>
       <item> XCODE_EXPLICIT_FILE_TYPE </item>
       <item> XCODE_LAST_KNOWN_FILE_TYPE </item>
-      <item> __CMAKE_DELETE_CACHE_CHANGE_VARS_ </item>
     </list>
 
     <!-- these are "special" and don't show up in the generated lists -->
@@ -734,6 +744,7 @@
       <item> BUILD_SHARED_LIBS </item>
       <item> CMAKE_ABSOLUTE_DESTINATION_FILES </item>
       <item> CMAKE_ANDROID_API </item>
+      <item> CMAKE_ANDROID_API_MIN </item>
       <item> CMAKE_ANDROID_GUI </item>
       <item> CMAKE_APPBUNDLE_PATH </item>
       <item> CMAKE_AR </item>
@@ -851,6 +862,7 @@
       <item> CMAKE_MACOSX_RPATH </item>
       <item> CMAKE_MAJOR_VERSION </item>
       <item> CMAKE_MAKE_PROGRAM </item>
+      <item> CMAKE_MATCH_COUNT </item>
       <item> CMAKE_MFC_FLAG </item>
       <item> CMAKE_MINIMUM_REQUIRED_VERSION </item>
       <item> CMAKE_MINOR_VERSION </item>
@@ -979,6 +991,7 @@
       <item> ENV </item>
       <item> EXECUTABLE_OUTPUT_PATH </item>
       <item> LIBRARY_OUTPUT_PATH </item>
+      <item> MINGW </item>
       <item> MSVC </item>
       <item> MSVC10 </item>
       <item> MSVC11 </item>

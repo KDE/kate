@@ -2,7 +2,7 @@
 #define PLUGIN_KATEBUILD_H
 /* plugin_katebuild.h                    Kate Plugin
 **
-** Copyright (C) 2008-2014 by Kåre Särs <kare.sars@iki.fi>
+** Copyright (C) 2008-2015 by Kåre Särs <kare.sars@iki.fi>
 **
 ** This code is almost a total rewrite of the GPL'ed Make plugin
 ** by Adriaan de Groot.
@@ -28,6 +28,7 @@
 #include <QRegExp>
 #include <QString>
 #include <QStack>
+#include <QPointer>
 #include "KBProcess.h"
 
 #include <KTextEditor/MainWindow>
@@ -149,6 +150,8 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         unsigned int      m_numWarnings;
         QString           m_prevItemContent;
         QModelIndex       m_previousIndex;
+        QPointer<KTextEditor::Message> m_infoMessage;
+
 
         /**
         * current project plugin view, if any

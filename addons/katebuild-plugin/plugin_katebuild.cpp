@@ -1,7 +1,7 @@
 /* plugin_katebuild.c                    Kate Plugin
 **
 ** Copyright (C) 2013 by Alexander Neundorf <neundorf@kde.org>
-** Copyright (C) 2006-2014 by Kåre Särs <kare.sars@iki.fi>
+** Copyright (C) 2006-2015 by Kåre Särs <kare.sars@iki.fi>
 ** Copyright (C) 2011 by Ian Wakeling <ian.wakeling@ntlworld.com>
 **
 ** This code is mostly a modification of the GPL'ed Make plugin
@@ -583,6 +583,11 @@ void KateBuildView::slotSelectTarget() {
 /******************************************************************/
 bool KateBuildView::buildCurrentTarget()
 {
+    if (m_proc->state() != QProcess::NotRunning) {
+        displayBuildResult(i18n("Already building..."), KTextEditor::Message::Warning);
+        return false;
+    }
+
     QFileInfo docFInfo = docUrl().toLocalFile(); // docUrl() saves the current document
 
     QModelIndex ind = m_targetsUi->targetsView->currentIndex();
@@ -635,13 +640,14 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
     KTextEditor::View *kv = m_win->activeView();
     if (!kv) return;
 
-    QPointer<KTextEditor::Message> message = new KTextEditor::Message(xi18nc("@info", "<title>Make Results:</title><nl/><pre><code>%1</code></pre>", msg), level);
-    message->setWordWrap(true);
-    message->setPosition(KTextEditor::Message::BottomInView);
-    message->setAutoHide(5000);
-    message->setAutoHideMode(KTextEditor::Message::Immediate);
-    message->setView(kv);
-    kv->document()->postMessage(message);
+    delete m_infoMessage;
+    m_infoMessage = new KTextEditor::Message(xi18nc("@info", "<title>Make Results:</title><nl/>%1", msg), level);
+    m_infoMessage->setWordWrap(true);
+    m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
+    m_infoMessage->setAutoHide(5000);
+    m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+    m_infoMessage->setView(kv);
+    kv->document()->postMessage(m_infoMessage);
 }
 
 /******************************************************************/

@@ -44,6 +44,7 @@ Name[x-test]=xxIPython Consolexx
 Name[zh_CN]=IPython 终端
 Name[zh_TW]=IPython 主控台
 Comment=Interactive console for hacking kate and doing science
+Comment[ast]=Consola interactiva pa hackear Kate y facer ciencia
 Comment[bs]=Interaktivna konzola za naukovanje o hakiranju Kate
 Comment[ca]=Consola interactiva per a hackejar el Kate i fer ciència
 Comment[ca@valencia]=Consola interactiva per a hackejar el Kate i fer ciència

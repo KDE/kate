@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katesearchplugin
 Name=Search & Replace
+Name[ast]=Guetar y trocar
 Name[bg]=Търсене и &замяна
 Name[bs]=Pretraži i zamjeni
 Name[ca]=Cerca i substitueix

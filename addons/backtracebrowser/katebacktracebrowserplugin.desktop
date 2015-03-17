@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katebacktracebrowserplugin
 Name=Backtrace Browser
+Name[ast]=Restolador de trazáu inversu
 Name[bg]=Преглед на backtrace
 Name[bs]=Pregledač kontratraga
 Name[ca]=Navegador de traça inversa

@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/PythonPlugin
 X-KDE-Library=gid
 Name=GNU idutils plugin
+Name[ast]=Complementu idutils de GNU
 Name[bs]=Priključak za  GNU idutils
 Name[ca]=Connector «idutils» de GNU
 Name[ca@valencia]=Connector «idutils» de GNU

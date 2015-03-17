@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=kateprojectplugin
 Name=Project Plugin
+Name[ast]=Complementu de proyeutu
 Name[bg]=Приставка за проекти
 Name[bs]=Priključak projekta
 Name[ca]=Connector de projecte

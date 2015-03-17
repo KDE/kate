@@ -1,5 +1,6 @@
 [Desktop Entry]
 GenericName=Text Editor
+GenericName[ast]=Editor de testu
 GenericName[bg]=Текстов редактор
 GenericName[bs]=Uređivač teksta
 GenericName[ca]=Editor de text
@@ -56,6 +57,7 @@ GenericName[x-test]=xxText Editorxx
 GenericName[zh_CN]=文本编辑器
 GenericName[zh_TW]=文字編輯器
 Name=KWrite
+Name[ast]=KWrite
 Name[bg]=KWrite
 Name[bs]=Kwrite
 Name[ca]=KWrite

@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/PythonPlugin
 X-KDE-Library=python_console_ipython
 Name=IPython Console
+Name[ast]=Consola IPython
 Name[bs]=IPython konzola
 Name[ca]=Consola per a IPython
 Name[ca@valencia]=Consola de l'IPython

@@ -200,6 +200,7 @@
       <li xml:lang="tr">CR, CRLF, LF yeni satır desteği</li>
       <li xml:lang="uk">Підтримка форматів розриву рядків CR, CRLF та LF.</li>
       <li xml:lang="x-test">xxCR, CRLF, LF newline supportxx</li>
+      <li xml:lang="zh-CN">CR, CRLF, LF 换行支持</li>
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="ca">Implementació de codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
@@ -226,6 +227,7 @@
       <li xml:lang="tr">Kodlama desteği (utf-8, utf-16, ascii vb.)</li>
       <li xml:lang="uk">Підтримка різноманітних кодувань (utf-8, utf-16, ascii тощо).</li>
       <li xml:lang="x-test">xxEncoding support (utf-8, utf-16, ascii etc.)xx</li>
+      <li xml:lang="zh-CN">编码支持 (utf-8，utf-16，ascii 等。)</li>
       <li xml:lang="zh-TW">編碼支援（UTF-8，UTF-16，ASCII 等）</li>
       <li>Encoding conversion</li>
       <li xml:lang="ca">Conversió de codificació</li>
@@ -252,6 +254,7 @@
       <li xml:lang="tr">Kodlama dönüştürme</li>
       <li xml:lang="uk">Підтримка можливості перетворення даних у різних кодуваннях.</li>
       <li xml:lang="x-test">xxEncoding conversionxx</li>
+      <li xml:lang="zh-CN">编码转换</li>
       <li xml:lang="zh-TW">編碼轉換</li>
       <li>Regular expression based find &amp; replace</li>
       <li xml:lang="ca">Expressió regular basada en cerca i substitució</li>
@@ -329,6 +332,7 @@
       <li xml:lang="tr">Kod ve metin katlama</li>
       <li xml:lang="uk">Засоби згортання коду та тексту.</li>
       <li xml:lang="x-test">xxCode and text foldingxx</li>
+      <li xml:lang="zh-CN">代码和文本折叠</li>
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
       <li>Infinite undo/redo support</li>
       <li xml:lang="ca">Implementació de desfer/refer infinits</li>
@@ -355,6 +359,7 @@
       <li xml:lang="tr">Sınırsız geri alma/yeniden yapma desteği</li>
       <li xml:lang="uk">Підтримка нескінченного буфера скасування і повторення дій.</li>
       <li xml:lang="x-test">xxInfinite undo/redo supportxx</li>
+      <li xml:lang="zh-CN">无限制撤消/重做支持</li>
       <li xml:lang="zh-TW">無限的復原/重做支援</li>
       <li>Block selection mode</li>
       <li xml:lang="ca">Mode de selecció per blocs</li>
@@ -434,6 +439,7 @@
       <li xml:lang="tr">Otomatik tamamlama desteği</li>
       <li xml:lang="uk">Підтримка автодоповнення.</li>
       <li xml:lang="x-test">xxAuto completion supportxx</li>
+      <li xml:lang="zh-CN">自动补全支持</li>
       <li xml:lang="zh-TW">自動補完支援</li>
       <li>Shell integration</li>
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
@@ -460,6 +466,7 @@
       <li xml:lang="tr">Tümleşik kabuk desteği</li>
       <li xml:lang="uk">Інтеграція з командною оболонкою.</li>
       <li xml:lang="x-test">xxShell integrationxx</li>
+      <li xml:lang="zh-CN">Shell 集成</li>
       <li xml:lang="zh-TW">Shell 整合</li>
       <li>Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
       <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
@@ -536,6 +543,7 @@
       <li xml:lang="tr">Özelleştirilebilir kısayollar</li>
       <li xml:lang="uk">Придатні до налаштовування клавіатурні скорочення.</li>
       <li xml:lang="x-test">xxCustomizable shortcutsxx</li>
+      <li xml:lang="zh-CN">自定义快捷键</li>
       <li xml:lang="zh-TW">自定快捷鍵</li>
       <li>Integrated command line</li>
       <li xml:lang="ca">Línia d'ordres integrada</li>
@@ -562,6 +570,7 @@
       <li xml:lang="tr">Tümleşik komut satırı</li>
       <li xml:lang="uk">Інтегрований засіб роботи з командним рядком.</li>
       <li xml:lang="x-test">xxIntegrated command linexx</li>
+      <li xml:lang="zh-CN">集成命令行</li>
       <li xml:lang="zh-TW">整合指令行</li>
       <li>Scriptable using JavaScript</li>
       <li xml:lang="ca">Es pot crear scripts usant JavaScript</li>
@@ -587,6 +596,7 @@
       <li xml:lang="tr">JavaScript betik desteği</li>
       <li xml:lang="uk">Можливість керування програмою за допомогою скриптів мовою JavaScript.</li>
       <li xml:lang="x-test">xxScriptable using JavaScriptxx</li>
+      <li xml:lang="zh-CN">支持 JavaScript 脚本化</li>
       <li xml:lang="zh-TW">可使用 JavaScript</li>
     </ul>
   </description>

@@ -152,7 +152,7 @@ private Q_SLOTS:
     /**
      * This signal is emitted before the documents batch is going to be deleted
      *
-     * note that the batch can be interupted in the middle and only some
+     * note that the batch can be interrupted in the middle and only some
      * of the documents may be actually deleted. See documentsDeleted() signal.
      * 
      * @param documents documents we want to delete, may not be deleted

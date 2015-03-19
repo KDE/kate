@@ -338,7 +338,7 @@ class MatchesModel(HistoryModel):
 
         Entries are grouped under the file in which the hits are searched. Each
         entry shows the matched text, the line and column of the match. If so
-        enabled, entries which are defintions according to etags are highlighted.
+        enabled, entries which are definitions according to etags are highlighted.
 
         If the output takes a long time to generate, the user is given options
         to continue or abort.

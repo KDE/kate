@@ -199,7 +199,7 @@ void Pate::Engine::unloadAllModules()
 }
 
 /**
- * \todo Make sure noone tries to use uninitialized engine!
+ * \todo Make sure no one tries to use uninitialized engine!
  * (Or enable exceptions for this module, so this case wouldn't even araise?)
  */
 QString Pate::Engine::tryInitializeGetFailureReason()

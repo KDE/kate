@@ -714,13 +714,13 @@ def changeParagraphWidth(step):
 
 @kate.action
 def shrink_paragraph():
-    '''Shrink a text paragraph width, whithing a comment, around the current cursor position'''
+    '''Shrink a text paragraph width, within a comment, around the current cursor position'''
     changeParagraphWidth(-1)
 
 
 @kate.action
 def extend_paragraph():
-    '''Extend a text paragraph width, whithing a comment, around the current cursor position'''
+    '''Extend a text paragraph width, within a comment, around the current cursor position'''
     changeParagraphWidth(1)
 
 

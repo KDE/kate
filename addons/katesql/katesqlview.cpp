@@ -41,7 +41,6 @@
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kcombobox.h>
-#include <kconfig.h>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
 

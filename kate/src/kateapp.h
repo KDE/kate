@@ -301,7 +301,7 @@ public Q_SLOTS:
 
     /**
      * Ask app to quit. The app might interact with the user and decide that
-     * quiting is not possible and return false.
+     * quitting is not possible and return false.
      *
      * \return true if the app could quit
      */

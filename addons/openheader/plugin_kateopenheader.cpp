@@ -22,7 +22,6 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
-#include <ktexteditor/editor.h>
 #include <ktexteditor/application.h>
 
 #include <QFileInfo>

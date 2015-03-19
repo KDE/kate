@@ -31,7 +31,7 @@ KateFileTreeProxyModel::KateFileTreeProxyModel(QObject *parent)
 
 void KateFileTreeProxyModel::setSourceModel(QAbstractItemModel *model)
 {
-    Q_ASSERT(qobject_cast<KateFileTreeModel *>(model)); // we don't realy work with anything else
+    Q_ASSERT(qobject_cast<KateFileTreeModel *>(model)); // we don't really work with anything else
     QSortFilterProxyModel::setSourceModel(model);
 }
 

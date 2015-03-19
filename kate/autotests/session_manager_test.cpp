@@ -152,7 +152,7 @@ void KateSessionManagerTest::deletingSessionFilesUnderRunningApp()
     const QString file = m_tempdir->path() + QLatin1String("/foo.katesession");
     QVERIFY(QFile(file).remove());
 
-    QTRY_COMPARE_WITH_TIMEOUT(m_manager->sessionList().size(), 1, 1000); // that should be enought for KDirWatch to kick in
+    QTRY_COMPARE_WITH_TIMEOUT(m_manager->sessionList().size(), 1, 1000); // that should be enough for KDirWatch to kick in
     QCOMPARE(m_manager->activeSession()->name(), QLatin1String("bar"));
 }
 

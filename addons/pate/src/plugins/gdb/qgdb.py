@@ -223,7 +223,7 @@ class DebuggerIo(QObject):
         if status:
             raise QGdbException("{}: unexpected status {}, {}, {}".format(command, status, result, records))
         #
-        # Return the result information and any preceeding records.
+        # Return the result information and any preceding records.
         #
         if captureConsole:
             if result:

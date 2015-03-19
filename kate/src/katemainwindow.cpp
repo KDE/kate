@@ -788,7 +788,7 @@ QUrl KateMainWindow::activeDocumentUrl()
 void KateMainWindow::mSlotFixOpenWithMenu()
 {
     // dh: in bug #307699, this slot is called when launching the Kate application
-    // unfortunately, noone ever could reproduce except users.
+    // unfortunately, no one ever could reproduce except users.
     KTextEditor::View *activeView = m_viewManager->activeView();
     if (! activeView) {
         return;

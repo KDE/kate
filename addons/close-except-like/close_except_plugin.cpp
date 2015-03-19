@@ -37,7 +37,6 @@
 #include <KPassivePopup>
 #include <KPluginFactory>
 #include <KPluginLoader>
-#include <KTextEditor/Editor>
 #include <QtCore/QFileInfo>
 #include <QUrl>
 #include <kio/global.h>

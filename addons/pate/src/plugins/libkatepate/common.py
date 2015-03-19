@@ -59,7 +59,7 @@ def getBoundTextRangeSL(leftBoundary, rightBoundary, pos, doc):
     if not doc.lineLength(pos.line()):
         return KTextEditor.Range(pos, pos)
 
-    lineStr = doc.line(pos.line())                          # Get the current line as string to analyse
+    lineStr = doc.line(pos.line())                          # Get the current line as string to analyze
     found = False
     cc = pos.column()                                       # (pre)initialize 'current column'
     # NOTE If cursor positioned at the end of a line, column()

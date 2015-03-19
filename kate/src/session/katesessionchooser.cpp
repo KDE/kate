@@ -33,7 +33,6 @@
 #include <QMenu>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <QPushButton>
 #include <QHeaderView>
 
 //BEGIN CHOOSER DIALOG

@@ -237,7 +237,7 @@ private:
 
     // current tab width: when closing tabs with the mouse, we keep
     // the tab width fixed until the mouse leaves the tab bar. This
-    // way the user can keep klicking the close button without moving
+    // way the user can keep clicking the close button without moving
     // the ouse.
     qreal m_currentTabWidth;
     bool m_keepTabWidth;

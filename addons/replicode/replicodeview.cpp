@@ -7,7 +7,6 @@
 #include <QPushButton>
 #include "replicodesettings.h"
 #include "replicodeconfig.h"
-#include "replicodeview.h"
 
 #include <KXMLGUIFactory>
 #include <klocalizedstring.h>
@@ -19,7 +18,6 @@
 #include <QListWidget>
 #include <QLocale>
 #include <QMessageBox>
-#include <QProcess>
 #include <QVBoxLayout>
 
 #include <KSharedConfig>

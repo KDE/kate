@@ -121,7 +121,7 @@ def qDebug(text):
 
 @contextlib.contextmanager
 def makeAtomicUndo(document):
-    ''' Context manager to make sure startEditing syncronized w/
+    ''' Context manager to make sure startEditing synchronized w/
         endEditing for particular document.
     '''
     document.startEditing()

@@ -45,7 +45,6 @@
 #include <KXMLGUIFactory>
 #include <KActionCollection>
 
-#include <QAction>
 #include <kmessagebox.h>
 
 #include <knotification.h>

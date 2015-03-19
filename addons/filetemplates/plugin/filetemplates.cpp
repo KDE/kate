@@ -69,7 +69,6 @@
 
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kaboutdata.h>
 #include <kmenu.h>
 //END Includes
 

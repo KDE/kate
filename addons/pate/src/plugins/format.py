@@ -83,7 +83,7 @@ def getRangeTopology(breakChars):
         @return tuple w/ current range, list of nested ranges
                 and list of positions of break characters
 
-        @note Assume cursor positioned whithin that range already.
+        @note Assume cursor positioned within that range already.
     '''
     document = kate.activeDocument()
     view = kate.activeView()
@@ -277,7 +277,7 @@ def boostFormatText(textRange, indent, breakPositions):
     originalText = document.text(textRange)
     #kate.qDebug("Original text:\n'" + originalText + "'")
 
-    # Slice text whithin a given range into pieces to be realigned
+    # Slice text within a given range into pieces to be realigned
     ranges = list()
     prevPos = textRange.start()
     breakCh = None
@@ -358,7 +358,7 @@ def boostFormat():
               )
             return
 
-    # Going to format a text whithin a selected range
+    # Going to format a text within a selected range
     lineStr = document.line(r.start().line())
     lineStrStripped = lineStr.lstrip()
     indent = len(lineStr) - len(lineStrStripped)
@@ -431,7 +431,7 @@ def boostUnformat():
               )
             return
 
-    # Going to unformat a text whithin a selected range
+    # Going to unformat a text within a selected range
     text = boostUnformatText(r, breakPositions)
 
 

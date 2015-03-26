@@ -425,7 +425,6 @@ void ConfigView::resizeEvent(QResizeEvent *)
 void ConfigView::setAdvancedOptions()
 {
     QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
-    QStringList newList;
 
     // make sure we have enough strings;
     while (tmp.count() < CustomStartIndex) tmp << QString();
@@ -435,9 +434,7 @@ void ConfigView::setAdvancedOptions()
     }
 
     // Remove the strings that are not part of the advanced settings
-    for(int i=0; i<GDBIndex; i++) {
-        newList << tmp.takeFirst();
-    }
+    for(int i=0; i<GDBIndex; i++) tmp.takeFirst();
 
     m_advanced->setConfigs(tmp);
 }
@@ -450,7 +447,7 @@ void ConfigView::slotAdvancedClicked()
     // make sure we have enough strings;
     while (newList.count() < GDBIndex) newList << QString();
     // Remove old advanced settings
-    while (newList.count() >= GDBIndex) newList.takeLast();
+    while (newList.count() > GDBIndex) newList.takeLast();
 
     if (m_advanced->exec() == QDialog::Accepted) {
         // save the new values

@@ -491,12 +491,17 @@ void KatePluginSearchView::handleEsc(QEvent *e)
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
-
-        if (m_toolView->isVisible()) {
-            m_mainWindow->hideToolView(m_toolView);
+        static ulong lastTimeStamp;
+        if (lastTimeStamp == k->timestamp()) {
+            // Same as previous... This looks like a bug somewhere...
+            return;
         }
-        else {
+        lastTimeStamp = k->timestamp();
+        if (!m_matchRanges.isEmpty()) {
             clearMarks();
+        }
+        else if (m_toolView->isVisible()) {
+            m_mainWindow->hideToolView(m_toolView);
         }
     }
 }
@@ -1670,11 +1675,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
                 }
             }
         }
-        if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
-            m_mainWindow->hideToolView(m_toolView);
-            event->accept();
-            return true;
-        }
+        // NOTE: Qt::Key_Escape is handeled by handleEsc
     }
     return QObject::eventFilter(obj, event);
 }

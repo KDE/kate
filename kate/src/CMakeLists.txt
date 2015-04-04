@@ -55,6 +55,12 @@ PUBLIC
     KF5::DBusAddons
     KF5::Crash)
 
+if(KF5Activities_FOUND)
+    target_link_libraries(kdeinit_kate
+    PUBLIC
+        KF5::Activities)
+endif()
+
 generate_export_header(kdeinit_kate
   EXPORT_FILE_NAME kateprivate_export.h
   EXPORT_MACRO_NAME KATE_TESTS_EXPORT

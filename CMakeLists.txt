@@ -54,6 +54,15 @@ find_package(KF5 "${KF5_DEP_VERSION}" REQUIRED COMPONENTS
   IconThemes
 )
 
+find_package(KF5 "${KF5_DEP_VERSION}" COMPONENTS
+  Activities
+)
+
+if (KF5Activities_FOUND)
+    add_definitions(-DKActivities_FOUND)
+endif ()
+
+
 # use sane compile flags
 add_definitions(
   -DQT_USE_QSTRINGBUILDER

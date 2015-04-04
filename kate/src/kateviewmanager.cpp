@@ -40,7 +40,7 @@
 #include <KXMLGUIFactory>
 
 #ifdef KActivities_FOUND
-#include <kactivities/resourceinstance.h>
+#include <KActivities/ResourceInstance>
 #endif
 
 #include <QFileDialog>

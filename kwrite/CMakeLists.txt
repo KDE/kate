@@ -15,6 +15,10 @@ target_link_libraries(kdeinit_kwrite
   KF5::Crash
 )
 
+if(KF5Activities_FOUND)
+    target_link_libraries(kdeinit_kwrite KF5::Activities)
+endif()
+
 install(TARGETS kwrite         ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kwrite ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(PROGRAMS org.kde.kwrite.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})

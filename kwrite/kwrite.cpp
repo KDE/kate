@@ -43,7 +43,7 @@
 #include <KJobWidgets>
 
 #ifdef KActivities_FOUND
-#include <kactivities/resourceinstance.h>
+#include <KActivities/ResourceInstance>
 #endif
 
 #include <QTimer>
@@ -196,13 +196,13 @@ void KWrite::setupActions()
 // load on url
 void KWrite::loadURL(const QUrl &url)
 {
+    m_view->document()->openUrl(url);
 #ifdef KActivities_FOUND
     if (!m_activityResource) {
         m_activityResource = new KActivities::ResourceInstance(winId(), this);
     }
-    m_activityResource->setUri(url);
+    m_activityResource->setUri(m_view->document()->url());
 #endif
-    m_view->document()->openUrl(url);
     m_closeAction->setEnabled(true);
 }
 

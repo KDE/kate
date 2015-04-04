@@ -76,13 +76,13 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     connect(this, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotViewChanged()));
 
     connect(KateApp::self()->documentManager(), SIGNAL(documentCreatedViewManager(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
-    
+
     /**
      * before document is really deleted: cleanup all views!
      */
     connect(KateApp::self()->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*))
         , this, SLOT(documentWillBeDeleted(KTextEditor::Document*)));
- 
+
     /**
      * handle document deletion transactions
      * disable view creation in between
@@ -92,15 +92,15 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
         , this, SLOT(aboutToDeleteDocuments(const QList<KTextEditor::Document *> &)));
     connect(KateApp::self()->documentManager(), SIGNAL(documentsDeleted(const QList<KTextEditor::Document *> &))
         , this, SLOT(documentsDeleted(const QList<KTextEditor::Document *> &)));
-    
+
     // register all already existing documents
     m_blockViewCreationAndActivation = true;
-    
+
     const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
     foreach(KTextEditor::Document * doc, docs) {
         documentCreated(doc);
     }
-    
+
     m_blockViewCreationAndActivation = false;
 
     // init done
@@ -362,7 +362,7 @@ void KateViewManager::documentCreated(KTextEditor::Document *doc)
     if (!activeView()) {
         activateView(doc);
     }
-    
+
     /**
      * check if we have any empty viewspaces and give them a view
      */
@@ -623,7 +623,7 @@ void KateViewManager::activateView(KTextEditor::View *view)
     if (!m_views[view].first) {
         // avoid flicker
         KateUpdateDisabler disableUpdates (mainWindow());
-        
+
         if (!activeViewSpace()->showView(view)) {
             // since it wasn't found, give'em a new one
             createView(view->document());
@@ -719,7 +719,7 @@ void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)
             closeList.append(v);
         }
     }
-    
+
     while (!closeList.isEmpty()) {
         deleteView(closeList.takeFirst());
     }
@@ -746,7 +746,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
     if (!currentSplitter) {
         return;
     }
-    
+
     // avoid flicker
     KateUpdateDisabler disableUpdates (mainWindow());
 
@@ -821,7 +821,7 @@ void KateViewManager::toggleSplitterOrientation()
     if (!currentSplitter || (currentSplitter->count() == 1)) {
         return;
     }
-    
+
     // avoid flicker
     KateUpdateDisabler disableUpdates (mainWindow());
 
@@ -996,7 +996,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
      */
     qDeleteAll(m_viewSpaceList);
     m_viewSpaceList.clear();
-    
+
     /**
      * delete mapping of now deleted views
      */

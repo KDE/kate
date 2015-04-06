@@ -3,7 +3,6 @@ Type=Service
 ServiceTypes=Kate/PythonPlugin
 X-KDE-Library=xml_pretty
 Name=XML Tools
-Name[ast]=Ferramientes XML
 Name[bs]=XML alati
 Name[ca]=Eines XML
 Name[ca@valencia]=Eines XML

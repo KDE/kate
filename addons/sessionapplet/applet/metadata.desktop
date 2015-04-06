@@ -1,6 +1,5 @@
 [Desktop Entry]
 Name=Kate Session Applet
-Name[ast]=Applet de sesión Kate
 Name[bg]=Сесии на Kate
 Name[bs]=Programčić Kate sesije
 Name[ca]=Miniaplicació de sessió del Kate
@@ -54,7 +53,6 @@ Name[x-test]=xxKate Session Appletxx
 Name[zh_CN]=Kate 会话小程序
 Name[zh_TW]=Kate 工作階段小程式
 Comment=Kate Session Launcher
-Comment[ast]=Llanzador de sesión Kate
 Comment[bg]=Зареждане на сесии на Kate
 Comment[bs]=Pokretač Kate sesija
 Comment[ca]=Llançador de la sessió del Kate

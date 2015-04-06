@@ -59,7 +59,6 @@ Name[x-test]=xxJovie Text-to-Speechxx
 Name[zh_CN]=Jovie 语音合成
 Name[zh_TW]=Jovie 文字轉語音
 Comment=Adds a menu entry for speaking the text
-Comment[ast]=Amiesta una entrada de menú pa lleer testu
 Comment[bg]=Добавяне на запис в менюто за изговаряне на текст
 Comment[bs]=Dodaje stavku menija za izgovaranje teksta
 Comment[ca]=Afegeix una entrada al menú per parlar el text

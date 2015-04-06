@@ -264,10 +264,10 @@ public Q_SLOTS:
     QList<KTextEditor::View *> sortedViews() const
     {
         QMap<qint64, KTextEditor::View *> sortedViews;
-        QHashIterator<KTextEditor::View *, QPair<bool, qint64> > i(m_views);
+        QHashIterator<KTextEditor::View *, ViewData> i(m_views);
         while (i.hasNext()) {
             i.next();
-            sortedViews[i.value().second] = i.key();
+            sortedViews[i.value().lruAge] = i.key();
         }
         return sortedViews.values();
     }
@@ -287,8 +287,6 @@ private:
 
     QList<KateViewSpace *> m_viewSpaceList;
 
-    QHash<KTextEditor::View *, KActivities::ResourceInstance *> m_activityResources;
-
     bool m_blockViewCreationAndActivation;
 
     bool m_activeViewRunning;
@@ -296,11 +294,42 @@ private:
     int m_splitterIndex; // used during saving splitter config.
 
     /**
-     * central storage of all views known in the view manager
-     * maps the view to active state + lru age of the view
-     * important: smallest age ==> latest used view
+     * View meta data
      */
-    QHash<KTextEditor::View *, QPair<bool, qint64> > m_views;
+    class ViewData {
+        public:
+            /**
+             * Default constructor
+             */
+            ViewData()
+                : active(false)
+                , lruAge(0)
+                , activityResource(Q_NULLPTR)
+            {
+            }
+            
+            /**
+             * view active?
+             */
+            bool active;
+            
+            /**
+             * lru age of the view
+             * important: smallest age ==> latest used view
+             */
+            qint64 lruAge;
+            
+            /**
+             * activity resource for the view
+             */
+            KActivities::ResourceInstance *activityResource;
+    };
+    
+    /**
+     * central storage of all views known in the view manager
+     * maps the view to meta data
+     */
+    QHash<KTextEditor::View *, ViewData> m_views;
 
     /**
      * current minimal age

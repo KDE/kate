@@ -448,8 +448,12 @@ bool KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)
 
     /**
      * remember this view, active == false, min age set
+     * create activity resource
      */
-    m_views[view] = QPair<bool, qint64> (false, m_minAge--);
+    m_views[view].active = false;
+    m_views[view].lruAge = m_minAge--;
+    m_views[view].activityResource = new KActivities::ResourceInstance(view->window()->winId(), view);
+    m_views[view].activityResource->setUri(doc->url());
 
     // disable settings dialog action
     delete view->actionCollection()->action(QStringLiteral("set_confdlg"));
@@ -459,10 +463,6 @@ bool KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)
     connect(view, SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(activateSpace(KTextEditor::View*)));
 
     viewCreated(view);
-
-    Q_ASSERT(!m_activityResources.contains(view)); // view was just created -> cannot be in hash
-    m_activityResources[view] = new KActivities::ResourceInstance(view->window()->winId(), view);
-    m_activityResources[view]->setUri(doc->url());
 
     if (!vs) {
         activateView(view);
@@ -488,8 +488,6 @@ bool KateViewManager::deleteView(KTextEditor::View *view)
         mainWindow()->guiFactory()->removeClient(m_guiMergedView);
         m_guiMergedView = nullptr;
     }
-
-    m_activityResources.remove(view);
 
     // remove view from mapping and memory !!
     m_views.remove(view);
@@ -524,10 +522,10 @@ KTextEditor::View *KateViewManager::activeView()
 
     m_activeViewRunning = true;
 
-    QHashIterator<KTextEditor::View *, QPair<bool, qint64> > it(m_views);
+    QHashIterator<KTextEditor::View *, ViewData> it(m_views);
     while (it.hasNext()) {
         it.next();
-        if (it.value().first) {
+        if (it.value().active) {
             m_activeViewRunning = false;
             return it.key();
         }
@@ -569,11 +567,11 @@ void KateViewManager::setActiveSpace(KateViewSpace *vs)
 void KateViewManager::setActiveView(KTextEditor::View *view)
 {
     if (activeView()) {
-        m_views[activeView()].first = false;
+        m_views[activeView()].active = false;
     }
 
     if (view) {
-        m_views[view].first = true;
+        m_views[view].active = true;
     }
 }
 
@@ -595,7 +593,7 @@ void KateViewManager::reactivateActiveView()
 {
     KTextEditor::View *view = activeView();
     if (view) {
-        m_views[view].first = false;
+        m_views[view].active = false;
         activateView(view);
     }
 }
@@ -606,13 +604,8 @@ void KateViewManager::activateView(KTextEditor::View *view)
         return;
     }
 
-    if (m_activityResources.contains(view)) {
-        m_activityResources[view]->setUri(view->document()->url());
-        m_activityResources[view]->notifyFocusedIn();
-    }
-
     Q_ASSERT (m_views.contains(view));
-    if (!m_views[view].first) {
+    if (!m_views[view].active) {
         // avoid flicker
         KateUpdateDisabler disableUpdates (mainWindow());
 
@@ -645,9 +638,13 @@ void KateViewManager::activateView(KTextEditor::View *view)
         }
 
         // remember age of this view
-        m_views[view].second = m_minAge--;
-
+        m_views[view].lruAge = m_minAge--;
+        
         emit viewChanged(view);
+        
+        // inform activity manager
+        m_views[view].activityResource->setUri(view->document()->url());
+        m_views[view].activityResource->notifyFocusedIn();
     }
 }
 
@@ -993,8 +990,6 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
      * delete mapping of now deleted views
      */
     m_views.clear();
-
-    m_activityResources.clear();
 
     // reset lru history, too!
     m_minAge = 0;

@@ -53,13 +53,8 @@ PUBLIC
     KF5::WindowSystem
     KF5::GuiAddons
     KF5::DBusAddons
-    KF5::Crash)
-
-if(KF5Activities_FOUND)
-    target_link_libraries(kdeinit_kate
-    PUBLIC
-        KF5::Activities)
-endif()
+    KF5::Crash
+    KF5::Activities)
 
 generate_export_header(kdeinit_kate
   EXPORT_FILE_NAME kateprivate_export.h

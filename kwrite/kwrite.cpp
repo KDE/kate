@@ -42,9 +42,7 @@
 #include <KIO/Job>
 #include <KJobWidgets>
 
-#ifdef KActivities_FOUND
 #include <KActivities/ResourceInstance>
-#endif
 
 #include <QTimer>
 #include <QTextCodec>
@@ -65,9 +63,7 @@ KWrite::KWrite(KTextEditor::Document *doc)
     , m_paShowPath(0)
     , m_paShowMenuBar(0)
     , m_paShowStatusBar(0)
-#ifdef KActivities_FOUND
-      , m_activityResource(0)
-#endif
+    , m_activityResource(0)
 {
     if (!doc) {
         doc = KTextEditor::Editor::instance()->createDocument(0);
@@ -197,12 +193,12 @@ void KWrite::setupActions()
 void KWrite::loadURL(const QUrl &url)
 {
     m_view->document()->openUrl(url);
-#ifdef KActivities_FOUND
+    
     if (!m_activityResource) {
         m_activityResource = new KActivities::ResourceInstance(winId(), this);
     }
     m_activityResource->setUri(m_view->document()->url());
-#endif
+    
     m_closeAction->setEnabled(true);
 }
 

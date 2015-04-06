@@ -6,6 +6,5 @@
 #define KATE_VERSION "${KATE_VERSION}"
 
 #cmakedefine HAVE_CTERMID 1
-#cmakedefine KActivities_FOUND 1
 
 #endif

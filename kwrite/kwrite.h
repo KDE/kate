@@ -32,12 +32,10 @@
 
 class QLabel;
 
-#ifdef KActivities_FOUND
 namespace KActivities
 {
-class ResourceInstance;
+    class ResourceInstance;
 }
-#endif
 
 class KToggleAction;
 class KRecentFilesAction;
@@ -130,10 +128,7 @@ private:
     KToggleAction *m_paShowMenuBar;
     KToggleAction *m_paShowStatusBar;
     QAction *m_closeAction;
-
-#ifdef KActivities_FOUND
     KActivities::ResourceInstance *m_activityResource;
-#endif
 
     static QList<KTextEditor::Document *> docList;
     static QList<KWrite *> winList;

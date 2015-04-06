@@ -39,9 +39,7 @@
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
 
-#ifdef KActivities_FOUND
 #include <KActivities/ResourceInstance>
-#endif
 
 #include <QFileDialog>
 #include <QStyle>
@@ -462,11 +460,9 @@ bool KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)
 
     viewCreated(view);
 
-#ifdef KActivities_FOUND
     Q_ASSERT(!m_activityResources.contains(view)); // view was just created -> cannot be in hash
     m_activityResources[view] = new KActivities::ResourceInstance(view->window()->winId(), view);
     m_activityResources[view]->setUri(doc->url());
-#endif
 
     if (!vs) {
         activateView(view);
@@ -493,9 +489,7 @@ bool KateViewManager::deleteView(KTextEditor::View *view)
         m_guiMergedView = nullptr;
     }
 
-#ifdef KActivities_FOUND
     m_activityResources.remove(view);
-#endif
 
     // remove view from mapping and memory !!
     m_views.remove(view);
@@ -612,12 +606,10 @@ void KateViewManager::activateView(KTextEditor::View *view)
         return;
     }
 
-#ifdef KActivities_FOUND
     if (m_activityResources.contains(view)) {
         m_activityResources[view]->setUri(view->document()->url());
         m_activityResources[view]->notifyFocusedIn();
     }
-#endif
 
     Q_ASSERT (m_views.contains(view));
     if (!m_views[view].first) {
@@ -1002,9 +994,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
      */
     m_views.clear();
 
-#ifdef KActivities_FOUND
     m_activityResources.clear();
-#endif
 
     // reset lru history, too!
     m_minAge = 0;

@@ -30,12 +30,10 @@
 
 #include <config.h>
 
-#ifdef KActivities_FOUND
 namespace KActivities
 {
     class ResourceInstance;
 }
-#endif
 
 namespace KTextEditor {
     class View;
@@ -289,9 +287,7 @@ private:
 
     QList<KateViewSpace *> m_viewSpaceList;
 
-#ifdef KActivities_FOUND
     QHash<KTextEditor::View *, KActivities::ResourceInstance *> m_activityResources;
-#endif
 
     bool m_blockViewCreationAndActivation;
 

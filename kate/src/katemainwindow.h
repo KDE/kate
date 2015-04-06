@@ -307,7 +307,7 @@ public Q_SLOTS:
      * @return all views
      */
     QList<KTextEditor::View *> views() {
-        return viewManager()->views().keys();
+        return viewManager()->views();
     }
 
     /**

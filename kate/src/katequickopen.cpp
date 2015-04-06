@@ -158,23 +158,15 @@ void KateQuickOpen::update()
     /**
      * get views in lru order
      */
-    QMap<qint64, KTextEditor::View *> sortedViews;
-    QHashIterator<KTextEditor::View *, QPair<bool, qint64> > i(m_mainWindow->viewManager()->views());
-    while (i.hasNext()) {
-        i.next();
-        sortedViews[i.value().second] = i.key();
-    }
+    const QList<KTextEditor::View *> sortedViews(m_mainWindow->viewManager()->sortedViews());
 
     /**
      * now insert them in order
      */
     QModelIndex idxToSelect;
     int linecount = 0;
-    QMapIterator<qint64, KTextEditor::View *> i2(sortedViews);
-    while (i2.hasNext()) {
-        i2.next();
-
-        KTextEditor::Document *doc = i2.value()->document();
+    foreach (KTextEditor::View *view, sortedViews) {
+        KTextEditor::Document *doc = view->document();
 
         if (alreadySeenDocs.contains(doc)) {
             continue;

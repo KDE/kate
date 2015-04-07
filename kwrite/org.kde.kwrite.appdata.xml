@@ -4,7 +4,6 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <name>KWrite</name>
-  <name xml:lang="ast">KWrite</name>
   <name xml:lang="bs">Kwrite</name>
   <name xml:lang="ca">KWrite</name>
   <name xml:lang="cs">KWrite</name>
@@ -35,7 +34,6 @@
   <name xml:lang="zh-CN">KWrite</name>
   <name xml:lang="zh-TW">KWrite</name>
   <summary>Text Editor</summary>
-  <summary xml:lang="ast">Editor de testu</summary>
   <summary xml:lang="bs">Uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text</summary>
   <summary xml:lang="cs">Textový editor</summary>

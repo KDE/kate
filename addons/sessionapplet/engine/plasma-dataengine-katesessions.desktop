@@ -1,5 +1,12 @@
 [Desktop Entry]
 Name=Kate Sessions
+Name[ca]=Sessions del Kate
+Name[nl]=Kate-sessies
+Name[pt]=Sessões do Kate
+Name[pt_BR]=Sessões do Kate
+Name[sv]=Kate-sessioner
+Name[uk]=Сеанси Kate
+Name[x-test]=xxKate Sessionsxx
 Comment=Kate Session Launcher
 Comment[bg]=Зареждане на сесии на Kate
 Comment[bs]=Pokretač Kate sesija

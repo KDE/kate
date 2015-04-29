@@ -23,7 +23,6 @@
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QProcess>
 #include <QFileInfo>
 
 #include <klocalizedstring.h>
@@ -98,6 +97,8 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     m_analyzer->setProcessChannelMode(QProcess::MergedChannels);
 
     connect(m_analyzer, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
+    connect(m_analyzer, SIGNAL(finished(int, QProcess::ExitStatus)),
+            this, SLOT(finished(int, QProcess::ExitStatus)));
 
     QStringList args;
     args << QStringLiteral("-q") << QStringLiteral("--inline-suppr") << QStringLiteral("--enable=all") << QStringLiteral("--template={file}////{line}////{severity}////{message}") << QStringLiteral("--file-list=-");
@@ -188,3 +189,21 @@ void KateProjectInfoViewCodeAnalysis::slotClicked(const QModelIndex &index)
     }
 }
 
+void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatus)
+{
+  m_messageWidget = new KMessageWidget();
+  m_messageWidget->setCloseButtonVisible(true);
+  m_messageWidget->setWordWrap(false);
+
+  if (exitCode == 0) {
+    m_messageWidget->setMessageType(KMessageWidget::Information);
+    m_messageWidget->setText(i18n("Analysis finished."));
+  } else {
+    // unfortunately, output was eaten by slotReadyRead()
+    // TODO: get stderr output, show it here
+    m_messageWidget->setMessageType(KMessageWidget::Warning);
+    m_messageWidget->setText(i18n("Analysis failed!"));
+  }
+  static_cast<QVBoxLayout*>(layout ())->insertWidget(0, m_messageWidget);
+  m_messageWidget->animatedShow ();
+}

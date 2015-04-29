@@ -24,11 +24,11 @@
 #include "kateproject.h"
 
 #include <QPushButton>
+#include <QProcess>
 #include <QTreeView>
 
 class KateProjectPluginView;
 class KMessageWidget;
-class QProcess;
 
 /**
  * View for Code Analysis.
@@ -75,6 +75,13 @@ private Q_SLOTS:
      * @param index model index of clicked item
      */
     void slotClicked(const QModelIndex &index);
+
+    /**
+     * Analysis finished
+     * @param exitCode analyser process exit code
+     * @param exitStatus analyser process exit status
+     */
+    void finished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
     /**

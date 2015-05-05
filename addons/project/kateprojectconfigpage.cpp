@@ -36,8 +36,8 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     QVBoxLayout *vbox = new QVBoxLayout;
     QGroupBox *group = new QGroupBox(i18n("Autoload repositories"), this);
     group->setWhatsThis(i18n(
-        "Project plugin is able to autoload repository working copies in case "
-        "there is .kateproject file already defined"));
+        "Project plugin is able to autoload repository working copies when "
+        "there is no .kateproject file defined yet."));
 
     m_cbAutoGit = new QCheckBox(i18n("&Git"), this);
     vbox->addWidget(m_cbAutoGit);

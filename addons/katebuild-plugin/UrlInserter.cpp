@@ -31,7 +31,7 @@ UrlInserter::UrlInserter(const QUrl &startUrl, QWidget* parent): QWidget(parent)
     m_lineEdit = new QLineEdit();
     m_toolButton = new QToolButton();
     m_toolButton->setIcon(QIcon::fromTheme(QStringLiteral("archive-insert-directory")));
-    m_toolButton->setToolTip(i18n("Inset path"));
+    m_toolButton->setToolTip(i18n("Insert path"));
 
 
     QHBoxLayout* layout = new QHBoxLayout(this);

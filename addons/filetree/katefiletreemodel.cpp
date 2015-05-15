@@ -1131,6 +1131,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
 
             if (check_root->display() == root->display()) {
                 bool changed = false;
+                bool check_root_removed = false;
 
                 const QString rdir = root->path().section(QLatin1Char('/'), 0, -2);
                 if (!rdir.isEmpty()) {
@@ -1153,6 +1154,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                         const QString xy = rdir + QLatin1Char('/');
                         if (node->path().startsWith(xy)) {
                             beginRemoveRows(QModelIndex(), node->row(), node->row());
+                            check_root_removed = node == check_root;
                             m_root->remChild(node);
                             endRemoveRows();
                             insertItemInto(irdir, node);
@@ -1163,21 +1165,23 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                     changed = true;
                 }
 
-                const QString nrdir = check_root->path().section(QLatin1Char('/'), 0, -2);
-                if (!nrdir.isEmpty()) {
-                    beginRemoveRows(QModelIndex(), check_root->row(), check_root->row());
-                    m_root->remChild(check_root);
-                    endRemoveRows();
+                if (!check_root_removed) {
+                    const QString nrdir = check_root->path().section(QLatin1Char('/'), 0, -2);
+                    if (!nrdir.isEmpty()) {
+                        beginRemoveRows(QModelIndex(), check_root->row(), check_root->row());
+                        m_root->remChild(check_root);
+                        endRemoveRows();
 
-                    ProxyItemDir *irdir = new ProxyItemDir(nrdir);
-                    beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
-                    m_root->addChild(irdir);
-                    endInsertRows();
+                        ProxyItemDir *irdir = new ProxyItemDir(nrdir);
+                        beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
+                        m_root->addChild(irdir);
+                        endInsertRows();
 
-                    insertItemInto(irdir, check_root);
+                        insertItemInto(irdir, check_root);
 
-                    rootsToCheck.push(irdir);
-                    changed = true;
+                        rootsToCheck.push(irdir);
+                        changed = true;
+                    }
                 }
 
                 if (changed) {

@@ -295,6 +295,23 @@ void FileTreeModelTest::buildTree_data()
           << ResultNode("foo.txt")))
   );
 
+  QTest::newRow("bug347578") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///f/g/a/b/c/d/e.txt")
+    << new DummyDocument("file:///f/g/a/t/b/c/d/e.txt")
+  ) << (
+    ResultNode()
+      << (ResultNode("a", true)
+        << (ResultNode("b", true)
+          << (ResultNode("c", true)
+            << (ResultNode("d", true)
+              << ResultNode("e.txt"))))
+        << (ResultNode("t", true)
+          << (ResultNode("b", true)
+            << (ResultNode("c", true)
+              << (ResultNode("d", true)
+                << ResultNode("e.txt"))))))
+  );
+
   QTest::newRow("levels") << ( QList<DummyDocument *>()
     << new DummyDocument("file:///c/a/foo.txt")
     << new DummyDocument("file:///c/b/bar.txt")

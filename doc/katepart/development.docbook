@@ -501,22 +501,63 @@ and <emphasis>xml</emphasis>.</para>
 as a short summary: Default styles are predefined font and color styles.</para>
 <variablelist>
 <varlistentry>
-<term>So here are only the list of available default styles:</term>
+<term>General default styles:</term>
 <listitem>
-<para><userinput>dsNormal</userinput>, used for normal text.</para>
-<para><userinput>dsKeyword</userinput>, used for keywords.</para>
-<para><userinput>dsDataType</userinput>, used for data types.</para>
-<para><userinput>dsDecVal</userinput>, used for decimal values.</para>
-<para><userinput>dsBaseN</userinput>, used for values with a base other than 10.</para>
-<para><userinput>dsFloat</userinput>, used for float values.</para>
-<para><userinput>dsChar</userinput>, used for a character.</para>
-<para><userinput>dsString</userinput>, used for strings.</para>
-<para><userinput>dsComment</userinput>, used for comments.</para>
-<para><userinput>dsOthers</userinput>, used for 'other' things.</para>
-<para><userinput>dsAlert</userinput>, used for warning messages.</para>
-<para><userinput>dsFunction</userinput>, used for function calls.</para>
-<para><userinput>dsRegionMarker</userinput>, used for region markers.</para>
-<para><userinput>dsError</userinput>, used for error highlighting and wrong syntax.</para>
+<para><userinput>dsNormal</userinput>, when no special highlighing is required.</para>
+<para><userinput>dsKeyword</userinput>, built-in language keywords.</para>
+<para><userinput>dsFunction</userinput>, function calls and definitions.</para>
+<para><userinput>dsVariable</userinput>, if applicable: variable names (e.g. $someVar in PHP/Perl).</para>
+<para><userinput>dsControlFlow</userinput>, control flow keywords like if, else, switch, break, return, yield, ...</para>
+<para><userinput>dsOperator</userinput>, operators like + - * / :: &lt; &gt;</para>
+<para><userinput>dsBuiltIn</userinput>, built-in functions, classes, and objects.</para>
+<para><userinput>dsExtension</userinput>, common extensions, such as Qt classes and functions/macros in C++ and Python.</para>
+<para><userinput>dsPreprocessor</userinput>, preprocessor statements or macro definitions.</para>
+<para><userinput>dsAttribute</userinput>, annotations such as @override and __declspec(...).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>String-related default styles:</term>
+<listitem>
+<para><userinput>dsChar</userinput>, single characters, such as 'x'.</para>
+<para><userinput>dsSpecialChar</userinput>, chars with special meaning in strings such as escapes, substitutions, or regex operators.</para>
+<para><userinput>dsString</userinput>, strings like "hello world".</para>
+<para><userinput>dsVerbatimString</userinput>, verbatim or raw strings like 'raw \backlash' in Perl, CoffeeScript, and shells, as well as r'\raw' in Python.</para>
+<para><userinput>dsSpecialString</userinput>, SQL, regexes, HERE docs, LaTeX math mode, ...</para>
+<para><userinput>dsImport</userinput>, import, include, require of modules.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Number-related default styles:</term>
+<listitem>
+<para><userinput>dsDataType</userinput>, built-in data types like int, void, u64.</para>
+<para><userinput>dsDecVal</userinput>, decimal values.</para>
+<para><userinput>dsBaseN</userinput>, values with a base other than 10.</para>
+<para><userinput>dsFloat</userinput>, floating point values.</para>
+<para><userinput>dsConstant</userinput>, built-in and user defined constants like PI.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Comment and documentation-related default styles:</term>
+<listitem>
+<para><userinput>dsComment</userinput>, comments.</para>
+<para><userinput>dsDocumentation</userinput>, /** Documentation comments */ or """docstrings""".</para>
+<para><userinput>dsAnnotation</userinput>, documentation commands like @param, @brief.</para>
+<para><userinput>dsCommentVar</userinput>, the variable names used in above commands, like "foobar" in @param foobar.</para>
+<para><userinput>dsRegionMarker</userinput>, region markers like //BEGIN, //END in comments.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Other default styles:</term>
+<listitem>
+<para><userinput>dsInformation</userinput>, notes and tips like @note in doxygen.</para>
+<para><userinput>dsWarning</userinput>, warnings like @warning in doxygen.</para>
+<para><userinput>dsAlert</userinput>, special words like TODO, FIXME, XXXX.</para>
+<para><userinput>dsError</userinput>, error highlighting and wrong syntax.</para>
+<para><userinput>dsOthers</userinput>, when nothing else fits.</para>
 </listitem>
 </varlistentry>
 </variablelist>

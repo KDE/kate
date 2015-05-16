@@ -503,7 +503,7 @@ as a short summary: Default styles are predefined font and color styles.</para>
 <varlistentry>
 <term>General default styles:</term>
 <listitem>
-<para><userinput>dsNormal</userinput>, when no special highlighing is required.</para>
+<para><userinput>dsNormal</userinput>, when no special highlighting is required.</para>
 <para><userinput>dsKeyword</userinput>, built-in language keywords.</para>
 <para><userinput>dsFunction</userinput>, function calls and definitions.</para>
 <para><userinput>dsVariable</userinput>, if applicable: variable names (e.g. $someVar in PHP/Perl).</para>

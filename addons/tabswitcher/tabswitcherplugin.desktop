@@ -36,6 +36,7 @@ Name[x-test]=xxDocument switcherxx
 Name[zh_CN]=文档切换器
 Name[zh_TW]=文件切換器
 Comment=Quick document switching with ALT+Tab behavior
+Comment[ast]=Cambéu rápidu pente documentos col comportamientu de ALT+Tab
 Comment[ca]=Canvia ràpidament de document amb el comportament de ALT+Tab
 Comment[cs]=Rychlé přepínání dokumentů s chováním jako ALT+Tab
 Comment[da]=Hurtig dokumentskift med Alt+Tab-opførsel

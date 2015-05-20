@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KTextEditor/Plugin
+X-KDE-Library=kterustcompletionplugin
+Name=Rust code completion
+Comment=Code completion for Rust source code

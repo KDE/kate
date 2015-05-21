@@ -40,6 +40,13 @@ KTERustCompletionPluginView::KTERustCompletionPluginView(KTERustCompletionPlugin
 
 KTERustCompletionPluginView::~KTERustCompletionPluginView()
 {
+    foreach(KTextEditor::View *view, m_completionViews) {
+        KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
+
+        if (cci) {
+            cci->unregisterCompletionModel(m_plugin->completion());
+        }
+    }
 }
 
 void KTERustCompletionPluginView::viewCreated(KTextEditor::View *view)

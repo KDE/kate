@@ -42,7 +42,7 @@ class KTERustCompletionPluginView : public QObject, public KXMLGUIClient
         ~KTERustCompletionPluginView();
 
     private Q_SLOTS:
-        void findDefinition();
+        void goToDefinition();
         void viewChanged();
         void viewCreated(KTextEditor::View *view);
         void viewDestroyed(QObject *view);

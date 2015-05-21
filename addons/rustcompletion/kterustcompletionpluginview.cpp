@@ -47,7 +47,7 @@ KTERustCompletionPluginView::KTERustCompletionPluginView(KTERustCompletionPlugin
         viewCreated(view);
     }
 
-    auto a = actionCollection()->addAction(QStringLiteral("rust_find_definition"), this, SLOT(findDefinition()));
+    auto a = actionCollection()->addAction(QStringLiteral("rust_find_definition"), this, SLOT(goToDefinition()));
     a->setText(i18n("Go to Definition"));
 
     viewChanged();
@@ -59,7 +59,7 @@ KTERustCompletionPluginView::~KTERustCompletionPluginView()
 {
 }
 
-void KTERustCompletionPluginView::findDefinition()
+void KTERustCompletionPluginView::goToDefinition()
 {
     KTextEditor::View *activeView = m_mainWindow->activeView();
 

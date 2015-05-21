@@ -96,9 +96,7 @@ void KTERustCompletion::completionInvoked(KTextEditor::View *view, const KTextEd
 
     beginResetModel();
 
-    m_matches.clear();
-
-    runRacer(view->document(), range);
+    m_matches = getMatches(view->document(), Complete, range.end());
 
     setRowCount(m_matches.size());
     setHasGroups(false);
@@ -117,12 +115,15 @@ void KTERustCompletion::aborted(KTextEditor::View *view)
     endResetModel();
 }
 
-void KTERustCompletion::runRacer(KTextEditor::Document *document, const KTextEditor::Range &range)
+QList<CompletionMatch> KTERustCompletion::getMatches(const KTextEditor::Document *document, MatchAction action, const KTextEditor::Cursor &position)
 {
+    QList<CompletionMatch> matches;
+
     if (!m_plugin->configOk()) {
-        return;
+        return matches;
     }
 
+    const QUrl &documentUrl = document->url();
     QTemporaryFile file;
 
     if (file.open()) {
@@ -139,12 +140,10 @@ void KTERustCompletion::runRacer(KTextEditor::Document *document, const KTextEdi
         env.insert(QStringLiteral("RUST_SRC_PATH"), m_plugin->rustSrcPath().toLocalFile());
         proc.setProcessEnvironment(env);
 
-        KTextEditor::Cursor cursor = range.end();
-
         QStringList args;
-        args << QStringLiteral("complete");
-        args << QString::number(cursor.line() + 1);
-        args << QString::number(cursor.column());
+        args << (action == Complete ? QStringLiteral("complete") : QStringLiteral("find-definition"));
+        args << QString::number(position.line() + 1);
+        args << QString::number(position.column());
         args << file.fileName();
 
         proc.start(m_plugin->racerCmd(), args, QIODevice::ReadOnly);
@@ -165,11 +164,33 @@ void KTERustCompletion::runRacer(KTextEditor::Document *document, const KTextEdi
                     match.depth = (type == QStringLiteral("StructField")) ? 1 : 0;
                     addType(match, type);
 
-                    m_matches.append(match);
+                    QString path = line.section(QStringLiteral(","), 3, 3);
+
+                    if (path == file.fileName()) {
+                        match.url = document->url();
+                    } else {
+                        match.url = QUrl::fromLocalFile(path);
+                    }
+
+                    bool ok = false;
+
+                    int row = line.section(QStringLiteral(","), 1, 1).toInt(&ok);
+                    if (ok) match.line = row - 1;
+
+                    int col = line.section(QStringLiteral(","), 2, 2).toInt(&ok);
+                    if (ok) match.col = col;
+
+                    matches.append(match);
+
+                    if (action == FindDefinition) {
+                        break;
+                    }
                 }
             }
         }
     }
+
+    return matches;
 }
 
 void KTERustCompletion::addType(CompletionMatch &match, const QString &type)

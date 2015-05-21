@@ -21,6 +21,7 @@
 #define KTERUSTCOMPLETION_H
 
 #include <QIcon>
+#include <QUrl>
 
 #include <KTextEditor/CodeCompletionModel>
 #include <KTextEditor/CodeCompletionModelControllerInterface>
@@ -33,11 +34,14 @@ namespace KTextEditor {
 }
 
 struct CompletionMatch {
-    CompletionMatch() : type(KTextEditor::CodeCompletionModel::NoProperty), depth(0) {}
+    CompletionMatch() : type(KTextEditor::CodeCompletionModel::NoProperty), depth(0), line(-1), col(-1) {}
     QString text;
     QIcon icon;
     KTextEditor::CodeCompletionModel::CompletionProperty type;
     int depth;
+    QUrl url;
+    int line;
+    int col;
 };
 
 class KTERustCompletion : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface
@@ -50,6 +54,11 @@ class KTERustCompletion : public KTextEditor::CodeCompletionModel, public KTextE
         KTERustCompletion(KTERustCompletionPlugin *plugin);
         ~KTERustCompletion();
 
+        enum MatchAction {
+            Complete = 0,
+            FindDefinition
+        };
+
         bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position);
 
         void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType);
@@ -58,8 +67,9 @@ class KTERustCompletion : public KTextEditor::CodeCompletionModel, public KTextE
 
         QVariant data(const QModelIndex &index, int role) const;
 
+        QList<CompletionMatch> getMatches(const KTextEditor::Document *document, MatchAction action, const KTextEditor::Cursor &position);
+
     private:
-        void runRacer(KTextEditor::Document *document, const KTextEditor::Range &range);
         static void addType(CompletionMatch &match, const QString &type);
 
         QList<CompletionMatch> m_matches;

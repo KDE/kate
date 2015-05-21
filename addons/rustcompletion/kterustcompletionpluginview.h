@@ -23,6 +23,8 @@
 #include <QObject>
 #include <QSet>
 
+#include <KXMLGUIClient>
+
 class KTERustCompletionPlugin;
 
 namespace KTextEditor {
@@ -31,7 +33,7 @@ namespace KTextEditor {
     class View;
 }
 
-class KTERustCompletionPluginView : public QObject
+class KTERustCompletionPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
 
@@ -40,12 +42,16 @@ class KTERustCompletionPluginView : public QObject
         ~KTERustCompletionPluginView();
 
     private Q_SLOTS:
+        void findDefinition();
+        void viewChanged();
         void viewCreated(KTextEditor::View *view);
         void viewDestroyed(QObject *view);
         void documentChanged(KTextEditor::Document *document);
 
     private:
         void registerCompletion(KTextEditor::View *view);
+
+        static bool isRustView(const KTextEditor::View *view);
 
         KTERustCompletionPlugin *m_plugin;
         KTextEditor::MainWindow *m_mainWindow;

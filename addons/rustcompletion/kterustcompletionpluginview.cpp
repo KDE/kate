@@ -20,6 +20,13 @@
 #include "kterustcompletionpluginview.h"
 #include "kterustcompletionplugin.h"
 
+#include <QAction>
+
+#include <KActionCollection>
+#include <KLocalizedString>
+#include <KStandardAction>
+#include <KXMLGUIFactory>
+
 #include <KTextEditor/CodeCompletionInterface>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
@@ -30,22 +37,73 @@ KTERustCompletionPluginView::KTERustCompletionPluginView(KTERustCompletionPlugin
     , m_plugin(plugin)
     , m_mainWindow(mainWin)
 {
-    connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated,
-        this, &KTERustCompletionPluginView::viewCreated);
+    KXMLGUIClient::setComponentName(QStringLiteral("kterustcompletion"), i18n("Rust code completion"));
+    setXMLFile(QStringLiteral("ui.rc"));
+
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KTERustCompletionPluginView::viewChanged);
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &KTERustCompletionPluginView::viewCreated);
 
     foreach(KTextEditor::View *view, m_mainWindow->views()) {
         viewCreated(view);
     }
+
+    auto a = actionCollection()->addAction(QStringLiteral("rust_find_definition"), this, SLOT(findDefinition()));
+    a->setText(i18n("Go to Definition"));
+
+    viewChanged();
+
+    m_mainWindow->guiFactory()->addClient(this);
 }
 
 KTERustCompletionPluginView::~KTERustCompletionPluginView()
 {
-    foreach(KTextEditor::View *view, m_completionViews) {
-        KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
+}
 
-        if (cci) {
-            cci->unregisterCompletionModel(m_plugin->completion());
+void KTERustCompletionPluginView::findDefinition()
+{
+    KTextEditor::View *activeView = m_mainWindow->activeView();
+
+    if (!activeView) {
+        return;
+    }
+
+    const KTextEditor::Document *document = activeView->document();
+    const KTextEditor::Cursor cursor = activeView->cursorPosition();
+
+    QList<CompletionMatch> matches = m_plugin->completion()->getMatches(document,
+        KTERustCompletion::FindDefinition, cursor);
+
+    if (matches.count()) {
+        const CompletionMatch &match = matches.at(0);
+
+        if (!(match.line != -1 && match.col != -1)) {
+            return;
         }
+
+        KTextEditor::Cursor def(match.line, match.col);
+
+        if (match.url == document->url()) {
+            activeView->setCursorPosition(def);
+        } else if (match.url.isValid()) {
+            KTextEditor::View *view = m_mainWindow->openUrl(match.url);
+
+            if (view) {
+                view->setCursorPosition(def);
+            }
+        }
+    }
+}
+
+void KTERustCompletionPluginView::viewChanged()
+{
+    const KTextEditor::View *activeView = m_mainWindow->activeView();
+
+    auto a = actionCollection()->action(QStringLiteral("rust_find_definition"));
+
+    if (a) {
+        bool isRust = isRustView(activeView);
+        a->setEnabled(isRust);
+        a->setVisible(isRust);
     }
 }
 
@@ -75,8 +133,7 @@ void KTERustCompletionPluginView::documentChanged(KTextEditor::Document *documen
 
 void KTERustCompletionPluginView::registerCompletion(KTextEditor::View *view) {
     bool registered = m_completionViews.contains(view);
-    bool isRust = (view->document()->url().path().endsWith(QStringLiteral(".rs")) ||
-        view->document()->highlightingMode() == QStringLiteral("Rust"));
+    bool isRust = isRustView(view);
 
     KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
 
@@ -97,4 +154,14 @@ void KTERustCompletionPluginView::registerCompletion(KTextEditor::View *view) {
         cci->unregisterCompletionModel(m_plugin->completion());
         m_completionViews.remove(view);
     }
+}
+
+bool KTERustCompletionPluginView::isRustView(const KTextEditor::View *view)
+{
+    if (view) {
+        return (view->document()->url().path().endsWith(QStringLiteral(".rs")) ||
+            view->document()->highlightingMode() == QStringLiteral("Rust"));
+    }
+
+    return false;
 }

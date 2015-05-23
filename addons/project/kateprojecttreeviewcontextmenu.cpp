@@ -23,6 +23,8 @@
 #include <klocalizedstring.h>
 #include <KMimeTypeTrader>
 #include <KRun>
+#include <KNS3/KMoreTools>
+#include <KNS3/KMoreToolsMenuFactory>
 
 #include <QMenu>
 #include <QStandardPaths>
@@ -60,22 +62,6 @@ static bool isGit(const QString &filename)
     return isGit;
 }
 
-static bool appExists(const QString &appname)
-{
-    return ! QStandardPaths::findExecutable(appname).isEmpty();
-}
-
-static void launchApp(const QString &app, const QString &file)
-{
-    QFileInfo fi(file);
-    QDir dir(fi.absoluteDir());
-
-    QStringList args;
-    args << file;
-
-    QProcess::startDetached(app, QStringList(), dir.absolutePath());
-}
-
 void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint &pos, QWidget *parent)
 {
     /**
@@ -110,27 +96,16 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
      */
     openWithMenu->setEnabled(!openWithMenu->isEmpty());
 
-    QList<QAction *> appActions;
-    if (isGit(filename)) {
-        QMenu *git = menu.addMenu(i18n("Git Tools"));
-        if (appExists(QStringLiteral("gitk"))) {
-            QAction *action = git->addAction(i18n("Launch gitk"));
-            action->setData(QStringLiteral("gitk"));
-            appActions.append(action);
-        }
-        if (appExists(QStringLiteral("qgit"))) {
-            QAction *action = git->addAction(i18n("Launch qgit"));
-            action->setData(QStringLiteral("qgit"));
-            appActions.append(action);
-        }
-        if (appExists(QStringLiteral("git-cola"))) {
-            QAction *action = git->addAction(i18n("Launch git-cola"));
-            action->setData(QStringLiteral("git-cola"));
-            appActions.append(action);
-        }
+    KMoreToolsMenuFactory menuFactory(QLatin1String("kate/addons/project/git-tools"));
 
-        if (appActions.size() == 0) {
-            delete git;
+    if (isGit(filename)) {
+
+        auto gitMenu = menuFactory.createMenuFromGroupingNames({ QLatin1String("git-clients-and-actions") },
+                                                               QUrl::fromLocalFile(filename));
+
+        menu.addSection(i18n("Git:"));
+        Q_FOREACH(auto action, gitMenu->actions()) {
+            menu.addAction(action);
         }
     }
 
@@ -142,8 +117,6 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
         // handle apps
         if (copyAction == action) {
             QApplication::clipboard()->setText(filename);
-        } else if (appActions.contains(action)) {
-            launchApp(action->data().toString(), filename);
         } else {
             // handle "open with"
             const QString openWith = action->data().toString();
@@ -155,4 +128,3 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
         }
     }
 }
-

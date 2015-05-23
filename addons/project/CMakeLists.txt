@@ -1,5 +1,7 @@
 project(kateprojectplugin)
 
+find_package(KF5NewStuff ${KF5_DEP_VERSION} REQUIRED) # For KMoreTools
+
 # libgit2 integration
 find_package(LibGit2 "0.22.0")
 if(LIBGIT2_FOUND)
@@ -37,6 +39,7 @@ target_link_libraries(kateprojectplugin
     KF5::Parts KF5::I18n
     KF5::GuiAddons
     Qt5::Script KF5::ItemViews KF5::ItemModels KF5::IconThemes KF5::ThreadWeaver
+    KF5::NewStuff # For KMoreTools
     ${PROJECT_OPTIONAL_LIBS}
 )
 

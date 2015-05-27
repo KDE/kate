@@ -156,7 +156,8 @@ void ReplaceMatches::doReplaceNextMatch()
             replaceText.replace(QString::fromLatin1("\\%1").arg(j), m_regExp.cap(j));
         }
         replaceText.replace(QStringLiteral("\\n"), QStringLiteral("\n"));
-        replaceText.replace(QStringLiteral("¤Search&Replace¤"), QStringLiteral("\\\\"));
+        replaceText.replace(QStringLiteral("\\t"), QStringLiteral("\t"));
+        replaceText.replace(QStringLiteral("¤Search&Replace¤"), QStringLiteral("\\"));
         rTexts << replaceText;
 
         replaceText.replace(QLatin1Char('\n'), QStringLiteral("\\n"));

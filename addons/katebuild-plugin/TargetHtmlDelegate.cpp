@@ -29,6 +29,8 @@
 #include <QLineEdit>
 #include <klocalizedstring.h>
 #include <QToolButton>
+#include <QCompleter>
+#include <QDirModel>
 
 #include "UrlInserter.h"
 
@@ -121,7 +123,13 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
         editor->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
     }
     else {
-        editor =  new QLineEdit(dparent);
+        QLineEdit *e =  new QLineEdit(dparent);
+        QCompleter *completer = new QCompleter(e);
+        completer->setModel(new QDirModel(QStringList(),
+                                          QDir::AllDirs|QDir::NoDotAndDotDot,
+                                          QDir::Name, e));
+        e->setCompleter(completer);
+        editor = e;
     }
     editor->setAutoFillBackground(true);
     emit sendEditStart();

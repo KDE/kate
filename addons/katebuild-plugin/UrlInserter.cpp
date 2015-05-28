@@ -25,10 +25,18 @@
 #include <QFileInfo>
 #include <QIcon>
 #include <QDebug>
+#include <QCompleter>
+#include <QDirModel>
 
 UrlInserter::UrlInserter(const QUrl &startUrl, QWidget* parent): QWidget(parent), m_startUrl(startUrl), m_replace(false)
 {
     m_lineEdit = new QLineEdit();
+    QCompleter* completer = new QCompleter(m_lineEdit);
+    completer->setModel(new QDirModel(QStringList(),
+                                      QDir::AllEntries|QDir::NoDotAndDotDot|QDir::Executable,
+                                      QDir::Name, m_lineEdit));
+    m_lineEdit->setCompleter(completer);
+
     m_toolButton = new QToolButton();
     m_toolButton->setIcon(QIcon::fromTheme(QStringLiteral("archive-insert-directory")));
     m_toolButton->setToolTip(i18n("Insert path"));

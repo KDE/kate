@@ -351,11 +351,13 @@ m_mainWindow (mainWin)
     connect(m_ui.searchCombo, SIGNAL(customContextMenuRequested(QPoint)), this,
             SLOT(searchContextMenu(QPoint)));
     m_ui.searchCombo->completer()->setCompletionMode(QCompleter::PopupCompletion);
+    m_ui.searchCombo->completer()->setCaseSensitivity(Qt::CaseSensitive);
     m_ui.searchCombo->setInsertPolicy(QComboBox::NoInsert);
     m_ui.searchCombo->lineEdit()->setClearButtonEnabled(true);
     m_ui.searchCombo->setMaxCount(25);
 
     m_ui.replaceCombo->completer()->setCompletionMode(QCompleter::PopupCompletion);
+    m_ui.searchCombo->completer()->setCaseSensitivity(Qt::CaseSensitive);
     m_ui.replaceCombo->setInsertPolicy(QComboBox::NoInsert);
     m_ui.replaceCombo->lineEdit()->setClearButtonEnabled(true);
     m_ui.replaceCombo->setMaxCount(25);

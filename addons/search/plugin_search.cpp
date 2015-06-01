@@ -875,6 +875,10 @@ void KatePluginSearchView::startSearch()
         m_ui.excludeCombo->insertItem(0, m_ui.excludeCombo->currentText());
         m_ui.excludeCombo->setCurrentIndex(0);
     }
+    if (m_ui.folderRequester->comboBox()->findText(m_ui.folderRequester->comboBox()->currentText()) == -1) {
+        m_ui.folderRequester->comboBox()->insertItem(0, m_ui.folderRequester->comboBox()->currentText());
+        m_ui.folderRequester->comboBox()->setCurrentIndex(0);
+    }
     m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
         qWarning() << "This is a bug";

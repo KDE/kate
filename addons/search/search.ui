@@ -298,7 +298,12 @@
             </item>
             <item>
              <widget class="KComboBox" name="searchPlaceCombo">
-              <item>
+             <item>
+             <property name="text">
+             <string>Current File</string>
+             </property>
+             </item>
+             <item>
                <property name="text">
                 <string>Open Files</string>
                </property>

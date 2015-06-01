@@ -262,8 +262,9 @@ m_mainWindow (mainWin)
     m_ui.displayOptions->setIcon(QIcon::fromTheme(QStringLiteral("arrow-down-double")));
     m_ui.searchButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
     m_ui.stopButton->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
-    m_ui.searchPlaceCombo->setItemIcon(0, QIcon::fromTheme(QStringLiteral("text-plain")));
-    m_ui.searchPlaceCombo->setItemIcon(1, QIcon::fromTheme(QStringLiteral("folder")));
+    m_ui.searchPlaceCombo->setItemIcon(CurrentFile, QIcon::fromTheme(QStringLiteral("text-plain")));
+    m_ui.searchPlaceCombo->setItemIcon(OpenFiles, QIcon::fromTheme(QStringLiteral("text-plain")));
+    m_ui.searchPlaceCombo->setItemIcon(Folder, QIcon::fromTheme(QStringLiteral("folder")));
     m_ui.folderUpButton->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
     m_ui.currentFolderButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
     m_ui.newTabButton->setIcon(QIcon::fromTheme(QStringLiteral("tab-new")));
@@ -618,13 +619,11 @@ void KatePluginSearchView::searchPlaceChanged()
 {
     m_ui.displayOptions->setChecked(true);
 
-    const bool inFolder = (m_ui.searchPlaceCombo->currentIndex() == 1);
-    const bool inCurrentProject = (m_ui.searchPlaceCombo->currentIndex() == 2);
-    const bool inAllOpenProjects = (m_ui.searchPlaceCombo->currentIndex() == 3);
+    int searchPlace = m_ui.searchPlaceCombo->currentIndex();
+    const bool inFolder = (searchPlace == Folder);
 
-    m_ui.filterCombo->setEnabled(inFolder || inCurrentProject || inAllOpenProjects);
-
-    m_ui.excludeCombo->setEnabled(inFolder || inCurrentProject || inAllOpenProjects);
+    m_ui.filterCombo->setEnabled(searchPlace >= Folder);
+    m_ui.excludeCombo->setEnabled(searchPlace >= Folder);
     m_ui.folderRequester->setEnabled(inFolder);
     m_ui.folderUpButton->setEnabled(inFolder);
     m_ui.currentFolderButton->setEnabled(inFolder);
@@ -909,17 +908,25 @@ void KatePluginSearchView::startSearch()
     m_searchDiskFilesDone = false;
     m_searchOpenFilesDone = false;
 
-    const bool inCurrentProject = m_ui.searchPlaceCombo->currentIndex() == 2;
-    const bool inAllOpenProjects = m_ui.searchPlaceCombo->currentIndex() == 3;
+    const bool inCurrentProject = m_ui.searchPlaceCombo->currentIndex() == Project;
+    const bool inAllOpenProjects = m_ui.searchPlaceCombo->currentIndex() == AllProjects;
 
-    if (m_ui.searchPlaceCombo->currentIndex() ==  0) {
+    if (m_ui.searchPlaceCombo->currentIndex() ==  CurrentFile) {
+        m_searchDiskFilesDone = true;
+        m_resultBaseDir.clear();
+        QList<KTextEditor::Document*> documents;
+        documents << m_mainWindow->activeView()->document();
+        addHeaderItem();
+        m_searchOpenFiles.startSearch(documents, reg);
+    }
+    else if (m_ui.searchPlaceCombo->currentIndex() ==  OpenFiles) {
         m_searchDiskFilesDone = true;
         m_resultBaseDir.clear();
         const QList<KTextEditor::Document*> documents = m_kateApp->documents();
         addHeaderItem();
         m_searchOpenFiles.startSearch(documents, reg);
     }
-    else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
+    else if (m_ui.searchPlaceCombo->currentIndex() == Folder) {
         m_resultBaseDir = m_ui.folderRequester->url().path();
         if (!m_resultBaseDir.isEmpty() && !m_resultBaseDir.endsWith(QLatin1Char('/')))
             m_resultBaseDir += QLatin1Char('/');
@@ -1085,18 +1092,23 @@ void KatePluginSearchView::searchDone()
     if (root) {
         switch (m_ui.searchPlaceCombo->currentIndex())
         {
-            case 0:
+            case CurrentFile:
+                root->setData(0, Qt::DisplayRole, i18np("<b><i>One match found in current file</i></b>",
+                                                        "<b><i>%1 matches found in current file</i></b>",
+                                                        m_curResults->matches));
+                break;
+            case OpenFiles:
                 root->setData(0, Qt::DisplayRole, i18np("<b><i>One match found in open files</i></b>",
                                                         "<b><i>%1 matches found in open files</i></b>",
                                                         m_curResults->matches));
                 break;
-            case 1:
+            case Folder:
                 root->setData(0, Qt::DisplayRole, i18np("<b><i>One match found in folder %2</i></b>",
                                                         "<b><i>%1 matches found in folder %2</i></b>",
                                                         m_curResults->matches,
                                                         m_resultBaseDir));
                 break;
-            case 2:
+            case Project:
                 {
                     QString projectName;
                     if (m_projectPluginView) {
@@ -1109,7 +1121,7 @@ void KatePluginSearchView::searchDone()
                                                             m_resultBaseDir));
                     break;
                 }
-            case 3: // "in Open Projects"
+            case AllProjects: // "in Open Projects"
                 root->setData(0, Qt::DisplayRole, i18np("<b><i>One match found in all open projects (common parent: %2)</i></b>",
                                                         "<b><i>%1 matches found in all open projects (common parent: %2)</i></b>",
                                                         m_curResults->matches,
@@ -1507,12 +1519,12 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
 
     int searchPlaceIndex = cg.readEntry("Place", 1);
     if (searchPlaceIndex < 0) {
-        searchPlaceIndex = 1; // for the case we happen to read -1 as Place
+        searchPlaceIndex = Folder; // for the case we happen to read -1 as Place
     }
-    if ((searchPlaceIndex == 2) && (searchPlaceIndex >= m_ui.searchPlaceCombo->count())) {
-        // handle the case that project mode was selected, butnot yet available
+    if ((searchPlaceIndex == Project) && (searchPlaceIndex >= m_ui.searchPlaceCombo->count())) {
+        // handle the case that project mode was selected, but not yet available
         m_switchToProjectModeWhenAvailable = true;
-        searchPlaceIndex = 1;
+        searchPlaceIndex = Folder;
     }
     m_ui.searchPlaceCombo->setCurrentIndex(searchPlaceIndex);
 
@@ -1762,18 +1774,19 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
 {
     // query new project file name
     QString projectFileName;
-    if (m_projectPluginView)
+    if (m_projectPluginView) {
         projectFileName = m_projectPluginView->property("projectFileName").toString();
+    }
 
     // have project, enable gui for it
     if (!projectFileName.isEmpty()) {
-        if (m_ui.searchPlaceCombo->count() < 3) {
+        if (m_ui.searchPlaceCombo->count() <= Project) {
             // add "in Project"
             m_ui.searchPlaceCombo->addItem (QIcon::fromTheme(QStringLiteral("project-open")), i18n("Current Project"));
             if (m_switchToProjectModeWhenAvailable) {
                 // switch to search "in Project"
                 m_switchToProjectModeWhenAvailable = false;
-                setSearchPlace (2);
+                setSearchPlace (Project);
             }
 
             // add "in Open Projects"
@@ -1783,13 +1796,16 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
 
     // else: disable gui for it
     else {
-        if (m_ui.searchPlaceCombo->count() > 2) {
+        if (m_ui.searchPlaceCombo->count() >= Project) {
             // switch to search "in Open files", if "in Project" is active
-            if (m_ui.searchPlaceCombo->currentIndex () == 2)
-                setSearchPlace (0);
+            if (m_ui.searchPlaceCombo->currentIndex() >= Project) {
+                setSearchPlace(OpenFiles);
+            }
 
-            // remove "in Project"
-            m_ui.searchPlaceCombo->removeItem (2);
+            // remove "in Project" and "in all projects"
+            while (m_ui.searchPlaceCombo->count() > Project) {
+                m_ui.searchPlaceCombo->removeItem(m_ui.searchPlaceCombo->count()-1);
+            }
         }
     }
 }
@@ -1809,20 +1825,20 @@ bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, Q
     QString searchText = args.join(QLatin1Char(' '));
 
     if (command == QStringLiteral("grep") || command == QStringLiteral("newGrep")) {
-        emit setSearchPlace(1);
+        emit setSearchPlace(KatePluginSearchView::Folder);
         emit setCurrentFolder();
         if (command == QStringLiteral("newGrep"))
             emit newTab();
     }
     
     else if (command == QStringLiteral("search") || command == QStringLiteral("newSearch")) {
-        emit setSearchPlace(0);
+        emit setSearchPlace(KatePluginSearchView::OpenFiles);
         if (command == QStringLiteral("newSearch"))
             emit newTab();
     }
     
     else if (command == QStringLiteral("pgrep") || command == QStringLiteral("newPGrep")) {
-        emit setSearchPlace(2);
+        emit setSearchPlace(KatePluginSearchView::Project);
         if (command == QStringLiteral("newPGrep"))
             emit newTab();
     }

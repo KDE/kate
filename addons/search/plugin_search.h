@@ -93,6 +93,14 @@ class KatePluginSearchView : public QObject, public KXMLGUIClient, public KTextE
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
+    enum SearchPlaces {
+        CurrentFile,
+        OpenFiles,
+        Folder,
+        Project,
+        AllProjects
+    };
+
     KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow, KTextEditor::Application* application);
     ~KatePluginSearchView();
 

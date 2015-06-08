@@ -175,6 +175,10 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     // on first start: deactivate toolbar
     if (firstStart)
         toolBar(QLatin1String("mainToolBar"))->hide();
+
+    // pass focus to first view!
+    if (m_viewManager->activeView())
+        m_viewManager->activeView()->setFocus();
 }
 
 KateMainWindow::~KateMainWindow()

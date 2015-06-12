@@ -4,6 +4,7 @@ ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=kterustcompletionplugin
 Name=Rust code completion
 Name[ca]=Compleció de codi per al Rust
+Name[cs]=Automatické doplňování pro Rust
 Name[de]=Rust-Quelltext-Vervollständigung
 Name[en_GB]=Rust code completion
 Name[es]=Terminación de código para Rust

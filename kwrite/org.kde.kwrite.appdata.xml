@@ -15,6 +15,7 @@
   <name xml:lang="fi">KWrite</name>
   <name xml:lang="gl">KWrite</name>
   <name xml:lang="hu">KWrite</name>
+  <name xml:lang="ia">Kwrite</name>
   <name xml:lang="it">KWrite</name>
   <name xml:lang="ko">KWrite</name>
   <name xml:lang="nb">KWrite</name>
@@ -47,6 +48,7 @@
   <summary xml:lang="fi">Tekstimuokkain</summary>
   <summary xml:lang="gl">Editor de textos</summary>
   <summary xml:lang="hu">Szövegszerkesztő</summary>
+  <summary xml:lang="ia">Editor de texto</summary>
   <summary xml:lang="it">Editor di testo</summary>
   <summary xml:lang="ko">텍스트 편집기</summary>
   <summary xml:lang="nb">Tekstredigering</summary>
@@ -111,6 +113,7 @@
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="hu">Szolgáltatások:</p>
+    <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="it">Funzionalità:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="nb">Funksjoner:</p>

@@ -14,6 +14,7 @@
   <name xml:lang="fi">Kate</name>
   <name xml:lang="gl">Kate</name>
   <name xml:lang="hu">Kate</name>
+  <name xml:lang="ia">Kate</name>
   <name xml:lang="it">Kate</name>
   <name xml:lang="ko">Kate</name>
   <name xml:lang="nb">Kate</name>
@@ -45,6 +46,7 @@
   <summary xml:lang="fi">Kehittynyt tekstimuokkain</summary>
   <summary xml:lang="gl">Editor avanzado de textos</summary>
   <summary xml:lang="hu">Speciális szövegszerkesztő</summary>
+  <summary xml:lang="ia">Editor avantiate de texto</summary>
   <summary xml:lang="it">Editor di testi avanzato</summary>
   <summary xml:lang="ko">고급 텍스트 편집기</summary>
   <summary xml:lang="nb">Avansert skriveprogram</summary>
@@ -106,6 +108,7 @@
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="hu">Szolgáltatások:</p>
+    <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="it">Funzionalità:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="nb">Funksjoner:</p>
@@ -165,6 +168,7 @@
       <li xml:lang="fi">Oikeinkirjoituksen tarkistus</li>
       <li xml:lang="gl">Corrección ortográfica.</li>
       <li xml:lang="hu">Helyesírás-ellenőrzés</li>
+      <li xml:lang="ia">Controlo Orthographic</li>
       <li xml:lang="it">Controllo ortografico</li>
       <li xml:lang="ko">맞춤법 검사</li>
       <li xml:lang="nb">Stavekontroll</li>

@@ -22,7 +22,7 @@
 #define _SEARCH_OPEN_FILES_H_
 
 #include <QObject>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTime>
 #include <ktexteditor/document.h>
 
@@ -33,21 +33,21 @@ class SearchOpenFiles: public QObject
 public:
     SearchOpenFiles(QObject *parent = 0);
 
-    void startSearch(const QList<KTextEditor::Document*> &list,const QRegExp &regexp);
+    void startSearch(const QList<KTextEditor::Document*> &list,const QRegularExpression &regexp);
     bool searching();
 
 public Q_SLOTS:
     void cancelSearch();
 
     /// return 0 on success or a line number where we stopped.
-    int searchOpenFile(KTextEditor::Document *doc, const QRegExp &regExp, int startLine);
+    int searchOpenFile(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 
 private Q_SLOTS:
     void doSearchNextFile(int startLine);
 
 private:
-    int searchSingleLineRegExp(KTextEditor::Document *doc, const QRegExp &regExp, int startLine);
-    int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegExp &regExp, int startLine);
+    int searchSingleLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
+    int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 
 Q_SIGNALS:
     void searchNextFile(int startLine);
@@ -58,7 +58,7 @@ Q_SIGNALS:
 private:
     QList<KTextEditor::Document*> m_docList;
     int                           m_nextIndex;
-    QRegExp                       m_regExp;
+    QRegularExpression            m_regExp;
     bool                          m_cancelSearch;
     QString                       m_fullDoc;
     QVector<int>                  m_lineStart;

@@ -731,14 +731,14 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
 
     if (m_curResults && !replace) {
         // special handling for "(?=\\n)" in multi-line search
-        QRegExp tmpReg = m_curResults->regExp;
+        QRegularExpression tmpReg = m_curResults->regExp;
         if (m_curResults->regExp.pattern().endsWith(QStringLiteral("(?=\\n)"))) {
             QString newPatern = tmpReg.pattern();
             newPatern.replace(QStringLiteral("(?=\\n)"), QStringLiteral("$"));
             tmpReg.setPattern(newPatern);
         }
 
-        if (tmpReg.indexIn(doc->text(range)) != 0) {
+        if (tmpReg.match(doc->text(range)).capturedStart() != 0) {
             qDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
             return;
         }
@@ -885,6 +885,19 @@ void KatePluginSearchView::startSearch()
         return;
     }
 
+    QRegularExpression::PatternOptions patternOptions = (m_ui.matchCase->isChecked() ? QRegularExpression::NoPatternOption : QRegularExpression::CaseInsensitiveOption);
+    QString pattern = (m_ui.useRegExp->isChecked() ? m_ui.searchCombo->currentText() : QRegularExpression::escape(m_ui.searchCombo->currentText()));
+    QRegularExpression reg(pattern, patternOptions);
+
+    if (!reg.isValid()) {
+        //qDebug() << "invalid regexp";
+        indicateMatch(false);
+        return;
+    }
+
+    m_curResults->regExp = reg;
+    m_curResults->fixedString = !m_ui.useRegExp->isChecked();
+
     m_ui.newTabButton->setDisabled(true);
     m_ui.searchCombo->setDisabled(true);
     m_ui.searchButton->setDisabled(true);
@@ -895,11 +908,6 @@ void KatePluginSearchView::startSearch()
     m_ui.nextAndStop->setCurrentIndex(1);
     m_ui.replaceCombo->setDisabled(true);
 
-
-    QRegExp reg(m_ui.searchCombo->currentText(),
-                m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
-                m_ui.useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
-    m_curResults->regExp = reg;
 
     clearMarks();
     m_curResults->tree->clear();
@@ -1006,27 +1014,33 @@ void KatePluginSearchView::startSearchWhileTyping()
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
     if (!doc) return;
 
+    m_resultBaseDir.clear();
     m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
         qWarning() << "This is a bug";
         return;
     }
 
-    m_ui.replaceCheckedBtn->setDisabled(true);
-    m_ui.replaceButton->setDisabled(true);
-    m_ui.nextButton->setDisabled(true);
-
-    QRegExp reg(m_ui.searchCombo->currentText(),
-                m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
-                m_ui.useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
-
-    m_curResults->regExp = reg;
-
     clearMarks();
     m_curResults->tree->clear();
     m_curResults->matches = 0;
 
-    m_resultBaseDir.clear();
+    QRegularExpression::PatternOptions patternOptions = (m_ui.matchCase->isChecked() ? QRegularExpression::NoPatternOption : QRegularExpression::CaseInsensitiveOption);
+    QString pattern = (m_ui.useRegExp->isChecked() ? m_ui.searchCombo->currentText() : QRegularExpression::escape(m_ui.searchCombo->currentText()));
+    QRegularExpression reg(pattern, patternOptions);
+    if (!reg.isValid()) {
+        //qDebug() << "invalid regexp";
+        indicateMatch(false);
+        return;
+    }
+
+    m_curResults->regExp = reg;
+    m_curResults->fixedString = !m_ui.useRegExp->isChecked();
+
+    m_ui.replaceCheckedBtn->setDisabled(true);
+    m_ui.replaceButton->setDisabled(true);
+    m_ui.nextButton->setDisabled(true);
+
 
     // add header item
     TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());
@@ -1272,7 +1286,8 @@ void KatePluginSearchView::replaceSingleMatch()
         return;
     }
 
-    if (!res->regExp.exactMatch(doc->text(m_matchRanges[i]->toRange()))) {
+    QRegularExpressionMatch match = res->regExp.match(doc->text(m_matchRanges[i]->toRange()));
+    if (match.capturedStart() != 0) {
         qDebug() << doc->text(m_matchRanges[i]->toRange()) << "Does not match" << res->regExp.pattern();
         goToNextMatch();
         return;
@@ -1280,16 +1295,18 @@ void KatePluginSearchView::replaceSingleMatch()
 
     QString replaceText = m_ui.replaceCombo->currentText();
     replaceText.replace(QStringLiteral("\\\\"), QStringLiteral("¤Search&Replace¤"));
-    for (int j=1; j<=res->regExp.captureCount(); j++) {
-        replaceText.replace(QString(QStringLiteral("\\%1")).arg(j), res->regExp.cap(j));
+    for (int j=1; j<=match.lastCapturedIndex() ; j++) {
+        replaceText.replace(QString(QStringLiteral("\\%1")).arg(j), match.captured(j));
     }
     replaceText.replace(QStringLiteral("\\n"), QStringLiteral("\n"));
+    replaceText.replace(QStringLiteral("\\t"), QStringLiteral("\t"));
     replaceText.replace(QStringLiteral("¤Search&Replace¤"), QStringLiteral("\\\\"));
 
     doc->replaceText(m_matchRanges[i]->toRange(), replaceText);
     addMatchMark(doc, dLine, dColumn, replaceText.size());
 
     replaceText.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+    replaceText.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
     QString html = item->data(0, ReplaceMatches::PreMatchRole).toString();
     html += QStringLiteral("<i><s>") + item->data(0, ReplaceMatches::MatchRole).toString() + QStringLiteral("</s></i> ");
     html += QStringLiteral("<b>") + replaceText + QStringLiteral("</b>");
@@ -1663,8 +1680,8 @@ void KatePluginSearchView::resultTabChanged(int index)
     m_ui.matchCase->blockSignals(true);
     m_ui.useRegExp->blockSignals(true);
     m_ui.searchCombo->lineEdit()->setText(m_ui.resultTabWidget->tabText(index));
-    m_ui.matchCase->setChecked(res->regExp.caseSensitivity() == Qt::CaseSensitive);
-    m_ui.useRegExp->setChecked(res->regExp.patternSyntax() != QRegExp::FixedString);
+    m_ui.matchCase->setChecked(res->regExp.patternOptions() != QRegularExpression::CaseInsensitiveOption);
+    m_ui.useRegExp->setChecked(!res->fixedString);
     m_ui.searchCombo->blockSignals(false);
     m_ui.matchCase->blockSignals(false);
     m_ui.useRegExp->blockSignals(false);

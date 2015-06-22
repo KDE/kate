@@ -33,7 +33,7 @@ m_rootIndex(-1)
     connect(this, SIGNAL(replaceNextMatch()), this, SLOT(doReplaceNextMatch()), Qt::QueuedConnection);
 }
 
-void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegExp &regexp, const QString &replace)
+void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegularExpression &regexp, const QString &replace)
 {
     if (m_manager == 0) return;
     if (m_rootIndex != -1) return;
@@ -145,15 +145,16 @@ void ReplaceMatches::doReplaceNextMatch()
             matchLines+= QLatin1Char('\n') + doc->line(endLine);
         }
 
-        if (m_regExp.indexIn(matchLines) != 0) {
-            qDebug() << "expression does not match";
+        QRegularExpressionMatch match = m_regExp.match(matchLines);
+        if (match.capturedStart() != 0) {
+            qDebug() << matchLines << "Does not match" << m_regExp.pattern();
             continue;
         }
 
         QString replaceText = m_replaceText;
         replaceText.replace(QStringLiteral("\\\\"), QStringLiteral("¤Search&Replace¤"));
-        for (int j=1; j<=m_regExp.captureCount(); j++) {
-            replaceText.replace(QString::fromLatin1("\\%1").arg(j), m_regExp.cap(j));
+        for (int j=1; j<=match.lastCapturedIndex() ; j++) {
+            replaceText.replace(QString(QStringLiteral("\\%1")).arg(j), match.captured(j));
         }
         replaceText.replace(QStringLiteral("\\n"), QStringLiteral("\n"));
         replaceText.replace(QStringLiteral("\\t"), QStringLiteral("\t"));
@@ -161,6 +162,7 @@ void ReplaceMatches::doReplaceNextMatch()
         rTexts << replaceText;
 
         replaceText.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+        replaceText.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
         QString html = item->data(0, PreMatchRole).toString();
         html += QStringLiteral("<i><s>") + item->data(0, MatchRole).toString() + QStringLiteral("</s></i> ");
         html += QStringLiteral("<b>") + replaceText + QStringLiteral("</b>");

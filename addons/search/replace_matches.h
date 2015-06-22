@@ -22,7 +22,7 @@
 #define _REPLACE_MATCHES_H_
 
 #include <QObject>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTreeWidget>
 #include <ktexteditor/document.h>
 #include <ktexteditor/application.h>
@@ -46,7 +46,7 @@ public:
     ReplaceMatches(QObject *parent = 0);
     void setDocumentManager(KTextEditor::Application *manager);
 
-    void replaceChecked(QTreeWidget *tree, const QRegExp &regexp, const QString &replace);
+    void replaceChecked(QTreeWidget *tree, const QRegularExpression &regexp, const QString &replace);
 
     KTextEditor::Document *findNamed(const QString &name);
 
@@ -65,7 +65,7 @@ private:
     KTextEditor::Application     *m_manager;
     QTreeWidget                  *m_tree;
     int                           m_rootIndex;
-    QRegExp                       m_regExp;
+    QRegularExpression            m_regExp;
     QString                       m_replaceText;
     bool                          m_cancelReplace;
 };

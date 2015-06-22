@@ -52,7 +52,8 @@ class Results: public QWidget, public Ui::Results
 public:
     Results(QWidget *parent = 0);
     int     matches;
-    QRegExp regExp;
+    QRegularExpression regExp;
+    bool    fixedString;
     QString replace;
 };
 

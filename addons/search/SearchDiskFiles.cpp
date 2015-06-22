@@ -35,7 +35,7 @@ SearchDiskFiles::~SearchDiskFiles()
 }
 
 void SearchDiskFiles::startSearch(const QStringList &files,
-                               const QRegExp &regexp)
+                                  const QRegularExpression &regexp)
 {
     if (files.size() == 0) {
         emit searchDone();
@@ -94,15 +94,18 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
     QString line;
     int i = 0;
     int column;
+    QRegularExpressionMatch match;
     while (!(line=stream.readLine()).isNull()) {
         if (m_cancelSearch) break;
-        column = m_regExp.indexIn(line);
+        match = m_regExp.match(line);
+        column = match.capturedStart();
         while (column != -1) {
-            if (m_regExp.cap().isEmpty()) break;
+            if (match.captured().isEmpty()) break;
             // limit line length
-            if (line.length() > 512) line = line.left(512);
-            emit matchFound(fileName, fileName, i, column, line, m_regExp.matchedLength());
-            column = m_regExp.indexIn(line, column + m_regExp.cap().size());
+            if (line.length() > 1024) line = line.left(1024);
+            emit matchFound(fileName, fileName, i, column, line, match.capturedLength());
+            match = m_regExp.match(line, column + match.capturedLength());
+            column = match.capturedStart();
             m_matchCount++;
             // NOTE: This sleep is here so that the main thread will get a chance to
             // handle any stop button clicks if there are a lot of matches
@@ -119,7 +122,7 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
     int line = 0;
     static QString fullDoc;
     static QVector<int> lineStart;
-    QRegExp tmpRegExp = m_regExp;
+    QRegularExpression tmpRegExp = m_regExp;
 
     if (!file.open(QFile::ReadOnly)) {
         return;
@@ -143,10 +146,11 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         tmpRegExp.setPattern(newPatern);
     }
 
-    column = tmpRegExp.indexIn(fullDoc, column);
+    QRegularExpressionMatch match;
+    match = tmpRegExp.match(fullDoc);
+    column = match.capturedStart();
     while (column != -1) {
         if (m_cancelSearch) break;
-        if (tmpRegExp.cap().isEmpty()) break;
         // search for the line number of the match
         int i;
         line = -1;
@@ -162,9 +166,10 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         emit matchFound(fileName,fileName,
                         line,
                         (column - lineStart[line]),
-                        fullDoc.mid(lineStart[line], column - lineStart[line])+tmpRegExp.cap(),
-                        tmpRegExp.matchedLength());
-        column = tmpRegExp.indexIn(fullDoc, column + tmpRegExp.matchedLength());
+                        fullDoc.mid(lineStart[line], column - lineStart[line])+match.captured(),
+                        match.capturedLength());
+        match = tmpRegExp.match(fullDoc, column + match.capturedLength());
+        column = match.capturedStart();
         m_matchCount++;
         // NOTE: This sleep is here so that the main thread will get a chance to
         // handle any stop button clicks if there are a lot of matches

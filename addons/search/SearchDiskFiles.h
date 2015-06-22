@@ -22,7 +22,7 @@
 #define SearchDiskFiles_h
 
 #include <QThread>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QFileInfo>
 #include <QVector>
 #include <QMutex>
@@ -38,7 +38,7 @@ public:
     ~SearchDiskFiles();
 
     void startSearch(const QStringList &iles,
-                     const QRegExp &regexp);
+                     const QRegularExpression &regexp);
     void run();
 
     bool searching();
@@ -57,11 +57,11 @@ Q_SIGNALS:
     void searching(const QString &file);
 
 private:
-    QRegExp          m_regExp;
-    QStringList      m_files;
-    bool             m_cancelSearch;
-    int              m_matchCount;
-    QTime            m_statusTime;
+    QRegularExpression m_regExp;
+    QStringList        m_files;
+    bool               m_cancelSearch;
+    int                m_matchCount;
+    QTime              m_statusTime;
 };
 
 

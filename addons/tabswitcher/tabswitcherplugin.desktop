@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=tabswitcherplugin
 Name=Document switcher
+Name[ast]=Conmutador de documentos
 Name[ca]=Commutador de documents
 Name[cs]=Přepínač dokumentů 
 Name[da]=Dokumentskifter

@@ -86,3 +86,5 @@ endif()
 #macro_optional_add_subdirectory(pate)
 
 add_subdirectory(rustcompletion)
+
+add_subdirectory(lumen)

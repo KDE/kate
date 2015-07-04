@@ -13,6 +13,7 @@
   <name xml:lang="en-GB">Kate</name>
   <name xml:lang="es">Kate</name>
   <name xml:lang="fi">Kate</name>
+  <name xml:lang="gl">Kate</name>
   <name xml:lang="hu">Kate</name>
   <name xml:lang="it">Kate</name>
   <name xml:lang="ko">Kate</name>
@@ -43,6 +44,7 @@
   <summary xml:lang="en-GB">Advanced Text Editor</summary>
   <summary xml:lang="es">Editor de texto avanzado</summary>
   <summary xml:lang="fi">Kehittynyt tekstimuokkain</summary>
+  <summary xml:lang="gl">Editor avanzado de textos</summary>
   <summary xml:lang="hu">Speciális szövegszerkesztő</summary>
   <summary xml:lang="it">Editor di testi avanzato</summary>
   <summary xml:lang="ko">고급 텍스트 편집기</summary>
@@ -75,6 +77,7 @@
     <p xml:lang="en-GB">Kate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.</p>
     <p xml:lang="es">Kate es un editor de texto para KDE que puede abrir varios documentos a la vez y que cuenta con varios modos de vista. Entre otras funcionalidades dispone de plegado de código, resaltado de sintaxis, justificado de línea dinámico, consola integrada, una amplia interfaz para complementos y admite scripts de manera preliminar.</p>
     <p xml:lang="fi">Kate on usean tiedoston ja usean näkymän tekstimuokkain eli tekstieditori KDE:lle. Siinä on koodin laskostus, syntaksin korostus, dynaaminen rivitys, upotettu konsoli, kattava liitännäisrajapinta sekä alustava skriptaustuki.</p>
+    <p xml:lang="gl">Kate é un editor de texto para KDE que permite traballar en varios documentos e con varias vistas ao mesmo tempo. Conta con moitas funcionalidades, como pregado de código, salientado de sintaxe, axuste dinámico de texto, un terminal integrado, unha extensa interface para o desenvolvemento de complementos e funcionalidades preliminares de scripting.</p>
     <p xml:lang="hu">A Kate egy többdokumentumos, többnézetes szövegszerkesztő a KDE-hez. A szolgáltatásai közé tartozik például a kódösszecsukás, szintaxiskiemelés, dinamikus szótördelés, beágyazott konzol, bővíthető bővítmény-interfész és a szkriptelés támogatása.</p>
     <p xml:lang="it">Kate è un editor di testi multi-documento e multi-vista per KDE. È dotato di funzionalità come il raggruppamento del codice, l'evidenziazione della sintassi, a capo automatico dinamico, una console integrata, un'interfaccia potenziabile tramite estensioni e qualche supporto preliminare per la creazione di script.</p>
     <p xml:lang="ko">Kate는 KDE용 다문서 다화면 텍스트 편집기입니다. 코드 접기, 구문 강조, 동적 워드랩, 내장된 콘솔, 플러그인 인터페이스, 스크립트 기능을 지원합니다.</p>
@@ -103,6 +106,7 @@
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funcionalidades:</p>
     <p xml:lang="fi">Ominaisuuksia:</p>
+    <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="hu">Szolgáltatások:</p>
     <p xml:lang="it">Funzionalità:</p>
     <p xml:lang="ko">기능:</p>
@@ -132,6 +136,7 @@
       <li xml:lang="en-GB">MDI, window splitting, window tabbing</li>
       <li xml:lang="es">MDI, división de ventana, pestañas de ventana</li>
       <li xml:lang="fi">Monen tiedoston käyttöliittymä (MDI), ikkunoiden jakaminen ja välilehdet</li>
+      <li xml:lang="gl">Capacidade para traballar en varios documentos á vez, coa posibilidade de dividir a xanela e usar lapelas.</li>
       <li xml:lang="hu">MDI, ablakfelosztás, ablaklapok</li>
       <li xml:lang="it">MDI, divisione della finestra, schede delle finestre</li>
       <li xml:lang="ko">MDI, 창 나누기, 탭 기능</li>
@@ -161,6 +166,7 @@
       <li xml:lang="en-GB">Spell checking</li>
       <li xml:lang="es">Revisión de la ortografía</li>
       <li xml:lang="fi">Oikeinkirjoituksen tarkistus</li>
+      <li xml:lang="gl">Corrección ortográfica</li>
       <li xml:lang="hu">Helyesírás-ellenőrzés</li>
       <li xml:lang="it">Controllo ortografico</li>
       <li xml:lang="ko">맞춤법 검사</li>
@@ -189,6 +195,7 @@
       <li xml:lang="en-GB">CR, CRLF, LF newline support</li>
       <li xml:lang="es">Admite fin de línea CR, CRLF, LF</li>
       <li xml:lang="fi">Tuki useille rivinvaihdoille: CR, CRLF ja LF</li>
+      <li xml:lang="gl">Compatíbel cos fins de liña CR, CRLF e LF.</li>
       <li xml:lang="hu">CR, CRLF, LF új sor támogatás</li>
       <li xml:lang="it">Supporto ritorno a capo CR, CRLF, LF</li>
       <li xml:lang="ko">CR, CRLF, LF 새 줄 지원</li>
@@ -217,6 +224,7 @@
       <li xml:lang="en-GB">Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="es">Admite codificación ( (utf-8, utf-16, ascii, etc.)</li>
       <li xml:lang="fi">Merkistökoodaustuki (UTF-8, UTF-16, ASCII jne.)</li>
+      <li xml:lang="gl">Compatíbel con varios sistemas de codificación de texto (UTF-8, UTF-16, ASCII, etc.).</li>
       <li xml:lang="hu">Különböző kódolások támogatása (UTF-8, UTF-16, ASCII, stb)</li>
       <li xml:lang="it">Supporto di codifica (utf-8, utf-16, ascii, ecc.)</li>
       <li xml:lang="ko">인코딩 지원(UTF-8, UTF-16, ASCII 등)</li>
@@ -245,6 +253,7 @@
       <li xml:lang="en-GB">Encoding conversion</li>
       <li xml:lang="es">Conversión de codificación</li>
       <li xml:lang="fi">Merkistökoodauksen muuntaminen</li>
+      <li xml:lang="gl">Conversión entre sistemas de codificación.</li>
       <li xml:lang="hu">Kódolások közti konverzió</li>
       <li xml:lang="it">Conversione di codifica</li>
       <li xml:lang="ko">인코딩 변환</li>
@@ -273,6 +282,7 @@
       <li xml:lang="en-GB">Regular expression based find &amp; replace</li>
       <li xml:lang="es">Función de buscar y remplazar basada en expresiones regulares</li>
       <li xml:lang="fi">Säännöllisiin lausekkeisiin perustuva Etsi ja korvaa</li>
+      <li xml:lang="gl">Funcionalidade de buscar e substituír baseada en expresións regulares.</li>
       <li xml:lang="hu">Reguláris kifejezéseken alapuló keresés és csere</li>
       <li xml:lang="it">Ricerche e sostituzioni basate sulle espressioni regolari</li>
       <li xml:lang="ko">정규 표현식 기반 찾기 및 바꾸기</li>
@@ -300,6 +310,7 @@
       <li xml:lang="en-GB">Powerful syntax highlighting and bracket matching</li>
       <li xml:lang="es">Potente resaltado de sintaxis y de emparejado de paréntesis</li>
       <li xml:lang="fi">Tehokas syntaksin korostus; mukana myös toisiaan vastaavien sulkeiden korostus</li>
+      <li xml:lang="gl">Potente salientado de sintaxe e de parellas de parénteses.</li>
       <li xml:lang="hu">Hatékony szintaxiskiemelés és zárójel-párosítás</li>
       <li xml:lang="it">Potente evidenziazione della sintassi e verifica delle parentesi</li>
       <li xml:lang="ko">강력한 구문 강조 및 괄호 일치</li>
@@ -326,6 +337,7 @@
       <li xml:lang="en-GB">Code and text folding</li>
       <li xml:lang="es">Plegado de código y de texto</li>
       <li xml:lang="fi">Koodin ja tekstin laskostus</li>
+      <li xml:lang="gl">Pregado de código e texto.</li>
       <li xml:lang="hu">Kód- és szövegösszecsukás</li>
       <li xml:lang="it">Raggruppamento del codice e del testo</li>
       <li xml:lang="ko">코드 및 텍스트 접기</li>
@@ -354,6 +366,7 @@
       <li xml:lang="en-GB">Infinite undo/redo support</li>
       <li xml:lang="es">Función hacer y deshacer infinita</li>
       <li xml:lang="fi">Tuki rajattomalle kumoamiselle ja uudelleen tekemiselle</li>
+      <li xml:lang="gl">Funcionalidade de desfacer e refacer sen limitacións.</li>
       <li xml:lang="hu">Végtelen visszavonás/újra végrehajtás</li>
       <li xml:lang="it">Supporto annulla/rifai infinito</li>
       <li xml:lang="ko">무한 실행 취소/다시 실행 지원</li>
@@ -382,6 +395,7 @@
       <li xml:lang="en-GB">Block selection mode</li>
       <li xml:lang="es">Modo de selección de bloque</li>
       <li xml:lang="fi">Lohkovalintatila</li>
+      <li xml:lang="gl">Modo de selección por bloques.</li>
       <li xml:lang="hu">Blokkos kijelölési mód</li>
       <li xml:lang="it">Modalità di selezione a blocchi</li>
       <li xml:lang="ko">블록 선택 모드</li>
@@ -411,6 +425,7 @@
       <li xml:lang="en-GB">Auto indentation</li>
       <li xml:lang="es">Sangrado automático</li>
       <li xml:lang="fi">Automaattinen sisennys</li>
+      <li xml:lang="gl">Sangrado automático</li>
       <li xml:lang="hu">Automatikus behúzás</li>
       <li xml:lang="it">Rientro automatico</li>
       <li xml:lang="ko">자동 들여쓰기</li>
@@ -438,6 +453,7 @@
       <li xml:lang="en-GB">Auto completion support</li>
       <li xml:lang="es">Completado automático</li>
       <li xml:lang="fi">Automaattitäydennyksen tuki</li>
+      <li xml:lang="gl">Completación automática.</li>
       <li xml:lang="hu">Automatikus kiegészítés</li>
       <li xml:lang="it">Supporto completamento automatico</li>
       <li xml:lang="ko">자동 완성 지원</li>
@@ -465,6 +481,7 @@
       <li xml:lang="en-GB">Shell integration</li>
       <li xml:lang="es">Integración con la línea de órdenes</li>
       <li xml:lang="fi">Komentotulkki-integraatio</li>
+      <li xml:lang="gl">Integración coa shell.</li>
       <li xml:lang="hu">Parancsértelmező integrációja</li>
       <li xml:lang="it">Integrazione con la shell</li>
       <li xml:lang="ko">셸 통합</li>
@@ -492,6 +509,7 @@
       <li xml:lang="en-GB">Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
       <li xml:lang="es">Admite numerosos protocolos mediante el uso de kioslaves (http, ftp, ssh, webdav, etc.) </li>
       <li xml:lang="fi">Laaja yhteyskäytäntötuki (HTTP, FTP, SSH, WebDAV jne.) käyttäen KIO-palveluita</li>
+      <li xml:lang="gl">Compatibilidade con numerosos protocolos (HTTP, FTP, SSH, WebDAV, etc.) mediante KIO.</li>
       <li xml:lang="hu">Protokollok (HTTP, FTP, SSH, Webdav, stb) széleskörű támogatása KIO-szolgáltatások használatával</li>
       <li xml:lang="it">Ampio supporto di protocolli (http, ftp, ssh, WebDAV, ecc.) utilizzando i kioslave</li>
       <li xml:lang="ko">KIO 슬레이브를 사용한 다양한 프로토콜 지원(HTTP, FTP, SSH, WebDAV 등)</li>
@@ -518,6 +536,7 @@
       <li xml:lang="en-GB">Plugin architecture for the application and editor component</li>
       <li xml:lang="es">Arquitectura de complementos para el componente de aplicación y de editor.</li>
       <li xml:lang="fi">Liitännäisarkkitehtuuri sovellukselle ja muokkainosalle</li>
+      <li xml:lang="gl">Arquitectura de complementos para o programa e mailo compoñente do editor.</li>
       <li xml:lang="hu">Bővítmények támogatása az alkalmazásban és a szerkesztő komponensben</li>
       <li xml:lang="it">Architettura con estensioni per i componenti dell'applicazione e dell'editor</li>
       <li xml:lang="ko">프로그램과 편집기 구성 요소 플러그인 구조</li>
@@ -545,6 +564,7 @@
       <li xml:lang="en-GB">Customisable shortcuts</li>
       <li xml:lang="es">Accesos rápidos personalizables</li>
       <li xml:lang="fi">Mukautettavat pikanäppäimet</li>
+      <li xml:lang="gl">Atallos personalizábeis.</li>
       <li xml:lang="hu">Testre szabható gyorsbillentyűk</li>
       <li xml:lang="it">Scorciatoie personalizzabili</li>
       <li xml:lang="ko">사용자 정의 가능한 단축키</li>
@@ -572,6 +592,7 @@
       <li xml:lang="en-GB">Integrated command line</li>
       <li xml:lang="es">Línea de órdenes integrada</li>
       <li xml:lang="fi">Integroitu komentorivi</li>
+      <li xml:lang="gl">Liña de ordes integrada.</li>
       <li xml:lang="hu">Integrált parancssor</li>
       <li xml:lang="it">Riga di comando integrata</li>
       <li xml:lang="ko">내장 명령행</li>
@@ -600,6 +621,7 @@
       <li xml:lang="en-GB">Scriptable using JavaScript</li>
       <li xml:lang="es">Uso de scripts de JavaScript</li>
       <li xml:lang="fi">Skriptattavissa JavaScriptillä</li>
+      <li xml:lang="gl">A súa funcionalidade pódese ampliar mediante scripts escritos en JavaScript.</li>
       <li xml:lang="hu">Szkriptelhetőség JavaScripttel</li>
       <li xml:lang="it">Creazione di script con JavaScript</li>
       <li xml:lang="ko">JavaScript를 사용한 스크립트</li>

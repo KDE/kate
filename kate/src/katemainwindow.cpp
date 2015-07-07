@@ -1044,7 +1044,11 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
     if (!m_modNotification) {
         return;
     }
-    bool modOnDisk = (uint)KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc;
+    KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(doc);
+    if (!docInfo) {
+        return;
+    }
+    bool modOnDisk = (uint)docInfo->modifiedOnDisc;
 
     if (s_modOnHdDialog == 0 && modOnDisk) {
         DocVector list;

@@ -137,6 +137,11 @@ private Q_SLOTS:
      */
     void slotProjectReload();
 
+    /**
+     * Follow location.
+     */
+    void slotFollowLocation();
+
 Q_SIGNALS:
     /**
      * Emitted if projectFileName changed.

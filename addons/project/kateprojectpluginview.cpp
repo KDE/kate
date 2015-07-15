@@ -19,6 +19,7 @@
  */
 
 #include "kateprojectpluginview.h"
+#include "rtags/katertagsclient.h"
 #include "fileutil.h"
 
 #include <ktexteditor/editor.h>
@@ -83,6 +84,10 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
     a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
+
+    a = actionCollection()->addAction(QStringLiteral("projects_follow_location"), this, SLOT(slotFollowLocation()));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_G));
+    a->setText(i18n("Follow Location"));
 
     /**
      * add us to gui
@@ -462,5 +467,15 @@ void KateProjectPluginView::slotProjectReload()
     }
 }
 
-#include "kateprojectpluginview.moc"
+void KateProjectPluginView::slotFollowLocation()
+{
+    auto view = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
+    if (!view) {
+        return;
+    }
 
+    KateRtagsClient client;
+    client.followLocation(view->document(), view->cursorPosition());
+}
+
+#include "kateprojectpluginview.moc"

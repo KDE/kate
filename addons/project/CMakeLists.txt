@@ -30,6 +30,7 @@ set(kateprojectplugin_PART_SRCS
   kateprojectinfoviewcodeanalysis.cpp
   kateprojectinfoviewnotes.cpp
   kateprojectconfigpage.cpp
+  rtags/katertagsclient.cpp
 )
 
 add_library(kateprojectplugin MODULE ${kateprojectplugin_PART_SRCS})

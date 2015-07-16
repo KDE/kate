@@ -19,6 +19,7 @@
  */
 
 #include "katertagsclient.h"
+#include "rtagslocation.h"
 
 #include <QProcess>
 #include <QDir>
@@ -29,6 +30,28 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
+
+static QString callRtagsClient(const QStringList & args)
+{
+    QProcess rc;
+    rc.start(QStringLiteral("rc"), args);
+
+    // If rc is not installed, return false.
+    if (!rc.waitForStarted()) {
+        return QString();
+    }
+
+    // wait for done
+    if (!rc.waitForFinished()) {
+        return QString();
+    }
+
+    rc.closeWriteChannel();
+
+    const QString output = QString::fromLocal8Bit(rc.readAllStandardOutput());
+    qDebug() << "output" << output;
+    return output;
+}
 
 KateRtagsClient::KateRtagsClient()
     : QObject()
@@ -129,41 +152,22 @@ void KateRtagsClient::followLocation(KTextEditor::Document * document, const KTe
     }
 
     const QString location = document->url().toLocalFile() + QStringLiteral(":%1:%2").arg(cursor.line() + 1).arg(cursor.column() + 1);
-    qDebug() << "rc command:" << location;
 
     // run 'rc --follow-location <file>:line:column'
-    QProcess rc;
-    rc.start(QStringLiteral("rc"), QStringList() << QStringLiteral("--follow-location") << location);
-    // If rc is not installed, return false.
-    if (!rc.waitForStarted()) {
-        return;
-    }
-
-    // wait for done
-    if (!rc.waitForFinished()) {
-        return;
-    }
-
-    rc.closeWriteChannel();
-    const QString output = QString::fromLocal8Bit(rc.readAllStandardOutput());
-    qDebug() << "output" << output;
-    QStringList list = output.split(QLatin1Char(':'), QString::SkipEmptyParts);
-    qDebug() << list;
-    if (list.size() < 3) {
-        return;
-    }
+    const QString output = callRtagsClient(QStringList() << QStringLiteral("--follow-location") << location);
 
     // output is: file:line:column
-    const QString file = list[0];
-    const int line = list[1].toInt() - 1;
-    const int column = list[2].toInt() - 1;
+    auto loc = rtags::Location::fromString(output);
+    if (!loc.isValid()) {
+        return;
+    }
 
-    KTextEditor::View * view = KTextEditor::Editor::instance()->application()->activeMainWindow()->openUrl(QUrl::fromLocalFile(file));
+    KTextEditor::View * view = KTextEditor::Editor::instance()->application()->activeMainWindow()->openUrl(loc.url());
     if (!view) {
         return;
     }
 
-    view->setCursorPosition(KTextEditor::Cursor(line, column));
+    view->setCursorPosition(loc.cursor());
 }
 
 #if 0

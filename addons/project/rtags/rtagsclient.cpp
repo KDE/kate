@@ -1,6 +1,6 @@
 /*  This file is part of the Kate project.
  *
- *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
+ *  Copyright (C) 2015 Dominik Haumann <dhaumann@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -18,7 +18,7 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "katertagsclient.h"
+#include "rtagsclient.h"
 #include "rtagslocation.h"
 
 #include <QProcess>
@@ -31,7 +31,9 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
-static QString callRtagsClient(const QStringList & args)
+namespace rtags {
+
+static QString callClient(const QStringList & args)
 {
     QProcess rc;
     rc.start(QStringLiteral("rc"), args);
@@ -53,22 +55,22 @@ static QString callRtagsClient(const QStringList & args)
     return output;
 }
 
-KateRtagsClient::KateRtagsClient()
+Client::Client()
     : QObject()
 {
 }
 
-KateRtagsClient::~KateRtagsClient()
+Client::~Client()
 {
 }
 
-bool KateRtagsClient::rtagsAvailable() const
+bool Client::rtagsAvailable() const
 {
     return (!QStandardPaths::findExecutable(QStringLiteral("rc")).isEmpty())
         && (!QStandardPaths::findExecutable(QStringLiteral("rdm")).isEmpty());
 }
 
-bool KateRtagsClient::rtagsDaemonRunning() const
+bool Client::rtagsDaemonRunning() const
 {
     // Try to run 'rc --project'
     QProcess rc;
@@ -87,7 +89,7 @@ bool KateRtagsClient::rtagsDaemonRunning() const
     return (rc.exitStatus() == QProcess::NormalExit) && (rc.exitCode() == 0);
 }
 
-bool KateRtagsClient::isIndexing() const
+bool Client::isIndexing() const
 {
     // Try to run 'rc --is-indexing'
     QProcess rc;
@@ -109,7 +111,7 @@ bool KateRtagsClient::isIndexing() const
     return output.contains(QLatin1Char('1'));
 }
 
-QStringList KateRtagsClient::indexedProjects() const
+QStringList Client::indexedProjects() const
 {
     // Try to run 'rc --project'
     QProcess rc;
@@ -131,7 +133,7 @@ QStringList KateRtagsClient::indexedProjects() const
     return output.split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 }
 
-void KateRtagsClient::setCurrentFile(KTextEditor::Document * document)
+void Client::setCurrentFile(KTextEditor::Document * document)
 {
     QUrl url = document->url();
     if (!url.isValid() || !url.isLocalFile()) {
@@ -144,7 +146,7 @@ void KateRtagsClient::setCurrentFile(KTextEditor::Document * document)
     QProcess::startDetached(QStringLiteral("rc"), QStringList() << QStringLiteral("--current-file") << file);
 }
 
-void KateRtagsClient::followLocation(KTextEditor::Document * document, const KTextEditor::Cursor & cursor)
+void Client::followLocation(KTextEditor::Document * document, const KTextEditor::Cursor & cursor)
 {
     QUrl url = document->url();
     if (!url.isValid() || !url.isLocalFile()) {
@@ -154,7 +156,7 @@ void KateRtagsClient::followLocation(KTextEditor::Document * document, const KTe
     const QString location = document->url().toLocalFile() + QStringLiteral(":%1:%2").arg(cursor.line() + 1).arg(cursor.column() + 1);
 
     // run 'rc --follow-location <file>:line:column'
-    const QString output = callRtagsClient(QStringList() << QStringLiteral("--follow-location") << location);
+    const QString output = callClient(QStringList() << QStringLiteral("--follow-location") << location);
 
     // output is: file:line:column
     auto loc = rtags::Location::fromString(output);
@@ -219,3 +221,5 @@ dh@eriador:src :-) (master) $ rc --all-references --references /home/dh/kde/kf5/
 
 
 #endif
+
+}

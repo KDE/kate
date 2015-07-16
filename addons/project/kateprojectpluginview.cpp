@@ -19,7 +19,7 @@
  */
 
 #include "kateprojectpluginview.h"
-#include "rtags/katertagsclient.h"
+#include "rtags/rtagsclient.h"
 #include "fileutil.h"
 
 #include <ktexteditor/editor.h>
@@ -474,7 +474,7 @@ void KateProjectPluginView::slotFollowLocation()
         return;
     }
 
-    KateRtagsClient client;
+    rtags::Client client;
     client.followLocation(view->document(), view->cursorPosition());
 }
 

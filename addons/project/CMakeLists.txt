@@ -30,7 +30,7 @@ set(kateprojectplugin_PART_SRCS
   kateprojectinfoviewcodeanalysis.cpp
   kateprojectinfoviewnotes.cpp
   kateprojectconfigpage.cpp
-  rtags/katertagsclient.cpp
+  rtags/rtagsclient.cpp
   rtags/rtagslocation.cpp
 )
 

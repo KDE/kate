@@ -26,24 +26,26 @@
 
 #include <KTextEditor/Document>
 
+namespace rtags {
+
 /**
  * Class to communicate with the rtags server rdm.
  *
  * This class is more or less a wrapper around the 'rc' tool that is part
  * of the rtags daemon 'rdm'.
  */
-class KateRtagsClient : public QObject
+class Client : public QObject
 {
 public:
     /**
      * Construct an rtags client.
      */
-    KateRtagsClient();
+    Client();
 
     /**
      * deconstruct project
      */
-    ~KateRtagsClient();
+    ~Client();
 
 //
 // diagnostics
@@ -81,5 +83,7 @@ public Q_SLOTS:
      */
     void setCurrentFile(KTextEditor::Document * document);
 };
+
+}
 
 #endif

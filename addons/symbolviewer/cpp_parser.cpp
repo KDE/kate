@@ -187,7 +187,10 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
             {
              if ( ((j+1) < cl.length()) && (cl.at(j) == QLatin1Char('/') && (cl.at(j + 1) == QLatin1Char('*')) && comment != 3)) comment = 2;
              if ( ((j+1) < cl.length()) && (cl.at(j) == QLatin1Char('*') && (cl.at(j + 1) == QLatin1Char('/')) && comment != 3) )
-                   {  comment = 0; j+=2; if (j>=cl.length()) break;}
+               {  comment = 0; j+=2; if (j>=cl.length()) break;}
+             if ( ((j+1) < cl.length()) && (cl.at(j) == QLatin1Char('\\') && (cl.at(j + 1) == QLatin1Char('"')) && comment == 3) )
+               { j+=2; if (j>=cl.length()) break;}
+
              // Handles a string. Those are freaking evilish !
              if (cl.at(j) == QLatin1Char('"') && comment == 3) { comment = 0; j++; if (j>=cl.length()) break;}
              else if (cl.at(j) == QLatin1Char('"') && comment == 0) comment = 3;

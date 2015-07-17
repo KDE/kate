@@ -56,4 +56,6 @@ RockType *
      } 
 }
 
- }
+// Test escaped quote
+void test() { printf("foo \"\n"); }
+void test2() { printf("foo \"\n"); }

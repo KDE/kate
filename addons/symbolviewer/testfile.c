@@ -65,3 +65,9 @@ void test2() { printf("foo \"\n"); }
 #define MY_MACRO2(x)	foo(x)
 #define	MY_MACRO3(x)	foo(x)
 
+// Test quoted characters ('"', '{', '}')
+void quoteTest1() { if (token == '"') printf("foo\n"); }
+void quoteTest2() { if (token == '{') printf("foo\n"); }
+void quoteTest3() { if (token == '}') printf("foo\n"); }
+void quoteTest4() { printf("foo\n"); }
+

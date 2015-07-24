@@ -3,8 +3,8 @@ project (kate)
 
 # minimal requirements
 cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
-set (QT_MIN_VERSION "5.2.0")
-set(KF5_DEP_VERSION "5.6.0")
+set (QT_MIN_VERSION "5.4.0")
+set(KF5_DEP_VERSION "5.10.0")
 
 # KDE Application Version, managed by release script
 set (KDE_APPLICATIONS_VERSION_MAJOR "15")

@@ -104,9 +104,7 @@ KateProjectPlugin::~KateProjectPlugin()
     }
     m_projects.clear();
 
-    m_weaver->suspend();
-    m_weaver->dequeue();
-    m_weaver->finish();
+    m_weaver->shutDown();
     delete m_weaver;
 }
 

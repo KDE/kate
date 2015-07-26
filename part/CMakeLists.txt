@@ -231,10 +231,10 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 kde4_add_library (katepartinterfaces ${LIBRARY_TYPE} ${katepart_PART_SRCS} )
 
 target_link_libraries (
-  katepartinterfaces ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
-  ${KDE4_KCMUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY} ${KDE_4_4_LIBS_NEEDED} ${KDE4_KNEWSTUFF3_LIBS}
+   katepartinterfaces
+   LINK_PUBLIC ${KDE4_KPARTS_LIBS}
+   LINK_PRIVATE ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KCMUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY} ${KDE_4_4_LIBS_NEEDED} ${KDE4_KNEWSTUFF3_LIBS}
 )
-target_link_libraries(katepartinterfaces LINK_INTERFACE_LIBRARIES "${KDE4_KPARTS_LIBS}" )
 
 set_target_properties(
   katepartinterfaces PROPERTIES

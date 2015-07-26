@@ -33,7 +33,7 @@ set(kateprojectplugin_PART_SRCS
 kde4_add_plugin(kateprojectplugin ${kateprojectplugin_PART_SRCS})
 
 # Ubuntu 12.10 needs the lower-case qjson
-target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} ${QJSON_LIBRARIES} ${qjson_LIBRARIES} kateinterfaces ktexteditor)
+target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} ${QJSON_LIBRARIES} ${qjson_LIBRARIES} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS})
 
 ########### install files ###############
 install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR} )

@@ -6,7 +6,7 @@ set(ktexteditor_insertfile_PART_SRCS insertfileplugin.cpp )
 
 kde4_add_plugin(ktexteditor_insertfile ${ktexteditor_insertfile_PART_SRCS})
 
-target_link_libraries(ktexteditor_insertfile  ${KDE4_KIO_LIBS} ktexteditor kdeui kfile)
+target_link_libraries(ktexteditor_insertfile ${KDE4_KIO_LIBS} ${KDE4_KTEXTEDITOR_LIBS})
 
 install(TARGETS  ktexteditor_insertfile  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

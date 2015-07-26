@@ -20,7 +20,7 @@ include_directories(
   ${KDE4_KIO_INCLUDES}
 )
 
-set (KATE_TEST_LINK_LIBS ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} ${KDE4_KCMUTILS_LIBS} ${KDE_4_4_LIBS_NEEDED} ktexteditor katepartinterfaces)
+set (KATE_TEST_LINK_LIBS ${KDE4_KDECORE_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTTEST_LIBRARY} ${KDE4_KCMUTILS_LIBS} ${KDE_4_4_LIBS_NEEDED} ${KDE4_KTEXTEDITOR_LIBS} katepartinterfaces)
 
 # buffer test
 kde4_add_unit_test(katetextbuffertest katetextbuffertest.cpp katetextbuffertest.h)

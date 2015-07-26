@@ -155,7 +155,10 @@ Item {
                 }
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                onItemSelected: clipboardSource.service(uuid, "invoke")
+                onItemSelected: {
+                    clipboardSource.service(uuid, "invoke")
+                    plasmoid.expanded = false;
+                }
                 onRemove: clipboardSource.service(uuid, "remove")
                 onNewSession:clipboardSource.newSession(sessionName)
             }

@@ -764,13 +764,12 @@ MainWindow::MainWindow(QWidget *parentWidget)
 MainWindow::~MainWindow()
 {
     // cu toolviews
-    while (!m_toolviews.isEmpty()) {
-        delete m_toolviews[0];
-    }
+    qDeleteAll(m_toolviews);
 
     // seems like we really should delete this by hand ;)
     delete m_centralWidget;
 
+    // cleanup the sidebars
     for (unsigned int i = 0; i < 4; ++i) {
         delete m_sidebars[i];
     }

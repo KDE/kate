@@ -25,10 +25,8 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Command>
 
-#include <QProcess>
+#include <KProcess>
 #include <QVariantList>
-
-class KProcess;
 
 class PluginKateTextFilter : public KTextEditor::Plugin//, public KTextEditor::Command
 {
@@ -65,19 +63,31 @@ class PluginKateTextFilter : public KTextEditor::Plugin//, public KTextEditor::C
     void slotFilterProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
 };
 
+/**
+ * Plugin view to merge the actions into the UI
+ */
 class PluginViewKateTextFilter: public QObject, public KXMLGUIClient
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    PluginViewKateTextFilter(PluginKateTextFilter *plugin, KTextEditor::MainWindow *mainwindow);
-    virtual ~PluginViewKateTextFilter();
+    public:
+        /**
+         * Construct plugin view
+         * @param plugin our plugin
+         * @param mainwindows the mainwindow for this view
+         */
+        explicit PluginViewKateTextFilter(PluginKateTextFilter *plugin, KTextEditor::MainWindow *mainwindow);
 
-  private:
-    PluginKateTextFilter *m_plugin;
-    KTextEditor::MainWindow *m_mainWindow;
+        /**
+         * Our Destructor
+         */
+        virtual ~PluginViewKateTextFilter();
+
+    private:
+        /**
+         * the main window we belong to
+         */
+        KTextEditor::MainWindow *m_mainWindow;
 };
 
-#endif // PLUGIN_KATETEXTFILTER_H
-
-// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;
+#endif

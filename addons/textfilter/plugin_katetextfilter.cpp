@@ -26,7 +26,6 @@
 #include <QAction>
 #include <kmessagebox.h>
 #include <klocalizedstring.h>
-#include <cassert>
 #include <qstring.h>
 #include <klineedit.h>
 #include <kprocess.h>
@@ -35,6 +34,8 @@
 #include <kauthorized.h>
 #include <kactioncollection.h>
 #include <KXMLGUIFactory>
+#include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <qapplication.h>
 #include <qclipboard.h>
@@ -43,24 +44,26 @@ K_PLUGIN_FACTORY_WITH_JSON(TextFilterPluginFactory, "textfilterplugin.json", reg
 
 PluginKateTextFilter::PluginKateTextFilter(QObject *parent, const QList<QVariant> &):
     KTextEditor::Plugin(parent)
-  , m_pFilterProcess(Q_NULLPTR)
-  , copyResult(false)
-  , mergeOutput(false)
+    , m_pFilterProcess(Q_NULLPTR)
+    , copyResult(false)
+    , mergeOutput(false)
 {
 }
 
 PluginKateTextFilter::~PluginKateTextFilter()
 {
-  if (m_pFilterProcess) {
-    m_pFilterProcess->kill();
-    m_pFilterProcess->waitForFinished();
-    delete m_pFilterProcess;
-  }
+    // cleanup the process the right way (TM)
+    if (m_pFilterProcess) {
+        m_pFilterProcess->kill();
+        m_pFilterProcess->waitForFinished();
+        delete m_pFilterProcess;
+    }
 }
 
 QObject *PluginKateTextFilter::createView (KTextEditor::MainWindow *mainWindow)
 {
-  return new PluginViewKateTextFilter(this, mainWindow);
+    // create a plugin view
+    return new PluginViewKateTextFilter(this, mainWindow);
 }
 
 void PluginKateTextFilter::slotFilterReceivedStdout()
@@ -157,20 +160,14 @@ void PluginKateTextFilter::slotEditFilter()
   KTextEditor::View* kv(KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView());
   if (!kv) return;
 
-#if 0 // FIXME
-
   QDialog dialog(KTextEditor::Editor::instance()->application()->activeMainWindow()->window());
-  dialog.setCaption("Text Filter");
-  dialog.setButtons(KDialog::Cancel | KDialog::Ok);
-  dialog.setDefaultButton(KDialog::Ok);
+  dialog.setWindowTitle(QStringLiteral("Text Filter"));
 
-  QWidget* widget = new QWidget(&dialog);
   Ui::TextFilterWidget ui;
-  ui.setupUi(widget);
+  ui.setupUi(&dialog);
   ui.filterBox->setFocus();
-  dialog.setMainWidget(widget);
 
-  KConfigGroup config(KGlobal::config(), "PluginTextFilter");
+  KConfigGroup config(KSharedConfig::openConfig(), "PluginTextFilter");
   QStringList items = config.readEntry("Completion list", QStringList());
   copyResult = config.readEntry("Copy result", false);
   mergeOutput = config.readEntry("Merge output", true);
@@ -194,7 +191,6 @@ void PluginKateTextFilter::slotEditFilter()
       runFilter(kv, filter);
     }
   }
-#endif
 }
 
 void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filter)
@@ -248,27 +244,27 @@ bool PluginKateTextFilter::exec(KTextEditor::View *v, const QString &cmd, QStrin
 PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,
                                                    KTextEditor::MainWindow *mainwindow)
   : QObject(mainwindow)
-  , m_plugin(plugin)
   , m_mainWindow(mainwindow)
 {
-  // setup right xml gui data
-  KXMLGUIClient::setComponentName(QStringLiteral("textfilter"), i18n("Text Filter"));
-  setXMLFile(QStringLiteral("ui.rc"));
+    // setup right xml gui data
+    KXMLGUIClient::setComponentName(QStringLiteral("textfilter"), i18n("Text Filter"));
+    setXMLFile(QStringLiteral("ui.rc"));
 
-  QAction* a = actionCollection()->addAction(QStringLiteral("edit_filter"));
-  a->setText(i18n("Filter Te&xt..."));
-  actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_Backslash);
-  connect(a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditFilter()));
+    // create our one and only action
+    QAction* a = actionCollection()->addAction(QStringLiteral("edit_filter"));
+    a->setText(i18n("Filter Te&xt..."));
+    actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_Backslash);
+    connect(a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditFilter()));
 
-  mainwindow->guiFactory()->addClient(this);
+    // register us at the UI
+    mainwindow->guiFactory()->addClient(this);
 }
 
 PluginViewKateTextFilter::~PluginViewKateTextFilter()
 {
-  m_mainWindow->guiFactory()->removeClient (this);
+    // remove us from the UI again
+    m_mainWindow->guiFactory()->removeClient (this);
 }
-
-// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;
 
 // required for TextFilterPluginFactory vtable
 #include "plugin_katetextfilter.moc"

@@ -143,6 +143,8 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
 KateMwModOnHdDialog::~KateMwModOnHdDialog()
 {
     KateMainWindow::unsetModifiedOnDiscDialogIfIf(this);
+    m_proc->kill();
+    m_proc->waitForFinished();
     delete m_proc;
     m_proc = 0;
     if (m_diffFile) {

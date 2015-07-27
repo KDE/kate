@@ -43,10 +43,6 @@ TabSwitcherPlugin::TabSwitcherPlugin(QObject *parent, const QList<QVariant> &):
 {
 }
 
-TabSwitcherPlugin::~TabSwitcherPlugin()
-{
-}
-
 QObject *TabSwitcherPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     return new TabSwitcherPluginView(this, mainWindow);

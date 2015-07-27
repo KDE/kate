@@ -47,11 +47,6 @@ public:
     explicit TabSwitcherPlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
 
     /**
-     * Plugin destructor.
-     */
-    virtual ~TabSwitcherPlugin();
-
-    /**
      * Create a new tab switcher for @p mainWindow.
      */
     QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;

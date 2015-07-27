@@ -55,13 +55,13 @@ QObject *KateSnippetsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KTextEditor::MainWindow *mainWindow)
     : QObject(mainWindow), m_plugin(plugin), m_mainWindow(mainWindow), m_toolView(0), m_snippets(0)
 {
-    KXMLGUIClient::setComponentName(QLatin1String("katesnippets"), i18n("Snippets tool view"));
-    setXMLFile(QLatin1String("ui.rc"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katesnippets"), i18n("Snippets tool view"));
+    setXMLFile(QStringLiteral("ui.rc"));
 
     // Toolview for snippets
-    m_toolView.reset(mainWindow->createToolView(0, QLatin1String("kate_private_plugin_katesnippetsplugin"),
+    m_toolView.reset(mainWindow->createToolView(0, QStringLiteral("kate_private_plugin_katesnippetsplugin"),
                      KTextEditor::MainWindow::Right,
-                     QIcon::fromTheme(QLatin1String("document-new")),
+                     QIcon::fromTheme(QStringLiteral("document-new")),
                      i18n("Snippets")));
 
     m_toolView->setLayout(new QHBoxLayout());
@@ -80,12 +80,12 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     m_plugin->mViews.append(this);
 
     // create actions
-    QAction *a = actionCollection()->addAction(QLatin1String("tools_create_snippet"));
-    a->setIcon(QIcon::fromTheme(QLatin1String("document-new")));
+    QAction *a = actionCollection()->addAction(QStringLiteral("tools_create_snippet"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
     a->setText(i18n("Create Snippet"));
     connect(a, &QAction::triggered, this, &KateSnippetsPluginView::createSnippet);
 
-    a = actionCollection()->addAction(QLatin1String("tools_snippets"));
+    a = actionCollection()->addAction(QStringLiteral("tools_snippets"));
     a->setText(i18n("Snippets..."));
     connect(a, &QAction::triggered, this, &KateSnippetsPluginView::showSnippetsDialog);
 

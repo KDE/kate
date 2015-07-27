@@ -31,8 +31,8 @@
 <entity name="defStyles"
         type="param"
 >
-<text-expanded>dsNormal|dsKeyword|dsDataType|dsDecVal|dsBaseN|dsFloat|dsChar|dsString|dsComment|dsOthers|dsAlert|dsFunction|dsRegionMarker|dsError</text-expanded>
-<text>dsNormal|dsKeyword|dsDataType|dsDecVal|dsBaseN|dsFloat|dsChar|dsString|dsComment|dsOthers|dsAlert|dsFunction|dsRegionMarker|dsError</text>
+<text-expanded>dsNormal|dsKeyword|dsFunction|dsVariable|dsControlFlow|dsOperator|dsBuiltIn|dsExtension|dsPreprocessor|dsAttribute|dsChar|dsSpecialChar|dsString|dsVerbatimString|dsSpecialString|dsImport|dsDataType|dsDecVal|dsBaseN|dsFloat|dsConstant|dsComment|dsDocumentation|dsAnnotation|dsCommentVar|dsRegionMarker|dsInformation|dsWarning|dsAlert|dsOthers|dsError</text-expanded>
+<text>dsNormal|dsKeyword|dsFunction|dsVariable|dsControlFlow|dsOperator|dsBuiltIn|dsExtension|dsPreprocessor|dsAttribute|dsChar|dsSpecialChar|dsString|dsVerbatimString|dsSpecialString|dsImport|dsDataType|dsDecVal|dsBaseN|dsFloat|dsConstant|dsComment|dsDocumentation|dsAnnotation|dsCommentVar|dsRegionMarker|dsInformation|dsWarning|dsAlert|dsOthers|dsError</text>
 </entity>
 
 <entity name="commonAttributes"
@@ -994,7 +994,7 @@
 <attribute name="defStyleNum"
            type="#REQUIRED"
            enumeration="yes"
-           value="dsNormal dsKeyword dsDataType dsDecVal dsBaseN dsFloat dsChar dsString dsComment dsOthers dsAlert dsFunction dsRegionMarker dsError"
+           value="dsNormal dsKeyword dsFunction dsVariable dsControlFlow dsOperator dsBuiltIn dsExtension dsPreprocessor dsAttribute dsChar dsSpecialChar dsString dsVerbatimString dsSpecialString dsImport dsDataType dsDecVal dsBaseN dsFloat dsConstant dsComment dsDocumentation dsAnnotation dsCommentVar dsRegionMarker dsInformation dsWarning dsAlert dsOthers dsError"
            default=""/>
 <attribute name="name"
            type="#REQUIRED"

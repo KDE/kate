@@ -48,6 +48,8 @@ PluginKateTextFilter::PluginKateTextFilter(QObject *parent, const QList<QVariant
     , copyResult(false)
     , mergeOutput(false)
 {
+    // register command
+    new PluginKateTextFilterCommand(this);
 }
 
 PluginKateTextFilter::~PluginKateTextFilter()
@@ -218,14 +220,15 @@ void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filte
 }
 
 //BEGIN Kate::Command methods
-bool PluginKateTextFilter::help(KTextEditor::View *, const QString&, QString &msg)
+
+PluginKateTextFilterCommand::PluginKateTextFilterCommand(PluginKateTextFilter *plugin)
+  : KTextEditor::Command(QStringList() << QStringLiteral("textfilter"), plugin)
+  , m_plugin(plugin)
 {
-  msg = i18n("<qt><p>Usage: <code>textfilter COMMAND</code></p>"
-             "<p>Replace the selection with the output of the specified shell command.</p></qt>");
-  return true;
 }
 
-bool PluginKateTextFilter::exec(KTextEditor::View *v, const QString &cmd, QString &msg)
+bool PluginKateTextFilterCommand::exec (KTextEditor::View *view, const QString &cmd, QString &msg,
+                      const KTextEditor::Range &)
 {
   QString filter = cmd.section(QLatin1Char(' '), 1).trimmed();
 
@@ -234,8 +237,16 @@ bool PluginKateTextFilter::exec(KTextEditor::View *v, const QString &cmd, QStrin
     return false;
   }
 
-  runFilter(v, filter);
+  m_plugin->runFilter(view, filter);
   return true;
+}
+
+bool PluginKateTextFilterCommand::help (KTextEditor::View *, const QString &, QString &msg)
+{
+  msg = i18n("<qt><p>Usage: <code>textfilter COMMAND</code></p>"
+             "<p>Replace the selection with the output of the specified shell command.</p></qt>");
+  return true;
+
 }
 //END
 

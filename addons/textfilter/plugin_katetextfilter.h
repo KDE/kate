@@ -28,7 +28,7 @@
 #include <KProcess>
 #include <QVariantList>
 
-class PluginKateTextFilter : public KTextEditor::Plugin//, public KTextEditor::Command
+class PluginKateTextFilter : public KTextEditor::Plugin
 {
   Q_OBJECT
 
@@ -42,10 +42,6 @@ class PluginKateTextFilter : public KTextEditor::Plugin//, public KTextEditor::C
 
     QObject *createView(KTextEditor::MainWindow *mainWindow);
 
-    // Kate::Command
-    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg);
-    bool help(KTextEditor::View *view, const QString &cmd, QString &msg);
-  private:
     void runFilter(KTextEditor::View *kv, const QString & filter);
 
   private:
@@ -61,6 +57,21 @@ class PluginKateTextFilter : public KTextEditor::Plugin//, public KTextEditor::C
     void slotFilterReceivedStdout();
     void slotFilterReceivedStderr();
     void slotFilterProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
+};
+
+class PluginKateTextFilterCommand : public KTextEditor::Command
+{
+   Q_OBJECT
+
+public:
+   PluginKateTextFilterCommand (PluginKateTextFilter *plugin);
+    // Kate::Command
+    bool exec (KTextEditor::View *view, const QString &cmd, QString &msg,
+                      const KTextEditor::Range &range = KTextEditor::Range::invalid());
+    bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+
+private:
+    PluginKateTextFilter *m_plugin;
 };
 
 /**

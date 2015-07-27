@@ -74,7 +74,7 @@ KateDocManager::~KateDocManager()
             QDateTime def(QDate(1970, 1, 1));
             for (QStringList::const_iterator it = groups.begin(); it != groups.end(); ++it) {
                 QDateTime last = m_metaInfos->group(*it).readEntry("Time", def);
-                if (last.daysTo(QDateTime::currentDateTime()) > m_daysMetaInfos) {
+                if (last.daysTo(QDateTime::currentDateTimeUtc()) > m_daysMetaInfos) {
                     m_metaInfos->deleteGroup(*it);
                 }
             }
@@ -236,7 +236,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
         }
 
         KateApp::self()->emitDocumentClosed(QString::number((qptrdiff)doc));
-        
+
         // document will be deleted, soon
         emit documentWillBeDeleted(doc);
 
@@ -246,7 +246,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
 
         // document is gone, emit our signals
         emit documentDeleted(doc);
-        
+
         last++;
     }
 

@@ -100,7 +100,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_ctagsUi.delButton, SIGNAL(clicked()), this, SLOT(delTagTarget()));
     connect(m_ctagsUi.updateButton,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
     connect(m_ctagsUi.updateButton2,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
-    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), 
+    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)),
             this, SLOT(updateDone(int,QProcess::ExitStatus)));
 
     connect(m_ctagsUi.inputEdit, SIGNAL(textChanged(QString)), this, SLOT(startEditTmr()));
@@ -163,7 +163,7 @@ void KateCTagsView::readSessionConfig (const KConfigGroup& cg)
             new QListWidgetItem(target, m_ctagsUi.targetList);
         }
     }
-    
+
     QString sessionDB = cg.readEntry("SessionDatabase", QString());
     m_ctagsUi.tagsFile->setText(sessionDB);
 
@@ -174,7 +174,7 @@ void KateCTagsView::writeSessionConfig (KConfigGroup& cg)
 {
     cg.writeEntry("TagsGenCMD", m_ctagsUi.cmdEdit->text());
     cg.writeEntry("SessionNumTargets", m_ctagsUi.targetList->count());
-    
+
     QString nr;
     for (int i=0; i<m_ctagsUi.targetList->count(); i++) {
         nr = QStringLiteral("%1").arg(i,3);
@@ -270,10 +270,10 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
 {
     Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), word, false, types);
     if (list.size() == 0) list = Tags::getMatches(m_commonDB, word, false, types);
- 
+
     //qDebug() << "found" << list.count() << word << types;
     setNewLookupText(word);
-    
+
     if ( list.count() < 1) {
         m_ctagsUi.tagTreeWidget->clear();
         new QTreeWidgetItem(m_ctagsUi.tagTreeWidget, QStringList(i18n("No hits found")));
@@ -500,7 +500,7 @@ void KateCTagsView::updateSessionDB()
     if (m_ctagsUi.tagsFile->text().isEmpty()) {
         // FIXME we need a way to get the session name
         pluginFolder + QLatin1String("/session_db_");
-        pluginFolder += QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_hhmmss"));
+        pluginFolder += QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd_hhmmss"));
         m_ctagsUi.tagsFile->setText(pluginFolder);
     }
 

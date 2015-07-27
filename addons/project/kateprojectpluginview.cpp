@@ -142,7 +142,9 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
          * create the combo + buttons for the toolViews + stacked widgets
          */
         m_projectsCombo = new QComboBox(m_toolView);
+        m_projectsCombo->setFrame(false);
         m_reloadButton = new QToolButton(m_toolView);
+        m_reloadButton->setAutoRaise(true);
         m_reloadButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
         QHBoxLayout *layout = new QHBoxLayout();
         layout->setSpacing(0);

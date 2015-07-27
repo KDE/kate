@@ -161,11 +161,12 @@ void PluginKateTextFilter::slotEditFilter()
   if (!kv) return;
 
   QDialog dialog(KTextEditor::Editor::instance()->application()->activeMainWindow()->window());
-  dialog.setWindowTitle(QStringLiteral("Text Filter"));
 
   Ui::TextFilterWidget ui;
   ui.setupUi(&dialog);
   ui.filterBox->setFocus();
+
+  dialog.setWindowTitle(i18n("Text Filter"));
 
   KConfigGroup config(KSharedConfig::openConfig(), "PluginTextFilter");
   QStringList items = config.readEntry("Completion list", QStringList());
@@ -175,8 +176,6 @@ void PluginKateTextFilter::slotEditFilter()
   ui.filterBox->setHistoryItems(items, true);
   ui.copyResult->setChecked(copyResult);
   ui.mergeOutput->setChecked(mergeOutput);
-
-  connect(ui.filterBox, SIGNAL(activated(QString)), &dialog, SIGNAL(okClicked()));
 
   if (dialog.exec() == QDialog::Accepted) {
     copyResult = ui.copyResult->isChecked();

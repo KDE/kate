@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>TextFilterWidget</class>
- <widget class="QWidget" name="TextFilterWidget">
+ <widget class="QDialog" name="TextFilterWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>370</width>
+    <height>159</height>
+   </rect>
+  </property>
   <property name="windowTitle">
-   <string>Filter</string>
+   <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
-    <number>0</number>
-   </property>
    <item>
     <widget class="QLabel" name="lblFilter">
      <property name="sizePolicy">
@@ -18,7 +23,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Enter command to pipe selected text through:</string>
+      <string>Enter command to &amp;pipe selected text through:</string>
      </property>
      <property name="buddy">
       <cstring>filterBox</cstring>
@@ -56,6 +61,13 @@ Otherwise, STDERR will be displayed as a passive message.</string>
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -71,5 +83,38 @@ Otherwise, STDERR will be displayed as a passive message.</string>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>TextFilterWidget</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>177</x>
+     <y>136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>182</x>
+     <y>118</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>TextFilterWidget</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>326</x>
+     <y>141</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>358</x>
+     <y>117</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

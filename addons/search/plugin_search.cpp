@@ -632,6 +632,10 @@ void KatePluginSearchView::searchPlaceChanged()
     m_ui.symLinkCheckBox->setEnabled(inFolder);
     m_ui.binaryCheckBox->setEnabled(inFolder);
 
+    if (inFolder && sender() == m_ui.searchPlaceCombo) {
+        setCurrentFolder();
+    }
+
     // ... and the labels:
     m_ui.folderLabel->setEnabled(m_ui.folderRequester->isEnabled());
     m_ui.filterLabel->setEnabled(m_ui.filterCombo->isEnabled());

@@ -21,9 +21,8 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/Application>
 #include <KTextEditor/MainWindow>
-
-#include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
+#include <KTextEditor/View>
+#include <KTextEditor/Document>
 #include <KTextEditor/Command>
 
 #include <QProcess>
@@ -31,12 +30,16 @@
 
 class KProcess;
 
-class PluginKateTextFilter : public KTextEditor::Plugin, public KTextEditor::Command
+class PluginKateTextFilter : public KTextEditor::Plugin//, public KTextEditor::Command
 {
   Q_OBJECT
 
   public:
-    explicit PluginKateTextFilter(QObject* parent = 0, const QVariantList& = QVariantList() );
+    /**
+     * Plugin constructor.
+     */
+    explicit PluginKateTextFilter(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
+
     virtual ~PluginKateTextFilter();
 
     QObject *createView(KTextEditor::MainWindow *mainWindow);
@@ -72,6 +75,7 @@ class PluginViewKateTextFilter: public QObject, public KXMLGUIClient
 
   private:
     PluginKateTextFilter *m_plugin;
+    KTextEditor::MainWindow *m_mainWindow;
 };
 
 #endif // PLUGIN_KATETEXTFILTER_H

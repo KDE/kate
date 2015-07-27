@@ -111,10 +111,6 @@ KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     connect(m_closeButton, &TabCloseButton::clicked, this, &KateTabButton::closeButtonClicked);
 }
 
-KateTabButton::~KateTabButton()
-{
-}
-
 void KateTabButton::closeButtonClicked()
 {
     emit closeRequest(this);

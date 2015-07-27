@@ -61,8 +61,6 @@ public:
      */
     KateTabButton(const QString &text, QWidget *parent = 0);
 
-    virtual ~KateTabButton();
-
     /**
      * Returns @e true, if the tabbar is the currently active tab bar.
      */

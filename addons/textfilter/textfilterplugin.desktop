@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=Kate/Plugin
-X-KDE-Library=katetextfilterplugin
-X-Kate-Version=2.8
+ServiceTypes=KTextEditor/Plugin
+X-KDE-Library=textfilterplugin
 Name=Text Filter
 Name[ast]=Peñera de testu
 Name[bg]=Текстов филтър
@@ -74,7 +73,7 @@ Comment[es]=Filtrado fácil de texto
 Comment[et]=Lihtne teksti filtreerimine
 Comment[eu]=Testuen iragazpen erraza
 Comment[fi]=Helppo tekstisuodatin
-Comment[fr]=Filtrage simple de texte 
+Comment[fr]=Filtrage simple de texte
 Comment[ga]=Scagadh téacs go héasca
 Comment[gl]=Filtrado fácil de textos
 Comment[he]=מסנן טקסט מהיר

@@ -18,10 +18,9 @@
 #ifndef PLUGIN_KATETEXTFILTER_H
 #define PLUGIN_KATETEXTFILTER_H
 
-#include <kate/plugin.h>
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <kate/mainwindow.h>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/Application>
+#include <KTextEditor/MainWindow>
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
@@ -32,7 +31,7 @@
 
 class KProcess;
 
-class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
+class PluginKateTextFilter : public KTextEditor::Plugin, public KTextEditor::Command
 {
   Q_OBJECT
 
@@ -40,7 +39,7 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
     explicit PluginKateTextFilter(QObject* parent = 0, const QVariantList& = QVariantList() );
     virtual ~PluginKateTextFilter();
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow);
 
     // Kate::Command
     bool exec(KTextEditor::View *view, const QString &cmd, QString &msg);
@@ -63,12 +62,12 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
     void slotFilterProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
 };
 
-class PluginViewKateTextFilter: public Kate::PluginView, public Kate::XMLGUIClient
+class PluginViewKateTextFilter: public QObject, public KXMLGUIClient
 {
   Q_OBJECT
 
   public:
-    PluginViewKateTextFilter(PluginKateTextFilter *plugin, Kate::MainWindow *mainwindow);
+    PluginViewKateTextFilter(PluginKateTextFilter *plugin, KTextEditor::MainWindow *mainwindow);
     virtual ~PluginViewKateTextFilter();
 
   private:

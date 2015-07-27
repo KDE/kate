@@ -23,26 +23,24 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/message.h>
 
-#include <kdialog.h>
+#include <QDialog>
 #include <QAction>
-#include <kcomponentdata.h>
 #include <kmessagebox.h>
 #include <klocalizedstring.h>
 #include <cassert>
 #include <qstring.h>
 #include <klineedit.h>
-#include <kinputdialog.h>
 #include <kprocess.h>
 
-#include <kpluginfactory.h>
+#include <KPluginFactory>
 #include <kauthorized.h>
 #include <kactioncollection.h>
 
 #include <qapplication.h>
 #include <qclipboard.h>
 
-K_PLUGIN_FACTORY(PluginKateTextFilterFactory, registerPlugin<PluginKateTextFilter>();)
-K_EXPORT_PLUGIN(PluginKateTextFilterFactory("katetextfilter"))
+
+K_PLUGIN_FACTORY_WITH_JSON(TextFilterPluginFactory, "textfilterplugin.json", registerPlugin<PluginKateTextFilter>();)
 
 PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,
                                                    Kate::MainWindow *mainwindow)
@@ -262,3 +260,6 @@ bool PluginKateTextFilter::exec(KTextEditor::View *v, const QString &cmd, QStrin
 //END
 
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;
+
+// required for TextFilterPluginFactory vtable
+#include "plugin_katetextfilter.moc"

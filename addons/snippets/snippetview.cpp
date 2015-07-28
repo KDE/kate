@@ -72,7 +72,6 @@ void SnippetView::setupActionsForWindow(QWidget* widget)
         for ( int j = 0; j < model->rowCount(index); j++ ) {
             auto item = model->itemFromIndex(model->index(j, 0, index));
             auto snippet = dynamic_cast<Snippet*>(item);
-            qDebug() << "snippet at" << j << snippet;
             if ( ! snippet ) {
                 continue;
             }

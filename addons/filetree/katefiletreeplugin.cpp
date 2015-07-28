@@ -47,7 +47,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateFileTreeFactory, "katefiletreeplugin.json", registerPlugin<KateFileTreePlugin>();)
 
-Q_LOGGING_CATEGORY(FILETREE, "kate-filetree")
+Q_LOGGING_CATEGORY(FILETREE, "kate-filetree", QtWarningMsg)
 
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject *parent, const QList<QVariant> &)

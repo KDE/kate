@@ -42,7 +42,7 @@
 
 KateApp *KateApp::s_self = 0;
 
-Q_LOGGING_CATEGORY(LOG_KATE, "kate")
+Q_LOGGING_CATEGORY(LOG_KATE, "kate", QtWarningMsg)
 
 KateApp::KateApp(const QCommandLineParser &args)
     : m_args(args)

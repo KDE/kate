@@ -38,7 +38,6 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/codecompletioninterface.h>
-#include <KToolBar>
 #include <KLocalizedString>
 
 #include <QDialogButtonBox>
@@ -59,37 +58,6 @@ KateSnippetGlobal::~KateSnippetGlobal ()
 {
     delete SnippetStore::self();
     s_self = nullptr;
-}
-
-void KateSnippetGlobal::showDialog (KTextEditor::View *view)
-{
-  QDialog dialog;
-  dialog.setWindowTitle(i18n("Snippets"));
-
-  QVBoxLayout *layout = new QVBoxLayout(&dialog);
-  dialog.setLayout(layout);
-
-  KToolBar *topToolbar = new KToolBar(&dialog, "snippetsToolBar");
-  topToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-  layout->addWidget(topToolbar);
-
-  QWidget *widget = snippetWidget();
-  layout->addWidget(widget);
-
-  // add actions
-  topToolbar->addActions(widget->actions());
-
-  QDialogButtonBox *buttons = new QDialogButtonBox(&dialog);
-  layout->addWidget(buttons);
-  buttons->setStandardButtons(QDialogButtonBox::Ok);
-  connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::close);
-
-  /**
-   * set document to work on and trigger dialog
-   */
-  m_activeViewForDialog = view;
-  dialog.exec();
-  m_activeViewForDialog = 0;
 }
 
 SnippetView* KateSnippetGlobal::snippetWidget ()

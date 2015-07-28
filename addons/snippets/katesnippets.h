@@ -72,7 +72,6 @@ private Q_SLOTS:
     void slotViewCreated(KTextEditor::View *view);
 
     void createSnippet();
-    void showSnippetsDialog();
 
 private:
     KateSnippetsPlugin *m_plugin;

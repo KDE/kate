@@ -72,13 +72,6 @@ public Q_SLOTS:
      */
     void createSnippet (KTextEditor::View *view);
 
-    /**
-     * Show the snippet dialog, used by most simple apps using just
-     * KatePart.
-     * @param view view to show dialog for
-     */
-    void showDialog (KTextEditor::View *view);
-
     void insertSnippetFromActionData();
 
 private:

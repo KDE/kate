@@ -82,10 +82,6 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     a->setText(i18n("Create Snippet"));
     connect(a, &QAction::triggered, this, &KateSnippetsPluginView::createSnippet);
 
-    a = actionCollection()->addAction(QStringLiteral("tools_snippets"));
-    a->setText(i18n("Snippets..."));
-    connect(a, &QAction::triggered, this, &KateSnippetsPluginView::showSnippetsDialog);
-
     connect(mainWindow, &KTextEditor::MainWindow::viewCreated, this, &KateSnippetsPluginView::slotViewCreated);
 
     /**
@@ -129,11 +125,6 @@ void KateSnippetsPluginView::slotViewCreated(KTextEditor::View *view)
 void KateSnippetsPluginView::createSnippet()
 {
     KateSnippetGlobal::self()->createSnippet(m_mainWindow->activeView());
-}
-
-void KateSnippetsPluginView::showSnippetsDialog()
-{
-    KateSnippetGlobal::self()->showDialog(m_mainWindow->activeView());
 }
 
 #include "katesnippets.moc"

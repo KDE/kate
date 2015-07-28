@@ -147,10 +147,12 @@ public:
 
 protected:
     void childEvent(QChildEvent *ev);
+    void actionEvent(QActionEvent *event);
 
 private:
     MainWindow *m_mainWin;
     Sidebar *m_sidebar;
+    KToolBar *m_toolbar;
 
     ///plugin this view belongs to, may be 0
     QPointer<KTextEditor::Plugin> plugin;

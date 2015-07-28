@@ -32,6 +32,7 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <kwindowconfig.h>
+#include <KToolBar>
 
 #include <QChildEvent>
 #include <QEvent>
@@ -211,6 +212,7 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
     : QFrame(parent)
     , m_mainWin(mainwin)
     , m_sidebar(sidebar)
+    , m_toolbar(0)
     , m_toolVisible(false)
     , persistent(false)
 {
@@ -218,6 +220,9 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
     setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
+    m_toolbar = new KToolBar(this);
+    m_toolbar->setVisible(false);
+    m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 }
 
 ToolView::~ToolView()
@@ -250,6 +255,17 @@ void ToolView::childEvent(QChildEvent *ev)
     }
 
     QFrame::childEvent(ev);
+}
+
+void ToolView::actionEvent(QActionEvent* event)
+{
+    QFrame::actionEvent(event);
+    if (event->type() == QEvent::ActionAdded) {
+        m_toolbar->addAction(event->action());
+    } else if (event->type() == QEvent::ActionRemoved) {
+        m_toolbar->removeAction(event->action());
+    }
+    m_toolbar->setVisible(!m_toolbar->actions().isEmpty());
 }
 
 //END TOOLVIEW

@@ -28,7 +28,6 @@
 
 #include <KActionCollection>
 #include <KXMLGUIFactory>
-#include <KToolBar>
 #include <KLocalizedString>
 #include <KPluginFactory>
 
@@ -68,12 +67,7 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     m_snippets.reset(new SnippetView(KateSnippetGlobal::self(), m_toolView.data()));
     m_toolView->layout()->addWidget(m_snippets.data());
     m_snippets->setupActionsForWindow(m_toolView.data());
-
-    // snippets toolbar
-    KToolBar *topToolbar = new KToolBar(m_toolView.data(), "snippetsToolBar");
-    topToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-    topToolbar->addActions(m_snippets->actions());
-    static_cast<QBoxLayout *>(m_toolView->layout())->insertWidget(0, topToolbar);
+    m_toolView->addActions(m_snippets->actions());
 
     // create actions
     QAction *a = actionCollection()->addAction(QStringLiteral("tools_create_snippet"));

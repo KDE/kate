@@ -28,7 +28,6 @@
 
 #include <KTextEditor/View>
 
-class SnippetView;
 class SnippetCompletionModel;
 class Snippet;
 
@@ -58,12 +57,6 @@ public:
      * @return code completion model for snippets
      */
     SnippetCompletionModel *completionModel () { return m_model.data(); }
-
-    /**
-     * Create a new snippet widget, to allow to manage and insert snippets
-     * @return new snippet widget
-     */
-    SnippetView *snippetWidget ();
 
 public Q_SLOTS:
     /**

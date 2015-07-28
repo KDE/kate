@@ -64,10 +64,9 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
                      QIcon::fromTheme(QStringLiteral("document-new")),
                      i18n("Snippets")));
 
-    m_toolView->setLayout(new QHBoxLayout());
     // add snippets widget
-    m_snippets.reset(KateSnippetGlobal::self()->snippetWidget());
-    m_snippets->setParent(m_toolView.data());
+    m_snippets.reset(new SnippetView(KateSnippetGlobal::self(), m_toolView.data()));
+    m_toolView->layout()->addWidget(m_snippets.data());
     m_snippets->setupActionsForWindow(m_toolView.data());
 
     // snippets toolbar

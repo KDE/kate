@@ -21,7 +21,6 @@
  */
 #include "katesnippetglobal.h"
 
-#include "snippetview.h"
 #include "snippetcompletionmodel.h"
 #include "snippetstore.h"
 #include "snippet.h"
@@ -58,11 +57,6 @@ KateSnippetGlobal::~KateSnippetGlobal ()
 {
     delete SnippetStore::self();
     s_self = nullptr;
-}
-
-SnippetView* KateSnippetGlobal::snippetWidget ()
-{
-  return new SnippetView (this, 0);
 }
 
 void KateSnippetGlobal::insertSnippet(Snippet* snippet)

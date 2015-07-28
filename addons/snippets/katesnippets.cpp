@@ -76,9 +76,6 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     topToolbar->addActions(m_snippets->actions());
     static_cast<QBoxLayout *>(m_toolView->layout())->insertWidget(0, topToolbar);
 
-    // register this view
-    m_plugin->mViews.append(this);
-
     // create actions
     QAction *a = actionCollection()->addAction(QStringLiteral("tools_create_snippet"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
@@ -116,9 +113,6 @@ KateSnippetsPluginView::~KateSnippetsPluginView()
     }
 
     m_mainWindow->guiFactory()->removeClient(this);
-
-    // unregister this view
-    m_plugin->mViews.removeAll(this);
 }
 
 void KateSnippetsPluginView::slotViewCreated(KTextEditor::View *view)

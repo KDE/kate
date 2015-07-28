@@ -45,7 +45,6 @@ public:
 
 private:
     KateSnippetGlobal *m_snippetGlobal;
-    QList<KateSnippetsPluginView *> mViews;
 };
 
 class KateSnippetsPluginView : public QObject, public KXMLGUIClient

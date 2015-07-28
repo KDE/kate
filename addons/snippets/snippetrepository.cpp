@@ -79,7 +79,7 @@ SnippetRepository::~SnippetRepository()
 
 QDir SnippetRepository::dataPath()
 {
-    auto dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    auto dir = QDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation));
     const auto& subdir = QLatin1String("ktexteditor_snippets/data/");
     bool success = dir.mkpath(dir.absoluteFilePath(subdir));
     Q_ASSERT(success);

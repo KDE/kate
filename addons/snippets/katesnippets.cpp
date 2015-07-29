@@ -58,15 +58,15 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     setXMLFile(QStringLiteral("ui.rc"));
 
     // Toolview for snippets
-    m_toolView.reset(mainWindow->createToolView(0, QStringLiteral("kate_private_plugin_katesnippetsplugin"),
+    m_toolView = mainWindow->createToolView(0, QStringLiteral("kate_private_plugin_katesnippetsplugin"),
                      KTextEditor::MainWindow::Right,
                      QIcon::fromTheme(QStringLiteral("document-new")),
-                     i18n("Snippets")));
+                     i18n("Snippets"));
 
     // add snippets widget
-    m_snippets.reset(new SnippetView(KateSnippetGlobal::self(), m_toolView.data()));
-    m_toolView->layout()->addWidget(m_snippets.data());
-    m_snippets->setupActionsForWindow(m_toolView.data());
+    m_snippets = new SnippetView(KateSnippetGlobal::self(), m_toolView.data());
+    m_toolView->layout()->addWidget(m_snippets);
+    m_snippets->setupActionsForWindow(m_toolView);
     m_toolView->addActions(m_snippets->actions());
 
     // create actions
@@ -102,6 +102,10 @@ KateSnippetsPluginView::~KateSnippetsPluginView()
     }
 
     m_mainWindow->guiFactory()->removeClient(this);
+
+    if (m_toolView) {
+        delete m_toolView;
+    }
 }
 
 void KateSnippetsPluginView::slotViewCreated(KTextEditor::View *view)

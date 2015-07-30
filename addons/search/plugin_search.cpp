@@ -260,6 +260,7 @@ m_mainWindow (mainWin)
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
     m_ui.matchCase->setIcon(QIcon::fromTheme(QStringLiteral("format-text-superscript")));
+    m_ui.useRegExp->setIcon(QIcon::fromTheme(QStringLiteral("code-context")));
     m_ui.displayOptions->setIcon(QIcon::fromTheme(QStringLiteral("games-config-options")));
     m_ui.searchButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
     m_ui.stopButton->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
@@ -298,8 +299,8 @@ m_mainWindow (mainWin)
     connect(m_ui.currentFolderButton, SIGNAL(clicked()), this, SLOT(setCurrentFolder()));
 
     connect(m_ui.searchCombo,      SIGNAL(editTextChanged(QString)), &m_changeTimer, SLOT(start()));
-    connect(m_ui.matchCase,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
-    connect(m_ui.useRegExp,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
+    connect(m_ui.matchCase,        SIGNAL(clicked()), &m_changeTimer, SLOT(start()));
+    connect(m_ui.useRegExp,        SIGNAL(clicked()), &m_changeTimer, SLOT(start()));
     m_changeTimer.setInterval(300);
     m_changeTimer.setSingleShot(true);
     connect(&m_changeTimer, SIGNAL(timeout()), this, SLOT(startSearchWhileTyping()));

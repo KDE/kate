@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>773</width>
+    <width>928</width>
     <height>290</height>
    </rect>
   </property>
@@ -83,14 +83,27 @@
      </item>
      <item>
       <widget class="QToolButton" name="matchCase">
+       <property name="toolTip">
+        <string>Match case</string>
+       </property>
        <property name="checkable">
         <bool>true</bool>
        </property>
        <property name="autoRaise">
         <bool>true</bool>
        </property>
-      <property name="toolTip">
-        <string>&amp;Match case</string>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="useRegExp">
+       <property name="toolTip">
+        <string>Regular expressions</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -275,13 +288,6 @@
               </size>
              </property>
             </spacer>
-           </item>
-           <item row="0" column="2">
-            <widget class="QCheckBox" name="useRegExp">
-             <property name="text">
-              <string>Regular e&amp;xpressions</string>
-             </property>
-            </widget>
            </item>
            <item row="0" column="0">
             <widget class="KComboBox" name="searchPlaceCombo">

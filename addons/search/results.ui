@@ -6,14 +6,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>381</width>
-    <height>110</height>
+    <width>406</width>
+    <height>149</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3" stretch="10">
-   <property name="margin">
-    <number>0</number>
-   </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTreeWidget" name="tree">
      <property name="uniformRowHeights">
@@ -34,6 +31,53 @@
       </property>
      </column>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="replaceLabel">
+       <property name="text">
+        <string>&amp;Replace:</string>
+       </property>
+       <property name="buddy">
+        <cstring>replaceCombo</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="replaceCombo">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="replaceButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Replace</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="replaceCheckedBtn">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Replace checked</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

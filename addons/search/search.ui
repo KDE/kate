@@ -28,7 +28,7 @@
      <item>
       <widget class="QLabel" name="findLabel">
        <property name="text">
-        <string>Fi&amp;nd:</string>
+        <string>Fi&amp;nd</string>
        </property>
        <property name="buddy">
         <cstring>searchCombo</cstring>

@@ -263,7 +263,6 @@ m_mainWindow (mainWin)
     m_ui.useRegExp->setIcon(QIcon::fromTheme(QStringLiteral("code-context")));
     m_ui.displayOptions->setIcon(QIcon::fromTheme(QStringLiteral("games-config-options")));
     m_ui.searchButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
-    m_ui.nextButton->setIcon(QIcon::fromTheme(QStringLiteral("go-down-search")));
     m_ui.stopButton->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
     m_ui.searchPlaceCombo->setItemIcon(CurrentFile, QIcon::fromTheme(QStringLiteral("text-plain")));
     m_ui.searchPlaceCombo->setItemIcon(OpenFiles, QIcon::fromTheme(QStringLiteral("text-plain")));

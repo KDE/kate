@@ -53,7 +53,7 @@
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="toolTip">
+       <property name="text">
         <string>Search</string>
        </property>
       </widget>
@@ -63,7 +63,7 @@
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="toolTip">
+       <property name="text">
         <string>Next</string>
        </property>
       </widget>

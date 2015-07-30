@@ -197,7 +197,7 @@ private:
      * current project plugin view, if any
      */
     QObject *m_projectPluginView;
-
+    
     /**
      * our main window
      */

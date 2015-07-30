@@ -6,7 +6,7 @@
   Copyright 2004 Alexander Neundorf (neundorf@kde.org)
   Copyright 2005 Dominik Haumann (dhdev@gmx.de)
   Copyright 2007,2008,2013,2014 Matthew Woehlke (mw_triad@users.sourceforge.net)
-  Copyright 2013,2014 Alex Turbov (i.zaufi@gmail.com)
+  Copyright 2013,2014,2015 Alex Turbov (i.zaufi@gmail.com)
 
  **********************************************************************
  * This library is free software; you can redistribute it and/or      *
@@ -25,10 +25,10 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<!-- generated for "cmake version 2.8.12.1, 3.0.2 and 3.1.2" -->
+<!-- generated for "cmake version 2.8.12.1, 3.0.2, 3.1.2 and 3.3.0" -->
 <language
     name="CMake"
-    version="1.33"
+    version="1.34"
     kateversion="2.4"
     section="Other"
     extensions="CMakeLists.txt;*.cmake;*.cmake.in"
@@ -252,6 +252,7 @@
       <item> FILES_MATCHING </item>
       <item> FILE_PERMISSIONS </item>
       <item> FIND </item>
+      <item> FLAGS </item>
       <item> FOLLOW_SYMLINKS </item>
       <item> FORCE </item>
       <item> FRAMEWORK </item>
@@ -306,6 +307,7 @@
       <item> LINK_PRIVATE </item>
       <item> LINK_PUBLIC </item>
       <item> LISTS </item>
+      <item> LIST_DIRECTORIES </item>
       <item> LOCK </item>
       <item> LOG </item>
       <item> MACOSX_BUNDLE </item>
@@ -343,10 +345,13 @@
       <item> NO_POLICY_SCOPE </item>
       <item> NO_SOURCE_PERMISSIONS </item>
       <item> NO_SYSTEM_ENVIRONMENT_PATH </item>
+      <item> NUMBER_ERRORS </item>
       <item> NUMBER_WARNINGS </item>
       <item> OBJECT </item>
+      <item> OFF </item>
       <item> OFFSET </item>
       <item> OLD </item>
+      <item> ON </item>
       <item> ONLY_CMAKE_FIND_ROOT_PATH </item>
       <item> OPTIONAL </item>
       <item> OPTIONAL_COMPONENTS </item>
@@ -510,6 +515,8 @@
       <item> AVAILABLE_VIRTUAL_MEMORY </item>
       <item> TOTAL_PHYSICAL_MEMORY </item>
       <item> AVAILABLE_PHYSICAL_MEMORY </item>
+      <!-- Since CMake 3.3 -->
+      <item> IN_LIST </item>
     </list>
 
     <!-- ATTENTION Do not change the list name! Or change a generation script accordingly -->
@@ -555,9 +562,13 @@
       <item> COMPILE_PDB_NAME </item>
       <item> COMPILE_PDB_OUTPUT_DIRECTORY </item>
       <item> COST </item>
+      <item> CPACK_DESKTOP_SHORTCUTS </item>
       <item> CPACK_NEVER_OVERWRITE </item>
       <item> CPACK_PERMANENT </item>
+      <item> CPACK_STARTUP_SHORTCUTS </item>
+      <item> CPACK_START_MENU_SHORTCUTS </item>
       <item> CPACK_WIX_ACL </item>
+      <item> CROSSCOMPILING_EMULATOR </item>
       <item> CXX_EXTENSIONS </item>
       <item> CXX_STANDARD </item>
       <item> CXX_STANDARD_REQUIRED </item>
@@ -722,12 +733,14 @@
       <item> VS_WINRT_COMPONENT </item>
       <item> VS_WINRT_EXTENSIONS </item>
       <item> VS_WINRT_REFERENCES </item>
+      <item> VS_XAML_TYPE </item>
       <item> WILL_FAIL </item>
       <item> WIN32_EXECUTABLE </item>
       <item> WORKING_DIRECTORY </item>
       <item> WRAP_EXCLUDE </item>
       <item> XCODE_EXPLICIT_FILE_TYPE </item>
       <item> XCODE_LAST_KNOWN_FILE_TYPE </item>
+      <item> XCTEST </item>
     </list>
 
     <!-- these are "special" and don't show up in the generated lists -->
@@ -775,6 +788,7 @@
       <item> CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY </item>
       <item> CMAKE_CONFIGURATION_TYPES </item>
       <item> CMAKE_CROSSCOMPILING </item>
+      <item> CMAKE_CROSSCOMPILING_EMULATOR </item>
       <item> CMAKE_CTEST_COMMAND </item>
       <item> CMAKE_CURRENT_BINARY_DIR </item>
       <item> CMAKE_CURRENT_LIST_DIR </item>
@@ -922,6 +936,7 @@
       <item> CMAKE_VERSION </item>
       <item> CMAKE_VISIBILITY_INLINES_HIDDEN </item>
       <item> CMAKE_VS_DEVENV_COMMAND </item>
+      <item> CMAKE_VS_INCLUDE_INSTALL_TO_DEFAULT_BUILD </item>
       <item> CMAKE_VS_INTEL_Fortran_PROJECT_VERSION </item>
       <item> CMAKE_VS_MSBUILD_COMMAND </item>
       <item> CMAKE_VS_MSDEV_COMMAND </item>
@@ -990,6 +1005,7 @@
       <item> CYGWIN </item>
       <item> ENV </item>
       <item> EXECUTABLE_OUTPUT_PATH </item>
+      <item> GHS-MULTI </item>
       <item> LIBRARY_OUTPUT_PATH </item>
       <item> MINGW </item>
       <item> MSVC </item>
@@ -1117,16 +1133,19 @@
       <!-- ATTENTION Do not change the context name! Or change a generation script accordingly -->
       <context attribute="Normal Text" lineEndContext="#stay" name="Detect More Builtin Variables">
         <!-- generated rules -->
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_ARCHIVE_OUTPUT_DIRECTORY_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_COMPILER_IS_GNU[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_COMPILE_PDB_OUTPUT_DIRECTORY_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_DISABLE_FIND_PACKAGE_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_EXE_LINKER_FLAGS_[A-Za-z_][A-Za-z_0-9]*\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_LIBRARY_OUTPUT_DIRECTORY_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_MAP_IMPORTED_CONFIG_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_MODULE_LINKER_FLAGS_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_PDB_OUTPUT_DIRECTORY_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_POLICY_DEFAULT_CMP[0-9]+\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_POLICY_WARNING_CMP[0-9]+\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_PROJECT_[A-Za-z_][A-Za-z_0-9]*_INCLUDE\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_RUNTIME_OUTPUT_DIRECTORY_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_SHARED_LINKER_FLAGS_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_STATIC_LINKER_FLAGS_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_USER_MAKE_RULES_OVERRIDE_[A-Za-z_][A-Za-z_0-9]*\b" />
@@ -1150,11 +1169,16 @@
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_FLAGS_MINSIZEREL\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_FLAGS_RELEASE\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_FLAGS_RELWITHDEBINFO\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_GHS_KERNEL_FLAGS_DEBUG\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_GHS_KERNEL_FLAGS_MINSIZEREL\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_GHS_KERNEL_FLAGS_RELEASE\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_GHS_KERNEL_FLAGS_RELWITHDEBINFO\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_IGNORE_EXTENSIONS\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_IMPLICIT_INCLUDE_DIRECTORIES\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_IMPLICIT_LINK_DIRECTORIES\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_IMPLICIT_LINK_LIBRARIES\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_INCLUDE_WHAT_YOU_USE\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_LIBRARY_ARCHITECTURE\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_LINKER_PREFERENCE\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_LINKER_PREFERENCE_PROPAGATES\b" />

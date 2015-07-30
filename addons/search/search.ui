@@ -6,12 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>594</width>
-    <height>206</height>
+    <width>557</width>
+    <height>222</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="topLayout" rowstretch="0,0,0,1" columnstretch="0,0,1,0,0,0">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item row="1" column="0">
@@ -54,7 +63,7 @@
    <item row="0" column="1" alignment="Qt::AlignRight">
     <widget class="QLabel" name="findLabel">
      <property name="text">
-      <string>Find</string>
+      <string>Fi&amp;nd:</string>
      </property>
      <property name="buddy">
       <cstring>searchCombo</cstring>
@@ -64,7 +73,7 @@
    <item row="1" column="1" alignment="Qt::AlignRight">
     <widget class="QLabel" name="replaceLabel">
      <property name="text">
-      <string>Replace</string>
+      <string>Re&amp;place:</string>
      </property>
      <property name="buddy">
       <cstring>replaceCombo</cstring>
@@ -84,7 +93,16 @@
      </property>
      <widget class="QWidget" name="resultPage">
       <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
@@ -101,7 +119,16 @@
      </widget>
      <widget class="QWidget" name="optionsPage">
       <layout class="QGridLayout" name="optionsLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item row="2" column="0">
@@ -125,17 +152,19 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0,0,0" columnstretch="0,0,0,0,0,10">
-          <property name="margin">
+         <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0,0" columnstretch="0,0,0,0,10,0">
+          <property name="leftMargin">
            <number>0</number>
           </property>
-          <item row="1" column="2">
-           <widget class="QCheckBox" name="useRegExp">
-            <property name="text">
-             <string>Regular e&amp;xpressions</string>
-            </property>
-           </widget>
-          </item>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item row="0" column="0" colspan="6">
            <widget class="Line" name="line">
             <property name="orientation">
@@ -169,105 +198,61 @@
            </layout>
           </item>
           <item row="3" column="1" colspan="5">
-           <widget class="KComboBox" name="filterCombo">
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-            <property name="insertPolicy">
-             <enum>QComboBox::InsertAtTop</enum>
-            </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="10,0,10">
             <item>
-             <property name="text">
-              <string>*</string>
-             </property>
+             <widget class="KComboBox" name="filterCombo">
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="insertPolicy">
+               <enum>QComboBox::InsertAtTop</enum>
+              </property>
+              <item>
+               <property name="text">
+                <string>*</string>
+               </property>
+              </item>
+             </widget>
             </item>
-           </widget>
+            <item>
+             <widget class="QLabel" name="excludeLabel">
+              <property name="text">
+               <string>Ex&amp;clude:</string>
+              </property>
+              <property name="buddy">
+               <cstring>excludeCombo</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="KComboBox" name="excludeCombo">
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="filterLabel">
             <property name="text">
-             <string>Filter</string>
+             <string>Filter:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="buddy">
-             <cstring>filterCombo</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QCheckBox" name="expandResults">
-            <property name="text">
-             <string extracomment="When this is checked the result treeview will be expanded after a search">Expand results</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QCheckBox" name="recursiveCheckBox">
-            <property name="text">
-             <string>Recursive</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1" colspan="5">
-           <widget class="KComboBox" name="excludeCombo">
-            <property name="editable">
-             <bool>true</bool>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="folderLabel">
             <property name="text">
-             <string>F&amp;older</string>
+             <string>Fo&amp;lder:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
             <property name="buddy">
              <cstring>folderRequester</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0" alignment="Qt::AlignRight">
-           <widget class="QLabel" name="excludeLabel">
-            <property name="text">
-             <string>Exclude</string>
-            </property>
-            <property name="buddy">
-             <cstring>excludeCombo</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QCheckBox" name="matchCase">
-            <property name="text">
-             <string>&amp;Match case</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="4">
-           <widget class="QCheckBox" name="binaryCheckBox">
-            <property name="text">
-             <string>Include binary files</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QCheckBox" name="hiddenCheckBox">
-            <property name="text">
-             <string>Include hidden</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="3">
-           <widget class="QCheckBox" name="symLinkCheckBox">
-            <property name="text">
-             <string>Follow symbolic links</string>
             </property>
            </widget>
           </item>
@@ -287,33 +272,99 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="label">
+             <widget class="QCheckBox" name="expandResults">
               <property name="text">
-               <string>Se&amp;arch in:</string>
+               <string extracomment="When this is checked the result treeview will be expanded after a search">Expand results</string>
               </property>
-              <property name="buddy">
-               <cstring>searchPlaceCombo</cstring>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="3">
+           <widget class="QCheckBox" name="useRegExp">
+            <property name="text">
+             <string>Regular e&amp;xpressions</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QCheckBox" name="matchCase">
+            <property name="text">
+             <string>&amp;Match case</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KComboBox" name="searchPlaceCombo">
+            <item>
+             <property name="text">
+              <string>Current File</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Open Files</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Folder</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Search in:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1" colspan="4">
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QCheckBox" name="recursiveCheckBox">
+              <property name="text">
+               <string>Recursive</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="KComboBox" name="searchPlaceCombo">
-             <item>
-             <property name="text">
-             <string>Current File</string>
-             </property>
-             </item>
-             <item>
-               <property name="text">
-                <string>Open Files</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Folder</string>
-               </property>
-              </item>
+             <widget class="QCheckBox" name="hiddenCheckBox">
+              <property name="text">
+               <string>Include hidden</string>
+              </property>
              </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="symLinkCheckBox">
+              <property name="text">
+               <string>Follow symbolic links</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="binaryCheckBox">
+              <property name="text">
+               <string>Include binary files</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
@@ -343,7 +394,16 @@
        </sizepolicy>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
@@ -366,7 +426,16 @@
        </sizepolicy>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
@@ -414,9 +483,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
+   <class>KUrlRequester</class>
+   <extends>QWidget</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
    <class>KUrlComboRequester</class>
@@ -424,14 +493,9 @@
    <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KHistoryComboBox</class>
-   <extends>KComboBox</extends>
-   <header>khistorycombobox.h</header>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -443,19 +507,9 @@
   <tabstop>stopButton</tabstop>
   <tabstop>replaceButton</tabstop>
   <tabstop>replaceCheckedBtn</tabstop>
-  <tabstop>matchCase</tabstop>
-  <tabstop>useRegExp</tabstop>
-  <tabstop>expandResults</tabstop>
-  <tabstop>searchPlaceCombo</tabstop>
   <tabstop>folderRequester</tabstop>
   <tabstop>folderUpButton</tabstop>
   <tabstop>currentFolderButton</tabstop>
-  <tabstop>filterCombo</tabstop>
-  <tabstop>excludeCombo</tabstop>
-  <tabstop>recursiveCheckBox</tabstop>
-  <tabstop>hiddenCheckBox</tabstop>
-  <tabstop>symLinkCheckBox</tabstop>
-  <tabstop>binaryCheckBox</tabstop>
   <tabstop>displayOptions</tabstop>
   <tabstop>resultTabWidget</tabstop>
  </tabstops>

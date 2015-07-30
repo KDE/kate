@@ -82,24 +82,8 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="matchCase">
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      <property name="toolTip">
-        <string>&amp;Match case</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QToolButton" name="displayOptions">
        <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="autoRaise">
         <bool>true</bool>
        </property>
       </widget>
@@ -175,6 +159,37 @@
          <item row="3" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
+            <widget class="QCheckBox" name="recursiveCheckBox">
+             <property name="text">
+              <string>Recursive</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="hiddenCheckBox">
+             <property name="text">
+              <string>Include hidden</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="symLinkCheckBox">
+             <property name="text">
+              <string>Follow symbolic links</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="binaryCheckBox">
+             <property name="text">
+              <string>Include binary files</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="horizontalSpacer_2">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -225,45 +240,7 @@
          </item>
          <item row="0" column="1">
           <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="6">
-            <widget class="QCheckBox" name="symLinkCheckBox">
-             <property name="text">
-              <string>Follow symbolic links</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="7">
-            <widget class="QCheckBox" name="binaryCheckBox">
-             <property name="text">
-              <string>Include binary files</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QCheckBox" name="recursiveCheckBox">
-             <property name="text">
-              <string>Recursive</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="5">
-            <widget class="QCheckBox" name="hiddenCheckBox">
-             <property name="text">
-              <string>Include hidden</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="3">
-            <widget class="QCheckBox" name="expandResults">
-             <property name="text">
-              <string extracomment="When this is checked the result treeview will be expanded after a search">Expand results</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="8">
             <spacer name="horizontalSpacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -276,14 +253,17 @@
              </property>
             </spacer>
            </item>
-           <item row="0" column="2">
-            <widget class="QCheckBox" name="useRegExp">
+           <item row="0" column="4">
+            <widget class="QLabel" name="label">
              <property name="text">
-              <string>Regular e&amp;xpressions</string>
+              <string>&amp;Search in:</string>
+             </property>
+             <property name="buddy">
+              <cstring>searchPlaceCombo</cstring>
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
+           <item row="0" column="5">
             <widget class="KComboBox" name="searchPlaceCombo">
              <item>
               <property name="text">
@@ -300,6 +280,27 @@
                <string>Folder</string>
               </property>
              </item>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="expandResults">
+             <property name="text">
+              <string extracomment="When this is checked the result treeview will be expanded after a search">Expand results</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QCheckBox" name="useRegExp">
+             <property name="text">
+              <string>Regular e&amp;xpressions</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="matchCase">
+             <property name="text">
+              <string>&amp;Match case</string>
+             </property>
             </widget>
            </item>
           </layout>
@@ -324,16 +325,6 @@
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>&amp;Search in:</string>
-           </property>
-           <property name="buddy">
-            <cstring>searchPlaceCombo</cstring>
            </property>
           </widget>
          </item>

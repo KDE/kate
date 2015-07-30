@@ -59,7 +59,7 @@ static QUrl localFileDirUp (const QUrl &url)
 {
     if (!url.isLocalFile())
         return url;
-    
+
     // else go up
     return QUrl::fromLocalFile (QFileInfo (url.toLocalFile()).dir().absolutePath());
 }
@@ -227,7 +227,7 @@ m_mainWindow (mainWin)
 {
     KXMLGUIClient::setComponentName (QStringLiteral("katesearch"), i18n ("Kate Search & Replace"));
     setXMLFile( QStringLiteral("ui.rc") );
-  
+
     m_toolView = mainWin->createToolView (plugin, QStringLiteral("kate_plugin_katesearch"),
                                           KTextEditor::MainWindow::Bottom,
                                           QIcon::fromTheme(QStringLiteral("edit-find")),
@@ -259,7 +259,7 @@ m_mainWindow (mainWin)
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
-    m_ui.displayOptions->setIcon(QIcon::fromTheme(QStringLiteral("arrow-down-double")));
+    m_ui.displayOptions->setIcon(QIcon::fromTheme(QStringLiteral("games-config-options")));
     m_ui.searchButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
     m_ui.stopButton->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
     m_ui.searchPlaceCombo->setItemIcon(CurrentFile, QIcon::fromTheme(QStringLiteral("text-plain")));
@@ -1855,19 +1855,19 @@ bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, Q
         if (command == QStringLiteral("newGrep"))
             emit newTab();
     }
-    
+
     else if (command == QStringLiteral("search") || command == QStringLiteral("newSearch")) {
         emit setSearchPlace(KatePluginSearchView::OpenFiles);
         if (command == QStringLiteral("newSearch"))
             emit newTab();
     }
-    
+
     else if (command == QStringLiteral("pgrep") || command == QStringLiteral("newPGrep")) {
         emit setSearchPlace(KatePluginSearchView::Project);
         if (command == QStringLiteral("newPGrep"))
             emit newTab();
     }
-    
+
     emit setSearchString(searchText);
     emit startSearch();
 
@@ -1889,14 +1889,14 @@ bool KateSearchCommand::help (KTextEditor::View */*view*/, const QString &cmd, Q
     else if (cmd.startsWith(QStringLiteral("newSearch"))) {
         msg = i18n("Usage: search [pattern to search for in open files]");
     }
-    
+
     else if (cmd.startsWith(QStringLiteral("pgrep"))) {
         msg = i18n("Usage: pgrep [pattern to search for in current project]");
     }
     else if (cmd.startsWith(QStringLiteral("newPGrep"))) {
         msg = i18n("Usage: newPGrep [pattern to search for in current project]");
     }
-    
+
     return true;
 }
 

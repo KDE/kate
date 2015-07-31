@@ -76,10 +76,6 @@ ecm_optional_add_subdirectory( textfilter )
 
 #add_subdirectory( filetemplates )
 
-#add_subdirectory( kttsd )
-
-#add_subdirectory( xmlcheck )
-
 if (KF5Plasma_FOUND AND KF5Service_FOUND)
     ecm_optional_add_subdirectory(sessionapplet)
 endif()

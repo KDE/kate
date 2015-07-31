@@ -15,33 +15,14 @@ ecm_optional_add_subdirectory (filetree)
 # search in open documents and files
 ecm_optional_add_subdirectory (search)
 
-if(KF5ItemModels_FOUND AND KF5ThreadWeaver_FOUND)
-    # small & smart project manager
-    ecm_optional_add_subdirectory (project)
-endif()
-if(KF5ItemModels_FOUND)
-    # terminal tool view
-    ecm_optional_add_subdirectory (konsole)
-endif()
-
 # ALT+Tab like tab switcher
 ecm_optional_add_subdirectory (tabswitcher)
-
-if(KF5NewStuff_FOUND)
-    # snippets
-    ecm_optional_add_subdirectory (snippets)
-endif()
 
 # ctags
 ecm_optional_add_subdirectory (kate-ctags)
 
 # backtrace
 ecm_optional_add_subdirectory (backtracebrowser)
-
-if(KF5Wallet_FOUND)
-    # kate sql
-    ecm_optional_add_subdirectory (katesql)
-endif()
 
 # file browser
 ecm_optional_add_subdirectory (filebrowser)
@@ -55,14 +36,6 @@ ecm_optional_add_subdirectory (openheader)
 # debugger plugin, needs windows love
 ecm_optional_add_subdirectory (gdbplugin)
 
-if(KF5Notifications_FOUND)
-    # close document except this one (or similar)
-    ecm_optional_add_subdirectory (close-except-like)
-
-    # build plugin
-    ecm_optional_add_subdirectory (katebuild-plugin)
-endif()
-
 # list symbols and functions in a file
 ecm_optional_add_subdirectory (symbolviewer)
 
@@ -72,14 +45,40 @@ ecm_optional_add_subdirectory (replicode)
 # pipe text through some external command
 ecm_optional_add_subdirectory( textfilter )
 
-#add_subdirectory( mailfiles )
+# Rust complection plugin
+ecm_optional_add_subdirectory(rustcompletion)
 
-#add_subdirectory( filetemplates )
+# D completion plugin
+ecm_optional_add_subdirectory(lumen)
+
+if(KF5Notifications_FOUND)
+    # close document except this one (or similar)
+    ecm_optional_add_subdirectory (close-except-like)
+
+    # build plugin
+    ecm_optional_add_subdirectory (katebuild-plugin)
+endif()
+
+if(KF5Wallet_FOUND)
+    # kate sql
+    ecm_optional_add_subdirectory (katesql)
+endif()
+
+if(KF5NewStuff_FOUND)
+    # snippets
+    ecm_optional_add_subdirectory (snippets)
+endif()
+
+if(KF5ItemModels_FOUND)
+    # terminal tool view
+    ecm_optional_add_subdirectory (konsole)
+endif()
+
+if(KF5ItemModels_FOUND AND KF5ThreadWeaver_FOUND)
+    # small & smart project manager
+    ecm_optional_add_subdirectory (project)
+endif()
 
 if (KF5Plasma_FOUND AND KF5Service_FOUND)
     ecm_optional_add_subdirectory(sessionapplet)
 endif()
-
-add_subdirectory(rustcompletion)
-
-add_subdirectory(lumen)

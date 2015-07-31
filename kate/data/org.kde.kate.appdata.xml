@@ -330,7 +330,7 @@
       <li xml:lang="sr-ijekavian">моћно истицање синтаксе и поклапање заграда</li>
       <li xml:lang="sr-ijekavianlatin">moćno isticanje sintakse i poklapanje zagrada</li>
       <li xml:lang="sv">Kraftfull syntaxfärgläggning och parentesmatchning</li>
-      <li xml:lang="tr">Güçlü siz dizimi vurgulaması ve parantez eşleştirme</li>
+      <li xml:lang="tr">Güçlü söz dizimi vurgulaması ve parantez eşleştirme</li>
       <li xml:lang="uk">Потужні засоби підсвічування синтаксичних конструкцій та відповідних дужок.</li>
       <li xml:lang="x-test">xxPowerful syntax highlighting and bracket matchingxx</li>
       <li xml:lang="zh-TW">強大的語法突顯與括號對應</li>
@@ -501,7 +501,7 @@
       <li xml:lang="sr-ijekavian">уклапање шкољке</li>
       <li xml:lang="sr-ijekavianlatin">uklapanje školjke</li>
       <li xml:lang="sv">Skalintegrering</li>
-      <li xml:lang="tr">Tümleşik kabuk desteği</li>
+      <li xml:lang="tr">Kabuk tümleştirmesi</li>
       <li xml:lang="uk">Інтеграція з командною оболонкою.</li>
       <li xml:lang="x-test">xxShell integrationxx</li>
       <li xml:lang="zh-CN">Shell 集成</li>
@@ -641,7 +641,7 @@
       <li xml:lang="sr-ijekavian">скриптовање помоћу јаваскрипта</li>
       <li xml:lang="sr-ijekavianlatin">skriptovanje pomoću JavaScripta</li>
       <li xml:lang="sv">Skriptbar med användning av Javascript</li>
-      <li xml:lang="tr">JavaScript betik desteği</li>
+      <li xml:lang="tr">JavaScript kullanılarak betikleştirilebilir</li>
       <li xml:lang="uk">Можливість керування програмою за допомогою скриптів мовою JavaScript.</li>
       <li xml:lang="x-test">xxScriptable using JavaScriptxx</li>
       <li xml:lang="zh-CN">支持 JavaScript 脚本化</li>

@@ -80,8 +80,6 @@ if (KF5Plasma_FOUND AND KF5Service_FOUND)
     ecm_optional_add_subdirectory(sessionapplet)
 endif()
 
-#macro_optional_add_subdirectory(pate)
-
 add_subdirectory(rustcompletion)
 
 add_subdirectory(lumen)

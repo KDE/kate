@@ -30,7 +30,7 @@ and exporting text as &HTML;.</para>
 <title>Editor Component Extensions</title>
 
 <para>For information about available plugins, see the 
-<ulink url="help:katepart/editor-component-plugins.html">Editor Component
+<ulink url="help:/katepart/editor-component-plugins.html">Editor Component
 Extensions section of the &katepart; Handbook</ulink>.</para>
 
 </sect1>
@@ -66,26 +66,21 @@ The available application plugins are:
 <para>CTags - Look up definitions/declarations with CTags</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> -
-  File system browser tool view</para>
+<para>Document switcher - Quick document switching with <keycombo action="simul">&Alt;&Tab;</keycombo> behavior</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-filetemplate">File Templates</link> -
-  Create new files from templates</para>
+<para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> -
+  File system browser tool view</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-gdb">&gdb;</link> - Provides a
 simple &gdb; frontend</para>
 </listitem>
 <listitem>
-<para>Jovie Text-to-Speech - Adds a menu entry for speaking the text</para>
+<para>Icon picker - Invokes Cuttlefish icon picker</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-mail">Mail files</link> - Send files
-  via email</para>
-</listitem>
-<listitem>
-<para>Multiline Tab Bar - Add a tab bar with multiple rows to &kate;'s main window</para>
+<para>Lumen - Lumen is a Autocompletion Plugin for D, using the DCD autocompletion server</para>
 </listitem>
 <listitem>
 <para>Open Header - Opens the corresponding .h/[.cpp|.c] file</para>
@@ -94,7 +89,10 @@ simple &gdb; frontend</para>
 <para>Project Plugin - Project plugin for kate</para>
 </listitem>
 <listitem>
-<para>Python Plugins - &pate; host for Python plugins</para>
+<para>Replicode</para>
+</listitem>
+<listitem>
+<para>Rust code completion - Code completion for Rust source code</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-searchinfiles">Search &amp; Replace</link> - 
@@ -111,10 +109,6 @@ query on SQL databases</para>
 <para>Symbol Viewer - Extract and show reference symbols from source</para>
 </listitem>
 <listitem>
-<para>Tab Bar - Adds a standard tab bar to &kate;'s main window</para>
-<!--http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/-->
-</listitem>
-<listitem>
 <para>Terminal tool view - Tool view embedding a terminal widget</para>
 </listitem>
 <listitem>
@@ -123,9 +117,6 @@ query on SQL databases</para>
 <listitem>
 <para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements,
 attributes, attribute values and entities allowed by DTD</para>
-</listitem>
-<listitem>
-<para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
 </listitem>
 
 <!-- not in 4.10
@@ -148,636 +139,7 @@ http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/
 </itemizedlist>
 </sect1>
 
-<sect1 id="pate">
-<title>Python &pate; Plugins</title>
-
-<para>The &pate; Python Plugin host makes available many plugins written in the
-<ulink url="http://www.python.org/">Python programming language</ulink>.</para>
-
-<para>To enable &pate; plugins, you must first enable the 
-<guilabel>Python Plugins</guilabel> plugin in the 
-<link linkend="config-dialog-plugins"><guilabel>Plugins</guilabel> page of
-&kate;'s configuration dialog</link>.  You may then enable, disable, and
-configure them in the <guilabel>Python Plugins</guilabel> page of the
-configuration dialog.  For more information about configuring &pate; plugins, see
-<xref linkend="pate-config"/>.</para>
-
-<sect2 id="pate-plugins">
-<title>Available Plugins</title>
-
-<variablelist>
-
-<varlistentry id="pate-plugin-block">
-<term><guilabel>block</guilabel></term>
-<listitem><para>
-Plugins to help code editing
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-cmake_utils">
-<term><guilabel>cmake_utils</guilabel></term>
-<listitem><para>
-CMake helper plugin
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-color_tools">
-<term><guilabel>color_tools</guilabel></term>
-<listitem><para>
-Class encapsuling the ability to show color swatches (colored tooltips)
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-commentar">
-<term><guilabel>commentar</guilabel></term>
-<listitem><para>
-Move an inlined comment before the current line with the same indentation level
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-django_utils">
-<term><guilabel>django_utils</guilabel></term>
-<listitem><para>
-Django utilities: Snippets, and template utilities
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-expand">
-<term><guilabel>expand</guilabel></term>
-<listitem>
-<para>User-defined text expansions.</para>
-
-<para>Each text expansion is a simple function which must return a string.
-This string will be inserted into a document by the <command>expandAtCursor</command> action.
-For example, if you have a function <quote>foo</quote> in the
-<filename>all.expand</filename> file which is defined as:</para>
-
-<informalexample><programlisting>
-def foo:
-  return 'Hello from foo!'
-</programlisting></informalexample>
-
-<para>after typing <quote>foo</quote>, the action will replace <quote>foo</quote>
-with <quote>Hello from foo!</quote>. The expansion function may have parameters
-as well. For example, the <filename>text_x-c++src.expand</filename> file 
-contains the <function>cl</function> function which creates a class (or class template). This will
-expand <quote>cl(test)</quote> into:</para>
-
-<informalexample><programlisting>
-/**
- * \\brief Class \c test
- */
-class test
-{
-public:
-    /// Default constructor
-    explicit test()
-    {
-    }
-    /// Destructor
-    virtual ~test()
-    {
-    }
-};
-</programlisting></informalexample>
-
-<para>but <quote>cl(test, T1, T2, T3)</quote> will expand to:</para>
-
-<informalexample><programlisting>
-/**
- * \\brief Class \c test
- */
-template &lt;typename T1, typename T2, typename T3&gt;
-class test
-{
-public:
-    /// Default constructor
-    explicit test()
-    {
-    }
-    /// Destructor
-    virtual ~test()
-    {
-    }
-};
-</programlisting></informalexample>
-</listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-format">
-<term><guilabel>format</guilabel></term>
-<listitem><para>
-Plugins to work with C++ code formatting
-</para></listitem>
-</varlistentry>
-
-<!--not in 4.12
-<varlistentry id="pate-plugin-gdb">
-<term><guilabel>gdb</guilabel></term>
-<listitem><para>
-Use <application>gdb</application>, the GNU debugger, from &kate;
-</para></listitem>
-</varlistentry>
--->
-
-<varlistentry id="pate-plugin-gid">
-<term><guilabel>gid</guilabel></term>
-<listitem>
-<para>Browse the tokens in a <application>GNU idutils</application> ID file, and 
-use it to navigate within a codebase.</para>
-
-<para>The necessary parts of the ID file are held in memory to allow sufficient 
-performance for token completion, when looking up the usage of a token, or 
-jumping to the definition. <command>etags(1)</command> is used to locate the 
-definition.</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-js_utils">
-<term><guilabel>js_utils</guilabel></term>
-<listitem><para>
-JavaScript utilities: Autocomplete, Autocomplete jQuery, Checker JSLint, Pretty 
-JSON, Snippets
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-python_autocomplete">
-<term><guilabel>python_autocomplete</guilabel></term>
-<listitem><para>
-Python Autocompletion (beta, only for Python 2)
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-python_console_classic">
-<term><guilabel>python_console_classic</guilabel></term>
-<listitem><para>
-Interactive console for inspecting &kate;'s internals and playing about
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-python_console_ipython">
-<term><guilabel>python_console_ipython</guilabel></term>
-<listitem><para>
-IPython console for hacking &kate; and doing science
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-python_utils">
-<term><guilabel>python_utils</guilabel></term>
-<listitem><para>
-Python Utilities: Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-xml_pretty">
-<term><guilabel>xml_pretty</guilabel></term>
-<listitem><para>
-A simple &XML; pretty printer. It formats &XML; with good indentation.
-</para></listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
-
-<sect2 id="pate-config">
-<title>Configuring &pate;</title>
-
-<sect3 id="pate-config-manager">
-<title>The <guilabel>Manager</guilabel> Tab</title>
-
-<para>This tab contains a list of &pate; plugins.  To enable or disable them,
-simply select or unselect the checkbox to the left of the plugin name.</para>
-
-<para>To refresh the list of plugins, reload any currently running plugins, or
-start any newly selected plugins, select the 
-<guibutton>Reload Plugins</guibutton> button at the bottom of the window.</para>
-
-<warning><para>Reloading a plugin may have unpredictable effects. Consider
-saving your work before using this command.</para></warning>
-
-</sect3>
-
-<sect3 id="pate-config-documentation">
-<title>The <guilabel>Documentation</guilabel> Tab</title>
-
-<para>The <guilabel>Documentation</guilabel> tab contains information about the
-actions, menu items, keyboard shortcuts, and configuration pages offered by 
-&pate; plugins, as well as a reference for programmers using the functionality 
-of the plugins.</para>
-
-<para>The following tabs are available:</para>
-
-<variablelist>
-
-<varlistentry>
-<term><guilabel>Actions</guilabel></term>
-<listitem><para>Lists all the actions offered by the plugin, including the menu
-item, icon, and keyboard shortcut that will invoke the action.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Configuration Pages</guilabel></term>
-<listitem><para>Lists all the configuration pages offered by the plugin,
-including their titles and icons.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Programmer's Reference</guilabel></term>
-<listitem><para>Includes information about all the modules, classes, and
-functions offered by a plugin, as generated by <command>pydoc</command>.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-
-</sect3>
-
-</sect2>
-
-</sect1>
-
-<!-- from doc/kate-addons/filetemplates.docbook -->
-<sect1 id="kate-application-plugin-filetemplate">
-<sect1info>
-<authorgroup>
-<author>&Anders.Lund; &Anders.Lund.mail;</author>
-</authorgroup>
-</sect1info>
-<title>File Templates</title>
-
-  <para>The File Templates plugin allows you to create files based on other
-    files.</para>
-  <para>When you first install &kate;, you need to enable the plugin:</para>
-  <orderedlist>
-        <listitem>
-          <para>
-            Click <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kate;</guimenuitem></menuchoice>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            In the tree on the left of the screen, click <guilabel>Plugins</guilabel>.
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            In the <guilabel>Plugin Manager</guilabel> panel on the right, select <guilabel>File Templates</guilabel>, and then click <guibutton>OK</guibutton>.
-          </para>
-        </listitem>
-   </orderedlist>
-  <para>You can now use any file as a template (this creates a copy of the
-    file with an empty &URL;.) Special template files can contain
-    macros to fill in information such as your name, email address, the
-    current date, and position the cursor at a
-    convenient position in the new file.</para>
-  <para>You can easily create a new template from an open document.</para>
-  <para>Templates that you save to the template folder are
-    listed under  the menu item <menuchoice><guimenu>File</guimenu><guimenuitem>New from
-    Template</guimenuitem></menuchoice>.</para>
-  <para>The template folder is part of the &kde; file system, and
-    consists of at least</para>
-    <itemizedlist>
-      <listitem>
-	<para>
-	 <filename role="directory">$<envar>KDEDIR</envar>/share/applications/kate/plugins/katefiletemplates/templates</filename>
-	</para>
-      </listitem>
-      <listitem>
-       <para>
-        <filename role="directory">$<envar>KDEHOME</envar>/share/applications/kate/plugins/katefiletemplates/templates.</filename>
-	</para>
-      </listitem>
-    </itemizedlist>
-    <para>If your <envar>KDEDIRS</envar> environment variable contains additional directories, those are
-    searched for a similar subdirectory as well. If equally named templates are
-    found, the one in the local (KDEHOME) folder is chosen.</para>
-  <sect2 id="katefiletemplates-menu">
-    <title>Menu Structure</title>
-
-    <variablelist>
-      <varlistentry>
-        <term>
-          <menuchoice>
-            <guimenu>File</guimenu>
-            <guisubmenu>New From Template</guisubmenu>
-            <guimenuitem>Any File...</guimenuitem>
-          </menuchoice>
-        </term>
-        <listitem><para>Presents you with an Open File dialog that allows
-            you to use any file as a template. If the chosen file has the
-            extension <filename>katetemplate</filename> it will be parsed
-            for template information and macros.</para></listitem>
-      </varlistentry>
-      <!-- not in 4.4
-      <varlistentry>
-        <term>
-          <menuchoice>
-            <guimenu>File</guimenu>
-            <guisubmenu>New From Template</guisubmenu>
-            <guimenuitem>Use Recent</guimenuitem>
-          </menuchoice>
-        </term>
-        <listitem><para>Presents a list of files recently used as
-            templates, represented by their &URL;.</para></listitem>
-      </varlistentry>
-      -->
-      <varlistentry>
-        <term>
-          <menuchoice>
-            <guimenu>File</guimenu>
-            <guimenuitem>New From Template</guimenuitem>
-          </menuchoice>
-        </term>
-        <listitem><para>The remainder of submenus contain links to
-            templates. Click a menu item to create a file as described by
-            the menu item text.</para></listitem>
-      </varlistentry>
-
-      <!-- Settings menu -->
-
-      <varlistentry>
-        <term>
-          <menuchoice><guimenu>Settings</guimenu><guimenuitem>Manage
-              Templates...</guimenuitem></menuchoice></term>
-        <listitem><para>This will launch a dialog with a list of all templates
-            found within the template directories, along with options to add,
-            edit or remove templates.</para></listitem>
-      </varlistentry>
-    </variablelist>
-  </sect2>
-
-  <sect2 id="katefiletemplates-use">
-    <title>Using a &kate; Template</title>
-    <para>When creating a file from a template that contains template
-      macros, some macros appear as editable variables in the text. Such
-      variables appear as underlined words in the text.</para>
-    <para>The first variable will be selected, so you just have to type to edit
-      it. If the document text contains more instances of the same variable,
-      they are changed as you edit. To move to the next editable variable,
-      press the &Tab; key. When the last variable is edited, the list is
-      dropped, and your &Tab; key works as normal.</para>
-  </sect2>
-
-  <sect2 id="katefiletemplates-create">
-    <title>Creating your own templates</title>
-    <para>To create a new template, use the
-      <menuchoice><guimenu>Settings</guimenu>
-        <guimenuitem>Manage Templates</guimenuitem></menuchoice> Item to launch
-      the template management dialog. In that, click
-      <guibutton>New...</guibutton> to launch the File Template Wizard. You
-      will be asked for an optional file to turn into a template and prompted
-      for template information settings, and a template file will be created for
-      you.</para> <para>Alternatively, you can create a template manually by
-      adding template information to the top of any file, add text and macros,
-      and save it with the <filename>katetemplate</filename> extension.</para>
-    <para>The template menu is automatically updated if you chose to store
-      your template in the template directory.</para>
-  </sect2>
-
-  <sect2 id="katefiletemplates-edit">
-    <title>Editing templates</title>
-    <para>To edit a template, use the
-      <menuchoice><guimenu>Settings</guimenu>
-        <guimenuitem>Manage Templates...</guimenuitem></menuchoice>. Select the
-      template you want to work on and click <guibutton>Edit...</guibutton>,
-      and the template file will be opened. Close the dialog, edit the template
-      file as desired, save it and close it. Changes to templates take
-      immediate effect; you can activate the template to test your changes after
-      saving it.</para>
-  </sect2>
-
-  <sect2 id="katefiletemplates-format">
-    <title>The &kate; Template Format</title>
-    <para>If you use files with the extension
-      <filename>katetemplate</filename>, they will be parsed for template
-      information, macros and a cursor position.</para>
-
-    <sect3 id="katefiletemplates-template-info">
-      <title>Template information</title>
-      <para>While reading in the file, the parser keeps
-        lines beginning with the phrase
-        <constant>katetemplate:</constant> and searches them for
-        template information in the form VARIABLENAME=VALUE. The first line not
-        starting with <constant>katetemplate:</constant> will be taken as the
-        start of the template contents. VALUE may contain any character but
-        equal sign (=). Legal variable names are:
-        <variablelist>
-          <varlistentry>
-            <term><varname>Template</varname></term>
-            <listitem><para>This is the template name, displayed in the
-                <menuchoice><guimenu>File</guimenu><guimenuitem>New from
-                Template</guimenuitem></menuchoice> menu.</para></listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><varname>Group</varname></term>
-            <listitem><para>The group places the template in a submenu of
-                the <menuchoice><guimenu>File</guimenu><guimenuitem>New from
-                    Template</guimenuitem></menuchoice> menu.</para></listitem>
-          </varlistentry>
-          <varlistentry><term><varname>Name</varname></term>
-            <listitem><para>This is the name that will be set for the
-                document, and displayed in the file list and title bar. If the
-                name contains <userinput>%N</userinput> that will be replaced
-                with a number, incrementing if more documents have the same
-                name.</para></listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><varname>Highlight</varname></term>
-            <listitem><para>The plugin will try to set the Highlight for
-                the new document to the value of this variable. The value
-                should be the name, as found in
-                <menuchoice><guimenu>Tools</guimenu>
-                  <guimenuitem>Highlighting</guimenuitem>
-                </menuchoice>.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><varname>Description</varname></term>
-            <listitem><para>A short informative description of the
-                template. This is currently used to set a <guimenuitem>What's this?</guimenuitem> string for
-                the menu item, but may be used for additional purposes in the
-                future.</para></listitem>
-          </varlistentry>
-          <varlistentry><term>Author</term>
-            <listitem><para>A string identifying the author, for example
-                in the form <userinput>Name &lt;email address&gt;</userinput>.
-                This is currently used to set a <guimenuitem>What's this?</guimenuitem> string for the menu
-                item, but may be used for additional purposes in the
-                future.</para></listitem>
-          </varlistentry>
-        </variablelist>
-      </para>
-
-    </sect3>
-
-    <sect3 id="katetemplates-macros">
-      <title>Template Macros</title>
-
-      <para>While parsing the template contents, macros in the form
-        <userinput>%{NAME}</userinput> or <userinput>${NAME}</userinput> are
-        expanded. If you use the <userinput>$</userinput> prefix, the
-        expanded macro will be treated as a editable variable when a document
-        is created from the template, whereas if you use
-        <userinput>%</userinput> it is not, unless expanding failed.</para>
-      <para>The following macros are expanded:
-        <variablelist>
-          <varlistentry><term><literal>time</literal></term>
-            <listitem><para>Expands to the current time in your locale
-                format.</para></listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><literal>date</literal></term>
-            <listitem><para>Expands to the current date in short
-                format.</para></listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><literal>datetime</literal></term>
-            <listitem><para>Expands to the current date and time,
-                formatted as a string according to your
-                locale.</para></listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><literal>year</literal></term>
-            <listitem><para>The current year as a four digit
-                number.</para></listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><literal>month</literal></term>
-            <listitem><para>The full name of the current month, according
-                to your locale.</para></listitem>
-          </varlistentry>
-          <varlistentry><term><literal>day</literal></term>
-            <listitem><para>Expands to the current day of the month.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry><term><literal>hostname</literal></term>
-            <listitem><para>Expands to the hostname of your computer.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry><term><literal>index</literal></term>
-            <listitem><para>Expands to 'i'.</para></listitem>
-          </varlistentry>
-          <varlistentry><term><literal>fullname</literal></term>
-            <listitem><para>Expands to your full name, as defined in the
-                owner addressee in your standard &kde;
-                addressbook.</para></listitem>
-          </varlistentry>
-          <varlistentry><term><literal>firstname</literal></term>
-            <listitem><para>Expands to your first name, as defined in the owner
-                addressee in your standard &kde; addressbook.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry><term><literal>lastname</literal></term>
-            <listitem><para>Expands to your last name, as defined in the owner
-                addressee in your standard &kde; addressbook.</para>
-            </listitem>
-          </varlistentry>
-          <!-- <varlistentry>
-            <term>username</term>
-            <listitem><para>Expands to your username.</para></listitem>
-          </varlistentry> -->
-          <varlistentry>
-            <term>email</term>
-            <listitem><para>Expands to your email address, as defined in
-                the owner address in your standard &kde;
-                addressbook.</para></listitem>
-          </varlistentry>
-          <!--<varlistentry>
-            <term>organisation</term>
-            <listitem><para>This is your organisation, as defined by
-                the owner address in your standard KDE
-                addressbook.</para></listitem>
-          </varlistentry>-->
-        </variablelist>
-      </para>
-      <para>Any macro not in the above list is treated as an editable variable
-        no matter the prefix.
-        If the same variable occurs multiple times in the template, they can be
-        edited at once after creating a document from the template.</para>
-    </sect3>
-
-    <sect3 id="katefiletemplates-cursor">
-      <title>Setting the cursor position</title>
-      <para>The special macro <userinput>${cursor}</userinput> will be replaced
-        with a vertical bar and added to the end of the list of editable variables,
-        independent of its location in the text.</para>
-    </sect3>
-
-  </sect2>
-  <sect2>
-    <title>Thanks and Acknowledgments</title>
-    <para>
-      &kate; Plugin <quote>File Templates</quote> copyright 2004 &Anders.Lund;
-      &Anders.Lund.mail;.
-    </para>
-    <para>Documentation copyright 2004 &Anders.Lund;</para>
-  </sect2>
-</sect1>
-
 <!-- from doc/kate-addons/xmlcheck.docbook -->
-<sect1 id="kate-application-plugin-xmlcheck">
-<sect1info>
-<authorgroup><author>
-&Daniel.Naber; &Daniel.Naber.mail;
-</author></authorgroup>
-</sect1info>
-
-<title>&XML; Validation</title>
-
-<para>This plugin checks &XML; files for validity and being well-formed.</para>
-<para>This plugin checks the current file. A list of warnings and errors
-will appear at the bottom of &kate;'s main window. You can click on an error message
-to jump to the corresponding place in the file. If the file has a <quote>DOCTYPE</quote>
-the DTD given with this doctype will be used to check the file for validity. The
-DTD is expected at a position relative to the current file, &eg; if the doctype
-refers to <quote>DTD/xhtml1-transitional.dtd</quote> and the file is <filename>/home/peter/test.xml</filename>
-the DTD is expected to be located at <filename>/home/peter/DTD/xhtml1-transitional.dtd</filename>.
-However, remote DTDs specified via http are supported.</para>
-
-<para>If the file has no doctype it will be checked for being well-formed.</para>
-
-<para>To learn more about &XML; check out the <ulink url="http://www.w3.org/XML/"> official W3C &XML; pages</ulink>.</para>
-
-<para>Internally this plugin calls the external command <command>xmllint</command>, which
-is part of libxml2. If this command is not correctly installed on your system, the plugin
-will not work.</para>
-
-<note><para>A temporary file needs to be written to the same folder as the file
-that is being checked is in, so you need to have write access to that folder.</para></note>
-
-<para>To load this plugin open &kate;'s configuration dialog under <menuchoice><guimenu>Settings</guimenu>
-<guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
-Then select <guilabel>&XML; Validation</guilabel> which will appear
-in the <guilabel>Application</guilabel> / <guilabel>Plugins</guilabel> section and close the dialog.
-</para>
-
-<sect2 id="xmlcheck-menu">
-<title>Menu Structure</title>
-
-<variablelist>
-<varlistentry>
-<term>
-<menuchoice>
-<guimenu>&XML;</guimenu>
-<guimenuitem>Validate &XML;</guimenuitem>
-</menuchoice>
-</term>
-<listitem><para>This will start the check, as described above.</para></listitem>
-</varlistentry>
-</variablelist>
-
-</sect2>
-
-<sect2 id="xmlcheck-thanks-and-acknowledgements">
-<title>Thanks and Acknowledgments</title>
-<para>
-&kate; Plugin <quote>&XML; Validation</quote> copyright 2002 &Daniel.Naber;
-&Daniel.Naber.mail;.
-</para>
-<para>Documentation copyright 2002 &Daniel.Naber;</para>
-
-</sect2>
-</sect1>
-
 <sect1 id="kate-application-plugin-xmltools">
 <sect1info>
 <authorgroup><author>
@@ -984,7 +346,7 @@ Export your file in &HTML; format so your document can be viewed as a web page.
 <sect2 id="searchinfiles-intro">
 <title>Introduction</title>
 <para>&kappname;'s Search &amp; Replace plugin allows you to search for text or
-<ulink url="help:katepart/regular-expressions.html">regular expressions</ulink>
+<ulink url="help:/katepart/regular-expressions.html">regular expressions</ulink>
 in many different files at once.  You can search all open files, all the files
 in one directory and optionally its subdirectories, or all files in the current
 project.  You can even filter by filename, for instance searching only files
@@ -1096,7 +458,7 @@ of upper and lower case letters as your search query.
 <varlistentry>
 <term><guilabel>Regular expressions</guilabel></term>
 <listitem><para>
-Permits you to use <ulink url="help:katepart/regular-expressions.html">regular
+Permits you to use <ulink url="help:/katepart/regular-expressions.html">regular
 expressions</ulink> instead of simple text as your search query.
 </para></listitem>
 </varlistentry>
@@ -1307,35 +669,6 @@ plugin.</para>
 
 </variablelist>
 
-</sect2>
-</sect1>
-
-<sect1 id="kate-application-plugin-mail">
-<!--<sect1info>
-<authorgroup><author>
-&TC.Hollingsworth; &TC.Hollingsworth.mail;
-</sect1info>-->
-<title>Mail Files</title>
-
-<sect2 id="mail-menu">
-<title>Menu Structure</title>
-<variablelist>
-
-<varlistentry>
-<term>
-<menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Mail...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>
-Open your mail client and attach the file in the mail.
-</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
 </sect2>
 </sect1>
 

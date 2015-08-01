@@ -2,7 +2,6 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
 "dtd/kdedbx45.dtd" [
   <!ENTITY kappname "&katepart;">
-  <!ENTITY package "kdebase">
   <!ENTITY imgpath "./">
   <!ENTITY rcfile "kwriterc">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
@@ -55,8 +54,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2014-02-22</date>
-<releaseinfo>5.0 (&kde; 5.0)</releaseinfo>
+<date>2015-07-31</date>
+<releaseinfo>Applications 15.12</releaseinfo>
 
 <abstract>
 <para>&katepart; is a fully featured editor component for &Qt; and &kde;

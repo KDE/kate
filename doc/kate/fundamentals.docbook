@@ -19,7 +19,7 @@ quickly.
 <title>Starting &kate;</title>
 
 <para>
-You can start &kate; from the &kmenu; or from the
+You can start &kate; from the application launcher or from the
 command line.
 </para>
 
@@ -27,7 +27,7 @@ command line.
 <title>From the Menu</title>
 <para>
 Open the &kde; program menu by clicking on the
-big <guiicon>K</guiicon> icon on the toolbar at the bottom left of your
+application launcher icon on the toolbar at the bottom left of your
 screen. This will raise a menu. Move your
 cursor up the menu to the <menuchoice><guimenu>Applications</guimenu><guisubmenu>Utilities</guisubmenu>
 <guimenuitem>Advanced Text Editor &kate;</guimenuitem></menuchoice> menu item.
@@ -70,28 +70,7 @@ of &kde;'s network transparency to open files on the internet.
 <term><userinput><command>kate</command> <option>--help</option></userinput></term>
 <listitem>
 <para>
-This lists the most basic options available at the command line.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput><command>kate</command>
-<option>--help-qt</option></userinput></term>
-<listitem>
-<para>
-This lists the options available for changing the way &kate; interacts
-with &Qt;.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput><command>kate</command> <option>--help-kde</option></userinput></term>
-<listitem>
-<para>
-This lists the options available for changing the way &kate; interacts
-with &kde;.
+This lists the options available at the command line.
 </para>
 </listitem>
 </varlistentry>
@@ -106,17 +85,6 @@ if it does not exist already. If a &kate; instance running the specified session
 exists, the specified files are loaded in that instance. When used with the
 <option>--use</option> option, an instance running this session will be used as
 well.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput><command>kate</command>
-<option>-u</option> <option>--use</option> <parameter>URL</parameter></userinput></term>
-<listitem>
-<para>
-Causes &kate; to use an existing instance if there is one.  This is now the
-default behavior, but this option remains for compatibility.
 </para>
 </listitem>
 </varlistentry>
@@ -199,20 +167,9 @@ downloaded to a temporary) and should be reuploaded, after you saved it.
 <varlistentry>
 <term><userinput><command>kate</command>
 <option>--tempfile</option></userinput></term>
-<listitem><para>Since &kate; 2.5.1 this standard &kde; option is supported.
-When used, the specified files are treated as temporary files and
+<listitem><para>When used, the specified files are treated as temporary files and
 deleted (if they are local files and you have sufficient permissions) when
 closed, unless they were modified since they were opened.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput><command>kate</command>
-<option>--help-all</option></userinput></term>
-<listitem>
-<para>
-This lists all of the command line options.
-</para>
-</listitem>
 </varlistentry>
 
 <varlistentry>
@@ -230,7 +187,7 @@ Lists &kate;'s authors in the terminal window.
 <option>-v</option> <option>--version</option></userinput></term>
 <listitem>
 <para>
-Lists version information for &Qt;, &kde;, and &kate;.
+Lists version information for &kate;.
 </para>
 </listitem>
 </varlistentry>

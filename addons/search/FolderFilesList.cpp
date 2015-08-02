@@ -1,5 +1,5 @@
 /*   Kate search plugin
- * 
+ *
  * Copyright (C) 2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -110,7 +110,8 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         if (m_recursive) filter |= QDir::AllDirs;
         if (!m_symlinks) filter |= QDir::NoSymLinks;
 
-        QFileInfoList currentItems = currentDir.entryInfoList(m_types, filter);
+        // sort the items to have an deterministic order!
+        const QFileInfoList currentItems = currentDir.entryInfoList(m_types, filter, QDir::LocaleAware);
 
         bool skip;
         for (int i = 0; i<currentItems.size(); ++i) {

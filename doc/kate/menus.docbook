@@ -1852,7 +1852,7 @@ documentation</ulink>.</para>
 <title>The Help Menu</title>
 
 <para>Apart from standard &kde; <guimenu>Help</guimenu> menu items
-described below you will have a menu entriy to show the <guimenuitem>About
+described below you will have a menu entry to show the <guimenuitem>About
 Editor Component</guimenuitem> information.</para>
 
 &help.menu.documentation;

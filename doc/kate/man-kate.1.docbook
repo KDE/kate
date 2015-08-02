@@ -5,10 +5,11 @@
 
 <refentry lang="&language;">
 <refentryinfo>
-<title>KDE User's Manual</title>
+<title>&kate; User's Manual</title>
 <author>&Lauri.Watts; &Lauri.Watts.mail;</author>
 <date>2010-10-06</date>
-<productname>K Desktop Environment</productname>
+<releaseinfo>Application 12.04</releaseinfo>
+<productname>KDE Applications</productname>
 </refentryinfo>
 
 <refmeta>

@@ -111,7 +111,7 @@ configuration files.  This document was written in &kate;.
 <title>Working with the &kate; Editor</title>
 <para>For information about the basics of working with the editor component
 underlying &kate;, see the 
-<ulink url="help:katepart/kate-part.html">Working with the
+<ulink url="help:/katepart/kate-part.html">Working with the
 &katepart; Editor chapter of the &katepart; Handbook</ulink>.</para>
 </chapter>
 
@@ -120,7 +120,7 @@ underlying &kate;, see the
 <chapter id="advanced-editing-tools">
 <title>Advanced Editing Tools</title>
 <para>For information about the advanced editing tools included with &kate;,
-see the <ulink url="help:katepart/advanced-editing-tools.html">Advanced Editing Tools chapter
+see the <ulink url="help:/katepart/advanced-editing-tools.html">Advanced Editing Tools chapter
 of the &katepart; Handbook</ulink>.</para>
 </chapter>
 
@@ -129,7 +129,7 @@ of the &katepart; Handbook</ulink>.</para>
 <chapter id="vi-input-mode-chapter">
 <title>The VI Input Mode</title>
 <para>For information about &kate;'s VI input mode, see the 
-<ulink url="help:katepart/vi-input-mode-chapter.html">VI Input Mode chapter
+<ulink url="help:/katepart/vi-input-mode-chapter.html">VI Input Mode chapter
 of the &katepart; Handbook</ulink>.</para>
 </chapter>
 
@@ -275,7 +275,7 @@ documentation</para></listitem>
 <title>Regular Expressions</title>
 
 <para>For information about using regular expressions in &kate;, see the
-<ulink url="help:katepart/regular-expressions.html">Regular Expressions appendix
+<ulink url="help:/katepart/regular-expressions.html">Regular Expressions appendix
 to the &katepart; Handbook</ulink>.</para>
 
 </appendix>

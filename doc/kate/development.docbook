@@ -27,7 +27,7 @@ enhancements with the world!</para>
 <title>Working with Syntax Highlighting</title>
 
 <para>For information about adding or modifying syntax highlighting definitions,
-see the <ulink url="help:katepart/dev-scripting.html">Working with Syntax
+see the <ulink url="help:/katepart/dev-scripting.html">Working with Syntax
 Highlighting section of the Development chapter of the &katepart;
 Handbook</ulink>.</para>
 
@@ -37,7 +37,7 @@ Handbook</ulink>.</para>
 <title>Scripting with JavaScript</title>
 
 <para>For information about scripting with JavaScript, see the
-<ulink url="help:katepart/dev-scripting.html">Scripting with JavaScript
+<ulink url="help:/katepart/dev-scripting.html">Scripting with JavaScript
 section of the Development chapter of the &katepart; Handbook</ulink>.</para>
 
 </sect1>
@@ -46,7 +46,7 @@ section of the Development chapter of the &katepart; Handbook</ulink>.</para>
 <title>Editor Component Extensions</title>
 
 <para>For information about writing &katepart; plugins, see the
-<ulink url="help:katepart/dev-part.html">Editor Component Extensions
+<ulink url="help:/katepart/dev-part.html">Editor Component Extensions
 section of the Development chapter of the &katepart; Handbook</ulink>.</para>
 
 </sect1>

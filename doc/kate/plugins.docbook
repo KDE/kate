@@ -30,7 +30,7 @@ and exporting text as &HTML;.</para>
 <title>Editor Component Extensions</title>
 
 <para>For information about available plugins, see the 
-<ulink url="help:katepart/editor-component-plugins.html">Editor Component
+<ulink url="help:/katepart/editor-component-plugins.html">Editor Component
 Extensions section of the &katepart; Handbook</ulink>.</para>
 
 </sect1>
@@ -984,7 +984,7 @@ Export your file in &HTML; format so your document can be viewed as a web page.
 <sect2 id="searchinfiles-intro">
 <title>Introduction</title>
 <para>&kappname;'s Search &amp; Replace plugin allows you to search for text or
-<ulink url="help:katepart/regular-expressions.html">regular expressions</ulink>
+<ulink url="help:/katepart/regular-expressions.html">regular expressions</ulink>
 in many different files at once.  You can search all open files, all the files
 in one directory and optionally its subdirectories, or all files in the current
 project.  You can even filter by filename, for instance searching only files
@@ -1096,7 +1096,7 @@ of upper and lower case letters as your search query.
 <varlistentry>
 <term><guilabel>Regular expressions</guilabel></term>
 <listitem><para>
-Permits you to use <ulink url="help:katepart/regular-expressions.html">regular
+Permits you to use <ulink url="help:/katepart/regular-expressions.html">regular
 expressions</ulink> instead of simple text as your search query.
 </para></listitem>
 </varlistentry>

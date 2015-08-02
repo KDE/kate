@@ -5,10 +5,11 @@
 
 <refentry lang="&language;">
 <refentryinfo>
-<title>KDE User's Manual</title>
+<title>&kate; User's Manual</title>
 <author>&Lauri.Watts; &Lauri.Watts.mail;</author>
-<date>2010-10-06</date>
-<productname>K Desktop Environment</productname>
+<date>2015-08-02</date>
+<releaseinfo>Applications 15.08</releaseinfo>
+<productname>KDE Applications</productname>
 </refentryinfo>
 
 <refmeta>
@@ -38,9 +39,12 @@ line</replaceable></group>
 <group choice="opt"><option>-c, --column</option>
 <replaceable> column</replaceable></group>
 <group choice="opt"><option>-i, --stdin</option></group>
-<group choice="opt"><option>-u, --use</option></group>
-<arg choice="opt">KDE Generic Options</arg>
-<arg choice="opt">Qt Generic Options</arg>
+<group choice="opt"><option>--tempfile</option></group>
+<group choice="opt"><option>-h, --help</option></group>
+<group choice="opt"><option>-v, --version</option></group>
+<group choice="opt"><option>--author</option></group>
+<group choice="opt"><option>--license</option></group>
+<group choice="opt"><option><replaceable>file</replaceable></option></group>
 </cmdsynopsis>
 </refsynopsisdiv>
 
@@ -118,8 +122,31 @@ column</replaceable></term>
 <filename>stdin</filename></para></listitem>
 </varlistentry>
 <varlistentry>
-<term><option>-u, --use</option></term>
-<listitem><para>Use an already running &kate; instance; default, only for compatibility</para></listitem>
+<term><option>--tempfile</option></term>
+<listitem><para>The files/&URL;s opened by the application will be
+deleted after use</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-h</option> <option>--help</option></term>
+<listitem><para>This lists the options available at the command line</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--author</option></term>
+<listitem><para>Lists &kate;'s authors in the terminal window</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-v</option> <option>--version</option></term>
+<listitem>
+<para>Lists version information for &kate;</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--license</option></term>
+<listitem><para>Shows license information</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option><replaceable>file</replaceable></option></term>
+<listitem><para>File to open</para></listitem>
 </varlistentry>
 </variablelist>
 

@@ -111,7 +111,7 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         if (!m_symlinks) filter |= QDir::NoSymLinks;
 
         // sort the items to have an deterministic order!
-        const QFileInfoList currentItems = currentDir.entryInfoList(m_types, filter, QDir::LocaleAware);
+        const QFileInfoList currentItems = currentDir.entryInfoList(m_types, filter, QDir::Name | QDir::LocaleAware);
 
         bool skip;
         for (int i = 0; i<currentItems.size(); ++i) {

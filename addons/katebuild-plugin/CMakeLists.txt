@@ -3,7 +3,6 @@ add_definitions(-DTRANSLATION_DOMAIN=\"katebuild-plugin\")
 set(katebuild_SRCS
     plugin_katebuild.cpp
     targets.cpp
-    KBProcess.cpp
     TargetHtmlDelegate.cpp
     TargetModel.cpp
     UrlInserter.cpp

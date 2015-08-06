@@ -171,8 +171,9 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_targetsUi->buildButton, SIGNAL(clicked()), this, SLOT(slotBuildActiveTarget()));
     connect(m_targetsUi, SIGNAL(enterPressed()), this, SLOT(slotBuildActiveTarget()));
 
-    m_proc = new KBProcess();
+    m_proc = new KProcess();
 
+    m_proc->setOutputChannelMode(KProcess::SeparateChannels);
     connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcExited(int,QProcess::ExitStatus)));
     connect(m_proc, SIGNAL(readyReadStandardError()),this, SLOT(slotReadReadyStdErr()));
     connect(m_proc, SIGNAL(readyReadStandardOutput()),this, SLOT(slotReadReadyStdOut()));
@@ -503,7 +504,8 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_make_dir_stack.push(m_make_dir);
     // FIXME check
     m_proc->setWorkingDirectory(m_make_dir);
-    m_proc->startShellCommand(command);
+    m_proc->setShellCommand(command);
+    m_proc->start();
 
     if(!m_proc->waitForStarted(500)) {
         KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc->exitStatus()));

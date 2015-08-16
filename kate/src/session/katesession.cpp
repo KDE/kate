@@ -125,6 +125,6 @@ bool KateSession::compareByName(const KateSession::Ptr &s1, const KateSession::P
 
 bool KateSession::compareByTimeDesc(const KateSession::Ptr &s1, const KateSession::Ptr &s2)
 {
-    return s1->timestamp() < s2->timestamp();
+    return s1->timestamp() > s2->timestamp();
 }
 

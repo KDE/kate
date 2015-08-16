@@ -71,16 +71,26 @@ bool KateProject::loadFromFile(const QString &fileName)
 
 bool KateProject::reload(bool force)
 {
-    /**
-     * open the file for reading, bail out on error!
-     */
-    m_fileLastModified = QDateTime();
-    QFile file(m_fileName);
-    if (!file.open(QFile::ReadOnly)) {
-        return false;
+    QVariantMap map = readProjectFile();
+
+    if (map.isEmpty()) {
+        m_fileLastModified = QDateTime();
+    } else {
+        m_fileLastModified = QFileInfo(m_fileName).lastModified();
+        m_globalProject = map;
     }
 
-    m_fileLastModified = QFileInfo(m_fileName).lastModified();
+    return load(m_globalProject, force);
+}
+
+QVariantMap KateProject::readProjectFile() const
+{
+    QFile file(m_fileName);
+
+    if (!file.open(QFile::ReadOnly)) {
+        return QVariantMap();
+    }
+
     /**
      * parse the whole file, bail out again on error!
      */
@@ -89,18 +99,17 @@ bool KateProject::reload(bool force)
     QJsonDocument project(QJsonDocument::fromJson(jsonData, &parseError));
 
     if (parseError.error != QJsonParseError::NoError) {
-        return false;
+        return QVariantMap();
     }
 
-    QVariantMap globalProject = project.toVariant().toMap();
-
-    return load(globalProject, force);
+    return project.toVariant().toMap();
 }
 
 bool KateProject::loadFromData(const QVariantMap& globalProject, const QString& directory)
 {
     m_baseDir = directory;
     m_fileName = QDir(directory).filePath(QLatin1String(".kateproject"));
+    m_globalProject = globalProject;
     return load(globalProject);
 }
 

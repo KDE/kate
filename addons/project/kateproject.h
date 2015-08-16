@@ -232,6 +232,7 @@ Q_SIGNALS:
 private:
     void registerUntrackedDocument(KTextEditor::Document *document);
     void unregisterUntrackedItem(const KateProjectItem *item);
+    QVariantMap readProjectFile() const;
 
 private:
 
@@ -291,6 +292,11 @@ private:
     QStandardItem *m_untrackedDocumentsRoot;
 
     ThreadWeaver::Queue *m_weaver;
+
+    /**
+     * project configuration (read from file or injected)
+     */
+    QVariantMap m_globalProject;
 };
 
 #endif

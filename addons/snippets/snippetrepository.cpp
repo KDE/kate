@@ -373,7 +373,7 @@ QVariant SnippetRepository::data(int role) const
     } else if ( role == Qt::ForegroundRole && checkState() != Qt::Checked ) {
         ///TODO: make the selected items also "disalbed" so the toggle action is seen directly
         KColorScheme scheme(QPalette::Disabled, KColorScheme::View);
-        QColor c = scheme.foreground(KColorScheme::ActiveText).color();
+        QColor c = scheme.foreground(KColorScheme::NormalText).color();
         return QVariant(c);
     }
     return QStandardItem::data(role);

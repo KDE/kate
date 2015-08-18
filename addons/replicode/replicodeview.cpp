@@ -231,4 +231,3 @@ void ReplicodeView::gotStdout()
     m_replicodeOutput->scrollToBottom();
 }
 
-#include "replicodeview.moc"

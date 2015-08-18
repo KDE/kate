@@ -67,4 +67,3 @@ void ReplicodeConfigPage::defaults()
     m_config->reset();
 }
 
-#include "replicodeconfigpage.moc"

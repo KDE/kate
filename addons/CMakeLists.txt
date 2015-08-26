@@ -1,5 +1,5 @@
 # detect additional frameworks
-find_package(KF5 "${KF5_DEP_VERSION}" OPTIONAL_COMPONENTS Wallet Plasma Service ItemModels Notifications ThreadWeaver NewStuff)
+find_package(KF5 "${KF5_DEP_VERSION}" OPTIONAL_COMPONENTS Wallet Plasma Service ItemModels Notifications ThreadWeaver NewStuff IconThemes GuiAddons)
 
 set_package_properties(KF5Wallet PROPERTIES PURPOSE "Required to build the katesql addon")
 set_package_properties(KF5Plasma PROPERTIES PURPOSE "Required to build the sessionapplet addon")

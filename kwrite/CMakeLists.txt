@@ -13,7 +13,6 @@ target_link_libraries(kdeinit_kwrite
   KF5::I18n
   KF5::KIOFileWidgets
   KF5::DBusAddons
-  KF5::IconThemes
   KF5::Crash
   KF5::Activities
 )

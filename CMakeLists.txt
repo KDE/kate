@@ -43,8 +43,6 @@ find_package(KF5 "${KF5_DEP_VERSION}" REQUIRED COMPONENTS
   Config
   Crash
   DocTools
-  GuiAddons
-  IconThemes
   I18n
   Init
   JobWidgets

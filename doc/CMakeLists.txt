@@ -1,4 +1,4 @@
 # docs
-add_subdirectory( kate )
-add_subdirectory( katepart )
-add_subdirectory( kwrite )
+ecm_optional_add_subdirectory( kate )
+ecm_optional_add_subdirectory( katepart )
+ecm_optional_add_subdirectory( kwrite )

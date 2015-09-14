@@ -67,7 +67,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     connect(m_filelistCloseDocument, SIGNAL(triggered()), this, SLOT(slotDocumentClose()));
     m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 
-    m_filelistCloseOtherDocument = new QAction(QIcon::fromTheme(QLatin1String("window-close")), i18nc("@action:inmenu", "Close Other"), this);
+    m_filelistCloseOtherDocument = new QAction(QIcon::fromTheme(QLatin1String("document-close")), i18nc("@action:inmenu", "Close Other"), this);
     connect(m_filelistCloseOtherDocument, SIGNAL(triggered()), this, SLOT(slotDocumentCloseOther()));
     m_filelistCloseOtherDocument->setWhatsThis(i18n("Close other documents in this folder."));
 

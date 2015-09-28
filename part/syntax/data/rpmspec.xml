@@ -2,13 +2,13 @@
 <!DOCTYPE language SYSTEM "language.dtd" [
   <!ENTITY a_valid_char_in_macro_names "A-Za-z0-9_">
   <!ENTITY command_section_name "(prep|build|pre|preun|install|post|postun|clean|files|trigger|triggerin|triggerun|triggerpostun|verifyscript|check|pretrans|posttrans)">
-  <!ENTITY arch "(alpha|alphaev5|alphaev56|alphaev6|alphaev67|alphapca56|amd64|armv3l|armv4b|armv4l|armv4tl|armv5b|armv5l|armv5teb|armv5tejl|armv5tel|armv6l|armv7l|atariclone|atarist|atariste|ataritt|athlon|axp|em64t|falcon|fat|geode|hades|hppa|hppa1\.0|hppa1\.1|hppa1\.2|hppa2\.0|hppa64|i370|i386|i486|i586|i686|ia32e|ia64|IP|m68k|m68kmint|milan|mips|mipsel|noarch|osfmach3_i386|osfmach3_i486|osfmach3_i586|osfmach3_i686|osfmach3_ppc|parisc|pentium3|pentium4|powerpc|powerpc64|powerppc|ppc|ppc32dy4|ppc64|ppc64iseries|ppc64pseries|ppc8260|ppc8560|ppciseries|ppcpseries|rs6000|s390|s390x|sgi|sh|sh3|sh4|sh4a|sparc|sparc64|sparc64v|sparcv8|sparcv9|sparcv9v|sun4|sun4c|sun4d|sun4m|sun4u|x86_64|xtensa)">
+  <!ENTITY arch "(aarch64|alpha|alphaev5|alphaev56|alphaev6|alphaev67|alphapca56|amd64|armv3l|armv4b|armv4l|armv4tl|armv5b|armv5l|armv5teb|armv5tejl|armv5tel|armv6l|armv7l|atariclone|atarist|atariste|ataritt|athlon|axp|em64t|falcon|fat|geode|hades|hppa|hppa1\.0|hppa1\.1|hppa1\.2|hppa2\.0|hppa64|i370|i386|i486|i586|i686|ia32e|ia64|IP|m68k|m68kmint|milan|mips|mipsel|noarch|osfmach3_i386|osfmach3_i486|osfmach3_i586|osfmach3_i686|osfmach3_ppc|parisc|pentium3|pentium4|powerpc|powerpc64|powerppc|ppc|ppc32dy4|ppc64|ppc64le|ppc64iseries|ppc64pseries|ppc8260|ppc8560|ppciseries|ppcpseries|rs6000|s390|s390x|sgi|sh|sh3|sh4|sh4a|sparc|sparc64|sparc64v|sparcv8|sparcv9|sparcv9v|sun4|sun4c|sun4d|sun4m|sun4u|x86_64|xtensa)">
   <!ENTITY os "(AIX|AmigaOS|BSD_OS|bsdi|bsdi4\.0|cygwin32|CYGWIN32_95|CYGWIN32_NT|Darwin|darwin|Darwin|FreeBSD|FreeMiNT|HP-UX|hpux10|hpux10\.00|hpux10\.01|hpux10\.10|hpux10\.20|hpux10\.30|hpux11\.00|hpux9\.04|hpux9\.05|hpux9\.07|IRIX|Irix|IRIX|IRIX64|Irix64|IRIX64|Linux|Linux\/390|Linux\/ESA|machten|MacOSX|macosx|MacOSX|MiNT|mint|MiNT|mint|MiNT|mint|MP_RAS|ncr-sysv4\.2|ncr-sysv4\.3|NEXTSTEP|NextStep|OS\/390|OSF1|osf1|osf3\.2|osf4\.0|SCO_SV|SCO_SV3\.2v5\.0\.2|solaris|solaris2\.3|solaris2\.4|solaris2\.5|solaris2\.6|solaris2\.7|SunOS|SunOS4|SunOS5|TOS|UNIX_SV|VM\/ESA)">
   <!ENTITY arch_conditionals_names "(ifarch|ifnarch)">
   <!ENTITY os_conditionals_names "(ifos|ifnos)">
   <!ENTITY lookahead_whitespace_eol "(?=($| |\t))">
 ]>
-<language name="RPM Spec" version="2.03" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
+<language name="RPM Spec" version="2.04" kateversion="2.4" section="Other" extensions="*.spec" mimetype="" license="public domain">
 
 <!-- The entities "arch" and "os" are based on /usr/lib/rpm/rpmrc (in the version coming with openSUSE 11.4). -->
 
@@ -471,7 +471,7 @@
       <itemData name="Keyword" defStyleNum="dsKeyword"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Tag" defStyleNum="dsDataType"/>
-      <!-- "Enumeration" is used for data types where you can't use arbitrary strings but have 
+      <!-- "Enumeration" is used for data types where you can't use arbitrary strings but have
       to use predefined values (like in "Provides:" or "%undefine"). -->
       <itemData name="Enumeration" defStyleNum="dsOthers"/>
       <itemData name="String" defStyleNum="dsString"/>

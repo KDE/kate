@@ -249,6 +249,69 @@ namespace {
         bool recursive;
         QString basedir;
     };
+
+    int gitTreeWalker(const char *root, const git_tree_entry *entry, void *payload)
+    {
+        struct git_walk_payload *data = static_cast<git_walk_payload *>(payload);
+
+        if (git_tree_entry_type(entry) == GIT_OBJ_BLOB) {
+            QString name = QString::fromUtf8(git_tree_entry_name(entry));
+            QString dir = QString::fromUtf8(root);
+            QString filepath = QDir(data->basedir + dir).filePath(name);
+            data->files->append(filepath);
+        } else if (git_tree_entry_type(entry) == GIT_OBJ_TREE && !data->recursive) {
+            return 1; // don't walk that way
+        }
+
+        return 0;
+    }
+
+    QStringList gitSearchTree(git_object *tree, const QString &basedir, bool recursive)
+    {
+        QStringList files;
+        struct git_walk_payload payload = {&files, recursive, basedir};
+
+        git_tree_walk((git_tree *)tree, GIT_TREEWALK_PRE, gitTreeWalker, (void *)&payload);
+
+        return files;
+    }
+
+    int gitSubmoduleWalker(git_submodule *submodule, const char *, void *payload)
+    {
+        struct git_walk_payload *data = static_cast<git_walk_payload *>(payload);
+
+        git_repository *repo = nullptr;
+
+        if (git_submodule_open(&repo, submodule)) {
+            return 1;
+        }
+
+        git_object *tree = nullptr;
+
+        if (git_revparse_single(&tree, repo, "HEAD^{tree}")) {
+            git_repository_free(repo);
+            return 2;
+        }
+
+        QString submodulePath = QString::fromUtf8(git_submodule_path(submodule));
+        QString basedir = data->basedir + submodulePath + QDir::separator();
+
+        data->files->append(gitSearchTree(tree, basedir, true));
+
+        git_object_free(tree);
+        git_repository_free(repo);
+        return 0;
+    }
+
+    QStringList gitSearchSubmodules(git_repository *repo, const QString &workdir)
+    {
+        QStringList files;
+
+        struct git_walk_payload payload = {&files, true, workdir};
+        git_submodule_foreach(repo, gitSubmoduleWalker, (void *)&payload);
+
+        return files;
+    }
 }
 
 QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
@@ -259,27 +322,11 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     const char *working_dir;
     QDir workdir;
     QString relpath;
-    struct git_walk_payload payload = {&files, recursive, dir.absolutePath()};
-
-    auto callback = [] (const char *root, const git_tree_entry *entry, void *payload) -> int {
-        struct git_walk_payload *data = static_cast<git_walk_payload *>(payload);
-
-        if (git_tree_entry_type(entry) == GIT_OBJ_BLOB) {
-            QString name = QString::fromUtf8(git_tree_entry_name(entry));
-            QString dir = QString::fromUtf8(root);
-            QString filepath = QDir(data->basedir + QDir::separator() + dir).filePath(name);
-            data->files->append(filepath);
-        } else if (git_tree_entry_type(entry) == GIT_OBJ_TREE && !data->recursive) {
-            return 1; // don't walk that way
-        }
-
-        return 0;
-    };
 
     git_libgit2_init();
 
     if (git_repository_open_ext(&repo, dir.path().toUtf8().data(), 0, NULL)) {
-        return QStringList();
+        return files;
     }
 
     if ((working_dir = git_repository_workdir(repo)) == nullptr) {
@@ -308,7 +355,13 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
         }
     }
 
-    git_tree_walk((git_tree *)tree, GIT_TREEWALK_PRE, callback, (void *)&payload);
+    QString path = workdir.absolutePath() + QDir::separator();
+
+    files.append(gitSearchTree(tree, path, recursive));
+
+    if (recursive && relpath.isEmpty()) {
+        files.append(gitSearchSubmodules(repo, path));
+    }
 
     if (tree != root_tree) {
         git_object_free(tree);

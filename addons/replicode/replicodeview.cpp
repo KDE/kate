@@ -99,31 +99,43 @@ void ReplicodeView::runReplicode()
     m_mainWindow->showToolView(m_toolview);
     KTextEditor::View *editor = m_mainWindow->activeView();
     if (!editor || !editor->document()) {
-        QMessageBox::warning(m_mainWindow->window(), i18n("Unable to find active file"), i18n("Can't find active file to run!"));
+        QMessageBox::warning(m_mainWindow->window(),
+                             i18nc("@title:window", "Active Document Not Found"),
+                             i18n("Could not find an active document to run."));
         return;
     }
 
     if (editor->document()->isEmpty()) {
-        QMessageBox::warning(m_mainWindow->window(), i18n("Empty document"), i18n("Can't execute an empty document"));
+        QMessageBox::warning(m_mainWindow->window(),
+                             i18nc("@title:window", "Empty Document"),
+                             i18n("Cannot execute an empty document."));
         return;
     }
 
     QFileInfo sourceFile = QFileInfo(editor->document()->url().toLocalFile());
 
     if (!sourceFile.isReadable()) {
-        QMessageBox::warning(m_mainWindow->window(), i18n("No file"), i18n("Unable to open source file for reading."));
+        QMessageBox::warning(m_mainWindow->window(),
+                             i18nc("@title:window", "File Not Found"),
+                             i18n("Unable to open source file for reading."));
         return;
     }
 
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Replicode"));
     QString executorPath = config.readEntry<QString>("replicodePath", QString());
     if (executorPath.isEmpty()) {
-        QMessageBox::warning(m_mainWindow->window(), i18n("Can't find replicode executor"), i18n("Unable to find replicode executor.\nPlease go to settings and set the path to the Replicode executor."));
+        QMessageBox::warning(m_mainWindow->window(),
+                             i18nc("@title:window", "Replicode Executable Not Found"),
+                             i18n("Unable to find replicode executor.\n"
+                                  "Please go to settings and set the path to the Replicode executable."));
         return;
     }
 
     if (m_configView->settingsObject()->userOperatorPath.isEmpty()) {
-        QMessageBox::warning(m_mainWindow->window(), i18n("Can't find user operator library"), i18n("Unable to find user operator library.\nPlease go to settings and set the path to the library."));
+        QMessageBox::warning(m_mainWindow->window(),
+                             i18nc("@title:window", "User Operator Library Not Found"),
+                             i18n("Unable to find user operator library.\n"
+                                  "Please go to settings and set the path to the library."));
     }
 
     m_configView->settingsObject()->sourcePath = editor->document()->url().toLocalFile();
@@ -189,7 +201,7 @@ void ReplicodeView::runErrored(QProcess::ProcessError error)
 void ReplicodeView::replicodeFinished()
 {
     if (!m_completed) {
-        QListWidgetItem *item = new QListWidgetItem(i18n("Replicode execution finished!"));
+        QListWidgetItem *item = new QListWidgetItem(i18n("Replicode execution finished."));
         item->setForeground(Qt::blue);
         m_replicodeOutput->addItem(item);
         m_replicodeOutput->scrollToBottom();

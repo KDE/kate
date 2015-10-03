@@ -29,7 +29,9 @@ class ReplicodeConfigPage : public KTextEditor::ConfigPage
 
 public:
     ReplicodeConfigPage(QWidget *parent = 0);
-    QString name () const { return QStringLiteral("replicode"); }
+
+    QString name() const;
+    QString fullName() const;
 
 public Q_SLOTS:
     void apply();

@@ -47,6 +47,16 @@ ReplicodeConfigPage::ReplicodeConfigPage(QWidget *parent) : KTextEditor::ConfigP
     connect(m_requester, SIGNAL(textChanged(QString)), SIGNAL(changed()));
 }
 
+QString ReplicodeConfigPage::name() const
+{
+    return i18n("Replicode");
+}
+
+QString ReplicodeConfigPage::fullName() const
+{
+    return i18n("Replicode configuration");
+}
+
 void ReplicodeConfigPage::apply()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Replicode"));

@@ -98,7 +98,7 @@
     <item row="5" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>Reduction core count</string>
+       <string>Reduction core count:</string>
       </property>
       <property name="buddy">
        <cstring>reductionCoreCount</cstring>
@@ -115,7 +115,7 @@
     <item row="6" column="0">
      <widget class="QLabel" name="label_5">
       <property name="text">
-       <string>Time core count</string>
+       <string>Time core count:</string>
       </property>
       <property name="buddy">
        <cstring>timeCoreCount</cstring>

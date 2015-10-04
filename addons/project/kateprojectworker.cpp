@@ -30,7 +30,9 @@
 #include <QSet>
 #include <QTime>
 
-#ifdef HAVE_GIT2
+#include <libgit2_config.h>
+
+#ifdef LIBGIT2_FOUND
 #include <git2.h>
 #include <git2/oid.h>
 #include <git2/repository.h>
@@ -242,7 +244,7 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& fil
     }
 }
 
-#ifdef HAVE_GIT2
+#ifdef LIBGIT2_FOUND
 namespace {
     struct git_walk_payload {
         QStringList *files;
@@ -323,15 +325,12 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     QDir workdir;
     QString relpath;
 
-    git_libgit2_init();
-
     if (git_repository_open_ext(&repo, dir.path().toUtf8().data(), 0, NULL)) {
         return files;
     }
 
     if ((working_dir = git_repository_workdir(repo)) == nullptr) {
         git_repository_free(repo);
-        git_libgit2_shutdown();
         return files;
     }
 
@@ -340,7 +339,6 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 
     if (git_revparse_single(&root_tree, repo, "HEAD^{tree}")) {
         git_repository_free(repo);
-        git_libgit2_shutdown();
         return files;
     }
 
@@ -350,7 +348,6 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
         if (git_object_lookup_bypath(&tree, root_tree, relpath.toUtf8().data(), GIT_OBJ_TREE)) {
             git_object_free(root_tree);
             git_repository_free(repo);
-            git_libgit2_shutdown();
             return files;
         }
     }
@@ -369,7 +366,6 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 
     git_object_free(root_tree);
     git_repository_free(repo);
-    git_libgit2_shutdown();
     return files;
 }
 

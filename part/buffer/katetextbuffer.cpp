@@ -720,7 +720,7 @@ bool TextBuffer::save (const QString &filename)
    * use KSaveFile for save write + rename
    */
   KSaveFile saveFile (filename);
-  
+
 #if KDE_IS_VERSION(4,10,3)
   /**
    * allow fallback if directory not writable
@@ -728,7 +728,7 @@ bool TextBuffer::save (const QString &filename)
    */
   saveFile.setDirectWriteFallback (true);
 #endif
-  
+
   /**
    * try to open or fail
    */
@@ -748,7 +748,7 @@ bool TextBuffer::save (const QString &filename)
    * try to open, if new file
    */
   if (deleteFile) {
-    if (!file->open (QIODevice::WriteOnly | QIODevice::Truncate)) {
+    if (!file->open (QIODevice::WriteOnly)) {
       delete file;
       return false;
     }

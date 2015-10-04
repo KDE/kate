@@ -358,7 +358,7 @@ m_mainWindow (mainWin)
     m_ui.searchCombo->setMaxCount(25);
 
     m_ui.replaceCombo->completer()->setCompletionMode(QCompleter::PopupCompletion);
-    m_ui.searchCombo->completer()->setCaseSensitivity(Qt::CaseSensitive);
+    m_ui.replaceCombo->completer()->setCaseSensitivity(Qt::CaseSensitive);
     m_ui.replaceCombo->setInsertPolicy(QComboBox::NoInsert);
     m_ui.replaceCombo->lineEdit()->setClearButtonEnabled(true);
     m_ui.replaceCombo->setMaxCount(25);
@@ -1241,6 +1241,7 @@ void KatePluginSearchView::replaceSingleMatch()
         m_ui.searchCombo->insertItem(1, m_ui.searchCombo->currentText());
         m_ui.searchCombo->setCurrentIndex(1);
     }
+
 
     if (m_ui.replaceCombo->findText(m_ui.replaceCombo->currentText()) == -1) {
         m_ui.replaceCombo->insertItem(1, m_ui.replaceCombo->currentText());

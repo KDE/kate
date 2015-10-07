@@ -297,7 +297,9 @@ function tryCComment(line)
         }
     } else if (char1 == '*') {
         var commentLine = currentLine;
-        while (commentLine >= 0 && document.firstChar(commentLine) == '*') {
+        while (commentLine >= 0 && document.firstChar(commentLine) == '*'
+            && !document.endsWith(commentLine, "*/", true)
+        ) {
             --commentLine;
         }
         if (commentLine < 0) {

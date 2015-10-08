@@ -65,6 +65,7 @@ public:
     }
     bool showView(KTextEditor::Document *document);
 
+    // might be nullptr, if there is no view
     KTextEditor::View *currentView();
 
     void saveConfig(KConfigBase *config, int myIndex, const QString &viewConfGrp);

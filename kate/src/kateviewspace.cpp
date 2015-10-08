@@ -382,7 +382,7 @@ void KateViewSpace::removeTabs(int count)
 {
     const int start = count;
 
-    /// remove @p count tabs from the tab bar, as they to not fit
+    /// remove @p count tabs from the tab bar, as they do not all fit
     while (count > 0) {
         const int tabCount = m_tabBar->count();
         KTextEditor::Document * removeDoc = m_lruDocList[m_lruDocList.size() - tabCount];

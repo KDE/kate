@@ -153,7 +153,9 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
     // on mouse press on view space bar tool buttons: activate this space
     if (button && ! isActiveSpace() && event->type() == QEvent::MouseButtonPress) {
         m_viewManager->setActiveSpace(this);
-        m_viewManager->activateView(currentView()->document());
+        if (currentView()) {
+            m_viewManager->activateView(currentView()->document());
+        }
     }
     return false;
 }

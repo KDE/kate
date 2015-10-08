@@ -159,6 +159,15 @@ void KateCTagsConfigPage::addGlobalTagTarget()
     dialog.setFileMode(QFileDialog::Directory);
     //dialog.setMode(KFile::Directory | KFile::Files | KFile::ExistingOnly | KFile::LocalOnly);
 
+    QString dir;
+    if (m_confUi.targetList->currentItem()) {
+        dir = m_confUi.targetList->currentItem()->text();
+    }
+    else if (m_confUi.targetList->item(0)) {
+        dir = m_confUi.targetList->item(0)->text();
+    }
+    dialog.setDirectory(dir);
+
     // i18n("CTags Database Location"));
     if (dialog.exec() != QDialog::Accepted) {
         return;

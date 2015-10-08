@@ -94,6 +94,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_ctagsUi.resetCMD->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
 
     m_ctagsUi.tagsFile->setToolTip(i18n("Select new or existing database file."));
+    m_ctagsUi.tagsFile->setMode(KFile::File);
 
     connect(m_ctagsUi.resetCMD, SIGNAL(clicked()), this, SLOT(resetCMD()));
     connect(m_ctagsUi.addButton, SIGNAL(clicked()), this, SLOT(addTagTarget()));
@@ -505,6 +506,7 @@ void KateCTagsView::updateSessionDB()
     }
 
     if (targets.isEmpty()) {
+        KMessageBox::error(0, i18n("No folders or files to index"));
         QFile::remove(m_ctagsUi.tagsFile->text());
         return;
     }

@@ -26,6 +26,7 @@
 #include <QPainter>
 #include <QResizeEvent>
 #include <QStyleOptionTab>
+#include <QWheelEvent>
 
 /**
  * Creates a new tab bar with the given \a parent.
@@ -427,4 +428,18 @@ void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
     }
 
     emit contextMenuRequest(id, ev->globalPos());
+}
+
+void KateTabBar::wheelEvent(QWheelEvent * event)
+{
+    event->accept();
+
+    // cycle through the tabs
+    const int delta = event->angleDelta().x() + event->angleDelta().y();
+    const int id = (delta > 0) ? prevTab() : nextTab();
+    if (id != -1) {
+        Q_ASSERT(m_idToTab.contains(id));
+        KateTabButton *tabButton = m_idToTab[id];
+        tabButtonActivated(tabButton);
+    }
 }

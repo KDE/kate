@@ -224,6 +224,9 @@ protected:
     /** Request context menu */
     void contextMenuEvent(QContextMenuEvent *ev);
 
+    /** Cycle through tabs */
+    void wheelEvent(QWheelEvent * event) Q_DECL_OVERRIDE;
+
 protected:
     /**
      * Set tab geometry. The tabs are animated only if @p animate is @e true.

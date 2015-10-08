@@ -176,6 +176,10 @@ void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)
 
 void TabSwitcherPluginView::raiseView(KTextEditor::View * view)
 {
+    if (!view) {
+        return;
+    }
+
     unregisterDocument(view->document());
     registerDocument(view->document());
 }

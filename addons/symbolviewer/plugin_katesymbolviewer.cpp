@@ -122,11 +122,12 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KTextEditor::Plugin *plug
   QHBoxLayout *layout = new QHBoxLayout(container);
 
   m_symbols = new QTreeWidget();
+  m_symbols->setFocusPolicy(Qt::NoFocus);
   m_symbols->setLayoutDirection( Qt::LeftToRight );
   layout->addWidget(m_symbols, 10);
   layout->setContentsMargins(0,0,0,0);
 
-  connect(m_symbols, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(goToSymbol(QTreeWidgetItem*)));
+  connect(m_symbols, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(goToSymbol(QTreeWidgetItem*)));
   connect(m_symbols, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotShowContextMenu(QPoint)));
 
   connect(m_mainWindow, SIGNAL(viewChanged(KTextEditor::View *)), this, SLOT(slotDocChanged()));

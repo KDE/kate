@@ -1176,10 +1176,12 @@ void KatePluginSearchView::searchWhileTypingDone()
         m_curResults->tree->setColumnWidth(0, m_curResults->tree->width()-30);
     }
 
+    QWidget *focusObject = 0;
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
     if (root) {
         QTreeWidgetItem *child = root->child(0);
         if (!m_searchJustOpened) {
+            focusObject = qobject_cast<QWidget *>(QGuiApplication::focusObject());
             itemSelected(child);
         }
         indicateMatch(child);
@@ -1190,7 +1192,9 @@ void KatePluginSearchView::searchWhileTypingDone()
     }
     m_curResults = 0;
 
-    m_ui.searchCombo->lineEdit()->setFocus();
+    if (focusObject) {
+        focusObject->setFocus();
+    }
     if (popupVisible) {
         m_ui.searchCombo->lineEdit()->completer()->complete();
     }

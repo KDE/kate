@@ -32,7 +32,8 @@
 #include <QPair>
 #include <QDateTime>
 
-class KConfig;
+#include <KConfig>
+
 class KateMainWindow;
 
 class KateDocumentInfo
@@ -205,7 +206,7 @@ private:
     QList<KTextEditor::Document *> m_docList;
     QHash<KTextEditor::Document *, KateDocumentInfo *> m_docInfos;
 
-    KConfig *m_metaInfos;
+    KConfig m_metaInfos;
     bool m_saveMetaInfos;
     int m_daysMetaInfos;
 

@@ -48,6 +48,7 @@
 
 KateDocManager::KateDocManager(QObject *parent)
     : QObject(parent)
+    , m_metaInfos(QStringLiteral("metainfos"), KConfig::NoGlobals, QStandardPaths::DataLocation)
     , m_saveMetaInfos(true)
     , m_daysMetaInfos(0)
     , m_documentStillToRestore(0)
@@ -55,8 +56,7 @@ KateDocManager::KateDocManager(QObject *parent)
     // set our application wrapper
     KTextEditor::Editor::instance()->setApplication(KateApp::self()->wrapper());
 
-    m_metaInfos = new KConfig(QStringLiteral("metainfos"), KConfig::NoGlobals, QStandardPaths::DataLocation);
-
+    // create one doc, we always have at least one around!
     createDoc();
 }
 
@@ -69,19 +69,18 @@ KateDocManager::~KateDocManager()
 
         // purge saved filesessions
         if (m_daysMetaInfos > 0) {
-            const QStringList groups = m_metaInfos->groupList();
+            const QStringList groups = m_metaInfos.groupList();
             QDateTime def(QDate(1970, 1, 1));
             for (QStringList::const_iterator it = groups.begin(); it != groups.end(); ++it) {
-                QDateTime last = m_metaInfos->group(*it).readEntry("Time", def);
+                QDateTime last = m_metaInfos.group(*it).readEntry("Time", def);
                 if (last.daysTo(QDateTime::currentDateTimeUtc()) > m_daysMetaInfos) {
-                    m_metaInfos->deleteGroup(*it);
+                    m_metaInfos.deleteGroup(*it);
                 }
             }
         }
     }
 
     qDeleteAll(m_docInfos);
-    delete m_metaInfos;
 }
 
 KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo)
@@ -478,14 +477,14 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
         return false;
     }
 
-    if (!m_metaInfos->hasGroup(url.toDisplayString())) {
+    if (!m_metaInfos.hasGroup(url.toDisplayString())) {
         return false;
     }
 
     const QByteArray checksum = doc->checksum();
     bool ok = true;
     if (!checksum.isEmpty()) {
-        KConfigGroup urlGroup(m_metaInfos, url.toDisplayString());
+        KConfigGroup urlGroup(&m_metaInfos, url.toDisplayString());
         const QString old_checksum = urlGroup.readEntry("Checksum");
 
         if (QString::fromLatin1(checksum) == old_checksum) {
@@ -499,7 +498,7 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
             ok = false;
         }
 
-        m_metaInfos->sync();
+        m_metaInfos.sync();
     }
 
     return ok && doc->url() == url;
@@ -536,7 +535,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
             /**
              * write the group with checksum and time
              */
-            KConfigGroup urlGroup(m_metaInfos, doc->url().toString());
+            KConfigGroup urlGroup(&m_metaInfos, doc->url().toString());
             urlGroup.writeEntry("Checksum", checksum.constData());
             urlGroup.writeEntry("Time", now);
 
@@ -550,7 +549,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
     /**
      * sync to not loose data
      */
-    m_metaInfos->sync();
+    m_metaInfos.sync();
 }
 
 void KateDocManager::slotModChanged(KTextEditor::Document *doc)

@@ -69,6 +69,7 @@ public Q_SLOTS:
 
     /**
      * set cursor of active view in active main window
+     * will clear selection
      * @param line line for cursor
      * @param column column for cursor
      * @return success

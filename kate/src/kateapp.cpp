@@ -318,8 +318,9 @@ bool KateApp::setCursor(int line, int column)
         return false;
     }
 
-    if (mainWindow->viewManager()->activeView()) {
-        mainWindow->viewManager()->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
+    if (auto v = mainWindow->viewManager()->activeView()) {
+        v->removeSelection();
+        v->setCursorPosition(KTextEditor::Cursor(line, column));
     }
 
     return true;

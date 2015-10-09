@@ -198,6 +198,7 @@ public:
 
     /**
      * position cursor in current active view
+     * will clear selection
      * @param line line to set
      * @param column column to set
      * @return success

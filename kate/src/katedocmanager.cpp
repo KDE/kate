@@ -48,7 +48,7 @@
 
 KateDocManager::KateDocManager(QObject *parent)
     : QObject(parent)
-    , m_metaInfos(QStringLiteral("metainfos"), KConfig::NoGlobals, QStandardPaths::DataLocation)
+    , m_metaInfos(QStringLiteral("katemetainfos"), KConfig::NoGlobals)
     , m_saveMetaInfos(true)
     , m_daysMetaInfos(0)
     , m_documentStillToRestore(0)
@@ -481,7 +481,7 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
         return false;
     }
 
-    const QByteArray checksum = doc->checksum();
+    const QByteArray checksum = doc->checksum().toHex();
     bool ok = true;
     if (!checksum.isEmpty()) {
         KConfigGroup urlGroup(&m_metaInfos, url.toDisplayString());
@@ -529,14 +529,14 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
             continue;
         }
 
-        const QByteArray checksum = doc->checksum();
+        const QByteArray checksum = doc->checksum().toHex();
         if (!checksum.isEmpty()) {
 
             /**
              * write the group with checksum and time
              */
             KConfigGroup urlGroup(&m_metaInfos, doc->url().toString());
-            urlGroup.writeEntry("Checksum", checksum.constData());
+            urlGroup.writeEntry("Checksum", QString::fromLatin1(checksum));
             urlGroup.writeEntry("Time", now);
 
             /**

@@ -149,7 +149,7 @@
        <item row="3" column="2">
         <widget class="QToolButton" name="resetCMD">
          <property name="toolTip">
-          <string>Revet to the default command</string>
+          <string>Revert to the default command</string>
          </property>
          <property name="text">
           <string>...</string>

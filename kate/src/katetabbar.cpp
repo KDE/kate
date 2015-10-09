@@ -106,7 +106,7 @@ void KateTabBar::setCurrentTab(int id)
 {
     Q_ASSERT(m_idToTab.contains(id));
 
-    KateTabButton *tabButton = m_idToTab[id];
+    KateTabButton *tabButton = m_idToTab.value(id, nullptr);
     if (m_activeButton == tabButton) {
         return;
     }
@@ -115,8 +115,10 @@ void KateTabBar::setCurrentTab(int id)
         m_activeButton->setChecked(false);
     }
 
-    m_activeButton = tabButton;
-    m_activeButton->setChecked(true);
+    if (m_activeButton) {
+        m_activeButton = tabButton;
+        m_activeButton->setChecked(true);
+    }
 }
 
 int KateTabBar::prevTab() const
@@ -124,7 +126,7 @@ int KateTabBar::prevTab() const
     const int curId = currentTab();
 
     if (curId >= 0) {
-        KateTabButton *tabButton = m_idToTab[curId];
+        KateTabButton *tabButton = m_idToTab.value(curId, nullptr);
         const int index = m_tabButtons.indexOf(tabButton);
         Q_ASSERT(index >= 0);
 
@@ -144,7 +146,7 @@ int KateTabBar::nextTab() const
     const int curId = currentTab();
 
     if (curId >= 0) {
-        KateTabButton *tabButton = m_idToTab[curId];
+        KateTabButton *tabButton = m_idToTab.value(curId, nullptr);
         const int index = m_tabButtons.indexOf(tabButton);
         Q_ASSERT(index >= 0);
 
@@ -163,7 +165,7 @@ int KateTabBar::removeTab(int id)
 {
     Q_ASSERT(m_idToTab.contains(id));
 
-    KateTabButton *tabButton = m_idToTab[id];
+    KateTabButton *tabButton = m_idToTab.value(id, nullptr);
 
     if (tabButton == m_activeButton) {
         m_activeButton = Q_NULLPTR;
@@ -171,13 +173,18 @@ int KateTabBar::removeTab(int id)
 
     const int position = m_tabButtons.indexOf(tabButton);
 
-    m_idToTab.remove(id);
-    m_tabButtons.removeAt(position);
-    // delete the button with deleteLater() because the button itself might
-    // have send a close-request. So the app-execution is still in the
-    // button, a delete tabButton; would lead to a crash.
-    tabButton->hide();
-    tabButton->deleteLater();
+    if (position != -1) {
+        m_idToTab.remove(id);
+        m_tabButtons.removeAt(position);
+    }
+
+    if (tabButton) {
+        // delete the button with deleteLater() because the button itself might
+        // have send a close-request. So the app-execution is still in the
+        // button, a delete tabButton; would lead to a crash.
+        tabButton->hide();
+        tabButton->deleteLater();
+    }
 
     updateButtonPositions(true);
 
@@ -192,37 +199,58 @@ bool KateTabBar::containsTab(int id) const
 void KateTabBar::setTabText(int id, const QString &text)
 {
     Q_ASSERT(m_idToTab.contains(id));
-    m_idToTab[id]->setText(text);
+    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    if (tabButton) {
+        tabButton->setText(text);
+    }
 }
 
 QString KateTabBar::tabText(int id) const
 {
     Q_ASSERT(m_idToTab.contains(id));
-    return m_idToTab[id]->text();
+    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    if (tabButton) {
+        return tabButton->text();
+    }
+    return QString();
 }
 
 void KateTabBar::setTabToolTip(int id, const QString &tip)
 {
     Q_ASSERT(m_idToTab.contains(id));
-    m_idToTab[id]->setToolTip(tip);
+    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    if (tabButton) {
+        tabButton->setToolTip(tip);
+    }
 }
 
 QString KateTabBar::tabToolTip(int id) const
 {
     Q_ASSERT(m_idToTab.contains(id));
-    return m_idToTab[id]->toolTip();
+    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    if (tabButton) {
+        return tabButton->toolTip();
+    }
+    return QString();
 }
 
 void KateTabBar::setTabIcon(int id, const QIcon &icon)
 {
     Q_ASSERT(m_idToTab.contains(id));
-    m_idToTab[id]->setIcon(icon);
+    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    if (tabButton) {
+        tabButton->setIcon(icon);
+    }
 }
 
 QIcon KateTabBar::tabIcon(int id) const
 {
     Q_ASSERT(m_idToTab.contains(id));
-    return m_idToTab[id]->icon();
+    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    if (tabButton) {
+        return tabButton->icon();
+    }
+    return QIcon();
 }
 
 int KateTabBar::count() const
@@ -232,6 +260,10 @@ int KateTabBar::count() const
 
 void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
 {
+    if (!tabButton) {
+        return;
+    }
+
     if (tabButton == m_activeButton) {
         // make sure we are the currently active view space
         if (! isActiveViewSpace()) {
@@ -249,20 +281,23 @@ void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
 
     const int id = m_idToTab.key(m_activeButton, -1);
     Q_ASSERT(id >= 0);
-    emit currentChanged(id);
+    if (id >= 0) {
+        emit currentChanged(id);
+    }
 }
 
 void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
 {
-    const int id = m_idToTab.key(tabButton, -1);
-    Q_ASSERT(id >= 0);
-
     // keep width
     if (underMouse()) {
         m_keepTabWidth = true;
     }
 
-    emit closeTabRequested(id);
+    const int id = m_idToTab.key(tabButton, -1);
+    Q_ASSERT(id >= 0);
+    if (id >= 0) {
+        emit closeTabRequested(id);
+    }
 }
 
 void KateTabBar::resizeEvent(QResizeEvent *event)
@@ -427,7 +462,9 @@ void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
         }
     }
 
-    emit contextMenuRequest(id, ev->globalPos());
+    if (id >= 0) {
+        emit contextMenuRequest(id, ev->globalPos());
+    }
 }
 
 void KateTabBar::wheelEvent(QWheelEvent * event)
@@ -437,9 +474,11 @@ void KateTabBar::wheelEvent(QWheelEvent * event)
     // cycle through the tabs
     const int delta = event->angleDelta().x() + event->angleDelta().y();
     const int id = (delta > 0) ? prevTab() : nextTab();
-    if (id != -1) {
+    if (id >= 0) {
         Q_ASSERT(m_idToTab.contains(id));
-        KateTabButton *tabButton = m_idToTab[id];
-        tabButtonActivated(tabButton);
+        KateTabButton *tabButton = m_idToTab.value(id, nullptr);
+        if (tabButton) {
+            tabButtonActivated(tabButton);
+        }
     }
 }

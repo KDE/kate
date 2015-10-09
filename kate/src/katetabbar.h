@@ -23,8 +23,8 @@
 
 #include <QWidget>
 
-#include <QList>
-#include <QMap>
+#include <QVector>
+#include <QHash>
 #include <QIcon>
 
 class QResizeEvent;
@@ -44,7 +44,7 @@ class KateTabBar : public QWidget
     Q_PROPERTY(bool isActiveViewSpace READ isActiveViewSpace WRITE setActiveViewSpace)
 
 public:
-    KateTabBar(QWidget *parent = 0);
+    explicit KateTabBar(QWidget *parent = 0);
     virtual ~KateTabBar();
 
     /**
@@ -247,8 +247,8 @@ private:
 
     bool m_isActiveViewSpace;
 
-    QList< KateTabButton * > m_tabButtons;
-    QMap< int, KateTabButton * > m_idToTab;
+    QVector<KateTabButton *> m_tabButtons;
+    QHash<int, KateTabButton *> m_idToTab;
 
     KateTabButton *m_activeButton;
 

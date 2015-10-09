@@ -169,7 +169,7 @@ public Q_SLOTS:
      * Show quick open
      */
     void slotQuickOpen();
-    
+
     /**
      * Overwrite size hint for better default window sizes
      * @return size hint
@@ -225,48 +225,52 @@ Q_SIGNALS:
 public:
     void openUrl(const QString &name = QString());
 
-    QHash<KTextEditor::Plugin *, QObject *> &pluginViews() {
+    QHash<KTextEditor::Plugin *, QObject *> &pluginViews()
+    {
         return m_pluginViews;
     }
 
-    inline QWidget *bottomViewBarContainer() {
+    QWidget *bottomViewBarContainer()
+    {
         return m_bottomViewBarContainer;
     }
-    inline void addToBottomViewBarContainer(KTextEditor::View *view, QWidget *bar) {
+
+    void addToBottomViewBarContainer(KTextEditor::View *view, QWidget *bar)
+    {
         m_bottomContainerStack->addWidget(bar);
         m_bottomViewBarMapping[view] = BarState(bar);
     }
-    inline void hideBottomViewBarForView(KTextEditor::View *view) {
-        QWidget *bar;
-        BarState state = m_bottomViewBarMapping.value(view);
-        bar = state.bar();
-        if (bar) {
-            m_bottomContainerStack->setCurrentWidget(bar);
-            bar->hide();
+
+    void hideBottomViewBarForView(KTextEditor::View *view)
+    {
+        BarState &state = m_bottomViewBarMapping[view];
+        if (state.bar()) {
+            m_bottomContainerStack->setCurrentWidget(state.bar());
+            state.bar()->hide();
             state.setState(false);
-            m_bottomViewBarMapping[view] = state;
-        } m_bottomViewBarContainer->hide();
+        }
+        m_bottomViewBarContainer->hide();
     }
-    inline void showBottomViewBarForView(KTextEditor::View *view) {
-        QWidget *bar;
-        BarState state = m_bottomViewBarMapping.value(view);
-        bar = state.bar();
-        if (bar) {
-            m_bottomContainerStack->setCurrentWidget(bar);
-            bar->show();
+
+    void showBottomViewBarForView(KTextEditor::View *view)
+    {
+        BarState &state = m_bottomViewBarMapping[view];
+        if (state.bar()) {
+            m_bottomContainerStack->setCurrentWidget(state.bar());
+            state.bar()->show();
             state.setState(true);
-            m_bottomViewBarMapping[view] = state;
             m_bottomViewBarContainer->show();
         }
     }
-    inline void deleteBottomViewBarForView(KTextEditor::View *view) {
-        QWidget *bar;
+
+    void deleteBottomViewBarForView(KTextEditor::View *view)
+    {
         BarState state = m_bottomViewBarMapping.take(view);
-        bar = state.bar();
-        if (bar) {
-            if (m_bottomContainerStack->currentWidget() == bar) {
+        if (state.bar()) {
+            if (m_bottomContainerStack->currentWidget() == state.bar()) {
                 m_bottomViewBarContainer->hide();
-            } delete bar;
+            }
+            delete state.bar();
         }
     }
 
@@ -507,7 +511,7 @@ private:
     KToggleAction *settingsShowFileselector;
 
     KToggleAction *m_showFullScreenAction;
-    
+
     bool m_modignore;
 
     // all plugin views for this mainwindow, used by the pluginmanager

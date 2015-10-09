@@ -35,6 +35,8 @@
 #include <QTextCodec>
 #include <QApplication>
 
+#include "../../urlinfo.h"
+
 /**
  * singleton instance pointer
  */
@@ -153,31 +155,22 @@ bool KateApp::startupKate()
     KTextEditor::Document *doc = 0;
     const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
 
-    QList<QUrl> urls;
     Q_FOREACH(const QString positionalArgument, m_args.positionalArguments()) {
-        QUrl url;
-
-        // convert to an url
-        QRegExp withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
-        if (withProtocol.indexIn(positionalArgument) == 0) {
-            url = QUrl::fromUserInput(positionalArgument);
-        } else {
-            const QString path = QDir::current().absoluteFilePath(positionalArgument);
-            url = QUrl::fromLocalFile(path);
-        }
+        UrlInfo info(positionalArgument);
 
         // this file is no local dir, open it, else warn
-        bool noDir = !url.isLocalFile() || !QFileInfo(url.toLocalFile()).isDir();
+        bool noDir = !info.url.isLocalFile() || !QFileInfo(info.url.toLocalFile()).isDir();
 
         if (noDir) {
-            urls << url;
+            doc = openDocUrl(info.url, codec_name, tempfileSet);
+            if (info.cursor.isValid()) {
+                setCursor(info.cursor.line(), info.cursor.column());
+            }
         } else {
             KMessageBox::sorry(activeKateMainWindow(),
-                               i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.toString()));
+                               i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
         }
     }
-
-    doc = activeKateMainWindow()->viewManager()->openUrls(urls, codec_name, tempfileSet);
 
     // handle stdin input
     if (m_args.isSet(QStringLiteral("stdin"))) {

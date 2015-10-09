@@ -78,6 +78,17 @@ QString KateAppAdaptor::tokenOpenUrl(QString url, QString encoding, bool isTempF
     }
     return QString::fromLatin1("%1").arg((qptrdiff)doc);
 }
+
+QString KateAppAdaptor::tokenOpenUrlAt(QString url, int line, int column, QString encoding, bool isTempFile)
+{
+    qCDebug(LOG_KATE) << "openURLAt";
+    KTextEditor::Document *doc = m_app->openDocUrl(QUrl(url), encoding, isTempFile);
+    if (!doc) {
+        return QStringLiteral("ERROR");
+    }
+    m_app->setCursor(line, column);
+    return QString::fromLatin1("%1").arg((qptrdiff)doc);
+}
 //--------
 
 bool KateAppAdaptor::setCursor(int line, int column)

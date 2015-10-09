@@ -39,6 +39,8 @@
 #include <QApplication>
 #include <QDir>
 
+#include "../../urlinfo.h"
+
 extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 {
     /**
@@ -298,19 +300,13 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
             // open given files...
             foreach(const QString & url, urls) {
                 QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
-                                QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("tokenOpenUrl"));
+                                QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("tokenOpenUrlAt"));
 
+                UrlInfo info(url);
                 QList<QVariant> dbusargs;
 
                 // convert to an url
-                QRegExp withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
-                if (withProtocol.indexIn(url) == 0) {
-                    dbusargs.append(QUrl::fromUserInput(url).toString());
-                } else {
-                    const QString path = QDir::current().absoluteFilePath(url);
-                    dbusargs.append(QUrl::fromLocalFile(path).toString());
-                }
-
+                dbusargs.append(info.url.toString());
                 dbusargs.append(enc);
                 dbusargs.append(tempfileSet);
                 m.setArguments(dbusargs);

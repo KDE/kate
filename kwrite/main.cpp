@@ -35,6 +35,8 @@
 #include <QFileInfo>
 #include <QDir>
 
+#include "../urlinfo.h"
+
 extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 {
     /**
@@ -213,18 +215,13 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
         } else {
             int docs_opened = 0;
             Q_FOREACH(const QString positionalArgument, parser.positionalArguments()) {
-                QUrl url;
-
-                // convert to an url
-                QRegExp withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
-                if (withProtocol.indexIn(positionalArgument) == 0) {
-                    url = QUrl::fromUserInput(positionalArgument);
-                } else {
-                    url = QUrl::fromLocalFile(positionalArgument);
+                UrlInfo info(positionalArgument);
+                if (nav) {
+                    info.cursor = KTextEditor::Cursor(line, column);
                 }
 
                 // this file is no local dir, open it, else warn
-                bool noDir = !url.isLocalFile() || !QFileInfo(url.toLocalFile()).isDir();
+                bool noDir = !info.url.isLocalFile() || !QFileInfo(info.url.toLocalFile()).isDir();
 
                 if (noDir) {
                     ++docs_opened;
@@ -234,13 +231,13 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
                         t->view()->document()->setEncoding(QString::fromLatin1(codec->name()));
                     }
 
-                    t->loadURL(url);
+                    t->loadURL(info.url);
 
-                    if (nav) {
-                        t->view()->setCursorPosition(KTextEditor::Cursor(line, column));
+                    if (info.cursor.isValid()) {
+                        t->view()->setCursorPosition(info.cursor);
                     }
                 } else {
-                    KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.toString()));
+                    KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
                 }
             }
             if (!docs_opened) {

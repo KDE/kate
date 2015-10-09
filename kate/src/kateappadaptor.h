@@ -67,6 +67,8 @@ public Q_SLOTS:
 
     QString tokenOpenUrl(QString url, QString encoding, bool isTempFile);
 
+    QString tokenOpenUrlAt(QString url, int line, int column, QString encoding, bool isTempFile);
+
     /**
      * set cursor of active view in active main window
      * will clear selection

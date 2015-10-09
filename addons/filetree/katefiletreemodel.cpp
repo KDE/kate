@@ -151,10 +151,15 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 
 //BEGIN ProxyItem
 ProxyItem::ProxyItem(const QString &d, ProxyItemDir *p, ProxyItem::Flags f)
-    : m_path(d), m_parent(p), m_row(-1), m_flags(f), m_doc(0)
+    : m_path(d), m_parent(Q_NULLPTR), m_row(-1), m_flags(f), m_doc(0)
 {
     updateDisplay();
 
+    /**
+     * add to parent, if parent passed
+     * we assigned above nullptr to parent to not trigger
+     * remove from old parent here!
+     */
     if (p) {
         p->addChild(this);
     }
@@ -186,6 +191,11 @@ void ProxyItem::updateDisplay()
 
 int ProxyItem::addChild(ProxyItem *item)
 {
+    // remove from old parent, is any
+    if (item->m_parent) {
+        item->m_parent->remChild(item);
+    }
+
     const int item_row = m_children.count();
     item->m_row = item_row;
     m_children.append(item);

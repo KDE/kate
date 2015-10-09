@@ -386,11 +386,7 @@ int KateApp::mainWindowsCount() const
 
 int KateApp::mainWindowID(KateMainWindow *window)
 {
-    for (int i = 0; i < m_mainWindows.size(); i++)
-        if (window == m_mainWindows[i]) {
-            return i;
-        }
-    return -1;
+    return m_mainWindows.indexOf(window);
 }
 
 KateMainWindow *KateApp::mainWindow(int n)

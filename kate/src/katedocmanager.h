@@ -201,7 +201,6 @@ private Q_SLOTS:
 private:
     bool loadMetaInfos(KTextEditor::Document *doc, const QUrl &url);
     void saveMetaInfos(const QList<KTextEditor::Document *> &docs);
-    bool computeUrlMD5(const QUrl &url, QByteArray &result);
 
     QList<KTextEditor::Document *> m_docList;
     QHash<KTextEditor::Document *, KateDocumentInfo *> m_docInfos;

@@ -37,7 +37,6 @@
 #include <KConfigGroup>
 
 #include <QByteArray>
-#include <QCryptographicHash>
 #include <QDateTime>
 #include <QHash>
 #include <QTextCodec>
@@ -483,14 +482,13 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
         return false;
     }
 
-    QByteArray md5;
+    const QByteArray checksum = doc->checksum();
     bool ok = true;
-
-    if (computeUrlMD5(url, md5)) {
+    if (!checksum.isEmpty()) {
         KConfigGroup urlGroup(m_metaInfos, url.toDisplayString());
-        const QString old_md5 = urlGroup.readEntry("MD5");
+        const QString old_checksum = urlGroup.readEntry("Checksum");
 
-        if (QString::fromLatin1(md5) == old_md5) {
+        if (QString::fromLatin1(checksum) == old_checksum) {
             QSet<QString> flags;
             if (documentInfo(doc)->openedByUser) {
                 flags << QStringLiteral ("SkipEncoding");
@@ -513,46 +511,46 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
 
 void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documents)
 {
+    /**
+     * skip work if no meta infos wanted
+     */
     if (!m_saveMetaInfos) {
         return;
     }
 
-    QByteArray md5;
-    QDateTime now = QDateTime::currentDateTime();
-
+    /**
+     * store meta info for all non-modified documents which have some checksum
+     */
+    const QDateTime now = QDateTime::currentDateTimeUtc();
     foreach(KTextEditor::Document * doc, documents) {
+        /**
+         * skip modified docs
+         */
         if (doc->isModified()) {
             continue;
         }
 
-        if (computeUrlMD5(doc->url(), md5)) {
+        const QByteArray checksum = doc->checksum();
+        if (!checksum.isEmpty()) {
+
+            /**
+             * write the group with checksum and time
+             */
             KConfigGroup urlGroup(m_metaInfos, doc->url().toString());
-            doc->writeSessionConfig(urlGroup);
-
-            urlGroup.writeEntry("MD5", md5.constData());
+            urlGroup.writeEntry("Checksum", checksum.constData());
             urlGroup.writeEntry("Time", now);
+
+            /**
+             * write document session config
+             */
+            doc->writeSessionConfig(urlGroup);
         }
     }
 
+    /**
+     * sync to not loose data
+     */
     m_metaInfos->sync();
-}
-
-bool KateDocManager::computeUrlMD5(const QUrl &url, QByteArray &result)
-{
-    QFile f(url.toLocalFile());
-
-    if (f.exists() && f.open(QIODevice::ReadOnly)) {
-        QCryptographicHash crypto(QCryptographicHash::Md5);
-        while (!f.atEnd()) {
-            crypto.addData(f.read(256 * 1024));
-        }
-        result = crypto.result();
-        f.close();
-    } else {
-        return false;
-    }
-
-    return true;
 }
 
 void KateDocManager::slotModChanged(KTextEditor::Document *doc)

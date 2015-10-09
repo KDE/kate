@@ -19,10 +19,7 @@
 
 #include "kateapp.h"
 
-#include "katedocmanager.h"
-#include "katepluginmanager.h"
 #include "kateviewmanager.h"
-#include "katesessionmanager.h"
 #include "katemainwindow.h"
 
 #include <KConfig>
@@ -38,60 +35,43 @@
 #include <QTextCodec>
 #include <QApplication>
 
-#include "kateappadaptor.h"
-
-KateApp *KateApp::s_self = 0;
+/**
+ * singleton instance pointer
+ */
+static KateApp *appSelf = Q_NULLPTR;
 
 Q_LOGGING_CATEGORY(LOG_KATE, "kate", QtWarningMsg)
 
 KateApp::KateApp(const QCommandLineParser &args)
     : m_args(args)
-    , m_wrapper(new KTextEditor::Application(this))
+    , m_wrapper(appSelf = this)
+    , m_docManager(this)
+    , m_pluginManager(this)
+    , m_sessionManager(this)
+    , m_adaptor(this)
 {
-    s_self = this;
-
-    // doc man
-    m_docManager = new KateDocManager(this);
-
-    // init all normal plugins
-    m_pluginManager = new KatePluginManager(this);
-
-    // session manager up
-    m_sessionManager = new KateSessionManager(this);
-
-    // dbus
-    m_adaptor = new KateAppAdaptor(this);
-
     /**
      * re-route some signals to application wrapper
      */
-    connect(m_docManager, &KateDocManager::documentCreated, m_wrapper, &KTextEditor::Application::documentCreated);
-    connect(m_docManager, &KateDocManager::documentWillBeDeleted, m_wrapper, &KTextEditor::Application::documentWillBeDeleted);
-    connect(m_docManager, &KateDocManager::documentDeleted, m_wrapper, &KTextEditor::Application::documentDeleted);
-    connect(m_docManager, &KateDocManager::aboutToCreateDocuments, m_wrapper, &KTextEditor::Application::aboutToCreateDocuments);
-    connect(m_docManager, &KateDocManager::documentsCreated, m_wrapper, &KTextEditor::Application::documentsCreated);
+    connect(&m_docManager, &KateDocManager::documentCreated, &m_wrapper, &KTextEditor::Application::documentCreated);
+    connect(&m_docManager, &KateDocManager::documentWillBeDeleted, &m_wrapper, &KTextEditor::Application::documentWillBeDeleted);
+    connect(&m_docManager, &KateDocManager::documentDeleted, &m_wrapper, &KTextEditor::Application::documentDeleted);
+    connect(&m_docManager, &KateDocManager::aboutToCreateDocuments, &m_wrapper, &KTextEditor::Application::aboutToCreateDocuments);
+    connect(&m_docManager, &KateDocManager::documentsCreated, &m_wrapper, &KTextEditor::Application::documentsCreated);
 }
 
 KateApp::~KateApp()
 {
-    // unregister...
-    m_adaptor->emitExiting();
+    /**
+     * unregister from dbus before we get unusable...
+     */
+    m_adaptor.emitExiting();
     QDBusConnection::sessionBus().unregisterObject(QStringLiteral("/MainApplication"));
-    delete m_adaptor;
-
-    // cu session manager
-    delete m_sessionManager;
-
-    // cu plugin manager
-    delete m_pluginManager;
-
-    // delete this now, or we crash
-    delete m_docManager;
 }
 
 KateApp *KateApp::self()
 {
-    return s_self;
+    return appSelf;
 }
 
 bool KateApp::init()
@@ -128,7 +108,7 @@ void KateApp::restoreKate()
     KateApp::self()->pluginManager()->loadConfig(sessionConfig);
 
     // restore the files we need
-    m_docManager->restoreDocumentList(sessionConfig);
+    m_docManager.restoreDocumentList(sessionConfig);
 
     // restore all windows ;)
     for (int n = 1; KMainWindow::canBeRestored(n); n++) {
@@ -263,17 +243,17 @@ void KateApp::shutdownKate(KateMainWindow *win)
 
 KatePluginManager *KateApp::pluginManager()
 {
-    return m_pluginManager;
+    return &m_pluginManager;
 }
 
 KateDocManager *KateApp::documentManager()
 {
-    return m_docManager;
+    return &m_docManager;
 }
 
 KateSessionManager *KateApp::sessionManager()
 {
-    return m_sessionManager;
+    return &m_sessionManager;
 }
 
 bool KateApp::openUrl(const QUrl &url, const QString &encoding, bool isTempFile)
@@ -400,11 +380,11 @@ KateMainWindow *KateApp::mainWindow(int n)
 
 void KateApp::emitDocumentClosed(const QString &token)
 {
-    m_adaptor->emitDocumentClosed(token);
+    m_adaptor.emitDocumentClosed(token);
 }
 
 KTextEditor::Plugin *KateApp::plugin(const QString &name)
 {
-    return m_pluginManager->plugin(name);
+    return m_pluginManager.plugin(name);
 }
 

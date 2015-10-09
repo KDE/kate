@@ -23,8 +23,12 @@
 
 #include <ktexteditor/application.h>
 
-#include "katemainwindow.h"
 #include "kateprivate_export.h"
+#include "katemainwindow.h"
+#include "katedocmanager.h"
+#include "katepluginmanager.h"
+#include "katesessionmanager.h"
+#include "kateappadaptor.h"
 
 #include <KConfig>
 #include <QList>
@@ -36,11 +40,6 @@ class KateDocManager;
 class KateAppCommands;
 class KateAppAdaptor;
 class QCommandLineParser;
-
-namespace KTextEditor
-{
-class Document;
-}
 
 /**
  * Kate Application
@@ -81,7 +80,7 @@ public:
      * @return KTextEditor::Application wrapper.
      */
     KTextEditor::Application *wrapper() {
-        return m_wrapper;
+        return &m_wrapper;
     }
 
     /**
@@ -248,7 +247,7 @@ public Q_SLOTS:
      * @return all documents the application manages
      */
     QList<KTextEditor::Document *> documents() {
-        return m_docManager->documentList();
+        return m_docManager.documentList();
     }
 
     /**
@@ -258,7 +257,7 @@ public Q_SLOTS:
      * \return the document with the given \p url or NULL, if none found
      */
     KTextEditor::Document *findUrl(const QUrl &url) {
-        return m_docManager->findDocument(url);
+        return m_docManager.findDocument(url);
     }
 
     /**
@@ -270,7 +269,7 @@ public Q_SLOTS:
      * \return a pointer to the created document
      */
     KTextEditor::Document *openUrl(const QUrl &url, const QString &encoding = QString()) {
-        return m_docManager->openUrl(url, encoding);
+        return m_docManager.openUrl(url, encoding);
     }
 
     /**
@@ -279,7 +278,7 @@ public Q_SLOTS:
      * \return \e true on success, otherwise \e false
      */
     bool closeDocument(KTextEditor::Document *document) {
-        return m_docManager->closeDocument(document);
+        return m_docManager.closeDocument(document);
     }
 
     /**
@@ -290,7 +289,7 @@ public Q_SLOTS:
      * \return \e true on success, otherwise \e false
      */
     bool closeDocuments(const QList<KTextEditor::Document *> &documents) {
-        return m_docManager->closeDocumentList(documents);
+        return m_docManager.closeDocumentList(documents);
     }
 
     /**
@@ -314,44 +313,39 @@ public Q_SLOTS:
 
 private:
     /**
-     * Singleton instance
-     */
-    static KateApp *s_self;
-
-    /**
      * kate's command line args
      */
     const QCommandLineParser &m_args;
 
     /**
+     * Wrapper of application for KTextEditor
+     */
+    KTextEditor::Application m_wrapper;
+
+    /**
      * document manager
      */
-    KateDocManager *m_docManager;
+    KateDocManager m_docManager;
 
     /**
      * plugin manager
      */
-    KatePluginManager *m_pluginManager;
+    KatePluginManager m_pluginManager;
 
     /**
      * session manager
      */
-    KateSessionManager *m_sessionManager;
+    KateSessionManager m_sessionManager;
 
     /**
      * dbus interface
      */
-    KateAppAdaptor *m_adaptor;
+    KateAppAdaptor m_adaptor;
 
     /**
      * known main windows
      */
     QList<KateMainWindow *> m_mainWindows;
-
-    /**
-     * Wrapper of application for KTextEditor
-     */
-    KTextEditor::Application *m_wrapper;
 
 };
 

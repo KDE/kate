@@ -1,13 +1,11 @@
+# KWrite
 project (kwrite)
 
 # Load the frameworks we need
 find_package(KF5 REQUIRED COMPONENTS DBusAddons)
 
-set(kwrite_KDEINIT_SRCS main.cpp kwrite.cpp)
-
-
-
-kf5_add_kdeinit_executable(kwrite ${kwrite_KDEINIT_SRCS})
+# build KWrite application
+kf5_add_kdeinit_executable(kwrite main.cpp kwrite.cpp)
 target_link_libraries(kdeinit_kwrite
   KF5::TextEditor
   KF5::I18n
@@ -17,6 +15,7 @@ target_link_libraries(kdeinit_kwrite
   KF5::Activities
 )
 
+# install all parts of KWrite
 install(TARGETS kwrite         ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kwrite ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(PROGRAMS org.kde.kwrite.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})

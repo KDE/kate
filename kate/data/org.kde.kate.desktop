@@ -119,6 +119,7 @@ Name[wa]=Kate
 Name[x-test]=xxKatexx
 Name[zh_CN]=Kate
 Name[zh_TW]=Kate
+Comment=KDE Advanced Text Editor
 MimeType=text/plain;
 Exec=kate -b %U
 StartupNotify=true

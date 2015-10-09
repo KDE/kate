@@ -112,6 +112,7 @@ Name[vi]=KWrite
 Name[x-test]=xxKWritexx
 Name[zh_CN]=KWrite
 Name[zh_TW]=KWrite
+Comment=KDE Text Editor
 MimeType=text/plain;
 Exec=kwrite %U
 StartupNotify=true

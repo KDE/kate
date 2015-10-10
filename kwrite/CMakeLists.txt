@@ -14,7 +14,6 @@ target_link_libraries(kdeinit_kwrite
 PUBLIC
   KF5::TextEditor
   KF5::I18n
-  KF5::KIOFileWidgets
   KF5::DBusAddons
   KF5::Crash
 )

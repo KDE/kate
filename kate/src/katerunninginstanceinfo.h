@@ -56,7 +56,7 @@ public:
             }
             valid = true;
         }
-    };
+    }
     virtual ~KateRunningInstanceInfo() {
         delete dbus_if;
     }

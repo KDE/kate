@@ -34,7 +34,7 @@ class KateFileTreeConfigPage : public KTextEditor::ConfigPage
     Q_OBJECT
 public:
     explicit KateFileTreeConfigPage(QWidget *parent = 0, KateFileTreePlugin *plug = 0);
-    ~KateFileTreeConfigPage() {};
+    ~KateFileTreeConfigPage() {}
 
     virtual QString name() const;
     virtual QString fullName() const;

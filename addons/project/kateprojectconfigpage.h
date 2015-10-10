@@ -30,7 +30,7 @@ class KateProjectConfigPage : public KTextEditor::ConfigPage
     Q_OBJECT
 public:
     explicit KateProjectConfigPage(QWidget *parent = nullptr, KateProjectPlugin *plugin = nullptr);
-    ~KateProjectConfigPage() {};
+    ~KateProjectConfigPage() {}
 
     virtual QString name() const;
     virtual QString fullName() const;

@@ -52,7 +52,7 @@ class KateKonsolePlugin: public KTextEditor::Plugin
 
     QObject *createView (KTextEditor::MainWindow *mainWindow);
 
-    int configPages() const { return 1; };
+    int configPages() const { return 1; }
     KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
 
     void readConfig();

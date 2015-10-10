@@ -87,7 +87,7 @@ public:
      */
     const QDateTime &timestamp() const {
         return m_timestamp;
-    };
+    }
 
     /**
      * Factories

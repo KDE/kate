@@ -40,7 +40,7 @@ class DummyDocument : public KTextEditor::Document
     }
     DummyDocument (const char *url) : DummyDocument(QString::fromLatin1(url)) {}
 
-    virtual ~DummyDocument () {};
+    virtual ~DummyDocument () {}
     virtual KTextEditor::View *createView ( QWidget *, KTextEditor::MainWindow * = nullptr ) { return 0; }
     virtual KTextEditor::View *activeView() const { return 0; }
     virtual QList<KTextEditor::View*> views() const { return m_views; }

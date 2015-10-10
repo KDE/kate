@@ -39,7 +39,11 @@
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
 
+#include <config.h>
+
+#ifdef KActivities_FOUND
 #include <KActivities/ResourceInstance>
+#endif
 
 #include <QFileDialog>
 #include <QStyle>
@@ -452,8 +456,11 @@ bool KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)
      */
     m_views[view].active = false;
     m_views[view].lruAge = m_minAge--;
+
+#ifdef KActivities_FOUND
     m_views[view].activityResource = new KActivities::ResourceInstance(view->window()->winId(), view);
     m_views[view].activityResource->setUri(doc->url());
+#endif
 
     // disable settings dialog action
     delete view->actionCollection()->action(QStringLiteral("set_confdlg"));
@@ -639,9 +646,9 @@ void KateViewManager::activateView(KTextEditor::View *view)
 
         // remember age of this view
         m_views[view].lruAge = m_minAge--;
-        
+
         emit viewChanged(view);
-        
+
         // inform activity manager
         m_views[view].activityResource->setUri(view->document()->url());
         m_views[view].activityResource->notifyFocusedIn();

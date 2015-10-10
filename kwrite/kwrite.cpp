@@ -42,7 +42,11 @@
 #include <KIO/Job>
 #include <KJobWidgets>
 
+#include <config.h>
+
+#ifdef KActivities_FOUND
 #include <KActivities/ResourceInstance>
+#endif
 
 #include <QTimer>
 #include <QTextCodec>
@@ -193,12 +197,14 @@ void KWrite::setupActions()
 void KWrite::loadURL(const QUrl &url)
 {
     m_view->document()->openUrl(url);
-    
+
+#ifdef KActivities_FOUND
     if (!m_activityResource) {
         m_activityResource = new KActivities::ResourceInstance(winId(), this);
     }
     m_activityResource->setUri(m_view->document()->url());
-    
+#endif
+
     m_closeAction->setEnabled(true);
 }
 

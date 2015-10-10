@@ -11,13 +11,19 @@ qt5_add_resources(KWRITE_APPLICATION_SRCS kwrite.qrc)
 # build KWrite application
 kf5_add_kdeinit_executable(kwrite ${KWRITE_APPLICATION_SRCS})
 target_link_libraries(kdeinit_kwrite
+PUBLIC
   KF5::TextEditor
   KF5::I18n
   KF5::KIOFileWidgets
   KF5::DBusAddons
   KF5::Crash
-  KF5::Activities
 )
+
+if(KF5Activities_FOUND)
+    target_link_libraries(kdeinit_kwrite
+    PUBLIC
+    KF5::Activities)
+endif()
 
 # install all parts of KWrite
 install(TARGETS kwrite         ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

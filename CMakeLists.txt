@@ -41,7 +41,6 @@ endif()
 find_package(KF5 "${KF5_DEP_VERSION}" REQUIRED COMPONENTS
   Config
   Crash
-  DocTools
   I18n
   Init
   JobWidgets
@@ -53,8 +52,10 @@ find_package(KF5 "${KF5_DEP_VERSION}" REQUIRED COMPONENTS
   IconThemes
 )
 
+# some optional deps, to make compiling on some OSes easier
 find_package(KF5 "${KF5_DEP_VERSION}" COMPONENTS
   Activities
+  DocTools
 )
 
 if (KF5Activities_FOUND)
@@ -89,8 +90,10 @@ ecm_optional_add_subdirectory (kate)
 # addons, e.g. kate plugins, plasma applets, ...
 ecm_optional_add_subdirectory (addons)
 
-# docs
-ecm_optional_add_subdirectory (doc)
+# docs, if doc tools around
+if (KF5DocTools_FOUND)
+    ecm_optional_add_subdirectory (doc)
+endif ()
 
 # tell about our features (and what is missing)
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

@@ -307,6 +307,8 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 
                 // convert to an url
                 dbusargs.append(info.url.toString());
+                dbusargs.append(info.cursor.line());
+                dbusargs.append(info.cursor.column());
                 dbusargs.append(enc);
                 dbusargs.append(tempfileSet);
                 m.setArguments(dbusargs);

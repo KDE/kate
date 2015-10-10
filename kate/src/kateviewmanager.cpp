@@ -649,9 +649,11 @@ void KateViewManager::activateView(KTextEditor::View *view)
 
         emit viewChanged(view);
 
+#ifdef KActivities_FOUND
         // inform activity manager
         m_views[view].activityResource->setUri(view->document()->url());
         m_views[view].activityResource->notifyFocusedIn();
+#endif
     }
 }
 

@@ -24,8 +24,10 @@ ecm_optional_add_subdirectory (kate-ctags)
 # backtrace
 ecm_optional_add_subdirectory (backtracebrowser)
 
-# file browser
-ecm_optional_add_subdirectory (filebrowser)
+# file browser, atm guarded until we have a check for KIOWidgets
+if (NOT WIN32)
+    ecm_optional_add_subdirectory (filebrowser)
+endif()
 
 # xml completion
 ecm_optional_add_subdirectory (xmltools)
@@ -33,8 +35,10 @@ ecm_optional_add_subdirectory (xmltools)
 # open header matching to current file
 ecm_optional_add_subdirectory (openheader)
 
-# debugger plugin, needs windows love
-ecm_optional_add_subdirectory (gdbplugin)
+# debugger plugin, needs windows love, guarded until ported to win32
+if (NOT WIN32)
+    ecm_optional_add_subdirectory (gdbplugin)
+endif ()
 
 # list symbols and functions in a file
 ecm_optional_add_subdirectory (symbolviewer)
@@ -43,13 +47,13 @@ ecm_optional_add_subdirectory (symbolviewer)
 ecm_optional_add_subdirectory (replicode)
 
 # pipe text through some external command
-ecm_optional_add_subdirectory( textfilter )
+ecm_optional_add_subdirectory (textfilter)
 
 # Rust complection plugin
-ecm_optional_add_subdirectory(rustcompletion)
+ecm_optional_add_subdirectory (rustcompletion)
 
 # D completion plugin
-ecm_optional_add_subdirectory(lumen)
+ecm_optional_add_subdirectory (lumen)
 
 if(KF5Notifications_FOUND)
     # close document except this one (or similar)
@@ -80,5 +84,5 @@ if(KF5ItemModels_FOUND AND KF5ThreadWeaver_FOUND)
 endif()
 
 if (KF5Plasma_FOUND AND KF5Service_FOUND)
-    ecm_optional_add_subdirectory(sessionapplet)
+    ecm_optional_add_subdirectory (sessionapplet)
 endif()

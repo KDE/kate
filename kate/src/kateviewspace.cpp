@@ -289,7 +289,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
 
     // follow current view
     Q_ASSERT(m_docToTabId.contains(document));
-    m_tabBar->setCurrentTab(m_docToTabId[document]);
+    m_tabBar->setCurrentTab(m_docToTabId.value(document, -1));
 
     return true;
 }
@@ -364,7 +364,7 @@ int KateViewSpace::removeTab(KTextEditor::Document * doc, bool documentDestroyed
     //
     Q_ASSERT(m_docToTabId.contains(doc));
 
-    const int id = m_docToTabId[doc];
+    const int id = m_docToTabId.value(doc, -1);
     const int removeIndex = m_tabBar->removeTab(id);
     m_docToTabId.remove(doc);
 

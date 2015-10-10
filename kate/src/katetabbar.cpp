@@ -115,8 +115,8 @@ void KateTabBar::setCurrentTab(int id)
         m_activeButton->setChecked(false);
     }
 
+    m_activeButton = tabButton;
     if (m_activeButton) {
-        m_activeButton = tabButton;
         m_activeButton->setChecked(true);
     }
 }

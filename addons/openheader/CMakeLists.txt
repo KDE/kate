@@ -8,7 +8,6 @@ add_library(kateopenheaderplugin MODULE ${kateopenheaderplugin_PART_SRCS})
 
 target_link_libraries(kateopenheaderplugin
   KF5::TextEditor
-  KF5::KIOFileWidgets
   KF5::I18n
   KF5::Parts)
 

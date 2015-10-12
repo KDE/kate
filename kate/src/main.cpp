@@ -427,9 +427,9 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     }
 
     /**
-     * finally register this kate instance for dbus
+     * finally register this kate instance for dbus, don't die if no dbus is around!
      */
-    const KDBusService dbusService(KDBusService::Multiple);
+    const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
 
     /**
      * start main event loop for our application

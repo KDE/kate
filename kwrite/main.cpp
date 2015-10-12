@@ -253,9 +253,9 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
     }
 
     /**
-     * finally register this kwrite instance for dbus
+     * finally register this kwrite instance for dbus, don't die if no dbus is around!
      */
-    const KDBusService dbusService(KDBusService::Multiple);
+    const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
 
     /**
      * Run the event loop

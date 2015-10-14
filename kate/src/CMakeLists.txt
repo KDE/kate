@@ -33,7 +33,6 @@ set (KATE_APPLICATION_SRCS
    katerunninginstanceinfo.cpp
    katequickopen.cpp
    katewaiter.h
-   main.cpp
 )
 
 ki18n_wrap_ui(KATE_APPLICATION_SRCS
@@ -42,8 +41,16 @@ ki18n_wrap_ui(KATE_APPLICATION_SRCS
 
 qt5_add_resources( KATE_APPLICATION_SRCS data/kate.qrc )
 
-# create kde init executable
-kf5_add_kdeinit_executable(kate ${KATE_APPLICATION_SRCS})
+add_library(kdeinit_kate STATIC ${KATE_APPLICATION_SRCS})
+generate_export_header(kdeinit_kate
+  EXPORT_FILE_NAME kateprivate_export.h
+  EXPORT_MACRO_NAME KATE_TESTS_EXPORT
+)
+
+# create executable
+add_executable(kate main.cpp)
+target_link_libraries(kate kdeinit_kate)
+
 target_link_libraries(kdeinit_kate
 PUBLIC
     KF5::TextEditor
@@ -60,11 +67,5 @@ if(KF5Activities_FOUND)
     KF5::Activities)
 endif()
 
-generate_export_header(kdeinit_kate
-  EXPORT_FILE_NAME kateprivate_export.h
-  EXPORT_MACRO_NAME KATE_TESTS_EXPORT
-)
-
-# install executable + kdeinit lib
-install(TARGETS kate         ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-install(TARGETS kdeinit_kate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+# install executable
+install(TARGETS kate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

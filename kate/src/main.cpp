@@ -41,7 +41,7 @@
 
 #include "../../urlinfo.h"
 
-extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
+extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 {
     /**
      * Create application first

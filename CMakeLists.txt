@@ -42,7 +42,6 @@ find_package(KF5 "${KF5_DEP_VERSION}" REQUIRED COMPONENTS
   Config
   Crash
   I18n
-  Init
   JobWidgets
   KIO
   Parts

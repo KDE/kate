@@ -41,6 +41,9 @@ if(KF5Activities_FOUND)
     KF5::Activities)
 endif()
 
+# own plist template
+set_target_properties (kwrite PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/data/MacOSXBundleInfo.plist.in)
+
 # install executable
 install(TARGETS kwrite ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 

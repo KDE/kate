@@ -9,20 +9,6 @@ find_package(KF5 REQUIRED COMPONENTS DBusAddons GuiAddons IconThemes)
 # .desktop files and co
 add_subdirectory (data)
 
-# collect icons
-set(KATE_ICONS_PNG
-    ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/icons/22-apps-kate.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/icons/32-apps-kate.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/icons/48-apps-kate.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/icons/64-apps-kate.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/icons/128-apps-kate.png
-)
-
-set(KATE_ICONS_SVG
-${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate.svgz
-)
-
 # includes
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
@@ -30,7 +16,7 @@ include_directories(
 )
 
 # collect the needed source files
-set (KATE_APPLICATION_SRCS
+set (KATE_LIBRARY_SRCS
    kateappadaptor.cpp
    kateapp.cpp
    kateconfigdialog.cpp
@@ -60,25 +46,13 @@ set (KATE_APPLICATION_SRCS
    katewaiter.h
 )
 
-ki18n_wrap_ui(KATE_APPLICATION_SRCS
+ki18n_wrap_ui(KATE_LIBRARY_SRCS
     ui/sessionconfigwidget.ui
 )
 
-qt5_add_resources( KATE_APPLICATION_SRCS data/kate.qrc )
+qt5_add_resources( KATE_LIBRARY_SRCS data/kate.qrc )
 
-
-ecm_add_app_icon(KATE_APPLICATION_SRCS ICONS ${KATE_ICONS_PNG})
-
-add_library(kdeinit_kate STATIC ${KATE_APPLICATION_SRCS})
-generate_export_header(kdeinit_kate
-  EXPORT_FILE_NAME kateprivate_export.h
-  EXPORT_MACRO_NAME KATE_TESTS_EXPORT
-)
-
-# create executable
-add_executable(kate main.cpp)
-target_link_libraries(kate kdeinit_kate)
-
+add_library(kdeinit_kate STATIC ${KATE_LIBRARY_SRCS})
 target_link_libraries(kdeinit_kate
 PUBLIC
     KF5::TextEditor
@@ -94,6 +68,37 @@ if(KF5Activities_FOUND)
     PUBLIC
     KF5::Activities)
 endif()
+
+generate_export_header(kdeinit_kate
+  EXPORT_FILE_NAME kateprivate_export.h
+  EXPORT_MACRO_NAME KATE_TESTS_EXPORT
+)
+
+# collect icons
+set(KATE_ICONS_PNG
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/22-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/32-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/48-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/64-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/128-apps-kate.png
+)
+
+set(KATE_ICONS_SVG
+${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate.svgz
+)
+
+# application only sources
+set (KATE_APP_SRCS
+    main.cpp
+)
+
+# add icons to application sources, to have them bundled
+ecm_add_app_icon(KATE_APP_SRCS ICONS ${KATE_ICONS_PNG})
+
+# create executable
+add_executable(kate ${KATE_APP_SRCS})
+target_link_libraries(kate kdeinit_kate)
 
 # install executable
 install(TARGETS kate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

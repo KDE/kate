@@ -6,9 +6,6 @@ project(kate)
 # Load the frameworks we need
 find_package(KF5 REQUIRED COMPONENTS DBusAddons GuiAddons IconThemes)
 
-# .desktop files and co
-add_subdirectory (data)
-
 # includes
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
@@ -103,12 +100,17 @@ target_link_libraries(kate kdeinit_kate)
 # install executable
 install(TARGETS kate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
+# desktop file
+install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR})
+
+# appdata
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.appdata.xml DESTINATION  ${CMAKE_INSTALL_METAINFODIR})
+
+# default config
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/katerc  DESTINATION  ${CONFIG_INSTALL_DIR})
+
 # install icons
-ecm_install_icons(ICONS
-    ${KATE_ICONS_PNG} ${KATE_ICONS_SVG}
-    DESTINATION ${ICON_INSTALL_DIR}
-    THEME hicolor
-)
+ecm_install_icons(ICONS ${KATE_ICONS_PNG} ${KATE_ICONS_SVG} DESTINATION ${ICON_INSTALL_DIR} THEME hicolor)
 
 # automatic unit tests
 ecm_optional_add_subdirectory (autotests)

@@ -97,6 +97,9 @@ ecm_add_app_icon(KATE_APP_SRCS ICONS ${KATE_ICONS_PNG})
 add_executable(kate ${KATE_APP_SRCS})
 target_link_libraries(kate kdeinit_kate)
 
+# own plist template
+set_target_properties (kate PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/data/MacOSXBundleInfo.plist.in)
+
 # install executable
 install(TARGETS kate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 

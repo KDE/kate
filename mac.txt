@@ -1,0 +1,122 @@
+# Build it on Mac howto in script form
+# but be aware, some frameworks need patching to have this working
+
+# errors fatal
+set -e
+
+# steps to build kate on make
+
+# install Qt 5.5.0
+# install CMake 3.3.2
+
+# set path to Qt 5.5.0 stuff
+export PATH=~/Qt5.5.0/5.5/clang_64/bin:/Applications/CMake.app/Contents/bin:$PATH
+
+# remember some dirs
+export PREFIX=`pwd`/usr
+export BUILD=`pwd`/build
+export SRC=`pwd`/src
+
+# install gettext
+mkdir -p src
+cd src
+curl http://ftp.gnu.org/pub/gnu/gettext/gettext-latest.tar.gz > gettext-latest.tar.gz
+tar -xvzf gettext-latest.tar.gz
+cd gettext-0.*
+./configure --prefix=$PREFIX
+make install
+cd ..
+cd ..
+
+# build helper
+function build_framework
+{ (
+    # errors fatal
+    set -e
+
+    # framework
+    FRAMEWORK=$1
+
+    # create build dir
+    mkdir -p $BUILD/$FRAMEWORK
+
+    # go there
+    cd $BUILD/$FRAMEWORK
+
+    # cmake it
+    cmake $SRC/$FRAMEWORK -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX
+
+    # make
+    make -j2
+
+    # install
+    make install
+) }
+
+# get stuff
+cd src
+
+git clone kde:extra-cmake-modules
+git clone kde:kconfig
+git clone kde:kguiaddons
+git clone kde:ki18n
+git clone kde:kitemviews
+git clone kde:sonnet
+git clone kde:kwindowsystem
+git clone kde:kwidgetsaddons
+git clone kde:kcompletion
+git clone kde:kdbusaddons
+git clone kde:karchive
+git clone kde:kcoreaddons # patch pending...
+git clone kde:kjobwidgets
+git clone kde:kcrash
+git clone kde:kservice
+git clone kde:kcodecs
+git clone kde:kauth
+git clone kde:kconfigwidgets
+git clone kde:kiconthemes
+git clone kde:ktextwidgets
+git clone kde:knotifications
+git clone kde:kglobalaccel
+git clone kde:kxmlgui
+git clone kde:kbookmarks
+git clone kde:solid
+git clone kde:kio
+git clone kde:kparts
+git clone kde:ktexteditor
+git clone kde:kate
+
+
+cd ..
+
+# build stuff
+
+build_framework extra-cmake-modules
+build_framework kconfig
+build_framework kguiaddons
+build_framework ki18n
+build_framework kitemviews
+build_framework sonnet
+build_framework kwindowsystem
+build_framework kwidgetsaddons
+build_framework kcompletion
+build_framework kdbusaddons
+build_framework karchive
+build_framework kcoreaddons
+build_framework kjobwidgets
+build_framework kcrash
+build_framework kservice
+build_framework kcodecs
+build_framework kauth
+build_framework kconfigwidgets
+build_framework kiconthemes
+build_framework ktextwidgets
+build_framework knotifications
+build_framework kglobalaccel
+build_framework kxmlgui
+build_framework kbookmarks
+build_framework solid
+build_framework kio
+build_framework kparts
+build_framework ktexteditor
+build_framework kate

@@ -10,14 +10,17 @@ find_package(KF5 REQUIRED COMPONENTS DBusAddons GuiAddons IconThemes)
 add_subdirectory (data)
 
 # collect icons
-set(KATE_ICONS
-    icons/sc-apps-kate.svgz
-    icons/16-apps-kate.png
-    icons/22-apps-kate.png
-    icons/32-apps-kate.png
-    icons/48-apps-kate.png
-    icons/64-apps-kate.png
-    icons/128-apps-kate.png
+set(KATE_ICONS_PNG
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/22-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/32-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/48-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/64-apps-kate.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/128-apps-kate.png
+)
+
+set(KATE_ICONS_SVG
+${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate.svgz
 )
 
 # includes
@@ -64,7 +67,7 @@ ki18n_wrap_ui(KATE_APPLICATION_SRCS
 qt5_add_resources( KATE_APPLICATION_SRCS data/kate.qrc )
 
 
-ecm_add_app_icon(KATE_APPLICATION_SRCS ICONS ${KATE_ICONS})
+ecm_add_app_icon(KATE_APPLICATION_SRCS ICONS ${KATE_ICONS_PNG})
 
 add_library(kdeinit_kate STATIC ${KATE_APPLICATION_SRCS})
 generate_export_header(kdeinit_kate
@@ -97,7 +100,7 @@ install(TARGETS kate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 # install icons
 ecm_install_icons(ICONS
-    ${KATE_ICONS}
+    ${KATE_ICONS_PNG} ${KATE_ICONS_SVG}
     DESTINATION ${ICON_INSTALL_DIR}
     THEME hicolor
 )

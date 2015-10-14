@@ -20,6 +20,7 @@ include(ECMInstallIcons)
 include(ECMSetupVersion)
 include(ECMMarkNonGuiExecutable)
 include(ECMGenerateHeaders)
+include(ECMAddAppIcon) 
 include(GenerateExportHeader)
 
 include(CMakePackageConfigHelpers)

@@ -20,7 +20,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kwrite.svgz
 
 # collect the sources
 set (KWRITE_APPLICATION_SRCS main.cpp kwrite.cpp)
-qt5_add_resources(KWRITE_APPLICATION_SRCS kwrite.qrc)
+qt5_add_resources(KWRITE_APPLICATION_SRCS data/kwrite.qrc)
 
 # add icons to application sources, to have them bundled
 ecm_add_app_icon(KWRITE_APPLICATION_SRCS ICONS ${KWRITE_ICONS_PNG})
@@ -41,14 +41,14 @@ if(KF5Activities_FOUND)
     KF5::Activities)
 endif()
 
-# install all parts of KWrite
-install(TARGETS kwrite         ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-install(PROGRAMS org.kde.kwrite.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES org.kde.kwrite.appdata.xml DESTINATION ${CMAKE_INSTALL_METAINFODIR} )
+# install executable
+install(TARGETS kwrite ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+
+# desktop file
+install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR})
+
+# appdata
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.appdata.xml DESTINATION  ${CMAKE_INSTALL_METAINFODIR})
 
 # install icons
-ecm_install_icons(ICONS
-    ${KWRITE_ICONS_PNG} ${KWRITE_ICONS_SVG}
-    DESTINATION ${ICON_INSTALL_DIR}
-    THEME hicolor
-)
+ecm_install_icons(ICONS ${KWRITE_ICONS_PNG} ${KWRITE_ICONS_SVG} DESTINATION ${ICON_INSTALL_DIR} THEME hicolor)

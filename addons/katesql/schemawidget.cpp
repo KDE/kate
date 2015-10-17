@@ -135,7 +135,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
   {
     QTreeWidgetItem *item = new QTreeWidgetItem(systemTablesItem, SystemTableType);
     item->setText(0, table);
-    item->setIcon(0, QIcon::fromTheme(QLatin1String("sql-table")));
+    item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));
     item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   }
 
@@ -145,7 +145,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
   {
     QTreeWidgetItem *item = new QTreeWidgetItem(tablesItem, TableType);
     item->setText(0, table);
-    item->setIcon(0, QIcon::fromTheme(QLatin1String("sql-table")));
+    item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));
     item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   }
 
@@ -166,7 +166,7 @@ void SchemaWidget::buildViews(QTreeWidgetItem * viewsItem)
   {
     QTreeWidgetItem *item = new QTreeWidgetItem(viewsItem, ViewType);
     item->setText(0, view);
-    item->setIcon(0, QIcon::fromTheme(QLatin1String("sql-view")));
+    item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-view.png")));
     item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   }
 
@@ -196,9 +196,9 @@ void SchemaWidget::buildFields(QTreeWidgetItem * tableItem)
     item->setText(0, fieldName);
 
     if (pk.contains(fieldName))
-      item->setIcon(0, QIcon::fromTheme(QLatin1String("sql-field-pk")));
+      item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-field-pk.png")));
     else
-      item->setIcon(0, QIcon::fromTheme(QLatin1String("sql-field")));
+      item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-field.png")));
   }
 }
 

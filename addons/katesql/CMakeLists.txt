@@ -22,10 +22,12 @@ set(katesql_SRCS
   outputwidget.cpp
 )
 
+# resource for ui file and stuff
+qt5_add_resources(katesql_SRCS plugin.qrc)
+
 add_library (katesqlplugin MODULE ${katesql_SRCS})
 
-add_subdirectory(pics)
-
+kcoreaddons_desktop_to_json (katesqlplugin katesql.desktop)
 
 target_link_libraries(katesqlplugin
     KF5::TextEditor
@@ -33,9 +35,3 @@ target_link_libraries(katesqlplugin
     Qt5::Script Qt5::Sql KF5::ItemViews KF5::IconThemes)
 
 install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
-
-########### install files ###############
-
-install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/katesql )
-
-kcoreaddons_desktop_to_json (katesqlplugin katesql.desktop)

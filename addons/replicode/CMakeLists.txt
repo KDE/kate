@@ -12,9 +12,14 @@ set(katereplicode_SRCS
 )
 
 # Generate files
-ki18n_wrap_ui(ui_SRCS config.ui)
-#qt5_wrap_ui(ui_SRCS config.ui)
-add_library(katereplicodeplugin MODULE ${katereplicode_SRCS} ${ui_SRCS})
+ki18n_wrap_ui(katereplicode_SRCS config.ui)
+
+# resource for ui file and stuff
+qt5_add_resources(katereplicode_SRCS plugin.qrc)
+
+add_library(katereplicodeplugin MODULE ${katereplicode_SRCS})
+
+kcoreaddons_desktop_to_json(katereplicodeplugin katereplicodeplugin.desktop)
 
 # Link it all together
 target_link_libraries(katereplicodeplugin
@@ -23,9 +28,5 @@ target_link_libraries(katereplicodeplugin
     KF5::I18n
 )
 
-kcoreaddons_desktop_to_json(katereplicodeplugin katereplicodeplugin.desktop)
-
 # Install
 install(TARGETS katereplicodeplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katereplicodeplugin)
-

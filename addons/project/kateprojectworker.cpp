@@ -323,23 +323,19 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     QStringList files;
     git_repository *repo = nullptr;
     git_object *root_tree = nullptr, *tree = nullptr;
-    const char *working_dir;
-    QDir workdir;
-    QString relpath;
 
-    if (git_repository_open_ext(&repo, dir.path().toUtf8().data(), 0, NULL)) {
+    const QByteArray repoPathUtf8 = dir.path().toUtf8();
+    if (git_repository_open_ext(&repo, repoPathUtf8.constData(), 0, NULL)) {
         git_libgit2_shutdown();
         return files;
     }
 
+    const char *working_dir = nullptr;
     if ((working_dir = git_repository_workdir(repo)) == nullptr) {
         git_repository_free(repo);
         git_libgit2_shutdown();
         return files;
     }
-
-    workdir.setPath(QString::fromUtf8(working_dir));
-    relpath = workdir.relativeFilePath(dir.path());
 
     if (git_revparse_single(&root_tree, repo, "HEAD^{tree}")) {
         git_repository_free(repo);
@@ -347,10 +343,14 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
         return files;
     }
 
-    if (relpath.isEmpty()) { // git_object_lookup_bypath is not able to resolv "." as path
+    QDir workdir;
+    workdir.setPath(QString::fromUtf8(working_dir));
+    const QByteArray relpathUtf8 = workdir.relativeFilePath(dir.path()).toUtf8();
+
+    if (relpathUtf8.isEmpty()) { // git_object_lookup_bypath is not able to resolv "." as path
         tree = root_tree;
     } else {
-        if (git_object_lookup_bypath(&tree, root_tree, relpath.toUtf8().data(), GIT_OBJ_TREE)) {
+        if (git_object_lookup_bypath(&tree, root_tree, relpathUtf8.constData(), GIT_OBJ_TREE)) {
             git_object_free(root_tree);
             git_repository_free(repo);
             git_libgit2_shutdown();
@@ -362,7 +362,7 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 
     files.append(gitSearchTree(tree, path, recursive));
 
-    if (recursive && relpath.isEmpty()) {
+    if (recursive && relpathUtf8.isEmpty()) {
         files.append(gitSearchSubmodules(repo, path));
     }
 

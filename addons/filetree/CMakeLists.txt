@@ -16,16 +16,15 @@ PUBLIC
   KF5::IconThemes
 )
 
+# resource for ui file and stuff
+qt5_add_resources(katefiletreeplugin_PART_SRCS plugin.qrc)
+
 add_library (katefiletreeplugin MODULE  ${katefiletreeplugin_PART_SRCS})
 target_link_libraries(katefiletreeplugin katefiletree)
 
 install(TARGETS katefiletreeplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
 kcoreaddons_desktop_to_json (katefiletreeplugin katefiletreeplugin.desktop)
-
-########### install files ###############
-
-install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/katefiletree )
 
 ############# unit tests ################
 ecm_optional_add_subdirectory (autotests)

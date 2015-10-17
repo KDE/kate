@@ -12,12 +12,12 @@ set(kategdbplugin_PART_SRCS
 
 ki18n_wrap_ui(kategdbplugin_PART_SRCS advanced_settings.ui)
 
+# resource for ui file and stuff
+qt5_add_resources(kategdbplugin_PART_SRCS plugin.qrc)
+
 add_library(kategdbplugin MODULE ${kategdbplugin_PART_SRCS})
+kcoreaddons_desktop_to_json (kategdbplugin kategdbplugin.desktop)
 
 target_link_libraries(kategdbplugin KF5::TextEditor KF5::I18n KF5::IconThemes)
 
-########### install files ###############
-install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kategdb)
 install(TARGETS kategdbplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-ecm_install_icons(ICONS 22-actions-debug-kategdb.png DESTINATION ${ICON_INSTALL_DIR} THEME hicolor)
-kcoreaddons_desktop_to_json (kategdbplugin kategdbplugin.desktop)

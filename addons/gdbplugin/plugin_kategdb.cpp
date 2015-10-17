@@ -84,12 +84,12 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 
     m_toolView = m_mainWin->createToolView(plugin, i18n("Debug View"),
                                            KTextEditor::MainWindow::Bottom,
-                                           QIcon::fromTheme(QStringLiteral("debug-kategdb")),
+                                           QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
                                            i18n("Debug View"));
 
     m_localsStackToolView = m_mainWin->createToolView(plugin, i18n("Locals and Stack"),
                                                       KTextEditor::MainWindow::Right,
-                                                      QIcon::fromTheme(QStringLiteral("debug-kategdb")),
+                                                      QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
                                                       i18n("Locals and Stack"));
 
     m_tabWidget = new QTabWidget(m_toolView);
@@ -216,7 +216,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 
     QAction* a = actionCollection()->addAction(QStringLiteral("debug"));
     a->setText(i18n("Start Debugging"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("debug-kategdb")));
+    a->setIcon(QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")));
     connect(   a,      SIGNAL(triggered(bool)),
                 this,   SLOT(slotDebug()));
 
@@ -575,7 +575,7 @@ void KatePluginGDBView::insertStackFrame(QString const& level, QString const& in
         m_stackTree->resizeColumnToContents(2);
         return;
     }
-    
+
     if (level == QLatin1String("0"))
     {
         m_stackTree->clear();
@@ -586,7 +586,7 @@ void KatePluginGDBView::insertStackFrame(QString const& level, QString const& in
     int lastSpace = info.lastIndexOf(QLatin1String(" "));
     QString shortInfo = info.mid(lastSpace);
     columns << shortInfo;
-    
+
     QTreeWidgetItem *item = new QTreeWidgetItem(columns);
     item->setToolTip(2, QStringLiteral("<qt>%1<qt>").arg(info));
     m_stackTree->insertTopLevelItem(level.toInt(), item);
@@ -601,7 +601,7 @@ void KatePluginGDBView::stackFrameChanged(int level)
 {
     QTreeWidgetItem *current = m_stackTree->topLevelItem(m_lastExecFrame);
     QTreeWidgetItem *next = m_stackTree->topLevelItem(level);
-    
+
     if (current) current->setIcon (0, QIcon());
     if (next)    next->setIcon(0, QIcon::fromTheme(QStringLiteral("arrow-right")));
     m_lastExecFrame = level;

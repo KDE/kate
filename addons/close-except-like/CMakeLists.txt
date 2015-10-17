@@ -22,6 +22,9 @@ qt5_add_resources(KATE_CLOSE_EXCEPT_PLUGIN_SOURCES plugin.qrc)
 
 add_library(katecloseexceptplugin MODULE ${KATE_CLOSE_EXCEPT_PLUGIN_SOURCES})
 
+# we compile in the .desktop file
+kcoreaddons_desktop_to_json(katecloseexceptplugin katecloseexceptplugin.desktop)
+
 target_link_libraries(katecloseexceptplugin
    KF5::TextEditor
    KF5::Parts
@@ -33,5 +36,3 @@ target_link_libraries(katecloseexceptplugin
 configure_file(config.h.in config.h)
 
 install(TARGETS katecloseexceptplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-
-kcoreaddons_desktop_to_json(katecloseexceptplugin katecloseexceptplugin.desktop)

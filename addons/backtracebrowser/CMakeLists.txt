@@ -16,6 +16,10 @@ set(katebacktracebrowserplugin_PART_UI
 )
 ki18n_wrap_ui(katebacktracebrowserplugin_PART_SRCS ${katebacktracebrowserplugin_PART_UI} )
 add_library(katebacktracebrowserplugin MODULE ${katebacktracebrowserplugin_PART_SRCS})
+
+# we compile in the .desktop file
+kcoreaddons_desktop_to_json (katebacktracebrowserplugin katebacktracebrowserplugin.desktop)
+
 target_link_libraries(katebacktracebrowserplugin
     KF5::TextEditor
     KF5::I18n
@@ -23,7 +27,6 @@ target_link_libraries(katebacktracebrowserplugin
 
 ########### install files ###############
 install( TARGETS katebacktracebrowserplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
-kcoreaddons_desktop_to_json (katebacktracebrowserplugin katebacktracebrowserplugin.desktop)
 
 ############# unit tests ################
 ecm_optional_add_subdirectory (autotests)

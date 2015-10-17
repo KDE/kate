@@ -2,16 +2,14 @@ project(kateprojectplugin)
 
 find_package(KF5NewStuff ${KF5_DEP_VERSION} REQUIRED) # For KMoreTools
 
-# libgit2 integration
+# libgit2 integration, at least 0.22 with proper git_libgit2_init()
 find_package(LibGit2 "0.22.0")
 
 # set right defines for libgit2 usage
 if(LIBGIT2_FOUND)
-    check_function_exists(git_threads_init HAVE_GIT2_THREADS)
-    check_function_exists(git_libgit2_init HAVE_GIT2_INIT)
+    add_definitions(-DLIBGIT2_FOUND)
     set (PROJECT_OPTIONAL_LIBS LibGit2::LibGit2)
 endif()
-configure_file(libgit2_config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/libgit2_config.h)
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 

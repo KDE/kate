@@ -45,12 +45,6 @@
 #include <unistd.h>
 #endif
 
-#include <libgit2_config.h>
-
-#ifdef LIBGIT2_FOUND
-#include <git2.h>
-#endif
-
 namespace
 {
 const QString ProjectFileName = QStringLiteral(".kateproject");
@@ -73,16 +67,6 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     , m_autoMercurial(true)
     , m_weaver(new ThreadWeaver::Queue(this))
 {
-#ifdef LIBGIT2_FOUND
-    // init libgit2 if used
-#ifdef HAVE_GIT2_THREADS
-    git_threads_init();
-#endif
-#ifdef HAVE_GIT2_INIT
-    git_libgit2_init();
-#endif
-#endif
-
     qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
     qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");
     qRegisterMetaType<KateProjectSharedProjectIndex>("KateProjectSharedProjectIndex");
@@ -122,16 +106,6 @@ KateProjectPlugin::~KateProjectPlugin()
 
     m_weaver->shutDown();
     delete m_weaver;
-
-#ifdef HAVE_GIT2
-    // shutdown libgit2 if used
-#ifdef HAVE_GIT2_THREADS
-    git_threads_shutdown();
-#endif
-#ifdef HAVE_GIT2_INI
-    git_libgit2_shutdown();
-#endif
-#endif
 }
 
 QObject *KateProjectPlugin::createView(KTextEditor::MainWindow *mainWindow)

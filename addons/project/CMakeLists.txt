@@ -34,8 +34,11 @@ set(kateprojectplugin_PART_SRCS
   kateprojectconfigpage.cpp
 )
 
-add_library(kateprojectplugin MODULE ${kateprojectplugin_PART_SRCS})
+# resource for ui file and stuff
+qt5_add_resources(kateprojectplugin_PART_SRCS plugin.qrc)
 
+add_library(kateprojectplugin MODULE ${kateprojectplugin_PART_SRCS})
+kcoreaddons_desktop_to_json (kateprojectplugin kateprojectplugin.desktop)
 target_link_libraries(kateprojectplugin
     KF5::TextEditor
     KF5::Parts KF5::I18n
@@ -47,11 +50,7 @@ target_link_libraries(kateprojectplugin
 
 ########### install files ###############
 install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
-
-install( FILES ui.rc DESTINATION  ${KXMLGUI_INSTALL_DIR}/kateproject )
 install( FILES kateproject.example DESTINATION  ${DATA_INSTALL_DIR}/kateproject )
-
-kcoreaddons_desktop_to_json (kateprojectplugin kateprojectplugin.desktop)
 
 ############# unit tests ################
 ecm_optional_add_subdirectory (autotests)

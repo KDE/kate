@@ -11,11 +11,12 @@ set(katebuild_SRCS
 
 ki18n_wrap_ui(katebuild_SRCS build.ui SelectTargetUi.ui)
 
-add_library(katebuildplugin MODULE ${katebuild_SRCS})
+# resource for ui file and stuff
+qt5_add_resources(katebuild_SRCS plugin.qrc)
 
+add_library(katebuildplugin MODULE ${katebuild_SRCS})
+kcoreaddons_desktop_to_json (katebuildplugin katebuildplugin.desktop)
 target_link_libraries(katebuildplugin KF5::TextEditor KF5::I18n KF5::IconThemes KF5::Notifications)
 
-########### install files ###############
-install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katebuild)
 install(TARGETS katebuildplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-kcoreaddons_desktop_to_json (katebuildplugin katebuildplugin.desktop)
+

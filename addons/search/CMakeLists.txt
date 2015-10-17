@@ -11,16 +11,14 @@ set(katesearchplugin_PART_SRCS
 
 ki18n_wrap_ui (katesearchplugin_PART_SRCS search.ui results.ui)
 
-add_library(katesearchplugin MODULE ${katesearchplugin_PART_SRCS})
+# resource for ui file and stuff
+qt5_add_resources(katesearchplugin_PART_SRCS plugin.qrc)
 
+add_library(katesearchplugin MODULE ${katesearchplugin_PART_SRCS})
+kcoreaddons_desktop_to_json (katesearchplugin katesearch.desktop)
 target_link_libraries(katesearchplugin
     KF5::TextEditor
     KF5::Parts KF5::I18n KF5::IconThemes
     Qt5::Script KF5::ItemViews)
 
-########### install files ###############
 install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katesearch)
-
-
-kcoreaddons_desktop_to_json (katesearchplugin katesearch.desktop)

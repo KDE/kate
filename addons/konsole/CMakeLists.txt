@@ -5,7 +5,12 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(katekonsoleplugin_PART_SRCS kateconsole.cpp )
 
+# resource for ui file and stuff
+qt5_add_resources(katekonsoleplugin_PART_SRCS plugin.qrc)
+
 add_library (katekonsoleplugin MODULE ${katekonsoleplugin_PART_SRCS})
+
+kcoreaddons_desktop_to_json (katekonsoleplugin katekonsoleplugin.desktop)
 
 target_link_libraries(katekonsoleplugin
     KF5::TextEditor
@@ -16,10 +21,3 @@ target_link_libraries(katekonsoleplugin
 )
 
 install(TARGETS katekonsoleplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
-
-########### install files ###############
-
-install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/katekonsole )
-
-kcoreaddons_desktop_to_json (katekonsoleplugin katekonsoleplugin.desktop)
-

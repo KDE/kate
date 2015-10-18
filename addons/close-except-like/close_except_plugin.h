@@ -34,6 +34,7 @@
 # include <KActionMenu>
 # include <KTextEditor/Document>
 # include <KTextEditor/View>
+# include <KTextEditor/Message>
 # include <KToggleAction>
 # include <KConfigGroup>
 # include <QtCore/QSignalMapper>
@@ -75,6 +76,7 @@ private Q_SLOTS:
     }
 
 private:
+    void displayMessage(const QString&, const QString&, KTextEditor::Message::MessageType);
     void connectToDocument(KTextEditor::Document*);
     void updateMenu();
     QPointer<QSignalMapper> updateMenu(
@@ -105,6 +107,7 @@ private:
     actions_map_type m_except_actions;
     actions_map_type m_like_actions;
     KTextEditor::MainWindow *m_mainWindow;
+    QPointer<KTextEditor::Message> m_infoMessage;
 };
 
 /**

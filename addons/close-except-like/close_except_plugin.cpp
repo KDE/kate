@@ -34,7 +34,6 @@
 #include <KTextEditor/Editor>
 #include <KAboutData>
 #include <KActionCollection>
-#include <KPassivePopup>
 #include <KPluginFactory>
 #include <KPluginLoader>
 #include <QtCore/QFileInfo>
@@ -335,10 +334,10 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
     }
     if (docs2close.isEmpty())
     {
-        KPassivePopup::message(
+        displayMessage(
             i18nc("@title:window", "Error")
           , i18nc("@info:tooltip", "No files to close ...")
-          , qobject_cast<QWidget*>(this)
+          , KTextEditor::Message::Error
           );
         return;
     }
@@ -349,10 +348,10 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
     {
         if (docs2close.isEmpty())
         {
-            KPassivePopup::message(
+            displayMessage(
                 i18nc("@title:window", "Error")
               , i18nc("@info:tooltip", "No files to close ...")
-              , qobject_cast<QWidget*>(this)
+              , KTextEditor::Message::Error
               );
         }
         else
@@ -360,14 +359,30 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
             // Close 'em all!
             KTextEditor::Editor::instance()->application()->closeDocuments(docs2close);
             updateMenu();
-            KPassivePopup::message(
+            displayMessage(
                 i18nc("@title:window", "Done")
               , i18np("%1 file closed", "%1 files closed", docs2close.size())
-              , qobject_cast<QWidget*>(this)
+              , KTextEditor::Message::Positive
               );
         }
     }
 }
+
+void CloseExceptPluginView::displayMessage(const QString &title, const QString &msg, KTextEditor::Message::MessageType level)
+{
+    KTextEditor::View *kv = m_mainWindow->activeView();
+    if (!kv) return;
+
+    delete m_infoMessage;
+    m_infoMessage = new KTextEditor::Message(xi18nc("@info", "<title>%1</title><nl/>%2", title, msg), level);
+    m_infoMessage->setWordWrap(true);
+    m_infoMessage->setPosition(KTextEditor::Message::TopInView);
+    m_infoMessage->setAutoHide(5000);
+    m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+    m_infoMessage->setView(kv);
+    kv->document()->postMessage(m_infoMessage);
+}
+
 //END CloseExceptPluginView
 }                                                           // namespace kate
 

@@ -30,7 +30,6 @@ target_link_libraries(katecloseexceptplugin
    KF5::Parts
    KF5::I18n
    KF5::IconThemes
-   KF5::Notifications
   )
 
 configure_file(config.h.in config.h)

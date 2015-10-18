@@ -1,11 +1,10 @@
 # detect additional frameworks
-find_package(KF5 "${KF5_DEP_VERSION}" OPTIONAL_COMPONENTS Wallet Plasma Service ItemModels Notifications ThreadWeaver NewStuff IconThemes GuiAddons)
+find_package(KF5 "${KF5_DEP_VERSION}" OPTIONAL_COMPONENTS Wallet Plasma Service ItemModels ThreadWeaver NewStuff IconThemes GuiAddons)
 
 set_package_properties(KF5Wallet PROPERTIES PURPOSE "Required to build the katesql addon")
 set_package_properties(KF5Plasma PROPERTIES PURPOSE "Required to build the sessionapplet addon")
 set_package_properties(KF5Service PROPERTIES PURPOSE "Required to build the sessionapplet addon")
 set_package_properties(KF5ItemModels PROPERTIES PURPOSE "Required to build the project, konsole addon")
-set_package_properties(KF5Notifications PROPERTIES PURPOSE "Required to build the katebuild, close-except-like addons")
 set_package_properties(KF5ThreadWeaver PROPERTIES PURPOSE "Required to build the project addon")
 set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the snippets addon")
 
@@ -58,10 +57,8 @@ ecm_optional_add_subdirectory (lumen)
 # build plugin
 ecm_optional_add_subdirectory (katebuild-plugin)
 
-if(KF5Notifications_FOUND)
-    # close document except this one (or similar)
-    ecm_optional_add_subdirectory (close-except-like)
-endif()
+# close document except this one (or similar)
+ecm_optional_add_subdirectory (close-except-like)
 
 if(KF5Wallet_FOUND)
     # kate sql

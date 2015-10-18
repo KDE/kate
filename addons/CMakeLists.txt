@@ -55,12 +55,12 @@ ecm_optional_add_subdirectory (rustcompletion)
 # D completion plugin
 ecm_optional_add_subdirectory (lumen)
 
+# build plugin
+ecm_optional_add_subdirectory (katebuild-plugin)
+
 if(KF5Notifications_FOUND)
     # close document except this one (or similar)
     ecm_optional_add_subdirectory (close-except-like)
-
-    # build plugin
-    ecm_optional_add_subdirectory (katebuild-plugin)
 endif()
 
 if(KF5Wallet_FOUND)

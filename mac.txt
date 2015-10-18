@@ -20,12 +20,12 @@ export SRC=`pwd`/src
 # install gettext
 mkdir -p src
 cd src
-curl http://ftp.gnu.org/pub/gnu/gettext/gettext-latest.tar.gz > gettext-latest.tar.gz
-tar -xvzf gettext-latest.tar.gz
-cd gettext-0.*
+curl http://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.6.tar.gz > gettext-0.19.6.tar.gz
+tar -xvzf gettext-0.19.6.tar.gz
+pushd gettext-0.19.6/gettext-runtime
 ./configure --prefix=$PREFIX
 make install
-cd ..
+popd
 cd ..
 
 # build helper

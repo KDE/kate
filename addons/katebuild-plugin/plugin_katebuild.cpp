@@ -47,8 +47,6 @@
 
 #include <kmessagebox.h>
 
-#include <knotification.h>
-
 #include <klocalizedstring.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>

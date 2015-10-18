@@ -22,7 +22,7 @@ mkdir -p src
 cd src
 curl http://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.6.tar.gz > gettext-0.19.6.tar.gz
 tar -xvzf gettext-0.19.6.tar.gz
-pushd gettext-0.19.6/gettext-runtime
+pushd gettext-0.19.6
 ./configure --prefix=$PREFIX
 make install
 popd

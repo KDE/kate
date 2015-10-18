@@ -37,6 +37,16 @@ function build_framework
     # framework
     FRAMEWORK=$1
 
+    # clone if not there
+    mkdir -p $SRC
+    cd $SRC
+    if ( test -d $FRAMEWORK )
+    then
+        echo "$FRAMEWORK already cloned"
+    else
+        git clone kde:$FRAMEWORK
+    fi
+
     # create build dir
     mkdir -p $BUILD/$FRAMEWORK
 
@@ -53,43 +63,7 @@ function build_framework
     make install
 ) }
 
-# get stuff
-cd src
-
-git clone kde:extra-cmake-modules
-git clone kde:kconfig
-git clone kde:kguiaddons
-git clone kde:ki18n
-git clone kde:kitemviews
-git clone kde:sonnet
-git clone kde:kwindowsystem
-git clone kde:kwidgetsaddons
-git clone kde:kcompletion
-git clone kde:kdbusaddons
-git clone kde:karchive
-git clone kde:kcoreaddons # patch pending...
-git clone kde:kjobwidgets
-git clone kde:kcrash
-git clone kde:kservice
-git clone kde:kcodecs
-git clone kde:kauth
-git clone kde:kconfigwidgets
-git clone kde:kiconthemes
-git clone kde:ktextwidgets
-git clone kde:knotifications
-git clone kde:kglobalaccel
-git clone kde:kxmlgui
-git clone kde:kbookmarks
-git clone kde:solid
-git clone kde:kio
-git clone kde:kparts
-git clone kde:ktexteditor
-git clone kde:kate
-
-
-cd ..
-
-# build stuff
+# get & build stuff
 
 build_framework extra-cmake-modules
 build_framework kconfig
@@ -111,7 +85,6 @@ build_framework kauth
 build_framework kconfigwidgets
 build_framework kiconthemes
 build_framework ktextwidgets
-build_framework knotifications
 build_framework kglobalaccel
 build_framework kxmlgui
 build_framework kbookmarks

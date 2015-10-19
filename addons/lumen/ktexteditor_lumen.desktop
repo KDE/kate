@@ -4,6 +4,7 @@ ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=ktexteditorlumen
 Icon=task-delegate
 Name=Lumen
+Name[ast]=Lumen
 Name[ca]=Lumen
 Name[ca@valencia]=Lumen
 Name[da]=Lumen

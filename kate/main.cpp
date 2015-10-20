@@ -41,8 +41,13 @@
 
 #include "../../urlinfo.h"
 
-extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
+int main(int argc, char **argv)
 {
+    /**
+     * init resources from our static lib
+     */
+    Q_INIT_RESOURCE(kate);
+
     /**
      * Create application first
      */

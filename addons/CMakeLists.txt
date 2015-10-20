@@ -6,7 +6,7 @@ set_package_properties(KF5Plasma PROPERTIES PURPOSE "Required to build the sessi
 set_package_properties(KF5Service PROPERTIES PURPOSE "Required to build the sessionapplet addon")
 set_package_properties(KF5ItemModels PROPERTIES PURPOSE "Required to build the project, konsole addon")
 set_package_properties(KF5ThreadWeaver PROPERTIES PURPOSE "Required to build the project addon")
-set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the snippets addon")
+set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the snippets and project addons")
 
 # document switcher
 ecm_optional_add_subdirectory (filetree)
@@ -75,7 +75,7 @@ if(KF5ItemModels_FOUND)
     ecm_optional_add_subdirectory (konsole)
 endif()
 
-if(KF5ItemModels_FOUND AND KF5ThreadWeaver_FOUND)
+if(KF5ItemModels_FOUND AND KF5ThreadWeaver_FOUND AND KF5NewStuff_FOUND)
     # small & smart project manager
     ecm_optional_add_subdirectory (project)
 endif()

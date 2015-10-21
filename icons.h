@@ -20,38 +20,23 @@
 #pragma once
 
 #include <QIcon>
+#include <QResource>
 
 /**
- * Setup icons, if no icons found globally, fallback to local bundled icons
+ * If we have some local breeze icon resource, prefer it
  */
 static void setupIconTheme()
 {
     /**
-     * magic icon path search: if we have no global icons, search for local bundled ones!
+     * Search in local "share" and "Resources"
      */
-    if (QIcon::fromTheme(QStringLiteral("document-new")).isNull()) {
-        /**
-         * fallback theme is breeze ATM
-         */
-        QIcon::setThemeName(QStringLiteral("breeze"));
-
-        /**
-         * probe multiple local paths relative to application binary
-         */
-        QStringList localPathSuffixes;
-        localPathSuffixes << QStringLiteral("/../icons") << QStringLiteral("/../share/icons") << QStringLiteral("/../Resources/icons");
-        Q_FOREACH (const QString &localPathSuffix, localPathSuffixes) {
-            /**
-             * try new path, break if icons found
-             */
-            QIcon::setThemeSearchPaths(QStringList() << QCoreApplication::applicationDirPath() + localPathSuffix);
-
-            /**
-             * icons there?
-             */
-            if (!QIcon::fromTheme(QStringLiteral("document-new")).isNull()) {
-                break;
-            }
+    QStringList localPathSuffixes;
+    localPathSuffixes << QStringLiteral("/../share/breeze.rcc") << QStringLiteral("/../Resources/breeze.rcc");
+    Q_FOREACH (const QString &localPathSuffix, localPathSuffixes) {
+        const QString localIconsResource = QCoreApplication::applicationDirPath() + localPathSuffix;
+        if (QFile::exists(localIconsResource) && QResource::registerResource(localIconsResource)) {
+            QIcon::setThemeName(QStringLiteral("breeze"));
+            break;
         }
     }
 }

@@ -55,7 +55,7 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
 
     /**
-     * magic icon path search: if we have no global icons, search for local bundled ones!
+     * if we have some local breeze icon resource, prefer it
      */
     setupIconTheme();
 

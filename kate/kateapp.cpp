@@ -67,8 +67,10 @@ KateApp::~KateApp()
     /**
      * unregister from dbus before we get unusable...
      */
-    m_adaptor.emitExiting();
-    QDBusConnection::sessionBus().unregisterObject(QStringLiteral("/MainApplication"));
+    if (QDBusConnection::sessionBus().interface()) {
+        m_adaptor.emitExiting();
+        QDBusConnection::sessionBus().unregisterObject(QStringLiteral("/MainApplication"));
+    }
 }
 
 KateApp *KateApp::self()
@@ -94,7 +96,10 @@ bool KateApp::init()
     }
 
     // application dbus interface
-    QDBusConnection::sessionBus().registerObject(QStringLiteral("/MainApplication"), this);
+    if (QDBusConnection::sessionBus().interface()) {
+        QDBusConnection::sessionBus().registerObject(QStringLiteral("/MainApplication"), this);
+    }
+
     return true;
 }
 

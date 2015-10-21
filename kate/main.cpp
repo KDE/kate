@@ -39,7 +39,8 @@
 #include <QApplication>
 #include <QDir>
 
-#include "../../urlinfo.h"
+#include "../urlinfo.h"
+#include "../icons.h"
 
 int main(int argc, char **argv)
 {
@@ -52,6 +53,11 @@ int main(int argc, char **argv)
      * Create application first
      */
     QApplication app(argc, argv);
+
+    /**
+     * magic icon path search: if we have no global icons, search for local bundled ones!
+     */
+    setupIconTheme();
 
     /**
      * enable high dpi support

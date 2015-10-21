@@ -36,6 +36,7 @@
 #include <QDir>
 
 #include "../urlinfo.h"
+#include "../icons.h"
 
 extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 {
@@ -43,6 +44,11 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * first init the app
      */
     QApplication app(argc, argv);
+
+    /**
+     * magic icon path search: if we have no global icons, search for local bundled ones!
+     */
+    setupIconTheme();
 
     /**
      * enable high dpi support

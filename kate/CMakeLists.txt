@@ -4,7 +4,7 @@
 project(kate)
 
 # Load the frameworks we need
-find_package(KF5 REQUIRED COMPONENTS DBusAddons GuiAddons IconThemes)
+find_package(KF5 REQUIRED COMPONENTS DBusAddons GuiAddons)
 
 # includes
 include_directories(

@@ -109,9 +109,6 @@ install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.desktop  DESTINAT
 # appdata
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.appdata.xml DESTINATION  ${CMAKE_INSTALL_METAINFODIR})
 
-# default config
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/katerc  DESTINATION  ${CONFIG_INSTALL_DIR})
-
 # install icons
 ecm_install_icons(ICONS ${KATE_ICONS_PNG} ${KATE_ICONS_SVG} DESTINATION ${ICON_INSTALL_DIR} THEME hicolor)
 

@@ -22,6 +22,9 @@
 #include <QIcon>
 #include <QResource>
 
+#include <KSharedConfig>
+#include <KConfigGroup>
+
 /**
  * If we have some local breeze icon resource, prefer it
  */
@@ -35,7 +38,13 @@ static void setupIconTheme()
     Q_FOREACH (const QString &localPathSuffix, localPathSuffixes) {
         const QString localIconsResource = QCoreApplication::applicationDirPath() + localPathSuffix;
         if (QFile::exists(localIconsResource) && QResource::registerResource(localIconsResource)) {
+            // tell qt about the theme
             QIcon::setThemeName(QStringLiteral("breeze"));
+
+            // tell KIconLoader an co. about the theme
+            KConfigGroup cg(KSharedConfig::openConfig(), "Icons");
+            cg.writeEntry("Theme", "breeze");
+            cg.sync();
             break;
         }
     }

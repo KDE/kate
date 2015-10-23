@@ -92,6 +92,10 @@ build_framework kbookmarks
 build_framework solid
 build_framework kio
 build_framework kparts
+build_framework kitemmodels
+build_framework threadweaver
+build_framework attica
+build_framework knewstuff
 build_framework ktexteditor
 
 # clear old bundles

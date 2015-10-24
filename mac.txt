@@ -98,15 +98,8 @@ build_framework attica
 build_framework knewstuff
 build_framework ktexteditor
 
-# clear old bundles
-rm -rf /Applications/KDE/kate.app
-rm -rf /Applications/KDE/kwrite.app
-
-build_framework kate
-
 # create icon resource file
 cd src
-
 rm -rf iconres
 mkdir iconres
 cd iconres
@@ -117,14 +110,22 @@ rm breeze.tgz
 rcc -project -o ../breeze.qrc
 mv ../breeze.qrc .
 rcc -binary -o breeze.rcc breeze.qrc
-cp breeze.rcc /Applications/KDE/kate.app/breeze.rcc
-cp breeze.rcc /Applications/KDE/kwrite.app/breeze.rcc
+cd ..
 cd ..
 
-cd ..
+# clear old bundles
+rm -rf /Applications/KDE/kate.app
+rm -rf /Applications/KDE/kwrite.app
+
+build_framework kate
 
 # call patched macdeployqt for both bundles
 # that needs patch from https://bugreports.qt.io/browse/QTBUG-48836
 # deploy qt plugins as extra plugins, too, as e.g. iconengine will be missing otherwise ;)
-macdeployqt /Applications/KDE/kate.app -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins -dmg
-macdeployqt /Applications/KDE/kwrite.app -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins -dmg
+for i in kwrite kate; do
+    echo $i;
+    cp -f src/iconres/breeze.rcc /Applications/KDE/$i.app/breeze.rcc
+    cp -rf $PREFIX/share/kservices5 /Applications/KDE/$i.app
+    cp -f $PREFIX/lib/libexec/kf5/kioslave /Applications/KDE/$i.app/Contents/MacOS
+    macdeployqt /Applications/KDE/$i.app -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins -dmg
+done

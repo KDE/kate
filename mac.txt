@@ -117,8 +117,8 @@ rm breeze.tgz
 rcc -project -o ../breeze.qrc
 mv ../breeze.qrc .
 rcc -binary -o breeze.rcc breeze.qrc
-cp breeze.rcc /Applications/KDE/kate.app/Contents/Resources/breeze.rcc
-cp breeze.rcc /Applications/KDE/kwrite.app/Contents/Resources/breeze.rcc
+cp breeze.rcc /Applications/KDE/kate.app/breeze.rcc
+cp breeze.rcc /Applications/KDE/kwrite.app/breeze.rcc
 cd ..
 
 cd ..

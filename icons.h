@@ -21,6 +21,7 @@
 
 #include <QIcon>
 #include <QResource>
+#include <QStandardPaths>
 
 #include <KSharedConfig>
 #include <KConfigGroup>
@@ -31,21 +32,18 @@
 static void setupIconTheme()
 {
     /**
-     * Search in local "share" and "Resources"
+     * let QStandardPaths handle this, it will look for app local stuff
+     * this means e.g. for mac: "<APPDIR>/../Resources" and for win: "<APPDIR>/data"
      */
-    QStringList localPathSuffixes;
-    localPathSuffixes << QStringLiteral("/../share/breeze.rcc") << QStringLiteral("/../Resources/breeze.rcc");
-    Q_FOREACH (const QString &localPathSuffix, localPathSuffixes) {
-        const QString localIconsResource = QCoreApplication::applicationDirPath() + localPathSuffix;
-        if (QFile::exists(localIconsResource) && QResource::registerResource(localIconsResource)) {
-            // tell qt about the theme
-            QIcon::setThemeName(QStringLiteral("breeze"));
+    const QString breezeIcons = QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("breeze.rcc"));
+    if (QFile::exists(breezeIcons) && QResource::registerResource(breezeIcons)) {
+        // tell qt about the theme
+        QIcon::setThemeSearchPaths(QStringList() << QStringLiteral(":/icons"));
+        QIcon::setThemeName(QStringLiteral("breeze"));
 
-            // tell KIconLoader an co. about the theme
-            KConfigGroup cg(KSharedConfig::openConfig(), "Icons");
-            cg.writeEntry("Theme", "breeze");
-            cg.sync();
-            break;
-        }
+        // tell KIconLoader an co. about the theme
+        KConfigGroup cg(KSharedConfig::openConfig(), "Icons");
+        cg.writeEntry("Theme", "breeze");
+        cg.sync();
     }
 }

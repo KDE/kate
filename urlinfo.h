@@ -32,10 +32,13 @@ struct UrlInfo
     UrlInfo(QString path)
         : cursor(KTextEditor::Cursor::invalid())
     {
-        if (!path.startsWith(QLatin1Char('/')) && QFileInfo(path).isRelative()) {
-            path = QDir::currentPath() + QLatin1Char('/') + path;
+        // convert to an url
+        const QRegularExpression withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
+        if (withProtocol.match(path).hasMatch()) {
+            url = QUrl::fromUserInput(path);
+        } else {
+            url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
         }
-        url = QUrl::fromUserInput(path);
 
         if (url.isLocalFile() && !QFile::exists(path)) {
             // Allow opening specific lines in documents, like mydoc.cpp:10

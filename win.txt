@@ -14,6 +14,9 @@
 # install ActivePerl Community Edition - let perl be added to the path
 # http://www.activestate.com/activeperl/downloads
 
+# install Python 3.x - let python be added to the path (e.g. ki18n needs it)
+# https://www.python.org/downloads/
+
 # install Git
 # http://git-scm.com/download/win - let git be added to the path
 

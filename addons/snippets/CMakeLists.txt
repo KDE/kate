@@ -19,7 +19,12 @@ snippetview.ui
 editrepository.ui
 editsnippet.ui)
 
+# resource for ui file and stuff
+qt5_add_resources(katesnippetsplugin_PART_SRCS plugin.qrc)
+
 add_library (katesnippetsplugin MODULE ${katesnippetsplugin_PART_SRCS})
+
+kcoreaddons_desktop_to_json (katesnippetsplugin katesnippetsplugin.desktop)
 
 target_link_libraries(katesnippetsplugin
     KF5::TextEditor
@@ -27,13 +32,3 @@ target_link_libraries(katesnippetsplugin
     KF5::NewStuff Qt5::Script KF5::ItemViews KF5::IconThemes)
 
 install(TARGETS katesnippetsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
-
-
-########### install files ###############
-
-kcoreaddons_desktop_to_json (katesnippetsplugin katesnippetsplugin.desktop)
-
-# install the snippet stuff
-install( FILES ktexteditor_codesnippets_core.knsrc DESTINATION  ${CONFIG_INSTALL_DIR} )
-
-install(FILES ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/katesnippets)

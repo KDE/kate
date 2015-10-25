@@ -316,7 +316,7 @@ void SnippetView::slotRemoveRepo()
 
 void SnippetView::slotGHNS()
 {
-    KNS3::DownloadDialog dialog(QLatin1String("ktexteditor_codesnippets_core.knsrc"), this);
+    KNS3::DownloadDialog dialog(QLatin1String(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
     dialog.exec();
     foreach ( const KNS3::Entry& entry, dialog.changedEntries() ) {
         foreach ( const QString& path, entry.uninstalledFiles() ) {
@@ -344,7 +344,7 @@ void SnippetView::slotSnippetToGHNS()
     if ( !repo )
         return;
 
-    KNS3::UploadDialog dialog(QLatin1String("ktexteditor_codesnippets_core.knsrc"), this);
+    KNS3::UploadDialog dialog(QLatin1String(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
     dialog.setUploadFile(QUrl::fromLocalFile(repo->file()));
     dialog.setUploadName(repo->text());
     dialog.exec();

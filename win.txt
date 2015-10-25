@@ -26,9 +26,9 @@
 
 # open the VS2013 x64 Native Tools Command Prompt (or 32-bit if you choose to use 32-bit Qt)
 
-# setup path to QT and JOM
+# setup path to QT and JOM and the mingw parts of Git (for patch and Co.)
 
-set PATH=C:\Qt\Qt5.5.1\5.5\msvc2013_64\bin;c:\jom;%PATH%
+set PATH=C:\Qt\Qt5.5.1\5.5\msvc2013_64\bin;c:\jom;"C:\Program Files\Git\usr\bin";%PATH%
 
 # create some compile dir, we use here c:\kate
 
@@ -46,3 +46,6 @@ md build
 cd build
 cmake -G "NMake Makefiles JOM" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=..\usr ..\kate-windows
 
+# build
+
+cmake --build . --config Release

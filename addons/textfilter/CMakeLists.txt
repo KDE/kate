@@ -9,7 +9,12 @@ set(textfilterplugin_PART_SRCS
 
 ki18n_wrap_ui(textfilterplugin_PART_SRCS textfilterwidget.ui)
 
+# resource for ui file and stuff
+qt5_add_resources(textfilterplugin_PART_SRCS plugin.qrc)
+
 add_library (textfilterplugin MODULE ${textfilterplugin_PART_SRCS})
+
+kcoreaddons_desktop_to_json (textfilterplugin textfilterplugin.desktop)
 
 target_link_libraries(textfilterplugin
     KF5::TextEditor
@@ -19,9 +24,3 @@ target_link_libraries(textfilterplugin
 )
 
 install(TARGETS textfilterplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-
-########### install files ###############
-
-install(FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/textfilter)
-
-kcoreaddons_desktop_to_json (textfilterplugin textfilterplugin.desktop)

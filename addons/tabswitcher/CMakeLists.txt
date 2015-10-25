@@ -8,7 +8,12 @@ set(tabswitcherplugin_PART_SRCS
     tabswitchertreeview.cpp
 )
 
+# resource for ui file and stuff
+qt5_add_resources(tabswitcherplugin_PART_SRCS plugin.qrc)
+
 add_library (tabswitcherplugin MODULE ${tabswitcherplugin_PART_SRCS})
+
+kcoreaddons_desktop_to_json (tabswitcherplugin tabswitcherplugin.desktop)
 
 target_link_libraries(tabswitcherplugin
     KF5::TextEditor
@@ -18,9 +23,3 @@ target_link_libraries(tabswitcherplugin
 )
 
 install(TARGETS tabswitcherplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-
-########### install files ###############
-
-install(FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/tabswitcher)
-
-kcoreaddons_desktop_to_json (tabswitcherplugin tabswitcherplugin.desktop)

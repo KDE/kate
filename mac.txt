@@ -126,5 +126,6 @@ for i in kwrite kate; do
     echo $i;
     cp -f src/iconres/breeze.rcc /Applications/KDE/$i.app/breeze.rcc
     cp -f $PREFIX/lib/libexec/kf5/kioslave /Applications/KDE/$i.app/Contents/MacOS
-    macdeployqt /Applications/KDE/$i.app -executable=/Applications/KDE/$i.app/Contents/MacOS/kioslave -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins -dmg
+    cp -f $PREFIX/lib/libexec/kf5/kio_http_cache_cleaner /Applications/KDE/$i.app/Contents/MacOS
+    macdeployqt /Applications/KDE/$i.app -executable=/Applications/KDE/$i.app/Contents/MacOS/kioslave -executable=/Applications/KDE/$i.app/Contents/MacOS/kio_http_cache_cleaner -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins -dmg
 done

@@ -125,8 +125,6 @@ build_framework kate
 for i in kwrite kate; do
     echo $i;
     cp -f src/iconres/breeze.rcc /Applications/KDE/$i.app/breeze.rcc
-    mkdir -p /Applications/KDE/$i.app/kservices5
-    cp -f $PREFIX/share/kservices5/*.protocol /Applications/KDE/$i.app/kservices5
     cp -f $PREFIX/lib/libexec/kf5/kioslave /Applications/KDE/$i.app/Contents/MacOS
     macdeployqt /Applications/KDE/$i.app -executable=/Applications/KDE/$i.app/Contents/MacOS/kioslave -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins -dmg
 done

@@ -203,7 +203,15 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
          */
         KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileInfo.fileName());
         fileItem->setData(filePath, Qt::ToolTipRole);
-        item2ParentPath.append(QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dir.relativeFilePath(fileInfo.absolutePath()))));
+
+        // get the directory's relative path to the base directory
+        QString dirRelPath = dir.relativeFilePath(fileInfo.absolutePath());
+        // if the relative path is ".", clean it up
+        if (dirRelPath == QStringLiteral(".")) {
+            dirRelPath = QString();
+        }
+
+        item2ParentPath.append(QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dirRelPath)));
         fileItem->setData(filePath, Qt::UserRole);
         (*file2Item)[filePath] = fileItem;
     }
@@ -324,12 +332,17 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     git_repository *repo = nullptr;
     git_object *root_tree = nullptr, *tree = nullptr;
 
+    // check if the repo can be opened.
+    // git_repository_open_ext() will return 0 if everything is OK;
+    // if not, return an empty files list
     const QByteArray repoPathUtf8 = dir.path().toUtf8();
     if (git_repository_open_ext(&repo, repoPathUtf8.constData(), 0, NULL)) {
         git_libgit2_shutdown();
         return files;
     }
 
+    // get the working directory of the repo
+    // if none was found, return an empty files list
     const char *working_dir = nullptr;
     if ((working_dir = git_repository_workdir(repo)) == nullptr) {
         git_repository_free(repo);
@@ -347,7 +360,7 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     workdir.setPath(QString::fromUtf8(working_dir));
     const QByteArray relpathUtf8 = workdir.relativeFilePath(dir.path()).toUtf8();
 
-    if (relpathUtf8.isEmpty()) { // git_object_lookup_bypath is not able to resolv "." as path
+    if (relpathUtf8.isEmpty() || relpathUtf8 == ".") { // git_object_lookup_bypath is not able to resolv "." as path
         tree = root_tree;
     } else {
         if (git_object_lookup_bypath(&tree, root_tree, relpathUtf8.constData(), GIT_OBJ_TREE)) {

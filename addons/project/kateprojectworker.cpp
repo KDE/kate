@@ -320,6 +320,30 @@ namespace {
 
         return files;
     }
+
+    int gitStatusListWalker(const char *path, unsigned int status_flags, void *payload)
+    {
+        struct git_walk_payload *data = static_cast<git_walk_payload *>(payload);
+
+        // if the entry is a new file, add it to the list
+        if (status_flags & GIT_STATUS_INDEX_NEW) {
+            QString name = QString::fromUtf8(path);
+            QString filepath = QDir(data->basedir).filePath(name);
+            data->files->append(filepath);
+        }
+
+        return 0;
+    }
+
+    QStringList gitSearchStatusList(git_repository *repo, const QString &basedir)
+    {
+        QStringList files;
+        struct git_walk_payload payload = {&files, false, basedir};
+
+        git_status_foreach(repo, gitStatusListWalker, (void *)&payload);
+
+        return files;
+    }
 }
 
 QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
@@ -378,6 +402,8 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     if (recursive && relpathUtf8.isEmpty()) {
         files.append(gitSearchSubmodules(repo, path));
     }
+
+    files.append(gitSearchStatusList(repo, path));
 
     if (tree != root_tree) {
         git_object_free(tree);

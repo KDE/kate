@@ -2,6 +2,7 @@
 Name=Kate Sessions
 Name[ast]=Applet de sesión Kate
 Name[ca]=Sessions del Kate
+Name[ca@valencia]=Sessions del Kate
 Name[cs]=Sezení Kate
 Name[de]=Kate-Sitzungen
 Name[en_GB]=Kate Sessions
@@ -37,7 +38,7 @@ Comment[ast]=Llanzador de sesión Kate
 Comment[bg]=Зареждане на сесии на Kate
 Comment[bs]=Pokretač Kate sesija
 Comment[ca]=Llançador de la sessió del Kate
-Comment[ca@valencia]=Llançador de sessió del Kate
+Comment[ca@valencia]=Llançador de la sessió del Kate
 Comment[cs]=Spouštěč sezení Kate
 Comment[da]=Kate sessionstarter
 Comment[de]=Kate-Sitzung starten

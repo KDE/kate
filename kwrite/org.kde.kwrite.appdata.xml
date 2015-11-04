@@ -7,6 +7,7 @@
   <name xml:lang="ast">KWrite</name>
   <name xml:lang="bs">Kwrite</name>
   <name xml:lang="ca">KWrite</name>
+  <name xml:lang="ca-valencia">KWrite</name>
   <name xml:lang="cs">KWrite</name>
   <name xml:lang="da">KWrite</name>
   <name xml:lang="de">KWrite</name>
@@ -42,6 +43,7 @@
   <summary xml:lang="ast">Editor de testu</summary>
   <summary xml:lang="bs">Uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text</summary>
+  <summary xml:lang="ca-valencia">Editor de text</summary>
   <summary xml:lang="cs">Textový editor</summary>
   <summary xml:lang="de">Texteditor</summary>
   <summary xml:lang="en-GB">Text Editor</summary>
@@ -78,6 +80,7 @@
     </p>
     <p xml:lang="ast">KWrite ye un editor de testu pa KDE, básase nel componente del editor Kate.</p>
     <p xml:lang="ca">El KWrite és un editor de text pel KDE, basat en el component d'edició del Kate.</p>
+    <p xml:lang="ca-valencia">El KWrite és un editor de text pel KDE, basat en el component d'edició del Kate.</p>
     <p xml:lang="de">KWrite ist ein Texteditor für KDE auf der Basis der Kate-Editorkomponente.</p>
     <p xml:lang="en-GB">KWrite is a text editor for KDE, based on the Kate's editor component.</p>
     <p xml:lang="es">KWrite es un editor de texto para KDE basado en el componente de edición de Kate.</p>
@@ -109,6 +112,7 @@
     <p xml:lang="ast">Carauterístiques:</p>
     <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
+    <p xml:lang="ca-valencia">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="en-GB">Features:</p>
@@ -142,6 +146,7 @@
     <ul>
       <li>Syntax highlighting according to the file type</li>
       <li xml:lang="ca">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
+      <li xml:lang="ca-valencia">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
       <li xml:lang="de">Syntaxhervorhebung passend zum Dateityp</li>
       <li xml:lang="en-GB">Syntax highlighting according to the file type</li>
       <li xml:lang="es">Resaltado de sintaxis según el tipo de archivo</li>
@@ -173,6 +178,7 @@
       <li xml:lang="ast">Completáu de pallabres</li>
       <li xml:lang="bs">Dopuna riječi</li>
       <li xml:lang="ca">Compleció de paraules</li>
+      <li xml:lang="ca-valencia">Compleció de paraules</li>
       <li xml:lang="cs">Dokončování slov</li>
       <li xml:lang="de">Wortvervollständigung</li>
       <li xml:lang="en-GB">Word completion</li>
@@ -205,6 +211,7 @@
       <li>Auto-indentation</li>
       <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
+      <li xml:lang="ca-valencia">Sagnat automàtic</li>
       <li xml:lang="cs">Automaticky odsadit</li>
       <li xml:lang="de">Automatisches einrücken</li>
       <li xml:lang="en-GB">Auto-indentation</li>
@@ -237,6 +244,7 @@
       <li>Plugin support</li>
       <li xml:lang="ast">Sofitu de plugins</li>
       <li xml:lang="ca">Implementació de connectors</li>
+      <li xml:lang="ca-valencia">Implementació de connectors</li>
       <li xml:lang="cs">Podpora modulů</li>
       <li xml:lang="de">Unterstützung für Module</li>
       <li xml:lang="en-GB">Plugin support</li>
@@ -270,6 +278,7 @@
       <li xml:lang="ast">Mou d'entrada Vi</li>
       <li xml:lang="bs">Vi editor režim unosa</li>
       <li xml:lang="ca">Mode d'entrada del Vi</li>
+      <li xml:lang="ca-valencia">Mode d'entrada del Vi</li>
       <li xml:lang="cs">Vstupní režim VI</li>
       <li xml:lang="de">VI-Eingabemodus</li>
       <li xml:lang="en-GB">Vi input mode</li>

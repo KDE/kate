@@ -6,6 +6,7 @@
   <name>Kate</name>
   <name xml:lang="bs">Kate</name>
   <name xml:lang="ca">Kate</name>
+  <name xml:lang="ca-valencia">Kate</name>
   <name xml:lang="cs">Kate</name>
   <name xml:lang="da">Kate</name>
   <name xml:lang="de">Kate</name>
@@ -39,6 +40,7 @@
   <summary>Advanced Text Editor</summary>
   <summary xml:lang="bs">Napredni uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text avançat</summary>
+  <summary xml:lang="ca-valencia">Editor de text avançat</summary>
   <summary xml:lang="cs">Pokročilý textový editor</summary>
   <summary xml:lang="de">Erweiterter Texteditor</summary>
   <summary xml:lang="en-GB">Advanced Text Editor</summary>
@@ -74,6 +76,7 @@
       dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.
     </p>
     <p xml:lang="ca">El Kate és un editor de text multidocument, i multivista pel KDE. Té funcionalitats com el plegat de codi, ressaltat de sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per crear scripts.</p>
+    <p xml:lang="ca-valencia">El Kate és un editor de text multidocument, i multivista pel KDE. Té funcionalitats com el plegat de codi, ressaltat de sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per crear scripts.</p>
     <p xml:lang="de">Kate ist ein KDE-Editor für mehrere Dokumente und Ansichten. Funktionen wie Quelltextausblendung, Syntaxhervorhebung, dynamischer Zeilenumbruch, eine eingebettete Konsole und eine umfangreiche Schnittstelle für Module sowie vorläufige Unterstützung für Skripte sind enthalten.</p>
     <p xml:lang="en-GB">Kate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.</p>
     <p xml:lang="es">Kate es un editor de texto para KDE que puede abrir varios documentos a la vez y que cuenta con varios modos de vista. Entre otras funcionalidades dispone de plegado de código, resaltado de sintaxis, justificado de línea dinámico, consola integrada, una amplia interfaz para complementos y admite scripts de manera preliminar.</p>
@@ -102,6 +105,7 @@
     <p>Features:</p>
     <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
+    <p xml:lang="ca-valencia">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="en-GB">Features:</p>
@@ -134,6 +138,7 @@
     <ul>
       <li>MDI, window splitting, window tabbing</li>
       <li xml:lang="ca">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
+      <li xml:lang="ca-valencia">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
       <li xml:lang="de">MDI (Multiple Document Interface = Benutzeroberfläche mit mehreren gleichzeitig geöffneten Dokumenten), geteilte Fenster, Unterfenster</li>
       <li xml:lang="en-GB">MDI, window splitting, window tabbing</li>
       <li xml:lang="es">MDI, división de ventana, pestañas de ventana</li>
@@ -163,6 +168,7 @@
       <li>Spell checking</li>
       <li xml:lang="bs">Provjera ispravnog pisanja riječi</li>
       <li xml:lang="ca">Verificació de l'ortografia</li>
+      <li xml:lang="ca-valencia">Verificació de l'ortografia</li>
       <li xml:lang="cs">Kontrola pravopisu</li>
       <li xml:lang="de">Rechtschreibprüfung</li>
       <li xml:lang="en-GB">Spell checking</li>
@@ -194,6 +200,7 @@
       <li xml:lang="zh-TW">拼字檢查</li>
       <li>CR, CRLF, LF newline support</li>
       <li xml:lang="ca">Implementació per línia nova CR, CRLF, LF</li>
+      <li xml:lang="ca-valencia">Implementació per línia nova CR, CRLF, LF</li>
       <li xml:lang="de">Unterstützung für CR, CRLF, LF am Zeilenende</li>
       <li xml:lang="en-GB">CR, CRLF, LF newline support</li>
       <li xml:lang="es">Admite fin de línea CR, CRLF, LF</li>
@@ -223,6 +230,7 @@
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="ca">Implementació de codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
+      <li xml:lang="ca-valencia">Implementació de codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="de">Unterstützung für Kodierungen (utf-8, utf-16, ascii usw.)</li>
       <li xml:lang="en-GB">Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="es">Admite codificación ( (utf-8, utf-16, ascii, etc.)</li>
@@ -252,6 +260,7 @@
       <li xml:lang="zh-TW">編碼支援（UTF-8，UTF-16，ASCII 等）</li>
       <li>Encoding conversion</li>
       <li xml:lang="ca">Conversió de codificació</li>
+      <li xml:lang="ca-valencia">Conversió de codificació</li>
       <li xml:lang="de">Umwandlung von Kodierungen</li>
       <li xml:lang="en-GB">Encoding conversion</li>
       <li xml:lang="es">Conversión de codificación</li>
@@ -281,6 +290,7 @@
       <li xml:lang="zh-TW">編碼轉換</li>
       <li>Regular expression based find &amp; replace</li>
       <li xml:lang="ca">Expressió regular basada en cerca i substitució</li>
+      <li xml:lang="ca-valencia">Expressió regular basada en cerca i substitució</li>
       <li xml:lang="de">Reguläre Ausdrücke für Suchen und Ersetzen</li>
       <li xml:lang="en-GB">Regular expression based find &amp; replace</li>
       <li xml:lang="es">Función de buscar y remplazar basada en expresiones regulares</li>
@@ -309,6 +319,7 @@
       <li xml:lang="zh-TW">搜尋與取代支援正規表示式</li>
       <li>Powerful syntax highlighting and bracket matching</li>
       <li xml:lang="ca">Ressaltat potent de sintaxi i concordança de parèntesis</li>
+      <li xml:lang="ca-valencia">Ressaltat potent de sintaxi i concordança de parèntesis</li>
       <li xml:lang="de">Leistungsfähige Syntaxhervorhebung und Übereinstimmung von Klammern</li>
       <li xml:lang="en-GB">Powerful syntax highlighting and bracket matching</li>
       <li xml:lang="es">Potente resaltado de sintaxis y de emparejado de paréntesis</li>
@@ -336,6 +347,7 @@
       <li xml:lang="zh-TW">強大的語法突顯與括號對應</li>
       <li>Code and text folding</li>
       <li xml:lang="ca">Plegat de codi i text</li>
+      <li xml:lang="ca-valencia">Plegat de codi i text</li>
       <li xml:lang="de">Quelltext- und Textausblendung</li>
       <li xml:lang="en-GB">Code and text folding</li>
       <li xml:lang="es">Plegado de código y de texto</li>
@@ -365,6 +377,7 @@
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
       <li>Infinite undo/redo support</li>
       <li xml:lang="ca">Implementació de desfer/refer infinits</li>
+      <li xml:lang="ca-valencia">Implementació de desfer/refer infinits</li>
       <li xml:lang="de">Unterstützung für unbegrenztes Zurücknehmen und Wiederherstellen</li>
       <li xml:lang="en-GB">Infinite undo/redo support</li>
       <li xml:lang="es">Función hacer y deshacer infinita</li>
@@ -394,6 +407,7 @@
       <li xml:lang="zh-TW">無限的復原/重做支援</li>
       <li>Block selection mode</li>
       <li xml:lang="ca">Mode de selecció per blocs</li>
+      <li xml:lang="ca-valencia">Mode de selecció per blocs</li>
       <li xml:lang="de">Blockauswahlmodus</li>
       <li xml:lang="en-GB">Block selection mode</li>
       <li xml:lang="es">Modo de selección de bloque</li>
@@ -423,6 +437,7 @@
       <li>Auto indentation</li>
       <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
+      <li xml:lang="ca-valencia">Sagnat automàtic</li>
       <li xml:lang="cs">Automaticky odsadit</li>
       <li xml:lang="de">Automatisches einrücken</li>
       <li xml:lang="en-GB">Auto indentation</li>
@@ -452,6 +467,7 @@
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Auto completion support</li>
       <li xml:lang="ca">Implementació de compleció automàtica</li>
+      <li xml:lang="ca-valencia">Implementació de compleció automàtica</li>
       <li xml:lang="de">Unterstützung für Autovervollständigung</li>
       <li xml:lang="en-GB">Auto completion support</li>
       <li xml:lang="es">Completado automático</li>
@@ -480,6 +496,7 @@
       <li xml:lang="zh-TW">自動補完支援</li>
       <li>Shell integration</li>
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
+      <li xml:lang="ca-valencia">Integració de l'intèrpret d'ordes</li>
       <li xml:lang="de">Einbindung einer Shell</li>
       <li xml:lang="en-GB">Shell integration</li>
       <li xml:lang="es">Integración con la línea de órdenes</li>
@@ -508,6 +525,7 @@
       <li xml:lang="zh-TW">Shell 整合</li>
       <li>Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
       <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
+      <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
       <li xml:lang="de">Unterstützung für viele Protokolle (http, ftp, ssh, webdav usw.) unter Verwendung von Ein-/Ausgabemodulen</li>
       <li xml:lang="en-GB">Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
       <li xml:lang="es">Admite numerosos protocolos mediante el uso de kioslaves (http, ftp, ssh, webdav, etc.) </li>
@@ -535,6 +553,7 @@
       <li xml:lang="zh-TW">用 kioslave 提供廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
       <li>Plugin architecture for the application and editor component</li>
       <li xml:lang="ca">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
+      <li xml:lang="ca-valencia">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="de">Modul-Architektur für das Programm und die Editorkomponente</li>
       <li xml:lang="en-GB">Plugin architecture for the application and editor component</li>
       <li xml:lang="es">Arquitectura de complementos para el componente de aplicación y de editor.</li>
@@ -563,6 +582,7 @@
       <li xml:lang="zh-TW">用於應用程式與編輯器組件的外掛架構</li>
       <li>Customizable shortcuts</li>
       <li xml:lang="ca">Dreceres personalitzables</li>
+      <li xml:lang="ca-valencia">Dreceres personalitzables</li>
       <li xml:lang="de">Benutzerdefinierte Kurzbefehle</li>
       <li xml:lang="en-GB">Customisable shortcuts</li>
       <li xml:lang="es">Accesos rápidos personalizables</li>
@@ -591,6 +611,7 @@
       <li xml:lang="zh-TW">自定快捷鍵</li>
       <li>Integrated command line</li>
       <li xml:lang="ca">Línia d'ordres integrada</li>
+      <li xml:lang="ca-valencia">Línia d'ordes integrada</li>
       <li xml:lang="de">Integrierte Befehlszeile</li>
       <li xml:lang="en-GB">Integrated command line</li>
       <li xml:lang="es">Línea de órdenes integrada</li>
@@ -620,6 +641,7 @@
       <li xml:lang="zh-TW">整合指令行</li>
       <li>Scriptable using JavaScript</li>
       <li xml:lang="ca">Es pot crear scripts usant JavaScript</li>
+      <li xml:lang="ca-valencia">Es pot crear scripts usant JavaScript</li>
       <li xml:lang="de">Skriptfähig über JavaScript</li>
       <li xml:lang="en-GB">Scriptable using JavaScript</li>
       <li xml:lang="es">Uso de scripts de JavaScript</li>

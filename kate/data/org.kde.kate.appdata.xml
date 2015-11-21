@@ -40,6 +40,7 @@
   <name xml:lang="zh-CN">Kate</name>
   <name xml:lang="zh-TW">Kate</name>
   <summary>Advanced Text Editor</summary>
+  <summary xml:lang="ast">Editor de testu avanzáu</summary>
   <summary xml:lang="bs">Napredni uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text avançat</summary>
   <summary xml:lang="ca-valencia">Editor de text avançat</summary>
@@ -108,6 +109,7 @@
     <p xml:lang="zh-CN">Kate 是一个多文档，多视图的文本编辑器，是 KDE 的一部分。它的特性包括代码折叠，语法高亮，动态文字折行，嵌入式命令行终端，可扩展的插件接口和一些初步的脚本支持。</p>
     <p xml:lang="zh-TW">Kate 是 KDE 內的進階編輯器，可同時編輯多個文件。它的功能包括像是源碼封裝，語法突顯，動態折行，嵌入主控台，延伸外掛程式介面與一些基本的文稿支援等等。</p>
     <p>Features:</p>
+    <p xml:lang="ast">Carauterístiques</p>
     <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>

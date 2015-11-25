@@ -138,6 +138,7 @@ Comment[sv]=KDE texteditor
 Comment[uk]=Текстовий редактор KDE
 Comment[x-test]=xxKDE Text Editorxx
 Comment[zh_CN]=KDE 文本编辑器
+Comment[zh_TW]=KDE 文字編輯器
 MimeType=text/plain;
 Exec=kwrite %U
 StartupNotify=true

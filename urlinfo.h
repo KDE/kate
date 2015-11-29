@@ -33,7 +33,7 @@ struct UrlInfo
         : cursor(KTextEditor::Cursor::invalid())
     {
         // convert to an url
-        const QRegularExpression withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
+        const QRegularExpression withProtocol(QStringLiteral("^[a-zA-Z]+://")); // TODO: remove after Qt supports this on its own
         if (withProtocol.match(path).hasMatch()) {
             url = QUrl::fromUserInput(path);
         } else {
@@ -50,7 +50,7 @@ struct UrlInfo
                 int line = match.captured(1).toInt() - 1;
                 // don't use an invalid column when the line is valid
                 int column = qMax(0, match.captured(2).toInt() - 1);
-                url = QUrl::fromLocalFile(path);
+                url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
                 cursor = {line, column};
             }
         }

@@ -47,6 +47,7 @@
   <summary xml:lang="ca">Editor de text</summary>
   <summary xml:lang="ca-valencia">Editor de text</summary>
   <summary xml:lang="cs">Textový editor</summary>
+  <summary xml:lang="da"> Teksteditor</summary>
   <summary xml:lang="de">Texteditor</summary>
   <summary xml:lang="el">Επεξεργαστής κειμένου</summary>
   <summary xml:lang="en-GB">Text Editor</summary>
@@ -120,6 +121,7 @@
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
+    <p xml:lang="da">Funktioner:</p>
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="el">Χαρακτηριστικά:</p>
     <p xml:lang="en-GB">Features:</p>
@@ -190,6 +192,7 @@
       <li xml:lang="ca">Compleció de paraules</li>
       <li xml:lang="ca-valencia">Compleció de paraules</li>
       <li xml:lang="cs">Dokončování slov</li>
+      <li xml:lang="da">Ord-fuldførelse</li>
       <li xml:lang="de">Wortvervollständigung</li>
       <li xml:lang="el">Συμπλήρωση λέξεων</li>
       <li xml:lang="en-GB">Word completion</li>
@@ -225,6 +228,7 @@
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="ca-valencia">Sagnat automàtic</li>
       <li xml:lang="cs">Automaticky odsadit</li>
+      <li xml:lang="da">Auto-indrykning</li>
       <li xml:lang="de">Automatisches einrücken</li>
       <li xml:lang="el">Αυτόματη εισαγωγή εσοχών</li>
       <li xml:lang="en-GB">Auto-indentation</li>
@@ -296,6 +300,7 @@
       <li xml:lang="ca">Mode d'entrada del Vi</li>
       <li xml:lang="ca-valencia">Mode d'entrada del Vi</li>
       <li xml:lang="cs">Vstupní režim VI</li>
+      <li xml:lang="da">VI-input-tilstand</li>
       <li xml:lang="de">VI-Eingabemodus</li>
       <li xml:lang="el">Λειτουργία εισαγωγής vi</li>
       <li xml:lang="en-GB">Vi input mode</li>

@@ -45,6 +45,7 @@
   <summary xml:lang="ca">Editor de text avançat</summary>
   <summary xml:lang="ca-valencia">Editor de text avançat</summary>
   <summary xml:lang="cs">Pokročilý textový editor</summary>
+  <summary xml:lang="da">Avanceret teksteditor</summary>
   <summary xml:lang="de">Erweiterter Texteditor</summary>
   <summary xml:lang="el">Προηγμένος επεξεργαστής κειμένου</summary>
   <summary xml:lang="en-GB">Advanced Text Editor</summary>
@@ -114,6 +115,7 @@
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
+    <p xml:lang="da">Funktioner:</p>
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="el">Χαρακτηριστικά:</p>
     <p xml:lang="en-GB">Features:</p>
@@ -180,6 +182,7 @@
       <li xml:lang="ca">Verificació ortogràfica</li>
       <li xml:lang="ca-valencia">Verificació ortogràfica</li>
       <li xml:lang="cs">Kontrola pravopisu</li>
+      <li xml:lang="da">Stavekontrol</li>
       <li xml:lang="de">Rechtschreibprüfung</li>
       <li xml:lang="el">Ορθογραφία</li>
       <li xml:lang="en-GB">Spell checking</li>
@@ -428,6 +431,7 @@
       <li>Block selection mode</li>
       <li xml:lang="ca">Mode de selecció per blocs</li>
       <li xml:lang="ca-valencia">Mode de selecció per blocs</li>
+      <li xml:lang="da">Blokmarkeringstilstand</li>
       <li xml:lang="de">Blockauswahlmodus</li>
       <li xml:lang="el">Λειτουργία επιλογής μπλοκ</li>
       <li xml:lang="en-GB">Block selection mode</li>
@@ -460,6 +464,7 @@
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="ca-valencia">Sagnat automàtic</li>
       <li xml:lang="cs">Automaticky odsadit</li>
+      <li xml:lang="da">Auto-indrykning</li>
       <li xml:lang="de">Automatisches einrücken</li>
       <li xml:lang="el">Αυτόματη χρήση εσοχών</li>
       <li xml:lang="en-GB">Auto indentation</li>

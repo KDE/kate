@@ -135,6 +135,12 @@ private:
 
 public Q_SLOTS:
     void documentNameChanged();
+    
+protected:
+    /**
+     * Event filter for QApplication to handle mac os like file open
+     */
+    bool eventFilter(QObject *obj, QEvent *event);
 };
 
 #endif

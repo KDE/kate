@@ -54,6 +54,7 @@
 #include <QMenuBar>
 #include <QDir>
 #include <QFileDialog>
+#include <QFileOpenEvent>
 
 QList<KTextEditor::Document *> KWrite::docList;
 QList<KWrite *> KWrite::winList;
@@ -111,6 +112,11 @@ KWrite::KWrite(KTextEditor::Document *doc)
 
     // give view focus
     m_view->setFocus(Qt::OtherFocusReason);
+
+    /**
+     * handle mac os x like file open request via event filter
+     */
+    qApp->installEventFilter(this);
 }
 
 KWrite::~KWrite()
@@ -529,4 +535,25 @@ void KWrite::documentNameChanged()
     }
 
     setCaption(c + readOnlyCaption + QStringLiteral(" [*]"), m_view->document()->isModified());
+}
+
+bool KWrite::eventFilter(QObject *obj, QEvent *event)
+{
+    /**
+     * handle mac os like file open
+     */
+    if (event->type() == QEvent::FileOpen) {
+        /**
+         * try to open and activate the new document, like we would do for stuff
+         * opened via file dialog
+         */
+        QFileOpenEvent *foe = static_cast<QFileOpenEvent*>(event);
+        slotOpen(foe->url());
+        return true;
+    }
+    
+    /**
+     * else: pass over to default implementation
+     */
+    return KParts::MainWindow::eventFilter(obj, event);
 }

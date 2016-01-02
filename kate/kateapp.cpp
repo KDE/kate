@@ -34,6 +34,7 @@
 #include <QFileInfo>
 #include <QTextCodec>
 #include <QApplication>
+#include <QFileOpenEvent>
 
 #include "../../urlinfo.h"
 
@@ -60,6 +61,11 @@ KateApp::KateApp(const QCommandLineParser &args)
     connect(&m_docManager, &KateDocManager::documentDeleted, &m_wrapper, &KTextEditor::Application::documentDeleted);
     connect(&m_docManager, &KateDocManager::aboutToCreateDocuments, &m_wrapper, &KTextEditor::Application::aboutToCreateDocuments);
     connect(&m_docManager, &KateDocManager::documentsCreated, &m_wrapper, &KTextEditor::Application::documentsCreated);
+    
+    /**
+     * handle mac os x like file open request via event filter
+     */
+    qApp->installEventFilter(this);
 }
 
 KateApp::~KateApp()
@@ -386,3 +392,26 @@ KTextEditor::Plugin *KateApp::plugin(const QString &name)
     return m_pluginManager.plugin(name);
 }
 
+bool KateApp::eventFilter(QObject *obj, QEvent *event)
+{
+    /**
+     * handle mac os like file open
+     */
+    if (event->type() == QEvent::FileOpen) {
+        /**
+         * try to open and activate the new document, like we would do for stuff
+         * opened via dbus
+         */
+        QFileOpenEvent *foe = static_cast<QFileOpenEvent*>(event);
+        KTextEditor::Document *doc = openDocUrl(foe->url(), QString(), false);
+        if (doc && activeKateMainWindow()) {
+            activeKateMainWindow()->viewManager()->activateView(doc);
+        }
+        return true;
+    }
+    
+    /**
+     * else: pass over to default implementation
+     */
+    return QObject::eventFilter(obj, event);
+}

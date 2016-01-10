@@ -14,6 +14,7 @@
   <name xml:lang="el">KWrite</name>
   <name xml:lang="en-GB">KWrite</name>
   <name xml:lang="es">KWrite</name>
+  <name xml:lang="et">KWrite</name>
   <name xml:lang="fi">KWrite</name>
   <name xml:lang="fr">KWrite</name>
   <name xml:lang="gl">KWrite</name>
@@ -53,6 +54,7 @@
   <summary xml:lang="el">Επεξεργαστής κειμένου</summary>
   <summary xml:lang="en-GB">Text Editor</summary>
   <summary xml:lang="es">Editor de texto</summary>
+  <summary xml:lang="et">Tekstiredaktor</summary>
   <summary xml:lang="fi">Tekstimuokkain</summary>
   <summary xml:lang="fr">Éditeur de texte</summary>
   <summary xml:lang="gl">Editor de textos</summary>
@@ -92,6 +94,7 @@
     <p xml:lang="el">Το KWrite είναι ένας επεξεργαστής κειμένου για το KDE, με βάση το συστατικό επεξεργαστή του Kate.</p>
     <p xml:lang="en-GB">KWrite is a text editor for KDE, based on the Kate's editor component.</p>
     <p xml:lang="es">KWrite es un editor de texto para KDE basado en el componente de edición de Kate.</p>
+    <p xml:lang="et">KWrite on KDE tekstiredaktor, mille aluseks on Kate redaktorikomponent.</p>
     <p xml:lang="fi">KWrite on tekstimuokkain eli tekstieditori KDE:lle. Se perustuu Katen muokkainosaan.</p>
     <p xml:lang="fr">KWrite est un éditeur de texte s'appuyant sur le composant éditeur de Kate.</p>
     <p xml:lang="gl">KWrite é un editor de texto para KDE baseado no compoñente de editor de Kate.</p>
@@ -129,6 +132,7 @@
     <p xml:lang="el">Χαρακτηριστικά:</p>
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funcionalidades:</p>
+    <p xml:lang="et">Omadused:</p>
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
@@ -165,6 +169,7 @@
       <li xml:lang="el">Επισήμανση σύνταξης ανάλογα με τον τύπο αρχείου</li>
       <li xml:lang="en-GB">Syntax highlighting according to the file type</li>
       <li xml:lang="es">Resaltado de sintaxis según el tipo de archivo</li>
+      <li xml:lang="et">Süntaksi esiletõstmine vastavalt failitüübile</li>
       <li xml:lang="fi">Syntaksin korostus tiedostotyypin perusteella</li>
       <li xml:lang="fr">Coloration syntaxique selon le type de fichier</li>
       <li xml:lang="gl">Realce de sintaxe segundo o tipo do ficheiro.</li>
@@ -202,6 +207,7 @@
       <li xml:lang="el">Συμπλήρωση λέξεων</li>
       <li xml:lang="en-GB">Word completion</li>
       <li xml:lang="es">Comletado de palabras</li>
+      <li xml:lang="et">Sõnalõpetus</li>
       <li xml:lang="fi">Sanantäydennys</li>
       <li xml:lang="fr">Auto-complétion des mots</li>
       <li xml:lang="gl">Completado de palabras.</li>
@@ -239,6 +245,7 @@
       <li xml:lang="el">Αυτόματη εισαγωγή εσοχών</li>
       <li xml:lang="en-GB">Auto-indentation</li>
       <li xml:lang="es">Sangrado automático</li>
+      <li xml:lang="et">Automaatne taandus</li>
       <li xml:lang="fi">Automaattinen sisennys</li>
       <li xml:lang="fr">Indentation automatique</li>
       <li xml:lang="gl">Sangrado automático.</li>
@@ -275,6 +282,7 @@
       <li xml:lang="el">Υποστήριξη προσθέτων</li>
       <li xml:lang="en-GB">Plugin support</li>
       <li xml:lang="es">Uso de complementos</li>
+      <li xml:lang="et">Pluginate toetus</li>
       <li xml:lang="fi">Liitännäistuki</li>
       <li xml:lang="fr">Gestion des extensions</li>
       <li xml:lang="gl">Compatibilidade con complementos.</li>
@@ -313,6 +321,7 @@
       <li xml:lang="el">Λειτουργία εισαγωγής vi</li>
       <li xml:lang="en-GB">Vi input mode</li>
       <li xml:lang="es">Modo de entrada Vi</li>
+      <li xml:lang="et">Vi sisestusrežiim</li>
       <li xml:lang="fi">VI-syöttötila</li>
       <li xml:lang="fr">Mode d'entrée Vi</li>
       <li xml:lang="gl">Modo de entrada de Vi.</li>

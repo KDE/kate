@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <name>KWrite</name>
+  <name xml:lang="ar">كاتبك</name>
   <name xml:lang="ast">KWrite</name>
   <name xml:lang="bs">Kwrite</name>
   <name xml:lang="ca">KWrite</name>
@@ -43,6 +44,7 @@
   <name xml:lang="zh-CN">KWrite</name>
   <name xml:lang="zh-TW">KWrite</name>
   <summary>Text Editor</summary>
+  <summary xml:lang="ar">محرّر نصوص</summary>
   <summary xml:lang="ast">Editor de testu</summary>
   <summary xml:lang="bs">Uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text</summary>
@@ -85,6 +87,7 @@
     <p>
       KWrite is a text editor for KDE, based on the Kate's editor component.
     </p>
+    <p xml:lang="ar">«كاتبك» هو محرّر نصوص لكدي، مبنيّ على مكوّن المحرّر ل‍«كيت».</p>
     <p xml:lang="ast">KWrite ye un editor de testu pa KDE, básase nel componente del editor Kate.</p>
     <p xml:lang="ca">El KWrite és un editor de text pel KDE, basat en el component d'edició del Kate.</p>
     <p xml:lang="ca-valencia">El KWrite és un editor de text pel KDE, basat en el component d'edició del Kate.</p>
@@ -119,6 +122,7 @@
     <p xml:lang="zh-CN">KWrite 是 KDE 的文本编辑器，基于 Kate 的编辑器组件。</p>
     <p xml:lang="zh-TW">KWrite 是一套 KDE 的文字編輯器，基於 Kate 的編輯器組件。</p>
     <p>Features:</p>
+    <p xml:lang="ar">الميزات:</p>
     <p xml:lang="ast">Carauterístiques:</p>
     <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
@@ -159,6 +163,7 @@
     <p xml:lang="zh-TW">功能：</p>
     <ul>
       <li>Syntax highlighting according to the file type</li>
+      <li xml:lang="ar">إبراز الصّياغة حسب نوع الملفّ</li>
       <li xml:lang="ca">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
       <li xml:lang="ca-valencia">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
       <li xml:lang="de">Syntaxhervorhebung passend zum Dateityp</li>
@@ -192,6 +197,7 @@
       <li xml:lang="zh-CN">按文件类型进行语法高亮</li>
       <li xml:lang="zh-TW">根據檔案型態做語法突顯</li>
       <li>Word completion</li>
+      <li xml:lang="ar">إكمال الكلمات</li>
       <li xml:lang="ast">Completáu de pallabres</li>
       <li xml:lang="bs">Dopuna riječi</li>
       <li xml:lang="ca">Compleció de paraules</li>
@@ -230,6 +236,7 @@
       <li xml:lang="zh-CN">单词补全</li>
       <li xml:lang="zh-TW">文字補完</li>
       <li>Auto-indentation</li>
+      <li xml:lang="ar">الإزاحة الآليّة</li>
       <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="ca-valencia">Sagnat automàtic</li>
@@ -267,6 +274,7 @@
       <li xml:lang="zh-CN">自动缩进</li>
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Plugin support</li>
+      <li xml:lang="ar">دعم الملحقات</li>
       <li xml:lang="ast">Sofitu de plugins</li>
       <li xml:lang="ca">Implementació de connectors</li>
       <li xml:lang="ca-valencia">Implementació de connectors</li>
@@ -303,6 +311,7 @@
       <li xml:lang="zh-CN">插件支持</li>
       <li xml:lang="zh-TW">外掛程式支援</li>
       <li>Vi input mode</li>
+      <li xml:lang="ar">وضع دخل ڤي-آي</li>
       <li xml:lang="ast">Mou d'entrada Vi</li>
       <li xml:lang="bs">Vi editor režim unosa</li>
       <li xml:lang="ca">Mode d'entrada del Vi</li>

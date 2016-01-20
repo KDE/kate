@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <name>Kate</name>
+  <name xml:lang="ar">كيت</name>
   <name xml:lang="ast">Kate</name>
   <name xml:lang="bs">Kate</name>
   <name xml:lang="ca">Kate</name>
@@ -41,6 +42,7 @@
   <name xml:lang="zh-CN">Kate</name>
   <name xml:lang="zh-TW">Kate</name>
   <summary>Advanced Text Editor</summary>
+  <summary xml:lang="ar">محرّر نصوص متقدّم</summary>
   <summary xml:lang="ast">Editor de testu avanzáu</summary>
   <summary xml:lang="bs">Napredni uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text avançat</summary>
@@ -82,6 +84,7 @@
       Kate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting,
       dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.
     </p>
+    <p xml:lang="ar">«كيت» هو محرّر نصوص لكدي يدعم عدّة مستندات وعدّة عروض. يقدّم «كيت» مزايا عديدة كلفّ الأكواد، وإبراز الصّياغة، ولفّ الكلمات الحركيّ، ومعراض مضمّن، وواجهة ملحقات واسعة ودعم بسيط للسّكربتة.</p>
     <p xml:lang="ca">El Kate és un editor de text multidocument, i multivista pel KDE. Té funcionalitats com el plegat de codi, ressaltat de sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per crear scripts.</p>
     <p xml:lang="ca-valencia">El Kate és un editor de text multidocument, i multivista pel KDE. Té funcionalitats com el plegat de codi, ressaltat de sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per crear scripts.</p>
     <p xml:lang="de">Kate ist ein KDE-Editor für mehrere Dokumente und Ansichten. Funktionen wie Quelltextausblendung, Syntaxhervorhebung, dynamischer Zeilenumbruch, eine eingebettete Konsole und eine umfangreiche Schnittstelle für Module sowie vorläufige Unterstützung für Skripte sind enthalten.</p>
@@ -113,6 +116,7 @@
     <p xml:lang="zh-CN">Kate 是一个多文档，多视图的文本编辑器，是 KDE 的一部分。它的特性包括代码折叠，语法高亮，动态文字折行，嵌入式命令行终端，可扩展的插件接口和一些初步的脚本支持。</p>
     <p xml:lang="zh-TW">Kate 是 KDE 內的進階編輯器，可同時編輯多個文件。它的功能包括像是源碼封裝，語法突顯，動態折行，嵌入主控台，延伸外掛程式介面與一些基本的文稿支援等等。</p>
     <p>Features:</p>
+    <p xml:lang="ar">الميزات:</p>
     <p xml:lang="ast">Carauterístiques</p>
     <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
@@ -151,6 +155,7 @@
     <p xml:lang="zh-TW">功能：</p>
     <ul>
       <li>MDI, window splitting, window tabbing</li>
+      <li xml:lang="ar">واجهة لعدّة مستندات، تقسيم وتلسين للنّوافذ</li>
       <li xml:lang="ca">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
       <li xml:lang="ca-valencia">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
       <li xml:lang="de">MDI (Multiple Document Interface = Benutzeroberfläche mit mehreren gleichzeitig geöffneten Dokumenten), geteilte Fenster, Unterfenster</li>
@@ -183,6 +188,7 @@
       <li xml:lang="zh-CN">多文档界面 (MDI)，窗口分割，标签页</li>
       <li xml:lang="zh-TW">MDI，視窗分割，視窗分頁</li>
       <li>Spell checking</li>
+      <li xml:lang="ar">تدقيق الهجاء</li>
       <li xml:lang="bs">Provjera ispravnog pisanja riječi</li>
       <li xml:lang="ca">Verificació ortogràfica</li>
       <li xml:lang="ca-valencia">Verificació ortogràfica</li>
@@ -219,6 +225,7 @@
       <li xml:lang="zh-CN">拼写检查</li>
       <li xml:lang="zh-TW">拼字檢查</li>
       <li>CR, CRLF, LF newline support</li>
+      <li xml:lang="ar">دعم أسطر CR، وCRLF وLF الجديدة</li>
       <li xml:lang="ca">Implementació per línia nova CR, CRLF, LF</li>
       <li xml:lang="ca-valencia">Implementació per línia nova CR, CRLF, LF</li>
       <li xml:lang="de">Unterstützung für CR, CRLF, LF am Zeilenende</li>
@@ -251,6 +258,7 @@
       <li xml:lang="zh-CN">CR, CRLF, LF 换行支持</li>
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
+      <li xml:lang="ar">دعم التّرميز (utf-8، وutf-16 وآسكي وغيرها)</li>
       <li xml:lang="ca">Implementació de codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="ca-valencia">Implementació de codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="de">Unterstützung für Kodierungen (utf-8, utf-16, ascii usw.)</li>
@@ -283,6 +291,7 @@
       <li xml:lang="zh-CN">编码支持 (utf-8，utf-16，ascii 等。)</li>
       <li xml:lang="zh-TW">編碼支援（UTF-8，UTF-16，ASCII 等）</li>
       <li>Encoding conversion</li>
+      <li xml:lang="ar">التّحويل بين التّرميزات</li>
       <li xml:lang="ca">Conversió de codificació</li>
       <li xml:lang="ca-valencia">Conversió de codificació</li>
       <li xml:lang="de">Umwandlung von Kodierungen</li>
@@ -315,6 +324,7 @@
       <li xml:lang="zh-CN">编码转换</li>
       <li xml:lang="zh-TW">編碼轉換</li>
       <li>Regular expression based find &amp; replace</li>
+      <li xml:lang="ar">بحث واستبدال مبنيّ على التّعابير النّمطيّة</li>
       <li xml:lang="ca">Expressió regular basada en cerca i substitució</li>
       <li xml:lang="ca-valencia">Expressió regular basada en cerca i substitució</li>
       <li xml:lang="de">Reguläre Ausdrücke für Suchen und Ersetzen</li>
@@ -347,6 +357,7 @@
       <li xml:lang="zh-CN">基于正则表达式的查找和替换</li>
       <li xml:lang="zh-TW">搜尋與取代支援正規表示式</li>
       <li>Powerful syntax highlighting and bracket matching</li>
+      <li xml:lang="ar">دعم قويّ لإبراز الصّياغة ومطابقة الأقواس</li>
       <li xml:lang="ca">Ressaltat potent de sintaxi i concordança de parèntesis</li>
       <li xml:lang="ca-valencia">Ressaltat potent de sintaxi i concordança de parèntesis</li>
       <li xml:lang="de">Leistungsfähige Syntaxhervorhebung und Übereinstimmung von Klammern</li>
@@ -378,6 +389,7 @@
       <li xml:lang="zh-CN">强大的语法高亮和括号配对</li>
       <li xml:lang="zh-TW">強大的語法突顯與括號對應</li>
       <li>Code and text folding</li>
+      <li xml:lang="ar">لفّ النّصوص والأكواد</li>
       <li xml:lang="ca">Plegat de codi i text</li>
       <li xml:lang="ca-valencia">Plegat de codi i text</li>
       <li xml:lang="de">Quelltext- und Textausblendung</li>
@@ -410,6 +422,7 @@
       <li xml:lang="zh-CN">代码和文本折叠</li>
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
       <li>Infinite undo/redo support</li>
+      <li xml:lang="ar">دعم عدد متناهٍ من الإعادات والتّكرارات</li>
       <li xml:lang="ca">Implementació de desfer/refer infinits</li>
       <li xml:lang="ca-valencia">Implementació de desfer/refer infinits</li>
       <li xml:lang="de">Unterstützung für unbegrenztes Zurücknehmen und Wiederherstellen</li>
@@ -442,6 +455,7 @@
       <li xml:lang="zh-CN">无限制撤消/重做支持</li>
       <li xml:lang="zh-TW">無限的復原/重做支援</li>
       <li>Block selection mode</li>
+      <li xml:lang="ar">وضع تحديد الكتل</li>
       <li xml:lang="ca">Mode de selecció per blocs</li>
       <li xml:lang="ca-valencia">Mode de selecció per blocs</li>
       <li xml:lang="da">Blokmarkeringstilstand</li>
@@ -474,6 +488,7 @@
       <li xml:lang="zh-CN">块选择模式</li>
       <li xml:lang="zh-TW">區塊選擇模式</li>
       <li>Auto indentation</li>
+      <li xml:lang="ar">الإزاحة الآليّة</li>
       <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="ca-valencia">Sagnat automàtic</li>
@@ -508,6 +523,7 @@
       <li xml:lang="zh-CN">自动缩进</li>
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Auto completion support</li>
+      <li xml:lang="ar">دعم الإكمال الآليّ</li>
       <li xml:lang="ca">Implementació de compleció automàtica</li>
       <li xml:lang="ca-valencia">Implementació de compleció automàtica</li>
       <li xml:lang="de">Unterstützung für Autovervollständigung</li>
@@ -539,6 +555,7 @@
       <li xml:lang="zh-CN">自动补全支持</li>
       <li xml:lang="zh-TW">自動補完支援</li>
       <li>Shell integration</li>
+      <li xml:lang="ar">التّكامل مع الصّدفة</li>
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
       <li xml:lang="ca-valencia">Integració de l'intèrpret d'ordes</li>
       <li xml:lang="de">Einbindung einer Shell</li>
@@ -601,6 +618,7 @@
       <li xml:lang="zh-CN">通过 kioslaves 支持广泛的协议 (HTTP, FTP, SSH, WebDAV 等)</li>
       <li xml:lang="zh-TW">用 kioslave 提供廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
       <li>Plugin architecture for the application and editor component</li>
+      <li xml:lang="ar">بنية ملحقات للتّطبيق ومكوّن المحرّر</li>
       <li xml:lang="ca">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="ca-valencia">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="de">Modul-Architektur für das Programm und die Editorkomponente</li>
@@ -633,6 +651,7 @@
       <li xml:lang="zh-CN">为应用程序和编辑器组件而生的插件架构</li>
       <li xml:lang="zh-TW">用於應用程式與編輯器組件的外掛架構</li>
       <li>Customizable shortcuts</li>
+      <li xml:lang="ar">اختصارات يمكن تخصيصها</li>
       <li xml:lang="ca">Dreceres personalitzables</li>
       <li xml:lang="ca-valencia">Dreceres personalitzables</li>
       <li xml:lang="de">Benutzerdefinierte Kurzbefehle</li>
@@ -664,6 +683,7 @@
       <li xml:lang="zh-CN">自定义快捷键</li>
       <li xml:lang="zh-TW">自定快捷鍵</li>
       <li>Integrated command line</li>
+      <li xml:lang="ar">سطر أوامر مدمج</li>
       <li xml:lang="ca">Línia d'ordres integrada</li>
       <li xml:lang="ca-valencia">Línia d'ordes integrada</li>
       <li xml:lang="de">Integrierte Befehlszeile</li>
@@ -696,6 +716,7 @@
       <li xml:lang="zh-CN">集成命令行</li>
       <li xml:lang="zh-TW">整合指令行</li>
       <li>Scriptable using JavaScript</li>
+      <li xml:lang="ar">يمكن سكربتته عبر جافاسكربت</li>
       <li xml:lang="ca">Es pot crear scripts usant JavaScript</li>
       <li xml:lang="ca-valencia">Es pot crear scripts usant JavaScript</li>
       <li xml:lang="de">Skriptfähig über JavaScript</li>

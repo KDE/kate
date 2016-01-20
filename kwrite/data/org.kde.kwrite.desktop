@@ -1,5 +1,6 @@
 [Desktop Entry]
 GenericName=Text Editor
+GenericName[ar]=محرّر نصوص
 GenericName[ast]=Editor de testu
 GenericName[bg]=Текстов редактор
 GenericName[bs]=Uređivač teksta
@@ -57,6 +58,7 @@ GenericName[x-test]=xxText Editorxx
 GenericName[zh_CN]=文本编辑器
 GenericName[zh_TW]=文字編輯器
 Name=KWrite
+Name[ar]=كاتبك
 Name[ast]=KWrite
 Name[bg]=KWrite
 Name[bs]=Kwrite
@@ -113,6 +115,7 @@ Name[x-test]=xxKWritexx
 Name[zh_CN]=KWrite
 Name[zh_TW]=KWrite
 Comment=KDE Text Editor
+Comment[ar]=محرّر نصوص لكدي
 Comment[ca]=Editor de text pel KDE
 Comment[ca@valencia]=Editor de text pel KDE
 Comment[da]=KDE Teksteditor

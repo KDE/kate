@@ -1,6 +1,6 @@
 [Desktop Entry]
 GenericName=Advanced Text Editor
-GenericName[ar]=محرر نصوص متقدّم
+GenericName[ar]=محرّر نصوص متقدّم
 GenericName[ast]=Editor de testu avanzáu
 GenericName[bg]=Усъвършенстван текстов редактор
 GenericName[bs]=Napredni uređivač teksta
@@ -120,6 +120,7 @@ Name[x-test]=xxKatexx
 Name[zh_CN]=Kate
 Name[zh_TW]=Kate
 Comment=KDE Advanced Text Editor
+Comment[ar]=كيت محرّر النّصوص المتقدّم
 Comment[ca]=Editor avançat de text pel KDE
 Comment[ca@valencia]=Editor avançat de text pel KDE
 Comment[da]=KDE Avanceret Tekst Editor

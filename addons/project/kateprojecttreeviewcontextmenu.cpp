@@ -98,13 +98,15 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
 
     KMoreToolsMenuFactory menuFactory(QLatin1String("kate/addons/project/git-tools"));
 
+    QMenu gitMenu; // must live as long as the maybe filled menu items should live
+
     if (isGit(filename)) {
 
-        auto gitMenu = menuFactory.createMenuFromGroupingNames({ QLatin1String("git-clients-and-actions") },
+        menuFactory.fillMenuFromGroupingNames(&gitMenu, { QLatin1String("git-clients-and-actions") },
                                                                QUrl::fromLocalFile(filename));
 
         menu.addSection(i18n("Git:"));
-        Q_FOREACH(auto action, gitMenu->actions()) {
+        Q_FOREACH(auto action, gitMenu.actions()) {
             menu.addAction(action);
         }
     }

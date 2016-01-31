@@ -65,6 +65,8 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     KPageWidgetItem *applicationItem = addPage(new QWidget, i18n("Application"));
     applicationItem->setIcon(QIcon::fromTheme(QStringLiteral("preferences-other")));
     applicationItem->setHeader(i18n("Application Options"));
+    applicationItem->setCheckable(false);
+    applicationItem->setEnabled(false);
     m_applicationPage = applicationItem;
 
     //BEGIN General page
@@ -191,6 +193,8 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     m_editorPage = addPage(new QWidget, i18n("Editor Component"));
     m_editorPage->setIcon(QIcon::fromTheme(QStringLiteral("accessories-text-editor")));
     m_editorPage->setHeader(i18n("Editor Component Options"));
+    m_editorPage->setCheckable(false);
+    m_editorPage->setEnabled(false);
 
     addEditorPages();
 

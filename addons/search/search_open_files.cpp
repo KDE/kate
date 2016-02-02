@@ -103,7 +103,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
         QRegularExpressionMatch match;
         match = regExp.match(doc->line(line));
         column = match.capturedStart();
-        while (column != -1) {
+        while (column != -1 &&  !match.captured().isEmpty()) {
             emit matchFound(doc->url().toString(), doc->documentName(), line, column,
                             doc->line(line), match.capturedLength());
             match = regExp.match(doc->line(line), column + match.capturedLength());
@@ -155,7 +155,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
     QRegularExpressionMatch match;
     match = tmpRegExp.match(m_fullDoc, column);
     column = match.capturedStart();
-    while (column != -1) {
+    while (column != -1 && !match.captured().isEmpty()) {
         // search for the line number of the match
         int i;
         line = -1;

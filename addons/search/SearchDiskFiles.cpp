@@ -99,8 +99,7 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
         if (m_cancelSearch) break;
         match = m_regExp.match(line);
         column = match.capturedStart();
-        while (column != -1) {
-            if (match.captured().isEmpty()) break;
+        while (column != -1 && !match.captured().isEmpty()) {
             // limit line length
             if (line.length() > 1024) line = line.left(1024);
             emit matchFound(fileName, fileName, i, column, line, match.capturedLength());
@@ -149,7 +148,7 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
     QRegularExpressionMatch match;
     match = tmpRegExp.match(fullDoc);
     column = match.capturedStart();
-    while (column != -1) {
+    while (column != -1 && !match.captured().isEmpty()) {
         if (m_cancelSearch) break;
         // search for the line number of the match
         int i;

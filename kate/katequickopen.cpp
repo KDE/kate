@@ -286,11 +286,13 @@ void KateQuickOpen::slotReturnPressed()
      * open document for first element, if possible
      * prefer to use the document pointer
      */
-    KTextEditor::Document *doc = m_listView->currentIndex().data(DocumentRole).value<QPointer<KTextEditor::Document> >();
+    // our data is in column 0 (clicking on column 1 results in no data, therefore, create new index)
+    const QModelIndex index = m_listView->model()->index(m_listView->currentIndex().row(), 0);
+    KTextEditor::Document *doc = index.data(DocumentRole).value<QPointer<KTextEditor::Document> >();
     if (doc) {
         m_mainWindow->wrapper()->activateView(doc);
     } else {
-        QUrl url = m_listView->currentIndex().data(UrlRole).value<QUrl>();
+        QUrl url = index.data(UrlRole).value<QUrl>();
         if (!url.isEmpty()) {
             m_mainWindow->wrapper()->openUrl(url);
         }

@@ -43,6 +43,7 @@ Name[x-test]=xxLumenxx
 Name[zh_CN]=Lumen
 Name[zh_TW]=Lumen
 Comment=Lumen is a Autocompletion Plugin for D, using the DCD autocompletion server
+Comment[ast]=Lumen ye un complementu d'auto-completáu pa D usando'l sirvidor d'auto-completáu DCD
 Comment[ca]=El Lumen és un connector de compleció automàtica pel D, que usa el servidor de compleció automàtica DCD
 Comment[ca@valencia]=El Lumen és un connector de compleció automàtica pel D, que usa el servidor de compleció automàtica DCD
 Comment[da]=Lumen er et autofuldførelse-plugin til D, som bruger autofuldførelse-serveren DCD

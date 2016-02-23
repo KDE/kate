@@ -232,11 +232,13 @@ void KateMainWindow::setupImportantActions()
     QAction * a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("view_prev_tab"));
     a->setText(i18n("&Previous Tab"));
     a->setWhatsThis(i18n("Focus the previous tab."));
+    actionCollection()->setDefaultShortcuts(a, a->shortcuts() << KStandardShortcut::tabPrev());
     connect(a, SIGNAL(triggered()), this, SLOT(slotFocusPrevTab()));
 
     a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("view_next_tab"));
     a->setText(i18n("&Next Tab"));
     a->setWhatsThis(i18n("Focus the next tab."));
+    actionCollection()->setDefaultShortcuts(a, a->shortcuts() << KStandardShortcut::tabNext());
     connect(a, SIGNAL(triggered()), this, SLOT(slotFocusNextTab()));
 
     // the quick open action is used by the KateViewSpace "quick open button"

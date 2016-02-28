@@ -500,7 +500,7 @@ void KateCTagsView::updateSessionDB()
 
     if (m_ctagsUi.tagsFile->text().isEmpty()) {
         // FIXME we need a way to get the session name
-        pluginFolder + QLatin1String("/session_db_");
+        pluginFolder += QLatin1String("/session_db_");
         pluginFolder += QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd_hhmmss"));
         m_ctagsUi.tagsFile->setText(pluginFolder);
     }

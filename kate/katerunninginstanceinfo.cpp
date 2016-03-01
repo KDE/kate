@@ -28,6 +28,9 @@ int KateRunningInstanceInfo::dummy_session = 0;
 bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
 {
     QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface();
+    if (!i) {
+        return true; // we do not know about any others...
+    }
 
     // look up all running kate instances and there sessions
     QDBusReply<QStringList> servicesReply = i->registeredServiceNames();

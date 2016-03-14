@@ -61,6 +61,7 @@ private:
     KProcess *m_proc;
     QTemporaryFile *m_diffFile;
     QStringList m_stateTexts;
+    bool m_blockAddDocument;
 
 protected:
     virtual void closeEvent(QCloseEvent *e);

@@ -61,7 +61,8 @@ public:
 KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const char *name)
     : QDialog(parent),
       m_proc(0),
-      m_diffFile(0)
+      m_diffFile(0),
+      m_blockAddDocument(false)
 {
     setWindowTitle(i18n("Documents Modified on Disk"));
     setObjectName(QString::fromLatin1(name));
@@ -175,6 +176,9 @@ void KateMwModOnHdDialog::slotReload()
 
 void KateMwModOnHdDialog::handleSelected(int action)
 {
+    // don't alter the treewidget via addDocument, we modify it here!
+    m_blockAddDocument = true;
+
     // collect all items we can remove
     QList<QTreeWidgetItem *> itemsToDelete;
     for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
@@ -215,7 +219,7 @@ void KateMwModOnHdDialog::handleSelected(int action)
         }
     }
 
-    // remove the marked items
+    // remove the marked items, addDocument is blocked, this is save!
     for (int i = 0; i < itemsToDelete.count(); ++i) {
         delete itemsToDelete[i];
     }
@@ -224,6 +228,9 @@ void KateMwModOnHdDialog::handleSelected(int action)
     if (! twDocuments->topLevelItemCount()) {
         accept();
     }
+
+    // allow addDocument again
+    m_blockAddDocument = false;
 }
 
 void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
@@ -326,6 +333,10 @@ void KateMwModOnHdDialog::slotPDone()
 
 void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
 {
+    // guard this e.g. during handleSelected
+    if (m_blockAddDocument)
+        return;
+
     for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
         KateDocItem *item = (KateDocItem *) * it;
         if (item->document == doc) {

@@ -55,14 +55,14 @@ void TargetHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     QString str;
     if (!index.parent().isValid()) {
         if (index.column() == 0) {
-            str = i18nc("T as in Target set", "<B>T:</B> %1", index.data().toString());
+            str = i18nc("T as in Target set", "<B>T:</B> %1", index.data().toString().toHtmlEscaped());
         }
         else if (index.column() == 1) {
-            str = i18nc("D as in working Directory", "<B>Dir:</B> %1", index.data().toString());
+            str = i18nc("D as in working Directory", "<B>Dir:</B> %1", index.data().toString().toHtmlEscaped());
         }
     }
     else {
-        str = index.data().toString();
+        str = index.data().toString().toHtmlEscaped();
     }
 
     if (option.state & QStyle::State_Selected) {
@@ -100,7 +100,7 @@ void TargetHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
 QSize TargetHtmlDelegate::sizeHint(const QStyleOptionViewItem& /* option */, const QModelIndex& index) const
 {
     QTextDocument doc;
-    doc.setHtml(index.data().toString());
+    doc.setHtml(index.data().toString().toHtmlEscaped());
     doc.setDocumentMargin(2);
     if (index.column() == 0 && index.internalId() != TargetModel::InvalidIndex) {
         return doc.size().toSize() + QSize(30, 0); // add margin for the check-box;

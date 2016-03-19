@@ -123,7 +123,6 @@ QList<CompletionMatch> KTERustCompletion::getMatches(const KTextEditor::Document
         return matches;
     }
 
-    const QUrl &documentUrl = document->url();
     QTemporaryFile file;
 
     if (file.open()) {

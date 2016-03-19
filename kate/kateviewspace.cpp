@@ -33,6 +33,9 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 
+#include <QApplication>
+#include <QClipboard>
+#include <QDesktopServices>
 #include <QHelpEvent>
 #include <QMenu>
 #include <QStackedWidget>
@@ -566,11 +569,22 @@ void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
         return;
     }
 
+    KTextEditor::Document *doc = m_docToTabId.key(id);
+    Q_ASSERT(doc);
+
     QMenu menu(this);
     QAction *aCloseTab = menu.addAction(i18n("&Close Document"));
-    QAction *aCloseOthers = menu.addAction(i18n("&Close Other Documents"));
+    QAction *aCloseOthers = menu.addAction(i18n("Close Other &Documents"));
+    menu.addSeparator();
+    QAction *aCopyPath = menu.addAction(i18n("Copy &Path"));
+    QAction *aOpenFolder = menu.addAction(i18n("&Open Containing Folder"));
+
     if (KateApp::self()->documentManager()->documentList().count() < 2) {
         aCloseOthers->setEnabled(false);
+    }
+    if (doc->url().isEmpty()) {
+        aCopyPath->setEnabled(false);
+        aOpenFolder->setEnabled(false);
     }
 
     QAction *choice = menu.exec(globalPos);
@@ -578,9 +592,11 @@ void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
     if (choice == aCloseTab) {
         closeTabRequest(id);
     } else if (choice == aCloseOthers) {
-        KTextEditor::Document *doc = m_docToTabId.key(id);
-        Q_ASSERT(doc);
         KateApp::self()->documentManager()->closeOtherDocuments(doc);
+    } else if (choice == aCopyPath) {
+        QApplication::clipboard()->setText(doc->url().toDisplayString(QUrl::PreferLocalFile));
+    } else if (choice == aOpenFolder) {
+        QDesktopServices::openUrl(doc->url().adjusted(QUrl::RemoveFilename));
     }
 }
 

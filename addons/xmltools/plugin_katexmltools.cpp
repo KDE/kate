@@ -452,7 +452,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
         // no meta dtd found for this file
         url = QFileDialog::getOpenFileUrl(KTextEditor::Editor::instance()->application()->activeMainWindow()->window(),
                                           i18n("Assign Meta DTD in XML Format"),
-                                          m_urlString,
+                                          QUrl::fromLocalFile(m_urlString),
                                           "*.xml");
     } else {
         url.setUrl(defaultDir + filename);

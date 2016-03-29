@@ -235,7 +235,7 @@ void KateViewManager::slotDocumentOpen()
 
     QString fileList;
 
-    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(m_mainWindow, i18n("Open File"), cv->document()->url().adjusted(QUrl::StripTrailingSlash | QUrl::RemoveFilename));
+    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(m_mainWindow, i18n("Open File"), cv->document()->url());
     Q_FOREACH(const QUrl & url, urls) {
         qint64 size = QFile(url.toLocalFile()).size();
 

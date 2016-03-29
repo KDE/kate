@@ -247,8 +247,7 @@ void KWrite::slotNew()
 
 void KWrite::slotOpen()
 {
-    auto parent = m_view->document()->url().adjusted(QUrl::StripTrailingSlash | QUrl::RemoveFilename);
-    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(this, i18n("Open File"), parent);
+    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(this, i18n("Open File"), m_view->document()->url());
     Q_FOREACH(QUrl url, urls) {
         slotOpen(url);
     }

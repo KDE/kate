@@ -33,6 +33,8 @@
 
 #include <KXMLGUIClient>
 
+class QAction;
+
 class KateProjectPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
@@ -137,6 +139,11 @@ private Q_SLOTS:
      */
     void slotProjectReload();
 
+    /**
+     * Lookup current word
+     */
+    void slotProjectIndex();
+
 Q_SIGNALS:
     /**
      * Emitted if projectFileName changed.
@@ -147,6 +154,12 @@ Q_SIGNALS:
      * Emitted if projectMap changed.
      */
     void projectMapChanged();
+
+    /**
+     * Emitted when a ctags lookup in requested
+     * @param word lookup word
+     */
+    void projectLookupWord(const QString &word);
 
 private Q_SLOTS:
     /**
@@ -164,6 +177,17 @@ private Q_SLOTS:
      * Url changed, to auto-load projects
      */
     void slotDocumentUrlChanged(KTextEditor::Document *document);
+
+    /**
+     * Show context menu
+     */
+    void slotContextMenuAboutToShow();
+
+private:
+    /**
+     * find current selected or under cursor word
+     */
+    QString currentWord() const;
 
 private:
     /**
@@ -221,6 +245,11 @@ private:
      * remember for which text views we might need to cleanup stuff
      */
     QSet<QObject *> m_textViews;
+
+    /**
+     * lookup action
+     */
+    QAction *m_lookupAction;
 };
 
 #endif

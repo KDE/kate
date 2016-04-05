@@ -28,12 +28,15 @@
 #include <ktexteditor/codecompletioninterface.h>
 
 #include <kactioncollection.h>
+#include <kstringhandler.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
+#include <kactionmenu.h>
 #include <kaboutdata.h>
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
 
+#include <QMenu>
 #include <QAction>
 #include <QDialog>
 #include <QHBoxLayout>
@@ -47,6 +50,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     , m_mainWindow(mainWin)
     , m_toolView(nullptr)
     , m_toolInfoView(nullptr)
+    , m_lookupAction(nullptr)
 {
     KXMLGUIClient::setComponentName(QStringLiteral("kateproject"), i18n("Kate Project Manager"));
     setXMLFile(QStringLiteral("ui.rc"));
@@ -83,6 +87,16 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
     a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
+    a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_index"), this, SLOT(slotProjectIndex()));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
+
+    // popup menu
+    auto popup = new KActionMenu(i18n("Project"), this);
+    actionCollection()->addAction(QLatin1String("popup_project"), popup);
+
+    m_lookupAction = popup->menu()->addAction(i18n("Lookup: %1", QString()), this, SLOT(slotProjectIndex()));
+
+    connect(popup->menu(), SIGNAL(aboutToShow()), this, SLOT(slotContextMenuAboutToShow()));
 
     /**
      * add us to gui
@@ -462,6 +476,44 @@ void KateProjectPluginView::slotProjectReload()
     if (QWidget *current = m_stackedProjectViews->currentWidget()) {
         static_cast<KateProjectView *>(current)->project()->reload(true);
     }
+}
+
+QString KateProjectPluginView::currentWord() const
+{
+    KTextEditor::View *kv = m_activeTextEditorView;
+    if (!kv) {
+        return QString();
+    }
+
+    if (kv->selection() && kv->selectionRange().onSingleLine()) {
+        return kv->selectionText();
+    }
+
+    return kv->document()->wordAt(kv->cursorPosition());
+}
+
+void KateProjectPluginView::slotProjectIndex()
+{
+    const QString word = currentWord();
+    if (!word.isEmpty()) {
+        auto tabView = qobject_cast<QTabWidget*>(m_stackedProjectInfoViews->currentWidget());
+        if (tabView) {
+            tabView->setCurrentIndex(1);
+        }
+        m_mainWindow->showToolView(m_toolInfoView);
+        emit projectLookupWord(word);
+    }
+}
+
+void KateProjectPluginView::slotContextMenuAboutToShow()
+{
+    const QString word = currentWord();
+    if (word.isEmpty()) {
+        return;
+    }
+
+    const QString squeezed = KStringHandler::csqueeze(word, 30);
+    m_lookupAction->setText(i18n("Lookup: %1", squeezed));
 }
 
 #include "kateprojectpluginview.moc"

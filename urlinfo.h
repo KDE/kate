@@ -43,7 +43,8 @@ struct UrlInfo
         if (url.isLocalFile() && !QFile::exists(path)) {
             // Allow opening specific lines in documents, like mydoc.cpp:10
             // also supports columns, i.e. mydoc.cpp:10:42
-            static const QRegularExpression pattern(QStringLiteral(":(\\d+)(?::(\\d+))?$"));
+            // ignores trailing colons, as compile errors often use that format
+            static const QRegularExpression pattern(QStringLiteral(":(\\d+)(?::(\\d+))?:?$"));
             const auto match = pattern.match(path);
             if (match.isValid()) {
                 path.chop(match.capturedLength());

@@ -318,6 +318,11 @@ private:
     const QCommandLineParser &m_args;
 
     /**
+     * known main windows
+     */
+    QList<KateMainWindow *> m_mainWindows;
+
+    /**
      * Wrapper of application for KTextEditor
      */
     KTextEditor::Application m_wrapper;
@@ -328,6 +333,11 @@ private:
     KateDocManager m_docManager;
 
     /**
+     * dbus interface
+     */
+    KateAppAdaptor m_adaptor;
+
+    /**
      * plugin manager
      */
     KatePluginManager m_pluginManager;
@@ -336,17 +346,6 @@ private:
      * session manager
      */
     KateSessionManager m_sessionManager;
-
-    /**
-     * dbus interface
-     */
-    KateAppAdaptor m_adaptor;
-
-    /**
-     * known main windows
-     */
-    QList<KateMainWindow *> m_mainWindows;
-
 };
 
 #endif

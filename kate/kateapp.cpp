@@ -48,9 +48,9 @@ KateApp::KateApp(const QCommandLineParser &args)
     : m_args(args)
     , m_wrapper(appSelf = this)
     , m_docManager(this)
+    , m_adaptor(this)
     , m_pluginManager(this)
     , m_sessionManager(this)
-    , m_adaptor(this)
 {
     /**
      * re-route some signals to application wrapper

@@ -173,7 +173,6 @@ protected:
 private:
     QTreeWidgetItem *rootFileItem(const QString &url, const QString &fName);
     QStringList filterFiles(const QStringList& files) const;
-    QString currentWord(const KTextEditor::Document& document, const KTextEditor::Cursor& cursor) const;
 
     Ui::SearchDialog                   m_ui;
     QWidget                           *m_toolView;

@@ -692,7 +692,9 @@ void KatePluginGDBView::slotValue()
 {
     QString variable;
     KTextEditor::View* editView = m_mainWin->activeView();
-    if (editView && editView->selection()) variable = editView->selectionText();
+    if (editView && editView->selection() && editView->selectionRange().onSingleLine()) {
+        variable = editView->selectionText();
+    }
 
     if (variable.isEmpty()) variable = currentWord();
 

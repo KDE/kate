@@ -354,7 +354,7 @@ QString KateCTagsView::currentWord( )
         return QString();
     }
 
-    if (kv->selection()) {
+    if (kv->selection() && kv->selectionRange().onSingleLine()) {
         return kv->selectionText();
     }
 

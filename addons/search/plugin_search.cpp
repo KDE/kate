@@ -416,36 +416,6 @@ void KatePluginSearchView::setCurrentFolder()
     }
 }
 
-
-QString KatePluginSearchView::currentWord(const KTextEditor::Document& document, const KTextEditor::Cursor& cursor ) const
-{
-    QString textLine = document.line(cursor.line());
-
-    int len = textLine.length();
-
-    if (cursor.column() > len) {       // Probably because of non-wrapping cursor mode.
-        return QString();
-    }
-
-    int start = cursor.column();
-    for(int currPos = cursor.column()-1; currPos >= 0; currPos--) {
-        if (textLine.at(currPos).isLetterOrNumber() || (textLine[currPos]==QLatin1Char('_')) || (textLine[currPos]==QLatin1Char('~'))) {
-            start = currPos;
-        }
-        else {
-            break;
-        }
-    }
-
-    int end = cursor.column();
-    while (end < len && (textLine.at(end).isLetterOrNumber()
-                     || (textLine[end]==QLatin1Char('_')) || (textLine[end]==QLatin1Char('~')))) {
-        end++;
-    }
-
-    return textLine.mid(start, (end - start));
-}
-
 void KatePluginSearchView::openSearchView()
 {
     if (!m_mainWindow) {
@@ -472,7 +442,7 @@ void KatePluginSearchView::openSearchView()
             }
         }
         if (selection.isEmpty()) {
-            selection = currentWord(*editView->document(), editView->cursorPosition());
+            selection = editView->document()->wordAt(editView->cursorPosition());
         }
 
         if (!selection.isEmpty() && !selection.contains(QLatin1Char('\n'))) {

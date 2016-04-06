@@ -166,7 +166,7 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     const QString elidedText = QFontMetrics(font()).elidedText (text(), Qt::ElideMiddle, w);
     const QRect textRect(leftMargin, 0, w, height());
     const QPalette pal = QApplication::palette();
-    style()->drawItemText(&p, textRect, Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText);
+    style()->drawItemText(&p, textRect, Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText, QPalette::WindowText);
 }
 
 void KateTabButton::mousePressEvent(QMouseEvent *ev)

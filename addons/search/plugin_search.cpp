@@ -677,8 +677,9 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
 {
     if (!doc) return;
 
+    KTextEditor::View* activeView = m_mainWindow->activeView();
     KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
-    KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(m_mainWindow->activeView());
+    KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(activeView);
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
     bool replace = ((sender() == &m_replacer) || (sender() == 0) || (sender() == m_ui.replaceButton));
@@ -686,15 +687,23 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
         QColor replaceColor(Qt::green);
         if (ciface) replaceColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
         attr->setBackground(replaceColor);
+
+        if (activeView) {
+            attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
+        }
     }
     else {
         QColor searchColor(Qt::yellow);
         if (ciface) searchColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
         attr->setBackground(searchColor);
+
+        if (activeView) {
+            attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
+        }
     }
     // calculate end line in case of multi-line match
     int endLine = line;
-    int endColumn = column+matchLen;
+    int endColumn = column + matchLen;
     while ((endLine < doc->lines()) &&  (endColumn > doc->line(endLine).size())) {
         endColumn -= doc->line(endLine).size();
         endColumn--; // remove one for '\n'

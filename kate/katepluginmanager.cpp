@@ -181,8 +181,12 @@ void KatePluginManager::loadPlugin(KatePluginInfo *item)
     /**
      * try to load the plugin
      */
-    item->load = (item->plugin = KPluginLoader(item->metaData.fileName()).factory()->create<KTextEditor::Plugin>(this, QVariantList() << item->saveName()));
-    
+    auto factory = KPluginLoader(item->metaData.fileName()).factory();
+    if (factory) {
+        item->plugin = factory->create<KTextEditor::Plugin>(this, QVariantList() << item->saveName());
+        item->load = item->plugin != nullptr;
+    }
+
     /**
      * tell the world about the success
      */

@@ -37,6 +37,11 @@ class KateMainWindow;
 class KatePluginInfo
 {
 public:
+    KatePluginInfo()
+        : load(false)
+        , defaultLoad(false)
+        , plugin(nullptr)
+    {}
     bool load;
     bool defaultLoad;
     KPluginMetaData metaData;

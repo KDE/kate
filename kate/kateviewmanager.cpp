@@ -66,9 +66,6 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     // important, set them up, as we use them in other methodes
     setupActions();
 
-    // resize mode
-    setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, this));
-
     KateViewSpace *vs = new KateViewSpace(this, 0);
     addWidget(vs);
 
@@ -769,7 +766,6 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
         // create a new QSplitter and replace vs with the splitter. vs and newVS are
         // the new children of the new QSplitter
         QSplitter *newContainer = new QSplitter(o);
-        newContainer->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, newContainer));
         QList<int> currentSizes = currentSplitter->sizes();
 
         newContainer->addWidget(vs);

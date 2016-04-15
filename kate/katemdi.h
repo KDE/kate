@@ -146,6 +146,8 @@ public:
     bool toolVisible() const;
 
 protected:
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
     void childEvent(QChildEvent *ev);
     void actionEvent(QActionEvent *event);
 

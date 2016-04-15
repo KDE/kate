@@ -217,12 +217,24 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
     , persistent(false)
 {
     // try to fix resize policy
-    setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+    QSizePolicy policy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    policy.setRetainSizeWhenHidden(true);
+    setSizePolicy(policy);
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
     m_toolbar = new KToolBar(this);
     m_toolbar->setVisible(false);
     m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+}
+
+QSize ToolView::sizeHint() const
+{
+    return size();
+}
+
+QSize ToolView::minimumSizeHint() const
+{
+    return QSize(160, 160);
 }
 
 ToolView::~ToolView()
@@ -289,7 +301,6 @@ void Sidebar::setSplitter(QSplitter *sp)
 {
     m_splitter = sp;
     m_ownSplit = new QSplitter((position() == KMultiTabBar::Top || position() == KMultiTabBar::Bottom) ? Qt::Horizontal : Qt::Vertical, m_splitter);
-    m_ownSplit->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, m_ownSplit));
     m_ownSplit->setChildrenCollapsible(false);
     m_ownSplit->hide();
 }
@@ -357,8 +368,8 @@ bool Sidebar::removeWidget(ToolView *widget)
     QMapIterator<int, ToolView *> it(m_idToWidget);
     while (it.hasNext()) {
         it.next();
-        if (!anyVis) {
-            anyVis =  it.value()->isVisible();
+        if ((anyVis = it.value()->isVisible())) {
+            break;
         }
     }
 
@@ -383,17 +394,11 @@ bool Sidebar::showWidget(ToolView *widget)
     while (it.hasNext()) {
         it.next();
         if ((it.value() != widget) && !it.value()->persistent) {
-            it.value()->hide();
-            setTab(it.key(), false);
-            it.value()->setToolVisible(false);
+            hideWidget(it.value());
         }
     }
 
     setTab(m_widgetToId[widget], true);
-
-    // set minimum size again to 80,80!
-    // we changed that on hide!
-    widget->setMinimumSize(80, 80);
 
     /**
      * resize to right size again and show, else artefacts
@@ -401,16 +406,17 @@ bool Sidebar::showWidget(ToolView *widget)
     if (m_widgetToSize[widget].isValid()) {
         widget->resize(m_widgetToSize[widget]);
     }
-    widget->show();
 
     /**
      * resize to right size again and show, else artefacts
      * same as for widget, both needed
      */
     if (m_preHideSize.isValid()) {
+        widget->resize(m_preHideSize);
         m_ownSplit->resize(m_preHideSize);
     }
     m_ownSplit->show();
+    widget->show();
 
     /**
      * we are visible again!
@@ -437,13 +443,12 @@ bool Sidebar::hideWidget(ToolView *widget)
             if (widget->isVisible()) {
                 m_widgetToSize[widget] = widget->size();
             }
-            continue;
-        }
-
-        if (!anyVis) {
-            anyVis =  it.value()->isVisible();
+        } else if ((anyVis = it.value()->isVisible())) {
+            break;
         }
     }
+
+    widget->hide();
 
     // lower tab
     setTab(m_widgetToId[widget], false);
@@ -455,14 +460,7 @@ bool Sidebar::hideWidget(ToolView *widget)
         m_ownSplit->hide();
     }
 
-    // set minimum size == size, this avoid artifical resizes on show
-    // there we will reset this again to 80,80!
-    widget->setMinimumSize(widget->size());
-
-    widget->hide();
-
     widget->setToolVisible(false);
-
     return true;
 }
 
@@ -733,7 +731,6 @@ MainWindow::MainWindow(QWidget *parentWidget)
     hlayout->addWidget(m_sidebars[KMultiTabBar::Left]);
 
     m_hSplitter = new QSplitter(Qt::Horizontal, hb);
-    m_hSplitter->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, m_hSplitter));
     hlayout->addWidget(m_hSplitter);
 
     m_sidebars[KMultiTabBar::Left]->setSplitter(m_hSplitter);
@@ -751,7 +748,6 @@ MainWindow::MainWindow(QWidget *parentWidget)
 
     m_vSplitter = new QSplitter(Qt::Vertical, vb);
     vlayout->addWidget(m_vSplitter);
-    m_vSplitter->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, m_vSplitter));
 
     m_sidebars[KMultiTabBar::Top]->setSplitter(m_vSplitter);
 
@@ -811,7 +807,6 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin, const QString 
     ToolView *v  = m_sidebars[pos]->addWidget(icon, text, 0);
     v->id = identifier;
     v->plugin = plugin;
-    v->setMinimumSize(80, 80);
 
     m_idToWidget.insert(identifier, v);
     m_toolviews.push_back(v);

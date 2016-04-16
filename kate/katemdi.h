@@ -144,12 +144,12 @@ protected:
 
 public:
     bool toolVisible() const;
+    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 
 protected:
-    QSize sizeHint() const;
-    QSize minimumSizeHint() const;
-    void childEvent(QChildEvent *ev);
-    void actionEvent(QActionEvent *event);
+    void childEvent(QChildEvent *ev) Q_DECL_OVERRIDE;
+    void actionEvent(QActionEvent *event) Q_DECL_OVERRIDE;
 
 private:
     MainWindow *m_mainWin;

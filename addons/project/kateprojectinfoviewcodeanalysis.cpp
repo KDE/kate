@@ -150,7 +150,10 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
         items << fileNameItem;
         items << new QStandardItem(elements[1]);
         items << new QStandardItem(elements[2]);
-        items << new QStandardItem(elements[3].simplified());
+        const auto message = elements[3].simplified();
+        auto messageItem = new QStandardItem(message);
+        messageItem->setToolTip(message);
+        items << messageItem;
         m_model->appendRow(items);
     }
 

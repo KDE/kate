@@ -54,6 +54,10 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     m_treeView->setModel(m_model);
     delete m;
 
+    m_treeView->setSortingEnabled(true);
+    m_treeView->sortByColumn(1, Qt::AscendingOrder);
+    m_treeView->sortByColumn(2, Qt::AscendingOrder);
+
     /**
      * layout widget
      */
@@ -150,7 +154,10 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
         items << fileNameItem;
         items << new QStandardItem(elements[1]);
         items << new QStandardItem(elements[2]);
-        items << new QStandardItem(elements[3].simplified());
+        const auto message = elements[3].simplified();
+        auto messageItem = new QStandardItem(message);
+        messageItem->setToolTip(message);
+        items << messageItem;
         m_model->appendRow(items);
     }
 

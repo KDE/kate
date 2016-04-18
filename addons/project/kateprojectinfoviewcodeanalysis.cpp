@@ -54,6 +54,10 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     m_treeView->setModel(m_model);
     delete m;
 
+    m_treeView->setSortingEnabled(true);
+    m_treeView->sortByColumn(1, Qt::AscendingOrder);
+    m_treeView->sortByColumn(2, Qt::AscendingOrder);
+
     /**
      * layout widget
      */

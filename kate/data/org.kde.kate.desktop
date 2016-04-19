@@ -153,7 +153,6 @@ Comment[sv]=KDE avancerad texteditor
 Comment[uk]=Потужний текстовий редактор KDE
 Comment[x-test]=xxKDE Advanced Text Editorxx
 Comment[zh_CN]=KDE 高级文本编辑器
-Comment[zh_TW]=KDE 進階文字編輯器
 MimeType=text/plain;
 Exec=kate -b %U
 StartupNotify=true

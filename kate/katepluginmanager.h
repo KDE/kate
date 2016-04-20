@@ -67,7 +67,7 @@ public:
     void loadConfig(KConfig *);
     void writeConfig(KConfig *);
 
-    void loadPlugin(KatePluginInfo *item);
+    bool loadPlugin(KatePluginInfo *item);
     void unloadPlugin(KatePluginInfo *item);
 
     void enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, KConfigBase *config = 0);

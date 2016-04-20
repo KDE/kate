@@ -176,7 +176,7 @@ void KatePluginManager::disableAllPluginsGUI(KateMainWindow *win)
     }
 }
 
-void KatePluginManager::loadPlugin(KatePluginInfo *item)
+bool KatePluginManager::loadPlugin(KatePluginInfo *item)
 {
     /**
      * try to load the plugin
@@ -184,8 +184,8 @@ void KatePluginManager::loadPlugin(KatePluginInfo *item)
     auto factory = KPluginLoader(item->metaData.fileName()).factory();
     if (factory) {
         item->plugin = factory->create<KTextEditor::Plugin>(this, QVariantList() << item->saveName());
-        item->load = item->plugin != nullptr;
     }
+    item->load = item->plugin != nullptr;
 
     /**
      * tell the world about the success
@@ -193,6 +193,8 @@ void KatePluginManager::loadPlugin(KatePluginInfo *item)
     if (item->plugin) {
         emit KateApp::self()->wrapper()->pluginCreated(item->saveName(), item->plugin);
     }
+
+    return item->plugin != nullptr;
 }
 
 void KatePluginManager::unloadPlugin(KatePluginInfo *item)

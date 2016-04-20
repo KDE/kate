@@ -105,7 +105,10 @@ void KateConfigPluginPage::stateChange(KatePluginListItem *item, bool b)
 
 void KateConfigPluginPage::loadPlugin(KatePluginListItem *item)
 {
-    KateApp::self()->pluginManager()->loadPlugin(item->info());
+    const bool ok = KateApp::self()->pluginManager()->loadPlugin(item->info());
+    if (!ok) {
+        return;
+    }
     KateApp::self()->pluginManager()->enablePluginGUI(item->info());
     myDialog->addPluginPage(item->info()->plugin);
 

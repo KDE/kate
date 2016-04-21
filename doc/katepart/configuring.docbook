@@ -854,7 +854,7 @@ up a completion box.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Keyword completition
+<term><guilabel>Keyword completion
 </guilabel></term>
 <listitem><para>If enabled, the built-in autocompletion uses the keywords defined by the syntax highlighting.
 </para></listitem>
@@ -1086,7 +1086,7 @@ he wants, by selecting <guilabel>Disable</guilabel>,
 but this can lead to more data loss.</para>
 <para>When enabled, the swap files are saved in the same folder as the file. 
 When <guilabel>Alternative Folder</guilabel> is chosen, swap files are created in the specified folder. 
-This is useful for network file systems to avoid unneccessary network traffic.</para>
+This is useful for network file systems to avoid unnecessary network traffic.</para>
 </listitem>
 </varlistentry>
 

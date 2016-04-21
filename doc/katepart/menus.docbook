@@ -478,7 +478,7 @@ switch to the incremental search bar.
 <keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
-<guimenuitem>Move to Previous Modified Line</guimenuitem></menuchoice></term>
+<guimenuitem>Move to Next Modified Line</guimenuitem></menuchoice></term>
 <listitem>
 <para>Lines that were changed since opening the file are called modified lines. This action jumps the next modified line.
 </para>

@@ -584,7 +584,7 @@ You can still toggle the vi input mode on/off for a particular view in the
 the user types a left bracket (<keycap>[</keycap>, <keycap>(</keycap>, or <keycap>{</keycap>)
 &kappname; automatically enters the right bracket (<keycap>}</keycap>, <keycap>)</keycap>, 
 or <keycap>]</keycap>) to the right of the cursor.</para>
-<para>when text is selected, typing one of the characters wraps the selected text.</para>
+<para>When text is selected, typing one of the characters wraps the selected text.</para>
 </listitem>
 </varlistentry>
 

@@ -457,11 +457,33 @@ number of found matches in a small popup.
 switch to the incremental search bar.
 </para>
 </listitem>
+</varlistentry> 
+<varlistentry>
+<term id="go-to-previous-modified-line">
+<menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Move to Previous Modified Line</guimenuitem></menuchoice></term>
+<listitem>
+<para>Lines that were changed since opening the file are called modified lines. This action jumps the previous modified line.
+</para>
+</listitem>
 </varlistentry>
-<!-- FIXME  
-Move to Previous Modified Line
-Move to Next Modified Line
--->
+<varlistentry>
+<term id="go-to-next-modified-line">
+<menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Move to Previous Modified Line</guimenuitem></menuchoice></term>
+<listitem>
+<para>Lines that were changed since opening the file are called modified lines. This action jumps the next modified line.
+</para>
+</listitem>
+</varlistentry>
 <varlistentry>
 <term id="go-to-line">
 <menuchoice>

@@ -1562,12 +1562,4 @@ that can be evaluated to a valid color, for example <userinput>#ff0000</userinpu
 
 </sect1>
 
-<!--FIXME 
-<varlistentry>
-<term><guilabel>Highlight Selection</guilabel></term>
-<listitem><para>Highlights all words that match the currently selected text.</para></listitem>
-</varlistentry>
-[Montag, 4. April 2016] [21:43:15 CEST] <dhaumann_>     Highlight selection: built into Kate Part now, not a plugin anymore. (I thought there is an option for that, but cannot find it)
--->
-
 </chapter>

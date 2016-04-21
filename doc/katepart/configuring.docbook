@@ -1,10 +1,9 @@
 <chapter id="config-dialog">
 <title>Configure &kappname;</title>
-
 <para>
 Selecting <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
-Editor...</guimenuitem></menuchoice> from the menu brings up the
-<guilabel>Configure Editor</guilabel> dialog box.  This dialog can be
+<replaceable>Application</replaceable>...</guimenuitem></menuchoice> from the menu brings up the
+<guilabel>Configure</guilabel> dialog box.  This dialog can be
 used to alter a number of different settings.  The settings available
 for change vary according to which category the user chooses from a
 vertical list on the left side of the dialog.  By means of three buttons
@@ -102,7 +101,19 @@ vertical lines to help identifying indent lines.</para></listitem>
 </variablelist>
 </para></listitem>
 </varlistentry>
-
+<varlistentry>
+<term><guilabel>Animate bracket matching
+</guilabel></term>
+<listitem><para>If enabled, moving on the brackets (<keycap>{</keycap>, <keycap>[</keycap>,  
+<keycap>]</keycap>, <keycap>}</keycap>,<keycap>(</keycap> or <keycap>)</keycap>) will
+quickly animate the matching bracket.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Fold first line
+</guilabel></term>
+<listitem><para>If enabled, the first line is folded, if possible. This is useful, 
+if the file starts with a comment, such as a copyright</para></listitem>
+</varlistentry>
 </variablelist>
 </sect3>
 
@@ -149,7 +160,6 @@ for instance show bookmarks.</para></listitem>
 <varlistentry>
 <term><guilabel>Show scrollbar mini-map</guilabel></term>
 <listitem><para>If this option is checked, every new view will show a mini map of the 
-<!--FIXME remove when next option is enabled-->whole<!--FIXME--> 
 document on the vertical scrollbar.</para>
 <para>For more information on the scrollbar minimap, see
 <xref linkend="kate-part-scrollbar-minimap"/></para></listitem>
@@ -159,14 +169,6 @@ document on the vertical scrollbar.</para>
 <listitem><para>Adjusts the width of the scrollbar mini-map, defined in pixels.
 </para></listitem>
 </varlistentry>
-<!--FIXME disabled in 4.10/master
-<varlistentry>
-<term><guilabel>Map the whole document
-</guilabel></term>
-<listitem><para>If this option is checked, every new view will show a mini map of the whole 
-document on the vertical scrollbar, otherwise only a map of the current page.</para></listitem>
-</varlistentry>
--->
 </variablelist>
 </listitem>
 </varlistentry>
@@ -569,9 +571,26 @@ automatically start a new line.</para>
 </variablelist>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Input Mode</guilabel></term> <listitem><para>
+The selected input mode will be enabled when opening a new view.
+You can still toggle the vi input mode on/off for a particular view in the
+<guimenu>Edit</guimenu> menu.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Auto brackets</guilabel></term> <listitem><para>When
+the user types a left bracket (<keycap>[</keycap>, <keycap>(</keycap>, or <keycap>{</keycap>)
+&kappname; automatically enters the right bracket (<keycap>}</keycap>, <keycap>)</keycap>, 
+or <keycap>]</keycap>) to the right of the cursor.</para>
+<para>when text is selected, typing one of the characters wraps the selected text.</para>
+</listitem>
+</varlistentry>
+
 
 <varlistentry>
-<term ><guilabel>Misc</guilabel></term>
+<term ><guilabel>Copy and Paste</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
@@ -830,11 +849,25 @@ up a completion box.</para></listitem>
 
 <varlistentry>
 <term><guilabel>Remove tail on complete</guilabel></term>
-<listitem><para>Remove the tail of a previous word when the completion item is chosen from a list.</para></listitem>
+<listitem><para>Remove the tail of a previous word when the completion item is chosen from a list.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Keyword completition
+</guilabel></term>
+<listitem><para>If enabled, the built-in autocompletion uses the keywords defined by the syntax highlighting.
+</para></listitem>
 </varlistentry>
 
 </variablelist>
 
+</sect3>
+
+<sect3 id="pref-edit-spellcheck">
+<title>Spellcheck</title>
+<para>These configuration options are described in the documentation for the
+&systemsettings; module <ulink url="help:kcontrol/spellchecking">Spell Checker</ulink>.</para>
 </sect3>
 
 <sect3 id="pref-edit-vi-input-mode">
@@ -845,20 +878,18 @@ up a completion box.</para></listitem>
 <listitem>
 <variablelist>
 <varlistentry>
-<term><guilabel>Use Vi input mode</guilabel></term>
-<listitem>
-<para>When selected, the vi input mode will be enabled when opening a new view.
-You can still toggle the vi input mode on/off for a particular view in the
-<guimenu>Edit</guimenu> menu.</para>
-</listitem>
-</varlistentry>
-<varlistentry>
 <term><guilabel>Let Vi commands override Kate shortcuts</guilabel></term>
 <listitem>
 <para>When selected, Vi commands will override &kappname;'s built-in commands. For
 example: <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> will redo,
 and override the standard action (showing the search and replace dialog).</para>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Display relative line numbers
+</guilabel></term>
+<listitem><para>if this is enabled, the current line always refers to line 0. 
+Lines above and below increase the line number relatively.</para></listitem>
 </varlistentry>
 </variablelist>
 </listitem>
@@ -874,15 +905,12 @@ commands.</para>
 <para>This will prepend <userinput>I--</userinput> to a line when pressing <keycap>F2</keycap>.
 </para>
 </listitem>
+<!-- Normal Mode Insert Mode Visual Mode 
+Commands Repacement Recursuive?
+Remove selected Add new mapping Import from vimrc file-->
 </varlistentry>
 </variablelist>
 
-</sect3>
-
-<sect3 id="pref-edit-spellcheck">
-<title>Spellcheck</title>
-<para>These configuration options are described in the documentation for the
-&systemsettings; module <ulink url="help:kcontrol/spellchecking">Spell Checker</ulink>.</para>
 </sect3>
 
 </sect2>
@@ -1008,23 +1036,6 @@ one is not already present upon saving the file.</para>
 <sect3 id="pref-open-save-advanced">
 <title>Advanced</title>
 <variablelist>
-<varlistentry>
-<term><guilabel>Folder Config File</guilabel></term>
-<listitem>
-<variablelist>
-<varlistentry>
-<term><guilabel>Search depth for config file:</guilabel></term>
-<listitem>
-<para>The editor will search the given number of folder levels upwards
-for &kappname; config file and load the settings line from it.
-Further information about these hidden folder config files you find in the
-<link linkend="config-variables">document variables section</link>.
-</para>
-</listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry>
 
 <varlistentry>
 <term><guilabel>Backup on Save</guilabel></term>
@@ -1059,7 +1070,7 @@ saving.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Disable swap file syncing</guilabel></term>
+<term><guilabel>Swap file options</guilabel></term>
 <listitem>
 <para>&kappname; is able to recover (most of) what was written after last save in case
 of a crash or power failure. A swap file (.swp.&lt;filename&gt;) is created
@@ -1071,8 +1082,11 @@ possibility to view the differences between the original file and the recovered
 one, too. The swap file is deleted after every save and on normal exit.</para>
 <para>&kappname; syncs the swap files on the disk every 15 seconds, but only if they
 have changed since the last sync. The user can disable the swap files syncing if
-he wants, by checking the <guilabel>Disable swap file syncing</guilabel> box,
+he wants, by selecting <guilabel>Disable</guilabel>,
 but this can lead to more data loss.</para>
+<para>When enabled, the swap files are saved in the same folder as the file. 
+When <guilabel>Alternative Folder</guilabel> is chosen, swap files are created in the specified folder. 
+This is useful for network file systems to avoid unneccessary network traffic.</para>
 </listitem>
 </varlistentry>
 
@@ -1200,18 +1214,6 @@ from the &kappname; website.
 
 </sect2>
 
-<sect2 id="pref-plugins">
-<title>Extensions</title>
-<para>The <guilabel>Extensions</guilabel> tab lists all available plugins and you can check those you
-want to use. Click on the <guibutton>Information</guibutton> button to open the
-<guilabel>About</guilabel> dialog of this plugin.</para>
-<para>Once a configurable plugin is checked, the
-<guibutton>Configure</guibutton> button is enabled and you can click it
-in order to configure the highlighted plugin.</para>
-
-<para>For more information on the available plugins, see 
-<xref linkend="editor-component-plugins"/>.</para>
-</sect2>
 </sect1>
 
 <sect1 id="config-variables">
@@ -1560,70 +1562,12 @@ that can be evaluated to a valid color, for example <userinput>#ff0000</userinpu
 
 </sect1>
 
-<sect1 id="editor-component-plugins">
-<title>Editor Component Extensions</title>
-
-<para>These plugins are available to any program using the &kate; Editor
-Component.  To learn how to enable, disable, or configure them, see 
-<xref linkend="pref-plugins"/>.</para>
-
-<variablelist>
-
-<!-- not released with 4.7
-<varlistentry>
-<term><guilabel>Artistic Comment</guilabel></term>
-<listitem><para>Format long source-code comments like license-headers
-or descriptions using different style.</para></listitem>
-</varlistentry>
--->
-
-<varlistentry>
-<term><guilabel>AutoBrace</guilabel></term>
-<listitem><para>The autobrace plugin supersedes the &kappname; internal
-<quote>Auto Brackets</quote> feature.
-It automatically inserts a closing brace <keycap>}</keycap> at the beginning
-of the next line after ending a line with an opening one <keycap>{</keycap>
-and pressing the &Enter; key.</para></listitem>
-</varlistentry>
-<!--http://jakob.petsovits.at/topic/kate-->
-<!--Right, it's the automatic insertion of a closing brace ("}") after you ended a line with an opening one ("{"). Kate's standard insertion of parentheses, brackets and braces is simply too obtrusive for me, so even if I tried it several times I always had to disable it again because I can't stand it. So here's how AutoBrace works.
-You, the developer, are writing a line of code, and want to open a new block delimited by braces. Looks like this:
-If you press Enter and AutoBrace is enabled, it will insert your favorite new brace where it belongs. Looks like this:
--->
-
-<varlistentry>
-<term><guilabel>Exporter</guilabel></term>
-<listitem><para>This command allows you to export the current document with all highlighting
-information into a HTML document using <menuchoice><guimenu>File</guimenu><guimenuitem>Export
-as HTML</guimenuitem></menuchoice>. Additionally you can use <menuchoice><guimenu>Edit</guimenu>
-<guimenuitem>Copy as HTML</guimenuitem></menuchoice> to copy the currently selected text
-as HTML to the system clipboard.</para></listitem>
-</varlistentry>
-
+<!--FIXME 
 <varlistentry>
 <term><guilabel>Highlight Selection</guilabel></term>
-<!--http://kate-editor.org/2010/11/14/highlight-selected-text/-->
 <listitem><para>Highlights all words that match the currently selected text.</para></listitem>
 </varlistentry>
-
-<varlistentry>
-<term><guilabel>IconInserter</guilabel></term>
-<listitem><para>The icon inserter plugin is only of use for &kde; developers: It adds an item
-<guimenuitem>Insert KIcon-Code</guimenuitem> into the context menu of the editor.
-If activated, the &kde;'s icon chooser opens (showing application icons, action icons &etc;..).
-If you click on it, the file name without file extension will be inserted as
-text. Useful only for setting icons via &kde;'s framework through the KIcon() class.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Insert File</guilabel></term>
-<listitem><para>This plugin allows you to insert any readable file at the cursor position.
-If enabled, the <guimenu>Tools</guimenu> menu has an additional menu item
-<guimenuitem>Insert File</guimenuitem>.</para></listitem>
-</varlistentry>
-
-</variablelist>
-</sect1>
+[Montag, 4. April 2016] [21:43:15 CEST] <dhaumann_>     Highlight selection: built into Kate Part now, not a plugin anymore. (I thought there is an option for that, but cannot find it)
+-->
 
 </chapter>

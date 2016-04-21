@@ -130,7 +130,7 @@ and how to print.
 </para>
 </listitem>
 </varlistentry>
-<varlistentry> <!-- from plugin Exporter -->
+<varlistentry>
 <term id="export-as-html">
 <menuchoice>
 <guimenu>File</guimenu>
@@ -140,7 +140,6 @@ and how to print.
 <listitem>
 <para>
 Export your file in &HTML; format so your document can be viewed as a web page.
-This item is only displayed when the plugin <guilabel>Exporter</guilabel> is loaded.
 </para>
 </listitem>
 </varlistentry>
@@ -265,13 +264,12 @@ currently open file.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry><!-- from plugin Exporter -->
+<varlistentry>
 <term><anchor id="copy-as-html"/><menuchoice>
 <guimenu>Edit</guimenu><guimenuitem>Copy as
 HTML</guimenuitem></menuchoice></term>
 <listitem>
 <para>This copies the currently selected text to the clipboard as &HTML;.
-This item is only displayed when the plugin <guilabel>Exporter</guilabel> is loaded.
 </para>
  </listitem>
 </varlistentry>
@@ -325,7 +323,7 @@ Mode</guimenuitem></menuchoice></term>
 and motions from vim's normal and visual mode and has an optional vi mode statusbar.
 This status bar shows commands while they are being entered, output from commands and
 the current mode.The behavior of this mode can be configured in the
-<link linkend="pref-edit-vi-input-mode">Vi Input Mode</link> section of the
+<link linkend="pref-edit-vi-input-mode">Vi Input Mode</link> tab of the
 <guilabel>Editing</guilabel> page in &kappname;'s settings dialog.</para>
 </listitem>
 </varlistentry>
@@ -460,7 +458,10 @@ switch to the incremental search bar.
 </para>
 </listitem>
 </varlistentry>
-
+<!-- FIXME  
+Move to Previous Modified Line
+Move to Next Modified Line
+-->
 <varlistentry>
 <term id="go-to-line">
 <menuchoice>
@@ -523,16 +524,6 @@ to get a list of commands.  For more information on the command line, see
 <link linkend="advanced-editing-tools-commandline">The Editor
 Component Command Line</link>.</para>
 </listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenu>View</guimenu><guimenuitem>Show the Javascript Console</guimenuitem>
-</menuchoice></term>
-<listitem><para>This opens a tool view that allows you to run Javascript code
-interactively. For more information, see
-<link linkend="dev-scripting">Extending &kate; with Scripts</link>
-</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -698,15 +689,6 @@ shown.</para>
 <listitem><para>Collapse all toplevel regions in the document.
 Click onto the right pointing triangle to expand all toplevel regions.</para></listitem>
 </varlistentry>
-
-<!--FIXME not implemented in 4.11
-varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-&Shift;<keycap>+</keycap></keycombo></shortcut>
-<guimenuitem>Unfold Toplevel Nodes</guimenuitem></menuchoice>
-</term>
-<listitem><para>Expand all toplevel regions in the document.</para></listitem>
-</varlistentry-->
 
 </variablelist>
 </listitem>
@@ -903,6 +885,128 @@ own scripts</link>. This way, &katepart; can be extended with user-defined tools
 
 <variablelist>
 
+<varlistentry id="scripts-navigation">
+<term><menuchoice>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
+<guisubmenu>Navigation</guisubmenu>
+</menuchoice></term>
+<listitem><variablelist>
+
+<varlistentry id="scripts-navigation-previous-indent">
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Alt;&Shift;<keysym>Up</keysym></keycombo></shortcut>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Navigation</guisubmenu>
+<guimenuitem>Move cursor to previous matching indent</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Moves the cursor to the first line above the current line that is indented at
+the same level as the current line.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="scripts-navigation-next-indent">
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Alt;&Shift;<keysym>Down</keysym></keycombo></shortcut>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Navigation</guisubmenu>
+<guimenuitem>Move cursor to next matching indent</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Moves the cursor to the first line below the current line that is indented at
+the same level as the current line.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem></varlistentry>
+
+<!--FIXME: Quick Coding -> Expand Abbreviation (CTRL+ALT+#) -->
+
+<varlistentry id="scripts-editing">
+<term><menuchoice>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
+<guisubmenu>Editing</guisubmenu>
+</menuchoice></term>
+<listitem><variablelist>
+
+<varlistentry id="scripts-editing-sort">
+<term><menuchoice>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
+<guimenuitem>Sort Selected Text</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Sorts the selected text or whole document in ascending order.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="scripts-editing-move-down">
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Shift;<keysym>Down</keysym></keycombo></shortcut>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
+<guimenuitem>Move Lines Down</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Move selected lines down.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="scripts-editing-move-up">
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Shift;<keysym>Up</keysym></keycombo></shortcut>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
+<guimenuitem>Move Lines Up</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Move selected lines up.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="scripts-editing-dupe-down">
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Down</keysym></keycombo></shortcut>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
+<guimenuitem>Duplicate Selected Lines Down</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Duplicates the selected lines down.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="scripts-editing-dupe-up">
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Up</keysym></keycombo></shortcut>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
+<guimenuitem>Duplicate Selected Lines Up</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Duplicates the selected lines up.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="scripts-editing-uri-encode">
+<term><menuchoice>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
+<guimenuitem>URI-encode selected text</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Encodes the selected text so that it can be used as part of a query string in a 
+&URL;, replacing the selection with the encoded text.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="scripts-editing-uri-decode">
+<term><menuchoice>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
+<guimenuitem>URI-decode selected text</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+If part of the query string of a &URL; is selected, this will decode it and
+replace the selection with the original raw text.
+</para></listitem>
+</varlistentry>
+
+</variablelist></listitem>
+</varlistentry>
+
 <varlistentry id="scripts-emmet">
 <term><menuchoice>
 <guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
@@ -1064,128 +1168,6 @@ For example, if <userinput>5</userinput> is selected, it will become
 This item will add 0.1 to the currently selected text, if it is a number.  
 For example, if <userinput>4.5</userinput> is selected, it will become 
 <computeroutput>4.6</computeroutput>.
-</para></listitem>
-</varlistentry>
-
-</variablelist></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-navigation">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
-<guisubmenu>Navigation</guisubmenu>
-</menuchoice></term>
-<listitem><variablelist>
-
-<varlistentry id="scripts-navigation-previous-indent">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Alt;&Shift;<keysym>Up</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Navigation</guisubmenu>
-<guimenuitem>Move cursor to previous matching indent</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Moves the cursor to the first line above the current line that is indented at
-the same level as the current line.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-navigation-next-indent">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Alt;&Shift;<keysym>Down</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Navigation</guisubmenu>
-<guimenuitem>Move cursor to next matching indent</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Moves the cursor to the first line below the current line that is indented at
-the same level as the current line.
-</para></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem></varlistentry>
-
-<!--FIXME: Quick Coding -> Expand Abbreviation (CTRL+ALT+#) -->
-
-<varlistentry id="scripts-editing">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
-<guisubmenu>Editing</guisubmenu>
-</menuchoice></term>
-<listitem><variablelist>
-
-<varlistentry id="scripts-editing-sort">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Sort Selected Text</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Sorts the selected text or whole document in ascending order.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-move-down">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Shift;<keysym>Down</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Move Lines Down</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Move selected lines down.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-move-up">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Shift;<keysym>Up</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Move Lines Up</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Move selected lines up.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-dupe-down">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Down</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Duplicate Selected Lines Down</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Duplicates the selected lines down.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-dupe-up">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Up</keysym></keycombo></shortcut>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>Duplicate Selected Lines Up</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Duplicates the selected lines up.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-uri-encode">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>URI-encode selected text</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-Encodes the selected text so that it can be used as part of a query string in a 
-&URL;, replacing the selection with the encoded text.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="scripts-editing-uri-decode">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
-<guimenuitem>URI-decode selected text</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-If part of the query string of a &URL; is selected, this will decode it and
-replace the selection with the original raw text.
 </para></listitem>
 </varlistentry>
 
@@ -1540,10 +1522,6 @@ may insert in any part of any document.</para>
 </varlistentry>
 
 </variablelist>
-<para>If the <link linkend="pref-plugins">plugin</link> Insert File is enabled, you will
-find here an additional menu item <guimenuitem>Insert File...</guimenuitem>.
-</para>
-<!-- Data Tools and Insane HTML (LE) Expansion Ctrl+. when plugins are enabled-->
 </sect1>
 
 <sect1 id="settings">

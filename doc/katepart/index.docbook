@@ -54,8 +54,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2015-07-31</date>
-<releaseinfo>Applications 15.12</releaseinfo>
+<date>2016-04-09</date>
+<releaseinfo>Frameworks 5.21</releaseinfo>
 
 <abstract>
 <para>&katepart; is a fully featured editor component for &Qt; and &kde;

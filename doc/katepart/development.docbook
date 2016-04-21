@@ -12,9 +12,8 @@
 
 <para>Like any advanced text editor component, &katepart; offers a variety of
 ways to extend its functionality.  You can <link linkend="dev-scripting">write 
-simple scripts to add functionality with JavaScript</link> or add enhanced 
-functionality to the editor component with <link linkend="dev-part">Editor
-Component Plugins</link>. Finally, once you have extended &katepart;, you are
+simple scripts to add functionality with JavaScript</link>. 
+Finally, once you have extended &katepart;, you are
 welcome to <ulink url="http://kate-editor.org/join-us/">join us</ulink> 
 and share your enhancements with the world!</para>
 
@@ -2814,27 +2813,6 @@ bool document.isOthers(<parameter>Cursor <replaceable>cursor</replaceable></para
 
 </sect3>
 </sect2>
-
-</sect1>
-
-<sect1 id="dev-part">
-<title>Editor Component Extensions</title>
-
-<para><link linkend="editor-component-plugins">Editor Component Extensions</link>
-extend KatePart, the Advanced Text Editor component used within many &kde;
-applications, such as &kate;, &kwrite;, Kile, and KDevelop.  Creating an Editor
-Component Plugin will allow you to extend the editor's functionality in any and
-all of these programs.</para>
-
-<para>To get started, see the
-<ulink url="http://techbase.kde.org/Development/Tutorials/Kate/KTextEditor_Plugins">
-KTextEditor Plugin Tutorial on &kde; TechBase</ulink>.  For even more, see the
-<ulink url="http://techbase.kde.org/Development/Tutorials/Kate/KTextEditor_Plugins_Advanced">
-Advanced Tutorial, also on TechBase</ulink>.</para>
-
-<para>You can find the
-<ulink url="http://api.kde.org/4.10-api/kdelibs-apidocs/interfaces/ktexteditor/html/">
-complete API documentation in the &kde; API Reference</ulink>.</para>
 
 </sect1>
 

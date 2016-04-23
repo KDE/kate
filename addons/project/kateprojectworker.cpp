@@ -399,7 +399,7 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 
     files.append(gitSearchTree(tree, path, recursive));
 
-    if (recursive && relpathUtf8.isEmpty()) {
+    if (recursive && (relpathUtf8.isEmpty() || relpathUtf8 == ".")) {
         files.append(gitSearchSubmodules(repo, path));
     }
 

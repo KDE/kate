@@ -28,14 +28,14 @@
  */
 #include "ctags/readtags.c"
 
-KateProjectIndex::KateProjectIndex(const QStringList &files)
+KateProjectIndex::KateProjectIndex(const QStringList &files, const QVariantMap &ctagsMap)
     : m_ctagsIndexFile(QDir::tempPath() + QStringLiteral("/kate.project.ctags"))
     , m_ctagsIndexHandle(0)
 {
     /**
      * load ctags
      */
-    loadCtags(files);
+    loadCtags(files, ctagsMap);
 }
 
 KateProjectIndex::~KateProjectIndex()
@@ -49,7 +49,7 @@ KateProjectIndex::~KateProjectIndex()
     }
 }
 
-void KateProjectIndex::loadCtags(const QStringList &files)
+void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ctagsMap)
 {
     /**
      * create temporary file
@@ -71,6 +71,10 @@ void KateProjectIndex::loadCtags(const QStringList &files)
     QProcess ctags;
     QStringList args;
     args << QStringLiteral("-L") << QStringLiteral("-") << QStringLiteral("-f") << m_ctagsIndexFile.fileName() << QStringLiteral("--fields=+K+n");
+    const QString keyOptions = QStringLiteral("options");
+    for (const QVariant &optVariant : ctagsMap[keyOptions].toList()) {
+        args << optVariant.toString();
+    }
     ctags.start(QStringLiteral("ctags"), args);
     if (!ctags.waitForStarted()) {
         return;

@@ -46,8 +46,9 @@ public:
     /**
      * construct new index for given files
      * @param files files to index
+     * @param ctagsMap ctags section for extra options
      */
-    KateProjectIndex(const QStringList &files);
+    KateProjectIndex(const QStringList &files, const QVariantMap &ctagsMap);
 
     /**
      * deconstruct project
@@ -92,8 +93,9 @@ private:
     /**
      * Load ctags tags.
      * @param files files to index
+     * @param ctagsMap ctags section for extra options
      */
-    void loadCtags(const QStringList &files);
+    void loadCtags(const QStringList &files, const QVariantMap &ctagsMap);
 
 private:
     /**

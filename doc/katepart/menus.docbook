@@ -82,6 +82,9 @@ document the save as dialog (described below) will be invoked.
 <varlistentry>
 <term id="save-as">
 <menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>S</keycap></keycombo>
+</shortcut>
 <guimenu>File</guimenu>
 <guimenuitem>Save As...</guimenuitem>
 </menuchoice>
@@ -92,6 +95,32 @@ This allows a document to be saved with a new file name. This is done by
 means of the file dialog box described above in the <link
 linkend="open">Open</link> section of this help file.
 </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="save-as-encoding">
+<term>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Save As with Encoding</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>
+Save a document with a new file name in a different encoding.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="save-copy-as">
+<term>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Save Copy As</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>
+Save a copy of the document with a new file name and continue editing the original document.</para>
 </listitem>
 </varlistentry>
 
@@ -319,7 +348,7 @@ The status bar shows the current state of the Selection Mode, either <guilabel>B
 <guimenu>Edit</guimenu><guimenuitem>VI input
 Mode</guimenuitem></menuchoice></term>
 <listitem>
-<para>Switch to a vi-like, modal editing mode. This mode supports the most used commands
+<para>Switch between a normal and a vi-like, modal editing mode. The vi input mode supports the most used commands
 and motions from vim's normal and visual mode and has an optional vi mode statusbar.
 This status bar shows commands while they are being entered, output from commands and
 the current mode.The behavior of this mode can be configured in the
@@ -458,11 +487,38 @@ switch to the incremental search bar.
 </para>
 </listitem>
 </varlistentry> 
+
+<varlistentry id="go-to-matching-bracket">
+<term>
+<menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Move to Matching Bracket</guimenuitem></menuchoice></term>
+<listitem>
+<para>Move the cursor to the associated opening and closing bracket.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term id="select-to-matching-bracket">
+<menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>G</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Select to Matching Bracket</guimenuitem></menuchoice></term>
+<listitem>
+<para>Selects the text between associated opening and closing brackets.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry>
 <term id="go-to-previous-modified-line">
 <menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo>
+<keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Move to Previous Modified Line</guimenuitem></menuchoice></term>
@@ -475,7 +531,7 @@ switch to the incremental search bar.
 <term id="go-to-next-modified-line">
 <menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo>
+<keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Move to Next Modified Line</guimenuitem></menuchoice></term>
@@ -540,7 +596,7 @@ action="simul"><keycap>F7</keycap></keycombo></shortcut>
 </menuchoice>
 </term>
 <listitem>
-<para>Displays the Katepart command line at the bottom of the window.
+<para>Displays the &katepart; command line at the bottom of the window.
 In the command line, type <userinput>help</userinput> to get help and <userinput>help list</userinput>
 to get a list of commands.  For more information on the command line, see
 <link linkend="advanced-editing-tools-commandline">The Editor
@@ -548,16 +604,29 @@ Component Command Line</link>.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term>
-<anchor id="view-schema"/>
-<menuchoice>
-<guimenu>View</guimenu>
-<guisubmenu>Schema</guisubmenu>
-</menuchoice>
+<varlistentry id="view-enlarge-font">
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
+<keycap>+</keycap></keycombo></shortcut>
+<guimenu>View</guimenu><guimenuitem>Enlarge Font</guimenuitem></menuchoice>
 </term>
-<listitem>
-<para>Select a font schema.</para>
+<listitem><para>This increases the display font size.</para></listitem>
+</varlistentry>
+
+<varlistentry id="view-shrink-font">
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
+<keycap>-</keycap></keycombo></shortcut>
+<guimenu>View</guimenu><guimenuitem>Shrink Font</guimenuitem></menuchoice>
+</term>
+<listitem><para>This decreases the display font size.</para></listitem>
+</varlistentry>
+
+<varlistentry id="view-schema">
+<term><menuchoice><guimenu>View</guimenu><guisubmenu>Schema</guisubmenu>
+</menuchoice></term>
+<listitem><para>This menu lists the available color schemes. You can change the 
+schema for the current view here, to change the default schema you need to
+use the <ulink url="help:/katepart/config-dialog-editor.html#prefcolors">Fonts 
+&amp; Colors</ulink> page of the config dialog.</para>
 </listitem>
 </varlistentry>
 
@@ -566,7 +635,7 @@ Component Command Line</link>.</para>
 <anchor id="view-dynamic-word-wrap"/>
 <menuchoice>
 <shortcut><keycombo action="simul"><keycap>F10</keycap></keycombo></shortcut>
-<guimenu>View</guimenu>
+<guimenu>View</guimenu><guisubmenu>Word Wrap</guisubmenu>
 <guimenuitem>Dynamic Word Wrap</guimenuitem>
 </menuchoice>
 </term>
@@ -580,7 +649,7 @@ border on the screen.</para>
 <term>
 <anchor id="view-dynamic-word-wrap-indicators"/>
 <menuchoice>
-<guimenu>View</guimenu>
+<guimenu>View</guimenu><guisubmenu>Word Wrap</guisubmenu>
 <guisubmenu>Dynamic Word Wrap Indicators</guisubmenu>
 </menuchoice>
 </term>
@@ -595,7 +664,7 @@ Wrap</guilabel> option is checked.</para>
 <term>
 <anchor id="view-show-static-word-wrap"/>
 <menuchoice>
-<guimenu>View</guimenu>
+<guimenu>View</guimenu><guisubmenu>Word Wrap</guisubmenu>
 <guimenuitem>Show Static Word Wrap Marker</guimenuitem>
 </menuchoice>
 </term>
@@ -614,7 +683,7 @@ use a fixed pitch font.</para>
 <anchor id="view-show-icon-border"/>
 <menuchoice>
 <shortcut><keycombo action="simul"><keycap>F6</keycap></keycombo></shortcut>
-<guimenu>View</guimenu>
+<guimenu>View</guimenu><guisubmenu>Borders</guisubmenu>
 <guimenuitem>Show Icon Border</guimenuitem>
 </menuchoice>
 </term>
@@ -630,7 +699,7 @@ indicates the positions of the marked lines in the editor.</para>
 <anchor id="view-show-line-numbers"/>
 <menuchoice>
 <shortcut><keycombo action="simul"><keycap>F11</keycap></keycombo></shortcut>
-<guimenu>View</guimenu>
+<guimenu>View</guimenu><guisubmenu>Borders</guisubmenu>
 <guimenuitem>Show Line Numbers</guimenuitem>
 </menuchoice>
 </term>
@@ -645,7 +714,7 @@ editor, and vice versa.</para>
 <term>
 <anchor id="view-scrollbar-marks"/>
 <menuchoice>
-<guimenu>View</guimenu>
+<guimenu>View</guimenu><guisubmenu>Borders</guisubmenu>
 <guisubmenu>Show Scrollbar Marks</guisubmenu>
 </menuchoice>
 </term>
@@ -657,8 +726,8 @@ linkend="view-show-icon-border">Icon Border</link>.</para>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><guimenu>View</guimenu><guimenuitem>Show Scrollbar
-Minimap</guimenuitem></menuchoice></term>
+<term><menuchoice><guimenu>View</guimenu><guisubmenu>Borders</guisubmenu><guimenuitem>Show Scrollbar
+Mini-Map</guimenuitem></menuchoice></term>
 <listitem><para>This will replace the scrollbar with a visualization of the
 current document. For more information on the scrollbar minimap, see
 <xref linkend="kate-part-scrollbar-minimap"/></para></listitem>
@@ -666,29 +735,24 @@ current document. For more information on the scrollbar minimap, see
 
 <varlistentry>
 <term>
-<anchor id="view-hide-folding-markers"/>
-<menuchoice>
-<shortcut><keycombo action="simul"><keycap>F9</keycap></keycombo></shortcut>
-<guimenu>View</guimenu>
-<guimenuitem>Show Folding Markers</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>If this option is checked, the marks for code folding will be
-shown.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
 <anchor id="view-code-folding"/>
 <menuchoice>
-<guimenu>View</guimenu>
-<guisubmenu>Code Folding</guisubmenu>
-</menuchoice>
-</term>
-<listitem>
+<guimenu>View</guimenu><guimenuitem>Code Folding</guimenuitem>
+</menuchoice></term>
+<listitem><para>These options pertain to
+<ulink url="help:/katepart/advanced-editing-tools-code-folding.html">code 
+folding</ulink>:</para>
 <variablelist>
+
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul"><keycap>F9</keycap>
+</keycombo></shortcut>
+<guimenuitem>Show Folding Markers</guimenuitem>
+</menuchoice></term>
+<listitem><para>Toggles the display of the folding marker pane in the left
+side of the view.</para></listitem>
+</varlistentry>
+
 <varlistentry>
 <term><menuchoice>
 <guimenuitem>Fold Current Node</guimenuitem></menuchoice>
@@ -709,26 +773,26 @@ shown.</para>
 <guimenuitem>Fold Toplevel Nodes</guimenuitem></menuchoice>
 </term>
 <listitem><para>Collapse all toplevel regions in the document.
-Click onto the right pointing triangle to expand all toplevel regions.</para></listitem>
+Click on the right pointing triangle to expand all toplevel regions.</para></listitem>
 </varlistentry>
 
+<!--FIXME not implemented in kf5
+varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
+&Shift;<keycap>+</keycap></keycombo></shortcut>
+<guimenuitem>Unfold Toplevel Nodes</guimenuitem></menuchoice>
+</term>
+<listitem><para>Expand all toplevel regions in the document.</para></listitem>
+</varlistentry
+https://git.reviewboard.kde.org/r/127601/
+Dominik Haumann
+I hope this will come back, but noone got around to implement this again... :/
+-->
 </variablelist>
+
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term><menuchoice><guimenu>View</guimenu>
-<guimenuitem>Enlarge Font</guimenuitem></menuchoice>
-</term>
-<listitem><para>This increases the display font size.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice><guimenu>View</guimenu>
-<guimenuitem>Shrink Font</guimenuitem></menuchoice>
-</term>
-<listitem><para>This decreases the display font size.</para></listitem>
-</varlistentry>
 </variablelist>
 
 </sect1>
@@ -941,7 +1005,11 @@ the same level as the current line.
 </variablelist>
 </listitem></varlistentry>
 
-<!--FIXME: Quick Coding -> Expand Abbreviation (CTRL+ALT+#) -->
+<!--FIXME: Quick Coding -> Expand Abbreviation (CTRL+ALT+#) 
+https://git.reviewboard.kde.org/r/127601/
+Dominik Haumann
+A bit experimental right now, therefore I suggest to keep the FIXME for now and not add further docs.
+-->
 
 <varlistentry id="scripts-editing">
 <term><menuchoice>
@@ -1374,8 +1442,8 @@ is instead of at the beginning of the document.</para>
  </listitem>
 </varlistentry>
 
-<varlistentry>
-<term><anchor id="tools-change-dictionary"/><menuchoice>
+<varlistentry id="tools-change-dictionary">
+<term><menuchoice>
 <guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Change Dictionary</guimenuitem></menuchoice></term>
  <listitem>
@@ -1412,8 +1480,8 @@ depends on the <link linkend="pref-edit-indent"> indentation settings</link>.</p
 </listitem>
 </varlistentry>
 -->
-<varlistentry>
-<term><anchor id="cleanindent"/><menuchoice>
+<varlistentry id="tools-cleanindent">
+<term><menuchoice>
 <guimenu>Tools</guimenu><guimenuitem>Clean
 Indentation</guimenuitem></menuchoice></term>  <listitem>
 <para>This cleans the indentation for the current selection or for the
@@ -1422,8 +1490,8 @@ all your selected text follows the indentation mode you choose.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term><anchor id="tools-align"/><menuchoice>
+<varlistentry id="tools-align">
+<term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Align</guimenuitem>
 </menuchoice></term>
@@ -1433,7 +1501,7 @@ indentation mode and indentation settings in the document.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="tools-comment">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo>
@@ -1447,7 +1515,7 @@ selected lines.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="tools-uncomment">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo>
@@ -1460,7 +1528,7 @@ line where the text cursor is located or from the beginning of any
 selected lines.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="tools-uppercase">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>U</keycap></keycombo>
@@ -1472,7 +1540,7 @@ selected lines.</para></listitem>
 uppercase.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="tools-lowercase">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>U</keycap></keycombo>
@@ -1522,120 +1590,18 @@ in the Editing tab in <menuchoice>
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
 
-<varlistentry>
-<term><anchor id="tools-create-snippet"/><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Create Snippet</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Create a new snippet, which is a reusable chunk of text you
-may insert in any part of any document.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="tools-snippets"/><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Snippets...</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Display a list of available snippets.</para>
-</listitem>
-</varlistentry>
-
 </variablelist>
 </sect1>
 
-<sect1 id="settings">
-<!-- This is also valid for kates menu settings,
-only the items Show Toolbar and Show Statusbar are swapped and Configure kate is the last item-->
-<title>The Settings Menu</title>
+<sect1 id="settings-help-menu">
+<title>The Settings and Help Menu</title> 
 
-<variablelist>
-<varlistentry>
-<term><anchor id="show-statusbar"/><menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>Show
-Statusbar</guimenuitem></menuchoice></term>
-<listitem>
-<para>When checked, this displays a small bar at the bottom of the editor
-containing information about the status of the current document.  When unchecked
-the status bar is hidden.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="show-toolbar"/><menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Show Toolbar</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
 <para>
-When checked, this displays a movable toolbar containing buttons used to
-initiate frequently used commands. When unchecked the toolbar is hidden.
+&katepart; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>
+menu items, for more information read the sections about the <ulink url="help:/fundamentals/ui.html#menus-settings"
+>Settings Menu</ulink> and <ulink url="help:/fundamentals/ui.html#menus-help">Help Menu</ulink>
+of the &kde; Fundamentals.
 </para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="show-path"/><menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>Show
-Path</guimenuitem></menuchoice></term>
-<listitem>
-<para>When selected, this displays in the titlebar the path (its location in the
-file system) of the current document.  When unchecked the path is hidden.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="preferences"/><menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Configure Editor...</guimenuitem> <!-- in kate Configure &kate; ... -->
-</menuchoice>
-</term>
-<listitem>
-<para>
-This menu item opens a dialog whereby several different <link
-linkend="config-dialog">settings</link> may be adjusted.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="configure-keybindings"/><menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>Configure
-Shortcuts...</guimenuitem></menuchoice></term>
-<listitem>
-<para>Displays the familiar &kde; Keyboard Shortcut Configuration
-Dialog.  For more information on using this, see the
-<ulink url="help:/fundamentals/shortcuts.html"><emphasis>Using and Customizing
-Shortcuts</emphasis> section of the <emphasis>&kde; Fundamentals</emphasis>
-documentation</ulink>.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="configure-toolbars"/><menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>Configure
-Toolbars...</guimenuitem></menuchoice></term>
-<listitem>
-<para>Displays the familiar &kde; Toolbar Configuration Dialog.  For more
-information on using this, see the 
-<ulink url="help:/fundamentals/config.html#toolbars"><emphasis>Customizing
-Toolbars</emphasis> section of the <emphasis>&kde; Fundamentals</emphasis>
-documentation</ulink>.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-</sect1>
-
-<sect1 id="help">
-<title>The Help Menu</title>
-
-<!-- additional "About Editor Component" , but no "Tip of the Day"-->
-
-&help.menu.documentation;
 
 </sect1>
 </chapter>

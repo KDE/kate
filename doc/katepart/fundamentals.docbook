@@ -65,29 +65,14 @@ this might look like the following:</para>
 <para>The following command line help options are available</para>
 
 <variablelist>
+
 <varlistentry>
 <term><userinput><command>kwrite</command>
 <option>--help</option></userinput></term>
 <listitem><para>This lists the most basic options available at the command
 line.</para></listitem>
 </varlistentry>
-<varlistentry>
-<term><userinput><command>kwrite</command>
-<option>--help-qt</option></userinput></term>
-<listitem><para>This lists the options available for changing the way
-&kwrite; interacts with &Qt;.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><userinput><command>kwrite</command>
-<option>--help-kde</option></userinput></term>
-<listitem><para>This lists the options available for changing the way
-&kwrite; interacts with &kde;.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><userinput><command>kwrite</command>
-<option>--help-all</option></userinput></term>
-<listitem><para>This lists all of the command line options.</para></listitem>
-</varlistentry>
+
 <varlistentry>
 <term><userinput><command>kwrite</command>
 <option>--author</option></userinput></term>
@@ -95,12 +80,12 @@ line.</para></listitem>
 window</para></listitem>
 </varlistentry>
 <varlistentry>
+
 <term><userinput><command>kwrite</command>
-<option>-v, --version</option></userinput></term>
-<listitem><para>Lists version information for &Qt;, &kde;, and &kwrite;. Also
-available through <userinput><command>kwrite</command>
-<option>-v</option></userinput> </para></listitem>
+<option>-v</option>, <option>--version</option></userinput></term>
+<listitem><para>Lists version information for the application.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><userinput><command>&kwrite;</command>
 <option>--license</option></userinput></term>
@@ -108,33 +93,43 @@ available through <userinput><command>kwrite</command>
 <para>Shows license information.</para>
 </listitem>
 </varlistentry>
-<varlistentry>
+
+<varlistentry><!--FIXME usecase? -->
 <term><userinput><command>kwrite</command>
-<option>--stdin</option></userinput></term>
-<listitem><para>Causes &kwrite; to read the document content from STDIN. This
-is similar to the common option <option>-</option> used in many command line
-programs, and allows you to pipe command output into &kwrite;.</para></listitem>
+<option>--desktopfile</option> <parameter>filename</parameter></userinput></term>
+<listitem><para>The base file name of the desktop entry for this application.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><userinput><command>kwrite</command>
-<option>--encoding</option> <parameter>encoding</parameter>
+<option>-e</option>, <option>--encoding</option> <parameter>encoding</parameter>
 <parameter>&URL;</parameter></userinput></term>
 <listitem><para>Causes &kwrite; to use the specified encoding for the document.
 </para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><userinput><command>kwrite</command>
-<option>--line</option> <parameter>line</parameter>
+<option>-l</option>, <option>--line</option> <parameter>line</parameter>
 <parameter>&URL;</parameter></userinput></term>
 <listitem><para>Navigate to the specified line after opening the document.
 </para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><userinput><command>kwrite</command>
-<option>--column</option> <parameter>column</parameter>
+<option>-c</option>, <option>--column</option> <parameter>column</parameter>
 <parameter>&URL;</parameter></userinput></term>
 <listitem><para>Navigate to the specified column after opening the document.
 </para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kwrite</command>
+<option>-i</option>, <option>--stdin</option></userinput></term>
+<listitem><para>Causes &kwrite; to read the document content from STDIN. This
+is similar to the common option <option>-</option> used in many command line
+programs, and allows you to pipe command output into &kwrite;.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -149,7 +144,7 @@ Shift+Home
 <title>Shortcuts</title>
 
 <para>Many of the shortcuts are configurable by way of the <link
- linkend="settings">Settings</link> menu.  By default &katepart; honors the
+linkend="settings-help-menu">Settings</link> menu.  By default &katepart; honors the
 following shortcuts:</para>
 <informaltable>
 <tgroup cols="2">

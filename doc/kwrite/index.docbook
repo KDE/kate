@@ -26,8 +26,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2015-07-31</date>
-<releaseinfo>Applications 15.12</releaseinfo>
+<date>2016-04-22</date>
+<releaseinfo>Applications 16.04</releaseinfo>
 
 <abstract>
 <para>&kwrite; is a text editor for &kde; allowing you to edit one file at the time per window.</para>
@@ -137,7 +137,6 @@ Based on the original &kwrite;, which was Copyright 2000 by Jochen Wilhelmy
 &underGPL;
 </sect1>
 
-&documentation.index;
 </article>
 <!--
 Local Variables:

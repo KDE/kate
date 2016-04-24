@@ -2,7 +2,7 @@
 Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katefiletreeplugin
-Name=File Tree
+Name=Documents
 Name[ar]=شجرّة الملفّات
 Name[ast]=Árbol de ficheros
 Name[bg]=Дърво с файлове
@@ -59,7 +59,7 @@ Name[wa]=Coxhlaedje di fitchîs
 Name[x-test]=xxFile Treexx
 Name[zh_CN]=文件树
 Name[zh_TW]=檔案樹狀圖
-Comment=Displays the open documents in a tree
+Comment=Displays the open documents in a file tree
 Comment[ar]=يعرض المستندات المفتوحة في شجرة
 Comment[ast]=Amuesa los documentos abiertos nun árbol
 Comment[bg]=Показване на отворените документи в дърво

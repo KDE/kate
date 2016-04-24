@@ -628,7 +628,8 @@ void KateProjectWorker::loadIndex(const QStringList &files)
      * create new index, this will do the loading in the constructor
      * wrap it into shared pointer for transfer to main thread
      */
-    KateProjectSharedProjectIndex index(new KateProjectIndex(files));
+    const QString keyCtags = QStringLiteral("ctags");
+    KateProjectSharedProjectIndex index(new KateProjectIndex(files, m_projectMap[keyCtags].toMap()));
 
     emit loadIndexDone(index);
 }

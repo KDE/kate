@@ -1,13 +1,12 @@
 <chapter id="the-menu-entries">
 <title>The Menu Entries</title>
 
-<!-- This is also valid for kates menu file, kate has additional Save All Ctrl+L, Reload All, Close Other, Close All-->
-<sect1 id="file">
+<sect1 id="file-menu">
 <title>The File Menu</title>
 
 <variablelist>
 
-<varlistentry id="new">
+<varlistentry id="file-new">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo>
@@ -22,7 +21,7 @@ This starts a new document in a new and independent editor window.
 </listitem>
 </varlistentry>
 
-<varlistentry id="open">
+<varlistentry id="file-open">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo>
@@ -37,7 +36,7 @@ click on <guibutton>Open</guibutton> to open it.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="open-recent">
+<varlistentry id="file-open-recent">
 <term><menuchoice>
 <guimenu>File</guimenu>
 <guisubmenu>Open Recent</guisubmenu>
@@ -53,7 +52,7 @@ location.
 </listitem>
 </varlistentry>
 
-<varlistentry id="save">
+<varlistentry id="file-save">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo>
@@ -71,7 +70,7 @@ document the save as dialog (described below) will be invoked.
 </listitem>
 </varlistentry>
 
-<varlistentry id="save-as">
+<varlistentry id="file-save-as">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>S</keycap></keycombo>
@@ -83,12 +82,12 @@ document the save as dialog (described below) will be invoked.
 <para>
 This allows a document to be saved with a new file name. This is done by
 means of the file dialog box described above in the <link
-linkend="open">Open</link> section of this help file.
+linkend="file-open">Open</link> section of this help file.
 </para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="save-as-encoding">
+<varlistentry id="file-save-as-encoding">
 <term><menuchoice>
 <guimenu>File</guimenu>
 <guimenuitem>Save As with Encoding</guimenuitem>
@@ -99,7 +98,7 @@ Save a document with a new file name in a different encoding.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="save-copy-as">
+<varlistentry id="file-save-copy-as">
 <term><menuchoice>
 <guimenu>File</guimenu>
 <guimenuitem>Save Copy As</guimenuitem>
@@ -110,7 +109,7 @@ Save a copy of the document with a new file name and continue editing the origin
 </listitem>
 </varlistentry>
 
-<varlistentry id="reload">
+<varlistentry id="file-reload">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul"><keycap>F5</keycap></keycombo>
@@ -126,7 +125,7 @@ process has changed the file while you have it open in &kappname;.
 </listitem>
 </varlistentry>
 
-<varlistentry id="print">
+<varlistentry id="file-print">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo>
@@ -142,19 +141,20 @@ and how to print.
 </listitem>
 </varlistentry>
 
-<varlistentry id="export-as-html">
+<!--FIXME Print Preview -->
+
+<varlistentry id="file-export-as-html">
 <term><menuchoice>
 <guimenu>File</guimenu>
 <guimenuitem>Export as HTML</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>
-Export your file in &HTML; format so your document can be viewed as a web page.
-</para>
+<para>Save the currently open document as an &HTML; file, which will be
+formatted using the current syntax highlighting and color scheme settings.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="close">
+<varlistentry id="file-close">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo>
@@ -170,7 +170,7 @@ will be prompted to save the file before &kappname; closes it.
 </listitem>
 </varlistentry>
 
-<varlistentry id="quit">
+<varlistentry id="file-quit">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo>
@@ -192,12 +192,12 @@ not be closed.
 
 </sect1>
 
-<sect1 id="edit"> <!-- This is also valid for kates menu edit-->
+<sect1 id="edit-menu">
 <title>The Edit Menu</title>
 
 <variablelist>
 
-<varlistentry id="undo">
+<varlistentry id="edit-undo">
 <term><menuchoice>
 <shortcut><keycombo
 action="simul">&Ctrl;<keycap>Z</keycap></keycombo>
@@ -206,13 +206,13 @@ action="simul">&Ctrl;<keycap>Z</keycap></keycombo>
 <guimenuitem>Undo</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>This is used to eliminate or reverse the most recent user action
-or operation.
-</para>
+<para>Undo the last editing command (typing, copying, cutting etc.)</para>
+<note><para>This may undo several editing commands of the same type, like typing
+in characters.</para></note>
 </listitem>
 </varlistentry>
 
-<varlistentry id="redo">
+<varlistentry id="edit-redo">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo>
@@ -225,7 +225,7 @@ or operation.
 </listitem>
 </varlistentry>
 
-<varlistentry id="cut">
+<varlistentry id="edit-cut">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>X</keycap></keycombo>
@@ -235,13 +235,12 @@ or operation.
 </menuchoice></term>
 <listitem>
 <para>This command deletes the current selection and places it on the
-clipboard.
-The  clipboard is a feature of &kde; that works invisibly to provide a way to
+clipboard. The clipboard works invisibly and provides a way to
 transfer data between applications.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="copy">
+<varlistentry id="edit-copy">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo>
@@ -251,22 +250,24 @@ transfer data between applications.</para>
 </menuchoice></term>
 <listitem>
 <para>This copies the currently selected text to the clipboard so that it may
-be pasted elsewhere.  The clipboard is a feature of &kde; that works invisibly
-to provide a way to transfer data between applications.</para>
+be pasted elsewhere. The clipboard works invisibly and provides a way to
+transfer data between applications.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="paste">
+<varlistentry id="edit-paste">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
-<guimenuitem>Paste</guimenuitem></menuchoice>
-</term><listitem>
-<para>This will insert the contents of the clipboard at the cursor position.
-The clipboard is feature of &kde; that works invisibly to provide a way to
+<guimenuitem>Paste</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>This will insert the first item in the clipboard at the cursor position.
+The clipboard works invisibly and provides a way to
 transfer data between applications.</para>
+<note><para>If Overwrite Selection is enabled, the pasted text will overwrite the selection, if any.</para></note>
 </listitem>
 </varlistentry>
 
@@ -282,18 +283,18 @@ currently open file.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="copy-as-html">
+<varlistentry id="edit-copy-as-html">
 <term><menuchoice>
 <guimenu>Edit</guimenu>
 <guimenuitem>Copy as HTML</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>This copies the currently selected text to the clipboard as &HTML;.
-</para>
+<para>Copy the selection as &HTML;, formatted using the current syntax
+highlighting and color scheme settings.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="select-all">
+<varlistentry id="edit-select-all">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo>
@@ -307,7 +308,7 @@ copying the entire file to another application.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="deselect">
+<varlistentry id="edit-deselect">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo>
@@ -320,7 +321,7 @@ copying the entire file to another application.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="block-selection-mode">
+<varlistentry id="edit-toggle-block-selection">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>B</keycap></keycombo>
@@ -336,25 +337,22 @@ The status bar shows the current state of the Selection Mode, either <guilabel>B
 </listitem>
 </varlistentry>
 
-<varlistentry id="vi-input-mode">
+<varlistentry id="edit-input-modes">
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul"><keysym>Meta</keysym>&Ctrl;<keycap>V</keycap></keycombo>
-</shortcut>
 <guimenu>Edit</guimenu>
-<guimenuitem>VI input Mode</guimenuitem>
+<guimenuitem>Input Modes</guimenuitem>
 </menuchoice></term>
 <listitem>
 <para>Switch between a normal and a vi-like, modal editing mode. The vi input mode supports the most used commands
 and motions from vim's normal and visual mode and has an optional vi mode statusbar.
 This status bar shows commands while they are being entered, output from commands and
-the current mode.The behavior of this mode can be configured in the
+the current mode. The behavior of this mode can be configured in the
 <link linkend="pref-edit-vi-input-mode">Vi Input Mode</link> tab of the
 <guilabel>Editing</guilabel> page in &kappname;'s settings dialog.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="overwrite-mode">
+<varlistentry id="edit-overwrite-mode">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul"><keycap>Ins</keycap></keycombo>
@@ -371,7 +369,7 @@ Mode, either <guilabel>INS</guilabel> or <guilabel>OVR</guilabel>.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="find">
+<varlistentry id="edit-find">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo>
@@ -386,21 +384,24 @@ box for entering the search pattern.</para>
 <para>When you start entering characters of your search pattern, the search starts
 immediately. If there is a match in the text this is highlighted and the background color
 of the entry field changes to light green. If the search pattern does not match any
-string in the text, this is indicated by a light red background color of the entry field
-and <guilabel>Not found</guilabel> is displayed at the right side of the bar.</para>
-<para>Use the <guilabel>Next</guilabel> or <guilabel>Previous</guilabel> button
+string in the text, this is indicated by a light red background color of the entry field.</para>
+<para>Use the 
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or 
+<inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
 to jump to the next or previous match in the document.</para>
 <para>You can choose whether the search should be case sensitive.
-Selecting <guilabel>Match Case</guilabel> will limit finds to entries that match the
+Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject> 
+will limit finds to entries that match the
 case (upper or lower) of each of the characters in the search  pattern.
 </para>
-<para>Click on the button with a green arrow icon at the right side of the incremental search bar to
+<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject> 
+button at the right side of the incremental search bar to
 switch to the power search and replace bar.
 </para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="find-again">
+<varlistentry id="edit-find-next">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul"><keycap>F3</keycap></keycombo>
@@ -411,12 +412,12 @@ switch to the power search and replace bar.
 </menuchoice></term>
  <listitem>
 <para>This repeats the last find operation, if any, without calling the incremental
-search bar.
+search bar, and searching forwards through the document starting from the cursor position.
 </para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="find-previous">
+<varlistentry id="edit-find-previous">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Shift;<keycap>F3</keycap></keycombo>
@@ -434,7 +435,7 @@ document.
 </listitem>
 </varlistentry>
 
-<varlistentry id="find-selected">
+<varlistentry id="edit-find-selected">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>H</keycap></keycombo>
@@ -448,7 +449,7 @@ document.
 </listitem>
 </varlistentry>
 
-<varlistentry id="find-selected-backwards">
+<varlistentry id="edit-find-selected-backwards">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>H</keycap></keycombo>
@@ -462,7 +463,7 @@ document.
 </listitem>
 </varlistentry>
 
-<varlistentry id="replace">
+<varlistentry id="edit-replace">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo>
@@ -478,31 +479,38 @@ box for entering the search pattern.</para>
 <guilabel>Whole words</guilabel>, <guilabel>Escape sequences</guilabel> or
 <guilabel>Regular expression</guilabel> from the drop down box.
 </para>
+<!--FIXME not in kf5?
 <para>If <guilabel>Escape sequences</guilabel> or <guilabel>Regular expression</guilabel> are
 selected, the <guibutton>Add...</guibutton> menuitem at the bottom of the context menu of the text boxes will be enabled
 and allows you to add escape sequences or regular expression items to the
 search or replace pattern from predefined lists.</para>
-<para>Use the <guilabel>Next</guilabel> or <guilabel>Previous</guilabel> button to jump
-to the next or previous match in the document.</para>
+-->
+<para>Use the 
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or 
+<inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
+to jump to the next or previous match in the document.</para>
 <para>Enter the text to replace with in the text box labeled <guilabel>Replace</guilabel>
 and click the <guibutton>Replace</guibutton> button to replace only the highlighted text or
 the <guibutton>Replace All</guibutton> button to replace the search text in the whole document.
 </para>
 <para>You can modify the search and replace behavior by selecting different
 options at the bottom of the bar.
-Selecting <guilabel>Match Case</guilabel> will limit finds to entries that match the
+Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject>
+will limit finds to entries that match the
 case (upper or lower) of each of the characters in the search  pattern.
-<guilabel>Selection Only</guilabel> will search and replace within the current selection only.
+<inlinemediaobject><imageobject><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject></inlinemediaobject>
+will search and replace within the current selection only.
 The <guilabel>Find All</guilabel> button highlights all matches in the document and shows the
 number of found matches in a small popup.
 </para>
-<para>Click on the button with a green arrow icon at the right side of the power search and replace bar to
+<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject>
+button at the right side of the power search and replace bar to
 switch to the incremental search bar.
 </para>
 </listitem>
 </varlistentry> 
 
-<varlistentry id="go-to-matching-bracket">
+<varlistentry id="edit-go-to-matching-bracket">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
@@ -515,10 +523,10 @@ switch to the incremental search bar.
 </listitem>
 </varlistentry>
 
-<varlistentry id="select-to-matching-bracket">
+<varlistentry id="edit-select-to-matching-bracket">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;&Shift;<keycap>G</keycap></keycombo>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>6</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Select to Matching Bracket</guimenuitem>
@@ -528,11 +536,8 @@ switch to the incremental search bar.
 </listitem>
 </varlistentry>
 
-<varlistentry id="go-to-previous-modified-line">
+<varlistentry id="edit-go-to-previous-modified-line">
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
-</shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Move to Previous Modified Line</guimenuitem>
 </menuchoice></term>
@@ -542,11 +547,8 @@ switch to the incremental search bar.
 </listitem>
 </varlistentry>
 
-<varlistentry id="go-to-next-modified-line">
+<varlistentry id="edit-go-to-next-modified-line">
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
-</shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Move to Next Modified Line</guimenuitem>
 </menuchoice></term>
@@ -556,7 +558,7 @@ switch to the incremental search bar.
 </listitem>
 </varlistentry>
 
-<varlistentry id="go-to-line">
+<varlistentry id="edit-edit-go-to-line">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo>
@@ -580,11 +582,8 @@ arrow decrease it. Close the bar with a click on the button with an icon on the 
 </sect1>
 
 <sect1 id="view-menu">
-<!-- This is also valid for kates menu view -->
-<title>The View Menu</title>
 
-<para>The <guimenu>View</guimenu> menu allows you to manage settings
-specific to the active editor, and to manage frames.</para>
+<title>The View Menu</title>
 
 <variablelist>
 
@@ -672,13 +671,13 @@ border on the screen.</para>
 <guisubmenu>Dynamic Word Wrap Indicators</guisubmenu>
 </menuchoice></term>
 <listitem>
- <para>Choose when and how the dynamic word wrap indicators should be
+<para>Choose when and how the dynamic word wrap indicators should be
 displayed. This is only available if the <guilabel>Dynamic Word
 Wrap</guilabel> option is checked.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="view-show-static-word-wrap">
+<varlistentry id="view-show-statik-word-wrap-markers">
 <term><menuchoice>
 <guimenu>View</guimenu>
 <guisubmenu>Word Wrap</guisubmenu>
@@ -730,7 +729,7 @@ editor, and vice versa.</para>
 <term><menuchoice>
 <guimenu>View</guimenu>
 <guisubmenu>Borders</guisubmenu>
-<guisubmenu>Show Scrollbar Marks</guisubmenu>
+<guimenuitem>Show Scrollbar Marks</guimenuitem>
 </menuchoice></term>
 <listitem>
 <para>If this option is checked, the view will show marks on the vertical
@@ -760,7 +759,7 @@ current document. For more information on the scrollbar minimap, see
 folding</ulink>:</para>
 <variablelist>
 
-<varlistentry>
+<varlistentry id="view-show-folding-markers">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul"><keycap>F9</keycap></keycombo>
@@ -771,21 +770,21 @@ folding</ulink>:</para>
 side of the view.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="view-fold-current-node">
 <term><menuchoice>
 <guimenuitem>Fold Current Node</guimenuitem>
 </menuchoice></term>
 <listitem><para>Collapse the region that contains the cursor.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="view-unfold-current-node">
 <term><menuchoice>
 <guimenuitem>Unfold Current Node</guimenuitem>
 </menuchoice></term>
 <listitem><para>Expand the region that contains the cursor.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="view-fold-toplevel-nodes">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>-</keycap></keycombo>
@@ -797,7 +796,7 @@ Click on the right pointing triangle to expand all toplevel regions.</para></lis
 </varlistentry>
 
 <!--FIXME not implemented in kf5
-varlistentry>
+varlistentry id="view-unfold-toplevel-nodes">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>+</keycap></keycombo>
@@ -818,12 +817,19 @@ I hope this will come back, but noone got around to implement this again... :/
 </variablelist>
 
 </sect1>
-<sect1 id="go"><!-- This is also valid for kates menu bookmarks-->
+
+<sect1 id="bookmarks-menu">
 <title>The Bookmarks Menu</title>
+
+<para>Below the entries described here, one entry for each bookmark in
+the active document will be available. The text will be the first few
+words of the marked line. Choose an item to move the cursor to the
+start of that line. The editor will scroll as necessary to make that
+line visible.</para>
 
 <variablelist>
 
-<varlistentry id="set-bookmark">
+<varlistentry id="bookmarks-set-bookmark">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo>
@@ -832,14 +838,12 @@ I hope this will come back, but noone got around to implement this again... :/
 <guimenuitem>Set Bookmark</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>
-Sets or removes a bookmark in the current line of the active document. (If it's
-there, it is removed, otherwise one is set).
-</para>
+<para>Sets or removes a bookmark in the current line of the active document.
+(If it's there, it is removed, otherwise one is set.)</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="clear-bookmarks">
+<varlistentry id="bookmarks-clear-bookmarks">
 <term><menuchoice>
 <guimenu>Bookmarks</guimenu>
 <guimenuitem>Clear All Bookmarks</guimenuitem>
@@ -852,7 +856,7 @@ the list of markers which is appended at the bottom of this menu item.
 </listitem>
 </varlistentry>
 
-<varlistentry id="bookmarks-previous">
+<varlistentry id="bookmarks-bookmarks-previous">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Alt;<keycap>PgUp</keycap></keycombo>
@@ -866,7 +870,7 @@ piece of text on the line. This item is only available when there is a bookmark
 in a line above the cursor.</para></listitem>
 </varlistentry>
 
-<varlistentry id="bookmarks-next">
+<varlistentry id="bookmarks-bookmarks-next">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Alt;<keycap>PgDown</keycap></keycombo>
@@ -882,16 +886,10 @@ below the cursor.</para></listitem>
 
 </variablelist>
 
-<para>
-At the bottom of this menu, a list of bookmarks appears if any bookmarks are
-available for this window.
-</para>
-
 </sect1>
 
-<!-- This is also valid for kates menu tools, kate has additional items:
-Pipe to Terminal, Syncronizise Terminal with Current Document, Focus Terminal at top-->
-<sect1 id="tools">
+<sect1 id="tools-menu">
+
 <title>The Tools Menu</title>
 
 <variablelist>
@@ -915,10 +913,8 @@ addition and any changes in the document formatting.</para>
 <listitem>
 <para>Choose the filetype scheme you prefer for the active document. This
 overwrites the global filetype mode set in <menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Configure
-Editor...</guimenuitem></menuchoice> in the Filetypes tab for your current
-document only.</para>
+<guimenu>Settings</guimenu><guimenuitem>ConfigureEditor...</guimenuitem></menuchoice> 
+in the Filetypes tab for your current document only.</para>
 </listitem>
 </varlistentry>
 
@@ -930,9 +926,8 @@ document only.</para>
 <listitem>
 <para>Choose the Highlighting scheme you prefer for the active document. This
 overwrites the global highlighting mode set in <menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Configure
-Editor...</guimenuitem></menuchoice> for your current document only.</para>
+<guimenu>Settings</guimenu><guimenuitem>Configure Editor...</guimenuitem>
+</menuchoice> for your current document only.</para>
 </listitem>
 </varlistentry>
 
@@ -944,9 +939,8 @@ Editor...</guimenuitem></menuchoice> for your current document only.</para>
 <listitem>
 <para>Choose the style of indentation you want for your active document.
 This overwrites the global indentation mode set in <menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Configure
-Editor...</guimenuitem></menuchoice> for your current document only.</para>
+<guimenu>Settings</guimenu><guimenuitem>Configure Editor...</guimenuitem>
+</menuchoice> for your current document only.</para>
 </listitem>
 </varlistentry>
 
@@ -957,9 +951,8 @@ Editor...</guimenuitem></menuchoice> for your current document only.</para>
 </menuchoice></term>
 <listitem>
 <para>You can overwrite the default encoding set in <menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Configure
-Editor...</guimenuitem></menuchoice> in the <guilabel>Open/Save</guilabel> page
+<guimenu>Settings</guimenu><guimenuitem>ConfigureEditor...</guimenuitem>
+</menuchoice> in the <guilabel>Open/Save</guilabel> page
 to set a different encoding for your current document. The encoding you
 set here will be only valid for your current document.</para>
 </listitem>
@@ -973,8 +966,8 @@ set here will be only valid for your current document.</para>
 <listitem>
 <para>Choose your preferred end of line mode for your active
 document. This overwrites the global end of line mode set in <menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>Configure
-Editor...</guimenuitem></menuchoice> for your current document only.</para>
+<guimenu>Settings</guimenu><guimenuitem>Configure Editor...</guimenuitem>
+</menuchoice> for your current document only.</para>
 </listitem>
 </varlistentry>
 
@@ -1001,10 +994,12 @@ the endianness (byte order) of a text file or stream, for more information see
 modified by <link linkend="dev-scripting-command-line">writing your
 own scripts</link>. This way, &katepart; can be extended with user-defined tools.
 </para>
+<para><ulink url="help:/katepart/tools.html#scripts">There is a complete list of
+scripts in the &katepart; documentation.</ulink></para>
 
 <variablelist>
 
-<varlistentry id="scripts-navigation">
+<varlistentry id="tools-scripts-navigation">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1012,7 +1007,7 @@ own scripts</link>. This way, &katepart; can be extended with user-defined tools
 </menuchoice></term>
 <listitem><variablelist>
 
-<varlistentry id="scripts-navigation-previous-indent">
+<varlistentry id="tools-scripts-navigation-previous-indent">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Alt;&Shift;<keysym>Up</keysym></keycombo>
@@ -1028,7 +1023,7 @@ the same level as the current line.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-navigation-next-indent">
+<varlistentry id="tools-scripts-navigation-next-indent">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Alt;&Shift;<keysym>Down</keysym></keycombo>
@@ -1053,7 +1048,7 @@ Dominik Haumann
 A bit experimental right now, therefore I suggest to keep the FIXME for now and not add further docs.
 -->
 
-<varlistentry id="scripts-editing">
+<varlistentry id="tools-scripts-editing">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1061,7 +1056,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 </menuchoice></term>
 <listitem><variablelist>
 
-<varlistentry id="scripts-editing-sort">
+<varlistentry id="tools-scripts-editing-sort">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1073,7 +1068,7 @@ Sorts the selected text or whole document in ascending order.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-editing-move-down">
+<varlistentry id="tools-scripts-editing-move-down">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keysym>Down</keysym></keycombo>
@@ -1088,7 +1083,7 @@ Move selected lines down.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-editing-move-up">
+<varlistentry id="tools-scripts-editing-move-up">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keysym>Up</keysym></keycombo>
@@ -1103,7 +1098,7 @@ Move selected lines up.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-editing-dupe-down">
+<varlistentry id="tools-scripts-editing-dupe-down">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Alt;<keysym>Down</keysym></keycombo>
@@ -1118,7 +1113,7 @@ Duplicates the selected lines down.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-editing-dupe-up">
+<varlistentry id="tools-scripts-editing-dupe-up">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Alt;<keysym>Up</keysym></keycombo>
@@ -1133,7 +1128,7 @@ Duplicates the selected lines up.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-editing-uri-encode">
+<varlistentry id="tools-scripts-editing-uri-encode">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1146,7 +1141,7 @@ Encodes the selected text so that it can be used as part of a query string in a
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-editing-uri-decode">
+<varlistentry id="tools-scripts-editing-uri-decode">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1162,7 +1157,7 @@ replace the selection with the original raw text.
 </variablelist></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet">
+<varlistentry id="tools-scripts-emmet">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1170,7 +1165,7 @@ replace the selection with the original raw text.
 </menuchoice></term>
 <listitem><variablelist>
 
-<varlistentry id="scripts-emmet-expand-abbreviation">
+<varlistentry id="tools-scripts-emmet-expand-abbreviation">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1184,7 +1179,7 @@ that with  <computeroutput>&lt;div&gt;&lt;/div&gt;</computeroutput>.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-wrap-with-tag">
+<varlistentry id="tools-scripts-emmet-wrap-with-tag">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1197,7 +1192,7 @@ Wraps the selected text with the tag provided on the
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-select-tag-inwards">
+<varlistentry id="tools-scripts-emmet-select-tag-inwards">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1211,7 +1206,7 @@ tags themselves.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-select-tag-outwards">
+<varlistentry id="tools-scripts-emmet-select-tag-outwards">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1225,7 +1220,7 @@ themselves.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-move-cursor-to-matching-tag">
+<varlistentry id="tools-scripts-emmet-move-cursor-to-matching-tag">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1239,7 +1234,7 @@ to the opening tag.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-toggle-comment">
+<varlistentry id="tools-scripts-emmet-toggle-comment">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1256,7 +1251,7 @@ portion is a comment, the comment tags will be removed instead.
 
 <!--FIXME: (Go to|Select next) (previous|next) edit point -->
 
-<varlistentry id="scripts-emmet-toggle-delete-tag">
+<varlistentry id="tools-scripts-emmet-toggle-delete-tag">
 <term><menuchoice>
 <guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
 <guimenuitem>Delete tag under cursor</guimenuitem>
@@ -1267,7 +1262,7 @@ entire tag.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-decrement-number-by-1">
+<varlistentry id="tools-scripts-emmet-decrement-number-by-1">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1281,7 +1276,7 @@ For example, if <userinput>5</userinput> is selected, it will become
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-decrement-number-by-10">
+<varlistentry id="tools-scripts-emmet-decrement-number-by-10">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1295,7 +1290,7 @@ For example, if <userinput>15</userinput> is selected, it will become
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-decrement-number-by-0_1">
+<varlistentry id="tools-scripts-emmet-decrement-number-by-0_1">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1309,7 +1304,7 @@ For example, if <userinput>4.5</userinput> is selected, it will become
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-increment-number-by-1">
+<varlistentry id="tools-scripts-emmet-increment-number-by-1">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1323,7 +1318,7 @@ For example, if <userinput>5</userinput> is selected, it will become
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-increment-number-by-10">
+<varlistentry id="tools-scripts-emmet-increment-number-by-10">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1337,7 +1332,7 @@ For example, if <userinput>5</userinput> is selected, it will become
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="scripts-emmet-increment-number-by-0_1">
+<varlistentry id="tools-scripts-emmet-increment-number-by-0_1">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1359,7 +1354,7 @@ For example, if <userinput>4.5</userinput> is selected, it will become
 </listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="tools-invoke-code-completition">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>Space</keycap></keycombo>
@@ -1372,7 +1367,7 @@ For example, if <userinput>4.5</userinput> is selected, it will become
 </listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="tools-word-completition">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Word Completion</guimenuitem>
@@ -1387,7 +1382,7 @@ Completion</guimenuitem> pops up a completion box with matching entries.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="spelling-automatic-spell-checking">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>O</keycap></keycombo>
@@ -1397,12 +1392,12 @@ Completion</guimenuitem> pops up a completion box with matching entries.</para>
 <guimenuitem>Automatic Spell Checking</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>When <guimenuitem>Automatic Spell Checking</guimenuitem> is enabled, wrong text
+<para>When <guimenuitem>Automatic Spell Checking</guimenuitem> is enabled, wrongly spelled text
 is underlined in the document on-the-fly.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="spelling">
+<varlistentry id="spelling-spelling">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Spelling</guisubmenu>
@@ -1527,10 +1522,6 @@ are reverted, and you will return to your document.</para></listitem>
 
 </varlistentry>
 
-</variablelist>
-
-<variablelist>
-
 <varlistentry id="tools-spelling-from-cursor">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
@@ -1569,7 +1560,7 @@ dictionary &eg; for automatic spellcheck of text in different languages.</para>
 
 <!-- Indent/Unindent no longer in the menu ???, but shortcuts work-->
 <!--
-<varlistentry id="indent">
+<varlistentry id="tools-indent">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo>
@@ -1584,7 +1575,7 @@ settings</link>.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="unindent">
+<varlistentry id="tools-unindent">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>I</keycap></keycombo>
@@ -1672,7 +1663,7 @@ uppercase.</para></listitem>
 lowercase.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="tools-capitalize">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Alt;<keycap>U</keycap></keycombo>
@@ -1684,7 +1675,7 @@ lowercase.</para></listitem>
 word.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="tools-join-lines">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>J</keycap></keycombo>
@@ -1697,7 +1688,7 @@ with one white space character as a separator. Leading/trailing white space on
 joined lines is removed in the affected ends.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="tools-word-wrap-document">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Apply Word Wrap</guimenuitem>

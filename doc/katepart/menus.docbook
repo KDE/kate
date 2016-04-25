@@ -177,8 +177,8 @@ will be prompted to save the file before &kappname; closes it.
 </shortcut>
 <guimenu>File</guimenu>
 <guimenuitem>Quit</guimenuitem>
-</menuchoice>
-</term><listitem>
+</menuchoice></term>
+<listitem>
 <para>
 This will close the editor window, if you have more than one instance of
 &kappname; running, through the <guimenuitem>New</guimenuitem> or
@@ -200,10 +200,12 @@ not be closed.
 <varlistentry id="undo">
 <term><menuchoice>
 <shortcut><keycombo
-action="simul">&Ctrl;<keycap>Z</keycap></keycombo></shortcut>
+action="simul">&Ctrl;<keycap>Z</keycap></keycombo>
+</shortcut>
 <guimenu>Edit</guimenu>
-<guimenuitem>Undo</guimenuitem></menuchoice>
-</term><listitem>
+<guimenuitem>Undo</guimenuitem>
+</menuchoice></term>
+<listitem>
 <para>This is used to eliminate or reverse the most recent user action
 or operation.
 </para>
@@ -212,8 +214,9 @@ or operation.
 
 <varlistentry id="redo">
 <term><menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></shortcut>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo>
+</shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Redo</guimenuitem>
 </menuchoice></term>
@@ -224,8 +227,9 @@ action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></shortcut>
 
 <varlistentry id="cut">
 <term><menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;<keycap>X</keycap></keycombo></shortcut>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>X</keycap></keycombo>
+</shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Cut</guimenuitem>
 </menuchoice></term>
@@ -239,8 +243,9 @@ transfer data between applications.</para>
 
 <varlistentry id="copy">
 <term><menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;<keycap>C</keycap></keycombo></shortcut>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo>
+</shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Copy</guimenuitem>
 </menuchoice></term>
@@ -253,8 +258,9 @@ to provide a way to transfer data between applications.</para>
 
 <varlistentry id="paste">
 <term><menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;<keycap>V</keycap></keycombo></shortcut>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo>
+</shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Paste</guimenuitem></menuchoice>
 </term><listitem>
@@ -279,18 +285,22 @@ currently open file.</para>
 <varlistentry id="copy-as-html">
 <term><menuchoice>
 <guimenu>Edit</guimenu>
-<guimenuitem>Copy as HTML</guimenuitem></menuchoice>
-</term><listitem>
+<guimenuitem>Copy as HTML</guimenuitem>
+</menuchoice></term>
+<listitem>
 <para>This copies the currently selected text to the clipboard as &HTML;.
 </para>
- </listitem>
+</listitem>
 </varlistentry>
 
-<varlistentry>
-<term><anchor id="select-all"/><menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
-<guimenu>Edit</guimenu><guimenuitem>Select All</guimenuitem></menuchoice></term>
+<varlistentry id="select-all">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Select All</guimenuitem>
+</menuchoice></term>
 <listitem>
 <para>This will select the entire document. This could be very useful for
 copying the entire file to another application.</para>
@@ -303,8 +313,9 @@ copying the entire file to another application.</para>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
-<guimenuitem>Deselect</guimenuitem></menuchoice>
-</term><listitem>
+<guimenuitem>Deselect</guimenuitem>
+</menuchoice></term>
+<listitem>
 <para>Deselects the selected text in the editor if any.</para>
 </listitem>
 </varlistentry>
@@ -362,8 +373,9 @@ Mode, either <guilabel>INS</guilabel> or <guilabel>OVR</guilabel>.</para>
 
 <varlistentry id="find">
 <term><menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;<keycap>F</keycap></keycombo></shortcut>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo>
+</shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Find...</guimenuitem>
 </menuchoice></term>
@@ -425,7 +437,8 @@ document.
 <varlistentry id="find-selected">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;<keycap>H</keycap></keycombo></shortcut>
+<keycombo action="simul">&Ctrl;<keycap>H</keycap></keycombo>
+</shortcut>
 <guimenu>Edit</guimenu>
 <guisubmenu>Find Variants</guisubmenu>
 <guimenuitem>Find Selected</guimenuitem>
@@ -588,8 +601,9 @@ document in one window are reflected in the other window and vice versa.</para>
 
 <varlistentry id="view-command-line">
 <term><menuchoice>
-<shortcut><keycombo
-action="simul"><keycap>F7</keycap></keycombo></shortcut>
+<shortcut>
+<keycombo action="simul"><keycap>F7</keycap></keycombo>
+</shortcut>
 <guimenu>View</guimenu>
 <guimenuitem>Switch to Command Line</guimenuitem>
 </menuchoice></term>
@@ -784,10 +798,12 @@ Click on the right pointing triangle to expand all toplevel regions.</para></lis
 
 <!--FIXME not implemented in kf5
 varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-&Shift;<keycap>+</keycap></keycombo></shortcut>
-<guimenuitem>Unfold Toplevel Nodes</guimenuitem></menuchoice>
-</term>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>+</keycap></keycombo>
+</shortcut>
+<guimenuitem>Unfold Toplevel Nodes</guimenuitem>
+</menuchoice></term>
 <listitem><para>Expand all toplevel regions in the document.</para></listitem>
 </varlistentry
 https://git.reviewboard.kde.org/r/127601/
@@ -921,7 +937,7 @@ Editor...</guimenuitem></menuchoice> for your current document only.</para>
 </varlistentry>
 
 <varlistentry id="tools-indentation">
-<term>><menuchoice>
+<term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Indentation</guisubmenu>
 </menuchoice></term>
@@ -957,8 +973,7 @@ set here will be only valid for your current document.</para>
 <listitem>
 <para>Choose your preferred end of line mode for your active
 document. This overwrites the global end of line mode set in <menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Configure
+<guimenu>Settings</guimenu><guimenuitem>Configure
 Editor...</guimenuitem></menuchoice> for your current document only.</para>
 </listitem>
 </varlistentry>
@@ -1387,8 +1402,8 @@ is underlined in the document on-the-fly.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term><anchor id="Spelling..."/><menuchoice>
+<varlistentry id="spelling">
+<term><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Spelling...</guimenuitem>
@@ -1554,12 +1569,14 @@ dictionary &eg; for automatic spellcheck of text in different languages.</para>
 
 <!-- Indent/Unindent no longer in the menu ???, but shortcuts work-->
 <!--
-<varlistentry>
-<term><anchor id="indent"/><menuchoice>
+<varlistentry id="indent">
+<term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo>
 </shortcut>
-<guimenu>Tools</guimenu><guimenuitem>Indent</guimenuitem></menuchoice></term>
+<guimenu>Tools</guimenu>
+<guimenuitem>Indent</guimenuitem>
+</menuchoice></term>
 <listitem>
 <para>This increases the paragraph's indentation by one step. The size of the
 step depends on the <link linkend="pref-edit-indent"> indentation
@@ -1567,12 +1584,14 @@ settings</link>.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term><anchor id="unindent"/><menuchoice>
+<varlistentry id="unindent">
+<term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>I</keycap></keycombo>
 </shortcut>
-<guimenu>Tools</guimenu><guimenuitem>Unindent</guimenuitem></menuchoice></term>
+<guimenu>Tools</guimenu>
+<guimenuitem>Unindent</guimenuitem>
+</menuchoice></term>
 <listitem>
 <para>This reduces the paragraph's indentation by one step. The size of the step
 depends on the <link linkend="pref-edit-indent"> indentation settings</link>.</para>

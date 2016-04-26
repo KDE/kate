@@ -913,7 +913,7 @@ addition and any changes in the document formatting.</para>
 <listitem>
 <para>Choose the filetype scheme you prefer for the active document. This
 overwrites the global filetype mode set in <menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>ConfigureEditor...</guimenuitem></menuchoice> 
+<guimenu>Settings</guimenu><guimenuitem>Configure Editor...</guimenuitem></menuchoice> 
 in the Filetypes tab for your current document only.</para>
 </listitem>
 </varlistentry>
@@ -951,7 +951,7 @@ This overwrites the global indentation mode set in <menuchoice>
 </menuchoice></term>
 <listitem>
 <para>You can overwrite the default encoding set in <menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>ConfigureEditor...</guimenuitem>
+<guimenu>Settings</guimenu><guimenuitem>Configure Editor...</guimenuitem>
 </menuchoice> in the <guilabel>Open/Save</guilabel> page
 to set a different encoding for your current document. The encoding you
 set here will be only valid for your current document.</para>

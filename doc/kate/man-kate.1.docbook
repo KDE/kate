@@ -76,7 +76,7 @@ configuration files.  This document was written in &kate;.
 
 <variablelist>
 <varlistentry>
-<term><option>--deaktop</option> <replaceable>file name</replaceable></term>
+<term><option>--desktopfile</option> <replaceable>file name</replaceable></term>
 <listitem><para>The base file name of the desktop entry for this application.</para></listitem>
 </varlistentry>
 <varlistentry>

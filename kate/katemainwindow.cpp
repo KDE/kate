@@ -306,8 +306,9 @@ void KateMainWindow::setupActions()
     connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(closeOrphaned()));
     a->setWhatsThis(i18n("Close all documents in the file list that could not be reopened, because they are not accessible anymore."));
 
-    actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), m_viewManager, SLOT(slotDocumentClose()))
-    ->setWhatsThis(i18n("Close the current document."));
+    a = actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), m_viewManager, SLOT(slotDocumentClose()));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("document-close")));
+    a->setWhatsThis(i18n("Close the current document."));
 
     a = actionCollection()->addAction(QStringLiteral("file_close_other"));
     a->setText(i18n("Close Other"));

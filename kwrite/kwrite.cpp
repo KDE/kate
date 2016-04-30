@@ -148,6 +148,7 @@ QSize KWrite::sizeHint () const
 void KWrite::setupActions()
 {
     m_closeAction = actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), this, SLOT(slotFlush()));
+    m_closeAction->setIcon(QIcon::fromTheme(QStringLiteral("document-close")));
     m_closeAction->setWhatsThis(i18n("Use this command to close the current document"));
     m_closeAction->setDisabled(true);
 

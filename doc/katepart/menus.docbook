@@ -519,7 +519,7 @@ switch to the incremental search bar.
 <guimenuitem>Move to Matching Bracket</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>Move the cursor to the associated opening and closing bracket.</para>
+<para>Move the cursor to the associated opening or closing bracket.</para>
 </listitem>
 </varlistentry>
 

@@ -34,7 +34,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     layout->setMargin(0);
 
     QVBoxLayout *vbox = new QVBoxLayout;
-    QGroupBox *group = new QGroupBox(i18n("Autoload repositories"), this);
+    QGroupBox *group = new QGroupBox(i18nc("Groupbox title", "Autoload Repositories"), this);
     group->setWhatsThis(i18n(
         "Project plugin is able to autoload repository working copies when "
         "there is no .kateproject file defined yet."));
@@ -62,12 +62,12 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
 
 QString KateProjectConfigPage::name() const
 {
-    return QString(i18n("Projects"));
+    return i18n("Projects");
 }
 
 QString KateProjectConfigPage::fullName() const
 {
-    return QString(i18n("Projects properties"));
+    return i18nc("Groupbox title", "Projects Properties");
 }
 
 QIcon KateProjectConfigPage::icon() const

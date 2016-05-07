@@ -85,7 +85,7 @@ simple &gdb; frontend</para>
 Search or replace patterns in opened documents or in files on disk</para>
 </listitem>
 <listitem>
-<para>Snippets tool view - Tool view embedding the snippets management</para>
+<para><link linkend="kate-application-plugin-snippets">Snippets tool view</link> - Tool view embedding the snippets management</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-sql">SQL Plugin</link> - Execute
@@ -95,7 +95,7 @@ query on SQL databases</para>
 <para>Symbol Viewer - Extract and show reference symbols from source</para>
 </listitem>
 <listitem>
-<para>Terminal tool view - Tool view embedding a terminal widget</para>
+<para><link linkend="kate-application-plugin-konsole">Terminal tool view</link> - Tool view embedding a terminal widget</para>
 </listitem>
 <listitem>
 <para>Text Filter - Easy text filtering</para>
@@ -107,152 +107,668 @@ attributes, attribute values and entities allowed by DTD</para>
 </itemizedlist>
 </sect1>
 
-<!-- from doc/kate-addons/xmlcheck.docbook -->
-<sect1 id="kate-application-plugin-xmltools">
+<sect1 id="kate-application-plugin-build">
+<!--http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
 <sect1info>
-<authorgroup><author>
-&Daniel.Naber; &Daniel.Naber.mail;
-</author></authorgroup>
+<authorgroup>
+<author><firstname>Salma</firstname> <surname>Sultana</surname></author>
+<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+</authorgroup>
 </sect1info>
-<title>&XML; Completion</title>
+<title>Build Plugin</title>
 
-<para>This plugin gives hints about what is allowed at a certain position in
-an &XML; file, according to the file's DTD. It will list possible
-elements, attributes, attribute values or entities, depending on the
-cursor position (&eg; all entities are listed if the character on the left
-of the cursor is <quote>&amp;</quote>). It's also possible to close the nearest
-open tag on the left.</para>
+<sect2 id="build-intro">
+<title>Introduction</title>
 
-<para>The <acronym>DTD</acronym> must exist in &XML; format, as produced by the Perl program
-<command>dtdparse</command>. We will call a DTD in this format <quote>meta DTD</quote>.
-Some meta DTDs are supplied. They are installed in
-<filename class="directory">$KDEDIR/share/apps/katexmltools/</filename>,
-which is also the default folder when you choose
-<guimenuitem>Assign Meta DTD...</guimenuitem>.
-To produce your own meta DTDs, get <command>dtdparse</command> from
-<ulink url="http://dtdparse.sourceforge.net">http://dtdparse.sourceforge.net</ulink>.</para>
+<para>The Build plugin allows you to run actions like build, clean and compile
+on a project.</para>
 
-<sect2 id="xmltools-how-to-use">
-<title>How to Use</title>
+</sect2>
 
-<para>Start &kate; and open the configuration dialog under <menuchoice><guimenu>Settings</guimenu>
-<guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
-Then select <guilabel>&XML; Completion</guilabel> which will appear
-in the <menuchoice><guimenu>Application</guimenu>
-<guimenuitem>Plugins</guimenuitem></menuchoice> page and close the dialog. After
-that, select <menuchoice><guimenu>&XML;</guimenu><guimenuitem>Assign Meta DTD...</guimenuitem></menuchoice>.
-If your document contains no <quote>DOCTYPE</quote> or the doctype is unknown, you will have to
-select a meta DTD from the file system. Otherwise the meta DTD that
-matches the current document's DOCTYPE will be loaded automatically.</para>
+<sect2 id="build-using">
+<title>Using the Build Plugin</title>
 
-<para>You can now use the plugin while typing your text:</para>
+<para>The Build plugin adds a <guilabel>Build Output</guilabel> tool view at the
+bottom and a <guimenu>Build</guimenu> menu on the menubar. The tool view can be used to configure
+build target settings, while the menu can be used to perform build, clean and
+compile actions.</para>
+
+
+<para>The <guilabel>Build Output</guilabel> tool view has three tabs:</para>
+
+<itemizedlist>
+<listitem><para><guilabel>Target Settings</guilabel></para></listitem>
+<listitem><para><guilabel>Output</guilabel></para></listitem>
+<listitem><para><guilabel>Errors &amp; Warnings</guilabel></para></listitem>
+</itemizedlist>
+
+<sect3 id="build-using-target-settings">
+<title>Target Settings tab</title>
+
+<para>The target settings tab can be used to configure various build targets.</para>
+
+<para>Each target contains four configuration options:</para>
 
 <variablelist>
-
 <varlistentry>
-<term><keycap>&lt;</keycap> (less than key)</term>
-<listitem><para>This will trigger a list of possible elements unless the
-cursor is inside a tag already. Note that you currently cannot use
-this to insert the top level element (&eg; <quote>&lt;html&gt;</quote>).</para></listitem>
+<term><guilabel>Working Directory</guilabel></term>
+<listitem><para>You can set the path to the project here. Leave this empty to
+use the directory the current document is located in.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><keycap>&lt;</keycap><keycap>/</keycap>(less than key + slash)</term>
-<listitem><para>Entering these characters will offer to close the current element
-(nearest open one to the left of the cursor). Press &Enter; to accept the suggestion.
-Unlike the <guimenuitem>Close Element</guimenuitem> menu item, this works only with
-a DTD assigned.</para></listitem>
+<term><guilabel>Build</guilabel></term>
+<listitem><para>This option lets you define the build command. It is set to
+<command>make</command> by default.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><keycap>"</keycap> (quote key)</term>
-<listitem><para>The quote key will trigger a list of possible attribute
-values (if there are any) if you are inside a tag.</para></listitem>
+<term><guilabel>Clean</guilabel></term>
+<listitem><para>The option lets you define the clean command. It is set to
+<command>make clean</command> by default.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><keycap>&nbsp;</keycap> (space key)</term>
-<listitem><para>This key will trigger a list of possible attributes for the
-current element if you are inside a tag.</para>
+<term><guilabel>Quick Compile</guilabel></term>
+<listitem><para>This option lets you define the quick compile command. It is set
+to <command>gcc -Wall -g %f</command> by default.</para></listitem>
+</varlistentry>
+</variablelist>
+
+<para>One can create a new target by using the <guibutton>New</guibutton> button.
+The <guibutton>Copy</guibutton> button can be used to make a copy of an existing
+target. To delete a target, use the <guibutton>Delete</guibutton> button.</para>
+
+</sect3>
+
+<sect3 id="build-using-output">
+<title>Output tab</title>
+
+<para>The <guilabel>Output</guilabel> tab shows the console output generated by
+the last command.</para>
+
+</sect3>
+
+<sect3 id="buiid-using-errors">
+<title>Errors &amp; Warnings</title>
+
+<para>The <guilabel>Errors &amp; Warnings</guilabel> tab lists the errors and
+warnings generated by the last command.</para>
+
+<para>Each line contains a message and the file name and line number if available.
+Clicking on the error or warning takes you to the appropriate file and places
+the cursor on the corresponding line number.</para>
+
+<para>There are <guibutton>Errors</guibutton>, <guibutton>Warnings</guibutton>,
+and <guibutton>Others</guibutton> buttons at the top that allow you to show
+or hide those categories of output.</para>
+
+<!--FIXME: These shortcuts now seem to be used by the Project plugin in 4.11.
+            https://bugs.kde.org/show_bug.cgi?id=328170 -->
+<para>To navigate to the previous error, press
+<keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo>.
+To navigate to the next error, press
+<keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo>.</para>
+
+</sect3>
+</sect2>
+
+<sect2 id="build-menu">
+<title>Menu Structure</title>
+
+<variablelist id="build-build">
+<varlistentry>
+<term><menuchoice>
+<guimenu>Build</guimenu><guimenuitem>Build</guimenuitem>
+</menuchoice></term>
+<listitem><para>Runs the <guilabel>Build</guilabel> command for the currently
+selected target.</para></listitem>
+</varlistentry>
+
+<varlistentry id="build-clean">
+<term><menuchoice>
+<guimenu>Build</guimenu><guimenuitem>Clean</guimenuitem>
+</menuchoice></term>
+<listitem><para>Runs the <guilabel>Clean</guilabel> command for the currently
+selected target.</para></listitem>
+</varlistentry>
+
+<varlistentry id="build-compile">
+<term><menuchoice>
+<guimenu>Build</guimenu><guimenuitem>Quick Compile</guimenuitem>
+</menuchoice></term>
+<listitem><para>Runs the <guilabel>Quick Compile</guilabel> command for the
+currently selected target.</para></listitem>
+</varlistentry>
+
+<varlistentry id="build-previous-error">
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo></shortcut>
+<guimenu>Build</guimenu><guimenuitem>Previous Error</guimenuitem>
+</menuchoice></term>
+<listitem><para>Moves the cursor to the location of the previous error in the
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry id="build-next-error">
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo></shortcut>
+<guimenu>Build</guimenu><guimenuitem>Next Error</guimenuitem>
+</menuchoice></term>
+<listitem><para>Moves the cursor to the location of the next error in the
+document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice id="build-targets">
+<guimenu>Build</guimenu><guisubmenu>Targets</guisubmenu>
+</menuchoice></term>
+<listitem><para>Select from a list of targets configured by the user.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice id="build-next-target">
+<guimenu>Build</guimenu><guimenuitem>Next Target</guimenuitem>
+</menuchoice></term>
+<listitem><para>Switch to the next target configured by the user.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="build-ack">
+<title>Thanks and Acknowledgments</title>
+<para>The &kate; Build Plugin was written by Kåre Särs.</para>
+<para>Special thanks to Google Code-In 2011 participant Salma Sultana for
+writing much of this section.</para>
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-fsbrowser">
+
+<title>Filesystem Browser</title>
+
+<para>The Filesystem Browser is a folder viewer, allowing you to open
+files from a displayed folder in the current frame.</para>
+
+<sect2 id="fsbrowser-menu">
+<title>Menu Structure</title>
+<variablelist>
+
+<varlistentry id="view-toolviews-show-filebrowser">
+<term><menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Filesystem Browser</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Toggle the display of &kate;'s Filesystem Browser.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="fsbrowser-interface">
+<title>Interface</title>
+
+<para>From the top down, the Filesystem Browser consists of the following
+elements:</para>
+
+<variablelist>
+<varlistentry>
+<term>A Toolbar</term>
+<listitem>
+<para>This contains standard navigations tool buttons:</para>
+<variablelist>
+<varlistentry>
+<term><guibutton>Back</guibutton></term>
+<listitem><para>Causes the folder view to <command>cd</command> to the previously displayed folder in the history.
+This button is disabled, if there is no previous item.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Forward</guibutton></term>
+<listitem><para>Causes the folder view to <command>cd</command> to the next folder in the history.
+This button is disabled, if there is no next folder.</para></listitem>
+</varlistentry>
+<!--varlistentry>
+<term><guibutton>Parent Folder</guibutton></term>
+<listitem><para>This will cause the folder view to <command>cd</command> to the immediate parent of the currently displayed
+folder if possible.</para></listitem>
+</varlistentry-->
+<varlistentry>
+<term><guibutton>Bookmarks</guibutton></term>
+<listitem><para>Opens a submenu to edit or add bookmarks and to add a new bookmark folder.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Current Document Folder</guibutton></term>
+<listitem><para>This button will cause the folder view to
+<command>cd</command> to the folder of the currently active
+document if possible. This button is disabled, if the active document
+is a new, unsaved file, or the folder in which it resides can not
+be decided.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Options</guibutton></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guimenuitem>Short View</guimenuitem></term>
+<listitem><para>Displays only the filenames.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Detailed View</guimenuitem></term>
+<listitem><para>Displays <guilabel>Name</guilabel>, <guilabel>Date</guilabel>,
+<guilabel>Size</guilabel> and <guilabel>Type</guilabel> of the files.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Tree View</guimenuitem></term>
+<listitem><para>Like Short View, but folders can be expanded to view their contents.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Detailed Tree View</guimenuitem></term>
+<listitem><para>This also allows folders to be expanded, but displays the additional columns
+available in Detailed View.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Show Hidden Files</guimenuitem></term>
+<listitem><para>Displays files normally hidden by your &OS;.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guimenuitem>Automatically synchronize with current document</guimenuitem></term>
+<listitem><para>When this option is enabled the filesystem browser will automatically <command>cd</command>
+to the folder of the document currently open in the editing area every time it changes.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term><keycap>&amp;</keycap> (ampersand key)</term>
-<listitem><para>This key will trigger a list of named entities.</para></listitem>
+<term>A Location Entry</term>
+<listitem>
+<para>This displays a breadcrumb navigation to the currently open folder, similarly to
+&dolphin;.  You can click on a any folder to browse to it, or click on one of the
+arrows to the left of a folder to select any folders beneath it.  You may also
+select from your list of Places by clicking the leftmost icon in the breadcrumb
+navigation, which displays an icon that represents your current Place.</para>
+
+<para>You can also click to the right of the breadcrumbs to change them to a text box
+where you can type the path of a folder to browse. The &URL;
+entry maintains a list of previously typed paths. To choose one, use
+the arrow button to the right of the entry.</para>
+<tip><para>The &URL; entry has folder auto-completion. The completion
+method can be set using the &RMB; menu of the text
+entry.</para></tip>
+</listitem>
 </varlistentry>
-</variablelist>
 
-</sect2>
-
-<sect2 id="xmltools-features-and-limitations">
-<title>Features and Limitations</title>
-
-<para>You can test all functions and limitations by loading
-<filename>$KDEDIR/share/apps/katexmltools/testcases.xml</filename><!--FIXME replacement for KDEDIRS-->
-into &kate; and following the instructions.</para>
-
-</sect2>
-
-
-<sect2 id="xmltools-menu">
-<title>Menu Structure</title>
-
-<variablelist id="xml-insert-element">
 <varlistentry>
+<term>A Folder View</term>
+<listitem><para>This is a standard &kde; folder view.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>A Filter Entry</term>
+<listitem>
+<para>The Filter entry allows you to enter a filter for the files
+displayed in the folder view. The filter uses standard globs; patterns
+must be separated by white space. Example: <userinput>*.cpp *.h
+*.moc</userinput></para>
+<para>To display all files, enter a single asterisk
+<userinput>*</userinput>.</para>
+<para>The filter entry saves the last 10 filters entered between
+sessions.  To use one, press the arrow button on the right of the entry
+and select the desired filter string.  You can disable the filter by pressing
+the <guibutton>Clear text</guibutton> button to the left of the autocompletion
+arrow button.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+
+<sect2 id="fsbrowser-config">
+<title>Configuration</title>
+
+<para>This plugin can be configured on the <guilabel>Filesystem Browser</guilabel> page
+of <link linkend="configuring-kate-configdialog">&kate;'s configuration</link>.</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Toolbar</guilabel></term>
+<listitem><para>Configure the buttons on the Filesystem Browser toolbar
+by moving the ones you want enabled to the <guilabel>Selected Actions</guilabel>
+list, and order them using the arrow buttons at the side of the list.</para>
+ </listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+</sect1>
+
+<sect1 id="kate-application-plugin-gdb">
+<!--http://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
+<sect1info>
+<authorgroup>
+<author><firstname>Martin</firstname> <surname>Gergov</surname></author>
+<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+</authorgroup>
+</sect1info>
+<title>&gdb; Plugin</title>
+
+<sect2 id="gdb-intro">
+<title>Introduction</title>
+
+<para>&kappname;'s &gdb; plugin provides a simple frontend to the popular &GNU;
+Project Debugger.</para>
+
+<important>
+<para>Previous experience with &gdb; is strongly recommended.  For more
+information on using &gdb;, visit <ulink url="http://www.gnu.org/s/gdb/">the
+&gdb; website</ulink>.</para>
+</important>
+
+<para>You can enable the &gdb; plugin in
+<link linkend="config-dialog-plugins">the Plugins section of &kappname;'s
+configuration</link>.</para>
+
+<para>For the plugin to work properly, you must have a source file (of any type
+supported by &gdb;) and an executable.</para>
+
+<tip>
+<para>If you compile using &gcc;/<command>g++</command> you might want to use
+the <command><parameter>-ggdb</parameter></command> command line argument.
+</para>
+</tip>
+
+<para>After these preparations are made, open the source file in &kappname;,
+enter the path to the executable in the <guilabel>Settings</guilabel> tab of the
+<guilabel>Debug View</guilabel> tool view, and select
+<menuchoice><guimenu>Debug</guimenu><guimenuitem>Start Debugging</guimenuitem></menuchoice>
+from the menu to get started.</para>
+
+</sect2>
+
+<sect2 id="gdb-menus">
+<title>Menu and Toolbar Structure</title>
+
+<para>All of these options are available in &kappname;'s menus, and many are
+available on the Debug toolbar as well.</para>
+
+<variablelist>
+
+<varlistentry id="gdb-menus-show-debug-view">
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>Return</keycap></keycombo>
-</shortcut>
-<guimenu>&XML;</guimenu>
-<guimenuitem>Insert Element...</guimenuitem>
+<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Debug View</guimenuitem>
 </menuchoice></term>
-<listitem><para>This will open a dialog that lets you insert an &XML; element.
-The &lt;, &gt; characters and the closing tag will be inserted automatically.
-If you have selected text when this menu item is selected, the selected
-text will be surrounded by the opening and the closing tag.
-The dialog also offers completion of all elements that may be inserted
-at the current cursor position if you have assigned a meta DTD by
-using <guimenuitem>Assign Meta DTD...</guimenuitem>.
+<listitem><para>Shows a tool view containing &gdb; output, the &gdb; command
+line used, and other settings.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-show-locals">
+<term><menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Locals</guimenuitem>
+</menuchoice></term>
+<listitem><para>Shows a list of all currently loaded variables and their values.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="xml-close-element">
+<varlistentry id="gdb-menus-show-call-stack">
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>&lt;</keycap></keycombo>
-</shortcut>
-<guimenu>&XML;</guimenu>
-<guimenuitem>Close Element</guimenuitem>
+<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Call Stack</guimenuitem>
 </menuchoice></term>
-<listitem><para>This will search your text for a tag that is not yet closed
-and will close it by inserting the corresponding closing tag.
-The search starts at the cursor position and goes left. If
-it cannot find an open tag nothing will happen.</para></listitem>
+<listitem><para>Shows a &gdb; backtrace.</para></listitem>
 </varlistentry>
 
-<varlistentry id="xml-assign-metadtd">
+<varlistentry id="gdb-menus-targets">
 <term><menuchoice>
-<guimenu>&XML;</guimenu>
-<guimenuitem>Assign Meta DTD...</guimenuitem>
+<guimenu>Debug</guimenu><guisubmenu>Targets</guisubmenu>
 </menuchoice></term>
-<listitem><para>This will tell the plugin which meta DTD to use for the
-current document. Note that this assignment will not be saved.
-You will have to repeat it when you start &kate; the next time.</para></listitem>
+<listitem><para>A submenu containing a list of targets (executables).
+</para></listitem>
 </varlistentry>
+
+<varlistentry id="gdb-menus-arg-lists">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guisubmenu>Arg Lists</guisubmenu>
+</menuchoice></term>
+<listitem><para>A submenu containing all argument lists.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-start">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Start Debugging</guimenuitem>
+</menuchoice></term>
+<listitem><para>Starts &gdb; with a target.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-kill">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Kill / Stop Debugging</guimenuitem>
+</menuchoice></term>
+<listitem><para>Stops &gdb;.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-restart">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Restart Debugging</guimenuitem>
+</menuchoice></term>
+<listitem><para>Restarts &gdb;.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-break">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Toggle Breakpoint / Break</guimenuitem>
+</menuchoice></term>
+<listitem><para>Set a breakpoint at the current cursor position.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-step-in">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Step In</guimenuitem>
+</menuchoice></term>
+<listitem><para>Execute the present statement (function call will be debugged).
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-step-over">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Step Over</guimenuitem>
+</menuchoice></term>
+<listitem><para>Execute the present statement (function call will not be
+debugged).</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-step-out">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Step Out</guimenuitem>
+</menuchoice></term>
+<listitem><para>Resumes execution until the program that is executing
+terminates.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-move-pc">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Move PC</guimenuitem>
+</menuchoice></term>
+<listitem><para>Move program counter (next execution).</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-run-to-cursor">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Run To Cursor</guimenuitem>
+</menuchoice></term>
+<listitem><para>Runs the program until it reaches current cursor position.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-continue">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Continue</guimenuitem>
+</menuchoice></term>
+<listitem><para>Ignores any breakpoints and executes program until it terminates
+(successfully or not).</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-print-value">
+<term><menuchoice>
+<guimenu>Debug</guimenu><guimenuitem>Print Value</guimenuitem>
+</menuchoice></term>
+<listitem><para>Prints the value of the variable that the cursor is currently
+pointing to.</para></listitem>
+</varlistentry>
+
+<varlistentry id="gdb-menus-toolbar">
+<term><menuchoice>
+<guimenu>Settings</guimenu><guisubmenu>Toolbars Shown</guisubmenu><guimenuitem>&gdb; Plugin</guimenuitem>
+</menuchoice></term>
+<listitem><para>Display the debugging toolbar.</para></listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect2>
 
-<sect2 id="xmltools-thanks-and-acknowledgements">
-<title>Thanks and Acknowledgments</title>
-<para>
-&kate; Plugin <quote>&XML; Completion</quote> copyright 2001,2002 &Daniel.Naber;
-&Daniel.Naber.mail;.
+<sect2 id="gdb-debug-view">
+<title>Debug View</title>
+
+<para>The <guilabel>Debug View</guilabel> tool view consists of several tabs:
 </para>
-<para>KDE SC 4 version copyright 2010 Tomáš Trnka</para>
-<para>Documentation copyright 2001,2002 &Daniel.Naber;</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>&gdb; Output</guilabel></term>
+<listitem>
+<para>Contains output from &gdb; and a &gdb; command line.</para>
+
+<screenshot id="screenshot-gdb-output">
+<screeninfo>The Output Tab</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-output.png" format="PNG"/></imageobject>
+<textobject><phrase>The Output tab.</phrase></textobject>
+<caption><para>The <guilabel>Output</guilabel> tab displaying the output from a
+debugging session.</para></caption>
+</mediaobject>
+</screenshot>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Settings</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Target</guilabel></term>
+<listitem><para>Path to the target (executable) for debugging.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Working Directory</guilabel></term>
+<listitem><para>The current working directory provided to the target.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Arg List</guilabel></term>
+<listitem><para>Arguments passed to the program.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Keep focus</guilabel></term>
+<listitem><para>Keeps focus on the &gdb; command line.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Redirect IO</guilabel></term>
+<listitem><para>Opens a new <guilabel>IO</guilabel> tab in the <guilabel>Debug
+View</guilabel> where you can view output and provide input to the running
+program.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+<screenshot id="screenshot-gdb-settings">
+<screeninfo>The Settings Tab</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-settings.png" format="PNG"/></imageobject>
+<textobject><phrase>The Settings tab.</phrase></textobject>
+<caption><para>The <guilabel>Settings</guilabel> tab displaying the configuration
+of a debugging session.</para></caption>
+</mediaobject>
+</screenshot>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>IO</guilabel></term>
+<listitem>
+<para>Contains an area that displays output from the running program and a
+command line where you may provide input to it.</para>
+
+<screenshot id="screenshot-gdb-io">
+<screeninfo>The IO Tab</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-io.png" format="PNG"/></imageobject>
+<textobject><phrase>The IO tab.</phrase></textobject>
+<caption><para>The <guilabel>IO</guilabel> tab displaying output from a simple
+test program.</para></caption>
+</mediaobject>
+</screenshot>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
 </sect2>
+
+<sect2 id="gdb-other">
+<title>Call Stack and Locals</title>
+
+<para>The <guilabel>Call Stack</guilabel> tool view contains a list of the formatted
+backtrace returned from &gdb;.</para>
+
+<screenshot id="screenshot-gdb-call-stack">
+<screeninfo>The &gdb; Call Stack Tool View</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-call-stack.png" format="PNG"/></imageobject>
+<textobject><phrase>The Call Stack tool view.</phrase></textobject>
+<caption><para>The &gdb; Plugin's <guilabel>Call Stack</guilabel> tool view.
+</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>The <guilabel>Locals</guilabel> tool view contains a list of all currently
+loaded variables from the program and their corresponding values.</para>
+
+<screenshot id="screenshot-gdb-locals">
+<screeninfo>The &gdb; Locals Tool View</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="gdb-locals.png" format="PNG"/></imageobject>
+<textobject><phrase>The Locals tool view.</phrase></textobject>
+<caption><para>The &gdb; Plugin's <guilabel>Locals</guilabel> tool view.
+</para></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="gdb-ack">
+<title>Thanks and Acknowledgments</title>
+
+<para>Special thanks to Google Code-In 2011 participant Martin Gergov for
+writing much of this section.</para>
+
+</sect2>
+
 </sect1>
 
 <sect1 id="kate-application-plugin-searchinfiles">
@@ -584,171 +1100,6 @@ plugin.</para>
 </sect2>
 </sect1>
 
-<sect1 id="kate-application-plugin-fsbrowser">
-
-<title>Filesystem Browser</title>
-
-<para>The Filesystem Browser is a folder viewer, allowing you to open
-files from a displayed folder in the current frame.</para>
-
-<sect2 id="fsbrowser-menu">
-<title>Menu Structure</title>
-<variablelist>
-
-<varlistentry id="view-toolviews-show-filebrowser">
-<term><menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Filesystem Browser</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Toggle the display of &kate;'s Filesystem Browser.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
-
-<sect2 id="fsbrowser-interface">
-<title>Interface</title>
-
-<para>From the top down, the Filesystem Browser consists of the following
-elements:</para>
-
-<variablelist>
-<varlistentry>
-<term>A Toolbar</term>
-<listitem>
-<para>This contains standard navigations tool buttons:</para>
-<variablelist>
-<varlistentry>
-<term><guibutton>Back</guibutton></term>
-<listitem><para>Causes the folder view to <command>cd</command> to the previously displayed folder in the history.
-This button is disabled, if there is no previous item.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guibutton>Forward</guibutton></term>
-<listitem><para>Causes the folder view to <command>cd</command> to the next folder in the history.
-This button is disabled, if there is no next folder.</para></listitem>
-</varlistentry>
-<!--varlistentry>
-<term><guibutton>Parent Folder</guibutton></term>
-<listitem><para>This will cause the folder view to <command>cd</command> to the immediate parent of the currently displayed
-folder if possible.</para></listitem>
-</varlistentry-->
-<varlistentry>
-<term><guibutton>Bookmarks</guibutton></term>
-<listitem><para>Opens a submenu to edit or add bookmarks and to add a new bookmark folder.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guibutton>Current Document Folder</guibutton></term>
-<listitem><para>This button will cause the folder view to
-<command>cd</command> to the folder of the currently active
-document if possible. This button is disabled, if the active document
-is a new, unsaved file, or the folder in which it resides can not
-be decided.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guibutton>Options</guibutton></term>
-<listitem>
-<variablelist>
-<varlistentry>
-<term><guimenuitem>Short View</guimenuitem></term>
-<listitem><para>Displays only the filenames.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guimenuitem>Detailed View</guimenuitem></term>
-<listitem><para>Displays <guilabel>Name</guilabel>, <guilabel>Date</guilabel>,
-<guilabel>Size</guilabel> and <guilabel>Type</guilabel> of the files.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guimenuitem>Tree View</guimenuitem></term>
-<listitem><para>Like Short View, but folders can be expanded to view their contents.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guimenuitem>Detailed Tree View</guimenuitem></term>
-<listitem><para>This also allows folders to be expanded, but displays the additional columns
-available in Detailed View.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guimenuitem>Show Hidden Files</guimenuitem></term>
-<listitem><para>Displays files normally hidden by your &OS;.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guimenuitem>Automatically synchronize with current document</guimenuitem></term>
-<listitem><para>When this option is enabled the filesystem browser will automatically <command>cd</command>
-to the folder of the document currently open in the editing area every time it changes.</para></listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>A Location Entry</term>
-<listitem>
-<para>This displays a breadcrumb navigation to the currently open folder, similarly to
-&dolphin;.  You can click on a any folder to browse to it, or click on one of the
-arrows to the left of a folder to select any folders beneath it.  You may also
-select from your list of Places by clicking the leftmost icon in the breadcrumb
-navigation, which displays an icon that represents your current Place.</para>
-
-<para>You can also click to the right of the breadcrumbs to change them to a text box
-where you can type the path of a folder to browse. The &URL;
-entry maintains a list of previously typed paths. To choose one, use
-the arrow button to the right of the entry.</para>
-<tip><para>The &URL; entry has folder auto-completion. The completion
-method can be set using the &RMB; menu of the text
-entry.</para></tip>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>A Folder View</term>
-<listitem><para>This is a standard &kde; folder view.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term>A Filter Entry</term>
-<listitem>
-<para>The Filter entry allows you to enter a filter for the files
-displayed in the folder view. The filter uses standard globs; patterns
-must be separated by white space. Example: <userinput>*.cpp *.h
-*.moc</userinput></para>
-<para>To display all files, enter a single asterisk
-<userinput>*</userinput>.</para>
-<para>The filter entry saves the last 10 filters entered between
-sessions.  To use one, press the arrow button on the right of the entry
-and select the desired filter string.  You can disable the filter by pressing
-the <guibutton>Clear text</guibutton> button to the left of the autocompletion
-arrow button.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
-
-
-<sect2 id="fsbrowser-config">
-<title>Configuration</title>
-
-<para>This plugin can be configured on the <guilabel>Filesystem Browser</guilabel> page
-of <link linkend="configuring-kate-configdialog">&kate;'s configuration</link>.</para>
-
-<variablelist>
-<varlistentry>
-<term><guilabel>Toolbar</guilabel></term>
-<listitem><para>Configure the buttons on the Filesystem Browser toolbar
-by moving the ones you want enabled to the <guilabel>Selected Actions</guilabel>
-list, and order them using the arrow buttons at the side of the list.</para>
- </listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
-</sect1>
-
  <!--
  FIXME: replaced by built-in functionality in 4.12
         lots of this is wrong, other parts need to be moved somewhere else -->
@@ -933,183 +1284,6 @@ writing much of this section.</para>
 
 </sect1>
 
-
-<sect1 id="kate-application-plugin-build">
-<!--http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
-<sect1info>
-<authorgroup>
-<author><firstname>Salma</firstname> <surname>Sultana</surname></author>
-<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
-</authorgroup>
-</sect1info>
-<title>Build Plugin</title>
-
-<sect2 id="build-intro">
-<title>Introduction</title>
-
-<para>The Build plugin allows you to run actions like build, clean and compile
-on a project.</para>
-
-</sect2>
-
-<sect2 id="build-using">
-<title>Using the Build Plugin</title>
-
-<para>The Build plugin adds a <guilabel>Build Output</guilabel> tool view at the
-bottom and a <guimenu>Build</guimenu> menu on the menubar. The tool view can be used to configure
-build target settings, while the menu can be used to perform build, clean and
-compile actions.</para>
-
-
-<para>The <guilabel>Build Output</guilabel> tool view has three tabs:</para>
-
-<itemizedlist>
-<listitem><para><guilabel>Target Settings</guilabel></para></listitem>
-<listitem><para><guilabel>Output</guilabel></para></listitem>
-<listitem><para><guilabel>Errors &amp; Warnings</guilabel></para></listitem>
-</itemizedlist>
-
-<sect3 id="build-using-target-settings">
-<title>Target Settings tab</title>
-
-<para>The target settings tab can be used to configure various build targets.</para>
-
-<para>Each target contains four configuration options:</para>
-
-<variablelist>
-<varlistentry>
-<term><guilabel>Working Directory</guilabel></term>
-<listitem><para>You can set the path to the project here. Leave this empty to
-use the directory the current document is located in.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Build</guilabel></term>
-<listitem><para>This option lets you define the build command. It is set to
-<command>make</command> by default.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Clean</guilabel></term>
-<listitem><para>The option lets you define the clean command. It is set to
-<command>make clean</command> by default.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Quick Compile</guilabel></term>
-<listitem><para>This option lets you define the quick compile command. It is set
-to <command>gcc -Wall -g %f</command> by default.</para></listitem>
-</varlistentry>
-</variablelist>
-
-<para>One can create a new target by using the <guibutton>New</guibutton> button.
-The <guibutton>Copy</guibutton> button can be used to make a copy of an existing
-target. To delete a target, use the <guibutton>Delete</guibutton> button.</para>
-
-</sect3>
-
-<sect3 id="build-using-output">
-<title>Output tab</title>
-
-<para>The <guilabel>Output</guilabel> tab shows the console output generated by
-the last command.</para>
-
-</sect3>
-
-<sect3 id="buiid-using-errors">
-<title>Errors &amp; Warnings</title>
-
-<para>The <guilabel>Errors &amp; Warnings</guilabel> tab lists the errors and
-warnings generated by the last command.</para>
-
-<para>Each line contains a message and the file name and line number if available.
-Clicking on the error or warning takes you to the appropriate file and places
-the cursor on the corresponding line number.</para>
-
-<para>There are <guibutton>Errors</guibutton>, <guibutton>Warnings</guibutton>,
-and <guibutton>Others</guibutton> buttons at the top that allow you to show
-or hide those categories of output.</para>
-
-<!--FIXME: These shortcuts now seem to be used by the Project plugin in 4.11.
-            https://bugs.kde.org/show_bug.cgi?id=328170 -->
-<para>To navigate to the previous error, press
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo>.
-To navigate to the next error, press
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo>.</para>
-
-</sect3>
-</sect2>
-
-<sect2 id="build-menu">
-<title>Menu Structure</title>
-
-<variablelist id="build-build">
-<varlistentry>
-<term><menuchoice>
-<guimenu>Build</guimenu><guimenuitem>Build</guimenuitem>
-</menuchoice></term>
-<listitem><para>Runs the <guilabel>Build</guilabel> command for the currently
-selected target.</para></listitem>
-</varlistentry>
-
-<varlistentry id="build-clean">
-<term><menuchoice>
-<guimenu>Build</guimenu><guimenuitem>Clean</guimenuitem>
-</menuchoice></term>
-<listitem><para>Runs the <guilabel>Clean</guilabel> command for the currently
-selected target.</para></listitem>
-</varlistentry>
-
-<varlistentry id="build-compile">
-<term><menuchoice>
-<guimenu>Build</guimenu><guimenuitem>Quick Compile</guimenuitem>
-</menuchoice></term>
-<listitem><para>Runs the <guilabel>Quick Compile</guilabel> command for the
-currently selected target.</para></listitem>
-</varlistentry>
-
-<varlistentry id="build-previous-error">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo></shortcut>
-<guimenu>Build</guimenu><guimenuitem>Previous Error</guimenuitem>
-</menuchoice></term>
-<listitem><para>Moves the cursor to the location of the previous error in the
-document.</para></listitem>
-</varlistentry>
-
-<varlistentry id="build-next-error">
-<term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo></shortcut>
-<guimenu>Build</guimenu><guimenuitem>Next Error</guimenuitem>
-</menuchoice></term>
-<listitem><para>Moves the cursor to the location of the next error in the
-document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice id="build-targets">
-<guimenu>Build</guimenu><guisubmenu>Targets</guisubmenu>
-</menuchoice></term>
-<listitem><para>Select from a list of targets configured by the user.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice id="build-next-target">
-<guimenu>Build</guimenu><guimenuitem>Next Target</guimenuitem>
-</menuchoice></term>
-<listitem><para>Switch to the next target configured by the user.</para></listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
-
-<sect2 id="build-ack">
-<title>Thanks and Acknowledgments</title>
-<para>The &kate; Build Plugin was written by Kåre Särs.</para>
-<para>Special thanks to Google Code-In 2011 participant Salma Sultana for
-writing much of this section.</para>
-</sect2>
-</sect1>
 
 <sect1 id="kate-application-plugin-sql">
 <sect1info>
@@ -1344,328 +1518,6 @@ writing much of this section.</para>
 
 </sect1>
 
-<sect1 id="kate-application-plugin-gdb">
-<!--http://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
-<sect1info>
-<authorgroup>
-<author><firstname>Martin</firstname> <surname>Gergov</surname></author>
-<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
-</authorgroup>
-</sect1info>
-<title>&gdb; Plugin</title>
-
-<sect2 id="gdb-intro">
-<title>Introduction</title>
-
-<para>&kappname;'s &gdb; plugin provides a simple frontend to the popular &GNU;
-Project Debugger.</para>
-
-<important>
-<para>Previous experience with &gdb; is strongly recommended.  For more
-information on using &gdb;, visit <ulink url="http://www.gnu.org/s/gdb/">the
-&gdb; website</ulink>.</para>
-</important>
-
-<para>You can enable the &gdb; plugin in
-<link linkend="config-dialog-plugins">the Plugins section of &kappname;'s
-configuration</link>.</para>
-
-<para>For the plugin to work properly, you must have a source file (of any type
-supported by &gdb;) and an executable.</para>
-
-<tip>
-<para>If you compile using &gcc;/<command>g++</command> you might want to use
-the <command><parameter>-ggdb</parameter></command> command line argument.
-</para>
-</tip>
-
-<para>After these preparations are made, open the source file in &kappname;,
-enter the path to the executable in the <guilabel>Settings</guilabel> tab of the
-<guilabel>Debug View</guilabel> tool view, and select
-<menuchoice><guimenu>Debug</guimenu><guimenuitem>Start Debugging</guimenuitem></menuchoice>
-from the menu to get started.</para>
-
-</sect2>
-
-<sect2 id="gdb-menus">
-<title>Menu and Toolbar Structure</title>
-
-<para>All of these options are available in &kappname;'s menus, and many are
-available on the Debug toolbar as well.</para>
-
-<variablelist>
-
-<varlistentry id="gdb-menus-show-debug-view">
-<term><menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Debug View</guimenuitem>
-</menuchoice></term>
-<listitem><para>Shows a tool view containing &gdb; output, the &gdb; command
-line used, and other settings.</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-show-locals">
-<term><menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Locals</guimenuitem>
-</menuchoice></term>
-<listitem><para>Shows a list of all currently loaded variables and their values.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-show-call-stack">
-<term><menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Call Stack</guimenuitem>
-</menuchoice></term>
-<listitem><para>Shows a &gdb; backtrace.</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-targets">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guisubmenu>Targets</guisubmenu>
-</menuchoice></term>
-<listitem><para>A submenu containing a list of targets (executables).
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-arg-lists">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guisubmenu>Arg Lists</guisubmenu>
-</menuchoice></term>
-<listitem><para>A submenu containing all argument lists.</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-start">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Start Debugging</guimenuitem>
-</menuchoice></term>
-<listitem><para>Starts &gdb; with a target.</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-kill">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Kill / Stop Debugging</guimenuitem>
-</menuchoice></term>
-<listitem><para>Stops &gdb;.</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-restart">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Restart Debugging</guimenuitem>
-</menuchoice></term>
-<listitem><para>Restarts &gdb;.</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-break">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Toggle Breakpoint / Break</guimenuitem>
-</menuchoice></term>
-<listitem><para>Set a breakpoint at the current cursor position.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-step-in">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Step In</guimenuitem>
-</menuchoice></term>
-<listitem><para>Execute the present statement (function call will be debugged).
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-step-over">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Step Over</guimenuitem>
-</menuchoice></term>
-<listitem><para>Execute the present statement (function call will not be
-debugged).</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-step-out">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Step Out</guimenuitem>
-</menuchoice></term>
-<listitem><para>Resumes execution until the program that is executing
-terminates.</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-move-pc">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Move PC</guimenuitem>
-</menuchoice></term>
-<listitem><para>Move program counter (next execution).</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-run-to-cursor">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Run To Cursor</guimenuitem>
-</menuchoice></term>
-<listitem><para>Runs the program until it reaches current cursor position.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-continue">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Continue</guimenuitem>
-</menuchoice></term>
-<listitem><para>Ignores any breakpoints and executes program until it terminates
-(successfully or not).</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-print-value">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guimenuitem>Print Value</guimenuitem>
-</menuchoice></term>
-<listitem><para>Prints the value of the variable that the cursor is currently
-pointing to.</para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-toolbar">
-<term><menuchoice>
-<guimenu>Settings</guimenu><guisubmenu>Toolbars Shown</guisubmenu><guimenuitem>&gdb; Plugin</guimenuitem>
-</menuchoice></term>
-<listitem><para>Display the debugging toolbar.</para></listitem>
-</varlistentry>
-
-</variablelist>
-
-</sect2>
-
-<sect2 id="gdb-debug-view">
-<title>Debug View</title>
-
-<para>The <guilabel>Debug View</guilabel> tool view consists of several tabs:
-</para>
-
-<variablelist>
-
-<varlistentry>
-<term><guilabel>&gdb; Output</guilabel></term>
-<listitem>
-<para>Contains output from &gdb; and a &gdb; command line.</para>
-
-<screenshot id="screenshot-gdb-output">
-<screeninfo>The Output Tab</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="gdb-output.png" format="PNG"/></imageobject>
-<textobject><phrase>The Output tab.</phrase></textobject>
-<caption><para>The <guilabel>Output</guilabel> tab displaying the output from a
-debugging session.</para></caption>
-</mediaobject>
-</screenshot>
-
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Settings</guilabel></term>
-<listitem>
-<variablelist>
-
-<varlistentry>
-<term><guilabel>Target</guilabel></term>
-<listitem><para>Path to the target (executable) for debugging.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Working Directory</guilabel></term>
-<listitem><para>The current working directory provided to the target.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Arg List</guilabel></term>
-<listitem><para>Arguments passed to the program.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Keep focus</guilabel></term>
-<listitem><para>Keeps focus on the &gdb; command line.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Redirect IO</guilabel></term>
-<listitem><para>Opens a new <guilabel>IO</guilabel> tab in the <guilabel>Debug
-View</guilabel> where you can view output and provide input to the running
-program.</para></listitem>
-</varlistentry>
-
-</variablelist>
-
-<screenshot id="screenshot-gdb-settings">
-<screeninfo>The Settings Tab</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="gdb-settings.png" format="PNG"/></imageobject>
-<textobject><phrase>The Settings tab.</phrase></textobject>
-<caption><para>The <guilabel>Settings</guilabel> tab displaying the configuration
-of a debugging session.</para></caption>
-</mediaobject>
-</screenshot>
-
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>IO</guilabel></term>
-<listitem>
-<para>Contains an area that displays output from the running program and a
-command line where you may provide input to it.</para>
-
-<screenshot id="screenshot-gdb-io">
-<screeninfo>The IO Tab</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="gdb-io.png" format="PNG"/></imageobject>
-<textobject><phrase>The IO tab.</phrase></textobject>
-<caption><para>The <guilabel>IO</guilabel> tab displaying output from a simple
-test program.</para></caption>
-</mediaobject>
-</screenshot>
-
-</listitem>
-</varlistentry>
-
-</variablelist>
-
-</sect2>
-
-<sect2 id="gdb-other">
-<title>Call Stack and Locals</title>
-
-<para>The <guilabel>Call Stack</guilabel> tool view contains a list of the formatted
-backtrace returned from &gdb;.</para>
-
-<screenshot id="screenshot-gdb-call-stack">
-<screeninfo>The &gdb; Call Stack Tool View</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="gdb-call-stack.png" format="PNG"/></imageobject>
-<textobject><phrase>The Call Stack tool view.</phrase></textobject>
-<caption><para>The &gdb; Plugin's <guilabel>Call Stack</guilabel> tool view.
-</para></caption>
-</mediaobject>
-</screenshot>
-
-<para>The <guilabel>Locals</guilabel> tool view contains a list of all currently
-loaded variables from the program and their corresponding values.</para>
-
-<screenshot id="screenshot-gdb-locals">
-<screeninfo>The &gdb; Locals Tool View</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="gdb-locals.png" format="PNG"/></imageobject>
-<textobject><phrase>The Locals tool view.</phrase></textobject>
-<caption><para>The &gdb; Plugin's <guilabel>Locals</guilabel> tool view.
-</para></caption>
-</mediaobject>
-</screenshot>
-
-</sect2>
-
-<sect2 id="gdb-ack">
-<title>Thanks and Acknowledgments</title>
-
-<para>Special thanks to Google Code-In 2011 participant Martin Gergov for
-writing much of this section.</para>
-
-</sect2>
-
-</sect1>
-
 <sect1 id="kate-application-plugin-konsole">
 <title>Terminal Tool View Plugin</title>
 
@@ -1781,6 +1633,155 @@ so the calling program is aware you have finished editing the file.</para></list
 </sect2>
 
 </sect1>
+
+<!-- from doc/kate-addons/xmlcheck.docbook -->
+<sect1 id="kate-application-plugin-xmltools">
+<sect1info>
+<authorgroup><author>
+&Daniel.Naber; &Daniel.Naber.mail;
+</author></authorgroup>
+</sect1info>
+<title>&XML; Completion</title>
+
+<para>This plugin gives hints about what is allowed at a certain position in
+an &XML; file, according to the file's DTD. It will list possible
+elements, attributes, attribute values or entities, depending on the
+cursor position (&eg; all entities are listed if the character on the left
+of the cursor is <quote>&amp;</quote>). It's also possible to close the nearest
+open tag on the left.</para>
+
+<para>The <acronym>DTD</acronym> must exist in &XML; format, as produced by the Perl program
+<command>dtdparse</command>. We will call a DTD in this format <quote>meta DTD</quote>.
+Some meta DTDs are supplied. They are installed in
+<filename class="directory">$KDEDIR/share/apps/katexmltools/</filename>,
+which is also the default folder when you choose
+<guimenuitem>Assign Meta DTD...</guimenuitem>.
+To produce your own meta DTDs, get <command>dtdparse</command> from
+<ulink url="http://dtdparse.sourceforge.net">http://dtdparse.sourceforge.net</ulink>.</para>
+
+<sect2 id="xmltools-how-to-use">
+<title>How to Use</title>
+
+<para>Start &kate; and open the configuration dialog under <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
+Then select <guilabel>&XML; Completion</guilabel> which will appear
+in the <menuchoice><guimenu>Application</guimenu>
+<guimenuitem>Plugins</guimenuitem></menuchoice> page and close the dialog. After
+that, select <menuchoice><guimenu>&XML;</guimenu><guimenuitem>Assign Meta DTD...</guimenuitem></menuchoice>.
+If your document contains no <quote>DOCTYPE</quote> or the doctype is unknown, you will have to
+select a meta DTD from the file system. Otherwise the meta DTD that
+matches the current document's DOCTYPE will be loaded automatically.</para>
+
+<para>You can now use the plugin while typing your text:</para>
+
+<variablelist>
+
+<varlistentry>
+<term><keycap>&lt;</keycap> (less than key)</term>
+<listitem><para>This will trigger a list of possible elements unless the
+cursor is inside a tag already. Note that you currently cannot use
+this to insert the top level element (&eg; <quote>&lt;html&gt;</quote>).</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><keycap>&lt;</keycap><keycap>/</keycap>(less than key + slash)</term>
+<listitem><para>Entering these characters will offer to close the current element
+(nearest open one to the left of the cursor). Press &Enter; to accept the suggestion.
+Unlike the <guimenuitem>Close Element</guimenuitem> menu item, this works only with
+a DTD assigned.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><keycap>"</keycap> (quote key)</term>
+<listitem><para>The quote key will trigger a list of possible attribute
+values (if there are any) if you are inside a tag.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><keycap>&nbsp;</keycap> (space key)</term>
+<listitem><para>This key will trigger a list of possible attributes for the
+current element if you are inside a tag.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><keycap>&amp;</keycap> (ampersand key)</term>
+<listitem><para>This key will trigger a list of named entities.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="xmltools-features-and-limitations">
+<title>Features and Limitations</title>
+
+<para>You can test all functions and limitations by loading
+<filename>$KDEDIR/share/apps/katexmltools/testcases.xml</filename><!--FIXME replacement for KDEDIRS-->
+into &kate; and following the instructions.</para>
+
+</sect2>
+
+
+<sect2 id="xmltools-menu">
+<title>Menu Structure</title>
+
+<variablelist id="xml-insert-element">
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>Return</keycap></keycombo>
+</shortcut>
+<guimenu>&XML;</guimenu>
+<guimenuitem>Insert Element...</guimenuitem>
+</menuchoice></term>
+<listitem><para>This will open a dialog that lets you insert an &XML; element.
+The &lt;, &gt; characters and the closing tag will be inserted automatically.
+If you have selected text when this menu item is selected, the selected
+text will be surrounded by the opening and the closing tag.
+The dialog also offers completion of all elements that may be inserted
+at the current cursor position if you have assigned a meta DTD by
+using <guimenuitem>Assign Meta DTD...</guimenuitem>.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="xml-close-element">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>&lt;</keycap></keycombo>
+</shortcut>
+<guimenu>&XML;</guimenu>
+<guimenuitem>Close Element</guimenuitem>
+</menuchoice></term>
+<listitem><para>This will search your text for a tag that is not yet closed
+and will close it by inserting the corresponding closing tag.
+The search starts at the cursor position and goes left. If
+it cannot find an open tag nothing will happen.</para></listitem>
+</varlistentry>
+
+<varlistentry id="xml-assign-metadtd">
+<term><menuchoice>
+<guimenu>&XML;</guimenu>
+<guimenuitem>Assign Meta DTD...</guimenuitem>
+</menuchoice></term>
+<listitem><para>This will tell the plugin which meta DTD to use for the
+current document. Note that this assignment will not be saved.
+You will have to repeat it when you start &kate; the next time.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="xmltools-thanks-and-acknowledgements">
+<title>Thanks and Acknowledgments</title>
+<para>
+&kate; Plugin <quote>&XML; Completion</quote> copyright 2001,2002 &Daniel.Naber;
+&Daniel.Naber.mail;.
+</para>
+<para>KDE SC 4 version copyright 2010 Tomáš Trnka</para>
+<para>Documentation copyright 2001,2002 &Daniel.Naber;</para>
+</sect2>
+</sect1>
+
 
 <!--FIXME
 Missing (according to config docs)

@@ -147,7 +147,7 @@ linkend="fundamentals-using-sessions">using sessions</link>.</para>
 
 <varlistentry>
 <term><anchor id="config-dialog-sessions-elements"/>
-<guilabel>Elements of Sessions</guilabel></term>
+<guilabel>Session Elements</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
@@ -211,7 +211,7 @@ will appear as a child of this page.</para>
 
 </sect2>
 
-<sect2 id="config-dialog-treeview">
+<sect2 id="config-dialog-treeview"><!--FIXME move to plugin -->
 <title>Documents</title> <!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
 <!-- Tree View plugin http://kate-editor.org/2010/09/10/tree-view-plugin-introduction/ -->
 <variablelist>

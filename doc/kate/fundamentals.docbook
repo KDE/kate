@@ -171,6 +171,12 @@ downloaded to a temporary) and should be reuploaded, after you saved it.
 deleted (if they are local files and you have sufficient permissions) when
 closed, unless they were modified since they were opened.</para></listitem>
 </varlistentry>
+<!--FIXME usecase? -->
+<varlistentry>
+<term><userinput><command>kate</command>
+<option>--desktopfile</option> <parameter>filename</parameter></userinput></term>
+<listitem><para>The base file name of the desktop entry for this application.</para></listitem>
+</varlistentry>
 
 <varlistentry>
 <term><userinput><command>kate</command>
@@ -250,15 +256,21 @@ the file you are editing and the <guilabel>Documents</guilabel> on the side bar 
 name of the file. Use the <guilabel>Filesystem Browser</guilabel> window to open files.
 </para>
 
-<para> <!-- Show Sidebars Ctrl+Alt+Shift+F-->
-You can toggle the Documents and Filesystem Browser window on and off in
+<para>
+You can toggle the sidebars window on and off in 
 <menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu></menuchoice>
-menu. This menu offers you your first glimpse into &kate;'s power and
-flexibility.  In this section we'll look at three items:
+menu or use <keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>F</keycap></keycombo>. 
+This menu offers you your first glimpse into &kate;'s power and
+flexibility.  In this section we'll look at four items:
 </para>
 
 <variablelist>
-
+<!--FIXME Show Search and Replace
+Show Projects
+Show Current Project
+Show Documents
+and more depending on the plugins enabled move to mdi docbook?
+-->
 <!--changed in 4.2 ???
 contextmenu Behaviour with Make Persistent, + Move To with Right / Top / Left Sidebar
 this is in mdi.docbook
@@ -282,15 +294,6 @@ down. Drag the window into &kate;'s editing window and release the
 &LMB; when you have positioned the Documents/Filesystem Browser window as you
 prefer.-->
 </para>
-
-<!--no longer in kate 3.10/kde 4.10
-<tip>
-<para>
-If you have grabbed the two parallel lines successfully your mouse
-pointer will turn into two crossed arrows as you drag.
-</para>
-</tip>
--->
 
 </listitem>
 </varlistentry>
@@ -328,7 +331,7 @@ application.
 
 <para>
 Many of &kate;'s keystroke commands (shortcuts) are configurable by
-way of the <link linkend="settings">Settings</link> menu.  By default
+way of the <link linkend="settings-help-menu">Settings</link> menu.  By default
 &kate; honors the following key bindings.
 </para>
 
@@ -413,11 +416,11 @@ characters at the beginning of each new line with comments.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></para></entry>
-<entry><para><link linkend="find"> Find</link></para></entry>
+<entry><para><link linkend="edit-find"> Find</link></para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul"><keycap>F3</keycap></keycombo></para></entry>
-<entry><para><link linkend="find-again"> Find again</link></para></entry>
+<entry><para><link linkend="edit-find-next"> Find Next</link></para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo></para></entry>
@@ -430,11 +433,11 @@ characters at the beginning of each new line with comments.</para></entry>
 
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></para></entry>
-<entry><para> <link linkend="new">New</link> document</para></entry>
+<entry><para> <link linkend="file-new">New</link> document</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></para></entry>
-<entry><para><link linkend="print">Print</link> </para></entry>
+<entry><para><link linkend="file-print">Print</link> </para></entry>
 </row>
 <row>
 
@@ -443,7 +446,7 @@ characters at the beginning of each new line with comments.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></para></entry>
-<entry><para><link linkend="replace"> Replace</link></para></entry>
+<entry><para><link linkend="edit-replace"> Replace</link></para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo></para></entry>
@@ -460,11 +463,11 @@ characters at the beginning of each new line with comments.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></para></entry>
-<entry><para><link linkend="undo">Undo</link></para></entry>
+<entry><para><link linkend="edit-undo">Undo</link></para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></para></entry>
-<entry><para><link linkend="redo">Redo</link></para></entry>
+<entry><para><link linkend="edit-redo">Redo</link></para></entry>
 </row>
 </tbody>
 </tgroup>
@@ -675,28 +678,6 @@ the configuration dialog or use <option>--start</option> with an empty string:
 exported to the environment variable <envar>KATE_PID</envar>. When opening files
 from the built in terminal Kate will automatically select the current instance
 if nothing else is indicated on the command line.</para>
-
-<sect2 id="old-behavior">
-<title>Restoring old style &kate; behavior</title>
-
-<para>When you get used to using sessions you will hopefully see that they
-provide a very simple and efficient tool for working in different areas.
-However, if you prefer the old &kate; behavior (one instance opens all files),
-you can easily achieve that by following this simple strategy:
-
-<itemizedlist>
-<listitem><para>Make kate always start with the <option>--use</option>
-parameter by adding that to the command in the application preferences,
-and additionally using a shell alias.</para></listitem>
-<listitem><para>Configure &kate; to load the last used session at startup.</para>
-</listitem>
-<listitem><para>Configure &kate; to save the file list when closing a session.
-</para></listitem>
-<listitem><para>Load the default session once.</para></listitem>
-</itemizedlist>
-</para>
-
-</sect2>
 
 </sect1>
 

@@ -45,13 +45,13 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2015-07-31</date>
-<releaseinfo>Applications 15.12</releaseinfo>
+<date>2016.04.21</date>
+<releaseinfo>Applications 16.04</releaseinfo>
 
 <abstract>
 <para>&kate; is a programmer's text editor for &kde; 4 and above.</para>
 
-<para>This handbook documents &kate; Version 15.12</para>
+<para>This handbook documents &kate; Version 16.04</para>
 </abstract>
 
 <keywordset>
@@ -72,10 +72,7 @@
 </keywordset>
 
 </bookinfo>
-<!-- FIXME
-ckeck http://kate-editor.org/2012/06/30/kate-in-kde-4-9/
-http://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
-  -->
+
 <chapter id="introduction">
 <title>Introduction</title>
 

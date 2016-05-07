@@ -9,10 +9,7 @@
 
 <title>Working with Plugins</title>
 
-<para>&kate; offers several types of plugin.  There are plugins for the &kate; editor
-component, which are available to any application using the editor component, 
-such as KDevelop, Quanta, Kile, &kwrite; and many others.  There are also plugins
-only available in the &kate; editor itself.  There are two types of these plugins:
+<para>&kate; offers several plugins.There are two types of these plugins:
 some are written in native C++, while others are written in the Python programming
 language.  There are subtle differences in these, described below.</para>
 
@@ -20,20 +17,6 @@ language.  There are subtle differences in these, described below.</para>
 linkend="configuring-kate-configdialog">configuration dialog</link>, which also
 provides access to additional configuration options for plugins that require
 it.</para>
-
-<para>There are many plugins for various purposes available
-and you can search the web for more. A few plugins are shipped with the
-editor component, for inserting automatic braces, inserting files,
-and exporting text as &HTML;.</para>
-
-<sect1 id="editor-component-plugins">
-<title>Editor Component Extensions</title>
-
-<para>For information about available plugins, see the 
-<ulink url="help:/katepart/editor-component-plugins.html">Editor Component
-Extensions section of the &katepart; Handbook</ulink>.</para>
-
-</sect1>
 
 <sect1 id="kate-application-plugins">
 <title>&kate; Application Plugins</title>
@@ -71,6 +54,9 @@ The available application plugins are:
 <listitem>
 <para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> -
   File system browser tool view</para>
+</listitem>
+<listitem>
+<para>Documents - Displays the open files in a file tree</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-gdb">&gdb;</link> - Provides a
@@ -118,24 +104,6 @@ query on SQL databases</para>
 <para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements,
 attributes, attribute values and entities allowed by DTD</para>
 </listitem>
-
-<!-- not in 4.10
-<listitem>
-<para>Text Snippets - Configurable Text Snippets</para>
-</listitem-->
-<!--listitem>
-<para>Kate Python Browser Plugin - A Python browser plugin for Kate</para>
-</listitem-->
-<!--<listitem>
-<para><link linkend="kate-application-plugin-exttools">External Tools</link></para>
-</listitem>
-<listitem>
-<para><link linkend="kate-application-plugin-snippets">Kate Snippets</link> - Snippets plugin with code completion support</para>
-</listitem>
-<para>Tabify - Adds a tab bar to Kate's main window</para>
-http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/
-</listitem>
--->
 </itemizedlist>
 </sect1>
 
@@ -170,7 +138,8 @@ To produce your own meta DTDs, get <command>dtdparse</command> from
 <para>Start &kate; and open the configuration dialog under <menuchoice><guimenu>Settings</guimenu>
 <guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
 Then select <guilabel>&XML; Completion</guilabel> which will appear
-in the <guilabel>Application</guilabel>/<guilabel>Plugins</guilabel> section and close the dialog. After
+in the <menuchoice><guimenu>Application</guimenu>
+<guimenuitem>Plugins</guimenuitem></menuchoice> page and close the dialog. After
 that, select <menuchoice><guimenu>&XML;</guimenu><guimenuitem>Assign Meta DTD...</guimenuitem></menuchoice>.
 If your document contains no <quote>DOCTYPE</quote> or the doctype is unknown, you will have to
 select a meta DTD from the file system. Otherwise the meta DTD that
@@ -220,7 +189,7 @@ current element if you are inside a tag.</para>
 <title>Features and Limitations</title>
 
 <para>You can test all functions and limitations by loading
-<filename>$KDEDIR/share/apps/katexmltools/testcases.xml</filename>
+<filename>$KDEDIR/share/apps/katexmltools/testcases.xml</filename><!--FIXME replacement for KDEDIRS-->
 into &kate; and following the instructions.</para>
 
 </sect2>
@@ -229,17 +198,15 @@ into &kate; and following the instructions.</para>
 <sect2 id="xmltools-menu">
 <title>Menu Structure</title>
 
-<variablelist>
+<variablelist id="xml-insert-element">
 <varlistentry>
-<term>
-<menuchoice>
+<term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>Return</keycap></keycombo>
 </shortcut>
 <guimenu>&XML;</guimenu>
 <guimenuitem>Insert Element...</guimenuitem>
-</menuchoice>
-</term>
+</menuchoice></term>
 <listitem><para>This will open a dialog that lets you insert an &XML; element.
 The &lt;, &gt; characters and the closing tag will be inserted automatically.
 If you have selected text when this menu item is selected, the selected
@@ -250,29 +217,25 @@ using <guimenuitem>Assign Meta DTD...</guimenuitem>.
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
-<term>
-<menuchoice>
+<varlistentry id="xml-close-element">
+<term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>&lt;</keycap></keycombo>
 </shortcut>
 <guimenu>&XML;</guimenu>
 <guimenuitem>Close Element</guimenuitem>
-</menuchoice>
-</term>
+</menuchoice></term>
 <listitem><para>This will search your text for a tag that is not yet closed
 and will close it by inserting the corresponding closing tag.
 The search starts at the cursor position and goes left. If
 it cannot find an open tag nothing will happen.</para></listitem>
 </varlistentry>
 
-<varlistentry>
-<term>
-<menuchoice>
+<varlistentry id="xml-assign-metadtd">
+<term><menuchoice>
 <guimenu>&XML;</guimenu>
 <guimenuitem>Assign Meta DTD...</guimenuitem>
-</menuchoice>
-</term>
+</menuchoice></term>
 <listitem><para>This will tell the plugin which meta DTD to use for the
 current document. Note that this assignment will not be saved.
 You will have to repeat it when you start &kate; the next time.</para></listitem>
@@ -289,49 +252,6 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 </para>
 <para>KDE SC 4 version copyright 2010 Tomáš Trnka</para>
 <para>Documentation copyright 2001,2002 &Daniel.Naber;</para>
-</sect2>
-
-</sect1>
-<!--FIXME this belongs to Extensions, it is an editor plugin-->
-<sect1 id="kate-editor-plugin-exporter">
-<!--<sect1info>
-<authorgroup><author>
-&TC.Hollingsworth; &TC.Hollingsworth.mail;
-</author></authorgroup>
-</sect1info>-->
-<title>Exporter</title>
-
-<sect2 id="exporter-menu">
-<title>Menu Structure</title>
-
-<variablelist>
-<varlistentry>
-<term>
-<menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Export as &HTML;...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>
-Export your file in &HTML; format so your document can be viewed as a web page.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
-<menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Copy as &HTML;...</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>Copies selected text with the syntax highlight as &HTML; text.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
 </sect2>
 </sect1>
 
@@ -616,51 +536,43 @@ a particular match by double-clicking on its listing instead of the file name.
 
 <variablelist>
 
-<varlistentry>
-<term>
-<menuchoice>
+<varlistentry id="edit-searchinfiles">
+<term><menuchoice>
 <guimenu>Edit</guimenu>
 <guimenuitem>Search in Files</guimenuitem>
-</menuchoice>
-</term>
+</menuchoice></term>
 <listitem>
 <para>Launches the Search and Replace tool view.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term>
-<menuchoice>
+<varlistentry id="edit-next-match">
+<term><menuchoice>
 <guimenu>Edit</guimenu>
 <guimenuitem>Go to Next Match</guimenuitem>
-</menuchoice>
-</term>
+</menuchoice></term>
 <listitem>
 <para>Go to the next match in a search performed by the Search and Replace
 plugin.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term>
-<menuchoice>
+<varlistentry id="edit-previous-match">
+<term><menuchoice>
 <guimenu>Edit</guimenu>
 <guimenuitem>Go to Previous Match</guimenuitem>
-</menuchoice>
-</term>
+</menuchoice></term>
 <listitem>
 <para>Go to the previous match in a search performed by the Search and Replace
 plugin.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term>
-<menuchoice>
+<varlistentry id="view-toolviews-searchandreplace">
+<term><menuchoice>
 <guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
 <guimenuitem>Show Search and Replace</guimenuitem>
-</menuchoice>
-</term>
+</menuchoice></term>
 <listitem>
 <para>Toggle the display of &kappname;'s <guilabel>Search and Replace</guilabel> tool.
 </para>
@@ -673,11 +585,7 @@ plugin.</para>
 </sect1>
 
 <sect1 id="kate-application-plugin-fsbrowser">
-<!--<sect1info>
-<authorgroup><author>
-&TC.Hollingsworth; &TC.Hollingsworth.mail;
-</author></authorgroup>
-</sect1info>-->
+
 <title>Filesystem Browser</title>
 
 <para>The Filesystem Browser is a folder viewer, allowing you to open
@@ -687,14 +595,11 @@ files from a displayed folder in the current frame.</para>
 <title>Menu Structure</title>
 <variablelist>
 
-<varlistentry>
-<term>
-<anchor id="view-toolviews-show-fileselector"/>
-<menuchoice>
+<varlistentry id="view-toolviews-show-filebrowser">
+<term><menuchoice>
 <guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
 <guimenuitem>Show Filesystem Browser</guimenuitem>
-</menuchoice>
-</term>
+</menuchoice></term>
 <listitem>
 <para>Toggle the display of &kate;'s Filesystem Browser.</para>
 </listitem>
@@ -844,194 +749,9 @@ list, and order them using the arrow buttons at the side of the list.</para>
 </sect2>
 </sect1>
 
-<!--some material from mdi.docbook needs to be migrated here too-->
-<!--<sect1 id="kate-application-plugin-exttools">
-<sect1info>
-<authorgroup><author>
-&TC.Hollingsworth; &TC.Hollingsworth.mail;
-</author></authorgroup>
-</sect1info>
-<title>External Tools</title>
-
-<para>In the <guimenu>Tools</guimenu> menu you will find a submenu labeled
-<guisubmenu>External Tools</guisubmenu>, if you have enabled them in &kate; settings.
-These tools invoke external applications with data related to the current document,
-for example its URL, directory, text or selection.</para>
-
-<para>External tools are user defined, you can add, edit or remove tools using
-the <link linkend="exttools-config">External Tools</link> configuration panel.
-</para>
-
-<sect2 id="exttools-menu">
-<title>Menu Structure</title>
-<variablelist>
-
-<varlistentry>
-<term><menuchoice><guimenu>Tools</guimenu><guisubmenu>External
-Tools</guisubmenu></menuchoice></term>
-<listitem><para>This submenu contains all the external tools you have
-configured.</para></listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
-
-<sect2 id="exttools-config">
-<title>Configuration</title>
-
-<para>External tools are configured on the <guilabel>External Tools</guilabel> page
-of <link linkend="configuring-kate-configdialog">&kate;'s configuration</link>. These tools invoke external
-applications with data related to the current document, for example its URL,
-directory, text or selection. This page allows you to manage the menu and edit,
-remove or add new tools.</para>
-
-<para>Each external tool is a shell command which contains macros representing
-the document data. When activated, the macros are substituted with data from the
-active document.</para>
-
-<variablelist>
-<title>Available Commands</title>
-
-<varlistentry>
-<term><guibutton>New</guibutton></term>
-<listitem><para>Add a new external tool to the list.  This will launch the property
-sheet described below where you can configure an external tool.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guibutton>Edit</guibutton></term>
-<listitem><para>Edit the currently selected external tool, using the property
-sheet described below.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guibutton>Insert Separator</guibutton></term>
-<listitem><para>Adds a separator line that appears in the menu below the currently
-selected item.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guibutton>Up Arrow</guibutton></term>
-<listitem><para>Moves the currently selected item above the previous
-one.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guibutton>Down Arrow</guibutton></term>
-<listitem><para>Moves the currently selected item below the subsequent
-one.</para></listitem>
-</varlistentry>
-
-</variablelist>
-
-<variablelist>
-<title>External Tools Properties</title>
-<varlistentry>
-<term><guilabel>Label</guilabel></term>
-<listitem><para>A friendly label that will appear in the <guisubmenu>External Tools</guisubmenu> menu.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guibutton>Icon</guibutton></term>
-<listitem><para>Allows you to select an icon that appears next to the label in the
-<guisubmenu>External Tools</guisubmenu> menu.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Script</guilabel></term>
-<listitem><para>The script to execute when the tool is activated. Before passing
-the script to the shell, the following macros are substituted:
-
-<variablelist>
-<varlistentry>
-<term><userinput>%URL</userinput></term>
-<listitem><para>The full URL of the current document, or an empty string if the
-document is unsaved.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput>%URLs</userinput></term>
-<listitem><para>A space separated list of the URLs of all open documents
-(except unsaved ones).</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput>%directory</userinput></term>
-<listitem><para>The directory part of the current documents URL or an empty
-string if the current document is unsaved.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput>%filename</userinput></term>
-<listitem><para>The filename of the current document without the path, or an
-empty string if the current document is unsaved.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput>%line</userinput></term>
-<listitem><para>The line number of the insertion cursor is in the current
-document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput>%column</userinput></term>
-<listitem><para>The column number of the insertion cursor in the current
-document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput>%selection</userinput></term>
-<listitem><para>The selected text in the current document, or an empty string
-if no text is selected</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><userinput>%text</userinput></term>
-<listitem><para>The full text of the current document. Beware that this may
-potentially exceed the maximum command length allowed on your system.
-Use with care.</para></listitem>
-</varlistentry>
-
-</variablelist>
-
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Executable</guilabel></term>
-<listitem><para>The main executable in the script. This is mandatory, and is used
-to test if the command can be run at all. A fully qualified path is allowed
-in case the executable is not in your <envar>PATH</envar> variable.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Mime types</guilabel></term>
-<listitem><para>A semicolon separated list of mimetypes for which this command
-should be enabled.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Save</guilabel></term>
-<listitem><para>You can optionally select to have the current or all documents
-saved prior to executing the script. This is handy if your script reads the file
-from disk.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Command line name</guilabel></term>
-<listitem><para>If you fill this, the tool will be available in the
-<link linkend="advanced-editing-tools-commandline">editors command line</link> as
-<command>exttool-<replaceable>Command Line Name</replaceable></command>
-(the string you enter here prepended <quote>exttool-</quote>).</para></listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
-</sect1>-->
-
  <!--
  FIXME: replaced by built-in functionality in 4.12
-        lots of this is wrong, other parts need to be moved somewhere else
+        lots of this is wrong, other parts need to be moved somewhere else -->
 <sect1 id="kate-application-plugin-snippets">
 <sect1info>
 <authorgroup>
@@ -1086,7 +806,7 @@ repositories.</para>
 <guibutton>Get New Snippets</guibutton> and a window with a list of snippet 
 repositories will open.  After downloading the desired snippet, make sure that
 you have activated it.</para>
-<!- -FIXME no way to load a local file ?- ->
+<!--FIXME no way to load a local file ?-->
 <para>You can also load snippet repositories from a local file using the file
 browser at the bottom of the panel.  Click <guibutton>Copy to repository</guibutton>
 when finished.</para>
@@ -1212,7 +932,7 @@ writing much of this section.</para>
 </sect2>
 
 </sect1>
--->
+
 
 <sect1 id="kate-application-plugin-build">
 <!--http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
@@ -1229,14 +949,6 @@ writing much of this section.</para>
 
 <para>The Build plugin allows you to run actions like build, clean and compile
 on a project.</para>
-
-<!--When you first install Kate, you need to enable the plugin:
-
-Click `Settings → Configure Kate`
-
-In the tree on the left of the screen, click `Plugins`.
-
-In the `Plugin Manager` panel on the right, select `Build plugin`, and then click `OK`.-->
 
 </sect2>
 
@@ -1331,7 +1043,7 @@ To navigate to the next error, press
 <sect2 id="build-menu">
 <title>Menu Structure</title>
 
-<variablelist>
+<variablelist id="build-build">
 <varlistentry>
 <term><menuchoice>
 <guimenu>Build</guimenu><guimenuitem>Build</guimenuitem>
@@ -1340,7 +1052,7 @@ To navigate to the next error, press
 selected target.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="build-clean">
 <term><menuchoice>
 <guimenu>Build</guimenu><guimenuitem>Clean</guimenuitem>
 </menuchoice></term>
@@ -1348,7 +1060,7 @@ selected target.</para></listitem>
 selected target.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="build-compile">
 <term><menuchoice>
 <guimenu>Build</guimenu><guimenuitem>Quick Compile</guimenuitem>
 </menuchoice></term>
@@ -1356,7 +1068,7 @@ selected target.</para></listitem>
 currently selected target.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="build-previous-error">
 <term><menuchoice>
 <shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo></shortcut>
 <guimenu>Build</guimenu><guimenuitem>Previous Error</guimenuitem>
@@ -1365,7 +1077,7 @@ currently selected target.</para></listitem>
 document.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="build-next-error">
 <term><menuchoice>
 <shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo></shortcut>
 <guimenu>Build</guimenu><guimenuitem>Next Error</guimenuitem>
@@ -1375,14 +1087,14 @@ document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice>
+<term><menuchoice id="build-targets">
 <guimenu>Build</guimenu><guisubmenu>Targets</guisubmenu>
 </menuchoice></term>
 <listitem><para>Select from a list of targets configured by the user.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice>
+<term><menuchoice id="build-next-target">
 <guimenu>Build</guimenu><guimenuitem>Next Target</guimenuitem>
 </menuchoice></term>
 <listitem><para>Switch to the next target configured by the user.</para></listitem>
@@ -1424,7 +1136,7 @@ deleting, and requesting information from databases.</para>
 <listitem><para>Display results in a table</para></listitem>
 </itemizedlist>
 
-<!--If Kate is installed on your computer, at first open Kate.
+<!--FIXME If Kate is installed on your computer, at first open Kate.
 If Kate isn't installed on your computer, download and install it.
 
 Using SQL Plugin
@@ -1983,14 +1695,11 @@ which is enabled by default.</para>
 
 <variablelist>
 
-<varlistentry>
-<term>
-<anchor id="view-toolviews-show-konsole"/>
-<menuchoice>
+<varlistentry id="view-toolviews-show-terminal">
+<term><menuchoice>
 <guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
 <guimenuitem>Show Terminal</guimenuitem>
-</menuchoice>
-</term>
+</menuchoice></term>
 <listitem>
 <para>Toggles the display of the built-in terminal emulator.</para>
 <para>When activated for the first time, the terminal will be created.</para>
@@ -2004,15 +1713,15 @@ change to the directory of the active document, if it is a local file.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="view-toolviews-pipe-to-terminal">
 <term><menuchoice><guimenu>Tools</guimenu><guimenuitem>Pipe to
 Terminal</guimenuitem></menuchoice></term>
 <listitem><para>Feed the currently selected text into the built-in terminal
 emulator. No newline is added after the text.</para></listitem>
 </varlistentry>
 
-<varlistentry>
-<term><anchor id="tools-sync-terminal-document"/><menuchoice>
+<varlistentry id="tools-sync-terminal-document">
+<term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Synchronize Terminal with Current Document</guimenuitem></menuchoice></term>
 <listitem>
@@ -2025,10 +1734,11 @@ sync with the current document.  See
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term><anchor id="tools-focus-terminal"/><menuchoice>
+<varlistentry id="tools-focus-terminal">
+<term><menuchoice>
 <guimenu>Tools</guimenu>
-<guimenuitem>Focus/Defocus Terminal</guimenuitem></menuchoice></term>
+<guimenuitem>Focus/Defocus Terminal</guimenuitem>
+</menuchoice></term>
 <listitem>
 <para>Switch the focus from the current document to the terminal and vice versa.
 </para>
@@ -2072,7 +1782,7 @@ so the calling program is aware you have finished editing the file.</para></list
 
 </sect1>
 
-<!--
+<!--FIXME
 Missing (according to config docs)
 Additional pages for enabled plugins:
 Backtrace Browser

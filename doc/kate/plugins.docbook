@@ -9,7 +9,7 @@
 
 <title>Working with Plugins</title>
 
-<para>&kate; offers several plugins.There are two types of these plugins:
+<para>&kate; offers several plugins. There are two types of these plugins:
 some are written in native C++, while others are written in the Python programming
 language.  There are subtle differences in these, described below.</para>
 

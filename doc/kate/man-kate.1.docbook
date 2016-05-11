@@ -25,6 +25,10 @@
 <refsynopsisdiv>
 <cmdsynopsis>
 <command>kate</command>
+<group choice="opt"><option>-h, --help</option></group>
+<group choice="opt"><option>-v, --version</option></group>
+<group choice="opt"><option>--author</option></group>
+<group choice="opt"><option>--license</option></group>
 <group choice="opt"><option>--desktopfile</option> <replaceable>
 file name</replaceable> </group>
 <group choice="opt"><option>-s, --start</option> <replaceable>
@@ -42,10 +46,6 @@ line</replaceable></group>
 <replaceable> column</replaceable></group>
 <group choice="opt"><option>-i, --stdin</option></group>
 <group choice="opt"><option>--tempfile</option></group>
-<group choice="opt"><option>-h, --help</option></group>
-<group choice="opt"><option>-v, --version</option></group>
-<group choice="opt"><option>--author</option></group>
-<group choice="opt"><option>--license</option></group>
 <group choice="opt"><option><replaceable>file</replaceable></option></group>
 </cmdsynopsis>
 </refsynopsisdiv>
@@ -75,6 +75,24 @@ configuration files.  This document was written in &kate;.
 <title>Options</title>
 
 <variablelist>
+<varlistentry>
+<term><option>-h</option> <option>--help</option></term>
+<listitem><para>This lists the options available at the command line</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><option>-v</option> <option>--version</option></term>
+<listitem>
+<para>Lists version information for &kate;</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--author</option></term>
+<listitem><para>Lists &kate;'s authors in the terminal window</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--license</option></term>
+<listitem><para>Shows license information</para></listitem>
+</varlistentry>
 <varlistentry>
 <term><option>--desktopfile</option> <replaceable>file name</replaceable></term>
 <listitem><para>The base file name of the desktop entry for this application.</para></listitem>
@@ -131,24 +149,6 @@ column</replaceable></term>
 <term><option>--tempfile</option></term>
 <listitem><para>The files/&URL;s opened by the application will be
 deleted after use</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><option>-h</option> <option>--help</option></term>
-<listitem><para>This lists the options available at the command line</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term><option>--author</option></term>
-<listitem><para>Lists &kate;'s authors in the terminal window</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><option>-v</option> <option>--version</option></term>
-<listitem>
-<para>Lists version information for &kate;</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><option>--license</option></term>
-<listitem><para>Shows license information</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><option><replaceable>file</replaceable></option></term>

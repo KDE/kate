@@ -46,7 +46,7 @@
 #include <KPluginFactory>
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
-#include <kauthorized.h>
+#include <KAuthorized>
 #include <KConfigGroup>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
@@ -57,7 +57,7 @@ KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
     KTextEditor::Plugin ( parent )
 {
   m_previousEditorEnv=qgetenv("EDITOR");
-  if (!KAuthorized::authorizeKAction(QStringLiteral("shell_access")))
+  if (!KAuthorized::authorize(QStringLiteral("shell_access")))
   {
     KMessageBox::sorry(0, i18n ("You do not have enough karma to access a shell or terminal emulation"));
   }

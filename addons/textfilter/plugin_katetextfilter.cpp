@@ -31,7 +31,7 @@
 #include <kprocess.h>
 
 #include <KPluginFactory>
-#include <kauthorized.h>
+#include <KAuthorized>
 #include <kactioncollection.h>
 #include <KXMLGUIFactory>
 #include <KConfigGroup>
@@ -149,7 +149,7 @@ static void slipInFilter(KProcess & proc, KTextEditor::View & view, QString comm
 
 void PluginKateTextFilter::slotEditFilter()
 {
-  if (!KAuthorized::authorizeKAction(QStringLiteral("shell_access"))) {
+  if (!KAuthorized::authorize(QStringLiteral("shell_access"))) {
     KMessageBox::sorry(0,i18n(
         "You are not allowed to execute arbitrary external applications. If "
         "you want to be able to do this, contact your system administrator."),

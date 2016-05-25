@@ -363,6 +363,8 @@ m_mainWindow (mainWin)
     m_ui.replaceCombo->lineEdit()->setClearButtonEnabled(true);
     m_ui.replaceCombo->setMaxCount(25);
 
+    m_toolView->setMinimumHeight(container->sizeHint().height());
+
     connect(m_mainWindow, SIGNAL(unhandledShortcutOverride(QEvent*)),
             this, SLOT(handleEsc(QEvent*)));
 

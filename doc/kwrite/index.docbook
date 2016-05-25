@@ -30,7 +30,7 @@
 <releaseinfo>Applications 16.04</releaseinfo>
 
 <abstract>
-<para>&kwrite; is a text editor for &kde; allowing you to edit one file at the time per window.</para>
+<para>&kwrite; is a text editor by &kde; allowing you to edit one file at the time per window.</para>
 </abstract>
 
 <keywordset>
@@ -46,7 +46,7 @@
 <title>Introduction</title>
 
 <para>
-&kwrite; is more than a text editor for the &kde; Desktop. It is meant
+&kwrite; is more than a text editor by &kde;. It is meant
 to be a programmer's editor, and could be considered as at least a
 partial alternative to more powerful editors.  It may be best used in
 conjunction with &konqueror; or &dolphin; for source file browsing for different

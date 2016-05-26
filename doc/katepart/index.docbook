@@ -58,7 +58,7 @@
 <releaseinfo>Frameworks 5.21</releaseinfo>
 
 <abstract>
-<para>&katepart; is a fully featured editor component for &Qt; and &kde;
+<para>&katepart; is a fully featured editor component by &Qt; and &kde;
 applications.</para>
 </abstract>
 

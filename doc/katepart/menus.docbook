@@ -601,7 +601,7 @@ document in one window are reflected in the other window and vice versa.</para>
 <varlistentry id="view-command-line">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul"><keycap>F7</keycap></keycombo>
+<keycap>F7</keycap>
 </shortcut>
 <guimenu>View</guimenu>
 <guimenuitem>Switch to Command Line</guimenuitem>

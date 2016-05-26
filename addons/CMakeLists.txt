@@ -31,6 +31,9 @@ endif()
 # xml completion
 ecm_optional_add_subdirectory (xmltools)
 
+# XML Validation plugin
+ecm_optional_add_subdirectory (xmlcheck)
+
 # open header matching to current file
 ecm_optional_add_subdirectory (openheader)
 

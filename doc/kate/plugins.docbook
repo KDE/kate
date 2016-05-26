@@ -37,7 +37,8 @@ The available application plugins are:
 </para>
 <itemizedlist>
 <listitem>
-<para>Backtrace Browser - Backtrace navigation tool view</para>
+<para><link linkend="kate-application-plugin-backtracebrowser">Backtrace Browser</link>
+- Backtrace navigation tool view</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-build">Build Plugin</link> - Compile or Make and parse error messages</para>
@@ -100,7 +101,8 @@ Search or replace patterns in opened documents or in files on disk</para>
 query on SQL databases</para>
 </listitem>
 <listitem>
-<para>Symbol Viewer - Extract and show reference symbols from source</para>
+<para><link linkend="kate-application-plugin-symbolviewer">Symbol Viewer</link>
+- Extract and show reference symbols from source</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-konsole">Terminal tool view</link> - Tool view embedding a terminal widget</para>
@@ -118,11 +120,64 @@ attributes, attribute values and entities allowed by DTD</para>
 </itemizedlist>
 </sect1>
 
-<!--FIXME Backtrace Browser tool view
-config folders + file types
-no menu items
-https://kate-editor.org/2008/08/12/kate-fast-backtrace-navigation/
--->
+<sect1 id="kate-application-plugin-backtracebrowser">
+<!--https://kate-editor.org/2008/08/12/kate-fast-backtrace-navigation/-->
+<title>Backtrace Browser Plugin</title>
+
+<sect2 id="backtracebrowser-using">
+<title>Using the Backtrace Browser Plugin</title>
+
+<para>This plugin is meant for developers and probably of little use for users.
+It shows a backtrace delivered by gdb in a listview in a &kate; toolview.
+Clicking on an item opens the selected file and jumps to the correct line number.
+It works for backtraces generated on your own machine, but it will also work for
+backtraces from other people, &ie; with <filename>/home/dummy/qt-copy/…/qwidget.cpp</filename>
+will still be found on other machines. For that to work, you have to index the
+directories where the source code is located.
+</para>
+
+<para>Sometimes there are several files with the same name, &eg;</para>
+
+<simplelist>
+<member><filename>kdegraphics/okular/generators/dvi/config.h</filename></member>
+<member><filename>kdepim-runtime/resources/gmail/saslplugin/config.h</filename></member>
+</simplelist>
+
+<para>To pick the right choice, the plugin picks the last two parts of the url,
+in this case this would be</para>
+
+<simplelist>
+<member><filename>dvi/config.h</filename></member>
+<member><filename>saslplugin/config.h</filename></member>
+</simplelist>
+
+<para>And then usually the plugin finds the correct one.</para>
+
+<para>Indexing master and a branches of course will lead to a clash.</para>
+
+</sect2>
+
+<sect2 id="backtracebrowser-config">
+<title>Configuration</title>
+
+<para>On the configuration page add the directories containing the source code.</para>
+
+<screenshot id="screenshot-backtrace-settings">
+<screeninfo>Backtrace Bowser</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="backtrace-setting.png" format="PNG"/></imageobject>
+<caption>Configure Paths in Backtrace browser tool view</caption>
+</mediaobject>
+</screenshot>
+
+<para>Clicking <guibutton>OK</guibutton> will start indexing.
+When indexing is finished, open the toolview <guilabel>Backtrace Browser</guilabel>.</para>
+<para>Now you can load a backtrace from the clipboard (&eg;. when you clicked
+<guibutton>Copy to Clipboard</guibutton> in DrKonqi) or from a file.</para>
+
+</sect2>
+
+</sect1>
 
 <sect1 id="kate-application-plugin-build">
 <!--http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
@@ -2538,10 +2593,68 @@ writing much of this section.</para>
 
 </sect1>
 
-<!--FIXME Symbol Viewer
-https://kate-editor.org/2010/10/27/php-treeview-improvements-in-kate/?
-config Parser Options
-Settings Insert Symbol viewer-->
+<sect1 id="kate-application-plugin-symbolviewer">
+<!--https://kate-editor.org/2010/10/27/php-treeview-improvements-in-kate/?-->
+<title>Symbol Viewer Plugin</title>
+
+<sect2 id="symbolviewer-using">
+<title>Using the Close Except/Like Plugin</title>
+
+<para>It allows developers to view symbols (functions, macros and structures) from source code.</para>
+<para>By clicking the parsed information you can easily browse the code.</para>
+<para>At the moment the following languages are supported:</para>
+<para>C/C++, Java, Perl, PHP, Python, Ruby, XSLT, Tcl/Tk, Fortran</para>
+
+<para>Feature list:</para>
+<simplelist>
+<member>List/Tree mode</member>
+<member>Enable/disable sorting</member>
+<member>Hide/Show Functions Parameters</member>
+<member>Expand/collapse tree mode</member>
+<member>Auto-update on document change</member>
+<member>Code parsing is based on &kate; highlighting</member>
+</simplelist>
+
+</sect2>
+
+<sect2 id="symbolviewer-menu">
+<title>Menu Structure</title>
+<variablelist>
+
+<varlistentry id="tools-symbolviewer">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>\</keycap></keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Symbol List</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Toggle the display of &kate;'s Symbol List displaying Functions, Macros and
+Structures of the source code in the active document.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="symbolviewer-config">
+<title>Configuration</title>
+
+<screenshot id="screenshot-symbolviewer-settings">
+<screeninfo>Symbol Viewer</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="symbolviewer-settings.png" format="PNG"/></imageobject>
+<caption><para>Choose the default parser options</para></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
 
 <sect1 id="kate-application-plugin-konsole">
 <title>Terminal Tool View Plugin</title>

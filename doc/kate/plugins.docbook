@@ -49,7 +49,8 @@ The available application plugins are:
 <para>CTags - Look up definitions/declarations with CTags</para>
 </listitem>
 <listitem>
-<para>Document switcher - Quick document switching with <keycombo action="simul">&Alt;&Tab;</keycombo> behavior</para>
+<para><link linkend="kate-application-plugin-documentswitcher">Document switcher</link> -
+Quick document switching with <keycombo action="simul">&Alt;&Tab;</keycombo> behavior</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> -
@@ -68,7 +69,8 @@ simple &gdb; frontend</para>
 </listitem>
 -->
 <listitem>
-<para>Lumen - Lumen is a Autocompletion Plugin for D, using the DCD autocompletion server</para>
+<para><link linkend="kate-application-plugin-lumen">Lumen</link> - Lumen
+is a Autocompletion Plugin for D, using the DCD autocompletion server</para>
 </listitem>
 <listitem>
 <para>Open Header - Opens the corresponding .h/[.cpp|.c] file</para>
@@ -312,8 +314,48 @@ https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
 Menu CTags with 5 items
 -->
 
-<!--FIXME Document switcher
-Menu View -->
+<sect1 id="kate-application-plugin-documentswitcher">
+
+<title>Document Switcher Plugin</title>
+
+<sect2 id="documentswitcher-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+
+<varlistentry id="view-documentswitcher">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Tab;</keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guisubmenu>Last Used Views</guisubmenu>
+</menuchoice></term>
+<listitem>
+
+<para><action>Opens</action> a list with the last viewed documents:</para>
+
+<screenshot id="screenshot-documentswitcher">
+<screeninfo>Last viewed documents</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="documentswitcher.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>Keep the shortcut <keycombo action="simul">&Ctrl;&Tab;</keycombo> pressed and
+can use the <keysym>Up</keysym>, <keysym>Down</keysym>, <keycap>Home</keycap> or
+<keycap>End</keycap> keys to navigate in the list. Pressing a char key consecutively
+will cycle through all items with the first matching in the list.
+If you release the shortcut keys the view will switch to the selected document in the list.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+</sect1>
+
 
 <sect1 id="kate-application-plugin-fsbrowser">
 
@@ -480,14 +522,9 @@ list, and order them using the arrow buttons at the side of the list.</para>
 </sect2>
 </sect1>
 
-<!--FIXME Documents
-https://kate-editor.org/2010/09/12/kate-tree-view-plugin-update/
-configuring docbook sect config-dialog-documents
-menu View 3 items filetree_prev_document filetree_next_document filetree_show_active_document
--->
 <sect1 id="kate-application-plugin-documents">
 <title>The Documents List</title>
-
+<!-- https://kate-editor.org/2010/09/12/kate-tree-view-plugin-update/-->
 <sect2 id="documents-intro">
 <title>Introduction</title>
 
@@ -969,9 +1006,70 @@ writing much of this section.</para>
 
 </sect1>
 
-<!--FIXME Lumen
-https://kate-editor.org/2014/02/20/lumen-a-code-completion-plugin-for-the-d-programming-language/
--->
+<sect1 id="kate-application-plugin-lumen">
+<!-- https://kate-editor.org/2014/02/20/lumen-a-code-completion-plugin-for-the-d-programming-language/ -->
+<title>Lumen Plugin</title>
+
+<para>Lumen is a plugin providing code-completion for the <ulink url="https://en.wikipedia.org/wiki/D_(programming_language)">
+D programming language</ulink>. It is just a connection between the editor and the D Completion
+Daemon (a server providing all the information) called DCD. The plugin currently supports
+all major features of the completion server: feeding the server with import files,
+displaying documentation and several types of completion:
+</para>
+
+<para>Imports:</para>
+<screenshot id="screenshot-lumen-import">
+<screeninfo>Imports</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="lumen-import.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>Basic Completion:</para>
+<screenshot id="screenshot-lumen-completition">
+<screeninfo>Basic Completion</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="lumen-completition.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>Completion (overloaded Function):</para>
+<screenshot id="screenshot-lumen-completitionoverload">
+<screeninfo>Completion (overloaded Function)</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="lumen-completition-overload.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>Calltips:</para>
+<screenshot id="screenshot-lumen-calltips">
+<screeninfo>Calltips</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="lumen-calltips.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>To make Lumen work you have to install DCD, using the information provided by
+the <ulink url="https://dlang.org/">D community</ulink>.
+</para>
+
+<para>After installing DCD edit <filename>~/.config/dcd/dcd.conf</filename> (create if it does not exist already)
+and add a path to your D include/import files &eg; <filename class="directory">/usr/include/dlang/dmd</filename>
+or <filename class="directory">/usr/include/d</filename>.
+</para>
+
+<para>Furthermore Lumen will try to read a <filename>.lumenconfig</filename> in every parent folder
+of the currently opened D source file and add every line in this file as include path to the
+DCD server. Add all dependencies of your current project to this file.
+</para>
+
+<para>Now start the completion server with <command>dcd-server</command>, enable the Lumen
+plugin in your settings and you will have code completion for the D programming
+language in &kate;
+</para>
+
+</sect1>
+
 
 <!--FIXME Open header
 menu File Open header-->

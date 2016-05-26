@@ -81,7 +81,7 @@ simple &gdb; frontend</para>
 <para>Rust code completion - Code completion for Rust source code</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-searchinfiles">Search &amp; Replace</link> - 
+<para><link linkend="kate-application-plugin-searchinfiles">Search &amp; Replace</link> -
 Search or replace patterns in opened documents or in files on disk</para>
 </listitem>
 <listitem>
@@ -103,6 +103,9 @@ query on SQL databases</para>
 <listitem>
 <para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements,
 attributes, attribute values and entities allowed by DTD</para>
+</listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
 </listitem>
 </itemizedlist>
 </sect1>
@@ -823,7 +826,7 @@ for the Search in Folder mode and the results of your search.
 <varlistentry>
 <term><guilabel>Find</guilabel></term>
 <listitem><para>
-This is where you type in what you want to find.  You may enter standard text, 
+This is where you type in what you want to find.  You may enter standard text,
 or a regular expression if enabled.
 </para></listitem>
 </varlistentry>
@@ -851,7 +854,7 @@ When you've finished configuring everything, just press the
 When you've finished configuring everything, just press the
 <guibutton>Replace</guibutton> button to replace the text entered in the
 <guilabel>Find</guilabel> text box with that of the <guilabel>Replace</guilabel>
-text box.  You may also press &Enter; in the <guilabel>Replace</guilabel> text 
+text box.  You may also press &Enter; in the <guilabel>Replace</guilabel> text
 box to do the same.
 </para></listitem>
 </varlistentry>
@@ -922,7 +925,7 @@ Project</guilabel> to search all the files listed in the currently open project.
 <listitem><para>
 You may enter the path of the folder you wish to search.  For instance, you might
 enter <userinput>~/development/kde/kate/</userinput> if you wished to search the
-&kate; source code.  This option is only available when using 
+&kate; source code.  This option is only available when using
 <guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
@@ -930,7 +933,7 @@ enter <userinput>~/development/kde/kate/</userinput> if you wished to search the
 <varlistentry>
 <term><guiicon>Open file dialog</guiicon></term>
 <listitem><para>
-Press this button to locate the folder in your desktop's folder browser. This 
+Press this button to locate the folder in your desktop's folder browser. This
 button only works when using <guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
@@ -939,7 +942,7 @@ button only works when using <guilabel>in Folder</guilabel> mode.
 <term><guiicon>Up</guiicon></term>
 <listitem><para>
 Press this button to change <guilabel>Folder</guilabel> to the parent of the
-currently selected folder. This button only works when using 
+currently selected folder. This button only works when using
 <guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
@@ -948,7 +951,7 @@ currently selected folder. This button only works when using
 <term><guiicon>Restore Current Folder</guiicon></term>
 <listitem><para>
 This button will set the <guilabel>Folder</guilabel> entry to the folder in which
-the currently open document is located. This  button only works when using 
+the currently open document is located. This  button only works when using
 <guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
@@ -969,8 +972,8 @@ option is not available when using <guilabel>in Open files</guilabel> mode.
 <term><guilabel>Exclude</guilabel></term>
 <listitem><para>
 The opposite of <guilabel>Filter</guilabel>, this prevents &kappname; from
-searching files that match the specified patterns.  As with 
-<guilabel>Filter</guilabel>, you can enter multiple patterns separated with a 
+searching files that match the specified patterns.  As with
+<guilabel>Filter</guilabel>, you can enter multiple patterns separated with a
 comma (<userinput>,</userinput>). This option is not available when using
 <guilabel>in Open files</guilabel> mode.
 </para></listitem>
@@ -980,7 +983,7 @@ comma (<userinput>,</userinput>). This option is not available when using
 <term><guilabel>Recursive</guilabel></term>
 <listitem><para>
 If this option is enabled, &kappname; will also search in all subfolders of the
-selected folder. This option is only available when using 
+selected folder. This option is only available when using
 <guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
@@ -989,7 +992,7 @@ selected folder. This option is only available when using
 <term><guilabel>Include hidden</guilabel></term>
 <listitem><para>
 If this option is enabled, &kappname; will also search in files or folders that
-are typically hidden by your &OS;. This option is only available when using 
+are typically hidden by your &OS;. This option is only available when using
 <guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
@@ -1000,7 +1003,7 @@ are typically hidden by your &OS;. This option is only available when using
 The Search in Files plugin typically doesn't follow
 <ulink url="http://en.wikipedia.org/wiki/Symbolic_link">symbolic links</ulink>.
 When this option is enabled, the plugin will follow them instead and search inside
-the files or folders they reference. This option is only available when using 
+the files or folders they reference. This option is only available when using
 <guilabel>in Folder</guilabel> mode.
 </para>
 <warning><para>It's possible for symbolic links to reference a folder that is the
@@ -1034,7 +1037,7 @@ automatically be displayed as soon as a search is performed.</para>
 your search query, followed by the number of matches found in that file.</para>
 
 <para>To see a list of matches in that file, simply click the expansion arrow
-to the left of the file name.  (If you selected the <guilabel>Expand 
+to the left of the file name.  (If you selected the <guilabel>Expand
 results</guilabel> option, this will already be done for you.)  The line number
 each match is found on will be displayed, followed by the contents of that line,
 with your search query indicated in bold text.</para>
@@ -1113,7 +1116,7 @@ plugin.</para>
 <title>Kate Snippets</title>
 
 <sect2 id="snippets-intro">
-<title>Introduction</title>       
+<title>Introduction</title>
 <para>Kate Snippets is a plugin used to save you some time by adding support for
 so-called <quote>snippets</quote> (re-usable source code, machine code or text). The plugin
 also supports code completion and QtScript.</para>
@@ -1153,8 +1156,8 @@ repositories.</para>
 
 <sect3 id="snippets-repo-internet">
 <title>Loading Snippet Repository Files</title>
-<para>You can download snippet repositories from the Internet.  Just click 
-<guibutton>Get New Snippets</guibutton> and a window with a list of snippet 
+<para>You can download snippet repositories from the Internet.  Just click
+<guibutton>Get New Snippets</guibutton> and a window with a list of snippet
 repositories will open.  After downloading the desired snippet, make sure that
 you have activated it.</para>
 <!--FIXME no way to load a local file ?-->
@@ -1186,7 +1189,7 @@ and the snippet editor will open.</para>
 <varlistentry>
 <term><guilabel>File Type</guilabel></term>
 <listitem><para>Select the file type(s) you want the snippet repository to apply
-to.  It is set to <quote>*</quote> by default, so the repository applies to all files.  You 
+to.  It is set to <quote>*</quote> by default, so the repository applies to all files.  You
 can change it to something like <userinput>C++</userinput> for instance, or select
 from a list by hitting the <guibutton>Edit</guibutton>.  You can specify more
 than one file type by separating them with <userinput>;</userinput>.</para></listitem>
@@ -1202,7 +1205,7 @@ than one file type by separating them with <userinput>;</userinput>.</para></lis
 <listitem><para>Contains all snippets defined in the snippet file.  You can
 simply click on a snippet listed there to edit it.</para></listitem>
 </varlistentry>
-    
+
 <varlistentry>
 <term>Add (<guibutton>+</guibutton>)</term>
 <listitem><para>Used to add a new snippet.</para></listitem>
@@ -1235,11 +1238,11 @@ when the snippet is used.</para></listitem>
 
 </variablelist>
 
-<para>In <guilabel>Snippet Content</guilabel> you can specify variables with 
+<para>In <guilabel>Snippet Content</guilabel> you can specify variables with
 <userinput>${<replaceable>name</replaceable>}</userinput> or
 <userinput>%{<replaceable>name</replaceable>}</userinput>.  These can be filled
-by QtScript or when the snippet is used.  There is a special variable - 
-${cursor} or %{cursor} - which automatically sets the cursor to its first 
+by QtScript or when the snippet is used.  There is a special variable -
+${cursor} or %{cursor} - which automatically sets the cursor to its first
 occurrence.</para>
 
 </sect3>
@@ -1603,8 +1606,8 @@ sync with the current document.  See
 <sect2 id="konsole-config">
 <title>Configuration</title>
 
-<para>You can configure the Terminal Tool View plugin on the 
-<guilabel>Terminal</guilabel> page of the 
+<para>You can configure the Terminal Tool View plugin on the
+<guilabel>Terminal</guilabel> page of the
 <link linkend="configuring-kate">configuration dialog</link>.</para>
 
 <para>The following options are available:</para>
@@ -1635,6 +1638,67 @@ so the calling program is aware you have finished editing the file.</para></list
 </sect1>
 
 <!-- from doc/kate-addons/xmlcheck.docbook -->
+<sect1 id="kate-application-plugin-xmlcheck">
+<sect1info>
+<authorgroup><author>
+&Daniel.Naber; &Daniel.Naber.mail;
+</author></authorgroup>
+</sect1info>
+
+<title>&XML; Validation</title>
+
+<para>This plugin checks &XML; files for validity and being well-formed.</para>
+<para>This plugin checks the current file. A list of warnings and errors
+will appear at the bottom of &kate;'s main window. You can click on an error message
+to jump to the corresponding place in the file. If the file has a <quote>DOCTYPE</quote>
+the DTD given with this doctype will be used to check the file for validity. The
+DTD is expected at a position relative to the current file, &eg; if the doctype
+refers to <quote>DTD/xhtml1-transitional.dtd</quote> and the file is <filename>/home/peter/test.xml</filename>
+the DTD is expected to be located at <filename>/home/peter/DTD/xhtml1-transitional.dtd</filename>.
+However, remote DTDs specified via http are supported.</para>
+
+<para>If the file has no doctype it will be checked for being well-formed.</para>
+
+<para>To learn more about &XML; check out the <ulink url="http://www.w3.org/XML/"> official W3C &XML; pages</ulink>.</para>
+
+<para>Internally this plugin calls the external command <command>xmllint</command>, which
+is part of libxml2. If this command is not correctly installed on your system, the plugin
+will not work.</para>
+
+<para>To load this plugin open &kate;'s configuration dialog under <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
+Then select <guilabel>&XML; Validation</guilabel> which will appear
+in the <guilabel>Application</guilabel> / <guilabel>Plugins</guilabel> section and close the dialog.
+</para>
+
+<sect2 id="xmlcheck-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>&XML;</guimenu>
+<guimenuitem>Validate &XML;</guimenuitem>
+</menuchoice>
+</term>
+<listitem><para>This will start the check, as described above.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</sect2>
+
+<sect2 id="xmlcheck-thanks-and-acknowledgements">
+<title>Thanks and Acknowledgments</title>
+<para>
+&kate; Plugin <quote>&XML; Validation</quote> copyright 2002 &Daniel.Naber;
+&Daniel.Naber.mail;.
+</para>
+<para>Documentation copyright 2002 &Daniel.Naber;</para>
+
+</sect2>
+</sect1>
+
 <sect1 id="kate-application-plugin-xmltools">
 <sect1info>
 <authorgroup><author>

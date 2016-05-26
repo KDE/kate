@@ -97,8 +97,23 @@ ecm_add_app_icon(KATE_APP_SRCS ICONS ${KATE_ICONS_PNG})
 add_executable(kate ${KATE_APP_SRCS})
 target_link_libraries(kate kdeinit_kate)
 
-# own plist template
-set_target_properties (kate PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/data/MacOSXBundleInfo.plist.in)
+# own plist magic for mac os
+if(APPLE)
+    # own plist template
+    set_target_properties (kate PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/data/MacOSXBundleInfo.plist.in)
+
+    # the MacOSX bundle display name property (CFBundleDisplayName) is not currently supported by cmake,
+    # so has to be set for all targets in this cmake file
+    set(MACOSX_BUNDLE_DISPLAY_NAME Kate)
+    set_target_properties(kate PROPERTIES MACOSX_BUNDLE_GUI_IDENTIFIER "org.kde.Kate")
+    set_target_properties(kate PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Kate")
+    set_target_properties(kate PROPERTIES MACOSX_BUNDLE_DISPLAY_NAME "Kate")
+    set_target_properties(kate PROPERTIES MACOSX_BUNDLE_INFO_STRING "Kate - Advanced Text Editor")
+    set_target_properties(kate PROPERTIES MACOSX_BUNDLE_LONG_VERSION_STRING "Kate ${KDE_APPLICATIONS_VERSION}")
+    set_target_properties(kate PROPERTIES MACOSX_BUNDLE_SHORT_VERSION_STRING "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATIONS_VERSION_MINOR}")
+    set_target_properties(kate PROPERTIES MACOSX_BUNDLE_BUNDLE_VERSION "${KDE_APPLICATIONS_VERSION}")
+    set_target_properties(kate PROPERTIES MACOSX_BUNDLE_COPYRIGHT "2000-2016 The Kate Authors")
+endif()
 
 # install executable
 install(TARGETS kate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

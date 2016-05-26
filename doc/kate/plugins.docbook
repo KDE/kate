@@ -46,7 +46,8 @@ The available application plugins are:
 <para>Close Except/Like - Close group of documents based on a common path or file extension</para>
 </listitem>
 <listitem>
-<para>CTags - Look up definitions/declarations with CTags</para>
+<para><link linkend="kate-application-plugin-ctags">CTags</link> -
+Look up definitions/declarations with CTags</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-documentswitcher">Document switcher</link> -
@@ -309,10 +310,175 @@ writing much of this section.</para>
 <!--FIXME Close Except/Like
 menu file_close_except + file_close_like-->
 
-<!--FIXME CTags
-https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
-Menu CTags with 5 items
--->
+<sect1 id="kate-application-plugin-ctags">
+<!--https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/-->
+<title>CTags Plugin</title>
+
+<sect2 id="ctags-intro">
+<title>Introduction</title>
+
+<para><ulink url="https://en.wikipedia.org/wiki/Ctags">CTags</ulink> generates an
+index (or tag) file of language objects found in source files that allows these
+items to be quickly and easily located using this plugin in &kate;.
+</para>
+<para>A tag signifies a language object for which an index entry is available
+(or, alternatively, the index entry created for that object).</para>
+
+<para>Tag generation is supported for these
+<ulink url="http://ctags.sourceforge.net/languages.html">programming languages</ulink>.
+</para>
+</sect2>
+
+<sect2 id="ctags-config">
+<title>Configuration</title>
+
+<para>The CTags plugin uses two different database files for the index.</para>
+
+<para>On the CTags settings page in &kate;'s configuration you can add or remove
+directories containing the source code and regenerate the common CTags database.</para>
+
+<sect3 id="ctags-config-common">
+<title>Common Index</title>
+
+<screenshot id="screenshot-ctags-global-settings">
+<screeninfo>CTags Settings</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="ctags-global-setting.png" format="PNG"/></imageobject>
+<caption>Configure CTags Global Database</caption>
+</mediaobject>
+</screenshot>
+
+<para>At the bottom of the settings page you can adapt the <guilabel>CTags command</guilabel>.
+</para>
+
+<para>For more information about all available options please read the CTags man page. This man page
+is available in &khelpcenter;. and you can also enter the &URL; <emphasis>man/:ctags</emphasis>
+directly into &konqueror;
+</para>
+
+<para>Clicking <guibutton>Update</guibutton> will start indexing.
+When indexing is finished, close the dialog.</para>
+</sect3>
+
+<sect3 id="ctags-config-session">
+<title>Session Index</title>
+
+<para>To configure the session index open the <guilabel>CTags</guilabel> view.</para>
+
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Index Targets</guimenu>
+</menuchoice></term>
+<listitem>
+<para>On this tab you can add or remove directories containing the source code and manually
+regenerate the session specific CTags database.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Database</guimenu>
+</menuchoice></term>
+<listitem>
+<screenshot id="screenshot-ctags-session-settings">
+<screeninfo>Database Settings</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="ctags-session-setting.png" format="PNG"/></imageobject>
+<caption>Configure CTags Session Database</caption>
+</mediaobject>
+</screenshot>
+<para>Select an other CTags database file, configure the CTags command or revert
+to the default command.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="ctags-using">
+<title>Using the CTags Plugin</title>
+
+<para>
+You place the mouse cursor on the language object like function, symbol &etc;
+that you are interested in and then select one of the actions in the
+<guimenu>CTags</guimenu> menu to jump to the line and file where the object is
+defined or declared.</para>
+<para>By thefault the actions in the <guimenu>CTags</guimenu> menu have no shortcuts assigned.
+Use the <ulink url="help:/fundamentals/shortcuts.html">keyboard shortcut editor</ulink>
+to configure your own shortcuts.</para>
+
+<para>Alternatively use the search field on the <guilabel>Lookup</guilabel> tab of the
+CTags view.</para>
+<para>Entering characters into the search filed will start the search and display matching names
+of language objects like functions, classes, symbols &etc; together with type and filename.</para>
+<para>Select an item in the list to jump to the corresponding line in the source file.</para>
+<!--FIXME why Tag Type here but Name Kind in Project plugin, is there really any difference?-->
+
+<!--FIXME completition as in Project plugin? -->
+
+</sect2>
+
+<sect2 id="ctags-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+
+<varlistentry id="ctags-jumpback">
+<term><menuchoice>
+<guimenu>CTags</guimenu>
+<guisubmenu>Jump one step back</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Navigate back in the history to the last visited tag.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="ctags-lookup">
+<term><menuchoice>
+<guimenu>CTags</guimenu>
+<guisubmenu>Lookup Current Text</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Opens the <guilabel>Lookup</guilabel> tab of the CTags view and displays all
+language objects matching the current text selection in the list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="ctags-gotodeclaration">
+<term><menuchoice>
+<guimenu>CTags</guimenu>
+<guisubmenu>Goto Declaration</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>If the cursor is in a definition object this will open the document
+containing the corresponding declaration if needed, activate its view and
+place the cursor at the start of the declaration.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="ctags-gotodefinition">
+<term><menuchoice>
+<guimenu>CTags</guimenu>
+<guisubmenu>Goto Definition</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>If the cursor is in a declaration object this will open the document
+containing the corresponding definition if needed, activate its view and
+place the cursor at the start of the definition.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<!--context menu with Lookup Current Text, Goto Declaration, Goto Definition -->
+
+</sect2>
+
+</sect1>
 
 <sect1 id="kate-application-plugin-documentswitcher">
 

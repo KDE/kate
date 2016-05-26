@@ -44,7 +44,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     m_treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_treeView->setUniformRowHeights(true);
     m_treeView->setRootIsDecorated(false);
-    m_model->setHorizontalHeaderLabels(QStringList() << QStringLiteral("File") << QStringLiteral("Line") << QStringLiteral("Severity") << QStringLiteral("Message"));
+    m_model->setHorizontalHeaderLabels(QStringList() << i18n("File") << i18n("Line") << i18n("Severity") << i18n("Message"));
 
     /**
      * attach model

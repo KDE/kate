@@ -12,6 +12,9 @@ set(katexmlcheckplugin_PART_SRCS
     plugin_katexmlcheck.cpp
 )
 
+# resource for ui file and stuff
+qt5_add_resources(katexmlcheckplugin_PART_SRCS plugin.qrc)
+
 #kde4_add_plugin(katexmlcheckplugin ${katexmlcheckplugin_PART_SRCS})
 add_library(katexmlcheckplugin MODULE ${katexmlcheckplugin_PART_SRCS})
 
@@ -28,11 +31,6 @@ target_link_libraries(katexmlcheckplugin
 
 # this did not changed
 install(TARGETS katexmlcheckplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
-
-########### install files ###############
-#install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/kate/plugins/katexmlcheck )
-install( FILES ui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/katexmlcheck )
-
 
 # It is to generate json
 kcoreaddons_desktop_to_json (katexmlcheckplugin katexmlcheck.desktop)

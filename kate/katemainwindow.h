@@ -567,6 +567,7 @@ public Q_SLOTS:
 
 protected:
     virtual bool event(QEvent *e);
+    virtual void mousePressEvent(QMouseEvent *e);
 };
 
 #endif

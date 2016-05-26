@@ -1092,6 +1092,19 @@ QObject *KateMainWindow::pluginView(const QString &name)
     return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : 0;
 }
 
+void KateMainWindow::mousePressEvent(QMouseEvent *e)
+{
+    switch(e->button()) {
+        case Qt::ForwardButton:
+            slotFocusNextTab();
+            break;
+        case Qt::BackButton:
+            slotFocusPrevTab();
+            break;
+        default: ;
+    }
+}
+
 void KateMainWindow::slotFocusPrevTab()
 {
     if (m_viewManager->activeViewSpace()) {

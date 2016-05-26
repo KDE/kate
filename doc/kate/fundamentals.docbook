@@ -257,73 +257,18 @@ name of the file. Use the <guilabel>Filesystem Browser</guilabel> window to open
 </para>
 
 <para>
-You can toggle the sidebars window on and off in 
+You can toggle all sidebar windows on and off in
 <menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu></menuchoice>
-menu or use <keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>F</keycap></keycombo>. 
+menu or use <keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>F</keycap></keycombo>.
 This menu offers you your first glimpse into &kate;'s power and
-flexibility.  In this section we'll look at four items:
+flexibility.
 </para>
 
-<variablelist>
-<!--FIXME Show Search and Replace
-Show Projects
-Show Current Project
-Show Documents
-and more depending on the plugins enabled move to mdi docbook?
--->
-<!--changed in 4.2 ???
-contextmenu Behaviour with Make Persistent, + Move To with Right / Top / Left Sidebar
-this is in mdi.docbook
--->
-<varlistentry>
-<term>
-<menuchoice>
-<guimenuitem>Show Documents</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>
-Toggles the Documents on and off. 
-
-<!--no longer in kate 3.10/kde 4.10
-If the Documents/Filesystem Browser window is
-not open, &kate; launches the side bar as a separate, undocked,
-window. To dock the window grab the two thin parallel lines above the
-tabs by clicking on them with your &LMB; and holding the button
-down. Drag the window into &kate;'s editing window and release the
-&LMB; when you have positioned the Documents/Filesystem Browser window as you
-prefer.-->
+<para>In <guisubmenu>Tool Views</guisubmenu> you have a list of all enabled plugins.
+Click the checkbox in front of each item or click with the &LMB; on the tool buttons
+in the sidebar to toggle this tool view on and off.
 </para>
 
-</listitem>
-</varlistentry>
-
-<!--neither of these are enabled by default anymore
-<varlistentry>
-<term><menuchoice><guimenuitem>Show
-Filesystem Browser</guimenuitem></menuchoice></term>
-<listitem>
-<para>
-Toggles the Filesystem Browser on and off. This menu item is the same as
-<guimenuitem>Show Documents</guimenuitem> with one difference.  Toggling
-it on launches the window with the Filesystem Browser on top.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice><guimenuitem>Show
-Terminal</guimenuitem></menuchoice></term>
-<listitem>
-<para>
-Toggles a terminal emulator on and off at the bottom of &kate;'s
-window. In other words, it gives you a command line within the
-application.
-</para>
-</listitem>
-</varlistentry>-->
-
-</variablelist>
 </sect2>
 
 <sect2 id="keystroke-commands">
@@ -501,17 +446,7 @@ default displaying a single text editor component, in which you can
 work with your documents.</para>
 
 <para>The docking capabilities of the window is used for the tool
-windows:</para>
-
-<itemizedlist>
-<listitem><para><link linkend="kate-mdi-tools-file-list">The Documents List</link></para></listitem>
-<listitem><para><link linkend="kate-application-plugin-fsbrowser">The Filesystem
-Browser</link></para></listitem>
-<listitem><para><link linkend="kate-application-plugin-konsole">The Built in Terminal Emulator</link></para></listitem>
-</itemizedlist>
-
-<para>And possibly other tool views, for example provided by
-plugins.</para>
+windows of any plugin enabled in the settings dialog.</para>
 
 <para>Tool views can be positioned in any sidebar, to move a tool right click
 its sidebar button and select from the &RMB; menu</para>
@@ -521,8 +456,11 @@ menu for its sidebar button. The sidebar can contain
 more tools at one time so that when a tool is persistent other tools can be
 shown simultaneously.</para>
 
-</sect3>
+<para>If a plugin has configuration options you can use the first item
+in the context menu to open the corresponding page in &kate;'s
+settings dialog.</para>
 
+</sect3>
 
 </sect2>
 
@@ -558,70 +496,6 @@ horizontal split) or at the right (for a vertical split). The new
 frame gets the focus, which is visualized by the blinking cursor bar in the
 focused frame.</para>
 
-</sect2>
-
-<sect2 id="kate-mdi-tools-file-list">
-<title>The Documents List</title>
-
-<para><indexterm><primary>Documents list</primary></indexterm>
-The documents list displays a list of all documents currently open in
-&kate;. Modified files will have a small <guiicon>floppy
-disk</guiicon> icon on their left to indicate that state.</para>
-
-<para>By default, the Documents list appears in
-<guimenuitem>Tree Mode</guimenuitem>, which displays the folder structure
-surrounding all currently open documents. Also available is
-<guimenuitem>List Mode</guimenuitem>, which displays a simple list of all
-open documents. You can switch modes by right-clicking on the list and selecting
-from the <guisubmenu>View Mode</guisubmenu> menu.</para>
-
-<para>If two or more files with the same name (located in different
-folders) are open in <guimenuitem>List Mode</guimenuitem>, the names of the second will be prepended
-<quote>(2)</quote> and so on. The tool-tip for the file will
-display its full name including the path, allowing you to choose the
-desired one.</para> <para>To display a document in the currently
-active frame, click the document name in the list.</para>
-
-<!-- FIXME missing options in 4.11 context menu:
-Close
-Copy Filename -> full doc path to clipboard
-Open With submenu
--->
-<para>You can sort the list in a few different ways by right clicking the
-list and selecting from the <guisubmenu>Sort By</guisubmenu> menu.
-
-The options are:
-<variablelist>
-
-<varlistentry>
-<term><guimenuitem>Opening Order</guimenuitem></term>
-<listitem><para>Lists the documents in the order of opening.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guimenuitem>Document Name</guimenuitem></term>
-<listitem><para>Lists the documents alphabetically by their name.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guimenuitem>Document Path</guimenuitem></term>
-<listitem><para>Lists the documents alphabetically by the path to them.</para></listitem>
-</varlistentry>
-
-</variablelist>
-
-</para>
-
-<para>The document list will per default visualize your history by shading the
-entries for the most recent documents with a background color. If the document
-was edited, an extra color is blended in. The most recent document has the
-strongest color, so that you can easily find the documents you are working on.
-This feature can be disabled in the
-<link linkend="config-dialog-treeview">Documents</link> page
-of the configuration dialog.</para>
-<!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
-<para>The default location of the document list in the &kate; window is to the left of the
-editing area.</para>
 </sect2>
 
 </sect1>
@@ -673,7 +547,7 @@ on the command line. To open files from the command line in a new, unnamed
 session, configure kate to start a new session as default in the session page of
 the configuration dialog or use <option>--start</option> with an empty string:
 <replaceable>''</replaceable>.</para>
-
+<!--FIXME still valid for kf5 -->
 <para>Since &kate; 2.5.1 the <acronym>PID</acronym> of the current instance is
 exported to the environment variable <envar>KATE_PID</envar>. When opening files
 from the built in terminal Kate will automatically select the current instance

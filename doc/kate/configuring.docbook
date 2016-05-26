@@ -46,7 +46,7 @@ document.</para></listitem>
 
 <para>The embedded terminal uses the configuration defined in the
 &systemsettings;, and may also be configured by clicking the
-<mousebutton>right</mousebutton> mouse button to display a context menu.</para>
+&RMB; to display a context menu.</para>
 
 </sect1>
 
@@ -150,6 +150,7 @@ linkend="fundamentals-using-sessions">using sessions</link>.</para>
 <guilabel>Session Elements</guilabel></term>
 <listitem>
 <variablelist>
+<!--FIXME Maximum number of entries in recent file list-->
 <varlistentry>
 <term><guilabel>Include window configuration</guilabel></term>
 <listitem><para>If enabled, &kate; will save the window configuration
@@ -206,48 +207,8 @@ You can check the checkbox with an item to enable the plugin it represents.
 <para>If a plugin provides configuration options, a section to access those
 will appear as a child of this page.</para>
 
-<para>For more information about the available plugins, see 
+<para>For more information about the available plugins, see
 <xref linkend="plugins"/>.</para>
-
-</sect2>
-
-<sect2 id="config-dialog-treeview"><!--FIXME move to plugin -->
-<title>Documents</title> <!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
-<!-- Tree View plugin http://kate-editor.org/2010/09/10/tree-view-plugin-introduction/ -->
-<variablelist>
-<varlistentry>
-<term><guilabel>Background Shading</guilabel></term>
-<listitem><para>This section allows you to enable or disable the background
-shading visualization of your recent activity, and chose which colors to use if
-enabled. See the section about <link
-linkend="kate-mdi-tools-file-list">The Document List</link> for more about
-this feature.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Sort By</guilabel></term>
-<listitem><para>Set how you want the document list sorted. This can be set
-from the &RMB; menu in the document list as well.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>View Mode</guilabel></term>
-<listitem><para>This provides two options that effect the display of the
-Documents tool view.  The <guilabel>Tree View</guilabel> option will display
-the documents in a tree underneath the folders they are in, while the
-<guilabel>List View</guilabel> option will display a flat list of documents.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Show Full Path</guilabel></term>
-<listitem><para>When Tree View and this option are enabled, the folder entries
-displayed in the Documents tool view will display the full filesystem path to 
-the folder in addition to the name of the folder.  It has no effect in List
-View.</para></listitem>
-</varlistentry>
-
-</variablelist>
 
 </sect2>
 

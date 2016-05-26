@@ -11,7 +11,7 @@
 
 <para>&kate; offers several plugins. There are two types of these plugins:
 some are written in native C++, while others are written in the Python programming
-language.  There are subtle differences in these, described below.</para>
+language. There are subtle differences in these, described below.</para>
 
 <para>You can enable any type of plugin in the <link
 linkend="configuring-kate-configdialog">configuration dialog</link>, which also
@@ -56,15 +56,17 @@ The available application plugins are:
   File system browser tool view</para>
 </listitem>
 <listitem>
-<para>Documents - Displays the open files in a file tree</para>
+<para><link linkend="kate-application-plugin-documents">Documents</link> - Displays the open files in a file tree</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-gdb">&gdb;</link> - Provides a
 simple &gdb; frontend</para>
 </listitem>
+<!--from workspace/plasma-sdk, why picked up here?
 <listitem>
 <para>Icon picker - Invokes Cuttlefish icon picker</para>
 </listitem>
+-->
 <listitem>
 <para>Lumen - Lumen is a Autocompletion Plugin for D, using the DCD autocompletion server</para>
 </listitem>
@@ -110,6 +112,12 @@ attributes, attribute values and entities allowed by DTD</para>
 </itemizedlist>
 </sect1>
 
+<!--FIXME Backtrace Browser tool view
+config folders + file types
+no menu items
+https://kate-editor.org/2008/08/12/kate-fast-backtrace-navigation/
+-->
+
 <sect1 id="kate-application-plugin-build">
 <!--http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
 <sect1info>
@@ -136,21 +144,29 @@ bottom and a <guimenu>Build</guimenu> menu on the menubar. The tool view can be 
 build target settings, while the menu can be used to perform build, clean and
 compile actions.</para>
 
+<screenshot id="screenshot-build-output">
+<screeninfo>Build Output</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="build-output.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
 
-<para>The <guilabel>Build Output</guilabel> tool view has three tabs:</para>
+<para>The <guilabel>Build Output</guilabel> tool view has two tabs:</para>
 
 <itemizedlist>
 <listitem><para><guilabel>Target Settings</guilabel></para></listitem>
 <listitem><para><guilabel>Output</guilabel></para></listitem>
-<listitem><para><guilabel>Errors &amp; Warnings</guilabel></para></listitem>
 </itemizedlist>
 
 <sect3 id="build-using-target-settings">
 <title>Target Settings tab</title>
 
-<para>The target settings tab can be used to configure various build targets.</para>
+<para>The target settings tab can be used to configure various build targets and define targets sets.</para>
 
-<para>Each target contains four configuration options:</para>
+<para>To change the names or commands double click on the entries in the table and use the
+dropdown box to select the active target set. Use the checkbox in front of each target to define a default.</para>
+
+<para>A new target set contains several configuration options:</para>
 
 <variablelist>
 <varlistentry>
@@ -172,15 +188,32 @@ use the directory the current document is located in.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Quick Compile</guilabel></term>
-<listitem><para>This option lets you define the quick compile command. It is set
-to <command>gcc -Wall -g %f</command> by default.</para></listitem>
+<term><guilabel>Config</guilabel></term>
+<listitem><para>This option lets you define the config command. It is set
+to <command>cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../</command>
+by default.</para></listitem>
 </varlistentry>
 </variablelist>
 
-<para>One can create a new target by using the <guibutton>New</guibutton> button.
-The <guibutton>Copy</guibutton> button can be used to make a copy of an existing
-target. To delete a target, use the <guibutton>Delete</guibutton> button.</para>
+<para>On the top this plugin has a toolbar with the following buttons :</para>
+
+<simplelist>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="dialog-ok-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Build the selected target</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="list-add-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Add a new build target</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="document-new-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Create a new build target set</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="edit-copy-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Copy a command or target set</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="edit-delete-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Delete the current command or target set</member>
+</simplelist>
 
 </sect3>
 
@@ -190,23 +223,17 @@ target. To delete a target, use the <guibutton>Delete</guibutton> button.</para>
 <para>The <guilabel>Output</guilabel> tab shows the console output generated by
 the last command.</para>
 
-</sect3>
+<para>Use the slider at the top to show or hide categories of output:</para>
 
-<sect3 id="buiid-using-errors">
-<title>Errors &amp; Warnings</title>
-
-<para>The <guilabel>Errors &amp; Warnings</guilabel> tab lists the errors and
-warnings generated by the last command.</para>
+<para><guilabel>Full Output</guilabel>, <guilabel>Parsed Output</guilabel>,
+<guilabel>Errors and Warnings</guilabel> or <guilabel>Only Errors</guilabel>
+</para>
 
 <para>Each line contains a message and the file name and line number if available.
 Clicking on the error or warning takes you to the appropriate file and places
 the cursor on the corresponding line number.</para>
 
-<para>There are <guibutton>Errors</guibutton>, <guibutton>Warnings</guibutton>,
-and <guibutton>Others</guibutton> buttons at the top that allow you to show
-or hide those categories of output.</para>
-
-<!--FIXME: These shortcuts now seem to be used by the Project plugin in 4.11.
+<!--FIXME: These shortcuts now seem to be used by the Project plugin as well.
             https://bugs.kde.org/show_bug.cgi?id=328170 -->
 <para>To navigate to the previous error, press
 <keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo>.
@@ -221,27 +248,31 @@ To navigate to the next error, press
 
 <variablelist id="build-build">
 <varlistentry>
-<term><menuchoice>
-<guimenu>Build</guimenu><guimenuitem>Build</guimenuitem>
+<term><menuchoice id="build-targets">
+<guimenu>Build</guimenu><guisubmenu>Select Target</guisubmenu>
 </menuchoice></term>
-<listitem><para>Runs the <guilabel>Build</guilabel> command for the currently
-selected target.</para></listitem>
+<listitem><para>Select from a list of targets configured by the user.</para></listitem>
 </varlistentry>
 
-<varlistentry id="build-clean">
+<varlistentry id="build-default">
 <term><menuchoice>
-<guimenu>Build</guimenu><guimenuitem>Clean</guimenuitem>
+<guimenu>Build</guimenu><guimenuitem>Build Default Target</guimenuitem>
 </menuchoice></term>
-<listitem><para>Runs the <guilabel>Clean</guilabel> command for the currently
-selected target.</para></listitem>
+<listitem><para>Builds the target defined as default in the active target set.</para></listitem>
 </varlistentry>
 
-<varlistentry id="build-compile">
+<varlistentry id="build-previous">
 <term><menuchoice>
-<guimenu>Build</guimenu><guimenuitem>Quick Compile</guimenuitem>
+<guimenu>Build</guimenu><guimenuitem>Build Previous Target</guimenuitem>
 </menuchoice></term>
-<listitem><para>Runs the <guilabel>Quick Compile</guilabel> command for the
-currently selected target.</para></listitem>
+<listitem><para>Switch to the previous target configured by the user.</para></listitem>
+</varlistentry>
+
+<varlistentry id="build-stop">
+<term><menuchoice>
+<guimenu>Build</guimenu><guimenuitem>Stop</guimenuitem>
+</menuchoice></term>
+<listitem><para>Stop building a target.</para></listitem>
 </varlistentry>
 
 <varlistentry id="build-previous-error">
@@ -262,20 +293,6 @@ document.</para></listitem>
 document.</para></listitem>
 </varlistentry>
 
-<varlistentry>
-<term><menuchoice id="build-targets">
-<guimenu>Build</guimenu><guisubmenu>Targets</guisubmenu>
-</menuchoice></term>
-<listitem><para>Select from a list of targets configured by the user.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice id="build-next-target">
-<guimenu>Build</guimenu><guimenuitem>Next Target</guimenuitem>
-</menuchoice></term>
-<listitem><para>Switch to the next target configured by the user.</para></listitem>
-</varlistentry>
-
 </variablelist>
 </sect2>
 
@@ -286,6 +303,17 @@ document.</para></listitem>
 writing much of this section.</para>
 </sect2>
 </sect1>
+
+<!--FIXME Close Except/Like
+menu file_close_except + file_close_like-->
+
+<!--FIXME CTags
+https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
+Menu CTags with 5 items
+-->
+
+<!--FIXME Document switcher
+Menu View -->
 
 <sect1 id="kate-application-plugin-fsbrowser">
 
@@ -324,12 +352,12 @@ elements:</para>
 <para>This contains standard navigations tool buttons:</para>
 <variablelist>
 <varlistentry>
-<term><guibutton>Back</guibutton></term>
+<term><guiicon><inlinemediaobject><imageobject><imagedata fileref="go-previous-22.png" format="PNG"/></imageobject></inlinemediaobject> Back</guiicon></term>
 <listitem><para>Causes the folder view to <command>cd</command> to the previously displayed folder in the history.
 This button is disabled, if there is no previous item.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><guibutton>Forward</guibutton></term>
+<term><guiicon><inlinemediaobject><imageobject><imagedata fileref="go-next-22.png" format="PNG"/></imageobject></inlinemediaobject> Forward</guiicon></term>
 <listitem><para>Causes the folder view to <command>cd</command> to the next folder in the history.
 This button is disabled, if there is no next folder.</para></listitem>
 </varlistentry>
@@ -339,11 +367,11 @@ This button is disabled, if there is no next folder.</para></listitem>
 folder if possible.</para></listitem>
 </varlistentry-->
 <varlistentry>
-<term><guibutton>Bookmarks</guibutton></term>
+<term><guiicon><inlinemediaobject><imageobject><imagedata fileref="bookmarks-22.png" format="PNG"/></imageobject></inlinemediaobject> Bookmarks</guiicon></term>
 <listitem><para>Opens a submenu to edit or add bookmarks and to add a new bookmark folder.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><guibutton>Current Document Folder</guibutton></term>
+<term><guiicon><inlinemediaobject><imageobject><imagedata fileref="system-switch-user-22.png" format="PNG"/></imageobject></inlinemediaobject> Current Document Folder</guiicon></term>
 <listitem><para>This button will cause the folder view to
 <command>cd</command> to the folder of the currently active
 document if possible. This button is disabled, if the active document
@@ -351,7 +379,7 @@ is a new, unsaved file, or the folder in which it resides can not
 be decided.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><guibutton>Options</guibutton></term>
+<term><guiicon><inlinemediaobject><imageobject><imagedata fileref="games-config-options-22.png" format="PNG"/></imageobject></inlinemediaobject> Options</guiicon></term>
 <listitem>
 <variablelist>
 <varlistentry>
@@ -360,8 +388,8 @@ be decided.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guimenuitem>Detailed View</guimenuitem></term>
-<listitem><para>Displays <guilabel>Name</guilabel>, <guilabel>Date</guilabel>,
-<guilabel>Size</guilabel> and <guilabel>Type</guilabel> of the files.</para></listitem>
+<listitem><para>Displays <guilabel>Name</guilabel>, <guilabel>Date</guilabel> and
+<guilabel>Size</guilabel> of the files.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guimenuitem>Tree View</guimenuitem></term>
@@ -452,6 +480,187 @@ list, and order them using the arrow buttons at the side of the list.</para>
 </sect2>
 </sect1>
 
+<!--FIXME Documents
+https://kate-editor.org/2010/09/12/kate-tree-view-plugin-update/
+configuring docbook sect config-dialog-documents
+menu View 3 items filetree_prev_document filetree_next_document filetree_show_active_document
+-->
+<sect1 id="kate-application-plugin-documents">
+<title>The Documents List</title>
+
+<sect2 id="documents-intro">
+<title>Introduction</title>
+
+<para><indexterm><primary>Documents list</primary></indexterm>
+The documents list displays a list of all documents currently open in
+&kate;. Modified files will have a small <guiicon>floppy
+disk</guiicon> icon on their left to indicate that state.</para>
+
+<para>On the top the Documents list has a toolbar with the following buttons:</para>
+
+<simplelist>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="document-new-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Create new document</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="document-open-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Open an existing document</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="go-up-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Previous Document</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="go-down-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Next Document</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="document-save-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Save the current document</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="document-save-as-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Save the current document under a new name</member>
+</simplelist>
+
+<para>By default, the Documents list appears in
+<guimenuitem>Tree Mode</guimenuitem>, which displays the folder structure
+surrounding all currently open documents. Also available is
+<guimenuitem>List Mode</guimenuitem>, which displays a simple list of all
+open documents. You can switch modes by right-clicking on the list and selecting
+from the <guisubmenu>View Mode</guisubmenu> menu.</para>
+
+<para>If two or more files with the same name (located in different
+folders) are open in <guimenuitem>List Mode</guimenuitem>, the names of the second will be prepended
+<quote>(2)</quote> and so on. The tool-tip for the file will
+display its full name including the path, allowing you to choose the
+desired one.</para> <para>To display a document in the currently
+active frame, click the document name in the list.</para>
+
+<para>The context menu has some common actions from the <guimenu>File</guimenu> menu.</para>
+
+<para>Additionally there are filemanager actions to rename or delete the file. With
+<guimenuitem>Copy Filename</guimenuitem> you can copy the full path of the document
+to the clipboard.</para>
+
+<para>You can sort the list in a few different ways by right clicking the
+list and selecting from the <guisubmenu>Sort By</guisubmenu> menu.
+
+The options are:
+<variablelist>
+
+<varlistentry>
+<term><guimenuitem>Document Name</guimenuitem></term>
+<listitem><para>Lists the documents alphabetically by their name.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Document Path</guimenuitem></term>
+<listitem><para>Lists the documents alphabetically by the path to them.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guimenuitem>Opening Order</guimenuitem></term>
+<listitem><para>Lists the documents in the order of opening.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<para>The document list will per default visualize your history by shading the
+entries for the most recent documents with a background color. If the document
+was edited, an extra color is blended in. The most recent document has the
+strongest color, so that you can easily find the documents you are working on.
+This feature can be disabled in the
+<link linkend="config-dialog-documents">Documents</link> page
+of the configuration dialog.</para>
+<para>The default location of the document list in the &kate; window is to the left of the
+editing area.</para>
+
+</sect2>
+
+<sect2 id="documents-menus">
+<title>Menu Structure</title>
+
+<variablelist>
+
+<varlistentry id="view-document-previous">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Alt;<keysym>Up</keysym></keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Previous Document</guimenuitem>
+</menuchoice> (Documents plugin)</term>
+<listitem>
+<para>Opens the document displayed above the currently open document in the Documents list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-document-next">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Alt;<keysym>Down</keysym></keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Next Document</guimenuitem>
+</menuchoice> (Documents plugin)</term>
+<listitem>
+<para>Opens the document displayed below the currently open document in the Documents list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-active">
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guimenuitem>Show Active</guimenuitem>
+</menuchoice> (Documents plugin)</term>
+<listitem>
+<para>Displays the currently open document in the Documents list.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="config-dialog-documents">
+<title>Configuration</title>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Background Shading</guilabel></term>
+<listitem><para>This section allows you to enable or disable the background
+shading visualization of your recent activity, and chose which colors to use if
+enabled.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Sort By</guilabel></term>
+<listitem><para>Set how you want the document list sorted. This can be set
+from the &RMB; menu in the document list as well.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>View Mode</guilabel></term>
+<listitem><para>This provides two options that effect the display of the
+Documents tool view.  The <guilabel>Tree View</guilabel> option will display
+the documents in a tree underneath the folders they are in, while the
+<guilabel>List View</guilabel> option will display a flat list of documents.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Show Full Path</guilabel></term>
+<listitem><para>When Tree View and this option are enabled, the folder entries
+displayed in the Documents tool view will display the full filesystem path to
+the folder in addition to the name of the folder.  It has no effect in List
+View.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
 <sect1 id="kate-application-plugin-gdb">
 <!--http://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 <sect1info>
@@ -465,7 +674,7 @@ list, and order them using the arrow buttons at the side of the list.</para>
 <sect2 id="gdb-intro">
 <title>Introduction</title>
 
-<para>&kappname;'s &gdb; plugin provides a simple frontend to the popular &GNU;
+<para>&kate;'s &gdb; plugin provides a simple frontend to the popular &GNU;
 Project Debugger.</para>
 
 <important>
@@ -475,7 +684,7 @@ information on using &gdb;, visit <ulink url="http://www.gnu.org/s/gdb/">the
 </important>
 
 <para>You can enable the &gdb; plugin in
-<link linkend="config-dialog-plugins">the Plugins section of &kappname;'s
+<link linkend="config-dialog-plugins">the Plugins section of &kate;'s
 configuration</link>.</para>
 
 <para>For the plugin to work properly, you must have a source file (of any type
@@ -487,7 +696,7 @@ the <command><parameter>-ggdb</parameter></command> command line argument.
 </para>
 </tip>
 
-<para>After these preparations are made, open the source file in &kappname;,
+<para>After these preparations are made, open the source file in &kate;,
 enter the path to the executable in the <guilabel>Settings</guilabel> tab of the
 <guilabel>Debug View</guilabel> tool view, and select
 <menuchoice><guimenu>Debug</guimenu><guimenuitem>Start Debugging</guimenuitem></menuchoice>
@@ -498,7 +707,7 @@ from the menu to get started.</para>
 <sect2 id="gdb-menus">
 <title>Menu and Toolbar Structure</title>
 
-<para>All of these options are available in &kappname;'s menus, and many are
+<para>All of these options are available in &kate;'s menus, and many are
 available on the Debug toolbar as well.</para>
 
 <variablelist>
@@ -511,19 +720,12 @@ available on the Debug toolbar as well.</para>
 line used, and other settings.</para></listitem>
 </varlistentry>
 
-<varlistentry id="gdb-menus-show-locals">
+<varlistentry id="gdb-menus-show-locals-and-stack">
 <term><menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Locals</guimenuitem>
+<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Locals and Stack</guimenuitem>
 </menuchoice></term>
-<listitem><para>Shows a list of all currently loaded variables and their values.
+<listitem><para>Shows a list of all currently loaded variables and their values and a &gdb; backtrace.
 </para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-show-call-stack">
-<term><menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool View</guisubmenu><guimenuitem>Show Call Stack</guimenuitem>
-</menuchoice></term>
-<listitem><para>Shows a &gdb; backtrace.</para></listitem>
 </varlistentry>
 
 <varlistentry id="gdb-menus-targets">
@@ -532,13 +734,6 @@ line used, and other settings.</para></listitem>
 </menuchoice></term>
 <listitem><para>A submenu containing a list of targets (executables).
 </para></listitem>
-</varlistentry>
-
-<varlistentry id="gdb-menus-arg-lists">
-<term><menuchoice>
-<guimenu>Debug</guimenu><guisubmenu>Arg Lists</guisubmenu>
-</menuchoice></term>
-<listitem><para>A submenu containing all argument lists.</para></listitem>
 </varlistentry>
 
 <varlistentry id="gdb-menus-start">
@@ -668,7 +863,7 @@ debugging session.</para></caption>
 <variablelist>
 
 <varlistentry>
-<term><guilabel>Target</guilabel></term>
+<term><guilabel>Executable</guilabel></term>
 <listitem><para>Path to the target (executable) for debugging.</para></listitem>
 </varlistentry>
 
@@ -679,7 +874,7 @@ debugging session.</para></caption>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Arg List</guilabel></term>
+<term><guilabel>Arguments</guilabel></term>
 <listitem><para>Arguments passed to the program.</para></listitem>
 </varlistentry>
 
@@ -698,11 +893,11 @@ program.</para></listitem>
 </variablelist>
 
 <screenshot id="screenshot-gdb-settings">
-<screeninfo>The Settings Tab</screeninfo>
+<screeninfo>The Settings dialog</screeninfo>
 <mediaobject>
 <imageobject><imagedata fileref="gdb-settings.png" format="PNG"/></imageobject>
-<textobject><phrase>The Settings tab.</phrase></textobject>
-<caption><para>The <guilabel>Settings</guilabel> tab displaying the configuration
+<textobject><phrase>The Settings dialog</phrase></textobject>
+<caption><para>The <guilabel>Settings</guilabel> dialog displaying the configuration
 of a debugging session.</para></caption>
 </mediaobject>
 </screenshot>
@@ -774,6 +969,23 @@ writing much of this section.</para>
 
 </sect1>
 
+<!--FIXME Lumen
+https://kate-editor.org/2014/02/20/lumen-a-code-completion-plugin-for-the-d-programming-language/
+-->
+
+<!--FIXME Open header
+menu File Open header-->
+
+<!--FIXME Project
+https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
+Projects Previous Next Goto-->
+
+<!--FIXME Replicode
+Projects Replicode run / stop-->
+
+<!--FIXME Rust
+Edit Find definition-->
+
 <sect1 id="kate-application-plugin-searchinfiles">
 <sect1info>
 <authorgroup><author>
@@ -784,11 +996,11 @@ writing much of this section.</para>
 
 <sect2 id="searchinfiles-intro">
 <title>Introduction</title>
-<para>&kappname;'s Search &amp; Replace plugin allows you to search for text or
+<para>&kate;'s Search &amp; Replace plugin allows you to search for text or
 <ulink url="help:/katepart/regular-expressions.html">regular expressions</ulink>
 in many different files at once.  You can search all open files, all the files
-in one directory and optionally its subdirectories, or all files in the current
-project.  You can even filter by filename, for instance searching only files
+in one directory and optionally its subdirectories, or in the active file.
+You can even filter by filename, for instance searching only files
 that end with a particular file extension.</para>
 
 </sect2>
@@ -805,19 +1017,21 @@ Files tool view:</para>
 <variablelist>
 
 <varlistentry>
-<term><guiicon>New Tab</guiicon></term>
+<term><guiicon><inlinemediaobject><imageobject><imagedata fileref="tab-new-22.png" format="PNG"/>
+</imageobject></inlinemediaobject></guiicon></term>
 <listitem><para>
 You can have as many searches as you want open at the same time.  Simply click
-the <guibutton>New Tab</guibutton> button at the top-left corner of the Search
+the new tab button at the top-left corner of the Search
 tool view and a new results tab will open permitting you to perform another
 search.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guiicon>Toggle Results</guiicon></term>
+<term><guiicon><inlinemediaobject><imageobject><imagedata fileref="games-config-options-22.png" format="PNG"/>
+</imageobject></inlinemediaobject></guiicon></term>
 <listitem><para>
-The down arrow in the top right-corner of the Search in Files tool view will
+The button in the top right-corner of the Search in Files tool view will
 toggle the bottom half of the tool view between displaying additional options
 for the Search in Folder mode and the results of your search.
 </para></listitem>
@@ -881,10 +1095,25 @@ in files that are checked in the pane below.
 <title>Search in Folder Options</title>
 
 <para>These options are displayed below the aforementioned query options. If search
-results are being displayed instead, press the <guiicon>Toggle Results</guiicon>
+results are being displayed instead, press the <guiicon><inlinemediaobject><imageobject>
+<imagedata fileref="games-config-options-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
 button to display them.</para>
 
 <variablelist>
+
+<varlistentry>
+<term><guilabel>Search in</guilabel></term>
+<listitem><para>
+This has three options.  Select <guilabel>Open Files</guilabel> to search all
+files currently open in &kate;.  Select <guilabel>Folder</guilabel> to
+search inside a folder and optionally its subfolders.  Select <guilabel>Current
+File</guilabel> to search only in the active file.
+</para>
+<para>If the <guilabel>Projects</guilabel> plugin is loaded, you can also search in
+the <guilabel>Current Project</guilabel> or in <guilabel>All Open Projects</guilabel>.
+</para>
+</listitem>
+</varlistentry>
 
 <varlistentry>
 <term><guilabel>Match case</guilabel></term>
@@ -911,16 +1140,6 @@ that contain the search query.
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Search</guilabel></term>
-<listitem><para>
-This has three options.  Select <guilabel>in Open files</guilabel> to search all
-files currently open in &kappname;.  Select <guilabel>in Folder</guilabel> to
-search inside a folder and optionally its subfolders.  Select <guilabel>in
-Project</guilabel> to search all the files listed in the currently open project.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
 <term><guilabel>Folder</guilabel></term>
 <listitem><para>
 You may enter the path of the folder you wish to search.  For instance, you might
@@ -934,82 +1153,84 @@ enter <userinput>~/development/kde/kate/</userinput> if you wished to search the
 <term><guiicon>Open file dialog</guiicon></term>
 <listitem><para>
 Press this button to locate the folder in your desktop's folder browser. This
-button only works when using <guilabel>in Folder</guilabel> mode.
+button only works when using <guilabel>Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guiicon>Up</guiicon></term>
+<term><guiicon><inlinemediaobject><imageobject><imagedata fileref="go-up-22.png" format="PNG"/>
+</imageobject></inlinemediaobject></guiicon></term>
 <listitem><para>
 Press this button to change <guilabel>Folder</guilabel> to the parent of the
 currently selected folder. This button only works when using
-<guilabel>in Folder</guilabel> mode.
+<guilabel>Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guiicon>Restore Current Folder</guiicon></term>
+<term><guiicon><inlinemediaobject><imageobject><imagedata fileref="view-refresh-22.png" format="PNG"/>
+</imageobject></inlinemediaobject></guiicon></term>
 <listitem><para>
 This button will set the <guilabel>Folder</guilabel> entry to the folder in which
-the currently open document is located. This  button only works when using
-<guilabel>in Folder</guilabel> mode.
+the currently open document is located. This button only works when using
+<guilabel>Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Filter</guilabel></term>
 <listitem><para>
-This permits you to only search filenames that match a particular pattern.  For
+This permits you to only search filenames that match a particular pattern. For
 instance, to only search files written in C++, change it to
 <userinput>*.cpp</userinput>.  To search only files beginning with
-<literal>kate</literal>, change it to <userinput>kate*</userinput>.  You can
-enter multiple filters separated with a comma (<userinput>,</userinput>).  This
-option is not available when using <guilabel>in Open files</guilabel> mode.
+<literal>kate</literal>, change it to <userinput>kate*</userinput>. You can
+enter multiple filters separated with a comma (<userinput>,</userinput>). This
+option is not available when using <guilabel>Open files</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Exclude</guilabel></term>
 <listitem><para>
-The opposite of <guilabel>Filter</guilabel>, this prevents &kappname; from
-searching files that match the specified patterns.  As with
+The opposite of <guilabel>Filter</guilabel>, this prevents &kate; from
+searching files that match the specified patterns. As with
 <guilabel>Filter</guilabel>, you can enter multiple patterns separated with a
 comma (<userinput>,</userinput>). This option is not available when using
-<guilabel>in Open files</guilabel> mode.
+<guilabel>Open files</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Recursive</guilabel></term>
 <listitem><para>
-If this option is enabled, &kappname; will also search in all subfolders of the
+If this option is enabled, &kate; will also search in all subfolders of the
 selected folder. This option is only available when using
-<guilabel>in Folder</guilabel> mode.
+<guilabel>Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Include hidden</guilabel></term>
 <listitem><para>
-If this option is enabled, &kappname; will also search in files or folders that
+If this option is enabled, &kate; will also search in files or folders that
 are typically hidden by your &OS;. This option is only available when using
-<guilabel>in Folder</guilabel> mode.
+<guilabel>Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Follow symbolic links</guilabel></term>
 <listitem><para>
-The Search in Files plugin typically doesn't follow
+The Search in Files plugin typically does not follow
 <ulink url="http://en.wikipedia.org/wiki/Symbolic_link">symbolic links</ulink>.
 When this option is enabled, the plugin will follow them instead and search inside
 the files or folders they reference. This option is only available when using
-<guilabel>in Folder</guilabel> mode.
+<guilabel>Folder</guilabel> mode.
 </para>
 <warning><para>It's possible for symbolic links to reference a folder that is the
 parent of the folder currently being searched, or other folders that contain
 symbolic links to their parent.  If there is such a link in the folder being
-searched and this option is enabled, &kappname; will repeatedly follow the link
+searched and this option is enabled, &kate; will repeatedly follow the link
 and search the folder, and the search will never complete.</para></warning>
 </listitem>
 </varlistentry>
@@ -1017,7 +1238,7 @@ and search the folder, and the search will never complete.</para></warning>
 <varlistentry>
 <term><guilabel>Include binary files</guilabel></term>
 <listitem><para>
-If enabled, &kappname; will also search in files that do not appear to be text
+If enabled, &kate; will also search in files that do not appear to be text
 files.
 </para></listitem>
 </varlistentry>
@@ -1030,7 +1251,9 @@ files.
 
 <para>The results of your search are displayed below the query options.  If
 options for Search in Folder mode are displayed, simply press the
-<guiicon>Toggle Results</guiicon> button to display them.  They will also
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="games-config-options-22.png" format="PNG"/>
+</imageobject></inlinemediaobject></guiicon>
+button to display them.  They will also
 automatically be displayed as soon as a search is performed.</para>
 
 <para>The search results display a list of files that contains text that matches
@@ -1042,7 +1265,7 @@ results</guilabel> option, this will already be done for you.)  The line number
 each match is found on will be displayed, followed by the contents of that line,
 with your search query indicated in bold text.</para>
 
-<para>To open the file your result was found in, simply double-click it.  &kappname;
+<para>To open the file your result was found in, simply double-click it.  &kate;
 will open the file if needed.  You can also move the cursor to the location of
 a particular match by double-clicking on its listing instead of the file name.
 </para>
@@ -1093,7 +1316,7 @@ plugin.</para>
 <guimenuitem>Show Search and Replace</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>Toggle the display of &kappname;'s <guilabel>Search and Replace</guilabel> tool.
+<para>Toggle the display of &kate;'s <guilabel>Search and Replace</guilabel> tool.
 </para>
 </listitem>
 </varlistentry>
@@ -1103,9 +1326,6 @@ plugin.</para>
 </sect2>
 </sect1>
 
- <!--
- FIXME: replaced by built-in functionality in 4.12
-        lots of this is wrong, other parts need to be moved somewhere else -->
 <sect1 id="kate-application-plugin-snippets">
 <sect1info>
 <authorgroup>
@@ -1119,7 +1339,7 @@ plugin.</para>
 <title>Introduction</title>
 <para>Kate Snippets is a plugin used to save you some time by adding support for
 so-called <quote>snippets</quote> (re-usable source code, machine code or text). The plugin
-also supports code completion and QtScript.</para>
+also supports code completion and JavaScript.</para>
 </sect2>
 
 <sect2 id="snippets-menu">
@@ -1132,6 +1352,18 @@ also supports code completion and QtScript.</para>
 <listitem><para>Shows snippets panel containing all snippets in your repository
 that are for the currently opened file type.</para></listitem>
 </varlistentry>
+
+<varlistentry id="tools-create-snippet">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Create Snippet</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Create a new snippet, which is a reusable chunk of text you
+may insert in any part of any document.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect2>
@@ -1160,13 +1392,67 @@ repositories.</para>
 <guibutton>Get New Snippets</guibutton> and a window with a list of snippet
 repositories will open.  After downloading the desired snippet, make sure that
 you have activated it.</para>
-<!--FIXME no way to load a local file ?-->
+<!--FIXME no way to load a local file ?
 <para>You can also load snippet repositories from a local file using the file
 browser at the bottom of the panel.  Click <guibutton>Copy to repository</guibutton>
-when finished.</para>
+when finished.</para>-->
 </sect3>
 
 <sect3 id="snippets-repo-editor">
+<title>Creating and Editing Repositories</title>
+
+<para>To create a new snippet repository, click <guibutton>Add Repository</guibutton>.
+You should now see a dialog that asks for the name of the snippet file, license and
+author. After choosing the desired options, click <guibutton>OK</guibutton>.</para>
+
+<screenshot id="screenshot-snippets-repository">
+<screeninfo>Snippet Editor</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="snippets-repository.png" format="PNG"/></imageobject>
+<textobject><phrase>The repository editor.</phrase></textobject>
+<caption><para>The repository editor interface.</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>The snippet repository editor contains the following options:</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Name</guilabel></term>
+<listitem><para>Appears in the list of snippets in the tool view and is also
+searched when using the code completion feature.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Namespace</guilabel></term>
+<listitem><para>Prefix used while using code completion.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>License</guilabel></term>
+<listitem><para>Select the license for you snippet repository.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Authors</guilabel></term>
+<listitem><para>Enter the name(s) of the author(s) of the snippet file.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>File types</guilabel></term>
+<listitem><para>Select the file type(s) you want the snippet repository to apply
+to.  It is set to <quote></quote> by default, so the repository applies to all files. You
+can change it to something like <userinput>C++</userinput> for instance, or select
+from a list by clicking on the items.  You can specify more
+than one file type pressing the &Shift; while adding types.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="snippets-editor">
 <title>Creating and Editing Snippets</title>
 
 <screenshot id="screenshot-snippets-form">
@@ -1178,73 +1464,64 @@ when finished.</para>
 </mediaobject>
 </screenshot>
 
-<para>To create a new snippet repository, click <guibutton>New Snippet File</guibutton>.
-You should now see a dialog that asks for the name of the snippet file, license and
-author.  After choosing the desired options, click <guibutton>Create</guibutton>,
-and the snippet editor will open.</para>
-
-<para>The snippet editor contains the following options:</para>
-
 <variablelist>
+
 <varlistentry>
-<term><guilabel>File Type</guilabel></term>
-<listitem><para>Select the file type(s) you want the snippet repository to apply
-to.  It is set to <quote>*</quote> by default, so the repository applies to all files.  You
-can change it to something like <userinput>C++</userinput> for instance, or select
-from a list by hitting the <guibutton>Edit</guibutton>.  You can specify more
-than one file type by separating them with <userinput>;</userinput>.</para></listitem>
+<term><guilabel>Name</guilabel></term>
+<listitem><para>The name will be shown in the completiton list.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Authors</guilabel></term>
-<listitem><para>Enter the name(s) of the author(s) of the snippet file.</para></listitem>
+<term>Shortcut</term>
+<listitem><para>Pressing this shortcut will insert the snippet into the document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term>Snippets List</term>
-<listitem><para>Contains all snippets defined in the snippet file.  You can
-simply click on a snippet listed there to edit it.</para></listitem>
+<term><guilabel>Snippets</guilabel></term>
+<listitem><para>The text your snippet will insert into the document.</para>
+<para>A snippet can contain editable fields. They can be cycled by
+pressing &Tab;. The following expressions can be used in the template
+text to create fields:</para>
+<para><userinput>${<replaceable>field_name</replaceable>}</userinput> creates a
+simple, editable field. All subsequent occurrences of the same
+<replaceable>field_name</replaceable> create fields which mirror the contents
+of the first during editing.</para>
+<para><userinput>${<replaceable>field_name=default</replaceable>}</userinput>
+can be used to specify a default value for the field.
+<replaceable>default</replaceable> can be any JavaScript expression.</para>
+<para>Use <userinput>${<replaceable>field_name</replaceable>=<replaceable>text</replaceable>}</userinput>
+to specify a fixed string as default value.</para>
+<para><userinput>${func(<replaceable>other_field1</replaceable>,
+<replaceable>other_field2</replaceable>, ...)}</userinput> can be used to create a
+field which evaluates a JavaScript function on each edit and contains its
+contents. See the <guilabel>Scripts</guilabel> tab for more information.</para>
+<para><userinput>${cursor}</userinput> can be used to mark the end position
+of the cursor after everything else was filled in.</para>
+</listitem>
 </varlistentry>
 
 <varlistentry>
-<term>Add (<guibutton>+</guibutton>)</term>
-<listitem><para>Used to add a new snippet.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Delete (<guibutton>-</guibutton>)</term>
-<listitem><para>Used to delete a snippet.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Match/Name</guilabel></term>
-<listitem><para>Appears in the list of snippets in the tool view and is also
-searched when using the code completion feature.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Display Prefix</guilabel>, <guilabel>Display Postfix</guilabel>,
-and <guilabel>Display Arguments</guilabel></term>
-<listitem><para>Used to display helpful information while using code completion.
-The prefix and postfix are displayed before and after the name, while the arguments
-are displayed in parenthesis immediately after the name.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Snippet Content</guilabel></term>
-<listitem><para>Reusable text or code.  This is what appears in your document
-when the snippet is used.</para></listitem>
+<term><guilabel>Scripts</guilabel></term>
+<listitem><para>JavaScript helper functions to use in your snippets.</para>
+<para>All JavaScript functions should return the contents you want to place in a
+template field as a string.</para>
+<para>Functions are called in a scope which contains the contents of all
+editable template fields as local variables. For example in a snippet
+containing <userinput>${<replaceable>field</replaceable>}</userinput>,
+a variable called <userinput>field</userinput> will be present which contains
+the up-to-date contents of the template field. Those variables can either
+be used in the function statically or passed as arguments, by using the
+<userinput>${func(field)}</userinput> or <userinput>${<replaceable>field2=func(field)</replaceable>}</userinput>
+syntax in the snippet string.</para>
+<para>You can use
+the &kate; scripting API to get the selected text, full text, file name and
+more by using the appropriate methods of the <userinput>document</userinput>
+and <userinput>view</userinput> objects. Refer to the scripting API
+documentation for more information</para>
+</listitem>
 </varlistentry>
 
 </variablelist>
-
-<para>In <guilabel>Snippet Content</guilabel> you can specify variables with
-<userinput>${<replaceable>name</replaceable>}</userinput> or
-<userinput>%{<replaceable>name</replaceable>}</userinput>.  These can be filled
-by QtScript or when the snippet is used.  There is a special variable -
-${cursor} or %{cursor} - which automatically sets the cursor to its first
-occurrence.</para>
-
 </sect3>
 </sect2>
 
@@ -1266,8 +1543,7 @@ occurrence.</para>
 <listitem><para>By choosing the snippet from the tool view.</para></listitem>
 <listitem><para>While writing, you can press <keycombo action="simul">&Ctrl;
 <keysym>Space</keysym></keycombo>, which will display all the snippets in a
-convenient window from which you can choose.  You may enter the beginning
-of the snippets name before or after pressing this key combination, which provides
+convenient window from which you can choose.  This key combination provides
 functionality similar to code completion.</para></listitem>
 </itemizedlist>
 
@@ -1313,18 +1589,6 @@ deleting, and requesting information from databases.</para>
 <listitem><para>Display results in a table</para></listitem>
 </itemizedlist>
 
-<!--FIXME If Kate is installed on your computer, at first open Kate.
-If Kate isn't installed on your computer, download and install it.
-
-Using SQL Plugin
-After opening the Kate;
-Click Settings→ Configure Kate
-and then;
-Click Application → Select Plugins in the tree widget
-
-In the Plugin Manager panel on the right, check SQL Plugin and click OK.
--->
-
 </sect2>
 
 <sect2 id="sql-connecting">
@@ -1354,7 +1618,9 @@ and any other information that particular driver may require. Then press
 
 <para>You can insert, delete, and update data using the SQL plugin just as
 you would from the command line or from within a program.  Simply enter a query
-and press the <guibutton>Run query</guibutton>.</para>
+and press the <guibutton>Run query</guibutton> button in the toolbar or
+use <menuchoice><guimenu>SQL</guimenu><guimenuitem>Run query</guimenuitem></menuchoice>
+(<keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo>).</para>
 
 <example>
 <title>Some Example Queries</title>
@@ -1392,7 +1658,7 @@ UPDATE <replaceable>table_name</replaceable> SET "<replaceable>feature1</replace
 
 <para>After running a  <command>SELECT</command> query, you can view the results
 as a table that will appear in the <guilabel>SQL Data Output</guilabel> tool view at
-the bottom of &kappname;, or as text in the <guilabel>SQL Text Output</guilabel>.
+the bottom of &kate;, or as text in the <guilabel>SQL Text Output</guilabel>.
 If there is an error, you can see it in the text output.</para>
 
 <example>
@@ -1432,6 +1698,8 @@ current document in the Comma Separated Values format.</para></listitem>
 <listitem><para>Removes everything from the table view</para></listitem>
 </varlistentry>
 
+<!--FIXME Use system locale -->
+
 </variablelist>
 
 <para>You can now change the colors displayed in the table in the <guilabel>SQL</guilabel>
@@ -1444,7 +1712,7 @@ section of <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kate;<
 <sect2 id="sql-browsing">
 <title>Browsing</title>
 
-<para>You can browse your database using the <guilabel>SQL Schema Browser</guilabel>
+<para>You can browse your database using the <guilabel>Database schema</guilabel> browser
 tool view on the left.  The information displayed varies depending on which
 database driver you are using.</para>
 
@@ -1521,6 +1789,11 @@ writing much of this section.</para>
 
 </sect1>
 
+<!--FIXME Symbol Viewer
+https://kate-editor.org/2010/10/27/php-treeview-improvements-in-kate/?
+config Parser Options
+Settings Insert Symbol viewer-->
+
 <sect1 id="kate-application-plugin-konsole">
 <title>Terminal Tool View Plugin</title>
 
@@ -1542,8 +1815,7 @@ below the editing area.</para>
 <para>You can configure the &konsole; using its &RMB; menu, for more
 information, see the <ulink url="help:/konsole/index.htm">&konsole; manual</ulink>.</para>
 
-<para>The built-in terminal emulator is provided by the Terminal Tool View plugin,
-which is enabled by default.</para>
+<para>The built-in terminal emulator is provided by the Terminal Tool View plugin.</para>
 
 <sect2 id="konsole-menus">
 <title>Menu Structure</title>
@@ -1583,7 +1855,7 @@ emulator. No newline is added after the text.</para></listitem>
 <para>This will cause the built-in Terminal to <command>cd</command> into the
 directory of the active document.</para>
 
-<para>Alternatively, you can configure &kappname; to always keep the terminal in
+<para>Alternatively, you can configure &kate; to always keep the terminal in
 sync with the current document.  See
 <xref linkend="konsole-config"/> for more information.</para>
 </listitem>
@@ -1636,6 +1908,9 @@ so the calling program is aware you have finished editing the file.</para></list
 </sect2>
 
 </sect1>
+
+<!--FIXME Text Filter
+menu Tools Edit Filter-->
 
 <!-- from doc/kate-addons/xmlcheck.docbook -->
 <sect1 id="kate-application-plugin-xmlcheck">
@@ -1780,7 +2055,7 @@ current element if you are inside a tag.</para>
 <title>Features and Limitations</title>
 
 <para>You can test all functions and limitations by loading
-<filename>$KDEDIR/share/apps/katexmltools/testcases.xml</filename><!--FIXME replacement for KDEDIRS-->
+<filename>$(kf5-config --prefix)/share/apps/katexmltools/testcases.xml</filename>
 into &kate; and following the instructions.</para>
 
 </sect2>
@@ -1847,10 +2122,4 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 </sect1>
 
 
-<!--FIXME
-Missing (according to config docs)
-Additional pages for enabled plugins:
-Backtrace Browser
-Symbol Viewer
--->
 </chapter>

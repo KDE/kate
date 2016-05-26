@@ -696,54 +696,6 @@ arrow decrease it. Close the bar with a click on the button with an icon on the 
 </listitem>
 </varlistentry>
 
-<varlistentry id="edit-search-in-files">
-<term><menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Search in Files</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Launches the Search and Replace tool view.  This provides more advanced
-functionality than the
-<link linkend="edit-replace"><guimenuitem>Replace</guimenuitem></link> menu 
-item described above, which can only search in the currently open document.
-It allows you to search either within all open files, in a directory of your
-choosing, or within the currently open project.</para>
-<para>This menu item is displayed by the Search &amp; Replace plugin, which is
-enabled by default.  For more information, see 
-<xref linkend="kate-application-plugin-searchinfiles"/></para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-go-to-next-match">
-<term><menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Go to Next Match</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Go to the next match in a search performed by the Search and Replace
-plugin.  To go to the next match in a single file search initiated by the
-<link linkend="edit-find"><guimenuitem>Find</guimenuitem></link> command, use 
-<link linkend="edit-find-next"><guimenuitem>Find Next</guimenuitem></link>.</para>
-<para>This menu item is displayed by the Search &amp; Replace plugin, which is
-enabled by default.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-go-to-previous-match">
-<term><menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Go to Previous Match</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Go to the previous match in a search performed by the Search and Replace
-plugin.  To go to the previous match in a single file search initiated by the
-<link linkend="edit-find"><guimenuitem>Find</guimenuitem></link> command, use 
-<link linkend="edit-find-previous"><guimenuitem>Find Previous</guimenuitem></link>.
-</para>
-<para>This menu item is displayed by the Search &amp; Replace plugin, which is
-enabled by default.</para>
-</listitem>
-</varlistentry>
 </variablelist>
 
 </sect1>
@@ -764,42 +716,6 @@ enabled by default.</para>
 <action>Opens another instance of &kate;</action>.
 The new instance will be identical to your previous instance.
 </para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-document-previous"><!--documents plugin-->
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Alt;<keysym>Up</keysym></keycombo>
-</shortcut>
-<guimenu>View</guimenu>
-<guimenuitem>Previous Document</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Opens the document displayed above the currently open document in the Documents list.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-document-next"><!--documents plugin-->
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Alt;<keysym>Down</keysym></keycombo>
-</shortcut>
-<guimenu>View</guimenu>
-<guimenuitem>Next Document</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Opens the document displayed below the currently open document in the Documents list.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-active"><!--documents plugin-->
-<term><menuchoice>
-<guimenu>View</guimenu>
-<guimenuitem>Show Active</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Displays the currently open document in the Documents list.</para>
 </listitem>
 </varlistentry>
 
@@ -846,6 +762,9 @@ the cursor keys <keysym>Up</keysym> and <keysym>Down</keysym> to navigate in the
 list view. Pressing the &Enter; key or double clicking on an item in the list switches
 the view to the document selected in the list view. This makes switching between
 documents easier, if there are a lot of them open.</para>
+<para>This action is available also using the
+<inlinemediaobject><imageobject><imagedata fileref="tab-duplicate-22.png" format="PNG"/></imageobject></inlinemediaobject>
+icon at the top right of the editor window.</para>
 </listitem>
 </varlistentry>
 
@@ -1012,6 +931,16 @@ horizontally split documents further down.</para>
 </listitem>
 </varlistentry>
 
+</variablelist>
+
+<note><para>Some common actions for split views are available using the
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="view-split-left-right-22.png" format="PNG"/>
+</imageobject></inlinemediaobject></guiicon> button at the top right corner of the editor window
+</para></note>
+<!--view-split-vertical view-split-horizontal view-close-current view-close-inactive view-hide-inactive-->
+
+<variablelist>
+
 <varlistentry>
 <term><menuchoice>
 <guimenu>View</guimenu>
@@ -1030,57 +959,15 @@ is visible will stay visible, and if you assigned shortcuts to the
 commands below those will of course continue to work.</para></listitem>
 </varlistentry>
 
-<varlistentry id="view-toolviews-show-filelist">
+<varlistentry id="view-toolviews-show-plugins">
 <term><menuchoice>
 <guimenu>View</guimenu>
 <guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Documents</guimenuitem>
-</menuchoice> (Documents plugin)</term>
+<guimenuitem>Show <replaceable>Plugin</replaceable></guimenuitem>
+</menuchoice></term>
 <listitem>
-<para>Toggle the display of &kate;'s Documents list</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-toolviews-show-search-and-replace">
-<term><menuchoice>
-<guimenu>View</guimenu>
-<guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Search and Replace</guimenuitem>
-</menuchoice> (Documents plugin)</term>
-<listitem>
-<para>Displays the advanced Search and Replace tool view, which supports
-searching through multiple files.  For more information, see 
-<xref linkend="kate-application-plugin-searchinfiles"/>.</para>
-<para>This menu item is displayed by the Search &amp; Replace plugin, which is
-enabled by default.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-toolviews-show-projects">
-<term><menuchoice>
-<guimenu>View</guimenu>
-<guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Projects</guimenuitem>
-</menuchoice> (Project plugin)</term>
-<listitem>
-<para>Displays the Projects sidebar, which allows you to view a list of open
-projects and a list of files in those projects.</para>
-<para>This menu item is displayed by the Project plugin, which is
-enabled by default.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-toolviews-show-current-project">    
-<term><menuchoice>
-<guimenu>View</guimenu>
-<guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Current Project</guimenuitem>
-</menuchoice> (Project plugin)</term>
-<listitem>
-<para>Displays the Current Project tool view, which allows you to access details
-about the code contained within the currently open project.</para>
-<para>This menu item is displayed by the Project plugin, which is
-enabled by default.</para>
+<para>A list of all enabled plugins. Use the chexbox in front of each item
+to toggle the display of the tool view.</para>
 </listitem>
 </varlistentry>
 
@@ -1300,8 +1187,8 @@ I hope this will come back, but noone got around to implement this again... :/
 </varlistentry>
 
 <!--FIXME
-Show Non-Printable Spaces
-Show Word Count
+Show Non-Printable Spaces Show/hide bounding box around non-printable spaces
+Show Word Count -> Displays the number of words and characters in the document and in the current selection. 
 -->
 
 </variablelist>
@@ -1841,32 +1728,11 @@ in the Editing tab in <menuchoice>
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
 
-<varlistentry id="tools-create-snippet"><!--snippet plugin-->
-<term><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Create Snippet</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Create a new snippet, which is a reusable chunk of text you
-may insert in any part of any document.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="tools-snippets">
-<term><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Snippets...</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Display a list of available snippets.</para>
-</listitem>
-</varlistentry>
-
 </variablelist>
 </sect1>
 
 <sect1 id="settings-help-menu">
-<title>The Settings and Help Menu</title> 
+<title>The Settings and Help Menu</title>
 
 <para>
 &kate; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>
@@ -1874,6 +1740,9 @@ menu items, for more information read the sections about the <ulink url="help:/f
 >Settings Menu</ulink> and <ulink url="help:/fundamentals/ui.html#menus-help">Help Menu</ulink>
 of the &kde; Fundamentals.
 </para>
-
+<!--FIXME
+Show Tabs
+context menu Close Documents, Close Other Documents, Copy Path, Open Containg Folder
+-->
 </sect1>
 </chapter>

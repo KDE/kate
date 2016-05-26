@@ -265,29 +265,6 @@ not be reopened during startup, because they are not accessible anymore.
 </listitem>
 </varlistentry>
 
-<varlistentry id="file-close-except">
-<term><menuchoice>
-<guimenu>File</guimenu>
-<guisubmenu>Close Except</guisubmenu>
-</menuchoice> (Close Except/Like plugin)</term>
-<listitem>
-<para><action>Close</action> all documents in the file list, 
-<emphasis>except</emphasis> those which match the path selected from this
-submenu.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="file-close-like">
-<term><menuchoice>
-<guimenu>File</guimenu>
-<guisubmenu>Close Like</guisubmenu>
-</menuchoice> (Close Except/Like plugin)</term>
-<listitem>
-<para><action>Close</action> all documents in the file list which match the path 
-selected from this submenu.</para>
-</listitem>
-</varlistentry>
-
 <varlistentry id="file-quit">
 <term><menuchoice>
 <shortcut>

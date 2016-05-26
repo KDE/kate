@@ -43,7 +43,8 @@ The available application plugins are:
 <para><link linkend="kate-application-plugin-build">Build Plugin</link> - Compile or Make and parse error messages</para>
 </listitem>
 <listitem>
-<para>Close Except/Like - Close group of documents based on a common path or file extension</para>
+<para><link linkend="kate-application-plugin-closeexceptlike">Close Except/Like</link> 
+- Close group of documents based on a common path or file extension</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-ctags">CTags</link> -
@@ -74,7 +75,8 @@ simple &gdb; frontend</para>
 is a Autocompletion Plugin for D, using the DCD autocompletion server</para>
 </listitem>
 <listitem>
-<para>Open Header - Opens the corresponding .h/[.cpp|.c] file</para>
+<para><link linkend="kate-application-plugin-openheader">Open Header</link>
+- Opens the corresponding .h/[.cpp|.c] file</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-projects">Project Plugin</link> - Project plugin for kate</para>
@@ -104,7 +106,7 @@ query on SQL databases</para>
 <para><link linkend="kate-application-plugin-konsole">Terminal tool view</link> - Tool view embedding a terminal widget</para>
 </listitem>
 <listitem>
-<para>Text Filter - Easy text filtering</para>
+<para><link linkend="kate-application-plugin-textfilter">Text Filter</link> - Easy text filtering</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements,
@@ -308,8 +310,75 @@ writing much of this section.</para>
 </sect2>
 </sect1>
 
-<!--FIXME Close Except/Like
-menu file_close_except + file_close_like-->
+<sect1 id="kate-application-plugin-closeexceptlike">
+
+<title>Close Except/Like Plugin</title>
+
+<sect2 id="closeexceptlike-intro">
+<title>Introduction</title>
+
+<para>This plugin allows you to close a group of documents based on their extension and path.</para>
+
+</sect2>
+
+<sect2 id="closeexceptlike-using">
+<title>Using the Close Except/Like Plugin</title>
+
+<para>Assumed you have these documents opened in &kate;:</para>
+
+<simplelist>
+<member>/tmp/subfolder/test.h</member>
+<member>/tmp/test.cpp</member>
+<member>/tmp/test.txt</member>
+</simplelist>
+
+<para>Then you have the following options to close documents as displayed in the screenshot:</para>
+
+<screenshot id="screenshot-closeexceptlike">
+<screeninfo>Close Except</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="close-except-like.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>Use the checkbox in the last item of the list to enable or disable a confirmation dialog.
+The selected option will be applied to both close actions.
+</para>
+
+</sect2>
+
+<sect2 id="closeexceptlike-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+<varlistentry id="file-close-except">
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>Close Except</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para><action>Close</action> all open documents, <emphasis>except</emphasis>
+those which match the path or file extension selected from the submenu.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-like">
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>Close Like</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para><action>Close</action> all open documents
+which match the path or file extension selected from the submenu.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
 
 <sect1 id="kate-application-plugin-ctags">
 <!--https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/-->
@@ -1238,8 +1307,52 @@ language in &kate;
 </sect1>
 
 
-<!--FIXME Open header
-menu File Open header-->
+<sect1 id="kate-application-plugin-openheader">
+
+<title>Open Header Plugin</title>
+
+<sect2 id="openheader-using">
+<title>Using the Open Header Plugin</title>
+
+<para>When editing C or C++ code, this command will switch between a header file and
+its corresponding C/C++ file or vice verca.</para>
+
+<para>For example, if you are editing <filename>myclass.cpp</filename>, this action will change
+to <filename>myclass.h</filename> if this file is available in the same folder.</para>
+
+<para>Pairs of the following filename extensions will work:</para>
+
+<simplelist>
+<member>Header files: h, H, hh, hpp</member>
+<member>Source files: c, cpp, cc, cp, cxx</member>
+</simplelist>
+
+</sect2>
+
+<sect2 id="openheader-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+
+<varlistentry id="file-openheader">
+<term><menuchoice>
+<shortcut>
+<keycap>F12</keycap>
+</shortcut>
+<guimenu>File</guimenu>
+<guisubmenu>Open .h/.cpp/.c</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para><action>Open</action> the corresponding header or source files for the active document.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
 
 <sect1 id="kate-application-plugin-projects">
 <!--https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate -->
@@ -2545,11 +2658,92 @@ so the calling program is aware you have finished editing the file.</para></list
 
 </sect1>
 
-<!--FIXME Text Filter
-menu Tools Edit Filter-->
+<sect1 id="kate-application-plugin-textfilter">
 
-<!-- from doc/kate-addons/xmlcheck.docbook -->
+<title>Text Filter Plugin</title><!--Name is completely misleading and should be changed-->
+
+<sect2 id="textfilter-using">
+<title>Using the Text Filter Plugin</title>
+
+<para>You can use this plugin to execute shell commands. A selection will
+be used as argument for the shell command, the output will either replace the selection
+or copied to the clipboard.
+</para>
+
+<itemizedlist>
+<title>Examples:</title>
+<listitem><para>
+<command>less /etc/fstab</command> - paste the context of this file or copy it to the clipboard
+</para></listitem>
+<listitem><para>
+<command>wc</command> - count lines, words and characters of the selection and
+paste this into the document or copy it to the clipboard
+</para></listitem>
+<listitem><para>
+<command>sort</command> - sort lines of the selection and paste the result into
+the document or copy it to the clipboard
+</para></listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2 id="textfilter-menu">
+<title>Menu Structure</title>
+
+<variablelist>
+
+<varlistentry id="tools-textfilter">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>\</keycap></keycombo><!--FIXME shortcut does not work with a german keyboard \ = AltGr+\-->
+</shortcut>
+<guimenu>Tools</guimenu>
+<guisubmenu>Filter Text</guisubmenu>
+</menuchoice></term>
+<listitem>
+
+<para><action>Opens</action> the Text Filter dialog:</para>
+
+<screenshot id="screenshot-filtertext">
+<screeninfo>Text Filter dialog</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="filtertext.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>Enter the shell command into the combobox or select a previous command from the history.</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Copy the result instead of pasting it</guilabel></term>
+<listitem>
+<para>Copy the result to clipboard leaving a document unchanged.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Merge STDOUT and STDERR</guilabel></term>
+<listitem>
+<para>
+If checked, an output from STDOUT and STDERR will be merged and no errors will be reported.
+Otherwise, STDERR will be displayed as a passive message.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
 <sect1 id="kate-application-plugin-xmlcheck">
+<!-- from doc/kate-addons/xmlcheck.docbook -->
 <sect1info>
 <authorgroup><author>
 &Daniel.Naber; &Daniel.Naber.mail;
@@ -2611,6 +2805,7 @@ in the <guilabel>Application</guilabel> / <guilabel>Plugins</guilabel> section a
 </sect1>
 
 <sect1 id="kate-application-plugin-xmltools">
+<!-- from doc/kate-addons/xmlcheck.docbook -->
 <sect1info>
 <authorgroup><author>
 &Daniel.Naber; &Daniel.Naber.mail;

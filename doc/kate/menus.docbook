@@ -1195,48 +1195,6 @@ Show Word Count -> Displays the number of words and characters in the document a
 
 </sect1>
 
-<sect1 id="projects-menu">
-<title>The Projects Menu</title>
-
-<para>The <guimenu>Projects</guimenu> menu allows you to switch between
-currently open projects.  It is displayed by the Project plugin.</para>
-
-<variablelist>
-<title>Menu Items</title>
-
-<!--FIXME: these shortcuts conflict with the preexisting Build plugin
-            https://bugs.kde.org/show_bug.cgi?id=328170 -->
-
-<varlistentry id="projects-back">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo>
-</shortcut>
-<guimenu>Projects</guimenu>
-<guimenuitem>Back</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Switch to the previous project.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="projects-forward">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo>
-</shortcut>
-<guimenu>Projects</guimenu>
-<guimenuitem>Forward</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Switch to the next project.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-
-</sect1>
-
 <sect1 id="bookmarks-menu">
 <title>The Bookmarks Menu</title>
 

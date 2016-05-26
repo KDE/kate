@@ -74,7 +74,7 @@ simple &gdb; frontend</para>
 <para>Open Header - Opens the corresponding .h/[.cpp|.c] file</para>
 </listitem>
 <listitem>
-<para>Project Plugin - Project plugin for kate</para>
+<para><link linkend="kate-application-plugin-projects">Project Plugin</link> - Project plugin for kate</para>
 </listitem>
 <listitem>
 <para>Replicode</para>
@@ -976,9 +976,337 @@ https://kate-editor.org/2014/02/20/lumen-a-code-completion-plugin-for-the-d-prog
 <!--FIXME Open header
 menu File Open header-->
 
-<!--FIXME Project
-https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
-Projects Previous Next Goto-->
+<sect1 id="kate-application-plugin-projects">
+<!--https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate -->
+
+<title>Project Plugin</title>
+
+<sect2 id="project-intro">
+<title>Introduction</title>
+
+<para>The basic idea of the Project plugin is to have a structured list of
+files belonging to the project with the following properties:</para>
+
+<orderedlist>
+<listitem><para>Provide a structured view of the files</para></listitem>
+<listitem><para>Make it easy and very fast to open and switch projects</para></listitem>
+<listitem><para>Support search and replace for a project</para></listitem>
+<listitem><para>Provide simple auto completion</para></listitem>
+<listitem><para>Make it simple to quickly open files in the project</para></listitem>
+<listitem><para>Support for building the project</para></listitem>
+</orderedlist>
+</sect2>
+
+<sect2 id="project-view">
+<title>Structured View of the Files</title>
+
+<para>Once the Project plugin is loaded in the &kate; configuration page, open a file
+in a project and a sidebar
+appears that lists all projects as well as the project files as follows:</para>
+
+<screenshot id="screenshot-project-view">
+<screeninfo>Project View</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="project-view.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>As you can see, the currently active project is <quote>Kate</quote>, and it’s contents is
+listed in the tree view. Clicking on files in the tree view opens the file in the
+editor. Further, a context menu is provided with which you can open files with
+other applications, such as a <filename class="extension">.ui</filename> file with Qt Designer.</para>
+<para>You can filter the items by typing parts of the file name you are looking for into the search bar
+at the bottom of the list.</para>
+</sect2>
+
+<sect2 id="project-switch">
+<title>Switching Projects</title>
+
+<para>The idea is that you never have to open a project manually, this is even not
+supported at all. Hence, what happens if you open a file, the Project plugin quickly
+scans the folder and its parent folders for a <filename>.kateproject</filename> file. If found, the project
+is automatically loaded.</para>
+
+<para>Furthermore, if you open another document in &kate;, that belongs to another project,
+the Project plugin automatically switches the current project. So intuitively, always the
+correct project is active. Of course, you can also switch the currently active project
+using the combo box.</para>
+
+</sect2>
+
+<sect2 id="project-search-replace">
+<title>Search and Replace in Projects</title>
+
+<para>&kate; has a Search and Replace plugin that shows up in the
+bottom sidebar. If a project is loaded, open the Search and Replace sidebar,
+and switch to the mode to search and replace in the current project:</para>
+
+<screenshot id="screenshot-projects-search">
+<screeninfo>Search in Projects</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="projects-search.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="project-autocompletition">
+<title>Simple Auto Completion</title>
+
+<para>With the knowledge of all files belonging to a project, the Project plugin provides
+simple auto completion facilities based on CTags. If a project is initially opened, CTags
+parses all project files in a background thread and saves the CTags information to
+<filename class="directory">/tmp</filename>. This file then is used to populate the auto
+completion popup in &kate;.</para>
+
+<para>In contrast, without this auto completion, &kate; is only capable of showing auto
+completion items based on the words in the current file. So the auto completion provided
+by the Project plugin is much more powerful.</para>
+
+<screenshot id="screenshot-completion-search">
+<screeninfo>Completion in Projects</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="project-completition.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>If CTags is missing, a passive popup warns you about this issue. It is also noteworthy,
+that the CTags file in <filename class="directory">/tmp</filename> is cleaned up when &kate;
+exits, so the plugin does not pollute any folder with unwanted files.</para>
+
+</sect2>
+
+<sect2 id="project-quickopen">
+<title>Quick Opening Files</title>
+
+<para>As clicking on files in the tree view is not the fastest way to open a file, &kate;
+provides a built-in quick open mechanism you can activate with
+<keycombo action="simul">&Ctrl;&Alt;<keycap>O</keycap></keycombo>.
+What you the get is a list like this:</para>
+
+<screenshot id="screenshot-project-quickopen">
+<screeninfo>Quick Open</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>You can filter by typing parts of the file name you are looking for, and you can
+also navigate with the arrow keys and page up/down through the list.
+Hitting &Enter; activates the selected file, while &Esc; hides the quick open view again.</para>
+
+<para>Further, the quick open remembers the previous file. So when you change to the
+quick open view the previously activated file is automatically selected and you just
+need to hit &Enter;, which comes very handy at times.</para>
+
+</sect2>
+
+<sect2 id="project-build">
+<title>Support for Building the Project</title>
+
+<para>Another feature is to have support for the <link linkend="projects-build-support">Build Plugin</link>,
+so that it automatically is configured correctly.</para>
+
+</sect2>
+
+<sect2 id="project-create">
+<title>Creating Projects</title>
+
+<sect3 id="project-autoload">
+<!--https://kate-editor.org/2014/10/12/autoloading-projects-plugin-kate-5/-->
+<title>Loading Projects Automatically</title>
+
+<para>The Project plugin has an auto-loading feature. You can read the file list from
+the version control system. To this end, auto-loading for the respective version control
+system needs to be enabled in the settings (enabled by default):
+</para>
+
+<screenshot id="screenshot-project-configure">
+<screeninfo>Project Plugin Configuration</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="project-configure.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+</sect3>
+
+<sect3 id="project-manual">
+<title>Creating Projects Manually</title>
+<para>
+You just have to create a <filename>.kateproject</filename> file in the root folder of the project.
+For instance, the <quote>Kate</quote> <filename>.kateproject</filename> file looks like this:
+</para>
+
+<screen>
+{
+  "name": "Kate"
+, "files": [ { "git": 1 } ]
+}
+</screen>
+
+<para>The file content is written in JSON syntax. The project name is <quote>Kate</quote>, and
+the files contained in should be read from git.
+</para>
+
+<para>
+Also supported instead of <literal>git</literal> is subversion through <literal>svn</literal> and
+mercurial through <literal>hg</literal>.
+If you do not want to read from a version control system, you can tell it to recursively
+load files from directories as follows:
+</para>
+
+<screen>
+{
+  "name": "Kate"
+, "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
+}
+</screen>
+
+<para>
+Here, subfolders and filters define what’s part of the project.
+You can also mix version control and files based on filters.
+</para>
+
+<para id="projects-build-support">If you want to add support for the Build plugin, you could write a
+<filename>.kateproject</filename> like this:</para>
+
+<screen>
+{
+  "name": "Kate"
+, "files": [ { "git": 1 } ]
+, "build": {
+    "directory": "build"
+  , "build": "make all"
+  , "clean": "make clean"
+  , "install": "make install"
+  }
+}
+</screen>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="project-current">
+<title>Current Project</title>
+
+<para>Using <menuchoice><shortcut><keycombo action="simul">&Alt;<keycap>1</keycap></keycombo></shortcut>
+<guimenu>Projects</guimenu><guimenuitem>Go To</guimenuitem></menuchoice> you can open the
+<guilabel>Current Project</guilabel> view at the bottom of the editor window with four tabs:</para>
+
+<screenshot id="screenshot-project-current">
+<screeninfo>Current Project</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="project-current-analysis.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<variablelist>
+
+<varlistentry>
+<term>
+<guimenu>Terminal</guimenu>
+</term>
+<listitem>
+<para>A <link linkend="kate-application-plugin-konsole">Terminal emulator</link> starting in the
+root folder of the project.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<guimenu>Code Index</guimenu>
+</term>
+<listitem>
+<para>Entering characters into the search bar will start the search and display matching names
+of functions, classes, symbols &etc; together with kind, filename and line number.</para>
+<para>Select an item in the list to jump to the corresponding line in the source file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<guimenu>Code Analysis</guimenu>
+</term>
+<listitem>
+<para>Click <guilabel>Start Analysis</guilabel> to run a static code analysis for the C and C++
+using <command>cppcheck</command> and to generate a report showing filename, line number, severity
+(style, warning &etc;) and the issue found.</para>
+<para>Select an item in the list to jump to the corresponding line in the source file.</para>
+</listitem>
+</varlistentry>
+<!--FIXME options for cppcheck? configurable?-->
+<varlistentry>
+<term>
+<guimenu>Notes</guimenu>
+</term>
+<listitem>
+<para>Text entered in this tab will be saved in the file
+<filename><replaceable>projectname</replaceable>.kateproject.notes</filename>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="projects-menu">
+<title>The Projects Menu</title>
+
+<para>The <guimenu>Projects</guimenu> menu allows you to switch between
+currently open projects.  It is displayed by the Project plugin.</para>
+
+<variablelist>
+
+<!--FIXME: these shortcuts conflict with the preexisting Build plugin
+            https://bugs.kde.org/show_bug.cgi?id=328170 -->
+
+<varlistentry id="projects-back">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo>
+</shortcut>
+<guimenu>Projects</guimenu>
+<guimenuitem>Back</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Switch to the previous project.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="projects-forward">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo>
+</shortcut>
+<guimenu>Projects</guimenu>
+<guimenuitem>Forward</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Switch to the next project.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="projects-goto">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Alt;<keycap>1</keycap></keycombo>
+</shortcut>
+<guimenu>Projects</guimenu><guimenuitem>Go To</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Ppen the <guilabel>Current Project</guilabel> view at the bottom of the editor window.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+<!--
+context menu Project->Lookup:xxx
+-->
+
+</sect1>
 
 <!--FIXME Replicode
 Projects Replicode run / stop-->

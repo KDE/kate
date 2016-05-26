@@ -29,7 +29,6 @@
 
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/application.h>
-//#include <ktexteditor/documentmanager.h>
 #include <ktexteditor/mainwindow.h>
 
 #include <ktexteditor/view.h>

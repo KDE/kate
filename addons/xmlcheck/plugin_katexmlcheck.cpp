@@ -59,10 +59,8 @@
 
 #include <QAction>
 #include <kcursor.h>
-#include <kcomponentdata.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-//#include <kstandarddirs.h>
 #include <QTemporaryFile>
 #include <kpluginfactory.h>
 #include <QProcess>

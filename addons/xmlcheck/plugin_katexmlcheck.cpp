@@ -57,7 +57,6 @@
 #include <QTreeWidget>
 #include <QHeaderView>
 
-#include <kdefakes.h> // for setenv
 #include <QAction>
 #include <kcursor.h>
 #include <kcomponentdata.h>

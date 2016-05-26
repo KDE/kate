@@ -83,7 +83,8 @@ is a Autocompletion Plugin for D, using the DCD autocompletion server</para>
 <para>Replicode</para>
 </listitem>
 <listitem>
-<para>Rust code completion - Code completion for Rust source code</para>
+<para><link linkend="kate-application-plugin-rust">Rust code completion</link>
+- Code completion for Rust source code</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-searchinfiles">Search &amp; Replace</link> -
@@ -1575,8 +1576,51 @@ context menu Project->Lookup:xxx
 <!--FIXME Replicode
 Projects Replicode run / stop-->
 
-<!--FIXME Rust
-Edit Find definition-->
+<sect1 id="kate-application-plugin-rust">
+<!--https://blogs.kde.org/2015/05/18/basic-code-completion-rust-kdes-kate-and-later-kdevelop
+https://blogs.kde.org/2015/05/22/updates-kates-rust-plugin-syntax-highlighting-and-rust-source-mime-type-->
+<title>Rust code completion Plugin</title>
+
+<para>This plugin provides code completion for the <ulink url="https://www.rust-lang.org/">Rust</ulink>
+programming language.</para>
+
+<para>Once you have enabled the Rust code completion item in the plugin page, a new
+page will appear in your &kate; configuration dialog.
+</para>
+
+<screenshot id="screenshot-rust-configuration">
+<screeninfo>Rust Configuration</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="rust-configuration.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>Edit the command to run <ulink url="https://github.com/phildawes/racer">Racer</ulink>,
+an utility intended to provide Rust code completion for editors.</para>
+
+<para>You also need the Rust source code and have to provide the path to the source tree.
+</para>
+
+<para>While typing code a popup list appears with items for completion:
+</para>
+
+<screenshot id="screenshot-rust-completion">
+<screeninfo>Rust Completion</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="rust-completion.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para>In addition to code completion popups, the plugin also installs
+a <guimenuitem>Go to Definition</guimenuitem> action in the <guimenu>Edit</guimenu> menu and
+in the context menu. You can configure a keyboard shortcut for it as well.
+</para>
+
+<para>This action will open the document containing the definition if needed, activate
+its view and place the cursor at the start of the definition.
+</para>
+
+</sect1>
 
 <sect1 id="kate-application-plugin-searchinfiles">
 <sect1info>

@@ -44,7 +44,7 @@ The available application plugins are:
 <para><link linkend="kate-application-plugin-build">Build Plugin</link> - Compile or Make and parse error messages</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-closeexceptlike">Close Except/Like</link> 
+<para><link linkend="kate-application-plugin-closeexceptlike">Close Except/Like</link>
 - Close group of documents based on a common path or file extension</para>
 </listitem>
 <listitem>
@@ -532,7 +532,7 @@ You place the mouse cursor on the language object like function, symbol &etc;
 that you are interested in and then select one of the actions in the
 <guimenu>CTags</guimenu> menu to jump to the line and file where the object is
 defined or declared.</para>
-<para>By thefault the actions in the <guimenu>CTags</guimenu> menu have no shortcuts assigned.
+<para>By fault the actions in the <guimenu>CTags</guimenu> menu have no shortcuts assigned.
 Use the <ulink url="help:/fundamentals/shortcuts.html">keyboard shortcut editor</ulink>
 to configure your own shortcuts.</para>
 
@@ -916,7 +916,7 @@ editing area.</para>
 </shortcut>
 <guimenu>View</guimenu>
 <guimenuitem>Previous Document</guimenuitem>
-</menuchoice> (Documents plugin)</term>
+</menuchoice></term>
 <listitem>
 <para>Opens the document displayed above the currently open document in the Documents list.</para>
 </listitem>
@@ -929,7 +929,7 @@ editing area.</para>
 </shortcut>
 <guimenu>View</guimenu>
 <guimenuitem>Next Document</guimenuitem>
-</menuchoice> (Documents plugin)</term>
+</menuchoice></term>
 <listitem>
 <para>Opens the document displayed below the currently open document in the Documents list.</para>
 </listitem>
@@ -939,7 +939,7 @@ editing area.</para>
 <term><menuchoice>
 <guimenu>View</guimenu>
 <guimenuitem>Show Active</guimenuitem>
-</menuchoice> (Documents plugin)</term>
+</menuchoice></term>
 <listitem>
 <para>Displays the currently open document in the Documents list.</para>
 </listitem>
@@ -1728,7 +1728,7 @@ currently open projects.  It is displayed by the Project plugin.</para>
 <guimenu>Projects</guimenu><guimenuitem>Go To</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>Ppen the <guilabel>Current Project</guilabel> view at the bottom of the editor window.</para>
+<para>Open the <guilabel>Current Project</guilabel> view at the bottom of the editor window.</para>
 </listitem>
 </varlistentry>
 
@@ -2272,7 +2272,7 @@ than one file type pressing the &Shift; while adding types.</para></listitem>
 
 <varlistentry>
 <term><guilabel>Name</guilabel></term>
-<listitem><para>The name will be shown in the completiton list.</para></listitem>
+<listitem><para>The name will be shown in the completion list.</para></listitem>
 </varlistentry>
 
 <varlistentry>

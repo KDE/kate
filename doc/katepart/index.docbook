@@ -58,8 +58,7 @@
 <releaseinfo>Frameworks 5.21</releaseinfo>
 
 <abstract>
-<para>&katepart; is a fully featured editor component by &Qt; and &kde;
-applications.</para>
+<para>&katepart; is a fully featured editor component by &kde;.</para>
 </abstract>
 
 <keywordset>
@@ -77,15 +76,15 @@ applications.</para>
 
 <para>
 &katepart; is a fully featured text editor component used by many &Qt; and &kde;
-applications.  
-&katepart; is more than a text editor; it is meant to be a programmer's editor, 
-and could be considered as at least a partial alternative to more powerful 
+applications.
+&katepart; is more than a text editor; it is meant to be a programmer's editor,
+and could be considered as at least a partial alternative to more powerful
 editors. One of &katepart;'s main features is the colorized syntax, customized
 for many different programming languages such as: C/C++, &Java;, Python, Perl,
 Bash, Modula 2, &HTML;, and Ada.
 </para>
 <para>&kwrite; is a simple text editor application based on &katepart;.  It has
-a single document interface (<acronym>SDI</acronym>) allowing you to edit one 
+a single document interface (<acronym>SDI</acronym>) allowing you to edit one
 file at the time per window.  Since &kwrite; is a very simple implementation of
 &katepart;, it does not require its own documentation.  If you know how to use
 &kwrite;, you can use &katepart; anywhere!

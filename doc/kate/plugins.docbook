@@ -172,7 +172,7 @@ in this case this would be</para>
 
 <para>Clicking <guibutton>OK</guibutton> will start indexing.
 When indexing is finished, open the toolview <guilabel>Backtrace Browser</guilabel>.</para>
-<para>Now you can load a backtrace from the clipboard (&eg;. when you clicked
+<para>Now you can load a backtrace from the clipboard (&eg;, when you clicked
 <guibutton>Copy to Clipboard</guibutton> in DrKonqi) or from a file.</para>
 
 </sect2>
@@ -555,7 +555,7 @@ of language objects like functions, classes, symbols &etc; together with type an
 <varlistentry id="ctags-jumpback">
 <term><menuchoice>
 <guimenu>CTags</guimenu>
-<guisubmenu>Jump one step back</guisubmenu>
+<guisubmenu>Jump back one step</guisubmenu>
 </menuchoice></term>
 <listitem>
 <para>Navigate back in the history to the last visited tag.</para>
@@ -576,7 +576,7 @@ language objects matching the current text selection in the list.</para>
 <varlistentry id="ctags-gotodeclaration">
 <term><menuchoice>
 <guimenu>CTags</guimenu>
-<guisubmenu>Goto Declaration</guisubmenu>
+<guisubmenu>Go to Declaration</guisubmenu>
 </menuchoice></term>
 <listitem>
 <para>If the cursor is in a definition object this will open the document
@@ -588,7 +588,7 @@ place the cursor at the start of the declaration.</para>
 <varlistentry id="ctags-gotodefinition">
 <term><menuchoice>
 <guimenu>CTags</guimenu>
-<guisubmenu>Goto Definition</guisubmenu>
+<guisubmenu>Go to Definition</guisubmenu>
 </menuchoice></term>
 <listitem>
 <para>If the cursor is in a declaration object this will open the document
@@ -956,7 +956,7 @@ editing area.</para>
 <varlistentry>
 <term><guilabel>Background Shading</guilabel></term>
 <listitem><para>This section allows you to enable or disable the background
-shading visualization of your recent activity, and chose which colors to use if
+shading visualization of your recent activity, and choose which colors to use if
 enabled.</para></listitem>
 </varlistentry>
 

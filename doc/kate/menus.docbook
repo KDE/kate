@@ -943,7 +943,7 @@ commands below those will of course continue to work.</para></listitem>
 <guimenuitem>Show <replaceable>Plugin</replaceable></guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>A list of all enabled plugins. Use the chexbox in front of each item
+<para>A list of all enabled plugins. Use the checkbox in front of each item
 to toggle the display of the tool view.</para>
 </listitem>
 </varlistentry>

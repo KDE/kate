@@ -114,7 +114,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView( KTextEditor::Plugin *plugin,
     , KXMLGUIClient()
     , m_mainWindow(mainwin)
 {
-    KXMLGUIClient::setComponentName(QLatin1String("katexmlcheck"), i18n ("Kate XML check?")); // where i18n resources?
+    KXMLGUIClient::setComponentName(QLatin1String("katexmlcheck"), i18n ("Kate XML check")); // where i18n resources?
     setXMLFile(QLatin1String("ui.rc"));
 
     dock = m_mainWindow->createToolView(plugin, "kate_plugin_xmlcheck_ouputview", KTextEditor::MainWindow::Bottom, QIcon::fromTheme("misc"), i18n("XML Checker Output"));

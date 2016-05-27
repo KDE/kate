@@ -163,7 +163,7 @@ in this case this would be</para>
 <para>On the configuration page add the directories containing the source code.</para>
 
 <screenshot id="screenshot-backtrace-settings">
-<screeninfo>Backtrace Bowser</screeninfo>
+<screeninfo>Backtrace Browser</screeninfo>
 <mediaobject>
 <imageobject><imagedata fileref="backtrace-setting.png" format="PNG"/></imageobject>
 <caption>Configure Paths in Backtrace browser tool view</caption>
@@ -532,7 +532,7 @@ You place the mouse cursor on the language object like function, symbol &etc;
 that you are interested in and then select one of the actions in the
 <guimenu>CTags</guimenu> menu to jump to the line and file where the object is
 defined or declared.</para>
-<para>By fault the actions in the <guimenu>CTags</guimenu> menu have no shortcuts assigned.
+<para>By default the actions in the <guimenu>CTags</guimenu> menu have no shortcuts assigned.
 Use the <ulink url="help:/fundamentals/shortcuts.html">keyboard shortcut editor</ulink>
 to configure your own shortcuts.</para>
 
@@ -543,7 +543,7 @@ of language objects like functions, classes, symbols &etc; together with type an
 <para>Select an item in the list to jump to the corresponding line in the source file.</para>
 <!--FIXME why Tag Type here but Name Kind in Project plugin, is there really any difference?-->
 
-<!--FIXME completition as in Project plugin? -->
+<!--FIXME completion as in Project plugin? -->
 
 </sect2>
 
@@ -1317,7 +1317,7 @@ displaying documentation and several types of completion:
 </screenshot>
 
 <para>Basic Completion:</para>
-<screenshot id="screenshot-lumen-completition">
+<screenshot id="screenshot-lumen-completion">
 <screeninfo>Basic Completion</screeninfo>
 <mediaobject>
 <imageobject><imagedata fileref="lumen-completition.png" format="PNG"/></imageobject>
@@ -1370,7 +1370,7 @@ language in &kate;
 <title>Using the Open Header Plugin</title>
 
 <para>When editing C or C++ code, this command will switch between a header file and
-its corresponding C/C++ file or vice verca.</para>
+its corresponding C/C++ file or vice versa.</para>
 
 <para>For example, if you are editing <filename>myclass.cpp</filename>, this action will change
 to <filename>myclass.h</filename> if this file is available in the same folder.</para>
@@ -1444,7 +1444,7 @@ appears that lists all projects as well as the project files as follows:</para>
 </mediaobject>
 </screenshot>
 
-<para>As you can see, the currently active project is <quote>Kate</quote>, and it’s contents is
+<para>As you can see, the currently active project is <quote>Kate</quote>, and its contents is
 listed in the tree view. Clicking on files in the tree view opens the file in the
 editor. Further, a context menu is provided with which you can open files with
 other applications, such as a <filename class="extension">.ui</filename> file with Qt Designer.</para>

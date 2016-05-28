@@ -477,7 +477,7 @@ directories containing the source code and regenerate the common CTags database.
 </para>
 
 <para>For more information about all available options please read the CTags man page. This man page
-is available in &khelpcenter;. and you can also enter the &URL; <emphasis>man/:ctags</emphasis>
+is available in &khelpcenter; and you can also enter the &URL; <emphasis>man/:ctags</emphasis>
 directly into &konqueror;
 </para>
 
@@ -513,7 +513,7 @@ regenerate the session specific CTags database.</para>
 <caption>Configure CTags Session Database</caption>
 </mediaobject>
 </screenshot>
-<para>Select an other CTags database file, configure the CTags command or revert
+<para>Select another CTags database file, configure the CTags command or revert
 to the default command.</para>
 </listitem>
 </varlistentry>
@@ -538,7 +538,7 @@ to configure your own shortcuts.</para>
 
 <para>Alternatively use the search field on the <guilabel>Lookup</guilabel> tab of the
 CTags view.</para>
-<para>Entering characters into the search filed will start the search and display matching names
+<para>Entering characters into the search field will start the search and display matching names
 of language objects like functions, classes, symbols &etc; together with type and filename.</para>
 <para>Select an item in the list to jump to the corresponding line in the source file.</para>
 <!--FIXME why Tag Type here but Name Kind in Project plugin, is there really any difference?-->

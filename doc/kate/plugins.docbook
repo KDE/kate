@@ -2786,7 +2786,7 @@ or copied to the clipboard.
 <itemizedlist>
 <title>Examples:</title>
 <listitem><para>
-<command>less /etc/fstab</command> - paste the context of this file or copy it to the clipboard
+<command>less /etc/fstab</command> - paste the contents of this file or copy it to the clipboard
 </para></listitem>
 <listitem><para>
 <command>wc</command> - count lines, words and characters of the selection and

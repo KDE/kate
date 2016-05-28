@@ -32,11 +32,19 @@ struct UrlInfo
     UrlInfo(QString path)
         : cursor(KTextEditor::Cursor::invalid())
     {
-        // convert to an url
-        const QRegularExpression withProtocol(QStringLiteral("^[a-zA-Z]+://")); // TODO: remove after Qt supports this on its own
-        if (withProtocol.match(path).hasMatch()) {
+        // file:// needs special handling, see bug 363297
+        if (path.startsWith(QStringLiteral("file://"))) {
+            path.remove(0, 7);
+            url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
+        }
+
+        // else look if generic protocol matches
+        else if (QRegularExpression(QStringLiteral("^[a-zA-Z]+://")).match(path).hasMatch()) {
             url = QUrl::fromUserInput(path);
-        } else {
+        }
+
+        // fallback to local file
+        else {
             url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
         }
 
@@ -44,8 +52,7 @@ struct UrlInfo
             // Allow opening specific lines in documents, like mydoc.cpp:10
             // also supports columns, i.e. mydoc.cpp:10:42
             // ignores trailing colons, as compile errors often use that format
-            static const QRegularExpression pattern(QStringLiteral(":(\\d+)(?::(\\d+))?:?$"));
-            const auto match = pattern.match(path);
+            const auto match = QRegularExpression(QStringLiteral(":(\\d+)(?::(\\d+))?:?$")).match(path);
             if (match.isValid()) {
                 path.chop(match.capturedLength());
                 int line = match.captured(1).toInt() - 1;

@@ -226,7 +226,7 @@
       <li xml:lang="zh-TW">拼字檢查</li>
       <li>CR, CRLF, LF newline support</li>
       <li xml:lang="ar">دعم أسطر CR، وCRLF وLF الجديدة</li>
-      <li xml:lang="ca">Implementació per línia nova CR, CRLF, LF</li>
+      <li xml:lang="ca">Implementació de línia nova CR, CRLF, LF</li>
       <li xml:lang="ca-valencia">Implementació per línia nova CR, CRLF, LF</li>
       <li xml:lang="de">Unterstützung für CR, CRLF, LF am Zeilenende</li>
       <li xml:lang="el">CR, CRLF, LF για υποστήριξη αλλαγής γραμμής</li>
@@ -259,7 +259,7 @@
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="ar">دعم التّرميز (utf-8، وutf-16 وآسكي وغيرها)</li>
-      <li xml:lang="ca">Implementació de codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
+      <li xml:lang="ca">Admet codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="ca-valencia">Implementació de codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="de">Unterstützung für Kodierungen (utf-8, utf-16, ascii usw.)</li>
       <li xml:lang="el">Υποστήριξη κωδικοποίησης (utf-8, utf-16, ascii etc.)</li>
@@ -423,7 +423,7 @@
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
       <li>Infinite undo/redo support</li>
       <li xml:lang="ar">دعم عدد متناهٍ من الإعادات والتّكرارات</li>
-      <li xml:lang="ca">Implementació de desfer/refer infinits</li>
+      <li xml:lang="ca">Admet desfer/refer infinits</li>
       <li xml:lang="ca-valencia">Implementació de desfer/refer infinits</li>
       <li xml:lang="de">Unterstützung für unbegrenztes Zurücknehmen und Wiederherstellen</li>
       <li xml:lang="el">Υποστήριξη για απεριόριστη αναίρεση/επαναφορά</li>
@@ -524,7 +524,7 @@
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Auto completion support</li>
       <li xml:lang="ar">دعم الإكمال الآليّ</li>
-      <li xml:lang="ca">Implementació de compleció automàtica</li>
+      <li xml:lang="ca">Admet compleció automàtica</li>
       <li xml:lang="ca-valencia">Implementació de compleció automàtica</li>
       <li xml:lang="de">Unterstützung für Autovervollständigung</li>
       <li xml:lang="el">Υποστήριξη αυτόματης συμπλήρωσης</li>

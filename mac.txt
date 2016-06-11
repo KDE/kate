@@ -6,11 +6,11 @@ set -e
 
 # steps to build kate on make
 
-# install Qt 5.5.0
+# install Qt 5.6.1
 # install CMake 3.3.2
 
-# set path to Qt 5.5.0 stuff
-export QTDIR=~/Qt5.5.0/5.5/clang_64
+# set path to Qt 5.6.1 stuff
+export QTDIR=~/Qt5.6.1/5.6/clang_64
 export PATH=$QTDIR/bin:/Applications/CMake.app/Contents/bin:$PATH
 
 # remember some dirs
@@ -103,7 +103,7 @@ cd src
 rm -rf iconres
 mkdir iconres
 cd iconres
-git archive --format tar --remote kde:breeze HEAD icons > breeze.tgz
+git archive --format tar --remote kde:breeze-icons HEAD icons > breeze.tgz
 mkdir icons
 tar -C icons -s /^icons/breeze/ -xvzf breeze.tgz
 rm breeze.tgz
@@ -124,7 +124,7 @@ build_framework kate
 # deploy qt plugins as extra plugins, too, as e.g. iconengine will be missing otherwise ;)
 for i in kwrite kate; do
     echo $i;
-    cp -f src/iconres/breeze.rcc /Applications/KDE/$i.app/breeze.rcc
+    cp -f src/iconres/breeze.rcc /Applications/KDE/$i.app/Contents/Resources/breeze.rcc
     cp -f $PREFIX/lib/libexec/kf5/kioslave /Applications/KDE/$i.app/Contents/MacOS
     cp -f $PREFIX/lib/libexec/kf5/kio_http_cache_cleaner /Applications/KDE/$i.app/Contents/MacOS
     macdeployqt /Applications/KDE/$i.app -executable=/Applications/KDE/$i.app/Contents/MacOS/kioslave -executable=/Applications/KDE/$i.app/Contents/MacOS/kio_http_cache_cleaner -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins -dmg

@@ -653,9 +653,10 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
             QString vgroup = QString::fromLatin1("%1 %2").arg(groupname).arg(fn);
             KConfigGroup configGroup(config, vgroup);
 
-            viewMan->createView(doc, this);
-
-            viewMan->activeView()->readSessionConfig(configGroup);
+            auto view = viewMan->createView(doc, this);
+            if (view) {
+                view->readSessionConfig(configGroup);
+            }
         }
     }
 

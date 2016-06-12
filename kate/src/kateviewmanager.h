@@ -113,9 +113,10 @@ Q_SIGNALS:
 public:
     /**
      * create and activate a new view for doc, if doc == 0, then
-     * create a new document
+     * create a new document.
+     * Can return NULL.
      */
-    bool createView(KTextEditor::Document *doc = 0L, KateViewSpace *vs = nullptr);
+    KTextEditor::View *createView(KTextEditor::Document *doc = 0L, KateViewSpace *vs = nullptr);
 
 private:
     bool deleteView(KTextEditor::View *view);

@@ -429,10 +429,10 @@ void KateViewManager::documentSavedOrUploaded(KTextEditor::Document *doc, bool)
     }
 }
 
-bool KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)
+KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)
 {
     if (m_blockViewCreationAndActivation) {
-        return false;
+        return nullptr;
     }
 
     // create doc
@@ -468,7 +468,7 @@ bool KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)
         activateView(view);
     }
 
-    return true;
+    return view;
 }
 
 bool KateViewManager::deleteView(KTextEditor::View *view)

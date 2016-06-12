@@ -73,7 +73,7 @@ if(KF5NewStuff_FOUND)
     ecm_optional_add_subdirectory (snippets)
 endif()
 
-if(KF5ItemModels_FOUND)
+if(KF5Service_FOUND)
     # terminal tool view
     ecm_optional_add_subdirectory (konsole)
 endif()

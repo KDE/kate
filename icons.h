@@ -35,8 +35,8 @@ static void setupIconTheme()
      * let QStandardPaths handle this, it will look for app local stuff
      * this means e.g. for mac: "<APPDIR>/../Resources" and for win: "<APPDIR>/data"
      */
-    const QString breezeIcons = QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("breeze.rcc"));
-    if (!breezeIcons.isEmpty() && QFile::exists(breezeIcons) && QResource::registerResource(breezeIcons)) {
+    const QString breezeIcons = QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("breeze-icons.rcc"));
+    if (!breezeIcons.isEmpty() && QFile::exists(breezeIcons) && QResource::registerResource(breezeIcons QStringLiteral("/icons/breeze"))) {
         // tell qt about the theme
         QIcon::setThemeSearchPaths(QStringList() << QStringLiteral(":/icons"));
         QIcon::setThemeName(QStringLiteral("breeze"));

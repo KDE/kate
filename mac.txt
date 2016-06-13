@@ -116,7 +116,7 @@ build_framework kate
 # deploy qt plugins as extra plugins, too, as e.g. iconengine will be missing otherwise ;)
 for i in kwrite kate; do
     echo $i;
-    cp -f $PREFIX/share/icons/breeze/breeze-icons.rcc /Applications/KDE/$i.app/Contents/Resources/breeze.rcc
+    cp -f $PREFIX/share/icons/breeze/breeze-icons.rcc /Applications/KDE/$i.app/Contents/Resources
     cp -f $PREFIX/lib/libexec/kf5/kioslave /Applications/KDE/$i.app/Contents/MacOS
     cp -f $PREFIX/lib/libexec/kf5/kio_http_cache_cleaner /Applications/KDE/$i.app/Contents/MacOS
     

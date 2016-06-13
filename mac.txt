@@ -105,9 +105,9 @@ build_framework knewstuff
 build_framework ktexteditor
 build_framework breeze-icons -DBINARY_ICONS_RESOURCE=1
 
-# clear old bundles
-rm -rf /Applications/KDE/kate.app
-rm -rf /Applications/KDE/kwrite.app
+# clear old bundles + dmg files
+rm -rf /Applications/KDE/kate.*
+rm -rf /Applications/KDE/kwrite.*
 
 build_framework kate
 
@@ -123,7 +123,27 @@ for i in kwrite kate; do
     # deploy
     macdeployqt /Applications/KDE/$i.app -executable=/Applications/KDE/$i.app/Contents/MacOS/kioslave -executable=/Applications/KDE/$i.app/Contents/MacOS/kio_http_cache_cleaner -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins
     
-    
+    # remove stuff we don't need aka like
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/Qt3DCore.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/Qt3DRender.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/QtLocation.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/QtMultimedia.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/QtMultimediaWidgets.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/QtPositioning.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/QtSerialBus.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/QtSerialPort.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/QtWebChannel.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/QtWebEngineCore.framework
+    rm -rf /Applications/KDE/$i.app/Contents/Frameworks/QtWebEngineWidgets.framework
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/qmltooling
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/position
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/playlistformats
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/mediaservice
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/eoservices
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/canbus
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/sceneparsers
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/sensorgestures
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/sensors
     
     # create the final disk image
     macdeployqt /Applications/KDE/$i.app -dmg

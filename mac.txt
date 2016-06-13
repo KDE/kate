@@ -139,7 +139,7 @@ for i in kwrite kate; do
     rm -rf /Applications/KDE/$i.app/Contents/PlugIns/position
     rm -rf /Applications/KDE/$i.app/Contents/PlugIns/playlistformats
     rm -rf /Applications/KDE/$i.app/Contents/PlugIns/mediaservice
-    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/eoservices
+    rm -rf /Applications/KDE/$i.app/Contents/PlugIns/geoservices
     rm -rf /Applications/KDE/$i.app/Contents/PlugIns/canbus
     rm -rf /Applications/KDE/$i.app/Contents/PlugIns/sceneparsers
     rm -rf /Applications/KDE/$i.app/Contents/PlugIns/sensorgestures

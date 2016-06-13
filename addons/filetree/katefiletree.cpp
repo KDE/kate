@@ -388,7 +388,7 @@ void KateFileTree::slotRenameFile() {
     }
 
     QUrl newFileUrl = oldFileUrl.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash);
-    newFileUrl.setPath(newFileUrl.path() + QDir::separator() + newFileName);
+    newFileUrl.setPath(newFileUrl.path() + QLatin1Char('/') + newFileName);
 
     if (!newFileUrl.isValid()) {
         return;

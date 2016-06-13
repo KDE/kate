@@ -122,9 +122,3 @@ bool KateSession::compareByName(const KateSession::Ptr &s1, const KateSession::P
 {
     return QCollator().compare(s1->name(), s2->name()) == -1;
 }
-
-bool KateSession::compareByTimeDesc(const KateSession::Ptr &s1, const KateSession::Ptr &s2)
-{
-    return s1->timestamp() > s2->timestamp();
-}
-

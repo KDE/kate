@@ -136,6 +136,7 @@ private:
     void restoreSplitter(const KConfigBase *config, const QString &group, QSplitter *parent, const QString &viewConfGrp);
 
     void removeViewSpace(KateViewSpace *viewspace);
+    void removeHiddenViewSpaces();
 
 public:
     KTextEditor::View *activeView();

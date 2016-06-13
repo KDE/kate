@@ -229,8 +229,10 @@ void TabSwitcherPluginView::updateViewGeometry()
     // smaller than the max-size. This means the view will get quite high with
     // many open files but I think thats ok. Otherwise one can easily tweak the
     // max size to be only 1/2th of the central widget size
-    const QSize viewSize(std::min(m_treeView->sizeHintForColumn(0) + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()),
-                         std::min(std::max(m_treeView->sizeHintForRow(0) * m_model->rowCount(), m_treeView->sizeHintForRow(0) * 6 ), viewMaxSize.height()));
+    const int rowHeight = m_treeView->sizeHintForRow(0);
+    const int frameWidth = m_treeView->frameWidth();
+    const QSize viewSize(std::min(m_treeView->sizeHintForColumn(0) + 2 * frameWidth + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()),
+                         std::min(std::max(rowHeight * m_model->rowCount() + 2 * frameWidth, rowHeight * 6 ), viewMaxSize.height()));
 
     // Position should be central over the editor area, so map to global from
     // parent of central widget since the view is positioned in global coords

@@ -4,6 +4,10 @@
 # errors fatal
 set -e
 
+# set build type, default is release for bundle creation
+export BUILD_TYPE=Release
+#export BUILD_TYPE=Debug
+
 # steps to build kate on make
 
 # install Qt 5.6.1
@@ -18,15 +22,17 @@ export PREFIX=`pwd`/usr
 export BUILD=`pwd`/build
 export SRC=`pwd`/src
 
-# install gettext
 mkdir -p src
 cd src
+
+# install gettext, needed for ki18n
 curl http://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.6.tar.gz > gettext-0.19.6.tar.gz
 tar -xvzf gettext-0.19.6.tar.gz
 pushd gettext-0.19.6
 ./configure --prefix=$PREFIX
 make install
 popd
+
 cd ..
 
 # build helper
@@ -55,7 +61,7 @@ function build_framework
     cd $BUILD/$FRAMEWORK
 
     # cmake it
-    cmake $SRC/$FRAMEWORK -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX
+    cmake $SRC/$FRAMEWORK -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_TESTING:BOOL=OFF $2
 
     # make
     make -j2
@@ -97,21 +103,7 @@ build_framework threadweaver
 build_framework attica
 build_framework knewstuff
 build_framework ktexteditor
-
-# create icon resource file
-cd src
-rm -rf iconres
-mkdir iconres
-cd iconres
-git archive --format tar --remote kde:breeze-icons HEAD icons > breeze.tgz
-mkdir icons
-tar -C icons -s /^icons/breeze/ -xvzf breeze.tgz
-rm breeze.tgz
-rcc -project -o ../breeze.qrc
-mv ../breeze.qrc .
-rcc -binary -o breeze.rcc breeze.qrc
-cd ..
-cd ..
+build_framework breeze-icons -DBINARY_ICONS_RESOURCE=1
 
 # clear old bundles
 rm -rf /Applications/KDE/kate.app
@@ -124,8 +116,15 @@ build_framework kate
 # deploy qt plugins as extra plugins, too, as e.g. iconengine will be missing otherwise ;)
 for i in kwrite kate; do
     echo $i;
-    cp -f src/iconres/breeze.rcc /Applications/KDE/$i.app/Contents/Resources/breeze.rcc
+    cp -f $PREFIX/share/icons/breeze/breeze-icons.rcc /Applications/KDE/$i.app/Contents/Resources/breeze.rcc
     cp -f $PREFIX/lib/libexec/kf5/kioslave /Applications/KDE/$i.app/Contents/MacOS
     cp -f $PREFIX/lib/libexec/kf5/kio_http_cache_cleaner /Applications/KDE/$i.app/Contents/MacOS
-    macdeployqt /Applications/KDE/$i.app -executable=/Applications/KDE/$i.app/Contents/MacOS/kioslave -executable=/Applications/KDE/$i.app/Contents/MacOS/kio_http_cache_cleaner -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins -dmg
+    
+    # deploy
+    macdeployqt /Applications/KDE/$i.app -executable=/Applications/KDE/$i.app/Contents/MacOS/kioslave -executable=/Applications/KDE/$i.app/Contents/MacOS/kio_http_cache_cleaner -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins
+    
+    
+    
+    # create the final disk image
+    macdeployqt /Applications/KDE/$i.app -dmg
 done

@@ -54,6 +54,7 @@ int main(int argc, char **argv)
      * Create application first
      */
     QApplication app(argc, argv);
+    app.setApplicationName(QStringLiteral("kate"));
 
     /**
      * if we have some local breeze icon resource, prefer it

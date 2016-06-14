@@ -19,18 +19,12 @@
 
 <refnamediv>
 <refname><command>kate</command></refname>
-<refpurpose>Advanced text editor for &kde;</refpurpose>
+<refpurpose>Advanced text editor by &kde;</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
 <cmdsynopsis>
 <command>kate</command>
-<group choice="opt"><option>-h, --help</option></group>
-<group choice="opt"><option>-v, --version</option></group>
-<group choice="opt"><option>--author</option></group>
-<group choice="opt"><option>--license</option></group>
-<group choice="opt"><option>--desktopfile</option> <replaceable>
-file name</replaceable> </group>
 <group choice="opt"><option>-s, --start</option> <replaceable>
 name</replaceable> </group>
 <group choice="opt"><option>--startanon</option></group>
@@ -75,28 +69,6 @@ configuration files.  This document was written in &kate;.
 <title>Options</title>
 
 <variablelist>
-<varlistentry>
-<term><option>-h</option> <option>--help</option></term>
-<listitem><para>This lists the options available at the command line</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term><option>-v</option> <option>--version</option></term>
-<listitem>
-<para>Lists version information for &kate;</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><option>--author</option></term>
-<listitem><para>Lists &kate;'s authors in the terminal window</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><option>--license</option></term>
-<listitem><para>Shows license information</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><option>--desktopfile</option> <replaceable>file name</replaceable></term>
-<listitem><para>The base file name of the desktop entry for this application.</para></listitem>
-</varlistentry>
 <varlistentry>
 <term><option>-s</option>, <option>--start</option> <replaceable>name</replaceable></term>
 <listitem><para>Start &kate; with a given session.</para></listitem>
@@ -161,14 +133,16 @@ deleted after use</para></listitem>
 <refsect1>
 <title>See Also</title>
 
-<para>More detailed user documentation is available from <ulink
+<simplelist><member>More detailed user documentation is available from <ulink
 url="help:/kate">help:/kate</ulink>
 (either enter this <acronym>URL</acronym> into &konqueror;, or run
 <userinput><command>khelpcenter</command>
-<parameter>help:/kate</parameter></userinput>).</para>
-
-<para>There is also further information available at <ulink
-url="http://kate-editor.org/">the &kate; website</ulink>.</para>
+<parameter>help:/kate</parameter></userinput>).</member>
+<member>kf5options(7)</member>
+<member>qt5options(7)</member>
+<member>There is also further information available at <ulink
+url="http://kate-editor.org/">the &kate; website</ulink>.</member>
+</simplelist>
 </refsect1>
 
 <refsect1>

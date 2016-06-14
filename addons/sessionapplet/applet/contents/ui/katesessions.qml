@@ -32,6 +32,8 @@ Item {
     width: (Plasmoid.formFactor==PlasmaCore.Types.Planar)? units.gridUnit * 14 : undefined
     height: (Plasmoid.formFactor==PlasmaCore.Types.Planar)? units.gridUnit * 16: undefined
     
+    Plasmoid.switchWidth: units.gridUnit * 11
+    Plasmoid.switchHeight: units.gridUnit * 11    
     Plasmoid.status: PlasmaCore.Types.ActiveStatus
     Plasmoid.toolTipMainText: i18n("Kate Sessions")
     Plasmoid.icon: "kate"

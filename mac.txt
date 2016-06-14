@@ -1,5 +1,6 @@
 # Build it on Mac howto in script form
-# but be aware, some frameworks need patching to have this working
+# uses a patched macdeployqt, see https://bugreports.qt.io/browse/QTBUG-48836
+# copy the patched one over the one in your Qt
 
 # errors fatal
 set -e
@@ -111,8 +112,6 @@ rm -rf /Applications/KDE/kwrite.*
 
 build_framework kate
 
-# call patched macdeployqt for both bundles
-# that needs patch from https://bugreports.qt.io/browse/QTBUG-48836
 # deploy qt plugins as extra plugins, too, as e.g. iconengine will be missing otherwise ;)
 for i in kwrite kate; do
     echo $i;

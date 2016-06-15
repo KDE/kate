@@ -9,13 +9,13 @@ set -e
 # deploy qt plugins as extra plugins, too, as e.g. iconengine will be missing otherwise ;)
 for i in kwrite kate; do
     echo $i;
-    cp -f share/icons/breeze/breeze-icons.rcc Applications/KDE/$i.app/Contents/Resources
+    cp -f share/icons/breeze/breeze-icons.rcc Applications/KDE/$i.app/Contents/Resources/icontheme.rcc
     cp -f lib/libexec/kf5/kioslave Applications/KDE/$i.app/Contents/MacOS
     cp -f lib/libexec/kf5/kio_http_cache_cleaner Applications/KDE/$i.app/Contents/MacOS
-    
+
     # deploy
     macdeployqt $PWD/Applications/KDE/$i.app -executable=$PWD/Applications/KDE/$i.app/Contents/MacOS/kioslave -executable=$PWD/Applications/KDE/$i.app/Contents/MacOS/kio_http_cache_cleaner -extra-plugins=$PWD/lib/plugins -extra-plugins=`qtpaths --install-prefix`/plugins
-    
+
     # remove stuff we don't need aka like
     rm -rf Applications/KDE/$i.app/Contents/Frameworks/Qt3DCore.framework
     rm -rf Applications/KDE/$i.app/Contents/Frameworks/Qt3DRender.framework
@@ -37,7 +37,7 @@ for i in kwrite kate; do
     rm -rf Applications/KDE/$i.app/Contents/PlugIns/sceneparsers
     rm -rf Applications/KDE/$i.app/Contents/PlugIns/sensorgestures
     rm -rf Applications/KDE/$i.app/Contents/PlugIns/sensors
-    
+
     # create the final disk image
     macdeployqt Applications/KDE/$i.app -dmg
 done

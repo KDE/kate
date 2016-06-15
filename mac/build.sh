@@ -115,13 +115,13 @@ build_framework kate
 # deploy qt plugins as extra plugins, too, as e.g. iconengine will be missing otherwise ;)
 for i in kwrite kate; do
     echo $i;
-    cp -f $PREFIX/share/icons/breeze/breeze-icons.rcc /Applications/KDE/$i.app/Contents/Resources
+    cp -f $PREFIX/share/icons/breeze/breeze-icons.rcc /Applications/KDE/$i.app/Contents/Resources/icontheme.rcc
     cp -f $PREFIX/lib/libexec/kf5/kioslave /Applications/KDE/$i.app/Contents/MacOS
     cp -f $PREFIX/lib/libexec/kf5/kio_http_cache_cleaner /Applications/KDE/$i.app/Contents/MacOS
-    
+
     # deploy
     macdeployqt /Applications/KDE/$i.app -executable=/Applications/KDE/$i.app/Contents/MacOS/kioslave -executable=/Applications/KDE/$i.app/Contents/MacOS/kio_http_cache_cleaner -extra-plugins=$PREFIX/lib/plugins -extra-plugins=$QTDIR/plugins
-    
+
     # remove stuff we don't need aka like
     rm -rf /Applications/KDE/$i.app/Contents/Frameworks/Qt3DCore.framework
     rm -rf /Applications/KDE/$i.app/Contents/Frameworks/Qt3DRender.framework
@@ -143,7 +143,7 @@ for i in kwrite kate; do
     rm -rf /Applications/KDE/$i.app/Contents/PlugIns/sceneparsers
     rm -rf /Applications/KDE/$i.app/Contents/PlugIns/sensorgestures
     rm -rf /Applications/KDE/$i.app/Contents/PlugIns/sensors
-    
+
     # create the final disk image
     macdeployqt /Applications/KDE/$i.app -dmg
 done

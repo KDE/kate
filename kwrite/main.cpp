@@ -36,19 +36,15 @@
 #include <QDir>
 
 #include "../urlinfo.h"
-#include "../icons.h"
 
 extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 {
     /**
-     * first init the app
+     * Create application first
+     * Enforce application name even if the executable is renamed
      */
     QApplication app(argc, argv);
-
-    /**
-     * if we have some local breeze icon resource, prefer it
-     */
-    setupIconTheme();
+    app.setApplicationName(QStringLiteral("kwrite"));
 
     /**
      * enable high dpi support

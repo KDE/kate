@@ -41,7 +41,6 @@
 #include <QDir>
 
 #include "../urlinfo.h"
-#include "../icons.h"
 
 int main(int argc, char **argv)
 {
@@ -52,14 +51,10 @@ int main(int argc, char **argv)
 
     /**
      * Create application first
+     * Enforce application name even if the executable is renamed
      */
     QApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("kate"));
-
-    /**
-     * if we have some local breeze icon resource, prefer it
-     */
-    setupIconTheme();
 
     /**
      * enable high dpi support

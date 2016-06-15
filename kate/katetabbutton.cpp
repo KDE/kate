@@ -188,6 +188,8 @@ void KateTabButton::mousePressEvent(QMouseEvent *ev)
 
         // notify that this button was activated
         emit activated(this);
+    } else if (ev->button() == Qt::MiddleButton) {
+        emit closeRequest(this);
     } else {
         ev->ignore();
     }

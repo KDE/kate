@@ -199,32 +199,31 @@ protected Q_SLOTS:
     void tabButtonCloseRequest(KateTabButton *tabButton);
 
 protected:
-    /**
-     * Recalculate geometry for all tabs.
-     */
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    //! Recalculate geometry for all tabs.
+    void resizeEvent(QResizeEvent *event) override;
 
-    /**
-     * Override to avoid requesting a new tab.
-     */
-    void mouseDoubleClickEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    //! Override to avoid requesting a new tab.
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
 
-    /**
-     * Override to request making the tab bar active.
-     */
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    //! Override to request making the tab bar active.
+    void mousePressEvent(QMouseEvent *event) override;
 
-    /** trigger repaint on hover leave event */
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    //! trigger repaint on hover leave event
+    void leaveEvent(QEvent *event) override;
 
-    /** Paint tab separators */
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    //! Paint tab separators
+    void paintEvent(QPaintEvent *event) override;
 
-    /** Request context menu */
+    //! Request context menu
     void contextMenuEvent(QContextMenuEvent *ev);
 
-    /** Cycle through tabs */
-    void wheelEvent(QWheelEvent * event) Q_DECL_OVERRIDE;
+    //! Cycle through tabs
+    void wheelEvent(QWheelEvent * event) override;
+
+    //! Support for drag & drop of tabs
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dragMoveEvent(QDragMoveEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
 
 private:
     // pimpl data holder

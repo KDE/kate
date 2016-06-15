@@ -23,8 +23,11 @@
 #include <KLocalizedString>
 
 #include <QApplication>
+// #include <QDebug>
+#include <QDrag>
 #include <QFontDatabase>
 #include <QHBoxLayout>
+#include <QMimeData>
 #include <QMoveEvent>
 #include <QPainter>
 #include <QPropertyAnimation>
@@ -172,6 +175,11 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
 void KateTabButton::mousePressEvent(QMouseEvent *ev)
 {
     ev->accept();
+
+    // save mouse position for possible drag start event
+    m_mouseDownPosition = ev->globalPos();
+
+    // activation code
     if (ev->button() == Qt::LeftButton) {
         if (! isChecked()) {
             // make sure we stay checked
@@ -183,6 +191,23 @@ void KateTabButton::mousePressEvent(QMouseEvent *ev)
     } else {
         ev->ignore();
     }
+}
+
+void KateTabButton::mouseMoveEvent(QMouseEvent *event)
+{
+    // possibly start drag event
+    if (QPoint(event->globalPos() - m_mouseDownPosition).manhattanLength() > QApplication::startDragDistance())
+    {
+        QMimeData *mimeData = new QMimeData;
+        mimeData->setData(QStringLiteral("application/x-dndkatetabbutton"), QByteArray());
+
+        auto drag = new QDrag(this);
+        drag->setMimeData(mimeData);
+        drag->setDragCursor(QPixmap(), Qt::MoveAction);
+        drag->start(Qt::MoveAction);
+        event->accept();
+    }
+    QAbstractButton::mouseMoveEvent(event);
 }
 
 void KateTabButton::mouseDoubleClickEvent(QMouseEvent *event)

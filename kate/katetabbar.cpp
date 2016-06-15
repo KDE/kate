@@ -23,6 +23,8 @@
 
 #include <math.h> // ceil
 
+// #include <QDebug>
+#include <QMimeData>
 #include <QPainter>
 #include <QResizeEvent>
 #include <QStyleOptionTab>
@@ -153,6 +155,7 @@ KateTabBar::KateTabBar(QWidget *parent)
     d->nextID = 0;
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    setAcceptDrops(true);
 }
 
 /**
@@ -515,4 +518,58 @@ void KateTabBar::wheelEvent(QWheelEvent * event)
             tabButtonActivated(tabButton);
         }
     }
+}
+
+void KateTabBar::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasFormat(QStringLiteral("application/x-dndkatetabbutton"))) {
+        if (event->source()->parent() == this) {
+            event->setDropAction(Qt::MoveAction);
+            event->accept();
+        } else {
+            // possibly dragged from another tabbar (not yet implemented)
+            event->ignore();
+        }
+    } else {
+        event->ignore();
+    }
+}
+
+void KateTabBar::dragMoveEvent(QDragMoveEvent *event)
+{
+    // first of all, make sure the dragged button is from this tabbar
+    auto button = qobject_cast<KateTabButton *>(event->source());
+    if (!button) {
+        event->ignore();
+        return;
+    }
+
+    // save old tab position
+    const int oldButtonIndex = d->tabButtons.indexOf(button);
+    d->tabButtons.removeAt(oldButtonIndex);
+
+    // find new position
+    const qreal currentPos = event->pos().x();
+    int index = d->tabButtons.size();
+    for (int i = 0; i < d->tabButtons.size(); ++i) {
+        auto tab = d->tabButtons[i];
+        if (tab->geometry().center().x() > currentPos) {
+            index = i;
+            break;
+        }
+    }
+    d->tabButtons.insert(index, button);
+
+    // trigger rearrange if required
+    if (oldButtonIndex != index) {
+        d->updateButtonPositions(true);
+    }
+
+    event->accept();
+}
+
+void KateTabBar::dropEvent(QDropEvent *event)
+{
+    // no action required
+    event->acceptProposedAction();
 }

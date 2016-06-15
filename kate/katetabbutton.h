@@ -97,21 +97,24 @@ protected Q_SLOTS:
 
 protected:
     /** paint eyecandy rectangles around the button */
-    void paintEvent(QPaintEvent *ev) Q_DECL_OVERRIDE;
-    /** middle mouse button changes color */
-    void mousePressEvent(QMouseEvent *ev) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *ev) override;
+    /** activate, and for drag & drop */
+    void mousePressEvent(QMouseEvent *ev) override;
+    /** possibly start drag event */
+    void mouseMoveEvent(QMouseEvent *event) override;
     /** eat double click events */
-    void mouseDoubleClickEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
     /** trigger repaint on hover enter event */
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) override;
     /** trigger repaint on hover leave event */
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *event) override;
     /** track geometry changes to trigger proper repaint*/
-    void moveEvent(QMoveEvent *event) Q_DECL_OVERRIDE;
+    void moveEvent(QMoveEvent *event) override;
 
 private:
     TabCloseButton * m_closeButton;
     QPropertyAnimation * m_geometryAnimation;
+    QPoint m_mouseDownPosition;
 };
 
 #endif

@@ -21,29 +21,136 @@
 #include "katetabbar.h"
 #include "katetabbutton.h"
 
-#include "math.h"
+#include <math.h> // ceil
 
 #include <QPainter>
 #include <QResizeEvent>
 #include <QStyleOptionTab>
 #include <QWheelEvent>
 
+class KateTabBarPrivate
+{
+public:
+    // pointer to tabbar
+    KateTabBar *q;
+
+    // minimum and maximum tab width
+    int minimumTabWidth;
+    int maximumTabWidth;
+
+    // current tab width: when closing tabs with the mouse, we keep
+    // the tab width fixed until the mouse leaves the tab bar. This
+    // way the user can keep clicking the close button without moving
+    // the ouse.
+    qreal currentTabWidth;
+    bool keepTabWidth;
+
+    bool isActiveViewSpace;
+
+    QVector<KateTabButton *> tabButtons;
+    QHash<int, KateTabButton *> idToTab;
+
+    KateTabButton *activeButton;
+
+    int nextID;
+
+public: // functions
+    /**
+     * Set tab geometry. The tabs are animated only if @p animate is @e true.
+     */
+    void updateButtonPositions(bool animate = false)
+    {
+        // if there are no tabs there is nothing to do
+        if (tabButtons.count() == 0) {
+            return;
+        }
+
+        // check whether an animation is still running, in that case,
+        // continue animations to avoid jumping tabs
+        const int maxi = tabButtons.size();
+        if (!animate) {
+            for (int i = 0; i < maxi; ++i) {
+                if (tabButtons.value(i)->geometryAnimationRunning()) {
+                    animate = true;
+                    break;
+                }
+            }
+        }
+
+        const int barWidth = q->width();
+        const int maxCount = q->maxTabCount();
+
+        // how many tabs do we show?
+        const int visibleTabCount = qMin(q->count(), maxCount);
+
+        // new tab width of each tab
+        qreal tabWidth;
+        const bool keepWidth = keepTabWidth && ceil(currentTabWidth) * visibleTabCount < barWidth;
+        if (keepWidth) {
+            // only keep tab width if the tabs still fit
+            tabWidth = currentTabWidth;
+        } else {
+            tabWidth = qMin(static_cast<qreal>(barWidth) / visibleTabCount, static_cast<qreal>(maximumTabWidth));
+        }
+
+        // if the last tab was closed through the close button, make sure the
+        // close button of the new tab is again under the mouse
+        if (keepWidth) {
+            const int xPos = q->mapFromGlobal(QCursor::pos()).x();
+            if (tabWidth * visibleTabCount < xPos) {
+                tabWidth = qMin(static_cast<qreal>(tabWidth * (visibleTabCount + 1.0)) / visibleTabCount, static_cast<qreal>(maximumTabWidth));
+            }
+        }
+
+        // now save the current tab width for future adaptation
+        currentTabWidth = tabWidth;
+
+        // now set the sizes
+        const int w = ceil(tabWidth);
+        const int h = q->height();
+        for (int i = 0; i < maxi; ++i) {
+            KateTabButton *tabButton = tabButtons.value(i);
+            if (i >= maxCount) {
+                tabButton->hide();
+            } else {
+                QRect endGeometry(i * tabWidth, 0, w, h);
+                if (i > 0) {
+                    // make sure the tab button starts exactly next to the previous tab (avoid rounding errors)
+                    endGeometry.setLeft((i-1) * tabWidth + w);
+                }
+
+                if (animate) {
+                    const QRect startGeometry = tabButton->isVisible() ? tabButton->geometry()
+                    : QRect(i * tabWidth, 0, 0, h);
+                    tabButton->setAnimatedGeometry(startGeometry, endGeometry);
+                } else {
+                    // two times endGeometry. Takes care of stopping a running animation
+                    tabButton->setAnimatedGeometry(endGeometry, endGeometry);
+                }
+                tabButton->show();
+            }
+        }
+    }
+};
+
 /**
  * Creates a new tab bar with the given \a parent.
  */
 KateTabBar::KateTabBar(QWidget *parent)
     : QWidget(parent)
+    , d(new KateTabBarPrivate())
 {
-    m_minimumTabWidth = 150;
-    m_maximumTabWidth = 350;
-    m_currentTabWidth = 350;
-    m_keepTabWidth = false;
+    d->q = this;
+    d->minimumTabWidth = 150;
+    d->maximumTabWidth = 350;
+    d->currentTabWidth = 350;
+    d->keepTabWidth = false;
 
-    m_isActiveViewSpace = false;
+    d->isActiveViewSpace = false;
 
-    m_nextID = 0;
+    d->activeButton = nullptr;
 
-    m_activeButton = Q_NULLPTR;
+    d->nextID = 0;
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 }
@@ -53,71 +160,72 @@ KateTabBar::KateTabBar(QWidget *parent)
  */
 KateTabBar::~KateTabBar()
 {
+    delete d;
 }
 
 void KateTabBar::setActiveViewSpace(bool active)
 {
-    if (active != m_isActiveViewSpace) {
-        m_isActiveViewSpace = active;
+    if (active != d->isActiveViewSpace) {
+        d->isActiveViewSpace = active;
         update();
     }
 }
 
 bool KateTabBar::isActiveViewSpace() const
 {
-    return m_isActiveViewSpace;
+    return d->isActiveViewSpace;
 }
 
 int KateTabBar::addTab(const QString &text)
 {
-    return insertTab(m_tabButtons.size(), text);
+    return insertTab(d->tabButtons.size(), text);
 }
 
 int KateTabBar::insertTab(int position, const QString & text)
 {
-    Q_ASSERT(position <= m_tabButtons.size());
+    Q_ASSERT(position <= d->tabButtons.size());
 
     // -1 is append
     if (position < 0) {
-        position = m_tabButtons.size();
+        position = d->tabButtons.size();
     }
 
     KateTabButton *tabButton = new KateTabButton(text, this);
 
-    m_tabButtons.insert(position, tabButton);
-    m_idToTab[m_nextID] = tabButton;
+    d->tabButtons.insert(position, tabButton);
+    d->idToTab[d->nextID] = tabButton;
     connect(tabButton, &KateTabButton::activated, this, &KateTabBar::tabButtonActivated);
     connect(tabButton, &KateTabButton::closeRequest, this, &KateTabBar::tabButtonCloseRequest);
 
     // abort potential keeping of width
-    m_keepTabWidth = false;
+    d->keepTabWidth = false;
 
-    updateButtonPositions(true);
+    d->updateButtonPositions(true);
 
-    return m_nextID++;
+    return d->nextID++;
 }
 
 int KateTabBar::currentTab() const
 {
-    return m_idToTab.key(m_activeButton, -1);
+    return d->idToTab.key(d->activeButton, -1);
 }
 
 void KateTabBar::setCurrentTab(int id)
 {
-    Q_ASSERT(m_idToTab.contains(id));
+    Q_ASSERT(d->idToTab.contains(id));
 
-    KateTabButton *tabButton = m_idToTab.value(id, nullptr);
-    if (m_activeButton == tabButton) {
+    KateTabButton *tabButton = d->idToTab.value(id, nullptr);
+    if (d->activeButton == tabButton) {
         return;
     }
 
-    if (m_activeButton) {
-        m_activeButton->setChecked(false);
+    if (d->activeButton) {
+        d->activeButton->setChecked(false);
     }
 
-    m_activeButton = tabButton;
-    if (m_activeButton) {
-        m_activeButton->setChecked(true);
+    d->activeButton = tabButton;
+    if (d->activeButton) {
+        d->activeButton->setChecked(true);
     }
 }
 
@@ -126,15 +234,15 @@ int KateTabBar::prevTab() const
     const int curId = currentTab();
 
     if (curId >= 0) {
-        KateTabButton *tabButton = m_idToTab.value(curId, nullptr);
-        const int index = m_tabButtons.indexOf(tabButton);
+        KateTabButton *tabButton = d->idToTab.value(curId, nullptr);
+        const int index = d->tabButtons.indexOf(tabButton);
         Q_ASSERT(index >= 0);
 
         if (index > 0) {
-            return m_idToTab.key(m_tabButtons[index - 1], -1);
+            return d->idToTab.key(d->tabButtons[index - 1], -1);
         } else if (count() > 1) {
             // cycle through tabbar
-            return m_idToTab.key(m_tabButtons.last(), -1);
+            return d->idToTab.key(d->tabButtons.last(), -1);
         }
     }
 
@@ -146,15 +254,15 @@ int KateTabBar::nextTab() const
     const int curId = currentTab();
 
     if (curId >= 0) {
-        KateTabButton *tabButton = m_idToTab.value(curId, nullptr);
-        const int index = m_tabButtons.indexOf(tabButton);
+        KateTabButton *tabButton = d->idToTab.value(curId, nullptr);
+        const int index = d->tabButtons.indexOf(tabButton);
         Q_ASSERT(index >= 0);
 
-        if (index < m_tabButtons.size() - 1) {
-            return m_idToTab.key(m_tabButtons[index + 1], -1);
+        if (index < d->tabButtons.size() - 1) {
+            return d->idToTab.key(d->tabButtons[index + 1], -1);
         } else if (count() > 1) {
             // cycle through tabbar
-            return m_idToTab.key(m_tabButtons.first(), -1);
+            return d->idToTab.key(d->tabButtons.first(), -1);
         }
     }
 
@@ -163,19 +271,19 @@ int KateTabBar::nextTab() const
 
 int KateTabBar::removeTab(int id)
 {
-    Q_ASSERT(m_idToTab.contains(id));
+    Q_ASSERT(d->idToTab.contains(id));
 
-    KateTabButton *tabButton = m_idToTab.value(id, nullptr);
+    KateTabButton *tabButton = d->idToTab.value(id, nullptr);
 
-    if (tabButton == m_activeButton) {
-        m_activeButton = Q_NULLPTR;
+    if (tabButton == d->activeButton) {
+        d->activeButton = Q_NULLPTR;
     }
 
-    const int position = m_tabButtons.indexOf(tabButton);
+    const int position = d->tabButtons.indexOf(tabButton);
 
     if (position != -1) {
-        m_idToTab.remove(id);
-        m_tabButtons.removeAt(position);
+        d->idToTab.remove(id);
+        d->tabButtons.removeAt(position);
     }
 
     if (tabButton) {
@@ -186,20 +294,20 @@ int KateTabBar::removeTab(int id)
         tabButton->deleteLater();
     }
 
-    updateButtonPositions(true);
+    d->updateButtonPositions(true);
 
     return position;
 }
 
 bool KateTabBar::containsTab(int id) const
 {
-    return m_idToTab.contains(id);
+    return d->idToTab.contains(id);
 }
 
 void KateTabBar::setTabText(int id, const QString &text)
 {
-    Q_ASSERT(m_idToTab.contains(id));
-    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    Q_ASSERT(d->idToTab.contains(id));
+    KateTabButton * tabButton = d->idToTab.value(id, nullptr);
     if (tabButton) {
         tabButton->setText(text);
     }
@@ -207,8 +315,8 @@ void KateTabBar::setTabText(int id, const QString &text)
 
 QString KateTabBar::tabText(int id) const
 {
-    Q_ASSERT(m_idToTab.contains(id));
-    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    Q_ASSERT(d->idToTab.contains(id));
+    KateTabButton * tabButton = d->idToTab.value(id, nullptr);
     if (tabButton) {
         return tabButton->text();
     }
@@ -217,8 +325,8 @@ QString KateTabBar::tabText(int id) const
 
 void KateTabBar::setTabToolTip(int id, const QString &tip)
 {
-    Q_ASSERT(m_idToTab.contains(id));
-    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    Q_ASSERT(d->idToTab.contains(id));
+    KateTabButton * tabButton = d->idToTab.value(id, nullptr);
     if (tabButton) {
         tabButton->setToolTip(tip);
     }
@@ -226,8 +334,8 @@ void KateTabBar::setTabToolTip(int id, const QString &tip)
 
 QString KateTabBar::tabToolTip(int id) const
 {
-    Q_ASSERT(m_idToTab.contains(id));
-    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    Q_ASSERT(d->idToTab.contains(id));
+    KateTabButton * tabButton = d->idToTab.value(id, nullptr);
     if (tabButton) {
         return tabButton->toolTip();
     }
@@ -236,8 +344,8 @@ QString KateTabBar::tabToolTip(int id) const
 
 void KateTabBar::setTabIcon(int id, const QIcon &icon)
 {
-    Q_ASSERT(m_idToTab.contains(id));
-    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    Q_ASSERT(d->idToTab.contains(id));
+    KateTabButton * tabButton = d->idToTab.value(id, nullptr);
     if (tabButton) {
         tabButton->setIcon(icon);
     }
@@ -245,8 +353,8 @@ void KateTabBar::setTabIcon(int id, const QIcon &icon)
 
 QIcon KateTabBar::tabIcon(int id) const
 {
-    Q_ASSERT(m_idToTab.contains(id));
-    KateTabButton * tabButton = m_idToTab.value(id, nullptr);
+    Q_ASSERT(d->idToTab.contains(id));
+    KateTabButton * tabButton = d->idToTab.value(id, nullptr);
     if (tabButton) {
         return tabButton->icon();
     }
@@ -255,7 +363,7 @@ QIcon KateTabBar::tabIcon(int id) const
 
 int KateTabBar::count() const
 {
-    return m_tabButtons.count();
+    return d->tabButtons.count();
 }
 
 void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
@@ -264,7 +372,7 @@ void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
         return;
     }
 
-    if (tabButton == m_activeButton) {
+    if (tabButton == d->activeButton) {
         // make sure we are the currently active view space
         if (! isActiveViewSpace()) {
             emit activateViewSpaceRequested();
@@ -272,14 +380,14 @@ void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
         return;
     }
 
-    if (m_activeButton) {
-        m_activeButton->setChecked(false);
+    if (d->activeButton) {
+        d->activeButton->setChecked(false);
     }
 
-    m_activeButton = tabButton;
-    m_activeButton->setChecked(true);
+    d->activeButton = tabButton;
+    d->activeButton->setChecked(true);
 
-    const int id = m_idToTab.key(m_activeButton, -1);
+    const int id = d->idToTab.key(d->activeButton, -1);
     Q_ASSERT(id >= 0);
     if (id >= 0) {
         emit currentChanged(id);
@@ -290,10 +398,10 @@ void KateTabBar::tabButtonCloseRequest(KateTabButton *tabButton)
 {
     // keep width
     if (underMouse()) {
-        m_keepTabWidth = true;
+        d->keepTabWidth = true;
     }
 
-    const int id = m_idToTab.key(tabButton, -1);
+    const int id = d->idToTab.key(tabButton, -1);
     Q_ASSERT(id >= 0);
     if (id >= 0) {
         emit closeTabRequested(id);
@@ -305,11 +413,11 @@ void KateTabBar::resizeEvent(QResizeEvent *event)
     Q_UNUSED(event)
 
     // fix button positions
-    if (!m_keepTabWidth || event->size().width() < event->oldSize().width()) {
-        updateButtonPositions();
+    if (!d->keepTabWidth || event->size().width() < event->oldSize().width()) {
+        d->updateButtonPositions();
     }
 
-    const int tabDiff = maxTabCount() - m_tabButtons.size();
+    const int tabDiff = maxTabCount() - d->tabButtons.size();
     if (tabDiff > 0) {
         emit moreTabsRequested(tabDiff);
     } else if (tabDiff < 0) {
@@ -317,83 +425,9 @@ void KateTabBar::resizeEvent(QResizeEvent *event)
     }
 }
 
-void KateTabBar::updateButtonPositions(bool animate)
-{
-    // if there are no tabs there is nothing to do
-    if (m_tabButtons.count() == 0) {
-        return;
-    }
-
-    // check whether an animation is still running, in that case,
-    // continue animations to avoid jumping tabs
-    const int maxi = m_tabButtons.size();
-    if (!animate) {
-        for (int i = 0; i < maxi; ++i) {
-            if (m_tabButtons.value(i)->geometryAnimationRunning()) {
-                animate = true;
-                break;
-            }
-        }
-    }
-
-    const int barWidth = width();
-    const int maxCount = maxTabCount();
-
-    // how many tabs do we show?
-    const int visibleTabCount = qMin(count(), maxCount);
-
-    // new tab width of each tab
-    qreal tabWidth;
-    const bool keepWidth = m_keepTabWidth && ceil(m_currentTabWidth) * visibleTabCount < barWidth;
-    if (keepWidth) {
-        // only keep tab width if the tabs still fit
-        tabWidth = m_currentTabWidth;
-    } else {
-        tabWidth = qMin(static_cast<qreal>(barWidth) / visibleTabCount, static_cast<qreal>(m_maximumTabWidth));
-    }
-
-    // if the last tab was closed through the close button, make sure the
-    // close button of the new tab is again under the mouse
-    if (keepWidth) {
-        const int xPos = mapFromGlobal(QCursor::pos()).x();
-        if (tabWidth * visibleTabCount < xPos) {
-            tabWidth = qMin(static_cast<qreal>(tabWidth * (visibleTabCount + 1.0)) / visibleTabCount, static_cast<qreal>(m_maximumTabWidth));
-        }
-    }
-
-    // now save the current tab width for future adaptation
-    m_currentTabWidth = tabWidth;
-
-    // now set the sizes
-    const int w = ceil(tabWidth);
-    const int h = height();
-    for (int i = 0; i < maxi; ++i) {
-        KateTabButton *tabButton = m_tabButtons.value(i);
-        if (i >= maxCount) {
-            tabButton->hide();
-        } else {
-            QRect endGeometry(i * tabWidth, 0, w, h);
-            if (i > 0) {
-                // make sure the tab button starts exactly next to the previous tab (avoid rounding errors)
-                endGeometry.setLeft((i-1) * tabWidth + w);
-            }
-
-            if (animate) {
-                const QRect startGeometry = tabButton->isVisible() ? tabButton->geometry()
-                                                                   : QRect(i * tabWidth, 0, 0, h);
-                tabButton->setAnimatedGeometry(startGeometry, endGeometry);
-            } else {
-                // two times endGeometry. Takes care of stopping a running animation
-                tabButton->setAnimatedGeometry(endGeometry, endGeometry);
-            }
-            tabButton->show();
-        }
-    }
-}
-
 int KateTabBar::maxTabCount() const
 {
-    return qMax(1, width() / m_minimumTabWidth);
+    return qMax(1, width() / d->minimumTabWidth);
 }
 
 void KateTabBar::mouseDoubleClickEvent(QMouseEvent *event)
@@ -412,9 +446,9 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
 
 void KateTabBar::leaveEvent(QEvent *event) 
 {
-    if (m_keepTabWidth) {
-        m_keepTabWidth = false;
-        updateButtonPositions(true);
+    if (d->keepTabWidth) {
+        d->keepTabWidth = false;
+        d->updateButtonPositions(true);
     }
 
     QWidget::leaveEvent(event);
@@ -424,14 +458,14 @@ void KateTabBar::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
 
-    const int buttonCount = m_tabButtons.size();
+    const int buttonCount = d->tabButtons.size();
     if (buttonCount < 1) {
         return;
     }
 
     // draw separators
     QStyleOption option;
-    option.initFrom(m_tabButtons[0]);
+    option.initFrom(d->tabButtons[0]);
     option.state |= QStyle::State_Horizontal;
     const int w = style()->pixelMetric(QStyle::PM_ToolBarSeparatorExtent, 0, this);
     const int offset = w / 2;
@@ -441,12 +475,12 @@ void KateTabBar::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 
     // first separator
-    option.rect.moveLeft(m_tabButtons[0]->geometry().left() - offset);
+    option.rect.moveLeft(d->tabButtons[0]->geometry().left() - offset);
     style()->drawPrimitive(QStyle::PE_IndicatorToolBarSeparator, &option, &painter);
 
     // all other separators
     for (int i = 0; i < buttonCount; ++i) {
-        option.rect.moveLeft(m_tabButtons[i]->geometry().right() - offset);
+        option.rect.moveLeft(d->tabButtons[i]->geometry().right() - offset);
         style()->drawPrimitive(QStyle::PE_IndicatorToolBarSeparator, &option, &painter);
     }
 }
@@ -454,9 +488,9 @@ void KateTabBar::paintEvent(QPaintEvent *event)
 void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
 {
     int id = -1;
-    foreach (KateTabButton * button, m_tabButtons) {
+    foreach (KateTabButton * button, d->tabButtons) {
         if (button->rect().contains(button->mapFromGlobal(ev->globalPos()))) {
-            id = m_idToTab.key(button, -1);
+            id = d->idToTab.key(button, -1);
             Q_ASSERT(id >= 0);
             break;
         }
@@ -475,8 +509,8 @@ void KateTabBar::wheelEvent(QWheelEvent * event)
     const int delta = event->angleDelta().x() + event->angleDelta().y();
     const int id = (delta > 0) ? prevTab() : nextTab();
     if (id >= 0) {
-        Q_ASSERT(m_idToTab.contains(id));
-        KateTabButton *tabButton = m_idToTab.value(id, nullptr);
+        Q_ASSERT(d->idToTab.contains(id));
+        KateTabButton *tabButton = d->idToTab.value(id, nullptr);
         if (tabButton) {
             tabButtonActivated(tabButton);
         }

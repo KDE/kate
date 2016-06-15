@@ -27,9 +27,8 @@
 #include <QHash>
 #include <QIcon>
 
-class QResizeEvent;
 class KateTabButton;
-class KConfigBase;
+class KateTabBarPrivate;
 
 /**
  * The \p KateTabBar class provides a tab bar, e.g. for tabbed documents.
@@ -227,32 +226,9 @@ protected:
     /** Cycle through tabs */
     void wheelEvent(QWheelEvent * event) Q_DECL_OVERRIDE;
 
-protected:
-    /**
-     * Set tab geometry. The tabs are animated only if @p animate is @e true.
-     */
-    void updateButtonPositions(bool animate = false);
-
 private:
-    // minimum and maximum tab width
-    int m_minimumTabWidth;
-    int m_maximumTabWidth;
-
-    // current tab width: when closing tabs with the mouse, we keep
-    // the tab width fixed until the mouse leaves the tab bar. This
-    // way the user can keep clicking the close button without moving
-    // the ouse.
-    qreal m_currentTabWidth;
-    bool m_keepTabWidth;
-
-    bool m_isActiveViewSpace;
-
-    QVector<KateTabButton *> m_tabButtons;
-    QHash<int, KateTabButton *> m_idToTab;
-
-    KateTabButton *m_activeButton;
-
-    int m_nextID;
+    // pimpl data holder
+    KateTabBarPrivate * const d;
 };
 
 #endif // KATE_TAB_BAR_H

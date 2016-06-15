@@ -6,24 +6,263 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
-    <height>224</height>
+    <width>634</width>
+    <height>204</height>
    </rect>
   </property>
-  <layout class="QGridLayout" name="topLayout" rowstretch="0,0,0,1" columnstretch="0,0,1,0,0,0,0">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
-   <item row="3" column="0" colspan="7">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1,0,0,0,0,0,0">
+     <item row="0" column="0">
+      <widget class="QToolButton" name="newTabButton">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" alignment="Qt::AlignRight">
+      <widget class="QLabel" name="findLabel">
+       <property name="text">
+        <string>Find:</string>
+       </property>
+       <property name="buddy">
+        <cstring>searchCombo</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QComboBox" name="searchCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QToolButton" name="searchButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="toolTip">
+        <string>Search</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QStackedWidget" name="stopAndReplace">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="page_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="replaceButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Replace</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="stopButtonPage">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="stopButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Stop</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item row="0" column="5" colspan="4">
+      <widget class="KComboBox" name="searchPlaceCombo">
+       <item>
+        <property name="text">
+         <string>In Current File</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>in Open Files</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>in Folder</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QToolButton" name="displayOptions">
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" alignment="Qt::AlignRight">
+      <widget class="QLabel" name="replaceLabel">
+       <property name="text">
+        <string>Replace:</string>
+       </property>
+       <property name="buddy">
+        <cstring>replaceCombo</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QComboBox" name="replaceCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QToolButton" name="nextButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="toolTip">
+        <string>Next</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QPushButton" name="replaceCheckedBtn">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Replace checked</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QToolButton" name="matchCase">
+       <property name="toolTip">
+        <string>Match Case</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="6">
+      <widget class="QToolButton" name="useRegExp">
+       <property name="toolTip">
+        <string>Use regular expressions</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="7">
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>13</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="8">
+      <widget class="QToolButton" name="expandResults">
+       <property name="toolTip">
+        <string>Expand results</string>
+       </property>
+       <property name="text">
+        <string extracomment="When this is checked the result treeview will be expanded after a search"/>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -32,7 +271,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="resultPage">
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -95,7 +334,7 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0,0" columnstretch="0,0,0,0,10,0">
+         <layout class="QGridLayout" name="gridLayout_2">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -108,21 +347,30 @@
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item row="0" column="0" colspan="6">
+          <item row="0" column="0" colspan="2">
            <widget class="Line" name="line">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
-          <item row="2" column="1" colspan="5">
+          <item row="1" column="0">
+           <widget class="QLabel" name="folderLabel">
+            <property name="text">
+             <string>Folder:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="buddy">
+             <cstring>folderRequester</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="KUrlComboRequester" name="folderRequester">
-              <property name="mode">
-               <set>KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly</set>
-              </property>
-             </widget>
+             <widget class="KUrlComboRequester" name="folderRequester" native="true"/>
             </item>
             <item>
              <widget class="QToolButton" name="folderUpButton">
@@ -140,7 +388,20 @@
             </item>
            </layout>
           </item>
-          <item row="3" column="1" colspan="5">
+          <item row="2" column="0">
+           <widget class="QLabel" name="filterLabel">
+            <property name="text">
+             <string>Filter:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="buddy">
+             <cstring>filterCombo</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="10,0,10">
             <item>
              <widget class="KComboBox" name="filterCombo">
@@ -160,7 +421,7 @@
             <item>
              <widget class="QLabel" name="excludeLabel">
               <property name="text">
-               <string>Ex&amp;clude:</string>
+               <string>Exclude:</string>
               </property>
               <property name="buddy">
                <cstring>excludeCombo</cstring>
@@ -176,94 +437,7 @@
             </item>
            </layout>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="filterLabel">
-            <property name="text">
-             <string>Filter:</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="folderLabel">
-            <property name="text">
-             <string>Fo&amp;lder:</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="buddy">
-             <cstring>folderRequester</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="4" colspan="2">
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>1</width>
-                <height>1</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="expandResults">
-              <property name="text">
-               <string extracomment="When this is checked the result treeview will be expanded after a search">Expand results</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="3">
-           <widget class="QCheckBox" name="useRegExp">
-            <property name="text">
-             <string>Regular e&amp;xpressions</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QCheckBox" name="matchCase">
-            <property name="text">
-             <string>&amp;Match case</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="KComboBox" name="searchPlaceCombo">
-            <item>
-             <property name="text">
-              <string>Current File</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Open Files</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Folder</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Search in:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1" colspan="4">
+          <item row="3" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
              <widget class="QCheckBox" name="recursiveCheckBox">
@@ -318,170 +492,6 @@
      </widget>
     </widget>
    </item>
-   <item row="1" column="4">
-    <widget class="QPushButton" name="replaceButton">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string>Replace</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="4">
-    <widget class="QPushButton" name="searchButton">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string>Search</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QToolButton" name="newTabButton">
-     <property name="text">
-      <string>...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1" alignment="Qt::AlignRight">
-    <widget class="QLabel" name="findLabel">
-     <property name="text">
-      <string>Fi&amp;nd:</string>
-     </property>
-     <property name="buddy">
-      <cstring>searchCombo</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1" alignment="Qt::AlignRight">
-    <widget class="QLabel" name="replaceLabel">
-     <property name="text">
-      <string>Re&amp;place:</string>
-     </property>
-     <property name="buddy">
-      <cstring>replaceCombo</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="5">
-    <widget class="QStackedWidget" name="nextAndStop">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <widget class="QWidget" name="page_3">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QPushButton" name="nextButton">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Next</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="stopButtonPage">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QPushButton" name="stopButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Stop</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-   </item>
-   <item row="0" column="2" colspan="2">
-    <widget class="QComboBox" name="searchCombo">
-     <property name="editable">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2" colspan="2">
-    <widget class="QComboBox" name="replaceCombo">
-     <property name="editable">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="5">
-    <widget class="QPushButton" name="replaceCheckedBtn">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string>Replace checked</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="6">
-    <widget class="QToolButton" name="displayOptions">
-     <property name="text">
-      <string>...</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="autoRaise">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -502,18 +512,29 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>newTabButton</tabstop>
   <tabstop>searchCombo</tabstop>
   <tabstop>replaceCombo</tabstop>
   <tabstop>searchButton</tabstop>
   <tabstop>nextButton</tabstop>
-  <tabstop>stopButton</tabstop>
   <tabstop>replaceButton</tabstop>
+  <tabstop>stopButton</tabstop>
   <tabstop>replaceCheckedBtn</tabstop>
+  <tabstop>searchPlaceCombo</tabstop>
+  <tabstop>matchCase</tabstop>
+  <tabstop>useRegExp</tabstop>
+  <tabstop>expandResults</tabstop>
+  <tabstop>displayOptions</tabstop>
   <tabstop>folderRequester</tabstop>
   <tabstop>folderUpButton</tabstop>
   <tabstop>currentFolderButton</tabstop>
+  <tabstop>filterCombo</tabstop>
+  <tabstop>excludeCombo</tabstop>
+  <tabstop>recursiveCheckBox</tabstop>
+  <tabstop>hiddenCheckBox</tabstop>
+  <tabstop>symLinkCheckBox</tabstop>
+  <tabstop>binaryCheckBox</tabstop>
   <tabstop>resultTabWidget</tabstop>
+  <tabstop>newTabButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

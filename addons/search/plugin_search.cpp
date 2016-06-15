@@ -261,7 +261,11 @@ m_mainWindow (mainWin)
 
     m_ui.displayOptions->setIcon(QIcon::fromTheme(QStringLiteral("games-config-options")));
     m_ui.searchButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
+    m_ui.nextButton->setIcon(QIcon::fromTheme(QStringLiteral("go-down-search")));
     m_ui.stopButton->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
+    m_ui.matchCase->setIcon(QIcon::fromTheme(QStringLiteral("format-text-superscript")));
+    m_ui.useRegExp->setIcon(QIcon::fromTheme(QStringLiteral("code-context")));
+    m_ui.expandResults->setIcon(QIcon::fromTheme(QStringLiteral("view-list-tree")));
     m_ui.searchPlaceCombo->setItemIcon(CurrentFile, QIcon::fromTheme(QStringLiteral("text-plain")));
     m_ui.searchPlaceCombo->setItemIcon(OpenFiles, QIcon::fromTheme(QStringLiteral("text-plain")));
     m_ui.searchPlaceCombo->setItemIcon(Folder, QIcon::fromTheme(QStringLiteral("folder")));
@@ -890,7 +894,7 @@ void KatePluginSearchView::startSearch()
     m_ui.displayOptions->setDisabled(true);
     m_ui.replaceCheckedBtn->setDisabled(true);
     m_ui.replaceButton->setDisabled(true);
-    m_ui.nextAndStop->setCurrentIndex(1);
+    m_ui.stopAndReplace->setCurrentIndex(1);
     m_ui.replaceCombo->setDisabled(true);
 
 
@@ -1060,7 +1064,7 @@ void KatePluginSearchView::searchDone()
     m_ui.newTabButton->setDisabled(false);
     m_ui.searchCombo->setDisabled(false);
     m_ui.searchButton->setDisabled(false);
-    m_ui.nextAndStop->setCurrentIndex(0);
+    m_ui.stopAndReplace->setCurrentIndex(0);
     m_ui.displayOptions->setDisabled(false);
     m_ui.replaceCombo->setDisabled(false);
 
@@ -1339,7 +1343,7 @@ void KatePluginSearchView::replaceChecked()
         return;
     }
 
-    m_ui.nextAndStop->setCurrentIndex(1);
+    m_ui.stopAndReplace->setCurrentIndex(1);
     m_ui.displayOptions->setChecked(false);
 
     m_curResults->replace = m_ui.replaceCombo->currentText();
@@ -1351,7 +1355,7 @@ void KatePluginSearchView::replaceChecked()
 
 void KatePluginSearchView::replaceDone()
 {
-    m_ui.nextAndStop->setCurrentIndex(0);
+    m_ui.stopAndReplace->setCurrentIndex(0);
     m_ui.replaceCombo->setDisabled(false);
 }
 
@@ -1793,7 +1797,7 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
     if (!projectFileName.isEmpty()) {
         if (m_ui.searchPlaceCombo->count() <= Project) {
             // add "in Project"
-            m_ui.searchPlaceCombo->addItem (QIcon::fromTheme(QStringLiteral("project-open")), i18n("Current Project"));
+            m_ui.searchPlaceCombo->addItem (QIcon::fromTheme(QStringLiteral("project-open")), i18n("In Current Project"));
             if (m_switchToProjectModeWhenAvailable) {
                 // switch to search "in Project"
                 m_switchToProjectModeWhenAvailable = false;
@@ -1801,7 +1805,7 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
             }
 
             // add "in Open Projects"
-            m_ui.searchPlaceCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), i18n("All Open Projects"));
+            m_ui.searchPlaceCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), i18n("In All Open Projects"));
         }
     }
 

@@ -40,7 +40,7 @@ class KateTabBarPrivate;
 class KateTabBar : public QWidget
 {
     Q_OBJECT
-    Q_PROPERTY(bool isActiveViewSpace READ isActiveViewSpace WRITE setActiveViewSpace)
+    Q_PROPERTY(bool isActive READ isActive WRITE setActive)
 
 public:
     explicit KateTabBar(QWidget *parent = 0);
@@ -96,6 +96,7 @@ public:
      * Set the button @p id's tool tip to @p tip.
      */
     void setTabToolTip(int index, const QString &tip);
+
     /**
      * Get the button @p id's url. Result is QStrint() if not available.
      */
@@ -106,6 +107,7 @@ public:
      * \see tabText()
      */
     void setTabText(int index, const QString &text);
+
     /**
      * Returns the text of the tab with ID \a id. If the button id does not
      * exist \a QString() is returned.
@@ -136,8 +138,20 @@ public:
      */
     int maxTabCount() const;
 
-    void setActiveViewSpace(bool active);
-    bool isActiveViewSpace() const;
+    /**
+     * Marks this tabbar as active. That is, current-tab indicators are
+     * properly highlighted, indicating that child widgets of this tabbar
+     * will get input.
+     *
+     * This concept is mostly useful, if your application has multiple tabbars.
+     * Inactive tabbars are grayed out.
+     */
+    void setActive(bool active);
+
+    /**
+     * Returns whether this tabbar is active.
+     */
+    bool isActive() const;
 
 Q_SIGNALS:
     /**

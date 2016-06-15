@@ -64,7 +64,7 @@ public:
     /**
      * Returns @e true, if the tabbar is the currently active tab bar.
      */
-    bool isActiveViewSpace() const;
+    bool isActiveTabBar() const;
 
     /**
      * Check whether a geometry animation is running.

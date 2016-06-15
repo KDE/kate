@@ -47,7 +47,7 @@ public:
     qreal currentTabWidth;
     bool keepTabWidth;
 
-    bool isActiveViewSpace;
+    bool isActive;
 
     QVector<KateTabButton *> tabButtons;
     QHash<int, KateTabButton *> idToTab;
@@ -148,7 +148,7 @@ KateTabBar::KateTabBar(QWidget *parent)
     d->currentTabWidth = 350;
     d->keepTabWidth = false;
 
-    d->isActiveViewSpace = false;
+    d->isActive = false;
 
     d->activeButton = nullptr;
 
@@ -166,17 +166,17 @@ KateTabBar::~KateTabBar()
     delete d;
 }
 
-void KateTabBar::setActiveViewSpace(bool active)
+void KateTabBar::setActive(bool active)
 {
-    if (active != d->isActiveViewSpace) {
-        d->isActiveViewSpace = active;
+    if (active != d->isActive) {
+        d->isActive = active;
         update();
     }
 }
 
-bool KateTabBar::isActiveViewSpace() const
+bool KateTabBar::isActive() const
 {
-    return d->isActiveViewSpace;
+    return d->isActive;
 }
 
 int KateTabBar::addTab(const QString &text)
@@ -377,7 +377,7 @@ void KateTabBar::tabButtonActivated(KateTabButton *tabButton)
 
     if (tabButton == d->activeButton) {
         // make sure we are the currently active view space
-        if (! isActiveViewSpace()) {
+        if (! isActive()) {
             emit activateViewSpaceRequested();
         }
         return;
@@ -441,7 +441,7 @@ void KateTabBar::mouseDoubleClickEvent(QMouseEvent *event)
 
 void KateTabBar::mousePressEvent(QMouseEvent *event)
 {
-    if (! isActiveViewSpace()) {
+    if (! isActive()) {
         emit activateViewSpaceRequested();
     }
     QWidget::mousePressEvent(event);

@@ -325,7 +325,7 @@ bool KateViewSpace::isActiveSpace()
 void KateViewSpace::setActive(bool active)
 {
     m_isActiveSpace = active;
-    m_tabBar->setActiveViewSpace(active);
+    m_tabBar->setActive(active);
 }
 
 void KateViewSpace::makeActive(bool focusCurrentView)

@@ -42,6 +42,11 @@
 
 #include "../urlinfo.h"
 
+#ifdef USE_QT_SINGLE_APP
+#include "qtsingleapplication/qtsingleapplication.h"
+#endif
+
+
 int main(int argc, char **argv)
 {
     /**
@@ -51,9 +56,16 @@ int main(int argc, char **argv)
 
     /**
      * Create application first
+     */
+#ifdef USE_QT_SINGLE_APP
+    SharedTools::QtSingleApplication app(QStringLiteral("kate"),argc, argv);
+#else
+    QApplication app(argc, argv);
+#endif
+
+    /**
      * Enforce application name even if the executable is renamed
      */
-    QApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("kate"));
 
     /**
@@ -199,6 +211,8 @@ int main(int argc, char **argv)
      */
     aboutData.processCommandLine(&parser);
 
+
+#ifndef USE_QT_SINGLE_APP
     /**
      * use dbus, if available
      * allows for resuse of running Kate instances
@@ -442,6 +456,26 @@ int main(int argc, char **argv)
             return needToBlock ? app.exec() : 0;
         }
     }
+    #else // USE_QT_SINGLE_APP
+
+    if (!parser.isSet(startNewInstanceOption)) {
+        QString urlsSerialized;
+        const QStringList urls = parser.positionalArguments();
+        foreach(const QString & url, urls) {
+            UrlInfo info(url);
+            //qDebug() << info.url.toString()<< info.cursor.line() << info.cursor.column();
+            urlsSerialized += QStringLiteral("%1||%2||%3;")
+            .arg(info.url.toString())
+            .arg(info.cursor.line())
+            .arg(info.cursor.column());
+        }
+        if (app.sendMessage(urlsSerialized)) {
+            //qDebug() << "kate is already running";
+            return 0;
+        }
+    }
+
+    #endif // USE_QT_SINGLE_APP
 
     /**
      * if we arrive here, we need to start a new kate instance!
@@ -463,10 +497,21 @@ int main(int argc, char **argv)
         return 0;
     }
 
+    #ifndef USE_QT_SINGLE_APP
     /**
      * finally register this kate instance for dbus, don't die if no dbus is around!
      */
     const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
+
+    #else
+
+    QObject::connect(&app, &SharedTools::QtSingleApplication::messageReceived,
+                     &kateApp, &KateApp::remoteMessageReceived);
+
+    QObject::connect(&app, SIGNAL(messageReceived(QString,QObject*)),
+                     &app, SLOT(activateWindow()));
+    #endif
+
 
     /**
      * start main event loop for our application

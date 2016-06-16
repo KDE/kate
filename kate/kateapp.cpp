@@ -415,3 +415,29 @@ bool KateApp::eventFilter(QObject *obj, QEvent *event)
      */
     return QObject::eventFilter(obj, event);
 }
+
+#ifdef USE_QT_SINGLE_APP
+void KateApp::remoteMessageReceived(const QString &message, QObject *socket)
+{
+    //qDebug() << message;
+    QStringList urlInfos = message.split(QLatin1Char(';'), QString::SkipEmptyParts);
+    Q_FOREACH(QString urlInfo, urlInfos) {
+        QStringList info = urlInfo.split(QStringLiteral("||"));
+        //qDebug() << urlInfo << info;
+        if (info.size() != 3) {
+            continue;
+        }
+        QUrl url = QUrl::fromUserInput(info[0]);
+        bool ok;
+        int line = info[1].toInt(&ok);
+        int column = info[2].toInt();
+
+        openUrl(url, QString(), false);
+        if (ok) {
+            setCursor(line, column);
+        }
+    }
+}
+#endif
+
+

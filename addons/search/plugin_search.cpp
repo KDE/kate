@@ -297,8 +297,8 @@ m_mainWindow (mainWin)
     connect(m_ui.currentFolderButton, SIGNAL(clicked()), this, SLOT(setCurrentFolder()));
 
     connect(m_ui.searchCombo,      SIGNAL(editTextChanged(QString)), &m_changeTimer, SLOT(start()));
-    connect(m_ui.matchCase,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
-    connect(m_ui.useRegExp,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
+    connect(m_ui.matchCase,        SIGNAL(toggled(bool)), &m_changeTimer, SLOT(start()));
+    connect(m_ui.useRegExp,        SIGNAL(toggled(bool)), &m_changeTimer, SLOT(start()));
     m_changeTimer.setInterval(300);
     m_changeTimer.setSingleShot(true);
     connect(&m_changeTimer, SIGNAL(timeout()), this, SLOT(startSearchWhileTyping()));

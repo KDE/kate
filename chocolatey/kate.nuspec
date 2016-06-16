@@ -34,7 +34,7 @@ This is a nuspec. It mostly adheres to https://docs.nuget.org/create/Nuspec-Refe
 
     <!-- == SOFTWARE SPECIFIC SECTION == -->
     <!-- This section is about the software itself -->
-    <title>kate (Install)</title>
+    <title>Kate</title>
     <authors>KDE</authors>
     <!-- projectUrl is required for the community feed -->
     <projectUrl>http://kate-editor.org/</projectUrl>

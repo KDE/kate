@@ -15,11 +15,7 @@ set(katexmlcheckplugin_PART_SRCS
 # resource for ui file and stuff
 qt5_add_resources(katexmlcheckplugin_PART_SRCS plugin.qrc)
 
-#kde4_add_plugin(katexmlcheckplugin ${katexmlcheckplugin_PART_SRCS})
 add_library(katexmlcheckplugin MODULE ${katexmlcheckplugin_PART_SRCS})
-
-#target_link_libraries(katexmlcheckplugin ${KDE4_KDEUI_LIBS} ktexteditor kateinterfaces )
-# again I just copied this, I do not completely understand what are needed and what are missing
 target_link_libraries(katexmlcheckplugin
     KF5::TextEditor
     KF5::Parts
@@ -27,7 +23,6 @@ target_link_libraries(katexmlcheckplugin
     KF5::I18n
     KF5::Service
 )
-
 
 # this did not changed
 install(TARGETS katexmlcheckplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )

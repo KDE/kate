@@ -39,6 +39,38 @@ public:
         : cursor(KTextEditor::Cursor::invalid())
     {
         /**
+         * first try: just check if the path is an existing file
+         */
+        if (QFile::exists(path)) {
+            /**
+             * create absolute file path, we will e.g. pass this over dbus to other processes
+             * and then we are done, no cursor can be detected here!
+             */
+            url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
+            return;
+        }
+
+        /**
+         * ok, the path as is, is no existing file, now, cut away :xx:yy stuff as cursor
+         * this will make test:50 to test with line 50
+         */
+        const auto match = QRegularExpression(QStringLiteral(":(\\d+)(?::(\\d+))?:?$")).match(path);
+        if (match.isValid()) {
+            /**
+             * cut away the line/column specification from the path
+             */
+            path.chop(match.capturedLength());
+
+            /**
+             * set right cursor position
+             * don't use an invalid column when the line is valid
+             */
+            const int line = match.captured(1).toInt() - 1;
+            const int column = qMax(0, match.captured(2).toInt() - 1);
+            cursor.setPosition(line, column);
+        }
+
+        /**
          * construct url:
          *   - make relative paths absolute using the current working directory
          *   - prefer local file, if in doubt!
@@ -54,39 +86,6 @@ public:
              * create absolute file path, we will e.g. pass this over dbus to other processes
              */
             url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
-        }
-
-        /**
-         * Allow opening specific lines in documents, like mydoc.cpp:10
-         * also supports columns, i.e. mydoc.cpp:10:42
-         * ignores trailing colons, as compile errors often use that format
-         */
-        if (url.isLocalFile() && !QFile::exists(url.toLocalFile())) {
-            /**
-             * update path from url, might have been file://...
-             */
-            path = url.toLocalFile();
-
-            /**
-             * try to match the line/colum spec, else we are done here
-             */
-            const auto match = QRegularExpression(QStringLiteral(":(\\d+)(?::(\\d+))?:?$")).match(path);
-            if (!match.isValid())
-                return;
-
-            /**
-             * cut away the line/column specification from the path and update the url
-             */
-            path.chop(match.capturedLength());
-            url = QUrl::fromLocalFile(path);
-
-            /**
-             * set right cursor position
-             */
-            int line = match.captured(1).toInt() - 1;
-            // don't use an invalid column when the line is valid
-            int column = qMax(0, match.captured(2).toInt() - 1);
-            cursor = {line, column};
         }
     }
 

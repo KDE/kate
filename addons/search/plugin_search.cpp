@@ -1465,6 +1465,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 
 void KatePluginSearchView::goToNextMatch()
 {
+    bool fromFirst = false;
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!res) {
         return;
@@ -1478,15 +1479,28 @@ void KatePluginSearchView::goToNextMatch()
     if (!curr->data(0, ReplaceMatches::ColumnRole).toString().isEmpty()) {
         curr = res->tree->itemBelow(curr);
         if (!curr) {
+            fromFirst = true;
             curr = res->tree->topLevelItem(0);
         }
     }
 
     itemSelected(curr);
+
+    if (fromFirst) {
+        delete m_infoMessage;
+        const QString msg = i18n("Continuing from first match");
+        m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+        m_infoMessage->setPosition(KTextEditor::Message::TopInView);
+        m_infoMessage->setAutoHide(2000);
+        m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+        m_infoMessage->setView(m_mainWindow->activeView());
+        m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+    }
 }
 
 void KatePluginSearchView::goToPreviousMatch()
 {
+    bool fromLast = false;
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!res) {
         return;
@@ -1515,9 +1529,21 @@ void KatePluginSearchView::goToPreviousMatch()
         // select the last match of the "root item"
         if (!root || (root->childCount() < 1)) return;
         curr = root->child(root->childCount()-1);
+
+        fromLast = true;
     }
 
     itemSelected(curr);
+    if (fromLast) {
+        delete m_infoMessage;
+        const QString msg = i18n("Continuing from last match");
+        m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+        m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
+        m_infoMessage->setAutoHide(2000);
+        m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+        m_infoMessage->setView(m_mainWindow->activeView());
+        m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+    }
 }
 
 void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)

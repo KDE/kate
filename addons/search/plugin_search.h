@@ -26,6 +26,7 @@
 #include <ktexteditor/application.h>
 #include <KTextEditor/Command>
 #include <ktexteditor/sessionconfiginterface.h>
+#include <KTextEditor/Message>
 #include <QAction>
 
 #include <QTreeWidget>
@@ -191,6 +192,7 @@ private:
     QString                            m_resultBaseDir;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
     QTimer                             m_changeTimer;
+    QPointer<KTextEditor::Message>     m_infoMessage;
 
     /**
      * current project plugin view, if any

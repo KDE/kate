@@ -195,6 +195,7 @@ private Q_SLOTS:
     void slotDropEvent(QDropEvent *);
     void editKeys();
     void mSlotFixOpenWithMenu();
+    void reloadXmlGui();
 
     /* to update the caption */
     void slotDocumentCreated(KTextEditor::Document *doc);

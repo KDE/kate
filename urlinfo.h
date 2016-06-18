@@ -22,8 +22,11 @@
 #define URLINFO_H
 
 #include <KTextEditor/Cursor>
+
+#include <QDir>
 #include <QRegularExpression>
 #include <QString>
+#include <QUrl>
 
 /**
  * Represents a file to be opened, consisting of its URL and the cursor to jump to.

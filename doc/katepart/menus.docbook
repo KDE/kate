@@ -331,9 +331,8 @@ copying the entire file to another application.</para>
 </menuchoice></term>
 <listitem>
 <para>Toggles Selection Mode. When the Selection Mode is <guilabel>BLOCK</guilabel>,
+the status bar contains the string <guilabel>[BLOCK]</guilabel> and
 you can make vertical selections, &eg; select column 5 to 10 in lines 9 to 15.
-The status bar shows the current state of the Selection Mode, either <guilabel>BLOCK</guilabel> or
-<guilabel>LINE</guilabel>.</para>
 </listitem>
 </varlistentry>
 

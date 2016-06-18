@@ -426,7 +426,7 @@ copying the entire file to another application.</para>
 <listitem>
 <para>Toggles Selection Mode. When the Selection Mode is <guilabel>BLOCK</guilabel>,
 the status bar contains the string <guilabel>[BLOCK]</guilabel> and
-you can make vertical selections, &eg; select column 5 to 10 in lines 9 to 15.
+you can make vertical selections, &eg; select column 5 to 10 in lines 9 to 15.</para>
 </listitem>
 </varlistentry>
 
@@ -441,7 +441,7 @@ and motions from vim's normal and visual mode and has an optional vi mode status
 This status bar shows commands while they are being entered, output from commands and
 the current mode. The behavior of this mode can be configured in the
 <ulink url="help:/katepart/config-dialog-editor.html#pref-edit-vi-input-mode">Vi
-Input Mode</ulink> section of the <guilabel>Editing</guilabel> page in 
+Input Mode</ulink> section of the <guilabel>Editing</guilabel> page in
 &kappname;'s settings dialog.</para>
 </listitem>
 </varlistentry>
@@ -479,16 +479,16 @@ box for entering the search pattern.</para>
 immediately. If there is a match in the text this is highlighted and the background color
 of the entry field changes to light green. If the search pattern does not match any
 string in the text, this is indicated by a light red background color of the entry field.</para>
-<para>Use the 
-<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or 
+<para>Use the
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
 <inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
 to jump to the next or previous match in the document.</para>
 <para>You can choose whether the search should be case sensitive.
-Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject> 
+Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject>
 will limit finds to entries that match the
 case (upper or lower) of each of the characters in the search  pattern.
 </para>
-<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject> 
+<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject>
 button at the right side of the incremental search bar to
 switch to the power search and replace bar.
 </para>
@@ -579,8 +579,8 @@ selected, the <guibutton>Add...</guibutton> menuitem at the bottom of the contex
 and allows you to add escape sequences or regular expression items to the
 search or replace pattern from predefined lists.</para>
 -->
-<para>Use the 
-<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or 
+<para>Use the
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
 <inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
 to jump to the next or previous match in the document.</para>
 <para>Enter the text to replace with in the text box labeled <guilabel>Replace</guilabel>
@@ -602,7 +602,7 @@ button at the right side of the power search and replace bar to
 switch to the incremental search bar.
 </para>
 </listitem>
-</varlistentry> 
+</varlistentry>
 
 <varlistentry id="edit-go-to-matching-bracket">
 <term><menuchoice>
@@ -835,9 +835,9 @@ the File List.</para> <para>See also <link linkend="kate-mdi">Working with the
 </menuchoice>
 </term>
 <listitem>
-<para>Closes all frames except the active frame (the one with a blinking cursor). 
+<para>Closes all frames except the active frame (the one with a blinking cursor).
 This is disabled, if there is only one frame (the main editing area).</para>
-<para>No documents get closed by closing a frame &ndash; they will still be 
+<para>No documents get closed by closing a frame &ndash; they will still be
 available in the <link linkend="view-menu"><guimenu>View</guimenu> Menu</link>
 as well as in the File List.</para>
 </listitem>
@@ -960,7 +960,7 @@ to toggle the display of the tool view.</para>
 <guimenuitem>Switch to Command Line</guimenuitem>
 </menuchoice></term>
 <listitem><para>This command will toggle the display of the
-<ulink url="help:/katepart/advanced-editing-tools-commandline.html">built-in 
+<ulink url="help:/katepart/advanced-editing-tools-commandline.html">built-in
 command line</ulink>.
 </para></listitem>
 </varlistentry>
@@ -992,9 +992,9 @@ command line</ulink>.
 <guimenu>View</guimenu>
 <guisubmenu>Schema</guisubmenu>
 </menuchoice></term>
-<listitem><para>This menu lists the available color schemes. You can change the 
+<listitem><para>This menu lists the available color schemes. You can change the
 schema for the current view here, to change the default schema you need to
-use the <ulink url="help:/katepart/config-dialog-editor.html#prefcolors">Fonts 
+use the <ulink url="help:/katepart/config-dialog-editor.html#prefcolors">Fonts
 &amp; Colors</ulink> page of the config dialog.</para>
 </listitem>
 </varlistentry>
@@ -1103,7 +1103,7 @@ section of the &katepart; Handbook</ulink>.</para></listitem>
 <guimenuitem>Code Folding</guimenuitem>
 </menuchoice></term>
 <listitem><para>These options pertain to
-<ulink url="help:/katepart/advanced-editing-tools-code-folding.html">code 
+<ulink url="help:/katepart/advanced-editing-tools-code-folding.html">code
 folding</ulink>:</para>
 <variablelist>
 
@@ -1164,7 +1164,7 @@ I hope this will come back, but noone got around to implement this again... :/
 
 <!--FIXME
 Show Non-Printable Spaces Show/hide bounding box around non-printable spaces
-Show Word Count -> Displays the number of words and characters in the document and in the current selection. 
+Show Word Count -> Displays the number of words and characters in the document and in the current selection.
 -->
 
 </variablelist>
@@ -1416,8 +1416,8 @@ the endianness (byte order) of a text file or stream, for more information see
 </menuchoice></term>
 <listitem>
 <para>This submenu contains a list of all scripted actions. The list can easily be
-modified by 
-<ulink url="help:/katepart/dev-scripting.html#dev-scripting-command-line">writing 
+modified by
+<ulink url="help:/katepart/dev-scripting.html#dev-scripting-command-line">writing
 your own scripts</ulink>. This way, &kate; can be extended with user-defined tools.
 </para>
 <para><ulink url="help:/katepart/tools.html#scripts">There is a complete list of

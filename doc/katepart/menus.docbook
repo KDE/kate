@@ -332,7 +332,7 @@ copying the entire file to another application.</para>
 <listitem>
 <para>Toggles Selection Mode. When the Selection Mode is <guilabel>BLOCK</guilabel>,
 the status bar contains the string <guilabel>[BLOCK]</guilabel> and
-you can make vertical selections, &eg; select column 5 to 10 in lines 9 to 15.
+you can make vertical selections, &eg; select column 5 to 10 in lines 9 to 15.</para>
 </listitem>
 </varlistentry>
 
@@ -384,16 +384,16 @@ box for entering the search pattern.</para>
 immediately. If there is a match in the text this is highlighted and the background color
 of the entry field changes to light green. If the search pattern does not match any
 string in the text, this is indicated by a light red background color of the entry field.</para>
-<para>Use the 
-<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or 
+<para>Use the
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
 <inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
 to jump to the next or previous match in the document.</para>
 <para>You can choose whether the search should be case sensitive.
-Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject> 
+Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject>
 will limit finds to entries that match the
 case (upper or lower) of each of the characters in the search  pattern.
 </para>
-<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject> 
+<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject>
 button at the right side of the incremental search bar to
 switch to the power search and replace bar.
 </para>
@@ -484,8 +484,8 @@ selected, the <guibutton>Add...</guibutton> menuitem at the bottom of the contex
 and allows you to add escape sequences or regular expression items to the
 search or replace pattern from predefined lists.</para>
 -->
-<para>Use the 
-<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or 
+<para>Use the
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
 <inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
 to jump to the next or previous match in the document.</para>
 <para>Enter the text to replace with in the text box labeled <guilabel>Replace</guilabel>
@@ -507,7 +507,7 @@ button at the right side of the power search and replace bar to
 switch to the incremental search bar.
 </para>
 </listitem>
-</varlistentry> 
+</varlistentry>
 
 <varlistentry id="edit-go-to-matching-bracket">
 <term><menuchoice>
@@ -641,9 +641,9 @@ Component Command Line</link>.</para>
 <guimenu>View</guimenu>
 <guisubmenu>Schema</guisubmenu>
 </menuchoice></term>
-<listitem><para>This menu lists the available color schemes. You can change the 
+<listitem><para>This menu lists the available color schemes. You can change the
 schema for the current view here, to change the default schema you need to
-use the <ulink url="help:/katepart/config-dialog-editor.html#prefcolors">Fonts 
+use the <ulink url="help:/katepart/config-dialog-editor.html#prefcolors">Fonts
 &amp; Colors</ulink> page of the config dialog.</para>
 </listitem>
 </varlistentry>
@@ -754,7 +754,7 @@ current document. For more information on the scrollbar minimap, see
 <guimenuitem>Code Folding</guimenuitem>
 </menuchoice></term>
 <listitem><para>These options pertain to
-<ulink url="help:/katepart/advanced-editing-tools-code-folding.html">code 
+<ulink url="help:/katepart/advanced-editing-tools-code-folding.html">code
 folding</ulink>:</para>
 <variablelist>
 
@@ -912,7 +912,7 @@ addition and any changes in the document formatting.</para>
 <listitem>
 <para>Choose the filetype scheme you prefer for the active document. This
 overwrites the global filetype mode set in <menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>Configure Editor...</guimenuitem></menuchoice> 
+<guimenu>Settings</guimenu><guimenuitem>Configure Editor...</guimenuitem></menuchoice>
 in the Filetypes tab for your current document only.</para>
 </listitem>
 </varlistentry>
@@ -1041,7 +1041,7 @@ the same level as the current line.
 </variablelist>
 </listitem></varlistentry>
 
-<!--FIXME: Quick Coding -> Expand Abbreviation (CTRL+ALT+#) 
+<!--FIXME: Quick Coding -> Expand Abbreviation (CTRL+ALT+#)
 https://git.reviewboard.kde.org/r/127601/
 Dominik Haumann
 A bit experimental right now, therefore I suggest to keep the FIXME for now and not add further docs.
@@ -1135,7 +1135,7 @@ Duplicates the selected lines up.
 <guimenuitem>URI-encode selected text</guimenuitem>
 </menuchoice></term>
 <listitem><para>
-Encodes the selected text so that it can be used as part of a query string in a 
+Encodes the selected text so that it can be used as part of a query string in a
 &URL;, replacing the selection with the encoded text.
 </para></listitem>
 </varlistentry>
@@ -1173,7 +1173,7 @@ replace the selection with the original raw text.
 </menuchoice></term>
 <listitem><para>
 Converts the selected text to a pair of opening and closing &HTML; or &XML; tags.
-For example, if <userinput>div</userinput> is selected, this item will replace 
+For example, if <userinput>div</userinput> is selected, this item will replace
 that with  <computeroutput>&lt;div&gt;&lt;/div&gt;</computeroutput>.
 </para></listitem>
 </varlistentry>
@@ -1243,7 +1243,7 @@ to the opening tag.
 <listitem><para>
 If the selected portion is not a comment, this item will enclose that portion
 in &HTML;/&XML; comments (&eg;
-<computeroutput>&lt;!-- selected text --&gt;</computeroutput>). If the selected 
+<computeroutput>&lt;!-- selected text --&gt;</computeroutput>). If the selected
 portion is a comment, the comment tags will be removed instead.
 </para></listitem>
 </varlistentry>
@@ -1269,8 +1269,8 @@ entire tag.
 <guimenuitem>Decrement number by 1</guimenuitem>
 </menuchoice></term>
 <listitem><para>
-This item will subtract one from the currently selected text, if it is a number.  
-For example, if <userinput>5</userinput> is selected, it will become 
+This item will subtract one from the currently selected text, if it is a number.
+For example, if <userinput>5</userinput> is selected, it will become
 <computeroutput>4</computeroutput>.
 </para></listitem>
 </varlistentry>
@@ -1283,8 +1283,8 @@ For example, if <userinput>5</userinput> is selected, it will become
 <guimenuitem>Decrement number by 10</guimenuitem>
 </menuchoice></term>
 <listitem><para>
-This item will subtract 10 from the currently selected text, if it is a number.  
-For example, if <userinput>15</userinput> is selected, it will become 
+This item will subtract 10 from the currently selected text, if it is a number.
+For example, if <userinput>15</userinput> is selected, it will become
 <computeroutput>5</computeroutput>.
 </para></listitem>
 </varlistentry>
@@ -1297,8 +1297,8 @@ For example, if <userinput>15</userinput> is selected, it will become
 <guimenuitem>Decrement number by 0.1</guimenuitem>
 </menuchoice></term>
 <listitem><para>
-This item will subtract 0.1 from the currently selected text, if it is a number.  
-For example, if <userinput>4.5</userinput> is selected, it will become 
+This item will subtract 0.1 from the currently selected text, if it is a number.
+For example, if <userinput>4.5</userinput> is selected, it will become
 <computeroutput>4.4</computeroutput>.
 </para></listitem>
 </varlistentry>
@@ -1311,8 +1311,8 @@ For example, if <userinput>4.5</userinput> is selected, it will become
 <guimenuitem>Increment number by 1</guimenuitem>
 </menuchoice></term>
 <listitem><para>
-This item will add one to the currently selected text, if it is a number.  
-For example, if <userinput>5</userinput> is selected, it will become 
+This item will add one to the currently selected text, if it is a number.
+For example, if <userinput>5</userinput> is selected, it will become
 <computeroutput>6</computeroutput>.
 </para></listitem>
 </varlistentry>
@@ -1325,8 +1325,8 @@ For example, if <userinput>5</userinput> is selected, it will become
 <guimenuitem>Increment number by 10</guimenuitem>
 </menuchoice></term>
 <listitem><para>
-This item will add 10 to the currently selected text, if it is a number.  
-For example, if <userinput>5</userinput> is selected, it will become 
+This item will add 10 to the currently selected text, if it is a number.
+For example, if <userinput>5</userinput> is selected, it will become
 <computeroutput>15</computeroutput>.
 </para></listitem>
 </varlistentry>
@@ -1339,8 +1339,8 @@ For example, if <userinput>5</userinput> is selected, it will become
 <guimenuitem>Increment number by 0.1</guimenuitem>
 </menuchoice></term>
 <listitem><para>
-This item will add 0.1 to the currently selected text, if it is a number.  
-For example, if <userinput>4.5</userinput> is selected, it will become 
+This item will add 0.1 to the currently selected text, if it is a number.
+For example, if <userinput>4.5</userinput> is selected, it will become
 <computeroutput>4.6</computeroutput>.
 </para></listitem>
 </varlistentry>
@@ -1704,7 +1704,7 @@ Editor...</guimenuitem></menuchoice></para></listitem>
 </sect1>
 
 <sect1 id="settings-help-menu">
-<title>The Settings and Help Menu</title> 
+<title>The Settings and Help Menu</title>
 
 <para>
 &katepart; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>

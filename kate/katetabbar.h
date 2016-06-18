@@ -229,7 +229,7 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
     //! Request context menu
-    void contextMenuEvent(QContextMenuEvent *ev);
+    void contextMenuEvent(QContextMenuEvent *ev) override;
 
     //! Cycle through tabs
     void wheelEvent(QWheelEvent * event) override;

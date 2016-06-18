@@ -23,10 +23,8 @@ ecm_optional_add_subdirectory (kate-ctags)
 # backtrace
 ecm_optional_add_subdirectory (backtracebrowser)
 
-# file browser, atm guarded until we have a check for KIOWidgets
-if (NOT WIN32)
-    ecm_optional_add_subdirectory (filebrowser)
-endif()
+# file browser
+ecm_optional_add_subdirectory (filebrowser)
 
 # xml completion
 ecm_optional_add_subdirectory (xmltools)
@@ -73,8 +71,8 @@ if(KF5NewStuff_FOUND)
     ecm_optional_add_subdirectory (snippets)
 endif()
 
-if(KF5Service_FOUND)
-    # terminal tool view
+# terminal tool view
+if(KF5Service_FOUND AND NOT WIN32)
     ecm_optional_add_subdirectory (konsole)
 endif()
 

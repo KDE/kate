@@ -409,35 +409,41 @@ bool KateApp::eventFilter(QObject *obj, QEvent *event)
         }
         return true;
     }
-    
+
     /**
      * else: pass over to default implementation
      */
     return QObject::eventFilter(obj, event);
 }
 
-#ifdef USE_QT_SINGLE_APP
-void KateApp::remoteMessageReceived(const QString &message, QObject *socket)
+void KateApp::remoteMessageReceived(const QString &message, QObject *)
 {
-    //qDebug() << message;
-    QStringList urlInfos = message.split(QLatin1Char(';'), QString::SkipEmptyParts);
-    Q_FOREACH(QString urlInfo, urlInfos) {
-        QStringList info = urlInfo.split(QStringLiteral("||"));
-        //qDebug() << urlInfo << info;
-        if (info.size() != 3) {
-            continue;
-        }
-        QUrl url = QUrl::fromUserInput(info[0]);
-        bool ok;
-        int line = info[1].toInt(&ok);
-        int column = info[2].toInt();
+    /**
+     * try to parse message, ignore if no object
+     */
+    const QJsonDocument jsonMessage = QJsonDocument::fromJson(message.toUtf8());
+    if (!jsonMessage.isObject())
+        return;
 
+    /**
+     * open all passed urls
+     */
+    const QJsonArray urls = jsonMessage.object().value(QLatin1String("urls")).toArray();
+    Q_FOREACH(QJsonValue urlObject, urls) {
+        /**
+         * get url meta data
+         */
+        const QUrl url = urlObject.toObject().value(QLatin1String("url")).toVariant().toUrl();
+        const int line = urlObject.toObject().value(QLatin1String("line")).toVariant().toInt();
+        const int column = urlObject.toObject().value(QLatin1String("column")).toVariant().toInt();
+
+        /**
+         * open file + set line/column if requested
+         */
         openUrl(url, QString(), false);
-        if (ok) {
+        if (line >= 0 && column >= 0) {
             setCursor(line, column);
         }
+
     }
 }
-#endif
-
-

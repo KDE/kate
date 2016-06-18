@@ -212,12 +212,42 @@ int main(int argc, char **argv)
      */
     aboutData.processCommandLine(&parser);
 
-
-#ifndef USE_QT_SINGLE_APP
     /**
-     * use dbus, if available
+     * remember the urls we shall open
+     */
+    const QStringList urls = parser.positionalArguments();
+
+    /**
+     * compute if we shall start a new instance or reuse
+     * an old one
+     * this will later be updated once more after detecting some
+     * things about already running kate's, like their sessions
+     */
+    bool force_new = parser.isSet(startNewInstanceOption);
+    if (!force_new) {
+        if (!(
+                    parser.isSet(startSessionOption) ||
+                    parser.isSet(startNewInstanceOption) ||
+                    parser.isSet(usePidOption) ||
+                    parser.isSet(useEncodingOption) ||
+                    parser.isSet(gotoLineOption) ||
+                    parser.isSet(gotoColumnOption) ||
+                    parser.isSet(readStdInOption)
+                ) && (urls.isEmpty())) {
+            force_new = true;
+        }
+    }
+
+    /**
+     * only block, if files to open there....
+     */
+    const bool needToBlock = parser.isSet(startBlockingOption) && !urls.isEmpty();
+
+    /**
+     * use dbus, if available for linux and co.
      * allows for resuse of running Kate instances
      */
+#ifndef USE_QT_SINGLE_APP
     if (QDBusConnectionInterface * const sessionBusInterface = QDBusConnection::sessionBus().interface()) {
         /**
          * try to get the current running kate instances
@@ -232,24 +262,6 @@ int main(int argc, char **argv)
             kateServices << (*it)->serviceName;
         }
         QString serviceName;
-
-        const QStringList urls = parser.positionalArguments();
-
-        bool force_new = parser.isSet(startNewInstanceOption);
-
-        if (!force_new) {
-            if (!(
-                        parser.isSet(startSessionOption) ||
-                        parser.isSet(startNewInstanceOption) ||
-                        parser.isSet(usePidOption) ||
-                        parser.isSet(useEncodingOption) ||
-                        parser.isSet(gotoLineOption) ||
-                        parser.isSet(gotoColumnOption) ||
-                        parser.isSet(readStdInOption)
-                    ) && (urls.isEmpty())) {
-                force_new = true;
-            }
-        }
 
         QString start_session;
         bool session_already_opened = false;
@@ -343,9 +355,6 @@ int main(int argc, char **argv)
             QString enc = parser.isSet(useEncodingOption) ? parser.value(useEncodingOption) : QString();
 
             bool tempfileSet = parser.isSet(tempfileOption);
-
-            // only block, if files to open there....
-            bool needToBlock = parser.isSet(startBlockingOption) && !urls.isEmpty();
 
             QStringList tokens;
 
@@ -457,26 +466,56 @@ int main(int argc, char **argv)
             return needToBlock ? app.exec() : 0;
         }
     }
-    #else // USE_QT_SINGLE_APP
 
-    if (!parser.isSet(startNewInstanceOption)) {
-        QString urlsSerialized;
-        const QStringList urls = parser.positionalArguments();
-        foreach(const QString & url, urls) {
-            UrlInfo info(url);
-            //qDebug() << info.url.toString()<< info.cursor.line() << info.cursor.column();
-            urlsSerialized += QStringLiteral("%1||%2||%3;")
-            .arg(info.url.toString())
-            .arg(info.cursor.line())
-            .arg(info.cursor.column());
-        }
-        if (app.sendMessage(urlsSerialized)) {
-            //qDebug() << "kate is already running";
-            return 0;
+    /**
+     * for mac & windows: use QtSingleApplication
+     */
+#else
+    /**
+     * only try to reuse existing kate instances if not already forbidden by arguments
+     */
+    if (!force_new) {
+        /**
+         * any instance running we can use?
+         * later we could do here pid checks and stuff
+         */
+        bool instanceFound = app.isRunning();
+
+        /**
+         * if instance was found, send over all urls to be opened
+         */
+        if (instanceFound) {
+            /**
+             * tell single application to block if needed
+             */
+            app.setBlock(needToBlock);
+
+            /**
+             * construct one big message with all urls to open
+             * later we will add additional data to this
+             */
+            QVariantMap message;
+            QVariantList messageUrls;
+            foreach(const QString & url, urls) {
+                /**
+                 * get url info and pack them into the message as extra element in urls list
+                 */
+                UrlInfo info(url);
+                QVariantMap urlMessagePart;
+                urlMessagePart[QLatin1String("url")] = info.url;
+                urlMessagePart[QLatin1String("line")] = info.cursor.line();
+                urlMessagePart[QLatin1String("column")] = info.cursor.column();
+                messageUrls.append(urlMessagePart);
+            }
+            message[QLatin1String("urls")] = messageUrls;
+
+            /**
+             * try to send message, return success
+             */
+            return !app.sendMessage(QString::fromUtf8(QJsonDocument::fromVariant(QVariant(message)).toJson()));
         }
     }
-
-    #endif // USE_QT_SINGLE_APP
+#endif // USE_QT_SINGLE_APP
 
     /**
      * if we arrive here, we need to start a new kate instance!
@@ -498,20 +537,21 @@ int main(int argc, char **argv)
         return 0;
     }
 
-    #ifndef USE_QT_SINGLE_APP
+#ifndef USE_QT_SINGLE_APP
     /**
      * finally register this kate instance for dbus, don't die if no dbus is around!
      */
     const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
-
-    #else
-
+#else
+    /**
+     * else: connect the single application notifications
+     */
     QObject::connect(&app, &SharedTools::QtSingleApplication::messageReceived,
                      &kateApp, &KateApp::remoteMessageReceived);
 
     QObject::connect(&app, SIGNAL(messageReceived(QString,QObject*)),
                      &app, SLOT(activateWindow()));
-    #endif
+#endif
 
 
     /**

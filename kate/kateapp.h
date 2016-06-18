@@ -311,15 +311,14 @@ public Q_SLOTS:
         return true;
     }
 
-#ifdef USE_QT_SINGLE_APP
     /**
-     * A message is received from an external instance
+     * A message is received from an external instance, if we use QtSingleApplication
+     *
      * \p message is a serialized message (at the moment just the file list separated by ';')
      * \p socket is the QLocalSocket used for the communication
      */
     void remoteMessageReceived(const QString &message, QObject *socket);
-#endif
-    
+
 protected:
     /**
      * Event filter for QApplication to handle mac os like file open

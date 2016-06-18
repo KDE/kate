@@ -13,9 +13,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/qtsingleapplication
 )
 
-option(USE_QT_SINGLE_APP "Use QtSingleApplication for single application in stead of DBus" OFF)
-
-
 # collect the needed source files
 set (KATE_LIBRARY_SRCS
    kateappadaptor.cpp
@@ -94,7 +91,8 @@ set (KATE_APP_SRCS
     main.cpp
 )
 
-if (USE_QT_SINGLE_APP)
+# use single application instead of dbus on mac + windows
+if (APPLE OR WIN32)
     set(singleapp_SRCS
         qtsingleapplication/qtlocalpeer.cpp
         qtsingleapplication/qtsingleapplication.cpp

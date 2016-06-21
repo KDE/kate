@@ -446,4 +446,8 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
         }
 
     }
+    if (activeKateMainWindow()) {
+        activeKateMainWindow()->activateWindow();
+        activeKateMainWindow()->raise();
+    }
 }

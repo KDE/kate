@@ -548,9 +548,6 @@ int main(int argc, char **argv)
      */
     QObject::connect(&app, &SharedTools::QtSingleApplication::messageReceived,
                      &kateApp, &KateApp::remoteMessageReceived);
-
-    QObject::connect(&app, SIGNAL(messageReceived(QString,QObject*)),
-                     &app, SLOT(activateWindow()));
 #endif
 
 

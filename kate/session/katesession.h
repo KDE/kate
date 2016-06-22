@@ -99,6 +99,7 @@ public:
     static KateSession::Ptr createAnonymousFrom(const KateSession::Ptr &session, const QString &file);
 
     static bool compareByName(const KateSession::Ptr &s1, const KateSession::Ptr &s2);
+    static bool compareByTimeDesc(const KateSession::Ptr &s1, const KateSession::Ptr &s2);
 
 private:
     friend class KateSessionManager;

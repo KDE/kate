@@ -23,6 +23,7 @@
 #include "kateapp.h"
 #include "katesessionmanager.h"
 
+#include <algorithm>
 #include <QMenu>
 
 KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager)
@@ -50,9 +51,12 @@ void KateSessionsAction::slotAboutToShow()
     qDeleteAll(sessionsGroup->actions());
 
     KateSessionList slist = m_manager->sessionList();
-    qSort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
+    std::sort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
 
     slist = slist.mid(0, 10); // take first 10
+
+    // sort the reduced list alphabetically (#364089)
+    std::sort(slist.begin(), slist.end(), KateSession::compareByName);
 
     foreach(const KateSession::Ptr & session, slist) {
         QString sessionName = session->name();

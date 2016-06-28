@@ -232,6 +232,9 @@ the environment variable <envar>XDG_DATA_DIRS</envar> typically expands to
 <filename>/usr/share</filename>.
 </para>
 
+<para>On &Windows; these files are located in <filename>%USER%\AppData\Local\katepart5\syntax</filename>.
+<replaceable>%USER%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
+
 <variablelist>
 <title>Main sections of &kappname; Highlight Definition files</title>
 
@@ -1052,6 +1055,8 @@ called &eg; <filename>javascript.js</filename> in the local home folder
 Therein, the environment variable <envar>XDG_DATA_HOME</envar> typically expands to
 either <filename>~/.local</filename> or <filename>~/.local/share</filename>.
 </para>
+<para>On &Windows; these files are located in <filename>%USER%\AppData\Local\katepart5\indentation</filename>.
+<replaceable>%USER%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
 
 <sect3 id="dev-scripting-indentation-header">
 <title>The Indentation Script Header</title>
@@ -1168,6 +1173,8 @@ with a different tab width.
 <para>
 A default &kde; installation ships &kappname; with several indenters. The
 corresponding JavaScript source code can be found in <filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/script/indentation</filename>.
+<para>On &Windows; these files are located in <filename>%USER%\AppData\Local\katepart5\indentation</filename>.
+<replaceable>%USER%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
 </para>
 
 <para>
@@ -1203,6 +1210,9 @@ So as a first step, create a new <filename>*.js</filename> file called
 <filename>$<envar>XDG_DATA_HOME</envar>/katepart5/script/commands</filename>.
 Therein, the environment variable <envar>XDG_DATA_HOME</envar> typically expands to
 either <filename>~/.local</filename> or <filename>~/.local/share</filename>.
+<para>On &Windows; these files are located in <filename>%USER%\AppData\Local\katepart5\commands</filename>.
+<replaceable>%USER%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
+
 </para>
 
 <sect3 id="dev-scripting-command-line-header">
@@ -1365,6 +1375,8 @@ require ("range.js");
 To extend the standard scripting API with your own functions and prototypes simply
 create a new file in &kde;'s local configuration folder
 <filename>$<envar>XDG_DATA_HOME</envar>/katepart5/libraries</filename> and include it into your script using:
+<para>On &Windows; these files are located in <filename>%USER%\AppData\Local\katepart5\libraries</filename>.
+<replaceable>%USER%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
 
 <programlisting>
 require ("myscriptnamehere.js");

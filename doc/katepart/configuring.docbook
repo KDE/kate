@@ -867,7 +867,7 @@ up a completion box.</para></listitem>
 <sect3 id="pref-edit-spellcheck">
 <title>Spellcheck</title>
 <para>These configuration options are described in the documentation for the
-&systemsettings; module <ulink url="help:kcontrol/spellchecking">Spell Checker</ulink>.</para>
+&systemsettings; module <ulink url="help:/kcontrol/spellchecking">Spell Checker</ulink>.</para>
 </sect3>
 
 <sect3 id="pref-edit-vi-input-mode">

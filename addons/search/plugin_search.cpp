@@ -333,6 +333,7 @@ m_mainWindow (mainWin)
     connect(&m_searchOpenFiles, SIGNAL(searching(QString)), this, SLOT(searching(QString)));
 
     connect(&m_folderFilesList, SIGNAL(finished()),  this, SLOT(folderFileListChanged()));
+    connect(&m_folderFilesList, SIGNAL(searching(QString)),  this, SLOT(searching(QString)));
 
     connect(&m_searchDiskFiles, SIGNAL(matchFound(QString,QString,int,int,QString,int)),
             this,                 SLOT(matchFound(QString,QString,int,int,QString,int)));

@@ -73,6 +73,7 @@ void FolderFilesList::generateList(const QString &folder,
         m_excludeList << rx;
     }
 
+    m_time.restart();
     start();
 }
 
@@ -87,6 +88,10 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
 {
     if (m_cancelSearch) {
         return;
+    }
+    if (m_time.elapsed() > 100) {
+        m_time.restart();
+        emit searching(item.absoluteFilePath());
     }
     if (item.isFile()) {
         if (!m_binary) {

@@ -26,6 +26,7 @@
 #include <QFileInfo>
 #include <QVector>
 #include <QStringList>
+#include <QTime>
 
 class FolderFilesList: public QThread
 {
@@ -50,6 +51,9 @@ public:
 public Q_SLOTS:
     void cancelSearch();
 
+Q_SIGNALS:
+    void searching(const QString &path);
+
 private:
     void checkNextItem(const QFileInfo &item);
 
@@ -64,6 +68,7 @@ private:
     bool             m_binary;
     QStringList      m_types;
     QVector<QRegExp> m_excludeList;
+    QTime            m_time;
 };
 
 

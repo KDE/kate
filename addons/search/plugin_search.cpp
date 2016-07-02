@@ -634,7 +634,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
     }
 
     QUrl fullUrl = QUrl::fromUserInput(url);
-    QString path = fullUrl.isLocalFile() ? localFileDirUp (fullUrl).path() : fullUrl.url();
+    QString path = fullUrl.isLocalFile() ? localFileDirUp(fullUrl).path() : fullUrl.url();
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
         path += QLatin1Char('/');
     }
@@ -901,6 +901,7 @@ void KatePluginSearchView::startSearch()
 
     clearMarks();
     m_curResults->tree->clear();
+    m_curResults->tree->setCurrentItem(nullptr);
     m_curResults->matches = 0;
 
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(),
@@ -1013,6 +1014,7 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     clearMarks();
     m_curResults->tree->clear();
+    m_curResults->tree->setCurrentItem(nullptr);
     m_curResults->matches = 0;
 
     QRegularExpression::PatternOptions patternOptions = (m_ui.matchCase->isChecked() ? QRegularExpression::NoPatternOption : QRegularExpression::CaseInsensitiveOption);
@@ -1093,9 +1095,6 @@ void KatePluginSearchView::searchDone()
             m_curResults->tree->collapseItem(root->child(i));
         }
     }
-
-    m_curResults->tree->setCurrentItem(root);
-    m_curResults->tree->setFocus(Qt::OtherFocusReason);
 
     if (root) {
         switch (m_ui.searchPlaceCombo->currentIndex())
@@ -1466,28 +1465,66 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 
 void KatePluginSearchView::goToNextMatch()
 {
-    bool fromFirst = false;
+    bool wrapFromFirst = false;
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!res) {
         return;
     }
     QTreeWidgetItem *curr = res->tree->currentItem();
     if (!curr) {
+        // no item has been visited -> jump to the closest match after current cursor position
+        // check if current file is in the file
         curr = res->tree->topLevelItem(0);
+        while (curr && curr->data(0, ReplaceMatches::FileUrlRole).toString() != m_mainWindow->activeView()->document()->url().toString()) {
+            curr = res->tree->itemBelow(curr);
+        }
+        // now we are either in this file or !curr
+        if (curr) {
+            QTreeWidgetItem *fileBefore = curr;
+            res->tree->expandItem(curr);
+
+            int lineNr = 0;
+            int columnNr = 0;
+            if (m_mainWindow->activeView()->cursorPosition().isValid()) {
+                lineNr = m_mainWindow->activeView()->cursorPosition().line();
+                columnNr = m_mainWindow->activeView()->cursorPosition().column();
+            }
+
+            if (!curr->data(0, ReplaceMatches::ColumnRole).isValid()) {
+                curr = res->tree->itemBelow(curr);
+            };
+
+            while (curr && curr->data(0, ReplaceMatches::LineRole).toInt() <= lineNr &&
+                curr->data(0, ReplaceMatches::FileUrlRole).toString() == m_mainWindow->activeView()->document()->url().toString())
+            {
+                if (curr->data(0, ReplaceMatches::LineRole).toInt() == lineNr &&
+                    curr->data(0, ReplaceMatches::ColumnRole).toInt() > columnNr)
+                {
+                    break;
+                }
+                fileBefore = curr;
+                curr = res->tree->itemBelow(curr);
+            }
+            curr = fileBefore;
+        }
+
+        if (!curr) {
+            curr = res->tree->topLevelItem(0);
+        }
     }
     if (!curr) return;
 
     if (!curr->data(0, ReplaceMatches::ColumnRole).toString().isEmpty()) {
         curr = res->tree->itemBelow(curr);
         if (!curr) {
-            fromFirst = true;
+            wrapFromFirst = true;
             curr = res->tree->topLevelItem(0);
         }
     }
 
     itemSelected(curr);
 
-    if (fromFirst) {
+    if (wrapFromFirst) {
         delete m_infoMessage;
         const QString msg = i18n("Continuing from first match");
         m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
@@ -1510,6 +1547,41 @@ void KatePluginSearchView::goToPreviousMatch()
         return;
     }
     QTreeWidgetItem *curr = res->tree->currentItem();
+
+    if (!curr) {
+        // no item has been visited -> jump to the closest match before current cursor position
+        // check if current file is in the file
+        curr = res->tree->topLevelItem(0);
+        while (curr && curr->data(0, ReplaceMatches::FileUrlRole).toString() != m_mainWindow->activeView()->document()->url().toString()) {
+            curr = res->tree->itemBelow(curr);
+        }
+        // now we are either in this file or !curr
+        if (curr) {
+            res->tree->expandItem(curr);
+
+            int lineNr = 0;
+            int columnNr = 0;
+            if (m_mainWindow->activeView()->cursorPosition().isValid()) {
+                lineNr = m_mainWindow->activeView()->cursorPosition().line();
+                columnNr = m_mainWindow->activeView()->cursorPosition().column()-1;
+            }
+
+            if (!curr->data(0, ReplaceMatches::ColumnRole).isValid()) {
+                curr = res->tree->itemBelow(curr);
+            };
+
+            while (curr && curr->data(0, ReplaceMatches::LineRole).toInt() <= lineNr &&
+                curr->data(0, ReplaceMatches::FileUrlRole).toString() == m_mainWindow->activeView()->document()->url().toString())
+            {
+                if (curr->data(0, ReplaceMatches::LineRole).toInt() == lineNr &&
+                    curr->data(0, ReplaceMatches::ColumnRole).toInt() > columnNr)
+                {
+                    break;
+                }
+                curr = res->tree->itemBelow(curr);
+            }
+        }
+    }
 
     // go to the item above. (curr == null is not a problem)
     curr = res->tree->itemAbove(curr);

@@ -136,15 +136,15 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     parser.addVersionOption();
 
     // -e/--encoding option
-    const QCommandLineOption useEncoding(QStringList() << QStringLiteral("e") << QStringLiteral("encoding"), i18n("Set encoding for the file to open."), QStringLiteral("encoding"));
+    const QCommandLineOption useEncoding(QStringList() << QStringLiteral("e") << QStringLiteral("encoding"), i18n("Set encoding for the file to open."), i18n("encoding"));
     parser.addOption(useEncoding);
 
     // -l/--line option
-    const QCommandLineOption gotoLine(QStringList() << QStringLiteral("l") << QStringLiteral("line"), i18n("Navigate to this line."), QStringLiteral("line"));
+    const QCommandLineOption gotoLine(QStringList() << QStringLiteral("l") << QStringLiteral("line"), i18n("Navigate to this line."), i18n("line"));
     parser.addOption(gotoLine);
 
     // -c/--column option
-    const QCommandLineOption gotoColumn(QStringList() << QStringLiteral("c") << QStringLiteral("column"), i18n("Navigate to this column."), QStringLiteral("column"));
+    const QCommandLineOption gotoColumn(QStringList() << QStringLiteral("c") << QStringLiteral("column"), i18n("Navigate to this column."), i18n("column"));
     parser.addOption(gotoColumn);
 
     // -i/--stdin option
@@ -156,7 +156,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     parser.addOption(tempfile);
 
     // urls to open
-    parser.addPositionalArgument(QStringLiteral("urls"), i18n("Documents to open."), QStringLiteral("[urls...]"));
+    parser.addPositionalArgument(QStringLiteral("urls"), i18n("Documents to open."), i18n("[urls...]"));
 
     /**
      * do the command line parsing

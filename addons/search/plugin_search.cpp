@@ -1583,8 +1583,20 @@ void KatePluginSearchView::goToPreviousMatch()
         }
     }
 
+    QTreeWidgetItem *startChild = curr;
+
     // go to the item above. (curr == null is not a problem)
     curr = res->tree->itemAbove(curr);
+
+    // expand the items above if needed
+    if (curr && curr->data(0, ReplaceMatches::ColumnRole).toString().isEmpty()) {
+        res->tree->expandItem(curr);  // probably this file item
+        curr = res->tree->itemAbove(curr);
+        if (curr && curr->data(0, ReplaceMatches::ColumnRole).toString().isEmpty()) {
+            res->tree->expandItem(curr);  // probably file above if this is reached
+        }
+        curr = res->tree->itemAbove(startChild);
+    }
 
     // skip file name items and the root item
     while (curr && curr->data(0, ReplaceMatches::ColumnRole).toString().isEmpty()) {

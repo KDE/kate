@@ -12,7 +12,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1,0,0,0,0,0,0">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1,0,0,0,0,0,0,0">
      <item row="0" column="0">
       <widget class="QToolButton" name="newTabButton">
        <property name="text">
@@ -38,7 +38,7 @@
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="QToolButton" name="searchButton">
+      <widget class="QPushButton" name="searchButton">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -46,7 +46,7 @@
         <string>Search</string>
        </property>
        <property name="text">
-        <string/>
+        <string>Search</string>
        </property>
       </widget>
      </item>
@@ -85,18 +85,15 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="replaceButton">
+          <widget class="QPushButton" name="nextButton">
            <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+           <property name="toolTip">
+            <string>Next</string>
            </property>
            <property name="text">
-            <string>Replace</string>
+            <string>Next</string>
            </property>
           </widget>
          </item>
@@ -142,7 +139,7 @@
        </widget>
       </widget>
      </item>
-     <item row="0" column="5" colspan="4">
+     <item row="0" column="5" colspan="5">
       <widget class="KComboBox" name="searchPlaceCombo">
        <item>
         <property name="text">
@@ -171,7 +168,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1" alignment="Qt::AlignRight">
+     <item row="1" column="1">
       <widget class="QLabel" name="replaceLabel">
        <property name="text">
         <string>Replace:</string>
@@ -189,15 +186,12 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QToolButton" name="nextButton">
+      <widget class="QPushButton" name="replaceButton">
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="toolTip">
-        <string>Next</string>
-       </property>
        <property name="text">
-        <string/>
+        <string>Replace</string>
        </property>
       </widget>
      </item>
@@ -269,6 +263,13 @@
        </property>
        <property name="autoRaise">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="9">
+      <widget class="QToolButton" name="currentFolderButton">
+       <property name="toolTip">
+        <string>Use the current document's path.</string>
        </property>
       </widget>
      </item>
@@ -388,13 +389,6 @@
              <widget class="QToolButton" name="folderUpButton">
               <property name="toolTip">
                <string>Go one folder up.</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="currentFolderButton">
-              <property name="toolTip">
-               <string>Use the current document's path.</string>
               </property>
              </widget>
             </item>
@@ -524,21 +518,22 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>newTabButton</tabstop>
   <tabstop>searchCombo</tabstop>
   <tabstop>replaceCombo</tabstop>
   <tabstop>searchButton</tabstop>
   <tabstop>nextButton</tabstop>
-  <tabstop>replaceButton</tabstop>
   <tabstop>stopButton</tabstop>
+  <tabstop>replaceButton</tabstop>
   <tabstop>replaceCheckedBtn</tabstop>
   <tabstop>searchPlaceCombo</tabstop>
   <tabstop>matchCase</tabstop>
   <tabstop>useRegExp</tabstop>
   <tabstop>expandResults</tabstop>
+  <tabstop>currentFolderButton</tabstop>
   <tabstop>displayOptions</tabstop>
   <tabstop>folderRequester</tabstop>
   <tabstop>folderUpButton</tabstop>
-  <tabstop>currentFolderButton</tabstop>
   <tabstop>filterCombo</tabstop>
   <tabstop>excludeCombo</tabstop>
   <tabstop>recursiveCheckBox</tabstop>
@@ -546,7 +541,6 @@
   <tabstop>symLinkCheckBox</tabstop>
   <tabstop>binaryCheckBox</tabstop>
   <tabstop>resultTabWidget</tabstop>
-  <tabstop>newTabButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

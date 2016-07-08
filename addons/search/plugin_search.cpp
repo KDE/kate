@@ -167,14 +167,14 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
 
     // we use the object names here because there can be multiple replaceButtons (on multiple result tabs)
     if (next) {
-        if (currentWidget->objectName() == QStringLiteral("tree")) {
+        if (currentWidget->objectName() == QStringLiteral("tree") || currentWidget == m_ui.binaryCheckBox) {
             m_ui.newTabButton->setFocus();
             *found = true;
             return;
         }
         if (currentWidget == m_ui.displayOptions) {
             if (m_ui.displayOptions->isChecked()) {
-                m_ui.newTabButton->setFocus();
+                m_ui.folderRequester->setFocus();
                 *found = true;
                 return;
             }
@@ -192,7 +192,7 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
     else {
         if (currentWidget == m_ui.newTabButton) {
             if (m_ui.displayOptions->isChecked()) {
-                m_ui.displayOptions->setFocus();
+                m_ui.binaryCheckBox->setFocus();
             }
             else {
                 Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
@@ -408,7 +408,7 @@ KatePluginSearchView::~KatePluginSearchView()
 void KatePluginSearchView::navigateFolderUp()
 {
     // navigate one folder up
-    m_ui.folderRequester->setUrl(localFileDirUp (m_ui.folderRequester->url()));
+    m_ui.folderRequester->setUrl(localFileDirUp(m_ui.folderRequester->url()));
 }
 
 void KatePluginSearchView::setCurrentFolder()
@@ -419,8 +419,9 @@ void KatePluginSearchView::setCurrentFolder()
     KTextEditor::View* editView = m_mainWindow->activeView();
     if (editView && editView->document()) {
         // upUrl as we want the folder not the file
-        m_ui.folderRequester->setUrl(localFileDirUp (editView->document()->url()));
+        m_ui.folderRequester->setUrl(localFileDirUp(editView->document()->url()));
     }
+    m_ui.displayOptions->setChecked(true);
 }
 
 void KatePluginSearchView::openSearchView()

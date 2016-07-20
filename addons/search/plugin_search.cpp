@@ -433,7 +433,9 @@ void KatePluginSearchView::openSearchView()
         m_mainWindow->showToolView(m_toolView);
     }
     m_ui.searchCombo->setFocus(Qt::OtherFocusReason);
-    m_ui.displayOptions->setChecked(true);
+    if (m_ui.searchPlaceCombo->currentIndex() == Folder) {
+        m_ui.displayOptions->setChecked(true);
+    }
 
     KTextEditor::View* editView = m_mainWindow->activeView();
     if (editView && editView->document()) {
@@ -595,10 +597,12 @@ void KatePluginSearchView::folderFileListChanged()
 
 void KatePluginSearchView::searchPlaceChanged()
 {
-    m_ui.displayOptions->setChecked(true);
 
     int searchPlace = m_ui.searchPlaceCombo->currentIndex();
     const bool inFolder = (searchPlace == Folder);
+    if (inFolder) {
+        m_ui.displayOptions->setChecked(true);
+    }
 
     m_ui.filterCombo->setEnabled(searchPlace >= Folder);
     m_ui.excludeCombo->setEnabled(searchPlace >= Folder);
@@ -1668,6 +1672,7 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     m_ui.excludeCombo->clear();
     m_ui.excludeCombo->addItems(cg.readEntry("ExcludeFilters", QStringList()));
     m_ui.excludeCombo->setCurrentIndex(cg.readEntry("CurrentExcludeFilter", 0));
+    m_ui.displayOptions->setChecked(searchPlaceIndex == Folder);
 }
 
 void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)

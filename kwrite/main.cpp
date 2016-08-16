@@ -28,6 +28,10 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KDBusService>
+#include <kcrash_version.h>
+#if KCrash_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+#include <KCrash>
+#endif // KCrash >= 5.15
 
 #include <QCommandLineParser>
 #include <QApplication>
@@ -50,6 +54,13 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * enable high dpi support
      */
     app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+
+    /**
+     * Enable crash handling through KCrash.
+     */
+#if KCrash_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    KCrash::initialize();
+#endif
 
     /**
      * Connect application with translation catalogs

@@ -462,7 +462,7 @@ before any character. The status bar shows the current state of the Overwrite
 Mode, either <guilabel>INS</guilabel> or <guilabel>OVR</guilabel>.</para>
 </listitem>
 </varlistentry>
-
+<!--FIXME keep in sync with katepart/part.docbook <sect2 id="finding-text"> -->
 <varlistentry id="edit-find">
 <term><menuchoice>
 <shortcut>
@@ -556,7 +556,7 @@ document.
 <para>Finds previous occurrence of selected text.</para>
 </listitem>
 </varlistentry>
-
+<!--FIXME keep in sync with katepart/part.docbook <sect2 id="replacing-text"> -->
 <varlistentry id="edit-replace">
 <term><menuchoice>
 <shortcut>
@@ -573,12 +573,10 @@ box for entering the search pattern.</para>
 <guilabel>Whole words</guilabel>, <guilabel>Escape sequences</guilabel> or
 <guilabel>Regular expression</guilabel> from the drop down box.
 </para>
-<!--FIXME not in kf5?
 <para>If <guilabel>Escape sequences</guilabel> or <guilabel>Regular expression</guilabel> are
 selected, the <guibutton>Add...</guibutton> menuitem at the bottom of the context menu of the text boxes will be enabled
 and allows you to add escape sequences or regular expression items to the
 search or replace pattern from predefined lists.</para>
--->
 <para>Use the
 <inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
 <inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
@@ -806,7 +804,17 @@ the old one.</para>
 </listitem>
 </varlistentry>
 
-<!--FIXME Toggle Orientation -->
+<varlistentry id="view-split-toggle-orientation">
+<term>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Toggle Orientation</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Switch between horizontal and vertical split.</para>
+</listitem>
+</varlistentry>
 
 <varlistentry id="view-close-current">
 <term>
@@ -909,11 +917,10 @@ horizontally split documents further down.</para>
 
 </variablelist>
 
-<note><para>Some common actions for split views are available using the
+<note><para>Some common actions in the <guimenu>View</guimenu><guisubmenu>Split View</guisubmenu> menu are available using the
 <guiicon><inlinemediaobject><imageobject><imagedata fileref="view-split-left-right-22.png" format="PNG"/>
 </imageobject></inlinemediaobject></guiicon> button at the top right corner of the editor window
 </para></note>
-<!--view-split-vertical view-split-horizontal view-close-current view-close-inactive view-hide-inactive-->
 
 <variablelist>
 
@@ -1672,11 +1679,34 @@ Editor...</guimenuitem></menuchoice></para></listitem>
 &kate; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>
 menu items, for more information read the sections about the <ulink url="help:/fundamentals/ui.html#menus-settings"
 >Settings Menu</ulink> and <ulink url="help:/fundamentals/ui.html#menus-help">Help Menu</ulink>
-of the &kde; Fundamentals.
+of the &kde; Fundamentals with two additional entries:
 </para>
-<!--FIXME
-Show Tabs
-context menu Close Documents, Close Other Documents, Copy Path, Open Containg Folder
--->
+
+<variablelist>
+<varlistentry id="settings-show-tabs">
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Tabs</guimenuitem>
+</menuchoice></term>
+<listitem><para>Tabs are moveable using the &LMB; and have actions in the context menu
+to close documents, copy the path to the clipboard or open the folder of the document in the filemanager.
+Using the <inlinemediaobject><imageobject><imagedata fileref="tab-duplicate-22.png" format="PNG"/></imageobject></inlinemediaobject>
+<link linkend="view-quick-open"><guibutton>Quick Open</guibutton> </link> button makes switching between documents easy.
+Click the <inlinemediaobject><imageobject><imagedata fileref="view-split-left-right-22.png" format="PNG"/></imageobject></inlinemediaobject>
+button with the &LMB; to open a menu with actions from the <guimenu>View</guimenu><guisubmenu>Split View</guisubmenu> menu.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="settings-show-path">
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Path in Titlebar</guimenuitem>
+</menuchoice></term>
+<listitem><para>If enabled the full path of the active document is displayed, otherwise only the filename.
+This is useful if you edit several files with the same filename to distinguish them.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
 </sect1>
 </chapter>

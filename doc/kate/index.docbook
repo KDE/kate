@@ -44,13 +44,13 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2016-04-21</date>
-<releaseinfo>Applications 16.04</releaseinfo>
+<date>2016-08-27</date>
+<releaseinfo>Applications 16.08</releaseinfo>
 
 <abstract>
 <para>&kate; is a programmer's text editor by &kde;.</para>
 
-<para>This handbook documents &kate; Version 16.04</para>
+<para>This handbook documents &kate; Version 16.08</para>
 </abstract>
 
 <keywordset>

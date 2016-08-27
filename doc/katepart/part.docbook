@@ -291,7 +291,7 @@ depends on some of the options described below.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Match case</guilabel></term>
+<term><guilabel>Match case sensitive</guilabel></term>
 <listitem>
 <para>If enabled, the search will be limited to entries that match the
 case (upper or lower) of each of the characters in the search pattern.</para>
@@ -346,7 +346,7 @@ Expressions</link> for more on these.</para>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Selection only</guilabel></term>
+<term><guilabel>Search in the selection only</guilabel></term>
 <listitem>
 <para>If checked, the search and replace will be performed within
 the selected text only.</para>
@@ -364,7 +364,7 @@ all matches in the document and shows the number of found matches in a small pop
 </variablelist>
 
 </sect2>
-
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-find"> -->
 <sect2 id="finding-text">
 <title>Finding Text</title>
 
@@ -378,16 +378,19 @@ box for entering the search pattern.</para>
 <para>When you start entering the characters of your search pattern, the search starts
 immediately. If there is a match in the text this is highlighted and the background color
 of the entry field changes to light green. If the search pattern does not match any
-string in the text, this is indicated by a light red background color of the entry field
-and <guilabel>Not found</guilabel> is displayed at the right side of the bar.</para>
-<para>Use the <guilabel>Next</guilabel> or <guilabel>Previous</guilabel> button
+string in the text, this is indicated by a light red background color of the entry field.</para>
+<para>Use the 
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
+<inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
 to jump to the next or previous match in the document.</para>
-<para>Matches are highlighted even when you close the search bar.  To clear
+<para>Matches in the document are highlighted even when you close the search bar. To clear
 this highlighting, press the &Esc; key.</para>
 <para>You can choose whether the search should be case sensitive.
-Selecting <guilabel>Match Case</guilabel> will limit finds to entries that match the
+Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject>
+will limit finds to entries that match the
 case (upper or lower) of each of the characters in the search  pattern.</para>
-<para>Click on the button with a green arrow icon at the right side of the incremental search bar to
+<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject>
+button at the right side of the incremental search bar to
 switch to the power search and replace bar.
 </para>
 <para>
@@ -402,8 +405,8 @@ or
 </para>
 
 </sect2>
-
-<sect2>
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-replace"> -->
+<sect2 id="replacing-text">
 <title>Replacing Text</title>
 
 <para>To replace text, launch the power search and replace bar
@@ -414,22 +417,32 @@ using the <menuchoice><guimenu>Edit</guimenu>
 box for entering the search pattern.</para>
 <para>You can control the search mode by selecting the options <guilabel>Plain Text</guilabel>,
 <guilabel>Whole Words</guilabel>, <guilabel>Escape Sequences</guilabel> or
-<guilabel>Regular Expression</guilabel> described above.
+<guilabel>Regular Expression</guilabel> from the drop down box.
 </para>
-<para>Use the <guilabel>Next</guilabel> or <guilabel>Previous</guilabel> button to jump
+<para>If <guilabel>Escape sequences</guilabel> or <guilabel>Regular expression</guilabel> are
+selected, the <guibutton>Add...</guibutton> menuitem at the bottom of the context menu of the text boxes will be enabled
+and allows you to add escape sequences or regular expression items to the
+search or replace pattern from predefined lists.</para>
+<para>Use the
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
+<inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
 to the next or previous match in the document.</para>
-<para>Enter the text to replace with in the text box labelled <guilabel>Replace</guilabel>
+<para>Enter the text to replace with in the text box labeled <guilabel>Replace</guilabel>
 and click the <guibutton>Replace</guibutton> button to replace only the highlighted text or
 the <guibutton>Replace All</guibutton> button to replace the search text in the whole document.
 </para>
-<para>You can modify the search and replace behavior by selecting the different
-options at the bottom of the bar. Selecting <guilabel>Match Case</guilabel> will limit
-finds to entries that match the case (upper or lower) of each of the characters in
-the search pattern. <guilabel>Selection Only</guilabel> will search and replace
-within the current selection only. The <guilabel>Find All</guilabel> button highlights
+<para>You can modify the search and replace behavior by selecting different
+options at the bottom of the bar.
+Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject>
+will limit finds to entries that match the
+case (upper or lower) of each of the characters in the search  pattern.
+<inlinemediaobject><imageobject><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject></inlinemediaobject>
+will search and replace within the current selection only.
+The <guilabel>Find All</guilabel> button highlights
 all matches in the document and shows the number of found matches in a small popup.
 </para>
-<para>Click on the button with a green arrow icon at the right side of the power search and replace bar to
+<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject>
+button at the right side of the power search and replace bar to
 switch to the incremental search bar.
 </para>
 <tip>

@@ -483,6 +483,8 @@ string in the text, this is indicated by a light red background color of the ent
 <inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
 <inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
 to jump to the next or previous match in the document.</para>
+<para>Matches in the document are highlighted even when you close the search bar. To clear
+this highlighting, press the &Esc; key.</para>
 <para>You can choose whether the search should be case sensitive.
 Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject>
 will limit finds to entries that match the

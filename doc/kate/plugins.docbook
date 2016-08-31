@@ -165,7 +165,7 @@ in this case this would be</para>
 <screenshot id="screenshot-backtrace-settings">
 <screeninfo>Backtrace Browser</screeninfo>
 <mediaobject>
-<imageobject><imagedata fileref="backtrace-setting.png" format="PNG"/></imageobject>
+<imageobject><imagedata fileref="backtrace-settings.png" format="PNG"/></imageobject>
 <caption>Configure Paths in Backtrace browser tool view</caption>
 </mediaobject>
 </screenshot>
@@ -1477,7 +1477,7 @@ and switch to the mode to search and replace in the current project:</para>
 <screenshot id="screenshot-projects-search">
 <screeninfo>Search in Projects</screeninfo>
 <mediaobject>
-<imageobject><imagedata fileref="projects-search.png" format="PNG"/></imageobject>
+<imageobject><imagedata fileref="project-search.png" format="PNG"/></imageobject>
 </mediaobject>
 </screenshot>
 
@@ -2820,7 +2820,7 @@ the document or copy it to the clipboard
 <screenshot id="screenshot-filtertext">
 <screeninfo>Text Filter dialog</screeninfo>
 <mediaobject>
-<imageobject><imagedata fileref="filtertext.png" format="PNG"/></imageobject>
+<imageobject><imagedata fileref="textfilter.png" format="PNG"/></imageobject>
 </mediaobject>
 </screenshot>
 

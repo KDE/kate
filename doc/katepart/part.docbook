@@ -621,7 +621,7 @@ bar.</para>
 
 <para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="&imgpath;line-modification-system.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="line-modification-system.png"/></imageobject>
 <caption><para>Line Modification Indicators in action.</para></caption>
 </mediaobject>
 </para>
@@ -643,7 +643,7 @@ the scrollbar.  The currently visible portion of the document is highlighted.
 
 <para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="&imgpath;minimap.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="minimap.png"/></imageobject>
 <caption><para>The Scrollbar Minimap shows a preview of the &kate; source code.
 </para></caption>
 </mediaobject>

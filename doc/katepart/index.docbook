@@ -2,8 +2,6 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
 "dtd/kdedbx45.dtd" [
   <!ENTITY kappname "&katepart;">
-  <!ENTITY imgpath "./">
-  <!ENTITY rcfile "kwriterc">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY menus-chapter SYSTEM "menus.docbook">

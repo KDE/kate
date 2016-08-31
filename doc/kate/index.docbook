@@ -1,8 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
 "dtd/kdedbx45.dtd" [
-  <!ENTITY imgpath "../katepart/">
-  <!ENTITY rcfile "katerc">
   <!ENTITY gdb "<acronym>GDB</acronym>">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">

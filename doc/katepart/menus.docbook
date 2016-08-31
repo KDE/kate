@@ -993,8 +993,6 @@ the endianness (byte order) of a text file or stream, for more information see
 modified by <link linkend="dev-scripting-command-line">writing your
 own scripts</link>. This way, &katepart; can be extended with user-defined tools.
 </para>
-<para><ulink url="help:/katepart/tools.html#scripts">There is a complete list of
-scripts in the &katepart; documentation.</ulink></para>
 
 <variablelist>
 

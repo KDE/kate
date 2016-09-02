@@ -1045,10 +1045,10 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
 void KateViewManager::removeHiddenViewSpaces()
 {
     // collect all empty view spaces
-    QSet<KateViewSpace *> hiddenViewSpaces;
+    QVector<QPointer<KateViewSpace> > hiddenViewSpaces;
     foreach (KateViewSpace *vs, m_viewSpaceList) {
         if (vs->size().isEmpty()) {
-            hiddenViewSpaces.insert(vs);
+            hiddenViewSpaces.push_back(vs);
         }
     }
 
@@ -1056,7 +1056,10 @@ void KateViewManager::removeHiddenViewSpaces()
     const QList<QSplitter *> splitters = findChildren<QSplitter *>();
     foreach (QSplitter * splitter, splitters) {
         if (splitter->size().isEmpty()) {
-            hiddenViewSpaces += findChildren<KateViewSpace *>().toSet();
+            const QList<KateViewSpace *> children = findChildren<KateViewSpace *>();
+            for (auto & child : children) {
+                hiddenViewSpaces.push_back(child);
+            }
         }
     }
 

@@ -25,7 +25,7 @@ enhancements with the world!</para>
 <title>Working with Syntax Highlighting</title>
 
 <para>For information about adding or modifying syntax highlighting definitions,
-see the <ulink url="help:/katepart/dev-scripting.html">Working with Syntax
+see the <ulink url="help:/katepart/highlight.html">Working with Syntax
 Highlighting section of the Development chapter of the &katepart;
 Handbook</ulink>.</para>
 

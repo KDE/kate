@@ -2675,7 +2675,7 @@ changes.</para>
 below the editing area.</para>
 
 <para>You can configure the &konsole; using its &RMB; menu, for more
-information, see the <ulink url="help:/konsole/index.htm">&konsole; manual</ulink>.</para>
+information, see the <ulink url="help:/konsole/index.html">&konsole; manual</ulink>.</para>
 
 <para>The built-in terminal emulator is provided by the Terminal Tool View plugin.</para>
 

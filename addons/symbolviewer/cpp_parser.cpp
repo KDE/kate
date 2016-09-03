@@ -242,6 +242,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       stripped.replace(0x9, QLatin1String(" "));
                       if(func_on == true)
                         {
+                         QString strippedWithTypes = stripped;
                          if (m_plugin->typesOn == false)
                            {
                             while (stripped.indexOf(QLatin1Char('(')) >= 0)
@@ -278,6 +279,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                          if (mclass == 4) node->setIcon(0, QIcon(mtd));
                          else node->setIcon(0, QIcon(cls));
                          node->setText(1, QString::number( tmpPos, 10));
+                         node->setToolTip(0, strippedWithTypes);
                         }
                       stripped.clear();
                       //retry = 0;

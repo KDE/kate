@@ -87,6 +87,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     QRegExp functionArgsRegExp(QLatin1String("(\\$[\\w_]+)"), Qt::CaseInsensitive);
     QStringList functionArgsList;
     QString functionArgs;
+    QString nameWithTypes;
 
     // replace literals by empty strings: “function a($b='nothing', $c="pretty \"cool\" string")” => “function ($b='', $c="")”
     QRegExp literalRegExp(QLatin1String("([\"'])(?:\\\\.|[^\\\\])*\\1"));
@@ -210,17 +211,20 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         if (isClass)
         {
-          if (m_plugin->typesOn && !classRegExp.cap(1).trimmed().isEmpty() && !classRegExp.cap(4).trimmed().isEmpty())
-          {
-            node->setText(0, classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(1).trimmed()+QLatin1Char(',')+classRegExp.cap(4).trimmed()+QLatin1Char(']'));
-          }
-          else if (m_plugin->typesOn && !classRegExp.cap(1).trimmed().isEmpty())
-          {
-            node->setText(0, classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(1).trimmed()+QLatin1Char(']'));
-          }
-          else if (m_plugin->typesOn && !classRegExp.cap(4).trimmed().isEmpty())
-          {
-            node->setText(0, classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(4).trimmed()+QLatin1Char(']'));
+          if (m_plugin->typesOn) {
+            if (!classRegExp.cap(1).trimmed().isEmpty() && !classRegExp.cap(4).trimmed().isEmpty())
+            {
+              nameWithTypes = classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(1).trimmed()+QLatin1Char(',')+classRegExp.cap(4).trimmed()+QLatin1Char(']');
+            }
+            else if (!classRegExp.cap(1).trimmed().isEmpty())
+            {
+              nameWithTypes = classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(1).trimmed()+QLatin1Char(']');
+            }
+            else if (!classRegExp.cap(4).trimmed().isEmpty())
+            {
+              nameWithTypes = classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(4).trimmed()+QLatin1Char(']');
+            }
+            node->setText(0, nameWithTypes);
           }
           else
           {
@@ -231,7 +235,8 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         {
           if (m_plugin->typesOn)
           {
-            node->setText(0, interfaceRegExp.cap(1) + QLatin1String(" [interface]"));
+            nameWithTypes = interfaceRegExp.cap(1) + QLatin1String(" [interface]");
+            node->setText(0, nameWithTypes);
           }
           else
           {
@@ -240,6 +245,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         node->setIcon(0, QIcon(classPix));
         node->setText(1, QString::number( i, 10));
+        node->setToolTip(0, nameWithTypes);
         inClass = true;
         inFunction = false;
       }
@@ -295,26 +301,31 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
           node = new QTreeWidgetItem(m_symbols);
         }
 
+        QString functionArgs(functionRegExp.cap(5));
+        pos = 0;
+        while (pos >= 0) {
+          pos = functionArgsRegExp.indexIn(functionArgs, pos);
+          if (pos >= 0) {
+            pos += functionArgsRegExp.matchedLength();
+            functionArgsList += functionArgsRegExp.cap(1);
+          }
+        }
+        
+        nameWithTypes = functionRegExp.cap(4) + QLatin1Char('(') + functionArgsList.join(QLatin1String(", ")) + QLatin1Char(')');
         if (m_plugin->typesOn)
         {
-          QString functionArgs(functionRegExp.cap(5));
-          pos = 0;
-          while (pos >= 0) {
-            pos = functionArgsRegExp.indexIn(functionArgs, pos);
-            if (pos >= 0) {
-              pos += functionArgsRegExp.matchedLength();
-              functionArgsList += functionArgsRegExp.cap(1);
-            }
-          }
-          node->setText(0, functionRegExp.cap(4) + QLatin1Char('(') + functionArgsList.join(QLatin1String(", ")) + QLatin1Char(')'));
-          functionArgsList.clear();
+          node->setText(0, nameWithTypes);
         }
         else
         {
           node->setText(0, functionRegExp.cap(4));
         }
+                  
         node->setIcon(0, QIcon(functionPix));
         node->setText(1, QString::number( i, 10));
+        node->setToolTip(0, nameWithTypes);
+        
+        functionArgsList.clear();
 
         inFunction = true;
       }

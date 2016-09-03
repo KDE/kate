@@ -60,7 +60,6 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
 
      if (cl.indexOf( QRegExp(QLatin1String("^class [a-zA-Z0-9]+[^#]")) ) >= 0)
        {
-        name = cl.mid(6);
           if (func_on == true)
             {
              if (m_plugin->treeOn)
@@ -72,18 +71,13 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
                 lastMtdNode = lastClsNode;
                }
              else node = new QTreeWidgetItem(m_symbols);
-             node->setText(0, name);
+             node->setText(0, cl.mid(6));
              node->setIcon(0, QIcon(cls));
              node->setText(1, QString::number( i, 10));
             }
        }
      if (cl.indexOf( QRegExp(QLatin1String("^def [a-zA-Z_]+[^#]")) ) >= 0 )
        {
-        name = cl.mid(4);
-        if (m_plugin->typesOn == false)
-          {
-           name = name.left(name.indexOf(QLatin1Char('(')));
-          }
         if (struct_on == true)
           {
            if (m_plugin->treeOn)
@@ -92,6 +86,13 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
               lastMtdNode = node;
              }
            else node = new QTreeWidgetItem(m_symbols);
+           
+           name = cl.mid(4);
+           node->setToolTip(0, name);
+           if (m_plugin->typesOn == false)
+            {
+            name = name.left(name.indexOf(QLatin1Char('(')));
+            }
            node->setText(0, name);
            node->setIcon(0, QIcon(mtd));
            node->setText(1, QString::number( i, 10));

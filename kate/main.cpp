@@ -24,6 +24,7 @@
 #include "katewaiter.h"
 
 #include <KAboutData>
+#include <kcoreaddons_version.h> // for KAboutData::setDesktopFileName()
 #include <KLocalizedString>
 #include <KWindowSystem>
 #include <KStartupInfo>
@@ -100,6 +101,13 @@ int main(int argc, char **argv)
      * right dbus prefix == org.kde.
      */
     aboutData.setOrganizationDomain("kde.org");
+
+    /**
+     * desktop file association to make application icon work (e.g. in Wayland window decoration)
+     */
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 16, 0)
+    aboutData.setDesktopFileName(QStringLiteral("org.kde.kate"));
+#endif
 
     aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("http://www.cullmann.io"));
     aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("http://www.alweb.dk"));

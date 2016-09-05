@@ -121,12 +121,12 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     a = actionCollection()->addAction(QStringLiteral("goto_next"));
     a->setText(i18n("Next Error"));
-    actionCollection()->setDefaultShortcut(a, Qt::CTRL+Qt::ALT+Qt::Key_Right);
+    actionCollection()->setDefaultShortcut(a, Qt::SHIFT+Qt::ALT+Qt::Key_Right);
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotNext()));
 
     a = actionCollection()->addAction(QStringLiteral("goto_prev"));
     a->setText(i18n("Previous Error"));
-    actionCollection()->setDefaultShortcut(a, Qt::CTRL+Qt::ALT+Qt::Key_Left);
+    actionCollection()->setDefaultShortcut(a, Qt::SHIFT+Qt::ALT+Qt::Key_Left);
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotPrev()));
 
 
@@ -783,7 +783,7 @@ void KateBuildView::slotReadReadyStdErr()
 void KateBuildView::processLine(const QString &line)
 {
     //qDebug() << line ;
-    
+
     //look for a filename
     int index = m_filenameDetector.indexIn(line);
 

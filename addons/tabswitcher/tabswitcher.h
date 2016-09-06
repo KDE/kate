@@ -25,6 +25,7 @@
 #include <KTextEditor/MainWindow>
 
 #include <QList>
+#include <QSet>
 #include <QVariant>
 
 #include <KXMLGUIClient>
@@ -136,6 +137,7 @@ private:
     TabSwitcherPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     QStandardItemModel * m_model;
+    QSet<KTextEditor::Document *> m_documents;
     TabSwitcherTreeView * m_treeView;
 };
 

@@ -137,6 +137,10 @@ void TabSwitcherPluginView::setupModel()
 
 void TabSwitcherPluginView::registerDocument(KTextEditor::Document * document)
 {
+    // insert into hash
+    m_documents.insert(document);
+
+    // add to model
     auto item = new QStandardItem(iconForDocument(document), document->documentName());
     item->setData(QVariant::fromValue(document));
     m_model->insertRow(0, item);
@@ -148,6 +152,13 @@ void TabSwitcherPluginView::registerDocument(KTextEditor::Document * document)
 
 void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)
 {
+    // remove from hash
+    if (!m_documents.contains(document)) {
+        return;
+    }
+    m_documents.remove(document);
+
+    // remove from model
     const auto rowCount = m_model->rowCount();
     for (int i = 0; i < rowCount; ++i) {
         auto doc = m_model->item(i)->data().value<KTextEditor::Document*>();
@@ -164,6 +175,10 @@ void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)
 
 void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)
 {
+    if (!m_documents.contains(document)) {
+        return;
+    }
+
     const auto rowCount = m_model->rowCount();
     for (int i = 0; i < rowCount; ++i) {
         auto doc = m_model->item(i)->data().value<KTextEditor::Document*>();
@@ -176,7 +191,7 @@ void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)
 
 void TabSwitcherPluginView::raiseView(KTextEditor::View * view)
 {
-    if (!view) {
+    if (!view || !m_documents.contains(view->document())) {
         return;
     }
 

@@ -72,11 +72,10 @@ void KatePluginManager::setupPluginList()
     defaultPlugins.insert (QLatin1String("katesearchplugin"));
     m_pluginList.clear();
     QVectorIterator<KPluginMetaData> i(plugins);
-    i.toBack();
     QSet<QString> unique;
-    while (i.hasPrevious()) {
+    while (i.hasNext()) {
         KatePluginInfo info;
-        info.metaData = i.previous();
+        info.metaData = i.next();
 
         // only load plugins once, even if found multiple times!
         if (unique.contains(info.saveName()))

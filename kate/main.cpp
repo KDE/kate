@@ -431,6 +431,7 @@ int main(int argc, char **argv)
 
                 QList<QVariant> dbusargs;
                 dbusargs.append(text);
+                dbusargs.append(codec ? QString::fromLatin1(codec->name()) : QString());
                 m.setArguments(dbusargs);
 
                 QDBusConnection::sessionBus().call(m);

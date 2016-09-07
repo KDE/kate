@@ -226,6 +226,10 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 
                 KTextEditor::Document *doc = t->view()->document();
                 if (doc) {
+                    // remember codec in document, e.g. to show the right one
+                    if (codec) {
+                        doc->setEncoding(QString::fromLatin1(codec->name()));
+                    }
                     doc->setText(text);
                 }
             }

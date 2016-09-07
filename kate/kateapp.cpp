@@ -200,7 +200,7 @@ bool KateApp::startupKate()
             text.append(line + QLatin1Char('\n'));
         } while (!line.isNull());
 
-        openInput(text);
+        openInput(text, codec_name);
     } else if (doc) {
         activeKateMainWindow()->viewManager()->activateView(doc);
     }
@@ -310,9 +310,9 @@ bool KateApp::setCursor(int line, int column)
     return true;
 }
 
-bool KateApp::openInput(const QString &text)
+bool KateApp::openInput(const QString &text, const QString &encoding)
 {
-    activeKateMainWindow()->viewManager()->openUrl(QUrl(), QString(), true);
+    activeKateMainWindow()->viewManager()->openUrl(QUrl(), encoding, true);
 
     if (!activeKateMainWindow()->viewManager()->activeView()) {
         return false;

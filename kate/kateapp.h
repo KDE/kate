@@ -208,9 +208,10 @@ public:
      * helper to handle stdin input
      * open a new document/view, fill it with the text given
      * @param text text to fill in the new doc/view
+     * @param encoding encoding to set for the document, if any
      * @return success
      */
-    bool openInput(const QString &text);
+    bool openInput(const QString &text, const QString &encoding);
 
     //
     // KTextEditor::Application interface, called by wrappers via invokeMethod

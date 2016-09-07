@@ -96,9 +96,9 @@ bool KateAppAdaptor::setCursor(int line, int column)
     return m_app->setCursor(line, column);
 }
 
-bool KateAppAdaptor::openInput(QString text)
+bool KateAppAdaptor::openInput(QString text, QString encoding)
 {
-    return m_app->openInput(text);
+    return m_app->openInput(text, encoding);
 }
 
 bool KateAppAdaptor::activateSession(QString session)

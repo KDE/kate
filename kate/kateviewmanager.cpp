@@ -222,37 +222,42 @@ void KateViewManager::slotDocumentNew()
 
 void KateViewManager::slotDocumentOpen()
 {
-    KTextEditor::View *cv = activeView();
-    if (!cv) {
-        return;
+    // try to start dialog in useful dir: either dir of current doc or last used one
+    KTextEditor::View * const cv = activeView();
+    QUrl startUrl = cv ? cv->document()->url() : QUrl();
+    if (startUrl.isValid()) {
+        m_lastOpenDialogUrl = startUrl;
+    } else {
+        startUrl = m_lastOpenDialogUrl;
     }
+    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(m_mainWindow, i18n("Open File"), startUrl);
 
-    KateDocumentInfo docInfo;
-    docInfo.openedByUser = true;
-
-    QString fileList;
-
-    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(m_mainWindow, i18n("Open File"), cv->document()->url());
+    /**
+     * emit size warning, for local files
+     */
+    QString fileListWithTooLargeFiles;
     Q_FOREACH(const QUrl & url, urls) {
-        qint64 size = QFile(url.toLocalFile()).size();
+        if (!url.isLocalFile()) {
+            continue;
+        }
 
+        const auto size = QFile(url.toLocalFile()).size();
         if (size > FileSizeAboveToAskUserIfProceedWithOpen) {
-            fileList += QString::fromLatin1("<li>%1 (%2MB)</li>").arg(url.fileName()).arg(size / 1024 / 1024);
+            fileListWithTooLargeFiles += QString::fromLatin1("<li>%1 (%2MB)</li>").arg(url.fileName()).arg(size / 1024 / 1024);
         }
     }
-
-    if (!fileList.isEmpty()) {
-        QString text = i18n("<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>");
-
-        int ret = KMessageBox::warningYesNo(this, text.arg(fileList), i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop());
+    if (!fileListWithTooLargeFiles.isEmpty()) {
+        const QString text = i18n("<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>");
+        const auto ret = KMessageBox::warningYesNo(this, text.arg(fileListWithTooLargeFiles), i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop());
         if (ret == KMessageBox::No) {
             return;
         }
     }
 
-    KTextEditor::Document *lastID = openUrls(urls, QString(), false, docInfo);
-
-    if (lastID) {
+    // activate view of last opened document
+    KateDocumentInfo docInfo;
+    docInfo.openedByUser = true;
+    if (KTextEditor::Document *lastID = openUrls(urls, QString(), false, docInfo)) {
         activateView(lastID);
     }
 }

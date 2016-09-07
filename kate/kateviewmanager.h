@@ -155,7 +155,7 @@ private Q_SLOTS:
      *
      * note that the batch can be interrupted in the middle and only some
      * of the documents may be actually deleted. See documentsDeleted() signal.
-     * 
+     *
      * @param documents documents we want to delete, may not be deleted
      */
     void aboutToDeleteDocuments(const QList<KTextEditor::Document *> &documents);
@@ -167,7 +167,7 @@ private Q_SLOTS:
      * @param documents the documents that weren't deleted after all
      */
     void documentsDeleted(const QList<KTextEditor::Document *> &documents);
-    
+
 public Q_SLOTS:
     /**
      * Splits a KateViewSpace into two in the following steps:
@@ -240,12 +240,12 @@ public Q_SLOTS:
 
     /** closes every view but the active one */
     void slotCloseOtherViews();
-    
+
     /** hide every view but the active one */
     void slotHideOtherViews(bool hideOthers);
 
     void reactivateActiveView();
-    
+
     /**
      * Toogle the orientation of current split view
      */
@@ -309,24 +309,24 @@ private:
                 , activityResource(Q_NULLPTR)
             {
             }
-            
+
             /**
              * view active?
              */
             bool active;
-            
+
             /**
              * lru age of the view
              * important: smallest age ==> latest used view
              */
             qint64 lruAge;
-            
+
             /**
              * activity resource for the view
              */
             KActivities::ResourceInstance *activityResource;
     };
-    
+
     /**
      * central storage of all views known in the view manager
      * maps the view to meta data
@@ -337,11 +337,16 @@ private:
      * current minimal age
      */
     qint64 m_minAge;
-    
+
     /**
      * the view that is ATM merged to the xml gui factory
      */
     QPointer<KTextEditor::View> m_guiMergedView;
+
+    /**
+     * last url of open file dialog, used if current document has no valid url
+     */
+    QUrl m_lastOpenDialogUrl;
 };
 
 #endif

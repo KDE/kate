@@ -176,6 +176,7 @@ void PluginKateTextFilter::slotEditFilter()
   mergeOutput = config.readEntry("Merge output", true);
   ui.filterBox->setMaxCount(10);
   ui.filterBox->setHistoryItems(items, true);
+  ui.filterBox->setMinimumContentsLength(80);
   ui.copyResult->setChecked(copyResult);
   ui.mergeOutput->setChecked(mergeOutput);
 

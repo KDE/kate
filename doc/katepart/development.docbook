@@ -256,11 +256,11 @@ Available attributes are:</term>
 <para><userinput>name</userinput> sets the name of the language. It appears in the menus and dialogs afterwards.</para>
 <para><userinput>section</userinput> specifies the category.</para>
 <para><userinput>extensions</userinput> defines file extensions, such as &quot;*.cpp;*.h&quot;</para>
+<para><userinput>version</userinput> specifies the current revision of the definition file in terms of an integer number. Whenever you change a highlighting definition file, make sure to increase this number.</para>
+<para><userinput>kateversion</userinput> specifies the latest supported &kappname; version.</para>
 
 <para>Optional attributes:</para>
 <para><userinput>mimetype</userinput> associates files &MIME; type.</para>
-<para><userinput>version</userinput> specifies the current version of the definition file.</para>
-<para><userinput>kateversion</userinput> specifies the latest supported &kappname; version.</para>
 <para><userinput>casesensitive</userinput> defines, whether the keywords are case sensitive or not.</para>
 <para><userinput>priority</userinput> is necessary if another highlight definition file uses the same extensions. The higher priority will win.</para>
 <para><userinput>author</userinput> contains the name of the author and his email-address.</para>
@@ -269,7 +269,7 @@ Available attributes are:</term>
 <para><userinput>hidden</userinput> defines whether the name should appear in &kappname;'s menus.</para>
 <para>So the next line may look like this:</para>
 <programlisting>
-&lt;language name=&quot;C++&quot; version=&quot;1.00&quot; kateversion=&quot;2.4&quot; section=&quot;Sources&quot; extensions=&quot;*.cpp;*.h&quot; /&gt;
+&lt;language name=&quot;C++&quot; version=&quot;1&quot; kateversion=&quot;2.4&quot; section=&quot;Sources&quot; extensions=&quot;*.cpp;*.h&quot; /&gt;
 </programlisting>
 </listitem>
 </varlistentry>

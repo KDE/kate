@@ -1,5 +1,5 @@
 /*   Kate search plugin
- * 
+ *
  * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -37,7 +37,7 @@ void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegularExpression 
 {
     if (m_manager == 0) return;
     if (m_rootIndex != -1) return;
-    
+
     m_tree = tree;
     m_rootIndex = 0;
     m_regExp = regexp;
@@ -153,9 +153,13 @@ void ReplaceMatches::doReplaceNextMatch()
 
         QString replaceText = m_replaceText;
         replaceText.replace(QStringLiteral("\\\\"), QStringLiteral("¤Search&Replace¤"));
-        for (int j=1; j<=match.lastCapturedIndex() ; j++) {
+
+        // allow captures \0 .. \9999999...
+        // replace from large number to small, to not replace e.g. \12 first with capture for \1, see bug 365124
+        for (int j = match.lastCapturedIndex(); j >= 0; --j) {
             replaceText.replace(QString(QStringLiteral("\\%1")).arg(j), match.captured(j));
         }
+
         replaceText.replace(QStringLiteral("\\n"), QStringLiteral("\n"));
         replaceText.replace(QStringLiteral("\\t"), QStringLiteral("\t"));
         replaceText.replace(QStringLiteral("¤Search&Replace¤"), QStringLiteral("\\"));

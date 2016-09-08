@@ -731,10 +731,11 @@ void KateMainWindow::slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntry
 {
     const QUrl dir = static_cast<KIO::SimpleJob *>(job)->url();
     foreach(const KIO::UDSEntry & entry, list) {
-        QUrl currentUrl = dir.resolved(QUrl(entry.stringValue(KIO::UDSEntry::UDS_NAME)));
-
         if (!entry.isDir()) {
-            m_viewManager->openUrl(currentUrl);
+            QUrl url(dir);
+            url = url.adjusted(QUrl::StripTrailingSlash);
+            url.setPath(url.path() + QLatin1Char('/') + entry.stringValue(KIO::UDSEntry::UDS_NAME));
+            m_viewManager->openUrl(url);
         }
     }
 }

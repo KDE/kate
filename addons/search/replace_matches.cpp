@@ -154,10 +154,14 @@ void ReplaceMatches::doReplaceNextMatch()
         QString replaceText = m_replaceText;
         replaceText.replace(QStringLiteral("\\\\"), QStringLiteral("¤Search&Replace¤"));
 
-        // allow captures \0 .. \9999999...
-        // replace from large number to small, to not replace e.g. \12 first with capture for \1, see bug 365124
-        for (int j = match.lastCapturedIndex(); j >= 0; --j) {
+        // allow captures \0 .. \9
+        for (int j = qMin(9, match.lastCapturedIndex()); j >= 0; --j) {
             replaceText.replace(QString(QStringLiteral("\\%1")).arg(j), match.captured(j));
+        }
+
+        // allow captures \{0} .. \{9999999}...
+        for (int j = match.lastCapturedIndex(); j >= 0; --j) {
+            replaceText.replace(QString(QStringLiteral("\\{%1}")).arg(j), match.captured(j));
         }
 
         replaceText.replace(QStringLiteral("\\n"), QStringLiteral("\n"));

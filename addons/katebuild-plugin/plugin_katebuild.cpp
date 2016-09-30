@@ -370,7 +370,7 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
     const int column = item->data(2, Qt::UserRole).toInt();
 
     // open file (if needed, otherwise, this will activate only the right view...)
-    m_win->openUrl(QUrl::fromUserInput(filename));
+    m_win->openUrl(QUrl::fromLocalFile(filename));
 
     // any view active?
     if (!m_win->activeView()) {
@@ -828,9 +828,14 @@ void KateBuildView::processLine(const QString &line)
         filename = m_make_dir + QLatin1Char('/') + filename;
     }
 
+    // get canonical path, if possible, to avoid duplicated opened files
+    auto canonicalFilePath(QFileInfo(filename).canonicalFilePath());
+    if (!canonicalFilePath.isEmpty()) {
+        filename = canonicalFilePath;
+    }
+
     // Now we have the data we need show the error/warning
     addError(filename, line_n, QString(), msg);
-
 }
 
 

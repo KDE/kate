@@ -61,9 +61,6 @@ protected Q_SLOTS:
      */
     void selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
-protected:
-    void resizeEvent(QResizeEvent *);
-
 private:
     QTreeWidget *m_sessions;
     QCheckBox *m_useLast;

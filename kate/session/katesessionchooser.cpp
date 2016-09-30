@@ -52,10 +52,10 @@ KateSessionChooser::KateSessionChooser(QWidget *parent, const QString &lastSessi
     header << QString();
     m_sessions->setHeaderLabels(header);
     m_sessions->header()->setStretchLastSection(false);
-    m_sessions->header()->resizeSection(0, (m_sessions->size().width() - 32) * 2 / 3);
-    m_sessions->header()->resizeSection(1, (m_sessions->size().width() - 32) / 3);
+    m_sessions->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    m_sessions->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    m_sessions->header()->setSectionResizeMode(2, QHeaderView::Fixed);
     m_sessions->header()->resizeSection(2, 32);
-    m_sessions->header()->setSectionResizeMode(QHeaderView::Fixed);
     m_sessions->setRootIsDecorated(false);
     m_sessions->setItemsExpandable(false);
     m_sessions->setAllColumnsShowFocus(true);
@@ -117,15 +117,7 @@ KateSessionChooser::KateSessionChooser(QWidget *parent, const QString &lastSessi
     connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
 
     setResult(resultNone);
-    //m_sessions->resizeColumnToContents(0);
     selectionChanged(NULL, NULL);
-}
-
-void KateSessionChooser::resizeEvent(QResizeEvent *)
-{
-    m_sessions->header()->resizeSection(0, (m_sessions->size().width() - 32) * 2 / 3);
-    m_sessions->header()->resizeSection(1, (m_sessions->size().width() - 32) / 3);
-    m_sessions->header()->resizeSection(2, 32);
 }
 
 KateSessionChooser::~KateSessionChooser()

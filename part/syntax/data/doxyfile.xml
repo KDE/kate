@@ -309,7 +309,7 @@
         <itemDatas>
             <itemData name="Error" defStyleNum="dsError" />
             <itemData name="Comment" defStyleNum="dsComment" />
-            <itemData name="Assignment" defStyleNum="dsOther" />
+            <itemData name="Assignment" defStyleNum="dsOthers" />
             <itemData name="ValueYes" defStyleNum="dsString" color="#35D033" selColor="#35D033" />
             <itemData name="ValueNo" defStyleNum="dsString" color="#FF0000" selColor="#FF0000" />
             <itemData name="UntypedValue" defStyleNum="dsString" />

@@ -44,6 +44,8 @@ public:
 
 public Q_SLOTS:
     void slotDocumentClose();
+    void slotExpandRecursive();
+    void slotCollapseRecursive();
     void slotDocumentCloseOther();
     void slotDocumentReload();
     void slotCopyFilename();
@@ -88,6 +90,8 @@ private:
 
 private:
     QAction *m_filelistCloseDocument;
+    QAction *m_filelistExpandRecursive;
+    QAction *m_filelistCollapseRecursive;
     QAction *m_filelistCloseOtherDocument;
     QAction *m_filelistReloadDocument;
     QAction *m_filelistCopyFilename;

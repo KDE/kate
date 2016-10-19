@@ -69,6 +69,14 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     connect(m_filelistCloseDocument, SIGNAL(triggered()), this, SLOT(slotDocumentClose()));
     m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 
+    m_filelistExpandRecursive = new QAction(QIcon::fromTheme(QLatin1String("view-list-tree")), i18nc("@action:inmenu", "Expand recursively"), this);
+    connect(m_filelistExpandRecursive, SIGNAL(triggered()), this, SLOT(slotExpandRecursive()));
+    m_filelistExpandRecursive->setWhatsThis(i18n("Expand the file list sub tree recursively."));
+
+    m_filelistCollapseRecursive = new QAction(QIcon::fromTheme(QLatin1String("view-list-tree")), i18nc("@action:inmenu", "Collapse recursively"), this);
+    connect(m_filelistCollapseRecursive, SIGNAL(triggered()), this, SLOT(slotCollapseRecursive()));
+    m_filelistCollapseRecursive->setWhatsThis(i18n("Collapse the file list sub tree recursively."));
+
     m_filelistCloseOtherDocument = new QAction(QIcon::fromTheme(QLatin1String("document-close")), i18nc("@action:inmenu", "Close Other"), this);
     connect(m_filelistCloseOtherDocument, SIGNAL(triggered()), this, SLOT(slotDocumentCloseOther()));
     m_filelistCloseOtherDocument->setWhatsThis(i18n("Close other documents in this folder."));
@@ -225,6 +233,8 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     QMenu menu;
     menu.addAction(m_filelistReloadDocument);
     menu.addAction(m_filelistCloseDocument);
+    menu.addAction(m_filelistExpandRecursive);
+    menu.addAction(m_filelistCollapseRecursive);
 
     if (isFile) {
         menu.addAction(m_filelistCloseOtherDocument);
@@ -335,6 +345,50 @@ void KateFileTree::slotDocumentClose()
     }
     QList<KTextEditor::Document *> closingDocuments = v.value<QList<KTextEditor::Document *> >();
     KTextEditor::Editor::instance()->application()->closeDocuments(closingDocuments);
+}
+
+void KateFileTree::slotExpandRecursive()
+{
+    if (! m_indexContextMenu.isValid()) {
+        return;
+    }
+
+    // Work list for DFS walk over sub tree
+    QList<QPersistentModelIndex> worklist = { m_indexContextMenu };
+
+    while (! worklist.isEmpty()) {
+        QPersistentModelIndex index = worklist.takeLast();
+
+        // Expand current item
+        expand(index);
+
+        // Append all children of current item
+        for (int i=0 ; i < model()->rowCount(index) ; ++i) {
+            worklist.append(index.child(i,0));
+        }
+    }
+}
+
+void KateFileTree::slotCollapseRecursive()
+{
+    if (! m_indexContextMenu.isValid()) {
+        return;
+    }
+
+    // Work list for DFS walk over sub tree
+    QList<QPersistentModelIndex> worklist = { m_indexContextMenu };
+
+    while (! worklist.isEmpty()) {
+        QPersistentModelIndex index = worklist.takeLast();
+
+        // Expand current item
+        collapse(index);
+
+        // Prepend all children of current item
+        for (int i=0 ; i < model()->rowCount(index) ; ++i) {
+            worklist.append(index.child(i,0));
+        }
+    }
 }
 
 void KateFileTree::slotDocumentCloseOther()

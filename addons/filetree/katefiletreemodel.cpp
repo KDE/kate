@@ -1164,7 +1164,8 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                         const QString xy = rdir + QLatin1Char('/');
                         if (node->path().startsWith(xy)) {
                             beginRemoveRows(QModelIndex(), node->row(), node->row());
-                            check_root_removed = node == check_root;
+                            // check_root_removed must be sticky
+                            check_root_removed = check_root_removed || (node == check_root);
                             m_root->remChild(node);
                             endRemoveRows();
                             insertItemInto(irdir, node);

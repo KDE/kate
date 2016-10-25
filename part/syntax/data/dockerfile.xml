@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Dockerfile syntaxfile v1.0 by James Turnbull <james@lovedthanlost.net> -->
-<language name="Dockerfile" section="Other" version="2" kateversion="2.4" extensions="Dockerfile" author="James Turnbull (james@lovedthanlost.net)" license="LGPLv2+">
+<language name="Dockerfile" section="Other" version="4" kateversion="2.4" extensions="Dockerfile" author="James Turnbull (james@lovedthanlost.net)" license="LGPLv2+">
   <highlighting>
     <list name="keywords">
       <item> ADD </item>
@@ -12,10 +12,13 @@
       <item> ENV </item>
       <item> EXPOSE </item>
       <item> FROM </item>
+      <item> HEALTHCHECK </item>
       <item> LABEL </item>
       <item> MAINTAINER </item>
       <item> ONBUILD </item>
       <item> RUN </item>
+      <item> SHELL </item>
+      <item> STOPSIGNAL </item>
       <item> USER </item>
       <item> VOLUME </item>
       <item> WORKDIR </item>

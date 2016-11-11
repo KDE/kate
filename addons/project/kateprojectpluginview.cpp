@@ -494,6 +494,9 @@ QString KateProjectPluginView::currentWord() const
 
 void KateProjectPluginView::slotProjectIndex()
 {
+    if (!m_toolView) {
+        return;
+    }
     const QString word = currentWord();
     if (!word.isEmpty()) {
         auto tabView = qobject_cast<QTabWidget*>(m_stackedProjectInfoViews->currentWidget());

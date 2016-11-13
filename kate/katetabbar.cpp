@@ -522,7 +522,8 @@ void KateTabBar::wheelEvent(QWheelEvent * event)
 
 void KateTabBar::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (event->mimeData()->hasFormat(QStringLiteral("application/x-dndkatetabbutton"))) {
+    const bool sameApplication = event->source() != nullptr;
+    if (sameApplication && event->mimeData()->hasFormat(QStringLiteral("application/x-dndkatetabbutton"))) {
         if (event->source()->parent() == this) {
             event->setDropAction(Qt::MoveAction);
             event->accept();

@@ -167,7 +167,7 @@ int main(int argc, char **argv)
     /**
      * set the program icon
      */
-    QApplication::setWindowIcon(QIcon::fromTheme(QLatin1String("kate")));
+    QApplication::setWindowIcon(QIcon::fromTheme(QLatin1String("kate"), app.windowIcon()));
 
     /**
      * Create command line parser and feed it with known options

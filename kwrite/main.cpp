@@ -143,7 +143,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     /**
      * set the program icon
      */
-    QApplication::setWindowIcon(QIcon::fromTheme(QLatin1String("accessories-text-editor")));
+    QApplication::setWindowIcon(QIcon::fromTheme(QLatin1String("accessories-text-editor"), app.windowIcon()));
 
     /**
      * Create command line parser and feed it with known options

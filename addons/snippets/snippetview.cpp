@@ -86,7 +86,7 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     Ui::SnippetViewBase::setupUi(this);
 
     setWindowTitle(i18n("Snippets"));
-    setWindowIcon(QIcon::fromTheme(QLatin1String("document-new")));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("document-new"), windowIcon()));
 
     snippetTree->setContextMenuPolicy( Qt::CustomContextMenu );
     snippetTree->viewport()->installEventFilter( this );

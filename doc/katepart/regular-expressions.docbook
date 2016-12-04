@@ -347,6 +347,16 @@ more whitespace and then an equal chunk of word characters.  (The
 string <literal>\1</literal> references <emphasis>the first sub pattern
 enclosed in parentheses</emphasis>)</para>
 
+<note>
+<para>To avoid ambiguities with usage of <userinput>\1</userinput> with some digits behind it (&eg; <userinput>\12</userinput> can be 12th subpattern or just the first subpattern with <userinput>2</userinput>) we use <userinput>\{12}</userinput> as syntax for multi-digit subpatterns.</para>
+<para>Examples:</para>
+<itemizedlist>
+<listitem><para><userinput>\{12}1</userinput> is <quote>use subpattern 12</quote></para></listitem>
+<listitem><para><userinput>\123</userinput> is <quote>use capture 1 then 23 as the normal text</quote></para></listitem>
+</itemizedlist>
+
+</note>
+
 <!-- <para>See also <link linkend="backreferences">Back references</link>.</para> -->
 
 </sect3>

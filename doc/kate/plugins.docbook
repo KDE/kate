@@ -2999,7 +2999,8 @@ current element if you are inside a tag.</para>
 <title>Features and Limitations</title>
 
 <para>You can test all functions and limitations by loading
-<filename>$(kf5-config --prefix)/share/apps/katexmltools/testcases.xml</filename>
+<filename>katexmltools/testcases.xml</filename> in
+<userinput><command>qtpaths</command> <option>- --paths GenericDataLocation </option></userinput>
 into &kate; and following the instructions.</para>
 
 </sect2>

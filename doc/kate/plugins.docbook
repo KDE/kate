@@ -2936,7 +2936,8 @@ open tag on the left.</para>
 <para>The <acronym>DTD</acronym> must exist in &XML; format, as produced by the Perl program
 <command>dtdparse</command>. We will call a DTD in this format <quote>meta DTD</quote>.
 Some meta DTDs are supplied. They are installed in
-<filename class="directory">$KDEDIR/share/apps/katexmltools/</filename>,
+<filename class="directory">katexmltools/</filename> in
+<userinput><command>qtpaths</command> <option>--paths GenericDataLocation </option></userinput>,
 which is also the default folder when you choose
 <guimenuitem>Assign Meta DTD...</guimenuitem>.
 To produce your own meta DTDs, get <command>dtdparse</command> from

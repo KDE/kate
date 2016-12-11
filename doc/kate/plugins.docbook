@@ -3000,7 +3000,7 @@ current element if you are inside a tag.</para>
 
 <para>You can test all functions and limitations by loading
 <filename>katexmltools/testcases.xml</filename> in
-<userinput><command>qtpaths</command> <option>- --paths GenericDataLocation </option></userinput>
+<userinput><command>qtpaths</command> <option>--paths GenericDataLocation </option></userinput>
 into &kate; and following the instructions.</para>
 
 </sect2>

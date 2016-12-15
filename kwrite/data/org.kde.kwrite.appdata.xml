@@ -172,6 +172,7 @@
     <ul>
       <li>Syntax highlighting according to the file type</li>
       <li xml:lang="ar">إبراز الصّياغة حسب نوع الملفّ</li>
+      <li xml:lang="ast">Resaltáu de sintaxis acordies cola triba de ficheru</li>
       <li xml:lang="ca">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
       <li xml:lang="ca-valencia">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
       <li xml:lang="de">Syntaxhervorhebung passend zum Dateityp</li>
@@ -249,6 +250,7 @@
       <li xml:lang="zh-TW">文字補完</li>
       <li>Auto-indentation</li>
       <li xml:lang="ar">الإزاحة الآليّة</li>
+      <li xml:lang="ast">Auto-sangráu</li>
       <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="ca-valencia">Sagnat automàtic</li>

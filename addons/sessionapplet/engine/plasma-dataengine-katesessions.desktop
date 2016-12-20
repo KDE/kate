@@ -1,7 +1,6 @@
 [Desktop Entry]
 Name=Kate Sessions
 Name[ar]=جلسات كيت
-Name[ast]=Applet de sesión Kate
 Name[ca]=Sessions del Kate
 Name[ca@valencia]=Sessions del Kate
 Name[cs]=Sezení Kate
@@ -41,7 +40,6 @@ Name[zh_CN]=Kate 会话
 Name[zh_TW]=Kate 工作階段
 Comment=Kate Session Launcher
 Comment[ar]=مُطلق لجلسات «كيت»
-Comment[ast]=Llanzador de sesión Kate
 Comment[bg]=Зареждане на сесии на Kate
 Comment[bs]=Pokretač Kate sesija
 Comment[ca]=Llançador de la sessió del Kate

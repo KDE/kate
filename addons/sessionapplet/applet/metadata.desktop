@@ -96,7 +96,7 @@ Comment[zh_TW]=Kate 工作階段啟動器
 
 Type=Service
 Icon=kate
-X-KDE-ServiceTypes=Plasma/Applet,Plasma/PopupApplet
+X-KDE-ServiceTypes=Plasma/Applet
 
 X-Plasma-API=declarativeappletscript
 X-Plasma-MainScript=ui/katesessions.qml

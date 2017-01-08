@@ -355,6 +355,7 @@ void KateViewSpace::insertTab(int index, KTextEditor::Document * doc)
     const int id = m_tabBar->insertTab(index, doc->documentName());
     m_tabBar->setTabToolTip(id, doc->url().toDisplayString());
     m_docToTabId[doc] = id;
+    updateDocumentState(doc);
 
     connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
             this, SLOT(updateDocumentName(KTextEditor::Document*)));

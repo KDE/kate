@@ -956,7 +956,7 @@ the content of the file, this detection will be run.</para>
 encoding chosen as standard above, nor the encoding specified in the open/
 save dialog, nor the encoding specified on command line match the content of
 the file.  Before this is used, an attempt will be made to determine the
-encoding to use by looking for a byte order marker at start of file: if one
+encoding to use by looking for a byte order mark at start of file: if one
 is found, the right unicode encoding will be chosen; otherwise encoding
 detection will run, if both fail fallback encoding will be tried.</para>
 </listitem>
@@ -978,7 +978,7 @@ type. The first found end of line type will be used for the whole file.</para>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Enable byte order marker</guilabel></term>
+<term><guilabel>Enable byte order mark (BOM)</guilabel></term>
 <listitem>
 <para>The byte order mark is a special sequence at the beginning of unicode
 encoded documents. It helps editors to open text documents with the correct
@@ -1318,9 +1318,9 @@ that can be evaluated to a valid color, for example <userinput>#ff0000</userinpu
 on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry id="variable-byte-order-marker">
-<term><cmdsynopsis><command>bom | byte-order-marker</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Enable/disable the byte order marker when saving files in Unicode format
+<varlistentry id="variable-byte-order-mark">
+<term><cmdsynopsis><command>bom | byte-order-mark</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable/disable the byte order mark (BOM) when saving files in Unicode format
 (utf8, utf16, utf32).</para>
 <para>Since: &kate; 3.4 (&kde; 4.4)</para></listitem>
 </varlistentry>

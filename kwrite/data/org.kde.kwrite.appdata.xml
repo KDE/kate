@@ -103,6 +103,7 @@
     <p xml:lang="gl">KWrite é un editor de texto para KDE baseado no compoñente de editor de Kate.</p>
     <p xml:lang="hi">केराईट केट संपादन घटक से बना पाठ संपादक है</p>
     <p xml:lang="hu">A KWrite egy, a Kate szerkesztőkomponensén alapuló szövegszerkesztő a KDE-hez.</p>
+    <p xml:lang="ia">KWrite es un editor de texto per KDE, basate sur le componente de editor de Kate.</p>
     <p xml:lang="it">KWrite è un editor di testo per KDE, basato sul componente dell'editor di Kate.</p>
     <p xml:lang="ko">KWrite는 Kate 편집기 구성 요소를 사용하는 KDE 텍스트 편집기입니다.</p>
     <p xml:lang="lt">KWrite yra KDE rašyklė, naudojanti Kate komponentus.</p>
@@ -181,6 +182,7 @@
       <li xml:lang="gl">Realce de sintaxe segundo o tipo do ficheiro.</li>
       <li xml:lang="hi">फ़ाईल प्रकार से सिंटेक्स हाईलाइटिंग</li>
       <li xml:lang="hu">Szintaxiskiemelés a fájlnak megfelelően</li>
+      <li xml:lang="ia">Evidentiation de syntaxe secundo le typo de file</li>
       <li xml:lang="it">Evidenziazione della sintassi in base al tipo di file</li>
       <li xml:lang="ko">파일 형식별 구문 강조</li>
       <li xml:lang="lt">Sintaksės paryškinimas, priklausomai nuo dokumento tipo</li>
@@ -220,6 +222,7 @@
       <li xml:lang="gl">Completado de palabras.</li>
       <li xml:lang="hi">शब्द पूर्णता</li>
       <li xml:lang="hu">Szókiegészítés</li>
+      <li xml:lang="ia">Completion de parola</li>
       <li xml:lang="it">Completamento delle parole</li>
       <li xml:lang="ko">단어 완성</li>
       <li xml:lang="lt">Žodžių užbaigimas</li>
@@ -260,6 +263,7 @@
       <li xml:lang="gl">Sangrado automático.</li>
       <li xml:lang="hi">स्वतः हाशिया</li>
       <li xml:lang="hu">Automatikus behúzás</li>
+      <li xml:lang="ia">Auto indentation</li>
       <li xml:lang="it">Rientro automatico</li>
       <li xml:lang="ko">자동 들여쓰기</li>
       <li xml:lang="lt">Automatinė įtrauka</li>
@@ -298,6 +302,7 @@
       <li xml:lang="gl">Compatibilidade con complementos.</li>
       <li xml:lang="hi">प्लगिन समर्थन</li>
       <li xml:lang="hu">Bővíthetőség kiegészítőkkel</li>
+      <li xml:lang="ia">Supporto de plugin</li>
       <li xml:lang="it">Supporto delle estensioni</li>
       <li xml:lang="ko">플러그인 지 원</li>
       <li xml:lang="lt">Papildinių palaikymas</li>
@@ -338,6 +343,7 @@
       <li xml:lang="gl">Modo de entrada de Vi.</li>
       <li xml:lang="hi">Vi इनपुट पद्दति</li>
       <li xml:lang="hu">Vi beviteli mód</li>
+      <li xml:lang="ia">Modo de ingresso de Vi</li>
       <li xml:lang="it">Modalità di inserimento Vi.</li>
       <li xml:lang="ko">VI 입력 모드</li>
       <li xml:lang="lt">Vi įvesties režimas</li>

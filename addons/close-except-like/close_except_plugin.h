@@ -92,11 +92,11 @@ private:
       , QSignalMapper*
       );
     void appendActionsFrom(
-    const std::set<QString>& masks
-  , actions_map_type& actions
-  , KActionMenu* menu
-  , QSignalMapper* mapper
-  );
+        const std::set<QString>& masks
+      , actions_map_type& actions
+      , KActionMenu* menu
+      , QSignalMapper* mapper
+      );
 
     CloseExceptPlugin* m_plugin;
     QPointer<KToggleAction> m_show_confirmation_action;

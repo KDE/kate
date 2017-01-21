@@ -41,7 +41,7 @@
 #include <kio/global.h>
 #include <KXMLGUIFactory>
 
-K_PLUGIN_FACTORY_WITH_JSON(CloseExceptPluginFactory, "katecloseexceptplugin.json",registerPlugin<kate::CloseExceptPlugin>();)
+K_PLUGIN_FACTORY_WITH_JSON(CloseExceptPluginFactory, "katecloseexceptplugin.json", registerPlugin<kate::CloseExceptPlugin>();)
 /*K_EXPORT_PLUGIN(
     CloseExceptPluginFactory(
         KAboutData(
@@ -102,10 +102,10 @@ CloseExceptPluginView::CloseExceptPluginView(
       , this
       ))
   , m_mainWindow(mw)
-{ 
+{
     KXMLGUIClient::setComponentName (QStringLiteral("katecloseexceptplugin"), i18n("Close Except/Like Plugin"));
     setXMLFile( QStringLiteral("ui.rc") );
-    
+
     actionCollection()->addAction(QStringLiteral("file_close_except"), m_except_menu);
     actionCollection()->addAction(QStringLiteral("file_close_like"), m_like_menu);
 

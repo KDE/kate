@@ -1668,10 +1668,10 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     m_ui.folderRequester->setText(cg.readEntry("SearchDiskFiles", QString()));
     m_ui.filterCombo->clear();
     m_ui.filterCombo->addItems(cg.readEntry("Filters", QStringList()));
-    m_ui.filterCombo->setCurrentIndex(cg.readEntry("CurrentFilter", 0));
+    m_ui.filterCombo->setCurrentIndex(cg.readEntry("CurrentFilter", -1));
     m_ui.excludeCombo->clear();
     m_ui.excludeCombo->addItems(cg.readEntry("ExcludeFilters", QStringList()));
-    m_ui.excludeCombo->setCurrentIndex(cg.readEntry("CurrentExcludeFilter", 0));
+    m_ui.excludeCombo->setCurrentIndex(cg.readEntry("CurrentExcludeFilter", -1));
     m_ui.displayOptions->setChecked(searchPlaceIndex == Folder);
 }
 
@@ -1708,14 +1708,14 @@ void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
         filterItems << m_ui.filterCombo->itemText(i);
     }
     cg.writeEntry("Filters", filterItems);
-    cg.writeEntry("CurrentFilter", m_ui.filterCombo->currentIndex());
+    cg.writeEntry("CurrentFilter", m_ui.filterCombo->findText(m_ui.filterCombo->currentText()));
 
     QStringList excludeFilterItems;
     for (int i=0; i<qMin(m_ui.excludeCombo->count(), 10); i++) {
         excludeFilterItems << m_ui.excludeCombo->itemText(i);
     }
     cg.writeEntry("ExcludeFilters", excludeFilterItems);
-    cg.writeEntry("CurrentExcludeFilter", m_ui.excludeCombo->currentIndex());
+    cg.writeEntry("CurrentExcludeFilter", m_ui.excludeCombo->findText(m_ui.excludeCombo->currentText()));
 }
 
 void KatePluginSearchView::addTab()

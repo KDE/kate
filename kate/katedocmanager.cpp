@@ -119,6 +119,14 @@ KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
 {
     QUrl u(url.adjusted(QUrl::NormalizePathSegments));
 
+    // Resolve symbolic links for local files (done anyway in KTextEditor)
+    if (u.isLocalFile()) {
+        QString normalizedUrl = QFileInfo(u.toLocalFile()).canonicalFilePath();
+        if (!normalizedUrl.isEmpty()) {
+            u = QUrl::fromLocalFile(normalizedUrl);
+        }
+    }
+
     foreach(KTextEditor::Document * it, m_docList) {
         if (it->url() == u) {
             return it;

@@ -82,9 +82,7 @@ This lists the options available at the command line.
 <para>
 Starts kate with the session <parameter>name</parameter>. The session is created
 if it does not exist already. If a &kate; instance running the specified session
-exists, the specified files are loaded in that instance. When used with the
-<option>--use</option> option, an instance running this session will be used as
-well.
+exists, the specified files are loaded in that instance.
 </para>
 </listitem>
 </varlistentry>
@@ -94,8 +92,7 @@ well.
 <option>-p</option> <option>--pid</option> <parameter>PID</parameter></userinput></term>
 <listitem>
 <para>
-Only reuses an instance with the specified PID (Process ID). Used with the
-<option>--use</option> option.
+Only reuses an instance with the specified PID (Process ID).
 </para>
 </listitem>
 </varlistentry>

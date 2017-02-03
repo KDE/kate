@@ -478,7 +478,7 @@
       <li xml:lang="tr">Sınırsız geri alma/yeniden yapma desteği</li>
       <li xml:lang="uk">Підтримка нескінченного буфера скасування і повторення дій.</li>
       <li xml:lang="x-test">xxInfinite undo/redo supportxx</li>
-      <li xml:lang="zh-CN">无限制撤消/重做支持</li>
+      <li xml:lang="zh-CN">无限制撤销/重做支持</li>
       <li xml:lang="zh-TW">無限的復原/重做支援</li>
       <li>Block selection mode</li>
       <li xml:lang="ar">وضع التحديد الكتليّ</li>
@@ -665,7 +665,7 @@
       <li xml:lang="et">Pluginapõhine ülesehitus nii rakenduses kui ka redaktorikomponendis</li>
       <li xml:lang="fi">Liitännäisarkkitehtuuri sovellukselle ja muokkainosalle</li>
       <li xml:lang="fr">Architecture à modules complémentaires pour l'application et le composant éditeur</li>
-      <li xml:lang="gl">Arquitectura de complementos para o programa e mailo compoñente do editor.</li>
+      <li xml:lang="gl">Arquitectura de complementos para o aplicativo e mailo compoñente do editor.</li>
       <li xml:lang="hu">Bővítmények támogatása az alkalmazásban és a szerkesztő komponensben</li>
       <li xml:lang="it">Architettura con estensioni per i componenti dell'applicazione e dell'editor</li>
       <li xml:lang="ko">프로그램과 편집기 구성 요소 플러그인 구조</li>

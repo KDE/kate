@@ -56,6 +56,8 @@ public:
         return m_project;
     }
 
+    void showEvent(QShowEvent *) Q_DECL_OVERRIDE;
+
 private:
     /**
      * our plugin view

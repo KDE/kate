@@ -60,6 +60,7 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *plugin
     layout->addWidget(m_lineEdit);
     layout->addWidget(m_treeView);
     setLayout(layout);
+    setFocusProxy(m_lineEdit);
 
     /**
      * connect needed signals

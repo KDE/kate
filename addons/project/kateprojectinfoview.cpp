@@ -57,3 +57,7 @@ KateProjectInfoView::~KateProjectInfoView()
 {
 }
 
+void KateProjectInfoView::showEvent(QShowEvent *)
+{
+    setFocusProxy(currentWidget());
+}

@@ -2612,7 +2612,7 @@ writing much of this section.</para>
 <member>Hide/Show Functions Parameters</member>
 <member>Expand/collapse tree mode</member>
 <member>Auto-update on document change</member>
-<member>Code parsing is based on &kate; highlighting</member>
+<member>Code parsing is based on the Syntax-Highlighting framework from &kde-frameworks;</member>
 </simplelist>
 
 </sect2>

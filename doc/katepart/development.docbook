@@ -219,20 +219,29 @@ will be explained later.</para>
 <sect3>
 <title>Overview</title>
 
+<para>&kappname; uses the Syntax-Highlighting framework from &kde-frameworks;.
+The default highlighting xml files shipped with &kappname; are compiled
+into the Syntax-Highlighting library by default.
+</para>
+
 <para>This section is an overview of the Highlight Definition &XML;
 format. Based on a small example it will describe the main components
 and their meaning and usage. The next section will go into detail with
 the highlight detection rules.</para>
 
-<para>The formal definition, also known as the <acronym>XSD</acronym>, is stored
-in the file <filename>language.xsd</filename> which should be
-installed on your system in the folder
-<filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/syntax</filename>. Therein,
-the environment variable <envar>XDG_DATA_DIRS</envar> typically expands to
-<filename>/usr/share</filename>.
+<para>The formal definition, also known as the <acronym>XSD</acronym> you
+find in <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema">Syntax
+Highlighting repository</ulink> in the file <filename>language.xsd</filename>
 </para>
 
-<para>On &Windows; these files are located in <filename>%USER%\AppData\Local\katepart5\syntax</filename>.
+<para>Custom <filename class="extension">.xml</filename> highlight definition files are
+located in <filename class="directory">org.kde.syntax-highlighting/syntax/</filename> in
+your user folder found with <userinput><command>qtpaths</command><option>--paths
+GenericDataLocation</option></userinput> which usually is
+<filename class="directory"><envar>$HOME</envar>/.local</filename>
+</para>
+
+<para>On &Windows; these files are located <filename>%USERPROFILE%/AppData/Local/org.kde.syntax-highlighting/syntax</filename>.
 <replaceable>%USER%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
 
 <variablelist>
@@ -1006,7 +1015,11 @@ keep the matched string for the next context.
 </listitem>
 <listitem>
 <para>You can validate every XML file by using the command
-<command>xmllint --schema language.xsd mySyntax.xml</command>.</para>
+<command>validatehl.sh language.xsd mySyntax.xml</command>.
+The files <filename>validatehl.sh</filename> and <filename>language.xsd</filename>
+are available in <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema">Syntax
+Highlighting repository</ulink>.
+</para>
 </listitem>
 <listitem>
 <para>If you repeat complex regular expression very often you can use
@@ -1056,7 +1069,7 @@ Therein, the environment variable <envar>XDG_DATA_HOME</envar> typically expands
 either <filename>~/.local</filename> or <filename>~/.local/share</filename>.
 </para>
 <para>On &Windows; these files are located in <filename>%USER%\AppData\Local\katepart5\indentation</filename>.
-<replaceable>%USER%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
+<replaceable>%USERPROFILE%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
 
 <sect3 id="dev-scripting-indentation-header">
 <title>The Indentation Script Header</title>

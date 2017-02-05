@@ -665,7 +665,7 @@
       <li xml:lang="et">Pluginapõhine ülesehitus nii rakenduses kui ka redaktorikomponendis</li>
       <li xml:lang="fi">Liitännäisarkkitehtuuri sovellukselle ja muokkainosalle</li>
       <li xml:lang="fr">Architecture à modules complémentaires pour l'application et le composant éditeur</li>
-      <li xml:lang="gl">Arquitectura de complementos para o aplicativo e mailo compoñente do editor.</li>
+      <li xml:lang="gl">Arquitectura de complementos para o aplicativo e o compoñente do editor.</li>
       <li xml:lang="hu">Bővítmények támogatása az alkalmazásban és a szerkesztő komponensben</li>
       <li xml:lang="it">Architettura con estensioni per i componenti dell'applicazione e dell'editor</li>
       <li xml:lang="ko">프로그램과 편집기 구성 요소 플러그인 구조</li>

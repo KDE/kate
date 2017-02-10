@@ -1172,7 +1172,6 @@ void KatePluginSearchView::searchWhileTypingDone()
         QTreeWidgetItem *child = root->child(0);
         if (!m_searchJustOpened) {
             focusObject = qobject_cast<QWidget *>(QGuiApplication::focusObject());
-            itemSelected(child);
         }
         indicateMatch(child);
 

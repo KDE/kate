@@ -54,8 +54,10 @@ public:
     Results(QWidget *parent = 0);
     int     matches;
     QRegularExpression regExp;
-    bool    fixedString;
-    QString replace;
+    bool    useRegExp;
+    bool    matchCase;
+    QString replaceStr;
+    int     searchPlaceIndex;
 };
 
 // This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()

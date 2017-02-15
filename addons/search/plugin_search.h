@@ -58,6 +58,21 @@ public:
     bool    matchCase;
     QString replaceStr;
     int     searchPlaceIndex;
+
+    struct Match {
+        QString url;
+        QString fName;
+        int line;
+        int column;
+        QString lineContent;
+        int matchLen;
+    };
+
+    QVector<Match> lastMatches;
+    QString        lastSearch;
+    bool           lastRegExp;
+    bool           lastMatchCase;
+    int            lastSearchPlace;
 };
 
 // This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
@@ -191,6 +206,7 @@ private:
     bool                               m_switchToProjectModeWhenAvailable;
     bool                               m_searchDiskFilesDone;
     bool                               m_searchOpenFilesDone;
+    bool                               m_searchWhileTyping;
     QString                            m_resultBaseDir;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
     QTimer                             m_changeTimer;

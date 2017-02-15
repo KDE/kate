@@ -946,6 +946,11 @@ void KatePluginSearchView::startSearch()
     m_ui.replaceButton->setDisabled(true);
     m_ui.stopAndReplace->setCurrentIndex(1);
     m_ui.replaceCombo->setDisabled(true);
+    m_ui.searchPlaceCombo->setDisabled(true);
+    m_ui.useRegExp->setDisabled(true);
+    m_ui.matchCase->setDisabled(true);
+    m_ui.expandResults->setDisabled(true);
+    m_ui.currentFolderButton->setDisabled(true);
 
 
     clearMarks();
@@ -1146,6 +1151,11 @@ void KatePluginSearchView::searchDone()
     m_ui.stopAndReplace->setCurrentIndex(0);
     m_ui.displayOptions->setDisabled(false);
     m_ui.replaceCombo->setDisabled(false);
+    m_ui.searchPlaceCombo->setDisabled(false);
+    m_ui.useRegExp->setDisabled(false);
+    m_ui.matchCase->setDisabled(false);
+    m_ui.expandResults->setDisabled(false);
+    m_ui.currentFolderButton->setDisabled(false);
 
     if (!m_curResults) {
         return;

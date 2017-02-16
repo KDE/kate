@@ -51,9 +51,24 @@
 #include "qtsingleapplication/qtsingleapplication.h"
 #endif
 
+#ifndef Q_OS_WIN
+#include <unistd.h>
+#endif
+#include <iostream>
+
 
 int main(int argc, char **argv)
 {
+#ifndef Q_OS_WIN
+    /**
+     * Check whether we are running as root
+     **/
+    if (getuid() == 0) {
+        std::cout << "Executing Kate as root is not possible. To edit files as root use:" << std::endl;
+        std::cout << "SUDO_EDITOR=kate sudoedit <file>" << std::endl;
+        return 0;
+    }
+#endif
     /**
      * init resources from our static lib
      */

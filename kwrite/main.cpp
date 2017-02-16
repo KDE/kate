@@ -42,8 +42,23 @@
 
 #include "../urlinfo.h"
 
+#ifndef Q_OS_WIN
+#include <unistd.h>
+#endif
+#include <iostream>
+
 extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 {
+#ifndef Q_OS_WIN
+    /**
+     * Check whether we are running as root
+     **/
+    if (getuid() == 0) {
+        std::cout << "Executing Kwrite as root is not possible. To edit files as root use:" << std::endl;
+        std::cout << "SUDO_EDITOR=kwrite sudoedit <file>" << std::endl;
+        return 0;
+    }
+#endif
     /**
      * Create application first
      * Enforce application name even if the executable is renamed

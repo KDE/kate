@@ -1120,7 +1120,9 @@ void KatePluginSearchView::startSearchWhileTyping()
         item->setFlags(item->flags() | Qt::ItemIsTristate);
         if (m_ui.searchCombo->currentIndex() == 0 && m_ui.searchCombo->findText(currentSearchText) == -1) {
             // Save the search in case we pressed down by mistake
+            int cursorPosition = m_ui.searchCombo->lineEdit()->cursorPosition();
             m_ui.searchCombo->setItemText(0, currentSearchText);
+            m_ui.searchCombo->lineEdit()->setCursorPosition(cursorPosition);
         }
         m_searchOpenFiles.searchOpenFile(doc, reg, 0);
         searchWhileTypingDone();

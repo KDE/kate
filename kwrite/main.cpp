@@ -54,7 +54,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * Check whether we are running as root
      **/
     if (getuid() == 0) {
-        std::cout << "Executing Kwrite as root is not possible. To edit files as root use:" << std::endl;
+        std::cout << "Executing KWrite as root is not possible. To edit files as root use:" << std::endl;
         std::cout << "SUDO_EDITOR=kwrite sudoedit <file>" << std::endl;
         return 0;
     }

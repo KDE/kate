@@ -222,7 +222,6 @@ m_searchJustOpened(false),
 m_switchToProjectModeWhenAvailable(false),
 m_searchDiskFilesDone(true),
 m_searchOpenFilesDone(true),
-m_searchWhileTyping(false),
 m_projectPluginView(0),
 m_mainWindow (mainWin)
 {
@@ -812,18 +811,6 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
         doc = m_kateApp->findUrl(QUrl::fromUserInput(url));
     }
     addMatchMark(doc, line, column, matchLen);
-
-    if (!m_searchWhileTyping) {
-        // Save the match to enable quick restore of previous search
-        Results::Match match;
-        match.url = url;
-        match.fName = fName;
-        match.line = line;
-        match.column = column;
-        match.lineContent = lineContent;
-        match.matchLen = matchLen;
-        m_curResults->lastMatches.append(match);
-    }
 }
 
 void KatePluginSearchView::clearMarks()
@@ -916,7 +903,7 @@ void KatePluginSearchView::startSearch()
     }
 
     QRegularExpression::PatternOptions patternOptions = (m_ui.matchCase->isChecked() ? QRegularExpression::NoPatternOption : QRegularExpression::CaseInsensitiveOption);
-    QString pattern = (m_ui.useRegExp->isChecked() ? m_ui.searchCombo->currentText() : QRegularExpression::escape(m_ui.searchCombo->currentText()));
+    QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
     QRegularExpression reg(pattern, patternOptions);
 
     if (!reg.isValid()) {
@@ -929,13 +916,6 @@ void KatePluginSearchView::startSearch()
     m_curResults->useRegExp = m_ui.useRegExp->isChecked();
     m_curResults->matchCase = m_ui.matchCase->isChecked();
     m_curResults->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
-
-    // Search cache
-    m_curResults->lastMatches.clear();
-    m_curResults->lastSearch = m_ui.searchCombo->currentText();
-    m_curResults->lastRegExp = m_ui.useRegExp->isChecked();
-    m_curResults->lastMatchCase = m_ui.matchCase->isChecked();;
-    m_curResults->lastSearchPlace = m_ui.searchPlaceCombo->currentIndex();
 
     m_ui.newTabButton->setDisabled(true);
     m_ui.searchCombo->setDisabled(true);
@@ -1065,17 +1045,21 @@ void KatePluginSearchView::startSearchWhileTyping()
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
     if (!doc) return;
 
-    m_resultBaseDir.clear();
     m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
         qWarning() << "This is a bug";
         return;
     }
 
-    clearMarks();
-    m_curResults->tree->clear();
-    m_curResults->tree->setCurrentItem(nullptr);
-    m_curResults->matches = 0;
+    // check if we typed something or just changed combobox index
+    // changing index should not trigger a search-as-you-type
+    if (m_ui.searchCombo->currentIndex() > 0 &&
+        currentSearchText == m_ui.searchCombo->itemText(m_ui.searchCombo->currentIndex()))
+    {
+        return;
+    }
+
+    // Now we should have a true typed text change
 
     QRegularExpression::PatternOptions patternOptions = (m_ui.matchCase->isChecked() ? QRegularExpression::NoPatternOption : QRegularExpression::CaseInsensitiveOption);
     QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
@@ -1093,42 +1077,31 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_ui.replaceButton->setDisabled(true);
     m_ui.nextButton->setDisabled(true);
 
+    int cursorPosition = m_ui.searchCombo->lineEdit()->cursorPosition();
+    m_ui.searchCombo->blockSignals(true);
+    m_ui.searchCombo->setItemText(0, currentSearchText);
+    m_ui.searchCombo->setCurrentIndex(0);
+    m_ui.searchCombo->lineEdit()->setCursorPosition(cursorPosition);
+    m_ui.searchCombo->blockSignals(false);
 
-    m_searchWhileTyping = true;
-    if (m_ui.searchCombo->currentIndex() == 1 &&
-        currentSearchText == m_curResults->lastSearch &&
-        m_ui.matchCase->isChecked() == m_curResults->lastMatchCase &&
-        m_ui.useRegExp->isChecked() == m_curResults->lastRegExp &&
-        m_ui.searchPlaceCombo->currentIndex() == m_curResults->lastSearchPlace &&
-        !m_curResults->lastMatches.isEmpty())
-    {
-        // It seems the user wants the previous search
-        // We have cached it so add the last search results to the list
-        for (int i=0; i<m_curResults->lastMatches.count(); ++i) {
-            const Results::Match &m = m_curResults->lastMatches[i];
-            matchFound(m.url, m.fName, m.line, m.column, m.lineContent, m.matchLen);
-        }
-        searchDone();
-    }
-    else if (currentSearchText.length() >= 2) {
-        // Add the search-as-you-type header item
-        TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());
-        item->setData(0, ReplaceMatches::FileUrlRole, doc->url().toString());
-        item->setData(0, ReplaceMatches::FileNameRole, doc->documentName());
-        item->setData(0, ReplaceMatches::LineRole, 0);
-        item->setCheckState(0, Qt::Checked);
-        item->setFlags(item->flags() | Qt::ItemIsTristate);
-        if (m_ui.searchCombo->currentIndex() == 0 && m_ui.searchCombo->findText(currentSearchText) == -1) {
-            // Save the search in case we pressed down by mistake
-            int cursorPosition = m_ui.searchCombo->lineEdit()->cursorPosition();
-            m_ui.searchCombo->setItemText(0, currentSearchText);
-            m_ui.searchCombo->lineEdit()->setCursorPosition(cursorPosition);
-        }
-        m_searchOpenFiles.searchOpenFile(doc, reg, 0);
-        searchWhileTypingDone();
-    }
-    m_searchWhileTyping = false;
+    // Prepare for the new search content
+    clearMarks();
+    m_resultBaseDir.clear();
+    m_curResults->tree->clear();
+    m_curResults->tree->setCurrentItem(nullptr);
+    m_curResults->matches = 0;
 
+    // Add the search-as-you-type header item
+    TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());
+    item->setData(0, ReplaceMatches::FileUrlRole, doc->url().toString());
+    item->setData(0, ReplaceMatches::FileNameRole, doc->documentName());
+    item->setData(0, ReplaceMatches::LineRole, 0);
+    item->setCheckState(0, Qt::Checked);
+    item->setFlags(item->flags() | Qt::ItemIsTristate);
+
+    // Do the search
+    m_searchOpenFiles.searchOpenFile(doc, reg, 0);
+    searchWhileTypingDone();
 }
 
 
@@ -1438,8 +1411,6 @@ void KatePluginSearchView::replaceChecked()
     m_replacer.replaceChecked(m_curResults->tree,
                               m_curResults->regExp,
                               m_curResults->replaceStr);
-
-    m_curResults->lastMatches.clear(); // clear the cache as it probably will be invalid anyway
 }
 
 void KatePluginSearchView::replaceDone()

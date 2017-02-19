@@ -924,7 +924,7 @@ void KatePluginSearchView::startSearch()
     m_ui.displayOptions->setDisabled(true);
     m_ui.replaceCheckedBtn->setDisabled(true);
     m_ui.replaceButton->setDisabled(true);
-    m_ui.stopAndReplace->setCurrentIndex(1);
+    m_ui.stopAndNext->setCurrentIndex(1);
     m_ui.replaceCombo->setDisabled(true);
     m_ui.searchPlaceCombo->setDisabled(true);
     m_ui.useRegExp->setDisabled(true);
@@ -1120,10 +1120,13 @@ void KatePluginSearchView::searchDone()
         return;
     }
 
+    QWidget* fw = QApplication::focusWidget();
+    // NOTE: we take the focus widget here before the enabling/disabling
+    // moves the focus around.
     m_ui.newTabButton->setDisabled(false);
     m_ui.searchCombo->setDisabled(false);
     m_ui.searchButton->setDisabled(false);
-    m_ui.stopAndReplace->setCurrentIndex(0);
+    m_ui.stopAndNext->setCurrentIndex(0);
     m_ui.displayOptions->setDisabled(false);
     m_ui.replaceCombo->setDisabled(false);
     m_ui.searchPlaceCombo->setDisabled(false);
@@ -1201,6 +1204,11 @@ void KatePluginSearchView::searchDone()
     indicateMatch(m_curResults->matches > 0);
     m_curResults = 0;
     m_toolView->unsetCursor();
+
+    if (fw == m_ui.stopButton) {
+        m_ui.searchCombo->setFocus();
+    }
+
     m_searchJustOpened = false;
 }
 
@@ -1403,7 +1411,7 @@ void KatePluginSearchView::replaceChecked()
         return;
     }
 
-    m_ui.stopAndReplace->setCurrentIndex(1);
+    m_ui.stopAndNext->setCurrentIndex(1);
     m_ui.displayOptions->setChecked(false);
 
     m_curResults->replaceStr = m_ui.replaceCombo->currentText();
@@ -1415,7 +1423,7 @@ void KatePluginSearchView::replaceChecked()
 
 void KatePluginSearchView::replaceDone()
 {
-    m_ui.stopAndReplace->setCurrentIndex(0);
+    m_ui.stopAndNext->setCurrentIndex(0);
     m_ui.replaceCombo->setDisabled(false);
 }
 

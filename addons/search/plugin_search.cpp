@@ -1583,7 +1583,7 @@ void KatePluginSearchView::goToNextMatch()
                 curr->data(0, ReplaceMatches::FileUrlRole).toString() == m_mainWindow->activeView()->document()->url().toString())
             {
                 if (curr->data(0, ReplaceMatches::LineRole).toInt() == lineNr &&
-                    curr->data(0, ReplaceMatches::ColumnRole).toInt() > columnNr)
+                    curr->data(0, ReplaceMatches::ColumnRole).toInt() >= columnNr - curr->data(0, ReplaceMatches::MatchLenRole).toInt())
                 {
                     break;
                 }

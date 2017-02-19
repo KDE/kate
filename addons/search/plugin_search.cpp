@@ -1078,10 +1078,16 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_ui.nextButton->setDisabled(true);
 
     int cursorPosition = m_ui.searchCombo->lineEdit()->cursorPosition();
+    bool hasSelected = m_ui.searchCombo->lineEdit()->hasSelectedText();
     m_ui.searchCombo->blockSignals(true);
     m_ui.searchCombo->setItemText(0, currentSearchText);
     m_ui.searchCombo->setCurrentIndex(0);
     m_ui.searchCombo->lineEdit()->setCursorPosition(cursorPosition);
+    if (hasSelected) {
+        // This restores the select all from invoking openSearchView
+        // This selects too much if we have a partial selection and toggle match-case/regexp
+        m_ui.searchCombo->lineEdit()->selectAll();
+    }
     m_ui.searchCombo->blockSignals(false);
 
     // Prepare for the new search content

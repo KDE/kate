@@ -1106,8 +1106,19 @@ void KatePluginSearchView::startSearchWhileTyping()
     item->setFlags(item->flags() | Qt::ItemIsTristate);
 
     // Do the search
-    m_searchOpenFiles.searchOpenFile(doc, reg, 0);
+    int searchStoppedAt = m_searchOpenFiles.searchOpenFile(doc, reg, 0);
     searchWhileTypingDone();
+
+    if (searchStoppedAt != 0) {
+        delete m_infoMessage;
+        const QString msg = i18n("Searching while you type was interrupted. It would have taken too long.");
+        m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Warning);
+        m_infoMessage->setPosition(KTextEditor::Message::TopInView);
+        m_infoMessage->setAutoHide(3000);
+        m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+        m_infoMessage->setView(m_mainWindow->activeView());
+        m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+    }
 }
 
 

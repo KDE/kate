@@ -37,6 +37,7 @@ KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProjectPluginView *plugin
     layout->addWidget(m_edit);
     setLayout(layout);
     m_edit->setDocument(project->notesDocument());
+    setFocusProxy(m_edit);
 }
 
 KateProjectInfoViewNotes::~KateProjectInfoViewNotes()

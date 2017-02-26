@@ -188,6 +188,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
      */
     m_stackedProjectViews->addWidget(view);
     m_stackedProjectInfoViews->addWidget(infoView);
+    m_stackedProjectInfoViews->setFocusProxy(infoView);
     m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
 
     /**

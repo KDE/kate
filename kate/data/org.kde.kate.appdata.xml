@@ -590,6 +590,7 @@
       <li xml:lang="ar">التّكامل مع الصّدفة</li>
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
       <li xml:lang="ca-valencia">Integració de l'intèrpret d'ordes</li>
+      <li xml:lang="cs">Integrace shellu</li>
       <li xml:lang="de">Einbindung einer Shell</li>
       <li xml:lang="el">Ενοποίηση κελύφους</li>
       <li xml:lang="en-GB">Shell integration</li>
@@ -624,6 +625,7 @@
       <li xml:lang="ar">دعم واسع للموافيق (http، وftp، وssh وwebdav وغيرها) عبر «عبيد KIO»</li>
       <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
       <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
+      <li xml:lang="cs">Široká podpora protokolů pomocí kioslaves (http, ftp, ssh, webdav atd.)</li>
       <li xml:lang="de">Unterstützung für viele Protokolle (http, ftp, ssh, webdav usw.) unter Verwendung von Ein-/Ausgabemodulen</li>
       <li xml:lang="el">Ευρεία υποστήριξη σε πρωτόκολλα (http, ftp, ssh, webdav κτλ.) με χρήση kioslaves</li>
       <li xml:lang="en-GB">Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>

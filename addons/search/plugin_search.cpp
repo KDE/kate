@@ -1552,14 +1552,21 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 void KatePluginSearchView::goToNextMatch()
 {
     bool wrapFromFirst = false;
+    bool startFromFirst = false;
+    bool startFromCursor = false;
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!res) {
         return;
     }
     QTreeWidgetItem *curr = res->tree->currentItem();
-    if (!curr) {
-        // no item has been visited -> jump to the closest match after current cursor position
-        // check if current file is in the file
+
+    bool focusInView = m_mainWindow->activeView() && m_mainWindow->activeView()->hasFocus();
+
+    if (!curr && focusInView) {
+        // no item has been visited && focus is not in searchCombo (probably in the view) ->
+        // jump to the closest match after current cursor position
+
+        // check if current file is in the file list
         curr = res->tree->topLevelItem(0);
         while (curr && curr->data(0, ReplaceMatches::FileUrlRole).toString() != m_mainWindow->activeView()->document()->url().toString()) {
             curr = res->tree->itemBelow(curr);
@@ -1592,11 +1599,13 @@ void KatePluginSearchView::goToNextMatch()
                 curr = res->tree->itemBelow(curr);
             }
             curr = fileBefore;
+            startFromCursor = true;
         }
 
-        if (!curr) {
-            curr = res->tree->topLevelItem(0);
-        }
+    }
+    if (!curr) {
+        curr = res->tree->topLevelItem(0);
+        startFromFirst = true;
     }
     if (!curr) return;
 
@@ -1610,7 +1619,27 @@ void KatePluginSearchView::goToNextMatch()
 
     itemSelected(curr);
 
-    if (wrapFromFirst) {
+    if (startFromFirst) {
+        delete m_infoMessage;
+        const QString msg = i18n("Starting from first match");
+        m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+        m_infoMessage->setPosition(KTextEditor::Message::TopInView);
+        m_infoMessage->setAutoHide(2000);
+        m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+        m_infoMessage->setView(m_mainWindow->activeView());
+        m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+    }
+    else if (startFromCursor) {
+        delete m_infoMessage;
+        const QString msg = i18n("Next from cursor");
+        m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+        m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
+        m_infoMessage->setAutoHide(2000);
+        m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+        m_infoMessage->setView(m_mainWindow->activeView());
+        m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+    }
+    else if (wrapFromFirst) {
         delete m_infoMessage;
         const QString msg = i18n("Continuing from first match");
         m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);

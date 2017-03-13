@@ -84,7 +84,7 @@
   <summary xml:lang="zh-TW">進階文字編輯器</summary>
   <description>
     <p>
-      Kate is a multi-document, multi-view text editor for KDE. It features stuff like codefolding, syntaxhighlighting,
+      Kate is a multi-document, multi-view text editor by KDE. It features stuff like codefolding, syntaxhighlighting,
       dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.
     </p>
     <p xml:lang="ar">«كيت» هو محرّر نصوص ل‍«كدي» يدعم عدّة مستندات وعدّة عروض. يقدّم «كيت» مزايا عديدة كلفّ الأكواد، وإبراز الصّياغة، ولفّ الكلمات الحركيّ، ومعراض مضمّن، وواجهة ملحقات واسعة ودعم بسيط للسّكربتة.</p>

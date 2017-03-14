@@ -91,43 +91,6 @@
     <p>
       KWrite is a text editor by KDE, based on the Kate's editor component.
     </p>
-    <p xml:lang="ar">«كاتبك» هو محرّر نصوص لكدي، مبنيّ على مكوّن المحرّر ل‍«كيت».</p>
-    <p xml:lang="ast">KWrite ye un editor de testu pa KDE, básase nel componente editor de Kate.</p>
-    <p xml:lang="ca">El KWrite és un editor de text pel KDE, basat en el component d'edició del Kate.</p>
-    <p xml:lang="ca-valencia">El KWrite és un editor de text pel KDE, basat en el component d'edició del Kate.</p>
-    <p xml:lang="de">KWrite ist ein Texteditor für KDE auf der Basis der Kate-Editorkomponente.</p>
-    <p xml:lang="el">Το KWrite είναι ένας επεξεργαστής κειμένου για το KDE, με βάση το συστατικό επεξεργαστή του Kate.</p>
-    <p xml:lang="en-GB">KWrite is a text editor for KDE, based on the Kate's editor component.</p>
-    <p xml:lang="es">KWrite es un editor de texto para KDE basado en el componente de edición de Kate.</p>
-    <p xml:lang="et">KWrite on KDE tekstiredaktor, mille aluseks on Kate redaktorikomponent.</p>
-    <p xml:lang="fi">KWrite on tekstimuokkain eli tekstieditori KDE:lle. Se perustuu Katen muokkainosaan.</p>
-    <p xml:lang="fr">KWrite est un éditeur de texte s'appuyant sur le composant éditeur de Kate.</p>
-    <p xml:lang="gl">KWrite é un editor de texto para KDE baseado no compoñente de editor de Kate.</p>
-    <p xml:lang="hi">केराईट केट संपादन घटक से बना पाठ संपादक है</p>
-    <p xml:lang="hu">A KWrite egy, a Kate szerkesztőkomponensén alapuló szövegszerkesztő a KDE-hez.</p>
-    <p xml:lang="ia">KWrite es un editor de texto per KDE, basate sur le componente de editor de Kate.</p>
-    <p xml:lang="it">KWrite è un editor di testo per KDE, basato sul componente dell'editor di Kate.</p>
-    <p xml:lang="ko">KWrite는 Kate 편집기 구성 요소를 사용하는 KDE 텍스트 편집기입니다.</p>
-    <p xml:lang="lt">KWrite yra KDE rašyklė, naudojanti Kate komponentus.</p>
-    <p xml:lang="nb">KWrite er en tekstredigerer for KDE, basert på Kates redigeringskomponent.</p>
-    <p xml:lang="nl">KWrite is een tekstbewerker voor KDE, gebaseerd op de tekstbewerkercomponent van Kate.</p>
-    <p xml:lang="nn">KWrite er eit skriveprogram for KDE, basert på skrivekomponenten i Kate.</p>
-    <p xml:lang="pl">KWrite jest edytorem tekstu dla KDE, opartym na edytorze Kate.</p>
-    <p xml:lang="pt">O KWrite é um editor de texto para o KDE, baseado no componente de edição do Kate.</p>
-    <p xml:lang="pt-BR">KWrite é um editor de texto para o KDE, baseado no componente de edição do Kate.</p>
-    <p xml:lang="ru">KWrite — текстовый редактор от KDE, основанный на компоненте редактирования Kate</p>
-    <p xml:lang="sk">KWrite je textový editor pre KDE, založený na komponente editora Kate.</p>
-    <p xml:lang="sl">KWrite je urejevalnik besedila za KDE, temelječ na sestavnem delu urejevalnika Kate.</p>
-    <p xml:lang="sr">К‑писање је уређивач текста за КДЕ, на основу уређивачке компоненте Кејт.</p>
-    <p xml:lang="sr-Latn">K‑pisanje je uređivač teksta za KDE, na osnovu uređivačke komponente Kate.</p>
-    <p xml:lang="sr-ijekavian">К‑писање је уређивач текста за КДЕ, на основу уређивачке компоненте Кејт.</p>
-    <p xml:lang="sr-ijekavianlatin">K‑pisanje je uređivač teksta za KDE, na osnovu uređivačke komponente Kate.</p>
-    <p xml:lang="sv">Kwrite är en texteditor för KDE, baserad på editorkomponenten i Kate.</p>
-    <p xml:lang="tr">KWrite, Kate'in düzenleyici bileşeni tabanlı KDE için bir metin düzenleyicisidir.</p>
-    <p xml:lang="uk">KWrite — текстовий редактор для KDE, заснований на компоненті редактора Kate.</p>
-    <p xml:lang="x-test">xxKWrite is a text editor for KDE, based on the Kate's editor component.xx</p>
-    <p xml:lang="zh-CN">KWrite 是 KDE 的文本编辑器，基于 Kate 的编辑器组件。</p>
-    <p xml:lang="zh-TW">KWrite 是一套 KDE 的文字編輯器，基於 Kate 的編輯器組件。</p>
     <p>Features:</p>
     <p xml:lang="ar">الميزات:</p>
     <p xml:lang="ast">Carauterístiques:</p>

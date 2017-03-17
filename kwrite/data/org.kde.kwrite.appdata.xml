@@ -95,6 +95,7 @@
     <p xml:lang="ast">KWrite ye un editor de testu pa KDE, básase nel componente del editor Kate.</p>
     <p xml:lang="ca">El KWrite és un editor de text pel KDE, basat en el component d'edició del Kate.</p>
     <p xml:lang="ca-valencia">El KWrite és un editor de text pel KDE, basat en el component d'edició del Kate.</p>
+    <p xml:lang="cs">KWrite je textový editor pro KDE založený na komponentě editoru Kate.</p>
     <p xml:lang="de">KWrite ist ein Texteditor für KDE auf der Basis der Kate-Editorkomponente.</p>
     <p xml:lang="el">Το KWrite είναι ένας επεξεργαστής κειμένου για το KDE, με βάση το συστατικό επεξεργαστή του Kate.</p>
     <p xml:lang="en-GB">KWrite is a text editor for KDE, based on the Kate's editor component.</p>
@@ -174,6 +175,7 @@
       <li xml:lang="ar">إبراز الصّياغة حسب نوع الملفّ</li>
       <li xml:lang="ca">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
       <li xml:lang="ca-valencia">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
+      <li xml:lang="cs">Zvýraznění syntaxe podle typu souboru</li>
       <li xml:lang="de">Syntaxhervorhebung passend zum Dateityp</li>
       <li xml:lang="el">Επισήμανση σύνταξης ανάλογα με τον τύπο αρχείου</li>
       <li xml:lang="en-GB">Syntax highlighting according to the file type</li>

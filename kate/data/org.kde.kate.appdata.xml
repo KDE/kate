@@ -88,6 +88,7 @@
       dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.
     </p>
     <p xml:lang="ca">El Kate és un editor de text multidocument, i multivista, pel KDE. Té funcionalitats com el plegat de codi, ressaltat de sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per crear scripts.</p>
+    <p xml:lang="ca-valencia">El Kate és un editor de text multidocument, i multivista, pel KDE. Té funcionalitats com el plegat de codi, ressaltat de sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per crear scripts.</p>
     <p xml:lang="cs">Kate je textový editor od KDE pro práci s více dokumenty najednou. Podporuje vlastnosti jako skládání kódu, zvýraznění syntaxe, dynamické zalamování slov, vloženou konzoli, rozsáhlou podporu modulů a základní podporu pro skriptování.</p>
     <p xml:lang="it">Kate è un editor di testi multi-documento e multi-vista di KDE. È dotato di funzionalità come il raggruppamento del codice, l'evidenziazione della sintassi, a capo automatico dinamico, una console integrata, un'interfaccia potenziabile tramite estensioni e qualche supporto preliminare per la creazione di script.</p>
     <p xml:lang="nl">Kate is een multi-document, multi-view tekstbewerker door KDE. Het bevat functies zoals opvouwen van code, accentuering van syntaxis, dynamisch afbreken van de regel, een ingebed console, een extensieve plug-in-interface en enige beginnende ondersteuning voor scripts.</p>
@@ -95,6 +96,7 @@
     <p xml:lang="sv">Kate är en texteditor av KDE med flera dokument och multipla vyer. Den har funktioner som kodvikning, syntaxfärgläggning, dynamisk radbrytning, en inbäddad terminal, ett omfattande insticksgränssnitt och visst preliminärt stöd för skript.</p>
     <p xml:lang="uk">Kate — текстовий редактор від KDE, у якому передбачено можливість одночасної роботи з декількома документами на декількох панелях перегляду. У програмі передбачено багато корисних можливостей, зокрема згортання коду, підсвічування синтаксичних конструкцій, динамічне перенесення рядків, вбудована консоль, гнучкий інтерфейс для роботи з додатками та базова підтримка роботи зі скриптами.</p>
     <p xml:lang="x-test">xxKate is a multi-document, multi-view text editor by KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.xx</p>
+    <p xml:lang="zh-CN">Kate 是一个多文档，多视图的文本编辑器，是 KDE 的一部分。它的特性包括代码折叠，语法高亮，动态文字折行，嵌入式命令行终端，可扩展的插件接口和一些初步的脚本支持。</p>
     <p>Features:</p>
     <p xml:lang="ar">الميزات:</p>
     <p xml:lang="bs">Svojstva:</p>

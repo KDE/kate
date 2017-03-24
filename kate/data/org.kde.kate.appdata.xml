@@ -97,6 +97,7 @@
     <p xml:lang="uk">Kate — текстовий редактор від KDE, у якому передбачено можливість одночасної роботи з декількома документами на декількох панелях перегляду. У програмі передбачено багато корисних можливостей, зокрема згортання коду, підсвічування синтаксичних конструкцій, динамічне перенесення рядків, вбудована консоль, гнучкий інтерфейс для роботи з додатками та базова підтримка роботи зі скриптами.</p>
     <p xml:lang="x-test">xxKate is a multi-document, multi-view text editor by KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.xx</p>
     <p xml:lang="zh-CN">Kate 是一个多文档，多视图的文本编辑器，是 KDE 的一部分。它的特性包括代码折叠，语法高亮，动态文字折行，嵌入式命令行终端，可扩展的插件接口和一些初步的脚本支持。</p>
+    <p xml:lang="zh-TW">Kate 是 KDE 內的進階編輯器，可同時編輯多個文件。它的功能包括像是源碼封裝，語法突顯，動態折行，嵌入主控台，延伸外掛程式介面與一些基本的文稿支援等等。</p>
     <p>Features:</p>
     <p xml:lang="ar">الميزات:</p>
     <p xml:lang="bs">Svojstva:</p>

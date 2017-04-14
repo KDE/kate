@@ -49,6 +49,7 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
 
     QCollator collate;
     collate.setCaseSensitivity(Qt::CaseInsensitive);
+    collate.setNumericMode(true);
 
     switch (sortRole()) {
     case Qt::DisplayRole: {

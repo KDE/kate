@@ -92,6 +92,7 @@
     <p xml:lang="cs">Kate je textový editor od KDE pro práci s více dokumenty najednou. Podporuje vlastnosti jako skládání kódu, zvýraznění syntaxe, dynamické zalamování slov, vloženou konzoli, rozsáhlou podporu modulů a základní podporu pro skriptování.</p>
     <p xml:lang="de">Kate ist ein KDE-Editor für mehrere Dokumente und Ansichten. Funktionen wie Quelltextausblendung, Syntaxhervorhebung, dynamischer Zeilenumbruch, eine eingebettete Konsole und eine umfangreiche Schnittstelle für Module sowie vorläufige Unterstützung für Skripte sind enthalten.</p>
     <p xml:lang="es">Kate es un editor de texto creado por KDE que puede abrir varios documentos a la vez y que cuenta con varios modos de vista. Entre otras funcionalidades dispone de plegado de código, resaltado de sintaxis, justificado de línea dinámico, consola integrada, una amplia interfaz para complementos y admite scripts de manera preliminar.</p>
+    <p xml:lang="ia">Kate es un editor de texto per multi-documento, multi-vista. Illo ha characteristicas como codefolding (plicamento de codice), dynamic word wrap (excision dynamic de parolas), un consolle incorpporate, un interfacie de plugin extensive e alcun supporto preliminari per le scripting.</p>
     <p xml:lang="it">Kate è un editor di testi multi-documento e multi-vista di KDE. È dotato di funzionalità come il raggruppamento del codice, l'evidenziazione della sintassi, a capo automatico dinamico, una console integrata, un'interfaccia potenziabile tramite estensioni e qualche supporto preliminare per la creazione di script.</p>
     <p xml:lang="nl">Kate is een multi-document, multi-view tekstbewerker door KDE. Het bevat functies zoals opvouwen van code, accentuering van syntaxis, dynamisch afbreken van de regel, een ingebed console, een extensieve plug-in-interface en enige beginnende ondersteuning voor scripts.</p>
     <p xml:lang="pl">Kate jest wielodokumentowym, wielowidokowym edytorem tekstu stworzonym przez KDE. Umożliwia zwijanie kodu, podświetlanie składni, dynamiczne zawijanie wyrazów, osadzoną konsolę, rozbudowany interfejs dla wtyczek i zapewnia podstawową obsługę skryptów.</p>
@@ -162,6 +163,7 @@
       <li xml:lang="fr">Interface multi-documents, fenêtres scindées, organisation par onglets</li>
       <li xml:lang="gl">Capacidade para traballar en varios documentos á vez, coa posibilidade de dividir a xanela e usar lapelas.</li>
       <li xml:lang="hu">MDI, ablakfelosztás, ablaklapok</li>
+      <li xml:lang="ia">MDI, window splitting (division de fenestra), window tabbing (schedas de fenestra)</li>
       <li xml:lang="it">MDI, divisione della finestra, schede delle finestre</li>
       <li xml:lang="ko">MDI, 창 나누기, 탭 기능</li>
       <li xml:lang="nb">MDI, vindusdeling, vindusfaner</li>
@@ -385,6 +387,7 @@
       <li xml:lang="fr">Coloration syntaxique puissante et correspondances des parenthèses</li>
       <li xml:lang="gl">Potente salientado de sintaxe e de parellas de parénteses.</li>
       <li xml:lang="hu">Hatékony szintaxiskiemelés és zárójel-párosítás</li>
+      <li xml:lang="ia">Potente evidentiation de syntaxhe e coincidentia de parenthesis</li>
       <li xml:lang="it">Potente evidenziazione della sintassi e verifica delle parentesi</li>
       <li xml:lang="ko">강력한 구문 강조 및 괄호 일치</li>
       <li xml:lang="nb">Kraftig syntaksfremheving og parentesparing</li>
@@ -420,6 +423,7 @@
       <li xml:lang="fr">Repliement de code et de texte</li>
       <li xml:lang="gl">Pregado de código e texto.</li>
       <li xml:lang="hu">Kód- és szövegösszecsukás</li>
+      <li xml:lang="ia">Codice e texto plicabile</li>
       <li xml:lang="it">Raggruppamento del codice e del testo</li>
       <li xml:lang="ko">코드 및 텍스트 접기</li>
       <li xml:lang="nb">Kode- og tekstbryting</li>
@@ -456,6 +460,7 @@
       <li xml:lang="fr">Prise en charge des annultion / refaire à l'infini</li>
       <li xml:lang="gl">Funcionalidade de desfacer e refacer sen limitacións.</li>
       <li xml:lang="hu">Végtelen visszavonás/újra végrehajtás</li>
+      <li xml:lang="ia">Supporto per annullation e re-facer infinite</li>
       <li xml:lang="it">Supporto annulla/rifai infinito</li>
       <li xml:lang="ko">무한 실행 취소/다시 실행 지원</li>
       <li xml:lang="nb">Ubegrenset støtte for angring/omgjøring</li>
@@ -675,6 +680,7 @@
       <li xml:lang="fr">Architecture à modules complémentaires pour l'application et le composant éditeur</li>
       <li xml:lang="gl">Arquitectura de complementos para o aplicativo e o compoñente do editor.</li>
       <li xml:lang="hu">Bővítmények támogatása az alkalmazásban és a szerkesztő komponensben</li>
+      <li xml:lang="ia">Archiutectura de plugin per le componente de editor e application</li>
       <li xml:lang="it">Architettura con estensioni per i componenti dell'applicazione e dell'editor</li>
       <li xml:lang="ko">프로그램과 편집기 구성 요소 플러그인 구조</li>
       <li xml:lang="nb">Modularkitektur for programmet og redigeringskomponenten</li>
@@ -784,6 +790,7 @@
       <li xml:lang="fr">Automatisable en utilisant JavaScript</li>
       <li xml:lang="gl">A súa funcionalidade pódese ampliar mediante scripts escritos en JavaScript.</li>
       <li xml:lang="hu">Szkriptelhetőség JavaScripttel</li>
+      <li xml:lang="ia">Scribibile per scripts usante JavaScript</li>
       <li xml:lang="it">Creazione di script con JavaScript</li>
       <li xml:lang="ko">JavaScript를 사용한 스크립트</li>
       <li xml:lang="nb">Kan skriptes med Javascript</li>

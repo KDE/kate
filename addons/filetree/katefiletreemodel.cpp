@@ -22,6 +22,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QList>
+#include <QMimeData>
 #include <QMimeDatabase>
 #include <QIcon>
 #include <QStack>
@@ -488,8 +489,14 @@ Qt::ItemFlags KateFileTreeModel::flags(const QModelIndex &index) const
     }
 
     const ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
-    if (item && !item->childCount()) {
-        flags |= Qt::ItemIsSelectable;
+    if (item) {
+        if (!item->childCount()) {
+            flags |= Qt::ItemIsSelectable;
+        }
+
+        if (item->doc() && item->doc()->url().isValid()) {
+            flags |= Qt::ItemIsDragEnabled;
+        }
     }
 
     return flags;
@@ -559,6 +566,28 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
     }
 
     return QVariant();
+}
+
+QMimeData *KateFileTreeModel::mimeData(const QModelIndexList &indexes) const
+{
+    QList<QUrl> urls;
+
+    for (const auto &index : indexes) {
+        ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
+        if (!item || !item->doc() || !item->doc()->url().isValid()) {
+            continue;
+        }
+
+        urls.append(item->doc()->url());
+    }
+
+    if (urls.isEmpty()) {
+        return nullptr;
+    }
+
+    QMimeData *mimeData = new QMimeData();
+    mimeData->setUrls(urls);
+    return mimeData;
 }
 
 QVariant KateFileTreeModel::headerData(int section, Qt::Orientation orientation, int role) const

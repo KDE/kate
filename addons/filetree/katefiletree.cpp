@@ -56,6 +56,8 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     setIndentation(12);
     setAllColumnsShowFocus(true);
     setFocusPolicy(Qt::NoFocus);
+    setDragEnabled(true);
+    setDragDropMode(QAbstractItemView::DragOnly);
 
     // handle activated (e.g. for pressing enter) + clicked (to avoid to need to do double-click e.g. on Windows)
     connect(this, SIGNAL(activated(QModelIndex)), this, SLOT(mouseClicked(QModelIndex)));

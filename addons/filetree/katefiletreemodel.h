@@ -56,6 +56,8 @@ public:
     virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
     virtual bool hasChildren(const QModelIndex &parent = QModelIndex()) const;
 
+    QMimeData *mimeData(const QModelIndexList &indexes) const override;
+
     /* extra api for view */
     QModelIndex docIndex(const KTextEditor::Document *) const;
 

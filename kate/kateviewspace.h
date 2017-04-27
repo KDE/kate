@@ -107,6 +107,7 @@ public:
 public Q_SLOTS:
     void documentDestroyed(QObject *doc);
     void updateDocumentName(KTextEditor::Document *doc);
+    void updateDocumentUrl(KTextEditor::Document *doc);
     void updateDocumentState(KTextEditor::Document *doc);
 
 private Q_SLOTS:

@@ -359,6 +359,8 @@ void KateViewSpace::insertTab(int index, KTextEditor::Document * doc)
 
     connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
             this, SLOT(updateDocumentName(KTextEditor::Document*)));
+    connect(doc, &KTextEditor::Document::documentUrlChanged,
+            this, &KateViewSpace::updateDocumentUrl);
     connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
             this, SLOT(updateDocumentState(KTextEditor::Document*)));
 }
@@ -380,6 +382,8 @@ int KateViewSpace::removeTab(KTextEditor::Document * doc, bool documentDestroyed
     if (!documentDestroyed) {
         disconnect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
                this, SLOT(updateDocumentName(KTextEditor::Document*)));
+        disconnect(doc, &KTextEditor::Document::documentUrlChanged,
+                this, &KateViewSpace::updateDocumentUrl);
         disconnect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
               this, SLOT(updateDocumentState(KTextEditor::Document*)));
     }
@@ -496,6 +500,13 @@ void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
     Q_ASSERT(buttonId >= 0);
     m_tabBar->setTabText(buttonId, doc->documentName());
     m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
+}
+
+void KateViewSpace::updateDocumentUrl(KTextEditor::Document *doc)
+{
+    const int buttonId = m_docToTabId[doc];
+    Q_ASSERT(buttonId >= 0);
+    m_tabBar->setTabUrl(buttonId, doc->url());
 }
 
 void KateViewSpace::updateDocumentState(KTextEditor::Document *doc)

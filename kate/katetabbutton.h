@@ -22,6 +22,7 @@
 #define KATE_TAB_BUTTON
 
 #include <QAbstractButton>
+#include <QUrl>
 
 class QPropertyAnimation;
 
@@ -71,6 +72,18 @@ public:
      */
     bool geometryAnimationRunning() const;
 
+    /**
+     * The URL of the document this tab represents.
+     * \since 17.08
+     */
+    QUrl url() const;
+
+    /**
+     * Sets the URL of the document this tab represents.
+     * \since 17.08
+     */
+    void setUrl(const QUrl &url);
+
 public Q_SLOTS:
     /**
      * Animate the button's geometry from @p startGeom to @p endGeom
@@ -115,6 +128,7 @@ private:
     TabCloseButton * m_closeButton;
     QPropertyAnimation * m_geometryAnimation;
     QPoint m_mouseDownPosition;
+    QUrl m_url;
 };
 
 #endif

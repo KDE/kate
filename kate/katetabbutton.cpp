@@ -202,6 +202,7 @@ void KateTabButton::mouseMoveEvent(QMouseEvent *event)
     {
         QMimeData *mimeData = new QMimeData;
         mimeData->setData(QStringLiteral("application/x-dndkatetabbutton"), QByteArray());
+        mimeData->setUrls({m_url});
 
         auto drag = new QDrag(this);
         drag->setMimeData(mimeData);
@@ -289,4 +290,14 @@ bool KateTabButton::geometryAnimationRunning() const
 {
     return m_geometryAnimation
         && (m_geometryAnimation->state() != QAbstractAnimation::Stopped);
+}
+
+QUrl KateTabButton::url() const
+{
+    return m_url;
+}
+
+void KateTabButton::setUrl(const QUrl &url)
+{
+    m_url = url;
 }

@@ -345,6 +345,25 @@ QString KateTabBar::tabToolTip(int id) const
     return QString();
 }
 
+void KateTabBar::setTabUrl(int id, const QUrl &url)
+{
+    Q_ASSERT(d->idToTab.contains(id));
+    KateTabButton * tabButton = d->idToTab.value(id, nullptr);
+    if (tabButton) {
+        tabButton->setUrl(url);
+    }
+}
+
+QUrl KateTabBar::tabUrl(int id) const
+{
+    Q_ASSERT(d->idToTab.contains(id));
+    KateTabButton * tabButton = d->idToTab.value(id, nullptr);
+    if (tabButton) {
+        return tabButton->url();
+    }
+    return QUrl();
+}
+
 void KateTabBar::setTabIcon(int id, const QIcon &icon)
 {
     Q_ASSERT(d->idToTab.contains(id));

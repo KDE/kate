@@ -167,17 +167,9 @@ int main(int argc, char **argv)
     aboutData.setProgramLogo (QImage(QLatin1String(":/kate/mascot.png")));
 
     /**
-     * register about data
+     * set and register app about data
      */
     KAboutData::setApplicationData(aboutData);
-
-    /**
-     * take component name and org. name from KAboutData
-     */
-    app.setApplicationName(aboutData.componentName());
-    app.setApplicationDisplayName(aboutData.displayName());
-    app.setOrganizationDomain(aboutData.organizationDomain());
-    app.setApplicationVersion(aboutData.version());
 
     /**
      * set the program icon

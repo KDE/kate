@@ -143,17 +143,9 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     aboutData.setProductName(QByteArray("kate/kwrite"));
 
     /**
-     * register about data
+     * set and register app about data
      */
     KAboutData::setApplicationData(aboutData);
-
-    /**
-     * set app stuff from about data component name and org. name from KAboutData
-     */
-    app.setApplicationName(aboutData.componentName());
-    app.setApplicationDisplayName(aboutData.displayName());
-    app.setOrganizationDomain(aboutData.organizationDomain());
-    app.setApplicationVersion(aboutData.version());
 
     /**
      * set the program icon

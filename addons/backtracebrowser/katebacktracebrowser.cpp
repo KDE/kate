@@ -310,7 +310,7 @@ KateBtConfigWidget::~KateBtConfigWidget()
 
 QString KateBtConfigWidget::name() const
 {
-    return i18n("Backtrace ");
+    return i18n("Backtrace");
 }
 
 QString KateBtConfigWidget::fullName() const

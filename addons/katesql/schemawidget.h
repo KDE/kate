@@ -64,8 +64,8 @@ class SchemaWidget : public QTreeWidget
 
   private:
     void deleteChildren(QTreeWidgetItem *item);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     bool isConnectionValidAndOpen();
 
     QString m_connectionName;

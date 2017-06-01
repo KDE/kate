@@ -37,10 +37,10 @@ class KTERustCompletionPlugin : public KTextEditor::Plugin
         explicit KTERustCompletionPlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
         virtual ~KTERustCompletionPlugin();
 
-        QObject *createView(KTextEditor::MainWindow *mainWindow);
+        QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
-        virtual int configPages() const;
-        virtual KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = 0);
+        int configPages() const Q_DECL_OVERRIDE;
+        KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
 
         KTERustCompletion *completion();
 

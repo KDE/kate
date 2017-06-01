@@ -50,10 +50,10 @@ class KateKonsolePlugin: public KTextEditor::Plugin
     explicit KateKonsolePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateKonsolePlugin();
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow);
+    QObject *createView (KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
-    int configPages() const { return 1; }
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
+    int configPages() const Q_DECL_OVERRIDE { return 1; }
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
 
     void readConfig();
 
@@ -169,7 +169,7 @@ class KateConsole : public QWidget, public KXMLGUIClient
      * the konsole get shown
      * @param ev show event
      */
-    void showEvent(QShowEvent *ev);
+    void showEvent(QShowEvent *ev) Q_DECL_OVERRIDE;
 
   private:
     /**
@@ -198,13 +198,13 @@ class KateKonsoleConfigPage : public KTextEditor::ConfigPage {
     virtual ~KateKonsoleConfigPage()
     {}
 
-    virtual QString name() const;
-    virtual QString fullName() const;
-    virtual QIcon icon() const;
+    QString name() const Q_DECL_OVERRIDE;
+    QString fullName() const Q_DECL_OVERRIDE;
+    QIcon icon() const Q_DECL_OVERRIDE;
 
-    virtual void apply();
-    virtual void reset();
-    virtual void defaults()
+    void apply() Q_DECL_OVERRIDE;
+    void reset() Q_DECL_OVERRIDE;
+    void defaults() Q_DECL_OVERRIDE
     {}
   private:
     class QCheckBox *cbAutoSyncronize;

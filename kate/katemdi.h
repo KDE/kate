@@ -62,7 +62,7 @@ public:
     virtual ~ToggleToolViewAction();
 
 protected Q_SLOTS:
-    void slotToggled(bool);
+    void slotToggled(bool) Q_DECL_OVERRIDE;
     void toolVisibleChanged(bool);
 
 private:
@@ -223,12 +223,12 @@ public:
 
 public Q_SLOTS:
     // reimplemented, to block a show() call if all sidebars are forced hidden
-    virtual void setVisible(bool visible);
+    void setVisible(bool visible) Q_DECL_OVERRIDE;
 private Q_SLOTS:
     void tabClicked(int);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *ev);
+    bool eventFilter(QObject *obj, QEvent *ev) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
     void buttonPopupActivate(QAction *);

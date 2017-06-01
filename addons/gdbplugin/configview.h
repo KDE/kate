@@ -91,7 +91,7 @@ private Q_SLOTS:
     void slotBrowseDir();
 
 protected:
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void saveCurrentToIndex(int index);

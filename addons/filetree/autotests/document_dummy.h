@@ -41,63 +41,63 @@ class DummyDocument : public KTextEditor::Document
     DummyDocument (const char *url) : DummyDocument(QString::fromLatin1(url)) {}
 
     virtual ~DummyDocument () {}
-    virtual KTextEditor::View *createView ( QWidget *, KTextEditor::MainWindow * = nullptr ) { return 0; }
+    KTextEditor::View *createView ( QWidget *, KTextEditor::MainWindow * = nullptr ) Q_DECL_OVERRIDE { return 0; }
     virtual KTextEditor::View *activeView() const { return 0; }
-    virtual QList<KTextEditor::View*> views() const { return m_views; }
+    QList<KTextEditor::View*> views() const Q_DECL_OVERRIDE { return m_views; }
 
-    virtual QString documentName() const { return m_name; }
+    QString documentName() const Q_DECL_OVERRIDE { return m_name; }
 
-    virtual QString mimeType() { return QString(); }
-    virtual QByteArray checksum() const { return QByteArray(); }
-    virtual bool setEncoding (const QString &) { return false; }
-    virtual QString encoding () const { return m_encoding; }
+    QString mimeType() Q_DECL_OVERRIDE { return QString(); }
+    QByteArray checksum() const Q_DECL_OVERRIDE { return QByteArray(); }
+    bool setEncoding (const QString &) Q_DECL_OVERRIDE { return false; }
+    QString encoding () const Q_DECL_OVERRIDE { return m_encoding; }
 
-    virtual bool documentReload () { return true; }
-    virtual bool documentSave () { return true; }
-    virtual bool documentSaveAs () { return true; }
+    bool documentReload () Q_DECL_OVERRIDE { return true; }
+    bool documentSave () Q_DECL_OVERRIDE { return true; }
+    bool documentSaveAs () Q_DECL_OVERRIDE { return true; }
 
-    virtual bool isEditingTransactionRunning() const { return false; }
-    virtual QString text () const { return QString(); }
-    virtual QString text ( const KTextEditor::Range&, bool = false ) const { return QString(); }
-    virtual QChar characterAt( const KTextEditor::Cursor&) const { return QChar(); }
-    virtual QString wordAt(const KTextEditor::Cursor&) const { return QString(); }
-    virtual KTextEditor::Range wordRangeAt(const KTextEditor::Cursor&) const { return KTextEditor::Range(); }
-    virtual bool isValidTextPosition(const KTextEditor::Cursor&) const { return true; }
-    virtual QStringList textLines ( const KTextEditor::Range&, bool = false ) const { return QStringList(); }
-    virtual QString line ( int ) const { return QString(); }
-    virtual int lines () const { return 0; }
-    virtual KTextEditor::Cursor documentEnd() const { return KTextEditor::Cursor(); }
-    virtual int totalCharacters() const { return 0; }
-    virtual int lineLength ( int ) const { return 0; }
+    bool isEditingTransactionRunning() const Q_DECL_OVERRIDE { return false; }
+    QString text () const Q_DECL_OVERRIDE { return QString(); }
+    QString text ( const KTextEditor::Range&, bool = false ) const Q_DECL_OVERRIDE { return QString(); }
+    QChar characterAt( const KTextEditor::Cursor&) const Q_DECL_OVERRIDE { return QChar(); }
+    QString wordAt(const KTextEditor::Cursor&) const Q_DECL_OVERRIDE { return QString(); }
+    KTextEditor::Range wordRangeAt(const KTextEditor::Cursor&) const Q_DECL_OVERRIDE { return KTextEditor::Range(); }
+    bool isValidTextPosition(const KTextEditor::Cursor&) const Q_DECL_OVERRIDE { return true; }
+    QStringList textLines ( const KTextEditor::Range&, bool = false ) const Q_DECL_OVERRIDE { return QStringList(); }
+    QString line ( int ) const Q_DECL_OVERRIDE { return QString(); }
+    int lines () const Q_DECL_OVERRIDE { return 0; }
+    KTextEditor::Cursor documentEnd() const Q_DECL_OVERRIDE { return KTextEditor::Cursor(); }
+    int totalCharacters() const Q_DECL_OVERRIDE { return 0; }
+    int lineLength ( int ) const Q_DECL_OVERRIDE { return 0; }
 
-    virtual bool setText ( const QString & ) { return false; }
-    virtual bool setText ( const QStringList & ) { return false; }
-    virtual bool clear () { return true; }
-    virtual bool insertText ( const KTextEditor::Cursor &, const QString &, bool = false ) { return false; }
-    virtual bool insertText ( const KTextEditor::Cursor &, const QStringList &, bool = false ) { return false; }
-    virtual bool removeText ( const KTextEditor::Range &, bool = false ) { return false; }
-    virtual bool insertLine ( int, const QString & ) { return false; }
-    virtual bool insertLines ( int, const QStringList & ) { return false; }
-    virtual bool removeLine ( int ) { return false; }
-    virtual KTextEditor::DefaultStyle defaultStyleAt(const KTextEditor::Cursor &) const { return KTextEditor::dsNormal; }
-    virtual QString mode() const { return QString(); }
-    virtual QString highlightingMode() const { return QString(); }
-    virtual QStringList modes() const { return QStringList(); }
-    virtual QStringList highlightingModes() const {return QStringList(); }
-    virtual bool setMode(const QString &) { return false; }
-    virtual bool setHighlightingMode(const QString &) { return false; }
-    virtual QString highlightingModeSection( int ) const { return QString(); }
-    virtual QString modeSection( int ) const { return QString(); }
-    virtual bool print() { return false; }
-    virtual void printPreview() {}
-    virtual QStringList embeddedHighlightingModes() const { return QStringList(); }
-    virtual QString highlightingModeAt(const KTextEditor::Cursor &) { return QString(); }
-    virtual bool isLineModified(int) const { return false; }
-    virtual bool isLineSaved(int) const { return false; }
-    virtual bool isLineTouched(int) const { return false; }
+    bool setText ( const QString & ) Q_DECL_OVERRIDE { return false; }
+    bool setText ( const QStringList & ) Q_DECL_OVERRIDE { return false; }
+    bool clear () Q_DECL_OVERRIDE { return true; }
+    bool insertText ( const KTextEditor::Cursor &, const QString &, bool = false ) Q_DECL_OVERRIDE { return false; }
+    bool insertText ( const KTextEditor::Cursor &, const QStringList &, bool = false ) Q_DECL_OVERRIDE { return false; }
+    bool removeText ( const KTextEditor::Range &, bool = false ) Q_DECL_OVERRIDE { return false; }
+    bool insertLine ( int, const QString & ) Q_DECL_OVERRIDE { return false; }
+    bool insertLines ( int, const QStringList & ) Q_DECL_OVERRIDE { return false; }
+    bool removeLine ( int ) Q_DECL_OVERRIDE { return false; }
+    KTextEditor::DefaultStyle defaultStyleAt(const KTextEditor::Cursor &) const Q_DECL_OVERRIDE { return KTextEditor::dsNormal; }
+    QString mode() const Q_DECL_OVERRIDE { return QString(); }
+    QString highlightingMode() const Q_DECL_OVERRIDE { return QString(); }
+    QStringList modes() const Q_DECL_OVERRIDE { return QStringList(); }
+    QStringList highlightingModes() const Q_DECL_OVERRIDE {return QStringList(); }
+    bool setMode(const QString &) Q_DECL_OVERRIDE { return false; }
+    bool setHighlightingMode(const QString &) Q_DECL_OVERRIDE { return false; }
+    QString highlightingModeSection( int ) const Q_DECL_OVERRIDE { return QString(); }
+    QString modeSection( int ) const Q_DECL_OVERRIDE { return QString(); }
+    bool print() Q_DECL_OVERRIDE { return false; }
+    void printPreview() Q_DECL_OVERRIDE {}
+    QStringList embeddedHighlightingModes() const Q_DECL_OVERRIDE { return QStringList(); }
+    QString highlightingModeAt(const KTextEditor::Cursor &) Q_DECL_OVERRIDE { return QString(); }
+    bool isLineModified(int) const Q_DECL_OVERRIDE { return false; }
+    bool isLineSaved(int) const Q_DECL_OVERRIDE { return false; }
+    bool isLineTouched(int) const Q_DECL_OVERRIDE { return false; }
 
     // KParts::ReadWritePart
-    virtual bool saveFile() { return false; }
+    bool saveFile() Q_DECL_OVERRIDE { return false; }
 
   // make QObject happy
   Q_SIGNALS:
@@ -107,14 +107,14 @@ class DummyDocument : public KTextEditor::Document
     void setUrl(const QString &url) { KParts::ReadOnlyPart::setUrl(QUrl(url)); }
     void setName(const QString &name) { m_name = name; }
     
-    void readSessionConfig(const KConfigGroup &, const QSet<QString> & = QSet<QString>()) {}
-    void writeSessionConfig(KConfigGroup &, const QSet<QString> & = QSet<QString>()) {}
+    void readSessionConfig(const KConfigGroup &, const QSet<QString> & = QSet<QString>()) Q_DECL_OVERRIDE {}
+    void writeSessionConfig(KConfigGroup &, const QSet<QString> & = QSet<QString>()) Q_DECL_OVERRIDE {}
 
-    bool postMessage(KTextEditor::Message *) { return false; }
+    bool postMessage(KTextEditor::Message *) Q_DECL_OVERRIDE { return false; }
 
-    bool isDataRecoveryAvailable() const { return false; }
-    void recoverData() {}
-    void discardDataRecovery() {}
+    bool isDataRecoveryAvailable() const Q_DECL_OVERRIDE { return false; }
+    void recoverData() Q_DECL_OVERRIDE {}
+    void discardDataRecovery() Q_DECL_OVERRIDE {}
 
   private:
     QString m_name, m_encoding;

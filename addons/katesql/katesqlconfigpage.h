@@ -36,14 +36,14 @@ class KateSQLConfigPage : public KTextEditor::ConfigPage
     explicit KateSQLConfigPage( QWidget* parent = 0 );
     virtual ~KateSQLConfigPage();
 
-    virtual QString name() const;
-    virtual QString fullName() const;
-    virtual QIcon icon() const;
+    QString name() const Q_DECL_OVERRIDE;
+    QString fullName() const Q_DECL_OVERRIDE;
+    QIcon icon() const Q_DECL_OVERRIDE;
 
   public Q_SLOTS:
-    virtual void apply();
-    virtual void reset();
-    virtual void defaults();
+    void apply() Q_DECL_OVERRIDE;
+    void reset() Q_DECL_OVERRIDE;
+    void defaults() Q_DECL_OVERRIDE;
 
   private:
     KateSQLPlugin *m_plugin;

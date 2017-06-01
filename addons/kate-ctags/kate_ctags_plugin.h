@@ -42,10 +42,10 @@ class KateCTagsPlugin : public KTextEditor::Plugin
         explicit KateCTagsPlugin(QObject* parent = 0, const QList<QVariant> & = QList<QVariant>());
         virtual ~KateCTagsPlugin() {}
 
-        QObject *createView(KTextEditor::MainWindow *mainWindow);
+        QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
    
-        int configPages() const { return 1; };
-        KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
+        int configPages() const Q_DECL_OVERRIDE { return 1; };
+        KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
         void readConfig();
         
         KateCTagsView *m_view;
@@ -58,13 +58,13 @@ public:
     explicit KateCTagsConfigPage( QWidget* parent = 0, KateCTagsPlugin *plugin = 0 );
     ~KateCTagsConfigPage() {}
 
-    virtual QString name() const;
-    virtual QString fullName() const;
-    virtual QIcon icon() const;
+    QString name() const Q_DECL_OVERRIDE;
+    QString fullName() const Q_DECL_OVERRIDE;
+    QIcon icon() const Q_DECL_OVERRIDE;
     
-    void apply();
-    void reset();
-    void defaults() {}
+    void apply() Q_DECL_OVERRIDE;
+    void reset() Q_DECL_OVERRIDE;
+    void defaults() Q_DECL_OVERRIDE {}
 
 private Q_SLOTS:
     void addGlobalTagTarget();

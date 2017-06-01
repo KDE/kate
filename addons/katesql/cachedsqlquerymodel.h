@@ -29,9 +29,9 @@ class CachedSqlQueryModel : public QSqlQueryModel
 public:
   explicit CachedSqlQueryModel(QObject *parent = 0, int cacheCapacity = 1000);
 
-  QVariant data(const QModelIndex &item, int role = Qt::DisplayRole) const;
+  QVariant data(const QModelIndex &item, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
   QSqlRecord record(int row) const;
-  void clear();
+  void clear() Q_DECL_OVERRIDE;
 
   int cacheCapacity() const;
 
@@ -40,7 +40,7 @@ public Q_SLOTS:
   void setCacheCapacity(int);
 
   protected:
-    virtual void queryChange();
+    void queryChange() Q_DECL_OVERRIDE;
 
 private:
   void cacheRecords(int from, int to) const;

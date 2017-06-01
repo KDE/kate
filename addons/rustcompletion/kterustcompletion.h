@@ -59,13 +59,13 @@ class KTERustCompletion : public KTextEditor::CodeCompletionModel, public KTextE
             FindDefinition
         };
 
-        bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position);
+        bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
 
-        void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType);
+        void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType) Q_DECL_OVERRIDE;
 
-        void aborted(KTextEditor::View *view);
+        void aborted(KTextEditor::View *view) Q_DECL_OVERRIDE;
 
-        QVariant data(const QModelIndex &index, int role) const;
+        QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
 
         QList<CompletionMatch> getMatches(const KTextEditor::Document *document, MatchAction action, const KTextEditor::Cursor &position);
 

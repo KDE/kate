@@ -65,10 +65,10 @@ private:
     void addMenuBarActionToContextMenu();
     void removeMenuBarActionFromContextMenu();
 
-    bool queryClose();
+    bool queryClose() Q_DECL_OVERRIDE;
 
-    void dragEnterEvent(QDragEnterEvent *);
-    void dropEvent(QDropEvent *);
+    void dragEnterEvent(QDragEnterEvent *) Q_DECL_OVERRIDE;
+    void dropEvent(QDropEvent *) Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
     void slotNew();
@@ -100,7 +100,7 @@ public Q_SLOTS:
      * Overwrite size hint for better default window sizes
      * @return size hint
      */
-    QSize sizeHint () const;
+    QSize sizeHint () const Q_DECL_OVERRIDE;
 
     //config file functions
 public:
@@ -116,9 +116,9 @@ public:
     static void restore();
 
 private:
-    void readProperties(const KConfigGroup &);
-    void saveProperties(KConfigGroup &);
-    void saveGlobalProperties(KConfig *);
+    void readProperties(const KConfigGroup &) Q_DECL_OVERRIDE;
+    void saveProperties(KConfigGroup &) Q_DECL_OVERRIDE;
+    void saveGlobalProperties(KConfig *) Q_DECL_OVERRIDE;
 
 private:
     KTextEditor::View *m_view;
@@ -140,7 +140,7 @@ protected:
     /**
      * Event filter for QApplication to handle mac os like file open
      */
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 };
 
 #endif

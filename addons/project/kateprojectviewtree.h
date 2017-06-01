@@ -84,7 +84,7 @@ protected:
      * Create matching context menu.
      * @param event context menu event
      */
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
 
 private:
     /**

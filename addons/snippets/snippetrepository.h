@@ -140,8 +140,8 @@ public:
      */
     static QDir dataPath();
 
-    virtual QVariant data(int role = Qt::UserRole + 1) const;
-    virtual void setData(const QVariant& value, int role = Qt::UserRole + 1);
+    QVariant data(int role = Qt::UserRole + 1) const Q_DECL_OVERRIDE;
+    void setData(const QVariant& value, int role = Qt::UserRole + 1) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
     /// parses the XML file and load the containing snippets.

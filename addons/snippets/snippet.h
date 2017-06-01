@@ -63,7 +63,7 @@ public:
 
     void registerActionForView(QWidget* view);
 
-    virtual QVariant data(int role = Qt::UserRole + 1) const;
+    QVariant data(int role = Qt::UserRole + 1) const Q_DECL_OVERRIDE;
 
 private:
     /// the actual snippet contents aka \code<fillin>\endcode

@@ -38,7 +38,7 @@ public:
     void cancel();
 
 protected:
-    virtual void run();
+    void run() Q_DECL_OVERRIDE;
     void indexFiles(const QString &url);
 
 private:

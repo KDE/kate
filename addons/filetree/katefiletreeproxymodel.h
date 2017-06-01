@@ -35,10 +35,10 @@ public:
     KateFileTreeProxyModel(QObject *p = 0);
     QModelIndex docIndex(const KTextEditor::Document *) const;
     bool isDir(const QModelIndex &i) const;
-    virtual void setSourceModel(QAbstractItemModel *model);
+    void setSourceModel(QAbstractItemModel *model) Q_DECL_OVERRIDE;
 
 protected:
-    bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
 
 };
 

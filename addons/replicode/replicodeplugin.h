@@ -33,13 +33,13 @@ class ReplicodePlugin : public KTextEditor::Plugin
     // Destructor
     virtual ~ReplicodePlugin();
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow) {
+    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE {
         return new ReplicodeView(this, mainWindow);
     }
 
     // Config interface
-    int configPages () const { return 1; }
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
+    int configPages () const Q_DECL_OVERRIDE { return 1; }
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
 };
 
 #endif

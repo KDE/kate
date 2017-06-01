@@ -41,8 +41,8 @@ class ExportOutputPage : public QWizardPage
   public:
     ExportOutputPage(QWidget *parent=0);
 
-    void initializePage();
-    virtual bool validatePage();
+    void initializePage() Q_DECL_OVERRIDE;
+    bool validatePage() Q_DECL_OVERRIDE;
 
   private:
     QRadioButton *documentRadioButton;
@@ -56,8 +56,8 @@ class ExportFormatPage : public QWizardPage
   public:
     ExportFormatPage(QWidget *parent=0);
 
-    void initializePage();
-    virtual bool validatePage();
+    void initializePage() Q_DECL_OVERRIDE;
+    bool validatePage() Q_DECL_OVERRIDE;
 
   private:
     QCheckBox *exportColumnNamesCheckBox;

@@ -37,13 +37,13 @@ class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
     virtual ~KateFileBrowserConfigPage()
     {}
 
-    virtual QString name() const;
-    virtual QString fullName() const;
-    virtual QIcon icon() const;
+    QString name() const Q_DECL_OVERRIDE;
+    QString fullName() const Q_DECL_OVERRIDE;
+    QIcon icon() const Q_DECL_OVERRIDE;
 
-    virtual void apply();
-    virtual void reset();
-    virtual void defaults()
+    void apply() Q_DECL_OVERRIDE;
+    void reset() Q_DECL_OVERRIDE;
+    void defaults() Q_DECL_OVERRIDE
     {}
 
   private Q_SLOTS:

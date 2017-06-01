@@ -60,8 +60,8 @@ public:
     ~KateCTagsView();
 
     // reimplemented: read and write session config
-    void readSessionConfig (const KConfigGroup& config);
-    void writeSessionConfig (KConfigGroup& config);
+    void readSessionConfig (const KConfigGroup& config) Q_DECL_OVERRIDE;
+    void writeSessionConfig (KConfigGroup& config) Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
     void gotoDefinition();
@@ -80,7 +80,7 @@ public Q_SLOTS:
     void updateDone(int exitCode, QProcess::ExitStatus status);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *ev);
+    bool eventFilter(QObject *obj, QEvent *ev) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
     void resetCMD();

@@ -77,7 +77,7 @@ class LumenPlugin: public Plugin
         explicit LumenPlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
         virtual ~LumenPlugin();
         DCD* dcd();
-        QObject *createView(MainWindow *mainWindow);
+        QObject *createView(MainWindow *mainWindow) Q_DECL_OVERRIDE;
     private:
         DCD* m_dcd;
 };

@@ -39,7 +39,7 @@ public:
 
     void startSearch(const QStringList &iles,
                      const QRegularExpression &regexp);
-    void run();
+    void run() Q_DECL_OVERRIDE;
 
     bool searching();
 

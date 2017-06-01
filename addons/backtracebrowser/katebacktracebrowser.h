@@ -46,7 +46,7 @@ public:
 
     static KateBtBrowserPlugin &self();
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
     KateBtDatabase &database();
     BtFileIndexer &fileIndexer();
@@ -57,8 +57,8 @@ Q_SIGNALS:
     void newStatus(const QString &);
 
 public:
-    virtual int configPages() const;
-    virtual KTextEditor::ConfigPage *configPage(int number, QWidget *parent = 0);
+    int configPages() const Q_DECL_OVERRIDE;
+    KTextEditor::ConfigPage *configPage(int number, QWidget *parent = 0) Q_DECL_OVERRIDE;
 
     //
     // private data
@@ -119,14 +119,14 @@ public:
     explicit KateBtConfigWidget(QWidget *parent = 0);
     virtual ~KateBtConfigWidget();
 
-    virtual QString name() const;
-    virtual QString fullName() const;
-    virtual QIcon icon() const;
+    QString name() const Q_DECL_OVERRIDE;
+    QString fullName() const Q_DECL_OVERRIDE;
+    QIcon icon() const Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
-    virtual void apply();
-    virtual void reset();
-    virtual void defaults();
+    void apply() Q_DECL_OVERRIDE;
+    void reset() Q_DECL_OVERRIDE;
+    void defaults() Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
     void add();

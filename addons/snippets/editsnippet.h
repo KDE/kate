@@ -51,7 +51,7 @@ class EditSnippet : public QDialog
 
     void setSnippetText(const QString& text);
 
-    virtual void reject();
+    void reject() Q_DECL_OVERRIDE;
 
   private:
     Ui::EditSnippetBase* m_ui;

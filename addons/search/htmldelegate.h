@@ -29,8 +29,8 @@ public:
     explicit SPHtmlDelegate(QObject* parent);
     virtual ~SPHtmlDelegate();
 
-    void paint(QPainter*, const QStyleOptionViewItem&, const QModelIndex&) const;
-    virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    void paint(QPainter*, const QStyleOptionViewItem&, const QModelIndex&) const Q_DECL_OVERRIDE;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const Q_DECL_OVERRIDE;
 };
 
 #endif

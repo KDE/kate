@@ -324,7 +324,7 @@ protected:
     /**
      * Event filter for QApplication to handle mac os like file open
      */
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 
 private:
     /**

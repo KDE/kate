@@ -41,8 +41,8 @@ Q_SIGNALS:
     void localsVisible(bool visible);
 
 protected:
-    void showEvent(QShowEvent *event);
-    void hideEvent(QHideEvent *event);
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void createWrappedItem(QTreeWidgetItem *parent, const QString &name, const QString &value);

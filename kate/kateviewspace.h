@@ -92,7 +92,7 @@ public:
     /**
      * Event filter to catch events from view space tool buttons.
      */
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 
     /**
      * Focus the previous tab in the tabbar.

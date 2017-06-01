@@ -61,8 +61,8 @@ class KateContainerStackedLayout : public QStackedLayout
     Q_OBJECT
 public:
     KateContainerStackedLayout(QWidget *parent);
-    virtual QSize sizeHint() const;
-    virtual QSize minimumSize() const;
+    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize minimumSize() const Q_DECL_OVERRIDE;
 };
 
 class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBase
@@ -113,9 +113,9 @@ public:
     bool showModOnDiskPrompt();
 
 public:
-    /*reimp*/ void readProperties(const KConfigGroup &config);
-    /*reimp*/ void saveProperties(KConfigGroup &config);
-    /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig);
+    /*reimp*/ void readProperties(const KConfigGroup &config) Q_DECL_OVERRIDE;
+    /*reimp*/ void saveProperties(KConfigGroup &config) Q_DECL_OVERRIDE;
+    /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig) Q_DECL_OVERRIDE;
 
 public:
     bool queryClose_internal(KTextEditor::Document *doc = NULL);
@@ -144,7 +144,7 @@ private:
 
     void setupMainWindow();
     void setupActions();
-    bool queryClose();
+    bool queryClose() Q_DECL_OVERRIDE;
 
     void addMenuBarActionToContextMenu();
     void removeMenuBarActionFromContextMenu();
@@ -154,8 +154,8 @@ private:
      */
     void readOptions();
 
-    void dragEnterEvent(QDragEnterEvent *);
-    void dropEvent(QDropEvent *);
+    void dragEnterEvent(QDragEnterEvent *) Q_DECL_OVERRIDE;
+    void dropEvent(QDropEvent *) Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
     void slotFileClose();
@@ -174,7 +174,7 @@ public Q_SLOTS:
      * Overwrite size hint for better default window sizes
      * @return size hint
      */
-    QSize sizeHint() const;
+    QSize sizeHint() const Q_DECL_OVERRIDE;
 
     /**
      * slots used for actions in the menus/toolbars
@@ -303,7 +303,7 @@ public Q_SLOTS:
      * Accessor to the XMLGUIFactory.
      * \return the mainwindow's KXMLGUIFactory.
      */
-    KXMLGUIFactory *guiFactory() {
+    KXMLGUIFactory *guiFactory() Q_DECL_OVERRIDE {
         return KateMDI::MainWindow::guiFactory();
     }
 
@@ -567,8 +567,8 @@ public Q_SLOTS:
     void slotWindowActivated();
 
 protected:
-    virtual bool event(QEvent *e);
-    virtual void mousePressEvent(QMouseEvent *e);
+    bool event(QEvent *e) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 };
 
 #endif

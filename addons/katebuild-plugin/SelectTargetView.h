@@ -38,7 +38,7 @@ public Q_SLOTS:
     void setFilter(const QString &filter);
 
 protected:
-    virtual bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 
 private:
     TargetFilterProxyModel *m_proxyModel;

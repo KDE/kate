@@ -39,9 +39,9 @@ class DataOutputModel : public CachedSqlQueryModel
     bool useSystemLocale() const;
     void setUseSystemLocale(bool useSystemLocale);
 
-    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const Q_DECL_OVERRIDE;
 
-    void clear();
+    void clear() Q_DECL_OVERRIDE;
     void readConfig();
 
   private:

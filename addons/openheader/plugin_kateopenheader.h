@@ -37,7 +37,7 @@ class PluginKateOpenHeader : public KTextEditor::Plugin
     explicit PluginKateOpenHeader( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~PluginKateOpenHeader();
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow);
+    QObject *createView (KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
   public Q_SLOTS:
     void slotOpenHeader ();
@@ -57,8 +57,8 @@ class PluginViewKateOpenHeader
         PluginViewKateOpenHeader(PluginKateOpenHeader* plugin, KTextEditor::MainWindow *mainwindow);
         virtual ~PluginViewKateOpenHeader();
 
-        virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid());
-        virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+        bool exec (KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid()) Q_DECL_OVERRIDE;
+        bool help (KTextEditor::View *view, const QString &cmd, QString &msg) Q_DECL_OVERRIDE;
 
     private:
         PluginKateOpenHeader* m_plugin;

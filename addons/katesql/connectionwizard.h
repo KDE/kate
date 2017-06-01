@@ -58,8 +58,8 @@ class ConnectionDriverPage : public QWizardPage
 {
   public:
     ConnectionDriverPage(QWidget *parent=0);
-    void initializePage();
-    int nextId() const;
+    void initializePage() Q_DECL_OVERRIDE;
+    int nextId() const Q_DECL_OVERRIDE;
 
   private:
     KComboBox *driverComboBox;
@@ -70,9 +70,9 @@ class ConnectionStandardServerPage : public QWizardPage
   public:
     ConnectionStandardServerPage(QWidget *parent=0);
     ~ConnectionStandardServerPage();
-    void initializePage();
-    virtual bool validatePage();
-    int nextId() const;
+    void initializePage() Q_DECL_OVERRIDE;
+    bool validatePage() Q_DECL_OVERRIDE;
+    int nextId() const Q_DECL_OVERRIDE;
 
   private:
     KLineEdit *hostnameLineEdit;
@@ -87,9 +87,9 @@ class ConnectionSQLiteServerPage : public QWizardPage
 {
   public:
     ConnectionSQLiteServerPage(QWidget *parent=0);
-    void initializePage();
-    virtual bool validatePage();
-    int nextId() const;
+    void initializePage() Q_DECL_OVERRIDE;
+    bool validatePage() Q_DECL_OVERRIDE;
+    int nextId() const Q_DECL_OVERRIDE;
 
   private:
 //     KLineEdit *pathLineEdit;
@@ -102,9 +102,9 @@ class ConnectionSavePage : public QWizardPage
 {
   public:
     ConnectionSavePage(QWidget *parent=0);
-    void initializePage();
-    virtual bool validatePage();
-    int nextId() const;
+    void initializePage() Q_DECL_OVERRIDE;
+    bool validatePage() Q_DECL_OVERRIDE;
+    int nextId() const Q_DECL_OVERRIDE;
 
   private:
     KLineEdit *connectionNameLineEdit;

@@ -30,13 +30,13 @@ class ReplicodeConfigPage : public KTextEditor::ConfigPage
 public:
     ReplicodeConfigPage(QWidget *parent = 0);
 
-    QString name() const;
-    QString fullName() const;
+    QString name() const Q_DECL_OVERRIDE;
+    QString fullName() const Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
-    void apply();
-    void reset();
-    void defaults();
+    void apply() Q_DECL_OVERRIDE;
+    void reset() Q_DECL_OVERRIDE;
+    void defaults() Q_DECL_OVERRIDE;
 
 private:
     KUrlRequester *m_requester;

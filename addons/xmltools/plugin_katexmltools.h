@@ -47,7 +47,7 @@ class PluginKateXMLTools : public KTextEditor::Plugin
 public:
     explicit PluginKateXMLTools(QObject *parent = 0, const QVariantList& = QVariantList());
     ~PluginKateXMLTools();
-    virtual QObject *createView(KTextEditor::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 };
 
 class PluginKateXMLToolsCompletionModel
@@ -65,24 +65,24 @@ public:
 // KTextEditor::CodeCompletionModel
 //
 public:
-    virtual int columnCount(const QModelIndex &) const;
-    virtual int rowCount(const QModelIndex &parent) const;
-    virtual QModelIndex parent(const QModelIndex &index) const;
-    virtual QModelIndex index(int row, int column, const QModelIndex &parent) const;
-    virtual QVariant data(const QModelIndex &idx, int role) const;
+    int columnCount(const QModelIndex &) const Q_DECL_OVERRIDE;
+    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QModelIndex parent(const QModelIndex &index) const Q_DECL_OVERRIDE;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &idx, int role) const Q_DECL_OVERRIDE;
 
-    virtual void executeCompletionItem(KTextEditor::View *view,
+    void executeCompletionItem(KTextEditor::View *view,
                                        const KTextEditor::Range &word,
-                                       const QModelIndex &index) const;
+                                       const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 //
 // KTextEditor::CodeCompletionModelControllerInterface
 //
 public:
-    virtual bool shouldStartCompletion(KTextEditor::View *view,
+    bool shouldStartCompletion(KTextEditor::View *view,
                                        const QString &insertedText,
                                        bool userInsertion,
-                                       const KTextEditor::Cursor &position);
+                                       const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
 
@@ -94,7 +94,7 @@ public Q_SLOTS:
     void slotFinished(KJob *job);
     void slotData(KIO::Job *, const QByteArray &data);
 
-    void completionInvoked(KTextEditor::View *kv, const KTextEditor::Range &range, InvocationType invocationType);
+    void completionInvoked(KTextEditor::View *kv, const KTextEditor::Range &range, InvocationType invocationType) Q_DECL_OVERRIDE;
 
     /// Connected to the document manager, to manage the dtd collection.
     void slotDocumentDeleted(KTextEditor::Document *doc);

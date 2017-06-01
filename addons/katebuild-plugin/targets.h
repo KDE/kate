@@ -57,7 +57,7 @@ Q_SIGNALS:
     void enterPressed();
 
 protected:
-    virtual bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 
 private:
     TargetHtmlDelegate *m_delegate;

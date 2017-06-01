@@ -123,11 +123,11 @@ public:
     /// Destructor
     virtual ~CloseExceptPlugin() {}
     /// Create a new view of this plugin for the given main window
-    QObject* createView(KTextEditor::MainWindow*);
+    QObject* createView(KTextEditor::MainWindow*) Q_DECL_OVERRIDE;
     /// \name Plugin interface implementation
     //@{
-    void readSessionConfig(const KConfigGroup&);
-    void writeSessionConfig(KConfigGroup&);
+    void readSessionConfig(const KConfigGroup&) Q_DECL_OVERRIDE;
+    void writeSessionConfig(KConfigGroup&) Q_DECL_OVERRIDE;
     //@}
     bool showConfirmationNeeded() const
     {

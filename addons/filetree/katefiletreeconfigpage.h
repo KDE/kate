@@ -36,14 +36,14 @@ public:
     explicit KateFileTreeConfigPage(QWidget *parent = 0, KateFileTreePlugin *plug = 0);
     ~KateFileTreeConfigPage() {}
 
-    virtual QString name() const;
-    virtual QString fullName() const;
-    virtual QIcon icon() const;
+    QString name() const Q_DECL_OVERRIDE;
+    QString fullName() const Q_DECL_OVERRIDE;
+    QIcon icon() const Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
-    void apply();
-    void defaults();
-    void reset();
+    void apply() Q_DECL_OVERRIDE;
+    void defaults() Q_DECL_OVERRIDE;
+    void reset() Q_DECL_OVERRIDE;
 
     //Q_SIGNALS:
     //  void changed();

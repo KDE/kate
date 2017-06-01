@@ -40,7 +40,7 @@ class PluginKateTextFilter : public KTextEditor::Plugin
 
     virtual ~PluginKateTextFilter();
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
     void runFilter(KTextEditor::View *kv, const QString & filter);
 
@@ -67,8 +67,8 @@ public:
    PluginKateTextFilterCommand (PluginKateTextFilter *plugin);
     // Kate::Command
     bool exec (KTextEditor::View *view, const QString &cmd, QString &msg,
-                      const KTextEditor::Range &range = KTextEditor::Range::invalid());
-    bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+                      const KTextEditor::Range &range = KTextEditor::Range::invalid()) Q_DECL_OVERRIDE;
+    bool help (KTextEditor::View *view, const QString &cmd, QString &msg) Q_DECL_OVERRIDE;
 
 private:
     PluginKateTextFilter *m_plugin;

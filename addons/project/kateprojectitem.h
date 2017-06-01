@@ -64,7 +64,7 @@ public:
      * @param role role to get data for
      * @return data for role
      */
-    QVariant data(int role = Qt::UserRole + 1) const;
+    QVariant data(int role = Qt::UserRole + 1) const Q_DECL_OVERRIDE;
 
 public:
     void slotModifiedChanged(KTextEditor::Document *);

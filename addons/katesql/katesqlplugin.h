@@ -35,10 +35,10 @@ class KateSQLPlugin : public KTextEditor::Plugin
 
     virtual ~KateSQLPlugin();
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
-    int configPages() const { return 1; };
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
+    int configPages() const Q_DECL_OVERRIDE { return 1; };
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
     QString configPageName (int number = 0) const;
     QString configPageFullName (int number = 0) const;
     QIcon configPageIcon (int number = 0) const;

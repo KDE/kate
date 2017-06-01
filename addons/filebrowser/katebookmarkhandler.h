@@ -37,14 +37,14 @@ class KateBookmarkHandler : public QObject, public KBookmarkOwner
     ~KateBookmarkHandler();
 
     // KBookmarkOwner interface:
-    virtual QUrl currentUrl() const;
-    virtual QString currentTitle() const;
+    QUrl currentUrl() const Q_DECL_OVERRIDE;
+    QString currentTitle() const Q_DECL_OVERRIDE;
 
     QMenu *menu() const
     {
       return m_menu;
     }
-    virtual void openBookmark( const KBookmark &, Qt::MouseButtons, Qt::KeyboardModifiers );
+    void openBookmark( const KBookmark &, Qt::MouseButtons, Qt::KeyboardModifiers ) Q_DECL_OVERRIDE;
 
   Q_SIGNALS:
     void openUrl( const QString& url );

@@ -36,7 +36,7 @@ public:
     FolderFilesList(QObject *parent = 0);
     ~FolderFilesList();
 
-    void run();
+    void run() Q_DECL_OVERRIDE;
 
     void generateList(const QString &folder,
                       bool recursive,

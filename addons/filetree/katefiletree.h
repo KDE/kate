@@ -40,7 +40,7 @@ public:
     KateFileTree(QWidget *parent);
     virtual ~KateFileTree();
 
-    virtual void setModel(QAbstractItemModel *model);
+    void setModel(QAbstractItemModel *model) Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
     void slotDocumentClose();
@@ -60,7 +60,7 @@ public Q_SLOTS:
     void slotDocumentDelete();
 
 protected:
-    virtual void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
     void closeDocument(KTextEditor::Document *);

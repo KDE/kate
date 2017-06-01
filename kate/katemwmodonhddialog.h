@@ -64,8 +64,8 @@ private:
     bool m_blockAddDocument;
 
 protected:
-    virtual void closeEvent(QCloseEvent *e);
-    virtual void keyPressEvent(QKeyEvent *);
+    void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
+    void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 
 };
 

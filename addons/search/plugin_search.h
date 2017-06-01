@@ -71,7 +71,7 @@ Q_SIGNALS:
     void nextFocus(QWidget *currentWidget, bool *found, bool next);
 
 protected:
-    virtual bool focusNextPrevChild (bool next);
+    bool focusNextPrevChild (bool next) Q_DECL_OVERRIDE;
 };
 
 
@@ -83,7 +83,7 @@ public:
     explicit KatePluginSearch(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
     virtual ~KatePluginSearch();
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
 private:
     KateSearchCommand* m_searchCommand;
@@ -108,8 +108,8 @@ public:
     KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow, KTextEditor::Application* application);
     ~KatePluginSearchView();
 
-    void readSessionConfig (const KConfigGroup& config);
-    void writeSessionConfig (KConfigGroup& config);
+    void readSessionConfig (const KConfigGroup& config) Q_DECL_OVERRIDE;
+    void writeSessionConfig (KConfigGroup& config) Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
     void startSearch();
@@ -170,7 +170,7 @@ private Q_SLOTS:
     void slotProjectFileNameChanged ();
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *ev);
+    bool eventFilter(QObject *obj, QEvent *ev) Q_DECL_OVERRIDE;
     void addHeaderItem();
 
 private:
@@ -225,8 +225,8 @@ Q_SIGNALS:
     //
 public:
     bool exec (KTextEditor::View *view, const QString &cmd, QString &msg,
-                      const KTextEditor::Range &range = KTextEditor::Range::invalid());
-    bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+                      const KTextEditor::Range &range = KTextEditor::Range::invalid()) Q_DECL_OVERRIDE;
+    bool help (KTextEditor::View *view, const QString &cmd, QString &msg) Q_DECL_OVERRIDE;
 };
 
 #endif

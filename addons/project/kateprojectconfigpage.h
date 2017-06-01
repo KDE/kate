@@ -32,14 +32,14 @@ public:
     explicit KateProjectConfigPage(QWidget *parent = nullptr, KateProjectPlugin *plugin = nullptr);
     ~KateProjectConfigPage() {}
 
-    virtual QString name() const;
-    virtual QString fullName() const;
-    virtual QIcon icon() const;
+    QString name() const Q_DECL_OVERRIDE;
+    QString fullName() const Q_DECL_OVERRIDE;
+    QIcon icon() const Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
-    void apply();
-    void defaults();
-    void reset();
+    void apply() Q_DECL_OVERRIDE;
+    void defaults() Q_DECL_OVERRIDE;
+    void reset() Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
     void slotMyChanged();

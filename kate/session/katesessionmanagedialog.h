@@ -59,7 +59,7 @@ protected Q_SLOTS:
     /**
      * close dialog and open the selected session
      */
-    void open();
+    void open() Q_DECL_OVERRIDE;
 
 private:
     /**

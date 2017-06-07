@@ -488,7 +488,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished(KJob *job)
 {
     if (job->error()) {
         //qDebug() << "XML Plugin error: DTD in XML format (" << filename << " ) could not be loaded";
-        static_cast<KIO::Job *>(job)->ui()->showErrorMessage();
+        static_cast<KIO::Job *>(job)->uiDelegate()->showErrorMessage();
     } else if (static_cast<KIO::TransferJob *>(job)->isErrorPage()) {
         // catch failed loading loading via http:
         KMessageBox::error(0, i18n("The file '%1' could not be opened. "

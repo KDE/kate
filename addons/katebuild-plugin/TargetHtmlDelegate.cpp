@@ -47,7 +47,7 @@ TargetHtmlDelegate::~TargetHtmlDelegate() {}
 
 void TargetHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    QStyleOptionViewItemV4 options = option;
+    QStyleOptionViewItem options = option;
     initStyleOption(&options, index);
 
     QTextDocument doc;

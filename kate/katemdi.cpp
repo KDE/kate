@@ -305,7 +305,7 @@ void Sidebar::setSplitter(QSplitter *sp)
     m_ownSplit->hide();
 }
 
-ToolView *Sidebar::addWidget(const QPixmap &icon, const QString &text, ToolView *widget)
+ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *widget)
 {
     static int id = 0;
 
@@ -792,7 +792,7 @@ QWidget *MainWindow::centralWidget() const
     return m_centralWidget;
 }
 
-ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text)
+ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QIcon &icon, const QString &text)
 {
     if (m_idToWidget[identifier]) {
         return 0;

@@ -1885,7 +1885,7 @@ Go to the next match of your search query, switching files if necessary.
 </varlistentry>
 
 <varlistentry>
-<term><guibutton>Replace checked</guibutton></term>
+<term><guibutton>Replace Checked</guibutton></term>
 <listitem><para>
 The same as <guibutton>Replace</guibutton>, but will only perform replacements
 in files that are checked in the pane below.

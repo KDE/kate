@@ -201,7 +201,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Replace checked</string>
+        <string>Replace Checked</string>
        </property>
       </widget>
      </item>

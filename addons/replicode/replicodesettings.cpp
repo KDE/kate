@@ -170,15 +170,15 @@ void ReplicodeSettings::setDefaults()
     timeCoreCount = 2;
 
     // System
-    mdlInertiaSuccessRateThreshold = 0.9;
+    mdlInertiaSuccessRateThreshold = 0.9f;
     mdlInertiaCountThreshold = 6;
-    tpxDeltaSuccessRateThreshold = 0.1;
+    tpxDeltaSuccessRateThreshold = 0.1f;
     minimumSimulationTimeHorizon = 0;
     maximumSimulationTimeHorizon = 0;
-    simulationTimeHorizon = 0.3;
+    simulationTimeHorizon = 0.3f;
     tpxTimehorizon = 500000;
     perfSamplingPeriod = 250000;
-    floatTolerance = 0.00001;
+    floatTolerance = 0.00001f;
     timeTolerance = 10000;
     primaryTimeHorizon = 3600000;
     secondaryTimeHorizon = 7200000;

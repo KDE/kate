@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QRegularExpression>
 #include <QTreeWidget>
+#include <QElapsedTimer>
 #include <ktexteditor/document.h>
 #include <ktexteditor/application.h>
 
@@ -59,6 +60,7 @@ private Q_SLOTS:
 Q_SIGNALS:
     void replaceNextMatch();
     void matchReplaced(KTextEditor::Document* doc, int line, int column, int matchLen);
+    void replaceStatus(const QUrl &url);
     void replaceDone();
 
 private:
@@ -68,6 +70,7 @@ private:
     QRegularExpression            m_regExp;
     QString                       m_replaceText;
     bool                          m_cancelReplace;
+    QElapsedTimer                 m_progressTime;
 };
 
 

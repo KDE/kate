@@ -58,6 +58,7 @@ public:
     bool    matchCase;
     QString replaceStr;
     int     searchPlaceIndex;
+    QString treeRootText;
 };
 
 // This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
@@ -155,6 +156,7 @@ private Q_SLOTS:
     void replaceSingleMatch();
     void replaceChecked();
 
+    void replaceStatus(const QUrl &url);
     void replaceDone();
 
     void docViewChanged();

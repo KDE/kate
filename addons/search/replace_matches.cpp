@@ -21,6 +21,7 @@
 #include "replace_matches.h"
 
 #include <QTreeWidgetItem>
+#include <QTimer>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
 #include <klocalizedstring.h>
@@ -43,6 +44,7 @@ void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegularExpression 
     m_regExp = regexp;
     m_replaceText = replace;
     m_cancelReplace = false;
+    m_progressTime.restart();
     emit replaceNextMatch();
 }
 
@@ -102,7 +104,6 @@ void ReplaceMatches::doReplaceNextMatch()
 
     KTextEditor::Document *doc;
     QString docUrl = rootItem->data(0, FileUrlRole).toString();
-    QString docName = rootItem->data(0, FileNameRole).toString();
     if (docUrl.isEmpty()) {
         doc = findNamed(rootItem->data(0, FileNameRole).toString());
     }
@@ -117,6 +118,11 @@ void ReplaceMatches::doReplaceNextMatch()
         m_rootIndex++;
         emit replaceNextMatch();
         return;
+    }
+
+    if (m_progressTime.elapsed() > 100) {
+        m_progressTime.restart();
+        emit replaceStatus(doc->url());
     }
 
     QVector<KTextEditor::MovingRange*> rVector;

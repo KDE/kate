@@ -370,6 +370,8 @@ m_mainWindow (mainWin)
     connect(&m_replacer, SIGNAL(matchReplaced(KTextEditor::Document*,int,int,int)),
             this, SLOT(addMatchMark(KTextEditor::Document*,int,int,int)));
 
+    connect(&m_replacer, &ReplaceMatches::replaceStatus, this, &KatePluginSearchView::replaceStatus);
+
     // Hook into line edit context menus
     m_ui.searchCombo->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_ui.searchCombo, SIGNAL(customContextMenuRequested(QPoint)), this,
@@ -1431,18 +1433,75 @@ void KatePluginSearchView::replaceChecked()
 
     m_ui.stopAndNext->setCurrentIndex(1);
     m_ui.displayOptions->setChecked(false);
+    m_ui.displayOptions->setDisabled(true);
+    m_ui.newTabButton->setDisabled(true);
+    m_ui.searchCombo->setDisabled(true);
+    m_ui.searchButton->setDisabled(true);
+    m_ui.replaceCheckedBtn->setDisabled(true);
+    m_ui.replaceButton->setDisabled(true);
+    m_ui.replaceCombo->setDisabled(true);
+    m_ui.searchPlaceCombo->setDisabled(true);
+    m_ui.useRegExp->setDisabled(true);
+    m_ui.matchCase->setDisabled(true);
+    m_ui.expandResults->setDisabled(true);
+    m_ui.currentFolderButton->setDisabled(true);
+
 
     m_curResults->replaceStr = m_ui.replaceCombo->currentText();
 
+    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+
+    if (root) {
+        m_curResults->treeRootText = root->data(0, Qt::DisplayRole).toString();
+    }
     m_replacer.replaceChecked(m_curResults->tree,
                               m_curResults->regExp,
                               m_curResults->replaceStr);
+}
+
+void KatePluginSearchView::replaceStatus(const QUrl &url)
+{
+    if (!m_curResults) {
+        qDebug() << "m_curResults == nullptr";
+        return;
+    }
+    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+    if (root) {
+        QString file = url.toString(QUrl::PreferLocalFile);
+        if (file.size() > 70) {
+            root->setData(0, Qt::DisplayRole, i18n("<b>Replacing in: ...%1</b>", file.right(70)));
+        }
+        else {
+            root->setData(0, Qt::DisplayRole, i18n("<b>Replacing in: %1</b>", file));
+        }
+    }
 }
 
 void KatePluginSearchView::replaceDone()
 {
     m_ui.stopAndNext->setCurrentIndex(0);
     m_ui.replaceCombo->setDisabled(false);
+    m_ui.newTabButton->setDisabled(false);
+    m_ui.searchCombo->setDisabled(false);
+    m_ui.searchButton->setDisabled(false);
+    m_ui.replaceCheckedBtn->setDisabled(false);
+    m_ui.replaceButton->setDisabled(false);
+    m_ui.displayOptions->setDisabled(false);
+    m_ui.searchPlaceCombo->setDisabled(false);
+    m_ui.useRegExp->setDisabled(false);
+    m_ui.matchCase->setDisabled(false);
+    m_ui.expandResults->setDisabled(false);
+    m_ui.currentFolderButton->setDisabled(false);
+
+    if (!m_curResults) {
+        qDebug() << "m_curResults == nullptr";
+        return;
+    }
+    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+    if (root) {
+        root->setData(0, Qt::DisplayRole, m_curResults->treeRootText);
+    }
+
 }
 
 void KatePluginSearchView::docViewChanged()

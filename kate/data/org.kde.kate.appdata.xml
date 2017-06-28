@@ -94,6 +94,7 @@
     <p xml:lang="en-GB">Kate is a multi-document, multi-view text editor by KDE. It features stuff like code folding, syntax highlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.</p>
     <p xml:lang="es">Kate es un editor de texto creado por KDE que puede abrir varios documentos a la vez y que cuenta con varios modos de vista. Entre otras funcionalidades dispone de plegado de código, resaltado de sintaxis, justificado de línea dinámico, consola integrada, una amplia interfaz para complementos y admite scripts de manera preliminar.</p>
     <p xml:lang="fi">Kate on KDE:n usean tiedoston ja näkymän tekstimuokkain, jossa on on koodin laskostus, syntaksikorostus, dynaaminen rivitys, upotettu konsoli, kattava liitännäisrajapinta sekä alustava skriptaustuki.</p>
+    <p xml:lang="fr">Kate est un éditeur de texte multi-documents et multi-vues pour KDE. Il offre des fonctionnalités comme le repliement de code, la coloration syntaxique, le retour à la ligne automatique, une console intégrée, une interface complète pour modules complémentaires, et un début de prise en charge d'automatisation par scripts.</p>
     <p xml:lang="it">Kate è un editor di testi multi-documento e multi-vista di KDE. È dotato di funzionalità come il raggruppamento del codice, l'evidenziazione della sintassi, a capo automatico dinamico, una console integrata, un'interfaccia potenziabile tramite estensioni e qualche supporto preliminare per la creazione di script.</p>
     <p xml:lang="nl">Kate is een multi-document, multi-view tekstbewerker door KDE. Het bevat functies zoals opvouwen van code, accentuering van syntaxis, dynamisch afbreken van de regel, een ingebed console, een extensieve plug-in-interface en enige beginnende ondersteuning voor scripts.</p>
     <p xml:lang="nn">Kate er eit skriveprogram frå KDE som kan handsama fleire dokument og fleire visingar samtidig. Det har funksjonar som kodefalding, syntaksmerking, dymamisk linjebryting, ein innebygd terminalemulator, eit omfattande grensesnitt for programtillegg og enkel skriptstøtte.</p>
@@ -457,7 +458,7 @@
       <li xml:lang="es">Función hacer y deshacer infinita</li>
       <li xml:lang="et">Piiranguteta tagasivõtmiste ja uuestitegemiste toetus</li>
       <li xml:lang="fi">Tuki rajattomalle kumoamiselle ja uudelleen tekemiselle</li>
-      <li xml:lang="fr">Prise en charge des annultion / refaire à l'infini</li>
+      <li xml:lang="fr">Prise en charge des annultion / refaire à l'infini</li>
       <li xml:lang="gl">Funcionalidade de desfacer e refacer sen limitacións.</li>
       <li xml:lang="hu">Végtelen visszavonás/újra végrehajtás</li>
       <li xml:lang="it">Supporto annulla/rifai infinito</li>
@@ -640,7 +641,7 @@
       <li xml:lang="es">Admite numerosos protocolos mediante el uso de kioslaves (http, ftp, ssh, webdav, etc.) </li>
       <li xml:lang="et">Laialdane protokollide (http, ftp, ssh, webdav jne.) toetus KIO moodulite vahendusel</li>
       <li xml:lang="fi">Laaja yhteyskäytäntötuki (HTTP, FTP, SSH, WebDAV jne.) käyttäen KIO-palveluita</li>
-      <li xml:lang="fr">Prise en charge de protocoles variés (http, ftp, ssh, webdav etc.) en utilisant le module d'entrée / sortie.</li>
+      <li xml:lang="fr">Prise en charge de protocoles variés (http, ftp, ssh, webdav etc.) en utilisant le module d'entrée / sortie.</li>
       <li xml:lang="gl">Compatibilidade con numerosos protocolos (HTTP, FTP, SSH, WebDAV, etc.) mediante KIO.</li>
       <li xml:lang="hu">Protokollok (HTTP, FTP, SSH, Webdav, stb) széleskörű támogatása KIO-szolgáltatások használatával</li>
       <li xml:lang="ia">Supporto de protocollo large (http, ftp, ssh, webdav etc.) usante kioslaves</li>

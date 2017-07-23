@@ -1020,9 +1020,6 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
         m_viewSpaceList.at(lastViewSpace)->currentView()->setFocus();
     }
 
-    // remove hidden view spaces (users will likely never find them again, #358266)
-    removeHiddenViewSpaces();
-
     // emergency
     if (m_viewSpaceList.empty()) {
         // kill bad children
@@ -1047,53 +1044,34 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     updateViewSpaceActions();
 }
 
-void KateViewManager::removeHiddenViewSpaces()
+QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBase, const QString &viewConfGrp)
 {
-    // collect all empty view spaces
-    QVector<QPointer<KateViewSpace> > hiddenViewSpaces;
-    foreach (KateViewSpace *vs, m_viewSpaceList) {
-        if (vs->size().isEmpty()) {
-            hiddenViewSpaces.push_back(vs);
-        }
-    }
-
-    // get all child splitters
-    const QList<QSplitter *> splitters = findChildren<QSplitter *>();
-    foreach (QSplitter * splitter, splitters) {
-        if (splitter->size().isEmpty()) {
-            const QList<KateViewSpace *> children = findChildren<KateViewSpace *>();
-            for (auto & child : children) {
-                hiddenViewSpaces.push_back(child);
-            }
-        }
-    }
-
-    // finally remove all empty view spaces
-    foreach (KateViewSpace * vs, hiddenViewSpaces) {
-        removeViewSpace(vs);
-    }
-}
-
-void KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBase, const QString &viewConfGrp)
-{
-    QString grp = QString(viewConfGrp + QStringLiteral("-Splitter %1")).arg(m_splitterIndex);
-    KConfigGroup config(configBase, grp);
-
-    // Save sizes, orient, children for this splitter
-    config.writeEntry("Sizes", s->sizes());
-    config.writeEntry("Orientation", int(s->orientation()));
-
-    QStringList childList;
+    /**
+     * avoid to export invisible view spaces
+     * else they will stick around for ever in sessions
+     * bug 358266 - code initially done during load
+     * bug 381433 - moved code to save
+     */
+    
+    /**
+     * create new splitter name, might be not used
+     */
+    const auto grp = QString(viewConfGrp + QStringLiteral("-Splitter %1")).arg(m_splitterIndex);
+    ++m_splitterIndex;
+  
     // a QSplitter has two children, either QSplitters and/or KateViewSpaces
     // special case: root splitter might have only one child (just for info)
+    QStringList childList;
+    const auto sizes = s->sizes();
     for (int it = 0; it < s->count(); ++it) {
-        QWidget *obj = s->widget(it);
-        KateViewSpace *kvs = qobject_cast<KateViewSpace *>(obj);
+        // skip empty sized invisible ones, if not last one, we need one thing at least
+        if ((sizes[it] == 0) && ((it + 1 < s->count()) || !childList.empty()))
+            continue;
 
-        QString n;  // name for child list, see below
         // For KateViewSpaces, ask them to save the file list.
-        if (kvs) {
-            n = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(m_viewSpaceList.indexOf(kvs));
+        auto obj = s->widget(it);
+        if (auto kvs = qobject_cast<KateViewSpace *>(obj)) {
+            childList.append(QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(m_viewSpaceList.indexOf(kvs)));
             kvs->saveConfig(configBase, m_viewSpaceList.indexOf(kvs), viewConfGrp);
             // save active viewspace
             if (kvs->isActiveSpace()) {
@@ -1102,16 +1080,21 @@ void KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBase, 
             }
         }
         // for QSplitters, recurse
-        else if (QSplitter *splitter = qobject_cast<QSplitter *>(obj)) {
-            ++m_splitterIndex;
-            n = QString(viewConfGrp + QStringLiteral("-Splitter %1")).arg(m_splitterIndex);
-            saveSplitterConfig(splitter, configBase, viewConfGrp);
+        else if (auto splitter = qobject_cast<QSplitter *>(obj)) {
+            childList.append(saveSplitterConfig(splitter, configBase, viewConfGrp));
         }
-
-        childList.append(n);
     }
+    
+    // if only one thing, skip splitter config export, if not top splitter
+    if ((s != this) && (childList.size() == 1))
+        return childList.at(0);
 
+    // Save sizes, orient, children for this splitter
+    KConfigGroup config(configBase, grp);
+    config.writeEntry("Sizes", sizes);
+    config.writeEntry("Orientation", int(s->orientation()));
     config.writeEntry("Children", childList);
+    return grp;
 }
 
 void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QString &group,

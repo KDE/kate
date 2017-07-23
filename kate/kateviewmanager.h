@@ -128,7 +128,7 @@ private:
      * If child splitters are found, it calls it self with those as the argument.
      * If a viewspace child is found, it is asked to save its filelist.
      */
-    void saveSplitterConfig(QSplitter *s, KConfigBase *config, const QString &viewConfGrp);
+    QString saveSplitterConfig(QSplitter *s, KConfigBase *config, const QString &viewConfGrp);
 
     /** Restore a single splitter.
      * This is all the work is done for @see saveSplitterConfig()
@@ -136,7 +136,6 @@ private:
     void restoreSplitter(const KConfigBase *config, const QString &group, QSplitter *parent, const QString &viewConfGrp);
 
     void removeViewSpace(KateViewSpace *viewspace);
-    void removeHiddenViewSpaces();
 
 public:
     KTextEditor::View *activeView();

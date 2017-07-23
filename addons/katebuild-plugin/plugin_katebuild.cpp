@@ -105,6 +105,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     QAction *a = actionCollection()->addAction(QStringLiteral("select_target"));
     a->setText(i18n("Select Target..."));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("select")));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotSelectTarget()));
 
     a = actionCollection()->addAction(QStringLiteral("build_default_target"));
@@ -117,15 +118,18 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     a = actionCollection()->addAction(QStringLiteral("stop"));
     a->setText(i18n("Stop"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotStop()));
 
     a = actionCollection()->addAction(QStringLiteral("goto_next"));
     a->setText(i18n("Next Error"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
     actionCollection()->setDefaultShortcut(a, Qt::SHIFT+Qt::ALT+Qt::Key_Right);
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotNext()));
 
     a = actionCollection()->addAction(QStringLiteral("goto_prev"));
     a->setText(i18n("Previous Error"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
     actionCollection()->setDefaultShortcut(a, Qt::SHIFT+Qt::ALT+Qt::Key_Left);
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotPrev()));
 

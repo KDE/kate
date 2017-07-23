@@ -2,15 +2,6 @@ project(kateprojectplugin)
 
 find_package(KF5NewStuff ${KF5_DEP_VERSION} REQUIRED) # For KMoreTools
 
-# libgit2 integration, at least 0.22 with proper git_libgit2_init()
-find_package(LibGit2 "0.22.0")
-
-# set right defines for libgit2 usage
-if(LIBGIT2_FOUND)
-    add_definitions(-DLIBGIT2_FOUND)
-    set (PROJECT_OPTIONAL_LIBS LibGit2::LibGit2)
-endif()
-
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 add_definitions(-DTRANSLATION_DOMAIN=\"kateproject\")

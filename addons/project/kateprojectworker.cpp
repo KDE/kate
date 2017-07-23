@@ -30,12 +30,6 @@
 #include <QSet>
 #include <QTime>
 
-#ifdef LIBGIT2_FOUND
-#include <git2.h>
-#include <git2/oid.h>
-#include <git2/repository.h>
-#endif
-
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QVariantMap &projectMap)
     : QObject()
     , ThreadWeaver::Job()
@@ -250,173 +244,6 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& fil
     }
 }
 
-#ifdef LIBGIT2_FOUND
-namespace {
-    struct git_walk_payload {
-        QStringList *files;
-        bool recursive;
-        QString basedir;
-    };
-
-    int gitTreeWalker(const char *root, const git_tree_entry *entry, void *payload)
-    {
-        struct git_walk_payload *data = static_cast<git_walk_payload *>(payload);
-
-        if (git_tree_entry_type(entry) == GIT_OBJ_BLOB) {
-            QString name = QString::fromUtf8(git_tree_entry_name(entry));
-            QString dir = QString::fromUtf8(root);
-            QString filepath = QDir(data->basedir + dir).filePath(name);
-            data->files->append(filepath);
-        } else if (git_tree_entry_type(entry) == GIT_OBJ_TREE && !data->recursive) {
-            return 1; // don't walk that way
-        }
-
-        return 0;
-    }
-
-    QStringList gitSearchTree(git_object *tree, const QString &basedir, bool recursive)
-    {
-        QStringList files;
-        struct git_walk_payload payload = {&files, recursive, basedir};
-
-        git_tree_walk((git_tree *)tree, GIT_TREEWALK_PRE, gitTreeWalker, (void *)&payload);
-
-        return files;
-    }
-
-    int gitSubmoduleWalker(git_submodule *submodule, const char *, void *payload)
-    {
-        struct git_walk_payload *data = static_cast<git_walk_payload *>(payload);
-
-        git_repository *repo = nullptr;
-
-        if (git_submodule_open(&repo, submodule)) {
-            return 1;
-        }
-
-        git_object *tree = nullptr;
-
-        if (git_revparse_single(&tree, repo, "HEAD^{tree}")) {
-            git_repository_free(repo);
-            return 2;
-        }
-
-        QString submodulePath = QString::fromUtf8(git_submodule_path(submodule));
-        QString basedir = data->basedir + submodulePath + QDir::separator();
-
-        data->files->append(gitSearchTree(tree, basedir, true));
-
-        git_object_free(tree);
-        git_repository_free(repo);
-        return 0;
-    }
-
-    QStringList gitSearchSubmodules(git_repository *repo, const QString &workdir)
-    {
-        QStringList files;
-
-        struct git_walk_payload payload = {&files, true, workdir};
-        git_submodule_foreach(repo, gitSubmoduleWalker, (void *)&payload);
-
-        return files;
-    }
-
-    int gitStatusListWalker(const char *path, unsigned int status_flags, void *payload)
-    {
-        struct git_walk_payload *data = static_cast<git_walk_payload *>(payload);
-
-        // if the entry is a new file, add it to the list
-        if (status_flags & GIT_STATUS_INDEX_NEW) {
-            QString name = QString::fromUtf8(path);
-            QString filepath = QDir(data->basedir).filePath(name);
-            data->files->append(filepath);
-        }
-
-        return 0;
-    }
-
-    QStringList gitSearchStatusList(git_repository *repo, const QString &basedir)
-    {
-        QStringList files;
-        struct git_walk_payload payload = {&files, false, basedir};
-
-        git_status_foreach(repo, gitStatusListWalker, (void *)&payload);
-
-        return files;
-    }
-}
-
-QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
-{
-    // init libgit2, we require at least 0.22 which has this function!
-    // do this here to have init in this thread done, shutdown afterwards again!
-    git_libgit2_init();
-
-    QStringList files;
-    git_repository *repo = nullptr;
-    git_object *root_tree = nullptr, *tree = nullptr;
-
-    // check if the repo can be opened.
-    // git_repository_open_ext() will return 0 if everything is OK;
-    // if not, return an empty files list
-    const QByteArray repoPathUtf8 = dir.path().toUtf8();
-    if (git_repository_open_ext(&repo, repoPathUtf8.constData(), 0, NULL)) {
-        git_libgit2_shutdown();
-        return files;
-    }
-
-    // get the working directory of the repo
-    // if none was found, return an empty files list
-    const char *working_dir = nullptr;
-    if ((working_dir = git_repository_workdir(repo)) == nullptr) {
-        git_repository_free(repo);
-        git_libgit2_shutdown();
-        return files;
-    }
-
-    if (git_revparse_single(&root_tree, repo, "HEAD^{tree}")) {
-        git_repository_free(repo);
-        git_libgit2_shutdown();
-        return files;
-    }
-
-    QDir workdir;
-    workdir.setPath(QString::fromUtf8(working_dir));
-    const QByteArray relpathUtf8 = workdir.relativeFilePath(dir.path()).toUtf8();
-
-    if (relpathUtf8.isEmpty() || relpathUtf8 == ".") { // git_object_lookup_bypath is not able to resolv "." as path
-        tree = root_tree;
-    } else {
-        if (git_object_lookup_bypath(&tree, root_tree, relpathUtf8.constData(), GIT_OBJ_TREE)) {
-            git_object_free(root_tree);
-            git_repository_free(repo);
-            git_libgit2_shutdown();
-            return files;
-        }
-    }
-
-    QString path = workdir.absolutePath() + QDir::separator();
-
-    files.append(gitSearchTree(tree, path, recursive));
-
-    if (recursive && (relpathUtf8.isEmpty() || relpathUtf8 == ".")) {
-        files.append(gitSearchSubmodules(repo, path));
-    }
-
-    files.append(gitSearchStatusList(repo, path));
-
-    if (tree != root_tree) {
-        git_object_free(tree);
-    }
-
-    git_object_free(root_tree);
-    git_repository_free(repo);
-    git_libgit2_shutdown();
-    return files;
-}
-
-#else
-
 QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 {
     QStringList files;
@@ -442,7 +269,6 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 
     return files;
 }
-#endif
 
 QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive)
 {

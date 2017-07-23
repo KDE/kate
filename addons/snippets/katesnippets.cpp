@@ -84,8 +84,8 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
         slotViewCreated(view);
     }
 
-    auto factory = m_mainWindow->guiFactory();
-    if ( factory ) {
+    // register if factory around
+    if (auto factory = m_mainWindow->guiFactory()) {
         factory->addClient(this);
     }
 }
@@ -101,7 +101,10 @@ KateSnippetsPluginView::~KateSnippetsPluginView()
         iface->unregisterCompletionModel(KateSnippetGlobal::self()->completionModel());
     }
 
-    m_mainWindow->guiFactory()->removeClient(this);
+    // unregister if factory around
+    if (auto factory = m_mainWindow->guiFactory()) {
+        factory->removeClient(this);
+    }
 
     if (m_toolView) {
         delete m_toolView;

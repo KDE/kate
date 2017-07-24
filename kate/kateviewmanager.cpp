@@ -727,7 +727,33 @@ void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)
 
 void KateViewManager::closeView(KTextEditor::View *view)
 {
+    /**
+     * kill view we want to kill
+     */
     deleteView(view);
+
+    /**
+     * try to have active view around!
+     */
+    if (!activeView() && !KateApp::self()->documentManager()->documentList().isEmpty()) {
+        createView(KateApp::self()->documentManager()->documentList().last());
+    }
+
+    /**
+     * if we have one now, show them in all viewspaces that got empty!
+     */
+    if (KTextEditor::View *const newActiveView = activeView()) {
+        /**
+         * check if we have any empty viewspaces and give them a view
+         */
+        Q_FOREACH(KateViewSpace * vs, m_viewSpaceList) {
+            if (!vs->currentView()) {
+                createView(newActiveView->document(), vs);
+            }
+        }
+
+        emit viewChanged(newActiveView);
+    }
 }
 
 void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
@@ -1052,13 +1078,13 @@ QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBas
      * bug 358266 - code initially done during load
      * bug 381433 - moved code to save
      */
-    
+
     /**
      * create new splitter name, might be not used
      */
     const auto grp = QString(viewConfGrp + QStringLiteral("-Splitter %1")).arg(m_splitterIndex);
     ++m_splitterIndex;
-  
+
     // a QSplitter has two children, either QSplitters and/or KateViewSpaces
     // special case: root splitter might have only one child (just for info)
     QStringList childList;
@@ -1084,7 +1110,7 @@ QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBas
             childList.append(saveSplitterConfig(splitter, configBase, viewConfGrp));
         }
     }
-    
+
     // if only one thing, skip splitter config export, if not top splitter
     if ((s != this) && (childList.size() == 1))
         return childList.at(0);

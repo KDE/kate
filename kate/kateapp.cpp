@@ -77,6 +77,14 @@ KateApp::~KateApp()
         m_adaptor.emitExiting();
         QDBusConnection::sessionBus().unregisterObject(QStringLiteral("/MainApplication"));
     }
+
+    /**
+     * delete all main windows before the document manager & co. die
+     */
+    while (!m_mainWindows.isEmpty()) {
+        // mainwindow itself calls KateApp::removeMainWindow(this)
+        delete m_mainWindows[0];
+    }
 }
 
 KateApp *KateApp::self()
@@ -236,12 +244,11 @@ void KateApp::shutdownKate(KateMainWindow *win)
 
     sessionManager()->saveActiveSession(true);
 
-    // cu main windows
-    while (!m_mainWindows.isEmpty()) {
-        // mainwindow itself calls KateApp::removeMainWindow(this)
-        delete m_mainWindows[0];
-    }
-
+    /**
+     * all main windows will be cleaned up
+     * in the KateApp destructor after the event
+     * loop is left
+     */
     QApplication::quit();
 }
 

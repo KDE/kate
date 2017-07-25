@@ -425,7 +425,12 @@ void KateFileTree::slotCopyFilename()
 {
     KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
     if (doc) {
-        QApplication::clipboard()->setText(doc->url().url());
+        // ensure we prefer native separators, bug 381052
+        if (doc->url().isLocalFile()) {
+            QApplication::clipboard()->setText(QDir::toNativeSeparators(doc->url().toLocalFile()));
+        } else {
+            QApplication::clipboard()->setText(doc->url().url());
+        }
     }
 }
 

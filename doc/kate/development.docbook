@@ -49,10 +49,7 @@ using the same programming language &kate; is written in, C++.</para>
 
 <para>To get started, see the 
 <ulink url="http://kate-editor.org/2004/01/06/writing-a-kate-plugin/">Writing a
-&kate; Plugin tutorial on the &kate; website</ulink>.  There is also
-<ulink url="http://quickgit.kde.org/?p=kate.git&amp;a=tree&amp;f=addons%2Fkate%2Fhelloworld">
-a classic <quote>Hello, world!</quote> example plugin included with the &kate;
-source code</ulink>.</para>
+&kate; Plugin tutorial on the &kate; website</ulink>.</para>
 
 </sect1>
 

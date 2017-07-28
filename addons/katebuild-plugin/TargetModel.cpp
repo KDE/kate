@@ -460,7 +460,7 @@ QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) c
 
 bool TargetModel::hasChildren (const QModelIndex &parent) const
 {
-    if (!parent.isValid()) return true;
+    if (!parent.isValid()) return !m_targets.isEmpty();
     if (parent.internalId() != InvalidIndex) return false;
     if (parent.column() != 0) return false;
 

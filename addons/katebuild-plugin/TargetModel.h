@@ -88,7 +88,6 @@ public:
     QModelIndex parent(const QModelIndex &child) const Q_DECL_OVERRIDE;
     int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    bool hasChildren(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;
 
 private:
 

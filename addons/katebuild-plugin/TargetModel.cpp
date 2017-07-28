@@ -458,18 +458,6 @@ QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) c
     return  createIndex(row, column, rootIndex);
 }
 
-bool TargetModel::hasChildren (const QModelIndex &parent) const
-{
-    if (!parent.isValid()) return !m_targets.isEmpty();
-    if (parent.internalId() != InvalidIndex) return false;
-    if (parent.column() != 0) return false;
-
-    int row = parent.row();
-    if (row < 0 || row >= m_targets.size()) return false;
-
-    return m_targets[row].commands.size() > 0;
-}
-
 QModelIndex TargetModel::parent(const QModelIndex &child) const
 {
     if (child.internalId() == InvalidIndex) return QModelIndex();

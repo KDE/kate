@@ -80,6 +80,7 @@ QObject *KateBuildPlugin::createView (KTextEditor::MainWindow *mainWindow)
 /******************************************************************/
 KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
     : QObject (mw)
+    , m_win(mw)
     , m_buildWidget(0)
     , m_outputWidgetWidth(0)
     , m_proc(this)
@@ -93,8 +94,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     , m_filenameDetectorGccWorked(false)
     , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ `.*'"))
 {
-    m_win=mw;
-
     KXMLGUIClient::setComponentName (QLatin1String("katebuild"), i18n ("Kate Build Plugin"));
     setXMLFile(QLatin1String("ui.rc"));
 

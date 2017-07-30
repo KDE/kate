@@ -29,7 +29,7 @@
 
 #include <cassert>
 
-#include <QRegExp>
+#include <QRegularExpressionMatch>
 #include <QString>
 #include <QScrollBar>
 #include <QCompleter>
@@ -772,13 +772,11 @@ void KateBuildView::processLine(const QString &line)
     //qDebug() << line ;
 
     //look for a filename
-    int index = m_filenameDetector.indexIn(line);
+    QRegularExpressionMatch match = m_filenameDetector.match(line);
 
-    QRegExp* rx = 0;
-    if (index >= 0)
+    if (match.hasMatch())
     {
         m_filenameDetectorGccWorked = true;
-        rx = &m_filenameDetector;
     }
     else
     {
@@ -790,24 +788,20 @@ void KateBuildView::processLine(const QString &line)
             // But this should be the minority, for gcc and clang users
             // both regexes will only be checked until the first regex
             // matched the first time.
-            index = m_filenameDetectorIcpc.indexIn(line);
-            if (index >= 0)
-            {
-                rx = &m_filenameDetectorIcpc;
-            }
+            match = m_filenameDetectorIcpc.match(line);
         }
     }
 
-    if (!rx)
+    if (!match.hasMatch())
     {
         addError(QString(), QStringLiteral("0"), QString(), line);
         //kDebug() << "A filename was not found in the line ";
         return;
     }
 
-    QString filename = rx->cap(1);
-    QString line_n = rx->cap(3);
-    QString msg = rx->cap(4);
+    QString filename = match.captured(1);
+    const QString line_n = match.captured(3);
+    const QString msg = match.captured(4);
 
     //qDebug() << "File Name:"<<filename<< " msg:"<< msg;
     //add path to file

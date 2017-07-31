@@ -84,6 +84,8 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     , m_buildWidget(0)
     , m_outputWidgetWidth(0)
     , m_proc(this)
+    , m_stdOut()
+    , m_stdErr()
     , m_buildCancelled(false)
     , m_displayModeBeforeBuild(1)
     // NOTE this will not allow spaces in file names.
@@ -474,7 +476,8 @@ void KateBuildView::clearBuildResults()
 {
     m_buildUi.plainTextEdit->clear();
     m_buildUi.errTreeWidget->clear();
-    m_output_lines.clear();
+    m_stdOut.clear();
+    m_stdErr.clear();
     m_numErrors = 0;
     m_numWarnings = 0;
     m_make_dir_stack.clear();
@@ -709,14 +712,14 @@ void KateBuildView::slotReadReadyStdOut()
     // FIXME This works for utf8 but not for all charsets
     QString l = QString::fromUtf8(m_proc.readAllStandardOutput());
     l.remove(QLatin1Char('\r'));
-    m_output_lines += l;
+    m_stdOut += l;
 
     // handle one line at a time
     do {
-        const int end = m_output_lines.indexOf(QLatin1Char('\n'));
+        const int end = m_stdOut.indexOf(QLatin1Char('\n'));
         if (end < 0) break;
 
-        const QString line = m_output_lines.mid(0, end);
+        const QString line = m_stdOut.mid(0, end);
         m_buildUi.plainTextEdit->appendPlainText(line);
         //qDebug() << line;
 
@@ -738,7 +741,7 @@ void KateBuildView::slotReadReadyStdOut()
             m_make_dir = newDir;
         }
 
-        m_output_lines.remove(0, end + 1);
+        m_stdOut.remove(0, end + 1);
     } while (1);
 }
 
@@ -748,18 +751,18 @@ void KateBuildView::slotReadReadyStdErr()
     // FIXME This works for utf8 but not for all charsets
     QString l = QString::fromUtf8(m_proc.readAllStandardError());
     l.remove(QLatin1Char('\r'));
-    m_output_lines += l;
+    m_stdErr += l;
 
     do {
-        const int end = m_output_lines.indexOf(QLatin1Char('\n'));
+        const int end = m_stdErr.indexOf(QLatin1Char('\n'));
         if (end < 0) break;
 
-        const QString line = m_output_lines.mid(0, end);
+        const QString line = m_stdErr.mid(0, end);
         m_buildUi.plainTextEdit->appendPlainText(line);
 
         processLine(line);
 
-        m_output_lines.remove(0, end + 1);
+        m_stdErr.remove(0, end + 1);
     } while (1);
 }
 

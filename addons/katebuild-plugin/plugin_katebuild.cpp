@@ -711,8 +711,6 @@ void KateBuildView::slotReadReadyStdOut()
     l.remove(QLatin1Char('\r'));
     m_output_lines += l;
 
-    QString tmp;
-
     int end=0;
 
 
@@ -721,15 +719,15 @@ void KateBuildView::slotReadReadyStdOut()
         end = m_output_lines.indexOf(QLatin1Char('\n'));
         if (end < 0) break;
         end++;
-        tmp = m_output_lines.mid(0, end);
-        tmp.remove(QLatin1Char('\n'));
-        m_buildUi.plainTextEdit->appendPlainText(tmp);
-        //qDebug() << tmp;
-        if (tmp.indexOf(m_newDirDetector) >=0) {
+        QString line = m_output_lines.mid(0, end);
+        line.remove(QLatin1Char('\n'));
+        m_buildUi.plainTextEdit->appendPlainText(line);
+        //qDebug() << line;
+        if (line.indexOf(m_newDirDetector) >=0) {
             //qDebug() << "Enter/Exit dir found";
-            int open = tmp.indexOf(QLatin1Char('`'));
-            int close = tmp.indexOf(QLatin1Char('\''));
-            QString newDir = tmp.mid(open+1, close-open-1);
+            int open = line.indexOf(QLatin1Char('`'));
+            int close = line.indexOf(QLatin1Char('\''));
+            QString newDir = line.mid(open+1, close-open-1);
             //qDebug () << "New dir = " << newDir;
 
             if ((m_make_dir_stack.size() > 1) && (m_make_dir_stack.top() == newDir)) {
@@ -758,19 +756,17 @@ void KateBuildView::slotReadReadyStdErr()
     l.remove(QLatin1Char('\r'));
     m_output_lines += l;
 
-    QString tmp;
-
     int end=0;
 
     do {
         end = m_output_lines.indexOf(QLatin1Char('\n'));
         if (end < 0) break;
         end++;
-        tmp = m_output_lines.mid(0, end);
-        tmp.remove(QLatin1Char('\n'));
-        m_buildUi.plainTextEdit->appendPlainText(tmp);
+        QString line = m_output_lines.mid(0, end);
+        line.remove(QLatin1Char('\n'));
+        m_buildUi.plainTextEdit->appendPlainText(line);
 
-        processLine(tmp);
+        processLine(line);
 
         m_output_lines.remove(0,end);
 

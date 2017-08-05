@@ -72,8 +72,6 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         void readSessionConfig(const KConfigGroup& config) Q_DECL_OVERRIDE;
         void writeSessionConfig(KConfigGroup& config) Q_DECL_OVERRIDE;
 
-        QWidget *toolView() const;
-
         bool buildCurrentTarget();
 
         QUrl docUrl();

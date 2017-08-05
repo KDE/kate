@@ -206,12 +206,6 @@ KateBuildView::~KateBuildView()
 }
 
 /******************************************************************/
-QWidget *KateBuildView::toolView() const
-{
-    return m_toolView;
-}
-
-/******************************************************************/
 void KateBuildView::readSessionConfig(const KConfigGroup& cg)
 {
     int numTargets = cg.readEntry(QStringLiteral("NumTargets"), 0);

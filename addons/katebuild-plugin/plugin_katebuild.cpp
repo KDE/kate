@@ -717,7 +717,7 @@ void KateBuildView::slotReadReadyStdOut()
         m_buildUi.plainTextEdit->appendPlainText(line);
         //qDebug() << line;
 
-        if (line.indexOf(m_newDirDetector) >=0) {
+        if (m_newDirDetector.match(line).hasMatch()) {
             //qDebug() << "Enter/Exit dir found";
             int open = line.indexOf(QLatin1Char('`'));
             int close = line.indexOf(QLatin1Char('\''));

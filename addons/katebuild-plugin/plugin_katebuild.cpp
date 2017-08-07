@@ -382,8 +382,7 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
 void KateBuildView::addError(const QString &filename, const QString &line,
                              const QString &column, const QString &message)
 {
-    bool isError=false;
-    bool isWarning=false;
+    ErrorCategory errorCategory = CategoryInfo;
     QTreeWidgetItem* item = new QTreeWidgetItem(m_buildUi.errTreeWidget);
     item->setBackground(1, Qt::gray);
     // The strings are twice in case kate is translated but not make.
@@ -393,7 +392,7 @@ void KateBuildView::addError(const QString &filename, const QString &line,
         message.contains(i18nc("The same word as 'ld' uses to mark an ...","undefined reference"))
        )
     {
-        isError=true;
+        errorCategory = CategoryError;
         item->setForeground(1, Qt::red);
         m_numErrors++;
         item->setHidden(false);
@@ -402,7 +401,7 @@ void KateBuildView::addError(const QString &filename, const QString &line,
         message.contains(i18nc("The same word as 'make' uses to mark a warning.","warning"))
        )
     {
-        isWarning=true;
+        errorCategory = CategoryWarning;
         item->setForeground(1, Qt::yellow);
         m_numWarnings++;
         item->setHidden(m_buildUi.displayModeSlider->value() > 2);
@@ -421,12 +420,11 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     item->setData(1, Qt::UserRole, line);
     item->setData(2, Qt::UserRole, column);
 
-    if ((isError==false) && (isWarning==false)) {
+    if (errorCategory == CategoryInfo) {
       item->setHidden(m_buildUi.displayModeSlider->value() > 1);
     }
 
-    item->setData(0, IsErrorRole, isError);
-    item->setData(0, IsWarningRole, isWarning);
+    item->setData(0, ErrorRole, errorCategory);
 
     // add tooltips in all columns
     // The enclosing <qt>...</qt> enables word-wrap for long error messages
@@ -894,18 +892,19 @@ void KateBuildView::slotDisplayMode(int mode) {
     for (int i=0;i<itemCount;i++) {
         QTreeWidgetItem* item=tree->topLevelItem(i);
 
-        if ( (item->data(0, IsWarningRole).toBool()==false) &&
-            (item->data(0, IsErrorRole).toBool()==false) )
+        const ErrorCategory errorCategory = static_cast<ErrorCategory>(item->data(0, ErrorRole).toInt());
+
+        switch (errorCategory)
         {
+        case CategoryInfo:
             item->setHidden(mode > 1);
-        }
-
-        if (item->data(0, IsWarningRole).toBool()==true) {
+            break;
+        case CategoryWarning:
             item->setHidden(mode > 2);
-        }
-
-        if (item->data(0, IsErrorRole).toBool()==true) {
+            break;
+        case CategoryError:
             item->setHidden(false);
+            break;
         }
     }
 }

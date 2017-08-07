@@ -61,8 +61,13 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         };
 
         enum TreeWidgetRoles {
-            IsErrorRole = Qt::UserRole+1,
-            IsWarningRole
+            ErrorRole = Qt::UserRole+1
+        };
+
+        enum ErrorCategory {
+            CategoryInfo,
+            CategoryWarning,
+            CategoryError
         };
 
        KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);

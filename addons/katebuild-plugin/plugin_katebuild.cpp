@@ -373,7 +373,7 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
     }
 
     // do it ;)
-    m_win->activeView()->setCursorPosition(KTextEditor::Cursor(line-1, column));
+    m_win->activeView()->setCursorPosition(KTextEditor::Cursor(line-1, column-1));
     m_win->activeView()->setFocus();
 }
 
@@ -810,7 +810,7 @@ void KateBuildView::processLine(const QString &line)
     }
 
     // Now we have the data we need show the error/warning
-    addError(filename, line_n, QString(), msg);
+    addError(filename, line_n, QStringLiteral("1"), msg);
 }
 
 

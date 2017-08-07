@@ -30,6 +30,7 @@
 #include "editrepository.h"
 #include "editsnippet.h"
 
+#include <KAuthorized>
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -111,7 +112,10 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     connect(m_removeRepoAction, &QAction::triggered, this, &SnippetView::slotRemoveRepo);
     addAction(m_removeRepoAction);
 
+    const bool newStuffAllowed = KAuthorized::authorize(QStringLiteral("ghns"));
+
     m_putNewStuffAction = new QAction(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")), i18n("Publish Repository"), this);
+    m_putNewStuffAction->setVisible(newStuffAllowed);
     connect(m_putNewStuffAction, &QAction::triggered, this, &SnippetView::slotSnippetToGHNS);
     addAction(m_putNewStuffAction);
 
@@ -132,6 +136,7 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     addAction(separator);
 
     m_getNewStuffAction = new QAction(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")), i18n("Get New Snippets"), this);
+    m_getNewStuffAction->setVisible(newStuffAllowed);
     connect(m_getNewStuffAction, &QAction::triggered, this, &SnippetView::slotGHNS);
     addAction(m_getNewStuffAction);
 

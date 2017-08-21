@@ -71,6 +71,9 @@ if(KF5NewStuff_FOUND)
     ecm_optional_add_subdirectory (snippets)
 endif()
 
+# live preview of sources in target format
+ecm_optional_add_subdirectory (preview)
+
 # terminal tool view
 if(KF5Service_FOUND AND NOT WIN32)
     ecm_optional_add_subdirectory (konsole)

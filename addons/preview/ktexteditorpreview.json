@@ -1,0 +1,18 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "kossebau@kde.org",
+                "Name": "Friedrich W. H. Kossebau"
+            }
+        ],
+        "Description": "Preview the document in the target format",
+        "Icon": "document-preview",
+        "Id": "ktexteditorpreview",
+        "Name": "Document Preview",
+        "ServiceTypes": [
+            "KTextEditor/Plugin",
+            "KDevelop/Plugin"
+        ]
+    }
+}

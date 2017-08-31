@@ -708,9 +708,14 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
             KFileItem kitem(url);
             kitem.setDelayedMimeTypes(true);
             if (kitem.isDir()) {
-                KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
-                connect(list_job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)),
-                        this, SLOT(slotListRecursiveEntries(KIO::Job*,KIO::UDSEntryList)));
+                if (KMessageBox::questionYesNo(this,
+                                               i18n("You dropped the directory %1 into Kate. "
+                                               "Do you want to load all files contained in it ?", url.url()),
+                                               i18n("Load files recursively?")) == KMessageBox::Yes) {
+                    KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
+                    connect(list_job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)),
+                            this, SLOT(slotListRecursiveEntries(KIO::Job*,KIO::UDSEntryList)));
+                }
             } else {
                 m_viewManager->openUrl(url);
             }

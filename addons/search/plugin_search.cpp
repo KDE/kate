@@ -317,7 +317,8 @@ m_mainWindow (mainWin)
     connect(&m_changeTimer, SIGNAL(timeout()), this, SLOT(startSearchWhileTyping()));
 
     connect(m_ui.searchCombo->lineEdit(), SIGNAL(returnPressed()), this, SLOT(startSearch()));
-    connect(m_ui.folderRequester,  SIGNAL(returnPressed()), this, SLOT(startSearch()));
+// connecting to returnPressed() of the folderRequester doesn't work, I haven't found out why yet. But connecting to the linedit works:
+    connect(m_ui.folderRequester->comboBox()->lineEdit(),  SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_ui.filterCombo,      SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_ui.excludeCombo,     SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_ui.searchButton,     SIGNAL(clicked()),       this, SLOT(startSearch()));

@@ -62,7 +62,7 @@ void ReplicodeSettings::load()
     settings.beginGroup(QStringLiteral("Debug"));
     debug = settings.value(QStringLiteral("Debug"), true).toBool();
     debugWindows = settings.value(QStringLiteral("Debug Windows"), 1).toInt();
-    traceLevels = settings.value(QStringLiteral("Trace Levels"), QStringLiteral("CC")).toString().toInt(0, 16);
+    traceLevels = settings.value(QStringLiteral("Trace Levels"), QStringLiteral("CC")).toString().toInt(nullptr, 16);
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("Resilience"));

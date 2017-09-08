@@ -30,7 +30,7 @@
 
 KateProjectIndex::KateProjectIndex(const QStringList &files, const QVariantMap &ctagsMap)
     : m_ctagsIndexFile(QDir::tempPath() + QStringLiteral("/kate.project.ctags"))
-    , m_ctagsIndexHandle(0)
+    , m_ctagsIndexHandle(nullptr)
 {
     /**
      * load ctags
@@ -45,7 +45,7 @@ KateProjectIndex::~KateProjectIndex()
      */
     if (m_ctagsIndexHandle) {
         tagsClose(m_ctagsIndexHandle);
-        m_ctagsIndexHandle = 0;
+        m_ctagsIndexHandle = nullptr;
     }
 }
 

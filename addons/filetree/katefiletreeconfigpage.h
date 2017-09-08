@@ -33,7 +33,7 @@ class KateFileTreeConfigPage : public KTextEditor::ConfigPage
 {
     Q_OBJECT
 public:
-    explicit KateFileTreeConfigPage(QWidget *parent = 0, KateFileTreePlugin *plug = 0);
+    explicit KateFileTreeConfigPage(QWidget *parent = nullptr, KateFileTreePlugin *plug = nullptr);
     ~KateFileTreeConfigPage() {}
 
     QString name() const Q_DECL_OVERRIDE;

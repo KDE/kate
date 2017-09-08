@@ -30,7 +30,7 @@ KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *
     : QWidget()
     , m_pluginView(pluginView)
     , m_project(project)
-    , m_konsolePart(0)
+    , m_konsolePart(nullptr)
 {
     /**
      * layout widget
@@ -60,7 +60,7 @@ void KateProjectInfoViewTerminal::loadTerminal()
     /**
      * null in any case, if loadTerminal fails below and we are in the destroyed event
      */
-    m_konsolePart = 0;
+    m_konsolePart = nullptr;
 
     /**
      * get konsole part factory

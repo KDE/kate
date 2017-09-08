@@ -116,7 +116,7 @@ public:
      * create a new document.
      * Can return NULL.
      */
-    KTextEditor::View *createView(KTextEditor::Document *doc = 0L, KateViewSpace *vs = nullptr);
+    KTextEditor::View *createView(KTextEditor::Document *doc = nullptr, KateViewSpace *vs = nullptr);
 
 private:
     bool deleteView(KTextEditor::View *view);
@@ -179,7 +179,7 @@ public Q_SLOTS:
      * The orientation of the new splitter is determined by the value of o.
      * Note: horizontal splitter means vertically aligned views.
      */
-    void splitViewSpace(KateViewSpace *vs = 0L, Qt::Orientation o = Qt::Horizontal);
+    void splitViewSpace(KateViewSpace *vs = nullptr, Qt::Orientation o = Qt::Horizontal);
 
     /**
      * Close the view space that contains the given view. If no view was
@@ -201,7 +201,7 @@ public Q_SLOTS:
 
     /** Splits the active viewspace horizontally */
     void slotSplitViewSpaceHoriz() {
-        splitViewSpace(0L, Qt::Vertical);
+        splitViewSpace(nullptr, Qt::Vertical);
     }
 
     /** Splits the active viewspace vertically */

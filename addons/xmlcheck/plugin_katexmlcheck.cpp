@@ -119,7 +119,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView( KTextEditor::Plugin *plugin,
 
     dock = m_mainWindow->createToolView(plugin, "kate_plugin_xmlcheck_ouputview", KTextEditor::MainWindow::Bottom, QIcon::fromTheme("misc"), i18n("XML Checker Output"));
     listview = new QTreeWidget( dock );
-    m_tmp_file=0;
+    m_tmp_file=nullptr;
     QAction *a = actionCollection()->addAction("xml_check");
     a->setText(i18n("Validate XML"));
     connect(a, SIGNAL(triggered()), this, SLOT(slotValidate()));
@@ -186,7 +186,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
     QApplication::restoreOverrideCursor();
     delete m_tmp_file;
     QString proc_stderr = QString::fromLocal8Bit(m_proc.readAllStandardError());
-    m_tmp_file=0;
+    m_tmp_file=nullptr;
     listview->clear();
     uint list_count = 0;
     uint err_count = 0;
@@ -299,10 +299,10 @@ bool PluginKateXMLCheckView::slotValidate()
 	m_tmp_file = new QTemporaryFile();
 	if( !m_tmp_file->open() ) {
 		qDebug() << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString();
-		KMessageBox::error(0, i18n("<b>Error:</b> Could not create "
+		KMessageBox::error(nullptr, i18n("<b>Error:</b> Could not create "
 			"temporary file '%1'.", m_tmp_file->fileName()));
 		delete m_tmp_file;
-		m_tmp_file=0L;
+		m_tmp_file=nullptr;
 		return false;
 	}
 
@@ -392,7 +392,7 @@ bool PluginKateXMLCheckView::slotValidate()
         qDebug() << "args=" << args;
         qDebug() << "exit code:"<< m_proc.exitCode();
         if( ! m_proc.waitForStarted(-1) ) {
-		KMessageBox::error(0, i18n("<b>Error:</b> Failed to execute xmllint. Please make "
+		KMessageBox::error(nullptr, i18n("<b>Error:</b> Failed to execute xmllint. Please make "
 			"sure that xmllint is installed. It is part of libxml2."));
 		return false;
 	}

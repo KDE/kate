@@ -27,7 +27,7 @@ class OutputStyleWidget : public QTreeWidget
   Q_OBJECT
 
   public:
-    OutputStyleWidget(QWidget *parent = 0);
+    OutputStyleWidget(QWidget *parent = nullptr);
     ~OutputStyleWidget();
 
     QTreeWidgetItem* addContext(const QString &key, const QString &name);

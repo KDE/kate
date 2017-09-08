@@ -199,7 +199,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
         bool nav = false;
         int line = 0, column = 0;
 
-        QTextCodec *codec = parser.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(parser.value(QStringLiteral("encoding")).toLocal8Bit()) : 0;
+        QTextCodec *codec = parser.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(parser.value(QStringLiteral("encoding")).toLocal8Bit()) : nullptr;
 
         if (parser.isSet(QStringLiteral("line"))) {
             line = parser.value(QStringLiteral("line")).toInt() - 1;
@@ -268,7 +268,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                         t->view()->setCursorPosition(info.cursor);
                     }
                 } else {
-                    KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
+                    KMessageBox::sorry(nullptr, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
                 }
             }
             if (!docs_opened) {

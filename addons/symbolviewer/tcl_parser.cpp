@@ -30,9 +30,9 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
  int i, j, args_par = 0, graph = 0;
  char block = 0, parse_func = 0;
 
- QTreeWidgetItem *node = NULL;
- QTreeWidgetItem *mcrNode = NULL, *clsNode = NULL;
- QTreeWidgetItem *lastMcrNode = NULL, *lastClsNode = NULL;
+ QTreeWidgetItem *node = nullptr;
+ QTreeWidgetItem *mcrNode = nullptr, *clsNode = nullptr;
+ QTreeWidgetItem *lastMcrNode = nullptr, *lastClsNode = nullptr;
 
  QPixmap mcr( ( const char** ) macro_xpm );
  QPixmap cls( ( const char** ) class_xpm );

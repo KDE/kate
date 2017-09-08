@@ -47,7 +47,7 @@ class KatePluginSymbolViewerConfigPage : public KTextEditor::ConfigPage
   friend class KatePluginSymbolViewer;
 
   public:
-    explicit KatePluginSymbolViewerConfigPage (QObject* parent = 0L, QWidget *parentWidget = 0L);
+    explicit KatePluginSymbolViewerConfigPage (QObject* parent = nullptr, QWidget *parentWidget = nullptr);
     ~KatePluginSymbolViewerConfigPage ();
 
     /**
@@ -141,13 +141,13 @@ class KatePluginSymbolViewer : public KTextEditor::Plugin
 {
   Q_OBJECT
   public:
-    explicit KatePluginSymbolViewer(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
+    explicit KatePluginSymbolViewer(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
     virtual ~KatePluginSymbolViewer();
 
     QObject *createView (KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
     int configPages () const Q_DECL_OVERRIDE { return 1; }
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
 
   public Q_SLOTS:
     void applyConfig( KatePluginSymbolViewerConfigPage* p );

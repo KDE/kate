@@ -138,7 +138,7 @@ void KateFileBrowser::setupToolbar()
   // now add all actions to the toolbar
   foreach (const QString& it, actions)
   {
-    QAction *ac = 0;
+    QAction *ac = nullptr;
     if (it.isEmpty()) continue;
     if (it == QStringLiteral("bookmarks") || it == QStringLiteral("sync_dir") || it == QStringLiteral("configure"))
       ac = actionCollection()->action(it);

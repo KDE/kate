@@ -29,7 +29,7 @@ class ReplicodeConfig : public QTabWidget
 {
     Q_OBJECT
 public:
-    explicit ReplicodeConfig(QWidget *parent = 0);
+    explicit ReplicodeConfig(QWidget *parent = nullptr);
     virtual ~ReplicodeConfig();
 
 public Q_SLOTS:

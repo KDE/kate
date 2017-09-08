@@ -172,7 +172,7 @@ class KateBuildPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
     public:
-        explicit KateBuildPlugin(QObject* parent = 0, const VariantList& = VariantList());
+        explicit KateBuildPlugin(QObject* parent = nullptr, const VariantList& = VariantList());
         virtual ~KateBuildPlugin() {}
 
         QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;

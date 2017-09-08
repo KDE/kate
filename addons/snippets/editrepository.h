@@ -42,7 +42,7 @@ class EditRepository : public QDialog, public Ui::EditRepositoryBase
 
 public:
     /// @p repo set to 0 when you want to create a new repository.
-    explicit EditRepository(SnippetRepository* repo, QWidget* parent = 0);
+    explicit EditRepository(SnippetRepository* repo, QWidget* parent = nullptr);
 
 private:
     SnippetRepository* m_repo;

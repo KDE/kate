@@ -31,7 +31,7 @@ class KATE_TESTS_EXPORT KateSessionsAction : public KActionMenu
     Q_OBJECT
 
 public:
-    KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager = 0);
+    KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager = nullptr);
     ~KateSessionsAction() {
     }
 

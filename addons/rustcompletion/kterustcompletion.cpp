@@ -31,7 +31,7 @@
 #include <KTextEditor/View>
 
 KTERustCompletion::KTERustCompletion(KTERustCompletionPlugin *plugin)
-    : KTextEditor::CodeCompletionModel(0)
+    : KTextEditor::CodeCompletionModel(nullptr)
     , m_plugin(plugin)
 {
 }

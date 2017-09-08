@@ -154,7 +154,7 @@ PluginKateXMLToolsView::~PluginKateXMLToolsView()
 
 PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel(QObject *const parent)
     : CodeCompletionModel(parent)
-    , m_viewToAssignTo(0)
+    , m_viewToAssignTo(nullptr)
     , m_mode(none)
     , m_correctPos(0)
 {
@@ -319,7 +319,7 @@ QModelIndex PluginKateXMLToolsCompletionModel::index(const int row,
     }
     if (parent.internalId() == groupNode) {                   // Is this a group node?
         if (0 <= row && row < m_allowed.size()) {               // Make sure to return only valid indices
-            return createIndex(row, column, (void *)0);    // Just return a leaf-level index
+            return createIndex(row, column, (void *)nullptr);    // Just return a leaf-level index
         }
     }
     // Leaf node has no children... nothing to return
@@ -456,7 +456,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
                                           "*.xml");
     } else {
         url.setUrl(defaultDir + filename);
-        KMessageBox::information(0, i18n("The current file has been identified "
+        KMessageBox::information(nullptr, i18n("The current file has been identified "
                                          "as a document of type \"%1\". The meta DTD for this document type "
                                          "will now be loaded.", doctype),
                                  i18n("Loading XML Meta DTD"),
@@ -491,7 +491,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished(KJob *job)
         static_cast<KIO::Job *>(job)->uiDelegate()->showErrorMessage();
     } else if (static_cast<KIO::TransferJob *>(job)->isErrorPage()) {
         // catch failed loading loading via http:
-        KMessageBox::error(0, i18n("The file '%1' could not be opened. "
+        KMessageBox::error(nullptr, i18n("The file '%1' could not be opened. "
                                    "The server returned an error.", m_urlString),
                            i18n("XML Plugin Error"));
     } else {
@@ -502,7 +502,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished(KJob *job)
         assignDTD(dtd, m_viewToAssignTo);
 
         // clean up a bit
-        m_viewToAssignTo = 0;
+        m_viewToAssignTo = nullptr;
         m_dtdString.clear();
     }
     QGuiApplication::restoreOverrideCursor();

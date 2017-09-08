@@ -418,7 +418,7 @@ int main(int argc, char **argv)
 
                 // set chosen codec
                 QTextCodec *codec = parser.isSet(useEncodingOption) ?
-                                    QTextCodec::codecForName(parser.value(useEncodingOption).toUtf8()) : 0;
+                                    QTextCodec::codecForName(parser.value(useEncodingOption).toUtf8()) : nullptr;
 
                 if (codec) {
                     input.setCodec(codec);

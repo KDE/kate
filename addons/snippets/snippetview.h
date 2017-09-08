@@ -45,7 +45,7 @@ class SnippetView : public QWidget, public Ui::SnippetViewBase
     Q_OBJECT
 
 public:
-    explicit SnippetView(KateSnippetGlobal* plugin, QWidget* parent = 0);
+    explicit SnippetView(KateSnippetGlobal* plugin, QWidget* parent = nullptr);
 
 public:
     void setupActionsForWindow(QWidget* widget);

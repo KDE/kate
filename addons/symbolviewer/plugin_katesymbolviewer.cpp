@@ -79,7 +79,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KTextEditor::Plugin *plug
   setXMLFile(QLatin1String("ui.rc"));
 
   mw->guiFactory()->addClient (this);
-  m_symbols = 0;
+  m_symbols = nullptr;
 
   m_popup = new QMenu(m_symbols);
   m_popup->addAction(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
@@ -261,8 +261,8 @@ void KatePluginSymbolViewerView::updateCurrTreeItem()
   int currLine = editView->cursorPositionVirtual().line();
 
   int newItemLine = 0;
-  QTreeWidgetItem *newItem = 0;
-  QTreeWidgetItem *tmp = 0;
+  QTreeWidgetItem *newItem = nullptr;
+  QTreeWidgetItem *tmp = nullptr;
   for (int i=0; i<m_symbols->topLevelItemCount(); i++) {
     tmp = newActveItem(newItemLine, currLine, m_symbols->topLevelItem(i));
     if (tmp) newItem = tmp;
@@ -277,8 +277,8 @@ void KatePluginSymbolViewerView::updateCurrTreeItem()
 
 QTreeWidgetItem *KatePluginSymbolViewerView::newActveItem(int &newItemLine, int currLine, QTreeWidgetItem *item)
 {
-  QTreeWidgetItem *newItem = 0;
-  QTreeWidgetItem *tmp = 0;
+  QTreeWidgetItem *newItem = nullptr;
+  QTreeWidgetItem *tmp = nullptr;
   int itemLine = item->data(1, Qt::DisplayRole).toInt();
 
   if ((itemLine <= currLine) && (itemLine > newItemLine)) {
@@ -364,7 +364,7 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
 
   //qDebug()<<"Slot Activated at pos: "<<m_symbols->indexOfTopLevelItem(it);
 
-  kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(NULL, 10), 0));
+  kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(nullptr, 10), 0));
 }
 
 KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QList<QVariant>& )

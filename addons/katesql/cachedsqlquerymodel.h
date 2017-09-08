@@ -27,7 +27,7 @@ class CachedSqlQueryModel : public QSqlQueryModel
 {
   Q_OBJECT
 public:
-  explicit CachedSqlQueryModel(QObject *parent = 0, int cacheCapacity = 1000);
+  explicit CachedSqlQueryModel(QObject *parent = nullptr, int cacheCapacity = 1000);
 
   QVariant data(const QModelIndex &item, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
   QSqlRecord record(int row) const;

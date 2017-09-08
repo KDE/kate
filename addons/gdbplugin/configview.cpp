@@ -105,13 +105,13 @@ ConfigView::ConfigView(QWidget* parent, KTextEditor::MainWindow* mainWin)
 
     m_advancedSettings = new QPushButton(i18n("Advanced Settings"));
 
-    m_checBoxLayout = 0;
+    m_checBoxLayout = nullptr;
 
     // first false then true to make sure a layout is set
     m_useBottomLayout = false;
-    resizeEvent(0);
+    resizeEvent(nullptr);
     m_useBottomLayout = true;
-    resizeEvent(0);
+    resizeEvent(nullptr);
 
     m_advanced = new AdvancedGDBSettings(this);
     m_advanced->hide();
@@ -352,7 +352,7 @@ void ConfigView::resizeEvent(QResizeEvent *)
     if (m_useBottomLayout && size().height() > size().width()) {
         // Set layout for the side
         delete m_checBoxLayout;
-        m_checBoxLayout = 0;
+        m_checBoxLayout = nullptr;
         delete layout();
         QGridLayout* layout = new QGridLayout(this);
 
@@ -464,11 +464,11 @@ void ConfigView::slotBrowseExec()
         // try current document dir
         KTextEditor::View*  view = m_mainWindow->activeView();
 
-        if (view != NULL) {
+        if (view != nullptr) {
             exe = view->document()->url().toLocalFile();
         }
     }
-    m_executable->setText(QFileDialog::getOpenFileName((QWidget *)0, QString(), exe, QStringLiteral("application/x-executable")));
+    m_executable->setText(QFileDialog::getOpenFileName((QWidget *)nullptr, QString(), exe, QStringLiteral("application/x-executable")));
 }
 
 void ConfigView::slotBrowseDir()
@@ -479,7 +479,7 @@ void ConfigView::slotBrowseDir()
         // try current document dir
         KTextEditor::View*  view = m_mainWindow->activeView();
 
-        if (view != NULL) {
+        if (view != nullptr) {
             dir = view->document()->url().toLocalFile();
         }
     }

@@ -32,7 +32,7 @@ class KatePluginListView : public QTreeWidget
     Q_OBJECT
 
 public:
-    KatePluginListView(QWidget *parent = 0);
+    KatePluginListView(QWidget *parent = nullptr);
 
 Q_SIGNALS:
     void stateChange(KatePluginListItem *, bool);

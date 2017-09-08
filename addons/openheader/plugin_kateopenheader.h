@@ -34,7 +34,7 @@ class PluginKateOpenHeader : public KTextEditor::Plugin
   Q_OBJECT
 
   public:
-    explicit PluginKateOpenHeader( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
+    explicit PluginKateOpenHeader( QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>() );
     virtual ~PluginKateOpenHeader();
 
     QObject *createView (KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;

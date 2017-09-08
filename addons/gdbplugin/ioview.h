@@ -34,7 +34,7 @@ class IOView : public QWidget
 {
 Q_OBJECT
 public:
-    IOView(QWidget *parent = 0);
+    IOView(QWidget *parent = nullptr);
     ~IOView();
 
     const QString stdinFifo();

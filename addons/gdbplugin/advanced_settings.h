@@ -38,7 +38,7 @@ public:
         CustomStartIndex
     };
 
-    AdvancedGDBSettings(QWidget *parent = 0);
+    AdvancedGDBSettings(QWidget *parent = nullptr);
     ~AdvancedGDBSettings();
 
     const QStringList configs() const;

@@ -212,7 +212,7 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
     : QFrame(parent)
     , m_mainWin(mainwin)
     , m_sidebar(sidebar)
-    , m_toolbar(0)
+    , m_toolbar(nullptr)
     , m_toolVisible(false)
     , persistent(false)
 {
@@ -287,8 +287,8 @@ void ToolView::actionEvent(QActionEvent* event)
 Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QWidget *parent)
     : KMultiTabBar(pos, parent)
     , m_mainWin(mainwin)
-    , m_splitter(0)
-    , m_ownSplit(0)
+    , m_splitter(nullptr)
+    , m_ownSplit(nullptr)
     , m_lastSize(0)
 {
     hide();
@@ -716,7 +716,7 @@ void Sidebar::saveSession(KConfigGroup &config)
 MainWindow::MainWindow(QWidget *parentWidget)
     : KParts::MainWindow(parentWidget, Qt::Window)
     , m_sidebarsVisible(true)
-    , m_restoreConfig(0)
+    , m_restoreConfig(nullptr)
     , m_guiClient(new GUIClient(this))
 {
     // init the internal widgets
@@ -795,7 +795,7 @@ QWidget *MainWindow::centralWidget() const
 ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QIcon &icon, const QString &text)
 {
     if (m_idToWidget[identifier]) {
-        return 0;
+        return nullptr;
     }
 
     // try the restore config to figure out real pos
@@ -804,7 +804,7 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin, const QString 
         pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos));
     }
 
-    ToolView *v  = m_sidebars[pos]->addWidget(icon, text, 0);
+    ToolView *v  = m_sidebars[pos]->addWidget(icon, text, nullptr);
     v->id = identifier;
     v->plugin = plugin;
 
@@ -1010,7 +1010,7 @@ void MainWindow::finishRestore()
     }
 
     // clear this stuff, we are done ;)
-    m_restoreConfig = 0;
+    m_restoreConfig = nullptr;
     m_restoreGroup.clear();
 }
 

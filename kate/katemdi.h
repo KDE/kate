@@ -274,7 +274,7 @@ public:
     /**
      * Constructor
      */
-    MainWindow(QWidget *parentWidget = 0);
+    MainWindow(QWidget *parentWidget = nullptr);
 
     /**
      * Destructor

@@ -95,7 +95,7 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)
     connect(m_openButton, SIGNAL(clicked()), this, SLOT(open()));
 
     // trigger action update
-    selectionChanged(NULL, NULL);
+    selectionChanged(nullptr, nullptr);
 }
 
 KateSessionManageDialog::~KateSessionManageDialog()
@@ -108,7 +108,7 @@ void KateSessionManageDialog::slotClose()
 
 void KateSessionManageDialog::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
-    const bool validItem = (current != NULL);
+    const bool validItem = (current != nullptr);
 
     m_rename->setEnabled(validItem);
     m_del->setEnabled(validItem && (static_cast<KateSessionChooserItem *>(current))->session != KateApp::self()->sessionManager()->activeSession());

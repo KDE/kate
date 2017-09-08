@@ -205,7 +205,7 @@ void KatePluginManager::unloadPlugin(KatePluginInfo *item)
     disablePluginGUI(item);
     delete item->plugin;
     KTextEditor::Plugin *plugin = item->plugin;
-    item->plugin = 0L;
+    item->plugin = nullptr;
     item->load = false;
     emit KateApp::self()->wrapper()->pluginDeleted(item->saveName(), plugin);
 }
@@ -249,7 +249,7 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item)
 
     // enable the gui for all mainwindows...
     for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++) {
-        enablePluginGUI(item, KateApp::self()->mainWindow(i), 0);
+        enablePluginGUI(item, KateApp::self()->mainWindow(i), nullptr);
     }
 }
 
@@ -291,7 +291,7 @@ KTextEditor::Plugin *KatePluginManager::plugin(const QString &name)
      * name known?
      */
     if (!m_name2Plugin.contains(name)) {
-        return 0;
+        return nullptr;
     }
 
     /**
@@ -311,7 +311,7 @@ class KTextEditor::Plugin *KatePluginManager::loadPlugin(const QString &name, bo
      * name known?
      */
     if (!m_name2Plugin.contains(name)) {
-        return 0;
+        return nullptr;
     }
 
     /**
@@ -319,7 +319,7 @@ class KTextEditor::Plugin *KatePluginManager::loadPlugin(const QString &name, bo
      */
     loadPlugin(m_name2Plugin.value(name));
     if (!m_name2Plugin.value(name)->plugin) {
-        return 0;
+        return nullptr;
     }
 
     /**

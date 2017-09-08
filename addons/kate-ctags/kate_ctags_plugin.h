@@ -39,13 +39,13 @@ class KateCTagsPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
     public:
-        explicit KateCTagsPlugin(QObject* parent = 0, const QList<QVariant> & = QList<QVariant>());
+        explicit KateCTagsPlugin(QObject* parent = nullptr, const QList<QVariant> & = QList<QVariant>());
         virtual ~KateCTagsPlugin() {}
 
         QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
    
         int configPages() const Q_DECL_OVERRIDE { return 1; };
-        KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
+        KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
         void readConfig();
         
         KateCTagsView *m_view;
@@ -55,7 +55,7 @@ class KateCTagsPlugin : public KTextEditor::Plugin
 class KateCTagsConfigPage : public KTextEditor::ConfigPage {
     Q_OBJECT
 public:
-    explicit KateCTagsConfigPage( QWidget* parent = 0, KateCTagsPlugin *plugin = 0 );
+    explicit KateCTagsConfigPage( QWidget* parent = nullptr, KateCTagsPlugin *plugin = nullptr );
     ~KateCTagsConfigPage() {}
 
     QString name() const Q_DECL_OVERRIDE;

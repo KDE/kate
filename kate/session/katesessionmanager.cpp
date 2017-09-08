@@ -121,12 +121,12 @@ bool KateSessionManager::activateSession(KateSession::Ptr session,
         //check if the requested session is already open in another instance
         KateRunningInstanceMap instances;
         if (!fillinRunningKateAppInstances(&instances)) {
-            KMessageBox::error(0, i18n("Internal error: there is more than one instance open for a given session."));
+            KMessageBox::error(nullptr, i18n("Internal error: there is more than one instance open for a given session."));
             return false;
         }
 
         if (instances.contains(session->name())) {
-            if (KMessageBox::questionYesNo(0, i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?", session->name()),
+            if (KMessageBox::questionYesNo(nullptr, i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?", session->name()),
                                            QString(), KStandardGuiItem::yes(), KStandardGuiItem::no(), QStringLiteral("katesessionmanager_switch_instance")) == KMessageBox::Yes) {
                 instances[session->name()]->dbus_if->call(QStringLiteral("activate"));
                 cleanupRunningKateAppInstanceMap(&instances);
@@ -365,7 +365,7 @@ bool KateSessionManager::chooseSession()
         return true;
     }
 
-    QScopedPointer<KateSessionChooser> chooser(new KateSessionChooser(0, lastSession));
+    QScopedPointer<KateSessionChooser> chooser(new KateSessionChooser(nullptr, lastSession));
     const int res = chooser->exec();
     bool success = true;
 
@@ -416,7 +416,7 @@ void KateSessionManager::sessionNew()
 
 void KateSessionManager::sessionOpen()
 {
-    QScopedPointer<KateSessionOpenDialog> chooser(new KateSessionOpenDialog(0));
+    QScopedPointer<KateSessionOpenDialog> chooser(new KateSessionOpenDialog(nullptr));
 
     const int res = chooser->exec();
 
@@ -460,7 +460,7 @@ bool KateSessionManager::newSessionName()
         }
 
         if (name.isEmpty()) {
-            KMessageBox::sorry(0, i18n("To save a session, you must specify a name."), i18n("Missing Session Name"));
+            KMessageBox::sorry(nullptr, i18n("To save a session, you must specify a name."), i18n("Missing Session Name"));
             continue;
         }
 
@@ -483,7 +483,7 @@ bool KateSessionManager::newSessionName()
 
 void KateSessionManager::sessionManage()
 {
-    QScopedPointer<KateSessionManageDialog>(new KateSessionManageDialog(0))->exec();
+    QScopedPointer<KateSessionManageDialog>(new KateSessionManageDialog(nullptr))->exec();
 }
 
 QString KateSessionManager::anonymousSessionFile() const

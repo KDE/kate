@@ -132,7 +132,7 @@ static int growString(vstring *s)
         newLength = 2 * s->size;
         newLine = (char *) realloc(s->buffer, newLength);
     }
-    if (newLine == NULL) {
+    if (newLine == nullptr) {
         perror("string too large");
     } else {
         s->buffer = newLine;
@@ -147,13 +147,13 @@ static void copyName(tagFile *const file)
 {
     size_t length;
     const char *end = strchr(file->line.buffer, '\t');
-    if (end == NULL) {
+    if (end == nullptr) {
         end = strchr(file->line.buffer, '\n');
-        if (end == NULL) {
+        if (end == nullptr) {
             end = strchr(file->line.buffer, '\r');
         }
     }
-    if (end != NULL) {
+    if (end != nullptr) {
         length = end - file->line.buffer;
     } else {
         length = strlen(file->line.buffer);
@@ -183,7 +183,7 @@ static int readTagLineRaw(tagFile *const file)
         reReadLine = 0;
         *pLastChar = '\0';
         line = fgets(file->line.buffer, (int) file->line.size, file->fp);
-        if (line == NULL) {
+        if (line == nullptr) {
             /* read error */
             if (! feof(file->fp)) {
                 perror("readTagLine");
@@ -225,7 +225,7 @@ static tagResult growFields(tagFile *const file)
     unsigned short newCount = 2 * file->fields.max;
     tagExtensionField *newFields = (tagExtensionField *)
                                    realloc(file->fields.list, newCount * sizeof(tagExtensionField));
-    if (newFields == NULL) {
+    if (newFields == nullptr) {
         perror("too many extension fields");
     } else {
         file->fields.list = newFields;
@@ -239,7 +239,7 @@ static void parseExtensionFields(tagFile *const file, tagEntry *const entry,
                                  char *const string)
 {
     char *p = string;
-    while (p != NULL  &&  *p != '\0') {
+    while (p != nullptr  &&  *p != '\0') {
         while (*p == TAB) {
             *p++ = '\0';
         }
@@ -247,11 +247,11 @@ static void parseExtensionFields(tagFile *const file, tagEntry *const entry,
             char *colon;
             char *field = p;
             p = strchr(p, TAB);
-            if (p != NULL) {
+            if (p != nullptr) {
                 *p++ = '\0';
             }
             colon = strchr(field, ':');
-            if (colon == NULL) {
+            if (colon == nullptr) {
                 entry->kind = field;
             } else {
                 const char *key = field;
@@ -283,18 +283,18 @@ static void parseTagLine(tagFile *file, tagEntry *const entry)
     char *tab = strchr(p, TAB);
     int fieldsPresent = 0;
 
-    entry->fields.list = NULL;
+    entry->fields.list = nullptr;
     entry->fields.count = 0;
-    entry->kind = NULL;
+    entry->kind = nullptr;
     entry->fileScope = 0;
 
     entry->name = p;
-    if (tab != NULL) {
+    if (tab != nullptr) {
         *tab = '\0';
         p = tab + 1;
         entry->file = p;
         tab = strchr(p, TAB);
-        if (tab != NULL) {
+        if (tab != nullptr) {
             *tab = '\0';
             p = tab + 1;
             if (*p == '/'  ||  *p == '?') {
@@ -304,8 +304,8 @@ static void parseTagLine(tagFile *file, tagEntry *const entry)
                 entry->address.pattern = p;
                 do {
                     p = strchr(p + 1, delimiter);
-                } while (p != NULL  &&  *(p - 1) == '\\');
-                if (p == NULL) {
+                } while (p != nullptr  &&  *(p - 1) == '\\');
+                if (p == nullptr) {
                     /* invalid pattern */
                 } else {
                     ++p;
@@ -320,7 +320,7 @@ static void parseTagLine(tagFile *file, tagEntry *const entry)
             } else {
                 /* invalid pattern */
             }
-            if (p != NULL) {
+            if (p != nullptr) {
                 fieldsPresent = (strncmp(p, ";\"", 2) == 0);
                 *p = '\0';
                 if (fieldsPresent) {
@@ -333,18 +333,18 @@ static void parseTagLine(tagFile *file, tagEntry *const entry)
         entry->fields.list = file->fields.list;
     }
     for (i = entry->fields.count  ;  i < file->fields.max  ;  ++i) {
-        file->fields.list [i].key = NULL;
-        file->fields.list [i].value = NULL;
+        file->fields.list [i].key = nullptr;
+        file->fields.list [i].value = nullptr;
     }
 }
 
 static char *duplicate(const char *str)
 {
-    char *result = NULL;
-    if (str != NULL) {
+    char *result = nullptr;
+    if (str != nullptr) {
         result = (char *) malloc(strlen(str) + 1);
-        if (result == NULL) {
-            perror(NULL);
+        if (result == nullptr) {
+            perror(nullptr);
         } else {
             strcpy(result, str);
         }
@@ -356,13 +356,13 @@ static void readPseudoTags(tagFile *const file, tagFileInfo *const info)
 {
     fpos_t startOfLine;
     const size_t prefixLength = strlen(PseudoTagPrefix);
-    if (info != NULL) {
+    if (info != nullptr) {
         info->file.format     = 1;
         info->file.sort       = TAG_UNSORTED;
-        info->program.author  = NULL;
-        info->program.name    = NULL;
-        info->program.url     = NULL;
-        info->program.version = NULL;
+        info->program.author  = nullptr;
+        info->program.name    = nullptr;
+        info->program.url     = nullptr;
+        info->program.version = nullptr;
     }
     while (1) {
         fgetpos(file->fp, &startOfLine);
@@ -390,7 +390,7 @@ static void readPseudoTags(tagFile *const file, tagFileInfo *const info)
             } else if (strcmp(key, "TAG_PROGRAM_VERSION") == 0) {
                 file->program.version = duplicate(value);
             }
-            if (info != NULL) {
+            if (info != nullptr) {
                 info->file.format     = file->format;
                 info->file.sort       = file->sortMethod;
                 info->program.author  = file->program.author;
@@ -423,7 +423,7 @@ static void gotoFirstLogicalTag(tagFile *const file)
 static tagFile *initialize(const char *const filePath, tagFileInfo *const info)
 {
     tagFile *result = (tagFile *) malloc(sizeof(tagFile));
-    if (result != NULL) {
+    if (result != nullptr) {
         memset(result, 0, sizeof(tagFile));
         growString(&result->line);
         growString(&result->name);
@@ -431,9 +431,9 @@ static tagFile *initialize(const char *const filePath, tagFileInfo *const info)
         result->fields.list = (tagExtensionField *) malloc(
                                   result->fields.max * sizeof(tagExtensionField));
         result->fp = fopen(filePath, "r");
-        if (result->fp == NULL) {
+        if (result->fp == nullptr) {
             free(result);
-            result = NULL;
+            result = nullptr;
             info->status.error_number = errno;
         } else {
             fseek(result->fp, 0, SEEK_END);
@@ -455,16 +455,16 @@ static void terminate(tagFile *const file)
     free(file->name.buffer);
     free(file->fields.list);
 
-    if (file->program.author != NULL) {
+    if (file->program.author != nullptr) {
         free(file->program.author);
     }
-    if (file->program.name != NULL) {
+    if (file->program.name != nullptr) {
         free(file->program.name);
     }
-    if (file->program.url != NULL) {
+    if (file->program.url != nullptr) {
         free(file->program.url);
     }
-    if (file->program.version != NULL) {
+    if (file->program.version != nullptr) {
         free(file->program.version);
     }
 
@@ -476,12 +476,12 @@ static void terminate(tagFile *const file)
 static tagResult readNext(tagFile *const file, tagEntry *const entry)
 {
     tagResult result = TagFailure;
-    if (file == NULL  ||  ! file->initialized) {
+    if (file == nullptr  ||  ! file->initialized) {
         result = TagFailure;
     } else if (! readTagLine(file)) {
         result = TagFailure;
     } else {
-        if (entry != NULL) {
+        if (entry != nullptr) {
             parseTagLine(file, entry);
         }
         result = TagSuccess;
@@ -492,13 +492,13 @@ static tagResult readNext(tagFile *const file, tagEntry *const entry)
 static const char *readFieldValue(
     const tagEntry *const entry, const char *const key)
 {
-    const char *result = NULL;
+    const char *result = nullptr;
     int i;
     if (strcmp(key, "kind") == 0) {
         result = entry->kind;
     } else if (strcmp(key, "file") == 0) {
         result = EmptyString;
-    } else for (i = 0  ;  i < entry->fields.count  &&  result == NULL  ;  ++i)
+    } else for (i = 0  ;  i < entry->fields.count  &&  result == nullptr  ;  ++i)
             if (strcmp(entry->fields.list [i].key, key) == 0) {
                 result = entry->fields.list [i].value;
             }
@@ -646,7 +646,7 @@ static tagResult find(tagFile *const file, tagEntry *const entry,
         file->search.pos = file->size;
     } else {
         file->search.pos = file->pos;
-        if (entry != NULL) {
+        if (entry != nullptr) {
             parseTagLine(file, entry);
         }
     }
@@ -664,7 +664,7 @@ static tagResult findNext(tagFile *const file, tagEntry *const entry)
         }
     } else {
         result = findSequential(file);
-        if (result == TagSuccess  &&  entry != NULL) {
+        if (result == TagSuccess  &&  entry != nullptr) {
             parseTagLine(file, entry);
         }
     }
@@ -683,7 +683,7 @@ extern tagFile *tagsOpen(const char *const filePath, tagFileInfo *const info)
 extern tagResult tagsSetSortType(tagFile *const file, const sortType type)
 {
     tagResult result = TagFailure;
-    if (file != NULL  &&  file->initialized) {
+    if (file != nullptr  &&  file->initialized) {
         file->sortMethod = type;
         result = TagSuccess;
     }
@@ -693,7 +693,7 @@ extern tagResult tagsSetSortType(tagFile *const file, const sortType type)
 extern tagResult tagsFirst(tagFile *const file, tagEntry *const entry)
 {
     tagResult result = TagFailure;
-    if (file != NULL  &&  file->initialized) {
+    if (file != nullptr  &&  file->initialized) {
         gotoFirstLogicalTag(file);
         result = readNext(file, entry);
     }
@@ -703,7 +703,7 @@ extern tagResult tagsFirst(tagFile *const file, tagEntry *const entry)
 extern tagResult tagsNext(tagFile *const file, tagEntry *const entry)
 {
     tagResult result = TagFailure;
-    if (file != NULL  &&  file->initialized) {
+    if (file != nullptr  &&  file->initialized) {
         result = readNext(file, entry);
     }
     return result;
@@ -711,8 +711,8 @@ extern tagResult tagsNext(tagFile *const file, tagEntry *const entry)
 
 extern const char *tagsField(const tagEntry *const entry, const char *const key)
 {
-    const char *result = NULL;
-    if (entry != NULL) {
+    const char *result = nullptr;
+    if (entry != nullptr) {
         result = readFieldValue(entry, key);
     }
     return result;
@@ -722,7 +722,7 @@ extern tagResult tagsFind(tagFile *const file, tagEntry *const entry,
                           const char *const name, const int options)
 {
     tagResult result = TagFailure;
-    if (file != NULL  &&  file->initialized) {
+    if (file != nullptr  &&  file->initialized) {
         result = find(file, entry, name, options);
     }
     return result;
@@ -731,7 +731,7 @@ extern tagResult tagsFind(tagFile *const file, tagEntry *const entry,
 extern tagResult tagsFindNext(tagFile *const file, tagEntry *const entry)
 {
     tagResult result = TagFailure;
-    if (file != NULL  &&  file->initialized) {
+    if (file != nullptr  &&  file->initialized) {
         result = findNext(file, entry);
     }
     return result;
@@ -740,7 +740,7 @@ extern tagResult tagsFindNext(tagFile *const file, tagEntry *const entry)
 extern tagResult tagsClose(tagFile *const file)
 {
     tagResult result = TagFailure;
-    if (file != NULL  &&  file->initialized) {
+    if (file != nullptr  &&  file->initialized) {
         terminate(file);
         result = TagSuccess;
     }

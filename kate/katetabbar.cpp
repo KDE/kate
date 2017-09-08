@@ -489,7 +489,7 @@ void KateTabBar::paintEvent(QPaintEvent *event)
     QStyleOption option;
     option.initFrom(d->tabButtons[0]);
     option.state |= QStyle::State_Horizontal;
-    const int w = style()->pixelMetric(QStyle::PM_ToolBarSeparatorExtent, 0, this);
+    const int w = style()->pixelMetric(QStyle::PM_ToolBarSeparatorExtent, nullptr, this);
     const int offset = w / 2;
     option.rect.setWidth(w);
     option.rect.moveTop(0);

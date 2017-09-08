@@ -61,7 +61,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE
     {
         if (!index.isValid()) {
-            return 0;
+            return nullptr;
         }
         return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     }

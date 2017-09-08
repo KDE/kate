@@ -59,7 +59,7 @@ KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
   m_previousEditorEnv=qgetenv("EDITOR");
   if (!KAuthorized::authorize(QStringLiteral("shell_access")))
   {
-    KMessageBox::sorry(0, i18n ("You do not have enough karma to access a shell or terminal emulation"));
+    KMessageBox::sorry(nullptr, i18n ("You do not have enough karma to access a shell or terminal emulation"));
   }
 }
 
@@ -77,7 +77,7 @@ QObject *KateKonsolePlugin::createView (KTextEditor::MainWindow *mainWindow)
 KTextEditor::ConfigPage *KateKonsolePlugin::configPage (int number, QWidget *parent)
 {
   if (number != 0)
-    return 0;
+    return nullptr;
   return new KateKonsoleConfigPage(parent, this);
 }
 
@@ -116,7 +116,7 @@ void KateKonsolePluginView::readConfig()
 
 KateConsole::KateConsole (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mw, QWidget *parent)
     : QWidget (parent)
-    , m_part (0)
+    , m_part (nullptr)
     , m_mw (mw)
     , m_toolView (parent)
     , m_plugin(plugin)
@@ -191,7 +191,7 @@ void KateConsole::loadConsoleIfNeeded()
 
 void KateConsole::slotDestroyed ()
 {
-  m_part = 0;
+  m_part = nullptr;
   m_currentPath.clear ();
 
   // hide the dockwidget

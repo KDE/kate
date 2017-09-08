@@ -33,7 +33,7 @@
 #include <KLocalizedString>
 
 SnippetCompletionModel::SnippetCompletionModel()
-    : KTextEditor::CodeCompletionModel(0)
+    : KTextEditor::CodeCompletionModel(nullptr)
 {
     setHasGroups(false);
 }
@@ -63,7 +63,7 @@ QVariant SnippetCompletionModel::data( const QModelIndex& idx, int role ) const
     if( !idx.isValid() || idx.row() < 0 || idx.row() >= m_snippets.count() ) {
         return QVariant();
     } else {
-        return m_snippets.at( idx.row() )->data(idx, role, 0);
+        return m_snippets.at( idx.row() )->data(idx, role, nullptr);
     }
 }
 

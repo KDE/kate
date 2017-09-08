@@ -41,7 +41,7 @@ class KateBtBrowserPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KateBtBrowserPlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
+    explicit KateBtBrowserPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     virtual ~KateBtBrowserPlugin();
 
     static KateBtBrowserPlugin &self();
@@ -58,7 +58,7 @@ Q_SIGNALS:
 
 public:
     int configPages() const Q_DECL_OVERRIDE;
-    KTextEditor::ConfigPage *configPage(int number, QWidget *parent = 0) Q_DECL_OVERRIDE;
+    KTextEditor::ConfigPage *configPage(int number, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
 
     //
     // private data
@@ -116,7 +116,7 @@ class KateBtConfigWidget : public KTextEditor::ConfigPage, private Ui::BtConfigW
 {
     Q_OBJECT
 public:
-    explicit KateBtConfigWidget(QWidget *parent = 0);
+    explicit KateBtConfigWidget(QWidget *parent = nullptr);
     virtual ~KateBtConfigWidget();
 
     QString name() const Q_DECL_OVERRIDE;
@@ -141,7 +141,7 @@ class KateBtConfigDialog : public QDialog
 {
     Q_OBJECT
 public:
-    KateBtConfigDialog(QWidget *parent = 0);
+    KateBtConfigDialog(QWidget *parent = nullptr);
     ~KateBtConfigDialog();
 
 private:

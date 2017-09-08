@@ -61,7 +61,7 @@ public:
 
     void unloadAllPlugins();
 
-    void enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config = 0);
+    void enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config = nullptr);
     void disableAllPluginsGUI(KateMainWindow *win);
 
     void loadConfig(KConfig *);
@@ -70,7 +70,7 @@ public:
     bool loadPlugin(KatePluginInfo *item);
     void unloadPlugin(KatePluginInfo *item);
 
-    void enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, KConfigBase *config = 0);
+    void enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, KConfigBase *config = nullptr);
     void enablePluginGUI(KatePluginInfo *item);
 
     void disablePluginGUI(KatePluginInfo *item, KateMainWindow *win);

@@ -66,7 +66,7 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     // important, set them up, as we use them in other methodes
     setupActions();
 
-    KateViewSpace *vs = new KateViewSpace(this, 0);
+    KateViewSpace *vs = new KateViewSpace(this, nullptr);
     addWidget(vs);
 
     vs->setActive(true);
@@ -329,7 +329,7 @@ KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QStri
     KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding);
 
     if (!doc) {
-        return 0;
+        return nullptr;
     }
 
     if (!doc->url().isEmpty()) {
@@ -520,13 +520,13 @@ KateViewSpace *KateViewManager::activeViewSpace()
     }
 
     Q_ASSERT(false);
-    return 0L;
+    return nullptr;
 }
 
 KTextEditor::View *KateViewManager::activeView()
 {
     if (m_activeViewRunning) {
-        return 0L;
+        return nullptr;
     }
 
     m_activeViewRunning = true;
@@ -561,7 +561,7 @@ KTextEditor::View *KateViewManager::activeView()
     m_activeViewRunning = false;
 
     // no views exists!
-    return 0L;
+    return nullptr;
 }
 
 void KateViewManager::setActiveSpace(KateViewSpace *vs)
@@ -1053,7 +1053,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
             delete widget(0);
         }
 
-        KateViewSpace *vs = new KateViewSpace(this, 0);
+        KateViewSpace *vs = new KateViewSpace(this, nullptr);
         addWidget(vs);
         vs->setActive(true);
         m_viewSpaceList.append(vs);
@@ -1134,7 +1134,7 @@ void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QStri
     for (QStringList::Iterator it = children.begin(); it != children.end(); ++it) {
         // for a viewspace, create it and open all documents therein.
         if ((*it).startsWith(viewConfGrp + QStringLiteral("-ViewSpace"))) {
-            KateViewSpace *vs = new KateViewSpace(this, 0);
+            KateViewSpace *vs = new KateViewSpace(this, nullptr);
             m_viewSpaceList.append(vs);
             // make active so that the view created in restoreConfig has this
             // new view space as parent.

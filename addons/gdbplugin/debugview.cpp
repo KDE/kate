@@ -38,7 +38,7 @@ static const QString PromptStr = QStringLiteral("(prompt)");
 
 DebugView::DebugView(QObject* parent)
 :   QObject(parent),
-    m_debugProcess(0),
+    m_debugProcess(nullptr),
     m_state(none),
     m_subState(normal),
     m_debugLocationChanged(true),
@@ -146,7 +146,7 @@ void DebugView::toggleBreakpoint(QUrl const& url, int line)
 
 void DebugView::slotError()
 {
-    KMessageBox::sorry(NULL, i18n("Could not start debugger process"));
+    KMessageBox::sorry(nullptr, i18n("Could not start debugger process"));
 }
 
 void DebugView::slotReadDebugStdOut()

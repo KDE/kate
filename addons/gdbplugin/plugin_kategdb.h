@@ -47,7 +47,7 @@ class KatePluginGDB : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KatePluginGDB(QObject* parent = NULL, const VariantList& = VariantList());
+    explicit KatePluginGDB(QObject* parent = nullptr, const VariantList& = VariantList());
     virtual ~KatePluginGDB();
 
     QObject* createView(KTextEditor::MainWindow* mainWindow) Q_DECL_OVERRIDE;

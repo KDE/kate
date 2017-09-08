@@ -60,15 +60,15 @@ QList<KTextEditor::Document *> KWrite::docList;
 QList<KWrite *> KWrite::winList;
 
 KWrite::KWrite(KTextEditor::Document *doc)
-    : m_view(0)
-    , m_recentFiles(0)
-    , m_paShowPath(0)
-    , m_paShowMenuBar(0)
-    , m_paShowStatusBar(0)
-    , m_activityResource(0)
+    : m_view(nullptr)
+    , m_recentFiles(nullptr)
+    , m_paShowPath(nullptr)
+    , m_paShowMenuBar(nullptr)
+    , m_paShowStatusBar(nullptr)
+    , m_activityResource(nullptr)
 {
     if (!doc) {
-        doc = KTextEditor::Editor::instance()->createDocument(0);
+        doc = KTextEditor::Editor::instance()->createDocument(nullptr);
 
         // enable the modified on disk warning dialogs if any
         if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
@@ -481,7 +481,7 @@ void KWrite::restore()
     for (int z = 1; z <= docs; z++) {
         buf = QString::fromLatin1("Document %1").arg(z);
         KConfigGroup cg(config, buf);
-        doc = KTextEditor::Editor::instance()->createDocument(0);
+        doc = KTextEditor::Editor::instance()->createDocument(nullptr);
         doc->readSessionConfig(cg);
         docList.append(doc);
     }

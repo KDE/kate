@@ -43,7 +43,7 @@ class KateTabBar : public QWidget
     Q_PROPERTY(bool isActive READ isActive WRITE setActive)
 
 public:
-    explicit KateTabBar(QWidget *parent = 0);
+    explicit KateTabBar(QWidget *parent = nullptr);
     virtual ~KateTabBar();
 
     /**

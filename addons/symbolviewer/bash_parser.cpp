@@ -33,9 +33,9 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
        int i;
        //bool mainprog;
 
-       QTreeWidgetItem *node = NULL;
-       QTreeWidgetItem *funcNode = NULL;
-       QTreeWidgetItem *lastFuncNode = NULL;
+       QTreeWidgetItem *node = nullptr;
+       QTreeWidgetItem *funcNode = nullptr;
+       QTreeWidgetItem *lastFuncNode = nullptr;
 
        QPixmap func( ( const char** ) class_xpm );
 

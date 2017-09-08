@@ -150,7 +150,7 @@ static void slipInFilter(KProcess & proc, KTextEditor::View & view, QString comm
 void PluginKateTextFilter::slotEditFilter()
 {
   if (!KAuthorized::authorize(QStringLiteral("shell_access"))) {
-    KMessageBox::sorry(0,i18n(
+    KMessageBox::sorry(nullptr,i18n(
         "You are not allowed to execute arbitrary external applications. If "
         "you want to be able to do this, contact your system administrator."),
         i18n("Access Restrictions"));

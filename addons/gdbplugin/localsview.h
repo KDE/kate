@@ -28,7 +28,7 @@ class LocalsView : public QTreeWidget
 {
 Q_OBJECT
 public:
-    LocalsView(QWidget *parent = 0);
+    LocalsView(QWidget *parent = nullptr);
     ~LocalsView();
 
 public Q_SLOTS:

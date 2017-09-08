@@ -45,7 +45,7 @@
 
 class SnippetFilterModel : public QSortFilterProxyModel {
 public:
-    SnippetFilterModel(QObject* parent = 0) : QSortFilterProxyModel(parent) { };
+    SnippetFilterModel(QObject* parent = nullptr) : QSortFilterProxyModel(parent) { };
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const Q_DECL_OVERRIDE {
         auto index = sourceModel()->index(sourceRow, 0, sourceParent);
         auto item = SnippetStore::self()->itemFromIndex(index);
@@ -256,7 +256,7 @@ void SnippetView::slotAddSnippet()
             return;
     }
 
-    EditSnippet dlg(repo, 0, this);
+    EditSnippet dlg(repo, nullptr, this);
     dlg.exec();
 }
 
@@ -282,7 +282,7 @@ void SnippetView::slotRemoveSnippet()
 
 void SnippetView::slotAddRepo()
 {
-    EditRepository dlg(0, this);
+    EditRepository dlg(nullptr, this);
     dlg.exec();
 }
 
@@ -360,7 +360,7 @@ bool SnippetView::eventFilter(QObject* obj, QEvent* e)
     // no, listening to activated() is not enough since that would also trigger the edit mode which we _dont_ want here
     // users may still rename stuff via select + F2 though
     if (obj == snippetTree->viewport()) {
-        const bool singleClick = style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, 0, this);
+        const bool singleClick = style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, nullptr, this);
         if ( (!singleClick && e->type() == QEvent::MouseButtonDblClick) || (singleClick && e->type() == QEvent::MouseButtonRelease) ) {
             QMouseEvent* mouseEvent = dynamic_cast<QMouseEvent*>(e);
             Q_ASSERT(mouseEvent);

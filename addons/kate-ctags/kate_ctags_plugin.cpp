@@ -42,7 +42,7 @@ K_PLUGIN_FACTORY_WITH_JSON (KateCTagsPluginFactory, "katectagsplugin.json", regi
 
 /******************************************************************/
 KateCTagsPlugin::KateCTagsPlugin(QObject* parent, const QList<QVariant>&):
-KTextEditor::Plugin (parent), m_view(0)
+KTextEditor::Plugin (parent), m_view(nullptr)
 {
     // FIXME KF5
     //KGlobal::locale()->insertCatalog("kate-ctags-plugin");
@@ -59,7 +59,7 @@ QObject *KateCTagsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 /******************************************************************/
 KTextEditor::ConfigPage *KateCTagsPlugin::configPage (int number, QWidget *parent)
 {
-  if (number != 0) return 0;
+  if (number != 0) return nullptr;
   return new KateCTagsConfigPage(parent, this);
 }
 
@@ -232,7 +232,7 @@ void KateCTagsConfigPage::updateGlobalDB()
     m_proc.start(command);
 
     if(!m_proc.waitForStarted(500)) {
-        KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
+        KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
         return;
     }
     m_confUi.updateDB->setDisabled(true);

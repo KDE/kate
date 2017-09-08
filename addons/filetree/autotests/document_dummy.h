@@ -41,8 +41,8 @@ class DummyDocument : public KTextEditor::Document
     DummyDocument (const char *url) : DummyDocument(QString::fromLatin1(url)) {}
 
     virtual ~DummyDocument () {}
-    KTextEditor::View *createView ( QWidget *, KTextEditor::MainWindow * = nullptr ) Q_DECL_OVERRIDE { return 0; }
-    virtual KTextEditor::View *activeView() const { return 0; }
+    KTextEditor::View *createView ( QWidget *, KTextEditor::MainWindow * = nullptr ) Q_DECL_OVERRIDE { return nullptr; }
+    virtual KTextEditor::View *activeView() const { return nullptr; }
     QList<KTextEditor::View*> views() const Q_DECL_OVERRIDE { return m_views; }
 
     QString documentName() const Q_DECL_OVERRIDE { return m_name; }

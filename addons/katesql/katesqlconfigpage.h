@@ -33,7 +33,7 @@ class KateSQLConfigPage : public KTextEditor::ConfigPage
   Q_OBJECT
 
   public:
-    explicit KateSQLConfigPage( QWidget* parent = 0 );
+    explicit KateSQLConfigPage( QWidget* parent = nullptr );
     virtual ~KateSQLConfigPage();
 
     QString name() const Q_DECL_OVERRIDE;

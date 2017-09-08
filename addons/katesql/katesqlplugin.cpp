@@ -55,7 +55,7 @@ QObject *KateSQLPlugin::createView (KTextEditor::MainWindow *mainWindow)
 KTextEditor::ConfigPage* KateSQLPlugin::configPage(int number, QWidget *parent)
 {
   if (number != 0)
-    return 0;
+    return nullptr;
 
   KateSQLConfigPage *page = new KateSQLConfigPage(parent);
 

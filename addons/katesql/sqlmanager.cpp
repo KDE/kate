@@ -34,7 +34,7 @@ using KWallet::Wallet;
 SQLManager::SQLManager(QObject *parent)
 : QObject(parent)
 , m_model(new ConnectionModel(this))
-, m_wallet(0)
+, m_wallet(nullptr)
 {
 }
 
@@ -190,7 +190,7 @@ Wallet *SQLManager::openWallet()
     m_wallet = Wallet::openWallet(KWallet::Wallet::NetworkWallet(), 0);
 
   if (!m_wallet)
-    return 0;
+    return nullptr;
 
   QString folder (QLatin1String ("SQL Connections"));
 

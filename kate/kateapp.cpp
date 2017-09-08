@@ -168,10 +168,10 @@ bool KateApp::startupKate()
     // notify about start
     KStartupInfo::setNewStartupId(activeKateMainWindow(), KStartupInfo::startupId());
 
-    QTextCodec *codec = m_args.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(m_args.value(QStringLiteral("encoding")).toUtf8()) : 0;
+    QTextCodec *codec = m_args.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(m_args.value(QStringLiteral("encoding")).toUtf8()) : nullptr;
     bool tempfileSet = m_args.isSet(QStringLiteral("tempfile"));
 
-    KTextEditor::Document *doc = 0;
+    KTextEditor::Document *doc = nullptr;
     const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
 
     Q_FOREACH(const QString positionalArgument, m_args.positionalArguments()) {
@@ -277,15 +277,15 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
     KateMainWindow *mainWindow = activeKateMainWindow();
 
     if (!mainWindow) {
-        return 0;
+        return nullptr;
     }
 
-    QTextCodec *codec = encoding.isEmpty() ? 0 : QTextCodec::codecForName(encoding.toLatin1());
+    QTextCodec *codec = encoding.isEmpty() ? nullptr : QTextCodec::codecForName(encoding.toLatin1());
 
     // this file is no local dir, open it, else warn
     bool noDir = !url.isLocalFile() || !QFileInfo(url.toLocalFile()).isDir();
 
-    KTextEditor::Document *doc = 0;
+    KTextEditor::Document *doc = nullptr;
 
     if (noDir) {
         // open a normal file
@@ -358,7 +358,7 @@ void KateApp::removeMainWindow(KateMainWindow *mainWindow)
 KateMainWindow *KateApp::activeKateMainWindow()
 {
     if (m_mainWindows.isEmpty()) {
-        return 0;
+        return nullptr;
     }
 
     int n = m_mainWindows.indexOf(static_cast<KateMainWindow *>((static_cast<QApplication *>(QCoreApplication::instance())->activeWindow())));
@@ -386,7 +386,7 @@ KateMainWindow *KateApp::mainWindow(int n)
         return m_mainWindows[n];
     }
 
-    return 0;
+    return nullptr;
 }
 
 void KateApp::emitDocumentClosed(const QString &token)

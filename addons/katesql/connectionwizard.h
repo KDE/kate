@@ -42,7 +42,7 @@ class ConnectionWizard : public QWizard
       Page_Save
     };
 
-    ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent=0, Qt::WindowFlags flags = 0);
+    ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent=nullptr, Qt::WindowFlags flags = nullptr);
     ~ConnectionWizard();
 
     SQLManager *manager() { return m_manager; }
@@ -57,7 +57,7 @@ class ConnectionWizard : public QWizard
 class ConnectionDriverPage : public QWizardPage
 {
   public:
-    ConnectionDriverPage(QWidget *parent=0);
+    ConnectionDriverPage(QWidget *parent=nullptr);
     void initializePage() Q_DECL_OVERRIDE;
     int nextId() const Q_DECL_OVERRIDE;
 
@@ -68,7 +68,7 @@ class ConnectionDriverPage : public QWizardPage
 class ConnectionStandardServerPage : public QWizardPage
 {
   public:
-    ConnectionStandardServerPage(QWidget *parent=0);
+    ConnectionStandardServerPage(QWidget *parent=nullptr);
     ~ConnectionStandardServerPage();
     void initializePage() Q_DECL_OVERRIDE;
     bool validatePage() Q_DECL_OVERRIDE;
@@ -86,7 +86,7 @@ class ConnectionStandardServerPage : public QWizardPage
 class ConnectionSQLiteServerPage : public QWizardPage
 {
   public:
-    ConnectionSQLiteServerPage(QWidget *parent=0);
+    ConnectionSQLiteServerPage(QWidget *parent=nullptr);
     void initializePage() Q_DECL_OVERRIDE;
     bool validatePage() Q_DECL_OVERRIDE;
     int nextId() const Q_DECL_OVERRIDE;
@@ -101,7 +101,7 @@ class ConnectionSQLiteServerPage : public QWizardPage
 class ConnectionSavePage : public QWizardPage
 {
   public:
-    ConnectionSavePage(QWidget *parent=0);
+    ConnectionSavePage(QWidget *parent=nullptr);
     void initializePage() Q_DECL_OVERRIDE;
     bool validatePage() Q_DECL_OVERRIDE;
     int nextId() const Q_DECL_OVERRIDE;

@@ -118,7 +118,7 @@ public:
     /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig) Q_DECL_OVERRIDE;
 
 public:
-    bool queryClose_internal(KTextEditor::Document *doc = NULL);
+    bool queryClose_internal(KTextEditor::Document *doc = nullptr);
 
     /**
      * save the settings, size and state of this window in
@@ -383,7 +383,7 @@ public Q_SLOTS:
      */
     void splitView(Qt::Orientation orientation)
     {
-        m_viewManager->splitViewSpace(0L, orientation);
+        m_viewManager->splitViewSpace(nullptr, orientation);
     }
 
     /**
@@ -529,7 +529,7 @@ private:
     class BarState
     {
     public:
-        BarState(): m_bar(0), m_state(false) {}
+        BarState(): m_bar(nullptr), m_state(false) {}
         BarState(QWidget *bar): m_bar(bar), m_state(false) {}
         ~BarState() {}
         QWidget *bar() {
@@ -550,7 +550,7 @@ private:
 public:
     static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog *diag) {
         if (s_modOnHdDialog == diag) {
-            s_modOnHdDialog = 0;
+            s_modOnHdDialog = nullptr;
         }
     }
 private:

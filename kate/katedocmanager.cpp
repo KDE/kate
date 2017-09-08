@@ -133,7 +133,7 @@ KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
         }
     }
 
-    return 0;
+    return nullptr;
 }
 
 QList<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
@@ -155,7 +155,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
 {
     // special handling: if only one unmodified empty buffer in the list,
     // keep this buffer in mind to close it after opening the new url
-    KTextEditor::Document *untitledDoc = 0;
+    KTextEditor::Document *untitledDoc = nullptr;
     if ((documentList().count() == 1) && (!documentList().at(0)->isModified()
                                           && documentList().at(0)->url().isEmpty())) {
         untitledDoc = documentList().first();
@@ -165,7 +165,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     // create new document
     //
     QUrl u(url.adjusted(QUrl::NormalizePathSegments));
-    KTextEditor::Document *doc = 0;
+    KTextEditor::Document *doc = nullptr;
 
     // always new document if url is empty...
     if (!u.isEmpty()) {
@@ -290,7 +290,7 @@ bool KateDocManager::closeDocumentList(QList<KTextEditor::Document *> documents)
         }
     }
 
-    if (modifiedDocuments.size() > 0 && !KateSaveModifiedDialog::queryClose(0, modifiedDocuments)) {
+    if (modifiedDocuments.size() > 0 && !KateSaveModifiedDialog::queryClose(nullptr, modifiedDocuments)) {
         return false;
     }
 
@@ -443,14 +443,14 @@ void KateDocManager::restoreDocumentList(KConfig *config)
     progress.setWindowTitle(i18n("Starting Up"));
     progress.setLabelText(i18n("Reopening files from the last session..."));
     progress.setModal(true);
-    progress.setCancelButton(0);
+    progress.setCancelButton(nullptr);
     progress.setRange(0, count);
 
     m_documentStillToRestore = count;
     m_openingErrors.clear();
     for (unsigned int i = 0; i < count; i++) {
         KConfigGroup cg(config, QString::fromLatin1("Document %1").arg(i));
-        KTextEditor::Document *doc = 0;
+        KTextEditor::Document *doc = nullptr;
 
         if (i == 0) {
             doc = m_docList.first();
@@ -600,7 +600,7 @@ void KateDocManager::documentOpened()
 void KateDocManager::showRestoreErrors()
 {
     if (!m_openingErrors.isEmpty()) {
-        KMessageBox::information(0,
+        KMessageBox::information(nullptr,
                                  m_openingErrors,
                                  i18n("Errors/Warnings while opening documents"));
 

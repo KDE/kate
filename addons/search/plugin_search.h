@@ -51,7 +51,7 @@ class Results: public QWidget, public Ui::Results
 {
     Q_OBJECT
 public:
-    Results(QWidget *parent = 0);
+    Results(QWidget *parent = nullptr);
     int     matches;
     QRegularExpression regExp;
     bool    useRegExp;
@@ -81,7 +81,7 @@ class KatePluginSearch : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KatePluginSearch(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
+    explicit KatePluginSearch(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
     virtual ~KatePluginSearch();
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;

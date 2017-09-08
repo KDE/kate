@@ -52,7 +52,7 @@ QObject *KateSnippetsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 }
 
 KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KTextEditor::MainWindow *mainWindow)
-    : QObject(mainWindow), m_plugin(plugin), m_mainWindow(mainWindow), m_toolView(0), m_snippets(0)
+    : QObject(mainWindow), m_plugin(plugin), m_mainWindow(mainWindow), m_toolView(nullptr), m_snippets(nullptr)
 {
     KXMLGUIClient::setComponentName(QStringLiteral("katesnippets"), i18n("Snippets tool view"));
     setXMLFile(QStringLiteral("ui.rc"));

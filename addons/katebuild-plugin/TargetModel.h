@@ -37,7 +37,7 @@ public:
         QList<QPair<QString, QString> > commands;
     };
 
-    TargetModel(QObject *parent = 0);
+    TargetModel(QObject *parent = nullptr);
     ~TargetModel();
 
     /** This function sets the default command for a target set */

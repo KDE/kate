@@ -231,7 +231,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     m_sortByOpeningOrder->setChecked(sortRole == KateFileTreeModel::OpeningOrderRole);
 
     KTextEditor::Document *doc = m_indexContextMenu.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-    const bool isFile = (0 != doc);
+    const bool isFile = (nullptr != doc);
 
     QMenu menu;
     menu.addAction(m_filelistReloadDocument);
@@ -292,7 +292,7 @@ void KateFileTree::slotFixOpenWithMenu()
     QMimeDatabase db;
     QMimeType mime = db.mimeTypeForName(doc->mimeType());
 
-    QAction *a = 0;
+    QAction *a = nullptr;
     KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QLatin1String("Application"));
     // for each one, insert a menu item...
     for (KService::List::Iterator it = offers.begin(); it != offers.end(); ++it) {

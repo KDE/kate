@@ -47,7 +47,7 @@ public:
     enum Flag { None = 0, Dir = 1, Modified = 2, ModifiedExternally = 4, DeletedExternally = 8, Empty = 16, ShowFullPath = 32, Host = 64 };
     Q_DECLARE_FLAGS(Flags, Flag)
 
-    ProxyItem(const QString &n, ProxyItemDir *p = 0, Flags f = ProxyItem::None);
+    ProxyItem(const QString &n, ProxyItemDir *p = nullptr, Flags f = ProxyItem::None);
     ~ProxyItem();
 
     int addChild(ProxyItem *p);
@@ -125,7 +125,7 @@ QDebug operator<<(QDebug dbg, ProxyItem *item)
 class ProxyItemDir : public ProxyItem
 {
 public:
-    ProxyItemDir(QString n, ProxyItemDir *p = 0) : ProxyItem(n, p) {
+    ProxyItemDir(QString n, ProxyItemDir *p = nullptr) : ProxyItem(n, p) {
         setFlag(ProxyItem::Dir);
         updateDisplay();
 
@@ -152,7 +152,7 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 
 //BEGIN ProxyItem
 ProxyItem::ProxyItem(const QString &d, ProxyItemDir *p, ProxyItem::Flags f)
-    : m_path(d), m_parent(Q_NULLPTR), m_row(-1), m_flags(f), m_doc(0)
+    : m_path(d), m_parent(Q_NULLPTR), m_row(-1), m_flags(f), m_doc(nullptr)
 {
     updateDisplay();
 
@@ -218,7 +218,7 @@ void ProxyItem::remChild(ProxyItem *item)
         m_children[i]->m_row = i;
     }
 
-    item->m_parent = 0;
+    item->m_parent = nullptr;
 }
 
 ProxyItemDir *ProxyItem::parent() const
@@ -364,7 +364,7 @@ void ProxyItem::updateDocumentName()
 
 KateFileTreeModel::KateFileTreeModel(QObject *p)
     : QAbstractItemModel(p)
-    , m_root(new ProxyItemDir(QLatin1String("m_root"), 0))
+    , m_root(new ProxyItemDir(QLatin1String("m_root"), nullptr))
 {
     // setup default settings
     // session init will set these all soon
@@ -450,7 +450,7 @@ void KateFileTreeModel::clearModel()
     beginRemoveRows(QModelIndex(), 0, qMax(m_root->childCount() - 1, 0));
 
     delete m_root;
-    m_root = new ProxyItemDir(QLatin1String("m_root"), 0);
+    m_root = new ProxyItemDir(QLatin1String("m_root"), nullptr);
 
     m_docmap.clear();
     m_viewHistory.clear();
@@ -485,7 +485,7 @@ Qt::ItemFlags KateFileTreeModel::flags(const QModelIndex &index) const
     Qt::ItemFlags flags = Qt::ItemIsEnabled;
 
     if (!index.isValid()) {
-        return 0;
+        return nullptr;
     }
 
     const ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
@@ -646,7 +646,7 @@ QModelIndex KateFileTreeModel::parent(const QModelIndex &index) const
 
 QModelIndex KateFileTreeModel::index(int row, int column, const QModelIndex &parent) const
 {
-    const ProxyItem *p = 0;
+    const ProxyItem *p = nullptr;
     if (column != 0) {
         return QModelIndex();
     }
@@ -915,7 +915,7 @@ void KateFileTreeModel::updateBackgrounds(bool force)
 
 void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
 {
-    Q_ASSERT(item != 0);
+    Q_ASSERT(item != nullptr);
 
     if (!item->parent()) {
         return;
@@ -1029,16 +1029,16 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) 
         }
     }
 
-    return 0;
+    return nullptr;
 }
 
 ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const QString &name) const
 {
-    Q_ASSERT(parent != 0);
+    Q_ASSERT(parent != nullptr);
     Q_ASSERT(!name.isEmpty());
 
     if (!parent->childCount()) {
-        return 0;
+        return nullptr;
     }
 
     foreach(ProxyItem * item, parent->children()) {
@@ -1051,13 +1051,13 @@ ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const
         }
     }
 
-    return 0;
+    return nullptr;
 }
 
 void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
 {
-    Q_ASSERT(root != 0);
-    Q_ASSERT(item != 0);
+    Q_ASSERT(root != nullptr);
+    Q_ASSERT(item != nullptr);
 
     QString tail = item->path();
     tail.remove(0, root->path().length());
@@ -1093,7 +1093,7 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
 
 void KateFileTreeModel::handleInsert(ProxyItem *item)
 {
-    Q_ASSERT(item != 0);
+    Q_ASSERT(item != nullptr);
 
     if (m_listMode || item->flag(ProxyItem::Empty)) {
         beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
@@ -1238,7 +1238,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
 
 void KateFileTreeModel::handleNameChange(ProxyItem *item)
 {
-    Q_ASSERT(item != 0);
+    Q_ASSERT(item != nullptr);
     Q_ASSERT(item->parent());
 
     updateItemPathAndHost(item);
@@ -1300,7 +1300,7 @@ void KateFileTreeModel::updateItemPathAndHost(ProxyItem *item) const
 
 void KateFileTreeModel::setupIcon(ProxyItem *item) const
 {
-    Q_ASSERT(item != 0);
+    Q_ASSERT(item != nullptr);
 
     QString icon_name;
 

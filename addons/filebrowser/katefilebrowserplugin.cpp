@@ -62,7 +62,7 @@ int KateFileBrowserPlugin::configPages() const
 KTextEditor::ConfigPage *KateFileBrowserPlugin::configPage (int number, QWidget *parent)
 {
   if (number != 0)
-    return 0;
+    return nullptr;
   return new KateFileBrowserConfigPage(parent, m_views[0]->m_fileBrowser);
 }
 //END KateFileBrowserPlugin

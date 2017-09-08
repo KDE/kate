@@ -81,7 +81,7 @@
 #include <ktexteditor/sessionconfiginterface.h>
 //END
 
-KateMwModOnHdDialog *KateMainWindow::s_modOnHdDialog = 0;
+KateMwModOnHdDialog *KateMainWindow::s_modOnHdDialog = nullptr;
 
 KateContainerStackedLayout::KateContainerStackedLayout(QWidget *parent)
     : QStackedLayout(parent)
@@ -104,7 +104,7 @@ QSize KateContainerStackedLayout::minimumSize() const
 }
 
 KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
-    : KateMDI::MainWindow(0)
+    : KateMDI::MainWindow(nullptr)
     , m_modignore(false)
     , m_wrapper(new KTextEditor::MainWindow(this))
 {
@@ -198,11 +198,11 @@ KateMainWindow::~KateMainWindow()
 
     // delete the view manager, before KateMainWindow's wrapper is dead
     delete m_viewManager;
-    m_viewManager = 0;
+    m_viewManager = nullptr;
 
     // kill the wrapper object, now that all views are dead
     delete m_wrapper;
-    m_wrapper = 0;
+    m_wrapper = nullptr;
 }
 
 QSize KateMainWindow::sizeHint() const
@@ -331,7 +331,7 @@ void KateMainWindow::setupActions()
     connect(a, SIGNAL(triggered()), this, SLOT(newWindow()));
     a->setWhatsThis(i18n("Create a new Kate view (a new window with the same document list)."));
 
-    m_showFullScreenAction = KStandardAction::fullScreen(0, 0, this, this);
+    m_showFullScreenAction = KStandardAction::fullScreen(nullptr, nullptr, this, this);
     actionCollection()->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);
     connect(m_showFullScreenAction, SIGNAL(toggled(bool)), this, SLOT(slotFullScreen(bool)));
 
@@ -679,7 +679,7 @@ void KateMainWindow::dropEvent(QDropEvent *event)
 
 void KateMainWindow::slotDropEvent(QDropEvent *event)
 {
-    if (event->mimeData() == 0) {
+    if (event->mimeData() == nullptr) {
         return;
     }
 
@@ -693,11 +693,11 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
         // Try to get the KTextEditor::View that sent this, and activate it, so that the file opens in the
         // view where it was dropped
         KTextEditor::View *kVsender = qobject_cast<KTextEditor::View *>(QObject::sender());
-        if (kVsender != 0) {
+        if (kVsender != nullptr) {
             QWidget *parent = kVsender->parentWidget();
-            if (parent != 0) {
+            if (parent != nullptr) {
                 KateViewSpace *vs = qobject_cast<KateViewSpace *>(parent->parentWidget());
-                if (vs != 0) {
+                if (vs != nullptr) {
                     m_viewManager->setActiveSpace(vs);
                 }
             }
@@ -773,7 +773,7 @@ void KateMainWindow::openUrl(const QString &name)
 
 void KateMainWindow::slotConfigure()
 {
-    showPluginConfigPage(0, 0);
+    showPluginConfigPage(nullptr, 0);
 }
 
 void KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterface, uint id)
@@ -827,7 +827,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
     QMimeType mime = db.mimeTypeForName(activeView->document()->mimeType());
     //qCDebug(LOG_KATE) << "mime type: " << mime.name();
 
-    QAction *a = 0;
+    QAction *a = nullptr;
     KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
     // add all default open-with-actions except "Kate"
     for (KService::List::Iterator it = offers.begin(); it != offers.end(); ++it) {
@@ -1070,7 +1070,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
     }
     bool modOnDisk = (uint)docInfo->modifiedOnDisc;
 
-    if (s_modOnHdDialog == 0 && modOnDisk) {
+    if (s_modOnHdDialog == nullptr && modOnDisk) {
         DocVector list;
         list.append(doc);
 
@@ -1080,7 +1080,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
         s_modOnHdDialog->exec();
         delete s_modOnHdDialog; // s_modOnHdDialog is set to 0 in destructor of KateMwModOnHdDialog (jowenn!!!)
         m_modignore = false;
-    } else if (s_modOnHdDialog != 0) {
+    } else if (s_modOnHdDialog != nullptr) {
         s_modOnHdDialog->addDocument(doc);
     }
 }
@@ -1098,7 +1098,7 @@ QObject *KateMainWindow::pluginView(const QString &name)
 {
     KTextEditor::Plugin *plugin = KateApp::self()->pluginManager()->plugin(name);
     if (!plugin) {
-        return 0;
+        return nullptr;
     }
 
     return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : 0;

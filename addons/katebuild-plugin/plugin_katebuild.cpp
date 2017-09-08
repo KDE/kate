@@ -81,7 +81,7 @@ QObject *KateBuildPlugin::createView (KTextEditor::MainWindow *mainWindow)
 KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
     : QObject (mw)
     , m_win(mw)
-    , m_buildWidget(0)
+    , m_buildWidget(nullptr)
     , m_outputWidgetWidth(0)
     , m_proc(this)
     , m_stdOut()
@@ -316,9 +316,9 @@ void KateBuildView::slotNext()
     }
 
     QTreeWidgetItem *item = m_buildUi.errTreeWidget->currentItem();
-    if (item && item->isHidden()) item = 0;
+    if (item && item->isHidden()) item = nullptr;
 
-    int i = (item == 0) ? -1 : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
+    int i = (item == nullptr) ? -1 : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
 
     while (++i < itemCount) {
         item = m_buildUi.errTreeWidget->topLevelItem(i);
@@ -340,9 +340,9 @@ void KateBuildView::slotPrev()
     }
 
     QTreeWidgetItem *item = m_buildUi.errTreeWidget->currentItem();
-    if (item && item->isHidden()) item = 0;
+    if (item && item->isHidden()) item = nullptr;
 
-    int i = (item == 0) ? itemCount : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
+    int i = (item == nullptr) ? itemCount : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
 
     while (--i >= 0) {
         item = m_buildUi.errTreeWidget->topLevelItem(i);
@@ -450,11 +450,11 @@ QUrl KateBuildView::docUrl()
 bool KateBuildView::checkLocal(const QUrl &dir)
 {
     if (dir.path().isEmpty()) {
-        KMessageBox::sorry(0, i18n("There is no file or directory specified for building."));
+        KMessageBox::sorry(nullptr, i18n("There is no file or directory specified for building."));
         return false;
     }
     else if (!dir.isLocalFile()) {
-        KMessageBox::sorry(0,  i18n("The file \"%1\" is not a local file. "
+        KMessageBox::sorry(nullptr,  i18n("The file \"%1\" is not a local file. "
         "Non-local files cannot be compiled.", dir.path()));
         return false;
     }
@@ -500,7 +500,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_proc.start();
 
     if(!m_proc.waitForStarted(500)) {
-        KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
+        KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
         return false;
     }
 
@@ -569,7 +569,7 @@ void KateBuildView::slotSelectTarget() {
         buildCurrentTarget();
     }
     delete dialog;
-    dialog = 0;
+    dialog = nullptr;
 }
 
 
@@ -586,7 +586,7 @@ bool KateBuildView::buildCurrentTarget()
     QModelIndex ind = m_targetsUi->targetsView->currentIndex();
     m_previousIndex = ind;
     if (!ind.isValid()) {
-        KMessageBox::sorry(0, i18n("No target available for building."));
+        KMessageBox::sorry(nullptr, i18n("No target available for building."));
         return false;
     }
 
@@ -599,7 +599,7 @@ bool KateBuildView::buildCurrentTarget()
     if (workDir.isEmpty()) {
         dir = docFInfo.absolutePath();
         if (dir.isEmpty()) {
-            KMessageBox::sorry(0, i18n("There is no local file or directory specified for building."));
+            KMessageBox::sorry(nullptr, i18n("There is no local file or directory specified for building."));
             return false;
         }
     }
@@ -925,7 +925,7 @@ void KateBuildView::slotPluginViewDeleted (const QString &name, QObject *)
 {
     // remove view
     if (name == QLatin1String("kateprojectplugin")) {
-        m_projectPluginView = 0;
+        m_projectPluginView = nullptr;
         m_targetsUi->targetsModel.deleteTargetSet(i18n("Project Plugin Targets"));
     }
 }

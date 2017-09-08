@@ -31,7 +31,7 @@ class SearchOpenFiles: public QObject
     Q_OBJECT
 
 public:
-    SearchOpenFiles(QObject *parent = 0);
+    SearchOpenFiles(QObject *parent = nullptr);
 
     void startSearch(const QList<KTextEditor::Document*> &list,const QRegularExpression &regexp);
     bool searching();

@@ -29,20 +29,20 @@ static CTagsKindMapping kindMappingAsm[] = {
     { 'd', I18N_NOOP2("Tag Type", "define")              },
     { 'l', I18N_NOOP2("Tag Type", "label")               },
     { 'm', I18N_NOOP2("Tag Type", "macro")               },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingAsp[] = {
     { 'f', I18N_NOOP2("Tag Type", "function")            },
     { 's', I18N_NOOP2("Tag Type", "subroutine")          },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingAwk[] = {
     { 'f', I18N_NOOP2("Tag Type", "function")            },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
@@ -51,7 +51,7 @@ static CTagsKindMapping kindMappingBeta[] = {
     { 'p', I18N_NOOP2("Tag Type", "any pattern")         },
     { 's', I18N_NOOP2("Tag Type", "slot")                },
     { 'v', I18N_NOOP2("Tag Type", "pattern")             },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
@@ -69,13 +69,13 @@ static CTagsKindMapping kindMappingC[] = {
     { 'u', I18N_NOOP2("Tag Type", "union")               },
     { 'v', I18N_NOOP2("Tag Type", "variable")            },
     { 'x', I18N_NOOP2("Tag Type", "external variable")   },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingCobol[] = {
     { 'p', I18N_NOOP2("Tag Type", "paragraph")           },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
@@ -83,7 +83,7 @@ static CTagsKindMapping kindMappingEiffel[] = {
     { 'c', I18N_NOOP2("Tag Type", "class")               },
     { 'f', I18N_NOOP2("Tag Type", "feature")             },
     { 'l', I18N_NOOP2("Tag Type", "local entity")        },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
@@ -102,7 +102,7 @@ static CTagsKindMapping kindMappingFortran[] = {
     { 's', I18N_NOOP2("Tag Type", "subroutine")          },
     { 't', I18N_NOOP2("Tag Type", "type")                },
     { 'v', I18N_NOOP2("Tag Type", "variable")            },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
@@ -112,52 +112,52 @@ static CTagsKindMapping kindMappingJava[] = {
     { 'i', I18N_NOOP2("Tag Type", "interface")           },
     { 'm', I18N_NOOP2("Tag Type", "method")              },
     { 'p', I18N_NOOP2("Tag Type", "package")             },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingLisp[] = {
     { 'f', I18N_NOOP2("Tag Type", "function")            },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingMake[] = {
     { 'm', I18N_NOOP2("Tag Type", "macro")               },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingPascal[] = {
     { 'f', I18N_NOOP2("Tag Type", "function")            },
     { 'p', I18N_NOOP2("Tag Type", "procedure")           },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingPerl[] = {
     { 's', I18N_NOOP2("Tag Type", "subroutine")          },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingPHP[] = {
     { 'c', I18N_NOOP2("Tag Type", "class")               },
     { 'f', I18N_NOOP2("Tag Type", "function")            },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingPython[] = {
     { 'c', I18N_NOOP2("Tag Type", "class")               },
     { 'f', I18N_NOOP2("Tag Type", "function")            },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingRexx[] = {
     { 's', I18N_NOOP2("Tag Type", "subroutine")          },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
@@ -165,39 +165,39 @@ static CTagsKindMapping kindMappingRuby[] = {
     { 'c', I18N_NOOP2("Tag Type", "class")               },
     { 'f', I18N_NOOP2("Tag Type", "function")            },
     { 'm', I18N_NOOP2("Tag Type", "mixin")               },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingScheme[] = {
     { 'f', I18N_NOOP2("Tag Type", "function")            },
     { 's', I18N_NOOP2("Tag Type", "set")                 },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingSh[] = {
     { 'f', I18N_NOOP2("Tag Type", "function")            },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingSlang[] = {
     { 'f', I18N_NOOP2("Tag Type", "function")            },
     { 'n', I18N_NOOP2("Tag Type", "namespace")           },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingTcl[] = {
     { 'p', I18N_NOOP2("Tag Type", "procedure")           },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
 static CTagsKindMapping kindMappingVim[] = {
     { 'f', I18N_NOOP2("Tag Type", "function")            },
-    { 0  , 0                                             }
+    { 0  , nullptr                                             }
 };
 
 
@@ -268,7 +268,7 @@ static CTagsExtensionMapping extensionMapping[] = {
     { "tcl",    kindMappingTcl     },
     { "wish",   kindMappingTcl     },
     { "vim",    kindMappingVim     },
-    { 0     , 0                    }
+    { nullptr     , nullptr                    }
 };
 
 
@@ -277,24 +277,24 @@ static CTagsKindMapping *findKindMapping(const QString &extension)
     const char *pextension = extension.toLocal8Bit().constData();
 
     CTagsExtensionMapping *pem = extensionMapping;
-    while (pem->extension != 0) {
+    while (pem->extension != nullptr) {
         if (strcmp(pem->extension, pextension) == 0)
             return pem->kinds;
         ++pem;
     }
 
-    return 0;
+    return nullptr;
 }
 
 
 QString CTagsKinds::findKind( const char * kindChar, const QString &extension )
 {
-    if ( kindChar == 0 ) return QString();
+    if ( kindChar == nullptr ) return QString();
 
     CTagsKindMapping *kindMapping = findKindMapping(extension);
     if (kindMapping) {
         CTagsKindMapping *pkm = kindMapping;
-        while (pkm->verbose != 0) {
+        while (pkm->verbose != nullptr) {
             if (pkm->abbrev == *kindChar)
                 return i18nc("Tag Type", pkm->verbose);
             ++pkm;

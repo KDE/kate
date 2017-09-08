@@ -413,7 +413,7 @@ bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int r
 Qt::ItemFlags TargetModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid()) {
-        return 0;
+        return nullptr;
     }
 
     if (index.internalId() != InvalidIndex && index.column() == 0) {

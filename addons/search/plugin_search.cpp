@@ -76,7 +76,7 @@ static QAction *menuEntry(QMenu *menu,
     if (menuAfter.isEmpty())  menuAfter = after;
 
     QAction *const action = menu->addAction(menuBefore + menuAfter + QLatin1Char('\t') + desc);
-    if (!action) return 0;
+    if (!action) return nullptr;
 
     action->setData(QString(before + QLatin1Char(' ') + after));
     return action;
@@ -122,7 +122,7 @@ K_PLUGIN_FACTORY_WITH_JSON (KatePluginSearchFactory, "katesearch.json", register
 
 KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
     : KTextEditor::Plugin (parent),
-    m_searchCommand(0)
+    m_searchCommand(nullptr)
 {
     m_searchCommand = new KateSearchCommand(this);
 }
@@ -217,12 +217,12 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
 KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin, KTextEditor::Application* application)
 : QObject (mainWin),
 m_kateApp(application),
-m_curResults(0),
+m_curResults(nullptr),
 m_searchJustOpened(false),
 m_switchToProjectModeWhenAvailable(false),
 m_searchDiskFilesDone(true),
 m_searchOpenFilesDone(true),
-m_projectPluginView(0),
+m_projectPluginView(nullptr),
 m_mainWindow (mainWin)
 {
     KXMLGUIClient::setComponentName (QStringLiteral("katesearch"), i18n ("Kate Search & Replace"));
@@ -657,7 +657,7 @@ void KatePluginSearchView::addHeaderItem()
 QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const QString &fName)
 {
     if (!m_curResults) {
-        return 0;
+        return nullptr;
     }
 
     QUrl fullUrl = QUrl::fromUserInput(url);
@@ -716,7 +716,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
     KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(activeView);
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
-    bool replace = ((sender() == &m_replacer) || (sender() == 0) || (sender() == m_ui.replaceButton));
+    bool replace = ((sender() == &m_replacer) || (sender() == nullptr) || (sender() == m_ui.replaceButton));
     if (replace) {
         QColor replaceColor(Qt::green);
         if (ciface) replaceColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
@@ -1223,7 +1223,7 @@ void KatePluginSearchView::searchDone()
     }
 
     indicateMatch(m_curResults->matches > 0);
-    m_curResults = 0;
+    m_curResults = nullptr;
     m_toolView->unsetCursor();
 
     if (fw == m_ui.stopButton) {
@@ -1251,7 +1251,7 @@ void KatePluginSearchView::searchWhileTypingDone()
         m_curResults->tree->setColumnWidth(0, m_curResults->tree->width()-30);
     }
 
-    QWidget *focusObject = 0;
+    QWidget *focusObject = nullptr;
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
     if (root) {
         QTreeWidgetItem *child = root->child(0);
@@ -1264,7 +1264,7 @@ void KatePluginSearchView::searchWhileTypingDone()
                                                 "<b><i>%1 matches found</i></b>",
                                                 m_curResults->matches));
     }
-    m_curResults = 0;
+    m_curResults = nullptr;
 
     if (focusObject) {
         focusObject->setFocus();
@@ -1521,7 +1521,7 @@ void KatePluginSearchView::docViewChanged()
     // add the marks if it is not already open
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
     if (doc) {
-        QTreeWidgetItem *rootItem = 0;
+        QTreeWidgetItem *rootItem = nullptr;
         for (int i=0; i<res->tree->topLevelItemCount(); i++) {
             QString url = res->tree->topLevelItem(i)->data(0, ReplaceMatches::FileUrlRole).toString();
             QString fName = res->tree->topLevelItem(i)->data(0, ReplaceMatches::FileNameRole).toString();
@@ -1583,7 +1583,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
             int line;
             int column;
             int len;
-            QTreeWidgetItem *rootItem = (item->parent()==0) ? item : item->parent();
+            QTreeWidgetItem *rootItem = (item->parent()==nullptr) ? item : item->parent();
             for (int i=0; i<rootItem->childCount(); i++) {
                 item = rootItem->child(i);
                 line = item->data(0, ReplaceMatches::LineRole).toInt();
@@ -1925,7 +1925,7 @@ void KatePluginSearchView::tabCloseRequested(int index)
     }
     if (m_ui.resultTabWidget->count() > 1) {
         delete tmp; // remove the tab
-        m_curResults = 0;
+        m_curResults = nullptr;
     }
     if (m_ui.resultTabWidget->count() == 1) {
         m_ui.resultTabWidget->tabBar()->hide();
@@ -2058,7 +2058,7 @@ void KatePluginSearchView::slotPluginViewDeleted (const QString &name, QObject *
 {
     // remove view
     if (name == QStringLiteral("kateprojectplugin")) {
-        m_projectPluginView = 0;
+        m_projectPluginView = nullptr;
         slotProjectFileNameChanged ();
     }
 }

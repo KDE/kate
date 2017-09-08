@@ -35,7 +35,7 @@
 
 Q_DECLARE_METATYPE(KSharedConfig::Ptr)
 
-SnippetStore* SnippetStore::m_self = 0;
+SnippetStore* SnippetStore::m_self = nullptr;
 
 SnippetStore::SnippetStore(KateSnippetGlobal* plugin)
     : m_plugin(plugin)
@@ -63,7 +63,7 @@ SnippetStore::SnippetStore(KateSnippetGlobal* plugin)
 SnippetStore::~SnippetStore()
 {
     invisibleRootItem()->removeRows( 0, invisibleRootItem()->rowCount() );
-    m_self = 0;
+    m_self = nullptr;
 }
 
 void SnippetStore::init(KateSnippetGlobal* plugin)
@@ -104,7 +104,7 @@ bool SnippetStore::setData(const QModelIndex& index, const QVariant& value, int 
 
     // when we edited something, save the repository
 
-    QStandardItem* repoItem = 0;
+    QStandardItem* repoItem = nullptr;
     if ( index.parent().isValid() ) {
         repoItem = itemFromIndex(index.parent());
     } else {
@@ -127,7 +127,7 @@ SnippetRepository* SnippetStore::repositoryForFile(const QString& file)
             }
         }
     }
-    return 0;
+    return nullptr;
 }
 
 

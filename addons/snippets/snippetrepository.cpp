@@ -245,7 +245,7 @@ void SnippetRepository::save()
 
     QFile outfile(outname);
     if (!outfile.open(QIODevice::WriteOnly)) {
-        KMessageBox::error(0, i18n("Output file '%1' could not be opened for writing", outname));
+        KMessageBox::error(nullptr, i18n("Output file '%1' could not be opened for writing", outname));
         return;
     }
     outfile.write(doc.toByteArray());

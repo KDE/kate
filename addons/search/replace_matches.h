@@ -44,7 +44,7 @@ public:
         PostMatchRole
     };
 
-    ReplaceMatches(QObject *parent = 0);
+    ReplaceMatches(QObject *parent = nullptr);
     void setDocumentManager(KTextEditor::Application *manager);
 
     void replaceChecked(QTreeWidget *tree, const QRegularExpression &regexp, const QString &replace);

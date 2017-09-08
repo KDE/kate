@@ -32,11 +32,11 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     : QWidget()
     , m_pluginView(pluginView)
     , m_project(project)
-    , m_messageWidget(0)
+    , m_messageWidget(nullptr)
     , m_startStopAnalysis(new QPushButton(i18n("Start Analysis...")))
     , m_treeView(new QTreeView())
     , m_model(new QStandardItemModel(m_treeView))
-    , m_analyzer(0)
+    , m_analyzer(nullptr)
 {
     /**
      * default style
@@ -110,7 +110,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
 
     if (m_messageWidget) {
         delete m_messageWidget;
-        m_messageWidget = 0;
+        m_messageWidget = nullptr;
     }
 
     if (!m_analyzer->waitForStarted()) {

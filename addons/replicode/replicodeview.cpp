@@ -32,7 +32,7 @@
 ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow* mainWindow) :
     QObject(mainWindow),
     m_mainWindow(mainWindow),
-    m_executor(0)
+    m_executor(nullptr)
 {
     m_runAction = new QAction(QIcon(QStringLiteral("code-block")), i18n("Run replicode"), this);
     actionCollection()->setDefaultShortcut(m_runAction, Qt::Key_F8);

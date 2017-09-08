@@ -33,7 +33,7 @@ class FolderFilesList: public QThread
     Q_OBJECT
 
 public:
-    FolderFilesList(QObject *parent = 0);
+    FolderFilesList(QObject *parent = nullptr);
     ~FolderFilesList();
 
     void run() Q_DECL_OVERRIDE;

@@ -28,11 +28,11 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     QPixmap classPix( ( const char** ) class_xpm );
     QPixmap constPix( ( const char** ) macro_xpm );
     QPixmap functionPix( ( const char** ) method_xpm );
-    QTreeWidgetItem *node = NULL;
-    QTreeWidgetItem *namespaceNode = NULL, *defineNode = NULL, \
-        *classNode = NULL, *functionNode = NULL;
-    QTreeWidgetItem *lastNamespaceNode = NULL, *lastDefineNode = NULL, \
-        *lastClassNode = NULL, *lastFunctionNode = NULL;
+    QTreeWidgetItem *node = nullptr;
+    QTreeWidgetItem *namespaceNode = nullptr, *defineNode = nullptr, \
+        *classNode = nullptr, *functionNode = nullptr;
+    QTreeWidgetItem *lastNamespaceNode = nullptr, *lastDefineNode = nullptr, \
+        *lastClassNode = nullptr, *lastFunctionNode = nullptr;
 
     KTextEditor::Document *kv = m_mainWindow->activeView()->document();
 

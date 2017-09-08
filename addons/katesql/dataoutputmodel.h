@@ -33,7 +33,7 @@ class DataOutputModel : public CachedSqlQueryModel
   Q_OBJECT
 
   public:
-    DataOutputModel(QObject *parent = 0);
+    DataOutputModel(QObject *parent = nullptr);
     ~DataOutputModel();
 
     bool useSystemLocale() const;

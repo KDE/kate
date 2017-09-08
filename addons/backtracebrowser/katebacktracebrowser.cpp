@@ -45,7 +45,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateBtBrowserFactory, "katebacktracebrowserplugin.json", registerPlugin<KateBtBrowserPlugin>();)
 
-KateBtBrowserPlugin *KateBtBrowserPlugin::s_self = 0L;
+KateBtBrowserPlugin *KateBtBrowserPlugin::s_self = nullptr;
 static QStringList fileExtensions =
     QStringList() << QStringLiteral("*.cpp") << QStringLiteral("*.cxx") <<
     QStringLiteral("*.c") << QStringLiteral("*.cc") << QStringLiteral("*.h") <<
@@ -72,7 +72,7 @@ KateBtBrowserPlugin::~KateBtBrowserPlugin()
     QDir().mkpath(path);
     db.saveToFile(path + QStringLiteral("/backtracedatabase.db"));
 
-    s_self = 0;
+    s_self = nullptr;
 }
 
 KateBtBrowserPlugin &KateBtBrowserPlugin::self()
@@ -120,7 +120,7 @@ KTextEditor::ConfigPage *KateBtBrowserPlugin::configPage(int number, QWidget *pa
         return new KateBtConfigWidget(parent);
     }
 
-    return 0L;
+    return nullptr;
 }
 
 

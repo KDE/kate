@@ -183,7 +183,7 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
         }
     }
 
-    return 0;
+    return nullptr;
 }
 
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)

@@ -38,7 +38,7 @@
 /******************************************************************/
 KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin)
 : QObject(mainWin)
-, m_proc(0)
+, m_proc(nullptr)
 {
     KXMLGUIClient::setComponentName (QLatin1String("katectags"), i18n ("Kate CTag"));
     setXMLFile( QLatin1String("ui.rc") );
@@ -506,7 +506,7 @@ void KateCTagsView::updateSessionDB()
     }
 
     if (targets.isEmpty()) {
-        KMessageBox::error(0, i18n("No folders or files to index"));
+        KMessageBox::error(nullptr, i18n("No folders or files to index"));
         QFile::remove(m_ctagsUi.tagsFile->text());
         return;
     }
@@ -517,7 +517,7 @@ void KateCTagsView::updateSessionDB()
     m_proc.start(command);
 
     if(!m_proc.waitForStarted(500)) {
-        KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
+        KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
         return;
     }
     QApplication::setOverrideCursor(QCursor(Qt::BusyCursor));

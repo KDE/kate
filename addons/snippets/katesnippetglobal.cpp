@@ -101,7 +101,7 @@ void KateSnippetGlobal::createSnippet (KTextEditor::View *view)
         mode = view->document()->mode();
 
     // try to look for a fitting repo
-    SnippetRepository* match = 0;
+    SnippetRepository* match = nullptr;
     for ( int i = 0; i < SnippetStore::self()->rowCount(); ++i ) {
         SnippetRepository* repo = dynamic_cast<SnippetRepository*>( SnippetStore::self()->item(i) );
         if ( repo && repo->fileTypes().count() == 1 && repo->fileTypes().first() == mode ) {
@@ -118,7 +118,7 @@ void KateSnippetGlobal::createSnippet (KTextEditor::View *view)
         match->setFileTypes(QStringList() << mode);
     }
 
-    EditSnippet dlg(match, 0, view);
+    EditSnippet dlg(match, nullptr, view);
     dlg.setSnippetText(view->selectionText());
     int status = dlg.exec();
     if ( created && status != QDialog::Accepted ) {

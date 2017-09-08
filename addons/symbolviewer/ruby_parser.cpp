@@ -32,9 +32,9 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
  int i;
  QString name;
 
- QTreeWidgetItem *node = NULL;
- QTreeWidgetItem *mtdNode = NULL, *clsNode = NULL;
- QTreeWidgetItem *lastMtdNode = NULL, *lastClsNode = NULL;
+ QTreeWidgetItem *node = nullptr;
+ QTreeWidgetItem *mtdNode = nullptr, *clsNode = nullptr;
+ QTreeWidgetItem *lastMtdNode = nullptr, *lastClsNode = nullptr;
 
  KTextEditor::Document *kv = m_mainWindow->activeView()->document();
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;

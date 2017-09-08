@@ -46,13 +46,13 @@ class KateFileTreePlugin: public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KateFileTreePlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
+    explicit KateFileTreePlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     virtual ~KateFileTreePlugin();
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
     int configPages() const Q_DECL_OVERRIDE;
-    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
 
     const KateFileTreePluginSettings &settings();
 

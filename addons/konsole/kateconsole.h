@@ -47,13 +47,13 @@ class KateKonsolePlugin: public KTextEditor::Plugin
   friend class KateKonsolePluginView;
   
   public:
-    explicit KateKonsolePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
+    explicit KateKonsolePlugin( QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateKonsolePlugin();
 
     QObject *createView (KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
     int configPages() const Q_DECL_OVERRIDE { return 1; }
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
 
     void readConfig();
 
@@ -136,7 +136,7 @@ class KateConsole : public QWidget, public KXMLGUIClient
     /**
      * synchronize the konsole with the current document (cd to the directory)
      */
-    void slotSync(KTextEditor::View *view = 0);
+    void slotSync(KTextEditor::View *view = nullptr);
     /**
      * When syncing is done by the user, also show the terminal if it is hidden
      */
@@ -194,7 +194,7 @@ class KateConsole : public QWidget, public KXMLGUIClient
 class KateKonsoleConfigPage : public KTextEditor::ConfigPage {
     Q_OBJECT
   public:
-    explicit KateKonsoleConfigPage( QWidget* parent = 0, KateKonsolePlugin *plugin = 0 );
+    explicit KateKonsoleConfigPage( QWidget* parent = nullptr, KateKonsolePlugin *plugin = nullptr );
     virtual ~KateKonsoleConfigPage()
     {}
 

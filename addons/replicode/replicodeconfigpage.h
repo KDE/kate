@@ -28,7 +28,7 @@ class ReplicodeConfigPage : public KTextEditor::ConfigPage
     Q_OBJECT
 
 public:
-    ReplicodeConfigPage(QWidget *parent = 0);
+    ReplicodeConfigPage(QWidget *parent = nullptr);
 
     QString name() const Q_DECL_OVERRIDE;
     QString fullName() const Q_DECL_OVERRIDE;

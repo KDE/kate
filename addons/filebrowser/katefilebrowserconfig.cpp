@@ -46,7 +46,7 @@
 class ActionLBItem : public QListWidgetItem
 {
   public:
-    ActionLBItem( QListWidget *lb = 0,
+    ActionLBItem( QListWidget *lb = nullptr,
                   const QIcon &pm = QIcon(),
                   const QString &text = QString(),
                   const QString &str = QString() ) :
@@ -156,7 +156,7 @@ void KateFileBrowserConfigPage::init()
              << QStringLiteral("show hidden") /*<< QStringLiteral("view menu") << QStringLiteral("properties")*/
              << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
   QRegExp re(QStringLiteral ("&(?=[^&])"));
-  QAction *ac = 0;
+  QAction *ac = nullptr;
   QListWidget *lb;
   for ( QStringList::Iterator it = allActions.begin(); it != allActions.end(); ++it )
   {

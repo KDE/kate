@@ -37,9 +37,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
  m_struct->setText(i18n("Show Structures"));
  m_func->setText(i18n("Show Functions"));
 
- QTreeWidgetItem *node = NULL;
- QTreeWidgetItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL, *mtdNode = NULL;
- QTreeWidgetItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL, *lastMtdNode = NULL;
+ QTreeWidgetItem *node = nullptr;
+ QTreeWidgetItem *mcrNode = nullptr, *sctNode = nullptr, *clsNode = nullptr, *mtdNode = nullptr;
+ QTreeWidgetItem *lastMcrNode = nullptr, *lastSctNode = nullptr, *lastClsNode = nullptr, *lastMtdNode = nullptr;
 
  KTextEditor::Document *kv = m_mainWindow->activeView()->document();
 

@@ -32,9 +32,9 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
   int in_class = 0, state = 0, j;
   QString name;
   
-  QTreeWidgetItem *node = NULL;
-  QTreeWidgetItem *mcrNode = NULL, *mtdNode = NULL, *clsNode = NULL;
-  QTreeWidgetItem *lastMcrNode = NULL, *lastMtdNode = NULL, *lastClsNode = NULL;
+  QTreeWidgetItem *node = nullptr;
+  QTreeWidgetItem *mcrNode = nullptr, *mtdNode = nullptr, *clsNode = nullptr;
+  QTreeWidgetItem *lastMcrNode = nullptr, *lastMtdNode = nullptr, *lastClsNode = nullptr;
   
   KTextEditor::Document *kv = m_mainWindow->activeView()->document();
 

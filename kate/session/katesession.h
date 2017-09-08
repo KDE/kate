@@ -121,7 +121,7 @@ private:
      * @param anonymous anonymous flag
      * @param config if specified, the session will copy configuration from the KConfig instead of opening the file
      */
-    KateSession(const QString &file, const QString &name, const bool anonymous, const KConfig *config = 0);
+    KateSession(const QString &file, const QString &name, const bool anonymous, const KConfig *config = nullptr);
 
 private:
     QString m_name;

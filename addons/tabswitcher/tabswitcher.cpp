@@ -166,7 +166,7 @@ void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)
             m_model->removeRow(i);
 
             // disconnect documentNameChanged() signal
-            disconnect(document, 0, this, 0);
+            disconnect(document, nullptr, this, nullptr);
 
             break;
         }

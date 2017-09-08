@@ -27,7 +27,7 @@
 #include <QIcon>
 
 KateProjectCompletion::KateProjectCompletion(KateProjectPlugin *plugin)
-    : KTextEditor::CodeCompletionModel(0)
+    : KTextEditor::CodeCompletionModel(nullptr)
     , m_plugin(plugin)
 {
 }

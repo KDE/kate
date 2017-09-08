@@ -83,7 +83,7 @@ int KateFileTreePlugin::configPages() const
 KTextEditor::ConfigPage *KateFileTreePlugin::configPage(int number, QWidget *parent)
 {
     if (number != 0) {
-        return 0;
+        return nullptr;
     }
 
     KateFileTreeConfigPage *page = new KateFileTreeConfigPage(parent, this);

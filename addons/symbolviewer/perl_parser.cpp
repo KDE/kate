@@ -30,9 +30,9 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  QPixmap sct( ( const char** ) struct_xpm );
  QPixmap mcr( ( const char** ) macro_xpm );
  QPixmap cls_int( ( const char** ) class_int_xpm );
- QTreeWidgetItem *node = NULL;
- QTreeWidgetItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL;
- QTreeWidgetItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL;
+ QTreeWidgetItem *node = nullptr;
+ QTreeWidgetItem *mcrNode = nullptr, *sctNode = nullptr, *clsNode = nullptr;
+ QTreeWidgetItem *lastMcrNode = nullptr, *lastSctNode = nullptr, *lastClsNode = nullptr;
 
  KTextEditor::Document *kv = m_mainWindow->activeView()->document();
 

@@ -27,8 +27,8 @@
 #include <klocalizedstring.h>
 
 ReplaceMatches::ReplaceMatches(QObject *parent) : QObject(parent),
-m_manager(0),
-m_tree(0),
+m_manager(nullptr),
+m_tree(nullptr),
 m_rootIndex(-1)
 {
     connect(this, SIGNAL(replaceNextMatch()), this, SLOT(doReplaceNextMatch()), Qt::QueuedConnection);
@@ -36,7 +36,7 @@ m_rootIndex(-1)
 
 void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegularExpression &regexp, const QString &replace)
 {
-    if (m_manager == 0) return;
+    if (m_manager == nullptr) return;
     if (m_rootIndex != -1) return;
 
     m_tree = tree;
@@ -67,7 +67,7 @@ KTextEditor::Document *ReplaceMatches::findNamed(const QString &name)
             return it;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 

@@ -46,7 +46,7 @@ class EditSnippet : public QDialog
 
   public:
     /// @p snippet set to 0 when you want to create a new snippet.
-    explicit EditSnippet(SnippetRepository* repo, Snippet* snippet, QWidget* parent = 0);
+    explicit EditSnippet(SnippetRepository* repo, Snippet* snippet, QWidget* parent = nullptr);
     virtual ~EditSnippet();
 
     void setSnippetText(const QString& text);

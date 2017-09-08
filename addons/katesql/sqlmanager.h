@@ -31,7 +31,7 @@ class SQLManager : public QObject
   Q_OBJECT
 
   public:
-    SQLManager(QObject *parent = 0);
+    SQLManager(QObject *parent = nullptr);
     ~SQLManager();
 
     ConnectionModel *connectionModel();

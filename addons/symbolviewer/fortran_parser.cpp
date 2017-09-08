@@ -31,9 +31,9 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
  int fnd,block=0,blockend=0,paro=0,parc=0;
  bool mainprog;
 
- QTreeWidgetItem *node = NULL;
- QTreeWidgetItem *subrNode = NULL, *funcNode = NULL, *modNode = NULL;
- QTreeWidgetItem *lastSubrNode = NULL, *lastFuncNode = NULL, *lastModNode = NULL;
+ QTreeWidgetItem *node = nullptr;
+ QTreeWidgetItem *subrNode = nullptr, *funcNode = nullptr, *modNode = nullptr;
+ QTreeWidgetItem *lastSubrNode = nullptr, *lastFuncNode = nullptr, *lastModNode = nullptr;
 
  QPixmap func( ( const char** ) class_xpm );
  QPixmap subr( ( const char** ) macro_xpm );

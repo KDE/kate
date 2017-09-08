@@ -117,7 +117,7 @@ KateSessionChooser::KateSessionChooser(QWidget *parent, const QString &lastSessi
     connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
 
     setResult(resultNone);
-    selectionChanged(NULL, NULL);
+    selectionChanged(nullptr, nullptr);
 }
 
 KateSessionChooser::~KateSessionChooser()

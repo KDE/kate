@@ -36,7 +36,7 @@ class PluginKateTextFilter : public KTextEditor::Plugin
     /**
      * Plugin constructor.
      */
-    explicit PluginKateTextFilter(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
+    explicit PluginKateTextFilter(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
 
     virtual ~PluginKateTextFilter();
 

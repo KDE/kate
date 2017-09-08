@@ -471,7 +471,7 @@ void KateViewSpace::documentDestroyed(QObject *doc)
     m_lruDocList.remove(m_lruDocList.indexOf(invalidDoc));
 
     // disconnect entirely
-    disconnect(doc, 0, this, 0);
+    disconnect(doc, nullptr, this, nullptr);
 
     // case: there was no view created yet, but still a button was added
     if (m_docToTabId.contains(invalidDoc)) {

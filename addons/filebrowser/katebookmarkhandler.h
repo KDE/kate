@@ -33,7 +33,7 @@ class KateBookmarkHandler : public QObject, public KBookmarkOwner
     Q_OBJECT
 
   public:
-    explicit KateBookmarkHandler( KateFileBrowser *parent, QMenu *kpopupmenu = 0 );
+    explicit KateBookmarkHandler( KateFileBrowser *parent, QMenu *kpopupmenu = nullptr );
     ~KateBookmarkHandler();
 
     // KBookmarkOwner interface:

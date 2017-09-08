@@ -34,7 +34,7 @@ class SearchDiskFiles: public QThread
     Q_OBJECT
 
 public:
-    SearchDiskFiles(QObject *parent = 0);
+    SearchDiskFiles(QObject *parent = nullptr);
     ~SearchDiskFiles();
 
     void startSearch(const QStringList &iles,

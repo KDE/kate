@@ -45,7 +45,7 @@ class PluginKateXMLTools : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit PluginKateXMLTools(QObject *parent = 0, const QVariantList& = QVariantList());
+    explicit PluginKateXMLTools(QObject *parent = nullptr, const QVariantList& = QVariantList());
     ~PluginKateXMLTools();
     QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 };

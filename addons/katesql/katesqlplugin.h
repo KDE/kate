@@ -31,14 +31,14 @@ class KateSQLPlugin : public KTextEditor::Plugin
   Q_OBJECT
 
   public:
-    explicit KateSQLPlugin(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
+    explicit KateSQLPlugin(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
 
     virtual ~KateSQLPlugin();
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
 
     int configPages() const Q_DECL_OVERRIDE { return 1; };
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0) Q_DECL_OVERRIDE;
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
     QString configPageName (int number = 0) const;
     QString configPageFullName (int number = 0) const;
     QIcon configPageIcon (int number = 0) const;

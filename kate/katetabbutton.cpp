@@ -75,8 +75,8 @@ QSize TabCloseButton::sizeHint() const
     ensurePolished();
 
     // read the metrics from the style
-    const int w = style()->pixelMetric(QStyle::PM_TabCloseIndicatorWidth, 0, this);
-    const int h = style()->pixelMetric(QStyle::PM_TabCloseIndicatorHeight, 0, this);
+    const int w = style()->pixelMetric(QStyle::PM_TabCloseIndicatorWidth, nullptr, this);
+    const int h = style()->pixelMetric(QStyle::PM_TabCloseIndicatorHeight, nullptr, this);
     return QSize(w, h);
 }
 
@@ -95,7 +95,7 @@ void TabCloseButton::leaveEvent(QEvent *event)
 
 KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     : QAbstractButton(parent)
-    , m_geometryAnimation(0)
+    , m_geometryAnimation(nullptr)
 {
     setCheckable(true);
     setFocusPolicy(Qt::NoFocus);
@@ -103,7 +103,7 @@ KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     setText(text);
 
     // add close button
-    const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, 0, this);
+    const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, nullptr, this);
     m_closeButton = new TabCloseButton(this);
     QHBoxLayout * hbox = new QHBoxLayout(this);
     hbox->setSpacing(0);
@@ -133,7 +133,7 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     }
 
     // compute sane margins
-    const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, 0, this);
+    const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, nullptr, this);
     const int barMargin = margin / 2;
     const int barHeight = ceil(height() / 10.0);
 
@@ -236,7 +236,7 @@ void KateTabButton::moveEvent(QMoveEvent *event)
     // the tab buttons geometry, we need to adjust the width by the separator's
     // width to avoid artifacts
     if (parentWidget()) {
-        const int w = style()->pixelMetric(QStyle::PM_ToolBarSeparatorExtent, 0, this);
+        const int w = style()->pixelMetric(QStyle::PM_ToolBarSeparatorExtent, nullptr, this);
         QRect rect = geometry();
         rect.moveLeft(event->oldPos().x());
         rect.adjust(-w, 0, w, 0);
@@ -268,7 +268,7 @@ void KateTabButton::setAnimatedGeometry(const QRect & startGeom,
     }
 
     // if the style does not want animations, just set geometry
-    if (! style()->styleHint(QStyle::SH_Widget_Animate, 0, this)
+    if (! style()->styleHint(QStyle::SH_Widget_Animate, nullptr, this)
         || (isVisible() && endGeom == startGeom))
     {
         setGeometry(endGeom);

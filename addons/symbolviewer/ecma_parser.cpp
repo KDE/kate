@@ -41,7 +41,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
 
   QPixmap cls( ( const char** ) class_xpm );
   QPixmap mtd( ( const char** ) method_xpm );
-  QTreeWidgetItem *node = NULL;
+  QTreeWidgetItem *node = nullptr;
 
   if (m_plugin->treeOn) {
     m_symbols->setRootIsDecorated(1);
@@ -201,16 +201,16 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         // if we have a function identifier, make a node
         if (identifier.length() > 0) {
           // make a node for the function
-          QTreeWidgetItem *parent = NULL;
+          QTreeWidgetItem *parent = nullptr;
           if (! nodes.isEmpty()) {
             parent = nodes.last();
           }
-          if ((m_plugin->treeOn) && (parent != NULL))
+          if ((m_plugin->treeOn) && (parent != nullptr))
             node = new QTreeWidgetItem(parent);
           else
             node = new QTreeWidgetItem(m_symbols);
           // mark the parent as a class (if it's not the root level)
-          if (parent != NULL) {
+          if (parent != nullptr) {
             parent->setIcon(0, QIcon(cls));
             // mark this function as a method of the parent
             node->setIcon(0, QIcon(mtd));
@@ -248,11 +248,11 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
 
         // if we have an id, make a node
         if (identifier.length() > 0) {
-          QTreeWidgetItem *parent = NULL;
+          QTreeWidgetItem *parent = nullptr;
           if (! nodes.isEmpty()) {
             parent = nodes.last();
           }
-          if ((m_plugin->treeOn) && (parent != NULL))
+          if ((m_plugin->treeOn) && (parent != nullptr))
             node = new QTreeWidgetItem(parent);
           else
             node = new QTreeWidgetItem(m_symbols);
@@ -272,7 +272,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         brace_depth++;
         // if a node has been added at this level or above, 
         //  use it to extend the stack
-        if (node != NULL)
+        if (node != nullptr)
           nodes.append(node);
         // if no node has been added, extend the last node to this depth
         else if (! nodes.isEmpty()) 
@@ -281,7 +281,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
       else if (current == QLatin1Char('}')) {
         brace_depth--;
         // pop the last node off the stack
-        node = NULL;
+        node = nullptr;
         if (! nodes.isEmpty()) nodes.removeLast();
       }
     } // (scan the stripped line)

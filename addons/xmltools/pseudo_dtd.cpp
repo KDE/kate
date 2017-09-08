@@ -42,14 +42,14 @@ void PseudoDTD::analyzeDTD(QString &metaDtdUrl, QString &metaDtd)
 {
     QDomDocument doc("dtdIn_xml");
     if (! doc.setContent(metaDtd)) {
-        KMessageBox::error(0, i18n("The file '%1' could not be parsed. "
+        KMessageBox::error(nullptr, i18n("The file '%1' could not be parsed. "
                                    "Please check that the file is well-formed XML.", metaDtdUrl),
                            i18n("XML Plugin Error"));
         return;
     }
 
     if (doc.doctype().name() != "dtd") {
-        KMessageBox::error(0, i18n("The file '%1' is not in the expected format. "
+        KMessageBox::error(nullptr, i18n("The file '%1' is not in the expected format. "
                                    "Please check that the file is of this type:\n"
                                    "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
                                    "You can produce such files with dtdparse. "

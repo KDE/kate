@@ -46,7 +46,7 @@ class KWrite : public KParts::MainWindow
     Q_OBJECT
 
 public:
-    KWrite(KTextEditor::Document * = 0L);
+    KWrite(KTextEditor::Document * = nullptr);
     ~KWrite();
 
     void loadURL(const QUrl &url);

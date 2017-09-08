@@ -29,7 +29,7 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *plugin
     : QWidget()
     , m_pluginView(pluginView)
     , m_project(project)
-    , m_messageWidget(0)
+    , m_messageWidget(nullptr)
     , m_lineEdit(new QLineEdit())
     , m_treeView(new QTreeView())
     , m_model(new QStandardItemModel(m_treeView))

@@ -156,7 +156,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     locStackSplitter->setOrientation(Qt::Vertical);
 
     // config page
-    m_configView = new ConfigView(NULL, mainWin);
+    m_configView = new ConfigView(nullptr, mainWin);
 
     m_ioView = new IOView();
     connect(m_configView, SIGNAL(showIO(bool)),
@@ -323,8 +323,8 @@ void KatePluginGDBView::writeSessionConfig(KConfigGroup& config)
 
 void KatePluginGDBView::slotDebug()
 {
-    disconnect(m_ioView, SIGNAL(stdOutText(QString)), 0, 0);
-    disconnect(m_ioView, SIGNAL(stdErrText(QString)), 0, 0);
+    disconnect(m_ioView, SIGNAL(stdOutText(QString)), nullptr, nullptr);
+    disconnect(m_ioView, SIGNAL(stdErrText(QString)), nullptr, nullptr);
     if (m_configView->showIOTab()) {
         connect(m_ioView, SIGNAL(stdOutText(QString)), m_ioView, SLOT(addStdOutText(QString)));
         connect(m_ioView, SIGNAL(stdErrText(QString)), m_ioView, SLOT(addStdErrText(QString)));

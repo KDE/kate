@@ -30,7 +30,7 @@ class TextOutputWidget : public QWidget
   Q_OBJECT
 
   public:
-    TextOutputWidget(QWidget *parent = 0);
+    TextOutputWidget(QWidget *parent = nullptr);
     ~TextOutputWidget();
 
   public Q_SLOTS:

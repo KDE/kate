@@ -60,8 +60,8 @@ public:
 
 KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const char *name)
     : QDialog(parent),
-      m_proc(0),
-      m_diffFile(0),
+      m_proc(nullptr),
+      m_diffFile(nullptr),
       m_blockAddDocument(false)
 {
     setWindowTitle(i18n("Documents Modified on Disk"));
@@ -138,7 +138,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     buttons->addButton(reloadButton, QDialogButtonBox::DestructiveRole);
     connect(reloadButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotReload);
 
-    slotSelectionChanged(NULL, NULL);
+    slotSelectionChanged(nullptr, nullptr);
 }
 
 KateMwModOnHdDialog::~KateMwModOnHdDialog()
@@ -297,11 +297,11 @@ void KateMwModOnHdDialog::slotDataAvailable()
 void KateMwModOnHdDialog::slotPDone()
 {
     setCursor(Qt::ArrowCursor);
-    slotSelectionChanged(twDocuments->currentItem(), 0);
+    slotSelectionChanged(twDocuments->currentItem(), nullptr);
 
     const QProcess::ExitStatus es = m_proc->exitStatus();
     delete m_proc;
-    m_proc = 0;
+    m_proc = nullptr;
 
     if (es != QProcess::NormalExit) {
         KMessageBox::sorry(this,
@@ -309,7 +309,7 @@ void KateMwModOnHdDialog::slotPDone()
                                 "diff(1) is installed and in your PATH."),
                            i18n("Error Creating Diff"));
         delete m_diffFile;
-        m_diffFile = 0;
+        m_diffFile = nullptr;
         return;
     }
 
@@ -318,14 +318,14 @@ void KateMwModOnHdDialog::slotPDone()
                                  i18n("Ignoring amount of white space changed, the files are identical."),
                                  i18n("Diff Output"));
         delete m_diffFile;
-        m_diffFile = 0;
+        m_diffFile = nullptr;
         return;
     }
 
     m_diffFile->setAutoRemove(false);
     QUrl url = QUrl::fromLocalFile(m_diffFile->fileName());
     delete m_diffFile;
-    m_diffFile = 0;
+    m_diffFile = nullptr;
 
     // KRun::runUrl should delete the file, once the client exits
     KRun::runUrl(url, QStringLiteral("text/x-patch"), this, true);

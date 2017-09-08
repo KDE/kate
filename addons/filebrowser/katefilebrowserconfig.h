@@ -33,7 +33,7 @@ class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
     Q_OBJECT
 
   public:
-    explicit KateFileBrowserConfigPage( QWidget* parent = 0, KateFileBrowser *kfb = 0);
+    explicit KateFileBrowserConfigPage( QWidget* parent = nullptr, KateFileBrowser *kfb = nullptr);
     virtual ~KateFileBrowserConfigPage()
     {}
 

@@ -132,6 +132,12 @@ if the file starts with a comment, such as a copyright</para></listitem>
 for code folding, if code folding is available.</para></listitem>
 </varlistentry>
 <varlistentry>
+<term><guilabel>Show preview of folded code
+</guilabel></term>
+<listitem><para>If checked, hovering over a folded region shows a preview of the folded text
+in a popup.</para></listitem>
+</varlistentry>
+<varlistentry>
 <term><guilabel>Show icon border
 </guilabel></term>
 <listitem><para>If this is checked, you will see an icon border on the left
@@ -158,6 +164,13 @@ will show marks on the vertical scrollbar. These marks will
 for instance show bookmarks.</para></listitem>
 </varlistentry>
 <varlistentry>
+<term><guilabel>Show text preview on scrollbar</guilabel></term>
+<listitem><para>If this option is checked, and you hover the scrollbar with the mouse cursor
+a small text preview with several lines of the current document around the cursor position will be displayed.
+This allows you to quickly switch to another part of the document.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
 <term><guilabel>Show scrollbar mini-map</guilabel></term>
 <listitem><para>If this option is checked, every new view will show a mini map of the 
 document on the vertical scrollbar.</para>
@@ -167,6 +180,13 @@ document on the vertical scrollbar.</para>
 <varlistentry>
 <term><guilabel>Minimap Width</guilabel></term>
 <listitem><para>Adjusts the width of the scrollbar mini-map, defined in pixels.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Scrollbars visibility</guilabel></term>
+<listitem><para>Switch the scrollbar on, off or show the scroolbar only when needed.
+Click with the &LMB; on the blue rectangle to display the line numer range of the docmument displayed on the screen.
+Keep the &LMB; pressed outside the blue rectangle to automatically scroll through the document
 </para></listitem>
 </varlistentry>
 </variablelist>
@@ -1272,7 +1292,7 @@ by other objects such as plugins, which can use them for their own purpose.
 For example, the variable indent mode uses document variables for its
 configuration.</para>
 
-<para>The variables listed here documents &kappname; version 3.7. More variables
+<para>The variables listed here documents &kappname; version 5.38. More variables
 may be added in the future. There are 3 possible types of values for variables,
 with the following valid expressions:
 <itemizedlist>
@@ -1289,15 +1309,14 @@ with the following valid expressions:
 
 <variablelist>
 
+<varlistentry id="variable-auto-brackets">
+<term><cmdsynopsis><command>auto-brackets</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable automatic insertion of brackets.</para></listitem>
+</varlistentry>
+
 <varlistentry id="variable-auto-center-lines">
 <term><cmdsynopsis><command>auto-center-lines</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the number of autocenter lines.</para></listitem>
-</varlistentry>
-
-<varlistentry id="variable-auto-insert-doxygen">
-<term><cmdsynopsis><command>auto-insert-doxygen</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Turn insertion of the leading asterisk in doxygen comments on or
-off. This has no effect unless you use the C-style auto-indenter. </para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-background-color">
@@ -1319,18 +1338,10 @@ on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-byte-order-mark">
-<term><cmdsynopsis><command>bom | byte-order-mark</command><arg>BOOL</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>bom | byte-order-mark | byte-order-marker</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Enable/disable the byte order mark (BOM) when saving files in Unicode format
 (utf8, utf16, utf32).</para>
 <para>Since: &kate; 3.4 (&kde; 4.4)</para></listitem>
-</varlistentry>
-
-<varlistentry id="variable-encoding">
-<term><cmdsynopsis><command>encoding</command><arg>STRING</arg></cmdsynopsis></term>
-<listitem><para>Set the encoding used for loading or saving the file.
-As the variables in the document will be read after loading, this impacts only the saving.
-If you place it in a <filename>.kateconfig</filename> file, it will have an effect for the loading, too.</para>
-<para>Since: &kate; 3.10 (&kde; 4.10)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-bracket-highlight-color">
@@ -1371,6 +1382,11 @@ off.</para></listitem>
 <link linkend="advanced-editing-tools-code-folding">folding markers</link>
 on or off.
 </para></listitem>
+</varlistentry>
+
+<varlistentry id="variable-folding-preview">
+<term><cmdsynopsis><command>folding-preview</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable folding preview in the editor border.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-font-size">
@@ -1431,12 +1447,6 @@ be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para
 <listitem><para>Set the display of line numbers on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry id="variable-mixed-indent">
-<term><cmdsynopsis><command>mixed-indent</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set mixed indentation, as with &Emacs;, on or off.</para>
-<para>Note: Deprecated since &kate; 3 in &kde;4. This variable is ignored, set <command>replace-tabs on;</command> instead for the future.</para></listitem>
-</varlistentry>
-
 <varlistentry id="variable-newline-at-eof">
 <term><cmdsynopsis><command>newline-at-eof</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Add an empty line at the end of the file (EOF) when saving the document.</para>
@@ -1454,12 +1464,14 @@ be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para
 on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry id="variable-remove-trailing-space">
-<term><cmdsynopsis><command>remove-trailing-space</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set dynamic end of line cleanup on or off.</para>
-<para>Note: Deprecated since &kde; 4.10. Please use <link linkend="variable-remove-trailing-spaces">
-remove-trailing-spaces</link> with the desired choice instead.
-</para></listitem>
+<varlistentry id="variable-replace-tabs-save">
+<term><cmdsynopsis><command>replace-tabs-save</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set tab to space conversion on save on or off.</para></listitem>
+</varlistentry>
+
+<varlistentry id="variable-replace-tabs">
+<term><cmdsynopsis><command>replace-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set dynamic tab to space conversion on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-remove-trailing-spaces">
@@ -1471,26 +1483,18 @@ remove-trailing-spaces</link> with the desired choice instead.
 modified lines. The modified lines are marked by the line modification system.</para></listitem>
 <listitem><para><userinput>all</userinput>, <userinput>*</userinput> or <userinput>2</userinput>: remove trailing spaces in the entire document.</para></listitem>
 </itemizedlist>
-<para>Since: &kde; 4.10. This deprecates the options <userinput>remove-trailing-space</userinput> and <userinput>replace-trailing-space-save</userinput>.
+<para>Since: &kde; 4.10.
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="variable-replace-tabs-save">
-<term><cmdsynopsis><command>replace-tabs-save</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set tab to space conversion on save on or off.</para></listitem>
+<varlistentry id="variable-scrollbar-minimap">
+<term><cmdsynopsis><command>scrollbar-minimap</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Show scrollbar minimap.</para></listitem>
 </varlistentry>
 
-<varlistentry id="variable-replace-tabs">
-<term><cmdsynopsis><command>replace-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set dynamic tab to space conversion on or off.</para></listitem>
-</varlistentry>
-
-<varlistentry id="variable-replace-trailing-space-save">
-<term><cmdsynopsis><command>replace-trailing-space-save</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set end of line cleanup on save on or off.</para>
-<para>Note: Deprecated since &kde; 4.10. Please use <link linkend="variable-remove-trailing-spaces">
-remove-trailing-spaces</link> with the desired choice instead.
-</para></listitem>
+<varlistentry id="variable-scrollbar-preview">
+<term><cmdsynopsis><command>scrollbar-preview</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Show scrollbar preview.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-scheme">
@@ -1514,13 +1518,6 @@ be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para
 <term><cmdsynopsis><command>smart-home</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set <link linkend="pref-edit-cursor-selection">smart home navigation</link>
 on or off.</para></listitem>
-</varlistentry>
-
-<varlistentry id="variable-space-indent">
-<term><cmdsynopsis><command>space-indent</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set indentation with spaces on or off.</para>
-<para>Note: Deprecated since &kate; 3 in &kde;4. Mixed indentation is the default behavior.
-Set <command>replace-tabs on;</command> to achieve space-only indentation.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-tab-indents">

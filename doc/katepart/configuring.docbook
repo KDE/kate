@@ -184,7 +184,7 @@ document on the vertical scrollbar.</para>
 </varlistentry>
 <varlistentry>
 <term><guilabel>Scrollbars visibility</guilabel></term>
-<listitem><para>Switch the scrollbar on, off or show the scroolbar only when needed.
+<listitem><para>Switch the scrollbar on, off or show the scrollbar only when needed.
 Click with the &LMB; on the blue rectangle to display the line number range of the document displayed on the screen.
 Keep the &LMB; pressed outside the blue rectangle to automatically scroll through the document.
 </para></listitem>

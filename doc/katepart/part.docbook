@@ -291,7 +291,7 @@ depends on some of the options described below.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Match case sensitive</guilabel></term>
+<term><guilabel>Match case</guilabel></term>
 <listitem>
 <para>If enabled, the search will be limited to entries that match the
 case (upper or lower) of each of the characters in the search pattern.</para>

@@ -208,7 +208,7 @@
      <item row="1" column="5">
       <widget class="QToolButton" name="matchCase">
        <property name="toolTip">
-        <string>Match Case</string>
+        <string>Match case</string>
        </property>
        <property name="text">
         <string/>

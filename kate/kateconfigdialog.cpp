@@ -335,7 +335,7 @@ void KateConfigDialog::slotApply()
         KateApp::self()->pluginManager()->writeConfig(sessionConfig);
     }
 
-    foreach(PluginPageListItem * plugin, m_pluginPages.values()) {
+    foreach(PluginPageListItem * plugin, m_pluginPages) {
         if (!plugin) {
             continue;
         }
@@ -362,7 +362,7 @@ void KateConfigDialog::slotChanged()
 
 void KateConfigDialog::showAppPluginPage(KTextEditor::Plugin *p, uint id)
 {
-    foreach(PluginPageListItem * plugin, m_pluginPages.values()) {
+    foreach(PluginPageListItem * plugin, m_pluginPages) {
         if ((plugin->plugin == p) && (id == plugin->idInPlugin)) {
             setCurrentPage(plugin->pageWidgetItem);
             break;

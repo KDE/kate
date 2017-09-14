@@ -899,13 +899,15 @@ void KateFileTreeModel::updateBackgrounds(bool force)
         m_brushes[it.key()] = QBrush(KColorUtils::mix(QPalette().color(QPalette::Base), shade, t));
     }
 
-    foreach(ProxyItem * item, m_brushes.keys()) {
+    for (auto it = m_brushes.constBegin(), end = m_brushes.constEnd(); it != end; ++it) {
+        ProxyItem *item = it.key();
         oldBrushes.remove(item);
         const QModelIndex idx = createIndex(item->row(), 0, item);
         dataChanged(idx, idx);
     }
 
-    foreach(ProxyItem * item, oldBrushes.keys()) {
+    for (auto it = oldBrushes.constBegin(), end = oldBrushes.constEnd(); it != end; ++it) {
+        ProxyItem *item = it.key();
         const QModelIndex idx = createIndex(item->row(), 0, item);
         dataChanged(idx, idx);
     }

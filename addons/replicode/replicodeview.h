@@ -41,9 +41,9 @@ class ReplicodeView : public QObject, public KXMLGUIClient, public KTextEditor::
 
     public:
         explicit ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow);
-        ~ReplicodeView();
-        void readSessionConfig(const KConfigGroup&) Q_DECL_OVERRIDE {}
-        void writeSessionConfig(KConfigGroup&) Q_DECL_OVERRIDE {}
+        ~ReplicodeView() override;
+        void readSessionConfig(const KConfigGroup&) override {}
+        void writeSessionConfig(KConfigGroup&) override {}
 
     private Q_SLOTS:
         void runReplicode();

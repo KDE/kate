@@ -47,7 +47,7 @@ public:
 
     explicit KateProjectWorker(const QString &baseDir, const QVariantMap &projectMap);
 
-    void run(ThreadWeaver::JobPointer self, ThreadWeaver::Thread *thread) Q_DECL_OVERRIDE;
+    void run(ThreadWeaver::JobPointer self, ThreadWeaver::Thread *thread) override;
 
 Q_SIGNALS:
     void loadDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);

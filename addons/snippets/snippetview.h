@@ -101,7 +101,7 @@ private Q_SLOTS:
     void validateActions();
 
     /// insert snippet on double click
-    bool eventFilter(QObject* , QEvent* ) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject* , QEvent* ) override;
 private:
     QStandardItem* currentItem();
 

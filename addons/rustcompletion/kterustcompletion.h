@@ -52,20 +52,20 @@ class KTERustCompletion : public KTextEditor::CodeCompletionModel, public KTextE
 
     public:
         KTERustCompletion(KTERustCompletionPlugin *plugin);
-        ~KTERustCompletion();
+        ~KTERustCompletion() override;
 
         enum MatchAction {
             Complete = 0,
             FindDefinition
         };
 
-        bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
+        bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override;
 
-        void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType) Q_DECL_OVERRIDE;
+        void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType) override;
 
-        void aborted(KTextEditor::View *view) Q_DECL_OVERRIDE;
+        void aborted(KTextEditor::View *view) override;
 
-        QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+        QVariant data(const QModelIndex &index, int role) const override;
 
         QList<CompletionMatch> getMatches(const KTextEditor::Document *document, MatchAction action, const KTextEditor::Cursor &position);
 

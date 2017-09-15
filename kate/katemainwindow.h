@@ -61,8 +61,8 @@ class KateContainerStackedLayout : public QStackedLayout
     Q_OBJECT
 public:
     KateContainerStackedLayout(QWidget *parent);
-    QSize sizeHint() const Q_DECL_OVERRIDE;
-    QSize minimumSize() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
+    QSize minimumSize() const override;
 };
 
 class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBase
@@ -80,7 +80,7 @@ public:
     /**
      * Destruct the nice window
      */
-    ~KateMainWindow();
+    ~KateMainWindow() override;
 
     /**
      * Accessor methodes for interface and child objects
@@ -113,9 +113,9 @@ public:
     bool showModOnDiskPrompt();
 
 public:
-    /*reimp*/ void readProperties(const KConfigGroup &config) Q_DECL_OVERRIDE;
-    /*reimp*/ void saveProperties(KConfigGroup &config) Q_DECL_OVERRIDE;
-    /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig) Q_DECL_OVERRIDE;
+    /*reimp*/ void readProperties(const KConfigGroup &config) override;
+    /*reimp*/ void saveProperties(KConfigGroup &config) override;
+    /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig) override;
 
 public:
     bool queryClose_internal(KTextEditor::Document *doc = nullptr);
@@ -144,7 +144,7 @@ private:
 
     void setupMainWindow();
     void setupActions();
-    bool queryClose() Q_DECL_OVERRIDE;
+    bool queryClose() override;
 
     void addMenuBarActionToContextMenu();
     void removeMenuBarActionFromContextMenu();
@@ -154,8 +154,8 @@ private:
      */
     void readOptions();
 
-    void dragEnterEvent(QDragEnterEvent *) Q_DECL_OVERRIDE;
-    void dropEvent(QDropEvent *) Q_DECL_OVERRIDE;
+    void dragEnterEvent(QDragEnterEvent *) override;
+    void dropEvent(QDropEvent *) override;
 
 public Q_SLOTS:
     void slotFileClose();
@@ -174,7 +174,7 @@ public Q_SLOTS:
      * Overwrite size hint for better default window sizes
      * @return size hint
      */
-    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
 
     /**
      * slots used for actions in the menus/toolbars
@@ -303,7 +303,7 @@ public Q_SLOTS:
      * Accessor to the XMLGUIFactory.
      * \return the mainwindow's KXMLGUIFactory.
      */
-    KXMLGUIFactory *guiFactory() Q_DECL_OVERRIDE {
+    KXMLGUIFactory *guiFactory() override {
         return KateMDI::MainWindow::guiFactory();
     }
 
@@ -567,8 +567,8 @@ public Q_SLOTS:
     void slotWindowActivated();
 
 protected:
-    bool event(QEvent *e) Q_DECL_OVERRIDE;
-    void mousePressEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
+    bool event(QEvent *e) override;
+    void mousePressEvent(QMouseEvent *e) override;
 };
 
 #endif

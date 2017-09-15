@@ -59,7 +59,7 @@ public:
     /// Default constructor
     CloseExceptPluginView(KTextEditor::MainWindow*, CloseExceptPlugin*);
     /// Destructor
-    ~CloseExceptPluginView();
+    ~CloseExceptPluginView() override;
 
 private Q_SLOTS:
     void viewCreated(KTextEditor::View*);
@@ -121,13 +121,13 @@ public:
     /// Default constructor
     CloseExceptPlugin(QObject* = nullptr, const QList<QVariant>& = QList<QVariant>());
     /// Destructor
-    virtual ~CloseExceptPlugin() {}
+    ~CloseExceptPlugin() override {}
     /// Create a new view of this plugin for the given main window
-    QObject* createView(KTextEditor::MainWindow*) Q_DECL_OVERRIDE;
+    QObject* createView(KTextEditor::MainWindow*) override;
     /// \name Plugin interface implementation
     //@{
-    void readSessionConfig(const KConfigGroup&) Q_DECL_OVERRIDE;
-    void writeSessionConfig(KConfigGroup&) Q_DECL_OVERRIDE;
+    void readSessionConfig(const KConfigGroup&) override;
+    void writeSessionConfig(KConfigGroup&) override;
     //@}
     bool showConfirmationNeeded() const
     {

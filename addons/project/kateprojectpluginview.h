@@ -50,7 +50,7 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
 
 public:
     KateProjectPluginView(KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWindow);
-    ~KateProjectPluginView();
+    ~KateProjectPluginView() override;
 
     /**
      * content of current active project, as variant map

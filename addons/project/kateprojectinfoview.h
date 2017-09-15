@@ -46,7 +46,7 @@ public:
     /**
      * deconstruct info view
      */
-    ~KateProjectInfoView();
+    ~KateProjectInfoView() override;
 
     /**
      * our project.
@@ -56,7 +56,7 @@ public:
         return m_project;
     }
 
-    void showEvent(QShowEvent *) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *) override;
 
 private:
     /**

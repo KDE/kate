@@ -35,7 +35,7 @@ class KateSessionOpenDialog : public QDialog
 
 public:
     KateSessionOpenDialog(QWidget *parent);
-    ~KateSessionOpenDialog();
+    ~KateSessionOpenDialog() override;
 
     KateSession::Ptr selectedSession();
 

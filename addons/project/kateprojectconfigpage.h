@@ -30,16 +30,16 @@ class KateProjectConfigPage : public KTextEditor::ConfigPage
     Q_OBJECT
 public:
     explicit KateProjectConfigPage(QWidget *parent = nullptr, KateProjectPlugin *plugin = nullptr);
-    ~KateProjectConfigPage() {}
+    ~KateProjectConfigPage() override {}
 
-    QString name() const Q_DECL_OVERRIDE;
-    QString fullName() const Q_DECL_OVERRIDE;
-    QIcon icon() const Q_DECL_OVERRIDE;
+    QString name() const override;
+    QString fullName() const override;
+    QIcon icon() const override;
 
 public Q_SLOTS:
-    void apply() Q_DECL_OVERRIDE;
-    void defaults() Q_DECL_OVERRIDE;
-    void reset() Q_DECL_OVERRIDE;
+    void apply() override;
+    void defaults() override;
+    void reset() override;
 
 private Q_SLOTS:
     void slotMyChanged();

@@ -45,7 +45,7 @@ public:
     /**
      * deconstruct project
      */
-    ~KateProjectViewTree();
+    ~KateProjectViewTree() override;
 
     /**
      * our project.
@@ -84,7 +84,7 @@ protected:
      * Create matching context menu.
      * @param event context menu event
      */
-    void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
+    void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
     /**

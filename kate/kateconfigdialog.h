@@ -53,7 +53,7 @@ class KateConfigDialog : public KPageDialog
 
 public:
     KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view);
-    ~KateConfigDialog();
+    ~KateConfigDialog() override;
 
 public: // static
     /**

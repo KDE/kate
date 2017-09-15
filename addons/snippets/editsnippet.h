@@ -47,11 +47,11 @@ class EditSnippet : public QDialog
   public:
     /// @p snippet set to 0 when you want to create a new snippet.
     explicit EditSnippet(SnippetRepository* repo, Snippet* snippet, QWidget* parent = nullptr);
-    virtual ~EditSnippet();
+    ~EditSnippet() override;
 
     void setSnippetText(const QString& text);
 
-    void reject() Q_DECL_OVERRIDE;
+    void reject() override;
 
   private:
     Ui::EditSnippetBase* m_ui;

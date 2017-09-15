@@ -44,7 +44,7 @@ class KateTabBar : public QWidget
 
 public:
     explicit KateTabBar(QWidget *parent = nullptr);
-    virtual ~KateTabBar();
+    ~KateTabBar() override;
 
     /**
      * Adds a new tab with \a text. Returns the new tab's id.

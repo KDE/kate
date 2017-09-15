@@ -57,11 +57,11 @@ class KateCTagsView : public QObject, public KXMLGUIClient, public KTextEditor::
 
 public:
   KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
-    ~KateCTagsView();
+    ~KateCTagsView() override;
 
     // reimplemented: read and write session config
-    void readSessionConfig (const KConfigGroup& config) Q_DECL_OVERRIDE;
-    void writeSessionConfig (KConfigGroup& config) Q_DECL_OVERRIDE;
+    void readSessionConfig (const KConfigGroup& config) override;
+    void writeSessionConfig (KConfigGroup& config) override;
 
 public Q_SLOTS:
     void gotoDefinition();
@@ -80,7 +80,7 @@ public Q_SLOTS:
     void updateDone(int exitCode, QProcess::ExitStatus status);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *ev) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private Q_SLOTS:
     void resetCMD();

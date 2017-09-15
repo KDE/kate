@@ -39,7 +39,7 @@ public:
     };
 
     AdvancedGDBSettings(QWidget *parent = nullptr);
-    ~AdvancedGDBSettings();
+    ~AdvancedGDBSettings() override;
 
     const QStringList configs() const;
 

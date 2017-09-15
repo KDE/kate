@@ -32,7 +32,7 @@ class SQLManager : public QObject
 
   public:
     SQLManager(QObject *parent = nullptr);
-    ~SQLManager();
+    ~SQLManager() override;
 
     ConnectionModel *connectionModel();
     void createConnection(const Connection &conn);

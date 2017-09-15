@@ -50,7 +50,7 @@ public:
     /**
      * Create a new tab switcher for @p mainWindow.
      */
-    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
 private:
     QList<TabSwitcherPluginView *> m_views;
@@ -69,7 +69,7 @@ public:
     /**
      * View destructor.
      */
-    virtual ~TabSwitcherPluginView();
+    ~TabSwitcherPluginView() override;
 
     /**
      * Setup the shortcut actions.

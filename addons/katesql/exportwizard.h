@@ -32,7 +32,7 @@ class ExportWizard : public QWizard
 {
   public:
     ExportWizard(QWidget *parent);
-    ~ExportWizard();
+    ~ExportWizard() override;
 };
 
 
@@ -41,8 +41,8 @@ class ExportOutputPage : public QWizardPage
   public:
     ExportOutputPage(QWidget *parent=nullptr);
 
-    void initializePage() Q_DECL_OVERRIDE;
-    bool validatePage() Q_DECL_OVERRIDE;
+    void initializePage() override;
+    bool validatePage() override;
 
   private:
     QRadioButton *documentRadioButton;
@@ -56,8 +56,8 @@ class ExportFormatPage : public QWizardPage
   public:
     ExportFormatPage(QWidget *parent=nullptr);
 
-    void initializePage() Q_DECL_OVERRIDE;
-    bool validatePage() Q_DECL_OVERRIDE;
+    void initializePage() override;
+    bool validatePage() override;
 
   private:
     QCheckBox *exportColumnNamesCheckBox;

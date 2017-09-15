@@ -47,12 +47,12 @@ class KateFileTreePlugin: public KTextEditor::Plugin
 
 public:
     explicit KateFileTreePlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-    virtual ~KateFileTreePlugin();
+    ~KateFileTreePlugin() override;
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-    int configPages() const Q_DECL_OVERRIDE;
-    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
+    int configPages() const override;
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
     const KateFileTreePluginSettings &settings();
 
@@ -82,10 +82,10 @@ public:
     /**
      * Virtual destructor.
      */
-    ~KateFileTreePluginView();
+    ~KateFileTreePluginView() override;
 
-    void readSessionConfig(const KConfigGroup &config) Q_DECL_OVERRIDE;
-    void writeSessionConfig(KConfigGroup &config) Q_DECL_OVERRIDE;
+    void readSessionConfig(const KConfigGroup &config) override;
+    void writeSessionConfig(KConfigGroup &config) override;
 
     /**
      * The file tree model.

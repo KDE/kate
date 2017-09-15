@@ -41,7 +41,7 @@ class SchemaWidget : public QTreeWidget
     static const int ViewsFolderType  = QTreeWidgetItem::UserType + 103;
 
     SchemaWidget(QWidget *parent, SQLManager *manager);
-    virtual ~SchemaWidget();
+    ~SchemaWidget() override;
 
     void buildDatabase(QTreeWidgetItem * databaseItem);
     void buildTables(QTreeWidgetItem * tablesItem);
@@ -64,8 +64,8 @@ class SchemaWidget : public QTreeWidget
 
   private:
     void deleteChildren(QTreeWidgetItem *item);
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
     bool isConnectionValidAndOpen();
 
     QString m_connectionName;

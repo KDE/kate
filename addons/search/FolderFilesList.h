@@ -34,9 +34,9 @@ class FolderFilesList: public QThread
 
 public:
     FolderFilesList(QObject *parent = nullptr);
-    ~FolderFilesList();
+    ~FolderFilesList() override;
 
-    void run() Q_DECL_OVERRIDE;
+    void run() override;
 
     void generateList(const QString &folder,
                       bool recursive,

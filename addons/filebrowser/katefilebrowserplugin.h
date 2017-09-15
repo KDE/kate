@@ -38,13 +38,13 @@ class KateFileBrowserPlugin: public KTextEditor::Plugin
 
   public:
     explicit KateFileBrowserPlugin( QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>() );
-    virtual ~KateFileBrowserPlugin()
+    ~KateFileBrowserPlugin() override
     {}
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+    QObject *createView (KTextEditor::MainWindow *mainWindow) override;
 
-    int configPages() const Q_DECL_OVERRIDE;
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
+    int configPages() const override;
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
     
   public Q_SLOTS:
     void viewDestroyed(QObject* view);
@@ -67,13 +67,13 @@ class KateFileBrowserPluginView : public QObject, public KTextEditor::SessionCon
     /**
      * Virtual destructor.
      */
-    ~KateFileBrowserPluginView ();
+    ~KateFileBrowserPluginView () override;
 
-    void readSessionConfig (const KConfigGroup& config) Q_DECL_OVERRIDE;
-    void writeSessionConfig (KConfigGroup& config) Q_DECL_OVERRIDE;
+    void readSessionConfig (const KConfigGroup& config) override;
+    void writeSessionConfig (KConfigGroup& config) override;
 
   private:
-    bool eventFilter(QObject*, QEvent*) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject*, QEvent*) override;
 
     QWidget *m_toolView;
     KateFileBrowser *m_fileBrowser;

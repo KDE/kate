@@ -47,7 +47,7 @@ class KWrite : public KParts::MainWindow
 
 public:
     KWrite(KTextEditor::Document * = nullptr);
-    ~KWrite();
+    ~KWrite() override;
 
     void loadURL(const QUrl &url);
 
@@ -65,10 +65,10 @@ private:
     void addMenuBarActionToContextMenu();
     void removeMenuBarActionFromContextMenu();
 
-    bool queryClose() Q_DECL_OVERRIDE;
+    bool queryClose() override;
 
-    void dragEnterEvent(QDragEnterEvent *) Q_DECL_OVERRIDE;
-    void dropEvent(QDropEvent *) Q_DECL_OVERRIDE;
+    void dragEnterEvent(QDragEnterEvent *) override;
+    void dropEvent(QDropEvent *) override;
 
 public Q_SLOTS:
     void slotNew();
@@ -100,7 +100,7 @@ public Q_SLOTS:
      * Overwrite size hint for better default window sizes
      * @return size hint
      */
-    QSize sizeHint () const Q_DECL_OVERRIDE;
+    QSize sizeHint () const override;
 
     //config file functions
 public:
@@ -116,9 +116,9 @@ public:
     static void restore();
 
 private:
-    void readProperties(const KConfigGroup &) Q_DECL_OVERRIDE;
-    void saveProperties(KConfigGroup &) Q_DECL_OVERRIDE;
-    void saveGlobalProperties(KConfig *) Q_DECL_OVERRIDE;
+    void readProperties(const KConfigGroup &) override;
+    void saveProperties(KConfigGroup &) override;
+    void saveGlobalProperties(KConfig *) override;
 
 private:
     KTextEditor::View *m_view;
@@ -140,7 +140,7 @@ protected:
     /**
      * Event filter for QApplication to handle mac os like file open
      */
-    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *event) override;
 };
 
 #endif

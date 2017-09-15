@@ -34,13 +34,13 @@ public:
     // constructor
     TabCloseButton(QWidget * parent = nullptr);
     // paint close button depending on its state
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) override;
     // returns the size hint depending on the style
-    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
 
 protected:
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
 };
 
 /**

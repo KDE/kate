@@ -57,14 +57,14 @@ public:
     /**
      * deconstruct project
      */
-    ~KateProjectItem();
+    ~KateProjectItem() override;
 
     /**
      * Overwritten data methode for on-demand icon creation and co.
      * @param role role to get data for
      * @return data for role
      */
-    QVariant data(int role = Qt::UserRole + 1) const Q_DECL_OVERRIDE;
+    QVariant data(int role = Qt::UserRole + 1) const override;
 
 public:
     void slotModifiedChanged(KTextEditor::Document *);

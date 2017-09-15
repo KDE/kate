@@ -30,7 +30,7 @@ class ReplicodeConfig : public QTabWidget
     Q_OBJECT
 public:
     explicit ReplicodeConfig(QWidget *parent = nullptr);
-    virtual ~ReplicodeConfig();
+    ~ReplicodeConfig() override;
 
 public Q_SLOTS:
     void reset();

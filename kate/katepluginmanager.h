@@ -57,7 +57,7 @@ class KatePluginManager : public QObject
 
 public:
     KatePluginManager(QObject *parent);
-    ~KatePluginManager();
+    ~KatePluginManager() override;
 
     void unloadAllPlugins();
 

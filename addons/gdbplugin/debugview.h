@@ -36,7 +36,7 @@ class DebugView : public QObject
 Q_OBJECT
 public:
     DebugView(QObject* parent);
-    ~DebugView();
+    ~DebugView() override;
 
     void runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos);
     bool debuggerRunning() const;

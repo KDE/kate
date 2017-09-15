@@ -63,7 +63,7 @@ public:
     /**
      * deconstruct project
      */
-    ~KateProject();
+    ~KateProject() override;
 
     /**
      * Load a project from project file

@@ -43,7 +43,7 @@ class ConnectionWizard : public QWizard
     };
 
     ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent=nullptr, Qt::WindowFlags flags = nullptr);
-    ~ConnectionWizard();
+    ~ConnectionWizard() override;
 
     SQLManager *manager() { return m_manager; }
     Connection *connection() { return m_connection; }
@@ -58,8 +58,8 @@ class ConnectionDriverPage : public QWizardPage
 {
   public:
     ConnectionDriverPage(QWidget *parent=nullptr);
-    void initializePage() Q_DECL_OVERRIDE;
-    int nextId() const Q_DECL_OVERRIDE;
+    void initializePage() override;
+    int nextId() const override;
 
   private:
     KComboBox *driverComboBox;
@@ -69,10 +69,10 @@ class ConnectionStandardServerPage : public QWizardPage
 {
   public:
     ConnectionStandardServerPage(QWidget *parent=nullptr);
-    ~ConnectionStandardServerPage();
-    void initializePage() Q_DECL_OVERRIDE;
-    bool validatePage() Q_DECL_OVERRIDE;
-    int nextId() const Q_DECL_OVERRIDE;
+    ~ConnectionStandardServerPage() override;
+    void initializePage() override;
+    bool validatePage() override;
+    int nextId() const override;
 
   private:
     KLineEdit *hostnameLineEdit;
@@ -87,9 +87,9 @@ class ConnectionSQLiteServerPage : public QWizardPage
 {
   public:
     ConnectionSQLiteServerPage(QWidget *parent=nullptr);
-    void initializePage() Q_DECL_OVERRIDE;
-    bool validatePage() Q_DECL_OVERRIDE;
-    int nextId() const Q_DECL_OVERRIDE;
+    void initializePage() override;
+    bool validatePage() override;
+    int nextId() const override;
 
   private:
 //     KLineEdit *pathLineEdit;
@@ -102,9 +102,9 @@ class ConnectionSavePage : public QWizardPage
 {
   public:
     ConnectionSavePage(QWidget *parent=nullptr);
-    void initializePage() Q_DECL_OVERRIDE;
-    bool validatePage() Q_DECL_OVERRIDE;
-    int nextId() const Q_DECL_OVERRIDE;
+    void initializePage() override;
+    bool validatePage() override;
+    int nextId() const override;
 
   private:
     KLineEdit *connectionNameLineEdit;

@@ -39,9 +39,9 @@ class KateSnippetsPlugin: public KTextEditor::Plugin
 
 public:
     explicit KateSnippetsPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-    virtual ~KateSnippetsPlugin();
+    ~KateSnippetsPlugin() override;
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
 private:
     KateSnippetGlobal *m_snippetGlobal;
@@ -60,7 +60,7 @@ public:
     /**
      * Virtual destructor.
      */
-    ~KateSnippetsPluginView();
+    ~KateSnippetsPluginView() override;
 
     void readConfig();
 

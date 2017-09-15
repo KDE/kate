@@ -47,7 +47,7 @@ public:
     /**
      * Deconstruct project completion.
      */
-    ~KateProjectCompletion();
+    ~KateProjectCompletion() override;
 
     /**
      * This function is responsible to generating / updating the list of current
@@ -59,22 +59,22 @@ public:
      * @param view The view to generate completions for
      * @param range The range of text to generate completions for
      * */
-    void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType) Q_DECL_OVERRIDE;
+    void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType) override;
 
-    bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
-    bool shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion) Q_DECL_OVERRIDE;
+    bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override;
+    bool shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion) override;
 
     void saveMatches(KTextEditor::View *view,
                      const KTextEditor::Range &range);
 
-    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    int rowCount(const QModelIndex &parent) const override;
 
-    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    QModelIndex parent(const QModelIndex &index) const Q_DECL_OVERRIDE;
-    MatchReaction matchingItem(const QModelIndex &matched) Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role) const override;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex &index) const override;
+    MatchReaction matchingItem(const QModelIndex &matched) override;
 
-    KTextEditor::Range completionRange(KTextEditor::View *view, const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
+    KTextEditor::Range completionRange(KTextEditor::View *view, const KTextEditor::Cursor &position) override;
 
     void allMatches(QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range) const;
 

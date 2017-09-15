@@ -65,7 +65,7 @@ public:
     };
 
     ConfigView(QWidget* parent, KTextEditor::MainWindow* mainWin);
-    ~ConfigView();
+    ~ConfigView() override;
 
 public:
     void registerActions(KActionCollection* actionCollection);
@@ -91,7 +91,7 @@ private Q_SLOTS:
     void slotBrowseDir();
 
 protected:
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     void saveCurrentToIndex(int index);

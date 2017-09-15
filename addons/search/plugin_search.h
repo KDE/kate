@@ -72,7 +72,7 @@ Q_SIGNALS:
     void nextFocus(QWidget *currentWidget, bool *found, bool next);
 
 protected:
-    bool focusNextPrevChild (bool next) Q_DECL_OVERRIDE;
+    bool focusNextPrevChild (bool next) override;
 };
 
 
@@ -82,9 +82,9 @@ class KatePluginSearch : public KTextEditor::Plugin
 
 public:
     explicit KatePluginSearch(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
-    virtual ~KatePluginSearch();
+    ~KatePluginSearch() override;
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
 private:
     KateSearchCommand* m_searchCommand;
@@ -107,10 +107,10 @@ public:
     };
 
     KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow, KTextEditor::Application* application);
-    ~KatePluginSearchView();
+    ~KatePluginSearchView() override;
 
-    void readSessionConfig (const KConfigGroup& config) Q_DECL_OVERRIDE;
-    void writeSessionConfig (KConfigGroup& config) Q_DECL_OVERRIDE;
+    void readSessionConfig (const KConfigGroup& config) override;
+    void writeSessionConfig (KConfigGroup& config) override;
 
 public Q_SLOTS:
     void startSearch();
@@ -172,7 +172,7 @@ private Q_SLOTS:
     void slotProjectFileNameChanged ();
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *ev) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *ev) override;
     void addHeaderItem();
 
 private:
@@ -227,8 +227,8 @@ Q_SIGNALS:
     //
 public:
     bool exec (KTextEditor::View *view, const QString &cmd, QString &msg,
-                      const KTextEditor::Range &range = KTextEditor::Range::invalid()) Q_DECL_OVERRIDE;
-    bool help (KTextEditor::View *view, const QString &cmd, QString &msg) Q_DECL_OVERRIDE;
+                      const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
+    bool help (KTextEditor::View *view, const QString &cmd, QString &msg) override;
 };
 
 #endif

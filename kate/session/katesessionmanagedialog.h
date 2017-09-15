@@ -33,7 +33,7 @@ class KateSessionManageDialog : public QDialog
 
 public:
     KateSessionManageDialog(QWidget *parent);
-    ~KateSessionManageDialog();
+    ~KateSessionManageDialog() override;
 
 protected Q_SLOTS:
     /**
@@ -59,7 +59,7 @@ protected Q_SLOTS:
     /**
      * close dialog and open the selected session
      */
-    void open() Q_DECL_OVERRIDE;
+    void open() override;
 
 private:
     /**

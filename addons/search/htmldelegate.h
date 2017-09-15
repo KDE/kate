@@ -27,10 +27,10 @@ class SPHtmlDelegate : public QStyledItemDelegate
 {
 public:
     explicit SPHtmlDelegate(QObject* parent);
-    virtual ~SPHtmlDelegate();
+    ~SPHtmlDelegate() override;
 
-    void paint(QPainter*, const QStyleOptionViewItem&, const QModelIndex&) const Q_DECL_OVERRIDE;
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const Q_DECL_OVERRIDE;
+    void paint(QPainter*, const QStyleOptionViewItem&, const QModelIndex&) const override;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 };
 
 #endif

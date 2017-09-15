@@ -34,12 +34,12 @@ class LumenCompletionModel
     Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 public:
     LumenCompletionModel(QObject* parent, DCD* dcd);
-    virtual ~LumenCompletionModel();
+    ~LumenCompletionModel() override;
 
-    bool shouldStartCompletion(View* view, const QString& insertedText, bool userInsertion, const Cursor& position) Q_DECL_OVERRIDE;
-    void completionInvoked(View* view, const Range& range, InvocationType invocationType) Q_DECL_OVERRIDE;
-    void executeCompletionItem(View *view, const Range &word, const QModelIndex &index) const Q_DECL_OVERRIDE;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    bool shouldStartCompletion(View* view, const QString& insertedText, bool userInsertion, const Cursor& position) override;
+    void completionInvoked(View* view, const Range& range, InvocationType invocationType) override;
+    void executeCompletionItem(View *view, const Range &word, const QModelIndex &index) const override;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 private:
     DCD* m_dcd;
     DCDCompletion m_data;

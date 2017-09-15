@@ -39,7 +39,7 @@ class KateSessionsModel : public QStandardItemModel
     Q_OBJECT
 public:
     KateSessionsModel(QObject *parent);
-    ~KateSessionsModel();
+    ~KateSessionsModel() override;
     QHash< int, QByteArray > roleNames() const override;
     enum SpecificRoles {
         Uuid = Qt::UserRole+3,

@@ -53,7 +53,7 @@ class KateViewManager : public QSplitter
 
 public:
     KateViewManager(QWidget *parentW, KateMainWindow *parent);
-    ~KateViewManager();
+    ~KateViewManager() override;
 
 private:
     /**

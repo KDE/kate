@@ -57,7 +57,7 @@ public:
             valid = true;
         }
     }
-    virtual ~KateRunningInstanceInfo() {
+    ~KateRunningInstanceInfo() override {
         delete dbus_if;
     }
     bool valid;

@@ -48,19 +48,19 @@ class KatePluginSymbolViewerConfigPage : public KTextEditor::ConfigPage
 
   public:
     explicit KatePluginSymbolViewerConfigPage (QObject* parent = nullptr, QWidget *parentWidget = nullptr);
-    ~KatePluginSymbolViewerConfigPage ();
+    ~KatePluginSymbolViewerConfigPage () override;
 
     /**
      * Reimplemented from KTextEditor::ConfigPage
      * just emits configPageApplyRequest( this ).
      */
-    QString name() const Q_DECL_OVERRIDE;
-    QString fullName() const Q_DECL_OVERRIDE;
-    QIcon icon() const Q_DECL_OVERRIDE;
+    QString name() const override;
+    QString fullName() const override;
+    QIcon icon() const override;
 
-    void apply() Q_DECL_OVERRIDE;
-    void reset () Q_DECL_OVERRIDE { ; }
-    void defaults () Q_DECL_OVERRIDE { ; }
+    void apply() override;
+    void reset () override { ; }
+    void defaults () override { ; }
 
   Q_SIGNALS:
     /**
@@ -88,7 +88,7 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
 
   public:
     KatePluginSymbolViewerView (KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
-    virtual ~KatePluginSymbolViewerView ();
+    ~KatePluginSymbolViewerView () override;
 
     void parseSymbols(void);
 
@@ -108,7 +108,7 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
     void slotDocEdited();
 
   protected:
-    bool eventFilter(QObject *obj, QEvent *ev) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *ev) override;
 
   private:
     KTextEditor::MainWindow *m_mainWindow;
@@ -142,12 +142,12 @@ class KatePluginSymbolViewer : public KTextEditor::Plugin
   Q_OBJECT
   public:
     explicit KatePluginSymbolViewer(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
-    virtual ~KatePluginSymbolViewer();
+    ~KatePluginSymbolViewer() override;
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+    QObject *createView (KTextEditor::MainWindow *mainWindow) override;
 
-    int configPages () const Q_DECL_OVERRIDE { return 1; }
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
+    int configPages () const override { return 1; }
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
 
   public Q_SLOTS:
     void applyConfig( KatePluginSymbolViewerConfigPage* p );

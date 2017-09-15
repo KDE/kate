@@ -41,7 +41,7 @@ class KateMwModOnHdDialog : public QDialog
     Q_OBJECT
 public:
     explicit KateMwModOnHdDialog(DocVector docs, QWidget *parent = nullptr, const char *name = nullptr);
-    ~KateMwModOnHdDialog();
+    ~KateMwModOnHdDialog() override;
     void addDocument(KTextEditor::Document *doc);
 
 private Q_SLOTS:
@@ -64,8 +64,8 @@ private:
     bool m_blockAddDocument;
 
 protected:
-    void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
-    void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
+    void closeEvent(QCloseEvent *e) override;
+    void keyPressEvent(QKeyEvent *) override;
 
 };
 

@@ -52,7 +52,7 @@ public:
             setCheckState(0, Qt::Unchecked);
         }
     }
-    ~KateDocItem()
+    ~KateDocItem() override
     {}
 
     KTextEditor::Document *document;

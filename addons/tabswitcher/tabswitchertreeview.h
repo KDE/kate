@@ -46,7 +46,7 @@ protected:
     /**
      * Reimplemented for tracking the CTRL key modifier.
      */
-    void keyReleaseEvent(QKeyEvent * event) Q_DECL_OVERRIDE;
+    void keyReleaseEvent(QKeyEvent * event) override;
 };
 
 #endif // KTEXTEDITOR_TABSWITCHER_TREEVIEW_H

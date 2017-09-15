@@ -43,12 +43,12 @@ class KateProjectPlugin : public KTextEditor::Plugin
 
 public:
     explicit KateProjectPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-    virtual ~KateProjectPlugin();
+    ~KateProjectPlugin() override;
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-    int configPages() const Q_DECL_OVERRIDE;
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
+    int configPages() const override;
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
 
     /**
      * Create new project for given project filename.

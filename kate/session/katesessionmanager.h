@@ -34,7 +34,7 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
 
 public:
     KateSessionManager(QObject *parent = nullptr, const QString &sessionsDir = QString());
-    ~KateSessionManager();
+    ~KateSessionManager() override;
 
     /**
      * allow access to the session list

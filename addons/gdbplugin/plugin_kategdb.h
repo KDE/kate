@@ -48,9 +48,9 @@ class KatePluginGDB : public KTextEditor::Plugin
 
 public:
     explicit KatePluginGDB(QObject* parent = nullptr, const VariantList& = VariantList());
-    virtual ~KatePluginGDB();
+    ~KatePluginGDB() override;
 
-    QObject* createView(KTextEditor::MainWindow* mainWindow) Q_DECL_OVERRIDE;
+    QObject* createView(KTextEditor::MainWindow* mainWindow) override;
 };
 
 class KatePluginGDBView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
@@ -60,11 +60,11 @@ class KatePluginGDBView : public QObject, public KXMLGUIClient, public KTextEdit
 
 public:
   KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
-    ~KatePluginGDBView();
+    ~KatePluginGDBView() override;
 
     // reimplemented: read and write session config
-    void readSessionConfig (const KConfigGroup& config) Q_DECL_OVERRIDE;
-    void writeSessionConfig (KConfigGroup& config) Q_DECL_OVERRIDE;
+    void readSessionConfig (const KConfigGroup& config) override;
+    void writeSessionConfig (KConfigGroup& config) override;
 
 private Q_SLOTS:
     void slotDebug();
@@ -97,7 +97,7 @@ private Q_SLOTS:
     void handleEsc(QEvent *e);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *ev) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
     QString currentWord();

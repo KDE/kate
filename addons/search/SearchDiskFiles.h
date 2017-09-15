@@ -35,11 +35,11 @@ class SearchDiskFiles: public QThread
 
 public:
     SearchDiskFiles(QObject *parent = nullptr);
-    ~SearchDiskFiles();
+    ~SearchDiskFiles() override;
 
     void startSearch(const QStringList &iles,
                      const QRegularExpression &regexp);
-    void run() Q_DECL_OVERRIDE;
+    void run() override;
 
     bool searching();
 

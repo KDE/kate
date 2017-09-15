@@ -43,18 +43,18 @@ class SnippetCompletionModel : public KTextEditor::CodeCompletionModel,
 
 public:
     SnippetCompletionModel();
-    ~SnippetCompletionModel();
+    ~SnippetCompletionModel() override;
 
-    QVariant data( const QModelIndex& idx, int role = Qt::DisplayRole ) const Q_DECL_OVERRIDE;
+    QVariant data( const QModelIndex& idx, int role = Qt::DisplayRole ) const override;
     void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range,
-                           KTextEditor::CodeCompletionModel::InvocationType invocationType) Q_DECL_OVERRIDE;
-    void executeCompletionItem (KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const Q_DECL_OVERRIDE;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    QModelIndex parent(const QModelIndex& index) const Q_DECL_OVERRIDE;
+                           KTextEditor::CodeCompletionModel::InvocationType invocationType) override;
+    void executeCompletionItem (KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex& index) const override;
 
-    KTextEditor::Range completionRange(KTextEditor::View* view, const KTextEditor::Cursor& position) Q_DECL_OVERRIDE;
-    bool shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::Range& range, const QString& currentCompletion) Q_DECL_OVERRIDE;
+    KTextEditor::Range completionRange(KTextEditor::View* view, const KTextEditor::Cursor& position) override;
+    bool shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::Range& range, const QString& currentCompletion) override;
 private:
     void initData(KTextEditor::View* view);
     QList<SnippetCompletionItem*> m_snippets;

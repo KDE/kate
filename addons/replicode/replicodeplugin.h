@@ -31,15 +31,15 @@ class ReplicodePlugin : public KTextEditor::Plugin
     // Constructor
     explicit ReplicodePlugin(QObject *parent = nullptr, const QList<QVariant> &args = QList<QVariant>());
     // Destructor
-    virtual ~ReplicodePlugin();
+    ~ReplicodePlugin() override;
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE {
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override {
         return new ReplicodeView(this, mainWindow);
     }
 
     // Config interface
-    int configPages () const Q_DECL_OVERRIDE { return 1; }
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
+    int configPages () const override { return 1; }
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
 };
 
 #endif

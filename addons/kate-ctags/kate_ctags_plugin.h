@@ -40,12 +40,12 @@ class KateCTagsPlugin : public KTextEditor::Plugin
 
     public:
         explicit KateCTagsPlugin(QObject* parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-        virtual ~KateCTagsPlugin() {}
+        ~KateCTagsPlugin() override {}
 
-        QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+        QObject *createView(KTextEditor::MainWindow *mainWindow) override;
    
-        int configPages() const Q_DECL_OVERRIDE { return 1; };
-        KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) Q_DECL_OVERRIDE;
+        int configPages() const override { return 1; };
+        KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
         void readConfig();
         
         KateCTagsView *m_view;
@@ -56,15 +56,15 @@ class KateCTagsConfigPage : public KTextEditor::ConfigPage {
     Q_OBJECT
 public:
     explicit KateCTagsConfigPage( QWidget* parent = nullptr, KateCTagsPlugin *plugin = nullptr );
-    ~KateCTagsConfigPage() {}
+    ~KateCTagsConfigPage() override {}
 
-    QString name() const Q_DECL_OVERRIDE;
-    QString fullName() const Q_DECL_OVERRIDE;
-    QIcon icon() const Q_DECL_OVERRIDE;
+    QString name() const override;
+    QString fullName() const override;
+    QIcon icon() const override;
     
-    void apply() Q_DECL_OVERRIDE;
-    void reset() Q_DECL_OVERRIDE;
-    void defaults() Q_DECL_OVERRIDE {}
+    void apply() override;
+    void reset() override;
+    void defaults() override {}
 
 private Q_SLOTS:
     void addGlobalTagTarget();

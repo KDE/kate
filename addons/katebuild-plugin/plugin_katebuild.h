@@ -71,11 +71,11 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         };
 
        KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
-        ~KateBuildView();
+        ~KateBuildView() override;
 
         // reimplemented: read and write session config
-        void readSessionConfig(const KConfigGroup& config) Q_DECL_OVERRIDE;
-        void writeSessionConfig(KConfigGroup& config) Q_DECL_OVERRIDE;
+        void readSessionConfig(const KConfigGroup& config) override;
+        void writeSessionConfig(KConfigGroup& config) override;
 
         bool buildCurrentTarget();
 
@@ -120,7 +120,7 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         void slotAddProjectTarget();
 
     protected:
-        bool eventFilter(QObject *obj, QEvent *ev) Q_DECL_OVERRIDE;
+        bool eventFilter(QObject *obj, QEvent *ev) override;
 
     private:
         void processLine(const QString &);
@@ -173,9 +173,9 @@ class KateBuildPlugin : public KTextEditor::Plugin
 
     public:
         explicit KateBuildPlugin(QObject* parent = nullptr, const VariantList& = VariantList());
-        virtual ~KateBuildPlugin() {}
+        ~KateBuildPlugin() override {}
 
-        QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+        QObject *createView(KTextEditor::MainWindow *mainWindow) override;
  };
 
 #endif

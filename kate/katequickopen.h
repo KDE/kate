@@ -42,7 +42,7 @@ public:
     void update();
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private Q_SLOTS:
     void reselectFirst();

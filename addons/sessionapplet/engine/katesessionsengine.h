@@ -29,7 +29,7 @@ class KateSessionsEngine : public Plasma::DataEngine
     Q_OBJECT
 public:
     KateSessionsEngine(QObject *parent, const QVariantList &args);
-    ~KateSessionsEngine();
+    ~KateSessionsEngine() override;
 
     Plasma::Service *serviceForSource (const QString &source) override;
 

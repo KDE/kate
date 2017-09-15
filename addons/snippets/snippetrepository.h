@@ -58,7 +58,7 @@ public:
      * @param file Location of the snippet's repository file.
      */
     SnippetRepository(const QString& file);
-    ~SnippetRepository();
+    ~SnippetRepository() override;
 
     /**
      * Creates a snippet repository for the given name and adds it to the SnippetStore.
@@ -140,8 +140,8 @@ public:
      */
     static QDir dataPath();
 
-    QVariant data(int role = Qt::UserRole + 1) const Q_DECL_OVERRIDE;
-    void setData(const QVariant& value, int role = Qt::UserRole + 1) Q_DECL_OVERRIDE;
+    QVariant data(int role = Qt::UserRole + 1) const override;
+    void setData(const QVariant& value, int role = Qt::UserRole + 1) override;
 
 private Q_SLOTS:
     /// parses the XML file and load the containing snippets.

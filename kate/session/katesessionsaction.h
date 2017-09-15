@@ -32,7 +32,7 @@ class KATE_TESTS_EXPORT KateSessionsAction : public KActionMenu
 
 public:
     KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager = nullptr);
-    ~KateSessionsAction() {
+    ~KateSessionsAction() override {
     }
 
 public  Q_SLOTS:

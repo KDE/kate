@@ -34,16 +34,16 @@ class KTERustCompletionConfigPage : public KTextEditor::ConfigPage
 
     public:
         explicit KTERustCompletionConfigPage(QWidget *parent = nullptr, KTERustCompletionPlugin *plugin = nullptr);
-        ~KTERustCompletionConfigPage() {};
+        ~KTERustCompletionConfigPage() override {};
 
-        QString name() const Q_DECL_OVERRIDE;
-        QString fullName() const Q_DECL_OVERRIDE;
-        QIcon icon() const Q_DECL_OVERRIDE;
+        QString name() const override;
+        QString fullName() const override;
+        QIcon icon() const override;
 
     public Q_SLOTS:
-        void apply() Q_DECL_OVERRIDE;
-        void defaults() Q_DECL_OVERRIDE;
-        void reset() Q_DECL_OVERRIDE;
+        void apply() override;
+        void defaults() override;
+        void reset() override;
 
     private Q_SLOTS:
         void changedInternal();

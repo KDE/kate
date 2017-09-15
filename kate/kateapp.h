@@ -67,7 +67,7 @@ public:
     /**
      * application destructor
      */
-    ~KateApp();
+    ~KateApp() override;
 
     /**
      * static accessor to avoid casting ;)
@@ -324,7 +324,7 @@ protected:
     /**
      * Event filter for QApplication to handle mac os like file open
      */
-    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
     /**

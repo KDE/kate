@@ -49,7 +49,7 @@ public:
     /**
      * deconstruct info view
      */
-    ~KateProjectInfoViewTerminal();
+    ~KateProjectInfoViewTerminal() override;
 
     /**
      * our project.

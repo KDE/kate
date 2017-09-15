@@ -46,7 +46,7 @@ public:
     /**
      * deconstruct project
      */
-    ~KateProjectView();
+    ~KateProjectView() override;
 
     /**
      * our project.

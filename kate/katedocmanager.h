@@ -62,7 +62,7 @@ class KateDocManager : public QObject
 
 public:
     KateDocManager(QObject *parent);
-    ~KateDocManager();
+    ~KateDocManager() override;
 
     KTextEditor::Document *createDoc(const KateDocumentInfo &docInfo = KateDocumentInfo());
 

@@ -34,7 +34,7 @@ class KateSQLOutputWidget : public QTabWidget
     
     KateSQLOutputWidget (QWidget *parent);
 
-    ~KateSQLOutputWidget ();
+    ~KateSQLOutputWidget () override;
     
     TextOutputWidget *textOutputWidget() const { return m_textOutputWidget; }
     DataOutputWidget *dataOutputWidget() const { return m_dataOutputWidget; }

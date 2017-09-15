@@ -41,7 +41,7 @@ class KateSnippetGlobal : public QObject
 
 public:
     KateSnippetGlobal(QObject *parent, const QVariantList &args = QVariantList() );
-    ~KateSnippetGlobal ();
+    ~KateSnippetGlobal () override;
 
     /**
      * Inserts the given @p snippet into the currently active view.

@@ -59,10 +59,10 @@ class ToggleToolViewAction : public KToggleAction
 public:
     ToggleToolViewAction(const QString &text, ToolView *tv, QObject *parent);
 
-    virtual ~ToggleToolViewAction();
+    ~ToggleToolViewAction() override;
 
 protected Q_SLOTS:
-    void slotToggled(bool) Q_DECL_OVERRIDE;
+    void slotToggled(bool) override;
     void toolVisibleChanged(bool);
 
 private:
@@ -75,7 +75,7 @@ class GUIClient : public QObject, public KXMLGUIClient
 
 public:
     GUIClient(class MainWindow *mw);
-    virtual ~GUIClient();
+    ~GUIClient() override;
 
     void registerToolView(ToolView *tv);
     void unregisterToolView(ToolView *tv);
@@ -119,7 +119,7 @@ public:
      * destuct me, this is allowed for all, will care itself that the toolview is removed
      * from the mainwindow and sidebar
      */
-    virtual ~ToolView();
+    ~ToolView() override;
 
 Q_SIGNALS:
     /**
@@ -144,12 +144,12 @@ protected:
 
 public:
     bool toolVisible() const;
-    QSize sizeHint() const Q_DECL_OVERRIDE;
-    QSize minimumSizeHint() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
+    QSize minimumSizeHint() const override;
 
 protected:
-    void childEvent(QChildEvent *ev) Q_DECL_OVERRIDE;
-    void actionEvent(QActionEvent *event) Q_DECL_OVERRIDE;
+    void childEvent(QChildEvent *ev) override;
+    void actionEvent(QActionEvent *event) override;
 
 private:
     MainWindow *m_mainWin;
@@ -184,7 +184,7 @@ class Sidebar : public KMultiTabBar
 
 public:
     Sidebar(KMultiTabBar::KMultiTabBarPosition pos, class MainWindow *mainwin, QWidget *parent);
-    virtual ~Sidebar();
+    ~Sidebar() override;
 
     void setSplitter(QSplitter *sp);
 
@@ -223,12 +223,12 @@ public:
 
 public Q_SLOTS:
     // reimplemented, to block a show() call if all sidebars are forced hidden
-    void setVisible(bool visible) Q_DECL_OVERRIDE;
+    void setVisible(bool visible) override;
 private Q_SLOTS:
     void tabClicked(int);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *ev) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private Q_SLOTS:
     void buttonPopupActivate(QAction *);
@@ -279,7 +279,7 @@ public:
     /**
      * Destructor
      */
-    virtual ~MainWindow();
+    ~MainWindow() override;
 
     //
     // public interfaces

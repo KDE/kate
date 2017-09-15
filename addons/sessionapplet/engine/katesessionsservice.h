@@ -30,7 +30,7 @@ class KateSessionsService : public Plasma::Service
     Q_OBJECT
 public:
     KateSessionsService(KateSessionsEngine *engine, const QString &uuid);
-    ~KateSessionsService() = default;
+    ~KateSessionsService() override = default;
 
 protected:
     Plasma::ServiceJob *createJob(const QString &operation, QVariantMap &parameters) override;

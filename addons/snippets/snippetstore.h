@@ -53,9 +53,9 @@ public:
      */
     static SnippetStore* self();
 
-    virtual ~SnippetStore();
+    ~SnippetStore() override;
     KConfigGroup getConfig();
-    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
+    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
     /**
      * Returns the repository for the given @p file if there is any.
      */
@@ -63,7 +63,7 @@ public:
 private:
     SnippetStore(KateSnippetGlobal* plugin);
 
-    Qt::ItemFlags flags (const QModelIndex & index) const Q_DECL_OVERRIDE;
+    Qt::ItemFlags flags (const QModelIndex & index) const override;
 
     static SnippetStore* m_self;
     KateSnippetGlobal* m_plugin;

@@ -38,7 +38,7 @@ public:
     };
 
     TargetModel(QObject *parent = nullptr);
-    ~TargetModel();
+    ~TargetModel() override;
 
     /** This function sets the default command for a target set */
     void setDefaultCmd(int rootRow, const QString &defCmd);
@@ -80,14 +80,14 @@ Q_SIGNALS:
 public:
     static const quint32 InvalidIndex = 0xFFFFFFFF;
     // Model-View model functions
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-    bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
-    Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
-    QModelIndex index(int row, int column = 0, const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    QModelIndex parent(const QModelIndex &child) const Q_DECL_OVERRIDE;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+    bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole) override;
+    Qt::ItemFlags flags(const QModelIndex &index) const override;
+    QModelIndex index(int row, int column = 0, const QModelIndex &parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex &child) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
 private:
 

@@ -34,14 +34,14 @@ class DataOutputModel : public CachedSqlQueryModel
 
   public:
     DataOutputModel(QObject *parent = nullptr);
-    ~DataOutputModel();
+    ~DataOutputModel() override;
 
     bool useSystemLocale() const;
     void setUseSystemLocale(bool useSystemLocale);
 
-    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const Q_DECL_OVERRIDE;
+    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const override;
 
-    void clear() Q_DECL_OVERRIDE;
+    void clear() override;
     void readConfig();
 
   private:

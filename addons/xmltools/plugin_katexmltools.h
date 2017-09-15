@@ -46,8 +46,8 @@ class PluginKateXMLTools : public KTextEditor::Plugin
 
 public:
     explicit PluginKateXMLTools(QObject *parent = nullptr, const QVariantList& = QVariantList());
-    ~PluginKateXMLTools();
-    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+    ~PluginKateXMLTools() override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
 
 class PluginKateXMLToolsCompletionModel
@@ -59,21 +59,21 @@ class PluginKateXMLToolsCompletionModel
 
 public:
     PluginKateXMLToolsCompletionModel(QObject *parent);
-    virtual ~PluginKateXMLToolsCompletionModel();
+    ~PluginKateXMLToolsCompletionModel() override;
 
 //
 // KTextEditor::CodeCompletionModel
 //
 public:
-    int columnCount(const QModelIndex &) const Q_DECL_OVERRIDE;
-    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
-    QModelIndex parent(const QModelIndex &index) const Q_DECL_OVERRIDE;
-    QModelIndex index(int row, int column, const QModelIndex &parent) const Q_DECL_OVERRIDE;
-    QVariant data(const QModelIndex &idx, int role) const Q_DECL_OVERRIDE;
+    int columnCount(const QModelIndex &) const override;
+    int rowCount(const QModelIndex &parent) const override;
+    QModelIndex parent(const QModelIndex &index) const override;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const override;
+    QVariant data(const QModelIndex &idx, int role) const override;
 
     void executeCompletionItem(KTextEditor::View *view,
                                        const KTextEditor::Range &word,
-                                       const QModelIndex &index) const Q_DECL_OVERRIDE;
+                                       const QModelIndex &index) const override;
 
 //
 // KTextEditor::CodeCompletionModelControllerInterface
@@ -82,7 +82,7 @@ public:
     bool shouldStartCompletion(KTextEditor::View *view,
                                        const QString &insertedText,
                                        bool userInsertion,
-                                       const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
+                                       const KTextEditor::Cursor &position) override;
 
 public Q_SLOTS:
 
@@ -94,7 +94,7 @@ public Q_SLOTS:
     void slotFinished(KJob *job);
     void slotData(KIO::Job *, const QByteArray &data);
 
-    void completionInvoked(KTextEditor::View *kv, const KTextEditor::Range &range, InvocationType invocationType) Q_DECL_OVERRIDE;
+    void completionInvoked(KTextEditor::View *kv, const KTextEditor::Range &range, InvocationType invocationType) override;
 
     /// Connected to the document manager, to manage the dtd collection.
     void slotDocumentDeleted(KTextEditor::Document *doc);
@@ -152,7 +152,7 @@ class PluginKateXMLToolsView : public QObject, public KXMLGUIClient
 public:
 
     explicit PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin);
-    virtual ~PluginKateXMLToolsView();
+    ~PluginKateXMLToolsView() override;
 
 protected:
     KTextEditor::MainWindow *m_mainWindow;
@@ -165,7 +165,7 @@ class InsertElement : public QDialog
 
 public:
     InsertElement(const QStringList &completions, QWidget *parent);
-    virtual ~InsertElement();
+    ~InsertElement() override;
 
     QString text() const;
 

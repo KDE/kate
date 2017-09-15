@@ -41,7 +41,7 @@ public:
         setCheckState(0, Qt::Checked);
         setState(InitialState);
     }
-    virtual ~AbstractKateSaveModifiedDialogCheckListItem()
+    ~AbstractKateSaveModifiedDialogCheckListItem() override
     {}
     virtual bool synchronousSave(QWidget *dialogParent) = 0;
     enum STATE {InitialState, SaveOKState, SaveFailedState};
@@ -74,9 +74,9 @@ public:
         : AbstractKateSaveModifiedDialogCheckListItem(document->documentName(), document->url().toString()) {
         m_document = document;
     }
-    virtual ~KateSaveModifiedDocumentCheckListItem()
+    ~KateSaveModifiedDocumentCheckListItem() override
     {}
-    virtual bool synchronousSave(QWidget *dialogParent) Q_DECL_OVERRIDE {
+    bool synchronousSave(QWidget *dialogParent) override {
         if (m_document->url().isEmpty()) {
             const QUrl url = QFileDialog::getSaveFileUrl(dialogParent, i18n("Save As (%1)", m_document->documentName()));
             if (!url.isEmpty()) {

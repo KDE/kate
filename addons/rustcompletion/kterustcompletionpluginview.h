@@ -39,7 +39,7 @@ class KTERustCompletionPluginView : public QObject, public KXMLGUIClient
 
     public:
         KTERustCompletionPluginView(KTERustCompletionPlugin *plugin, KTextEditor::MainWindow *mainWindow);
-        ~KTERustCompletionPluginView();
+        ~KTERustCompletionPluginView() override;
 
     private Q_SLOTS:
         void goToDefinition();

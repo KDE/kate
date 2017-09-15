@@ -41,7 +41,7 @@ class DataOutputWidget : public QWidget
     Q_DECLARE_FLAGS(Options, Option)
 
     DataOutputWidget(QWidget *parent);
-    ~DataOutputWidget();
+    ~DataOutputWidget() override;
 
     void exportData(QTextStream &stream,
                     const QChar stringsQuoteChar = QLatin1Char ('\0'),

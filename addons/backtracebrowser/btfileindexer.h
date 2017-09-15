@@ -30,7 +30,7 @@ class BtFileIndexer : public QThread
     Q_OBJECT
 public:
     BtFileIndexer(KateBtDatabase *db);
-    virtual ~BtFileIndexer();
+    ~BtFileIndexer() override;
     void setSearchPaths(const QStringList &urls);
 
     void setFilter(const QStringList &filter);
@@ -38,7 +38,7 @@ public:
     void cancel();
 
 protected:
-    void run() Q_DECL_OVERRIDE;
+    void run() override;
     void indexFiles(const QString &url);
 
 private:

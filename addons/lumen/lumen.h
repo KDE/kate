@@ -42,7 +42,7 @@ class LumenPluginView: public QObject
     Q_OBJECT
     public:
         LumenPluginView(LumenPlugin *plugin, KTextEditor::MainWindow *view);
-        virtual ~LumenPluginView();
+        ~LumenPluginView() override;
         void registerCompletion(KTextEditor::View *view);
         void registerTextHints(KTextEditor::View *view);
     private Q_SLOTS:
@@ -63,7 +63,7 @@ class LumenHintProvider : public KTextEditor::TextHintProvider
 {
 public:
   explicit LumenHintProvider(LumenPlugin* plugin);
-  QString textHint(KTextEditor::View* view, const KTextEditor::Cursor& position) Q_DECL_OVERRIDE;
+  QString textHint(KTextEditor::View* view, const KTextEditor::Cursor& position) override;
 
 private:
   LumenPlugin *m_plugin;
@@ -75,9 +75,9 @@ class LumenPlugin: public Plugin
     Q_OBJECT
     public:
         explicit LumenPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-        virtual ~LumenPlugin();
+        ~LumenPlugin() override;
         DCD* dcd();
-        QObject *createView(MainWindow *mainWindow) Q_DECL_OVERRIDE;
+        QObject *createView(MainWindow *mainWindow) override;
     private:
         DCD* m_dcd;
 };

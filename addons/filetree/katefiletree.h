@@ -38,9 +38,9 @@ class KateFileTree: public QTreeView
 public:
 
     KateFileTree(QWidget *parent);
-    virtual ~KateFileTree();
+    ~KateFileTree() override;
 
-    void setModel(QAbstractItemModel *model) Q_DECL_OVERRIDE;
+    void setModel(QAbstractItemModel *model) override;
 
 public Q_SLOTS:
     void slotDocumentClose();
@@ -60,7 +60,7 @@ public Q_SLOTS:
     void slotDocumentDelete();
 
 protected:
-    void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
+    void contextMenuEvent(QContextMenuEvent *event) override;
 
 Q_SIGNALS:
     void closeDocument(KTextEditor::Document *);

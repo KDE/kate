@@ -45,7 +45,7 @@ public:
      * Construct an empty snippet.
      */
     Snippet();
-    ~Snippet();
+    ~Snippet() override;
 
     /**
      * Returns the actual contents of this snippet.
@@ -63,7 +63,7 @@ public:
 
     void registerActionForView(QWidget* view);
 
-    QVariant data(int role = Qt::UserRole + 1) const Q_DECL_OVERRIDE;
+    QVariant data(int role = Qt::UserRole + 1) const override;
 
 private:
     /// the actual snippet contents aka \code<fillin>\endcode

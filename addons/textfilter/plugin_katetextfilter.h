@@ -38,9 +38,9 @@ class PluginKateTextFilter : public KTextEditor::Plugin
      */
     explicit PluginKateTextFilter(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
 
-    virtual ~PluginKateTextFilter();
+    ~PluginKateTextFilter() override;
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow) Q_DECL_OVERRIDE;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
     void runFilter(KTextEditor::View *kv, const QString & filter);
 
@@ -67,8 +67,8 @@ public:
    PluginKateTextFilterCommand (PluginKateTextFilter *plugin);
     // Kate::Command
     bool exec (KTextEditor::View *view, const QString &cmd, QString &msg,
-                      const KTextEditor::Range &range = KTextEditor::Range::invalid()) Q_DECL_OVERRIDE;
-    bool help (KTextEditor::View *view, const QString &cmd, QString &msg) Q_DECL_OVERRIDE;
+                      const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
+    bool help (KTextEditor::View *view, const QString &cmd, QString &msg) override;
 
 private:
     PluginKateTextFilter *m_plugin;
@@ -92,7 +92,7 @@ class PluginViewKateTextFilter: public QObject, public KXMLGUIClient
         /**
          * Our Destructor
          */
-        virtual ~PluginViewKateTextFilter();
+        ~PluginViewKateTextFilter() override;
 
     private:
         /**

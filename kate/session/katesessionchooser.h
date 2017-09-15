@@ -36,7 +36,7 @@ class KateSessionChooser : public QDialog
 
 public:
     KateSessionChooser(QWidget *parent, const QString &lastSession);
-    ~KateSessionChooser();
+    ~KateSessionChooser() override;
 
     KateSession::Ptr selectedSession();
     bool reopenLastSession();

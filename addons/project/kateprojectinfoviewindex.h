@@ -48,7 +48,7 @@ public:
     /**
      * deconstruct info view
      */
-    ~KateProjectInfoViewIndex();
+    ~KateProjectInfoViewIndex() override;
 
     /**
      * our project.

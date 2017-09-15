@@ -206,7 +206,10 @@ void KateFileBrowser::setDir(QUrl u)
   else
     newurl = u;
 
-  newurl.setPath(newurl.path() + QLatin1Char('/'));
+  QString path(newurl.path());
+  if (!path.endsWith(QLatin1Char('/')))
+    path += QLatin1Char('/');
+  newurl.setPath(path);
 
   if (!kateFileSelectorIsReadable(newurl)) {
     newurl.setPath(newurl.path() + QStringLiteral("../"));

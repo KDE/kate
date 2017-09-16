@@ -74,8 +74,8 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     /**
      * connect needed signals
      */
-    connect(m_startStopAnalysis, SIGNAL(clicked(bool)), this, SLOT(slotStartStopClicked()));
-    connect(m_treeView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(slotClicked(const QModelIndex &)));
+    connect(m_startStopAnalysis, &QPushButton::clicked, this, &KateProjectInfoViewCodeAnalysis::slotStartStopClicked);
+    connect(m_treeView, &QTreeView::clicked, this, &KateProjectInfoViewCodeAnalysis::slotClicked);
 }
 
 KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis()
@@ -100,9 +100,9 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     m_analyzer = new QProcess(this);
     m_analyzer->setProcessChannelMode(QProcess::MergedChannels);
 
-    connect(m_analyzer, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
-    connect(m_analyzer, SIGNAL(finished(int, QProcess::ExitStatus)),
-            this, SLOT(finished(int, QProcess::ExitStatus)));
+    connect(m_analyzer, &QProcess::readyRead, this, &KateProjectInfoViewCodeAnalysis::slotReadyRead);
+    connect(m_analyzer, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished),
+            this, &KateProjectInfoViewCodeAnalysis::finished);
 
     QStringList args;
     args << QStringLiteral("-q") << QStringLiteral("--inline-suppr") << QStringLiteral("--enable=all") << QStringLiteral("--template={file}////{line}////{severity}////{message}") << QStringLiteral("--file-list=-");

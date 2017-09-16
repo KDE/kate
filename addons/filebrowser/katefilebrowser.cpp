@@ -70,7 +70,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
 
   KFilePlacesModel* model = new KFilePlacesModel(this);
   m_urlNavigator = new KUrlNavigator(model, QUrl::fromLocalFile(QDir::homePath()), this);
-  connect(m_urlNavigator, SIGNAL(urlChanged(QUrl)), SLOT(updateDirOperator(QUrl)));
+  connect(m_urlNavigator, &KUrlNavigator::urlChanged, this, &KateFileBrowser::updateDirOperator);
   mainLayout->addWidget(m_urlNavigator);
 
   m_dirOperator = new KDirOperator(QUrl(), this);
@@ -85,10 +85,10 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
   m_dirOperator->setNewFileMenuSupportedMimeTypes(filter);
 
   setFocusProxy(m_dirOperator);
-  connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView*)),
-          this, SLOT(selectorViewChanged(QAbstractItemView*)));
-  connect(m_urlNavigator, SIGNAL(returnPressed()),
-          m_dirOperator, SLOT(setFocus()));
+  connect(m_dirOperator, &KDirOperator::viewChanged, this, &KateFileBrowser::selectorViewChanged);
+  connect(m_urlNavigator, &KUrlNavigator::returnPressed,
+          m_dirOperator, static_cast<void (KDirOperator::*)()>(&KDirOperator::setFocus));
+
   // now all actions exist in dir operator and we can use them in the toolbar
   setupActions();
   setupToolbar();
@@ -99,24 +99,21 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
   m_filter->lineEdit()->setPlaceholderText(i18n("Search"));
   mainLayout->addWidget(m_filter);
 
-  connect(m_filter, SIGNAL(editTextChanged(QString)),
-          SLOT(slotFilterChange(QString)));
-  connect(m_filter, SIGNAL(returnPressed(QString)),
-          m_filter, SLOT(addToHistory(QString)));
-  connect(m_filter, SIGNAL(returnPressed(QString)),
-          m_dirOperator, SLOT(setFocus()));
-
-  connect(m_dirOperator, SIGNAL(urlEntered(QUrl)),
-          this, SLOT(updateUrlNavigator(QUrl)));
+  connect(m_filter, &KHistoryComboBox::editTextChanged, this, &KateFileBrowser::slotFilterChange);
+  connect(m_filter, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed),
+          m_filter, &KHistoryComboBox::addToHistory);
+  connect(m_filter, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed),
+          m_dirOperator, static_cast< void (KDirOperator::*)()>(&KDirOperator::setFocus));
+  connect(m_dirOperator, &KDirOperator::urlEntered, this, &KateFileBrowser::updateUrlNavigator);
 
   // Connect the bookmark handler
-  connect(m_bookmarkHandler, SIGNAL(openUrl(QString)),
-          this, SLOT(setDir(QString)));
+  connect(m_bookmarkHandler, &KateBookmarkHandler::openUrl,
+          this, static_cast<void (KateFileBrowser::*)(const QString&)>(&KateFileBrowser::setDir));
 
   m_filter->setWhatsThis(i18n("Enter a name filter to limit which files are displayed."));
 
-  connect(m_dirOperator, SIGNAL(fileSelected(KFileItem)), this, SLOT(fileSelected(KFileItem)));
-  connect(m_mainWindow, SIGNAL(viewChanged(KTextEditor::View *)), this, SLOT(autoSyncFolder()));
+  connect(m_dirOperator, &KDirOperator::fileSelected, this, &KateFileBrowser::fileSelected);
+  connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateFileBrowser::autoSyncFolder);
 }
 
 KateFileBrowser::~KateFileBrowser()
@@ -307,7 +304,7 @@ void KateFileBrowser::setupActions()
   syncFolder->setShortcutContext(Qt::WidgetWithChildrenShortcut);
   syncFolder->setText(i18n("Current Document Folder"));
   syncFolder->setIcon(QIcon::fromTheme(QStringLiteral("system-switch-user")));
-  connect(syncFolder, SIGNAL(triggered()), this, SLOT(setActiveDocumentDir()));
+  connect(syncFolder, &QAction::triggered, this, &KateFileBrowser::setActiveDocumentDir);
 
   m_actionCollection->addAction(QStringLiteral("sync_dir"), syncFolder);
   m_actionCollection->addAction(QStringLiteral("bookmarks"), acmBookmarks);
@@ -327,7 +324,7 @@ void KateFileBrowser::setupActions()
   m_autoSyncFolder->setCheckable(true);
   m_autoSyncFolder->setText(i18n("Automatically synchronize with current document"));
   m_autoSyncFolder->setIcon(QIcon::fromTheme(QStringLiteral("system-switch-user")));
-  connect(m_autoSyncFolder, SIGNAL(triggered()), this, SLOT(autoSyncFolder()));
+  connect(m_autoSyncFolder, &QAction::triggered, this, &KateFileBrowser::autoSyncFolder);
   optionsMenu->addAction(m_autoSyncFolder);
 
   m_actionCollection->addAction(QStringLiteral("configure"), optionsMenu);

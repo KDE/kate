@@ -41,6 +41,7 @@
 #include <QClipboard>
 #include <QDialogButtonBox>
 #include <QUrl>
+#include <QTreeWidget>
 //END Includes
 
 K_PLUGIN_FACTORY_WITH_JSON(KateBtBrowserFactory, "katebacktracebrowserplugin.json", registerPlugin<KateBtBrowserPlugin>();)
@@ -138,8 +139,7 @@ KateBtBrowserPluginView::KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KT
                         i18n("Backtrace Browser"));
     m_widget = new KateBtBrowserWidget(mainWindow, toolview);
 
-    connect(plugin, SIGNAL(newStatus(QString)),
-            m_widget, SLOT(setStatus(QString)));
+    connect(plugin, &KateBtBrowserPlugin::newStatus, m_widget, &KateBtBrowserWidget::setStatus);
 }
 
 KateBtBrowserPluginView::~KateBtBrowserPluginView()
@@ -162,12 +162,11 @@ KateBtBrowserWidget::KateBtBrowserWidget(KTextEditor::MainWindow *mainwindow, QW
     setupUi(this);
 
     timer.setSingleShot(true);
-    connect(&timer, SIGNAL(timeout()), this, SLOT(clearStatus()));
-
-    connect(btnBacktrace, SIGNAL(clicked()), this, SLOT(loadFile()));
-    connect(btnClipboard, SIGNAL(clicked()), this, SLOT(loadClipboard()));
-    connect(btnConfigure, SIGNAL(clicked()), this, SLOT(configure()));
-    connect(lstBacktrace, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(itemActivated(QTreeWidgetItem *, int)));
+    connect(&timer, &QTimer::timeout, this, &KateBtBrowserWidget::clearStatus);
+    connect(btnBacktrace, &QPushButton::clicked, this, &KateBtBrowserWidget::loadFile);
+    connect(btnClipboard, &QPushButton::clicked, this, &KateBtBrowserWidget::loadClipboard);
+    connect(btnConfigure, &QPushButton::clicked, this, &KateBtBrowserWidget::configure);
+    connect(lstBacktrace, &QTreeWidget::itemActivated, this, &KateBtBrowserWidget::itemActivated);
 }
 
 KateBtBrowserWidget::~KateBtBrowserWidget()
@@ -297,9 +296,9 @@ KateBtConfigWidget::KateBtConfigWidget(QWidget *parent)
 
     reset();
 
-    connect(btnAdd, SIGNAL(clicked()), this, SLOT(add()));
-    connect(btnRemove, SIGNAL(clicked()), this, SLOT(remove()));
-    connect(edtExtensions, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
+    connect(btnAdd, &QPushButton::clicked, this, &KateBtConfigWidget::add);
+    connect(btnRemove, &QPushButton::clicked, this, &KateBtConfigWidget::remove);
+    connect(edtExtensions, &QLineEdit::textChanged, this, &KateBtConfigWidget::textChanged);
 
     m_changed = false;
 }
@@ -405,9 +404,9 @@ KateBtConfigDialog::KateBtConfigDialog(QWidget *parent)
     layout->addWidget(m_configWidget);
     layout->addWidget(box);
 
-    connect(this, SIGNAL(accepted()), m_configWidget, SLOT(apply()));
-    connect(box, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(box, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(this, &KateBtConfigDialog::accepted, m_configWidget, &KateBtConfigWidget::apply);
+    connect(box, &QDialogButtonBox::accepted, this, &KateBtConfigDialog::accept);
+    connect(box, &QDialogButtonBox::rejected, this, &KateBtConfigDialog::reject);
 }
 
 KateBtConfigDialog::~KateBtConfigDialog()

@@ -51,7 +51,7 @@ KateSessionsModel::KateSessionsModel(QObject *parent)
     
     dirwatch->addDir( m_sessionsDir );
     
-    connect( dirwatch, SIGNAL(dirty(QString)), this, SLOT(slotUpdateSessionMenu()) );
+    connect(dirwatch, &KDirWatch::dirty, this, &KateSessionsModel::slotUpdateSessionMenu);
     slotUpdateSessionMenu();
 }
 

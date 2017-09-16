@@ -78,17 +78,17 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
         //create a process to control GDB
         m_debugProcess.setWorkingDirectory(m_targetConf.workDir);
 
-        connect(&m_debugProcess, SIGNAL(error(QProcess::ProcessError)),
-                            this, SLOT(slotError()));
+        connect(&m_debugProcess, static_cast<void(QProcess::*)(QProcess::ProcessError)>(&QProcess::error),
+                this, &DebugView::slotError);
 
-        connect(&m_debugProcess, SIGNAL(readyReadStandardError()),
-                            this, SLOT(slotReadDebugStdErr()));
+        connect(&m_debugProcess, &QProcess::readyReadStandardError,
+                this, &DebugView::slotReadDebugStdErr);
 
-        connect(&m_debugProcess, SIGNAL(readyReadStandardOutput()),
-                            this, SLOT(slotReadDebugStdOut()));
+        connect(&m_debugProcess, &QProcess::readyReadStandardOutput,
+                this, &DebugView::slotReadDebugStdOut);
 
-        connect(&m_debugProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
-                            this, SLOT(slotDebugFinished(int,QProcess::ExitStatus)));
+        connect(&m_debugProcess, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished),
+                this, &DebugView::slotDebugFinished);
 
         m_debugProcess.start(m_targetConf.gdbCmd);
 

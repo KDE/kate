@@ -48,7 +48,7 @@ UrlInserter::UrlInserter(const QUrl &startUrl, QWidget* parent): QWidget(parent)
     layout->addWidget(m_lineEdit);
     layout->addWidget(m_toolButton);
     setFocusProxy(m_lineEdit);
-    connect(m_toolButton, SIGNAL(clicked(bool)), this, SLOT(insertFolder()));
+    connect(m_toolButton, &QToolButton::clicked, this, &UrlInserter::insertFolder);
 }
 
 

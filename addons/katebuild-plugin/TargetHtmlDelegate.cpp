@@ -39,8 +39,7 @@
 TargetHtmlDelegate::TargetHtmlDelegate( QObject* parent )
 : QStyledItemDelegate(parent), m_isEditing(false)
 {
-    connect(this, SIGNAL(sendEditStart()),
-            this, SLOT(editStarted()));
+    connect(this, &TargetHtmlDelegate::sendEditStart, this, &TargetHtmlDelegate::editStarted);
 }
 
 TargetHtmlDelegate::~TargetHtmlDelegate() {}
@@ -133,7 +132,7 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
     }
     editor->setAutoFillBackground(true);
     emit sendEditStart();
-    connect(editor, SIGNAL(destroyed(QObject*)), this, SLOT(editEnded()));
+    connect(editor, &QWidget::destroyed, this, &TargetHtmlDelegate::editEnded);
     return editor;
 }
 

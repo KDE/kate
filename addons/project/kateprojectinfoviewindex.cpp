@@ -65,10 +65,10 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *plugin
     /**
      * connect needed signals
      */
-    connect(m_pluginView, SIGNAL(projectLookupWord(const QString &)), m_lineEdit, SLOT(setText(const QString &)));
-    connect(m_lineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(slotTextChanged(const QString &)));
-    connect(m_treeView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(slotClicked(const QModelIndex &)));
-    connect(m_project, SIGNAL(indexChanged()), this, SLOT(indexAvailable()));
+    connect(m_pluginView, &KateProjectPluginView::projectLookupWord, m_lineEdit, &QLineEdit::setText);
+    connect(m_lineEdit, &QLineEdit::textChanged, this, &KateProjectInfoViewIndex::slotTextChanged);
+    connect(m_treeView, &QTreeView::clicked, this, &KateProjectInfoViewIndex::slotClicked);
+    connect(m_project, &KateProject::indexChanged, this, &KateProjectInfoViewIndex::indexAvailable);
 
     /**
      * trigger once search with nothing

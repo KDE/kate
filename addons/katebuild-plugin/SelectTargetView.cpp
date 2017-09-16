@@ -84,8 +84,8 @@ SelectTargetView::SelectTargetView(QAbstractItemModel *model, QWidget* parent)
 
     setFocusProxy(u_filterEdit);
 
-    connect(u_filterEdit, SIGNAL(textChanged(QString)), this, SLOT(setFilter(QString)));
-    connect(u_treeView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(accept()));
+    connect(u_filterEdit, &QLineEdit::textChanged, this, &SelectTargetView::setFilter);
+    connect(u_treeView, &QTreeView::doubleClicked, this, &SelectTargetView::accept);
 
     u_filterEdit->installEventFilter(this);
 }

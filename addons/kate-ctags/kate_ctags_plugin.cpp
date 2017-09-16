@@ -88,12 +88,12 @@ KateCTagsConfigPage::KateCTagsConfigPage( QWidget* parent, KateCTagsPlugin *plug
     m_confUi.updateDB->setToolTip(i18n("(Re-)generate the common CTags database."));
     m_confUi.updateDB->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
 
-    connect(m_confUi.updateDB,  SIGNAL(clicked()), this, SLOT(updateGlobalDB()));
-    connect(m_confUi.addButton, SIGNAL(clicked()), this, SLOT(addGlobalTagTarget()));
-    connect(m_confUi.delButton, SIGNAL(clicked()), this, SLOT(delGlobalTagTarget()));
+    connect(m_confUi.updateDB, &QPushButton::clicked, this, &KateCTagsConfigPage::updateGlobalDB);
+    connect(m_confUi.addButton, &QPushButton::clicked, this, &KateCTagsConfigPage::addGlobalTagTarget);
+    connect(m_confUi.delButton, &QPushButton::clicked, this, &KateCTagsConfigPage::delGlobalTagTarget);
 
-    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), 
-            this,    SLOT(updateDone(int,QProcess::ExitStatus)));
+    connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
+             this, &KateCTagsConfigPage::updateDone);
     
     reset();
 }

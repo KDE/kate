@@ -68,31 +68,31 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
 
   action = new QAction( QIcon::fromTheme(QLatin1String("distribute-horizontal-x")), i18nc("@action:intoolbar", "Resize columns to contents"), this);
   toolbar->addAction(action);
-  connect(action, SIGNAL(triggered()), this, SLOT(resizeColumnsToContents()));
+  connect(action, &QAction::triggered, this, &DataOutputWidget::resizeColumnsToContents);
 
   action = new QAction( QIcon::fromTheme(QLatin1String("distribute-vertical-y")), i18nc("@action:intoolbar", "Resize rows to contents"), this);
   toolbar->addAction(action);
-  connect(action, SIGNAL(triggered()), this, SLOT(resizeRowsToContents()));
+  connect(action, &QAction::triggered, this, &DataOutputWidget::resizeRowsToContents);
 
   action = new QAction( QIcon::fromTheme(QLatin1String("edit-copy")), i18nc("@action:intoolbar", "Copy"), this);
   toolbar->addAction(action);
   m_view->addAction(action);
-  connect(action, SIGNAL(triggered()), this, SLOT(slotCopySelected()));
+  connect(action, &QAction::triggered, this, &DataOutputWidget::slotCopySelected);
 
   action = new QAction( QIcon::fromTheme(QLatin1String("document-export-table")), i18nc("@action:intoolbar", "Export..."), this);
   toolbar->addAction(action);
   m_view->addAction(action);
-  connect(action, SIGNAL(triggered()), this, SLOT(slotExport()));
+  connect(action, &QAction::triggered, this, &DataOutputWidget::slotExport);
 
   action = new QAction( QIcon::fromTheme(QLatin1String("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
   toolbar->addAction(action);
-  connect(action, SIGNAL(triggered()), this, SLOT(clearResults()));
+  connect(action, &QAction::triggered, this, &DataOutputWidget::clearResults);
 
   toolbar->addSeparator();
 
   KToggleAction *toggleAction = new KToggleAction( QIcon::fromTheme(QLatin1String("applications-education-language")), i18nc("@action:intoolbar", "Use system locale"), this);
   toolbar->addAction(toggleAction);
-  connect(toggleAction, SIGNAL(triggered()), this, SLOT(slotToggleLocale()));
+  connect(action, &QAction::triggered, this, &DataOutputWidget::slotToggleLocale);
 
   m_dataLayout->addWidget(m_view);
 

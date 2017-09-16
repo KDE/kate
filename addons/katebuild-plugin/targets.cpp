@@ -79,8 +79,9 @@ QWidget(parent)
     layout->addLayout(tLayout);
     layout->addWidget(targetsView);
 
-    connect(targetCombo, SIGNAL(activated(int)), this, SLOT(targetSetSelected(int)));
-    connect(targetsView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(targetActivated(QModelIndex)));
+    connect(targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &TargetsUi::targetSetSelected);
+    connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged,
+            this, &TargetsUi::targetActivated);
     //connect(targetsView, SIGNAL(clicked(QModelIndex)), this, SLOT(targetActivated(QModelIndex)));
 
     targetsView->installEventFilter(this);

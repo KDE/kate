@@ -98,12 +98,12 @@ QTreeWidgetItem* OutputStyleWidget::addContext(const QString &key, const QString
 
   readConfig(item);
 
-  connect(boldCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(italicCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(underlineCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(strikeOutCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(foregroundColorButton, SIGNAL(changed(QColor)), this, SLOT(slotChanged()));
-  connect(backgroundColorButton, SIGNAL(changed(QColor)), this, SLOT(slotChanged()));
+  connect(boldCheckBox, &QCheckBox::toggled, this, &OutputStyleWidget::slotChanged);
+  connect(italicCheckBox, &QCheckBox::toggled, this, &OutputStyleWidget::slotChanged);
+  connect(underlineCheckBox, &QCheckBox::toggled, this, &OutputStyleWidget::slotChanged);
+  connect(strikeOutCheckBox, &QCheckBox::toggled, this, &OutputStyleWidget::slotChanged);
+  connect(foregroundColorButton, &KColorButton::changed, this, &OutputStyleWidget::slotChanged);
+  connect(backgroundColorButton, &KColorButton::changed, this, &OutputStyleWidget::slotChanged);
 
   return item;
 }

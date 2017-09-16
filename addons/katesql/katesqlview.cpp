@@ -89,15 +89,14 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
   m_connectionsGroup = new QActionGroup(sqlMenu);
   m_connectionsGroup->setExclusive(true);
 
-  connect(sqlMenu, SIGNAL(aboutToShow()), this, SLOT(slotSQLMenuAboutToShow()));
-  connect(m_connectionsGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotConnectionSelectedFromMenu(QAction*)));
-
-  connect(m_manager, SIGNAL(error(QString)), this, SLOT(slotError(QString)));
-  connect(m_manager, SIGNAL(success(QString)), this, SLOT(slotSuccess(QString)));
-  connect(m_manager, SIGNAL(queryActivated(QSqlQuery&,QString)), this, SLOT(slotQueryActivated(QSqlQuery&,QString)));
-  connect(m_manager, SIGNAL(connectionCreated(QString)), this, SLOT(slotConnectionCreated(QString)));
-  connect(m_manager, SIGNAL(connectionAboutToBeClosed(QString)), this, SLOT(slotConnectionAboutToBeClosed(QString)));
-  connect(m_connectionsComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotConnectionChanged(QString)));
+  connect(sqlMenu, &QMenu::aboutToShow, this, &KateSQLView::slotSQLMenuAboutToShow);
+  connect(m_connectionsGroup, &QActionGroup::triggered, this, &KateSQLView::slotConnectionSelectedFromMenu);
+  connect(m_manager, &SQLManager::error, this, &KateSQLView::slotError);
+  connect(m_manager, &SQLManager::success, this, &KateSQLView::slotSuccess);
+  connect(m_manager, &SQLManager::queryActivated, this, &KateSQLView::slotQueryActivated);
+  connect(m_manager, &SQLManager::connectionCreated, this, &KateSQLView::slotConnectionCreated);
+  connect(m_manager, &SQLManager::connectionAboutToBeClosed, this, &KateSQLView::slotConnectionAboutToBeClosed);
+  connect(m_connectionsComboBox, static_cast<void (KComboBox::*)(const QString &)>(&KComboBox::currentIndexChanged), this, &KateSQLView::slotConnectionChanged);
 
   stateChanged(QLatin1String ("has_connection_selected"), KXMLGUIClient::StateReverse);
 }
@@ -122,22 +121,22 @@ void KateSQLView::setupActions()
   action = collection->addAction(QLatin1String ("connection_create"));
   action->setText( i18nc("@action:inmenu", "Add connection...") );
   action->setIcon( QIcon::fromTheme (QLatin1String ("list-add")) );
-  connect( action , SIGNAL(triggered()) , this , SLOT(slotConnectionCreate()) );
+  connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionCreate);
 
   action = collection->addAction(QLatin1String ("connection_remove"));
   action->setText( i18nc("@action:inmenu", "Remove connection") );
   action->setIcon( QIcon::fromTheme (QLatin1String ("list-remove")) );
-  connect( action , SIGNAL(triggered()) , this , SLOT(slotConnectionRemove()) );
+  connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionRemove);
 
   action = collection->addAction(QLatin1String ("connection_edit"));
   action->setText( i18nc("@action:inmenu", "Edit connection...") );
   action->setIcon( QIcon::fromTheme (QLatin1String ("configure")) );
-  connect( action , SIGNAL(triggered()) , this , SLOT(slotConnectionEdit()) );
+  connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionEdit);
 
   action = collection->addAction(QLatin1String ("connection_reconnect"));
   action->setText( i18nc("@action:inmenu", "Reconnect") );
   action->setIcon(  QIcon::fromTheme (QLatin1String ("view-refresh")) );
-  connect( action , SIGNAL(triggered()) , this , SLOT(slotConnectionReconnect()) );
+  connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionReconnect);
 
   QWidgetAction *wa = new QWidgetAction(this);
   collection->addAction(QLatin1String ("connection_chooser"), wa);
@@ -148,7 +147,7 @@ void KateSQLView::setupActions()
   action->setText( i18nc("@action:inmenu", "Run query") );
   action->setIcon( QIcon::fromTheme (QLatin1String ("quickopen")) );
   collection->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_E) );
-  connect( action , SIGNAL(triggered()) , this , SLOT(slotRunQuery()));
+  connect(action, &QAction::triggered, this, &KateSQLView::slotRunQuery);
 
   /// TODO: stop sql query
   //   action = collection->addAction("sql_stop");

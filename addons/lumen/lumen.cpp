@@ -61,9 +61,7 @@ void LumenPluginView::viewCreated(KTextEditor::View *view)
         this, &LumenPluginView::documentChanged,
         Qt::UniqueConnection);
 
-    connect(view->document(), SIGNAL(documentUrlChanged(KTextEditor::Document*)),
-            this, SLOT(urlChanged(KTextEditor::Document*)));
-
+    connect(view->document(), &Document::documentUrlChanged, this, &LumenPluginView::urlChanged);
     registerCompletion(view);
 }
 

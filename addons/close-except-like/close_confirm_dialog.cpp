@@ -95,10 +95,10 @@ CloseConfirmDialog::CloseConfirmDialog(
     // so not needed to read config...
     assert("Sanity check" && show_confirmation_action->isChecked());
     m_dont_ask_again->setCheckState(Qt::Unchecked);
-    connect(m_dont_ask_again, SIGNAL(toggled(bool)), show_confirmation_action, SLOT(toggle()));
+    connect(m_dont_ask_again, &QCheckBox::toggled, show_confirmation_action, &KToggleAction::toggle);
 
     // Update documents list according checkboxes
-    connect(this, SIGNAL(accepted()), this, SLOT(updateDocsList()));
+    connect(this, &CloseConfirmDialog::accepted, this, &CloseConfirmDialog::updateDocsList);
 
     KConfigGroup gcg(KSharedConfig::openConfig(), "kate-close-except-like-CloseConfirmationDialog");
     KWindowConfig::restoreWindowSize(windowHandle(),gcg);                                 // restore dialog geometry from config

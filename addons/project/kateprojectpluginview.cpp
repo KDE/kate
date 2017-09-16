@@ -96,7 +96,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
     m_lookupAction = popup->menu()->addAction(i18n("Lookup: %1", QString()), this, SLOT(slotProjectIndex()));
 
-    connect(popup->menu(), SIGNAL(aboutToShow()), this, SLOT(slotContextMenuAboutToShow()));
+    connect(popup->menu(), &QMenu::aboutToShow, this, &KateProjectPluginView::slotContextMenuAboutToShow);
 
     /**
      * add us to gui
@@ -165,7 +165,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
         m_stackedProjectViews = new QStackedWidget(m_toolView);
         m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);
 
-        connect(m_projectsCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCurrentChanged(int)));
+        connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
         connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
     }
 

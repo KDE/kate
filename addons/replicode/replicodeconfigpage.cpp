@@ -44,7 +44,7 @@ ReplicodeConfigPage::ReplicodeConfigPage(QWidget *parent) : KTextEditor::ConfigP
 
     reset();
 
-    connect(m_requester, SIGNAL(textChanged(QString)), SIGNAL(changed()));
+    connect(m_requester, &KUrlRequester::textChanged, this, &ReplicodeConfigPage::changed);
 }
 
 QString ReplicodeConfigPage::name() const

@@ -122,7 +122,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView( KTextEditor::Plugin *plugin,
     m_tmp_file=nullptr;
     QAction *a = actionCollection()->addAction("xml_check");
     a->setText(i18n("Validate XML"));
-    connect(a, SIGNAL(triggered()), this, SLOT(slotValidate()));
+    connect(a, &QAction::triggered, this, &PluginKateXMLCheckView::slotValidate);
     // TODO?:
     //(void)  new KAction ( i18n("Indent XML"), KShortcut(), this,
     //	SLOT(slotIndent()), actionCollection(), "xml_indent" );
@@ -135,7 +135,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView( KTextEditor::Plugin *plugin,
     headers << i18n("Message");
     listview->setHeaderLabels(headers);
     listview->setRootIsDecorated(false);
-    connect(listview, SIGNAL(itemClicked(QTreeWidgetItem*,int)), SLOT(slotClicked(QTreeWidgetItem*,int)));
+    connect(listview, &QTreeWidget::itemClicked, this, &PluginKateXMLCheckView::slotClicked);
 
     QHeaderView *header = listview->header();
     header->setSectionResizeMode(0, QHeaderView::ResizeToContents);
@@ -151,7 +151,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView( KTextEditor::Plugin *plugin,
    connect(kv, SIGNAL(modifiedChanged()), this, SLOT(slotUpdate()));
 */
 
-    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcExited(int,QProcess::ExitStatus)));
+    connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &PluginKateXMLCheckView::slotProcExited);
     // we currently only want errors:
     m_proc.setProcessChannelMode(QProcess::SeparateChannels);
     // m_proc.setProcessChannelMode(QProcess::ForwardedChannels); // For Debugging. Do not use this.

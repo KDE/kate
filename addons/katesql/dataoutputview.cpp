@@ -28,7 +28,8 @@ DataOutputView::DataOutputView(QWidget *parent)
 {
   setContextMenuPolicy(Qt::CustomContextMenu);
 
-  connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotCustomContextMenuRequested(QPoint)));
+  connect(this, &DataOutputView::customContextMenuRequested,
+          this, &DataOutputView::slotCustomContextMenuRequested);
 }
 
 void DataOutputView::slotCustomContextMenuRequested(const QPoint &pos)

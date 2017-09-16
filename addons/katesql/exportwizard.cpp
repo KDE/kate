@@ -82,7 +82,7 @@ ExportOutputPage::ExportOutputPage(QWidget *parent)
   registerField(QLatin1String("outFile"), fileRadioButton);
   registerField(QLatin1String("outFileUrl"), fileUrl, "text");
 
-  connect(fileRadioButton, SIGNAL(toggled(bool)), fileUrl, SLOT(setEnabled(bool)));
+  connect(fileRadioButton, &QRadioButton::toggled, fileUrl, &KUrlRequester::setEnabled);
 }
 
 
@@ -173,8 +173,8 @@ ExportFormatPage::ExportFormatPage(QWidget *parent)
   registerField(QLatin1String("quoteNumbersChar"), quoteNumbersLine);
   registerField(QLatin1String("fieldDelimiter*"), fieldDelimiterLine);
 
-  connect(quoteStringsCheckBox, SIGNAL(toggled(bool)), quoteStringsLine, SLOT(setEnabled(bool)));
-  connect(quoteNumbersCheckBox, SIGNAL(toggled(bool)), quoteNumbersLine, SLOT(setEnabled(bool)));
+  connect(quoteStringsCheckBox, &QCheckBox::toggled, quoteStringsLine, &KLineEdit::setEnabled);
+  connect(quoteNumbersCheckBox, &QCheckBox::toggled, quoteNumbersLine, &KLineEdit::setEnabled);
 }
 
 

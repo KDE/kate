@@ -36,12 +36,12 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 {
     m_runAction = new QAction(QIcon(QStringLiteral("code-block")), i18n("Run replicode"), this);
     actionCollection()->setDefaultShortcut(m_runAction, Qt::Key_F8);
-    connect(m_runAction, SIGNAL(triggered()), SLOT(runReplicode()));
+    connect(m_runAction, &QAction::triggered, this, &ReplicodeView::runReplicode);
     actionCollection()->addAction(QStringLiteral("katereplicode_run"), m_runAction);
 
     m_stopAction = new QAction(QIcon(QStringLiteral("process-stop")), i18n("Stop replicode"), this);
     actionCollection()->setDefaultShortcut(m_stopAction, Qt::Key_F9);
-    connect(m_stopAction, SIGNAL(triggered()), SLOT(stopReplicode()));
+    connect(m_stopAction, &QAction::triggered, this, &ReplicodeView::stopReplicode);
     actionCollection()->addAction(QStringLiteral("katereplicode_stop"), m_stopAction);
     m_stopAction->setEnabled(false);
 
@@ -53,7 +53,7 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
             i18n("Replicode Output"));
     m_replicodeOutput = new QListWidget(m_toolview);
     m_replicodeOutput->setSelectionMode(QAbstractItemView::ContiguousSelection);
-    connect(m_replicodeOutput, SIGNAL(itemActivated(QListWidgetItem*)), SLOT(outputClicked(QListWidgetItem*)));
+    connect(m_replicodeOutput, &QListWidget::itemActivated, this, &ReplicodeView::outputClicked);
     m_mainWindow->hideToolView(m_toolview);
 
     m_configSidebar = m_mainWindow->createToolView(
@@ -71,11 +71,11 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     QFormLayout *l = qobject_cast<QFormLayout*>(m_configView->widget(0)->layout());
     Q_ASSERT(l);
     l->addRow(m_runButton, m_stopButton);
-    connect(m_runButton, SIGNAL(clicked()), m_runAction, SLOT(trigger()));
-    connect(m_stopButton, SIGNAL(clicked()), m_stopAction, SLOT(trigger()));
+    connect(m_runButton, &QPushButton::clicked, m_runAction, &QAction::trigger);
+    connect(m_stopButton, &QPushButton::clicked, m_stopAction, &QAction::trigger);
 
     m_mainWindow->guiFactory()->addClient(this);
-    connect(m_mainWindow, SIGNAL(viewChanged(KTextEditor::View*)), SLOT(viewChanged()));
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &ReplicodeView::viewChanged);
 }
 
 ReplicodeView::~ReplicodeView()
@@ -147,10 +147,10 @@ void ReplicodeView::runReplicode()
     if (m_executor) delete m_executor;
     m_executor = new QProcess(this);
     m_executor->setWorkingDirectory(sourceFile.canonicalPath());
-    connect(m_executor, SIGNAL(readyReadStandardError()), SLOT(gotStderr()));
-    connect(m_executor, SIGNAL(readyReadStandardOutput()), SLOT(gotStdout()));
-    connect(m_executor, SIGNAL(finished(int)), SLOT(replicodeFinished()));
-    connect(m_executor, SIGNAL(error(QProcess::ProcessError)), SLOT(runErrored(QProcess::ProcessError)));
+    connect(m_executor, &QProcess::readyReadStandardError, this, &ReplicodeView::gotStderr);
+    connect(m_executor, &QProcess::readyReadStandardOutput, this, &ReplicodeView::gotStdout);
+    connect(m_executor, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &ReplicodeView::replicodeFinished);
+    connect(m_executor, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::error), this, &ReplicodeView::runErrored);
     qDebug() << executorPath << sourceFile.canonicalPath();
     m_completed = false;
     m_executor->start(executorPath, QStringList(), QProcess::ReadOnly);

@@ -48,8 +48,8 @@ KateSQLConfigPage::KateSQLConfigPage( QWidget* parent )
 
   reset();
 
-  connect(m_box, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
-  connect(m_outputStyleWidget, SIGNAL(changed()), this, SIGNAL(changed()));
+  connect(m_box, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
+  connect(m_outputStyleWidget, &OutputStyleWidget::changed, this, &KateSQLConfigPage::changed);
 }
 
 

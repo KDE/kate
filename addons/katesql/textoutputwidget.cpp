@@ -55,8 +55,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
 
   QAction *action = new QAction( QIcon::fromTheme(QLatin1String("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
   toolbar->addAction(action);
-  connect(action, SIGNAL(triggered()), m_output, SLOT(clear()));
-
+  connect(action, &QAction::triggered, m_output, &QTextEdit::clear);
   m_layout->addWidget(toolbar);
   m_layout->addWidget(m_output, 1);
   m_layout->setContentsMargins(0, 0, 0, 0);

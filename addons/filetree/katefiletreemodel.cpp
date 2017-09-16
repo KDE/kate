@@ -462,9 +462,9 @@ void KateFileTreeModel::clearModel()
 
 void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)
 {
-    connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(documentNameChanged(KTextEditor::Document *)));
-    connect(doc, SIGNAL(documentUrlChanged(KTextEditor::Document *)), this, SLOT(documentNameChanged(KTextEditor::Document *)));
-    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(documentModifiedChanged(KTextEditor::Document *)));
+    connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
+    connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
+    connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
     connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
             this,  SLOT(documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 }
@@ -824,9 +824,9 @@ void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
 void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &docs)
 {
     foreach(const KTextEditor::Document * doc, docs) {
-        disconnect(doc, SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(documentNameChanged(KTextEditor::Document *)));
-        disconnect(doc, SIGNAL(documentUrlChanged(KTextEditor::Document *)), this, SLOT(documentNameChanged(KTextEditor::Document *)));
-        disconnect(doc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(documentModifiedChanged(KTextEditor::Document *)));
+        disconnect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
+        disconnect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
+        disconnect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
         disconnect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
                    this,  SLOT(documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
     }

@@ -31,7 +31,7 @@ m_manager(nullptr),
 m_tree(nullptr),
 m_rootIndex(-1)
 {
-    connect(this, SIGNAL(replaceNextMatch()), this, SLOT(doReplaceNextMatch()), Qt::QueuedConnection);
+    connect(this, &ReplaceMatches::replaceNextMatch, this, &ReplaceMatches::doReplaceNextMatch, Qt::QueuedConnection);
 }
 
 void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegularExpression &regexp, const QString &replace)

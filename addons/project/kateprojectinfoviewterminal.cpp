@@ -51,7 +51,7 @@ KateProjectInfoViewTerminal::~KateProjectInfoViewTerminal()
      * avoid endless loop
      */
     if (m_konsolePart) {
-        disconnect(m_konsolePart, SIGNAL(destroyed()), this, SLOT(loadTerminal()));
+        disconnect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
     }
 }
 
@@ -97,7 +97,7 @@ void KateProjectInfoViewTerminal::loadTerminal()
     /**
      * guard destruction, create new terminal!
      */
-    connect(m_konsolePart, SIGNAL(destroyed()), this, SLOT(loadTerminal()));
+    connect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
     connect(m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent *, bool &)),
             this, SLOT(overrideShortcut(QKeyEvent *, bool &)));
 }

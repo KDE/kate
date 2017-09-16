@@ -66,7 +66,7 @@ IOView::IOView(QWidget *parent)
     layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(0);
 
-    connect(m_input, SIGNAL(returnPressed()), this, SLOT(returnPressed()));
+    connect(m_input, &QLineEdit::returnPressed, this, &IOView::returnPressed);
     createFifos();
 }
 
@@ -105,7 +105,7 @@ void IOView::createFifos()
     if (!m_stdout.open(m_stdoutFD, QIODevice::ReadWrite)) return;
     
     m_stdoutNotifier = new QSocketNotifier(m_stdoutFD, QSocketNotifier::Read, this);
-    connect(m_stdoutNotifier, SIGNAL(activated(int)), this, SLOT(readOutput()));
+    connect(m_stdoutNotifier, &QSocketNotifier::activated, this, &IOView::readOutput);
     m_stdoutNotifier->setEnabled(true);
 
     
@@ -118,7 +118,7 @@ void IOView::createFifos()
     if (!m_stderr.open(m_stderrFD, QIODevice::ReadOnly)) return;
     
     m_stderrNotifier = new QSocketNotifier(m_stderrFD, QSocketNotifier::Read, this);
-    connect(m_stderrNotifier, SIGNAL(activated(int)), this, SLOT(readErrors()));
+    connect(m_stderrNotifier, &QSocketNotifier::activated, this, &IOView::readErrors);
     m_stderrNotifier->setEnabled(true);
 
     return;

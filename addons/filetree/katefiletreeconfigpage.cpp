@@ -125,12 +125,14 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
 
     reset();
 
-    connect(gbEnableShading, SIGNAL(toggled(bool)), this, SLOT(slotMyChanged()));
-    connect(kcbViewShade, SIGNAL(changed(QColor)), this, SLOT(slotMyChanged()));
-    connect(kcbEditShade, SIGNAL(changed(QColor)), this, SLOT(slotMyChanged()));
-    connect(cmbSort, SIGNAL(activated(int)), this, SLOT(slotMyChanged()));
-    connect(cmbMode, SIGNAL(activated(int)), this, SLOT(slotMyChanged()));
-    connect(cbShowFullPath, SIGNAL(stateChanged(int)), this, SLOT(slotMyChanged()));
+    connect(gbEnableShading, &QGroupBox::toggled, this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(kcbViewShade, &KColorButton::changed, this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(kcbEditShade, &KColorButton::changed, this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(cmbSort, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated),
+            this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(cmbMode, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated),
+            this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(cbShowFullPath, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
 }
 
 QString KateFileTreeConfigPage::name() const

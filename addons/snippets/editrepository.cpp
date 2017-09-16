@@ -46,11 +46,11 @@ EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
 
     auto ok = buttonBox->button(QDialogButtonBox::Ok);
     KGuiItem::assign(ok, KStandardGuiItem::ok());
-    connect(ok, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(ok, &QPushButton::clicked, this, &EditRepository::accept);
 
     auto cancel = buttonBox->button(QDialogButtonBox::Cancel);
     KGuiItem::assign(cancel, KStandardGuiItem::cancel());
-    connect(cancel, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(cancel, &QPushButton::clicked, this, &EditRepository::reject);
 
     // fill list of available modes
     QSharedPointer<KTextEditor::Document> document(KTextEditor::Editor::instance()->createDocument(nullptr));

@@ -63,7 +63,7 @@ KateFileTreePlugin::~KateFileTreePlugin()
 QObject *KateFileTreePlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     KateFileTreePluginView *view = new KateFileTreePluginView(mainWindow, this);
-    connect(view, SIGNAL(destroyed(QObject *)), this, SLOT(viewDestroyed(QObject *)));
+    connect(view, &KateFileTreePluginView::destroyed, this, &KateFileTreePlugin::viewDestroyed);
     m_views.append(view);
 
     return view;
@@ -150,11 +150,9 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_fileTree->setSortingEnabled(true);
     mainLayout->addWidget(m_fileTree);
 
-    connect(m_fileTree, SIGNAL(activateDocument(KTextEditor::Document *)),
-            this, SLOT(activateDocument(KTextEditor::Document *)));
-
-    connect(m_fileTree, SIGNAL(viewModeChanged(bool)), this, SLOT(viewModeChanged(bool)));
-    connect(m_fileTree, SIGNAL(sortRoleChanged(int)), this, SLOT(sortRoleChanged(int)));
+    connect(m_fileTree, &KateFileTree::activateDocument, this, &KateFileTreePluginView::activateDocument);
+    connect(m_fileTree, &KateFileTree::viewModeChanged, this, &KateFileTreePluginView::viewModeChanged);
+    connect(m_fileTree, &KateFileTree::sortRoleChanged, this, &KateFileTreePluginView::sortRoleChanged);
 
     m_documentModel = new KateFileTreeModel(this);
     m_proxyModel = new KateFileTreeProxyModel(this);
@@ -166,23 +164,28 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_documentModel->setViewShade(m_plug->settings().viewShade());
     m_documentModel->setEditShade(m_plug->settings().editShade());
 
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentWillBeDeleted(KTextEditor::Document *)),
-            m_documentModel, SLOT(documentClosed(KTextEditor::Document *)));
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted,
+            m_documentModel, &KateFileTreeModel::documentClosed);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated,
+            this, &KateFileTreePluginView::documentOpened);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted,
+            this, &KateFileTreePluginView::documentClosed);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToCreateDocuments,
+            this, &KateFileTreePluginView::slotAboutToCreateDocuments);
 
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentCreated(KTextEditor::Document *)),
-            this, SLOT(documentOpened(KTextEditor::Document *)));
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentWillBeDeleted(KTextEditor::Document *)),
-            this, SLOT(documentClosed(KTextEditor::Document *)));
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(aboutToCreateDocuments()),
-            this, SLOT(slotAboutToCreateDocuments()));
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentsCreated(QList<KTextEditor::Document *>)),
+    connect(KTextEditor::Editor::instance()->application(),
+            SIGNAL(documentsCreated(QList<KTextEditor::Document *>)),
             this, SLOT(slotDocumentsCreated(const QList<KTextEditor::Document *> &)));
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(aboutToDeleteDocuments(const QList<KTextEditor::Document *> &)),
-            m_documentModel, SLOT(slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &)));
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentsDeleted(const QList<KTextEditor::Document *> &)),
-            m_documentModel, SLOT(slotDocumentsDeleted(const QList<KTextEditor::Document *> &)));
 
-    connect(m_documentModel, SIGNAL(triggerViewChangeAfterNameChange()), this, SLOT(viewChanged()));
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToDeleteDocuments,
+            m_documentModel, &KateFileTreeModel::slotAboutToDeleteDocuments);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentsDeleted,
+            m_documentModel, &KateFileTreeModel::slotDocumentsDeleted);
+
+    connect(m_documentModel, &KateFileTreeModel::triggerViewChangeAfterNameChange, [=] {
+                KateFileTreePluginView::viewChanged();
+            });
+
     m_fileTree->setModel(m_proxyModel);
 
     m_fileTree->setDragEnabled(false);
@@ -191,9 +194,10 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
 
     m_fileTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    connect(m_fileTree->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), m_fileTree, SLOT(slotCurrentChanged(QModelIndex, QModelIndex)));
+    connect(m_fileTree->selectionModel(), &QItemSelectionModel::currentChanged,
+            m_fileTree, &KateFileTree::slotCurrentChanged);
 
-    connect(mainWindow, SIGNAL(viewChanged(KTextEditor::View *)), this, SLOT(viewChanged(KTextEditor::View *)));
+    connect(mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateFileTreePluginView::viewChanged);
 
     //
     // actions
@@ -225,18 +229,18 @@ void KateFileTreePluginView::setupActions()
     aPrev->setText(i18n("Previous Document"));
     aPrev->setIcon(QIcon::fromTheme(QLatin1String("go-up")));
     actionCollection()->setDefaultShortcut(aPrev, Qt::ALT + Qt::Key_Up);
-    connect(aPrev, SIGNAL(triggered(bool)), m_fileTree, SLOT(slotDocumentPrev()));
+    connect(aPrev, &QAction::triggered, m_fileTree, &KateFileTree::slotDocumentPrev);
 
     auto aNext = actionCollection()->addAction(QLatin1String("filetree_next_document"));
     aNext->setText(i18n("Next Document"));
     aNext->setIcon(QIcon::fromTheme(QLatin1String("go-down")));
     actionCollection()->setDefaultShortcut(aNext, Qt::ALT + Qt::Key_Down);
-    connect(aNext, SIGNAL(triggered(bool)), m_fileTree, SLOT(slotDocumentNext()));
+    connect(aNext, &QAction::triggered, m_fileTree, &KateFileTree::slotDocumentNext);
 
     auto aShowActive = actionCollection()->addAction(QLatin1String("filetree_show_active_document"));
     aShowActive->setText(i18n("&Show Active"));
     aShowActive->setIcon(QIcon::fromTheme(QLatin1String("folder-sync")));
-    connect(aShowActive, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()));
+    connect(aShowActive, &QAction::triggered, this, &KateFileTreePluginView::showActiveDocument);
 
     auto aSave = actionCollection()->addAction(QLatin1String("filetree_save"), this, SLOT(slotDocumentSave()));
     aSave->setText(i18n("Save Current Document"));

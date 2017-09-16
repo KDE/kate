@@ -51,19 +51,19 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     QAction *back = actionCollection()->addAction(QLatin1String("ctags_return_step"));
     back->setText(i18n("Jump back one step"));
-    connect(back, SIGNAL(triggered(bool)), this, SLOT(stepBack()));
+    connect(back, &QAction::triggered, this, &KateCTagsView::stepBack);
 
     QAction *decl = actionCollection()->addAction(QLatin1String("ctags_lookup_current_as_declaration"));
     decl->setText(i18n("Go to Declaration"));
-    connect(decl, SIGNAL(triggered(bool)), this, SLOT(gotoDeclaration()));
+    connect(decl, &QAction::triggered, this, &KateCTagsView::gotoDeclaration);
 
     QAction *defin = actionCollection()->addAction(QLatin1String("ctags_lookup_current_as_definition"));
     defin->setText(i18n("Go to Definition"));
-    connect(defin, SIGNAL(triggered(bool)), this, SLOT(gotoDefinition()));
+    connect(defin, &QAction::triggered, this, &KateCTagsView::gotoDefinition);
 
     QAction *lookup = actionCollection()->addAction(QLatin1String("ctags_lookup_current"));
     lookup->setText(i18n("Lookup Current Text"));
-    connect(lookup, SIGNAL(triggered(bool)), this, SLOT(lookupTag()));
+    connect(lookup, &QAction::triggered, this, &KateCTagsView::lookupTag);
 
     // popup menu
     m_menu = new KActionMenu(i18n("CTags"), this);
@@ -73,7 +73,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_gotoDef=m_menu->menu()->addAction(i18n("Go to Definition: %1",QString()), this, SLOT(gotoDefinition()));
     m_lookup=m_menu->menu()->addAction(i18n("Lookup: %1",QString()), this, SLOT(lookupTag()));
 
-    connect(m_menu->menu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
+    connect(m_menu->menu(), &QMenu::aboutToShow, this, &KateCTagsView::aboutToShow);
 
     QWidget *ctagsWidget = new QWidget(m_toolView);
     m_ctagsUi.setupUi(ctagsWidget);
@@ -96,24 +96,22 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_ctagsUi.tagsFile->setToolTip(i18n("Select new or existing database file."));
     m_ctagsUi.tagsFile->setMode(KFile::File);
 
-    connect(m_ctagsUi.resetCMD, SIGNAL(clicked()), this, SLOT(resetCMD()));
-    connect(m_ctagsUi.addButton, SIGNAL(clicked()), this, SLOT(addTagTarget()));
-    connect(m_ctagsUi.delButton, SIGNAL(clicked()), this, SLOT(delTagTarget()));
-    connect(m_ctagsUi.updateButton,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
-    connect(m_ctagsUi.updateButton2,  SIGNAL(clicked()), this, SLOT(updateSessionDB()));
-    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)),
-            this, SLOT(updateDone(int,QProcess::ExitStatus)));
+    connect(m_ctagsUi.resetCMD, &QToolButton::clicked, this, &KateCTagsView::resetCMD);
+    connect(m_ctagsUi.addButton, &QPushButton::clicked, this, &KateCTagsView::addTagTarget);
+    connect(m_ctagsUi.delButton, &QPushButton::clicked, this, &KateCTagsView::delTagTarget);
+    connect(m_ctagsUi.updateButton, &QPushButton::clicked, this, &KateCTagsView::updateSessionDB);
+    connect(m_ctagsUi.updateButton2, &QPushButton::clicked, this, &KateCTagsView::updateSessionDB);
+    connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
+            this, &KateCTagsView::updateDone);
 
-    connect(m_ctagsUi.inputEdit, SIGNAL(textChanged(QString)), this, SLOT(startEditTmr()));
+    connect(m_ctagsUi.inputEdit, &QLineEdit::textChanged, this, &KateCTagsView::startEditTmr);
 
     m_editTimer.setSingleShot(true);
-    connect(&m_editTimer, SIGNAL(timeout()), this, SLOT(editLookUp()));
+    connect(&m_editTimer, &QTimer::timeout, this, &KateCTagsView::editLookUp);
 
-    connect(m_ctagsUi.tagTreeWidget, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
-            SLOT(tagHitClicked(QTreeWidgetItem*)));
+    connect(m_ctagsUi.tagTreeWidget, &QTreeWidget::itemActivated, this, &KateCTagsView::tagHitClicked);
 
-    connect(m_mWin, SIGNAL(unhandledShortcutOverride(QEvent*)),
-            this, SLOT(handleEsc(QEvent*)));
+    connect(m_mWin, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateCTagsView::handleEsc);
 
     m_toolView->installEventFilter(this);
 

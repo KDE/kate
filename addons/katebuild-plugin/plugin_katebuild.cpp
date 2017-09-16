@@ -107,32 +107,31 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     QAction *a = actionCollection()->addAction(QStringLiteral("select_target"));
     a->setText(i18n("Select Target..."));
     a->setIcon(QIcon::fromTheme(QStringLiteral("select")));
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotSelectTarget()));
-
+    connect(a, &QAction::triggered, this, &KateBuildView::slotSelectTarget);
     a = actionCollection()->addAction(QStringLiteral("build_default_target"));
     a->setText(i18n("Build Default Target"));
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotBuildDefaultTarget()));
+    connect(a, &QAction::triggered, this, &KateBuildView::slotBuildDefaultTarget);
 
     a = actionCollection()->addAction(QStringLiteral("build_previous_target"));
     a->setText(i18n("Build Previous Target"));
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotBuildPreviousTarget()));
+    connect(a, &QAction::triggered, this, &KateBuildView::slotBuildPreviousTarget);
 
     a = actionCollection()->addAction(QStringLiteral("stop"));
     a->setText(i18n("Stop"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotStop()));
+    connect(a, &QAction::triggered, this, &KateBuildView::slotStop);
 
     a = actionCollection()->addAction(QStringLiteral("goto_next"));
     a->setText(i18n("Next Error"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
     actionCollection()->setDefaultShortcut(a, Qt::SHIFT+Qt::ALT+Qt::Key_Right);
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotNext()));
+    connect(a, &QAction::triggered, this, &KateBuildView::slotNext);
 
     a = actionCollection()->addAction(QStringLiteral("goto_prev"));
     a->setText(i18n("Previous Error"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
     actionCollection()->setDefaultShortcut(a, Qt::SHIFT+Qt::ALT+Qt::Key_Left);
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotPrev()));
+    connect(a, &QAction::triggered, this, &KateBuildView::slotPrev);
 
 
     m_buildWidget = new QWidget(m_toolView);
@@ -153,45 +152,44 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_buildUi.cancelBuildButton->setEnabled(false);
     m_buildUi.cancelBuildButton2->setEnabled(false);
 
-    connect(m_buildUi.errTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
-            SLOT(slotErrorSelected(QTreeWidgetItem*)));
+    connect(m_buildUi.errTreeWidget, &QTreeWidget::itemClicked,
+            this, &KateBuildView::slotErrorSelected);
 
     m_buildUi.plainTextEdit->setReadOnly(true);
     slotDisplayMode(FullOutput);
 
-    connect(m_buildUi.displayModeSlider, SIGNAL(valueChanged(int)), this, SLOT(slotDisplayMode(int)));
+    connect(m_buildUi.displayModeSlider, &QSlider::valueChanged, this, &KateBuildView::slotDisplayMode);
 
-    connect(m_buildUi.buildAgainButton, SIGNAL(clicked()), this, SLOT(slotBuildPreviousTarget()));
-    connect(m_buildUi.cancelBuildButton, SIGNAL(clicked()), this, SLOT(slotStop()));
-    connect(m_buildUi.buildAgainButton2, SIGNAL(clicked()), this, SLOT(slotBuildPreviousTarget()));
-    connect(m_buildUi.cancelBuildButton2, SIGNAL(clicked()), this, SLOT(slotStop()));
+    connect(m_buildUi.buildAgainButton, &QPushButton::clicked, this, &KateBuildView::slotBuildPreviousTarget);
+    connect(m_buildUi.cancelBuildButton, &QPushButton::clicked, this, &KateBuildView::slotStop);
+    connect(m_buildUi.buildAgainButton2, &QPushButton::clicked, this, &KateBuildView::slotBuildPreviousTarget);
+    connect(m_buildUi.cancelBuildButton2, &QPushButton::clicked, this, &KateBuildView::slotStop);
 
-    connect(m_targetsUi->newTarget, SIGNAL(clicked()), this, SLOT(targetSetNew()));
-    connect(m_targetsUi->copyTarget, SIGNAL(clicked()), this, SLOT(targetOrSetCopy()));
-    connect(m_targetsUi->deleteTarget, SIGNAL(clicked()), this, SLOT(targetDelete()));
+    connect(m_targetsUi->newTarget, &QToolButton::clicked, this, &KateBuildView::targetSetNew);
+    connect(m_targetsUi->copyTarget, &QToolButton::clicked, this, &KateBuildView::targetOrSetCopy);
+    connect(m_targetsUi->deleteTarget, &QToolButton::clicked, this, &KateBuildView::targetDelete);
 
-    connect(m_targetsUi->addButton, SIGNAL(clicked()), this, SLOT(slotAddTargetClicked()));
-    connect(m_targetsUi->buildButton, SIGNAL(clicked()), this, SLOT(slotBuildActiveTarget()));
-    connect(m_targetsUi, SIGNAL(enterPressed()), this, SLOT(slotBuildActiveTarget()));
+    connect(m_targetsUi->addButton, &QToolButton::clicked, this, &KateBuildView::slotAddTargetClicked);
+    connect(m_targetsUi->buildButton, &QToolButton::clicked, this, &KateBuildView::slotBuildActiveTarget);
+    connect(m_targetsUi, &TargetsUi::enterPressed, this, &KateBuildView::slotBuildActiveTarget);
 
     m_proc.setOutputChannelMode(KProcess::SeparateChannels);
-    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcExited(int,QProcess::ExitStatus)));
-    connect(&m_proc, SIGNAL(readyReadStandardError()),this, SLOT(slotReadReadyStdErr()));
-    connect(&m_proc, SIGNAL(readyReadStandardOutput()),this, SLOT(slotReadReadyStdOut()));
+    connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateBuildView::slotProcExited);
+    connect(&m_proc, &KProcess::readyReadStandardError, this, &KateBuildView::slotReadReadyStdErr);
+    connect(&m_proc, &KProcess::readyReadStandardOutput, this, &KateBuildView::slotReadReadyStdOut);
 
-    connect(m_win, SIGNAL(unhandledShortcutOverride(QEvent*)), this, SLOT(handleEsc(QEvent*)));
+    connect(m_win, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateBuildView::handleEsc);
 
     m_toolView->installEventFilter(this);
 
     m_win->guiFactory()->addClient(this);
 
     // watch for project plugin view creation/deletion
-    connect(m_win, SIGNAL(pluginViewCreated (const QString &, QObject *))
-        , this, SLOT(slotPluginViewCreated (const QString &, QObject *)));
+    connect(m_win, &KTextEditor::MainWindow::pluginViewCreated,
+            this, &KateBuildView::slotPluginViewCreated);
 
-    connect(m_win, SIGNAL(pluginViewDeleted (const QString &, QObject *))
-        , this, SLOT(slotPluginViewDeleted (const QString &, QObject *)));
-
+    connect(m_win, &KTextEditor::MainWindow::pluginViewDeleted,
+            this, &KateBuildView::slotPluginViewDeleted);
     // update once project plugin state manually
     m_projectPluginView = m_win->pluginView (QStringLiteral("kateprojectplugin"));
     slotProjectMapChanged ();
@@ -916,7 +914,7 @@ void KateBuildView::slotPluginViewCreated (const QString &name, QObject *pluginV
     if (name == QLatin1String("kateprojectplugin")) {
         m_projectPluginView = pluginView;
         slotProjectMapChanged ();
-        connect (pluginView, SIGNAL(projectMapChanged()), this, SLOT(slotProjectMapChanged()));
+        connect(pluginView, SIGNAL(projectMapChanged()), this, SLOT(slotProjectMapChanged()));
     }
 }
 

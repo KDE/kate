@@ -24,7 +24,7 @@
 
 SearchOpenFiles::SearchOpenFiles(QObject *parent) : QObject(parent), m_nextIndex(-1), m_cancelSearch(true)
 {
-    connect(this, SIGNAL(searchNextFile(int)), this, SLOT(doSearchNextFile(int)), Qt::QueuedConnection);
+    connect(this, &SearchOpenFiles::searchNextFile, this, &SearchOpenFiles::doSearchNextFile, Qt::QueuedConnection);
 }
 
 bool SearchOpenFiles::searching() { return !m_cancelSearch; }

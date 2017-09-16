@@ -109,28 +109,15 @@ CloseExceptPluginView::CloseExceptPluginView(
     actionCollection()->addAction(QStringLiteral("file_close_except"), m_except_menu);
     actionCollection()->addAction(QStringLiteral("file_close_like"), m_like_menu);
 
-    // Subscribe self to document creation
-    connect(
-        KTextEditor::Editor::instance()
-      , SIGNAL(documentCreated(KTextEditor::Editor*, KTextEditor::Document*))
-      , this
-      , SLOT(documentCreated(KTextEditor::Editor*, KTextEditor::Document*))
-      );
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::documentCreated,
+            this, &CloseExceptPluginView::documentCreated);
     // Configure toggle action and connect it to update state
     m_show_confirmation_action->setChecked(m_plugin->showConfirmationNeeded());
-    connect(
-        m_show_confirmation_action
-      , SIGNAL(toggled(bool))
-      , m_plugin
-      , SLOT(toggleShowConfirmation(bool))
-      );
+    connect(m_show_confirmation_action, &KToggleAction::toggled,
+            m_plugin, &CloseExceptPlugin::toggleShowConfirmation);
     //
-    connect(
-        m_mainWindow
-      , SIGNAL(viewCreated(KTextEditor::View*))
-      , this
-      , SLOT(viewCreated(KTextEditor::View*))
-      );
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated,
+            this, &CloseExceptPluginView::viewCreated);
     // Fill menu w/ currently opened document masks/groups
     updateMenu();
 
@@ -157,24 +144,12 @@ void CloseExceptPluginView::documentCreated(KTextEditor::Editor*, KTextEditor::D
 void CloseExceptPluginView::connectToDocument(KTextEditor::Document* document)
 {
     // Subscribe self to document close and name changes
-    connect(
-        document
-      , SIGNAL(aboutToClose(KTextEditor::Document*))
-      , this
-      , SLOT(updateMenuSlotStub(KTextEditor::Document*))
-      );
-    connect(
-        document
-      , SIGNAL(documentNameChanged(KTextEditor::Document*))
-      , this
-      , SLOT(updateMenuSlotStub(KTextEditor::Document*))
-      );
-    connect(
-        document
-      , SIGNAL(documentUrlChanged(KTextEditor::Document*))
-      , this
-      , SLOT(updateMenuSlotStub(KTextEditor::Document*))
-      );
+    connect(document, &KTextEditor::Document::aboutToClose,
+            this, &CloseExceptPluginView::updateMenuSlotStub);
+    connect(document, &KTextEditor::Document::documentNameChanged,
+            this, &CloseExceptPluginView::updateMenuSlotStub);
+    connect(document, &KTextEditor::Document::documentUrlChanged,
+            this, &CloseExceptPluginView::updateMenuSlotStub);
 }
 
 void CloseExceptPluginView::updateMenuSlotStub(KTextEditor::Document*)
@@ -194,7 +169,9 @@ void CloseExceptPluginView::appendActionsFrom(
         QString action = path.path() + QLatin1Char('*');
         actions[action] = QPointer<QAction>(new QAction(action, menu));
         menu->addAction(actions[action]);
-        connect(actions[action], SIGNAL(triggered()), mapper, SLOT(map()));
+        //connect(actions[action], &QAction::triggered, mapper, &QSignalMapper::map);
+        connect(actions[action], &QAction::triggered,
+                mapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
         mapper->setMapping(actions[action], action);
     }
 }
@@ -211,7 +188,8 @@ void CloseExceptPluginView::appendActionsFrom(
         QString action = mask.startsWith(QLatin1Char('*')) ? mask : mask + QLatin1Char('*');
         actions[action] = QPointer<QAction>(new QAction(action, menu));
         menu->addAction(actions[action]);
-        connect(actions[action], SIGNAL(triggered()), mapper, SLOT(map()));
+        connect(actions[action], &QAction::triggered,
+                mapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
         mapper->setMapping(actions[action], action);
     }
 }
@@ -299,8 +277,10 @@ void CloseExceptPluginView::updateMenu()
         //
         m_except_mapper = updateMenu(paths, masks, m_except_actions, m_except_menu);
         m_like_mapper = updateMenu(paths, masks, m_like_actions, m_like_menu);
-        connect(m_except_mapper, SIGNAL(mapped(const QString&)), this, SLOT(closeExcept(const QString&)));
-        connect(m_like_mapper, SIGNAL(mapped(const QString&)), this, SLOT(closeLike(const QString&)));
+        connect(m_except_mapper, static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
+                this, &CloseExceptPluginView::closeExcept);
+        connect(m_like_mapper, static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
+                this, &CloseExceptPluginView::closeLike);
     }
 }
 

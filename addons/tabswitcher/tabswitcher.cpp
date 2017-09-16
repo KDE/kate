@@ -73,18 +73,17 @@ TabSwitcherPluginView::TabSwitcherPluginView(TabSwitcherPlugin *plugin, KTextEdi
     m_mainWindow->guiFactory()->addClient(this);
 
     // popup connections
-    connect(m_treeView, SIGNAL(pressed(QModelIndex)), SLOT(switchToClicked(QModelIndex)));
-    connect(m_treeView, SIGNAL(itemActivated(QModelIndex)), SLOT(activateView(QModelIndex)));
+    connect(m_treeView, &TabSwitcherTreeView::pressed, this, &TabSwitcherPluginView::switchToClicked);
+    connect(m_treeView, &TabSwitcherTreeView::itemActivated, this, &TabSwitcherPluginView::activateView);
 
     // track existing documents
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentCreated(KTextEditor::Document*)),
-            this, SLOT(registerDocument(KTextEditor::Document*)));
-    connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
-            this, SLOT(unregisterDocument(KTextEditor::Document*)));
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated,
+            this, &TabSwitcherPluginView::registerDocument);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted,
+            this, &TabSwitcherPluginView::unregisterDocument);;
 
     // track lru activation of views to raise the respective documents in the model
-    connect(m_mainWindow, SIGNAL(viewChanged(KTextEditor::View*)),
-            this, SLOT(raiseView(KTextEditor::View*)));
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &TabSwitcherPluginView::raiseView);
 }
 
 TabSwitcherPluginView::~TabSwitcherPluginView()
@@ -107,7 +106,7 @@ void TabSwitcherPluginView::setupActions()
     actionCollection()->setDefaultShortcut(aNext, Qt::CTRL | Qt::Key_Tab);
     aNext->setWhatsThis(i18n("Opens a list to walk through the list of last used views."));
     aNext->setStatusTip(i18n("Walk through the list of last used views"));
-    connect(aNext, SIGNAL(triggered()), SLOT(walkForward()));
+    connect(aNext, &QAction::triggered, this, &TabSwitcherPluginView::walkForward);
 
     auto aPrev = actionCollection()->addAction(QStringLiteral("view_lru_document_prev"));
     aPrev->setText(i18n("Last Used Views (Reverse)"));
@@ -115,7 +114,7 @@ void TabSwitcherPluginView::setupActions()
     actionCollection()->setDefaultShortcut(aPrev, Qt::CTRL | Qt::SHIFT | Qt::Key_Tab);
     aPrev->setWhatsThis(i18n("Opens a list to walk through the list of last used views in reverse."));
     aPrev->setStatusTip(i18n("Walk through the list of last used views"));
-    connect(aPrev, SIGNAL(triggered()), SLOT(walkBackward()));
+    connect(aPrev, &QAction::triggered, this, &TabSwitcherPluginView::walkBackward);
 
     // make sure action work when the popup has focus
     m_treeView->addAction(aNext);
@@ -146,8 +145,7 @@ void TabSwitcherPluginView::registerDocument(KTextEditor::Document * document)
     m_model->insertRow(0, item);
 
     // track document name changes
-    connect(document, SIGNAL(documentNameChanged(KTextEditor::Document*)),
-            this, SLOT(updateDocumentName(KTextEditor::Document*)));
+    connect(document, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
 }
 
 void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)

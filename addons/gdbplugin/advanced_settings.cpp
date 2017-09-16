@@ -31,25 +31,25 @@ AdvancedGDBSettings::AdvancedGDBSettings(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
     u_gdbBrowse->setIcon(QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")));
-    connect(u_gdbBrowse, SIGNAL(clicked()), this, SLOT(slotBrowseGDB()));
+    connect(u_gdbBrowse, &QToolButton::clicked, this, &AdvancedGDBSettings::slotBrowseGDB);
 
     u_setSoPrefix->setIcon(QIcon::fromTheme(QStringLiteral("folder")));
-    connect(u_setSoPrefix, SIGNAL(clicked()), this, SLOT(slotSetSoPrefix()));
+    connect(u_setSoPrefix, &QToolButton::clicked, this, &AdvancedGDBSettings::slotSetSoPrefix);
 
     u_addSoSearchPath->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
     u_delSoSearchPath->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
-    connect(u_addSoSearchPath, SIGNAL(clicked()), this, SLOT(slotAddSoPath()));
-    connect(u_delSoSearchPath, SIGNAL(clicked()), this, SLOT(slotDelSoPath()));
+    connect(u_addSoSearchPath, &QToolButton::clicked, this, &AdvancedGDBSettings::slotAddSoPath);
+    connect(u_delSoSearchPath, &QToolButton::clicked, this, &AdvancedGDBSettings::slotDelSoPath);
 
     u_addSrcPath->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
     u_delSrcPath->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
-    connect(u_addSrcPath, SIGNAL(clicked()), this, SLOT(slotAddSrcPath()));
-    connect(u_delSrcPath, SIGNAL(clicked()), this, SLOT(slotDelSrcPath()));
+    connect(u_addSrcPath, &QToolButton::clicked, this, &AdvancedGDBSettings::slotAddSrcPath);
+    connect(u_delSrcPath, &QToolButton::clicked, this, &AdvancedGDBSettings::slotDelSrcPath);
 
-    connect(u_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(u_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(u_buttonBox, &QDialogButtonBox::accepted, this, &AdvancedGDBSettings::accept);
+    connect(u_buttonBox, &QDialogButtonBox::rejected, this, &AdvancedGDBSettings::reject);
 
-    connect(u_localRemote, SIGNAL(activated(int)), this, SLOT(slotLocalRemoteChanged()));
+    connect(u_localRemote, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &AdvancedGDBSettings::slotLocalRemoteChanged);
 }
 
 AdvancedGDBSettings::~AdvancedGDBSettings()

@@ -164,6 +164,8 @@ private Q_SLOTS:
 
     void resultTabChanged(int index);
 
+    void expandResults();
+
     /**
      * keep track if the project plugin is alive and if the project file did change
      */

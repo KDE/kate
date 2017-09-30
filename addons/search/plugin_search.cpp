@@ -296,6 +296,7 @@ m_mainWindow (mainWin)
 
     connect(m_ui.folderUpButton,   SIGNAL(clicked()), this, SLOT(navigateFolderUp()));
     connect(m_ui.currentFolderButton, SIGNAL(clicked()), this, SLOT(setCurrentFolder()));
+    connect(m_ui.expandResults, SIGNAL(clicked()), this, SLOT(expandResults()));
 
     connect(m_ui.searchCombo,      SIGNAL(editTextChanged(QString)), &m_changeTimer, SLOT(start()));
     connect(m_ui.matchCase,        SIGNAL(toggled(bool)), &m_changeTimer, SLOT(start()));
@@ -1174,12 +1175,7 @@ void KatePluginSearchView::searchDone()
 
     // expand the "header item " to display all files and all results if configured
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
-    m_curResults->tree->expandItem(root);
-    if (root && (root->childCount() > 1) && (!m_ui.expandResults->isChecked())) {
-        for (int i=0; i<root->childCount(); i++) {
-            m_curResults->tree->collapseItem(root->child(i));
-        }
-    }
+    expandResults();
 
     if (root) {
         switch (m_ui.searchPlaceCombo->currentIndex())
@@ -1542,6 +1538,28 @@ void KatePluginSearchView::docViewChanged()
                 column = item->data(0, ReplaceMatches::ColumnRole).toInt();
                 len = item->data(0, ReplaceMatches::MatchLenRole).toInt();
                 addMatchMark(doc, line, column, len);
+            }
+        }
+    }
+}
+
+void KatePluginSearchView::expandResults()
+{
+    m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!m_curResults) {
+        qWarning() << "Results not found";
+        return;
+    }
+
+    if (m_ui.expandResults->isChecked()) {
+        m_curResults->tree->expandAll();
+    }
+    else {
+        QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+        m_curResults->tree->expandItem(root);
+        if (root && (root->childCount() > 1)) {
+            for (int i=0; i<root->childCount(); i++) {
+                m_curResults->tree->collapseItem(root->child(i));
             }
         }
     }

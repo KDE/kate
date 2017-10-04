@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="81" translationDomain="kate">
+<kpartgui name="kate" version="82" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -108,9 +108,8 @@
   </MenuBar>
   <ToolBar name="mainToolBar" noMerge="1">
     <text>Main Toolbar</text>
-    <DefineGroup name="file_open"/>
-    <Action name="file_new" group="file_open"/>
-    <Action name="file_open" group="file_open"/>
+    <Action name="file_new"/>
+    <Action name="file_open"/>
     <Separator/>
     <DefineGroup name="file_operations"/>
     <Separator/>

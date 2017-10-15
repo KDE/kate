@@ -21,6 +21,7 @@
   <name xml:lang="gl">Kate</name>
   <name xml:lang="hu">Kate</name>
   <name xml:lang="ia">Kate</name>
+  <name xml:lang="id">Kate</name>
   <name xml:lang="it">Kate</name>
   <name xml:lang="ko">Kate</name>
   <name xml:lang="nb">Kate</name>
@@ -60,6 +61,7 @@
   <summary xml:lang="gl">Editor avanzado de textos</summary>
   <summary xml:lang="hu">Speciális szövegszerkesztő</summary>
   <summary xml:lang="ia">Editor avantiate de texto</summary>
+  <summary xml:lang="id">Penyunting Teks Tingkat Lanjut</summary>
   <summary xml:lang="it">Editor di testi avanzato</summary>
   <summary xml:lang="ko">고급 텍스트 편집기</summary>
   <summary xml:lang="nb">Avansert skriveprogram</summary>
@@ -133,6 +135,7 @@
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="hu">Szolgáltatások:</p>
     <p xml:lang="ia">Characteristicas:</p>
+    <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Funzionalità:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="nb">Funksjoner:</p>
@@ -171,6 +174,7 @@
       <li xml:lang="gl">Capacidade para traballar en varios documentos á vez, coa posibilidade de dividir a xanela e usar lapelas.</li>
       <li xml:lang="hu">MDI, ablakfelosztás, ablaklapok</li>
       <li xml:lang="ia">MDI, window splitting (division de fenestra), window tabbing (schedas de fenestra)</li>
+      <li xml:lang="id">MDI, pemisahan jendela, penambahan tab jendela</li>
       <li xml:lang="it">MDI, divisione della finestra, schede delle finestre</li>
       <li xml:lang="ko">MDI, 창 나누기, 탭 기능</li>
       <li xml:lang="nb">MDI, vindusdeling, vindusfaner</li>
@@ -210,6 +214,7 @@
       <li xml:lang="gl">Corrección ortográfica.</li>
       <li xml:lang="hu">Helyesírás-ellenőrzés</li>
       <li xml:lang="ia">Controlo Orthographic</li>
+      <li xml:lang="id">Pengecekan ejaan</li>
       <li xml:lang="it">Controllo ortografico</li>
       <li xml:lang="ko">맞춤법 검사</li>
       <li xml:lang="nb">Stavekontroll</li>
@@ -247,6 +252,7 @@
       <li xml:lang="gl">Compatíbel cos fins de liña CR, CRLF e LF.</li>
       <li xml:lang="hu">CR, CRLF, LF új sor támogatás</li>
       <li xml:lang="ia">CR, CRLF, LF supporto de nove linea</li>
+      <li xml:lang="id">Dukungan CR, CRLF, LF newline</li>
       <li xml:lang="it">Supporto ritorno a capo CR, CRLF, LF</li>
       <li xml:lang="ko">CR, CRLF, LF 새 줄 지원</li>
       <li xml:lang="nb">Støtte for ny linje med CR, CRLF eller LF</li>
@@ -284,6 +290,7 @@
       <li xml:lang="gl">Compatíbel con varios sistemas de codificación de texto (UTF-8, UTF-16, ASCII, etc.).</li>
       <li xml:lang="hu">Különböző kódolások támogatása (UTF-8, UTF-16, ASCII, stb)</li>
       <li xml:lang="ia">Supporto de codifica (utf-8, utf-16, ascii etc.)</li>
+      <li xml:lang="id">Dukungan pengkodean (utf-8, utf-16, ascii dll.)</li>
       <li xml:lang="it">Supporto di codifica (utf-8, utf-16, ascii, ecc.)</li>
       <li xml:lang="ko">인코딩 지원(UTF-8, UTF-16, ASCII 등)</li>
       <li xml:lang="nb">Støtte for tegnkoding (utf-8. utf-16, ascii osv.)</li>
@@ -321,6 +328,7 @@
       <li xml:lang="gl">Conversión entre sistemas de codificación.</li>
       <li xml:lang="hu">Kódolások közti konverzió</li>
       <li xml:lang="ia">Conversion de codifica</li>
+      <li xml:lang="id">Konversi pengkodean</li>
       <li xml:lang="it">Conversione di codifica</li>
       <li xml:lang="ko">인코딩 변환</li>
       <li xml:lang="nb">Kodekonvertering</li>
@@ -358,6 +366,7 @@
       <li xml:lang="gl">Funcionalidade de atopar e substituír baseada en expresións regulares.</li>
       <li xml:lang="hu">Reguláris kifejezéseken alapuló keresés és csere</li>
       <li xml:lang="ia">Trovar basate sur expression regular expression based  &amp; reimplaciar</li>
+      <li xml:lang="id">Ekspresi reguler berdasarkan cari &amp; ganti</li>
       <li xml:lang="it">Ricerche e sostituzioni basate sulle espressioni regolari</li>
       <li xml:lang="ko">정규 표현식 기반 찾기 및 바꾸기</li>
       <li xml:lang="nb">Finn og erstatt basert på regulære uttrykk</li>
@@ -395,6 +404,7 @@
       <li xml:lang="gl">Potente realzado de sintaxe e de parellas de parénteses.</li>
       <li xml:lang="hu">Hatékony szintaxiskiemelés és zárójel-párosítás</li>
       <li xml:lang="ia">Potente evidentiation de syntaxhe e coincidentia de parenthesis</li>
+      <li xml:lang="id">Penyorotan sintaks yang ampuh dan pencocokan kurung</li>
       <li xml:lang="it">Potente evidenziazione della sintassi e verifica delle parentesi</li>
       <li xml:lang="ko">강력한 구문 강조 및 괄호 일치</li>
       <li xml:lang="nb">Kraftig syntaksfremheving og parentesparing</li>
@@ -431,6 +441,7 @@
       <li xml:lang="gl">Pregado de código e texto.</li>
       <li xml:lang="hu">Kód- és szövegösszecsukás</li>
       <li xml:lang="ia">Codice e texto plicabile</li>
+      <li xml:lang="id">Pelipatan kode dan teks</li>
       <li xml:lang="it">Raggruppamento del codice e del testo</li>
       <li xml:lang="ko">코드 및 텍스트 접기</li>
       <li xml:lang="nb">Kode- og tekstbryting</li>
@@ -468,6 +479,7 @@
       <li xml:lang="gl">Funcionalidade de desfacer e refacer sen limitacións.</li>
       <li xml:lang="hu">Végtelen visszavonás/újra végrehajtás</li>
       <li xml:lang="ia">Supporto per annullation e re-facer infinite</li>
+      <li xml:lang="id">Dukungan tak jadi/jadi lagi tak terbatas</li>
       <li xml:lang="it">Supporto annulla/rifai infinito</li>
       <li xml:lang="ko">무한 실행 취소/다시 실행 지원</li>
       <li xml:lang="nb">Ubegrenset støtte for angring/omgjøring</li>
@@ -506,6 +518,7 @@
       <li xml:lang="gl">Modo de selección por bloques.</li>
       <li xml:lang="hu">Blokkos kijelölési mód</li>
       <li xml:lang="ia">Modo de selection de bloco</li>
+      <li xml:lang="id">Mode seleksi blok</li>
       <li xml:lang="it">Modalità di selezione a blocchi</li>
       <li xml:lang="ko">블록 선택 모드</li>
       <li xml:lang="nb">Blokkmerkingsmodus</li>
@@ -544,6 +557,7 @@
       <li xml:lang="gl">Sangrado automático.</li>
       <li xml:lang="hu">Automatikus behúzás</li>
       <li xml:lang="ia">Auto indentation</li>
+      <li xml:lang="id">Indentasi otomatis</li>
       <li xml:lang="it">Rientro automatico</li>
       <li xml:lang="ko">자동 들여쓰기</li>
       <li xml:lang="nb">Automatisk innrykk</li>
@@ -580,6 +594,7 @@
       <li xml:lang="gl">Funcionalidade de completación automática.</li>
       <li xml:lang="hu">Automatikus kiegészítés</li>
       <li xml:lang="ia">Supporto de auto completion</li>
+      <li xml:lang="id">Dukungan penyelesaian otomatis</li>
       <li xml:lang="it">Supporto completamento automatico</li>
       <li xml:lang="ko">자동 완성 지원</li>
       <li xml:lang="nb">Autofullføring</li>
@@ -616,6 +631,7 @@
       <li xml:lang="gl">Integración coa shell.</li>
       <li xml:lang="hu">Parancsértelmező integrációja</li>
       <li xml:lang="ia">Integration de shell</li>
+      <li xml:lang="id">Integrasi dengan Shell</li>
       <li xml:lang="it">Integrazione con la shell</li>
       <li xml:lang="ko">셸 통합</li>
       <li xml:lang="nb">Skall-integrasjon</li>
@@ -652,6 +668,7 @@
       <li xml:lang="gl">Compatibilidade con numerosos protocolos (HTTP, FTP, SSH, WebDAV, etc.) mediante KIO.</li>
       <li xml:lang="hu">Protokollok (HTTP, FTP, SSH, Webdav, stb) széleskörű támogatása KIO-szolgáltatások használatával</li>
       <li xml:lang="ia">Supporto de protocollo large (http, ftp, ssh, webdav etc.) usante kioslaves</li>
+      <li xml:lang="id">Dukungan protokol yang luas (http, ftp, ssh, webdav dll.) menggunakan kioslaves</li>
       <li xml:lang="it">Ampio supporto di protocolli (http, ftp, ssh, WebDAV, ecc.) utilizzando i kioslave</li>
       <li xml:lang="ko">KIO 슬레이브를 사용한 다양한 프로토콜 지원(HTTP, FTP, SSH, WebDAV 등)</li>
       <li xml:lang="nb">Bred protokollstøtte (http, ftp, ssh, webdav osv.) ved bruk av kioslaver</li>
@@ -688,6 +705,7 @@
       <li xml:lang="gl">Arquitectura de complementos para o aplicativo e o compoñente do editor.</li>
       <li xml:lang="hu">Bővítmények támogatása az alkalmazásban és a szerkesztő komponensben</li>
       <li xml:lang="ia">Archiutectura de plugin per le componente de editor e application</li>
+      <li xml:lang="id">Arsitektur pengaya untuk aplikasi dan komponen penyunting</li>
       <li xml:lang="it">Architettura con estensioni per i componenti dell'applicazione e dell'editor</li>
       <li xml:lang="ko">프로그램과 편집기 구성 요소 플러그인 구조</li>
       <li xml:lang="nb">Modularkitektur for programmet og redigeringskomponenten</li>
@@ -725,6 +743,7 @@
       <li xml:lang="gl">Atallos personalizábeis.</li>
       <li xml:lang="hu">Testre szabható gyorsbillentyűk</li>
       <li xml:lang="ia">Vias breve personalisabile</li>
+      <li xml:lang="id">Pintasan dapat dikustomisasi</li>
       <li xml:lang="it">Scorciatoie personalizzabili</li>
       <li xml:lang="ko">사용자 정의 가능한 단축키</li>
       <li xml:lang="nb">Brukerstyrte snarveier</li>
@@ -761,6 +780,7 @@
       <li xml:lang="gl">Liña de ordes integrada.</li>
       <li xml:lang="hu">Integrált parancssor</li>
       <li xml:lang="ia">Linea de commando integrate</li>
+      <li xml:lang="id">Baris perintah yang terintegrasi</li>
       <li xml:lang="it">Riga di comando integrata</li>
       <li xml:lang="ko">내장 명령행</li>
       <li xml:lang="nb">Integrert kommandolinje</li>
@@ -798,6 +818,7 @@
       <li xml:lang="gl">A súa funcionalidade pódese ampliar mediante scripts escritos en JavaScript.</li>
       <li xml:lang="hu">Szkriptelhetőség JavaScripttel</li>
       <li xml:lang="ia">Scribibile per scripts usante JavaScript</li>
+      <li xml:lang="id">Skrip menggunakan JavaScript</li>
       <li xml:lang="it">Creazione di script con JavaScript</li>
       <li xml:lang="ko">JavaScript를 사용한 스크립트</li>
       <li xml:lang="nb">Kan skriptes med Javascript</li>

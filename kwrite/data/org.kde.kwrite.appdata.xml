@@ -22,6 +22,7 @@
   <name xml:lang="hi">केराईट</name>
   <name xml:lang="hu">KWrite</name>
   <name xml:lang="ia">Kwrite</name>
+  <name xml:lang="id">KWrite</name>
   <name xml:lang="it">KWrite</name>
   <name xml:lang="ko">KWrite</name>
   <name xml:lang="lt">KWrite</name>
@@ -64,6 +65,7 @@
   <summary xml:lang="hi">पाठ संपादक</summary>
   <summary xml:lang="hu">Szövegszerkesztő</summary>
   <summary xml:lang="ia">Editor de texto</summary>
+  <summary xml:lang="id">Penyunting Teks</summary>
   <summary xml:lang="it">Editor di testo</summary>
   <summary xml:lang="ko">텍스트 편집기</summary>
   <summary xml:lang="lt">Rašyklė</summary>
@@ -139,6 +141,7 @@
     <p xml:lang="hi">विशेषताएँ:</p>
     <p xml:lang="hu">Szolgáltatások:</p>
     <p xml:lang="ia">Characteristicas:</p>
+    <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Funzionalità:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="lt">Ypatybės:</p>
@@ -179,6 +182,7 @@
       <li xml:lang="hi">फ़ाईल प्रकार से सिंटेक्स हाईलाइटिंग</li>
       <li xml:lang="hu">Szintaxiskiemelés a fájlnak megfelelően</li>
       <li xml:lang="ia">Evidentiation de syntaxe secundo le typo de file</li>
+      <li xml:lang="id">Penyorotan sintaks sesuai dengan jenis file</li>
       <li xml:lang="it">Evidenziazione della sintassi in base al tipo di file</li>
       <li xml:lang="ko">파일 형식별 구문 강조</li>
       <li xml:lang="lt">Sintaksės paryškinimas, priklausomai nuo dokumento tipo</li>
@@ -220,6 +224,7 @@
       <li xml:lang="hi">शब्द पूर्णता</li>
       <li xml:lang="hu">Szókiegészítés</li>
       <li xml:lang="ia">Completion de parola</li>
+      <li xml:lang="id">Penyelesaian kata</li>
       <li xml:lang="it">Completamento delle parole</li>
       <li xml:lang="ko">단어 완성</li>
       <li xml:lang="lt">Žodžių užbaigimas</li>
@@ -261,6 +266,7 @@
       <li xml:lang="hi">स्वतः हाशिया</li>
       <li xml:lang="hu">Automatikus behúzás</li>
       <li xml:lang="ia">Auto indentation</li>
+      <li xml:lang="id">Indentasi otomatis</li>
       <li xml:lang="it">Rientro automatico</li>
       <li xml:lang="ko">자동 들여쓰기</li>
       <li xml:lang="lt">Automatinė įtrauka</li>
@@ -301,6 +307,7 @@
       <li xml:lang="hi">प्लगिन समर्थन</li>
       <li xml:lang="hu">Bővíthetőség kiegészítőkkel</li>
       <li xml:lang="ia">Supporto de plugin</li>
+      <li xml:lang="id">Dukungan pengaya</li>
       <li xml:lang="it">Supporto delle estensioni</li>
       <li xml:lang="ko">플러그인 지 원</li>
       <li xml:lang="lt">Papildinių palaikymas</li>
@@ -343,6 +350,7 @@
       <li xml:lang="hi">Vi इनपुट पद्दति</li>
       <li xml:lang="hu">Vi beviteli mód</li>
       <li xml:lang="ia">Modo de ingresso de Vi</li>
+      <li xml:lang="id">Mode masukan Vi</li>
       <li xml:lang="it">Modalità di inserimento Vi.</li>
       <li xml:lang="ko">VI 입력 모드</li>
       <li xml:lang="lt">Vi įvesties režimas</li>

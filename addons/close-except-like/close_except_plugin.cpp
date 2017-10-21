@@ -113,7 +113,7 @@ CloseExceptPluginView::CloseExceptPluginView(
             this, &CloseExceptPluginView::documentCreated);
     // Configure toggle action and connect it to update state
     m_show_confirmation_action->setChecked(m_plugin->showConfirmationNeeded());
-    connect(m_show_confirmation_action, &KToggleAction::toggled,
+    connect(m_show_confirmation_action.data(), &KToggleAction::toggled,
             m_plugin, &CloseExceptPlugin::toggleShowConfirmation);
     //
     connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated,
@@ -170,7 +170,7 @@ void CloseExceptPluginView::appendActionsFrom(
         actions[action] = QPointer<QAction>(new QAction(action, menu));
         menu->addAction(actions[action]);
         //connect(actions[action], &QAction::triggered, mapper, &QSignalMapper::map);
-        connect(actions[action], &QAction::triggered,
+        connect(actions[action].data(), &QAction::triggered,
                 mapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
         mapper->setMapping(actions[action], action);
     }
@@ -188,7 +188,7 @@ void CloseExceptPluginView::appendActionsFrom(
         QString action = mask.startsWith(QLatin1Char('*')) ? mask : mask + QLatin1Char('*');
         actions[action] = QPointer<QAction>(new QAction(action, menu));
         menu->addAction(actions[action]);
-        connect(actions[action], &QAction::triggered,
+        connect(actions[action].data(), &QAction::triggered,
                 mapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
         mapper->setMapping(actions[action], action);
     }
@@ -277,9 +277,9 @@ void CloseExceptPluginView::updateMenu()
         //
         m_except_mapper = updateMenu(paths, masks, m_except_actions, m_except_menu);
         m_like_mapper = updateMenu(paths, masks, m_like_actions, m_like_menu);
-        connect(m_except_mapper, static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
+        connect(m_except_mapper.data(), static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
                 this, &CloseExceptPluginView::closeExcept);
-        connect(m_like_mapper, static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
+        connect(m_like_mapper.data(), static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
                 this, &CloseExceptPluginView::closeLike);
     }
 }

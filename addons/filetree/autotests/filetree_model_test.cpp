@@ -15,10 +15,10 @@
  *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA 02110-1301, USA.
  */
+#include "katefiletreemodel.h"
 
 #include "document_dummy.h"
 #include "filetree_model_test.h"
-#include "katefiletreemodel.h"
 
 #include <QtTest>
 QTEST_GUILESS_MAIN(FileTreeModelTest)

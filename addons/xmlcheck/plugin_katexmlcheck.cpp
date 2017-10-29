@@ -205,7 +205,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         list_count++;
     }
     if( ! proc_stderr.isEmpty() ) {
-        QStringList lines = proc_stderr.split("\n", QString::SkipEmptyParts);
+        QStringList lines = proc_stderr.split('\n', QString::SkipEmptyParts);
         QString linenumber, msg;
         int line_count = 0;
         for(QStringList::Iterator it = lines.begin(); it != lines.end(); ++it) {
@@ -344,7 +344,7 @@ bool PluginKateXMLCheckView::slotValidate()
         // xmllint --noout --path "/home/user/my/with:colon/" --valid "/tmp/kate.X23725"
         // As workaround we can encode ':' with %3A
         QString path = kv->document()->url().toString(QUrl::RemoveFilename|QUrl::PreferLocalFile|QUrl::EncodeSpaces);
-        path.replace(":","%3A");
+        path.replace(':',"%3A");
         // because of such inconvinience with xmllint and pathes, maybe switch to xmlstarlet?
 
         qDebug() << "path=" << path;

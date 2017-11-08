@@ -3,13 +3,26 @@
         "Authors": [
             {
                 "Email": "kossebau@kde.org",
-                "Name": "Friedrich W. H. Kossebau"
+                "Name": "Friedrich W. H. Kossebau",
+                "Name[x-test]": "xxFriedrich W. H. Kossebauxx"
             }
         ],
         "Description": "Preview the document in the target format",
+        "Description[ca@valencia]": "Vista prèvia del document en el format de destí",
+        "Description[ca]": "Vista prèvia del document en el format de destí",
+        "Description[nl]": "Het document bekijken in het doelformaat",
+        "Description[pt]": "Mostra uma antevisão do documento no formato-alvo",
+        "Description[uk]": "Попередній перегляд документа у форматі призначення",
+        "Description[x-test]": "xxPreview the document in the target formatxx",
         "Icon": "document-preview",
         "Id": "ktexteditorpreview",
         "Name": "Document Preview",
+        "Name[ca@valencia]": "Vista prèvia de document",
+        "Name[ca]": "Vista prèvia de document",
+        "Name[nl]": "Voorbeeld van document",
+        "Name[pt]": "Antevisão do Documento",
+        "Name[uk]": "Перегляд документа",
+        "Name[x-test]": "xxDocument Previewxx",
         "ServiceTypes": [
             "KTextEditor/Plugin",
             "KDevelop/Plugin"

@@ -173,7 +173,15 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     }
 
     if (!doc) {
-        doc = createDoc(docInfo);
+        if (untitledDoc) {
+            // reuse the untitled document which is not needed
+            auto & info = m_docInfos.find(untitledDoc).value();
+            delete info;
+            info = new KateDocumentInfo(docInfo);
+            doc = untitledDoc;
+        } else {
+            doc = createDoc(docInfo);
+        }
 
         if (!encoding.isEmpty()) {
             doc->setEncoding(encoding);
@@ -195,13 +203,6 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
             m_tempFiles[doc] = qMakePair(u, fi.lastModified());
             qCDebug(LOG_KATE) << "temporary file will be deleted after use unless modified: " << u;
         }
-    }
-
-    //
-    // close untitled document, as it is not wanted
-    //
-    if (untitledDoc) {
-        closeDocument(untitledDoc);
     }
 
     return doc;

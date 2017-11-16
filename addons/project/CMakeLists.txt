@@ -23,6 +23,10 @@ set(kateprojectplugin_PART_SRCS
   kateprojectinfoviewcodeanalysis.cpp
   kateprojectinfoviewnotes.cpp
   kateprojectconfigpage.cpp
+  kateprojectcodeanalysistool.cpp
+  tools/kateprojectcodeanalysistoolcppcheck.cpp
+  tools/kateprojectcodeanalysistoolflake8.cpp
+  tools/kateprojectcodeanalysisselector.cpp
 )
 
 # resource for ui file and stuff

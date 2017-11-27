@@ -35,11 +35,16 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KIO/CopyJob>
+#include <KDesktopFile>
 #include <KDirWatch>
+#include <KService>
+#include <KShell>
 
 #include <QApplication>
+#include <QCryptographicHash>
 #include <QDir>
 #include <QInputDialog>
+#include <QScopedPointer>
 #include <QUrl>
 
 #ifndef Q_OS_WIN
@@ -86,6 +91,9 @@ void KateSessionManager::updateSessionList()
         name.chop(12); // .katesession
         list << QUrl::fromPercentEncoding(name.toLatin1());
     }
+
+    // write jump list actions to disk in the kate.desktop file
+    updateJumpListActions(list);
 
     // delete old items;
     QMutableHashIterator<QString, KateSession::Ptr> i(m_sessions);
@@ -502,6 +510,64 @@ QString KateSessionManager::sessionFileForName(const QString &name) const
 KateSessionList KateSessionManager::sessionList()
 {
     return m_sessions.values();
+}
+
+void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
+{
+    KService::Ptr service = KService::serviceByStorageId(qApp->desktopFileName());
+    if (!service) {
+        return;
+    }
+
+    QScopedPointer<KDesktopFile> df(new KDesktopFile(service->entryPath()));
+
+    QStringList newActions = df->readActions();
+
+    // try to keep existing custom actions intact, only remove our "Session" actions and add them back later
+    newActions.erase(std::remove_if(newActions.begin(), newActions.end(), [](const QString &action) {
+        return action.startsWith(QLatin1String("Session "));
+    }), newActions.end());
+
+    // we compute the new group names in advance so we can tell whether we changed something
+    // and avoid touching the desktop file leading to an expensive ksycoca recreation
+    QStringList sessionActions;
+    sessionActions.reserve(sessionList.count());
+
+    std::transform(sessionList.constBegin(), sessionList.constEnd(), std::back_inserter(sessionActions), [](const QString &session) {
+        return QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(session.toUtf8(), QCryptographicHash::Md5).toHex()));
+    });
+
+    newActions += sessionActions;
+
+    // nothing to do
+    if (df->readActions() == newActions) {
+        return;
+    }
+
+    const QString &localPath = service->locateLocal();
+    if (service->entryPath() != localPath) {
+        df.reset(df->copyTo(localPath));
+    }
+
+    // remove all Session action groups first to not leave behind any cruft
+    for (const QString &action : df->readActions()) {
+        if (action.startsWith(QLatin1String("Session "))) {
+            // TODO is there no deleteGroup(KConfigGroup)?
+            df->deleteGroup(df->actionGroup(action).name());
+        }
+    }
+
+    const int maxEntryCount = std::min(sessionActions.count(), 10);
+    for (int i = 0; i < maxEntryCount; ++i) {
+        const QString &action = sessionActions.at(i); // is a transform of sessionList, so count and order is identical
+        const QString &session = sessionList.at(i);
+
+        KConfigGroup grp = df->actionGroup(action);
+        grp.writeEntry(QStringLiteral("Name"), session);
+        grp.writeEntry(QStringLiteral("Exec"), QStringLiteral("kate -s %1").arg(KShell::quoteArg(session))); // TODO proper executable name?
+    }
+
+    df->desktopGroup().writeXdgListEntry("Actions", newActions);
 }
 
 //END KateSessionManager

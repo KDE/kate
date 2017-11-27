@@ -186,6 +186,11 @@ private:
      */
     void loadSession(const KateSession::Ptr &session) const;
 
+    /**
+     * Writes sessions as jump list actions to the kate.desktop file
+     */
+    void updateJumpListActions(const QStringList &sessionList);
+
 private:
     /**
      * absolute path to dir in home dir where to store the sessions

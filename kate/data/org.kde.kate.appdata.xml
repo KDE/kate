@@ -92,6 +92,7 @@
     <p xml:lang="ca">El Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
     <p xml:lang="ca-valencia">El Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
     <p xml:lang="cs">Kate je textový editor od KDE pro práci s více dokumenty najednou. Podporuje vlastnosti jako skládání kódu, zvýraznění syntaxe, dynamické zalamování slov, vloženou konzoli, rozsáhlou podporu modulů a základní podporu pro skriptování.</p>
+    <p xml:lang="da">Kate er en multidokument-, multivisnings-teksteditor af KDE. Den har blandt andet kodefoldning, syntaksfremhævning, dynamisk ombrydning af ord, en indlejret konsol, en omfattende plugingrænseflade og foreløbig nogen understøttelse af scripting.</p>
     <p xml:lang="de">Kate ist ein KDE-Editor für mehrere Dokumente und Ansichten. Funktionen wie Quelltextausblendung, Syntaxhervorhebung, dynamischer Zeilenumbruch, eine eingebettete Konsole und eine umfangreiche Schnittstelle für Module sowie vorläufige Unterstützung für Skripte sind enthalten.</p>
     <p xml:lang="el">Το Kate είναι ένας πολλών εγγράφων, πολλών προβολών επεξεργαστής κειμένου από το KDE. Περιέχει λειτουργίες όπως απόκρυψη κώδικα, επισήμανση σύνταξης, δυναμική αναδίπλωση λέξεων, ενσωματωμένη κονσόλα, εκτεταμένο περιβάλλον χρήσης προσθέτων και κάποια βασική υποστήριξη συγγραφής σεναρίων.</p>
     <p xml:lang="en-GB">Kate is a multi-document, multi-view text editor by KDE. It features stuff like code folding, syntax highlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.</p>
@@ -164,6 +165,7 @@
       <li xml:lang="ca">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
       <li xml:lang="ca-valencia">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
       <li xml:lang="cs">MDI, dělení oken, skládání oken do karet</li>
+      <li xml:lang="da">MDI, vinduesopdeling, fanebladsivindue</li>
       <li xml:lang="de">MDI (Multiple Document Interface = Benutzeroberfläche mit mehreren gleichzeitig geöffneten Dokumenten), geteilte Fenster, Unterfenster</li>
       <li xml:lang="el">MDI, διαίρεση παραθύρων, παραθυρικές καρτέλες</li>
       <li xml:lang="en-GB">MDI, window splitting, window tabbing</li>
@@ -242,6 +244,7 @@
       <li xml:lang="ca">Implementació de línia nova CR, CRLF, LF</li>
       <li xml:lang="ca-valencia">Implementació de línia nova CR, CRLF, LF</li>
       <li xml:lang="cs">Podpora odřádkování CR, CRLF i LF</li>
+      <li xml:lang="da">Understøttelse af CR-, CRLF-, LF-linjeskift</li>
       <li xml:lang="de">Unterstützung für CR, CRLF, LF am Zeilenende</li>
       <li xml:lang="el">CR, CRLF, LF για υποστήριξη αλλαγής γραμμής</li>
       <li xml:lang="en-GB">CR, CRLF, LF newline support</li>
@@ -280,6 +283,7 @@
       <li xml:lang="ca">Admet codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="ca-valencia">Admet codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="cs">Podpora kódování (UTF-8, UTF-16, ASCII a další)</li>
+      <li xml:lang="da">Understøttelse af kodning (utf-8, utf-16, ascii osv.)</li>
       <li xml:lang="de">Unterstützung für Kodierungen (utf-8, utf-16, ascii usw.)</li>
       <li xml:lang="el">Υποστήριξη κωδικοποίησης (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="en-GB">Encoding support (utf-8, utf-16, ascii etc.)</li>
@@ -318,6 +322,7 @@
       <li xml:lang="ca">Conversió de codificació</li>
       <li xml:lang="ca-valencia">Conversió de codificació</li>
       <li xml:lang="cs">Převod kódování</li>
+      <li xml:lang="da">Konvertering af kodning</li>
       <li xml:lang="de">Umwandlung von Kodierungen</li>
       <li xml:lang="el">Μετατροπή κωδικοποίησης</li>
       <li xml:lang="en-GB">Encoding conversion</li>
@@ -356,6 +361,7 @@
       <li xml:lang="ca">Expressió regular basada en cerca i substitució</li>
       <li xml:lang="ca-valencia">Expressió regular basada en busca i substitució</li>
       <li xml:lang="cs">Funkce Najít a nahradit s podporou regulárních výrazů</li>
+      <li xml:lang="da">Find og erstart, baseret på regulært udtryk</li>
       <li xml:lang="de">Reguläre Ausdrücke für Suchen und Ersetzen</li>
       <li xml:lang="el">Κανονικές εκφράσεις σε find &amp; replace</li>
       <li xml:lang="en-GB">Regular expression based find &amp; replace</li>
@@ -394,6 +400,7 @@
       <li xml:lang="ca">Ressaltat potent de sintaxi i concordança de parèntesis</li>
       <li xml:lang="ca-valencia">Ressaltat potent de sintaxi i concordança de parèntesis</li>
       <li xml:lang="cs">Pokročilé zvýrazňování syntaxe a párování závorek ve zdrojovém kódu</li>
+      <li xml:lang="da">Kraftfuld fremhævning af syntaks og match af vinkelparenteser</li>
       <li xml:lang="de">Leistungsfähige Syntaxhervorhebung und Übereinstimmung von Klammern</li>
       <li xml:lang="el">Ισχυρό εργαλείο επισήμανσης σύνταξης και ταιριάσματος αγκυλών</li>
       <li xml:lang="en-GB">Powerful syntax highlighting and bracket matching</li>
@@ -431,6 +438,7 @@
       <li xml:lang="ca">Plegat de codi i text</li>
       <li xml:lang="ca-valencia">Plegat de codi i text</li>
       <li xml:lang="cs">Skládání kódu a textu</li>
+      <li xml:lang="da">Foldning af kode og tekst</li>
       <li xml:lang="de">Quelltext- und Textausblendung</li>
       <li xml:lang="el">Απόκρυψη κώδικα και κειμένου</li>
       <li xml:lang="en-GB">Code and text folding</li>
@@ -469,6 +477,7 @@
       <li xml:lang="ca">Admet desfer/refer infinits</li>
       <li xml:lang="ca-valencia">Admet desfer/refer infinits</li>
       <li xml:lang="cs">Nekonečná funkce Zpět/Vpřed</li>
+      <li xml:lang="da">Understøttelse af uendeligt antal fortryd/gendan</li>
       <li xml:lang="de">Unterstützung für unbegrenztes Zurücknehmen und Wiederherstellen</li>
       <li xml:lang="el">Υποστήριξη για απεριόριστη αναίρεση/επαναφορά</li>
       <li xml:lang="en-GB">Infinite undo/redo support</li>
@@ -584,6 +593,7 @@
       <li xml:lang="ca">Admet compleció automàtica</li>
       <li xml:lang="ca-valencia">Admet compleció automàtica</li>
       <li xml:lang="cs">Podpora automatického doplňování</li>
+      <li xml:lang="da">Understøttelse af automatisk fuldførelse</li>
       <li xml:lang="de">Unterstützung für Autovervollständigung</li>
       <li xml:lang="el">Υποστήριξη αυτόματης συμπλήρωσης</li>
       <li xml:lang="en-GB">Auto completion support</li>
@@ -621,6 +631,7 @@
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
       <li xml:lang="ca-valencia">Integració de l'intèrpret d'ordes</li>
       <li xml:lang="cs">Integrace shellu</li>
+      <li xml:lang="da">Skal-integration</li>
       <li xml:lang="de">Einbindung einer Shell</li>
       <li xml:lang="el">Ενοποίηση κελύφους</li>
       <li xml:lang="en-GB">Shell integration</li>
@@ -658,6 +669,7 @@
       <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
       <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
       <li xml:lang="cs">Široká podpora protokolů pomocí kioslaves (http, ftp, ssh, webdav atd.)</li>
+      <li xml:lang="da">Bred understøttelse af protokoller (http, ftp, ssh, webdav osv.) ved brug af kioslaves</li>
       <li xml:lang="de">Unterstützung für viele Protokolle (http, ftp, ssh, webdav usw.) unter Verwendung von Ein-/Ausgabemodulen</li>
       <li xml:lang="el">Ευρεία υποστήριξη σε πρωτόκολλα (http, ftp, ssh, webdav κτλ.) με χρήση kioslaves</li>
       <li xml:lang="en-GB">Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
@@ -695,6 +707,7 @@
       <li xml:lang="ca">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="ca-valencia">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="cs">Podpora rozšiřujících modulů pro aplikaci editor</li>
+      <li xml:lang="da">Plugin-arkitektur til programmet og editorkomponenten</li>
       <li xml:lang="de">Modul-Architektur für das Programm und die Editorkomponente</li>
       <li xml:lang="el">Αρχιτεκτονική προσθέτων για το συστατικό της εφαρμογής και του επεξεργαστή</li>
       <li xml:lang="en-GB">Plugin architecture for the application and editor component</li>
@@ -733,6 +746,7 @@
       <li xml:lang="ca">Dreceres personalitzables</li>
       <li xml:lang="ca-valencia">Dreceres personalitzables</li>
       <li xml:lang="cs">Nastavitelné klávesové zkratky</li>
+      <li xml:lang="da">Genveje som kan tilpasses</li>
       <li xml:lang="de">Benutzerdefinierte Kurzbefehle</li>
       <li xml:lang="el">Προσαρμόσιμες συντομεύσεις</li>
       <li xml:lang="en-GB">Customisable shortcuts</li>
@@ -770,6 +784,7 @@
       <li xml:lang="ca">Línia d'ordres integrada</li>
       <li xml:lang="ca-valencia">Línia d'ordes integrada</li>
       <li xml:lang="cs">Integrovaný příkazový řádek</li>
+      <li xml:lang="da">Ingegreret kommandolinje</li>
       <li xml:lang="de">Integrierte Befehlszeile</li>
       <li xml:lang="el">Ενοποιημένη γραμμή εντολών</li>
       <li xml:lang="en-GB">Integrated command line</li>
@@ -808,6 +823,7 @@
       <li xml:lang="ca">Es pot crear scripts usant JavaScript</li>
       <li xml:lang="ca-valencia">Es pot crear scripts usant JavaScript</li>
       <li xml:lang="cs">Podpora skriptování v JavaScriptu</li>
+      <li xml:lang="da">Scriptbar ved brug af JavaScript</li>
       <li xml:lang="de">Skriptfähig über JavaScript</li>
       <li xml:lang="el">Συγγραφή σεναρίων με JavaScript</li>
       <li xml:lang="en-GB">Scriptable using JavaScript</li>

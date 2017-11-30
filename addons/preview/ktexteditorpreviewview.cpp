@@ -49,7 +49,10 @@ KTextEditorPreviewView::KTextEditorPreviewView(KTextEditorPreviewPlugin* plugin,
     m_toolView->addActions(m_previewView->actions());
 }
 
-KTextEditorPreviewView::~KTextEditorPreviewView() = default;
+KTextEditorPreviewView::~KTextEditorPreviewView()
+{
+    delete m_toolView;
+}
 
 void KTextEditorPreviewView::readSessionConfig(const KConfigGroup& config)
 {

@@ -526,7 +526,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
     QStringList tmpTypes = types.split(QLatin1Char(','));
     QVector<QRegExp> typeList;
     for (int i=0; i<tmpTypes.size(); i++) {
-        QRegExp rx(tmpTypes[i]);
+        QRegExp rx(tmpTypes[i].trimmed());
         rx.setPatternSyntax(QRegExp::Wildcard);
         typeList << rx;
     }
@@ -534,7 +534,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
     QStringList tmpExcludes = excludes.split(QLatin1Char(','));
     QVector<QRegExp> excludeList;
     for (int i=0; i<tmpExcludes.size(); i++) {
-        QRegExp rx(tmpExcludes[i]);
+        QRegExp rx(tmpExcludes[i].trimmed());
         rx.setPatternSyntax(QRegExp::Wildcard);
         excludeList << rx;
     }

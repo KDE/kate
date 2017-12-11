@@ -59,8 +59,11 @@ void FolderFilesList::generateList(const QString &folder,
     m_hidden       = hidden;
     m_symlinks     = symlinks;
     m_binary       = binary;
-    m_types        = types.split(QLatin1Char(','), QString::SkipEmptyParts);
 
+    m_types.clear();
+    foreach (QString type, types.split(QLatin1Char(','), QString::SkipEmptyParts)) {
+        m_types << type.trimmed();
+    }
     if (m_types.isEmpty()) {
         m_types << QStringLiteral("*");
     }
@@ -68,7 +71,7 @@ void FolderFilesList::generateList(const QString &folder,
     QStringList tmpExcludes = excludes.split(QLatin1Char(','));
     m_excludeList.clear();
     for (int i=0; i<tmpExcludes.size(); i++) {
-        QRegExp rx(tmpExcludes[i]);
+        QRegExp rx(tmpExcludes[i].trimmed());
         rx.setPatternSyntax(QRegExp::Wildcard);
         m_excludeList << rx;
     }

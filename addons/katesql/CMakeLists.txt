@@ -32,6 +32,6 @@ kcoreaddons_desktop_to_json (katesqlplugin katesql.desktop)
 target_link_libraries(katesqlplugin
     KF5::TextEditor
     KF5::Parts KF5::I18n KF5::Wallet
-    Qt5::Script Qt5::Sql KF5::ItemViews KF5::IconThemes)
+    Qt5::Sql KF5::ItemViews KF5::IconThemes)
 
 install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )

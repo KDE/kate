@@ -19,6 +19,6 @@ kcoreaddons_desktop_to_json (katesearchplugin katesearch.desktop)
 target_link_libraries(katesearchplugin
     KF5::TextEditor
     KF5::Parts KF5::I18n KF5::IconThemes
-    Qt5::Script KF5::ItemViews)
+    KF5::ItemViews)
 
 install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

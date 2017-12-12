@@ -29,6 +29,6 @@ kcoreaddons_desktop_to_json (katesnippetsplugin katesnippetsplugin.desktop)
 target_link_libraries(katesnippetsplugin
     KF5::TextEditor
     KF5::Parts KF5::I18n
-    KF5::NewStuff Qt5::Script KF5::ItemViews KF5::IconThemes)
+    KF5::NewStuff KF5::ItemViews KF5::IconThemes)
 
 install(TARGETS katesnippetsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )

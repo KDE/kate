@@ -38,7 +38,7 @@ target_link_libraries(kateprojectplugin
     KF5::TextEditor
     KF5::Parts KF5::I18n
     KF5::GuiAddons
-    Qt5::Script KF5::ItemViews KF5::ItemModels KF5::IconThemes KF5::ThreadWeaver
+    KF5::ItemViews KF5::ItemModels KF5::IconThemes KF5::ThreadWeaver
     KF5::NewStuff # For KMoreTools
 )
 

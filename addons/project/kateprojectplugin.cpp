@@ -247,8 +247,8 @@ void KateProjectPlugin::slotDirectoryChanged(const QString &path)
 
 KateProject* KateProjectPlugin::detectGit(const QDir &dir)
 {
-
-    if (m_autoGit && dir.exists(GitFolderName) && QFileInfo(dir, GitFolderName).isDir()) {
+    // allow .git as dir and file (file for git worktree stuff, https://git-scm.com/docs/git-worktree)
+    if (m_autoGit && dir.exists(GitFolderName)) {
         return createProjectForRepository(QStringLiteral("git"), dir);
     }
 

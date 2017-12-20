@@ -57,7 +57,9 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
 
     /**
      * connect needed signals
+     * we use activated + clicked as we want "always" single click activation + keyboard focus / enter working
      */
+    connect(this, &KateProjectViewTree::activated, this, &KateProjectViewTree::slotClicked);
     connect(this, &KateProjectViewTree::clicked, this, &KateProjectViewTree::slotClicked);
     connect(m_project, &KateProject::modelChanged, this, &KateProjectViewTree::slotModelChanged);
 

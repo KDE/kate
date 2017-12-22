@@ -2,6 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Anders Lund <anders.lund@lund.tdcadsl.dk>
+   Copyright (C) 2017 Ederag <edera@gmx.fr>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -43,9 +44,9 @@ class KateKonsolePluginView;
 class KateKonsolePlugin: public KTextEditor::Plugin
 {
     Q_OBJECT
-    
+
   friend class KateKonsolePluginView;
-  
+
   public:
     explicit KateKonsolePlugin( QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>() );
     ~KateKonsolePlugin() override;
@@ -58,7 +59,7 @@ class KateKonsolePlugin: public KTextEditor::Plugin
     void readConfig();
 
     QByteArray previousEditorEnv() {return m_previousEditorEnv;}
-    
+
   private:
     QList<KateKonsolePluginView*> mViews;
     QByteArray m_previousEditorEnv;
@@ -137,10 +138,16 @@ class KateConsole : public QWidget, public KXMLGUIClient
      * synchronize the konsole with the current document (cd to the directory)
      */
     void slotSync(KTextEditor::View *view = nullptr);
+
     /**
      * When syncing is done by the user, also show the terminal if it is hidden
      */
     void slotManualSync();
+
+    /**
+     * run the current document in the konsole
+     */
+    void slotRun();
 
   private Q_SLOTS:
     /**
@@ -158,7 +165,7 @@ class KateConsole : public QWidget, public KXMLGUIClient
      * set or clear focus as appropriate.
      */
     void slotToggleFocus();
-    
+
     /**
      * Handle that shortcuts are not eaten by console
      */
@@ -186,7 +193,7 @@ class KateConsole : public QWidget, public KXMLGUIClient
      * toolview for this console
      */
     QWidget *m_toolView;
-    
+
     KateKonsolePlugin *m_plugin;
     QString m_currentPath;
 };
@@ -208,8 +215,16 @@ class KateKonsoleConfigPage : public KTextEditor::ConfigPage {
     {}
   private:
     class QCheckBox *cbAutoSyncronize;
+    class QCheckBox *cbRemoveExtension;
+    class QLineEdit *lePrefix;
     class QCheckBox *cbSetEditor;
     KateKonsolePlugin *mPlugin;
+
+  private Q_SLOTS:
+    /**
+     * Enable the warning dialog for the next "Run in terminal"
+     */
+    void slotEnableRunWarning ();
 };
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;

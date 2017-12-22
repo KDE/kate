@@ -3,6 +3,7 @@
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2007 Anders Lund <anders@alweb.dk>
+   Copyright (C) 2017 Ederag <edera@gmx.fr>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -24,6 +25,7 @@
 #include <klocalizedstring.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
+#include <ktexteditor/message.h>
 
 #include <kde_terminal_interface.h>
 #include <kshell.h>
@@ -39,6 +41,9 @@
 #include <QShowEvent>
 #include <QLabel>
 #include <QCheckBox>
+#include <QGroupBox>
+#include <QLineEdit>
+#include <QPushButton>
 #include <QVBoxLayout>
 #include <QFileInfo>
 
@@ -93,7 +98,7 @@ KateKonsolePluginView::KateKonsolePluginView (KateKonsolePlugin* plugin, KTextEd
   // init console
   QWidget *toolview = mainWindow->createToolView (plugin, QStringLiteral("kate_private_plugin_katekonsoleplugin"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Terminal"));
   m_console = new KateConsole(m_plugin, mainWindow, toolview);
-  
+
   // register this view
   m_plugin->mViews.append ( this );
 }
@@ -102,7 +107,7 @@ KateKonsolePluginView::~KateKonsolePluginView ()
 {
   // unregister this view
   m_plugin->mViews.removeAll (this);
-  
+
   // cleanup, kill toolview + console
   QWidget *toolview = m_console->parentWidget();
   delete m_console;
@@ -132,9 +137,14 @@ KateConsole::KateConsole (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mw
   a->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
   a->setText(i18nc("@action", "&Pipe to Terminal"));
   connect(a, &QAction::triggered, this, &KateConsole::slotPipeToConsole);
+
   a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_sync"));
   a->setText(i18nc("@action", "S&ynchronize Terminal with Current Document"));
   connect(a, &QAction::triggered, this, &KateConsole::slotManualSync);
+
+  a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_run"));
+  a->setText(i18nc("@action", "Run Current Document"));
+  connect(a, SIGNAL(triggered()), this, SLOT(slotRun()));
 
   a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_focus"));
   a->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
@@ -147,7 +157,7 @@ KateConsole::KateConsole (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mw
 }
 
 KateConsole::~KateConsole ()
-{ 
+{
   m_mw->guiFactory()->removeClient (this);
   if (m_part)
     disconnect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);
@@ -159,8 +169,8 @@ void KateConsole::loadConsoleIfNeeded()
 
   if (!window() || !parentWidget()) return;
   if (!window() || !isVisibleTo(window())) return;
-  
-  
+
+
   /**
    * get konsole part factory
    */
@@ -292,6 +302,65 @@ void KateConsole::slotManualSync()
   if ( ! m_part || ! m_part->widget()->isVisible() )
     m_mw->showToolView( parentWidget() );
 }
+
+void KateConsole::slotRun()
+{
+  if ( m_mw->activeView() ) {
+    KTextEditor::Document *document = m_mw->activeView()->document();
+    QUrl u = document->url();
+    if ( ! u.isLocalFile() ) {
+      QPointer<KTextEditor::Message> message =
+          new KTextEditor::Message(
+            i18n("Not a local file: '%1'", u.path()),
+            KTextEditor::Message::Error
+          );
+      // auto hide is enabled and set to a sane default value of several seconds.
+      message->setAutoHide(2000);
+      message->setAutoHideMode( KTextEditor::Message::Immediate );
+      document->postMessage( message );
+      return;
+    }
+    // ensure that file is saved
+    if ( document->isModified() ) {
+      document->save();
+    }
+
+    // The string that should be output to terminal, upon acceptance
+    QString output_str;
+    // prefix first
+    output_str += KConfigGroup( KSharedConfig::openConfig(),
+                                "Konsole"
+                              ).readEntry("RunPrefix", "");
+    // then filename
+    if ( KConfigGroup(KSharedConfig::openConfig(),
+                      "Konsole"
+                     ).readEntry("RemoveExtension", true) ) {
+      // append filename without extension (i.e. keep only the basename)
+      output_str +=  QFileInfo( u.path() ).baseName() + QLatin1Char('\n');
+    } else {
+      // append filename to the terminal
+      output_str += QFileInfo( u.path() ).fileName() + QLatin1Char('\n');
+    }
+
+    if ( KMessageBox::Continue !=
+         KMessageBox::warningContinueCancel(
+             m_mw->window(),
+             i18n("Do you really want to Run the document ?\n"
+                  "This will execute the following command,\n"
+                  "with your user rights, in the terminal:\n"
+                  "'%1'", output_str),
+             i18n("Run in Terminal?"),
+             KGuiItem( i18n("Run") ),
+             KStandardGuiItem::cancel(),
+             QStringLiteral("Konsole: Run in Terminal Warning") )
+        ) {
+      return;
+    }
+    // echo to terminal
+    sendInput( output_str );
+  }
+}
+
 void KateConsole::slotToggleFocus()
 {
   QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_focus"));
@@ -306,7 +375,7 @@ void KateConsole::slotToggleFocus()
   if (m_part->widget()->hasFocus()) {
     if (m_mw->activeView())
       m_mw->activeView()->setFocus();
-      action->setText( i18n("Focus Terminal") );
+    action->setText( i18n("Focus Terminal") );
   } else {
     // show the view if it is hidden
     if (parentWidget()->isHidden())
@@ -339,6 +408,39 @@ KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin
 
   cbAutoSyncronize = new QCheckBox( i18n("&Automatically synchronize the terminal with the current document when possible"), this );
   lo->addWidget( cbAutoSyncronize );
+
+  QVBoxLayout *vboxRun = new QVBoxLayout;
+  QGroupBox *groupRun = new QGroupBox( i18n("Run in terminal"), this );
+  // Remove extension
+  cbRemoveExtension = new QCheckBox( i18n("&Remove extension"), this );
+  vboxRun->addWidget( cbRemoveExtension );
+  // Prefix
+  QFrame *framePrefix = new QFrame( this );
+  QHBoxLayout *hboxPrefix = new QHBoxLayout( framePrefix );
+  QLabel *label = new QLabel( i18n("Prefix:"), framePrefix );
+  hboxPrefix->addWidget( label );
+  lePrefix = new QLineEdit( framePrefix );
+  hboxPrefix->addWidget( lePrefix );
+  vboxRun->addWidget( framePrefix );
+  // show warning next time
+  QFrame *frameWarn = new QFrame( this );
+  QHBoxLayout *hboxWarn = new QHBoxLayout( frameWarn );
+  QPushButton *buttonWarn = new QPushButton( i18n("&Show warning next time"), frameWarn);
+  buttonWarn->setWhatsThis (
+    i18n ( "The next time '%1' is executed, "
+           "make sure a warning window will pop up, "
+           "displaying the command to be sent to terminal, "
+           "for review.",
+           i18n ("Run in terminal")
+         )
+  );
+  connect( buttonWarn, &QPushButton::pressed,
+           this, &KateKonsoleConfigPage::slotEnableRunWarning );
+  hboxWarn->addWidget( buttonWarn );
+  vboxRun->addWidget( frameWarn );
+  groupRun->setLayout( vboxRun );
+  lo->addWidget( groupRun );
+
   cbSetEditor = new QCheckBox( i18n("Set &EDITOR environment variable to 'kate -b'"), this );
   lo->addWidget( cbSetEditor );
   QLabel *tmp = new QLabel(this);
@@ -347,7 +449,15 @@ KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin
   reset();
   lo->addStretch();
   connect(cbAutoSyncronize, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
+  connect( cbRemoveExtension, SIGNAL(stateChanged(int)), SIGNAL(changed()) );
+  connect( lePrefix, &QLineEdit::textChanged,
+           this, &KateKonsoleConfigPage::changed );
   connect(cbSetEditor, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
+}
+
+void KateKonsoleConfigPage::slotEnableRunWarning ()
+{
+  KMessageBox::enableMessage(QStringLiteral("Konsole: Run in Terminal Warning"));
 }
 
 QString KateKonsoleConfigPage::name() const
@@ -369,6 +479,8 @@ void KateKonsoleConfigPage::apply()
 {
   KConfigGroup config(KSharedConfig::openConfig(), "Konsole");
   config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
+  config.writeEntry("RemoveExtension", cbRemoveExtension->isChecked());
+  config.writeEntry("RunPrefix", lePrefix->text());
   config.writeEntry("SetEditor", cbSetEditor->isChecked());
   config.sync();
   mPlugin->readConfig();
@@ -378,6 +490,8 @@ void KateKonsoleConfigPage::reset()
 {
   KConfigGroup config(KSharedConfig::openConfig(), "Konsole");
   cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
+  cbRemoveExtension->setChecked(config.readEntry("RemoveExtension", false));
+  lePrefix->setText(config.readEntry("RunPrefix", ""));
   cbSetEditor->setChecked(config.readEntry("SetEditor", false));
 }
 

@@ -36,6 +36,7 @@
         "Description[sv]": "Förhandsgranska dokumentet i målformatet",
         "Description[uk]": "Попередній перегляд документа у форматі призначення",
         "Description[x-test]": "xxPreview the document in the target formatxx",
+        "Description[zh_CN]": "以目标格式预览文档",
         "Description[zh_TW]": "以目標格式顯示文件預覽",
         "Icon": "document-preview",
         "Id": "ktexteditorpreview",

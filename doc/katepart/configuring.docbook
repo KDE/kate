@@ -1239,7 +1239,7 @@ from the &kappname; website.
 <sect1 id="config-variables">
 <title>Configuring With Document Variables</title>
 
-<para>&kappname; variables is katepart's implementation of document variables, similar
+<para>&kappname; variables is &kappname;'s implementation of document variables, similar
 to &Emacs; and vi modelines. In katepart, the lines have the following format:
 
 <userinput>kate: VARIABLENAME VALUE; [ VARIABLENAME VALUE; ... ]</userinput>
@@ -1259,12 +1259,10 @@ java or javascript file:
 <para>Additionally, document variables can be placed in a file called
 <filename>.kateconfig</filename> in any directory, and the configured settings will
 be applied as if the modelines were entered on every file in the directory and its
-subdirectories, as far down as the
-<link linkend="pref-open-save-advanced">configured search depth.</link>
-Document variables in <filename>.kateconfig</filename> use the same syntax as
-in modelines.</para>
+subdirectories. Document variables in <filename>.kateconfig</filename> use the same syntax as
+in modelines, but with <link linkend="kateconfig-extended-options">extended options</link>.</para>
 
-<para>There are variables to support almost all configurations in katepart, and
+<para>There are variables to support almost all configurations in &kappname;, and
 additionally plugins can use variables, in which case it should be documented in
 the plugin's documentation.</para>
 
@@ -1554,6 +1552,39 @@ that can be evaluated to a valid color, for example <userinput>#ff0000</userinpu
 </varlistentry>
 
 </variablelist>
+
+</sect2>
+
+<sect2 id="kateconfig-extended-options">
+<title>Extended Options in <filename>.kateconfig</filename> files</title>
+
+<para>&kappname; always search for a <filename>.kateconfig</filename> file for local files (not remote files).
+In addition, it is possible to set options based on wildcards (file extensions) as follows:</para>
+
+<programlisting>kate: tab-width 4; indent-width 4; replace-tabs on;
+kate-wildcard(*.xml): indent-width 2;
+kate-wildcard(Makefile): replace-tabs off;
+</programlisting>
+
+<para>In this example, all files use a tab-width of 4 spaces, an indent-width of 4 spaces,
+and tabs are replaced expanded to spaces. However, for all <filename class="extension">*.xml</filename>
+files, the indent width is set to 2 spaces.
+And Makefiles use tabs, &ie; tabs are not replaced with spaces.</para>
+
+<para>Wildcards are semicolon separated, &ie; you can also specify multiple file extensions as follows:
+</para>
+
+<programlisting>kate-wildcard(*.json;*.xml): indent-width 2;</programlisting>
+
+<para>Further, you can also use the mimetype to match certain files, &eg; to indent
+all C++ source files with 4 spaces, you can write:
+</para>
+
+<programlisting>kate-mimetype(text/x-c++src): indent-width 4;</programlisting>
+
+<note><para>Next to the support in <filename>.kateconfig</filename> files, wildcard and mimetype
+dependent document variables are also supported in the files itself as comments.
+</para></note>
 
 </sect2>
 

@@ -1,4 +1,0 @@
-REVIEWBOARD_URL = "https://git.reviewboard.kde.org"
-REPOSITORY = "git://anongit.kde.org/kate"
-TARGET_GROUPS = "kate"
-BRANCH = "master"

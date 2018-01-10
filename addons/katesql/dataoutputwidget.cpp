@@ -92,7 +92,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
 
   KToggleAction *toggleAction = new KToggleAction( QIcon::fromTheme(QLatin1String("applications-education-language")), i18nc("@action:intoolbar", "Use system locale"), this);
   toolbar->addAction(toggleAction);
-  connect(action, &QAction::triggered, this, &DataOutputWidget::slotToggleLocale);
+  connect(toggleAction, &QAction::triggered, this, &DataOutputWidget::slotToggleLocale);
 
   m_dataLayout->addWidget(m_view);
 

@@ -299,14 +299,14 @@ m_mainWindow (mainWin)
 
     connect(m_ui.searchCombo, &QComboBox::editTextChanged, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
     connect(m_ui.matchCase, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
-    connect(m_ui.matchCase, &QToolButton::toggled, [=]{
+    connect(m_ui.matchCase, &QToolButton::toggled, this, [=]{
         Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
         if (res) {
             res->matchCase = m_ui.matchCase->isChecked();
         }
     });
     connect(m_ui.useRegExp, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
-    connect(m_ui.useRegExp, &QToolButton::toggled, [=]{
+    connect(m_ui.useRegExp, &QToolButton::toggled, this, [=]{
         Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
         if (res) {
             res->useRegExp = m_ui.useRegExp->isChecked();
@@ -336,7 +336,7 @@ m_mainWindow (mainWin)
     connect(m_ui.stopButton, &QPushButton::clicked, &m_folderFilesList, &FolderFilesList::cancelSearch);
     connect(m_ui.stopButton, &QPushButton::clicked, &m_replacer, &ReplaceMatches::cancelReplace);
 
-    connect(m_ui.newTabButton, &QToolButton::clicked, this, &KatePluginSearchView::goToNextMatch);
+    connect(m_ui.nextButton, &QToolButton::clicked, this, &KatePluginSearchView::goToNextMatch);
 
     connect(m_ui.replaceButton, &QPushButton::clicked, this, &KatePluginSearchView::replaceSingleMatch);
     connect(m_ui.replaceCheckedBtn, &QPushButton::clicked, this, &KatePluginSearchView::replaceChecked);
@@ -369,7 +369,7 @@ m_mainWindow (mainWin)
 
     // Hook into line edit context menus
     m_ui.searchCombo->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_ui.searchButton, &QPushButton::customContextMenuRequested, this, &KatePluginSearchView::searchContextMenu);
+    connect(m_ui.searchCombo, &QComboBox::customContextMenuRequested, this, &KatePluginSearchView::searchContextMenu);
     m_ui.searchCombo->completer()->setCompletionMode(QCompleter::PopupCompletion);
     m_ui.searchCombo->completer()->setCaseSensitivity(Qt::CaseSensitive);
     m_ui.searchCombo->setInsertPolicy(QComboBox::NoInsert);

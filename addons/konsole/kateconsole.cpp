@@ -21,8 +21,6 @@
 
 #include "kateconsole.h"
 
-#include <signal.h>
-
 #include <klocalizedstring.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -250,17 +248,6 @@ void KateConsole::sendInput( const QString& text )
   TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part);
 
   if (!t) return;
-  /* 
-    copied from ... src/kde/applications/dolphin/src/panels/terminal/terminalpanel.cpp@167
-  */
-  // The TerminalV2 interface does not provide a way to delete the
-  // current line before sending a new input. This is mandatory,
-  // otherwise sending a 'cd x' to a existing 'rm -rf *' might
-  // result in data loss. As workaround SIGINT is send.
-  const int processId = t->terminalProcessId();
-  if (processId > 0) {
-      kill(processId, SIGINT);
-  }
 
   t->sendInput (text);
 }

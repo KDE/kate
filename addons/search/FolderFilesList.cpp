@@ -55,6 +55,9 @@ void FolderFilesList::generateList(const QString &folder,
 {
     m_cancelSearch = false;
     m_folder       = folder;
+    if (!m_folder.endsWith(QLatin1Char('/'))) {
+        m_folder += QLatin1Char('/');
+    }
     m_recursive    = recursive;
     m_hidden       = hidden;
     m_symlinks     = symlinks;
@@ -125,7 +128,12 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         for (int i = 0; i<currentItems.size(); ++i) {
             skip = false;
             for (int j=0; j<m_excludeList.size(); j++) {
-                if (m_excludeList[j].exactMatch(currentItems[i].fileName())) {
+
+                QString matchString = currentItems[i].filePath();
+                if (currentItems[i].filePath().startsWith(m_folder)) {
+                    matchString = currentItems[i].filePath().mid(m_folder.size());
+                }
+                if (m_excludeList[j].exactMatch(matchString)) {
                     skip = true;
                     break;
                 }

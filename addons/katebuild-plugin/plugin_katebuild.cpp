@@ -155,6 +155,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_buildUi.errTreeWidget, &QTreeWidget::itemClicked,
             this, &KateBuildView::slotErrorSelected);
 
+    m_buildUi.plainTextEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     m_buildUi.plainTextEdit->setReadOnly(true);
     slotDisplayMode(FullOutput);
 

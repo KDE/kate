@@ -37,11 +37,10 @@
 #include <QStandardPaths>
 #include <QDebug>
 
-bool katesessions_compare_sessions(const QString &s1, const QString &s2) {
-    //return KStringHandler::naturalCompare(s1,s2)==-1;
-    return s1.compare(s2)==-1;
+bool katesessions_compare_sessions(const QString &s1, const QString &s2)
+{
+    return QString::localeAwareCompare(s1, s2) == -1;
 }
-
 
 KateSessionsModel::KateSessionsModel(QObject *parent)
     : QStandardItemModel(parent) /*, m_config(0)*/

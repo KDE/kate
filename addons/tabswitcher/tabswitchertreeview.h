@@ -47,6 +47,11 @@ protected:
      * Reimplemented for tracking the CTRL key modifier.
      */
     void keyReleaseEvent(QKeyEvent * event) override;
+
+    /**
+     * Reimplemented for tracking the ESCAPE key.
+     */
+    void keyPressEvent(QKeyEvent * event) override;
 };
 
 #endif // KTEXTEDITOR_TABSWITCHER_TREEVIEW_H

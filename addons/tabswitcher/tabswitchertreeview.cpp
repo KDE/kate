@@ -44,3 +44,13 @@ void TabSwitcherTreeView::keyReleaseEvent(QKeyEvent * event)
         QListView::keyReleaseEvent(event);
     }
 }
+
+void TabSwitcherTreeView::keyPressEvent(QKeyEvent * event)
+{
+    if (event->key() == Qt::Key_Escape) {
+        event->accept();
+        hide();
+    } else {
+        QListView::keyPressEvent(event);
+    }
+}

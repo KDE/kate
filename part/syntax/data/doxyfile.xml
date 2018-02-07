@@ -28,6 +28,7 @@
             <item>CHM_INDEX_ENCODING</item>
             <item>CITE_BIB_FILES</item>
             <item>CLANG_ASSISTED_PARSING</item>
+            <item>CLANG_COMPILATION_DATABASE_PATH</item>
             <item>CLANG_OPTIONS</item>
             <item>CLASS_DIAGRAMS</item>
             <item>CLASS_GRAPH</item>
@@ -132,6 +133,7 @@
             <item>HTML_COLORSTYLE_GAMMA</item>
             <item>HTML_COLORSTYLE_HUE</item>
             <item>HTML_COLORSTYLE_SAT</item>
+            <item>HTML_DYNAMIC_MENUS</item>
             <item>HTML_DYNAMIC_SECTIONS</item>
             <item>HTML_EXTRA_FILES</item>
             <item>HTML_EXTRA_STYLESHEET</item>
@@ -202,6 +204,7 @@
             <item>PERLMOD_MAKEVAR_PREFIX</item>
             <item>PERLMOD_PRETTY</item>
             <item>PERL_PATH</item>
+            <item>PLANTUML_CFG_FILE</item>
             <item>PLANTUML_INCLUDE_PATH</item>
             <item>PLANTUML_JAR_PATH</item>
             <item>PREDEFINED</item>
@@ -259,6 +262,7 @@
             <item>TCL_SUBST</item>
             <item>TEMPLATE_RELATIONS</item>
             <item>TOC_EXPAND</item>
+            <item>TOC_INCLUDE_HEADINGS</item>
             <item>TREEVIEW_WIDTH</item>
             <item>TYPEDEF_HIDES_STRUCT</item>
             <item>UML_LIMIT_NUM_FIELDS</item>

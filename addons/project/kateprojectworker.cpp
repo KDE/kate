@@ -251,13 +251,19 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     QProcess git;
     git.setWorkingDirectory(dir.absolutePath());
     QStringList args;
-    args << QStringLiteral("ls-files") << QStringLiteral(".");
+    args << QStringLiteral("ls-files") << QStringLiteral("-z") << QStringLiteral(".");
     git.start(QStringLiteral("git"), args);
     if (!git.waitForStarted() || !git.waitForFinished()) {
         return files;
     }
 
-    const QStringList relFiles = QString::fromLocal8Bit(git.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    // git ls-files -z results a bytearray where each entry is \0-terminated.
+    // NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415)
+    const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
+    QStringList relFiles;
+    for (const QByteArray & byteArray : byteArrayList) {
+        relFiles << QString::fromUtf8(byteArray);
+    }
 
     for (const QString &relFile : relFiles) {
         if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {

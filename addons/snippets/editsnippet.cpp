@@ -1,7 +1,7 @@
 /*  This file is part of the Kate project.
  *  Based on the snippet plugin from KDevelop 4.
  *
- *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
+ *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net>
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
  *
@@ -38,6 +38,7 @@
 #include <QToolButton>
 #include <QPushButton>
 #include <QWhatsThis>
+#include <QAction>
 
 #include <KTextEditor/Editor>
 #include <KTextEditor/Document>

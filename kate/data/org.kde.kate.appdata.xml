@@ -360,7 +360,7 @@
       <li>Regular expression based find &amp; replace</li>
       <li xml:lang="ar">بحث واستبدال مبنيّ على التّعابير النّمطيّة</li>
       <li xml:lang="ca">Expressió regular basada en cerca i substitució</li>
-      <li xml:lang="ca-valencia">Expressió regular basada en busca i substitució</li>
+      <li xml:lang="ca-valencia">Expressió regular basada en cerca i substitució</li>
       <li xml:lang="cs">Funkce Najít a nahradit s podporou regulárních výrazů</li>
       <li xml:lang="da">Find og erstart, baseret på regulært udtryk</li>
       <li xml:lang="de">Reguläre Ausdrücke für Suchen und Ersetzen</li>
@@ -630,7 +630,7 @@
       <li>Shell integration</li>
       <li xml:lang="ar">التّكامل مع الصّدفة</li>
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
-      <li xml:lang="ca-valencia">Integració de l'intèrpret d'ordes</li>
+      <li xml:lang="ca-valencia">Integració de l'intèrpret d'ordres</li>
       <li xml:lang="cs">Integrace shellu</li>
       <li xml:lang="da">Skal-integration</li>
       <li xml:lang="de">Einbindung einer Shell</li>
@@ -783,7 +783,7 @@
       <li>Integrated command line</li>
       <li xml:lang="ar">سطر أوامر مدمج</li>
       <li xml:lang="ca">Línia d'ordres integrada</li>
-      <li xml:lang="ca-valencia">Línia d'ordes integrada</li>
+      <li xml:lang="ca-valencia">Línia d'ordres integrada</li>
       <li xml:lang="cs">Integrovaný příkazový řádek</li>
       <li xml:lang="da">Ingegreret kommandolinje</li>
       <li xml:lang="de">Integrierte Befehlszeile</li>

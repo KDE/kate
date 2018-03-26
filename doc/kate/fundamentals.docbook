@@ -61,6 +61,15 @@ of &kde;'s network transparency to open files on the internet.
 </screen>
 </informalexample>
 
+<para>To change the directory for temporary files, which defaults to <filename class="directory">/tmp</filename>
+set the <envar>TMPDIR</envar> environment variable before starting &kate;, &eg;
+<informalexample>
+<screen>
+<prompt>%</prompt><userinput><command>mkdir</command> /tmp/kate -p &amp;&amp; export TMPDIR=/tmp/kate &amp;&amp; kate</userinput>
+</screen>
+</informalexample>
+</para>
+
 <sect3 id="command-line-options">
 <title>Command Line Options</title>
 <para>&kate; accepts following command line options:</para>
@@ -168,11 +177,15 @@ downloaded to a temporary) and should be reuploaded, after you saved it.
 deleted (if they are local files and you have sufficient permissions) when
 closed, unless they were modified since they were opened.</para></listitem>
 </varlistentry>
-<!--FIXME usecase? -->
+
 <varlistentry>
 <term><userinput><command>kate</command>
 <option>--desktopfile</option> <parameter>filename</parameter></userinput></term>
-<listitem><para>The base file name of the desktop entry for this application.</para></listitem>
+<listitem><para>The base file name of the desktop entry for this application.</para>
+<para>This is in particular useful for wrapper applications and
+applications having in general multiple desktop files. Thus each desktop
+file can have its own command line for the <option>Exec</option> entry.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -205,6 +218,7 @@ Shows license information.
 </listitem>
 </varlistentry>
 </variablelist>
+
 </sect3>
 </sect2>
 

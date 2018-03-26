@@ -52,6 +52,10 @@ The available application plugins are:
 Look up definitions/declarations with CTags</para>
 </listitem>
 <listitem>
+<para><link linkend="kate-application-plugin-preview">Document preview</link> -
+Preview the document in the target format.</para>
+</listitem>
+<listitem>
 <para><link linkend="kate-application-plugin-documentswitcher">Document switcher</link> -
 Quick document switching with <keycombo action="simul">&Alt;&Tab;</keycombo> behavior</para>
 </listitem>
@@ -601,6 +605,93 @@ place the cursor at the start of the definition.</para>
 
 <!--context menu with Lookup Current Text, Goto Declaration, Goto Definition -->
 
+</sect2>
+
+</sect1>
+<!--https://frinring.wordpress.com/2017/11/07/ktexteditorpreviewplugin-0-2-1-last-stand-alone/-->
+<!-- https://frinring.wordpress.com/2017/08/21/look-what-you-have-donewwdo/-->
+<sect1 id="kate-application-plugin-preview">
+<title>Document Preview Plugin</title>
+
+<sect2 id="preview-introduction">
+<title>Introduction</title>
+<para>
+The plugin enables a live preview of the currently edited text document in the
+final format in the sidebar. So when editing &eg; a Markdown text or an SVG image,
+the result is instantly visible next to the source text.
+</para>
+
+<para>For the display the plugin uses that KParts plugin which is currently selected
+as the preferred one for the &MIME; type of the document.
+If there is no KParts plugin for that type, no preview is possible.
+</para>
+
+<para>To change the preferred plugin open the <guilabel>File Associations</guilabel>
+module in the &systemsettings; and edit the <guilabel>Services Preference Order</guilabel>
+on the <guilabel>Embedding</guilabel> tab.
+</para>
+
+<table>
+<title>Some available KParts plugins</title>
+<tgroup cols="2">
+<tbody>
+<row>
+<entry>&MIME; type</entry><entry>KParts plugin</entry>
+</row>
+<row>
+<entry>Markdown text</entry><entry>KMarkdownWebViewPart or OkularPart</entry>
+</row>
+<row>
+<entry>SVG image</entry><entry>SVGPart</entry>
+</row>
+<row>
+<entry>&Qt; UI files</entry><entry>KUIViewerPart</entry>
+</row>
+<row>
+<entry>Dot graph files</entry><entry>KGraphviewerPart</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</sect2>
+
+<sect2 id="preview-menu">
+<title>Menu Structure</title>
+<variablelist>
+
+<varlistentry id="view-toolviews-show-preview">
+<term><menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Preview</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Toggle the display of &kate;'s Document preview in a sidebar.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="preview-interface">
+<title>Interface</title>
+<para>The buttons at the top of the preview window provide these actions:
+</para>
+<itemizedlist>
+<listitem>
+<para>Lock the preview to a given document. Selecting this option ensures
+that if switching the focus to the view of another document in the same &kate;
+window, the preview will not follow to that document, but keep previewing
+this document.</para>
+</listitem>
+<listitem>
+<para>Enable or disable updates of the preview of the current document content</para>
+</listitem>
+<listitem>
+<para>Manually update the preview of the current document content</para>
+</listitem>
+<listitem>
+<para>A dropdown menu with actions from the KParts plugin</para>
+</listitem>
+</itemizedlist>
 </sect2>
 
 </sect1>

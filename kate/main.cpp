@@ -44,6 +44,7 @@
 #include <QDBusReply>
 #include <QApplication>
 #include <QDir>
+#include <QSessionManager>
 
 #include "../urlinfo.h"
 
@@ -487,6 +488,17 @@ int main(int argc, char **argv)
 
             // make the world happy, we are started, kind of...
             KStartupInfo::appStarted();
+
+            // We don't want the session manager to restart us on next login
+            // if we block
+            if (needToBlock) {
+                QObject::connect(qApp, &QGuiApplication::saveStateRequest, qApp,
+                                 [](QSessionManager &session) {
+                                     session.setRestartHint(QSessionManager::RestartNever);
+                                 },
+                                 Qt::DirectConnection
+                         );
+            }
 
             // this will wait until exiting is emitted by the used instance, if wanted...
             return needToBlock ? app.exec() : 0;

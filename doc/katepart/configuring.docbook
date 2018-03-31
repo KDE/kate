@@ -78,6 +78,10 @@ wrapped lines.</para></listitem>
 <listitem><para>The editor will display dots to indicate the presence of extra
 whitespace at the end of lines.</para></listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Highlight marker size</guilabel></term>
+<listitem><para>Use the slider to change the size of the visible highlight marker.</para></listitem>
+</varlistentry>
 </variablelist>
 </listitem>
 </varlistentry>
@@ -686,6 +690,11 @@ cursor movement.</para>
 <term><guilabel>Allow scrolling past the end of the document</guilabel></term> <listitem>
 <para>This option lets you scroll past the end of the document. This can be used to vertically centre the bottom of the document, or put it on top of the current view.</para></listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Backspace key removes character’s base with its diacritics</guilabel></term> <listitem>
+<para>When selected, composed characters are removed with their diacritics instead
+of only removing the base character. This is useful for Indic locales.</para></listitem>
+</varlistentry>
 
 </variablelist>
 </listitem>
@@ -1265,6 +1274,12 @@ in modelines, but with <link linkend="kateconfig-extended-options">extended opti
 <para>There are variables to support almost all configurations in &kappname;, and
 additionally plugins can use variables, in which case it should be documented in
 the plugin's documentation.</para>
+
+<para>&kappname; has support for reading configurations from <filename>.editorconfig</filename>
+files, when the <ulink url="http://editorconfig.org/">editorconfig</ulink> library is installed.
+&kappname; automatically searches for a <filename>.editorconfig</filename>
+whenever you open a file. It gives priority to <filename>.kateconfig</filename> files, though.
+</para>
 
 <sect2 id="config-variables-howto">
 <title>How &kappname; uses Variables</title>

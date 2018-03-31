@@ -1,3 +1,4 @@
+<!-- auto-generate scripting documentation (kwrite-devel@kde.org Re: [kate] doc/kate: document most of the new scripts in 4.10) -->
 <chapter id="dev">
 <chapterinfo>
 <authorgroup>
@@ -238,7 +239,7 @@ Highlighting repository</ulink> in the file <filename>language.xsd</filename>
 located in <filename class="directory">org.kde.syntax-highlighting/syntax/</filename> in
 your user folder found with <userinput><command>qtpaths</command><option>--paths
 GenericDataLocation</option></userinput> which usually is
-<filename class="directory"><envar>$HOME</envar>/.local</filename>
+<filename class="directory"><envar>$HOME</envar>/.local/share</filename>
 </para>
 
 <para>On &Windows; these files are located <filename>%USERPROFILE%/AppData/Local/org.kde.syntax-highlighting/syntax</filename>.

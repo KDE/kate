@@ -7,8 +7,8 @@
 <refentryinfo>
 <title>&kate; User's Manual</title>
 <author>&Lauri.Watts; &Lauri.Watts.mail;</author>
-<date>2016-04-26</date>
-<releaseinfo>Applications 16.04</releaseinfo>
+<date>2018-03-18</date>
+<releaseinfo>Applications 18.04</releaseinfo>
 <productname>KDE Applications</productname>
 </refentryinfo>
 
@@ -140,8 +140,8 @@ url="help:/kate">help:/kate</ulink>
 <parameter>help:/kate</parameter></userinput>).</member>
 <member>kf5options(7)</member>
 <member>qt5options(7)</member>
-<member>There is also further information available at <ulink
-url="http://kate-editor.org/">the &kate; website</ulink>.</member>
+<member>There is also further information available at the <ulink
+url="http://kate-editor.org/">&kate; website</ulink>.</member>
 </simplelist>
 </refsect1>
 
@@ -150,8 +150,9 @@ url="http://kate-editor.org/">the &kate; website</ulink>.</member>
 
 <para>To open a file named <filename>source.cpp</filename> at column 15,
 line 25, in an existing &kate; window, you could use:</para>
-<screen><userinput><command>kate</command> <option>-c 15</option> <option>-l
-25</option> <option>-u</option> <filename>source.cpp</filename></userinput> </screen>
+<screen>
+<userinput><command>kate</command> <option>-c 15</option> <option>-l 25</option> <filename>source.cpp</filename></userinput>
+</screen>
 
 <para>If you have an active internet connection, you can take advantage of
 &kde;'s network transparency to open a file from an ftp site. If you do not

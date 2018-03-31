@@ -26,8 +26,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2016-04-22</date>
-<releaseinfo>Applications 16.04</releaseinfo>
+<date>2018-03-26</date>
+<releaseinfo>Applications 18.04</releaseinfo>
 
 <abstract>
 <para>&kwrite; is a text editor by &kde; allowing you to edit one file at the time per window.</para>

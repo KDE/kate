@@ -166,6 +166,8 @@ private Q_SLOTS:
 
     void expandResults();
 
+    void updateResultsRootItem();
+
     /**
      * keep track if the project plugin is alive and if the project file did change
      */

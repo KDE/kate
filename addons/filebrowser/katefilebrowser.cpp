@@ -74,7 +74,8 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
   mainLayout->addWidget(m_urlNavigator);
 
   m_dirOperator = new KDirOperator(QUrl(), this);
-  m_dirOperator->setView(KFile::/* Simple */Detail);
+  // Default to a view with only one column since columns are auto-sized
+  m_dirOperator->setView(KFile::Tree);
   m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
   m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
   mainLayout->addWidget(m_dirOperator);

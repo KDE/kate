@@ -108,8 +108,8 @@ PreviewWidget::PreviewWidget(KTextEditorPreviewPlugin* core, KTextEditor::MainWi
     label->setAlignment(Qt::AlignHCenter);
     addWidget(label);
 
-    connect(m_mainWindow, SIGNAL(viewChanged(KTextEditor::View*)),
-            this, SLOT(setTextEditorView(KTextEditor::View*)));
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged,
+            this, &PreviewWidget::setTextEditorView);
 
     setTextEditorView(m_mainWindow->activeView());
 }

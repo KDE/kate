@@ -272,13 +272,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="9">
-      <widget class="QToolButton" name="currentFolderButton">
-       <property name="toolTip">
-        <string>Use the current document's path.</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
@@ -395,6 +388,13 @@
              <widget class="QToolButton" name="folderUpButton">
               <property name="toolTip">
                <string>Go one folder up.</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="currentFolderButton">
+              <property name="toolTip">
+               <string>Use the current document's path.</string>
               </property>
              </widget>
             </item>
@@ -536,10 +536,10 @@
   <tabstop>matchCase</tabstop>
   <tabstop>useRegExp</tabstop>
   <tabstop>expandResults</tabstop>
-  <tabstop>currentFolderButton</tabstop>
   <tabstop>displayOptions</tabstop>
   <tabstop>folderRequester</tabstop>
   <tabstop>folderUpButton</tabstop>
+  <tabstop>currentFolderButton</tabstop>
   <tabstop>filterCombo</tabstop>
   <tabstop>excludeCombo</tabstop>
   <tabstop>recursiveCheckBox</tabstop>

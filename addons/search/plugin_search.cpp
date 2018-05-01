@@ -1538,7 +1538,7 @@ void KatePluginSearchView::updateResultsRootItem()
         // since the number of arguments may differ only by one between singular and plural,
         // build the string together from two pieces...
         QString checkedItemsStr = m_curResults->matches <= 1 ? QString()
-                                           : i18np("unused", "%1 checked", checkedItemCount);
+                                           : i18np("%1 checked", "%1 checked", checkedItemCount);
 
         switch (m_ui.searchPlaceCombo->currentIndex())
         {

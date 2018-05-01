@@ -29,6 +29,7 @@
 #include <QRegularExpression>
 #include <QSet>
 #include <QTime>
+#include <QSettings>
 
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QVariantMap &projectMap)
     : QObject()
@@ -246,31 +247,70 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& fil
 
 QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 {
+    QStringList relFiles = gitLsFiles(dir);
+    relFiles << gitSubmodulesFiles(dir);
+
     QStringList files;
-
-    QProcess git;
-    git.setWorkingDirectory(dir.absolutePath());
-    QStringList args;
-    args << QStringLiteral("ls-files") << QStringLiteral("-z") << QStringLiteral(".");
-    git.start(QStringLiteral("git"), args);
-    if (!git.waitForStarted() || !git.waitForFinished()) {
-        return files;
-    }
-
-    // git ls-files -z results a bytearray where each entry is \0-terminated.
-    // NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415)
-    const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
-    QStringList relFiles;
-    for (const QByteArray & byteArray : byteArrayList) {
-        relFiles << QString::fromUtf8(byteArray);
-    }
-
     for (const QString &relFile : relFiles) {
         if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
             continue;
         }
 
         files.append(dir.absolutePath() + QLatin1Char('/') + relFile);
+    }
+
+    return files;
+}
+
+QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
+{
+    QStringList files;
+
+    // git ls-files -z results a bytearray where each entry is \0-terminated.
+    // NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415)
+    QStringList args;
+    args << QStringLiteral("ls-files") << QStringLiteral("-z") << QStringLiteral(".");
+
+    QProcess git;
+    git.setWorkingDirectory(dir.absolutePath());
+    git.start(QStringLiteral("git"), args);
+    if (!git.waitForStarted() || !git.waitForFinished()) {
+        return files;
+    }
+
+    const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
+    for (const QByteArray & byteArray : byteArrayList) {
+        files << QString::fromUtf8(byteArray);
+    }
+
+    return files;
+}
+
+QStringList KateProjectWorker::gitSubmodulesFiles(const QDir &dir)
+{
+    /**
+     * git submodule command gives little to use for reliable file listing
+     * so reading the .gitmodule file directly. After the module paths are found
+     * just treat the new repositories as the main one.
+     */
+    QStringList files;
+
+    QString modulesPath = dir.filePath(QStringLiteral(".gitmodules"));
+
+    if (!QFile::exists(modulesPath)) {
+        return files;
+    }
+
+    QSettings config(modulesPath, QSettings::IniFormat);
+
+    for (const QString &module: config.childGroups()) {
+        QString path = config.value(module + QStringLiteral("/path")).toString();
+        QDir moduleDir = dir.filePath(path);
+        QStringList relFiles = gitLsFiles(moduleDir);
+
+        for (const QString &file: relFiles) {
+            files << path + QLatin1Char('/') + file;
+        }
     }
 
     return files;

@@ -105,6 +105,7 @@
     <p xml:lang="fr">KWrite est un éditeur de texte fait par KDE et s'appuyant sur le composant éditeur de Kate.</p>
     <p xml:lang="gl">KWrite é un editor de texto creado por KDE baseado no compoñente de editor de Kate.</p>
     <p xml:lang="ia">KWrite es un editor de texto per KDE, basate sur le componente de editor de Kate.</p>
+    <p xml:lang="id">KWrite adalah sebuah pengedit teks oleh KDE, berdasarkan pada komponen editor Kate.</p>
     <p xml:lang="it">KWrite è un editor di testo di KDE, basato sul componente dell'editor di Kate.</p>
     <p xml:lang="ko">KWrite는 Kate 편집기 구성 요소를 사용하는 KDE 텍스트 편집기입니다.</p>
     <p xml:lang="nl">KWrite is een tekstbewerker door KDE, gebaseerd op de tekstbewerkercomponent van Kate.</p>
@@ -311,7 +312,7 @@
       <li xml:lang="hi">प्लगिन समर्थन</li>
       <li xml:lang="hu">Bővíthetőség kiegészítőkkel</li>
       <li xml:lang="ia">Supporto de plugin</li>
-      <li xml:lang="id">Dukungan pengaya</li>
+      <li xml:lang="id">Dukungan plugin</li>
       <li xml:lang="it">Supporto delle estensioni</li>
       <li xml:lang="ko">플러그인 지 원</li>
       <li xml:lang="lt">Papildinių palaikymas</li>

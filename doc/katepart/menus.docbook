@@ -388,6 +388,8 @@ string in the text, this is indicated by a light red background color of the ent
 <inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
 <inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
 to jump to the next or previous match in the document.</para>
+<para>Matches in the document are highlighted even when you close the search bar. To clear
+this highlighting, press the &Esc; key.</para>
 <para>You can choose whether the search should be case sensitive.
 Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject>
 will limit finds to entries that match the
@@ -478,12 +480,10 @@ box for entering the search pattern.</para>
 <guilabel>Whole words</guilabel>, <guilabel>Escape sequences</guilabel> or
 <guilabel>Regular expression</guilabel> from the drop down box.
 </para>
-<!--FIXME not in kf5?
 <para>If <guilabel>Escape sequences</guilabel> or <guilabel>Regular expression</guilabel> are
 selected, the <guibutton>Add...</guibutton> menuitem at the bottom of the context menu of the text boxes will be enabled
 and allows you to add escape sequences or regular expression items to the
 search or replace pattern from predefined lists.</para>
--->
 <para>Use the
 <inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
 <inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
@@ -515,6 +515,7 @@ switch to the incremental search bar.
 <keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
+<guisubmenu>Go To</guisubmenu>
 <guimenuitem>Move to Matching Bracket</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -528,6 +529,7 @@ switch to the incremental search bar.
 <keycombo action="simul">&Ctrl;&Shift;<keycap>6</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
+<guisubmenu>Go To</guisubmenu>
 <guimenuitem>Select to Matching Bracket</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -538,6 +540,7 @@ switch to the incremental search bar.
 <varlistentry id="edit-go-to-previous-modified-line">
 <term><menuchoice>
 <guimenu>Edit</guimenu>
+<guisubmenu>Go To</guisubmenu>
 <guimenuitem>Move to Previous Modified Line</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -549,6 +552,7 @@ switch to the incremental search bar.
 <varlistentry id="edit-go-to-next-modified-line">
 <term><menuchoice>
 <guimenu>Edit</guimenu>
+<guisubmenu>Go To</guisubmenu>
 <guimenuitem>Move to Next Modified Line</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -563,6 +567,7 @@ switch to the incremental search bar.
 <keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
+<guisubmenu>Go To</guisubmenu>
 <guimenuitem>Go to Line...</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -657,9 +662,9 @@ use the <ulink url="help:/katepart/config-dialog-editor.html#prefcolors">Fonts
 <guisubmenu>Word Wrap</guisubmenu>
 <guimenuitem>Dynamic Word Wrap</guimenuitem>
 </menuchoice></term>
-<listitem>
-<para>The text lines will be wrapped at the view
-border on the screen.</para>
+<listitem><para>Toggles dynamic word wrap in the current view. Dynamic word
+wrap makes all the text in a view visible without the need for horizontal
+scrolling by rendering one actual line on more visual lines as needed.</para>
 </listitem>
 </varlistentry>
 
@@ -794,8 +799,7 @@ side of the view.</para></listitem>
 Click on the right pointing triangle to expand all toplevel regions.</para></listitem>
 </varlistentry>
 
-<!--FIXME not implemented in kf5
-varlistentry id="view-unfold-toplevel-nodes">
+<varlistentry id="view-unfold-toplevel-nodes">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>+</keycap></keycombo>
@@ -803,14 +807,24 @@ varlistentry id="view-unfold-toplevel-nodes">
 <guimenuitem>Unfold Toplevel Nodes</guimenuitem>
 </menuchoice></term>
 <listitem><para>Expand all toplevel regions in the document.</para></listitem>
-</varlistentry
-https://git.reviewboard.kde.org/r/127601/
-Dominik Haumann
-I hope this will come back, but noone got around to implement this again... :/
--->
+</varlistentry>
 </variablelist>
 
 </listitem>
+</varlistentry>
+
+<varlistentry id="view-show-non-printable-spaces">
+<term><menuchoice>
+<guimenuitem>Show Non-Printable Spaces</guimenuitem>
+</menuchoice></term>
+<listitem><para>Show/hide bounding box around non-printable spaces.</para></listitem>
+</varlistentry>
+
+<varlistentry id="view-show-word-count">
+<term><menuchoice>
+<guimenuitem>Show Word Count</guimenuitem>
+</menuchoice></term>
+<listitem><para>Displays the number of words and characters in the document and in the current selection.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -1189,6 +1203,20 @@ Wraps the selected text with the tag provided on the
 </para></listitem>
 </varlistentry>
 
+<varlistentry id="tools-scripts-emmet-move-cursor-to-matching-tag">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guisubmenu>Scripts</guisubmenu>
+<guisubmenu>Emmet</guisubmenu>
+<guimenuitem>Move cursor to matching tag</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+If the cursor is inside an opening &HTML;/&XML; tag, this item will move it to the
+closing tag.  If the cursor is inside the closing tag, it will instead move it
+to the opening tag.
+</para></listitem>
+</varlistentry>
+
 <varlistentry id="tools-scripts-emmet-select-tag-inwards">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
@@ -1214,20 +1242,6 @@ tags themselves.
 When the cursor is inside a pair of &HTML;/&XML; tags, this item will change the
 selection to include the contents of those &HTML;/&XML; tags, including the tags
 themselves.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="tools-scripts-emmet-move-cursor-to-matching-tag">
-<term><menuchoice>
-<guimenu>Tools</guimenu>
-<guisubmenu>Scripts</guisubmenu>
-<guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Move cursor to matching tag</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-If the cursor is inside an opening &HTML;/&XML; tag, this item will move it to the
-closing tag.  If the cursor is inside the closing tag, it will instead move it
-to the opening tag.
 </para></listitem>
 </varlistentry>
 

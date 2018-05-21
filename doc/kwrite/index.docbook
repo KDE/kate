@@ -26,8 +26,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2018-03-26</date>
-<releaseinfo>Applications 18.04</releaseinfo>
+<date>2018-05-19</date>
+<releaseinfo>Applications 18.08</releaseinfo>
 
 <abstract>
 <para>&kwrite; is a text editor by &kde; allowing you to edit one file at the time per window.</para>
@@ -63,6 +63,130 @@ KDevelop, and other applications from &kde; that require advanced text editing.
 Therefore, complete documentation for all the features of &kwrite; can be found
 in the <ulink url="help:/katepart">&katepart; Handbook</ulink>.
 </para>
+</sect1>
+
+<sect1 id="command-line-options">
+<title>Command Line Options</title>
+
+<para>
+Though &kwrite; may most often be started from the &plasma; application starter, or
+a desktop icon, it can also be opened at the command line prompt of a
+terminal window.  There are a few useful options that are available when
+doing this.
+</para>
+
+<para>Many other applications that use &katepart; offer similar command line
+options.</para>
+
+<sect2 id="specify-a-file">
+<title>Specify a File</title>
+
+<para>By specifying the path and name of a particular file the user can
+have &kwrite; open (or create) that file immediately upon startup.  This
+option might look something like the following:</para>
+
+<informalexample><screen>
+<prompt>%</prompt> <userinput><command>kwrite</command>
+<option><replaceable>/home/myhome/docs/myfile.txt</replaceable></option>
+</userinput>
+</screen>
+</informalexample>
+</sect2>
+<sect2 id="editing-files-on-the-internet">
+<title>Specify a file on the Internet</title>
+
+<para>The above-mentioned method could even be used to open files on the
+Internet (if the user has an active connection at the time.)  An example of
+this might look like the following:</para>
+
+<informalexample><screen>
+<prompt>%</prompt> <userinput><command>kwrite</command>
+<option><replaceable>ftp://ftp.kde.org/pub/kde/README</replaceable>
+</option></userinput>
+</screen>
+</informalexample>
+
+</sect2>
+
+<sect2 id="other-command-line-options">
+<title>Other Command Line Options</title>
+
+<para>The following command line help options are available</para>
+
+<variablelist>
+
+<varlistentry>
+<term><userinput><command>kwrite</command>
+<option>--help</option></userinput></term>
+<listitem><para>This lists the most basic options available at the command
+line.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kwrite</command>
+<option>--author</option></userinput></term>
+<listitem><para>Lists &kwrite;'s authors in the terminal
+window</para></listitem>
+</varlistentry>
+<varlistentry>
+
+<term><userinput><command>kwrite</command>
+<option>-v</option>, <option>--version</option></userinput></term>
+<listitem><para>Lists version information for the application.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>&kwrite;</command>
+<option>--license</option></userinput></term>
+<listitem>
+<para>Shows license information.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kwrite</command>
+<option>--desktopfile</option> <parameter>filename</parameter></userinput></term>
+<listitem><para>The base file name of the desktop entry for this application.</para>
+<para>This is in particular useful for wrapper applications and
+applications having in general multiple desktop files. Thus each desktop
+file can have its own command line for the <option>Exec</option> entry.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kwrite</command>
+<option>-e</option>, <option>--encoding</option> <parameter>encoding</parameter>
+</userinput></term>
+<listitem><para>Causes &kwrite; to use the specified encoding for the document.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kwrite</command>
+<option>-l</option>, <option>--line</option> <parameter>line</parameter>
+</userinput></term>
+<listitem><para>Navigate to the specified line after opening the document.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kwrite</command>
+<option>-c</option>, <option>--column</option> <parameter>column</parameter>
+</userinput></term>
+<listitem><para>Navigate to the specified column after opening the document.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>kwrite</command>
+<option>-i</option>, <option>--stdin</option></userinput></term>
+<listitem><para>Causes &kwrite; to read the document content from STDIN. This
+is similar to the common option <option>-</option> used in many command line
+programs, and allows you to pipe command output into &kwrite;.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
 </sect1>
 
 <sect1 id="credits">

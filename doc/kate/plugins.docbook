@@ -298,12 +298,10 @@ the last command.</para>
 Clicking on the error or warning takes you to the appropriate file and places
 the cursor on the corresponding line number.</para>
 
-<!--FIXME: These shortcuts now seem to be used by the Project plugin as well.
-            https://bugs.kde.org/show_bug.cgi?id=328170 -->
 <para>To navigate to the previous error, press
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo>.
+<keycombo action="simul">&Alt;&Shift;&Left;</keycombo>.
 To navigate to the next error, press
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo>.</para>
+<keycombo action="simul">&Alt;&Shift;&Right;</keycombo>.</para>
 
 </sect3>
 </sect2>
@@ -713,6 +711,13 @@ this document.</para>
 <guimenu>View</guimenu>
 <guisubmenu>Last Used Views</guisubmenu>
 </menuchoice></term>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;&Tab;</keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guisubmenu>Last Used Views (Reverse)</guisubmenu>
+</menuchoice></term>
 <listitem>
 
 <para><action>Opens</action> a list with the last viewed documents:</para>
@@ -724,14 +729,19 @@ this document.</para>
 </mediaobject>
 </screenshot>
 
+<para>Keep the &Ctrl; key pressed and use the &Tab; key to cycle forward through the list.
+Additionally press the &Shift; key to revers the direction.
+</para>
+
 <para>Keep the shortcut <keycombo action="simul">&Ctrl;&Tab;</keycombo> pressed and
-can use the <keysym>Up</keysym>, <keysym>Down</keysym>, <keycap>Home</keycap> or
-<keycap>End</keycap> keys to navigate in the list. Pressing a char key consecutively
+can use the &Up;, &Down;, &Home; or
+&End; keys to navigate in the list. Pressing a char key consecutively
 will cycle through all items with the first matching in the list.
 If you release the shortcut keys the view will switch to the selected document in the list.
 </para>
 </listitem>
 </varlistentry>
+
 </variablelist>
 
 </sect2>
@@ -1003,7 +1013,7 @@ editing area.</para>
 <varlistentry id="view-document-previous">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;<keysym>Up</keysym></keycombo>
+<keycombo action="simul">&Alt;&Up;</keycombo>
 </shortcut>
 <guimenu>View</guimenu>
 <guimenuitem>Previous Document</guimenuitem>
@@ -1016,7 +1026,7 @@ editing area.</para>
 <varlistentry id="view-document-next">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;<keysym>Down</keysym></keycombo>
+<keycombo action="simul">&Alt;&Down;</keycombo>
 </shortcut>
 <guimenu>View</guimenu>
 <guimenuitem>Next Document</guimenuitem>
@@ -1782,13 +1792,10 @@ currently open projects.  It is displayed by the Project plugin.</para>
 
 <variablelist>
 
-<!--FIXME: these shortcuts conflict with the preexisting Build plugin
-            https://bugs.kde.org/show_bug.cgi?id=328170 -->
-
 <varlistentry id="projects-back">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo>
+<keycombo action="simul">&Ctrl;&Alt;&Left;</keycombo>
 </shortcut>
 <guimenu>Projects</guimenu>
 <guimenuitem>Back</guimenuitem>
@@ -1801,7 +1808,7 @@ currently open projects.  It is displayed by the Project plugin.</para>
 <varlistentry id="projects-forward">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo>
+<keycombo action="simul">&Ctrl;&Alt;&Right;</keycombo>
 </shortcut>
 <guimenu>Projects</guimenu>
 <guimenuitem>Forward</guimenuitem>
@@ -2175,6 +2182,9 @@ a particular match by double-clicking on its listing instead of the file name.
 
 <varlistentry id="edit-searchinfiles">
 <term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Alt;<keycap>F</keycap></keycombo>
+</shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Search in Files</guimenuitem>
 </menuchoice></term>
@@ -3105,7 +3115,7 @@ into &kate; and following the instructions.</para>
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;<keycap>Return</keycap></keycombo>
+<keycombo action="simul">&Ctrl;&Enter;</keycombo>
 </shortcut>
 <guimenu>&XML;</guimenu>
 <guimenuitem>Insert Element...</guimenuitem>

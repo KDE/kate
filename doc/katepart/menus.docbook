@@ -820,13 +820,6 @@ Click on the right pointing triangle to expand all toplevel regions.</para></lis
 <listitem><para>Show/hide bounding box around non-printable spaces.</para></listitem>
 </varlistentry>
 
-<varlistentry id="view-show-word-count">
-<term><menuchoice>
-<guimenuitem>Show Word Count</guimenuitem>
-</menuchoice></term>
-<listitem><para>Displays the number of words and characters in the document and in the current selection.</para></listitem>
-</varlistentry>
-
 </variablelist>
 
 </sect1>

@@ -118,6 +118,11 @@ quickly animate the matching bracket.</para></listitem>
 <listitem><para>If enabled, the first line is folded, if possible. This is useful, 
 if the file starts with a comment, such as a copyright</para></listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Show Word Count
+</guilabel></term>
+<listitem><para>Displays the number of words and characters in the document and in the current selection.</para></listitem>
+</varlistentry>
 </variablelist>
 </sect3>
 
@@ -1114,7 +1119,7 @@ have changed since the last sync. The user can disable the swap files syncing if
 he wants, by selecting <guilabel>Disable</guilabel>,
 but this can lead to more data loss.</para>
 <para>When enabled, the swap files are saved in the same folder as the file. 
-When <guilabel>Alternative Folder</guilabel> is chosen, swap files are created in the specified folder. 
+When <guilabel>Alternative Directory</guilabel> is chosen, swap files are created in the specified folder.
 This is useful for network file systems to avoid unnecessary network traffic.</para>
 </listitem>
 </varlistentry>

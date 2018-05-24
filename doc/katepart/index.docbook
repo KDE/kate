@@ -52,8 +52,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2018-03-23</date>
-<releaseinfo>Frameworks 5.44</releaseinfo>
+<date>2018-05-21</date>
+<releaseinfo>Frameworks 5.46</releaseinfo>
 
 <abstract>
 <para>&katepart; is a fully featured editor component by &kde;.</para>

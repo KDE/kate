@@ -291,77 +291,10 @@ way of the <link linkend="settings-help-menu">Settings</link> menu.  By default
 &kate; honors the following key bindings.
 </para>
 
-<!-- Ctrl+T Transpose Characters
-Meta+Ctrl+V ii input mode
--->
-
 <informaltable>
 <tgroup cols="2">
 <tbody>
 
-<row><entry><para><keycap>Insert</keycap></para></entry>
-<entry><para>
-Toggle between Insert and Overwrite mode. When in insert mode the editor
-will add any typed characters to the text and push any previously typed
-data to the right of the text cursor. Overwrite mode causes the entry of
-each character to eliminate the current character.</para></entry>
-</row>
-<row>
-<entry><para><keycombo><keycap>Left Arrow</keycap></keycombo></para></entry>
-<entry><para>Move the cursor one character to the left </para></entry>
-</row>
-<row>
-<entry><para><keycombo><keycap>Right Arrow</keycap></keycombo></para></entry>
-<entry><para> Move the cursor one character to the right </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul"><keycap>Up Arrow</keycap></keycombo></para></entry>
-<entry><para> Move the cursor up one line  </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul"><keycap>Down Arrow</keycap></keycombo></para></entry>
-<entry><para> Move the cursor down one line </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul"><keycap>Page Up</keycap></keycombo></para></entry>
-<entry><para> Move the cursor up one page  </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul"><keycap>Page Down</keycap></keycombo></para></entry>
-<entry><para>Move the cursor down one page  </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul">&Backspace;</keycombo></para></entry>
-<entry><para> Delete the character to the left of the cursor </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul"><keycap>Home</keycap></keycombo></para></entry>
-<entry><para> Move the cursor to the beginning of the line </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul"><keycap>End</keycap></keycombo></para></entry>
-<entry><para> Move the cursor to the end of the line </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul"><keycap>Delete</keycap></keycombo></para></entry>
-<entry><para>Delete the character to the right of the cursor (or any selected
-text)</para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul">&Shift;&Enter;</keycombo></para></entry>
-<entry><para>Insert newline including leading characters of the current line which are not letters or numbers.
-It is useful &eg; to write comments in the code: At the end of the line <quote>// some text</quote> press
-this shortcut and the next line starts already with <quote>// </quote>. So you do not have to enter the comment
-characters at the beginning of each new line with comments.</para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul">&Shift;<keycap>Left Arrow</keycap></keycombo></para></entry>
-<entry><para> Mark text one character to the left </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul">&Shift;<keycap>Right Arrow</keycap></keycombo></para></entry>
-<entry><para> Mark text one character to the right </para></entry>
-</row>
 <row>
 <entry><para><keycombo action="simul"><keycap>F1</keycap></keycombo></para></entry>
 <entry><para> Help</para></entry>
@@ -371,63 +304,81 @@ characters at the beginning of each new line with comments.</para></entry>
 <entry><para><link linkend="whats-this">What's this?</link></para></entry>
 </row>
 <row>
-<entry><para><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></para></entry>
-<entry><para><link linkend="edit-find"> Find</link></para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul"><keycap>F3</keycap></keycombo></para></entry>
-<entry><para><link linkend="edit-find-next"> Find Next</link></para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo></para></entry>
-<entry><para>Set a Bookmark</para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo></para></entry>
-<entry><para> Copy the marked text to the clipboard </para></entry>
-</row>
-
-<row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></para></entry>
 <entry><para> <link linkend="file-new">New</link> document</para></entry>
 </row>
 <row>
-<entry><para><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></para></entry>
-<entry><para><link linkend="file-print">Print</link> </para></entry>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>L</keycap></keycombo></para></entry>
+<entry><para> Save All</para></entry>
 </row>
 <row>
-
-<entry><para><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></para></entry>
+<entry><para><keycombo
+action="simul">&Ctrl;<keycap>O</keycap></keycombo></para></entry>
+<entry><para><link linkend="file-open">Open a document</link> </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Alt;<keycap>O</keycap></keycombo> </para></entry>
+<entry><para>Quick Open</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>F</keycap></keycombo> </para></entry>
+<entry><para>Full Screen Mode</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>,</keycap></keycombo> </para></entry>
+<entry><para>Configure &kate;</para></entry>
+</row>
+<row>
+<entry><para><keycombo
+action="simul">&Ctrl;<keycap>W</keycap></keycombo> /
+<keycombo action="simul">&Ctrl;&Esc;</keycombo></para></entry>
+<entry><para><link linkend="file-close">Close</link> </para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo> </para></entry>
 <entry><para>Quit - close active copy of editor </para></entry>
 </row>
 <row>
-<entry><para><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></para></entry>
-<entry><para><link linkend="edit-replace"> Replace</link></para></entry>
+<entry><para><keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>F</keycap></keycombo> </para></entry>
+<entry><para>Show Sidebars</para></entry>
 </row>
 <row>
-<entry><para><keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo></para></entry>
-<entry><para>Save your file</para></entry>
+<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>T</keycap></keycombo> </para></entry>
+<entry><para>Split Horizontal</para></entry>
 </row>
 <row>
-<entry><para><keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo></para></entry>
-<entry><para> Paste</para></entry>
+<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>L</keycap></keycombo> </para></entry>
+<entry><para>Split Vertical</para></entry>
+</row>
+<row>
+<entry><para><keycap>F8</keycap></para></entry>
+<entry><para>Next Split View</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Shift;<keycap>F8</keycap></keycombo> /
+<keycombo action="simul">&Ctrl;&Esc;</keycombo></para></entry>
+<entry><para>Previous Split View</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>R</keycap></keycombo> </para></entry>
+<entry><para>Close Current View</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Alt;&Right;</keycombo></para></entry>
+<entry><para>Next Tab</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Alt;&Left;</keycombo></para></entry>
+<entry><para>Previous Tab</para></entry>
 </row>
 
-<row>
-<entry><para><keycombo action="simul">&Ctrl;<keycap>X</keycap></keycombo></para></entry>
-<entry><para>Delete the marked text and copy it to the clipboard </para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></para></entry>
-<entry><para><link linkend="edit-undo">Undo</link></para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></para></entry>
-<entry><para><link linkend="edit-redo">Redo</link></para></entry>
-</row>
 </tbody>
 </tgroup>
 </informaltable>
+
+<para>Additionally you can use the shortcuts provided by the <ulink 
+url="help:/katepart/keybindings.html">&katepart;</ulink> component and by all activated <link linkend="plugins">&kate; plugins</link>.</para>
+
 </sect2>
 
 </sect1>

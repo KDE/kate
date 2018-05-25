@@ -36,19 +36,19 @@ cursor.</para></entry>
 </row>
 <row>
 <entry><para>&Left;</para></entry>
-<entry><para>Move the cursor one character to the left </para></entry>
+<entry><para>Move the cursor one character to the left</para></entry>
 </row>
 <row>
 <entry><para>&Right;</para></entry>
-<entry><para> Move the cursor one character to the right </para></entry>
+<entry><para>Move the cursor one character to the right</para></entry>
 </row>
 <row>
 <entry><para>&Up;</para></entry>
-<entry><para> Move the cursor up one line  </para></entry>
+<entry><para>Move the cursor up one line</para></entry>
 </row>
 <row>
 <entry><para>&Down;</para></entry>
-<entry><para> Move the cursor down one line </para></entry>
+<entry><para>Move the cursor down one line</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo></para></entry>
@@ -72,19 +72,19 @@ cursor.</para></entry>
 </row>
 <row>
 <entry><para>&PgUp;</para></entry>
-<entry><para> Move the cursor up one page  </para></entry>
+<entry><para>Move the cursor up one page</para></entry>
 </row>
 <row>
 <entry><para>&PgDn;</para></entry>
-<entry><para>Move the cursor down one page  </para></entry>
+<entry><para>Move the cursor down one page</para></entry>
 </row>
 <row>
 <entry><para>&Home;</para></entry>
-<entry><para> Move the cursor to the beginning of the line </para></entry>
+<entry><para>Move the cursor to the beginning of the line</para></entry>
 </row>
 <row>
 <entry><para>&End;</para></entry>
-<entry><para> Move the cursor to the end of the line </para></entry>
+<entry><para>Move the cursor to the end of the line</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;&Home;</keycombo></para></entry>
@@ -92,7 +92,7 @@ cursor.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;&End;</keycombo></para></entry>
-<entry><para>Move to End of Documen</para></entry>
+<entry><para>Move to End of Document</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;&Up;</keycombo></para></entry>
@@ -433,7 +433,7 @@ action="simul">&Ctrl;&Space;</keycombo></para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;&Alt;<keycap>#</keycap></keycombo></para></entry>
-<entry><para>Expand Abbrevation</para></entry>
+<entry><para>Expand Abbreviation</para></entry>
 </row>
 </tbody>
 </tgroup>

@@ -68,7 +68,7 @@ cursor.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo></para></entry>
-<entry><para></para>Move to Matching Bracket</entry>
+<entry><para>Move to Matching Bracket</para></entry>
 </row>
 <row>
 <entry><para>&PgUp;</para></entry>
@@ -145,7 +145,7 @@ text)</para></entry>
 </row>
 <row>
 <entry><para>&Backspace;</para></entry>
-<entry><para> Delete the character to the left of the cursor </para></entry>
+<entry><para>Delete the character to the left of the cursor</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;&Del;</keycombo></para></entry>

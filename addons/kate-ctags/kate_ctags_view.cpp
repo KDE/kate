@@ -544,7 +544,7 @@ void KateCTagsView::updateDone(int exitCode, QProcess::ExitStatus status)
 void KateCTagsView::addTagTarget()
 {
     QFileDialog dialog;
-    dialog.setDirectory(m_mWin->activeView()->document()->url().path());
+    dialog.setDirectory(QFileInfo(m_mWin->activeView()->document()->url().path()).path());
     dialog.setFileMode(QFileDialog::Directory);
 
     // i18n("CTags Database Location"));

@@ -61,13 +61,15 @@
 int main(int argc, char **argv)
 {
 #ifndef Q_OS_WIN
-    /**
-     * Check whether we are running as root
-     **/
+    // Prohibit using sudo or kdesu (but allow using the root user directly)
     if (getuid() == 0) {
-        std::cout << "Executing Kate as root is not possible. To edit files as root use:" << std::endl;
-        std::cout << "SUDO_EDITOR=kate sudoedit <file>" << std::endl;
-        return 0;
+        if (!qEnvironmentVariableIsEmpty("SUDO_USER")) {
+            std::cout << "Executing Kate with sudo is not possible due to unfixable security vulnerabilities." << std::endl;
+            return EXIT_FAILURE;
+        } else if (!qEnvironmentVariableIsEmpty("KDESU_USER")) {
+            std::cout << "Executing Kate with kdesu is not possible due to unfixable security vulnerabilities." << std::endl;
+            return EXIT_FAILURE;
+        }
     }
 #endif
     /**

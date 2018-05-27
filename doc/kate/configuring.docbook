@@ -212,23 +212,23 @@ will appear as a child of this page.</para>
 
 </sect2>
 
-</sect1>
-
-<sect1 id="config-dialog-editor">
+<sect2 id="config-dialog-editor">
 <title>The Editor Component Configuration</title>
 
 <para>For information about this section of the configuration dialog, see the
-<ulink url="help:/katepart/config-dialog-editor.html">Editor Component
+<ulink url="help:/katepart/config-dialog.html">Editor Component
 Configuration section of the &katepart; Handbook</ulink>.</para>
 
-</sect1>
+</sect2>
 
-<sect1 id="config-variables">
+<sect2 id="config-variables">
 <title>Configuring With Document Variables</title>
 
 <para>For information about using document variables with &kate;, see the
 <ulink url="help:/katepart/config-variables.html">Configuring with Document
 Variables section of the &katepart; Handbook</ulink>.</para>
+
+</sect2>
 
 </sect1>
 

@@ -63,6 +63,7 @@ Name[zh_CN]=GDB
 Name[zh_TW]=GDB
 Comment=Provides a simple GDB frontend
 Comment[ar]=يوفّر صدر GDB بسيط
+Comment[ast]=Apurre un frontal cenciellu de GDB
 Comment[bg]=Предоставя прост интерфейс за GDB
 Comment[bs]=Jednostavno pročelje za GDB
 Comment[ca]=Proporciona un frontal de GDB senzill

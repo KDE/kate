@@ -147,7 +147,7 @@ void KateQuickOpen::update()
     /**
      * new base mode creation
      */
-    QStandardItemModel *base_model = new QStandardItemModel(0, 2, this);
+    m_base_model->clear();
 
     /**
      * remember local file names to avoid dupes with project files
@@ -186,8 +186,8 @@ void KateQuickOpen::update()
 
         QStandardItem *itemUrl = new QStandardItem(doc->url().toString());
         itemUrl->setEditable(false);
-        base_model->setItem(linecount, 0, itemName);
-        base_model->setItem(linecount, 1, itemUrl);
+        m_base_model->setItem(linecount, 0, itemName);
+        m_base_model->setItem(linecount, 1, itemUrl);
         linecount++;
 
         if (!doc->url().isEmpty() && doc->url().isLocalFile()) {
@@ -224,8 +224,8 @@ void KateQuickOpen::update()
 
         QStandardItem *itemUrl = new QStandardItem(doc->url().toString());
         itemUrl->setEditable(false);
-        base_model->setItem(linecount, 0, itemName);
-        base_model->setItem(linecount, 1, itemUrl);
+        m_base_model->setItem(linecount, 0, itemName);
+        m_base_model->setItem(linecount, 1, itemUrl);
         linecount++;
 
         if (!doc->url().isEmpty() && doc->url().isLocalFile()) {
@@ -255,18 +255,11 @@ void KateQuickOpen::update()
 
             QStandardItem *itemUrl = new QStandardItem(file);
             itemUrl->setEditable(false);
-            base_model->setItem(linecount, 0, itemName);
-            base_model->setItem(linecount, 1, itemUrl);
+            m_base_model->setItem(linecount, 0, itemName);
+            m_base_model->setItem(linecount, 1, itemUrl);
             linecount++;
         }
     }
-
-    /**
-     * swap models and kill old one
-     */
-    m_model->setSourceModel(base_model);
-    delete m_base_model;
-    m_base_model = base_model;
 
     if (idxToSelect.isValid()) {
         m_listView->setCurrentIndex(m_model->mapFromSource(idxToSelect));

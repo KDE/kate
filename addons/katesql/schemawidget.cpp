@@ -341,7 +341,7 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
 
       // set all fields to a value (NULL)
       // values are needed to generate update and insert statements
-      if (statementType == QSqlDriver::UpdateStatement || QSqlDriver::InsertStatement)
+      if (statementType == QSqlDriver::UpdateStatement || statementType == QSqlDriver::InsertStatement)
         for (int i = 0, n = rec.count(); i < n; ++i)
           rec.setNull(i);
 

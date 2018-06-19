@@ -184,8 +184,6 @@ int main(int argc, char **argv)
      */
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
-    parser.addHelpOption();
-    parser.addVersionOption();
 
     // -s/--start session option
     const QCommandLineOption startSessionOption(QStringList() << QStringLiteral("s") << QStringLiteral("start"), i18n("Start Kate with a given session."), i18n("session"));

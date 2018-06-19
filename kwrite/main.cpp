@@ -159,8 +159,6 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      */
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
-    parser.addHelpOption();
-    parser.addVersionOption();
 
     // -e/--encoding option
     const QCommandLineOption useEncoding(QStringList() << QStringLiteral("e") << QStringLiteral("encoding"), i18n("Set encoding for the file to open."), i18n("encoding"));

@@ -5,7 +5,6 @@
   <project_license>LGPL-2.1+</project_license>
   <name>KWrite</name>
   <name xml:lang="ar">كاتبك</name>
-  <name xml:lang="ast">KWrite</name>
   <name xml:lang="bs">Kwrite</name>
   <name xml:lang="ca">KWrite</name>
   <name xml:lang="ca-valencia">KWrite</name>
@@ -48,7 +47,6 @@
   <name xml:lang="zh-TW">KWrite</name>
   <summary>Text Editor</summary>
   <summary xml:lang="ar">محرّر نصوص</summary>
-  <summary xml:lang="ast">Editor de testu</summary>
   <summary xml:lang="bs">Uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text</summary>
   <summary xml:lang="ca-valencia">Editor de text</summary>
@@ -127,7 +125,6 @@
     <p xml:lang="zh-TW">KWrite 是一套 KDE 的文字編輯器，基於 Kate 的編輯器組件。</p>
     <p>Features:</p>
     <p xml:lang="ar">الميزات:</p>
-    <p xml:lang="ast">Carauterístiques:</p>
     <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
@@ -211,7 +208,6 @@
       <li xml:lang="zh-TW">根據檔案型態做語法突顯</li>
       <li>Word completion</li>
       <li xml:lang="ar">إكمال الكلمات</li>
-      <li xml:lang="ast">Completáu de pallabres</li>
       <li xml:lang="bs">Dopuna riječi</li>
       <li xml:lang="ca">Compleció de paraules</li>
       <li xml:lang="ca-valencia">Compleció de paraules</li>
@@ -296,7 +292,6 @@
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Plugin support</li>
       <li xml:lang="ar">دعم الملحقات</li>
-      <li xml:lang="ast">Sofitu de complementos</li>
       <li xml:lang="ca">Admet connectors</li>
       <li xml:lang="ca-valencia">Admet connectors</li>
       <li xml:lang="cs">Podpora modulů</li>
@@ -338,7 +333,6 @@
       <li xml:lang="zh-TW">外掛程式支援</li>
       <li>Vi input mode</li>
       <li xml:lang="ar">وضع دخل ڤي-آي</li>
-      <li xml:lang="ast">Mou d'entrada Vi</li>
       <li xml:lang="bs">Vi editor režim unosa</li>
       <li xml:lang="ca">Mode d'entrada del Vi</li>
       <li xml:lang="ca-valencia">Mode d'entrada del Vi</li>

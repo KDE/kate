@@ -62,7 +62,6 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     // handle activated (e.g. for pressing enter) + clicked (to avoid to need to do double-click e.g. on Windows)
     connect(this, &KateFileTree::activated, this, &KateFileTree::mouseClicked);
     connect(this, &KateFileTree::clicked, this, &KateFileTree::mouseClicked);
-    connect(this, &KateFileTree::pressed, this, &KateFileTree::mouseClicked);
 
     m_filelistReloadDocument = new QAction(QIcon::fromTheme(QLatin1String("view-refresh")), i18nc("@action:inmenu", "Reloa&d"), this);
     connect(m_filelistReloadDocument, &QAction::triggered, this, &KateFileTree::slotDocumentReload);
@@ -203,13 +202,9 @@ void KateFileTree::slotCurrentChanged(const QModelIndex &current, const QModelIn
 
 void KateFileTree::mouseClicked(const QModelIndex &index)
 {
-    KTextEditor::Document *doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-    if (doc) {
+    if (auto doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>()) {
         emit activateDocument(doc);
-    } else {
-        setExpanded(index, !isExpanded(index));
     }
-
 }
 
 void KateFileTree::contextMenuEvent(QContextMenuEvent *event)

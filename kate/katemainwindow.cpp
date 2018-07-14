@@ -36,6 +36,7 @@
 #include "katequickopen.h"
 #include "kateupdatedisabler.h"
 #include "katedebug.h"
+#include "katecolorschemechooser.h"
 
 #include <KActionMenu>
 #include <KAboutApplicationDialog>
@@ -79,6 +80,7 @@
 #include <QDir>
 
 #include <ktexteditor/sessionconfiginterface.h>
+
 //END
 
 KateMwModOnHdDialog *KateMainWindow::s_modOnHdDialog = nullptr;
@@ -228,6 +230,9 @@ void KateMainWindow::setupImportantActions()
     actionCollection()->addAction(QStringLiteral("settings_show_full_path"), m_paShowPath);
     connect(m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()));
     m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
+
+    // Load themes
+    actionCollection()->addAction(QStringLiteral("colorscheme_menu"), new KateColorSchemeChooser(actionCollection()));
 
     QAction * a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("view_prev_tab"));
     a->setText(i18n("&Previous Tab"));

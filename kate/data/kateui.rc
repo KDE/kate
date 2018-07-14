@@ -100,6 +100,7 @@
       <text>&amp;Settings</text>
       <Action name="settings_show_tab_bar" append="show_merge"/>
       <Action name="settings_show_full_path" append="show_merge"/>
+      <Action name="colorscheme_menu"/>
     </Menu>
     <Menu name="help">
       <text>&amp;Help</text>

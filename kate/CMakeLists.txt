@@ -26,6 +26,7 @@ set (KATE_LIBRARY_SRCS
    kateviewspace.cpp
    katesavemodifieddialog.cpp
    katemwmodonhddialog.cpp
+   katecolorschemechooser.cpp
 
    katetabbutton.cpp
    katetabbar.cpp

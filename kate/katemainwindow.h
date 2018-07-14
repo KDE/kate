@@ -523,6 +523,7 @@ private:
     KToggleAction *m_paShowMenuBar;
     KToggleAction *m_paShowStatusBar;
     KToggleAction *m_paShowTabBar;
+
     QWidget *m_bottomViewBarContainer;
     KateContainerStackedLayout *m_bottomContainerStack;
 

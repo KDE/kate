@@ -166,7 +166,7 @@ class KatePluginSymbolViewer : public KTextEditor::Plugin
     bool sortOn;
 
   private:
-    KatePluginSymbolViewerView* m_view;
+    KatePluginSymbolViewerView* m_view = nullptr;
 };
 
 /* XPM */

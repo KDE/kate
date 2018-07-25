@@ -403,8 +403,10 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
   expandedOn = p->expandTree->isChecked();
   treeOn = p->treeView->isChecked();
   sortOn = p->sortSymbols->isChecked();
-  m_view->m_treeOn->setChecked(treeOn);
-  m_view->m_sort->setChecked(sortOn);
+  if (m_view) {
+    m_view->m_treeOn->setChecked(treeOn);
+    m_view->m_sort->setChecked(sortOn);
+  }
 }
 
 // BEGIN KatePluginSymbolViewerConfigPage

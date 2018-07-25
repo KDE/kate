@@ -86,8 +86,10 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
 {
   Q_OBJECT
 
+  friend class KatePluginSymbolViewer;
+
   public:
-    KatePluginSymbolViewerView (KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
+    KatePluginSymbolViewerView (KatePluginSymbolViewer *plugin, KTextEditor::MainWindow *mw);
     ~KatePluginSymbolViewerView () override;
 
     void parseSymbols(void);
@@ -116,8 +118,13 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
     QMenu       *m_popup;
     QWidget     *m_toolview;
     QTreeWidget *m_symbols;
-    QAction *m_macro, *m_struct, *m_func, *m_sort;
-    bool macro_on, struct_on, func_on;
+    QAction     *m_treeOn; // FIXME Rename other actions accordingly
+    QAction     *m_sort;   // m_sortOn etc
+    QAction     *m_macro;
+    QAction     *m_struct;
+    QAction     *m_func;
+
+    bool macro_on, struct_on, func_on; // FIXME Remove and replace by m_foo->isChecked();
 
     QTimer m_updateTimer;
     QTimer m_currItemTimer;
@@ -157,6 +164,9 @@ class KatePluginSymbolViewer : public KTextEditor::Plugin
     bool expandedOn;
     bool treeOn;
     bool sortOn;
+
+  private:
+    KatePluginSymbolViewerView* m_view;
 };
 
 /* XPM */

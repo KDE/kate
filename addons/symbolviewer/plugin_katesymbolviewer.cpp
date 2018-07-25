@@ -68,10 +68,10 @@
 
 K_PLUGIN_FACTORY_WITH_JSON (KatePluginSymbolViewerFactory, "katesymbolviewerplugin.json", registerPlugin<KatePluginSymbolViewer>();)
 
-KatePluginSymbolViewerView::KatePluginSymbolViewerView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
+KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *plugin, KTextEditor::MainWindow *mw)
 :QObject(mw)
 ,m_mainWindow(mw)
-,m_plugin(qobject_cast<KatePluginSymbolViewer*>(plugin))
+,m_plugin(plugin)
 {
   // FIXME KF5 KGlobal::locale()->insertCatalog("katesymbolviewerplugin");
 
@@ -82,14 +82,19 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KTextEditor::Plugin *plug
   m_symbols = nullptr;
 
   m_popup = new QMenu(m_symbols);
-  m_popup->addAction(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
+  m_treeOn = m_popup->addAction(i18n("Tree Mode"), this, SLOT(slotChangeMode()));
+  m_treeOn->setCheckable(true);
+  m_sort = m_popup->addAction(i18n("Show Sorted"), this, SLOT(slotEnableSorting()));
+  m_sort->setCheckable(true);
   m_popup->addSeparator();
   m_macro = m_popup->addAction(i18n("Show Macros"), this, SLOT(toggleShowMacros()));
+  m_macro->setCheckable(true);
   m_struct = m_popup->addAction(i18n("Show Structures"), this, SLOT(toggleShowStructures()));
+  m_struct->setCheckable(true);
   m_func = m_popup->addAction(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
+  m_func->setCheckable(true);
   m_popup->addSeparator();
-  m_popup->addAction(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
-  m_sort = m_popup->addAction(i18n("Enable Sorting"), this, SLOT(slotEnableSorting()));
+  m_popup->addAction(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
 
   KConfigGroup config(KSharedConfig::openConfig(), "PluginSymbolViewer");
   m_plugin->typesOn = config.readEntry(QLatin1String("ViewTypes"), false);
@@ -100,6 +105,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KTextEditor::Plugin *plug
   m_macro->setChecked(true);
   m_struct->setChecked(true);
   m_func->setChecked(true);
+  m_treeOn->setChecked(m_plugin->treeOn);
   m_sort->setChecked(m_plugin->sortOn);
   macro_on = true;
   struct_on = true;
@@ -159,26 +165,20 @@ KatePluginSymbolViewerView::~KatePluginSymbolViewerView()
 
 void KatePluginSymbolViewerView::toggleShowMacros(void)
 {
- bool s = !m_macro->isChecked();
- m_macro->setChecked(s);
- macro_on = s;
- slotRefreshSymbol();
+  macro_on = m_macro->isChecked();
+  slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::toggleShowStructures(void)
 {
- bool s = !m_struct->isChecked();
- m_struct->setChecked(s);
- struct_on = s;
- slotRefreshSymbol();
+  struct_on = m_struct->isChecked();
+  slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::toggleShowFunctions(void)
 {
- bool s = !m_func->isChecked();
- m_func->setChecked(s);
- func_on = s;
- slotRefreshSymbol();
+  func_on = m_func->isChecked();
+  slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::slotRefreshSymbol()
@@ -199,23 +199,20 @@ void KatePluginSymbolViewerView::slotRefreshSymbol()
 
 void KatePluginSymbolViewerView::slotChangeMode()
 {
- m_plugin->treeOn = !m_plugin->treeOn;
- m_symbols->clear();
- parseSymbols();
+  m_plugin->treeOn = m_treeOn->isChecked();
+  m_symbols->clear();
+  parseSymbols();
 }
 
 void KatePluginSymbolViewerView::slotEnableSorting()
 {
- m_plugin->sortOn = !m_plugin->sortOn;
- m_sort->setChecked(m_plugin->sortOn);
- m_symbols->clear();
- if (m_plugin->sortOn == true)
-     m_symbols->setSortingEnabled(true);
- else
-     m_symbols->setSortingEnabled(false);
+  m_plugin->sortOn = m_sort->isChecked();
+  m_symbols->clear();
+  m_symbols->setSortingEnabled(m_sort->isChecked());
 
- parseSymbols();
- if (m_plugin->sortOn == true) m_symbols->sortItems(0, Qt::AscendingOrder);
+  parseSymbols();
+  if (m_sort->isChecked())
+    m_symbols->sortItems(0, Qt::AscendingOrder);
 }
 
 void KatePluginSymbolViewerView::slotDocChanged()
@@ -378,7 +375,8 @@ KatePluginSymbolViewer::~KatePluginSymbolViewer()
 
 QObject *KatePluginSymbolViewer::createView (KTextEditor::MainWindow *mainWindow)
 {
-  return new KatePluginSymbolViewerView (this, mainWindow);
+  m_view = new KatePluginSymbolViewerView (this, mainWindow);
+  return m_view;
 }
 
 KTextEditor::ConfigPage* KatePluginSymbolViewer::configPage(int, QWidget *parent)
@@ -406,6 +404,8 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
   expandedOn = p->expandTree->isChecked();
   treeOn = p->treeView->isChecked();
   sortOn = p->sortSymbols->isChecked();
+  m_view->m_treeOn->setChecked(treeOn);
+  m_view->m_sort->setChecked(sortOn);
 }
 
 // BEGIN KatePluginSymbolViewerConfigPage

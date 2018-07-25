@@ -192,7 +192,6 @@ void KatePluginSymbolViewerView::slotRefreshSymbol()
     return slotEnableSorting();
   }
   
- m_symbols->clear();
  parseSymbols();
  updateCurrTreeItem();
 }
@@ -200,14 +199,12 @@ void KatePluginSymbolViewerView::slotRefreshSymbol()
 void KatePluginSymbolViewerView::slotChangeMode()
 {
   m_plugin->treeOn = m_treeOn->isChecked();
-  m_symbols->clear();
   parseSymbols();
 }
 
 void KatePluginSymbolViewerView::slotEnableSorting()
 {
   m_plugin->sortOn = m_sort->isChecked();
-  m_symbols->clear();
   m_symbols->setSortingEnabled(m_sort->isChecked());
 
   parseSymbols();
@@ -309,6 +306,8 @@ void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint &p)
 
 void KatePluginSymbolViewerView::parseSymbols(void)
 {
+  m_symbols->clear();
+
   if (!m_mainWindow->activeView())
     return;
 

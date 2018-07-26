@@ -299,9 +299,9 @@ bool KatePluginSymbolViewerView::eventFilter(QObject *obj, QEvent *event)
   return QObject::eventFilter(obj, event);
 }
 
-void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint &p)
+void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint&)
 {
- m_popup->popup(m_symbols->mapToGlobal(p));
+  m_popup->popup(QCursor::pos(), m_treeOn);
 }
 
 void KatePluginSymbolViewerView::parseSymbols(void)

@@ -70,6 +70,7 @@ void KatePluginManager::setupPluginList()
     defaultPlugins.insert (QLatin1String("tabswitcherplugin"));
     defaultPlugins.insert (QLatin1String("kateprojectplugin"));
     defaultPlugins.insert (QLatin1String("katesearchplugin"));
+    defaultPlugins.insert (QLatin1String("textfilterplugin"));
     m_pluginList.clear();
     QVectorIterator<KPluginMetaData> i(plugins);
     QSet<QString> unique;

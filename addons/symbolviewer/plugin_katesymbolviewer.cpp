@@ -93,8 +93,6 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
   m_struct->setCheckable(true);
   m_func = m_popup->addAction(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
   m_func->setCheckable(true);
-  m_popup->addSeparator();
-  m_popup->addAction(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
 
   KConfigGroup config(KSharedConfig::openConfig(), "PluginSymbolViewer");
   m_plugin->typesOn = config.readEntry(QLatin1String("ViewTypes"), false);
@@ -150,10 +148,6 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
   m_symbols->setIndentation(10);
 
   m_toolview->installEventFilter(this);
-
-  /* First Symbols parsing here...*/
-  QTimer::singleShot(10, this, SLOT(slotRefreshSymbol()));
-  if (m_plugin->sortOn == true) m_symbols->sortItems(0, Qt::AscendingOrder);
 }
 
 KatePluginSymbolViewerView::~KatePluginSymbolViewerView()
@@ -185,15 +179,8 @@ void KatePluginSymbolViewerView::slotRefreshSymbol()
 {
   if (!m_symbols)
     return;
-  
-  // hack to get always apply sorting option to apply immediately
-  if ((m_plugin->sortOn && !m_symbols->isSortingEnabled()) || (!m_plugin->sortOn && m_symbols->isSortingEnabled())) {
-    m_plugin->sortOn = !m_plugin->sortOn;
-    return slotEnableSorting();
-  }
-  
- parseSymbols();
- updateCurrTreeItem();
+
+  parseSymbols();
 }
 
 void KatePluginSymbolViewerView::slotChangeMode()
@@ -208,8 +195,6 @@ void KatePluginSymbolViewerView::slotEnableSorting()
   m_symbols->setSortingEnabled(m_sort->isChecked());
 
   parseSymbols();
-  if (m_sort->isChecked())
-    m_symbols->sortItems(0, Qt::AscendingOrder);
 }
 
 void KatePluginSymbolViewerView::slotDocChanged()
@@ -349,6 +334,10 @@ void KatePluginSymbolViewerView::parseSymbols(void)
      parseEcmaSymbols();
   else
     new QTreeWidgetItem(m_symbols,  QStringList(i18n("Sorry. Language not supported yet") ) );
+
+  updateCurrTreeItem();
+  if (m_sort->isChecked())
+    m_symbols->sortItems(0, Qt::AscendingOrder);
 }
 
 void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)

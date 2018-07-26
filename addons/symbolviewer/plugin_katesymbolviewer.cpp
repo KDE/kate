@@ -307,6 +307,9 @@ void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint &p)
 void KatePluginSymbolViewerView::parseSymbols(void)
 {
   m_symbols->clear();
+  // Qt docu recommends to populate view with disabled sorting
+  // https://doc.qt.io/qt-5/qtreeview.html#sortingEnabled-prop
+  m_symbols->setSortingEnabled(false);
 
   if (!m_mainWindow->activeView())
     return;

@@ -2874,14 +2874,14 @@ so the calling program is aware you have finished editing the file.</para></list
 
 <sect1 id="kate-application-plugin-textfilter">
 
-<title>Text Filter Plugin</title><!--Name is completely misleading and should be changed-->
+<title>Text Filter Plugin</title>
 
 <sect2 id="textfilter-using">
 <title>Using the Text Filter Plugin</title>
 
-<para>You can use this plugin to execute shell commands. A selection will
-be used as argument for the shell command, the output will either replace the selection
-or copied to the clipboard.
+<para>You can use this plugin to process selected text using terminal commands.
+The selection will be used as input for the command, and the output will either
+replace the selection or be copied to the clipboard, depending on the user's preference.
 </para>
 
 <itemizedlist>

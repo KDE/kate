@@ -260,7 +260,7 @@ PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,
 
     // create our one and only action
     QAction* a = actionCollection()->addAction(QStringLiteral("edit_filter"));
-    a->setText(i18n("Filter Te&xt..."));
+    a->setText(i18n("&Filter Through Command..."));
     actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_Backslash);
     connect(a, &QAction::triggered, plugin, &PluginKateTextFilter::slotEditFilter);
 

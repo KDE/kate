@@ -265,8 +265,7 @@ QTreeWidgetItem *KatePluginSymbolViewerView::newActveItem(int &newItemLine, int 
   QTreeWidgetItem *newItem = nullptr;
   QTreeWidgetItem *tmp = nullptr;
   int itemLine = item->data(1, Qt::DisplayRole).toInt();
-
-  if ((itemLine <= currLine) && (itemLine > newItemLine)) {
+  if ((itemLine <= currLine) && (itemLine >= newItemLine)) {
     newItemLine = itemLine;
     newItem = item;
   }

@@ -177,9 +177,6 @@ void KatePluginSymbolViewerView::toggleShowFunctions(void)
 
 void KatePluginSymbolViewerView::slotRefreshSymbol()
 {
-  if (!m_symbols)
-    return;
-
   parseSymbols();
 }
 
@@ -214,11 +211,16 @@ void KatePluginSymbolViewerView::slotDocChanged()
 
 void KatePluginSymbolViewerView::slotDocEdited()
 {
+  m_currItemTimer.stop(); // Avoid unneeded update
   m_updateTimer.start(500);
 }
 
 void KatePluginSymbolViewerView::cursorPositionChanged()
 {
+  if (m_updateTimer.isActive()) {
+    // No need for update, will come anyway
+    return;
+  }
   m_currItemTimer.start(100);
 }
 
@@ -235,7 +237,13 @@ void KatePluginSymbolViewerView::updateCurrTreeItem()
   if (!doc) {
     return;
   }
+
   int currLine = editView->cursorPositionVirtual().line();
+  if (currLine == m_oldCursorLine) {
+    // Nothing to do
+    return;
+  }
+  m_oldCursorLine = currLine;
 
   int newItemLine = 0;
   QTreeWidgetItem *newItem = nullptr;
@@ -291,6 +299,9 @@ void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint&)
 
 void KatePluginSymbolViewerView::parseSymbols(void)
 {
+  if (!m_symbols)
+    return;
+
   m_symbols->clear();
   // Qt docu recommends to populate view with disabled sorting
   // https://doc.qt.io/qt-5/qtreeview.html#sortingEnabled-prop
@@ -335,6 +346,7 @@ void KatePluginSymbolViewerView::parseSymbols(void)
   else
     new QTreeWidgetItem(m_symbols,  QStringList(i18n("Sorry. Language not supported yet") ) );
 
+  m_oldCursorLine = -1;
   updateCurrTreeItem();
   if (m_sort->isChecked())
     m_symbols->sortItems(0, Qt::AscendingOrder);

@@ -128,6 +128,7 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
 
     QTimer m_updateTimer;
     QTimer m_currItemTimer;
+    int    m_oldCursorLine;
 
     void updatePixmapScroll();
 

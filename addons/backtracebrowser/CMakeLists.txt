@@ -29,4 +29,6 @@ target_link_libraries(katebacktracebrowserplugin
 install( TARGETS katebacktracebrowserplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
 ############# unit tests ################
-ecm_optional_add_subdirectory (autotests)
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

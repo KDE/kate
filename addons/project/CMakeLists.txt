@@ -47,4 +47,6 @@ install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor 
 install( FILES kateproject.example DESTINATION  ${DATA_INSTALL_DIR}/kateproject )
 
 ############# unit tests ################
-ecm_optional_add_subdirectory (autotests)
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

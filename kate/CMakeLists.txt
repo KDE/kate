@@ -149,4 +149,6 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.appdata.xml DESTINAT
 ecm_install_icons(ICONS ${KATE_ICONS_PNG} ${KATE_ICONS_SVG} DESTINATION ${ICON_INSTALL_DIR} THEME hicolor)
 
 # automatic unit tests
-ecm_optional_add_subdirectory (autotests)
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

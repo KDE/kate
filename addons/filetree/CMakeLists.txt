@@ -27,4 +27,6 @@ install(TARGETS katefiletreeplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktextedito
 kcoreaddons_desktop_to_json (katefiletreeplugin katefiletreeplugin.desktop)
 
 ############# unit tests ################
-ecm_optional_add_subdirectory (autotests)
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

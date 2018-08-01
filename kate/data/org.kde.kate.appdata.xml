@@ -16,6 +16,7 @@
   <name xml:lang="en-GB">Kate</name>
   <name xml:lang="es">Kate</name>
   <name xml:lang="et">Kate</name>
+  <name xml:lang="eu">Kate</name>
   <name xml:lang="fi">Kate</name>
   <name xml:lang="fr">Kate</name>
   <name xml:lang="gl">Kate</name>
@@ -57,6 +58,7 @@
   <summary xml:lang="en-GB">Advanced Text Editor</summary>
   <summary xml:lang="es">Editor de texto avanzado</summary>
   <summary xml:lang="et">Täiustatud tekstiredaktor</summary>
+  <summary xml:lang="eu">Testu editore aurreratua</summary>
   <summary xml:lang="fi">Kehittynyt tekstimuokkain</summary>
   <summary xml:lang="fr">Éditeur de texte avancé</summary>
   <summary xml:lang="gl">Editor avanzado de textos</summary>
@@ -98,6 +100,7 @@
     <p xml:lang="el">Το Kate είναι ένας πολλών εγγράφων, πολλών προβολών επεξεργαστής κειμένου από το KDE. Περιέχει λειτουργίες όπως απόκρυψη κώδικα, επισήμανση σύνταξης, δυναμική αναδίπλωση λέξεων, ενσωματωμένη κονσόλα, εκτεταμένο περιβάλλον χρήσης προσθέτων και κάποια βασική υποστήριξη συγγραφής σεναρίων.</p>
     <p xml:lang="en-GB">Kate is a multi-document, multi-view text editor by KDE. It features stuff like code folding, syntax highlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.</p>
     <p xml:lang="es">Kate es un editor de texto creado por KDE que puede abrir varios documentos a la vez y que cuenta con varios modos de vista. Entre otras funcionalidades dispone de plegado de código, resaltado de sintaxis, justificado de línea dinámico, consola integrada, una amplia interfaz para complementos y admite scripts de manera preliminar.</p>
+    <p xml:lang="eu">Kate KDEk eginiko testu-editore dokumentu-anitza, ikuspegi-anitza da. Kode-tolestea, sintaxi-nabarmentzea, itzulbiratze-dinamikoa, kapsulatutako kontsola, osagarri interfaze zabal bat eta hastapenetan dagoen script bidez hedatzeko euskarria gisako eginbideak eskaintzen ditu.</p>
     <p xml:lang="fi">Kate on KDE:n usean tiedoston ja näkymän tekstimuokkain, jossa on on koodin laskostus, syntaksikorostus, dynaaminen rivitys, upotettu konsoli, kattava liitännäisrajapinta sekä alustava skriptaustuki.</p>
     <p xml:lang="fr">Kate est un éditeur de texte multi-documents et multi-vues pour KDE. Il offre des fonctionnalités comme le repliement de code, la coloration syntaxique, le retour à la ligne automatique, une console intégrée, une interface complète pour modules complémentaires, et un début de prise en charge d'automatisation par scripts.</p>
     <p xml:lang="gl">Kate é un editor de texto creado por KDE que permite traballar en varios documentos e con varias vistas ao mesmo tempo. Conta con moitas funcionalidades, como pregado de código, salientado de sintaxe, axuste dinámico de texto, un terminal integrado, unha extensa interface para o desenvolvemento de complementos e funcionalidades preliminares de scripting.</p>
@@ -135,6 +138,7 @@
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funcionalidades:</p>
     <p xml:lang="et">Omadused:</p>
+    <p xml:lang="eu">Eginbideak:</p>
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
@@ -175,6 +179,7 @@
       <li xml:lang="en-GB">MDI, window splitting, window tabbing</li>
       <li xml:lang="es">MDI, división de ventana, pestañas de ventana</li>
       <li xml:lang="et">MDI, akende poolitamine, akende esitamine kaartidena</li>
+      <li xml:lang="eu">MDI, leiho-zatitzea, leihoak fitxa gisa antolatzea</li>
       <li xml:lang="fi">Monen tiedoston käyttöliittymä (MDI), ikkunoiden jakaminen ja välilehdet</li>
       <li xml:lang="fr">Interface multi-documents, fenêtres scindées, organisation par onglets</li>
       <li xml:lang="gl">Capacidade para traballar en varios documentos á vez, coa posibilidade de dividir a xanela e usar lapelas.</li>
@@ -215,6 +220,7 @@
       <li xml:lang="en-GB">Spell checking</li>
       <li xml:lang="es">Revisión de la ortografía</li>
       <li xml:lang="et">Õigekirja kontroll</li>
+      <li xml:lang="eu">Ortografia-egiaztatzea</li>
       <li xml:lang="fi">Oikeinkirjoituksen tarkistus</li>
       <li xml:lang="fr">Vérification orthographique</li>
       <li xml:lang="gl">Corrección ortográfica.</li>
@@ -254,6 +260,7 @@
       <li xml:lang="en-GB">CR, CRLF, LF newline support</li>
       <li xml:lang="es">Admite fin de línea CR, CRLF, LF</li>
       <li xml:lang="et">CR, CRLF, LF reavahetuse toetus</li>
+      <li xml:lang="eu">CR, CRLF, LF lerro-amaierak onartzen ditu</li>
       <li xml:lang="fi">Tuki useille rivinvaihdoille: CR, CRLF ja LF</li>
       <li xml:lang="fr">Prise en charge des retours à la ligne CR, CRLF, LF</li>
       <li xml:lang="gl">Compatíbel cos fins de liña CR, CRLF e LF.</li>
@@ -293,6 +300,7 @@
       <li xml:lang="en-GB">Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="es">Admite codificación ( (utf-8, utf-16, ascii, etc.)</li>
       <li xml:lang="et">Kodeeringute toetus (utf-8, utf-16, ascii jne.)</li>
+      <li xml:lang="eu">Kodeketa euskarria (utf-8, utf-16, ascii etab.)</li>
       <li xml:lang="fi">Merkistökoodaustuki (UTF-8, UTF-16, ASCII jne.)</li>
       <li xml:lang="fr">Prise en charge de l'encodage (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="gl">Compatíbel con varios sistemas de codificación de texto (UTF-8, UTF-16, ASCII, etc.).</li>
@@ -332,6 +340,7 @@
       <li xml:lang="en-GB">Encoding conversion</li>
       <li xml:lang="es">Conversión de codificación</li>
       <li xml:lang="et">Kodeeringute teisendamine</li>
+      <li xml:lang="eu">Kodeketa arteko bihurketa</li>
       <li xml:lang="fi">Merkistökoodauksen muuntaminen</li>
       <li xml:lang="fr">Conversion d'encodage</li>
       <li xml:lang="gl">Conversión entre sistemas de codificación.</li>
@@ -371,6 +380,7 @@
       <li xml:lang="en-GB">Regular expression based find &amp; replace</li>
       <li xml:lang="es">Función de buscar y remplazar basada en expresiones regulares</li>
       <li xml:lang="et">Regulaaravaldiste põhine otsimine ja asendamine</li>
+      <li xml:lang="eu">Adierazpen erregularretan oinarritutako aurkitu eta ordeztea</li>
       <li xml:lang="fi">Säännöllisiin lausekkeisiin perustuva Etsi ja korvaa</li>
       <li xml:lang="fr">Rechercher &amp; remplacé utilisant les expressions rationnelles</li>
       <li xml:lang="gl">Funcionalidade de atopar e substituír baseada en expresións regulares.</li>
@@ -410,6 +420,7 @@
       <li xml:lang="en-GB">Powerful syntax highlighting and bracket matching</li>
       <li xml:lang="es">Potente resaltado de sintaxis y de emparejado de paréntesis</li>
       <li xml:lang="et">Võimas süntaksi esiletõstmine ja sulgude sobitamine</li>
+      <li xml:lang="eu">Sintaxi nabarmentze eta parentesien bat-etortze ahaltsua</li>
       <li xml:lang="fi">Tehokas syntaksin korostus; mukana myös toisiaan vastaavien sulkeiden korostus</li>
       <li xml:lang="fr">Coloration syntaxique puissante et correspondances des parenthèses</li>
       <li xml:lang="gl">Potente realzado de sintaxe e de parellas de parénteses.</li>
@@ -448,6 +459,7 @@
       <li xml:lang="en-GB">Code and text folding</li>
       <li xml:lang="es">Plegado de código y de texto</li>
       <li xml:lang="et">Koodi ja teksti voltimine</li>
+      <li xml:lang="eu">Kode- eta testu-tolestea</li>
       <li xml:lang="fi">Koodin ja tekstin laskostus</li>
       <li xml:lang="fr">Repliement de code et de texte</li>
       <li xml:lang="gl">Pregado de código e texto.</li>
@@ -487,6 +499,7 @@
       <li xml:lang="en-GB">Infinite undo/redo support</li>
       <li xml:lang="es">Función hacer y deshacer infinita</li>
       <li xml:lang="et">Piiranguteta tagasivõtmiste ja uuestitegemiste toetus</li>
+      <li xml:lang="eu">Desegin/berregin mugagabea onartzen du</li>
       <li xml:lang="fi">Tuki rajattomalle kumoamiselle ja uudelleen tekemiselle</li>
       <li xml:lang="fr">Prise en charge de l'annulation / refaire à l'infini</li>
       <li xml:lang="gl">Funcionalidade de desfacer e refacer sen limitacións.</li>
@@ -526,6 +539,7 @@
       <li xml:lang="en-GB">Block selection mode</li>
       <li xml:lang="es">Modo de selección de bloque</li>
       <li xml:lang="et">Plokivaliku režiim</li>
+      <li xml:lang="eu">Bloke-hautapen modua</li>
       <li xml:lang="fi">Lohkovalintatila</li>
       <li xml:lang="fr">Mode de sélection par bloc</li>
       <li xml:lang="gl">Modo de selección por bloques.</li>
@@ -565,6 +579,7 @@
       <li xml:lang="en-GB">Auto indentation</li>
       <li xml:lang="es">Sangrado automático</li>
       <li xml:lang="et">Automaatne taandus</li>
+      <li xml:lang="eu">Koskatze automatikoa</li>
       <li xml:lang="fi">Automaattinen sisennys</li>
       <li xml:lang="fr">Indentation automatique</li>
       <li xml:lang="gl">Sangrado automático.</li>
@@ -603,6 +618,7 @@
       <li xml:lang="en-GB">Auto completion support</li>
       <li xml:lang="es">Completado automático</li>
       <li xml:lang="et">Automaatse lõpetamise toetus</li>
+      <li xml:lang="eu">Osatze automatikoa onartzen du</li>
       <li xml:lang="fi">Automaattitäydennyksen tuki</li>
       <li xml:lang="fr">Prise en charge du complètement automatique</li>
       <li xml:lang="gl">Funcionalidade de completación automática.</li>
@@ -641,6 +657,7 @@
       <li xml:lang="en-GB">Shell integration</li>
       <li xml:lang="es">Integración con la línea de órdenes</li>
       <li xml:lang="et">Shelliga lõimimine</li>
+      <li xml:lang="eu">Shell-arekin bateratzea</li>
       <li xml:lang="fi">Komentotulkki-integraatio</li>
       <li xml:lang="fr">Intégration avec l'interpréteur de commande</li>
       <li xml:lang="gl">Integración co intérprete de ordes.</li>
@@ -679,6 +696,7 @@
       <li xml:lang="en-GB">Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
       <li xml:lang="es">Admite numerosos protocolos mediante el uso de kioslaves (http, ftp, ssh, webdav, etc.) </li>
       <li xml:lang="et">Laialdane protokollide (http, ftp, ssh, webdav jne.) toetus KIO moodulite vahendusel</li>
+      <li xml:lang="eu">Protokolo-euskarri zabala (http, ftp, ssh, webdav etab.) «kioslave»(e)ak erabiliz</li>
       <li xml:lang="fi">Laaja yhteyskäytäntötuki (HTTP, FTP, SSH, WebDAV jne.) käyttäen KIO-palveluita</li>
       <li xml:lang="fr">Prise en charge de protocoles variés (http, ftp, ssh, webdav etc.) en utilisant le module d'entrée / sortie.</li>
       <li xml:lang="gl">Compatibilidade con numerosos protocolos (HTTP, FTP, SSH, WebDAV, etc.) mediante KIO.</li>
@@ -717,6 +735,7 @@
       <li xml:lang="en-GB">Plugin architecture for the application and editor component</li>
       <li xml:lang="es">Arquitectura de complementos para el componente de aplicación y de editor.</li>
       <li xml:lang="et">Pluginapõhine ülesehitus nii rakenduses kui ka redaktorikomponendis</li>
+      <li xml:lang="eu">Osagarrien arkitektura aplikazioarentzako eta editore osagaiarentzako</li>
       <li xml:lang="fi">Liitännäisarkkitehtuuri sovellukselle ja muokkainosalle</li>
       <li xml:lang="fr">Architecture à modules complémentaires pour l'application et le composant éditeur</li>
       <li xml:lang="gl">Arquitectura de complementos para o aplicativo e o compoñente do editor.</li>
@@ -756,6 +775,7 @@
       <li xml:lang="en-GB">Customisable shortcuts</li>
       <li xml:lang="es">Accesos rápidos personalizables</li>
       <li xml:lang="et">Kohandatavad kiirklahvid</li>
+      <li xml:lang="eu">Norbere erara egoki ditzakeen lasterbide</li>
       <li xml:lang="fi">Mukautettavat pikanäppäimet</li>
       <li xml:lang="fr">Raccourcis personnalisables</li>
       <li xml:lang="gl">Atallos personalizábeis.</li>
@@ -794,6 +814,7 @@
       <li xml:lang="en-GB">Integrated command line</li>
       <li xml:lang="es">Línea de órdenes integrada</li>
       <li xml:lang="et">Lõimitud käsurida</li>
+      <li xml:lang="eu">Bateratutako komando-lerroa</li>
       <li xml:lang="fi">Integroitu komentorivi</li>
       <li xml:lang="fr">Ligne de commande intégrée</li>
       <li xml:lang="gl">Liña de ordes integrada.</li>
@@ -833,6 +854,7 @@
       <li xml:lang="en-GB">Scriptable using JavaScript</li>
       <li xml:lang="es">Uso de scripts de JavaScript</li>
       <li xml:lang="et">Skriptimine JavaScriptiga</li>
+      <li xml:lang="eu">Javascript erabiliz hedagarria</li>
       <li xml:lang="fi">Skriptattavissa JavaScriptillä</li>
       <li xml:lang="fr">Automatisable en utilisant JavaScript</li>
       <li xml:lang="gl">A súa funcionalidade pódese ampliar mediante scripts escritos en JavaScript.</li>

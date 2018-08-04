@@ -63,6 +63,7 @@ Name[zh_TW]=文字過濾器
 Comment=Process text using terminal commands
 Comment[ca]=Processa el text usant ordres de terminal
 Comment[fr]=Traiter du texte à l'aide des commandes du terminal
+Comment[it]=Elabora il testo usando i comandi da terminale
 Comment[nl]=Tekst verwerken met commando's op de terminal
 Comment[nn]=Køyr tekst gjennom terminalkommandoar
 Comment[pt]=Processar o texto com comandos do terminal

@@ -44,7 +44,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
  m_struct->setText(i18n("Show Modules"));
  m_func->setText(i18n("Show Functions"));
 
- if(m_plugin->treeOn)
+ if(m_treeOn->isChecked())
   {
    funcNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions") ) );
    subrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Subroutines") ) );
@@ -150,7 +150,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                     stripped.prepend(QLatin1String("Main: "));
                 if(stripped.indexOf(QLatin1Char('='))==-1)
                   {
-                   if (m_plugin->treeOn)
+                   if (m_treeOn->isChecked())
                      {
                       node = new QTreeWidgetItem(subrNode, lastSubrNode);
                       lastSubrNode = node;
@@ -190,7 +190,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
               }
             if(stripped.indexOf(QLatin1Char('='))==-1)
               {
-               if (m_plugin->treeOn)
+               if (m_treeOn->isChecked())
                  {
                   node = new QTreeWidgetItem(modNode, lastModNode);
                   lastModNode = node;
@@ -231,7 +231,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
             if(paro==parc && stripped.endsWith(QLatin1Char('&'))==false)
               {
                stripped.remove(QLatin1Char('&'));
-              if (m_plugin->treeOn)
+              if (m_treeOn->isChecked())
                 {
                  node = new QTreeWidgetItem(funcNode, lastFuncNode);
                  lastFuncNode = node;

@@ -161,8 +161,6 @@ class KatePluginSymbolViewer : public KTextEditor::Plugin
   public:
     bool typesOn;
     bool expandedOn;
-    bool treeOn;
-    bool sortOn;
 
   private:
     KatePluginSymbolViewerView* m_view = nullptr;

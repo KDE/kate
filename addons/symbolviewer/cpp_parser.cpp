@@ -44,7 +44,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
  KTextEditor::Document *kv = m_mainWindow->activeView()->document();
 
  //qDebug(13000)<<"Lines counted :"<<kv->lines();
- if(m_plugin->treeOn)
+ if(m_treeOn->isChecked())
    {
     mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Macros") ) );
     sctNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Structures") ) );
@@ -110,7 +110,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
               stripped = stripped.trimmed();
               if (m_macro->isChecked())
                  {
-                  if (m_plugin->treeOn)
+                  if (m_treeOn->isChecked())
                     {
                      node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                      lastMcrNode = node;
@@ -148,7 +148,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
              }
           if(m_func->isChecked())
             {
-             if (m_plugin->treeOn)
+             if (m_treeOn->isChecked())
                {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
                 if (m_plugin->expandedOn) m_symbols->expandItem(node);
@@ -260,7 +260,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                   )
                               ) stripped=stripped.right(stripped.length()-1);
                            }
-                         if (m_plugin->treeOn)
+                         if (m_treeOn->isChecked())
                            {
                             if (mclass == 4)
                               {
@@ -324,7 +324,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       stripped.replace(QLatin1Char('}'), QLatin1String(" "));
                       if(m_struct->isChecked())
                         {
-                         if (m_plugin->treeOn)
+                         if (m_treeOn->isChecked())
                            {
                             node = new QTreeWidgetItem(sctNode, lastSctNode);
                             lastSctNode = node;

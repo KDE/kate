@@ -97,14 +97,12 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
   KConfigGroup config(KSharedConfig::openConfig(), "PluginSymbolViewer");
   m_plugin->typesOn = config.readEntry(QLatin1String("ViewTypes"), false);
   m_plugin->expandedOn = config.readEntry(QLatin1String("ExpandTree"), false);
-  m_plugin->treeOn = config.readEntry(QLatin1String("TreeView"), false);
-  m_plugin->sortOn = config.readEntry(QLatin1String("SortSymbols"), false);
+  m_treeOn->setChecked(config.readEntry(QLatin1String("TreeView"), false));
+  m_sort->setChecked(config.readEntry(QLatin1String("SortSymbols"), false));
 
   m_macro->setChecked(true);
   m_struct->setChecked(true);
   m_func->setChecked(true);
-  m_treeOn->setChecked(m_plugin->treeOn);
-  m_sort->setChecked(m_plugin->sortOn);
 
   m_updateTimer.setSingleShot(true);
   connect(&m_updateTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::slotRefreshSymbol);
@@ -139,7 +137,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
   m_symbols->setHeaderLabels(titles);
 
   m_symbols->setColumnHidden(1, true);
-  m_symbols->setSortingEnabled(m_plugin->sortOn);
+  m_symbols->setSortingEnabled(m_sort->isChecked());
   m_symbols->setRootIsDecorated(0);
   m_symbols->setContextMenuPolicy(Qt::CustomContextMenu);
   m_symbols->setIndentation(10);
@@ -176,15 +174,11 @@ void KatePluginSymbolViewerView::slotRefreshSymbol()
 
 void KatePluginSymbolViewerView::slotChangeMode()
 {
-  m_plugin->treeOn = m_treeOn->isChecked();
   parseSymbols();
 }
 
 void KatePluginSymbolViewerView::slotEnableSorting()
 {
-  m_plugin->sortOn = m_sort->isChecked();
-  m_symbols->setSortingEnabled(m_sort->isChecked());
-
   parseSymbols();
 }
 
@@ -398,11 +392,9 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
 
   typesOn = p->viewReturns->isChecked();
   expandedOn = p->expandTree->isChecked();
-  treeOn = p->treeView->isChecked();
-  sortOn = p->sortSymbols->isChecked();
   if (m_view) {
-    m_view->m_treeOn->setChecked(treeOn);
-    m_view->m_sort->setChecked(sortOn);
+    m_view->m_treeOn->setChecked(p->treeView->isChecked());
+    m_view->m_sort->setChecked(p->sortSymbols->isChecked());
   }
 }
 

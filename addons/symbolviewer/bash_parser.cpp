@@ -42,7 +42,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
        //It is necessary to change names
        m_func->setText(i18n("Show Functions"));
 
-       if(m_plugin->treeOn)
+       if(m_treeOn->isChecked())
        {
                funcNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions") ) );
                funcNode->setIcon(0, QIcon(func));
@@ -90,7 +90,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
                                continue;
                        funcName.append(QLatin1String("()"));
 
-                       if (m_plugin->treeOn)
+                       if (m_treeOn->isChecked())
                        {
                                node = new QTreeWidgetItem(funcNode, lastFuncNode);
                                lastFuncNode = node;

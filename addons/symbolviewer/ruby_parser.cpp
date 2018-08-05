@@ -39,7 +39,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
  KTextEditor::Document *kv = m_mainWindow->activeView()->document();
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
 
- if(m_plugin->treeOn)
+ if(m_treeOn->isChecked())
    {
     clsNode = new QTreeWidgetItem(m_symbols);
     clsNode->setText(0, i18n("Classes"));
@@ -62,7 +62,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
        {
           if (m_func->isChecked())
             {
-             if (m_plugin->treeOn)
+             if (m_treeOn->isChecked())
                {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
                 if (m_plugin->expandedOn) m_symbols->expandItem(node);
@@ -80,7 +80,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
        {
         if (m_struct->isChecked())
           {
-           if (m_plugin->treeOn)
+           if (m_treeOn->isChecked())
              {
               node = new QTreeWidgetItem(mtdNode, lastMtdNode);
               lastMtdNode = node;

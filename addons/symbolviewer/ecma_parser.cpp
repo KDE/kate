@@ -43,7 +43,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
   QPixmap mtd( ( const char** ) method_xpm );
   QTreeWidgetItem *node = nullptr;
 
-  if (m_plugin->treeOn) {
+  if (m_treeOn->isChecked()) {
     m_symbols->setRootIsDecorated(1);
   }
   else {
@@ -129,7 +129,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         // trim whitespace
         identifier = identifier.trimmed();
         // get the node to add the class entry to
-        if ((m_plugin->treeOn) && (! nodes.isEmpty())) {
+        if ((m_treeOn->isChecked()) && (! nodes.isEmpty())) {
           node = new QTreeWidgetItem(nodes.last());
           if (m_plugin->expandedOn) m_symbols->expandItem(node);
         }
@@ -205,7 +205,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
           if (! nodes.isEmpty()) {
             parent = nodes.last();
           }
-          if ((m_plugin->treeOn) && (parent != nullptr))
+          if ((m_treeOn->isChecked()) && (parent != nullptr))
             node = new QTreeWidgetItem(parent);
           else
             node = new QTreeWidgetItem(m_symbols);
@@ -252,7 +252,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
           if (! nodes.isEmpty()) {
             parent = nodes.last();
           }
-          if ((m_plugin->treeOn) && (parent != nullptr))
+          if ((m_treeOn->isChecked()) && (parent != nullptr))
             node = new QTreeWidgetItem(parent);
           else
             node = new QTreeWidgetItem(m_symbols);

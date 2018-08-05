@@ -82,16 +82,16 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
   m_symbols = nullptr;
 
   m_popup = new QMenu(m_symbols);
-  m_treeOn = m_popup->addAction(i18n("Tree Mode"), this, SLOT(slotChangeMode()));
+  m_treeOn = m_popup->addAction(i18n("Tree Mode"), this, &KatePluginSymbolViewerView::parseSymbols);
   m_treeOn->setCheckable(true);
-  m_sort = m_popup->addAction(i18n("Show Sorted"), this, SLOT(slotEnableSorting()));
+  m_sort = m_popup->addAction(i18n("Show Sorted"), this, &KatePluginSymbolViewerView::parseSymbols);
   m_sort->setCheckable(true);
   m_popup->addSeparator();
-  m_macro = m_popup->addAction(i18n("Show Macros"), this, SLOT(toggleShowMacros()));
+  m_macro = m_popup->addAction(i18n("Show Macros"), this, &KatePluginSymbolViewerView::parseSymbols);
   m_macro->setCheckable(true);
-  m_struct = m_popup->addAction(i18n("Show Structures"), this, SLOT(toggleShowStructures()));
+  m_struct = m_popup->addAction(i18n("Show Structures"), this, &KatePluginSymbolViewerView::parseSymbols);
   m_struct->setCheckable(true);
-  m_func = m_popup->addAction(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
+  m_func = m_popup->addAction(i18n("Show Functions"), this, &KatePluginSymbolViewerView::parseSymbols);
   m_func->setCheckable(true);
 
   KConfigGroup config(KSharedConfig::openConfig(), "PluginSymbolViewer");
@@ -105,7 +105,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
   m_func->setChecked(true);
 
   m_updateTimer.setSingleShot(true);
-  connect(&m_updateTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::slotRefreshSymbol);
+  connect(&m_updateTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::parseSymbols);
 
   m_currItemTimer.setSingleShot(true);
   connect(&m_currItemTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
@@ -152,39 +152,9 @@ KatePluginSymbolViewerView::~KatePluginSymbolViewerView()
   delete m_popup;
 }
 
-void KatePluginSymbolViewerView::toggleShowMacros(void)
-{
-  slotRefreshSymbol();
-}
-
-void KatePluginSymbolViewerView::toggleShowStructures(void)
-{
-  slotRefreshSymbol();
-}
-
-void KatePluginSymbolViewerView::toggleShowFunctions(void)
-{
-  slotRefreshSymbol();
-}
-
-void KatePluginSymbolViewerView::slotRefreshSymbol()
-{
-  parseSymbols();
-}
-
-void KatePluginSymbolViewerView::slotChangeMode()
-{
-  parseSymbols();
-}
-
-void KatePluginSymbolViewerView::slotEnableSorting()
-{
-  parseSymbols();
-}
-
 void KatePluginSymbolViewerView::slotDocChanged()
 {
- slotRefreshSymbol();
+ parseSymbols();
 
  KTextEditor::View *view = m_mainWindow->activeView();
  //qDebug()<<"Document changed !!!!" << view;
@@ -284,7 +254,7 @@ void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint&)
   m_popup->popup(QCursor::pos(), m_treeOn);
 }
 
-void KatePluginSymbolViewerView::parseSymbols(void)
+void KatePluginSymbolViewerView::parseSymbols()
 {
   if (!m_symbols)
     return;

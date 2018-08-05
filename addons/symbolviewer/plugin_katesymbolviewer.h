@@ -92,18 +92,12 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
     KatePluginSymbolViewerView (KatePluginSymbolViewer *plugin, KTextEditor::MainWindow *mw);
     ~KatePluginSymbolViewerView () override;
 
-    void parseSymbols(void);
 
   public Q_SLOTS:
-    void slotRefreshSymbol();
-    void slotChangeMode();
-    void slotEnableSorting();
+    void parseSymbols();
     void slotDocChanged();
     void goToSymbol(QTreeWidgetItem *);
     void slotShowContextMenu(const QPoint&);
-    void toggleShowMacros(void);
-    void toggleShowStructures(void);
-    void toggleShowFunctions(void);
     void cursorPositionChanged();
     QTreeWidgetItem *newActveItem(int &currMinLine, int currLine, QTreeWidgetItem *item);
     void updateCurrTreeItem();

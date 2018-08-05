@@ -65,6 +65,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QTimer>
+#include <QHeaderView>
 
 K_PLUGIN_FACTORY_WITH_JSON (KatePluginSymbolViewerFactory, "katesymbolviewerplugin.json", registerPlugin<KatePluginSymbolViewer>();)
 
@@ -263,6 +264,7 @@ void KatePluginSymbolViewerView::parseSymbols()
   // Qt docu recommends to populate view with disabled sorting
   // https://doc.qt.io/qt-5/qtreeview.html#sortingEnabled-prop
   m_symbols->setSortingEnabled(false);
+  Qt::SortOrder sortOrder = m_symbols->header()->sortIndicatorOrder();
 
   if (!m_mainWindow->activeView())
     return;
@@ -305,8 +307,10 @@ void KatePluginSymbolViewerView::parseSymbols()
 
   m_oldCursorLine = -1;
   updateCurrTreeItem();
-  if (m_sort->isChecked())
-    m_symbols->sortItems(0, Qt::AscendingOrder);
+  if (m_sort->isChecked()) {
+    m_symbols->setSortingEnabled(true);
+    m_symbols->sortItems(0, sortOrder);
+  }
 }
 
 void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)

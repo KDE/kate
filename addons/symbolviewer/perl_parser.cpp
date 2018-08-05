@@ -78,7 +78,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     cl = cl.trimmed();
     //qDebug()<<"Trimmed line " << i << " : "<< cl;
 
-    if(cl.indexOf(QRegExp(QLatin1String("^use +[A-Z]"))) == 0 && macro_on)
+    if(cl.indexOf(QRegExp(QLatin1String("^use +[A-Z]"))) == 0 && m_macro->isChecked())
       {
        QString stripped=cl.remove( QRegExp(QLatin1String("^use +")) );
        //stripped=stripped.replace( QRegExp(QLatin1String(";$")), "" ); // Doesn't work ??
@@ -96,7 +96,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
        node->setText(1, QString::number( i, 10));
       }
 #if 1
-    if(cl.indexOf(QRegExp(QLatin1String("^use +[a-z]"))) == 0 && struct_on)
+    if(cl.indexOf(QRegExp(QLatin1String("^use +[a-z]"))) == 0 && m_struct->isChecked())
       {
        QString stripped=cl.remove( QRegExp(QLatin1String("^use +")) );
        stripped=stripped.remove( QRegExp(QLatin1String(";$")) );
@@ -114,7 +114,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
       }
 #endif
 #if 1
-    if(cl.indexOf(QRegExp(QLatin1String("^sub +")))==0 && func_on)
+    if(cl.indexOf(QRegExp(QLatin1String("^sub +")))==0 && m_func->isChecked())
       {
        QString stripped=cl.remove( QRegExp(QLatin1String("^sub +")) );
        stripped=stripped.remove( QRegExp(QLatin1String("[{;] *$")) );

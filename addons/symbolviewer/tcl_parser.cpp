@@ -82,7 +82,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
       {
        if(currline.startsWith(varStr) && block == 0)
          {
-          if (macro_on == true) // not really a macro, but a variable
+          if (m_macro->isChecked()) // not really a macro, but a variable
             {
              stripped = currline.right(currline.length() - 3);
              stripped = stripped.simplified();
@@ -129,7 +129,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                           if (args_par == 0)
                             {
                              //stripped = stripped.simplified();
-                             if(func_on == true)
+                             if(m_func->isChecked())
                                {
                                 if (m_plugin->treeOn)
                                   {
@@ -148,7 +148,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                          }
                     } // block = 0
                   } // for j loop
-               }//func_on
+               }//m_func->isChecked()
       } // not a comment
     } //for i loop
 

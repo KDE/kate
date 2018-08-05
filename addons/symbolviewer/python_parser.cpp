@@ -109,7 +109,7 @@ for (int i=0; i<kv->lines(); i++)
         else //strip off the word "def "
             name = name.trimmed ().mid (4);
 
-          if (func_on == true && in_class == 1)
+          if (m_func->isChecked() && in_class == 1)
             {
              if (m_plugin->treeOn)
                {
@@ -126,7 +126,7 @@ for (int i=0; i<kv->lines(); i++)
              node->setText(1, QString::number( line, 10));
             }
 
-         if (struct_on == true && in_class == 2)
+         if (m_struct->isChecked() && in_class == 2)
            {
             if (m_plugin->treeOn)
               {
@@ -140,7 +140,7 @@ for (int i=0; i<kv->lines(); i++)
             node->setText(1, QString::number( line, 10));
            }
 
-          if (macro_on == true && in_class == 0)
+          if (m_macro->isChecked() && in_class == 0)
             {
              if (m_plugin->treeOn)
                {

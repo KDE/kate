@@ -122,7 +122,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
          {
           if(currline.startsWith(QLatin1String("program ")))
                mainprog=true;
-          if (macro_on == true) // not really a macro, but a subroutines
+          if (m_macro->isChecked()) // not really a macro, but a subroutines
             {
              stripped += currline.right(currline.length());
              stripped = stripped.simplified();
@@ -177,7 +177,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
        //Modules
        else if(block==2)
         {
-         if (struct_on == true) // not really a struct, but a module
+         if (m_struct->isChecked()) // not really a struct, but a module
            {
             stripped = currline.right(currline.length());
             stripped = stripped.simplified();
@@ -210,7 +210,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
       //Functions
       else if(block==3)
         {
-         if (func_on == true)
+         if (m_func->isChecked())
            {
             stripped += currline.right(currline.length());
             stripped = stripped.trimmed();

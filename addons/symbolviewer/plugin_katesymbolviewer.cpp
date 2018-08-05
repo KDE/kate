@@ -105,9 +105,6 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
   m_func->setChecked(true);
   m_treeOn->setChecked(m_plugin->treeOn);
   m_sort->setChecked(m_plugin->sortOn);
-  macro_on = true;
-  struct_on = true;
-  func_on = true;
 
   m_updateTimer.setSingleShot(true);
   connect(&m_updateTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::slotRefreshSymbol);
@@ -159,19 +156,16 @@ KatePluginSymbolViewerView::~KatePluginSymbolViewerView()
 
 void KatePluginSymbolViewerView::toggleShowMacros(void)
 {
-  macro_on = m_macro->isChecked();
   slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::toggleShowStructures(void)
 {
-  struct_on = m_struct->isChecked();
   slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::toggleShowFunctions(void)
 {
-  func_on = m_func->isChecked();
   slotRefreshSymbol();
 }
 

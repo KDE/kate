@@ -73,7 +73,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
                if(currline.at(0) == QLatin1Char('#')) comment = true;
 
                //mainprog=false;
-               if(!comment && func_on)
+               if(!comment && m_func->isChecked())
                {
                        QString funcName;
 

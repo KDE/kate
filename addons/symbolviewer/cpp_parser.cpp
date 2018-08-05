@@ -108,7 +108,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
              {
               //stripped.replace(0x9, QLatin1String(" "));
               stripped = stripped.trimmed();
-              if (macro_on == true)
+              if (m_macro->isChecked())
                  {
                   if (m_plugin->treeOn)
                     {
@@ -146,7 +146,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
               if(cl.at(j)==QLatin1Char('{')) { mclass = 4; break;}
               stripped += cl.at(j);
              }
-          if(func_on == true)
+          if(m_func->isChecked())
             {
              if (m_plugin->treeOn)
                {
@@ -240,7 +240,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       (cl.at(j)==QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char('}')) > (int)j))
                      {
                       stripped.replace(0x9, QLatin1String(" "));
-                      if(func_on == true)
+                      if(m_func->isChecked())
                         {
                          QString strippedWithTypes = stripped;
                          if (m_plugin->typesOn == false)
@@ -322,7 +322,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       //stripped.replace(0x9, QLatin1String(" "));
                       stripped.remove(QLatin1Char('{'));
                       stripped.replace(QLatin1Char('}'), QLatin1String(" "));
-                      if(struct_on == true)
+                      if(m_struct->isChecked())
                         {
                          if (m_plugin->treeOn)
                            {

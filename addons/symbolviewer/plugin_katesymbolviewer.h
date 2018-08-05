@@ -124,8 +124,6 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
     QAction     *m_struct;
     QAction     *m_func;
 
-    bool macro_on, struct_on, func_on; // FIXME Remove and replace by m_foo->isChecked();
-
     QTimer m_updateTimer;
     QTimer m_currItemTimer;
     int    m_oldCursorLine;

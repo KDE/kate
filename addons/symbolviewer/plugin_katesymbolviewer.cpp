@@ -302,8 +302,15 @@ void KatePluginSymbolViewerView::parseSymbols()
     hlModeName == QLatin1String("JavaScript") ||
     hlModeName == QLatin1String("QML"))
      parseEcmaSymbols();
-  else
-    new QTreeWidgetItem(m_symbols,  QStringList(i18n("Sorry. Language not supported yet") ) );
+  else {
+    QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);
+    node->setText(0, i18n("Sorry, not supported yet!"));
+    // Setting invalid line number avoid jump to top of document when clicked
+    node->setText(1, QLatin1String("-1"));
+    node = new QTreeWidgetItem(m_symbols);
+    node->setText(0, i18n("File type: %1", hlModeName));
+    node->setText(1, QLatin1String("-1"));
+  }
 
   m_oldCursorLine = -1;
   updateCurrTreeItem();

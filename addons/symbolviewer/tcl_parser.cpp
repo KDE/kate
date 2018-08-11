@@ -47,7 +47,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
    lastMcrNode = mcrNode;
    lastClsNode = clsNode;
 
-   if (m_plugin->expandedOn)
+   if (m_expandOn->isChecked())
       {
        m_symbols->expandItem(clsNode);
        m_symbols->expandItem(mcrNode);

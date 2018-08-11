@@ -92,8 +92,8 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
     KatePluginSymbolViewerView (KatePluginSymbolViewer *plugin, KTextEditor::MainWindow *mw);
     ~KatePluginSymbolViewerView () override;
 
-
   public Q_SLOTS:
+    void displayOptionChanged();
     void parseSymbols();
     void slotDocChanged();
     void goToSymbol(QTreeWidgetItem *);
@@ -117,6 +117,8 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
     QAction     *m_macro;
     QAction     *m_struct;
     QAction     *m_func;
+    QAction     *m_typesOn;
+    QAction     *m_expandOn;
 
     QTimer m_updateTimer;
     QTimer m_currItemTimer;
@@ -151,10 +153,6 @@ class KatePluginSymbolViewer : public KTextEditor::Plugin
 
   public Q_SLOTS:
     void applyConfig( KatePluginSymbolViewerConfigPage* p );
-
-  public:
-    bool typesOn;
-    bool expandedOn;
 
   private:
     KatePluginSymbolViewerView* m_view = nullptr;

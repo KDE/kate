@@ -46,7 +46,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
       mcrNode->setIcon(0, QIcon(mcr));
       clsNode->setIcon(0, QIcon(cls));
   
-      if (m_plugin->expandedOn)
+      if (m_expandOn->isChecked())
         {
         m_symbols->expandItem(mcrNode);
         m_symbols->expandItem(clsNode);
@@ -114,7 +114,7 @@ for (int i=0; i<kv->lines(); i++)
              if (m_treeOn->isChecked())
                {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
-                if (m_plugin->expandedOn) m_symbols->expandItem(node);
+                if (m_expandOn->isChecked()) m_symbols->expandItem(node);
                 lastClsNode = node;
                 mtdNode = lastClsNode;
                 lastMtdNode = lastClsNode;

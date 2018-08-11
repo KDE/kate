@@ -44,7 +44,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
     clsNode = new QTreeWidgetItem(m_symbols);
     clsNode->setText(0, i18n("Classes"));
     clsNode->setIcon(0, QIcon(cls));
-    if (m_plugin->expandedOn) m_symbols->expandItem(clsNode);
+    if (m_expandOn->isChecked()) m_symbols->expandItem(clsNode);
     lastClsNode = clsNode;
     mtdNode = clsNode;
     lastMtdNode = clsNode;
@@ -65,7 +65,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
              if (m_treeOn->isChecked())
                {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
-                if (m_plugin->expandedOn) m_symbols->expandItem(node);
+                if (m_expandOn->isChecked()) m_symbols->expandItem(node);
                 lastClsNode = node;
                 mtdNode = lastClsNode;
                 lastMtdNode = lastClsNode;
@@ -89,7 +89,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
            
            name = cl.mid(4);
            node->setToolTip(0, name);
-           if (m_plugin->typesOn == false)
+           if (!m_typesOn->isChecked())
             {
             name = name.left(name.indexOf(QLatin1Char('(')));
             }

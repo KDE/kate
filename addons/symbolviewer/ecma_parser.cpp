@@ -131,7 +131,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         // get the node to add the class entry to
         if ((m_treeOn->isChecked()) && (! nodes.isEmpty())) {
           node = new QTreeWidgetItem(nodes.last());
-          if (m_plugin->expandedOn) m_symbols->expandItem(node);
+          if (m_expandOn->isChecked()) m_symbols->expandItem(node);
         }
         else {
           node = new QTreeWidgetItem(m_symbols);
@@ -140,7 +140,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         node->setText(0, identifier);
         node->setIcon(0, QIcon(cls));
         node->setText(1, QString::number(line, 10));
-        if (m_plugin->expandedOn) m_symbols->expandItem(node);
+        if (m_expandOn->isChecked()) m_symbols->expandItem(node);
       } // (look for classes)
       
       // look for function definitions
@@ -222,7 +222,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
           // add the function
           node->setText(0, identifier);
           node->setText(1, QString::number(line, 10));
-          if (m_plugin->expandedOn) m_symbols->expandItem(node);
+          if (m_expandOn->isChecked()) m_symbols->expandItem(node);
         }
       } // (look for functions)
 
@@ -263,7 +263,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
           // add the id
           node->setText(0, identifier);
           node->setText(1, QString::number(line, 10));
-          if (m_plugin->expandedOn) m_symbols->expandItem(node);
+          if (m_expandOn->isChecked()) m_symbols->expandItem(node);
         }
       }
 

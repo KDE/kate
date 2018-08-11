@@ -48,7 +48,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       classNode->setIcon(0, QIcon( classPix ) );
       functionNode->setIcon(0, QIcon( functionPix ) );
 
-      if (m_plugin->expandedOn)
+      if (m_expandOn->isChecked())
       {
         m_symbols->expandItem(namespaceNode);
         m_symbols->expandItem(defineNode);
@@ -159,7 +159,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         if (m_treeOn->isChecked())
         {
           node = new QTreeWidgetItem(namespaceNode, lastNamespaceNode);
-          if (m_plugin->expandedOn)
+          if (m_expandOn->isChecked())
           {
             m_symbols->expandItem(node);
           }
@@ -199,7 +199,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         if (m_treeOn->isChecked())
         {
           node = new QTreeWidgetItem(classNode, lastClassNode);
-          if (m_plugin->expandedOn)
+          if (m_expandOn->isChecked())
           {
             m_symbols->expandItem(node);
           }
@@ -211,7 +211,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         if (isClass)
         {
-          if (m_plugin->typesOn) {
+          if (m_typesOn->isChecked()) {
             if (!classRegExp.cap(1).trimmed().isEmpty() && !classRegExp.cap(4).trimmed().isEmpty())
             {
               nameWithTypes = classRegExp.cap(3)+QLatin1String(" [")+classRegExp.cap(1).trimmed()+QLatin1Char(',')+classRegExp.cap(4).trimmed()+QLatin1Char(']');
@@ -233,7 +233,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         else
         {
-          if (m_plugin->typesOn)
+          if (m_typesOn->isChecked())
           {
             nameWithTypes = interfaceRegExp.cap(1) + QLatin1String(" [interface]");
             node->setText(0, nameWithTypes);
@@ -312,7 +312,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         
         nameWithTypes = functionRegExp.cap(4) + QLatin1Char('(') + functionArgsList.join(QLatin1String(", ")) + QLatin1Char(')');
-        if (m_plugin->typesOn)
+        if (m_typesOn->isChecked())
         {
           node->setText(0, nameWithTypes);
         }

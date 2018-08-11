@@ -82,28 +82,37 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
   mw->guiFactory()->addClient (this);
   m_symbols = nullptr;
 
+  // FIXME Let the parser decide which options are available and how they are named
+  // because not all these options are supported by all parsers
   m_popup = new QMenu(m_symbols);
-  m_treeOn = m_popup->addAction(i18n("Tree Mode"), this, &KatePluginSymbolViewerView::parseSymbols);
+  m_treeOn = m_popup->addAction(i18n("Tree Mode"), this, &KatePluginSymbolViewerView::displayOptionChanged);
   m_treeOn->setCheckable(true);
-  m_sort = m_popup->addAction(i18n("Show Sorted"), this, &KatePluginSymbolViewerView::parseSymbols);
+  m_expandOn = m_popup->addAction(i18n("Expand Tree"), this, &KatePluginSymbolViewerView::displayOptionChanged);
+  m_expandOn->setCheckable(true);
+  m_sort = m_popup->addAction(i18n("Show Sorted"), this, &KatePluginSymbolViewerView::displayOptionChanged);
   m_sort->setCheckable(true);
   m_popup->addSeparator();
-  m_macro = m_popup->addAction(i18n("Show Macros"), this, &KatePluginSymbolViewerView::parseSymbols);
+  m_macro = m_popup->addAction(i18n("Show Macros"), this, &KatePluginSymbolViewerView::displayOptionChanged);
   m_macro->setCheckable(true);
-  m_struct = m_popup->addAction(i18n("Show Structures"), this, &KatePluginSymbolViewerView::parseSymbols);
+  m_struct = m_popup->addAction(i18n("Show Structures"), this, &KatePluginSymbolViewerView::displayOptionChanged);
   m_struct->setCheckable(true);
-  m_func = m_popup->addAction(i18n("Show Functions"), this, &KatePluginSymbolViewerView::parseSymbols);
+  m_func = m_popup->addAction(i18n("Show Functions"), this, &KatePluginSymbolViewerView::displayOptionChanged);
   m_func->setCheckable(true);
+  m_typesOn = m_popup->addAction(i18n("Show Parameters"), this, &KatePluginSymbolViewerView::displayOptionChanged);
+  m_typesOn->setCheckable(true);
 
   KConfigGroup config(KSharedConfig::openConfig(), "PluginSymbolViewer");
-  m_plugin->typesOn = config.readEntry(QLatin1String("ViewTypes"), false);
-  m_plugin->expandedOn = config.readEntry(QLatin1String("ExpandTree"), false);
+  m_typesOn->setChecked(config.readEntry(QLatin1String("ViewTypes"), false));
+  m_expandOn->setChecked(config.readEntry(QLatin1String("ExpandTree"), false));
   m_treeOn->setChecked(config.readEntry(QLatin1String("TreeView"), false));
   m_sort->setChecked(config.readEntry(QLatin1String("SortSymbols"), false));
 
   m_macro->setChecked(true);
   m_struct->setChecked(true);
   m_func->setChecked(true);
+
+  m_expandOn->setEnabled(m_treeOn->isChecked());
+  m_typesOn->setEnabled(m_func->isChecked());
 
   m_updateTimer.setSingleShot(true);
   connect(&m_updateTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::parseSymbols);
@@ -255,6 +264,17 @@ void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint&)
   m_popup->popup(QCursor::pos(), m_treeOn);
 }
 
+/**
+ * Each popup menu action is connected to this slot which offer the possibility
+ * to modify the menu depended on current settings.
+ */
+void KatePluginSymbolViewerView::displayOptionChanged()
+{
+  m_expandOn->setEnabled(m_treeOn->isChecked());
+  m_typesOn->setEnabled(m_func->isChecked());
+  parseSymbols();
+}
+
 void KatePluginSymbolViewerView::parseSymbols()
 {
   if (!m_symbols)
@@ -363,7 +383,7 @@ KTextEditor::ConfigPage* KatePluginSymbolViewer::configPage(int, QWidget *parent
   return (KTextEditor::ConfigPage*)p;
 }
 
-void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
+void KatePluginSymbolViewer::applyConfig(KatePluginSymbolViewerConfigPage* p)
 {
   KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
   config.writeEntry(QLatin1String("ViewTypes"), p->viewReturns->isChecked());
@@ -371,11 +391,14 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
   config.writeEntry(QLatin1String("TreeView"), p->treeView->isChecked());
   config.writeEntry(QLatin1String("SortSymbols"), p->sortSymbols->isChecked());
 
-  typesOn = p->viewReturns->isChecked();
-  expandedOn = p->expandTree->isChecked();
   if (m_view) {
+    m_view->m_typesOn->setChecked(p->viewReturns->isChecked());
+    m_view->m_expandOn->setChecked(p->expandTree->isChecked());
     m_view->m_treeOn->setChecked(p->treeView->isChecked());
     m_view->m_sort->setChecked(p->sortSymbols->isChecked());
+
+    m_view->m_expandOn->setEnabled(m_view->m_treeOn->isChecked());
+    m_view->m_typesOn->setEnabled(m_view->m_func->isChecked());
   }
 }
 

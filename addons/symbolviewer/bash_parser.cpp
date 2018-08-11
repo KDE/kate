@@ -47,7 +47,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
                funcNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions") ) );
                funcNode->setIcon(0, QIcon(func));
 
-               if (m_plugin->expandedOn)
+               if (m_expandOn->isChecked())
                {
                        m_symbols->expandItem(funcNode);
                }

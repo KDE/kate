@@ -54,7 +54,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
     sctNode->setIcon(0, QIcon(sct));
     clsNode->setIcon(0, QIcon(cls));
 
-    if (m_plugin->expandedOn) 
+    if (m_expandOn->isChecked())
       {
        m_symbols->expandItem(mcrNode);
        m_symbols->expandItem(sctNode);

@@ -53,7 +53,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
    modNode->setIcon(0, QIcon(mod));
    subrNode->setIcon(0, QIcon(subr));
 
-   if (m_plugin->expandedOn)
+   if (m_expandOn->isChecked())
       {
        m_symbols->expandItem(funcNode);
        m_symbols->expandItem(subrNode);

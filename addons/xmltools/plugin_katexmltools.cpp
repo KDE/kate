@@ -980,7 +980,7 @@ QString PluginKateXMLToolsCompletionModel::getParentElement(KTextEditor::View &k
 bool PluginKateXMLToolsCompletionModel::isOpeningTag(const QString &tag)
 {
     return (!isClosingTag(tag) && !isEmptyTag(tag) &&
-            !tag.startsWith("<?") && !tag.startsWith("<!"));
+            !tag.startsWith(QLatin1String("<?")) && !tag.startsWith("<!"));
 }
 
 /**
@@ -989,7 +989,7 @@ bool PluginKateXMLToolsCompletionModel::isOpeningTag(const QString &tag)
  */
 bool PluginKateXMLToolsCompletionModel::isClosingTag(const QString &tag)
 {
-    return (tag.startsWith("</"));
+    return (tag.startsWith(QLatin1String("</")));
 }
 
 bool PluginKateXMLToolsCompletionModel::isEmptyTag(const QString &tag)

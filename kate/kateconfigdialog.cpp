@@ -260,7 +260,7 @@ void KateConfigDialog::slotCurrentPageChanged(KPageWidgetItem *current, KPageWid
     if (info->pluginPage) {
         return;
     }
-    qCDebug(LOG_KATE) << "creating config page (shouldnt get here)";
+    qCDebug(LOG_KATE) << "creating config page (should not get here)";
     info->pluginPage = info->plugin->configPage(info->idInPlugin, info->pageParent);
     info->pageParent->layout()->addWidget(info->pluginPage);
     info->pluginPage->show();

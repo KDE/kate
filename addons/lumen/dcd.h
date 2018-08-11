@@ -21,12 +21,12 @@
 #ifndef LUMEN_DCD_H
 #define LUMEN_DCD_H
 
-#include <QtCore/QDebug>
-#include <QtCore/QProcess>
-#include <QtCore/QFile>
-#include <QtCore/QObject>
-#include <QtCore/QMap>
-#include <QtGui/QIcon>
+#include <QDebug>
+#include <QProcess>
+#include <QFile>
+#include <QObject>
+#include <QMap>
+#include <QIcon>
 
 
 namespace DCDCompletionType { enum DCDCompletionType { Identifiers, Calltips }; }

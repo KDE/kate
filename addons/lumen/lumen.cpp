@@ -25,7 +25,6 @@
 #include <KTextEditor/Range>
 #include <KTextEditor/View>
 #include <KTextEditor/CodeCompletionInterface>
-#include <KTextEditor/CodeCompletionInterface>
 #include <KTextEditor/TextHintInterface>
 #include <KTextEditor/MainWindow>
 #include <kactioncollection.h>

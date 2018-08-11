@@ -65,7 +65,6 @@
 #include <kpluginfactory.h>
 #include <QProcess>
 
-#include <QAction>
 #include <QComboBox>
 #include <QFile>
 #include <QFileDialog>
@@ -371,7 +370,7 @@ bool PluginKateXMLCheckView::slotValidate()
 		} else {
 			dtdname = re_doctype.cap(3);
 		}
-		if( !dtdname.startsWith("http:") ) {		// todo: u_dtd.isLocalFile() doesn't work :-(
+		if( !dtdname.startsWith(QLatin1String("http:")) ) {		// todo: u_dtd.isLocalFile() doesn't work :-(
 			// a local DTD is used
 			m_validating = true;
                         args << "--valid";

@@ -19,11 +19,11 @@
 **/
 
 #include "dcd.h"
-#include <QtCore/QDebug>
-#include <QtCore/QProcess>
-#include <QtCore/QFile>
-#include <QtCore/QRegularExpression>
-#include <QtGui/QIcon>
+#include <QDebug>
+#include <QProcess>
+#include <QFile>
+#include <QRegularExpression>
+#include <QIcon>
 
 
 char DCDCompletionItemType::toChar(DCDCompletionItemType e)

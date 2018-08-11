@@ -20,11 +20,11 @@
 
 #include "htmldelegate.h"
 
-#include <QtGui/QPainter>
-#include <QtCore/QModelIndex>
-#include <QtGui/QTextDocument>
-#include <QtGui/QAbstractTextDocumentLayout>
-#include <QtGui/QTextCharFormat>
+#include <QPainter>
+#include <QModelIndex>
+#include <QTextDocument>
+#include <QAbstractTextDocumentLayout>
+#include <QTextCharFormat>
 #include <KLocalizedString>
 
 SPHtmlDelegate::SPHtmlDelegate( QObject* parent )

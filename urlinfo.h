@@ -98,7 +98,7 @@ public:
     QUrl url;
 
     /**
-     * initial cursor position, if any found inside the path as line/colum specification at the end
+     * initial cursor position, if any found inside the path as line/column specification at the end
      */
     KTextEditor::Cursor cursor;
 };

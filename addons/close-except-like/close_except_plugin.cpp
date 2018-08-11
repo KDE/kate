@@ -36,7 +36,7 @@
 #include <KActionCollection>
 #include <KPluginFactory>
 #include <KPluginLoader>
-#include <QtCore/QFileInfo>
+#include <QFileInfo>
 #include <QUrl>
 #include <kio/global.h>
 #include <KXMLGUIFactory>

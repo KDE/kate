@@ -146,8 +146,11 @@ void KateQuickOpen::update()
 {
     /**
      * new base mode creation
+     * remove from proxy model before populating to avoid wasting time
+     * with repeatedly sorting it
      */
     m_base_model->clear();
+    m_model->setSourceModel(nullptr);
 
     /**
      * remember local file names to avoid dupes with project files
@@ -266,6 +269,8 @@ void KateQuickOpen::update()
     } else {
         reselectFirst();
     }
+
+    m_model->setSourceModel(m_base_model);
 
     /**
      * adjust view

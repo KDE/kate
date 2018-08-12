@@ -191,6 +191,13 @@ public:
      */
     bool openUrl(const QUrl &url, const QString &encoding, bool isTempFile);
 
+    /**
+     * checks if the current instance is in a given activity
+     * @param activity activity to check
+     * @return true if the window is in the given activity, false otherwise
+     */
+    bool isOnActivity(const QString &activity);
+
     KTextEditor::Document *openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile);
 
     void emitDocumentClosed(const QString &token);

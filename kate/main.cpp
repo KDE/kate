@@ -283,10 +283,46 @@ int main(int argc, char **argv)
             return 1;
         }
 
+        QString currentActivity;
+        QDBusMessage m = QDBusMessage::createMethodCall(
+                                        QStringLiteral("org.kde.ActivityManager"),
+                                        QStringLiteral("/ActivityManager/Activities"), QStringLiteral("org.kde.ActivityManager.Activities"), QStringLiteral("CurrentActivity"));
+        QDBusMessage res = QDBusConnection::sessionBus().call(m);
+        QList<QVariant> answer = res.arguments();
+        if (answer.size() == 1) {
+            currentActivity = answer.at(0).toString();
+        }
+
         QStringList kateServices;
         for (KateRunningInstanceMap::const_iterator it = mapSessionRii.constBegin(); it != mapSessionRii.constEnd(); ++it) {
-            kateServices << (*it)->serviceName;
+            QString serviceName = (*it)->serviceName;
+
+            if (currentActivity.length() != 0) {
+                QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
+                                        QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("isOnActivity"));
+
+                QList<QVariant> dbargs;
+
+                // convert to an url
+                dbargs.append(currentActivity);
+                m.setArguments(dbargs);
+
+                QDBusMessage res = QDBusConnection::sessionBus().call(m);
+                QList<QVariant> answer = res.arguments();
+                if (answer.size() == 1) {
+                    const bool canBeUsed = answer.at(0).toBool();
+
+                    // If the Kate instance is in a specific activity, add it to
+                    // the list of candidate reusable services
+                    if (canBeUsed) {
+                        kateServices << serviceName;
+                    }
+                }
+            } else {
+                kateServices << serviceName;
+            }
         }
+
         QString serviceName;
 
         QString start_session;

@@ -29,6 +29,7 @@
 #include <KLocalizedString>
 #include <KConfigGui>
 #include <KConfigGroup>
+#include <KWindowInfo>
 
 #include <QCommandLineParser>
 #include <QFileInfo>
@@ -270,6 +271,20 @@ KateSessionManager *KateApp::sessionManager()
 bool KateApp::openUrl(const QUrl &url, const QString &encoding, bool isTempFile)
 {
     return openDocUrl(url, encoding, isTempFile);
+}
+
+bool KateApp::isOnActivity(const QString &activity)
+{
+    for (const auto& window : m_mainWindows) {
+        WId id = window->winId();
+
+        KWindowInfo info = KWindowInfo(id, 0, NET::WM2Activities);
+
+        if (info.activities().contains(activity))
+            return true;
+    }
+
+    return false;
 }
 
 KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile)

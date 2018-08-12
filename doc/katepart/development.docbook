@@ -276,6 +276,7 @@ Available attributes are:</term>
 <para><userinput>author</userinput> contains the name of the author and his email-address.</para>
 <para><userinput>license</userinput> contains the license, usually the MIT license for new syntax-highlighting files.</para>
 <para><userinput>style</userinput> contains the provided language and is used by the indenters for the attribute <literal>required-syntax-style</literal>.</para>
+<para><userinput>indenter</userinput> defines which indenter will be used. It is recommended to set the indenter only if it is known exactly that only a specific indenter can be used for the language. Available attributes are: <emphasis>ada, normal, cstyle, cmake, haskell, latex, lilypond, lisp, lua, pascal, python, replicode, ruby</emphasis> and <emphasis>xml</emphasis>.</para>
 <para><userinput>hidden</userinput> defines whether the name should appear in &kappname;'s menus.</para>
 <para>So the next line may look like this:</para>
 <programlisting>
@@ -482,22 +483,6 @@ Available attributes are:</term>
 <para><userinput>indentationsensitive</userinput> if <emphasis>true</emphasis>, the code folding markers
 will be added indentation based, as in the scripting language Python. Usually you
 do not need to set it, as it defaults to <emphasis>false</emphasis>.</para>
-</listitem>
-</varlistentry>
-
-
-<varlistentry>
-<term>The element <userinput>indentation</userinput> in the group
-<userinput>general</userinput> defines which indenter will be used. However, we strongly
-recommend you omit this element, as the indenter usually will be set by either defining
-a File Type or by adding a mode line to the text file. If you specify an indenter though,
-you will force a specific indentation on the user, which he might not like at all.
-Available attributes are:</term>
-
-<listitem>
-<para><userinput>mode</userinput> is the name of the indenter. Available indenters
-right now are: <emphasis>normal, cstyle, haskell, lilypond, lisp, python, ruby</emphasis>
-and <emphasis>xml</emphasis>.</para>
 </listitem>
 </varlistentry>
 

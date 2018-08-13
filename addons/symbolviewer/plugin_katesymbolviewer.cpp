@@ -138,6 +138,8 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
 
   connect(m_symbols, &QTreeWidget::itemClicked, this, &KatePluginSymbolViewerView::goToSymbol);
   connect(m_symbols, &QTreeWidget::customContextMenuRequested, this, &KatePluginSymbolViewerView::slotShowContextMenu);
+  connect(m_symbols, &QTreeWidget::itemExpanded, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
+  connect(m_symbols, &QTreeWidget::itemCollapsed, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
 
   connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KatePluginSymbolViewerView::slotDocChanged);
 
@@ -189,7 +191,16 @@ void KatePluginSymbolViewerView::cursorPositionChanged()
     // No need for update, will come anyway
     return;
   }
-  m_currItemTimer.start(100);
+
+  KTextEditor::View* editView = m_mainWindow->activeView();
+  if (!editView) {
+    return;
+  }
+  int currLine = editView->cursorPositionVirtual().line();
+  if (currLine != m_oldCursorLine) {
+    m_oldCursorLine = currLine;
+    m_currItemTimer.start(100);
+  }
 }
 
 void KatePluginSymbolViewerView::updateCurrTreeItem()
@@ -207,11 +218,6 @@ void KatePluginSymbolViewerView::updateCurrTreeItem()
   }
 
   int currLine = editView->cursorPositionVirtual().line();
-  if (currLine == m_oldCursorLine) {
-    // Nothing to do
-    return;
-  }
-  m_oldCursorLine = currLine;
 
   int newItemLine = 0;
   QTreeWidgetItem *newItem = nullptr;
@@ -221,11 +227,21 @@ void KatePluginSymbolViewerView::updateCurrTreeItem()
     if (tmp) newItem = tmp;
   }
 
-  if (newItem) {
-    m_symbols->blockSignals(true);
-    m_symbols->setCurrentItem(newItem);
-    m_symbols->blockSignals(false);
+  if (!newItem) {
+    return;
   }
+
+  // check if the item has a parent and if that parent is expanded.
+  // if the parent is not expanded, set the parent as current item in stead of
+  // expanding the tree. The tree was probably collapsed on purpose
+  QTreeWidgetItem *parent = newItem->parent();
+  if (parent && !parent->isExpanded()) {
+    newItem = parent;
+  }
+
+  m_symbols->blockSignals(true);
+  m_symbols->setCurrentItem(newItem);
+  m_symbols->blockSignals(false);
 }
 
 QTreeWidgetItem *KatePluginSymbolViewerView::newActveItem(int &newItemLine, int currLine, QTreeWidgetItem *item)
@@ -349,6 +365,9 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
     return;
 
   //qDebug()<<"Slot Activated at pos: "<<m_symbols->indexOfTopLevelItem(it);
+  if (!it || it->text(1).isEmpty()) {
+    return;
+  }
 
   kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(nullptr, 10), 0));
 }

@@ -49,6 +49,7 @@
 #include <qsqlquery.h>
 #include <QVBoxLayout>
 #include <QApplication>
+#include <QWidgetAction>
 
 KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
 : QObject (mw)

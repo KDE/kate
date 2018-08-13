@@ -145,26 +145,6 @@
 </content-model>
 </element>
 
-<element name="indentation"
-         content-type="element">
-<content-model-expanded>
-  <empty/>
-</content-model-expanded>
-<content-model>
-  <empty/>
-</content-model>
-</element>
-
-<attlist name="indentation">
-<attdecl>
-  mode         CDATA   #IMPLIED
-</attdecl>
-<attribute name="mode"
-           type="#IMPLIED"
-           value="CDATA"
-           default=""/>
-</attlist>
-
 <element name="item"
          content-type="mixed">
 <content-model-expanded>
@@ -851,7 +831,6 @@
     <element-name name="folding"/>
     <element-name name="comments"/>
     <element-name name="keywords"/>
-    <element-name name="indentation"/>
     <element-name name="emptyLines"/>
   </or-group>
 </content-model-expanded>
@@ -860,7 +839,6 @@
     <element-name name="folding"/>
     <element-name name="comments"/>
     <element-name name="keywords"/>
-    <element-name name="indentation"/>
     <element-name name="emptyLines"/>
   </or-group>
 </content-model>

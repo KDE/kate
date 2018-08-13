@@ -276,7 +276,7 @@ Available attributes are:</term>
 <para><userinput>author</userinput> contains the name of the author and his email-address.</para>
 <para><userinput>license</userinput> contains the license, usually the MIT license for new syntax-highlighting files.</para>
 <para><userinput>style</userinput> contains the provided language and is used by the indenters for the attribute <literal>required-syntax-style</literal>.</para>
-<para><userinput>indenter</userinput> defines which indenter will be used. It is recommended to set the indenter only if it is known exactly that only a specific indenter can be used for the language. Available attributes are: <emphasis>ada, normal, cstyle, cmake, haskell, latex, lilypond, lisp, lua, pascal, python, replicode, ruby</emphasis> and <emphasis>xml</emphasis>.</para>
+<para><userinput>indenter</userinput> defines which indenter will be used by default. Available indenters are: <emphasis>ada, normal, cstyle, cmake, haskell, latex, lilypond, lisp, lua, pascal, python, replicode, ruby</emphasis> and <emphasis>xml</emphasis>.</para>
 <para><userinput>hidden</userinput> defines whether the name should appear in &kappname;'s menus.</para>
 <para>So the next line may look like this:</para>
 <programlisting>

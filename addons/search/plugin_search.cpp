@@ -259,13 +259,18 @@ m_mainWindow (mainWin)
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
-    m_ui.displayOptions->setIcon(QIcon::fromTheme(QStringLiteral("games-config-options")));
+    QIcon dispOptIcon = QIcon::hasThemeIcon(QStringLiteral("games-config-options")) ? QIcon::fromTheme(QStringLiteral("games-config-options")) : QIcon::fromTheme(QStringLiteral("go-bottom"));
+    QIcon matchCaseIcon = QIcon::hasThemeIcon(QStringLiteral("format-text-superscript")) ? QIcon::fromTheme(QStringLiteral("format-text-superscript")) : QIcon::fromTheme(QStringLiteral("format-text-bold"));
+    QIcon useRegExpIcon = QIcon::hasThemeIcon(QStringLiteral("code-context")) ? QIcon::fromTheme(QStringLiteral("code-context")) : QIcon::fromTheme(QStringLiteral("edit-find-replace"));
+    QIcon expandResultsIcon = QIcon::hasThemeIcon(QStringLiteral("view-list-tree")) ? QIcon::fromTheme(QStringLiteral("view-list-tree")) : QIcon::fromTheme(QStringLiteral("format-indent-more"));
+
+    m_ui.displayOptions->setIcon(dispOptIcon);
     m_ui.searchButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
     m_ui.nextButton->setIcon(QIcon::fromTheme(QStringLiteral("go-down-search")));
     m_ui.stopButton->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
-    m_ui.matchCase->setIcon(QIcon::fromTheme(QStringLiteral("format-text-superscript")));
-    m_ui.useRegExp->setIcon(QIcon::fromTheme(QStringLiteral("code-context")));
-    m_ui.expandResults->setIcon(QIcon::fromTheme(QStringLiteral("view-list-tree")));
+    m_ui.matchCase->setIcon(matchCaseIcon);
+    m_ui.useRegExp->setIcon(useRegExpIcon);
+    m_ui.expandResults->setIcon(expandResultsIcon);
     m_ui.searchPlaceCombo->setItemIcon(CurrentFile, QIcon::fromTheme(QStringLiteral("text-plain")));
     m_ui.searchPlaceCombo->setItemIcon(OpenFiles, QIcon::fromTheme(QStringLiteral("text-plain")));
     m_ui.searchPlaceCombo->setItemIcon(Folder, QIcon::fromTheme(QStringLiteral("folder")));

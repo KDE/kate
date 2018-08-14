@@ -24,15 +24,13 @@
 #include "katewaiter.h"
 
 #include <KAboutData>
-#include <kcoreaddons_version.h> // for KAboutData::setDesktopFileName()
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KWindowSystem>
 #include <KStartupInfo>
 #include <kdbusservice.h>
-#include <kcrash_version.h>
-#if KCrash_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 #include <KCrash>
-#endif // KCrash >= 5.15
+#include <KSharedConfig>
 
 #include <QByteArray>
 #include <QCommandLineParser>
@@ -99,9 +97,7 @@ int main(int argc, char **argv)
     /**
      * Enable crash handling through KCrash.
      */
-#if KCrash_VERSION >= QT_VERSION_CHECK(5, 15, 0)
     KCrash::initialize();
-#endif
 
     /**
      * Connect application with translation catalogs
@@ -123,10 +119,11 @@ int main(int argc, char **argv)
     /**
      * desktop file association to make application icon work (e.g. in Wayland window decoration)
      */
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 16, 0)
     aboutData.setDesktopFileName(QStringLiteral("org.kde.kate"));
-#endif
 
+    /**
+     * authors & co.
+     */
     aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("http://www.cullmann.io"));
     aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("http://www.alweb.dk"));
     aboutData.addAuthor(i18n("Joseph Wenninger"), i18n("Core Developer"), QStringLiteral("jowenn@kde.org"), QStringLiteral("http://stud3.tuwien.ac.at/~e9925371"));
@@ -594,6 +591,17 @@ int main(int argc, char **argv)
     /**
      * if we arrive here, we need to start a new kate instance!
      */
+
+    /**
+     * set some KTextEditor defaults
+     */
+    {
+        KConfigGroup viewConfig(KSharedConfig::openConfig(), QStringLiteral("KTextEditor View"));
+        if (!viewConfig.exists()) {
+            viewConfig.writeEntry("Line Modification", true);
+            viewConfig.writeEntry("Line Numbers", true);
+        }
+    }
 
     /**
      * construct the real kate app object ;)

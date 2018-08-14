@@ -1,8 +1,6 @@
 /***************************************************************************
  *                        plugin_katesymbolviewer.cpp  -  description
  *                           -------------------
- * Copyright (C) 2014 by Kåre Särs <kare.sars@iki.fi>
- *
  *  begin                : Apr 2 2003
  *  author               : 2003 Massimo Callegari
  *  email                : massimocallegari@yahoo.it
@@ -29,6 +27,8 @@
  *  Apr 22 2003 v 0.3 - Added macro extraction + several bugfixing
  *  Apr 19 2003 v 0.2 - Added to CVS. Extract functions and structures
  *  Apr 07 2003 v 0.1 - First version.
+ *
+ *  Copyright (C) 2014,2018 by Kåre Särs <kare.sars@iki.fi>
  *
  ***************************************************************************/
 /***************************************************************************

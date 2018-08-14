@@ -82,14 +82,6 @@ of text gets correctly rendered, though most often you need a rare
 style to see the incorrect 2%.</para>
 </note>
 
-<tip>
-<para>You can download updated or additional syntax highlight
-definitions from the &kappname; website by clicking the
-<guibutton>Download Highlighting Files...</guibutton> button in the <link
-linkend="pref-open-save-modes-filetypes">Modes &amp; Filetypes</link> tab of the <link
-linkend="config-dialog">Config Dialog</link>.</para>
-</tip>
-
 </sect2>
 
 <sect2 id="katehighlight-system">

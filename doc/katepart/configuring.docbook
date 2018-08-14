@@ -1233,16 +1233,6 @@ used.</para></listitem>
 </variablelist>
 </listitem> </varlistentry>
 
-<varlistentry>
-<term><guibutton>Download Highlighting Files...</guibutton></term>
-<listitem>
-<para>
-Click this button to download new or updated syntax highlight descriptions
-from the &kappname; website.
-</para>
-</listitem>
-</varlistentry>
-
 </variablelist>
 </sect3>
 

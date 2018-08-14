@@ -37,17 +37,17 @@ helps the author to be more efficient and productive.</para>
 
 <mediaobject>
 <imageobject><imagedata format="PNG" fileref="highlighted.png"/></imageobject>
-<textobject><phrase>A Perl function, rendered with syntax
+<textobject><phrase>A C++ function, rendered with syntax
 highlighting.</phrase></textobject>
-<caption><para>A Perl function, rendered with syntax highlighting.</para>
+<caption><para>A C++ function, rendered with syntax highlighting.</para>
 </caption>
 </mediaobject>
 
 <mediaobject>
 <imageobject><imagedata format="PNG" fileref="unhighlighted.png"/></imageobject>
-<textobject><phrase>The same Perl function, without
+<textobject><phrase>The same C++ function, without
 highlighting.</phrase></textobject>
-<caption><para>The same Perl function, without highlighting.</para></caption>
+<caption><para>The same C++ function, without highlighting.</para></caption>
 </mediaobject>
 
 <para>Of the two examples, which is easiest to read?</para>

@@ -4,7 +4,7 @@ project (kate)
 # minimal requirements
 cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
 set (QT_MIN_VERSION "5.4.0")
-set(KF5_DEP_VERSION "5.13.0") # we need KMultiTabBar::appendButton(const QIcon &..., ...)
+set(KF5_DEP_VERSION "5.40.0")
 
 # KDE Application Version, managed by release script
 set (KDE_APPLICATIONS_VERSION_MAJOR "18")

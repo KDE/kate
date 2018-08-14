@@ -259,6 +259,7 @@ m_mainWindow (mainWin)
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
+    // Gnome does not seem to have all icons we want, so we use fall-back icons for those that are missing.
     QIcon dispOptIcon = QIcon::hasThemeIcon(QStringLiteral("games-config-options")) ? QIcon::fromTheme(QStringLiteral("games-config-options")) : QIcon::fromTheme(QStringLiteral("go-bottom"));
     QIcon matchCaseIcon = QIcon::hasThemeIcon(QStringLiteral("format-text-superscript")) ? QIcon::fromTheme(QStringLiteral("format-text-superscript")) : QIcon::fromTheme(QStringLiteral("format-text-bold"));
     QIcon useRegExpIcon = QIcon::hasThemeIcon(QStringLiteral("code-context")) ? QIcon::fromTheme(QStringLiteral("code-context")) : QIcon::fromTheme(QStringLiteral("edit-find-replace"));

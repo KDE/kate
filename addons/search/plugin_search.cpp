@@ -260,10 +260,10 @@ m_mainWindow (mainWin)
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
     // Gnome does not seem to have all icons we want, so we use fall-back icons for those that are missing.
-    QIcon dispOptIcon = QIcon::hasThemeIcon(QStringLiteral("games-config-options")) ? QIcon::fromTheme(QStringLiteral("games-config-options")) : QIcon::fromTheme(QStringLiteral("preferences-system"));
-    QIcon matchCaseIcon = QIcon::hasThemeIcon(QStringLiteral("format-text-superscript")) ? QIcon::fromTheme(QStringLiteral("format-text-superscript")) : QIcon::fromTheme(QStringLiteral("format-text-bold"));
-    QIcon useRegExpIcon = QIcon::hasThemeIcon(QStringLiteral("code-context")) ? QIcon::fromTheme(QStringLiteral("code-context")) : QIcon::fromTheme(QStringLiteral("edit-find-replace"));
-    QIcon expandResultsIcon = QIcon::hasThemeIcon(QStringLiteral("view-list-tree")) ? QIcon::fromTheme(QStringLiteral("view-list-tree")) : QIcon::fromTheme(QStringLiteral("format-indent-more"));
+    QIcon dispOptIcon = QIcon::fromTheme(QStringLiteral("games-config-options"), QIcon::fromTheme(QStringLiteral("preferences-system")));
+    QIcon matchCaseIcon = QIcon::fromTheme(QStringLiteral("format-text-superscript"), QIcon::fromTheme(QStringLiteral("format-text-bold")));
+    QIcon useRegExpIcon = QIcon::fromTheme(QStringLiteral("code-context"), QIcon::fromTheme(QStringLiteral("edit-find-replace")));
+    QIcon expandResultsIcon = QIcon::fromTheme(QStringLiteral("view-list-tree"), QIcon::fromTheme(QStringLiteral("format-indent-more")));
 
     m_ui.displayOptions->setIcon(dispOptIcon);
     m_ui.searchButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));

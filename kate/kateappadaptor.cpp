@@ -38,13 +38,10 @@ void KateAppAdaptor::activate()
         return;
     }
 
-    win->show();
-    win->activateWindow();
+    // like QtSingleApplication
+    win->setWindowState(win->windowState() & ~Qt::WindowMinimized);
     win->raise();
-
-    KWindowSystem::forceActiveWindow(win->winId());
-    KWindowSystem::raiseWindow(win->winId());
-    KWindowSystem::demandAttention(win->winId());
+    win->activateWindow();
 }
 
 bool KateAppAdaptor::openUrl(QString url, QString encoding)

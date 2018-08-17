@@ -276,10 +276,7 @@ bool KateApp::openUrl(const QUrl &url, const QString &encoding, bool isTempFile)
 bool KateApp::isOnActivity(const QString &activity)
 {
     for (const auto& window : m_mainWindows) {
-        WId id = window->winId();
-
-        KWindowInfo info = KWindowInfo(id, 0, NET::WM2Activities);
-
+        const KWindowInfo info(window->winId(), 0, NET::WM2Activities);
         if (info.activities().contains(activity))
             return true;
     }
@@ -468,8 +465,11 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
         }
 
     }
-    if (activeKateMainWindow()) {
-        activeKateMainWindow()->activateWindow();
-        activeKateMainWindow()->raise();
+
+    if (auto win = activeKateMainWindow()) {
+        // like QtSingleApplication
+        win->setWindowState(win->windowState() & ~Qt::WindowMinimized);
+        win->raise();
+        win->activateWindow();
     }
 }

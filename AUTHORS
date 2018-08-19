@@ -9,6 +9,9 @@ about page.
 - Christoph Cullmann <cullmann@kde.org>
   (Maintainer)
 
+- Dominik Haumann <dhaumann@kde.org>
+  (core developer)
+
 - Joseph Wenninger <jowenn@kde.org>
   (highlight guy + big bug hunter)
 
@@ -46,9 +49,6 @@ about page.
 
 - Michael Koch <koch@kde.org>
   (port to KParts)
-
-- Dominik Haumann <dhdev@gmx.de>
-  (developer, highlight wizard)
 
 - Mirko Stocker <me@misto.ch>
   (various bugfixes)

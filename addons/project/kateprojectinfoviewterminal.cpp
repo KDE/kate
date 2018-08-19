@@ -24,12 +24,13 @@
 #include <klocalizedstring.h>
 #include <kde_terminal_interface.h>
 #include <KPluginLoader>
-#include <KPluginFactory>
 
-KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *pluginView, KateProject *project)
+KPluginFactory *KateProjectInfoViewTerminal::s_pluginFactory = nullptr;
+
+KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *pluginView, const QString &directory)
     : QWidget()
     , m_pluginView(pluginView)
-    , m_project(project)
+    , m_directory(directory)
     , m_konsolePart(nullptr)
 {
     /**
@@ -55,6 +56,14 @@ KateProjectInfoViewTerminal::~KateProjectInfoViewTerminal()
     }
 }
 
+KPluginFactory *KateProjectInfoViewTerminal::pluginFactory()
+{
+    if (s_pluginFactory) {
+        return s_pluginFactory;
+    }
+    return s_pluginFactory = KPluginLoader(QStringLiteral("konsolepart")).factory();
+}
+
 void KateProjectInfoViewTerminal::loadTerminal()
 {
     /**
@@ -63,17 +72,14 @@ void KateProjectInfoViewTerminal::loadTerminal()
     m_konsolePart = nullptr;
 
     /**
-     * get konsole part factory
+     * we shall not arrive here without a factory, if it is not there, no terminal toolview shall be created
      */
-    KPluginFactory *factory = KPluginLoader(QStringLiteral("konsolepart")).factory();
-    if (!factory) {
-        return;
-    }
+    Q_ASSERT(pluginFactory());
 
     /**
      * create part
      */
-    m_konsolePart = factory->create<KParts::ReadOnlyPart>(this, this);
+    m_konsolePart = pluginFactory()->create<KParts::ReadOnlyPart>(this, this);
     if (!m_konsolePart) {
         return;
     }
@@ -86,7 +92,7 @@ void KateProjectInfoViewTerminal::loadTerminal()
     /**
      * switch to right directory
      */
-    qobject_cast<TerminalInterface *>(m_konsolePart)->showShellInDir(QFileInfo(m_project->fileName()).absolutePath());
+    qobject_cast<TerminalInterface *>(m_konsolePart)->showShellInDir(m_directory);
 
     /**
      * add to widget

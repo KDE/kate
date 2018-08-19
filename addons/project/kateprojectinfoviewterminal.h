@@ -26,6 +26,7 @@
 #include <QVBoxLayout>
 #include <QKeyEvent>
 
+#include <KPluginFactory>
 #include <kparts/part.h>
 
 class KateProjectPluginView;
@@ -42,9 +43,9 @@ public:
     /**
      * construct project info view for given project
      * @param pluginView our plugin view
-     * @param project project this view is for
+     * @param directory base directory for this terminal view
      */
-    KateProjectInfoViewTerminal(KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectInfoViewTerminal(KateProjectPluginView *pluginView, const QString &directory);
 
     /**
      * deconstruct info view
@@ -52,12 +53,11 @@ public:
     ~KateProjectInfoViewTerminal() override;
 
     /**
-     * our project.
-     * @return project
+     * global plugin factory to create terminal
+     * exposed to allow to skip terminal toolview creation if not possible
+     * @return plugin factory for terminal or nullptr if no terminal part there
      */
-    KateProject *project() const {
-        return m_project;
-    }
+    static KPluginFactory *pluginFactory();
 
 private Q_SLOTS:
     /**
@@ -72,14 +72,19 @@ private Q_SLOTS:
 
 private:
     /**
-     * our plugin view
+     * plugin factory for the terminal
      */
-    KateProjectPluginView *m_pluginView;
+    static KPluginFactory *s_pluginFactory;
 
     /**
-     * our project
+     * our plugin view
      */
-    KateProject *m_project;
+    KateProjectPluginView * const m_pluginView;
+
+    /**
+     * our start directory for the terminal
+     */
+    const QString m_directory;
 
     /**
      * our layout

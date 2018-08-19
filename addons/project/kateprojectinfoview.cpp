@@ -27,15 +27,33 @@
 
 #include "klocalizedstring.h"
 
+#include <QFileInfo>
+
 KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, KateProject *project)
     : QTabWidget()
     , m_pluginView(pluginView)
     , m_project(project)
 {
     /**
-     * terminal
+     * skip terminal toolviews if no terminal aka KonsolePart around
      */
-    addTab(new KateProjectInfoViewTerminal(pluginView, project), i18n("Terminal"));
+    if (KateProjectInfoViewTerminal::pluginFactory()) {
+        /**
+         * terminal for the directory with the .kateproject file inside
+         */
+        const QString projectPath = QFileInfo(m_project->fileName()).canonicalPath();
+        if (!projectPath.isEmpty()) {
+            addTab(new KateProjectInfoViewTerminal(pluginView, projectPath), i18n("Terminal (.kateproject)"));
+        }
+
+        /**
+         * terminal for the base directory, if different to directory of .kateproject
+         */
+        const QString basePath = QFileInfo(m_project->baseDir()).canonicalFilePath();
+        if (!basePath.isEmpty() && projectPath != basePath) {
+            addTab(new KateProjectInfoViewTerminal(pluginView, basePath), i18n("Terminal (Base)"));
+        }
+    }
 
     /**
      * index

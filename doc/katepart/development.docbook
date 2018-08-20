@@ -1850,7 +1850,9 @@ can provide a better translation. The arguments <replaceable>arg1</replaceable>,
 <quote><literal>view</literal></quote> representing the current active editor
 view. The following is a list of all available View functions.
 
-<variablelist><varlistentry>
+<variablelist>
+
+<varlistentry>
 <term><synopsis>
 <function>Cursor view.cursorPosition()</function>
 </synopsis></term>
@@ -1959,7 +1961,26 @@ void view.clearSelection();
 <listitem><para>
 Clears the text selection without removing the text.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
+
+<varlistentry>
+<term><synopsis>
+object view.executeCommand(<parameter>String <replaceable>command</replaceable></parameter>,
+                           <parameter>String <replaceable>args</replaceable></parameter>,
+                           <parameter>Range <replaceable>range</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+Executes the <link linkend="advanced-editing-tools-commandline">command line command</link> <replaceable>command</replaceable>
+with the optional arguments <replaceable>args</replaceable> and the optional <replaceable>range</replaceable>.
+The returned <replaceable>object</replaceable> has a boolean property <replaceable>object.ok</replaceable>
+that indicates whether execution of the <replaceable>command</replaceable> was successful.
+In case of an error, the string <replaceable>object.status</replaceable> contains an error message.
+</para>
+<para>Since: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
 </para>
 </sect3>
 
@@ -1970,7 +1991,9 @@ Whenever a script is being executed, there is a global variable
 <quote><literal>document</literal></quote> representing the current active
 document. The following is a list of all available Document functions.
 
-<variablelist><varlistentry>
+<variablelist>
+
+<varlistentry>
 <term><synopsis>
 String document.fileName();
 </synopsis></term>
@@ -2811,9 +2834,58 @@ bool document.isOthers(<parameter>Cursor <replaceable>cursor</replaceable></para
     Returns <literal>true</literal>, if the attribute of the character at the cursor position
     is <literal>dsOthers</literal>, otherwise <literal>false</literal>.
 </para></listitem>
-</varlistentry></variablelist>
+</varlistentry>
+
+</variablelist>
 </para>
 
+</sect3>
+
+<sect3 id="dev-scripting-api-editor">
+<title>The Editor API</title>
+<para>
+In addition to the document and view API, there is a general editor API that
+provides functions for general editor scripting functionality.
+
+<variablelist>
+
+<varlistentry>
+<term><synopsis>
+String editor.clipboardText();
+</synopsis></term>
+<listitem><para>
+Returns the text that currently is in the global clipboard.
+</para>
+<para>Since: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><synopsis>
+String editor.clipboardHistory();
+</synopsis></term>
+<listitem><para>
+The editor holds a clipboard history that contains up to 10 clipboard entries.
+This function returns all entries that currently are in the clipboard history.
+</para>
+<para>Since: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><synopsis>
+void editor.setClipboardText(<parameter>String <replaceable>text</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+Set the contents of the clipboard to <replaceable>text</replaceable>.
+The <replaceable>text</replaceable> will be added to the clipboard history.
+</para>
+<para>Since: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 </sect3>
 </sect2>
 

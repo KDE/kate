@@ -121,7 +121,15 @@ if the file starts with a comment, such as a copyright</para></listitem>
 <varlistentry>
 <term><guilabel>Show Word Count
 </guilabel></term>
-<listitem><para>Displays the number of words and characters in the document and in the current selection.</para></listitem>
+<listitem><para>Displays the number of words and characters in the document and
+in the current selection in the status bar.
+This option is also available in the status bar context menu.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show line count
+</guilabel></term>
+<listitem><para>Displays the number of total lines in the document in the status bar.
+This option is also available in the status bar context menu.</para></listitem>
 </varlistentry>
 </variablelist>
 </sect3>

@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATE_BACKTRACEPARSER_H
-#define KATE_BACKTRACEPARSER_H
+#ifndef BTPARSER_H
+#define BTPARSER_H
 
 #include <QList>
 #include <QString>
@@ -59,6 +59,6 @@ QList<BtInfo> parseBacktrace(const QString &bt);
 
 }
 
-#endif //KATE_BACKTRACEPARSER_H
+#endif //BTPARSER_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

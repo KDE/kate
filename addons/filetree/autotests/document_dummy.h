@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef TEST_DOCUMENT_H
-#define TEST_DOCUMENT_H
+#ifndef DOCUMENT_DUMMY_H
+#define DOCUMENT_DUMMY_H
 
 #include <KTextEditor/Document>
 #include <KTextEditor/ModificationInterface>

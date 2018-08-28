@@ -18,8 +18,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef _PLUGIN_KATE_PROJECT_H_
-#define _PLUGIN_KATE_PROJECT_H_
+#ifndef _KATE_PROJECT_PLUGIN_H_
+#define _KATE_PROJECT_PLUGIN_H_
 
 #include <QFileSystemWatcher>
 #include <QDir>

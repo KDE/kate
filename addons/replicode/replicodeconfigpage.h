@@ -16,8 +16,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef REPLICODEPLUGINCONFIGPAGE_H
-#define REPLICODEPLUGINCONFIGPAGE_H
+#ifndef REPLICODECONFIGPAGE_H
+#define REPLICODECONFIGPAGE_H
 #include <KTextEditor/ConfigPage>
 
 class KUrlRequester;
@@ -43,4 +43,4 @@ private:
     ReplicodeConfig *m_config;
 };
 
-#endif//REPLICODEPLUGINCONFIGPAGE_H
+#endif//REPLICODECONFIGPAGE_H

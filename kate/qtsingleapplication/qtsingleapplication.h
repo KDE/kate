@@ -23,6 +23,8 @@
 **
 ****************************************************************************/
 
+#pragma once
+
 #include <QApplication>
 
 QT_FORWARD_DECLARE_CLASS(QSharedMemory)

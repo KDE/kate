@@ -18,8 +18,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef _PLUGIN_KATE_PROJECTVIEW_H_
-#define _PLUGIN_KATE_PROJECTVIEW_H_
+#ifndef _KATE_PROJECT_PLUGIN_VIEW_H_
+#define _KATE_PROJECT_PLUGIN_VIEW_H_
 
 #include "kateprojectplugin.h"
 #include "kateproject.h"

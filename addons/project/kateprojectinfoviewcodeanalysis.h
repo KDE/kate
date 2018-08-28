@@ -80,8 +80,8 @@ private Q_SLOTS:
 
     /**
      * Analysis finished
-     * @param exitCode analyser process exit code
-     * @param exitStatus analyser process exit status
+     * @param exitCode analyzer process exit code
+     * @param exitStatus analyzer process exit status
      */
     void finished(int exitCode, QProcess::ExitStatus exitStatus);
 

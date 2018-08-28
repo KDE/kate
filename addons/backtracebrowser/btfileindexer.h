@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATE_BACKTRACEINDEXER_H
-#define KATE_BACKTRACEINDEXER_H
+#ifndef BTFILEINDEXER_H
+#define BTFILEINDEXER_H
 
 #include <QThread>
 #include <QString>

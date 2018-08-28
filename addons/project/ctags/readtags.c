@@ -11,14 +11,14 @@
 /*
 *   INCLUDE FILES
 */
+#include "readtags.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <errno.h>
 #include <sys/types.h>  /* to declare off_t */
-
-#include "readtags.h"
 
 /*
 *   MACROS

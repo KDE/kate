@@ -23,6 +23,8 @@
 **
 ****************************************************************************/
 
+#pragma once
+
 #include <qtlockedfile.h>
 
 #include <QLocalServer>

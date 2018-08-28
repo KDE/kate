@@ -28,8 +28,8 @@
 #include <KTextEditor/TextHintInterface>
 #include <KTextEditor/MainWindow>
 #include <kactioncollection.h>
-#include <QtCore/QFile>
-#include <QtCore/QDir>
+#include <QFile>
+#include <QDir>
 
 
 K_PLUGIN_FACTORY_WITH_JSON(LumenPluginFactory, "ktexteditor_lumen.json", registerPlugin<LumenPlugin>();)

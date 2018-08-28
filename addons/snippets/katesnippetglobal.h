@@ -20,8 +20,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef __SNIPPETPLUGIN_H__
-#define __SNIPPETPLUGIN_H__
+#ifndef __KATE_SNIPPET_GLOBAL_H__
+#define __KATE_SNIPPET_GLOBAL_H__
 
 #include <QVariant>
 #include <QPointer>

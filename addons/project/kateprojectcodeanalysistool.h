@@ -45,7 +45,7 @@ public:
 
     /**
      * bind to this project
-     * @param project project this tool will analyse
+     * @param project project this tool will analyze
      */
     virtual void setProject(KateProject *project);
 
@@ -57,7 +57,7 @@ public:
     /**
      * filter relevant files
      * @param files set of files in project
-     * @return relevant files that can be analysed
+     * @return relevant files that can be analyzed
      */
     virtual QStringList filter(const QStringList &files) = 0;
 

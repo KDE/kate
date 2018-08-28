@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATE_BACKTRACEDB_H
-#define KATE_BACKTRACEDB_H
+#ifndef BTDATABASE_H
+#define BTDATABASE_H
 
 #include <QString>
 #include <QStringList>
@@ -44,6 +44,6 @@ private:
     QHash<QString, QStringList> db;
 };
 
-#endif //KATE_BACKTRACEDB_H
+#endif //BTDATABASE_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

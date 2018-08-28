@@ -19,7 +19,7 @@
 **/
 
 #include "completion.h"
-#include <QtCore/QRegularExpression>
+#include <QRegularExpression>
 #include <KTextEditor/View>
 #include <KTextEditor/Document>
 #include <KTextEditor/CodeCompletionInterface>

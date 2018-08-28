@@ -18,8 +18,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef _KATE_SQL_OUTPUT_VIEW_
-#define _KATE_SQL_OUTPUT_VIEW_
+#ifndef _OUTPUTWIDGET_H_
+#define _OUTPUTWIDGET_H_
 
 #include <QTabWidget>
 

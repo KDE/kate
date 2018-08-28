@@ -18,8 +18,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef KATE_BACKTRACE_BROWSER_TEST_H
-#define KATE_BACKTRACE_BROWSER_TEST_H
+#ifndef BT_BROWSER_TEST_H
+#define BT_BROWSER_TEST_H
 
 #include <QObject>
 

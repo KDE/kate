@@ -593,22 +593,8 @@ other context, e.g. <userinput>#pop#pop!OtherContext</userinput>.</para>
 </listitem>
 </itemizedlist>
 
-<para>Some rules can have <emphasis>child rules</emphasis> which are
-then evaluated only if the parent rule matched. The entire matched
-string will be given the attribute defined by the parent rule. A rule
-with child rules looks like this:</para>
-
-<programlisting>
-&lt;RuleName (attributes)&gt;
-  &lt;ChildRuleName (attributes) /&gt;
-  ...
-&lt;/RuleName&gt;
-</programlisting>
-
-
 <para>Rule specific attributes varies and are described in the
 following sections.</para>
-
 
 <itemizedlist>
 <title>Common attributes</title>
@@ -777,18 +763,7 @@ loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 <listitem>
 <para>Detect an integer number.</para>
 <para><programlisting>&lt;Int (common attributes) /&gt;</programlisting></para>
-<para>This rule has no specific attributes. Child rules are typically
-used to detect combinations of <userinput>L</userinput> and
-<userinput>U</userinput> after the number, indicating the integer type
-in program code. Actually all rules are allowed as child rules, though,
-the <acronym>DTD</acronym> only allows the child rule <userinput>StringDetect</userinput>.</para>
-<para>The following example matches integer numbers follows by the character 'L'.
-<programlisting>
-&lt;Int attribute="Decimal" context="#stay" &gt;
-  &lt;StringDetect attribute="Decimal" context="#stay" String="L" insensitive="true"/&gt;
-&lt;/Int&gt;
-</programlisting></para>
-
+<para>This rule has no specific attributes.</para>
 </listitem>
 </varlistentry>
 
@@ -797,9 +772,7 @@ the <acronym>DTD</acronym> only allows the child rule <userinput>StringDetect</u
 <listitem>
 <para>Detect a floating point number.</para>
 <para><programlisting>&lt;Float (common attributes) /&gt;</programlisting></para>
-<para>This rule has no specific attributes. <userinput>AnyChar</userinput> is
-allowed as a child rule and typically used to detect combinations, see rule
-<userinput>Int</userinput> for reference.</para>
+<para>This rule has no specific attributes.</para>
 </listitem>
 </varlistentry>
 

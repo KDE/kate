@@ -12,10 +12,10 @@
 <title>Introduction</title>
 
 <para>Like any advanced text editor component, &katepart; offers a variety of
-ways to extend its functionality.  You can <link linkend="dev-scripting">write 
-simple scripts to add functionality with JavaScript</link>. 
+ways to extend its functionality.  You can <link linkend="dev-scripting">write
+simple scripts to add functionality with JavaScript</link>.
 Finally, once you have extended &katepart;, you are
-welcome to <ulink url="http://kate-editor.org/join-us/">join us</ulink> 
+welcome to <ulink url="http://kate-editor.org/join-us/">join us</ulink>
 and share your enhancements with the world!</para>
 
 </sect1>
@@ -383,9 +383,6 @@ to the context specified in fallthroughContext if no rule matches.
 Default: <emphasis>false</emphasis>.</para>
 <para><userinput>fallthroughContext</userinput> specifies the next context
 if no rule matches.</para>
-<para><userinput>dynamic</userinput> if <emphasis>true</emphasis>, the context
-remembers strings/placeholders saved by dynamic rules. This is needed for HERE
-documents for example. Default: <emphasis>false</emphasis>.</para>
 </listitem>
 </varlistentry>
 
@@ -688,7 +685,7 @@ to match.</para>
 <term>Detect2Chars</term>
 <listitem>
 <para>Detect two specific characters in a defined order.</para>
-<programlisting>&lt;Detect2Chars char=&quot;(character)&quot; char1=&quot;(character)&quot; (common attributes) (dynamic) /&gt;</programlisting>
+<programlisting>&lt;Detect2Chars char=&quot;(character)&quot; char1=&quot;(character)&quot; (common attributes) /&gt;</programlisting>
 <para>The <userinput>char</userinput> attribute defines the first character to match,
 <userinput>char1</userinput> the second.</para>
 </listitem>
@@ -724,7 +721,7 @@ comparing is used.</para>
 such as a dot <userinput>'.'</userinput> or a whitespace on the beginning
 and the end of the word. Think of <userinput>\b&lt;string&gt;\b</userinput>
 in terms of a regular expression, but it is faster than the rule <userinput>RegExpr</userinput>.</para>
-<programlisting>&lt;WordDetect String=&quot;(string)&quot; [insensitive=&quot;true|false&quot;] (common attributes) (dynamic) /&gt;</programlisting>
+<programlisting>&lt;WordDetect String=&quot;(string)&quot; [insensitive=&quot;true|false&quot;] (common attributes) /&gt;</programlisting>
 <para>The <userinput>String</userinput> attribute defines the string
 to match. The <userinput>insensitive</userinput> attribute defaults to
 <emphasis>false</emphasis> and is passed to the string comparison
@@ -779,7 +776,7 @@ loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 <term>Int</term>
 <listitem>
 <para>Detect an integer number.</para>
-<para><programlisting>&lt;Int (common attributes) (dynamic) /&gt;</programlisting></para>
+<para><programlisting>&lt;Int (common attributes) /&gt;</programlisting></para>
 <para>This rule has no specific attributes. Child rules are typically
 used to detect combinations of <userinput>L</userinput> and
 <userinput>U</userinput> after the number, indicating the integer type
@@ -1109,7 +1106,7 @@ itself works. The basic skeleton of the body looks like this:
 <programlisting>
 // required katepart js libraries, e.g. range.js if you use Range
 require ("range.js");
-  
+
 triggerCharacters = "{}/:;";
 function indent(line, indentWidth, ch)
 {
@@ -1351,7 +1348,7 @@ by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
 
 <para>
 The scripting API presented here is available to all scripts, &ie; indentation
-scripts and command line commands. 
+scripts and command line commands.
 The <classname>Cursor</classname> and <classname>Range</classname> classes are provided by library files in <filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/libraries</filename>.
 If you want to use them in your script, which needs to use some of the <classname>Document</classname> or <classname>View</classname> functions, please include the necessary library by using:
 

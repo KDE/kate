@@ -1682,10 +1682,21 @@ Editor...</guimenuitem></menuchoice></para></listitem>
 &kate; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>
 menu items, for more information read the sections about the <ulink url="help:/fundamentals/ui.html#menus-settings"
 >Settings Menu</ulink> and <ulink url="help:/fundamentals/ui.html#menus-help">Help Menu</ulink>
-of the &kde; Fundamentals with two additional entries:
+of the &kde; Fundamentals with these additional entries:
 </para>
 
 <variablelist>
+
+<varlistentry id="settings-colorscheme">
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Color Theme</guimenuitem>
+</menuchoice></term>
+<listitem><para>Use a different color scheme from the system’s global color schemes
+described in the &systemsettings; module <ulink url="help:/kcontrol/colors/index.html">Colors</ulink>.
+</para></listitem>
+</varlistentry>
+
 <varlistentry id="settings-show-tabs">
 <term><menuchoice>
 <guimenu>Settings</guimenu>

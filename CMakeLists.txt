@@ -15,7 +15,7 @@ set (KDE_APPLICATIONS_VERSION "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATI
 # we need some parts of the ECM CMake helpers
 find_package (ECM 1.1.0 REQUIRED NO_MODULE)
 set (CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
-include(KDECompilerSettings NO_POLICY_SCOPE)
+include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(ECMOptionalAddSubdirectory)
 include(ECMInstallIcons)
 include(ECMSetupVersion)
@@ -61,17 +61,6 @@ find_package(KF5 "${KF5_DEP_VERSION}" COMPONENTS
 if (KF5Activities_FOUND)
     add_definitions(-DKActivities_FOUND)
 endif ()
-
-# use sane compile flags
-add_definitions(
-  -DQT_USE_QSTRINGBUILDER
-  -DQT_NO_CAST_TO_ASCII
-  -DQT_NO_CAST_FROM_ASCII
-  -DQT_STRICT_ITERATORS
-  -DQT_NO_URL_CAST_FROM_STRING
-  -DQT_NO_CAST_FROM_BYTEARRAY
-  -DQT_NO_SIGNALS_SLOTS_KEYWORDS
-)
 
 # config.h
 check_function_exists (ctermid HAVE_CTERMID)

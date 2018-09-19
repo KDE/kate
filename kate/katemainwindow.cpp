@@ -1106,7 +1106,7 @@ QObject *KateMainWindow::pluginView(const QString &name)
         return nullptr;
     }
 
-    return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : 0;
+    return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : nullptr;
 }
 
 void KateMainWindow::mousePressEvent(QMouseEvent *e)

@@ -86,7 +86,7 @@ class ResultNode
     QList<ResultNode> children;
 };
 
-Q_DECLARE_METATYPE(ResultNode);
+Q_DECLARE_METATYPE(ResultNode)
 
 namespace QTest {
 inline bool qCompare(const ResultNode &t1, const ResultNode &t2, const char *actual, const char *expected,

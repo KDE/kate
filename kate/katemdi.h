@@ -45,7 +45,7 @@ class KConfigBase;
 namespace KTextEditor
 {
 class ConfigPageInterface;
-};
+}
 
 namespace KateMDI
 {

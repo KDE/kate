@@ -112,7 +112,7 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
 
 KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
 {
-    return m_docInfos.contains(doc) ? m_docInfos[doc] : 0;
+    return m_docInfos.contains(doc) ? m_docInfos[doc] : nullptr;
 }
 
 KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const

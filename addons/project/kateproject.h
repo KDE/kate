@@ -143,7 +143,7 @@ public:
      * @return item for given file or 0
      */
     KateProjectItem *itemForFile(const QString &file) {
-        return m_file2Item ? m_file2Item->value(file) : 0;
+        return m_file2Item ? m_file2Item->value(file) : nullptr;
     }
 
     /**

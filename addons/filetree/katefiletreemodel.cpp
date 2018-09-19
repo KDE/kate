@@ -228,7 +228,7 @@ ProxyItemDir *ProxyItem::parent() const
 
 ProxyItem *ProxyItem::child(int idx) const
 {
-    return (idx < 0 || idx >= m_children.count()) ? 0 : m_children[idx];
+    return (idx < 0 || idx >= m_children.count()) ? nullptr : m_children[idx];
 }
 
 int ProxyItem::childCount() const

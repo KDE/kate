@@ -321,7 +321,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls,
         }
     }
 
-    return docs.isEmpty() ? 0 : docs.last();
+    return docs.isEmpty() ? nullptr : docs.last();
 }
 
 KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QString &encoding)

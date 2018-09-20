@@ -21,7 +21,9 @@
 #include "SearchDiskFiles.h"
 
 #include <QDir>
+#include <QUrl>
 #include <QTextStream>
+
 
 SearchDiskFiles::SearchDiskFiles(QObject *parent) : QThread(parent)
 ,m_cancelSearch(true)
@@ -90,7 +92,7 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
         return;
     }
 
-    QTextStream stream (&file);
+    QTextStream stream(&file);
     QString line;
     int i = 0;
     int column;
@@ -102,7 +104,9 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
         while (column != -1 && !match.captured().isEmpty()) {
             // limit line length
             if (line.length() > 1024) line = line.left(1024);
-            emit matchFound(fileName, fileName, i, column, line, match.capturedLength());
+            QUrl fileUrl =  QUrl::fromUserInput(fileName);
+            emit matchFound(fileUrl.toString(),fileUrl.fileName(),
+                            i, column, line, match.capturedLength());
             match = m_regExp.match(line, column + match.capturedLength());
             column = match.capturedStart();
             m_matchCount++;
@@ -116,7 +120,7 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
 
 void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
 {
-    QFile file (fileName);
+    QFile file(fileName);
     int column = 0;
     int line = 0;
     static QString fullDoc;
@@ -127,7 +131,7 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         return;
     }
 
-    QTextStream stream (&file);
+    QTextStream stream(&file);
     fullDoc = stream.readAll();
     fullDoc.remove(QLatin1Char('\r'));
 
@@ -162,7 +166,8 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         if (line == -1) {
             break;
         }
-        emit matchFound(fileName,fileName,
+        QUrl fileUrl =  QUrl::fromUserInput(fileName);
+        emit matchFound(fileUrl.toString(),fileUrl.fileName(),
                         line,
                         (column - lineStart[line]),
                         fullDoc.mid(lineStart[line], column - lineStart[line])+match.captured(),

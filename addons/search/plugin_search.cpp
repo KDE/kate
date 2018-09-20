@@ -751,23 +751,25 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
             tmpReg.setPattern(newPatern);
         }
 
+        // Check that the match still matches ;)
         if (tmpReg.match(doc->text(range)).capturedStart() != 0) {
             qDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
             return;
         }
     }
 
+    // Highlight the match
     KTextEditor::MovingRange* mr = miface->newMovingRange(range);
     mr->setAttribute(attr);
     mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
     mr->setAttributeOnlyForViews(true);
     m_matchRanges.append(mr);
 
+    // Add a match mark
     KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
     if (!iface) return;
     iface->setMarkDescription(KTextEditor::MarkInterface::markType32, i18n("SearchHighLight"));
-    iface->setMarkPixmap(KTextEditor::MarkInterface::markType32,
-                         QIcon().pixmap(0,0));
+    iface->setMarkPixmap(KTextEditor::MarkInterface::markType32, QIcon().pixmap(0,0));
     iface->addMark(line, KTextEditor::MarkInterface::markType32);
 
     connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
@@ -1268,31 +1270,32 @@ void KatePluginSearchView::indicateMatch(bool hasMatch) {
 
 void KatePluginSearchView::replaceSingleMatch()
 {
+    // Save the search text
     if (m_ui.searchCombo->findText(m_ui.searchCombo->currentText()) == -1) {
         m_ui.searchCombo->insertItem(1, m_ui.searchCombo->currentText());
         m_ui.searchCombo->setCurrentIndex(1);
     }
 
-
+    // Save the replace text
     if (m_ui.replaceCombo->findText(m_ui.replaceCombo->currentText()) == -1) {
         m_ui.replaceCombo->insertItem(1, m_ui.replaceCombo->currentText());
         m_ui.replaceCombo->setCurrentIndex(1);
     }
 
-    // check if the cursor is at the current item if not jump there
+    // Check if the cursor is at the current item if not jump there
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!res) {
-        return;
+        return; // Security measure
     }
     QTreeWidgetItem *item = res->tree->currentItem();
     if (!item || !item->parent()) {
-        // nothing was selected
+        // Nothing was selected
         goToNextMatch();
         return;
     }
 
     if (!m_mainWindow->activeView() || !m_mainWindow->activeView()->cursorPosition().isValid()) {
-        itemSelected(item);
+        itemSelected(item); // Correct any bad cursor positions
         return;
     }
 
@@ -1460,37 +1463,40 @@ void KatePluginSearchView::replaceDone()
 
 void KatePluginSearchView::docViewChanged()
 {
+    if (!m_mainWindow->activeView()) {
+        return;
+    }
+
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!res) {
+        qDebug() << "No res";
         return;
     }
 
     m_curResults = res;
 
-    if (!m_mainWindow->activeView()) {
-        return;
-    }
-
     // add the marks if it is not already open
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
-    if (doc) {
-        QTreeWidgetItem *rootItem = nullptr;
-        for (int i=0; i<res->tree->topLevelItemCount(); i++) {
-            QString url = res->tree->topLevelItem(i)->data(0, ReplaceMatches::FileUrlRole).toString();
-            QString fName = res->tree->topLevelItem(i)->data(0, ReplaceMatches::FileNameRole).toString();
+    if (doc && res->tree->topLevelItemCount() > 0) {
+        // There is always one root item with match count
+        // and X children with files or matches in case of search while typing
+        QTreeWidgetItem *rootItem = res->tree->topLevelItem(0);
+        QTreeWidgetItem *fileItem = nullptr;
+        for (int i=0; i<rootItem->childCount(); i++) {
+            QString url = rootItem->child(i)->data(0, ReplaceMatches::FileUrlRole).toString();
+            QString fName = rootItem->child(i)->data(0, ReplaceMatches::FileNameRole).toString();
             if (url == doc->url().toString() && fName == doc->documentName()) {
-                rootItem = res->tree->topLevelItem(i);
+                fileItem = rootItem->child(i);
                 break;
             }
         }
-        if (rootItem) {
-
+        if (fileItem) {
             int line;
             int column;
             int len;
             QTreeWidgetItem *item;
-            for (int i=0; i<rootItem->childCount(); i++) {
-                item = rootItem->child(i);
+            for (int i=0; i<fileItem->childCount(); i++) {
+                item = fileItem->child(i);
                 line = item->data(0, ReplaceMatches::LineRole).toInt();
                 column = item->data(0, ReplaceMatches::ColumnRole).toInt();
                 len = item->data(0, ReplaceMatches::MatchLenRole).toInt();
@@ -1617,19 +1623,6 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     // add the marks to the document if it is not already open
     if (!doc) {
         doc = m_kateApp->openUrl(QUrl::fromUserInput(url));
-        if (doc) {
-            int line;
-            int column;
-            int len;
-            QTreeWidgetItem *rootItem = (item->parent()==nullptr) ? item : item->parent();
-            for (int i=0; i<rootItem->childCount(); i++) {
-                item = rootItem->child(i);
-                line = item->data(0, ReplaceMatches::LineRole).toInt();
-                column = item->data(0, ReplaceMatches::ColumnRole).toInt();
-                len = item->data(0, ReplaceMatches::MatchLenRole).toInt();
-                addMatchMark(doc, line, column, len);
-            }
-        }
     }
     if (!doc) return;
 

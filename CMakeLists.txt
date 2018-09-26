@@ -1,8 +1,9 @@
+# minimal requirements
+cmake_minimum_required (VERSION 3.0 FATAL_ERROR)
+
 # Kate project
 project (kate)
 
-# minimal requirements
-cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
 set (QT_MIN_VERSION "5.4.0")
 set(KF5_DEP_VERSION "5.40.0")
 
@@ -21,7 +22,7 @@ include(ECMInstallIcons)
 include(ECMSetupVersion)
 include(ECMMarkNonGuiExecutable)
 include(ECMGenerateHeaders)
-include(ECMAddAppIcon) 
+include(ECMAddAppIcon)
 include(GenerateExportHeader)
 
 include(CMakePackageConfigHelpers)

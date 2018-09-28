@@ -360,7 +360,6 @@ int main(int argc, char **argv)
         bool foundRunningService = false;
         if ((!force_new) && (serviceName.isEmpty())) {
             const int desktopnumber = KWindowSystem::currentDesktop();
-            int sessionDesktopNumber;
             for (int s = 0; s < kateServices.count(); s++) {
 
                 serviceName = kateServices[s];
@@ -369,8 +368,6 @@ int main(int argc, char **argv)
                     QDBusReply<bool> there = sessionBusInterface->isServiceRegistered(serviceName);
 
                     if (there.isValid() && there.value()) {
-                        sessionDesktopNumber = -1;
-
                         // query instance current desktop
                         QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
                                          QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("desktopNumber"));
@@ -378,8 +375,9 @@ int main(int argc, char **argv)
                         QDBusMessage res = QDBusConnection::sessionBus().call(m);
                         QList<QVariant> answer = res.arguments();
                         if (answer.size() == 1) {
-                            sessionDesktopNumber = answer.at(0).toInt();
-                            if (sessionDesktopNumber ==  desktopnumber) {
+                            // special case: on all desktops! that is -1 aka NET::OnAllDesktops, see KWindowInfo::desktop() docs
+                            const int sessionDesktopNumber = answer.at(0).toInt();
+                            if (sessionDesktopNumber == desktopnumber || sessionDesktopNumber == NET::OnAllDesktops) {
                                 // stop searching. a candidate instance in the current desktop has been found
                                 foundRunningService = true;
                                 break;

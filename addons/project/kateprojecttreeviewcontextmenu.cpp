@@ -55,7 +55,7 @@ static bool isGit(const QString &filename)
     args << QStringLiteral("ls-files") << fi.fileName();
     git.start(QStringLiteral("git"), args);
     bool isGit = false;
-    if (git.waitForStarted() && git.waitForFinished()) {
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
         QStringList files = QString::fromLocal8Bit(git.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
         isGit = files.contains(fi.fileName());
     }

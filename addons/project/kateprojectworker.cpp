@@ -274,7 +274,7 @@ QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
     QProcess git;
     git.setWorkingDirectory(dir.absolutePath());
     git.start(QStringLiteral("git"), args);
-    if (!git.waitForStarted() || !git.waitForFinished()) {
+    if (!git.waitForStarted() || !git.waitForFinished(-1)) {
         return files;
     }
 
@@ -325,7 +325,7 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursiv
     QStringList args;
     args << QStringLiteral("manifest") << QStringLiteral(".");
     hg.start(QStringLiteral("hg"), args);
-    if (!hg.waitForStarted() || !hg.waitForFinished()) {
+    if (!hg.waitForStarted() || !hg.waitForFinished(-1)) {
         return files;
     }
 
@@ -356,7 +356,7 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursi
         args << QStringLiteral("--depth=files");
     }
     svn.start(QStringLiteral("svn"), args);
-    if (!svn.waitForStarted() || !svn.waitForFinished()) {
+    if (!svn.waitForStarted() || !svn.waitForFinished(-1)) {
         return files;
     }
 
@@ -418,7 +418,7 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
 
         darcs.start(cmd, args);
 
-        if (!darcs.waitForStarted() || !darcs.waitForFinished())
+        if (!darcs.waitForStarted() || !darcs.waitForFinished(-1))
             return files;
 
         auto str = QString::fromLocal8Bit(darcs.readAllStandardOutput());
@@ -441,7 +441,7 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
 
         darcs.start(cmd, args);
 
-        if(!darcs.waitForStarted() || !darcs.waitForFinished())
+        if(!darcs.waitForStarted() || !darcs.waitForFinished(-1))
             return files;
 
         relFiles = QString::fromLocal8Bit(darcs.readAllStandardOutput())

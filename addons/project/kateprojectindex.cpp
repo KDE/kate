@@ -89,7 +89,7 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
     /**
      * wait for done
      */
-    if (!ctags.waitForFinished()) {
+    if (!ctags.waitForFinished(-1)) {
         return;
     }
 

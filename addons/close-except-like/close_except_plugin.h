@@ -37,7 +37,6 @@
 # include <KTextEditor/Message>
 # include <KToggleAction>
 # include <KConfigGroup>
-# include <QtCore/QSignalMapper>
 # include <QPointer>
 # include <cassert>
 # include <set>
@@ -79,31 +78,31 @@ private:
     void displayMessage(const QString&, const QString&, KTextEditor::Message::MessageType);
     void connectToDocument(KTextEditor::Document*);
     void updateMenu();
-    QPointer<QSignalMapper> updateMenu(
+    using CloseFunction = void (CloseExceptPluginView::*)(const QString &);
+    void updateMenu(
         const std::set<QUrl>&
       , const std::set<QString>&
       , actions_map_type&
       , KActionMenu*
+      , CloseFunction
       );
     void appendActionsFrom(
         const std::set<QUrl>&
       , actions_map_type&
       , KActionMenu*
-      , QSignalMapper*
+      , CloseFunction
       );
     void appendActionsFrom(
         const std::set<QString>& masks
       , actions_map_type& actions
       , KActionMenu* menu
-      , QSignalMapper* mapper
+      , CloseFunction
       );
 
     CloseExceptPlugin* m_plugin;
     QPointer<KToggleAction> m_show_confirmation_action;
     QPointer<KActionMenu> m_except_menu;
     QPointer<KActionMenu> m_like_menu;
-    QPointer<QSignalMapper> m_except_mapper;
-    QPointer<QSignalMapper> m_like_mapper;
     actions_map_type m_except_actions;
     actions_map_type m_like_actions;
     KTextEditor::MainWindow *m_mainWindow;

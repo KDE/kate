@@ -161,7 +161,7 @@ void CloseExceptPluginView::appendActionsFrom(
     const std::set<QUrl>& paths
   , actions_map_type& actions
   , KActionMenu* menu
-  , QSignalMapper* mapper
+  , CloseFunction closeFunction
   )
 {
     Q_FOREACH(const QUrl& path, paths)
@@ -169,10 +169,8 @@ void CloseExceptPluginView::appendActionsFrom(
         QString action = path.path() + QLatin1Char('*');
         actions[action] = QPointer<QAction>(new QAction(action, menu));
         menu->addAction(actions[action]);
-        //connect(actions[action], &QAction::triggered, mapper, &QSignalMapper::map);
         connect(actions[action].data(), &QAction::triggered,
-                mapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
-        mapper->setMapping(actions[action], action);
+                this, [this, closeFunction, action]() { (this->*closeFunction)(action); });
     }
 }
 
@@ -180,7 +178,7 @@ void CloseExceptPluginView::appendActionsFrom(
     const std::set<QString>& masks
   , actions_map_type& actions
   , KActionMenu* menu
-  , QSignalMapper* mapper
+  , CloseFunction closeFunction
   )
 {
     Q_FOREACH(const QString& mask, masks)
@@ -189,16 +187,16 @@ void CloseExceptPluginView::appendActionsFrom(
         actions[action] = QPointer<QAction>(new QAction(action, menu));
         menu->addAction(actions[action]);
         connect(actions[action].data(), &QAction::triggered,
-                mapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
-        mapper->setMapping(actions[action], action);
+                this, [this, closeFunction, action]() { (this->*closeFunction)(action); });
     }
 }
 
-QPointer<QSignalMapper> CloseExceptPluginView::updateMenu(
+void CloseExceptPluginView::updateMenu(
     const std::set<QUrl>& paths
   , const std::set<QString>& masks
   , actions_map_type& actions
   , KActionMenu* menu
+  , CloseFunction closeFunction
   )
 {
     // turn menu ON or OFF depending on collected results
@@ -211,18 +209,16 @@ QPointer<QSignalMapper> CloseExceptPluginView::updateMenu(
         actions.erase(it++);
     }
     // Form a new one
-    QPointer<QSignalMapper> mapper = QPointer<QSignalMapper>(new QSignalMapper(this));
-    appendActionsFrom(paths, actions, menu, mapper);
+    appendActionsFrom(paths, actions, menu, closeFunction);
     if (!masks.empty())
     {
         if (!paths.empty())
             menu->addSeparator();                           // Add separator between paths and file's ext filters
-        appendActionsFrom(masks, actions, menu, mapper);
+        appendActionsFrom(masks, actions, menu, closeFunction);
     }
     // Append 'Show Confirmation' toggle menu item
     menu->addSeparator();                                   // Add separator between paths and show confirmation
     menu->addAction(m_show_confirmation_action);
-    return mapper;
 }
 
 void CloseExceptPluginView::updateMenu()
@@ -275,12 +271,8 @@ void CloseExceptPluginView::updateMenu()
         }
         qDebug() << "stage #2: Collected" << paths.size() << "paths and" << masks.size() << "masks";
         //
-        m_except_mapper = updateMenu(paths, masks, m_except_actions, m_except_menu);
-        m_like_mapper = updateMenu(paths, masks, m_like_actions, m_like_menu);
-        connect(m_except_mapper.data(), static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
-                this, &CloseExceptPluginView::closeExcept);
-        connect(m_like_mapper.data(), static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
-                this, &CloseExceptPluginView::closeLike);
+        updateMenu(paths, masks, m_except_actions, m_except_menu, &CloseExceptPluginView::closeExcept);
+        updateMenu(paths, masks, m_like_actions, m_like_menu, &CloseExceptPluginView::closeLike);
     }
 }
 

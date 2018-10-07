@@ -61,6 +61,7 @@ Name[x-test]=xxText Filterxx
 Name[zh_CN]=文本过滤
 Name[zh_TW]=文字過濾器
 Comment=Process text using terminal commands
+Comment[ast]=Procesa testos usando comandos de la terminal
 Comment[ca]=Processa el text usant ordres de terminal
 Comment[ca@valencia]=Processa el text usant ordres de terminal
 Comment[cs]=Zpracujte text pomocí příkazů v terminálu

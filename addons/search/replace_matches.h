@@ -41,7 +41,10 @@ public:
         MatchLenRole,
         PreMatchRole,
         MatchRole,
-        PostMatchRole
+        PostMatchRole,
+        EndLineRole,
+        EndColumnRole,
+        ReplacedRole,
     };
 
     ReplaceMatches(QObject *parent = nullptr);
@@ -59,7 +62,7 @@ private Q_SLOTS:
 
 Q_SIGNALS:
     void replaceNextMatch();
-    void matchReplaced(KTextEditor::Document* doc, int line, int column, int matchLen);
+    void matchReplaced(KTextEditor::Document* doc, int line, int column, int endLine, int endColumn);
     void replaceStatus(const QUrl &url);
     void replaceDone();
 

@@ -105,8 +105,10 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
             // limit line length
             if (line.length() > 1024) line = line.left(1024);
             QUrl fileUrl =  QUrl::fromUserInput(fileName);
-            emit matchFound(fileUrl.toString(),fileUrl.fileName(),
-                            i, column, line, match.capturedLength());
+            emit matchFound(fileUrl.toString(), fileUrl.fileName(),
+                            line, match.capturedLength(),
+                            i, column, i, column+match.capturedLength());
+
             match = m_regExp.match(line, column + match.capturedLength());
             column = match.capturedStart();
             m_matchCount++;
@@ -167,11 +169,14 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
             break;
         }
         QUrl fileUrl =  QUrl::fromUserInput(fileName);
+        int startColumn = (column - lineStart[line]);
+        int endLine = line + match.captured().count(QLatin1Char('\n'));
+        int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
+        int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL-1;
         emit matchFound(fileUrl.toString(),fileUrl.fileName(),
-                        line,
-                        (column - lineStart[line]),
                         fullDoc.mid(lineStart[line], column - lineStart[line])+match.captured(),
-                        match.capturedLength());
+                        match.capturedLength(),
+                        line, startColumn, endLine, endColumn);
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();
         m_matchCount++;

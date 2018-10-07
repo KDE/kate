@@ -141,7 +141,7 @@ void ReplaceMatches::doReplaceNextMatch()
         item = rootItem->child(i);
         if (item->checkState(0) == Qt::Unchecked) continue;
 
-        line = endLine= item->data(0, LineRole).toInt();
+        line = endLine = item->data(0, LineRole).toInt();
         column = item->data(0, ColumnRole).toInt();
         matchLen = item->data(0, MatchLenRole).toInt();
         matchLines = doc->line(line).mid(column);
@@ -196,10 +196,13 @@ void ReplaceMatches::doReplaceNextMatch()
     }
 
     for (int i=0; i<rVector.size(); i++) {
-        line = rVector[i]->start().line();
-        column = rVector[i]->start().column();
+        int startLine = rVector[i]->start().line();
+        int startColumn = rVector[i]->start().column();
+        int endLine = startLine + rTexts[i].count(QLatin1Char('\n'));
+        int lastNL = rTexts[i].lastIndexOf(QLatin1Char('\n'));
+        int endColumn = lastNL == -1 ? startColumn + rTexts[i].length() : rTexts[i].length() - lastNL-1;
         doc->replaceText(*rVector[i], rTexts[i]);
-        emit matchReplaced(doc, line, column, rTexts[i].length());
+        emit matchReplaced(doc, startLine, startColumn, endLine, endColumn);
     }
 
     qDeleteAll(rVector);

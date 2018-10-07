@@ -51,8 +51,9 @@ public Q_SLOTS:
     void cancelSearch();
 
 Q_SIGNALS:
-    void matchFound(const QString &url, const QString &docName, int line, int column,
-                    const QString &lineContent, int matchLen);
+    void matchFound(const QString &url, const QString &docName,
+                    const QString &lineContent, int matchLen,
+                    int line, int column, int endLine, int endColumn);
     void searchDone();
     void searching(const QString &file);
 

@@ -104,8 +104,9 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
         match = regExp.match(doc->line(line));
         column = match.capturedStart();
         while (column != -1 &&  !match.captured().isEmpty()) {
-            emit matchFound(doc->url().toString(), doc->documentName(), line, column,
-                            doc->line(line), match.capturedLength());
+            emit matchFound(doc->url().toString(), doc->documentName(),
+                            doc->line(line), match.capturedLength(),
+                            line, column, line, column+match.capturedLength());
             match = regExp.match(doc->line(line), column + match.capturedLength());
             column = match.capturedStart();
         }
@@ -113,15 +114,15 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
     return 0;
 }
 
-int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine)
+int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int inStartLine)
 {
     int column = 0;
-    int line = 0;
+    int startLine = 0;
     QTime time;
     time.start();
     QRegularExpression tmpRegExp = regExp;
 
-    if (startLine == 0) {
+    if (inStartLine == 0) {
         // Copy the whole file to a temporary buffer to be able to search newlines
         m_fullDoc.clear();
         m_lineStart.clear();
@@ -137,9 +138,9 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         }
     }
     else {
-        if (startLine>0 && startLine<m_lineStart.size()) {
-            column = m_lineStart[startLine];
-            line = startLine;
+        if (inStartLine>0 && inStartLine<m_lineStart.size()) {
+            column = m_lineStart[inStartLine];
+            startLine = inStartLine;
         }
         else {
             return 0;
@@ -158,28 +159,33 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
     while (column != -1 && !match.captured().isEmpty()) {
         // search for the line number of the match
         int i;
-        line = -1;
+        startLine = -1;
         for (i=1; i<m_lineStart.size(); i++) {
             if (m_lineStart[i] > column) {
-                line = i-1;
+                startLine = i-1;
                 break;
             }
         }
-        if (line == -1) {
+        if (startLine == -1) {
             break;
         }
+
+        int startColumn = (column - m_lineStart[startLine]);
+        int endLine = startLine + match.captured().count(QLatin1Char('\n'));
+        int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
+        int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL-1;
+
         emit matchFound(doc->url().toString(), doc->documentName(),
-                        line,
-                        (column - m_lineStart[line]),
-                        doc->line(line).left(column - m_lineStart[line])+match.captured(),
-                        match.capturedLength());
+                        doc->line(startLine).left(column - m_lineStart[startLine])+match.captured(),
+                        match.capturedLength(),
+                        startLine, startColumn, endLine, endColumn);
 
         match = tmpRegExp.match(m_fullDoc, column + match.capturedLength());
         column = match.capturedStart();
 
         if (time.elapsed() > 100) {
             //qDebug() << "Search time exceeded" << time.elapsed() << line;
-            return line;
+            return startLine;
         }
     }
     return 0;

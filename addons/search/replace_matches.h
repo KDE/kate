@@ -36,20 +36,23 @@ public:
     enum MatchData {
         FileUrlRole = Qt::UserRole,
         FileNameRole,
-        LineRole,
-        ColumnRole,
+        StartLineRole,
+        StartColumnRole,
+        EndLineRole,
+        EndColumnRole,
         MatchLenRole,
         PreMatchRole,
         MatchRole,
         PostMatchRole,
-        EndLineRole,
-        EndColumnRole,
         ReplacedRole,
+        ReplacedTextRole,
     };
 
     ReplaceMatches(QObject *parent = nullptr);
     void setDocumentManager(KTextEditor::Application *manager);
 
+    bool replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *item, const KTextEditor::Range &range, const QRegularExpression &regExp, const QString &replaceTxt);
+    bool replaceSingleMatch(KTextEditor::Document *doc, QTreeWidgetItem *item, const QRegularExpression &regExp, const QString &replaceTxt);
     void replaceChecked(QTreeWidget *tree, const QRegularExpression &regexp, const QString &replace);
 
     KTextEditor::Document *findNamed(const QString &name);
@@ -62,7 +65,7 @@ private Q_SLOTS:
 
 Q_SIGNALS:
     void replaceNextMatch();
-    void matchReplaced(KTextEditor::Document* doc, int line, int column, int endLine, int endColumn);
+    void matchReplaced(KTextEditor::Document* doc, QTreeWidgetItem *item);
     void replaceStatus(const QUrl &url);
     void replaceDone();
 

@@ -140,7 +140,7 @@ private Q_SLOTS:
     void matchFound(const QString &url, const QString &fileName,
                     const QString &lineContent, int matchLen, int startLine, int startColumn, int endLine, int endColumn);
 
-    void addMatchMark(KTextEditor::Document* doc, int line, int column, int endLine, int endColumn);
+    void addMatchMark(KTextEditor::Document* doc, QTreeWidgetItem *item);
 
     void searchDone();
     void searchWhileTypingDone();

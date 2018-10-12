@@ -525,7 +525,7 @@ void KateViewSpace::closeTabRequest(int id)
 {
     KTextEditor::Document *doc = m_docToTabId.key(id);
     Q_ASSERT(doc);
-    KateApp::self()->documentManager()->closeDocument(doc);
+    m_viewManager->slotDocumentClose(doc);
 }
 
 void KateViewSpace::createNewDocument()

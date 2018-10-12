@@ -283,6 +283,14 @@ public:
         m_modNotification = e;
     }
 
+    bool modCloseAfterLast() const {
+        return m_modCloseAfterLast;
+    }
+
+    void setModCloseAfterLast(bool e) {
+        m_modCloseAfterLast = e;
+    }
+
     KRecentFilesAction *fileOpenRecent() const {
         return m_fileOpenRecent;
     }
@@ -489,6 +497,11 @@ private:
      * Notify about file modifications from other processes?
      */
     bool m_modNotification;
+
+    /**
+     * Shutdown Kate after last file is closed
+     */
+    bool m_modCloseAfterLast;
 
     /**
      * stacked widget containing the central area, aka view manager, quickopen, ...

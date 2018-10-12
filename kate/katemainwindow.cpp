@@ -564,6 +564,7 @@ void KateMainWindow::readOptions()
 
     const KConfigGroup generalGroup(config, "General");
     m_modNotification = generalGroup.readEntry("Modified Notification", false);
+    m_modCloseAfterLast = generalGroup.readEntry("Close After Last", false);
     KateApp::self()->documentManager()->setSaveMetaInfos(generalGroup.readEntry("Save Meta Infos", true));
     KateApp::self()->documentManager()->setDaysMetaInfos(generalGroup.readEntry("Days Meta Infos", 30));
 

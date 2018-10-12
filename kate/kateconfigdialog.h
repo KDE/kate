@@ -80,6 +80,7 @@ private:
     bool m_dataChanged;
 
     QCheckBox *m_modNotifications;
+    QCheckBox *m_modCloseAfterLast;
     QCheckBox *m_saveMetaInfos;
     KPluralHandlingSpinBox *m_daysMetaInfos;
 

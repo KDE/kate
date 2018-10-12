@@ -210,6 +210,7 @@
       <li xml:lang="zh-TW">MDI，視窗分割，視窗分頁</li>
       <li>Spell checking</li>
       <li xml:lang="ar">تدقيق الهجاء</li>
+      <li xml:lang="ast">Comprobación ortográfica</li>
       <li xml:lang="bs">Provjera ispravnog pisanja riječi</li>
       <li xml:lang="ca">Verificació ortogràfica</li>
       <li xml:lang="ca-valencia">Verificació ortogràfica</li>
@@ -648,6 +649,7 @@
       <li xml:lang="zh-TW">自動補完支援</li>
       <li>Shell integration</li>
       <li xml:lang="ar">التّكامل مع الصّدفة</li>
+      <li xml:lang="ast">Integración cola shell</li>
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
       <li xml:lang="ca-valencia">Integració de l'intèrpret d'ordres</li>
       <li xml:lang="cs">Integrace shellu</li>
@@ -726,6 +728,7 @@
       <li xml:lang="zh-TW">用 kioslave 提供廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
       <li>Plugin architecture for the application and editor component</li>
       <li xml:lang="ar">بنية ملحقات للتّطبيق ومكوّن المحرّر</li>
+      <li xml:lang="ast">Arquiteutura de plugins pa l'aplicación y el componente del editor</li>
       <li xml:lang="ca">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="ca-valencia">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="cs">Podpora rozšiřujících modulů pro aplikaci editor</li>
@@ -766,6 +769,7 @@
       <li xml:lang="zh-TW">用於應用程式與編輯器組件的外掛架構</li>
       <li>Customizable shortcuts</li>
       <li xml:lang="ar">اختصارات يمكن تخصيصها</li>
+      <li xml:lang="ast">Atayos personalizables</li>
       <li xml:lang="ca">Dreceres personalitzables</li>
       <li xml:lang="ca-valencia">Dreceres personalitzables</li>
       <li xml:lang="cs">Nastavitelné klávesové zkratky</li>
@@ -805,6 +809,7 @@
       <li xml:lang="zh-TW">自定快捷鍵</li>
       <li>Integrated command line</li>
       <li xml:lang="ar">سطر أوامر مدمج</li>
+      <li xml:lang="ast">Llinia de comandos integrada</li>
       <li xml:lang="ca">Línia d'ordres integrada</li>
       <li xml:lang="ca-valencia">Línia d'ordres integrada</li>
       <li xml:lang="cs">Integrovaný příkazový řádek</li>

@@ -30,7 +30,7 @@ namespace detail {
      * see also http://www.cplusplus.com/forum/beginner/83540/
      * Note that if strs contains the empty string, the result will be ""
      */
-    QString longestCommonPrefix(std::vector<QString>& strs) {
+    QString longestCommonPrefix(std::vector<QString> const & strs) {
         int n = INT_MAX;
         if (strs.size() <= 0) {
             return QString();

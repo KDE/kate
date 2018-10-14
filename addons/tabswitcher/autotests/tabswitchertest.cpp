@@ -35,30 +35,43 @@ void KateTabSwitcherTest::cleanupTestCase()
 
 void KateTabSwitcherTest::testLongestCommonPrefix()
 {
-    // standard case
+    QFETCH(std::vector<QString>, input_strings);
+    QFETCH(QString, expected);
+
+    QCOMPARE(detail::longestCommonPrefix(input_strings), expected);
+}
+
+void KateTabSwitcherTest::testLongestCommonPrefix_data()
+{
+    QTest::addColumn<std::vector<QString>>("input_strings");
+    QTest::addColumn<QString>("expected");
     std::vector<QString> strs;
+
+    strs.clear();
     strs.push_back(QLatin1String("/home/user1/a"));
     strs.push_back(QLatin1String("/home/user1/bc"));
-    QCOMPARE(detail::longestCommonPrefix(strs), QLatin1String("/home/user1/"));
+    QTest::newRow("standard case") << strs << QString(QLatin1String("/home/user1/"));
 
-    // empty string at the end of the list
     strs.clear();
     strs.push_back(QLatin1String("/home/a"));
     strs.push_back(QLatin1String("/home/b"));
     strs.push_back(QLatin1String(""));
-    QCOMPARE(detail::longestCommonPrefix(strs), QLatin1String(""));
+    QTest::newRow("empty string at the end of the list") << strs << QString();
 
-    // empty string not only at the end of the list
     strs.clear();
     strs.push_back(QLatin1String(""));
     strs.push_back(QLatin1String("/home/a"));
     strs.push_back(QLatin1String("/home/b"));
     strs.push_back(QLatin1String(""));
-    QCOMPARE(detail::longestCommonPrefix(strs), QLatin1String(""));
+    QTest::newRow("empty string not only at the end of the list") << strs << QString();
 
-    // a prefix with length 1
     strs.clear();
     strs.push_back(QLatin1String("/home/a"));
     strs.push_back(QLatin1String("/etc/b"));
-    QCOMPARE(detail::longestCommonPrefix(strs), QLatin1String("/"));
+    QTest::newRow("a prefix with length 1") << strs << QString(QLatin1String("/"));
+
+    strs.clear();
+    strs.push_back(QLatin1String("a"));
+    strs.push_back(QLatin1String("a"));
+    QTest::newRow("two equal strings") << strs << QString(QLatin1String("a"));
 }

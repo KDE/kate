@@ -32,5 +32,6 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void testLongestCommonPrefix();
+    void testLongestCommonPrefix_data();
 };
 

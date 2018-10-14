@@ -80,6 +80,6 @@ private:
     FilenameList data_;
 };
 
-QString longestCommonPrefix(std::vector<QString>& strs);
+QString longestCommonPrefix(std::vector<QString> const & strs);
 
 }

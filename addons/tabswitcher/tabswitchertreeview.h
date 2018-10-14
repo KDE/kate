@@ -21,17 +21,28 @@
 #ifndef KTEXTEDITOR_TABSWITCHER_TREEVIEW_H
 #define KTEXTEDITOR_TABSWITCHER_TREEVIEW_H
 
-#include <QListView>
+#include <QTreeView>
 
-class TabSwitcherTreeView : public QListView
+/**
+ * TODO: see screenshots https://phabricator.kde.org/D16054:
+ *       some paths are truncated on the right side. Why?
+ */
+class TabSwitcherTreeView : public QTreeView
 {
     Q_OBJECT
 
 public:
     /**
-     * Default constructor.
+     * Default constructor
      */
     TabSwitcherTreeView();
+
+    int sizeHintWidth() const;
+
+    /**
+     * todo: see inside
+     */
+    void resizeColumnsToContents();
 
 Q_SIGNALS:
     /**
@@ -52,6 +63,11 @@ protected:
      * Reimplemented for tracking the ESCAPE key.
      */
     void keyPressEvent(QKeyEvent * event) override;
+
+    /**
+     * Reimplemented for adjusting the column widths (todo: does not work yet)
+     */
+    void showEvent(QShowEvent *event) override;
 };
 
 #endif // KTEXTEDITOR_TABSWITCHER_TREEVIEW_H

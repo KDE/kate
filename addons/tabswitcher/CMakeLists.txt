@@ -5,6 +5,7 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(tabswitcherplugin_PART_SRCS
     tabswitcher.cpp
+    tabswitcherfilesmodel.cpp
     tabswitchertreeview.cpp
 )
 
@@ -23,3 +24,8 @@ target_link_libraries(tabswitcherplugin
 )
 
 install(TARGETS tabswitcherplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+
+############# unit tests ################
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

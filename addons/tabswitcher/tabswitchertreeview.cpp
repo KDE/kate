@@ -45,8 +45,6 @@ int TabSwitcherTreeView::sizeHintWidth() const
 
 void TabSwitcherTreeView::resizeColumnsToContents()
 {
-    // TODO: does not work properly (or at all?)
-    qDebug() << "resizeColumnsToContents()";
     resizeColumnToContents(0);
     resizeColumnToContents(1);
 }

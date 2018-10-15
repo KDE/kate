@@ -10,7 +10,6 @@ set(CMAKE_AUTOMOC ON)
 find_package(Qt5Widgets CONFIG REQUIRED)
 
 set(SRC
-  main.cpp
   tstestapp.cpp
   ../tabswitcherfilesmodel.cpp
 )

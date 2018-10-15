@@ -37,11 +37,11 @@ public:
      */
     TabSwitcherTreeView();
 
+    /**
+     * Sum of the widths of both columns
+     */
     int sizeHintWidth() const;
 
-    /**
-     * todo: see inside
-     */
     void resizeColumnsToContents();
 
 Q_SIGNALS:
@@ -65,7 +65,7 @@ protected:
     void keyPressEvent(QKeyEvent * event) override;
 
     /**
-     * Reimplemented for adjusting the column widths (todo: does not work yet)
+     * Reimplemented for adjusting the column widths to fit the contents
      */
     void showEvent(QShowEvent *event) override;
 };

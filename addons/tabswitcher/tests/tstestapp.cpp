@@ -1,6 +1,7 @@
 #include "tstestapp.h"
 #include "../tabswitcherfilesmodel.h"
 
+#include <QApplication>
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QAbstractTableModel>
@@ -109,4 +110,13 @@ TsTestApp::TsTestApp(QWidget *parent) :
 
 TsTestApp::~TsTestApp()
 {
+}
+
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+    TsTestApp w;
+    w.show();
+
+    return app.exec();
 }

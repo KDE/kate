@@ -21,6 +21,7 @@
 #include "tabswitcherfilesmodel.h"
 
 #include <QDebug>
+#include <QFileInfo>
 
 #include <algorithm>
 
@@ -74,14 +75,17 @@ namespace detail {
 
         std::for_each(data.begin(), data.end(),
                         [prefix_length](FilenameListItem & item) {
+                            // Note that item.documentName can contain additional characters - e.g. "README.md (2)" -
+                            // so we cannot use that and have to parse the base filename by other means:
+                            QFileInfo fileinfo(item.fullPath);
+                            QString basename = fileinfo.fileName(); // e.g. "archive.tar.gz"
                             // cut prefix (left side) and cut document name (plus slash) on the right side
-                            int len = item.fullPath.length() - prefix_length - item.documentName.length() - 1;
+                            int len = item.fullPath.length() - prefix_length - basename.length() - 1;
                             if (len > 0) { // only assign in case item.fullPath is not empty
-                                // "PREFIXPATH/REMAININGPATH/DOCUMENTNAME" --> "REMAININGPATH"
+                                // "PREFIXPATH/REMAININGPATH/BASENAME" --> "REMAININGPATH"
                                 item.displayPathPrefix = QStringRef(&item.fullPath, prefix_length, len).toString();
                             }
                         });
-
     }
 }
 
@@ -115,6 +119,15 @@ bool detail::TabswitcherFilesModel::removeRow(int row)
     post_process(data_);
     endRemoveRows();
     return true;
+}
+
+void detail::TabswitcherFilesModel::clear()
+{
+    if (data_.size() > 0) {
+        beginRemoveRows(QModelIndex(), 0, data_.size() - 1);
+        data_.clear();
+        endRemoveRows();
+    }
 }
 
 int detail::TabswitcherFilesModel::rowCount() const

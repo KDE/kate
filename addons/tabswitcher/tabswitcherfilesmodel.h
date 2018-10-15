@@ -59,6 +59,10 @@ public:
     TabswitcherFilesModel(const FilenameList & data);
     bool insertRow(int row, FilenameListItem const * const item);
     bool removeRow(int row);
+    /**
+     * Clears all data from the model
+     */
+    void clear();
     int rowCount() const;
     /**
      * NOTE: The returned pointer will become invalid as soon as the underlying vector changes.

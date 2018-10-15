@@ -28,4 +28,5 @@ install(TARGETS tabswitcherplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor
 ############# unit tests ################
 if (BUILD_TESTING)
     add_subdirectory(autotests)
+    add_subdirectory(tests)
 endif()

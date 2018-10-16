@@ -18,6 +18,7 @@
 */
 
 #include "katequickopen.h"
+#include "katequickopenmodel.h"
 
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
@@ -25,6 +26,8 @@
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
+
+#include <tuple>
 
 #include <KPluginFactory>
 #include <KPluginLoader>
@@ -46,10 +49,6 @@
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
-static const int DocumentRole = Qt::UserRole + 1;
-static const int UrlRole = Qt::UserRole + 2;
-static const int SortFilterRole = Qt::UserRole + 3;
-
 KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
@@ -69,11 +68,11 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     layout->addWidget(m_listView, 1);
     m_listView->setTextElideMode(Qt::ElideLeft);
 
-    m_base_model = new QStandardItemModel(0, 2, this);
+    m_base_model = new KateQuickOpenModel(m_mainWindow, this);
 
     m_model = new QSortFilterProxyModel(this);
-    m_model->setFilterRole(SortFilterRole);
-    m_model->setSortRole(SortFilterRole);
+    m_model->setFilterRole(Qt::DisplayRole);
+    m_model->setSortRole(Qt::DisplayRole);
     m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
 
@@ -144,161 +143,15 @@ void KateQuickOpen::reselectFirst()
 
 void KateQuickOpen::update()
 {
-    /**
-     * new base mode creation
-     * remove from proxy model before populating to avoid wasting time
-     * with repeatedly sorting it
-     */
-    m_base_model->clear();
-    m_model->setSourceModel(nullptr);
-
-    /**
-     * remember local file names to avoid dupes with project files
-     */
-    QSet<QString> alreadySeenFiles;
-    QSet<KTextEditor::Document *> alreadySeenDocs;
-
-    /**
-     * get views in lru order
-     */
-    const QList<KTextEditor::View *> sortedViews(m_mainWindow->viewManager()->sortedViews());
-
-    /**
-     * now insert them in order
-     */
-    QModelIndex idxToSelect;
-    int linecount = 0;
-    foreach (KTextEditor::View *view, sortedViews) {
-        KTextEditor::Document *doc = view->document();
-
-        if (alreadySeenDocs.contains(doc)) {
-            continue;
-        }
-
-        alreadySeenDocs.insert(doc);
-
-        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().toString()));
-        QStandardItem *itemName = new QStandardItem(doc->documentName());
-
-        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document> (doc)), DocumentRole);
-        itemName->setData(QString::fromLatin1("%1: %2").arg(doc->documentName()).arg(doc->url().toString()), SortFilterRole);
-        itemName->setEditable(false);
-        QFont font = itemName->font();
-        font.setBold(true);
-        itemName->setFont(font);
-
-        QStandardItem *itemUrl = new QStandardItem(doc->url().toString());
-        itemUrl->setEditable(false);
-        m_base_model->setItem(linecount, 0, itemName);
-        m_base_model->setItem(linecount, 1, itemUrl);
-        linecount++;
-
-        if (!doc->url().isEmpty() && doc->url().isLocalFile()) {
-            alreadySeenFiles.insert(doc->url().toLocalFile());
-        }
-
-        // select second document, that is the last used (beside the active one)
-        if (linecount == 2) {
-            idxToSelect = itemName->index();
-        }
-    }
-
-    /**
-     * get all open documents
-     */
-    QList<KTextEditor::Document *> docs = KateApp::self()->documentManager()->documentList();
-    foreach(KTextEditor::Document * doc, docs) {
-        /**
-         * skip docs already open
-         */
-        if (alreadySeenDocs.contains(doc)) {
-            continue;
-        }
-
-        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().toString()));
-        QStandardItem *itemName = new QStandardItem(doc->documentName());
-
-        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document> (doc)), DocumentRole);
-        itemName->setData(QString::fromLatin1("%1: %2").arg(doc->documentName()).arg(doc->url().toString()), SortFilterRole);
-        itemName->setEditable(false);
-        QFont font = itemName->font();
-        font.setBold(true);
-        itemName->setFont(font);
-
-        QStandardItem *itemUrl = new QStandardItem(doc->url().toString());
-        itemUrl->setEditable(false);
-        m_base_model->setItem(linecount, 0, itemName);
-        m_base_model->setItem(linecount, 1, itemUrl);
-        linecount++;
-
-        if (!doc->url().isEmpty() && doc->url().isLocalFile()) {
-            alreadySeenFiles.insert(doc->url().toLocalFile());
-        }
-    }
-
-    /**
-     * insert all project files, if any project around
-     */
-    if (QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"))) {
-        QStringList projectFiles = projectView->property("projectFiles").toStringList();
-        foreach(const QString & file, projectFiles) {
-            /**
-             * skip files already open
-             */
-            if (alreadySeenFiles.contains(file)) {
-                continue;
-            }
-
-            QFileInfo fi(file);
-            QStandardItem *itemName = new QStandardItem(fi.fileName());
-
-            itemName->setData(qVariantFromValue(QUrl::fromLocalFile(file)), UrlRole);
-            itemName->setData(QString::fromLatin1("%1: %2").arg(fi.fileName()).arg(file), SortFilterRole);
-            itemName->setEditable(false);
-
-            QStandardItem *itemUrl = new QStandardItem(file);
-            itemUrl->setEditable(false);
-            m_base_model->setItem(linecount, 0, itemName);
-            m_base_model->setItem(linecount, 1, itemUrl);
-            linecount++;
-        }
-    }
-
-    if (idxToSelect.isValid()) {
-        m_listView->setCurrentIndex(m_model->mapFromSource(idxToSelect));
-    } else {
-        reselectFirst();
-    }
-
-    m_model->setSourceModel(m_base_model);
-
-    /**
-     * adjust view
-     */
+    m_base_model->refresh();
     m_listView->resizeColumnToContents(0);
 }
 
 void KateQuickOpen::slotReturnPressed()
 {
-    /**
-     * open document for first element, if possible
-     * prefer to use the document pointer
-     */
-    // our data is in column 0 (clicking on column 1 results in no data, therefore, create new index)
-    const QModelIndex index = m_listView->model()->index(m_listView->currentIndex().row(), 0);
-    KTextEditor::Document *doc = index.data(DocumentRole).value<QPointer<KTextEditor::Document> >();
-    if (doc) {
-        m_mainWindow->wrapper()->activateView(doc);
-    } else {
-        QUrl url = index.data(UrlRole).value<QUrl>();
-        if (!url.isEmpty()) {
-            m_mainWindow->wrapper()->openUrl(url);
-        }
-    }
-
-    /**
-     * in any case, switch back to view manager
-     */
+    const auto index = m_listView->model()->index(m_listView->currentIndex().row(), KateQuickOpenModel::Columns::FilePath);
+    auto url = QUrl(index.data(Qt::DisplayRole).toString());
+    m_mainWindow->wrapper()->openUrl(url);
     m_mainWindow->slotWindowActivated();
     m_inputLine->clear();
 }

@@ -29,6 +29,7 @@ class QModelIndex;
 class QStandardItemModel;
 class QSortFilterProxyModel;
 class QTreeView;
+class KateQuickOpenModel;
 
 class KateQuickOpen : public QWidget
 {
@@ -61,7 +62,7 @@ private:
     /**
      * our model we search in
      */
-    QStandardItemModel *m_base_model;
+    KateQuickOpenModel *m_base_model;
 
     /**
      * filtered model we search in

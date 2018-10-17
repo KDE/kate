@@ -188,9 +188,8 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
         }
 
         if (!u.isEmpty()) {
-            if (!loadMetaInfos(doc, u)) {
-                doc->openUrl(u);
-            }
+            doc->openUrl(u);
+            loadMetaInfos(doc, u);
         }
     }
 
@@ -478,7 +477,7 @@ void KateDocManager::slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTex
 }
 
 /**
- * Load file and file's meta-information if the MD5 didn't change since last time.
+ * Load file's meta-information if the checksum didn't change since last time.
  */
 bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
 {
@@ -501,6 +500,7 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
             if (documentInfo(doc)->openedByUser) {
                 flags << QStringLiteral ("SkipEncoding");
             }
+            flags << QStringLiteral ("SkipUrl");
             doc->readSessionConfig(urlGroup, flags);
         } else {
             urlGroup.deleteGroup();

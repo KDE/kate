@@ -292,6 +292,7 @@
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="ar">دعم التّرميز (utf-8، وutf-16 وآسكي وغيرها)</li>
+      <li xml:lang="ast">Sofitu pa codificaciones (utf-8, utf-16, ascii... etc)</li>
       <li xml:lang="ca">Admet codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="ca-valencia">Admet codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="cs">Podpora kódování (UTF-8, UTF-16, ASCII a další)</li>
@@ -491,6 +492,7 @@
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
       <li>Infinite undo/redo support</li>
       <li xml:lang="ar">دعم عدد متناهٍ من الإعادات والتّكرارات</li>
+      <li xml:lang="ast">Sofitu pa desfechura/refechura infinita</li>
       <li xml:lang="ca">Admet desfer/refer infinits</li>
       <li xml:lang="ca-valencia">Admet desfer/refer infinits</li>
       <li xml:lang="cs">Nekonečná funkce Zpět/Vpřed</li>
@@ -570,6 +572,7 @@
       <li xml:lang="zh-TW">區塊選擇模式</li>
       <li>Auto indentation</li>
       <li xml:lang="ar">الإزاحة الآليّة</li>
+      <li xml:lang="ast">Sangráu automáticu</li>
       <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="ca-valencia">Sagnat automàtic</li>
@@ -610,6 +613,7 @@
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Auto completion support</li>
       <li xml:lang="ar">دعم الإكمال الآليّ</li>
+      <li xml:lang="ast">Sofitu pa completáu automáticu</li>
       <li xml:lang="ca">Admet compleció automàtica</li>
       <li xml:lang="ca-valencia">Admet compleció automàtica</li>
       <li xml:lang="cs">Podpora automatického doplňování</li>

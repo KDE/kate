@@ -401,14 +401,14 @@ bool Sidebar::showWidget(ToolView *widget)
     setTab(m_widgetToId[widget], true);
 
     /**
-     * resize to right size again and show, else artefacts
+     * resize to right size again and show, else artifacts
      */
     if (m_widgetToSize[widget].isValid()) {
         widget->resize(m_widgetToSize[widget]);
     }
 
     /**
-     * resize to right size again and show, else artefacts
+     * resize to right size again and show, else artifacts
      * same as for widget, both needed
      */
     if (m_preHideSize.isValid()) {

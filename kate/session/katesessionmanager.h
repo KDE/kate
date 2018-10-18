@@ -43,7 +43,7 @@ public:
     KateSessionList sessionList();
 
     /**
-     * activate session by @name
+     * activate session by \p name
      * first, it will look if a session with this name exists in list
      * if yes, it will use this session, else it will create a new session file
      * @param name name of the session to activate
@@ -138,8 +138,9 @@ public:
     void deleteSession(KateSession::Ptr session);
 
     /**
-     * renames the session to @newName
-     * @return true if succesfull
+     * renames the session to \p newName
+     * @param newName new name of the session
+     * @return true if successful
      */
     bool renameSession(KateSession::Ptr session, const QString &newName);
 

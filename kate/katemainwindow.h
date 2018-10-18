@@ -386,7 +386,7 @@ public Q_SLOTS:
     }
 
     /**
-     * Split current view space according to @orientation
+     * Split current view space according to \p orientation
      * \param orientation in which line split the view
      */
     void splitView(Qt::Orientation orientation)
@@ -396,7 +396,7 @@ public Q_SLOTS:
 
     /**
      * Try to create a view bar for the given view.
-     * @param view view for which we want an view bar
+     * @param View view for which we want a view bar
      * @return suitable widget that can host view bars widgets or nullptr
     */
     QWidget *createViewBar(KTextEditor::View *) {

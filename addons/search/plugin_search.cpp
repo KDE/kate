@@ -2018,7 +2018,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
                 }
             }
         }
-        // NOTE: Qt::Key_Escape is handeled by handleEsc
+        // NOTE: Qt::Key_Escape is handled by handleEsc
     }
     return QObject::eventFilter(obj, event);
 }

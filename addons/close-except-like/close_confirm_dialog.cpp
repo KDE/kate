@@ -27,7 +27,7 @@
 
 // Standard includes
 #include <KConfig>
-#include <KLocalizedString>                                 /// \todo Where is \c i18n() defiend?
+#include <KLocalizedString>                                 /// \todo Where is \c i18n() defined?
 #include <KIconLoader>
 #include <KSharedConfig>
 #include <KConfigGroup>

@@ -171,7 +171,7 @@ Q_SIGNALS:
     void aboutToCreateDocuments();
 
     /**
-     * This signal is emitted after the batch of ducuments is created.
+     * This signal is emitted after the batch of documents is created.
      *
      * @param documents list of documents that have been created
      */
@@ -186,7 +186,7 @@ Q_SIGNALS:
     void aboutToDeleteDocuments(const QList<KTextEditor::Document *> &);
 
     /**
-     * This singnal is emitted after the documents batch was deleted
+     * This signal is emitted after the documents batch was deleted
      *
      * This is the batch closing signal for aboutToDeleteDocuments
      * @param documents the documents that weren't deleted after all

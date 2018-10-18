@@ -51,7 +51,7 @@ public:
      * session config
      * on first access, will create the config object, delete will be done automagic
      * return 0 if we have no file to read config from atm
-     * @return correct KConfig, neverl null
+     * @return correct KConfig, never null
      * @note never delete configRead(), because the return value might be
      *       KSharedConfig::openConfig(). Only delete the member variables directly.
      */
@@ -66,12 +66,12 @@ public:
     }
 
     /**
-     * update @number of openned documents in session
+     * update \p number of opened documents in session
      */
     void setDocuments(const unsigned int number);
 
     /**
-     * @return true if this is anonymouse/new session
+     * @return true if this is anonymous/new session
      */
     bool isAnonymous() const {
         return m_anonymous;

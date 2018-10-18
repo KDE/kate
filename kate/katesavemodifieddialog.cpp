@@ -115,7 +115,7 @@ public:
                 return false;
             }
         } else {
-            //document has an exising location
+            //document has an existing location
             if (!m_document->save()) {
                 setState(SaveFailedState);
                 setText(1, m_document->url().toString());

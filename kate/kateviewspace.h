@@ -134,7 +134,7 @@ private Q_SLOTS:
     int removeTab(KTextEditor::Document * doc, bool documentDestroyed);
 
     /**
-     * Remove @p count tabs, since the tab bar shrinked.
+     * Remove @p count tabs, since the tab bar shrunk.
      */
     void removeTabs(int count);
 

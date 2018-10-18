@@ -47,7 +47,7 @@ private:
     QVector<ModelEntry> m_modelEntries;
 
     /* TODO: don't rely in a pointer to the main window.
-    * this is bad enginering, but current code is too tigth
+    * this is bad engineering, but current code is too tight
     * on this and it's hard to untangle without breaking existing
     * code.
     */

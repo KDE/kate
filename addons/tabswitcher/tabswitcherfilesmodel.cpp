@@ -27,7 +27,7 @@
 
 namespace detail {
     /**
-     * adpated from https://helloacm.com/c-coding-exercise-longest-common-prefix/
+     * adapted from https://helloacm.com/c-coding-exercise-longest-common-prefix/
      * see also http://www.cplusplus.com/forum/beginner/83540/
      * Note that if strs contains the empty string, the result will be ""
      */

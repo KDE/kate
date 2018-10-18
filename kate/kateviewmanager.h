@@ -160,7 +160,7 @@ private Q_SLOTS:
     void aboutToDeleteDocuments(const QList<KTextEditor::Document *> &documents);
 
     /**
-     * This singnal is emitted after the documents batch was deleted
+     * This signal is emitted after the documents batch was deleted
      *
      * This is the batch closing signal for aboutToDeleteDocuments
      * @param documents the documents that weren't deleted after all

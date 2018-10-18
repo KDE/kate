@@ -75,7 +75,7 @@ Q_SIGNALS:
     void clearBreakpointMarks();
     void stackFrameInfo(QString const& level, QString const& info);
     void stackFrameChanged(int level);
-    void threadInfo(int number, bool avtive);
+    void threadInfo(int number, bool active);
 
     void infoLocal(QString const& line);
 

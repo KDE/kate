@@ -116,7 +116,7 @@ protected:
 
 public:
     /**
-     * destuct me, this is allowed for all, will care itself that the toolview is removed
+     * destruct me, this is allowed for all, will care itself that the toolview is removed
      * from the mainwindow and sidebar
      */
     ~ToolView() override;
@@ -389,7 +389,6 @@ public:
 
     /**
      * save the current session config to given object and group
-     * @param config config object to use
      * @param group config group to use
      */
     void saveSession(KConfigGroup &group);

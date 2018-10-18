@@ -105,7 +105,7 @@ bool KateApp::init()
         // let us handle our command line args and co ;)
         // we can exit here if session chooser decides
         if (!startupKate()) {
-            // session chooser telled to exit kate
+            // session chooser told to exit kate
             return false;
         }
     }

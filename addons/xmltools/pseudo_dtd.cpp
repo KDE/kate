@@ -101,7 +101,7 @@ bool PseudoDTD::parseElements(QDomDocument *doc, QProgressDialog *progress)
 
     m_elementsList.clear();
     // We only display a list, i.e. we pretend that the content model is just
-    // a set, so we use a map. This is necessay e.g. for xhtml 1.0's head element,
+    // a set, so we use a map. This is necessary e.g. for xhtml 1.0's head element,
     // which would otherwise display some elements twice.
     QMap<QString, bool> subelementList;   // the bool is not used
 

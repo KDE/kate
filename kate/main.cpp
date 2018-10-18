@@ -268,7 +268,7 @@ int main(int argc, char **argv)
 
     /**
      * use dbus, if available for linux and co.
-     * allows for resuse of running Kate instances
+     * allows for reuse of running Kate instances
      */
 #ifndef USE_QT_SINGLE_APP
     if (QDBusConnectionInterface * const sessionBusInterface = QDBusConnection::sessionBus().interface()) {

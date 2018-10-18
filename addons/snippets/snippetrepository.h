@@ -41,7 +41,7 @@ namespace KTextEditor
  * To add a snippet, @p appendRow() it.
  * To access the name of the repository, use @p text() and @p setText().
  *
- * NOTE: Unchecked repositores are considered "disabled" in the sense that their snippets
+ * NOTE: Unchecked repositories are considered "disabled" in the sense that their snippets
  *       won't show up during code completion.
  *
  * @author Robert Gruber <rgruber@users.sourceforge.net>

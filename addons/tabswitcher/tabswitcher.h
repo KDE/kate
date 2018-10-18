@@ -101,7 +101,7 @@ public Q_SLOTS:
     void updateDocumentName(KTextEditor::Document * document);
 
     /**
-     * Raise @p view in a lru fasion.
+     * Raise @p view in a lru fashion.
      */
     void raiseView(KTextEditor::View * view);
 

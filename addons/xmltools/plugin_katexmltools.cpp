@@ -148,7 +148,7 @@ PluginKateXMLToolsView::~PluginKateXMLToolsView()
 {
     m_mainWindow->guiFactory()->removeClient(this);
 
-    //qDebug() << "xml tools descructor 1...";
+    //qDebug() << "xml tools destructor 1...";
     //TODO: unregister the model
 }
 

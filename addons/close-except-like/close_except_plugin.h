@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Declate Kate's Close Except/Like plugin classes
+ * \brief Declare Kate's Close Except/Like plugin classes
  *
  * Copyright (C) 2012 Alex Turbov <i.zaufi@gmail.com>
  *

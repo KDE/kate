@@ -535,7 +535,7 @@ void KateMainWindow::slotNewToolbarConfig()
 {
     applyMainWindowSettings(KConfigGroup(KSharedConfig::openConfig(), "MainWindow"));
 
-    // we neeed to relod all View's XML Gui from disk to ensure toolbar
+    // we need to reload all View's XML Gui from disk to ensure toolbar
     // changes are applied to all views.
     reloadXmlGui();
 }

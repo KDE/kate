@@ -120,7 +120,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
 KateFileBrowser::~KateFileBrowser()
 {
 }
-//END Constroctor/Destrctor
+//END Constructor/Destructor
 
 //BEGIN Public Methods
 void KateFileBrowser::setupToolbar()

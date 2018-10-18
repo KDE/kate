@@ -30,14 +30,14 @@
 
 //TODO:
 // Cleanup unneeded headers
-// Find resourses and translate i18n messages
+// Find resources and translate i18n messages
 // all translations were deleted in https://websvn.kde.org/?limit_changes=0&view=revision&revision=1433517
 // What to do with catalogs? What is it for?
-// Implement hot key shoutcut to do xml validation
-// Remove copyright above due to author orphoned this plugin?
+// Implement hot key shortcut to do xml validation
+// Remove copyright above due to author orphaned this plugin?
 // Possibility to check only well-formdness without validation
 // Hide output in dock when switching to another tab
-// Make ability to validate agains xml schema and then edit docbook
+// Make ability to validate against xml schema and then edit docbook
 // Should del space in [km] strang in katexmlcheck.desktop?
 // Which variant should I choose? QUrl.adjusted(rm filename).path() or QUrl.toString(rm filename|rm schema)
 // What about replace xmllint xmlstarlet or something?
@@ -327,7 +327,7 @@ bool PluginKateXMLCheckView::slotValidate()
         args << "--noout";
 
 	// tell xmllint the working path of the document's file, if possible.
-	// otherweise it will not find relative DTDs
+	// otherwise it will not find relative DTDs
 
         // I should give path to location of file, but remove filename
         // I can make QUrl.adjusted(rm filename).path()
@@ -344,7 +344,7 @@ bool PluginKateXMLCheckView::slotValidate()
         // As workaround we can encode ':' with %3A
         QString path = kv->document()->url().toString(QUrl::RemoveFilename|QUrl::PreferLocalFile|QUrl::EncodeSpaces);
         path.replace(':',"%3A");
-        // because of such inconvinience with xmllint and pathes, maybe switch to xmlstarlet?
+        // because of such inconvenience with xmllint and paths, maybe switch to xmlstarlet?
 
         qDebug() << "path=" << path;
 
@@ -387,7 +387,7 @@ bool PluginKateXMLCheckView::slotValidate()
         qDebug() << "m_tmp_file->fileName()=" << m_tmp_file->fileName();
 
         m_proc.start(exe,args);
-        qDebug() << "m_proc.program():" << m_proc.program(); // I want to see parmeters
+        qDebug() << "m_proc.program():" << m_proc.program(); // I want to see parameters
         qDebug() << "args=" << args;
         qDebug() << "exit code:"<< m_proc.exitCode();
         if( ! m_proc.waitForStarted(-1) ) {

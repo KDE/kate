@@ -33,7 +33,6 @@
 #include <KXMLGUIFactory>
 
 #include <QAction>
-#include <QMimeDatabase>
 #include <QScrollBar>
 #include <QStandardItemModel>
 
@@ -122,11 +121,6 @@ void TabSwitcherPluginView::setupActions()
     m_treeView->addAction(aPrev);
 }
 
-static QIcon iconForDocument(KTextEditor::Document * doc)
-{
-    return QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(doc->url()).iconName());
-}
-
 void TabSwitcherPluginView::setupModel()
 {
     // initial fill of model
@@ -141,12 +135,7 @@ void TabSwitcherPluginView::registerDocument(KTextEditor::Document * document)
     m_documents.insert(document);
 
     // add to model
-    auto item = new detail::FilenameListItem(
-                                            iconForDocument(document),
-                                            document->documentName(),
-                                            document->url().toLocalFile());
-    item->setData(QVariant::fromValue(document));
-    m_model->insertRow(0, item);
+    m_model->insertRow(0, detail::FilenameListItem(document));
 
     // track document name changes
     connect(document, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
@@ -163,7 +152,7 @@ void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)
     // remove from model
     const auto rowCount = m_model->rowCount();
     for (int i = 0; i < rowCount; ++i) {
-        auto doc = m_model->item(i)->data().value<KTextEditor::Document*>();
+        auto doc = m_model->item(i)->document;
         if (doc == document) {
             m_model->removeRow(i);
 
@@ -183,7 +172,7 @@ void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)
 
     const auto rowCount = m_model->rowCount();
     for (int i = 0; i < rowCount; ++i) {
-        auto doc = m_model->item(i)->data().value<KTextEditor::Document*>();
+        auto doc = m_model->item(i)->document;
         if (doc == document) {
             m_model->updateItem(m_model->item(i), document->documentName(), document->url().toLocalFile());
             //m_model->item(i)->setText(document->documentName());
@@ -280,7 +269,7 @@ void TabSwitcherPluginView::activateView(const QModelIndex & index)
 
     const int row = m_treeView->selectionModel()->selectedRows().first().row();
 
-    auto doc = m_model->item(row)->data().value<KTextEditor::Document*>();
+    auto doc = m_model->item(row)->document;
     m_mainWindow->activateView(doc);
 
     m_treeView->hide();

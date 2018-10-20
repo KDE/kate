@@ -15,5 +15,8 @@ set(SRC
 )
 
 add_executable(tstestapp ${SRC})
-target_link_libraries(tstestapp Qt5::Widgets)
+target_link_libraries(tstestapp
+    Qt5::Widgets
+    KF5::TextEditor
+)
 

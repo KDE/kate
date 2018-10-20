@@ -18,27 +18,28 @@
    Boston, MA 02110-1301, USA.
 */
 
-#pragma once
+#ifndef KTEXTEDITOR_TAB_SWITCHER_FILE_MODEL_H
+#define KTEXTEDITOR_TAB_SWITCHER_FILE_MODEL_H
 
 #include <QString>
 #include <QIcon>
-#include <QStandardItem>
+#include <QAbstractTableModel>
+
+namespace KTextEditor {
+    class Document;
+}
 
 namespace detail {
 
 /**
- * The implementation is close to QStandardItem but not all aspects are supported.
- * Probably it would be better not to derive from QStandardItem.
+ * Represents one item in the table view of the tab switcher.
  */
-struct FilenameListItem : public QStandardItem
+class FilenameListItem
 {
-    FilenameListItem(const QIcon & icon, const QString & documentName, const QString & fullPath)
-    {
-        this->icon = icon;
-        this->documentName = documentName;
-        this->fullPath = fullPath;
-    }
+public:
+    FilenameListItem(KTextEditor::Document* doc);
 
+    KTextEditor::Document *document;
     QIcon icon;
     QString documentName;
     QString fullPath;
@@ -57,7 +58,7 @@ public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
     virtual ~TabswitcherFilesModel() = default;
     TabswitcherFilesModel(const FilenameList & data);
-    bool insertRow(int row, FilenameListItem const * const item);
+    bool insertRow(int row, const FilenameListItem & item);
     bool removeRow(int row);
     /**
      * Clears all data from the model
@@ -87,3 +88,5 @@ private:
 QString longestCommonPrefix(std::vector<QString> const & strs);
 
 }
+
+#endif // KTEXTEDITOR_TAB_SWITCHER_FILE_MODEL_H

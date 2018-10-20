@@ -14,14 +14,22 @@
 #include <QMenu>
 #include <QLabel>
 
-// https://www.fluentcpp.com/2017/09/22/make-pimpl-using-unique_ptr/
+#include <KTextEditor/Editor>
+#include <KTextEditor/Document>
+
+static KTextEditor::Document * addDoc(const QString & path)
+{
+    auto doc = KTextEditor::Editor::instance()->createDocument(nullptr);
+    doc->openUrl(QUrl::fromLocalFile(path));
+    return doc;
+}
+
 class TsTestApp::Impl
 {
 public:
     void insert_1_item()
     {
-        auto icon = QIcon::fromTheme(QLatin1String("blurimage"));
-        model.insertRow(0, new detail::FilenameListItem(icon, QLatin1String("abc.d"), QLatin1String("/home/user2/folder1/abc.d")));
+        model.insertRow(0, detail::FilenameListItem(addDoc(QLatin1String("/home/user2/folder1/abc.d"))));
         treeview1->resizeColumnToContents(0);
     }
 
@@ -36,15 +44,13 @@ public:
         model.clear();
         auto icon = QIcon::fromTheme(QLatin1String("document-export"));
 
-#define INS__(a, b) model.insertRow(model.rowCount(), new detail::FilenameListItem(icon, QLatin1String(a), QLatin1String(b)));
-
-        INS__("multimedia-system.log", "/home/gregor/logs/notifications/multimedia-system.log")
-        INS__("servicemenueditor", "/home/gregor/dev/src/kservicemenueditor-0.2a/servicemenueditor")
-        INS__("kdesrc-build", "/home/gregor/kde/src/kdesrc-build/kdesrc-build")
-        INS__("README.md (3)", "/home/gregor/node_modules/autolinker/README.md")
-        INS__("package.json (3)", "/home/gregor/node_modules/autolinker/package.json")
-        INS__("LICENSE (3)", "/home/gregor/node_modules/autolinker/LICENSE")
-        INS__("package.json (2)", "/home/gregor/node_modules/asynckit/package.json")
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/logs/notifications/multimedia-system.log"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/dev/src/kservicemenueditor-0.2a/servicemenueditor"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/kde/src/kdesrc-build/kdesrc-build"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/node_modules/autolinker/README.md"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/node_modules/autolinker/package.json"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/node_modules/autolinker/LICENSE"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/node_modules/asynckit/package.json"))));
 
         treeview1->resizeColumnToContents(0);
     }
@@ -84,11 +90,11 @@ TsTestApp::TsTestApp(QWidget *parent) :
     impl_->treeview1->setRootIsDecorated(false);
 
     auto icon = QIcon::fromTheme(QLatin1String("edit-undo"));
-    impl_->model.insertRow(0, new detail::FilenameListItem(icon, QLatin1String("file1.h"), QLatin1String("/home/gm/projects/proj1/src/file1.h")));
-    impl_->model.insertRow(0, new detail::FilenameListItem(icon, QLatin1String("file2.cpp"), QLatin1String("/home/gm/projects/proj1/src/file2.cpp")));
-    impl_->model.insertRow(0, new detail::FilenameListItem(icon, QLatin1String("file3.py"), QLatin1String("/home/gm/dev/file3.py")));
-    impl_->model.insertRow(0, new detail::FilenameListItem(icon, QLatin1String("file3kjaskdfkljasdfklj089asdfkjklasdjf90asdfsdfkj.py"), QLatin1String("/home/gm/dev/file3kjaskdfkljasdfklj089asdfkjklasdjf90asdfsdfkj.py")));
-    impl_->model.insertRow(0, new detail::FilenameListItem(icon, QLatin1String("file3.py"), QLatin1String("/home/gm/dev/proj2/asldfkjasdfk/asdlfkjasd;faf/;ajsdkfgjaskdfgasdf/file3.py")));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/projects/proj1/src/file1.h"))));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/projects/proj1/src/file2.cpp"))));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/dev/file3.py"))));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/dev/file3kjaskdfkljasdfklj089asdfkjklasdjf90asdfsdfkj.py"))));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/dev/proj2/asldfkjasdfk/asdlfkjasd;faf/;ajsdkfgjaskdfgasdf/file3.py"))));
     //impl_->insert_a_item();
     //impl_->remove_a_item();
 

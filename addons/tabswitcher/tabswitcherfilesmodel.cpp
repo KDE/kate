@@ -21,11 +21,29 @@
 #include "tabswitcherfilesmodel.h"
 
 #include <QDebug>
+#include <QBrush>
 #include <QFileInfo>
+#include <QMimeDatabase>
+
+#include <KTextEditor/Document>
 
 #include <algorithm>
 
-namespace detail {
+namespace detail
+{
+    static QIcon iconForDocument(KTextEditor::Document * doc)
+    {
+        return QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(doc->url()).iconName());
+    }
+
+    FilenameListItem::FilenameListItem(KTextEditor::Document* doc)
+        : document(doc)
+        , icon(iconForDocument(doc))
+        , documentName(doc->documentName())
+        , fullPath(doc->url().toLocalFile())
+    {
+    }
+
     /**
      * adapted from https://helloacm.com/c-coding-exercise-longest-common-prefix/
      * see also http://www.cplusplus.com/forum/beginner/83540/
@@ -99,10 +117,10 @@ detail::TabswitcherFilesModel::TabswitcherFilesModel(const FilenameList & data)
     post_process(data_);
 }
 
-bool detail::TabswitcherFilesModel::insertRow(int row, FilenameListItem const * const item)
+bool detail::TabswitcherFilesModel::insertRow(int row, const FilenameListItem & item)
 {
     beginInsertRows(QModelIndex(), row, row + 1);
-    data_.insert(data_.begin() + row, *item);
+    data_.insert(data_.begin() + row, item);
     post_process(data_);
     endInsertRows();
     return true;

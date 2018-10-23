@@ -132,7 +132,7 @@ bool detail::TabswitcherFilesModel::removeRow(int row)
         return false;
     }
 
-    beginRemoveRows(QModelIndex(), row, row + 1);
+    beginRemoveRows(QModelIndex(), row, row);
     data_.erase(data_.begin() + row);
     post_process(data_);
     endRemoveRows();

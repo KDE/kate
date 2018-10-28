@@ -221,6 +221,7 @@ m_searchJustOpened(false),
 m_switchToProjectModeWhenAvailable(false),
 m_searchDiskFilesDone(true),
 m_searchOpenFilesDone(true),
+m_isSearchAsYouType(false),
 m_projectPluginView(nullptr),
 m_mainWindow (mainWin)
 {
@@ -412,6 +413,9 @@ m_mainWindow (mainWin)
     m_toolView->installEventFilter(this);
 
     m_mainWindow->guiFactory()->addClient(this);
+
+    m_updateSumaryTimer.setInterval(1);
+    connect(&m_updateSumaryTimer, &QTimer::timeout, this, &KatePluginSearchView::updateResultsRootItem);
 }
 
 KatePluginSearchView::~KatePluginSearchView()
@@ -673,9 +677,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
     }
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
 
-    if (root->data(0, ReplaceMatches::FileNameRole).toString() == fName) {
-        // The root item contains the document name ->
-        // this is search as you type, return the root item
+    if (m_isSearchAsYouType) {
         return root;
     }
 
@@ -873,6 +875,8 @@ void KatePluginSearchView::startSearch()
         return;
     }
 
+    m_isSearchAsYouType = false;
+
     QString currentSearchText = m_ui.searchCombo->currentText();
     m_ui.searchCombo->setItemText(0, QString()); // remove the text from index 0 on enter/search
     int index = m_ui.searchCombo->findText(currentSearchText);
@@ -935,7 +939,7 @@ void KatePluginSearchView::startSearch()
     m_curResults->tree->clear();
     m_curResults->tree->setCurrentItem(nullptr);
     m_curResults->matches = 0;
-    disconnect(m_curResults->tree, &QTreeWidget::itemChanged, this, &KatePluginSearchView::updateResultsRootItem);
+    disconnect(m_curResults->tree, &QTreeWidget::itemChanged, &m_updateSumaryTimer, nullptr);
 
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(),
                                      m_ui.searchCombo->currentText());
@@ -1031,6 +1035,8 @@ void KatePluginSearchView::startSearchWhileTyping()
         return;
     }
 
+    m_isSearchAsYouType = true;
+
     QString currentSearchText = m_ui.searchCombo->currentText();
 
     m_ui.searchButton->setDisabled(currentSearchText.isEmpty());
@@ -1068,7 +1074,7 @@ void KatePluginSearchView::startSearchWhileTyping()
         return;
     }
 
-    disconnect(m_curResults->tree, &QTreeWidget::itemChanged, this, &KatePluginSearchView::updateResultsRootItem);
+    disconnect(m_curResults->tree, &QTreeWidget::itemChanged, &m_updateSumaryTimer, nullptr);
 
     m_curResults->regExp = reg;
     m_curResults->useRegExp = m_ui.useRegExp->isChecked();
@@ -1172,7 +1178,7 @@ void KatePluginSearchView::searchDone()
     expandResults();
 
     updateResultsRootItem();
-    connect(m_curResults->tree, &QTreeWidget::itemChanged, this, &KatePluginSearchView::updateResultsRootItem);
+    connect(m_curResults->tree, &QTreeWidget::itemChanged, &m_updateSumaryTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
 
     indicateMatch(m_curResults->matches > 0);
     m_curResults = nullptr;
@@ -1213,7 +1219,7 @@ void KatePluginSearchView::searchWhileTypingDone()
         indicateMatch(child);
 
         updateResultsRootItem();
-        connect(m_curResults->tree, &QTreeWidget::itemChanged, this, &KatePluginSearchView::updateResultsRootItem);
+        connect(m_curResults->tree, &QTreeWidget::itemChanged, &m_updateSumaryTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
     }
 
     m_curResults = nullptr;
@@ -1450,8 +1456,7 @@ void KatePluginSearchView::docViewChanged()
         if (fileItem) {
             clearMarks();
 
-            // check if this is a search as you type
-            if (fileItem->childCount() == 0) {
+            if (m_isSearchAsYouType) {
                 fileItem = fileItem->parent();
             }
 
@@ -1459,6 +1464,8 @@ void KatePluginSearchView::docViewChanged()
                 addMatchMark(doc, fileItem->child(i));
             }
         }
+        // Re-add the highlighting on document reload
+        connect(doc, &KTextEditor::Document::reloaded, this, &KatePluginSearchView::docViewChanged, Qt::UniqueConnection);
     }
 }
 
@@ -1493,7 +1500,7 @@ void KatePluginSearchView::updateResultsRootItem()
 
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
 
-    if (!root || root->childCount() == 0) {
+    if (!root) {
         // nothing to update
         return;
     }
@@ -1509,8 +1516,7 @@ void KatePluginSearchView::updateResultsRootItem()
     QString checkedStr = i18np("One checked", "%1 checked", checkedItemCount);
 
     int searchPlace = m_ui.searchPlaceCombo->currentIndex();
-    if (root->child(0)->childCount() == 0) {
-        // Search as you type
+    if (m_isSearchAsYouType) {
         searchPlace = CurrentFile;
     }
 

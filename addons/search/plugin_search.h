@@ -197,9 +197,11 @@ private:
     bool                               m_switchToProjectModeWhenAvailable;
     bool                               m_searchDiskFilesDone;
     bool                               m_searchOpenFilesDone;
+    bool                               m_isSearchAsYouType;
     QString                            m_resultBaseDir;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
     QTimer                             m_changeTimer;
+    QTimer                             m_updateSumaryTimer;
     QPointer<KTextEditor::Message>     m_infoMessage;
 
     /**

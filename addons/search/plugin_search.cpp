@@ -383,6 +383,8 @@ m_mainWindow (mainWin)
     m_ui.searchCombo->lineEdit()->setClearButtonEnabled(true);
     m_ui.searchCombo->setMaxCount(25);
 
+    m_ui.replaceCombo->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_ui.replaceCombo, &QComboBox::customContextMenuRequested, this, &KatePluginSearchView::replaceContextMenu);
     m_ui.replaceCombo->completer()->setCompletionMode(QCompleter::PopupCompletion);
     m_ui.replaceCombo->completer()->setCaseSensitivity(Qt::CaseSensitive);
     m_ui.replaceCombo->setInsertPolicy(QComboBox::NoInsert);
@@ -2037,6 +2039,46 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
     // Act on action
     if (result && actionPointers.contains(result)) {
         QLineEdit * lineEdit = m_ui.searchCombo->lineEdit();
+        const int cursorPos = lineEdit->cursorPosition();
+        QStringList beforeAfter = result->data().toString().split(QLatin1Char(' '));
+        if (beforeAfter.size() != 2) return;
+        lineEdit->insert(beforeAfter[0] + beforeAfter[1]);
+        lineEdit->setCursorPosition(cursorPos + beforeAfter[0].count());
+        lineEdit->setFocus();
+    }
+}
+
+void KatePluginSearchView::replaceContextMenu(const QPoint& pos)
+{
+    QMenu* const contextMenu = m_ui.replaceCombo->lineEdit()->createStandardContextMenu();
+    if (!contextMenu) return;
+
+    QMenu* menu = contextMenu->addMenu(i18n("Add..."));
+    if (!menu) return;
+    menu->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
+
+    QSet<QAction *> actionPointers;
+    actionPointers << menuEntry(menu, QStringLiteral("\\n"), QStringLiteral(""), i18n("Line break"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\t"), QStringLiteral(""), i18n("Tab"));
+
+
+    if (m_ui.useRegExp->isChecked()) {
+        menu->addSeparator();
+        actionPointers << menuEntry(menu, QStringLiteral("\\0"), QStringLiteral(""), i18n("Regular expression capture 0 (whole match)"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\"),  QStringLiteral(""), i18n("Regular expression capture 1-9"), QStringLiteral("\\#"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\{"), QStringLiteral("}"), i18n("Regular expression capture 0-999"), QStringLiteral("\\{#"));
+        menu->addSeparator();
+        actionPointers << menuEntry(menu, QStringLiteral("\\U\\"), QStringLiteral(""), i18n("Upper-cased capture 0-9"), QStringLiteral("\\U\\#"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\U\\{"), QStringLiteral("}"), i18n("Upper-cased capture 0-999"), QStringLiteral("\\U\\{###"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\L\\"), QStringLiteral(""), i18n("Lower-cased capture 0-9"), QStringLiteral("\\L\\#"));
+        actionPointers << menuEntry(menu, QStringLiteral("\\L\\{"), QStringLiteral("}"), i18n("Lower-cased capture 0-999"), QStringLiteral("\\L\\{###"));
+    }
+    // Show menu
+    QAction * const result = contextMenu->exec(m_ui.replaceCombo->mapToGlobal(pos));
+
+    // Act on action
+    if (result && actionPointers.contains(result)) {
+        QLineEdit * lineEdit = m_ui.replaceCombo->lineEdit();
         const int cursorPos = lineEdit->cursorPosition();
         QStringList beforeAfter = result->data().toString().split(QLatin1Char(' '));
         if (beforeAfter.size() != 2) return;

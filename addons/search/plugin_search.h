@@ -131,6 +131,7 @@ private Q_SLOTS:
     void toggleOptions(bool show);
 
     void searchContextMenu(const QPoint& pos);
+    void replaceContextMenu(const QPoint& pos);
 
     void searchPlaceChanged();
     void startSearchWhileTyping();

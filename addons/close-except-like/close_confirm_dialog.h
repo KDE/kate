@@ -32,7 +32,7 @@
 # include <KTextEditor/Document>
 # include <KToggleAction>
 # include <kwindowconfig.h>
-# include <QtCore/QList>
+# include <QList>
 # include <QTreeWidget>
 # include <QTreeWidgetItem>
 # include <QCheckBox>

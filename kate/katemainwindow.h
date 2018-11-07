@@ -396,7 +396,7 @@ public Q_SLOTS:
 
     /**
      * Try to create a view bar for the given view.
-     * @param View view for which we want a view bar
+     * Its parameter is the view for which we want a view bar
      * @return suitable widget that can host view bars widgets or nullptr
     */
     QWidget *createViewBar(KTextEditor::View *) {

@@ -187,6 +187,7 @@ public:
      * used by kate if --use given
      * @param url filename
      * @param encoding encoding name
+     * @param isTempFile whether the file is temporary
      * @return success
      */
     bool openUrl(const QUrl &url, const QString &encoding, bool isTempFile);

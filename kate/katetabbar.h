@@ -54,6 +54,7 @@ public:
     /**
      * Insert a tab at \p position with \a text. Returns the new tab's id.
      * @param position index of the tab, i.e. 0, ..., count()
+     * @param text the text snippet
      */
     int insertTab(int position, const QString & text);
 

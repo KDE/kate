@@ -287,6 +287,7 @@ public:
 
     /**
      * add a given widget to the given sidebar if possible, name is very important
+     * @param plugin pointer to the plugin
      * @param identifier unique identifier for this toolview
      * @param pos position for the toolview, if we are in session restore, this is only a preference
      * @param icon icon to use for the toolview

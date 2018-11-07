@@ -139,6 +139,7 @@ public:
 
     /**
      * renames the session to \p newName
+     * @param session pointer to the session
      * @param newName new name of the session
      * @return true if successful
      */

@@ -396,6 +396,7 @@
   <url type="homepage">http://kate-editor.org/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kwrite</url>
   <url type="help">http://docs.kde.org/stable/en/applications/kwrite/index.html</url>
+  <url type="donation">https://www.kde.org/community/donations/?app=kwrite&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
       <image>http://kde.org/images/screenshots/kwrite.png</image>

@@ -20,6 +20,7 @@
  */
 
 #include "kate_ctags_view.h"
+#include "kate_ctags_debug.h"
 
 #include <QFileInfo>
 #include <QFileDialog>
@@ -270,7 +271,7 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
     Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), word, false, types);
     if (list.size() == 0) list = Tags::getMatches(m_commonDB, word, false, types);
 
-    //qDebug() << "found" << list.count() << word << types;
+    //qCDebug(KTECTAGS) << "found" << list.count() << word << types;
     setNewLookupText(word);
 
     if ( list.count() < 1) {
@@ -348,7 +349,7 @@ QString KateCTagsView::currentWord( )
 {
     KTextEditor::View *kv = m_mWin->activeView();
     if (!kv) {
-        qDebug() << "no KTextEditor::View" << endl;
+        qCDebug(KTECTAGS) << "no KTextEditor::View" << endl;
         return QString();
     }
 
@@ -357,7 +358,7 @@ QString KateCTagsView::currentWord( )
     }
 
     if (!kv->cursorPosition().isValid()) {
-        qDebug() << "cursor not valid!" << endl;
+        qCDebug(KTECTAGS) << "cursor not valid!" << endl;
         return QString();
     }
 
@@ -382,7 +383,7 @@ QString KateCTagsView::currentWord( )
         endPos++;
     }
     if  (startPos == endPos) {
-        qDebug() << "no word found!" << endl;
+        qCDebug(KTECTAGS) << "no word found!" << endl;
         return QString();
     }
 
@@ -396,7 +397,7 @@ QString KateCTagsView::currentWord( )
         linestr.remove(0, 1);
     }
 
-    //qDebug() << linestr;
+    //qCDebug(KTECTAGS) << linestr;
     return linestr;
 }
 
@@ -440,7 +441,7 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
 
     // open/activate the new file
     QFileInfo fInfo(file);
-    //qDebug() << pattern << file << fInfo.absoluteFilePath();
+    //qCDebug(KTECTAGS) << pattern << file << fInfo.absoluteFilePath();
     m_mWin->openUrl(QUrl::fromLocalFile(fInfo.absoluteFilePath()));
 
     // any view active?

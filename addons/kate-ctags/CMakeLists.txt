@@ -1,5 +1,7 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kate-ctags-plugin\")
 
+include(ECMQtDeclareLoggingCategory)
+
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(ctagsplugin_SRC
@@ -8,6 +10,12 @@ set(ctagsplugin_SRC
     ctagskinds.cpp
     kate_ctags_view.cpp
     kate_ctags_plugin.cpp
+)
+
+ecm_qt_declare_logging_category(ctagsplugin_SRC
+    HEADER kate_ctags_debug.h
+    IDENTIFIER KTECTAGS
+    CATEGORY_NAME "katectagsplugin"
 )
 
 ki18n_wrap_ui(ctagsplugin_SRC kate_ctags.ui CTagsGlobalConfig.ui)

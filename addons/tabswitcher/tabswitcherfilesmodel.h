@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KTEXTEDITOR_TAB_SWITCHER_FILE_MODEL_H
-#define KTEXTEDITOR_TAB_SWITCHER_FILE_MODEL_H
+#ifndef KTEXTEDITOR_TAB_SWITCHER_FILES_MODEL_H
+#define KTEXTEDITOR_TAB_SWITCHER_FILES_MODEL_H
 
 #include <QString>
 #include <QIcon>
@@ -89,4 +89,4 @@ QString longestCommonPrefix(std::vector<QString> const & strs);
 
 }
 
-#endif // KTEXTEDITOR_TAB_SWITCHER_FILE_MODEL_H
+#endif // KTEXTEDITOR_TAB_SWITCHER_FILES_MODEL_H

@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "incl_from.h"
+#include <stdio.h>
 
 int incl_from(void)
 {

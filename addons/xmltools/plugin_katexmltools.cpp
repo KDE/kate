@@ -476,10 +476,9 @@ void PluginKateXMLToolsCompletionModel::getDTD()
         m_viewToAssignTo = kv;
 
         QGuiApplication::setOverrideCursor(Qt::WaitCursor);
-        KIO::Job *job = KIO::get(url);
-        connect(job, &KIO::Job::result, this, &PluginKateXMLToolsCompletionModel::slotFinished);
-        connect(job, SIGNAL(data(KIO::Job *, QByteArray)),
-                 this, SLOT(slotData(KIO::Job *, QByteArray)));
+        KIO::TransferJob *job = KIO::get(url);
+        connect(job, &KIO::TransferJob::result, this, &PluginKateXMLToolsCompletionModel::slotFinished);
+        connect(job, &KIO::TransferJob::data, this, &PluginKateXMLToolsCompletionModel::slotData);
     }
     qDebug() << "XMLTools::getDTD: Documents: " << m_docDtds.count() << ", DTDs: " << m_dtds.count();
 }

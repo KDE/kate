@@ -417,6 +417,7 @@ m_mainWindow (mainWin)
     m_mainWindow->guiFactory()->addClient(this);
 
     m_updateSumaryTimer.setInterval(1);
+    m_updateSumaryTimer.setSingleShot(true);
     connect(&m_updateSumaryTimer, &QTimer::timeout, this, &KatePluginSearchView::updateResultsRootItem);
 }
 
@@ -508,6 +509,17 @@ void KatePluginSearchView::handleEsc(QEvent *e)
         else if (m_toolView->isVisible()) {
             m_mainWindow->hideToolView(m_toolView);
         }
+    }
+
+    Results *curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!curResults) {
+        qWarning() << "This is a bug";
+        return;
+    }
+    QTreeWidgetItemIterator it(curResults->tree);
+    while (*it) {
+        (*it)->setCheckState(0, Qt::Unchecked);
+        ++it;
     }
 }
 
@@ -863,6 +875,12 @@ void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
         else {
             i++;
         }
+    }
+
+    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!m_curResults) {
+        qWarning() << "This is a bug";
+        return;
     }
 }
 
@@ -1456,13 +1474,16 @@ void KatePluginSearchView::docViewChanged()
             }
         }
         if (fileItem) {
-            clearMarks();
+            clearDocMarks(doc);
 
             if (m_isSearchAsYouType) {
                 fileItem = fileItem->parent();
             }
 
             for (int i=0; i<fileItem->childCount(); i++) {
+                if (fileItem->child(i)->checkState(0) == Qt::Unchecked) {
+                    continue;
+                }
                 addMatchMark(doc, fileItem->child(i));
             }
         }
@@ -1563,6 +1584,8 @@ void KatePluginSearchView::updateResultsRootItem()
                                                     checkedStr));
             break;
     }
+
+    docViewChanged();
 }
 
 void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)

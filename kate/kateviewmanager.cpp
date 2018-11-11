@@ -1020,6 +1020,14 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
      * delete mapping of now deleted views
      */
     m_views.clear();
+    
+    /**
+     * kill all previous existing sub-splitters, just to be sure
+     * e.g. important if one restores a config in an existing window with some splitters
+     */
+    while (count() > 0) {
+        delete widget(0);
+    }
 
     // reset lru history, too!
     m_minAge = 0;

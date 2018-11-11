@@ -534,14 +534,18 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
         return action.startsWith(QLatin1String("Session "));
     }), newActions.end());
 
+    // Limit the number of list entries we like to offer
+    const int maxEntryCount = std::min(sessionList.count(), 10);
+
     // we compute the new group names in advance so we can tell whether we changed something
     // and avoid touching the desktop file leading to an expensive ksycoca recreation
     QStringList sessionActions;
-    sessionActions.reserve(sessionList.count());
+    sessionActions.reserve(maxEntryCount);
 
-    std::transform(sessionList.constBegin(), sessionList.constEnd(), std::back_inserter(sessionActions), [](const QString &session) {
-        return QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(session.toUtf8(), QCryptographicHash::Md5).toHex()));
-    });
+    for (int i = 0; i < maxEntryCount; ++i) {
+        sessionActions << QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(sessionList.at(i).toUtf8()
+                                                                             , QCryptographicHash::Md5).toHex()));
+    }
 
     newActions += sessionActions;
 
@@ -563,7 +567,6 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
         }
     }
 
-    const int maxEntryCount = std::min(sessionActions.count(), 10);
     for (int i = 0; i < maxEntryCount; ++i) {
         const QString &action = sessionActions.at(i); // is a transform of sessionList, so count and order is identical
         const QString &session = sessionList.at(i);

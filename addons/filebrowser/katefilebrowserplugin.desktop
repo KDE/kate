@@ -2,7 +2,7 @@
 Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katefilebrowserplugin
-Name=File system browser
+Name=File System Browser
 Name[ar]=متصفّح نظام الملفّات
 Name[ast]=Restolador del sistema de ficheros
 Name[bg]=Файлова система

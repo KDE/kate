@@ -2,7 +2,7 @@
 Type=Service
 ServiceTypes=KTextEditor/Plugin,KDevelop/Plugin
 X-KDE-Library=katesnippetsplugin
-Name=Snippets tool view
+Name=Snippets Tool View
 Name[ar]=منظور أداة للقصاصات
 Name[ast]=Vista de ferramientes de snippets
 Name[bs]=Pregledač isječaka
@@ -51,7 +51,7 @@ Name[uk]=Перегляд панелі засобу фрагментів
 Name[x-test]=xxSnippets tool viewxx
 Name[zh_CN]=代码片段工具视图
 Name[zh_TW]=片段工具檢視
-Comment=Toolview embedding the snippets management
+Comment=Manage your code snippets or download new ones
 Comment[ar]=منظور أداة يضمّن إدارة القصاصات
 Comment[ast]=Vista de ferramientes qu'empotra la xestión de snippets
 Comment[bs]=Pregledač za upravljanje isječcima

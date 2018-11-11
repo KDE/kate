@@ -3,6 +3,8 @@ Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katereplicodeplugin
 
+# More information about Replicode: https://github.com/sandsmark/replicode
+
 Name=Replicode
 Name[ar]=ريپلكود
 Name[ast]=Replicode
@@ -46,7 +48,7 @@ Name[uk]=Replicode
 Name[x-test]=xxReplicodexx
 Name[zh_CN]=Replicode
 Name[zh_TW]=Replicode
-Comment=Replicode
+Comment=Replicode (constructivist AI language and runtime)
 Comment[ar]=ريپلكود Replicode
 Comment[ast]=Replicode
 Comment[ca]=Replicode

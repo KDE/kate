@@ -2,7 +2,7 @@
 Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katekonsoleplugin
-Name=Terminal tool view
+Name=Terminal Tool View
 Name[ar]=منظور أداة الطّرفيّة
 Name[ast]=Vista de ferramientes de la terminal
 Name[bs]=Prikaz terminala
@@ -58,7 +58,7 @@ Name[wa]=Vuwe des usteyes terminå
 Name[x-test]=xxTerminal tool viewxx
 Name[zh_CN]=终端工具视图
 Name[zh_TW]=終端機工具檢視
-Comment=Toolview embedding a terminal widget
+Comment=Have a terminal at the ready, using KDE's Konsole widget
 Comment[ar]=منظور أداة تضمّن ودجة طرفيّة
 Comment[ast]=Vista de ferramientes qu'empotra un widget de la terminal
 Comment[bs]=Grafička kontrola ugrađenog terminala

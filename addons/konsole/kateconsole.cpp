@@ -149,7 +149,7 @@ KateConsole::KateConsole (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mw
   a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_focus"));
   a->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
   a->setText(i18nc("@action", "&Focus Terminal"));
-  a->setShortcut(QKeySequence(Qt::Key_F4));
+  actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::Key_F4));
   connect(a, &QAction::triggered, this, &KateConsole::slotToggleFocus);
 
   m_mw->guiFactory()->addClient (this);

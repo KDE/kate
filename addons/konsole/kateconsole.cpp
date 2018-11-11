@@ -390,7 +390,7 @@ void KateConsole::slotToggleFocus()
 void KateConsole::readConfig()
 {
   disconnect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotSync);
-  if ( KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("AutoSyncronize", false) ) {
+  if ( KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("AutoSyncronize", true) ) {
     connect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotSync);
   }
 
@@ -490,7 +490,7 @@ void KateKonsoleConfigPage::apply()
 void KateKonsoleConfigPage::reset()
 {
   KConfigGroup config(KSharedConfig::openConfig(), "Konsole");
-  cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
+  cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", true));
   cbRemoveExtension->setChecked(config.readEntry("RemoveExtension", false));
   lePrefix->setText(config.readEntry("RunPrefix", ""));
   cbSetEditor->setChecked(config.readEntry("SetEditor", false));

@@ -84,23 +84,24 @@ void KateQuickOpenModel::refresh()
 
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
-        allDocuments.push_back({ doc->documentName(), doc->url().toString(QUrl::NormalizePathSegments), false });
+        allDocuments.push_back({ doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), false });
     }
 
     QStringList openedUrls;
     openedUrls.reserve(openDocs.size());
     for (auto *doc : qAsConst(openDocs)) {
-        const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments);
+        const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
         allDocuments.push_back({ doc->documentName(), normalizedUrl, false });
         openedUrls.push_back(normalizedUrl);
     }
 
     for (const auto& file : qAsConst(projectDocs)) {
         QFileInfo fi(file);
-        allDocuments.push_back({ fi.fileName(), QUrl::fromLocalFile(file).toString(QUrl::NormalizePathSegments), false });
+        // example of file: "/home/user/projects/myfile.txt" which is consistent with QUrl::toDisplayString(QUrl::PreferLocalFile)
+        allDocuments.push_back({ fi.fileName(), file, false });
     }
 
-    /** Sort the arrays via Url. */
+    /** Sort the arrays by filePath. */
     std::sort(std::begin(allDocuments), std::end(allDocuments),
         [](const ModelEntry& a, const ModelEntry& b) {
         return a.filePath < b.filePath;
@@ -114,7 +115,7 @@ void KateQuickOpenModel::refresh()
         }),
         std::end(allDocuments));
 
-    for(auto& doc : allDocuments) {
+    for (auto& doc : allDocuments) {
         if (Q_UNLIKELY(openedUrls.indexOf(doc.filePath) != -1)) {
             doc.bold = true;
         }

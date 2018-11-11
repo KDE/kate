@@ -65,7 +65,6 @@ private Q_SLOTS:
 
 Q_SIGNALS:
     void replaceNextMatch();
-    void matchReplaced(KTextEditor::Document* doc, QTreeWidgetItem *item);
     void replaceStatus(const QUrl &url);
     void replaceDone();
 

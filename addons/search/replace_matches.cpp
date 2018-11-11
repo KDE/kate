@@ -131,9 +131,6 @@ bool ReplaceMatches::replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *i
     item->setData(0, ReplaceMatches::EndColumnRole, newEndColumn);
     item->setData(0, ReplaceMatches::ReplacedTextRole, replaceText);
 
-    emit matchReplaced(doc, item);
-
-
     // Convert replace text back to "html"
     replaceText.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
     replaceText.replace(QLatin1Char('\t'), QStringLiteral("\\t"));

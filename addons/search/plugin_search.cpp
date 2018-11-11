@@ -370,8 +370,6 @@ m_mainWindow (mainWin)
 
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, &KatePluginSearchView::clearDocMarks);
 
-    connect(&m_replacer, &ReplaceMatches::matchReplaced, this, &KatePluginSearchView::addMatchMark);
-
     connect(&m_replacer, &ReplaceMatches::replaceStatus, this, &KatePluginSearchView::replaceStatus);
 
     // Hook into line edit context menus
@@ -509,17 +507,18 @@ void KatePluginSearchView::handleEsc(QEvent *e)
         else if (m_toolView->isVisible()) {
             m_mainWindow->hideToolView(m_toolView);
         }
-    }
 
-    Results *curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!curResults) {
-        qWarning() << "This is a bug";
-        return;
-    }
-    QTreeWidgetItemIterator it(curResults->tree);
-    while (*it) {
-        (*it)->setCheckState(0, Qt::Unchecked);
-        ++it;
+        // Remove check marks
+        Results *curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+        if (!curResults) {
+            qWarning() << "This is a bug";
+            return;
+        }
+        QTreeWidgetItemIterator it(curResults->tree);
+        while (*it) {
+            (*it)->setCheckState(0, Qt::Unchecked);
+            ++it;
+        }
     }
 }
 
@@ -830,16 +829,6 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName,
     item->setCheckState (0, Qt::Checked);
 
     m_curResults->matches++;
-
-    // Add mark if the document is open
-    KTextEditor::Document* doc;
-    if (url.isEmpty()) {
-        doc = m_replacer.findNamed(fName);
-    }
-    else {
-        doc = m_kateApp->findUrl(QUrl::fromUserInput(url));
-    }
-    addMatchMark(doc, item);
 }
 
 void KatePluginSearchView::clearMarks()

@@ -1140,6 +1140,15 @@ void KateMainWindow::slotFocusNextTab()
 void KateMainWindow::slotQuickOpen()
 {
     /**
+     * toggle back to view manager when when quick open is already shown
+     */
+    if (m_mainStackedWidget->currentWidget() == m_quickOpen) {
+        m_mainStackedWidget->setCurrentWidget(m_viewManager);
+        centralWidget()->setFocusProxy(m_viewManager);
+        return;
+    }
+
+    /**
      * show quick open and pass focus to it
      */
     m_quickOpen->update();

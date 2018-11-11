@@ -46,6 +46,7 @@
 #include <QBoxLayout>
 #include <QLabel>
 #include <QTreeView>
+#include <QHeaderView>
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
@@ -145,6 +146,14 @@ void KateQuickOpen::update()
 {
     m_base_model->refresh();
     m_listView->resizeColumnToContents(0);
+
+    // If we have a very long file name we restrict the size of the first column
+    // to take at most half of the space. Otherwise it would look odd.
+    int colw0 = m_listView->header()->sectionSize(0); // file name
+    int colw1 = m_listView->header()->sectionSize(1); // file path
+    if (colw0 > colw1) {
+        m_listView->setColumnWidth(0, (colw0 + colw1) / 2);
+    }
 }
 
 void KateQuickOpen::slotReturnPressed()

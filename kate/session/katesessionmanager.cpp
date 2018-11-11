@@ -303,6 +303,11 @@ bool KateSessionManager::renameSession(KateSession::Ptr session, const QString &
 
 void KateSessionManager::saveSessionTo(KConfig *sc) const
 {
+    // Clear the session file to avoid to accumulate outdated entries
+    for (auto group : sc->groupList()) {
+        sc->deleteGroup(group);
+    }
+
     // save plugin configs and which plugins to load
     KateApp::self()->pluginManager()->writeConfig(sc);
 

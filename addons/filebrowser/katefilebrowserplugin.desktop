@@ -5,6 +5,7 @@ X-KDE-Library=katefilebrowserplugin
 Name=File System Browser
 Name[ca]=Navegador del sistema de fitxers
 Name[ca@valencia]=Navegador del sistema de fitxers
+Name[de]=Dateisystem-Browser
 Name[nl]=Bestandssysteembrowser
 Name[pt]=Navegador do Sistema de Ficheiros
 Name[sk]=Prehliadač súborového systému

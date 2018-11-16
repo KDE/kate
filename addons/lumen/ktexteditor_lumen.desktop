@@ -49,6 +49,7 @@ Name[zh_TW]=Lumen
 Comment=Autocompletion Plugin for D, using the DCD autocompletion server
 Comment[ca]=Connector de compleció automàtica pel D, que usa el servidor de compleció automàtica DCD
 Comment[ca@valencia]=Connector de compleció automàtica pel D, que usa el servidor de compleció automàtica DCD
+Comment[de]=Ein Modul zur automatischen Vervollständigung für D, das den DCD-Auto-Vervollständigungs-Server benutzt
 Comment[nl]=Plug-in voor automatisch aanvullen voor D, met gebruikmaking van de DCD-server voor automatisch aanvullen
 Comment[pt]=Ferramenta de completação automática para o D, usando o servidor de completação automática DCD
 Comment[sk]=Lumen je plugin pre automatické dokončovanie pre D, pomocou servera automatického dokončovania DCD

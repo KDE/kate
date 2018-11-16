@@ -399,6 +399,7 @@
   <url type="donation">https://www.kde.org/community/donations/?app=kwrite&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
+      <caption>Editing code with KWrite</caption>
       <image>http://kde.org/images/screenshots/kwrite.png</image>
     </screenshot>
   </screenshots>

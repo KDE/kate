@@ -899,6 +899,7 @@
   <url type="donation">https://www.kde.org/community/donations/?app=kate&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
+      <caption>Editing code with Kate</caption>
       <image>http://kde.org/images/screenshots/kate.png</image>
     </screenshot>
   </screenshots>

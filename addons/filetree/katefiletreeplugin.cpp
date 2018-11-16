@@ -173,9 +173,8 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToCreateDocuments,
             this, &KateFileTreePluginView::slotAboutToCreateDocuments);
 
-    connect(KTextEditor::Editor::instance()->application(),
-            SIGNAL(documentsCreated(QList<KTextEditor::Document *>)),
-            this, SLOT(slotDocumentsCreated(const QList<KTextEditor::Document *> &)));
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentsCreated,
+            this, &KateFileTreePluginView::slotDocumentsCreated);
 
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToDeleteDocuments,
             m_documentModel, &KateFileTreeModel::slotAboutToDeleteDocuments);

@@ -103,6 +103,14 @@ modified file receives focus within the application.</para>
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><anchor id="config-dialog-general-close-mod"/>
+<guilabel>Close Kate entirely when the last file is closed</guilabel></term>
+<listitem><para>If enabled, &kate; will shutdown when the last file being edited is closed,
+otherwise a blank page will open so that you can start a new file.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </listitem>
 </varlistentry><!-- /behavior group -->

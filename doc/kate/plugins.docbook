@@ -38,7 +38,7 @@ The available application plugins are:
 <itemizedlist>
 <listitem>
 <para><link linkend="kate-application-plugin-backtracebrowser">Backtrace Browser</link>
-- Backtrace navigation tool view</para>
+- C/C++ Backtrace navigation tool view</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-build">Build Plugin</link> - Compile or Make and parse error messages</para>
@@ -60,11 +60,11 @@ Preview the document in the target format.</para>
 Quick document switching with <keycombo action="simul">&Alt;&Tab;</keycombo> behavior</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> -
+<para><link linkend="kate-application-plugin-fsbrowser">File System Browser</link> -
   File system browser tool view</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-documents">Documents</link> - Displays the open files in a file tree</para>
+<para><link linkend="kate-application-plugin-documents">Document Tree View</link> - Displays the open files in a file tree</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-gdb">&gdb;</link> - Provides a
@@ -77,17 +77,17 @@ simple &gdb; frontend</para>
 -->
 <listitem>
 <para><link linkend="kate-application-plugin-lumen">Lumen</link> - Lumen
-is a Autocompletion Plugin for D, using the DCD autocompletion server</para>
+Autocompletion Plugin for D, using the DCD autocompletion server</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-openheader">Open Header</link>
 - Opens the corresponding .h/[.cpp|.c] file</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-projects">Project Plugin</link> - Project plugin for kate</para>
+<para><link linkend="kate-application-plugin-projects">Project Plugin</link> - Integration with Git and other source control systems</para>
 </listitem>
 <listitem>
-<para>Replicode</para>
+<para>Replicode - Cconstructivist AI language and runtime</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-rust">Rust code completion</link>
@@ -95,7 +95,7 @@ is a Autocompletion Plugin for D, using the DCD autocompletion server</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-searchinfiles">Search &amp; Replace</link> -
-Search or replace patterns in opened documents or in files on disk</para>
+Search and replace in documents, folders, or projects</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-snippets">Snippets tool view</link> - Tool view embedding the snippets management</para>
@@ -109,10 +109,10 @@ query on SQL databases</para>
 - Extract and show reference symbols from source</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-konsole">Terminal tool view</link> - Tool view embedding a terminal widget</para>
+<para><link linkend="kate-application-plugin-konsole">Terminal tool view</link> - Have a terminal at the ready, using KDE's Konsole widget</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-textfilter">Text Filter</link> - Easy text filtering</para>
+<para><link linkend="kate-application-plugin-textfilter">Text Filter</link> - Process text using terminal commands</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements,
@@ -751,9 +751,9 @@ If you release the shortcut keys the view will switch to the selected document i
 
 <sect1 id="kate-application-plugin-fsbrowser">
 
-<title>Filesystem Browser</title>
+<title>File System Browser</title>
 
-<para>The Filesystem Browser is a folder viewer, allowing you to open
+<para>The File System Browser is a folder viewer, allowing you to open
 files from a displayed folder in the current frame.</para>
 
 <sect2 id="fsbrowser-menu">
@@ -2419,7 +2419,8 @@ be used in the function statically or passed as arguments, by using the
 <userinput>${func(field)}</userinput> or <userinput>${<replaceable>field2=func(field)</replaceable>}</userinput>
 syntax in the snippet string.</para>
 <para>You can use
-the &kate; scripting API to get the selected text, full text, file name and
+the <ulink url="help:/katepart/development.html#dev-scripting-api">&kate; scripting API</ulink> 
+to get the selected text, full text, file name and
 more by using the appropriate methods of the <userinput>document</userinput>
 and <userinput>view</userinput> objects. Refer to the scripting API
 documentation for more information</para>

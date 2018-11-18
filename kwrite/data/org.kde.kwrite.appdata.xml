@@ -41,7 +41,7 @@
   <name xml:lang="sr-Latn">K‑pisanje</name>
   <name xml:lang="sr-ijekavian">К‑писање</name>
   <name xml:lang="sr-ijekavianlatin">K‑pisanje</name>
-  <name xml:lang="sv">Kwrite</name>
+  <name xml:lang="sv"> Kwrite</name>
   <name xml:lang="tr">KWrite</name>
   <name xml:lang="uk">KWrite</name>
   <name xml:lang="x-test">xxKWritexx</name>
@@ -400,6 +400,13 @@
   <screenshots>
     <screenshot type="default">
       <caption>Editing code with KWrite</caption>
+      <caption xml:lang="ca">Edició de codi amb el KWrite</caption>
+      <caption xml:lang="gl">Editando código con KWrite</caption>
+      <caption xml:lang="nl">Broncode bewerken met KWrite</caption>
+      <caption xml:lang="pt">Edição de código com o KWrite</caption>
+      <caption xml:lang="sv">Redigera kod med Kwrite</caption>
+      <caption xml:lang="uk">Редагування коду за допомогою KWrite</caption>
+      <caption xml:lang="x-test">xxEditing code with KWritexx</caption>
       <image>http://kde.org/images/screenshots/kwrite.png</image>
     </screenshot>
   </screenshots>

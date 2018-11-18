@@ -900,6 +900,13 @@
   <screenshots>
     <screenshot type="default">
       <caption>Editing code with Kate</caption>
+      <caption xml:lang="ca">Edició de codi amb el Kate</caption>
+      <caption xml:lang="gl">Editando código con Kate</caption>
+      <caption xml:lang="nl">Broncode bewerken met Kate</caption>
+      <caption xml:lang="pt">Edição de código com o Kate</caption>
+      <caption xml:lang="sv">Redigera kod med Kate</caption>
+      <caption xml:lang="uk">Редагування коду за допомогою Kate</caption>
+      <caption xml:lang="x-test">xxEditing code with Katexx</caption>
       <image>http://kde.org/images/screenshots/kate.png</image>
     </screenshot>
   </screenshots>

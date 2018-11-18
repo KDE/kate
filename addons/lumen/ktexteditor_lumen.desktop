@@ -54,6 +54,7 @@ Comment[gl]=Complemento de completado automático para D que emprega o servidor 
 Comment[nl]=Plug-in voor automatisch aanvullen voor D, met gebruikmaking van de DCD-server voor automatisch aanvullen
 Comment[nn]=Tillegg for autofullføring for D, og som brukar autofullføringstenesta DCD
 Comment[pt]=Ferramenta de completação automática para o D, usando o servidor de completação automática DCD
+Comment[ru]=Lumen — модуль автодополнения для языка D, использующий сервер автодополнения DCD
 Comment[sk]=Lumen je plugin pre automatické dokončovanie pre D, pomocou servera automatického dokončovania DCD
 Comment[sv]=Insticksprogram för automatisk komplettering av D, som använder DCD-servern för automatisk komplettering
 Comment[uk]=Додаток автоматичного доповнення коду мовою D, якому використано сервер доповнення DCD

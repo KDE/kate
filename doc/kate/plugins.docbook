@@ -87,7 +87,7 @@ Autocompletion Plugin for D, using the DCD autocompletion server</para>
 <para><link linkend="kate-application-plugin-projects">Project Plugin</link> - Integration with Git and other source control systems</para>
 </listitem>
 <listitem>
-<para>Replicode - Cconstructivist AI language and runtime</para>
+<para>Replicode - Constructivist AI language and runtime</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-rust">Rust code completion</link>

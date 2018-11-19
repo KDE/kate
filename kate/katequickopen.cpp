@@ -159,7 +159,7 @@ void KateQuickOpen::update()
 void KateQuickOpen::slotReturnPressed()
 {
     const auto index = m_listView->model()->index(m_listView->currentIndex().row(), KateQuickOpenModel::Columns::FilePath);
-    auto url = QUrl(index.data(Qt::DisplayRole).toString());
+    auto url = index.data(Qt::UserRole).toUrl();
     m_mainWindow->wrapper()->openUrl(url);
     m_mainWindow->slotWindowActivated();
     m_inputLine->clear();

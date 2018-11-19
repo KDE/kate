@@ -28,9 +28,10 @@
 #include "katemainwindow.h"
 
 struct ModelEntry {
-    QString fileName;
-    QString filePath;
-    bool bold;
+    QUrl url; // used for actually opening a selected file (local or remote)
+    QString fileName; // display string for left column
+    QString filePath; // display string for right column
+    bool bold; // format line in bold text or not
 };
 
 class KateQuickOpenModel : public QAbstractTableModel {

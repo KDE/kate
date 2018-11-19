@@ -51,7 +51,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex& idx, int role) const
         return {};
     }
 
-    if (role != Qt::DisplayRole && role != Qt::FontRole) {
+    if (role != Qt::DisplayRole && role != Qt::FontRole && role != Qt::UserRole) {
         return {};
     }
 
@@ -67,6 +67,8 @@ QVariant KateQuickOpenModel::data(const QModelIndex& idx, int role) const
             font.setBold(true);
             return font;
         }
+    } else if (role == Qt::UserRole) {
+        return entry.url;
     }
 
     return {};
@@ -84,21 +86,21 @@ void KateQuickOpenModel::refresh()
 
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
-        allDocuments.push_back({ doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), false });
+        allDocuments.push_back({ doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), false });
     }
 
     QStringList openedUrls;
     openedUrls.reserve(openDocs.size());
     for (auto *doc : qAsConst(openDocs)) {
         const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
-        allDocuments.push_back({ doc->documentName(), normalizedUrl, false });
+        allDocuments.push_back({ doc->url(), doc->documentName(), normalizedUrl, false });
         openedUrls.push_back(normalizedUrl);
     }
 
     for (const auto& file : qAsConst(projectDocs)) {
         QFileInfo fi(file);
         // example of file: "/home/user/projects/myfile.txt" which is consistent with QUrl::toDisplayString(QUrl::PreferLocalFile)
-        allDocuments.push_back({ fi.fileName(), file, false });
+        allDocuments.push_back({ QUrl::fromLocalFile(fi.absoluteFilePath()), fi.fileName(), file, false });
     }
 
     /** Sort the arrays by filePath. */

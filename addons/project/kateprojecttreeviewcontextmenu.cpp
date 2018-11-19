@@ -69,7 +69,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
      */
     QMenu menu;
 
-    QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy Filename"));
+    QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy File Path"));
 
     /**
      * handle "open with"

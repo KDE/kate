@@ -593,7 +593,7 @@ void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
     QAction *aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("&Close Document"));
     QAction *aCloseOthers = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-other")), i18n("Close Other &Documents"));
     menu.addSeparator();
-    QAction *aCopyPath = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy &Path"));
+    QAction *aCopyPath = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy File &Path"));
     QAction *aOpenFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("document-open-folder")), i18n("&Open Containing Folder"));
 
     if (KateApp::self()->documentManager()->documentList().count() < 2) {

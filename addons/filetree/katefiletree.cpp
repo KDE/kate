@@ -83,9 +83,9 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     connect(m_filelistCloseOtherDocument, &QAction::triggered, this, &KateFileTree::slotDocumentCloseOther);
     m_filelistCloseOtherDocument->setWhatsThis(i18n("Close other documents in this folder."));
 
-    m_filelistCopyFilename = new QAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18nc("@action:inmenu", "Copy Filename"), this);
+    m_filelistCopyFilename = new QAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18nc("@action:inmenu", "Copy File Path"), this);
     connect(m_filelistCopyFilename, &QAction::triggered, this, &KateFileTree::slotCopyFilename);
-    m_filelistCopyFilename->setWhatsThis(i18n("Copy the filename of the file."));
+    m_filelistCopyFilename->setWhatsThis(i18n("Copy path and filename to the clipboard."));
 
     m_filelistRenameFile = new QAction(QIcon::fromTheme(QLatin1String("edit-rename")), i18nc("@action:inmenu", "Rename File"), this);
     connect(m_filelistRenameFile, &QAction::triggered, this, &KateFileTree::slotRenameFile);

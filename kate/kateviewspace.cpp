@@ -32,15 +32,10 @@
 #include <KAcceleratorManager>
 #include <KConfigGroup>
 #include <KLocalizedString>
-// remove #ifdef, once Kate depends on KF 5.24
-#include <kio_version.h>
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 24, 0)
 #include <KIO/OpenFileManagerWindowJob>
-#endif
 
 #include <QApplication>
 #include <QClipboard>
-#include <QDesktopServices>
 #include <QHelpEvent>
 #include <QMenu>
 #include <QStackedWidget>
@@ -613,11 +608,7 @@ void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
     } else if (choice == aCopyPath) {
         QApplication::clipboard()->setText(doc->url().toDisplayString(QUrl::PreferLocalFile));
     } else if (choice == aOpenFolder) {
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 24, 0)
         KIO::highlightInFileManager({doc->url()});
-#else
-        QDesktopServices::openUrl(doc->url().adjusted(QUrl::RemoveFilename));
-#endif
     }
 }
 

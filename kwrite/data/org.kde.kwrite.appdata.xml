@@ -401,6 +401,7 @@
     <screenshot type="default">
       <caption>Editing code with KWrite</caption>
       <caption xml:lang="ca">Edició de codi amb el KWrite</caption>
+      <caption xml:lang="ca-valencia">Edició de codi amb el KWrite</caption>
       <caption xml:lang="gl">Editando código con KWrite</caption>
       <caption xml:lang="nl">Broncode bewerken met KWrite</caption>
       <caption xml:lang="pt">Edição de código com o KWrite</caption>

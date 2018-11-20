@@ -402,9 +402,12 @@
       <caption>Editing code with KWrite</caption>
       <caption xml:lang="ca">Edició de codi amb el KWrite</caption>
       <caption xml:lang="ca-valencia">Edició de codi amb el KWrite</caption>
+      <caption xml:lang="de">Bearbeitung von Quelltext mit KWrite</caption>
+      <caption xml:lang="el">Επεξεργασία κικα με το KWrite</caption>
       <caption xml:lang="gl">Editando código con KWrite</caption>
       <caption xml:lang="nl">Broncode bewerken met KWrite</caption>
       <caption xml:lang="pt">Edição de código com o KWrite</caption>
+      <caption xml:lang="pt-BR">Editando código no KWrite</caption>
       <caption xml:lang="sv">Redigera kod med Kwrite</caption>
       <caption xml:lang="uk">Редагування коду за допомогою KWrite</caption>
       <caption xml:lang="x-test">xxEditing code with KWritexx</caption>

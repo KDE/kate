@@ -965,7 +965,7 @@ active frame, click the document name in the list.</para>
 <para>The context menu has some common actions from the <guimenu>File</guimenu> menu.</para>
 
 <para>Additionally there are filemanager actions to rename or delete the file. With
-<guimenuitem>Copy Filename</guimenuitem> you can copy the full path of the document
+<guimenuitem>Copy File Path</guimenuitem> you can copy the full path of the document
 to the clipboard.</para>
 
 <para>You can sort the list in a few different ways by right clicking the

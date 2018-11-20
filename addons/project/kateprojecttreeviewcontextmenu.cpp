@@ -23,6 +23,7 @@
 #include <klocalizedstring.h>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KMimeTypeTrader>
+#include <KPropertiesDialog>
 #include <KRun>
 #include <KNS3/KMoreTools>
 #include <KNS3/KMoreToolsMenuFactory>
@@ -101,6 +102,11 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
     auto openContaingFolderAction = menu.addAction(QIcon::fromTheme(QStringLiteral("document-open-folder")), i18n("&Open Containing Folder"));
 
     /**
+     * File Properties Dialog
+     */
+    auto filePropertiesAction = menu.addAction(QIcon::fromTheme(QStringLiteral("dialog-object-properties")), i18n("Properties"));
+
+    /**
      * Git menu
      */
     KMoreToolsMenuFactory menuFactory(QLatin1String("kate/addons/project/git-tools"));
@@ -132,6 +138,13 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
         }
         else if (action == openContaingFolderAction) {
             KIO::highlightInFileManager({ QUrl::fromLocalFile(filename) });
+        }
+        else if (action == filePropertiesAction) {
+            // code copied and adapted from frameworks/kio/src/filewidgets/knewfilemenu.cpp
+            KFileItem fileItem(QUrl::fromLocalFile(filename));
+            QDialog* dlg = new KPropertiesDialog(fileItem);
+            dlg->setAttribute(Qt::WA_DeleteOnClose);
+            dlg->show();
         }
         else {
             // One of the git actions was triggered

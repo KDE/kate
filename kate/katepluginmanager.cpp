@@ -62,15 +62,25 @@ void KatePluginManager::setupPluginList()
         });
 
     /**
-     * move them to our internal data structure
-     * activate some plugins per default
+     * move them to our internal data structure,
+     * activate some plugins per default,
+     * the following list is ordered alphabetically by plugin name
+     * (this is not a technical need; just to have some order)
      */
     QSet<QString> defaultPlugins;
-    defaultPlugins.insert (QLatin1String("katefiletreeplugin"));
-    defaultPlugins.insert (QLatin1String("tabswitcherplugin"));
-    defaultPlugins.insert (QLatin1String("kateprojectplugin"));
-    defaultPlugins.insert (QLatin1String("katesearchplugin"));
-    defaultPlugins.insert (QLatin1String("textfilterplugin"));
+
+    defaultPlugins.insert(QLatin1String("cuttlefishplugin")); // this comes with package plasma5-sdk but it won't hurt to list it here (activate by right click in the text area)
+#ifndef WIN32
+    defaultPlugins.insert(QLatin1String("katefilebrowserplugin")); // currently works badly on Windows
+    defaultPlugins.insert(QLatin1String("katekonsoleplugin")); // currently does not work on Windows at all
+#endif
+    defaultPlugins.insert(QLatin1String("katefiletreeplugin"));
+    defaultPlugins.insert(QLatin1String("kateprojectplugin"));
+    defaultPlugins.insert(QLatin1String("katesearchplugin"));
+    //defaultPlugins.insert(QLatin1String("ktexteditorpreviewplugin")); // the feature is nice and needed, but in its current state we should not present it by default
+    defaultPlugins.insert(QLatin1String("tabswitcherplugin"));
+    defaultPlugins.insert(QLatin1String("textfilterplugin"));
+
     m_pluginList.clear();
     QVectorIterator<KPluginMetaData> i(plugins);
     QSet<QString> unique;

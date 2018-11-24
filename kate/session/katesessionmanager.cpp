@@ -537,13 +537,17 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     // Limit the number of list entries we like to offer
     const int maxEntryCount = std::min(sessionList.count(), 10);
 
+    // sessionList is ordered by time, but we like it alphabetical to avoid even more a needed update
+    QStringList sessionSubList = sessionList.mid(0, maxEntryCount);
+    sessionSubList.sort();
+
     // we compute the new group names in advance so we can tell whether we changed something
     // and avoid touching the desktop file leading to an expensive ksycoca recreation
     QStringList sessionActions;
     sessionActions.reserve(maxEntryCount);
 
     for (int i = 0; i < maxEntryCount; ++i) {
-        sessionActions << QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(sessionList.at(i).toUtf8()
+        sessionActions << QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(sessionSubList.at(i).toUtf8()
                                                                              , QCryptographicHash::Md5).toHex()));
     }
 
@@ -568,8 +572,8 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     }
 
     for (int i = 0; i < maxEntryCount; ++i) {
-        const QString &action = sessionActions.at(i); // is a transform of sessionList, so count and order is identical
-        const QString &session = sessionList.at(i);
+        const QString &action = sessionActions.at(i); // is a transform of sessionSubList, so count and order is identical
+        const QString &session = sessionSubList.at(i);
 
         KConfigGroup grp = df->actionGroup(action);
         grp.writeEntry(QStringLiteral("Name"), session);

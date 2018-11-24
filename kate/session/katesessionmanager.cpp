@@ -84,7 +84,7 @@ void KateSessionManager::updateSessionList()
     QStringList list;
 
     // Let's get a list of all session we have atm
-    QDir dir(m_sessionsDir, QStringLiteral("*.katesession"));
+    QDir dir(m_sessionsDir, QStringLiteral("*.katesession"), QDir::Time);
 
     for (unsigned int i = 0; i < dir.count(); ++i) {
         QString name = dir[i];

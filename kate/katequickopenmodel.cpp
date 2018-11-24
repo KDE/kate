@@ -99,8 +99,11 @@ void KateQuickOpenModel::refresh()
 
     for (const auto& file : qAsConst(projectDocs)) {
         QFileInfo fi(file);
-        // example of file: "/home/user/projects/myfile.txt" which is consistent with QUrl::toDisplayString(QUrl::PreferLocalFile)
-        allDocuments.push_back({ QUrl::fromLocalFile(fi.absoluteFilePath()), fi.fileName(), file, false });
+        const auto localFile = QUrl::fromLocalFile(fi.absoluteFilePath());
+        allDocuments.push_back({
+            localFile,
+            fi.fileName(),
+            localFile.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), false });
     }
 
     /** Sort the arrays by filePath. */

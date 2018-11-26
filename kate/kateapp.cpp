@@ -175,7 +175,10 @@ bool KateApp::startupKate()
     KTextEditor::Document *doc = nullptr;
     const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
 
-    Q_FOREACH(const QString positionalArgument, m_args.positionalArguments()) {
+    //  Bug 397913: Reverse the order here so the new tabs are opened in same order as the files were passed in on the command line
+    QString positionalArgument;
+    for (int i = m_args.positionalArguments().count() - 1; i >= 0; --i) {
+        positionalArgument = m_args.positionalArguments().at(i);
         UrlInfo info(positionalArgument);
 
         // this file is no local dir, open it, else warn

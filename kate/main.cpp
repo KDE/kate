@@ -416,7 +416,9 @@ int main(int argc, char **argv)
             QStringList tokens;
 
             // open given files...
-            foreach(const QString & url, urls) {
+            // Bug 397913: Reverse the order here so the new tabs are opened in same order as the files were passed in on the command line
+            for (int i = urls.size() - 1; i >= 0; --i) {
+                const QString &url = urls[i];
                 QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
                                 QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("tokenOpenUrlAt"));
 

@@ -254,6 +254,10 @@ void ReplaceMatches::doReplaceNextMatch()
         emit replaceStatus(doc->url());
     }
 
+    // Make one transaction for the whole replace to speed up things
+    // and get all replacements in one "undo"
+    KTextEditor::Document::EditingTransaction transaction(doc);
+
     // Create a vector of moving ranges for updating the tree-view after replace
     QVector<KTextEditor::MovingRange*> matches;
     QVector<bool> replaced;

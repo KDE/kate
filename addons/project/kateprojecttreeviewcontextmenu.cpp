@@ -76,7 +76,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
      * Copy Path
      */
     QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy File Path"));
- 
+
     /**
      * Handle "open with",
      * find correct mimetype to query for possible applications

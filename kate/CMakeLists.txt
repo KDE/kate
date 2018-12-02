@@ -20,6 +20,7 @@ set (KATE_LIBRARY_SRCS
    kateconfigdialog.cpp
    kateconfigplugindialogpage.cpp
    katedocmanager.cpp
+   katefileactions.cpp
    katemainwindow.cpp
    katepluginmanager.cpp
    kateviewmanager.cpp

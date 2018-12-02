@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="83" translationDomain="kate">
+<kpartgui name="kate" version="84" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -19,6 +19,14 @@
       <Action name="file_reload_all"/>
       <DefineGroup name="print_merge"/>
       <DefineGroup name="export_merge"/>
+      <Separator/>
+      <Action name="file_rename"/>
+      <Action name="file_delete"/>
+      <Action name="file_compare"/>
+      <Separator/>
+      <Action name="file_copy_filepath"/>
+      <Action name="file_open_containing_folder"/>
+      <Action name="file_properties"/>
       <Separator/>
       <Action name="file_close"/>
       <Action name="file_close_other"/>

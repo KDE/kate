@@ -23,6 +23,7 @@
 #include "kateviewmanager.h"
 #include "katedocmanager.h"
 #include "kateapp.h"
+#include "katefileactions.h"
 #include "katesessionmanager.h"
 #include "katedebug.h"
 #include "katetabbar.h"
@@ -32,12 +33,12 @@
 #include <KAcceleratorManager>
 #include <KConfigGroup>
 #include <KLocalizedString>
-#include <KIO/OpenFileManagerWindowJob>
 
 #include <QApplication>
 #include <QClipboard>
 #include <QHelpEvent>
 #include <QMenu>
+#include <QMessageBox>
 #include <QStackedWidget>
 #include <QToolButton>
 #include <QToolTip>
@@ -584,31 +585,79 @@ void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
     KTextEditor::Document *doc = m_docToTabId.key(id);
     Q_ASSERT(doc);
 
+    auto addActionFromCollection = [this](QMenu* menu, const char* action_name) {
+        QAction* action = m_viewManager->mainWindow()->action(action_name);
+        return menu->addAction(action->icon(), action->text());
+    };
+
     QMenu menu(this);
     QAction *aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("&Close Document"));
     QAction *aCloseOthers = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-other")), i18n("Close Other &Documents"));
     menu.addSeparator();
-    QAction *aCopyPath = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy File &Path"));
-    QAction *aOpenFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("document-open-folder")), i18n("&Open Containing Folder"));
+    QAction *aCopyPath = addActionFromCollection(&menu, "file_copy_filepath");
+    QAction *aOpenFolder = addActionFromCollection(&menu, "file_open_containing_folder");
+    QAction *aFileProperties = addActionFromCollection(&menu, "file_properties");
+    menu.addSeparator();
+    QAction *aRenameFile = addActionFromCollection(&menu, "file_rename");
+    QAction *aDeleteFile = addActionFromCollection(&menu, "file_delete");
+    menu.addSeparator();
+    QMenu *mCompareWithActive = new QMenu(i18n("Compare with active document"), &menu);
+    mCompareWithActive->setIcon(QIcon::fromTheme(QStringLiteral("kompare")));
+    menu.addMenu(mCompareWithActive);
 
     if (KateApp::self()->documentManager()->documentList().count() < 2) {
         aCloseOthers->setEnabled(false);
     }
+
     if (doc->url().isEmpty()) {
         aCopyPath->setEnabled(false);
         aOpenFolder->setEnabled(false);
+        aRenameFile->setEnabled(false);
+        aDeleteFile->setEnabled(false);
+        aFileProperties->setEnabled(false);
+        mCompareWithActive->setEnabled(false);
+    }
+
+    auto activeDocument = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView()->document(); // used for mCompareWithActive which is used with another tab which is not active
+    // both documents must have urls and must not be the same to have the compare feature enabled
+    if (activeDocument->url().isEmpty() || activeDocument == doc) {
+        mCompareWithActive->setEnabled(false);
+    }
+
+    if (mCompareWithActive->isEnabled()) {
+        for (auto&& diffTool : KateFileActions::supportedDiffTools()) {
+            QAction *compareAction = mCompareWithActive->addAction(diffTool);
+            compareAction->setData(diffTool);
+        }
     }
 
     QAction *choice = menu.exec(globalPos);
+
+    if (!choice) {
+        return;
+    }
 
     if (choice == aCloseTab) {
         closeTabRequest(id);
     } else if (choice == aCloseOthers) {
         KateApp::self()->documentManager()->closeOtherDocuments(doc);
     } else if (choice == aCopyPath) {
-        QApplication::clipboard()->setText(doc->url().toDisplayString(QUrl::PreferLocalFile));
+        KateFileActions::copyFilePathToClipboard(doc);
     } else if (choice == aOpenFolder) {
-        KIO::highlightInFileManager({doc->url()});
+        KateFileActions::openContainingFolder(doc);
+    } else if (choice == aFileProperties) {
+        KateFileActions::openFilePropertiesDialog(doc);
+    } else if (choice == aRenameFile) {
+        KateFileActions::renameDocumentFile(this, doc);
+    } else if (choice == aDeleteFile) {
+        KateFileActions::deleteDocumentFile(this, doc);
+    } else if (choice->parent() == mCompareWithActive) {
+        QString actionData = choice->data().toString(); // name of the executable of the diff program
+        if (!KateFileActions::compareWithExternalProgram(activeDocument, doc, actionData)) {
+            QMessageBox::information(this, i18n("Could not start program"),
+                                     i18n("The selected program could not be started. Maybe it is not installed."),
+                                     QMessageBox::StandardButton::Ok);
+        }
     }
 }
 

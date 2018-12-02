@@ -420,6 +420,10 @@ void KateFileTree::slotDocumentReload()
 void KateFileTree::slotCopyFilename()
 {
     KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+
+    // TODO: the following code was improved in kate/katefileactions.cpp and should be reused here
+    //       (make sure that the mentioned bug 381052 does not reappear)
+
     if (doc) {
         // ensure we prefer native separators, bug 381052
         if (doc->url().isLocalFile()) {
@@ -432,6 +436,9 @@ void KateFileTree::slotCopyFilename()
 
 void KateFileTree::slotRenameFile() {
     KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+
+    // TODO: the following code was improved in kate/katefileactions.cpp and should be reused here
+
     if (!doc) {
         return;
     }
@@ -675,6 +682,8 @@ void KateFileTree::slotResetHistory()
 void KateFileTree::slotDocumentDelete()
 {
     KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+
+    // TODO: the following code was improved in kate/katefileactions.cpp and should be reused here
 
     if (!doc) {
         return;

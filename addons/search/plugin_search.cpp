@@ -400,10 +400,9 @@ m_mainWindow (mainWin)
 
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KatePluginSearchView::docViewChanged);
 
-
-    // update once project plugin state manually
-    m_projectPluginView = m_mainWindow->pluginView (QStringLiteral("kateprojectplugin"));
-    slotProjectFileNameChanged ();
+    // Connect signals from project plugin to our slots
+    m_projectPluginView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
+    slotPluginViewCreated(QStringLiteral("kateprojectplugin"), m_projectPluginView);
 
     m_replacer.setDocumentManager(m_kateApp);
     connect(&m_replacer, &ReplaceMatches::replaceDone, this, &KatePluginSearchView::replaceDone);
@@ -2100,26 +2099,26 @@ void KatePluginSearchView::replaceContextMenu(const QPoint& pos)
     }
 }
 
-void KatePluginSearchView::slotPluginViewCreated (const QString &name, QObject *pluginView)
+void KatePluginSearchView::slotPluginViewCreated(const QString &name, QObject *pluginView)
 {
     // add view
-    if (name == QStringLiteral("kateprojectplugin")) {
+    if (pluginView && name == QStringLiteral("kateprojectplugin")) {
         m_projectPluginView = pluginView;
-        slotProjectFileNameChanged ();
+        slotProjectFileNameChanged();
         connect (pluginView, SIGNAL(projectFileNameChanged()), this, SLOT(slotProjectFileNameChanged()));
     }
 }
 
-void KatePluginSearchView::slotPluginViewDeleted (const QString &name, QObject *)
+void KatePluginSearchView::slotPluginViewDeleted(const QString &name, QObject *)
 {
     // remove view
     if (name == QStringLiteral("kateprojectplugin")) {
         m_projectPluginView = nullptr;
-        slotProjectFileNameChanged ();
+        slotProjectFileNameChanged();
     }
 }
 
-void KatePluginSearchView::slotProjectFileNameChanged ()
+void KatePluginSearchView::slotProjectFileNameChanged()
 {
     // query new project file name
     QString projectFileName;

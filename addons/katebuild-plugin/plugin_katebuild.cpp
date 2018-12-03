@@ -493,7 +493,12 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     // set working directory
     m_make_dir = dir;
     m_make_dir_stack.push(m_make_dir);
-    // FIXME check
+
+    if (!QFile::exists(m_make_dir)) {
+        KMessageBox::error(nullptr, i18n("Cannot run command: %1\nWork path does not exist: %2", command, m_make_dir));
+        return false;
+    }
+
     m_proc.setWorkingDirectory(m_make_dir);
     m_proc.setShellCommand(command);
     m_proc.start();

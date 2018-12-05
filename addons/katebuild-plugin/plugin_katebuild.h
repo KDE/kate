@@ -160,7 +160,7 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         /**
         * current project plugin view, if any
         */
-        QObject *m_projectPluginView;
+        QObject *m_projectPluginView = nullptr;
 };
 
 

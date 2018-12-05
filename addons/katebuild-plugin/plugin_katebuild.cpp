@@ -152,8 +152,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_buildUi.cancelBuildButton->setEnabled(false);
     m_buildUi.cancelBuildButton2->setEnabled(false);
 
-    connect(m_buildUi.errTreeWidget, &QTreeWidget::itemClicked,
-            this, &KateBuildView::slotErrorSelected);
+    connect(m_buildUi.errTreeWidget, &QTreeWidget::itemClicked, this, &KateBuildView::slotErrorSelected);
 
     m_buildUi.plainTextEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     m_buildUi.plainTextEdit->setReadOnly(true);
@@ -186,14 +185,12 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_win->guiFactory()->addClient(this);
 
     // watch for project plugin view creation/deletion
-    connect(m_win, &KTextEditor::MainWindow::pluginViewCreated,
-            this, &KateBuildView::slotPluginViewCreated);
+    connect(m_win, &KTextEditor::MainWindow::pluginViewCreated, this, &KateBuildView::slotPluginViewCreated);
+    connect(m_win, &KTextEditor::MainWindow::pluginViewDeleted, this, &KateBuildView::slotPluginViewDeleted);
 
-    connect(m_win, &KTextEditor::MainWindow::pluginViewDeleted,
-            this, &KateBuildView::slotPluginViewDeleted);
-    // update once project plugin state manually
-    m_projectPluginView = m_win->pluginView (QStringLiteral("kateprojectplugin"));
-    slotProjectMapChanged ();
+    // Connect signals from project plugin to our slots
+    m_projectPluginView = m_win->pluginView(QStringLiteral("kateprojectplugin"));
+    slotPluginViewCreated(QStringLiteral("kateprojectplugin"), m_projectPluginView);
 }
 
 
@@ -264,12 +261,17 @@ void KateBuildView::readSessionConfig(const KConfigGroup& cg)
     QModelIndex root = m_targetsUi->targetsModel.index(tmpIndex);
     QModelIndex cmdIndex = m_targetsUi->targetsModel.index(tmpCmd, 0, root);
     m_targetsUi->targetsView->setCurrentIndex(cmdIndex);
+
+    // Add project targets, if any
+    slotAddProjectTarget();
 }
 
 /******************************************************************/
 void KateBuildView::writeSessionConfig(KConfigGroup& cg)
 {
+    // Don't save project targets, is not our area of accountability
     m_targetsUi->targetsModel.deleteTargetSet(i18n("Project Plugin Targets"));
+
     QList<TargetModel::TargetSet> targets = m_targetsUi->targetsModel.targetSets();
 
     cg.writeEntry("NumTargets", targets.size());
@@ -302,6 +304,8 @@ void KateBuildView::writeSessionConfig(KConfigGroup& cg)
 
     cg.writeEntry(QStringLiteral("Active Target Index"), set);
     cg.writeEntry(QStringLiteral("Active Target Command"), setRow);
+
+    // Restore project targets, if any
     slotAddProjectTarget();
 }
 
@@ -914,18 +918,18 @@ void KateBuildView::slotDisplayMode(int mode) {
 }
 
 /******************************************************************/
-void KateBuildView::slotPluginViewCreated (const QString &name, QObject *pluginView)
+void KateBuildView::slotPluginViewCreated(const QString &name, QObject *pluginView)
 {
     // add view
-    if (name == QLatin1String("kateprojectplugin")) {
+    if (pluginView && name == QLatin1String("kateprojectplugin")) {
         m_projectPluginView = pluginView;
-        slotProjectMapChanged ();
-        connect(pluginView, SIGNAL(projectMapChanged()), this, SLOT(slotProjectMapChanged()));
+        slotAddProjectTarget();
+        connect(pluginView, SIGNAL(projectMapChanged()), this, SLOT(slotProjectMapChanged()), Qt::UniqueConnection);
     }
 }
 
 /******************************************************************/
-void KateBuildView::slotPluginViewDeleted (const QString &name, QObject *)
+void KateBuildView::slotPluginViewDeleted(const QString &name, QObject *)
 {
     // remove view
     if (name == QLatin1String("kateprojectplugin")) {
@@ -935,7 +939,7 @@ void KateBuildView::slotPluginViewDeleted (const QString &name, QObject *)
 }
 
 /******************************************************************/
-void KateBuildView::slotProjectMapChanged ()
+void KateBuildView::slotProjectMapChanged()
 {
     // only do stuff with valid project
     if (!m_projectPluginView) {

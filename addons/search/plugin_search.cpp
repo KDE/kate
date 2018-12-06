@@ -798,6 +798,8 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, QTreeWidgetI
             this, SLOT(clearMarks()), Qt::UniqueConnection);
 }
 
+static const int contextLen = 70;
+
 void KatePluginSearchView::matchFound(const QString &url, const QString &fName,
                                       const QString &lineContent, int matchLen,
                                       int startLine, int startColumn, int endLine, int endColumn)
@@ -805,13 +807,26 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName,
     if (!m_curResults) {
         return;
     }
-
-    QString pre = lineContent.left(startColumn).toHtmlEscaped();
+    int preLen = contextLen;
+    int preStart = startColumn - preLen;
+    if (preStart < 0) {
+        preLen += preStart;
+        preStart = 0;
+    }
+    QString pre;
+    if (preLen == contextLen) {
+        pre = QStringLiteral("...");
+    }
+    pre += lineContent.mid(preStart, preLen).toHtmlEscaped();
     QString match = lineContent.mid(startColumn, matchLen).toHtmlEscaped();
     match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
-    QString post = lineContent.mid(startColumn + matchLen).toHtmlEscaped();
+    QString post = lineContent.mid(startColumn + matchLen, contextLen);
+    if (post.size() >= contextLen) {
+        post += QStringLiteral("...");
+    }
+    post = post.toHtmlEscaped();
     QStringList row;
-    row << i18n("Line: <b>%1</b>: %2", startLine+1, pre+QStringLiteral("<b>")+match+QStringLiteral("</b>")+post);
+    row << i18n("Line: <b>%1</b> Column: <b>%2</b>: %3", startLine+1, startColumn+1, pre+QStringLiteral("<b>")+match+QStringLiteral("</b>")+post);
 
     TreeWidgetItem *item = new TreeWidgetItem(rootFileItem(url, fName), row);
     item->setData(0, ReplaceMatches::FileUrlRole, url);

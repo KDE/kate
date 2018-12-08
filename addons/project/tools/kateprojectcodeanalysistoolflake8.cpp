@@ -34,7 +34,7 @@ KateProjectCodeAnalysisToolFlake8::~KateProjectCodeAnalysisToolFlake8()
 
 }
 
-QString KateProjectCodeAnalysisToolFlake8::name()
+QString KateProjectCodeAnalysisToolFlake8::name() const
 {
     return i18n("Flake8 (Python)");
 }
@@ -44,18 +44,18 @@ QString KateProjectCodeAnalysisToolFlake8::description() const
     return i18n("Flake8: Your Tool For Style Guide Enforcement for Python");
 }
 
-QString KateProjectCodeAnalysisToolFlake8::fileExtensions()
+QString KateProjectCodeAnalysisToolFlake8::fileExtensions() const
 {
     return QStringLiteral("py");
 }
 
-QStringList KateProjectCodeAnalysisToolFlake8::filter(const QStringList &files)
+QStringList KateProjectCodeAnalysisToolFlake8::filter(const QStringList &files) const
 {
     // for now we expect files with extension
     return files.filter(QRegularExpression(QStringLiteral("\\.(") + fileExtensions() + QStringLiteral(")$")));
 }
 
-QString KateProjectCodeAnalysisToolFlake8::path()
+QString KateProjectCodeAnalysisToolFlake8::path() const
 {
     /*
      * for now, only the executable in the path can be called,
@@ -85,12 +85,12 @@ QStringList KateProjectCodeAnalysisToolFlake8::arguments()
     return _args;
 }
 
-QString KateProjectCodeAnalysisToolFlake8::notInstalledMessage()
+QString KateProjectCodeAnalysisToolFlake8::notInstalledMessage() const
 {
     return i18n("Please install 'flake8'.");
 }
 
-QStringList KateProjectCodeAnalysisToolFlake8::parseLine(const QString &line)
+QStringList KateProjectCodeAnalysisToolFlake8::parseLine(const QString &line) const
 {
     return line.split(QRegExp(QStringLiteral("////")), QString::SkipEmptyParts);
 }

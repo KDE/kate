@@ -35,12 +35,12 @@ void KateProjectCodeAnalysisTool::setProject(KateProject *project)
     m_project = project;
 }
 
-bool KateProjectCodeAnalysisTool::isSuccessfulExitCode(int exitCode)
+bool KateProjectCodeAnalysisTool::isSuccessfulExitCode(int exitCode) const
 {
     return exitCode == 0;
 }
 
-int KateProjectCodeAnalysisTool::getActualFilesCount()
+int KateProjectCodeAnalysisTool::getActualFilesCount() const
 {
     return m_filesCount;
 }

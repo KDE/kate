@@ -32,23 +32,23 @@ public:
 
     virtual ~KateProjectCodeAnalysisToolShellcheck() override;
 
-    virtual QString name() override;
+    virtual QString name() const override;
 
     virtual QString description() const override;
 
-    virtual QString fileExtensions() override;
+    virtual QString fileExtensions() const override;
 
-    virtual QStringList filter(const QStringList &files) override;
+    virtual QStringList filter(const QStringList &files) const override;
 
-    virtual QString path() override;
+    virtual QString path() const override;
 
     virtual QStringList arguments() override;
 
-    virtual QString notInstalledMessage() override;
+    virtual QString notInstalledMessage() const override;
 
-    virtual QStringList parseLine(const QString &line) override;
+    virtual QStringList parseLine(const QString &line) const override;
 
-    virtual bool isSuccessfulExitCode(int exitCode) override;
+    virtual bool isSuccessfulExitCode(int exitCode) const override;
 
     virtual QString stdinMessages() override;
 };

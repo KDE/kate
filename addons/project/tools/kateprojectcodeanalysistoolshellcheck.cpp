@@ -33,7 +33,7 @@ KateProjectCodeAnalysisToolShellcheck::~KateProjectCodeAnalysisToolShellcheck()
 {
 }
 
-QString KateProjectCodeAnalysisToolShellcheck::name()
+QString KateProjectCodeAnalysisToolShellcheck::name() const
 {
     return i18n("ShellCheck (sh/bash)");
 }
@@ -43,19 +43,19 @@ QString KateProjectCodeAnalysisToolShellcheck::description() const
     return i18n("ShellCheck is a static analysis and linting tool for sh/bash scripts");
 }
 
-QString KateProjectCodeAnalysisToolShellcheck::fileExtensions()
+QString KateProjectCodeAnalysisToolShellcheck::fileExtensions() const
 {
     // TODO: How to also handle files with no file extension?
     return QStringLiteral("sh|bash");
 }
 
-QStringList KateProjectCodeAnalysisToolShellcheck::filter(const QStringList &files)
+QStringList KateProjectCodeAnalysisToolShellcheck::filter(const QStringList &files) const
 {
     // for now we expect files with extension
     return files.filter(QRegularExpression(QStringLiteral("\\.(") + fileExtensions() + QStringLiteral(")$")));
 }
 
-QString KateProjectCodeAnalysisToolShellcheck::path()
+QString KateProjectCodeAnalysisToolShellcheck::path() const
 {
     return QStringLiteral("shellcheck");
 }
@@ -82,12 +82,12 @@ QStringList KateProjectCodeAnalysisToolShellcheck::arguments()
     return _args;
 }
 
-QString KateProjectCodeAnalysisToolShellcheck::notInstalledMessage()
+QString KateProjectCodeAnalysisToolShellcheck::notInstalledMessage() const
 {
     return i18n("Please install ShellCheck (see https://www.shellcheck.net).");
 }
 
-QStringList KateProjectCodeAnalysisToolShellcheck::parseLine(const QString &line)
+QStringList KateProjectCodeAnalysisToolShellcheck::parseLine(const QString &line) const
 {
     // Example:
     // IN:
@@ -108,7 +108,7 @@ QStringList KateProjectCodeAnalysisToolShellcheck::parseLine(const QString &line
     return outList;
 }
 
-bool KateProjectCodeAnalysisToolShellcheck::isSuccessfulExitCode(int exitCode)
+bool KateProjectCodeAnalysisToolShellcheck::isSuccessfulExitCode(int exitCode) const
 {
     // "0: All files successfully scanned with no issues."
     // "1: All files successfully scanned with some issues."

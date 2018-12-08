@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="84" translationDomain="kate">
+<kpartgui name="kate" version="85" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -96,13 +96,11 @@
     <Menu name="sessions">
       <text>Sess&amp;ions</text>
       <Action name="sessions_new"/>
-      <Action name="sessions_open"/>
       <Action name="sessions_list"/>
+      <Action name="sessions_manage"/>
       <Separator/>
       <Action name="sessions_save"/>
       <Action name="sessions_save_as"/>
-      <Separator/>
-      <Action name="sessions_manage"/>
     </Menu>
     <Menu name="settings">
       <text>&amp;Settings</text>

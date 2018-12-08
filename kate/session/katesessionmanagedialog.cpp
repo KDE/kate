@@ -21,142 +21,269 @@
 #include "katesessionmanagedialog.h"
 
 #include "kateapp.h"
-#include "katesessionmanager.h"
 #include "katesessionchooseritem.h"
+#include "katesessionmanager.h"
 
+#include <KColorScheme>
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KSharedConfig>
 #include <KStandardGuiItem>
 
-#include <QApplication>
-#include <QDialogButtonBox>
-#include <QFile>
 #include <QInputDialog>
-#include <QPushButton>
-#include <QTreeWidget>
-#include <QVBoxLayout>
 
 KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)
     : QDialog(parent)
 {
+    setupUi(this);
     setWindowTitle(i18n("Manage Sessions"));
+    m_dontAskCheckBox->hide();
 
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    setLayout(mainLayout);
+    m_sessionList->installEventFilter(this);
+    connect(m_sessionList, &QTreeWidget::currentItemChanged, this, &KateSessionManageDialog::selectionChanged);
+    connect(m_sessionList, &QTreeWidget::itemDoubleClicked, this, &KateSessionManageDialog::openSession);
+    m_sessionList->header()->moveSection(0, 1); // Re-order columns to "Files, Sessions"
 
-    QHBoxLayout *hb = new QHBoxLayout();
-    mainLayout->addLayout(hb);
+    m_filterBox->installEventFilter(this);
+    connect(m_filterBox, &QLineEdit::textChanged, this, &KateSessionManageDialog::filterChanged);
+    connect(m_sortButton, &QPushButton::clicked, this, &KateSessionManageDialog::changeSortOrder);
 
-    m_sessions = new QTreeWidget(this);
-    m_sessions->setMinimumSize(400, 200);
-    hb->addWidget(m_sessions);
-    m_sessions->setColumnCount(2);
-    QStringList header;
-    header << i18n("Session Name");
-    header << i18nc("The number of open documents", "Open Documents");
-    m_sessions->setHeaderLabels(header);
-    m_sessions->setRootIsDecorated(false);
-    m_sessions->setItemsExpandable(false);
-    m_sessions->setAllColumnsShowFocus(true);
-    m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
-    m_sessions->setSelectionMode(QAbstractItemView::SingleSelection);
+    connect(m_newButton, &QPushButton::clicked, this, &KateSessionManageDialog::openNewSession);
 
-    connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
+    KGuiItem::assign(m_openButton, KStandardGuiItem::open());
+    m_openButton->setDefault(true);
+    connect(m_openButton, &QPushButton::clicked, this, &KateSessionManageDialog::openSession);
 
-    updateSessionList();
-    m_sessions->resizeColumnToContents(0);
+    connect(m_templateButton, &QPushButton::clicked, this, &KateSessionManageDialog::openSessionAsTemplate);
 
-    // right column buttons
-    QDialogButtonBox *rightButtons = new QDialogButtonBox(this);
-    rightButtons->setOrientation(Qt::Vertical);
-    hb->addWidget(rightButtons);
+    connect(m_copyButton, &QPushButton::clicked, this, &KateSessionManageDialog::copySession);
 
-    m_rename = new QPushButton(i18n("&Rename..."));
-    connect(m_rename, SIGNAL(clicked()), this, SLOT(rename()));
-    rightButtons->addButton(m_rename, QDialogButtonBox::ApplyRole);
+    connect(m_renameButton, &QPushButton::clicked, this, &KateSessionManageDialog::editBegin);
 
-    m_del = new QPushButton();
-    KGuiItem::assign(m_del, KStandardGuiItem::del());
-    connect(m_del, SIGNAL(clicked()), this, SLOT(del()));
-    rightButtons->addButton(m_del, QDialogButtonBox::ApplyRole);
+    connect(m_deleteButton, &QPushButton::clicked, this, &KateSessionManageDialog::updateDeleteList);
 
-    // dialog buttons
-    QDialogButtonBox *bottomButtons = new QDialogButtonBox(this);
-    mainLayout->addWidget(bottomButtons);
+    KGuiItem::assign(m_closeButton, KStandardGuiItem::close());
+    connect(m_closeButton, &QPushButton::clicked, this, &KateSessionManageDialog::closeDialog);
 
-    QPushButton *closeButton = new QPushButton;
-    KGuiItem::assign(closeButton, KStandardGuiItem::close());
-    closeButton->setDefault(true);
-    bottomButtons->addButton(closeButton, QDialogButtonBox::RejectRole);
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(slotClose()));
+    connect(KateApp::self()->sessionManager(), &KateSessionManager::sessionListChanged, this, &KateSessionManageDialog::updateSessionList);
 
-    m_openButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-open")), i18n("&Open"));
-    bottomButtons->addButton(m_openButton, QDialogButtonBox::AcceptRole);
-    connect(m_openButton, SIGNAL(clicked()), this, SLOT(open()));
-
-    // trigger action update
-    selectionChanged(nullptr, nullptr);
+    changeSortOrder(); // Set order to SortAlphabetical, set button text and fill session list
 }
+
+
+KateSessionManageDialog::KateSessionManageDialog(QWidget *parent, const QString &lastSession)
+    : KateSessionManageDialog(parent)
+{
+    setWindowTitle(i18n("Session Chooser"));
+    m_dontAskCheckBox->show();
+    m_chooserMode = true;
+    connect(m_dontAskCheckBox, &QCheckBox::toggled, this, &KateSessionManageDialog::dontAskToggled);
+
+    m_prefferedSession = lastSession;
+    changeSortOrder(); // Set order to SortChronological
+}
+
 
 KateSessionManageDialog::~KateSessionManageDialog()
 {}
 
-void KateSessionManageDialog::slotClose()
+
+void KateSessionManageDialog::dontAskToggled()
 {
-    done(0);
+    m_templateButton->setEnabled(!m_dontAskCheckBox->isChecked());
 }
 
-void KateSessionManageDialog::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
+
+void KateSessionManageDialog::changeSortOrder()
 {
-    const bool validItem = (current != nullptr);
-
-    m_rename->setEnabled(validItem);
-    m_del->setEnabled(validItem && (static_cast<KateSessionChooserItem *>(current))->session != KateApp::self()->sessionManager()->activeSession());
-    m_openButton->setEnabled(true);
-}
-
-void KateSessionManageDialog::rename()
-{
-    KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem());
-
-    if (!item) {
-        return;
+    switch (m_sortOrder) {
+        case SortAlphabetical:
+            m_sortOrder = SortChronological;
+            m_sortButton->setText(i18n("Sort Alpabetical"));
+            //m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
+            break;
+        case SortChronological:
+            m_sortOrder = SortAlphabetical;
+            m_sortButton->setText(i18n("Sort Last Used"));
+            //m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
+            break;
     }
 
-    bool ok = false;
-    QString name = QInputDialog::getText(QApplication::activeWindow(), // nasty trick:)
-                                         i18n("Specify New Name for Session"), i18n("Session name:"),
-                                         QLineEdit::Normal, item->session->name(), &ok);
-
-    if (!ok) {
-        return;
-    }
-
-    if (name.isEmpty()) {
-        KMessageBox::sorry(this, i18n("To save a session, you must specify a name."), i18n("Missing Session Name"));
-        return;
-    }
-
-    if (KateApp::self()->sessionManager()->renameSession(item->session, name)) {
-        updateSessionList();
-    }
-}
-
-void KateSessionManageDialog::del()
-{
-    KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem());
-
-    if (!item) {
-        return;
-    }
-
-    KateApp::self()->sessionManager()->deleteSession(item->session);
     updateSessionList();
 }
 
-void KateSessionManageDialog::open()
+
+void KateSessionManageDialog::filterChanged()
 {
-    KateSessionChooserItem *item = static_cast<KateSessionChooserItem *>(m_sessions->currentItem());
+    static QPointer<QTimer> delay;
+
+    if (!delay) {
+        delay = new QTimer(this); // Should be auto cleard by Qt when we die
+        delay->setSingleShot(true);
+        delay->setInterval(400);
+        connect(delay, &QTimer::timeout, this, &KateSessionManageDialog::updateSessionList);
+    }
+
+    delay->start();
+}
+
+
+void KateSessionManageDialog::done(int result)
+{
+    for (auto session : qAsConst(m_deleteList)) {
+        KateApp::self()->sessionManager()->deleteSession(session);
+    }
+    m_deleteList.clear(); // May not needed, but anyway
+
+    if (ResultQuit == result) {
+        QDialog::done(0);
+        return;
+    }
+
+    if (m_chooserMode && m_dontAskCheckBox->isChecked()) {
+        // write back our nice boolean :)
+        KConfigGroup generalConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
+        switch (result) {
+        case ResultOpen:
+            generalConfig.writeEntry("Startup Session", "last");
+            break;
+        case ResultNew:
+            generalConfig.writeEntry("Startup Session", "new");
+            break;
+        default:
+            break;
+        }
+        generalConfig.sync();
+    }
+
+    QDialog::done(1);
+}
+
+
+void KateSessionManageDialog::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+{
+    Q_UNUSED(previous);
+
+    if (m_editByUser) {
+        editDone(); // Field was left unchanged, no need to apply
+        return;
+    }
+
+    if (!current) {
+        m_openButton->setEnabled(false);
+        m_templateButton->setEnabled(false);
+        m_copyButton->setEnabled(false);
+        m_renameButton->setEnabled(false);
+        m_deleteButton->setEnabled(false);
+        return;
+    }
+
+    const KateSession::Ptr activeSession = KateApp::self()->sessionManager()->activeSession();
+    const bool notActiveSession = !KateApp::self()->sessionManager()->sessionIsActive(currentSelectedSession()->name());
+
+    m_deleteButton->setEnabled(notActiveSession);
+
+    if (m_deleteList.contains(currentSelectedSession())) {
+        m_deleteButton->setText(i18n("Restore"));
+        m_openButton->setEnabled(false);
+        m_templateButton->setEnabled(false);
+        m_copyButton->setEnabled(true); // Looks a little strange but is OK
+        m_renameButton->setEnabled(false);
+    } else {
+        KGuiItem::assign(m_deleteButton, KStandardGuiItem::del());
+        m_openButton->setEnabled(currentSelectedSession() != activeSession);
+        m_templateButton->setEnabled(true);
+        m_copyButton->setEnabled(true);
+        m_renameButton->setEnabled(true);
+    }
+}
+
+
+void KateSessionManageDialog::disableButtons()
+{
+    m_openButton->setEnabled(false);
+    m_newButton->setEnabled(false);
+    m_templateButton->setEnabled(false);
+    m_dontAskCheckBox->setEnabled(false);
+    m_copyButton->setEnabled(false);
+    m_renameButton->setEnabled(false);
+    m_deleteButton->setEnabled(false);
+    m_closeButton->setEnabled(false);
+    m_sortButton->setEnabled(false);
+    m_filterBox->setEnabled(false);
+}
+
+
+void KateSessionManageDialog::editBegin()
+{
+    if (m_editByUser) {
+        return;
+    }
+
+    KateSessionChooserItem *item = currentSessionItem();
+
+    if (!item) {
+        return;
+    }
+
+    disableButtons();
+
+    item->setFlags(item->flags() | Qt::ItemIsEditable);
+    m_sessionList->clearSelection();
+    m_sessionList->editItem(item, 0);
+
+    // Always apply changes user did, like Dolphin
+    connect(m_sessionList, &QTreeWidget::itemChanged, this, &KateSessionManageDialog::editApply);
+    connect(m_sessionList->itemWidget(item, 0), &QObject::destroyed, this, &KateSessionManageDialog::editApply);
+
+    m_editByUser = item; // Do it last to block eventFilter() actions until we are ready
+}
+
+
+void KateSessionManageDialog::editDone()
+{
+    m_editByUser = nullptr;
+    disconnect(m_sessionList, &QTreeWidget::itemChanged, this, &KateSessionManageDialog::editApply);
+    updateSessionList();
+
+    m_newButton->setEnabled(true);
+    m_dontAskCheckBox->setEnabled(true);
+    m_closeButton->setEnabled(true);
+    m_sortButton->setEnabled(true);
+    m_filterBox->setEnabled(true);
+
+    m_sessionList->setFocus();
+}
+
+
+void KateSessionManageDialog::editApply()
+{
+    if (!m_editByUser) {
+        return;
+    }
+
+    KateApp::self()->sessionManager()->renameSession(m_editByUser->session, m_editByUser->text(0));
+    editDone();
+}
+
+
+void KateSessionManageDialog::copySession()
+{
+    KateSessionChooserItem *item = currentSessionItem();
+
+    if (!item) {
+        return;
+    }
+
+    m_prefferedSession = KateApp::self()->sessionManager()->copySession(item->session);
+    m_sessionList->setFocus(); // Only needed when user abort
+}
+
+
+void KateSessionManageDialog::openSession()
+{
+    KateSessionChooserItem *item = currentSessionItem();
 
     if (!item) {
         return;
@@ -164,18 +291,216 @@ void KateSessionManageDialog::open()
 
     hide();
     KateApp::self()->sessionManager()->activateSession(item->session);
-    done(0);
+    done(ResultOpen);
 }
+
+
+void KateSessionManageDialog::openSessionAsTemplate()
+{
+    KateSessionChooserItem *item = currentSessionItem();
+
+    if (!item) {
+        return;
+    }
+
+    hide();
+
+    KateSessionManager *sm = KateApp::self()->sessionManager();
+    KateSession::Ptr ns = KateSession::createAnonymousFrom(item->session, sm->anonymousSessionFile());
+    sm->activateSession(ns);
+
+    done(ResultOpen);
+}
+
+
+void KateSessionManageDialog::openNewSession()
+{
+    hide();
+    KateApp::self()->sessionManager()->sessionNew();
+    done(ResultNew);
+}
+
+
+void KateSessionManageDialog::updateDeleteList()
+{
+    KateSessionChooserItem *item = currentSessionItem();
+
+    if (!item) {
+        return;
+    }
+
+    const KateSession::Ptr session = item->session;
+    if (m_deleteList.contains(session)) {
+        m_deleteList.remove(session);
+        item->setForeground(0, QBrush(KColorScheme(QPalette::Active).foreground(KColorScheme::NormalText).color()));
+        item->setIcon(0, QIcon());
+        item->setToolTip(0, QString());
+    } else {
+        m_deleteList.insert(session);
+        markItemAsToBeDeleted(item);
+    }
+
+    // To ease multiple deletions, move the selection
+    QTreeWidgetItem *newItem = m_sessionList->itemBelow(item) ? m_sessionList->itemBelow(item) : m_sessionList->topLevelItem(0);
+    m_sessionList->setCurrentItem(newItem);
+    m_sessionList->setFocus();
+}
+
+
+void KateSessionManageDialog::markItemAsToBeDeleted(QTreeWidgetItem *item)
+{
+    item->setForeground(0, QBrush(KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText).color()));
+    item->setIcon(0, QIcon::fromTheme(QStringLiteral("emblem-warning")));
+    item->setToolTip(0, i18n("Session will be deleted on dialog close"));
+}
+
+
+void KateSessionManageDialog::closeDialog()
+{
+    done(ResultQuit);
+}
+
 
 void KateSessionManageDialog::updateSessionList()
 {
-    m_sessions->clear();
+    if (m_editByUser) {
+        // Don't crash accidentally an ongoing edit
+        return;
+    }
+
+    KateSession::Ptr currSelSession = currentSelectedSession();
+    KateSession::Ptr activeSession = KateApp::self()->sessionManager()->activeSession();
+
+    m_sessionList->clear();
 
     KateSessionList slist = KateApp::self()->sessionManager()->sessionList();
-    qSort(slist.begin(), slist.end(), KateSession::compareByName);
+    switch (m_sortOrder) {
+        case SortAlphabetical: std::sort (slist.begin(), slist.end(), KateSession::compareByName); break;
+        case SortChronological: std::sort (slist.begin(), slist.end(), KateSession::compareByTimeDesc); break;
+    }
 
-    foreach(const KateSession::Ptr & session, slist) {
-        new KateSessionChooserItem(m_sessions, session);
+    KateSessionChooserItem *prefferedItem = nullptr;
+    KateSessionChooserItem *currSessionItem = nullptr;
+    KateSessionChooserItem *activeSessionItem= nullptr;
+
+    for (const KateSession::Ptr &session : qAsConst(slist)) {
+        if (!m_filterBox->text().isEmpty()) {
+            if (!session->name().contains(m_filterBox->text(), Qt::CaseInsensitive)) {
+                continue;
+            }
+        }
+
+        KateSessionChooserItem *item = new KateSessionChooserItem(m_sessionList, session);
+        if (session == currSelSession) {
+            currSessionItem = item;
+        } else if (session == activeSession) {
+            activeSessionItem = item;
+        } else if (session->name() == m_prefferedSession) {
+            prefferedItem = item;
+            m_prefferedSession.clear();
+        }
+
+        if (m_deleteList.contains(session)) {
+            markItemAsToBeDeleted(item);
+        }
+    }
+
+    m_sessionList->resizeColumnToContents(1); // Minimize "Files" column
+
+    if (!prefferedItem) {
+        prefferedItem = currSessionItem ? currSessionItem : activeSessionItem;
+    }
+
+    if (prefferedItem) {
+        m_sessionList->setCurrentItem(prefferedItem);
+        m_sessionList->scrollToItem(prefferedItem);
+    } else if (m_sessionList->topLevelItemCount() > 0) {
+        m_sessionList->setCurrentItem(m_sessionList->topLevelItem(0));
+    }
+
+    if (m_filterBox->hasFocus()){
+        return;
+    }
+
+    if (m_sessionList->topLevelItemCount() == 0) {
+        m_newButton->setFocus();
+    } else {
+        m_sessionList->setFocus();
     }
 }
 
+
+KateSessionChooserItem *KateSessionManageDialog::currentSessionItem() const
+{
+    return static_cast<KateSessionChooserItem *>(m_sessionList->currentItem());
+}
+
+
+KateSession::Ptr KateSessionManageDialog::currentSelectedSession() const
+{
+    KateSessionChooserItem *item = currentSessionItem();
+
+    if (!item) {
+        return KateSession::Ptr();
+    }
+
+    return item->session;
+}
+
+
+bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
+{
+    QKeyEvent *ke = static_cast<QKeyEvent*>(event);
+
+    if (object == m_sessionList) {
+        if (!m_editByUser) { // No need for further action
+            return false;
+        }
+
+        if (event->type() == QEvent::KeyPress) {
+            switch (ke->key()) {
+                // Avoid to apply changes with untypical keys/don't left edit field this way
+                case Qt::Key_Up :
+                case Qt::Key_Down :
+                case Qt::Key_PageUp :
+                case Qt::Key_PageDown :
+                    return true;
+                default:
+                    break;
+            }
+
+        } else if (event->type() == QEvent::KeyRelease) {
+            switch (ke->key()) {
+                case Qt::Key_Escape :
+                    editDone(); // Abort edit
+                    break;
+                case Qt::Key_Return :
+                    editApply();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    } else if (object == m_filterBox) {
+        // Catch Return key to avoid to finish the dialog
+        if (event->type() == QEvent::KeyPress && (ke->key() == Qt::Key_Return || ke->key() == Qt::Key_Enter)) {
+            updateSessionList();
+            m_sessionList->setFocus();
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+void KateSessionManageDialog::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event);
+
+    if (m_editByUser) {
+        // We must catch closeEvent here due to connected signal of QLineEdit::destroyed->editApply()->crash!
+        editDone(); // editApply() don't work, m_editByUser->text(0) will not updated from QLineEdit
+    }
+}

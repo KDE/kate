@@ -32,6 +32,8 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
 {
     Q_OBJECT
 
+    friend class KateSessionManageDialog;
+
 public:
     KateSessionManager(QObject *parent = nullptr, const QString &sessionsDir = QString());
     ~KateSessionManager() override;
@@ -96,11 +98,6 @@ public Q_SLOTS:
     void sessionNew();
 
     /**
-     * try to open a existing session
-     */
-    void sessionOpen();
-
-    /**
      * try to save current session
      */
     void sessionSave();
@@ -122,6 +119,12 @@ Q_SIGNALS:
     void sessionChanged();
 
     /**
+     * Emitted whenever the session list has changed.
+     * @see sessionList()
+     */
+    void sessionListChanged();
+
+    /**
      * module internal APIs
      */
 public:
@@ -133,17 +136,31 @@ public:
     KateSession::Ptr giveSession(const QString &name);
 
     /**
-     * deletes session file and removes the session from sessions list
+     * Try to delete the @p session and removes the session from sessions list
+     * @param the session to delete
+     * @return true on success, false if @p session is currently in use
      */
-    void deleteSession(KateSession::Ptr session);
+    bool deleteSession(KateSession::Ptr session);
 
     /**
-     * renames the session to \p newName
-     * @param session pointer to the session
-     * @param newName new name of the session
-     * @return true if successful
+     * Try to copy the @p session to a new session @p newName.
+     * Will ask by @c askForNewSessionName() for a differend name when @p newName is already in use or is an
+     * empty string.
+     * @param newName is wished name of the new session
+     * @return the new session name on success, otherwise an empty string
+     * @see askForNewSessionName()
      */
-    bool renameSession(KateSession::Ptr session, const QString &newName);
+    QString copySession(KateSession::Ptr session, const QString &newName = QString());
+
+    /**
+     * Try to rename the @p session to @p newName.
+     * Will ask by @c askForNewSessionName() for a differend name when @p newName is already in use or is an
+     * empty string.
+     * @param newName is wished new name of the session
+     * @return the new session name on success, otherwise an empty string
+     * @see askForNewSessionName()
+     */
+    QString renameSession(KateSession::Ptr session, const QString &newName = QString());
 
     /**
      * activate a session
@@ -164,14 +181,30 @@ private Q_SLOTS:
 
 private:
     /**
-     * Asks the user for a new session name. Used by save as for example.
+     * Ask the user for a new session name, when needed.
+     * @param session is the session to rename or copy
+     * @param newName is a preset value. Is @p newName not already in use is nothing asked
+     * @return a (currently) not used new session name or an empty string when
+     * user aborted or when @p newName is the current session name.
      */
-    bool newSessionName();
+    QString askForNewSessionName(KateSession::Ptr session, const QString &newName = QString());
+
+    /**
+     * Try to generate a new session name from @p target by a number suffix.
+     * @param target is the base name
+     * @return a (currently) not used session name or an empty string
+     */
+    QString suggestNewSessionName(const QString &target);
 
     /**
      * returns session config file according to policy
      */
     QString sessionFileForName(const QString &name) const;
+
+    /**
+     * @return true when @p session is active in any Kate instance, otherwise false
+     */
+    bool sessionIsActive(const QString &session);
 
     /**
      * returns session file for anonymous session

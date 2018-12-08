@@ -33,11 +33,9 @@ set (KATE_LIBRARY_SRCS
    katetabbar.cpp
 
    # session
-   session/katesessionchooser.cpp
    session/katesessionsaction.cpp
    session/katesessionmanager.cpp
    session/katesessionmanagedialog.cpp
-   session/katesessionopendialog.cpp
    session/katesession.cpp
 
    katemdi.cpp
@@ -48,6 +46,7 @@ set (KATE_LIBRARY_SRCS
 
 ki18n_wrap_ui(KATE_LIBRARY_SRCS
     ui/sessionconfigwidget.ui
+    session/katesessionmanagedialog.ui
 )
 
 qt5_add_resources( KATE_LIBRARY_SRCS data/kate.qrc )

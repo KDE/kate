@@ -36,7 +36,12 @@ KateProjectCodeAnalysisToolFlake8::~KateProjectCodeAnalysisToolFlake8()
 
 QString KateProjectCodeAnalysisToolFlake8::name()
 {
-    return i18n("flake8");
+    return i18n("Flake8 (Python)");
+}
+
+QString KateProjectCodeAnalysisToolFlake8::description() const
+{
+    return i18n("Flake8: Your Tool For Style Guide Enforcement for Python");
 }
 
 QString KateProjectCodeAnalysisToolFlake8::fileExtensions()
@@ -72,7 +77,9 @@ QStringList KateProjectCodeAnalysisToolFlake8::arguments()
           << QStringLiteral("--format=%(path)s////%(row)d////%(code)s////%(text)s");
 
     if (m_project) {
-        _args.append(filter(m_project->files()));
+        auto&& fileList = filter(m_project->files());
+        setActualFilesCount(fileList.size());
+        _args.append(fileList);
     }
 
     return _args;

@@ -108,8 +108,9 @@ KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis()
 void KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged(int)
 {
     m_analysisTool = m_toolSelector->currentData(Qt::UserRole + 1).value<KateProjectCodeAnalysisTool*>();
-    m_toolInfoText = i18n("The selected tool will be run on all project files which match this list of file extensions:<br/><b>%1</b>",
-                            m_analysisTool->fileExtensions());
+    m_toolInfoText = i18n("%1<br/><br/>The tool will be run on all project files which match this list of file extensions:<br/><br/><b>%2</b>",
+                        m_analysisTool->description(),
+                        m_analysisTool->fileExtensions());
 }
 
 void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
@@ -126,7 +127,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     m_model->removeRows(0, m_model->rowCount(), QModelIndex());
 
     /**
-     * launch cppcheck
+     * launch selected tool
      */
     m_analyzer = new QProcess(this);
     m_analyzer->setProcessChannelMode(QProcess::MergedChannels);
@@ -152,6 +153,9 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
         m_messageWidget->animatedShow();
         return;
     }
+
+    m_startStopAnalysis->setEnabled(false);
+
     /**
      * write files list and close write channel
      */
@@ -230,19 +234,22 @@ void KateProjectInfoViewCodeAnalysis::slotClicked(const QModelIndex &index)
 
 void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatus)
 {
+    m_startStopAnalysis->setEnabled(true);
+
   m_messageWidget = new KMessageWidget();
   m_messageWidget->setCloseButtonVisible(true);
   m_messageWidget->setWordWrap(false);
 
-  if (exitCode == 0) {
+  if (m_analysisTool->isSuccessfulExitCode(exitCode)) {
+    // normally 0 is successful but there are exceptions
     m_messageWidget->setMessageType(KMessageWidget::Information);
-    m_messageWidget->setText(i18n("Analysis finished."));
+    m_messageWidget->setText(i18np("Analysis on %1 file finished.", "Analysis on %1 files finished.", m_analysisTool->getActualFilesCount()));
   } else {
     // unfortunately, output was eaten by slotReadyRead()
     // TODO: get stderr output, show it here
     m_messageWidget->setMessageType(KMessageWidget::Warning);
-    m_messageWidget->setText(i18n("Analysis failed!"));
+    m_messageWidget->setText(i18np("Analysis on %1 file failed with exit code %2.", "Analysis on %1 files failed with exit code %2.", m_analysisTool->getActualFilesCount(), exitCode));
   }
-  static_cast<QVBoxLayout*>(layout ())->addWidget(m_messageWidget);
-  m_messageWidget->animatedShow ();
+  static_cast<QVBoxLayout*>(layout())->addWidget(m_messageWidget);
+  m_messageWidget->animatedShow();
 }

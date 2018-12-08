@@ -20,8 +20,11 @@
 
 #include "test1.h"
 #include "fileutil.h"
+#include "tools/kateprojectcodeanalysistoolshellcheck.h"
 
 #include <QtTest>
+
+#include <QStringLiteral>
 
 QTEST_MAIN(Test1)
 
@@ -38,6 +41,15 @@ void Test1::testCommonParent()
     QCOMPARE(FileUtil::commonParent(QLatin1String("/usr/local/bin"), QLatin1String("/usr/local/bin")), QLatin1String("/usr/local/"));
     QCOMPARE(FileUtil::commonParent(QLatin1String("/usr/local"), QLatin1String("/usr/local/bin")), QLatin1String("/usr/"));
     QCOMPARE(FileUtil::commonParent(QLatin1String("~/dev/proj1"), QLatin1String("~/dev/proj222")), QLatin1String("~/dev/"));
+}
+
+void Test1::testShellCheckParsing()
+{
+    QString line = QStringLiteral("script.sh:3:11: note: Use ./*glob* or -- *glob* so ... options. [SC2035]");
+    KateProjectCodeAnalysisToolShellcheck sc(nullptr);
+    QStringList outList = sc.parseLine(line);
+    //qDebug() << outList;
+    QCOMPARE(outList.size(), 4);
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

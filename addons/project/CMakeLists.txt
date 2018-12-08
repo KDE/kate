@@ -26,6 +26,7 @@ set(kateprojectplugin_PART_SRCS
   kateprojectcodeanalysistool.cpp
   tools/kateprojectcodeanalysistoolcppcheck.cpp
   tools/kateprojectcodeanalysistoolflake8.cpp
+  tools/kateprojectcodeanalysistoolshellcheck.cpp
   tools/kateprojectcodeanalysisselector.cpp
 )
 

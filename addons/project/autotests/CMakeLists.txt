@@ -5,7 +5,12 @@ include_directories(
 )
 
 # Project Plugin
-set(ProjectPluginSrc test1.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../fileutil.cpp)
+set(ProjectPluginSrc
+    test1.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../fileutil.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../kateprojectcodeanalysistool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../tools/kateprojectcodeanalysistoolshellcheck.cpp
+)
 add_executable(projectplugin_test ${ProjectPluginSrc})
 add_test(plugin-project_test projectplugin_test)
 target_link_libraries(projectplugin_test kdeinit_kate Qt5::Test)

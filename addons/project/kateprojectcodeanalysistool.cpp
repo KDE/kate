@@ -26,11 +26,26 @@ KateProjectCodeAnalysisTool::KateProjectCodeAnalysisTool(QObject *parent)
 {
 }
 
+KateProjectCodeAnalysisTool::~KateProjectCodeAnalysisTool()
+{
+}
+
 void KateProjectCodeAnalysisTool::setProject(KateProject *project)
 {
     m_project = project;
 }
 
-KateProjectCodeAnalysisTool::~KateProjectCodeAnalysisTool()
+bool KateProjectCodeAnalysisTool::isSuccessfulExitCode(int exitCode)
 {
+    return exitCode == 0;
+}
+
+int KateProjectCodeAnalysisTool::getActualFilesCount()
+{
+    return m_filesCount;
+}
+
+void KateProjectCodeAnalysisTool::setActualFilesCount(int count)
+{
+    m_filesCount = count;
 }

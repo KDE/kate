@@ -36,7 +36,12 @@ KateProjectCodeAnalysisToolCppcheck::~KateProjectCodeAnalysisToolCppcheck()
 
 QString KateProjectCodeAnalysisToolCppcheck::name()
 {
-    return i18n("cppcheck");
+    return i18n("Cppcheck (C++)");
+}
+
+QString KateProjectCodeAnalysisToolCppcheck::description() const
+{
+    return i18n("Cppcheck is a static analysis tool for C/C++ code");
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::fileExtensions()
@@ -88,5 +93,7 @@ QString KateProjectCodeAnalysisToolCppcheck::stdinMessages()
         return QString();
     }
 
-    return filter(m_project->files()).join(QStringLiteral("\n"));
+    auto&& fileList = filter(m_project->files());
+    setActualFilesCount(fileList.size());
+    return fileList.join(QStringLiteral("\n"));
 }

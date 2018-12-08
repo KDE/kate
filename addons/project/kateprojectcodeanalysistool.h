@@ -55,6 +55,11 @@ public:
     virtual QString name() = 0;
 
     /**
+     * @return tool short description
+     */
+    virtual QString description() const = 0;
+
+    /**
      * @returns a string containing the file extensions this
      * tool should be run, separated by '|',
      * e.g. "cpp|cxx"
@@ -93,9 +98,35 @@ public:
     virtual QStringList parseLine(const QString &line) = 0;
 
     /**
+     * Tells the tool runner if the returned process exit code
+     * was a successful one.
+     *
+     * The default implementation returns true on exitCode 0.
+     *
+     * Override this method for a tool that use a non-zero exit code
+     * e.g. if the processing itself was successful but not all files
+     * had no linter errors.
+     */
+    virtual bool isSuccessfulExitCode(int exitCode);
+
+    /**
      * @return messages passed to the tool through stdin
      */
     virtual QString stdinMessages() = 0;
+
+    /**
+     * @returns the number of files to be processed after the filter
+     * has been applied
+     */
+    int getActualFilesCount();
+
+    /**
+     * To be called by derived classes
+     */
+    void setActualFilesCount(int count);
+
+private:
+    int m_filesCount = 0;
 };
 
 Q_DECLARE_METATYPE(KateProjectCodeAnalysisTool*)

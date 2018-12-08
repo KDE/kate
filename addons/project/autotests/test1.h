@@ -33,6 +33,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void testCommonParent();
+    void testShellCheckParsing();
 };
 
 #endif

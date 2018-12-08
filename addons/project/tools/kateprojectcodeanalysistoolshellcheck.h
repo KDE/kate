@@ -1,6 +1,6 @@
 /*  This file is part of the Kate project.
  *
- *  Copyright (C) 2017 Héctor Mesa Jiménez <hector@lcc.uma.es>
+ *  Copyright (C) 2018 Gregor Mi <codestruct@posteo.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -18,20 +18,19 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef KATE_PROJECT_CODE_ANALYSIS_TOOL_CPPCHECK_H
-#define KATE_PROJECT_CODE_ANALYSIS_TOOL_CPPCHECK_H
+#pragma once
 
 #include "../kateprojectcodeanalysistool.h"
 
 /**
- * Information provider for cppcheck
+ * Information provider for shellcheck
  */
-class KateProjectCodeAnalysisToolCppcheck: public KateProjectCodeAnalysisTool
+class KateProjectCodeAnalysisToolShellcheck : public KateProjectCodeAnalysisTool
 {
 public:
-    explicit KateProjectCodeAnalysisToolCppcheck(QObject *parent = nullptr);
+    explicit KateProjectCodeAnalysisToolShellcheck(QObject *parent = nullptr);
 
-    virtual ~KateProjectCodeAnalysisToolCppcheck() override;
+    virtual ~KateProjectCodeAnalysisToolShellcheck() override;
 
     virtual QString name() override;
 
@@ -49,7 +48,7 @@ public:
 
     virtual QStringList parseLine(const QString &line) override;
 
+    virtual bool isSuccessfulExitCode(int exitCode) override;
+
     virtual QString stdinMessages() override;
 };
-
-#endif // KATE_PROJECT_CODE_ANALYSIS_TOOL_CPPCHECK_H

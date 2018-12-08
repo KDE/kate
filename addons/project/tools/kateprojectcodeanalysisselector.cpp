@@ -22,6 +22,7 @@
 
 #include "kateprojectcodeanalysistoolcppcheck.h"
 #include "kateprojectcodeanalysistoolflake8.h"
+#include "kateprojectcodeanalysistoolshellcheck.h"
 
 QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
 {
@@ -34,7 +35,9 @@ QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
         // cppcheck, for C++
         new KateProjectCodeAnalysisToolCppcheck(model),
         // flake8, for Python
-        new KateProjectCodeAnalysisToolFlake8(model)
+        new KateProjectCodeAnalysisToolFlake8(model),
+        // ShellCheck, for sh/bash scripts
+        new KateProjectCodeAnalysisToolShellcheck(model)
     };
 
     QList<QStandardItem*> column;

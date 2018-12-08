@@ -247,8 +247,9 @@ void KateViewManager::slotDocumentOpen()
         }
     }
     if (!fileListWithTooLargeFiles.isEmpty()) {
-        const QString text = i18n("<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>");
-        const auto ret = KMessageBox::warningYesNo(this, text.arg(fileListWithTooLargeFiles), i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop());
+        const QString text = i18n("<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>"
+                                 , fileListWithTooLargeFiles);
+        const auto ret = KMessageBox::warningYesNo(this, text, i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop());
         if (ret == KMessageBox::No) {
             return;
         }

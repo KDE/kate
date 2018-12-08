@@ -39,10 +39,15 @@ QString KateProjectCodeAnalysisToolFlake8::name()
     return i18n("flake8");
 }
 
+QString KateProjectCodeAnalysisToolFlake8::fileExtensions()
+{
+    return QStringLiteral("py");
+}
+
 QStringList KateProjectCodeAnalysisToolFlake8::filter(const QStringList &files)
 {
     // for now we expect files with extension
-    return files.filter(QRegularExpression(QStringLiteral("\\.py$")));
+    return files.filter(QRegularExpression(QStringLiteral("\\.(") + fileExtensions() + QStringLiteral(")$")));
 }
 
 QString KateProjectCodeAnalysisToolFlake8::path()

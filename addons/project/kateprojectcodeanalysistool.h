@@ -55,6 +55,15 @@ public:
     virtual QString name() = 0;
 
     /**
+     * @returns a string containing the file extensions this
+     * tool should be run, separated by '|',
+     * e.g. "cpp|cxx"
+     * NOTE that this is used directly as part of a regular expression.
+     * If more flexibility is required this method probably will change
+     */
+    virtual QString fileExtensions() = 0;
+
+    /**
      * filter relevant files
      * @param files set of files in project
      * @return relevant files that can be analyzed

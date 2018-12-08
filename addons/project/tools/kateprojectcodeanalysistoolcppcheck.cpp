@@ -39,10 +39,17 @@ QString KateProjectCodeAnalysisToolCppcheck::name()
     return i18n("cppcheck");
 }
 
+QString KateProjectCodeAnalysisToolCppcheck::fileExtensions()
+{
+    return QStringLiteral("cpp|cxx|cc|c++|c|tpp|txx");
+}
+
 QStringList KateProjectCodeAnalysisToolCppcheck::filter(const QStringList &files)
 {
     // c++ files
-    return files.filter(QRegularExpression(QStringLiteral("\\.(cpp|cxx|cc|c\\+\\+|c|tpp|txx)$")));
+    return files.filter(QRegularExpression(QStringLiteral("\\.(")
+    + fileExtensions().replace(QStringLiteral("+"), QStringLiteral("\\+"))
+    + QStringLiteral(")$")));
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::path()

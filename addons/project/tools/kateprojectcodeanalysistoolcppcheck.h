@@ -35,6 +35,8 @@ public:
 
     virtual QString name() override;
 
+    virtual QString fileExtensions() override;
+
     virtual QStringList filter(const QStringList &files) override;
 
     virtual QString path() override;

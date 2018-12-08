@@ -23,10 +23,11 @@
 
 #include "kateproject.h"
 
-#include <QPushButton>
-#include <QProcess>
-#include <QTreeView>
 #include <QComboBox>
+#include <QLabel>
+#include <QProcess>
+#include <QPushButton>
+#include <QTreeView>
 
 class KateProjectPluginView;
 class KateProjectCodeAnalysisTool;
@@ -62,6 +63,11 @@ public:
     }
 
 private Q_SLOTS:
+    /**
+     * Called if the tool is changed (currently via Combobox)
+     */
+    void slotToolSelectionChanged(int);
+
     /**
      * Called if start/stop button is clicked.
      */
@@ -121,10 +127,20 @@ private:
      */
     QProcess *m_analyzer;
 
+    /**
+     * currently selected tool
+     */
     KateProjectCodeAnalysisTool *m_analysisTool;
 
+    /**
+     * UI element to select the tool
+     */
     QComboBox *m_toolSelector;
 
+    /**
+     * contains a rich text to explain what the current tool does
+     */
+    QString m_toolInfoText;
 };
 
 #endif

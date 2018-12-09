@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="katectags-plugin" library="katectagsplugin" version="3" translationDomain="kate-ctags-plugin">
+<gui name="katectags-plugin" library="katectagsplugin" version="4" translationDomain="kate-ctags-plugin">
   <MenuBar>
     <Menu name="CTags Menubar">
       <text>CTags</text>
@@ -9,6 +9,8 @@
       <Action name="ctags_lookup_current_as_declaration"/>
       <Action name="ctags_lookup_current_as_definition"/>
       <Action name="ctags_jump_to_next_matcht"/>
+      <Separator/>
+      <Action name="ctags_update_global_db"/>
     </Menu>
   </MenuBar>
   <Menu name="ktexteditor_popup" noMerge="1">

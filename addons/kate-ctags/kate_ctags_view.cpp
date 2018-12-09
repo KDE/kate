@@ -20,6 +20,7 @@
  */
 
 #include "kate_ctags_view.h"
+#include "kate_ctags_plugin.h"
 #include "kate_ctags_debug.h"
 
 #include <QFileInfo>
@@ -65,6 +66,27 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     QAction *lookup = actionCollection()->addAction(QLatin1String("ctags_lookup_current"));
     lookup->setText(i18n("Lookup Current Text"));
     connect(lookup, &QAction::triggered, this, &KateCTagsView::lookupTag);
+
+    QAction *updateDB = actionCollection()->addAction(QLatin1String("ctags_update_global_db"));
+    updateDB->setText(i18n("Configure ..."));
+    connect(updateDB, &QAction::triggered, this, [this, plugin] (bool) {
+        if (m_mWin) {
+            KateCTagsPlugin *p = static_cast<KateCTagsPlugin*>(plugin);
+            QDialog *confWin = new QDialog(m_mWin->window());
+            confWin->setAttribute(Qt::WA_DeleteOnClose);
+            auto confPage = p->configPage(0, confWin);
+            auto controls = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, Qt::Horizontal, confWin);
+            connect(confWin, &QDialog::accepted, confPage, &KTextEditor::ConfigPage::apply);
+            connect(controls, &QDialogButtonBox::accepted, confWin, &QDialog::accept);
+            connect(controls, &QDialogButtonBox::rejected, confWin, &QDialog::reject);
+            auto layout = new QVBoxLayout(confWin);
+            layout->addWidget(confPage);
+            layout->addWidget(controls);
+            confWin->setLayout(layout);
+            confWin->show();
+            confWin->exec();
+        }
+    });
 
     // popup menu
     m_menu = new KActionMenu(i18n("CTags"), this);
@@ -125,7 +147,9 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 /******************************************************************/
 KateCTagsView::~KateCTagsView()
 {
-    m_mWin->guiFactory()->removeClient( this );
+    if (m_mWin && m_mWin->guiFactory()) {
+        m_mWin->guiFactory()->removeClient( this );
+    }
 
     delete m_toolView;
 }

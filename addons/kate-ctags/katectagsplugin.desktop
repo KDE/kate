@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=KTextEditor/Plugin
+ServiceTypes=KTextEditor/Plugin,KDevelop/Plugin
 X-KDE-Library=katectagsplugin
 Name=CTags
 Name[ar]=وسوم سي

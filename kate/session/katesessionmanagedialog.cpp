@@ -100,7 +100,7 @@ void KateSessionManageDialog::changeSortOrder()
     switch (m_sortOrder) {
         case SortAlphabetical:
             m_sortOrder = SortChronological;
-            m_sortButton->setText(i18n("Sort Alpabetical"));
+            m_sortButton->setText(i18n("Sort Alphabetical"));
             //m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
             break;
         case SortChronological:

@@ -151,12 +151,12 @@
        </item>
        <item>
         <property name="text">
-         <string>in Open Files</string>
+         <string>In Open Files</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>in Folder</string>
+         <string>In Folder</string>
         </property>
        </item>
       </widget>

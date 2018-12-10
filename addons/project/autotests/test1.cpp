@@ -24,7 +24,7 @@
 
 #include <QtTest>
 
-#include <QStringLiteral>
+#include <QString>
 
 QTEST_MAIN(Test1)
 

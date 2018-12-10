@@ -83,6 +83,8 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
             layout->addWidget(confPage);
             layout->addWidget(controls);
             confWin->setLayout(layout);
+            confWin->setWindowTitle(i18nc("@title:window", "Configure CTags Plugin"));
+            confWin->setWindowIcon(confPage->icon());
             confWin->show();
             confWin->exec();
         }

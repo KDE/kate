@@ -98,7 +98,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     connect(m_menu->menu(), &QMenu::aboutToShow, this, &KateCTagsView::aboutToShow);
 
-    QWidget *ctagsWidget = new QWidget(m_toolView);
+    QWidget *ctagsWidget = new QWidget(m_toolView.data());
     m_ctagsUi.setupUi(ctagsWidget);
     m_ctagsUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);
 
@@ -136,6 +136,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     connect(m_mWin, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateCTagsView::handleEsc);
 
+    m_toolView->layout()->addWidget(ctagsWidget);
     m_toolView->installEventFilter(this);
 
     m_mWin->guiFactory()->addClient(this);
@@ -151,7 +152,9 @@ KateCTagsView::~KateCTagsView()
         m_mWin->guiFactory()->removeClient( this );
     }
 
-    delete m_toolView;
+    if (m_toolView) {
+        delete m_toolView;
+    }
 }
 
 /******************************************************************/

@@ -99,7 +99,7 @@ private:
     
 
     QPointer<KTextEditor::MainWindow> m_mWin;
-    QWidget               *m_toolView;
+    QPointer<QWidget>      m_toolView;
     Ui::kateCtags          m_ctagsUi;
 
     QPointer<KActionMenu>  m_menu;

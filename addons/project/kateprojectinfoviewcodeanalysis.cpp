@@ -36,7 +36,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     , m_project(project)
     , m_messageWidget(nullptr)
     , m_startStopAnalysis(new QPushButton(i18n("Start Analysis...")))
-    , m_treeView(new QTreeView())
+    , m_treeView(new QTreeView(this))
     , m_model(new QStandardItemModel(m_treeView))
     , m_analyzer(nullptr)
     , m_analysisTool(nullptr)
@@ -90,6 +90,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
 
 KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis()
 {
+    delete m_analyzer;
 }
 
 void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
@@ -108,7 +109,8 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     /**
      * launch cppcheck
      */
-    m_analyzer = new QProcess(this);
+    delete m_analyzer;
+    m_analyzer = new QProcess;
     m_analyzer->setProcessChannelMode(QProcess::MergedChannels);
 
     connect(m_analyzer, &QProcess::readyRead, this, &KateProjectInfoViewCodeAnalysis::slotReadyRead);
@@ -123,7 +125,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     }
 
     if (!m_analyzer->waitForStarted()) {
-        m_messageWidget = new KMessageWidget();
+        m_messageWidget = new KMessageWidget(this);
         m_messageWidget->setCloseButtonVisible(true);
         m_messageWidget->setMessageType(KMessageWidget::Warning);
         m_messageWidget->setWordWrap(false);
@@ -210,7 +212,7 @@ void KateProjectInfoViewCodeAnalysis::slotClicked(const QModelIndex &index)
 
 void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatus)
 {
-  m_messageWidget = new KMessageWidget();
+  m_messageWidget = new KMessageWidget(this);
   m_messageWidget->setCloseButtonVisible(true);
   m_messageWidget->setWordWrap(false);
 

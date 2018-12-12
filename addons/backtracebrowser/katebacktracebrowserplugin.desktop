@@ -79,5 +79,6 @@ Comment[sk]=Zobrazenie nástroja backtrace navigácie
 Comment[sv]=C/C++ navigeringsverktyg med vy av bakåtspårning
 Comment[uk]=Панель навігації зворотним трасуванням C++
 Comment[x-test]=xxC/C++ Backtrace navigation tool viewxx
+Comment[zh_CN]=C/C++ 回溯导航工具视图
 Comment[zh_TW]=C/C++ 回溯追蹤導覽工具檢視
 author=Dominik Haumann, dhaumann@kde.org

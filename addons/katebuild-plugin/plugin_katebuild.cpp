@@ -325,7 +325,8 @@ void KateBuildView::slotNext()
 
     while (++i < itemCount) {
         item = m_buildUi.errTreeWidget->topLevelItem(i);
-        if (!item->text(1).isEmpty() && !item->isHidden()) {
+        // Search item which fit view settings and has desired data
+        if (!item->text(1).isEmpty() && !item->isHidden() && item->data(1, Qt::UserRole).toInt()) {
             m_buildUi.errTreeWidget->setCurrentItem(item);
             m_buildUi.errTreeWidget->scrollToItem(item);
             slotErrorSelected(item);
@@ -349,7 +350,8 @@ void KateBuildView::slotPrev()
 
     while (--i >= 0) {
         item = m_buildUi.errTreeWidget->topLevelItem(i);
-        if (!item->text(1).isEmpty() && !item->isHidden()) {
+        // Search item which fit view settings and has desired data
+        if (!item->text(1).isEmpty() && !item->isHidden() && item->data(1, Qt::UserRole).toInt()) {
             m_buildUi.errTreeWidget->setCurrentItem(item);
             m_buildUi.errTreeWidget->scrollToItem(item);
             slotErrorSelected(item);
@@ -361,23 +363,36 @@ void KateBuildView::slotPrev()
 /******************************************************************/
 void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
 {
+    // any view active?
+    if (!m_win->activeView()) {
+        return;
+    }
+
+    // Avoid garish highlighting of the selected line
+    m_win->activeView()->setFocus();
+
+    // Search the item where the data we need is stored
+    while (!item->data(1, Qt::UserRole).toInt()) {
+        item = m_buildUi.errTreeWidget->itemAbove(item);
+        if (!item) {
+            return;
+        }
+    }
+
     // get stuff
     const QString filename = item->data(0, Qt::UserRole).toString();
-    if (filename.isEmpty()) return;
+    if (filename.isEmpty()) {
+        return;
+    }
+
     const int line = item->data(1, Qt::UserRole).toInt();
     const int column = item->data(2, Qt::UserRole).toInt();
 
     // open file (if needed, otherwise, this will activate only the right view...)
     m_win->openUrl(QUrl::fromLocalFile(filename));
 
-    // any view active?
-    if (!m_win->activeView()) {
-        return;
-    }
-
     // do it ;)
     m_win->activeView()->setCursorPosition(KTextEditor::Cursor(line-1, column-1));
-    m_win->activeView()->setFocus();
 }
 
 

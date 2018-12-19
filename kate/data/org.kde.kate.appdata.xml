@@ -902,6 +902,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Editing code with Kate</caption>
+      <caption xml:lang="ast">Edición de códigu con Kate</caption>
       <caption xml:lang="ca">Edició de codi amb el Kate</caption>
       <caption xml:lang="ca-valencia">Edició de codi amb el Kate</caption>
       <caption xml:lang="de">Bearbeitung von Quelltext mit Kate</caption>

@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=KTextEditor/Plugin,KDevelop/Plugin
 X-KDE-Library=katesnippetsplugin
 Name=Snippets Tool View
+Name[ast]=Vista de ferramientes de snippets
 Name[ca]=Vista d'eina pels retalls
 Name[ca@valencia]=Vista d'eina pels retalls
 Name[de]=Werkzeugansicht für Textbausteine

@@ -47,6 +47,7 @@ Name[x-test]=xxLumenxx
 Name[zh_CN]=Lumen
 Name[zh_TW]=Lumen
 Comment=Autocompletion Plugin for D, using the DCD autocompletion server
+Comment[ast]=Complementu d'autocompletáu pa D qu'usa'l sirvidor d'autocompletáu DCD
 Comment[ca]=Connector de compleció automàtica pel D, que usa el servidor de compleció automàtica DCD
 Comment[ca@valencia]=Connector de compleció automàtica pel D, que usa el servidor de compleció automàtica DCD
 Comment[de]=Ein Modul zur automatischen Vervollständigung für D, das den DCD-Auto-Vervollständigungs-Server benutzt

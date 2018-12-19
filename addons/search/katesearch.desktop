@@ -58,6 +58,7 @@ Name[x-test]=xxSearch & Replacexx
 Name[zh_CN]=搜索和替换
 Name[zh_TW]=搜尋並取代
 Comment=Search and replace in documents, folders, or projects
+Comment[ast]=Gueta y troca nos documentos, carpetes o proyeutos
 Comment[ca]=Cerca i substitució en documents, carpetes o projectes
 Comment[ca@valencia]=Cerca i substitució en documents, carpetes o projectes
 Comment[de]=Suchen und Ersetzen in Dokumenten, Ordnern oder Projekten

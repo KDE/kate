@@ -56,6 +56,7 @@ Name[x-test]=xxProject Pluginxx
 Name[zh_CN]=工程插件
 Name[zh_TW]=專案外掛程式
 Comment=Integration with Git and other source control systems
+Comment[ast]=Integración con Git y otros sistemes de control de códigu
 Comment[ca]=Integració amb el Git i altres sistemes de control de codi font
 Comment[ca@valencia]=Integració amb el Git i altres sistemes de control de codi font
 Comment[de]=Integration von Git und anderen Versionsverwaltungen für Quelltexte

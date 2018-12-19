@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katefilebrowserplugin
 Name=File System Browser
+Name[ast]=Restolador del sistema de ficheros
 Name[ca]=Navegador del sistema de fitxers
 Name[ca@valencia]=Navegador del sistema de fitxers
 Name[de]=Dateisystem-Browser

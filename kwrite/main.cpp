@@ -53,10 +53,10 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     // Prohibit using sudo or kdesu (but allow using the root user directly)
     if (getuid() == 0) {
         if (!qEnvironmentVariableIsEmpty("SUDO_USER")) {
-            std::cout << "Executing Kate with sudo is not possible due to unfixable security vulnerabilities." << std::endl;
+            std::cout << "Executing KWrite with sudo is not possible due to unfixable security vulnerabilities." << std::endl;
             return EXIT_FAILURE;
         } else if (!qEnvironmentVariableIsEmpty("KDESU_USER")) {
-            std::cout << "Executing Kate with kdesu is not possible due to unfixable security vulnerabilities." << std::endl;
+            std::cout << "Executing KWrite with kdesu is not possible due to unfixable security vulnerabilities." << std::endl;
             return EXIT_FAILURE;
         }
     }

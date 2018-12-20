@@ -137,7 +137,7 @@ public:
 
     /**
      * Try to delete the @p session and removes the session from sessions list
-     * @param the session to delete
+     * @param session the session to delete
      * @return true on success, false if @p session is currently in use
      */
     bool deleteSession(KateSession::Ptr session);
@@ -146,6 +146,7 @@ public:
      * Try to copy the @p session to a new session @p newName.
      * Will ask by @c askForNewSessionName() for a differend name when @p newName is already in use or is an
      * empty string.
+     * @param session the session to copy
      * @param newName is wished name of the new session
      * @return the new session name on success, otherwise an empty string
      * @see askForNewSessionName()
@@ -156,6 +157,7 @@ public:
      * Try to rename the @p session to @p newName.
      * Will ask by @c askForNewSessionName() for a differend name when @p newName is already in use or is an
      * empty string.
+     * @param session the session to rename
      * @param newName is wished new name of the session
      * @return the new session name on success, otherwise an empty string
      * @see askForNewSessionName()

@@ -186,7 +186,7 @@
       <li xml:lang="gl">Capacidade para traballar en varios documentos á vez, coa posibilidade de dividir a xanela e usar lapelas.</li>
       <li xml:lang="hu">MDI, ablakfelosztás, ablaklapok</li>
       <li xml:lang="ia">MDI, window splitting (division de fenestra), window tabbing (schedas de fenestra)</li>
-      <li xml:lang="id">MDI, pemisahan jendela, penambahan tab jendela</li>
+      <li xml:lang="id">MDI, pemisahan window, penambahan tab window</li>
       <li xml:lang="it">MDI, divisione della finestra, schede delle finestre</li>
       <li xml:lang="ko">MDI, 창 나누기, 탭 기능</li>
       <li xml:lang="nb">MDI, vindusdeling, vindusfaner</li>
@@ -791,7 +791,7 @@
       <li xml:lang="gl">Atallos personalizábeis.</li>
       <li xml:lang="hu">Testre szabható gyorsbillentyűk</li>
       <li xml:lang="ia">Vias breve personalisabile</li>
-      <li xml:lang="id">Pintasan dapat dikustomisasi</li>
+      <li xml:lang="id">Shortcut dapat dikustomisasi</li>
       <li xml:lang="it">Scorciatoie personalizzabili</li>
       <li xml:lang="ko">사용자 정의 가능한 단축키</li>
       <li xml:lang="nb">Brukerstyrte snarveier</li>
@@ -912,6 +912,7 @@
       <caption xml:lang="fi">Koodin muokkaus Katella</caption>
       <caption xml:lang="fr">Édition de code avec Kate</caption>
       <caption xml:lang="gl">Editando código con Kate</caption>
+      <caption xml:lang="id">Pengeditan kode menggunakan Kate</caption>
       <caption xml:lang="it">Modificare il codice con Kate</caption>
       <caption xml:lang="nl">Broncode bewerken met Kate</caption>
       <caption xml:lang="nn">Redigering av kjeldekode med Kate</caption>

@@ -82,7 +82,12 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
 
   // Mime filter for the KDirOperator
   QStringList filter;
-  filter << QStringLiteral("text/plain") << QStringLiteral("text/html") << QStringLiteral("inode/directory");
+
+  filter << QStringLiteral("text/plain")
+         << QStringLiteral("text/html")
+         << QStringLiteral("inode/directory")
+         << QStringLiteral("application/x-zerosize");
+
   m_dirOperator->setNewFileMenuSupportedMimeTypes(filter);
 
   setFocusProxy(m_dirOperator);

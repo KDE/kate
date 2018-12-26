@@ -1,22 +1,3 @@
-cmake_minimum_required(VERSION 3.0.0)
-project(tstestapp)
-
-# Find includes in corresponding build directories
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-# Instruct CMake to run moc automatically when needed.
-set(CMAKE_AUTOMOC ON)
-
-# Find the QtWidgets library
-find_package(Qt5Widgets CONFIG REQUIRED)
-
-set(SRC
-  tstestapp.cpp
-  ../tabswitcherfilesmodel.cpp
-)
-
-add_executable(tstestapp ${SRC})
-target_link_libraries(tstestapp
-    Qt5::Widgets
-    KF5::TextEditor
-)
-
+# small test for the tabswitches
+add_executable(tstestapp tstestapp.cpp ../tabswitcherfilesmodel.cpp)
+target_link_libraries(tstestapp KF5::TextEditor)

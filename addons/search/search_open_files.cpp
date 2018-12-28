@@ -97,7 +97,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
     time.start();
     for (int line = startLine; line < doc->lines(); line++) {
         if (time.elapsed() > 100) {
-            qDebug() << "Search time exceeded" << time.elapsed() << line;
+            //qDebug() << "Search time exceeded" << time.elapsed() << line;
             return line;
         }
         QRegularExpressionMatch match;

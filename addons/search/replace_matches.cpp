@@ -22,30 +22,23 @@
 
 #include <QTreeWidgetItem>
 #include <QTimer>
-#include <ktexteditor/movinginterface.h>
-#include <ktexteditor/movingrange.h>
 #include <klocalizedstring.h>
 
-ReplaceMatches::ReplaceMatches(QObject *parent) : QObject(parent),
-m_manager(nullptr),
-m_tree(nullptr),
-m_rootIndex(-1)
-{
-    connect(this, &ReplaceMatches::replaceNextMatch, this, &ReplaceMatches::doReplaceNextMatch, Qt::QueuedConnection);
-}
+ReplaceMatches::ReplaceMatches(QObject *parent) : QObject(parent) {}
 
 void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegularExpression &regexp, const QString &replace)
 {
     if (m_manager == nullptr) return;
-    if (m_rootIndex != -1) return;
+    if (m_rootIndex != -1) return; // already replacing
 
     m_tree = tree;
     m_rootIndex = 0;
+    m_childStartIndex = 0;
     m_regExp = regexp;
     m_replaceText = replace;
     m_cancelReplace = false;
     m_progressTime.restart();
-    emit replaceNextMatch();
+    doReplaceNextMatch();
 }
 
 void ReplaceMatches::setDocumentManager(KTextEditor::Application *manager)
@@ -60,7 +53,7 @@ void ReplaceMatches::cancelReplace()
 
 KTextEditor::Document *ReplaceMatches::findNamed(const QString &name)
 {
-    QList<KTextEditor::Document*> docs = m_manager->documents();
+    const QList<KTextEditor::Document*> docs = m_manager->documents();
 
     foreach (KTextEditor::Document* it, docs) {
         if ( it->documentName() == name) {
@@ -78,7 +71,7 @@ bool ReplaceMatches::replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *i
 
     // don't replace an already replaced item
     if (item->data(0, ReplaceMatches::ReplacedRole).toBool()) {
-        qDebug() << "not replacing";
+        //qDebug() << "not replacing already replaced item";
         return false;
     }
 
@@ -202,7 +195,8 @@ bool ReplaceMatches::replaceSingleMatch(KTextEditor::Document *doc, QTreeWidgetI
 
 void ReplaceMatches::doReplaceNextMatch()
 {
-    if ((!m_manager) || (m_cancelReplace) || (m_tree->topLevelItemCount() != 1)) {
+    if (!m_manager || m_tree->topLevelItemCount() != 1) {
+        updateTreeViewItems(nullptr);
         m_rootIndex = -1;
         emit replaceDone();
         return;
@@ -212,94 +206,135 @@ void ReplaceMatches::doReplaceNextMatch()
     // cancelReplace(). A closed file could lead to a crash if it is not handled.
 
     // Open the file
-    QTreeWidgetItem *rootItem = m_tree->topLevelItem(0)->child(m_rootIndex);
-    if (!rootItem) {
+    QTreeWidgetItem *fileItem = m_tree->topLevelItem(0)->child(m_rootIndex);
+    if (!fileItem) {
+        updateTreeViewItems(nullptr);
         m_rootIndex = -1;
         emit replaceDone();
         return;
     }
 
-    if (!rootItem->data(0, StartColumnRole).toString().isEmpty()) {
+    bool isSearchAsYouType = false;
+    if (!fileItem->data(0, StartColumnRole).toString().isEmpty()) {
         // this is a search as you type replace
-        rootItem = m_tree->topLevelItem(0);
-        m_cancelReplace = true; // only one document...
+        fileItem = m_tree->topLevelItem(0);
+        isSearchAsYouType = true;
     }
 
-    if (rootItem->checkState(0) == Qt::Unchecked) {
-        m_rootIndex++;
-        emit replaceNextMatch();
+    if (m_cancelReplace) {
+        updateTreeViewItems(fileItem);
+        m_rootIndex = -1;
+        emit replaceDone();
+        return;
+    }
+
+    if (fileItem->checkState(0) == Qt::Unchecked) {
+        updateTreeViewItems(fileItem);
+        QTimer::singleShot(0, this, &ReplaceMatches::doReplaceNextMatch);
         return;
     }
 
     KTextEditor::Document *doc;
-    QString docUrl = rootItem->data(0, FileUrlRole).toString();
+    QString docUrl = fileItem->data(0, FileUrlRole).toString();
     if (docUrl.isEmpty()) {
-        doc = findNamed(rootItem->data(0, FileNameRole).toString());
+        doc = findNamed(fileItem->data(0, FileNameRole).toString());
     }
     else {
         doc = m_manager->findUrl(QUrl::fromUserInput(docUrl));
         if (!doc) {
-            doc = m_manager->openUrl(QUrl::fromUserInput(rootItem->data(0, FileUrlRole).toString()));
+            doc = m_manager->openUrl(QUrl::fromUserInput(fileItem->data(0, FileUrlRole).toString()));
         }
     }
 
     if (!doc) {
-        m_rootIndex++;
-        emit replaceNextMatch();
+        updateTreeViewItems(fileItem);
+        QTimer::singleShot(0, this, &ReplaceMatches::doReplaceNextMatch);
         return;
     }
 
     if (m_progressTime.elapsed() > 100) {
         m_progressTime.restart();
-        emit replaceStatus(doc->url());
+        if (m_currentMatches.isEmpty()) {
+            emit replaceStatus(doc->url(), 0, 0);
+        }
+        else {
+            emit replaceStatus(doc->url(), m_childStartIndex, m_currentMatches.count());
+        }
+    }
+
+    if (m_childStartIndex == 0) {
+        // Create a vector of moving ranges for updating the tree-view after replace
+        QVector<bool> replaced;
+        KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+
+        for (int j = 0; j < fileItem->childCount(); ++j) {
+            QTreeWidgetItem *item = fileItem->child(j);
+            int startLine = item->data(0, ReplaceMatches::StartLineRole).toInt();
+            int startColumn = item->data(0, ReplaceMatches::StartColumnRole).toInt();
+            int endLine = item->data(0, ReplaceMatches::EndLineRole).toInt();
+            int endColumn = item->data(0, ReplaceMatches::EndColumnRole).toInt();
+            KTextEditor::Range range(startLine, startColumn, endLine, endColumn);
+            KTextEditor::MovingRange* mr = miface->newMovingRange(range);
+            m_currentMatches.append(mr);
+            m_currentReplaced << false;
+        }
     }
 
     // Make one transaction for the whole replace to speed up things
     // and get all replacements in one "undo"
     KTextEditor::Document::EditingTransaction transaction(doc);
 
-    // Create a vector of moving ranges for updating the tree-view after replace
-    QVector<KTextEditor::MovingRange*> matches;
-    QVector<bool> replaced;
-    KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
-
-
-    for (int i=0; i<rootItem->childCount(); i++) {
-        QTreeWidgetItem *item = rootItem->child(i);
-        int startLine = item->data(0, ReplaceMatches::StartLineRole).toInt();
-        int startColumn = item->data(0, ReplaceMatches::StartColumnRole).toInt();
-        int endLine = item->data(0, ReplaceMatches::EndLineRole).toInt();
-        int endColumn = item->data(0, ReplaceMatches::EndColumnRole).toInt();
-        KTextEditor::Range range(startLine, startColumn, endLine, endColumn);
-        KTextEditor::MovingRange* mr = miface->newMovingRange(range);
-        matches.append(mr);
-    }
-
-    for (int i=0; i<rootItem->childCount(); i++) {
-        QTreeWidgetItem *item = rootItem->child(i);
-
-        if (item->checkState(0) == Qt::Unchecked) {
-            replaced << false;
+    // now do the replaces
+    int i = m_childStartIndex;
+    for (; i < fileItem->childCount(); ++i) {
+        if (m_progressTime.elapsed() > 100) {
+            break;
         }
-        else {
-            replaced << replaceMatch(doc, item, matches[i]->toRange(), m_regExp, m_replaceText);
+        QTreeWidgetItem *item = fileItem->child(i);
+
+        if (item->checkState(0) == Qt::Checked) {
+            m_currentReplaced[i] = replaceMatch(doc, item, m_currentMatches[i]->toRange(), m_regExp, m_replaceText);
+            item->setCheckState(0, Qt::PartiallyChecked);
         }
     }
 
-    // Update the tree-view-items
-    for (int i=0; i<replaced.size() && i<matches.size(); i++) {
-        QTreeWidgetItem *item = rootItem->child(i);
+    if (i == fileItem->childCount()) {
+        updateTreeViewItems(fileItem);
+        if (isSearchAsYouType) {
+            m_rootIndex = -1;
+            emit replaceDone();
+            return;
+        }
+    }
+    else {
+        m_childStartIndex = i;
+    }
+    QTimer::singleShot(0, this, &ReplaceMatches::doReplaceNextMatch);
+}
 
-        if (!replaced[i]) {
-            item->setData(0, ReplaceMatches::StartLineRole, matches[i]->start().line());
-            item->setData(0, ReplaceMatches::StartColumnRole, matches[i]->start().column());
-            item->setData(0, ReplaceMatches::EndLineRole, matches[i]->end().line());
-            item->setData(0, ReplaceMatches::EndColumnRole, matches[i]->end().column());
+void ReplaceMatches::updateTreeViewItems(QTreeWidgetItem *fileItem)
+{
+    if (fileItem &&
+        m_currentReplaced.size() == m_currentMatches.size() &&
+        m_currentReplaced.size() == fileItem->childCount())
+    {
+        for (int j=0; j<m_currentReplaced.size() && j<m_currentMatches.size(); ++j) {
+            QTreeWidgetItem *item = fileItem->child(j);
+
+            if (!m_currentReplaced[j] && item) {
+                item->setData(0, ReplaceMatches::StartLineRole, m_currentMatches[j]->start().line());
+                item->setData(0, ReplaceMatches::StartColumnRole, m_currentMatches[j]->start().column());
+                item->setData(0, ReplaceMatches::EndLineRole, m_currentMatches[j]->end().line());
+                item->setData(0, ReplaceMatches::EndColumnRole, m_currentMatches[j]->end().column());
+            }
         }
     }
 
-    qDeleteAll(matches);
+    qDeleteAll(m_currentMatches);
 
     m_rootIndex++;
-    emit replaceNextMatch();
+    m_childStartIndex = 0;
+    m_currentMatches.clear();
+    m_currentReplaced.clear();
 }
+

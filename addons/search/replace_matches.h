@@ -27,6 +27,8 @@
 #include <QElapsedTimer>
 #include <ktexteditor/document.h>
 #include <ktexteditor/application.h>
+#include <ktexteditor/movinginterface.h>
+#include <ktexteditor/movingrange.h>
 
 class ReplaceMatches: public QObject
 {
@@ -64,14 +66,19 @@ private Q_SLOTS:
     void doReplaceNextMatch();
 
 Q_SIGNALS:
-    void replaceNextMatch();
-    void replaceStatus(const QUrl &url);
+    void replaceStatus(const QUrl &url, int replacedInFile, int matchesInFile);
     void replaceDone();
 
 private:
-    KTextEditor::Application     *m_manager;
-    QTreeWidget                  *m_tree;
-    int                           m_rootIndex;
+    void updateTreeViewItems(QTreeWidgetItem *fileItem);
+
+    KTextEditor::Application     *m_manager = nullptr;
+    QTreeWidget                  *m_tree = nullptr;
+    int                           m_rootIndex = -1;
+    int                           m_childStartIndex = -1;
+    QVector<KTextEditor::MovingRange*> m_currentMatches;
+    QVector<bool>                      m_currentReplaced;
+
     QRegularExpression            m_regExp;
     QString                       m_replaceText;
     bool                          m_cancelReplace;

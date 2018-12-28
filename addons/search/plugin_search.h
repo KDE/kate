@@ -157,7 +157,7 @@ private Q_SLOTS:
     void replaceSingleMatch();
     void replaceChecked();
 
-    void replaceStatus(const QUrl &url);
+    void replaceStatus(const QUrl &url, int replacedInFile, int matchesInFile);
     void replaceDone();
 
     void docViewChanged();

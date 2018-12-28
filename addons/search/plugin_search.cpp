@@ -1402,7 +1402,7 @@ void KatePluginSearchView::replaceChecked()
                               m_curResults->replaceStr);
 }
 
-void KatePluginSearchView::replaceStatus(const QUrl &url)
+void KatePluginSearchView::replaceStatus(const QUrl &url, int replacedInFile, int matchesInFile)
 {
     if (!m_curResults) {
         qDebug() << "m_curResults == nullptr";
@@ -1412,10 +1412,10 @@ void KatePluginSearchView::replaceStatus(const QUrl &url)
     if (root) {
         QString file = url.toString(QUrl::PreferLocalFile);
         if (file.size() > 70) {
-            root->setData(0, Qt::DisplayRole, i18n("<b>Replacing in: ...%1</b>", file.right(70)));
+            root->setData(0, Qt::DisplayRole, i18n("<b>Processed %1 of %2 matches in: ...%3</b>", replacedInFile, matchesInFile, file.right(70)));
         }
         else {
-            root->setData(0, Qt::DisplayRole, i18n("<b>Replacing in: %1</b>", file));
+            root->setData(0, Qt::DisplayRole, i18n("<b>Processed %1 of %2 matches in: %3</b>", replacedInFile, matchesInFile, file));
         }
     }
 }

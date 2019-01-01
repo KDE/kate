@@ -49,6 +49,9 @@ ecm_optional_add_subdirectory (replicode)
 # pipe text through some external command
 ecm_optional_add_subdirectory (textfilter)
 
+# external tools
+ecm_optional_add_subdirectory (externaltools)
+
 # Rust complection plugin
 ecm_optional_add_subdirectory (rustcompletion)
 

@@ -1,3 +1,3 @@
 #! /bin/sh
 $EXTRACTRC *.rc *.ui >> rc.cpp
-$XGETTEXT *.cpp  -o $podir/kateexternaltoolsplugin.pot
+$XGETTEXT *.cpp  -o $podir/externaltoolsplugin.pot

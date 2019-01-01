@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<gui name="kateexternaltools" library="kateexternaltoolsplugin" version="2">
+<gui name="externaltools" library="externaltoolsplugin" version="1">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_mail" group="export_merge"/>

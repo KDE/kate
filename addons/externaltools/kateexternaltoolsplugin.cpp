@@ -19,7 +19,6 @@
 */
 
 #include "kateexternaltoolsplugin.h"
-#include "kateexternaltoolsplugin.moc"
 
 #include <kate/application.h>
 #include <kicon.h>
@@ -37,18 +36,15 @@
 #include <kmessagebox.h>
 #include <kurl.h>
 
-#include <kaboutdata.h>
-#include <kauthorized.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
+#include <KAboutData.h>
+#include <KAuthorized>
+#include <KPluginFactory>
+#include <KXMLGUIFactory>
 
-K_PLUGIN_FACTORY(KateExternalToolsFactory, registerPlugin<KateExternalToolsPlugin>();)
-K_EXPORT_PLUGIN(KateExternalToolsFactory(KAboutData("kateexternaltools", "kateexternaltoolsplugin",
-                                                    ki18n("External Tools"), "0.1", ki18n("Run external tools"),
-                                                    KAboutData::License_LGPL)))
+K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json", registerPlugin<KateExternalToolsPlugin>();)
 
 KateExternalToolsPlugin::KateExternalToolsPlugin(QObject* parent, const QList<QVariant>&)
-    : Kate::Plugin((Kate::Application*)parent)
+    : KTextEditor::Plugin(parent)
     , m_command(0)
 {
     if (KAuthorized::authorizeKAction("shell_access")) {
@@ -183,5 +179,7 @@ KateExternalToolsPluginView::~KateExternalToolsPluginView()
     delete externalTools;
     externalTools = 0;
 }
+
+#include "kateexternaltoolsplugin.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

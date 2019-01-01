@@ -26,21 +26,21 @@
 
 #include "ui_configwidget.h"
 
-#include <ktexteditor/configpage.h>
 #include <ktexteditor/commandinterface.h>
+#include <ktexteditor/configpage.h>
 
+#include <kate/application.h>
+#include <kate/documentmanager.h>
+#include <kate/mainwindow.h>
 #include <kate/plugin.h>
 #include <kate/pluginconfigpageinterface.h>
-#include <kate/mainwindow.h>
-#include <kate/documentmanager.h>
-#include <kate/application.h>
 
 #include <KActionMenu>
 #include <KDialog>
 #include <KWordMacroExpander>
 
-#include <QPixmap>
 #include <QHash>
+#include <QPixmap>
 
 class KateExternalToolsPlugin;
 
@@ -70,8 +70,9 @@ class KateExternalToolsMenuAction : public KActionMenu
     friend class KateExternalToolAction;
 
     Q_OBJECT
-  public:
-    KateExternalToolsMenuAction( const QString &text, class KActionCollection *collection, QObject *parent, class Kate::MainWindow *mw = 0 );
+public:
+    KateExternalToolsMenuAction(const QString& text, class KActionCollection* collection, QObject* parent,
+                                class Kate::MainWindow* mw = 0);
     virtual ~KateExternalToolsMenuAction();
 
     /**
@@ -79,17 +80,14 @@ class KateExternalToolsMenuAction : public KActionMenu
      */
     void reload();
 
-    class KActionCollection *actionCollection()
-    {
-        return m_actionCollection;
-    }
+    class KActionCollection* actionCollection() { return m_actionCollection; }
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void slotDocumentChanged();
 
-  private:
-    class KActionCollection *m_actionCollection;
-    Kate::MainWindow *mainwindow; // for the actions to access view/doc managers
+private:
+    class KActionCollection* m_actionCollection;
+    Kate::MainWindow* mainwindow; // for the actions to access view/doc managers
 };
 
 /**
@@ -98,17 +96,18 @@ class KateExternalToolsMenuAction : public KActionMenu
 class KateExternalToolAction : public KAction, public KWordMacroExpander
 {
     Q_OBJECT
-  public:
-    KateExternalToolAction( QObject *parent, class KateExternalTool *t );
+public:
+    KateExternalToolAction(QObject* parent, class KateExternalTool* t);
     ~KateExternalToolAction();
-  protected:
-    virtual bool expandMacro( const QString &str, QStringList &ret );
 
-  private Q_SLOTS:
+protected:
+    virtual bool expandMacro(const QString& str, QStringList& ret);
+
+private Q_SLOTS:
     void slotRun();
 
-  public:
-    class KateExternalTool *tool;
+public:
+    class KateExternalTool* tool;
 };
 
 /**
@@ -116,32 +115,30 @@ class KateExternalToolAction : public KAction, public KWordMacroExpander
  */
 class KateExternalTool
 {
-  public:
-    explicit KateExternalTool( const QString &name = QString(),
-    		               const QString &command = QString(),
-        	               const QString &icon = QString(),
-	                       const QString &tryexec = QString(),
-        	               const QStringList &mimetypes = QStringList(),
-	                       const QString &acname = QString(),
-        	               const QString &cmdname = QString(),
-	                       int save = 0 );
-    ~KateExternalTool()
-    {}
+public:
+    explicit KateExternalTool(const QString& name = QString(), const QString& command = QString(),
+                              const QString& icon = QString(), const QString& tryexec = QString(),
+                              const QStringList& mimetypes = QStringList(), const QString& acname = QString(),
+                              const QString& cmdname = QString(), int save = 0);
+    ~KateExternalTool() {}
 
     QString name; ///< The name used in the menu.
     QString command; ///< The command to execute.
     QString icon; ///< the icon to use in the menu.
     QString tryexec; ///< The name or path of the executable.
     QStringList mimetypes; ///< Optional list of mimetypes for which this action is valid.
-    bool hasexec; ///< This is set by the constructor by calling checkExec(), if a value is present.
-    QString acname; ///< The name for the action. This is generated first time the action is is created.
+    bool hasexec; ///< This is set by the constructor by calling checkExec(), if a
+                  ///< value is present.
+    QString acname; ///< The name for the action. This is generated first time the
+                    ///< action is is created.
     QString cmdname; ///< The name for the commandline.
-    int save; ///< We can save documents prior to activating the tool command: 0 = nothing, 1 = current document, 2 = all documents.
+    int save; ///< We can save documents prior to activating the tool command: 0 =
+              ///< nothing, 1 = current document, 2 = all documents.
 
     /**
      * @return true if mimetypes is empty, or the @p mimetype matches.
      */
-    bool valid( const QString &mimetype ) const;
+    bool valid(const QString& mimetype) const;
     /**
      * @return true if "tryexec" exists and has the executable bit set, or is
      * empty.
@@ -149,7 +146,7 @@ class KateExternalTool
      */
     bool checkExec();
 
-  private:
+private:
     QString m_exec; ///< The fully qualified path of the executable.
 };
 
@@ -158,23 +155,18 @@ class KateExternalTool
  * The config widget allows the user to view a list of services of the type
  * "Kate/ExternalTool" and add, remove or edit them.
  */
-class KateExternalToolsConfigWidget
-  : public Kate::PluginConfigPage
-  , public Ui::ExternalToolsConfigWidget
+class KateExternalToolsConfigWidget : public Kate::PluginConfigPage, public Ui::ExternalToolsConfigWidget
 {
     Q_OBJECT
-  public:
-    KateExternalToolsConfigWidget( QWidget *parent, KateExternalToolsPlugin *plugin, const char* name);
+public:
+    KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin, const char* name);
     virtual ~KateExternalToolsConfigWidget();
 
     virtual void apply();
     virtual void reset();
-    virtual void defaults()
-    {
-      reset();
-    } // double sigh
+    virtual void defaults() { reset(); } // double sigh
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void slotNew();
     void slotEdit();
     void slotRemove();
@@ -185,15 +177,15 @@ class KateExternalToolsConfigWidget
 
     void slotSelectionChanged();
 
-  private:
+private:
     QPixmap blankIcon();
 
     QStringList m_removed;
 
-    class KConfig *config;
+    class KConfig* config;
 
     bool m_changed;
-    KateExternalToolsPlugin *m_plugin;
+    KateExternalToolsPlugin* m_plugin;
 };
 
 /**
@@ -201,21 +193,22 @@ class KateExternalToolsConfigWidget
  */
 class KateExternalToolsCommand : public KTextEditor::Command
 {
-  public:
-    KateExternalToolsCommand (KateExternalToolsPlugin *plugin);
-    virtual ~KateExternalToolsCommand ()
-    {}
+public:
+    KateExternalToolsCommand(KateExternalToolsPlugin* plugin);
+    virtual ~KateExternalToolsCommand() {}
     void reload();
-  public:
-    virtual const QStringList &cmds ();
-    virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
-    virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
-  private:
+
+public:
+    virtual const QStringList& cmds();
+    virtual bool exec(KTextEditor::View* view, const QString& cmd, QString& msg);
+    virtual bool help(KTextEditor::View* view, const QString& cmd, QString& msg);
+
+private:
     QStringList m_list;
     QHash<QString, QString> m_map;
     QHash<QString, QString> m_name;
     bool m_inited;
-    KateExternalToolsPlugin *m_plugin;
+    KateExternalToolsPlugin* m_plugin;
 };
 
 /**
@@ -225,19 +218,18 @@ class KateExternalToolServiceEditor : public KDialog
 {
     Q_OBJECT
 
-  public:
-
-    explicit KateExternalToolServiceEditor( KateExternalTool *tool = 0,
-        	                            QWidget *parent = 0, const char *name = 0 );
+public:
+    explicit KateExternalToolServiceEditor(KateExternalTool* tool = 0, QWidget* parent = 0, const char* name = 0);
 
     class KLineEdit *leName, *leExecutable, *leMimetypes, *leCmdLine;
-    class QTextEdit *teCommand;
-    class KIconButton *btnIcon;
-    class KComboBox *cmbSave;
+    class QTextEdit* teCommand;
+    class KIconButton* btnIcon;
+    class KComboBox* cmbSave;
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
-     * Run when the OK/Cancel button is clicked, to ensure critical values are provided
+     * Run when the OK/Cancel button is clicked, to ensure critical values are
+     * provided
      */
     void slotButtonClicked(int button);
     /**
@@ -245,9 +237,8 @@ class KateExternalToolServiceEditor : public KDialog
      */
     void showMTDlg();
 
-  private:
-    KateExternalTool *tool;
+private:
+    KateExternalTool* tool;
 };
 #endif //_KATE_EXTERNAL_TOOLS_H_
 // kate: space-indent on; indent-width 2; replace-tabs on;
-

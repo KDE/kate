@@ -18,7 +18,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "kateexternaltoolsplugin.h"
+#include "externaltoolsplugin.h"
 
 #include <kate/application.h>
 #include <kicon.h>
@@ -180,6 +180,6 @@ KateExternalToolsPluginView::~KateExternalToolsPluginView()
     externalTools = 0;
 }
 
-#include "kateexternaltoolsplugin.moc"
+#include "externaltoolsplugin.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -21,9 +21,9 @@
 #ifndef __KATE_EXTERNALTOOLS_H__
 #define __KATE_EXTERNALTOOLS_H__
 
-#include <kate/plugin.h>
-#include <kate/pluginconfigpageinterface.h>
-#include <kate/mainwindow.h>
+#include <KTextEditor/Mainwindow>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/PluginConfigPageInterface>
 
 #include <kxmlguiclient.h>
 
@@ -31,59 +31,55 @@
 
 class KateExternalToolsPluginView;
 
-class KateExternalToolsPlugin
-  : public Kate::Plugin
-  , public Kate::PluginConfigPageInterface
+class KateExternalToolsPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Kate::PluginConfigPageInterface)
 
-  public:
-    explicit KateExternalToolsPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
+public:
+    explicit KateExternalToolsPlugin(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
     virtual ~KateExternalToolsPlugin();
-    
+
+    int configPages() const override;
+    KTextEditor::ConfigPage* configPage(int number = 0, QWidget* parent = nullptr) override;
 
     void reload();
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
-    KateExternalToolsPluginView *extView(QWidget *widget);
-  private: 
+    Kate::PluginView* createView(Kate::MainWindow* mainWindow);
+    KateExternalToolsPluginView* extView(QWidget* widget);
+
+private:
     QList<KateExternalToolsPluginView*> m_views;
-    KateExternalToolsCommand *m_command;
-  private Q_SLOT:
-    void viewDestroyed(QObject *view);
-  //
-  // ConfigInterface
-  //
-  public:
-      virtual uint configPages() const;
-      virtual Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0 );
-      virtual QString configPageName (uint number = 0) const;
-      virtual QString configPageFullName (uint number = 0) const;
-      virtual KIcon configPageIcon (uint number = 0) const;
-           
+    KateExternalToolsCommand* m_command;
+private
+    Q_SLOT : void viewDestroyed(QObject* view);
+
+public:
+    /*
+          virtual QString configPageName (uint number = 0) const;
+          virtual QString configPageFullName (uint number = 0) const;
+          virtual KIcon configPageIcon (uint number = 0) const;
+      */
 };
 
 class KateExternalToolsPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 
-  public:
+public:
     /**
-      * Constructor.
-      */
-    KateExternalToolsPluginView (Kate::MainWindow *mainWindow);
+     * Constructor.
+     */
+    KateExternalToolsPluginView(Kate::MainWindow* mainWindow);
 
     /**
      * Virtual destructor.
      */
-    ~KateExternalToolsPluginView ();
- 
+    ~KateExternalToolsPluginView();
+
     void rebuildMenu();
 
-    KateExternalToolsMenuAction *externalTools;
+    KateExternalToolsMenuAction* externalTools;
 };
 
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;
-

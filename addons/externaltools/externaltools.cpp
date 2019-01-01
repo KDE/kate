@@ -22,9 +22,9 @@
 // Icons
 // Direct shortcut setting
 // BEGIN Includes
-#include "kateexternaltools.h"
-#include "kateexternaltools.moc"
-#include "kateexternaltoolsplugin.h"
+#include "externaltools.h"
+#include "externaltools.moc"
+#include "externaltoolsplugin.h"
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>

@@ -20,23 +20,20 @@
 
 #include "externaltoolsplugin.h"
 
-#include <kate/application.h>
-#include <kicon.h>
-#include <kiconloader.h>
-#include <ktexteditor/document.h>
-#include <ktexteditor/editor.h>
-#include <ktexteditor/view.h>
+#include <KTextEditor/Application>
+#include <QIcon>
+#include <KIconLoader>
+#include <KTextEditor/Document>
+#include <KTextEditor/Editor>
+#include <KTextEditor/View>
 
-#include <kaction.h>
-#include <kactioncollection.h>
+#include <QAction>
+#include <KActionCollection>
 #include <kparts/part.h>
 
-#include <kdebug.h>
-#include <klocale.h>
 #include <kmessagebox.h>
-#include <kurl.h>
 
-#include <KAboutData.h>
+#include <KAboutData>
 #include <KAuthorized>
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
@@ -70,7 +67,7 @@ KateExternalToolsPlugin::~KateExternalToolsPlugin()
     }
 }
 
-Kate::PluginView* KateExternalToolsPlugin::createView(Kate::MainWindow* mainWindow)
+QObject* KateExternalToolsPlugin::createView(Kate::MainWindow* mainWindow)
 {
     KateExternalToolsPluginView* view = new KateExternalToolsPluginView(mainWindow);
     connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));

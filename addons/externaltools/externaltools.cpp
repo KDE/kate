@@ -141,7 +141,7 @@ void KateExternalToolsCommand::reload()
     }
     if (m_inited) {
         KTextEditor::CommandInterface* cmdIface
-            = qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+            = qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::application()->editor());
         if (cmdIface) {
             // reregister commands, in case of something has changed
             cmdIface->unregisterCommand(this);
@@ -201,7 +201,7 @@ KateExternalToolAction::KateExternalToolAction(QObject* parent, KateExternalTool
 
 bool KateExternalToolAction::expandMacro(const QString& str, QStringList& ret)
 {
-    Kate::MainWindow* mw = qobject_cast<Kate::MainWindow*>(parent()->parent());
+    KTextEditor::MainWindow* mw = qobject_cast<KTextEditor::MainWindow*>(parent()->parent());
     Q_ASSERT(mw);
 
     KTextEditor::View* view = mw->activeView();
@@ -226,7 +226,7 @@ bool KateExternalToolAction::expandMacro(const QString& str, QStringList& ret)
     else if (str == "text") // text of current doc
         ret += doc->text();
     else if (str == "URLs") {
-        foreach (KTextEditor::Document* it, Kate::documentManager()->documents())
+        foreach (KTextEditor::Document* it, KTextEditor::application()->documents())
             if (!it->url().isEmpty())
                 ret += it->url().url();
     } else
@@ -246,7 +246,7 @@ void KateExternalToolAction::slotRun()
     // and construct a command with an absolute path
     QString cmd = tool->command;
 
-    Kate::MainWindow* mw = qobject_cast<Kate::MainWindow*>(parent()->parent());
+    KTextEditor::MainWindow* mw = qobject_cast<KTextEditor::MainWindow*>(parent()->parent());
     if (!expandMacrosShellQuote(cmd)) {
         KMessageBox::sorry(mw->window(), i18n("Failed to expand the command '%1'.", cmd), i18n("Kate External Tools"));
         return;
@@ -271,7 +271,7 @@ void KateExternalToolAction::slotRun()
 
 // BEGIN KateExternalToolsMenuAction
 KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KActionCollection* collection,
-                                                         QObject* parent, Kate::MainWindow* mw)
+                                                         QObject* parent, KTextEditor::MainWindow* mw)
     : KActionMenu(text, parent)
     , mainwindow(mw)
 {
@@ -403,13 +403,12 @@ public:
 // END ToolItem
 
 // BEGIN KateExternalToolServiceEditor
-KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* tool, QWidget* parent, const char* name)
-    : KDialog(parent)
+KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* tool, QWidget* parent)
+    : QDialog(parent)
     , tool(tool)
 {
     setCaption(i18n("Edit External Tool"));
     setButtons(Ok | Cancel);
-    setObjectName(name);
     setModal(true);
 
     // create a entry for each property
@@ -553,7 +552,7 @@ void KateExternalToolServiceEditor::showMTDlg()
 // BEGIN KateExternalToolsConfigWidget
 KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin,
                                                              const char* name)
-    : Kate::PluginConfigPage(parent, name)
+    : KTextEditor::PluginConfigPage(parent, name)
     , m_changed(false)
     , m_plugin(plugin)
 {

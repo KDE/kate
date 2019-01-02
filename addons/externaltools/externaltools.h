@@ -21,23 +21,20 @@
    Copyright (C) 2004, Anders Lund <anders@alweb.dk>
 */
 
-#ifndef _KATE_EXTERNAL_TOOLS_H_
-#define _KATE_EXTERNAL_TOOLS_H_
+#ifndef KTEXTEDITOR_EXTERNALTOOLS_H
+#define KTEXTEDITOR_EXTERNALTOOLS_H
 
 #include "ui_configwidget.h"
 
-#include <ktexteditor/commandinterface.h>
-#include <ktexteditor/configpage.h>
-
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <kate/mainwindow.h>
-#include <kate/plugin.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <KTextEditor/ConfigPage>
+#include <KTextEditor/Application>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/Command>
 
 #include <KActionMenu>
-#include <KDialog>
-#include <KWordMacroExpander>
+#include <KMacroExpander>
+#include <QDialog>
 
 #include <QHash>
 #include <QPixmap>
@@ -72,7 +69,7 @@ class KateExternalToolsMenuAction : public KActionMenu
     Q_OBJECT
 public:
     KateExternalToolsMenuAction(const QString& text, class KActionCollection* collection, QObject* parent,
-                                class Kate::MainWindow* mw = 0);
+                                class KTextEditor::MainWindow* mw = nullptr);
     virtual ~KateExternalToolsMenuAction();
 
     /**
@@ -87,13 +84,13 @@ private Q_SLOTS:
 
 private:
     class KActionCollection* m_actionCollection;
-    Kate::MainWindow* mainwindow; // for the actions to access view/doc managers
+    KTextEditor::MainWindow* mainwindow; // for the actions to access view/doc managers
 };
 
 /**
  * This Action contains a KateExternalTool
  */
-class KateExternalToolAction : public KAction, public KWordMacroExpander
+class KateExternalToolAction : public QAction, public KWordMacroExpander
 {
     Q_OBJECT
 public:
@@ -101,7 +98,7 @@ public:
     ~KateExternalToolAction();
 
 protected:
-    virtual bool expandMacro(const QString& str, QStringList& ret);
+    bool expandMacro(const QString& str, QStringList& ret) override;
 
 private Q_SLOTS:
     void slotRun();
@@ -155,16 +152,16 @@ private:
  * The config widget allows the user to view a list of services of the type
  * "Kate/ExternalTool" and add, remove or edit them.
  */
-class KateExternalToolsConfigWidget : public Kate::PluginConfigPage, public Ui::ExternalToolsConfigWidget
+class KateExternalToolsConfigWidget : public KTextEditor::ConfigPage, public Ui::ExternalToolsConfigWidget
 {
     Q_OBJECT
 public:
     KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin, const char* name);
     virtual ~KateExternalToolsConfigWidget();
 
-    virtual void apply();
-    virtual void reset();
-    virtual void defaults() { reset(); } // double sigh
+    void apply() override;
+    void reset() override;
+    void defaults() override { reset(); } // double sigh
 
 private Q_SLOTS:
     void slotNew();
@@ -199,9 +196,10 @@ public:
     void reload();
 
 public:
-    virtual const QStringList& cmds();
-    virtual bool exec(KTextEditor::View* view, const QString& cmd, QString& msg);
-    virtual bool help(KTextEditor::View* view, const QString& cmd, QString& msg);
+//     const QStringList& cmds() override; // FIXME
+    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg,
+              const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
+    bool help(KTextEditor::View *view, const QString &cmd, QString &msg) override;
 
 private:
     QStringList m_list;
@@ -214,14 +212,14 @@ private:
 /**
  * A Dialog to edit a single KateExternalTool object
  */
-class KateExternalToolServiceEditor : public KDialog
+class KateExternalToolServiceEditor : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit KateExternalToolServiceEditor(KateExternalTool* tool = 0, QWidget* parent = 0, const char* name = 0);
+    explicit KateExternalToolServiceEditor(KateExternalTool* tool = nullptr, QWidget* parent = nullptr);
 
-    class KLineEdit *leName, *leExecutable, *leMimetypes, *leCmdLine;
+    class QLineEdit *leName, *leExecutable, *leMimetypes, *leCmdLine;
     class QTextEdit* teCommand;
     class KIconButton* btnIcon;
     class KComboBox* cmbSave;
@@ -240,5 +238,7 @@ private Q_SLOTS:
 private:
     KateExternalTool* tool;
 };
-#endif //_KATE_EXTERNAL_TOOLS_H_
+
+#endif // KTEXTEDITOR_EXTERNALTOOLS_H
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

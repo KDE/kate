@@ -18,16 +18,15 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __KATE_EXTERNALTOOLS_H__
-#define __KATE_EXTERNALTOOLS_H__
+#ifndef KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
+#define KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
 
-#include <KTextEditor/Mainwindow>
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
-#include <KTextEditor/PluginConfigPageInterface>
 
 #include <kxmlguiclient.h>
 
-#include "kateexternaltools.h"
+#include "externaltools.h"
 
 class KateExternalToolsPluginView;
 
@@ -36,7 +35,7 @@ class KateExternalToolsPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KateExternalToolsPlugin(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
+    explicit KateExternalToolsPlugin(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
     virtual ~KateExternalToolsPlugin();
 
     int configPages() const override;
@@ -44,7 +43,7 @@ public:
 
     void reload();
 
-    Kate::PluginView* createView(Kate::MainWindow* mainWindow);
+    QObject* createView(KTextEditor::MainWindow* mainWindow) override;
     KateExternalToolsPluginView* extView(QWidget* widget);
 
 private:
@@ -61,7 +60,7 @@ public:
       */
 };
 
-class KateExternalToolsPluginView : public Kate::PluginView, public Kate::XMLGUIClient
+class KateExternalToolsPluginView : public QObject, public KTextEditor::XMLGUIClient
 {
     Q_OBJECT
 

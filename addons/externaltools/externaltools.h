@@ -210,7 +210,6 @@ private:
     QStringList m_list;
     QHash<QString, QString> m_map;
     QHash<QString, QString> m_name;
-    bool m_inited;
     KateExternalToolsPlugin* m_plugin;
 };
 

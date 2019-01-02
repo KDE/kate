@@ -100,7 +100,6 @@ KateExternalToolsCommand::KateExternalToolsCommand(KateExternalToolsPlugin* plug
     : KTextEditor::Command()
     , m_plugin(plugin)
 {
-    m_inited = false;
     reload();
 }
 
@@ -115,20 +114,20 @@ void KateExternalToolsCommand::reload()
     m_map.clear();
     m_name.clear();
 
-    KConfig _config("externaltools", KConfig::NoGlobals, "appdata");
+    KConfig _config(QStringLiteral("externaltools"), KConfig::NoGlobals, "appdata");
     KConfigGroup config(&_config, "Global");
     const QStringList tools = config.readEntry("tools", QStringList());
 
     for (QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it) {
-        if (*it == "---")
+        if (*it == QStringLiteral("---"))
             continue;
 
         config = KConfigGroup(&_config, *it);
 
-        KateExternalTool t = KateExternalTool(config.readEntry("name", ""), config.readEntry("command", ""),
-                                              config.readEntry("icon", ""), config.readEntry("executable", ""),
-                                              config.readEntry("mimetypes", QStringList()),
-                                              config.readEntry("acname", ""), config.readEntry("cmdname", ""));
+        KateExternalTool t = KateExternalTool(config.readEntry(QStringLiteral("name"), ""), config.readEntry("command", ""),
+                                              config.readEntry(QStringLiteral("icon"), ""), config.readEntry("executable", ""),
+                                              config.readEntry(QStringLiteral("mimetypes"), QStringList()),
+                                              config.readEntry(QStringLiteral("acname"), ""), config.readEntry("cmdname", ""));
         // FIXME test for a command name first!
         if (t.hasexec && (!t.cmdname.isEmpty())) {
             m_list.append("exttool-" + t.cmdname);
@@ -136,16 +135,6 @@ void KateExternalToolsCommand::reload()
             m_name.insert("exttool-" + t.cmdname, t.name);
         }
     }
-    if (m_inited) {
-        KTextEditor::CommandInterface* cmdIface
-            = qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::application()->editor());
-        if (cmdIface) {
-            // reregister commands, in case of something has changed
-            cmdIface->unregisterCommand(this);
-            cmdIface->registerCommand(this);
-        }
-    } else
-        m_inited = true;
 }
 
 bool KateExternalToolsCommand::exec(KTextEditor::View* view, const QString& cmd, QString&)
@@ -186,7 +175,7 @@ bool KateExternalToolsCommand::help(KTextEditor::View*, const QString&, QString&
 
 // BEGIN KateExternalToolAction
 KateExternalToolAction::KateExternalToolAction(QObject* parent, KateExternalTool* t)
-    : KAction(KIcon(t->icon), t->name, parent)
+    : KAction(QIcon::fromTheme(t->icon), t->name, parent)
     , tool(t)
 {
     // setText( t->name );
@@ -206,7 +195,7 @@ bool KateExternalToolAction::expandMacro(const QString& str, QStringList& ret)
         return false;
 
     KTextEditor::Document* doc = view->document();
-    KUrl url = doc->url();
+    QUrl url = doc->url();
 
     if (str == "URL")
         ret += url.url();
@@ -554,8 +543,8 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
 {
     setupUi(this);
 
-    btnMoveUp->setIcon(KIcon("go-up"));
-    btnMoveDown->setIcon(KIcon("go-down"));
+    btnMoveUp->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
+    btnMoveDown->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
 
     connect(lbTools, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()));
     connect(lbTools, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(slotEdit()));

@@ -159,6 +159,11 @@ public:
     KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin, const char* name);
     virtual ~KateExternalToolsConfigWidget();
 
+    QString name() const override;
+    QString fullName() const override;
+    QIcon icon() const override;
+
+public Q_SLOTS:
     void apply() override;
     void reset() override;
     void defaults() override { reset(); } // double sigh
@@ -222,7 +227,7 @@ public:
     class QLineEdit *leName, *leExecutable, *leMimetypes, *leCmdLine;
     class QTextEdit* teCommand;
     class KIconButton* btnIcon;
-    class KComboBox* cmbSave;
+    class QComboBox* cmbSave;
 
 private Q_SLOTS:
     /**

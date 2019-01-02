@@ -24,7 +24,7 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 
-#include <kxmlguiclient.h>
+#include <KXMLGUIClient>
 
 #include "externaltools.h"
 
@@ -48,7 +48,7 @@ public:
 
 private:
     QList<KateExternalToolsPluginView*> m_views;
-    KateExternalToolsCommand* m_command;
+    KateExternalToolsCommand* m_command = nullptr;
 private
     Q_SLOT : void viewDestroyed(QObject* view);
 
@@ -56,11 +56,11 @@ public:
     /*
           virtual QString configPageName (uint number = 0) const;
           virtual QString configPageFullName (uint number = 0) const;
-          virtual KIcon configPageIcon (uint number = 0) const;
+          virtual QIcon configPageIcon (uint number = 0) const;
       */
 };
 
-class KateExternalToolsPluginView : public QObject, public KTextEditor::XMLGUIClient
+class KateExternalToolsPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
 
@@ -68,7 +68,7 @@ public:
     /**
      * Constructor.
      */
-    KateExternalToolsPluginView(Kate::MainWindow* mainWindow);
+    KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow);
 
     /**
      * Virtual destructor.
@@ -77,7 +77,9 @@ public:
 
     void rebuildMenu();
 
-    KateExternalToolsMenuAction* externalTools;
+    KateExternalToolsMenuAction* externalTools = nullptr;
+private:
+    KTextEditor::MainWindow* m_mainWindow;
 };
 
 #endif

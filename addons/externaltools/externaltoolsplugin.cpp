@@ -20,8 +20,9 @@
 
 #include "externaltoolsplugin.h"
 
-#include <KTextEditor/Application>
 #include <QIcon>
+#include <QDebug>
+#include <KTextEditor/Application>
 #include <KIconLoader>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -42,32 +43,22 @@ K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json",
 
 KateExternalToolsPlugin::KateExternalToolsPlugin(QObject* parent, const QList<QVariant>&)
     : KTextEditor::Plugin(parent)
-    , m_command(0)
 {
-    if (KAuthorized::authorizeKAction("shell_access")) {
-        KTextEditor::CommandInterface* cmdIface
-            = qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
-        if (cmdIface) {
-            m_command = new KateExternalToolsCommand(this);
-            cmdIface->registerCommand(m_command);
-        }
+    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
+        m_command = new KateExternalToolsCommand(this);
     }
 }
 
 KateExternalToolsPlugin::~KateExternalToolsPlugin()
 {
-    if (KAuthorized::authorizeKAction("shell_access")) {
+    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
         if (m_command) {
-            KTextEditor::CommandInterface* cmdIface
-                = qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
-            if (cmdIface)
-                cmdIface->unregisterCommand(m_command);
             delete m_command;
         }
     }
 }
 
-QObject* KateExternalToolsPlugin::createView(Kate::MainWindow* mainWindow)
+QObject* KateExternalToolsPlugin::createView(KTextEditor::MainWindow* mainWindow)
 {
     KateExternalToolsPluginView* view = new KateExternalToolsPluginView(mainWindow);
     connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
@@ -81,7 +72,7 @@ KateExternalToolsPluginView* KateExternalToolsPlugin::extView(QWidget* widget)
         if (view->mainWindow()->window() == widget)
             return view;
     }
-    return 0;
+    return nullptr;
 }
 
 void KateExternalToolsPlugin::viewDestroyed(QObject* view)
@@ -91,29 +82,26 @@ void KateExternalToolsPlugin::viewDestroyed(QObject* view)
 
 void KateExternalToolsPlugin::reload()
 {
-    if (KAuthorized::authorizeKAction("shell_access")) {
-        KTextEditor::CommandInterface* cmdIface
-            = qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
-        if (cmdIface)
-            if (m_command)
-                m_command->reload();
+    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
+        if (m_command)
+            m_command->reload();
     }
     foreach (KateExternalToolsPluginView* view, m_views) {
         view->rebuildMenu();
     }
 }
 
-uint KateExternalToolsPlugin::configPages() const
+int KateExternalToolsPlugin::configPages() const
 {
     return 1;
 }
 
-Kate::PluginConfigPage* KateExternalToolsPlugin::configPage(uint number, QWidget* parent, const char* name)
+KTextEditor::ConfigPage* KateExternalToolsPlugin::configPage(uint number, QWidget* parent, const char* name)
 {
     if (number == 0) {
         return new KateExternalToolsConfigWidget(parent, this, name);
     }
-    return 0;
+    return nullptr;
 }
 
 QString KateExternalToolsPlugin::configPageName(uint number) const
@@ -132,24 +120,22 @@ QString KateExternalToolsPlugin::configPageFullName(uint number) const
     return QString();
 }
 
-KIcon KateExternalToolsPlugin::configPageIcon(uint number) const
+QIcon KateExternalToolsPlugin::configPageIcon(uint number) const
 {
     if (number == 0) {
-        return KIcon();
+        return QIcon();
     }
-    return KIcon();
+    return QIcon();
 }
 
-KateExternalToolsPluginView::KateExternalToolsPluginView(Kate::MainWindow* mainWindow)
-    : Kate::PluginView(mainWindow)
-    , Kate::XMLGUIClient(KateExternalToolsFactory::componentData())
+KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow)
+    : QObject(mainWindow)
+    , KXMLGUIClient(KateExternalToolsFactory::componentData())
+    , m_mainWindow(mainWindow)
 {
-    externalTools = 0;
-
-    if (KAuthorized::authorizeKAction("shell_access")) {
-        externalTools
-            = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), mainWindow, mainWindow);
-        actionCollection()->addAction("tools_external", externalTools);
+    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
+        externalTools = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), mainWindow, mainWindow);
+        actionCollection()->addAction(QStringLiteral("tools_external"), externalTools);
         externalTools->setWhatsThis(i18n("Launch external helper applications"));
     }
 
@@ -158,23 +144,22 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(Kate::MainWindow* mainW
 
 void KateExternalToolsPluginView::rebuildMenu()
 {
-    kDebug(13001);
     if (externalTools) {
         KXMLGUIFactory* f = factory();
         f->removeClient(this);
         reloadXML();
         externalTools->reload();
-        kDebug(13001) << "has just returned from externalTools->reload()";
+        qDebug() << "has just returned from externalTools->reload()";
         f->addClient(this);
     }
 }
 
 KateExternalToolsPluginView::~KateExternalToolsPluginView()
 {
-    mainWindow()->guiFactory()->removeClient(this);
+    m_mainWindow->guiFactory()->removeClient(this);
 
     delete externalTools;
-    externalTools = 0;
+    externalTools = nullptr;
 }
 
 #include "externaltoolsplugin.moc"

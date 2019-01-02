@@ -30,7 +30,7 @@
 #include <KTextEditor/View>
 
 #include <KActionCollection>
-#include <KComboBox>
+#include <QComboBox>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KIconDialog>
@@ -155,15 +155,15 @@ bool KateExternalToolsCommand::exec(KTextEditor::View* view, const QString& cmd,
 {
     QWidget* wv = dynamic_cast<QWidget*>(view);
     if (!wv) {
-        //   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get view widget";
+        //   qDebug()<<"KateExternalToolsCommand::exec: Could not get view widget";
         return false;
     }
 
-    //  kDebug(13001)<<"cmd="<<cmd.trimmed();
+    //  qDebug()<<"cmd="<<cmd.trimmed();
     QString actionName = m_map[cmd.trimmed()];
     if (actionName.isEmpty())
         return false;
-    //  kDebug(13001)<<"actionName is not empty:"<<actionName;
+    //  qDebug()<<"actionName is not empty:"<<actionName;
     /*  KateExternalToolsMenuAction *a =
         dynamic_cast<KateExternalToolsMenuAction*>(dmw->action("tools_external"));
       if (!a) return false;*/
@@ -172,11 +172,11 @@ bool KateExternalToolsCommand::exec(KTextEditor::View* view, const QString& cmd,
         return false;
     if (!extview->externalTools)
         return false;
-    //  kDebug(13001)<<"trying to find action";
+    //  qDebug()<<"trying to find action";
     QAction* a1 = extview->externalTools->actionCollection()->action(actionName.toUtf8().constData());
     if (!a1)
         return false;
-    //  kDebug(13001)<<"activating action";
+    //  qDebug()<<"activating action";
     a1->trigger();
     return true;
 }
@@ -251,7 +251,7 @@ void KateExternalToolAction::slotRun()
         KMessageBox::sorry(mw->window(), i18n("Failed to expand the command '%1'.", cmd), i18n("Kate External Tools"));
         return;
     }
-    kDebug(13001) << "externaltools: Running command: " << cmd;
+    qDebug() << "externaltools: Running command: " << cmd;
 
     // save documents if requested
     if (tool->save == 1)
@@ -493,7 +493,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
     btnMTW->setWhatsThis(i18n("Click for a dialog that can help you create a list of mimetypes."));
 
-    cmbSave = new KComboBox(w);
+    cmbSave = new QComboBox(w);
     lo->addWidget(cmbSave, 5, 2, 1, 2);
     l = new QLabel(w);
     l->setBuddy(cmbSave);
@@ -580,6 +580,21 @@ KateExternalToolsConfigWidget::~KateExternalToolsConfigWidget()
     delete config;
 }
 
+QString KateExternalToolsConfigWidget::name() const
+{
+    return i18n("External Tools");
+}
+
+QString KateExternalToolsConfigWidget::fullName() const
+{
+    return i18n("External Tools");
+}
+
+QIcon KateExternalToolsConfigWidget::icon() const
+{
+    return QIcon();
+}
+
 void KateExternalToolsConfigWidget::reset()
 {
     // m_tools.clear();
@@ -631,7 +646,7 @@ void KateExternalToolsConfigWidget::apply()
             continue;
         }
         KateExternalTool* t = static_cast<ToolItem*>(lbTools->item(i))->tool;
-        //     kDebug(13001)<<"adding tool: "<<t->name;
+        //     qDebug()<<"adding tool: "<<t->name;
         tools << t->acname;
 
         KConfigGroup cg(config, t->acname);
@@ -820,4 +835,4 @@ void KateExternalToolsConfigWidget::slotMoveDown()
     m_changed = true;
 }
 // END KateExternalToolsConfigWidget
-// kate: space-indent on; indent-width 2; replace-tabs on;
+// kate: space-indent on; indent-width 4; replace-tabs on;

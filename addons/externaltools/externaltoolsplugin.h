@@ -51,13 +51,6 @@ private:
     KateExternalToolsCommand* m_command = nullptr;
 private
     Q_SLOT : void viewDestroyed(QObject* view);
-
-public:
-    /*
-          virtual QString configPageName (uint number = 0) const;
-          virtual QString configPageFullName (uint number = 0) const;
-          virtual QIcon configPageIcon (uint number = 0) const;
-      */
 };
 
 class KateExternalToolsPluginView : public QObject, public KXMLGUIClient
@@ -74,6 +67,11 @@ public:
      * Virtual destructor.
      */
     ~KateExternalToolsPluginView();
+
+    /**
+     * Returns the associated mainWindow
+     */
+    KTextEditor::MainWindow* mainWindow() const;
 
     void rebuildMenu();
 

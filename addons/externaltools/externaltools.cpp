@@ -35,18 +35,15 @@
 #include <KConfigGroup>
 #include <KIconDialog>
 #include <KIconLoader>
-#include <KLineEdit>
-#include <KListWidget>
-#include <KLocale>
-#include <KMenu>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QMenu>
 #include <KMessageBox>
 #include <KMimeTypeChooser>
 #include <KRun>
 #include <KSharedConfig>
-#include <KStandardDirs>
+#include <QStandardPaths>
 #include <KXmlGuiWindow>
-#include <kde_file.h>
-#include <kdebug.h>
 
 #include <QBitmap>
 #include <QFile>
@@ -82,11 +79,11 @@ bool KateExternalTool::checkExec()
 {
     // if tryexec is empty, it is the first word of command
     if (tryexec.isEmpty())
-        tryexec = command.section(' ', 0, 0, QString::SectionSkipEmpty);
+        tryexec = command.section(QLatin1Char(' '), 0, 0, QString::SectionSkipEmpty);
 
     // NOTE this code is modified taken from kdesktopfile.cpp, from KDesktopFile::tryExec()
     if (!tryexec.isEmpty()) {
-        m_exec = KStandardDirs::findExe(tryexec);
+        m_exec = QStandardPaths::findExecutable(tryexec);
         return !m_exec.isEmpty();
     }
     return false;
@@ -420,7 +417,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
 
     QLabel* l;
 
-    leName = new KLineEdit(w);
+    leName = new QLineEdit(w);
     lo->addWidget(leName, 1, 2);
     l = new QLabel(w);
     l->setBuddy(leName);
@@ -461,7 +458,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
                                  "<li><code>%selection</code> - the selected text in the current view.</li>"
                                  "<li><code>%text</code> - the text of the current document.</li></ul>"));
 
-    leExecutable = new KLineEdit(w);
+    leExecutable = new QLineEdit(w);
     lo->addWidget(leExecutable, 3, 2, 1, 2);
     l = new QLabel(w);
     l->setBuddy(leExecutable);
@@ -474,7 +471,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
                                     "should be displayed; if not set, the first word of <em>command</em> "
                                     "will be used."));
 
-    leMimetypes = new KLineEdit(w);
+    leMimetypes = new QLineEdit(w);
     lo->addWidget(leMimetypes, 4, 2);
     l = new QLabel(w);
     l->setBuddy(leMimetypes);
@@ -509,7 +506,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
                                "running the command. This is helpful if you want to pass URLs to "
                                "an application like, for example, an FTP client."));
 
-    leCmdLine = new KLineEdit(w);
+    leCmdLine = new QLineEdit(w);
     lo->addWidget(leCmdLine, 6, 2, 1, 2);
     l = new QLabel(i18n("&Command line name:"), w);
     l->setBuddy(leCmdLine);
@@ -550,9 +547,8 @@ void KateExternalToolServiceEditor::showMTDlg()
 // END KateExternalToolServiceEditor
 
 // BEGIN KateExternalToolsConfigWidget
-KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin,
-                                                             const char* name)
-    : KTextEditor::PluginConfigPage(parent, name)
+KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin)
+    : KTextEditor::PluginConfigPage(parent)
     , m_changed(false)
     , m_plugin(plugin)
 {

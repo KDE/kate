@@ -156,7 +156,7 @@ class KateExternalToolsConfigWidget : public KTextEditor::ConfigPage, public Ui:
 {
     Q_OBJECT
 public:
-    KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin, const char* name);
+    KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin);
     virtual ~KateExternalToolsConfigWidget();
 
     QString name() const override;

@@ -96,43 +96,21 @@ int KateExternalToolsPlugin::configPages() const
     return 1;
 }
 
-KTextEditor::ConfigPage* KateExternalToolsPlugin::configPage(uint number, QWidget* parent, const char* name)
+KTextEditor::ConfigPage* KateExternalToolsPlugin::configPage(int number, QWidget* parent)
 {
     if (number == 0) {
-        return new KateExternalToolsConfigWidget(parent, this, name);
+        return new KateExternalToolsConfigWidget(parent, this);
     }
     return nullptr;
 }
 
-QString KateExternalToolsPlugin::configPageName(uint number) const
-{
-    if (number == 0) {
-        return i18n("External Tools");
-    }
-    return QString();
-}
-
-QString KateExternalToolsPlugin::configPageFullName(uint number) const
-{
-    if (number == 0) {
-        return i18n("External Tools");
-    }
-    return QString();
-}
-
-QIcon KateExternalToolsPlugin::configPageIcon(uint number) const
-{
-    if (number == 0) {
-        return QIcon();
-    }
-    return QIcon();
-}
-
 KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow)
     : QObject(mainWindow)
-    , KXMLGUIClient(KateExternalToolsFactory::componentData())
     , m_mainWindow(mainWindow)
 {
+    KXMLGUIClient::setComponentName(QLatin1String("externaltools"), i18n ("External Tools"));
+    setXMLFile(QLatin1String("ui.rc"));
+
     if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
         externalTools = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), mainWindow, mainWindow);
         actionCollection()->addAction(QStringLiteral("tools_external"), externalTools);
@@ -162,6 +140,11 @@ KateExternalToolsPluginView::~KateExternalToolsPluginView()
     externalTools = nullptr;
 }
 
+KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const
+{
+    return m_mainWindow;
+}
+
 #include "externaltoolsplugin.moc"
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+// kate: space-indent on; indent-width 4; replace-tabs on;

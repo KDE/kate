@@ -20,16 +20,16 @@
 
 #include "externaltoolsplugin.h"
 
-#include <QIcon>
-#include <QDebug>
-#include <KTextEditor/Application>
 #include <KIconLoader>
+#include <KTextEditor/Application>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
+#include <QDebug>
+#include <QIcon>
 
-#include <QAction>
 #include <KActionCollection>
+#include <QAction>
 #include <kparts/part.h>
 
 #include <kmessagebox.h>
@@ -39,7 +39,8 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
-K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json", registerPlugin<KateExternalToolsPlugin>();)
+K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json",
+                           registerPlugin<KateExternalToolsPlugin>();)
 
 KateExternalToolsPlugin::KateExternalToolsPlugin(QObject* parent, const QList<QVariant>&)
     : KTextEditor::Plugin(parent)
@@ -108,11 +109,12 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     : QObject(mainWindow)
     , m_mainWindow(mainWindow)
 {
-    KXMLGUIClient::setComponentName(QLatin1String("externaltools"), i18n ("External Tools"));
+    KXMLGUIClient::setComponentName(QLatin1String("externaltools"), i18n("External Tools"));
     setXMLFile(QLatin1String("ui.rc"));
 
     if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
-        externalTools = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), mainWindow, mainWindow);
+        externalTools
+            = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), mainWindow, mainWindow);
         actionCollection()->addAction(QStringLiteral("tools_external"), externalTools);
         externalTools->setWhatsThis(i18n("Launch external helper applications"));
     }

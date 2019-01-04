@@ -26,11 +26,11 @@
 
 #include "ui_configwidget.h"
 
-#include <KTextEditor/ConfigPage>
 #include <KTextEditor/Application>
+#include <KTextEditor/Command>
+#include <KTextEditor/ConfigPage>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
-#include <KTextEditor/Command>
 
 #include <KActionMenu>
 #include <KMacroExpander>
@@ -201,10 +201,10 @@ public:
     void reload();
 
 public:
-//     const QStringList& cmds() override; // FIXME
-    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg,
-              const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
-    bool help(KTextEditor::View *view, const QString &cmd, QString &msg) override;
+    //     const QStringList& cmds() override; // FIXME
+    bool exec(KTextEditor::View* view, const QString& cmd, QString& msg,
+              const KTextEditor::Range& range = KTextEditor::Range::invalid()) override;
+    bool help(KTextEditor::View* view, const QString& cmd, QString& msg) override;
 
 private:
     QStringList m_list;
@@ -245,4 +245,4 @@ private:
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_H
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+// kate: space-indent on; indent-width 4; replace-tabs on;

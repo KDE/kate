@@ -28,21 +28,21 @@
 #include <KTextEditor/View>
 
 #include <KActionCollection>
-#include <QComboBox>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KIconButton>
 #include <KIconLoader>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QMenu>
 #include <KMessageBox>
 #include <KMimeTypeChooser>
 #include <KRun>
 #include <KSharedConfig>
-#include <QStandardPaths>
-#include <KXmlGuiWindow>
 #include <KXMLGUIFactory>
+#include <KXmlGuiWindow>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QMenu>
+#include <QStandardPaths>
 
 #include <QBitmap>
 #include <QFile>
@@ -122,10 +122,11 @@ void KateExternalToolsCommand::reload()
 
         config = KConfigGroup(&_config, *it);
 
-        KateExternalTool t = KateExternalTool(config.readEntry(QStringLiteral("name"), ""), config.readEntry("command", ""),
-                                              config.readEntry(QStringLiteral("icon"), ""), config.readEntry("executable", ""),
-                                              config.readEntry(QStringLiteral("mimetypes"), QStringList()),
-                                              config.readEntry(QStringLiteral("acname"), ""), config.readEntry("cmdname", ""));
+        KateExternalTool t
+            = KateExternalTool(config.readEntry(QStringLiteral("name"), ""), config.readEntry("command", ""),
+                               config.readEntry(QStringLiteral("icon"), ""), config.readEntry("executable", ""),
+                               config.readEntry(QStringLiteral("mimetypes"), QStringList()),
+                               config.readEntry(QStringLiteral("acname"), ""), config.readEntry("cmdname", ""));
         // FIXME test for a command name first!
         if (t.hasexec && (!t.cmdname.isEmpty())) {
             m_list.append(QStringLiteral("exttool-") + t.cmdname);
@@ -135,7 +136,8 @@ void KateExternalToolsCommand::reload()
     }
 }
 
-bool KateExternalToolsCommand::exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range)
+bool KateExternalToolsCommand::exec(KTextEditor::View* view, const QString& cmd, QString& msg,
+                                    const KTextEditor::Range& range)
 {
     Q_UNUSED(msg)
     Q_UNUSED(range)
@@ -285,7 +287,8 @@ void KateExternalToolsMenuAction::reload()
     menu()->clear();
 
     // load all the tools, and create a action for each of them
-    KSharedConfig::Ptr pConfig = KSharedConfig::openConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
+    KSharedConfig::Ptr pConfig = KSharedConfig::openConfig(QStringLiteral("externaltools"), KConfig::NoGlobals,
+                                                           QStandardPaths::ApplicationsLocation);
     KConfigGroup config(pConfig, "Global");
     QStringList tools = config.readEntry("tools", QStringList());
 
@@ -783,7 +786,8 @@ void KateExternalToolsConfigWidget::slotMoveUp()
     if (dynamic_cast<ToolItem*>(item)) {
         KateExternalTool* tool = static_cast<ToolItem*>(item)->tool;
         delete lbTools->takeItem(idx);
-        lbTools->insertItem(idx - 1, new ToolItem(nullptr, tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool));
+        lbTools->insertItem(idx - 1,
+                            new ToolItem(nullptr, tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool));
     } else // a separator!
     {
         delete lbTools->takeItem(idx);
@@ -811,7 +815,8 @@ void KateExternalToolsConfigWidget::slotMoveDown()
     if (dynamic_cast<ToolItem*>(item)) {
         KateExternalTool* tool = static_cast<ToolItem*>(item)->tool;
         delete lbTools->takeItem(idx);
-        lbTools->insertItem(idx + 1, new ToolItem(nullptr, tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool));
+        lbTools->insertItem(idx + 1,
+                            new ToolItem(nullptr, tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool));
     } else // a separator!
     {
         delete lbTools->takeItem(idx);

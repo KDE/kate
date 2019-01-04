@@ -230,10 +230,9 @@ public:
 
 private Q_SLOTS:
     /**
-     * Run when the OK/Cancel button is clicked, to ensure critical values are
-     * provided
+     * Run when the OK button is clicked, to ensure critical values are provided.
      */
-    void slotButtonClicked(int button);
+    void slotOKClicked();
     /**
      * show a mimetype chooser dialog
      */

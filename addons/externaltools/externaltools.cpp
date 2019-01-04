@@ -393,15 +393,19 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     : QDialog(parent)
     , tool(tool)
 {
-#if 0
     setWindowTitle(i18n("Edit External Tool"));
-    setButtons(Ok | Cancel);
-    setModal(true);
+
+    auto vbox = new QVBoxLayout(this);
+    auto buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &KateExternalToolServiceEditor::slotOKClicked);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     // create a entry for each property
     // fill in the values from the service if available
     QWidget* w = new QWidget(this);
-    setMainWidget(w);
+    vbox->addWidget(w);
+    vbox->addWidget(buttonBox);
+
     QGridLayout* lo = new QGridLayout(w);
 //     lo->setSpacing(KDialog::spacingHint()); // int spacing =  QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing);
 
@@ -507,38 +511,25 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     leCmdLine->setWhatsThis(i18n("If you specify a name here, you can invoke the command from the view "
                                  "command line with exttool-the_name_you_specified_here. "
                                  "Please do not use spaces or tabs in the name."));
-#endif
 }
 
-void KateExternalToolServiceEditor::slotButtonClicked(int button)
+void KateExternalToolServiceEditor::slotOKClicked()
 {
-    Q_UNUSED(button)
-#if 0
-    switch (button) {
-    case Ok:
-        if (leName->text().isEmpty() || teCommand->document()->isEmpty()) {
-            KMessageBox::information(this, i18n("You must specify at least a name and a command"));
-            return;
-        }
-        accept();
-        break;
-    case Cancel:
-        reject();
-        break;
+    if (leName->text().isEmpty() || teCommand->document()->isEmpty()) {
+        QMessageBox::information(this, i18n("External Tool"), i18n("You must specify at least a name and a command"));
+        return;
     }
-#endif
+    accept();
 }
 
 void KateExternalToolServiceEditor::showMTDlg()
 {
-#if 0
     QString text = i18n("Select the MimeTypes for which to enable this tool.");
     QStringList list = leMimetypes->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
     KMimeTypeChooserDialog d(i18n("Select Mime Types"), text, list, QStringLiteral("text"), this);
-    if (d.exec() == KDialog::Accepted) {
+    if (d.exec() == QDialog::Accepted) {
         leMimetypes->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
     }
-#endif
 }
 // END KateExternalToolServiceEditor
 

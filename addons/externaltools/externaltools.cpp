@@ -95,12 +95,13 @@ bool KateExternalTool::valid(const QString& mt) const
 
 // BEGIN KateExternalToolsCommand
 KateExternalToolsCommand::KateExternalToolsCommand(KateExternalToolsPlugin* plugin)
-    : KTextEditor::Command({})
+    : KTextEditor::Command({/* FIXME */})
     , m_plugin(plugin)
 {
     reload();
 }
 
+// FIXME
 // const QStringList& KateExternalToolsCommand::cmds()
 // {
 //     return m_list;
@@ -142,14 +143,14 @@ bool KateExternalToolsCommand::exec(KTextEditor::View* view, const QString& cmd,
     Q_UNUSED(msg)
     Q_UNUSED(range)
 
-    QWidget* wv = dynamic_cast<QWidget*>(view);
+    auto wv = dynamic_cast<QWidget*>(view);
     if (!wv) {
         //   qDebug()<<"KateExternalToolsCommand::exec: Could not get view widget";
         return false;
     }
 
     //  qDebug()<<"cmd="<<cmd.trimmed();
-    QString actionName = m_map[cmd.trimmed()];
+    const QString actionName = m_map[cmd.trimmed()];
     if (actionName.isEmpty())
         return false;
     //  qDebug()<<"actionName is not empty:"<<actionName;
@@ -181,9 +182,9 @@ KateExternalToolAction::KateExternalToolAction(QObject* parent, KateExternalTool
     : QAction(QIcon::fromTheme(t->icon), t->name, parent)
     , tool(t)
 {
-    // setText( t->name );
-    // if ( ! t->icon.isEmpty() )
-    //  setIcon( KIcon( t->icon ) );
+    setText(t->name);
+    if (!t->icon.isEmpty())
+        setIcon(QIcon::fromTheme(t->icon));
 
     connect(this, SIGNAL(triggered(bool)), SLOT(slotRun()));
 }
@@ -203,7 +204,7 @@ bool KateExternalToolAction::expandMacro(const QString& str, QStringList& ret)
     if (str == QStringLiteral("URL"))
         ret += url.url();
     else if (str == QStringLiteral("directory")) // directory of current doc
-        ret += url.toString(QUrl::RemoveFilename);
+        ret += url.toString(QUrl::RemoveScheme | QUrl::RemoveFilename);
     else if (str == QStringLiteral("filename"))
         ret += url.fileName();
     else if (str == QStringLiteral("line")) // cursor line of current doc
@@ -235,7 +236,7 @@ void KateExternalToolAction::slotRun()
     // and construct a command with an absolute path
     QString cmd = tool->command;
 
-    KTextEditor::MainWindow* mw = qobject_cast<KTextEditor::MainWindow*>(parent()->parent());
+    auto mw = qobject_cast<KTextEditor::MainWindow*>(parent()->parent());
     if (!expandMacrosShellQuote(cmd)) {
         KMessageBox::sorry(mw->window(), i18n("Failed to expand the command '%1'.", cmd), i18n("Kate External Tools"));
         return;

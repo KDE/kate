@@ -402,18 +402,16 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
 
     // create a entry for each property
     // fill in the values from the service if available
-    QWidget* w = new QWidget(this);
+    auto w = new QWidget(this);
     vbox->addWidget(w);
     vbox->addWidget(buttonBox);
 
-    QGridLayout* lo = new QGridLayout(w);
-//     lo->setSpacing(KDialog::spacingHint()); // int spacing =  QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing);
-
-    QLabel* l;
+    auto lo = new QGridLayout(w);
+    lo->setContentsMargins(0, 0, 0, 0);
 
     leName = new QLineEdit(w);
     lo->addWidget(leName, 1, 2);
-    l = new QLabel(w);
+    auto l = new QLabel(w);
     l->setBuddy(leName);
     l->setText(i18n("&Label:"));
     l->setAlignment(l->alignment() | Qt::AlignRight);
@@ -478,11 +476,11 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
                                    "be available; if this is left empty, the tool is always available. "
                                    "To choose from known mimetypes, press the button on the right."));
 
-    QToolButton* btnMTW = new QToolButton(w);
-    lo->addWidget(btnMTW, 4, 3);
-    btnMTW->setIcon(QIcon::fromTheme(QStringLiteral("wizard")));
-    connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
-    btnMTW->setWhatsThis(i18n("Click for a dialog that can help you create a list of mimetypes."));
+    auto btnMimetype = new QToolButton(w);
+    lo->addWidget(btnMimetype, 4, 3);
+    btnMimetype->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
+    connect(btnMimetype, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
+    btnMimetype->setWhatsThis(i18n("Click for a dialog that can help you create a list of mimetypes."));
 
     cmbSave = new QComboBox(w);
     lo->addWidget(cmbSave, 5, 2, 1, 2);
@@ -491,9 +489,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     l->setText(i18n("&Save:"));
     l->setAlignment(l->alignment() | Qt::AlignRight);
     lo->addWidget(l, 5, 1);
-    QStringList sl;
-    sl << i18n("None") << i18n("Current Document") << i18n("All Documents");
-    cmbSave->addItems(sl);
+    cmbSave->addItems({ i18n("None"), i18n("Current Document"), i18n("All Documents") });
     if (tool)
         cmbSave->setCurrentIndex(tool->save);
     cmbSave->setWhatsThis(i18n("You can choose to save the current or all [modified] documents prior to "
@@ -544,14 +540,14 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     btnMoveUp->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
     btnMoveDown->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
 
-    connect(lbTools, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()));
-    connect(lbTools, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(slotEdit()));
-    connect(btnNew, SIGNAL(clicked()), this, SLOT(slotNew()));
-    connect(btnRemove, SIGNAL(clicked()), this, SLOT(slotRemove()));
-    connect(btnEdit, SIGNAL(clicked()), this, SLOT(slotEdit()));
-    connect(btnSeparator, SIGNAL(clicked()), this, SLOT(slotInsertSeparator()));
-    connect(btnMoveUp, SIGNAL(clicked()), this, SLOT(slotMoveUp()));
-    connect(btnMoveDown, SIGNAL(clicked()), this, SLOT(slotMoveDown()));
+    connect(lbTools, &QListWidget::itemSelectionChanged, this, &KateExternalToolsConfigWidget::slotSelectionChanged);
+    connect(lbTools, &QListWidget::itemDoubleClicked, this, &KateExternalToolsConfigWidget::slotEdit);
+    connect(btnNew, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotNew);
+    connect(btnRemove, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotRemove);
+    connect(btnEdit, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotEdit);
+    connect(btnSeparator, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotInsertSeparator);
+    connect(btnMoveUp, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotMoveUp);
+    connect(btnMoveDown, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotMoveDown);
 
     config = new KConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
     reset();

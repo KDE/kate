@@ -419,7 +419,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     lo->addWidget(l, 1, 1);
     if (tool)
         leName->setText(tool->name);
-    leName->setWhatsThis(i18n("The name will be displayed in the 'Tools->External' menu"));
+    leName->setWhatsThis(i18n("The name will be displayed in the 'Tools->External Tools' menu"));
 
     btnIcon = new KIconButton(w);
     btnIcon->setIconSize(KIconLoader::SizeSmall);

@@ -80,7 +80,7 @@ public:
     class KActionCollection* actionCollection() { return m_actionCollection; }
 
 private Q_SLOTS:
-    void slotDocumentChanged();
+    void slotViewChanged(KTextEditor::View* view);
 
 private:
     class KActionCollection* m_actionCollection;

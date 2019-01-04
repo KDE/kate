@@ -21,9 +21,7 @@
 // TODO
 // Icons
 // Direct shortcut setting
-// BEGIN Includes
 #include "externaltools.h"
-#include "externaltools.moc"
 #include "externaltoolsplugin.h"
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -57,7 +55,6 @@
 #include <QToolButton>
 
 #include <unistd.h>
-// END Includes
 
 // BEGIN KateExternalTool
 KateExternalTool::KateExternalTool(const QString& name, const QString& command, const QString& icon,
@@ -269,7 +266,7 @@ KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KA
     m_actionCollection = collection;
 
     // connect to view changed...
-    connect(mw, SIGNAL(viewChanged()), this, SLOT(slotDocumentChanged()));
+    connect(mw, &KTextEditor::MainWindow::viewChanged, this, &KateExternalToolsMenuAction::slotViewChanged);
 
     reload();
 }
@@ -342,29 +339,25 @@ void KateExternalToolsMenuAction::reload()
 
     config = KConfigGroup(pConfig, "Shortcuts");
     m_actionCollection->readSettings(&config);
-    slotDocumentChanged();
+    slotViewChanged(mainwindow->activeView());
 }
 
-void KateExternalToolsMenuAction::slotDocumentChanged()
+void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)
 {
-    // try to enable/disable to match current mime type
-    KTextEditor::View* v = mainwindow->activeView();
-
     // no active view, oh oh
-    if (!v)
+    if (!view) {
         return;
+    }
 
-    KTextEditor::Document* de = v->document();
-    if (de) {
-        QString mt = de->mimeType();
-        QStringList l;
-        bool b;
-
+    // try to enable/disable to match current mime type
+    KTextEditor::Document* doc = view->document();
+    if (doc) {
+        const QString mimeType = doc->mimeType();
         foreach (QAction* kaction, m_actionCollection->actions()) {
             KateExternalToolAction* action = dynamic_cast<KateExternalToolAction*>(kaction);
             if (action) {
-                l = action->tool->mimetypes;
-                b = (!l.count() || l.contains(mt));
+                const QStringList l = action->tool->mimetypes;
+                const bool b = (!l.count() || l.contains(mimeType));
                 action->setEnabled(b);
             }
         }

@@ -22,7 +22,6 @@ kcoreaddons_desktop_to_json (externaltoolsplugin externaltoolsplugin.desktop)
 
 target_link_libraries(externaltoolsplugin
     KF5::CoreAddons
-    KF5::WidgetAddons
     KF5::IconThemes
     KF5::TextEditor
     KF5::I18n

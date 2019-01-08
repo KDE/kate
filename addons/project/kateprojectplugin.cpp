@@ -277,8 +277,8 @@ KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, 
 {
     QVariantMap cnf, files;
     files[type] = 1;
-    cnf[QLatin1String("name")] = dir.dirName();
-    cnf[QLatin1String("files")] = (QVariantList() << files);
+    cnf[QStringLiteral("name")] = dir.dirName();
+    cnf[QStringLiteral("files")] = (QVariantList() << files);
 
     KateProject *project = new KateProject(m_weaver);
     project->loadFromData(cnf, dir.canonicalPath());

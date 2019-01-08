@@ -87,7 +87,7 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     Ui::SnippetViewBase::setupUi(this);
 
     setWindowTitle(i18n("Snippets"));
-    setWindowIcon(QIcon::fromTheme(QLatin1String("document-new"), windowIcon()));
+    setWindowIcon(QIcon::fromTheme(QStringLiteral("document-new"), windowIcon()));
 
     snippetTree->setContextMenuPolicy( Qt::CustomContextMenu );
     snippetTree->viewport()->installEventFilter( this );
@@ -102,19 +102,19 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     snippetTree->setModel(m_proxy);
     snippetTree->header()->hide();
 
-    m_addRepoAction = new QAction(QIcon::fromTheme(QLatin1String("folder-new")), i18n("Add Repository"), this);
+    m_addRepoAction = new QAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("Add Repository"), this);
     connect(m_addRepoAction, &QAction::triggered, this, &SnippetView::slotAddRepo);
     addAction(m_addRepoAction);
-    m_editRepoAction = new QAction(QIcon::fromTheme(QLatin1String("folder-txt")), i18n("Edit Repository"), this);
+    m_editRepoAction = new QAction(QIcon::fromTheme(QStringLiteral("folder-txt")), i18n("Edit Repository"), this);
     connect(m_editRepoAction, &QAction::triggered, this, &SnippetView::slotEditRepo);
     addAction(m_editRepoAction);
-    m_removeRepoAction = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Repository"), this);
+    m_removeRepoAction = new QAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18n("Remove Repository"), this);
     connect(m_removeRepoAction, &QAction::triggered, this, &SnippetView::slotRemoveRepo);
     addAction(m_removeRepoAction);
 
     const bool newStuffAllowed = KAuthorized::authorize(QStringLiteral("ghns"));
 
-    m_putNewStuffAction = new QAction(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")), i18n("Publish Repository"), this);
+    m_putNewStuffAction = new QAction(QIcon::fromTheme(QStringLiteral("get-hot-new-stuff")), i18n("Publish Repository"), this);
     m_putNewStuffAction->setVisible(newStuffAllowed);
     connect(m_putNewStuffAction, &QAction::triggered, this, &SnippetView::slotSnippetToGHNS);
     addAction(m_putNewStuffAction);
@@ -123,24 +123,24 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     separator->setSeparator(true);
     addAction(separator);
 
-    m_addSnippetAction = new QAction(QIcon::fromTheme(QLatin1String("document-new")), i18n("Add Snippet"), this);
+    m_addSnippetAction = new QAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("Add Snippet"), this);
     connect(m_addSnippetAction, &QAction::triggered, this, &SnippetView::slotAddSnippet);
     addAction(m_addSnippetAction);
-    m_editSnippetAction = new QAction(QIcon::fromTheme(QLatin1String("document-edit")), i18n("Edit Snippet"), this);
+    m_editSnippetAction = new QAction(QIcon::fromTheme(QStringLiteral("document-edit")), i18n("Edit Snippet"), this);
     connect(m_editSnippetAction, &QAction::triggered, this, &SnippetView::slotEditSnippet);
     addAction(m_editSnippetAction);
-    m_removeSnippetAction = new QAction(QIcon::fromTheme(QLatin1String("document-close")), i18n("Remove Snippet"), this);
+    m_removeSnippetAction = new QAction(QIcon::fromTheme(QStringLiteral("document-close")), i18n("Remove Snippet"), this);
     connect(m_removeSnippetAction, &QAction::triggered, this, &SnippetView::slotRemoveSnippet);
     addAction(m_removeSnippetAction);
 
     addAction(separator);
 
-    m_getNewStuffAction = new QAction(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")), i18n("Get New Snippets"), this);
+    m_getNewStuffAction = new QAction(QIcon::fromTheme(QStringLiteral("get-hot-new-stuff")), i18n("Get New Snippets"), this);
     m_getNewStuffAction->setVisible(newStuffAllowed);
     connect(m_getNewStuffAction, &QAction::triggered, this, &SnippetView::slotGHNS);
     addAction(m_getNewStuffAction);
 
-    connect(snippetTree->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(validateActions()));
+    connect(snippetTree->selectionModel(), &QItemSelectionModel::selectionChanged, this, &SnippetView::validateActions);
     validateActions();
 
     connect(snippetTree->model(), &QAbstractItemModel::rowsInserted, this, [this]() { setupActionsForWindow(this); });
@@ -321,7 +321,7 @@ void SnippetView::slotRemoveRepo()
 
 void SnippetView::slotGHNS()
 {
-    KNS3::DownloadDialog dialog(QLatin1String(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
+    KNS3::DownloadDialog dialog(QStringLiteral(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
     dialog.exec();
     foreach ( const KNS3::Entry& entry, dialog.changedEntries() ) {
         foreach ( const QString& path, entry.uninstalledFiles() ) {
@@ -349,7 +349,7 @@ void SnippetView::slotSnippetToGHNS()
     if ( !repo )
         return;
 
-    KNS3::UploadDialog dialog(QLatin1String(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
+    KNS3::UploadDialog dialog(QStringLiteral(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
     dialog.setUploadFile(QUrl::fromLocalFile(repo->file()));
     dialog.setUploadName(repo->text());
     dialog.exec();

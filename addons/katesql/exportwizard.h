@@ -30,8 +30,9 @@ class QCheckBox;
 
 class ExportWizard : public QWizard
 {
+    Q_OBJECT
   public:
-    ExportWizard(QWidget *parent);
+    explicit ExportWizard(QWidget *parent);
     ~ExportWizard() override;
 };
 
@@ -39,7 +40,7 @@ class ExportWizard : public QWizard
 class ExportOutputPage : public QWizardPage
 {
   public:
-    ExportOutputPage(QWidget *parent=nullptr);
+    explicit ExportOutputPage(QWidget *parent=nullptr);
 
     void initializePage() override;
     bool validatePage() override;
@@ -54,7 +55,7 @@ class ExportOutputPage : public QWizardPage
 class ExportFormatPage : public QWizardPage
 {
   public:
-    ExportFormatPage(QWidget *parent=nullptr);
+    explicit ExportFormatPage(QWidget *parent=nullptr);
 
     void initializePage() override;
     bool validatePage() override;

@@ -153,7 +153,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
         slotDocumentCreated(doc);
     }
 
-    connect(KateApp::self()->documentManager(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(slotDocumentCreated(KTextEditor::Document*)));
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentCreated, this, &KateMainWindow::slotDocumentCreated);
 
     readOptions();
 
@@ -169,7 +169,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
 
     connect(KateApp::self()->sessionManager(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
 
-    connect(this, SIGNAL(sigShowPluginConfigPage(KTextEditor::Plugin*,uint)), this, SLOT(showPluginConfigPage(KTextEditor::Plugin*,uint)));
+    connect(this, &KateMDI::MainWindow::sigShowPluginConfigPage, this, &KateMainWindow::showPluginConfigPage);
 
     // prior to this there was (possibly) no view, therefore not context menu.
     // Hence, we have to take care of the menu bar here
@@ -177,7 +177,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
 
     // on first start: deactivate toolbar
     if (firstStart)
-        toolBar(QLatin1String("mainToolBar"))->hide();
+        toolBar(QStringLiteral("mainToolBar"))->hide();
 
     // pass focus to first view!
     if (m_viewManager->activeView())
@@ -224,7 +224,7 @@ void KateMainWindow::setupImportantActions()
 
     m_paShowTabBar = new KToggleAction(i18n("Show &Tabs"), this);
     actionCollection()->addAction(QStringLiteral("settings_show_tab_bar"), m_paShowTabBar);
-    connect(m_paShowTabBar, SIGNAL(toggled(bool)), this, SLOT(toggleShowTabBar()));
+    connect(m_paShowTabBar, &QAction::toggled, this, &KateMainWindow::toggleShowTabBar);
     m_paShowTabBar->setWhatsThis(i18n("Use this command to show or hide the tabs for the views"));
 
     m_paShowPath = new KToggleAction(i18n("Sho&w Path in Titlebar"), this);
@@ -239,20 +239,20 @@ void KateMainWindow::setupImportantActions()
     a->setText(i18n("&Previous Tab"));
     a->setWhatsThis(i18n("Focus the previous tab."));
     actionCollection()->setDefaultShortcuts(a, a->shortcuts() << KStandardShortcut::tabPrev());
-    connect(a, SIGNAL(triggered()), this, SLOT(slotFocusPrevTab()));
+    connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusPrevTab);
 
     a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("view_next_tab"));
     a->setText(i18n("&Next Tab"));
     a->setWhatsThis(i18n("Focus the next tab."));
     actionCollection()->setDefaultShortcuts(a, a->shortcuts() << KStandardShortcut::tabNext());
-    connect(a, SIGNAL(triggered()), this, SLOT(slotFocusNextTab()));
+    connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusNextTab);
 
     // the quick open action is used by the KateViewSpace "quick open button"
     a = actionCollection()->addAction(QStringLiteral("view_quick_open"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
     a->setText(i18n("&Quick Open"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O));
-    connect(a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()));
+    connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 }
 
@@ -299,12 +299,12 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
     a->setText(i18n("Save A&ll"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_L));
-    connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(saveAll()));
+    connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::saveAll);
     a->setWhatsThis(i18n("Save all open, modified documents to disk."));
 
     a = actionCollection()->addAction(QStringLiteral("file_reload_all"));
     a->setText(i18n("&Reload All"));
-    connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(reloadAll()));
+    connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::reloadAll);
     a->setWhatsThis(i18n("Reload all open documents."));
 
     a = actionCollection()->addAction(QStringLiteral("file_copy_filepath"));
@@ -367,7 +367,7 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("file_close_orphaned"));
     a->setText(i18n("Close Orphaned"));
-    connect(a, SIGNAL(triggered()), KateApp::self()->documentManager(), SLOT(closeOrphaned()));
+    connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::closeOrphaned);
     a->setWhatsThis(i18n("Close all documents in the file list that could not be reopened, because they are not accessible anymore."));
 
     a = actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), m_viewManager, SLOT(slotDocumentClose()));
@@ -381,29 +381,29 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("file_close_all"));
     a->setText(i18n("Clos&e All"));
-    connect(a, SIGNAL(triggered()), this, SLOT(slotDocumentCloseAll()));
+    connect(a, &QAction::triggered, this, &KateMainWindow::slotDocumentCloseAll);
     a->setWhatsThis(i18n("Close all open documents."));
 
     a = actionCollection()->addAction(KStandardAction::Quit, QStringLiteral("file_quit"));
     // Qt::QueuedConnection: delay real shutdown, as we are inside menu action handling (bug #185708)
-    connect(a, SIGNAL(triggered()), this, SLOT(slotFileQuit()), Qt::QueuedConnection);
+    connect(a, &QAction::triggered, this, &KateMainWindow::slotFileQuit, Qt::QueuedConnection);
     a->setWhatsThis(i18n("Close this window"));
 
     a = actionCollection()->addAction(QStringLiteral("view_new_view"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));
     a->setText(i18n("&New Window"));
-    connect(a, SIGNAL(triggered()), this, SLOT(newWindow()));
+    connect(a, &QAction::triggered, this, &KateMainWindow::newWindow);
     a->setWhatsThis(i18n("Create a new Kate view (a new window with the same document list)."));
 
     m_showFullScreenAction = KStandardAction::fullScreen(nullptr, nullptr, this, this);
     actionCollection()->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);
-    connect(m_showFullScreenAction, SIGNAL(toggled(bool)), this, SLOT(slotFullScreen(bool)));
+    connect(m_showFullScreenAction, &QAction::toggled, this, &KateMainWindow::slotFullScreen);
 
     documentOpenWith = new KActionMenu(i18n("Open W&ith"), this);
     actionCollection()->addAction(QStringLiteral("file_open_with"), documentOpenWith);
     documentOpenWith->setWhatsThis(i18n("Open the current document using another application registered for its file type, or an application of your choice."));
-    connect(documentOpenWith->menu(), SIGNAL(aboutToShow()), this, SLOT(mSlotFixOpenWithMenu()));
-    connect(documentOpenWith->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotOpenWithMenuAction(QAction*)));
+    connect(documentOpenWith->menu(), &QMenu::aboutToShow, this, &KateMainWindow::mSlotFixOpenWithMenu);
+    connect(documentOpenWith->menu(), &QMenu::triggered, this, &KateMainWindow::slotOpenWithMenuAction);
 
     a = KStandardAction::keyBindings(this, SLOT(editKeys()), actionCollection());
     a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
@@ -417,23 +417,23 @@ void KateMainWindow::setupActions()
     if (KateApp::self()->pluginManager()->pluginList().count() > 0) {
         a = actionCollection()->addAction(QStringLiteral("help_plugins_contents"));
         a->setText(i18n("&Plugins Handbook"));
-        connect(a, SIGNAL(triggered()), this, SLOT(pluginHelp()));
+        connect(a, &QAction::triggered, this, &KateMainWindow::pluginHelp);
         a->setWhatsThis(i18n("This shows help files for various available plugins."));
     }
 
     a = actionCollection()->addAction(QStringLiteral("help_about_editor"));
     a->setText(i18n("&About Editor Component"));
-    connect(a, SIGNAL(triggered()), this, SLOT(aboutEditor()));
+    connect(a, &QAction::triggered, this, &KateMainWindow::aboutEditor);
 
-    connect(m_viewManager, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotWindowActivated()));
-    connect(m_viewManager, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotUpdateOpenWith()));
+    connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotWindowActivated);
+    connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateOpenWith);
     connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateActionsNeedingUrl);
-    connect(m_viewManager, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotUpdateBottomViewBar()));
+    connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateBottomViewBar);
 
     // re-route signals to our wrapper
-    connect(m_viewManager, SIGNAL(viewChanged(KTextEditor::View*)), m_wrapper, SIGNAL(viewChanged(KTextEditor::View*)));
-    connect(m_viewManager, SIGNAL(viewCreated(KTextEditor::View*)), m_wrapper, SIGNAL(viewCreated(KTextEditor::View*)));
-    connect(this, SIGNAL(unhandledShortcutOverride(QEvent*)), m_wrapper, SIGNAL(unhandledShortcutOverride(QEvent*)));
+    connect(m_viewManager, &KateViewManager::viewChanged, m_wrapper, &KTextEditor::MainWindow::viewChanged);
+    connect(m_viewManager, &KateViewManager::viewCreated, m_wrapper, &KTextEditor::MainWindow::viewCreated);
+    connect(this, &KateMainWindow::unhandledShortcutOverride, m_wrapper, &KTextEditor::MainWindow::unhandledShortcutOverride);
 
     slotWindowActivated();
 
@@ -442,20 +442,20 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
     a->setText(i18nc("Menu entry Session->New", "&New"));
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
-    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionNew()), Qt::QueuedConnection);
+    connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionNew, Qt::QueuedConnection);
     a = actionCollection()->addAction(QStringLiteral("sessions_save"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
     a->setText(i18n("&Save Session"));
-    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionSave()));
+    connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionSave);
     a = actionCollection()->addAction(QStringLiteral("sessions_save_as"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-as")));
     a->setText(i18n("Save Session &As..."));
-    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionSaveAs()));
+    connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionSaveAs);
     a = actionCollection()->addAction(QStringLiteral("sessions_manage"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("view-choose")));
     a->setText(i18n("&Manage Sessions..."));
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
-    connect(a, SIGNAL(triggered()), KateApp::self()->sessionManager(), SLOT(sessionManage()), Qt::QueuedConnection);
+    connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionManage, Qt::QueuedConnection);
 
     // quick open menu ;)
     a = new KateSessionsAction(i18n("&Quick Open Session"), this);
@@ -572,7 +572,7 @@ void KateMainWindow::slotEditToolbars()
 
     KEditToolBar dlg(factory());
 
-    connect(&dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()));
+    connect(&dlg, &KEditToolBar::newToolBarConfig, this, &KateMainWindow::slotNewToolbarConfig);
     dlg.exec();
 }
 
@@ -605,7 +605,7 @@ void KateMainWindow::slotFileClose()
     m_viewManager->slotDocumentClose();
 }
 
-void KateMainWindow::slotOpenDocument(QUrl url)
+void KateMainWindow::slotOpenDocument(const QUrl &url)
 {
     m_viewManager->openUrl(url,
                            QString(),
@@ -659,7 +659,7 @@ void KateMainWindow::toggleShowMenuBar(bool showMessage)
             const QString accel = m_paShowMenuBar->shortcut().toString();
             KMessageBox::information(this, i18n("This will hide the menu bar completely."
                                                 " You can show it again by typing %1.", accel),
-                                     i18n("Hide menu bar"), QLatin1String("HideMenuBarWarning"));
+                                     i18n("Hide menu bar"), QStringLiteral("HideMenuBarWarning"));
         }
         menuBar()->hide();
         addMenuBarActionToContextMenu();
@@ -787,8 +787,8 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
                                                "Do you want to load all files contained in it ?", url.url()),
                                                i18n("Load files recursively?")) == KMessageBox::Yes) {
                     KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
-                    connect(list_job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)),
-                            this, SLOT(slotListRecursiveEntries(KIO::Job*,KIO::UDSEntryList)));
+                    connect(list_job, &KIO::ListJob::entries,
+                            this, &KateMainWindow::slotListRecursiveEntries);
                 }
             } else {
                 m_viewManager->openUrl(url);
@@ -1000,7 +1000,7 @@ void KateMainWindow::slotDocumentCreated(KTextEditor::Document *doc)
     connect(doc, SIGNAL(readWriteChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
     connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
     connect(doc, SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
-    connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(slotUpdateOpenWith()));
+    connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateMainWindow::slotUpdateOpenWith);
 
     updateCaption(doc);
 }
@@ -1038,7 +1038,7 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
 
     QString sessName = KateApp::self()->sessionManager()->activeSession()->name();
     if (!sessName.isEmpty()) {
-        sessName = QString::fromLatin1("%1: ").arg(sessName);
+        sessName = QStringLiteral("%1: ").arg(sessName);
     }
 
     QString readOnlyCaption;
@@ -1059,7 +1059,7 @@ void KateMainWindow::saveProperties(KConfigGroup &config)
     foreach(const KatePluginInfo & item, KateApp::self()->pluginManager()->pluginList()) {
         if (item.plugin && pluginViews().contains(item.plugin)) {
             if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (pluginViews().value(item.plugin))) {
-                KConfigGroup group(config.config(), QString::fromLatin1("Plugin:%1:MainWindow:%2").arg(item.saveName()).arg(id));
+                KConfigGroup group(config.config(), QStringLiteral("Plugin:%1:MainWindow:%2").arg(item.saveName()).arg(id));
                 interface->writeSessionConfig(group);
             }
         }

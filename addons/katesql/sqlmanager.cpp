@@ -98,7 +98,7 @@ void SQLManager::createConnection(const Connection &conn)
 
 bool SQLManager::testConnection(const Connection &conn, QSqlError &error)
 {
-  QString connectionName = (conn.name.isEmpty()) ? QString::fromLatin1 ("katesql-test") : conn.name;
+  QString connectionName = (conn.name.isEmpty()) ? QStringLiteral ("katesql-test") : conn.name;
 
   QSqlDatabase db = QSqlDatabase::addDatabase(conn.driver, connectionName);
 
@@ -192,7 +192,7 @@ Wallet *SQLManager::openWallet()
   if (!m_wallet)
     return nullptr;
 
-  QString folder (QLatin1String ("SQL Connections"));
+  QString folder (QStringLiteral ("SQL Connections"));
 
   if (!m_wallet->hasFolder(folder))
     m_wallet->createFolder(folder);
@@ -217,12 +217,12 @@ int SQLManager::storeCredentials(const Connection &conn)
 
   QMap<QString, QString> map;
 
-  map[QLatin1String ("driver")] = conn.driver.toUpper();
-  map[QLatin1String ("hostname")] = conn.hostname.toUpper();
-  map[QLatin1String ("port")] = QString::number(conn.port);
-  map[QLatin1String ("database")] = conn.database.toUpper();
-  map[QLatin1String ("username")] = conn.username;
-  map[QLatin1String ("password")] = conn.password;
+  map[QStringLiteral ("driver")] = conn.driver.toUpper();
+  map[QStringLiteral ("hostname")] = conn.hostname.toUpper();
+  map[QStringLiteral ("port")] = QString::number(conn.port);
+  map[QStringLiteral ("database")] = conn.database.toUpper();
+  map[QStringLiteral ("username")] = conn.username;
+  map[QStringLiteral ("password")] = conn.password;
 
   return (wallet->writeMap(conn.name, map) == 0) ? 0 : -1;
 }
@@ -243,7 +243,7 @@ int SQLManager::readCredentials(const QString &name, QString &password)
   {
     if (!map.isEmpty())
     {
-      password = map.value(QLatin1String("password"));
+      password = map.value(QStringLiteral("password"));
       return 0;
     }
   }

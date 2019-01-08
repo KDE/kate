@@ -28,7 +28,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
                return;
 
        QString currline;
-       QString funcStr(QLatin1String("function "));
+       QString funcStr(QStringLiteral("function "));
 
        int i;
        //bool mainprog;

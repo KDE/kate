@@ -80,7 +80,7 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     }
 
     m_scriptsView = createView(m_ui->scriptTab);
-    m_scriptsView->document()->setMode(QLatin1String("JavaScript"));
+    m_scriptsView->document()->setMode(QStringLiteral("JavaScript"));
     m_scriptsView->document()->setText(m_repo->script());
     m_scriptsView->document()->setModified(false);
 

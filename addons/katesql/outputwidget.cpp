@@ -28,9 +28,9 @@ KateSQLOutputWidget::KateSQLOutputWidget (QWidget *parent)
   
 {
   addTab (m_textOutputWidget=new TextOutputWidget (this),
-          QIcon::fromTheme(QLatin1String("view-list-text")), i18nc("@title:window", "SQL Text Output"));
+          QIcon::fromTheme(QStringLiteral("view-list-text")), i18nc("@title:window", "SQL Text Output"));
   addTab (m_dataOutputWidget=new DataOutputWidget(this),
-          QIcon::fromTheme(QLatin1String("view-form-table")),i18nc("@title:window", "SQL Data Output"));
+          QIcon::fromTheme(QStringLiteral("view-form-table")),i18nc("@title:window", "SQL Data Output"));
 
 }
 

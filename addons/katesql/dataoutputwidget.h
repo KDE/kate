@@ -46,7 +46,7 @@ class DataOutputWidget : public QWidget
     void exportData(QTextStream &stream,
                     const QChar stringsQuoteChar = QLatin1Char ('\0'),
                     const QChar numbersQuoteChar = QLatin1Char ('\0'),
-                    const QString fieldDelimiter = QLatin1String ("\t"),
+                    const QString &fieldDelimiter = QStringLiteral ("\t"),
                     const Options opt = NoOptions);
 
     DataOutputModel *model() const { return m_model; }

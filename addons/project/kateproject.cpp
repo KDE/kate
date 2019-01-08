@@ -108,7 +108,7 @@ QVariantMap KateProject::readProjectFile() const
 bool KateProject::loadFromData(const QVariantMap& globalProject, const QString& directory)
 {
     m_baseDir = directory;
-    m_fileName = QDir(directory).filePath(QLatin1String(".kateproject"));
+    m_fileName = QDir(directory).filePath(QStringLiteral(".kateproject"));
     m_globalProject = globalProject;
     return load(globalProject);
 }

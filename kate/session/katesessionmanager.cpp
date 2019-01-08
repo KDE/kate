@@ -65,7 +65,7 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
 
     m_dirWatch = new KDirWatch(this);
     m_dirWatch->addDir(m_sessionsDir);
-    connect(m_dirWatch, SIGNAL(dirty(QString)), this, SLOT(updateSessionList()));
+    connect(m_dirWatch, &KDirWatch::dirty, this, &KateSessionManager::updateSessionList);
 
     updateSessionList();
 }
@@ -202,12 +202,12 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
 
         for (int i = 0; i < wCount; ++i) {
             if (i >= KateApp::self()->mainWindowsCount()) {
-                KateApp::self()->newMainWindow(cfg, QString::fromLatin1("MainWindow%1").arg(i));
+                KateApp::self()->newMainWindow(cfg, QStringLiteral("MainWindow%1").arg(i));
             } else {
-                KateApp::self()->mainWindow(i)->readProperties(KConfigGroup(cfg, QString::fromLatin1("MainWindow%1").arg(i)));
+                KateApp::self()->mainWindow(i)->readProperties(KConfigGroup(cfg, QStringLiteral("MainWindow%1").arg(i)));
             }
 
-            KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(cfg, QString::fromLatin1("MainWindow%1 Settings").arg(i)));
+            KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(cfg, QStringLiteral("MainWindow%1 Settings").arg(i)));
         }
 
         if (delete_cfg) {
@@ -269,7 +269,7 @@ bool KateSessionManager::deleteSession(KateSession::Ptr session)
     return true;
 }
 
-QString KateSessionManager::copySession(KateSession::Ptr session, const QString &newName)
+QString KateSessionManager::copySession(const KateSession::Ptr &session, const QString &newName)
 {
     const QString name = askForNewSessionName(session, newName);
 
@@ -340,10 +340,10 @@ void KateSessionManager::saveSessionTo(KConfig *sc) const
     // save config for all windows around ;)
     bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
     for (int i = 0; i < KateApp::self()->mainWindowsCount(); ++i) {
-        KConfigGroup cg(sc, QString::fromLatin1("MainWindow%1").arg(i));
+        KConfigGroup cg(sc, QStringLiteral("MainWindow%1").arg(i));
         KateApp::self()->mainWindow(i)->saveProperties(cg);
         if (saveWindowConfig) {
-            KateApp::self()->mainWindow(i)->saveWindowConfig(KConfigGroup(sc, QString::fromLatin1("MainWindow%1 Settings").arg(i)));
+            KateApp::self()->mainWindow(i)->saveWindowConfig(KConfigGroup(sc, QStringLiteral("MainWindow%1 Settings").arg(i)));
         }
     }
 

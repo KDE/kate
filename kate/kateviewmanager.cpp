@@ -72,25 +72,25 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     vs->setActive(true);
     m_viewSpaceList.append(vs);
 
-    connect(this, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(slotViewChanged()));
+    connect(this, &KateViewManager::viewChanged, this, &KateViewManager::slotViewChanged);
 
-    connect(KateApp::self()->documentManager(), SIGNAL(documentCreatedViewManager(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentCreatedViewManager, this, &KateViewManager::documentCreated);
 
     /**
      * before document is really deleted: cleanup all views!
      */
-    connect(KateApp::self()->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*))
-        , this, SLOT(documentWillBeDeleted(KTextEditor::Document*)));
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentWillBeDeleted
+        , this, &KateViewManager::documentWillBeDeleted);
 
     /**
      * handle document deletion transactions
      * disable view creation in between
      * afterwards ensure we have views ;)
      */
-    connect(KateApp::self()->documentManager(), SIGNAL(aboutToDeleteDocuments(const QList<KTextEditor::Document *> &))
-        , this, SLOT(aboutToDeleteDocuments(const QList<KTextEditor::Document *> &)));
-    connect(KateApp::self()->documentManager(), SIGNAL(documentsDeleted(const QList<KTextEditor::Document *> &))
-        , this, SLOT(documentsDeleted(const QList<KTextEditor::Document *> &)));
+    connect(KateApp::self()->documentManager(), &KateDocManager::aboutToDeleteDocuments
+        , this, &KateViewManager::aboutToDeleteDocuments);
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted
+        , this, &KateViewManager::documentsDeleted);
 
     // register all already existing documents
     m_blockViewCreationAndActivation = true;
@@ -126,7 +126,7 @@ void KateViewManager::setupActions()
     m_splitViewVert->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
     m_splitViewVert->setText(i18n("Split Ve&rtical"));
     m_mainWindow->actionCollection()->setDefaultShortcut(m_splitViewVert, Qt::CTRL + Qt::SHIFT + Qt::Key_L);
-    connect(m_splitViewVert, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceVert()));
+    connect(m_splitViewVert, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceVert);
 
     m_splitViewVert->setWhatsThis(i18n("Split the currently active view vertically into two views."));
 
@@ -134,7 +134,7 @@ void KateViewManager::setupActions()
     m_splitViewHoriz->setIcon(QIcon::fromTheme(QStringLiteral("view-split-top-bottom")));
     m_splitViewHoriz->setText(i18n("Split &Horizontal"));
     m_mainWindow->actionCollection()->setDefaultShortcut(m_splitViewHoriz, Qt::CTRL + Qt::SHIFT + Qt::Key_T);
-    connect(m_splitViewHoriz, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceHoriz()));
+    connect(m_splitViewHoriz, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceHoriz);
 
     m_splitViewHoriz->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
 
@@ -142,14 +142,14 @@ void KateViewManager::setupActions()
     m_closeView->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
     m_closeView->setText(i18n("Cl&ose Current View"));
     m_mainWindow->actionCollection()->setDefaultShortcut(m_closeView, Qt::CTRL + Qt::SHIFT + Qt::Key_R);
-    connect(m_closeView, SIGNAL(triggered()), this, SLOT(slotCloseCurrentViewSpace()), Qt::QueuedConnection);
+    connect(m_closeView, &QAction::triggered, this, &KateViewManager::slotCloseCurrentViewSpace, Qt::QueuedConnection);
 
     m_closeView->setWhatsThis(i18n("Close the currently active split view"));
 
     m_closeOtherViews = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_close_others"));
     m_closeOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
     m_closeOtherViews->setText(i18n("Close Inactive Views"));
-    connect(m_closeOtherViews, SIGNAL(triggered()), this, SLOT(slotCloseOtherViews()), Qt::QueuedConnection);
+    connect(m_closeOtherViews, &QAction::triggered, this, &KateViewManager::slotCloseOtherViews, Qt::QueuedConnection);
 
     m_closeOtherViews->setWhatsThis(i18n("Close every view but the active one"));
 
@@ -157,51 +157,51 @@ void KateViewManager::setupActions()
     m_hideOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-fullscreen")));
     m_hideOtherViews->setText(i18n("Hide Inactive Views"));
     m_hideOtherViews->setCheckable(true);
-    connect(m_hideOtherViews, SIGNAL(triggered(bool)), this, SLOT(slotHideOtherViews(bool)), Qt::QueuedConnection);
+    connect(m_hideOtherViews, &QAction::triggered, this, &KateViewManager::slotHideOtherViews, Qt::QueuedConnection);
 
     m_hideOtherViews->setWhatsThis(i18n("Hide every view but the active one"));
 
     m_toggleSplitterOrientation = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_toggle"));
     m_toggleSplitterOrientation->setText(i18n("Toggle Orientation"));
-    connect(m_toggleSplitterOrientation, SIGNAL(triggered()), this, SLOT(toggleSplitterOrientation()), Qt::QueuedConnection);
+    connect(m_toggleSplitterOrientation, &QAction::triggered, this, &KateViewManager::toggleSplitterOrientation, Qt::QueuedConnection);
 
     m_toggleSplitterOrientation->setWhatsThis(i18n("Toggles the orientation of the current split view"));
 
     goNext = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_next_split_view"));
     goNext->setText(i18n("Next Split View"));
     m_mainWindow->actionCollection()->setDefaultShortcut(goNext, Qt::Key_F8);
-    connect(goNext, SIGNAL(triggered()), this, SLOT(activateNextView()));
+    connect(goNext, &QAction::triggered, this, &KateViewManager::activateNextView);
 
     goNext->setWhatsThis(i18n("Make the next split view the active one."));
 
     goPrev = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_prev_split_view"));
     goPrev->setText(i18n("Previous Split View"));
     m_mainWindow->actionCollection()->setDefaultShortcut(goPrev, Qt::SHIFT + Qt::Key_F8);
-    connect(goPrev, SIGNAL(triggered()), this, SLOT(activatePrevView()));
+    connect(goPrev, &QAction::triggered, this, &KateViewManager::activatePrevView);
 
     goPrev->setWhatsThis(i18n("Make the previous split view the active one."));
 
     QAction * a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_right"));
     a->setText(i18n("Move Splitter Right"));
-    connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterRight()));
+    connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterRight);
 
     a->setWhatsThis(i18n("Move the splitter of the current view to the right"));
 
     a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_left"));
     a->setText(i18n("Move Splitter Left"));
-    connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterLeft()));
+    connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterLeft);
 
     a->setWhatsThis(i18n("Move the splitter of the current view to the left"));
 
     a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_up"));
     a->setText(i18n("Move Splitter Up"));
-    connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterUp()));
+    connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterUp);
 
     a->setWhatsThis(i18n("Move the splitter of the current view up"));
 
     a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_down"));
     a->setText(i18n("Move Splitter Down"));
-    connect(a, SIGNAL(triggered()), this, SLOT(moveSplitterDown()));
+    connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterDown);
 
     a->setWhatsThis(i18n("Move the splitter of the current view down"));
 }
@@ -243,7 +243,7 @@ void KateViewManager::slotDocumentOpen()
 
         const auto size = QFile(url.toLocalFile()).size();
         if (size > FileSizeAboveToAskUserIfProceedWithOpen) {
-            fileListWithTooLargeFiles += QString::fromLatin1("<li>%1 (%2MB)</li>").arg(url.fileName()).arg(size / 1024 / 1024);
+            fileListWithTooLargeFiles += QStringLiteral("<li>%1 (%2MB)</li>").arg(url.fileName()).arg(size / 1024 / 1024);
         }
     }
     if (!fileListWithTooLargeFiles.isEmpty()) {
@@ -352,7 +352,7 @@ void KateViewManager::documentCreated(KTextEditor::Document *doc)
     activeViewSpace()->registerDocument(doc);
 
     // to update open recent files on saving
-    connect(doc, SIGNAL(documentSavedOrUploaded(KTextEditor::Document*,bool)), this, SLOT(documentSavedOrUploaded(KTextEditor::Document*,bool)));
+    connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
 
     if (m_blockViewCreationAndActivation) {
         return;
@@ -464,7 +464,7 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     delete view->actionCollection()->action(QStringLiteral("editor_options"));
 
     connect(view, SIGNAL(dropEventPass(QDropEvent*)), mainWindow(), SLOT(slotDropEvent(QDropEvent*)));
-    connect(view, SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(activateSpace(KTextEditor::View*)));
+    connect(view, &KTextEditor::View::focusIn, this, &KateViewManager::activateSpace);
 
     viewCreated(view);
 

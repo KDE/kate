@@ -99,7 +99,7 @@ Tags::TagList Tags::getMatches( const QString & tagpart, bool partial, const QSt
 
 			if ( type.isEmpty() && file.endsWith( QLatin1String("Makefile") ) )
 			{
-				type = QLatin1String("macro");
+				type = QStringLiteral("macro");
 			}
 			if ( types.isEmpty() || types.contains( QString::fromLocal8Bit(entry.kind) ) )
 			{

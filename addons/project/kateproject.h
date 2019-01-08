@@ -118,7 +118,7 @@ public:
      */
     QString name() const {
         //MSVC doesn't support QStringLiteral here
-        return m_projectMap[QLatin1String("name")].toString();
+        return m_projectMap[QStringLiteral("name")].toString();
     }
 
     /**

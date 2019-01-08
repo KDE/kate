@@ -24,8 +24,8 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
 
  QString currline, prevline;
  bool    prevComment = false;
- QString varStr(QLatin1String("set "));
- QString procStr(QLatin1String("proc"));
+ QString varStr(QStringLiteral("set "));
+ QString procStr(QStringLiteral("proc"));
  QString stripped;
  int i, j, args_par = 0, graph = 0;
  char block = 0, parse_func = 0;

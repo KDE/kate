@@ -87,7 +87,7 @@ void ToggleToolViewAction::slotToggled(bool t)
 static const QString actionListName = QStringLiteral("kate_mdi_view_actions");
 
 // please don't use QStringLiteral since it can't be used with a concatenated string parameter on all platforms
-static const QString guiDescription = QLatin1String(""
+static const QString guiDescription = QStringLiteral(""
                                       "<!DOCTYPE kpartgui><kpartgui name=\"kate_mdi_view_actions\">"
                                       "<MenuBar>"
                                       "    <Menu name=\"view\">"
@@ -101,8 +101,8 @@ GUIClient::GUIClient(MainWindow *mw)
     , KXMLGUIClient(mw)
     , m_mw(mw)
 {
-    connect(m_mw->guiFactory(), SIGNAL(clientAdded(KXMLGUIClient*)),
-            this, SLOT(clientAdded(KXMLGUIClient*)));
+    connect(m_mw->guiFactory(), &KXMLGUIFactory::clientAdded,
+            this, &GUIClient::clientAdded);
 
     if (domDocument().documentElement().isNull()) {
         QString completeDescription = guiDescription.arg(actionListName);
@@ -143,7 +143,7 @@ void GUIClient::updateSidebarsVisibleAction()
 
 void GUIClient::registerToolView(ToolView *tv)
 {
-    QString aname = QString::fromLatin1("kate_mdi_toolview_") + tv->id;
+    QString aname = QLatin1String("kate_mdi_toolview_") + tv->id;
 
     // try to read the action shortcut
     QList<QKeySequence> shortcuts;
@@ -607,7 +607,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
     for (; firstWrong < m_toolviews.size(); ++firstWrong) {
         ToolView *tv = m_toolviews[firstWrong];
 
-        int pos = config.readEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), firstWrong);
+        int pos = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), firstWrong);
 
         if (pos != firstWrong) {
             break;
@@ -621,7 +621,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
         for (int i = firstWrong; i < m_toolviews.size(); ++i) {
             TmpToolViewSorter s;
             s.tv = m_toolviews[i];
-            s.pos = config.readEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Sidebar-Position").arg(m_toolviews[i]->id), i);
+            s.pos = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(m_toolviews[i]->id), i);
             toSort.push_back(s);
         }
 
@@ -661,7 +661,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
     updateLastSize();
 
     // restore the own splitter sizes
-    QList<int> s = config.readEntry(QString::fromLatin1("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
+    QList<int> s = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
     m_ownSplit->setSizes(s);
 
     // show only correct toolviews, remember persistent values ;)
@@ -669,8 +669,8 @@ void Sidebar::restoreSession(KConfigGroup &config)
     for (int i = 0; i < m_toolviews.size(); ++i) {
         ToolView *tv = m_toolviews[i];
 
-        tv->persistent = config.readEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
-        tv->setToolVisible(config.readEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
+        tv->persistent = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
+        tv->setToolVisible(config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
 
         if (!anyVis) {
             anyVis = tv->toolVisible();
@@ -696,16 +696,16 @@ void Sidebar::saveSession(KConfigGroup &config)
 {
     // store the own splitter sizes
     QList<int> s = m_ownSplit->sizes();
-    config.writeEntry(QString::fromLatin1("Kate-MDI-Sidebar-%1-Splitter").arg(position()), s);
+    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), s);
 
     // store the data about all toolviews in this sidebar ;)
     for (int i = 0; i < m_toolviews.size(); ++i) {
         ToolView *tv = m_toolviews[i];
 
-        config.writeEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
-        config.writeEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), i);
-        config.writeEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->toolVisible());
-        config.writeEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), tv->persistent);
+        config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
+        config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), i);
+        config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->toolVisible());
+        config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), tv->persistent);
     }
 }
 
@@ -768,7 +768,7 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_sidebars[KMultiTabBar::Right]->setSplitter(m_hSplitter);
 
     for (int i = 0; i < 4; i++) {
-        connect(m_sidebars[i], SIGNAL(sigShowPluginConfigPage(KTextEditor::Plugin*,uint)), this, SIGNAL(sigShowPluginConfigPage(KTextEditor::Plugin*,uint)));
+        connect(m_sidebars[i], &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
     }
 
 }
@@ -801,7 +801,7 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin, const QString 
     // try the restore config to figure out real pos
     if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
         KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-        pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos));
+        pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos));
     }
 
     ToolView *v  = m_sidebars[pos]->addWidget(icon, text, nullptr);
@@ -896,7 +896,7 @@ bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPositi
     // try the restore config to figure out real pos
     if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
         KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-        pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos));
+        pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos));
     }
 
     m_sidebars[pos]->addWidget(widget->icon, widget->text, widget);
@@ -980,7 +980,7 @@ void MainWindow::finishRestore()
 
         // reshuffle toolviews only if needed
         for (int i = 0; i < m_toolviews.size(); ++i) {
-            KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QString::fromLatin1("Kate-MDI-ToolView-%1-Position").arg(m_toolviews[i]->id), int(m_toolviews[i]->sidebar()->position()));
+            KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(m_toolviews[i]->id), int(m_toolviews[i]->sidebar()->position()));
 
             if (m_toolviews[i]->sidebar()->position() != newPos) {
                 moveToolView(m_toolviews[i], newPos);

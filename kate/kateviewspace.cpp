@@ -87,7 +87,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     Q_ASSERT(quickOpen);
     bridge->setToolTip(quickOpen->toolTip());
     bridge->setWhatsThis(i18n("Click here to switch to the Quick Open view."));
-    connect(bridge, SIGNAL(triggered()), quickOpen, SLOT(trigger()));
+    connect(bridge, &QAction::triggered, quickOpen, &QAction::trigger);
 
     // add vertical split view space
     m_split = new QToolButton(this);
@@ -114,8 +114,8 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     m_group.clear();
 
     // connect signal to hide/show statusbar
-    connect(m_viewManager->mainWindow(), SIGNAL(statusBarToggled()), this, SLOT(statusBarToggled()));
-    connect(m_viewManager->mainWindow(), SIGNAL(tabBarToggled()), this, SLOT(tabBarToggled()));
+    connect(m_viewManager->mainWindow(), &KateMainWindow::statusBarToggled, this, &KateViewSpace::statusBarToggled);
+    connect(m_viewManager->mainWindow(), &KateMainWindow::tabBarToggled, this, &KateViewSpace::tabBarToggled);
 
     // init the bars...
     statusBarToggled();
@@ -123,8 +123,8 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
 
     // make sure we show correct number of hidden documents
     updateQuickOpen();
-    connect(KateApp::self()->documentManager(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(updateQuickOpen()));
-    connect(KateApp::self()->documentManager(), SIGNAL(documentsDeleted(const QList<KTextEditor::Document*>&)), this, SLOT(updateQuickOpen()));
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentCreated, this, &KateViewSpace::updateQuickOpen);
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewSpace::updateQuickOpen);
 }
 
 bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
@@ -217,7 +217,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     if (!m_group.isEmpty()) {
         QString fn = v->document()->url().toString();
         if (! fn.isEmpty()) {
-            QString vgroup = QString::fromLatin1("%1 %2").arg(m_group).arg(fn);
+            QString vgroup = QStringLiteral("%1 %2").arg(m_group, fn);
 
             KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession();
             if (as->config() && as->config()->hasGroup(vgroup)) {
@@ -353,12 +353,12 @@ void KateViewSpace::insertTab(int index, KTextEditor::Document * doc)
     m_docToTabId[doc] = id;
     updateDocumentState(doc);
 
-    connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
-            this, SLOT(updateDocumentName(KTextEditor::Document*)));
+    connect(doc, &KTextEditor::Document::documentNameChanged,
+            this, &KateViewSpace::updateDocumentName);
     connect(doc, &KTextEditor::Document::documentUrlChanged,
             this, &KateViewSpace::updateDocumentUrl);
-    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
-            this, SLOT(updateDocumentState(KTextEditor::Document*)));
+    connect(doc, &KTextEditor::Document::modifiedChanged,
+            this, &KateViewSpace::updateDocumentState);
 }
 
 int KateViewSpace::removeTab(KTextEditor::Document * doc, bool documentDestroyed)
@@ -376,12 +376,12 @@ int KateViewSpace::removeTab(KTextEditor::Document * doc, bool documentDestroyed
     m_docToTabId.remove(doc);
 
     if (!documentDestroyed) {
-        disconnect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)),
-               this, SLOT(updateDocumentName(KTextEditor::Document*)));
+        disconnect(doc, &KTextEditor::Document::documentNameChanged,
+               this, &KateViewSpace::updateDocumentName);
         disconnect(doc, &KTextEditor::Document::documentUrlChanged,
                 this, &KateViewSpace::updateDocumentUrl);
-        disconnect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
-              this, SLOT(updateDocumentState(KTextEditor::Document*)));
+        disconnect(doc, &KTextEditor::Document::modifiedChanged,
+              this, &KateViewSpace::updateDocumentState);
     }
 
     return removeIndex;
@@ -439,7 +439,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
         // prepending == merge doc of closed viewspace
         m_lruDocList.prepend(doc);
     }
-    connect(doc, SIGNAL(destroyed(QObject*)), this, SLOT(documentDestroyed(QObject*)));
+    connect(doc, &QObject::destroyed, this, &KateViewSpace::documentDestroyed);
 
     // if space is available, add button
     if (m_tabBar->count() < m_tabBar->maxTabCount()) {
@@ -509,7 +509,7 @@ void KateViewSpace::updateDocumentState(KTextEditor::Document *doc)
 {
     QIcon icon;
     if (doc->isModified()) {
-        icon = QIcon::fromTheme(QLatin1String("document-save"));
+        icon = QIcon::fromTheme(QStringLiteral("document-save"));
     }
 
     Q_ASSERT(m_docToTabId.contains(doc));
@@ -688,10 +688,10 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex , const QString 
     int idx = 0;
     for (QVector<KTextEditor::View *>::iterator it = views.begin(); it != views.end(); ++it) {
         if (!(*it)->document()->url().isEmpty()) {
-            group.writeEntry(QString::fromLatin1("View %1").arg(idx), (*it)->document()->url().toString());
+            group.writeEntry(QStringLiteral("View %1").arg(idx), (*it)->document()->url().toString());
 
             // view config, group: "ViewSpace <n> url"
-            QString vgroup = QString::fromLatin1("%1 %2").arg(groupname).arg((*it)->document()->url().toString());
+            QString vgroup = QStringLiteral("%1 %2").arg(groupname, (*it)->document()->url().toString());
             KConfigGroup viewGroup(config, vgroup);
             (*it)->writeSessionConfig(viewGroup);
         }
@@ -727,7 +727,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
         if (doc) {
             // view config, group: "ViewSpace <n> url"
-            QString vgroup = QString::fromLatin1("%1 %2").arg(groupname).arg(fn);
+            QString vgroup = QStringLiteral("%1 %2").arg(groupname, fn);
             KConfigGroup configGroup(config, vgroup);
 
             auto view = viewMan->createView(doc, this);

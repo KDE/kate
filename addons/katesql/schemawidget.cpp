@@ -102,16 +102,16 @@ void SchemaWidget::buildDatabase(QTreeWidgetItem * databaseItem)
   QString dbname = (db.isValid() ? db.databaseName() : m_connectionName);
 
   databaseItem->setText(0, dbname);
-  databaseItem->setIcon(0, QIcon::fromTheme(QLatin1String("server-database")));
+  databaseItem->setIcon(0, QIcon::fromTheme(QStringLiteral("server-database")));
 
   QTreeWidgetItem *tablesItem = new QTreeWidgetItem(databaseItem, TablesFolderType);
   tablesItem->setText(0, i18nc("@title Folder name", "Tables"));
-  tablesItem->setIcon(0, QIcon::fromTheme(QLatin1String("folder")));
+  tablesItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
   tablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
   QTreeWidgetItem *viewsItem = new QTreeWidgetItem(databaseItem, ViewsFolderType);
   viewsItem->setText(0, i18nc("@title Folder name", "Views"));
-  viewsItem->setIcon(0, QIcon::fromTheme(QLatin1String("folder")));
+  viewsItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
   viewsItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
   databaseItem->setExpanded(true);
@@ -125,7 +125,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem * tablesItem)
 
   QTreeWidgetItem *systemTablesItem = new QTreeWidgetItem(tablesItem, SystemTablesFolderType);
   systemTablesItem->setText(0, i18nc("@title Folder name", "System Tables"));
-  systemTablesItem->setIcon(0, QIcon::fromTheme(QLatin1String("folder")));
+  systemTablesItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
   systemTablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
   QSqlDatabase db = QSqlDatabase::database(m_connectionName);
@@ -234,7 +234,7 @@ void SchemaWidget::mouseMoveEvent(QMouseEvent *event)
   QMimeData *mimeData = new QMimeData;
 
   if (item->type() == SchemaWidget::FieldType)
-    mimeData->setText(QString::fromLatin1("%1.%2").arg(item->parent()->text(0)).arg(item->text(0)));
+    mimeData->setText(QStringLiteral("%1.%2").arg(item->parent()->text(0), item->text(0)));
   else
     mimeData->setText(item->text(0));
 
@@ -285,7 +285,7 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
 {
   QMenu menu;
 
-  menu.addAction(QIcon::fromTheme(QLatin1String("view-refresh")), i18nc("@action:inmenu Context menu", "Refresh"), this, SLOT(refresh()));
+  menu.addAction(QIcon::fromTheme(QStringLiteral("view-refresh")), i18nc("@action:inmenu Context menu", "Refresh"), this, &SchemaWidget::refresh);
 
   QTreeWidgetItem *item = itemAt(pos);
 
@@ -297,12 +297,12 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
     ||  item->type() == SchemaWidget::FieldType)
     {
       menu.addSeparator();
-      QMenu *submenu = menu.addMenu(QIcon::fromTheme(QLatin1String("tools-wizard")), i18nc("@action:inmenu Submenu title", "Generate"));
+      QMenu *submenu = menu.addMenu(QIcon::fromTheme(QStringLiteral("tools-wizard")), i18nc("@action:inmenu Submenu title", "Generate"));
 
-      submenu->addAction(i18n ("SELECT"), this, SLOT(generateSelect()));
-      submenu->addAction(i18n ("UPDATE"), this, SLOT(generateUpdate()));
-      submenu->addAction(i18n ("INSERT"), this, SLOT(generateInsert()));
-      submenu->addAction(i18n ("DELETE"), this, SLOT(generateDelete()));
+      submenu->addAction(i18n ("SELECT"), this, &SchemaWidget::generateSelect);
+      submenu->addAction(i18n ("UPDATE"), this, &SchemaWidget::generateUpdate);
+      submenu->addAction(i18n ("INSERT"), this, &SchemaWidget::generateInsert);
+      submenu->addAction(i18n ("DELETE"), this, &SchemaWidget::generateDelete);
     }
   }
 

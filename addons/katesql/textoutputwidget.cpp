@@ -53,7 +53,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
 
   /// TODO: disable actions if no results are displayed
 
-  QAction *action = new QAction( QIcon::fromTheme(QLatin1String("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
+  QAction *action = new QAction( QIcon::fromTheme(QStringLiteral("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
   toolbar->addAction(action);
   connect(action, &QAction::triggered, m_output, &QTextEdit::clear);
   m_layout->addWidget(toolbar);
@@ -99,7 +99,7 @@ void TextOutputWidget::showSuccessMessage(const QString &message)
 
 void TextOutputWidget::writeMessage(const QString& msg)
 {
-  m_output->append(QString::fromLatin1("%1: %2\n").arg(QDateTime::currentDateTime().toString(Qt::SystemLocaleDate)).arg(msg));
+  m_output->append(QStringLiteral("%1: %2\n").arg(QDateTime::currentDateTime().toString(Qt::SystemLocaleDate)).arg(msg));
 
   raise();
 }

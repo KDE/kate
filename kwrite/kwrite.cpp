@@ -86,9 +86,9 @@ KWrite::KWrite(KTextEditor::Document *doc)
 
     // signals for the statusbar
     connect(m_view->document(), &KTextEditor::Document::modifiedChanged, this, &KWrite::modifiedChanged);
-    connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
-    connect(m_view->document(), SIGNAL(readWriteChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
-    connect(m_view->document(), SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(urlChanged()));
+    connect(m_view->document(), &KTextEditor::Document::documentNameChanged, this, &KWrite::documentNameChanged);
+    connect(m_view->document(), &KTextEditor::Document::readWriteChanged, this, &KWrite::documentNameChanged);
+    connect(m_view->document(), &KTextEditor::Document::documentUrlChanged, this, &KWrite::urlChanged);
 
     setAcceptDrops(true);
     connect(m_view, SIGNAL(dropEventPass(QDropEvent*)), this, SLOT(slotDropEvent(QDropEvent*)));
@@ -165,7 +165,7 @@ void KWrite::setupActions()
     QAction *a = actionCollection()->addAction(QStringLiteral("view_new_view"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));
     a->setText(i18n("&New Window"));
-    connect(a, SIGNAL(triggered()), this, SLOT(newView()));
+    connect(a, &QAction::triggered, this, &KWrite::newView);
     a->setWhatsThis(i18n("Create another view containing the current document"));
 
     actionCollection()->addAction(KStandardAction::Quit, this, SLOT(close()))
@@ -182,7 +182,7 @@ void KWrite::setupActions()
 
     m_paShowPath = new KToggleAction(i18n("Sho&w Path in Titlebar"), this);
     actionCollection()->addAction(QStringLiteral("set_showPath"), m_paShowPath);
-    connect(m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()));
+    connect(m_paShowPath, &QAction::triggered, this, &KWrite::documentNameChanged);
     m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 
     a = actionCollection()->addAction(KStandardAction::KeyBindings, this, SLOT(editKeys()));
@@ -194,7 +194,7 @@ void KWrite::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("help_about_editor"));
     a->setText(i18n("&About Editor Component"));
-    connect(a, SIGNAL(triggered()), this, SLOT(aboutEditor()));
+    connect(a, &QAction::triggered, this, &KWrite::aboutEditor);
 }
 
 // load on url
@@ -294,7 +294,7 @@ void KWrite::toggleMenuBar(bool showMessage)
             KMessageBox::information(this, i18n("This will hide the menu bar completely."
                                                 " You can show it again by typing %1.", accel),
                                      i18n("Hide menu bar"),
-                                     QLatin1String("HideMenuBarWarning"));
+                                     QStringLiteral("HideMenuBarWarning"));
         }
         menuBar()->hide();
         addMenuBarActionToContextMenu();
@@ -332,7 +332,7 @@ void KWrite::editToolbars()
     saveMainWindowSettings(cfg);
     KEditToolBar dlg(guiFactory(), this);
 
-    connect(&dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()));
+    connect(&dlg, &KEditToolBar::newToolBarConfig, this, &KWrite::slotNewToolbarConfig);
     dlg.exec();
 }
 
@@ -447,14 +447,14 @@ void KWrite::saveGlobalProperties(KConfig *config) //save documents
     config->group("Number").writeEntry("NumberOfDocuments", docList.count());
 
     for (int z = 1; z <= docList.count(); z++) {
-        QString buf = QString::fromLatin1("Document %1").arg(z);
+        QString buf = QStringLiteral("Document %1").arg(z);
         KConfigGroup cg(config, buf);
         KTextEditor::Document *doc = docList.at(z - 1);
         doc->writeSessionConfig(cg);
     }
 
     for (int z = 1; z <= winList.count(); z++) {
-        QString buf = QString::fromLatin1("Window %1").arg(z);
+        QString buf = QStringLiteral("Window %1").arg(z);
         KConfigGroup cg(config, buf);
         cg.writeEntry("DocumentNumber", docList.indexOf(winList.at(z - 1)->view()->document()) + 1);
     }
@@ -479,7 +479,7 @@ void KWrite::restore()
     windows = numberConfig.readEntry("NumberOfWindows", 0);
 
     for (int z = 1; z <= docs; z++) {
-        buf = QString::fromLatin1("Document %1").arg(z);
+        buf = QStringLiteral("Document %1").arg(z);
         KConfigGroup cg(config, buf);
         doc = KTextEditor::Editor::instance()->createDocument(nullptr);
         doc->readSessionConfig(cg);
@@ -487,7 +487,7 @@ void KWrite::restore()
     }
 
     for (int z = 1; z <= windows; z++) {
-        buf = QString::fromLatin1("Window %1").arg(z);
+        buf = QStringLiteral("Window %1").arg(z);
         KConfigGroup cg(config, buf);
         t = new KWrite(docList.at(cg.readEntry("DocumentNumber", 0) - 1));
         t->restore(config, z);

@@ -253,7 +253,7 @@ bool KateSaveModifiedDialog::doSave()
     return true;
 }
 
-bool KateSaveModifiedDialog::queryClose(QWidget *parent, QList<KTextEditor::Document *> documents)
+bool KateSaveModifiedDialog::queryClose(QWidget *parent, const QList<KTextEditor::Document *> &documents)
 {
     KateSaveModifiedDialog d(parent, documents);
     return (d.exec() != QDialog::Rejected);

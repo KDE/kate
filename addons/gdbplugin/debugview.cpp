@@ -99,7 +99,7 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
     {
         // On startup the gdb prompt will trigger the "nextCommands",
         // here we have to trigger it manually.
-        QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+        QTimer::singleShot(0, this, &DebugView::issueNextCommand);
     }
     m_nextCommands << QStringLiteral("file %1").arg(m_targetConf.executable);
     m_nextCommands << QStringLiteral("set args %1 %2").arg(m_targetConf.arguments).arg(m_ioPipeString);
@@ -303,7 +303,7 @@ void DebugView::processLine(QString line)
             if(PromptStr == line)
             {
                 // we get here after initialization
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             break;
 
@@ -420,7 +420,7 @@ void DebugView::processLine(QString line)
                 m_state = ready;
 
                 // Give the error a possibility get noticed since stderr and stdout are not in sync
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             break;
 
@@ -437,14 +437,14 @@ void DebugView::processLine(QString line)
             else if(PromptStr == line)
             {
                 m_state = ready;
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             break;
         case infoArgs:
             if(PromptStr == line)
             {
                 m_state = ready;
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             else {
                 emit infoLocal(line);
@@ -454,7 +454,7 @@ void DebugView::processLine(QString line)
             if(PromptStr == line)
             {
                 m_state = ready;
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             else {
                 emit infoLocal(line);
@@ -465,7 +465,7 @@ void DebugView::processLine(QString line)
             {
                 m_state = ready;
                 emit infoLocal(QString());
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             else {
                 emit infoLocal(line);
@@ -476,7 +476,7 @@ void DebugView::processLine(QString line)
             {
                 m_state = ready;
                 emit stackFrameInfo(QString(), QString());
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             else if (stackFrameAny.exactMatch(line))
             {
@@ -487,7 +487,7 @@ void DebugView::processLine(QString line)
             if(PromptStr == line)
             {
                 m_state = ready;
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             else if (threadLine.exactMatch(line))
             {
@@ -513,7 +513,7 @@ void DebugView::processErrors()
                 m_nextCommands << QStringLiteral("run");
                 m_nextCommands << QStringLiteral("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
                 m_nextCommands << QStringLiteral("continue");
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             else if ((m_lastCommand == QLatin1String("step")) ||
                 (m_lastCommand == QLatin1String("next")) ||
@@ -523,7 +523,7 @@ void DebugView::processErrors()
                 m_nextCommands << QStringLiteral("tbreak main");
                 m_nextCommands << QStringLiteral("run");
                 m_nextCommands << QStringLiteral("p setvbuf(stdout, 0, %1, 1024)").arg(_IOLBF);
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             else if ((m_lastCommand == QLatin1String("kill")))
             {
@@ -541,7 +541,7 @@ void DebugView::processErrors()
                     m_nextCommands << QStringLiteral("quit");
                 }
                 m_state = ready;
-                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+                QTimer::singleShot(0, this, &DebugView::issueNextCommand);
             }
             // else do nothing
         }

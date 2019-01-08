@@ -44,7 +44,7 @@ void KateAppAdaptor::activate()
     win->activateWindow();
 }
 
-bool KateAppAdaptor::openUrl(QString url, QString encoding)
+bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)
 {
     return m_app->openUrl(QUrl(url), encoding, false);
 }
@@ -61,26 +61,26 @@ bool KateAppAdaptor::isOnActivity(const QString &activity) {
 }
 
 //-----------
-QString KateAppAdaptor::tokenOpenUrl(QString url, QString encoding)
+QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding)
 {
     KTextEditor::Document *doc = m_app->openDocUrl(QUrl(url), encoding, false);
     if (!doc) {
         return QStringLiteral("ERROR");
     }
-    return QString::fromLatin1("%1").arg((qptrdiff)doc);
+    return QStringLiteral("%1").arg((qptrdiff)doc);
 }
 
-QString KateAppAdaptor::tokenOpenUrl(QString url, QString encoding, bool isTempFile)
+QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding, bool isTempFile)
 {
     qCDebug(LOG_KATE) << "openURL";
     KTextEditor::Document *doc = m_app->openDocUrl(QUrl(url), encoding, isTempFile);
     if (!doc) {
         return QStringLiteral("ERROR");
     }
-    return QString::fromLatin1("%1").arg((qptrdiff)doc);
+    return QStringLiteral("%1").arg((qptrdiff)doc);
 }
 
-QString KateAppAdaptor::tokenOpenUrlAt(QString url, int line, int column, QString encoding, bool isTempFile)
+QString KateAppAdaptor::tokenOpenUrlAt(const QString &url, int line, int column, const QString &encoding, bool isTempFile)
 {
     qCDebug(LOG_KATE) << "openURLAt";
     KTextEditor::Document *doc = m_app->openDocUrl(QUrl(url), encoding, isTempFile);
@@ -88,7 +88,7 @@ QString KateAppAdaptor::tokenOpenUrlAt(QString url, int line, int column, QStrin
         return QStringLiteral("ERROR");
     }
     m_app->setCursor(line, column);
-    return QString::fromLatin1("%1").arg((qptrdiff)doc);
+    return QStringLiteral("%1").arg((qptrdiff)doc);
 }
 //--------
 
@@ -97,12 +97,12 @@ bool KateAppAdaptor::setCursor(int line, int column)
     return m_app->setCursor(line, column);
 }
 
-bool KateAppAdaptor::openInput(QString text, QString encoding)
+bool KateAppAdaptor::openInput(const QString &text, const QString &encoding)
 {
     return m_app->openInput(text, encoding);
 }
 
-bool KateAppAdaptor::activateSession(QString session)
+bool KateAppAdaptor::activateSession(const QString &session)
 {
     return m_app->sessionManager()->activateSession(session);
 }

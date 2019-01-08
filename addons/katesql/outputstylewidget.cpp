@@ -46,17 +46,17 @@ OutputStyleWidget::OutputStyleWidget(QWidget *parent)
 
   setHeaderLabels(headerLabels);
 
-  headerItem()->setIcon(1, QIcon::fromTheme(QLatin1String("format-text-bold")));
-  headerItem()->setIcon(2, QIcon::fromTheme(QLatin1String("format-text-italic")));
-  headerItem()->setIcon(3, QIcon::fromTheme(QLatin1String("format-text-underline")));
-  headerItem()->setIcon(4, QIcon::fromTheme(QLatin1String("format-text-strikethrough")));
+  headerItem()->setIcon(1, QIcon::fromTheme(QStringLiteral("format-text-bold")));
+  headerItem()->setIcon(2, QIcon::fromTheme(QStringLiteral("format-text-italic")));
+  headerItem()->setIcon(3, QIcon::fromTheme(QStringLiteral("format-text-underline")));
+  headerItem()->setIcon(4, QIcon::fromTheme(QStringLiteral("format-text-strikethrough")));
 
-  addContext(QLatin1String("text"), i18nc("@item:intable", "Text"));
-  addContext(QLatin1String("number"), i18nc("@item:intable", "Number"));
-  addContext(QLatin1String("bool"), i18nc("@item:intable", "Bool"));
-  addContext(QLatin1String("datetime"), i18nc("@item:intable", "Date & Time"));
-  addContext(QLatin1String("null"), i18nc("@item:intable", "NULL"));
-  addContext(QLatin1String("blob"), i18nc("@item:intable", "BLOB"));
+  addContext(QStringLiteral("text"), i18nc("@item:intable", "Text"));
+  addContext(QStringLiteral("number"), i18nc("@item:intable", "Number"));
+  addContext(QStringLiteral("bool"), i18nc("@item:intable", "Bool"));
+  addContext(QStringLiteral("datetime"), i18nc("@item:intable", "Date & Time"));
+  addContext(QStringLiteral("null"), i18nc("@item:intable", "NULL"));
+  addContext(QStringLiteral("blob"), i18nc("@item:intable", "BLOB"));
 
   for (int i = 0; i < columnCount(); ++i)
     resizeColumnToContents(i);

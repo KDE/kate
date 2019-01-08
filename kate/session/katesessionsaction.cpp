@@ -31,7 +31,7 @@ KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, Kat
 {
     m_manager = manager ? manager : KateApp::self()->sessionManager();
 
-    connect(menu(), SIGNAL(aboutToShow()), this, SLOT(slotAboutToShow()));
+    connect(menu(), &QMenu::aboutToShow, this, &KateSessionsAction::slotAboutToShow);
 
     sessionsGroup = new QActionGroup(menu());
 
@@ -39,9 +39,9 @@ KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, Kat
     // to e.g. 1 mainwindow, the last N - 1 mainwindows are deleted. Invoking
     // a session switch without queued connection deletes a mainwindow in which
     // the current code path is executed ---> crash. See bug #227008.
-    connect(sessionsGroup, SIGNAL(triggered(QAction*)), this, SLOT(openSession(QAction*)), Qt::QueuedConnection);
+    connect(sessionsGroup, &QActionGroup::triggered, this, &KateSessionsAction::openSession, Qt::QueuedConnection);
 
-    connect(m_manager, SIGNAL(sessionChanged()), this, SLOT(slotSessionChanged()));
+    connect(m_manager, &KateSessionManager::sessionChanged, this, &KateSessionsAction::slotSessionChanged);
 
     setDisabled(m_manager->sessionList().size() == 0);
 }

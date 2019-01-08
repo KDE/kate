@@ -44,7 +44,7 @@ void KateSessionsActionTest::init()
     QVERIFY(m_tempdir->isValid());
 
     m_manager = new KateSessionManager(this, m_tempdir->path());
-    m_ac = new KateSessionsAction(QLatin1String("menu"), this, m_manager);
+    m_ac = new KateSessionsAction(QStringLiteral("menu"), this, m_manager);
 }
 
 void KateSessionsActionTest::cleanup()
@@ -65,7 +65,7 @@ void KateSessionsActionTest::basic()
 void KateSessionsActionTest::limit()
 {
     for (int i = 0; i < 14; i++) {
-        m_manager->activateSession(QString::fromLatin1("session %1").arg(i));
+        m_manager->activateSession(QStringLiteral("session %1").arg(i));
     }
 
     QCOMPARE(m_manager->activeSession()->isAnonymous(), false);

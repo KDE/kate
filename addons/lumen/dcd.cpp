@@ -72,7 +72,7 @@ DCDCompletionItemType::DCDCompletionItemType DCDCompletionItemType::fromChar(cha
 
 
 
-DCDCompletionItem::DCDCompletionItem(DCDCompletionItemType::DCDCompletionItemType t, QString s): type(t), name(s)
+DCDCompletionItem::DCDCompletionItem(DCDCompletionItemType::DCDCompletionItemType t, const QString &s): type(t), name(s)
 {
 
 }

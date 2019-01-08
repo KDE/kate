@@ -62,7 +62,7 @@ void KateSessionManagerTest::basic()
 
 void KateSessionManagerTest::activateNewNamedSession()
 {
-    const QString sessionName = QString::fromLatin1("hello_world");
+    const QString sessionName = QStringLiteral("hello_world");
 
     QVERIFY(m_manager->activateSession(sessionName, false, false));
     QCOMPARE(m_manager->sessionList().size(), 1);
@@ -84,7 +84,7 @@ void KateSessionManagerTest::anonymousSessionFile()
 
 void KateSessionManagerTest::urlizeSessionFile()
 {
-    const QString sessionName = QString::fromLatin1("hello world/#");
+    const QString sessionName = QStringLiteral("hello world/#");
 
     m_manager->activateSession(sessionName, false, false);
     KateSession::Ptr s = m_manager->activeSession();
@@ -95,10 +95,10 @@ void KateSessionManagerTest::urlizeSessionFile()
 
 void KateSessionManagerTest::deleteSession()
 {
-    m_manager->activateSession(QLatin1String("foo"));
+    m_manager->activateSession(QStringLiteral("foo"));
     KateSession::Ptr s = m_manager->activeSession();
 
-    m_manager->activateSession(QLatin1String("bar"));
+    m_manager->activateSession(QStringLiteral("bar"));
 
     QCOMPARE(m_manager->sessionList().size(), 2);
 
@@ -108,7 +108,7 @@ void KateSessionManagerTest::deleteSession()
 
 void KateSessionManagerTest::deleteActiveSession()
 {
-    m_manager->activateSession(QLatin1String("foo"));
+    m_manager->activateSession(QStringLiteral("foo"));
     KateSession::Ptr s = m_manager->activeSession();
 
     QCOMPARE(m_manager->sessionList().size(), 1);
@@ -118,12 +118,12 @@ void KateSessionManagerTest::deleteActiveSession()
 
 void KateSessionManagerTest::renameSession()
 {
-    m_manager->activateSession(QLatin1String("foo"));
+    m_manager->activateSession(QStringLiteral("foo"));
     KateSession::Ptr s = m_manager->activeSession();
 
     QCOMPARE(m_manager->sessionList().size(), 1);
 
-    const QString newName = QString::fromLatin1("bar");
+    const QString newName = QStringLiteral("bar");
     m_manager->renameSession(s, newName); // non-collision path
     QCOMPARE(s->name(), newName);
     QCOMPARE(m_manager->sessionList().size(), 1);
@@ -143,8 +143,8 @@ void KateSessionManagerTest::saveActiveSessionWithAnynomous()
 
 void KateSessionManagerTest::deletingSessionFilesUnderRunningApp()
 {
-    m_manager->activateSession(QLatin1String("foo"));
-    m_manager->activateSession(QLatin1String("bar"));
+    m_manager->activateSession(QStringLiteral("foo"));
+    m_manager->activateSession(QStringLiteral("bar"));
 
     QVERIFY(m_manager->sessionList().size() == 2);
     QVERIFY(m_manager->activeSession()->name() == QLatin1String("bar"));
@@ -158,8 +158,8 @@ void KateSessionManagerTest::deletingSessionFilesUnderRunningApp()
 
 void KateSessionManagerTest::startNonEmpty()
 {
-    m_manager->activateSession(QLatin1String("foo"));
-    m_manager->activateSession(QLatin1String("bar"));
+    m_manager->activateSession(QStringLiteral("foo"));
+    m_manager->activateSession(QStringLiteral("bar"));
 
     KateSessionManager m(this, m_tempdir->path());
     QCOMPARE(m.sessionList().size(), 2);

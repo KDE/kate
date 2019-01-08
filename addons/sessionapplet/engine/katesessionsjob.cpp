@@ -40,7 +40,7 @@ void KateSessionsJob::start()
     const QString operation = operationName();
     // first check for operations not needing an item
    if (operation == QLatin1String("newSession")) {
-     QString sessionName=parameters().value(QLatin1String("sessionName")).toString();
+     QString sessionName=parameters().value(QStringLiteral("sessionName")).toString();
      if (sessionName.isEmpty()) {
          setResult(false);
          emitResult();
@@ -48,8 +48,8 @@ void KateSessionsJob::start()
      }
      //CHECK IF SESSION EXISTS
      QStringList args;
-     args <<QLatin1String("-n")<<QLatin1String("--start")<< sessionName;
-     KToolInvocation::kdeinitExec(QLatin1String("kate"), args);
+     args <<QStringLiteral("-n")<<QStringLiteral("--start")<< sessionName;
+     KToolInvocation::kdeinitExec(QStringLiteral("kate"), args);
      setResult(true);
      emitResult();
      return;
@@ -59,17 +59,17 @@ void KateSessionsJob::start()
         if (dest==QLatin1String("_kate_noargs")) {
             //do nothing
         } else if (dest==QLatin1String("_kate_anon_newsession")) {
-            args << QLatin1String("--startanon");
+            args << QStringLiteral("--startanon");
         } else if (dest==QLatin1String("_kate_newsession")) {
-            args << QLatin1String("--startanon");
+            args << QStringLiteral("--startanon");
             qDebug()<<"This should not be reached";
         } else {
             dest.chop(12); // .katesession
-            args <<QLatin1String("-n")<<QLatin1String("--start")<<QUrl::fromPercentEncoding(dest.toLatin1());
+            args <<QStringLiteral("-n")<<QStringLiteral("--start")<<QUrl::fromPercentEncoding(dest.toLatin1());
             //args <<"-n"<< "--start"<<m_sessions[ id-3 ];
         }
         
-        KToolInvocation::kdeinitExec(QLatin1String("kate"), args);
+        KToolInvocation::kdeinitExec(QStringLiteral("kate"), args);
         setResult(true);
         emitResult();
         return;

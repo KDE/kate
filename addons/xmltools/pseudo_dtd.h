@@ -47,10 +47,10 @@ public:
 
     void analyzeDTD(QString &metaDtdUrl, QString &metaDtd);
 
-    QStringList allowedElements(QString parentElement);
-    QStringList allowedAttributes(QString parentElement);
-    QStringList attributeValues(QString element, QString attribute);
-    QStringList entities(QString start);
+    QStringList allowedElements(const QString &parentElement);
+    QStringList allowedAttributes(const QString &parentElement);
+    QStringList attributeValues(const QString &element, const QString &attribute);
+    QStringList entities(const QString &start);
     QStringList requiredAttributes(const QString &parentElement) const;
 
 protected:

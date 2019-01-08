@@ -191,7 +191,7 @@ private Q_SLOTS:
     void slotNewToolbarConfig();
     void slotUpdateOpenWith();
     void slotUpdateActionsNeedingUrl();
-    void slotOpenDocument(QUrl);
+    void slotOpenDocument(const QUrl &);
 
     void slotDropEvent(QDropEvent *);
     void editKeys();

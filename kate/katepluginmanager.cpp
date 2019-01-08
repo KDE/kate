@@ -69,17 +69,17 @@ void KatePluginManager::setupPluginList()
      */
     QSet<QString> defaultPlugins;
 
-    defaultPlugins.insert(QLatin1String("cuttlefishplugin")); // this comes with package plasma5-sdk but it won't hurt to list it here (activate by right click in the text area)
+    defaultPlugins.insert(QStringLiteral("cuttlefishplugin")); // this comes with package plasma5-sdk but it won't hurt to list it here (activate by right click in the text area)
 #ifndef WIN32
-    defaultPlugins.insert(QLatin1String("katefilebrowserplugin")); // currently works badly on Windows
-    defaultPlugins.insert(QLatin1String("katekonsoleplugin")); // currently does not work on Windows at all
+    defaultPlugins.insert(QStringLiteral("katefilebrowserplugin")); // currently works badly on Windows
+    defaultPlugins.insert(QStringLiteral("katekonsoleplugin")); // currently does not work on Windows at all
 #endif
-    defaultPlugins.insert(QLatin1String("katefiletreeplugin"));
-    defaultPlugins.insert(QLatin1String("kateprojectplugin"));
-    defaultPlugins.insert(QLatin1String("katesearchplugin"));
+    defaultPlugins.insert(QStringLiteral("katefiletreeplugin"));
+    defaultPlugins.insert(QStringLiteral("kateprojectplugin"));
+    defaultPlugins.insert(QStringLiteral("katesearchplugin"));
     //defaultPlugins.insert(QLatin1String("ktexteditorpreviewplugin")); // the feature is nice and needed, but in its current state we should not present it by default
-    defaultPlugins.insert(QLatin1String("tabswitcherplugin"));
-    defaultPlugins.insert(QLatin1String("textfilterplugin"));
+    defaultPlugins.insert(QStringLiteral("tabswitcherplugin"));
+    defaultPlugins.insert(QStringLiteral("textfilterplugin"));
 
     m_pluginList.clear();
     QVectorIterator<KPluginMetaData> i(plugins);
@@ -138,7 +138,7 @@ void KatePluginManager::loadConfig(KConfig *config)
 
             // restore config
             if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (it->plugin)) {
-                KConfigGroup group(config, QString::fromLatin1("Plugin:%1:").arg(it->saveName()));
+                KConfigGroup group(config, QStringLiteral("Plugin:%1:").arg(it->saveName()));
                 interface->readSessionConfig(group);
             }
         }
@@ -157,7 +157,7 @@ void KatePluginManager::writeConfig(KConfig *config)
 
         // save config
         if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (plugin.plugin)) {
-            KConfigGroup group(config, QString::fromLatin1("Plugin:%1:").arg(saveName));
+            KConfigGroup group(config, QStringLiteral("Plugin:%1:").arg(saveName));
             interface->writeSessionConfig(group);
         }
     }
@@ -241,7 +241,7 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
     // load session config if needed
     if (config && win->pluginViews().contains(item->plugin)) {
         if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (win->pluginViews().value(item->plugin))) {
-            KConfigGroup group(config, QString::fromLatin1("Plugin:%1:MainWindow:0").arg(item->saveName()));
+            KConfigGroup group(config, QStringLiteral("Plugin:%1:MainWindow:0").arg(item->saveName()));
             interface->readSessionConfig(group);
         }
     }

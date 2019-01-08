@@ -30,10 +30,10 @@
 ConnectionModel::ConnectionModel(QObject *parent)
 : QAbstractListModel(parent)
 {
-  m_icons[Connection::UNKNOWN]          = QIcon::fromTheme(QLatin1String("user-offline"));
-  m_icons[Connection::ONLINE]           = QIcon::fromTheme(QLatin1String("user-online"));
-  m_icons[Connection::OFFLINE]          = QIcon::fromTheme(QLatin1String("user-offline"));
-  m_icons[Connection::REQUIRE_PASSWORD] = QIcon::fromTheme(QLatin1String("user-invisible"));
+  m_icons[Connection::UNKNOWN]          = QIcon::fromTheme(QStringLiteral("user-offline"));
+  m_icons[Connection::ONLINE]           = QIcon::fromTheme(QStringLiteral("user-online"));
+  m_icons[Connection::OFFLINE]          = QIcon::fromTheme(QStringLiteral("user-offline"));
+  m_icons[Connection::REQUIRE_PASSWORD] = QIcon::fromTheme(QStringLiteral("user-invisible"));
 }
 
 ConnectionModel::~ConnectionModel()

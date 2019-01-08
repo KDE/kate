@@ -46,11 +46,11 @@ public:
               std::cerr<<"property:"<<qPrintable(a_s.toString())<<std::endl;
               std::cerr<<qPrintable(QDBusConnection::sessionBus().lastError().message())<<std::endl;*/
         if (!a_s.isValid()) {
-            sessionName = QString::fromLatin1("___NO_SESSION_OPENED__%1").arg(dummy_session++);
+            sessionName = QStringLiteral("___NO_SESSION_OPENED__%1").arg(dummy_session++);
             valid = false;
         } else {
             if (a_s.toString().isEmpty()) {
-                sessionName = QString::fromLatin1("___DEFAULT_CONSTRUCTED_SESSION__%1").arg(dummy_session++);
+                sessionName = QStringLiteral("___DEFAULT_CONSTRUCTED_SESSION__%1").arg(dummy_session++);
             } else {
                 sessionName = a_s.toString();
             }

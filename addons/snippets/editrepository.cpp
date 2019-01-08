@@ -61,7 +61,7 @@ EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
             this, &EditRepository::updateFileTypes);
 
     // add default licenses
-    repoLicenseEdit->addItems(QStringList() << QLatin1String("BSD") << QLatin1String("Artistic") << QLatin1String("LGPL v2+") << QLatin1String("LGPL v3+"));
+    repoLicenseEdit->addItems(QStringList() << QStringLiteral("BSD") << QStringLiteral("Artistic") << QStringLiteral("LGPL v2+") << QStringLiteral("LGPL v3+"));
     repoLicenseEdit->setEditable(true);
 
     // if we edit a repo, add all existing data

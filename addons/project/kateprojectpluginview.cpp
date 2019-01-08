@@ -92,9 +92,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
     // popup menu
     auto popup = new KActionMenu(i18n("Project"), this);
-    actionCollection()->addAction(QLatin1String("popup_project"), popup);
+    actionCollection()->addAction(QStringLiteral("popup_project"), popup);
 
-    m_lookupAction = popup->menu()->addAction(i18n("Lookup: %1", QString()), this, SLOT(slotProjectIndex()));
+    m_lookupAction = popup->menu()->addAction(i18n("Lookup: %1", QString()), this, &KateProjectPluginView::slotProjectIndex);
 
     connect(popup->menu(), &QMenu::aboutToShow, this, &KateProjectPluginView::slotContextMenuAboutToShow);
 

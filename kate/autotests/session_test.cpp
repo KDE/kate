@@ -45,7 +45,7 @@ void KateSessionTest::cleanup()
 
 void KateSessionTest::create()
 {
-    const QString name = QString::fromLatin1("session name");
+    const QString name = QStringLiteral("session name");
     KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), name);
     QCOMPARE(s->name(), name);
     QCOMPARE((int)s->documents(), 0);
@@ -65,9 +65,9 @@ void KateSessionTest::createAnonymous()
 void KateSessionTest::createAnonymousFrom()
 {
     // Regular
-    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QLatin1String("session name"));
+    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QStringLiteral("session name"));
 
-    const QString groupName = QString::fromLatin1("test group");
+    const QString groupName = QStringLiteral("test group");
     QTemporaryFile newFile;
     newFile.open();
     KateSession::Ptr ns;
@@ -85,10 +85,10 @@ void KateSessionTest::createAnonymousFrom()
 
 void KateSessionTest::createFrom()
 {
-    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QLatin1String("session name"));
+    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QStringLiteral("session name"));
 
-    const QString newName = QString::fromLatin1("new session name");
-    const QString groupName = QString::fromLatin1("test group");
+    const QString newName = QStringLiteral("new session name");
+    const QString groupName = QStringLiteral("test group");
 
     QTemporaryFile newFile;
     newFile.open();
@@ -106,7 +106,7 @@ void KateSessionTest::createFrom()
 
 void KateSessionTest::documents()
 {
-    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QLatin1String("session name"));
+    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QStringLiteral("session name"));
 
     s->setDocuments(42);
     QCOMPARE((int)s->documents(), 42);
@@ -118,7 +118,7 @@ void KateSessionTest::documents()
 
 void KateSessionTest::setFile()
 {
-    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QLatin1String("session name"));
+    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QStringLiteral("session name"));
     s->config()->group("test").writeEntry("foo", "bar");
 
     QTemporaryFile file2;
@@ -132,15 +132,15 @@ void KateSessionTest::setFile()
 void KateSessionTest::timestamp()
 {
     QFileInfo i(m_tmpfile->fileName());
-    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QLatin1String("session name"));
+    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QStringLiteral("session name"));
 
     QCOMPARE(s->timestamp(), i.lastModified());
 }
 
 void KateSessionTest::setName()
 {
-    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QLatin1String("session name"));
-    const QString newName = QString::fromLatin1("bar");
+    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QStringLiteral("session name"));
+    const QString newName = QStringLiteral("bar");
     s->setName(newName);
     QCOMPARE(s->name(), newName);
     QCOMPARE(s->file(), m_tmpfile->fileName()); // on purpose, orthogonal

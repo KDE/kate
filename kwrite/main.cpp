@@ -39,6 +39,7 @@
 #include <QTextCodec>
 #include <QFileInfo>
 #include <QDir>
+#include <QUrlQuery>
 
 #include "../urlinfo.h"
 
@@ -266,6 +267,21 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 
                     if (info.cursor.isValid()) {
                         t->view()->setCursorPosition(info.cursor);
+                    }
+                    else if (info.url.hasQuery()) {
+                        QUrlQuery q(info.url);
+                        QString lineStr = q.queryItemValue(QStringLiteral("line"));
+                        QString columnStr = q.queryItemValue(QStringLiteral("column"));
+
+                        line = lineStr.toInt();
+                        if (line > 0)
+                            line--;
+
+                        column = columnStr.toInt();
+                        if (column > 0)
+                            column--;
+
+                        t->view()->setCursorPosition(KTextEditor::Cursor(line, column));
                     }
                 } else {
                     KMessageBox::sorry(nullptr, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));

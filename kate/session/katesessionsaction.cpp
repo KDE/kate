@@ -58,11 +58,13 @@ void KateSessionsAction::slotAboutToShow()
     // sort the reduced list alphabetically (#364089)
     std::sort(slist.begin(), slist.end(), KateSession::compareByName);
 
-    foreach(const KateSession::Ptr & session, slist) {
+    for (const KateSession::Ptr &session : qAsConst(slist)) {
         QString sessionName = session->name();
         sessionName.replace(QStringLiteral("&"), QStringLiteral("&&"));
         QAction *action = new QAction(sessionName, sessionsGroup);
         action->setData(QVariant(session->name()));
+        action->setCheckable(true);
+        action->setChecked(session == m_manager->activeSession());
         menu()->addAction(action);
     }
 }

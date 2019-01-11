@@ -17,6 +17,7 @@
 
    ---
    Copyright (C) 2004, Anders Lund <anders@alweb.dk>
+   Copyright (C) 2019 Dominik Haumann <dhaumann@kde.org>
 */
 // TODO
 // Icons

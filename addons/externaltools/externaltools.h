@@ -18,7 +18,8 @@
    Boston, MA 02110-1301, USA.
 
    ---
-   Copyright (C) 2004, Anders Lund <anders@alweb.dk>
+   Copyright (C) 2004 Anders Lund <anders@alweb.dk>
+   Copyright (C) 2019 Dominik Haumann <dhaumann@kde.org>
 */
 
 #ifndef KTEXTEDITOR_EXTERNALTOOLS_H
@@ -74,7 +75,7 @@ public:
     virtual ~KateExternalToolsMenuAction();
 
     /**
-     * This will load all the confiured services.
+     * This will load all the configured services.
      */
     void reload();
 
@@ -121,9 +122,10 @@ public:
     ~KateExternalTool() {}
 
     QString name; ///< The name used in the menu.
+    QString executable; ///< The name or path of the executable.
+    QString arguments; ///< The command line arguments.
     QString command; ///< The command to execute.
     QString icon; ///< the icon to use in the menu.
-    QString executable; ///< The name or path of the executable.
     QStringList mimetypes; ///< Optional list of mimetypes for which this action is valid.
     bool hasexec; ///< This is set by the constructor by calling checkExec(), if a
                   ///< value is present.

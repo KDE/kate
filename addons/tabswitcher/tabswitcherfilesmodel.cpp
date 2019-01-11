@@ -81,7 +81,7 @@ namespace detail
         // Removes empty strings because Documents without file have no path and we would
         // otherwise in this case always get ""
         paths.erase( // erase-remove idiom, see https://en.cppreference.com/w/cpp/algorithm/remove
-            std::remove_if(paths.begin(), paths.end(), [](QString s) {
+            std::remove_if(paths.begin(), paths.end(), [](const QString &s) {
                 return s.isEmpty(); }),
             paths.end()
         );

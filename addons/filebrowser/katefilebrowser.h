@@ -71,7 +71,7 @@ class KateFileBrowser : public QWidget
 
   public Q_SLOTS:
     void slotFilterChange(const QString&);
-    void setDir(QUrl);
+    void setDir(const QUrl &);
     void setDir( const QString &url ) { setDir( QUrl( url ) ); }
     void selectorViewChanged( QAbstractItemView * );
 

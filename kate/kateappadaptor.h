@@ -46,7 +46,7 @@ public Q_SLOTS:
      * @param encoding encoding name
      * @return success
      */
-    bool openUrl(QString url, QString encoding);
+    bool openUrl(const QString &url, const QString &encoding);
 
     /**
      * checks if the Kate instance is in the specified activity
@@ -62,7 +62,7 @@ public Q_SLOTS:
      * @param encoding encoding name
      * @return token or ERROR
      */
-    QString tokenOpenUrl(QString url, QString encoding);
+    QString tokenOpenUrl(const QString &url, const QString &encoding);
 
     /**
      * Like the above, but adds an option to let the documentManager know
@@ -72,9 +72,9 @@ public Q_SLOTS:
      */
     bool openUrl(QString url, QString encoding, bool isTempFile);
 
-    QString tokenOpenUrl(QString url, QString encoding, bool isTempFile);
+    QString tokenOpenUrl(const QString &url, const QString &encoding, bool isTempFile);
 
-    QString tokenOpenUrlAt(QString url, int line, int column, QString encoding, bool isTempFile);
+    QString tokenOpenUrlAt(const QString &url, int line, int column, const QString &encoding, bool isTempFile);
 
     /**
      * set cursor of active view in active main window
@@ -92,14 +92,14 @@ public Q_SLOTS:
      * @param encoding encoding to set for the document, if any
      * @return success
      */
-    bool openInput(QString text, QString encoding);
+    bool openInput(const QString &text, const QString &encoding);
 
     /**
      * activate a given session
      * @param session session name
      * @return success
      */
-    bool activateSession(QString session);
+    bool activateSession(const QString &session);
 
     int desktopNumber();
 

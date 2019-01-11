@@ -46,7 +46,7 @@ void KateBtBrowserTest::testParser()
     // 4) #5  0xffffe410 in __kernel_vsyscall ()
 
 
-    QString bt = QLatin1String("#24 0xb688ff8e in QApplication::notify (this=0xbf997e8c, receiver=0x82607e8, e=0xbf997074) at kernel/qapplication.cpp:3115");
+    QString bt = QStringLiteral("#24 0xb688ff8e in QApplication::notify (this=0xbf997e8c, receiver=0x82607e8, e=0xbf997074) at kernel/qapplication.cpp:3115");
     QList<BtInfo> info = KateBtParser::parseBacktrace(bt);
 
     QVERIFY(info.size() == 1);
@@ -58,7 +58,7 @@ void KateBtBrowserTest::testParser()
     QCOMPARE(info[0].line, 3115);
     QCOMPARE(info[0].step, 24);
 
-    bt = QLatin1String("#39 0xb634211c in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0");
+    bt = QStringLiteral("#39 0xb634211c in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0");
     info = KateBtParser::parseBacktrace(bt);
     QVERIFY(info.size() == 1);
     QCOMPARE(info[0].type, BtInfo::Lib);
@@ -69,7 +69,7 @@ void KateBtBrowserTest::testParser()
     QCOMPARE(info[0].line, -1);
     QCOMPARE(info[0].step, 39);
 
-    bt = QLatin1String("#41 0x0805e690 in ?? ()");
+    bt = QStringLiteral("#41 0x0805e690 in ?? ()");
     info = KateBtParser::parseBacktrace(bt);
     QVERIFY(info.size() == 1);
     QCOMPARE(info[0].type, BtInfo::Unknown);
@@ -80,7 +80,7 @@ void KateBtBrowserTest::testParser()
     QCOMPARE(info[0].line, -1);
     QCOMPARE(info[0].step, 41);
 
-    bt = QLatin1String("#5  0xffffe410 in __kernel_vsyscall ()");
+    bt = QStringLiteral("#5  0xffffe410 in __kernel_vsyscall ()");
     info = KateBtParser::parseBacktrace(bt);
     QVERIFY(info.size() == 1);
     QCOMPARE(info[0].type, BtInfo::Unknown);
@@ -91,7 +91,7 @@ void KateBtBrowserTest::testParser()
     QCOMPARE(info[0].line, -1);
     QCOMPARE(info[0].step, 5);
 
-    bt = QLatin1String("    Thread 1 (Thread 0x7fb6ba260780 (LWP 16447)):\n[KCrash Handler]");
+    bt = QStringLiteral("    Thread 1 (Thread 0x7fb6ba260780 (LWP 16447)):\n[KCrash Handler]");
     info = KateBtParser::parseBacktrace(bt);
     QVERIFY(info.size() == 0);
 }

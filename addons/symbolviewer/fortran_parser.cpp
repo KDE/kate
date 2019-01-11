@@ -22,9 +22,9 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
    return;
 
  QString currline;
- QString subrStr(QLatin1String("subroutine "));
- QString funcStr(QLatin1String("function "));
- QString modStr(QLatin1String("module "));
+ QString subrStr(QStringLiteral("subroutine "));
+ QString funcStr(QStringLiteral("function "));
+ QString modStr(QStringLiteral("module "));
 
  QString stripped;
  int i;
@@ -124,7 +124,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                mainprog=true;
           if (m_macro->isChecked()) // not really a macro, but a subroutines
             {
-             stripped += currline.right(currline.length());
+             stripped += currline.rightRef(currline.length());
              stripped = stripped.simplified();
              stripped.remove(QLatin1Char('*'));
              stripped.remove(QLatin1Char('+'));
@@ -212,7 +212,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
         {
          if (m_func->isChecked())
            {
-            stripped += currline.right(currline.length());
+            stripped += currline.rightRef(currline.length());
             stripped = stripped.trimmed();
             stripped.remove( QLatin1String("function") );
             stripped.remove(QLatin1Char('*'));

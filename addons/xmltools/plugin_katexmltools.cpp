@@ -121,22 +121,22 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
 {
     //qDebug() << "PluginKateXMLTools constructor called";
 
-    KXMLGUIClient::setComponentName(QLatin1String("katexmltools"), i18n("Kate XML Tools"));
-    setXMLFile(QLatin1String("ui.rc"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katexmltools"), i18n("Kate XML Tools"));
+    setXMLFile(QStringLiteral("ui.rc"));
 
     QAction *actionInsert = new QAction(i18n("&Insert Element..."), this);
     connect(actionInsert, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::slotInsertElement);
-    actionCollection()->addAction("xml_tool_insert_element", actionInsert);
+    actionCollection()->addAction(QStringLiteral("xml_tool_insert_element"), actionInsert);
     actionCollection()->setDefaultShortcut(actionInsert, Qt::CTRL + Qt::Key_Return);
 
     QAction *actionClose = new QAction(i18n("&Close Element"), this);
     connect(actionClose, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::slotCloseElement);
-    actionCollection()->addAction("xml_tool_close_element", actionClose);
+    actionCollection()->addAction(QStringLiteral("xml_tool_close_element"), actionClose);
     actionCollection()->setDefaultShortcut(actionClose, Qt::CTRL + Qt::Key_Less);
 
     QAction *actionAssignDTD = new QAction(i18n("Assign Meta &DTD..."), this);
     connect(actionAssignDTD, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::getDTD);
-    actionCollection()->addAction("xml_tool_assign", actionAssignDTD);
+    actionCollection()->addAction(QStringLiteral("xml_tool_assign"), actionAssignDTD);
 
     mainWin->guiFactory()->addClient(this);
 
@@ -220,17 +220,17 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
     QString leftCh = lineStr.mid(col - 1, 1);
     QString secondLeftCh = lineStr.mid(col - 2, 1);
 
-    if (leftCh == "&") {
+    if (leftCh == QLatin1String("&")) {
         qDebug() << "Getting entities";
         m_allowed = m_docDtds[doc]->entities(QString());
         m_mode = entities;
-    } else if (leftCh == "<") {
+    } else if (leftCh == QLatin1String("<")) {
         qDebug() << "*outside tag -> get elements";
         QString parentElement = getParentElement(*kv, 1);
         qDebug() << "parent: " << parentElement;
         m_allowed = m_docDtds[doc]->allowedElements(parentElement);
         m_mode = elements;
-    } else if (leftCh == "/" && secondLeftCh == "<") {
+    } else if (leftCh == QLatin1String("/") && secondLeftCh == QLatin1String("<")) {
         qDebug() << "*close parent element";
         QString parentElement = getParentElement(*kv, 2);
 
@@ -238,7 +238,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
             m_mode = closingtag;
             m_allowed = QStringList(parentElement);
         }
-    } else if (leftCh == " " || (isQuote(leftCh) && secondLeftCh == "=")) {
+    } else if (leftCh == QLatin1String(" ") || (isQuote(leftCh) && secondLeftCh == QLatin1String("="))) {
         // TODO: check secondLeftChar, too?! then you don't need to trigger
         // with space and we yet save CPU power
         QString currentElement = insideTag(*kv);
@@ -254,9 +254,9 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
             qDebug() << "*inside attribute -> get attribute values";
             m_allowed = m_docDtds[doc]->attributeValues(currentElement, currentAttribute);
             if (m_allowed.count() == 1 &&
-                    (m_allowed[0] == "CDATA" || m_allowed[0] == "ID" || m_allowed[0] == "IDREF" ||
-                     m_allowed[0] == "IDREFS" || m_allowed[0] == "ENTITY" || m_allowed[0] == "ENTITIES" ||
-                     m_allowed[0] == "NMTOKEN" || m_allowed[0] == "NMTOKENS" || m_allowed[0] == "NAME")) {
+                    (m_allowed[0] == QLatin1String("CDATA") || m_allowed[0] == QLatin1String("ID") || m_allowed[0] == QLatin1String("IDREF") ||
+                     m_allowed[0] == QLatin1String("IDREFS") || m_allowed[0] == QLatin1String("ENTITY") || m_allowed[0] == QLatin1String("ENTITIES") ||
+                     m_allowed[0] == QLatin1String("NMTOKEN") || m_allowed[0] == QLatin1String("NMTOKENS") || m_allowed[0] == QLatin1String("NAME"))) {
                 // these must not be taken literally, e.g. don't insert the string "CDATA"
                 m_allowed.clear();
             } else {
@@ -272,7 +272,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
     //qDebug() << "time elapsed (ms): " << t.elapsed();
     qDebug() << "Allowed strings: " << m_allowed.count();
 
-    if (m_allowed.count() >= 1 && m_allowed[0] != "__EMPTY") {
+    if (m_allowed.count() >= 1 && m_allowed[0] != QLatin1String("__EMPTY")) {
         m_allowed = sortQStringList(m_allowed);
     }
     setRowCount(m_allowed.count());
@@ -366,7 +366,7 @@ bool PluginKateXMLToolsCompletionModel::shouldStartCompletion(KTextEditor::View 
     Q_UNUSED(view)
     Q_UNUSED(userInsertion)
     Q_UNUSED(position)
-    const QString triggerChars = "&</ '\""; // these are subsequently handled by completionInvoked()
+    const QString triggerChars = QStringLiteral("&</ '\""); // these are subsequently handled by completionInvoked()
 
     return triggerChars.contains(insertedText.right(1));
 }
@@ -391,7 +391,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
     // ### replace this with something more sane
     // Start where the supplied XML-DTDs are fed by default unless
     // user changed directory last time:
-    QString defaultDir = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "katexmltools") + "/katexmltools/";
+    QString defaultDir = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("katexmltools")) + "/katexmltools/";
     if (m_urlString.isNull()) {
         m_urlString = defaultDir;
     }
@@ -416,33 +416,33 @@ void PluginKateXMLToolsCompletionModel::getDTD()
         qDebug() << "Top element: " << topElement;
         qDebug() << "Doctype match: " << doctype;
         // XHTML:
-        if (doctype == "-//W3C//DTD XHTML 1.0 Transitional//EN") {
-            filename = "xhtml1-transitional.dtd.xml";
-        } else if (doctype == "-//W3C//DTD XHTML 1.0 Strict//EN") {
-            filename = "xhtml1-strict.dtd.xml";
-        } else if (doctype == "-//W3C//DTD XHTML 1.0 Frameset//EN") {
-            filename = "xhtml1-frameset.dtd.xml";
+        if (doctype == QLatin1String("-//W3C//DTD XHTML 1.0 Transitional//EN")) {
+            filename = QStringLiteral("xhtml1-transitional.dtd.xml");
+        } else if (doctype == QLatin1String("-//W3C//DTD XHTML 1.0 Strict//EN")) {
+            filename = QStringLiteral("xhtml1-strict.dtd.xml");
+        } else if (doctype == QLatin1String("-//W3C//DTD XHTML 1.0 Frameset//EN")) {
+            filename = QStringLiteral("xhtml1-frameset.dtd.xml");
         }
         // HTML 4.0:
-        else if (doctype == "-//W3C//DTD HTML 4.01 Transitional//EN") {
-            filename = "html4-loose.dtd.xml";
-        } else if (doctype == "-//W3C//DTD HTML 4.01//EN") {
-            filename = "html4-strict.dtd.xml";
+        else if (doctype == QLatin1String("-//W3C//DTD HTML 4.01 Transitional//EN")) {
+            filename = QStringLiteral("html4-loose.dtd.xml");
+        } else if (doctype == QLatin1String("-//W3C//DTD HTML 4.01//EN")) {
+            filename = QStringLiteral("html4-strict.dtd.xml");
         }
         // KDE Docbook:
-        else if (doctype == "-//KDE//DTD DocBook XML V4.1.2-Based Variant V1.1//EN") {
-            filename = "kde-docbook.dtd.xml";
+        else if (doctype == QLatin1String("-//KDE//DTD DocBook XML V4.1.2-Based Variant V1.1//EN")) {
+            filename = QStringLiteral("kde-docbook.dtd.xml");
         }
-    } else if (documentStart.indexOf("<xsl:stylesheet") != -1 &&
-               documentStart.indexOf("xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"") != -1) {
+    } else if (documentStart.indexOf(QLatin1String("<xsl:stylesheet")) != -1 &&
+               documentStart.indexOf(QLatin1String("xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"")) != -1) {
         /* XSLT doesn't have a doctype/DTD. We look for an xsl:stylesheet tag instead.
           Example:
           <xsl:stylesheet version="1.0"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
           xmlns="http://www.w3.org/TR/xhtml1/strict">
         */
-        filename = "xslt-1.0.dtd.xml";
-        doctype = "XSLT 1.0";
+        filename = QStringLiteral("xslt-1.0.dtd.xml");
+        doctype = QStringLiteral("XSLT 1.0");
     } else {
         qDebug() << "No doctype found";
     }
@@ -453,14 +453,14 @@ void PluginKateXMLToolsCompletionModel::getDTD()
         url = QFileDialog::getOpenFileUrl(KTextEditor::Editor::instance()->application()->activeMainWindow()->window(),
                                           i18n("Assign Meta DTD in XML Format"),
                                           QUrl::fromLocalFile(m_urlString),
-                                          "*.xml");
+                                          QStringLiteral("*.xml"));
     } else {
         url.setUrl(defaultDir + filename);
         KMessageBox::information(nullptr, i18n("The current file has been identified "
                                          "as a document of type \"%1\". The meta DTD for this document type "
                                          "will now be loaded.", doctype),
                                  i18n("Loading XML Meta DTD"),
-                                 QString::fromLatin1("DTDAssigned"));
+                                 QStringLiteral("DTDAssigned"));
     }
 
     if (url.isEmpty()) {
@@ -573,7 +573,7 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
             adjust++;    // the ">"
         }
 
-        if (dtd && dtd->allowedElements(list[0]).contains("__EMPTY")) {
+        if (dtd && dtd->allowedElements(list[0]).contains(QStringLiteral("__EMPTY"))) {
             pre = '<' + text + "/>";
             if (adjust) {
                 adjust++;    // for the "/"
@@ -654,7 +654,7 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View 
     else if (m_mode == attributes) {
         text = text + "=\"\"";
         posCorrection = -1;
-        if (!rightCh.isEmpty() && rightCh != ">" && rightCh != "/" && rightCh != " ") {
+        if (!rightCh.isEmpty() && rightCh != QLatin1String(">") && rightCh != QLatin1String("/") && rightCh != QLatin1String(" ")) {
             // TODO: other whitespaces
             // add space in front of the next attribute
             text = text + ' ';
@@ -692,7 +692,7 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View 
     else if (m_mode == elements) {
         // anders: if the tag is marked EMPTY, insert in form <tagname/>
         QString str;
-        bool isEmptyTag = m_docDtds[document]->allowedElements(text).contains("__EMPTY");
+        bool isEmptyTag = m_docDtds[document]->allowedElements(text).contains(QStringLiteral("__EMPTY"));
         if (isEmptyTag) {
             str = text + "/>";
         } else {
@@ -743,16 +743,16 @@ QString PluginKateXMLToolsCompletionModel::insideTag(KTextEditor::View &kv)
         QString lineStr = kv.document()->line(y);
         for (uint x = col; x > 0; x--) {
             QString ch = lineStr.mid(x - 1, 1);
-            if (ch == ">") {  // cursor is outside tag
+            if (ch == QLatin1String(">")) {  // cursor is outside tag
                 return QString();
             }
 
-            if (ch == "<") {
+            if (ch == QLatin1String("<")) {
                 QString tag;
                 // look for white space on the right to get the tag name
                 for (int z = x; z <= lineStr.length() ; ++z) {
                     ch = lineStr.mid(z - 1, 1);
-                    if (ch.at(0).isSpace() || ch == "/" || ch == ">") {
+                    if (ch.at(0).isSpace() || ch == QLatin1String("/") || ch == QLatin1String(">")) {
                         return tag.right(tag.length() - 1);
                     }
 
@@ -797,11 +797,11 @@ QString PluginKateXMLToolsCompletionModel::insideAttribute(KTextEditor::View &kv
             ch = lineStr.mid(x - 1, 1);
             QString chLeft = lineStr.mid(x - 2, 1);
             // TODO: allow whitespace
-            if (isQuote(ch) && chLeft == "=") {
+            if (isQuote(ch) && chLeft == QLatin1String("=")) {
                 break;
-            } else if (isQuote(ch) && chLeft != "=") {
+            } else if (isQuote(ch) && chLeft != QLatin1String("=")) {
                 return QString();
-            } else if (ch == "<" || ch == ">") {
+            } else if (ch == QLatin1String("<") || ch == QLatin1String(">")) {
                 return QString();
             }
         }
@@ -979,7 +979,7 @@ QString PluginKateXMLToolsCompletionModel::getParentElement(KTextEditor::View &k
 bool PluginKateXMLToolsCompletionModel::isOpeningTag(const QString &tag)
 {
     return (!isClosingTag(tag) && !isEmptyTag(tag) &&
-            !tag.startsWith(QLatin1String("<?")) && !tag.startsWith("<!"));
+            !tag.startsWith(QLatin1String("<?")) && !tag.startsWith(QLatin1String("<!")));
 }
 
 /**
@@ -993,7 +993,7 @@ bool PluginKateXMLToolsCompletionModel::isClosingTag(const QString &tag)
 
 bool PluginKateXMLToolsCompletionModel::isEmptyTag(const QString &tag)
 {
-    return (tag.right(2) == "/>");
+    return (tag.right(2) == QLatin1String("/>"));
 }
 
 /**
@@ -1001,7 +1001,7 @@ bool PluginKateXMLToolsCompletionModel::isEmptyTag(const QString &tag)
  */
 bool PluginKateXMLToolsCompletionModel::isQuote(const QString &ch)
 {
-    return (ch == "\"" || ch == "'");
+    return (ch == QLatin1String("\"") || ch == QLatin1String("'"));
 }
 
 

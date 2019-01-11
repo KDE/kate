@@ -57,18 +57,18 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
 , m_manager (new SQLManager(this))
 , m_mainWindow (mw)
 {
-  KXMLGUIClient::setComponentName (QLatin1String("katesql"), i18n ("Kate SQL Plugin"));
-  setXMLFile( QLatin1String("ui.rc") );
+  KXMLGUIClient::setComponentName (QStringLiteral("katesql"), i18n ("Kate SQL Plugin"));
+  setXMLFile( QStringLiteral("ui.rc") );
 
-  m_outputToolView    = mw->createToolView(plugin, QLatin1String ("kate_private_plugin_katesql_output"),
+  m_outputToolView    = mw->createToolView(plugin, QStringLiteral ("kate_private_plugin_katesql_output"),
                                                KTextEditor::MainWindow::Bottom,
-                                               QIcon::fromTheme (QLatin1String ("view-form-table")),
+                                               QIcon::fromTheme (QStringLiteral ("view-form-table")),
                                                i18nc("@title:window", "SQL Results")
                                                );
 
-  m_schemaBrowserToolView = mw->createToolView(plugin, QLatin1String ("kate_private_plugin_katesql_schemabrowser"),
+  m_schemaBrowserToolView = mw->createToolView(plugin, QStringLiteral ("kate_private_plugin_katesql_schemabrowser"),
                                                KTextEditor::MainWindow::Left,
-                                               QIcon::fromTheme (QLatin1String ("view-list-tree")),
+                                               QIcon::fromTheme (QStringLiteral ("view-list-tree")),
                                                i18nc("@title:window", "SQL Schema Browser")
                                                );
 
@@ -85,7 +85,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
 
   m_mainWindow->guiFactory()->addClient(this);
 
-  QMenu *sqlMenu = (QMenu*)factory()->container(QLatin1String ("SQL"), this);
+  QMenu *sqlMenu = (QMenu*)factory()->container(QStringLiteral ("SQL"), this);
 
   m_connectionsGroup = new QActionGroup(sqlMenu);
   m_connectionsGroup->setExclusive(true);
@@ -99,7 +99,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
   connect(m_manager, &SQLManager::connectionAboutToBeClosed, this, &KateSQLView::slotConnectionAboutToBeClosed);
   connect(m_connectionsComboBox, static_cast<void (KComboBox::*)(const QString &)>(&KComboBox::currentIndexChanged), this, &KateSQLView::slotConnectionChanged);
 
-  stateChanged(QLatin1String ("has_connection_selected"), KXMLGUIClient::StateReverse);
+  stateChanged(QStringLiteral ("has_connection_selected"), KXMLGUIClient::StateReverse);
 }
 
 
@@ -119,34 +119,34 @@ void KateSQLView::setupActions()
   QAction* action;
   KActionCollection* collection = actionCollection();
 
-  action = collection->addAction(QLatin1String ("connection_create"));
+  action = collection->addAction(QStringLiteral ("connection_create"));
   action->setText( i18nc("@action:inmenu", "Add connection...") );
-  action->setIcon( QIcon::fromTheme (QLatin1String ("list-add")) );
+  action->setIcon( QIcon::fromTheme (QStringLiteral ("list-add")) );
   connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionCreate);
 
-  action = collection->addAction(QLatin1String ("connection_remove"));
+  action = collection->addAction(QStringLiteral ("connection_remove"));
   action->setText( i18nc("@action:inmenu", "Remove connection") );
-  action->setIcon( QIcon::fromTheme (QLatin1String ("list-remove")) );
+  action->setIcon( QIcon::fromTheme (QStringLiteral ("list-remove")) );
   connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionRemove);
 
-  action = collection->addAction(QLatin1String ("connection_edit"));
+  action = collection->addAction(QStringLiteral ("connection_edit"));
   action->setText( i18nc("@action:inmenu", "Edit connection...") );
-  action->setIcon( QIcon::fromTheme (QLatin1String ("configure")) );
+  action->setIcon( QIcon::fromTheme (QStringLiteral ("configure")) );
   connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionEdit);
 
-  action = collection->addAction(QLatin1String ("connection_reconnect"));
+  action = collection->addAction(QStringLiteral ("connection_reconnect"));
   action->setText( i18nc("@action:inmenu", "Reconnect") );
-  action->setIcon(  QIcon::fromTheme (QLatin1String ("view-refresh")) );
+  action->setIcon(  QIcon::fromTheme (QStringLiteral ("view-refresh")) );
   connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionReconnect);
 
   QWidgetAction *wa = new QWidgetAction(this);
-  collection->addAction(QLatin1String ("connection_chooser"), wa);
+  collection->addAction(QStringLiteral ("connection_chooser"), wa);
   wa->setText( i18nc("@action:intoolbar", "Connection") );
   wa->setDefaultWidget(m_connectionsComboBox);
 
-  action = collection->addAction(QLatin1String ("query_run"));
+  action = collection->addAction(QStringLiteral ("query_run"));
   action->setText( i18nc("@action:inmenu", "Run query") );
-  action->setIcon( QIcon::fromTheme (QLatin1String ("quickopen")) );
+  action->setIcon( QIcon::fromTheme (QStringLiteral ("quickopen")) );
   collection->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_E) );
   connect(action, &QAction::triggered, this, &KateSQLView::slotRunQuery);
 
@@ -163,7 +163,7 @@ void KateSQLView::slotSQLMenuAboutToShow()
 {
   qDeleteAll( m_connectionsGroup->actions() );
 
-  QMenu *sqlMenu = (QMenu*)factory()->container(QLatin1String ("SQL"), this);
+  QMenu *sqlMenu = (QMenu*)factory()->container(QStringLiteral ("SQL"), this);
   QAction *before = action("query_run");
   QAbstractItemModel *model = m_manager->connectionModel();
 
@@ -198,7 +198,7 @@ void KateSQLView::slotConnectionSelectedFromMenu(QAction *action)
 
 void KateSQLView::slotConnectionChanged(const QString &connection)
 {
-  stateChanged(QLatin1String ("has_connection_selected"), (connection.isEmpty()) ? KXMLGUIClient::StateReverse : KXMLGUIClient::StateNoReverse);
+  stateChanged(QStringLiteral ("has_connection_selected"), (connection.isEmpty()) ? KXMLGUIClient::StateReverse : KXMLGUIClient::StateNoReverse);
 
   m_schemaBrowserWidget->schemaWidget()->buildTree(connection);
 }
@@ -260,7 +260,7 @@ void KateSQLView::slotConnectionCreate()
     return;
 
   for (int i = 1; QSqlDatabase::contains(c.name); i++)
-    c.name = QString::fromLatin1("%1 (%2)").arg(c.name).arg(i);
+    c.name = QStringLiteral("%1 (%2)").arg(c.name).arg(i);
 
   m_manager->createConnection(c);
 

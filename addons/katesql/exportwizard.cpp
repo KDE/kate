@@ -77,10 +77,10 @@ ExportOutputPage::ExportOutputPage(QWidget *parent)
 
   setLayout(layout);
 
-  registerField(QLatin1String("outDocument"), documentRadioButton);
-  registerField(QLatin1String("outClipboard"), clipboardRadioButton);
-  registerField(QLatin1String("outFile"), fileRadioButton);
-  registerField(QLatin1String("outFileUrl"), fileUrl, "text");
+  registerField(QStringLiteral("outDocument"), documentRadioButton);
+  registerField(QStringLiteral("outClipboard"), clipboardRadioButton);
+  registerField(QStringLiteral("outFile"), fileRadioButton);
+  registerField(QStringLiteral("outFileUrl"), fileUrl, "text");
 
   connect(fileRadioButton, &QRadioButton::toggled, fileUrl, &KUrlRequester::setEnabled);
 }
@@ -165,13 +165,13 @@ ExportFormatPage::ExportFormatPage(QWidget *parent)
 
   setLayout(layout);
 
-  registerField(QLatin1String("exportColumnNames"), exportColumnNamesCheckBox);
-  registerField(QLatin1String("exportLineNumbers"), exportLineNumbersCheckBox);
-  registerField(QLatin1String("checkQuoteStrings"), quoteStringsCheckBox);
-  registerField(QLatin1String("checkQuoteNumbers"), quoteNumbersCheckBox);
-  registerField(QLatin1String("quoteStringsChar"), quoteStringsLine);
-  registerField(QLatin1String("quoteNumbersChar"), quoteNumbersLine);
-  registerField(QLatin1String("fieldDelimiter*"), fieldDelimiterLine);
+  registerField(QStringLiteral("exportColumnNames"), exportColumnNamesCheckBox);
+  registerField(QStringLiteral("exportLineNumbers"), exportLineNumbersCheckBox);
+  registerField(QStringLiteral("checkQuoteStrings"), quoteStringsCheckBox);
+  registerField(QStringLiteral("checkQuoteNumbers"), quoteNumbersCheckBox);
+  registerField(QStringLiteral("quoteStringsChar"), quoteStringsLine);
+  registerField(QStringLiteral("quoteNumbersChar"), quoteNumbersLine);
+  registerField(QStringLiteral("fieldDelimiter*"), fieldDelimiterLine);
 
   connect(quoteStringsCheckBox, &QCheckBox::toggled, quoteStringsLine, &KLineEdit::setEnabled);
   connect(quoteNumbersCheckBox, &QCheckBox::toggled, quoteNumbersLine, &KLineEdit::setEnabled);
@@ -187,9 +187,9 @@ void ExportFormatPage::initializePage()
   quoteStringsLine->setEnabled(false);
   quoteNumbersLine->setEnabled(false);
 
-  quoteStringsLine->setText(QLatin1String("\""));
-  quoteNumbersLine->setText(QLatin1String("\""));
-  fieldDelimiterLine->setText(QLatin1String("\\t"));
+  quoteStringsLine->setText(QStringLiteral("\""));
+  quoteNumbersLine->setText(QStringLiteral("\""));
+  fieldDelimiterLine->setText(QStringLiteral("\\t"));
 }
 
 

@@ -63,7 +63,7 @@ const QStringList AdvancedGDBSettings::configs() const
     tmp << u_gdbCmd->text();
     switch(u_localRemote->currentIndex()) {
         case 1:
-            tmp << QStringLiteral("target remote %1:%2").arg(u_tcpHost->text()).arg(u_tcpPort->text());
+            tmp << QStringLiteral("target remote %1:%2").arg(u_tcpHost->text(), u_tcpPort->text());
             tmp << QString();
             break;
         case 2:

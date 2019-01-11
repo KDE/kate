@@ -62,7 +62,7 @@ ConnectionDriverPage::ConnectionDriverPage ( QWidget *parent)
 
   setLayout(layout);
 
-  registerField(QLatin1String ("driver"), driverComboBox, "currentText");
+  registerField(QStringLiteral ("driver"), driverComboBox, "currentText");
 }
 
 
@@ -113,12 +113,12 @@ ConnectionStandardServerPage::ConnectionStandardServerPage ( QWidget *parent )
 
   setLayout(layout);
 
-  registerField(QLatin1String("hostname*"), hostnameLineEdit);
-  registerField(QLatin1String("username") , usernameLineEdit);
-  registerField(QLatin1String("password") , passwordLineEdit);
-  registerField(QLatin1String("database") , databaseLineEdit);
-  registerField(QLatin1String("stdOptions") , optionsLineEdit);
-  registerField(QLatin1String("port")     , portSpinBox);
+  registerField(QStringLiteral("hostname*"), hostnameLineEdit);
+  registerField(QStringLiteral("username") , usernameLineEdit);
+  registerField(QStringLiteral("password") , passwordLineEdit);
+  registerField(QStringLiteral("database") , databaseLineEdit);
+  registerField(QStringLiteral("stdOptions") , optionsLineEdit);
+  registerField(QStringLiteral("port")     , portSpinBox);
 }
 
 
@@ -132,9 +132,9 @@ void ConnectionStandardServerPage::initializePage()
   ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
   Connection *c = wiz->connection();
 
-  hostnameLineEdit->setText(QLatin1String("localhost"));
+  hostnameLineEdit->setText(QStringLiteral("localhost"));
 
-  if (c->driver == field(QLatin1String("driver")).toString())
+  if (c->driver == field(QStringLiteral("driver")).toString())
   {
     hostnameLineEdit->setText(c->hostname);
     usernameLineEdit->setText(c->username);
@@ -152,13 +152,13 @@ bool ConnectionStandardServerPage::validatePage()
 {
   Connection c;
 
-  c.driver   = field(QLatin1String("driver")).toString();
-  c.hostname = field(QLatin1String("hostname")).toString();
-  c.username = field(QLatin1String("username")).toString();
-  c.password = field(QLatin1String("password")).toString();
-  c.database = field(QLatin1String("database")).toString();
-  c.options  = field(QLatin1String("stdOptions")).toString();
-  c.port     = field(QLatin1String("port")).toInt();
+  c.driver   = field(QStringLiteral("driver")).toString();
+  c.hostname = field(QStringLiteral("hostname")).toString();
+  c.username = field(QStringLiteral("username")).toString();
+  c.password = field(QStringLiteral("password")).toString();
+  c.database = field(QStringLiteral("database")).toString();
+  c.options  = field(QStringLiteral("stdOptions")).toString();
+  c.port     = field(QStringLiteral("port")).toInt();
 
   QSqlError e;
 
@@ -197,8 +197,8 @@ ConnectionSQLiteServerPage::ConnectionSQLiteServerPage ( QWidget *parent)
 
   setLayout(layout);
 
-  registerField(QLatin1String("path*"), pathUrlRequester->lineEdit());
-  registerField(QLatin1String("sqliteOptions"), optionsLineEdit);
+  registerField(QStringLiteral("path*"), pathUrlRequester->lineEdit());
+  registerField(QStringLiteral("sqliteOptions"), optionsLineEdit);
 }
 
 
@@ -207,7 +207,7 @@ void ConnectionSQLiteServerPage::initializePage()
   ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
   Connection *c = wiz->connection();
 
-  if (c->driver == field(QLatin1String("driver")).toString())
+  if (c->driver == field(QStringLiteral("driver")).toString())
   {
     pathUrlRequester->lineEdit()->setText(c->database);
     optionsLineEdit->setText(c->options);
@@ -218,9 +218,9 @@ bool ConnectionSQLiteServerPage::validatePage()
 {
   Connection c;
 
-  c.driver   = field(QLatin1String("driver")).toString();
-  c.database = field(QLatin1String("path")).toString();
-  c.options  = field(QLatin1String("sqliteOptions")).toString();
+  c.driver   = field(QStringLiteral("driver")).toString();
+  c.database = field(QStringLiteral("path")).toString();
+  c.options  = field(QStringLiteral("sqliteOptions")).toString();
 
   QSqlError e;
 
@@ -254,7 +254,7 @@ ConnectionSavePage::ConnectionSavePage ( QWidget *parent)
 
   setLayout(layout);
 
-  registerField(QLatin1String("connectionName*"), connectionNameLineEdit);
+  registerField(QStringLiteral("connectionName*"), connectionNameLineEdit);
 }
 
 void ConnectionSavePage::initializePage()
@@ -268,20 +268,20 @@ void ConnectionSavePage::initializePage()
   {
     name = c->name;
   }
-  else if (field(QLatin1String("driver")).toString().contains(QLatin1String("QSQLITE")))
+  else if (field(QStringLiteral("driver")).toString().contains(QLatin1String("QSQLITE")))
   {
     /// TODO: use db file basename
-    name = QLatin1String("SQLite");
+    name = QStringLiteral("SQLite");
 
     for (int i = 1; QSqlDatabase::contains(name); i++)
-      name = QString::fromLatin1("%1%2").arg(QLatin1String("SQLite")).arg(i);
+      name = QStringLiteral("%1%2").arg(QLatin1String("SQLite")).arg(i);
   }
   else
   {
-    name = QString::fromLatin1("%1 on %2").arg(field(QLatin1String("database")).toString()).arg(field(QLatin1String("hostname")).toString()).simplified();
+    name = QStringLiteral("%1 on %2").arg(field(QStringLiteral("database")).toString()).arg(field(QStringLiteral("hostname")).toString()).simplified();
 
     for (int i = 1; QSqlDatabase::contains(name); i++)
-      name = QString::fromLatin1("%1 on %2 (%3)").arg(field(QLatin1String("database")).toString()).arg(field(QLatin1String("hostname")).toString()).arg(i).simplified();
+      name = QStringLiteral("%1 on %2 (%3)").arg(field(QStringLiteral("database")).toString()).arg(field(QStringLiteral("hostname")).toString()).arg(i).simplified();
   }
 
   connectionNameLineEdit->setText(name);
@@ -291,27 +291,27 @@ void ConnectionSavePage::initializePage()
 
 bool ConnectionSavePage::validatePage()
 {
-  QString name = field(QLatin1String("connectionName")).toString().simplified();
+  QString name = field(QStringLiteral("connectionName")).toString().simplified();
 
   ConnectionWizard *wiz = static_cast<ConnectionWizard*>(wizard());
   Connection *c = wiz->connection();
 
   c->name   = name;
-  c->driver = field(QLatin1String("driver")).toString();
+  c->driver = field(QStringLiteral("driver")).toString();
 
-  if (field(QLatin1String("driver")).toString().contains(QLatin1String("QSQLITE")))
+  if (field(QStringLiteral("driver")).toString().contains(QLatin1String("QSQLITE")))
   {
-    c->database = field(QLatin1String("path")).toString();
-    c->options  = field(QLatin1String("sqliteOptions")).toString();
+    c->database = field(QStringLiteral("path")).toString();
+    c->options  = field(QStringLiteral("sqliteOptions")).toString();
   }
   else
   {
-    c->hostname = field(QLatin1String("hostname")).toString();
-    c->username = field(QLatin1String("username")).toString();
-    c->password = field(QLatin1String("password")).toString();
-    c->database = field(QLatin1String("database")).toString();
-    c->options  = field(QLatin1String("stdOptions")).toString();
-    c->port     = field(QLatin1String("port")).toInt();
+    c->hostname = field(QStringLiteral("hostname")).toString();
+    c->username = field(QStringLiteral("username")).toString();
+    c->password = field(QStringLiteral("password")).toString();
+    c->database = field(QStringLiteral("database")).toString();
+    c->options  = field(QStringLiteral("stdOptions")).toString();
+    c->port     = field(QStringLiteral("port")).toInt();
   }
 
   return true;

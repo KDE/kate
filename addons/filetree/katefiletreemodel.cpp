@@ -125,11 +125,11 @@ QDebug operator<<(QDebug dbg, ProxyItem *item)
 class ProxyItemDir : public ProxyItem
 {
 public:
-    ProxyItemDir(QString n, ProxyItemDir *p = nullptr) : ProxyItem(n, p) {
+    ProxyItemDir(const QString &n, ProxyItemDir *p = nullptr) : ProxyItem(n, p) {
         setFlag(ProxyItem::Dir);
         updateDisplay();
 
-        setIcon(QIcon::fromTheme(QLatin1String("folder")));
+        setIcon(QIcon::fromTheme(QStringLiteral("folder")));
     }
 };
 
@@ -177,12 +177,12 @@ void ProxyItem::updateDisplay()
     if (flag(ProxyItem::Dir) && m_parent && !m_parent->m_parent && m_parent->flag(ProxyItem::ShowFullPath)) {
         m_display = m_path;
         if (m_display.startsWith(QDir::homePath())) {
-            m_display.replace(0, QDir::homePath().length(), QLatin1String("~"));
+            m_display.replace(0, QDir::homePath().length(), QStringLiteral("~"));
         }
     } else {
         m_display = m_path.section(QLatin1Char('/'), -1, -1);
         if (flag(ProxyItem::Host) && (!m_parent || (m_parent && !m_parent->m_parent))) {
-            const QString hostPrefix = QString::fromLatin1("[%1]").arg(host());
+            const QString hostPrefix = QStringLiteral("[%1]").arg(host());
             if (hostPrefix != m_display) {
                 m_display = hostPrefix + m_display;
             }
@@ -354,7 +354,7 @@ void ProxyItem::updateDocumentName()
     const QString docName = m_doc ? m_doc->documentName() : QString();
 
     if (flag(ProxyItem::Host)) {
-        m_documentName = QString::fromLatin1("[%1]%2").arg(m_host).arg(docName);
+        m_documentName = QStringLiteral("[%1]%2").arg(m_host, docName);
     } else {
         m_documentName = docName;
     }
@@ -364,7 +364,7 @@ void ProxyItem::updateDocumentName()
 
 KateFileTreeModel::KateFileTreeModel(QObject *p)
     : QAbstractItemModel(p)
-    , m_root(new ProxyItemDir(QLatin1String("m_root"), nullptr))
+    , m_root(new ProxyItemDir(QStringLiteral("m_root"), nullptr))
 {
     // setup default settings
     // session init will set these all soon
@@ -450,7 +450,7 @@ void KateFileTreeModel::clearModel()
     beginRemoveRows(QModelIndex(), 0, qMax(m_root->childCount() - 1, 0));
 
     delete m_root;
-    m_root = new ProxyItemDir(QLatin1String("m_root"), nullptr);
+    m_root = new ProxyItemDir(QStringLiteral("m_root"), nullptr);
 
     m_docmap.clear();
     m_viewHistory.clear();
@@ -1285,7 +1285,7 @@ void KateFileTreeModel::updateItemPathAndHost(ProxyItem *item) const
         item->clearFlag(ProxyItem::Empty);
         host = doc->url().host();
         if (!host.isEmpty()) {
-            path = QString::fromLatin1("[%1]%2").arg(host).arg(path);
+            path = QStringLiteral("[%1]%2").arg(host, path);
         }
     }
 
@@ -1305,7 +1305,7 @@ void KateFileTreeModel::setupIcon(ProxyItem *item) const
     QString icon_name;
 
     if (item->flag(ProxyItem::Modified)) {
-        icon_name = QLatin1String("document-save");
+        icon_name = QStringLiteral("document-save");
     } else {
         const QUrl url(item->path());
         icon_name = QMimeDatabase().mimeTypeForFile(url.path(), QMimeDatabase::MatchExtension).iconName();

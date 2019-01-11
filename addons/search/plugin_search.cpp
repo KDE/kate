@@ -698,7 +698,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
         if ((root->child(i)->data(0, ReplaceMatches::FileUrlRole).toString() == url)&&
             (root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() == fName)) {
             int matches = root->child(i)->data(0, ReplaceMatches::StartLineRole).toInt() + 1;
-            QString tmpUrl = QString::fromLatin1("%1<b>%2</b>: <b>%3</b>").arg(path).arg(name).arg(matches);
+            QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, name).arg(matches);
             root->child(i)->setData(0, Qt::DisplayRole, tmpUrl);
             root->child(i)->setData(0, ReplaceMatches::StartLineRole, matches);
             return root->child(i);
@@ -706,7 +706,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
     }
 
     // file item not found create a new one
-    QString tmpUrl = QString::fromLatin1("%1<b>%2</b>: <b>%3</b>").arg(path).arg(name).arg(1);
+    QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, name).arg(1);
 
     TreeWidgetItem *item = new TreeWidgetItem(root, QStringList(tmpUrl));
     item->setData(0, ReplaceMatches::FileUrlRole, url);

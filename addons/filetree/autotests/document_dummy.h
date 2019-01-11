@@ -31,7 +31,7 @@ class DummyDocument : public KTextEditor::Document
   public:
     DummyDocument (const QString &url = QString())
       : KTextEditor::Document(nullptr, nullptr)
-      , m_name(QLatin1String("foo"))
+      , m_name(QStringLiteral("foo"))
       , m_encoding()
       , m_views()
     {

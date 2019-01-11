@@ -70,7 +70,7 @@ void KateProjectView::openSelectedDocument()
     m_treeView->openSelectedDocument();
 }
 
-void KateProjectView::filterTextChanged(QString filterText)
+void KateProjectView::filterTextChanged(const QString &filterText)
 {
     /**
      * filter
@@ -81,7 +81,7 @@ void KateProjectView::filterTextChanged(QString filterText)
      * expand
      */
     if (!filterText.isEmpty()) {
-        QTimer::singleShot(100, m_treeView, SLOT(expandAll()));
+        QTimer::singleShot(100, m_treeView, &QTreeView::expandAll);
     }
 }
 

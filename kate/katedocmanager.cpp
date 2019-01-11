@@ -98,7 +98,7 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
     m_docInfos.insert(doc, new KateDocumentInfo(docInfo));
 
     // connect internal signals...
-    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(slotModChanged1(KTextEditor::Document*)));
+    connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateDocManager::slotModChanged1);
     connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
             this, SLOT(slotModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
@@ -207,7 +207,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     return doc;
 }
 
-bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl)
+bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl)
 {
     if (documents.isEmpty()) {
         return false;
@@ -424,7 +424,7 @@ void KateDocManager::saveDocumentList(KConfig *config)
 
     int i = 0;
     foreach(KTextEditor::Document * doc, m_docList) {
-        KConfigGroup cg(config, QString::fromLatin1("Document %1").arg(i));
+        KConfigGroup cg(config, QStringLiteral("Document %1").arg(i));
         doc->writeSessionConfig(cg);
         i++;
     }
@@ -449,7 +449,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
     m_documentStillToRestore = count;
     m_openingErrors.clear();
     for (unsigned int i = 0; i < count; i++) {
-        KConfigGroup cg(config, QString::fromLatin1("Document %1").arg(i));
+        KConfigGroup cg(config, QStringLiteral("Document %1").arg(i));
         KTextEditor::Document *doc = nullptr;
 
         if (i == 0) {
@@ -459,7 +459,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
         }
 
         connect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
-        connect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
+        connect(doc, &KParts::ReadOnlyPart::canceled, this, &KateDocManager::documentOpened);
 
         doc->readSessionConfig(cg);
 
@@ -583,7 +583,7 @@ void KateDocManager::documentOpened()
         return;    // should never happen, but who knows
     }
     disconnect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
-    disconnect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
+    disconnect(doc, &KParts::ReadOnlyPart::canceled, this, &KateDocManager::documentOpened);
     if (doc->openingError()) {
         m_openingErrors += QLatin1Char('\n') + doc->openingErrorMessage() + QStringLiteral("\n\n");
         KateDocumentInfo *info = documentInfo(doc);
@@ -594,7 +594,7 @@ void KateDocManager::documentOpened()
     --m_documentStillToRestore;
 
     if (m_documentStillToRestore == 0) {
-        QTimer::singleShot(0, this, SLOT(showRestoreErrors()));
+        QTimer::singleShot(0, this, &KateDocManager::showRestoreErrors);
     }
 }
 

@@ -228,7 +228,7 @@ void KateCTagsConfigPage::updateGlobalDB()
         return;
     }
 
-    QString command = QStringLiteral("%1 -f %2 %3").arg(m_confUi.cmdEdit->text()).arg(file).arg(targets) ;
+    QString command = QStringLiteral("%1 -f %2 %3").arg(m_confUi.cmdEdit->text(), file, targets) ;
     m_proc.start(command);
 
     if(!m_proc.waitForStarted(500)) {

@@ -200,7 +200,7 @@ bool kateFileSelectorIsReadable (const QUrl& url)
   return dir.exists ();
 }
 
-void KateFileBrowser::setDir(QUrl u)
+void KateFileBrowser::setDir(const QUrl &u)
 {
   QUrl newurl;
 

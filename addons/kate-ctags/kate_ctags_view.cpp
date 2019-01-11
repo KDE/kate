@@ -42,32 +42,32 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 : QObject(mainWin)
 , m_proc(nullptr)
 {
-    KXMLGUIClient::setComponentName (QLatin1String("katectags"), i18n ("Kate CTag"));
-    setXMLFile( QLatin1String("ui.rc") );
+    KXMLGUIClient::setComponentName (QStringLiteral("katectags"), i18n ("Kate CTag"));
+    setXMLFile( QStringLiteral("ui.rc") );
 
-    m_toolView = mainWin->createToolView(plugin, QLatin1String("kate_plugin_katectagsplugin"),
+    m_toolView = mainWin->createToolView(plugin, QStringLiteral("kate_plugin_katectagsplugin"),
                                         KTextEditor::MainWindow::Bottom,
                                         QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
                                         i18n("CTags"));
     m_mWin = mainWin;
 
-    QAction *back = actionCollection()->addAction(QLatin1String("ctags_return_step"));
+    QAction *back = actionCollection()->addAction(QStringLiteral("ctags_return_step"));
     back->setText(i18n("Jump back one step"));
     connect(back, &QAction::triggered, this, &KateCTagsView::stepBack);
 
-    QAction *decl = actionCollection()->addAction(QLatin1String("ctags_lookup_current_as_declaration"));
+    QAction *decl = actionCollection()->addAction(QStringLiteral("ctags_lookup_current_as_declaration"));
     decl->setText(i18n("Go to Declaration"));
     connect(decl, &QAction::triggered, this, &KateCTagsView::gotoDeclaration);
 
-    QAction *defin = actionCollection()->addAction(QLatin1String("ctags_lookup_current_as_definition"));
+    QAction *defin = actionCollection()->addAction(QStringLiteral("ctags_lookup_current_as_definition"));
     defin->setText(i18n("Go to Definition"));
     connect(defin, &QAction::triggered, this, &KateCTagsView::gotoDefinition);
 
-    QAction *lookup = actionCollection()->addAction(QLatin1String("ctags_lookup_current"));
+    QAction *lookup = actionCollection()->addAction(QStringLiteral("ctags_lookup_current"));
     lookup->setText(i18n("Lookup Current Text"));
     connect(lookup, &QAction::triggered, this, &KateCTagsView::lookupTag);
 
-    QAction *updateDB = actionCollection()->addAction(QLatin1String("ctags_update_global_db"));
+    QAction *updateDB = actionCollection()->addAction(QStringLiteral("ctags_update_global_db"));
     updateDB->setText(i18n("Configure ..."));
     connect(updateDB, &QAction::triggered, this, [this, plugin] (bool) {
         if (m_mWin) {
@@ -92,11 +92,11 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     // popup menu
     m_menu = new KActionMenu(i18n("CTags"), this);
-    actionCollection()->addAction(QLatin1String("popup_ctags"), m_menu);
+    actionCollection()->addAction(QStringLiteral("popup_ctags"), m_menu);
 
-    m_gotoDec=m_menu->menu()->addAction(i18n("Go to Declaration: %1",QString()), this, SLOT(gotoDeclaration()));
-    m_gotoDef=m_menu->menu()->addAction(i18n("Go to Definition: %1",QString()), this, SLOT(gotoDefinition()));
-    m_lookup=m_menu->menu()->addAction(i18n("Lookup: %1",QString()), this, SLOT(lookupTag()));
+    m_gotoDec=m_menu->menu()->addAction(i18n("Go to Declaration: %1",QString()), this, &KateCTagsView::gotoDeclaration);
+    m_gotoDef=m_menu->menu()->addAction(i18n("Go to Definition: %1",QString()), this, &KateCTagsView::gotoDefinition);
+    m_lookup=m_menu->menu()->addAction(i18n("Lookup: %1",QString()), this, &KateCTagsView::lookupTag);
 
     connect(m_menu->menu(), &QMenu::aboutToShow, this, &KateCTagsView::aboutToShow);
 
@@ -540,7 +540,7 @@ void KateCTagsView::updateSessionDB()
     }
 
 
-    QString command = QStringLiteral("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text()).arg(m_ctagsUi.tagsFile->text()).arg(targets);
+    QString command = QStringLiteral("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text(), m_ctagsUi.tagsFile->text(), targets);
 
     m_proc.start(command);
 

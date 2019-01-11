@@ -128,7 +128,7 @@ void PluginKateTextFilter::slotFilterProcessExited(int, QProcess::ExitStatus)
 }
 
 
-static void slipInFilter(KProcess & proc, KTextEditor::View & view, QString command)
+static void slipInFilter(KProcess & proc, KTextEditor::View & view, const QString &command)
 {
   QString inputText;
 

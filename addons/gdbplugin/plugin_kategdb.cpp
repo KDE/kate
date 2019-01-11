@@ -79,8 +79,8 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     m_focusOnInput = true;
     m_activeThread = -1;
 
-    KXMLGUIClient::setComponentName (QLatin1String("kategdb"), i18n ("Kate GDB"));
-    setXMLFile(QLatin1String("ui.rc"));
+    KXMLGUIClient::setComponentName (QStringLiteral("kategdb"), i18n ("Kate GDB"));
+    setXMLFile(QStringLiteral("ui.rc"));
 
     m_toolView = m_mainWin->createToolView(plugin, i18n("Debug View"),
                                            KTextEditor::MainWindow::Bottom,
@@ -257,13 +257,13 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     connect(m_menu->menu(), &QMenu::aboutToShow, this, &KatePluginGDBView::aboutToShowMenu);
 
     m_breakpoint = m_menu->menu()->addAction(i18n("popup_breakpoint"),
-                                         this, SLOT(slotToggleBreakpoint()));
+                                         this, &KatePluginGDBView::slotToggleBreakpoint);
 
     QAction* popupAction = m_menu->menu()->addAction(i18n("popup_run_to_cursor"),
-                                                   this, SLOT(slotRunToCursor()));
+                                                   this, &KatePluginGDBView::slotRunToCursor);
     popupAction->setText(i18n("Run To Cursor"));
     popupAction = m_menu->menu()->addAction(QStringLiteral("move_pc"),
-                                          this, SLOT(slotMovePC()));
+                                          this, &KatePluginGDBView::slotMovePC);
     popupAction->setText(i18nc("Move Program Counter (next execution)", "Move PC"));
 
     enableDebugActions(false);

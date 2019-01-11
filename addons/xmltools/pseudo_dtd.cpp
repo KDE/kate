@@ -40,7 +40,7 @@ PseudoDTD::~PseudoDTD()
 
 void PseudoDTD::analyzeDTD(QString &metaDtdUrl, QString &metaDtd)
 {
-    QDomDocument doc("dtdIn_xml");
+    QDomDocument doc(QStringLiteral("dtdIn_xml"));
     if (! doc.setContent(metaDtd)) {
         KMessageBox::error(nullptr, i18n("The file '%1' could not be parsed. "
                                    "Please check that the file is well-formed XML.", metaDtdUrl),
@@ -48,7 +48,7 @@ void PseudoDTD::analyzeDTD(QString &metaDtdUrl, QString &metaDtd)
         return;
     }
 
-    if (doc.doctype().name() != "dtd") {
+    if (doc.doctype().name() != QLatin1String("dtd")) {
         KMessageBox::error(nullptr, i18n("The file '%1' is not in the expected format. "
                                    "Please check that the file is of this type:\n"
                                    "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
@@ -59,10 +59,10 @@ void PseudoDTD::analyzeDTD(QString &metaDtdUrl, QString &metaDtd)
     }
 
     uint listLength = 0;
-    listLength += doc.elementsByTagName("entity").count();
-    listLength += doc.elementsByTagName("element").count();
+    listLength += doc.elementsByTagName(QStringLiteral("entity")).count();
+    listLength += doc.elementsByTagName(QStringLiteral("element")).count();
     // count this twice, as it will be iterated twice ( TODO: optimize that? ):
-    listLength += doc.elementsByTagName("attlist").count() * 2;
+    listLength += doc.elementsByTagName(QStringLiteral("attlist")).count() * 2;
 
     QProgressDialog progress(i18n("Analyzing meta DTD..."), i18n("Cancel"), 0, listLength);
     progress.setMinimumDuration(400);
@@ -105,7 +105,7 @@ bool PseudoDTD::parseElements(QDomDocument *doc, QProgressDialog *progress)
     // which would otherwise display some elements twice.
     QMap<QString, bool> subelementList;   // the bool is not used
 
-    QDomNodeList list = doc->elementsByTagName("element");
+    QDomNodeList list = doc->elementsByTagName(QStringLiteral("element"));
     uint listLength = list.count();      // speedup (really! )
 
     for (uint i = 0; i < listLength; i++) {
@@ -124,47 +124,47 @@ bool PseudoDTD::parseElements(QDomDocument *doc, QProgressDialog *progress)
         if (!elem.isNull()) {
             // Enter the expanded content model, which may also include stuff not allowed.
             // We do not care if it's a <sequence-group> or whatever.
-            QDomNodeList contentModelList = elem.elementsByTagName("content-model-expanded");
+            QDomNodeList contentModelList = elem.elementsByTagName(QStringLiteral("content-model-expanded"));
             QDomNode contentModelNode = contentModelList.item(0);
             QDomElement contentModelElem = contentModelNode.toElement();
             if (! contentModelElem.isNull()) {
                 // check for <pcdata/>:
-                QDomNodeList pcdataList = contentModelElem.elementsByTagName("pcdata");
+                QDomNodeList pcdataList = contentModelElem.elementsByTagName(QStringLiteral("pcdata"));
 
                 // check for other sub elements:
-                QDomNodeList subList = contentModelElem.elementsByTagName("element-name");
+                QDomNodeList subList = contentModelElem.elementsByTagName(QStringLiteral("element-name"));
                 uint subListLength = subList.count();
                 for (uint l = 0; l < subListLength; l++) {
                     QDomNode subNode = subList.item(l);
                     QDomElement subElem = subNode.toElement();
                     if (!subElem.isNull()) {
-                        subelementList[subElem.attribute("name")] = true;
+                        subelementList[subElem.attribute(QStringLiteral("name"))] = true;
                     }
                 }
 
                 // anders: check if this is an EMPTY element, and put "__EMPTY" in the
                 // sub list, so that we can insert tags in empty form if required.
-                QDomNodeList emptyList = elem.elementsByTagName("empty");
+                QDomNodeList emptyList = elem.elementsByTagName(QStringLiteral("empty"));
                 if (emptyList.count()) {
-                    subelementList["__EMPTY"] = true;
+                    subelementList[QStringLiteral("__EMPTY")] = true;
                 }
             }
 
             // Now remove the elements not allowed (e.g. <a> is explicitly not allowed in <a>
             // in the HTML 4.01 Strict DTD):
-            QDomNodeList exclusionsList = elem.elementsByTagName("exclusions");
+            QDomNodeList exclusionsList = elem.elementsByTagName(QStringLiteral("exclusions"));
             if (exclusionsList.length() > 0) {
                 // sometimes there are no exclusions ( e.g. in XML DTDs there are never exclusions )
                 QDomNode exclusionsNode = exclusionsList.item(0);
                 QDomElement exclusionsElem = exclusionsNode.toElement();
                 if (! exclusionsElem.isNull()) {
-                    QDomNodeList subList = exclusionsElem.elementsByTagName("element-name");
+                    QDomNodeList subList = exclusionsElem.elementsByTagName(QStringLiteral("element-name"));
                     uint subListLength = subList.count();
                     for (uint l = 0; l < subListLength; l++) {
                         QDomNode subNode = subList.item(l);
                         QDomElement subElem = subNode.toElement();
                         if (!subElem.isNull()) {
-                            QMap<QString, bool>::Iterator it = subelementList.find(subElem.attribute("name"));
+                            QMap<QString, bool>::Iterator it = subelementList.find(subElem.attribute(QStringLiteral("name")));
                             if (it != subelementList.end()) {
                                 subelementList.erase(it);
                             }
@@ -180,7 +180,7 @@ bool PseudoDTD::parseElements(QDomDocument *doc, QProgressDialog *progress)
                 subelementListTmp.append(it.key());
             }
 
-            m_elementsList.insert(elem.attribute("name"), subelementListTmp);
+            m_elementsList.insert(elem.attribute(QStringLiteral("name")), subelementListTmp);
 
         }
 
@@ -193,7 +193,7 @@ bool PseudoDTD::parseElements(QDomDocument *doc, QProgressDialog *progress)
  * a list of allowed elements, but it doesn't care about order or if only a certain
  * number of occurrences is allowed.
  */
-QStringList PseudoDTD::allowedElements(QString parentElement)
+QStringList PseudoDTD::allowedElements(const QString &parentElement)
 {
     if (m_sgmlSupport) {
         // find the matching element, ignoring case:
@@ -218,7 +218,7 @@ bool PseudoDTD::parseAttributes(QDomDocument *doc, QProgressDialog *progress)
 {
     m_attributesList.clear();
 //   QStringList allowedAttributes;
-    QDomNodeList list = doc->elementsByTagName("attlist");
+    QDomNodeList list = doc->elementsByTagName(QStringLiteral("attlist"));
     uint listLength = list.count();
 
     for (uint i = 0; i < listLength; i++) {
@@ -234,21 +234,21 @@ bool PseudoDTD::parseAttributes(QDomDocument *doc, QProgressDialog *progress)
         QDomNode node = list.item(i);
         QDomElement elem = node.toElement();
         if (!elem.isNull()) {
-            QDomNodeList attributeList = elem.elementsByTagName("attribute");
+            QDomNodeList attributeList = elem.elementsByTagName(QStringLiteral("attribute"));
             uint attributeListLength = attributeList.count();
             for (uint l = 0; l < attributeListLength; l++) {
                 QDomNode attributeNode = attributeList.item(l);
                 QDomElement attributeElem = attributeNode.toElement();
 
                 if (! attributeElem.isNull()) {
-                    if (attributeElem.attribute("type") == "#REQUIRED") {
-                        attrs.requiredAttributes.append(attributeElem.attribute("name"));
+                    if (attributeElem.attribute(QStringLiteral("type")) == QLatin1String("#REQUIRED")) {
+                        attrs.requiredAttributes.append(attributeElem.attribute(QStringLiteral("name")));
                     } else {
-                        attrs.optionalAttributes.append(attributeElem.attribute("name"));
+                        attrs.optionalAttributes.append(attributeElem.attribute(QStringLiteral("name")));
                     }
                 }
             }
-            m_attributesList.insert(elem.attribute("name"), attrs);
+            m_attributesList.insert(elem.attribute(QStringLiteral("name")), attrs);
         }
     }
 
@@ -257,7 +257,7 @@ bool PseudoDTD::parseAttributes(QDomDocument *doc, QProgressDialog *progress)
 
 /** Check which attributes are allowed for an element.
  */
-QStringList PseudoDTD::allowedAttributes(QString element)
+QStringList PseudoDTD::allowedAttributes(const QString &element)
 {
     if (m_sgmlSupport) {
         // find the matching element, ignoring case:
@@ -298,7 +298,7 @@ bool PseudoDTD::parseAttributeValues(QDomDocument *doc, QProgressDialog *progres
 {
     m_attributevaluesList.clear();                        // 1 element : n possible attributes
     QMap<QString, QStringList> attributevaluesTmp;    // 1 attribute : n possible values
-    QDomNodeList list = doc->elementsByTagName("attlist");
+    QDomNodeList list = doc->elementsByTagName(QStringLiteral("attlist"));
     uint listLength = list.count();
 
     for (uint i = 0; i < listLength; i++) {
@@ -315,17 +315,17 @@ bool PseudoDTD::parseAttributeValues(QDomDocument *doc, QProgressDialog *progres
         QDomElement elem = node.toElement();
         if (!elem.isNull()) {
             // Enter the list of <attribute>:
-            QDomNodeList attributeList = elem.elementsByTagName("attribute");
+            QDomNodeList attributeList = elem.elementsByTagName(QStringLiteral("attribute"));
             uint attributeListLength = attributeList.count();
             for (uint l = 0; l < attributeListLength; l++) {
                 QDomNode attributeNode = attributeList.item(l);
                 QDomElement attributeElem = attributeNode.toElement();
                 if (! attributeElem.isNull()) {
-                    QString value = attributeElem.attribute("value");
-                    attributevaluesTmp.insert(attributeElem.attribute("name"), value.split(QChar(' ')));
+                    QString value = attributeElem.attribute(QStringLiteral("value"));
+                    attributevaluesTmp.insert(attributeElem.attribute(QStringLiteral("name")), value.split(QChar(' ')));
                 }
             }
-            m_attributevaluesList.insert(elem.attribute("name"), attributevaluesTmp);
+            m_attributevaluesList.insert(elem.attribute(QStringLiteral("name")), attributevaluesTmp);
         }
     }
     return true;
@@ -336,7 +336,7 @@ bool PseudoDTD::parseAttributeValues(QDomDocument *doc, QProgressDialog *progres
  * (the element is necessary because e.g. "href" inside <a> could be different
  * to an "href" inside <link>):
  */
-QStringList PseudoDTD::attributeValues(QString element, QString attribute)
+QStringList PseudoDTD::attributeValues(const QString &element, const QString &attribute)
 {
     // Direct access would be faster than iteration of course but not always correct,
     // because we need to be case-insensitive.
@@ -373,7 +373,7 @@ QStringList PseudoDTD::attributeValues(QString element, QString attribute)
 bool PseudoDTD::parseEntities(QDomDocument *doc, QProgressDialog *progress)
 {
     m_entityList.clear();
-    QDomNodeList list = doc->elementsByTagName("entity");
+    QDomNodeList list = doc->elementsByTagName(QStringLiteral("entity"));
     uint listLength = list.count();
 
     for (uint i = 0; i < listLength; i++) {
@@ -387,9 +387,9 @@ bool PseudoDTD::parseEntities(QDomDocument *doc, QProgressDialog *progress)
         QDomNode node = list.item(i);
         QDomElement elem = node.toElement();
         if (!elem.isNull()
-                && elem.attribute("type") != "param") {
+                && elem.attribute(QStringLiteral("type")) != QLatin1String("param")) {
             // TODO: what's cdata <-> gen ?
-            QDomNodeList expandedList = elem.elementsByTagName("text-expanded");
+            QDomNodeList expandedList = elem.elementsByTagName(QStringLiteral("text-expanded"));
             QDomNode expandedNode = expandedList.item(0);
             QDomElement expandedElem = expandedNode.toElement();
             if (! expandedElem.isNull()) {
@@ -408,9 +408,9 @@ bool PseudoDTD::parseEntities(QDomDocument *doc, QProgressDialog *progress)
                 exp = QChar( exp.toInt() );
                 }
                 */
-                m_entityList.insert(elem.attribute("name"), exp);
+                m_entityList.insert(elem.attribute(QStringLiteral("name")), exp);
             } else {
-                m_entityList.insert(elem.attribute("name"), QString());
+                m_entityList.insert(elem.attribute(QStringLiteral("name")), QString());
             }
         }
     }
@@ -420,7 +420,7 @@ bool PseudoDTD::parseEntities(QDomDocument *doc, QProgressDialog *progress)
 /**
  * Get a list of all ( non-parameter ) entities that start with a certain string.
  */
-QStringList PseudoDTD::entities(QString start)
+QStringList PseudoDTD::entities(const QString &start)
 {
     QStringList entities;
     QMap<QString, QString>::Iterator it;

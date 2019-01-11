@@ -55,7 +55,7 @@ namespace DCDCompletionItemType {
 }
 
 struct DCDCompletionItem {
-    DCDCompletionItem(DCDCompletionItemType::DCDCompletionItemType, QString);
+    DCDCompletionItem(DCDCompletionItemType::DCDCompletionItemType, const QString &);
 
     DCDCompletionItemType::DCDCompletionItemType type;
     QString name;

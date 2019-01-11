@@ -151,7 +151,7 @@ public:
      * @return the new session name on success, otherwise an empty string
      * @see askForNewSessionName()
      */
-    QString copySession(KateSession::Ptr session, const QString &newName = QString());
+    QString copySession(const KateSession::Ptr &session, const QString &newName = QString());
 
     /**
      * Try to rename the @p session to @p newName.

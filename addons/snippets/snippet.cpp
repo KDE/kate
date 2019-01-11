@@ -36,7 +36,7 @@
 Snippet::Snippet()
     : QStandardItem(i18n("<empty snippet>")), m_action(nullptr)
 {
-    setIcon(QIcon::fromTheme(QLatin1String("text-plain")));
+    setIcon(QIcon::fromTheme(QStringLiteral("text-plain")));
 }
 
 Snippet::~Snippet()
@@ -68,7 +68,7 @@ QAction* Snippet::action()
     if ( !m_action ) {
         static int actionCount = 0;
         actionCount += 1;
-        m_action = new QAction(QString::fromLatin1("insertSnippet%1").arg(actionCount), KateSnippetGlobal::self());
+        m_action = new QAction(QStringLiteral("insertSnippet%1").arg(actionCount), KateSnippetGlobal::self());
         m_action->setData(QVariant::fromValue<Snippet*>(this));
         KateSnippetGlobal::self()->connect(m_action, &QAction::triggered,
                                            KateSnippetGlobal::self(), &KateSnippetGlobal::insertSnippetFromActionData);

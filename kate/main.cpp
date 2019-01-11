@@ -164,7 +164,7 @@ int main(int argc, char **argv)
     /**
      * set the new Kate mascot
      */
-    aboutData.setProgramLogo (QImage(QLatin1String(":/kate/mascot.png")));
+    aboutData.setProgramLogo (QImage(QStringLiteral(":/kate/mascot.png")));
 
     /**
      * set and register app about data
@@ -174,7 +174,7 @@ int main(int argc, char **argv)
     /**
      * set the program icon
      */
-    QApplication::setWindowIcon(QIcon::fromTheme(QLatin1String("kate"), app.windowIcon()));
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kate"), app.windowIcon()));
 
     /**
      * Create command line parser and feed it with known options

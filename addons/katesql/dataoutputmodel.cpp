@@ -38,12 +38,12 @@ DataOutputModel::DataOutputModel(QObject *parent)
 {
   m_useSystemLocale = false;
 
-  m_styles.insert(QLatin1String ("text"),     new OutputStyle());
-  m_styles.insert(QLatin1String ("number"),   new OutputStyle());
-  m_styles.insert(QLatin1String ("null"),     new OutputStyle());
-  m_styles.insert(QLatin1String ("blob"),     new OutputStyle());
-  m_styles.insert(QLatin1String ("datetime"), new OutputStyle());
-  m_styles.insert(QLatin1String ("bool"),     new OutputStyle());
+  m_styles.insert(QStringLiteral ("text"),     new OutputStyle());
+  m_styles.insert(QStringLiteral ("number"),   new OutputStyle());
+  m_styles.insert(QStringLiteral ("null"),     new OutputStyle());
+  m_styles.insert(QStringLiteral ("blob"),     new OutputStyle());
+  m_styles.insert(QStringLiteral ("datetime"), new OutputStyle());
+  m_styles.insert(QStringLiteral ("bool"),     new OutputStyle());
 
   readConfig();
 }
@@ -122,11 +122,11 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
   if (value.isNull())
   {
     if (role == Qt::FontRole)
-      return QVariant(m_styles.value(QLatin1String ("null"))->font);
+      return QVariant(m_styles.value(QStringLiteral ("null"))->font);
     if (role == Qt::ForegroundRole)
-      return QVariant(m_styles.value(QLatin1String ("null"))->foreground);
+      return QVariant(m_styles.value(QStringLiteral ("null"))->foreground);
     if (role == Qt::BackgroundRole)
-      return QVariant(m_styles.value(QLatin1String ("null"))->background);
+      return QVariant(m_styles.value(QStringLiteral ("null"))->background);
     if (role == Qt::DisplayRole)
       return QVariant(QLatin1String ("NULL"));
   }
@@ -134,11 +134,11 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
   if (type == QVariant::ByteArray)
   {
     if (role == Qt::FontRole)
-      return QVariant(m_styles.value(QLatin1String ("blob"))->font);
+      return QVariant(m_styles.value(QStringLiteral ("blob"))->font);
     if (role == Qt::ForegroundRole)
-      return QVariant(m_styles.value(QLatin1String ("blob"))->foreground);
+      return QVariant(m_styles.value(QStringLiteral ("blob"))->foreground);
     if (role == Qt::BackgroundRole)
-      return QVariant(m_styles.value(QLatin1String ("blob"))->background);
+      return QVariant(m_styles.value(QStringLiteral ("blob"))->background);
     if (role == Qt::DisplayRole)
       return QVariant(value.toByteArray().left(255));
   }
@@ -146,11 +146,11 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
   if (isNumeric(type))
   {
     if (role == Qt::FontRole)
-      return QVariant(m_styles.value(QLatin1String ("number"))->font);
+      return QVariant(m_styles.value(QStringLiteral ("number"))->font);
     if (role == Qt::ForegroundRole)
-      return QVariant(m_styles.value(QLatin1String ("number"))->foreground);
+      return QVariant(m_styles.value(QStringLiteral ("number"))->foreground);
     if (role == Qt::BackgroundRole)
-      return QVariant(m_styles.value(QLatin1String ("number"))->background);
+      return QVariant(m_styles.value(QStringLiteral ("number"))->background);
     if (role == Qt::TextAlignmentRole)
       return QVariant(Qt::AlignRight | Qt::AlignVCenter);
     if (role == Qt::DisplayRole || role == Qt::UserRole)
@@ -165,11 +165,11 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
   if (type == QVariant::Bool)
   {
     if (role == Qt::FontRole)
-      return QVariant(m_styles.value(QLatin1String ("bool"))->font);
+      return QVariant(m_styles.value(QStringLiteral ("bool"))->font);
     if (role == Qt::ForegroundRole)
-      return QVariant(m_styles.value(QLatin1String ("bool"))->foreground);
+      return QVariant(m_styles.value(QStringLiteral ("bool"))->foreground);
     if (role == Qt::BackgroundRole)
-      return QVariant(m_styles.value(QLatin1String ("bool"))->background);
+      return QVariant(m_styles.value(QStringLiteral ("bool"))->background);
     if (role == Qt::DisplayRole)
       return QVariant(value.toBool() ? QLatin1String ("True") : QLatin1String ("False"));
   }
@@ -179,11 +179,11 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
       type == QVariant::DateTime )
   {
     if (role == Qt::FontRole)
-      return QVariant(m_styles.value(QLatin1String ("datetime"))->font);
+      return QVariant(m_styles.value(QStringLiteral ("datetime"))->font);
     if (role == Qt::ForegroundRole)
-      return QVariant(m_styles.value(QLatin1String ("datetime"))->foreground);
+      return QVariant(m_styles.value(QStringLiteral ("datetime"))->foreground);
     if (role == Qt::BackgroundRole)
-      return QVariant(m_styles.value(QLatin1String ("datetime"))->background);
+      return QVariant(m_styles.value(QStringLiteral ("datetime"))->background);
     if (role == Qt::DisplayRole || role == Qt::UserRole)
     {
       if (useSystemLocale())
@@ -201,11 +201,11 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
   }
 
   if (role == Qt::FontRole)
-    return QVariant(m_styles.value(QLatin1String ("text"))->font);
+    return QVariant(m_styles.value(QStringLiteral ("text"))->font);
   if (role == Qt::ForegroundRole)
-    return QVariant(m_styles.value(QLatin1String ("text"))->foreground);
+    return QVariant(m_styles.value(QStringLiteral ("text"))->foreground);
   if (role == Qt::BackgroundRole)
-    return QVariant(m_styles.value(QLatin1String ("text"))->background);
+    return QVariant(m_styles.value(QStringLiteral ("text"))->background);
   if (role == Qt::TextAlignmentRole)
     return QVariant(Qt::AlignVCenter);
   if (role == Qt::DisplayRole)

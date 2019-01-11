@@ -41,7 +41,7 @@
 
 #include "ui_kate_ctags.h"
 
-const static QString DEFAULT_CTAGS_CMD = QLatin1String("ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=.");
+const static QString DEFAULT_CTAGS_CMD = QStringLiteral("ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=.");
 
 typedef struct
 {

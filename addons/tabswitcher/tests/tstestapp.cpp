@@ -29,7 +29,7 @@ class TsTestApp::Impl
 public:
     void insert_1_item()
     {
-        model.insertRow(0, detail::FilenameListItem(addDoc(QLatin1String("/home/user2/folder1/abc.d"))));
+        model.insertRow(0, detail::FilenameListItem(addDoc(QStringLiteral("/home/user2/folder1/abc.d"))));
         treeview1->resizeColumnToContents(0);
     }
 
@@ -44,13 +44,13 @@ public:
         model.clear();
         auto icon = QIcon::fromTheme(QLatin1String("document-export"));
 
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/logs/notifications/multimedia-system.log"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/dev/src/kservicemenueditor-0.2a/servicemenueditor"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/kde/src/kdesrc-build/kdesrc-build"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/node_modules/autolinker/README.md"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/node_modules/autolinker/package.json"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/node_modules/autolinker/LICENSE"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gregor/node_modules/asynckit/package.json"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/logs/notifications/multimedia-system.log"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/dev/src/kservicemenueditor-0.2a/servicemenueditor"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/kde/src/kdesrc-build/kdesrc-build"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/node_modules/autolinker/README.md"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/node_modules/autolinker/package.json"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/node_modules/autolinker/LICENSE"))));
+        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/node_modules/asynckit/package.json"))));
 
         treeview1->resizeColumnToContents(0);
     }
@@ -72,15 +72,15 @@ TsTestApp::TsTestApp(QWidget *parent) :
     auto hl = new QHBoxLayout();
     l->addLayout(hl);
 
-    auto buttonInsert1 = new QPushButton(QLatin1String("Ins 1 item"), this);
+    auto buttonInsert1 = new QPushButton(QStringLiteral("Ins 1 item"), this);
     connect(buttonInsert1, &QPushButton::clicked, this, [=] { impl_->insert_1_item(); });
     hl->addWidget(buttonInsert1);
 
-    auto buttonRemove1 = new QPushButton(QLatin1String("Del 1 item"), this);
+    auto buttonRemove1 = new QPushButton(QStringLiteral("Del 1 item"), this);
     connect(buttonRemove1, &QPushButton::clicked, this, [=] { impl_->remove_1_item(); });
     hl->addWidget(buttonRemove1);
 
-    auto buttonSetTestSet1 = new QPushButton(QLatin1String("set_items_cutoff_bug"), this);
+    auto buttonSetTestSet1 = new QPushButton(QStringLiteral("set_items_cutoff_bug"), this);
     connect(buttonSetTestSet1, &QPushButton::clicked, this, [=] { impl_->set_items_cutoff_bug(); });
     hl->addWidget(buttonSetTestSet1);
 
@@ -90,11 +90,11 @@ TsTestApp::TsTestApp(QWidget *parent) :
     impl_->treeview1->setRootIsDecorated(false);
 
     auto icon = QIcon::fromTheme(QLatin1String("edit-undo"));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/projects/proj1/src/file1.h"))));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/projects/proj1/src/file2.cpp"))));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/dev/file3.py"))));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/dev/file3kjaskdfkljasdfklj089asdfkjklasdjf90asdfsdfkj.py"))));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QLatin1String("/home/gm/dev/proj2/asldfkjasdfk/asdlfkjasd;faf/;ajsdkfgjaskdfgasdf/file3.py"))));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/projects/proj1/src/file1.h"))));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/projects/proj1/src/file2.cpp"))));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/dev/file3.py"))));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/dev/file3kjaskdfkljasdfklj089asdfkjklasdjf90asdfsdfkj.py"))));
+    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/dev/proj2/asldfkjasdfk/asdlfkjasd;faf/;ajsdkfgjaskdfgasdf/file3.py"))));
     //impl_->insert_a_item();
     //impl_->remove_a_item();
 

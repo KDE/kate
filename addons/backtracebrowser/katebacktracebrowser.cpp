@@ -135,7 +135,7 @@ KateBtBrowserPluginView::KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KT
     QWidget *toolview = mainWindow->createToolView(plugin,
                         QStringLiteral("kate_private_plugin_katebacktracebrowserplugin"),
                         KTextEditor::MainWindow::Bottom,
-                        QIcon::fromTheme(QStringLiteral("kbugbuster")),
+                        QIcon::fromTheme(QStringLiteral("tools-report-bug")),
                         i18n("Backtrace Browser"));
     m_widget = new KateBtBrowserWidget(mainWindow, toolview);
 
@@ -319,7 +319,7 @@ QString KateBtConfigWidget::fullName() const
 
 QIcon KateBtConfigWidget::icon() const
 {
-    return QIcon::fromTheme(QStringLiteral("kbugbuster"));
+    return QIcon::fromTheme(QStringLiteral("tools-report-bug"));
 }
 
 void KateBtConfigWidget::apply()

@@ -109,7 +109,7 @@ void LocalsView::addLocal(const QString &vString)
         symbolAndValue << isValue.cap(1);
         // check out for "print *this"
         if (isThisValue.exactMatch(symbolAndValue[0])) {
-            symbolAndValue[0] = QLatin1String("*this");
+            symbolAndValue[0] = QStringLiteral("*this");
         }
         value = isValue.cap(2);
     }

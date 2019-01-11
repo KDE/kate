@@ -72,7 +72,7 @@ private Q_SLOTS:
      * React on filter change
      * @param filterText new filter text
      */
-    void filterTextChanged(QString filterText);
+    void filterTextChanged(const QString &filterText);
 
 private:
     /**

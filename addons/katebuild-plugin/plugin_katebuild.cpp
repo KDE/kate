@@ -96,8 +96,8 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     , m_filenameDetectorGccWorked(false)
     , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ `.*'"))
 {
-    KXMLGUIClient::setComponentName (QLatin1String("katebuild"), i18n ("Kate Build Plugin"));
-    setXMLFile(QLatin1String("ui.rc"));
+    KXMLGUIClient::setComponentName (QStringLiteral("katebuild"), i18n ("Kate Build Plugin"));
+    setXMLFile(QStringLiteral("ui.rc"));
 
     m_toolView  = mw->createToolView(plugin, QStringLiteral("kate_plugin_katebuildplugin"),
                                       KTextEditor::MainWindow::Bottom,
@@ -642,7 +642,7 @@ bool KateBuildView::buildCurrentTarget()
         buildCmd.replace(QStringLiteral("%d"), docFInfo.absolutePath());
     }
     m_filenameDetectorGccWorked = false;
-    m_currentlyBuildingTarget = QStringLiteral("%1: %2").arg(targetSet).arg(cmdName);
+    m_currentlyBuildingTarget = QStringLiteral("%1: %2").arg(targetSet, cmdName);
     m_buildCancelled = false;
     QString msg = i18n("Building target <b>%1</b> ...", m_currentlyBuildingTarget);
     m_buildUi.buildStatusLabel->setText(msg);

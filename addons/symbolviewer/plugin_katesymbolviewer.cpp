@@ -76,8 +76,8 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
 {
   // FIXME KF5 KGlobal::locale()->insertCatalog("katesymbolviewerplugin");
 
-  KXMLGUIClient::setComponentName (QLatin1String("katesymbolviewer"), i18n ("SymbolViewer"));
-  setXMLFile(QLatin1String("ui.rc"));
+  KXMLGUIClient::setComponentName (QStringLiteral("katesymbolviewer"), i18n ("SymbolViewer"));
+  setXMLFile(QStringLiteral("ui.rc"));
 
   mw->guiFactory()->addClient (this);
   m_symbols = nullptr;
@@ -102,10 +102,10 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
   m_typesOn->setCheckable(true);
 
   KConfigGroup config(KSharedConfig::openConfig(), "PluginSymbolViewer");
-  m_typesOn->setChecked(config.readEntry(QLatin1String("ViewTypes"), false));
-  m_expandOn->setChecked(config.readEntry(QLatin1String("ExpandTree"), false));
-  m_treeOn->setChecked(config.readEntry(QLatin1String("TreeView"), false));
-  m_sort->setChecked(config.readEntry(QLatin1String("SortSymbols"), false));
+  m_typesOn->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
+  m_expandOn->setChecked(config.readEntry(QStringLiteral("ExpandTree"), false));
+  m_treeOn->setChecked(config.readEntry(QStringLiteral("TreeView"), false));
+  m_sort->setChecked(config.readEntry(QStringLiteral("SortSymbols"), false));
 
   m_macro->setChecked(true);
   m_struct->setChecked(true);
@@ -122,7 +122,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
 
   QPixmap cls( ( const char** ) class_xpm );
 
-  m_toolview = m_mainWindow->createToolView(plugin, QLatin1String("kate_plugin_symbolviewer"),
+  m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_plugin_symbolviewer"),
                                             KTextEditor::MainWindow::Left,
                                             cls,
                                             i18n("Symbol List"));
@@ -342,10 +342,10 @@ void KatePluginSymbolViewerView::parseSymbols()
     QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);
     node->setText(0, i18n("Sorry, not supported yet!"));
     // Setting invalid line number avoid jump to top of document when clicked
-    node->setText(1, QLatin1String("-1"));
+    node->setText(1, QStringLiteral("-1"));
     node = new QTreeWidgetItem(m_symbols);
     node->setText(0, i18n("File type: %1", hlModeName));
-    node->setText(1, QLatin1String("-1"));
+    node->setText(1, QStringLiteral("-1"));
   }
 
   m_oldCursorLine = -1;
@@ -394,10 +394,10 @@ KTextEditor::ConfigPage* KatePluginSymbolViewer::configPage(int, QWidget *parent
   KatePluginSymbolViewerConfigPage* p = new KatePluginSymbolViewerConfigPage(this, parent);
 
   KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
-  p->viewReturns->setChecked(config.readEntry(QLatin1String("ViewTypes"), false));
-  p->expandTree->setChecked(config.readEntry(QLatin1String("ExpandTree"), false));
-  p->treeView->setChecked(config.readEntry(QLatin1String("TreeView"), false));
-  p->sortSymbols->setChecked(config.readEntry(QLatin1String("SortSymbols"), false));
+  p->viewReturns->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
+  p->expandTree->setChecked(config.readEntry(QStringLiteral("ExpandTree"), false));
+  p->treeView->setChecked(config.readEntry(QStringLiteral("TreeView"), false));
+  p->sortSymbols->setChecked(config.readEntry(QStringLiteral("SortSymbols"), false));
   connect(p, &KatePluginSymbolViewerConfigPage::configPageApplyRequest, this, &KatePluginSymbolViewer::applyConfig);
   return (KTextEditor::ConfigPage*)p;
 }
@@ -405,10 +405,10 @@ KTextEditor::ConfigPage* KatePluginSymbolViewer::configPage(int, QWidget *parent
 void KatePluginSymbolViewer::applyConfig(KatePluginSymbolViewerConfigPage* p)
 {
   KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
-  config.writeEntry(QLatin1String("ViewTypes"), p->viewReturns->isChecked());
-  config.writeEntry(QLatin1String("ExpandTree"), p->expandTree->isChecked());
-  config.writeEntry(QLatin1String("TreeView"), p->treeView->isChecked());
-  config.writeEntry(QLatin1String("SortSymbols"), p->sortSymbols->isChecked());
+  config.writeEntry(QStringLiteral("ViewTypes"), p->viewReturns->isChecked());
+  config.writeEntry(QStringLiteral("ExpandTree"), p->expandTree->isChecked());
+  config.writeEntry(QStringLiteral("TreeView"), p->treeView->isChecked());
+  config.writeEntry(QStringLiteral("SortSymbols"), p->sortSymbols->isChecked());
 
   if (m_view) {
     m_view->m_typesOn->setChecked(p->viewReturns->isChecked());

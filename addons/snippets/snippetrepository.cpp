@@ -58,14 +58,14 @@ function lower(x) { return x.toLowerCase(); }\n"
 SnippetRepository::SnippetRepository(const QString& file)
  : QStandardItem(i18n("<empty repository>")), m_file(file), m_script(defaultScript)
 {
-    setIcon( QIcon::fromTheme(QLatin1String("folder")) );
+    setIcon( QIcon::fromTheme(QStringLiteral("folder")) );
     const auto& config = SnippetStore::self()->getConfig();
     bool activated = config.readEntry<QStringList>("enabledRepositories", QStringList()).contains(file);
     setCheckState(activated ? Qt::Checked : Qt::Unchecked);
 
     if ( QFile::exists(file) ) {
         // Tell the new repository to load it's snippets
-        QTimer::singleShot(0, this, SLOT(slotParseFile()));
+        QTimer::singleShot(0, this, &SnippetRepository::slotParseFile);
     }
 
     qDebug() << "created new snippet repo" << file << this;
@@ -205,25 +205,25 @@ void SnippetRepository::save()
     */
     QDomDocument doc;
 
-    QDomElement root = doc.createElement(QLatin1String("snippets"));
-    root.setAttribute(QLatin1String("name"), text());
-    root.setAttribute(QLatin1String("filetypes"), m_filetypes.isEmpty() ? QLatin1String("*") : m_filetypes.join(QLatin1String(";")));
-    root.setAttribute(QLatin1String("authors"), m_authors);
-    root.setAttribute(QLatin1String("license"), m_license);
-    root.setAttribute(QLatin1String("namespace"), m_namespace);
+    QDomElement root = doc.createElement(QStringLiteral("snippets"));
+    root.setAttribute(QStringLiteral("name"), text());
+    root.setAttribute(QStringLiteral("filetypes"), m_filetypes.isEmpty() ? QStringLiteral("*") : m_filetypes.join(QLatin1String(";")));
+    root.setAttribute(QStringLiteral("authors"), m_authors);
+    root.setAttribute(QStringLiteral("license"), m_license);
+    root.setAttribute(QStringLiteral("namespace"), m_namespace);
 
     doc.appendChild(root);
 
-    addAndCreateElement(doc, root, QLatin1String("script"), m_script);
+    addAndCreateElement(doc, root, QStringLiteral("script"), m_script);
 
     for ( int i = 0; i < rowCount(); ++i ) {
         Snippet* snippet = dynamic_cast<Snippet*>(child(i));
         if ( !snippet ) {
             continue;
         }
-        QDomElement item = doc.createElement(QLatin1String("item"));
-        addAndCreateElement(doc, item, QLatin1String("match"), snippet->text());
-        addAndCreateElement(doc, item, QLatin1String("fillin"), snippet->snippet());
+        QDomElement item = doc.createElement(QStringLiteral("item"));
+        addAndCreateElement(doc, item, QStringLiteral("match"), snippet->text());
+        addAndCreateElement(doc, item, QStringLiteral("fillin"), snippet->snippet());
         root.appendChild(item);
     }
     //KMessageBox::information(0,doc.toString());
@@ -302,11 +302,11 @@ void SnippetRepository::slotParseFile()
         KMessageBox::error( QApplication::activeWindow(), i18n("Invalid XML snippet file: %1", m_file) );
         return;
     }
-    setLicense(docElement.attribute(QLatin1String("license")));
-    setAuthors(docElement.attribute(QLatin1String("authors")));
-    setFileTypes(docElement.attribute(QLatin1String("filetypes")).split(QLatin1Char(';'), QString::SkipEmptyParts));
-    setText(docElement.attribute(QLatin1String("name")));
-    setCompletionNamespace(docElement.attribute(QLatin1String("namespace")));
+    setLicense(docElement.attribute(QStringLiteral("license")));
+    setAuthors(docElement.attribute(QStringLiteral("authors")));
+    setFileTypes(docElement.attribute(QStringLiteral("filetypes")).split(QLatin1Char(';'), QString::SkipEmptyParts));
+    setText(docElement.attribute(QStringLiteral("name")));
+    setCompletionNamespace(docElement.attribute(QStringLiteral("namespace")));
 
     // load shortcuts
     KConfigGroup config = SnippetStore::self()->getConfig().group(QLatin1String("repository ") + m_file);

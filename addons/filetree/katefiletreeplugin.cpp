@@ -128,10 +128,10 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     , m_plug(plug)
     , m_mainWindow(mainWindow)
 {
-    KXMLGUIClient::setComponentName(QLatin1String("katefiletree"), i18n("Kate File Tree"));
-    setXMLFile(QLatin1String("ui.rc"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katefiletree"), i18n("Kate File Tree"));
+    setXMLFile(QStringLiteral("ui.rc"));
 
-    m_toolView = mainWindow->createToolView(plug, QLatin1String("kate_private_plugin_katefiletreeplugin"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QLatin1String("document-open")), i18n("Documents"));
+    m_toolView = mainWindow->createToolView(plug, QStringLiteral("kate_private_plugin_katefiletreeplugin"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QStringLiteral("document-open")), i18n("Documents"));
 
     Q_ASSERT(m_toolView->layout());
     m_toolView->layout()->setMargin(0);
@@ -224,32 +224,32 @@ KateFileTreePluginView::~KateFileTreePluginView()
 
 void KateFileTreePluginView::setupActions()
 {
-    auto aPrev = actionCollection()->addAction(QLatin1String("filetree_prev_document"));
+    auto aPrev = actionCollection()->addAction(QStringLiteral("filetree_prev_document"));
     aPrev->setText(i18n("Previous Document"));
-    aPrev->setIcon(QIcon::fromTheme(QLatin1String("go-up")));
+    aPrev->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
     actionCollection()->setDefaultShortcut(aPrev, Qt::ALT + Qt::Key_Up);
     connect(aPrev, &QAction::triggered, m_fileTree, &KateFileTree::slotDocumentPrev);
 
-    auto aNext = actionCollection()->addAction(QLatin1String("filetree_next_document"));
+    auto aNext = actionCollection()->addAction(QStringLiteral("filetree_next_document"));
     aNext->setText(i18n("Next Document"));
-    aNext->setIcon(QIcon::fromTheme(QLatin1String("go-down")));
+    aNext->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
     actionCollection()->setDefaultShortcut(aNext, Qt::ALT + Qt::Key_Down);
     connect(aNext, &QAction::triggered, m_fileTree, &KateFileTree::slotDocumentNext);
 
-    auto aShowActive = actionCollection()->addAction(QLatin1String("filetree_show_active_document"));
+    auto aShowActive = actionCollection()->addAction(QStringLiteral("filetree_show_active_document"));
     aShowActive->setText(i18n("&Show Active"));
-    aShowActive->setIcon(QIcon::fromTheme(QLatin1String("folder-sync")));
+    aShowActive->setIcon(QIcon::fromTheme(QStringLiteral("folder-sync")));
     connect(aShowActive, &QAction::triggered, this, &KateFileTreePluginView::showActiveDocument);
 
-    auto aSave = actionCollection()->addAction(QLatin1String("filetree_save"), this, SLOT(slotDocumentSave()));
+    auto aSave = actionCollection()->addAction(QStringLiteral("filetree_save"), this, SLOT(slotDocumentSave()));
     aSave->setText(i18n("Save Current Document"));
     aSave->setToolTip(i18n("Save the current document"));
-    aSave->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
+    aSave->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
 
-    auto aSaveAs = actionCollection()->addAction(QLatin1String("filetree_save_as"), this, SLOT(slotDocumentSaveAs()));
+    auto aSaveAs = actionCollection()->addAction(QStringLiteral("filetree_save_as"), this, SLOT(slotDocumentSaveAs()));
     aSaveAs->setText(i18n("Save Current Document As"));
     aSaveAs->setToolTip(i18n("Save current document under new name"));
-    aSaveAs->setIcon(QIcon::fromTheme(QLatin1String("document-save-as")));
+    aSaveAs->setIcon(QIcon::fromTheme(QStringLiteral("document-save-as")));
 
     /**
      * add new & open, if hosting application has it

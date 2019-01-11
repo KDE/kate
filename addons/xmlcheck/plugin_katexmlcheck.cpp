@@ -113,13 +113,13 @@ PluginKateXMLCheckView::PluginKateXMLCheckView( KTextEditor::Plugin *plugin,
     , KXMLGUIClient()
     , m_mainWindow(mainwin)
 {
-    KXMLGUIClient::setComponentName(QLatin1String("katexmlcheck"), i18n ("Kate XML check")); // where i18n resources?
-    setXMLFile(QLatin1String("ui.rc"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katexmlcheck"), i18n ("Kate XML check")); // where i18n resources?
+    setXMLFile(QStringLiteral("ui.rc"));
 
-    dock = m_mainWindow->createToolView(plugin, "kate_plugin_xmlcheck_ouputview", KTextEditor::MainWindow::Bottom, QIcon::fromTheme("misc"), i18n("XML Checker Output"));
+    dock = m_mainWindow->createToolView(plugin, QStringLiteral("kate_plugin_xmlcheck_ouputview"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("misc")), i18n("XML Checker Output"));
     listview = new QTreeWidget( dock );
     m_tmp_file=nullptr;
-    QAction *a = actionCollection()->addAction("xml_check");
+    QAction *a = actionCollection()->addAction(QStringLiteral("xml_check"));
     a->setText(i18n("Validate XML"));
     connect(a, &QAction::triggered, this, &PluginKateXMLCheckView::slotValidate);
     // TODO?:
@@ -175,8 +175,8 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
 
     if (exitStatus != QProcess::NormalExit) {
         QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setText(0, QString("1").rightJustified(4,' '));
-        item->setText(3, "Validate process crashed.");
+        item->setText(0, QStringLiteral("1").rightJustified(4,' '));
+        item->setText(3, QStringLiteral("Validate process crashed."));
         listview->addTopLevelItem(item);
         return;
     }
@@ -193,12 +193,12 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         // no i18n here, so we don't get an ugly English<->Non-english mixup:
         QString msg;
         if( m_dtdname.isEmpty() ) {
-            msg = "No DOCTYPE found, will only check well-formedness.";
+            msg = QStringLiteral("No DOCTYPE found, will only check well-formedness.");
         } else {
             msg = '\'' + m_dtdname + "' not found, will only check well-formedness.";
         }
         QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setText(0, QString("1").rightJustified(4,' '));
+        item->setText(0, QStringLiteral("1").rightJustified(4,' '));
         item->setText(3, msg);
         listview->addTopLevelItem(item);
         list_count++;
@@ -224,8 +224,8 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
                     msg = msg+'\n'+line;
                 }
                 QString col = QString::number(caret_pos);
-                if( col == "-1" ) {
-                    col = "";
+                if( col == QLatin1String("-1") ) {
+                    col = QLatin1String("");
                 }
                 err_count++;
                 list_count++;
@@ -245,9 +245,9 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
     if( err_count == 0 ) {
         QString msg;
         if( m_validating ) {
-            msg = "No errors found, document is valid.";	// no i18n here
+            msg = QStringLiteral("No errors found, document is valid.");	// no i18n here
         } else {
-            msg = "No errors found, document is well-formed.";	// no i18n here
+            msg = QStringLiteral("No errors found, document is well-formed.");	// no i18n here
         }
         QTreeWidgetItem *item = new QTreeWidgetItem();
         item->setText(0, QString::number(list_count+1).rightJustified(4,' '));
@@ -289,7 +289,7 @@ bool PluginKateXMLCheckView::slotValidate()
 
 	m_mainWindow->showToolView (dock);
 	m_validating = false;
-	m_dtdname = "";
+	m_dtdname = QLatin1String("");
 
 	KTextEditor::View *kv = m_mainWindow->activeView();
 	if( ! kv )
@@ -309,9 +309,9 @@ bool PluginKateXMLCheckView::slotValidate()
 	s << kv->document()->text();
 	s.flush();
 
-    QString exe = QStandardPaths::findExecutable("xmllint");
+    QString exe = QStandardPaths::findExecutable(QStringLiteral("xmllint"));
 	if( exe.isEmpty() ) {
-		exe = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, "xmllint");
+		exe = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, QStringLiteral("xmllint"));
 	}
     //qDebug() << "exe=" <<exe;
 // 	// use catalogs for KDE docbook:
@@ -324,7 +324,7 @@ bool PluginKateXMLCheckView::slotValidate()
 // 	}
 	//qDebug() << "**catalogs: " << getenv("XML_CATALOG_FILES");
         QStringList args;
-        args << "--noout";
+        args << QStringLiteral("--noout");
 
 	// tell xmllint the working path of the document's file, if possible.
 	// otherwise it will not find relative DTDs
@@ -343,13 +343,13 @@ bool PluginKateXMLCheckView::slotValidate()
         // xmllint --noout --path "/home/user/my/with:colon/" --valid "/tmp/kate.X23725"
         // As workaround we can encode ':' with %3A
         QString path = kv->document()->url().toString(QUrl::RemoveFilename|QUrl::PreferLocalFile|QUrl::EncodeSpaces);
-        path.replace(':',"%3A");
+        path.replace(':',QLatin1String("%3A"));
         // because of such inconvenience with xmllint and paths, maybe switch to xmlstarlet?
 
         qDebug() << "path=" << path;
 
 	if (!path.isEmpty()) {
-                args << "--path" << path;
+                args << QStringLiteral("--path") << path;
 
 	}
 
@@ -373,15 +373,15 @@ bool PluginKateXMLCheckView::slotValidate()
 		if( !dtdname.startsWith(QLatin1String("http:")) ) {		// todo: u_dtd.isLocalFile() doesn't work :-(
 			// a local DTD is used
 			m_validating = true;
-                        args << "--valid";
+                        args << QStringLiteral("--valid");
 		} else {
 			m_validating = true;
-                        args << "--valid";
+                        args << QStringLiteral("--valid");
 		}
-	} else if( text_start.indexOf("<!DOCTYPE") != -1 ) {
+	} else if( text_start.indexOf(QLatin1String("<!DOCTYPE")) != -1 ) {
 		// DTD is inside the XML file
 		m_validating = true;
-                args << "--valid";
+                args << QStringLiteral("--valid");
 	}
         args << m_tmp_file->fileName();
         qDebug() << "m_tmp_file->fileName()=" << m_tmp_file->fileName();

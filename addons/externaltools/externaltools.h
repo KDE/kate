@@ -115,7 +115,7 @@ class KateExternalTool
 {
 public:
     explicit KateExternalTool(const QString& name = QString(), const QString& command = QString(),
-                              const QString& icon = QString(), const QString& tryexec = QString(),
+                              const QString& icon = QString(), const QString& executable = QString(),
                               const QStringList& mimetypes = QStringList(), const QString& acname = QString(),
                               const QString& cmdname = QString(), int save = 0);
     ~KateExternalTool() {}
@@ -123,7 +123,7 @@ public:
     QString name; ///< The name used in the menu.
     QString command; ///< The command to execute.
     QString icon; ///< the icon to use in the menu.
-    QString tryexec; ///< The name or path of the executable.
+    QString executable; ///< The name or path of the executable.
     QStringList mimetypes; ///< Optional list of mimetypes for which this action is valid.
     bool hasexec; ///< This is set by the constructor by calling checkExec(), if a
                   ///< value is present.
@@ -138,7 +138,7 @@ public:
      */
     bool valid(const QString& mimetype) const;
     /**
-     * @return true if "tryexec" exists and has the executable bit set, or is
+     * @return true if "executable" exists and has the executable bit set, or is
      * empty.
      * This is run at least once, and the tool is disabled if it fails.
      */

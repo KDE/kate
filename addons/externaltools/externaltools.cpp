@@ -58,33 +58,25 @@
 
 // BEGIN KateExternalTool
 KateExternalTool::KateExternalTool(const QString& name, const QString& command, const QString& icon,
-                                   const QString& tryexec, const QStringList& mimetypes, const QString& acname,
+                                   const QString& executable, const QStringList& mimetypes, const QString& acname,
                                    const QString& cmdname, int save)
     : name(name)
     , command(command)
     , icon(icon)
-    , tryexec(tryexec)
+    , executable(executable)
     , mimetypes(mimetypes)
     , acname(acname)
     , cmdname(cmdname)
     , save(save)
 {
-    // if ( ! tryexec.isEmpty() )
+    // if ( ! executable.isEmpty() )
     hasexec = checkExec();
 }
 
 bool KateExternalTool::checkExec()
 {
-    // if tryexec is empty, it is the first word of command
-    if (tryexec.isEmpty())
-        tryexec = command.section(QLatin1Char(' '), 0, 0, QString::SectionSkipEmpty);
-
-    // NOTE this code is modified taken from kdesktopfile.cpp, from KDesktopFile::tryExec()
-    if (!tryexec.isEmpty()) {
-        m_exec = QStandardPaths::findExecutable(tryexec);
-        return !m_exec.isEmpty();
-    }
-    return false;
+    m_exec = QStandardPaths::findExecutable(executable);
+    return !m_exec.isEmpty();
 }
 
 bool KateExternalTool::valid(const QString& mt) const
@@ -255,7 +247,7 @@ void KateExternalToolAction::slotRun()
         }
     }
 
-    KRun::runCommand(cmd, tool->tryexec, tool->icon, mw->window());
+    KRun::runCommand(cmd, tool->executable, tool->icon, mw->window());
 }
 // END KateExternalToolAction
 
@@ -412,7 +404,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
         ui->edtInput->setText(tool->command);
 
     if (tool)
-        ui->edtExecutable->setText(tool->tryexec);
+        ui->edtExecutable->setText(tool->executable);
     if (tool)
         ui->edtMimeType->setText(tool->mimetypes.join(QStringLiteral("; ")));
     connect(ui->btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
@@ -548,7 +540,7 @@ void KateExternalToolsConfigWidget::apply()
         cg.writeEntry("name", t->name);
         cg.writeEntry("command", t->command);
         cg.writeEntry("icon", t->icon);
-        cg.writeEntry("executable", t->tryexec);
+        cg.writeEntry("executable", t->executable);
         cg.writeEntry("mimetypes", t->mimetypes);
         cg.writeEntry("acname", t->acname);
         cg.writeEntry("cmdname", t->cmdname);
@@ -647,7 +639,7 @@ void KateExternalToolsConfigWidget::slotEdit()
         t->cmdname = editor.ui->edtCommand->text();
         t->command = editor.ui->edtInput->toPlainText();
         t->icon = editor.ui->btnIcon->icon();
-        t->tryexec = editor.ui->edtExecutable->text();
+        t->executable = editor.ui->edtExecutable->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->save = editor.ui->cmbSave->currentIndex();
 

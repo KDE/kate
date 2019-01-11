@@ -396,123 +396,37 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
 {
     setWindowTitle(i18n("Edit External Tool"));
 
-    auto vbox = new QVBoxLayout(this);
-    auto buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &KateExternalToolServiceEditor::slotOKClicked);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    ui = new Ui::ToolDialog();
+    ui->setupUi(this);
 
-    // create a entry for each property
-    // fill in the values from the service if available
-    auto w = new QWidget(this);
-    vbox->addWidget(w);
-    vbox->addWidget(buttonBox);
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &KateExternalToolServiceEditor::slotOKClicked);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
-    auto lo = new QGridLayout(w);
-    lo->setContentsMargins(0, 0, 0, 0);
-
-    leName = new QLineEdit(w);
-    lo->addWidget(leName, 1, 2);
-    auto l = new QLabel(w);
-    l->setBuddy(leName);
-    l->setText(i18n("&Label:"));
-    l->setAlignment(l->alignment() | Qt::AlignRight);
-    lo->addWidget(l, 1, 1);
     if (tool)
-        leName->setText(tool->name);
-    leName->setWhatsThis(i18n("The name will be displayed in the 'Tools->External Tools' menu"));
+        ui->edtName->setText(tool->name);
 
-    btnIcon = new KIconButton(w);
-    btnIcon->setIconSize(KIconLoader::SizeSmall);
-    lo->addWidget(btnIcon, 1, 3);
     if (tool && !tool->icon.isEmpty())
-        btnIcon->setIcon(tool->icon);
+        ui->btnIcon->setIcon(tool->icon);
 
-    teCommand = new QTextEdit(w);
-    lo->addWidget(teCommand, 2, 2, 1, 2);
-    l = new QLabel(w);
-    l->setBuddy(teCommand);
-    l->setText(i18n("S&cript:"));
-    l->setAlignment(Qt::AlignTop | Qt::AlignRight);
-    lo->addWidget(l, 2, 1);
     if (tool)
-        teCommand->setText(tool->command);
-    teCommand->setWhatsThis(i18n("<p>The script to execute to invoke the tool. The script is passed "
-                                 "to /bin/sh for execution. The following macros "
-                                 "will be expanded:</p>"
-                                 "<ul><li><code>%URL</code> - the URL of the current document.</li>"
-                                 "<li><code>%URLs</code> - a list of the URLs of all open documents.</li>"
-                                 "<li><code>%directory</code> - the URL of the directory containing "
-                                 "the current document.</li>"
-                                 "<li><code>%filename</code> - the filename of the current document.</li>"
-                                 "<li><code>%line</code> - the current line of the text cursor in the "
-                                 "current view.</li>"
-                                 "<li><code>%column</code> - the column of the text cursor in the "
-                                 "current view.</li>"
-                                 "<li><code>%selection</code> - the selected text in the current view.</li>"
-                                 "<li><code>%text</code> - the text of the current document.</li></ul>"));
+        ui->edtInput->setText(tool->command);
 
-    leExecutable = new QLineEdit(w);
-    lo->addWidget(leExecutable, 3, 2, 1, 2);
-    l = new QLabel(w);
-    l->setBuddy(leExecutable);
-    l->setText(i18n("&Executable:"));
-    l->setAlignment(l->alignment() | Qt::AlignRight);
-    lo->addWidget(l, 3, 1);
     if (tool)
-        leExecutable->setText(tool->tryexec);
-    leExecutable->setWhatsThis(i18n("The executable used by the command. This is used to check if a tool "
-                                    "should be displayed; if not set, the first word of <em>command</em> "
-                                    "will be used."));
-
-    leMimetypes = new QLineEdit(w);
-    lo->addWidget(leMimetypes, 4, 2);
-    l = new QLabel(w);
-    l->setBuddy(leMimetypes);
-    l->setText(i18n("&Mime types:"));
-    l->setAlignment(l->alignment() | Qt::AlignRight);
-    lo->addWidget(l, 4, 1);
+        ui->edtExecutable->setText(tool->tryexec);
     if (tool)
-        leMimetypes->setText(tool->mimetypes.join(QStringLiteral("; ")));
-    leMimetypes->setWhatsThis(i18n("A semicolon-separated list of mime types for which this tool should "
-                                   "be available; if this is left empty, the tool is always available. "
-                                   "To choose from known mimetypes, press the button on the right."));
+        ui->edtMimeType->setText(tool->mimetypes.join(QStringLiteral("; ")));
+    connect(ui->btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
 
-    auto btnMimetype = new QToolButton(w);
-    lo->addWidget(btnMimetype, 4, 3);
-    btnMimetype->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
-    connect(btnMimetype, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
-    btnMimetype->setWhatsThis(i18n("Click for a dialog that can help you create a list of mimetypes."));
-
-    cmbSave = new QComboBox(w);
-    lo->addWidget(cmbSave, 5, 2, 1, 2);
-    l = new QLabel(w);
-    l->setBuddy(cmbSave);
-    l->setText(i18n("&Save:"));
-    l->setAlignment(l->alignment() | Qt::AlignRight);
-    lo->addWidget(l, 5, 1);
-    cmbSave->addItems({ i18n("None"), i18n("Current Document"), i18n("All Documents") });
     if (tool)
-        cmbSave->setCurrentIndex(tool->save);
-    cmbSave->setWhatsThis(i18n("You can choose to save the current or all [modified] documents prior to "
-                               "running the command. This is helpful if you want to pass URLs to "
-                               "an application like, for example, an FTP client."));
+        ui->cmbSave->setCurrentIndex(tool->save);
 
-    leCmdLine = new QLineEdit(w);
-    lo->addWidget(leCmdLine, 6, 2, 1, 2);
-    l = new QLabel(i18n("&Command line name:"), w);
-    l->setBuddy(leCmdLine);
-    l->setAlignment(l->alignment() | Qt::AlignRight);
-    lo->addWidget(l, 6, 1);
     if (tool)
-        leCmdLine->setText(tool->cmdname);
-    leCmdLine->setWhatsThis(i18n("If you specify a name here, you can invoke the command from the view "
-                                 "command line with exttool-the_name_you_specified_here. "
-                                 "Please do not use spaces or tabs in the name."));
+        ui->edtCommand->setText(tool->cmdname);
 }
 
 void KateExternalToolServiceEditor::slotOKClicked()
 {
-    if (leName->text().isEmpty() || teCommand->document()->isEmpty()) {
+    if (ui->edtName->text().isEmpty() || ui->edtInput->document()->isEmpty()) {
         QMessageBox::information(this, i18n("External Tool"), i18n("You must specify at least a name and a command"));
         return;
     }
@@ -522,10 +436,10 @@ void KateExternalToolServiceEditor::slotOKClicked()
 void KateExternalToolServiceEditor::showMTDlg()
 {
     QString text = i18n("Select the MimeTypes for which to enable this tool.");
-    QStringList list = leMimetypes->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+    QStringList list = ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
     KMimeTypeChooserDialog d(i18n("Select Mime Types"), text, list, QStringLiteral("text"), this);
     if (d.exec() == QDialog::Accepted) {
-        leMimetypes->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
+        ui->edtMimeType->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
     }
 }
 // END KateExternalToolServiceEditor
@@ -686,10 +600,10 @@ void KateExternalToolsConfigWidget::slotNew()
     // create a listbox item for it
     KateExternalToolServiceEditor editor(nullptr, this);
 
-    if (editor.exec()) {
+    if (editor.exec() == QDialog::Accepted) {
         KateExternalTool* t = new KateExternalTool(
-            editor.leName->text(), editor.teCommand->toPlainText(), editor.btnIcon->icon(), editor.leExecutable->text(),
-            editor.leMimetypes->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts));
+            editor.ui->edtName->text(), editor.ui->edtInput->toPlainText(), editor.ui->btnIcon->icon(), editor.ui->edtExecutable->text(),
+            editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts));
 
         // This is sticky, it does not change again, so that shortcuts sticks
         // TODO check for dups
@@ -727,15 +641,15 @@ void KateExternalToolsConfigWidget::slotEdit()
     editor.resize(config->group("Editor").readEntry("Size", QSize()));
     if (editor.exec() /*== KDialog::Ok*/) {
 
-        bool elementChanged = ((editor.btnIcon->icon() != t->icon) || (editor.leName->text() != t->name));
+        bool elementChanged = ((editor.ui->btnIcon->icon() != t->icon) || (editor.ui->edtName->text() != t->name));
 
-        t->name = editor.leName->text();
-        t->cmdname = editor.leCmdLine->text();
-        t->command = editor.teCommand->toPlainText();
-        t->icon = editor.btnIcon->icon();
-        t->tryexec = editor.leExecutable->text();
-        t->mimetypes = editor.leMimetypes->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
-        t->save = editor.cmbSave->currentIndex();
+        t->name = editor.ui->edtName->text();
+        t->cmdname = editor.ui->edtCommand->text();
+        t->command = editor.ui->edtInput->toPlainText();
+        t->icon = editor.ui->btnIcon->icon();
+        t->tryexec = editor.ui->edtExecutable->text();
+        t->mimetypes = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+        t->save = editor.ui->cmbSave->currentIndex();
 
         // if the icon has changed or name changed, I have to renew the listbox item :S
         if (elementChanged) {

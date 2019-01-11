@@ -25,6 +25,7 @@
 #define KTEXTEDITOR_EXTERNALTOOLS_H
 
 #include "ui_configwidget.h"
+#include "ui_tooldialog.h"
 
 #include <KTextEditor/Application>
 #include <KTextEditor/Command>
@@ -223,21 +224,19 @@ class KateExternalToolServiceEditor : public QDialog
 public:
     explicit KateExternalToolServiceEditor(KateExternalTool* tool = nullptr, QWidget* parent = nullptr);
 
-    class QLineEdit *leName, *leExecutable, *leMimetypes, *leCmdLine;
-    class QTextEdit* teCommand;
-    class KIconButton* btnIcon;
-    class QComboBox* cmbSave;
-
 private Q_SLOTS:
     /**
      * Run when the OK button is clicked, to ensure critical values are provided.
      */
     void slotOKClicked();
+
     /**
      * show a mimetype chooser dialog
      */
     void showMTDlg();
 
+public:
+    Ui::ToolDialog * ui;
 private:
     KateExternalTool* tool;
 };

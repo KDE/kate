@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ToolDialog</class>
+ <widget class="QDialog" name="ToolDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>470</width>
+    <height>491</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Edit Tool</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="lblName">
+     <property name="text">
+      <string>Name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLineEdit" name="edtName">
+       <property name="whatsThis">
+        <string>The name will be displayed in the 'Tools-&gt;External Tools' menu.</string>
+       </property>
+       <property name="placeholderText">
+        <string>Short name of the tool</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KIconButton" name="btnIcon"/>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="lblExecutable">
+     <property name="text">
+      <string>Executable:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLineEdit" name="edtExecutable">
+       <property name="whatsThis">
+        <string>The executable used by the command. This is used to check if a tool should be displayed; if not set, the first word of &lt;em&gt;command&lt;/em&gt; will be used.</string>
+       </property>
+       <property name="placeholderText">
+        <string>Application or interpreter</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="btnExecutable">
+       <property name="icon">
+        <iconset theme="folder-open">
+         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="lblArgs">
+     <property name="text">
+      <string>Arguments:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="lblInput">
+     <property name="text">
+      <string>Input:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <layout class="QHBoxLayout" name="loArgs">
+     <item>
+      <widget class="QTextEdit" name="edtInput">
+       <property name="whatsThis">
+        <string>&lt;p&gt;The script to execute to invoke the tool. The script is passed to /bin/sh for execution. The following macros will be expanded:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;%URL&lt;/code&gt; - the URL of the current document.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%URLs&lt;/code&gt; - a list of the URLs of all open documents.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%directory&lt;/code&gt; - the URL of the directory containing the current document.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%filename&lt;/code&gt; - the filename of the current document.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%line&lt;/code&gt; - the current line of the text cursor in the current view.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%column&lt;/code&gt; - the column of the text cursor in the current view.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%selection&lt;/code&gt; - the selected text in the current view.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%text&lt;/code&gt; - the text of the current document.&lt;/li&gt;&lt;/ul&gt;</string>
+       </property>
+       <property name="placeholderText">
+        <string>Optional standard input</string>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignTop">
+      <widget class="QToolButton" name="btnInput">
+       <property name="icon">
+        <iconset theme="arrow-down">
+         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="lblMimeType">
+     <property name="text">
+      <string>Mime types:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="edtMimeType">
+       <property name="whatsThis">
+        <string>A semicolon-separated list of mime types for which this tool should be available; if this is left empty, the tool is always available. To choose from known mimetypes, press the button on the right.</string>
+       </property>
+       <property name="placeholderText">
+        <string>Show tool only for given mime types</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="btnMimeType">
+       <property name="whatsThis">
+        <string>Click for a dialog that can help you create a list of mimetypes.</string>
+       </property>
+       <property name="icon">
+        <iconset theme="tools-wizard">
+         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="lblSave">
+     <property name="text">
+      <string>Save:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QComboBox" name="cmbSave">
+     <property name="whatsThis">
+      <string>You can choose to save the current or all [modified] documents prior to running the command. This is helpful if you want to pass URLs to an application like, for example, an FTP client.</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Current Document</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>All Documents</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="7" column="1">
+    <widget class="QCheckBox" name="chkReload">
+     <property name="text">
+      <string>Reload current document after execution</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Output:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <widget class="QComboBox" name="cmbOutput">
+     <item>
+      <property name="text">
+       <string>Ignore</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Insert at Cursor Position</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Replace Selected Text</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Replace Current Document</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Append to Current Document</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Insert in New Document</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Display in Pane</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Embedded Console</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="9" column="0">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Editor command:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QLineEdit" name="edtCommand">
+     <property name="whatsThis">
+      <string>If you specify a name here, you can invoke the command from the view command line with exttool-the_name_you_specified_here. Please do not use spaces or tabs in the name.</string>
+     </property>
+     <property name="placeholderText">
+      <string>Optional command bar name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="lblWorkingDir">
+     <property name="text">
+      <string>Working directory:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLineEdit" name="edtWorkingDir">
+       <property name="placeholderText">
+        <string>Uses current document path if empty</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="btnWorkingDir">
+       <property name="icon">
+        <iconset theme="folder-open">
+         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLineEdit" name="edtArgs">
+       <property name="placeholderText">
+        <string>Command line arguments</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="btnArgs">
+       <property name="icon">
+        <iconset theme="arrow-down">
+         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KIconButton</class>
+   <extends>QPushButton</extends>
+   <header>kiconbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>ToolDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ToolDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

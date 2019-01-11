@@ -49,7 +49,7 @@ bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)
     return m_app->openUrl(QUrl(url), encoding, false);
 }
 
-bool KateAppAdaptor::openUrl(QString url, QString encoding, bool isTempFile)
+bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding, bool isTempFile)
 {
     qCDebug(LOG_KATE) << "openURL";
 

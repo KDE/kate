@@ -34,7 +34,7 @@ class ResultNode
     ResultNode(const char *_name, const bool _dir = false) : ResultNode(QString::fromLatin1(_name), _dir) {}
     ResultNode(const QString &_name, const bool _dir = false) : name(_name), dir(_dir), children() {}
 
-    ResultNode &operator<<(ResultNode node) { children << node; return *this; }
+    ResultNode &operator<<(const ResultNode &node) { children << node; return *this; }
 
     bool operator!=(const ResultNode &other) const { return !(*this == other); }
     bool operator==(const ResultNode &other) const

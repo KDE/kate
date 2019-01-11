@@ -66,7 +66,7 @@ Q_SIGNALS:
     void closeDocument(KTextEditor::Document *);
     void activateDocument(KTextEditor::Document *);
 
-    void openDocument(QUrl);
+    void openDocument(const QUrl&);
 
     void viewModeChanged(bool treeMode);
     void sortRoleChanged(int);

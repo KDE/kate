@@ -83,7 +83,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
   return QVariant();
 }
 
-int ConnectionModel::addConnection( Connection conn )
+int ConnectionModel::addConnection( const Connection &conn )
 {
   /// FIXME
   if (m_connections.contains(conn.name))

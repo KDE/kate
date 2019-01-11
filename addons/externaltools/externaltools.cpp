@@ -390,30 +390,23 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
 
     ui = new Ui::ToolDialog();
     ui->setupUi(this);
+    ui->btnIcon->setIconSize(KIconLoader::SizeSmall);
 
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &KateExternalToolServiceEditor::slotOKClicked);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-
-    if (tool)
-        ui->edtName->setText(tool->name);
-
-    if (tool && !tool->icon.isEmpty())
-        ui->btnIcon->setIcon(tool->icon);
-
-    if (tool)
-        ui->edtInput->setText(tool->command);
-
-    if (tool)
-        ui->edtExecutable->setText(tool->executable);
-    if (tool)
-        ui->edtMimeType->setText(tool->mimetypes.join(QStringLiteral("; ")));
     connect(ui->btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
 
-    if (tool)
-        ui->cmbSave->setCurrentIndex(tool->save);
+    if (tool) {
+        ui->edtName->setText(tool->name);
+        if (!tool->icon.isEmpty())
+            ui->btnIcon->setIcon(tool->icon);
 
-    if (tool)
+        ui->edtExecutable->setText(tool->executable);
+        ui->edtInput->setText(tool->command);
+        ui->edtMimeType->setText(tool->mimetypes.join(QStringLiteral("; ")));
+        ui->cmbSave->setCurrentIndex(tool->save);
         ui->edtCommand->setText(tool->cmdname);
+    }
 }
 
 void KateExternalToolServiceEditor::slotOKClicked()

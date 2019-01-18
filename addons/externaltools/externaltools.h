@@ -40,8 +40,10 @@
 
 #include <QHash>
 #include <QPixmap>
+#include <QProcess>
 
 class KateExternalToolsPlugin;
+class KateExternalTool;
 
 /**
  * The external tools action
@@ -107,47 +109,6 @@ private Q_SLOTS:
 
 public:
     class KateExternalTool* tool;
-};
-
-/**
- * This class defines a single external tool.
- */
-class KateExternalTool
-{
-public:
-    explicit KateExternalTool(const QString& name = QString(), const QString& command = QString(),
-                              const QString& icon = QString(), const QString& executable = QString(),
-                              const QStringList& mimetypes = QStringList(), const QString& acname = QString(),
-                              const QString& cmdname = QString(), int save = 0);
-    ~KateExternalTool() {}
-
-    QString name; ///< The name used in the menu.
-    QString executable; ///< The name or path of the executable.
-    QString arguments; ///< The command line arguments.
-    QString command; ///< The command to execute.
-    QString icon; ///< the icon to use in the menu.
-    QStringList mimetypes; ///< Optional list of mimetypes for which this action is valid.
-    bool hasexec; ///< This is set by the constructor by calling checkExec(), if a
-                  ///< value is present.
-    QString acname; ///< The name for the action. This is generated first time the
-                    ///< action is is created.
-    QString cmdname; ///< The name for the commandline.
-    int save; ///< We can save documents prior to activating the tool command: 0 =
-              ///< nothing, 1 = current document, 2 = all documents.
-
-    /**
-     * @return true if mimetypes is empty, or the @p mimetype matches.
-     */
-    bool valid(const QString& mimetype) const;
-    /**
-     * @return true if "executable" exists and has the executable bit set, or is
-     * empty.
-     * This is run at least once, and the tool is disabled if it fails.
-     */
-    bool checkExec();
-
-private:
-    QString m_exec; ///< The fully qualified path of the executable.
 };
 
 /**

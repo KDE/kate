@@ -6,6 +6,7 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 set(externaltoolsplugin_PART_SRCS
     externaltoolsplugin.cpp
     externaltools.cpp
+    kateexternaltool.cpp
 )
 
 # resource for ui file and stuff

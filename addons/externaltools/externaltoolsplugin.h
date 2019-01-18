@@ -50,8 +50,8 @@ public:
 private:
     QList<KateExternalToolsPluginView*> m_views;
     KateExternalToolsCommand* m_command = nullptr;
-private
-    Q_SLOT : void viewDestroyed(QObject* view);
+private Q_SLOT:
+    void viewDestroyed(QObject* view);
 };
 
 class KateExternalToolsPluginView : public QObject, public KXMLGUIClient

@@ -23,7 +23,9 @@
 // Icons
 // Direct shortcut setting
 #include "externaltools.h"
+#include "kateexternaltool.h"
 #include "externaltoolsplugin.h"
+
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
@@ -56,35 +58,6 @@
 #include <QToolButton>
 
 #include <unistd.h>
-
-// BEGIN KateExternalTool
-KateExternalTool::KateExternalTool(const QString& name, const QString& command, const QString& icon,
-                                   const QString& executable, const QStringList& mimetypes, const QString& acname,
-                                   const QString& cmdname, int save)
-    : name(name)
-    , command(command)
-    , icon(icon)
-    , executable(executable)
-    , mimetypes(mimetypes)
-    , acname(acname)
-    , cmdname(cmdname)
-    , save(save)
-{
-    // if ( ! executable.isEmpty() )
-    hasexec = checkExec();
-}
-
-bool KateExternalTool::checkExec()
-{
-    m_exec = QStandardPaths::findExecutable(executable);
-    return !m_exec.isEmpty();
-}
-
-bool KateExternalTool::valid(const QString& mt) const
-{
-    return mimetypes.isEmpty() || mimetypes.contains(mt);
-}
-// END KateExternalTool
 
 // BEGIN KateExternalToolsCommand
 KateExternalToolsCommand::KateExternalToolsCommand(KateExternalToolsPlugin* plugin)

@@ -31,3 +31,8 @@ target_link_libraries(externaltoolsplugin
 
 ########### install files ###############
 install(TARGETS externaltoolsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
+
+############# unit tests ################
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

@@ -43,7 +43,7 @@ public:
 
     void run();
     void waitForFinished();
-    QString stdoutData() const;
+    QString outputData() const;
 
 private Q_SLOTS:
     /**

@@ -50,9 +50,9 @@ void KateToolRunner::waitForFinished()
 }
 
 
-QString KateToolRunner::stdoutData() const
+QString KateToolRunner::outputData() const
 {
-    return QString::fromLocal8Bit(m_output );
+    return QString::fromLocal8Bit(m_output);
 }
 
 void KateToolRunner::slotReadyRead()
@@ -62,6 +62,17 @@ void KateToolRunner::slotReadyRead()
 
 void KateToolRunner::toolFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
+    if (exitCode != 0) {
+        // FIXME: somehow tell user
+        return;
+    }
+
+    if (exitStatus != QProcess::NormalExit) {
+        // FIXME: somehow tell user
+        return;
+    }
+
+    // FIXME: process m_output depending on the tool's outputMode
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

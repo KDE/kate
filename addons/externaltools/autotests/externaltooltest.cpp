@@ -79,8 +79,8 @@ void ExternalToolTest::testRunListDirectory()
     KateToolRunner runner(&tool);
     runner.run();
     runner.waitForFinished();
-    QVERIFY(!runner.stdoutData().isEmpty());
-    QVERIFY(!runner.stdoutData().contains(QStringLiteral("/home")));
+    QVERIFY(!runner.outputData().isEmpty());
+    QVERIFY(!runner.outputData().contains(QStringLiteral("/home")));
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

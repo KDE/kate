@@ -20,7 +20,6 @@
 */
 #include "kateexternaltool.h"
 
-#include <KConfig>
 #include <KConfigGroup>
 #include <QStandardPaths>
 
@@ -49,6 +48,30 @@ bool KateExternalTool::checkExec()
 bool KateExternalTool::valid(const QString& mt) const
 {
     return mimetypes.isEmpty() || mimetypes.contains(mt);
+}
+
+void KateExternalTool::load(const KConfigGroup & cg)
+{
+    name = cg.readEntry("name", "");
+    command = cg.readEntry("command", "");
+    icon = cg.readEntry("icon", "");
+    executable = cg.readEntry("executable", "");
+    mimetypes = cg.readEntry("mimetypes", QStringList());
+    acname = cg.readEntry("acname");
+    cmdname = cg.readEntry("cmdname");
+    saveMode = static_cast<KateExternalTool::SaveMode>(cg.readEntry("save", 0));
+}
+
+void KateExternalTool::save(KConfigGroup & cg)
+{
+    cg.writeEntry("name", name);
+    cg.writeEntry("command", command);
+    cg.writeEntry("icon", icon);
+    cg.writeEntry("executable", executable);
+    cg.writeEntry("mimetypes", mimetypes);
+    cg.writeEntry("acname", acname);
+    cg.writeEntry("cmdname", cmdname);
+    cg.writeEntry("save", static_cast<int>(saveMode));
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

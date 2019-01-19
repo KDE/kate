@@ -29,6 +29,8 @@
 #include <QString>
 #include <QStringList>
 
+class KConfigGroup;
+
 /**
  * This class defines a single external tool.
  */
@@ -106,6 +108,16 @@ public:
      * This is run at least once, and the tool is disabled if it fails.
      */
     bool checkExec();
+
+    /**
+     * Load tool data from the config group @p cg.
+     */
+    void load(const KConfigGroup & cg);
+
+    /**
+     * Save tool data to the config group @p cg.
+     */
+    void save(KConfigGroup & cg);
 
 private:
     QString m_exec; ///< The fully qualified path of the executable.

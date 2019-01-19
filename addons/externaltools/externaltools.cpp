@@ -462,10 +462,8 @@ void KateExternalToolsConfigWidget::reset()
         } else {
             KConfigGroup cg(config, *it);
 
-            KateExternalTool* t
-                = new KateExternalTool(cg.readEntry("name", ""), cg.readEntry("command", ""), cg.readEntry("icon", ""),
-                                       cg.readEntry("executable", ""), cg.readEntry("mimetypes", QStringList()),
-                                       cg.readEntry("acname"), cg.readEntry("cmdname"), static_cast<KateExternalTool::SaveMode>(cg.readEntry("save", 0)));
+            KateExternalTool* t = new KateExternalTool();
+            t->load(cg);
 
             if (t->hasexec) // we only show tools that are also in the menu.
                 new ToolItem(lbTools, t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
@@ -503,15 +501,7 @@ void KateExternalToolsConfigWidget::apply()
         tools << t->acname;
 
         KConfigGroup cg(config, t->acname);
-
-        cg.writeEntry("name", t->name);
-        cg.writeEntry("command", t->command);
-        cg.writeEntry("icon", t->icon);
-        cg.writeEntry("executable", t->executable);
-        cg.writeEntry("mimetypes", t->mimetypes);
-        cg.writeEntry("acname", t->acname);
-        cg.writeEntry("cmdname", t->cmdname);
-        cg.writeEntry("save", static_cast<int>(t->saveMode));
+        t->save(cg);
     }
 
     config->group("Global").writeEntry("tools", tools);

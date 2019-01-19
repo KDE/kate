@@ -20,6 +20,7 @@
 
 #include "externaltooltest.h"
 #include "../kateexternaltool.h"
+#include "../katetoolrunner.h"
 
 #include <QtTest>
 #include <QString>
@@ -61,9 +62,25 @@ void ExternalToolTest::testLoadSave()
     QCOMPARE(tool.name, copiedTool.name);
 }
 
-void ExternalToolTest::testToolRunner()
+void ExternalToolTest::testRunListDirectory()
 {
-//     QCOMPARE(FileUtil::commonParent(QLatin1String("~/dev/proj1"), QLatin1String("~/dev/proj222")), QLatin1String("~/dev/"));
+    KateExternalTool tool;
+    tool.name = QStringLiteral("ls");
+    tool.icon = QStringLiteral("none");
+    tool.executable = QStringLiteral("ls");
+    tool.arguments = QStringLiteral("/");
+    tool.command = QStringLiteral("ls");
+    tool.mimetypes = QStringList{};
+    tool.hasexec = true;
+    tool.actionName = QStringLiteral("ls");
+    tool.cmdname = QStringLiteral("ls");
+    tool.saveMode = KateExternalTool::SaveMode::None;
+
+    KateToolRunner runner(&tool);
+    runner.run();
+    runner.waitForFinished();
+    qDebug() << runner.stdoutData();
+    QVERIFY(!runner.stdoutData().isEmpty());
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

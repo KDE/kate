@@ -20,16 +20,47 @@
 
 #include "katetoolrunner.h"
 
+#include "kateexternaltool.h"
+
 KateToolRunner::KateToolRunner(KateExternalTool * tool)
     : m_tool(tool)
+    , m_process(new QProcess())
 {
 }
 
 KateToolRunner::~KateToolRunner()
 {
+    delete m_process;
+    m_process = nullptr;
 }
 
 void KateToolRunner::run()
+{
+    m_process->setProcessChannelMode(QProcess::MergedChannels);
+
+    QObject::connect(m_process, &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);
+    QObject::connect(m_process, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished), this, &KateToolRunner::toolFinished);
+
+    m_process->start(m_tool->executable, { m_tool->arguments });
+}
+
+void KateToolRunner::waitForFinished()
+{
+    m_process->waitForFinished();
+}
+
+
+QString KateToolRunner::stdoutData() const
+{
+    return QString::fromLocal8Bit(m_output );
+}
+
+void KateToolRunner::slotReadyRead()
+{
+    m_output += m_process->readAll();
+}
+
+void KateToolRunner::toolFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
 }
 

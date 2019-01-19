@@ -21,13 +21,18 @@
 #ifndef KTEXTEDITOR_EXTERNALTOOLRUNNER_H
 #define KTEXTEDITOR_EXTERNALTOOLRUNNER_H
 
+#include <QObject>
+#include <QString>
+#include <QByteArray>
+#include <QProcess>
+
 class KateExternalTool;
 class QProcess;
 
 /**
  * Helper class to run a KateExternalTool.
  */
-class KateToolRunner
+class KateToolRunner : public QObject
 {
 public:
     KateToolRunner(KateExternalTool * tool);
@@ -37,10 +42,26 @@ public:
     ~KateToolRunner();
 
     void run();
+    void waitForFinished();
+    QString stdoutData() const;
+
+private Q_SLOTS:
+    /**
+     * More tool output is available
+     */
+    void slotReadyRead();
+
+    /**
+     * Analysis finished
+     * @param exitCode analyzer process exit code
+     * @param exitStatus analyzer process exit status
+     */
+    void toolFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
     KateExternalTool * m_tool;
     QProcess * m_process = nullptr;
+    QByteArray m_output;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLRUNNER_H

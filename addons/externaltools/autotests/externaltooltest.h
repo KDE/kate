@@ -33,7 +33,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void testLoadSave();
-    void testToolRunner();
+    void testRunListDirectory();
 };
 
 #endif

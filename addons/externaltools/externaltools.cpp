@@ -423,14 +423,14 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     connect(btnMoveUp, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotMoveUp);
     connect(btnMoveDown, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotMoveDown);
 
-    config = new KConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
+    m_config = new KConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
     reset();
     slotSelectionChanged();
 }
 
 KateExternalToolsConfigWidget::~KateExternalToolsConfigWidget()
 {
-    delete config;
+    delete m_config;
 }
 
 QString KateExternalToolsConfigWidget::name() const
@@ -454,13 +454,13 @@ void KateExternalToolsConfigWidget::reset()
     lbTools->clear();
 
     // load the files from a KConfig
-    const QStringList tools = config->group("Global").readEntry("tools", QStringList());
+    const QStringList tools = m_config->group("Global").readEntry("tools", QStringList());
 
     for (QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it) {
         if (*it == QStringLiteral("---")) {
             new QListWidgetItem(QStringLiteral("---"), lbTools);
         } else {
-            KConfigGroup cg(config, *it);
+            KConfigGroup cg(m_config, *it);
 
             KateExternalTool* t = new KateExternalTool();
             t->load(cg);
@@ -500,36 +500,36 @@ void KateExternalToolsConfigWidget::apply()
         //     qDebug()<<"adding tool: "<<t->name;
         tools << t->acname;
 
-        KConfigGroup cg(config, t->acname);
+        KConfigGroup cg(m_config, t->acname);
         t->save(cg);
     }
 
-    config->group("Global").writeEntry("tools", tools);
+    m_config->group("Global").writeEntry("tools", tools);
 
     // if any tools was removed, try to delete their groups, and
     // add the group names to the list of removed items.
     if (m_removed.count()) {
         for (QStringList::iterator it = m_removed.begin(); it != m_removed.end(); ++it) {
-            if (config->hasGroup(*it))
-                config->deleteGroup(*it);
+            if (m_config->hasGroup(*it))
+                m_config->deleteGroup(*it);
         }
-        QStringList removed = config->group("Global").readEntry("removed", QStringList());
+        QStringList removed = m_config->group("Global").readEntry("removed", QStringList());
         removed += m_removed;
 
         // clean up the list of removed items, so that it does not contain
         // non-existing groups (we can't remove groups from a non-owned global file).
-        config->sync();
+        m_config->sync();
         QStringList::iterator it1 = removed.begin();
         while (it1 != removed.end()) {
-            if (!config->hasGroup(*it1))
+            if (!m_config->hasGroup(*it1))
                 it1 = removed.erase(it1);
             else
                 ++it1;
         }
-        config->group("Global").writeEntry("removed", removed);
+        m_config->group("Global").writeEntry("removed", removed);
     }
 
-    config->sync();
+    m_config->sync();
     m_plugin->reload();
 }
 
@@ -587,7 +587,7 @@ void KateExternalToolsConfigWidget::slotEdit()
     // show the item in an editor
     KateExternalTool* t = static_cast<ToolItem*>(lbTools->currentItem())->tool;
     KateExternalToolServiceEditor editor(t, this);
-    editor.resize(config->group("Editor").readEntry("Size", QSize()));
+    editor.resize(m_config->group("Editor").readEntry("Size", QSize()));
     if (editor.exec() /*== KDialog::Ok*/) {
 
         bool elementChanged = ((editor.ui->btnIcon->icon() != t->icon) || (editor.ui->edtName->text() != t->name));
@@ -611,8 +611,8 @@ void KateExternalToolsConfigWidget::slotEdit()
         m_changed = true;
     }
 
-    config->group("Editor").writeEntry("Size", editor.size());
-    config->sync();
+    m_config->group("Editor").writeEntry("Size", editor.size());
+    m_config->sync();
 }
 
 void KateExternalToolsConfigWidget::slotInsertSeparator()

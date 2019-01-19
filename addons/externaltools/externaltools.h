@@ -148,7 +148,7 @@ private:
 
     QStringList m_removed;
 
-    class KConfig* config;
+    class KConfig* m_config = nullptr;
 
     bool m_changed;
     KateExternalToolsPlugin* m_plugin;

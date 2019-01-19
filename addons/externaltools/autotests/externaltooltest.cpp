@@ -22,20 +22,46 @@
 #include "../kateexternaltool.h"
 
 #include <QtTest>
-
 #include <QString>
 
-QTEST_MAIN(ToolRunnerTest)
+#include <KConfig>
+#include <KConfigGroup>
 
-void ToolRunnerTest::initTestCase()
+QTEST_MAIN(ExternalToolTest)
+
+void ExternalToolTest::initTestCase()
 {
 }
 
-void ToolRunnerTest::cleanupTestCase()
+void ExternalToolTest::cleanupTestCase()
 {
 }
 
-void ToolRunnerTest::testToolRunner()
+void ExternalToolTest::testLoadSave()
+{
+    KConfig config;
+    KConfigGroup cg(&config, "tool");
+
+    KateExternalTool tool;
+    tool.name = QStringLiteral("git cola");
+    tool.icon = QStringLiteral("git-cola");
+    tool.executable = QStringLiteral("git-cola");
+    tool.arguments = QStringLiteral("none");
+    tool.command = QStringLiteral("git-cola");
+    tool.mimetypes = QStringList{ QStringLiteral("everything") };
+    tool.hasexec = true;
+    tool.actionName = QStringLiteral("asdf");
+    tool.cmdname = QStringLiteral("git-cola");
+    tool.saveMode = KateExternalTool::SaveMode::None;
+
+    tool.save(cg);
+
+    KateExternalTool copiedTool;
+    copiedTool.load(cg);
+    QCOMPARE(tool.name, copiedTool.name);
+}
+
+void ExternalToolTest::testToolRunner()
 {
 //     QCOMPARE(FileUtil::commonParent(QLatin1String("~/dev/proj1"), QLatin1String("~/dev/proj222")), QLatin1String("~/dev/"));
 }

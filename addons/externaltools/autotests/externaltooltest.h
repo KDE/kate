@@ -23,7 +23,7 @@
 
 #include <QObject>
 
-class ToolRunnerTest : public QObject
+class ExternalToolTest : public QObject
 {
     Q_OBJECT
 
@@ -32,6 +32,7 @@ public Q_SLOTS:
     void cleanupTestCase();
 
 private Q_SLOTS:
+    void testLoadSave();
     void testToolRunner();
 };
 

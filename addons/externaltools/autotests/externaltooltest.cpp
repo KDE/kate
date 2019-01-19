@@ -18,7 +18,7 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "toolrunnertest.h"
+#include "externaltooltest.h"
 #include "../kateexternaltool.h"
 
 #include <QtTest>

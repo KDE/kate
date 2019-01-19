@@ -257,47 +257,19 @@ void KateExternalToolsMenuAction::reload()
     KSharedConfig::Ptr pConfig = KSharedConfig::openConfig(QStringLiteral("externaltools"), KConfig::NoGlobals,
                                                            QStandardPaths::ApplicationsLocation);
     KConfigGroup config(pConfig, "Global");
-    QStringList tools = config.readEntry("tools", QStringList());
+    const QStringList tools = config.readEntry("tools", QStringList());
 
-    // if there are tools that are present but not explicitly removed,
-    // add them to the end of the list
-    pConfig->setReadDefaults(true);
-    QStringList dtools = config.readEntry("tools", QStringList());
-    int gver = config.readEntry("version", 1);
-    pConfig->setReadDefaults(false);
-
-    int ver = config.readEntry("version", 0);
-    if (ver <= gver) {
-        QStringList removed = config.readEntry("removed", QStringList());
-        bool sepadded = false;
-        for (QStringList::iterator itg = dtools.begin(); itg != dtools.end(); ++itg) {
-            if (!tools.contains(*itg) && !removed.contains(*itg)) {
-                if (!sepadded) {
-                    tools << QStringLiteral("---");
-                    sepadded = true;
-                }
-                tools << *itg;
-            }
-        }
-
-        config.writeEntry("tools", tools);
-        config.sync();
-        config.writeEntry("version", gver);
-    }
-
-    for (QStringList::const_iterator it = tools.constBegin(); it != tools.constEnd(); ++it) {
-        if (*it == QStringLiteral("---")) {
+    for (int i = 0; i < tools.size(); ++i) {
+        const QString & toolSection = tools[i];
+        if (toolSection == QStringLiteral("---")) {
             menu()->addSeparator();
             // a separator
             continue;
         }
 
-        config = KConfigGroup(pConfig, *it);
-
-        KateExternalTool* t = new KateExternalTool(
-            config.readEntry("name", ""), config.readEntry("command", ""), config.readEntry("icon", ""),
-            config.readEntry("executable", ""), config.readEntry("mimetypes", QStringList()),
-            config.readEntry("acname", ""), config.readEntry("cmdname", ""), static_cast<KateExternalTool::SaveMode>(config.readEntry("save", 0)));
+        config = KConfigGroup(pConfig, toolSection);
+        KateExternalTool* t = new KateExternalTool();
+        t->load(config);
 
         if (t->hasexec) {
             QAction* a = new KateExternalToolAction(this, t);
@@ -455,12 +427,12 @@ void KateExternalToolsConfigWidget::reset()
     // load the files from a KConfig
     const QStringList tools = m_config->group("Global").readEntry("tools", QStringList());
 
-    for (QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it) {
-        if (*it == QStringLiteral("---")) {
+    for (int i = 0; i < tools.size(); ++i) {
+        const QString & toolSection = tools[i];
+        if (toolSection == QStringLiteral("---")) {
             new QListWidgetItem(QStringLiteral("---"), lbTools);
         } else {
-            KConfigGroup cg(m_config, *it);
-
+            KConfigGroup cg(m_config, toolSection);
             KateExternalTool* t = new KateExternalTool();
             t->load(cg);
 
@@ -487,46 +459,21 @@ void KateExternalToolsConfigWidget::apply()
         return;
     m_changed = false;
 
-    // save a new list
-    // save each item
     QStringList tools;
     for (int i = 0; i < lbTools->count(); i++) {
         if (lbTools->item(i)->text() == QStringLiteral("---")) {
             tools << QStringLiteral("---");
             continue;
         }
-        KateExternalTool* t = static_cast<ToolItem*>(lbTools->item(i))->tool;
-        //     qDebug()<<"adding tool: "<<t->name;
-        tools << t->acname;
+        const QString toolSection = QStringLiteral("Tool ") + QString::number(i);
+        tools << toolSection;
 
-        KConfigGroup cg(m_config, t->acname);
+        KConfigGroup cg(m_config, toolSection);
+        KateExternalTool* t = static_cast<ToolItem*>(lbTools->item(i))->tool;
         t->save(cg);
     }
 
     m_config->group("Global").writeEntry("tools", tools);
-
-    // if any tools was removed, try to delete their groups, and
-    // add the group names to the list of removed items.
-    if (m_removed.count()) {
-        for (QStringList::iterator it = m_removed.begin(); it != m_removed.end(); ++it) {
-            if (m_config->hasGroup(*it))
-                m_config->deleteGroup(*it);
-        }
-        QStringList removed = m_config->group("Global").readEntry("removed", QStringList());
-        removed += m_removed;
-
-        // clean up the list of removed items, so that it does not contain
-        // non-existing groups (we can't remove groups from a non-owned global file).
-        m_config->sync();
-        QStringList::iterator it1 = removed.begin();
-        while (it1 != removed.end()) {
-            if (!m_config->hasGroup(*it1))
-                it1 = removed.erase(it1);
-            else
-                ++it1;
-        }
-        m_config->group("Global").writeEntry("removed", removed);
-    }
 
     m_config->sync();
     m_plugin->reload();

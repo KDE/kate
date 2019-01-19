@@ -60,6 +60,7 @@ void KateExternalTool::load(const KConfigGroup & cg)
     actionName = cg.readEntry("actionName");
     cmdname = cg.readEntry("cmdname");
     saveMode = static_cast<KateExternalTool::SaveMode>(cg.readEntry("save", 0));
+    includeStderr = cg.readEntry("includeStderr", false);
 
     hasexec = checkExec();
 }
@@ -74,6 +75,7 @@ void KateExternalTool::save(KConfigGroup & cg)
     cg.writeEntry("actionName", actionName);
     cg.writeEntry("cmdname", cmdname);
     cg.writeEntry("save", static_cast<int>(saveMode));
+    cg.writeEntry("includeStderr", includeStderr);
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -53,7 +53,7 @@
 #include <QLabel>
 #include <QObject>
 #include <QPushButton>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTextEdit>
 #include <QToolButton>
 
@@ -352,6 +352,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
         ui->edtMimeType->setText(tool->mimetypes.join(QStringLiteral("; ")));
         ui->cmbSave->setCurrentIndex(static_cast<int>(tool->saveMode));
         ui->edtCommand->setText(tool->cmdname);
+        ui->chkIncludeStderr->setChecked(tool->includeStderr);
     }
 }
 
@@ -367,7 +368,7 @@ void KateExternalToolServiceEditor::slotOKClicked()
 void KateExternalToolServiceEditor::showMTDlg()
 {
     QString text = i18n("Select the MimeTypes for which to enable this tool.");
-    QStringList list = ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+    QStringList list = ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
     KMimeTypeChooserDialog d(i18n("Select Mime Types"), text, list, QStringLiteral("text"), this);
     if (d.exec() == QDialog::Accepted) {
         ui->edtMimeType->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
@@ -496,9 +497,14 @@ void KateExternalToolsConfigWidget::slotNew()
     KateExternalToolServiceEditor editor(nullptr, this);
 
     if (editor.exec() == QDialog::Accepted) {
-        KateExternalTool* t = new KateExternalTool(
-            editor.ui->edtName->text(), editor.ui->edtInput->toPlainText(), editor.ui->btnIcon->icon(), editor.ui->edtExecutable->text(),
-            editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts));
+        KateExternalTool* t = new KateExternalTool();
+        t->name = editor.ui->edtName->text();
+        t->command = editor.ui->edtInput->toPlainText();
+        t->icon = editor.ui->btnIcon->icon();
+        t->executable = editor.ui->edtExecutable->text();
+        t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+        t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
+        t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
 
         // This is sticky, it does not change again, so that shortcuts sticks
         // TODO check for dups
@@ -545,6 +551,7 @@ void KateExternalToolsConfigWidget::slotEdit()
         t->executable = editor.ui->edtExecutable->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
+        t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
 
         // if the icon has changed or name changed, I have to renew the listbox item :S
         if (elementChanged) {

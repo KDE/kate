@@ -36,7 +36,9 @@ KateToolRunner::~KateToolRunner()
 
 void KateToolRunner::run()
 {
-    m_process->setProcessChannelMode(QProcess::MergedChannels);
+    if (m_tool->includeStderr) {
+        m_process->setProcessChannelMode(QProcess::MergedChannels);
+    }
 
     QObject::connect(m_process, &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);
     QObject::connect(m_process, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished), this, &KateToolRunner::toolFinished);

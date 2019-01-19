@@ -97,6 +97,8 @@ public:
 
     /// Possibly redirect the stdout output of the tool.
     //OutputMode outputMode;
+    /// Include stderr output when running the tool.
+    bool includeStderr = false;
 
     /**
      * @return true if mimetypes is empty, or the @p mimetype matches.

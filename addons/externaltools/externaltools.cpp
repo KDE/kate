@@ -406,7 +406,6 @@ void KateExternalToolServiceEditor::showMTDlg()
 // BEGIN KateExternalToolsConfigWidget
 KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin)
     : KTextEditor::ConfigPage(parent)
-    , m_changed(false)
     , m_plugin(plugin)
 {
     setupUi(this);

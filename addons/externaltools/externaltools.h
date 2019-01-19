@@ -149,8 +149,7 @@ private:
     QStringList m_removed;
 
     class KConfig* m_config = nullptr;
-
-    bool m_changed;
+    bool m_changed = false;
     KateExternalToolsPlugin* m_plugin;
 };
 

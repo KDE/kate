@@ -25,6 +25,7 @@
 #ifndef KTEXTEDITOR_KATE_EXTERNALTOOL_H
 #define KTEXTEDITOR_KATE_EXTERNALTOOL_H
 
+#include <QObject>
 #include <QString>
 #include <QStringList>
 
@@ -33,26 +34,67 @@
  */
 class KateExternalTool
 {
+    Q_GADGET
+
+public:
+    /**
+     * Defines whether any document should be saved before running the tool.
+     */
+    enum class SaveMode {
+        //! Do not save any document.
+        None,
+        //! Save current document.
+        CurrentDocument,
+        //! Save all documents
+        AllDocuments
+    };
+    Q_ENUM(SaveMode)
+
+    /**
+     * Defines where to redirect stdout from the tool.
+     */
+//     enum class OutputMode {
+//         Ignore,
+//         InsertAtCursor,
+//         ReplaceSelectedText,
+//         AppendToCurrentDocument,
+//         InsertInNewDocument,
+//         DisplayInPane
+//     }
+//     Q_ENUM(OutputMode)
+
 public:
     explicit KateExternalTool(const QString& name = QString(), const QString& command = QString(),
                               const QString& icon = QString(), const QString& executable = QString(),
                               const QStringList& mimetypes = QStringList(), const QString& acname = QString(),
-                              const QString& cmdname = QString(), int save = 0);
+                              const QString& cmdname = QString(), SaveMode saveMode = SaveMode::None);
     ~KateExternalTool() = default;
 
-    QString name;       ///< The name used in the menu.
-    QString icon;       ///< the icon to use in the menu.
-    QString executable; ///< The name or path of the executable.
-    QString arguments;  ///< The command line arguments.
-    QString command;    ///< The command to execute.
-    QStringList mimetypes; ///< Optional list of mimetypes for which this action is valid.
-    bool hasexec;       ///< This is set by the constructor by calling checkExec(), if a
-                        ///< value is present.
-    QString acname;     ///< The name for the action. This is generated first time the
-                        ///< action is is created.
-    QString cmdname;    ///< The name for the commandline.
-    int save;           ///< We can save documents prior to activating the tool command:
-                        ///< 0 = nothing, 1 = current document, 2 = all documents.
+    /// The name used in the menu.
+    QString name;
+    /// the icon to use in the menu.
+    QString icon;
+    /// The name or path of the executable.
+    QString executable;
+    /// The command line arguments.
+    QString arguments;
+    /// The command to execute.
+    QString command;
+    /// Optional list of mimetypes for which this action is valid.
+    QStringList mimetypes;
+    /// This is set by the constructor by calling checkExec(), if a
+    /// value is present.
+    bool hasexec;
+    /// The name for the action. This is generated first time the
+    /// action is is created.
+    QString acname;
+    /// The name for the commandline.
+    QString cmdname;
+    /// Possibly save documents prior to activating the tool command.
+    SaveMode saveMode = SaveMode::None;
+
+    /// Possibly redirect the stdout output of the tool.
+    //OutputMode outputMode;
 
     /**
      * @return true if mimetypes is empty, or the @p mimetype matches.

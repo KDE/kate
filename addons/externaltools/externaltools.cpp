@@ -210,9 +210,9 @@ void KateExternalToolAction::slotRun()
     qDebug() << "externaltools: Running command: " << cmd;
 
     // save documents if requested
-    if (tool->save == 1)
+    if (tool->saveMode == KateExternalTool::SaveMode::CurrentDocument)
         mw->activeView()->document()->save();
-    else if (tool->save == 2) {
+    else if (tool->saveMode == KateExternalTool::SaveMode::AllDocuments) {
         foreach (KXMLGUIClient* client, mw->guiFactory()->clients()) {
             if (QAction* a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {
                 a->trigger();
@@ -297,7 +297,7 @@ void KateExternalToolsMenuAction::reload()
         KateExternalTool* t = new KateExternalTool(
             config.readEntry("name", ""), config.readEntry("command", ""), config.readEntry("icon", ""),
             config.readEntry("executable", ""), config.readEntry("mimetypes", QStringList()),
-            config.readEntry("acname", ""), config.readEntry("cmdname", ""), config.readEntry("save", 0));
+            config.readEntry("acname", ""), config.readEntry("cmdname", ""), static_cast<KateExternalTool::SaveMode>(config.readEntry("save", 0)));
 
         if (t->hasexec) {
             QAction* a = new KateExternalToolAction(this, t);
@@ -378,7 +378,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
         ui->edtExecutable->setText(tool->executable);
         ui->edtInput->setText(tool->command);
         ui->edtMimeType->setText(tool->mimetypes.join(QStringLiteral("; ")));
-        ui->cmbSave->setCurrentIndex(tool->save);
+        ui->cmbSave->setCurrentIndex(static_cast<int>(tool->saveMode));
         ui->edtCommand->setText(tool->cmdname);
     }
 }
@@ -465,7 +465,7 @@ void KateExternalToolsConfigWidget::reset()
             KateExternalTool* t
                 = new KateExternalTool(cg.readEntry("name", ""), cg.readEntry("command", ""), cg.readEntry("icon", ""),
                                        cg.readEntry("executable", ""), cg.readEntry("mimetypes", QStringList()),
-                                       cg.readEntry("acname"), cg.readEntry("cmdname"), cg.readEntry("save", 0));
+                                       cg.readEntry("acname"), cg.readEntry("cmdname"), static_cast<KateExternalTool::SaveMode>(cg.readEntry("save", 0)));
 
             if (t->hasexec) // we only show tools that are also in the menu.
                 new ToolItem(lbTools, t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
@@ -511,7 +511,7 @@ void KateExternalToolsConfigWidget::apply()
         cg.writeEntry("mimetypes", t->mimetypes);
         cg.writeEntry("acname", t->acname);
         cg.writeEntry("cmdname", t->cmdname);
-        cg.writeEntry("save", t->save);
+        cg.writeEntry("save", static_cast<int>(t->saveMode));
     }
 
     config->group("Global").writeEntry("tools", tools);
@@ -608,7 +608,7 @@ void KateExternalToolsConfigWidget::slotEdit()
         t->icon = editor.ui->btnIcon->icon();
         t->executable = editor.ui->edtExecutable->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
-        t->save = editor.ui->cmbSave->currentIndex();
+        t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
 
         // if the icon has changed or name changed, I have to renew the listbox item :S
         if (elementChanged) {

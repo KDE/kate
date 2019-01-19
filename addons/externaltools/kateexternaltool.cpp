@@ -26,7 +26,7 @@
 
 KateExternalTool::KateExternalTool(const QString& name, const QString& command, const QString& icon,
                                    const QString& executable, const QStringList& mimetypes, const QString& acname,
-                                   const QString& cmdname, int save)
+                                   const QString& cmdname, SaveMode saveMode)
     : name(name)
     , icon(icon)
     , executable(executable)
@@ -34,7 +34,7 @@ KateExternalTool::KateExternalTool(const QString& name, const QString& command, 
     , mimetypes(mimetypes)
     , acname(acname)
     , cmdname(cmdname)
-    , save(save)
+    , saveMode(saveMode)
 {
     // if ( ! executable.isEmpty() )
     hasexec = checkExec();

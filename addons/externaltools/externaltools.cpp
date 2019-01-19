@@ -93,11 +93,11 @@ void KateExternalToolsCommand::reload()
             = KateExternalTool(config.readEntry(QStringLiteral("name"), ""), config.readEntry("command", ""),
                                config.readEntry(QStringLiteral("icon"), ""), config.readEntry("executable", ""),
                                config.readEntry(QStringLiteral("mimetypes"), QStringList()),
-                               config.readEntry(QStringLiteral("acname"), ""), config.readEntry("cmdname", ""));
+                               config.readEntry(QStringLiteral("actionName"), ""), config.readEntry("cmdname", ""));
         // FIXME test for a command name first!
         if (t.hasexec && (!t.cmdname.isEmpty())) {
             m_list.append(QStringLiteral("exttool-") + t.cmdname);
-            m_map.insert(QStringLiteral("exttool-") + t.cmdname, t.acname);
+            m_map.insert(QStringLiteral("exttool-") + t.cmdname, t.actionName);
             m_name.insert(QStringLiteral("exttool-") + t.cmdname, t.name);
         }
     }
@@ -273,7 +273,7 @@ void KateExternalToolsMenuAction::reload()
 
         if (t->hasexec) {
             QAction* a = new KateExternalToolAction(this, t);
-            m_actionCollection->addAction(t->acname, a);
+            m_actionCollection->addAction(t->actionName, a);
             addAction(a);
         } else
             delete t;
@@ -502,7 +502,7 @@ void KateExternalToolsConfigWidget::slotNew()
 
         // This is sticky, it does not change again, so that shortcuts sticks
         // TODO check for dups
-        t->acname = QStringLiteral("externaltool_") + QString(t->name).remove(QRegExp(QStringLiteral("\\W+")));
+        t->actionName = QStringLiteral("externaltool_") + QString(t->name).remove(QRegExp(QStringLiteral("\\W+")));
 
         new ToolItem(lbTools, t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
 
@@ -518,7 +518,7 @@ void KateExternalToolsConfigWidget::slotRemove()
     if (lbTools->currentRow() > -1) {
         ToolItem* i = dynamic_cast<ToolItem*>(lbTools->currentItem());
         if (i)
-            m_removed << i->tool->acname;
+            m_removed << i->tool->actionName;
 
         delete lbTools->takeItem(lbTools->currentRow());
         emit changed();

@@ -68,7 +68,7 @@ public:
 public:
     explicit KateExternalTool(const QString& name = QString(), const QString& command = QString(),
                               const QString& icon = QString(), const QString& executable = QString(),
-                              const QStringList& mimetypes = QStringList(), const QString& acname = QString(),
+                              const QStringList& mimetypes = QStringList(), const QString& actionName = QString(),
                               const QString& cmdname = QString(), SaveMode saveMode = SaveMode::None);
     ~KateExternalTool() = default;
 
@@ -89,7 +89,7 @@ public:
     bool hasexec;
     /// The name for the action. This is generated first time the
     /// action is is created.
-    QString acname;
+    QString actionName;
     /// The name for the commandline.
     QString cmdname;
     /// Possibly save documents prior to activating the tool command.

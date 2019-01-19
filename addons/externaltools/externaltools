@@ -3,7 +3,7 @@ tools=externaltool_RunScript,---,externaltool_GoogleSelection
 version=1
 
 [externaltool_GoogleSelection]
-acname=externaltool_GoogleSelection
+actionName=externaltool_GoogleSelection
 cmdname=google-selection
 command=[ -n "%selection" ] && kfmclient openURL "gg:%selection"
 executable=kfmclient
@@ -13,7 +13,7 @@ name=Google Selection
 save=0
 
 [externaltool_RunScript]
-acname=externaltool_RunScript
+actionName=externaltool_RunScript
 cmdname=runscript
 command=konsole -e sh -c "cd %directory && pwd && chmod -vc a+x %filename && ./%filename ; echo Press any key to continue. && read -n 1"
 executable=konsole

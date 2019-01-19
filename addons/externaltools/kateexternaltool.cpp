@@ -24,14 +24,14 @@
 #include <QStandardPaths>
 
 KateExternalTool::KateExternalTool(const QString& name, const QString& command, const QString& icon,
-                                   const QString& executable, const QStringList& mimetypes, const QString& acname,
+                                   const QString& executable, const QStringList& mimetypes, const QString& actionName,
                                    const QString& cmdname, SaveMode saveMode)
     : name(name)
     , icon(icon)
     , executable(executable)
     , command(command)
     , mimetypes(mimetypes)
-    , acname(acname)
+    , actionName(actionName)
     , cmdname(cmdname)
     , saveMode(saveMode)
 {
@@ -57,9 +57,11 @@ void KateExternalTool::load(const KConfigGroup & cg)
     icon = cg.readEntry("icon", "");
     executable = cg.readEntry("executable", "");
     mimetypes = cg.readEntry("mimetypes", QStringList());
-    acname = cg.readEntry("acname");
+    actionName = cg.readEntry("actionName");
     cmdname = cg.readEntry("cmdname");
     saveMode = static_cast<KateExternalTool::SaveMode>(cg.readEntry("save", 0));
+
+    hasexec = checkExec();
 }
 
 void KateExternalTool::save(KConfigGroup & cg)
@@ -69,7 +71,7 @@ void KateExternalTool::save(KConfigGroup & cg)
     cg.writeEntry("icon", icon);
     cg.writeEntry("executable", executable);
     cg.writeEntry("mimetypes", mimetypes);
-    cg.writeEntry("acname", acname);
+    cg.writeEntry("actionName", actionName);
     cg.writeEntry("cmdname", cmdname);
     cg.writeEntry("save", static_cast<int>(saveMode));
 }

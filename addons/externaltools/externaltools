@@ -1,8 +1,8 @@
 [Global]
-tools=externaltool_RunScript,---,externaltool_GoogleSelection
+tools=Tool 0,---,Tool 2
 version=1
 
-[externaltool_GoogleSelection]
+[Tool 0]
 actionName=externaltool_GoogleSelection
 cmdname=google-selection
 command=[ -n "%selection" ] && kfmclient openURL "gg:%selection"
@@ -12,7 +12,7 @@ mimetypes=
 name=Google Selection
 save=0
 
-[externaltool_RunScript]
+[Tool 2]
 actionName=externaltool_RunScript
 cmdname=runscript
 command=konsole -e sh -c "cd %directory && pwd && chmod -vc a+x %filename && ./%filename ; echo Press any key to continue. && read -n 1"

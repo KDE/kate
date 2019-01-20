@@ -411,7 +411,7 @@
       <li xml:lang="uk">Пошук і заміна фрагментів тексту на основі формальних виразів.</li>
       <li xml:lang="x-test">xxRegular expression based find &amp; replacexx</li>
       <li xml:lang="zh-CN">基于正则表达式的查找和替换</li>
-      <li xml:lang="zh-TW">搜尋與取代支援正規表示式</li>
+      <li xml:lang="zh-TW">搜尋與取代支援正則表達式</li>
       <li>Powerful syntax highlighting and bracket matching</li>
       <li xml:lang="ar">دعم قويّ لإبراز الصّياغة ومطابقة الأقواس</li>
       <li xml:lang="ca">Ressaltat potent de sintaxi i concordança de parèntesis</li>
@@ -791,7 +791,7 @@
       <li xml:lang="gl">Atallos personalizábeis.</li>
       <li xml:lang="hu">Testre szabható gyorsbillentyűk</li>
       <li xml:lang="ia">Vias breve personalisabile</li>
-      <li xml:lang="id">Shortcut dapat dikustomisasi</li>
+      <li xml:lang="id">Pintasan dapat dikustomisasi</li>
       <li xml:lang="it">Scorciatoie personalizzabili</li>
       <li xml:lang="ko">사용자 정의 가능한 단축키</li>
       <li xml:lang="nb">Brukerstyrte snarveier</li>

@@ -52,6 +52,14 @@ void KateToolRunner::run()
     QObject::connect(m_process, &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);
     QObject::connect(m_process, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished), this, &KateToolRunner::toolFinished);
 
+    // Write stdin to process, if applicable, then close write channel
+    QObject::connect(m_process, &QProcess::started, [this](){
+        if (!m_tool->input.isEmpty()) {
+            m_process->write(m_tool->input.toLocal8Bit());
+        }
+        m_process->closeWriteChannel();
+    });
+
     const QStringList args = KShell::splitArgs(m_tool->arguments);
     m_process->start(m_tool->executable, args);
 }

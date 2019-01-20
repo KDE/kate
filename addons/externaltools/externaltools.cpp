@@ -348,6 +348,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
             ui->btnIcon->setIcon(tool->icon);
 
         ui->edtExecutable->setText(tool->executable);
+        ui->edtArgs->setText(tool->arguments);
         ui->edtInput->setText(tool->command);
         ui->edtCommand->setText(tool->cmdname);
         ui->edtWorkingDir->setText(tool->workingDir);
@@ -359,8 +360,8 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
 
 void KateExternalToolServiceEditor::slotOKClicked()
 {
-    if (ui->edtName->text().isEmpty() || ui->edtInput->document()->isEmpty()) {
-        QMessageBox::information(this, i18n("External Tool"), i18n("You must specify at least a name and a command"));
+    if (ui->edtName->text().isEmpty() || ui->edtExecutable->text().isEmpty()) {
+        QMessageBox::information(this, i18n("External Tool"), i18n("You must specify at least a name and an executable"));
         return;
     }
     accept();
@@ -501,8 +502,9 @@ void KateExternalToolsConfigWidget::slotNew()
         KateExternalTool* t = new KateExternalTool();
         t->name = editor.ui->edtName->text();
         t->icon = editor.ui->btnIcon->icon();
-        t->command = editor.ui->edtInput->toPlainText();
         t->executable = editor.ui->edtExecutable->text();
+        t->arguments = editor.ui->edtArgs->text();
+        t->command = editor.ui->edtInput->toPlainText();
         t->workingDir = editor.ui->edtWorkingDir->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
@@ -548,9 +550,10 @@ void KateExternalToolsConfigWidget::slotEdit()
 
         t->name = editor.ui->edtName->text();
         t->icon = editor.ui->btnIcon->icon();
+        t->executable = editor.ui->edtExecutable->text();
+        t->arguments = editor.ui->edtArgs->text();
         t->cmdname = editor.ui->edtCommand->text();
         t->command = editor.ui->edtInput->toPlainText();
-        t->executable = editor.ui->edtExecutable->text();
         t->workingDir = editor.ui->edtWorkingDir->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());

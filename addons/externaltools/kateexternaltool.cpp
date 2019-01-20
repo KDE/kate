@@ -56,6 +56,7 @@ void KateExternalTool::load(const KConfigGroup & cg)
     command = cg.readEntry("command", "");
     icon = cg.readEntry("icon", "");
     executable = cg.readEntry("executable", "");
+    arguments = cg.readEntry("arguments", "");
     workingDir = cg.readEntry("workingDir", "");
     mimetypes = cg.readEntry("mimetypes", QStringList());
     actionName = cg.readEntry("actionName");
@@ -72,6 +73,7 @@ void KateExternalTool::save(KConfigGroup & cg)
     cg.writeEntry("command", command);
     cg.writeEntry("icon", icon);
     cg.writeEntry("executable", executable);
+    cg.writeEntry("arguments", arguments);
     cg.writeEntry("workingDir", workingDir);
     cg.writeEntry("mimetypes", mimetypes);
     cg.writeEntry("actionName", actionName);

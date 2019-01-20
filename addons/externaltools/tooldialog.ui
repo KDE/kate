@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>470</width>
-    <height>491</height>
+    <height>510</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -322,6 +322,25 @@
    <header>kiconbutton.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>edtName</tabstop>
+  <tabstop>btnIcon</tabstop>
+  <tabstop>edtExecutable</tabstop>
+  <tabstop>btnExecutable</tabstop>
+  <tabstop>edtArgs</tabstop>
+  <tabstop>btnArgs</tabstop>
+  <tabstop>edtInput</tabstop>
+  <tabstop>btnInput</tabstop>
+  <tabstop>edtWorkingDir</tabstop>
+  <tabstop>btnWorkingDir</tabstop>
+  <tabstop>edtMimeType</tabstop>
+  <tabstop>btnMimeType</tabstop>
+  <tabstop>cmbSave</tabstop>
+  <tabstop>chkReload</tabstop>
+  <tabstop>cmbOutput</tabstop>
+  <tabstop>chkIncludeStderr</tabstop>
+  <tabstop>edtCommand</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

@@ -37,10 +37,10 @@ bool KateExternalTool::valid(const QString& mt) const
 void KateExternalTool::load(const KConfigGroup & cg)
 {
     name = cg.readEntry("name", "");
-    command = cg.readEntry("command", "");
     icon = cg.readEntry("icon", "");
     executable = cg.readEntry("executable", "");
     arguments = cg.readEntry("arguments", "");
+    input = cg.readEntry("input", "");
     workingDir = cg.readEntry("workingDir", "");
     mimetypes = cg.readEntry("mimetypes", QStringList());
     actionName = cg.readEntry("actionName");
@@ -54,10 +54,10 @@ void KateExternalTool::load(const KConfigGroup & cg)
 void KateExternalTool::save(KConfigGroup & cg)
 {
     cg.writeEntry("name", name);
-    cg.writeEntry("command", command);
     cg.writeEntry("icon", icon);
     cg.writeEntry("executable", executable);
     cg.writeEntry("arguments", arguments);
+    cg.writeEntry("input", input);
     cg.writeEntry("workingDir", workingDir);
     cg.writeEntry("mimetypes", mimetypes);
     cg.writeEntry("actionName", actionName);

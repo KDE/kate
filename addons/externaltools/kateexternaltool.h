@@ -74,8 +74,8 @@ public:
     QString executable;
     /// The command line arguments.
     QString arguments;
-    /// The command to execute.
-    QString command;
+    /// The stdin input.
+    QString input;
     /// The working directory, if specified.
     QString workingDir;
     /// Optional list of mimetypes for which this action is valid.

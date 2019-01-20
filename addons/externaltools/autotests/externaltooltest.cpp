@@ -48,7 +48,7 @@ void ExternalToolTest::testLoadSave()
     tool.icon = QStringLiteral("git-cola");
     tool.executable = QStringLiteral("git-cola");
     tool.arguments = QStringLiteral("none");
-    tool.command = QStringLiteral("git-cola");
+    tool.input = QStringLiteral("in");
     tool.workingDir = QStringLiteral("/usr/bin");
     tool.mimetypes = QStringList{ QStringLiteral("everything") };
     tool.hasexec = true;
@@ -58,9 +58,9 @@ void ExternalToolTest::testLoadSave()
 
     tool.save(cg);
 
-    KateExternalTool copiedTool;
-    copiedTool.load(cg);
-    QCOMPARE(tool.name, copiedTool.name);
+    KateExternalTool clonedTool;
+    clonedTool.load(cg);
+    QCOMPARE(tool.name, clonedTool.name);
 }
 
 void ExternalToolTest::testRunListDirectory()

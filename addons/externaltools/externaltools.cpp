@@ -162,14 +162,12 @@ void KateExternalToolAction::slotRun()
 {
     // expand the macros in command if any,
     // and construct a command with an absolute path
-    QString cmd = tool->command;
-
     auto mw = qobject_cast<KTextEditor::MainWindow*>(parent()->parent());
 
     // save documents if requested
-    if (tool->saveMode == KateExternalTool::SaveMode::CurrentDocument)
+    if (tool->saveMode == KateExternalTool::SaveMode::CurrentDocument) {
         mw->activeView()->document()->save();
-    else if (tool->saveMode == KateExternalTool::SaveMode::AllDocuments) {
+    } else if (tool->saveMode == KateExternalTool::SaveMode::AllDocuments) {
         foreach (KXMLGUIClient* client, mw->guiFactory()->clients()) {
             if (QAction* a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {
                 a->trigger();
@@ -187,7 +185,6 @@ void KateExternalToolAction::slotRun()
         return;
     }
 
-//     KRun::runCommand(cmd, tool->executable, tool->icon, mw->window());
     KateToolRunner runner(copy);
     runner.run();
     runner.waitForFinished();
@@ -318,7 +315,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
 
         ui->edtExecutable->setText(tool->executable);
         ui->edtArgs->setText(tool->arguments);
-        ui->edtInput->setText(tool->command);
+        ui->edtInput->setText(tool->input);
         ui->edtCommand->setText(tool->cmdname);
         ui->edtWorkingDir->setText(tool->workingDir);
         ui->edtMimeType->setText(tool->mimetypes.join(QStringLiteral("; ")));
@@ -473,7 +470,7 @@ void KateExternalToolsConfigWidget::slotNew()
         t->icon = editor.ui->btnIcon->icon();
         t->executable = editor.ui->edtExecutable->text();
         t->arguments = editor.ui->edtArgs->text();
-        t->command = editor.ui->edtInput->toPlainText();
+        t->input = editor.ui->edtInput->toPlainText();
         t->workingDir = editor.ui->edtWorkingDir->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
@@ -521,8 +518,8 @@ void KateExternalToolsConfigWidget::slotEdit()
         t->icon = editor.ui->btnIcon->icon();
         t->executable = editor.ui->edtExecutable->text();
         t->arguments = editor.ui->edtArgs->text();
+        t->input = editor.ui->edtInput->toPlainText();
         t->cmdname = editor.ui->edtCommand->text();
-        t->command = editor.ui->edtInput->toPlainText();
         t->workingDir = editor.ui->edtWorkingDir->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());

@@ -185,6 +185,13 @@ void KateExternalToolAction::slotRun()
         return;
     }
 
+    if (!macroExpander.expandMacrosShellQuote(copy->workingDir)) {
+        KMessageBox::sorry(mw->activeView(), i18n("Failed to expand the working directory '%1'.", copy->workingDir), i18n("Kate External Tools"));
+        return;
+    }
+
+    // FIXME: The tool runner must live as long as the child process is running.
+    //        --> it must be allocated on the heap, and deleted with a ->deleteLater() call.
     KateToolRunner runner(copy);
     runner.run();
     runner.waitForFinished();

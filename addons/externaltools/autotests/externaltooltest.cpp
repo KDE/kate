@@ -65,33 +65,31 @@ void ExternalToolTest::testLoadSave()
 
 void ExternalToolTest::testRunListDirectory()
 {
-    KateExternalTool tool;
-    tool.name = QStringLiteral("ls");
-    tool.icon = QStringLiteral("none");
-    tool.executable = QStringLiteral("ls");
-    tool.arguments = QStringLiteral("/usr");
-    tool.command = QStringLiteral("ls");
-    tool.workingDir = QStringLiteral("/tmp");
-    tool.mimetypes = QStringList{};
-    tool.hasexec = true;
-    tool.actionName = QStringLiteral("ls");
-    tool.cmdname = QStringLiteral("ls");
-    tool.saveMode = KateExternalTool::SaveMode::None;
+    auto tool = new KateExternalTool();
+    tool->name = QStringLiteral("ls");
+    tool->icon = QStringLiteral("none");
+    tool->executable = QStringLiteral("ls");
+    tool->arguments = QStringLiteral("/usr");
+    tool->workingDir = QStringLiteral("/tmp");
+    tool->mimetypes = QStringList{};
+    tool->hasexec = true;
+    tool->actionName = QStringLiteral("ls");
+    tool->cmdname = QStringLiteral("ls");
+    tool->saveMode = KateExternalTool::SaveMode::None;
 
     // 1. /tmp $ ls /usr
-    KateToolRunner runner1(&tool);
+    KateToolRunner runner1(tool);
     runner1.run();
     runner1.waitForFinished();
     QVERIFY(runner1.outputData().contains(QStringLiteral("bin")));
 
     // 2. /usr $ ls
-    tool.arguments.clear();
-    tool.workingDir = QStringLiteral("/usr");
-    KateToolRunner runner2(&tool);
+    auto tool2 = new KateExternalTool(*tool);
+    tool2->arguments.clear();
+    tool2->workingDir = QStringLiteral("/usr");
+    KateToolRunner runner2(tool2);
     runner2.run();
     runner2.waitForFinished();
-    qDebug() << runner1.outputData();
-    qDebug() << runner2.outputData();
     QVERIFY(runner2.outputData().contains(QStringLiteral("bin")));
 
     // 1. and 2. must give the same result

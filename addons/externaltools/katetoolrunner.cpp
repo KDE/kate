@@ -32,6 +32,9 @@ KateToolRunner::KateToolRunner(KateExternalTool * tool)
 
 KateToolRunner::~KateToolRunner()
 {
+    delete m_tool;
+    m_tool = nullptr;
+
     delete m_process;
     m_process = nullptr;
 }

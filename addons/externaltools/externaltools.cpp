@@ -26,6 +26,7 @@
 #include "kateexternaltool.h"
 #include "externaltoolsplugin.h"
 #include "katemacroexpander.h"
+#include "katetoolrunner.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -38,7 +39,6 @@
 #include <KIconLoader>
 #include <KMessageBox>
 #include <KMimeTypeChooser>
-#include <KRun>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
 #include <KXmlGuiWindow>
@@ -178,7 +178,19 @@ void KateExternalToolAction::slotRun()
         }
     }
 
-    KRun::runCommand(cmd, tool->executable, tool->icon, mw->window());
+    // copy tool
+    auto copy = new KateExternalTool(*tool);
+
+    MacroExpander macroExpander(mw->activeView());
+    if (!macroExpander.expandMacrosShellQuote(copy->arguments)) {
+        KMessageBox::sorry(mw->activeView(), i18n("Failed to expand the arguments '%1'.", copy->arguments), i18n("Kate External Tools"));
+        return;
+    }
+
+//     KRun::runCommand(cmd, tool->executable, tool->icon, mw->window());
+    KateToolRunner runner(copy);
+    runner.run();
+    runner.waitForFinished();
 }
 // END KateExternalToolAction
 

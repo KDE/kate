@@ -96,4 +96,19 @@ void ExternalToolTest::testRunListDirectory()
     QCOMPARE(runner1.outputData(), runner2.outputData());
 }
 
+void ExternalToolTest::testRunTac()
+{
+    auto tool = new KateExternalTool();
+    tool->name = QStringLiteral("tac");
+    tool->executable = QStringLiteral("tac");
+    tool->input = QStringLiteral("a\nb\nc\n");
+    tool->saveMode = KateExternalTool::SaveMode::None;
+
+    // run tac to reverse order
+    KateToolRunner runner(tool);
+    runner.run();
+    runner.waitForFinished();
+    QCOMPARE(runner.outputData(), QStringLiteral("c\nb\na\n"));
+}
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

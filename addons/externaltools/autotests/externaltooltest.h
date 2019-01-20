@@ -34,6 +34,7 @@ public Q_SLOTS:
 private Q_SLOTS:
     void testLoadSave();
     void testRunListDirectory();
+    void testRunTac();
 };
 
 #endif

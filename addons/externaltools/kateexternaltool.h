@@ -82,6 +82,8 @@ public:
     QString arguments;
     /// The command to execute.
     QString command;
+    /// The working directory, if specified.
+    QString workingDir;
     /// Optional list of mimetypes for which this action is valid.
     QStringList mimetypes;
     /// This is set by the constructor by calling checkExec(), if a

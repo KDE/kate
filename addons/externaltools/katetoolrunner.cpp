@@ -22,6 +22,8 @@
 
 #include "kateexternaltool.h"
 
+#include <KShell>
+
 KateToolRunner::KateToolRunner(KateExternalTool * tool)
     : m_tool(tool)
     , m_process(new QProcess())
@@ -40,10 +42,15 @@ void KateToolRunner::run()
         m_process->setProcessChannelMode(QProcess::MergedChannels);
     }
 
+    if (!m_tool->workingDir.isEmpty()) {
+        m_process->setWorkingDirectory(m_tool->workingDir);
+    }
+
     QObject::connect(m_process, &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);
     QObject::connect(m_process, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished), this, &KateToolRunner::toolFinished);
 
-    m_process->start(m_tool->executable, { m_tool->arguments });
+    const QStringList args = KShell::splitArgs(m_tool->arguments);
+    m_process->start(m_tool->executable, args);
 }
 
 void KateToolRunner::waitForFinished()

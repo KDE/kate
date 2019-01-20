@@ -349,9 +349,10 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
 
         ui->edtExecutable->setText(tool->executable);
         ui->edtInput->setText(tool->command);
+        ui->edtCommand->setText(tool->cmdname);
+        ui->edtWorkingDir->setText(tool->workingDir);
         ui->edtMimeType->setText(tool->mimetypes.join(QStringLiteral("; ")));
         ui->cmbSave->setCurrentIndex(static_cast<int>(tool->saveMode));
-        ui->edtCommand->setText(tool->cmdname);
         ui->chkIncludeStderr->setChecked(tool->includeStderr);
     }
 }
@@ -499,9 +500,10 @@ void KateExternalToolsConfigWidget::slotNew()
     if (editor.exec() == QDialog::Accepted) {
         KateExternalTool* t = new KateExternalTool();
         t->name = editor.ui->edtName->text();
-        t->command = editor.ui->edtInput->toPlainText();
         t->icon = editor.ui->btnIcon->icon();
+        t->command = editor.ui->edtInput->toPlainText();
         t->executable = editor.ui->edtExecutable->text();
+        t->workingDir = editor.ui->edtWorkingDir->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
@@ -545,10 +547,11 @@ void KateExternalToolsConfigWidget::slotEdit()
         bool elementChanged = ((editor.ui->btnIcon->icon() != t->icon) || (editor.ui->edtName->text() != t->name));
 
         t->name = editor.ui->edtName->text();
+        t->icon = editor.ui->btnIcon->icon();
         t->cmdname = editor.ui->edtCommand->text();
         t->command = editor.ui->edtInput->toPlainText();
-        t->icon = editor.ui->btnIcon->icon();
         t->executable = editor.ui->edtExecutable->text();
+        t->workingDir = editor.ui->edtWorkingDir->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();

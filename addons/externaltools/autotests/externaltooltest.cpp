@@ -49,6 +49,7 @@ void ExternalToolTest::testLoadSave()
     tool.executable = QStringLiteral("git-cola");
     tool.arguments = QStringLiteral("none");
     tool.command = QStringLiteral("git-cola");
+    tool.workingDir = QStringLiteral("/usr/bin");
     tool.mimetypes = QStringList{ QStringLiteral("everything") };
     tool.hasexec = true;
     tool.actionName = QStringLiteral("asdf");
@@ -68,19 +69,33 @@ void ExternalToolTest::testRunListDirectory()
     tool.name = QStringLiteral("ls");
     tool.icon = QStringLiteral("none");
     tool.executable = QStringLiteral("ls");
-    tool.arguments = QStringLiteral("/");
+    tool.arguments = QStringLiteral("/usr");
     tool.command = QStringLiteral("ls");
+    tool.workingDir = QStringLiteral("/tmp");
     tool.mimetypes = QStringList{};
     tool.hasexec = true;
     tool.actionName = QStringLiteral("ls");
     tool.cmdname = QStringLiteral("ls");
     tool.saveMode = KateExternalTool::SaveMode::None;
 
-    KateToolRunner runner(&tool);
-    runner.run();
-    runner.waitForFinished();
-    QVERIFY(!runner.outputData().isEmpty());
-    QVERIFY(!runner.outputData().contains(QStringLiteral("/home")));
+    // 1. /tmp $ ls /usr
+    KateToolRunner runner1(&tool);
+    runner1.run();
+    runner1.waitForFinished();
+    QVERIFY(runner1.outputData().contains(QStringLiteral("bin")));
+
+    // 2. /usr $ ls
+    tool.arguments.clear();
+    tool.workingDir = QStringLiteral("/usr");
+    KateToolRunner runner2(&tool);
+    runner2.run();
+    runner2.waitForFinished();
+    qDebug() << runner1.outputData();
+    qDebug() << runner2.outputData();
+    QVERIFY(runner2.outputData().contains(QStringLiteral("bin")));
+
+    // 1. and 2. must give the same result
+    QCOMPARE(runner1.outputData(), runner2.outputData());
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

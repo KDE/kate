@@ -25,6 +25,7 @@
 #include "externaltools.h"
 #include "kateexternaltool.h"
 #include "externaltoolsplugin.h"
+#include "katemacroexpander.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -155,40 +156,6 @@ KateExternalToolAction::KateExternalToolAction(QObject* parent, KateExternalTool
     connect(this, SIGNAL(triggered(bool)), SLOT(slotRun()));
 }
 
-bool KateExternalToolAction::expandMacro(const QString& str, QStringList& ret)
-{
-    KTextEditor::MainWindow* mw = qobject_cast<KTextEditor::MainWindow*>(parent()->parent());
-    Q_ASSERT(mw);
-
-    KTextEditor::View* view = mw->activeView();
-    if (!view)
-        return false;
-
-    KTextEditor::Document* doc = view->document();
-    QUrl url = doc->url();
-
-    if (str == QStringLiteral("URL"))
-        ret += url.url();
-    else if (str == QStringLiteral("directory")) // directory of current doc
-        ret += url.toString(QUrl::RemoveScheme | QUrl::RemoveFilename);
-    else if (str == QStringLiteral("filename"))
-        ret += url.fileName();
-    else if (str == QStringLiteral("line")) // cursor line of current doc
-        ret += QString::number(view->cursorPosition().line());
-    else if (str == QStringLiteral("col")) // cursor col of current doc
-        ret += QString::number(view->cursorPosition().column());
-    else if (str == QStringLiteral("selection")) // selection of current doc if any
-        ret += view->selectionText();
-    else if (str == QStringLiteral("text")) // text of current doc
-        ret += doc->text();
-    else if (str == QStringLiteral("URLs")) {
-        foreach (KTextEditor::Document* it, KTextEditor::Editor::instance()->application()->documents())
-            if (!it->url().isEmpty())
-                ret += it->url().url();
-    } else
-        return false;
-
-    return true;
 }
 
 KateExternalToolAction::~KateExternalToolAction()
@@ -203,11 +170,6 @@ void KateExternalToolAction::slotRun()
     QString cmd = tool->command;
 
     auto mw = qobject_cast<KTextEditor::MainWindow*>(parent()->parent());
-    if (!expandMacrosShellQuote(cmd)) {
-        KMessageBox::sorry(mw->window(), i18n("Failed to expand the command '%1'.", cmd), i18n("Kate External Tools"));
-        return;
-    }
-    qDebug() << "externaltools: Running command: " << cmd;
 
     // save documents if requested
     if (tool->saveMode == KateExternalTool::SaveMode::CurrentDocument)

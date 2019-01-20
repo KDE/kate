@@ -94,15 +94,12 @@ private:
 /**
  * This Action contains a KateExternalTool
  */
-class KateExternalToolAction : public QAction, public KWordMacroExpander
+class KateExternalToolAction : public QAction
 {
     Q_OBJECT
 public:
     KateExternalToolAction(QObject* parent, class KateExternalTool* t);
     ~KateExternalToolAction();
-
-protected:
-    bool expandMacro(const QString& str, QStringList& ret) override;
 
 private Q_SLOTS:
     void slotRun();

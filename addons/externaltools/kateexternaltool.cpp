@@ -23,22 +23,6 @@
 #include <KConfigGroup>
 #include <QStandardPaths>
 
-KateExternalTool::KateExternalTool(const QString& name, const QString& command, const QString& icon,
-                                   const QString& executable, const QStringList& mimetypes, const QString& actionName,
-                                   const QString& cmdname, SaveMode saveMode)
-    : name(name)
-    , icon(icon)
-    , executable(executable)
-    , command(command)
-    , mimetypes(mimetypes)
-    , actionName(actionName)
-    , cmdname(cmdname)
-    , saveMode(saveMode)
-{
-    // if ( ! executable.isEmpty() )
-    hasexec = checkExec();
-}
-
 bool KateExternalTool::checkExec()
 {
     m_exec = QStandardPaths::findExecutable(executable);

@@ -90,11 +90,8 @@ void KateExternalToolsCommand::reload()
 
         config = KConfigGroup(&_config, *it);
 
-        KateExternalTool t
-            = KateExternalTool(config.readEntry(QStringLiteral("name"), ""), config.readEntry("command", ""),
-                               config.readEntry(QStringLiteral("icon"), ""), config.readEntry("executable", ""),
-                               config.readEntry(QStringLiteral("mimetypes"), QStringList()),
-                               config.readEntry(QStringLiteral("actionName"), ""), config.readEntry("cmdname", ""));
+        KateExternalTool t;
+        t.load(config);
         // FIXME test for a command name first!
         if (t.hasexec && (!t.cmdname.isEmpty())) {
             m_list.append(QStringLiteral("exttool-") + t.cmdname);
@@ -154,8 +151,6 @@ KateExternalToolAction::KateExternalToolAction(QObject* parent, KateExternalTool
         setIcon(QIcon::fromTheme(t->icon));
 
     connect(this, SIGNAL(triggered(bool)), SLOT(slotRun()));
-}
-
 }
 
 KateExternalToolAction::~KateExternalToolAction()

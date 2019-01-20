@@ -66,12 +66,6 @@ public:
 //     Q_ENUM(OutputMode)
 
 public:
-    explicit KateExternalTool(const QString& name = QString(), const QString& command = QString(),
-                              const QString& icon = QString(), const QString& executable = QString(),
-                              const QStringList& mimetypes = QStringList(), const QString& actionName = QString(),
-                              const QString& cmdname = QString(), SaveMode saveMode = SaveMode::None);
-    ~KateExternalTool() = default;
-
     /// The name used in the menu.
     QString name;
     /// the icon to use in the menu.

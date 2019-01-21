@@ -21,6 +21,10 @@
 
 #include "externaltoolsplugin.h"
 
+#include "kateexternaltool.h"
+#include "katemacroexpander.h"
+#include "katetoolrunner.h"
+
 #include <KIconLoader>
 #include <KTextEditor/Application>
 #include <KTextEditor/Document>
@@ -35,6 +39,8 @@
 
 #include <kmessagebox.h>
 
+#include <KConfig>
+#include <KConfigGroup>
 #include <KAboutData>
 #include <KAuthorized>
 #include <KPluginFactory>
@@ -46,18 +52,13 @@ K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json",
 KateExternalToolsPlugin::KateExternalToolsPlugin(QObject* parent, const QList<QVariant>&)
     : KTextEditor::Plugin(parent)
 {
-    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
-        m_command = new KateExternalToolsCommand(this);
-    }
+    reload();
 }
 
 KateExternalToolsPlugin::~KateExternalToolsPlugin()
 {
-    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
-        if (m_command) {
-            delete m_command;
-        }
-    }
+    delete m_command;
+    m_command = nullptr;
 }
 
 QObject* KateExternalToolsPlugin::createView(KTextEditor::MainWindow* mainWindow)
@@ -84,13 +85,89 @@ void KateExternalToolsPlugin::viewDestroyed(QObject* view)
 
 void KateExternalToolsPlugin::reload()
 {
+    m_commands.clear();
+
+    KConfig _config(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
+    KConfigGroup config(&_config, "Global");
+    const QStringList tools = config.readEntry("tools", QStringList());
+
+    for (QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it) {
+        if (*it == QStringLiteral("---"))
+            continue;
+
+        config = KConfigGroup(&_config, *it);
+
+        KateExternalTool t;
+        t.load(config);
+        m_tools.push_back(t);
+
+        // FIXME test for a command name first!
+        if (t.hasexec && (!t.cmdname.isEmpty())) {
+            m_commands.push_back(t.cmdname);
+        }
+    }
+
     if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
-//         if (m_command)
-//             m_command->reload();
+        delete m_command;
+        m_command = new KateExternalToolsCommand(this);
     }
     foreach (KateExternalToolsPluginView* view, m_views) {
         view->rebuildMenu();
     }
+}
+
+QStringList KateExternalToolsPlugin::commands() const
+{
+    return m_commands;
+}
+
+const KateExternalTool * KateExternalToolsPlugin::toolForCommand(const QString & cmd) const
+{
+    for (auto & tool : m_tools) {
+        if (tool.cmdname == cmd) {
+            return &tool;
+        }
+    }
+    return nullptr;
+}
+
+void KateExternalToolsPlugin::runTool(const KateExternalTool & tool, KTextEditor::View * view)
+{
+    // expand the macros in command if any,
+    // and construct a command with an absolute path
+    auto mw = view->mainWindow();
+
+    // save documents if requested
+    if (tool.saveMode == KateExternalTool::SaveMode::CurrentDocument) {
+        view->document()->save();
+    } else if (tool.saveMode == KateExternalTool::SaveMode::AllDocuments) {
+        foreach (KXMLGUIClient* client, mw->guiFactory()->clients()) {
+            if (QAction* a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {
+                a->trigger();
+                break;
+            }
+        }
+    }
+
+    // copy tool
+    auto copy = new KateExternalTool(tool);
+
+    MacroExpander macroExpander(view);
+    if (!macroExpander.expandMacrosShellQuote(copy->arguments)) {
+        KMessageBox::sorry(view, i18n("Failed to expand the arguments '%1'.", copy->arguments), i18n("Kate External Tools"));
+        return;
+    }
+
+    if (!macroExpander.expandMacrosShellQuote(copy->workingDir)) {
+        KMessageBox::sorry(view, i18n("Failed to expand the working directory '%1'.", copy->workingDir), i18n("Kate External Tools"));
+        return;
+    }
+
+    // FIXME: The tool runner must live as long as the child process is running.
+    //        --> it must be allocated on the heap, and deleted with a ->deleteLater() call.
+    KateToolRunner runner(copy);
+    runner.run();
+    runner.waitForFinished();
 }
 
 int KateExternalToolsPlugin::configPages() const

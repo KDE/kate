@@ -23,6 +23,7 @@
 #include <KTextEditor/Command>
 
 class KateExternalToolsPlugin;
+class KateExternalTool;
 
 /**
  * Helper class that registers and executes the respective external tool.
@@ -40,9 +41,9 @@ public:
     bool help(KTextEditor::View* view, const QString& cmd, QString& msg) override;
 
 private:
-    QStringList m_list;
-    QHash<QString, QString> m_map;
-    QHash<QString, QString> m_name;
+    void runTool(KateExternalTool & tool, KTextEditor::View * view);
+
+private:
     KateExternalToolsPlugin* m_plugin;
 };
 

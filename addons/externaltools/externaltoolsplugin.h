@@ -22,14 +22,17 @@
 #ifndef KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
 #define KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
 
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 
 #include <KXMLGUIClient>
 
 #include "externaltools.h"
+#include "kateexternaltool.h"
 
 class KateExternalToolsPluginView;
+class KateExternalTool;
 
 class KateExternalToolsPlugin : public KTextEditor::Plugin
 {
@@ -42,13 +45,19 @@ public:
     int configPages() const override;
     KTextEditor::ConfigPage* configPage(int number = 0, QWidget* parent = nullptr) override;
 
-    void reload();
-
     QObject* createView(KTextEditor::MainWindow* mainWindow) override;
     KateExternalToolsPluginView* extView(QWidget* widget);
 
+    void reload();
+    QStringList commands() const;
+    const KateExternalTool * toolForCommand(const QString & cmd) const;
+
+    void runTool(const KateExternalTool & tool, KTextEditor::View * view);
+
 private:
     QList<KateExternalToolsPluginView*> m_views;
+    QVector<KateExternalTool> m_tools;
+    QStringList m_commands;
     KateExternalToolsCommand* m_command = nullptr;
 private Q_SLOT:
     void viewDestroyed(QObject* view);

@@ -55,6 +55,7 @@ Comment[el]=Πρόσθετο αυτόματης συμπλήρωσης για τ
 Comment[en_GB]=Autocompletion Plugin for D, using the DCD autocompletion server
 Comment[es]=Complemento de completado automático para D que utiliza el servidor de completado automático DCD.
 Comment[fi]=DCD-automaattitäydennyspalvelinta käyttävä automaattitäydennysliitännäinen D:lle
+Comment[fr]=Composant externe d'auto-complètement pour le langage D qui utilise le serveur d'auto-complètement DCD
 Comment[gl]=Complemento de completado automático para D que emprega o servidor de completado automático DCD
 Comment[it]=Estensione di completamento automatico per D, che usa il server di completamento automatico DCD
 Comment[nl]=Plug-in voor automatisch aanvullen voor D, met gebruikmaking van de DCD-server voor automatisch aanvullen

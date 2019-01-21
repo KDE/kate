@@ -52,6 +52,7 @@ public:
     void reload();
     QStringList commands() const;
     const KateExternalTool * toolForCommand(const QString & cmd) const;
+    const QVector<KateExternalTool*> tools() const;
 
     void runTool(const KateExternalTool & tool, KTextEditor::View * view);
 

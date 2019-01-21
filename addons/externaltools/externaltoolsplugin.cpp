@@ -132,6 +132,11 @@ const KateExternalTool * KateExternalToolsPlugin::toolForCommand(const QString &
     return nullptr;
 }
 
+const QVector<KateExternalTool*> KateExternalToolsPlugin::tools() const
+{
+    return m_tools;
+}
+
 void KateExternalToolsPlugin::runTool(const KateExternalTool & tool, KTextEditor::View * view)
 {
     // expand the macros in command if any,

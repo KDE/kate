@@ -138,38 +138,26 @@ KateExternalToolsMenuAction::~KateExternalToolsMenuAction()
 
 void KateExternalToolsMenuAction::reload()
 {
+    // clear action collection
     bool needs_readd = (m_actionCollection->takeAction(this) != nullptr);
     m_actionCollection->clear();
     if (needs_readd)
         m_actionCollection->addAction(QStringLiteral("tools_external"), this);
     menu()->clear();
 
-    // load all the tools, and create a action for each of them
+    // create tool actions
+    for (auto tool : m_plugin->tools()) {
+        if (tool->hasexec) {
+            QAction* a = new KateExternalToolAction(this, tool);
+            m_actionCollection->addAction(tool->actionName, a);
+            addAction(a);
+        }
+    }
+
+    // load shortcuts
     KSharedConfig::Ptr pConfig = KSharedConfig::openConfig(QStringLiteral("externaltools"), KConfig::NoGlobals,
                                                            QStandardPaths::ApplicationsLocation);
     KConfigGroup config(pConfig, "Global");
-    const QStringList tools = config.readEntry("tools", QStringList());
-
-    for (int i = 0; i < tools.size(); ++i) {
-        const QString & toolSection = tools[i];
-        if (toolSection == QStringLiteral("---")) {
-            menu()->addSeparator();
-            // a separator
-            continue;
-        }
-
-        config = KConfigGroup(pConfig, toolSection);
-        KateExternalTool* t = new KateExternalTool();
-        t->load(config);
-
-        if (t->hasexec) {
-            QAction* a = new KateExternalToolAction(this, t);
-            m_actionCollection->addAction(t->actionName, a);
-            addAction(a);
-        } else
-            delete t;
-    }
-
     config = KConfigGroup(pConfig, "Shortcuts");
     m_actionCollection->readSettings(&config);
     slotViewChanged(m_mainwindow->activeView());

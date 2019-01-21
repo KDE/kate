@@ -465,17 +465,4 @@ void KateExternalToolsConfigWidget::slotMoveDown()
 }
 // END KateExternalToolsConfigWidget
 
-ExternalToolRunner::ExternalToolRunner(KateExternalTool * tool)
-    : m_tool(tool)
-{
-}
-
-ExternalToolRunner::~ExternalToolRunner()
-{
-}
-
-void ExternalToolRunner::run()
-{
-}
-
 // kate: space-indent on; indent-width 4; replace-tabs on;

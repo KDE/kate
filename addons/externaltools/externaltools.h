@@ -159,25 +159,6 @@ private:
     KateExternalTool* tool;
 };
 
-/**
- * Helper class to run a KateExternalTool.
- */
-class ExternalToolRunner
-{
-public:
-    ExternalToolRunner(KateExternalTool * tool);
-    ExternalToolRunner(const ExternalToolRunner &) = delete;
-    void operator=(const ExternalToolRunner &) = delete;
-
-    ~ExternalToolRunner();
-
-    void run();
-
-private:
-    KateExternalTool * m_tool;
-    QProcess * m_process = nullptr;
-};
-
 #endif // KTEXTEDITOR_EXTERNALTOOLS_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -119,13 +119,12 @@ void KateExternalToolAction::slotRun()
 
 // BEGIN KateExternalToolsMenuAction
 KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KActionCollection* collection,
-                                                         QObject* parent, KTextEditor::MainWindow* mw)
-    : KActionMenu(text, parent)
-    , mainwindow(mw)
+                                                         KateExternalToolsPlugin * plugin, KTextEditor::MainWindow* mw)
+    : KActionMenu(text, mw)
+    , m_plugin(plugin)
+    , m_mainwindow(mw)
+    , m_actionCollection(collection)
 {
-
-    m_actionCollection = collection;
-
     // connect to view changed...
     connect(mw, &KTextEditor::MainWindow::viewChanged, this, &KateExternalToolsMenuAction::slotViewChanged);
 
@@ -173,7 +172,7 @@ void KateExternalToolsMenuAction::reload()
 
     config = KConfigGroup(pConfig, "Shortcuts");
     m_actionCollection->readSettings(&config);
-    slotViewChanged(mainwindow->activeView());
+    slotViewChanged(m_mainwindow->activeView());
 }
 
 void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)

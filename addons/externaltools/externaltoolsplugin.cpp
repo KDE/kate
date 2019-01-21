@@ -22,6 +22,7 @@
 #include "externaltoolsplugin.h"
 
 #include "kateexternaltool.h"
+#include "kateexternaltoolscommand.h"
 #include "katemacroexpander.h"
 #include "katetoolrunner.h"
 
@@ -63,7 +64,7 @@ KateExternalToolsPlugin::~KateExternalToolsPlugin()
 
 QObject* KateExternalToolsPlugin::createView(KTextEditor::MainWindow* mainWindow)
 {
-    KateExternalToolsPluginView* view = new KateExternalToolsPluginView(mainWindow);
+    KateExternalToolsPluginView* view = new KateExternalToolsPluginView(mainWindow, this);
     connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
     m_views.append(view);
     return view;
@@ -183,8 +184,9 @@ KTextEditor::ConfigPage* KateExternalToolsPlugin::configPage(int number, QWidget
     return nullptr;
 }
 
-KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow)
+KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow, KateExternalToolsPlugin* plugin)
     : QObject(mainWindow)
+    , m_plugin(plugin)
     , m_mainWindow(mainWindow)
 {
     KXMLGUIClient::setComponentName(QLatin1String("externaltools"), i18n("External Tools"));
@@ -192,7 +194,7 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
 
     if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
         externalTools
-            = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), mainWindow, mainWindow);
+            = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), plugin, mainWindow);
         actionCollection()->addAction(QStringLiteral("tools_external"), externalTools);
         externalTools->setWhatsThis(i18n("Launch external helper applications"));
     }

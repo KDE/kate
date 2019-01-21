@@ -28,8 +28,6 @@
 #include "ui_configwidget.h"
 #include "ui_tooldialog.h"
 
-#include "kateexternaltoolscommand.h"
-
 #include <KTextEditor/Application>
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/MainWindow>
@@ -43,6 +41,7 @@
 #include <QPixmap>
 #include <QProcess>
 
+class KActionCollection;
 class KateExternalToolsPlugin;
 class KateExternalTool;
 
@@ -73,7 +72,7 @@ class KateExternalToolsMenuAction : public KActionMenu
 
     Q_OBJECT
 public:
-    KateExternalToolsMenuAction(const QString& text, class KActionCollection* collection, QObject* parent,
+    KateExternalToolsMenuAction(const QString& text, KActionCollection* collection, KateExternalToolsPlugin * plugin,
                                 class KTextEditor::MainWindow* mw = nullptr);
     virtual ~KateExternalToolsMenuAction();
 
@@ -82,14 +81,15 @@ public:
      */
     void reload();
 
-    class KActionCollection* actionCollection() { return m_actionCollection; }
+    KActionCollection* actionCollection() { return m_actionCollection; }
 
 private Q_SLOTS:
     void slotViewChanged(KTextEditor::View* view);
 
 private:
-    class KActionCollection* m_actionCollection;
-    KTextEditor::MainWindow* mainwindow; // for the actions to access view/doc managers
+    KateExternalToolsPlugin* m_plugin;
+    KTextEditor::MainWindow* m_mainwindow; // for the actions to access view/doc managers
+    KActionCollection* m_actionCollection;
 };
 
 /**

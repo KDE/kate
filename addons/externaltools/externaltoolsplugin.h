@@ -32,6 +32,7 @@
 #include "kateexternaltool.h"
 
 class KateExternalToolsPluginView;
+class KateExternalToolsCommand;
 class KateExternalTool;
 
 class KateExternalToolsPlugin : public KTextEditor::Plugin
@@ -71,7 +72,7 @@ public:
     /**
      * Constructor.
      */
-    KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow);
+    KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow, KateExternalToolsPlugin* plugin);
 
     /**
      * Virtual destructor.
@@ -88,6 +89,7 @@ public:
     KateExternalToolsMenuAction* externalTools = nullptr;
 
 private:
+    KateExternalToolsPlugin* m_plugin;
     KTextEditor::MainWindow* m_mainWindow;
 };
 

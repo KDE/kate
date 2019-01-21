@@ -85,8 +85,8 @@ void KateExternalToolsPlugin::viewDestroyed(QObject* view)
 void KateExternalToolsPlugin::reload()
 {
     if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
-        if (m_command)
-            m_command->reload();
+//         if (m_command)
+//             m_command->reload();
     }
     foreach (KateExternalToolsPluginView* view, m_views) {
         view->rebuildMenu();

@@ -1,0 +1,51 @@
+/* This file is part of the KDE project
+ *
+ *  Copyright 2019 Dominik Haumann <dhaumann@kde.org>
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ */
+#ifndef KTEXTEDITOR_KATE_EXTERNALTOOLS_COMMAND_H
+#define KTEXTEDITOR_KATE_EXTERNALTOOLS_COMMAND_H
+
+#include <KTextEditor/Command>
+
+class KateExternalToolsPlugin;
+
+/**
+ * Helper class that registers and executes the respective external tool.
+ */
+class KateExternalToolsCommand : public KTextEditor::Command
+{
+public:
+    KateExternalToolsCommand(KateExternalToolsPlugin* plugin);
+    virtual ~KateExternalToolsCommand() = default;
+
+public:
+    // const QStringList& cmds() override; // FIXME
+    bool exec(KTextEditor::View* view, const QString& cmd, QString& msg,
+              const KTextEditor::Range& range = KTextEditor::Range::invalid()) override;
+    bool help(KTextEditor::View* view, const QString& cmd, QString& msg) override;
+
+private:
+    QStringList m_list;
+    QHash<QString, QString> m_map;
+    QHash<QString, QString> m_name;
+    KateExternalToolsPlugin* m_plugin;
+};
+
+#endif // KTEXTEDITOR_KATE_EXTERNALTOOLS_COMMAND_H
+
+// kate: space-indent on; indent-width 4; replace-tabs on;

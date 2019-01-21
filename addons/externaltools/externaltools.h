@@ -28,8 +28,9 @@
 #include "ui_configwidget.h"
 #include "ui_tooldialog.h"
 
+#include "kateexternaltoolscommand.h"
+
 #include <KTextEditor/Application>
-#include <KTextEditor/Command>
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
@@ -147,29 +148,6 @@ private:
 
     class KConfig* m_config = nullptr;
     bool m_changed = false;
-    KateExternalToolsPlugin* m_plugin;
-};
-
-/**
- * A Singleton class for invoking external tools with the view command line
- */
-class KateExternalToolsCommand : public KTextEditor::Command
-{
-public:
-    KateExternalToolsCommand(KateExternalToolsPlugin* plugin);
-    virtual ~KateExternalToolsCommand() {}
-    void reload();
-
-public:
-    //     const QStringList& cmds() override; // FIXME
-    bool exec(KTextEditor::View* view, const QString& cmd, QString& msg,
-              const KTextEditor::Range& range = KTextEditor::Range::invalid()) override;
-    bool help(KTextEditor::View* view, const QString& cmd, QString& msg) override;
-
-private:
-    QStringList m_list;
-    QHash<QString, QString> m_map;
-    QHash<QString, QString> m_name;
     KateExternalToolsPlugin* m_plugin;
 };
 

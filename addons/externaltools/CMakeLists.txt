@@ -9,6 +9,7 @@ set(externaltoolsplugin_PART_SRCS
     katetoolrunner.cpp
     kateexternaltool.cpp
     katemacroexpander.cpp
+    kateexternaltoolscommand.cpp
 )
 
 # resource for ui file and stuff

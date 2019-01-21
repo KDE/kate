@@ -34,6 +34,7 @@
 class KateExternalToolsPluginView;
 class KateExternalToolsCommand;
 class KateExternalTool;
+class KateToolRunner;
 
 class KateExternalToolsPlugin : public KTextEditor::Plugin
 {
@@ -61,7 +62,9 @@ private:
     QVector<KateExternalTool*> m_tools;
     QStringList m_commands;
     KateExternalToolsCommand* m_command = nullptr;
+
 private Q_SLOT:
+    void handleToolFinished(KateToolRunner* runner);
     void viewDestroyed(QObject* view);
 };
 

@@ -34,8 +34,10 @@ class QProcess;
  */
 class KateToolRunner : public QObject
 {
+    Q_OBJECT
+
 public:
-    KateToolRunner(KateExternalTool * tool);
+    KateToolRunner(KateExternalTool * tool, QObject * parent = nullptr);
     KateToolRunner(const KateToolRunner &) = delete;
     void operator=(const KateToolRunner &) = delete;
 
@@ -44,6 +46,9 @@ public:
     void run();
     void waitForFinished();
     QString outputData() const;
+
+Q_SIGNALS:
+    void toolFinished(KateToolRunner * runner);
 
 private Q_SLOTS:
     /**
@@ -56,7 +61,7 @@ private Q_SLOTS:
      * @param exitCode analyzer process exit code
      * @param exitStatus analyzer process exit status
      */
-    void toolFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void handleToolFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
     KateExternalTool * m_tool;

@@ -24,8 +24,9 @@
 
 #include <KShell>
 
-KateToolRunner::KateToolRunner(KateExternalTool * tool)
-    : m_tool(tool)
+KateToolRunner::KateToolRunner(KateExternalTool * tool, QObject * parent)
+    : QObject(parent)
+    , m_tool(tool)
     , m_process(new QProcess())
 {
 }
@@ -50,7 +51,7 @@ void KateToolRunner::run()
     }
 
     QObject::connect(m_process, &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);
-    QObject::connect(m_process, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished), this, &KateToolRunner::toolFinished);
+    QObject::connect(m_process, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished), this, &KateToolRunner::handleToolFinished);
 
     // Write stdin to process, if applicable, then close write channel
     QObject::connect(m_process, &QProcess::started, [this](){
@@ -80,7 +81,7 @@ void KateToolRunner::slotReadyRead()
     m_output += m_process->readAll();
 }
 
-void KateToolRunner::toolFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void KateToolRunner::handleToolFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     if (exitCode != 0) {
         // FIXME: somehow tell user
@@ -93,6 +94,8 @@ void KateToolRunner::toolFinished(int exitCode, QProcess::ExitStatus exitStatus)
     }
 
     // FIXME: process m_output depending on the tool's outputMode
+
+    Q_EMIT toolFinished(this);
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -40,10 +40,10 @@
 
 #include <kmessagebox.h>
 
-#include <KConfig>
-#include <KConfigGroup>
 #include <KAboutData>
 #include <KAuthorized>
+#include <KConfig>
+#include <KConfigGroup>
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
@@ -122,7 +122,7 @@ QStringList KateExternalToolsPlugin::commands() const
     return m_commands;
 }
 
-const KateExternalTool * KateExternalToolsPlugin::toolForCommand(const QString & cmd) const
+const KateExternalTool* KateExternalToolsPlugin::toolForCommand(const QString& cmd) const
 {
     for (auto tool : m_tools) {
         if (tool->cmdname == cmd) {
@@ -137,7 +137,7 @@ const QVector<KateExternalTool*> KateExternalToolsPlugin::tools() const
     return m_tools;
 }
 
-void KateExternalToolsPlugin::runTool(const KateExternalTool & tool, KTextEditor::View * view)
+void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor::View* view)
 {
     // expand the macros in command if any,
     // and construct a command with an absolute path
@@ -160,12 +160,14 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool & tool, KTextEditor
 
     MacroExpander macroExpander(view);
     if (!macroExpander.expandMacrosShellQuote(copy->arguments)) {
-        KMessageBox::sorry(view, i18n("Failed to expand the arguments '%1'.", copy->arguments), i18n("Kate External Tools"));
+        KMessageBox::sorry(view, i18n("Failed to expand the arguments '%1'.", copy->arguments),
+                           i18n("Kate External Tools"));
         return;
     }
 
     if (!macroExpander.expandMacrosShellQuote(copy->workingDir)) {
-        KMessageBox::sorry(view, i18n("Failed to expand the working directory '%1'.", copy->workingDir), i18n("Kate External Tools"));
+        KMessageBox::sorry(view, i18n("Failed to expand the working directory '%1'.", copy->workingDir),
+                           i18n("Kate External Tools"));
         return;
     }
 
@@ -194,7 +196,8 @@ KTextEditor::ConfigPage* KateExternalToolsPlugin::configPage(int number, QWidget
     return nullptr;
 }
 
-KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow, KateExternalToolsPlugin* plugin)
+KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow,
+                                                         KateExternalToolsPlugin* plugin)
     : QObject(mainWindow)
     , m_plugin(plugin)
     , m_mainWindow(mainWindow)
@@ -203,8 +206,7 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     setXMLFile(QLatin1String("ui.rc"));
 
     if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
-        externalTools
-            = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), plugin, mainWindow);
+        externalTools = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), plugin, mainWindow);
         actionCollection()->addAction(QStringLiteral("tools_external"), externalTools);
         externalTools->setWhatsThis(i18n("Launch external helper applications"));
     }

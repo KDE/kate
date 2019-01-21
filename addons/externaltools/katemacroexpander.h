@@ -22,8 +22,9 @@
 
 #include <KMacroExpander>
 
-namespace KTextEditor {
-    class View;
+namespace KTextEditor
+{
+class View;
 }
 
 /**
@@ -32,13 +33,13 @@ namespace KTextEditor {
 class MacroExpander : public KWordMacroExpander
 {
 public:
-    MacroExpander(KTextEditor::View * view);
+    MacroExpander(KTextEditor::View* view);
 
 protected:
     bool expandMacro(const QString& str, QStringList& ret) override;
 
 private:
-    KTextEditor::View * m_view;
+    KTextEditor::View* m_view;
 };
 
 #endif // KTEXTEDITOR_MACRO_EXPANDER_H

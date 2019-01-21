@@ -70,7 +70,7 @@ class KateExternalToolsMenuAction : public KActionMenu
 {
     Q_OBJECT
 public:
-    KateExternalToolsMenuAction(const QString& text, KActionCollection* collection, KateExternalToolsPlugin * plugin,
+    KateExternalToolsMenuAction(const QString& text, KActionCollection* collection, KateExternalToolsPlugin* plugin,
                                 class KTextEditor::MainWindow* mw = nullptr);
     virtual ~KateExternalToolsMenuAction();
 
@@ -154,7 +154,8 @@ private Q_SLOTS:
     void showMTDlg();
 
 public:
-    Ui::ToolDialog * ui;
+    Ui::ToolDialog* ui;
+
 private:
     KateExternalTool* tool;
 };

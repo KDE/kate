@@ -23,8 +23,8 @@
 // Icons
 // Direct shortcut setting
 #include "externaltools.h"
-#include "kateexternaltool.h"
 #include "externaltoolsplugin.h"
+#include "kateexternaltool.h"
 #include "katemacroexpander.h"
 #include "katetoolrunner.h"
 
@@ -62,7 +62,7 @@
 
 // BEGIN KateExternalToolsMenuAction
 KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KActionCollection* collection,
-                                                         KateExternalToolsPlugin * plugin, KTextEditor::MainWindow* mw)
+                                                         KateExternalToolsPlugin* plugin, KTextEditor::MainWindow* mw)
     : KActionMenu(text, mw)
     , m_plugin(plugin)
     , m_mainwindow(mw)
@@ -74,9 +74,7 @@ KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KA
     connect(mw, &KTextEditor::MainWindow::viewChanged, this, &KateExternalToolsMenuAction::slotViewChanged);
 }
 
-KateExternalToolsMenuAction::~KateExternalToolsMenuAction()
-{
-}
+KateExternalToolsMenuAction::~KateExternalToolsMenuAction() {}
 
 void KateExternalToolsMenuAction::reload()
 {
@@ -94,7 +92,7 @@ void KateExternalToolsMenuAction::reload()
             a->setIcon(QIcon::fromTheme(tool->icon));
             a->setData(QVariant::fromValue(tool));
 
-            connect(a, &QAction::triggered, [this,a](){
+            connect(a, &QAction::triggered, [this, a]() {
                 m_plugin->runTool(*a->data().value<KateExternalTool*>(), m_mainwindow->activeView());
             });
 
@@ -124,8 +122,7 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)
     foreach (QAction* action, m_actionCollection->actions()) {
         if (action && action->data().value<KateExternalTool*>()) {
             auto tool = action->data().value<KateExternalTool*>();
-            const bool toolActive = tool->mimetypes.isEmpty()
-                                 || tool->mimetypes.contains(mimeType);
+            const bool toolActive = tool->mimetypes.isEmpty() || tool->mimetypes.contains(mimeType);
             action->setEnabled(toolActive);
         }
     }
@@ -186,7 +183,8 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
 void KateExternalToolServiceEditor::slotOKClicked()
 {
     if (ui->edtName->text().isEmpty() || ui->edtExecutable->text().isEmpty()) {
-        QMessageBox::information(this, i18n("External Tool"), i18n("You must specify at least a name and an executable"));
+        QMessageBox::information(this, i18n("External Tool"),
+                                 i18n("You must specify at least a name and an executable"));
         return;
     }
     accept();
@@ -195,7 +193,8 @@ void KateExternalToolServiceEditor::slotOKClicked()
 void KateExternalToolServiceEditor::showMTDlg()
 {
     QString text = i18n("Select the MimeTypes for which to enable this tool.");
-    QStringList list = ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+    QStringList list
+        = ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
     KMimeTypeChooserDialog d(i18n("Select Mime Types"), text, list, QStringLiteral("text"), this);
     if (d.exec() == QDialog::Accepted) {
         ui->edtMimeType->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
@@ -256,7 +255,7 @@ void KateExternalToolsConfigWidget::reset()
     const QStringList tools = m_config->group("Global").readEntry("tools", QStringList());
 
     for (int i = 0; i < tools.size(); ++i) {
-        const QString & toolSection = tools[i];
+        const QString& toolSection = tools[i];
         if (toolSection == QStringLiteral("---")) {
             new QListWidgetItem(QStringLiteral("---"), lbTools);
         } else {
@@ -331,7 +330,8 @@ void KateExternalToolsConfigWidget::slotNew()
         t->arguments = editor.ui->edtArgs->text();
         t->input = editor.ui->edtInput->toPlainText();
         t->workingDir = editor.ui->edtWorkingDir->text();
-        t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+        t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")),
+                                                            QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
 
@@ -380,7 +380,8 @@ void KateExternalToolsConfigWidget::slotEdit()
         t->input = editor.ui->edtInput->toPlainText();
         t->cmdname = editor.ui->edtCommand->text();
         t->workingDir = editor.ui->edtWorkingDir->text();
-        t->mimetypes = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+        t->mimetypes
+            = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
 

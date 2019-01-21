@@ -19,12 +19,12 @@
  */
 #include "katemacroexpander.h"
 
-#include <KTextEditor/Editor>
 #include <KTextEditor/Application>
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
-MacroExpander::MacroExpander(KTextEditor::View * view)
+MacroExpander::MacroExpander(KTextEditor::View* view)
     : KWordMacroExpander()
     , m_view(view)
 {

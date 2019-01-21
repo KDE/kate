@@ -22,8 +22,8 @@
 #ifndef KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
 #define KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
 
-#include <KTextEditor/Plugin>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
 #include <KXMLGUIClient>
@@ -52,10 +52,10 @@ public:
 
     void reload();
     QStringList commands() const;
-    const KateExternalTool * toolForCommand(const QString & cmd) const;
+    const KateExternalTool* toolForCommand(const QString& cmd) const;
     const QVector<KateExternalTool*> tools() const;
 
-    void runTool(const KateExternalTool & tool, KTextEditor::View * view);
+    void runTool(const KateExternalTool& tool, KTextEditor::View* view);
 
 private:
     QList<KateExternalToolsPluginView*> m_views;
@@ -63,8 +63,8 @@ private:
     QStringList m_commands;
     KateExternalToolsCommand* m_command = nullptr;
 
-private Q_SLOT:
-    void handleToolFinished(KateToolRunner* runner);
+private
+    Q_SLOT : void handleToolFinished(KateToolRunner* runner);
     void viewDestroyed(QObject* view);
 };
 

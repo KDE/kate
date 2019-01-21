@@ -21,10 +21,10 @@
 #ifndef KTEXTEDITOR_EXTERNALTOOLRUNNER_H
 #define KTEXTEDITOR_EXTERNALTOOLRUNNER_H
 
-#include <QObject>
-#include <QString>
 #include <QByteArray>
+#include <QObject>
 #include <QProcess>
+#include <QString>
 
 class KateExternalTool;
 class QProcess;
@@ -37,9 +37,9 @@ class KateToolRunner : public QObject
     Q_OBJECT
 
 public:
-    KateToolRunner(KateExternalTool * tool, QObject * parent = nullptr);
-    KateToolRunner(const KateToolRunner &) = delete;
-    void operator=(const KateToolRunner &) = delete;
+    KateToolRunner(KateExternalTool* tool, QObject* parent = nullptr);
+    KateToolRunner(const KateToolRunner&) = delete;
+    void operator=(const KateToolRunner&) = delete;
 
     ~KateToolRunner();
 
@@ -48,7 +48,7 @@ public:
     QString outputData() const;
 
 Q_SIGNALS:
-    void toolFinished(KateToolRunner * runner);
+    void toolFinished(KateToolRunner* runner);
 
 private Q_SLOTS:
     /**
@@ -64,8 +64,8 @@ private Q_SLOTS:
     void handleToolFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
-    KateExternalTool * m_tool;
-    QProcess * m_process = nullptr;
+    KateExternalTool* m_tool;
+    QProcess* m_process = nullptr;
     QByteArray m_output;
 };
 

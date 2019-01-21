@@ -55,15 +55,15 @@ public:
     /**
      * Defines where to redirect stdout from the tool.
      */
-//     enum class OutputMode {
-//         Ignore,
-//         InsertAtCursor,
-//         ReplaceSelectedText,
-//         AppendToCurrentDocument,
-//         InsertInNewDocument,
-//         DisplayInPane
-//     }
-//     Q_ENUM(OutputMode)
+    //     enum class OutputMode {
+    //         Ignore,
+    //         InsertAtCursor,
+    //         ReplaceSelectedText,
+    //         AppendToCurrentDocument,
+    //         InsertInNewDocument,
+    //         DisplayInPane
+    //     }
+    //     Q_ENUM(OutputMode)
 
 public:
     /// The name used in the menu.
@@ -92,7 +92,7 @@ public:
     SaveMode saveMode = SaveMode::None;
 
     /// Possibly redirect the stdout output of the tool.
-    //OutputMode outputMode;
+    // OutputMode outputMode;
     /// Include stderr output when running the tool.
     bool includeStderr = false;
 
@@ -110,12 +110,12 @@ public:
     /**
      * Load tool data from the config group @p cg.
      */
-    void load(const KConfigGroup & cg);
+    void load(const KConfigGroup& cg);
 
     /**
      * Save tool data to the config group @p cg.
      */
-    void save(KConfigGroup & cg);
+    void save(KConfigGroup& cg);
 
 private:
     QString m_exec; ///< The fully qualified path of the executable.

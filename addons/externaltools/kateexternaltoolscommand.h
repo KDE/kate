@@ -41,7 +41,7 @@ public:
     bool help(KTextEditor::View* view, const QString& cmd, QString& msg) override;
 
 private:
-    void runTool(KateExternalTool & tool, KTextEditor::View * view);
+    void runTool(KateExternalTool& tool, KTextEditor::View* view);
 
 private:
     KateExternalToolsPlugin* m_plugin;

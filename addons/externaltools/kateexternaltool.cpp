@@ -34,7 +34,7 @@ bool KateExternalTool::valid(const QString& mt) const
     return mimetypes.isEmpty() || mimetypes.contains(mt);
 }
 
-void KateExternalTool::load(const KConfigGroup & cg)
+void KateExternalTool::load(const KConfigGroup& cg)
 {
     name = cg.readEntry("name", "");
     icon = cg.readEntry("icon", "");
@@ -51,7 +51,7 @@ void KateExternalTool::load(const KConfigGroup & cg)
     hasexec = checkExec();
 }
 
-void KateExternalTool::save(KConfigGroup & cg)
+void KateExternalTool::save(KConfigGroup& cg)
 {
     cg.writeEntry("name", name);
     cg.writeEntry("icon", icon);

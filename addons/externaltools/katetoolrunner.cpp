@@ -24,7 +24,7 @@
 
 #include <KShell>
 
-KateToolRunner::KateToolRunner(KateExternalTool * tool, QObject * parent)
+KateToolRunner::KateToolRunner(KateExternalTool* tool, QObject* parent)
     : QObject(parent)
     , m_tool(tool)
     , m_process(new QProcess())
@@ -51,10 +51,11 @@ void KateToolRunner::run()
     }
 
     QObject::connect(m_process, &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);
-    QObject::connect(m_process, static_cast<void(QProcess::*)(int,QProcess::ExitStatus)>(&QProcess::finished), this, &KateToolRunner::handleToolFinished);
+    QObject::connect(m_process, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this,
+                     &KateToolRunner::handleToolFinished);
 
     // Write stdin to process, if applicable, then close write channel
-    QObject::connect(m_process, &QProcess::started, [this](){
+    QObject::connect(m_process, &QProcess::started, [this]() {
         if (!m_tool->input.isEmpty()) {
             m_process->write(m_tool->input.toLocal8Bit());
         }
@@ -69,7 +70,6 @@ void KateToolRunner::waitForFinished()
 {
     m_process->waitForFinished();
 }
-
 
 QString KateToolRunner::outputData() const
 {

@@ -98,13 +98,13 @@ void KateExternalToolsPlugin::reload()
 
         config = KConfigGroup(&_config, *it);
 
-        KateExternalTool t;
-        t.load(config);
+        auto t = new KateExternalTool();
+        t->load(config);
         m_tools.push_back(t);
 
         // FIXME test for a command name first!
-        if (t.hasexec && (!t.cmdname.isEmpty())) {
-            m_commands.push_back(t.cmdname);
+        if (t->hasexec && (!t->cmdname.isEmpty())) {
+            m_commands.push_back(t->cmdname);
         }
     }
 
@@ -124,9 +124,9 @@ QStringList KateExternalToolsPlugin::commands() const
 
 const KateExternalTool * KateExternalToolsPlugin::toolForCommand(const QString & cmd) const
 {
-    for (auto & tool : m_tools) {
-        if (tool.cmdname == cmd) {
-            return &tool;
+    for (auto tool : m_tools) {
+        if (tool->cmdname == cmd) {
+            return tool;
         }
     }
     return nullptr;

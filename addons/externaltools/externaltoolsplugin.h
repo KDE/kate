@@ -57,7 +57,7 @@ public:
 
 private:
     QList<KateExternalToolsPluginView*> m_views;
-    QVector<KateExternalTool> m_tools;
+    QVector<KateExternalTool*> m_tools;
     QStringList m_commands;
     KateExternalToolsCommand* m_command = nullptr;
 private Q_SLOT:

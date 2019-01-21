@@ -60,63 +60,6 @@
 
 #include <unistd.h>
 
-// BEGIN KateExternalToolAction
-KateExternalToolAction::KateExternalToolAction(QObject* parent, KateExternalTool* t)
-    : QAction(QIcon::fromTheme(t->icon), t->name, parent)
-    , tool(t)
-{
-    setText(t->name);
-    if (!t->icon.isEmpty())
-        setIcon(QIcon::fromTheme(t->icon));
-
-    connect(this, SIGNAL(triggered(bool)), SLOT(slotRun()));
-}
-
-KateExternalToolAction::~KateExternalToolAction()
-{
-    delete (tool);
-}
-
-void KateExternalToolAction::slotRun()
-{
-    // expand the macros in command if any,
-    // and construct a command with an absolute path
-    auto mw = qobject_cast<KTextEditor::MainWindow*>(parent()->parent());
-
-    // save documents if requested
-    if (tool->saveMode == KateExternalTool::SaveMode::CurrentDocument) {
-        mw->activeView()->document()->save();
-    } else if (tool->saveMode == KateExternalTool::SaveMode::AllDocuments) {
-        foreach (KXMLGUIClient* client, mw->guiFactory()->clients()) {
-            if (QAction* a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {
-                a->trigger();
-                break;
-            }
-        }
-    }
-
-    // copy tool
-    auto copy = new KateExternalTool(*tool);
-
-    MacroExpander macroExpander(mw->activeView());
-    if (!macroExpander.expandMacrosShellQuote(copy->arguments)) {
-        KMessageBox::sorry(mw->activeView(), i18n("Failed to expand the arguments '%1'.", copy->arguments), i18n("Kate External Tools"));
-        return;
-    }
-
-    if (!macroExpander.expandMacrosShellQuote(copy->workingDir)) {
-        KMessageBox::sorry(mw->activeView(), i18n("Failed to expand the working directory '%1'.", copy->workingDir), i18n("Kate External Tools"));
-        return;
-    }
-
-    // FIXME: The tool runner must live as long as the child process is running.
-    //        --> it must be allocated on the heap, and deleted with a ->deleteLater() call.
-    KateToolRunner runner(copy);
-    runner.run();
-    runner.waitForFinished();
-}
-// END KateExternalToolAction
-
 // BEGIN KateExternalToolsMenuAction
 KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KActionCollection* collection,
                                                          KateExternalToolsPlugin * plugin, KTextEditor::MainWindow* mw)
@@ -148,7 +91,14 @@ void KateExternalToolsMenuAction::reload()
     // create tool actions
     for (auto tool : m_plugin->tools()) {
         if (tool->hasexec) {
-            QAction* a = new KateExternalToolAction(this, tool);
+            auto a = new QAction(tool->name, this);
+            a->setIcon(QIcon::fromTheme(tool->icon));
+            a->setData(QVariant::fromValue(tool));
+
+            connect(a, &QAction::triggered, [this,a](){
+                m_plugin->runTool(*a->data().value<KateExternalTool*>(), m_mainwindow->activeView());
+            });
+
             m_actionCollection->addAction(tool->actionName, a);
             addAction(a);
         }
@@ -171,16 +121,13 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)
     }
 
     // try to enable/disable to match current mime type
-    KTextEditor::Document* doc = view->document();
-    if (doc) {
-        const QString mimeType = doc->mimeType();
-        foreach (QAction* kaction, m_actionCollection->actions()) {
-            KateExternalToolAction* action = dynamic_cast<KateExternalToolAction*>(kaction);
-            if (action) {
-                const QStringList l = action->tool->mimetypes;
-                const bool b = (!l.count() || l.contains(mimeType));
-                action->setEnabled(b);
-            }
+    const QString mimeType = view->document()->mimeType();
+    foreach (QAction* action, m_actionCollection->actions()) {
+        if (action && action->data().value<KateExternalTool*>()) {
+            auto tool = action->data().value<KateExternalTool*>();
+            const QStringList l = tool->mimetypes;
+            const bool toolActive = (!l.count() || l.contains(mimeType));
+            action->setEnabled(toolActive);
         }
     }
 }

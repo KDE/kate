@@ -121,6 +121,8 @@ private:
     QString m_exec; ///< The fully qualified path of the executable.
 };
 
+Q_DECLARE_METATYPE(KateExternalTool*)
+
 #endif // KTEXTEDITOR_KATE_EXTERNALTOOL_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

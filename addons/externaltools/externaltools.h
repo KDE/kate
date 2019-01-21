@@ -93,23 +93,6 @@ private:
 };
 
 /**
- * This Action contains a KateExternalTool
- */
-class KateExternalToolAction : public QAction
-{
-    Q_OBJECT
-public:
-    KateExternalToolAction(QObject* parent, class KateExternalTool* t);
-    ~KateExternalToolAction();
-
-private Q_SLOTS:
-    void slotRun();
-
-public:
-    class KateExternalTool* tool;
-};
-
-/**
  * The config widget.
  * The config widget allows the user to view a list of services of the type
  * "Kate/ExternalTool" and add, remove or edit them.

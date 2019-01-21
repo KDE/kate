@@ -171,8 +171,8 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
         return;
     }
 
-    // FIXME: The tool runner must live as long as the child process is running.
-    //        --> it must be allocated on the heap, and deleted with a ->deleteLater() call.
+    // Allocate runner on heap such that it lives as long as the child
+    // process is running and does not block the main thread.
     auto runner = new KateToolRunner(copy, this);
     connect(runner, &KateToolRunner::toolFinished, this, &KateExternalToolsPlugin::handleToolFinished);
     runner->run();

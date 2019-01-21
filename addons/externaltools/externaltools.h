@@ -68,8 +68,6 @@ class KateExternalTool;
  */
 class KateExternalToolsMenuAction : public KActionMenu
 {
-    friend class KateExternalToolAction;
-
     Q_OBJECT
 public:
     KateExternalToolsMenuAction(const QString& text, KActionCollection* collection, KateExternalToolsPlugin * plugin,

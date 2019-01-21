@@ -68,15 +68,14 @@ KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KA
     , m_mainwindow(mw)
     , m_actionCollection(collection)
 {
-    // connect to view changed...
-    connect(mw, &KTextEditor::MainWindow::viewChanged, this, &KateExternalToolsMenuAction::slotViewChanged);
-
     reload();
+
+    // track active view to adapt enabled tool actions
+    connect(mw, &KTextEditor::MainWindow::viewChanged, this, &KateExternalToolsMenuAction::slotViewChanged);
 }
 
 KateExternalToolsMenuAction::~KateExternalToolsMenuAction()
 {
-    // kDebug() << "deleted KateExternalToolsMenuAction";
 }
 
 void KateExternalToolsMenuAction::reload()
@@ -125,8 +124,8 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)
     foreach (QAction* action, m_actionCollection->actions()) {
         if (action && action->data().value<KateExternalTool*>()) {
             auto tool = action->data().value<KateExternalTool*>();
-            const QStringList l = tool->mimetypes;
-            const bool toolActive = (!l.count() || l.contains(mimeType));
+            const bool toolActive = tool->mimetypes.isEmpty()
+                                 || tool->mimetypes.contains(mimeType);
             action->setEnabled(toolActive);
         }
     }

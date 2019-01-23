@@ -1,5 +1,5 @@
 project(externaltoolsplugin)
-add_definitions(-DTRANSLATION_DOMAIN=\"externaltoolsplugin\")
+add_definitions(-DTRANSLATION_DOMAIN=\"kateexternaltoolsplugin\")
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 

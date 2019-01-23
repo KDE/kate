@@ -56,21 +56,21 @@
        <item>
         <widget class="QPushButton" name="btnNew">
          <property name="text">
-          <string>New...</string>
+          <string>&amp;New...</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="btnEdit">
          <property name="text">
-          <string>Edit...</string>
+          <string>Edit&amp;...</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="btnRemove">
          <property name="text">
-          <string>Remove</string>
+          <string>&amp;Remove</string>
          </property>
         </widget>
        </item>
@@ -88,9 +88,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="btnSeparator">
+        <widget class="QPushButton" name="btnCategory">
          <property name="text">
-          <string>Insert Separator</string>
+          <string>New &amp;Category</string>
          </property>
         </widget>
        </item>

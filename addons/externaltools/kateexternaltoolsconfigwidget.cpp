@@ -146,7 +146,6 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     connect(btnNew, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotNew);
     connect(btnRemove, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotRemove);
     connect(btnEdit, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotEdit);
-    connect(btnSeparator, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotInsertSeparator);
     connect(btnMoveUp, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotMoveUp);
     connect(btnMoveDown, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotMoveDown);
 
@@ -185,18 +184,14 @@ void KateExternalToolsConfigWidget::reset()
 
     for (int i = 0; i < tools.size(); ++i) {
         const QString& toolSection = tools[i];
-        if (toolSection == QStringLiteral("---")) {
-            new QListWidgetItem(QStringLiteral("---"), lbTools);
-        } else {
-            KConfigGroup cg(m_config, toolSection);
-            KateExternalTool* t = new KateExternalTool();
-            t->load(cg);
+        KConfigGroup cg(m_config, toolSection);
+        KateExternalTool* t = new KateExternalTool();
+        t->load(cg);
 
-            if (t->hasexec) // we only show tools that are also in the menu.
-                new ToolItem(lbTools, t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
-            else
-                delete t;
-        }
+        if (t->hasexec) // we only show tools that are also in the menu.
+            new ToolItem(lbTools, t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
+        else
+            delete t;
     }
     m_changed = false;
 }
@@ -217,10 +212,6 @@ void KateExternalToolsConfigWidget::apply()
 
     QStringList tools;
     for (int i = 0; i < lbTools->count(); i++) {
-        if (lbTools->item(i)->text() == QStringLiteral("---")) {
-            tools << QStringLiteral("---");
-            continue;
-        }
         const QString toolSection = QStringLiteral("Tool ") + QString::number(i);
         tools << toolSection;
 
@@ -329,13 +320,6 @@ void KateExternalToolsConfigWidget::slotEdit()
     m_config->sync();
 }
 
-void KateExternalToolsConfigWidget::slotInsertSeparator()
-{
-    lbTools->insertItem(lbTools->currentRow() + 1, QStringLiteral("---"));
-    emit changed();
-    m_changed = true;
-}
-
 void KateExternalToolsConfigWidget::slotMoveUp()
 {
     // move the current item in the listbox upwards if possible
@@ -353,10 +337,6 @@ void KateExternalToolsConfigWidget::slotMoveUp()
         delete lbTools->takeItem(idx);
         lbTools->insertItem(idx - 1,
                             new ToolItem(nullptr, tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool));
-    } else // a separator!
-    {
-        delete lbTools->takeItem(idx);
-        lbTools->insertItem(idx - 1, new QListWidgetItem(QStringLiteral("---")));
     }
 
     lbTools->setCurrentRow(idx - 1);
@@ -382,10 +362,6 @@ void KateExternalToolsConfigWidget::slotMoveDown()
         delete lbTools->takeItem(idx);
         lbTools->insertItem(idx + 1,
                             new ToolItem(nullptr, tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool));
-    } else // a separator!
-    {
-        delete lbTools->takeItem(idx);
-        lbTools->insertItem(idx + 1, new QListWidgetItem(QStringLiteral("---")));
     }
 
     lbTools->setCurrentRow(idx + 1);

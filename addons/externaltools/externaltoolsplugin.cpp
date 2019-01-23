@@ -73,9 +73,6 @@ void KateExternalToolsPlugin::reload()
     const QStringList tools = config.readEntry("tools", QStringList());
 
     for (QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it) {
-        if (*it == QStringLiteral("---"))
-            continue;
-
         config = KConfigGroup(&_config, *it);
 
         auto t = new KateExternalTool();

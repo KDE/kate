@@ -65,7 +65,6 @@ private Q_SLOTS:
     void slotNew();
     void slotEdit();
     void slotRemove();
-    void slotInsertSeparator();
 
     void slotMoveUp();
     void slotMoveDown();

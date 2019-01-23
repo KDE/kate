@@ -57,6 +57,14 @@ public:
 
     void runTool(const KateExternalTool& tool, KTextEditor::View* view);
 
+Q_SIGNALS:
+    /**
+     * This signal is emitted whenever the external tools change.
+     * This is typically the case when external tools were modified,
+     * added, or removed via the config page.
+     */
+    void externalToolsChanged();
+
 private:
     QList<KateExternalToolsPluginView*> m_views;
     QVector<KateExternalTool*> m_tools;
@@ -88,6 +96,10 @@ public:
      */
     KTextEditor::MainWindow* mainWindow() const;
 
+public Q_SLOTS:
+    /**
+     * Called by the plugin view to reload the menu
+     */
     void rebuildMenu();
 
 private:

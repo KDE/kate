@@ -67,6 +67,7 @@ KateExternalToolsPlugin::~KateExternalToolsPlugin()
 QObject* KateExternalToolsPlugin::createView(KTextEditor::MainWindow* mainWindow)
 {
     KateExternalToolsPluginView* view = new KateExternalToolsPluginView(mainWindow, this);
+    connect(this, &KateExternalToolsPlugin::externalToolsChanged, view, &KateExternalToolsPluginView::rebuildMenu);
     connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
     m_views.append(view);
     return view;
@@ -114,9 +115,8 @@ void KateExternalToolsPlugin::reload()
         delete m_command;
         m_command = new KateExternalToolsCommand(this);
     }
-    foreach (KateExternalToolsPluginView* view, m_views) {
-        view->rebuildMenu();
-    }
+
+    Q_EMIT externalToolsChanged();
 }
 
 QStringList KateExternalToolsPlugin::commands() const
@@ -223,7 +223,6 @@ void KateExternalToolsPluginView::rebuildMenu()
         f->removeClient(this);
         reloadXML();
         m_externalToolsMenu->reload();
-        qDebug() << "has just returned from externalTools->reload()";
         f->addClient(this);
     }
 }

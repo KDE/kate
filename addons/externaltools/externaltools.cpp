@@ -1,24 +1,22 @@
-/*
-   This file is part of the Kate text editor of the KDE project.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License version 2 as published by the Free Software Foundation.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
-
-   ---
-   Copyright (C) 2004, Anders Lund <anders@alweb.dk>
-   Copyright (C) 2019 Dominik Haumann <dhaumann@kde.org>
-*/
+/* This file is part of the KDE project
+ *
+ *  Copyright 2019 Dominik Haumann <dhaumann@kde.org>
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ */
 // TODO
 // Icons
 // Direct shortcut setting
@@ -26,20 +24,14 @@
 #include "externaltoolsplugin.h"
 #include "kateexternaltool.h"
 
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/Document>
-#include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
 #include <KActionCollection>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KIconButton>
-#include <KIconLoader>
-#include <KMessageBox>
-#include <KMimeTypeChooser>
 #include <KSharedConfig>
-#include <KXMLGUIFactory>
-#include <KXmlGuiWindow>
 #include <QStandardPaths>
 #include <QMenu>
 

@@ -36,6 +36,7 @@ bool KateExternalTool::valid(const QString& mt) const
 
 void KateExternalTool::load(const KConfigGroup& cg)
 {
+    category = cg.readEntry("category", "");
     name = cg.readEntry("name", "");
     icon = cg.readEntry("icon", "");
     executable = cg.readEntry("executable", "");
@@ -53,6 +54,7 @@ void KateExternalTool::load(const KConfigGroup& cg)
 
 void KateExternalTool::save(KConfigGroup& cg)
 {
+    cg.writeEntry("category", category);
     cg.writeEntry("name", name);
     cg.writeEntry("icon", icon);
     cg.writeEntry("executable", executable);

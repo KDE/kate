@@ -61,6 +61,7 @@ void KateExternalToolsMenuAction::reload()
     menu()->clear();
 
     // create tool actions
+    QHash<QString, KActionMenu*> categories;
     for (auto tool : m_plugin->tools()) {
         if (tool->hasexec) {
             auto a = new QAction(tool->name, this);
@@ -72,7 +73,16 @@ void KateExternalToolsMenuAction::reload()
             });
 
             m_actionCollection->addAction(tool->actionName, a);
-            addAction(a);
+            if (!tool->category.isEmpty()) {
+                auto categoryMenu = categories[tool->category];
+                if (!categoryMenu) {
+                    categoryMenu = new KActionMenu(tool->category, this);
+                    addAction(categoryMenu);
+                }
+                categoryMenu->addAction(a);
+            } else {
+                addAction(a);
+            }
         }
     }
 

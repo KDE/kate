@@ -44,6 +44,7 @@ void ExternalToolTest::testLoadSave()
     KConfigGroup cg(&config, "tool");
 
     KateExternalTool tool;
+    tool.category = QStringLiteral("Git Tools");
     tool.name = QStringLiteral("git cola");
     tool.icon = QStringLiteral("git-cola");
     tool.executable = QStringLiteral("git-cola");
@@ -66,6 +67,7 @@ void ExternalToolTest::testLoadSave()
 void ExternalToolTest::testRunListDirectory()
 {
     auto tool = new KateExternalTool();
+    tool->category = QStringLiteral("Tools");
     tool->name = QStringLiteral("ls");
     tool->icon = QStringLiteral("none");
     tool->executable = QStringLiteral("ls");

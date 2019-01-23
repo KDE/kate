@@ -66,6 +66,8 @@ public:
     //     Q_ENUM(OutputMode)
 
 public:
+    /// The category used in the menu to categorize the tool.
+    QString category;
     /// The name used in the menu.
     QString name;
     /// the icon to use in the menu.
@@ -82,7 +84,7 @@ public:
     QStringList mimetypes;
     /// This is set by the constructor by calling checkExec(), if a
     /// value is present.
-    bool hasexec;
+    bool hasexec = false;
     /// The name for the action. This is generated first time the
     /// action is is created.
     QString actionName;

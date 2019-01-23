@@ -44,16 +44,46 @@ public:
     explicit KateExternalToolsPlugin(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
     virtual ~KateExternalToolsPlugin();
 
+    /**
+     * Reimplemented to return the number of config pages, in this case 1.
+     */
     int configPages() const override;
+
+    /**
+     * Reimplemented to return the KateExternalToolConfigWidget for number==0.
+     */
     KTextEditor::ConfigPage* configPage(int number = 0, QWidget* parent = nullptr) override;
 
+    /**
+     * Reimplemented to instanciate a PluginView for each MainWindow.
+     */
     QObject* createView(KTextEditor::MainWindow* mainWindow) override;
 
+    /**
+     * Reloads the external tools from disk.
+     */
     void reload();
+
+    /**
+     * Returns a list of KTextEDitor::Command strings. This is needed by
+     * the KateExternalToolsCommand constructor to pass the list of commands to
+     * the KTextEditor::Editor.
+     */
     QStringList commands() const;
+
+    /**
+     * Returns the KateExternalTool for a specific command line command 'cmd.
+     */
     const KateExternalTool* toolForCommand(const QString& cmd) const;
+
+    /**
+     * Returns a list of all existing external tools.
+     */
     const QVector<KateExternalTool*> tools() const;
 
+    /**
+     * Executes the tool based on the view as current document.
+     */
     void runTool(const KateExternalTool& tool, KTextEditor::View* view);
 
 Q_SIGNALS:
@@ -70,9 +100,11 @@ private:
     QStringList m_commands;
     KateExternalToolsCommand* m_command = nullptr;
 
-private
-    Q_SLOT : void handleToolFinished(KateToolRunner* runner);
-    void viewDestroyed(QObject* view);
+private Q_SLOT:
+    /**
+     * Called whenever an external tool is done.
+     */
+    void handleToolFinished(KateToolRunner* runner);
 };
 
 class KateExternalToolsPluginView : public QObject, public KXMLGUIClient

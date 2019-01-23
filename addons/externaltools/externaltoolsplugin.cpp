@@ -68,14 +68,8 @@ QObject* KateExternalToolsPlugin::createView(KTextEditor::MainWindow* mainWindow
 {
     KateExternalToolsPluginView* view = new KateExternalToolsPluginView(mainWindow, this);
     connect(this, &KateExternalToolsPlugin::externalToolsChanged, view, &KateExternalToolsPluginView::rebuildMenu);
-    connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
     m_views.append(view);
     return view;
-}
-
-void KateExternalToolsPlugin::viewDestroyed(QObject* view)
-{
-    m_views.removeAll(dynamic_cast<KateExternalToolsPluginView*>(view));
 }
 
 void KateExternalToolsPlugin::reload()

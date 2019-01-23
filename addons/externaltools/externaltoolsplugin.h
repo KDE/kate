@@ -90,11 +90,10 @@ public:
 
     void rebuildMenu();
 
-    KateExternalToolsMenuAction* externalTools = nullptr;
-
 private:
     KateExternalToolsPlugin* m_plugin;
     KTextEditor::MainWindow* m_mainWindow;
+    KateExternalToolsMenuAction* m_externalToolsMenu = nullptr;
 };
 
 #endif

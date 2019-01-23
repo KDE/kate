@@ -208,9 +208,9 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     setXMLFile(QLatin1String("ui.rc"));
 
     if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
-        externalTools = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), plugin, mainWindow);
-        actionCollection()->addAction(QStringLiteral("tools_external"), externalTools);
-        externalTools->setWhatsThis(i18n("Launch external helper applications"));
+        m_externalToolsMenu = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), plugin, mainWindow);
+        actionCollection()->addAction(QStringLiteral("tools_external"), m_externalToolsMenu);
+        m_externalToolsMenu->setWhatsThis(i18n("Launch external helper applications"));
     }
 
     mainWindow->guiFactory()->addClient(this);
@@ -218,11 +218,11 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
 
 void KateExternalToolsPluginView::rebuildMenu()
 {
-    if (externalTools) {
+    if (m_externalToolsMenu) {
         KXMLGUIFactory* f = factory();
         f->removeClient(this);
         reloadXML();
-        externalTools->reload();
+        m_externalToolsMenu->reload();
         qDebug() << "has just returned from externalTools->reload()";
         f->addClient(this);
     }
@@ -232,8 +232,8 @@ KateExternalToolsPluginView::~KateExternalToolsPluginView()
 {
     m_mainWindow->guiFactory()->removeClient(this);
 
-    delete externalTools;
-    externalTools = nullptr;
+    delete m_externalToolsMenu;
+    m_externalToolsMenu = nullptr;
 }
 
 KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const

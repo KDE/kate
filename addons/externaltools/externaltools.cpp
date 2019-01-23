@@ -107,8 +107,7 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)
     foreach (QAction* action, m_actionCollection->actions()) {
         if (action && action->data().value<KateExternalTool*>()) {
             auto tool = action->data().value<KateExternalTool*>();
-            const bool toolActive = tool->mimetypes.isEmpty() || tool->mimetypes.contains(mimeType);
-            action->setEnabled(toolActive);
+            action->setEnabled(tool->matchesMimetype(mimeType));
         }
     }
 }

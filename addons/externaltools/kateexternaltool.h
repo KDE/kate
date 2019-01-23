@@ -1,27 +1,22 @@
-/*
-   This file is part of the Kate text editor of the KDE project.
-   It describes a "external tools" action for kate and provides a dialog
-   page to configure that.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License version 2 as published by the Free Software Foundation.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
-
-   ---
-   Copyright (C) 2004 Anders Lund <anders@alweb.dk>
-   Copyright (C) 2019 Dominik Haumann <dhaumann@kde.org>
-*/
-
+/* This file is part of the KDE project
+ *
+ *  Copyright 2019 Dominik Haumann <dhaumann@kde.org>
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ */
 #ifndef KTEXTEDITOR_KATE_EXTERNALTOOL_H
 #define KTEXTEDITOR_KATE_EXTERNALTOOL_H
 
@@ -101,13 +96,14 @@ public:
     /**
      * @return true if mimetypes is empty, or the @p mimetype matches.
      */
-    bool valid(const QString& mimetype) const;
+    bool matchesMimetype(const QString& mimetype) const;
+
     /**
      * @return true if "executable" exists and has the executable bit set, or is
      * empty.
      * This is run at least once, and the tool is disabled if it fails.
      */
-    bool checkExec();
+    bool checkExec() const;
 
     /**
      * Load tool data from the config group @p cg.
@@ -118,9 +114,6 @@ public:
      * Save tool data to the config group @p cg.
      */
     void save(KConfigGroup& cg);
-
-private:
-    QString m_exec; ///< The fully qualified path of the executable.
 };
 
 Q_DECLARE_METATYPE(KateExternalTool*)

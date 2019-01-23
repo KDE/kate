@@ -1,35 +1,33 @@
-/*
-   This file is part of the Kate text editor of the KDE project.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License version 2 as published by the Free Software Foundation.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
-
-   ---
-   Copyright (C) 2019 Dominik Haumann <dhaumann@kde.org>
-*/
+/* This file is part of the KDE project
+ *
+ *  Copyright 2019 Dominik Haumann <dhaumann@kde.org>
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ */
 #include "kateexternaltool.h"
 
 #include <KConfigGroup>
 #include <QStandardPaths>
 
-bool KateExternalTool::checkExec()
+bool KateExternalTool::checkExec() const
 {
-    m_exec = QStandardPaths::findExecutable(executable);
-    return !m_exec.isEmpty();
+    return !QStandardPaths::findExecutable(executable).isEmpty();
 }
 
-bool KateExternalTool::valid(const QString& mt) const
+bool KateExternalTool::matchesMimetype(const QString& mt) const
 {
     return mimetypes.isEmpty() || mimetypes.contains(mt);
 }

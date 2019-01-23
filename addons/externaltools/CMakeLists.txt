@@ -10,6 +10,7 @@ set(externaltoolsplugin_PART_SRCS
     kateexternaltool.cpp
     katemacroexpander.cpp
     kateexternaltoolscommand.cpp
+    kateexternaltoolsconfigwidget.cpp
 )
 
 # resource for ui file and stuff

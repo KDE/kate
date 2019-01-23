@@ -25,13 +25,7 @@
 #ifndef KTEXTEDITOR_EXTERNALTOOLS_H
 #define KTEXTEDITOR_EXTERNALTOOLS_H
 
-#include "ui_configwidget.h"
-#include "ui_tooldialog.h"
-
-#include <KTextEditor/Application>
-#include <KTextEditor/ConfigPage>
 #include <KTextEditor/MainWindow>
-#include <KTextEditor/Plugin>
 
 #include <KActionMenu>
 #include <KMacroExpander>
@@ -88,76 +82,6 @@ private:
     KateExternalToolsPlugin* m_plugin;
     KTextEditor::MainWindow* m_mainwindow; // for the actions to access view/doc managers
     KActionCollection* m_actionCollection;
-};
-
-/**
- * The config widget.
- * The config widget allows the user to view a list of services of the type
- * "Kate/ExternalTool" and add, remove or edit them.
- */
-class KateExternalToolsConfigWidget : public KTextEditor::ConfigPage, public Ui::ExternalToolsConfigWidget
-{
-    Q_OBJECT
-public:
-    KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin);
-    virtual ~KateExternalToolsConfigWidget();
-
-    QString name() const override;
-    QString fullName() const override;
-    QIcon icon() const override;
-
-public Q_SLOTS:
-    void apply() override;
-    void reset() override;
-    void defaults() override { reset(); } // double sigh
-
-private Q_SLOTS:
-    void slotNew();
-    void slotEdit();
-    void slotRemove();
-    void slotInsertSeparator();
-
-    void slotMoveUp();
-    void slotMoveDown();
-
-    void slotSelectionChanged();
-
-private:
-    QPixmap blankIcon();
-
-    QStringList m_removed;
-
-    class KConfig* m_config = nullptr;
-    bool m_changed = false;
-    KateExternalToolsPlugin* m_plugin;
-};
-
-/**
- * A Dialog to edit a single KateExternalTool object
- */
-class KateExternalToolServiceEditor : public QDialog
-{
-    Q_OBJECT
-
-public:
-    explicit KateExternalToolServiceEditor(KateExternalTool* tool = nullptr, QWidget* parent = nullptr);
-
-private Q_SLOTS:
-    /**
-     * Run when the OK button is clicked, to ensure critical values are provided.
-     */
-    void slotOKClicked();
-
-    /**
-     * show a mimetype chooser dialog
-     */
-    void showMTDlg();
-
-public:
-    Ui::ToolDialog* ui;
-
-private:
-    KateExternalTool* tool;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_H

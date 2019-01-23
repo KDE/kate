@@ -73,15 +73,6 @@ QObject* KateExternalToolsPlugin::createView(KTextEditor::MainWindow* mainWindow
     return view;
 }
 
-KateExternalToolsPluginView* KateExternalToolsPlugin::extView(QWidget* widget)
-{
-    foreach (KateExternalToolsPluginView* view, m_views) {
-        if (view->mainWindow()->window() == widget)
-            return view;
-    }
-    return nullptr;
-}
-
 void KateExternalToolsPlugin::viewDestroyed(QObject* view)
 {
     m_views.removeAll(dynamic_cast<KateExternalToolsPluginView*>(view));

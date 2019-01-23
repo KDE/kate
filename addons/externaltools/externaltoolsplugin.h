@@ -48,7 +48,6 @@ public:
     KTextEditor::ConfigPage* configPage(int number = 0, QWidget* parent = nullptr) override;
 
     QObject* createView(KTextEditor::MainWindow* mainWindow) override;
-    KateExternalToolsPluginView* extView(QWidget* widget);
 
     void reload();
     QStringList commands() const;

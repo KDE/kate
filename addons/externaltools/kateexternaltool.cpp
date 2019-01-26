@@ -50,7 +50,7 @@ void KateExternalTool::load(const KConfigGroup& cg)
     hasexec = checkExec();
 }
 
-void KateExternalTool::save(KConfigGroup& cg)
+void KateExternalTool::save(KConfigGroup& cg) const
 {
     cg.writeEntry("category", category);
     cg.writeEntry("name", name);

@@ -74,9 +74,6 @@ public:
     QString workingDir;
     /// Optional list of mimetypes for which this action is valid.
     QStringList mimetypes;
-    /// This is set by the constructor by calling checkExec(), if a
-    /// value is present.
-    bool hasexec = false;
     /// The name for the action. This is generated first time the
     /// action is is created.
     QString actionName;
@@ -89,6 +86,10 @@ public:
     // OutputMode outputMode;
     /// Include stderr output when running the tool.
     bool includeStderr = false;
+
+public:
+    /// This is set when loading the Tool from disk.
+    bool hasexec = false;
 
     /**
      * @return true if mimetypes is empty, or the @p mimetype matches.
@@ -110,7 +111,7 @@ public:
     /**
      * Save tool data to the config group @p cg.
      */
-    void save(KConfigGroup& cg);
+    void save(KConfigGroup& cg) const;
 };
 
 Q_DECLARE_METATYPE(KateExternalTool*)

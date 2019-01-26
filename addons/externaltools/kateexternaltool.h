@@ -20,7 +20,7 @@
 #ifndef KTEXTEDITOR_KATE_EXTERNALTOOL_H
 #define KTEXTEDITOR_KATE_EXTERNALTOOL_H
 
-#include <QObject>
+#include <QMetaType>
 #include <QString>
 #include <QStringList>
 
@@ -31,8 +31,6 @@ class KConfigGroup;
  */
 class KateExternalTool
 {
-    Q_GADGET
-
 public:
     /**
      * Defines whether any document should be saved before running the tool.
@@ -45,7 +43,6 @@ public:
         //! Save all documents
         AllDocuments
     };
-    Q_ENUM(SaveMode)
 
     /**
      * Defines where to redirect stdout from the tool.

@@ -61,7 +61,7 @@ void ExternalToolTest::testLoadSave()
 
     KateExternalTool clonedTool;
     clonedTool.load(cg);
-    QCOMPARE(tool.name, clonedTool.name);
+    QCOMPARE(tool, clonedTool);
 }
 
 void ExternalToolTest::testRunListDirectory()

@@ -114,6 +114,12 @@ public:
     void save(KConfigGroup& cg) const;
 };
 
+/**
+ * Compares for equality. All fields have to match.
+ */
+bool operator==(const KateExternalTool & lhs, const KateExternalTool & rhs);
+
+// for use in QVariant (QAction::setData() and QAction::data())
 Q_DECLARE_METATYPE(KateExternalTool*)
 
 #endif // KTEXTEDITOR_KATE_EXTERNALTOOL_H

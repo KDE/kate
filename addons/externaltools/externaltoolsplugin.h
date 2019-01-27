@@ -21,8 +21,6 @@
 #define KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
 
 #include <QVector>
-
-#include <KXMLGUIClient>
 #include <KTextEditor/Plugin>
 
 namespace KTextEditor { class View; }
@@ -101,38 +99,6 @@ private Q_SLOT:
      * Called whenever an external tool is done.
      */
     void handleToolFinished(KateToolRunner* runner);
-};
-
-class KateExternalToolsPluginView : public QObject, public KXMLGUIClient
-{
-    Q_OBJECT
-
-public:
-    /**
-     * Constructor.
-     */
-    KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow, KateExternalToolsPlugin* plugin);
-
-    /**
-     * Virtual destructor.
-     */
-    ~KateExternalToolsPluginView();
-
-    /**
-     * Returns the associated mainWindow
-     */
-    KTextEditor::MainWindow* mainWindow() const;
-
-public Q_SLOTS:
-    /**
-     * Called by the plugin view to reload the menu
-     */
-    void rebuildMenu();
-
-private:
-    KateExternalToolsPlugin* m_plugin;
-    KTextEditor::MainWindow* m_mainWindow;
-    KateExternalToolsMenuAction* m_externalToolsMenu = nullptr;
 };
 
 #endif

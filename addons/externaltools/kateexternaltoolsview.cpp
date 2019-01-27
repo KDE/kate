@@ -29,11 +29,15 @@
 #include <KTextEditor/View>
 
 #include <KActionCollection>
+#include <KAuthorized>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KSharedConfig>
 #include <QStandardPaths>
 #include <QMenu>
+#include <KXMLGUIFactory>
+#include <KLocalizedString>
+
 
 // BEGIN KateExternalToolsMenuAction
 KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KActionCollection* collection,
@@ -112,5 +116,47 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)
     }
 }
 // END KateExternalToolsMenuAction
+
+KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow,
+                                                         KateExternalToolsPlugin* plugin)
+    : QObject(mainWindow)
+    , m_plugin(plugin)
+    , m_mainWindow(mainWindow)
+{
+    KXMLGUIClient::setComponentName(QLatin1String("externaltools"), i18n("External Tools"));
+    setXMLFile(QLatin1String("ui.rc"));
+
+    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
+        m_externalToolsMenu = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), plugin, mainWindow);
+        actionCollection()->addAction(QStringLiteral("tools_external"), m_externalToolsMenu);
+        m_externalToolsMenu->setWhatsThis(i18n("Launch external helper applications"));
+    }
+
+    mainWindow->guiFactory()->addClient(this);
+}
+
+void KateExternalToolsPluginView::rebuildMenu()
+{
+    if (m_externalToolsMenu) {
+        KXMLGUIFactory* f = factory();
+        f->removeClient(this);
+        reloadXML();
+        m_externalToolsMenu->reload();
+        f->addClient(this);
+    }
+}
+
+KateExternalToolsPluginView::~KateExternalToolsPluginView()
+{
+    m_mainWindow->guiFactory()->removeClient(this);
+
+    delete m_externalToolsMenu;
+    m_externalToolsMenu = nullptr;
+}
+
+KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const
+{
+    return m_mainWindow;
+}
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

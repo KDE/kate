@@ -25,7 +25,7 @@ namespace KTextEditor { class View; }
 
 #include <KActionMenu>
 #include <KMacroExpander>
-#include <QDialog>
+#include <KXMLGUIClient>
 
 class KActionCollection;
 class KateExternalToolsPlugin;
@@ -74,6 +74,38 @@ private:
     KateExternalToolsPlugin* m_plugin;
     KTextEditor::MainWindow* m_mainwindow; // for the actions to access view/doc managers
     KActionCollection* m_actionCollection;
+};
+
+class KateExternalToolsPluginView : public QObject, public KXMLGUIClient
+{
+    Q_OBJECT
+
+public:
+    /**
+     * Constructor.
+     */
+    KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow, KateExternalToolsPlugin* plugin);
+
+    /**
+     * Virtual destructor.
+     */
+    ~KateExternalToolsPluginView();
+
+    /**
+     * Returns the associated mainWindow
+     */
+    KTextEditor::MainWindow* mainWindow() const;
+
+public Q_SLOTS:
+    /**
+     * Called by the plugin view to reload the menu
+     */
+    void rebuildMenu();
+
+private:
+    KateExternalToolsPlugin* m_plugin;
+    KTextEditor::MainWindow* m_mainWindow;
+    KateExternalToolsMenuAction* m_externalToolsMenu = nullptr;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_H

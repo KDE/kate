@@ -19,15 +19,15 @@
  */
 #include "externaltoolsplugin.h"
 
+#include "kateexternaltoolsview.h"
 #include "kateexternaltool.h"
 #include "kateexternaltoolscommand.h"
 #include "katemacroexpander.h"
 #include "katetoolrunner.h"
 #include "kateexternaltoolsconfigwidget.h"
-#include "kateexternaltoolsview.h"
 
 #include <KLocalizedString>
-#include <KTextEditor/Editor>
+// #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
 #include <KActionCollection>
@@ -170,48 +170,6 @@ KTextEditor::ConfigPage* KateExternalToolsPlugin::configPage(int number, QWidget
         return new KateExternalToolsConfigWidget(parent, this);
     }
     return nullptr;
-}
-
-KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow,
-                                                         KateExternalToolsPlugin* plugin)
-    : QObject(mainWindow)
-    , m_plugin(plugin)
-    , m_mainWindow(mainWindow)
-{
-    KXMLGUIClient::setComponentName(QLatin1String("externaltools"), i18n("External Tools"));
-    setXMLFile(QLatin1String("ui.rc"));
-
-    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
-        m_externalToolsMenu = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), plugin, mainWindow);
-        actionCollection()->addAction(QStringLiteral("tools_external"), m_externalToolsMenu);
-        m_externalToolsMenu->setWhatsThis(i18n("Launch external helper applications"));
-    }
-
-    mainWindow->guiFactory()->addClient(this);
-}
-
-void KateExternalToolsPluginView::rebuildMenu()
-{
-    if (m_externalToolsMenu) {
-        KXMLGUIFactory* f = factory();
-        f->removeClient(this);
-        reloadXML();
-        m_externalToolsMenu->reload();
-        f->addClient(this);
-    }
-}
-
-KateExternalToolsPluginView::~KateExternalToolsPluginView()
-{
-    m_mainWindow->guiFactory()->removeClient(this);
-
-    delete m_externalToolsMenu;
-    m_externalToolsMenu = nullptr;
-}
-
-KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const
-{
-    return m_mainWindow;
 }
 
 #include "externaltoolsplugin.moc"

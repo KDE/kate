@@ -76,7 +76,7 @@ public:
     /**
      * Returns a list of all existing external tools.
      */
-    const QVector<KateExternalTool*> tools() const;
+    const QVector<KateExternalTool*> & tools() const;
 
     /**
      * Executes the tool based on the view as current document.

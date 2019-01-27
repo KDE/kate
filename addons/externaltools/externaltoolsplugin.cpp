@@ -108,7 +108,7 @@ const KateExternalTool* KateExternalToolsPlugin::toolForCommand(const QString& c
     return nullptr;
 }
 
-const QVector<KateExternalTool*> KateExternalToolsPlugin::tools() const
+const QVector<KateExternalTool*> & KateExternalToolsPlugin::tools() const
 {
     return m_tools;
 }

@@ -24,7 +24,7 @@
 #include "katemacroexpander.h"
 #include "katetoolrunner.h"
 #include "kateexternaltoolsconfigwidget.h"
-#include "externaltools.h"
+#include "kateexternaltoolsview.h"
 
 #include <KLocalizedString>
 #include <KTextEditor/Editor>

@@ -20,7 +20,7 @@
 // TODO
 // Icons
 // Direct shortcut setting
-#include "externaltools.h"
+#include "kateexternaltoolsview.h"
 #include "externaltoolsplugin.h"
 #include "kateexternaltool.h"
 

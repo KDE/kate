@@ -31,6 +31,7 @@
 #include <KActionMenu>
 #include <KMacroExpander>
 #include <QDialog>
+#include <QStandardItemModel>
 
 #include <QHash>
 #include <QPixmap>
@@ -59,7 +60,7 @@ public:
 public Q_SLOTS:
     void apply() override;
     void reset() override;
-    void defaults() override { reset(); } // double sigh
+    void defaults() override { reset(); }
 
 private Q_SLOTS:
     void slotNew();
@@ -71,6 +72,8 @@ private Q_SLOTS:
 
     void slotSelectionChanged();
 
+    QStandardItem * addCategory(const QString & category);
+
 private:
     QPixmap blankIcon();
 
@@ -79,6 +82,7 @@ private:
     class KConfig* m_config = nullptr;
     bool m_changed = false;
     KateExternalToolsPlugin* m_plugin;
+    QStandardItemModel m_toolsModel;
 };
 
 /**

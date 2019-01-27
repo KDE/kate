@@ -103,7 +103,7 @@
       <widget class="QToolButton" name="btnMoveDown"/>
      </item>
      <item row="0" column="0" rowspan="4">
-      <widget class="QListWidget" name="lbTools">
+      <widget class="QTreeView" name="lbTools">
        <property name="whatsThis">
         <string>This list shows all the configured tools, represented by their menu text.</string>
        </property>

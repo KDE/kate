@@ -41,10 +41,10 @@
 #include <KXMLGUIFactory>
 #include <KXmlGuiWindow>
 #include <QComboBox>
-#include <QLineEdit>
-#include <QListWidget>
+#include <QTreeView>
 #include <QMenu>
 #include <QStandardPaths>
+#include <QStandardItem>
 
 #include <QBitmap>
 #include <QFile>
@@ -60,21 +60,21 @@
 
 // BEGIN ToolItem
 /**
- * This is a QListBoxItem, that has a KateExternalTool. The text is the Name
- * of the tool.
+ * This is a QStandardItem, that has a KateExternalTool.
+ * The text is the Name of the tool.
  */
-class ToolItem : public QListWidgetItem
+class ToolItem : public QStandardItem
 {
 public:
-    ToolItem(QListWidget* lb, const QPixmap& icon, KateExternalTool* tool)
-        : QListWidgetItem(icon, tool->name, lb)
-        , tool(tool)
+    ToolItem(const QPixmap& icon, KateExternalTool* tool)
+        : QStandardItem(icon, tool->name)
     {
+        setData(QVariant::fromValue(tool));
     }
 
-    ~ToolItem() {}
-
-    KateExternalTool* tool;
+    KateExternalTool * tool() {
+        return qvariant_cast<KateExternalTool*>(data());
+    }
 };
 // END ToolItem
 
@@ -137,12 +137,13 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     , m_plugin(plugin)
 {
     setupUi(this);
+    lbTools->setModel(&m_toolsModel);
 
     btnMoveUp->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
     btnMoveDown->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
 
-    connect(lbTools, &QListWidget::itemSelectionChanged, this, &KateExternalToolsConfigWidget::slotSelectionChanged);
-    connect(lbTools, &QListWidget::itemDoubleClicked, this, &KateExternalToolsConfigWidget::slotEdit);
+//    connect(lbTools, &QTreeView::itemSelectionChanged, this, &KateExternalToolsConfigWidget::slotSelectionChanged);
+//     connect(lbTools, &QTreeView::itemDoubleClicked, this, &KateExternalToolsConfigWidget::slotEdit);
     connect(btnNew, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotNew);
     connect(btnRemove, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotRemove);
     connect(btnEdit, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotEdit);
@@ -176,22 +177,17 @@ QIcon KateExternalToolsConfigWidget::icon() const
 
 void KateExternalToolsConfigWidget::reset()
 {
-    // m_tools.clear();
-    lbTools->clear();
+    // clear list
+    m_toolsModel.clear();
 
-    // load the files from a KConfig
-    const QStringList tools = m_config->group("Global").readEntry("tools", QStringList());
-
-    for (int i = 0; i < tools.size(); ++i) {
-        const QString& toolSection = tools[i];
-        KConfigGroup cg(m_config, toolSection);
-        KateExternalTool* t = new KateExternalTool();
-        t->load(cg);
-
-        if (t->hasexec) // we only show tools that are also in the menu.
-            new ToolItem(lbTools, t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
-        else
-            delete t;
+    // 2 steps: 1st step: create categories
+    const auto tools = m_plugin->tools();
+    for (auto tool : tools) {
+        auto clone = new KateExternalTool(*tool);
+        auto item = new ToolItem(clone->icon.isEmpty() ? blankIcon() : SmallIcon(clone->icon), clone);
+        auto category = addCategory(clone->category.isEmpty() ? i18n("Uncategorized") : clone->category);
+        category->appendRow(item);
+        qDebug() << "HANEDLED" << clone->name;
     }
     m_changed = false;
 }
@@ -211,14 +207,14 @@ void KateExternalToolsConfigWidget::apply()
     m_changed = false;
 
     QStringList tools;
-    for (int i = 0; i < lbTools->count(); i++) {
-        const QString toolSection = QStringLiteral("Tool ") + QString::number(i);
-        tools << toolSection;
-
-        KConfigGroup cg(m_config, toolSection);
-        KateExternalTool* t = static_cast<ToolItem*>(lbTools->item(i))->tool;
-        t->save(cg);
-    }
+//     for (int i = 0; i < lbTools->count(); i++) {
+//         const QString toolSection = QStringLiteral("Tool ") + QString::number(i);
+//         tools << toolSection;
+//
+//         KConfigGroup cg(m_config, toolSection);
+//         KateExternalTool* t = static_cast<ToolItem*>(lbTools->item(i))->tool;
+//         t->save(cg);
+//     }
 
     m_config->group("Global").writeEntry("tools", tools);
 
@@ -229,11 +225,25 @@ void KateExternalToolsConfigWidget::apply()
 void KateExternalToolsConfigWidget::slotSelectionChanged()
 {
     // update button state
-    bool hs = lbTools->currentItem() != nullptr;
-    btnEdit->setEnabled(hs && dynamic_cast<ToolItem*>(lbTools->currentItem()));
-    btnRemove->setEnabled(hs);
-    btnMoveUp->setEnabled((lbTools->currentRow() > 0) && hs);
-    btnMoveDown->setEnabled((lbTools->currentRow() < (int)lbTools->count() - 1) && hs);
+//    bool hs = lbTools->currentItem() != nullptr;
+//    btnEdit->setEnabled(hs && dynamic_cast<ToolItem*>(lbTools->currentItem()));
+//    btnRemove->setEnabled(hs);
+//    btnMoveUp->setEnabled((lbTools->currentRow() > 0) && hs);
+//    btnMoveDown->setEnabled((lbTools->currentRow() < (int)lbTools->count() - 1) && hs);
+}
+
+QStandardItem * KateExternalToolsConfigWidget::addCategory(const QString & category)
+{
+    // searach for existing category
+    auto items = m_toolsModel.findItems(category);
+    if (!items.empty()) {
+        return items.front();
+    }
+
+    // ...otherwise, create it
+    auto item = new QStandardItem(category);
+    m_toolsModel.appendRow(item);
+    return item;
 }
 
 void KateExternalToolsConfigWidget::slotNew()
@@ -257,9 +267,11 @@ void KateExternalToolsConfigWidget::slotNew()
 
         // This is sticky, it does not change again, so that shortcuts sticks
         // TODO check for dups
-        t->actionName = QStringLiteral("externaltool_") + QString(t->name).remove(QRegExp(QStringLiteral("\\W+")));
+        t->actionName = QStringLiteral("externaltool_") + QString(t->name).remove(QRegularExpression(QStringLiteral("\\W+")));
 
-        new ToolItem(lbTools, t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
+        auto item = new ToolItem(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
+        auto category = addCategory(item->tool()->category);
+        category->appendRow(item);
 
         emit changed();
         m_changed = true;
@@ -268,14 +280,16 @@ void KateExternalToolsConfigWidget::slotNew()
 
 void KateExternalToolsConfigWidget::slotRemove()
 {
+    auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
+    auto toolItem = dynamic_cast<ToolItem*>(item);
+
     // add the tool action name to a list of removed items,
     // remove the current listbox item
-    if (lbTools->currentRow() > -1) {
-        ToolItem* i = dynamic_cast<ToolItem*>(lbTools->currentItem());
-        if (i)
-            m_removed << i->tool->actionName;
+    if (toolItem) {
+        m_removed << toolItem->tool()->actionName;
 
-        delete lbTools->takeItem(lbTools->currentRow());
+        toolItem->parent()->removeRow(toolItem->index().row());
+        delete toolItem;;
         emit changed();
         m_changed = true;
     }
@@ -283,15 +297,17 @@ void KateExternalToolsConfigWidget::slotRemove()
 
 void KateExternalToolsConfigWidget::slotEdit()
 {
-    if (!dynamic_cast<ToolItem*>(lbTools->currentItem()))
+    auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
+    auto toolItem = dynamic_cast<ToolItem*>(item);
+    if (!toolItem)
         return;
     // show the item in an editor
-    KateExternalTool* t = static_cast<ToolItem*>(lbTools->currentItem())->tool;
+    KateExternalTool* t = toolItem->tool();
     KateExternalToolServiceEditor editor(t, this);
     editor.resize(m_config->group("Editor").readEntry("Size", QSize()));
     if (editor.exec() /*== KDialog::Ok*/) {
 
-        bool elementChanged = ((editor.ui->btnIcon->icon() != t->icon) || (editor.ui->edtName->text() != t->name));
+        const bool elementChanged = ((editor.ui->btnIcon->icon() != t->icon) || (editor.ui->edtName->text() != t->name));
 
         t->name = editor.ui->edtName->text();
         t->icon = editor.ui->btnIcon->icon();
@@ -300,16 +316,14 @@ void KateExternalToolsConfigWidget::slotEdit()
         t->input = editor.ui->edtInput->toPlainText();
         t->cmdname = editor.ui->edtCommand->text();
         t->workingDir = editor.ui->edtWorkingDir->text();
-        t->mimetypes
-            = editor.ui->edtMimeType->text().split(QRegExp(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+        t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
 
-        // if the icon has changed or name changed, I have to renew the listbox item :S
+        // if the icon or name name changed, renew the item
         if (elementChanged) {
-            int idx = lbTools->row(lbTools->currentItem());
-            delete lbTools->takeItem(idx);
-            lbTools->insertItem(idx, new ToolItem(nullptr, t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t));
+            toolItem->setText(t->name);
+            toolItem->setIcon(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon));
         }
 
         emit changed();
@@ -323,24 +337,20 @@ void KateExternalToolsConfigWidget::slotEdit()
 void KateExternalToolsConfigWidget::slotMoveUp()
 {
     // move the current item in the listbox upwards if possible
-    QListWidgetItem* item = lbTools->currentItem();
+    auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
+//     auto toolItem = dynamic_cast<ToolItem*>(item);
     if (!item)
         return;
 
-    int idx = lbTools->row(item);
+    QModelIndex srcParent = item->parent() ? item->parent()->index() : m_toolsModel.invisibleRootItem()->index();
+    int srcRow = item->index().row();
+    QModelIndex dstParent = (item->index().row() > 0) ? srcParent : QModelIndex();
+    int dstRow = item->index().row() > 0 ? (item->index().row() - 1) : 0;
 
-    if (idx < 1)
-        return;
+    bool moved = m_toolsModel.moveRow(srcParent, srcRow, dstParent, dstRow);
+    qDebug() << "Moving up succesful?" << moved;
 
-    if (dynamic_cast<ToolItem*>(item)) {
-        KateExternalTool* tool = static_cast<ToolItem*>(item)->tool;
-        delete lbTools->takeItem(idx);
-        lbTools->insertItem(idx - 1,
-                            new ToolItem(nullptr, tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool));
-    }
-
-    lbTools->setCurrentRow(idx - 1);
-    slotSelectionChanged();
+//    slotSelectionChanged();
     emit changed();
     m_changed = true;
 }
@@ -348,24 +358,21 @@ void KateExternalToolsConfigWidget::slotMoveUp()
 void KateExternalToolsConfigWidget::slotMoveDown()
 {
     // move the current item in the listbox downwards if possible
-    QListWidgetItem* item = lbTools->currentItem();
+    auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
+//     auto toolItem = dynamic_cast<ToolItem*>(item);
     if (!item)
         return;
 
-    int idx = lbTools->row(item);
+//     int idx = lbTools->row(item);
+//     if (idx > lbTools->count() - 1)
+//         return;
 
-    if (idx > lbTools->count() - 1)
-        return;
+    QModelIndex srcParent = item->parent() ? item->parent()->index() : m_toolsModel.invisibleRootItem()->index();
+    int srcRow = item->index().row();
+    QModelIndex dstParent = srcParent;
+    int dstRow = item->index().row() + 1;
 
-    if (dynamic_cast<ToolItem*>(item)) {
-        KateExternalTool* tool = static_cast<ToolItem*>(item)->tool;
-        delete lbTools->takeItem(idx);
-        lbTools->insertItem(idx + 1,
-                            new ToolItem(nullptr, tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool));
-    }
-
-    lbTools->setCurrentRow(idx + 1);
-    slotSelectionChanged();
+//     slotSelectionChanged();
     emit changed();
     m_changed = true;
 }

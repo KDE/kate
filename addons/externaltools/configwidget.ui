@@ -107,6 +107,9 @@
        <property name="whatsThis">
         <string>This list shows all the configured tools, represented by their menu text.</string>
        </property>
+       <property name="headerHidden">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>

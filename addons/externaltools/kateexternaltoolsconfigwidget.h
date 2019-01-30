@@ -73,6 +73,7 @@ private Q_SLOTS:
     void slotSelectionChanged();
 
     QStandardItem * addCategory(const QString & category);
+    void clearTools();
 
 private:
     QPixmap blankIcon();

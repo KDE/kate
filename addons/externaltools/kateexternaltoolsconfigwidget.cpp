@@ -160,6 +160,8 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
 
 KateExternalToolsConfigWidget::~KateExternalToolsConfigWidget()
 {
+    clearTools();
+
     delete m_config;
 }
 
@@ -180,10 +182,10 @@ QIcon KateExternalToolsConfigWidget::icon() const
 
 void KateExternalToolsConfigWidget::reset()
 {
-    // clear list
-    m_toolsModel.clear();
+    clearTools();
 
-    // 2 steps: 1st step: create categories
+    // create categories
+    addCategory(i18n("Uncategorized"));
     const auto tools = m_plugin->tools();
     for (auto tool : tools) {
         auto clone = new KateExternalTool(*tool);
@@ -191,6 +193,7 @@ void KateExternalToolsConfigWidget::reset()
         auto category = addCategory(clone->category.isEmpty() ? i18n("Uncategorized") : clone->category);
         category->appendRow(item);
     }
+    lbTools->expandAll();
     m_changed = false;
 }
 
@@ -265,6 +268,15 @@ QStandardItem * KateExternalToolsConfigWidget::addCategory(const QString & categ
     auto item = new QStandardItem(category);
     m_toolsModel.appendRow(item);
     return item;
+}
+
+void KateExternalToolsConfigWidget::clearTools()
+{
+    // collect all KateExternalTool items and delete them, since they are copies
+    std::vector<KateExternalTool*> tools = collectTools(m_toolsModel);
+    qDeleteAll(tools);
+    tools.clear();
+    m_toolsModel.clear();
 }
 
 void KateExternalToolsConfigWidget::slotNew()

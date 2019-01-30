@@ -47,15 +47,15 @@ public:
     /**
      * Defines where to redirect stdout from the tool.
      */
-    //     enum class OutputMode {
-    //         Ignore,
-    //         InsertAtCursor,
-    //         ReplaceSelectedText,
-    //         AppendToCurrentDocument,
-    //         InsertInNewDocument,
-    //         DisplayInPane
-    //     }
-    //     Q_ENUM(OutputMode)
+    enum class OutputMode {
+        Ignore,
+        InsertAtCursor,
+        ReplaceSelectedText,
+        ReplaceCurrentDocument,
+        AppendToCurrentDocument,
+        InsertInNewDocument,
+        DisplayInPane
+    };
 
 public:
     /// The category used in the menu to categorize the tool.
@@ -81,9 +81,8 @@ public:
     QString cmdname;
     /// Possibly save documents prior to activating the tool command.
     SaveMode saveMode = SaveMode::None;
-
-    /// Possibly redirect the stdout output of the tool.
-    // OutputMode outputMode;
+    /// Defines where to redirect the tool's output
+    OutputMode outputMode = OutputMode::Ignore;
     /// Include stderr output when running the tool.
     bool includeStderr = false;
 

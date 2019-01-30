@@ -105,6 +105,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     ui->edtWorkingDir->setText(m_tool->workingDir);
     ui->edtMimeType->setText(m_tool->mimetypes.join(QStringLiteral("; ")));
     ui->cmbSave->setCurrentIndex(static_cast<int>(m_tool->saveMode));
+    ui->cmbOutput->setCurrentIndex(static_cast<int>(m_tool->outputMode));
     ui->chkIncludeStderr->setChecked(m_tool->includeStderr);
 }
 
@@ -267,6 +268,7 @@ void KateExternalToolsConfigWidget::slotNew()
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")),
                                                             QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
+        t->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
 
         // This is sticky, it does not change again, so that shortcuts sticks
@@ -324,6 +326,7 @@ void KateExternalToolsConfigWidget::slotEdit()
         t->workingDir = editor.ui->edtWorkingDir->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
+        t->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
 
         // if the icon or name name changed, renew the item

@@ -81,7 +81,7 @@ public:
 // BEGIN KateExternalToolServiceEditor
 KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* tool, QWidget* parent)
     : QDialog(parent)
-    , tool(tool)
+    , m_tool(tool)
 {
     setWindowTitle(i18n("Edit External Tool"));
 
@@ -93,20 +93,19 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(ui->btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
 
-    if (tool) {
-        ui->edtName->setText(tool->name);
-        if (!tool->icon.isEmpty())
-            ui->btnIcon->setIcon(tool->icon);
+    Q_ASSERT(m_tool != nullptr);
+    ui->edtName->setText(m_tool->name);
+    if (!m_tool->icon.isEmpty())
+        ui->btnIcon->setIcon(m_tool->icon);
 
-        ui->edtExecutable->setText(tool->executable);
-        ui->edtArgs->setText(tool->arguments);
-        ui->edtInput->setText(tool->input);
-        ui->edtCommand->setText(tool->cmdname);
-        ui->edtWorkingDir->setText(tool->workingDir);
-        ui->edtMimeType->setText(tool->mimetypes.join(QStringLiteral("; ")));
-        ui->cmbSave->setCurrentIndex(static_cast<int>(tool->saveMode));
-        ui->chkIncludeStderr->setChecked(tool->includeStderr);
-    }
+    ui->edtExecutable->setText(m_tool->executable);
+    ui->edtArgs->setText(m_tool->arguments);
+    ui->edtInput->setText(m_tool->input);
+    ui->edtCommand->setText(m_tool->cmdname);
+    ui->edtWorkingDir->setText(m_tool->workingDir);
+    ui->edtMimeType->setText(m_tool->mimetypes.join(QStringLiteral("; ")));
+    ui->cmbSave->setCurrentIndex(static_cast<int>(m_tool->saveMode));
+    ui->chkIncludeStderr->setChecked(m_tool->includeStderr);
 }
 
 void KateExternalToolServiceEditor::slotOKClicked()
@@ -172,7 +171,7 @@ QString KateExternalToolsConfigWidget::fullName() const
 
 QIcon KateExternalToolsConfigWidget::icon() const
 {
-    return QIcon();
+    return QIcon::fromTheme(QStringLiteral("system-run"));
 }
 
 void KateExternalToolsConfigWidget::reset()
@@ -250,10 +249,9 @@ void KateExternalToolsConfigWidget::slotNew()
 {
     // display a editor, and if it is OK'd, create a new tool and
     // create a listbox item for it
-    KateExternalToolServiceEditor editor(nullptr, this);
-
+    auto t = new KateExternalTool();
+    KateExternalToolServiceEditor editor(t, this);
     if (editor.exec() == QDialog::Accepted) {
-        KateExternalTool* t = new KateExternalTool();
         t->name = editor.ui->edtName->text();
         t->icon = editor.ui->btnIcon->icon();
         t->executable = editor.ui->edtExecutable->text();
@@ -275,6 +273,8 @@ void KateExternalToolsConfigWidget::slotNew()
 
         emit changed();
         m_changed = true;
+    } else {
+        delete t;
     }
 }
 
@@ -305,7 +305,7 @@ void KateExternalToolsConfigWidget::slotEdit()
     KateExternalTool* t = toolItem->tool();
     KateExternalToolServiceEditor editor(t, this);
     editor.resize(m_config->group("Editor").readEntry("Size", QSize()));
-    if (editor.exec() /*== KDialog::Ok*/) {
+    if (editor.exec()  == QDialog::Accepted) {
 
         const bool elementChanged = ((editor.ui->btnIcon->icon() != t->icon) || (editor.ui->edtName->text() != t->name));
 

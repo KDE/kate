@@ -110,7 +110,7 @@ public:
     Ui::ToolDialog* ui;
 
 private:
-    KateExternalTool* tool;
+    KateExternalTool* m_tool;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_CONFIGWIDGET_H

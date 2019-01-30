@@ -38,6 +38,9 @@
 #include <KXMLGUIFactory>
 #include <KLocalizedString>
 
+#include <map>
+#include <vector>
+
 
 // BEGIN KateExternalToolsMenuAction
 KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KActionCollection* collection,
@@ -53,7 +56,7 @@ KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KA
     connect(mw, &KTextEditor::MainWindow::viewChanged, this, &KateExternalToolsMenuAction::slotViewChanged);
 }
 
-KateExternalToolsMenuAction::~KateExternalToolsMenuAction() {}
+KateExternalToolsMenuAction::~KateExternalToolsMenuAction() = default;
 
 void KateExternalToolsMenuAction::reload()
 {
@@ -65,7 +68,10 @@ void KateExternalToolsMenuAction::reload()
     menu()->clear();
 
     // create tool actions
-    QHash<QString, KActionMenu*> categories;
+    std::map<QString, KActionMenu*> categories;
+    std::vector<QAction*> uncategorizedActions;
+
+    // first add categorized actions, such that the submenus appear at the top
     for (auto tool : m_plugin->tools()) {
         if (tool->hasexec) {
             auto a = new QAction(tool->name, this);
@@ -86,9 +92,14 @@ void KateExternalToolsMenuAction::reload()
                 }
                 categoryMenu->addAction(a);
             } else {
-                addAction(a);
+                uncategorizedActions.push_back(a);
             }
         }
+    }
+
+    // now add uncategorized actions below
+    for (auto uncategorizedAction : uncategorizedActions) {
+        addAction(uncategorizedAction);
     }
 
     // load shortcuts
@@ -118,6 +129,11 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)
 }
 // END KateExternalToolsMenuAction
 
+
+
+
+
+// BEGIN KateExternalToolsPluginView
 KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow,
                                                          KateExternalToolsPlugin* plugin)
     : QObject(mainWindow)
@@ -159,5 +175,6 @@ KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const
 {
     return m_mainWindow;
 }
+// END KateExternalToolsPluginView
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

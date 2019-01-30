@@ -186,7 +186,6 @@ void KateExternalToolsConfigWidget::reset()
         auto item = new ToolItem(clone->icon.isEmpty() ? blankIcon() : SmallIcon(clone->icon), clone);
         auto category = addCategory(clone->category.isEmpty() ? i18n("Uncategorized") : clone->category);
         category->appendRow(item);
-        qDebug() << "HANEDLED" << clone->name;
     }
     m_changed = false;
 }
@@ -348,7 +347,6 @@ void KateExternalToolsConfigWidget::slotMoveUp()
     int dstRow = item->index().row() > 0 ? (item->index().row() - 1) : 0;
 
     bool moved = m_toolsModel.moveRow(srcParent, srcRow, dstParent, dstRow);
-    qDebug() << "Moving up succesful?" << moved;
 
 //    slotSelectionChanged();
     emit changed();

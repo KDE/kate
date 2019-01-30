@@ -81,6 +81,8 @@ public:
     QString cmdname;
     /// Possibly save documents prior to activating the tool command.
     SaveMode saveMode = SaveMode::None;
+    /// Reload current document after execution
+    bool reload = false;
     /// Defines where to redirect the tool's output
     OutputMode outputMode = OutputMode::Ignore;
     /// Include stderr output when running the tool.

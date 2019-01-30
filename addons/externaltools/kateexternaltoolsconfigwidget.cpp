@@ -101,12 +101,13 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     ui->edtExecutable->setText(m_tool->executable);
     ui->edtArgs->setText(m_tool->arguments);
     ui->edtInput->setText(m_tool->input);
-    ui->edtCommand->setText(m_tool->cmdname);
     ui->edtWorkingDir->setText(m_tool->workingDir);
     ui->edtMimeType->setText(m_tool->mimetypes.join(QStringLiteral("; ")));
     ui->cmbSave->setCurrentIndex(static_cast<int>(m_tool->saveMode));
+    ui->chkReload->setChecked(m_tool->reload);
     ui->cmbOutput->setCurrentIndex(static_cast<int>(m_tool->outputMode));
     ui->chkIncludeStderr->setChecked(m_tool->includeStderr);
+    ui->edtCommand->setText(m_tool->cmdname);
 }
 
 void KateExternalToolServiceEditor::slotOKClicked()
@@ -268,8 +269,10 @@ void KateExternalToolsConfigWidget::slotNew()
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")),
                                                             QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
+        t->reload = editor.ui->chkReload->isChecked();
         t->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
+        t->cmdname = editor.ui->edtCommand->text();
 
         // This is sticky, it does not change again, so that shortcuts sticks
         // TODO check for dups
@@ -322,12 +325,13 @@ void KateExternalToolsConfigWidget::slotEdit()
         t->executable = editor.ui->edtExecutable->text();
         t->arguments = editor.ui->edtArgs->text();
         t->input = editor.ui->edtInput->toPlainText();
-        t->cmdname = editor.ui->edtCommand->text();
         t->workingDir = editor.ui->edtWorkingDir->text();
         t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
+        t->reload = editor.ui->chkReload->isChecked();
         t->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
+        t->cmdname = editor.ui->edtCommand->text();
 
         // if the icon or name name changed, renew the item
         if (elementChanged) {

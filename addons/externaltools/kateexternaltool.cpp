@@ -45,6 +45,7 @@ void KateExternalTool::load(const KConfigGroup& cg)
     actionName = cg.readEntry("actionName");
     cmdname = cg.readEntry("cmdname");
     saveMode = static_cast<KateExternalTool::SaveMode>(cg.readEntry("save", 0));
+    reload = cg.readEntry("reload", false);
     outputMode = static_cast<KateExternalTool::OutputMode>(cg.readEntry("output", 0));
     includeStderr = cg.readEntry("includeStderr", false);
 
@@ -64,6 +65,7 @@ void KateExternalTool::save(KConfigGroup& cg) const
     cg.writeEntry("actionName", actionName);
     cg.writeEntry("cmdname", cmdname);
     cg.writeEntry("save", static_cast<int>(saveMode));
+    cg.writeEntry("reload", reload);
     cg.writeEntry("output", static_cast<int>(outputMode));
     cg.writeEntry("includeStderr", includeStderr);
 }
@@ -81,6 +83,7 @@ bool operator==(const KateExternalTool & lhs, const KateExternalTool & rhs)
         && lhs.actionName == rhs.actionName
         && lhs.cmdname == rhs.cmdname
         && lhs.saveMode == rhs.saveMode
+        && lhs.reload == rhs.reload
         && lhs.outputMode == rhs.outputMode
         && lhs.includeStderr == rhs.includeStderr;
 }

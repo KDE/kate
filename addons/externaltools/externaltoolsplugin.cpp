@@ -26,11 +26,9 @@
 #include "katetoolrunner.h"
 #include "kateexternaltoolsconfigwidget.h"
 
-#include <KLocalizedString>
-// #include <KTextEditor/Editor>
 #include <KTextEditor/View>
-
 #include <KActionCollection>
+#include <KLocalizedString>
 #include <QAction>
 #include <kparts/part.h>
 

@@ -81,6 +81,7 @@ void KateExternalToolsMenuAction::reload()
                 auto categoryMenu = categories[tool->category];
                 if (!categoryMenu) {
                     categoryMenu = new KActionMenu(tool->category, this);
+                    categories[tool->category] = categoryMenu;
                     addAction(categoryMenu);
                 }
                 categoryMenu->addAction(a);

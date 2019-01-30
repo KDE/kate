@@ -1,5 +1,5 @@
 [Global]
-tools=Tool 0,---,Tool 2
+tools=2
 version=1
 
 [Tool 0]
@@ -12,7 +12,7 @@ mimetypes=
 name=Google Selection
 save=0
 
-[Tool 2]
+[Tool 1]
 actionName=externaltool_RunScript
 cmdname=runscript
 command=konsole -e sh -c "cd %directory && pwd && chmod -vc a+x %filename && ./%filename ; echo Press any key to continue. && read -n 1"

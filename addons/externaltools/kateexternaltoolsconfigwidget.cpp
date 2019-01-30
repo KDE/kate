@@ -204,17 +204,24 @@ void KateExternalToolsConfigWidget::apply()
         return;
     m_changed = false;
 
-    QStringList tools;
-//     for (int i = 0; i < lbTools->count(); i++) {
-//         const QString toolSection = QStringLiteral("Tool ") + QString::number(i);
-//         tools << toolSection;
-//
-//         KConfigGroup cg(m_config, toolSection);
-//         KateExternalTool* t = static_cast<ToolItem*>(lbTools->item(i))->tool;
-//         t->save(cg);
-//     }
+    // collect all KateExternalTool items
+    std::vector<KateExternalTool*> tools;
+    auto rootItem = m_toolsModel.invisibleRootItem();
+    for (int i = 0; i < rootItem->rowCount(); ++i) {
+        auto categoryItem = rootItem->child(i);
+        for (int child = 0; child < categoryItem->rowCount(); ++child) {
+            auto toolItem = static_cast<ToolItem*>(categoryItem->child(child));
+            tools.push_back(toolItem->tool());
+        }
+    }
 
-    m_config->group("Global").writeEntry("tools", tools);
+    m_config->group("Global").writeEntry("tools", static_cast<int>(tools.size()));
+
+    for (size_t i = 0; i < tools.size(); i++) {
+        const QString section = QStringLiteral("Tool ") + QString::number(i);
+        KConfigGroup cg(m_config, section);
+        tools[i]->save(cg);
+    }
 
     m_config->sync();
     m_plugin->reload();

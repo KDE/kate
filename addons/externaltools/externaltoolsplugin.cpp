@@ -68,10 +68,10 @@ void KateExternalToolsPlugin::reload()
 
     KConfig _config(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
     KConfigGroup config(&_config, "Global");
-    const QStringList tools = config.readEntry("tools", QStringList());
+    const int toolCount = config.readEntry("tools", 0);
 
-    for (QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it) {
-        config = KConfigGroup(&_config, *it);
+    for (int i = 0; i < toolCount; ++i) {
+        config = KConfigGroup(&_config, QStringLiteral("Tool %1").arg(i));
 
         auto t = new KateExternalTool();
         t->load(config);

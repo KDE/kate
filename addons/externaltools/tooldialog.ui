@@ -17,7 +17,10 @@
    <item row="0" column="0">
     <widget class="QLabel" name="lblName">
      <property name="text">
-      <string>Name:</string>
+      <string>Na&amp;me:</string>
+     </property>
+     <property name="buddy">
+      <cstring>edtName</cstring>
      </property>
     </widget>
    </item>
@@ -41,7 +44,10 @@
    <item row="1" column="0">
     <widget class="QLabel" name="lblExecutable">
      <property name="text">
-      <string>Executable:</string>
+      <string>E&amp;xecutable:</string>
+     </property>
+     <property name="buddy">
+      <cstring>edtExecutable</cstring>
      </property>
     </widget>
    </item>
@@ -73,14 +79,20 @@
    <item row="2" column="0">
     <widget class="QLabel" name="lblArgs">
      <property name="text">
-      <string>Arguments:</string>
+      <string>Ar&amp;guments:</string>
+     </property>
+     <property name="buddy">
+      <cstring>edtArgs</cstring>
      </property>
     </widget>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="lblInput">
      <property name="text">
-      <string>Input:</string>
+      <string>&amp;Input:</string>
+     </property>
+     <property name="buddy">
+      <cstring>edtInput</cstring>
      </property>
     </widget>
    </item>
@@ -112,7 +124,10 @@
    <item row="5" column="0">
     <widget class="QLabel" name="lblMimeType">
      <property name="text">
-      <string>Mime types:</string>
+      <string>Mime &amp;types:</string>
+     </property>
+     <property name="buddy">
+      <cstring>edtMimeType</cstring>
      </property>
     </widget>
    </item>
@@ -145,6 +160,9 @@
     <widget class="QLabel" name="lblSave">
      <property name="text">
       <string>Save:</string>
+     </property>
+     <property name="buddy">
+      <cstring>cmbSave</cstring>
      </property>
     </widget>
    </item>
@@ -180,7 +198,10 @@
    <item row="8" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Output:</string>
+      <string>O&amp;utput:</string>
+     </property>
+     <property name="buddy">
+      <cstring>cmbOutput</cstring>
      </property>
     </widget>
    </item>
@@ -233,6 +254,9 @@
      <property name="text">
       <string>Editor command:</string>
      </property>
+     <property name="buddy">
+      <cstring>edtCommand</cstring>
+     </property>
     </widget>
    </item>
    <item row="10" column="1">
@@ -247,9 +271,6 @@
    </item>
    <item row="11" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
@@ -258,7 +279,10 @@
    <item row="4" column="0">
     <widget class="QLabel" name="lblWorkingDir">
      <property name="text">
-      <string>Working directory:</string>
+      <string>Working &amp;directory:</string>
+     </property>
+     <property name="buddy">
+      <cstring>edtWorkingDir</cstring>
      </property>
     </widget>
    </item>
@@ -342,38 +366,5 @@
   <tabstop>edtCommand</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>ToolDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>ToolDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

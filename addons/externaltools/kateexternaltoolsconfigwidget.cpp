@@ -152,6 +152,8 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     connect(btnMoveDown, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotMoveDown);
 
     m_config = new KConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
+
+    // reset triggers a reload of the exisint tools
     reset();
     slotSelectionChanged();
 }
@@ -200,6 +202,28 @@ QPixmap KateExternalToolsConfigWidget::blankIcon()
     return pm;
 }
 
+static std::vector<QStandardItem*> childItems(const QStandardItem * item)
+{
+    // collect all KateExternalTool items
+    std::vector<QStandardItem*> children;
+    for (int i = 0; i < item->rowCount(); ++i) {
+        children.push_back(item->child(i));
+    }
+    return children;
+}
+
+static std::vector<KateExternalTool*> collectTools(const QStandardItemModel & model)
+{
+    std::vector<KateExternalTool*> tools;
+    for (auto categoryItem : childItems(model.invisibleRootItem())) {
+        for (auto child : childItems(categoryItem)) {
+            auto toolItem = static_cast<ToolItem*>(child);
+            tools.push_back(toolItem->tool());
+        }
+    }
+    return tools;
+}
+
 void KateExternalToolsConfigWidget::apply()
 {
     if (!m_changed)
@@ -207,18 +231,8 @@ void KateExternalToolsConfigWidget::apply()
     m_changed = false;
 
     // collect all KateExternalTool items
-    std::vector<KateExternalTool*> tools;
-    auto rootItem = m_toolsModel.invisibleRootItem();
-    for (int i = 0; i < rootItem->rowCount(); ++i) {
-        auto categoryItem = rootItem->child(i);
-        for (int child = 0; child < categoryItem->rowCount(); ++child) {
-            auto toolItem = static_cast<ToolItem*>(categoryItem->child(child));
-            tools.push_back(toolItem->tool());
-        }
-    }
-
+    const std::vector<KateExternalTool*> tools = collectTools(m_toolsModel);
     m_config->group("Global").writeEntry("tools", static_cast<int>(tools.size()));
-
     for (size_t i = 0; i < tools.size(); i++) {
         const QString section = QStringLiteral("Tool ") + QString::number(i);
         KConfigGroup cg(m_config, section);

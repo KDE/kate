@@ -64,7 +64,11 @@ QObject* KateExternalToolsPlugin::createView(KTextEditor::MainWindow* mainWindow
 
 void KateExternalToolsPlugin::reload()
 {
+    delete m_command;
+    m_command = nullptr;
     m_commands.clear();
+    qDeleteAll(m_tools);
+    m_tools.clear();
 
     KConfig _config(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
     KConfigGroup config(&_config, "Global");
@@ -84,7 +88,6 @@ void KateExternalToolsPlugin::reload()
     }
 
     if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
-        delete m_command;
         m_command = new KateExternalToolsCommand(this);
     }
 

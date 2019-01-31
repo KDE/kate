@@ -97,15 +97,13 @@ void KateToolRunner::handleToolFinished(int exitCode, QProcess::ExitStatus exitS
 {
     if (exitCode != 0) {
         // FIXME: somehow tell user
-        return;
+        qWarning() << "External tool" << m_tool->name << "finished with non-zero exit code" << exitCode;
     }
 
     if (exitStatus != QProcess::NormalExit) {
         // FIXME: somehow tell user
-        return;
+        qWarning() << "External tool" << m_tool->name << "crashed";
     }
-
-    // FIXME: process m_output depending on the tool's outputMode
 
     Q_EMIT toolFinished(this);
 }

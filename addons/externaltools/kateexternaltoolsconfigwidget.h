@@ -28,16 +28,11 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 
-#include <KActionMenu>
-#include <KMacroExpander>
 #include <QDialog>
 #include <QStandardItemModel>
-
-#include <QHash>
 #include <QPixmap>
-#include <QProcess>
 
-class KActionCollection;
+class KConfig;
 class KateExternalToolsPlugin;
 class KateExternalTool;
 
@@ -72,18 +67,30 @@ private Q_SLOTS:
 
     void slotSelectionChanged();
 
+    /**
+     * Creates a new category or returns existing one.
+     */
     QStandardItem * addCategory(const QString & category);
+
+    /**
+     * Returns the currently active category. The returned pointer is always valid.
+     */
+    QStandardItem * currentCategory() const;
+
+    /**
+     * Clears the tools model.
+     */
     void clearTools();
 
 private:
     QPixmap blankIcon();
 
-    QStringList m_removed;
-
-    class KConfig* m_config = nullptr;
+private:
+    KConfig* m_config = nullptr;
     bool m_changed = false;
     KateExternalToolsPlugin* m_plugin;
     QStandardItemModel m_toolsModel;
+    QStandardItem * m_noCategory = nullptr;
 };
 
 /**

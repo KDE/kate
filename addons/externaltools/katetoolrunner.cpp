@@ -24,6 +24,7 @@
 
 #include <KShell>
 #include <KTextEditor/View>
+#include <KLocalizedString>
 
 KateToolRunner::KateToolRunner(KateExternalTool* tool, KTextEditor::View * view, QObject* parent)
     : QObject(parent)
@@ -97,12 +98,12 @@ void KateToolRunner::handleToolFinished(int exitCode, QProcess::ExitStatus exitS
 {
     if (exitCode != 0) {
         // FIXME: somehow tell user
-        qWarning() << "External tool" << m_tool->name << "finished with non-zero exit code" << exitCode;
+        qWarning() << i18n("External tool %1 finished with non-zero exit code: %2", m_tool->name, exitCode);
     }
 
     if (exitStatus != QProcess::NormalExit) {
         // FIXME: somehow tell user
-        qWarning() << "External tool" << m_tool->name << "crashed";
+        qWarning() << i18n("External tool crashed: %1", m_tool->name);
     }
 
     Q_EMIT toolFinished(this);

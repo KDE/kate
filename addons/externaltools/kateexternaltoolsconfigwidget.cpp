@@ -328,14 +328,35 @@ void KateExternalToolsConfigWidget::clearTools()
 
 void KateExternalToolsConfigWidget::slotAddCategory()
 {
+    // find unique name
     QString name = i18n("New Category");
     int i = 1;
     while (!m_toolsModel.findItems(name, Qt::MatchFixedString).isEmpty()) {
         name = (i18n("New Category %1", i++));
     }
 
+    // add category and switch to edit mode
     auto item = addCategory(name);
     lbTools->edit(item->index());
+}
+
+//! Helper that ensures that tool->actionName is unique
+static void makeActionNameUnique(KateExternalTool* tool, const std::vector<KateExternalTool*> & tools)
+{
+    QString name = tool->actionName;
+    int i = 1;
+    bool notUnique = true;
+    while (notUnique) {
+        auto it = std::find_if(tools.cbegin(), tools.cend(), [&name](const KateExternalTool* tool) {
+            return tool->actionName == name;
+        });
+        if (it == tools.cend()) {
+            break;
+        }
+        name = tool->actionName + QString::number(i);
+        ++i;
+    }
+    tool->actionName = name;
 }
 
 void KateExternalToolsConfigWidget::slotAddTool()
@@ -359,9 +380,9 @@ void KateExternalToolsConfigWidget::slotAddTool()
         t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
         t->cmdname = editor.ui->edtCommand->text();
 
-        // This is sticky, it does not change again, so that shortcuts sticks
-        // TODO check for dups
+        // sticky action collection name, never changes again, so that shortcuts stay
         t->actionName = QStringLiteral("externaltool_") + QString(t->name).remove(QRegularExpression(QStringLiteral("\\W+")));
+        makeActionNameUnique(t, collectTools(m_toolsModel));
 
         auto item = new ToolItem(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
         auto category = currentCategory();

@@ -26,6 +26,8 @@
 #include "katetoolrunner.h"
 #include "kateexternaltoolsconfigwidget.h"
 
+#include <KTextEditor/Editor>
+#include <KTextEditor/Document>
 #include <KTextEditor/View>
 #include <KActionCollection>
 #include <KLocalizedString>
@@ -172,7 +174,42 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
 
 void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner)
 {
-    runner->deleteLater();
+    auto view = runner->view();
+    if (view && !runner->outputData().isEmpty()) {
+        switch (runner->tool()->outputMode) {
+            case KateExternalTool::OutputMode::InsertAtCursor: {
+                view->removeSelection();
+                view->insertText(runner->outputData());
+                break;
+            }
+            case KateExternalTool::OutputMode::ReplaceSelectedText: {
+                view->removeSelectionText();
+                view->insertText(runner->outputData());
+                break;
+            }
+            case KateExternalTool::OutputMode::ReplaceCurrentDocument: {
+                view->document()->clear();
+                view->insertText(runner->outputData());
+                break;
+            }
+            case KateExternalTool::OutputMode::AppendToCurrentDocument: {
+                view->document()->insertText(view->document()->documentEnd(), runner->outputData());
+                break;
+            }
+            case KateExternalTool::OutputMode::InsertInNewDocument: {
+//                 auto doc = KTextEditor::Editor::instance()->createDocument(nullptr);
+//                 view->mainWindow()->activateView(doc);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    // TODO: case KateExternalTool::OutputMode::DisplayInPane: break;
+    //       create a toolview with the contents. QTextEdit with fixed font? Something else?
+
+    delete runner;
 }
 
 int KateExternalToolsPlugin::configPages() const

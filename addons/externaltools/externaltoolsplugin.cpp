@@ -200,8 +200,10 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner)
                 break;
             }
             case KateExternalTool::OutputMode::InsertInNewDocument: {
-//                 auto doc = KTextEditor::Editor::instance()->createDocument(nullptr);
-//                 view->mainWindow()->activateView(doc);
+                auto mainWindow = view->mainWindow();
+                auto newView = mainWindow->openUrl({});
+                newView->insertText(runner->outputData());
+                mainWindow->activateView(newView->document());
                 break;
             }
             default:

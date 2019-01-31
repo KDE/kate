@@ -178,16 +178,19 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner)
     if (view && !runner->outputData().isEmpty()) {
         switch (runner->tool()->outputMode) {
             case KateExternalTool::OutputMode::InsertAtCursor: {
+                KTextEditor::Document::EditingTransaction transaction(view->document());
                 view->removeSelection();
                 view->insertText(runner->outputData());
                 break;
             }
             case KateExternalTool::OutputMode::ReplaceSelectedText: {
+                KTextEditor::Document::EditingTransaction transaction(view->document());
                 view->removeSelectionText();
                 view->insertText(runner->outputData());
                 break;
             }
             case KateExternalTool::OutputMode::ReplaceCurrentDocument: {
+                KTextEditor::Document::EditingTransaction transaction(view->document());
                 view->document()->clear();
                 view->insertText(runner->outputData());
                 break;

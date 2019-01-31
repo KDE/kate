@@ -58,13 +58,10 @@ public Q_SLOTS:
     void defaults() override { reset(); }
 
 private Q_SLOTS:
-    void slotNew();
+    void slotAddCategory();
+    void slotAddTool();
     void slotEdit();
     void slotRemove();
-
-    void slotMoveUp();
-    void slotMoveDown();
-
     void slotSelectionChanged();
 
     /**

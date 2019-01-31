@@ -166,18 +166,20 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     lbTools->setDragDropOverwriteMode(false);
     lbTools->setDragDropMode(QAbstractItemView::InternalMove);
 
-    btnMoveUp->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
-    btnMoveDown->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
+    // Add... button popup menu
+    auto addMenu = new QMenu();
+    auto addToolAction = addMenu->addAction(QStringLiteral("Add Tool"));
+    auto addCategoryAction = addMenu->addAction(QStringLiteral("Add Category"));
+    btnAdd->setMenu(addMenu);
 
+    connect(addCategoryAction, &QAction::triggered, this, &KateExternalToolsConfigWidget::slotAddCategory);
+    connect(addToolAction, &QAction::triggered, this, &KateExternalToolsConfigWidget::slotAddTool);
+    connect(btnRemove, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotRemove);
+    connect(btnEdit, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotEdit);
     connect(lbTools->selectionModel(), &QItemSelectionModel::currentChanged, [this](){
         slotSelectionChanged();
     });
     connect(lbTools, &QTreeView::doubleClicked, this, &KateExternalToolsConfigWidget::slotEdit);
-    connect(btnNew, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotNew);
-    connect(btnRemove, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotRemove);
-    connect(btnEdit, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotEdit);
-    connect(btnMoveUp, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotMoveUp);
-    connect(btnMoveDown, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotMoveDown);
 
     m_config = new KConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
 
@@ -276,8 +278,6 @@ void KateExternalToolsConfigWidget::slotSelectionChanged()
 
     btnEdit->setEnabled(isToolItem);
     btnRemove->setEnabled(isToolItem);
-//     btnMoveUp->setEnabled((lbTools->currentRow() > 0) && hs);
-//     btnMoveDown->setEnabled((lbTools->currentRow() < (int)lbTools->count() - 1) && hs);
 }
 
 QStandardItem * KateExternalToolsConfigWidget::addCategory(const QString & category)
@@ -326,7 +326,12 @@ void KateExternalToolsConfigWidget::clearTools()
     m_toolsModel.clear();
 }
 
-void KateExternalToolsConfigWidget::slotNew()
+void KateExternalToolsConfigWidget::slotAddCategory()
+{
+    // TODO
+}
+
+void KateExternalToolsConfigWidget::slotAddTool()
 {
     // display a editor, and if it is OK'd, create a new tool and
     // create a listbox item for it
@@ -418,48 +423,6 @@ void KateExternalToolsConfigWidget::slotEdit()
 
     m_config->group("Editor").writeEntry("Size", editor.size());
     m_config->sync();
-}
-
-void KateExternalToolsConfigWidget::slotMoveUp()
-{
-    // move the current item in the listbox upwards if possible
-    auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
-//     auto toolItem = dynamic_cast<ToolItem*>(item);
-    if (!item)
-        return;
-
-    QModelIndex srcParent = item->parent() ? item->parent()->index() : m_toolsModel.invisibleRootItem()->index();
-    int srcRow = item->index().row();
-    QModelIndex dstParent = (item->index().row() > 0) ? srcParent : QModelIndex();
-    int dstRow = item->index().row() > 0 ? (item->index().row() - 1) : 0;
-
-    bool moved = m_toolsModel.moveRow(srcParent, srcRow, dstParent, dstRow);
-
-//    slotSelectionChanged();
-    emit changed();
-    m_changed = true;
-}
-
-void KateExternalToolsConfigWidget::slotMoveDown()
-{
-    // move the current item in the listbox downwards if possible
-    auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
-//     auto toolItem = dynamic_cast<ToolItem*>(item);
-    if (!item)
-        return;
-
-//     int idx = lbTools->row(item);
-//     if (idx > lbTools->count() - 1)
-//         return;
-
-    QModelIndex srcParent = item->parent() ? item->parent()->index() : m_toolsModel.invisibleRootItem()->index();
-    int srcRow = item->index().row();
-    QModelIndex dstParent = srcParent;
-    int dstRow = item->index().row() + 1;
-
-//     slotSelectionChanged();
-    emit changed();
-    m_changed = true;
 }
 // END KateExternalToolsConfigWidget
 

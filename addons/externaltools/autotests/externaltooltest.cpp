@@ -80,7 +80,7 @@ void ExternalToolTest::testRunListDirectory()
     tool->saveMode = KateExternalTool::SaveMode::None;
 
     // 1. /tmp $ ls /usr
-    KateToolRunner runner1(tool);
+    KateToolRunner runner1(tool, nullptr);
     runner1.run();
     runner1.waitForFinished();
     QVERIFY(runner1.outputData().contains(QStringLiteral("bin")));
@@ -89,7 +89,7 @@ void ExternalToolTest::testRunListDirectory()
     auto tool2 = new KateExternalTool(*tool);
     tool2->arguments.clear();
     tool2->workingDir = QStringLiteral("/usr");
-    KateToolRunner runner2(tool2);
+    KateToolRunner runner2(tool2, nullptr);
     runner2.run();
     runner2.waitForFinished();
     QVERIFY(runner2.outputData().contains(QStringLiteral("bin")));
@@ -107,7 +107,7 @@ void ExternalToolTest::testRunTac()
     tool->saveMode = KateExternalTool::SaveMode::None;
 
     // run tac to reverse order
-    KateToolRunner runner(tool);
+    KateToolRunner runner(tool, nullptr);
     runner.run();
     runner.waitForFinished();
     QCOMPARE(runner.outputData(), QStringLiteral("c\nb\na\n"));

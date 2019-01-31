@@ -280,9 +280,43 @@ void KateExternalToolsConfigWidget::slotSelectionChanged()
     // update button state
     auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
     const bool isToolItem = dynamic_cast<ToolItem*>(item) != nullptr;
+    const bool isCategory = item && !isToolItem;
 
-    btnEdit->setEnabled(isToolItem);
+    btnEdit->setEnabled(isToolItem || isCategory);
     btnRemove->setEnabled(isToolItem);
+}
+
+bool KateExternalToolsConfigWidget::editTool(KateExternalTool* tool)
+{
+    bool changed = false;
+
+    KateExternalToolServiceEditor editor(tool, this);
+    editor.resize(m_config->group("Editor").readEntry("Size", QSize()));
+    if (editor.exec() == QDialog::Accepted) {
+        tool->name = editor.ui->edtName->text();
+        tool->icon = editor.ui->btnIcon->icon();
+        tool->executable = editor.ui->edtExecutable->text();
+        tool->arguments = editor.ui->edtArgs->text();
+        tool->input = editor.ui->edtInput->toPlainText();
+        tool->workingDir = editor.ui->edtWorkingDir->text();
+        tool->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")),
+                                                            QString::SkipEmptyParts);
+        tool->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
+        tool->reload = editor.ui->chkReload->isChecked();
+        tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
+        tool->includeStderr = editor.ui->chkIncludeStderr->isChecked();
+        tool->cmdname = editor.ui->edtCommand->text();
+
+        // sticky action collection name, never changes again, so that shortcuts stay
+        tool->actionName = QStringLiteral("externaltool_") + QString(tool->name).remove(QRegularExpression(QStringLiteral("\\W+")));
+
+        changed = true;
+    }
+
+    m_config->group("Editor").writeEntry("Size", editor.size());
+    m_config->sync();
+
+    return changed;
 }
 
 QStandardItem * KateExternalToolsConfigWidget::addCategory(const QString & category)
@@ -366,35 +400,15 @@ static void makeActionNameUnique(KateExternalTool* tool, const std::vector<KateE
 
 void KateExternalToolsConfigWidget::slotAddTool()
 {
-    // display a editor, and if it is OK'd, create a new tool and
-    // create a listbox item for it
     auto t = new KateExternalTool();
-    KateExternalToolServiceEditor editor(t, this);
-    if (editor.exec() == QDialog::Accepted) {
-        t->name = editor.ui->edtName->text();
-        t->icon = editor.ui->btnIcon->icon();
-        t->executable = editor.ui->edtExecutable->text();
-        t->arguments = editor.ui->edtArgs->text();
-        t->input = editor.ui->edtInput->toPlainText();
-        t->workingDir = editor.ui->edtWorkingDir->text();
-        t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")),
-                                                            QString::SkipEmptyParts);
-        t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
-        t->reload = editor.ui->chkReload->isChecked();
-        t->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
-        t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
-        t->cmdname = editor.ui->edtCommand->text();
-
-        // sticky action collection name, never changes again, so that shortcuts stay
-        t->actionName = QStringLiteral("externaltool_") + QString(t->name).remove(QRegularExpression(QStringLiteral("\\W+")));
+    if (editTool(t)) {
         makeActionNameUnique(t, collectTools(m_toolsModel));
-
         auto item = new ToolItem(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
         auto category = currentCategory();
         category->appendRow(item);
         lbTools->setCurrentIndex(item->index());
 
-        emit changed();
+        Q_EMIT changed();
         m_changed = true;
     } else {
         delete t;
@@ -406,13 +420,11 @@ void KateExternalToolsConfigWidget::slotRemove()
     auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
     auto toolItem = dynamic_cast<ToolItem*>(item);
 
-    // add the tool action name to a list of removed items,
-    // remove the current listbox item
     if (toolItem) {
         auto tool = toolItem->tool();
         toolItem->parent()->removeRow(toolItem->index().row());
         delete tool;
-        emit changed();
+        Q_EMIT changed();
         m_changed = true;
     }
 }
@@ -421,41 +433,22 @@ void KateExternalToolsConfigWidget::slotEdit()
 {
     auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
     auto toolItem = dynamic_cast<ToolItem*>(item);
-    if (!toolItem)
+    if (!toolItem) {
+        if (item) {
+            lbTools->edit(item->index());
+        }
         return;
+    }
     // show the item in an editor
     KateExternalTool* t = toolItem->tool();
-    KateExternalToolServiceEditor editor(t, this);
-    editor.resize(m_config->group("Editor").readEntry("Size", QSize()));
-    if (editor.exec()  == QDialog::Accepted) {
+    if (editTool(t)) {
+        // renew the icon and name
+        toolItem->setText(t->name);
+        toolItem->setIcon(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon));
 
-        const bool elementChanged = ((editor.ui->btnIcon->icon() != t->icon) || (editor.ui->edtName->text() != t->name));
-
-        t->name = editor.ui->edtName->text();
-        t->icon = editor.ui->btnIcon->icon();
-        t->executable = editor.ui->edtExecutable->text();
-        t->arguments = editor.ui->edtArgs->text();
-        t->input = editor.ui->edtInput->toPlainText();
-        t->workingDir = editor.ui->edtWorkingDir->text();
-        t->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
-        t->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
-        t->reload = editor.ui->chkReload->isChecked();
-        t->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
-        t->includeStderr = editor.ui->chkIncludeStderr->isChecked();
-        t->cmdname = editor.ui->edtCommand->text();
-
-        // if the icon or name name changed, renew the item
-        if (elementChanged) {
-            toolItem->setText(t->name);
-            toolItem->setIcon(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon));
-        }
-
-        emit changed();
+        Q_EMIT changed();
         m_changed = true;
     }
-
-    m_config->group("Editor").writeEntry("Size", editor.size());
-    m_config->sync();
 }
 // END KateExternalToolsConfigWidget
 

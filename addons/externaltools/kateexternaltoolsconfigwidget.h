@@ -65,6 +65,12 @@ private Q_SLOTS:
     void slotSelectionChanged();
 
     /**
+     * Helper to open the ToolDialog.
+     * Returns true, if the user clicked OK.
+     */
+    bool editTool(KateExternalTool* tool);
+
+    /**
      * Creates a new category or returns existing one.
      */
     QStandardItem * addCategory(const QString & category);

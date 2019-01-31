@@ -62,11 +62,28 @@ public:
      * Returns the tool that was passed in the constructor.
      */
     KateExternalTool* tool() const;
+
+    /**
+     * Starts a child process that executes the tool.
+     */
     void run();
+
+    /**
+     * Blocking call that waits until the tool is finised.
+     * Used internally for unit testing.
+     */
     void waitForFinished();
+
+    /**
+     * Returns the data that was collected on stdout.
+     * stderr is also included if includeStderr was set.
+     */
     QString outputData() const;
 
 Q_SIGNALS:
+    /**
+     * This signal is emitted when the tool is finished.
+     */
     void toolFinished(KateToolRunner* runner);
 
 private Q_SLOTS:
@@ -88,7 +105,11 @@ private:
 
     //! We are the owner of the tool (it was copied)
     KateExternalTool* m_tool;
+
+    //! Child process that runs the tool
     QProcess* m_process = nullptr;
+
+    //! Collect stdout, and optionally also stderr
     QByteArray m_output;
 };
 

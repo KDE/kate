@@ -168,8 +168,8 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
 
     // Add... button popup menu
     auto addMenu = new QMenu();
-    auto addToolAction = addMenu->addAction(QStringLiteral("Add Tool"));
-    auto addCategoryAction = addMenu->addAction(QStringLiteral("Add Category"));
+    auto addToolAction = addMenu->addAction(i18n("Add Tool"));
+    auto addCategoryAction = addMenu->addAction(i18n("Add Category"));
     btnAdd->setMenu(addMenu);
 
     connect(addCategoryAction, &QAction::triggered, this, &KateExternalToolsConfigWidget::slotAddCategory);
@@ -328,7 +328,14 @@ void KateExternalToolsConfigWidget::clearTools()
 
 void KateExternalToolsConfigWidget::slotAddCategory()
 {
-    // TODO
+    QString name = i18n("New Category");
+    int i = 1;
+    while (!m_toolsModel.findItems(name, Qt::MatchFixedString).isEmpty()) {
+        name = (i18n("New Category %1", i++));
+    }
+
+    auto item = addCategory(name);
+    lbTools->edit(item->index());
 }
 
 void KateExternalToolsConfigWidget::slotAddTool()

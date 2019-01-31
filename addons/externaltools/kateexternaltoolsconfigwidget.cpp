@@ -186,6 +186,11 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     // reset triggers a reload of the existing tools
     reset();
     slotSelectionChanged();
+
+    connect(&m_toolsModel, &QStandardItemModel::itemChanged, [this](){
+        m_changed = true;
+        Q_EMIT changed();
+    });
 }
 
 KateExternalToolsConfigWidget::~KateExternalToolsConfigWidget()

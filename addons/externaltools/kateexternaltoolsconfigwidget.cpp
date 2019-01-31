@@ -144,7 +144,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     btnMoveDown->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
 
 //    connect(lbTools, &QTreeView::itemSelectionChanged, this, &KateExternalToolsConfigWidget::slotSelectionChanged);
-//     connect(lbTools, &QTreeView::itemDoubleClicked, this, &KateExternalToolsConfigWidget::slotEdit);
+    connect(lbTools, &QTreeView::doubleClicked, this, &KateExternalToolsConfigWidget::slotEdit);
     connect(btnNew, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotNew);
     connect(btnRemove, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotRemove);
     connect(btnEdit, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotEdit);

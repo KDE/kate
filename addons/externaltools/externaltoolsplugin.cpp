@@ -136,6 +136,13 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
     auto copy = new KateExternalTool(tool);
 
     MacroExpander macroExpander(view);
+
+    if (!macroExpander.expandMacrosShellQuote(copy->executable)) {
+        KMessageBox::sorry(view, i18n("Failed to expand the executable '%1'.", copy->executable),
+                           i18n("Kate External Tools"));
+        return;
+    }
+
     if (!macroExpander.expandMacrosShellQuote(copy->arguments)) {
         KMessageBox::sorry(view, i18n("Failed to expand the arguments '%1'.", copy->arguments),
                            i18n("Kate External Tools"));
@@ -144,6 +151,12 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
 
     if (!macroExpander.expandMacrosShellQuote(copy->workingDir)) {
         KMessageBox::sorry(view, i18n("Failed to expand the working directory '%1'.", copy->workingDir),
+                           i18n("Kate External Tools"));
+        return;
+    }
+
+    if (!macroExpander.expandMacrosShellQuote(copy->input)) {
+        KMessageBox::sorry(view, i18n("Failed to expand the input '%1'.", copy->input),
                            i18n("Kate External Tools"));
         return;
     }

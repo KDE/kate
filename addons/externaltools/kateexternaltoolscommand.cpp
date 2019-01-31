@@ -19,6 +19,9 @@
  */
 #include "kateexternaltoolscommand.h"
 #include "externaltoolsplugin.h"
+#include "kateexternaltool.h"
+
+#include <KLocalizedString>
 
 KateExternalToolsCommand::KateExternalToolsCommand(KateExternalToolsPlugin* plugin)
     : KTextEditor::Command(plugin->commands())
@@ -41,8 +44,15 @@ bool KateExternalToolsCommand::exec(KTextEditor::View* view, const QString& cmd,
     return false;
 }
 
-bool KateExternalToolsCommand::help(KTextEditor::View*, const QString&, QString&)
+bool KateExternalToolsCommand::help(KTextEditor::View*, const QString& cmd, QString& msg)
 {
+    const QString command = cmd.trimmed();
+    const auto tool = m_plugin->toolForCommand(command);
+    if (tool) {
+        msg = i18n("Starts the external tool '%1'", tool->name);
+        return true;
+    }
+
     return false;
 }
 

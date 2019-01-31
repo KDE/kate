@@ -35,7 +35,6 @@ public:
     virtual ~KateExternalToolsCommand() = default;
 
 public:
-    // const QStringList& cmds() override; // FIXME
     bool exec(KTextEditor::View* view, const QString& cmd, QString& msg,
               const KTextEditor::Range& range = KTextEditor::Range::invalid()) override;
     bool help(KTextEditor::View* view, const QString& cmd, QString& msg) override;

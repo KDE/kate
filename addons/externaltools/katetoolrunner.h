@@ -25,9 +25,13 @@
 #include <QObject>
 #include <QProcess>
 #include <QString>
+#include <QPointer>
 
 class KateExternalTool;
 class QProcess;
+namespace KTextEditor {
+    class View;
+}
 
 /**
  * Helper class to run a KateExternalTool.
@@ -37,12 +41,27 @@ class KateToolRunner : public QObject
     Q_OBJECT
 
 public:
-    KateToolRunner(KateExternalTool* tool, QObject* parent = nullptr);
+    /**
+     * Constructor that will run @p tool in the run() method.
+     * The @p view can later be retrieved again with view() to process the data when the tool is finished.
+     */
+    KateToolRunner(KateExternalTool* tool, KTextEditor::View * view, QObject* parent = nullptr);
+
     KateToolRunner(const KateToolRunner&) = delete;
     void operator=(const KateToolRunner&) = delete;
 
     ~KateToolRunner();
 
+    /**
+     * Returns the view that was active when running the tool.
+     * @warning May be a nullptr, since the view could have been closed in the meantime.
+     */
+    KTextEditor::View* view() const;
+
+    /**
+     * Returns the tool that was passed in the constructor.
+     */
+    KateExternalTool* tool() const;
     void run();
     void waitForFinished();
     QString outputData() const;
@@ -64,6 +83,10 @@ private Q_SLOTS:
     void handleToolFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
+    //! Use QPointer here, since the View may be closed in the meantime.
+    QPointer<KTextEditor::View> m_view;
+
+    //! We are the owner of the tool (it was copied)
     KateExternalTool* m_tool;
     QProcess* m_process = nullptr;
     QByteArray m_output;

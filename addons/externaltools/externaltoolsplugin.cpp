@@ -163,8 +163,10 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
 
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.
-    auto runner = new KateToolRunner(copy, this);
-    connect(runner, &KateToolRunner::toolFinished, this, &KateExternalToolsPlugin::handleToolFinished);
+    auto runner = new KateToolRunner(copy, view, this);
+
+    // use QueuedConnection, since handleToolFinished deletes the runner
+    connect(runner, &KateToolRunner::toolFinished, this, &KateExternalToolsPlugin::handleToolFinished, Qt::QueuedConnection);
     runner->run();
 }
 

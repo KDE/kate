@@ -23,9 +23,11 @@
 #include "kateexternaltool.h"
 
 #include <KShell>
+#include <KTextEditor/View>
 
-KateToolRunner::KateToolRunner(KateExternalTool* tool, QObject* parent)
+KateToolRunner::KateToolRunner(KateExternalTool* tool, KTextEditor::View * view, QObject* parent)
     : QObject(parent)
+    , m_view(view)
     , m_tool(tool)
     , m_process(new QProcess())
 {
@@ -38,6 +40,16 @@ KateToolRunner::~KateToolRunner()
 
     delete m_process;
     m_process = nullptr;
+}
+
+KTextEditor::View* KateToolRunner::view() const
+{
+    return m_view;
+}
+
+KateExternalTool* KateToolRunner::tool() const
+{
+    return m_tool;
 }
 
 void KateToolRunner::run()

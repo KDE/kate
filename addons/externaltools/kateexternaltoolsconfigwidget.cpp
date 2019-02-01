@@ -51,28 +51,27 @@
 
 namespace {
     constexpr int ToolRole = Qt::UserRole + 1;
-}
 
-// BEGIN ToolItem
-/**
- * This is a QStandardItem, that has a KateExternalTool.
- * The text is the Name of the tool.
- */
-class ToolItem : public QStandardItem
-{
-public:
-    ToolItem(const QPixmap& icon, KateExternalTool* tool)
-        : QStandardItem(icon, tool->name)
+    /**
+     * Helper function to create a QStandardItem that internally stores a pointer to a KateExternalTool.
+     */
+    QStandardItem * newToolItem(const QPixmap& icon, KateExternalTool* tool)
     {
-        setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
-        setData(QVariant::fromValue(reinterpret_cast<quintptr>(tool)), ToolRole );
+        auto item = new QStandardItem(icon, tool->name);
+        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
+        item->setData(QVariant::fromValue(reinterpret_cast<quintptr>(tool)), ToolRole);
+        return item;
     }
 
-    KateExternalTool * tool() {
-        return reinterpret_cast<KateExternalTool*>(data(ToolRole).value<quintptr>());
+    /**
+     * Helper function to return an internally stored KateExternalTool for a QStandardItem.
+     * If a nullptr is returned, it means the QStandardItem is a category.
+     */
+    KateExternalTool* toolForItem(QStandardItem* item)
+    {
+        return item ? reinterpret_cast<KateExternalTool*>(item->data(ToolRole).value<quintptr>()) : nullptr;
     }
-};
-// END ToolItem
+}
 
 // BEGIN KateExternalToolServiceEditor
 KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* tool, QWidget* parent)
@@ -144,8 +143,9 @@ static std::vector<KateExternalTool*> collectTools(const QStandardItemModel & mo
     std::vector<KateExternalTool*> tools;
     for (auto categoryItem : childItems(model.invisibleRootItem())) {
         for (auto child : childItems(categoryItem)) {
-            auto toolItem = static_cast<ToolItem*>(child);
-            tools.push_back(toolItem->tool());
+            auto tool = toolForItem(child);
+            Q_ASSERT(tool != nullptr);
+            tools.push_back(tool);
         }
     }
     return tools;
@@ -228,7 +228,7 @@ void KateExternalToolsConfigWidget::reset()
     const auto tools = m_plugin->tools();
     for (auto tool : tools) {
         auto clone = new KateExternalTool(*tool);
-        auto item = new ToolItem(clone->icon.isEmpty() ? blankIcon() : SmallIcon(clone->icon), clone);
+        auto item = newToolItem(clone->icon.isEmpty() ? blankIcon() : SmallIcon(clone->icon), clone);
         auto category = clone->category.isEmpty() ? m_noCategory : addCategory(clone->category);
         category->appendRow(item);
     }
@@ -255,8 +255,8 @@ void KateExternalToolsConfigWidget::apply()
     for (auto categoryItem : childItems(m_toolsModel.invisibleRootItem())) {
         const QString category = (categoryItem == m_noCategory) ? QString() : categoryItem->text();
         for (auto child : childItems(categoryItem)) {
-            auto toolItem = static_cast<ToolItem*>(child);
-            auto tool = toolItem->tool();
+            auto tool = toolForItem(child);
+            Q_ASSERT(tool != nullptr);
             // at this point, we have to overwrite the category, since it may have changed (and we never tracked this)
             tool->category = category;
             tools.push_back(tool);
@@ -279,7 +279,7 @@ void KateExternalToolsConfigWidget::slotSelectionChanged()
 {
     // update button state
     auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
-    const bool isToolItem = dynamic_cast<ToolItem*>(item) != nullptr;
+    const bool isToolItem = toolForItem(item) != nullptr;
     const bool isCategory = item && !isToolItem;
 
     btnEdit->setEnabled(isToolItem || isCategory);
@@ -346,10 +346,10 @@ QStandardItem * KateExternalToolsConfigWidget::currentCategory() const
     }
 
     auto item = m_toolsModel.itemFromIndex(index);
-    auto toolItem = dynamic_cast<ToolItem*>(item);
-    if (toolItem) {
+    auto tool = toolForItem(item);
+    if (tool) {
         // the parent of a ToolItem is always a category
-        return toolItem->parent();
+        return item->parent();
     }
 
     // item is no ToolItem, so we must have a category at hand
@@ -403,7 +403,7 @@ void KateExternalToolsConfigWidget::slotAddTool()
     auto t = new KateExternalTool();
     if (editTool(t)) {
         makeActionNameUnique(t, collectTools(m_toolsModel));
-        auto item = new ToolItem(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
+        auto item = newToolItem(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
         auto category = currentCategory();
         category->appendRow(item);
         lbTools->setCurrentIndex(item->index());
@@ -418,11 +418,10 @@ void KateExternalToolsConfigWidget::slotAddTool()
 void KateExternalToolsConfigWidget::slotRemove()
 {
     auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
-    auto toolItem = dynamic_cast<ToolItem*>(item);
+    auto tool = toolForItem(item);
 
-    if (toolItem) {
-        auto tool = toolItem->tool();
-        toolItem->parent()->removeRow(toolItem->index().row());
+    if (tool) {
+        item->parent()->removeRow(item->index().row());
         delete tool;
         Q_EMIT changed();
         m_changed = true;
@@ -432,19 +431,18 @@ void KateExternalToolsConfigWidget::slotRemove()
 void KateExternalToolsConfigWidget::slotEdit()
 {
     auto item = m_toolsModel.itemFromIndex(lbTools->currentIndex());
-    auto toolItem = dynamic_cast<ToolItem*>(item);
-    if (!toolItem) {
+    auto tool = toolForItem(item);
+    if (!tool) {
         if (item) {
             lbTools->edit(item->index());
         }
         return;
     }
     // show the item in an editor
-    KateExternalTool* t = toolItem->tool();
-    if (editTool(t)) {
+    if (editTool(tool)) {
         // renew the icon and name
-        toolItem->setText(t->name);
-        toolItem->setIcon(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon));
+        item->setText(tool->name);
+        item->setIcon(tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon));
 
         Q_EMIT changed();
         m_changed = true;

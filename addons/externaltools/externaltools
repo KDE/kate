@@ -1,24 +1,38 @@
 [Global]
-tools=5
+tools=10
 version=1
 
 [Tool 0]
-actionName=externaltool_GoogleSelectedText
-arguments="https://www.google.com/search?q=%{selection}"
-cmdname=google
-executable=xdg-open
-icon=globe
-name=Google Selected Text
-
-[Tool 1]
 actionName=externaltool_RunShellScript
 arguments=-e sh -c "cd %{directory} && pwd && chmod -vc a+x %{filename} && ./%{filename} ; echo Press any key to continue. && read -n 1"
+category=
 cmdname=run-script
 executable=konsole
 icon=system-run
+includeStderr=false
+input=
+mimetypes=
 name=Run Shell Script
+output=0
+reload=false
 save=1
 workingDir=%{directory}
+
+[Tool 1]
+actionName=externaltool_GoogleSelectedText
+arguments="https://www.google.com/search?q=%{selection}"
+category=
+cmdname=google
+executable=xdg-open
+icon=globe
+includeStderr=false
+input=
+mimetypes=
+name=Google Selected Text
+output=0
+reload=false
+save=0
+workingDir=
 
 [Tool 2]
 actionName=externaltool_gitcola
@@ -27,15 +41,29 @@ category=Git
 cmdname=git-cola
 executable=git-cola
 icon=git-cola
+includeStderr=false
+input=
+mimetypes=
 name=git-cola
+output=0
+reload=false
+save=0
+workingDir=
 
 [Tool 3]
 actionName=externaltool_gitk
+arguments=
 category=Git
 cmdname=gitk
 executable=gitk
-icon=gitk
+icon=git-gui
+includeStderr=false
+input=
+mimetypes=
 name=gitk
+output=0
+reload=false
+save=0
 workingDir=%{directory}
 
 [Tool 4]
@@ -44,5 +72,92 @@ arguments=gui blame %{filename}
 category=Git
 cmdname=git-blame
 executable=git
+icon=
+includeStderr=false
+input=
+mimetypes=
 name=git blame
+output=0
+reload=false
+save=1
 workingDir=%{directory}
+
+[Tool 5]
+actionName=externaltool_QtQuick2Previewqmlscene
+arguments=%filename
+category=Tools
+cmdname=qml-preview
+executable=qmlscene
+icon=
+includeStderr=false
+input=
+mimetypes=text/x-qml
+name=Qt Quick 2 Preview (qmlscene)
+output=0
+reload=false
+save=1
+workingDir=%{directory}
+
+[Tool 6]
+actionName=externaltool_InsertUUID
+arguments=
+category=Tools
+cmdname=uuid
+executable=uuidgen
+icon=
+includeStderr=false
+input=
+mimetypes=
+name=Insert UUID
+output=1
+reload=false
+save=0
+workingDir=
+
+[Tool 7]
+actionName=externaltool_ClangFormatFullFile
+arguments=-i %{filename}
+category=Tools
+cmdname=clang-format-file
+executable=clang-format
+icon=
+includeStderr=false
+input=
+mimetypes=
+name=Clang Format Full File
+output=0
+reload=true
+save=1
+workingDir=%{directory}
+
+[Tool 8]
+actionName=externaltool_ClangFormatSelectedText
+arguments=-assume-filename=%{filename}
+category=Tools
+cmdname=clang-format-selection
+executable=clang-format
+icon=
+includeStderr=false
+input=\s%{selection}
+mimetypes=
+name=Clang Format Selected Text
+output=2
+reload=false
+save=0
+workingDir=%{directory}
+
+[Tool 9]
+actionName=externaltool_perl
+arguments=asdfasdfasdf
+category=Tools
+cmdname=perl
+executable=ls
+icon=
+includeStderr=true
+input=
+mimetypes=
+name=perl
+output=1
+reload=false
+save=0
+workingDir=

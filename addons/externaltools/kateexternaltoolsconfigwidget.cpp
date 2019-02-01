@@ -168,7 +168,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
 
     // Add... button popup menu
     auto addMenu = new QMenu();
-    auto addToolAction = addMenu->addAction(i18n("Add Tool"));
+    auto addToolAction = addMenu->addAction(i18n("Add Tool..."));
     auto addCategoryAction = addMenu->addAction(i18n("Add Category"));
     btnAdd->setMenu(addMenu);
 

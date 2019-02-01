@@ -124,7 +124,10 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
 
     // save documents if requested
     if (tool.saveMode == KateExternalTool::SaveMode::CurrentDocument) {
-        view->document()->save();
+        // only save if modified, to avoid unnecessary recompiles
+        if (view->document()->isModified()) {
+            view->document()->save();
+        }
     } else if (tool.saveMode == KateExternalTool::SaveMode::AllDocuments) {
         foreach (KXMLGUIClient* client, mw->guiFactory()->clients()) {
             if (QAction* a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {

@@ -66,7 +66,7 @@ void ExternalToolTest::testLoadSave()
 
 void ExternalToolTest::testRunListDirectory()
 {
-    auto tool = new KateExternalTool();
+    std::unique_ptr<KateExternalTool> tool(new KateExternalTool());
     tool->category = QStringLiteral("Tools");
     tool->name = QStringLiteral("ls");
     tool->icon = QStringLiteral("none");
@@ -80,16 +80,16 @@ void ExternalToolTest::testRunListDirectory()
     tool->saveMode = KateExternalTool::SaveMode::None;
 
     // 1. /tmp $ ls /usr
-    KateToolRunner runner1(tool, nullptr);
+    KateToolRunner runner1(std::move(tool), nullptr);
     runner1.run();
     runner1.waitForFinished();
     QVERIFY(runner1.outputData().contains(QStringLiteral("bin")));
 
     // 2. /usr $ ls
-    auto tool2 = new KateExternalTool(*tool);
+    std::unique_ptr<KateExternalTool> tool2(new KateExternalTool(*tool));
     tool2->arguments.clear();
     tool2->workingDir = QStringLiteral("/usr");
-    KateToolRunner runner2(tool2, nullptr);
+    KateToolRunner runner2(std::move(tool2), nullptr);
     runner2.run();
     runner2.waitForFinished();
     QVERIFY(runner2.outputData().contains(QStringLiteral("bin")));
@@ -100,14 +100,14 @@ void ExternalToolTest::testRunListDirectory()
 
 void ExternalToolTest::testRunTac()
 {
-    auto tool = new KateExternalTool();
+    std::unique_ptr<KateExternalTool> tool(new KateExternalTool());
     tool->name = QStringLiteral("tac");
     tool->executable = QStringLiteral("tac");
     tool->input = QStringLiteral("a\nb\nc\n");
     tool->saveMode = KateExternalTool::SaveMode::None;
 
     // run tac to reverse order
-    KateToolRunner runner(tool, nullptr);
+    KateToolRunner runner(std::move(tool), nullptr);
     runner.run();
     runner.waitForFinished();
     QCOMPARE(runner.outputData(), QStringLiteral("c\nb\na\n"));

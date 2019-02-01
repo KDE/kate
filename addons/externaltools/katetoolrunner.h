@@ -27,6 +27,8 @@
 #include <QString>
 #include <QPointer>
 
+#include <memory>
+
 class KateExternalTool;
 class QProcess;
 namespace KTextEditor {
@@ -45,7 +47,7 @@ public:
      * Constructor that will run @p tool in the run() method.
      * The @p view can later be retrieved again with view() to process the data when the tool is finished.
      */
-    KateToolRunner(KateExternalTool* tool, KTextEditor::View * view, QObject* parent = nullptr);
+    KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View * view, QObject* parent = nullptr);
 
     KateToolRunner(const KateToolRunner&) = delete;
     void operator=(const KateToolRunner&) = delete;
@@ -104,10 +106,10 @@ private:
     QPointer<KTextEditor::View> m_view;
 
     //! We are the owner of the tool (it was copied)
-    KateExternalTool* m_tool;
+    std::unique_ptr<KateExternalTool> m_tool;
 
     //! Child process that runs the tool
-    QProcess* m_process = nullptr;
+    std::unique_ptr<QProcess> m_process;
 
     //! Collect stdout, and optionally also stderr
     QByteArray m_output;

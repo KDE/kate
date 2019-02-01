@@ -26,21 +26,16 @@
 #include <KTextEditor/View>
 #include <KLocalizedString>
 
-KateToolRunner::KateToolRunner(KateExternalTool* tool, KTextEditor::View * view, QObject* parent)
+KateToolRunner::KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View * view, QObject* parent)
     : QObject(parent)
     , m_view(view)
-    , m_tool(tool)
+    , m_tool(std::move(tool))
     , m_process(new QProcess())
 {
 }
 
 KateToolRunner::~KateToolRunner()
 {
-    delete m_tool;
-    m_tool = nullptr;
-
-    delete m_process;
-    m_process = nullptr;
 }
 
 KTextEditor::View* KateToolRunner::view() const
@@ -50,7 +45,7 @@ KTextEditor::View* KateToolRunner::view() const
 
 KateExternalTool* KateToolRunner::tool() const
 {
-    return m_tool;
+    return m_tool.get();
 }
 
 void KateToolRunner::run()
@@ -63,12 +58,12 @@ void KateToolRunner::run()
         m_process->setWorkingDirectory(m_tool->workingDir);
     }
 
-    QObject::connect(m_process, &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);
-    QObject::connect(m_process, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this,
+    QObject::connect(m_process.get(), &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);
+    QObject::connect(m_process.get(), static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this,
                      &KateToolRunner::handleToolFinished);
 
     // Write stdin to process, if applicable, then close write channel
-    QObject::connect(m_process, &QProcess::started, [this]() {
+    QObject::connect(m_process.get(), &QProcess::started, [this]() {
         if (!m_tool->input.isEmpty()) {
             m_process->write(m_tool->input.toLocal8Bit());
         }

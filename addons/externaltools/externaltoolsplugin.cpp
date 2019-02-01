@@ -138,7 +138,7 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
     }
 
     // copy tool
-    auto copy = new KateExternalTool(tool);
+    std::unique_ptr<KateExternalTool> copy(new KateExternalTool(tool));
 
     MacroExpander macroExpander(view);
 
@@ -168,7 +168,7 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
 
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.
-    auto runner = new KateToolRunner(copy, view, this);
+    auto runner = new KateToolRunner(std::move(copy), view, this);
 
     // use QueuedConnection, since handleToolFinished deletes the runner
     connect(runner, &KateToolRunner::toolFinished, this, &KateExternalToolsPlugin::handleToolFinished, Qt::QueuedConnection);

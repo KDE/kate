@@ -214,6 +214,14 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner)
         }
     }
 
+    if (view && runner->tool()->reload) {
+        // updates-enabled trick: avoid some flicker
+        const bool wereUpdatesEnabled = view->updatesEnabled();
+        view->setUpdatesEnabled(false);
+        view->document()->documentReload();
+        view->setUpdatesEnabled(wereUpdatesEnabled);
+    }
+
     // TODO: case KateExternalTool::OutputMode::DisplayInPane: break;
     //       create a toolview with the contents. QTextEdit with fixed font? Something else?
 

@@ -78,6 +78,7 @@ void ExternalToolTest::testRunListDirectory()
     tool->actionName = QStringLiteral("ls");
     tool->cmdname = QStringLiteral("ls");
     tool->saveMode = KateExternalTool::SaveMode::None;
+    std::unique_ptr<KateExternalTool> tool2(new KateExternalTool(*tool));
 
     // 1. /tmp $ ls /usr
     KateToolRunner runner1(std::move(tool), nullptr);
@@ -86,7 +87,6 @@ void ExternalToolTest::testRunListDirectory()
     QVERIFY(runner1.outputData().contains(QStringLiteral("bin")));
 
     // 2. /usr $ ls
-    std::unique_ptr<KateExternalTool> tool2(new KateExternalTool(*tool));
     tool2->arguments.clear();
     tool2->workingDir = QStringLiteral("/usr");
     KateToolRunner runner2(std::move(tool2), nullptr);

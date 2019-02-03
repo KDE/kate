@@ -56,6 +56,10 @@ void KateToolRunner::run()
 
     if (!m_tool->workingDir.isEmpty()) {
         m_process->setWorkingDirectory(m_tool->workingDir);
+    } else {
+        // if nothing is set, use the current document's directory
+        const QString path = m_view->document()->url().toString(QUrl::RemoveScheme | QUrl::RemoveFilename);
+        m_process->setWorkingDirectory(path);
     }
 
     QObject::connect(m_process.get(), &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);

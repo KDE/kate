@@ -86,7 +86,7 @@ Q_SIGNALS:
     /**
      * This signal is emitted when the tool is finished.
      */
-    void toolFinished(KateToolRunner* runner);
+    void toolFinished(KateToolRunner* runner, int exitCode, bool crashed);
 
 private Q_SLOTS:
     /**

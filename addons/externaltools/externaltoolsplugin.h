@@ -115,7 +115,7 @@ private Q_SLOT:
     /**
      * Called whenever an external tool is done.
      */
-    void handleToolFinished(KateToolRunner* runner);
+    void handleToolFinished(KateToolRunner* runner, int exitCode, bool crashed);
 };
 
 #endif

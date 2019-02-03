@@ -105,7 +105,7 @@ void KateToolRunner::handleToolFinished(int exitCode, QProcess::ExitStatus exitS
         qWarning() << i18n("External tool crashed: %1", m_tool->name);
     }
 
-    Q_EMIT toolFinished(this);
+    Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

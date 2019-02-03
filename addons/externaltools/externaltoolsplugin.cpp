@@ -170,7 +170,7 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
     runner->run();
 }
 
-void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner)
+void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner, int exitCode, bool crashed)
 {
     auto view = runner->view();
     if (view && !runner->outputData().isEmpty()) {
@@ -248,7 +248,7 @@ void KateExternalToolsPlugin::unregisterPluginView(KateExternalToolsPluginView *
     m_views.removeAll(view);
 }
 
-KateExternalToolsPluginView* KateExternalToolsPlugin::viewForMainWinodw(KTextEditor::MainWindow* mainWindow) const
+KateExternalToolsPluginView* KateExternalToolsPlugin::viewForMainWindow(KTextEditor::MainWindow* mainWindow) const
 {
     for (auto view : m_views) {
         if (view->mainWindow() == mainWindow) {

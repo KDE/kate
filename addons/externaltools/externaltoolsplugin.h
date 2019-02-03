@@ -89,7 +89,24 @@ Q_SIGNALS:
      */
     void externalToolsChanged();
 
+public:
+    /**
+     * Called by the KateExternalToolsPluginView to register itself.
+     */
+    void registerPluginView(KateExternalToolsPluginView * view);
+
+    /**
+     * Called by the KateExternalToolsPluginView to unregister itself.
+     */
+    void unregisterPluginView(KateExternalToolsPluginView * view);
+
+    /**
+     * Returns the KateExternalToolsPluginView for the given mainWindow.
+     */
+    KateExternalToolsPluginView* viewForMainWinodw(KTextEditor::MainWindow* mainWindow) const;
+
 private:
+    QVector<KateExternalToolsPluginView*> m_views;
     QVector<KateExternalTool*> m_tools;
     QStringList m_commands;
     KateExternalToolsCommand* m_command = nullptr;

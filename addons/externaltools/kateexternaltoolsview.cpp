@@ -17,9 +17,6 @@
  *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA 02110-1301, USA.
  */
-// TODO
-// Icons
-// Direct shortcut setting
 #include "kateexternaltoolsview.h"
 #include "externaltoolsplugin.h"
 #include "kateexternaltool.h"
@@ -140,6 +137,8 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     , m_plugin(plugin)
     , m_mainWindow(mainWindow)
 {
+    m_plugin->registerPluginView(this);
+
     KXMLGUIClient::setComponentName(QLatin1String("externaltools"), i18n("External Tools"));
     setXMLFile(QLatin1String("ui.rc"));
 
@@ -150,6 +149,16 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     }
 
     mainWindow->guiFactory()->addClient(this);
+
+KateExternalToolsPluginView::~KateExternalToolsPluginView()
+{
+    m_plugin->unregisterPluginView(this);
+
+    m_mainWindow->guiFactory()->removeClient(this);
+
+
+    delete m_externalToolsMenu;
+    m_externalToolsMenu = nullptr;
 }
 
 void KateExternalToolsPluginView::rebuildMenu()
@@ -161,14 +170,6 @@ void KateExternalToolsPluginView::rebuildMenu()
         m_externalToolsMenu->reload();
         f->addClient(this);
     }
-}
-
-KateExternalToolsPluginView::~KateExternalToolsPluginView()
-{
-    m_mainWindow->guiFactory()->removeClient(this);
-
-    delete m_externalToolsMenu;
-    m_externalToolsMenu = nullptr;
 }
 
 KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const

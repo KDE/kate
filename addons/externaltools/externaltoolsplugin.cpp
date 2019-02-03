@@ -241,6 +241,28 @@ KTextEditor::ConfigPage* KateExternalToolsPlugin::configPage(int number, QWidget
     return nullptr;
 }
 
+void KateExternalToolsPlugin::registerPluginView(KateExternalToolsPluginView * view)
+{
+    Q_ASSERT(!m_views.contains(view));
+    m_views.push_back(view);
+}
+
+void KateExternalToolsPlugin::unregisterPluginView(KateExternalToolsPluginView * view)
+{
+    Q_ASSERT(m_views.contains(view));
+    m_views.removeAll(view);
+}
+
+KateExternalToolsPluginView* KateExternalToolsPlugin::viewForMainWinodw(KTextEditor::MainWindow* mainWindow) const
+{
+    for (auto view : m_views) {
+        if (view->mainWindow() == mainWindow) {
+            return view;
+        }
+    }
+    return nullptr;
+}
+
 #include "externaltoolsplugin.moc"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

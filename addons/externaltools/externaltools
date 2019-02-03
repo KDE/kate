@@ -13,9 +13,9 @@ includeStderr=false
 input=
 mimetypes=
 name=Run Shell Script
-output=0
+output=Ignore
 reload=false
-save=1
+save=CurrentDocument
 workingDir=%{directory}
 
 [Tool 1]
@@ -29,9 +29,9 @@ includeStderr=false
 input=
 mimetypes=
 name=Google Selected Text
-output=0
+output=Ignore
 reload=false
-save=0
+save=None
 workingDir=
 
 [Tool 2]
@@ -45,9 +45,9 @@ includeStderr=false
 input=
 mimetypes=
 name=git-cola
-output=0
+output=Ignore
 reload=false
-save=0
+save=None
 workingDir=
 
 [Tool 3]
@@ -61,9 +61,9 @@ includeStderr=false
 input=
 mimetypes=
 name=gitk
-output=0
+output=Ignore
 reload=false
-save=0
+save=None
 workingDir=%{directory}
 
 [Tool 4]
@@ -77,9 +77,9 @@ includeStderr=false
 input=
 mimetypes=
 name=git blame
-output=0
+output=Ignore
 reload=false
-save=1
+save=CurrentDocument
 workingDir=%{directory}
 
 [Tool 5]
@@ -93,9 +93,9 @@ includeStderr=false
 input=
 mimetypes=text/x-qml
 name=Qt Quick 2 Preview (qmlscene)
-output=0
+output=Ignore
 reload=false
-save=1
+save=CurrentDocument
 workingDir=%{directory}
 
 [Tool 6]
@@ -109,9 +109,9 @@ includeStderr=false
 input=
 mimetypes=
 name=Insert UUID
-output=1
+output=InsertAtCursor
 reload=false
-save=0
+save=None
 workingDir=
 
 [Tool 7]
@@ -125,9 +125,9 @@ includeStderr=false
 input=
 mimetypes=
 name=Clang Format Full File
-output=0
+output=Ignore
 reload=true
-save=1
+save=CurrentDocument
 workingDir=%{directory}
 
 [Tool 8]
@@ -141,9 +141,9 @@ includeStderr=false
 input=\s%{selection}
 mimetypes=
 name=Clang Format Selected Text
-output=2
+output=ReplaceSelectedText
 reload=false
-save=0
+save=None
 workingDir=%{directory}
 
 [Tool 9]
@@ -157,7 +157,7 @@ includeStderr=true
 input=
 mimetypes=
 name=perl
-output=1
+output=InsertAtCursor
 reload=false
-save=0
+save=None
 workingDir=

@@ -151,6 +151,14 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
 
     mainWindow->guiFactory()->addClient(this);
 
+    // ESC should close & hide ToolView
+    connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, [this](QEvent* event) {
+        auto keyEvent = static_cast<QKeyEvent *>(event);
+        if (keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
+            delete m_toolView;
+            m_toolView = nullptr;
+        }
+    });
 KateExternalToolsPluginView::~KateExternalToolsPluginView()
 {
     m_plugin->unregisterPluginView(this);

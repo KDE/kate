@@ -20,6 +20,7 @@
 #include "kateexternaltoolsview.h"
 #include "externaltoolsplugin.h"
 #include "kateexternaltool.h"
+#include "ui_toolview.h"
 
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Document>
@@ -156,6 +157,11 @@ KateExternalToolsPluginView::~KateExternalToolsPluginView()
 
     m_mainWindow->guiFactory()->removeClient(this);
 
+    delete m_ui;
+    m_ui = nullptr;
+
+    delete m_toolView;
+    m_toolView = nullptr;
 
     delete m_externalToolsMenu;
     m_externalToolsMenu = nullptr;
@@ -175,6 +181,17 @@ void KateExternalToolsPluginView::rebuildMenu()
 KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const
 {
     return m_mainWindow;
+}
+
+void KateExternalToolsPluginView::showToolView()
+{
+    if (!m_toolView) {
+        m_toolView = mainWindow()->createToolView(m_plugin, QStringLiteral("ktexteditor_plugin_externaltools"),
+            KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"));
+
+        m_ui = new Ui::ToolView();
+        m_ui->setupUi(m_toolView);
+    }
 }
 // END KateExternalToolsPluginView
 

@@ -19,6 +19,7 @@ qt5_add_resources(externaltoolsplugin_PART_SRCS plugin.qrc)
 set(externaltoolsplugin_PART_UI
     configwidget.ui
     tooldialog.ui
+    toolview.ui
 )
 ki18n_wrap_ui(externaltoolsplugin_PART_SRCS ${externaltoolsplugin_PART_UI} )
 add_library(externaltoolsplugin MODULE ${externaltoolsplugin_PART_SRCS})

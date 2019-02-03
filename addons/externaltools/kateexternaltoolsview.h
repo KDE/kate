@@ -30,6 +30,7 @@ namespace KTextEditor { class View; }
 class KActionCollection;
 class KateExternalToolsPlugin;
 class KateExternalTool;
+namespace Ui { class ToolView; }
 
 /**
  * The external tools action
@@ -102,10 +103,17 @@ public Q_SLOTS:
      */
     void rebuildMenu();
 
+    /**
+     * Shows the tool view. The toolview will be created, if not yet existing.
+     */
+    void showToolView();
+
 private:
     KateExternalToolsPlugin* m_plugin;
     KTextEditor::MainWindow* m_mainWindow;
     KateExternalToolsMenuAction* m_externalToolsMenu = nullptr;
+    QWidget* m_toolView = nullptr;
+    Ui::ToolView* m_ui = nullptr;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_H

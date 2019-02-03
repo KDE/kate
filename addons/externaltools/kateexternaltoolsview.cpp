@@ -36,6 +36,9 @@
 #include <KXMLGUIFactory>
 #include <KLocalizedString>
 
+#include <QToolButton>
+#include <QKeyEvent>
+
 #include <map>
 #include <vector>
 
@@ -199,7 +202,25 @@ void KateExternalToolsPluginView::showToolView()
 
         m_ui = new Ui::ToolView();
         m_ui->setupUi(m_toolView);
+
+        auto btnClose = new QToolButton();
+        btnClose->setAutoRaise(true);
+        btnClose->setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
+        connect(btnClose, &QToolButton::clicked, [this](){
+            delete m_toolView;
+            m_toolView = nullptr;
+        });
+        m_ui->tabWidget->setCornerWidget(btnClose);
     }
+}
+
+void KateExternalToolsPluginView::reportToolError(const QString& message, KateExternalTool* tool)
+{
+    showToolView();
+    m_ui->teErrors->setText(message);
+    m_ui->tabWidget->setCurrentWidget(m_ui->tabErrors);
+
+    mainWindow()->showToolView(m_toolView);
 }
 // END KateExternalToolsPluginView
 

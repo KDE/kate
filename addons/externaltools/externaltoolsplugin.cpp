@@ -34,7 +34,6 @@
 #include <QAction>
 #include <kparts/part.h>
 
-#include <KMessageBox>
 #include <KAboutData>
 #include <KAuthorized>
 #include <KConfig>
@@ -143,26 +142,22 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
     MacroExpander macroExpander(view);
 
     if (!macroExpander.expandMacrosShellQuote(copy->executable)) {
-        KMessageBox::sorry(view, i18n("Failed to expand the executable '%1'.", copy->executable),
-                           i18n("Kate External Tools"));
+        viewForMainWindow(mw)->reportToolError(i18n("Failed to expand the executable '%1'.", copy->executable), copy.get());
         return;
     }
 
     if (!macroExpander.expandMacrosShellQuote(copy->arguments)) {
-        KMessageBox::sorry(view, i18n("Failed to expand the arguments '%1'.", copy->arguments),
-                           i18n("Kate External Tools"));
+        viewForMainWindow(mw)->reportToolError(i18n("Failed to expand the arguments '%1'.", copy->arguments), copy.get());
         return;
     }
 
     if (!macroExpander.expandMacrosShellQuote(copy->workingDir)) {
-        KMessageBox::sorry(view, i18n("Failed to expand the working directory '%1'.", copy->workingDir),
-                           i18n("Kate External Tools"));
+        viewForMainWindow(mw)->reportToolError(i18n("Failed to expand the working directory '%1'.", copy->workingDir), copy.get());
         return;
     }
 
     if (!macroExpander.expandMacrosShellQuote(copy->input)) {
-        KMessageBox::sorry(view, i18n("Failed to expand the input '%1'.", copy->input),
-                           i18n("Kate External Tools"));
+        viewForMainWindow(mw)->reportToolError(i18n("Failed to expand the input '%1'.", copy->input), copy.get());
         return;
     }
 

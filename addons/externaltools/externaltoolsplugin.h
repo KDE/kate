@@ -103,7 +103,7 @@ public:
     /**
      * Returns the KateExternalToolsPluginView for the given mainWindow.
      */
-    KateExternalToolsPluginView* viewForMainWinodw(KTextEditor::MainWindow* mainWindow) const;
+    KateExternalToolsPluginView* viewForMainWindow(KTextEditor::MainWindow* mainWindow) const;
 
 private:
     QVector<KateExternalToolsPluginView*> m_views;

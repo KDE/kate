@@ -108,6 +108,12 @@ public Q_SLOTS:
      */
     void showToolView();
 
+    /**
+     * Shows the External Tools toolview and porints the error message along with
+     * some more info about the tool.
+     */
+    void reportToolError(const QString& message, KateExternalTool* tool);
+
 private:
     KateExternalToolsPlugin* m_plugin;
     KTextEditor::MainWindow* m_mainWindow;

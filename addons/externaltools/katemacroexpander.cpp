@@ -37,40 +37,6 @@ MacroExpander::MacroExpander(KTextEditor::View* view)
 {
 }
 
-// CurrentDocument:FileBaseName        - Current document: File base name without path and suffix.
-// CurrentDocument:FileExtension       - Current document: File extension.
-// CurrentDocument:FileName            - Current document: File name without path.
-// CurrentDocument:FilePath            - Current document: Full path including file name.
-// CurrentDocument:Text                - Current document: Contents of entire file.
-// CurrentDocument:Path                - Current document: Full path excluding file name.
-// CurrentDocument:NativeFilePath      - Current document: Full path including file name, with native path separator (backslash on Windows).
-// CurrentDocument:NativePath          - Current document: Full path excluding file name, with native path separator (backslash on Windows).
-//
-// CurrentDocument:Cursor:Line         - Line number of the text cursor position in current document (starts with 0).
-// CurrentDocument:Cursor:Column       - Column number of the text cursor position in current document (starts with 0).
-// CurrentDocument:Cursor:XPos         - X component in global screen coordinates of the cursor position.
-// CurrentDocument:Cursor:YPos         - Y component in global screen coordinates of the cursor position.
-// CurrentDocument:Selection:Text      - Current document: Full path excluding file name.
-// CurrentDocument:Selection:StartLine
-// CurrentDocument:Selection:StartColumn
-// CurrentDocument:Selection:EndLine
-// CurrentDocument:Selection:EndColumn
-// CurrentDocument:RowCount            - Total number of lines in the current document.
-//
-// Date:<format>                       - The current date (QDate formatstring).
-// Date:Locale                         - The current date in current locale format.
-// Date:ISO                            - The current date (ISO).
-//
-// Time:<format>                       - The current time (QTime formatstring).
-// Time:Locale                         - The current time in current locale format.
-// Time:ISO                            - The current time (ISO).
-//
-// Env:<value>                         - Access environment variables.
-//
-// JS:<expression>                     - Evaluate simple JavaScript statements. The statements may not contain '{' nor '}' characters.
-//
-// UUID                                - Generate a new UUID.
-
 bool MacroExpander::expandMacro(const QString& str, QStringList& ret)
 {
     KTextEditor::View* view = m_view;
@@ -102,9 +68,9 @@ bool MacroExpander::expandMacro(const QString& str, QStringList& ret)
     else if (str == QStringLiteral("CurrentDocument:Cursor:Column")) // Column number of the text cursor position in current document (starts with 0).
         ret += QString::number(view->cursorPosition().column());
     else if (str == QStringLiteral("CurrentDocument:Cursor:XPos")) // X component in global screen coordinates of the cursor position.
-        ret += QString::number(view->cursorPositionCoordinates().x());
+        ret += QString::number(view->mapToGlobal(view->cursorPositionCoordinates()).x());
     else if (str == QStringLiteral("CurrentDocument:Cursor:YPos")) // Y component in global screen coordinates of the cursor position.
-        ret += QString::number(view->cursorPositionCoordinates().y());
+        ret += QString::number(view->mapToGlobal(view->cursorPositionCoordinates()).y());
     else if (str == QStringLiteral("CurrentDocument:Selection:Text")) // Current document: Full path excluding file name.
         ret += view->selectionText();
     else if (str == QStringLiteral("CurrentDocument:Selection:StartLine"))
@@ -133,7 +99,7 @@ bool MacroExpander::expandMacro(const QString& str, QStringList& ret)
         ret += QTime::currentTime().toString(QStringView(str.constData() + 5, str.length() - 5));
 
     else if (str.startsWith(QStringLiteral("ENV:"))) // Access environment variables.
-        ; // FIXME
+        ret += QString::fromLocal8Bit(qgetenv(str.rightRef(str.size() - 4).toLocal8Bit().constData()));
     else if (str.startsWith(QStringLiteral("JS:"))) // Evaluate simple JavaScript statements. The statements may not contain '{' nor '}' characters.
         ; // FIXME
     else if (str == QStringLiteral("UUID")) // Generate a new UUID.
@@ -145,7 +111,7 @@ bool MacroExpander::expandMacro(const QString& str, QStringList& ret)
             if (uuid.startsWith(QLatin1Char('{')))
                 uuid.remove(0, 1);
             if (uuid.endsWith(QLatin1Char('}')))
-                uuid.truncate(uuid.length() - 1);
+                uuid.chop(1);
             ret += uuid;
         }
 #endif

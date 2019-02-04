@@ -92,7 +92,7 @@ QString KateProjectCodeAnalysisToolFlake8::notInstalledMessage() const
 
 QStringList KateProjectCodeAnalysisToolFlake8::parseLine(const QString &line) const
 {
-    return line.split(QRegExp(QStringLiteral("////")), QString::SkipEmptyParts);
+    return line.split(QRegularExpression(QStringLiteral("////")), QString::SkipEmptyParts);
 }
 
 QString KateProjectCodeAnalysisToolFlake8::stdinMessages()

@@ -329,7 +329,7 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursiv
         return files;
     }
 
-    const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 
     for (const QString &relFile : relFiles) {
         if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
@@ -363,7 +363,7 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursi
     /**
      * get output and split up into lines
      */
-    const QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    const QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 
     /**
      * remove start of line that is no filename, sort out unknown and ignore

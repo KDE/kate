@@ -396,12 +396,12 @@ bool PseudoDTD::parseEntities(QDomDocument *doc, QProgressDialog *progress)
                 QString exp = expandedElem.text();
                 // TODO: support more than one &#...; in the expanded text
                 /* TODO include do this when the unicode font problem is solved:
-                if( exp.contains(QRegExp("^&#x[a-zA-Z0-9]+;$")) ) {
+                if( exp.contains(QRegularExpression("^&#x[a-zA-Z0-9]+;$")) ) {
                 // hexadecimal numbers, e.g. "&#x236;"
                 uint end = exp.find( ";" );
                 exp = exp.mid( 3, end-3 );
                 exp = QChar();
-                } else if( exp.contains(QRegExp("^&#[0-9]+;$")) ) {
+                } else if( exp.contains(QRegularExpression("^&#[0-9]+;$")) ) {
                 // decimal numbers, e.g. "&#236;"
                 uint end = exp.find( ";" );
                 exp = exp.mid( 2, end-2 );

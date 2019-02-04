@@ -82,7 +82,7 @@ QString KateProjectCodeAnalysisToolCppcheck::notInstalledMessage() const
 
 QStringList KateProjectCodeAnalysisToolCppcheck::parseLine(const QString &line) const
 {
-    return line.split(QRegExp(QStringLiteral("////")), QString::SkipEmptyParts);
+    return line.split(QRegularExpression(QStringLiteral("////")), QString::SkipEmptyParts);
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::stdinMessages()

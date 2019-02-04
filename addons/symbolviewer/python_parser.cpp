@@ -76,10 +76,10 @@ for (int i=0; i<kv->lines(); i++)
         break;
     }
 
-    if(cl.indexOf( QRegExp(QLatin1String("^class [a-zA-Z0-9_,\\s\\(\\).]+:")) ) >= 0) in_class = 1;
+    if(cl.indexOf( QRegularExpression(QLatin1String("^class [a-zA-Z0-9_,\\s\\(\\).]+:")) ) >= 0) in_class = 1;
 
-     //if(cl.find( QRegExp(QLatin1String("[\\s]+def [a-zA-Z_]+[^#]*:")) ) >= 0) in_class = 2;
-     if(cl.indexOf( QRegExp(QLatin1String("^def\\s+[a-zA-Z_]+[^#]*:")) ) >= 0 ) in_class = 0;
+     //if(cl.find( QRegularExpression(QLatin1String("[\\s]+def [a-zA-Z_]+[^#]*:")) ) >= 0) in_class = 2;
+     if(cl.indexOf( QRegularExpression(QLatin1String("^def\\s+[a-zA-Z_]+[^#]*:")) ) >= 0 ) in_class = 0;
 
      if (cl.indexOf(QLatin1String("def ")) >= 0 || (cl.indexOf(QLatin1String("class ")) >= 0 && in_class == 1))
        {

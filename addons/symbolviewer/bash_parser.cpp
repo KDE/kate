@@ -79,13 +79,13 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
 
                        // skip line if no function defined
                        // note: function name must match regex: [a-zA-Z0-9-_]+
-                       if(!currline.contains(QRegExp(QLatin1String("^(function )*[a-zA-Z0-9-_]+ *\\( *\\)")))
-                               && !currline.contains(QRegExp(QLatin1String("^function [a-zA-Z0-9-_]+"))))
+                       if(!currline.contains(QRegularExpression(QLatin1String("^(function )*[a-zA-Z0-9-_]+ *\\( *\\)")))
+                               && !currline.contains(QRegularExpression(QLatin1String("^function [a-zA-Z0-9-_]+"))))
                                continue;
 
                        // strip everything unneeded and get the function's name
-                       currline.remove(QRegExp(QLatin1String("^(function )*")));
-                       funcName = currline.split(QRegExp(QLatin1String("((\\( *\\))|[^a-zA-Z0-9-_])")))[0].simplified();
+                       currline.remove(QRegularExpression(QLatin1String("^(function )*")));
+                       funcName = currline.split(QRegularExpression(QLatin1String("((\\( *\\))|[^a-zA-Z0-9-_])")))[0].simplified();
                        if(!funcName.size())
                                continue;
                        funcName.append(QLatin1String("()"));

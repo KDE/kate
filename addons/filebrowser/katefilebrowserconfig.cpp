@@ -27,7 +27,7 @@
 #include <QApplication>
 #include <QGroupBox>
 #include <QListWidget>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStyle>
 #include <QVBoxLayout>
 
@@ -156,7 +156,7 @@ void KateFileBrowserConfigPage::init()
              << QStringLiteral("tree view") << QStringLiteral("detailed tree view")
              << QStringLiteral("show hidden") /*<< QStringLiteral("view menu") << QStringLiteral("properties")*/
              << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
-  QRegExp re(QStringLiteral ("&(?=[^&])"));
+  QRegularExpression re(QStringLiteral("&(?=[^&])"));
   QAction *ac = nullptr;
   QListWidget *lb;
   for ( QStringList::Iterator it = allActions.begin(); it != allActions.end(); ++it )

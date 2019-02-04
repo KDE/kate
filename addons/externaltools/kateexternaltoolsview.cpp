@@ -238,7 +238,9 @@ void KateExternalToolsPluginView::clearToolView()
 
 void KateExternalToolsPluginView::addToolStatus(const QString& message, KateExternalTool* tool)
 {
-    m_statusDoc->setPlainText(message);
+    QTextCursor cursor(m_statusDoc);
+    cursor.movePosition(QTextCursor::End);
+    cursor.insertText(message);
     if (m_ui) {
         m_ui->tabWidget->setCurrentWidget(m_ui->tabStatus);
     }
@@ -246,7 +248,9 @@ void KateExternalToolsPluginView::addToolStatus(const QString& message, KateExte
 
 void KateExternalToolsPluginView::setOutputData(const QString& data)
 {
-    m_outputDoc->setPlainText(data);
+    QTextCursor cursor(m_outputDoc);
+    cursor.movePosition(QTextCursor::End);
+    cursor.insertText(data);
     if (m_ui) {
         m_ui->tabWidget->setCurrentWidget(m_ui->tabOutput);
     }

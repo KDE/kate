@@ -27,31 +27,17 @@ namespace KTextEditor { class View; }
 #include <KMacroExpander>
 #include <KXMLGUIClient>
 
+class QTextDocument;
+
 class KActionCollection;
 class KateExternalToolsPlugin;
 class KateExternalTool;
+
 namespace Ui { class ToolView; }
 
 /**
- * The external tools action
- * This action creates a menu, in which each item will launch a process
- * with the provided arguments, which may include the following macros:
- * - %URLS: the URLs of all open documents.
- * - %URL: The URL of the active document.
- * - %filedir: The directory of the current document, if that is a local file.
- * - %selection: The selection of the active document.
- * - %text: The text of the active document.
- * - %line: The line number of the cursor in the active view.
- * - %column: The column of the cursor in the active view.
- *
- * Each item has the following properties:
- * - Name: The friendly text for the menu
- * - Exec: The command to execute, including arguments.
- * - TryExec: the name of the executable, if not available, the
- *       item will not be displayed.
- * - MimeTypes: An optional list of mimetypes. The item will be disabled or
- *       hidden if the current file is not of one of the indicated types.
- *
+ * Menu action that displays all KateExternalTool in a submenu.
+ * Enables/disables the tool actions whenever the view changes, depending on the mimetype.
  */
 class KateExternalToolsMenuAction : public KActionMenu
 {
@@ -66,9 +52,13 @@ public:
      */
     void reload();
 
-    KActionCollection* actionCollection() { return m_actionCollection; }
+    KActionCollection* actionCollection() const { return m_actionCollection; }
 
 private Q_SLOTS:
+    /**
+     * Called whenever the current view changed.
+     * Required to enable/disable the tools that depend on specific mimetypes.
+     */
     void slotViewChanged(KTextEditor::View* view);
 
 private:
@@ -140,6 +130,8 @@ private:
     KateExternalToolsMenuAction* m_externalToolsMenu = nullptr;
     QWidget* m_toolView = nullptr;
     Ui::ToolView* m_ui = nullptr;
+    QTextDocument* m_outputDoc = nullptr;
+    QTextDocument* m_statusDoc = nullptr;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_H

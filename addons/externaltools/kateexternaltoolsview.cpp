@@ -39,6 +39,7 @@
 #include <QToolButton>
 #include <QKeyEvent>
 #include <QFontDatabase>
+#include <QTextDocument>
 
 #include <map>
 #include <vector>
@@ -141,6 +142,8 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     : QObject(mainWindow)
     , m_plugin(plugin)
     , m_mainWindow(mainWindow)
+    , m_outputDoc(new QTextDocument(this))
+    , m_statusDoc(new QTextDocument(this))
 {
     m_plugin->registerPluginView(this);
 
@@ -203,6 +206,10 @@ void KateExternalToolsPluginView::createToolView()
         m_ui = new Ui::ToolView();
         m_ui->setupUi(m_toolView);
 
+        // set the documents
+        m_ui->teOutput->setDocument(m_outputDoc);
+        m_ui->teStatus->setDocument(m_statusDoc);
+
         // use fixed font for displaying status and output text
         const auto fixedFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
         m_ui->teOutput->setFont(fixedFont);
@@ -225,22 +232,22 @@ void KateExternalToolsPluginView::showToolView()
 
 void KateExternalToolsPluginView::clearToolView()
 {
-    if (m_ui) {
-        m_ui->teOutput->clear();
-        m_ui->teStatus->clear();
-    }
+    m_outputDoc->clear();
+    m_statusDoc->clear();
 }
 
 void KateExternalToolsPluginView::addToolStatus(const QString& message, KateExternalTool* tool)
 {
-    m_ui->teStatus->setText(message);
-    m_ui->tabWidget->setCurrentWidget(m_ui->tabStatus);
+    m_statusDoc->setPlainText(message);
+    if (m_ui) {
+        m_ui->tabWidget->setCurrentWidget(m_ui->tabStatus);
+    }
 }
 
 void KateExternalToolsPluginView::setOutputData(const QString& data)
 {
+    m_outputDoc->setPlainText(data);
     if (m_ui) {
-        m_ui->teOutput->setText(data);
         m_ui->tabWidget->setCurrentWidget(m_ui->tabOutput);
     }
 }

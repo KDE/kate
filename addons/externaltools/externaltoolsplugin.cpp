@@ -233,8 +233,12 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner, int exi
         view->setUpdatesEnabled(wereUpdatesEnabled);
     }
 
-    // TODO: case KateExternalTool::OutputMode::DisplayInPane: break;
-    //       create a toolview with the contents. QTextEdit with fixed font? Something else?
+    if (runner->tool()->outputMode == KateExternalTool::OutputMode::DisplayInPane) {
+        auto pluginView = viewForMainWindow(view->mainWindow());
+        pluginView->createToolView();
+        pluginView->setOutputData(runner->outputData());
+        pluginView->showToolView();
+    }
 
     delete runner;
 }

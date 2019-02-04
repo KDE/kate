@@ -95,7 +95,6 @@ void KateExternalTool::load(const KConfigGroup& cg)
     saveMode = toSaveMode(cg.readEntry("save", "None"));
     reload = cg.readEntry("reload", false);
     outputMode = toOutputMode(cg.readEntry("output", "Ignore"));
-    includeStderr = cg.readEntry("includeStderr", false);
 
     hasexec = checkExec();
 }
@@ -115,7 +114,6 @@ void KateExternalTool::save(KConfigGroup& cg) const
     cg.writeEntry("save", toString(saveMode));
     cg.writeEntry("reload", reload);
     cg.writeEntry("output", toString(outputMode));
-    cg.writeEntry("includeStderr", includeStderr);
 }
 
 bool operator==(const KateExternalTool & lhs, const KateExternalTool & rhs)
@@ -132,8 +130,7 @@ bool operator==(const KateExternalTool & lhs, const KateExternalTool & rhs)
         && lhs.cmdname == rhs.cmdname
         && lhs.saveMode == rhs.saveMode
         && lhs.reload == rhs.reload
-        && lhs.outputMode == rhs.outputMode
-        && lhs.includeStderr == rhs.includeStderr;
+        && lhs.outputMode == rhs.outputMode;
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

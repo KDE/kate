@@ -78,28 +78,19 @@ public:
 
     /**
      * Returns the data that was collected on stdout.
-     * stderr is also included if includeStderr was set.
      */
     QString outputData() const;
+
+    /**
+     * Returns the data that was collected on stderr.
+     */
+    QString errorData() const;
 
 Q_SIGNALS:
     /**
      * This signal is emitted when the tool is finished.
      */
     void toolFinished(KateToolRunner* runner, int exitCode, bool crashed);
-
-private Q_SLOTS:
-    /**
-     * More tool output is available
-     */
-    void slotReadyRead();
-
-    /**
-     * Analysis finished
-     * @param exitCode analyzer process exit code
-     * @param exitStatus analyzer process exit status
-     */
-    void handleToolFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
     //! Use QPointer here, since the View may be closed in the meantime.
@@ -111,8 +102,11 @@ private:
     //! Child process that runs the tool
     std::unique_ptr<QProcess> m_process;
 
-    //! Collect stdout, and optionally also stderr
-    QByteArray m_output;
+    //! Collect stdout
+    QByteArray m_stdout;
+
+    //! Collect stderr
+    QByteArray m_stderr;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLRUNNER_H

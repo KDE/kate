@@ -250,6 +250,13 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner, int exi
         pluginView->showToolView();
     }
 
+    if (!runner->errorData().isEmpty()) {
+        auto pluginView = viewForMainWindow(view->mainWindow());
+        pluginView->createToolView();
+        pluginView->addToolStatus(i18n("Data written to stderr:\n%1", runner->errorData()), runner->tool());
+        pluginView->showToolView();
+    }
+
     delete runner;
 }
 

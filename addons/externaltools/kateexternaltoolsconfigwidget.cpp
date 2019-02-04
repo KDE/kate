@@ -102,7 +102,6 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     ui->cmbSave->setCurrentIndex(static_cast<int>(m_tool->saveMode));
     ui->chkReload->setChecked(m_tool->reload);
     ui->cmbOutput->setCurrentIndex(static_cast<int>(m_tool->outputMode));
-    ui->chkIncludeStderr->setChecked(m_tool->includeStderr);
     ui->edtCommand->setText(m_tool->cmdname);
 }
 
@@ -305,7 +304,6 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool* tool)
         tool->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
         tool->reload = editor.ui->chkReload->isChecked();
         tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
-        tool->includeStderr = editor.ui->chkIncludeStderr->isChecked();
         tool->cmdname = editor.ui->edtCommand->text();
 
         // sticky action collection name, never changes again, so that shortcuts stay

@@ -32,6 +32,7 @@ KateToolRunner::KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEdit
     , m_tool(std::move(tool))
     , m_process(new QProcess())
 {
+    m_process->setProcessChannelMode(QProcess::SeparateChannels);
 }
 
 KateToolRunner::~KateToolRunner()
@@ -50,10 +51,6 @@ KateExternalTool* KateToolRunner::tool() const
 
 void KateToolRunner::run()
 {
-    if (m_tool->includeStderr) {
-        m_process->setProcessChannelMode(QProcess::MergedChannels);
-    }
-
     if (!m_tool->workingDir.isEmpty()) {
         m_process->setWorkingDirectory(m_tool->workingDir);
     } else if (m_view) {
@@ -65,9 +62,16 @@ void KateToolRunner::run()
         }
     }
 
-    QObject::connect(m_process.get(), &QProcess::readyRead, this, &KateToolRunner::slotReadyRead);
-    QObject::connect(m_process.get(), static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this,
-                     &KateToolRunner::handleToolFinished);
+    QObject::connect(m_process.get(), &QProcess::readyReadStandardOutput, [this]() {
+        m_stdout += m_process->readAllStandardOutput();
+    });
+    QObject::connect(m_process.get(), &QProcess::readyReadStandardError, [this]() {
+        m_stderr += m_process->readAllStandardError();
+    });
+    QObject::connect(m_process.get(), static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
+        [this](int exitCode, QProcess::ExitStatus exitStatus) {
+            Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
+    });
 
     // Write stdin to process, if applicable, then close write channel
     QObject::connect(m_process.get(), &QProcess::started, [this]() {
@@ -88,17 +92,12 @@ void KateToolRunner::waitForFinished()
 
 QString KateToolRunner::outputData() const
 {
-    return QString::fromLocal8Bit(m_output);
+    return QString::fromLocal8Bit(m_stdout);
 }
 
-void KateToolRunner::slotReadyRead()
+QString KateToolRunner::errorData() const
 {
-    m_output += m_process->readAll();
-}
-
-void KateToolRunner::handleToolFinished(int exitCode, QProcess::ExitStatus exitStatus)
-{
-    Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
+    return QString::fromLocal8Bit(m_stderr);
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

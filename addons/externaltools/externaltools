@@ -2,6 +2,7 @@
 tools=10
 version=1
 
+
 [Tool 0]
 actionName=externaltool_RunShellScript
 arguments=-e sh -c "cd %{CurrentDocument:Path} && pwd && chmod -vc a+x %{CurrentDocument:FileName} && ./%{CurrentDocument:FileName} ; echo Press any key to continue. && read -n 1"
@@ -28,6 +29,21 @@ input=
 mimetypes=
 name=Google Selected Text
 output=Ignore
+reload=false
+save=None
+workingDir=
+
+[Tool 10]
+actionName=externaltool_TestExternalTools
+arguments=
+category=Tools
+cmdname=external-tool-test
+executable=tac
+icon=
+input=CurrentDocument:FileBaseName: %{CurrentDocument:FileBaseName}\nCurrentDocument:FileName: %{CurrentDocument:FileName}\nCurrentDocument:FilePath: %{CurrentDocument:FilePath}\nCurrentDocument:FileExtension: %{CurrentDocument:FileExtension}\nCurrentDocument:Text: %{CurrentDocument:Text}\nCurrentDocument:Path: %{CurrentDocument:Path}\nCurrentDocument:NativeFilePath: %{CurrentDocument:NativeFilePath}\nCurrentDocument:NativePath: %{CurrentDocument:NativePath}\nCurrentDocument:Cursor:Line: %{CurrentDocument:Cursor:Line}\nCurrentDocument:Cursor:Column: %{CurrentDocument:Cursor:Column}\nCurrentDocument:Cursor:XPos: %{CurrentDocument:Cursor:XPos}\nCurrentDocument:Cursor:YPos: %{CurrentDocument:Cursor:YPos}\nCurrentDocument:Selection:Text: %{CurrentDocument:Selection:Text}\nCurrentDocument:Selection:StartLine: %{CurrentDocument:Selection:StartLine}\nCurrentDocument:Selection:StartColumn: %{CurrentDocument:Selection:StartColumn}\nCurrentDocument:Selection:EndLine: %{CurrentDocument:Selection:EndLine}\nCurrentDocument:Selection:EndColumn: %{CurrentDocument:Selection:EndColumn}\nCurrentDocument:RowCount: %{CurrentDocument:RowCount}\nDate:dd.MM.yyyy: %{Date:dd.MM.yyyy}\nDate:Locale: %{Date:Locale}\nDate:ISO: %{Date:ISO}\nTime:hh:mm:ss.zzz: %{Time:hh:mm:ss.zzz}\nTime:Locale: %{Time:Locale}\nTime:ISO: %{Time:ISO}\nENV:KATE_PID: %{ENV:KATE_PID}\nUUID: %{UUID}\n
+mimetypes=
+name=Test External Tools
+output=DisplayInPane
 reload=false
 save=None
 workingDir=
@@ -139,15 +155,15 @@ workingDir=%{CurrentDocument:Path}
 
 [Tool 9]
 actionName=externaltool_perl
-arguments=asdfasdfasdf
+arguments=%{ENV:KATE_PID
 category=Tools
 cmdname=perl
-executable=ls
+executable=echo
 icon=
 input=
 mimetypes=
 name=perl
-output=InsertAtCursor
+output=DisplayInPane
 reload=false
 save=None
 workingDir=

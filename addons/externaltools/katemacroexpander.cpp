@@ -30,6 +30,37 @@
 #include <QTime>
 #include <QUuid>
 
+using StringFunction = QString (*)(KTextEditor::View* view);
+class Variable
+{
+public:
+    Variable(const QString& variable, const QString& description, StringFunction func)
+        : m_variable(variable)
+        , m_description(description)
+        , m_function(func)
+    {}
+
+    QString variable() const
+    {
+        return m_variable;
+    }
+
+    QString description() const
+    {
+        return m_description;
+    }
+
+    QString value(KTextEditor::View * view) const
+    {
+        return m_function(view);
+    }
+
+private:
+    QString m_variable;
+    QString m_description;
+    StringFunction m_function;
+};
+
 MacroExpander::MacroExpander(KTextEditor::View* view)
     : KWordMacroExpander()
     , m_view(view)

@@ -38,6 +38,7 @@
 
 #include <QToolButton>
 #include <QKeyEvent>
+#include <QFontDatabase>
 
 #include <map>
 #include <vector>
@@ -201,6 +202,11 @@ void KateExternalToolsPluginView::createToolView()
 
         m_ui = new Ui::ToolView();
         m_ui->setupUi(m_toolView);
+
+        // use fixed font for displaying status and output text
+        const auto fixedFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+        m_ui->teOutput->setFont(fixedFont);
+        m_ui->teStatus->setFont(fixedFont);
 
         // close button to delete tool view
         auto btnClose = new QToolButton();

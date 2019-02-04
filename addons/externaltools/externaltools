@@ -4,7 +4,7 @@ version=1
 
 [Tool 0]
 actionName=externaltool_RunShellScript
-arguments=-e sh -c "cd %{directory} && pwd && chmod -vc a+x %{filename} && ./%{filename} ; echo Press any key to continue. && read -n 1"
+arguments=-e sh -c "cd %{CurrentDocument:Path} && pwd && chmod -vc a+x %{CurrentDocument:FileName} && ./%{CurrentDocument:FileName} ; echo Press any key to continue. && read -n 1"
 category=
 cmdname=run-script
 executable=konsole
@@ -16,11 +16,11 @@ name=Run Shell Script
 output=Ignore
 reload=false
 save=CurrentDocument
-workingDir=%{directory}
+workingDir=%{CurrentDocument:Path}
 
 [Tool 1]
 actionName=externaltool_GoogleSelectedText
-arguments="https://www.google.com/search?q=%{selection}"
+arguments="https://www.google.com/search?q=%{CurrentDocument:Selection:Text}"
 category=
 cmdname=google
 executable=xdg-open
@@ -36,7 +36,7 @@ workingDir=
 
 [Tool 2]
 actionName=externaltool_gitcola
-arguments=-r %{directory}
+arguments=-r %{CurrentDocument:Path}
 category=Git
 cmdname=git-cola
 executable=git-cola
@@ -64,11 +64,11 @@ name=gitk
 output=Ignore
 reload=false
 save=None
-workingDir=%{directory}
+workingDir=%{CurrentDocument:Path}
 
 [Tool 4]
 actionName=externaltool_gitblame
-arguments=gui blame %{filename}
+arguments=gui blame %{CurrentDocument:FileName}
 category=Git
 cmdname=git-blame
 executable=git
@@ -80,11 +80,11 @@ name=git blame
 output=Ignore
 reload=false
 save=CurrentDocument
-workingDir=%{directory}
+workingDir=%{CurrentDocument:Path}
 
 [Tool 5]
 actionName=externaltool_QtQuick2Previewqmlscene
-arguments=%filename
+arguments=%{CurrentDocument:FileName}
 category=Tools
 cmdname=qml-preview
 executable=qmlscene
@@ -96,14 +96,14 @@ name=Qt Quick 2 Preview (qmlscene)
 output=Ignore
 reload=false
 save=CurrentDocument
-workingDir=%{directory}
+workingDir=%{CurrentDocument:Path}
 
 [Tool 6]
 actionName=externaltool_InsertUUID
-arguments=
+arguments=%{UUID}
 category=Tools
 cmdname=uuid
-executable=uuidgen
+executable=echo
 icon=
 includeStderr=false
 input=
@@ -116,7 +116,7 @@ workingDir=
 
 [Tool 7]
 actionName=externaltool_ClangFormatFullFile
-arguments=-i %{filename}
+arguments=-i %{CurrentDocument:FileName}
 category=Tools
 cmdname=clang-format-file
 executable=clang-format
@@ -128,23 +128,23 @@ name=Clang Format Full File
 output=Ignore
 reload=true
 save=CurrentDocument
-workingDir=%{directory}
+workingDir=%{CurrentDocument:Path}
 
 [Tool 8]
 actionName=externaltool_ClangFormatSelectedText
-arguments=-assume-filename=%{filename}
+arguments=-assume-filename=%{CurrentDocument:FileName}
 category=Tools
 cmdname=clang-format-selection
 executable=clang-format
 icon=
 includeStderr=false
-input=\s%{selection}
+input=\s%{CurrentDocument:Selection:Text}
 mimetypes=
 name=Clang Format Selected Text
 output=ReplaceSelectedText
 reload=false
 save=None
-workingDir=%{directory}
+workingDir=%{CurrentDocument:Path}
 
 [Tool 9]
 actionName=externaltool_perl

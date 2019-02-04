@@ -22,6 +22,8 @@
 
 #include <KMacroExpander>
 
+#include <QString>
+
 namespace KTextEditor
 {
 class View;
@@ -40,6 +42,7 @@ protected:
 
 private:
     KTextEditor::View* m_view;
+    const QString m_url;
 };
 
 #endif // KTEXTEDITOR_MACRO_EXPANDER_H

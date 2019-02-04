@@ -39,13 +39,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="tabErrors">
+   <widget class="QWidget" name="tabStatus">
     <attribute name="title">
-     <string>Errors</string>
+     <string>Status</string>
     </attribute>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QTextEdit" name="teErrors">
+      <widget class="QTextEdit" name="teStatus">
        <property name="readOnly">
         <bool>true</bool>
        </property>

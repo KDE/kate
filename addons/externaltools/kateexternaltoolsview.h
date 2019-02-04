@@ -104,6 +104,11 @@ public Q_SLOTS:
     void rebuildMenu();
 
     /**
+     * Creates the tool view. If already existing, does nothing.
+     */
+    void createToolView();
+
+    /**
      * Shows the tool view. The toolview will be created, if not yet existing.
      */
     void showToolView();
@@ -114,10 +119,15 @@ public Q_SLOTS:
     void clearToolView();
 
     /**
-     * Shows the External Tools toolview and porints the error message along with
+     * Shows the External Tools toolview and points the error message along with
      * some more info about the tool.
      */
-    void reportToolError(const QString& message, KateExternalTool* tool);
+    void addToolStatus(const QString& message, KateExternalTool* tool);
+
+    /**
+     * Sets the output data to data;
+     */
+    void setOutputData(const QString& data);
 
     /**
      * Deletes the tool view, if existing.

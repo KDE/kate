@@ -193,7 +193,7 @@ KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const
     return m_mainWindow;
 }
 
-void KateExternalToolsPluginView::showToolView()
+void KateExternalToolsPluginView::createToolView()
 {
     if (!m_toolView) {
         m_toolView = mainWindow()->createToolView(m_plugin, QStringLiteral("ktexteditor_plugin_externaltools"),
@@ -202,6 +202,7 @@ void KateExternalToolsPluginView::showToolView()
         m_ui = new Ui::ToolView();
         m_ui->setupUi(m_toolView);
 
+        // close button to delete tool view
         auto btnClose = new QToolButton();
         btnClose->setAutoRaise(true);
         btnClose->setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
@@ -210,19 +211,32 @@ void KateExternalToolsPluginView::showToolView()
     }
 }
 
+void KateExternalToolsPluginView::showToolView()
+{
+    createToolView();
+    mainWindow()->showToolView(m_toolView);
+}
+
 void KateExternalToolsPluginView::clearToolView()
 {
-    if (m_toolView) {
+    if (m_ui) {
+        m_ui->teOutput->clear();
+        m_ui->teStatus->clear();
     }
 }
 
-void KateExternalToolsPluginView::reportToolError(const QString& message, KateExternalTool* tool)
+void KateExternalToolsPluginView::addToolStatus(const QString& message, KateExternalTool* tool)
 {
-    showToolView();
-    m_ui->teErrors->setText(message);
-    m_ui->tabWidget->setCurrentWidget(m_ui->tabErrors);
+    m_ui->teStatus->setText(message);
+    m_ui->tabWidget->setCurrentWidget(m_ui->tabStatus);
+}
 
-    mainWindow()->showToolView(m_toolView);
+void KateExternalToolsPluginView::setOutputData(const QString& data)
+{
+    if (m_ui) {
+        m_ui->teOutput->setText(data);
+        m_ui->tabWidget->setCurrentWidget(m_ui->tabOutput);
+    }
 }
 
 void KateExternalToolsPluginView::deleteToolView()

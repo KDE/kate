@@ -158,21 +158,20 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, [this](QEvent* event) {
         auto keyEvent = static_cast<QKeyEvent *>(event);
         if (keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
-            delete m_toolView;
-            m_toolView = nullptr;
+            deleteToolView();
         }
     });
+
+    showToolView();
+}
+
 KateExternalToolsPluginView::~KateExternalToolsPluginView()
 {
     m_plugin->unregisterPluginView(this);
 
     m_mainWindow->guiFactory()->removeClient(this);
 
-    delete m_ui;
-    m_ui = nullptr;
-
-    delete m_toolView;
-    m_toolView = nullptr;
+    deleteToolView();
 
     delete m_externalToolsMenu;
     m_externalToolsMenu = nullptr;
@@ -206,11 +205,14 @@ void KateExternalToolsPluginView::showToolView()
         auto btnClose = new QToolButton();
         btnClose->setAutoRaise(true);
         btnClose->setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
-        connect(btnClose, &QToolButton::clicked, [this](){
-            delete m_toolView;
-            m_toolView = nullptr;
-        });
+        connect(btnClose, &QToolButton::clicked, this, &KateExternalToolsPluginView::deleteToolView);
         m_ui->tabWidget->setCornerWidget(btnClose);
+    }
+}
+
+void KateExternalToolsPluginView::clearToolView()
+{
+    if (m_toolView) {
     }
 }
 
@@ -221,6 +223,17 @@ void KateExternalToolsPluginView::reportToolError(const QString& message, KateEx
     m_ui->tabWidget->setCurrentWidget(m_ui->tabErrors);
 
     mainWindow()->showToolView(m_toolView);
+}
+
+void KateExternalToolsPluginView::deleteToolView()
+{
+    if (m_toolView) {
+        delete m_ui;
+        m_ui = nullptr;
+
+        delete m_toolView;
+        m_toolView = nullptr;
+    }
 }
 // END KateExternalToolsPluginView
 

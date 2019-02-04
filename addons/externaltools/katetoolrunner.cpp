@@ -95,16 +95,6 @@ void KateToolRunner::slotReadyRead()
 
 void KateToolRunner::handleToolFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-    if (exitCode != 0) {
-        // FIXME: somehow tell user
-        qWarning() << i18n("External tool %1 finished with non-zero exit code: %2", m_tool->name, exitCode);
-    }
-
-    if (exitStatus != QProcess::NormalExit) {
-        // FIXME: somehow tell user
-        qWarning() << i18n("External tool crashed: %1", m_tool->name);
-    }
-
     Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
 }
 

@@ -136,28 +136,32 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
         }
     }
 
+    // clear previous toolview data
+    auto pluginView = viewForMainWindow(mw);
+    pluginView->clearToolView();
+
     // copy tool
     std::unique_ptr<KateExternalTool> copy(new KateExternalTool(tool));
 
     MacroExpander macroExpander(view);
 
     if (!macroExpander.expandMacrosShellQuote(copy->executable)) {
-        viewForMainWindow(mw)->reportToolError(i18n("Failed to expand the executable '%1'.", copy->executable), copy.get());
+        pluginView->reportToolError(i18n("Failed to expand executable '%1'.", copy->executable), copy.get());
         return;
     }
 
     if (!macroExpander.expandMacrosShellQuote(copy->arguments)) {
-        viewForMainWindow(mw)->reportToolError(i18n("Failed to expand the arguments '%1'.", copy->arguments), copy.get());
+        pluginView->reportToolError(i18n("Failed to expand argument '%1'.", copy->arguments), copy.get());
         return;
     }
 
     if (!macroExpander.expandMacrosShellQuote(copy->workingDir)) {
-        viewForMainWindow(mw)->reportToolError(i18n("Failed to expand the working directory '%1'.", copy->workingDir), copy.get());
+        pluginView->reportToolError(i18n("Failed to expand the working directory '%1'.", copy->workingDir), copy.get());
         return;
     }
 
     if (!macroExpander.expandMacrosShellQuote(copy->input)) {
-        viewForMainWindow(mw)->reportToolError(i18n("Failed to expand the input '%1'.", copy->input), copy.get());
+        pluginView->reportToolError(i18n("Failed to expand the input '%1'.", copy->input), copy.get());
         return;
     }
 
@@ -172,7 +176,19 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
 
 void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner, int exitCode, bool crashed)
 {
+    if (exitCode != 0) {
+        qWarning() << i18n("External tool %1 finished with non-zero exit code: %2", runner->tool()->name, exitCode);
+    }
+
+    if (crashed) {
+        qWarning() << i18n("External tool crashed: %1", runner->tool()->name);
+    }
+
     auto view = runner->view();
+    if (crashed && view) {
+        viewForMainWindow(view->mainWindow())->reportToolError(i18n("External tool crashed: %1", runner->tool()->name), runner->tool());
+    }
+
     if (view && !runner->outputData().isEmpty()) {
         switch (runner->tool()->outputMode) {
             case KateExternalTool::OutputMode::InsertAtCursor: {

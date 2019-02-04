@@ -109,10 +109,20 @@ public Q_SLOTS:
     void showToolView();
 
     /**
+     * Clears the toolview data. If no toolview is around, nothing happens.
+     */
+    void clearToolView();
+
+    /**
      * Shows the External Tools toolview and porints the error message along with
      * some more info about the tool.
      */
     void reportToolError(const QString& message, KateExternalTool* tool);
+
+    /**
+     * Deletes the tool view, if existing.
+     */
+    void deleteToolView();
 
 private:
     KateExternalToolsPlugin* m_plugin;

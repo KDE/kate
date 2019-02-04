@@ -149,27 +149,7 @@ bool MacroExpander::expandMacro(const QString& str, QStringList& ret)
             ret += uuid;
         }
 #endif
-
-    // LEGACY
-    else if (str == QStringLiteral("URL"))
-        ret += url.url();
-    else if (str == QStringLiteral("directory")) // directory of current doc
-        ret += url.toString(QUrl::RemoveScheme | QUrl::RemoveFilename);
-    else if (str == QStringLiteral("filename"))
-        ret += url.fileName();
-    else if (str == QStringLiteral("line")) // cursor line of current doc
-        ret += QString::number(view->cursorPosition().line());
-    else if (str == QStringLiteral("col")) // cursor col of current doc
-        ret += QString::number(view->cursorPosition().column());
-    else if (str == QStringLiteral("selection")) // selection of current doc if any
-        ret += view->selectionText();
-    else if (str == QStringLiteral("text")) // text of current doc
-        ret += doc->text();
-    else if (str == QStringLiteral("URLs")) {
-        foreach (KTextEditor::Document* it, KTextEditor::Editor::instance()->application()->documents())
-            if (!it->url().isEmpty())
-                ret += it->url().url();
-    } else
+    else
         return false;
 
     return true;

@@ -35,6 +35,11 @@ class KateExternalTool;
 
 namespace Ui { class ToolView; }
 
+enum class ToolViewFocus {
+    OutputTab = 0,
+    StatusTab
+};
+
 /**
  * Menu action that displays all KateExternalTool in a submenu.
  * Enables/disables the tool actions whenever the view changes, depending on the mimetype.
@@ -101,7 +106,7 @@ public Q_SLOTS:
     /**
      * Shows the tool view. The toolview will be created, if not yet existing.
      */
-    void showToolView();
+    void showToolView(ToolViewFocus tab);
 
     /**
      * Clears the toolview data. If no toolview is around, nothing happens.

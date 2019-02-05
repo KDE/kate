@@ -165,8 +165,6 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
             deleteToolView();
         }
     });
-
-    showToolView();
 }
 
 KateExternalToolsPluginView::~KateExternalToolsPluginView()
@@ -224,9 +222,16 @@ void KateExternalToolsPluginView::createToolView()
     }
 }
 
-void KateExternalToolsPluginView::showToolView()
+void KateExternalToolsPluginView::showToolView(ToolViewFocus tab)
 {
     createToolView();
+
+    if (tab == ToolViewFocus::OutputTab) {
+        m_ui->tabWidget->setCurrentWidget(m_ui->tabOutput);
+    } else {
+        m_ui->tabWidget->setCurrentWidget(m_ui->tabStatus);
+    }
+
     mainWindow()->showToolView(m_toolView);
 }
 
@@ -241,9 +246,7 @@ void KateExternalToolsPluginView::addToolStatus(const QString& message, KateExte
     QTextCursor cursor(m_statusDoc);
     cursor.movePosition(QTextCursor::End);
     cursor.insertText(message);
-    if (m_ui) {
-        m_ui->tabWidget->setCurrentWidget(m_ui->tabStatus);
-    }
+    cursor.insertText(QStringLiteral("\n"));
 }
 
 void KateExternalToolsPluginView::setOutputData(const QString& data)
@@ -251,9 +254,6 @@ void KateExternalToolsPluginView::setOutputData(const QString& data)
     QTextCursor cursor(m_outputDoc);
     cursor.movePosition(QTextCursor::End);
     cursor.insertText(data);
-    if (m_ui) {
-        m_ui->tabWidget->setCurrentWidget(m_ui->tabOutput);
-    }
 }
 
 void KateExternalToolsPluginView::deleteToolView()

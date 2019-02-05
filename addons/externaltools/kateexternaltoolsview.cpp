@@ -241,7 +241,7 @@ void KateExternalToolsPluginView::clearToolView()
     m_statusDoc->clear();
 }
 
-void KateExternalToolsPluginView::addToolStatus(const QString& message, KateExternalTool* tool)
+void KateExternalToolsPluginView::addToolStatus(const QString& message)
 {
     QTextCursor cursor(m_statusDoc);
     cursor.movePosition(QTextCursor::End);

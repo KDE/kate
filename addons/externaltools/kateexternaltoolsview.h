@@ -117,7 +117,7 @@ public Q_SLOTS:
      * Shows the External Tools toolview and points the error message along with
      * some more info about the tool.
      */
-    void addToolStatus(const QString& message, KateExternalTool* tool);
+    void addToolStatus(const QString& message);
 
     /**
      * Sets the output data to data;

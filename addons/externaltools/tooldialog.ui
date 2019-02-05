@@ -55,9 +55,6 @@
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QLineEdit" name="edtExecutable">
-       <property name="whatsThis">
-        <string>The executable used by the command. This is used to check if a tool should be displayed; if not set, the first word of &lt;em&gt;command&lt;/em&gt; will be used.</string>
-       </property>
        <property name="placeholderText">
         <string>Application or interpreter</string>
        </property>
@@ -67,7 +64,7 @@
       <widget class="QToolButton" name="btnExecutable">
        <property name="icon">
         <iconset theme="folder-open">
-         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="popupMode">
         <enum>QToolButton::InstantPopup</enum>
@@ -99,7 +96,7 @@
       <widget class="QToolButton" name="btnArgs">
        <property name="icon">
         <iconset theme="arrow-down">
-         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="popupMode">
         <enum>QToolButton::InstantPopup</enum>
@@ -122,9 +119,6 @@
     <layout class="QHBoxLayout" name="loArgs">
      <item>
       <widget class="QTextEdit" name="edtInput">
-       <property name="whatsThis">
-        <string>&lt;p&gt;The script to execute to invoke the tool. The script is passed to /bin/sh for execution. The following macros will be expanded:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;%URL&lt;/code&gt; - the URL of the current document.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%URLs&lt;/code&gt; - a list of the URLs of all open documents.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%directory&lt;/code&gt; - the URL of the directory containing the current document.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%filename&lt;/code&gt; - the filename of the current document.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%line&lt;/code&gt; - the current line of the text cursor in the current view.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%column&lt;/code&gt; - the column of the text cursor in the current view.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%selection&lt;/code&gt; - the selected text in the current view.&lt;/li&gt;&lt;li&gt;&lt;code&gt;%text&lt;/code&gt; - the text of the current document.&lt;/li&gt;&lt;/ul&gt;</string>
-       </property>
        <property name="placeholderText">
         <string>Optional standard input</string>
        </property>
@@ -134,7 +128,7 @@
       <widget class="QToolButton" name="btnInput">
        <property name="icon">
         <iconset theme="arrow-down">
-         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="popupMode">
         <enum>QToolButton::InstantPopup</enum>
@@ -166,7 +160,7 @@
       <widget class="QToolButton" name="btnWorkingDir">
        <property name="icon">
         <iconset theme="folder-open">
-         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="popupMode">
         <enum>QToolButton::InstantPopup</enum>
@@ -190,7 +184,7 @@
      <item>
       <widget class="QLineEdit" name="edtMimeType">
        <property name="whatsThis">
-        <string>A semicolon-separated list of mime types for which this tool should be available; if this is left empty, the tool is always available. To choose from known mimetypes, press the button on the right.</string>
+        <string>A semicolon-separated list of mime types for which this tool should be available. If empty, the tool is always available.</string>
        </property>
        <property name="placeholderText">
         <string>Show tool only for given mime types</string>
@@ -200,11 +194,11 @@
      <item>
       <widget class="QToolButton" name="btnMimeType">
        <property name="whatsThis">
-        <string>Click for a dialog that can help you create a list of mimetypes.</string>
+        <string>Opens a dialog that helps in creating a list of mimetypes.</string>
        </property>
        <property name="icon">
         <iconset theme="tools-wizard">
-         <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+         <normaloff>.</normaloff>.</iconset>
        </property>
       </widget>
      </item>
@@ -223,7 +217,7 @@
    <item row="6" column="1">
     <widget class="QComboBox" name="cmbSave">
      <property name="whatsThis">
-      <string>You can choose to save the current or all [modified] documents prior to running the command. This is helpful if you want to pass URLs to an application like, for example, an FTP client.</string>
+      <string>Optionally save the current or all modified documents prior to running the command. This is helpful if you want to pass URLs to an application like, for example, an FTP client.</string>
      </property>
      <item>
       <property name="text">

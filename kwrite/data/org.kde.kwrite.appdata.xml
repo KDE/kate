@@ -74,7 +74,7 @@
   <summary xml:lang="nb">Tekstredigering</summary>
   <summary xml:lang="nl">Teksteditor</summary>
   <summary xml:lang="nn">Skriveprogram</summary>
-  <summary xml:lang="pa">ਟੈਕਸਟ ਐਡੀਟਰ</summary>
+  <summary xml:lang="pa">ਲਿਖਤ ਐਡੀਟਰ</summary>
   <summary xml:lang="pl">Edytor tekstu</summary>
   <summary xml:lang="pt">Editor de Texto</summary>
   <summary xml:lang="pt-BR">Editor de Texto</summary>
@@ -114,6 +114,7 @@
     <p xml:lang="ko">KWrite는 Kate 편집기 구성 요소를 사용하는 KDE 텍스트 편집기입니다.</p>
     <p xml:lang="nl">KWrite is een tekstbewerker door KDE, gebaseerd op de tekstbewerkercomponent van Kate.</p>
     <p xml:lang="nn">KWrite er eit skriveprogram frå KDE, basert på skrivekomponenten i Kate.</p>
+    <p xml:lang="pa">ਕੇ-ਰਾਈਟ ਕੇਡੀਈ ਵਲੋਂ ਕੇਟ ਅਧਾਰਿਤ ਸੰਪਾਦਕੀ ਭਾਗਾਂ ਉੱਤੇ ਬਣਾਇਆ ਗਿਆ ਲਿਖਤ ਸੰਪਾਦਕ ਹੈ।</p>
     <p xml:lang="pl">KWrite jest edytorem tekstu stworzonym przez KDE, opartym na edytorze Kate.</p>
     <p xml:lang="pt">O KWrite é um editor de texto do KDE, baseado no componente de edição do Kate.</p>
     <p xml:lang="pt-BR">KWrite é um editor de texto para o KDE, baseado no componente de edição do Kate.</p>
@@ -416,6 +417,7 @@
       <caption xml:lang="it">Modificare il codice con KWrite</caption>
       <caption xml:lang="nl">Broncode bewerken met KWrite</caption>
       <caption xml:lang="nn">Redigering av kjeldekode med KWrite</caption>
+      <caption xml:lang="pa">ਕੇ-ਲੇਖਕ ਨਾਲ ਕੋਡ ਸੋਧਣਾ</caption>
       <caption xml:lang="pl">Edytowanie kodu z KWrite</caption>
       <caption xml:lang="pt">Edição de código com o KWrite</caption>
       <caption xml:lang="pt-BR">Editando código no KWrite</caption>

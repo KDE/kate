@@ -62,6 +62,7 @@ Name[zh_TW]=回溯追蹤瀏覽器
 Comment=C/C++ Backtrace navigation tool view
 Comment[ca]=Vista d'eina del navegador per a la traça inversa del C/C++
 Comment[ca@valencia]=Vista d'eina del navegador per a la traça inversa del C/C++
+Comment[cs]=Nástroj pro procházení backtrace v C/C++
 Comment[de]=Ansicht zur Navigation in C/C++ Backtraces
 Comment[el]=Προβολή C/C++ εργαλείου πλοήγησης Backtrace
 Comment[en_GB]=C/C++ Backtrace navigation tool view

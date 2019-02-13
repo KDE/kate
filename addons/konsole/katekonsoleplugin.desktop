@@ -5,6 +5,7 @@ X-KDE-Library=katekonsoleplugin
 Name=Terminal Tool View
 Name[ca]=Vista d'eina del terminal
 Name[ca@valencia]=Vista d'eina del terminal
+Name[cs]=Nástroj zobrazující terminál
 Name[de]=Werkzeugansicht für Terminal
 Name[el]=Προβολή εργαλείου τερματικού
 Name[en_GB]=Terminal Tool View

@@ -28,6 +28,7 @@ Name[x-test]=xxSnippets Tool Viewxx
 Name[zh_CN]=代码片段工具视图
 Name[zh_TW]=片段工具檢視
 Comment=Manage your code snippets or download new ones
+Comment[ast]=Xestiona snippets de códigu o baxa otros nuevos
 Comment[ca]=Gestiona els retalls de codi o en baixa de nous
 Comment[ca@valencia]=Gestiona els retalls de codi o en baixa de nous
 Comment[de]=Verwaltung Ihrer Textbausteine oder Herunterladen neuer Textbausteine

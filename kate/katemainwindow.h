@@ -584,6 +584,7 @@ public Q_SLOTS:
 protected:
     bool event(QEvent *e) override;
     void mousePressEvent(QMouseEvent *e) override;
+    void closeEvent(QCloseEvent *e) override;
 };
 
 #endif

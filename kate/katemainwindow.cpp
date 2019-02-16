@@ -1191,56 +1191,6 @@ void KateMainWindow::mousePressEvent(QMouseEvent *e)
     }
 }
 
-void KateMainWindow::closeEvent(QCloseEvent *e)
-{
-    // Find out if Kate is closed directly by the user or
-    // by the session manager because the session is closed
-    const bool closedByUser = !qApp->isSavingSession();
-    const bool multipleDocumentsOpen = KateApp::self()->documentManager()->documentList().count() > 1;
-    const bool isLastWindow = KateApp::self()->mainWindowsCount() == 1;
-    const bool askConfirmation = closedByUser && multipleDocumentsOpen && isLastWindow;
-
-    if (askConfirmation) {
-        QDialog *dialog = new QDialog(this, Qt::Dialog);
-        dialog->setWindowTitle(i18nc("@title:window", "Confirmation"));
-        dialog->setModal(true);
-        QDialogButtonBox* buttons = new QDialogButtonBox(QDialogButtonBox::Yes | QDialogButtonBox::No | QDialogButtonBox::Cancel);
-        KGuiItem::assign(buttons->button(QDialogButtonBox::Yes), KGuiItem(i18nc("@action:button 'Quit Kate' button", "&Quit %1", QGuiApplication::applicationDisplayName()), QIcon::fromTheme(QStringLiteral("application-exit"))));
-        KGuiItem::assign(buttons->button(QDialogButtonBox::No), KGuiItem(i18n("C&lose Current Document"), QIcon::fromTheme(QStringLiteral("tab-close"))));
-        KGuiItem::assign(buttons->button(QDialogButtonBox::Cancel), KStandardGuiItem::cancel());
-        buttons->button(QDialogButtonBox::Yes)->setDefault(true);
-
-        bool doNotAskAgainCheckboxResult = false;
-
-        auto view = viewManager()->activeView();
-        const auto result = KMessageBox::createKMessageBox(dialog,
-            buttons,
-            QMessageBox::Warning,
-            i18n("You have multiple documents open, are you sure you want to quit?"),
-            QStringList(),
-            i18n("Do not ask again"),
-            &doNotAskAgainCheckboxResult,
-            KMessageBox::Notify);
-
-        if (doNotAskAgainCheckboxResult) {
-            readOptions();
-        }
-
-        switch (result) {
-            case QDialogButtonBox::Yes:
-                break;
-            case QDialogButtonBox::No:
-                KateApp::self()->documentManager()->closeDocument(view->document());
-                Q_FALLTHROUGH();                
-            default:
-                e->ignore();
-                return;
-        }
-        saveOptions();
-    }
-    KXmlGuiWindow::closeEvent(e);
-}
-
 void KateMainWindow::slotFocusPrevTab()
 {
     if (m_viewManager->activeViewSpace()) {

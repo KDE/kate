@@ -37,6 +37,7 @@
 #include <KStandardAction>
 #include <KIO/DeleteJob>
 #include <KIO/CopyJob>
+#include <KIO/OpenFileManagerWindowJob>
 
 #include <QMimeDatabase>
 #include <QClipboard>
@@ -82,6 +83,10 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     m_filelistCloseOtherDocument = new QAction(QIcon::fromTheme(QStringLiteral("document-close")), i18nc("@action:inmenu", "Close Other"), this);
     connect(m_filelistCloseOtherDocument, &QAction::triggered, this, &KateFileTree::slotDocumentCloseOther);
     m_filelistCloseOtherDocument->setWhatsThis(i18n("Close other documents in this folder."));
+
+    m_filelistOpenContainingFolder = new QAction(QIcon::fromTheme(QStringLiteral("document-open-folder")), i18nc("@action:inmenu", "Open Containing Folder"), this);
+    connect(m_filelistOpenContainingFolder, &QAction::triggered, this, &KateFileTree::slotOpenContainingFolder);
+    m_filelistOpenContainingFolder->setWhatsThis(i18n("Open the folder this file is located in."));
 
     m_filelistCopyFilename = new QAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@action:inmenu", "Copy File Path"), this);
     connect(m_filelistCopyFilename, &QAction::triggered, this, &KateFileTree::slotCopyFilename);
@@ -237,6 +242,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     if (isFile) {
         menu.addAction(m_filelistCloseOtherDocument);
         menu.addSeparator();
+        menu.addAction(m_filelistOpenContainingFolder);
         menu.addAction(m_filelistCopyFilename);
         menu.addAction(m_filelistRenameFile);
         menu.addAction(m_filelistPrintDocument);
@@ -246,6 +252,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
         connect(openWithMenu, &QMenu::triggered, this, &KateFileTree::slotOpenWithMenuAction);
 
         const bool hasFileName = doc->url().isValid();
+        m_filelistOpenContainingFolder->setEnabled(hasFileName);
         m_filelistCopyFilename->setEnabled(hasFileName);
         m_filelistRenameFile->setEnabled(hasFileName);
         m_filelistDeleteDocument->setEnabled(hasFileName);
@@ -414,6 +421,14 @@ void KateFileTree::slotDocumentReload()
     QList<KTextEditor::Document *> docs = v.value<QList<KTextEditor::Document *> >();
     foreach(KTextEditor::Document * doc, docs) {
         doc->documentReload();
+    }
+}
+
+void KateFileTree::slotOpenContainingFolder()
+{
+    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    if (doc) {
+        KIO::highlightInFileManager({doc->url()});
     }
 }
 

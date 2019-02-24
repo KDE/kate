@@ -48,6 +48,7 @@ public Q_SLOTS:
     void slotCollapseRecursive();
     void slotDocumentCloseOther();
     void slotDocumentReload();
+    void slotOpenContainingFolder();
     void slotCopyFilename();
     void slotCurrentChanged(const QModelIndex &current, const QModelIndex &previous);
     void slotDocumentFirst();
@@ -94,6 +95,7 @@ private:
     QAction *m_filelistCollapseRecursive;
     QAction *m_filelistCloseOtherDocument;
     QAction *m_filelistReloadDocument;
+    QAction *m_filelistOpenContainingFolder;
     QAction *m_filelistCopyFilename;
     QAction *m_filelistRenameFile;
     QAction *m_filelistPrintDocument;

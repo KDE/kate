@@ -77,7 +77,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     setCurrentPage(item);
 
     QVBoxLayout *layout = new QVBoxLayout(generalFrame);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     // GROUP with the one below: "Behavior"
     QGroupBox *buttonGroup = new QGroupBox(i18n("&Behavior"), generalFrame);
@@ -181,7 +181,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     //BEGIN Plugins page
     QFrame *page = new QFrame(this);
     QVBoxLayout *vlayout = new QVBoxLayout(page);
-    vlayout->setMargin(0);
+    vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 
     KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
@@ -242,7 +242,7 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
         QFrame *page = new QFrame();
         QVBoxLayout *layout = new QVBoxLayout(page);
         layout->setSpacing(0);
-        layout->setMargin(0);
+        layout->setContentsMargins(0, 0, 0, 0);
 
         KTextEditor::ConfigPage *cp = plugin->configPage(i, page);
         page->layout()->addWidget(cp);

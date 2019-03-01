@@ -134,7 +134,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_toolView = mainWindow->createToolView(plug, QStringLiteral("kate_private_plugin_katefiletreeplugin"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QStringLiteral("document-open")), i18n("Documents"));
 
     Q_ASSERT(m_toolView->layout());
-    m_toolView->layout()->setMargin(0);
+    m_toolView->layout()->setContentsMargins(0, 0, 0, 0);
     m_toolView->layout()->setSpacing(0);
     auto mainLayout = m_toolView->layout();
 

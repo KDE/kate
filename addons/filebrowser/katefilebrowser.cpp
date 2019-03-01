@@ -55,7 +55,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
 {
 
   QVBoxLayout *mainLayout = new QVBoxLayout(this);
-  mainLayout->setMargin(0);
+  mainLayout->setContentsMargins(0, 0, 0, 0);
   mainLayout->setSpacing(0);
 
   m_toolbar = new KToolBar(this);

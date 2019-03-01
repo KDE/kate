@@ -54,12 +54,12 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     setObjectName(QString::fromLatin1(name));
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     //BEGIN tab bar
     QHBoxLayout *hLayout = new QHBoxLayout();
     hLayout->setSpacing(0);
-    hLayout->setMargin(0);
+    hLayout->setContentsMargins(0, 0, 0, 0);
 
     // add tab bar
     m_tabBar = new KateTabBar(this);

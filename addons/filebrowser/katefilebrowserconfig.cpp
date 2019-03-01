@@ -73,7 +73,7 @@ KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, KateFileB
   QVBoxLayout *lo = new QVBoxLayout( this );
   int spacing =  QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing);
   lo->setSpacing( spacing );
-  lo->setMargin(0);
+  lo->setContentsMargins(0, 0, 0, 0);
 
   // Toolbar - a lot for a little...
   QGroupBox *gbToolbar = new QGroupBox(i18n("Toolbar"), this );

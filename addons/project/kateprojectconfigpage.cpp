@@ -31,7 +31,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     , m_changed(false)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     QVBoxLayout *vbox = new QVBoxLayout;
     QGroupBox *group = new QGroupBox(i18nc("Groupbox title", "Autoload Repositories"), this);

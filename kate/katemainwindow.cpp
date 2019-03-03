@@ -329,7 +329,7 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("file_rename"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
-    a->setText(i18nc("@action:inmenu", "Rename File..."));
+    a->setText(i18nc("@action:inmenu", "Rename..."));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(),
             [this]() {
                 auto&& view = viewManager()->activeView();
@@ -339,7 +339,7 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("file_delete"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
-    a->setText(i18nc("@action:inmenu", "Delete File"));
+    a->setText(i18nc("@action:inmenu", "Delete"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(),
             [this]() {
                 auto&& view = viewManager()->activeView();

@@ -92,7 +92,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     connect(m_filelistCopyFilename, &QAction::triggered, this, &KateFileTree::slotCopyFilename);
     m_filelistCopyFilename->setWhatsThis(i18n("Copy path and filename to the clipboard."));
 
-    m_filelistRenameFile = new QAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18nc("@action:inmenu", "Rename File"), this);
+    m_filelistRenameFile = new QAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18nc("@action:inmenu", "Rename..."), this);
     connect(m_filelistRenameFile, &QAction::triggered, this, &KateFileTree::slotRenameFile);
     m_filelistRenameFile->setWhatsThis(i18n("Rename the selected file."));
 
@@ -102,7 +102,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     m_filelistPrintDocumentPreview = KStandardAction::printPreview(this, SLOT(slotPrintDocumentPreview()), this);
     m_filelistPrintDocumentPreview->setWhatsThis(i18n("Show print preview of current document"));
 
-    m_filelistDeleteDocument = new QAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18nc("@action:inmenu", "Delete Document"), this);
+    m_filelistDeleteDocument = new QAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18nc("@action:inmenu", "Delete"), this);
     connect(m_filelistDeleteDocument, &QAction::triggered, this, &KateFileTree::slotDocumentDelete);
     m_filelistDeleteDocument->setWhatsThis(i18n("Close and delete selected file from storage."));
 

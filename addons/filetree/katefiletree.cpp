@@ -264,7 +264,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     view_menu->addAction(m_treeModeAction);
     view_menu->addAction(m_listModeAction);
 
-    QMenu *sort_menu = menu.addMenu(QIcon::fromTheme(QStringLiteral("view-sort-ascending")), i18nc("@action:inmenu", "Sort By"));
+    QMenu *sort_menu = menu.addMenu(QIcon::fromTheme(QStringLiteral("view-sort")), i18nc("@action:inmenu", "Sort By"));
     sort_menu->addAction(m_sortByFile);
     sort_menu->addAction(m_sortByPath);
     sort_menu->addAction(m_sortByOpeningOrder);

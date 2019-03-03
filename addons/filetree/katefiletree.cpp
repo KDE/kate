@@ -102,7 +102,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
     m_filelistPrintDocumentPreview = KStandardAction::printPreview(this, SLOT(slotPrintDocumentPreview()), this);
     m_filelistPrintDocumentPreview->setWhatsThis(i18n("Show print preview of current document"));
 
-    m_filelistDeleteDocument = new QAction(QIcon::fromTheme(QStringLiteral("edit-delete-shred")), i18nc("@action:inmenu", "Delete Document"), this);
+    m_filelistDeleteDocument = new QAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18nc("@action:inmenu", "Delete Document"), this);
     connect(m_filelistDeleteDocument, &QAction::triggered, this, &KateFileTree::slotDocumentDelete);
     m_filelistDeleteDocument->setWhatsThis(i18n("Close and delete selected file from storage."));
 

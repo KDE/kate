@@ -338,7 +338,7 @@ void KateMainWindow::setupActions()
     a->setWhatsThis(i18n("Renames the file belonging to the current document."));
 
     a = actionCollection()->addAction(QStringLiteral("file_delete"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete-shred")));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     a->setText(i18nc("@action:inmenu", "Delete File"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(),
             [this]() {

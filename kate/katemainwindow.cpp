@@ -978,7 +978,8 @@ bool KateMainWindow::showModOnDiskPrompt()
     DocVector list;
     list.reserve(KateApp::self()->documentManager()->documentList().size());
     foreach(doc, KateApp::self()->documentManager()->documentList()) {
-        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc) {
+
+        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc && doc->isModified()) {
             list.append(doc);
         }
     }

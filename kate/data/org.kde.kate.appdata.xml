@@ -330,7 +330,7 @@
       <li xml:lang="tr">Kodlama desteği (utf-8, utf-16, ascii vb.)</li>
       <li xml:lang="uk">Підтримка різноманітних кодувань (utf-8, utf-16, ascii тощо).</li>
       <li xml:lang="x-test">xxEncoding support (utf-8, utf-16, ascii etc.)xx</li>
-      <li xml:lang="zh-CN">编码支持 (utf-8，utf-16，ascii 等。)</li>
+      <li xml:lang="zh-CN">编码支持 (UTF-8，UTF-16，ASCII 等)</li>
       <li xml:lang="zh-TW">編碼支援（UTF-8，UTF-16，ASCII 等）</li>
       <li>Encoding conversion</li>
       <li xml:lang="ar">التّحويل بين التّرميزات</li>
@@ -730,7 +730,7 @@
       <li xml:lang="tr">Kioslaves kullanımıyla geniş protokol (http, ftp, ssh, webdav vb.) desteği</li>
       <li xml:lang="uk">Широка підтримка протоколів (http, ftp, ssh, webdav тощо) на основі допоміжних засобів KIO.</li>
       <li xml:lang="x-test">xxWide protocol support (http, ftp, ssh, webdav etc.) using kioslavesxx</li>
-      <li xml:lang="zh-CN">通过 kioslaves 支持广泛的协议 (HTTP, FTP, SSH, WebDAV 等)</li>
+      <li xml:lang="zh-CN">通过 KIOSlave 支持广泛的协议 (HTTP, FTP, SSH, WebDAV 等)</li>
       <li xml:lang="zh-TW">用 kioslave 提供廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
       <li>Plugin architecture for the application and editor component</li>
       <li xml:lang="ar">بنية ملحقات للتّطبيق ومكوّن المحرّر</li>

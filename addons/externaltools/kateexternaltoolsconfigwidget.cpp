@@ -85,6 +85,13 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     ui->setupUi(this);
     ui->btnIcon->setIconSize(KIconLoader::SizeSmall);
 
+    auto contextAction = new ContextAction(QIcon::fromTheme(QStringLiteral("code-context"), QIcon::fromTheme(QStringLiteral("tools-wizard"))),
+                         QStringLiteral("Insert variable"), this);
+    contextAction->attachTo(ui->edtExecutable);
+    contextAction->attachTo(ui->edtArgs);
+//     contextAction->attachTo(ui->edtInput); // not a QLineEdit
+    contextAction->attachTo(ui->edtWorkingDir);
+
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &KateExternalToolServiceEditor::slotOKClicked);
     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(ui->btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
@@ -448,5 +455,38 @@ void KateExternalToolsConfigWidget::slotEdit()
     }
 }
 // END KateExternalToolsConfigWidget
+
+
+ContextAction::ContextAction(const QIcon & icon, const QString & text, QObject * parent)
+    : QObject(parent)
+    , m_action(new QAction(icon, text, this))
+{
+    connect(m_action, &QAction::triggered, [this]() {
+        if (m_currentLineEdit) {
+            Q_EMIT triggered(m_currentLineEdit);
+        }
+    });
+}
+
+void ContextAction::attachTo(QLineEdit * lineEdit)
+{
+    lineEdit->installEventFilter(this);
+}
+
+bool ContextAction::eventFilter(QObject *watched, QEvent *event)
+{
+    auto lineEdit = qobject_cast<QLineEdit*>(watched);
+    if (lineEdit) {
+        if (event->type() == QEvent::FocusOut) {
+            lineEdit->removeAction(m_action);
+            m_currentLineEdit = nullptr;
+        }
+        else if (event->type() == QEvent::FocusIn) {
+            m_currentLineEdit = lineEdit;
+            lineEdit->addAction(m_action, QLineEdit::TrailingPosition);
+        }
+    }
+    return false;
+}
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

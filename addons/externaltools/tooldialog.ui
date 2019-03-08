@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>470</width>
-    <height>532</height>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -84,26 +84,11 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <item>
-      <widget class="QLineEdit" name="edtArgs">
-       <property name="placeholderText">
-        <string>Command line arguments</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="btnArgs">
-       <property name="icon">
-        <iconset theme="arrow-down">
-         <normaloff>.</normaloff>.</iconset>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::InstantPopup</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QLineEdit" name="edtArgs">
+     <property name="placeholderText">
+      <string>Command line arguments</string>
+     </property>
+    </widget>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="lblInput">
@@ -116,26 +101,11 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <layout class="QHBoxLayout" name="loArgs">
-     <item>
-      <widget class="QTextEdit" name="edtInput">
-       <property name="placeholderText">
-        <string>Optional standard input</string>
-       </property>
-      </widget>
-     </item>
-     <item alignment="Qt::AlignTop">
-      <widget class="QToolButton" name="btnInput">
-       <property name="icon">
-        <iconset theme="arrow-down">
-         <normaloff>.</normaloff>.</iconset>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::InstantPopup</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QTextEdit" name="edtInput">
+     <property name="placeholderText">
+      <string>Optional standard input</string>
+     </property>
+    </widget>
    </item>
    <item row="4" column="0">
     <widget class="QLabel" name="lblWorkingDir">
@@ -312,7 +282,7 @@
      </property>
     </widget>
    </item>
-   <item row="10" column="1">
+   <item row="10" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
@@ -334,9 +304,7 @@
   <tabstop>edtExecutable</tabstop>
   <tabstop>btnExecutable</tabstop>
   <tabstop>edtArgs</tabstop>
-  <tabstop>btnArgs</tabstop>
   <tabstop>edtInput</tabstop>
-  <tabstop>btnInput</tabstop>
   <tabstop>edtWorkingDir</tabstop>
   <tabstop>btnWorkingDir</tabstop>
   <tabstop>edtMimeType</tabstop>

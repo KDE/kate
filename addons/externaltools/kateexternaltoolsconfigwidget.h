@@ -124,6 +124,45 @@ private:
     KateExternalTool* m_tool;
 };
 
+/**
+ * Action that is only visible if QLineEdit has focus.
+ */
+class ContextAction : public QObject
+{
+    Q_OBJECT
+
+public:
+    /**
+     * Constructor that will add @p action to all attached QLineEdits.
+     */
+    ContextAction(const QIcon & icon, const QString & text, QObject * parent = nullptr);
+
+    /**
+     * Attaches the action provided in the constructor to @p lineEdit
+     * whenever the @p lineEdit has focus.
+     */
+    void attachTo(QLineEdit * lineEdit);
+
+Q_SIGNALS:
+    /**
+     * This signal is emitted whenever the action was triggered for
+     * the given @p lineEdit. The @p lineEdit is always a valid pointer.
+     */
+    void triggered(QLineEdit * lineEdit);
+
+protected:
+    /**
+     * Reimplemented to show/hide action for the currently focused
+     * line edit.
+     */
+    bool eventFilter(QObject *watched, QEvent *event) override;
+
+private:
+    QLineEdit * m_currentLineEdit = nullptr;
+    QAction * m_action;
+};
+
+
 #endif // KTEXTEDITOR_EXTERNALTOOLS_CONFIGWIDGET_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

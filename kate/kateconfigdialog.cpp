@@ -30,6 +30,7 @@
 #include "kateapp.h"
 #include "katesessionmanager.h"
 #include "katedebug.h"
+#include "katequickopenmodel.h"
 
 #include <KTextEditor/ConfigPage>
 
@@ -38,6 +39,7 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 #include <KPluralHandlingSpinBox>
+#include <KComboBox>
 
 #include <QDesktopServices>
 #include <QCheckBox>
@@ -145,6 +147,21 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 
     vbox->addWidget(metaInfos);
     buttonGroup->setLayout(vbox);
+
+    // quick search
+    buttonGroup = new QGroupBox(i18n("&Quick Open"), generalFrame);
+    hlayout = new QHBoxLayout(buttonGroup);
+    label = new QLabel(i18n("&Match Mode:"), buttonGroup);
+    hlayout->addWidget(label);
+    m_cmbQuickOpenMatchMode = new KComboBox(buttonGroup);
+    hlayout->addWidget(m_cmbQuickOpenMatchMode);
+    label->setBuddy(m_cmbQuickOpenMatchMode);
+    m_cmbQuickOpenMatchMode->addItem(i18n("Filename"), QVariant(KateQuickOpenModel::Columns::FileName));
+    m_cmbQuickOpenMatchMode->addItem(i18n("Filepath"), QVariant(KateQuickOpenModel::Columns::FilePath));
+    m_cmbQuickOpenMatchMode->setCurrentIndex(m_cmbQuickOpenMatchMode->findData(m_mainWindow->quickOpenMatchMode()));
+    m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
+    connect(m_cmbQuickOpenMatchMode, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    layout->addWidget(buttonGroup);
 
     layout->addStretch(1); // :-] works correct without autoadd
     //END General page
@@ -333,6 +350,9 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Close After Last", m_modCloseAfterLast->isChecked());
         m_mainWindow->setModCloseAfterLast(m_modCloseAfterLast->isChecked());
+
+        cg.writeEntry("Quick Open Search Mode", m_cmbQuickOpenMatchMode->currentData().toInt());
+        m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

@@ -42,6 +42,14 @@ public:
      */
     void update();
 
+    void setMatchMode(int mode) {
+        m_matchMode = mode;
+    }
+
+    int matchMode() {
+        return m_matchMode;
+    }
+
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
@@ -68,6 +76,8 @@ private:
      * filtered model we search in
      */
     QSortFilterProxyModel *m_model;
+
+    int m_matchMode;
 };
 
 #endif

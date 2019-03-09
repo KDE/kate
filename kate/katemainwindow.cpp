@@ -38,6 +38,7 @@
 #include "katedebug.h"
 #include "katecolorschemechooser.h"
 #include "katefileactions.h"
+#include "katequickopenmodel.h"
 
 #include <KActionMenu>
 #include <KAboutApplicationDialog>
@@ -627,6 +628,8 @@ void KateMainWindow::readOptions()
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
     m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
+
+    m_quickOpen->setMatchMode(generalGroup.readEntry("Quick Open Search Mode", (int)KateQuickOpenModel::Columns::FileName));
 
     // emit signal to hide/show statusbars
     toggleShowStatusBar();
@@ -1260,3 +1263,12 @@ bool KateMainWindow::hideToolView(QWidget *widget)
     return KateMDI::MainWindow::hideToolView(qobject_cast<KateMDI::ToolView *>(widget));
 }
 
+void KateMainWindow::setQuickOpenMatchMode(int mode)
+{
+    m_quickOpen->setMatchMode(mode);
+}
+
+int KateMainWindow::quickOpenMatchMode()
+{
+    return m_quickOpen->matchMode();
+}

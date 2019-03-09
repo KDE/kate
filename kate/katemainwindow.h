@@ -292,6 +292,9 @@ public:
         m_modCloseAfterLast = e;
     }
 
+    void setQuickOpenMatchMode(int mode);
+    int quickOpenMatchMode();
+
     KRecentFilesAction *fileOpenRecent() const {
         return m_fileOpenRecent;
     }

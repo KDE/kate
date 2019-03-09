@@ -53,6 +53,7 @@ Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
+    , m_matchMode(0)
 {
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(0);
@@ -76,6 +77,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     m_model->setSortRole(Qt::DisplayRole);
     m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
+    m_model->setFilterKeyColumn(m_matchMode);
 
     connect(m_inputLine, &KLineEdit::textChanged, m_model, &QSortFilterProxyModel::setFilterWildcard);
     connect(m_inputLine, &KLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);

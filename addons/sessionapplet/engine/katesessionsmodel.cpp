@@ -104,7 +104,7 @@ void KateSessionsModel::initSessionFiles()
     }
     
    
-    qSort(m_sessions.begin(),m_sessions.end(),katesessions_compare_sessions);
+    std::sort(m_sessions.begin(),m_sessions.end(), katesessions_compare_sessions);
     QLatin1String ext(".katesession");
     for(QStringList::ConstIterator it=m_sessions.constBegin();it!=m_sessions.constEnd();++it)
     {

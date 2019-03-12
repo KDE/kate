@@ -1,11 +1,6 @@
 
 include(ECMMarkAsTest)
 
-include_directories(
-  ${CMAKE_SOURCE_DIR}/kate/src
-  ${CMAKE_SOURCE_DIR}/kate/src/session
-)
-
 macro(kate_executable_tests)
   foreach(_testname ${ARGN})
     add_executable(${_testname} ${_testname}.cpp)

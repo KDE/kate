@@ -23,11 +23,44 @@
 #include <KMacroExpander>
 
 #include <QString>
+#include <QVector>
 
 namespace KTextEditor
 {
 class View;
 }
+
+using StringFunction = QString (*)(const QStringView& prefix, KTextEditor::View* view);
+class Variable
+{
+public:
+    Variable() = default;
+    Variable(const QString& variable, const QString& description, StringFunction func)
+        : m_variable(variable)
+        , m_description(description)
+        , m_function(func)
+    {}
+
+    QString variable() const
+    {
+        return m_variable;
+    }
+
+    QString description() const
+    {
+        return m_description;
+    }
+
+    QString evaluate(const QStringView& prefix, KTextEditor::View * view) const
+    {
+        return m_function(prefix, view);
+    }
+
+private:
+    QString m_variable;
+    QString m_description;
+    StringFunction m_function;
+};
 
 /**
  * Helper class for macro expansion.
@@ -37,10 +70,15 @@ class MacroExpander : public KWordMacroExpander
 public:
     MacroExpander(KTextEditor::View* view);
 
+    void registerExactMatch(const Variable & variable);
+    void registerPrefix(const Variable & variable);
+
 protected:
     bool expandMacro(const QString& str, QStringList& ret) override;
 
 private:
+    QVector<Variable> m_exactMatches;
+    QVector<Variable> m_prefixMatches;
     KTextEditor::View* m_view;
     const QString m_url;
 };

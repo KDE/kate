@@ -23,7 +23,6 @@
 #include "kateexternaltoolsconfigwidget.h"
 #include "externaltoolsplugin.h"
 #include "kateexternaltool.h"
-#include "katemacroexpander.h"
 #include "katetoolrunner.h"
 
 #include <KTextEditor/Document>

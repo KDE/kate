@@ -8,7 +8,6 @@ set(externaltoolsplugin_PART_SRCS
     kateexternaltoolsview.cpp
     katetoolrunner.cpp
     kateexternaltool.cpp
-    katemacroexpander.cpp
     kateexternaltoolscommand.cpp
     kateexternaltoolsconfigwidget.cpp
 )

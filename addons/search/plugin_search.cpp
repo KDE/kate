@@ -519,17 +519,6 @@ void KatePluginSearchView::handleEsc(QEvent *e)
             ++it;
         }
     }
-
-    Results *curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!curResults) {
-        qWarning() << "This is a bug";
-        return;
-    }
-    QTreeWidgetItemIterator it(curResults->tree);
-    while (*it) {
-        (*it)->setCheckState(0, Qt::Unchecked);
-        ++it;
-    }
 }
 
 void KatePluginSearchView::setSearchString(const QString &pattern)

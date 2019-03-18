@@ -49,8 +49,10 @@ ecm_optional_add_subdirectory (replicode)
 # pipe text through some external command
 ecm_optional_add_subdirectory (textfilter)
 
-# external tools
-ecm_optional_add_subdirectory (externaltools)
+if(NOT KF5TextEditor_VERSION VERSION_LESS 5.57.0)
+    # external tools
+    ecm_optional_add_subdirectory (externaltools)
+endif()
 
 # Rust complection plugin
 ecm_optional_add_subdirectory (rustcompletion)

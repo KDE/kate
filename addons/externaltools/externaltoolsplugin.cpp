@@ -263,29 +263,10 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
 
     // expand macros
     auto editor = KTextEditor::Editor::instance();
-    if (!editor->expandText(copy->executable, view, copy->executable)) {
-        pluginView->addToolStatus(i18n("Failed to expand executable: '%1'", copy->executable));
-        pluginView->showToolView(ToolViewFocus::StatusTab);
-        return;
-    }
-
-    if (!editor->expandText(copy->arguments, view, copy->arguments)) {
-        pluginView->addToolStatus(i18n("Failed to expand argument: %1", copy->arguments));
-        pluginView->showToolView(ToolViewFocus::StatusTab);
-        return;
-    }
-
-    if (!editor->expandText(copy->workingDir, view, copy->workingDir)) {
-        pluginView->addToolStatus(i18n("Failed to expand working directory: %1", copy->workingDir));
-        pluginView->showToolView(ToolViewFocus::StatusTab);
-        return;
-    }
-
-    if (!editor->expandText(copy->input, view, copy->input)) {
-        pluginView->addToolStatus(i18n("Failed to expand input: %1", copy->input));
-        pluginView->showToolView(ToolViewFocus::StatusTab);
-        return;
-    }
+    editor->expandText(copy->executable, view, copy->executable);
+    editor->expandText(copy->arguments, view, copy->arguments);
+    editor->expandText(copy->workingDir, view, copy->workingDir);
+    editor->expandText(copy->input, view, copy->input);
 
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.

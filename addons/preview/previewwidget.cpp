@@ -215,12 +215,14 @@ void PreviewWidget::setTextEditorView(KTextEditor::View* view)
 
     if (m_partView) {
         m_partView->setDocument(m_previewedTextEditorView->document());
+        m_updateAction->setEnabled(!m_autoUpdateAction->isChecked());
+        m_kPartMenuAction->setEnabled(true);
+        m_aboutKPartAction->setEnabled(true);
+    } else {
+        m_updateAction->setEnabled(false);
+        m_kPartMenuAction->setEnabled(false);
+        m_aboutKPartAction->setEnabled(false);
     }
-
-    m_updateAction->setEnabled(m_partView && !m_autoUpdateAction->isChecked());
-    const bool hasKPart = (m_partView && m_partView->kPart());
-    m_kPartMenuAction->setEnabled(hasKPart);
-    m_aboutKPartAction->setEnabled(hasKPart);
 }
 
 void PreviewWidget::showEvent(QShowEvent* event)

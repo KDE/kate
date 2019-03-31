@@ -23,11 +23,13 @@
 // KF
 #include <KXMLGUIBuilder>
 // Qt
+#include <QPointer>
 #include <QStackedWidget>
 
 class KTextEditorPreviewPlugin;
 
 namespace KTextEditor {
+class Document;
 class MainWindow;
 class View;
 }
@@ -94,13 +96,15 @@ private Q_SLOTS:
      * @param view the view or, if there is none, a nullptr
      */
     void setTextEditorView(KTextEditor::View* view);
+    void resetTextEditorView(KTextEditor::Document* document);
+    void unsetDocument(KTextEditor::Document* document);
 
 private:
     void toggleDocumentLocking(bool locked);
-    void handleLockedDocumentClosing();
     void toggleAutoUpdating(bool autoRefreshing);
     void updatePreview();
     void showAboutKPartPlugin();
+    void clearMenu();
 
 private:
     KToggleAction* m_lockAction;
@@ -113,9 +117,11 @@ private:
     KTextEditorPreviewPlugin* const m_core;
     KTextEditor::MainWindow* const m_mainWindow;
 
+    KTextEditor::Document* m_previewedTextEditorDocument = nullptr;
     KTextEditor::View* m_previewedTextEditorView = nullptr;
     QString m_currentServiceId;
-    KPartView* m_partView = nullptr;
+    QString m_currentMode;
+    QPointer<KPartView> m_partView;
     KXMLGUIFactory* m_xmlGuiFactory;
 };
 

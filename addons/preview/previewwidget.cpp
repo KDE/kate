@@ -38,6 +38,7 @@
 #include <KAboutApplicationDialog>
 #include <KAboutData>
 #include <KXMLGUIFactory>
+#include <KSharedConfig>
 
 // Qt
 #include <QLabel>
@@ -85,7 +86,12 @@ PreviewWidget::PreviewWidget(KTextEditorPreviewPlugin* core, KTextEditor::MainWi
     // when adding a default menu->menuAction() to a QToolbar
     const auto kPartMenuIcon = QIcon::fromTheme(QStringLiteral("application-menu"));
     const auto kPartMenuText = i18n("View");
-    m_kPartMenu = new QMenu(this);
+
+    // m_kPartMenu may not be a child of this, because otherwise its XMLGUI-menu is deleted when switching views
+    // and therefore closing the tool view, which is a QMainWindow in KDevelop (IdealController::addView).
+    // see KXMLGUIBuilder::createContainer => tagName == d->tagMenu
+    m_kPartMenu = new QMenu;
+
     QToolButton* toolButton = new QToolButton();
     toolButton->setMenu(m_kPartMenu);
     toolButton->setIcon(kPartMenuIcon);
@@ -114,7 +120,10 @@ PreviewWidget::PreviewWidget(KTextEditorPreviewPlugin* core, KTextEditor::MainWi
     setTextEditorView(m_mainWindow->activeView());
 }
 
-PreviewWidget::~PreviewWidget() = default;
+PreviewWidget::~PreviewWidget()
+{
+    delete m_kPartMenu;
+}
 
 void PreviewWidget::readSessionConfig(const KConfigGroup& configGroup)
 {
@@ -131,45 +140,78 @@ void PreviewWidget::writeSessionConfig(KConfigGroup& configGroup) const
 
 void PreviewWidget::setTextEditorView(KTextEditor::View* view)
 {
-    if ((m_previewedTextEditorView == view) ||
-        !isVisible() ||
-        m_lockAction->isChecked()) {
+    if ((view && view == m_previewedTextEditorView &&
+                 view->document() == m_previewedTextEditorDocument &&
+                 (!m_previewedTextEditorDocument || m_previewedTextEditorDocument->mode() == m_currentMode)) ||
+        !view || !isVisible() || m_lockAction->isChecked()) {
         return;
     }
 
     m_previewedTextEditorView = view;
+    m_previewedTextEditorDocument = view ? view->document() : nullptr;
+
+    resetTextEditorView(m_previewedTextEditorDocument);
+}
+
+void PreviewWidget::resetTextEditorView(KTextEditor::Document* document) {
+    if (!isVisible() || m_previewedTextEditorDocument != document) {
+        return;
+    }
 
     KService::Ptr service;
-    if (m_previewedTextEditorView) {
-        // TODO: mimetype is not set for new document which have not been saved yet.
-        // needs another way to get this info, or perhaps some proper fix in Kate/Kdevelop
-        // to guess the mimetype based on current content, selected mode/highlighting etc.
-        // which then also would needs a signal mimetypeChanged and handling here
-        const auto mimeType = m_previewedTextEditorView->document()->mimeType();
-        service = KMimeTypeTrader::self()->preferredService(mimeType, QStringLiteral("KParts/ReadOnlyPart"));
-        if (service) {
-            qCDebug(KTEPREVIEW) << "Found preferred kpart service named" << service->name()
-                                << "with library" <<service->library()
-                                << "for mimetype" << mimeType;
 
-            if (service->library().isEmpty()) {
-                qCWarning(KTEPREVIEW) << "Discarding preferred kpart service due to empty library name:" << service->name();
-                service.reset();
-            }
+    if (m_previewedTextEditorDocument) {
+        // TODO: mimetype is not set for new documents which have not been saved yet.
+        // Maybe retry to guess as soon as content is inserted.
+        m_currentMode = m_previewedTextEditorDocument->mode();
 
-            // no interest in kparts which also just display the text (like katepart itself)
-            // TODO: what about parts which also support importing plain text and turning into richer format
-            // and thus have it in their mimetypes list?
-            // could that perhaps be solved by introducing the concept of "native" and "imported" mimetypes?
-            // or making a distinction between source editors/viewers and final editors/viewers?
-            // latter would also help other source editors/viewers like a hexeditor, which "supports" any mimetype
-            if (service && service->mimeTypes().contains(QStringLiteral("text/plain"))) {
-                qCDebug(KTEPREVIEW) << "Blindly discarding preferred service as it also supports text/plain, to avoid useless plain/text preview.";
-                service.reset();
+        // Get mimetypes assigned to the currently set mode.
+        auto mimeTypes = KConfigGroup(KSharedConfig::openConfig(QStringLiteral("katemoderc")), m_currentMode).readXdgListEntry("Mimetypes");
+        // Also try to guess from the content, if the above fails.
+        mimeTypes << m_previewedTextEditorDocument->mimeType();
+
+        foreach (const auto mimeType, mimeTypes) {
+            service = KMimeTypeTrader::self()->preferredService(mimeType, QStringLiteral("KParts/ReadOnlyPart"));
+            if (service) {
+                qCDebug(KTEPREVIEW) << "Found preferred kpart service named" << service->name()
+                                    << "with library" <<service->library()
+                                    << "for mimetype" << mimeType;
+
+                if (service->library().isEmpty()) {
+                    qCWarning(KTEPREVIEW) << "Discarding preferred kpart service due to empty library name:" << service->name();
+                    service.reset();
+                }
+
+                // no interest in kparts which also just display the text (like katepart itself)
+                // TODO: what about parts which also support importing plain text and turning into richer format
+                // and thus have it in their mimetypes list?
+                // could that perhaps be solved by introducing the concept of "native" and "imported" mimetypes?
+                // or making a distinction between source editors/viewers and final editors/viewers?
+                // latter would also help other source editors/viewers like a hexeditor, which "supports" any mimetype
+                if (service && service->mimeTypes().contains(QStringLiteral("text/plain"))) {
+                    qCDebug(KTEPREVIEW) << "Blindly discarding preferred service as it also supports text/plain, to avoid useless plain/text preview.";
+                    service.reset();
+                }
+
+                if (service) {
+                    break;
+                }
             }
-        } else {
-            qCDebug(KTEPREVIEW) << "Found no preferred kpart service for mimetype" << mimeType;
         }
+        if (!service) {
+            qCDebug(KTEPREVIEW) << "Found no preferred kpart service for mimetypes" << mimeTypes;
+        }
+
+        // Update if the mode is changed. The signal may also be emitted, when a new
+        // url is loaded, therefore wait (QueuedConnection) for the document to load.
+        connect(m_previewedTextEditorDocument, &KTextEditor::Document::modeChanged,
+                this, &PreviewWidget::resetTextEditorView, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
+        // Explicitly clear the old document, which otherwise might be accessed in
+        // m_partView->setDocument.
+        connect(m_previewedTextEditorDocument, &KTextEditor::Document::aboutToClose,
+                this, &PreviewWidget::unsetDocument, Qt::UniqueConnection);
+    } else {
+        m_currentMode.clear();
     }
 
     // change of preview type?
@@ -178,12 +220,7 @@ void PreviewWidget::setTextEditorView(KTextEditor::View* view)
 
     if (serviceId != m_currentServiceId) {
         if (m_partView) {
-            // clear kpart menu
-            m_xmlGuiFactory->removeClient(m_partView->kPart());
-            m_kPartMenu->clear();
-
-            removeWidget(m_partView->widget());
-            delete m_partView;
+            clearMenu();
         }
 
         m_currentServiceId = serviceId;
@@ -191,38 +228,51 @@ void PreviewWidget::setTextEditorView(KTextEditor::View* view)
         if (service) {
             qCDebug(KTEPREVIEW) << "Creating new kpart service instance.";
             m_partView = new KPartView(service, this);
-            m_partView->setAutoUpdating(m_autoUpdateAction->isChecked());
+            const bool autoupdate = m_autoUpdateAction->isChecked();
+            m_partView->setAutoUpdating(autoupdate);
             int index = addWidget(m_partView->widget());
             setCurrentIndex(index);
 
             // update kpart menu
             const auto kPart = m_partView->kPart();
             if (kPart) {
+                m_xmlGuiFactory->addClient(kPart);
+
                 const auto kPartDisplayName = kPart->componentData().displayName();
                 m_aboutKPartAction->setText(i18n("About %1", kPartDisplayName));
-                m_xmlGuiFactory->addClient(kPart);
+                m_aboutKPartAction->setEnabled(true);
                 m_kPartMenu->addSeparator();
                 m_kPartMenu->addAction(m_aboutKPartAction);
+                m_kPartMenuAction->setEnabled(true);
             }
+
+            m_updateAction->setEnabled(!autoupdate);
         } else {
             m_partView = nullptr;
         }
-    } else {
-        if (m_partView) {
-            qCDebug(KTEPREVIEW) << "Reusing active kpart service instance.";
-        }
+    } else if (m_partView) {
+        qCDebug(KTEPREVIEW) << "Reusing active kpart service instance.";
     }
 
     if (m_partView) {
-        m_partView->setDocument(m_previewedTextEditorView->document());
-        m_updateAction->setEnabled(!m_autoUpdateAction->isChecked());
-        m_kPartMenuAction->setEnabled(true);
-        m_aboutKPartAction->setEnabled(true);
-    } else {
-        m_updateAction->setEnabled(false);
-        m_kPartMenuAction->setEnabled(false);
-        m_aboutKPartAction->setEnabled(false);
+        m_partView->setDocument(m_previewedTextEditorDocument);
     }
+}
+
+void PreviewWidget::unsetDocument(KTextEditor::Document* document)
+{
+    if (!m_partView || m_previewedTextEditorDocument != document) {
+        return;
+    }
+
+    m_partView->setDocument(nullptr);
+    m_previewedTextEditorDocument = nullptr;
+
+    // remove any current partview
+    clearMenu();
+    m_partView = nullptr;
+
+    m_currentServiceId.clear();
 }
 
 void PreviewWidget::showEvent(QShowEvent* event)
@@ -231,7 +281,11 @@ void PreviewWidget::showEvent(QShowEvent* event)
 
     m_updateAction->setEnabled(m_partView && !m_autoUpdateAction->isChecked());
 
-    setTextEditorView(m_mainWindow->activeView());
+    if (m_lockAction->isChecked()) {
+        resetTextEditorView(m_previewedTextEditorDocument);
+    } else {
+        setTextEditorView(m_mainWindow->activeView());
+    }
 }
 
 void PreviewWidget::hideEvent(QHideEvent* event)
@@ -239,33 +293,17 @@ void PreviewWidget::hideEvent(QHideEvent* event)
     Q_UNUSED(event);
 
     // keep active part for reuse, but close preview document
-    if (m_partView) {
-        // TODO: we also get hide event in kdevelop when the view is changed,
-        // need to find out how to filter this out or how to fix kdevelop
-        // so currently keep the preview document
-//         m_partView->setDocument(nullptr);
-    }
+    // TODO: we also get hide event in kdevelop when the view is changed,
+    // need to find out how to filter this out or how to fix kdevelop
+    // so currently keep the preview document
+//     unsetDocument(m_previewedTextEditorDocument);
 
     m_updateAction->setEnabled(false);
 }
 
 void PreviewWidget::toggleDocumentLocking(bool locked)
 {
-    if (locked) {
-        if (!m_partView) {
-            // nothing to do
-            return;
-        }
-        auto document = m_partView->document();
-        connect(document, &KTextEditor::Document::aboutToClose,
-                this, &PreviewWidget::handleLockedDocumentClosing);
-    } else {
-        if (m_partView) {
-            auto document = m_partView->document();
-            disconnect(document, &KTextEditor::Document::aboutToClose,
-                       this, &PreviewWidget::handleLockedDocumentClosing);
-        }
-        // jump tp current view
+    if (!locked) {
         setTextEditorView(m_mainWindow->activeView());
     }
 }
@@ -283,19 +321,9 @@ void PreviewWidget::toggleAutoUpdating(bool autoRefreshing)
 
 void PreviewWidget::updatePreview()
 {
-    m_partView->updatePreview();
-}
-
-void PreviewWidget::handleLockedDocumentClosing()
-{
-    // remove any current partview
-    if (m_partView) {
-        removeWidget(m_partView->widget());
-        delete m_partView;
-        m_partView = nullptr;
+    if (m_partView && m_partView->document()) {
+        m_partView->updatePreview();
     }
-
-    m_currentServiceId.clear();
 }
 
 QWidget* PreviewWidget::createContainer(QWidget* parent, int index, const QDomElement& element, QAction*& containerAction)
@@ -339,4 +367,18 @@ void PreviewWidget::showAboutKPartPlugin()
         aboutDialog->exec();
         delete aboutDialog;
     }
+}
+
+void PreviewWidget::clearMenu()
+{
+    // clear kpart menu
+    m_xmlGuiFactory->removeClient(m_partView->kPart());
+    m_kPartMenu->clear();
+
+    removeWidget(m_partView->widget());
+    delete m_partView;
+
+    m_updateAction->setEnabled(false);
+    m_kPartMenuAction->setEnabled(false);
+    m_aboutKPartAction->setEnabled(false);
 }

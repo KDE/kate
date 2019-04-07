@@ -248,7 +248,7 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& fil
 QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 {
     /**
-     * query files via ls-files, make them absolute afterwards
+     * query files via ls-files and make them absolute afterwards
      */
     const QStringList relFiles = gitLsFiles(dir);
     QStringList files;

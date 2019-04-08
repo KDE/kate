@@ -168,7 +168,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         return;
     }
 
-    files.sort();
+    files.sort(Qt::CaseInsensitive);
 
     /**
      * construct paths first in tree and items in a map

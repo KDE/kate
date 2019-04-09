@@ -66,6 +66,7 @@ Comment[pt_BR]=Plugin de autocompletar para o D, que usa o servidor DCD
 Comment[ru]=Lumen — модуль автодополнения для языка D, использующий сервер автодополнения DCD
 Comment[sk]=Lumen je plugin pre automatické dokončovanie pre D, pomocou servera automatického dokončovania DCD
 Comment[sv]=Insticksprogram för automatisk komplettering av D, som använder DCD-servern för automatisk komplettering
+Comment[tr]=D için DCD otomatik tamamlama sunucusu kullanan otomatik tamamlama eklentisi
 Comment[uk]=Додаток автоматичного доповнення коду мовою D, якому використано сервер доповнення DCD
 Comment[x-test]=xxAutocompletion Plugin for D, using the DCD autocompletion serverxx
 Comment[zh_CN]=D 语言自动补全插件，使用的是 DCD 自动补全服务器

@@ -26,7 +26,12 @@
 #include <ktexteditor/view.h>
 
 #include <QContextMenuEvent>
+
+#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
 #include <krecursivefilterproxymodel.h>
+#else
+#include <QSortFilterProxyModel>
+#endif
 
 KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, KateProject *project)
     : QTreeView()
@@ -46,7 +51,14 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
      * create sort proxy model
      */
     QItemSelectionModel *m = selectionModel();
+
+#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
     QSortFilterProxyModel *sortModel = new KRecursiveFilterProxyModel(this);
+#else
+    QSortFilterProxyModel *sortModel = new QSortFilterProxyModel(this);
+    sortModel->setRecursiveFilteringEnabled(true);
+#endif
+
     //sortModel->setFilterRole(SortFilterRole);
     //sortModel->setSortRole(SortFilterRole);
     sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);

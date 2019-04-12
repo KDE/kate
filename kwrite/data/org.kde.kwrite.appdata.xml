@@ -327,7 +327,7 @@
       <li xml:lang="ia">Supporto de plugin</li>
       <li xml:lang="id">Dukungan plugin</li>
       <li xml:lang="it">Supporto delle estensioni</li>
-      <li xml:lang="ko">플러그인 지 원</li>
+      <li xml:lang="ko">플러그인 지원</li>
       <li xml:lang="lt">Papildinių palaikymas</li>
       <li xml:lang="nb">Støtte for programtillegg</li>
       <li xml:lang="nl">Ondersteuning van plug-ins</li>
@@ -415,6 +415,7 @@
       <caption xml:lang="ia">Modificante codice con KWrite</caption>
       <caption xml:lang="id">Pengeditan kode menggunakan KWrite</caption>
       <caption xml:lang="it">Modificare il codice con KWrite</caption>
+      <caption xml:lang="ko">KWrite로 코드 편집</caption>
       <caption xml:lang="nl">Broncode bewerken met KWrite</caption>
       <caption xml:lang="nn">Redigering av kjeldekode med KWrite</caption>
       <caption xml:lang="pa">ਕੇ-ਲੇਖਕ ਨਾਲ ਕੋਡ ਸੋਧਣਾ</caption>

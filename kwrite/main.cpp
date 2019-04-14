@@ -93,7 +93,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                          i18n("KWrite"),
                          QStringLiteral(KATE_VERSION),
                          i18n("KWrite - Text Editor"), KAboutLicense::LGPL_V2,
-                         i18n("(c) 2000-2016 The Kate Authors"), QString(), QStringLiteral("http://kate-editor.org"));
+                         i18n("(c) 2000-2019 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
 
     /**
      * right dbus prefix == org.kde.
@@ -107,7 +107,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     aboutData.setDesktopFileName(QStringLiteral("org.kde.kwrite"));
 #endif
 
-    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("http://www.cullmann.io"));
+    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("https://cullmann.io"));
     aboutData.addAuthor(i18n("Dominik Haumann"), i18n("Core Developer"), QStringLiteral("dhaumann@kde.org"));
     aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("http://www.alweb.dk"));
     aboutData.addAuthor(i18n("Joseph Wenninger"), i18n("Core Developer"), QStringLiteral("jowenn@kde.org"), QStringLiteral("http://stud3.tuwien.ac.at/~e9925371"));

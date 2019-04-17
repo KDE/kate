@@ -347,6 +347,7 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
 
     connect(tab(newId), SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
     tab(newId)->installEventFilter(this);
+    tab(newId)->setToolTip(QString());
 
     return widget;
 }
@@ -651,6 +652,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
             appendTab(tv->icon, newId, tv->text);
             connect(tab(newId), SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
             tab(newId)->installEventFilter(this);
+            tab(newId)->setToolTip(QString());
 
             // reshuffle in splitter: move to last
             m_ownSplit->addWidget(tv);

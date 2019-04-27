@@ -6,6 +6,6 @@ include_directories(
 
 set(Src tabswitchertest.cpp ../tabswitcherfilesmodel.cpp)
 add_executable(tabswitcher_test ${Src})
-add_test(NAME plugin-tabswitcher_test COMMAND tabswitcher)
+add_test(NAME plugin-tabswitcher_test COMMAND tabswitcher_test)
 target_link_libraries(tabswitcher_test kdeinit_kate Qt5::Test)
 ecm_mark_as_test(tabswitcher_test)

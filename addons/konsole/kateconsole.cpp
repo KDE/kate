@@ -247,6 +247,9 @@ void KateConsole::cd (const QString & path)
       command = QStringLiteral(":cd ") + path + QStringLiteral("\n");
     }
   }
+
+  // Send prior Ctrl-E, Ctrl-U to ensure the line is empty
+  sendInput(QStringLiteral("\x05\x15"));
   sendInput(command);
 }
 

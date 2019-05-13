@@ -61,7 +61,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     break;
 
     case Qt::UserRole:
-      return qVariantFromValue<Connection>(m_connections.value(key));
+      return QVariant::fromValue<Connection>(m_connections.value(key));
     break;
 
     case Qt::DecorationRole:

@@ -81,18 +81,15 @@ namespace detail
 
     void post_process(FilenameList & data)
     {
+        // collect non-empty paths
         std::vector<QString> paths;
         for (const auto & item : data) {
-            paths.push_back(item.fullPath());
+            const auto path = item.fullPath();
+            if (!path.isEmpty()) {
+                paths.push_back(item.fullPath());
+            }
         }
 
-        // Removes empty strings because Documents without file have no path and we would
-        // otherwise in this case always get ""
-        paths.erase( // erase-remove idiom, see https://en.cppreference.com/w/cpp/algorithm/remove
-            std::remove_if(paths.begin(), paths.end(), [](const QString &s) {
-                return s.isEmpty(); }),
-            paths.end()
-        );
         const QString prefix = longestCommonPrefix(paths);
         int prefix_length = prefix.length();
         if (prefix_length == 1) { // if there is only the "/" at the beginning, then keep it

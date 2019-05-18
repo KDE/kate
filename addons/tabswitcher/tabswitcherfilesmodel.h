@@ -59,15 +59,17 @@ public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
     virtual ~TabswitcherFilesModel() = default;
     bool insertRow(int row, const FilenameListItem & item);
-    bool removeRow(int row);
+
     /**
      * Clears all data from the model
      */
     void clear();
+
     /**
      * NOTE: The returned pointer will become invalid as soon as the underlying vector changes.
      */
     FilenameListItem * item(int row) const;
+
     /*
      * Use this method to update all items.
      * This is typically needed when a document name changes, since then the prefix paths change,
@@ -92,6 +94,12 @@ public:
      * Returns the data for the requested model index.
      */
     QVariant data(const QModelIndex & index, int role) const override;
+
+    /**
+     * Reimplemented to remove the specified rows.
+     * The paret is always ignored since this is a table model.
+     */
+    bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex()) override;
 
 private:
     FilenameList data_;

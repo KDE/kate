@@ -124,21 +124,29 @@ bool detail::TabswitcherFilesModel::insertRow(int row, const FilenameListItem & 
 {
     beginInsertRows(QModelIndex(), row, row);
     data_.insert(data_.begin() + row, item);
-    post_process(data_);
     endInsertRows();
+
+    // update all other items, since the common prefix path may have changed
+    updateItems();
+
     return true;
 }
 
-bool detail::TabswitcherFilesModel::removeRow(int row)
+bool detail::TabswitcherFilesModel::removeRows(int row, int count, const QModelIndex & parent)
 {
-    if (row < 0 || row >= rowCount()) {
+    Q_UNUSED(parent);
+
+    if (row < 0 || row + count > rowCount()) {
         return false;
     }
 
-    beginRemoveRows(QModelIndex(), row, row);
-    data_.erase(data_.begin() + row);
-    post_process(data_);
+    beginRemoveRows(QModelIndex(), row, row + count - 1);
+    data_.erase(data_.begin() + row, data_.begin() + row + count);
     endRemoveRows();
+
+    // update all other items, since the common prefix path may have changed
+    updateItems();
+
     return true;
 }
 

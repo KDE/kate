@@ -115,14 +115,9 @@ namespace detail
     }
 }
 
-detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent) : QAbstractTableModel(parent)
+detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent)
+    : QAbstractTableModel(parent)
 {
-}
-
-detail::TabswitcherFilesModel::TabswitcherFilesModel(const FilenameList & data)
-{
-    data_ = data;
-    post_process(data_);
 }
 
 bool detail::TabswitcherFilesModel::insertRow(int row, const FilenameListItem & item)

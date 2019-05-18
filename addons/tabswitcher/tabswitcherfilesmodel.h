@@ -58,7 +58,6 @@ class TabswitcherFilesModel : public QAbstractTableModel
 public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
     virtual ~TabswitcherFilesModel() = default;
-    TabswitcherFilesModel(const FilenameList & data);
     bool insertRow(int row, const FilenameListItem & item);
     bool removeRow(int row);
     /**

@@ -57,26 +57,29 @@ namespace detail
      * Note that if strs contains the empty string, the result will be ""
      */
     QString longestCommonPrefix(std::vector<QString> const & strs) {
-        int n = INT_MAX;
-        if (strs.size() <= 0) {
+        if (strs.empty()) {
             return QString();
         }
+
         if (strs.size() == 1) {
-            return strs[0];
+            return strs.front();
         }
+
         // get the min length
-        for (size_t i = 0; i < strs.size(); i++) {
-            n = strs[i].length() < n ? strs[i].length() : n;
-        }
-        for (int c = 0; c < n; c++) { // check each character
+        auto it = std::min_element(strs.begin(), strs.end(), [](const QString & lhs, const QString & rhs) {
+            return lhs.size() < rhs.size();
+        });
+        const int n = it->size();
+
+        for (int pos = 0; pos < n; pos++) { // check each character
             for (size_t i = 1; i < strs.size(); i++) {
-                if (strs[i][c] != strs[i - 1][c]) { // we find a mis-match
-                    return QStringRef(&strs[0], 0, c).toString();
+                if (strs[i][pos] != strs[i - 1][pos]) { // we found a mis-match
+                    return strs.front().left(pos);
                 }
             }
         }
         // prefix is n-length
-        return QStringRef(&strs[0], 0, n).toString();
+        return strs.front();
     }
 
     void post_process(FilenameList & data)

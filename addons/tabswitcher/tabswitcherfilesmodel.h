@@ -64,7 +64,6 @@ public:
      * Clears all data from the model
      */
     void clear();
-    int rowCount() const;
     /**
      * NOTE: The returned pointer will become invalid as soon as the underlying vector changes.
      */
@@ -76,9 +75,19 @@ public:
      */
     void updateItem(FilenameListItem * item, QString const & documentName, QString const & fullPath);
 
-protected:
-    int columnCount(const QModelIndex & parent) const override;
-    int rowCount(const QModelIndex & parent) const override;
+    /**
+     * Reimplemented to return the column count of top-level items.
+     */
+    int columnCount(const QModelIndex & parent = QModelIndex()) const override;
+
+    /**
+     * Reimplemented to return the top-level row count.
+     */
+    int rowCount(const QModelIndex & parent = QModelIndex()) const override;
+
+    /**
+     * Returns the data for the requested model index.
+     */
     QVariant data(const QModelIndex & index, int role) const override;
 
 private:

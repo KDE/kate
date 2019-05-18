@@ -148,11 +148,6 @@ void detail::TabswitcherFilesModel::clear()
     }
 }
 
-int detail::TabswitcherFilesModel::rowCount() const
-{
-    return data_.size();
-}
-
 detail::FilenameListItem * detail::TabswitcherFilesModel::item(int row) const
 {
     return const_cast<detail::FilenameListItem *>(&data_[row]);

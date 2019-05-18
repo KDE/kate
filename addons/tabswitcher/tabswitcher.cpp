@@ -123,8 +123,9 @@ void TabSwitcherPluginView::setupActions()
 
 void TabSwitcherPluginView::setupModel()
 {
+    const auto documents = KTextEditor::Editor::instance()->application()->documents();
     // initial fill of model
-    foreach (auto doc, KTextEditor::Editor::instance()->application()->documents()) {
+    for (auto doc : documents) {
         registerDocument(doc);
     }
 }

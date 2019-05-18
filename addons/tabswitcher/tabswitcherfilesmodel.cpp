@@ -89,7 +89,7 @@ namespace detail
         for (const auto & item : data) {
             const auto path = item.fullPath();
             if (!path.isEmpty()) {
-                paths.push_back(item.fullPath());
+                paths.push_back(path);
             }
         }
 
@@ -109,7 +109,7 @@ namespace detail
                             int len = item.fullPath().length() - prefix_length - basename.length() - 1;
                             if (len > 0) { // only assign in case item.fullPath() is not empty
                                 // "PREFIXPATH/REMAININGPATH/BASENAME" --> "REMAININGPATH"
-                                item.displayPathPrefix = item.fullPath().right(len - prefix_length);
+                                item.displayPathPrefix = item.fullPath().mid(prefix_length, len);
                             }
                         });
     }

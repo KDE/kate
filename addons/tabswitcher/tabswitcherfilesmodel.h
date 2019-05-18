@@ -70,11 +70,14 @@ public:
      */
     FilenameListItem * item(int row) const;
     /*
-     * Use this method to update an item.
+     * Use this method to update all items.
+     * This is typically needed when a document name changes, since then the prefix paths change,
+     * so all items need an update.
+     *
      * NOTE: This could be improved if we allow KTextEditor::Document to go into this interface.
      * Then we could search and update by KTextEditor::Document.
      */
-    void updateItem(FilenameListItem * item, QString const & documentName, QString const & fullPath);
+    void updateItems();
 
     /**
      * Reimplemented to return the column count of top-level items.

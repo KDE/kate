@@ -170,15 +170,9 @@ void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)
         return;
     }
 
-    const auto rowCount = m_model->rowCount();
-    for (int i = 0; i < rowCount; ++i) {
-        auto doc = m_model->item(i)->document;
-        if (doc == document) {
-            m_model->updateItem(m_model->item(i), document->documentName(), document->url().toLocalFile());
-            //m_model->item(i)->setText(document->documentName());
-            break;
-        }
-    }
+    // update all items, since a document URL change menas we have to recalculate
+    // common prefix path of all items.
+    m_model->updateItems();
 }
 
 void TabSwitcherPluginView::raiseView(KTextEditor::View * view)

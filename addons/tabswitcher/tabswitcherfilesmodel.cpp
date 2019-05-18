@@ -161,12 +161,10 @@ detail::FilenameListItem * detail::TabswitcherFilesModel::item(int row) const
     return const_cast<detail::FilenameListItem *>(&data_[row]);
 }
 
-void detail::TabswitcherFilesModel::updateItem(FilenameListItem * item, QString const & documentName, QString const & fullPath)
+void detail::TabswitcherFilesModel::updateItems()
 {
-    Q_UNUSED(item);
-    Q_UNUSED(documentName);
-    Q_UNUSED(fullPath);
     post_process(data_);
+    emit dataChanged(createIndex(0, 0), createIndex(data_.size() - 1, 1), {});
 }
 
 int detail::TabswitcherFilesModel::columnCount(const QModelIndex & parent) const

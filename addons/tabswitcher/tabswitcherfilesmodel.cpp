@@ -128,7 +128,7 @@ bool detail::TabswitcherFilesModel::insertRow(int row, const FilenameListItem & 
 
 bool detail::TabswitcherFilesModel::removeRow(int row)
 {
-    if (data_.begin() + row == data_.end()) {
+    if (row < 0 || row >= rowCount()) {
         return false;
     }
 

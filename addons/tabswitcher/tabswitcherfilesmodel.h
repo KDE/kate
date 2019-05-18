@@ -40,9 +40,10 @@ public:
     FilenameListItem(KTextEditor::Document* doc);
 
     KTextEditor::Document *document;
-    QIcon icon;
-    QString documentName;
-    QString fullPath;
+    QIcon icon() const;
+    QString documentName() const;
+    QString fullPath() const;
+
     /**
      * calculated from documentName and fullPath
      */

@@ -79,7 +79,7 @@ namespace detail
             }
         }
         // prefix is n-length
-        return strs.front();
+        return strs.front().left(n);
     }
 
     void post_process(FilenameList & data)

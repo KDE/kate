@@ -122,7 +122,7 @@ detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent)
 
 bool detail::TabswitcherFilesModel::insertRow(int row, const FilenameListItem & item)
 {
-    beginInsertRows(QModelIndex(), row, row + 1);
+    beginInsertRows(QModelIndex(), row, row);
     data_.insert(data_.begin() + row, item);
     post_process(data_);
     endInsertRows();

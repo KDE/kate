@@ -39,7 +39,6 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 #include <KPluralHandlingSpinBox>
-#include <KComboBox>
 
 #include <QDesktopServices>
 #include <QCheckBox>
@@ -48,6 +47,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QComboBox>
 
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view)
     : KPageDialog(parent)
@@ -153,14 +153,14 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     hlayout = new QHBoxLayout(buttonGroup);
     label = new QLabel(i18n("&Match Mode:"), buttonGroup);
     hlayout->addWidget(label);
-    m_cmbQuickOpenMatchMode = new KComboBox(buttonGroup);
+    m_cmbQuickOpenMatchMode = new QComboBox(buttonGroup);
     hlayout->addWidget(m_cmbQuickOpenMatchMode);
     label->setBuddy(m_cmbQuickOpenMatchMode);
     m_cmbQuickOpenMatchMode->addItem(i18n("Filename"), QVariant(KateQuickOpenModel::Columns::FileName));
     m_cmbQuickOpenMatchMode->addItem(i18n("Filepath"), QVariant(KateQuickOpenModel::Columns::FilePath));
     m_cmbQuickOpenMatchMode->setCurrentIndex(m_cmbQuickOpenMatchMode->findData(m_mainWindow->quickOpenMatchMode()));
     m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
-    connect(m_cmbQuickOpenMatchMode, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    connect(m_cmbQuickOpenMatchMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
     layout->addWidget(buttonGroup);
 
     layout->addStretch(1); // :-] works correct without autoadd

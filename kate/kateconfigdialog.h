@@ -31,10 +31,10 @@
 #include <KPageDialog>
 
 class QCheckBox;
+class QComboBox;
 class QSpinBox;
 class KateMainWindow;
 class KPluralHandlingSpinBox;
-class KComboBox;
 
 namespace Ui {
     class SessionConfigWidget;
@@ -84,7 +84,7 @@ private:
     QCheckBox *m_modCloseAfterLast;
     QCheckBox *m_saveMetaInfos;
     KPluralHandlingSpinBox *m_daysMetaInfos;
-    KComboBox * m_cmbQuickOpenMatchMode;
+    QComboBox * m_cmbQuickOpenMatchMode;
 
     // Sessions Page
     Ui::SessionConfigWidget *sessionConfigUi;

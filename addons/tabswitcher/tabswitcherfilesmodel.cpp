@@ -120,10 +120,10 @@ detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent)
 {
 }
 
-bool detail::TabswitcherFilesModel::insertRow(int row, const FilenameListItem & item)
+bool detail::TabswitcherFilesModel::insertRow(int row, KTextEditor::Document * document)
 {
     beginInsertRows(QModelIndex(), row, row);
-    data_.insert(data_.begin() + row, item);
+    data_.insert(data_.begin() + row, FilenameListItem(document));
     endInsertRows();
 
     // update all other items, since the common prefix path may have changed
@@ -172,9 +172,9 @@ void detail::TabswitcherFilesModel::raiseDocument(KTextEditor::Document * docume
     }
 }
 
-detail::FilenameListItem * detail::TabswitcherFilesModel::item(int row) const
+KTextEditor::Document * detail::TabswitcherFilesModel::item(int row) const
 {
-    return const_cast<detail::FilenameListItem *>(&data_[row]);
+    return data_[row].document;
 }
 
 void detail::TabswitcherFilesModel::updateItems()

@@ -136,7 +136,7 @@ void TabSwitcherPluginView::registerDocument(KTextEditor::Document * document)
     m_documents.insert(document);
 
     // add to model
-    m_model->insertRow(0, detail::FilenameListItem(document));
+    m_model->insertRow(0, document);
 
     // track document name changes
     connect(document, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
@@ -153,7 +153,7 @@ void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)
     // remove from model
     const auto rowCount = m_model->rowCount();
     for (int i = 0; i < rowCount; ++i) {
-        auto doc = m_model->item(i)->document;
+        auto doc = m_model->item(i);
         if (doc == document) {
             m_model->removeRow(i);
 
@@ -263,7 +263,7 @@ void TabSwitcherPluginView::activateView(const QModelIndex & index)
 
     const int row = m_treeView->selectionModel()->selectedRows().first().row();
 
-    auto doc = m_model->item(row)->document;
+    auto doc = m_model->item(row);
     m_mainWindow->activateView(doc);
 
     m_treeView->hide();

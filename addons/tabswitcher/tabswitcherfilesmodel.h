@@ -58,7 +58,7 @@ class TabswitcherFilesModel : public QAbstractTableModel
 public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
     virtual ~TabswitcherFilesModel() = default;
-    bool insertRow(int row, const FilenameListItem & item);
+    bool insertRow(int row, KTextEditor::Document * document);
 
     /**
      * Clears all data from the model
@@ -68,7 +68,7 @@ public:
     /**
      * NOTE: The returned pointer will become invalid as soon as the underlying vector changes.
      */
-    FilenameListItem * item(int row) const;
+    KTextEditor::Document * item(int row) const;
 
     /**
      * Move the document to row 0.
@@ -79,9 +79,6 @@ public:
      * Use this method to update all items.
      * This is typically needed when a document name changes, since then the prefix paths change,
      * so all items need an update.
-     *
-     * NOTE: This could be improved if we allow KTextEditor::Document to go into this interface.
-     * Then we could search and update by KTextEditor::Document.
      */
     void updateItems();
 

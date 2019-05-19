@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2018 Gregor Mi <codestruct@posteo.org>
+   Copyright (C) 2019 Dominik Haumann <dhaumann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -52,8 +53,6 @@ namespace detail
     }
 
     /**
-     * adapted from https://helloacm.com/c-coding-exercise-longest-common-prefix/
-     * see also http://www.cplusplus.com/forum/beginner/83540/
      * Note that if strs contains the empty string, the result will be ""
      */
     QString longestCommonPrefix(std::vector<QString> const & strs)
@@ -75,6 +74,11 @@ namespace detail
         for (int pos = 0; pos < n; pos++) { // check each character
             for (size_t i = 1; i < strs.size(); i++) {
                 if (strs[i][pos] != strs[i - 1][pos]) { // we found a mis-match
+                    // reverse search to find path separator
+                    const int sepIndex = strs.front().leftRef(pos).lastIndexOf(QLatin1Char('/'));
+                    if (sepIndex >= 0) {
+                        pos = sepIndex + 1;
+                    }
                     return strs.front().left(pos);
                 }
             }

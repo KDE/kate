@@ -70,6 +70,11 @@ public:
      */
     FilenameListItem * item(int row) const;
 
+    /**
+     * Move the document to row 0.
+     */
+    void raiseDocument(KTextEditor::Document * document);
+
     /*
      * Use this method to update all items.
      * This is typically needed when a document name changes, since then the prefix paths change,

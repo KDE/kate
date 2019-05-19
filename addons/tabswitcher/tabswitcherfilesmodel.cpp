@@ -159,6 +159,19 @@ void detail::TabswitcherFilesModel::clear()
     }
 }
 
+void detail::TabswitcherFilesModel::raiseDocument(KTextEditor::Document * document)
+{
+    // skip row 0, since row 0 is already correct
+    for (int row = 1; row < rowCount(); ++row) {
+        if (data_[row].document == document) {
+            beginMoveRows(QModelIndex(), row, row, QModelIndex(), 0);
+            std::rotate(data_.begin(), data_.begin() + row, data_.begin() + row + 1);
+            endMoveRows();
+            break;
+        }
+    }
+}
+
 detail::FilenameListItem * detail::TabswitcherFilesModel::item(int row) const
 {
     return const_cast<detail::FilenameListItem *>(&data_[row]);

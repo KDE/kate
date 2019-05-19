@@ -182,8 +182,7 @@ void TabSwitcherPluginView::raiseView(KTextEditor::View * view)
         return;
     }
 
-    unregisterDocument(view->document());
-    registerDocument(view->document());
+    m_model->raiseDocument(view->document());
 }
 
 void TabSwitcherPluginView::walk(const int from, const int to)

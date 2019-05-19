@@ -56,7 +56,8 @@ namespace detail
      * see also http://www.cplusplus.com/forum/beginner/83540/
      * Note that if strs contains the empty string, the result will be ""
      */
-    QString longestCommonPrefix(std::vector<QString> const & strs) {
+    QString longestCommonPrefix(std::vector<QString> const & strs)
+    {
         if (strs.empty()) {
             return QString();
         }
@@ -99,19 +100,18 @@ namespace detail
             prefix_length = 0;
         }
 
-        std::for_each(data.begin(), data.end(),
-                        [prefix_length](FilenameListItem & item) {
-                            // Note that item.documentName can contain additional characters - e.g. "README.md (2)" -
-                            // so we cannot use that and have to parse the base filename by other means:
-                            QFileInfo fileinfo(item.fullPath());
-                            const QString basename = fileinfo.fileName(); // e.g. "archive.tar.gz"
-                            // cut prefix (left side) and cut document name (plus slash) on the right side
-                            int len = item.fullPath().length() - prefix_length - basename.length() - 1;
-                            if (len > 0) { // only assign in case item.fullPath() is not empty
-                                // "PREFIXPATH/REMAININGPATH/BASENAME" --> "REMAININGPATH"
-                                item.displayPathPrefix = item.fullPath().mid(prefix_length, len);
-                            }
-                        });
+        for (auto & item : data) {
+            // Note that item.documentName can contain additional characters - e.g. "README.md (2)" -
+            // so we cannot use that and have to parse the base filename by other means:
+            const QString basename = QFileInfo(item.fullPath()).fileName(); // e.g. "archive.tar.gz"
+
+            // cut prefix (left side) and cut document name (plus slash) on the right side
+            int len = item.fullPath().length() - prefix_length - basename.length() - 1;
+            if (len > 0) { // only assign in case item.fullPath() is not empty
+                // "PREFIXPATH/REMAININGPATH/BASENAME" --> "REMAININGPATH"
+                item.displayPathPrefix = item.fullPath().mid(prefix_length, len);
+            }
+        }
     }
 }
 

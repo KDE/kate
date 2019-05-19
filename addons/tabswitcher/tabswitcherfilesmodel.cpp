@@ -120,7 +120,7 @@ detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent)
 {
 }
 
-bool detail::TabswitcherFilesModel::insertRow(int row, KTextEditor::Document * document)
+bool detail::TabswitcherFilesModel::insertDocument(int row, KTextEditor::Document * document)
 {
     beginInsertRows(QModelIndex(), row, row);
     data_.insert(data_.begin() + row, FilenameListItem(document));
@@ -128,6 +128,19 @@ bool detail::TabswitcherFilesModel::insertRow(int row, KTextEditor::Document * d
 
     // update all other items, since the common prefix path may have changed
     updateItems();
+
+    return true;
+}
+
+bool detail::TabswitcherFilesModel::removeDocument(KTextEditor::Document * document)
+{
+    auto it = std::find_if(data_.begin(), data_.end(), [document](FilenameListItem & item) { return item.document == document; });
+    if (it == data_.end()) {
+        return false;
+    }
+
+    const int row = std::distance(data_.begin(), it);
+    removeRow(row);
 
     return true;
 }

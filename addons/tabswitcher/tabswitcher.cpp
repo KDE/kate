@@ -136,7 +136,7 @@ void TabSwitcherPluginView::registerDocument(KTextEditor::Document * document)
     m_documents.insert(document);
 
     // add to model
-    m_model->insertRow(0, document);
+    m_model->insertDocument(0, document);
 
     // track document name changes
     connect(document, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
@@ -151,18 +151,10 @@ void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)
     m_documents.remove(document);
 
     // remove from model
-    const auto rowCount = m_model->rowCount();
-    for (int i = 0; i < rowCount; ++i) {
-        auto doc = m_model->item(i);
-        if (doc == document) {
-            m_model->removeRow(i);
+    m_model->removeDocument(document);
 
-            // disconnect documentNameChanged() signal
-            disconnect(document, nullptr, this, nullptr);
-
-            break;
-        }
-    }
+    // disconnect documentNameChanged() signal
+    disconnect(document, nullptr, this, nullptr);
 }
 
 void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)

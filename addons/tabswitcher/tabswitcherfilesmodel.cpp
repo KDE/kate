@@ -152,10 +152,10 @@ bool detail::TabswitcherFilesModel::removeRows(int row, int count, const QModelI
 
 void detail::TabswitcherFilesModel::clear()
 {
-    if (data_.size() > 0) {
-        beginRemoveRows(QModelIndex(), 0, data_.size() - 1);
+    if (!data_.empty()) {
+        beginResetModel();
         data_.clear();
-        endRemoveRows();
+        endResetModel();
     }
 }
 

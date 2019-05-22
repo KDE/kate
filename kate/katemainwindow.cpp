@@ -200,6 +200,10 @@ KateMainWindow::~KateMainWindow()
     // disable all plugin guis, delete all pluginViews
     KateApp::self()->pluginManager()->disableAllPluginsGUI(this);
 
+    // manually delete quick open, it's event filters will cause crash otherwise later
+    delete m_quickOpen;
+    m_quickOpen = nullptr;
+
     // delete the view manager, before KateMainWindow's wrapper is dead
     delete m_viewManager;
     m_viewManager = nullptr;

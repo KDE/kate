@@ -42,6 +42,9 @@ void KateAppAdaptor::activate()
     win->setWindowState(win->windowState() & ~Qt::WindowMinimized);
     win->raise();
     win->activateWindow();
+
+    // try to raise window, see bug 407288
+    KWindowSystem::raiseWindow(win->winId());
 }
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)

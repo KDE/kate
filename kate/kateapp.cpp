@@ -486,10 +486,6 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
 
     }
 
-    if (auto win = activeKateMainWindow()) {
-        // like QtSingleApplication
-        win->setWindowState(win->windowState() & ~Qt::WindowMinimized);
-        win->raise();
-        win->activateWindow();
-    }
+    // try to activate current window
+    m_adaptor.activate();
 }

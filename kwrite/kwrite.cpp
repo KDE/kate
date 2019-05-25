@@ -24,6 +24,7 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/editor.h>
+#include <ktexteditor/application.h>
 
 #include <KAboutApplicationDialog>
 #include <KActionCollection>
@@ -56,16 +57,17 @@
 #include <QFileDialog>
 #include <QFileOpenEvent>
 
-QList<KTextEditor::Document *> KWrite::docList;
-QList<KWrite *> KWrite::winList;
+#include "kwriteapplication.h"
 
-KWrite::KWrite(KTextEditor::Document *doc)
+KWrite::KWrite(KTextEditor::Document *doc, KWriteApplication *app)
     : m_view(nullptr)
     , m_recentFiles(nullptr)
     , m_paShowPath(nullptr)
     , m_paShowMenuBar(nullptr)
     , m_paShowStatusBar(nullptr)
     , m_activityResource(nullptr)
+    , m_app(app)
+    , m_mainWindow(this)
 {
     if (!doc) {
         doc = KTextEditor::Editor::instance()->createDocument(nullptr);
@@ -75,7 +77,7 @@ KWrite::KWrite(KTextEditor::Document *doc)
             qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(true);
         }
 
-        docList.append(doc);
+        m_app->addDocument(doc);
     }
 
     m_view = doc->createView(this);
@@ -105,8 +107,6 @@ KWrite::KWrite(KTextEditor::Document *doc)
 
     readConfig();
 
-    winList.append(this);
-
     documentNameChanged();
     show();
 
@@ -121,16 +121,15 @@ KWrite::KWrite(KTextEditor::Document *doc)
 
 KWrite::~KWrite()
 {
+    m_app->removeWindow(this);
     guiFactory()->removeClient(m_view);
-
-    winList.removeAll(this);
 
     KTextEditor::Document *doc = m_view->document();
     delete m_view;
 
     // kill document, if last view is closed
     if (doc->views().isEmpty()) {
-        docList.removeAll(doc);
+        m_app->removeDocument(doc);
         delete doc;
     }
 
@@ -243,7 +242,7 @@ void KWrite::modifiedChanged()
 
 void KWrite::slotNew()
 {
-    new KWrite();
+    m_app->newWindow();
 }
 
 void KWrite::slotOpen()
@@ -261,7 +260,7 @@ void KWrite::slotOpen(const QUrl &url)
     }
 
     if (m_view->document()->isModified() || !m_view->document()->url().isEmpty()) {
-        KWrite *t = new KWrite();
+        KWrite *t = m_app->newWindow();
         t->loadURL(url);
     } else {
         loadURL(url);
@@ -280,7 +279,7 @@ void KWrite::urlChanged()
 
 void KWrite::newView()
 {
-    new KWrite(m_view->document());
+    m_app->newWindow(m_view->document());
 }
 
 void KWrite::toggleMenuBar(bool showMessage)
@@ -436,7 +435,7 @@ void KWrite::saveProperties(KConfigGroup &config)
 {
     writeConfig();
 
-    config.writeEntry("DocumentNumber", docList.indexOf(m_view->document()) + 1);
+    config.writeEntry("DocumentNumber", m_app->documents().indexOf(m_view->document()) + 1);
 
     KConfigGroup cg(&config, QStringLiteral("General Options"));
     m_view->writeSessionConfig(cg);
@@ -444,54 +443,7 @@ void KWrite::saveProperties(KConfigGroup &config)
 
 void KWrite::saveGlobalProperties(KConfig *config) //save documents
 {
-    config->group("Number").writeEntry("NumberOfDocuments", docList.count());
-
-    for (int z = 1; z <= docList.count(); z++) {
-        QString buf = QStringLiteral("Document %1").arg(z);
-        KConfigGroup cg(config, buf);
-        KTextEditor::Document *doc = docList.at(z - 1);
-        doc->writeSessionConfig(cg);
-    }
-
-    for (int z = 1; z <= winList.count(); z++) {
-        QString buf = QStringLiteral("Window %1").arg(z);
-        KConfigGroup cg(config, buf);
-        cg.writeEntry("DocumentNumber", docList.indexOf(winList.at(z - 1)->view()->document()) + 1);
-    }
-}
-
-//restore session
-void KWrite::restore()
-{
-    KConfig *config = KConfigGui::sessionConfig();
-
-    if (!config) {
-        return;
-    }
-
-    int docs, windows;
-    QString buf;
-    KTextEditor::Document *doc;
-    KWrite *t;
-
-    KConfigGroup numberConfig(config, "Number");
-    docs = numberConfig.readEntry("NumberOfDocuments", 0);
-    windows = numberConfig.readEntry("NumberOfWindows", 0);
-
-    for (int z = 1; z <= docs; z++) {
-        buf = QStringLiteral("Document %1").arg(z);
-        KConfigGroup cg(config, buf);
-        doc = KTextEditor::Editor::instance()->createDocument(nullptr);
-        doc->readSessionConfig(cg);
-        docList.append(doc);
-    }
-
-    for (int z = 1; z <= windows; z++) {
-        buf = QStringLiteral("Window %1").arg(z);
-        KConfigGroup cg(config, buf);
-        t = new KWrite(docList.at(cg.readEntry("DocumentNumber", 0) - 1));
-        t->restore(config, z);
-    }
+    m_app->saveProperties(config);
 }
 
 void KWrite::aboutEditor()
@@ -552,9 +504,26 @@ bool KWrite::eventFilter(QObject *obj, QEvent *event)
         slotOpen(foe->url());
         return true;
     }
-    
+
     /**
      * else: pass over to default implementation
      */
     return KParts::MainWindow::eventFilter(obj, event);
+}
+
+QList<KTextEditor::View *> KWrite::views()
+{
+    QList<KTextEditor::View *> list;
+    list.append(m_view);
+    return list;
+}
+
+
+KTextEditor::View *KWrite::activateView(KTextEditor::Document *document)
+{
+    if (m_view->document() == document) {
+        return m_view;
+    }
+
+    return nullptr;
 }

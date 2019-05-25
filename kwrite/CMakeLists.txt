@@ -19,7 +19,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kwrite.svgz
 )
 
 # collect the sources
-set (KWRITE_APPLICATION_SRCS main.cpp kwrite.cpp)
+set (KWRITE_APPLICATION_SRCS main.cpp kwrite.cpp kwriteapplication.cpp)
 qt5_add_resources(KWRITE_APPLICATION_SRCS data/kwrite.qrc)
 
 # add icons to application sources, to have them bundled

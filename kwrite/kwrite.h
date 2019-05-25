@@ -23,6 +23,7 @@
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/mainwindow.h>
 
 #include <KParts/MainWindow>
 #include <KConfigGroup>
@@ -40,24 +41,17 @@ namespace KActivities
 class KToggleAction;
 class KRecentFilesAction;
 class KSqueezedTextLabel;
+class KWriteApplication;
 
 class KWrite : public KParts::MainWindow
 {
     Q_OBJECT
 
 public:
-    KWrite(KTextEditor::Document * = nullptr);
+    KWrite(KTextEditor::Document * = nullptr, KWriteApplication *app = nullptr);
     ~KWrite() override;
 
     void loadURL(const QUrl &url);
-
-    KTextEditor::View *view() const {
-        return m_view;
-    }
-
-    static bool noWindows() {
-        return winList.isEmpty();
-    }
 
 private:
     void setupActions();
@@ -113,7 +107,15 @@ public:
     //session management
 public:
     void restore(KConfig *, int);
-    static void restore();
+
+public:
+    KTextEditor::MainWindow *mainWindow() { return &m_mainWindow; }
+
+public Q_SLOTS:
+    QWidget *window() { return this; }
+    QList<KTextEditor::View *> views();
+    KTextEditor::View *activeView() { return m_view; }
+    KTextEditor::View *activateView(KTextEditor::Document *document);
 
 private:
     void readProperties(const KConfigGroup &) override;
@@ -129,13 +131,12 @@ private:
     KToggleAction *m_paShowStatusBar;
     QAction *m_closeAction;
     KActivities::ResourceInstance *m_activityResource;
-
-    static QList<KTextEditor::Document *> docList;
-    static QList<KWrite *> winList;
+    KWriteApplication *m_app;
+    KTextEditor::MainWindow m_mainWindow;
 
 public Q_SLOTS:
     void documentNameChanged();
-    
+
 protected:
     /**
      * Event filter for QApplication to handle mac os like file open
@@ -144,4 +145,3 @@ protected:
 };
 
 #endif
-

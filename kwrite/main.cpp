@@ -19,6 +19,7 @@
 */
 
 #include "kwrite.h"
+#include "kwriteapplication.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -194,8 +195,10 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      */
     aboutData.processCommandLine(&parser);
 
+    KWriteApplication kapp;
+
     if (app.isSessionRestored()) {
-        KWrite::restore();
+        kapp.restore();
     } else {
         bool nav = false;
         int line = 0, column = 0;
@@ -213,7 +216,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
         }
 
         if (parser.positionalArguments().count() == 0) {
-            KWrite *t = new KWrite;
+            KWrite *t = kapp.newWindow();
 
             if (parser.isSet(QStringLiteral("stdin"))) {
                 QTextStream input(stdin, QIODevice::ReadOnly);
@@ -231,7 +234,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                     text.append(line + QLatin1Char('\n'));
                 } while (!line.isNull());
 
-                KTextEditor::Document *doc = t->view()->document();
+                KTextEditor::Document *doc = t->activeView()->document();
                 if (doc) {
                     // remember codec in document, e.g. to show the right one
                     if (codec) {
@@ -241,8 +244,8 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                 }
             }
 
-            if (nav && t->view()) {
-                t->view()->setCursorPosition(KTextEditor::Cursor(line, column));
+            if (nav && t->activeView()) {
+                t->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
             }
         } else {
             int docs_opened = 0;
@@ -257,16 +260,16 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 
                 if (noDir) {
                     ++docs_opened;
-                    KWrite *t = new KWrite();
+                    KWrite *t = kapp.newWindow();
 
                     if (codec) {
-                        t->view()->document()->setEncoding(QString::fromLatin1(codec->name()));
+                        t->activeView()->document()->setEncoding(QString::fromLatin1(codec->name()));
                     }
 
                     t->loadURL(info.url);
 
                     if (info.cursor.isValid()) {
-                        t->view()->setCursorPosition(info.cursor);
+                        t->activeView()->setCursorPosition(info.cursor);
                     }
                     else if (info.url.hasQuery()) {
                         QUrlQuery q(info.url);
@@ -281,7 +284,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                         if (column > 0)
                             column--;
 
-                        t->view()->setCursorPosition(KTextEditor::Cursor(line, column));
+                        t->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
                     }
                 } else {
                     KMessageBox::sorry(nullptr, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
@@ -295,8 +298,8 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 
     // no window there, uh, ohh, for example borked session config !!!
     // create at least one !!
-    if (KWrite::noWindows()) {
-        new KWrite();
+    if (kapp.noWindows()) {
+        kapp.newWindow();
     }
 
     /**

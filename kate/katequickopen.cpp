@@ -155,6 +155,7 @@ void KateQuickOpen::update()
     if (colw0 > colw1) {
         m_listView->setColumnWidth(0, (colw0 + colw1) / 2);
     }
+    reselectFirst();
 }
 
 void KateQuickOpen::slotReturnPressed()

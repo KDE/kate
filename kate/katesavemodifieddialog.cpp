@@ -80,21 +80,6 @@ public:
         if (m_document->url().isEmpty()) {
             const QUrl url = QFileDialog::getSaveFileUrl(dialogParent, i18n("Save As (%1)", m_document->documentName()));
             if (!url.isEmpty()) {
-                // check for overwriting a file
-                if (url.isLocalFile()) {
-                    QFileInfo info(url.path());
-                    if (info.exists()) {
-                        if (KMessageBox::Cancel == KMessageBox::warningContinueCancel(dialogParent,
-                                i18n("A file named \"%1\" already exists. "
-                                     "Are you sure you want to overwrite it?" ,  info.fileName()),
-                                i18n("Overwrite File?"), KStandardGuiItem::overwrite(),
-                                KStandardGuiItem::cancel(), QString(), KMessageBox::Notify | KMessageBox::Dangerous)) {
-                            setState(SaveFailedState);
-                            return false;
-                        }
-                    }
-                }
-
                 if (!m_document->saveAs(url)) {
                     setState(SaveFailedState);
                     setText(1, m_document->url().toString());

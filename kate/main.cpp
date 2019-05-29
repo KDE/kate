@@ -630,6 +630,10 @@ int main(int argc, char **argv)
      */
     QObject::connect(&app, &SharedTools::QtSingleApplication::messageReceived,
                      &kateApp, &KateApp::remoteMessageReceived);
+
+    KateMainWindow *win = kateApp.activeKateMainWindow();
+    app.setActivationWindow(win, true);
+
 #endif
 
 

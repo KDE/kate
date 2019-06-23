@@ -451,16 +451,16 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
 
     if (unescaped.endsWith(QStringLiteral("$/"))) {
         reduced = unescaped.mid(2, unescaped.length() - 4);
-        escaped = QRegExp::escape(reduced);
+        escaped = QRegularExpression::escape(reduced);
         re_string = QStringLiteral("^%1$").arg(escaped);
     }
     else {
         reduced = unescaped.mid( 2, unescaped.length() -3 );
-        escaped = QRegExp::escape(reduced);
+        escaped = QRegularExpression::escape(reduced);
         re_string = QStringLiteral("^%1").arg(escaped);
     }
 
-    QRegExp re(re_string);
+    QRegularExpression re(re_string);
 
     // save current location
     TagJump from;

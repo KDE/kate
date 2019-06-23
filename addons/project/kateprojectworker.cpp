@@ -168,7 +168,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         return;
     }
 
-    files.sort();
+    files.sort(Qt::CaseInsensitive);
 
     /**
      * construct paths first in tree and items in a map
@@ -247,9 +247,10 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& fil
 
 QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 {
-    QStringList relFiles = gitLsFiles(dir);
-    relFiles << gitSubmodulesFiles(dir);
-
+    /**
+     * query files via ls-files and make them absolute afterwards
+     */
+    const QStringList relFiles = gitLsFiles(dir);
     QStringList files;
     for (const QString &relFile : relFiles) {
         if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
@@ -258,22 +259,25 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 
         files.append(dir.absolutePath() + QLatin1Char('/') + relFile);
     }
-
     return files;
 }
 
 QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
 {
-    QStringList files;
-
-    // git ls-files -z results a bytearray where each entry is \0-terminated.
-    // NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415)
+    /**
+     * git ls-files -z results a bytearray where each entry is \0-terminated.
+     * NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415)
+     *
+     * use --recurse-submodules, there since git 2.11 (released 2016)
+     * our own submodules handling code leads to file duplicates
+     */
     QStringList args;
-    args << QStringLiteral("ls-files") << QStringLiteral("-z") << QStringLiteral(".");
+    args << QStringLiteral("ls-files") << QStringLiteral("-z") << QStringLiteral("--recurse-submodules") << QStringLiteral(".");
 
     QProcess git;
     git.setWorkingDirectory(dir.absolutePath());
     git.start(QStringLiteral("git"), args);
+    QStringList files;
     if (!git.waitForStarted() || !git.waitForFinished(-1)) {
         return files;
     }
@@ -281,36 +285,6 @@ QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
     const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
     for (const QByteArray & byteArray : byteArrayList) {
         files << QString::fromUtf8(byteArray);
-    }
-
-    return files;
-}
-
-QStringList KateProjectWorker::gitSubmodulesFiles(const QDir &dir)
-{
-    /**
-     * git submodule command gives little to use for reliable file listing
-     * so reading the .gitmodule file directly. After the module paths are found
-     * just treat the new repositories as the main one.
-     */
-    QStringList files;
-
-    QString modulesPath = dir.filePath(QStringLiteral(".gitmodules"));
-
-    if (!QFile::exists(modulesPath)) {
-        return files;
-    }
-
-    QSettings config(modulesPath, QSettings::IniFormat);
-
-    for (const QString &module: config.childGroups()) {
-        QString path = config.value(module + QStringLiteral("/path")).toString();
-        QDir moduleDir = dir.filePath(path);
-        QStringList relFiles = gitLsFiles(moduleDir);
-
-        for (const QString &file: relFiles) {
-            files << path + QLatin1Char('/') + file;
-        }
     }
 
     return files;
@@ -329,7 +303,7 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursiv
         return files;
     }
 
-    const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 
     for (const QString &relFile : relFiles) {
         if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
@@ -363,7 +337,7 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursi
     /**
      * get output and split up into lines
      */
-    const QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    const QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 
     /**
      * remove start of line that is no filename, sort out unknown and ignore

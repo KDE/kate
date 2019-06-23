@@ -68,7 +68,7 @@ static QStringList normalizeBt(const QStringList &l)
         }
     }
 
-    qSort(normalized.begin(), normalized.end(), lineNoLessThan);
+    std::sort(normalized.begin(), normalized.end(), lineNoLessThan);
 
     // now every single line contains a whole backtrace info
     return normalized;

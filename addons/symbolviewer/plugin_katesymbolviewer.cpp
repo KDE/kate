@@ -332,6 +332,8 @@ void KatePluginSymbolViewerView::parseSymbols()
      parseCppSymbols();
   else if (hlModeName == QLatin1String("xslt"))
      parseXsltSymbols();
+  else if (hlModeName == QLatin1String("XML") || hlModeName == QLatin1String("HTML"))
+     parseXMLSymbols();
   else if (hlModeName == QLatin1String("Bash"))
      parseBashSymbols();
   else if (hlModeName == QLatin1String("ActionScript 2.0") ||

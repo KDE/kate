@@ -413,7 +413,11 @@ void KateSessionManager::sessionNew()
 
 void KateSessionManager::sessionSave()
 {
-    saveActiveSession(); // this is the optional point to handle saveSessionAs for anonymous session
+    if (activeSession() && activeSession()->isAnonymous()) {
+        sessionSaveAs();
+    } else {
+        saveActiveSession();
+    }
 }
 
 void KateSessionManager::sessionSaveAs()

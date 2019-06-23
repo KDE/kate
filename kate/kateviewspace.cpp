@@ -54,12 +54,12 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     setObjectName(QString::fromLatin1(name));
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     //BEGIN tab bar
     QHBoxLayout *hLayout = new QHBoxLayout();
     hLayout->setSpacing(0);
-    hLayout->setMargin(0);
+    hLayout->setContentsMargins(0, 0, 0, 0);
 
     // add tab bar
     m_tabBar = new KateTabBar(this);
@@ -707,16 +707,12 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     // restore Document lru list so that all tabs from the last session reappear
     const QStringList lruList = group.readEntry("Documents", QStringList());
     for (int i = 0; i < lruList.size(); ++i) {
+        // ignore non-existing documents and documents we already added to the LRU list
+        // no wild m_lruDocList modifications to keep list + tabs in sync even for restore
         auto doc = KateApp::self()->documentManager()->findDocument(QUrl(lruList[i]));
-        if (doc) {
-            const int index = m_lruDocList.indexOf(doc);
-            if (index < 0) {
-                registerDocument(doc);
-                Q_ASSERT(m_lruDocList.contains(doc));
-            } else {
-                m_lruDocList.removeAt(index);
-                m_lruDocList.append(doc);
-            }
+        if (doc && !m_lruDocList.contains(doc)) {
+            registerDocument(doc);
+            Q_ASSERT(m_lruDocList.contains(doc));
         }
     }
 

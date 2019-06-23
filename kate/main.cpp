@@ -109,7 +109,7 @@ int main(int argc, char **argv)
      */
     KAboutData aboutData(QStringLiteral("kate"), i18n("Kate"), QStringLiteral(KATE_VERSION),
                          i18n("Kate - Advanced Text Editor"), KAboutLicense::LGPL_V2,
-                         i18n("(c) 2000-2017 The Kate Authors"), QString(), QStringLiteral("http://kate-editor.org"));
+                         i18n("(c) 2000-2019 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
 
     /**
      * right dbus prefix == org.kde.
@@ -124,7 +124,7 @@ int main(int argc, char **argv)
     /**
      * authors & co.
      */
-    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("http://www.cullmann.io"));
+    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("https://cullmann.io"));
     aboutData.addAuthor(i18n("Dominik Haumann"), i18n("Core Developer"), QStringLiteral("dhaumann@kde.org"));
     aboutData.addAuthor(i18n("Sven Brauch"), i18n("Developer"), QStringLiteral("mail@svenbrauch.de"));
     aboutData.addAuthor(i18n("Kåre Särs"), i18n("Developer"), QStringLiteral("kare.sars@iki.fi"));
@@ -630,6 +630,10 @@ int main(int argc, char **argv)
      */
     QObject::connect(&app, &SharedTools::QtSingleApplication::messageReceived,
                      &kateApp, &KateApp::remoteMessageReceived);
+
+    KateMainWindow *win = kateApp.activeKateMainWindow();
+    app.setActivationWindow(win, true);
+
 #endif
 
 

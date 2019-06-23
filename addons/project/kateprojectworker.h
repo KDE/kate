@@ -86,7 +86,6 @@ private:
     QStringList filesFromDirectory(const QDir &dir, bool recursive, const QStringList &filters);
 
     QStringList gitLsFiles(const QDir &dir);
-    QStringList gitSubmodulesFiles(const QDir &dir);
 
 private:
     /**

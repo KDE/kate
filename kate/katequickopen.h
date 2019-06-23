@@ -42,6 +42,9 @@ public:
      */
     void update();
 
+    int matchMode();
+    void setMatchMode(int mode);
+
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 

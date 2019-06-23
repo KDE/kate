@@ -106,7 +106,7 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
                 return;
             }
         }
-        m_files << item.absoluteFilePath();
+        m_files << item.canonicalFilePath();
     }
     else {
         QDir currentDir(item.absoluteFilePath());

@@ -37,7 +37,7 @@ class ConnectionModel : public QAbstractListModel
     int rowCount ( const QModelIndex & parent = QModelIndex() ) const override;
     QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const override;
 
-    virtual int addConnection(Connection conn);
+    virtual int addConnection(const Connection &conn);
     virtual void removeConnection(const QString &name);
 
     Connection::Status status(const QString &name) const;

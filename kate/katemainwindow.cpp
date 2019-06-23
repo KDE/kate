@@ -38,6 +38,7 @@
 #include "katedebug.h"
 #include "katecolorschemechooser.h"
 #include "katefileactions.h"
+#include "katequickopenmodel.h"
 
 #include <KActionMenu>
 #include <KAboutApplicationDialog>
@@ -199,6 +200,10 @@ KateMainWindow::~KateMainWindow()
     // disable all plugin guis, delete all pluginViews
     KateApp::self()->pluginManager()->disableAllPluginsGUI(this);
 
+    // manually delete quick open, it's event filters will cause crash otherwise later
+    delete m_quickOpen;
+    m_quickOpen = nullptr;
+
     // delete the view manager, before KateMainWindow's wrapper is dead
     delete m_viewManager;
     m_viewManager = nullptr;
@@ -329,7 +334,7 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("file_rename"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
-    a->setText(i18nc("@action:inmenu", "Rename File..."));
+    a->setText(i18nc("@action:inmenu", "Rename..."));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(),
             [this]() {
                 auto&& view = viewManager()->activeView();
@@ -338,8 +343,8 @@ void KateMainWindow::setupActions()
     a->setWhatsThis(i18n("Renames the file belonging to the current document."));
 
     a = actionCollection()->addAction(QStringLiteral("file_delete"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete-shred")));
-    a->setText(i18nc("@action:inmenu", "Delete File"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
+    a->setText(i18nc("@action:inmenu", "Delete"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(),
             [this]() {
                 auto&& view = viewManager()->activeView();
@@ -627,6 +632,8 @@ void KateMainWindow::readOptions()
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
     m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
+
+    m_quickOpen->setMatchMode(generalGroup.readEntry("Quick Open Search Mode", (int)KateQuickOpenModel::Columns::FileName));
 
     // emit signal to hide/show statusbars
     toggleShowStatusBar();
@@ -978,7 +985,8 @@ bool KateMainWindow::showModOnDiskPrompt()
     DocVector list;
     list.reserve(KateApp::self()->documentManager()->documentList().size());
     foreach(doc, KateApp::self()->documentManager()->documentList()) {
-        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc) {
+
+        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc && doc->isModified()) {
             list.append(doc);
         }
     }
@@ -1259,3 +1267,12 @@ bool KateMainWindow::hideToolView(QWidget *widget)
     return KateMDI::MainWindow::hideToolView(qobject_cast<KateMDI::ToolView *>(widget));
 }
 
+void KateMainWindow::setQuickOpenMatchMode(int mode)
+{
+    m_quickOpen->setMatchMode(mode);
+}
+
+int KateMainWindow::quickOpenMatchMode()
+{
+    return m_quickOpen->matchMode();
+}

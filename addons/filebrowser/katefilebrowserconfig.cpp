@@ -27,7 +27,7 @@
 #include <QApplication>
 #include <QGroupBox>
 #include <QListWidget>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStyle>
 #include <QVBoxLayout>
 
@@ -73,6 +73,7 @@ KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, KateFileB
   QVBoxLayout *lo = new QVBoxLayout( this );
   int spacing =  QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing);
   lo->setSpacing( spacing );
+  lo->setContentsMargins(0, 0, 0, 0);
 
   // Toolbar - a lot for a little...
   QGroupBox *gbToolbar = new QGroupBox(i18n("Toolbar"), this );
@@ -155,7 +156,7 @@ void KateFileBrowserConfigPage::init()
              << QStringLiteral("tree view") << QStringLiteral("detailed tree view")
              << QStringLiteral("show hidden") /*<< QStringLiteral("view menu") << QStringLiteral("properties")*/
              << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
-  QRegExp re(QStringLiteral ("&(?=[^&])"));
+  QRegularExpression re(QStringLiteral("&(?=[^&])"));
   QAction *ac = nullptr;
   QListWidget *lb;
   for ( QStringList::Iterator it = allActions.begin(); it != allActions.end(); ++it )

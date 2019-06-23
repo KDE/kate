@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2018 Gregor Mi <codestruct@posteo.org>
+   Copyright (C) 2019 Dominik Haumann <dhaumann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -31,138 +32,172 @@
 
 namespace detail
 {
-    static QIcon iconForDocument(KTextEditor::Document * doc)
-    {
-        return QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(doc->url()).iconName());
-    }
-
     FilenameListItem::FilenameListItem(KTextEditor::Document* doc)
         : document(doc)
-        , icon(iconForDocument(doc))
-        , documentName(doc->documentName())
-        , fullPath(doc->url().toLocalFile())
     {
+    }
+
+    QIcon FilenameListItem::icon() const
+    {
+        return QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(document->url()).iconName());
+    }
+
+    QString FilenameListItem::documentName() const
+    {
+        return document->documentName();
+    }
+
+    QString FilenameListItem::fullPath() const
+    {
+        return document->url().toLocalFile();
     }
 
     /**
-     * adapted from https://helloacm.com/c-coding-exercise-longest-common-prefix/
-     * see also http://www.cplusplus.com/forum/beginner/83540/
      * Note that if strs contains the empty string, the result will be ""
      */
-    QString longestCommonPrefix(std::vector<QString> const & strs) {
-        int n = INT_MAX;
-        if (strs.size() <= 0) {
+    QString longestCommonPrefix(std::vector<QString> const & strs)
+    {
+        if (strs.empty()) {
             return QString();
         }
+
         if (strs.size() == 1) {
-            return strs[0];
+            return strs.front();
         }
+
         // get the min length
-        for (size_t i = 0; i < strs.size(); i++) {
-            n = strs[i].length() < n ? strs[i].length() : n;
-        }
-        for (int c = 0; c < n; c++) { // check each character
+        auto it = std::min_element(strs.begin(), strs.end(), [](const QString & lhs, const QString & rhs) {
+            return lhs.size() < rhs.size();
+        });
+        const int n = it->size();
+
+        for (int pos = 0; pos < n; pos++) { // check each character
             for (size_t i = 1; i < strs.size(); i++) {
-                if (strs[i][c] != strs[i - 1][c]) { // we find a mis-match
-                    return QStringRef(&strs[0], 0, c).toString();
+                if (strs[i][pos] != strs[i - 1][pos]) { // we found a mis-match
+                    // reverse search to find path separator
+                    const int sepIndex = strs.front().leftRef(pos).lastIndexOf(QLatin1Char('/'));
+                    if (sepIndex >= 0) {
+                        pos = sepIndex + 1;
+                    }
+                    return strs.front().left(pos);
                 }
             }
         }
         // prefix is n-length
-        return QStringRef(&strs[0], 0, n).toString();
+        return strs.front().left(n);
     }
 
     void post_process(FilenameList & data)
     {
+        // collect non-empty paths
         std::vector<QString> paths;
-        std::for_each(data.begin(), data.end(),
-                    [&paths](FilenameListItem & item) { paths.push_back(item.fullPath); });
+        for (const auto & item : data) {
+            const auto path = item.fullPath();
+            if (!path.isEmpty()) {
+                paths.push_back(path);
+            }
+        }
 
-        // Removes empty strings because Documents without file have no path and we would
-        // otherwise in this case always get ""
-        paths.erase( // erase-remove idiom, see https://en.cppreference.com/w/cpp/algorithm/remove
-            std::remove_if(paths.begin(), paths.end(), [](const QString &s) {
-                return s.isEmpty(); }),
-            paths.end()
-        );
-        QString prefix = longestCommonPrefix(paths);
+        const QString prefix = longestCommonPrefix(paths);
         int prefix_length = prefix.length();
         if (prefix_length == 1) { // if there is only the "/" at the beginning, then keep it
             prefix_length = 0;
         }
 
-        std::for_each(data.begin(), data.end(),
-                        [prefix_length](FilenameListItem & item) {
-                            // Note that item.documentName can contain additional characters - e.g. "README.md (2)" -
-                            // so we cannot use that and have to parse the base filename by other means:
-                            QFileInfo fileinfo(item.fullPath);
-                            QString basename = fileinfo.fileName(); // e.g. "archive.tar.gz"
-                            // cut prefix (left side) and cut document name (plus slash) on the right side
-                            int len = item.fullPath.length() - prefix_length - basename.length() - 1;
-                            if (len > 0) { // only assign in case item.fullPath is not empty
-                                // "PREFIXPATH/REMAININGPATH/BASENAME" --> "REMAININGPATH"
-                                item.displayPathPrefix = QStringRef(&item.fullPath, prefix_length, len).toString();
-                            }
-                        });
+        for (auto & item : data) {
+            // Note that item.documentName can contain additional characters - e.g. "README.md (2)" -
+            // so we cannot use that and have to parse the base filename by other means:
+            const QString basename = QFileInfo(item.fullPath()).fileName(); // e.g. "archive.tar.gz"
+
+            // cut prefix (left side) and cut document name (plus slash) on the right side
+            int len = item.fullPath().length() - prefix_length - basename.length() - 1;
+            if (len > 0) { // only assign in case item.fullPath() is not empty
+                // "PREFIXPATH/REMAININGPATH/BASENAME" --> "REMAININGPATH"
+                item.displayPathPrefix = item.fullPath().mid(prefix_length, len);
+            }
+        }
     }
 }
 
-detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent) : QAbstractTableModel(parent)
+detail::TabswitcherFilesModel::TabswitcherFilesModel(QObject *parent)
+    : QAbstractTableModel(parent)
 {
 }
 
-detail::TabswitcherFilesModel::TabswitcherFilesModel(const FilenameList & data)
+bool detail::TabswitcherFilesModel::insertDocument(int row, KTextEditor::Document * document)
 {
-    data_ = data;
-    post_process(data_);
-}
-
-bool detail::TabswitcherFilesModel::insertRow(int row, const FilenameListItem & item)
-{
-    beginInsertRows(QModelIndex(), row, row + 1);
-    data_.insert(data_.begin() + row, item);
-    post_process(data_);
+    beginInsertRows(QModelIndex(), row, row);
+    data_.insert(data_.begin() + row, FilenameListItem(document));
     endInsertRows();
+
+    // update all other items, since the common prefix path may have changed
+    updateItems();
+
     return true;
 }
 
-bool detail::TabswitcherFilesModel::removeRow(int row)
+bool detail::TabswitcherFilesModel::removeDocument(KTextEditor::Document * document)
 {
-    if (data_.begin() + row == data_.end()) {
+    auto it = std::find_if(data_.begin(), data_.end(), [document](FilenameListItem & item) { return item.document == document; });
+    if (it == data_.end()) {
         return false;
     }
 
-    beginRemoveRows(QModelIndex(), row, row);
-    data_.erase(data_.begin() + row);
-    post_process(data_);
+    const int row = std::distance(data_.begin(), it);
+    removeRow(row);
+
+    return true;
+}
+
+bool detail::TabswitcherFilesModel::removeRows(int row, int count, const QModelIndex & parent)
+{
+    Q_UNUSED(parent);
+
+    if (row < 0 || row + count > rowCount()) {
+        return false;
+    }
+
+    beginRemoveRows(QModelIndex(), row, row + count - 1);
+    data_.erase(data_.begin() + row, data_.begin() + row + count);
     endRemoveRows();
+
+    // update all other items, since the common prefix path may have changed
+    updateItems();
+
     return true;
 }
 
 void detail::TabswitcherFilesModel::clear()
 {
-    if (data_.size() > 0) {
-        beginRemoveRows(QModelIndex(), 0, data_.size() - 1);
+    if (!data_.empty()) {
+        beginResetModel();
         data_.clear();
-        endRemoveRows();
+        endResetModel();
     }
 }
 
-int detail::TabswitcherFilesModel::rowCount() const
+void detail::TabswitcherFilesModel::raiseDocument(KTextEditor::Document * document)
 {
-    return data_.size();
+    // skip row 0, since row 0 is already correct
+    for (int row = 1; row < rowCount(); ++row) {
+        if (data_[row].document == document) {
+            beginMoveRows(QModelIndex(), row, row, QModelIndex(), 0);
+            std::rotate(data_.begin(), data_.begin() + row, data_.begin() + row + 1);
+            endMoveRows();
+            break;
+        }
+    }
 }
 
-detail::FilenameListItem * detail::TabswitcherFilesModel::item(int row) const
+KTextEditor::Document * detail::TabswitcherFilesModel::item(int row) const
 {
-    return const_cast<detail::FilenameListItem *>(&data_[row]);
+    return data_[row].document;
 }
 
-void detail::TabswitcherFilesModel::updateItem(FilenameListItem * item, QString const & documentName, QString const & fullPath)
+void detail::TabswitcherFilesModel::updateItems()
 {
-    item->documentName = documentName;
-    item->fullPath = fullPath;
     post_process(data_);
+    emit dataChanged(createIndex(0, 0), createIndex(data_.size() - 1, 1), {});
 }
 
 int detail::TabswitcherFilesModel::columnCount(const QModelIndex & parent) const
@@ -184,15 +219,15 @@ QVariant detail::TabswitcherFilesModel::data(const QModelIndex & index, int role
         if (index.column() == 0)
             return row.displayPathPrefix;
         else
-            return row.documentName;
+            return row.documentName();
     } else if (role == Qt::DecorationRole) {
         if (index.column() == 1) {
             const auto & row = data_[index.row()];
-            return row.icon;
+            return row.icon();
         }
     } else if (role == Qt::ToolTipRole) {
         const auto & row = data_[index.row()];
-        return row.fullPath;
+        return row.fullPath();
     } else if (role == Qt::TextAlignmentRole) {
         if (index.column() == 0)
             return Qt::AlignRight + Qt::AlignVCenter;

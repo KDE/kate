@@ -70,7 +70,7 @@ public Q_SLOTS:
      * @p isTempFile should be set to true with the --tempfile option set ONLY,
      * files opened with this set to true will be deleted when closed.
      */
-    bool openUrl(QString url, QString encoding, bool isTempFile);
+    bool openUrl(const QString &url, const QString &encoding, bool isTempFile);
 
     QString tokenOpenUrl(const QString &url, const QString &encoding, bool isTempFile);
 

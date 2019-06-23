@@ -40,9 +40,10 @@ public:
     FilenameListItem(KTextEditor::Document* doc);
 
     KTextEditor::Document *document;
-    QIcon icon;
-    QString documentName;
-    QString fullPath;
+    QIcon icon() const;
+    QString documentName() const;
+    QString fullPath() const;
+
     /**
      * calculated from documentName and fullPath
      */
@@ -57,29 +58,51 @@ class TabswitcherFilesModel : public QAbstractTableModel
 public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
     virtual ~TabswitcherFilesModel() = default;
-    TabswitcherFilesModel(const FilenameList & data);
-    bool insertRow(int row, const FilenameListItem & item);
-    bool removeRow(int row);
+    bool insertDocument(int row, KTextEditor::Document * document);
+    bool removeDocument(KTextEditor::Document * document);
+
     /**
      * Clears all data from the model
      */
     void clear();
-    int rowCount() const;
+
     /**
      * NOTE: The returned pointer will become invalid as soon as the underlying vector changes.
      */
-    FilenameListItem * item(int row) const;
-    /*
-     * Use this method to update an item.
-     * NOTE: This could be improved if we allow KTextEditor::Document to go into this interface.
-     * Then we could search and update by KTextEditor::Document.
-     */
-    void updateItem(FilenameListItem * item, QString const & documentName, QString const & fullPath);
+    KTextEditor::Document * item(int row) const;
 
-protected:
-    int columnCount(const QModelIndex & parent) const override;
-    int rowCount(const QModelIndex & parent) const override;
+    /**
+     * Move the document to row 0.
+     */
+    void raiseDocument(KTextEditor::Document * document);
+
+    /*
+     * Use this method to update all items.
+     * This is typically needed when a document name changes, since then the prefix paths change,
+     * so all items need an update.
+     */
+    void updateItems();
+
+    /**
+     * Reimplemented to return the column count of top-level items.
+     */
+    int columnCount(const QModelIndex & parent = QModelIndex()) const override;
+
+    /**
+     * Reimplemented to return the top-level row count.
+     */
+    int rowCount(const QModelIndex & parent = QModelIndex()) const override;
+
+    /**
+     * Returns the data for the requested model index.
+     */
     QVariant data(const QModelIndex & index, int role) const override;
+
+    /**
+     * Reimplemented to remove the specified rows.
+     * The paret is always ignored since this is a table model.
+     */
+    bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex()) override;
 
 private:
     FilenameList data_;

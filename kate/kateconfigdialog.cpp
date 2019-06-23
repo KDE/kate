@@ -30,6 +30,7 @@
 #include "kateapp.h"
 #include "katesessionmanager.h"
 #include "katedebug.h"
+#include "katequickopenmodel.h"
 
 #include <KTextEditor/ConfigPage>
 
@@ -46,6 +47,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QComboBox>
 
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view)
     : KPageDialog(parent)
@@ -77,7 +79,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     setCurrentPage(item);
 
     QVBoxLayout *layout = new QVBoxLayout(generalFrame);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     // GROUP with the one below: "Behavior"
     QGroupBox *buttonGroup = new QGroupBox(i18n("&Behavior"), generalFrame);
@@ -146,6 +148,21 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     vbox->addWidget(metaInfos);
     buttonGroup->setLayout(vbox);
 
+    // quick search
+    buttonGroup = new QGroupBox(i18n("&Quick Open"), generalFrame);
+    hlayout = new QHBoxLayout(buttonGroup);
+    label = new QLabel(i18n("&Match Mode:"), buttonGroup);
+    hlayout->addWidget(label);
+    m_cmbQuickOpenMatchMode = new QComboBox(buttonGroup);
+    hlayout->addWidget(m_cmbQuickOpenMatchMode);
+    label->setBuddy(m_cmbQuickOpenMatchMode);
+    m_cmbQuickOpenMatchMode->addItem(i18n("Filename"), QVariant(KateQuickOpenModel::Columns::FileName));
+    m_cmbQuickOpenMatchMode->addItem(i18n("Filepath"), QVariant(KateQuickOpenModel::Columns::FilePath));
+    m_cmbQuickOpenMatchMode->setCurrentIndex(m_cmbQuickOpenMatchMode->findData(m_mainWindow->quickOpenMatchMode()));
+    m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
+    connect(m_cmbQuickOpenMatchMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    layout->addWidget(buttonGroup);
+
     layout->addStretch(1); // :-] works correct without autoadd
     //END General page
 
@@ -181,7 +198,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     //BEGIN Plugins page
     QFrame *page = new QFrame(this);
     QVBoxLayout *vlayout = new QVBoxLayout(page);
-    vlayout->setMargin(0);
+    vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 
     KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
@@ -242,7 +259,7 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
         QFrame *page = new QFrame();
         QVBoxLayout *layout = new QVBoxLayout(page);
         layout->setSpacing(0);
-        layout->setMargin(0);
+        layout->setContentsMargins(0, 0, 0, 0);
 
         KTextEditor::ConfigPage *cp = plugin->configPage(i, page);
         page->layout()->addWidget(cp);
@@ -333,6 +350,9 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Close After Last", m_modCloseAfterLast->isChecked());
         m_mainWindow->setModCloseAfterLast(m_modCloseAfterLast->isChecked());
+
+        cg.writeEntry("Quick Open Search Mode", m_cmbQuickOpenMatchMode->currentData().toInt());
+        m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

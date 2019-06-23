@@ -251,10 +251,12 @@ m_mainWindow (mainWin)
 
     a = actionCollection()->addAction(QStringLiteral("go_to_next_match"));
     a->setText(i18n("Go to Next Match"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::Key_F6));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToNextMatch);
 
     a = actionCollection()->addAction(QStringLiteral("go_to_prev_match"));
     a->setText(i18n("Go to Previous Match"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::SHIFT + Qt::Key_F6));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch);
 
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);

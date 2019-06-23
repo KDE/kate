@@ -1,3 +1,23 @@
+/* This file is part of the KDE project
+ *
+ *  Copyright (C) 2018 Gregor Mi <codestruct@posteo.org>
+ *  Copyright (C) 2019 Dominik Haumann <dhaumann@kde.org>
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ */
 #include "tstestapp.h"
 #include "../tabswitcherfilesmodel.h"
 
@@ -29,7 +49,7 @@ class TsTestApp::Impl
 public:
     void insert_1_item()
     {
-        model.insertRow(0, detail::FilenameListItem(addDoc(QStringLiteral("/home/user2/folder1/abc.d"))));
+        model.insertDocument(0, addDoc(QStringLiteral("/home/user2/folder1/abc.d")));
         treeview1->resizeColumnToContents(0);
     }
 
@@ -44,13 +64,13 @@ public:
         model.clear();
         auto icon = QIcon::fromTheme(QLatin1String("document-export"));
 
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/logs/notifications/multimedia-system.log"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/dev/src/kservicemenueditor-0.2a/servicemenueditor"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/kde/src/kdesrc-build/kdesrc-build"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/node_modules/autolinker/README.md"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/node_modules/autolinker/package.json"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/node_modules/autolinker/LICENSE"))));
-        model.insertRow(model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gregor/node_modules/asynckit/package.json"))));
+        model.insertDocument(model.rowCount(), addDoc(QStringLiteral("/home/gregor/logs/notifications/multimedia-system.log")));
+        model.insertDocument(model.rowCount(), addDoc(QStringLiteral("/home/gregor/dev/src/kservicemenueditor-0.2a/servicemenueditor")));
+        model.insertDocument(model.rowCount(), addDoc(QStringLiteral("/home/gregor/kde/src/kdesrc-build/kdesrc-build")));
+        model.insertDocument(model.rowCount(), addDoc(QStringLiteral("/home/gregor/node_modules/autolinker/README.md")));
+        model.insertDocument(model.rowCount(), addDoc(QStringLiteral("/home/gregor/node_modules/autolinker/package.json")));
+        model.insertDocument(model.rowCount(), addDoc(QStringLiteral("/home/gregor/node_modules/autolinker/LICENSE")));
+        model.insertDocument(model.rowCount(), addDoc(QStringLiteral("/home/gregor/node_modules/asynckit/package.json")));
 
         treeview1->resizeColumnToContents(0);
     }
@@ -90,11 +110,11 @@ TsTestApp::TsTestApp(QWidget *parent) :
     impl_->treeview1->setRootIsDecorated(false);
 
     auto icon = QIcon::fromTheme(QLatin1String("edit-undo"));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/projects/proj1/src/file1.h"))));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/projects/proj1/src/file2.cpp"))));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/dev/file3.py"))));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/dev/file3kjaskdfkljasdfklj089asdfkjklasdjf90asdfsdfkj.py"))));
-    impl_->model.insertRow(impl_->model.rowCount(), detail::FilenameListItem(addDoc(QStringLiteral("/home/gm/dev/proj2/asldfkjasdfk/asdlfkjasd;faf/;ajsdkfgjaskdfgasdf/file3.py"))));
+    impl_->model.insertDocument(impl_->model.rowCount(), addDoc(QStringLiteral("/home/gm/projects/proj1/src/file1.h")));
+    impl_->model.insertDocument(impl_->model.rowCount(), addDoc(QStringLiteral("/home/gm/projects/proj1/src/file2.cpp")));
+    impl_->model.insertDocument(impl_->model.rowCount(), addDoc(QStringLiteral("/home/gm/dev/file3.py")));
+    impl_->model.insertDocument(impl_->model.rowCount(), addDoc(QStringLiteral("/home/gm/dev/file3kjaskdfkljasdfklj089asdfkjklasdjf90asdfsdfkj.py")));
+    impl_->model.insertDocument(impl_->model.rowCount(), addDoc(QStringLiteral("/home/gm/dev/proj2/asldfkjasdfk/asdlfkjasd;faf/;ajsdkfgjaskdfgasdf/file3.py")));
     //impl_->insert_a_item();
     //impl_->remove_a_item();
 

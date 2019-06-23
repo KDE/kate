@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
  *
  *  Copyright (C) 2018 Gregor Mi <codestruct@posteo.org>
+ *  Copyright (C) 2019 Dominik Haumann <dhaumann@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -74,4 +75,9 @@ void KateTabSwitcherTest::testLongestCommonPrefix_data()
     strs.push_back(QStringLiteral("a"));
     strs.push_back(QStringLiteral("a"));
     QTest::newRow("two equal strings") << strs << QStringLiteral("a");
+
+    strs.clear();
+    strs.push_back(QStringLiteral("/home/autolink"));
+    strs.push_back(QStringLiteral("/home/async"));
+    QTest::newRow("find correct path prefix") << strs << QStringLiteral("/home/");
 }

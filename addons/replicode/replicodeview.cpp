@@ -5,12 +5,12 @@
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
- 
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
- 
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -54,12 +54,10 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_executor(nullptr)
 {
     m_runAction = new QAction(QIcon(QStringLiteral("code-block")), i18n("Run replicode"), this);
-    actionCollection()->setDefaultShortcut(m_runAction, Qt::Key_F8);
     connect(m_runAction, &QAction::triggered, this, &ReplicodeView::runReplicode);
     actionCollection()->addAction(QStringLiteral("katereplicode_run"), m_runAction);
 
     m_stopAction = new QAction(QIcon(QStringLiteral("process-stop")), i18n("Stop replicode"), this);
-    actionCollection()->setDefaultShortcut(m_stopAction, Qt::Key_F9);
     connect(m_stopAction, &QAction::triggered, this, &ReplicodeView::stopReplicode);
     actionCollection()->addAction(QStringLiteral("katereplicode_stop"), m_stopAction);
     m_stopAction->setEnabled(false);

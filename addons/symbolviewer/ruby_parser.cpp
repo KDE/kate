@@ -58,7 +58,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
     cl = kv->line(i);
     cl = cl.trimmed();
 
-     if (cl.indexOf( QRegExp(QLatin1String("^class [a-zA-Z0-9]+[^#]")) ) >= 0)
+     if (cl.indexOf( QRegularExpression(QLatin1String("^class [a-zA-Z0-9]+[^#]")) ) >= 0)
        {
           if (m_func->isChecked())
             {
@@ -76,7 +76,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
              node->setText(1, QString::number( i, 10));
             }
        }
-     if (cl.indexOf( QRegExp(QLatin1String("^def [a-zA-Z_]+[^#]")) ) >= 0 )
+     if (cl.indexOf( QRegularExpression(QLatin1String("^def [a-zA-Z_]+[^#]")) ) >= 0 )
        {
         if (m_struct->isChecked())
           {

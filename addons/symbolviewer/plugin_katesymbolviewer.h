@@ -133,6 +133,7 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
     void parsePythonSymbols(void);
     void parseRubySymbols(void);
     void parseXsltSymbols(void);
+    void parseXMLSymbols(void);
     void parsePhpSymbols(void);
     void parseBashSymbols(void);
     void parseEcmaSymbols(void);

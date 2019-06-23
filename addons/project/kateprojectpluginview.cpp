@@ -19,6 +19,7 @@
  */
 
 #include "kateprojectpluginview.h"
+#include "kateprojectinfoviewindex.h"
 #include "fileutil.h"
 
 #include <ktexteditor/editor.h>
@@ -502,7 +503,9 @@ void KateProjectPluginView::slotProjectIndex()
     if (!word.isEmpty()) {
         auto tabView = qobject_cast<QTabWidget*>(m_stackedProjectInfoViews->currentWidget());
         if (tabView) {
-            tabView->setCurrentIndex(1);
+            if (auto codeIndex = tabView->findChild<KateProjectInfoViewIndex*>()) {
+                tabView->setCurrentWidget(codeIndex);
+            }
         }
         m_mainWindow->showToolView(m_toolInfoView);
         emit projectLookupWord(word);

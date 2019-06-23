@@ -19,6 +19,7 @@
 */
 
 #include "kwrite.h"
+#include "kwriteapplication.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -39,6 +40,7 @@
 #include <QTextCodec>
 #include <QFileInfo>
 #include <QDir>
+#include <QUrlQuery>
 
 #include "../urlinfo.h"
 
@@ -92,7 +94,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                          i18n("KWrite"),
                          QStringLiteral(KATE_VERSION),
                          i18n("KWrite - Text Editor"), KAboutLicense::LGPL_V2,
-                         i18n("(c) 2000-2016 The Kate Authors"), QString(), QStringLiteral("http://kate-editor.org"));
+                         i18n("(c) 2000-2019 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
 
     /**
      * right dbus prefix == org.kde.
@@ -106,7 +108,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     aboutData.setDesktopFileName(QStringLiteral("org.kde.kwrite"));
 #endif
 
-    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("http://www.cullmann.io"));
+    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("https://cullmann.io"));
     aboutData.addAuthor(i18n("Dominik Haumann"), i18n("Core Developer"), QStringLiteral("dhaumann@kde.org"));
     aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("http://www.alweb.dk"));
     aboutData.addAuthor(i18n("Joseph Wenninger"), i18n("Core Developer"), QStringLiteral("jowenn@kde.org"), QStringLiteral("http://stud3.tuwien.ac.at/~e9925371"));
@@ -193,8 +195,10 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      */
     aboutData.processCommandLine(&parser);
 
+    KWriteApplication kapp;
+
     if (app.isSessionRestored()) {
-        KWrite::restore();
+        kapp.restore();
     } else {
         bool nav = false;
         int line = 0, column = 0;
@@ -212,7 +216,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
         }
 
         if (parser.positionalArguments().count() == 0) {
-            KWrite *t = new KWrite;
+            KWrite *t = kapp.newWindow();
 
             if (parser.isSet(QStringLiteral("stdin"))) {
                 QTextStream input(stdin, QIODevice::ReadOnly);
@@ -230,7 +234,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                     text.append(line + QLatin1Char('\n'));
                 } while (!line.isNull());
 
-                KTextEditor::Document *doc = t->view()->document();
+                KTextEditor::Document *doc = t->activeView()->document();
                 if (doc) {
                     // remember codec in document, e.g. to show the right one
                     if (codec) {
@@ -240,8 +244,8 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                 }
             }
 
-            if (nav && t->view()) {
-                t->view()->setCursorPosition(KTextEditor::Cursor(line, column));
+            if (nav && t->activeView()) {
+                t->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
             }
         } else {
             int docs_opened = 0;
@@ -256,16 +260,31 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 
                 if (noDir) {
                     ++docs_opened;
-                    KWrite *t = new KWrite();
+                    KWrite *t = kapp.newWindow();
 
                     if (codec) {
-                        t->view()->document()->setEncoding(QString::fromLatin1(codec->name()));
+                        t->activeView()->document()->setEncoding(QString::fromLatin1(codec->name()));
                     }
 
                     t->loadURL(info.url);
 
                     if (info.cursor.isValid()) {
-                        t->view()->setCursorPosition(info.cursor);
+                        t->activeView()->setCursorPosition(info.cursor);
+                    }
+                    else if (info.url.hasQuery()) {
+                        QUrlQuery q(info.url);
+                        QString lineStr = q.queryItemValue(QStringLiteral("line"));
+                        QString columnStr = q.queryItemValue(QStringLiteral("column"));
+
+                        line = lineStr.toInt();
+                        if (line > 0)
+                            line--;
+
+                        column = columnStr.toInt();
+                        if (column > 0)
+                            column--;
+
+                        t->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
                     }
                 } else {
                     KMessageBox::sorry(nullptr, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
@@ -279,8 +298,8 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 
     // no window there, uh, ohh, for example borked session config !!!
     // create at least one !!
-    if (KWrite::noWindows()) {
-        new KWrite();
+    if (kapp.noWindows()) {
+        kapp.newWindow();
     }
 
     /**

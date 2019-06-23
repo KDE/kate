@@ -72,12 +72,12 @@ namespace KateFileActions
     /**
      * Runs an external program to compare the underlying files of two given documents.
      *
-     * @param diffExecutable tested to work with "kdiff3", "kompare", and "meld"
-     * (@see supportedDiffTools())
+     * @p diffExecutable tested to work with "kdiff3", "kompare", and "meld"
+     * @see supportedDiffTools()
      *
      * The parameters documentA and documentB must not be nullptr. Otherwise an assertion fails.
      *
-     * If documentA or documentB have an empty url,
+     * If @p documentA or @p documentB have an empty url,
      * then an empty string is passed to the diff program instead of a local file path.
      *
      * @returns true if program was started successfully; otherwise false

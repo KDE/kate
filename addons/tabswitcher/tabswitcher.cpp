@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2014 Dominik Haumann <dhaumann@kde.org>
+   Copyright (C) 2014-2019 Dominik Haumann <dhaumann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -123,8 +123,9 @@ void TabSwitcherPluginView::setupActions()
 
 void TabSwitcherPluginView::setupModel()
 {
+    const auto documents = KTextEditor::Editor::instance()->application()->documents();
     // initial fill of model
-    foreach (auto doc, KTextEditor::Editor::instance()->application()->documents()) {
+    for (auto doc : documents) {
         registerDocument(doc);
     }
 }
@@ -135,7 +136,7 @@ void TabSwitcherPluginView::registerDocument(KTextEditor::Document * document)
     m_documents.insert(document);
 
     // add to model
-    m_model->insertRow(0, detail::FilenameListItem(document));
+    m_model->insertDocument(0, document);
 
     // track document name changes
     connect(document, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
@@ -150,18 +151,10 @@ void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)
     m_documents.remove(document);
 
     // remove from model
-    const auto rowCount = m_model->rowCount();
-    for (int i = 0; i < rowCount; ++i) {
-        auto doc = m_model->item(i)->document;
-        if (doc == document) {
-            m_model->removeRow(i);
+    m_model->removeDocument(document);
 
-            // disconnect documentNameChanged() signal
-            disconnect(document, nullptr, this, nullptr);
-
-            break;
-        }
-    }
+    // disconnect documentNameChanged() signal
+    disconnect(document, nullptr, this, nullptr);
 }
 
 void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)
@@ -170,15 +163,9 @@ void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)
         return;
     }
 
-    const auto rowCount = m_model->rowCount();
-    for (int i = 0; i < rowCount; ++i) {
-        auto doc = m_model->item(i)->document;
-        if (doc == document) {
-            m_model->updateItem(m_model->item(i), document->documentName(), document->url().toLocalFile());
-            //m_model->item(i)->setText(document->documentName());
-            break;
-        }
-    }
+    // update all items, since a document URL change menas we have to recalculate
+    // common prefix path of all items.
+    m_model->updateItems();
 }
 
 void TabSwitcherPluginView::raiseView(KTextEditor::View * view)
@@ -187,8 +174,7 @@ void TabSwitcherPluginView::raiseView(KTextEditor::View * view)
         return;
     }
 
-    unregisterDocument(view->document());
-    registerDocument(view->document());
+    m_model->raiseDocument(view->document());
 }
 
 void TabSwitcherPluginView::walk(const int from, const int to)
@@ -269,7 +255,7 @@ void TabSwitcherPluginView::activateView(const QModelIndex & index)
 
     const int row = m_treeView->selectionModel()->selectedRows().first().row();
 
-    auto doc = m_model->item(row)->document;
+    auto doc = m_model->item(row);
     m_mainWindow->activateView(doc);
 
     m_treeView->hide();

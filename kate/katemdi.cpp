@@ -221,7 +221,7 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
     policy.setRetainSizeWhenHidden(true);
     setSizePolicy(policy);
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     m_toolbar = new KToolBar(this);
     m_toolbar->setVisible(false);
     m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -347,6 +347,7 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
 
     connect(tab(newId), SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
     tab(newId)->installEventFilter(this);
+    tab(newId)->setToolTip(QString());
 
     return widget;
 }
@@ -651,6 +652,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
             appendTab(tv->icon, newId, tv->text);
             connect(tab(newId), SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
             tab(newId)->installEventFilter(this);
+            tab(newId)->setToolTip(QString());
 
             // reshuffle in splitter: move to last
             m_ownSplit->addWidget(tv);
@@ -722,7 +724,7 @@ MainWindow::MainWindow(QWidget *parentWidget)
     // init the internal widgets
     QFrame *hb = new QFrame(this);
     QHBoxLayout *hlayout = new QHBoxLayout(hb);
-    hlayout->setMargin(0);
+    hlayout->setContentsMargins(0, 0, 0, 0);
     hlayout->setSpacing(0);
 
     setCentralWidget(hb);
@@ -737,7 +739,7 @@ MainWindow::MainWindow(QWidget *parentWidget)
 
     QFrame *vb = new QFrame(m_hSplitter);
     QVBoxLayout *vlayout = new QVBoxLayout(vb);
-    vlayout->setMargin(0);
+    vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 
     m_hSplitter->setCollapsible(m_hSplitter->indexOf(vb), false);
@@ -754,7 +756,7 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_centralWidget = new QWidget(m_vSplitter);
     m_centralWidget->setLayout(new QVBoxLayout);
     m_centralWidget->layout()->setSpacing(0);
-    m_centralWidget->layout()->setMargin(0);
+    m_centralWidget->layout()->setContentsMargins(0, 0, 0, 0);
 
     m_vSplitter->setCollapsible(m_vSplitter->indexOf(m_centralWidget), false);
     m_vSplitter->setStretchFactor(m_vSplitter->indexOf(m_centralWidget), 1);

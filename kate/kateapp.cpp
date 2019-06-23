@@ -189,6 +189,21 @@ bool KateApp::startupKate()
             if (info.cursor.isValid()) {
                 setCursor(info.cursor.line(), info.cursor.column());
             }
+            else if (info.url.hasQuery()) {
+                QUrlQuery q(info.url);
+                QString lineStr = q.queryItemValue(QStringLiteral("line"));
+                QString columnStr = q.queryItemValue(QStringLiteral("column"));
+
+                int line = lineStr.toInt();
+                if (line > 0)
+                    line--;
+
+                int column = columnStr.toInt();
+                if (column > 0)
+                    column--;
+
+                setCursor(line, column);
+            }
         } else {
             KMessageBox::sorry(activeKateMainWindow(),
                                i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
@@ -471,10 +486,6 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
 
     }
 
-    if (auto win = activeKateMainWindow()) {
-        // like QtSingleApplication
-        win->setWindowState(win->windowState() & ~Qt::WindowMinimized);
-        win->raise();
-        win->activateWindow();
-    }
+    // try to activate current window
+    m_adaptor.activate();
 }

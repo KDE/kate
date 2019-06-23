@@ -55,12 +55,20 @@ static bool isGit(const QString &filename)
     QProcess git;
     git.setWorkingDirectory(dir.absolutePath());
     QStringList args;
-    args << QStringLiteral("ls-files") << fi.fileName();
+    // git ls-files -z results a bytearray where each entry is \0-terminated.
+    // NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415, #402213)
+    args << QStringLiteral("ls-files") << QStringLiteral("-z") << fi.fileName();
     git.start(QStringLiteral("git"), args);
     bool isGit = false;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
-        QStringList files = QString::fromLocal8Bit(git.readAllStandardOutput()).split(QRegExp(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
-        isGit = files.contains(fi.fileName());
+        const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
+        const QString fn = fi.fileName();
+        for (const QByteArray & byteArray : byteArrayList) {
+            if (fn == QString::fromUtf8(byteArray)) {
+                isGit = true;
+                break;
+            }
+        }
     }
     return isGit;
 }

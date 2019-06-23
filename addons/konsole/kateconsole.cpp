@@ -247,6 +247,9 @@ void KateConsole::cd (const QString & path)
       command = QStringLiteral(":cd ") + path + QStringLiteral("\n");
     }
   }
+
+  // Send prior Ctrl-E, Ctrl-U to ensure the line is empty
+  sendInput(QStringLiteral("\x05\x15"));
   sendInput(command);
 }
 
@@ -406,6 +409,7 @@ KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
   lo->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
+  lo->setContentsMargins(0, 0, 0, 0);
 
   cbAutoSyncronize = new QCheckBox( i18n("&Automatically synchronize the terminal with the current document when possible"), this );
   lo->addWidget( cbAutoSyncronize );

@@ -33,7 +33,7 @@ KTERustCompletionConfigPage::KTERustCompletionConfigPage(QWidget *parent, KTERus
     , m_plugin(plugin)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     QVBoxLayout *vbox = new QVBoxLayout;
     QGroupBox *group = new QGroupBox(i18n("Racer command"), this);

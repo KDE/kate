@@ -61,7 +61,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     break;
 
     case Qt::UserRole:
-      return qVariantFromValue<Connection>(m_connections.value(key));
+      return QVariant::fromValue<Connection>(m_connections.value(key));
     break;
 
     case Qt::DecorationRole:
@@ -83,7 +83,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
   return QVariant();
 }
 
-int ConnectionModel::addConnection( Connection conn )
+int ConnectionModel::addConnection( const Connection &conn )
 {
   /// FIXME
   if (m_connections.contains(conn.name))

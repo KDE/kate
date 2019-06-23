@@ -20,6 +20,7 @@
 
 #include "kateprojectcodeanalysistoolcppcheck.h"
 
+#include <QThread>
 #include <QRegularExpression>
 #include <klocalizedstring.h>
 
@@ -67,6 +68,8 @@ QStringList KateProjectCodeAnalysisToolCppcheck::arguments()
     QStringList _args;
 
     _args << QStringLiteral("-q")
+          << QStringLiteral("-f")
+          << QStringLiteral("-j") + QString::number(QThread::idealThreadCount())
           << QStringLiteral("--inline-suppr")
           << QStringLiteral("--enable=all")
           << QStringLiteral("--template={file}////{line}////{severity}////{message}")
@@ -82,7 +85,7 @@ QString KateProjectCodeAnalysisToolCppcheck::notInstalledMessage() const
 
 QStringList KateProjectCodeAnalysisToolCppcheck::parseLine(const QString &line) const
 {
-    return line.split(QRegExp(QStringLiteral("////")), QString::SkipEmptyParts);
+    return line.split(QRegularExpression(QStringLiteral("////")), QString::SkipEmptyParts);
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::stdinMessages()

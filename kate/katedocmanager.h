@@ -198,7 +198,6 @@ private Q_SLOTS:
     void slotModChanged(KTextEditor::Document *doc);
     void slotModChanged1(KTextEditor::Document *doc);
 
-    void showRestoreErrors();
 private:
     bool loadMetaInfos(KTextEditor::Document *doc, const QUrl &url);
     void saveMetaInfos(const QList<KTextEditor::Document *> &docs);
@@ -212,8 +211,6 @@ private:
 
     typedef QPair<QUrl, QDateTime> TPair;
     QMap<KTextEditor::Document *, TPair> m_tempFiles;
-    QString m_openingErrors;
-    int m_documentStillToRestore;
 
 private Q_SLOTS:
     void documentOpened();

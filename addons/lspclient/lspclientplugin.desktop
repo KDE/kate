@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KTextEditor/Plugin
+X-KDE-Library=lspclientplugin
+Name=LSP Client
+Name[en_GB]=LSP Client
+Comment=Language Server Protocol Client
+Comment[en_GB]=Language Server Protocol Client

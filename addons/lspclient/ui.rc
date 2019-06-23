@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="lspclient" library="lspclient" version="1" translationDomain="lspclient">
+  <MenuBar>
+    <Menu name="LSPClient Menubar">
+      <text>LSP Client</text>
+      <Action name="lspclient_find_definition"/>
+    </Menu>
+  </MenuBar>
+  <Menu name="ktexteditor_popup" noMerge="1">
+    <Action name="popup_lspclient"/>
+  </Menu>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

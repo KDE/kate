@@ -5,7 +5,7 @@ version=1
 
 [Tool 0]
 actionName=externaltool_RunShellScript
-arguments=-e sh -c "cd %{CurrentDocument:Path} && pwd && chmod -vc a+x %{CurrentDocument:FileName} && ./%{CurrentDocument:FileName} ; echo Press any key to continue. && read -n 1"
+arguments=-e sh -c "cd %{Document:Path} && pwd && chmod -vc a+x %{Document:FileName} && ./%{Document:FileName} ; echo Press any key to continue. && read -n 1"
 category=
 cmdname=run-script
 executable=konsole
@@ -16,11 +16,11 @@ name=Run Shell Script
 output=Ignore
 reload=false
 save=CurrentDocument
-workingDir=%{CurrentDocument:Path}
+workingDir=%{Document:Path}
 
 [Tool 1]
 actionName=externaltool_GoogleSelectedText
-arguments="https://www.google.com/search?q=%{CurrentDocument:Selection:Text}"
+arguments="https://www.google.com/search?q=%{Document:Selection:Text}"
 category=
 cmdname=google
 executable=xdg-open
@@ -40,7 +40,7 @@ category=Tools
 cmdname=external-tool-test
 executable=tac
 icon=
-input=CurrentDocument:FileBaseName: %{CurrentDocument:FileBaseName}\nCurrentDocument:FileName: %{CurrentDocument:FileName}\nCurrentDocument:FilePath: %{CurrentDocument:FilePath}\nCurrentDocument:FileExtension: %{CurrentDocument:FileExtension}\nCurrentDocument:Text: %{CurrentDocument:Text}\nCurrentDocument:Path: %{CurrentDocument:Path}\nCurrentDocument:NativeFilePath: %{CurrentDocument:NativeFilePath}\nCurrentDocument:NativePath: %{CurrentDocument:NativePath}\nCurrentDocument:Cursor:Line: %{CurrentDocument:Cursor:Line}\nCurrentDocument:Cursor:Column: %{CurrentDocument:Cursor:Column}\nCurrentDocument:Cursor:XPos: %{CurrentDocument:Cursor:XPos}\nCurrentDocument:Cursor:YPos: %{CurrentDocument:Cursor:YPos}\nCurrentDocument:Selection:Text: %{CurrentDocument:Selection:Text}\nCurrentDocument:Selection:StartLine: %{CurrentDocument:Selection:StartLine}\nCurrentDocument:Selection:StartColumn: %{CurrentDocument:Selection:StartColumn}\nCurrentDocument:Selection:EndLine: %{CurrentDocument:Selection:EndLine}\nCurrentDocument:Selection:EndColumn: %{CurrentDocument:Selection:EndColumn}\nCurrentDocument:RowCount: %{CurrentDocument:RowCount}\nDate:dd.MM.yyyy: %{Date:dd.MM.yyyy}\nDate:Locale: %{Date:Locale}\nDate:ISO: %{Date:ISO}\nTime:hh:mm:ss.zzz: %{Time:hh:mm:ss.zzz}\nTime:Locale: %{Time:Locale}\nTime:ISO: %{Time:ISO}\nENV:KATE_PID: %{ENV:KATE_PID}\nUUID: %{UUID}\n
+input=Document:FileBaseName: %{Document:FileBaseName}\nDocument:FileName: %{Document:FileName}\nDocument:FilePath: %{Document:FilePath}\nDocument:FileExtension: %{Document:FileExtension}\nDocument:Text: %{Document:Text}\nDocument:Path: %{Document:Path}\nDocument:NativeFilePath: %{Document:NativeFilePath}\nDocument:NativePath: %{Document:NativePath}\nDocument:Cursor:Line: %{Document:Cursor:Line}\nDocument:Cursor:Column: %{Document:Cursor:Column}\nDocument:Cursor:XPos: %{Document:Cursor:XPos}\nDocument:Cursor:YPos: %{Document:Cursor:YPos}\nDocument:Selection:Text: %{Document:Selection:Text}\nDocument:Selection:StartLine: %{Document:Selection:StartLine}\nDocument:Selection:StartColumn: %{Document:Selection:StartColumn}\nDocument:Selection:EndLine: %{Document:Selection:EndLine}\nDocument:Selection:EndColumn: %{CurrentDocument:Selection:EndColumn}\nDocument:RowCount: %{CurrentDocument:RowCount}\nDate:dd.MM.yyyy: %{Date:dd.MM.yyyy}\nDate:Locale: %{Date:Locale}\nDate:ISO: %{Date:ISO}\nTime:hh:mm:ss.zzz: %{Time:hh:mm:ss.zzz}\nTime:Locale: %{Time:Locale}\nTime:ISO: %{Time:ISO}\nENV:KATE_PID: %{ENV:KATE_PID}\nUUID: %{UUID}\n
 mimetypes=
 name=Test External Tools
 output=DisplayInPane
@@ -50,7 +50,7 @@ workingDir=
 
 [Tool 2]
 actionName=externaltool_gitcola
-arguments=-r %{CurrentDocument:Path}
+arguments=-r %{Document:Path}
 category=Git
 cmdname=git-cola
 executable=git-cola
@@ -76,11 +76,11 @@ name=gitk
 output=Ignore
 reload=false
 save=None
-workingDir=%{CurrentDocument:Path}
+workingDir=%{Document:Path}
 
 [Tool 4]
 actionName=externaltool_gitblame
-arguments=gui blame %{CurrentDocument:FileName}
+arguments=gui blame %{Document:FileName}
 category=Git
 cmdname=git-blame
 executable=git
@@ -91,11 +91,11 @@ name=git blame
 output=Ignore
 reload=false
 save=CurrentDocument
-workingDir=%{CurrentDocument:Path}
+workingDir=%{Document:Path}
 
 [Tool 5]
 actionName=externaltool_QtQuick2Previewqmlscene
-arguments=%{CurrentDocument:FileName}
+arguments=%{Document:FileName}
 category=Tools
 cmdname=qml-preview
 executable=qmlscene
@@ -106,7 +106,7 @@ name=Qt Quick 2 Preview (qmlscene)
 output=Ignore
 reload=false
 save=CurrentDocument
-workingDir=%{CurrentDocument:Path}
+workingDir=%{Document:Path}
 
 [Tool 6]
 actionName=externaltool_InsertUUID
@@ -125,7 +125,7 @@ workingDir=
 
 [Tool 7]
 actionName=externaltool_ClangFormatFullFile
-arguments=-i %{CurrentDocument:FileName}
+arguments=-i %{Document:FileName}
 category=Tools
 cmdname=clang-format-file
 executable=clang-format
@@ -136,22 +136,22 @@ name=Clang Format Full File
 output=Ignore
 reload=true
 save=CurrentDocument
-workingDir=%{CurrentDocument:Path}
+workingDir=%{Document:Path}
 
 [Tool 8]
 actionName=externaltool_ClangFormatSelectedText
-arguments=-assume-filename=%{CurrentDocument:FileName}
+arguments=-assume-filename=%{Document:FileName}
 category=Tools
 cmdname=clang-format-selection
 executable=clang-format
 icon=
-input=\s%{CurrentDocument:Selection:Text}
+input=\s%{Document:Selection:Text}
 mimetypes=
 name=Clang Format Selected Text
 output=ReplaceSelectedText
 reload=false
 save=None
-workingDir=%{CurrentDocument:Path}
+workingDir=%{Document:Path}
 
 [Tool 9]
 actionName=externaltool_perl

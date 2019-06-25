@@ -5,6 +5,8 @@
     <Menu name="LSPClient Menubar">
       <text>LSP Client</text>
       <Action name="lspclient_find_definition"/>
+      <Action name="lspclient_find_declaration"/>
+      <Action name="lspclient_find_references"/>
     </Menu>
   </MenuBar>
   <Menu name="ktexteditor_popup" noMerge="1">

@@ -57,6 +57,10 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QScopedPointer<LSPClientCompletion> m_completion;
     QScopedPointer<QObject> m_symbolView;
 
+    QPointer<QAction> m_findDef;
+    QPointer<QAction> m_findDecl;
+    QPointer<QAction> m_findRef;
+
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
     // outstanding request
@@ -77,13 +81,19 @@ public:
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
         connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, &self_type::updateState);
 
-        auto a = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
-        a->setText(i18n("Go to Definition"));
+        m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
+        m_findDef->setText(i18n("Go to Definition"));
+        m_findDecl = actionCollection()->addAction(QStringLiteral("lspclient_find_declaration"), this, &self_type::goToDeclaration);
+        m_findDecl->setText(i18n("Go to Declaration"));
+        m_findRef = actionCollection()->addAction(QStringLiteral("lspclient_find_references"), this, &self_type::findReferences);
+        m_findRef->setText(i18n("Find References"));
 
         // popup menu
         auto menu = new KActionMenu(i18n("LSP Client"), this);
         actionCollection()->addAction(QStringLiteral("popup_lspclient"), menu);
-        menu->addAction(a);
+        menu->addAction(m_findDef);
+        menu->addAction(m_findDecl);
+        menu->addAction(m_findRef);
 
         updateState();
 
@@ -136,17 +146,34 @@ public:
             {cursor.line(), cursor.column()}, this, h);
     }
 
+    void goToDeclaration()
+    {
+    }
+
+    void findReferences()
+    {
+    }
+
     void updateState()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
+        bool defEnabled = false, declEnabled = false, refEnabled = false;
 
-        auto a = actionCollection()->action(QStringLiteral("lspclient_find_definition"));
-        if (a) {
-            bool enable = !!server;
-            a->setEnabled(enable);
-            a->setVisible(enable);
+        if (server) {
+            const auto& caps = server->capabilities();
+            defEnabled = caps.definitionProvider;
+            // TODO enable when implemented
+            declEnabled = caps.declarationProvider && false;
+            refEnabled = caps.referencesProvider && false;
         }
+
+        if (m_findDef)
+            m_findDef->setEnabled(defEnabled);
+        if (m_findDecl)
+            m_findDecl->setEnabled(declEnabled);
+        if (m_findRef)
+            m_findRef->setEnabled(refEnabled);
 
         // update completion with relevant server
         m_completion->setServer(server);
@@ -169,7 +196,7 @@ public:
             return;
         }
 
-        if (!registered && server) {
+        if (!registered && server && server->capabilities().completionProvider.provider) {
             qCInfo(LSPCLIENT) << "registering cci";
             cci->registerCompletionModel(m_completion.get());
             m_completionViews.insert(view);

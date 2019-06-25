@@ -24,6 +24,7 @@
 #include <QString>
 #include <QUrl>
 #include <QList>
+#include <QVector>
 #include <QPointer>
 
 #include <functional>
@@ -48,6 +49,38 @@ mem_fun(R (T::*pm)(Args ...) const, Tp object)
   };
 }
 
+enum class LSPDocumentSyncKind
+{
+    None = 0,
+    Full = 1,
+    Incremental = 2
+};
+
+struct LSPCompletionOptions
+{
+    bool provider = false;
+    bool resolveProvider = false;
+    QVector<QChar> triggerCharacters;
+};
+
+struct LSPSignatureHelpOptions
+{
+    bool provider = false;
+    QVector<QChar> triggerCharacters;
+};
+
+struct LSPServerCapabilities
+{
+    LSPDocumentSyncKind textDocumentSync = LSPDocumentSyncKind::None;
+    bool hoverProvider = false;
+    LSPCompletionOptions completionProvider;
+    LSPSignatureHelpOptions signatureHelpProvider;
+    bool definitionProvider = false;
+    // FIXME ? clangd unofficial extension
+    bool declarationProvider = false;
+    bool referencesProvider = false;
+    bool documentSymbolProvider = false;
+};
 
 struct LSPPosition
 {
@@ -183,15 +216,19 @@ public:
     void stop(int to_term_ms, int to_kill_ms);
     int cancel(int id);
 
+    // properties
     State state() const;
     Q_SIGNAL void stateChanged();
 
+    const LSPServerCapabilities& capabilities() const;
+
     // language
-    RequestHandle documentSymbols(const QUrl & document, const DocumentSymbolsReplyHandler & h);
+    RequestHandle documentSymbols(const QUrl & document, const QObject *context,
+        const DocumentSymbolsReplyHandler & h);
     RequestHandle documentDefinition(const QUrl & document, const LSPPosition & pos,
-        const DocumentDefinitionReplyHandler & h);
+        const QObject *context, const DocumentDefinitionReplyHandler & h);
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
-        const DocumentCompletionReplyHandler & h);
+        const QObject *context, const DocumentCompletionReplyHandler & h);
 
     // sync
     void didOpen(const QUrl & document, int version, const QString & text);

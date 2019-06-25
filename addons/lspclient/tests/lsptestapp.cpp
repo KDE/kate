@@ -39,7 +39,7 @@ int main(int argc, char ** argv)
         std::cout << "symbol count: " << syms.length() << std::endl;
         q.quit();
     };
-    lsp.documentSymbols(document, ds_h);
+    lsp.documentSymbols(document, &app, ds_h);
     q.exec();
 
     auto position = QString::fromLatin1(argv[4]).split(QStringLiteral(" "));
@@ -47,14 +47,14 @@ int main(int argc, char ** argv)
         std::cout << "definition count: " << defs.length() << std::endl;
         q.quit();
     };
-    lsp.documentDefinition(document, {position[0].toInt(), position[1].toInt()}, def_h);
+    lsp.documentDefinition(document, {position[0].toInt(), position[1].toInt()}, &app, def_h);
     q.exec();
 
     auto comp_h = [&q] (const QList<LSPCompletionItem> & completions) {
         std::cout << "completion count: " << completions.length() << std::endl;
         q.quit();
     };
-    lsp.documentCompletion(document, {position[0].toInt(), position[1].toInt()}, comp_h);
+    lsp.documentCompletion(document, {position[0].toInt(), position[1].toInt()}, &app, comp_h);
     q.exec();
 
     // lsp.didOpen(document, 0, QStringLiteral("blah"));

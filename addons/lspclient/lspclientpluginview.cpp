@@ -133,7 +133,7 @@ public:
         m_req_timeout = false;
         QTimer::singleShot(2000, this, [this] { m_req_timeout = true; });
         m_handle.cancel() = server->documentDefinition(activeView->document()->url(),
-            {cursor.line(), cursor.column()}, h);
+            {cursor.line(), cursor.column()}, this, h);
     }
 
     void updateState()

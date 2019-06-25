@@ -202,7 +202,7 @@ public:
             auto cursor = qMax(range.start(), qMin(range.end(), position));
             m_manager->update(document);
             m_handle = m_server->documentCompletion(document->url(),
-                {cursor.line(), cursor.column()}, handler);
+                {cursor.line(), cursor.column()}, this, handler);
         }
         setRowCount(m_matches.size());
         endResetModel();

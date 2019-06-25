@@ -285,7 +285,8 @@ public:
         auto view = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(view);
         if (server) {
-            server->documentSymbols(view->document()->url(), mem_fun(&self_type::onDocumentSymbols, this));
+            server->documentSymbols(view->document()->url(), this,
+                mem_fun(&self_type::onDocumentSymbols, this));
         } else if (m_symbols) {
             m_symbols->clear();
             QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);

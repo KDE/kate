@@ -47,6 +47,9 @@ static QString MEMBER_CHARACTER = QStringLiteral("character");
 static QString MEMBER_KIND = QStringLiteral("kind");
 static QString MEMBER_TEXT = QStringLiteral("text");
 static QString MEMBER_LANGID = QStringLiteral("languageId");
+static QString MEMBER_LABEL = QStringLiteral("label");
+static QString MEMBER_DOCUMENTATION = QStringLiteral("documentation");
+static QString MEMBER_DETAIL = QStringLiteral("detail");
 
 static const int TIMEOUT_SHUTDOWN = 200;
 
@@ -440,6 +443,13 @@ public:
         return send(init_request(QStringLiteral("textDocument/completion"), params), h);
     }
 
+    RequestHandle signatureHelp(const QUrl & document, const LSPPosition & pos,
+        const GenericReplyHandler & h)
+    {
+        auto params = textDocumentPositionParams(document, pos);
+        return send(init_request(QStringLiteral("textDocument/signatureHelp"), params), h);
+    }
+
     void didOpen(const QUrl & document, int version, const QString & text)
     {
         auto params = textDocumentParams(textDocumentItem(document, QString(), text, version));
@@ -526,7 +536,7 @@ parseDocumentSymbols(const QJsonValue & result)
         }
         auto list = parent ? &parent->children : &ret;
         auto name = symbol.value(QStringLiteral("name")).toString();
-        auto kind = (LSPSymbolKind) symbol.value(QStringLiteral("kind")).toInt();
+        auto kind = (LSPSymbolKind) symbol.value(MEMBER_KIND).toInt();
         const auto& location = symbol.value(MEMBER_LOCATION).toObject();
         const auto& range = symbol.contains(MEMBER_RANGE) ?
                     symbol.value(MEMBER_RANGE).toObject() : location.value(MEMBER_RANGE).toObject();
@@ -548,7 +558,7 @@ parseDocumentSymbols(const QJsonValue & result)
 }
 
 
-QList<LSPDocumentPosition>
+static QList<LSPDocumentPosition>
 parseDocumentDefinition(const QJsonValue & result)
 {
     QList<LSPDocumentPosition> ret;
@@ -565,7 +575,7 @@ parseDocumentDefinition(const QJsonValue & result)
 }
 
 
-QList<LSPCompletionItem>
+static QList<LSPCompletionItem>
 parseDocumentCompletion(const QJsonValue & result)
 {
     QList<LSPCompletionItem> ret;
@@ -576,14 +586,65 @@ parseDocumentCompletion(const QJsonValue & result)
     }
     for (const auto & vitem : items) {
         const auto & item = vitem.toObject();
-        auto label = item.value(QStringLiteral("label")).toString();
-        auto detail = item.value(QStringLiteral("detail")).toString();
-        auto doc = item.value(QStringLiteral("documentation")).toString();
+        auto label = item.value(MEMBER_LABEL).toString();
+        auto detail = item.value(MEMBER_DETAIL).toString();
+        auto doc = parseMarkupContent(item.value(MEMBER_DOCUMENTATION));
         auto sortText = item.value(QStringLiteral("sortText")).toString();
         auto insertText = item.value(QStringLiteral("insertText")).toString();
-        auto kind = (LSPCompletionItemKind) item.value(QStringLiteral("kind")).toInt();
+        auto kind = (LSPCompletionItemKind) item.value(MEMBER_KIND).toInt();
         ret.push_back({label, kind, detail, doc, sortText, insertText});
     }
+    return ret;
+}
+
+static LSPSignatureInformation
+parseSignatureInformation(const QJsonObject & json)
+{
+    LSPSignatureInformation info;
+
+    info.label = json.value(MEMBER_LABEL).toString();
+    info.documentation = parseMarkupContent(json.value(MEMBER_DOCUMENTATION));
+    for (const auto & rpar : json.value(QStringLiteral("parameters")).toArray()) {
+        auto par = rpar.toObject();
+        auto label = par.value(MEMBER_LABEL);
+        int begin = -1, end = -1;
+        if (label.isArray()) {
+            auto range = label.toArray();
+            if (range.size() == 2) {
+                begin = range.at(0).toInt(-1);
+                end = range.at(1).toInt(-1);
+                if (begin > info.label.length())
+                    begin = -1;
+                if (end > info.label.length())
+                    end = -1;
+            }
+        } else {
+            auto sub = label.toString();
+            if (sub.length()) {
+                begin = info.label.indexOf(sub);
+                if (begin >= 0) {
+                    end = begin + sub.length();
+                }
+            }
+        }
+        info.parameters.push_back({begin, end});
+    }
+    return info;
+}
+
+static LSPSignatureHelp
+parseSignatureHelp(const QJsonValue & result)
+{
+    LSPSignatureHelp ret;
+    QJsonObject sig = result.toObject();
+
+    for (const auto & info: sig.value(QStringLiteral("signatures")).toArray()) {
+        ret.signatures.push_back(parseSignatureInformation(info.toObject()));
+    }
+    ret.activeSignature = sig.value(QStringLiteral("activeSignature")).toInt(0);
+    ret.activeParameter = sig.value(QStringLiteral("activeParameter")).toInt(0);
+    ret.activeSignature = qMin(qMax(ret.activeSignature, 0), ret.signatures.size());
+    ret.activeParameter = qMin(qMax(ret.activeParameter, 0), ret.signatures.size());
     return ret;
 }
 
@@ -641,6 +702,11 @@ LSPClientServer::RequestHandle
 LSPClientServer::documentCompletion(const QUrl & document, const LSPPosition & pos,
     const QObject *context, const DocumentCompletionReplyHandler & h)
 { return d->documentCompletion(document, pos, make_handler(h, context, parseDocumentCompletion)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::signatureHelp(const QUrl & document, const LSPPosition & pos,
+    const QObject *context, const SignatureHelpReplyHandler & h)
+{ return d->signatureHelp(document, pos, make_handler(h, context, parseSignatureHelp)); }
 
 void LSPClientServer::didOpen(const QUrl & document, int version, const QString & text)
 { return d->didOpen(document, version, text); }

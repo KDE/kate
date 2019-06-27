@@ -178,10 +178,33 @@ struct LSPCompletionItem
     QString label;
     LSPCompletionItemKind kind;
     QString detail;
-    QString documentation;
+    LSPMarkupContent documentation;
     QString sortText;
     QString insertText;
 };
+
+struct LSPParameterInformation
+{
+    // offsets into overall signature label
+    // (-1 if invalid)
+    int start;
+    int end;
+};
+
+struct LSPSignatureInformation
+{
+    QString label;
+    LSPMarkupContent documentation;
+    QList<LSPParameterInformation> parameters;
+};
+
+struct LSPSignatureHelp
+{
+    QList<LSPSignatureInformation> signatures;
+    int activeSignature;
+    int activeParameter;
+};
+
 
 template<typename T>
 using ReplyHandler = std::function<void(const T &)>;
@@ -189,6 +212,7 @@ using ReplyHandler = std::function<void(const T &)>;
 using DocumentSymbolsReplyHandler = ReplyHandler<QList<LSPSymbolInformation>>;
 using DocumentDefinitionReplyHandler = ReplyHandler<QList<LSPDocumentPosition>>;
 using DocumentCompletionReplyHandler = ReplyHandler<QList<LSPCompletionItem>>;
+using SignatureHelpReplyHandler = ReplyHandler<LSPSignatureHelp>;
 
 class LSPClientServer : public QObject
 {
@@ -242,6 +266,8 @@ public:
         const QObject *context, const DocumentDefinitionReplyHandler & h);
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const DocumentCompletionReplyHandler & h);
+    RequestHandle signatureHelp(const QUrl & document, const LSPPosition & pos,
+        const QObject *context, const SignatureHelpReplyHandler & h);
 
     // sync
     void didOpen(const QUrl & document, int version, const QString & text);

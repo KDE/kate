@@ -77,6 +77,13 @@ int main(int argc, char ** argv)
     lsp.documentCompletion(document, {position[0].toInt(), position[1].toInt()}, &app, comp_h);
     q.exec();
 
+    auto sig_h = [&q] (const LSPSignatureHelp & help) {
+        std::cout << "signature help count: " << help.signatures.length() << std::endl;
+        q.quit();
+    };
+    lsp.signatureHelp(document, {position[0].toInt(), position[1].toInt()}, &app, sig_h);
+    q.exec();
+
     // lsp.didOpen(document, 0, QStringLiteral("blah"));
     lsp.didChange(document, 1, QStringLiteral("foo"));
     lsp.didClose(document);

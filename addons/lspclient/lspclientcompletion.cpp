@@ -57,7 +57,8 @@ kind_icon(LSPCompletionItemKind kind)
         RETURN_CACHED_ICON("code-block");
     case LSPCompletionItemKind::Field:
     case LSPCompletionItemKind::Property:
-        RETURN_CACHED_ICON("field");
+        // align with symbolview
+        RETURN_CACHED_ICON("code-variable");
     case LSPCompletionItemKind::Enum:
     case LSPCompletionItemKind::EnumMember:
         RETURN_CACHED_ICON("enum");

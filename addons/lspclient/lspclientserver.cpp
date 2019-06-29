@@ -443,6 +443,13 @@ public:
         return send(init_request(QStringLiteral("textDocument/declaration"), params), h);
     }
 
+    RequestHandle documentHover(const QUrl & document, const LSPPosition & pos,
+        const GenericReplyHandler & h)
+    {
+        auto params = textDocumentPositionParams(document, pos);
+        return send(init_request(QStringLiteral("textDocument/hover"), params), h);
+    }
+
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
         const GenericReplyHandler & h)
     {
@@ -532,6 +539,32 @@ parseLocation(const QJsonObject & loc)
     auto uri = loc.value(MEMBER_URI).toString();
     auto range = parseRange(loc.value(MEMBER_RANGE).toObject());
     return {QUrl(uri), range};
+}
+
+static LSPHover
+parseHover(const QJsonValue & result)
+{
+    LSPHover ret;
+    auto hover = result.toObject();
+    // normalize content which can be of many forms
+    ret.range = parseRange(hover.value(MEMBER_RANGE).toObject());
+    auto contents = hover.value(QStringLiteral("contents"));
+    if (contents.isString()) {
+        ret.contents.value = contents.toString();
+    } else {
+        // should be object, pretend so
+        auto cont = contents.toObject();
+        auto text = cont.value(QStringLiteral("value")).toString();
+        if (text.isEmpty()) {
+            // nothing to lose, try markdown
+            ret.contents = parseMarkupContent(contents);
+        } else {
+            ret.contents.value = text;
+        }
+    }
+    if (ret.contents.value.length())
+        ret.contents.kind = LSPMarkupKind::PlainText;
+    return ret;
 }
 
 static QList<LSPSymbolInformation>
@@ -720,6 +753,11 @@ LSPClientServer::RequestHandle
 LSPClientServer::documentDeclaration(const QUrl & document, const LSPPosition & pos,
     const QObject *context, const DocumentDefinitionReplyHandler & h)
 { return d->documentDeclaration(document, pos, make_handler(h, context, parseDocumentLocation)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentHover(const QUrl & document, const LSPPosition & pos,
+    const QObject *context, const DocumentHoverReplyHandler & h)
+{ return d->documentHover(document, pos, make_handler(h, context, parseHover)); }
 
 LSPClientServer::RequestHandle
 LSPClientServer::documentCompletion(const QUrl & document, const LSPPosition & pos,

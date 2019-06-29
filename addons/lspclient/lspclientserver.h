@@ -115,6 +115,12 @@ struct LSPLocation
     LSPRange range;
 };
 
+struct LSPHover
+{
+    LSPMarkupContent contents;
+    LSPRange range;
+};
+
 enum class LSPSymbolKind {
     File = 1,
     Module = 2,
@@ -216,6 +222,7 @@ using ReplyHandler = std::function<void(const T &)>;
 
 using DocumentSymbolsReplyHandler = ReplyHandler<QList<LSPSymbolInformation>>;
 using DocumentDefinitionReplyHandler = ReplyHandler<QList<LSPLocation>>;
+using DocumentHoverReplyHandler = ReplyHandler<LSPHover>;
 using DocumentCompletionReplyHandler = ReplyHandler<QList<LSPCompletionItem>>;
 using SignatureHelpReplyHandler = ReplyHandler<LSPSignatureHelp>;
 
@@ -271,6 +278,8 @@ public:
         const QObject *context, const DocumentDefinitionReplyHandler & h);
     RequestHandle documentDeclaration(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const DocumentDefinitionReplyHandler & h);
+    RequestHandle documentHover(const QUrl & document, const LSPPosition & pos,
+        const QObject *context, const DocumentHoverReplyHandler & h);
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const DocumentCompletionReplyHandler & h);
     RequestHandle signatureHelp(const QUrl & document, const LSPPosition & pos,

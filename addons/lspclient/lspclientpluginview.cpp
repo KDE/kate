@@ -36,6 +36,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
+#include <KTextEditor/Message>
 #include <KXMLGUIClient>
 
 #include <QHBoxLayout>
@@ -60,6 +61,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_findDef;
     QPointer<QAction> m_findDecl;
     QPointer<QAction> m_findRef;
+    QPointer<QAction> m_hover;
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
@@ -87,6 +89,10 @@ public:
         m_findDecl->setText(i18n("Go to Declaration"));
         m_findRef = actionCollection()->addAction(QStringLiteral("lspclient_find_references"), this, &self_type::findReferences);
         m_findRef->setText(i18n("Find References"));
+        // perhaps hover suggests to do so on mouse-over,
+        // but let's just use a (convenient) action/shortcut for it
+        m_hover = actionCollection()->addAction(QStringLiteral("lspclient_hover"), this, &self_type::hover);
+        m_hover->setText(i18n("Hover"));
 
         // popup menu
         auto menu = new KActionMenu(i18n("LSP Client"), this);
@@ -94,6 +100,7 @@ public:
         menu->addAction(m_findDef);
         menu->addAction(m_findDecl);
         menu->addAction(m_findRef);
+        menu->addAction(m_hover);
 
         updateState();
 
@@ -105,19 +112,35 @@ public:
         m_mainWindow->guiFactory()->removeClient(this);
     }
 
-    typedef std::function<LSPClientServer::RequestHandle(LSPClientServer &,
+    template<typename Handler>
+    using LocationRequest = std::function<LSPClientServer::RequestHandle(LSPClientServer &,
         const QUrl & document, const LSPPosition & pos,
-        const QObject *context, const DocumentDefinitionReplyHandler & h)> LocationRequest;
+        const QObject *context, const Handler & h)>;
 
-    void goToLocation(const LocationRequest & req)
+    template<typename Handler>
+    void positionRequest(const LocationRequest<Handler> & req, const Handler & h)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
         if (!server)
             return;
 
+        KTextEditor::Cursor cursor = activeView->cursorPosition();
+
+        m_req_timeout = false;
+        QTimer::singleShot(2000, this, [this] { m_req_timeout = true; });
+        m_handle.cancel() = req(*server, activeView->document()->url(),
+            {cursor.line(), cursor.column()}, this, h);
+    }
+
+    void goToLocation(const LocationRequest<DocumentDefinitionReplyHandler> & req)
+    {
         auto h = [this] (const QList<LSPLocation> & defs)
         {
+            // TODO add another (bottom) view to display definitions
+            // in case too late or multiple ones have been found
+            // (also adjust timeout then ...)
+
             if (defs.count()) {
                 auto &def = defs.at(0);
                 auto &pos = def.range.start;
@@ -139,16 +162,8 @@ public:
                 }
             }
         };
-        // TODO add another (bottom) view to display definitions
-        // in case too late or multiple ones have been found
-        // (also odjust timeout below then ...)
 
-        KTextEditor::Cursor cursor = activeView->cursorPosition();
-
-        m_req_timeout = false;
-        QTimer::singleShot(2000, this, [this] { m_req_timeout = true; });
-        m_handle.cancel() = req(*server, activeView->document()->url(),
-            {cursor.line(), cursor.column()}, this, h);
+        positionRequest<DocumentDefinitionReplyHandler>(req, h);
     }
 
     void goToDefinition()
@@ -165,11 +180,31 @@ public:
     {
     }
 
+    void hover()
+    {
+        auto h = [this] (const LSPHover & info)
+        {
+            KTextEditor::View *view = m_mainWindow->activeView();
+            if (!view || !view->document()) return;
+
+            // TODO ?? also indicate range in some way ??
+            auto text = info.contents.value.length() ? info.contents.value : i18n("No Hover Info");
+            auto msg = new KTextEditor::Message(text, KTextEditor::Message::Information);
+            //msg->setWordWrap(true);
+            msg->setPosition(KTextEditor::Message::BottomInView);
+            msg->setAutoHide(500);
+            msg->setView(view);
+            view->document()->postMessage(msg);
+        };
+
+        positionRequest<DocumentHoverReplyHandler>(&LSPClientServer::documentHover, h);
+    }
+
     void updateState()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
-        bool defEnabled = false, declEnabled = false, refEnabled = false;
+        bool defEnabled = false, declEnabled = false, refEnabled = false, hoverEnabled = false;
 
         if (server) {
             const auto& caps = server->capabilities();
@@ -178,6 +213,7 @@ public:
             declEnabled = caps.declarationProvider || true;
             // TODO enable when implemented
             refEnabled = caps.referencesProvider && false;
+            hoverEnabled = caps.hoverProvider;
         }
 
         if (m_findDef)
@@ -186,6 +222,8 @@ public:
             m_findDecl->setEnabled(declEnabled);
         if (m_findRef)
             m_findRef->setEnabled(refEnabled);
+        if (m_hover)
+            m_hover->setEnabled(hoverEnabled);
 
         // update completion with relevant server
         m_completion->setServer(server);

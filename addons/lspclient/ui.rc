@@ -7,6 +7,7 @@
       <Action name="lspclient_find_definition"/>
       <Action name="lspclient_find_declaration"/>
       <Action name="lspclient_find_references"/>
+      <Action name="lspclient_hover"/>
     </Menu>
   </MenuBar>
   <Menu name="ktexteditor_popup" noMerge="1">

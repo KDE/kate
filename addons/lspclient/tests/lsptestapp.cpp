@@ -84,6 +84,13 @@ int main(int argc, char ** argv)
     lsp.signatureHelp(document, {position[0].toInt(), position[1].toInt()}, &app, sig_h);
     q.exec();
 
+    auto hover_h = [&q] (const LSPHover & hover) {
+        std::cout << "hover: " << hover.contents.value.toStdString() << std::endl;
+        q.quit();
+    };
+    lsp.documentHover(document, {position[0].toInt(), position[1].toInt()}, &app, hover_h);
+    q.exec();
+
     // lsp.didOpen(document, 0, QStringLiteral("blah"));
     lsp.didChange(document, 1, QStringLiteral("foo"));
     lsp.didClose(document);

@@ -240,8 +240,8 @@ public:
             auto detail = show_detail ? symbol.detail : QStringLiteral("");
             node->setText(0, symbol.name + detail);
             node->setIcon(0, *icon);
-            node->setText(1, QString::number(symbol.start.line, 10));
-            node->setText(2, QString::number(symbol.end.line, 10));
+            node->setText(1, QString::number(symbol.range.start.line, 10));
+            node->setText(2, QString::number(symbol.range.end.line, 10));
             // recurse children
             makeNodes(symbol.children, tree, show_detail, widget, node, details);
         }

@@ -112,17 +112,18 @@ public:
         if (!server)
             return;
 
-        auto h = [this] (const QList<LSPDocumentPosition> & defs)
+        auto h = [this] (const QList<LSPLocation> & defs)
         {
             if (defs.count()) {
                 auto &def = defs.at(0);
+                auto &pos = def.range.start;
 
                 KTextEditor::View *activeView = m_mainWindow->activeView();
                 // it's not nice to jump to some location if we are too late
-                if (!activeView || m_req_timeout)
+                if (!activeView || m_req_timeout || pos.line < 0 || pos.column < 0)
                     return;
                 KTextEditor::Document *document = activeView->document();
-                KTextEditor::Cursor cdef(def.position.line, def.position.column);
+                KTextEditor::Cursor cdef(pos.line, pos.column);
 
                 if (document && def.uri == document->url()) {
                     activeView->setCursorPosition(cdef);

@@ -98,14 +98,21 @@ struct LSPMarkupContent
 struct LSPPosition
 {
     // both are 0-based
+    // (negative if optional/non-present)
     int line;
     int column;
 };
 
-struct LSPDocumentPosition
+struct LSPRange
+{
+    LSPPosition start;
+    LSPPosition end;
+};
+
+struct LSPLocation
 {
     QUrl uri;
-    LSPPosition position;
+    LSPRange range;
 };
 
 enum class LSPSymbolKind {
@@ -132,15 +139,13 @@ enum class LSPSymbolKind {
 struct LSPSymbolInformation
 {
     LSPSymbolInformation(const QString & _name, LSPSymbolKind _kind,
-                         LSPPosition _start, LSPPosition _end,
-                         const QString & _detail = QString())
-        : name(_name), detail(_detail), kind(_kind), start(_start), end(_end)
+                         LSPRange _range, const QString & _detail = QString())
+        : name(_name), detail(_detail), kind(_kind), range(_range)
     {}
     QString name;
     QString detail;
     LSPSymbolKind kind;
-    LSPPosition start;
-    LSPPosition end;
+    LSPRange range;
     QList<LSPSymbolInformation> children;
 };
 
@@ -210,7 +215,7 @@ template<typename T>
 using ReplyHandler = std::function<void(const T &)>;
 
 using DocumentSymbolsReplyHandler = ReplyHandler<QList<LSPSymbolInformation>>;
-using DocumentDefinitionReplyHandler = ReplyHandler<QList<LSPDocumentPosition>>;
+using DocumentDefinitionReplyHandler = ReplyHandler<QList<LSPLocation>>;
 using DocumentCompletionReplyHandler = ReplyHandler<QList<LSPCompletionItem>>;
 using SignatureHelpReplyHandler = ReplyHandler<LSPSignatureHelp>;
 

@@ -63,7 +63,7 @@ int main(int argc, char ** argv)
     q.exec();
 
     auto position = QString::fromLatin1(argv[4]).split(QStringLiteral(" "));
-    auto def_h = [&q] (const QList<LSPDocumentPosition> & defs) {
+    auto def_h = [&q] (const QList<LSPLocation> & defs) {
         std::cout << "definition count: " << defs.length() << std::endl;
         q.quit();
     };

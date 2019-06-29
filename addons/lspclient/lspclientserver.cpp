@@ -502,16 +502,30 @@ parseMarkupContent(const QJsonValue & v)
 static LSPPosition
 parsePosition(const QJsonObject & m)
 {
-    auto vline = m.value(MEMBER_LINE);
-    auto vcharacter = m.value(MEMBER_CHARACTER);
-    auto line = vline.toInt(-1);
-    auto column = vcharacter.toInt(-1);
+    auto line = m.value(MEMBER_LINE).toInt(-1);
+    auto column = m.value(MEMBER_CHARACTER).toInt(-1);
     return {line, column};
 }
 
 static bool
 isPositionValid(const LSPPosition & pos)
 { return pos.line >= 0 && pos.column >=0; }
+
+static LSPRange
+parseRange(const QJsonObject & range)
+{
+    auto startpos = parsePosition(range.value(MEMBER_START).toObject());
+    auto endpos = parsePosition(range.value(MEMBER_END).toObject());
+    return {startpos, endpos};
+}
+
+static LSPLocation
+parseLocation(const QJsonObject & loc)
+{
+    auto uri = loc.value(MEMBER_URI).toString();
+    auto range = parseRange(loc.value(MEMBER_RANGE).toObject());
+    return {QUrl(uri), range};
+}
 
 static QList<LSPSymbolInformation>
 parseDocumentSymbols(const QJsonValue & result)
@@ -538,12 +552,11 @@ parseDocumentSymbols(const QJsonValue & result)
         auto name = symbol.value(QStringLiteral("name")).toString();
         auto kind = (LSPSymbolKind) symbol.value(MEMBER_KIND).toInt();
         const auto& location = symbol.value(MEMBER_LOCATION).toObject();
-        const auto& range = symbol.contains(MEMBER_RANGE) ?
-                    symbol.value(MEMBER_RANGE).toObject() : location.value(MEMBER_RANGE).toObject();
-        auto startpos = parsePosition(range.value(MEMBER_START).toObject());
-        auto endpos = parsePosition(range.value(MEMBER_END).toObject());
-        if (isPositionValid(startpos) && isPositionValid(endpos)) {
-            list->push_back({name, kind, startpos, endpos});
+        const auto& mrange = symbol.contains(MEMBER_RANGE) ?
+                    symbol.value(MEMBER_RANGE) : location.value(MEMBER_RANGE);
+        auto range = parseRange(mrange.toObject());
+        if (isPositionValid(range.start) && isPositionValid(range.end)) {
+            list->push_back({name, kind, range});
             index[name] = &list->back();
             // proceed recursively
             for (const auto &child : symbol.value(QStringLiteral("children")).toArray())
@@ -557,23 +570,21 @@ parseDocumentSymbols(const QJsonValue & result)
     return ret;
 }
 
-
-static QList<LSPDocumentPosition>
-parseDocumentDefinition(const QJsonValue & result)
+static QList<LSPLocation>
+parseDocumentLocation(const QJsonValue & result)
 {
-    QList<LSPDocumentPosition> ret;
-    for (const auto & def : result.toArray()) {
-        const auto & mdef = def.toObject();
-        auto uri = mdef.value(MEMBER_URI).toString();
-        const auto& range = mdef.value(MEMBER_RANGE).toObject();
-        const auto& start = range.value(MEMBER_START).toObject();
-        auto startpos = parsePosition(start);
-        if (uri.length() > 0 && isPositionValid(startpos))
-            ret.push_back({QUrl(uri), startpos.line, startpos.column});
+    QList<LSPLocation> ret;
+    // could be array
+    if (result.isArray()) {
+        for (const auto & def : result.toArray()) {
+            ret.push_back(parseLocation(def.toObject()));
+        }
+    } else if (result.isObject()) {
+        // or a single value
+        ret.push_back(parseLocation(result.toObject()));
     }
     return ret;
 }
-
 
 static QList<LSPCompletionItem>
 parseDocumentCompletion(const QJsonValue & result)
@@ -696,7 +707,7 @@ LSPClientServer::documentSymbols(const QUrl & document, const QObject *context,
 LSPClientServer::RequestHandle
 LSPClientServer::documentDefinition(const QUrl & document, const LSPPosition & pos,
     const QObject *context, const DocumentDefinitionReplyHandler & h)
-{ return d->documentDefinition(document, pos, make_handler(h, context, parseDocumentDefinition)); }
+{ return d->documentDefinition(document, pos, make_handler(h, context, parseDocumentLocation)); }
 
 LSPClientServer::RequestHandle
 LSPClientServer::documentCompletion(const QUrl & document, const LSPPosition & pos,

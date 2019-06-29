@@ -105,7 +105,11 @@ public:
         m_mainWindow->guiFactory()->removeClient(this);
     }
 
-    void goToDefinition()
+    typedef std::function<LSPClientServer::RequestHandle(LSPClientServer &,
+        const QUrl & document, const LSPPosition & pos,
+        const QObject *context, const DocumentDefinitionReplyHandler & h)> LocationRequest;
+
+    void goToLocation(const LocationRequest & req)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
@@ -143,12 +147,18 @@ public:
 
         m_req_timeout = false;
         QTimer::singleShot(2000, this, [this] { m_req_timeout = true; });
-        m_handle.cancel() = server->documentDefinition(activeView->document()->url(),
+        m_handle.cancel() = req(*server, activeView->document()->url(),
             {cursor.line(), cursor.column()}, this, h);
+    }
+
+    void goToDefinition()
+    {
+        goToLocation(&LSPClientServer::documentDefinition);
     }
 
     void goToDeclaration()
     {
+        goToLocation(&LSPClientServer::documentDeclaration);
     }
 
     void findReferences()
@@ -164,8 +174,9 @@ public:
         if (server) {
             const auto& caps = server->capabilities();
             defEnabled = caps.definitionProvider;
+            // FIXME no real official protocol way to detect, so enable anyway
+            declEnabled = caps.declarationProvider || true;
             // TODO enable when implemented
-            declEnabled = caps.declarationProvider && false;
             refEnabled = caps.referencesProvider && false;
         }
 

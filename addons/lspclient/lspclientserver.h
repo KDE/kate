@@ -269,6 +269,8 @@ public:
         const DocumentSymbolsReplyHandler & h);
     RequestHandle documentDefinition(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const DocumentDefinitionReplyHandler & h);
+    RequestHandle documentDeclaration(const QUrl & document, const LSPPosition & pos,
+        const QObject *context, const DocumentDefinitionReplyHandler & h);
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const DocumentCompletionReplyHandler & h);
     RequestHandle signatureHelp(const QUrl & document, const LSPPosition & pos,

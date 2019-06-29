@@ -436,6 +436,13 @@ public:
         return send(init_request(QStringLiteral("textDocument/definition"), params), h);
     }
 
+    RequestHandle documentDeclaration(const QUrl & document, const LSPPosition & pos,
+        const GenericReplyHandler & h)
+    {
+        auto params = textDocumentPositionParams(document, pos);
+        return send(init_request(QStringLiteral("textDocument/declaration"), params), h);
+    }
+
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
         const GenericReplyHandler & h)
     {
@@ -708,6 +715,11 @@ LSPClientServer::RequestHandle
 LSPClientServer::documentDefinition(const QUrl & document, const LSPPosition & pos,
     const QObject *context, const DocumentDefinitionReplyHandler & h)
 { return d->documentDefinition(document, pos, make_handler(h, context, parseDocumentLocation)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentDeclaration(const QUrl & document, const LSPPosition & pos,
+    const QObject *context, const DocumentDefinitionReplyHandler & h)
+{ return d->documentDeclaration(document, pos, make_handler(h, context, parseDocumentLocation)); }
 
 LSPClientServer::RequestHandle
 LSPClientServer::documentCompletion(const QUrl & document, const LSPPosition & pos,

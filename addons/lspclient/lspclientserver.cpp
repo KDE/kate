@@ -44,6 +44,7 @@ static QString MEMBER_LOCATION = QStringLiteral("location");
 static QString MEMBER_RANGE = QStringLiteral("range");
 static QString MEMBER_LINE = QStringLiteral("line");
 static QString MEMBER_CHARACTER = QStringLiteral("character");
+static QString MEMBER_KIND = QStringLiteral("kind");
 static QString MEMBER_TEXT = QStringLiteral("text");
 static QString MEMBER_LANGID = QStringLiteral("languageId");
 
@@ -467,6 +468,26 @@ public:
         send(init_request(QStringLiteral("textDocument/didClose"), params));
     }
 };
+
+static LSPMarkupContent
+parseMarkupContent(const QJsonValue & v)
+{
+    LSPMarkupContent ret;
+    if (v.isObject()) {
+        const auto& vm = v.toObject();
+        ret.value = vm.value(QStringLiteral("value")).toString();
+        auto kind = vm.value(MEMBER_KIND).toString();
+        if (kind == QStringLiteral("plaintext")) {
+            ret.kind = LSPMarkupKind::PlainText;
+        } else if (kind == QStringLiteral("markdown")) {
+            ret.kind = LSPMarkupKind::MarkDown;
+        }
+    } else if (v.isString()) {
+        ret.kind = LSPMarkupKind::PlainText;
+        ret.value = v.toString();
+    }
+    return ret;
+}
 
 static LSPPosition
 parsePosition(const QJsonObject & m)

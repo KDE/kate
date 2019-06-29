@@ -82,6 +82,19 @@ struct LSPServerCapabilities
     bool documentSymbolProvider = false;
 };
 
+enum class LSPMarkupKind
+{
+    None = 0,
+    PlainText = 1,
+    MarkDown = 2
+};
+
+struct LSPMarkupContent
+{
+    LSPMarkupKind kind = LSPMarkupKind::None;
+    QString value;
+};
+
 struct LSPPosition
 {
     // both are 0-based

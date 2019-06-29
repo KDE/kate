@@ -50,6 +50,7 @@ class LSPClientPlugin : public KTextEditor::Plugin
         bool m_symbolExpand;
         bool m_symbolTree;
         bool m_symbolSort;
+        bool m_complDoc;
         QMap<QString, QString> m_serverCmds;
 
     Q_SIGNALS:

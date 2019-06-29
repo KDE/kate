@@ -42,6 +42,7 @@ public:
     {}
 
     virtual void setServer(QSharedPointer<LSPClientServer> server) = 0;
+    virtual void setSelectedDocumentation(bool) = 0;
 };
 
 #endif

@@ -62,6 +62,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_findDecl;
     QPointer<QAction> m_findRef;
     QPointer<QAction> m_hover;
+    QPointer<QAction> m_complDocOn;
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
@@ -94,6 +95,11 @@ public:
         m_hover = actionCollection()->addAction(QStringLiteral("lspclient_hover"), this, &self_type::hover);
         m_hover->setText(i18n("Hover"));
 
+        // completion configuration
+        m_complDocOn = actionCollection()->addAction(QStringLiteral("lspclient_completion_doc"), this, &self_type::displayOptionChanged);
+        m_complDocOn->setText(i18n("Show selected completion documentation"));
+        m_complDocOn->setCheckable(true);
+
         // popup menu
         auto menu = new KActionMenu(i18n("LSP Client"), this);
         actionCollection()->addAction(QStringLiteral("popup_lspclient"), menu);
@@ -101,7 +107,13 @@ public:
         menu->addAction(m_findDecl);
         menu->addAction(m_findRef);
         menu->addAction(m_hover);
+        menu->addSeparator();
+        menu->addAction(m_complDocOn);
 
+        // sync with plugin settings if updated
+        connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
+
+        configUpdated();
         updateState();
 
         m_mainWindow->guiFactory()->addClient(this);
@@ -110,6 +122,19 @@ public:
     ~LSPClientPluginViewImpl()
     {
         m_mainWindow->guiFactory()->removeClient(this);
+    }
+
+    void displayOptionChanged()
+    {
+        if (m_complDocOn)
+            m_completion->setSelectedDocumentation(m_complDocOn->isChecked());
+    }
+
+    void configUpdated()
+    {
+        if (m_complDocOn)
+            m_complDocOn->setChecked(m_plugin->m_complDoc);
+        displayOptionChanged();
     }
 
     template<typename Handler>
@@ -224,10 +249,13 @@ public:
             m_findRef->setEnabled(refEnabled);
         if (m_hover)
             m_hover->setEnabled(hoverEnabled);
+        if (m_complDocOn)
+            m_complDocOn->setEnabled(server);
 
         // update completion with relevant server
         m_completion->setServer(server);
 
+        displayOptionChanged();
         updateCompletion(activeView, server.get());
     }
 

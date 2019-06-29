@@ -8,6 +8,8 @@
       <Action name="lspclient_find_declaration"/>
       <Action name="lspclient_find_references"/>
       <Action name="lspclient_hover"/>
+      <Separator/>
+      <Action name="lspclient_completion_doc"/>
     </Menu>
   </MenuBar>
   <Menu name="ktexteditor_popup" noMerge="1">

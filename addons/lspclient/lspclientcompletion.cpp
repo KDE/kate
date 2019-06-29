@@ -154,6 +154,8 @@ class LSPClientCompletionImpl : public LSPClientCompletion
 
     QSharedPointer<LSPClientServerManager> m_manager;
     QSharedPointer<LSPClientServer> m_server;
+    bool m_selectedDocumentation = false;
+
     QVector<QChar> m_triggersCompletion;
     QVector<QChar> m_triggersSignature;
     bool m_triggerSignature = false;
@@ -179,6 +181,9 @@ public:
             m_triggersSignature.clear();
         }
     }
+
+    virtual void setSelectedDocumentation(bool s) override
+    { m_selectedDocumentation = s; }
 
     QVariant data(const QModelIndex &index, int role) const override
     {
@@ -213,8 +218,8 @@ public:
             // FIXME better presentation of markdown
             return match.documentation.value;
         } else if (role == KTextEditor::CodeCompletionModel::ItemSelected &&
-                   !match.argumentHintDepth && !match.documentation.value.isEmpty()) {
-            // TODO ?? make configurable
+                   !match.argumentHintDepth && !match.documentation.value.isEmpty() &&
+                   m_selectedDocumentation) {
             return match.documentation.value;
         }
 

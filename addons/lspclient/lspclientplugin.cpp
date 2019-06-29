@@ -67,6 +67,7 @@ void LSPClientPlugin::readConfig()
     m_symbolTree = config.readEntry(QStringLiteral("SymbolTree"), true);
     m_symbolExpand = config.readEntry(QStringLiteral("SymbolExpand"), true);
     m_symbolSort = config.readEntry(QStringLiteral("SymbolSort"), false);
+    m_complDoc = config.readEntry(QStringLiteral("CompletionDocumentation"), true);
 
     // TODO properly read/write from/to config
     m_serverCmds = QMap<QString, QString> {
@@ -86,6 +87,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(QStringLiteral("SymbolTree"), m_symbolTree);
     config.writeEntry(QStringLiteral("SymbolExpand"), m_symbolExpand);
     config.writeEntry(QStringLiteral("SymbolSort"), m_symbolSort);
+    config.writeEntry(QStringLiteral("CompletionDocumentation"), m_complDoc);
 
     emit update();
 }

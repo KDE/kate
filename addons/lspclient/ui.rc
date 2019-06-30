@@ -10,6 +10,9 @@
       <Action name="lspclient_hover"/>
       <Separator/>
       <Action name="lspclient_completion_doc"/>
+      <Separator/>
+      <Action name="lspclient_restart_server"/>
+      <Action name="lspclient_restart_all"/>
     </Menu>
   </MenuBar>
   <Menu name="ktexteditor_popup" noMerge="1">

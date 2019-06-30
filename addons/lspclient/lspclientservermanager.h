@@ -57,6 +57,8 @@ public:
 
     virtual void update(KTextEditor::Document *doc) = 0;
 
+    virtual void restart(LSPClientServer *server) = 0;
+
 public:
 Q_SIGNALS:
     void serverChanged();

@@ -63,6 +63,8 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_findRef;
     QPointer<QAction> m_hover;
     QPointer<QAction> m_complDocOn;
+    QPointer<QAction> m_restartServer;
+    QPointer<QAction> m_restartAll;
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
@@ -100,6 +102,12 @@ public:
         m_complDocOn->setText(i18n("Show selected completion documentation"));
         m_complDocOn->setCheckable(true);
 
+        // server control
+        m_restartServer = actionCollection()->addAction(QStringLiteral("lspclient_restart_server"), this, &self_type::restartCurrent);
+        m_restartServer->setText(i18n("Restart LSP Server"));
+        m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
+        m_restartAll->setText(i18n("Restart All LSP Servers"));
+
         // popup menu
         auto menu = new KActionMenu(i18n("LSP Client"), this);
         actionCollection()->addAction(QStringLiteral("popup_lspclient"), menu);
@@ -109,6 +117,9 @@ public:
         menu->addAction(m_hover);
         menu->addSeparator();
         menu->addAction(m_complDocOn);
+        menu->addSeparator();
+        menu->addAction(m_restartServer);
+        menu->addAction(m_restartAll);
 
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
@@ -135,6 +146,19 @@ public:
         if (m_complDocOn)
             m_complDocOn->setChecked(m_plugin->m_complDoc);
         displayOptionChanged();
+    }
+
+    void restartCurrent()
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        auto server = m_serverManager->findServer(activeView);
+        if (server)
+            m_serverManager->restart(server.get());
+    }
+
+    void restartAll()
+    {
+        m_serverManager->restart(nullptr);
     }
 
     template<typename Handler>
@@ -251,6 +275,8 @@ public:
             m_hover->setEnabled(hoverEnabled);
         if (m_complDocOn)
             m_complDocOn->setEnabled(server);
+        if (m_restartServer)
+            m_restartServer->setEnabled(server);
 
         // update completion with relevant server
         m_completion->setServer(server);

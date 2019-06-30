@@ -217,6 +217,8 @@ struct LSPSignatureHelp
 };
 
 
+static const int TIMEOUT_SHUTDOWN = 200;
+
 template<typename T>
 using ReplyHandler = std::function<void(const T &)>;
 
@@ -266,8 +268,9 @@ public:
     int cancel(int id);
 
     // properties
+    const QStringList& cmdline() const;
     State state() const;
-    Q_SIGNAL void stateChanged();
+    Q_SIGNAL void stateChanged(LSPClientServer * server);
 
     const LSPServerCapabilities& capabilities() const;
 

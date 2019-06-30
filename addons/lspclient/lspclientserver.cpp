@@ -51,8 +51,6 @@ static QString MEMBER_LABEL = QStringLiteral("label");
 static QString MEMBER_DOCUMENTATION = QStringLiteral("documentation");
 static QString MEMBER_DETAIL = QStringLiteral("detail");
 
-static const int TIMEOUT_SHUTDOWN = 200;
-
 // message construction helpers
 static QJsonObject
 versionedTextDocumentIdentifier(const QUrl & document, int version = -1)
@@ -182,6 +180,11 @@ public:
         stop(TIMEOUT_SHUTDOWN, TIMEOUT_SHUTDOWN);
     }
 
+    const QStringList& cmdline() const
+    {
+        return m_server;
+    }
+
     State state()
     {
         return m_state;
@@ -203,8 +206,10 @@ public:
 private:
     void setState(State s)
     {
-        m_state = s;
-        emit q->stateChanged();
+        if (m_state != s) {
+            m_state = s;
+            emit q->stateChanged(q);
+        }
     }
 
     RequestHandle write(const QJsonObject & msg, const GenericReplyHandler & h = nullptr)
@@ -722,6 +727,9 @@ LSPClientServer::LSPClientServer(const QStringList & server, const QUrl & root)
 
 LSPClientServer::~LSPClientServer()
 { delete d; }
+
+const QStringList& LSPClientServer::cmdline() const
+{ return d->cmdline(); }
 
 LSPClientServer::State LSPClientServer::state() const
 { return d->state(); }

@@ -24,6 +24,8 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
+#include <KTextEditor/Message>
+#include <KLocalizedString>
 
 #include <QTimer>
 #include <QEventLoop>
@@ -48,6 +50,8 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     // root -> (mode -> server)
     QMap<QUrl, QMap<QString, QSharedPointer<LSPClientServer>>> m_servers;
     QHash<KTextEditor::Document*, DocumentInfo> m_docs;
+
+    typedef QVector<QSharedPointer<LSPClientServer>> ServerList;
 
 public:
     LSPClientServerManagerImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
@@ -129,7 +133,93 @@ public:
     findServer(KTextEditor::View *view, bool updatedoc = true) override
     { return view ? findServer(view->document(), updatedoc) : nullptr; }
 
+    // restart a specific server or all servers if server == nullptr
+    void restart(LSPClientServer * server) override
+    {
+        ServerList servers;
+        // find entry for server(s) and move out
+        for (auto & m : m_servers) {
+            for (auto it = m.begin() ; it != m.end(); ) {
+                if (!server || it->get() == server) {
+                    servers.push_back(*it);
+                    it = m.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+        }
+        restart(servers);
+    }
+
 private:
+    void showMessage(const QString &msg, KTextEditor::Message::MessageType level)
+    {
+        KTextEditor::View *view = m_mainWindow->activeView();
+        if (!view || !view->document()) return;
+
+        auto kmsg = new KTextEditor::Message(xi18nc("@info", "<b>LSP Client:</b> %1", msg), level);
+        kmsg->setPosition(KTextEditor::Message::AboveView);
+        kmsg->setAutoHide(5000);
+        kmsg->setAutoHideMode(KTextEditor::Message::Immediate);
+        kmsg->setView(view);
+        view->document()->postMessage(kmsg);
+    }
+
+    // caller ensures that servers are no longer present in m_servers
+    void restart(const ServerList & servers)
+    {
+        // close docs
+        for (const auto & server : servers) {
+            // controlling server here, so disable usual state tracking response
+            disconnect(server.get(), nullptr, this, nullptr);
+            for (auto it = m_docs.begin(); it != m_docs.end(); ) {
+                auto &item = it.value();
+                if (item.server == server) {
+                    // no need to close if server not in proper state
+                    if (server->state() != LSPClientServer::State::Running) {
+                        item.open = false;
+                    }
+                    it = _close(it, true);
+                } else {
+                    ++it;
+                }
+            }
+        }
+
+        // helper captures servers
+        auto stopservers = [servers] (int t, int k) {
+            for (const auto & server : servers) {
+                server->stop(t, k);
+            }
+        };
+
+        // trigger server shutdown now
+        stopservers(-1, -1);
+
+        // initiate delayed stages (TERM and KILL)
+        // async, so give a bit more time
+        QTimer::singleShot(2 * TIMEOUT_SHUTDOWN, this, [stopservers] () { stopservers(1, -1); });
+        QTimer::singleShot(4 * TIMEOUT_SHUTDOWN, this, [stopservers] () { stopservers(-1, 1); });
+
+        // as for the start part
+        // trigger interested parties, which will again request a server as needed
+        // let's delay this; less chance for server instances to trip over each other
+        QTimer::singleShot(6 * TIMEOUT_SHUTDOWN, this, [this] () { emit serverChanged(); });
+    }
+
+    void onStateChanged(LSPClientServer *server)
+    {
+        if (server->state() == LSPClientServer::State::Running) {
+            // clear for normal operation
+            emit serverChanged();
+        } else if (server->state() == LSPClientServer::State::None) {
+            // went down
+            showMessage(i18n("Server terminated unexpectedly: %1", server->cmdline().join(QLatin1Char(' '))),
+                KTextEditor::Message::Warning);
+            restart(server);
+        }
+    }
+
     QSharedPointer<LSPClientServer>
     _findServer(KTextEditor::Document *document)
     {
@@ -137,9 +227,7 @@ private:
         const auto projectRoot = projectView ? projectView->property("projectBaseDir").toString() : QString();
         const auto root = QUrl::fromLocalFile(projectRoot);
 
-        // let's pick mode here and stick to that
-        // (highlightingMode being an alternative)
-        auto mode = document->mode();
+        auto mode = document->highlightingMode();
         qCInfo(LSPCLIENT) << "mode" << mode;
         auto server = m_servers.value(root).value(mode);
         if (!server) {
@@ -148,11 +236,12 @@ private:
                 auto cmdline = servercmd.split(QStringLiteral(" "));
                 server.reset(new LSPClientServer(cmdline, root));
                 m_servers[root][mode] = server;
-                // TODO refine
-                // TODO restart/recover upon shutdown
                 connect(server.get(), &LSPClientServer::stateChanged,
-                        this, &self_type::serverChanged, Qt::UniqueConnection);
-                server->start();
+                    this, &self_type::onStateChanged, Qt::UniqueConnection);
+                if (!server->start()) {
+                    showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))),
+                        KTextEditor::Message::Error);
+                }
             }
         }
         return (server && server->state() == LSPClientServer::State::Running) ? server : nullptr;
@@ -165,7 +254,7 @@ private:
             it = m_docs.insert(doc, {server, doc->url(), 0, false});
             // track document
             connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack, Qt::UniqueConnection);
-            connect(doc, &KTextEditor::Document::modeChanged, this, &self_type::untrack, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack, Qt::UniqueConnection);
             // connect(doc, &KTextEditor::Document::modifiedChanged, this, &self_type::close, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::aboutToClose, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::destroyed, this, &self_type::untrack, Qt::UniqueConnection);
@@ -174,15 +263,9 @@ private:
         }
     }
 
-    void untrack(QObject *doc)
-    { _close(qobject_cast<KTextEditor::Document*>(doc), true); }
-
-    void close(KTextEditor::Document *doc)
-    { _close(doc, false); }
-
-    void _close(KTextEditor::Document *doc, bool remove)
+    decltype(m_docs)::iterator
+    _close(decltype(m_docs)::iterator it, bool remove)
     {
-        auto it = m_docs.find(doc);
         if (it != m_docs.end()) {
             if (it->open) {
                 // release server side (use url as registered with)
@@ -190,13 +273,29 @@ private:
                 it->open = false;
             }
             if (remove) {
-                disconnect(doc, nullptr, this, nullptr);
-                m_docs.remove(doc);
+                disconnect(it.key(), nullptr, this, nullptr);
+                it = m_docs.erase(it);
             }
-            emit serverChanged();
-            // TODO shutdown unused servers (after some delay ??)
+        }
+        return it;
+    }
+
+    void _close(KTextEditor::Document *doc, bool remove)
+    {
+        auto it = m_docs.find(doc);
+        if (it != m_docs.end()) {
+            _close(it, remove);
         }
     }
+
+    void untrack(QObject *doc)
+    {
+        _close(qobject_cast<KTextEditor::Document*>(doc), true);
+        emit serverChanged();
+    }
+
+    void close(KTextEditor::Document *doc)
+    { _close(doc, false); }
 
     void update(KTextEditor::Document *doc) override
     {

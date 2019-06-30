@@ -33,6 +33,9 @@
 
 static QString MEMBER_ID = QStringLiteral("id");
 static QString MEMBER_METHOD = QStringLiteral("method");
+static QString MEMBER_ERROR = QStringLiteral("error");
+static QString MEMBER_CODE = QStringLiteral("code");
+static QString MEMBER_MESSAGE = QStringLiteral("message");
 static QString MEMBER_PARAMS = QStringLiteral("params");
 static QString MEMBER_RESULT = QStringLiteral("result");
 static QString MEMBER_URI = QStringLiteral("uri");
@@ -212,7 +215,7 @@ private:
         }
     }
 
-    RequestHandle write(const QJsonObject & msg, const GenericReplyHandler & h = nullptr)
+    RequestHandle write(const QJsonObject & msg, const GenericReplyHandler & h = nullptr, int * id = nullptr)
     {
         RequestHandle ret;
         ret.m_server = q;
@@ -227,6 +230,8 @@ private:
             ob.insert(MEMBER_ID, ++m_id);
             ret.m_id = m_id;
             m_handlers[m_id] = h;
+        } else if (id) {
+            ob.insert(MEMBER_ID, *id);
         }
 
         QJsonDocument json(ob);
@@ -262,12 +267,16 @@ private:
         QByteArray &buffer = m_receive;
 
         while (true) {
-            qCDebug(LSPCLIENT) << "reply buffer size" << buffer.length();
+            qCDebug(LSPCLIENT) << "buffer size" << buffer.length();
             // TODO constant
             auto header = QByteArray("Content-Length:");
             int index = buffer.indexOf(header);
-            if (index < 0 )
+            if (index < 0) {
+                // avoid collecting junk
+                if (buffer.length() > 1 << 20)
+                    buffer.clear();
                 break;
+            }
             index += header.length();
             int endindex = buffer.indexOf("\r\n", index);
             auto msgstart = buffer.indexOf("\r\n\r\n", index);
@@ -276,10 +285,19 @@ private:
             msgstart += 4;
             bool ok = false;
             auto length = buffer.mid(index, endindex - index).toInt(&ok, 10);
-            // TODO more error handling (shutdown)
+            // FIXME perhaps detect if no reply for some time
+            // then again possibly better left to user to restart in such case
             if (!ok) {
                 qCWarning(LSPCLIENT) << "invalid Content-Length";
-                break;
+                // flush and try to carry on to some next header
+                buffer.remove(0, msgstart);
+                continue;
+            }
+            // sanity check to avoid extensive buffering
+            if (length > 1 << 29) {
+                qCWarning(LSPCLIENT) << "excessive size";
+                buffer.clear();
+                continue;
             }
             if (msgstart + length > buffer.length())
                 break;
@@ -305,6 +323,12 @@ private:
                                      << msg[MEMBER_METHOD].toString();
                 continue;
             }
+            // could be request
+            if (result.contains(MEMBER_METHOD)) {
+                write(init_error(LSPErrorCode::MethodNotFound, result.value(MEMBER_METHOD).toString()),
+                    nullptr, &msgid);
+                continue;
+            }
             // a valid reply; what to do with it now
             auto it = m_handlers.find(msgid);
             if (it != m_handlers.end()) {
@@ -315,6 +339,18 @@ private:
                 qCDebug(LSPCLIENT) << "unexpected reply id";
             }
         }
+    }
+
+    static QJsonObject
+    init_error(const LSPErrorCode code, const QString & msg)
+    {
+        return QJsonObject {
+            { MEMBER_ERROR, QJsonObject {
+                    { MEMBER_CODE, (int) code },
+                    { MEMBER_MESSAGE, msg }
+                }
+            }
+        };
     }
 
     static QJsonObject

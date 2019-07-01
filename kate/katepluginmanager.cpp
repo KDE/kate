@@ -77,7 +77,6 @@ void KatePluginManager::setupPluginList()
     defaultPlugins.insert(QStringLiteral("katefiletreeplugin"));
     defaultPlugins.insert(QStringLiteral("kateprojectplugin"));
     defaultPlugins.insert(QStringLiteral("katesearchplugin"));
-    //defaultPlugins.insert(QLatin1String("ktexteditorpreviewplugin")); // the feature is nice and needed, but in its current state we should not present it by default
     defaultPlugins.insert(QStringLiteral("tabswitcherplugin"));
     defaultPlugins.insert(QStringLiteral("textfilterplugin"));
 

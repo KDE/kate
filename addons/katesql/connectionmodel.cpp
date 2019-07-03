@@ -71,7 +71,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     case Qt::SizeHintRole:
     {
       const QFontMetrics metrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
-      return QSize(metrics.width(m_connections.value(key).name), 22);
+      return QSize(metrics.horizontalAdvance(m_connections.value(key).name), 22);
     }
     break;
 

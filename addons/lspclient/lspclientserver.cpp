@@ -31,28 +31,28 @@
 #include <QCoreApplication>
 #include <QTime>
 
-static QString MEMBER_ID = QStringLiteral("id");
-static QString MEMBER_METHOD = QStringLiteral("method");
-static QString MEMBER_ERROR = QStringLiteral("error");
-static QString MEMBER_CODE = QStringLiteral("code");
-static QString MEMBER_MESSAGE = QStringLiteral("message");
-static QString MEMBER_PARAMS = QStringLiteral("params");
-static QString MEMBER_RESULT = QStringLiteral("result");
-static QString MEMBER_URI = QStringLiteral("uri");
-static QString MEMBER_VERSION = QStringLiteral("version");
-static QString MEMBER_START = QStringLiteral("start");
-static QString MEMBER_END = QStringLiteral("end");
-static QString MEMBER_POSITION = QStringLiteral("position");
-static QString MEMBER_LOCATION = QStringLiteral("location");
-static QString MEMBER_RANGE = QStringLiteral("range");
-static QString MEMBER_LINE = QStringLiteral("line");
-static QString MEMBER_CHARACTER = QStringLiteral("character");
-static QString MEMBER_KIND = QStringLiteral("kind");
-static QString MEMBER_TEXT = QStringLiteral("text");
-static QString MEMBER_LANGID = QStringLiteral("languageId");
-static QString MEMBER_LABEL = QStringLiteral("label");
-static QString MEMBER_DOCUMENTATION = QStringLiteral("documentation");
-static QString MEMBER_DETAIL = QStringLiteral("detail");
+static const QString MEMBER_ID = QStringLiteral("id");
+static const QString MEMBER_METHOD = QStringLiteral("method");
+static const QString MEMBER_ERROR = QStringLiteral("error");
+static const QString MEMBER_CODE = QStringLiteral("code");
+static const QString MEMBER_MESSAGE = QStringLiteral("message");
+static const QString MEMBER_PARAMS = QStringLiteral("params");
+static const QString MEMBER_RESULT = QStringLiteral("result");
+static const QString MEMBER_URI = QStringLiteral("uri");
+static const QString MEMBER_VERSION = QStringLiteral("version");
+static const QString MEMBER_START = QStringLiteral("start");
+static const QString MEMBER_END = QStringLiteral("end");
+static const QString MEMBER_POSITION = QStringLiteral("position");
+static const QString MEMBER_LOCATION = QStringLiteral("location");
+static const QString MEMBER_RANGE = QStringLiteral("range");
+static const QString MEMBER_LINE = QStringLiteral("line");
+static const QString MEMBER_CHARACTER = QStringLiteral("character");
+static const QString MEMBER_KIND = QStringLiteral("kind");
+static const QString MEMBER_TEXT = QStringLiteral("text");
+static const QString MEMBER_LANGID = QStringLiteral("languageId");
+static const QString MEMBER_LABEL = QStringLiteral("label");
+static const QString MEMBER_DOCUMENTATION = QStringLiteral("documentation");
+static const QString MEMBER_DETAIL = QStringLiteral("detail");
 
 // message construction helpers
 static QJsonObject

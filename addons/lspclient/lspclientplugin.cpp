@@ -29,6 +29,15 @@
 
 #include <QDir>
 
+static const QString CONFIG_LSPCLIENT { QStringLiteral("lspclient") };
+static const QString CONFIG_SYMBOL_DETAILS { QStringLiteral("SymbolDetails") };
+static const QString CONFIG_SYMBOL_TREE { QStringLiteral("SymbolTree") };
+static const QString CONFIG_SYMBOL_EXPAND { QStringLiteral("SymbolExpand") };
+static const QString CONFIG_SYMBOL_SORT { QStringLiteral("SymbolSort") };
+static const QString CONFIG_COMPLETION_DOC { QStringLiteral("CompletionDocumentation") };
+static const QString CONFIG_SERVER_CONFIG { QStringLiteral("ServerConfiguration") };
+
+
 K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 
 LSPClientPlugin::LSPClientPlugin(QObject *parent, const QList<QVariant> &)
@@ -62,26 +71,26 @@ KTextEditor::ConfigPage *LSPClientPlugin::configPage(int number, QWidget *parent
 
 void LSPClientPlugin::readConfig()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("lspclient"));
-    m_symbolDetails = config.readEntry(QStringLiteral("SymbolDetails"), false);
-    m_symbolTree = config.readEntry(QStringLiteral("SymbolTree"), true);
-    m_symbolExpand = config.readEntry(QStringLiteral("SymbolExpand"), true);
-    m_symbolSort = config.readEntry(QStringLiteral("SymbolSort"), false);
-    m_complDoc = config.readEntry(QStringLiteral("CompletionDocumentation"), true);
-    m_configPath = config.readEntry(QStringLiteral("ServerConfiguration"), QUrl());
+    KConfigGroup config(KSharedConfig::openConfig(), CONFIG_LSPCLIENT);
+    m_symbolDetails = config.readEntry(CONFIG_SYMBOL_DETAILS, false);
+    m_symbolTree = config.readEntry(CONFIG_SYMBOL_TREE, true);
+    m_symbolExpand = config.readEntry(CONFIG_SYMBOL_EXPAND, true);
+    m_symbolSort = config.readEntry(CONFIG_SYMBOL_SORT, false);
+    m_complDoc = config.readEntry(CONFIG_COMPLETION_DOC, true);
+    m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
 
     emit update();
 }
 
 void LSPClientPlugin::writeConfig() const
 {
-    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("lspclient"));
-    config.writeEntry(QStringLiteral("SymbolDetails"), m_symbolDetails);
-    config.writeEntry(QStringLiteral("SymbolTree"), m_symbolTree);
-    config.writeEntry(QStringLiteral("SymbolExpand"), m_symbolExpand);
-    config.writeEntry(QStringLiteral("SymbolSort"), m_symbolSort);
-    config.writeEntry(QStringLiteral("CompletionDocumentation"), m_complDoc);
-    config.writeEntry(QStringLiteral("ServerConfiguration"), m_configPath);
+    KConfigGroup config(KSharedConfig::openConfig(), CONFIG_LSPCLIENT);
+    config.writeEntry(CONFIG_SYMBOL_DETAILS, m_symbolDetails);
+    config.writeEntry(CONFIG_SYMBOL_TREE, m_symbolTree);
+    config.writeEntry(CONFIG_SYMBOL_EXPAND, m_symbolExpand);
+    config.writeEntry(CONFIG_SYMBOL_SORT, m_symbolSort);
+    config.writeEntry(CONFIG_COMPLETION_DOC, m_complDoc);
+    config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
 
     emit update();
 }

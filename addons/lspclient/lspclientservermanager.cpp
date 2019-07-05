@@ -17,6 +17,57 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
+/*
+ * Some explanation here on server configuration JSON, pending such ending up
+ * in real user level documentation ...
+ *
+ * The default configuration in JSON format is roughly as follows;
+{
+    "global":
+    {
+        "root": null,
+    },
+    "servers":
+    {
+        "Python":
+        {
+            "command": "python3 -m pyls --check-parent-process"
+        },
+        "C":
+        {
+            "command": "clangd -log=verbose --background-index"
+        },
+        "C++":
+        {
+            "use": "C++"
+        }
+    }
+}
+ * (the "command" can be an array or a string, which is then split into array)
+ *
+ * From the above, the gist is presumably clear.  In addition, each server
+ * entry object may also have an "initializationOptions" entry, which is passed
+ * along to the server as part of the 'initialize' method.  A clangd-specific
+ * HACK^Hfeature uses this to add "compilationDatabasePath".
+ *
+ * Various stages of override/merge are applied;
+ * + user configuration (loaded from file) overrides (internal) default configuration
+ * + "lspclient" entry in projectMap overrides the above
+ * + the resulting "global" entry is used to supplement (not override) any server entry
+ *
+ * One server instance is used per (root, servertype) combination.
+ * If "root" is not specified, it default to the $HOME directory.  If it is
+ * specified as an absolute path, then it used as-is, otherwise it is relative
+ * to the projectBase.  For any document, the resulting "root" then determines
+ * whether or not a separate instance is needed. If so, the "root" is passed
+ * as rootUri/rootPath.
+ *
+ * In general, it is recommended to leave root unspecified, as it is not that
+ * important for a server (your mileage may vary though).  Fewer instances
+ * are obviously more efficient, and they also have a 'wider' view than
+ * the view of many separate instances.
+ */
+
 #include "lspclientservermanager.h"
 
 #include "lspclient_debug.h"

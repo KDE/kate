@@ -29,6 +29,33 @@
 
 #include <QTimer>
 #include <QEventLoop>
+#include <QDir>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
+
+// local helper;
+// recursively merge top json top onto bottom json
+static QJsonObject
+merge(const QJsonObject & bottom, const QJsonObject & top)
+{
+    QJsonObject result;
+    for (auto item = top.begin(); item != top.end(); item++) {
+        const auto & key = item.key();
+        if (item.value().isObject())  {
+            result.insert(key, merge(bottom.value(key).toObject(), item.value().toObject()));
+        } else {
+            result.insert(key, item.value());
+        }
+    }
+    // parts only in bottom
+    for (auto item = bottom.begin(); item != bottom.end(); item++) {
+        if (!result.contains(item.key())) {
+            result.insert(item.key(), item.value());
+        }
+    }
+    return result;
+}
 
 // helper class to sync document changes to LSP server
 class LSPClientServerManagerImpl : public LSPClientServerManager
@@ -47,6 +74,8 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
 
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
+    // merged default and user config
+    QJsonObject m_serverConfig;
     // root -> (mode -> server)
     QMap<QUrl, QMap<QString, QSharedPointer<LSPClientServer>>> m_servers;
     QHash<KTextEditor::Document*, DocumentInfo> m_docs;
@@ -56,7 +85,10 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
 public:
     LSPClientServerManagerImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
         : m_plugin(plugin) , m_mainWindow(mainWin)
-    {}
+    {
+        connect(plugin, &LSPClientPlugin::update, this, &self_type::updateServerConfig);
+        QTimer::singleShot(100, this, &self_type::updateServerConfig);
+    }
 
     ~LSPClientServerManagerImpl()
     {
@@ -224,17 +256,67 @@ private:
     _findServer(KTextEditor::Document *document)
     {
         QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
-        const auto projectRoot = projectView ? projectView->property("projectBaseDir").toString() : QString();
-        const auto root = QUrl::fromLocalFile(projectRoot);
+        const auto projectBase = QDir(projectView ? projectView->property("projectBaseDir").toString() : QString());
+        const auto& projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
 
         auto mode = document->highlightingMode();
-        qCInfo(LSPCLIENT) << "mode" << mode;
+        // merge with project specific
+        auto projectConfig = QJsonDocument::fromVariant(projectMap).object().value(QStringLiteral("lspclient")).toObject();
+        auto serverConfig = merge(m_serverConfig, projectConfig);
+
+        // locate server config
+        QJsonValue config;
+        QSet<QString> used;
+        while (true) {
+            qCInfo(LSPCLIENT) << "mode " << mode;
+            used << mode;
+            config = serverConfig.value(QStringLiteral("servers")).toObject().value(mode);
+            if (config.isObject()) {
+                const auto & base = config.toObject().value(QStringLiteral("use")).toString();
+                // basic cycle detection
+                if (!base.isEmpty() && !used.contains(base)) {
+                    mode = base;
+                    continue;
+                }
+            }
+            break;
+        }
+
+        if (!config.isObject())
+            return nullptr;
+
+        // merge global settings
+        serverConfig = merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
+
+        QString rootpath;
+        auto rootv = serverConfig.value(QStringLiteral("root"));
+        if (rootv.isString()) {
+            auto sroot = rootv.toString();
+            if (QDir::isAbsolutePath(sroot)) {
+                rootpath = sroot;
+            } else if (!projectBase.isEmpty()) {
+                rootpath = QDir(projectBase).absoluteFilePath(sroot);
+            }
+        }
+        if (rootpath.isEmpty()) {
+            rootpath = QDir::homePath();
+        }
+
+        auto root = QUrl::fromLocalFile(rootpath);
         auto server = m_servers.value(root).value(mode);
         if (!server) {
-            auto servercmd = m_plugin->m_serverCmds.value(mode);
-            if (servercmd.length() > 0) {
-                auto cmdline = servercmd.split(QStringLiteral(" "));
-                server.reset(new LSPClientServer(cmdline, root));
+            QStringList cmdline;
+            auto vcmdline = serverConfig.value(QStringLiteral("command"));
+            if (vcmdline.isString()) {
+                cmdline = vcmdline.toString().split(QLatin1Char(' '));
+            } else {
+                for (const auto& c : vcmdline.toArray()) {
+                    cmdline.push_back(c.toString());
+                }
+            }
+            if (cmdline.length() > 0) {
+                auto&& init = serverConfig.value(QStringLiteral("initializationOptions"));
+                server.reset(new LSPClientServer(cmdline, root, init));
                 m_servers[root][mode] = server;
                 connect(server.get(), &LSPClientServer::stateChanged,
                     this, &self_type::onStateChanged, Qt::UniqueConnection);
@@ -245,6 +327,55 @@ private:
             }
         }
         return (server && server->state() == LSPClientServer::State::Running) ? server : nullptr;
+    }
+
+    void updateServerConfig()
+    {
+        // default configuration
+        auto makeServerConfig = [] (const QString & cmdline) {
+            return QJsonObject {
+                { QStringLiteral("command"), cmdline }
+            };
+        };
+
+        static auto defaultConfig = QJsonObject {
+            { QStringLiteral("servers"),
+                QJsonObject {
+                    { QStringLiteral("Python"),
+                        makeServerConfig(QStringLiteral("python3 -m pyls --check-parent-process")) },
+                    { QStringLiteral("C"),
+                        makeServerConfig(QStringLiteral("clangd -log=verbose --background-index")) },
+                    { QStringLiteral("C++"),
+                        QJsonObject { { QStringLiteral("use"), QStringLiteral("C") } } }
+                }
+            }
+        };
+
+        m_serverConfig = defaultConfig;
+
+        // consider specified configuration
+        const auto& configPath = m_plugin->m_configPath.path();
+        if (!configPath.isEmpty()) {
+            QFile f(configPath);
+            if (f.open(QIODevice::ReadOnly)) {
+                auto data = f.readAll();
+                auto json = QJsonDocument::fromJson(data);
+                if (json.isObject()) {
+                    m_serverConfig = merge(m_serverConfig, json.object());
+                } else {
+                    showMessage(i18n("Failed to parse server configuration: %1", configPath),
+                        KTextEditor::Message::Error);
+                }
+            } else {
+                showMessage(i18n("Failed to read server configuration: %1", configPath),
+                    KTextEditor::Message::Error);
+            }
+        }
+
+        // we could (but do not) perform restartAll here;
+        // for now let's leave that up to user
+        // but maybe we do have a server now where not before, so let's signal
+        emit serverChanged();
     }
 
     void trackDocument(KTextEditor::Document *doc, QSharedPointer<LSPClientServer> server)

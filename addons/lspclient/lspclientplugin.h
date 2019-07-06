@@ -27,8 +27,6 @@
 
 #include <KTextEditor/Plugin>
 
-class KDirWatch;
-
 class LSPClientPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
@@ -51,8 +49,9 @@ class LSPClientPlugin : public KTextEditor::Plugin
         bool m_symbolTree;
         bool m_symbolSort;
         bool m_complDoc;
-        QMap<QString, QString> m_serverCmds;
+        QUrl m_configPath;
 
+private:
     Q_SIGNALS:
         // signal settings update
         void update() const;

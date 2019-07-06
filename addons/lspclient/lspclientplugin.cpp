@@ -68,14 +68,7 @@ void LSPClientPlugin::readConfig()
     m_symbolExpand = config.readEntry(QStringLiteral("SymbolExpand"), true);
     m_symbolSort = config.readEntry(QStringLiteral("SymbolSort"), false);
     m_complDoc = config.readEntry(QStringLiteral("CompletionDocumentation"), true);
-
-    // TODO properly read/write from/to config
-    m_serverCmds = QMap<QString, QString> {
-        { QStringLiteral("Python"),
-                    QStringLiteral("python3 -m pyls --check-parent-process") },
-        { QStringLiteral("C"), QStringLiteral("clangd -log=verbose --background-index") },
-        { QStringLiteral("C++"), QStringLiteral("clangd -log=verbose --background-index") }
-    };
+    m_configPath = config.readEntry(QStringLiteral("ServerConfiguration"), QUrl());
 
     emit update();
 }
@@ -88,6 +81,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(QStringLiteral("SymbolExpand"), m_symbolExpand);
     config.writeEntry(QStringLiteral("SymbolSort"), m_symbolSort);
     config.writeEntry(QStringLiteral("CompletionDocumentation"), m_complDoc);
+    config.writeEntry(QStringLiteral("ServerConfiguration"), m_configPath);
 
     emit update();
 }

@@ -26,6 +26,7 @@
 #include <QList>
 #include <QVector>
 #include <QPointer>
+#include <QJsonValue>
 
 #include <functional>
 
@@ -274,7 +275,8 @@ public:
         }
     };
 
-    LSPClientServer(const QStringList & server, const QUrl & root);
+    LSPClientServer(const QStringList & server, const QUrl & root,
+                    const QJsonValue & init = QJsonValue());
     ~LSPClientServer();
 
     // server management

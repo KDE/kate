@@ -156,6 +156,8 @@ class LSPClientServer::LSPClientServerPrivate
     QStringList m_server;
     // workspace root to pass along
     QUrl m_root;
+    // user provided init
+    QJsonValue m_init;
     // server process
     QProcess m_sproc;
     // server declared capabilites
@@ -170,8 +172,9 @@ class LSPClientServer::LSPClientServerPrivate
     QHash<int, GenericReplyHandler> m_handlers;
 
 public:
-    LSPClientServerPrivate(LSPClientServer * _q, const QStringList & server, const QUrl & root)
-        : q(_q), m_server(server), m_root(root)
+    LSPClientServerPrivate(LSPClientServer * _q, const QStringList & server,
+        const QUrl & root, const QJsonValue & init)
+        : q(_q), m_server(server), m_root(root), m_init(init)
     {
         // setup async reading
         QObject::connect(&m_sproc, &QProcess::readyRead, mem_fun(&self_type::read, this));
@@ -415,7 +418,8 @@ private:
             { QStringLiteral("processId"), QCoreApplication::applicationPid() },
             { QStringLiteral("rootPath"), m_root.path() },
             { QStringLiteral("rootUri"), m_root.toString() },
-            { QStringLiteral("capabilities"), capabilities }
+            { QStringLiteral("capabilities"), capabilities },
+            { QStringLiteral("initializationOptions"), m_init }
         };
         //
         write(init_request(QStringLiteral("initialize"), params),
@@ -757,8 +761,9 @@ static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> & h,
 }
 
 
-LSPClientServer::LSPClientServer(const QStringList & server, const QUrl & root)
-    : d(new LSPClientServerPrivate(this, server, root))
+LSPClientServer::LSPClientServer(const QStringList & server, const QUrl & root,
+    const QJsonValue & init)
+    : d(new LSPClientServerPrivate(this, server, root, init))
 {}
 
 LSPClientServer::~LSPClientServer()

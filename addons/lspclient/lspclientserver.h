@@ -122,6 +122,8 @@ public:
         const QObject *context, const DocumentHighlightReplyHandler & h);
     RequestHandle documentHover(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const DocumentHoverReplyHandler & h);
+    RequestHandle documentReferences(const QUrl & document, const LSPPosition & pos, bool decl,
+        const QObject *context, const DocumentDefinitionReplyHandler & h);
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const DocumentCompletionReplyHandler & h);
     RequestHandle signatureHelp(const QUrl & document, const LSPPosition & pos,

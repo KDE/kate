@@ -91,6 +91,13 @@ int main(int argc, char ** argv)
     lsp.documentHover(document, {position[0].toInt(), position[1].toInt()}, &app, hover_h);
     q.exec();
 
+    auto ref_h = [&q] (const QList<LSPLocation> & refs) {
+        std::cout << "refs: " << refs.length() << std::endl;
+        q.quit();
+    };
+    lsp.documentReferences(document, {position[0].toInt(), position[1].toInt()}, true, &app, ref_h);
+    q.exec();
+
     // lsp.didOpen(document, 0, QStringLiteral("blah"));
     lsp.didChange(document, 1, QStringLiteral("foo"));
     lsp.didClose(document);

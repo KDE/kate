@@ -99,6 +99,16 @@ textDocumentPositionParams(const QUrl & document, LSPPosition pos)
     return params;
 }
 
+static QJsonObject
+referenceParams(const QUrl & document, LSPPosition pos, bool decl)
+{
+    auto params = textDocumentPositionParams(document, pos);
+    params[QStringLiteral("context")] = QJsonObject {
+        { QStringLiteral("includeDeclaration"), decl }
+    };
+    return params;
+}
+
 static void
 from_json(QVector<QChar> & trigger, const QJsonValue & json)
 {
@@ -504,6 +514,13 @@ public:
         return send(init_request(QStringLiteral("textDocument/documentHighlight"), params), h);
     }
 
+    RequestHandle documentReferences(const QUrl & document, const LSPPosition & pos, bool decl,
+        const GenericReplyHandler & h)
+    {
+        auto params = referenceParams(document, pos, decl);
+        return send(init_request(QStringLiteral("textDocument/references"), params), h);
+    }
+
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
         const GenericReplyHandler & h)
     {
@@ -865,6 +882,11 @@ LSPClientServer::RequestHandle
 LSPClientServer::documentHighlight(const QUrl & document, const LSPPosition & pos,
     const QObject *context, const DocumentHighlightReplyHandler & h)
 { return d->documentHighlight(document, pos, make_handler(h, context, parseDocumentHighlightList)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentReferences(const QUrl & document, const LSPPosition & pos, bool decl,
+    const QObject *context, const DocumentDefinitionReplyHandler & h)
+{ return d->documentReferences(document, pos, decl, make_handler(h, context, parseDocumentLocation)); }
 
 LSPClientServer::RequestHandle
 LSPClientServer::documentCompletion(const QUrl & document, const LSPPosition & pos,

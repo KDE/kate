@@ -31,6 +31,7 @@
 #include <KLocalizedString>
 #include <KStandardAction>
 #include <KXMLGUIFactory>
+#include <KAcceleratorManager>
 
 #include <KTextEditor/CodeCompletionInterface>
 #include <KTextEditor/Document>
@@ -40,12 +41,33 @@
 #include <KTextEditor/MovingInterface>
 #include <KXMLGUIClient>
 
+#include <ktexteditor/markinterface.h>
+#include <ktexteditor/movinginterface.h>
+#include <ktexteditor/movingrange.h>
+#include <ktexteditor/configinterface.h>
+
+#include <QKeyEvent>
 #include <QHBoxLayout>
 #include <QAction>
+#include <QTreeWidget>
 #include <QHeaderView>
 #include <QTimer>
 #include <QSet>
 
+namespace RangeData
+{
+
+enum {
+    FileUrlRole = Qt::UserRole,
+    StartLineRole,
+    StartColumnRole,
+    EndLineRole,
+    EndColumnRole
+};
+
+KTextEditor::MarkInterface::MarkTypes markType = KTextEditor::MarkInterface::markType31;
+
+}
 
 class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 {
@@ -68,6 +90,16 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
 
+    // toolview
+    QScopedPointer<QWidget> m_toolView;
+    QPointer<QTabWidget> m_tabWidget;
+    // applied ranges
+    QMultiHash<KTextEditor::Document*, KTextEditor::MovingRange*> m_ranges;
+    // tree is either added to tabwidget or owned here
+    QScopedPointer<QTreeWidget> m_ownedTree;
+    // in either case, the tree that directs applying marks/ranges
+    QPointer<QTreeWidget> m_markTree;
+
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
     // outstanding request
@@ -86,6 +118,7 @@ public:
         setXMLFile(QStringLiteral("ui.rc"));
 
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
+        connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
         connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, &self_type::updateState);
 
         m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
@@ -129,6 +162,16 @@ public:
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
 
+        // toolview
+        m_toolView.reset(mainWin->createToolView(plugin, QStringLiteral("kate_lspclient"),
+                                                 KTextEditor::MainWindow::Bottom,
+                                                 QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
+                                                 i18n("LSP Client")));
+        m_tabWidget = new QTabWidget(m_toolView.get());
+        m_tabWidget->setTabsClosable(true);
+        KAcceleratorManager::setNoAccel(m_tabWidget);
+        connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &self_type::tabCloseRequested);
+
         configUpdated();
         updateState();
 
@@ -137,6 +180,7 @@ public:
 
     ~LSPClientPluginViewImpl()
     {
+        clearAllMarks();
         m_mainWindow->guiFactory()->removeClient(this);
     }
 
@@ -166,6 +210,202 @@ public:
         m_serverManager->restart(nullptr);
     }
 
+    Q_SLOT void clearMarks(KTextEditor::Document *doc)
+    {
+        KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+        if (iface) {
+            const QHash<int, KTextEditor::Mark*> marks = iface->marks();
+            QHashIterator<int, KTextEditor::Mark*> i(marks);
+            while (i.hasNext()) {
+                i.next();
+                if (i.value()->type & RangeData::markType) {
+                    iface->removeMark(i.value()->line, RangeData::markType);
+                }
+            }
+        }
+
+        for (auto it = m_ranges.find(doc); it != m_ranges.end() && it.key() == doc;) {
+            delete it.value();
+            it = m_ranges.erase(it);
+        }
+    }
+
+    void clearAllMarks()
+    {
+        while (!m_ranges.empty()) {
+            clearMarks(m_ranges.begin().key());
+        }
+        // no longer add any again
+        m_ownedTree.reset();
+        m_markTree.clear();
+    }
+
+    void addMarks(KTextEditor::Document *doc, QTreeWidgetItem *item)
+    {
+        KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+        KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+        KTextEditor::View* activeView = m_mainWindow->activeView();
+        KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(activeView);
+
+        if (!miface || !iface)
+            return;
+
+        auto url = item->data(0, RangeData::FileUrlRole).toUrl();
+        if (url != doc->url())
+            return;
+
+        int line = item->data(0, RangeData::StartLineRole).toInt();
+        int column = item->data(0, RangeData::StartColumnRole).toInt();
+        int endLine = item->data(0, RangeData::EndLineRole).toInt();
+        int endColumn = item->data(0, RangeData::EndColumnRole).toInt();
+
+        KTextEditor::Range range(line, column, endLine, endColumn);
+        KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
+
+        // well, it's a bit like searching for something, so re-use that color
+        QColor rangeColor(Qt::yellow);
+        if (ciface) {
+            rangeColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
+        }
+        attr->setBackground(rangeColor);
+        if (activeView) {
+            attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
+        }
+
+        // highlight the range
+        KTextEditor::MovingRange* mr = miface->newMovingRange(range);
+        mr->setAttribute(attr);
+        mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
+        mr->setAttributeOnlyForViews(true);
+        m_ranges.insert(doc, mr);
+
+        // add match mark for range
+        iface->setMarkDescription(RangeData::markType, i18n("RangeHighLight"));
+        iface->setMarkPixmap(RangeData::markType, QIcon().pixmap(0,0));
+        iface->addMark(line, RangeData::markType);
+
+        // ensure runtime match
+        auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(clearMarks(KTextEditor::Document*)), Qt::UniqueConnection);
+        Q_ASSERT(conn);
+        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(clearMarks(KTextEditor::Document*)), Qt::UniqueConnection);
+        Q_ASSERT(conn);
+    }
+
+    void addMarks(KTextEditor::Document *doc, QTreeWidget *tree)
+    {
+        // check if already added
+        if (m_ranges.contains(doc))
+            return;
+
+        QTreeWidgetItemIterator it(tree, QTreeWidgetItemIterator::All);
+        while (*it) {
+            addMarks(doc, *it);
+             ++it;
+         }
+    }
+
+    void goToDocumentLocation(const QUrl & uri, int line, int column)
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        if (!activeView || uri.isEmpty() || line < 0 || column < 0)
+            return;
+
+        KTextEditor::Document *document = activeView->document();
+        KTextEditor::Cursor cdef(line, column);
+
+        if (document && uri == document->url()) {
+            activeView->setCursorPosition(cdef);
+        } else {
+            KTextEditor::View *view = m_mainWindow->openUrl(uri);
+            if (view) {
+                view->setCursorPosition(cdef);
+            }
+        }
+    }
+
+    void goToItemLocation(QTreeWidgetItem *it)
+    {
+        if (it) {
+            auto url = it->data(0, RangeData::FileUrlRole).toUrl();
+            auto line = it->data(0, RangeData::StartLineRole).toInt();
+            auto column = it->data(0, RangeData::StartColumnRole).toInt();
+            goToDocumentLocation(url, line, column);
+        }
+    }
+
+    void tabCloseRequested(int index)
+    {
+        delete m_tabWidget->widget(index);
+    }
+
+    void makeTree(const QList<LSPLocation> & locations)
+    {
+        QStringList titles;
+        titles << i18nc("@title:column", "Location");
+
+        auto treeWidget = new QTreeWidget();
+        treeWidget->setHeaderLabels(titles);
+        treeWidget->setRootIsDecorated(0);
+        treeWidget->setFocusPolicy(Qt::NoFocus);
+        treeWidget->setLayoutDirection(Qt::LeftToRight);
+        treeWidget->setColumnCount(1);
+        treeWidget->setSortingEnabled(false);
+        for (const auto & loc: locations) {
+            auto item = new QTreeWidgetItem(treeWidget);
+            item->setText(0, QStringLiteral("%1 %2").arg(loc.uri.path()).arg(loc.range.start().line() + 1, 6));
+            item->setData(0, RangeData::FileUrlRole, QVariant(loc.uri));
+            item->setData(0, RangeData::StartLineRole, loc.range.start().line());
+            item->setData(0, RangeData::StartColumnRole, loc.range.start().column());
+            item->setData(0, RangeData::EndLineRole, loc.range.end().line());
+            item->setData(0, RangeData::EndColumnRole, loc.range.end().column());
+        }
+        treeWidget->sortItems(0, Qt::AscendingOrder);
+        treeWidget->setSortingEnabled(true);
+
+        m_ownedTree.reset(treeWidget);
+        m_markTree = treeWidget;
+    }
+
+    void showTree(const QString & title)
+    {
+        // transfer widget from owned to tabwidget
+        auto treeWidget = m_ownedTree.take();
+        int index = m_tabWidget->addTab(treeWidget, title);
+        connect(treeWidget, &QTreeWidget::itemClicked, this, &self_type::goToItemLocation);
+
+        // activate the resulting tab
+        m_tabWidget->setCurrentIndex(index);
+        m_mainWindow->showToolView(m_toolView.get());
+    }
+
+    void showMessage(const QString & text, KTextEditor::Message::MessageType level)
+    {
+        KTextEditor::View *view = m_mainWindow->activeView();
+        if (!view || !view->document()) return;
+
+        auto kmsg = new KTextEditor::Message(text, level);
+        kmsg->setPosition(KTextEditor::Message::BottomInView);
+        kmsg->setAutoHide(500);
+        kmsg->setView(view);
+        view->document()->postMessage(kmsg);
+    }
+
+    void handleEsc(QEvent *e)
+    {
+        if (!m_mainWindow) return;
+
+        QKeyEvent *k = static_cast<QKeyEvent *>(e);
+        if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
+            if (!m_ranges.empty()) {
+                clearAllMarks();
+            } else if (m_toolView->isVisible()) {
+                m_mainWindow->hideToolView(m_toolView.get());
+            }
+        }
+    }
+
     template<typename Handler>
     using LocationRequest = std::function<LSPClientServer::RequestHandle(LSPClientServer &,
         const QUrl & document, const LSPPosition & pos,
@@ -181,38 +421,46 @@ public:
 
         KTextEditor::Cursor cursor = activeView->cursorPosition();
 
+        clearAllMarks();
         m_req_timeout = false;
-        QTimer::singleShot(2000, this, [this] { m_req_timeout = true; });
+        QTimer::singleShot(1000, this, [this] { m_req_timeout = true; });
         m_handle.cancel() = req(*server, activeView->document()->url(),
             {cursor.line(), cursor.column()}, this, h);
     }
 
-    void goToLocation(const LocationRequest<DocumentDefinitionReplyHandler> & req)
+    QString currentWord()
     {
-        auto h = [this] (const QList<LSPLocation> & defs)
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        if (activeView) {
+            KTextEditor::Cursor cursor = activeView->cursorPosition();
+            return activeView->document()->wordAt(cursor);
+        } else {
+            return QString();
+        }
+    }
+
+    void goToLocation(const QString & title,
+        const LocationRequest<DocumentDefinitionReplyHandler> & req, bool show)
+    {
+        auto h = [this, title, show] (const QList<LSPLocation> & defs)
         {
-            // TODO add another (bottom) view to display definitions
-            // in case too late or multiple ones have been found
-            // (also adjust timeout then ...)
-
-            if (defs.count()) {
-                auto &def = defs.at(0);
-                auto pos = def.range.start();
-
-                KTextEditor::View *activeView = m_mainWindow->activeView();
-                // it's not nice to jump to some location if we are too late
-                if (!activeView || m_req_timeout || pos.line() < 0 || pos.column() < 0)
-                    return;
-                KTextEditor::Document *document = activeView->document();
-
-                if (document && def.uri == document->url()) {
-                    activeView->setCursorPosition(pos);
+            if (defs.count() == 0) {
+                showMessage(i18n("No results"), KTextEditor::Message::Information);
+            } else {
+                makeTree(defs);
+                if (defs.count() > 1 || show) {
+                    showTree(title);
                 } else {
-                    KTextEditor::View *view = m_mainWindow->openUrl(def.uri);
-                    if (view) {
-                        view->setCursorPosition(pos);
-                    }
+                    // it's not nice to jump to some location if we are too late
+                    if (m_req_timeout)
+                        return;
+
+                    auto &def = defs.at(0);
+                    const auto &pos = def.range.start();
+                    goToDocumentLocation(def.uri, pos.line(), pos.column());
                 }
+                // update marks
+                updateState();
             }
         };
 
@@ -221,16 +469,25 @@ public:
 
     void goToDefinition()
     {
-        goToLocation(&LSPClientServer::documentDefinition);
+        auto title = i18nc("@title:tab", "Definition: %1", currentWord());
+        goToLocation(title, &LSPClientServer::documentDefinition, false);
     }
 
     void goToDeclaration()
     {
-        goToLocation(&LSPClientServer::documentDeclaration);
+        auto title = i18nc("@title:tab", "Declaration: %1", currentWord());
+        goToLocation(title, &LSPClientServer::documentDeclaration, false);
     }
 
     void findReferences()
     {
+        auto title = i18nc("@title:tab", "References: %1", currentWord());
+        // TODO declaration configurable ??
+        auto req = [] (LSPClientServer & server, const QUrl & document, const LSPPosition & pos,
+                    const QObject *context, const DocumentDefinitionReplyHandler & h)
+        { return server.documentReferences(document, pos, true, context, h); };
+
+        goToLocation(title, req, true);
     }
 
     void highlight()
@@ -281,17 +538,9 @@ public:
     {
         auto h = [this] (const LSPHover & info)
         {
-            KTextEditor::View *view = m_mainWindow->activeView();
-            if (!view || !view->document()) return;
-
             // TODO ?? also indicate range in some way ??
             auto text = info.contents.value.length() ? info.contents.value : i18n("No Hover Info");
-            auto msg = new KTextEditor::Message(text, KTextEditor::Message::Information);
-            //msg->setWordWrap(true);
-            msg->setPosition(KTextEditor::Message::BottomInView);
-            msg->setAutoHide(500);
-            msg->setView(view);
-            view->document()->postMessage(msg);
+            showMessage(text, KTextEditor::Message::Information);
         };
 
         positionRequest<DocumentHoverReplyHandler>(&LSPClientServer::documentHover, h);
@@ -308,8 +557,7 @@ public:
             defEnabled = caps.definitionProvider;
             // FIXME no real official protocol way to detect, so enable anyway
             declEnabled = caps.declarationProvider || true;
-            // TODO enable when implemented
-            refEnabled = caps.referencesProvider && false;
+            refEnabled = caps.referencesProvider;
             hoverEnabled = caps.hoverProvider;
             highlightEnabled = caps.documentHighlightProvider;
         }
@@ -334,6 +582,10 @@ public:
 
         displayOptionChanged();
         updateCompletion(activeView, server.get());
+
+        // update marks if applicable
+        if (m_markTree && activeView)
+            addMarks(activeView->document(), m_markTree);
     }
 
     void viewDestroyed(QObject *view)

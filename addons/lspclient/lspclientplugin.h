@@ -49,6 +49,7 @@ class LSPClientPlugin : public KTextEditor::Plugin
         bool m_symbolTree;
         bool m_symbolSort;
         bool m_complDoc;
+        bool m_refDeclaration;
         QUrl m_configPath;
 
 private:

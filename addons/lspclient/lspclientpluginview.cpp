@@ -87,6 +87,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_highlight;
     QPointer<QAction> m_hover;
     QPointer<QAction> m_complDocOn;
+    QPointer<QAction> m_refDeclaration;
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
 
@@ -134,10 +135,13 @@ public:
         m_hover = actionCollection()->addAction(QStringLiteral("lspclient_hover"), this, &self_type::hover);
         m_hover->setText(i18n("Hover"));
 
-        // completion configuration
+        // general options
         m_complDocOn = actionCollection()->addAction(QStringLiteral("lspclient_completion_doc"), this, &self_type::displayOptionChanged);
         m_complDocOn->setText(i18n("Show selected completion documentation"));
         m_complDocOn->setCheckable(true);
+        m_refDeclaration = actionCollection()->addAction(QStringLiteral("lspclient_references_declaration"), this, &self_type::displayOptionChanged);
+        m_refDeclaration->setText(i18n("Include declaration in references"));
+        m_refDeclaration->setCheckable(true);
 
         // server control
         m_restartServer = actionCollection()->addAction(QStringLiteral("lspclient_restart_server"), this, &self_type::restartCurrent);
@@ -155,6 +159,7 @@ public:
         menu->addAction(m_hover);
         menu->addSeparator();
         menu->addAction(m_complDocOn);
+        menu->addAction(m_refDeclaration);
         menu->addSeparator();
         menu->addAction(m_restartServer);
         menu->addAction(m_restartAll);
@@ -194,6 +199,8 @@ public:
     {
         if (m_complDocOn)
             m_complDocOn->setChecked(m_plugin->m_complDoc);
+        if (m_refDeclaration)
+            m_refDeclaration->setChecked(m_plugin->m_refDeclaration);
         displayOptionChanged();
     }
 
@@ -482,10 +489,10 @@ public:
     void findReferences()
     {
         auto title = i18nc("@title:tab", "References: %1", currentWord());
-        // TODO declaration configurable ??
-        auto req = [] (LSPClientServer & server, const QUrl & document, const LSPPosition & pos,
+        bool decl = m_refDeclaration->isChecked();
+        auto req = [decl] (LSPClientServer & server, const QUrl & document, const LSPPosition & pos,
                     const QObject *context, const DocumentDefinitionReplyHandler & h)
-        { return server.documentReferences(document, pos, true, context, h); };
+        { return server.documentReferences(document, pos, decl, context, h); };
 
         goToLocation(title, req, true);
     }

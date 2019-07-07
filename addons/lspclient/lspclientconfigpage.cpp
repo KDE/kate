@@ -49,7 +49,9 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     outlineBox = new QGroupBox(i18n("General Options"), this);
     top = new QVBoxLayout(outlineBox);
     m_complDoc = new QCheckBox(i18n("Show selected completion documentation"));
+    m_refDeclaration = new QCheckBox(i18n("Include declaration in references"));
     top->addWidget(m_complDoc);
+    top->addWidget(m_refDeclaration);
     layout->addWidget(outlineBox);
 
     outlineBox = new QGroupBox(i18n("Server Configuration"), this);
@@ -62,7 +64,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     reset();
 
-    for (const auto & cb : {m_symbolDetails, m_symbolExpand, m_symbolSort, m_symbolTree, m_complDoc})
+    for (const auto & cb : {m_symbolDetails, m_symbolExpand, m_symbolSort, m_symbolTree, m_complDoc, m_refDeclaration})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::changed);
@@ -91,6 +93,7 @@ void LSPClientConfigPage::apply()
     m_plugin->m_symbolSort = m_symbolSort->isChecked();
 
     m_plugin->m_complDoc = m_complDoc->isChecked();
+    m_plugin->m_refDeclaration = m_refDeclaration->isChecked();
 
     m_plugin->m_configPath = m_configPath->url();
 
@@ -105,6 +108,7 @@ void LSPClientConfigPage::reset()
     m_symbolSort->setChecked(m_plugin->m_symbolSort);
 
     m_complDoc->setChecked(m_plugin->m_complDoc);
+    m_refDeclaration->setChecked(m_plugin->m_refDeclaration);
 
     m_configPath->setUrl(m_plugin->m_configPath);
 }

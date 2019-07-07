@@ -81,7 +81,7 @@ void SnippetView::setupActionsForWindow(QWidget* widget)
     }
 }
 
-SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
+SnippetView::SnippetView(KateSnippetGlobal* plugin, KTextEditor::MainWindow *mainWindow, QWidget* parent)
  : QWidget(parent), Ui::SnippetViewBase(), m_plugin(plugin)
 {
     Ui::SnippetViewBase::setupUi(this);
@@ -143,7 +143,7 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     connect(snippetTree->selectionModel(), &QItemSelectionModel::selectionChanged, this, &SnippetView::validateActions);
     validateActions();
 
-    connect(snippetTree->model(), &QAbstractItemModel::rowsInserted, this, [this]() { setupActionsForWindow(this); });
+    connect(snippetTree->model(), &QAbstractItemModel::rowsInserted, this, [this, mainWindow]() { setupActionsForWindow(mainWindow->window()); });
 
     m_proxy->setDynamicSortFilter(true);
     m_proxy->sort(0, Qt::AscendingOrder);

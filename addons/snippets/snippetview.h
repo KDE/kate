@@ -25,6 +25,8 @@
 #ifndef SNIPPETVIEW_H
 #define SNIPPETVIEW_H
 
+#include <KTextEditor/MainWindow>
+
 #include "ui_snippetview.h"
 
 class QStandardItem;
@@ -45,7 +47,7 @@ class SnippetView : public QWidget, public Ui::SnippetViewBase
     Q_OBJECT
 
 public:
-    explicit SnippetView(KateSnippetGlobal* plugin, QWidget* parent = nullptr);
+    explicit SnippetView(KateSnippetGlobal* plugin, KTextEditor::MainWindow *mainWindow, QWidget* parent = nullptr);
 
 public:
     void setupActionsForWindow(QWidget* widget);

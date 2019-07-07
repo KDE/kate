@@ -25,8 +25,8 @@
 #include <QList>
 #include <QVector>
 
-#include <ktexteditor/cursor.h>
-#include <ktexteditor/range.h>
+#include <KTextEditor/Cursor>
+#include <KTextEditor/Range>
 
 enum class LSPErrorCode
 {

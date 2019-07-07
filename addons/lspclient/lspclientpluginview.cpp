@@ -37,6 +37,7 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 #include <KTextEditor/Message>
+#include <KTextEditor/MovingInterface>
 #include <KXMLGUIClient>
 
 #include <QHBoxLayout>
@@ -234,6 +235,8 @@ public:
 
     void highlight()
     {
+        // FIXME: we need a way to clear this without reloading the document!
+
         // construct handler, remember view we did the request for
         const QPointer<KTextEditor::View> viewForRequest(m_mainWindow->activeView());
         auto h = [this, viewForRequest] (const QList<LSPDocumentHighlight> & occurences)
@@ -242,35 +245,33 @@ public:
             if (!viewForRequest)
                 return;
 
+            // need moving interface for the ranges
+            auto miface = qobject_cast<KTextEditor::MovingInterface*>(viewForRequest->document());
+            if (!miface)
+              return;
+
             // highlight all occurences
             for (const auto &occurence : occurences) {
-
-
-            }
-
-#if 0
-            if (defs.count()) {
-                auto &def = defs.at(0);
-                auto &pos = def.range.start;
-
-                KTextEditor::View *activeView = m_mainWindow->activeView();
-                // it's not nice to jump to some location if we are too late
-                if (!activeView || m_req_timeout || pos.line < 0 || pos.column < 0)
-                    return;
-                KTextEditor::Document *document = activeView->document();
-                KTextEditor::Cursor cdef(pos.line, pos.column);
-
-                if (document && def.uri == document->url()) {
-                    activeView->setCursorPosition(cdef);
-                } else {
-                    KTextEditor::View *view = m_mainWindow->openUrl(def.uri);
-                    if (view) {
-                        view->setCursorPosition(cdef);
-                    }
+                // highlight color => FIXME
+                KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
+                switch (occurence.kind) {
+                    case LSPDocumentHighlightKind::Text:
+                        attr->setBackground(Qt::yellow);
+                        break;
+                    case LSPDocumentHighlightKind::Read:
+                        attr->setBackground(Qt::green);
+                        break;
+                    case LSPDocumentHighlightKind::Write:
+                        attr->setBackground(Qt::red);
+                        break;
                 }
-            }
 
-#endif
+                KTextEditor::MovingRange* mr = miface->newMovingRange(occurence.range);
+                mr->setAttribute(attr);
+                mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
+                mr->setAttributeOnlyForViews(true);
+
+            }
         };
 
         positionRequest<DocumentHighlightReplyHandler>(&LSPClientServer::documentHighlight, h);

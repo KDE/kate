@@ -30,6 +30,7 @@
 #include <QJsonArray>
 #include <QCoreApplication>
 #include <QTime>
+#include <QFileInfo>
 
 static const QString MEMBER_ID = QStringLiteral("id");
 static const QString MEMBER_METHOD = QStringLiteral("method");
@@ -546,6 +547,25 @@ public:
     }
 };
 
+// follow suit; as performed in kate docmanager
+// normalize at this stage/layer to avoid surprises elsewhere
+// sadly this is not a single QUrl method as one might hope ...
+static QUrl
+normalizeUrl(const QUrl & url)
+{
+    QUrl u(url.adjusted(QUrl::NormalizePathSegments));
+
+    // Resolve symbolic links for local files (done anyway in KTextEditor)
+    if (u.isLocalFile()) {
+        QString normalizedUrl = QFileInfo(u.toLocalFile()).canonicalFilePath();
+        if (!normalizedUrl.isEmpty()) {
+            u = QUrl::fromLocalFile(normalizedUrl);
+        }
+    }
+
+    return u;
+}
+
 static LSPMarkupContent
 parseMarkupContent(const QJsonValue & v)
 {
@@ -589,7 +609,7 @@ parseRange(const QJsonObject & range)
 static LSPLocation
 parseLocation(const QJsonObject & loc)
 {
-    auto uri = loc.value(MEMBER_URI).toString();
+    auto uri = normalizeUrl(QUrl(loc.value(MEMBER_URI).toString()));
     auto range = parseRange(loc.value(MEMBER_RANGE).toObject());
     return {QUrl(uri), range};
 }

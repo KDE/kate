@@ -92,8 +92,8 @@ textDocumentPositionParams(const QUrl & document, LSPPosition pos)
 {
     auto params = textDocumentParams(document);
     params[MEMBER_POSITION] = QJsonObject {
-        { MEMBER_LINE, pos.line },
-        { MEMBER_CHARACTER, pos.column }
+        { MEMBER_LINE, pos.line() },
+        { MEMBER_CHARACTER, pos.column() }
     };
     return params;
 }
@@ -576,7 +576,7 @@ parsePosition(const QJsonObject & m)
 
 static bool
 isPositionValid(const LSPPosition & pos)
-{ return pos.line >= 0 && pos.column >=0; }
+{ return pos.isValid(); }
 
 static LSPRange
 parseRange(const QJsonObject & range)
@@ -673,7 +673,7 @@ parseDocumentSymbols(const QJsonValue & result)
         const auto& mrange = symbol.contains(MEMBER_RANGE) ?
                     symbol.value(MEMBER_RANGE) : location.value(MEMBER_RANGE);
         auto range = parseRange(mrange.toObject());
-        if (isPositionValid(range.start) && isPositionValid(range.end)) {
+        if (isPositionValid(range.start()) && isPositionValid(range.end())) {
             list->push_back({name, kind, range});
             index[name] = &list->back();
             // proceed recursively

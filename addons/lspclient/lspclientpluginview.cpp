@@ -196,21 +196,20 @@ public:
 
             if (defs.count()) {
                 auto &def = defs.at(0);
-                auto &pos = def.range.start;
+                auto pos = def.range.start();
 
                 KTextEditor::View *activeView = m_mainWindow->activeView();
                 // it's not nice to jump to some location if we are too late
-                if (!activeView || m_req_timeout || pos.line < 0 || pos.column < 0)
+                if (!activeView || m_req_timeout || pos.line() < 0 || pos.column() < 0)
                     return;
                 KTextEditor::Document *document = activeView->document();
-                KTextEditor::Cursor cdef(pos.line, pos.column);
 
                 if (document && def.uri == document->url()) {
-                    activeView->setCursorPosition(cdef);
+                    activeView->setCursorPosition(pos);
                 } else {
                     KTextEditor::View *view = m_mainWindow->openUrl(def.uri);
                     if (view) {
-                        view->setCursorPosition(cdef);
+                        view->setCursorPosition(pos);
                     }
                 }
             }
@@ -235,11 +234,20 @@ public:
 
     void highlight()
     {
-        auto h = [this] (const QList<LSPDocumentHighlight> & defs)
+        // construct handler, remember view we did the request for
+        const QPointer<KTextEditor::View> viewForRequest(m_mainWindow->activeView());
+        auto h = [this, viewForRequest] (const QList<LSPDocumentHighlight> & occurences)
         {
-            // TODO add another (bottom) view to display definitions
-            // in case too late or multiple ones have been found
-            // (also adjust timeout then ...)
+            // abort if the view we requested this for is away!
+            if (!viewForRequest)
+                return;
+
+            // highlight all occurences
+            for (const auto &occurence : occurences) {
+
+
+            }
+
 #if 0
             if (defs.count()) {
                 auto &def = defs.at(0);

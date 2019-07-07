@@ -25,6 +25,9 @@
 #include <QList>
 #include <QVector>
 
+#include <ktexteditor/cursor.h>
+#include <ktexteditor/range.h>
+
 enum class LSPErrorCode
 {
     // Defined by JSON RPC
@@ -90,19 +93,19 @@ struct LSPMarkupContent
     QString value;
 };
 
-struct LSPPosition
-{
-    // both are 0-based
-    // (negative if optional/non-present)
-    int line;
-    int column;
-};
+/**
+ * Language Server Protocol Position
+ * line + column, 0 based, negative for invalid
+ * maps 1:1 to KTextEditor::Cursor
+ */
+using LSPPosition = KTextEditor::Cursor;
 
-struct LSPRange
-{
-    LSPPosition start;
-    LSPPosition end;
-};
+/**
+ * Language Server Protocol Range
+ * start + end tuple of LSPPosition
+ * maps 1:1 to KTextEditor::Range
+ */
+using LSPRange = KTextEditor::Range;
 
 struct LSPLocation
 {

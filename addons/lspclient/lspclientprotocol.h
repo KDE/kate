@@ -74,6 +74,7 @@ struct LSPServerCapabilities
     bool declarationProvider = false;
     bool referencesProvider = false;
     bool documentSymbolProvider = false;
+    bool documentHighlightProvider = false;
 };
 
 enum class LSPMarkupKind

@@ -61,6 +61,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_findDef;
     QPointer<QAction> m_findDecl;
     QPointer<QAction> m_findRef;
+    QPointer<QAction> m_highlight;
     QPointer<QAction> m_hover;
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_restartServer;
@@ -92,6 +93,8 @@ public:
         m_findDecl->setText(i18n("Go to Declaration"));
         m_findRef = actionCollection()->addAction(QStringLiteral("lspclient_find_references"), this, &self_type::findReferences);
         m_findRef->setText(i18n("Find References"));
+        m_highlight = actionCollection()->addAction(QStringLiteral("lspclient_highlight"), this, &self_type::highlight);
+        m_highlight->setText(i18n("Highlight"));
         // perhaps hover suggests to do so on mouse-over,
         // but let's just use a (convenient) action/shortcut for it
         m_hover = actionCollection()->addAction(QStringLiteral("lspclient_hover"), this, &self_type::hover);
@@ -114,6 +117,7 @@ public:
         menu->addAction(m_findDef);
         menu->addAction(m_findDecl);
         menu->addAction(m_findRef);
+        menu->addAction(m_highlight);
         menu->addAction(m_hover);
         menu->addSeparator();
         menu->addAction(m_complDocOn);
@@ -229,6 +233,10 @@ public:
     {
     }
 
+    void highlight()
+    {
+    }
+
     void hover()
     {
         auto h = [this] (const LSPHover & info)
@@ -253,7 +261,7 @@ public:
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
-        bool defEnabled = false, declEnabled = false, refEnabled = false, hoverEnabled = false;
+        bool defEnabled = false, declEnabled = false, refEnabled = false, hoverEnabled = false, highlightEnabled = false;
 
         if (server) {
             const auto& caps = server->capabilities();
@@ -263,6 +271,7 @@ public:
             // TODO enable when implemented
             refEnabled = caps.referencesProvider && false;
             hoverEnabled = caps.hoverProvider;
+            highlightEnabled = caps.documentHighlightProvider;
         }
 
         if (m_findDef)
@@ -271,6 +280,8 @@ public:
             m_findDecl->setEnabled(declEnabled);
         if (m_findRef)
             m_findRef->setEnabled(refEnabled);
+        if (m_highlight)
+            m_highlight->setEnabled(highlightEnabled);
         if (m_hover)
             m_hover->setEnabled(hoverEnabled);
         if (m_complDocOn)

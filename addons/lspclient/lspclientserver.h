@@ -59,6 +59,7 @@ using ReplyHandler = std::function<void(const T &)>;
 
 using DocumentSymbolsReplyHandler = ReplyHandler<QList<LSPSymbolInformation>>;
 using DocumentDefinitionReplyHandler = ReplyHandler<QList<LSPLocation>>;
+using DocumentHighlightReplyHandler = ReplyHandler<QList<LSPDocumentHighlight>>;
 using DocumentHoverReplyHandler = ReplyHandler<LSPHover>;
 using DocumentCompletionReplyHandler = ReplyHandler<QList<LSPCompletionItem>>;
 using SignatureHelpReplyHandler = ReplyHandler<LSPSignatureHelp>;
@@ -117,6 +118,8 @@ public:
         const QObject *context, const DocumentDefinitionReplyHandler & h);
     RequestHandle documentDeclaration(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const DocumentDefinitionReplyHandler & h);
+    RequestHandle documentHighlight(const QUrl & document, const LSPPosition & pos,
+        const QObject *context, const DocumentHighlightReplyHandler & h);
     RequestHandle documentHover(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const DocumentHoverReplyHandler & h);
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,

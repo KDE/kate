@@ -110,6 +110,19 @@ struct LSPLocation
     LSPRange range;
 };
 
+enum class LSPDocumentHighlightKind
+{
+    Text = 1,
+    Read = 2,
+    Write = 3
+};
+
+struct LSPDocumentHighlight
+{
+    LSPRange range;
+    LSPDocumentHighlightKind kind;
+};
+
 struct LSPHover
 {
     LSPMarkupContent contents;

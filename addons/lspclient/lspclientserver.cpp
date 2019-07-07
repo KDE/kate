@@ -496,6 +496,13 @@ public:
         return send(init_request(QStringLiteral("textDocument/hover"), params), h);
     }
 
+    RequestHandle documentHighlight(const QUrl & document, const LSPPosition & pos,
+        const GenericReplyHandler & h)
+    {
+        auto params = textDocumentPositionParams(document, pos);
+        return send(init_request(QStringLiteral("textDocument/documentHighlight"), params), h);
+    }
+
     RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
         const GenericReplyHandler & h)
     {
@@ -585,6 +592,31 @@ parseLocation(const QJsonObject & loc)
     auto uri = loc.value(MEMBER_URI).toString();
     auto range = parseRange(loc.value(MEMBER_RANGE).toObject());
     return {QUrl(uri), range};
+}
+
+static LSPDocumentHighlight
+parseDocumentHighlight(const QJsonValue & result)
+{
+    auto hover = result.toObject();
+    auto range = parseRange(hover.value(MEMBER_RANGE).toObject());
+    auto kind = (LSPDocumentHighlightKind)hover.value(MEMBER_KIND).toInt((int)LSPDocumentHighlightKind::Text); // default is DocumentHighlightKind.Text
+    return {range, kind};
+}
+
+static QList<LSPDocumentHighlight>
+parseDocumentHighlightList(const QJsonValue & result)
+{
+    QList<LSPDocumentHighlight> ret;
+    // could be array
+    if (result.isArray()) {
+        for (const auto & def : result.toArray()) {
+            ret.push_back(parseDocumentHighlight(def));
+        }
+    } else if (result.isObject()) {
+        // or a single value
+        ret.push_back(parseDocumentHighlight(result));
+    }
+    return ret;
 }
 
 static LSPHover
@@ -808,6 +840,11 @@ LSPClientServer::RequestHandle
 LSPClientServer::documentHover(const QUrl & document, const LSPPosition & pos,
     const QObject *context, const DocumentHoverReplyHandler & h)
 { return d->documentHover(document, pos, make_handler(h, context, parseHover)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentHighlight(const QUrl & document, const LSPPosition & pos,
+    const QObject *context, const DocumentHighlightReplyHandler & h)
+{ return d->documentHighlight(document, pos, make_handler(h, context, parseDocumentHighlightList)); }
 
 LSPClientServer::RequestHandle
 LSPClientServer::documentCompletion(const QUrl & document, const LSPPosition & pos,

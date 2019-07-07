@@ -235,6 +235,37 @@ public:
 
     void highlight()
     {
+        auto h = [this] (const QList<LSPDocumentHighlight> & defs)
+        {
+            // TODO add another (bottom) view to display definitions
+            // in case too late or multiple ones have been found
+            // (also adjust timeout then ...)
+#if 0
+            if (defs.count()) {
+                auto &def = defs.at(0);
+                auto &pos = def.range.start;
+
+                KTextEditor::View *activeView = m_mainWindow->activeView();
+                // it's not nice to jump to some location if we are too late
+                if (!activeView || m_req_timeout || pos.line < 0 || pos.column < 0)
+                    return;
+                KTextEditor::Document *document = activeView->document();
+                KTextEditor::Cursor cdef(pos.line, pos.column);
+
+                if (document && def.uri == document->url()) {
+                    activeView->setCursorPosition(cdef);
+                } else {
+                    KTextEditor::View *view = m_mainWindow->openUrl(def.uri);
+                    if (view) {
+                        view->setCursorPosition(cdef);
+                    }
+                }
+            }
+
+#endif
+        };
+
+        positionRequest<DocumentHighlightReplyHandler>(&LSPClientServer::documentHighlight, h);
     }
 
     void hover()

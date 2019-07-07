@@ -31,6 +31,7 @@
 #include <QIcon>
 #include <QUrl>
 
+#include <algorithm>
 
 #define RETURN_CACHED_ICON(name) \
 { \
@@ -263,7 +264,7 @@ public:
             qCInfo(LSPCLIENT) << "adding completions " << compl.size();
             for (const auto & item : compl)
                 m_matches.push_back(item);
-            qSort(m_matches.begin(), m_matches.end(), compare_match);
+            std::stable_sort(m_matches.begin(), m_matches.end(), compare_match);
             setRowCount(m_matches.size());
             endResetModel();
         };
@@ -283,7 +284,7 @@ public:
                 m_matches.push_back({item, active, QString(QStringLiteral("%1").arg(sortIndex, 3, 10))});
                 ++index;
             }
-            qSort(m_matches.begin(), m_matches.end(), compare_match);
+            std::stable_sort(m_matches.begin(), m_matches.end(), compare_match);
             setRowCount(m_matches.size());
             endResetModel();
         };

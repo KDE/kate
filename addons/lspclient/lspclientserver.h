@@ -32,6 +32,9 @@
 
 #include <functional>
 
+namespace utils
+{
+
 // template helper
 // function bind helpers
 template<typename R, typename T, typename Tp, typename... Args>
@@ -42,6 +45,11 @@ mem_fun(R (T::*pm)(Args ...), Tp object)
     return (object->*pm)(std::forward<Args>(args)...);
   };
 }
+
+// prevent argument deduction
+template<typename T> struct identity { typedef T type; };
+
+} // namespace utils
 
 template<typename R, typename T, typename Tp, typename... Args>
 inline std::function<R(Args...)>

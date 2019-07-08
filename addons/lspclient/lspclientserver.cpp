@@ -189,8 +189,8 @@ public:
         : q(_q), m_server(server), m_root(root), m_init(init)
     {
         // setup async reading
-        QObject::connect(&m_sproc, &QProcess::readyRead, mem_fun(&self_type::read, this));
-        QObject::connect(&m_sproc, &QProcess::stateChanged, mem_fun(&self_type::onStateChanged, this));
+        QObject::connect(&m_sproc, &QProcess::readyRead, utils::mem_fun(&self_type::read, this));
+        QObject::connect(&m_sproc, &QProcess::stateChanged, utils::mem_fun(&self_type::onStateChanged, this));
     }
 
     ~LSPClientServerPrivate()
@@ -435,7 +435,7 @@ private:
         };
         //
         write(init_request(QStringLiteral("initialize"), params),
-             mem_fun(&self_type::onInitializeReply, this));
+             utils::mem_fun(&self_type::onInitializeReply, this));
     }
 
     void initialized()
@@ -814,9 +814,6 @@ parseSignatureHelp(const QJsonValue & result)
     return ret;
 }
 
-// prevent argument deduction
-template<typename T> struct identity { typedef T type; };
-
 // generic convert handler
 // sprinkle some connection-like context safety
 // not so likely relevant/needed due to typical sequence of events,
@@ -824,7 +821,7 @@ template<typename T> struct identity { typedef T type; };
 template<typename ReplyType>
 static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> & h,
     const QObject *context,
-    typename identity<std::function<ReplyType(const GenericReplyType&)>>::type c)
+    typename utils::identity<std::function<ReplyType(const GenericReplyType&)>>::type c)
 {
     QPointer<const QObject> ctx(context);
     return [ctx, h, c] (const GenericReplyType & m) { if (ctx) h(c(m)); };

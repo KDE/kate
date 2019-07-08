@@ -62,7 +62,8 @@ enum {
     StartLineRole,
     StartColumnRole,
     EndLineRole,
-    EndColumnRole
+    EndColumnRole,
+    KindRole
 };
 
 KTextEditor::MarkInterface::MarkTypes markType = KTextEditor::MarkInterface::markType31;
@@ -265,15 +266,29 @@ public:
         int column = item->data(0, RangeData::StartColumnRole).toInt();
         int endLine = item->data(0, RangeData::EndLineRole).toInt();
         int endColumn = item->data(0, RangeData::EndColumnRole).toInt();
+        LSPDocumentHighlightKind kind = (LSPDocumentHighlightKind) item->data(0, RangeData::KindRole).toInt();
 
         KTextEditor::Range range(line, column, endLine, endColumn);
         KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
-        // well, it's a bit like searching for something, so re-use that color
-        QColor rangeColor(Qt::yellow);
-        if (ciface) {
-            rangeColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
-        }
+        QColor rangeColor;
+        switch (kind) {
+            case LSPDocumentHighlightKind::Text:
+                // well, it's a bit like searching for something, so re-use that color
+                rangeColor = Qt::yellow;
+                if (ciface) {
+                    rangeColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
+                }
+                attr->setBackground(Qt::yellow);
+                break;
+                // FIXME are there any symbolic/configurable ways to pick these colors?
+            case LSPDocumentHighlightKind::Read:
+                rangeColor = Qt::green;
+                break;
+            case LSPDocumentHighlightKind::Write:
+                rangeColor = Qt::red;
+                break;
+        };
         attr->setBackground(rangeColor);
         if (activeView) {
             attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
@@ -347,10 +362,30 @@ public:
         delete m_tabWidget->widget(index);
     }
 
-    void makeTree(const QList<LSPLocation> & locations)
+    // local helper to overcome some differences in LSP types
+    struct RangeItem
     {
+        QUrl uri;
+        LSPRange range;
+        LSPDocumentHighlightKind kind;
+    };
+
+    static
+    bool compareRangeItem(const RangeItem & a, const RangeItem & b)
+    { return (a.uri < b.uri) || ((a.uri == b.uri) && a.range < b.range); }
+
+    void makeTree(const QVector<RangeItem> & locations)
+    {
+        // TODO improve tree display to be more useful and look like
+        // search plugin results ...
+        // This means we will need to go and get line content;
+        // do so at once for openened documents
+        // but do so only upon expansion for unopened documents
+
         QStringList titles;
-        titles << i18nc("@title:column", "Location");
+        // let's not bother translators yet ...
+        // titles << i18nc("@title:column", "Location");
+        titles << QStringLiteral("Location");
 
         auto treeWidget = new QTreeWidget();
         treeWidget->setHeaderLabels(titles);
@@ -367,6 +402,7 @@ public:
             item->setData(0, RangeData::StartColumnRole, loc.range.start().column());
             item->setData(0, RangeData::EndLineRole, loc.range.end().line());
             item->setData(0, RangeData::EndColumnRole, loc.range.end().column());
+            item->setData(0, RangeData::KindRole, (int) loc.kind);
         }
         treeWidget->sortItems(0, Qt::AscendingOrder);
         treeWidget->setSortingEnabled(true);
@@ -446,44 +482,59 @@ public:
         }
     }
 
-    void goToLocation(const QString & title,
-        const LocationRequest<DocumentDefinitionReplyHandler> & req, bool show)
+    // some template and function type trickery here, but at least that buck stops here then ...
+    template<typename ReplyEntryType, bool doshow = true, typename HandlerType = ReplyHandler<QList<ReplyEntryType>>>
+    void processLocations(const QString & title,
+        const typename utils::identity<LocationRequest<HandlerType>>::type & req, bool onlyshow,
+        const std::function<RangeItem(const ReplyEntryType &)> & itemConverter)
     {
-        auto h = [this, title, show] (const QList<LSPLocation> & defs)
+        auto h = [this, title, onlyshow, itemConverter] (const QList<ReplyEntryType> & defs)
         {
             if (defs.count() == 0) {
                 showMessage(i18n("No results"), KTextEditor::Message::Information);
             } else {
-                makeTree(defs);
-                if (defs.count() > 1 || show) {
-                    showTree(title);
-                } else {
-                    // it's not nice to jump to some location if we are too late
-                    if (m_req_timeout)
-                        return;
+                // convert to helper type
+                QVector<RangeItem> ranges;
+                ranges.reserve(defs.size());
+                for (const auto & def: defs) {
+                    ranges.push_back(itemConverter(def));
+                }
+                // ... so we can sort it also
+                std::stable_sort(ranges.begin(), ranges.end(), compareRangeItem);
+                makeTree(ranges);
 
-                    auto &def = defs.at(0);
-                    const auto &pos = def.range.start();
-                    goToDocumentLocation(def.uri, pos.line(), pos.column());
+                if (defs.count() > 1 || onlyshow) {
+                    showTree(title);
+                }
+                // it's not nice to jump to some location if we are too late
+                if (!m_req_timeout && !onlyshow) {
+                    // assuming here that the first location is the best one
+                    const auto &item = itemConverter(defs.at(0));
+                    const auto &pos = item.range.start();
+                    goToDocumentLocation(item.uri, pos.line(), pos.column());
                 }
                 // update marks
                 updateState();
             }
         };
 
-        positionRequest<DocumentDefinitionReplyHandler>(req, h);
+        positionRequest<HandlerType>(req, h);
     }
+
+    static RangeItem
+    locationToRangeItem(const LSPLocation & loc)
+    { return {loc.uri, loc.range, LSPDocumentHighlightKind::Text}; }
 
     void goToDefinition()
     {
         auto title = i18nc("@title:tab", "Definition: %1", currentWord());
-        goToLocation(title, &LSPClientServer::documentDefinition, false);
+        processLocations<LSPLocation>(title, &LSPClientServer::documentDefinition, false, &self_type::locationToRangeItem);
     }
 
     void goToDeclaration()
     {
         auto title = i18nc("@title:tab", "Declaration: %1", currentWord());
-        goToLocation(title, &LSPClientServer::documentDeclaration, false);
+        processLocations<LSPLocation>(title, &LSPClientServer::documentDeclaration, false, &self_type::locationToRangeItem);
     }
 
     void findReferences()
@@ -494,51 +545,23 @@ public:
                     const QObject *context, const DocumentDefinitionReplyHandler & h)
         { return server.documentReferences(document, pos, decl, context, h); };
 
-        goToLocation(title, req, true);
+        processLocations<LSPLocation>(title, req, true, &self_type::locationToRangeItem);
     }
 
     void highlight()
     {
-        // FIXME: we need a way to clear this without reloading the document!
+        // determine current url to capture and use later on
+        QUrl url;
+        const KTextEditor::View* viewForRequest(m_mainWindow->activeView());
+        if (viewForRequest && viewForRequest->document()) {
+            url = viewForRequest->document()->url();
+        }
 
-        // construct handler, remember view we did the request for
-        const QPointer<KTextEditor::View> viewForRequest(m_mainWindow->activeView());
-        auto h = [this, viewForRequest] (const QList<LSPDocumentHighlight> & occurences)
-        {
-            // abort if the view we requested this for is away!
-            if (!viewForRequest)
-                return;
+        auto title = i18nc("@title:tab", "Highlight: %1", currentWord());
+        auto converter = [url] (const LSPDocumentHighlight & hl)
+        { return RangeItem {url, hl.range, hl.kind}; };
 
-            // need moving interface for the ranges
-            auto miface = qobject_cast<KTextEditor::MovingInterface*>(viewForRequest->document());
-            if (!miface)
-              return;
-
-            // highlight all occurences
-            for (const auto &occurence : occurences) {
-                // highlight color => FIXME
-                KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-                switch (occurence.kind) {
-                    case LSPDocumentHighlightKind::Text:
-                        attr->setBackground(Qt::yellow);
-                        break;
-                    case LSPDocumentHighlightKind::Read:
-                        attr->setBackground(Qt::green);
-                        break;
-                    case LSPDocumentHighlightKind::Write:
-                        attr->setBackground(Qt::red);
-                        break;
-                }
-
-                KTextEditor::MovingRange* mr = miface->newMovingRange(occurence.range);
-                mr->setAttribute(attr);
-                mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
-                mr->setAttributeOnlyForViews(true);
-
-            }
-        };
-
-        positionRequest<DocumentHighlightReplyHandler>(&LSPClientServer::documentHighlight, h);
+        processLocations<LSPDocumentHighlight, false>(title, &LSPClientServer::documentHighlight, true, converter);
     }
 
     void hover()

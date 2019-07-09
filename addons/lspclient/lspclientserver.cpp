@@ -258,7 +258,7 @@ private:
         auto hdr = QStringLiteral("Content-Length: %1\r\n").arg(sjson.length());
         // write is async, so no blocking wait occurs here
         m_sproc.write(hdr.toLatin1());
-        m_sproc.write("Content-Type: application/vscode-jsonrpc; charset=utf-8\r\n\r\n");
+        m_sproc.write("\r\n");
         m_sproc.write(sjson);
 
         return ret;

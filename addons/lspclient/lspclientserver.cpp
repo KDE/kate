@@ -756,7 +756,11 @@ parseDocumentCompletion(const QJsonValue & result)
         auto detail = item.value(MEMBER_DETAIL).toString();
         auto doc = parseMarkupContent(item.value(MEMBER_DOCUMENTATION));
         auto sortText = item.value(QStringLiteral("sortText")).toString();
+        if (sortText.isEmpty())
+            sortText = label;
         auto insertText = item.value(QStringLiteral("insertText")).toString();
+        if (insertText.isEmpty())
+            insertText = label;
         auto kind = (LSPCompletionItemKind) item.value(MEMBER_KIND).toInt();
         ret.push_back({label, kind, detail, doc, sortText, insertText});
     }

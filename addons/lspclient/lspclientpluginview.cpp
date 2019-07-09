@@ -53,6 +53,7 @@
 #include <QHeaderView>
 #include <QTimer>
 #include <QSet>
+#include <QTextCodec>
 
 namespace RangeData
 {
@@ -69,6 +70,42 @@ enum {
 KTextEditor::MarkInterface::MarkTypes markType = KTextEditor::MarkInterface::markType31;
 
 }
+
+// helper to read lines from unopened documents
+// lightweight and does not require additional symbols
+class FileLineReader
+{
+    QFile file;
+    int linesRead = 0;
+
+public:
+    FileLineReader(const QUrl & url)
+        : file(url.path())
+    {
+        file.open(QIODevice::ReadOnly);
+    }
+
+    // called with increasing lineno
+    QString line(int lineno)
+    {
+        while (file.isOpen() && !file.atEnd()) {
+            auto line = file.readLine();
+            if (linesRead++ == lineno) {
+                QTextCodec::ConverterState state;
+                QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+                QString text = codec->toUnicode(line.constData(), line.size(), &state);
+                if (state.invalidChars > 0) {
+                    text = QString::fromLatin1(line);
+                }
+                while (text.size() && text.at(text.size() -1).isSpace())
+                    text.chop(1);
+                return text;
+            }
+        }
+        return QString();
+    }
+};
+
 
 class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 {
@@ -174,6 +211,7 @@ public:
                                                  QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
                                                  i18n("LSP Client")));
         m_tabWidget = new QTabWidget(m_toolView.get());
+        m_tabWidget->setFocusPolicy(Qt::NoFocus);
         m_tabWidget->setTabsClosable(true);
         KAcceleratorManager::setNoAccel(m_tabWidget);
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &self_type::tabCloseRequested);
@@ -374,29 +412,71 @@ public:
     bool compareRangeItem(const RangeItem & a, const RangeItem & b)
     { return (a.uri < b.uri) || ((a.uri == b.uri) && a.range < b.range); }
 
+    KTextEditor::Document*
+    findDocument(const QUrl & url)
+    {
+        auto views = m_mainWindow->views();
+        for (const auto v: views) {
+            auto doc = v->document();
+            if (doc && doc->url() == url)
+                return doc;
+        }
+        return nullptr;
+    }
+
+    void onExpanded(const QModelIndex & index, QTreeWidget * treeWidget)
+    {
+        auto rootIndex = index.data(RangeData::EndColumnRole).toInt();
+        auto rootItem = treeWidget->topLevelItem(rootIndex);
+
+        if (!rootItem || rootItem->data(0, RangeData::KindRole).toBool())
+            return;
+
+        KTextEditor::Document *doc = nullptr;
+        QScopedPointer<FileLineReader> fr;
+        for (int i = 0; i < rootItem->childCount(); i++) {
+            auto child = rootItem->child(i);
+            if (i == 0) {
+                auto url = child->data(0, RangeData::FileUrlRole).toUrl();
+                doc = findDocument(url);
+                if (!doc) {
+                    fr.reset(new FileLineReader(url));
+                }
+            }
+            auto text = child->text(0);
+            auto lineno = child->data(0, RangeData::StartLineRole).toInt();
+            auto line = doc ? doc->line(lineno) : fr->line(lineno);
+            text += line;
+            child->setText(0, text);
+        }
+
+        // mark as processed
+        rootItem->setData(0, RangeData::KindRole, true);
+    }
+
     void makeTree(const QVector<RangeItem> & locations)
     {
-        // TODO improve tree display to be more useful and look like
-        // search plugin results ...
-        // This means we will need to go and get line content;
-        // do so at once for openened documents
-        // but do so only upon expansion for unopened documents
-
-        QStringList titles;
-        // let's not bother translators yet ...
-        // titles << i18nc("@title:column", "Location");
-        titles << QStringLiteral("Location");
-
+        // group by url, assuming input is suitably sorted that way
         auto treeWidget = new QTreeWidget();
-        treeWidget->setHeaderLabels(titles);
-        treeWidget->setRootIsDecorated(0);
+        treeWidget->setHeaderHidden(true);
         treeWidget->setFocusPolicy(Qt::NoFocus);
         treeWidget->setLayoutDirection(Qt::LeftToRight);
         treeWidget->setColumnCount(1);
         treeWidget->setSortingEnabled(false);
+
+        QUrl lastUrl;
+        QTreeWidgetItem *parent = nullptr;
         for (const auto & loc: locations) {
-            auto item = new QTreeWidgetItem(treeWidget);
-            item->setText(0, QStringLiteral("%1 %2").arg(loc.uri.path()).arg(loc.range.start().line() + 1, 6));
+            if (loc.uri != lastUrl) {
+                if (parent) {
+                    parent->setText(0, QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->childCount()));
+                }
+                lastUrl = loc.uri;
+                parent = new QTreeWidgetItem(treeWidget);
+                parent->setData(0, RangeData::EndColumnRole, treeWidget->topLevelItemCount() - 1);
+            }
+            auto item = new QTreeWidgetItem(parent);
+            item->setText(0, i18n("Line: %1: ", loc.range.start().line() + 1));
             item->setData(0, RangeData::FileUrlRole, QVariant(loc.uri));
             item->setData(0, RangeData::StartLineRole, loc.range.start().line());
             item->setData(0, RangeData::StartColumnRole, loc.range.start().column());
@@ -404,8 +484,18 @@ public:
             item->setData(0, RangeData::EndColumnRole, loc.range.end().column());
             item->setData(0, RangeData::KindRole, (int) loc.kind);
         }
-        treeWidget->sortItems(0, Qt::AscendingOrder);
-        treeWidget->setSortingEnabled(true);
+        if (parent)
+            parent->setText(0, QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->childCount()));
+
+        // add line data if file (root) item gets expanded
+        auto h = [this, treeWidget] (const QModelIndex & index) { onExpanded(index, treeWidget); };
+        connect(treeWidget, &QTreeWidget::expanded, this, h);
+
+        // plain heuristic; auto-expand all when safe and/or useful to do so
+        if (treeWidget->topLevelItemCount() <= 2 || locations.size() <= 20) {
+            treeWidget->expandAll();
+        }
+
 
         m_ownedTree.reset(treeWidget);
         m_markTree = treeWidget;

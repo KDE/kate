@@ -82,19 +82,17 @@ void KateQuickOpenModel::refresh()
     const QStringList projectDocs = projectView ? projectView->property("projectFiles").toStringList() : QStringList();
 
     QVector<ModelEntry> allDocuments;
-    allDocuments.resize(sortedViews.size() + openDocs.size() + projectDocs.size());
+    allDocuments.reserve(sortedViews.size() + openDocs.size() + projectDocs.size());
 
+    size_t sort_id = (size_t)-1;
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
-        allDocuments.push_back({ doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), false });
+        allDocuments.push_back({ doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), true, sort_id --});
     }
 
-    QStringList openedUrls;
-    openedUrls.reserve(openDocs.size());
     for (auto *doc : qAsConst(openDocs)) {
         const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
-        allDocuments.push_back({ doc->url(), doc->documentName(), normalizedUrl, false });
-        openedUrls.push_back(normalizedUrl);
+        allDocuments.push_back({ doc->url(), doc->documentName(), normalizedUrl, true, 0 });
     }
 
     for (const auto& file : qAsConst(projectDocs)) {
@@ -103,16 +101,19 @@ void KateQuickOpenModel::refresh()
         allDocuments.push_back({
             localFile,
             fi.fileName(),
-            localFile.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), false });
+            localFile.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), false, 0 });
     }
 
     /** Sort the arrays by filePath. */
-    std::sort(std::begin(allDocuments), std::end(allDocuments),
+    std::stable_sort(std::begin(allDocuments), std::end(allDocuments),
         [](const ModelEntry& a, const ModelEntry& b) {
         return a.filePath < b.filePath;
     });
 
-    /** remove Duplicates. */
+    /** remove Duplicates.
+      * Note that the stable_sort above guarantees that the items that the
+      * bold/sort_id fields of the items added first are correctly preserved.
+      */
     allDocuments.erase(
         std::unique(allDocuments.begin(), allDocuments.end(),
         [](const ModelEntry& a, const ModelEntry& b) {
@@ -120,15 +121,11 @@ void KateQuickOpenModel::refresh()
         }),
         std::end(allDocuments));
 
-    for (auto& doc : allDocuments) {
-        if (Q_UNLIKELY(openedUrls.indexOf(doc.filePath) != -1)) {
-            doc.bold = true;
-        }
-    }
-
     /** sort the arrays via boldness (open or not */
-    std::sort(std::begin(allDocuments), std::end(allDocuments),
+    std::stable_sort(std::begin(allDocuments), std::end(allDocuments),
         [](const ModelEntry& a, const ModelEntry& b) {
+        if (a.bold == b.bold)
+            return a.sort_id > b.sort_id;
         return a.bold > b.bold;
     });
 

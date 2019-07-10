@@ -139,7 +139,11 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
 
 void KateQuickOpen::reselectFirst()
 {
-    QModelIndex index = m_model->index(0, 0);
+    int first = 0;
+    if (m_mainWindow->viewManager()->sortedViews().size() > 1)
+        first = 1;
+
+    QModelIndex index = m_model->index(first, 0);
     m_listView->setCurrentIndex(index);
 }
 

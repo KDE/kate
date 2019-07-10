@@ -46,11 +46,6 @@ mem_fun(R (T::*pm)(Args ...), Tp object)
   };
 }
 
-// prevent argument deduction
-template<typename T> struct identity { typedef T type; };
-
-} // namespace utils
-
 template<typename R, typename T, typename Tp, typename... Args>
 inline std::function<R(Args...)>
 mem_fun(R (T::*pm)(Args ...) const, Tp object)
@@ -59,6 +54,12 @@ mem_fun(R (T::*pm)(Args ...) const, Tp object)
     return (object->*pm)(std::forward<Args>(args)...);
   };
 }
+
+// prevent argument deduction
+template<typename T> struct identity { typedef T type; };
+
+} // namespace utils
+
 
 static const int TIMEOUT_SHUTDOWN = 200;
 

@@ -98,6 +98,13 @@ int main(int argc, char ** argv)
     lsp.documentReferences(document, {position[0].toInt(), position[1].toInt()}, true, &app, ref_h);
     q.exec();
 
+    auto hl_h = [&q] (const QList<LSPDocumentHighlight> & hls) {
+        std::cout << "highlights: " << hls.length() << std::endl;
+        q.quit();
+    };
+    lsp.documentHighlight(document, {position[0].toInt(), position[1].toInt()}, &app, hl_h);
+    q.exec();
+
     // lsp.didOpen(document, 0, QStringLiteral("blah"));
     lsp.didChange(document, 1, QStringLiteral("foo"));
     lsp.didClose(document);

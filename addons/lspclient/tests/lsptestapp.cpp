@@ -46,6 +46,12 @@ int main(int argc, char ** argv)
     q.exec();
     QObject::disconnect(conn);
 
+    auto diagnostics_h = [] (const LSPPublishDiagnosticsParams & diag) {
+        std::cout << "diagnostics  " << diag.uri.path().toUtf8().toStdString() << " count: " << diag.diagnostics.length();
+    };
+
+    QObject::connect(&lsp, &LSPClientServer::publishDiagnostics, diagnostics_h);
+
     auto document = QUrl(QString::fromLatin1(argv[3]));
 
     QFile file(document.path());

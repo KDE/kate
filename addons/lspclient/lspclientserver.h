@@ -144,6 +144,10 @@ public:
     void didSave(const QUrl & document, const QString & text);
     void didClose(const QUrl & document);
 
+    // notifcation = signal
+Q_SIGNALS:
+    void publishDiagnostics(const LSPPublishDiagnosticsParams & );
+
 private:
     // pimpl data holder
     LSPClientServerPrivate * const d;

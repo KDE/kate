@@ -156,6 +156,10 @@ from_json(LSPServerCapabilities & caps, const QJsonObject & json)
     caps.documentHighlightProvider = json.value(QStringLiteral("documentHighlightProvider")).toBool();
 }
 
+// TODO move all parsing here
+static LSPPublishDiagnosticsParams
+parseDiagnostics(const QJsonObject & result);
+
 using GenericReplyType = QJsonValue;
 using GenericReplyHandler = ReplyHandler<GenericReplyType>;
 
@@ -333,9 +337,7 @@ private:
             if (result.contains(MEMBER_ID)) {
                 msgid = result[MEMBER_ID].toInt();
             } else {
-                // notification; never mind those for now
-                qCWarning(LSPCLIENT) << "discarding notification"
-                                     << msg[MEMBER_METHOD].toString();
+                processNotification(result);
                 continue;
             }
             // could be request
@@ -419,7 +421,10 @@ private:
             { QStringLiteral("textDocument"),
                 QJsonObject {
                     { QStringLiteral("documentSymbol"),
-                                QJsonObject { { QStringLiteral("hierarchicalDocumentSymbolSupport"), true } }
+                                QJsonObject { { QStringLiteral("hierarchicalDocumentSymbolSupport"), true } },
+                    },
+                    { QStringLiteral("publishDiagnostics"),
+                                QJsonObject { { QStringLiteral("relatedInformation"), true } }
                     }
                 }
             }
@@ -561,6 +566,16 @@ public:
     {
         auto params = textDocumentParams(document);
         send(init_request(QStringLiteral("textDocument/didClose"), params));
+    }
+
+    void processNotification(const QJsonObject & msg)
+    {
+        auto method = msg[MEMBER_METHOD].toString();
+        if (method == QStringLiteral("textDocument/publishDiagnostics")) {
+            emit q->publishDiagnostics(parseDiagnostics(msg[MEMBER_PARAMS].toObject()));
+        } else {
+            qCWarning(LSPCLIENT) << "discarding notification" << method;
+        }
     }
 };
 
@@ -815,6 +830,27 @@ parseSignatureHelp(const QJsonValue & result)
     ret.activeParameter = sig.value(QStringLiteral("activeParameter")).toInt(0);
     ret.activeSignature = qMin(qMax(ret.activeSignature, 0), ret.signatures.size());
     ret.activeParameter = qMin(qMax(ret.activeParameter, 0), ret.signatures.size());
+    return ret;
+}
+
+static LSPPublishDiagnosticsParams
+parseDiagnostics(const QJsonObject & result)
+{
+    LSPPublishDiagnosticsParams ret;
+
+    ret.uri = normalizeUrl(QUrl(result.value(MEMBER_URI).toString()));
+    for (const auto & vdiag : result.value(QStringLiteral("diagnostics")).toArray()) {
+        auto diag = vdiag.toObject();
+        auto range = parseRange(diag.value(MEMBER_RANGE).toObject());
+        auto severity = (LSPDiagnosticSeverity) diag.value(QStringLiteral("severity")).toInt();
+        auto code = diag.value(QStringLiteral("code")).toString();
+        auto source = diag.value(QStringLiteral("source")).toString();
+        auto message = diag.value(MEMBER_MESSAGE).toString();
+        auto related = diag.value(QStringLiteral("relatedInformation")).toObject();
+        auto relLocation = parseLocation(related.value(MEMBER_LOCATION).toObject());
+        auto relMessage = related.value(MEMBER_MESSAGE).toString();
+        ret.diagnostics.push_back({range, severity, code, source, message, relLocation, relMessage});
+    }
     return ret;
 }
 

@@ -28,6 +28,11 @@
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
 
+// Following types roughly follow the types/interfaces as defined in LSP protocol spec
+// although some deviation may arise where it has been deemed useful
+// Moreover, to avoid introducing a custom 'optional' type, absence of an optional
+// part/member is usually signalled by some 'invalid' marker (empty, negative).
+
 enum class LSPErrorCode
 {
     // Defined by JSON RPC
@@ -225,6 +230,38 @@ struct LSPSignatureHelp
     QList<LSPSignatureInformation> signatures;
     int activeSignature;
     int activeParameter;
+};
+
+enum class LSPDiagnosticSeverity
+{
+    Unknown = 0,
+    Error = 1,
+    Warning = 2,
+    Information = 3,
+    Hint = 4,
+};
+
+struct LSPDiagnosticRelatedInformation
+{
+    // empty url / invalid range when absent
+    LSPLocation location;
+    QString message;
+};
+
+struct LSPDiagnostics
+{
+    LSPRange range;
+    LSPDiagnosticSeverity severity;
+    QString code;
+    QString source;
+    QString message;
+    LSPDiagnosticRelatedInformation relatedInformation;
+};
+
+struct LSPPublishDiagnosticsParams
+{
+    QUrl uri;
+    QList<LSPDiagnostics> diagnostics;
 };
 
 #endif

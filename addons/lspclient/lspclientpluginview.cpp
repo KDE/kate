@@ -54,6 +54,8 @@
 #include <QTimer>
 #include <QSet>
 #include <QTextCodec>
+#include <QApplication>
+#include <QFileInfo>
 
 namespace RangeData
 {
@@ -67,8 +69,68 @@ enum {
     KindRole
 };
 
-KTextEditor::MarkInterface::MarkTypes markType = KTextEditor::MarkInterface::markType31;
+class KindEnum
+{
+public:
+    enum _kind {
+        Text = (int) LSPDocumentHighlightKind::Text,
+        Read = (int) LSPDocumentHighlightKind::Read,
+        Write = (int) LSPDocumentHighlightKind::Write,
+        Error = 10 + (int) LSPDiagnosticSeverity::Error,
+        Warning = 10 + (int) LSPDiagnosticSeverity::Warning,
+        Information = 10 + (int) LSPDiagnosticSeverity::Information,
+        Hint = 10 + (int) LSPDiagnosticSeverity::Hint,
+        Related
+    };
 
+    KindEnum(int v)
+    { m_value = (_kind) v; }
+
+    KindEnum(LSPDocumentHighlightKind hl)
+        : KindEnum((_kind) (hl))
+    {}
+
+    KindEnum(LSPDiagnosticSeverity sev)
+        : KindEnum(_kind(10 + (int) sev))
+    {}
+
+    operator _kind()
+    { return m_value; }
+
+private:
+    _kind m_value;
+};
+
+static constexpr KTextEditor::MarkInterface::MarkTypes markType = KTextEditor::MarkInterface::markType31;
+static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagError = KTextEditor::MarkInterface::Error;
+static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagWarning = KTextEditor::MarkInterface::Warning;
+static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagOther = KTextEditor::MarkInterface::markType30;
+static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagAll =
+        KTextEditor::MarkInterface::MarkTypes (markTypeDiagError | markTypeDiagWarning | markTypeDiagOther);
+
+}
+
+static QIcon
+diagnosticsIcon(LSPDiagnosticSeverity severity)
+{
+#define RETURN_CACHED_ICON(name) \
+{ \
+static QIcon icon(QIcon::fromTheme(QStringLiteral(name))); \
+return icon; \
+}
+    switch (severity)
+    {
+    case LSPDiagnosticSeverity::Error:
+        RETURN_CACHED_ICON("dialog-error")
+    case LSPDiagnosticSeverity::Warning:
+        RETURN_CACHED_ICON("dialog-warning")
+    case LSPDiagnosticSeverity::Information:
+    case LSPDiagnosticSeverity::Hint:
+        RETURN_CACHED_ICON("dialog-information")
+    default:
+        break;
+    }
+    return QIcon();
 }
 
 // helper to read lines from unopened documents
@@ -132,12 +194,18 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     // toolview
     QScopedPointer<QWidget> m_toolView;
     QPointer<QTabWidget> m_tabWidget;
-    // applied ranges
-    QMultiHash<KTextEditor::Document*, KTextEditor::MovingRange*> m_ranges;
+    // applied search ranges
+    typedef QMultiHash<KTextEditor::Document*, KTextEditor::MovingRange*> RangeCollection;
+    RangeCollection m_ranges;
     // tree is either added to tabwidget or owned here
     QScopedPointer<QTreeWidget> m_ownedTree;
     // in either case, the tree that directs applying marks/ranges
     QPointer<QTreeWidget> m_markTree;
+
+    // diagnostics tab
+    QPointer<QTreeWidget> m_diagnosticsTree;
+    // diagnostics ranges
+    RangeCollection m_diagnosticsRanges;
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
@@ -216,6 +284,17 @@ public:
         KAcceleratorManager::setNoAccel(m_tabWidget);
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &self_type::tabCloseRequested);
 
+        // diagnostics tab
+        m_diagnosticsTree = new QTreeWidget();
+        m_diagnosticsTree->setHeaderHidden(true);
+        m_diagnosticsTree->setFocusPolicy(Qt::NoFocus);
+        m_diagnosticsTree->setLayoutDirection(Qt::LeftToRight);
+        m_diagnosticsTree->setColumnCount(2);
+        m_diagnosticsTree->setSortingEnabled(false);
+        m_diagnosticsTree->setAlternatingRowColors(true);
+        m_tabWidget->addTab(m_diagnosticsTree, i18n("Diagnostics"));
+        connect(m_diagnosticsTree, &QTreeWidget::itemClicked, this, &self_type::goToItemLocation);
+
         configUpdated();
         updateState();
 
@@ -224,7 +303,8 @@ public:
 
     ~LSPClientPluginViewImpl()
     {
-        clearAllMarks();
+        clearAllLocationMarks();
+        clearAllDiagnosticsMarks();
         m_mainWindow->guiFactory()->removeClient(this);
     }
 
@@ -256,7 +336,8 @@ public:
         m_serverManager->restart(nullptr);
     }
 
-    Q_SLOT void clearMarks(KTextEditor::Document *doc)
+    static
+    void clearMarks(KTextEditor::Document *doc, RangeCollection & ranges, uint markType)
     {
         KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
         if (iface) {
@@ -264,29 +345,46 @@ public:
             QHashIterator<int, KTextEditor::Mark*> i(marks);
             while (i.hasNext()) {
                 i.next();
-                if (i.value()->type & RangeData::markType) {
-                    iface->removeMark(i.value()->line, RangeData::markType);
+                if (i.value()->type & markType) {
+                    iface->removeMark(i.value()->line, markType);
                 }
             }
         }
 
-        for (auto it = m_ranges.find(doc); it != m_ranges.end() && it.key() == doc;) {
+        for (auto it = ranges.find(doc); it != ranges.end() && it.key() == doc;) {
             delete it.value();
-            it = m_ranges.erase(it);
+            it = ranges.erase(it);
         }
     }
 
-    void clearAllMarks()
+    static
+    void clearMarks(RangeCollection & ranges, uint markType)
     {
-        while (!m_ranges.empty()) {
-            clearMarks(m_ranges.begin().key());
+        while (!ranges.empty()) {
+            clearMarks(ranges.begin().key(), ranges, markType);
         }
+    }
+
+    Q_SLOT void clearAllMarks(KTextEditor::Document *doc)
+    {
+        clearMarks(doc, m_ranges, RangeData::markType);
+        clearMarks(doc, m_diagnosticsRanges, RangeData::markTypeDiagAll);
+    }
+
+    void clearAllLocationMarks()
+    {
+        clearMarks(m_ranges, RangeData::markType);
         // no longer add any again
         m_ownedTree.reset();
         m_markTree.clear();
     }
 
-    void addMarks(KTextEditor::Document *doc, QTreeWidgetItem *item)
+    void clearAllDiagnosticsMarks()
+    {
+        clearMarks(m_diagnosticsRanges, RangeData::markTypeDiagAll);
+    }
+
+    void addMarks(KTextEditor::Document *doc, QTreeWidgetItem *item, RangeCollection & ranges)
     {
         KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
         KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
@@ -304,30 +402,49 @@ public:
         int column = item->data(0, RangeData::StartColumnRole).toInt();
         int endLine = item->data(0, RangeData::EndLineRole).toInt();
         int endColumn = item->data(0, RangeData::EndColumnRole).toInt();
-        LSPDocumentHighlightKind kind = (LSPDocumentHighlightKind) item->data(0, RangeData::KindRole).toInt();
+        RangeData::KindEnum kind = (RangeData::KindEnum) item->data(0, RangeData::KindRole).toInt();
 
         KTextEditor::Range range(line, column, endLine, endColumn);
         KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
-        QColor rangeColor;
+        KTextEditor::MarkInterface::MarkTypes markType = RangeData::markType;
         switch (kind) {
-            case LSPDocumentHighlightKind::Text:
-                // well, it's a bit like searching for something, so re-use that color
-                rangeColor = Qt::yellow;
-                if (ciface) {
-                    rangeColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
-                }
-                attr->setBackground(Qt::yellow);
-                break;
-                // FIXME are there any symbolic/configurable ways to pick these colors?
-            case LSPDocumentHighlightKind::Read:
-                rangeColor = Qt::green;
-                break;
-            case LSPDocumentHighlightKind::Write:
-                rangeColor = Qt::red;
-                break;
-        };
-        attr->setBackground(rangeColor);
+        case RangeData::KindEnum::Text:
+        {
+            // well, it's a bit like searching for something, so re-use that color
+            QColor rangeColor = Qt::yellow;
+            if (ciface) {
+                rangeColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
+            }
+            attr->setBackground(rangeColor);
+            break;
+        }
+        // FIXME are there any symbolic/configurable ways to pick these colors?
+        case RangeData::KindEnum::Read:
+            attr->setBackground(Qt::green);
+            break;
+        case RangeData::KindEnum::Write:
+            attr->setBackground(Qt::red);
+            break;
+        // use underlining for diagnostics to avoid lots of fancy flickering
+        case RangeData::KindEnum::Error:
+            markType = RangeData::markTypeDiagError;
+            attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+            attr->setUnderlineColor(Qt::red);
+            break;
+        case RangeData::KindEnum::Warning:
+            markType = RangeData::markTypeDiagWarning;
+            attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+            attr->setUnderlineColor(QColor(255, 128, 0));
+            break;
+        case RangeData::KindEnum::Information:
+        case RangeData::KindEnum::Hint:
+        case RangeData::KindEnum::Related:
+            markType = RangeData::markTypeDiagOther;
+            attr->setUnderlineStyle(QTextCharFormat::DashUnderline);
+            attr->setUnderlineColor(Qt::blue);
+            break;
+        }
         if (activeView) {
             attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
         }
@@ -337,31 +454,59 @@ public:
         mr->setAttribute(attr);
         mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
         mr->setAttributeOnlyForViews(true);
-        m_ranges.insert(doc, mr);
+        ranges.insert(doc, mr);
 
         // add match mark for range
-        iface->setMarkDescription(RangeData::markType, i18n("RangeHighLight"));
-        iface->setMarkPixmap(RangeData::markType, QIcon().pixmap(0,0));
-        iface->addMark(line, RangeData::markType);
+        const int ps = 32;
+        bool handleClick = true;
+        switch (markType) {
+        case RangeData::markType:
+            iface->setMarkDescription(markType, i18n("RangeHighLight"));
+            iface->setMarkPixmap(markType, QIcon().pixmap(0, 0));
+            handleClick = false;
+            break;
+        case RangeData::markTypeDiagError:
+            iface->setMarkDescription(markType, i18n("Error"));
+            iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Error).pixmap(ps, ps));
+            break;
+        case RangeData::markTypeDiagWarning:
+            iface->setMarkDescription(markType, i18n("Warning"));
+            iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Warning).pixmap(ps, ps));
+            break;
+        case RangeData::markTypeDiagOther:
+            iface->setMarkDescription(markType, i18n("Information"));
+            iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Information).pixmap(ps, ps));
+            break;
+        default:
+            Q_ASSERT(false);
+            break;
+        }
+        iface->addMark(line, markType);
 
         // ensure runtime match
         auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
-            this, SLOT(clearMarks(KTextEditor::Document*)), Qt::UniqueConnection);
+            this, SLOT(clearAllMarks(KTextEditor::Document*)), Qt::UniqueConnection);
         Q_ASSERT(conn);
         conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
-            this, SLOT(clearMarks(KTextEditor::Document*)), Qt::UniqueConnection);
+            this, SLOT(clearAllMarks(KTextEditor::Document*)), Qt::UniqueConnection);
         Q_ASSERT(conn);
+
+        if (handleClick) {
+            conn = connect(doc, SIGNAL(markClicked(KTextEditor::Document*, KTextEditor::Mark, bool&)),
+                this, SLOT(onMarkClicked(KTextEditor::Document*,KTextEditor::Mark, bool&)), Qt::UniqueConnection);
+            Q_ASSERT(conn);
+        }
     }
 
-    void addMarks(KTextEditor::Document *doc, QTreeWidget *tree)
+    void addMarks(KTextEditor::Document *doc, QTreeWidget *tree, RangeCollection & ranges)
     {
         // check if already added
-        if (m_ranges.contains(doc))
+        if (ranges.contains(doc))
             return;
 
         QTreeWidgetItemIterator it(tree, QTreeWidgetItemIterator::All);
         while (*it) {
-            addMarks(doc, *it);
+            addMarks(doc, *it, ranges);
              ++it;
          }
     }
@@ -397,7 +542,13 @@ public:
 
     void tabCloseRequested(int index)
     {
-        delete m_tabWidget->widget(index);
+        auto widget = m_tabWidget->widget(index);
+        if (widget != m_diagnosticsTree) {
+            if (widget == m_markTree) {
+                clearAllLocationMarks();
+            }
+            delete widget;
+        }
     }
 
     // local helper to overcome some differences in LSP types
@@ -454,6 +605,16 @@ public:
         rootItem->setData(0, RangeData::KindRole, true);
     }
 
+    void fillItemRoles(QTreeWidgetItem * item, const QUrl & url, const LSPRange & range, RangeData::KindEnum kind)
+    {
+        item->setData(0, RangeData::FileUrlRole, QVariant(url));
+        item->setData(0, RangeData::StartLineRole, range.start().line());
+        item->setData(0, RangeData::StartColumnRole, range.start().column());
+        item->setData(0, RangeData::EndLineRole, range.end().line());
+        item->setData(0, RangeData::EndColumnRole, range.end().column());
+        item->setData(0, RangeData::KindRole, (int) kind);
+    }
+
     void makeTree(const QVector<RangeItem> & locations)
     {
         // group by url, assuming input is suitably sorted that way
@@ -477,12 +638,7 @@ public:
             }
             auto item = new QTreeWidgetItem(parent);
             item->setText(0, i18n("Line: %1: ", loc.range.start().line() + 1));
-            item->setData(0, RangeData::FileUrlRole, QVariant(loc.uri));
-            item->setData(0, RangeData::StartLineRole, loc.range.start().line());
-            item->setData(0, RangeData::StartColumnRole, loc.range.start().column());
-            item->setData(0, RangeData::EndLineRole, loc.range.end().line());
-            item->setData(0, RangeData::EndColumnRole, loc.range.end().column());
-            item->setData(0, RangeData::KindRole, (int) loc.kind);
+            fillItemRoles(item, loc.uri, loc.range, loc.kind);
         }
         if (parent)
             parent->setText(0, QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->childCount()));
@@ -532,7 +688,7 @@ public:
         QKeyEvent *k = static_cast<QKeyEvent *>(e);
         if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
             if (!m_ranges.empty()) {
-                clearAllMarks();
+                clearAllLocationMarks();
             } else if (m_toolView->isVisible()) {
                 m_mainWindow->hideToolView(m_toolView.get());
             }
@@ -554,7 +710,7 @@ public:
 
         KTextEditor::Cursor cursor = activeView->cursorPosition();
 
-        clearAllMarks();
+        clearAllLocationMarks();
         m_req_timeout = false;
         QTimer::singleShot(1000, this, [this] { m_req_timeout = true; });
         m_handle.cancel() = req(*server, activeView->document()->url(),
@@ -666,6 +822,79 @@ public:
         positionRequest<DocumentHoverReplyHandler>(&LSPClientServer::documentHover, h);
     }
 
+    static QTreeWidgetItem*
+    getItem(const QTreeWidget *treeWidget, const QUrl & url)
+    {
+        QTreeWidgetItem *topItem = nullptr;
+        for (int i = 0; i < treeWidget->topLevelItemCount(); ++i) {
+            auto item = treeWidget->topLevelItem(i);
+            if (item->text(0) == url.path()) {
+                topItem = item;
+                break;
+            }
+        }
+        return topItem;
+    }
+
+    Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled)
+    {
+        QTreeWidgetItem *topItem = getItem(m_diagnosticsTree, document->url());
+        for (int i = 0; i < topItem->childCount(); ++i) {
+            auto item = topItem->child(i);
+            int line = item->data(0, RangeData::StartLineRole).toInt();
+            if (line == mark.line && m_diagnosticsTree) {
+                m_diagnosticsTree->scrollToItem(item);
+                m_tabWidget->setCurrentWidget(m_diagnosticsTree);
+                m_mainWindow->showToolView(m_toolView.get());
+                handled = true;
+                break;
+            }
+        }
+    }
+
+    void onDiagnostics(const LSPPublishDiagnosticsParams & diagnostics)
+    {
+        QTreeWidgetItem *topItem = getItem(m_diagnosticsTree, diagnostics.uri);
+
+        if (!topItem) {
+            topItem = new QTreeWidgetItem(m_diagnosticsTree);
+            topItem->setText(0, diagnostics.uri.path());
+        } else {
+            qDeleteAll(topItem->takeChildren());
+        }
+
+        for (const auto & diag : diagnostics.diagnostics) {
+            auto item = new QTreeWidgetItem(topItem);
+            QString source;
+            if (diag.source.length()) {
+                source = QStringLiteral("[%1] ").arg(diag.source);
+            }
+            item->setIcon(0, diagnosticsIcon(diag.severity));
+            item->setText(0, source + diag.message);
+            fillItemRoles(item, diagnostics.uri, diag.range, diag.severity);
+            const auto &related = diag.relatedInformation;
+            if (!related.location.uri.isEmpty()) {
+                auto relatedItem = new QTreeWidgetItem(item);
+                relatedItem->setText(0, related.message);
+                auto basename = QFileInfo(related.location.uri.path()).fileName();
+                relatedItem->setText(1, QStringLiteral("%1:%2").arg(basename).arg(related.location.range.start().line()));
+                fillItemRoles(relatedItem, related.location.uri, related.location.range, RangeData::KindEnum::Related);
+                item->setExpanded(true);
+            }
+        }
+
+        // TODO perhaps add some custom delegate that only shows 1 line
+        // and only the whole text when item selected ??
+        topItem->setExpanded(true);
+        topItem->setHidden(topItem->childCount() == 0);
+
+        m_diagnosticsTree->resizeColumnToContents(1);
+        m_diagnosticsTree->resizeColumnToContents(0);
+        m_diagnosticsTree->scrollToItem(topItem);
+
+        updateState();
+    }
+
     void updateState()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -680,6 +909,9 @@ public:
             refEnabled = caps.referencesProvider;
             hoverEnabled = caps.hoverProvider;
             highlightEnabled = caps.documentHighlightProvider;
+
+            connect(server.get(), &LSPClientServer::publishDiagnostics,
+                this, &self_type::onDiagnostics, Qt::UniqueConnection);
         }
 
         if (m_findDef)
@@ -705,7 +937,11 @@ public:
 
         // update marks if applicable
         if (m_markTree && activeView)
-            addMarks(activeView->document(), m_markTree);
+            addMarks(activeView->document(), m_markTree, m_ranges);
+        if (m_diagnosticsTree && activeView) {
+            clearMarks(activeView->document(), m_diagnosticsRanges, RangeData::markTypeDiagAll);
+            addMarks(activeView->document(), m_diagnosticsTree, m_diagnosticsRanges);
+        }
     }
 
     void viewDestroyed(QObject *view)

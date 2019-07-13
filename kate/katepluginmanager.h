@@ -37,16 +37,13 @@ class KateMainWindow;
 class KatePluginInfo
 {
 public:
-    KatePluginInfo()
-        : load(false)
-        , defaultLoad(false)
-        , plugin(nullptr)
-    {}
-    bool load;
-    bool defaultLoad;
+    bool load = false;
+    bool defaultLoad = false;
     KPluginMetaData metaData;
-    KTextEditor::Plugin *plugin;
+    KTextEditor::Plugin *plugin = nullptr;
+    int sortOrder = 0;
     QString saveName() const;
+    bool operator<(KatePluginInfo &other) const;
 };
 
 typedef QList<KatePluginInfo> KatePluginList;

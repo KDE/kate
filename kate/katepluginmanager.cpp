@@ -41,6 +41,14 @@ QString KatePluginInfo::saveName() const
     return QFileInfo(metaData.fileName()).baseName();
 }
 
+bool KatePluginInfo::operator<(KatePluginInfo &other) const
+{
+    if (sortOrder != other.sortOrder)
+        return sortOrder < other.sortOrder;
+
+    return saveName() < other.saveName();
+}
+
 KatePluginManager::KatePluginManager(QObject *parent) : QObject(parent)
 {
     setupPluginList();
@@ -53,16 +61,16 @@ KatePluginManager::~KatePluginManager()
 
 void KatePluginManager::setupPluginList()
 {
-    // activate a hand-picked list of plugins per default
-    const QSet<QString> defaultPlugins {
-      QStringLiteral("katefiletreeplugin")
-    , QStringLiteral("kateprojectplugin")
-    , QStringLiteral("katesearchplugin")
-    , QStringLiteral("tabswitcherplugin")
-    , QStringLiteral("textfilterplugin")
+    // activate a hand-picked list of plugins per default, give them a hand-picked sort order for loading
+    const QMap<QString, int> defaultPlugins {
+      { QStringLiteral("katefiletreeplugin"), -1000 }
+    , { QStringLiteral("katesearchplugin"), -900 }
+    , { QStringLiteral("kateprojectplugin"), -800 }
+    , { QStringLiteral("tabswitcherplugin"), -100 }
+    , { QStringLiteral("textfilterplugin"), -100 }
 #ifndef WIN32
-    , QStringLiteral("katefilebrowserplugin") // currently works badly on Windows
-    , QStringLiteral("katekonsoleplugin") // currently does not work on Windows at all
+    , { QStringLiteral("katefilebrowserplugin"), -100 } // currently works badly on Windows
+    , { QStringLiteral("katekonsoleplugin"), -100 } // currently does not work on Windows at all
 #endif
     };
 
@@ -81,11 +89,15 @@ void KatePluginManager::setupPluginList()
             continue;
 
         info.defaultLoad = defaultPlugins.contains(info.saveName());
+        info.sortOrder = defaultPlugins.value(info.saveName());
         info.load = false;
         info.plugin = nullptr;
         m_pluginList.push_back(info);
         unique.insert (info.saveName());
     }
+
+    // sort to ensure some deterministic plugin load order, this is important for tool-view creation order
+    std::sort(m_pluginList.begin(), m_pluginList.end());
 
     // construct fast lookup map, do this after vector has final size, resize will invalidate the pointers!
     m_name2Plugin.clear();

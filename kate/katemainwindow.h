@@ -117,6 +117,9 @@ public:
     /*reimp*/ void saveProperties(KConfigGroup &config) override;
     /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig) override;
 
+    void saveOpenRecent(KConfig *config);
+    void loadOpenRecent(const KConfig *config);
+
 public:
     bool queryClose_internal(KTextEditor::Document *doc = nullptr);
 

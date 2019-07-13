@@ -48,44 +48,33 @@ KatePluginManager::KatePluginManager(QObject *parent) : QObject(parent)
 
 KatePluginManager::~KatePluginManager()
 {
-    // than unload the plugins
     unloadAllPlugins();
 }
 
 void KatePluginManager::setupPluginList()
 {
-    /**
-     * get all KTextEditor/Plugins
-     */
+    // activate a hand-picked list of plugins per default
+    const QSet<QString> defaultPlugins {
+      QStringLiteral("katefiletreeplugin")
+    , QStringLiteral("kateprojectplugin")
+    , QStringLiteral("katesearchplugin")
+    , QStringLiteral("tabswitcherplugin")
+    , QStringLiteral("textfilterplugin")
+#ifndef WIN32
+    , QStringLiteral("katefilebrowserplugin") // currently works badly on Windows
+    , QStringLiteral("katekonsoleplugin") // currently does not work on Windows at all
+#endif
+    };
+
+    // handle all install KTextEditor plugins
+    m_pluginList.clear();
+    QSet<QString> unique;
     const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"), [](const KPluginMetaData & md) {
             return md.serviceTypes().contains(QStringLiteral("KTextEditor/Plugin"));
         });
-
-    /**
-     * move them to our internal data structure,
-     * activate some plugins per default,
-     * the following list is ordered alphabetically by plugin name
-     * (this is not a technical need; just to have some order)
-     */
-    QSet<QString> defaultPlugins;
-
-    defaultPlugins.insert(QStringLiteral("cuttlefishplugin")); // this comes with package plasma5-sdk but it won't hurt to list it here (activate by right click in the text area)
-#ifndef WIN32
-    defaultPlugins.insert(QStringLiteral("katefilebrowserplugin")); // currently works badly on Windows
-    defaultPlugins.insert(QStringLiteral("katekonsoleplugin")); // currently does not work on Windows at all
-#endif
-    defaultPlugins.insert(QStringLiteral("katefiletreeplugin"));
-    defaultPlugins.insert(QStringLiteral("kateprojectplugin"));
-    defaultPlugins.insert(QStringLiteral("katesearchplugin"));
-    defaultPlugins.insert(QStringLiteral("tabswitcherplugin"));
-    defaultPlugins.insert(QStringLiteral("textfilterplugin"));
-
-    m_pluginList.clear();
-    QVectorIterator<KPluginMetaData> i(plugins);
-    QSet<QString> unique;
-    while (i.hasNext()) {
+    for (const auto &pluginMetaData : plugins) {
         KatePluginInfo info;
-        info.metaData = i.next();
+        info.metaData = pluginMetaData;
 
         // only load plugins once, even if found multiple times!
         if (unique.contains(info.saveName()))
@@ -98,9 +87,7 @@ void KatePluginManager::setupPluginList()
         unique.insert (info.saveName());
     }
 
-    /**
-     * construct fast lookup map
-     */
+    // construct fast lookup map, do this after vector has final size, resize will invalidate the pointers!
     m_name2Plugin.clear();
     for (int i = 0; i < m_pluginList.size(); ++i) {
         m_name2Plugin[m_pluginList[i].saveName()] = &(m_pluginList[i]);

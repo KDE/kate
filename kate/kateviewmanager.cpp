@@ -63,6 +63,9 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     // while init
     m_init = true;
 
+    // we don't allow full collapse, see bug 366014
+    setChildrenCollapsible(false);
+
     // important, set them up, as we use them in other methodes
     setupActions();
 
@@ -792,6 +795,10 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
         // create a new QSplitter and replace vs with the splitter. vs and newVS are
         // the new children of the new QSplitter
         QSplitter *newContainer = new QSplitter(o);
+
+        // we don't allow full collapse, see bug 366014
+        newContainer->setChildrenCollapsible(false);
+
         QList<int> currentSizes = currentSplitter->sizes();
 
         newContainer->addWidget(vs);
@@ -1147,8 +1154,13 @@ void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QStri
             vs->restoreConfig(this, configBase, *it);
             vs->show();
         } else {
-            // for a splitter, recurse.
-            restoreSplitter(configBase, *it, new QSplitter(parent), viewConfGrp);
+            // for a splitter, recurse
+            auto newContainer = new QSplitter(parent);
+
+            // we don't allow full collapse, see bug 366014
+            newContainer->setChildrenCollapsible(false);
+
+            restoreSplitter(configBase, *it, newContainer, viewConfGrp);
         }
     }
 

@@ -188,6 +188,9 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_hover;
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_refDeclaration;
+    QPointer<QAction> m_diagnostics;
+    QPointer<QAction> m_diagnosticsHighlight;
+    QPointer<QAction> m_diagnosticsMark;
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
 
@@ -204,6 +207,8 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 
     // diagnostics tab
     QPointer<QTreeWidget> m_diagnosticsTree;
+    // tree widget is either owned here or by tab
+    QScopedPointer<QTreeWidget> m_diagnosticsTreeOwn;
     // diagnostics ranges
     RangeCollection m_diagnosticsRanges;
 
@@ -249,6 +254,17 @@ public:
         m_refDeclaration->setText(i18n("Include declaration in references"));
         m_refDeclaration->setCheckable(true);
 
+        // diagnostics
+        m_diagnostics = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics"), this, &self_type::displayOptionChanged);
+        m_diagnostics->setText(i18n("Show diagnostics notifications"));
+        m_diagnostics->setCheckable(true);
+        m_diagnosticsHighlight = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_highlight"), this, &self_type::displayOptionChanged);
+        m_diagnosticsHighlight->setText(i18n("Show diagnostics highlights"));
+        m_diagnosticsHighlight->setCheckable(true);
+        m_diagnosticsMark = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_mark"), this, &self_type::displayOptionChanged);
+        m_diagnosticsMark->setText(i18n("Show diagnostics marks"));
+        m_diagnosticsMark->setCheckable(true);
+
         // server control
         m_restartServer = actionCollection()->addAction(QStringLiteral("lspclient_restart_server"), this, &self_type::restartCurrent);
         m_restartServer->setText(i18n("Restart LSP Server"));
@@ -266,6 +282,10 @@ public:
         menu->addSeparator();
         menu->addAction(m_complDocOn);
         menu->addAction(m_refDeclaration);
+        menu->addSeparator();
+        menu->addAction(m_diagnostics);
+        menu->addAction(m_diagnosticsHighlight);
+        menu->addAction(m_diagnosticsMark);
         menu->addSeparator();
         menu->addAction(m_restartServer);
         menu->addAction(m_restartAll);
@@ -292,7 +312,7 @@ public:
         m_diagnosticsTree->setColumnCount(2);
         m_diagnosticsTree->setSortingEnabled(false);
         m_diagnosticsTree->setAlternatingRowColors(true);
-        m_tabWidget->addTab(m_diagnosticsTree, i18n("Diagnostics"));
+        m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
         connect(m_diagnosticsTree, &QTreeWidget::itemClicked, this, &self_type::goToItemLocation);
 
         configUpdated();
@@ -310,8 +330,18 @@ public:
 
     void displayOptionChanged()
     {
-        if (m_complDocOn)
-            m_completion->setSelectedDocumentation(m_complDocOn->isChecked());
+        m_diagnosticsHighlight->setEnabled(m_diagnostics->isChecked());
+        m_diagnosticsMark->setEnabled(m_diagnostics->isChecked());
+        auto index = m_tabWidget->indexOf(m_diagnosticsTree);
+        // setTabEnabled may still show it ... so let's be more forceful
+        if (m_diagnostics->isChecked() && m_diagnosticsTreeOwn) {
+            m_diagnosticsTreeOwn.take();
+            m_tabWidget->insertTab(0, m_diagnosticsTree, i18nc("@title:tab", "Diagnostics"));
+        } else if (!m_diagnostics->isChecked() && !m_diagnosticsTreeOwn) {
+            m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
+            m_tabWidget->removeTab(index);
+        }
+        updateState();
     }
 
     void configUpdated()
@@ -320,6 +350,12 @@ public:
             m_complDocOn->setChecked(m_plugin->m_complDoc);
         if (m_refDeclaration)
             m_refDeclaration->setChecked(m_plugin->m_refDeclaration);
+        if (m_diagnostics)
+            m_diagnostics->setChecked(m_plugin->m_diagnostics);
+        if (m_diagnosticsHighlight)
+            m_diagnosticsHighlight->setChecked(m_plugin->m_diagnosticsHighlight);
+        if (m_diagnosticsMark)
+            m_diagnosticsMark->setChecked(m_plugin->m_diagnosticsMark);
         displayOptionChanged();
     }
 
@@ -407,6 +443,8 @@ public:
         KTextEditor::Range range(line, column, endLine, endColumn);
         KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
+        bool enabled = m_diagnostics && m_diagnostics->isChecked()
+                && m_diagnosticsHighlight && m_diagnosticsHighlight->isChecked();
         KTextEditor::MarkInterface::MarkTypes markType = RangeData::markType;
         switch (kind) {
         case RangeData::KindEnum::Text:
@@ -417,14 +455,17 @@ public:
                 rangeColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
             }
             attr->setBackground(rangeColor);
+            enabled = true;
             break;
         }
         // FIXME are there any symbolic/configurable ways to pick these colors?
         case RangeData::KindEnum::Read:
             attr->setBackground(Qt::green);
+            enabled = true;
             break;
         case RangeData::KindEnum::Write:
             attr->setBackground(Qt::red);
+            enabled = true;
             break;
         // use underlining for diagnostics to avoid lots of fancy flickering
         case RangeData::KindEnum::Error:
@@ -450,20 +491,25 @@ public:
         }
 
         // highlight the range
-        KTextEditor::MovingRange* mr = miface->newMovingRange(range);
-        mr->setAttribute(attr);
-        mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
-        mr->setAttributeOnlyForViews(true);
-        ranges.insert(doc, mr);
+        if (enabled) {
+            KTextEditor::MovingRange* mr = miface->newMovingRange(range);
+            mr->setAttribute(attr);
+            mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
+            mr->setAttributeOnlyForViews(true);
+            ranges.insert(doc, mr);
+        }
 
         // add match mark for range
         const int ps = 32;
         bool handleClick = true;
+        enabled = m_diagnostics && m_diagnostics->isChecked()
+                && m_diagnosticsMark && m_diagnosticsMark->isChecked();
         switch (markType) {
         case RangeData::markType:
             iface->setMarkDescription(markType, i18n("RangeHighLight"));
             iface->setMarkPixmap(markType, QIcon().pixmap(0, 0));
             handleClick = false;
+            enabled = true;
             break;
         case RangeData::markTypeDiagError:
             iface->setMarkDescription(markType, i18n("Error"));
@@ -481,7 +527,8 @@ public:
             Q_ASSERT(false);
             break;
         }
-        iface->addMark(line, markType);
+        if (enabled)
+            iface->addMark(line, markType);
 
         // ensure runtime match
         auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
@@ -931,8 +978,8 @@ public:
 
         // update completion with relevant server
         m_completion->setServer(server);
-
-        displayOptionChanged();
+        if (m_complDocOn)
+            m_completion->setSelectedDocumentation(m_complDocOn->isChecked());
         updateCompletion(activeView, server.get());
 
         // update marks if applicable

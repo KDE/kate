@@ -36,6 +36,9 @@ static const QString CONFIG_SYMBOL_EXPAND { QStringLiteral("SymbolExpand") };
 static const QString CONFIG_SYMBOL_SORT { QStringLiteral("SymbolSort") };
 static const QString CONFIG_COMPLETION_DOC { QStringLiteral("CompletionDocumentation") };
 static const QString CONFIG_REFERENCES_DECLARATION { QStringLiteral("ReferencesDeclaration") };
+static const QString CONFIG_DIAGNOSTICS { QStringLiteral("Diagnostics") };
+static const QString CONFIG_DIAGNOSTICS_HIGHLIGHT { QStringLiteral("DiagnosticsHighlight") };
+static const QString CONFIG_DIAGNOSTICS_MARK { QStringLiteral("DiagnosticsMark") };
 static const QString CONFIG_SERVER_CONFIG { QStringLiteral("ServerConfiguration") };
 
 
@@ -79,6 +82,9 @@ void LSPClientPlugin::readConfig()
     m_symbolSort = config.readEntry(CONFIG_SYMBOL_SORT, false);
     m_complDoc = config.readEntry(CONFIG_COMPLETION_DOC, true);
     m_refDeclaration = config.readEntry(CONFIG_REFERENCES_DECLARATION, true);
+    m_diagnostics = config.readEntry(CONFIG_DIAGNOSTICS, true);
+    m_diagnosticsHighlight = config.readEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, true);
+    m_diagnosticsMark = config.readEntry(CONFIG_DIAGNOSTICS_MARK, true);
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
 
     emit update();
@@ -93,6 +99,9 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_SYMBOL_SORT, m_symbolSort);
     config.writeEntry(CONFIG_COMPLETION_DOC, m_complDoc);
     config.writeEntry(CONFIG_REFERENCES_DECLARATION, m_refDeclaration);
+    config.writeEntry(CONFIG_DIAGNOSTICS, m_diagnostics);
+    config.writeEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, m_diagnosticsHighlight);
+    config.writeEntry(CONFIG_DIAGNOSTICS_MARK, m_diagnosticsMark);
     config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
 
     emit update();

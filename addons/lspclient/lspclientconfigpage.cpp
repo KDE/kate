@@ -50,8 +50,18 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     top = new QVBoxLayout(outlineBox);
     m_complDoc = new QCheckBox(i18n("Show selected completion documentation"));
     m_refDeclaration = new QCheckBox(i18n("Include declaration in references"));
+    QHBoxLayout *diagLayout = new QHBoxLayout();
+    m_diagnostics = new QCheckBox(i18n("Show diagnostics notifications"));
+    m_diagnosticsHighlight = new QCheckBox(i18n("Add highlights"));
+    m_diagnosticsMark = new QCheckBox(i18n("Add markers"));
     top->addWidget(m_complDoc);
     top->addWidget(m_refDeclaration);
+    diagLayout->addWidget(m_diagnostics);
+    diagLayout->addStretch(1);
+    diagLayout->addWidget(m_diagnosticsHighlight);
+    diagLayout->addStretch(1);
+    diagLayout->addWidget(m_diagnosticsMark);
+    top->addLayout(diagLayout);
     layout->addWidget(outlineBox);
 
     outlineBox = new QGroupBox(i18n("Server Configuration"), this);
@@ -64,10 +74,20 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     reset();
 
-    for (const auto & cb : {m_symbolDetails, m_symbolExpand, m_symbolSort, m_symbolTree, m_complDoc, m_refDeclaration})
+    for (const auto & cb : {m_symbolDetails, m_symbolExpand, m_symbolSort, m_symbolTree,
+                m_complDoc, m_refDeclaration, m_diagnostics, m_diagnosticsMark})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::changed);
+
+    // custom control logic
+    auto h = [this] ()
+    {
+        bool enabled = m_diagnostics->isChecked();
+        m_diagnosticsHighlight->setEnabled(enabled);
+        m_diagnosticsMark->setEnabled(enabled);
+    };
+    connect(this, &LSPClientConfigPage::changed, this, h);
 }
 
 QString LSPClientConfigPage::name() const
@@ -95,6 +115,10 @@ void LSPClientConfigPage::apply()
     m_plugin->m_complDoc = m_complDoc->isChecked();
     m_plugin->m_refDeclaration = m_refDeclaration->isChecked();
 
+    m_plugin->m_diagnostics = m_diagnostics->isChecked();
+    m_plugin->m_diagnosticsHighlight = m_diagnosticsHighlight->isChecked();
+    m_plugin->m_diagnosticsMark = m_diagnosticsMark->isChecked();
+
     m_plugin->m_configPath = m_configPath->url();
 
     m_plugin->writeConfig();
@@ -109,6 +133,10 @@ void LSPClientConfigPage::reset()
 
     m_complDoc->setChecked(m_plugin->m_complDoc);
     m_refDeclaration->setChecked(m_plugin->m_refDeclaration);
+
+    m_diagnostics->setChecked(m_plugin->m_diagnostics);
+    m_diagnosticsHighlight->setChecked(m_plugin->m_diagnosticsHighlight);
+    m_diagnosticsMark->setChecked(m_plugin->m_diagnosticsMark);
 
     m_configPath->setUrl(m_plugin->m_configPath);
 }

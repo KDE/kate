@@ -50,6 +50,9 @@ class LSPClientPlugin : public KTextEditor::Plugin
         bool m_symbolSort;
         bool m_complDoc;
         bool m_refDeclaration;
+        bool m_diagnostics;
+        bool m_diagnosticsHighlight;
+        bool m_diagnosticsMark;
         QUrl m_configPath;
 
 private:

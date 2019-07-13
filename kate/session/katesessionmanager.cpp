@@ -217,23 +217,24 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
             }
         }
     } else {
-        const int windowsCount = KateApp::self()->mainWindowsCount();
-        for (int i = 0; i < windowsCount ; ++i) {
-            // if there are no main windows, create one to call loadOpenRecent()
-            if(i == windowsCount) {
-                KateMainWindow *w = KateApp::self()->newMainWindow();
-                if (w !=nullptr) {
-                    w->loadOpenRecent(cfg);
-                }
-            } else {
-                KateApp::self()->mainWindow(i)->loadOpenRecent(cfg);
-            }
+        // load recent files for all existing windows, see bug 408499
+        for (int i = 0; i < KateApp::self()->mainWindowsCount(); ++i) {
+            KateApp::self()->mainWindow(i)->loadOpenRecent(cfg);
         }
+    }
+
+    // ensure we have at least one window, always! load recent files for it, too, see bug 408499
+    if (KateApp::self()->mainWindowsCount() == 0) {
+        auto w = KateApp::self()->newMainWindow();
+        w->loadOpenRecent(cfg);
     }
 
     if (delete_cfg) {
         delete cfg;
     }
+
+    // we shall always have some existing windows here!
+    Q_ASSERT(KateApp::self()->mainWindowsCount() > 0);
 }
 
 bool KateSessionManager::activateSession(const QString &name, const bool closeAndSaveLast, const bool loadNew)

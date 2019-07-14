@@ -531,17 +531,14 @@ public:
             iface->addMark(line, markType);
 
         // ensure runtime match
-        auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
+        connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
             this, SLOT(clearAllMarks(KTextEditor::Document*)), Qt::UniqueConnection);
-        Q_ASSERT(conn);
-        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
+        connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
             this, SLOT(clearAllMarks(KTextEditor::Document*)), Qt::UniqueConnection);
-        Q_ASSERT(conn);
 
         if (handleClick) {
-            conn = connect(doc, SIGNAL(markClicked(KTextEditor::Document*, KTextEditor::Mark, bool&)),
+            connect(doc, SIGNAL(markClicked(KTextEditor::Document*, KTextEditor::Mark, bool&)),
                 this, SLOT(onMarkClicked(KTextEditor::Document*,KTextEditor::Mark, bool&)), Qt::UniqueConnection);
-            Q_ASSERT(conn);
         }
     }
 

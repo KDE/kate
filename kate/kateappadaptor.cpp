@@ -24,6 +24,8 @@
 #include "katemainwindow.h"
 
 #include "katedebug.h"
+
+#include <KStartupInfo>
 #include <KWindowSystem>
 
 KateAppAdaptor::KateAppAdaptor(KateApp *app)
@@ -44,7 +46,8 @@ void KateAppAdaptor::activate()
     win->activateWindow();
 
     // try to raise window, see bug 407288
-    KWindowSystem::raiseWindow(win->winId());
+    KStartupInfo::setNewStartupId(win, KStartupInfo::startupId());
+    KWindowSystem::activateWindow(win->effectiveWinId());
 }
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)

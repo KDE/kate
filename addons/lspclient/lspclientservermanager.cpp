@@ -385,8 +385,9 @@ private:
         if (!server) {
             QStringList cmdline;
             auto vcmdline = serverConfig.value(QStringLiteral("command"));
-            if (vcmdline.isString()) {
-                cmdline = vcmdline.toString().split(QLatin1Char(' '));
+            auto scmdline = vcmdline.toString();
+            if (!scmdline.isEmpty()) {
+                cmdline = scmdline.split(QLatin1Char(' '));
             } else {
                 for (const auto& c : vcmdline.toArray()) {
                     cmdline.push_back(c.toString());

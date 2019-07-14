@@ -299,6 +299,7 @@ public:
                                                  QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
                                                  i18n("LSP Client")));
         m_tabWidget = new QTabWidget(m_toolView.get());
+        m_toolView->layout()->addWidget(m_tabWidget);
         m_tabWidget->setFocusPolicy(Qt::NoFocus);
         m_tabWidget->setTabsClosable(true);
         KAcceleratorManager::setNoAccel(m_tabWidget);

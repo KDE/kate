@@ -85,14 +85,12 @@ public:
                                                       QIcon::fromTheme(QStringLiteral("code-context")),
                                                       i18n("LSP Client Symbol Outline")));
 
-        QWidget *container = new QWidget(m_toolview.get());
-        QHBoxLayout *layout = new QHBoxLayout(container);
-
-        m_symbols = new QTreeWidget();
+        m_symbols = new QTreeWidget(m_toolview.get());
         m_symbols->setFocusPolicy(Qt::NoFocus);
-        m_symbols->setLayoutDirection( Qt::LeftToRight );
-        layout->addWidget(m_symbols, 10);
-        layout->setContentsMargins(0,0,0,0);
+        m_symbols->setLayoutDirection(Qt::LeftToRight);
+        m_toolview->layout()->setContentsMargins(0, 0, 0, 0);
+        m_toolview->layout()->addWidget(m_symbols);
+        m_toolview->layout()->setSpacing(0);
 
         QStringList titles;
         titles << i18nc("@title:column", "Symbols") << i18nc("@title:column", "Position");

@@ -166,6 +166,8 @@ KateConsole::~KateConsole ()
 
 void KateConsole::loadConsoleIfNeeded()
 {
+  setFocusProxy(nullptr);
+
   if (m_part) return;
 
   if (!window() || !parentWidget()) return;

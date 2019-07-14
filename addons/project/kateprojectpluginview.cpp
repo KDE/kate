@@ -184,7 +184,6 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
      */
     m_stackedProjectViews->addWidget(view);
     m_stackedProjectInfoViews->addWidget(infoView);
-    m_stackedProjectInfoViews->setFocusProxy(infoView);
     m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
 
     /**
@@ -310,22 +309,22 @@ void KateProjectPluginView::slotViewChanged()
 
 void KateProjectPluginView::slotCurrentChanged(int index)
 {
-    /**
-     * trigger change of stacked widgets
-     */
+    // trigger change of stacked widgets
     m_stackedProjectViews->setCurrentIndex(index);
     m_stackedProjectInfoViews->setCurrentIndex(index);
 
-    /**
-     * open currently selected document
-     */
+    // update focus proxy + open currently selected document
     if (QWidget *current = m_stackedProjectViews->currentWidget()) {
+        m_stackedProjectViews->setFocusProxy(current);
         static_cast<KateProjectView *>(current)->openSelectedDocument();
     }
 
-    /**
-     * project file name might have changed
-     */
+    // update focus proxy
+    if (QWidget *current = m_stackedProjectInfoViews->currentWidget()) {
+        m_stackedProjectInfoViews->setFocusProxy(current);
+    }
+
+    // project file name might have changed
     emit projectFileNameChanged();
     emit projectMapChanged();
 }

@@ -48,6 +48,9 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     layout->addWidget(m_filter);
     setLayout(layout);
 
+    // let tree get focus for keyboard selection of file to open
+    setFocusProxy(m_treeView);
+
     /**
      * setup filter line edit
      */

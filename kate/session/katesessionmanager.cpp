@@ -408,16 +408,15 @@ bool KateSessionManager::chooseSession()
 
     // uhh, just open last used session, show no chooser
     if (sesStart == QStringLiteral("last")) {
-        activateSession(lastSession, false);
-        return true;
+        return activateSession(lastSession, false);
     }
 
     // start with empty new session or in case no sessions exist
     if (sesStart == QStringLiteral("new") || sessionList().size() == 0) {
-        activateAnonymousSession();
-        return true;
+        return activateAnonymousSession();
     }
 
+    // else: ask the user
     return QScopedPointer<KateSessionManageDialog>(new KateSessionManageDialog(nullptr, lastSession))->exec();
 }
 

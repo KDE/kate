@@ -114,24 +114,29 @@ KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
     return m_docInfos.contains(doc) ? m_docInfos[doc] : nullptr;
 }
 
-KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
+static QUrl
+normalizeUrl(const QUrl & url)
 {
-    QUrl u(url.adjusted(QUrl::NormalizePathSegments));
-
     // Resolve symbolic links for local files (done anyway in KTextEditor)
-    if (u.isLocalFile()) {
-        QString normalizedUrl = QFileInfo(u.toLocalFile()).canonicalFilePath();
+    if (url.isLocalFile()) {
+        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
         if (!normalizedUrl.isEmpty()) {
-            u = QUrl::fromLocalFile(normalizedUrl);
+            return QUrl::fromLocalFile(normalizedUrl);
         }
     }
 
-    foreach(KTextEditor::Document * it, m_docList) {
+    // else: cleanup only the .. stuff
+    return url.adjusted(QUrl::NormalizePathSegments);
+}
+
+KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
+{
+    const QUrl u(normalizeUrl(url));
+    for(KTextEditor::Document *it : m_docList) {
         if (it->url() == u) {
             return it;
         }
     }
-
     return nullptr;
 }
 
@@ -163,7 +168,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     //
     // create new document
     //
-    QUrl u(url.adjusted(QUrl::NormalizePathSegments));
+    const QUrl u(normalizeUrl(url));
     KTextEditor::Document *doc = nullptr;
 
     // always new document if url is empty...

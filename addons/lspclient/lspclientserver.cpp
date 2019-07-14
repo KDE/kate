@@ -585,17 +585,16 @@ public:
 static QUrl
 normalizeUrl(const QUrl & url)
 {
-    QUrl u(url.adjusted(QUrl::NormalizePathSegments));
-
     // Resolve symbolic links for local files (done anyway in KTextEditor)
-    if (u.isLocalFile()) {
-        QString normalizedUrl = QFileInfo(u.toLocalFile()).canonicalFilePath();
+    if (url.isLocalFile()) {
+        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
         if (!normalizedUrl.isEmpty()) {
-            u = QUrl::fromLocalFile(normalizedUrl);
+            return QUrl::fromLocalFile(normalizedUrl);
         }
     }
 
-    return u;
+    // else: cleanup only the .. stuff
+    return url.adjusted(QUrl::NormalizePathSegments);
 }
 
 static LSPMarkupContent

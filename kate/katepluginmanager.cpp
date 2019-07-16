@@ -41,7 +41,7 @@ QString KatePluginInfo::saveName() const
     return QFileInfo(metaData.fileName()).baseName();
 }
 
-bool KatePluginInfo::operator<(KatePluginInfo &other) const
+bool KatePluginInfo::operator<(const KatePluginInfo &other) const
 {
     if (sortOrder != other.sortOrder)
         return sortOrder < other.sortOrder;

@@ -204,6 +204,12 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QScopedPointer<QTreeWidget> m_ownedTree;
     // in either case, the tree that directs applying marks/ranges
     QPointer<QTreeWidget> m_markTree;
+    // goto definition and declaration jump list is more a menu than a
+    // search result, so let's not keep adding new tabs for those
+    // previous tree for definition result
+    QPointer<QTreeWidget> m_defTree;
+    // ... and for declaration
+    QPointer<QTreeWidget> m_declTree;
 
     // diagnostics tab
     QPointer<QTreeWidget> m_diagnosticsTree;
@@ -702,12 +708,23 @@ public:
         m_markTree = treeWidget;
     }
 
-    void showTree(const QString & title)
+    void showTree(const QString & title, QPointer<QTreeWidget> *targetTree)
     {
+        // clean up previous target if any
+        if (targetTree && *targetTree) {
+            int index = m_tabWidget->indexOf(*targetTree);
+            if (index >= 0)
+                tabCloseRequested(index);
+        }
+
         // transfer widget from owned to tabwidget
         auto treeWidget = m_ownedTree.take();
         int index = m_tabWidget->addTab(treeWidget, title);
         connect(treeWidget, &QTreeWidget::itemClicked, this, &self_type::goToItemLocation);
+
+        // track for later cleanup
+        if (targetTree)
+            *targetTree = treeWidget;
 
         // activate the resulting tab
         m_tabWidget->setCurrentIndex(index);
@@ -777,9 +794,10 @@ public:
     template<typename ReplyEntryType, bool doshow = true, typename HandlerType = ReplyHandler<QList<ReplyEntryType>>>
     void processLocations(const QString & title,
         const typename utils::identity<LocationRequest<HandlerType>>::type & req, bool onlyshow,
-        const std::function<RangeItem(const ReplyEntryType &)> & itemConverter)
+        const std::function<RangeItem(const ReplyEntryType &)> & itemConverter,
+        QPointer<QTreeWidget> *targetTree = nullptr)
     {
-        auto h = [this, title, onlyshow, itemConverter] (const QList<ReplyEntryType> & defs)
+        auto h = [this, title, onlyshow, itemConverter, targetTree] (const QList<ReplyEntryType> & defs)
         {
             if (defs.count() == 0) {
                 showMessage(i18n("No results"), KTextEditor::Message::Information);
@@ -795,7 +813,7 @@ public:
                 makeTree(ranges);
 
                 if (defs.count() > 1 || onlyshow) {
-                    showTree(title);
+                    showTree(title, targetTree);
                 }
                 // it's not nice to jump to some location if we are too late
                 if (!m_req_timeout && !onlyshow) {
@@ -819,13 +837,15 @@ public:
     void goToDefinition()
     {
         auto title = i18nc("@title:tab", "Definition: %1", currentWord());
-        processLocations<LSPLocation>(title, &LSPClientServer::documentDefinition, false, &self_type::locationToRangeItem);
+        processLocations<LSPLocation>(title, &LSPClientServer::documentDefinition,
+            false, &self_type::locationToRangeItem, &m_defTree);
     }
 
     void goToDeclaration()
     {
         auto title = i18nc("@title:tab", "Declaration: %1", currentWord());
-        processLocations<LSPLocation>(title, &LSPClientServer::documentDeclaration, false, &self_type::locationToRangeItem);
+        processLocations<LSPLocation>(title, &LSPClientServer::documentDeclaration,
+            false, &self_type::locationToRangeItem, &m_declTree);
     }
 
     void findReferences()

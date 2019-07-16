@@ -35,6 +35,8 @@
 #include <QFileInfo>
 #include <QTime>
 
+#include <vector>
+
 #include "config.h"
 
 #ifdef HAVE_CTERMID
@@ -129,7 +131,6 @@ KTextEditor::ConfigPage *KateProjectPlugin::configPage(int number, QWidget *pare
 KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName)
 {
     KateProject *project = new KateProject(m_weaver);
-
     if (!project->loadFromFile(fileName)) {
         delete project;
         return nullptr;
@@ -144,45 +145,53 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
 KateProject *KateProjectPlugin::projectForDir(QDir dir)
 {
     /**
-     * search projects upwards
+     * search project file upwards
      * with recursion guard
+     * do this first for all level and only after this fails try to invent projects
+     * otherwise one e.g. invents projects for .kateproject tree structures with sub .git clones
      */
     QSet<QString> seenDirectories;
+    std::vector<QString> directoryStack;
     while (!seenDirectories.contains(dir.absolutePath())) {
-        /**
-         * fill recursion guard
-         */
+        // update guard
         seenDirectories.insert(dir.absolutePath());
 
-        /**
-         * check for project and load it if found
-         */
-        QString canonicalPath = dir.canonicalPath();
-        QString canonicalFileName = dir.filePath(ProjectFileName);
+        // remember directory for later project creation based on other criteria
+        directoryStack.push_back(dir.absolutePath());
 
+        // check for project and load it if found
+        const QString canonicalPath = dir.canonicalPath();
+        const QString canonicalFileName = dir.filePath(ProjectFileName);
         for (KateProject *project : m_projects) {
             if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName) {
                 return project;
             }
         }
 
+        // project file found => done
         if (dir.exists(ProjectFileName)) {
             return createProjectForFileName(canonicalFileName);
         }
 
-        KateProject *project;
-        if ((project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir))) {
-            return project;
-        }
-
-        /**
-         * else: cd up, if possible or abort
-         */
+        // else: cd up, if possible or abort
         if (!dir.cdUp()) {
             break;
         }
     }
 
+    /**
+     * if we arrive here, we found no .kateproject
+     * => we want to invent a project based on e.g. version control system info
+     */
+    for (const QString &dir : directoryStack) {
+        // try to invent project based on version control stuff
+        KateProject *project = nullptr;
+        if ((project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir))) {
+            return project;
+        }
+    }
+
+    // no project found, bad luck
     return nullptr;
 }
 

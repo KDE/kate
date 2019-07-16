@@ -162,13 +162,12 @@ public:
         };
 
         int count = 0;
-        auto const None = LSPClientServer::State::None;
         for (const auto & el: m_servers) {
             for (const auto & s: el) {
                 disconnect(s.get(), nullptr, this, nullptr);
-                if (s->state() != None) {
+                if (s->state() != LSPClientServer::State::None) {
                     auto handler = [&q, &count, s] () {
-                        if (s->state() != None) {
+                        if (s->state() != LSPClientServer::State::None) {
                             if (--count == 0) {
                                 q.quit();
                             }

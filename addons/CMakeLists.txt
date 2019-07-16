@@ -55,11 +55,8 @@ ecm_optional_add_subdirectory (rustcompletion)
 # D completion plugin
 ecm_optional_add_subdirectory (lumen)
 
-# LSP Client plugin
-option(ENABLE_LSPCLIENT "Enable LSPCLient plugin" OFF)
-if (ENABLE_LSPCLIENT)
-    ecm_optional_add_subdirectory (lspclient)
-endif()
+# LSP client plugin
+ecm_optional_add_subdirectory (lspclient)
 
 # build plugin
 ecm_optional_add_subdirectory (katebuild-plugin)

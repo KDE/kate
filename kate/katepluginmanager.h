@@ -43,7 +43,7 @@ public:
     KTextEditor::Plugin *plugin = nullptr;
     int sortOrder = 0;
     QString saveName() const;
-    bool operator<(KatePluginInfo &other) const;
+    bool operator<(const KatePluginInfo &other) const;
 };
 
 typedef QList<KatePluginInfo> KatePluginList;

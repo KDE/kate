@@ -178,6 +178,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     QSharedPointer<LSPClientServerManager> m_serverManager;
+    QScopedPointer<LSPClientViewTracker> m_viewTracker;
     QScopedPointer<LSPClientCompletion> m_completion;
     QScopedPointer<QObject> m_symbolView;
 
@@ -321,6 +322,10 @@ public:
         m_diagnosticsTree->setAlternatingRowColors(true);
         m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
         connect(m_diagnosticsTree, &QTreeWidget::itemClicked, this, &self_type::goToItemLocation);
+
+        // track position in view to sync diagnostics list
+        m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 0, 500));
+        connect(m_viewTracker.get(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
 
         configUpdated();
         updateState();
@@ -901,19 +906,68 @@ public:
         return topItem;
     }
 
-    Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled)
+    // select/scroll to diagnostics item for document and (optionally) line
+    bool syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow)
     {
+        auto hint = QAbstractItemView::PositionAtTop;
+        QTreeWidgetItem *targetItem = nullptr;
         QTreeWidgetItem *topItem = getItem(m_diagnosticsTree, document->url());
-        for (int i = 0; i < topItem->childCount(); ++i) {
-            auto item = topItem->child(i);
-            int line = item->data(0, RangeData::StartLineRole).toInt();
-            if (line == mark.line && m_diagnosticsTree) {
-                m_diagnosticsTree->scrollToItem(item);
+        if (topItem) {
+            int count = topItem->childCount();
+            // let's not run wild on a linear search in a flood of diagnostics
+            // user is already in enough trouble as it is ;-)
+            if (count > 50)
+                count = 0;
+            for (int i = 0; i < count; ++i) {
+                auto item = topItem->child(i);
+                int itemline = item->data(0, RangeData::StartLineRole).toInt();
+                if (line == itemline && m_diagnosticsTree) {
+                    targetItem = item;
+                    hint = QAbstractItemView::PositionAtCenter;
+                    break;
+                }
+            }
+        }
+        if (!targetItem && allowTop) {
+            targetItem = topItem;
+        }
+        if (targetItem) {
+            m_diagnosticsTree->blockSignals(true);
+            m_diagnosticsTree->scrollToItem(targetItem, hint);
+            m_diagnosticsTree->setCurrentItem(targetItem);
+            m_diagnosticsTree->blockSignals(false);
+            if (doShow) {
                 m_tabWidget->setCurrentWidget(m_diagnosticsTree);
                 m_mainWindow->showToolView(m_toolView.get());
-                handled = true;
-                break;
             }
+        }
+        return targetItem != nullptr;
+    }
+
+    void onViewState(KTextEditor::View *view, LSPClientViewTracker::State newState)
+    {
+        if (!view || !view->document())
+            return;
+
+        // select top item on view change,
+        // but otherwise leave selection unchanged if no match
+        switch(newState) {
+        case LSPClientViewTracker::ViewChanged:
+            syncDiagnostics(view->document(), view->cursorPosition().line(), true, false);
+            break;
+        case LSPClientViewTracker::LineChanged:
+            syncDiagnostics(view->document(), view->cursorPosition().line(), false, false);
+            break;
+        default:
+            // should not happen
+            break;
+        }
+    }
+
+    Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled)
+    {
+        if (syncDiagnostics(document, mark.line, false, true)) {
+            handled = true;
         }
     }
 
@@ -955,7 +1009,7 @@ public:
 
         m_diagnosticsTree->resizeColumnToContents(1);
         m_diagnosticsTree->resizeColumnToContents(0);
-        m_diagnosticsTree->scrollToItem(topItem);
+        m_diagnosticsTree->scrollToItem(topItem, QAbstractItemView::PositionAtTop);
 
         updateState();
     }

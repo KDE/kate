@@ -33,6 +33,82 @@
 #include <QTimer>
 #include <QPointer>
 
+class LSPClientViewTrackerImpl : public LSPClientViewTracker
+{
+    Q_OBJECT
+
+    typedef LSPClientViewTrackerImpl self_type;
+
+    LSPClientPlugin *m_plugin;
+    KTextEditor::MainWindow *m_mainWindow;
+    // timers to delay some todo's
+    QTimer m_changeTimer;
+    int m_change;
+    QTimer m_motionTimer;
+    int m_motion;
+    int m_oldCursorLine = -1;
+
+public:
+    LSPClientViewTrackerImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, int change_ms, int motion_ms)
+        : m_plugin(plugin), m_mainWindow(mainWin), m_change(change_ms), m_motion(motion_ms)
+    {
+        // get updated
+        m_changeTimer.setSingleShot(true);
+        auto ch = [this] () { emit newState(m_mainWindow->activeView(), TextChanged); };
+        connect(&m_changeTimer, &QTimer::timeout, this, ch);
+
+        m_motionTimer.setSingleShot(true);
+        auto mh = [this] () { emit newState(m_mainWindow->activeView(), LineChanged); };
+        connect(&m_motionTimer, &QTimer::timeout, this, mh);
+
+        // track views
+        connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::viewChanged);
+    }
+
+    void viewChanged(KTextEditor::View *view)
+    {
+        m_motionTimer.stop();
+        m_changeTimer.stop();
+
+        if (view) {
+            if (m_motion) {
+                connect(view, &KTextEditor::View::cursorPositionChanged, this, &self_type::cursorPositionChanged, Qt::UniqueConnection);
+            }
+            if (m_change > 0 && view->document()) {
+                connect(view->document(), &KTextEditor::Document::textChanged, this, &self_type::textChanged, Qt::UniqueConnection);
+            }
+            emit newState(view, ViewChanged);
+            m_oldCursorLine = view->cursorPosition().line();
+        }
+    }
+
+    void textChanged()
+    {
+        m_motionTimer.stop();
+        m_changeTimer.start(m_change);
+    }
+
+    void cursorPositionChanged(KTextEditor::View *view, const KTextEditor::Cursor &newPosition)
+    {
+        if (m_changeTimer.isActive()) {
+            // change trumps motion
+            return;
+        }
+
+        if (view && newPosition.line() != m_oldCursorLine) {
+            m_oldCursorLine = newPosition.line();
+            m_motionTimer.start(m_motion);
+        }
+    }
+};
+
+LSPClientViewTracker*
+LSPClientViewTracker::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin,
+    int change_ms, int motion_ms)
+{
+    return new LSPClientViewTrackerImpl(plugin, mainWin, change_ms, motion_ms);
+}
+
 /*
  * Instantiates and manages the symbol outline toolview.
  */
@@ -62,10 +138,8 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     QAction *m_expandOn;
     QAction *m_treeOn;
     QAction *m_sortOn;
-    // timers to delay some todo's
-    QTimer m_refreshTimer;
-    QTimer m_currentItemTimer;
-    int m_oldCursorLine;
+    // view tracking
+    QScopedPointer<LSPClientViewTracker> m_viewTracker;
     // outstanding request
     LSPClientServer::RequestHandle m_handle;
 
@@ -124,12 +198,8 @@ public:
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
 
         // get updated
-        m_refreshTimer.setSingleShot(true);
-        connect(&m_refreshTimer, &QTimer::timeout, this, &self_type::refresh);
-        m_currentItemTimer.setSingleShot(true);
-        connect(&m_currentItemTimer, &QTimer::timeout, this, &self_type::updateCurrentTreeItem);
-
-        connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::viewChanged);
+        m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 500, 100));
+        connect(m_viewTracker.get(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
         connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, &self_type::refresh);
 
         // initial trigger
@@ -156,36 +226,16 @@ public:
         m_popup->popup(QCursor::pos(), m_treeOn);
     }
 
-    void viewChanged(KTextEditor::View *view)
+    void onViewState(KTextEditor::View *, LSPClientViewTracker::State newState)
     {
-        refresh();
-
-        if (view) {
-          connect(view, &KTextEditor::View::cursorPositionChanged, this, &self_type::cursorPositionChanged, Qt::UniqueConnection);
-          if (view->document()) {
-            connect(view->document(), &KTextEditor::Document::textChanged, this, &self_type::textChanged, Qt::UniqueConnection);
-          }
-        }
-    }
-
-    void textChanged()
-    {
-        // refresh also updates current position
-        m_currentItemTimer.stop();
-        m_refreshTimer.start(500);
-    }
-
-    void cursorPositionChanged(KTextEditor::View *view,
-                               const KTextEditor::Cursor &newPosition)
-    {
-        if (m_refreshTimer.isActive()) {
-            // update will come upon refresh
-            return;
-        }
-
-        if (view && newPosition.line() != m_oldCursorLine) {
-            m_oldCursorLine = newPosition.line();
-            m_currentItemTimer.start(100);
+        switch(newState) {
+        case LSPClientViewTracker::ViewChanged:
+        case LSPClientViewTracker::TextChanged:
+            refresh();
+            break;
+        case LSPClientViewTracker::LineChanged:
+            updateCurrentTreeItem();
+            break;
         }
     }
 
@@ -274,7 +324,6 @@ public:
         }
         // current item tracking
         updateCurrentTreeItem();
-        m_oldCursorLine = -1;
     }
 
     void refresh()

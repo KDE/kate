@@ -55,7 +55,7 @@ public:
     virtual QSharedPointer<LSPClientServer>
     findServer(KTextEditor::View *view, bool updatedoc = true) = 0;
 
-    virtual void update(KTextEditor::Document *doc) = 0;
+    virtual void update(KTextEditor::Document *doc, bool force) = 0;
 
     virtual void restart(LSPClientServer *server) = 0;
 

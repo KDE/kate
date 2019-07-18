@@ -121,6 +121,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
         QUrl url;
         int version;
         bool open;
+        bool modified;
     };
 
     LSPClientPlugin *m_plugin;
@@ -207,7 +208,7 @@ public:
         }
 
         if (server && updatedoc)
-            update(document);
+            update(server.get(), false);
         return server;
     }
 
@@ -462,13 +463,13 @@ private:
     {
         auto it = m_docs.find(doc);
         if (it == m_docs.end()) {
-            it = m_docs.insert(doc, {server, doc->url(), 0, false});
+            it = m_docs.insert(doc, {server, doc->url(), 0, false, true});
             // track document
             connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack, Qt::UniqueConnection);
-            // connect(doc, &KTextEditor::Document::modifiedChanged, this, &self_type::close, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::aboutToClose, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::destroyed, this, &self_type::untrack, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::textChanged, this, &self_type::onTextChanged, Qt::UniqueConnection);
         } else {
             it->server = server;
         }
@@ -508,16 +509,36 @@ private:
     void close(KTextEditor::Document *doc)
     { _close(doc, false); }
 
-    void update(KTextEditor::Document *doc) override
+    void update(KTextEditor::Document *doc, bool force) override
     {
         auto it = m_docs.find(doc);
-        if (it != m_docs.end() && /*doc->isModified() && */it->server) {
+        if (it != m_docs.end() && it->server) {
             if (it->open) {
-                (it->server)->didChange(it->url, ++it->version, doc->text());
+                if (it->modified || force) {
+                    (it->server)->didChange(it->url, ++it->version, doc->text());
+                    it->modified = false;
+                }
             } else {
                 (it->server)->didOpen(it->url, ++it->version, doc->text());
                 it->open = true;
             }
+        }
+    }
+
+    void update(LSPClientServer * server, bool force)
+    {
+        for (auto it = m_docs.begin(); it != m_docs.end(); ++it) {
+            if (it->server == server) {
+                update(it.key(), force);
+            }
+        }
+    }
+
+    void onTextChanged(KTextEditor::Document *doc)
+    {
+        auto it = m_docs.find(doc);
+        if (it != m_docs.end()) {
+            it->modified = true;
         }
     }
 };

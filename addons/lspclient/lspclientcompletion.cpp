@@ -298,7 +298,7 @@ public:
             // (which may be within this typical range)
             auto position = view->cursorPosition();
             auto cursor = qMax(range.start(), qMin(range.end(), position));
-            m_manager->update(document);
+            m_manager->update(document, false);
             if (!m_triggerSignature) {
                 m_handle = m_server->documentCompletion(document->url(),
                     {cursor.line(), cursor.column()}, this, handler);

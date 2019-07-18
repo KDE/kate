@@ -43,6 +43,7 @@
 #include <QSizePolicy>
 #include <QStyle>
 #include <QDomDocument>
+#include <QVBoxLayout>
 
 namespace KateMDI
 {

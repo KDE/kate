@@ -895,6 +895,8 @@ public:
     static QTreeWidgetItem*
     getItem(const QTreeWidget *treeWidget, const QUrl & url)
     {
+        Q_ASSERT(treeWidget);
+
         QTreeWidgetItem *topItem = nullptr;
         for (int i = 0; i < treeWidget->topLevelItemCount(); ++i) {
             auto item = treeWidget->topLevelItem(i);
@@ -909,6 +911,9 @@ public:
     // select/scroll to diagnostics item for document and (optionally) line
     bool syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow)
     {
+        if (!m_diagnosticsTree)
+            return false;
+
         auto hint = QAbstractItemView::PositionAtTop;
         QTreeWidgetItem *targetItem = nullptr;
         QTreeWidgetItem *topItem = getItem(m_diagnosticsTree, document->url());
@@ -973,6 +978,9 @@ public:
 
     void onDiagnostics(const LSPPublishDiagnosticsParams & diagnostics)
     {
+        if (!m_diagnosticsTree)
+            return;
+
         QTreeWidgetItem *topItem = getItem(m_diagnosticsTree, diagnostics.uri);
 
         if (!topItem) {

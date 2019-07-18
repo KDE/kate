@@ -170,14 +170,15 @@ public:
 };
 
 
-class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
+class LSPClientActionView : public QObject
 {
     Q_OBJECT
 
-    typedef LSPClientPluginViewImpl self_type;
+    typedef LSPClientActionView self_type;
 
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
+    KXMLGUIClient *m_client;
     QSharedPointer<LSPClientServerManager> m_serverManager;
     QScopedPointer<LSPClientViewTracker> m_viewTracker;
     QScopedPointer<LSPClientCompletion> m_completion;
@@ -232,17 +233,18 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     // timeout on request
     bool m_req_timeout = false;
 
+    KActionCollection *actionCollection() const
+    { return m_client->actionCollection(); }
+
 public:
-    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
-        : QObject(mainWin), m_plugin(plugin), m_mainWindow(mainWin),
-          m_serverManager(LSPClientServerManager::new_(plugin, mainWin)),
+    LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin,
+                        KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
+        : QObject(mainWin), m_plugin(plugin), m_mainWindow(mainWin), m_client(client),
+          m_serverManager(serverManager),
           m_completion(LSPClientCompletion::new_(m_serverManager)),
           m_hover(LSPClientHover::new_(m_serverManager)),
           m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
     {
-        KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
-        setXMLFile(QStringLiteral("ui.rc"));
-
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
         connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
         connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, &self_type::updateState);
@@ -336,11 +338,9 @@ public:
 
         configUpdated();
         updateState();
-
-        m_mainWindow->guiFactory()->addClient(this);
     }
 
-    ~LSPClientPluginViewImpl()
+    ~LSPClientActionView()
     {
         // unregister all code-completion providers, else we might crash
         for (auto view : qAsConst(m_completionViews)) {
@@ -354,7 +354,6 @@ public:
 
         clearAllLocationMarks();
         clearAllDiagnosticsMarks();
-        m_mainWindow->guiFactory()->removeClient(this);
     }
 
     void displayOptionChanged()
@@ -1146,6 +1145,43 @@ public:
         }
     }
 };
+
+
+class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
+{
+    Q_OBJECT
+
+    typedef LSPClientPluginViewImpl self_type;
+
+    LSPClientPlugin *m_plugin;
+    KTextEditor::MainWindow *m_mainWindow;
+    QSharedPointer<LSPClientServerManager> m_serverManager;
+    QScopedPointer<LSPClientActionView> m_actionView;
+
+public:
+    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
+        : QObject(mainWin), m_plugin(plugin), m_mainWindow(mainWin),
+          m_serverManager(LSPClientServerManager::new_(plugin, mainWin)),
+          m_actionView(new LSPClientActionView(plugin, mainWin, this, m_serverManager))
+    {
+        KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
+        setXMLFile(QStringLiteral("ui.rc"));
+
+        m_mainWindow->guiFactory()->addClient(this);
+    }
+
+    ~LSPClientPluginViewImpl()
+    {
+        // minimize/avoid some surprises;
+        // safe construction/destruction by separate (helper) objects;
+        // signals are auto-disconnected when high-level "view" objects are broken down
+        // so it only remains to clean up lowest level here then prior to removal
+        m_actionView.reset();
+        m_serverManager.reset();
+        m_mainWindow->guiFactory()->removeClient(this);
+    }
+};
+
 
 QObject*
 LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)

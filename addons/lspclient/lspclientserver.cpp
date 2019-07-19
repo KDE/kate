@@ -271,9 +271,10 @@ private:
     RequestHandle
     send(const QJsonObject & msg, const GenericReplyHandler & h = nullptr)
     {
-        Q_ASSERT (m_state == State::Running);
         if (m_state == State::Running)
             return write(msg, h);
+        else
+            qCWarning(LSPCLIENT) << "send for non-running server";
         return RequestHandle();
     }
 

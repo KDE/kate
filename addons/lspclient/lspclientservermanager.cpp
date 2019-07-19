@@ -77,6 +77,7 @@
 #include <KTextEditor/View>
 #include <KTextEditor/Message>
 #include <KLocalizedString>
+#include <KTextEditor/MovingInterface>
 
 #include <QTimer>
 #include <QEventLoop>
@@ -118,8 +119,9 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     struct DocumentInfo
     {
         QSharedPointer<LSPClientServer> server;
+        KTextEditor::MovingInterface *movingInterface;
         QUrl url;
-        int version;
+        qint64 version;
         bool open;
         bool modified;
     };
@@ -463,7 +465,8 @@ private:
     {
         auto it = m_docs.find(doc);
         if (it == m_docs.end()) {
-            it = m_docs.insert(doc, {server, doc->url(), 0, false, true});
+            KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+            it = m_docs.insert(doc, {server, miface, doc->url(), 0, false, true});
             // track document
             connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack, Qt::UniqueConnection);
@@ -513,13 +516,18 @@ private:
     {
         auto it = m_docs.find(doc);
         if (it != m_docs.end() && it->server) {
+            if (it->movingInterface) {
+                it->version = it->movingInterface->revision();
+            } else if (it->modified) {
+                ++it->version;
+            }
             if (it->open) {
                 if (it->modified || force) {
-                    (it->server)->didChange(it->url, ++it->version, doc->text());
+                    (it->server)->didChange(it->url, it->version, doc->text());
                     it->modified = false;
                 }
             } else {
-                (it->server)->didOpen(it->url, ++it->version, doc->text());
+                (it->server)->didOpen(it->url, it->version, doc->text());
                 it->open = true;
             }
         }

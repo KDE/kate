@@ -54,7 +54,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     /**
      * setup filter line edit
      */
-    m_filter->setPlaceholderText(i18n("Search"));
+    m_filter->setPlaceholderText(i18n("Filter..."));
     m_filter->setClearButtonEnabled(true);
     connect(m_filter, &KLineEdit::textChanged, this, &KateProjectView::filterTextChanged);
 }

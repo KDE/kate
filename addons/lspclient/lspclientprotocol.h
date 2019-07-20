@@ -232,6 +232,12 @@ struct LSPSignatureHelp
     int activeParameter;
 };
 
+struct LSPTextEdit
+{
+    LSPRange range;
+    QString newText;
+};
+
 enum class LSPDiagnosticSeverity
 {
     Unknown = 0,

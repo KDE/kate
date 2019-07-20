@@ -57,6 +57,24 @@ static const QString MEMBER_DETAIL = QStringLiteral("detail");
 
 // message construction helpers
 static QJsonObject
+to_json(const LSPPosition & pos)
+{
+    return QJsonObject {
+        { MEMBER_LINE, pos.line() },
+        { MEMBER_CHARACTER, pos.column() }
+    };
+}
+
+static QJsonObject
+to_json(const LSPRange & range)
+{
+    return QJsonObject {
+        { MEMBER_START, to_json(range.start()) },
+        { MEMBER_END, to_json(range.end()) }
+    };
+}
+
+static QJsonObject
 versionedTextDocumentIdentifier(const QUrl & document, int version = -1)
 {
     QJsonObject map { { MEMBER_URI, document.toString() } };
@@ -92,10 +110,7 @@ static QJsonObject
 textDocumentPositionParams(const QUrl & document, LSPPosition pos)
 {
     auto params = textDocumentParams(document);
-    params[MEMBER_POSITION] = QJsonObject {
-        { MEMBER_LINE, pos.line() },
-        { MEMBER_CHARACTER, pos.column() }
-    };
+    params[MEMBER_POSITION] = to_json(pos);
     return params;
 }
 
@@ -108,6 +123,22 @@ referenceParams(const QUrl & document, LSPPosition pos, bool decl)
     };
     return params;
 }
+
+static QJsonObject
+documentRangeFormattingParams(const QUrl & document, const LSPRange *range,
+    int tabSize, bool insertSpaces, const QJsonObject & _options)
+{
+    auto params = textDocumentParams(document);
+    if (range) {
+        params[MEMBER_RANGE] = to_json(*range);
+    }
+    auto options = _options;
+    options[QStringLiteral("tabSize")] = tabSize;
+    options[QStringLiteral("insertSpaces")] = insertSpaces;
+    params[QStringLiteral("options")] = options;
+    return params;
+}
+
 
 static void
 from_json(QVector<QChar> & trigger, const QJsonValue & json)
@@ -541,6 +572,21 @@ public:
         return send(init_request(QStringLiteral("textDocument/signatureHelp"), params), h);
     }
 
+    RequestHandle documentFormatting(const QUrl & document, int tabSize, bool insertSpaces,
+        const QJsonObject & options, const GenericReplyHandler & h)
+    {
+        auto params = documentRangeFormattingParams(document, nullptr, tabSize, insertSpaces, options);
+        return send(init_request(QStringLiteral("textDocument/formatting"), params), h);
+    }
+
+    RequestHandle documentRangeFormatting(const QUrl & document, const LSPRange & range,
+        int tabSize, bool insertSpaces,
+        const QJsonObject & options, const GenericReplyHandler & h)
+    {
+        auto params = documentRangeFormattingParams(document, &range, tabSize, insertSpaces, options);
+        return send(init_request(QStringLiteral("textDocument/rangeFormatting"), params), h);
+    }
+
     void didOpen(const QUrl & document, int version, const QString & text)
     {
         auto params = textDocumentParams(textDocumentItem(document, QString(), text, version));
@@ -834,6 +880,19 @@ parseSignatureHelp(const QJsonValue & result)
     return ret;
 }
 
+static QList<LSPTextEdit>
+parseTextEdit(const QJsonValue & result)
+{
+    QList<LSPTextEdit> ret;
+    for (const auto &redit: result.toArray()) {
+        auto edit = redit.toObject();
+        auto text = edit.value(QStringLiteral("newText")).toString();
+        auto range = parseRange(edit.value(MEMBER_RANGE).toObject());
+        ret.push_back({range, text});
+    }
+    return ret;
+}
+
 static LSPPublishDiagnosticsParams
 parseDiagnostics(const QJsonObject & result)
 {
@@ -935,6 +994,17 @@ LSPClientServer::RequestHandle
 LSPClientServer::signatureHelp(const QUrl & document, const LSPPosition & pos,
     const QObject *context, const SignatureHelpReplyHandler & h)
 { return d->signatureHelp(document, pos, make_handler(h, context, parseSignatureHelp)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentFormatting(const QUrl & document, int tabSize, bool insertSpaces,
+    const QJsonObject & options, const QObject *context, const FormattingReplyHandler & h)
+{ return d->documentFormatting(document, tabSize, insertSpaces, options, make_handler(h, context, parseTextEdit)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentRangeFormatting(const QUrl & document, const LSPRange & range,
+    int tabSize, bool insertSpaces, const QJsonObject & options,
+    const QObject *context, const FormattingReplyHandler & h)
+{ return d->documentRangeFormatting(document, range, tabSize, insertSpaces, options, make_handler(h, context, parseTextEdit)); }
 
 void LSPClientServer::didOpen(const QUrl & document, int version, const QString & text)
 { return d->didOpen(document, version, text); }

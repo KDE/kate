@@ -25,6 +25,7 @@
 #include <QEventLoop>
 #include <QFile>
 #include <QTextStream>
+#include <QJsonObject>
 
 int main(int argc, char ** argv)
 {
@@ -109,6 +110,13 @@ int main(int argc, char ** argv)
         q.quit();
     };
     lsp.documentHighlight(document, {position[0].toInt(), position[1].toInt()}, &app, hl_h);
+    q.exec();
+
+    auto fmt_h = [&q] (const QList<LSPTextEdit> & edits) {
+        std::cout << "edits: " << edits.length() << std::endl;
+        q.quit();
+    };
+    lsp.documentFormatting(document, 2, true, QJsonObject(), &app, fmt_h);
     q.exec();
 
     // lsp.didOpen(document, 0, QStringLiteral("blah"));

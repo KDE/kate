@@ -29,7 +29,10 @@ namespace KTextEditor {
     class MainWindow;
     class Document;
     class View;
+    class MovingInterface;
 }
+
+class LSPClientRevisionSnapshot;
 
 /*
  * A helper class that manages LSP servers in relation to a KTextDocument.
@@ -59,9 +62,22 @@ public:
 
     virtual void restart(LSPClientServer *server) = 0;
 
+    // lock all relevant documents' current revision and sync that to server
+    // locks are released when returned snapshot is delete'd
+    virtual LSPClientRevisionSnapshot* snapshot(LSPClientServer *server) = 0;
+
 public:
 Q_SIGNALS:
     void serverChanged();
+};
+
+class LSPClientRevisionSnapshot : public QObject
+{
+    Q_OBJECT
+
+public:
+    // find a locked revision for url in snapshot
+    virtual void find(const QUrl & url, KTextEditor::MovingInterface* & miface, qint64 & revision) const = 0;
 };
 
 #endif

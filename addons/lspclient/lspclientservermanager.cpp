@@ -109,6 +109,108 @@ merge(const QJsonObject & bottom, const QJsonObject & top)
     return result;
 }
 
+// helper guard to handle revision (un)lock
+struct RevisionGuard
+{
+    QPointer<KTextEditor::Document> m_doc;
+    KTextEditor::MovingInterface *m_movingInterface = nullptr;
+    qint64 m_revision = -1;
+
+    RevisionGuard(KTextEditor::Document *doc = nullptr) :
+        m_doc(doc),
+        m_movingInterface(qobject_cast<KTextEditor::MovingInterface*>(doc)),
+        m_revision(-1)
+    {
+        if (m_movingInterface) {
+            m_revision = m_movingInterface->revision();
+            m_movingInterface->lockRevision(m_revision);
+        }
+    }
+
+    // really only need/allow this one (out of 5)
+    RevisionGuard(RevisionGuard && other) : RevisionGuard(nullptr)
+    {
+        std::swap(m_doc, other.m_doc);
+        std::swap(m_movingInterface, other.m_movingInterface);
+        std::swap(m_revision, other.m_revision);
+    }
+
+    void release()
+    {
+        m_movingInterface = nullptr;
+        m_revision = -1;
+    }
+
+    ~RevisionGuard()
+    {
+        // NOTE: hopefully the revision is still valid at this time
+        if (m_doc && m_movingInterface && m_revision >= 0) {
+            m_movingInterface->unlockRevision(m_revision);
+        }
+    }
+};
+
+
+class LSPClientRevisionSnapshotImpl : public LSPClientRevisionSnapshot
+{
+    Q_OBJECT
+
+    typedef LSPClientRevisionSnapshotImpl self_type;
+
+    // std::map has more relaxed constraints on value_type
+    std::map<QUrl, RevisionGuard> m_guards;
+
+    Q_SLOT
+    void clearRevisions(KTextEditor::Document *doc)
+    {
+        for (auto &item: m_guards) {
+            if (item.second.m_doc == doc) {
+                item.second.release();
+            }
+        }
+    }
+
+public:
+    void add(KTextEditor::Document *doc)
+    {
+        Q_ASSERT(doc);
+
+        /* NOTE:
+         * The implementation (at least one) of range translation comes down to
+         * katetexthistory.cpp.  While there are asserts in place that check
+         * for a valid revision parameter, those checks are *only* in assert
+         * and will otherwise result in nasty index access.  So it is vital
+         * that a valid revision is always given.  However, there is no way
+         * to check for a valid revision using the interface only, and documentation
+         * refers to (dangerous) effects of clear() and reload() (that are not
+         * part of the interface, neither clearly of Document interface).
+         * So it then becomes crucial that the following signal covers all
+         * cases where a revision might be invalidated.
+         * Even if so, it would be preferably being able to check for a valid/known
+         * revision at any other time by other means (e.g. interface method).
+         */
+        auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(clearRevisions(KTextEditor::Document*)));
+        Q_ASSERT(conn);
+#if 0
+        // disable until confirmation/clarification on the above
+        m_guards.emplace(doc->url(), doc);
+#endif
+    }
+
+    void find(const QUrl & url, KTextEditor::MovingInterface* & miface, qint64 & revision) const override
+    {
+        auto it = m_guards.find(url);
+        if (it != m_guards.end()) {
+            miface = it->second.m_movingInterface;
+            revision = it->second.m_revision;
+        } else {
+            miface = nullptr;
+            revision = -1;
+        }
+    }
+};
+
 // helper class to sync document changes to LSP server
 class LSPClientServerManagerImpl : public LSPClientServerManager
 {
@@ -234,6 +336,19 @@ public:
             }
         }
         restart(servers);
+    }
+
+    virtual LSPClientRevisionSnapshot* snapshot(LSPClientServer *server) override
+    {
+        auto result = new LSPClientRevisionSnapshotImpl;
+        for (auto it = m_docs.begin(); it != m_docs.end(); ++it) {
+            if (it->server == server) {
+                // sync server to latest revision that will be recorded
+                update(it.key(), false);
+                result->add(it.key());
+            }
+        }
+        return result;
     }
 
 private:

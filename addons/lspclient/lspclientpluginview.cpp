@@ -677,8 +677,24 @@ public:
         rootItem->setData(0, RangeData::KindRole, true);
     }
 
-    void fillItemRoles(QTreeWidgetItem * item, const QUrl & url, const LSPRange & range, RangeData::KindEnum kind)
+    LSPRange transformRange(const QUrl & url, const LSPClientRevisionSnapshot & snapshot, const LSPRange & range)
     {
+        KTextEditor::MovingInterface *miface;
+        qint64 revision;
+
+        auto result = range;
+        snapshot.find(url, miface, revision);
+        if (miface) {
+            miface->transformRange(result, KTextEditor::MovingRange::DoNotExpand,
+                                   KTextEditor::MovingRange::AllowEmpty, revision);
+        }
+        return result;
+    }
+
+    void fillItemRoles(QTreeWidgetItem * item, const QUrl & url, const LSPRange _range,
+        RangeData::KindEnum kind, const LSPClientRevisionSnapshot * snapshot = nullptr)
+    {
+        auto range = snapshot ? transformRange(url, *snapshot, _range) : _range;
         item->setData(0, RangeData::FileUrlRole, QVariant(url));
         item->setData(0, RangeData::StartLineRole, range.start().line());
         item->setData(0, RangeData::StartColumnRole, range.start().column());
@@ -687,7 +703,7 @@ public:
         item->setData(0, RangeData::KindRole, (int) kind);
     }
 
-    void makeTree(const QVector<RangeItem> & locations)
+    void makeTree(const QVector<RangeItem> & locations, const LSPClientRevisionSnapshot * snapshot)
     {
         // group by url, assuming input is suitably sorted that way
         auto treeWidget = new QTreeWidget();
@@ -710,7 +726,7 @@ public:
             }
             auto item = new QTreeWidgetItem(parent);
             item->setText(0, i18n("Line: %1: ", loc.range.start().line() + 1));
-            fillItemRoles(item, loc.uri, loc.range, loc.kind);
+            fillItemRoles(item, loc.uri, loc.range, loc.kind, snapshot);
         }
         if (parent)
             parent->setText(0, QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->childCount()));
@@ -784,12 +800,18 @@ public:
         const QObject *context, const Handler & h)>;
 
     template<typename Handler>
-    void positionRequest(const LocationRequest<Handler> & req, const Handler & h)
+    void positionRequest(const LocationRequest<Handler> & req, const Handler & h,
+                         QScopedPointer<LSPClientRevisionSnapshot> * snapshot = nullptr)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
         if (!server)
             return;
+
+        // track revision if requested
+        if (snapshot) {
+            snapshot->reset(m_serverManager->snapshot(server.get()));
+        }
 
         KTextEditor::Cursor cursor = activeView->cursorPosition();
 
@@ -818,7 +840,10 @@ public:
         const std::function<RangeItem(const ReplyEntryType &)> & itemConverter,
         QPointer<QTreeWidget> *targetTree = nullptr)
     {
-        auto h = [this, title, onlyshow, itemConverter, targetTree] (const QList<ReplyEntryType> & defs)
+        // no capture for move only using initializers available (yet), so shared outer type
+        // the additional level of indirection is so it can be 'filled-in' after lambda creation
+        QSharedPointer<QScopedPointer<LSPClientRevisionSnapshot>> s(new QScopedPointer<LSPClientRevisionSnapshot>);
+        auto h = [this, title, onlyshow, itemConverter, targetTree, s] (const QList<ReplyEntryType> & defs)
         {
             if (defs.count() == 0) {
                 showMessage(i18n("No results"), KTextEditor::Message::Information);
@@ -831,8 +856,10 @@ public:
                 }
                 // ... so we can sort it also
                 std::stable_sort(ranges.begin(), ranges.end(), compareRangeItem);
-                makeTree(ranges);
+                makeTree(ranges, s.get()->get());
 
+                // assuming that reply ranges refer to revision when submitted
+                // (not specified anyway in protocol/reply)
                 if (defs.count() > 1 || onlyshow) {
                     showTree(title, targetTree);
                 }
@@ -848,7 +875,7 @@ public:
             }
         };
 
-        positionRequest<HandlerType>(req, h);
+        positionRequest<HandlerType>(req, h, s.get());
     }
 
     static RangeItem

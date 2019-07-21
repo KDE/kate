@@ -30,6 +30,8 @@ kcoreaddons_desktop_to_json(lspclientplugin lspclientplugin.desktop)
 target_link_libraries(lspclientplugin
   KF5::TextEditor
   KF5::XmlGui
+  KF5::ItemViews
+  KF5::ItemModels
 )
 
 install(TARGETS lspclientplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

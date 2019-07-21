@@ -20,18 +20,23 @@
 
 #include "lspclientsymbolview.h"
 
+#include <KLineEdit>
 #include <KLocalizedString>
+#include <KRecursiveFilterProxyModel>
 
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
 #include <QHBoxLayout>
-#include <QTreeWidget>
+#include <QTreeView>
 #include <QMenu>
 #include <QHeaderView>
 #include <QTimer>
 #include <QPointer>
+#include <QStandardItemModel>
+
+#include <memory>
 
 class LSPClientViewTrackerImpl : public LSPClientViewTracker
 {
@@ -123,14 +128,9 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     QSharedPointer<LSPClientServerManager> m_serverManager;
     QScopedPointer<QWidget> m_toolview;
     // parent ownership
-    QPointer<QTreeWidget> m_symbols;
+    QPointer<QTreeView> m_symbols;
+    QPointer<KLineEdit> m_filter;
     QScopedPointer<QMenu> m_popup;
-    // icons used in tree representation
-    QIcon m_icon_pkg;
-    QIcon m_icon_class;
-    QIcon m_icon_typedef;
-    QIcon m_icon_function;
-    QIcon m_icon_var;
     // initialized/updated from plugin settings
     // managed by context menu later on
     // parent ownership
@@ -142,43 +142,58 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     QScopedPointer<LSPClientViewTracker> m_viewTracker;
     // outstanding request
     LSPClientServer::RequestHandle m_handle;
+    // last outline model we constructed
+    std::unique_ptr<QStandardItemModel> m_outline;
+    // filter model, setup once
+    KRecursiveFilterProxyModel m_filterModel;
+
+    // cached icons for model
+    const QIcon m_icon_pkg = QIcon::fromTheme(QStringLiteral("code-block"));
+    const QIcon m_icon_class = QIcon::fromTheme(QStringLiteral("code-class"));
+    const QIcon m_icon_typedef = QIcon::fromTheme(QStringLiteral("code-typedef"));
+    const QIcon m_icon_function = QIcon::fromTheme(QStringLiteral("code-function"));
+    const QIcon m_icon_var = QIcon::fromTheme(QStringLiteral("code-variable"));
 
 public:
     LSPClientSymbolViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin,
         QSharedPointer<LSPClientServerManager> manager)
-        : m_plugin(plugin), m_mainWindow(mainWin), m_serverManager(manager)
+        : m_plugin(plugin), m_mainWindow(mainWin), m_serverManager(manager), m_outline(new QStandardItemModel())
     {
-        m_icon_pkg = QIcon::fromTheme(QStringLiteral("code-block"));
-        m_icon_class = QIcon::fromTheme(QStringLiteral("code-class"));
-        m_icon_typedef = QIcon::fromTheme(QStringLiteral("code-typedef"));
-        m_icon_function = QIcon::fromTheme(QStringLiteral("code-function"));
-        m_icon_var = QIcon::fromTheme(QStringLiteral("code-variable"));
-
         m_toolview.reset(m_mainWindow->createToolView(plugin, QStringLiteral("lspclient_symbol_outline"),
                                                       KTextEditor::MainWindow::Right,
                                                       QIcon::fromTheme(QStringLiteral("code-context")),
                                                       i18n("LSP Client Symbol Outline")));
 
-        m_symbols = new QTreeWidget(m_toolview.get());
+        m_symbols = new QTreeView(m_toolview.get());
         m_symbols->setFocusPolicy(Qt::NoFocus);
         m_symbols->setLayoutDirection(Qt::LeftToRight);
         m_toolview->layout()->setContentsMargins(0, 0, 0, 0);
         m_toolview->layout()->addWidget(m_symbols);
         m_toolview->layout()->setSpacing(0);
 
-        QStringList titles;
-        titles << i18nc("@title:column", "Symbols") << i18nc("@title:column", "Position");
-        m_symbols->setColumnCount(3);
-        m_symbols->setHeaderLabels(titles);
-        m_symbols->setColumnHidden(1, true);
-        m_symbols->setColumnHidden(2, true);
+        // setup filter line edit
+        m_filter = new KLineEdit(m_toolview.get());
+        m_toolview->layout()->addWidget(m_filter);
+        m_filter->setPlaceholderText(i18n("Filter..."));
+        m_filter->setClearButtonEnabled(true);
+        connect(m_filter, &KLineEdit::textChanged, this, &self_type::filterTextChanged);
+
         m_symbols->setContextMenuPolicy(Qt::CustomContextMenu);
         m_symbols->setIndentation(10);
+        m_symbols->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        m_symbols->setAllColumnsShowFocus(true);
 
-        connect(m_symbols, &QTreeWidget::itemClicked, this, &self_type::goToSymbol);
-        connect(m_symbols, &QTreeWidget::customContextMenuRequested, this, &self_type::showContextMenu);
-        connect(m_symbols, &QTreeWidget::itemExpanded, this, &self_type::updateCurrentTreeItem);
-        connect(m_symbols, &QTreeWidget::itemCollapsed, this, &self_type::updateCurrentTreeItem);
+        // init filter model once, later we only swap the source model!
+        QItemSelectionModel *m = m_symbols->selectionModel();
+        m_filterModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
+        m_filterModel.setSortCaseSensitivity(Qt::CaseInsensitive);
+        m_filterModel.setSourceModel(m_outline.get());
+        m_symbols->setModel(&m_filterModel);
+        delete m;
+
+        connect(m_symbols, &QTreeView::customContextMenuRequested, this, &self_type::showContextMenu);
+        connect(m_symbols, &QTreeView::activated, this, &self_type::goToSymbol);
+        connect(m_symbols, &QTreeView::clicked, this, &self_type::goToSymbol);
 
         // context menu
         m_popup.reset(new QMenu(m_symbols));
@@ -191,8 +206,8 @@ public:
         m_detailsOn = m_popup->addAction(i18n("Show Details"), this, &self_type::displayOptionChanged);
         m_detailsOn->setCheckable(true);
         m_popup->addSeparator();
-        m_popup->addAction(i18n("Expand All"), this, &self_type::expandAll);
-        m_popup->addAction(i18n("Collapse All"), this, &self_type::collapseAll);
+        m_popup->addAction(i18n("Expand All"), m_symbols.data(), &QTreeView::expandAll);
+        m_popup->addAction(i18n("Collapse All"), m_symbols.data(), &QTreeView::collapseAll);
 
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
@@ -202,7 +217,7 @@ public:
         connect(m_viewTracker.get(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
         connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, &self_type::refresh);
 
-        // initial trigger
+        // initial trigger of symbols view update
         configUpdated();
     }
 
@@ -240,11 +255,10 @@ public:
     }
 
     void makeNodes(const QList<LSPSymbolInformation> & symbols, bool tree,
-        bool show_detail, QTreeWidget * widget, QTreeWidgetItem * parent,
-        int * details)
+        bool show_detail, QStandardItemModel * model, QStandardItem * parent,
+        bool &details)
     {
-        QIcon *icon = nullptr;
-
+        const QIcon *icon = nullptr;
         for (const auto& symbol: symbols) {
             switch (symbol.kind) {
             case LSPSymbolKind::File:
@@ -277,84 +291,119 @@ public:
             default:
                 // skip local variable
                 // property, field, etc unlikely in such case anyway
-                if (parent && parent->icon(0).cacheKey() == m_icon_function.cacheKey())
+                if (parent && parent->icon().cacheKey() == m_icon_function.cacheKey())
                     continue;
                 icon = &m_icon_var;
             }
-            auto node = parent && tree ?
-                    new QTreeWidgetItem(parent) : new QTreeWidgetItem(widget);
-            if (!symbol.detail.isEmpty() && details)
-                ++details;
-            auto detail = show_detail ? symbol.detail : QStringLiteral("");
-            node->setText(0, symbol.name + detail);
-            node->setIcon(0, *icon);
-            node->setText(1, QString::number(symbol.range.start().line(), 10));
-            node->setText(2, QString::number(symbol.range.end().line(), 10));
+
+
+            auto node = new QStandardItem();
+            if (parent && tree)
+                 parent->appendRow(node);
+             else
+                 model->appendRow(node);
+
+            if (!symbol.detail.isEmpty())
+                details = true;
+            auto detail = show_detail ? symbol.detail : QString();
+            node->setText(symbol.name + detail);
+            node->setIcon(*icon);
+            node->setData(QVariant::fromValue<KTextEditor::Range>(symbol.range), Qt::UserRole);
             // recurse children
-            makeNodes(symbol.children, tree, show_detail, widget, node, details);
+            makeNodes(symbol.children, tree, show_detail, model, node, details);
         }
     }
 
-    void onDocumentSymbols(const QList<LSPSymbolInformation> & outline)
+    void onDocumentSymbols(const QList<LSPSymbolInformation> &outline)
+    {
+        onDocumentSymbolsOrProblem(outline, QString());
+    }
+
+    void onDocumentSymbolsOrProblem(const QList<LSPSymbolInformation> &outline, const QString &problem = QString())
     {
         if (!m_symbols)
             return;
 
-        // populate with sort disabled
-        Qt::SortOrder sortOrder = m_symbols->header()->sortIndicatorOrder();
-        m_symbols->clear();
-        m_symbols->setSortingEnabled(false);
-        int details = 0;
+        // construct new model for data
+        auto newModel = new QStandardItemModel();
 
-        makeNodes(outline, m_treeOn->isChecked(), m_detailsOn->isChecked(),
-            m_symbols, nullptr, &details);
-        if (m_symbols->topLevelItemCount() == 0) {
-            QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);
-            node->setText(0, i18n("No outline items"));
+        // if we have some problem, just report that, else construct model
+        bool details = false;
+        if (problem.isEmpty()) {
+            makeNodes(outline, m_treeOn->isChecked(), m_detailsOn->isChecked(), newModel, nullptr, details);
+        } else {
+            newModel->appendRow(new QStandardItem(problem));
         }
-        if (m_expandOn->isChecked())
-            expandAll();
-        // disable detail setting if no such info available
-        // (as an indication there is nothing to show anyway)
-        if (!details)
-            m_detailsOn->setEnabled(false);
+
+        // fixup headers
+        QStringList headers{i18n("Symbols")};
+        newModel->setHorizontalHeaderLabels(headers);
+
+        // update filter model, do this before the assignment below deletes the old model!
+        m_filterModel.setSourceModel(newModel);
+
+        // delete old outline if there, keep our new one alive
+        m_outline.reset(newModel);
+
+        // fixup sorting
         if (m_sortOn->isChecked()) {
             m_symbols->setSortingEnabled(true);
-            m_symbols->sortItems(0, sortOrder);
+            m_symbols->sortByColumn(0);
+        } else {
+            m_symbols->sortByColumn(-1);
         }
+
+        // handle auto-expansion
+        if (m_expandOn->isChecked()) {
+            m_symbols->expandAll();
+        }
+
+        // disable detail setting if no such info available
+        // (as an indication there is nothing to show anyway)
+        if (!details) {
+            m_detailsOn->setEnabled(false);
+        }
+
         // current item tracking
         updateCurrentTreeItem();
     }
 
     void refresh()
     {
+        // cancel old request!
         m_handle.cancel();
+
+        // check if we have some server for the current view => trigger request
         auto view = m_mainWindow->activeView();
-        auto server = m_serverManager->findServer(view);
-        if (server) {
+        if (auto server = m_serverManager->findServer(view)) {
+            // clear current model in any case
+            // this avoids that we show stuff not matching the current view
+            onDocumentSymbols(QList<LSPSymbolInformation>());
+
             server->documentSymbols(view->document()->url(), this,
-                utils::mem_fun(&self_type::onDocumentSymbols, this));
-        } else if (m_symbols) {
-            m_symbols->clear();
-            QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);
-            node->setText(0, i18n("No server available"));
+                                    utils::mem_fun(&self_type::onDocumentSymbols, this));
+
+            return;
         }
+
+        // else: inform that no server is there
+        onDocumentSymbolsOrProblem(QList<LSPSymbolInformation>(), i18n("No LSP server for this document."));
     }
 
-    QTreeWidgetItem* getCurrentItem(QTreeWidgetItem * item, int line)
+    QStandardItem* getCurrentItem(QStandardItem * item, int line)
     {
-        for (int i = 0; i < item->childCount(); i++) {
-            auto citem = getCurrentItem(item->child(i), line);
-            if (citem)
-                return citem;
+        // first traverse the child items to have deepest match!
+        // only do this if our stuff is expanded
+        if (item == m_outline->invisibleRootItem() || m_symbols->isExpanded(m_filterModel.mapFromSource(m_outline->indexFromItem(item)))) {
+            for (int i = 0; i < item->rowCount(); i++) {
+                if (auto citem = getCurrentItem(item->child(i), line)) {
+                    return citem;
+                }
+            }
         }
 
-        int lstart = item->data(1, Qt::DisplayRole).toInt();
-        int lend = item->data(2, Qt::DisplayRole).toInt();
-        if (lstart <= line && line <= lend)
-            return item;
-
-        return nullptr;
+        // does the line match our item?
+        return item->data(Qt::UserRole).value<KTextEditor::Range>().overlapsLine(line) ? item : nullptr;
     }
 
     void updateCurrentTreeItem()
@@ -364,56 +413,53 @@ public:
             return;
         }
 
-        int currLine = editView->cursorPositionVirtual().line();
-        auto item = getCurrentItem(m_symbols->invisibleRootItem(), currLine);
-
-        // go up until a non-expanded item is found
-        // (the others were collapsed for some reason ...)
-
-        while (item) {
-            auto parent = item->parent();
-            if (parent && !parent->isExpanded()) {
-                item = parent;
-            } else {
-                break;
-            }
+        /**
+         * get item if any
+         */
+        QStandardItem *item = getCurrentItem(m_outline->invisibleRootItem(), editView->cursorPositionVirtual().line());
+        if (!item) {
+            return;
         }
 
-        m_symbols->blockSignals(true);
-        m_symbols->setCurrentItem(item);
-        m_symbols->blockSignals(false);
+        /**
+         * select it
+         */
+        QModelIndex index = m_filterModel.mapFromSource(m_outline->indexFromItem(item));
+        m_symbols->scrollTo(index);
+        m_symbols->selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
     }
 
-    void expandAll()
-    {
-        if (!m_symbols)
-            return;
-
-        QTreeWidgetItemIterator it(m_symbols, QTreeWidgetItemIterator::HasChildren);
-        while (*it) {
-            m_symbols->expandItem(*it);
-             ++it;
-         }
-    }
-
-    void collapseAll()
-    {
-        if (!m_symbols)
-            return;
-
-        QTreeWidgetItemIterator it(m_symbols, QTreeWidgetItemIterator::HasChildren);
-        while (*it) {
-            m_symbols->collapseItem(*it);
-             ++it;
-         }
-    }
-
-    void goToSymbol(QTreeWidgetItem *it)
+    void goToSymbol(const QModelIndex &index)
     {
       KTextEditor::View *kv = m_mainWindow->activeView();
-      if (kv && it && !it->text(1).isEmpty()) {
-        kv->setCursorPosition(KTextEditor::Cursor(it->text(1).toInt(nullptr, 10), 0));
+      const auto range = index.data(Qt::UserRole).value<KTextEditor::Range>();
+      if (kv && range.isValid()) {
+        kv->setCursorPosition(range.start());
       }
+    }
+
+private Q_SLOTS:
+    /**
+     * React on filter change
+     * @param filterText new filter text
+     */
+    void filterTextChanged(const QString &filterText)
+    {
+        if (!m_symbols) {
+            return;
+        }
+
+        /**
+         * filter
+         */
+        m_filterModel.setFilterFixedString(filterText);
+
+        /**
+         * expand
+         */
+        if (!filterText.isEmpty()) {
+            QTimer::singleShot(100, m_symbols, &QTreeView::expandAll);
+        }
     }
 };
 

@@ -1,4 +1,5 @@
-/*
+/*  SPDX-License-Identifier: MIT
+
     Copyright (C) 2019 Mark Nauwelaerts <mark.nauwelaerts@gmail.com>
     Copyright (C) 2019 Christoph Cullmann <cullmann@kde.org>
 

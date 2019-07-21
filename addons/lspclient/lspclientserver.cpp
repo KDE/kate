@@ -719,14 +719,15 @@ parseDocumentSymbols(const QJsonValue & result)
             parent = index.value(container, nullptr);
         }
         auto list = parent ? &parent->children : &ret;
-        auto name = symbol.value(QStringLiteral("name")).toString();
-        auto kind = (LSPSymbolKind) symbol.value(MEMBER_KIND).toInt();
         const auto& location = symbol.value(MEMBER_LOCATION).toObject();
         const auto& mrange = symbol.contains(MEMBER_RANGE) ?
                     symbol.value(MEMBER_RANGE) : location.value(MEMBER_RANGE);
         auto range = parseRange(mrange.toObject());
         if (isPositionValid(range.start()) && isPositionValid(range.end())) {
-            list->push_back({name, kind, range});
+            auto name = symbol.value(QStringLiteral("name")).toString();
+            auto kind = (LSPSymbolKind) symbol.value(MEMBER_KIND).toInt();
+            auto detail = symbol.value(MEMBER_DETAIL).toString();
+            list->push_back({name, kind, range, detail});
             index[name] = &list->back();
             // proceed recursively
             for (const auto &child : symbol.value(QStringLiteral("children")).toArray())

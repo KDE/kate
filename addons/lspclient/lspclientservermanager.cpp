@@ -627,9 +627,9 @@ private:
     void close(KTextEditor::Document *doc)
     { _close(doc, false); }
 
-    void update(KTextEditor::Document *doc, bool force) override
+    void update(const decltype(m_docs)::iterator & it, bool force)
     {
-        auto it = m_docs.find(doc);
+        auto doc = it.key();
         if (it != m_docs.end() && it->server) {
             if (it->movingInterface) {
                 it->version = it->movingInterface->revision();
@@ -648,11 +648,16 @@ private:
         }
     }
 
+    void update(KTextEditor::Document *doc, bool force) override
+    {
+        update(m_docs.find(doc), force);
+    }
+
     void update(LSPClientServer * server, bool force)
     {
         for (auto it = m_docs.begin(); it != m_docs.end(); ++it) {
             if (it->server == server) {
-                update(it.key(), force);
+                update(it, force);
             }
         }
     }

@@ -345,10 +345,13 @@ public:
         // delete old outline if there, keep our new one alive
         m_outline.reset(newModel);
 
-        m_symbols->setSortingEnabled(m_sortOn->isChecked());
-
-        // hide detail column if not wanted
-        m_symbols->setColumnHidden(1, !m_detailsOn->isChecked());
+        // fixup sorting
+        if (m_sortOn->isChecked()) {
+            m_symbols->setSortingEnabled(true);
+            m_symbols->sortByColumn(0);
+        } else {
+            m_symbols->sortByColumn(-1);
+        }
 
         // handle auto-expansion
         if (m_expandOn->isChecked()) {

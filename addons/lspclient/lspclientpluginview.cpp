@@ -189,7 +189,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_findDef;
     QPointer<QAction> m_findDecl;
     QPointer<QAction> m_findRef;
-    QPointer<QAction> m_highlight;
+    QPointer<QAction> m_triggerHighlight;
     QPointer<QAction> m_triggerHover;
     QPointer<QAction> m_triggerFormat;
     QPointer<QAction> m_complDocOn;
@@ -257,8 +257,8 @@ public:
         m_findDecl->setText(i18n("Go to Declaration"));
         m_findRef = actionCollection()->addAction(QStringLiteral("lspclient_find_references"), this, &self_type::findReferences);
         m_findRef->setText(i18n("Find References"));
-        m_highlight = actionCollection()->addAction(QStringLiteral("lspclient_highlight"), this, &self_type::highlight);
-        m_highlight->setText(i18n("Highlight"));
+        m_triggerHighlight = actionCollection()->addAction(QStringLiteral("lspclient_highlight"), this, &self_type::highlight);
+        m_triggerHighlight->setText(i18n("Highlight"));
         // perhaps hover suggests to do so on mouse-over,
         // but let's just use a (convenient) action/shortcut for it
         m_triggerHover = actionCollection()->addAction(QStringLiteral("lspclient_hover"), this, &self_type::hover);
@@ -297,7 +297,7 @@ public:
         menu->addAction(m_findDef);
         menu->addAction(m_findDecl);
         menu->addAction(m_findRef);
-        menu->addAction(m_highlight);
+        menu->addAction(m_triggerHighlight);
         menu->addAction(m_triggerHover);
         menu->addAction(m_triggerFormat);
         menu->addSeparator();
@@ -1156,8 +1156,8 @@ public:
             m_findDecl->setEnabled(declEnabled);
         if (m_findRef)
             m_findRef->setEnabled(refEnabled);
-        if (m_highlight)
-            m_highlight->setEnabled(highlightEnabled);
+        if (m_triggerHighlight)
+            m_triggerHighlight->setEnabled(highlightEnabled);
         if (m_triggerHover)
             m_triggerHover->setEnabled(hoverEnabled);
         if (m_complDocOn)

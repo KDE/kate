@@ -254,7 +254,7 @@ struct LSPDiagnosticRelatedInformation
     QString message;
 };
 
-struct LSPDiagnostics
+struct LSPDiagnostic
 {
     LSPRange range;
     LSPDiagnosticSeverity severity;
@@ -267,7 +267,7 @@ struct LSPDiagnostics
 struct LSPPublishDiagnosticsParams
 {
     QUrl uri;
-    QList<LSPDiagnostics> diagnostics;
+    QList<LSPDiagnostic> diagnostics;
 };
 
 #endif

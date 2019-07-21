@@ -59,6 +59,11 @@ static const QString MEMBER_LANGID = QStringLiteral("languageId");
 static const QString MEMBER_LABEL = QStringLiteral("label");
 static const QString MEMBER_DOCUMENTATION = QStringLiteral("documentation");
 static const QString MEMBER_DETAIL = QStringLiteral("detail");
+static const QString MEMBER_COMMAND = QStringLiteral("command");
+static const QString MEMBER_EDIT = QStringLiteral("edit");
+static const QString MEMBER_TITLE = QStringLiteral("title");
+static const QString MEMBER_ARGUMENTS = QStringLiteral("arguments");
+static const QString MEMBER_DIAGNOSTICS = QStringLiteral("diagnostics");
 
 // message construction helpers
 static QJsonObject
@@ -77,6 +82,52 @@ to_json(const LSPRange & range)
         { MEMBER_START, to_json(range.start()) },
         { MEMBER_END, to_json(range.end()) }
     };
+}
+
+static QJsonValue
+to_json(const LSPLocation & location)
+{
+    if (location.uri.isValid()) {
+        return QJsonObject {
+            { MEMBER_URI, location.uri.toString() },
+            { MEMBER_RANGE, to_json(location.range) }
+        };
+    }
+    return QJsonValue();
+}
+
+static QJsonValue
+to_json(const LSPDiagnosticRelatedInformation & related)
+{
+    auto loc = to_json(related.location);
+    if (loc.isObject()) {
+        return QJsonObject {
+            { MEMBER_LOCATION, to_json(related.location) },
+            { MEMBER_MESSAGE, related.message }
+        };
+    }
+    return QJsonValue();
+}
+
+static QJsonObject
+to_json(const LSPDiagnostic & diagnostic)
+{
+    // required
+    auto result = QJsonObject();
+    result[MEMBER_RANGE] = to_json(diagnostic.range);
+    result[MEMBER_MESSAGE] = diagnostic.message;
+    // optional
+    if (!diagnostic.code.isEmpty())
+        result[QStringLiteral("code")] = diagnostic.code;
+    if (diagnostic.severity != LSPDiagnosticSeverity::Unknown)
+        result[QStringLiteral("severity")] = (int) diagnostic.severity;
+    if (!diagnostic.source.isEmpty())
+        result[QStringLiteral("source")] = diagnostic.source;
+    auto related = to_json(diagnostic.relatedInformation);
+    if (related.isObject()) {
+        result[QStringLiteral("relatedInformation")] = related;
+    }
+    return result;
 }
 
 static QJsonObject
@@ -144,6 +195,23 @@ documentRangeFormattingParams(const QUrl & document, const LSPRange *range,
     return params;
 }
 
+static QJsonObject
+codeActionParams(const QUrl & document, const LSPRange & range,
+    QList<QString> kinds, QList<LSPDiagnostic> diagnostics)
+{
+    auto params = textDocumentParams(document);
+    params[MEMBER_RANGE] = to_json(range);
+    QJsonObject context;
+    QJsonArray diags;
+    for (const auto& diagnostic: diagnostics) {
+        diags.push_back(to_json(diagnostic));
+    }
+    context[MEMBER_DIAGNOSTICS] = diags;
+    if (kinds.length())
+        context[QStringLiteral("only")] = QJsonArray::fromStringList(kinds);
+    params[QStringLiteral("context")] = context;
+    return params;
+}
 
 static void
 from_json(QVector<QChar> & trigger, const QJsonValue & json)
@@ -192,6 +260,8 @@ from_json(LSPServerCapabilities & caps, const QJsonObject & json)
     caps.documentHighlightProvider = json.value(QStringLiteral("documentHighlightProvider")).toBool();
     caps.documentFormattingProvider = json.value(QStringLiteral("documentFormattingProvider")).toBool();
     caps.documentRangeFormattingProvider = json.value(QStringLiteral("documentRangeFormattingProvider")).toBool();
+    auto codeActionProvider = json.value(QStringLiteral("codeActionProvider"));
+    caps.codeActionProvider = codeActionProvider.toBool() || codeActionProvider.isObject();
 }
 
 // TODO move all parsing here
@@ -456,6 +526,15 @@ private:
 
     void initialize()
     {
+        QJsonObject codeAction {
+            { QStringLiteral("codeActionLiteralSupport"), QJsonObject {
+                    { QStringLiteral("codeActionKind"), QJsonObject {
+                        { QStringLiteral("valueSet"), QJsonArray() }
+                        }
+                    }
+                }
+            }
+        };
         QJsonObject capabilities {
             { QStringLiteral("textDocument"),
                 QJsonObject {
@@ -464,7 +543,8 @@ private:
                     },
                     { QStringLiteral("publishDiagnostics"),
                                 QJsonObject { { QStringLiteral("relatedInformation"), true } }
-                    }
+                    },
+                    { QStringLiteral("codeAction"), codeAction }
                 }
             }
         };
@@ -592,6 +672,14 @@ public:
     {
         auto params = documentRangeFormattingParams(document, &range, tabSize, insertSpaces, options);
         return send(init_request(QStringLiteral("textDocument/rangeFormatting"), params), h);
+    }
+
+    RequestHandle documentCodeAction(const QUrl & document, const LSPRange & range,
+        const QList<QString> & kinds, QList<LSPDiagnostic> diagnostics,
+        const GenericReplyHandler & h)
+    {
+        auto params = codeActionParams(document, range, kinds, diagnostics);
+        return send(init_request(QStringLiteral("textDocument/codeAction"), params), h);
     }
 
     void didOpen(const QUrl & document, int version, const QString & text)
@@ -900,13 +988,31 @@ parseTextEdit(const QJsonValue & result)
     return ret;
 }
 
-static LSPPublishDiagnosticsParams
-parseDiagnostics(const QJsonObject & result)
+static LSPWorkspaceEdit
+parseWorkSpaceEdit(const QJsonValue & result)
 {
-    LSPPublishDiagnosticsParams ret;
+    QHash<QUrl, QList<LSPTextEdit>> ret;
+    auto changes = result.toObject().value(QStringLiteral("changes")).toObject();
+    for (auto it = changes.begin(); it != changes.end(); ++it) {
+        ret.insert(normalizeUrl(QUrl(it.key())), parseTextEdit(it.value()));
+    }
+    return {ret};
+}
 
-    ret.uri = normalizeUrl(QUrl(result.value(MEMBER_URI).toString()));
-    for (const auto & vdiag : result.value(QStringLiteral("diagnostics")).toArray()) {
+static LSPCommand
+parseCommand(const QJsonObject & result)
+{
+    auto title = result.value(MEMBER_TITLE).toString();
+    auto command = result.value(MEMBER_COMMAND).toString();
+    auto args = result.value(MEMBER_ARGUMENTS).toArray();
+    return { title, command, args };
+}
+
+static QList<LSPDiagnostic>
+parseDiagnostics(const QJsonArray &result)
+{
+    QList<LSPDiagnostic> ret;
+    for (const auto & vdiag : result) {
         auto diag = vdiag.toObject();
         auto range = parseRange(diag.value(MEMBER_RANGE).toObject());
         auto severity = (LSPDiagnosticSeverity) diag.value(QStringLiteral("severity")).toInt();
@@ -916,8 +1022,42 @@ parseDiagnostics(const QJsonObject & result)
         auto related = diag.value(QStringLiteral("relatedInformation")).toObject();
         auto relLocation = parseLocation(related.value(MEMBER_LOCATION).toObject());
         auto relMessage = related.value(MEMBER_MESSAGE).toString();
-        ret.diagnostics.push_back({range, severity, code, source, message, relLocation, relMessage});
+        ret.push_back({range, severity, code, source, message, relLocation, relMessage});
     }
+    return ret;
+}
+
+static QList<LSPCodeAction>
+parseCodeAction(const QJsonValue & result)
+{
+    QList<LSPCodeAction> ret;
+    for (const auto &vaction: result.toArray()) {
+        auto action = vaction.toObject();
+        // entry could be Command or CodeAction
+        if (!action.value(MEMBER_COMMAND).isString()) {
+            // CodeAction
+            auto title = action.value(MEMBER_TITLE).toString();
+            auto kind = action.value(MEMBER_KIND).toString();
+            auto command = parseCommand(action.value(MEMBER_COMMAND).toObject());
+            auto edit = parseWorkSpaceEdit(action.value(MEMBER_EDIT));
+            auto diagnostics = parseDiagnostics(action.value(MEMBER_DIAGNOSTICS).toArray());
+            ret.push_back({title, kind, diagnostics, edit, command});
+        } else {
+            // Command
+            auto command = parseCommand(action);
+            ret.push_back({command.title, QString(), {}, {}, command});
+        }
+    }
+    return ret;
+}
+
+static LSPPublishDiagnosticsParams
+parseDiagnostics(const QJsonObject & result)
+{
+    LSPPublishDiagnosticsParams ret;
+
+    ret.uri = normalizeUrl(QUrl(result.value(MEMBER_URI).toString()));
+    ret.diagnostics = parseDiagnostics(result.value(MEMBER_DIAGNOSTICS).toArray());
     return ret;
 }
 
@@ -1012,6 +1152,12 @@ LSPClientServer::documentRangeFormatting(const QUrl & document, const LSPRange &
     int tabSize, bool insertSpaces, const QJsonObject & options,
     const QObject *context, const FormattingReplyHandler & h)
 { return d->documentRangeFormatting(document, range, tabSize, insertSpaces, options, make_handler(h, context, parseTextEdit)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentCodeAction(const QUrl & document, const LSPRange & range,
+    const QList<QString> & kinds, QList<LSPDiagnostic> diagnostics,
+    const QObject *context, const CodeActionReplyHandler & h)
+{ return d->documentCodeAction(document, range, kinds, diagnostics, make_handler(h, context, parseCodeAction)); }
 
 void LSPClientServer::didOpen(const QUrl & document, int version, const QString & text)
 { return d->didOpen(document, version, text); }

@@ -78,6 +78,7 @@ using DocumentHoverReplyHandler = ReplyHandler<LSPHover>;
 using DocumentCompletionReplyHandler = ReplyHandler<QList<LSPCompletionItem>>;
 using SignatureHelpReplyHandler = ReplyHandler<LSPSignatureHelp>;
 using FormattingReplyHandler = ReplyHandler<QList<LSPTextEdit>>;
+using CodeActionReplyHandler = ReplyHandler<QList<LSPCodeAction>>;
 
 class LSPClientServer : public QObject
 {
@@ -149,6 +150,10 @@ public:
     RequestHandle documentRangeFormatting(const QUrl & document, const LSPRange & range,
         int tabSize, bool insertSpaces, const QJsonObject & options,
         const QObject *context, const FormattingReplyHandler & h);
+
+    RequestHandle documentCodeAction(const QUrl & document, const LSPRange & range,
+        const QList<QString> & kinds, QList<LSPDiagnostic> diagnostics,
+        const QObject *context, const CodeActionReplyHandler & h);
 
     // sync
     void didOpen(const QUrl & document, int version, const QString & text);

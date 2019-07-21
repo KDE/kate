@@ -29,6 +29,8 @@
 #include <QUrl>
 #include <QList>
 #include <QVector>
+#include <QHash>
+#include <QJsonArray>
 
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
@@ -90,6 +92,8 @@ struct LSPServerCapabilities
     bool documentHighlightProvider = false;
     bool documentFormattingProvider = false;
     bool documentRangeFormattingProvider = false;
+    // CodeActionOptions not useful/considered at present
+    bool codeActionProvider = false;
 };
 
 enum class LSPMarkupKind
@@ -275,6 +279,29 @@ struct LSPPublishDiagnosticsParams
 {
     QUrl uri;
     QList<LSPDiagnostic> diagnostics;
+};
+
+struct LSPCommand
+{
+    QString title;
+    QString command;
+    // pretty opaque
+    QJsonArray arguments;
+};
+
+struct LSPWorkspaceEdit
+{
+    // supported part for now
+    QHash<QUrl, QList<LSPTextEdit>> changes;
+};
+
+struct LSPCodeAction
+{
+    QString title;
+    QString kind;
+    QList<LSPDiagnostic> diagnostics;
+    LSPWorkspaceEdit edit;
+    LSPCommand command;
 };
 
 #endif

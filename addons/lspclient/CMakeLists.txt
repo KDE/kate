@@ -7,6 +7,7 @@ add_definitions(-DTRANSLATION_DOMAIN=\"lspclient\")
 set(lspclientplugin_SRCS
   lspclientcompletion.cpp
   lspclientconfigpage.cpp
+  lspclienthover.cpp
   lspclientplugin.cpp
   lspclientpluginview.cpp
   lspclientserver.cpp

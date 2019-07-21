@@ -23,6 +23,7 @@
 #include "lspclientplugin.h"
 #include "lspclientservermanager.h"
 #include "lspclientcompletion.h"
+#include "lspclienthover.h"
 
 #include "lspclient_debug.h"
 
@@ -180,13 +181,14 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QSharedPointer<LSPClientServerManager> m_serverManager;
     QScopedPointer<LSPClientViewTracker> m_viewTracker;
     QScopedPointer<LSPClientCompletion> m_completion;
+    QScopedPointer<LSPClientHover> m_hover;
     QScopedPointer<QObject> m_symbolView;
 
     QPointer<QAction> m_findDef;
     QPointer<QAction> m_findDecl;
     QPointer<QAction> m_findRef;
     QPointer<QAction> m_highlight;
-    QPointer<QAction> m_hover;
+    QPointer<QAction> m_triggerHover;
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_refDeclaration;
     QPointer<QAction> m_diagnostics;
@@ -221,6 +223,10 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
+
+    // views on which hovers have been registered
+    QSet<KTextEditor::View *> m_hoverViews;
+
     // outstanding request
     LSPClientServer::RequestHandle m_handle;
     // timeout on request
@@ -231,6 +237,7 @@ public:
         : QObject(mainWin), m_plugin(plugin), m_mainWindow(mainWin),
           m_serverManager(LSPClientServerManager::new_(plugin, mainWin)),
           m_completion(LSPClientCompletion::new_(m_serverManager)),
+          m_hover(LSPClientHover::new_(m_serverManager)),
           m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
     {
         KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
@@ -250,8 +257,8 @@ public:
         m_highlight->setText(i18n("Highlight"));
         // perhaps hover suggests to do so on mouse-over,
         // but let's just use a (convenient) action/shortcut for it
-        m_hover = actionCollection()->addAction(QStringLiteral("lspclient_hover"), this, &self_type::hover);
-        m_hover->setText(i18n("Hover"));
+        m_triggerHover = actionCollection()->addAction(QStringLiteral("lspclient_hover"), this, &self_type::hover);
+        m_triggerHover->setText(i18n("Hover"));
 
         // general options
         m_complDocOn = actionCollection()->addAction(QStringLiteral("lspclient_completion_doc"), this, &self_type::displayOptionChanged);
@@ -285,7 +292,7 @@ public:
         menu->addAction(m_findDecl);
         menu->addAction(m_findRef);
         menu->addAction(m_highlight);
-        menu->addAction(m_hover);
+        menu->addAction(m_triggerHover);
         menu->addSeparator();
         menu->addAction(m_complDocOn);
         menu->addAction(m_refDeclaration);
@@ -882,14 +889,10 @@ public:
 
     void hover()
     {
-        auto h = [this] (const LSPHover & info)
-        {
-            // TODO ?? also indicate range in some way ??
-            auto text = info.contents.value.length() ? info.contents.value : i18n("No Hover Info");
-            showMessage(text, KTextEditor::Message::Information);
-        };
-
-        positionRequest<DocumentHoverReplyHandler>(&LSPClientServer::documentHover, h);
+        // trigger manually the normally automagic hover
+        if (auto activeView = m_mainWindow->activeView()) {
+            m_hover->textHint(activeView, activeView->cursorPosition());
+        }
     }
 
     static QTreeWidgetItem*
@@ -1049,8 +1052,8 @@ public:
             m_findRef->setEnabled(refEnabled);
         if (m_highlight)
             m_highlight->setEnabled(highlightEnabled);
-        if (m_hover)
-            m_hover->setEnabled(hoverEnabled);
+        if (m_triggerHover)
+            m_triggerHover->setEnabled(hoverEnabled);
         if (m_complDocOn)
             m_complDocOn->setEnabled(server);
         if (m_restartServer)
@@ -1062,6 +1065,10 @@ public:
             m_completion->setSelectedDocumentation(m_complDocOn->isChecked());
         updateCompletion(activeView, server.get());
 
+        // update hover with relevant server
+        m_hover->setServer(server);
+        updateHover(activeView, server.get());
+
         // update marks if applicable
         if (m_markTree && activeView)
             addMarks(activeView->document(), m_markTree, m_ranges);
@@ -1069,11 +1076,18 @@ public:
             clearMarks(activeView->document(), m_diagnosticsRanges, RangeData::markTypeDiagAll);
             addMarks(activeView->document(), m_diagnosticsTree, m_diagnosticsRanges);
         }
+
+        // connect for cleanup stuff
+        if (activeView)
+            connect(activeView, &KTextEditor::View::destroyed, this,
+                &self_type::viewDestroyed,
+                Qt::UniqueConnection);
     }
 
     void viewDestroyed(QObject *view)
     {
         m_completionViews.remove(static_cast<KTextEditor::View *>(view));
+        m_hoverViews.remove(static_cast<KTextEditor::View *>(view));
     }
 
     void updateCompletion(KTextEditor::View *view, LSPClientServer * server)
@@ -1090,16 +1104,35 @@ public:
             qCInfo(LSPCLIENT) << "registering cci";
             cci->registerCompletionModel(m_completion.get());
             m_completionViews.insert(view);
-
-            connect(view, &KTextEditor::View::destroyed, this,
-                &self_type::viewDestroyed,
-                Qt::UniqueConnection);
         }
 
         if (registered && !server) {
             qCInfo(LSPCLIENT) << "unregistering cci";
             cci->unregisterCompletionModel(m_completion.get());
             m_completionViews.remove(view);
+        }
+    }
+
+    void updateHover(KTextEditor::View *view, LSPClientServer * server)
+    {
+        bool registered = m_hoverViews.contains(view);
+
+        KTextEditor::TextHintInterface *cci = qobject_cast<KTextEditor::TextHintInterface *>(view);
+
+        if (!cci) {
+            return;
+        }
+
+        if (!registered && server && server->capabilities().hoverProvider) {
+            qCInfo(LSPCLIENT) << "registering cci";
+            cci->registerTextHintProvider(m_hover.get());
+            m_hoverViews.insert(view);
+        }
+
+        if (registered && !server) {
+            qCInfo(LSPCLIENT) << "unregistering cci";
+            cci->unregisterTextHintProvider(m_hover.get());
+            m_hoverViews.remove(view);
         }
     }
 };

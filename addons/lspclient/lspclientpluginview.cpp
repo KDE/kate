@@ -342,6 +342,16 @@ public:
 
     ~LSPClientPluginViewImpl()
     {
+        // unregister all code-completion providers, else we might crash
+        for (auto view : qAsConst(m_completionViews)) {
+            qobject_cast<KTextEditor::CodeCompletionInterface *>(view)->unregisterCompletionModel(m_completion.get());
+        }
+
+        // unregister all text-hint providers, else we might crash
+        for (auto view : qAsConst(m_hoverViews)) {
+            qobject_cast<KTextEditor::TextHintInterface *>(view)->unregisterTextHintProvider(m_hover.get());
+        }
+
         clearAllLocationMarks();
         clearAllDiagnosticsMarks();
         m_mainWindow->guiFactory()->removeClient(this);

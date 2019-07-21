@@ -57,6 +57,7 @@
 #include <QTextCodec>
 #include <QApplication>
 #include <QFileInfo>
+#include <QJsonObject>
 
 namespace RangeData
 {
@@ -190,6 +191,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_findRef;
     QPointer<QAction> m_highlight;
     QPointer<QAction> m_triggerHover;
+    QPointer<QAction> m_triggerFormat;
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_refDeclaration;
     QPointer<QAction> m_diagnostics;
@@ -261,6 +263,8 @@ public:
         // but let's just use a (convenient) action/shortcut for it
         m_triggerHover = actionCollection()->addAction(QStringLiteral("lspclient_hover"), this, &self_type::hover);
         m_triggerHover->setText(i18n("Hover"));
+        m_triggerFormat = actionCollection()->addAction(QStringLiteral("lspclient_format"), this, &self_type::format);
+        m_triggerFormat->setText(i18n("Format"));
 
         // general options
         m_complDocOn = actionCollection()->addAction(QStringLiteral("lspclient_completion_doc"), this, &self_type::displayOptionChanged);
@@ -295,6 +299,7 @@ public:
         menu->addAction(m_findRef);
         menu->addAction(m_highlight);
         menu->addAction(m_triggerHover);
+        menu->addAction(m_triggerFormat);
         menu->addSeparator();
         menu->addAction(m_complDocOn);
         menu->addAction(m_refDeclaration);
@@ -928,6 +933,71 @@ public:
         // trigger manually the normally automagic hover
         if (auto activeView = m_mainWindow->activeView()) {
             m_hover->textHint(activeView, activeView->cursorPosition());
+        }
+    }
+
+    void applyEdits(KTextEditor::Document * doc, const LSPClientRevisionSnapshot & snapshot,
+                    const QList<LSPTextEdit> & edits)
+    {
+        KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+        if (!miface)
+            return;
+
+        // NOTE:
+        // server might be pretty sloppy wrt edits (e.g. python-language-server)
+        // e.g. send one edit for the whole document rather than 'surgical edits'
+        // and that even when requesting format for a limited selection
+        // ... but then we are but a client and do as we are told
+        // all-in-all a low priority feature
+
+        // all coordinates in edits are wrt original document,
+        // so create moving ranges that will adjust to preceding edits as they are applied
+        QVector<KTextEditor::MovingRange*> ranges;
+        for (const auto &edit: edits) {
+            auto range = transformRange(doc->url(), snapshot, edit.range);
+            KTextEditor::MovingRange *mr = miface->newMovingRange(range);
+            ranges.append(mr);
+        }
+
+        // now make one transaction (a.o. for one undo) and apply in sequence
+        {
+            KTextEditor::Document::EditingTransaction transaction(doc);
+            for (int i = 0; i < ranges.length(); ++i) {
+                doc->replaceText(ranges.at(i)->toRange(), edits.at(i).newText);
+            }
+        }
+
+        qDeleteAll(ranges);
+    }
+
+    void format()
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        QPointer<KTextEditor::Document> document = activeView->document();
+        auto server = m_serverManager->findServer(activeView);
+        if (!server || !document)
+            return;
+
+        int tabSize = 4;
+        bool insertSpaces = true;
+        auto cfgiface = qobject_cast<KTextEditor::ConfigInterface*>(document);
+        if (cfgiface) {
+            tabSize = cfgiface->configValue(QStringLiteral("tab-width")).toInt();
+            insertSpaces = cfgiface->configValue(QStringLiteral("replace-tabs")).toBool();
+        }
+
+        // sigh, no move initialization capture ...
+        // (again) assuming reply ranges wrt revisions submitted at this time
+        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
+        auto h = [this, document, snapshot] (const QList<LSPTextEdit> & edits)
+        { if (document) applyEdits(document, *snapshot, edits); };
+
+        if (activeView->selection()) {
+            server->documentRangeFormatting(document->url(), activeView->selectionRange(),
+                tabSize, insertSpaces, QJsonObject(), this, h);
+        } else {
+            server->documentFormatting(document->url(),
+                tabSize, insertSpaces, QJsonObject(), this, h);
         }
     }
 

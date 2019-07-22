@@ -547,7 +547,7 @@ private:
                     { QStringLiteral("Python"),
                         makeServerConfig(QStringLiteral("python3 -m pyls --check-parent-process")) },
                     { QStringLiteral("C"),
-                        makeServerConfig(QStringLiteral("clangd -log=verbose --background-index")) },
+                        makeServerConfig(QStringLiteral("clangd -log=%1 --background-index").arg(m_plugin->m_debugMode ? QStringLiteral("verbose") : QStringLiteral("error"))) },
                     { QStringLiteral("C++"),
                         QJsonObject { { QStringLiteral("use"), QStringLiteral("C") } } }
                 }

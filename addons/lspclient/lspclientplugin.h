@@ -59,6 +59,9 @@ class LSPClientPlugin : public KTextEditor::Plugin
         bool m_diagnosticsMark;
         QUrl m_configPath;
 
+        // debug mode?
+        bool m_debugMode = false;
+
 private:
     Q_SIGNALS:
         // signal settings update

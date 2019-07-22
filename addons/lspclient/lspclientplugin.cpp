@@ -26,6 +26,8 @@
 #include "lspclientpluginview.h"
 #include "lspclientconfigpage.h"
 
+#include "lspclient_debug.h"
+
 #include <KConfigGroup>
 #include <KDirWatch>
 #include <KPluginFactory>
@@ -51,6 +53,15 @@ K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", regis
 LSPClientPlugin::LSPClientPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
+    /**
+     * handle plugin verbosity
+     * the m_debugMode will be used to e.g. set debug level for started clangd, too
+     */
+    m_debugMode = (qgetenv("LSPCLIENT_DEBUG") == QByteArray("1"));
+    if (!m_debugMode) {
+        QLoggingCategory::setFilterRules(QStringLiteral("katelspclientplugin.debug=false\nkatelspclientplugin.info=false"));
+    }
+
     readConfig();
 }
 

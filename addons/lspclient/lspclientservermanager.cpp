@@ -435,8 +435,8 @@ private:
             const auto& projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
             // prefer the build directory, if set, e.g. for CMake generated .kateproject files
             auto buildDir = projectMap.value(QStringLiteral("build")).toMap().value(QStringLiteral("directory")).toString();
-            // fallback to base directory of .kateproject file
-            if (buildDir.isEmpty()) {
+            // fallback to base directory of .kateproject file if build doesn't contain a compilation database
+            if (buildDir.isEmpty() || !QFile::exists(buildDir + QStringLiteral("/compile_commands.json"))) {
                 buildDir = projectView ? projectView->property("projectBaseDir").toString() : QString();
             }
             auto obinit = init.toObject();

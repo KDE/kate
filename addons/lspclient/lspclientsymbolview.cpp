@@ -219,7 +219,8 @@ public:
         // get updated
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 500, 100));
         connect(m_viewTracker.get(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
-        connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, &self_type::refresh);
+        connect(m_serverManager.get(), &LSPClientServerManager::serverChanged,
+            this, [this] () { refresh(false); });
 
         // initial trigger of symbols view update
         configUpdated();
@@ -228,7 +229,7 @@ public:
     void displayOptionChanged()
     {
         m_expandOn->setEnabled(m_treeOn->isChecked());
-        refresh();
+        refresh(false);
     }
 
     void configUpdated()
@@ -249,8 +250,10 @@ public:
     {
         switch(newState) {
         case LSPClientViewTracker::ViewChanged:
+            refresh(true);
+            break;
         case LSPClientViewTracker::TextChanged:
-            refresh();
+            refresh(false);
             break;
         case LSPClientViewTracker::LineChanged:
             updateCurrentTreeItem();
@@ -374,7 +377,7 @@ public:
         updateCurrentTreeItem();
     }
 
-    void refresh()
+    void refresh(bool clear)
     {
         // cancel old request!
         m_handle.cancel();
@@ -384,7 +387,11 @@ public:
         if (auto server = m_serverManager->findServer(view)) {
             // clear current model in any case
             // this avoids that we show stuff not matching the current view
-            onDocumentSymbols(QList<LSPSymbolInformation>());
+            // but let's only do it if needed, e.g. when changing view
+            // so as to avoid unhealthy flickering in other cases
+            if (clear) {
+                onDocumentSymbols(QList<LSPSymbolInformation>());
+            }
 
             server->documentSymbols(view->document()->url(), this,
                                     utils::mem_fun(&self_type::onDocumentSymbols, this));

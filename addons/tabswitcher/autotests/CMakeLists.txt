@@ -1,11 +1,21 @@
 include(ECMMarkAsTest)
 
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/..
+add_executable(tabswitcher_test "")
+target_include_directories(tabswitcher_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+
+target_link_libraries(
+  tabswitcher_test 
+  PRIVATE
+    kdeinit_kate
+    Qt5::Test
 )
 
-set(Src tabswitchertest.cpp ../tabswitcherfilesmodel.cpp)
-add_executable(tabswitcher_test ${Src})
+target_sources(
+  tabswitcher_test 
+  PRIVATE 
+    tabswitchertest.cpp 
+    ../tabswitcherfilesmodel.cpp
+)
+
 add_test(NAME plugin-tabswitcher_test COMMAND tabswitcher_test)
-target_link_libraries(tabswitcher_test kdeinit_kate Qt5::Test)
 ecm_mark_as_test(tabswitcher_test)

@@ -1,8 +1,3 @@
-project(katesqlplugin)
-
-add_definitions(-DTRANSLATION_DOMAIN=\"katesql\")
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
-
 set(katesql_SRCS
   katesqlplugin.cpp
   katesqlview.cpp
@@ -20,18 +15,23 @@ set(katesql_SRCS
   exportwizard.cpp
   outputstylewidget.cpp
   outputwidget.cpp
+  plugin.qrc
 )
 
-# resource for ui file and stuff
-qt5_add_resources(katesql_SRCS plugin.qrc)
+add_library(katesqlplugin MODULE ${katesql_SRCS})
+target_compile_definitions(katesqlplugin PRIVATE TRANSLATION_DOMAIN="katesql")
 
-add_library (katesqlplugin MODULE ${katesql_SRCS})
-
-kcoreaddons_desktop_to_json (katesqlplugin katesql.desktop)
-
-target_link_libraries(katesqlplugin
+target_link_libraries(
+  katesqlplugin 
+  PRIVATE
+    Qt5::Sql   
     KF5::TextEditor
-    KF5::Parts KF5::I18n KF5::Wallet
-    Qt5::Sql KF5::ItemViews KF5::IconThemes)
+    KF5::Parts 
+    KF5::I18n 
+    KF5::Wallet
+    KF5::ItemViews 
+    KF5::IconThemes
+)
 
+kcoreaddons_desktop_to_json(katesqlplugin katesql.desktop)
 install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )

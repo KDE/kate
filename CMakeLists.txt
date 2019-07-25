@@ -64,11 +64,14 @@ if (KF5Activities_FOUND)
 endif ()
 
 # config.h
-check_function_exists (ctermid HAVE_CTERMID)
-configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+configure_file(config.h.cmake config.h)
 
 # let our config.h be found first in any case
 include_directories (BEFORE ${CMAKE_CURRENT_BINARY_DIR})
+
+# Allow adding Qt resource files with `add_executable` or `target_sources` instead of 
+# `qt5_add_resources`. See https://cmake.org/cmake/help/v3.0/manual/cmake-qt.7.html#autorcc.
+set(CMAKE_AUTORCC ON)
 
 # kwrite
 ecm_optional_add_subdirectory (kwrite)

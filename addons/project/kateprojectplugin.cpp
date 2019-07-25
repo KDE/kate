@@ -37,8 +37,6 @@
 
 #include <vector>
 
-#include "config.h"
-
 #ifdef HAVE_CTERMID
 #include <sys/types.h>
 #include <sys/stat.h>

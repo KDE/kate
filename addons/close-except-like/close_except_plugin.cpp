@@ -23,7 +23,6 @@
  */
 
 // Project specific includes
-#include "config.h"
 #include "close_except_plugin.h"
 #include "close_confirm_dialog.h"
 
@@ -42,18 +41,6 @@
 #include <KXMLGUIFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON(CloseExceptPluginFactory, "katecloseexceptplugin.json", registerPlugin<kate::CloseExceptPlugin>();)
-/*K_EXPORT_PLUGIN(
-    CloseExceptPluginFactory(
-        KAboutData(
-            "katecloseexceptplugin"
-          , "katecloseexceptplugin"
-          , ki18n("Close Except/Like Plugin")
-          , PLUGIN_VERSION
-          , ki18n("Close all documents started from specified path")
-          , KAboutData::License_LGPL_V3
-          )
-      )
-  )*/
 
 namespace kate {
 //BEGIN CloseExceptPlugin

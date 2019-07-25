@@ -5,7 +5,6 @@
 
 #define KATE_VERSION "${KDE_APPLICATIONS_VERSION}"
 
-#cmakedefine HAVE_CTERMID 1
 #cmakedefine KActivities_FOUND 1
 
 #endif

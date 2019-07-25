@@ -1,3 +1,13 @@
-# small test for the tabswitches
-add_executable(tstestapp tstestapp.cpp ../tabswitcherfilesmodel.cpp)
-target_link_libraries(tstestapp KF5::TextEditor)
+add_executable(tstestapp "")
+
+target_link_libraries(
+  tstestapp 
+  PRIVATE KF5::TextEditor
+)
+
+target_sources(
+  tstestapp 
+  PRIVATE 
+    tstestapp.cpp 
+    ../tabswitcherfilesmodel.cpp
+)

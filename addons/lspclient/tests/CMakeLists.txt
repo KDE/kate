@@ -1,3 +1,17 @@
-add_executable(lsptestapp lsptestapp.cpp ../lspclientserver.cpp
-    ${lspclientplugin_debug_SRCS})
-target_link_libraries(lsptestapp KF5::TextEditor Qt5::Core)
+add_executable(lsptestapp "")
+target_include_directories(lsptestapp PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/..)
+
+target_link_libraries(
+  lsptestapp 
+  PRIVATE 
+    KF5::TextEditor 
+    Qt5::Core
+)
+
+target_sources(
+  lsptestapp 
+  PRIVATE
+    lsptestapp.cpp 
+    ../lspclientserver.cpp 
+    ${lspclientplugin_debug_SRCS}
+)

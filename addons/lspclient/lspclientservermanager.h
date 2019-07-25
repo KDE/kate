@@ -67,6 +67,9 @@ public:
 
     virtual void restart(LSPClientServer *server) = 0;
 
+    // latest sync'ed revision of doc (-1 if N/A)
+    virtual qint64 revision(KTextEditor::Document *doc) = 0;
+
     // lock all relevant documents' current revision and sync that to server
     // locks are released when returned snapshot is delete'd
     virtual LSPClientRevisionSnapshot* snapshot(LSPClientServer *server) = 0;

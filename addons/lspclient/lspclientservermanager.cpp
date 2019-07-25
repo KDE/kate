@@ -343,6 +343,12 @@ public:
         restart(servers);
     }
 
+    virtual qint64 revision(KTextEditor::Document *doc) override
+    {
+        auto it = m_docs.find(doc);
+        return it != m_docs.end() ? it->version : -1;
+    }
+
     virtual LSPClientRevisionSnapshot* snapshot(LSPClientServer *server) override
     {
         auto result = new LSPClientRevisionSnapshotImpl;

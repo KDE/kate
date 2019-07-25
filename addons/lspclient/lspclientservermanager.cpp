@@ -425,34 +425,6 @@ private:
         }
     }
 
-    QJsonValue applyCustomInit(const QJsonValue & init,
-        const QStringList & cmdline, const QUrl & root, QObject * projectView)
-    {
-        (void)root;
-
-        // clangd specific
-        if (cmdline.at(0).indexOf(QStringLiteral("clangd")) >= 0) {
-            const auto& projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
-            // prefer the build directory, if set, e.g. for CMake generated .kateproject files
-            auto buildDir = projectMap.value(QStringLiteral("build")).toMap().value(QStringLiteral("directory")).toString();
-            // fallback to base directory of .kateproject file if build doesn't contain a compilation database
-            if (buildDir.isEmpty() || !QFile::exists(buildDir + QStringLiteral("/compile_commands.json"))) {
-                buildDir = projectView ? projectView->property("projectBaseDir").toString() : QString();
-            }
-            auto obinit = init.toObject();
-            // NOTE:
-            // alternatively, use symlink to have clang locate the db by parent dir search
-            // which allows it to handle multiple compilation db
-            // (since this custom way only allows passing it to a specific instance)
-            // FIXME perhaps also use workspace/didChangeConfiguration to update compilation db ??
-            // (but symlink is then simpler for now ;-) )
-            // ... at which time need a nicer way to involve server specific interventions
-            obinit[QStringLiteral("compilationDatabasePath")] = buildDir;
-            return obinit;
-        }
-        return init;
-    }
-
     QSharedPointer<LSPClientServer>
     _findServer(KTextEditor::Document *document)
     {
@@ -517,9 +489,7 @@ private:
                 }
             }
             if (cmdline.length() > 0) {
-                auto&& init = serverConfig.value(QStringLiteral("initializationOptions"));
-                init = applyCustomInit(init, cmdline, root, projectView);
-                server.reset(new LSPClientServer(cmdline, root, init));
+                server.reset(new LSPClientServer(cmdline, root, serverConfig.value(QStringLiteral("initializationOptions"))));
                 m_servers[root][mode] = server;
                 connect(server.get(), &LSPClientServer::stateChanged,
                     this, &self_type::onStateChanged, Qt::UniqueConnection);

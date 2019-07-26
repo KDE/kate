@@ -1,6 +1,6 @@
 include(ECMMarkAsTest)
 
-add_executable(projectplugin_test ${ProjectPluginSrc})
+add_executable(projectplugin_test "")
 target_include_directories(projectplugin_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 target_link_libraries(

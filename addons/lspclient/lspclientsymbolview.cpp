@@ -146,8 +146,18 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     QScopedPointer<LSPClientViewTracker> m_viewTracker;
     // outstanding request
     LSPClientServer::RequestHandle m_handle;
+    // cached outline models
+    struct ModelData
+    {
+        KTextEditor::Document *document;
+        qint64 revision;
+        std::shared_ptr<QStandardItemModel> model;
+    };
+    QList<ModelData> m_models;
+    // max number to cache
+    static constexpr int MAX_MODELS = 10;
     // last outline model we constructed
-    std::unique_ptr<QStandardItemModel> m_outline;
+    std::shared_ptr<QStandardItemModel> m_outline;
     // filter model, setup once
     KRecursiveFilterProxyModel m_filterModel;
 
@@ -221,6 +231,9 @@ public:
         connect(m_viewTracker.get(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
         connect(m_serverManager.get(), &LSPClientServerManager::serverChanged,
             this, [this] () { refresh(false); });
+
+        // limit cached models; will not go beyond capacity set here
+        m_models.reserve(MAX_MODELS + 1);
 
         // initial trigger of symbols view update
         configUpdated();
@@ -323,34 +336,49 @@ public:
 
     void onDocumentSymbols(const QList<LSPSymbolInformation> &outline)
     {
-        onDocumentSymbolsOrProblem(outline, QString());
+        onDocumentSymbolsOrProblem(outline, QString(), true);
     }
 
-    void onDocumentSymbolsOrProblem(const QList<LSPSymbolInformation> &outline, const QString &problem = QString())
+    void onDocumentSymbolsOrProblem(const QList<LSPSymbolInformation> &outline, const QString &problem = QString(), bool cache = false)
     {
         if (!m_symbols)
             return;
 
         // construct new model for data
-        auto newModel = new QStandardItemModel();
+        auto newModel = std::make_shared<QStandardItemModel>();
 
         // if we have some problem, just report that, else construct model
         bool details = false;
         if (problem.isEmpty()) {
-            makeNodes(outline, m_treeOn->isChecked(), m_detailsOn->isChecked(), newModel, nullptr, details);
+            makeNodes(outline, m_treeOn->isChecked(), m_detailsOn->isChecked(), newModel.get(), nullptr, details);
+            if (cache) {
+                // last request has been placed at head of model list
+                Q_ASSERT(!m_models.isEmpty());
+                m_models[0].model = newModel;
+            }
         } else {
             newModel->appendRow(new QStandardItem(problem));
         }
+
+        // cache detail info with model
+        newModel->invisibleRootItem()->setData(details);
 
         // fixup headers
         QStringList headers{i18n("Symbols")};
         newModel->setHorizontalHeaderLabels(headers);
 
+        setModel(newModel);
+    }
+
+    void setModel(std::shared_ptr<QStandardItemModel> newModel)
+    {
+        Q_ASSERT(newModel);
+
         // update filter model, do this before the assignment below deletes the old model!
-        m_filterModel.setSourceModel(newModel);
+        m_filterModel.setSourceModel(newModel.get());
 
         // delete old outline if there, keep our new one alive
-        m_outline.reset(newModel);
+        m_outline = newModel;
 
         // fixup sorting
         if (m_sortOn->isChecked()) {
@@ -364,6 +392,9 @@ public:
         if (m_expandOn->isChecked()) {
             m_symbols->expandAll();
         }
+
+        // recover detail info from model data
+        bool details = newModel->invisibleRootItem()->data().toBool();
 
         // disable detail setting if no such info available
         // (as an indication there is nothing to show anyway)
@@ -390,7 +421,31 @@ public:
             // but let's only do it if needed, e.g. when changing view
             // so as to avoid unhealthy flickering in other cases
             if (clear) {
-                onDocumentSymbols(QList<LSPSymbolInformation>());
+                onDocumentSymbolsOrProblem(QList<LSPSymbolInformation>(), QString(), false);
+            }
+
+            // check (valid) cache
+            auto doc = view->document();
+            auto revision = m_serverManager->revision(doc);
+            auto it = m_models.begin();
+            for (; it != m_models.end(); ++it) {
+                auto& model = *it;
+                if (model.document == doc) {
+                    if (revision == model.revision && model.model) {
+                        setModel(model.model);
+                        return;
+                    }
+                    break;
+                }
+            }
+            if (it != m_models.end()) {
+                it->revision = revision;
+                m_models.move(it - m_models.begin(), 0);
+            } else {
+                m_models.insert(0, {doc, revision, nullptr});
+                if (m_models.size() > MAX_MODELS) {
+                    m_models.pop_back();
+                }
             }
 
             server->documentSymbols(view->document()->url(), this,

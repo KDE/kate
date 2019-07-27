@@ -72,7 +72,9 @@ enum {
     StartColumnRole,
     EndLineRole,
     EndColumnRole,
-    KindRole
+    KindRole,
+    DiagnosticRole,
+    CodeActionRole
 };
 
 class KindEnum
@@ -116,6 +118,9 @@ static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagAll =
 
 }
 
+Q_DECLARE_METATYPE(LSPDiagnostic)
+Q_DECLARE_METATYPE(LSPCodeAction)
+
 static QIcon
 diagnosticsIcon(LSPDiagnosticSeverity severity)
 {
@@ -137,6 +142,13 @@ return icon; \
         break;
     }
     return QIcon();
+}
+
+static QIcon
+codeActionIcon()
+{
+    static QIcon icon(QIcon::fromTheme(QStringLiteral("insert-text")));
+    return icon;
 }
 
 // helper to read lines from unopened documents
@@ -340,6 +352,7 @@ public:
         m_diagnosticsTree->setAlternatingRowColors(true);
         m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
         connect(m_diagnosticsTree, &QTreeWidget::itemClicked, this, &self_type::goToItemLocation);
+        connect(m_diagnosticsTree, &QTreeWidget::itemDoubleClicked, this, &self_type::triggerCodeAction);
 
         // track position in view to sync diagnostics list
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 0, 500));
@@ -619,6 +632,77 @@ public:
             auto column = it->data(0, RangeData::StartColumnRole).toInt();
             goToDocumentLocation(url, line, column);
         }
+    }
+
+    // double click on:
+    // diagnostic item -> request and add actions (below item)
+    // code action -> perform action (literal edit and/or execute command)
+    // (execution of command may lead to an applyEdit request from server)
+    void triggerCodeAction(QTreeWidgetItem *it)
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        QPointer<KTextEditor::Document> document = activeView->document();
+        auto server = m_serverManager->findServer(activeView);
+        if (!server || !document || !it)
+            return;
+
+        // click on an action ?
+        auto vaction = it->data(0, RangeData::CodeActionRole);
+        if (!vaction.isNull()) {
+            auto action = vaction.value<LSPCodeAction>();
+            // apply edit before command
+            // TODO store and retrieve snapshot
+            applyWorkspaceEdit(action.edit, nullptr);
+            return;
+        }
+
+        // only engage action if active document matches diagnostic document
+        // and if really clicked a diagnostic item
+        auto url = it->data(0, RangeData::FileUrlRole).toUrl();
+        auto vdiagnostic = it->data(0, RangeData::DiagnosticRole);
+        if (url != document->url() || vdiagnostic.isNull() || vdiagnostic.type() == QVariant::Bool)
+            return;
+
+        auto diagnostic = vdiagnostic.value<LSPDiagnostic>();
+        auto range = activeView->selectionRange();
+        if (!range.isValid()) {
+            range = document->documentRange();
+        }
+
+        // store some things to find item safely later on
+        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
+        auto h = [this, url, diagnostic, snapshot] (const QList<LSPCodeAction> actions)
+        {
+            auto treeWidget = m_diagnosticsTree;
+            auto rootItem = getItem(treeWidget, url);
+            if (!rootItem)
+                return;
+            // find diagnostic item
+            // TODO use other (model/view) approach to improve all this (here/elsewhere)
+            for (int i = 0; i < rootItem->childCount(); i++) {
+                auto child = rootItem->child(i);
+                auto d = child->data(0, RangeData::DiagnosticRole).value<LSPDiagnostic>();
+                if (d.range == diagnostic.range) {
+                    // add actions below diagnostic item
+                    for (const auto &action: actions) {
+                        auto it = new QTreeWidgetItem(child);
+                        auto text = action.kind.size() ?
+                            QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) :
+                            action.title;
+                        it->setText(0, text);
+                        it->setIcon(0, codeActionIcon());
+                        QVariant value;
+                        value.setValue(action);
+                        it->setData(0, RangeData::CodeActionRole, value);
+                    }
+                    // mark as already having actions added
+                    child->setData(0, RangeData::DiagnosticRole, true);
+                    child->setExpanded(true);
+                }
+            }
+        };
+
+        server->documentCodeAction(url, range, {}, {diagnostic}, this, h);
     }
 
     void tabCloseRequested(int index)
@@ -940,7 +1024,7 @@ public:
         }
     }
 
-    void applyEdits(KTextEditor::Document * doc, const LSPClientRevisionSnapshot & snapshot,
+    void applyEdits(KTextEditor::Document * doc, const LSPClientRevisionSnapshot * snapshot,
                     const QList<LSPTextEdit> & edits)
     {
         KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
@@ -958,7 +1042,7 @@ public:
         // so create moving ranges that will adjust to preceding edits as they are applied
         QVector<KTextEditor::MovingRange*> ranges;
         for (const auto &edit: edits) {
-            auto range = transformRange(doc->url(), snapshot, edit.range);
+            auto range = snapshot ? transformRange(doc->url(), *snapshot, edit.range) : edit.range;
             KTextEditor::MovingRange *mr = miface->newMovingRange(range);
             ranges.append(mr);
         }
@@ -972,6 +1056,24 @@ public:
         }
 
         qDeleteAll(ranges);
+    }
+
+    void applyWorkspaceEdit(const LSPWorkspaceEdit & edit, const LSPClientRevisionSnapshot * snapshot)
+    {
+        auto currentView = m_mainWindow->activeView();
+        for (auto it = edit.changes.begin(); it != edit.changes.end(); ++it) {
+            auto document = findDocument(it.key());
+            if (!document) {
+                KTextEditor::View *view = m_mainWindow->openUrl(it.key());
+                if (view) {
+                    document = view->document();
+                }
+            }
+            applyEdits(document, snapshot, it.value());
+        }
+        if (currentView) {
+            m_mainWindow->activateView(currentView->document());
+        }
     }
 
     void format()
@@ -994,7 +1096,7 @@ public:
         // (again) assuming reply ranges wrt revisions submitted at this time
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
         auto h = [this, document, snapshot] (const QList<LSPTextEdit> & edits)
-        { if (document) applyEdits(document, *snapshot, edits); };
+        { if (document) applyEdits(document, snapshot.get(), edits); };
 
         if (activeView->selection()) {
             server->documentRangeFormatting(document->url(), activeView->selectionRange(),
@@ -1112,6 +1214,9 @@ public:
             item->setIcon(0, diagnosticsIcon(diag.severity));
             item->setText(0, source + diag.message);
             fillItemRoles(item, diagnostics.uri, diag.range, diag.severity);
+            QVariant value;
+            value.setValue(diag);
+            item->setData(0, RangeData::DiagnosticRole, value);
             const auto &related = diag.relatedInformation;
             if (!related.location.uri.isEmpty()) {
                 auto relatedItem = new QTreeWidgetItem(item);

@@ -429,18 +429,20 @@ public:
             auto revision = m_serverManager->revision(doc);
             auto it = m_models.begin();
             for (; it != m_models.end(); ++it) {
-                auto& model = *it;
-                if (model.document == doc) {
-                    if (revision == model.revision && model.model) {
-                        setModel(model.model);
-                        return;
-                    }
+                if (it->document == doc) {
                     break;
                 }
             }
             if (it != m_models.end()) {
-                it->revision = revision;
+                // move to most recently used head
                 m_models.move(it - m_models.begin(), 0);
+                auto& model = m_models.front();
+                // re-use if possible
+                if (revision == model.revision && model.model) {
+                    setModel(model.model);
+                    return;
+                }
+                it->revision = revision;
             } else {
                 m_models.insert(0, {doc, revision, nullptr});
                 if (m_models.size() > MAX_MODELS) {

@@ -190,6 +190,8 @@ from_json(LSPServerCapabilities & caps, const QJsonObject & json)
     caps.referencesProvider = json.value(QStringLiteral("referencesProvider")).toBool();
     caps.documentSymbolProvider = json.value(QStringLiteral("documentSymbolProvider")).toBool();
     caps.documentHighlightProvider = json.value(QStringLiteral("documentHighlightProvider")).toBool();
+    caps.documentFormattingProvider = json.value(QStringLiteral("documentFormattingProvider")).toBool();
+    caps.documentRangeFormattingProvider = json.value(QStringLiteral("documentRangeFormattingProvider")).toBool();
 }
 
 // TODO move all parsing here

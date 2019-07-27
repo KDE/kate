@@ -1139,7 +1139,9 @@ public:
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
-        bool defEnabled = false, declEnabled = false, refEnabled = false, hoverEnabled = false, highlightEnabled = false;
+        bool defEnabled = false, declEnabled = false, refEnabled = false;
+        bool hoverEnabled = false, highlightEnabled = false;
+        bool formatEnabled = false;
 
         if (server) {
             const auto& caps = server->capabilities();
@@ -1149,6 +1151,7 @@ public:
             refEnabled = caps.referencesProvider;
             hoverEnabled = caps.hoverProvider;
             highlightEnabled = caps.documentHighlightProvider;
+            formatEnabled = caps.documentFormattingProvider || caps.documentRangeFormattingProvider;
 
             connect(server.get(), &LSPClientServer::publishDiagnostics,
                 this, &self_type::onDiagnostics, Qt::UniqueConnection);
@@ -1164,6 +1167,8 @@ public:
             m_triggerHighlight->setEnabled(highlightEnabled);
         if (m_triggerHover)
             m_triggerHover->setEnabled(hoverEnabled);
+        if (m_triggerFormat)
+            m_triggerFormat->setEnabled(formatEnabled);
         if (m_complDocOn)
             m_complDocOn->setEnabled(server);
         if (m_restartServer)

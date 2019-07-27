@@ -1,3 +1,10 @@
+find_package(KF5NewStuff QUIET)
+set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the snippets addon")
+
+if(NOT KF5NewStuff_FOUND)
+  return()
+endif()
+
 set(katesnippetsplugin_PART_SRCS 
   katesnippets.cpp
   katesnippetglobal.cpp
@@ -20,12 +27,8 @@ target_compile_definitions(katesnippetsplugin PRIVATE TRANSLATION_DOMAIN="katesn
 target_link_libraries(
   katesnippetsplugin 
   PRIVATE
-    KF5::TextEditor
-    KF5::Parts 
-    KF5::I18n
     KF5::NewStuff 
-    KF5::ItemViews 
-    KF5::IconThemes
+    KF5::TextEditor
 )
 
 kcoreaddons_desktop_to_json(katesnippetsplugin katesnippetsplugin.desktop)

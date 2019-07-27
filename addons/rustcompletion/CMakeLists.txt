@@ -1,12 +1,6 @@
 add_library(kterustcompletionplugin MODULE ${kterustcompletion_SRCS})
 target_compile_definitions(kterustcompletionplugin PRIVATE TRANSLATION_DOMAIN="kterustcompletion")
-
-target_link_libraries(
-  kterustcompletionplugin 
-  PRIVATE 
-    KF5::TextEditor
-    KF5::XmlGui
-)
+target_link_libraries(kterustcompletionplugin PRIVATE KF5::TextEditor)
 
 target_sources(
   kterustcompletionplugin 

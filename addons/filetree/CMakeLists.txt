@@ -1,16 +1,21 @@
+find_package(KF5GuiAddons QUIET)
+set_package_properties(KF5GuiAddons PROPERTIES PURPOSE "Required to build the katefiletree addon")
+
+if(NOT KF5GuiAddons_FOUND)
+  return()
+endif()
+
 add_library(katefiletree STATIC "")
 set_target_properties(katefiletree PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
-# PUBLIC so that katefiletreeplugin inherits these usage requirements.
+# PUBLIC so that `katefiletreeplugin` inherits these usage requirements.
 target_compile_definitions(katefiletree PUBLIC TRANSLATION_DOMAIN="katefiletree")
 
 target_link_libraries(
   katefiletree 
   PUBLIC
     KF5::TextEditor
-    KF5::I18n
     KF5::GuiAddons
-    KF5::IconThemes
 )
 
 target_sources(

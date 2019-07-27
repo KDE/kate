@@ -1,3 +1,10 @@
+find_package(KF5KIO QUIET)
+set_package_properties(KF5KIO PROPERTIES PURPOSE "Required to build the filebrowser addon")
+
+if(NOT KF5KIO_FOUND)
+  return()
+endif()
+
 set(katefilebrowserplugin_PART_SRCS
   katefilebrowserplugin.cpp
   katefilebrowserconfig.cpp
@@ -12,10 +19,7 @@ target_link_libraries(
   katefilebrowserplugin 
   PRIVATE
     KF5::TextEditor 
-    KF5::KIOCore 
-    KF5::KIOFileWidgets 
-    KF5::KIOWidgets 
-    KF5::I18n
+    KF5::KIOFileWidgets
 )
 
 kcoreaddons_desktop_to_json(katefilebrowserplugin katefilebrowserplugin.desktop)

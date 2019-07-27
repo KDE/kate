@@ -2,6 +2,7 @@ include(ECMMarkAsTest)
 
 add_executable(filetree_model_test "")
 
+find_package(Qt5Test QUIET REQUIRED)
 target_link_libraries(
   filetree_model_test 
   PRIVATE

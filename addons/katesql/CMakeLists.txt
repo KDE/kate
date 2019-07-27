@@ -1,37 +1,45 @@
-set(katesql_SRCS
-  katesqlplugin.cpp
-  katesqlview.cpp
-  connectionmodel.cpp
-  sqlmanager.cpp
-  cachedsqlquerymodel.cpp
-  dataoutputmodel.cpp
-  dataoutputview.cpp
-  dataoutputwidget.cpp
-  textoutputwidget.cpp
-  schemawidget.cpp
-  schemabrowserwidget.cpp
-  connectionwizard.cpp
-  katesqlconfigpage.cpp
-  exportwizard.cpp
-  outputstylewidget.cpp
-  outputwidget.cpp
-  plugin.qrc
-)
+find_package(KF5Wallet QUIET)
+set_package_properties(KF5Wallet PROPERTIES PURPOSE "Required to build the katesql addon")
 
-add_library(katesqlplugin MODULE ${katesql_SRCS})
+find_package(Qt5Sql QUIET)
+set_package_properties(Qt5Sql PROPERTIES PURPOSE "Required to build the katesql addon")
+
+if(NOT KF5Wallet_FOUND OR NOT Qt5Sql_FOUND)
+  return()
+endif()
+
+add_library(katesqlplugin MODULE "")
 target_compile_definitions(katesqlplugin PRIVATE TRANSLATION_DOMAIN="katesql")
 
 target_link_libraries(
   katesqlplugin 
   PRIVATE
-    Qt5::Sql   
     KF5::TextEditor
-    KF5::Parts 
-    KF5::I18n 
     KF5::Wallet
-    KF5::ItemViews 
-    KF5::IconThemes
+    Qt5::Sql
+)
+
+target_sources(
+  katesqlplugin
+  PRIVATE
+    katesqlplugin.cpp
+    katesqlview.cpp
+    connectionmodel.cpp
+    sqlmanager.cpp
+    cachedsqlquerymodel.cpp
+    dataoutputmodel.cpp
+    dataoutputview.cpp
+    dataoutputwidget.cpp
+    textoutputwidget.cpp
+    schemawidget.cpp
+    schemabrowserwidget.cpp
+    connectionwizard.cpp
+    katesqlconfigpage.cpp
+    exportwizard.cpp
+    outputstylewidget.cpp
+    outputwidget.cpp
+    plugin.qrc
 )
 
 kcoreaddons_desktop_to_json(katesqlplugin katesql.desktop)
-install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
+install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

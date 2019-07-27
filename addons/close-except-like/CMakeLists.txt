@@ -1,3 +1,10 @@
+find_package(KF5IconThemes QUIET)
+set_package_properties(KF5IconThemes PROPERTIES PURPOSE "Required to build the close-except-like addon")
+
+if(NOT KF5IconThemes_FOUND)
+  return()
+endif()
+
 set(KATE_CLOSE_EXCEPT_PLUGIN_SOURCES
   close_confirm_dialog.cpp
   close_except_plugin.cpp
@@ -15,8 +22,6 @@ target_link_libraries(
   katecloseexceptplugin 
   PRIVATE
     KF5::TextEditor
-    KF5::Parts
-    KF5::I18n
     KF5::IconThemes
 )
 

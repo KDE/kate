@@ -1,3 +1,10 @@
+find_package(KF5IconThemes QUIET)
+set_package_properties(KF5IconThemes PROPERTIES PURPOSE "Required to build the replicode addon")
+
+if(NOT KF5IconThemes_FOUND)
+  return()
+endif()
+
 set(katereplicode_SRCS
   replicodeplugin.cpp
   replicodeconfigpage.cpp
@@ -17,7 +24,6 @@ target_link_libraries(
   PRIVATE 
     KF5::TextEditor
     KF5::IconThemes
-    KF5::I18n
 )
 
 kcoreaddons_desktop_to_json(katereplicodeplugin katereplicodeplugin.desktop)

@@ -20,14 +20,7 @@ ki18n_wrap_ui(ctagsplugin_SRC kate_ctags.ui CTagsGlobalConfig.ui)
 
 add_library(katectagsplugin MODULE ${ctagsplugin_SRC})
 target_compile_definitions(katectagsplugin PRIVATE TRANSLATION_DOMAIN="kate-ctags-plugin")
-
-target_link_libraries(
-  katectagsplugin 
-  PRIVATE 
-    KF5::TextEditor 
-    KF5::I18n 
-    KF5::IconThemes
-)
+target_link_libraries(katectagsplugin PRIVATE KF5::TextEditor)
 
 kcoreaddons_desktop_to_json(katectagsplugin katectagsplugin.desktop)
 install(TARGETS katectagsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

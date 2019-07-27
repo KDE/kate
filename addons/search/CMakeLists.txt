@@ -1,3 +1,10 @@
+find_package(KF5ItemViews QUIET)
+set_package_properties(KF5ItemViews PROPERTIES PURPOSE "Required to build the search addon")
+
+if(NOT KF5ItemViews_FOUND)
+  return()
+endif()
+
 set(katesearchplugin_PART_SRCS
   plugin_search.cpp
   search_open_files.cpp
@@ -16,9 +23,8 @@ target_compile_definitions(katesearchplugin PRIVATE TRANSLATION_DOMAIN="katesear
 target_link_libraries(
   katesearchplugin 
   PRIVATE
-    KF5::TextEditor
-    KF5::Parts KF5::I18n KF5::IconThemes
     KF5::ItemViews
+    KF5::TextEditor
 )
 
 kcoreaddons_desktop_to_json(katesearchplugin katesearch.desktop)

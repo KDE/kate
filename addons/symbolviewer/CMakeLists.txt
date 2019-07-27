@@ -1,12 +1,6 @@
 add_library(katesymbolviewerplugin MODULE "")
 target_compile_definitions(katesymbolviewerplugin PRIVATE TRANSLATION_DOMAIN="katesymbolviewer")
-
-target_link_libraries(
-  katesymbolviewerplugin 
-  PRIVATE 
-    KF5::TextEditor 
-    KF5::I18n KF5::IconThemes
-)
+target_link_libraries(katesymbolviewerplugin PRIVATE KF5::TextEditor)
 
 target_sources(
   katesymbolviewerplugin 
@@ -26,5 +20,5 @@ target_sources(
     plugin.qrc
 )
 
-kcoreaddons_desktop_to_json (katesymbolviewerplugin katesymbolviewerplugin.desktop)
+kcoreaddons_desktop_to_json(katesymbolviewerplugin katesymbolviewerplugin.desktop)
 install(TARGETS katesymbolviewerplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

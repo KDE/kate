@@ -1,4 +1,19 @@
-find_package(KF5NewStuff ${KF5_DEP_VERSION} REQUIRED) # For KMoreTools
+find_package(
+  KF5
+  QUIET
+  COMPONENTS
+    GuiAddons
+    NewStuff
+    ThreadWeaver  
+)
+
+set_package_properties(KFGuiAddons PROPERTIES PURPOSE "Required to build the project addon")
+set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the project addon")
+set_package_properties(KF5ThreadWeaver PROPERTIES PURPOSE "Required to build the project addon")
+
+if(NOT KF5_FOUND)
+  return()
+endif()
 
 add_library(kateprojectplugin MODULE "")
 target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="kateproject")
@@ -6,18 +21,15 @@ target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="katepro
 target_link_libraries(
   kateprojectplugin 
   PRIVATE
-    KF5::TextEditor
-    KF5::Parts 
-    KF5::I18n
     KF5::GuiAddons
-    KF5::ItemViews 
-    KF5::ItemModels 
-    KF5::IconThemes 
-    KF5::ThreadWeaver
     KF5::NewStuff
+    KF5::TextEditor
+    KF5::ThreadWeaver
 )
 
+include(CheckFunctionExists)
 check_function_exists(ctermid HAVE_CTERMID)
+
 if(HAVE_CTERMID)
   target_compile_definitions(kateprojectplugin PRIVATE HAVE_CTERMID)
 endif()

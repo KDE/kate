@@ -16,12 +16,6 @@ ecm_qt_declare_logging_category(
 
 add_library(ktexteditorpreviewplugin MODULE ${ktexteditorpreviewplugin_SRCS})
 target_compile_definitions(ktexteditorpreviewplugin PRIVATE TRANSLATION_DOMAIN="ktexteditorpreviewplugin")
-
-target_link_libraries(
-  ktexteditorpreviewplugin 
-  PRIVATE
-    KF5::TextEditor
-    KF5::I18n
-)
+target_link_libraries(ktexteditorpreviewplugin PRIVATE KF5::TextEditor)
 
 install(TARGETS ktexteditorpreviewplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

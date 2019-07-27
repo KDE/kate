@@ -1,10 +1,6 @@
 add_library(ktexteditor_lumen MODULE "")
 target_compile_definitions(ktexteditor_lumen PRIVATE TRANSLATION_DOMAIN="ktexteditor_lumen")
-
-target_link_libraries(
-  ktexteditor_lumen 
-  PRIVATE KF5::TextEditor
-)
+target_link_libraries(ktexteditor_lumen PRIVATE KF5::TextEditor)
 
 target_sources(
   ktexteditor_lumen 

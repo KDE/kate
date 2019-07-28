@@ -304,4 +304,16 @@ struct LSPCodeAction
     LSPCommand command;
 };
 
+struct LSPApplyWorkspaceEditParams
+{
+    QString label;
+    LSPWorkspaceEdit edit;
+};
+
+struct LSPApplyWorkspaceEditResponse
+{
+    bool applied;
+    QString failureReason;
+};
+
 #endif

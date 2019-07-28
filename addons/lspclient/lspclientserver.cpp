@@ -213,6 +213,24 @@ codeActionParams(const QUrl & document, const LSPRange & range,
     return params;
 }
 
+static QJsonObject
+executeCommandParams(const QString & command, const QJsonValue & args)
+{
+    return QJsonObject {
+        { MEMBER_COMMAND, command },
+        { MEMBER_ARGUMENTS, args }
+    };
+}
+
+static QJsonObject
+applyWorkspaceEditResponse(const LSPApplyWorkspaceEditResponse & response)
+{
+    return QJsonObject {
+        { QStringLiteral("applied"), response.applied },
+        { QStringLiteral("failureReason"), response.failureReason }
+    };
+}
+
 static void
 from_json(QVector<QChar> & trigger, const QJsonValue & json)
 {
@@ -268,6 +286,9 @@ from_json(LSPServerCapabilities & caps, const QJsonObject & json)
 static LSPPublishDiagnosticsParams
 parseDiagnostics(const QJsonObject & result);
 
+static LSPApplyWorkspaceEditParams
+parseApplyWorkspaceEditParams(const QJsonObject & result);
+
 using GenericReplyType = QJsonValue;
 using GenericReplyHandler = ReplyHandler<GenericReplyType>;
 
@@ -294,6 +315,9 @@ class LSPClientServer::LSPClientServerPrivate
     QByteArray m_receive;
     // registered reply handlers
     QHash<int, GenericReplyHandler> m_handlers;
+    // pending request responses
+    static constexpr int MAX_REQUESTS = 5;
+    QVector<int> m_requests{MAX_REQUESTS + 1};
 
 public:
     LSPClientServerPrivate(LSPClientServer * _q, const QStringList & server,
@@ -342,7 +366,7 @@ private:
         }
     }
 
-    RequestHandle write(const QJsonObject & msg, const GenericReplyHandler & h = nullptr, int * id = nullptr)
+    RequestHandle write(const QJsonObject & msg, const GenericReplyHandler & h = nullptr, const int * id = nullptr)
     {
         RequestHandle ret;
         ret.m_server = q;
@@ -451,8 +475,7 @@ private:
             }
             // could be request
             if (result.contains(MEMBER_METHOD)) {
-                write(init_error(LSPErrorCode::MethodNotFound, result.value(MEMBER_METHOD).toString()),
-                    nullptr, &msgid);
+                processRequest(result);
                 continue;
             }
             // a valid reply; what to do with it now
@@ -485,6 +508,14 @@ private:
         return QJsonObject {
             { MEMBER_METHOD, method },
             { MEMBER_PARAMS, params }
+        };
+    }
+
+    static QJsonObject
+    init_response(const QJsonValue & result = QJsonValue())
+    {
+        return QJsonObject {
+            { MEMBER_RESULT, result }
         };
     }
 
@@ -682,6 +713,12 @@ public:
         return send(init_request(QStringLiteral("textDocument/codeAction"), params), h);
     }
 
+    void executeCommand(const QString & command, const QJsonValue & args)
+    {
+        auto params = executeCommandParams(command, args);
+        send(init_request(QStringLiteral("workspace/executeCommand"), params));
+    }
+
     void didOpen(const QUrl & document, int version, const QString & text)
     {
         auto params = textDocumentParams(textDocumentItem(document, QString(), text, version));
@@ -717,6 +754,61 @@ public:
             emit q->publishDiagnostics(parseDiagnostics(msg[MEMBER_PARAMS].toObject()));
         } else {
             qCWarning(LSPCLIENT) << "discarding notification" << method;
+        }
+    }
+
+    template<typename ReplyType>
+    static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> & h,
+        const QObject *context,
+        typename utils::identity<std::function<ReplyType(const GenericReplyType&)>>::type c)
+    {
+        QPointer<const QObject> ctx(context);
+        return [ctx, h, c] (const GenericReplyType & m) { if (ctx) h(c(m)); };
+    }
+
+    GenericReplyHandler
+    prepareResponse(int msgid)
+    {
+        // allow limited number of outstanding requests
+        auto ctx = QPointer<LSPClientServer>(q);
+        m_requests.push_back(msgid);
+        if (m_requests.size() > MAX_REQUESTS) {
+            m_requests.pop_front();
+        }
+        auto h = [ctx, this, msgid] (const GenericReplyType & response)
+        {
+            if (!ctx) {
+                return;
+            }
+            auto index = m_requests.indexOf(msgid);
+            if (index >= 0) {
+                m_requests.remove(index);
+                write(init_response(response), nullptr, &msgid);
+            } else {
+                qCWarning(LSPCLIENT) << "discarding response" << msgid;
+            }
+        };
+        return h;
+    }
+
+    template<typename ReplyType>
+    static ReplyHandler<ReplyType> responseHandler(const GenericReplyHandler & h,
+        typename utils::identity<std::function<GenericReplyType(const ReplyType&)>>::type c)
+    { return [h, c] (const ReplyType & m) { h(c(m)); }; }
+
+    // pretty rare and limited use, but anyway
+    void processRequest(const QJsonObject & msg)
+    {
+        auto method = msg[MEMBER_METHOD].toString();
+        auto msgid = msg[MEMBER_ID].toInt();
+        auto params = msg[MEMBER_PARAMS];
+        bool handled = false;
+        if (method == QStringLiteral("workspace/applyEdit")) {
+            auto h = responseHandler<LSPApplyWorkspaceEditResponse>(prepareResponse(msgid), applyWorkspaceEditResponse);
+            emit q->applyEdit(parseApplyWorkspaceEditParams(params.toObject()), h, handled);
+        } else {
+            write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, &msgid);
+            qCWarning(LSPCLIENT) << "discarding request" << method;
         }
     }
 };
@@ -1061,6 +1153,16 @@ parseDiagnostics(const QJsonObject & result)
     return ret;
 }
 
+static LSPApplyWorkspaceEditParams
+parseApplyWorkspaceEditParams(const QJsonObject & result)
+{
+    LSPApplyWorkspaceEditParams ret;
+
+    ret.label = result.value(MEMBER_LABEL).toString();
+    ret.edit = parseWorkSpaceEdit(result.value(MEMBER_EDIT));
+    return ret;
+}
+
 // generic convert handler
 // sprinkle some connection-like context safety
 // not so likely relevant/needed due to typical sequence of events,
@@ -1158,6 +1260,9 @@ LSPClientServer::documentCodeAction(const QUrl & document, const LSPRange & rang
     const QList<QString> & kinds, QList<LSPDiagnostic> diagnostics,
     const QObject *context, const CodeActionReplyHandler & h)
 { return d->documentCodeAction(document, range, kinds, diagnostics, make_handler(h, context, parseCodeAction)); }
+
+void LSPClientServer::executeCommand(const QString & command, const QJsonValue & args)
+{ return d->executeCommand(command, args); }
 
 void LSPClientServer::didOpen(const QUrl & document, int version, const QString & text)
 { return d->didOpen(document, version, text); }

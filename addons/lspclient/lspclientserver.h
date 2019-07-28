@@ -79,6 +79,7 @@ using DocumentCompletionReplyHandler = ReplyHandler<QList<LSPCompletionItem>>;
 using SignatureHelpReplyHandler = ReplyHandler<LSPSignatureHelp>;
 using FormattingReplyHandler = ReplyHandler<QList<LSPTextEdit>>;
 using CodeActionReplyHandler = ReplyHandler<QList<LSPCodeAction>>;
+using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
 
 class LSPClientServer : public QObject
 {
@@ -154,6 +155,7 @@ public:
     RequestHandle documentCodeAction(const QUrl & document, const LSPRange & range,
         const QList<QString> & kinds, QList<LSPDiagnostic> diagnostics,
         const QObject *context, const CodeActionReplyHandler & h);
+    void executeCommand(const QString & command, const QJsonValue & args);
 
     // sync
     void didOpen(const QUrl & document, int version, const QString & text);
@@ -164,6 +166,9 @@ public:
     // notifcation = signal
 Q_SIGNALS:
     void publishDiagnostics(const LSPPublishDiagnosticsParams & );
+
+    // request = signal
+    void applyEdit(const LSPApplyWorkspaceEditParams &req, const ApplyEditReplyHandler &h, bool &handled);
 
 private:
     // pimpl data holder

@@ -251,6 +251,9 @@ class LSPClientActionView : public QObject
     // timeout on request
     bool m_req_timeout = false;
 
+    // accept incoming applyEdit
+    bool m_accept_edit = false;
+
     KActionCollection *actionCollection() const
     { return m_client->actionCollection(); }
 
@@ -653,6 +656,14 @@ public:
             // apply edit before command
             // TODO store and retrieve snapshot
             applyWorkspaceEdit(action.edit, nullptr);
+            const auto &command = action.command;
+            if (command.command.size()) {
+                // accept edit requests that may be sent to execute command
+                m_accept_edit = true;
+                // but only for a short time
+                QTimer::singleShot(2000, this, [this] { m_accept_edit = false; });
+                server->executeCommand(command.command, command.arguments);
+            }
             return;
         }
 
@@ -1076,6 +1087,21 @@ public:
         }
     }
 
+    void onApplyEdit(const LSPApplyWorkspaceEditParams & edit, const ApplyEditReplyHandler & h, bool &handled)
+    {
+        if (handled)
+            return;
+        handled = true;
+
+        if (m_accept_edit) {
+            qCInfo(LSPCLIENT) << "applying edit" << edit.label;
+            applyWorkspaceEdit(edit.edit, nullptr);
+        } else {
+            qCInfo(LSPCLIENT) << "ignoring edit";
+        }
+        h({m_accept_edit, QString()});
+    }
+
     void format()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -1260,6 +1286,8 @@ public:
 
             connect(server.get(), &LSPClientServer::publishDiagnostics,
                 this, &self_type::onDiagnostics, Qt::UniqueConnection);
+            connect(server.get(), &LSPClientServer::applyEdit,
+                this, &self_type::onApplyEdit, Qt::UniqueConnection);
         }
 
         if (m_findDef)

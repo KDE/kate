@@ -361,8 +361,10 @@ public:
 
     int cancel(int reqid)
     {
-        // TODO also send cancel to server
-        m_handlers.remove(reqid);
+        if (m_handlers.remove(reqid) > 0) {
+            auto params = QJsonObject { { MEMBER_ID, reqid } };
+            write(init_request(QStringLiteral("$/cancelRequest"), params));
+        }
         return -1;
     }
 

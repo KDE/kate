@@ -158,7 +158,8 @@ codeActionIcon()
 class FileLineReader
 {
     QFile file;
-    int linesRead = 0;
+    int lastLineNo = -1;
+    QString lastLine;
 
 public:
     FileLineReader(const QUrl & url)
@@ -167,12 +168,15 @@ public:
         file.open(QIODevice::ReadOnly);
     }
 
-    // called with increasing lineno
+    // called with non-descending lineno
     QString line(int lineno)
     {
+        if (lineno == lastLineNo) {
+            return lastLine;
+        }
         while (file.isOpen() && !file.atEnd()) {
             auto line = file.readLine();
-            if (linesRead++ == lineno) {
+            if (++lastLineNo == lineno) {
                 QTextCodec::ConverterState state;
                 QTextCodec *codec = QTextCodec::codecForName("UTF-8");
                 QString text = codec->toUnicode(line.constData(), line.size(), &state);
@@ -181,6 +185,7 @@ public:
                 }
                 while (text.size() && text.at(text.size() -1).isSpace())
                     text.chop(1);
+                lastLine = text;
                 return text;
             }
         }

@@ -196,6 +196,14 @@ documentRangeFormattingParams(const QUrl & document, const LSPRange *range,
 }
 
 static QJsonObject
+renameParams(const QUrl & document, const LSPPosition & pos, const QString & newName)
+{
+    auto params = textDocumentPositionParams(document, pos);
+    params[QStringLiteral("newName")] = newName;
+    return params;
+}
+
+static QJsonObject
 codeActionParams(const QUrl & document, const LSPRange & range,
     QList<QString> kinds, QList<LSPDiagnostic> diagnostics)
 {
@@ -278,6 +286,7 @@ from_json(LSPServerCapabilities & caps, const QJsonObject & json)
     caps.documentHighlightProvider = json.value(QStringLiteral("documentHighlightProvider")).toBool();
     caps.documentFormattingProvider = json.value(QStringLiteral("documentFormattingProvider")).toBool();
     caps.documentRangeFormattingProvider = json.value(QStringLiteral("documentRangeFormattingProvider")).toBool();
+    caps.renameProvider = json.value(QStringLiteral("renameProvider")).toBool();
     auto codeActionProvider = json.value(QStringLiteral("codeActionProvider"));
     caps.codeActionProvider = codeActionProvider.toBool() || codeActionProvider.isObject();
 }
@@ -703,6 +712,13 @@ public:
     {
         auto params = documentRangeFormattingParams(document, &range, tabSize, insertSpaces, options);
         return send(init_request(QStringLiteral("textDocument/rangeFormatting"), params), h);
+    }
+
+    RequestHandle documentRename(const QUrl & document, const LSPPosition & pos,
+        const QString newName, const GenericReplyHandler & h)
+    {
+        auto params = renameParams(document, pos, newName);
+        return send(init_request(QStringLiteral("textDocument/rename"), params), h);
     }
 
     RequestHandle documentCodeAction(const QUrl & document, const LSPRange & range,
@@ -1254,6 +1270,12 @@ LSPClientServer::documentRangeFormatting(const QUrl & document, const LSPRange &
     int tabSize, bool insertSpaces, const QJsonObject & options,
     const QObject *context, const FormattingReplyHandler & h)
 { return d->documentRangeFormatting(document, range, tabSize, insertSpaces, options, make_handler(h, context, parseTextEdit)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentRename(const QUrl & document, const LSPPosition & pos,
+    const QString newName,
+    const QObject *context, const WorkspaceEditReplyHandler & h)
+{ return d->documentRename(document, pos, newName, make_handler(h, context, parseWorkSpaceEdit)); }
 
 LSPClientServer::RequestHandle
 LSPClientServer::documentCodeAction(const QUrl & document, const LSPRange & range,

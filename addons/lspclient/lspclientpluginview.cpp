@@ -54,7 +54,8 @@
 #include <QKeyEvent>
 #include <QHBoxLayout>
 #include <QAction>
-#include <QTreeWidget>
+#include <QTreeView>
+#include <QStandardItem>
 #include <QHeaderView>
 #include <QInputDialog>
 #include <QTimer>
@@ -225,20 +226,21 @@ class LSPClientActionView : public QObject
     typedef QMultiHash<KTextEditor::Document*, KTextEditor::MovingRange*> RangeCollection;
     RangeCollection m_ranges;
     // tree is either added to tabwidget or owned here
-    QScopedPointer<QTreeWidget> m_ownedTree;
+    QScopedPointer<QTreeView> m_ownedTree;
     // in either case, the tree that directs applying marks/ranges
-    QPointer<QTreeWidget> m_markTree;
+    QPointer<QTreeView> m_markTree;
     // goto definition and declaration jump list is more a menu than a
     // search result, so let's not keep adding new tabs for those
     // previous tree for definition result
-    QPointer<QTreeWidget> m_defTree;
+    QPointer<QTreeView> m_defTree;
     // ... and for declaration
-    QPointer<QTreeWidget> m_declTree;
+    QPointer<QTreeView> m_declTree;
 
     // diagnostics tab
-    QPointer<QTreeWidget> m_diagnosticsTree;
+    QPointer<QTreeView> m_diagnosticsTree;
     // tree widget is either owned here or by tab
-    QScopedPointer<QTreeWidget> m_diagnosticsTreeOwn;
+    QScopedPointer<QTreeView> m_diagnosticsTreeOwn;
+    QScopedPointer<QStandardItemModel> m_diagnosticsModel;
     // diagnostics ranges
     RangeCollection m_diagnosticsRanges;
 
@@ -351,16 +353,15 @@ public:
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &self_type::tabCloseRequested);
 
         // diagnostics tab
-        m_diagnosticsTree = new QTreeWidget();
-        m_diagnosticsTree->setHeaderHidden(true);
-        m_diagnosticsTree->setFocusPolicy(Qt::NoFocus);
-        m_diagnosticsTree->setLayoutDirection(Qt::LeftToRight);
-        m_diagnosticsTree->setColumnCount(2);
-        m_diagnosticsTree->setSortingEnabled(false);
+        m_diagnosticsTree = new QTreeView();
+        configureTreeView(m_diagnosticsTree);
         m_diagnosticsTree->setAlternatingRowColors(true);
         m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
-        connect(m_diagnosticsTree, &QTreeWidget::itemClicked, this, &self_type::goToItemLocation);
-        connect(m_diagnosticsTree, &QTreeWidget::itemDoubleClicked, this, &self_type::triggerCodeAction);
+        m_diagnosticsModel.reset(new QStandardItemModel());
+        m_diagnosticsModel->setColumnCount(2);
+        m_diagnosticsTree->setModel(m_diagnosticsModel.get());
+        connect(m_diagnosticsTree, &QTreeView::clicked, this, &self_type::goToItemLocation);
+        connect(m_diagnosticsTree, &QTreeView::doubleClicked, this, &self_type::triggerCodeAction);
 
         // track position in view to sync diagnostics list
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 0, 500));
@@ -384,6 +385,15 @@ public:
 
         clearAllLocationMarks();
         clearAllDiagnosticsMarks();
+    }
+
+    void configureTreeView(QTreeView *treeView)
+    {
+        treeView->setHeaderHidden(true);
+        treeView->setFocusPolicy(Qt::NoFocus);
+        treeView->setLayoutDirection(Qt::LeftToRight);
+        treeView->setSortingEnabled(false);
+        treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     }
 
     void displayOptionChanged()
@@ -478,8 +488,9 @@ public:
         clearMarks(m_diagnosticsRanges, RangeData::markTypeDiagAll);
     }
 
-    void addMarks(KTextEditor::Document *doc, QTreeWidgetItem *item, RangeCollection & ranges)
+    void addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection & ranges)
     {
+        Q_ASSERT(item);
         KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
         KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
         KTextEditor::View* activeView = m_mainWindow->activeView();
@@ -488,15 +499,15 @@ public:
         if (!miface || !iface)
             return;
 
-        auto url = item->data(0, RangeData::FileUrlRole).toUrl();
+        auto url = item->data(RangeData::FileUrlRole).toUrl();
         if (url != doc->url())
             return;
 
-        int line = item->data(0, RangeData::StartLineRole).toInt();
-        int column = item->data(0, RangeData::StartColumnRole).toInt();
-        int endLine = item->data(0, RangeData::EndLineRole).toInt();
-        int endColumn = item->data(0, RangeData::EndColumnRole).toInt();
-        RangeData::KindEnum kind = (RangeData::KindEnum) item->data(0, RangeData::KindRole).toInt();
+        int line = item->data(RangeData::StartLineRole).toInt();
+        int column = item->data(RangeData::StartColumnRole).toInt();
+        int endLine = item->data(RangeData::EndLineRole).toInt();
+        int endColumn = item->data(RangeData::EndColumnRole).toInt();
+        RangeData::KindEnum kind = (RangeData::KindEnum) item->data(RangeData::KindRole).toInt();
 
         KTextEditor::Range range(line, column, endLine, endColumn);
         KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
@@ -600,17 +611,24 @@ public:
         }
     }
 
-    void addMarks(KTextEditor::Document *doc, QTreeWidget *tree, RangeCollection & ranges)
+    void addMarksRec(KTextEditor::Document *doc, QStandardItem *item, RangeCollection & ranges)
+    {
+        Q_ASSERT(item);
+        addMarks(doc, item, ranges);
+        for (int i = 0; i < item->rowCount(); ++i) {
+            addMarksRec(doc, item->child(i), ranges);
+        }
+    }
+
+    void addMarks(KTextEditor::Document *doc, QTreeView *treeView, RangeCollection & ranges)
     {
         // check if already added
         if (ranges.contains(doc))
             return;
 
-        QTreeWidgetItemIterator it(tree, QTreeWidgetItemIterator::All);
-        while (*it) {
-            addMarks(doc, *it, ranges);
-             ++it;
-         }
+        auto model = qobject_cast<QStandardItemModel*>(treeView->model());
+        Q_ASSERT(model);
+        addMarksRec(doc, model->invisibleRootItem(), ranges);
     }
 
     void goToDocumentLocation(const QUrl & uri, int line, int column)
@@ -632,30 +650,29 @@ public:
         }
     }
 
-    void goToItemLocation(QTreeWidgetItem *it)
+    void goToItemLocation(const QModelIndex & index)
     {
-        if (it) {
-            auto url = it->data(0, RangeData::FileUrlRole).toUrl();
-            auto line = it->data(0, RangeData::StartLineRole).toInt();
-            auto column = it->data(0, RangeData::StartColumnRole).toInt();
-            goToDocumentLocation(url, line, column);
-        }
+        auto url = index.data(RangeData::FileUrlRole).toUrl();
+        auto line = index.data(RangeData::StartLineRole).toInt();
+        auto column = index.data(RangeData::StartColumnRole).toInt();
+        goToDocumentLocation(url, line, column);
     }
 
     // double click on:
     // diagnostic item -> request and add actions (below item)
     // code action -> perform action (literal edit and/or execute command)
     // (execution of command may lead to an applyEdit request from server)
-    void triggerCodeAction(QTreeWidgetItem *it)
+    void triggerCodeAction(const QModelIndex & index)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         QPointer<KTextEditor::Document> document = activeView->document();
         auto server = m_serverManager->findServer(activeView);
+        auto it = m_diagnosticsModel->itemFromIndex(index);
         if (!server || !document || !it)
             return;
 
         // click on an action ?
-        auto vaction = it->data(0, RangeData::CodeActionRole);
+        auto vaction = it->data(RangeData::CodeActionRole);
         if (!vaction.isNull()) {
             auto action = vaction.value<LSPCodeAction>();
             // apply edit before command
@@ -674,8 +691,8 @@ public:
 
         // only engage action if active document matches diagnostic document
         // and if really clicked a diagnostic item
-        auto url = it->data(0, RangeData::FileUrlRole).toUrl();
-        auto vdiagnostic = it->data(0, RangeData::DiagnosticRole);
+        auto url = it->data(RangeData::FileUrlRole).toUrl();
+        auto vdiagnostic = it->data(RangeData::DiagnosticRole);
         if (url != document->url() || vdiagnostic.isNull() || vdiagnostic.type() == QVariant::Bool)
             return;
 
@@ -690,30 +707,31 @@ public:
         auto h = [this, url, diagnostic, snapshot] (const QList<LSPCodeAction> actions)
         {
             auto treeWidget = m_diagnosticsTree;
-            auto rootItem = getItem(treeWidget, url);
+            auto rootItem = getItem(*m_diagnosticsModel, url);
             if (!rootItem)
                 return;
             // find diagnostic item
             // TODO use other (model/view) approach to improve all this (here/elsewhere)
-            for (int i = 0; i < rootItem->childCount(); i++) {
+            for (int i = 0; i < rootItem->rowCount(); i++) {
                 auto child = rootItem->child(i);
-                auto d = child->data(0, RangeData::DiagnosticRole).value<LSPDiagnostic>();
+                auto d = child->data(RangeData::DiagnosticRole).value<LSPDiagnostic>();
                 if (d.range == diagnostic.range) {
                     // add actions below diagnostic item
                     for (const auto &action: actions) {
-                        auto it = new QTreeWidgetItem(child);
+                        auto item = new QStandardItem();
+                        child->appendRow(item);
                         auto text = action.kind.size() ?
                             QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) :
                             action.title;
-                        it->setText(0, text);
-                        it->setIcon(0, codeActionIcon());
+                        item->setData(text, Qt::DisplayRole);
+                        item->setData(codeActionIcon(), Qt::DecorationRole);
                         QVariant value;
                         value.setValue(action);
-                        it->setData(0, RangeData::CodeActionRole, value);
+                        item->setData(value, RangeData::CodeActionRole);
                     }
                     // mark as already having actions added
-                    child->setData(0, RangeData::DiagnosticRole, true);
-                    child->setExpanded(true);
+                    child->setData(true, RangeData::DiagnosticRole);
+                    treeWidget->setExpanded(child->index(), true);
                 }
             }
         };
@@ -756,34 +774,33 @@ public:
         return nullptr;
     }
 
-    void onExpanded(const QModelIndex & index, QTreeWidget * treeWidget)
+    void onExpanded(const QModelIndex & index, QStandardItemModel * treeModel)
     {
-        auto rootIndex = index.data(RangeData::EndColumnRole).toInt();
-        auto rootItem = treeWidget->topLevelItem(rootIndex);
+        auto rootItem = treeModel->itemFromIndex(index);
 
-        if (!rootItem || rootItem->data(0, RangeData::KindRole).toBool())
+        if (!rootItem || rootItem->data(RangeData::KindRole).toBool())
             return;
 
         KTextEditor::Document *doc = nullptr;
         QScopedPointer<FileLineReader> fr;
-        for (int i = 0; i < rootItem->childCount(); i++) {
+        for (int i = 0; i < rootItem->rowCount(); i++) {
             auto child = rootItem->child(i);
             if (i == 0) {
-                auto url = child->data(0, RangeData::FileUrlRole).toUrl();
+                auto url = child->data(RangeData::FileUrlRole).toUrl();
                 doc = findDocument(url);
                 if (!doc) {
                     fr.reset(new FileLineReader(url));
                 }
             }
-            auto text = child->text(0);
-            auto lineno = child->data(0, RangeData::StartLineRole).toInt();
+            auto text = child->data(Qt::DisplayRole).toString();
+            auto lineno = child->data(RangeData::StartLineRole).toInt();
             auto line = doc ? doc->line(lineno) : fr->line(lineno);
             text += line;
-            child->setText(0, text);
+            child->setData(text, Qt::DisplayRole);
         }
 
         // mark as processed
-        rootItem->setData(0, RangeData::KindRole, true);
+        rootItem->setData(RangeData::KindRole, true);
     }
 
     LSPRange transformRange(const QUrl & url, const LSPClientRevisionSnapshot & snapshot, const LSPRange & range)
@@ -800,61 +817,62 @@ public:
         return result;
     }
 
-    void fillItemRoles(QTreeWidgetItem * item, const QUrl & url, const LSPRange _range,
+    void fillItemRoles(QStandardItem * item, const QUrl & url, const LSPRange _range,
         RangeData::KindEnum kind, const LSPClientRevisionSnapshot * snapshot = nullptr)
     {
         auto range = snapshot ? transformRange(url, *snapshot, _range) : _range;
-        item->setData(0, RangeData::FileUrlRole, QVariant(url));
-        item->setData(0, RangeData::StartLineRole, range.start().line());
-        item->setData(0, RangeData::StartColumnRole, range.start().column());
-        item->setData(0, RangeData::EndLineRole, range.end().line());
-        item->setData(0, RangeData::EndColumnRole, range.end().column());
-        item->setData(0, RangeData::KindRole, (int) kind);
+        item->setData(QVariant(url), RangeData::FileUrlRole);
+        item->setData(range.start().line(), RangeData::StartLineRole);
+        item->setData(range.start().column(), RangeData::StartColumnRole);
+        item->setData(range.end().line(), RangeData::EndLineRole);
+        item->setData(range.end().column(), RangeData::EndColumnRole);
+        item->setData((int) kind, RangeData::KindRole);
     }
 
     void makeTree(const QVector<RangeItem> & locations, const LSPClientRevisionSnapshot * snapshot)
     {
         // group by url, assuming input is suitably sorted that way
-        auto treeWidget = new QTreeWidget();
-        treeWidget->setHeaderHidden(true);
-        treeWidget->setFocusPolicy(Qt::NoFocus);
-        treeWidget->setLayoutDirection(Qt::LeftToRight);
-        treeWidget->setColumnCount(1);
-        treeWidget->setSortingEnabled(false);
+        auto treeView = new QTreeView();
+        configureTreeView(treeView);
+
+        auto treeModel = new QStandardItemModel(treeView);
+        treeView->setModel(treeModel);
+        treeModel->setColumnCount(1);
 
         QUrl lastUrl;
-        QTreeWidgetItem *parent = nullptr;
+        QStandardItem *parent = nullptr;
         for (const auto & loc: locations) {
             if (loc.uri != lastUrl) {
                 if (parent) {
-                    parent->setText(0, QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->childCount()));
+                    parent->setText(QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->rowCount()));
                 }
                 lastUrl = loc.uri;
-                parent = new QTreeWidgetItem(treeWidget);
-                parent->setData(0, RangeData::EndColumnRole, treeWidget->topLevelItemCount() - 1);
+                parent = new QStandardItem();
+                treeModel->appendRow(parent);
             }
-            auto item = new QTreeWidgetItem(parent);
-            item->setText(0, i18n("Line: %1: ", loc.range.start().line() + 1));
+            auto item = new QStandardItem();
+            parent->appendRow(item);
+            item->setText(i18n("Line: %1: ", loc.range.start().line() + 1));
             fillItemRoles(item, loc.uri, loc.range, loc.kind, snapshot);
         }
         if (parent)
-            parent->setText(0, QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->childCount()));
+            parent->setText(QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->rowCount()));
+
 
         // add line data if file (root) item gets expanded
-        auto h = [this, treeWidget] (const QModelIndex & index) { onExpanded(index, treeWidget); };
-        connect(treeWidget, &QTreeWidget::expanded, this, h);
+        auto h = [this, treeModel] (const QModelIndex & index) { onExpanded(index, treeModel); };
+        connect(treeView, &QTreeView::expanded, this, h);
 
         // plain heuristic; auto-expand all when safe and/or useful to do so
-        if (treeWidget->topLevelItemCount() <= 2 || locations.size() <= 20) {
-            treeWidget->expandAll();
+        if (treeModel->rowCount() <= 2 || locations.size() <= 20) {
+            treeView->expandAll();
         }
 
-
-        m_ownedTree.reset(treeWidget);
-        m_markTree = treeWidget;
+        m_ownedTree.reset(treeView);
+        m_markTree = treeView;
     }
 
-    void showTree(const QString & title, QPointer<QTreeWidget> *targetTree)
+    void showTree(const QString & title, QPointer<QTreeView> *targetTree)
     {
         // clean up previous target if any
         if (targetTree && *targetTree) {
@@ -866,7 +884,7 @@ public:
         // transfer widget from owned to tabwidget
         auto treeWidget = m_ownedTree.take();
         int index = m_tabWidget->addTab(treeWidget, title);
-        connect(treeWidget, &QTreeWidget::itemClicked, this, &self_type::goToItemLocation);
+        connect(treeWidget, &QTreeView::clicked, this, &self_type::goToItemLocation);
 
         // track for later cleanup
         if (targetTree)
@@ -947,7 +965,7 @@ public:
     void processLocations(const QString & title,
         const typename utils::identity<LocationRequest<HandlerType>>::type & req, bool onlyshow,
         const std::function<RangeItem(const ReplyEntryType &)> & itemConverter,
-        QPointer<QTreeWidget> *targetTree = nullptr)
+        QPointer<QTreeView> *targetTree = nullptr)
     {
         // no capture for move only using initializers available (yet), so shared outer type
         // the additional level of indirection is so it can be 'filled-in' after lambda creation
@@ -1186,20 +1204,14 @@ public:
         delayCancelRequest(std::move(handle));
     }
 
-    static QTreeWidgetItem*
-    getItem(const QTreeWidget *treeWidget, const QUrl & url)
+    static QStandardItem*
+    getItem(const QStandardItemModel &model, const QUrl & url)
     {
-        Q_ASSERT(treeWidget);
-
-        QTreeWidgetItem *topItem = nullptr;
-        for (int i = 0; i < treeWidget->topLevelItemCount(); ++i) {
-            auto item = treeWidget->topLevelItem(i);
-            if (item->text(0) == url.path()) {
-                topItem = item;
-                break;
-            }
+        auto l = model.findItems(url.path());
+        if (l.length()) {
+            return l.at(0);
         }
-        return topItem;
+        return nullptr;
     }
 
     // select/scroll to diagnostics item for document and (optionally) line
@@ -1209,17 +1221,17 @@ public:
             return false;
 
         auto hint = QAbstractItemView::PositionAtTop;
-        QTreeWidgetItem *targetItem = nullptr;
-        QTreeWidgetItem *topItem = getItem(m_diagnosticsTree, document->url());
+        QStandardItem *targetItem = nullptr;
+        QStandardItem *topItem = getItem(*m_diagnosticsModel, document->url());
         if (topItem) {
-            int count = topItem->childCount();
+            int count = topItem->rowCount();
             // let's not run wild on a linear search in a flood of diagnostics
             // user is already in enough trouble as it is ;-)
             if (count > 50)
                 count = 0;
             for (int i = 0; i < count; ++i) {
                 auto item = topItem->child(i);
-                int itemline = item->data(0, RangeData::StartLineRole).toInt();
+                int itemline = item->data(RangeData::StartLineRole).toInt();
                 if (line == itemline && m_diagnosticsTree) {
                     targetItem = item;
                     hint = QAbstractItemView::PositionAtCenter;
@@ -1232,8 +1244,8 @@ public:
         }
         if (targetItem) {
             m_diagnosticsTree->blockSignals(true);
-            m_diagnosticsTree->scrollToItem(targetItem, hint);
-            m_diagnosticsTree->setCurrentItem(targetItem);
+            m_diagnosticsTree->scrollTo(targetItem->index(), hint);
+            m_diagnosticsTree->setCurrentIndex(targetItem->index());
             m_diagnosticsTree->blockSignals(false);
             if (doShow) {
                 m_tabWidget->setCurrentWidget(m_diagnosticsTree);
@@ -1275,46 +1287,54 @@ public:
         if (!m_diagnosticsTree)
             return;
 
-        QTreeWidgetItem *topItem = getItem(m_diagnosticsTree, diagnostics.uri);
+        QStandardItemModel *model = m_diagnosticsModel.get();
+        QStandardItem *topItem = getItem(*m_diagnosticsModel, diagnostics.uri);
 
         if (!topItem) {
-            topItem = new QTreeWidgetItem(m_diagnosticsTree);
-            topItem->setText(0, diagnostics.uri.path());
+            topItem = new QStandardItem();
+            model->appendRow(topItem);
+            topItem->setText(diagnostics.uri.path());
         } else {
-            qDeleteAll(topItem->takeChildren());
+            topItem->setRowCount(0);
         }
 
         for (const auto & diag : diagnostics.diagnostics) {
-            auto item = new QTreeWidgetItem(topItem);
+            auto item = new QStandardItem();
+            topItem->appendRow(item);
             QString source;
             if (diag.source.length()) {
                 source = QStringLiteral("[%1] ").arg(diag.source);
             }
-            item->setIcon(0, diagnosticsIcon(diag.severity));
-            item->setText(0, source + diag.message);
+            item->setData(diagnosticsIcon(diag.severity), Qt::DecorationRole);
+            item->setText(source + diag.message);
             fillItemRoles(item, diagnostics.uri, diag.range, diag.severity);
             QVariant value;
             value.setValue(diag);
-            item->setData(0, RangeData::DiagnosticRole, value);
+            item->setData(value, RangeData::DiagnosticRole);
             const auto &related = diag.relatedInformation;
             if (!related.location.uri.isEmpty()) {
-                auto relatedItem = new QTreeWidgetItem(item);
-                relatedItem->setText(0, related.message);
+                auto relatedItemMessage = new QStandardItem();
+                relatedItemMessage->setText(related.message);
+                fillItemRoles(relatedItemMessage, related.location.uri, related.location.range, RangeData::KindEnum::Related);
+                auto relatedItemPath = new QStandardItem();
                 auto basename = QFileInfo(related.location.uri.path()).fileName();
-                relatedItem->setText(1, QStringLiteral("%1:%2").arg(basename).arg(related.location.range.start().line()));
-                fillItemRoles(relatedItem, related.location.uri, related.location.range, RangeData::KindEnum::Related);
-                item->setExpanded(true);
+                relatedItemPath->setText(QStringLiteral("%1:%2").arg(basename).arg(related.location.range.start().line()));
+                item->appendRow({relatedItemMessage, relatedItemPath});
+                m_diagnosticsTree->setExpanded(item->index(), true);
             }
         }
 
         // TODO perhaps add some custom delegate that only shows 1 line
         // and only the whole text when item selected ??
-        topItem->setExpanded(true);
-        topItem->setHidden(topItem->childCount() == 0);
+        m_diagnosticsTree->setExpanded(topItem->index(), true);
+        m_diagnosticsTree->setRowHidden(topItem->row(), QModelIndex(), topItem->rowCount() == 0);
+        m_diagnosticsTree->scrollTo(topItem->index(), QAbstractItemView::PositionAtTop);
 
-        m_diagnosticsTree->resizeColumnToContents(1);
-        m_diagnosticsTree->resizeColumnToContents(0);
-        m_diagnosticsTree->scrollToItem(topItem, QAbstractItemView::PositionAtTop);
+        auto header = m_diagnosticsTree->header();
+        header->setStretchLastSection(false);
+        header->setMinimumSectionSize(0);
+        header->setSectionResizeMode(0, QHeaderView::Stretch);
+        header->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
         updateState();
     }

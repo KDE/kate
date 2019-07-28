@@ -1107,6 +1107,19 @@ public:
         h({m_accept_edit, QString()});
     }
 
+    template<typename Collection>
+    void checkEditResult(const Collection & c)
+    {
+        if (c.size() == 0) {
+            showMessage(i18n("No edits"), KTextEditor::Message::Information);
+        }
+    }
+
+    void delayCancelRequest(LSPClientServer::RequestHandle && h, int timeout_ms = 4000)
+    {
+        QTimer::singleShot(timeout_ms, this, [this, h] () mutable { h.cancel(); });
+    }
+
     void format()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -1127,15 +1140,19 @@ public:
         // (again) assuming reply ranges wrt revisions submitted at this time
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
         auto h = [this, document, snapshot] (const QList<LSPTextEdit> & edits)
-        { if (document) applyEdits(document, snapshot.get(), edits); };
+        {
+            checkEditResult(edits);
+            if (document) {
+                applyEdits(document, snapshot.get(), edits);
+            }
+        };
 
-        if (activeView->selection()) {
+        auto handle = activeView->selection() ?
             server->documentRangeFormatting(document->url(), activeView->selectionRange(),
-                tabSize, insertSpaces, QJsonObject(), this, h);
-        } else {
+                tabSize, insertSpaces, QJsonObject(), this, h) :
             server->documentFormatting(document->url(),
                 tabSize, insertSpaces, QJsonObject(), this, h);
-        }
+        delayCancelRequest(std::move(handle));
     }
 
     void rename()
@@ -1160,8 +1177,13 @@ public:
 
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
         auto h = [this, snapshot] (const LSPWorkspaceEdit & edit)
-        { applyWorkspaceEdit(edit, snapshot.get()); };
-        server->documentRename(document->url(), activeView->cursorPosition(), newName, this, h);
+        {
+            checkEditResult(edit.changes);
+            applyWorkspaceEdit(edit, snapshot.get());
+        };
+        auto handle = server->documentRename(document->url(),
+            activeView->cursorPosition(), newName, this, h);
+        delayCancelRequest(std::move(handle));
     }
 
     static QTreeWidgetItem*

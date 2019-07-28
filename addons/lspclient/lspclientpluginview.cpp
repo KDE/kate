@@ -56,6 +56,7 @@
 #include <QAction>
 #include <QTreeWidget>
 #include <QHeaderView>
+#include <QInputDialog>
 #include <QTimer>
 #include <QSet>
 #include <QTextCodec>
@@ -208,6 +209,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_triggerHighlight;
     QPointer<QAction> m_triggerHover;
     QPointer<QAction> m_triggerFormat;
+    QPointer<QAction> m_triggerRename;
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_refDeclaration;
     QPointer<QAction> m_diagnostics;
@@ -284,6 +286,8 @@ public:
         m_triggerHover->setText(i18n("Hover"));
         m_triggerFormat = actionCollection()->addAction(QStringLiteral("lspclient_format"), this, &self_type::format);
         m_triggerFormat->setText(i18n("Format"));
+        m_triggerRename = actionCollection()->addAction(QStringLiteral("lspclient_rename"), this, &self_type::rename);
+        m_triggerRename->setText(i18n("Rename"));
 
         // general options
         m_complDocOn = actionCollection()->addAction(QStringLiteral("lspclient_completion_doc"), this, &self_type::displayOptionChanged);
@@ -319,6 +323,7 @@ public:
         menu->addAction(m_triggerHighlight);
         menu->addAction(m_triggerHover);
         menu->addAction(m_triggerFormat);
+        menu->addAction(m_triggerRename);
         menu->addSeparator();
         menu->addAction(m_complDocOn);
         menu->addAction(m_refDeclaration);
@@ -1133,6 +1138,32 @@ public:
         }
     }
 
+    void rename()
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        QPointer<KTextEditor::Document> document = activeView->document();
+        auto server = m_serverManager->findServer(activeView);
+        if (!server || !document)
+            return;
+
+        bool ok = false;
+        // results are typically (too) limited
+        // due to server implementation or limited view/scope
+        // so let's add a disclaimer that it's not our fault
+        QString newName = QInputDialog::getText(activeView,
+            i18nc("@title:window", "Rename"),
+            i18nc("@label:textbox", "New name (caution: not all references may be replaced)"),
+            QLineEdit::Normal, QString(), &ok);
+        if (!ok) {
+            return;
+        }
+
+        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
+        auto h = [this, snapshot] (const LSPWorkspaceEdit & edit)
+        { applyWorkspaceEdit(edit, snapshot.get()); };
+        server->documentRename(document->url(), activeView->cursorPosition(), newName, this, h);
+    }
+
     static QTreeWidgetItem*
     getItem(const QTreeWidget *treeWidget, const QUrl & url)
     {
@@ -1273,6 +1304,7 @@ public:
         bool defEnabled = false, declEnabled = false, refEnabled = false;
         bool hoverEnabled = false, highlightEnabled = false;
         bool formatEnabled = false;
+        bool renameEnabled = false;
 
         if (server) {
             const auto& caps = server->capabilities();
@@ -1283,6 +1315,7 @@ public:
             hoverEnabled = caps.hoverProvider;
             highlightEnabled = caps.documentHighlightProvider;
             formatEnabled = caps.documentFormattingProvider || caps.documentRangeFormattingProvider;
+            renameEnabled = caps.renameProvider;
 
             connect(server.get(), &LSPClientServer::publishDiagnostics,
                 this, &self_type::onDiagnostics, Qt::UniqueConnection);
@@ -1302,6 +1335,8 @@ public:
             m_triggerHover->setEnabled(hoverEnabled);
         if (m_triggerFormat)
             m_triggerFormat->setEnabled(formatEnabled);
+        if (m_triggerRename)
+            m_triggerRename->setEnabled(renameEnabled);
         if (m_complDocOn)
             m_complDocOn->setEnabled(server);
         if (m_restartServer)

@@ -10,6 +10,7 @@
       <Action name="lspclient_highlight"/>
       <Action name="lspclient_hover"/>
       <Action name="lspclient_format"/>
+      <Action name="lspclient_rename"/>
       <Separator/>
       <Action name="lspclient_completion_doc"/>
       <Action name="lspclient_references_declaration"/>

@@ -73,8 +73,6 @@ enum {
     FileUrlRole = Qt::UserRole + 1,
     RangeRole,
     KindRole,
-    DiagnosticRole,
-    CodeActionRole
 };
 
 class KindEnum
@@ -118,8 +116,6 @@ static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagAll =
 
 }
 
-Q_DECLARE_METATYPE(LSPDiagnostic)
-Q_DECLARE_METATYPE(LSPCodeAction)
 
 static QIcon
 diagnosticsIcon(LSPDiagnosticSeverity severity)
@@ -657,6 +653,27 @@ public:
         goToDocumentLocation(url, start.line(), start.column());
     }
 
+    // custom item subclass that captures additional attributes;
+    // a bit more convenient than the variant/role way
+    struct DiagnosticItem : public QStandardItem
+    {
+        LSPDiagnostic m_diagnostic;
+        LSPCodeAction m_codeAction;
+        QSharedPointer<LSPClientRevisionSnapshot> m_snapshot;
+
+        DiagnosticItem(const LSPDiagnostic & d) :
+            m_diagnostic(d)
+        {}
+
+        DiagnosticItem(const LSPCodeAction & c, QSharedPointer<LSPClientRevisionSnapshot> s) :
+            m_codeAction(c), m_snapshot(s)
+        { m_diagnostic.range = LSPRange::invalid(); }
+
+        bool isCodeAction()
+        { return !m_diagnostic.range.isValid() && m_codeAction.title.size(); }
+    };
+
+
     // double click on:
     // diagnostic item -> request and add actions (below item)
     // code action -> perform action (literal edit and/or execute command)
@@ -666,17 +683,15 @@ public:
         KTextEditor::View *activeView = m_mainWindow->activeView();
         QPointer<KTextEditor::Document> document = activeView->document();
         auto server = m_serverManager->findServer(activeView);
-        auto it = m_diagnosticsModel->itemFromIndex(index);
+        auto it = dynamic_cast<DiagnosticItem*>(m_diagnosticsModel->itemFromIndex(index));
         if (!server || !document || !it)
             return;
 
         // click on an action ?
-        auto vaction = it->data(RangeData::CodeActionRole);
-        if (!vaction.isNull()) {
-            auto action = vaction.value<LSPCodeAction>();
+        if (it->isCodeAction()) {
+            auto& action = it->m_codeAction;
             // apply edit before command
-            // TODO store and retrieve snapshot
-            applyWorkspaceEdit(action.edit, nullptr);
+            applyWorkspaceEdit(action.edit, it->m_snapshot.get());
             const auto &command = action.command;
             if (command.command.size()) {
                 // accept edit requests that may be sent to execute command
@@ -688,54 +703,43 @@ public:
             return;
         }
 
-        // only engage action if active document matches diagnostic document
-        // and if really clicked a diagnostic item
+        // only engage action if
+        // * active document matches diagnostic document
+        // * if really clicked a diagnostic item
+        //   (which is the case as it != nullptr and not a code action)
+        // * if no code action invoked and added already
         auto url = it->data(RangeData::FileUrlRole).toUrl();
-        auto vdiagnostic = it->data(RangeData::DiagnosticRole);
-        if (url != document->url() || vdiagnostic.isNull() || vdiagnostic.type() == QVariant::Bool)
+        if (url != document->url() || it->hasChildren())
             return;
 
-        auto diagnostic = vdiagnostic.value<LSPDiagnostic>();
+        // store some things to find item safely later on
+        QPersistentModelIndex pindex(index);
+        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
+        auto h = [this, url, snapshot, pindex] (const QList<LSPCodeAction> actions)
+        {
+            if (!pindex.isValid())
+                return;
+            auto child = m_diagnosticsModel->itemFromIndex(pindex);
+            if (!child)
+                return;
+            // add actions below diagnostic item
+            for (const auto &action: actions) {
+                auto item = new DiagnosticItem(action, snapshot);
+                child->appendRow(item);
+                auto text = action.kind.size() ?
+                    QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) :
+                    action.title;
+                item->setData(text, Qt::DisplayRole);
+                item->setData(codeActionIcon(), Qt::DecorationRole);
+            }
+            m_diagnosticsTree->setExpanded(child->index(), true);
+        };
+
         auto range = activeView->selectionRange();
         if (!range.isValid()) {
             range = document->documentRange();
         }
-
-        // store some things to find item safely later on
-        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
-        auto h = [this, url, diagnostic, snapshot] (const QList<LSPCodeAction> actions)
-        {
-            auto treeWidget = m_diagnosticsTree;
-            auto rootItem = getItem(*m_diagnosticsModel, url);
-            if (!rootItem)
-                return;
-            // find diagnostic item
-            // TODO use other (model/view) approach to improve all this (here/elsewhere)
-            for (int i = 0; i < rootItem->rowCount(); i++) {
-                auto child = rootItem->child(i);
-                auto d = child->data(RangeData::DiagnosticRole).value<LSPDiagnostic>();
-                if (d.range == diagnostic.range) {
-                    // add actions below diagnostic item
-                    for (const auto &action: actions) {
-                        auto item = new QStandardItem();
-                        child->appendRow(item);
-                        auto text = action.kind.size() ?
-                            QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) :
-                            action.title;
-                        item->setData(text, Qt::DisplayRole);
-                        item->setData(codeActionIcon(), Qt::DecorationRole);
-                        QVariant value;
-                        value.setValue(action);
-                        item->setData(value, RangeData::CodeActionRole);
-                    }
-                    // mark as already having actions added
-                    child->setData(true, RangeData::DiagnosticRole);
-                    treeWidget->setExpanded(child->index(), true);
-                }
-            }
-        };
-
-        server->documentCodeAction(url, range, {}, {diagnostic}, this, h);
+        server->documentCodeAction(url, range, {}, {it->m_diagnostic}, this, h);
     }
 
     void tabCloseRequested(int index)
@@ -1297,7 +1301,7 @@ public:
         }
 
         for (const auto & diag : diagnostics.diagnostics) {
-            auto item = new QStandardItem();
+            auto item = new DiagnosticItem(diag);
             topItem->appendRow(item);
             QString source;
             if (diag.source.length()) {
@@ -1306,9 +1310,6 @@ public:
             item->setData(diagnosticsIcon(diag.severity), Qt::DecorationRole);
             item->setText(source + diag.message);
             fillItemRoles(item, diagnostics.uri, diag.range, diag.severity);
-            QVariant value;
-            value.setValue(diag);
-            item->setData(value, RangeData::DiagnosticRole);
             const auto &related = diag.relatedInformation;
             if (!related.location.uri.isEmpty()) {
                 auto relatedItemMessage = new QStandardItem();

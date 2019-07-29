@@ -69,11 +69,9 @@ namespace RangeData
 {
 
 enum {
-    FileUrlRole = Qt::UserRole,
-    StartLineRole,
-    StartColumnRole,
-    EndLineRole,
-    EndColumnRole,
+    // preserve UserRole for generic use where needed
+    FileUrlRole = Qt::UserRole + 1,
+    RangeRole,
     KindRole,
     DiagnosticRole,
     CodeActionRole
@@ -508,13 +506,10 @@ public:
         if (url != doc->url())
             return;
 
-        int line = item->data(RangeData::StartLineRole).toInt();
-        int column = item->data(RangeData::StartColumnRole).toInt();
-        int endLine = item->data(RangeData::EndLineRole).toInt();
-        int endColumn = item->data(RangeData::EndColumnRole).toInt();
+        KTextEditor::Range range = item->data(RangeData::RangeRole).value<LSPRange>();
+        auto line = range.start().line();
         RangeData::KindEnum kind = (RangeData::KindEnum) item->data(RangeData::KindRole).toInt();
 
-        KTextEditor::Range range(line, column, endLine, endColumn);
         KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
         bool enabled = m_diagnostics && m_diagnostics->isChecked()
@@ -658,9 +653,8 @@ public:
     void goToItemLocation(const QModelIndex & index)
     {
         auto url = index.data(RangeData::FileUrlRole).toUrl();
-        auto line = index.data(RangeData::StartLineRole).toInt();
-        auto column = index.data(RangeData::StartColumnRole).toInt();
-        goToDocumentLocation(url, line, column);
+        auto start = index.data(RangeData::RangeRole).value<LSPRange>().start();
+        goToDocumentLocation(url, start.line(), start.column());
     }
 
     // double click on:
@@ -798,7 +792,7 @@ public:
                 }
             }
             auto text = child->data(Qt::DisplayRole).toString();
-            auto lineno = child->data(RangeData::StartLineRole).toInt();
+            auto lineno = child->data(RangeData::RangeRole).value<LSPRange>().start().line();
             auto line = doc ? doc->line(lineno) : fr->line(lineno);
             text += line;
             child->setData(text, Qt::DisplayRole);
@@ -827,10 +821,9 @@ public:
     {
         auto range = snapshot ? transformRange(url, *snapshot, _range) : _range;
         item->setData(QVariant(url), RangeData::FileUrlRole);
-        item->setData(range.start().line(), RangeData::StartLineRole);
-        item->setData(range.start().column(), RangeData::StartColumnRole);
-        item->setData(range.end().line(), RangeData::EndLineRole);
-        item->setData(range.end().column(), RangeData::EndColumnRole);
+        QVariant vrange;
+        vrange.setValue(range);
+        item->setData(vrange, RangeData::RangeRole);
         item->setData((int) kind, RangeData::KindRole);
     }
 
@@ -1236,7 +1229,7 @@ public:
                 count = 0;
             for (int i = 0; i < count; ++i) {
                 auto item = topItem->child(i);
-                int itemline = item->data(RangeData::StartLineRole).toInt();
+                int itemline = item->data(RangeData::RangeRole).value<LSPRange>().start().line();
                 if (line == itemline && m_diagnosticsTree) {
                     targetItem = item;
                     hint = QAbstractItemView::PositionAtCenter;

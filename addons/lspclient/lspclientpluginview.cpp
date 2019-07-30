@@ -147,6 +147,18 @@ codeActionIcon()
     return icon;
 }
 
+KTextEditor::Document*
+findDocument(KTextEditor::MainWindow *mainWindow, const QUrl & url)
+{
+    auto views = mainWindow->views();
+    for (const auto v: views) {
+        auto doc = v->document();
+        if (doc && doc->url() == url)
+            return doc;
+    }
+    return nullptr;
+}
+
 // helper to read lines from unopened documents
 // lightweight and does not require additional symbols
 class FileLineReader
@@ -765,46 +777,55 @@ public:
     bool compareRangeItem(const RangeItem & a, const RangeItem & b)
     { return (a.uri < b.uri) || ((a.uri == b.uri) && a.range < b.range); }
 
-    KTextEditor::Document*
-    findDocument(const QUrl & url)
+    // provide Qt::DisplayRole (text) line lazily;
+    // only find line's text content when so requested
+    // This may then involve opening reading some file, at which time
+    // all items for that file will be resolved in one go.
+    struct LineItem : public QStandardItem
     {
-        auto views = m_mainWindow->views();
-        for (const auto v: views) {
-            auto doc = v->document();
-            if (doc && doc->url() == url)
-                return doc;
-        }
-        return nullptr;
-    }
+        KTextEditor::MainWindow *m_mainWindow;
 
-    void onExpanded(const QModelIndex & index, QStandardItemModel * treeModel)
-    {
-        auto rootItem = treeModel->itemFromIndex(index);
+        LineItem(KTextEditor::MainWindow *mainWindow) :
+            m_mainWindow(mainWindow)
+        {}
 
-        if (!rootItem || rootItem->data(RangeData::KindRole).toBool())
-            return;
-
-        KTextEditor::Document *doc = nullptr;
-        QScopedPointer<FileLineReader> fr;
-        for (int i = 0; i < rootItem->rowCount(); i++) {
-            auto child = rootItem->child(i);
-            if (i == 0) {
-                auto url = child->data(RangeData::FileUrlRole).toUrl();
-                doc = findDocument(url);
-                if (!doc) {
-                    fr.reset(new FileLineReader(url));
-                }
+        QVariant data(int role = Qt::UserRole + 1) const override
+        {
+            auto rootItem = this->parent();
+            if (role != Qt::DisplayRole || !rootItem) {
+                return QStandardItem::data(role);
             }
-            auto text = child->data(Qt::DisplayRole).toString();
-            auto lineno = child->data(RangeData::RangeRole).value<LSPRange>().start().line();
-            auto line = doc ? doc->line(lineno) : fr->line(lineno);
-            text += line;
-            child->setData(text, Qt::DisplayRole);
+
+            auto line = data(Qt::UserRole);
+            // either of these mean we tried to obtain line already
+            if (line.isValid() || rootItem->data(RangeData::KindRole).toBool()) {
+                return QStandardItem::data(role).toString().append(line.toString());
+            }
+
+            KTextEditor::Document *doc = nullptr;
+            QScopedPointer<FileLineReader> fr;
+            for (int i = 0; i < rootItem->rowCount(); i++) {
+                auto child = rootItem->child(i);
+                if (i == 0) {
+                    auto url = child->data(RangeData::FileUrlRole).toUrl();
+                    doc = findDocument(m_mainWindow, url);
+                    if (!doc) {
+                        fr.reset(new FileLineReader(url));
+                    }
+                }
+                auto lineno = child->data(RangeData::RangeRole).value<LSPRange>().start().line();
+                auto line = doc ? doc->line(lineno) : fr->line(lineno);
+                child->setData(line, Qt::UserRole);
+            }
+
+            // mark as processed
+            rootItem->setData(RangeData::KindRole, true);
+
+            // should work ok
+            return data(role);
         }
 
-        // mark as processed
-        rootItem->setData(RangeData::KindRole, true);
-    }
+    };
 
     LSPRange transformRange(const QUrl & url, const LSPClientRevisionSnapshot & snapshot, const LSPRange & range)
     {
@@ -852,18 +873,14 @@ public:
                 parent = new QStandardItem();
                 treeModel->appendRow(parent);
             }
-            auto item = new QStandardItem();
+            auto item = new LineItem(m_mainWindow);
             parent->appendRow(item);
+            // add partial display data; line will be added by item later on
             item->setText(i18n("Line: %1: ", loc.range.start().line() + 1));
             fillItemRoles(item, loc.uri, loc.range, loc.kind, snapshot);
         }
         if (parent)
             parent->setText(QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->rowCount()));
-
-
-        // add line data if file (root) item gets expanded
-        auto h = [this, treeModel] (const QModelIndex & index) { onExpanded(index, treeModel); };
-        connect(treeView, &QTreeView::expanded, this, h);
 
         // plain heuristic; auto-expand all when safe and/or useful to do so
         if (treeModel->rowCount() <= 2 || locations.size() <= 20) {
@@ -1098,7 +1115,7 @@ public:
     {
         auto currentView = m_mainWindow->activeView();
         for (auto it = edit.changes.begin(); it != edit.changes.end(); ++it) {
-            auto document = findDocument(it.key());
+            auto document = findDocument(m_mainWindow, it.key());
             if (!document) {
                 KTextEditor::View *view = m_mainWindow->openUrl(it.key());
                 if (view) {

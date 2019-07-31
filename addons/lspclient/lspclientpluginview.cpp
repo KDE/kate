@@ -236,10 +236,10 @@ class LSPClientActionView : public QObject
     // applied search ranges
     typedef QMultiHash<KTextEditor::Document*, KTextEditor::MovingRange*> RangeCollection;
     RangeCollection m_ranges;
-    // tree is either added to tabwidget or owned here
-    QScopedPointer<QTreeView> m_ownedTree;
-    // in either case, the tree that directs applying marks/ranges
-    QPointer<QTreeView> m_markTree;
+    // modelis either owned by tree added to tabwidget or owned here
+    QScopedPointer<QStandardItemModel> m_ownedModel;
+    // in either case, the model that directs applying marks/ranges
+    QPointer<QStandardItemModel> m_markModel;
     // goto definition and declaration jump list is more a menu than a
     // search result, so let's not keep adding new tabs for those
     // previous tree for definition result
@@ -490,8 +490,8 @@ public:
     {
         clearMarks(m_ranges, RangeData::markType);
         // no longer add any again
-        m_ownedTree.reset();
-        m_markTree.clear();
+        m_ownedModel.reset();
+        m_markModel.clear();
     }
 
     void clearAllDiagnosticsMarks()
@@ -628,15 +628,14 @@ public:
         }
     }
 
-    void addMarks(KTextEditor::Document *doc, QTreeView *treeView, RangeCollection & ranges)
+    void addMarks(KTextEditor::Document *doc, QStandardItemModel *treeModel, RangeCollection & ranges)
     {
         // check if already added
         if (ranges.contains(doc))
             return;
 
-        auto model = qobject_cast<QStandardItemModel*>(treeView->model());
-        Q_ASSERT(model);
-        addMarksRec(doc, model->invisibleRootItem(), ranges);
+        Q_ASSERT(treeModel);
+        addMarksRec(doc, treeModel->invisibleRootItem(), ranges);
     }
 
     void goToDocumentLocation(const QUrl & uri, int line, int column)
@@ -758,7 +757,7 @@ public:
     {
         auto widget = m_tabWidget->widget(index);
         if (widget != m_diagnosticsTree) {
-            if (widget == m_markTree) {
+            if (widget == m_markModel->parent()) {
                 clearAllLocationMarks();
             }
             delete widget;
@@ -855,11 +854,7 @@ public:
     void makeTree(const QVector<RangeItem> & locations, const LSPClientRevisionSnapshot * snapshot)
     {
         // group by url, assuming input is suitably sorted that way
-        auto treeView = new QTreeView();
-        configureTreeView(treeView);
-
-        auto treeModel = new QStandardItemModel(treeView);
-        treeView->setModel(treeModel);
+        auto treeModel = new QStandardItemModel();
         treeModel->setColumnCount(1);
 
         QUrl lastUrl;
@@ -882,13 +877,13 @@ public:
         if (parent)
             parent->setText(QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->rowCount()));
 
-        // plain heuristic; auto-expand all when safe and/or useful to do so
+        // plain heuristic; mark for auto-expand all when safe and/or useful to do so
         if (treeModel->rowCount() <= 2 || locations.size() <= 20) {
-            treeView->expandAll();
+            treeModel->invisibleRootItem()->setData(true, RangeData::KindRole);
         }
 
-        m_ownedTree.reset(treeView);
-        m_markTree = treeView;
+        m_ownedModel.reset(treeModel);
+        m_markModel = treeModel;
     }
 
     void showTree(const QString & title, QPointer<QTreeView> *targetTree)
@@ -900,14 +895,24 @@ public:
                 tabCloseRequested(index);
         }
 
-        // transfer widget from owned to tabwidget
-        auto treeWidget = m_ownedTree.take();
-        int index = m_tabWidget->addTab(treeWidget, title);
-        connect(treeWidget, &QTreeView::clicked, this, &self_type::goToItemLocation);
+        // setup view
+        auto treeView = new QTreeView();
+        configureTreeView(treeView);
+
+        // transfer model from owned to tree and that in turn to tabwidget
+        auto treeModel = m_ownedModel.take();
+        treeView->setModel(treeModel);
+        treeModel->setParent(treeView);
+        int index = m_tabWidget->addTab(treeView, title);
+        connect(treeView, &QTreeView::clicked, this, &self_type::goToItemLocation);
+
+        if (treeModel->invisibleRootItem()->data(RangeData::KindRole).toBool()) {
+            treeView->expandAll();
+        }
 
         // track for later cleanup
         if (targetTree)
-            *targetTree = treeWidget;
+            *targetTree = treeView;
 
         // activate the resulting tab
         m_tabWidget->setCurrentIndex(index);
@@ -1411,11 +1416,11 @@ public:
         updateHover(activeView, server.get());
 
         // update marks if applicable
-        if (m_markTree && activeView)
-            addMarks(activeView->document(), m_markTree, m_ranges);
-        if (m_diagnosticsTree && activeView) {
+        if (m_markModel && activeView)
+            addMarks(activeView->document(), m_markModel, m_ranges);
+        if (m_diagnosticsModel && activeView) {
             clearMarks(activeView->document(), m_diagnosticsRanges, RangeData::markTypeDiagAll);
-            addMarks(activeView->document(), m_diagnosticsTree, m_diagnosticsRanges);
+            addMarks(activeView->document(), m_diagnosticsModel.get(), m_diagnosticsRanges);
         }
 
         // connect for cleanup stuff

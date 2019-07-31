@@ -37,6 +37,9 @@
 #include <QTime>
 #include <QFileInfo>
 
+// good/bad old school; allows easier concatenate
+#define CONTENT_LENGTH  "Content-Length"
+
 static const QString MEMBER_ID = QStringLiteral("id");
 static const QString MEMBER_METHOD = QStringLiteral("method");
 static const QString MEMBER_ERROR = QStringLiteral("error");
@@ -402,7 +405,7 @@ private:
         qCInfo(LSPCLIENT) << "calling" << msg[MEMBER_METHOD].toString();
         qCDebug(LSPCLIENT) << "sending message:\n" << QString::fromUtf8(sjson);
         // some simple parsers expect length header first
-        auto hdr = QStringLiteral("Content-Length: %1\r\n").arg(sjson.length());
+        auto hdr = QStringLiteral(CONTENT_LENGTH ": %1\r\n").arg(sjson.length());
         // write is async, so no blocking wait occurs here
         m_sproc.write(hdr.toLatin1());
         m_sproc.write("\r\n");
@@ -431,8 +434,7 @@ private:
 
         while (true) {
             qCDebug(LSPCLIENT) << "buffer size" << buffer.length();
-            // TODO constant
-            auto header = QByteArray("Content-Length:");
+            auto header = QByteArray(CONTENT_LENGTH ":");
             int index = buffer.indexOf(header);
             if (index < 0) {
                 // avoid collecting junk
@@ -451,7 +453,7 @@ private:
             // FIXME perhaps detect if no reply for some time
             // then again possibly better left to user to restart in such case
             if (!ok) {
-                qCWarning(LSPCLIENT) << "invalid Content-Length";
+                qCWarning(LSPCLIENT) << "invalid " CONTENT_LENGTH;
                 // flush and try to carry on to some next header
                 buffer.remove(0, msgstart);
                 continue;

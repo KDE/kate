@@ -719,8 +719,9 @@ public:
         // * if really clicked a diagnostic item
         //   (which is the case as it != nullptr and not a code action)
         // * if no code action invoked and added already
+        //   (note; related items are also children)
         auto url = it->data(RangeData::FileUrlRole).toUrl();
-        if (url != document->url() || it->hasChildren())
+        if (url != document->url() || it->data(Qt::UserRole).toBool())
             return;
 
         // store some things to find item safely later on
@@ -744,6 +745,8 @@ public:
                 item->setData(codeActionIcon(), Qt::DecorationRole);
             }
             m_diagnosticsTree->setExpanded(child->index(), true);
+            // mark actions added
+            child->setData(true, Qt::UserRole);
         };
 
         auto range = activeView->selectionRange();

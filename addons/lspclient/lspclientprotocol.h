@@ -31,6 +31,7 @@
 #include <QVector>
 #include <QHash>
 #include <QJsonArray>
+#include <QJsonObject>
 
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
@@ -242,6 +243,14 @@ struct LSPSignatureHelp
     QList<LSPSignatureInformation> signatures;
     int activeSignature;
     int activeParameter;
+};
+
+struct LSPFormattingOptions
+{
+    int tabSize;
+    bool insertSpaces;
+    // additional fields
+    QJsonObject extra;
 };
 
 struct LSPTextEdit

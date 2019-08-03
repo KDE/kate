@@ -147,10 +147,10 @@ public:
     RequestHandle signatureHelp(const QUrl & document, const LSPPosition & pos,
         const QObject *context, const SignatureHelpReplyHandler & h);
 
-    RequestHandle documentFormatting(const QUrl & document, int tabSize, bool insertSpaces,
-        const QJsonObject & options, const QObject *context, const FormattingReplyHandler & h);
+    RequestHandle documentFormatting(const QUrl & document, const LSPFormattingOptions & options,
+        const QObject *context, const FormattingReplyHandler & h);
     RequestHandle documentRangeFormatting(const QUrl & document, const LSPRange & range,
-        int tabSize, bool insertSpaces, const QJsonObject & options,
+        const LSPFormattingOptions & options,
         const QObject *context, const FormattingReplyHandler & h);
     RequestHandle documentRename(const QUrl & document, const LSPPosition & pos,
         const QString newName,

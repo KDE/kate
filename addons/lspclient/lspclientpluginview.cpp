@@ -1194,9 +1194,9 @@ public:
 
         auto handle = activeView->selection() ?
             server->documentRangeFormatting(document->url(), activeView->selectionRange(),
-                tabSize, insertSpaces, QJsonObject(), this, h) :
+                {tabSize, insertSpaces, QJsonObject()}, this, h) :
             server->documentFormatting(document->url(),
-                tabSize, insertSpaces, QJsonObject(), this, h);
+                {tabSize, insertSpaces, QJsonObject()}, this, h);
         delayCancelRequest(std::move(handle));
     }
 

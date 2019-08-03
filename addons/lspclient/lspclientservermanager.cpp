@@ -114,6 +114,22 @@ merge(const QJsonObject & bottom, const QJsonObject & top)
     return result;
 }
 
+// map (highlight)mode to lsp languageId
+static QString
+languageId(const QString & mode)
+{
+    // special cases
+    static QHash<QString, QString> m;
+    auto it = m.find(mode);
+    if (it != m.end()) {
+        return *it;
+    }
+    // assume sane naming
+    QString result = mode.toLower();
+    result = result.replace(QStringLiteral("++"), QStringLiteral("pp"));
+    return result.replace(QStringLiteral("#"), QStringLiteral("sharp"));
+}
+
 // helper guard to handle revision (un)lock
 struct RevisionGuard
 {
@@ -623,7 +639,7 @@ private:
                     it->modified = false;
                 }
             } else {
-                (it->server)->didOpen(it->url, it->version, doc->text());
+                (it->server)->didOpen(it->url, it->version, languageId(doc->highlightingMode()), doc->text());
                 it->open = true;
             }
         }

@@ -224,6 +224,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_triggerRename;
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_refDeclaration;
+    QPointer<QAction> m_onTypeFormatting;
     QPointer<QAction> m_diagnostics;
     QPointer<QAction> m_diagnosticsHighlight;
     QPointer<QAction> m_diagnosticsMark;
@@ -268,6 +269,8 @@ class LSPClientActionView : public QObject
 
     // accept incoming applyEdit
     bool m_accept_edit = false;
+    // characters to trigger format request
+    QVector<QChar> m_onTypeFormattingTriggers;
 
     KActionCollection *actionCollection() const
     { return m_client->actionCollection(); }
@@ -309,6 +312,9 @@ public:
         m_refDeclaration = actionCollection()->addAction(QStringLiteral("lspclient_references_declaration"), this, &self_type::displayOptionChanged);
         m_refDeclaration->setText(i18n("Include declaration in references"));
         m_refDeclaration->setCheckable(true);
+        m_onTypeFormatting = actionCollection()->addAction(QStringLiteral("lspclient_type_formatting"), this, &self_type::displayOptionChanged);
+        m_onTypeFormatting->setText(i18n("Format on typing"));
+        m_onTypeFormatting->setCheckable(true);
 
         // diagnostics
         m_diagnostics = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics"), this, &self_type::displayOptionChanged);
@@ -340,6 +346,7 @@ public:
         menu->addSeparator();
         menu->addAction(m_complDocOn);
         menu->addAction(m_refDeclaration);
+        menu->addAction(m_onTypeFormatting);
         menu->addSeparator();
         menu->addAction(m_diagnostics);
         menu->addAction(m_diagnosticsHighlight);
@@ -429,6 +436,8 @@ public:
             m_complDocOn->setChecked(m_plugin->m_complDoc);
         if (m_refDeclaration)
             m_refDeclaration->setChecked(m_plugin->m_refDeclaration);
+        if (m_onTypeFormatting)
+            m_onTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
         if (m_diagnostics)
             m_diagnostics->setChecked(m_plugin->m_diagnostics);
         if (m_diagnosticsHighlight)
@@ -1165,7 +1174,7 @@ public:
         QTimer::singleShot(timeout_ms, this, [this, h] () mutable { h.cancel(); });
     }
 
-    void format()
+    void format(QChar lastChar = QChar())
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         QPointer<KTextEditor::Document> document = activeView->document();
@@ -1184,19 +1193,25 @@ public:
         // sigh, no move initialization capture ...
         // (again) assuming reply ranges wrt revisions submitted at this time
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
-        auto h = [this, document, snapshot] (const QList<LSPTextEdit> & edits)
+        auto h = [this, document, snapshot, lastChar] (const QList<LSPTextEdit> & edits)
         {
-            checkEditResult(edits);
+            if (lastChar.isNull()) {
+                checkEditResult(edits);
+            }
             if (document) {
                 applyEdits(document, snapshot.get(), edits);
             }
         };
 
-        auto handle = activeView->selection() ?
-            server->documentRangeFormatting(document->url(), activeView->selectionRange(),
-                {tabSize, insertSpaces, QJsonObject()}, this, h) :
-            server->documentFormatting(document->url(),
-                {tabSize, insertSpaces, QJsonObject()}, this, h);
+        auto options = LSPFormattingOptions {tabSize, insertSpaces, QJsonObject()};
+        auto handle = !lastChar.isNull() ?
+            server->documentOnTypeFormatting(document->url(), activeView->cursorPosition(),
+                lastChar, options, this, h) :
+            (activeView->selection() ?
+                server->documentRangeFormatting(document->url(), activeView->selectionRange(),
+                    options, this, h) :
+                server->documentFormatting(document->url(),
+                    options, this, h));
         delayCancelRequest(std::move(handle));
     }
 
@@ -1363,6 +1378,25 @@ public:
         updateState();
     }
 
+    void onTextChanged(KTextEditor::Document *doc)
+    {
+        if (m_onTypeFormattingTriggers.size() == 0)
+            return;
+
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        if (!activeView || activeView->document() != doc)
+            return;
+
+        // NOTE the intendation mode should probably be set to None,
+        // so as not to experience unpleasant interference
+        auto cursor = activeView->cursorPosition();
+        QChar lastChar = cursor.column() == 0 ? QChar::fromLatin1('\n') :
+            doc->characterAt({cursor.line(), cursor.column() - 1});
+        if (m_onTypeFormattingTriggers.contains(lastChar)) {
+            format(lastChar);
+        }
+    }
+
     void updateState()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -1387,6 +1421,19 @@ public:
                 this, &self_type::onDiagnostics, Qt::UniqueConnection);
             connect(server.get(), &LSPClientServer::applyEdit,
                 this, &self_type::onApplyEdit, Qt::UniqueConnection);
+
+            // update format trigger characters
+            const auto & fmt = caps.documentOnTypeFormattingProvider;
+            if (fmt.provider && m_onTypeFormatting->isChecked()) {
+                m_onTypeFormattingTriggers =  fmt.triggerCharacters;
+            } else {
+                m_onTypeFormattingTriggers.clear();
+            }
+            // and monitor for such
+            if (activeView->document()) {
+                connect(activeView->document(), &KTextEditor::Document::textChanged,
+                    this, &self_type::onTextChanged, Qt::UniqueConnection);
+            }
         }
 
         if (m_findDef)

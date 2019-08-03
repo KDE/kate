@@ -57,6 +57,7 @@ class LSPClientPlugin : public KTextEditor::Plugin
         bool m_diagnostics;
         bool m_diagnosticsHighlight;
         bool m_diagnosticsMark;
+        bool m_onTypeFormatting;
         QUrl m_configPath;
 
         // debug mode?

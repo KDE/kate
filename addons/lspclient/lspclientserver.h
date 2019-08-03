@@ -152,6 +152,9 @@ public:
     RequestHandle documentRangeFormatting(const QUrl & document, const LSPRange & range,
         const LSPFormattingOptions & options,
         const QObject *context, const FormattingReplyHandler & h);
+    RequestHandle documentOnTypeFormatting(const QUrl & document, const LSPPosition & pos,
+        QChar lastChar, const LSPFormattingOptions & options,
+        const QObject *context, const FormattingReplyHandler & h);
     RequestHandle documentRename(const QUrl & document, const LSPPosition & pos,
         const QString newName,
         const QObject *context, const WorkspaceEditReplyHandler & h);

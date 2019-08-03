@@ -79,6 +79,9 @@ struct LSPSignatureHelpOptions
     QVector<QChar> triggerCharacters;
 };
 
+// ensure distinct type
+struct LSPDocumentOnTypeFormattingOptions : public LSPSignatureHelpOptions {};
+
 struct LSPServerCapabilities
 {
     LSPDocumentSyncKind textDocumentSync = LSPDocumentSyncKind::None;
@@ -93,6 +96,7 @@ struct LSPServerCapabilities
     bool documentHighlightProvider = false;
     bool documentFormattingProvider = false;
     bool documentRangeFormattingProvider = false;
+    LSPDocumentOnTypeFormattingOptions documentOnTypeFormattingProvider;
     bool renameProvider = false;
     // CodeActionOptions not useful/considered at present
     bool codeActionProvider = false;

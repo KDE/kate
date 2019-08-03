@@ -183,6 +183,15 @@ referenceParams(const QUrl & document, LSPPosition pos, bool decl)
 }
 
 static QJsonObject
+formattingOptions(const LSPFormattingOptions & _options)
+{
+    auto options = _options.extra;
+    options[QStringLiteral("tabSize")] = _options.tabSize;
+    options[QStringLiteral("insertSpaces")] = _options.insertSpaces;
+    return options;
+}
+
+static QJsonObject
 documentRangeFormattingParams(const QUrl & document, const LSPRange *range,
     const LSPFormattingOptions & _options)
 {
@@ -190,10 +199,17 @@ documentRangeFormattingParams(const QUrl & document, const LSPRange *range,
     if (range) {
         params[MEMBER_RANGE] = to_json(*range);
     }
-    auto options = _options.extra;
-    options[QStringLiteral("tabSize")] = _options.tabSize;
-    options[QStringLiteral("insertSpaces")] = _options.insertSpaces;
-    params[QStringLiteral("options")] = options;
+    params[QStringLiteral("options")] = formattingOptions(_options);
+    return params;
+}
+
+static QJsonObject
+documentOnTypeFormattingParams(const QUrl & document, const LSPPosition & pos,
+    const QChar & lastChar, const LSPFormattingOptions & _options)
+{
+    auto params = textDocumentPositionParams(document, pos);
+    params[QStringLiteral("ch")] = QString(lastChar);
+    params[QStringLiteral("options")] = formattingOptions(_options);
     return params;
 }
 
@@ -273,6 +289,20 @@ from_json(LSPSignatureHelpOptions & options, const QJsonValue & json)
 }
 
 static void
+from_json(LSPDocumentOnTypeFormattingOptions & options, const QJsonValue & json)
+{
+    if (json.isObject()) {
+        auto ob = json.toObject();
+        options.provider = true;
+        from_json(options.triggerCharacters, ob.value(QStringLiteral("moreTriggerCharacter")));
+        auto trigger = ob.value(QStringLiteral("firstTriggerCharacter")).toString();
+        if (trigger.size()) {
+            options.triggerCharacters.insert(0, trigger.at(0));
+        }
+    }
+}
+
+static void
 from_json(LSPServerCapabilities & caps, const QJsonObject & json)
 {
     auto sync = json.value(QStringLiteral("textDocumentSync"));
@@ -288,6 +318,7 @@ from_json(LSPServerCapabilities & caps, const QJsonObject & json)
     caps.documentHighlightProvider = json.value(QStringLiteral("documentHighlightProvider")).toBool();
     caps.documentFormattingProvider = json.value(QStringLiteral("documentFormattingProvider")).toBool();
     caps.documentRangeFormattingProvider = json.value(QStringLiteral("documentRangeFormattingProvider")).toBool();
+    from_json(caps.documentOnTypeFormattingProvider, json.value(QStringLiteral("documentOnTypeFormattingProvider")));
     caps.renameProvider = json.value(QStringLiteral("renameProvider")).toBool();
     auto codeActionProvider = json.value(QStringLiteral("codeActionProvider"));
     caps.codeActionProvider = codeActionProvider.toBool() || codeActionProvider.isObject();
@@ -714,6 +745,13 @@ public:
     {
         auto params = documentRangeFormattingParams(document, &range, options);
         return send(init_request(QStringLiteral("textDocument/rangeFormatting"), params), h);
+    }
+
+    RequestHandle documentOnTypeFormatting(const QUrl & document, const LSPPosition & pos,
+        QChar lastChar, const LSPFormattingOptions & options, const GenericReplyHandler & h)
+    {
+        auto params = documentOnTypeFormattingParams(document, pos, lastChar, options);
+        return send(init_request(QStringLiteral("textDocument/onTypeFormatting"), params), h);
     }
 
     RequestHandle documentRename(const QUrl & document, const LSPPosition & pos,
@@ -1272,6 +1310,12 @@ LSPClientServer::documentRangeFormatting(const QUrl & document, const LSPRange &
     const LSPFormattingOptions & options,
     const QObject *context, const FormattingReplyHandler & h)
 { return d->documentRangeFormatting(document, range, options, make_handler(h, context, parseTextEdit)); }
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentOnTypeFormatting(const QUrl & document, const LSPPosition & pos,
+    const QChar lastChar, const LSPFormattingOptions & options,
+    const QObject *context, const FormattingReplyHandler & h)
+{ return d->documentOnTypeFormatting(document, pos, lastChar, options, make_handler(h, context, parseTextEdit)); }
 
 LSPClientServer::RequestHandle
 LSPClientServer::documentRename(const QUrl & document, const LSPPosition & pos,

@@ -148,7 +148,6 @@ textDocumentItem(const QUrl & document, const QString & lang,
 {
     auto map = versionedTextDocumentIdentifier(document, version);
     map[MEMBER_TEXT] = text;
-    // TODO ?? server does not mind
     map[MEMBER_LANGID] = lang;
     return map;
 }
@@ -739,9 +738,9 @@ public:
         send(init_request(QStringLiteral("workspace/executeCommand"), params));
     }
 
-    void didOpen(const QUrl & document, int version, const QString & text)
+    void didOpen(const QUrl & document, int version, const QString & langId, const QString & text)
     {
-        auto params = textDocumentParams(textDocumentItem(document, QString(), text, version));
+        auto params = textDocumentParams(textDocumentItem(document, langId, text, version));
         send(init_request(QStringLiteral("textDocument/didOpen"), params));
     }
 
@@ -1290,8 +1289,8 @@ LSPClientServer::documentCodeAction(const QUrl & document, const LSPRange & rang
 void LSPClientServer::executeCommand(const QString & command, const QJsonValue & args)
 { return d->executeCommand(command, args); }
 
-void LSPClientServer::didOpen(const QUrl & document, int version, const QString & text)
-{ return d->didOpen(document, version, text); }
+void LSPClientServer::didOpen(const QUrl & document, int version, const QString & langId, const QString & text)
+{ return d->didOpen(document, version, langId, text); }
 
 void LSPClientServer::didChange(const QUrl & document, int version, const QString & text)
 { return d->didChange(document, version, text); }

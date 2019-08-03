@@ -64,7 +64,7 @@ int main(int argc, char ** argv)
         return -1;
     QTextStream in(&file);
     QString content = in.readAll();
-    lsp.didOpen(document, 0, content);
+    lsp.didOpen(document, 0, QString(), content);
 
     auto ds_h = [&q] (const QList<LSPSymbolInformation> & syms) {
         std::cout << "symbol count: " << syms.length() << std::endl;

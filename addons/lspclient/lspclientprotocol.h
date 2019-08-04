@@ -135,6 +135,12 @@ struct LSPLocation
     LSPRange range;
 };
 
+struct LSPTextDocumentContentChangeEvent
+{
+    LSPRange range;
+    QString text;
+};
+
 enum class LSPDocumentHighlightKind
 {
     Text = 1,

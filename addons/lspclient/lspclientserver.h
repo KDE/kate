@@ -166,7 +166,9 @@ public:
 
     // sync
     void didOpen(const QUrl & document, int version, const QString & langId, const QString & text);
-    void didChange(const QUrl & document, int version, const QString & text);
+    // only 1 of text or changes should be non-empty and is considered
+    void didChange(const QUrl & document, int version, const QString & text,
+        const QList<LSPTextDocumentContentChangeEvent> & changes = {});
     void didSave(const QUrl & document, const QString & text);
     void didClose(const QUrl & document);
 

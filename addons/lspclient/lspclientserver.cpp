@@ -133,6 +133,19 @@ to_json(const LSPDiagnostic & diagnostic)
     return result;
 }
 
+static QJsonArray
+to_json(const QList<LSPTextDocumentContentChangeEvent> & changes)
+{
+    QJsonArray result;
+    for (const auto &change: changes) {
+        result.push_back(QJsonObject {
+                             {MEMBER_RANGE, to_json(change.range)},
+                             {MEMBER_TEXT, change.text}
+                         });
+    }
+    return result;
+}
+
 static QJsonObject
 versionedTextDocumentIdentifier(const QUrl & document, int version = -1)
 {
@@ -785,12 +798,14 @@ public:
         send(init_request(QStringLiteral("textDocument/didOpen"), params));
     }
 
-    void didChange(const QUrl & document, int version, const QString & text)
+    void didChange(const QUrl & document, int version, const QString & text,
+        const QList<LSPTextDocumentContentChangeEvent> & changes)
     {
+        Q_ASSERT(text.size() == 0 || changes.size() == 0);
         auto params = textDocumentParams(document, version);
-        params[QStringLiteral("contentChanges")] = QJsonArray {
-            QJsonObject {{MEMBER_TEXT, text}}
-        };
+        params[QStringLiteral("contentChanges")] = text.size()
+                ? QJsonArray { QJsonObject {{MEMBER_TEXT, text}} }
+                : to_json(changes);
         send(init_request(QStringLiteral("textDocument/didChange"), params));
     }
 
@@ -1356,8 +1371,9 @@ void LSPClientServer::executeCommand(const QString & command, const QJsonValue &
 void LSPClientServer::didOpen(const QUrl & document, int version, const QString & langId, const QString & text)
 { return d->didOpen(document, version, langId, text); }
 
-void LSPClientServer::didChange(const QUrl & document, int version, const QString & text)
-{ return d->didChange(document, version, text); }
+void LSPClientServer::didChange(const QUrl & document, int version, const QString & text,
+    const QList<LSPTextDocumentContentChangeEvent> & changes)
+{ return d->didChange(document, version, text, changes); }
 
 void LSPClientServer::didSave(const QUrl & document, const QString & text)
 { return d->didSave(document, text); }

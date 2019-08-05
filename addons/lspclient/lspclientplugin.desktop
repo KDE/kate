@@ -4,6 +4,7 @@ ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=lspclientplugin
 Name=LSP Client
 Name[ca]=Client LSP
+Name[de]=LSP-CLient
 Name[el]=Πελάτης LSP
 Name[en_GB]=LSP Client
 Name[es]=Cliente LSP

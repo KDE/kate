@@ -91,6 +91,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
+#include <memory>
+
 // local helper;
 // recursively merge top json top onto bottom json
 static QJsonObject
@@ -290,7 +292,7 @@ public:
         int count = 0;
         for (const auto & el: m_servers) {
             for (const auto & s: el) {
-                disconnect(s.get(), nullptr, this, nullptr);
+                disconnect(s.data(), nullptr, this, nullptr);
                 if (s->state() != LSPClientServer::State::None) {
                     auto handler = [&q, &count, s] () {
                         if (s->state() != LSPClientServer::State::None) {
@@ -299,7 +301,7 @@ public:
                             }
                         }
                     };
-                    connect(s.get(), &LSPClientServer::stateChanged, this, handler);
+                    connect(s.data(), &LSPClientServer::stateChanged, this, handler);
                     ++count;
                     s->stop(-1, -1);
                 }
@@ -333,7 +335,7 @@ public:
         }
 
         if (server && updatedoc)
-            update(server.get(), false);
+            update(server.data(), false);
         return server;
     }
 
@@ -348,7 +350,7 @@ public:
         // find entry for server(s) and move out
         for (auto & m : m_servers) {
             for (auto it = m.begin() ; it != m.end(); ) {
-                if (!server || it->get() == server) {
+                if (!server || it->data() == server) {
                     servers.push_back(*it);
                     it = m.erase(it);
                 } else {
@@ -398,7 +400,7 @@ private:
         // close docs
         for (const auto & server : servers) {
             // controlling server here, so disable usual state tracking response
-            disconnect(server.get(), nullptr, this, nullptr);
+            disconnect(server.data(), nullptr, this, nullptr);
             for (auto it = m_docs.begin(); it != m_docs.end(); ) {
                 auto &item = it.value();
                 if (item.server == server) {
@@ -513,7 +515,7 @@ private:
             if (cmdline.length() > 0) {
                 server.reset(new LSPClientServer(cmdline, root, serverConfig.value(QStringLiteral("initializationOptions"))));
                 m_servers[root][mode] = server;
-                connect(server.get(), &LSPClientServer::stateChanged,
+                connect(server.data(), &LSPClientServer::stateChanged,
                     this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start()) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))),

@@ -286,7 +286,7 @@ public:
     {
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
         connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
-        connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, &self_type::updateState);
+        connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, &self_type::updateState);
 
         m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
         m_findDef->setText(i18n("Go to Definition"));
@@ -363,7 +363,7 @@ public:
                                                  KTextEditor::MainWindow::Bottom,
                                                  QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
                                                  i18n("LSP Client")));
-        m_tabWidget = new QTabWidget(m_toolView.get());
+        m_tabWidget = new QTabWidget(m_toolView.data());
         m_toolView->layout()->addWidget(m_tabWidget);
         m_tabWidget->setFocusPolicy(Qt::NoFocus);
         m_tabWidget->setTabsClosable(true);
@@ -377,13 +377,13 @@ public:
         m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
         m_diagnosticsModel.reset(new QStandardItemModel());
         m_diagnosticsModel->setColumnCount(2);
-        m_diagnosticsTree->setModel(m_diagnosticsModel.get());
+        m_diagnosticsTree->setModel(m_diagnosticsModel.data());
         connect(m_diagnosticsTree, &QTreeView::clicked, this, &self_type::goToItemLocation);
         connect(m_diagnosticsTree, &QTreeView::doubleClicked, this, &self_type::triggerCodeAction);
 
         // track position in view to sync diagnostics list
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 0, 500));
-        connect(m_viewTracker.get(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
+        connect(m_viewTracker.data(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
 
         configUpdated();
         updateState();
@@ -393,12 +393,12 @@ public:
     {
         // unregister all code-completion providers, else we might crash
         for (auto view : qAsConst(m_completionViews)) {
-            qobject_cast<KTextEditor::CodeCompletionInterface *>(view)->unregisterCompletionModel(m_completion.get());
+            qobject_cast<KTextEditor::CodeCompletionInterface *>(view)->unregisterCompletionModel(m_completion.data());
         }
 
         // unregister all text-hint providers, else we might crash
         for (auto view : qAsConst(m_hoverViews)) {
-            qobject_cast<KTextEditor::TextHintInterface *>(view)->unregisterTextHintProvider(m_hover.get());
+            qobject_cast<KTextEditor::TextHintInterface *>(view)->unregisterTextHintProvider(m_hover.data());
         }
 
         clearAllLocationMarks();
@@ -452,7 +452,7 @@ public:
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
         if (server)
-            m_serverManager->restart(server.get());
+            m_serverManager->restart(server.data());
     }
 
     void restartAll()
@@ -711,7 +711,7 @@ public:
         if (it->isCodeAction()) {
             auto& action = it->m_codeAction;
             // apply edit before command
-            applyWorkspaceEdit(action.edit, it->m_snapshot.get());
+            applyWorkspaceEdit(action.edit, it->m_snapshot.data());
             const auto &command = action.command;
             if (command.command.size()) {
                 // accept edit requests that may be sent to execute command
@@ -735,7 +735,7 @@ public:
 
         // store some things to find item safely later on
         QPersistentModelIndex pindex(index);
-        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
+        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
         auto h = [this, url, snapshot, pindex] (const QList<LSPCodeAction> actions)
         {
             if (!pindex.isValid())
@@ -928,7 +928,7 @@ public:
 
         // activate the resulting tab
         m_tabWidget->setCurrentIndex(index);
-        m_mainWindow->showToolView(m_toolView.get());
+        m_mainWindow->showToolView(m_toolView.data());
     }
 
     void showMessage(const QString & text, KTextEditor::Message::MessageType level)
@@ -952,7 +952,7 @@ public:
             if (!m_ranges.empty()) {
                 clearAllLocationMarks();
             } else if (m_toolView->isVisible()) {
-                m_mainWindow->hideToolView(m_toolView.get());
+                m_mainWindow->hideToolView(m_toolView.data());
             }
         }
     }
@@ -973,7 +973,7 @@ public:
 
         // track revision if requested
         if (snapshot) {
-            snapshot->reset(m_serverManager->snapshot(server.get()));
+            snapshot->reset(m_serverManager->snapshot(server.data()));
         }
 
         KTextEditor::Cursor cursor = activeView->cursorPosition();
@@ -1019,7 +1019,7 @@ public:
                 }
                 // ... so we can sort it also
                 std::stable_sort(ranges.begin(), ranges.end(), compareRangeItem);
-                makeTree(ranges, s.get()->get());
+                makeTree(ranges, s.data()->data());
 
                 // assuming that reply ranges refer to revision when submitted
                 // (not specified anyway in protocol/reply)
@@ -1038,7 +1038,7 @@ public:
             }
         };
 
-        positionRequest<HandlerType>(req, h, s.get());
+        positionRequest<HandlerType>(req, h, s.data());
     }
 
     static RangeItem
@@ -1192,14 +1192,14 @@ public:
 
         // sigh, no move initialization capture ...
         // (again) assuming reply ranges wrt revisions submitted at this time
-        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
+        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
         auto h = [this, document, snapshot, lastChar] (const QList<LSPTextEdit> & edits)
         {
             if (lastChar.isNull()) {
                 checkEditResult(edits);
             }
             if (document) {
-                applyEdits(document, snapshot.get(), edits);
+                applyEdits(document, snapshot.data(), edits);
             }
         };
 
@@ -1235,11 +1235,11 @@ public:
             return;
         }
 
-        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
+        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
         auto h = [this, snapshot] (const LSPWorkspaceEdit & edit)
         {
             checkEditResult(edit.changes);
-            applyWorkspaceEdit(edit, snapshot.get());
+            applyWorkspaceEdit(edit, snapshot.data());
         };
         auto handle = server->documentRename(document->url(),
             activeView->cursorPosition(), newName, this, h);
@@ -1291,7 +1291,7 @@ public:
             m_diagnosticsTree->blockSignals(false);
             if (doShow) {
                 m_tabWidget->setCurrentWidget(m_diagnosticsTree);
-                m_mainWindow->showToolView(m_toolView.get());
+                m_mainWindow->showToolView(m_toolView.data());
             }
         }
         return targetItem != nullptr;
@@ -1329,7 +1329,7 @@ public:
         if (!m_diagnosticsTree)
             return;
 
-        QStandardItemModel *model = m_diagnosticsModel.get();
+        QStandardItemModel *model = m_diagnosticsModel.data();
         QStandardItem *topItem = getItem(*m_diagnosticsModel, diagnostics.uri);
 
         if (!topItem) {
@@ -1417,9 +1417,9 @@ public:
             formatEnabled = caps.documentFormattingProvider || caps.documentRangeFormattingProvider;
             renameEnabled = caps.renameProvider;
 
-            connect(server.get(), &LSPClientServer::publishDiagnostics,
+            connect(server.data(), &LSPClientServer::publishDiagnostics,
                 this, &self_type::onDiagnostics, Qt::UniqueConnection);
-            connect(server.get(), &LSPClientServer::applyEdit,
+            connect(server.data(), &LSPClientServer::applyEdit,
                 this, &self_type::onApplyEdit, Qt::UniqueConnection);
 
             // update format trigger characters
@@ -1459,18 +1459,18 @@ public:
         m_completion->setServer(server);
         if (m_complDocOn)
             m_completion->setSelectedDocumentation(m_complDocOn->isChecked());
-        updateCompletion(activeView, server.get());
+        updateCompletion(activeView, server.data());
 
         // update hover with relevant server
         m_hover->setServer(server);
-        updateHover(activeView, server.get());
+        updateHover(activeView, server.data());
 
         // update marks if applicable
         if (m_markModel && activeView)
             addMarks(activeView->document(), m_markModel, m_ranges);
         if (m_diagnosticsModel && activeView) {
             clearMarks(activeView->document(), m_diagnosticsRanges, RangeData::markTypeDiagAll);
-            addMarks(activeView->document(), m_diagnosticsModel.get(), m_diagnosticsRanges);
+            addMarks(activeView->document(), m_diagnosticsModel.data(), m_diagnosticsRanges);
         }
 
         // connect for cleanup stuff
@@ -1498,13 +1498,13 @@ public:
 
         if (!registered && server && server->capabilities().completionProvider.provider) {
             qCInfo(LSPCLIENT) << "registering cci";
-            cci->registerCompletionModel(m_completion.get());
+            cci->registerCompletionModel(m_completion.data());
             m_completionViews.insert(view);
         }
 
         if (registered && !server) {
             qCInfo(LSPCLIENT) << "unregistering cci";
-            cci->unregisterCompletionModel(m_completion.get());
+            cci->unregisterCompletionModel(m_completion.data());
             m_completionViews.remove(view);
         }
     }
@@ -1521,13 +1521,13 @@ public:
 
         if (!registered && server && server->capabilities().hoverProvider) {
             qCInfo(LSPCLIENT) << "registering cci";
-            cci->registerTextHintProvider(m_hover.get());
+            cci->registerTextHintProvider(m_hover.data());
             m_hoverViews.insert(view);
         }
 
         if (registered && !server) {
             qCInfo(LSPCLIENT) << "unregistering cci";
-            cci->unregisterTextHintProvider(m_hover.get());
+            cci->unregisterTextHintProvider(m_hover.data());
             m_hoverViews.remove(view);
         }
     }

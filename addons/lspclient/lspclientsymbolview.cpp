@@ -178,7 +178,7 @@ public:
                                                       QIcon::fromTheme(QStringLiteral("code-context")),
                                                       i18n("LSP Client Symbol Outline")));
 
-        m_symbols = new QTreeView(m_toolview.get());
+        m_symbols = new QTreeView(m_toolview.data());
         m_symbols->setFocusPolicy(Qt::NoFocus);
         m_symbols->setLayoutDirection(Qt::LeftToRight);
         m_toolview->layout()->setContentsMargins(0, 0, 0, 0);
@@ -186,7 +186,7 @@ public:
         m_toolview->layout()->setSpacing(0);
 
         // setup filter line edit
-        m_filter = new KLineEdit(m_toolview.get());
+        m_filter = new KLineEdit(m_toolview.data());
         m_toolview->layout()->addWidget(m_filter);
         m_filter->setPlaceholderText(i18n("Filter..."));
         m_filter->setClearButtonEnabled(true);
@@ -228,8 +228,8 @@ public:
 
         // get updated
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 500, 100));
-        connect(m_viewTracker.get(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
-        connect(m_serverManager.get(), &LSPClientServerManager::serverChanged,
+        connect(m_viewTracker.data(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
+        connect(m_serverManager.data(), &LSPClientServerManager::serverChanged,
             this, [this] () { refresh(false); });
 
         // limit cached models; will not go beyond capacity set here

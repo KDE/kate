@@ -62,6 +62,7 @@ class LSPClientConfigPage : public KTextEditor::ConfigPage
         QCheckBox* m_diagnosticsHighlight;
         QCheckBox* m_diagnosticsMark;
         QCheckBox* m_onTypeFormatting;
+        QCheckBox* m_incrementalSync;
         KUrlRequester *m_configPath;
 
         LSPClientPlugin *m_plugin;

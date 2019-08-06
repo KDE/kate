@@ -278,8 +278,10 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
         KTextEditor::MovingInterface *movingInterface;
         QUrl url;
         qint64 version;
-        bool open;
-        bool modified;
+        bool open:1;
+        bool modified:1;
+        // used for incremental update (if non-empty)
+        QList<LSPTextDocumentContentChangeEvent> changes;
     };
 
     LSPClientPlugin *m_plugin;
@@ -289,6 +291,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     // root -> (mode -> server)
     QMap<QUrl, QMap<QString, QSharedPointer<LSPClientServer>>> m_servers;
     QHash<KTextEditor::Document*, DocumentInfo> m_docs;
+    bool m_incrementalSync = false;
 
     typedef QVector<QSharedPointer<LSPClientServer>> ServerList;
 
@@ -351,6 +354,9 @@ public:
             run(100);
         }
     }
+
+    void setIncrementalSync(bool inc) override
+    { m_incrementalSync = inc; }
 
     QSharedPointer<LSPClientServer>
     findServer(KTextEditor::Document *document, bool updatedoc = true) override
@@ -625,13 +631,18 @@ private:
         auto it = m_docs.find(doc);
         if (it == m_docs.end()) {
             KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
-            it = m_docs.insert(doc, {server, miface, doc->url(), 0, false, true});
+            it = m_docs.insert(doc, {server, miface, doc->url(), 0, false, false, {}});
             // track document
             connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::aboutToClose, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::destroyed, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::textChanged, this, &self_type::onTextChanged, Qt::UniqueConnection);
+            // in case of incremental change
+            connect(doc, &KTextEditor::Document::textInserted, this, &self_type::onTextInserted, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::textRemoved, this, &self_type::onTextRemoved, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::lineWrapped, this, &self_type::onLineWrapped, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::lineUnwrapped, this, &self_type::onLineUnwrapped, Qt::UniqueConnection);
         } else {
             it->server = server;
         }
@@ -680,15 +691,21 @@ private:
             } else if (it->modified) {
                 ++it->version;
             }
+            if (!m_incrementalSync) {
+                it->changes.clear();
+            }
             if (it->open) {
                 if (it->modified || force) {
-                    (it->server)->didChange(it->url, it->version, doc->text());
-                    it->modified = false;
+                    (it->server)->didChange(it->url, it->version,
+                                            (it->changes.size() == 0) ? doc->text() : QString(),
+                                            it->changes);
                 }
             } else {
                 (it->server)->didOpen(it->url, it->version, languageId(doc->highlightingMode()), doc->text());
                 it->open = true;
             }
+            it->modified = false;
+            it->changes.clear();
         }
     }
 
@@ -713,6 +730,61 @@ private:
             it->modified = true;
         }
     }
+
+    DocumentInfo*
+    getDocumentInfo(KTextEditor::Document *doc)
+    {
+        if (!m_incrementalSync)
+            return nullptr;
+
+        auto it = m_docs.find(doc);
+        if (it != m_docs.end() && it->server) {
+            const auto& caps = it->server->capabilities();
+            if (caps.textDocumentSync == LSPDocumentSyncKind::Incremental) {
+                return &(*it);
+            }
+        }
+        return nullptr;
+    }
+
+    void onTextInserted(KTextEditor::Document *doc, const KTextEditor::Cursor &position, const QString &text)
+    {
+        auto info = getDocumentInfo(doc);
+        if (info) {
+            info->changes.push_back({LSPRange{position, position}, text});
+        }
+    }
+
+    void onTextRemoved(KTextEditor::Document *doc, const KTextEditor::Range &range, const QString &text)
+    {
+        (void)text;
+        auto info = getDocumentInfo(doc);
+        if (info) {
+            info->changes.push_back({range, QString()});
+        }
+    }
+
+    void onLineWrapped(KTextEditor::Document *doc, const KTextEditor::Cursor &position)
+    {
+        // so a 'newline' has been inserted at position
+        // could have been UNIX style or other kind, let's ask the document
+        auto text = doc->text({position, {position.line() + 1, 0}});
+        onTextInserted(doc, position, text);
+    }
+
+    void onLineUnwrapped(KTextEditor::Document *doc, int line)
+    {
+        // lines line-1 and line got replaced by current content of line-1
+        Q_ASSERT(line > 0);
+        auto info = getDocumentInfo(doc);
+        if (info) {
+            LSPRange oldrange {{line - 1, 0}, {line + 1, 0}};
+            LSPRange newrange {{line - 1, 0}, {line, 0}};
+            auto text = doc->text(newrange);
+            info->changes.push_back({oldrange, text});
+        }
+    }
+
 };
 
 QSharedPointer<LSPClientServerManager>

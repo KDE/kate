@@ -225,6 +225,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_refDeclaration;
     QPointer<QAction> m_onTypeFormatting;
+    QPointer<QAction> m_incrementalSync;
     QPointer<QAction> m_diagnostics;
     QPointer<QAction> m_diagnosticsHighlight;
     QPointer<QAction> m_diagnosticsMark;
@@ -315,6 +316,9 @@ public:
         m_onTypeFormatting = actionCollection()->addAction(QStringLiteral("lspclient_type_formatting"), this, &self_type::displayOptionChanged);
         m_onTypeFormatting->setText(i18n("Format on typing"));
         m_onTypeFormatting->setCheckable(true);
+        m_incrementalSync = actionCollection()->addAction(QStringLiteral("lspclient_incremental_sync"), this, &self_type::displayOptionChanged);
+        m_incrementalSync->setText(i18n("Incremental document synchronization"));
+        m_incrementalSync->setCheckable(true);
 
         // diagnostics
         m_diagnostics = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics"), this, &self_type::displayOptionChanged);
@@ -347,6 +351,7 @@ public:
         menu->addAction(m_complDocOn);
         menu->addAction(m_refDeclaration);
         menu->addAction(m_onTypeFormatting);
+        menu->addAction(m_incrementalSync);
         menu->addSeparator();
         menu->addAction(m_diagnostics);
         menu->addAction(m_diagnosticsHighlight);
@@ -427,6 +432,7 @@ public:
             m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
             m_tabWidget->removeTab(index);
         }
+        m_serverManager->setIncrementalSync(m_incrementalSync->isChecked());
         updateState();
     }
 
@@ -438,6 +444,8 @@ public:
             m_refDeclaration->setChecked(m_plugin->m_refDeclaration);
         if (m_onTypeFormatting)
             m_onTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
+        if (m_incrementalSync)
+            m_incrementalSync->setChecked(m_plugin->m_incrementalSync);
         if (m_diagnostics)
             m_diagnostics->setChecked(m_plugin->m_diagnostics);
         if (m_diagnosticsHighlight)

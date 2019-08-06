@@ -55,6 +55,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     m_complDoc = new QCheckBox(i18n("Show selected completion documentation"));
     m_refDeclaration = new QCheckBox(i18n("Include declaration in references"));
     m_onTypeFormatting = new QCheckBox(i18n("Format on typing"));
+    m_incrementalSync = new QCheckBox(i18n("Incremental document synchronization"));
     QHBoxLayout *diagLayout = new QHBoxLayout();
     m_diagnostics = new QCheckBox(i18n("Show diagnostics notifications"));
     m_diagnosticsHighlight = new QCheckBox(i18n("Add highlights"));
@@ -62,6 +63,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     top->addWidget(m_complDoc);
     top->addWidget(m_refDeclaration);
     top->addWidget(m_onTypeFormatting);
+    top->addWidget(m_incrementalSync);
     diagLayout->addWidget(m_diagnostics);
     diagLayout->addStretch(1);
     diagLayout->addWidget(m_diagnosticsHighlight);
@@ -82,7 +84,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     for (const auto & cb : {m_symbolDetails, m_symbolExpand, m_symbolSort, m_symbolTree,
                 m_complDoc, m_refDeclaration, m_diagnostics, m_diagnosticsMark,
-                m_onTypeFormatting})
+                m_onTypeFormatting, m_incrementalSync})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::changed);
@@ -127,6 +129,7 @@ void LSPClientConfigPage::apply()
     m_plugin->m_diagnosticsMark = m_diagnosticsMark->isChecked();
 
     m_plugin->m_onTypeFormatting = m_onTypeFormatting->isChecked();
+    m_plugin->m_incrementalSync = m_incrementalSync->isChecked();
 
     m_plugin->m_configPath = m_configPath->url();
 
@@ -148,6 +151,7 @@ void LSPClientConfigPage::reset()
     m_diagnosticsMark->setChecked(m_plugin->m_diagnosticsMark);
 
     m_onTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
+    m_incrementalSync->setChecked(m_plugin->m_incrementalSync);
 
     m_configPath->setUrl(m_plugin->m_configPath);
 }

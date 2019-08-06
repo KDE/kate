@@ -15,6 +15,7 @@
       <Action name="lspclient_completion_doc"/>
       <Action name="lspclient_references_declaration"/>
       <Action name="lspclient_type_formatting"/>
+      <Action name="lspclient_incremental_sync"/>
       <Separator/>
       <Action name="lspclient_diagnostics"/>
       <Action name="lspclient_diagnostics_highlight"/>

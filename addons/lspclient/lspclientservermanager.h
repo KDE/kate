@@ -67,6 +67,8 @@ public:
 
     virtual void restart(LSPClientServer *server) = 0;
 
+    virtual void setIncrementalSync(bool inc) = 0;
+
     // latest sync'ed revision of doc (-1 if N/A)
     virtual qint64 revision(KTextEditor::Document *doc) = 0;
 

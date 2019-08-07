@@ -84,12 +84,43 @@
 #include <KLocalizedString>
 #include <KTextEditor/MovingInterface>
 
-#include <QTimer>
-#include <QEventLoop>
 #include <QDir>
+#include <QEventLoop>
+#include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QTimer>
+
+// helper to find a proper root dir for the given document & file name that indicate the root dir
+static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *document, const QString &rootIndicationFileName)
+{
+    // search only feasible if document is local file
+    if (!document->url().isLocalFile()) {
+        return QString();
+    }
+
+    // search root upwards
+    QDir dir(QFileInfo(document->url().toLocalFile()).absolutePath());
+    QSet<QString> seenDirectories;
+    while (!seenDirectories.contains(dir.absolutePath())) {
+        // update guard
+        seenDirectories.insert(dir.absolutePath());
+
+        // some file matching our filter is there => root found!
+        if (dir.exists(rootIndicationFileName)) {
+            return dir.absolutePath();
+        }
+
+        // else: cd up, if possible or abort
+        if (!dir.cdUp()) {
+            break;
+        }
+    }
+
+    // no root found, bad luck
+    return QString();
+}
 
 #include <memory>
 
@@ -495,6 +526,28 @@ private:
                 rootpath = QDir(projectBase).absoluteFilePath(sroot);
             }
         }
+
+        /**
+         * no explicit set root dir? search for a matching root based on some name filters
+         * this is required for some LSP servers like rls that don't handle that on their own like clangd does
+         */
+        if (rootpath.isEmpty()) {
+            const auto fileNamesForDetection = serverConfig.value(QStringLiteral("rootIndicationFileNames"));
+            if (fileNamesForDetection.isArray()) {
+                // we try each file name alternative in the listed order
+                // this allows to have preferences
+                for (auto name : fileNamesForDetection.toArray()) {
+                    if (name.isString()) {
+                        rootpath = rootForDocumentAndRootIndicationFileName(document, name.toString());
+                        if (!rootpath.isEmpty()) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // last fallback: home directory
         if (rootpath.isEmpty()) {
             rootpath = QDir::homePath();
         }
@@ -543,7 +596,12 @@ private:
                     { QStringLiteral("C"),
                         makeServerConfig(QStringLiteral("clangd -log=%1 --background-index").arg(m_plugin->m_debugMode ? QStringLiteral("verbose") : QStringLiteral("error"))) },
                     { QStringLiteral("C++"),
-                        QJsonObject { { QStringLiteral("use"), QStringLiteral("C") } } }
+                        QJsonObject { { QStringLiteral("use"), QStringLiteral("C") } } },
+                    { QStringLiteral("Rust"), QJsonObject {
+                            { QStringLiteral("command"), QStringLiteral("rls") },
+                            { QStringLiteral("rootIndicationFileNames"), QJsonArray { QStringLiteral("Cargo.lock"), QStringLiteral("Cargo.toml") } }
+                        }
+                    }
                 }
             }
         };

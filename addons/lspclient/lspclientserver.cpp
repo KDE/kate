@@ -651,7 +651,11 @@ public:
         auto program = m_server.front();
         auto args = m_server;
         args.pop_front();
-        qCInfo(LSPCLIENT) << "starting" << m_server;
+        qCInfo(LSPCLIENT) << "starting" << m_server << "with root" << m_root;
+
+        // start LSP server in project root
+        m_sproc.setWorkingDirectory(m_root.path());
+
         // at least we see some errors somewhere then
         m_sproc.setProcessChannelMode(QProcess::ForwardedErrorChannel);
         m_sproc.setReadChannel(QProcess::QProcess::StandardOutput);

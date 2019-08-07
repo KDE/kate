@@ -54,7 +54,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     top = new QVBoxLayout(outlineBox);
     m_complDoc = new QCheckBox(i18n("Show selected completion documentation"));
     m_refDeclaration = new QCheckBox(i18n("Include declaration in references"));
-    m_onTypeFormatting = new QCheckBox(i18n("Format on typing (newline)"));
+    m_onTypeFormatting = new QCheckBox(i18n("Format on typing"));
     QHBoxLayout *diagLayout = new QHBoxLayout();
     m_diagnostics = new QCheckBox(i18n("Show diagnostics notifications"));
     m_diagnosticsHighlight = new QCheckBox(i18n("Add highlights"));

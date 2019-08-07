@@ -107,7 +107,7 @@ static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *d
         // update guard
         seenDirectories.insert(dir.absolutePath());
 
-        // some file matching our filter is there => root found!
+        // the file that indicates the root dir is there => all fine
         if (dir.exists(rootIndicationFileName)) {
             return dir.absolutePath();
         }

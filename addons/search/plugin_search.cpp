@@ -549,7 +549,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
     }
 
     QStringList tmpTypes = types.split(QLatin1Char(','));
-    QVector<QRegExp> typeList;
+    QVector<QRegExp> typeList(tmpTypes.size());
     for (int i=0; i<tmpTypes.size(); i++) {
         QRegExp rx(tmpTypes[i].trimmed());
         rx.setPatternSyntax(QRegExp::Wildcard);
@@ -557,7 +557,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
     }
 
     QStringList tmpExcludes = excludes.split(QLatin1Char(','));
-    QVector<QRegExp> excludeList;
+    QVector<QRegExp> excludeList(tmpExcludes.size());
     for (int i=0; i<tmpExcludes.size(); i++) {
         QRegExp rx(tmpExcludes[i].trimmed());
         rx.setPatternSyntax(QRegExp::Wildcard);
@@ -573,8 +573,8 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
         }
 
         bool skip = false;
-        for (int i=0; i<excludeList.size(); i++) {
-            if (excludeList[i].exactMatch(nameToCheck)) {
+        for (const auto& regex : qAsConst(excludeList)) {
+            if (regex.exactMatch(nameToCheck)) {
                 skip = true;
                 break;
             }
@@ -584,8 +584,8 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
         }
 
 
-        for (int i=0; i<typeList.size(); i++) {
-            if (typeList[i].exactMatch(nameToCheck)) {
+        for (const auto& regex : qAsConst(typeList)) {
+            if (regex.exactMatch(nameToCheck)) {
                 filteredFiles << fileName;
                 break;
             }

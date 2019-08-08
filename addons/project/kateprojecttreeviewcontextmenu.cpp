@@ -91,10 +91,9 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
      */
     QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
     QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
-    KService::List offers = KMimeTypeTrader::self()->query(mimeType.name(), QStringLiteral("Application"));
+    const KService::List offers = KMimeTypeTrader::self()->query(mimeType.name(), QStringLiteral("Application"));
     // For each one, insert a menu item...
-    for (KService::List::Iterator it = offers.begin(); it != offers.end(); ++it) {
-        KService::Ptr service = *it;
+    for (const auto& service : offers) {
         if (service->name() == QStringLiteral("Kate")) {
             continue;    // omit Kate
         }

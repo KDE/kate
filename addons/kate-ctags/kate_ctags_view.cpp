@@ -343,14 +343,14 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
     }
     m_ctagsUi.tagTreeWidget->setSortingEnabled(false);
 
-    for (int i=0; i<list.size(); i++) {
+    for (const auto& tag : list) {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_ctagsUi.tagTreeWidget);
-        item->setText(0, list[i].tag);
-        item->setText(1, list[i].type);
-        item->setText(2, list[i].file);
-        item->setData(0, Qt::UserRole, list[i].pattern);
+        item->setText(0, tag.tag);
+        item->setText(1, tag.type);
+        item->setText(2, tag.file);
+        item->setData(0, Qt::UserRole, tag.pattern);
 
-        QString pattern = list[i].pattern;
+        QString pattern = tag.pattern;
         pattern.replace( QStringLiteral("\\/"), QStringLiteral("/"));
         pattern = pattern.mid(2, pattern.length() - 4);
         pattern = pattern.trimmed();

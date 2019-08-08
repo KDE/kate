@@ -70,10 +70,10 @@ KateDocManager::~KateDocManager()
         if (m_daysMetaInfos > 0) {
             const QStringList groups = m_metaInfos.groupList();
             QDateTime def(QDate(1970, 1, 1));
-            for (QStringList::const_iterator it = groups.begin(); it != groups.end(); ++it) {
-                QDateTime last = m_metaInfos.group(*it).readEntry("Time", def);
+            for (const auto& group : groups) {
+                QDateTime last = m_metaInfos.group(group).readEntry("Time", def);
                 if (last.daysTo(QDateTime::currentDateTimeUtc()) > m_daysMetaInfos) {
-                    m_metaInfos.deleteGroup(*it);
+                    m_metaInfos.deleteGroup(group);
                 }
             }
         }

@@ -82,9 +82,9 @@ CloseConfirmDialog::CloseConfirmDialog(
     m_docs_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_docs_tree->setRootIsDecorated(false);
 
-    for (int i = 0; i < m_docs.size(); i++)
+    for (auto& doc : qAsConst(m_docs))
     {
-        new KateDocItem(m_docs[i], m_docs_tree);
+        new KateDocItem(doc, m_docs_tree);
     }
     m_docs_tree->header()->setStretchLastSection(false);
     m_docs_tree->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);

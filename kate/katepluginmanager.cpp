@@ -101,8 +101,8 @@ void KatePluginManager::setupPluginList()
 
     // construct fast lookup map, do this after vector has final size, resize will invalidate the pointers!
     m_name2Plugin.clear();
-    for (int i = 0; i < m_pluginList.size(); ++i) {
-        m_name2Plugin[m_pluginList[i].saveName()] = &(m_pluginList[i]);
+    for (auto& pluginInfo : m_pluginList) {
+        m_name2Plugin[pluginInfo.saveName()] = &pluginInfo;
     }
 }
 
@@ -118,25 +118,25 @@ void KatePluginManager::loadConfig(KConfig *config)
         KConfigGroup cg = KConfigGroup(config, QStringLiteral("Kate Plugins"));
 
         // disable all plugin if no config, beside the ones marked as default load
-        for (int i = 0; i < m_pluginList.size(); ++i) {
-            m_pluginList[i].load = cg.readEntry(m_pluginList[i].saveName(), m_pluginList[i].defaultLoad);
+        for (auto& pluginInfo: m_pluginList) {
+            pluginInfo.load = cg.readEntry(pluginInfo.saveName(), pluginInfo.defaultLoad);
         }
     }
 
     /**
      * load plugins
      */
-    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
-        if (it->load) {
+    for (auto& pluginInfo : m_pluginList) {
+        if (pluginInfo.load) {
             /**
              * load plugin + trigger update of GUI for already existing main windows
              */
-            loadPlugin(&(*it));
-            enablePluginGUI(&(*it));
+            loadPlugin(&pluginInfo);
+            enablePluginGUI(&pluginInfo);
 
             // restore config
-            if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (it->plugin)) {
-                KConfigGroup group(config, QStringLiteral("Plugin:%1:").arg(it->saveName()));
+            if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (pluginInfo.plugin)) {
+                KConfigGroup group(config, QStringLiteral("Plugin:%1:").arg(pluginInfo.saveName()));
                 interface->readSessionConfig(group);
             }
         }
@@ -163,27 +163,27 @@ void KatePluginManager::writeConfig(KConfig *config)
 
 void KatePluginManager::unloadAllPlugins()
 {
-    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
-        if (it->plugin) {
-            unloadPlugin(&(*it));
+    for (auto& pluginInfo : m_pluginList) {
+        if (pluginInfo.plugin) {
+            unloadPlugin(&pluginInfo);
         }
     }
 }
 
 void KatePluginManager::enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config)
 {
-    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
-        if (it->plugin) {
-            enablePluginGUI(&(*it), win, config);
+    for (auto& pluginInfo : m_pluginList) {
+        if (pluginInfo.plugin) {
+            enablePluginGUI(&pluginInfo, win, config);
         }
     }
 }
 
 void KatePluginManager::disableAllPluginsGUI(KateMainWindow *win)
 {
-    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
-        if (it->plugin) {
-            disablePluginGUI(&(*it), win);
+    for (auto& pluginInfo : m_pluginList) {
+        if (pluginInfo.plugin) {
+            disablePluginGUI(&pluginInfo, win);
         }
     }
 }

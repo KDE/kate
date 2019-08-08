@@ -232,8 +232,10 @@ public Q_SLOTS:
     QList<KTextEditor::MainWindow *> mainWindows() {
         // assemble right list
         QList<KTextEditor::MainWindow *> windows;
-        for (int i = 0; i < m_mainWindows.size(); ++i) {
-            windows.push_back(m_mainWindows[i]->wrapper());
+        windows.reserve(m_mainWindows.size());
+
+        for (const auto mainWindow : qAsConst(m_mainWindows)) {
+            windows.push_back(mainWindow->wrapper());
         }
         return windows;
     }

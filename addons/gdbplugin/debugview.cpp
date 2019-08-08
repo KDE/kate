@@ -120,8 +120,8 @@ bool DebugView::debuggerBusy() const
 
 bool DebugView::hasBreakpoint(const QUrl& url, int line)
 {
-    for (int i = 0; i<m_breakPointList.size(); i++) {
-        if ((url == m_breakPointList[i].file) && (line == m_breakPointList[i].line)) {
+    for (const auto& breakpoint : qAsConst(m_breakPointList)) {
+        if ((url == breakpoint.file) && (line == breakpoint.line)) {
             return true;
         }
     }

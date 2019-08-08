@@ -1033,8 +1033,7 @@ QStringList PluginKateXMLToolsCompletionModel::sortQStringList(QStringList list)
     // Sort list case-insensitive. This looks complicated but using a QMap
     // is even suggested by the Qt documentation.
     QMap<QString, QString> mapList;
-    for (QStringList::Iterator it = list.begin(); it != list.end(); ++it) {
-        QString str = *it;
+    for (const auto& str : qAsConst(list)) {
         if (mapList.contains(str.toLower())) {
             // do not override a previous value, e.g. "Auml" and "auml" are two different
             // entities, but they should be sorted next to each other.

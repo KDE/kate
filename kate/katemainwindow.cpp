@@ -909,10 +909,9 @@ void KateMainWindow::mSlotFixOpenWithMenu()
     //qCDebug(LOG_KATE) << "mime type: " << mime.name();
 
     QAction *a = nullptr;
-    KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
+    const KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
     // add all default open-with-actions except "Kate"
-    for (KService::List::Iterator it = offers.begin(); it != offers.end(); ++it) {
-        KService::Ptr service = *it;
+    for (const auto& service : offers) {
         if (service->name() == QStringLiteral("Kate")) {
             continue;
         }

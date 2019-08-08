@@ -487,7 +487,9 @@ private:
         const auto projectBase = QDir(projectView ? projectView->property("projectBaseDir").toString() : QString());
         const auto& projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
 
-        auto mode = document->highlightingMode();
+        // compute the LSP standardized language id
+        auto langId = languageId(document->highlightingMode());
+
         // merge with project specific
         auto projectConfig = QJsonDocument::fromVariant(projectMap).object().value(QStringLiteral("lspclient")).toObject();
         auto serverConfig = merge(m_serverConfig, projectConfig);
@@ -496,14 +498,14 @@ private:
         QJsonValue config;
         QSet<QString> used;
         while (true) {
-            qCInfo(LSPCLIENT) << "mode " << mode;
-            used << mode;
-            config = serverConfig.value(QStringLiteral("servers")).toObject().value(mode);
+            qCInfo(LSPCLIENT) << "language id " << langId;
+            used << langId;
+            config = serverConfig.value(QStringLiteral("servers")).toObject().value(langId);
             if (config.isObject()) {
                 const auto & base = config.toObject().value(QStringLiteral("use")).toString();
                 // basic cycle detection
                 if (!base.isEmpty() && !used.contains(base)) {
-                    mode = base;
+                    langId = base;
                     continue;
                 }
             }
@@ -553,7 +555,7 @@ private:
         }
 
         auto root = QUrl::fromLocalFile(rootpath);
-        auto server = m_servers.value(root).value(mode);
+        auto server = m_servers.value(root).value(langId);
         if (!server) {
             QStringList cmdline;
             auto vcmdline = serverConfig.value(QStringLiteral("command"));
@@ -567,7 +569,7 @@ private:
             }
             if (cmdline.length() > 0) {
                 server.reset(new LSPClientServer(cmdline, root, serverConfig.value(QStringLiteral("initializationOptions"))));
-                m_servers[root][mode] = server;
+                m_servers[root][langId] = server;
                 connect(server.data(), &LSPClientServer::stateChanged,
                     this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start()) {
@@ -591,13 +593,20 @@ private:
         static auto defaultConfig = QJsonObject {
             { QStringLiteral("servers"),
                 QJsonObject {
-                    { QStringLiteral("Python"),
+                    // Python: pyls support
+                    { QStringLiteral("python"),
                         makeServerConfig(QStringLiteral("python3 -m pyls --check-parent-process")) },
-                    { QStringLiteral("C"),
+
+                    // C: clangd support
+                    { QStringLiteral("c"),
                         makeServerConfig(QStringLiteral("clangd -log=%1 --background-index").arg(m_plugin->m_debugMode ? QStringLiteral("verbose") : QStringLiteral("error"))) },
-                    { QStringLiteral("C++"),
-                        QJsonObject { { QStringLiteral("use"), QStringLiteral("C") } } },
-                    { QStringLiteral("Rust"), QJsonObject {
+
+                    // C++: use the clangd already configured for C
+                    { QStringLiteral("cpp"),
+                        QJsonObject { { QStringLiteral("use"), QStringLiteral("c") } } },
+
+                    // Rust: rls support
+                    { QStringLiteral("rust"), QJsonObject {
                             { QStringLiteral("command"), QStringLiteral("rls") },
                             { QStringLiteral("rootIndicationFileNames"), QJsonArray { QStringLiteral("Cargo.lock"), QStringLiteral("Cargo.toml") } }
                         }

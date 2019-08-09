@@ -110,11 +110,6 @@ bool KateApp::init()
         }
     }
 
-    // application dbus interface
-    if (QDBusConnection::sessionBus().interface()) {
-        QDBusConnection::sessionBus().registerObject(QStringLiteral("/MainApplication"), this);
-    }
-
     return true;
 }
 

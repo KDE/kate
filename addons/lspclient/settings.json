@@ -7,6 +7,10 @@
         "cpp": {
             "use": "c"
         },
+        "go": {
+            "command": ["go-langserver"],
+            "commandDebug": ["go-langserver", "-trace"]
+        },
         "python": {
             "command": ["python3", "-m", "pyls", "--check-parent-process"]
         },

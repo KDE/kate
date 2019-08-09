@@ -1,11 +1,17 @@
 {
     "servers": {
+        "bibtex": {
+            "use": "latex"
+        },
         "c": {
             "command": ["clangd", "-log=error", "--background-index"],
             "commandDebug": ["clangd", "-log=verbose", "--background-index"]
         },
         "cpp": {
             "use": "c"
+        },
+        "latex": {
+            "command": ["texlab"]
         },
         "go": {
             "command": ["go-langserver"],

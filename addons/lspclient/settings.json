@@ -5,24 +5,29 @@
         },
         "c": {
             "command": ["clangd", "-log=error", "--background-index"],
-            "commandDebug": ["clangd", "-log=verbose", "--background-index"]
+            "commandDebug": ["clangd", "-log=verbose", "--background-index"],
+            "url": "https://clang.llvm.org/extra/clangd/"
         },
         "cpp": {
             "use": "c"
         },
         "latex": {
-            "command": ["texlab"]
+            "command": ["texlab"],
+            "url": "https://texlab.netlify.com/"
         },
         "go": {
             "command": ["go-langserver"],
-            "commandDebug": ["go-langserver", "-trace"]
+            "commandDebug": ["go-langserver", "-trace"],
+            "url": "https://github.com/sourcegraph/go-langserver"
         },
         "python": {
-            "command": ["python3", "-m", "pyls", "--check-parent-process"]
+            "command": ["python3", "-m", "pyls", "--check-parent-process"],
+            "url": "https://github.com/palantir/python-language-server"
         },
         "rust": {
             "command": ["rls"],
-            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"]
+            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
+            "url": "https://github.com/rust-lang/rls"
         }
     }
 }

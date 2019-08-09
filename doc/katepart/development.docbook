@@ -286,6 +286,15 @@ elements <userinput>contexts</userinput> and <userinput>itemDatas</userinput>.</
 <para><userinput>list</userinput> elements contain a list of keywords. In
 this case the keywords are <emphasis>class</emphasis> and <emphasis>const</emphasis>.
 You can add as many lists as you need.</para>
+<para>Since &kde-frameworks; 5.53, a list can include keywords from another
+list or language/file, using the <userinput>include</userinput> element.
+<userinput>##</userinput> is used to separate the list name and the language
+definition name, in the same way as in the <userinput>IncludeRules</userinput> rule.
+This is useful to avoid duplicating keyword lists, if you need to include the keywords
+of another language/file. For example, the <emphasis>othername</emphasis> list
+contains the <emphasis>str</emphasis> keyword and all the keywords of the
+<emphasis>types</emphasis> list, which belongs to the <emphasis>ISO C++</emphasis>
+language.</para>
 <para>The <userinput>contexts</userinput> element contains all contexts.
 The first context is by default the start of the highlighting. There are
 two rules in the context <emphasis>Normal Text</emphasis>, which match
@@ -300,12 +309,17 @@ In this example, the <userinput>itemData</userinput> <emphasis>Normal Text</emph
 <programlisting>
   &lt;highlighting&gt;
     &lt;list name=&quot;somename&quot;&gt;
-      &lt;item&gt; class &lt;/item&gt;
-      &lt;item&gt; const &lt;/item&gt;
+      &lt;item&gt;class&lt;/item&gt;
+      &lt;item&gt;const&lt;/item&gt;
+    &lt;/list&gt;
+    &lt;list name=&quot;othername&quot;&gt;
+      &lt;item&gt;str&lt;/item&gt;
+      &lt;include&gt;types##ISO C++&lt;/include&gt;
     &lt;/list&gt;
     &lt;contexts&gt;
       &lt;context attribute=&quot;Normal Text&quot; lineEndContext=&quot;#pop&quot; name=&quot;Normal Text&quot; &gt;
         &lt;keyword attribute=&quot;Keyword&quot; context=&quot;#stay&quot; String=&quot;somename&quot; /&gt;
+        &lt;keyword attribute=&quot;Keyword&quot; context=&quot;#stay&quot; String=&quot;othername&quot; /&gt;
         &lt;DetectChar attribute=&quot;String&quot; context=&quot;string&quot; char=&quot;&amp;quot;&quot; /&gt;
       &lt;/context&gt;
       &lt;context attribute=&quot;String&quot; lineEndContext=&quot;#stay&quot; name=&quot;string&quot; &gt;

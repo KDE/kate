@@ -558,7 +558,13 @@ private:
         auto server = m_servers.value(root).value(langId);
         if (!server) {
             QStringList cmdline;
-            auto vcmdline = serverConfig.value(QStringLiteral("command"));
+
+            // choose debug command line for debug mode, fallback to command
+            auto vcmdline = serverConfig.value(m_plugin->m_debugMode ? QStringLiteral("commandDebug") : QStringLiteral("command"));
+            if (vcmdline.isUndefined()) {
+                vcmdline = serverConfig.value(QStringLiteral("command"));
+            }
+
             auto scmdline = vcmdline.toString();
             if (!scmdline.isEmpty()) {
                 cmdline = scmdline.split(QLatin1Char(' '));
@@ -583,39 +589,11 @@ private:
 
     void updateServerConfig()
     {
-        // default configuration
-        auto makeServerConfig = [] (const QString & cmdline) {
-            return QJsonObject {
-                { QStringLiteral("command"), cmdline }
-            };
-        };
-
-        static auto defaultConfig = QJsonObject {
-            { QStringLiteral("servers"),
-                QJsonObject {
-                    // Python: pyls support
-                    { QStringLiteral("python"),
-                        makeServerConfig(QStringLiteral("python3 -m pyls --check-parent-process")) },
-
-                    // C: clangd support
-                    { QStringLiteral("c"),
-                        makeServerConfig(QStringLiteral("clangd -log=%1 --background-index").arg(m_plugin->m_debugMode ? QStringLiteral("verbose") : QStringLiteral("error"))) },
-
-                    // C++: use the clangd already configured for C
-                    { QStringLiteral("cpp"),
-                        QJsonObject { { QStringLiteral("use"), QStringLiteral("c") } } },
-
-                    // Rust: rls support
-                    { QStringLiteral("rust"), QJsonObject {
-                            { QStringLiteral("command"), QStringLiteral("rls") },
-                            { QStringLiteral("rootIndicationFileNames"), QJsonArray { QStringLiteral("Cargo.lock"), QStringLiteral("Cargo.toml") } }
-                        }
-                    }
-                }
-            }
-        };
-
-        m_serverConfig = defaultConfig;
+        // default configuration, compiled into plugin resource, reading can't fail
+        QFile defaultConfigFile(QStringLiteral(":/lspclient/settings.json"));
+        defaultConfigFile.open(QIODevice::ReadOnly);
+        Q_ASSERT(defaultConfigFile.isOpen());
+        m_serverConfig = QJsonDocument::fromJson(defaultConfigFile.readAll()).object();
 
         // consider specified configuration
         const auto& configPath = m_plugin->m_configPath.path();

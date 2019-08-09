@@ -1,0 +1,18 @@
+{
+    "servers": {
+        "c": {
+            "command": ["clangd", "-log=error", "--background-index"],
+            "commandDebug": ["clangd", "-log=verbose", "--background-index"]
+        },
+        "cpp": {
+            "use": "c"
+        },
+        "python": {
+            "command": ["python3", "-m", "pyls", "--check-parent-process"]
+        },
+        "rust": {
+            "command": "rls",
+            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"]
+        }
+    }
+}

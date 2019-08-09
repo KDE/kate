@@ -28,8 +28,14 @@
 #include <KStartupInfo>
 #include <KWindowSystem>
 
+#include <QApplication>
+
+/**
+ * add the adapter to the global application instance to have
+ * it auto-register with KDBusService, see bug 410742
+ */
 KateAppAdaptor::KateAppAdaptor(KateApp *app)
-    : QDBusAbstractAdaptor(app)
+    : QDBusAbstractAdaptor(qApp)
     , m_app(app)
 {}
 

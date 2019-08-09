@@ -15,7 +15,7 @@
             "command": ["python3", "-m", "pyls", "--check-parent-process"]
         },
         "rust": {
-            "command": "rls",
+            "command": ["rls"],
             "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"]
         }
     }

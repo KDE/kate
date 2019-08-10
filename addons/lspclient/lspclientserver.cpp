@@ -337,12 +337,373 @@ from_json(LSPServerCapabilities & caps, const QJsonObject & json)
     caps.codeActionProvider = codeActionProvider.toBool() || codeActionProvider.isObject();
 }
 
-// TODO move all parsing here
+// follow suit; as performed in kate docmanager
+// normalize at this stage/layer to avoid surprises elsewhere
+// sadly this is not a single QUrl method as one might hope ...
+static QUrl
+normalizeUrl(const QUrl & url)
+{
+    // Resolve symbolic links for local files (done anyway in KTextEditor)
+    if (url.isLocalFile()) {
+        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
+        if (!normalizedUrl.isEmpty()) {
+            return QUrl::fromLocalFile(normalizedUrl);
+        }
+    }
+
+    // else: cleanup only the .. stuff
+    return url.adjusted(QUrl::NormalizePathSegments);
+}
+
+static LSPMarkupContent
+parseMarkupContent(const QJsonValue & v)
+{
+    LSPMarkupContent ret;
+    if (v.isObject()) {
+        const auto& vm = v.toObject();
+        ret.value = vm.value(QStringLiteral("value")).toString();
+        auto kind = vm.value(MEMBER_KIND).toString();
+        if (kind == QStringLiteral("plaintext")) {
+            ret.kind = LSPMarkupKind::PlainText;
+        } else if (kind == QStringLiteral("markdown")) {
+            ret.kind = LSPMarkupKind::MarkDown;
+        }
+    } else if (v.isString()) {
+        ret.kind = LSPMarkupKind::PlainText;
+        ret.value = v.toString();
+    }
+    return ret;
+}
+
+static LSPPosition
+parsePosition(const QJsonObject & m)
+{
+    auto line = m.value(MEMBER_LINE).toInt(-1);
+    auto column = m.value(MEMBER_CHARACTER).toInt(-1);
+    return {line, column};
+}
+
+static bool
+isPositionValid(const LSPPosition & pos)
+{ return pos.isValid(); }
+
+static LSPRange
+parseRange(const QJsonObject & range)
+{
+    auto startpos = parsePosition(range.value(MEMBER_START).toObject());
+    auto endpos = parsePosition(range.value(MEMBER_END).toObject());
+    return {startpos, endpos};
+}
+
+static LSPLocation
+parseLocation(const QJsonObject & loc)
+{
+    auto uri = normalizeUrl(QUrl(loc.value(MEMBER_URI).toString()));
+    auto range = parseRange(loc.value(MEMBER_RANGE).toObject());
+    return {QUrl(uri), range};
+}
+
+static LSPDocumentHighlight
+parseDocumentHighlight(const QJsonValue & result)
+{
+    auto hover = result.toObject();
+    auto range = parseRange(hover.value(MEMBER_RANGE).toObject());
+    auto kind = (LSPDocumentHighlightKind)hover.value(MEMBER_KIND).toInt((int)LSPDocumentHighlightKind::Text); // default is DocumentHighlightKind.Text
+    return {range, kind};
+}
+
+static QList<LSPDocumentHighlight>
+parseDocumentHighlightList(const QJsonValue & result)
+{
+    QList<LSPDocumentHighlight> ret;
+    // could be array
+    if (result.isArray()) {
+        for (const auto & def : result.toArray()) {
+            ret.push_back(parseDocumentHighlight(def));
+        }
+    } else if (result.isObject()) {
+        // or a single value
+        ret.push_back(parseDocumentHighlight(result));
+    }
+    return ret;
+}
+
+static LSPMarkupContent
+parseHoverContentElement(const QJsonValue & contents)
+{
+    LSPMarkupContent result;
+    if (contents.isString()) {
+        result.value = contents.toString();
+    } else {
+        // should be object, pretend so
+        auto cont = contents.toObject();
+        auto text = cont.value(QStringLiteral("value")).toString();
+        if (text.isEmpty()) {
+            // nothing to lose, try markdown
+            result = parseMarkupContent(contents);
+        } else {
+            result.value = text;
+        }
+    }
+    if (result.value.length())
+        result.kind = LSPMarkupKind::PlainText;
+    return result;
+}
+
+static LSPHover
+parseHover(const QJsonValue & result)
+{
+    LSPHover ret;
+    auto hover = result.toObject();
+    // normalize content which can be of many forms
+    ret.range = parseRange(hover.value(MEMBER_RANGE).toObject());
+    auto contents = hover.value(QStringLiteral("contents"));
+
+    // support the deprecated MarkedString[] variant, used by e.g. Rust rls
+    if (contents.isArray()) {
+        for (const auto & c : contents.toArray()) {
+            ret.contents.push_back(parseHoverContentElement(c));
+        }
+    } else {
+        ret.contents.push_back(parseHoverContentElement(contents));
+    }
+
+    return ret;
+}
+
+static QList<LSPSymbolInformation>
+parseDocumentSymbols(const QJsonValue & result)
+{
+    // the reply could be old SymbolInformation[] or new (hierarchical) DocumentSymbol[]
+    // try to parse it adaptively in any case
+    // if new style, hierarchy is specified clearly in reply
+    // if old style, it is assumed the values enter linearly, that is;
+    // * a parent/container is listed before its children
+    // * if a name is defined/declared several times and then used as a parent,
+    //   then it is the last instance that is used as a parent
+
+    QList<LSPSymbolInformation> ret;
+    QMap<QString, LSPSymbolInformation*> index;
+
+    std::function<void(const QJsonObject & symbol, LSPSymbolInformation *parent)> parseSymbol =
+        [&] (const QJsonObject & symbol, LSPSymbolInformation *parent) {
+        // if flat list, try to find parent by name
+        if (!parent) {
+            auto container = symbol.value(QStringLiteral("containerName")).toString();
+            parent = index.value(container, nullptr);
+        }
+        auto list = parent ? &parent->children : &ret;
+        const auto& location = symbol.value(MEMBER_LOCATION).toObject();
+        const auto& mrange = symbol.contains(MEMBER_RANGE) ?
+                    symbol.value(MEMBER_RANGE) : location.value(MEMBER_RANGE);
+        auto range = parseRange(mrange.toObject());
+        if (isPositionValid(range.start()) && isPositionValid(range.end())) {
+            auto name = symbol.value(QStringLiteral("name")).toString();
+            auto kind = (LSPSymbolKind) symbol.value(MEMBER_KIND).toInt();
+            auto detail = symbol.value(MEMBER_DETAIL).toString();
+            list->push_back({name, kind, range, detail});
+            index[name] = &list->back();
+            // proceed recursively
+            for (const auto &child : symbol.value(QStringLiteral("children")).toArray())
+                parseSymbol(child.toObject(), &list->back());
+        }
+    };
+
+    for (const auto& info : result.toArray()) {
+        parseSymbol(info.toObject(), nullptr);
+    }
+    return ret;
+}
+
+static QList<LSPLocation>
+parseDocumentLocation(const QJsonValue & result)
+{
+    QList<LSPLocation> ret;
+    // could be array
+    if (result.isArray()) {
+        for (const auto & def : result.toArray()) {
+            ret.push_back(parseLocation(def.toObject()));
+        }
+    } else if (result.isObject()) {
+        // or a single value
+        ret.push_back(parseLocation(result.toObject()));
+    }
+    return ret;
+}
+
+static QList<LSPCompletionItem>
+parseDocumentCompletion(const QJsonValue & result)
+{
+    QList<LSPCompletionItem> ret;
+    QJsonArray items = result.toArray();
+    // might be CompletionList
+    if (items.size() == 0) {
+        items = result.toObject().value(QStringLiteral("items")).toArray();
+    }
+    for (const auto & vitem : items) {
+        const auto & item = vitem.toObject();
+        auto label = item.value(MEMBER_LABEL).toString();
+        auto detail = item.value(MEMBER_DETAIL).toString();
+        auto doc = parseMarkupContent(item.value(MEMBER_DOCUMENTATION));
+        auto sortText = item.value(QStringLiteral("sortText")).toString();
+        if (sortText.isEmpty())
+            sortText = label;
+        auto insertText = item.value(QStringLiteral("insertText")).toString();
+        if (insertText.isEmpty())
+            insertText = label;
+        auto kind = (LSPCompletionItemKind) item.value(MEMBER_KIND).toInt();
+        ret.push_back({label, kind, detail, doc, sortText, insertText});
+    }
+    return ret;
+}
+
+static LSPSignatureInformation
+parseSignatureInformation(const QJsonObject & json)
+{
+    LSPSignatureInformation info;
+
+    info.label = json.value(MEMBER_LABEL).toString();
+    info.documentation = parseMarkupContent(json.value(MEMBER_DOCUMENTATION));
+    for (const auto & rpar : json.value(QStringLiteral("parameters")).toArray()) {
+        auto par = rpar.toObject();
+        auto label = par.value(MEMBER_LABEL);
+        int begin = -1, end = -1;
+        if (label.isArray()) {
+            auto range = label.toArray();
+            if (range.size() == 2) {
+                begin = range.at(0).toInt(-1);
+                end = range.at(1).toInt(-1);
+                if (begin > info.label.length())
+                    begin = -1;
+                if (end > info.label.length())
+                    end = -1;
+            }
+        } else {
+            auto sub = label.toString();
+            if (sub.length()) {
+                begin = info.label.indexOf(sub);
+                if (begin >= 0) {
+                    end = begin + sub.length();
+                }
+            }
+        }
+        info.parameters.push_back({begin, end});
+    }
+    return info;
+}
+
+static LSPSignatureHelp
+parseSignatureHelp(const QJsonValue & result)
+{
+    LSPSignatureHelp ret;
+    QJsonObject sig = result.toObject();
+
+    for (const auto & info: sig.value(QStringLiteral("signatures")).toArray()) {
+        ret.signatures.push_back(parseSignatureInformation(info.toObject()));
+    }
+    ret.activeSignature = sig.value(QStringLiteral("activeSignature")).toInt(0);
+    ret.activeParameter = sig.value(QStringLiteral("activeParameter")).toInt(0);
+    ret.activeSignature = qMin(qMax(ret.activeSignature, 0), ret.signatures.size());
+    ret.activeParameter = qMin(qMax(ret.activeParameter, 0), ret.signatures.size());
+    return ret;
+}
+
+static QList<LSPTextEdit>
+parseTextEdit(const QJsonValue & result)
+{
+    QList<LSPTextEdit> ret;
+    for (const auto &redit: result.toArray()) {
+        auto edit = redit.toObject();
+        auto text = edit.value(QStringLiteral("newText")).toString();
+        auto range = parseRange(edit.value(MEMBER_RANGE).toObject());
+        ret.push_back({range, text});
+    }
+    return ret;
+}
+
+static LSPWorkspaceEdit
+parseWorkSpaceEdit(const QJsonValue & result)
+{
+    QHash<QUrl, QList<LSPTextEdit>> ret;
+    auto changes = result.toObject().value(QStringLiteral("changes")).toObject();
+    for (auto it = changes.begin(); it != changes.end(); ++it) {
+        ret.insert(normalizeUrl(QUrl(it.key())), parseTextEdit(it.value()));
+    }
+    return {ret};
+}
+
+static LSPCommand
+parseCommand(const QJsonObject & result)
+{
+    auto title = result.value(MEMBER_TITLE).toString();
+    auto command = result.value(MEMBER_COMMAND).toString();
+    auto args = result.value(MEMBER_ARGUMENTS).toArray();
+    return { title, command, args };
+}
+
+static QList<LSPDiagnostic>
+parseDiagnostics(const QJsonArray &result)
+{
+    QList<LSPDiagnostic> ret;
+    for (const auto & vdiag : result) {
+        auto diag = vdiag.toObject();
+        auto range = parseRange(diag.value(MEMBER_RANGE).toObject());
+        auto severity = (LSPDiagnosticSeverity) diag.value(QStringLiteral("severity")).toInt();
+        auto code = diag.value(QStringLiteral("code")).toString();
+        auto source = diag.value(QStringLiteral("source")).toString();
+        auto message = diag.value(MEMBER_MESSAGE).toString();
+        auto related = diag.value(QStringLiteral("relatedInformation")).toObject();
+        auto relLocation = parseLocation(related.value(MEMBER_LOCATION).toObject());
+        auto relMessage = related.value(MEMBER_MESSAGE).toString();
+        ret.push_back({range, severity, code, source, message, relLocation, relMessage});
+    }
+    return ret;
+}
+
+static QList<LSPCodeAction>
+parseCodeAction(const QJsonValue & result)
+{
+    QList<LSPCodeAction> ret;
+    for (const auto &vaction: result.toArray()) {
+        auto action = vaction.toObject();
+        // entry could be Command or CodeAction
+        if (!action.value(MEMBER_COMMAND).isString()) {
+            // CodeAction
+            auto title = action.value(MEMBER_TITLE).toString();
+            auto kind = action.value(MEMBER_KIND).toString();
+            auto command = parseCommand(action.value(MEMBER_COMMAND).toObject());
+            auto edit = parseWorkSpaceEdit(action.value(MEMBER_EDIT));
+            auto diagnostics = parseDiagnostics(action.value(MEMBER_DIAGNOSTICS).toArray());
+            ret.push_back({title, kind, diagnostics, edit, command});
+        } else {
+            // Command
+            auto command = parseCommand(action);
+            ret.push_back({command.title, QString(), {}, {}, command});
+        }
+    }
+    return ret;
+}
+
 static LSPPublishDiagnosticsParams
-parseDiagnostics(const QJsonObject & result);
+parseDiagnostics(const QJsonObject & result)
+{
+    LSPPublishDiagnosticsParams ret;
+
+    ret.uri = normalizeUrl(QUrl(result.value(MEMBER_URI).toString()));
+    ret.diagnostics = parseDiagnostics(result.value(MEMBER_DIAGNOSTICS).toArray());
+    return ret;
+}
 
 static LSPApplyWorkspaceEditParams
-parseApplyWorkspaceEditParams(const QJsonObject & result);
+parseApplyWorkspaceEditParams(const QJsonObject & result)
+{
+    LSPApplyWorkspaceEditParams ret;
+
+    ret.label = result.value(MEMBER_LABEL).toString();
+    ret.edit = parseWorkSpaceEdit(result.value(MEMBER_EDIT));
+    return ret;
+}
+
 
 using GenericReplyType = QJsonValue;
 using GenericReplyHandler = ReplyHandler<GenericReplyType>;
@@ -888,372 +1249,6 @@ public:
     }
 };
 
-// follow suit; as performed in kate docmanager
-// normalize at this stage/layer to avoid surprises elsewhere
-// sadly this is not a single QUrl method as one might hope ...
-static QUrl
-normalizeUrl(const QUrl & url)
-{
-    // Resolve symbolic links for local files (done anyway in KTextEditor)
-    if (url.isLocalFile()) {
-        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
-        if (!normalizedUrl.isEmpty()) {
-            return QUrl::fromLocalFile(normalizedUrl);
-        }
-    }
-
-    // else: cleanup only the .. stuff
-    return url.adjusted(QUrl::NormalizePathSegments);
-}
-
-static LSPMarkupContent
-parseMarkupContent(const QJsonValue & v)
-{
-    LSPMarkupContent ret;
-    if (v.isObject()) {
-        const auto& vm = v.toObject();
-        ret.value = vm.value(QStringLiteral("value")).toString();
-        auto kind = vm.value(MEMBER_KIND).toString();
-        if (kind == QStringLiteral("plaintext")) {
-            ret.kind = LSPMarkupKind::PlainText;
-        } else if (kind == QStringLiteral("markdown")) {
-            ret.kind = LSPMarkupKind::MarkDown;
-        }
-    } else if (v.isString()) {
-        ret.kind = LSPMarkupKind::PlainText;
-        ret.value = v.toString();
-    }
-    return ret;
-}
-
-static LSPPosition
-parsePosition(const QJsonObject & m)
-{
-    auto line = m.value(MEMBER_LINE).toInt(-1);
-    auto column = m.value(MEMBER_CHARACTER).toInt(-1);
-    return {line, column};
-}
-
-static bool
-isPositionValid(const LSPPosition & pos)
-{ return pos.isValid(); }
-
-static LSPRange
-parseRange(const QJsonObject & range)
-{
-    auto startpos = parsePosition(range.value(MEMBER_START).toObject());
-    auto endpos = parsePosition(range.value(MEMBER_END).toObject());
-    return {startpos, endpos};
-}
-
-static LSPLocation
-parseLocation(const QJsonObject & loc)
-{
-    auto uri = normalizeUrl(QUrl(loc.value(MEMBER_URI).toString()));
-    auto range = parseRange(loc.value(MEMBER_RANGE).toObject());
-    return {QUrl(uri), range};
-}
-
-static LSPDocumentHighlight
-parseDocumentHighlight(const QJsonValue & result)
-{
-    auto hover = result.toObject();
-    auto range = parseRange(hover.value(MEMBER_RANGE).toObject());
-    auto kind = (LSPDocumentHighlightKind)hover.value(MEMBER_KIND).toInt((int)LSPDocumentHighlightKind::Text); // default is DocumentHighlightKind.Text
-    return {range, kind};
-}
-
-static QList<LSPDocumentHighlight>
-parseDocumentHighlightList(const QJsonValue & result)
-{
-    QList<LSPDocumentHighlight> ret;
-    // could be array
-    if (result.isArray()) {
-        for (const auto & def : result.toArray()) {
-            ret.push_back(parseDocumentHighlight(def));
-        }
-    } else if (result.isObject()) {
-        // or a single value
-        ret.push_back(parseDocumentHighlight(result));
-    }
-    return ret;
-}
-
-static LSPMarkupContent
-parseHoverContentElement(const QJsonValue & contents)
-{
-    LSPMarkupContent result;
-    if (contents.isString()) {
-        result.value = contents.toString();
-    } else {
-        // should be object, pretend so
-        auto cont = contents.toObject();
-        auto text = cont.value(QStringLiteral("value")).toString();
-        if (text.isEmpty()) {
-            // nothing to lose, try markdown
-            result = parseMarkupContent(contents);
-        } else {
-            result.value = text;
-        }
-    }
-    if (result.value.length())
-        result.kind = LSPMarkupKind::PlainText;
-    return result;
-}
-
-static LSPHover
-parseHover(const QJsonValue & result)
-{
-    LSPHover ret;
-    auto hover = result.toObject();
-    // normalize content which can be of many forms
-    ret.range = parseRange(hover.value(MEMBER_RANGE).toObject());
-    auto contents = hover.value(QStringLiteral("contents"));
-
-    // support the deprecated MarkedString[] variant, used by e.g. Rust rls
-    if (contents.isArray()) {
-        for (const auto & c : contents.toArray()) {
-            ret.contents.push_back(parseHoverContentElement(c));
-        }
-    } else {
-        ret.contents.push_back(parseHoverContentElement(contents));
-    }
-
-    return ret;
-}
-
-static QList<LSPSymbolInformation>
-parseDocumentSymbols(const QJsonValue & result)
-{
-    // the reply could be old SymbolInformation[] or new (hierarchical) DocumentSymbol[]
-    // try to parse it adaptively in any case
-    // if new style, hierarchy is specified clearly in reply
-    // if old style, it is assumed the values enter linearly, that is;
-    // * a parent/container is listed before its children
-    // * if a name is defined/declared several times and then used as a parent,
-    //   then it is the last instance that is used as a parent
-
-    QList<LSPSymbolInformation> ret;
-    QMap<QString, LSPSymbolInformation*> index;
-
-    std::function<void(const QJsonObject & symbol, LSPSymbolInformation *parent)> parseSymbol =
-        [&] (const QJsonObject & symbol, LSPSymbolInformation *parent) {
-        // if flat list, try to find parent by name
-        if (!parent) {
-            auto container = symbol.value(QStringLiteral("containerName")).toString();
-            parent = index.value(container, nullptr);
-        }
-        auto list = parent ? &parent->children : &ret;
-        const auto& location = symbol.value(MEMBER_LOCATION).toObject();
-        const auto& mrange = symbol.contains(MEMBER_RANGE) ?
-                    symbol.value(MEMBER_RANGE) : location.value(MEMBER_RANGE);
-        auto range = parseRange(mrange.toObject());
-        if (isPositionValid(range.start()) && isPositionValid(range.end())) {
-            auto name = symbol.value(QStringLiteral("name")).toString();
-            auto kind = (LSPSymbolKind) symbol.value(MEMBER_KIND).toInt();
-            auto detail = symbol.value(MEMBER_DETAIL).toString();
-            list->push_back({name, kind, range, detail});
-            index[name] = &list->back();
-            // proceed recursively
-            for (const auto &child : symbol.value(QStringLiteral("children")).toArray())
-                parseSymbol(child.toObject(), &list->back());
-        }
-    };
-
-    for (const auto& info : result.toArray()) {
-        parseSymbol(info.toObject(), nullptr);
-    }
-    return ret;
-}
-
-static QList<LSPLocation>
-parseDocumentLocation(const QJsonValue & result)
-{
-    QList<LSPLocation> ret;
-    // could be array
-    if (result.isArray()) {
-        for (const auto & def : result.toArray()) {
-            ret.push_back(parseLocation(def.toObject()));
-        }
-    } else if (result.isObject()) {
-        // or a single value
-        ret.push_back(parseLocation(result.toObject()));
-    }
-    return ret;
-}
-
-static QList<LSPCompletionItem>
-parseDocumentCompletion(const QJsonValue & result)
-{
-    QList<LSPCompletionItem> ret;
-    QJsonArray items = result.toArray();
-    // might be CompletionList
-    if (items.size() == 0) {
-        items = result.toObject().value(QStringLiteral("items")).toArray();
-    }
-    for (const auto & vitem : items) {
-        const auto & item = vitem.toObject();
-        auto label = item.value(MEMBER_LABEL).toString();
-        auto detail = item.value(MEMBER_DETAIL).toString();
-        auto doc = parseMarkupContent(item.value(MEMBER_DOCUMENTATION));
-        auto sortText = item.value(QStringLiteral("sortText")).toString();
-        if (sortText.isEmpty())
-            sortText = label;
-        auto insertText = item.value(QStringLiteral("insertText")).toString();
-        if (insertText.isEmpty())
-            insertText = label;
-        auto kind = (LSPCompletionItemKind) item.value(MEMBER_KIND).toInt();
-        ret.push_back({label, kind, detail, doc, sortText, insertText});
-    }
-    return ret;
-}
-
-static LSPSignatureInformation
-parseSignatureInformation(const QJsonObject & json)
-{
-    LSPSignatureInformation info;
-
-    info.label = json.value(MEMBER_LABEL).toString();
-    info.documentation = parseMarkupContent(json.value(MEMBER_DOCUMENTATION));
-    for (const auto & rpar : json.value(QStringLiteral("parameters")).toArray()) {
-        auto par = rpar.toObject();
-        auto label = par.value(MEMBER_LABEL);
-        int begin = -1, end = -1;
-        if (label.isArray()) {
-            auto range = label.toArray();
-            if (range.size() == 2) {
-                begin = range.at(0).toInt(-1);
-                end = range.at(1).toInt(-1);
-                if (begin > info.label.length())
-                    begin = -1;
-                if (end > info.label.length())
-                    end = -1;
-            }
-        } else {
-            auto sub = label.toString();
-            if (sub.length()) {
-                begin = info.label.indexOf(sub);
-                if (begin >= 0) {
-                    end = begin + sub.length();
-                }
-            }
-        }
-        info.parameters.push_back({begin, end});
-    }
-    return info;
-}
-
-static LSPSignatureHelp
-parseSignatureHelp(const QJsonValue & result)
-{
-    LSPSignatureHelp ret;
-    QJsonObject sig = result.toObject();
-
-    for (const auto & info: sig.value(QStringLiteral("signatures")).toArray()) {
-        ret.signatures.push_back(parseSignatureInformation(info.toObject()));
-    }
-    ret.activeSignature = sig.value(QStringLiteral("activeSignature")).toInt(0);
-    ret.activeParameter = sig.value(QStringLiteral("activeParameter")).toInt(0);
-    ret.activeSignature = qMin(qMax(ret.activeSignature, 0), ret.signatures.size());
-    ret.activeParameter = qMin(qMax(ret.activeParameter, 0), ret.signatures.size());
-    return ret;
-}
-
-static QList<LSPTextEdit>
-parseTextEdit(const QJsonValue & result)
-{
-    QList<LSPTextEdit> ret;
-    for (const auto &redit: result.toArray()) {
-        auto edit = redit.toObject();
-        auto text = edit.value(QStringLiteral("newText")).toString();
-        auto range = parseRange(edit.value(MEMBER_RANGE).toObject());
-        ret.push_back({range, text});
-    }
-    return ret;
-}
-
-static LSPWorkspaceEdit
-parseWorkSpaceEdit(const QJsonValue & result)
-{
-    QHash<QUrl, QList<LSPTextEdit>> ret;
-    auto changes = result.toObject().value(QStringLiteral("changes")).toObject();
-    for (auto it = changes.begin(); it != changes.end(); ++it) {
-        ret.insert(normalizeUrl(QUrl(it.key())), parseTextEdit(it.value()));
-    }
-    return {ret};
-}
-
-static LSPCommand
-parseCommand(const QJsonObject & result)
-{
-    auto title = result.value(MEMBER_TITLE).toString();
-    auto command = result.value(MEMBER_COMMAND).toString();
-    auto args = result.value(MEMBER_ARGUMENTS).toArray();
-    return { title, command, args };
-}
-
-static QList<LSPDiagnostic>
-parseDiagnostics(const QJsonArray &result)
-{
-    QList<LSPDiagnostic> ret;
-    for (const auto & vdiag : result) {
-        auto diag = vdiag.toObject();
-        auto range = parseRange(diag.value(MEMBER_RANGE).toObject());
-        auto severity = (LSPDiagnosticSeverity) diag.value(QStringLiteral("severity")).toInt();
-        auto code = diag.value(QStringLiteral("code")).toString();
-        auto source = diag.value(QStringLiteral("source")).toString();
-        auto message = diag.value(MEMBER_MESSAGE).toString();
-        auto related = diag.value(QStringLiteral("relatedInformation")).toObject();
-        auto relLocation = parseLocation(related.value(MEMBER_LOCATION).toObject());
-        auto relMessage = related.value(MEMBER_MESSAGE).toString();
-        ret.push_back({range, severity, code, source, message, relLocation, relMessage});
-    }
-    return ret;
-}
-
-static QList<LSPCodeAction>
-parseCodeAction(const QJsonValue & result)
-{
-    QList<LSPCodeAction> ret;
-    for (const auto &vaction: result.toArray()) {
-        auto action = vaction.toObject();
-        // entry could be Command or CodeAction
-        if (!action.value(MEMBER_COMMAND).isString()) {
-            // CodeAction
-            auto title = action.value(MEMBER_TITLE).toString();
-            auto kind = action.value(MEMBER_KIND).toString();
-            auto command = parseCommand(action.value(MEMBER_COMMAND).toObject());
-            auto edit = parseWorkSpaceEdit(action.value(MEMBER_EDIT));
-            auto diagnostics = parseDiagnostics(action.value(MEMBER_DIAGNOSTICS).toArray());
-            ret.push_back({title, kind, diagnostics, edit, command});
-        } else {
-            // Command
-            auto command = parseCommand(action);
-            ret.push_back({command.title, QString(), {}, {}, command});
-        }
-    }
-    return ret;
-}
-
-static LSPPublishDiagnosticsParams
-parseDiagnostics(const QJsonObject & result)
-{
-    LSPPublishDiagnosticsParams ret;
-
-    ret.uri = normalizeUrl(QUrl(result.value(MEMBER_URI).toString()));
-    ret.diagnostics = parseDiagnostics(result.value(MEMBER_DIAGNOSTICS).toArray());
-    return ret;
-}
-
-static LSPApplyWorkspaceEditParams
-parseApplyWorkspaceEditParams(const QJsonObject & result)
-{
-    LSPApplyWorkspaceEditParams ret;
-
-    ret.label = result.value(MEMBER_LABEL).toString();
-    ret.edit = parseWorkSpaceEdit(result.value(MEMBER_EDIT));
-    return ret;
-}
 
 // generic convert handler
 // sprinkle some connection-like context safety

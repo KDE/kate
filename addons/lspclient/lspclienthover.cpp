@@ -77,12 +77,28 @@ public:
             QPointer<KTextEditor::View> v(view);
             auto h = [this,v,position] (const LSPHover & info)
             {
-                if (!v || info.contents.value.isEmpty()) {
+                if (!v || info.contents.isEmpty()) {
                     return;
                 }
 
-                auto localCoordinates = v->cursorToCoordinate(position);
-                QToolTip::showText(v->mapToGlobal(localCoordinates), info.contents.value);
+                // combine contents elements to one string
+                QString finalTooltip;
+                for (auto &element : info.contents) {
+                    if (!finalTooltip.isEmpty()) {
+                        finalTooltip.append(QLatin1Char('\n'));
+                    }
+                    finalTooltip.append(element.value);
+                }
+
+                // we need to cut this a bit if too long until we have
+                // something more sophisticated than a tool tip for it
+                if (finalTooltip.size() > 512) {
+                    finalTooltip.resize(512);
+                    finalTooltip.append(QStringLiteral("..."));
+                }
+
+                // show tool tip: think about a better way for "large" stuff
+                QToolTip::showText(v->mapToGlobal(v->cursorToCoordinate(position)), finalTooltip);
             };
 
             m_handle.cancel() = m_server->documentHover(view->document()->url(), position, this, h);

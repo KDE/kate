@@ -964,6 +964,28 @@ parseDocumentHighlightList(const QJsonValue & result)
     return ret;
 }
 
+static LSPMarkupContent
+parseHoverContentElement(const QJsonValue & contents)
+{
+    LSPMarkupContent result;
+    if (contents.isString()) {
+        result.value = contents.toString();
+    } else {
+        // should be object, pretend so
+        auto cont = contents.toObject();
+        auto text = cont.value(QStringLiteral("value")).toString();
+        if (text.isEmpty()) {
+            // nothing to lose, try markdown
+            result = parseMarkupContent(contents);
+        } else {
+            result.value = text;
+        }
+    }
+    if (result.value.length())
+        result.kind = LSPMarkupKind::PlainText;
+    return result;
+}
+
 static LSPHover
 parseHover(const QJsonValue & result)
 {
@@ -972,21 +994,16 @@ parseHover(const QJsonValue & result)
     // normalize content which can be of many forms
     ret.range = parseRange(hover.value(MEMBER_RANGE).toObject());
     auto contents = hover.value(QStringLiteral("contents"));
-    if (contents.isString()) {
-        ret.contents.value = contents.toString();
-    } else {
-        // should be object, pretend so
-        auto cont = contents.toObject();
-        auto text = cont.value(QStringLiteral("value")).toString();
-        if (text.isEmpty()) {
-            // nothing to lose, try markdown
-            ret.contents = parseMarkupContent(contents);
-        } else {
-            ret.contents.value = text;
+
+    // support the deprecated MarkedString[] variant, used by e.g. Rust rls
+    if (contents.isArray()) {
+        for (const auto & c : contents.toArray()) {
+            ret.contents.push_back(parseHoverContentElement(c));
         }
+    } else {
+        ret.contents.push_back(parseHoverContentElement(contents));
     }
-    if (ret.contents.value.length())
-        ret.contents.kind = LSPMarkupKind::PlainText;
+
     return ret;
 }
 

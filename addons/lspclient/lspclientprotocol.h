@@ -150,7 +150,9 @@ struct LSPDocumentHighlight
 
 struct LSPHover
 {
-    LSPMarkupContent contents;
+    // vector for contents to support all three variants: MarkedString | MarkedString[] | MarkupContent
+    // vector variant is still in use e.g. by Rust rls
+    QVector<LSPMarkupContent> contents;
     LSPRange range;
 };
 

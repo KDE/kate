@@ -61,6 +61,8 @@ LSPClientPlugin::LSPClientPlugin(QObject *parent, const QList<QVariant> &)
     m_debugMode = (qgetenv("LSPCLIENT_DEBUG") == QByteArray("1"));
     if (!m_debugMode) {
         QLoggingCategory::setFilterRules(QStringLiteral("katelspclientplugin.debug=false\nkatelspclientplugin.info=false"));
+    } else {
+        QLoggingCategory::setFilterRules(QStringLiteral("katelspclientplugin.debug=true\nkatelspclientplugin.info=true"));
     }
 
     readConfig();

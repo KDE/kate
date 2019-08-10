@@ -96,7 +96,9 @@ int main(int argc, char ** argv)
     q.exec();
 
     auto hover_h = [&q] (const LSPHover & hover) {
-        std::cout << "hover: " << hover.contents.value.toStdString() << std::endl;
+        for (auto &element : hover.contents) {
+            std::cout << "hover: " << element.value.toStdString() << std::endl;
+        }
         q.quit();
     };
     lsp.documentHover(document, {position[0].toInt(), position[1].toInt()}, &app, hover_h);

@@ -634,6 +634,7 @@ void KateMainWindow::readOptions()
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
 
     m_quickOpen->setMatchMode(generalGroup.readEntry("Quick Open Search Mode", (int)KateQuickOpenModel::Columns::FileName));
+    m_quickOpen->setListMode(generalGroup.readEntry("Quick Open List Mode", (int)KateQuickOpenModel::List::CurrentProject));
 
     // emit signal to hide/show statusbars
     toggleShowStatusBar();
@@ -1282,4 +1283,14 @@ void KateMainWindow::setQuickOpenMatchMode(int mode)
 int KateMainWindow::quickOpenMatchMode()
 {
     return m_quickOpen->matchMode();
+}
+
+void KateMainWindow::setQuickOpenListMode(int mode)
+{
+    m_quickOpen->setListMode(mode);
+}
+
+int KateMainWindow::quickOpenListMode()
+{
+    return m_quickOpen->listMode();
 }

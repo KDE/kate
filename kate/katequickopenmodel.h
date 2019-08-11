@@ -44,6 +44,9 @@ public:
     int columnCount(const QModelIndex& parent) const override;
     QVariant data(const QModelIndex& idx, int role) const override;
     void refresh();
+    enum List : int { CurrentProject, AllProjects };
+    int listMode() { return m_listMode; }
+    void setListMode(int mode) { m_listMode = mode; }
 
 private:
     QVector<ModelEntry> m_modelEntries;
@@ -54,6 +57,7 @@ private:
     * code.
     */
     KateMainWindow *m_mainWindow;
+    int m_listMode;
 };
 
 #endif

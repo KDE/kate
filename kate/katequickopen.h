@@ -45,6 +45,9 @@ public:
     int matchMode();
     void setMatchMode(int mode);
 
+    int listMode();
+    void setListMode(int mode);
+
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 

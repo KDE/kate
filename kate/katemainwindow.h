@@ -298,6 +298,9 @@ public:
     void setQuickOpenMatchMode(int mode);
     int quickOpenMatchMode();
 
+    void setQuickOpenListMode(int mode);
+    int quickOpenListMode();
+
     KRecentFilesAction *fileOpenRecent() const {
         return m_fileOpenRecent;
     }

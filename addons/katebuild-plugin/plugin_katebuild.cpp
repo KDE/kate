@@ -830,6 +830,13 @@ bool KateBuildView::buildCurrentTarget()
         }
     }
 
+    // a single target can serve to build lots of projects with similar directory layout
+    if (m_projectPluginView) {
+        QFileInfo baseDir = m_projectPluginView->property("projectBaseDir").toString();
+        dir.replace(QStringLiteral("%B"), baseDir.absoluteFilePath());
+        dir.replace(QStringLiteral("%b"), baseDir.baseName());
+    }
+
     // Check if the command contains the file name or directory
     if (buildCmd.contains(QStringLiteral("%f")) ||
         buildCmd.contains(QStringLiteral("%d")) ||

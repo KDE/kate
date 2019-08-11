@@ -90,9 +90,9 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     , m_displayModeBeforeBuild(1)
     // NOTE this will not allow spaces in file names.
     // e.g. from gcc: "main.cpp:14: error: cannot convert ‘std::string’ to ‘int’ in return"
-    , m_filenameDetector(QStringLiteral("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+):([0-9]+)(.*)"))
+    , m_filenameDetector(QStringLiteral("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\+\\-/\\\\]+\\.[a-zA-Z0-9]+):([0-9]+)(.*)"))
     // e.g. from icpc: "main.cpp(14): error: no suitable conversion function from "std::string" to "int" exists"
-    , m_filenameDetectorIcpc(QStringLiteral("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+)\\(([0-9]+)\\)(:.*)"))
+    , m_filenameDetectorIcpc(QStringLiteral("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\+\\-/\\\\]+\\.[a-zA-Z0-9]+)\\(([0-9]+)\\)(:.*)"))
     , m_filenameDetectorGccWorked(false)
     , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ `.*'"))
 {

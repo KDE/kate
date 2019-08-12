@@ -898,8 +898,11 @@ private:
             // a valid reply; what to do with it now
             auto it = m_handlers.find(msgid);
             if (it != m_handlers.end()) {
+                // run handler, might e.g. trigger some new LSP actions for this server
                 (*it)(result.value(MEMBER_RESULT));
-                m_handlers.erase(it);
+
+                // don't use the iterator, might have been invalidated by actions of handler, leads to crashs
+                m_handlers.remove(msgid);
             } else {
                 // could have been canceled
                 qCDebug(LSPCLIENT) << "unexpected reply id";

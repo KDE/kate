@@ -1408,6 +1408,7 @@ public:
     void updateState()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
+        auto doc = activeView ? activeView->document() : nullptr;
         auto server = m_serverManager->findServer(activeView);
         bool defEnabled = false, declEnabled = false, refEnabled = false;
         bool hoverEnabled = false, highlightEnabled = false;
@@ -1438,8 +1439,8 @@ public:
                 m_onTypeFormattingTriggers.clear();
             }
             // and monitor for such
-            if (activeView->document()) {
-                connect(activeView->document(), &KTextEditor::Document::textChanged,
+            if (doc) {
+                connect(doc, &KTextEditor::Document::textChanged,
                     this, &self_type::onTextChanged, Qt::UniqueConnection);
             }
         }
@@ -1474,11 +1475,11 @@ public:
         updateHover(activeView, server.data());
 
         // update marks if applicable
-        if (m_markModel && activeView)
-            addMarks(activeView->document(), m_markModel, m_ranges);
-        if (m_diagnosticsModel && activeView) {
-            clearMarks(activeView->document(), m_diagnosticsRanges, RangeData::markTypeDiagAll);
-            addMarks(activeView->document(), m_diagnosticsModel.data(), m_diagnosticsRanges);
+        if (m_markModel && doc)
+            addMarks(doc, m_markModel, m_ranges);
+        if (m_diagnosticsModel && doc) {
+            clearMarks(doc, m_diagnosticsRanges, RangeData::markTypeDiagAll);
+            addMarks(doc, m_diagnosticsModel.data(), m_diagnosticsRanges);
         }
 
         // connect for cleanup stuff

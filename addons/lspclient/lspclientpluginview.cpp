@@ -1341,6 +1341,10 @@ public:
         QStandardItem *topItem = getItem(*m_diagnosticsModel, diagnostics.uri);
 
         if (!topItem) {
+            // no need to create an empty one
+            if (diagnostics.diagnostics.size() == 0) {
+                return;
+            }
             topItem = new QStandardItem();
             model->appendRow(topItem);
             topItem->setText(diagnostics.uri.path());

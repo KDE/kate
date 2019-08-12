@@ -229,27 +229,13 @@ public:
     {
         Q_ASSERT(doc);
 
-        /* NOTE:
-         * The implementation (at least one) of range translation comes down to
-         * katetexthistory.cpp.  While there are asserts in place that check
-         * for a valid revision parameter, those checks are *only* in assert
-         * and will otherwise result in nasty index access.  So it is vital
-         * that a valid revision is always given.  However, there is no way
-         * to check for a valid revision using the interface only, and documentation
-         * refers to (dangerous) effects of clear() and reload() (that are not
-         * part of the interface, neither clearly of Document interface).
-         * So it then becomes crucial that the following signal covers all
-         * cases where a revision might be invalidated.
-         * Even if so, it would be preferably being able to check for a valid/known
-         * revision at any other time by other means (e.g. interface method).
-         */
+        // make sure revision is cleared when needed and no longer used (to unlock or otherwise)
+        // see e.g. implementation in katetexthistory.cpp and assert's in place there
         auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
             this, SLOT(clearRevisions(KTextEditor::Document*)));
         Q_ASSERT(conn);
-#if 0
         // disable until confirmation/clarification on the above
         m_guards.emplace(doc->url(), doc);
-#endif
     }
 
     void find(const QUrl & url, KTextEditor::MovingInterface* & miface, qint64 & revision) const override

@@ -1390,6 +1390,34 @@ public:
         updateState();
     }
 
+    void onDocumentUrlChanged(KTextEditor::Document *doc)
+    {
+        // url already changed by this time and new url not useufl
+        (void)doc;
+        // note; url also changes when closed
+        // spec says;
+        // if a language has a project system, diagnostics are not cleared by *server*
+        // but in either case (url change or close); remove lingering diagnostics
+        // collect active urls
+        QSet<QString> fpaths;
+        for (const auto &view: m_mainWindow->views()) {
+            if (auto doc = view->document()) {
+                fpaths.insert(doc->url().path());
+            }
+        }
+        // check and clear defunct entries
+        const auto &model = *m_diagnosticsModel;
+        for (int i = 0; i < model.rowCount(); ++i) {
+            auto item = model.item(i);
+            if (item && !fpaths.contains(item->text())) {
+                item->setRowCount(0);
+                if (m_diagnosticsTree) {
+                    m_diagnosticsTree->setRowHidden(item->row(), QModelIndex(), true);
+                }
+            }
+        }
+    }
+
     void onTextChanged(KTextEditor::Document *doc)
     {
         if (m_onTypeFormattingTriggers.size() == 0)
@@ -1446,6 +1474,8 @@ public:
             if (doc) {
                 connect(doc, &KTextEditor::Document::textChanged,
                     this, &self_type::onTextChanged, Qt::UniqueConnection);
+                connect(doc, &KTextEditor::Document::documentUrlChanged,
+                    this, &self_type::onDocumentUrlChanged, Qt::UniqueConnection);
             }
         }
 

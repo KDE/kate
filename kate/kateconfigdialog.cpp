@@ -36,6 +36,7 @@
 
 #include <KStandardAction>
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <KConfigGroup>
 #include <KSharedConfig>
 #include <KPluralHandlingSpinBox>
@@ -53,6 +54,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     : KPageDialog(parent)
     , m_mainWindow(parent)
     , m_view(view)
+    , m_dataChanged(false)
 {
     setFaceType(Tree);
     setWindowTitle(i18n("Configure"));
@@ -247,7 +249,6 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     connect(buttonBox()->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
     connect(this, &KateConfigDialog::currentPageChanged, this, &KateConfigDialog::slotCurrentPageChanged);
-    m_dataChanged = false;
 
     resize(minimumSizeHint());
 }
@@ -435,3 +436,30 @@ int KateConfigDialog::recentFilesMaxCount()
     return maxItems;
 }
 
+void KateConfigDialog::closeEvent(QCloseEvent *event)
+{
+    if (!m_dataChanged) {
+        event->accept();
+        return;
+    }
+
+    const auto response = KMessageBox::warningYesNoCancel(this,
+                                        i18n("You have have unsaved changes. Do you want to apply the changes or discard them?"),
+                                        i18n("Warning"),
+                                        KStandardGuiItem::save(),
+                                        KStandardGuiItem::discard(),
+                                        KStandardGuiItem::cancel());
+    switch (response) {
+        case KMessageBox::Yes:
+            slotApply();
+            Q_FALLTHROUGH();
+        case KMessageBox::No:
+            event->accept();
+            break;
+        case KMessageBox::Cancel:
+            event->ignore();
+            break;
+        default:
+            break;
+    }
+}

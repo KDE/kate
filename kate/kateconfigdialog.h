@@ -67,6 +67,7 @@ public:
     void addPluginPage(KTextEditor::Plugin *plugin);
     void removePluginPage(KTextEditor::Plugin *plugin);
     void showAppPluginPage(KTextEditor::Plugin *plugin, uint id);
+    
 protected Q_SLOTS:
     void slotApply();
     void slotChanged();
@@ -74,6 +75,9 @@ protected Q_SLOTS:
 
     void slotCurrentPageChanged(KPageWidgetItem *current, KPageWidgetItem *before);
 
+protected:
+    void closeEvent(QCloseEvent *event) override;
+    
 private:
     KateMainWindow *m_mainWindow;
 

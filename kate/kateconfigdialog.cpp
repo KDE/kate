@@ -54,7 +54,6 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     : KPageDialog(parent)
     , m_mainWindow(parent)
     , m_view(view)
-    , m_dataChanged(false)
 {
     setFaceType(Tree);
     setWindowTitle(i18n("Configure"));
@@ -251,6 +250,9 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     connect(this, &KateConfigDialog::currentPageChanged, this, &KateConfigDialog::slotCurrentPageChanged);
 
     resize(minimumSizeHint());
+
+    // ensure no stray signals already set this!
+    m_dataChanged = false;
 }
 
 KateConfigDialog::~KateConfigDialog()

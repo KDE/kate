@@ -30,6 +30,7 @@ class QStandardItemModel;
 class QSortFilterProxyModel;
 class QTreeView;
 class KateQuickOpenModel;
+enum KateQuickOpenModelList : int;
 
 class KateQuickOpen : public QWidget
 {
@@ -44,6 +45,9 @@ public:
 
     int matchMode();
     void setMatchMode(int mode);
+
+    KateQuickOpenModelList listMode() const;
+    void setListMode(KateQuickOpenModelList mode);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

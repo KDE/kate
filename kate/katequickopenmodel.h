@@ -35,6 +35,9 @@ struct ModelEntry {
     size_t sort_id;
 };
 
+// needs to be defined outside of class to support forward declaration elsewhere
+enum KateQuickOpenModelList : int { CurrentProject, AllProjects };
+
 class KateQuickOpenModel : public QAbstractTableModel {
     Q_OBJECT
 public:
@@ -44,6 +47,10 @@ public:
     int columnCount(const QModelIndex& parent) const override;
     QVariant data(const QModelIndex& idx, int role) const override;
     void refresh();
+    // add a convenient in-class alias
+    using List = KateQuickOpenModelList;
+    List listMode() const { return m_listMode; }
+    void setListMode(List mode) { m_listMode = mode; }
 
 private:
     QVector<ModelEntry> m_modelEntries;
@@ -54,6 +61,7 @@ private:
     * code.
     */
     KateMainWindow *m_mainWindow;
+    List m_listMode;
 };
 
 #endif

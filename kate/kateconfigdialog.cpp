@@ -150,7 +150,10 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 
     // quick search
     buttonGroup = new QGroupBox(i18n("&Quick Open"), generalFrame);
-    hlayout = new QHBoxLayout(buttonGroup);
+    vbox = new QVBoxLayout;
+    buttonGroup->setLayout(vbox);
+    // quick open match mode
+    hlayout = new QHBoxLayout;
     label = new QLabel(i18n("&Match Mode:"), buttonGroup);
     hlayout->addWidget(label);
     m_cmbQuickOpenMatchMode = new QComboBox(buttonGroup);
@@ -161,6 +164,20 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     m_cmbQuickOpenMatchMode->setCurrentIndex(m_cmbQuickOpenMatchMode->findData(m_mainWindow->quickOpenMatchMode()));
     m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
     connect(m_cmbQuickOpenMatchMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    vbox->addLayout(hlayout);
+    // quick open list mode
+    hlayout = new QHBoxLayout;
+    label = new QLabel(i18n("&List Mode:"), buttonGroup);
+    hlayout->addWidget(label);
+    m_cmbQuickOpenListMode = new QComboBox(buttonGroup);
+    hlayout->addWidget(m_cmbQuickOpenListMode);
+    label->setBuddy(m_cmbQuickOpenListMode);
+    m_cmbQuickOpenListMode->addItem(i18n("Current Project Files"), QVariant(KateQuickOpenModel::List::CurrentProject));
+    m_cmbQuickOpenListMode->addItem(i18n("All Projects Files"), QVariant(KateQuickOpenModel::List::AllProjects));
+    m_cmbQuickOpenListMode->setCurrentIndex(m_cmbQuickOpenListMode->findData(m_mainWindow->quickOpenListMode()));
+    m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));
+    connect(m_cmbQuickOpenListMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    vbox->addLayout(hlayout);
     layout->addWidget(buttonGroup);
 
     layout->addStretch(1); // :-] works correct without autoadd
@@ -353,6 +370,9 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Quick Open Search Mode", m_cmbQuickOpenMatchMode->currentData().toInt());
         m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
+
+        cg.writeEntry("Quick Open List Mode", m_cmbQuickOpenListMode->currentData().toInt());
+        m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

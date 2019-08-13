@@ -777,7 +777,7 @@ public:
     {
         auto widget = m_tabWidget->widget(index);
         if (widget != m_diagnosticsTree) {
-            if (widget == m_markModel->parent()) {
+            if (m_markModel && widget == m_markModel->parent()) {
                 clearAllLocationMarks();
             }
             delete widget;

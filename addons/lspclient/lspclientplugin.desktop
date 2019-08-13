@@ -25,6 +25,7 @@ Name[zh_CN]=LSP 客户端
 Name[zh_TW]=LSP 客戶端
 Comment=Language Server Protocol Client
 Comment[ca]=Client del protocol de servidor de llenguatge
+Comment[de]=Sprachserverprotokoll-Client
 Comment[el]=Πελάτης Πρωτοκόλλου γλωσσικού εξυπηρετητή
 Comment[en_GB]=Language Server Protocol Client
 Comment[es]=Cliente del protocolo de servidor de lenguaje

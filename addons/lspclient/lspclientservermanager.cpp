@@ -234,7 +234,9 @@ public:
         auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
             this, SLOT(clearRevisions(KTextEditor::Document*)));
         Q_ASSERT(conn);
-        // disable until confirmation/clarification on the above
+        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(clearRevisions(KTextEditor::Document*)));
+        Q_ASSERT(conn);
         m_guards.emplace(doc->url(), doc);
     }
 

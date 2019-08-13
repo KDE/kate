@@ -895,14 +895,18 @@ private:
                 processRequest(result);
                 continue;
             }
+
             // a valid reply; what to do with it now
             auto it = m_handlers.find(msgid);
             if (it != m_handlers.end()) {
-                // run handler, might e.g. trigger some new LSP actions for this server
-                (*it)(result.value(MEMBER_RESULT));
+                // copy handler to local storage
+                const auto handler = *it;
 
-                // don't use the iterator, might have been invalidated by actions of handler, leads to crashs
-                m_handlers.remove(msgid);
+                // remove handler from our set, do this pre handler execution to avoid races
+                m_handlers.erase(it);
+
+                // run handler, might e.g. trigger some new LSP actions for this server
+                handler(result.value(MEMBER_RESULT));
             } else {
                 // could have been canceled
                 qCDebug(LSPCLIENT) << "unexpected reply id";

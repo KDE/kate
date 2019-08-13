@@ -54,6 +54,7 @@ class KRecentFilesAction;
 class KateViewManager;
 class KateMwModOnHdDialog;
 class KateQuickOpen;
+enum KateQuickOpenModelList : int;
 
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
@@ -298,8 +299,8 @@ public:
     void setQuickOpenMatchMode(int mode);
     int quickOpenMatchMode();
 
-    void setQuickOpenListMode(int mode);
-    int quickOpenListMode();
+    void setQuickOpenListMode(KateQuickOpenModelList mode);
+    KateQuickOpenModelList quickOpenListMode() const;
 
     KRecentFilesAction *fileOpenRecent() const {
         return m_fileOpenRecent;

@@ -182,12 +182,12 @@ int KateQuickOpen::matchMode()
     return m_model->filterKeyColumn();
 }
 
-void KateQuickOpen::setListMode(int mode)
+void KateQuickOpen::setListMode(KateQuickOpenModel::List mode)
 {
     m_base_model->setListMode(mode);
 }
 
-int KateQuickOpen::listMode()
+KateQuickOpenModel::List KateQuickOpen::listMode() const
 {
     return m_base_model->listMode();
 }

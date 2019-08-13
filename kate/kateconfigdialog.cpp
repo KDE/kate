@@ -175,7 +175,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     m_cmbQuickOpenListMode->addItem(i18n("Current Project Files"), QVariant(KateQuickOpenModel::List::CurrentProject));
     m_cmbQuickOpenListMode->addItem(i18n("All Projects Files"), QVariant(KateQuickOpenModel::List::AllProjects));
     m_cmbQuickOpenListMode->setCurrentIndex(m_cmbQuickOpenListMode->findData(m_mainWindow->quickOpenListMode()));
-    m_mainWindow->setQuickOpenListMode(m_cmbQuickOpenListMode->currentData().toInt());
+    m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));
     connect(m_cmbQuickOpenListMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
     vbox->addLayout(hlayout);
     layout->addWidget(buttonGroup);
@@ -372,7 +372,7 @@ void KateConfigDialog::slotApply()
         m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
 
         cg.writeEntry("Quick Open List Mode", m_cmbQuickOpenListMode->currentData().toInt());
-        m_mainWindow->setQuickOpenListMode(m_cmbQuickOpenListMode->currentData().toInt());
+        m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

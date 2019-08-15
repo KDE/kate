@@ -446,7 +446,7 @@ void KateConfigDialog::closeEvent(QCloseEvent *event)
     }
 
     const auto response = KMessageBox::warningYesNoCancel(this,
-                                        i18n("You have have unsaved changes. Do you want to apply the changes or discard them?"),
+                                        i18n("You have unsaved changes. Do you want to apply the changes or discard them?"),
                                         i18n("Warning"),
                                         KStandardGuiItem::save(),
                                         KStandardGuiItem::discard(),

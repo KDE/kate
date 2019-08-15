@@ -29,6 +29,7 @@
 #include <QString>
 #include <QStack>
 #include <QPointer>
+#include <QHash>
 #include <KProcess>
 
 #include <KTextEditor/MainWindow>
@@ -37,6 +38,7 @@
 #include <KTextEditor/View>
 #include <KTextEditor/SessionConfigInterface>
 #include <KTextEditor/Message>
+#include <KTextEditor/MarkInterface>
 
 #include <KXMLGUIClient>
 #include <KConfigGroup>
@@ -111,6 +113,10 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
 
         void handleEsc(QEvent *e);
 
+        void slotViewChanged();
+        void slotDisplayOption();
+        void slotMarkClicked(KTextEditor::Document *doc, KTextEditor::Mark mark, bool &handled);
+
         /**
          * keep track if the project plugin is alive and if the project map did change
          */
@@ -131,6 +137,9 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         void clearBuildResults();
 
         void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
+
+        void clearMarks();
+        void addMarks(KTextEditor::Document *doc);
 
         KTextEditor::MainWindow *m_win;
         QWidget          *m_toolView;
@@ -155,6 +164,8 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         QString           m_prevItemContent;
         QModelIndex       m_previousIndex;
         QPointer<KTextEditor::Message> m_infoMessage;
+        QPointer<QAction> m_showMarks;
+        QHash<KTextEditor::Document*, QPointer<KTextEditor::Document>> m_markedDocs;
 
 
         /**

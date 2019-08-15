@@ -238,6 +238,9 @@ class LSPClientActionView : public QObject
     // applied search ranges
     typedef QMultiHash<KTextEditor::Document*, KTextEditor::MovingRange*> RangeCollection;
     RangeCollection m_ranges;
+    // applied marks
+    typedef QSet<KTextEditor::Document*> DocumentCollection;
+    DocumentCollection m_marks;
     // modelis either owned by tree added to tabwidget or owned here
     QScopedPointer<QStandardItemModel> m_ownedModel;
     // in either case, the model that directs applying marks/ranges
@@ -256,6 +259,8 @@ class LSPClientActionView : public QObject
     QScopedPointer<QStandardItemModel> m_diagnosticsModel;
     // diagnostics ranges
     RangeCollection m_diagnosticsRanges;
+    // and marks
+    DocumentCollection m_diagnosticsMarks;
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
@@ -469,9 +474,10 @@ public:
     }
 
     static
-    void clearMarks(KTextEditor::Document *doc, RangeCollection & ranges, uint markType)
+    void clearMarks(KTextEditor::Document *doc, RangeCollection & ranges, DocumentCollection & docs, uint markType)
     {
-        KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+        KTextEditor::MarkInterface* iface =
+                docs.contains(doc) ? qobject_cast<KTextEditor::MarkInterface*>(doc) : nullptr;
         if (iface) {
             const QHash<int, KTextEditor::Mark*> marks = iface->marks();
             QHashIterator<int, KTextEditor::Mark*> i(marks);
@@ -481,6 +487,7 @@ public:
                     iface->removeMark(i.value()->line, markType);
                 }
             }
+            docs.remove(doc);
         }
 
         for (auto it = ranges.find(doc); it != ranges.end() && it.key() == doc;) {
@@ -490,22 +497,22 @@ public:
     }
 
     static
-    void clearMarks(RangeCollection & ranges, uint markType)
+    void clearMarks(RangeCollection & ranges, DocumentCollection & docs, uint markType)
     {
         while (!ranges.empty()) {
-            clearMarks(ranges.begin().key(), ranges, markType);
+            clearMarks(ranges.begin().key(), ranges, docs, markType);
         }
     }
 
     Q_SLOT void clearAllMarks(KTextEditor::Document *doc)
     {
-        clearMarks(doc, m_ranges, RangeData::markType);
-        clearMarks(doc, m_diagnosticsRanges, RangeData::markTypeDiagAll);
+        clearMarks(doc, m_ranges, m_marks, RangeData::markType);
+        clearMarks(doc, m_diagnosticsRanges, m_diagnosticsMarks, RangeData::markTypeDiagAll);
     }
 
     void clearAllLocationMarks()
     {
-        clearMarks(m_ranges, RangeData::markType);
+        clearMarks(m_ranges, m_marks, RangeData::markType);
         // no longer add any again
         m_ownedModel.reset();
         m_markModel.clear();
@@ -513,10 +520,10 @@ public:
 
     void clearAllDiagnosticsMarks()
     {
-        clearMarks(m_diagnosticsRanges, RangeData::markTypeDiagAll);
+        clearMarks(m_diagnosticsRanges, m_diagnosticsMarks, RangeData::markTypeDiagAll);
     }
 
-    void addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection & ranges)
+    void addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection * ranges, DocumentCollection * docs)
     {
         Q_ASSERT(item);
         KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
@@ -585,12 +592,12 @@ public:
         }
 
         // highlight the range
-        if (enabled) {
+        if (enabled && ranges) {
             KTextEditor::MovingRange* mr = miface->newMovingRange(range);
             mr->setAttribute(attr);
             mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
             mr->setAttributeOnlyForViews(true);
-            ranges.insert(doc, mr);
+            ranges->insert(doc, mr);
         }
 
         // add match mark for range
@@ -621,8 +628,10 @@ public:
             Q_ASSERT(false);
             break;
         }
-        if (enabled)
+        if (enabled && docs) {
             iface->addMark(line, markType);
+            docs->insert(doc);
+        }
 
         // ensure runtime match
         connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
@@ -636,23 +645,26 @@ public:
         }
     }
 
-    void addMarksRec(KTextEditor::Document *doc, QStandardItem *item, RangeCollection & ranges)
+    void addMarksRec(KTextEditor::Document *doc, QStandardItem *item, RangeCollection * ranges, DocumentCollection * docs)
     {
         Q_ASSERT(item);
-        addMarks(doc, item, ranges);
+        addMarks(doc, item, ranges, docs);
         for (int i = 0; i < item->rowCount(); ++i) {
-            addMarksRec(doc, item->child(i), ranges);
+            addMarksRec(doc, item->child(i), ranges, docs);
         }
     }
 
-    void addMarks(KTextEditor::Document *doc, QStandardItemModel *treeModel, RangeCollection & ranges)
+    void addMarks(KTextEditor::Document *doc, QStandardItemModel *treeModel, RangeCollection & ranges, DocumentCollection & docs)
     {
         // check if already added
-        if (ranges.contains(doc))
+        auto oranges = ranges.contains(doc) ? nullptr : &ranges;
+        auto odocs = docs.contains(doc) ? nullptr : &docs;
+
+        if (!oranges && !odocs)
             return;
 
         Q_ASSERT(treeModel);
-        addMarksRec(doc, treeModel->invisibleRootItem(), ranges);
+        addMarksRec(doc, treeModel->invisibleRootItem(), oranges, odocs);
     }
 
     void goToDocumentLocation(const QUrl & uri, int line, int column)
@@ -1327,7 +1339,8 @@ public:
 
     Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled)
     {
-        if (syncDiagnostics(document, mark.line, false, true)) {
+        // no action if no mark was sprinkled here
+        if (m_diagnosticsMarks.contains(document) && syncDiagnostics(document, mark.line, false, true)) {
             handled = true;
         }
     }
@@ -1510,10 +1523,10 @@ public:
 
         // update marks if applicable
         if (m_markModel && doc)
-            addMarks(doc, m_markModel, m_ranges);
+            addMarks(doc, m_markModel, m_ranges, m_marks);
         if (m_diagnosticsModel && doc) {
-            clearMarks(doc, m_diagnosticsRanges, RangeData::markTypeDiagAll);
-            addMarks(doc, m_diagnosticsModel.data(), m_diagnosticsRanges);
+            clearMarks(doc, m_diagnosticsRanges, m_diagnosticsMarks, RangeData::markTypeDiagAll);
+            addMarks(doc, m_diagnosticsModel.data(), m_diagnosticsRanges, m_diagnosticsMarks);
         }
 
         // connect for cleanup stuff

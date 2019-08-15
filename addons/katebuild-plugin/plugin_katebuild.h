@@ -63,7 +63,8 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         };
 
         enum TreeWidgetRoles {
-            ErrorRole = Qt::UserRole+1
+            ErrorRole = Qt::UserRole+1,
+            DataRole
         };
 
         enum ErrorCategory {
@@ -116,7 +117,7 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         void slotViewChanged();
         void slotDisplayOption();
         void slotMarkClicked(KTextEditor::Document *doc, KTextEditor::Mark mark, bool &handled);
-
+        void slotInvalidateMoving(KTextEditor::Document* doc);
         /**
          * keep track if the project plugin is alive and if the project map did change
          */
@@ -139,7 +140,7 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
 
         void clearMarks();
-        void addMarks(KTextEditor::Document *doc);
+        void addMarks(KTextEditor::Document *doc, bool mark);
 
         KTextEditor::MainWindow *m_win;
         QWidget          *m_toolView;

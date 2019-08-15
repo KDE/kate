@@ -54,6 +54,7 @@
 #include <kaboutdata.h>
 
 #include <ktexteditor/markinterface.h>
+#include <ktexteditor/movinginterface.h>
 
 
 #include "SelectTargetView.h"
@@ -84,6 +85,14 @@ return icon; \
     }
     return QIcon();
 }
+
+struct ItemData
+{
+    // ensure destruction, but not inadvertently so by a variant value copy
+    QSharedPointer<KTextEditor::MovingCursor> cursor;
+};
+
+Q_DECLARE_METATYPE(ItemData)
 
 
 /******************************************************************/
@@ -416,8 +425,14 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
         return;
     }
 
-    const int line = item->data(1, Qt::UserRole).toInt();
-    const int column = item->data(2, Qt::UserRole).toInt();
+    int line = item->data(1, Qt::UserRole).toInt();
+    int column = item->data(2, Qt::UserRole).toInt();
+    // check with moving cursor
+    auto data = item->data(0, DataRole).value<ItemData>();
+    if (data.cursor) {
+        line = data.cursor->line();
+        column = data.cursor->column();
+    }
 
     // open file (if needed, otherwise, this will activate only the right view...)
     m_win->openUrl(QUrl::fromLocalFile(filename));
@@ -506,9 +521,10 @@ void KateBuildView::clearMarks()
     m_markedDocs.clear();
 }
 
-void KateBuildView::addMarks(KTextEditor::Document *doc)
+void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
 {
     KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+    KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
     if (!iface || m_markedDocs.contains(doc))
         return;
 
@@ -523,35 +539,71 @@ void KateBuildView::addMarks(KTextEditor::Document *doc)
             continue;
 
         auto line = item->data(1, Qt::UserRole).toInt();
-        ErrorCategory category = (ErrorCategory)item->data(0, ErrorRole).toInt();
+        if (mark) {
+            ErrorCategory category = (ErrorCategory)item->data(0, ErrorRole).toInt();
+            KTextEditor::MarkInterface::MarkTypes markType {};
 
-        KTextEditor::MarkInterface::MarkTypes markType {};
-        switch (category) {
-        case CategoryError: {
-            markType = KTextEditor::MarkInterface::Error;
-            iface->setMarkDescription(markType, i18n("Error"));
-            break;
-        }
-        case CategoryWarning: {
-            markType = KTextEditor::MarkInterface::Warning;
-            iface->setMarkDescription(markType, i18n("Warning"));
-            break;
-        }
-        default:
-            break;
+            switch (category) {
+            case CategoryError: {
+                markType = KTextEditor::MarkInterface::Error;
+                iface->setMarkDescription(markType, i18n("Error"));
+                break;
+            }
+            case CategoryWarning: {
+                markType = KTextEditor::MarkInterface::Warning;
+                iface->setMarkDescription(markType, i18n("Warning"));
+                break;
+            }
+            default:
+                break;
+            }
+
+            if (markType) {
+                const int ps = 32;
+                iface->setMarkPixmap(markType, messageIcon(category).pixmap(ps, ps));
+                iface->addMark(line - 1, markType);
+            }
+            m_markedDocs.insert(doc, doc);
         }
 
-        if (markType) {
-            const int ps = 32;
-            iface->setMarkPixmap(markType, messageIcon(category).pixmap(ps, ps));
-            iface->addMark(line - 1, markType);
+        // add moving cursor so link between message and location
+        // is not broken by document changes
+        if (miface) {
+            auto data = item->data(0, DataRole).value<ItemData>();
+            if (!data.cursor) {
+                auto column = item->data(2, Qt::UserRole).toInt();
+                data.cursor.reset(miface->newMovingCursor({line, column}));
+                QVariant var;
+                var.setValue(data);
+                item->setData(0, DataRole, var);
+            }
         }
+    }
+
+    // ensure cleanup
+    if (miface) {
+        auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(slotInvalidateMoving(KTextEditor::Document*)), Qt::UniqueConnection);
+        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(slotInvalidateMoving(KTextEditor::Document*)), Qt::UniqueConnection);
     }
 
     connect(doc, SIGNAL(markClicked(KTextEditor::Document*, KTextEditor::Mark, bool&)),
         this, SLOT(slotMarkClicked(KTextEditor::Document*,KTextEditor::Mark, bool&)), Qt::UniqueConnection);
+}
 
-    m_markedDocs.insert(doc, doc);
+void KateBuildView::slotInvalidateMoving(KTextEditor::Document* doc)
+{
+    QTreeWidgetItemIterator it(m_buildUi.errTreeWidget, QTreeWidgetItemIterator::All);
+    while (*it) {
+        QTreeWidgetItem *item = *it;
+         ++it;
+
+        auto data = item->data(0, DataRole).value<ItemData>();
+        if (data.cursor && data.cursor->document() == doc) {
+            item->setData(0, DataRole, 0);
+        }
+    }
 }
 
 void KateBuildView::slotMarkClicked(KTextEditor::Document *doc, KTextEditor::Mark mark, bool &handled)
@@ -564,6 +616,11 @@ void KateBuildView::slotMarkClicked(KTextEditor::Document *doc, KTextEditor::Mar
 
         auto filename = item->data(0, Qt::UserRole).toString();
         auto line = item->data(1, Qt::UserRole).toInt();
+        // prefer moving cursor's opinion if so available
+        auto data = item->data(0, DataRole).value<ItemData>();
+        if (data.cursor) {
+            line = data.cursor->line();
+        }
         if (line - 1 == mark.line && QUrl::fromLocalFile(filename) == doc->url()) {
             tree->blockSignals(true);
             tree->setCurrentItem(item);
@@ -580,8 +637,8 @@ void KateBuildView::slotViewChanged()
     KTextEditor::View *activeView = m_win->activeView();
     auto doc = activeView ? activeView->document() : nullptr;
 
-    if (doc && m_showMarks->isChecked()) {
-        addMarks(doc);
+    if (doc) {
+        addMarks(doc, m_showMarks->isChecked());
     }
 }
 

@@ -5,19 +5,7 @@ if(NOT KF5ItemViews_FOUND)
   return()
 endif()
 
-set(katesearchplugin_PART_SRCS
-  plugin_search.cpp
-  search_open_files.cpp
-  SearchDiskFiles.cpp
-  FolderFilesList.cpp
-  replace_matches.cpp
-  htmldelegate.cpp
-  plugin.qrc
-)
-
-ki18n_wrap_ui(katesearchplugin_PART_SRCS search.ui results.ui)
-
-add_library(katesearchplugin MODULE ${katesearchplugin_PART_SRCS})
+add_library(katesearchplugin MODULE "")
 target_compile_definitions(katesearchplugin PRIVATE TRANSLATION_DOMAIN="katesearch")
 
 target_link_libraries(
@@ -25,6 +13,21 @@ target_link_libraries(
   PRIVATE
     KF5::ItemViews
     KF5::TextEditor
+)
+
+ki18n_wrap_ui(UI_SOURCES search.ui results.ui)
+target_sources(katesearchplugin PRIVATE ${UI_SOURCES})
+
+target_sources(
+  katesearchplugin
+  PRIVATE
+    plugin_search.cpp
+    search_open_files.cpp
+    SearchDiskFiles.cpp
+    FolderFilesList.cpp
+    replace_matches.cpp
+    htmldelegate.cpp
+    plugin.qrc
 )
 
 kcoreaddons_desktop_to_json(katesearchplugin katesearch.desktop)

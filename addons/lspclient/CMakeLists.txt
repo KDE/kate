@@ -5,27 +5,7 @@ if(NOT KF5ItemModels_FOUND)
   return()
 endif()
 
-set(lspclientplugin_SRCS
-  lspclientcompletion.cpp
-  lspclientconfigpage.cpp
-  lspclienthover.cpp
-  lspclientplugin.cpp
-  lspclientpluginview.cpp
-  lspclientserver.cpp
-  lspclientservermanager.cpp
-  lspclientsymbolview.cpp
-  plugin.qrc
-)
-
-include(ECMQtDeclareLoggingCategory)
-ecm_qt_declare_logging_category(
-  lspclientplugin_debug_SRCS
-  HEADER lspclient_debug.h
-  IDENTIFIER LSPCLIENT
-  CATEGORY_NAME "katelspclientplugin"
-)
-
-add_library(lspclientplugin MODULE ${lspclientplugin_SRCS} ${lspclientplugin_debug_SRCS})
+add_library(lspclientplugin MODULE "")
 target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient")
 
 target_link_libraries(
@@ -33,6 +13,29 @@ target_link_libraries(
   PRIVATE 
     KF5::ItemModels
     KF5::TextEditor
+)
+
+include(ECMQtDeclareLoggingCategory)
+ecm_qt_declare_logging_category(
+  DEBUG_SOURCES
+  HEADER lspclient_debug.h
+  IDENTIFIER LSPCLIENT
+  CATEGORY_NAME "katelspclientplugin"
+)
+target_sources(lspclientplugin PRIVATE ${DEBUG_SOURCES})
+
+target_sources(
+  lspclientplugin
+  PRIVATE
+    lspclientcompletion.cpp
+    lspclientconfigpage.cpp
+    lspclienthover.cpp
+    lspclientplugin.cpp
+    lspclientpluginview.cpp
+    lspclientserver.cpp
+    lspclientservermanager.cpp
+    lspclientsymbolview.cpp
+    plugin.qrc
 )
 
 kcoreaddons_desktop_to_json(lspclientplugin lspclientplugin.desktop)

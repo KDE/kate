@@ -5,42 +5,30 @@ if(NOT KF5GuiAddons_FOUND)
   return()
 endif()
 
-add_library(katefiletree STATIC "")
-set_target_properties(katefiletree PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
-
-# PUBLIC so that `katefiletreeplugin` inherits these usage requirements.
-target_compile_definitions(katefiletree PUBLIC TRANSLATION_DOMAIN="katefiletree")
+add_library(katefiletree MODULE "")
+target_compile_definitions(katefiletree PRIVATE TRANSLATION_DOMAIN="katefiletree")
 
 target_link_libraries(
-  katefiletree 
+  katefiletree
   PUBLIC
     KF5::TextEditor
     KF5::GuiAddons
 )
 
 target_sources(
-  katefiletree 
+  katefiletree
   PRIVATE
-    katefiletree.cpp 
-    katefiletreemodel.cpp 
+    katefiletree.cpp
+    katefiletreeconfigpage.cpp
+    katefiletreemodel.cpp
+    katefiletreeplugin.cpp
+    katefiletreepluginsettings.cpp
     katefiletreeproxymodel.cpp
     plugin.qrc
 )
 
-add_library(katefiletreeplugin MODULE "")
-target_link_libraries(katefiletreeplugin PRIVATE katefiletree)
-
-target_sources(
-  katefiletreeplugin 
-  PRIVATE
-    katefiletreeplugin.cpp 
-    katefiletreeconfigpage.cpp 
-    katefiletreepluginsettings.cpp
-    plugin.qrc
-)
-
-kcoreaddons_desktop_to_json(katefiletreeplugin katefiletreeplugin.desktop)
-install(TARGETS katefiletreeplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+kcoreaddons_desktop_to_json(katefiletree katefiletreeplugin.desktop)
+install(TARGETS katefiletree DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

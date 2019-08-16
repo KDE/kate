@@ -5,23 +5,7 @@ if(NOT KF5NewStuff_FOUND)
   return()
 endif()
 
-set(katesnippetsplugin_PART_SRCS 
-  katesnippets.cpp
-  katesnippetglobal.cpp
-  snippetview.cpp
-  snippetstore.cpp
-  snippetrepository.cpp
-  snippetcompletionmodel.cpp
-  snippetcompletionitem.cpp
-  snippet.cpp
-  editrepository.cpp
-  editsnippet.cpp
-  plugin.qrc
-)
-
-ki18n_wrap_ui(katesnippetsplugin_PART_SRCS snippetview.ui editrepository.ui editsnippet.ui)
-
-add_library(katesnippetsplugin MODULE ${katesnippetsplugin_PART_SRCS})
+add_library(katesnippetsplugin MODULE "")
 target_compile_definitions(katesnippetsplugin PRIVATE TRANSLATION_DOMAIN="katesnippetsplugin")
 
 target_link_libraries(
@@ -29,6 +13,25 @@ target_link_libraries(
   PRIVATE
     KF5::NewStuff 
     KF5::TextEditor
+)
+
+ki18n_wrap_ui(UI_SOURCES snippetview.ui editrepository.ui editsnippet.ui)
+target_sources(katesnippetsplugin PRIVATE ${UI_SOURCES})
+
+target_sources(
+  katesnippetsplugin
+  PRIVATE
+    katesnippets.cpp
+    katesnippetglobal.cpp
+    snippetview.cpp
+    snippetstore.cpp
+    snippetrepository.cpp
+    snippetcompletionmodel.cpp
+    snippetcompletionitem.cpp
+    snippet.cpp
+    editrepository.cpp
+    editsnippet.cpp
+    plugin.qrc
 )
 
 kcoreaddons_desktop_to_json(katesnippetsplugin katesnippetsplugin.desktop)

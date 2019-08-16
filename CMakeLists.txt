@@ -1,5 +1,5 @@
-# minimal requirements
-cmake_minimum_required (VERSION 3.0 FATAL_ERROR)
+# 3.1 is required for `target_sources`.
+cmake_minimum_required (VERSION 3.1 FATAL_ERROR)
 
 # Kate project
 project (kate)

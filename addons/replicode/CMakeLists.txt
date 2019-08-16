@@ -5,18 +5,7 @@ if(NOT KF5IconThemes_FOUND)
   return()
 endif()
 
-set(katereplicode_SRCS
-  replicodeplugin.cpp
-  replicodeconfigpage.cpp
-  replicodeconfig.cpp
-  replicodesettings.cpp
-  replicodeview.cpp
-  plugin.qrc
-)
-
-ki18n_wrap_ui(katereplicode_SRCS config.ui)
-
-add_library(katereplicodeplugin MODULE ${katereplicode_SRCS})
+add_library(katereplicodeplugin MODULE "")
 target_compile_definitions(katereplicodeplugin PRIVATE TRANSLATION_DOMAIN="kate-replicode-plugin")
 
 target_link_libraries(
@@ -24,6 +13,20 @@ target_link_libraries(
   PRIVATE 
     KF5::TextEditor
     KF5::IconThemes
+)
+
+ki18n_wrap_ui(UI_SOURCES config.ui)
+target_sources(katereplicodeplugin PRIVATE ${UI_SOURCES})
+
+target_sources(
+  katereplicodeplugin
+  PRIVATE
+    replicodeplugin.cpp
+    replicodeconfigpage.cpp
+    replicodeconfig.cpp
+    replicodesettings.cpp
+    replicodeview.cpp
+    plugin.qrc
 )
 
 kcoreaddons_desktop_to_json(katereplicodeplugin katereplicodeplugin.desktop)

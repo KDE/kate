@@ -7,5 +7,5 @@ target_sources(
   PRIVATE
     lsptestapp.cpp 
     ../lspclientserver.cpp 
-    ${lspclientplugin_debug_SRCS}
+    ${DEBUG_SOURCES}
 )

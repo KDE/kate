@@ -8,7 +8,7 @@ if(NOT KF5Plasma_FOUND OR NOT Qt5Widgets_FOUND)
   return()
 endif()
 
-add_library(plasma_engine_katesessions MODULE ${plasma_engine_katesessions_SRCS})
+add_library(plasma_engine_katesessions MODULE "")
 target_compile_definitions(plasma_engine_katesessions PRIVATE TRANSLATION_DOMAIN="plasma_applet_org.kde.plasma.katesessions")
 
 target_link_libraries(

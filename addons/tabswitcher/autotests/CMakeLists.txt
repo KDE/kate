@@ -7,7 +7,7 @@ find_package(Qt5Test QUIET REQUIRED)
 target_link_libraries(
   tabswitcher_test 
   PRIVATE
-    kdeinit_kate
+    KF5::TextEditor
     Qt5::Test
 )
 

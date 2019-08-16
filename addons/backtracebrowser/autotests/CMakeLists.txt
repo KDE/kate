@@ -7,7 +7,7 @@ find_package(Qt5Test QUIET REQUIRED)
 target_link_libraries(
   btbrowser_test 
   PRIVATE 
-    kdeinit_kate
+    Qt5::Widgets
     Qt5::Test
 )
 

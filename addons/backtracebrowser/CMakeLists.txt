@@ -1,20 +1,18 @@
-set(katebacktracebrowserplugin_PART_SRCS
-  katebacktracebrowser.cpp
-  btparser.cpp
-  btfileindexer.cpp
-  btdatabase.cpp
-)
-
-set(katebacktracebrowserplugin_PART_UI
-  btbrowserwidget.ui
-  btconfigwidget.ui
-)
-
-ki18n_wrap_ui(katebacktracebrowserplugin_PART_SRCS ${katebacktracebrowserplugin_PART_UI})
-
-add_library(katebacktracebrowserplugin MODULE ${katebacktracebrowserplugin_PART_SRCS})
+add_library(katebacktracebrowserplugin MODULE "")
 target_compile_definitions(katebacktracebrowserplugin PRIVATE TRANSLATION_DOMAIN="katebacktracebrowserplugin")
 target_link_libraries(katebacktracebrowserplugin PRIVATE KF5::TextEditor)
+
+ki18n_wrap_ui(UI_SRCS btbrowserwidget.ui btconfigwidget.ui)
+target_sources(katebacktracebrowserplugin PRIVATE ${UI_SRCS})
+
+target_sources(
+  katebacktracebrowserplugin
+  PRIVATE
+    katebacktracebrowser.cpp
+    btparser.cpp
+    btfileindexer.cpp
+    btdatabase.cpp
+)
 
 kcoreaddons_desktop_to_json(katebacktracebrowserplugin katebacktracebrowserplugin.desktop)
 install(TARGETS katebacktracebrowserplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

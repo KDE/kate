@@ -23,7 +23,7 @@
 
 #include <ktexteditor/application.h>
 
-#include "kateprivate_export.h"
+#include "katetests_export.h"
 #include "katemainwindow.h"
 #include "katedocmanager.h"
 #include "katepluginmanager.h"

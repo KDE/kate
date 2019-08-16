@@ -70,7 +70,7 @@ if(KF5Activities_FOUND)
 endif()
 
 generate_export_header(kdeinit_kate
-  EXPORT_FILE_NAME kateprivate_export.h
+  EXPORT_FILE_NAME katetests_export.h
   EXPORT_MACRO_NAME KATE_TESTS_EXPORT
 )
 

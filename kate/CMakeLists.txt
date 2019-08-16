@@ -42,6 +42,7 @@ set (KATE_LIBRARY_SRCS
    katerunninginstanceinfo.cpp
    katequickopen.cpp
    katewaiter.h
+   katewaiter.cpp
 )
 
 ki18n_wrap_ui(KATE_LIBRARY_SRCS

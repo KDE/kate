@@ -2,8 +2,8 @@ add_library(katebacktracebrowserplugin MODULE "")
 target_compile_definitions(katebacktracebrowserplugin PRIVATE TRANSLATION_DOMAIN="katebacktracebrowserplugin")
 target_link_libraries(katebacktracebrowserplugin PRIVATE KF5::TextEditor)
 
-ki18n_wrap_ui(UI_SRCS btbrowserwidget.ui btconfigwidget.ui)
-target_sources(katebacktracebrowserplugin PRIVATE ${UI_SRCS})
+ki18n_wrap_ui(UI_SOURCES btbrowserwidget.ui btconfigwidget.ui)
+target_sources(katebacktracebrowserplugin PRIVATE ${UI_SOURCES})
 
 target_sources(
   katebacktracebrowserplugin

@@ -1,18 +1,18 @@
 # We use an intermediate static library because linking tests directly to an executable is not 
 # possible with CMake yet.
-add_library(kate STATIC "")
+add_library(kate-lib STATIC "")
 
 configure_file(config.h.in config.h)
 
 include(GenerateExportHeader)
 generate_export_header(
-  kate
+  kate-lib
   EXPORT_FILE_NAME katetests_export.h
   EXPORT_MACRO_NAME KATE_TESTS_EXPORT
 )
 
 target_include_directories(
-  kate
+  kate-lib
   PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/session
@@ -35,7 +35,7 @@ find_package(
 )
 
 target_link_libraries(
-  kate
+  kate-lib
   PUBLIC
     KF5::TextEditor
     KF5::IconThemes
@@ -45,11 +45,11 @@ target_link_libraries(
 )
 
 if(KF5Activities_FOUND)
-  target_link_libraries(kate PUBLIC KF5::Activities)
+  target_link_libraries(kate-lib PUBLIC KF5::Activities)
 endif()
 
 ki18n_wrap_ui(UI_SOURCES ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)
-target_sources(kate PRIVATE ${UI_SOURCES})
+target_sources(kate-lib PRIVATE ${UI_SOURCES})
 
 set(ICONS_PNG
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate.png
@@ -64,10 +64,10 @@ set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate.svgz)
 
 # Add icon files to the application's source files to have CMake bundle them in the executable.
 ecm_add_app_icon(ICONS_SOURCES ICONS ${ICONS_PNG})
-target_sources(kate PRIVATE ${ICONS_SOURCES})
+target_sources(kate-lib PRIVATE ${ICONS_SOURCES})
 
 target_sources(
-  kate 
+  kate-lib 
   PRIVATE
     data/kate.qrc
     
@@ -100,10 +100,10 @@ target_sources(
 
 # Use a single application on MacOS + Windows instead of dbus.
 if(APPLE OR WIN32)
-  target_compile_definitions(kate PRIVATE USE_QT_SINGLE_APP)
+  target_compile_definitions(kate-lib PRIVATE USE_QT_SINGLE_APP)
   
   target_sources(
-    kate
+    kate-lib
     PRIVATE
       qtsingleapplication/qtlocalpeer.cpp
       qtsingleapplication/qtsingleapplication.cpp
@@ -111,15 +111,15 @@ if(APPLE OR WIN32)
   )
 
   if(WIN32)
-    target_sources(kate PRIVATE qtsingleapplication/qtlockedfile_win.cpp)
+    target_sources(kate-lib PRIVATE qtsingleapplication/qtlockedfile_win.cpp)
   else()
-    target_sources(kate PRIVATE qtsingleapplication/qtlockedfile_unix.cpp)
+    target_sources(kate-lib PRIVATE qtsingleapplication/qtlockedfile_unix.cpp)
   endif()
 endif()
 
 # Executable only adds the main definition.
 add_executable(kate-bin main.cpp)
-target_link_libraries(kate-bin PRIVATE kate)
+target_link_libraries(kate-bin PRIVATE kate-lib)
 
 set_property(
   TARGET kate-bin

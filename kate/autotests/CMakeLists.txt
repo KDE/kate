@@ -9,7 +9,7 @@ macro(kate_executable_tests)
     target_link_libraries(
       ${_testname} 
       PRIVATE
-        kate
+        kate-lib
         Qt5::Test
     )
 

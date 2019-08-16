@@ -1,14 +1,22 @@
-
 include(ECMMarkAsTest)
+
+find_package(Qt5Test QUIET REQUIRED)
 
 macro(kate_executable_tests)
   foreach(_testname ${ARGN})
     add_executable(${_testname} ${_testname}.cpp)
+    
+    target_link_libraries(
+      ${_testname} 
+      PRIVATE
+        kate
+        Qt5::Test
+    )
+
     add_test(NAME kateapp-${_testname} COMMAND ${_testname})
-    target_link_libraries(${_testname} kdeinit_kate Qt5::Test)
     ecm_mark_as_test(${_testname})
-  endforeach(_testname)
-endmacro(kate_executable_tests)
+  endforeach()
+endmacro()
 
 kate_executable_tests(
   session_test

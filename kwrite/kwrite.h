@@ -29,8 +29,6 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 
-#include <config.h>
-
 class QLabel;
 
 namespace KActivities

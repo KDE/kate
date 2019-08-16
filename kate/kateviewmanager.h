@@ -28,8 +28,6 @@
 #include <QSplitter>
 #include <QMap>
 
-#include <config.h>
-
 namespace KActivities
 {
     class ResourceInstance;

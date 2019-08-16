@@ -4,6 +4,11 @@ project (kwrite)
 # Load the frameworks we need
 find_package(KF5 REQUIRED COMPONENTS DBusAddons)
 
+configure_file(config.h.in config.h)
+
+# Let our config.h be found first.
+include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR})
+
 # collect icons
 set(KWRITE_ICONS_PNG
     ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kwrite.png

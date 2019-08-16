@@ -18,6 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "config.h"
+
 #include "kwrite.h"
 #include "kwriteapplication.h"
 
@@ -92,7 +94,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      */
     KAboutData aboutData(QStringLiteral("kwrite"),
                          i18n("KWrite"),
-                         QStringLiteral(KATE_VERSION),
+                         QStringLiteral(KWRITE_VERSION),
                          i18n("KWrite - Text Editor"), KAboutLicense::LGPL_V2,
                          i18n("(c) 2000-2019 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
 

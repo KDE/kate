@@ -6,6 +6,11 @@ project(kate)
 # Load the frameworks we need
 find_package(KF5 REQUIRED COMPONENTS DBusAddons GuiAddons)
 
+configure_file(config.h.in config.h) # config.h
+
+# Let our config.h be found first.
+include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR})
+
 # includes
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}

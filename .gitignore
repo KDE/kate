@@ -1,8 +1,9 @@
 # general
-build
+/build*/
 *.rej
 *.orig
 *.out
+CMakeLists.txt.user*
 
 # kate
 *~

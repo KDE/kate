@@ -229,6 +229,8 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_diagnostics;
     QPointer<QAction> m_diagnosticsHighlight;
     QPointer<QAction> m_diagnosticsMark;
+    QPointer<QAction> m_diagnosticsSwitch;
+    QPointer<QAction> m_diagnosticsCloseNon;
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
 
@@ -335,6 +337,10 @@ public:
         m_diagnosticsMark = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_mark"), this, &self_type::displayOptionChanged);
         m_diagnosticsMark->setText(i18n("Show diagnostics marks"));
         m_diagnosticsMark->setCheckable(true);
+        m_diagnosticsSwitch = actionCollection()->addAction(QStringLiteral("lspclient_diagnostic_switch"), this, &self_type::switchToDiagnostics);
+        m_diagnosticsSwitch->setText(i18n("Switch to diagnostics tab"));
+        m_diagnosticsCloseNon = actionCollection()->addAction(QStringLiteral("lspclient_diagnostic_close_non"), this, &self_type::closeNonDiagnostics);
+        m_diagnosticsCloseNon->setText(i18n("Close all non-diagnostics tabs"));
 
         // server control
         m_restartServer = actionCollection()->addAction(QStringLiteral("lspclient_restart_server"), this, &self_type::restartCurrent);
@@ -361,6 +367,8 @@ public:
         menu->addAction(m_diagnostics);
         menu->addAction(m_diagnosticsHighlight);
         menu->addAction(m_diagnosticsMark);
+        menu->addAction(m_diagnosticsSwitch);
+        menu->addAction(m_diagnosticsCloseNon);
         menu->addSeparator();
         menu->addAction(m_restartServer);
         menu->addAction(m_restartAll);
@@ -437,6 +445,7 @@ public:
             m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
             m_tabWidget->removeTab(index);
         }
+        m_diagnosticsSwitch->setEnabled(m_diagnostics->isChecked());
         m_serverManager->setIncrementalSync(m_incrementalSync->isChecked());
         updateState();
     }
@@ -793,6 +802,23 @@ public:
                 clearAllLocationMarks();
             }
             delete widget;
+        }
+    }
+
+    void switchToDiagnostics()
+    {
+        m_tabWidget->setCurrentWidget(m_diagnosticsTree);
+        m_mainWindow->showToolView(m_toolView.data());
+    }
+
+    void closeNonDiagnostics()
+    {
+        for (int i = 0; i < m_tabWidget->count(); ) {
+            if (m_tabWidget->widget(i) != m_diagnosticsTree) {
+                tabCloseRequested(i);
+            } else {
+                ++i;
+            }
         }
     }
 

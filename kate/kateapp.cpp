@@ -162,7 +162,7 @@ bool KateApp::startupKate()
     }
 
     // notify about start
-    KStartupInfo::setNewStartupId(activeKateMainWindow(), KStartupInfo::startupId());
+    KStartupInfo::setNewStartupId(activeKateMainWindow()->windowHandle(), KStartupInfo::startupId());
 
     QTextCodec *codec = m_args.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(m_args.value(QStringLiteral("encoding")).toUtf8()) : nullptr;
     bool tempfileSet = m_args.isSet(QStringLiteral("tempfile"));

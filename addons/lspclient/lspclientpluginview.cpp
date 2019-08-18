@@ -1217,7 +1217,7 @@ public:
 
     void delayCancelRequest(LSPClientServer::RequestHandle && h, int timeout_ms = 4000)
     {
-        QTimer::singleShot(timeout_ms, this, [this, h] () mutable { h.cancel(); });
+        QTimer::singleShot(timeout_ms, this, [h] () mutable { h.cancel(); });
     }
 
     void format(QChar lastChar = QChar())

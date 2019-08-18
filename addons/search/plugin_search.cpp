@@ -952,7 +952,7 @@ void KatePluginSearchView::startSearch()
     m_ui.displayOptions->setDisabled(true);
     m_ui.replaceCheckedBtn->setDisabled(true);
     m_ui.replaceButton->setDisabled(true);
-    m_ui.stopAndNext->setCurrentIndex(1);
+    m_ui.stopAndNext->setCurrentWidget(m_ui.stopButton);
     m_ui.replaceCombo->setDisabled(true);
     m_ui.searchPlaceCombo->setDisabled(true);
     m_ui.useRegExp->setDisabled(true);
@@ -1175,7 +1175,7 @@ void KatePluginSearchView::searchDone()
     m_ui.newTabButton->setDisabled(false);
     m_ui.searchCombo->setDisabled(false);
     m_ui.searchButton->setDisabled(false);
-    m_ui.stopAndNext->setCurrentIndex(0);
+    m_ui.stopAndNext->setCurrentWidget(m_ui.nextButton);
     m_ui.displayOptions->setDisabled(false);
     m_ui.replaceCombo->setDisabled(false);
     m_ui.searchPlaceCombo->setDisabled(false);
@@ -1377,7 +1377,7 @@ void KatePluginSearchView::replaceChecked()
         return;
     }
 
-    m_ui.stopAndNext->setCurrentIndex(1);
+    m_ui.stopAndNext->setCurrentWidget(m_ui.stopButton);
     m_ui.displayOptions->setChecked(false);
     m_ui.displayOptions->setDisabled(true);
     m_ui.newTabButton->setDisabled(true);
@@ -1425,7 +1425,7 @@ void KatePluginSearchView::replaceStatus(const QUrl &url, int replacedInFile, in
 
 void KatePluginSearchView::replaceDone()
 {
-    m_ui.stopAndNext->setCurrentIndex(0);
+    m_ui.stopAndNext->setCurrentWidget(m_ui.nextButton);
     m_ui.replaceCombo->setDisabled(false);
     m_ui.newTabButton->setDisabled(false);
     m_ui.searchCombo->setDisabled(false);
@@ -1998,23 +1998,23 @@ void KatePluginSearchView::onResize(const QSize& size)
 
     if(!m_isLeftRight && vertical) {
         m_isLeftRight = true;
-        
+
         m_ui.gridLayout->addWidget(m_ui.searchCombo,        0, 1, 1, 8);
         m_ui.gridLayout->addWidget(m_ui.findLabel,          0, 0);
         m_ui.gridLayout->addWidget(m_ui.searchButton,       1, 0, 1, 2);
-        m_ui.gridLayout->addWidget(m_ui.nextButton,         1, 2);
+        m_ui.gridLayout->addWidget(m_ui.stopAndNext,        1, 2);
         m_ui.gridLayout->addWidget(m_ui.searchPlaceCombo,   1, 3, 1, 3);
         m_ui.gridLayout->addWidget(m_ui.displayOptions,     1, 6);
         m_ui.gridLayout->addWidget(m_ui.matchCase,          1, 7);
         m_ui.gridLayout->addWidget(m_ui.useRegExp,          1, 8);
-        
+
         m_ui.gridLayout->addWidget(m_ui.replaceCombo,       2, 1, 1, 8);
         m_ui.gridLayout->addWidget(m_ui.replaceLabel,       2, 0);
         m_ui.gridLayout->addWidget(m_ui.replaceButton,      3, 0, 1, 2);
         m_ui.gridLayout->addWidget(m_ui.replaceCheckedBtn,  3, 2);
         m_ui.gridLayout->addWidget(m_ui.expandResults,      3, 7);
         m_ui.gridLayout->addWidget(m_ui.newTabButton,       3, 8);
-        
+
         m_ui.gridLayout->setColumnStretch(4, 2);
         m_ui.gridLayout->setColumnStretch(2, 0);
     }
@@ -2023,11 +2023,11 @@ void KatePluginSearchView::onResize(const QSize& size)
         m_ui.gridLayout->addWidget(m_ui.searchCombo,        0, 2);
         m_ui.gridLayout->addWidget(m_ui.findLabel,          0, 1);
         m_ui.gridLayout->addWidget(m_ui.searchButton,       0, 3);
-        m_ui.gridLayout->addWidget(m_ui.nextButton,         0, 4);
+        m_ui.gridLayout->addWidget(m_ui.stopAndNext,        0, 4);
         m_ui.gridLayout->addWidget(m_ui.searchPlaceCombo,   0, 5, 1, 4);
         m_ui.gridLayout->addWidget(m_ui.matchCase,          1, 5);
         m_ui.gridLayout->addWidget(m_ui.useRegExp,          1, 6);
-        
+
         m_ui.gridLayout->addWidget(m_ui.replaceCombo,       1, 2);
         m_ui.gridLayout->addWidget(m_ui.replaceLabel,       1, 1);
         m_ui.gridLayout->addWidget(m_ui.replaceButton,      1, 3);
@@ -2035,10 +2035,10 @@ void KatePluginSearchView::onResize(const QSize& size)
         m_ui.gridLayout->addWidget(m_ui.expandResults,      1, 8);
         m_ui.gridLayout->addWidget(m_ui.newTabButton,       0, 0);
         m_ui.gridLayout->addWidget(m_ui.displayOptions,     1, 0);
-        
+
         m_ui.gridLayout->setColumnStretch(4, 0);
         m_ui.gridLayout->setColumnStretch(2, 2);
-        
+
         m_ui.findLabel->setAlignment(Qt::AlignRight);
         m_ui.replaceLabel->setAlignment(Qt::AlignRight);
     }

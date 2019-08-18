@@ -1622,14 +1622,13 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 
     typedef LSPClientPluginViewImpl self_type;
 
-    LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     QSharedPointer<LSPClientServerManager> m_serverManager;
     QScopedPointer<LSPClientActionView> m_actionView;
 
 public:
     LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
-        : QObject(mainWin), m_plugin(plugin), m_mainWindow(mainWin),
+        : QObject(mainWin), m_mainWindow(mainWin),
           m_serverManager(LSPClientServerManager::new_(plugin, mainWin)),
           m_actionView(new LSPClientActionView(plugin, mainWin, this, m_serverManager))
     {

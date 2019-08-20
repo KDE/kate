@@ -1151,10 +1151,12 @@ void KatePluginSearchView::startSearch()
         addHeaderItem();
 
         QList<KTextEditor::Document*> openList;
-        for (int i=0; i<m_kateApp->documents().size(); i++) {
-            int index = files.indexOf(m_kateApp->documents()[i]->url().toString());
+        const auto docs = m_kateApp->documents();
+        for (const auto doc: docs) {
+            // match project file's list toLocalFile()
+            int index = files.indexOf(doc->url().toLocalFile());
             if (index != -1) {
-                openList << m_kateApp->documents()[i];
+                openList << doc;
                 files.removeAt(index);
             }
         }

@@ -1,0 +1,66 @@
+# Copyright (C) 2016 Olivier Goffart <ogoffart@woboq.com>
+#
+# You may use this file under the terms of the 3-clause BSD license.
+# See the file LICENSE from this package for details.
+
+# This is the clang-format configuration style to be used by Qt,
+# based on the rules from https://wiki.qt.io/Qt_Coding_Style and
+# https://wiki.qt.io/Coding_Conventions
+
+---
+# Webkit style was loosely based on the Qt style.
+BasedOnStyle: WebKit
+
+Standard: Cpp11
+
+# Column width is limited to 100 in accordance with Qt Coding Style.
+# https://wiki.qt.io/Qt_Coding_Style
+ColumnLimit: 100
+
+# Indent width for line continuations.
+ContinuationIndentWidth: 8
+# Indent initializers by 4 spaces
+ConstructorInitializerIndentWidth: 4
+NamespaceIndentation: None
+
+AlignAfterOpenBracket: true
+AlwaysBreakTemplateDeclarations: true
+AllowShortFunctionsOnASingleLine: Inline
+
+# When constructor initializers do not fit on one line, put them each on a new line.
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+
+# We want a space between the type and the star for pointer types.
+PointerAlignment: Right
+
+# We use template< without space.
+SpaceAfterTemplateKeyword: false
+
+# Break constructor initializers before the colon and after the commas.
+BreakConstructorInitializers: BeforeColon
+# We want to break before the operators, but not before a '='.
+BreakBeforeBinaryOperators: NonAssignment
+
+# Braces are usually attached, but not after functions or class declarations.
+BreakBeforeBraces: Custom
+BraceWrapping:
+    AfterClass: true
+    AfterControlStatement: false
+    AfterEnum: false
+    AfterFunction: true
+    AfterNamespace: false
+    AfterObjCDeclaration: false
+    AfterStruct: false
+    AfterUnion: false
+    BeforeCatch: false
+    BeforeElse: false
+    IndentBraces: false
+
+# The coding style specifies some include order categories, but also tells to
+# separate categories with an empty line. It does not specify the order within
+# the categories. Since the SortInclude feature of clang-format does not
+# re-order includes separated by empty lines, the feature is not used.
+SortIncludes: false
+
+# macros for which the opening brace stays attached.
+ForEachMacros: [ foreach, Q_FOREACH ]

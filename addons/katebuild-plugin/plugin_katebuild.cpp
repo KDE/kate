@@ -38,6 +38,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QFileDialog>
+#include <QIcon>
 
 #include <QAction>
 
@@ -52,6 +53,9 @@
 #include <kpluginloader.h>
 #include <kaboutdata.h>
 
+#include <ktexteditor/markinterface.h>
+#include <ktexteditor/movinginterface.h>
+
 
 #include "SelectTargetView.h"
 
@@ -62,6 +66,33 @@ static const QString DefConfClean;
 static const QString DefTargetName = QStringLiteral("all");
 static const QString DefBuildCmd = QStringLiteral("make");
 static const QString DefCleanCmd = QStringLiteral("make clean");
+
+static QIcon messageIcon(KateBuildView::ErrorCategory severity)
+{
+#define RETURN_CACHED_ICON(name) \
+{ \
+static QIcon icon(QIcon::fromTheme(QStringLiteral(name))); \
+return icon; \
+}
+    switch (severity)
+    {
+    case KateBuildView::CategoryError:
+        RETURN_CACHED_ICON("dialog-error")
+    case KateBuildView::CategoryWarning:
+        RETURN_CACHED_ICON("dialog-warning")
+    default:
+        break;
+    }
+    return QIcon();
+}
+
+struct ItemData
+{
+    // ensure destruction, but not inadvertently so by a variant value copy
+    QSharedPointer<KTextEditor::MovingCursor> cursor;
+};
+
+Q_DECLARE_METATYPE(ItemData)
 
 
 /******************************************************************/
@@ -133,6 +164,10 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     actionCollection()->setDefaultShortcut(a, Qt::SHIFT+Qt::ALT+Qt::Key_Left);
     connect(a, &QAction::triggered, this, &KateBuildView::slotPrev);
 
+    m_showMarks = a = actionCollection()->addAction(QStringLiteral("show_marks"));
+    a->setText(i18n("Show Marks"));
+    a->setCheckable(true);
+    connect(a, &QAction::triggered, this, &KateBuildView::slotDisplayOption);
 
     m_buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(m_buildWidget);
@@ -179,6 +214,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(&m_proc, &KProcess::readyReadStandardOutput, this, &KateBuildView::slotReadReadyStdOut);
 
     connect(m_win, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateBuildView::handleEsc);
+    connect(m_win, &KTextEditor::MainWindow::viewChanged, this, &KateBuildView::slotViewChanged);
 
     m_toolView->installEventFilter(this);
 
@@ -262,6 +298,9 @@ void KateBuildView::readSessionConfig(const KConfigGroup& cg)
     QModelIndex cmdIndex = m_targetsUi->targetsModel.index(tmpCmd, 0, root);
     m_targetsUi->targetsView->setCurrentIndex(cmdIndex);
 
+    auto showMarks = cg.readEntry(QStringLiteral("Show Marks"), false);
+    m_showMarks->setChecked(showMarks);
+
     // Add project targets, if any
     slotAddProjectTarget();
 }
@@ -304,6 +343,7 @@ void KateBuildView::writeSessionConfig(KConfigGroup& cg)
 
     cg.writeEntry(QStringLiteral("Active Target Index"), set);
     cg.writeEntry(QStringLiteral("Active Target Command"), setRow);
+    cg.writeEntry(QStringLiteral("Show Marks"), m_showMarks->isChecked());
 
     // Restore project targets, if any
     slotAddProjectTarget();
@@ -385,8 +425,14 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
         return;
     }
 
-    const int line = item->data(1, Qt::UserRole).toInt();
-    const int column = item->data(2, Qt::UserRole).toInt();
+    int line = item->data(1, Qt::UserRole).toInt();
+    int column = item->data(2, Qt::UserRole).toInt();
+    // check with moving cursor
+    auto data = item->data(0, DataRole).value<ItemData>();
+    if (data.cursor) {
+        line = data.cursor->line();
+        column = data.cursor->column();
+    }
 
     // open file (if needed, otherwise, this will activate only the right view...)
     m_win->openUrl(QUrl::fromLocalFile(filename));
@@ -451,6 +497,162 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     item->setData(2, Qt::ToolTipRole, QStringLiteral("<qt>%1</qt>").arg(message));
 }
 
+void KateBuildView::clearMarks()
+{
+    for (auto& doc: m_markedDocs) {
+        if (!doc) {
+            continue;
+        }
+
+        KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+        if (iface) {
+            const QHash<int, KTextEditor::Mark*> marks = iface->marks();
+            QHashIterator<int, KTextEditor::Mark*> i(marks);
+            while (i.hasNext()) {
+                i.next();
+                auto markType = KTextEditor::MarkInterface::Error | KTextEditor::MarkInterface::Warning;
+                if (i.value()->type & markType) {
+                    iface->removeMark(i.value()->line, markType);
+                }
+            }
+        }
+    }
+
+    m_markedDocs.clear();
+}
+
+void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
+{
+    KTextEditor::MarkInterface* iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+    KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+    if (!iface || m_markedDocs.contains(doc))
+        return;
+
+    QTreeWidgetItemIterator it(m_buildUi.errTreeWidget, QTreeWidgetItemIterator::All);
+    while (*it) {
+        QTreeWidgetItem *item = *it;
+         ++it;
+
+        auto filename = item->data(0, Qt::UserRole).toString();
+        auto url = QUrl::fromLocalFile(filename);
+        if (url != doc->url())
+            continue;
+
+        auto line = item->data(1, Qt::UserRole).toInt();
+        if (mark) {
+            ErrorCategory category = (ErrorCategory)item->data(0, ErrorRole).toInt();
+            KTextEditor::MarkInterface::MarkTypes markType {};
+
+            switch (category) {
+            case CategoryError: {
+                markType = KTextEditor::MarkInterface::Error;
+                iface->setMarkDescription(markType, i18n("Error"));
+                break;
+            }
+            case CategoryWarning: {
+                markType = KTextEditor::MarkInterface::Warning;
+                iface->setMarkDescription(markType, i18n("Warning"));
+                break;
+            }
+            default:
+                break;
+            }
+
+            if (markType) {
+                const int ps = 32;
+                iface->setMarkPixmap(markType, messageIcon(category).pixmap(ps, ps));
+                iface->addMark(line - 1, markType);
+            }
+            m_markedDocs.insert(doc, doc);
+        }
+
+        // add moving cursor so link between message and location
+        // is not broken by document changes
+        if (miface) {
+            auto data = item->data(0, DataRole).value<ItemData>();
+            if (!data.cursor) {
+                auto column = item->data(2, Qt::UserRole).toInt();
+                data.cursor.reset(miface->newMovingCursor({line, column}));
+                QVariant var;
+                var.setValue(data);
+                item->setData(0, DataRole, var);
+            }
+        }
+    }
+
+    // ensure cleanup
+    if (miface) {
+        auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(slotInvalidateMoving(KTextEditor::Document*)), Qt::UniqueConnection);
+        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
+            this, SLOT(slotInvalidateMoving(KTextEditor::Document*)), Qt::UniqueConnection);
+    }
+
+    connect(doc, SIGNAL(markClicked(KTextEditor::Document*, KTextEditor::Mark, bool&)),
+        this, SLOT(slotMarkClicked(KTextEditor::Document*,KTextEditor::Mark, bool&)), Qt::UniqueConnection);
+}
+
+void KateBuildView::slotInvalidateMoving(KTextEditor::Document* doc)
+{
+    QTreeWidgetItemIterator it(m_buildUi.errTreeWidget, QTreeWidgetItemIterator::All);
+    while (*it) {
+        QTreeWidgetItem *item = *it;
+         ++it;
+
+        auto data = item->data(0, DataRole).value<ItemData>();
+        if (data.cursor && data.cursor->document() == doc) {
+            item->setData(0, DataRole, 0);
+        }
+    }
+}
+
+void KateBuildView::slotMarkClicked(KTextEditor::Document *doc, KTextEditor::Mark mark, bool &handled)
+{
+    auto tree = m_buildUi.errTreeWidget;
+    QTreeWidgetItemIterator it(tree, QTreeWidgetItemIterator::All);
+    while (*it) {
+        QTreeWidgetItem *item = *it;
+         ++it;
+
+        auto filename = item->data(0, Qt::UserRole).toString();
+        auto line = item->data(1, Qt::UserRole).toInt();
+        // prefer moving cursor's opinion if so available
+        auto data = item->data(0, DataRole).value<ItemData>();
+        if (data.cursor) {
+            line = data.cursor->line();
+        }
+        if (line - 1 == mark.line && QUrl::fromLocalFile(filename) == doc->url()) {
+            tree->blockSignals(true);
+            tree->setCurrentItem(item);
+            tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
+            tree->blockSignals(false);
+            handled = true;
+            break;
+        }
+    }
+}
+
+void KateBuildView::slotViewChanged()
+{
+    KTextEditor::View *activeView = m_win->activeView();
+    auto doc = activeView ? activeView->document() : nullptr;
+
+    if (doc) {
+        addMarks(doc, m_showMarks->isChecked());
+    }
+}
+
+void KateBuildView::slotDisplayOption()
+{
+    if (m_showMarks) {
+        if (!m_showMarks->isChecked()) {
+            clearMarks();
+        } else {
+            slotViewChanged();
+        }
+    }
+}
+
 /******************************************************************/
 QUrl KateBuildView::docUrl()
 {
@@ -484,6 +686,7 @@ bool KateBuildView::checkLocal(const QUrl &dir)
 /******************************************************************/
 void KateBuildView::clearBuildResults()
 {
+    clearMarks();
     m_buildUi.plainTextEdit->clear();
     m_buildUi.errTreeWidget->clear();
     m_stdOut.clear();
@@ -627,6 +830,13 @@ bool KateBuildView::buildCurrentTarget()
         }
     }
 
+    // a single target can serve to build lots of projects with similar directory layout
+    if (m_projectPluginView) {
+        QFileInfo baseDir = m_projectPluginView->property("projectBaseDir").toString();
+        dir.replace(QStringLiteral("%B"), baseDir.absoluteFilePath());
+        dir.replace(QStringLiteral("%b"), baseDir.baseName());
+    }
+
     // Check if the command contains the file name or directory
     if (buildCmd.contains(QStringLiteral("%f")) ||
         buildCmd.contains(QStringLiteral("%d")) ||
@@ -714,6 +924,8 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         m_buildUi.buildStatusLabel->setText(buildStatus);
         m_buildUi.buildStatusLabel2->setText(buildStatus);
         m_buildCancelled = false;
+        // add marks
+        slotViewChanged();
     }
 
 }

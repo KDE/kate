@@ -1,46 +1,53 @@
+find_package(KF5TextEditor QUIET REQUIRED)
 if(KF5TextEditor_VERSION VERSION_LESS 5.57.0)
   return()
 endif()
 
-project(externaltoolsplugin)
-add_definitions(-DTRANSLATION_DOMAIN=\"kateexternaltoolsplugin\")
+find_package(KF5I18n QUIET REQUIRED)
+if(NOT KF5I18n_Found)
+  return()
+endif()
 
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
-set(externaltoolsplugin_PART_SRCS
-    externaltoolsplugin.cpp
-    kateexternaltoolsview.cpp
-    katetoolrunner.cpp
-    kateexternaltool.cpp
-    kateexternaltoolscommand.cpp
-    kateexternaltoolsconfigwidget.cpp
-)
+find_package(KF5IconThemes QUIET)
+set_package_properties(KF5IconThemes PROPERTIES PURPOSE "Required to build the externaltools addon")
 
-# resource for ui file and stuff
-qt5_add_resources(externaltoolsplugin_PART_SRCS plugin.qrc)
+if(NOT KF5IconThemes_FOUND)
+  return()
+endif()
 
-set(externaltoolsplugin_PART_UI
-    configwidget.ui
-    tooldialog.ui
-    toolview.ui
-)
-ki18n_wrap_ui(externaltoolsplugin_PART_SRCS ${externaltoolsplugin_PART_UI} )
-add_library(externaltoolsplugin MODULE ${externaltoolsplugin_PART_SRCS})
+find_package(Qt5Test QUIET REQUIRED)
 
-# we compile in the .desktop file
-kcoreaddons_desktop_to_json (externaltoolsplugin externaltoolsplugin.desktop)
-
-target_link_libraries(externaltoolsplugin
+add_library(externaltoolsplugin MODULE "")
+target_compile_definitions(externaltoolsplugin PRIVATE TRANSLATION_DOMAIN="kateexternaltoolsplugin")
+target_link_libraries(externaltoolsplugin PRIVATE
     KF5::CoreAddons
     KF5::IconThemes
     KF5::TextEditor
     KF5::I18n
 )
 
-########### install files ###############
+ki18n_wrap_ui(UI_SOURCES configwidget.ui
+    tooldialog.ui
+    toolview.ui
+)
+
+target_sources(
+  externaltoolsplugin
+  PRIVATE
+    externaltoolsplugin.cpp
+    kateexternaltoolsview.cpp
+    katetoolrunner.cpp
+    kateexternaltool.cpp
+    kateexternaltoolscommand.cpp
+    kateexternaltoolsconfigwidget.cpp
+    plugin.qrc
+    ${UI_SOURCES}
+)
+
+kcoreaddons_desktop_to_json (externaltoolsplugin externaltoolsplugin.desktop)
 install(TARGETS externaltoolsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
 
-############# unit tests ################
 if (BUILD_TESTING)
     add_subdirectory(autotests)
 endif()

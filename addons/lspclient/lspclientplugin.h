@@ -35,39 +35,40 @@ class LSPClientPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
-    public:
-        explicit LSPClientPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-        ~LSPClientPlugin() override;
+public:
+    explicit LSPClientPlugin(QObject *parent = nullptr,
+                             const QList<QVariant> & = QList<QVariant>());
+    ~LSPClientPlugin() override;
 
-        QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-        int configPages() const override;
-        KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
+    int configPages() const override;
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
-        void readConfig();
-        void writeConfig() const;
+    void readConfig();
+    void writeConfig() const;
 
-        // settings
-        bool m_symbolDetails;
-        bool m_symbolExpand;
-        bool m_symbolTree;
-        bool m_symbolSort;
-        bool m_complDoc;
-        bool m_refDeclaration;
-        bool m_diagnostics;
-        bool m_diagnosticsHighlight;
-        bool m_diagnosticsMark;
-        bool m_onTypeFormatting;
-        bool m_incrementalSync;
-        QUrl m_configPath;
+    // settings
+    bool m_symbolDetails;
+    bool m_symbolExpand;
+    bool m_symbolTree;
+    bool m_symbolSort;
+    bool m_complDoc;
+    bool m_refDeclaration;
+    bool m_diagnostics;
+    bool m_diagnosticsHighlight;
+    bool m_diagnosticsMark;
+    bool m_onTypeFormatting;
+    bool m_incrementalSync;
+    QUrl m_configPath;
 
-        // debug mode?
-        bool m_debugMode = false;
+    // debug mode?
+    bool m_debugMode = false;
 
 private:
-    Q_SIGNALS:
-        // signal settings update
-        void update() const;
+Q_SIGNALS:
+    // signal settings update
+    void update() const;
 };
 
 #endif

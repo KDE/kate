@@ -82,16 +82,15 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     reset();
 
-    for (const auto & cb : {m_symbolDetails, m_symbolExpand, m_symbolSort, m_symbolTree,
-                m_complDoc, m_refDeclaration, m_diagnostics, m_diagnosticsMark,
-                m_onTypeFormatting, m_incrementalSync})
+    for (const auto &cb : { m_symbolDetails, m_symbolExpand, m_symbolSort, m_symbolTree, m_complDoc,
+                            m_refDeclaration, m_diagnostics, m_diagnosticsMark, m_onTypeFormatting,
+                            m_incrementalSync })
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::changed);
 
     // custom control logic
-    auto h = [this] ()
-    {
+    auto h = [this]() {
         bool enabled = m_diagnostics->isChecked();
         m_diagnosticsHighlight->setEnabled(enabled);
         m_diagnosticsMark->setEnabled(enabled);

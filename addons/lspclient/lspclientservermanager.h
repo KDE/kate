@@ -31,10 +31,10 @@
 #include <QSharedPointer>
 
 namespace KTextEditor {
-    class MainWindow;
-    class Document;
-    class View;
-    class MovingInterface;
+class MainWindow;
+class Document;
+class View;
+class MovingInterface;
 }
 
 class LSPClientRevisionSnapshot;
@@ -54,14 +54,14 @@ class LSPClientServerManager : public QObject
 
 public:
     // factory method; private implementation by interface
-    static QSharedPointer<LSPClientServerManager>
-    new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin);
+    static QSharedPointer<LSPClientServerManager> new_(LSPClientPlugin *plugin,
+                                                       KTextEditor::MainWindow *mainWin);
 
-    virtual QSharedPointer<LSPClientServer>
-    findServer(KTextEditor::Document *document, bool updatedoc = true) = 0;
+    virtual QSharedPointer<LSPClientServer> findServer(KTextEditor::Document *document,
+                                                       bool updatedoc = true) = 0;
 
-    virtual QSharedPointer<LSPClientServer>
-    findServer(KTextEditor::View *view, bool updatedoc = true) = 0;
+    virtual QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view,
+                                                       bool updatedoc = true) = 0;
 
     virtual void update(KTextEditor::Document *doc, bool force) = 0;
 
@@ -74,7 +74,7 @@ public:
 
     // lock all relevant documents' current revision and sync that to server
     // locks are released when returned snapshot is delete'd
-    virtual LSPClientRevisionSnapshot* snapshot(LSPClientServer *server) = 0;
+    virtual LSPClientRevisionSnapshot *snapshot(LSPClientServer *server) = 0;
 
 public:
 Q_SIGNALS:
@@ -87,7 +87,8 @@ class LSPClientRevisionSnapshot : public QObject
 
 public:
     // find a locked revision for url in snapshot
-    virtual void find(const QUrl & url, KTextEditor::MovingInterface* & miface, qint64 & revision) const = 0;
+    virtual void find(const QUrl &url, KTextEditor::MovingInterface *&miface,
+                      qint64 &revision) const = 0;
 };
 
 #endif

@@ -20,6 +20,9 @@
 
 #include "kwrite.h"
 
+#include "kwriteapplication.h"
+#include "config.h"
+
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/modificationinterface.h>
@@ -40,9 +43,7 @@
 #include <KConfig>
 #include <KConfigGui>
 
-#include <config.h>
-
-#ifdef KActivities_FOUND
+#ifdef KF5Activities_FOUND
 #include <KActivities/ResourceInstance>
 #endif
 
@@ -56,8 +57,6 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QFileOpenEvent>
-
-#include "kwriteapplication.h"
 
 KWrite::KWrite(KTextEditor::Document *doc, KWriteApplication *app)
     : m_view(nullptr)
@@ -201,7 +200,7 @@ void KWrite::loadURL(const QUrl &url)
 {
     m_view->document()->openUrl(url);
 
-#ifdef KActivities_FOUND
+#ifdef KF5Activities_FOUND
     if (!m_activityResource) {
         m_activityResource = new KActivities::ResourceInstance(winId(), this);
     }

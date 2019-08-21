@@ -634,6 +634,8 @@ void KateMainWindow::readOptions()
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
 
     m_quickOpen->setMatchMode(generalGroup.readEntry("Quick Open Search Mode", (int)KateQuickOpenModel::Columns::FileName));
+    int listMode = generalGroup.readEntry("Quick Open List Mode", (int)KateQuickOpenModel::List::CurrentProject);
+    m_quickOpen->setListMode(static_cast<KateQuickOpenModel::List>(listMode));
 
     // emit signal to hide/show statusbars
     toggleShowStatusBar();
@@ -909,10 +911,9 @@ void KateMainWindow::mSlotFixOpenWithMenu()
     //qCDebug(LOG_KATE) << "mime type: " << mime.name();
 
     QAction *a = nullptr;
-    KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
+    const KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
     // add all default open-with-actions except "Kate"
-    for (KService::List::Iterator it = offers.begin(); it != offers.end(); ++it) {
-        KService::Ptr service = *it;
+    for (const auto& service : offers) {
         if (service->name() == QStringLiteral("Kate")) {
             continue;
         }
@@ -1073,7 +1074,7 @@ void KateMainWindow::saveProperties(KConfigGroup &config)
         }
     }
 
-    m_fileOpenRecent->saveEntries(KConfigGroup(config.config(), "Recent Files"));
+    saveOpenRecent(config.config());
     m_viewManager->saveViewConfiguration(config);
 }
 
@@ -1089,8 +1090,16 @@ void KateMainWindow::readProperties(const KConfigGroup &config)
 
     finishRestore();
 
-    m_fileOpenRecent->loadEntries(KConfigGroup(config.config(), "Recent Files"));
+    loadOpenRecent(config.config());
     m_viewManager->restoreViewConfiguration(config);
+}
+
+void KateMainWindow::saveOpenRecent(KConfig *config) {
+    m_fileOpenRecent->saveEntries(KConfigGroup(config, "Recent Files"));
+}
+
+void KateMainWindow::loadOpenRecent(const KConfig *config) {
+    m_fileOpenRecent->loadEntries(KConfigGroup(config, "Recent Files"));
 }
 
 void KateMainWindow::saveGlobalProperties(KConfig *sessionConfig)
@@ -1275,4 +1284,14 @@ void KateMainWindow::setQuickOpenMatchMode(int mode)
 int KateMainWindow::quickOpenMatchMode()
 {
     return m_quickOpen->matchMode();
+}
+
+void KateMainWindow::setQuickOpenListMode(KateQuickOpenModel::List mode)
+{
+    m_quickOpen->setListMode(mode);
+}
+
+KateQuickOpenModel::List KateMainWindow::quickOpenListMode() const
+{
+    return m_quickOpen->listMode();
 }

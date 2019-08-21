@@ -21,10 +21,11 @@
 #ifndef __KATE_SESSION_H__
 #define __KATE_SESSION_H__
 
+#include "katetests_export.h"
+
 #include <QExplicitlySharedDataPointer>
 #include <QString>
 #include <QDateTime>
-#include "kateprivate_export.h"
 
 class KConfig;
 

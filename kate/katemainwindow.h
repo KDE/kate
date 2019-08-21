@@ -54,6 +54,7 @@ class KRecentFilesAction;
 class KateViewManager;
 class KateMwModOnHdDialog;
 class KateQuickOpen;
+enum KateQuickOpenModelList : int;
 
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
@@ -116,6 +117,9 @@ public:
     /*reimp*/ void readProperties(const KConfigGroup &config) override;
     /*reimp*/ void saveProperties(KConfigGroup &config) override;
     /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig) override;
+
+    void saveOpenRecent(KConfig *config);
+    void loadOpenRecent(const KConfig *config);
 
 public:
     bool queryClose_internal(KTextEditor::Document *doc = nullptr);
@@ -294,6 +298,9 @@ public:
 
     void setQuickOpenMatchMode(int mode);
     int quickOpenMatchMode();
+
+    void setQuickOpenListMode(KateQuickOpenModelList mode);
+    KateQuickOpenModelList quickOpenListMode() const;
 
     KRecentFilesAction *fileOpenRecent() const {
         return m_fileOpenRecent;

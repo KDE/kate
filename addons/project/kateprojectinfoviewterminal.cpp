@@ -70,6 +70,7 @@ void KateProjectInfoViewTerminal::loadTerminal()
      * null in any case, if loadTerminal fails below and we are in the destroyed event
      */
     m_konsolePart = nullptr;
+    setFocusProxy(nullptr);
 
     /**
      * we shall not arrive here without a factory, if it is not there, no terminal toolview shall be created

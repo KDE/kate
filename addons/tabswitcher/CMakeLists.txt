@@ -1,32 +1,20 @@
-project(tabswitcherplugin)
-add_definitions(-DTRANSLATION_DOMAIN=\"tabswitcherplugin\")
+add_library (tabswitcherplugin MODULE "")
+target_compile_definitions(tabswitcherplugin PRIVATE TRANSLATION_DOMAIN="tabswitcherplugin")
+target_link_libraries(tabswitcherplugin PRIVATE KF5::TextEditor)
 
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
-
-set(tabswitcherplugin_PART_SRCS
+target_sources(
+  tabswitcherplugin 
+  PRIVATE
     tabswitcher.cpp
     tabswitcherfilesmodel.cpp
     tabswitchertreeview.cpp
+    plugin.qrc
 )
 
-# resource for ui file and stuff
-qt5_add_resources(tabswitcherplugin_PART_SRCS plugin.qrc)
+kcoreaddons_desktop_to_json(tabswitcherplugin tabswitcherplugin.desktop)
+install(TARGETS tabswitcherplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
 
-add_library (tabswitcherplugin MODULE ${tabswitcherplugin_PART_SRCS})
-
-kcoreaddons_desktop_to_json (tabswitcherplugin tabswitcherplugin.desktop)
-
-target_link_libraries(tabswitcherplugin
-    KF5::TextEditor
-    KF5::IconThemes
-    KF5::I18n
-    KF5::Service
-)
-
-install(TARGETS tabswitcherplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-
-############# unit tests ################
-if (BUILD_TESTING)
-    add_subdirectory(autotests)
-    add_subdirectory(tests)
+if(BUILD_TESTING)
+  add_subdirectory(autotests)
+  add_subdirectory(tests)
 endif()

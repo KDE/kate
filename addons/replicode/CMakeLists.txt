@@ -1,32 +1,33 @@
-project(katereplicodeplugin)
+find_package(KF5IconThemes QUIET)
+set_package_properties(KF5IconThemes PROPERTIES PURPOSE "Required to build the replicode addon")
 
-add_definitions(-DTRANSLATION_DOMAIN=\"kate-replicode-plugin\")
+if(NOT KF5IconThemes_FOUND)
+  return()
+endif()
 
-# Set source variables
-set(katereplicode_SRCS
+add_library(katereplicodeplugin MODULE "")
+target_compile_definitions(katereplicodeplugin PRIVATE TRANSLATION_DOMAIN="kate-replicode-plugin")
+
+target_link_libraries(
+  katereplicodeplugin 
+  PRIVATE 
+    KF5::TextEditor
+    KF5::IconThemes
+)
+
+ki18n_wrap_ui(UI_SOURCES config.ui)
+target_sources(katereplicodeplugin PRIVATE ${UI_SOURCES})
+
+target_sources(
+  katereplicodeplugin
+  PRIVATE
     replicodeplugin.cpp
     replicodeconfigpage.cpp
     replicodeconfig.cpp
     replicodesettings.cpp
     replicodeview.cpp
+    plugin.qrc
 )
-
-# Generate files
-ki18n_wrap_ui(katereplicode_SRCS config.ui)
-
-# resource for ui file and stuff
-qt5_add_resources(katereplicode_SRCS plugin.qrc)
-
-add_library(katereplicodeplugin MODULE ${katereplicode_SRCS})
 
 kcoreaddons_desktop_to_json(katereplicodeplugin katereplicodeplugin.desktop)
-
-# Link it all together
-target_link_libraries(katereplicodeplugin
-    KF5::TextEditor
-    KF5::IconThemes
-    KF5::I18n
-)
-
-# Install
 install(TARGETS katereplicodeplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

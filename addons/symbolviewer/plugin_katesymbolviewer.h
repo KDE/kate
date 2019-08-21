@@ -33,6 +33,7 @@
 #include <QResizeEvent>
 #include <QTreeWidget>
 #include <QList>
+#include <QSet>
 #include <QTimer>
 
 #include <klocalizedstring.h>
@@ -142,6 +143,9 @@ class KatePluginSymbolViewerView :  public QObject, public KXMLGUIClient
 
 class KatePluginSymbolViewer : public KTextEditor::Plugin
 {
+
+  friend class KatePluginSymbolViewerView;
+
   Q_OBJECT
   public:
     explicit KatePluginSymbolViewer(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
@@ -156,7 +160,7 @@ class KatePluginSymbolViewer : public KTextEditor::Plugin
     void applyConfig( KatePluginSymbolViewerConfigPage* p );
 
   private:
-    KatePluginSymbolViewerView* m_view = nullptr;
+    QSet<KatePluginSymbolViewerView *> m_views;
 };
 
 /* XPM */

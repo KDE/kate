@@ -1,23 +1,26 @@
-add_definitions(-DTRANSLATION_DOMAIN=\"kategdbplugin\")
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+# Hasn't been ported to Windows yet.
+if(WIN32)
+  return()
+endif()
 
-set(kategdbplugin_PART_SRCS
+add_library(kategdbplugin MODULE "")
+target_compile_definitions(kategdbplugin PRIVATE TRANSLATION_DOMAIN="kategdbplugin")
+target_link_libraries(kategdbplugin PRIVATE KF5::TextEditor)
+
+ki18n_wrap_ui(UI_SOURCES advanced_settings.ui)
+target_sources(kategdbplugin PRIVATE ${UI_SOURCES})
+
+target_sources(
+  kategdbplugin
+  PRIVATE
     plugin_kategdb.cpp
     debugview.cpp
     configview.cpp
     ioview.cpp
     localsview.cpp
     advanced_settings.cpp
+    plugin.qrc 
 )
 
-ki18n_wrap_ui(kategdbplugin_PART_SRCS advanced_settings.ui)
-
-# resource for ui file and stuff
-qt5_add_resources(kategdbplugin_PART_SRCS plugin.qrc)
-
-add_library(kategdbplugin MODULE ${kategdbplugin_PART_SRCS})
-kcoreaddons_desktop_to_json (kategdbplugin kategdbplugin.desktop)
-
-target_link_libraries(kategdbplugin KF5::TextEditor KF5::I18n KF5::IconThemes)
-
+kcoreaddons_desktop_to_json(kategdbplugin kategdbplugin.desktop)
 install(TARGETS kategdbplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

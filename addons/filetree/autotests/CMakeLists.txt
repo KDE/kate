@@ -1,15 +1,24 @@
-
 include(ECMMarkAsTest)
 
-macro(filetree_executable_tests)
-  foreach(_testname ${ARGN})
-    add_executable(${_testname} ${_testname}.cpp document_dummy.cpp)
-    add_test(NAME kateapp-${_testname} COMMAND ${_testname})
-    target_link_libraries(${_testname} katefiletree Qt5::Test)
-    ecm_mark_as_test(${_testname})
-  endforeach(_testname)
-endmacro(filetree_executable_tests)
+add_executable(filetree_model_test "")
+target_include_directories(filetree_model_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-filetree_executable_tests(
-  filetree_model_test
+find_package(Qt5Test QUIET REQUIRED)
+target_link_libraries(
+  filetree_model_test 
+  PRIVATE
+    KF5::GuiAddons
+    KF5::TextEditor
+    Qt5::Test
 )
+
+target_sources(
+  filetree_model_test 
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../katefiletreemodel.cpp
+    filetree_model_test.cpp 
+    document_dummy.cpp
+)
+
+add_test(NAME kateapp-filetree_model_test COMMAND filetree_model_test)
+ecm_mark_as_test(filetree_model_test)

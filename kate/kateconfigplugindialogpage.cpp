@@ -80,10 +80,10 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     listView->setWhatsThis(i18n("Here you can see all available Kate plugins. Those with a check mark are loaded, and will be loaded again the next time Kate is started."));
 
     KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
-    for (KatePluginList::iterator it = pluginList.begin(); it != pluginList.end(); ++it) {
-        QTreeWidgetItem *item = new KatePluginListItem(it->load, &(*it));
-        item->setText(0, it->metaData.name());
-        item->setText(1, it->metaData.description());
+    for (auto& pluginInfo : pluginList) {
+        QTreeWidgetItem *item = new KatePluginListItem(pluginInfo.load, &pluginInfo);
+        item->setText(0, pluginInfo.metaData.name());
+        item->setText(1, pluginInfo.metaData.description());
         listView->addTopLevelItem(item);
     }
 

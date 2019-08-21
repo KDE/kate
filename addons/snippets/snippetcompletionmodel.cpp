@@ -176,8 +176,8 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
         return true; //Always abort when the completion-range has been left
     }
 
-    for ( int i = 0; i < currentCompletion.length(); ++i ) {
-        if ( currentCompletion.at(i).isSpace() ) {
+    for (const auto token : currentCompletion) {
+        if ( token.isSpace() ) {
             return true;
         }
     }

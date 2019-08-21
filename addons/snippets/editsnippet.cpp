@@ -174,6 +174,7 @@ void EditSnippet::save()
     if ( !m_snippet ) {
         // save as new snippet
         m_snippet = new Snippet();
+        m_snippet->action();  // ensure that the snippet's QAction is created before it is added to a widget by the rowsInserted() signal
         m_repo->appendRow(m_snippet);
     }
     m_snippet->setSnippet(m_snippetView->document()->text());

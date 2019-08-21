@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="lspclient" library="lspclient" version="3" translationDomain="lspclient">
+  <MenuBar>
+    <Menu name="LSPClient Menubar">
+      <text>LSP Client</text>
+      <Action name="lspclient_find_definition"/>
+      <Action name="lspclient_find_declaration"/>
+      <Action name="lspclient_find_references"/>
+      <Action name="lspclient_highlight"/>
+      <Action name="lspclient_hover"/>
+      <Action name="lspclient_format"/>
+      <Action name="lspclient_rename"/>
+      <Separator/>
+      <Action name="lspclient_completion_doc"/>
+      <Action name="lspclient_references_declaration"/>
+      <Action name="lspclient_type_formatting"/>
+      <Action name="lspclient_incremental_sync"/>
+      <Separator/>
+      <Action name="lspclient_diagnostics"/>
+      <Action name="lspclient_diagnostics_highlight"/>
+      <Action name="lspclient_diagnostics_mark"/>
+      <Action name="lspclient_diagnostic_switch"/>
+      <Action name="lspclient_diagnostic_close_non"/>
+      <Separator/>
+      <Action name="lspclient_restart_server"/>
+      <Action name="lspclient_restart_all"/>
+    </Menu>
+  </MenuBar>
+  <Menu name="ktexteditor_popup" noMerge="1">
+    <Action name="popup_lspclient"/>
+  </Menu>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

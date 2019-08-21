@@ -171,7 +171,6 @@ void KateConsole::loadConsoleIfNeeded()
   if (!window() || !parentWidget()) return;
   if (!window() || !isVisibleTo(window())) return;
 
-
   /**
    * get konsole part factory
    */
@@ -203,6 +202,7 @@ void KateConsole::slotDestroyed ()
 {
   m_part = nullptr;
   m_currentPath.clear ();
+  setFocusProxy(nullptr);
 
   // hide the dockwidget
   if (parentWidget()) {

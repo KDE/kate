@@ -1,24 +1,34 @@
-add_definitions(-DTRANSLATION_DOMAIN=\"katesearch\")
+find_package(KF5ItemViews QUIET)
+set_package_properties(KF5ItemViews PROPERTIES PURPOSE "Required to build the search addon")
 
-set(katesearchplugin_PART_SRCS
+if(NOT KF5ItemViews_FOUND)
+  return()
+endif()
+
+add_library(katesearchplugin MODULE "")
+target_compile_definitions(katesearchplugin PRIVATE TRANSLATION_DOMAIN="katesearch")
+
+target_link_libraries(
+  katesearchplugin 
+  PRIVATE
+    KF5::ItemViews
+    KF5::TextEditor
+)
+
+ki18n_wrap_ui(UI_SOURCES search.ui results.ui)
+target_sources(katesearchplugin PRIVATE ${UI_SOURCES})
+
+target_sources(
+  katesearchplugin
+  PRIVATE
     plugin_search.cpp
     search_open_files.cpp
     SearchDiskFiles.cpp
     FolderFilesList.cpp
     replace_matches.cpp
     htmldelegate.cpp
+    plugin.qrc
 )
 
-ki18n_wrap_ui (katesearchplugin_PART_SRCS search.ui results.ui)
-
-# resource for ui file and stuff
-qt5_add_resources(katesearchplugin_PART_SRCS plugin.qrc)
-
-add_library(katesearchplugin MODULE ${katesearchplugin_PART_SRCS})
-kcoreaddons_desktop_to_json (katesearchplugin katesearch.desktop)
-target_link_libraries(katesearchplugin
-    KF5::TextEditor
-    KF5::Parts KF5::I18n KF5::IconThemes
-    KF5::ItemViews)
-
+kcoreaddons_desktop_to_json(katesearchplugin katesearch.desktop)
 install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

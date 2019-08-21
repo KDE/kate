@@ -67,6 +67,7 @@ public:
     void addPluginPage(KTextEditor::Plugin *plugin);
     void removePluginPage(KTextEditor::Plugin *plugin);
     void showAppPluginPage(KTextEditor::Plugin *plugin, uint id);
+
 protected Q_SLOTS:
     void slotApply();
     void slotChanged();
@@ -74,17 +75,21 @@ protected Q_SLOTS:
 
     void slotCurrentPageChanged(KPageWidgetItem *current, KPageWidgetItem *before);
 
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
 private:
     KateMainWindow *m_mainWindow;
 
     KTextEditor::View *m_view;
-    bool m_dataChanged;
+    bool m_dataChanged = false;
 
     QCheckBox *m_modNotifications;
     QCheckBox *m_modCloseAfterLast;
     QCheckBox *m_saveMetaInfos;
     KPluralHandlingSpinBox *m_daysMetaInfos;
     QComboBox * m_cmbQuickOpenMatchMode;
+    QComboBox * m_cmbQuickOpenListMode;
 
     // Sessions Page
     Ui::SessionConfigWidget *sessionConfigUi;

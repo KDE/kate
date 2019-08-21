@@ -24,10 +24,18 @@
 #include "katemainwindow.h"
 
 #include "katedebug.h"
+
+#include <KStartupInfo>
 #include <KWindowSystem>
 
+#include <QApplication>
+
+/**
+ * add the adapter to the global application instance to have
+ * it auto-register with KDBusService, see bug 410742
+ */
 KateAppAdaptor::KateAppAdaptor(KateApp *app)
-    : QDBusAbstractAdaptor(app)
+    : QDBusAbstractAdaptor(qApp)
     , m_app(app)
 {}
 
@@ -44,7 +52,8 @@ void KateAppAdaptor::activate()
     win->activateWindow();
 
     // try to raise window, see bug 407288
-    KWindowSystem::raiseWindow(win->winId());
+    KStartupInfo::setNewStartupId(win, KStartupInfo::startupId());
+    KWindowSystem::activateWindow(win->effectiveWinId());
 }
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)

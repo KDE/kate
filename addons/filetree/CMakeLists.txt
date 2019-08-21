@@ -1,32 +1,35 @@
-add_definitions(-DTRANSLATION_DOMAIN=\"katefiletree\")
-project(katefiletreeplugin)
+find_package(KF5GuiAddons QUIET)
+set_package_properties(KF5GuiAddons PROPERTIES PURPOSE "Required to build the katefiletree addon")
 
-set(katefiletree_PART_SRCS katefiletree.cpp katefiletreemodel.cpp katefiletreeproxymodel.cpp )
-set(katefiletreeplugin_PART_SRCS katefiletreeplugin.cpp katefiletreeconfigpage.cpp katefiletreepluginsettings.cpp )
+if(NOT KF5GuiAddons_FOUND)
+  return()
+endif()
 
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+add_library(katefiletree MODULE "")
+target_compile_definitions(katefiletree PRIVATE TRANSLATION_DOMAIN="katefiletree")
 
-add_library (katefiletree STATIC  ${katefiletree_PART_SRCS})
-set_target_properties(katefiletree PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
-target_link_libraries(katefiletree
-PUBLIC
-  KF5::TextEditor
-  KF5::I18n
-  KF5::GuiAddons
-  KF5::IconThemes
+target_link_libraries(
+  katefiletree
+  PUBLIC
+    KF5::TextEditor
+    KF5::GuiAddons
 )
 
-# resource for ui file and stuff
-qt5_add_resources(katefiletreeplugin_PART_SRCS plugin.qrc)
+target_sources(
+  katefiletree
+  PRIVATE
+    katefiletree.cpp
+    katefiletreeconfigpage.cpp
+    katefiletreemodel.cpp
+    katefiletreeplugin.cpp
+    katefiletreepluginsettings.cpp
+    katefiletreeproxymodel.cpp
+    plugin.qrc
+)
 
-add_library (katefiletreeplugin MODULE  ${katefiletreeplugin_PART_SRCS})
-target_link_libraries(katefiletreeplugin katefiletree)
+kcoreaddons_desktop_to_json(katefiletree katefiletreeplugin.desktop)
+install(TARGETS katefiletree DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
 
-install(TARGETS katefiletreeplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
-
-kcoreaddons_desktop_to_json (katefiletreeplugin katefiletreeplugin.desktop)
-
-############# unit tests ################
-if (BUILD_TESTING)
-    add_subdirectory(autotests)
+if(BUILD_TESTING)
+  add_subdirectory(autotests)
 endif()

@@ -21,7 +21,7 @@
 #ifndef __KATE_SESSIONS_ACTION_H__
 #define __KATE_SESSIONS_ACTION_H__
 
-#include "kateprivate_export.h"
+#include "katetests_export.h"
 #include <KActionMenu>
 
 class KateSessionManager;

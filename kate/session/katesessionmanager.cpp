@@ -18,8 +18,6 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "config.h"
-
 #include "katesessionmanager.h"
 
 #include "katesessionmanagedialog.h"
@@ -189,15 +187,15 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
     // window config
     KConfigGroup c(sharedConfig, "General");
 
-    if (c.readEntry("Restore Window Configuration", true)) {
-        KConfig *cfg = sc;
-        bool delete_cfg = false;
-        // a new, named session, read settings of the default session.
-        if (! sc->hasGroup("Open MainWindows")) {
-            delete_cfg = true;
-            cfg = new KConfig(anonymousSessionFile(), KConfig::SimpleConfig);
-        }
+    KConfig *cfg = sc;
+    bool delete_cfg = false;
+    // a new, named session, read settings of the default session.
+    if (! sc->hasGroup("Open MainWindows")) {
+        delete_cfg = true;
+        cfg = new KConfig(anonymousSessionFile(), KConfig::SimpleConfig);
+    }
 
+    if (c.readEntry("Restore Window Configuration", true)) {
         int wCount = cfg->group("Open MainWindows").readEntry("Count", 1);
 
         for (int i = 0; i < wCount; ++i) {
@@ -210,17 +208,31 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
             KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(cfg, QStringLiteral("MainWindow%1 Settings").arg(i)));
         }
 
-        if (delete_cfg) {
-            delete cfg;
-        }
-
         // remove mainwindows we need no longer...
         if (wCount > 0) {
             while (wCount < KateApp::self()->mainWindowsCount()) {
                 delete KateApp::self()->mainWindow(KateApp::self()->mainWindowsCount() - 1);
             }
         }
+    } else {
+        // load recent files for all existing windows, see bug 408499
+        for (int i = 0; i < KateApp::self()->mainWindowsCount(); ++i) {
+            KateApp::self()->mainWindow(i)->loadOpenRecent(cfg);
+        }
     }
+
+    // ensure we have at least one window, always! load recent files for it, too, see bug 408499
+    if (KateApp::self()->mainWindowsCount() == 0) {
+        auto w = KateApp::self()->newMainWindow();
+        w->loadOpenRecent(cfg);
+    }
+
+    if (delete_cfg) {
+        delete cfg;
+    }
+
+    // we shall always have some existing windows here!
+    Q_ASSERT(KateApp::self()->mainWindowsCount() > 0);
 }
 
 bool KateSessionManager::activateSession(const QString &name, const bool closeAndSaveLast, const bool loadNew)
@@ -341,6 +353,7 @@ void KateSessionManager::saveSessionTo(KConfig *sc) const
     bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
     for (int i = 0; i < KateApp::self()->mainWindowsCount(); ++i) {
         KConfigGroup cg(sc, QStringLiteral("MainWindow%1").arg(i));
+        // saveProperties() handles saving the "open recent" files list
         KateApp::self()->mainWindow(i)->saveProperties(cg);
         if (saveWindowConfig) {
             KateApp::self()->mainWindow(i)->saveWindowConfig(KConfigGroup(sc, QStringLiteral("MainWindow%1 Settings").arg(i)));
@@ -393,16 +406,15 @@ bool KateSessionManager::chooseSession()
 
     // uhh, just open last used session, show no chooser
     if (sesStart == QStringLiteral("last")) {
-        activateSession(lastSession, false);
-        return true;
+        return activateSession(lastSession, false);
     }
 
     // start with empty new session or in case no sessions exist
     if (sesStart == QStringLiteral("new") || sessionList().size() == 0) {
-        activateAnonymousSession();
-        return true;
+        return activateAnonymousSession();
     }
 
+    // else: ask the user
     return QScopedPointer<KateSessionManageDialog>(new KateSessionManageDialog(nullptr, lastSession))->exec();
 }
 

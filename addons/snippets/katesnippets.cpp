@@ -64,9 +64,9 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
                      i18n("Snippets"));
 
     // add snippets widget
-    m_snippets = new SnippetView(KateSnippetGlobal::self(), m_toolView.data());
+    m_snippets = new SnippetView(KateSnippetGlobal::self(), mainWindow, m_toolView.data());
     m_toolView->layout()->addWidget(m_snippets);
-    m_snippets->setupActionsForWindow(m_toolView);
+    m_snippets->setupActionsForWindow(mainWindow->window());
     m_toolView->addActions(m_snippets->actions());
 
     // create actions

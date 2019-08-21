@@ -1,3 +1,7 @@
+if(KF5TextEditor_VERSION VERSION_LESS 5.57.0)
+  return()
+endif()
+
 project(externaltoolsplugin)
 add_definitions(-DTRANSLATION_DOMAIN=\"kateexternaltoolsplugin\")
 

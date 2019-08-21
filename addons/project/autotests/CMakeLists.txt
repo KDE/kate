@@ -1,17 +1,24 @@
 include(ECMMarkAsTest)
 
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/..
+add_executable(projectplugin_test "")
+target_include_directories(projectplugin_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+
+find_package(Qt5Test QUIET REQUIRED)
+target_link_libraries(
+  projectplugin_test 
+  PRIVATE
+    KF5::TextEditor
+    Qt5::Test
 )
 
-# Project Plugin
-set(ProjectPluginSrc
+target_sources(
+  projectplugin_test 
+  PRIVATE
     test1.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../fileutil.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../kateprojectcodeanalysistool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../tools/kateprojectcodeanalysistoolshellcheck.cpp
 )
-add_executable(projectplugin_test ${ProjectPluginSrc})
+
 add_test(NAME plugin-project_test COMMAND projectplugin_test)
-target_link_libraries(projectplugin_test kdeinit_kate Qt5::Test)
 ecm_mark_as_test(projectplugin_test)

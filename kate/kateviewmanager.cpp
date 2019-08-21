@@ -21,6 +21,7 @@
 //BEGIN Includes
 #include "kateviewmanager.h"
 
+#include "config.h"
 #include "kateapp.h"
 #include "katemainwindow.h"
 #include "kateviewspace.h"
@@ -39,9 +40,7 @@
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
 
-#include <config.h>
-
-#ifdef KActivities_FOUND
+#ifdef KF5Activities_FOUND
 #include <KActivities/ResourceInstance>
 #endif
 
@@ -62,6 +61,9 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
 {
     // while init
     m_init = true;
+
+    // we don't allow full collapse, see bug 366014
+    setChildrenCollapsible(false);
 
     // important, set them up, as we use them in other methodes
     setupActions();
@@ -454,7 +456,7 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     m_views[view].active = false;
     m_views[view].lruAge = m_minAge--;
 
-#ifdef KActivities_FOUND
+#ifdef KF5Activities_FOUND
     m_views[view].activityResource = new KActivities::ResourceInstance(view->window()->winId(), view);
     m_views[view].activityResource->setUri(doc->url());
 #endif
@@ -646,7 +648,7 @@ void KateViewManager::activateView(KTextEditor::View *view)
 
         emit viewChanged(view);
 
-#ifdef KActivities_FOUND
+#ifdef KF5Activities_FOUND
         // inform activity manager
         m_views[view].activityResource->setUri(view->document()->url());
         m_views[view].activityResource->notifyFocusedIn();
@@ -792,6 +794,10 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
         // create a new QSplitter and replace vs with the splitter. vs and newVS are
         // the new children of the new QSplitter
         QSplitter *newContainer = new QSplitter(o);
+
+        // we don't allow full collapse, see bug 366014
+        newContainer->setChildrenCollapsible(false);
+
         QList<int> currentSizes = currentSplitter->sizes();
 
         newContainer->addWidget(vs);
@@ -1133,10 +1139,10 @@ void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QStri
 
     parent->setOrientation((Qt::Orientation)config.readEntry("Orientation", int(Qt::Horizontal)));
 
-    QStringList children = config.readEntry("Children", QStringList());
-    for (QStringList::Iterator it = children.begin(); it != children.end(); ++it) {
+    const QStringList children = config.readEntry("Children", QStringList());
+    for (const auto& str : children) {
         // for a viewspace, create it and open all documents therein.
-        if ((*it).startsWith(viewConfGrp + QStringLiteral("-ViewSpace"))) {
+        if (str.startsWith(viewConfGrp + QStringLiteral("-ViewSpace"))) {
             KateViewSpace *vs = new KateViewSpace(this, nullptr);
             m_viewSpaceList.append(vs);
             // make active so that the view created in restoreConfig has this
@@ -1144,11 +1150,16 @@ void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QStri
             setActiveSpace(vs);
 
             parent->addWidget(vs);
-            vs->restoreConfig(this, configBase, *it);
+            vs->restoreConfig(this, configBase, str);
             vs->show();
         } else {
-            // for a splitter, recurse.
-            restoreSplitter(configBase, *it, new QSplitter(parent), viewConfGrp);
+            // for a splitter, recurse
+            auto newContainer = new QSplitter(parent);
+
+            // we don't allow full collapse, see bug 366014
+            newContainer->setChildrenCollapsible(false);
+
+            restoreSplitter(configBase, str, newContainer, viewConfGrp);
         }
     }
 

@@ -125,21 +125,21 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         const QFileInfoList currentItems = currentDir.entryInfoList(m_types, filter, QDir::Name | QDir::LocaleAware);
 
         bool skip;
-        for (int i = 0; i<currentItems.size(); ++i) {
+        for (const auto& currentItem : currentItems) {
             skip = false;
-            for (int j=0; j<m_excludeList.size(); j++) {
+            for (const auto& regex : qAsConst(m_excludeList)) {
 
-                QString matchString = currentItems[i].filePath();
-                if (currentItems[i].filePath().startsWith(m_folder)) {
-                    matchString = currentItems[i].filePath().mid(m_folder.size());
+                QString matchString = currentItem.filePath();
+                if (currentItem.filePath().startsWith(m_folder)) {
+                    matchString = currentItem.filePath().mid(m_folder.size());
                 }
-                if (m_excludeList[j].exactMatch(matchString)) {
+                if (regex.exactMatch(matchString)) {
                     skip = true;
                     break;
                 }
             }
             if (!skip) {
-                checkNextItem(currentItems[i]);
+                checkNextItem(currentItem);
             }
         }
     }

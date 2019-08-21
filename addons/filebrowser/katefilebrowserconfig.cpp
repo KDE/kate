@@ -149,24 +149,36 @@ void KateFileBrowserConfigPage::init()
     l << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
 
   // actions from diroperator + two of our own
-  QStringList allActions;
-  allActions << QStringLiteral("up") << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("home")
-             << QStringLiteral("reload") << QStringLiteral("mkdir") << QStringLiteral("delete")
-             << QStringLiteral("short view") << QStringLiteral("detailed view")
-             << QStringLiteral("tree view") << QStringLiteral("detailed tree view")
-             << QStringLiteral("show hidden") /*<< QStringLiteral("view menu") << QStringLiteral("properties")*/
-             << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
+  const QStringList allActions{
+    QStringLiteral("up"),
+    QStringLiteral("back"),
+    QStringLiteral("forward"),
+    QStringLiteral("home"),
+    QStringLiteral("reload"),
+    QStringLiteral("mkdir"),
+    QStringLiteral("delete"),
+    QStringLiteral("short view"),
+    QStringLiteral("detailed view"),
+    QStringLiteral("tree view"),
+    QStringLiteral("detailed tree view"),
+    QStringLiteral("show hidden"),
+    //QStringLiteral("view menu"),
+    //QStringLiteral("properties"),
+    QStringLiteral("bookmarks"),
+    QStringLiteral("sync_dir"),
+    QStringLiteral("configure")};
+
   QRegularExpression re(QStringLiteral("&(?=[^&])"));
   QAction *ac = nullptr;
   QListWidget *lb;
-  for ( QStringList::Iterator it = allActions.begin(); it != allActions.end(); ++it )
+  for (const auto& actionName : allActions)
   {
-    lb = l.contains( *it ) ? acSel->selectedListWidget() : acSel->availableListWidget();
+    lb = l.contains( actionName ) ? acSel->selectedListWidget() : acSel->availableListWidget();
 
-    if ( *it == QStringLiteral ("bookmarks") || *it == QStringLiteral ("sync_dir") || *it == QStringLiteral ("configure") )
-      ac = fileBrowser->actionCollection()->action( *it );
+    if ( actionName == QStringLiteral ("bookmarks") || actionName == QStringLiteral ("sync_dir") || actionName == QStringLiteral ("configure") )
+      ac = fileBrowser->actionCollection()->action( actionName );
     else
-      ac = fileBrowser->dirOperator()->actionCollection()->action( *it );
+      ac = fileBrowser->dirOperator()->actionCollection()->action( actionName );
 
     if ( ac )
     {
@@ -177,7 +189,7 @@ void KateFileBrowserConfigPage::init()
       // avoid extraction here and let it be sourced from kdelibs.
       #define i18ncX i18nc
       text = i18ncX( "@item:intable Action name in toolbar editor", "%1", text );
-      new ActionLBItem( lb, ac->icon(), text, *it );
+      new ActionLBItem( lb, ac->icon(), text, actionName );
     }
   }
 }

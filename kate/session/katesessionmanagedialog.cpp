@@ -290,8 +290,10 @@ void KateSessionManageDialog::openSession()
     }
 
     hide();
-    KateApp::self()->sessionManager()->activateSession(item->session);
-    done(ResultOpen);
+
+    // this might fail, e.g. if session is in use, then e.g. end kate, bug 390740
+    const bool success = KateApp::self()->sessionManager()->activateSession(item->session);
+    done(success ? ResultOpen : ResultQuit);
 }
 
 

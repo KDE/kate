@@ -183,6 +183,8 @@ protected:
 private:
     QTreeWidgetItem *rootFileItem(const QString &url, const QString &fName);
     QStringList filterFiles(const QStringList& files) const;
+    
+    void onResize(const QSize& size);
 
     Ui::SearchDialog                   m_ui;
     QWidget                           *m_toolView;
@@ -199,6 +201,7 @@ private:
     bool                               m_searchDiskFilesDone;
     bool                               m_searchOpenFilesDone;
     bool                               m_isSearchAsYouType;
+    bool                               m_isLeftRight;
     QString                            m_resultBaseDir;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
     QTimer                             m_changeTimer;
@@ -209,7 +212,7 @@ private:
      * current project plugin view, if any
      */
     QObject *m_projectPluginView;
-    
+
     /**
      * our main window
      */

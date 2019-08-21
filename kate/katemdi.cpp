@@ -43,6 +43,7 @@
 #include <QSizePolicy>
 #include <QStyle>
 #include <QDomDocument>
+#include <QVBoxLayout>
 
 namespace KateMDI
 {
@@ -668,9 +669,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
 
     // show only correct toolviews, remember persistent values ;)
     bool anyVis = false;
-    for (int i = 0; i < m_toolviews.size(); ++i) {
-        ToolView *tv = m_toolviews[i];
-
+    for (auto tv : qAsConst(m_toolviews)) {
         tv->persistent = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
         tv->setToolVisible(config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
 
@@ -769,8 +768,8 @@ MainWindow::MainWindow(QWidget *parentWidget)
     hlayout->addWidget(m_sidebars[KMultiTabBar::Right]);
     m_sidebars[KMultiTabBar::Right]->setSplitter(m_hSplitter);
 
-    for (int i = 0; i < 4; i++) {
-        connect(m_sidebars[i], &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
+    for (const auto sidebar : qAsConst(m_sidebars)) {
+        connect(sidebar, &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
     }
 
 }
@@ -784,8 +783,8 @@ MainWindow::~MainWindow()
     delete m_centralWidget;
 
     // cleanup the sidebars
-    for (unsigned int i = 0; i < 4; ++i) {
-        delete m_sidebars[i];
+    for (auto sidebar : qAsConst(m_sidebars)) {
+        delete sidebar;
     }
 }
 
@@ -981,17 +980,17 @@ void MainWindow::finishRestore()
         applyMainWindowSettings(cg);
 
         // reshuffle toolviews only if needed
-        for (int i = 0; i < m_toolviews.size(); ++i) {
-            KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(m_toolviews[i]->id), int(m_toolviews[i]->sidebar()->position()));
+        for (const auto tv : qAsConst(m_toolviews)) {
+            KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
 
-            if (m_toolviews[i]->sidebar()->position() != newPos) {
-                moveToolView(m_toolviews[i], newPos);
+            if (tv->sidebar()->position() != newPos) {
+                moveToolView(tv, newPos);
             }
         }
 
         // restore the sidebars
-        for (unsigned int i = 0; i < 4; ++i) {
-            m_sidebars[i]->restoreSession(cg);
+        for (auto sidebar : qAsConst(m_sidebars)) {
+            sidebar->restoreSession(cg);
         }
 
         // restore splitter sizes
@@ -1045,8 +1044,8 @@ void MainWindow::saveSession(KConfigGroup &config)
     config.writeEntry("Kate-MDI-Sidebar-Visible", m_sidebarsVisible);
 
     // save the sidebars
-    for (unsigned int i = 0; i < 4; ++i) {
-        m_sidebars[i]->saveSession(config);
+    for (auto sidebar : qAsConst(m_sidebars)) {
+        sidebar->saveSession(config);
     }
 }
 

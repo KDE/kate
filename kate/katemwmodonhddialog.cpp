@@ -96,8 +96,8 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     twDocuments->setRootIsDecorated(false);
 
     m_stateTexts << QString() << i18n("Modified") << i18n("Created") << i18n("Deleted");
-    for (int i = 0; i < docs.size(); i++) {
-        new KateDocItem(docs[i], m_stateTexts[(uint)KateApp::self()->documentManager()->documentInfo(docs[i])->modifiedOnDiscReason ], twDocuments);
+    for (auto& doc : qAsConst(docs)) {
+        new KateDocItem(doc, m_stateTexts[(uint)KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason ], twDocuments);
     }
     twDocuments->header()->setStretchLastSection(false);
     twDocuments->header()->setSectionResizeMode(0, QHeaderView::Stretch);

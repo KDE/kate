@@ -1,88 +1,40 @@
-# minimal requirements
-cmake_minimum_required (VERSION 3.0 FATAL_ERROR)
+# 3.1 is required for `target_sources`.
+cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
-# Kate project
-project (kate)
+project(kate)
 
-set (QT_MIN_VERSION "5.4.0")
+set(QT_MIN_VERSION "5.4.0")
 set(KF5_DEP_VERSION "5.40.0")
 
-# KDE Application Version, managed by release script
-set (KDE_APPLICATIONS_VERSION_MAJOR "19")
-set (KDE_APPLICATIONS_VERSION_MINOR "07")
-set (KDE_APPLICATIONS_VERSION_MICRO "70")
-set (KDE_APPLICATIONS_VERSION "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATIONS_VERSION_MINOR}.${KDE_APPLICATIONS_VERSION_MICRO}")
+# KDE Applications version, managed by release script.
+set(KDE_APPLICATIONS_VERSION_MAJOR "19")
+set(KDE_APPLICATIONS_VERSION_MINOR "11")
+set(KDE_APPLICATIONS_VERSION_MICRO "70")
+set(KDE_APPLICATIONS_VERSION "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATIONS_VERSION_MINOR}.${KDE_APPLICATIONS_VERSION_MICRO}")
 
-# we need some parts of the ECM CMake helpers
-find_package (ECM ${KF5_DEP_VERSION} REQUIRED NO_MODULE)
-set (CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+# We need some parts of the ECM CMake helpers.
+find_package(ECM ${KF5_DEP_VERSION} QUIET REQUIRED NO_MODULE)
+
+# We append to the module path so modules can be overriden from the command line.
+list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+
+# Allow adding Qt resource files with `add_executable` or `target_sources` instead of 
+# `qt5_add_resources`. See https://cmake.org/cmake/help/v3.0/manual/cmake-qt.7.html#autorcc.
+set(CMAKE_AUTORCC ON)
+
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
-include(ECMOptionalAddSubdirectory)
-include(ECMInstallIcons)
-include(ECMSetupVersion)
-include(ECMMarkNonGuiExecutable)
-include(ECMGenerateHeaders)
-include(ECMAddAppIcon)
-include(GenerateExportHeader)
-
-include(CMakePackageConfigHelpers)
-include(FeatureSummary)
-include(WriteBasicConfigVersionFile)
-include (CheckFunctionExists)
-
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Sql)
+include(ECMOptionalAddSubdirectory)
+include(ECMAddAppIcon)
+include(ECMInstallIcons)
 
-if(BUILD_TESTING)
-  find_package(Qt5Test ${QT_MIN_VERSION} CONFIG REQUIRED)
-endif()
+include(FeatureSummary)
 
-# Load the frameworks we need
-find_package(KF5 "${KF5_DEP_VERSION}" REQUIRED COMPONENTS
-  Config
-  Crash
-  I18n
-  JobWidgets
-  KIO
-  Parts
-  TextEditor
-  WindowSystem
-  XmlGui
-  IconThemes
-)
+ecm_optional_add_subdirectory(addons)
+ecm_optional_add_subdirectory(kwrite)
+ecm_optional_add_subdirectory(kate)
+ecm_optional_add_subdirectory(doc)
 
-# some optional deps, to make compiling on some OSes easier
-find_package(KF5 "${KF5_DEP_VERSION}" COMPONENTS
-  Activities
-  DocTools
-)
-
-if (KF5Activities_FOUND)
-    add_definitions(-DKActivities_FOUND)
-endif ()
-
-# config.h
-check_function_exists (ctermid HAVE_CTERMID)
-configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
-
-# let our config.h be found first in any case
-include_directories (BEFORE ${CMAKE_CURRENT_BINARY_DIR})
-
-# kwrite
-ecm_optional_add_subdirectory (kwrite)
-
-# kate application
-ecm_optional_add_subdirectory (kate)
-
-# addons, e.g. kate plugins, plasma applets, ...
-ecm_optional_add_subdirectory (addons)
-
-# docs, if doc tools around
-if (KF5DocTools_FOUND)
-    ecm_optional_add_subdirectory (doc)
-endif ()
-
-# tell about our features (and what is missing)
-feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+feature_summary(INCLUDE_QUIET_PACKAGES WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

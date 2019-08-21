@@ -70,10 +70,10 @@ KateDocManager::~KateDocManager()
         if (m_daysMetaInfos > 0) {
             const QStringList groups = m_metaInfos.groupList();
             QDateTime def(QDate(1970, 1, 1));
-            for (QStringList::const_iterator it = groups.begin(); it != groups.end(); ++it) {
-                QDateTime last = m_metaInfos.group(*it).readEntry("Time", def);
+            for (const auto& group : groups) {
+                QDateTime last = m_metaInfos.group(group).readEntry("Time", def);
                 if (last.daysTo(QDateTime::currentDateTimeUtc()) > m_daysMetaInfos) {
-                    m_metaInfos.deleteGroup(*it);
+                    m_metaInfos.deleteGroup(group);
                 }
             }
         }
@@ -114,24 +114,29 @@ KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
     return m_docInfos.contains(doc) ? m_docInfos[doc] : nullptr;
 }
 
-KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
+static QUrl
+normalizeUrl(const QUrl & url)
 {
-    QUrl u(url.adjusted(QUrl::NormalizePathSegments));
-
     // Resolve symbolic links for local files (done anyway in KTextEditor)
-    if (u.isLocalFile()) {
-        QString normalizedUrl = QFileInfo(u.toLocalFile()).canonicalFilePath();
+    if (url.isLocalFile()) {
+        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
         if (!normalizedUrl.isEmpty()) {
-            u = QUrl::fromLocalFile(normalizedUrl);
+            return QUrl::fromLocalFile(normalizedUrl);
         }
     }
 
-    foreach(KTextEditor::Document * it, m_docList) {
+    // else: cleanup only the .. stuff
+    return url.adjusted(QUrl::NormalizePathSegments);
+}
+
+KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
+{
+    const QUrl u(normalizeUrl(url));
+    for(KTextEditor::Document *it : m_docList) {
         if (it->url() == u) {
             return it;
         }
     }
-
     return nullptr;
 }
 
@@ -163,7 +168,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     //
     // create new document
     //
-    QUrl u(url.adjusted(QUrl::NormalizePathSegments));
+    const QUrl u(normalizeUrl(url));
     KTextEditor::Document *doc = nullptr;
 
     // always new document if url is empty...

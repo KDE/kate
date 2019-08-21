@@ -57,6 +57,33 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     setXMLFile(QStringLiteral("ui.rc"));
 
     /**
+     * create toolviews
+     */
+    m_toolView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateproject"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QStringLiteral("project-open")), i18n("Projects"));
+    m_toolInfoView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateprojectinfo"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("view-choose")), i18n("Current Project"));
+
+    /**
+     * create the combo + buttons for the toolViews + stacked widgets
+     */
+    m_projectsCombo = new QComboBox(m_toolView);
+    m_projectsCombo->setFrame(false);
+    m_reloadButton = new QToolButton(m_toolView);
+    m_reloadButton->setAutoRaise(true);
+    m_reloadButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    QHBoxLayout *layout = new QHBoxLayout();
+    layout->setSpacing(0);
+    layout->addWidget(m_projectsCombo);
+    layout->addWidget(m_reloadButton);
+    m_toolView->layout()->addItem(layout);
+    m_toolView->layout()->setSpacing(0);
+
+    m_stackedProjectViews = new QStackedWidget(m_toolView);
+    m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);
+
+    connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
+    connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
+
+    /**
      * create views for all already existing projects
      * will create toolviews on demand!
      */
@@ -139,38 +166,6 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
     Q_ASSERT(project);
 
     /**
-     * create toolviews on demand
-     */
-    if (!m_toolView) {
-        /**
-         * create toolviews
-         */
-        m_toolView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateproject"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QStringLiteral("project-open")), i18n("Projects"));
-        m_toolInfoView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateprojectinfo"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("view-choose")), i18n("Current Project"));
-
-        /**
-         * create the combo + buttons for the toolViews + stacked widgets
-         */
-        m_projectsCombo = new QComboBox(m_toolView);
-        m_projectsCombo->setFrame(false);
-        m_reloadButton = new QToolButton(m_toolView);
-        m_reloadButton->setAutoRaise(true);
-        m_reloadButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
-        QHBoxLayout *layout = new QHBoxLayout();
-        layout->setSpacing(0);
-        layout->addWidget(m_projectsCombo);
-        layout->addWidget(m_reloadButton);
-        m_toolView->layout()->addItem(layout);
-        m_toolView->layout()->setSpacing(0);
-
-        m_stackedProjectViews = new QStackedWidget(m_toolView);
-        m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);
-
-        connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
-        connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
-    }
-
-    /**
      * existing view?
      */
     if (m_project2View.contains(project)) {
@@ -189,7 +184,6 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
      */
     m_stackedProjectViews->addWidget(view);
     m_stackedProjectInfoViews->addWidget(infoView);
-    m_stackedProjectInfoViews->setFocusProxy(infoView);
     m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
 
     /**
@@ -200,11 +194,6 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
 
 QString KateProjectPluginView::projectFileName() const
 {
-    // nothing there, skip
-    if (!m_toolView) {
-        return QString();
-    }
-
     QWidget *active = m_stackedProjectViews->currentWidget();
     if (!active) {
         return QString();
@@ -215,11 +204,6 @@ QString KateProjectPluginView::projectFileName() const
 
 QString KateProjectPluginView::projectName() const
 {
-    // nothing there, skip
-    if (!m_toolView) {
-        return QString();
-    }
-
     QWidget *active = m_stackedProjectViews->currentWidget();
     if (!active) {
         return QString();
@@ -230,11 +214,6 @@ QString KateProjectPluginView::projectName() const
 
 QString KateProjectPluginView::projectBaseDir() const
 {
-    // nothing there, skip
-    if (!m_toolView) {
-        return QString();
-    }
-
     QWidget *active = m_stackedProjectViews->currentWidget();
     if (!active) {
         return QString();
@@ -245,11 +224,6 @@ QString KateProjectPluginView::projectBaseDir() const
 
 QVariantMap KateProjectPluginView::projectMap() const
 {
-    // nothing there, skip
-    if (!m_toolView) {
-        return QVariantMap();
-    }
-
     QWidget *active = m_stackedProjectViews->currentWidget();
     if (!active) {
         return QVariantMap();
@@ -260,11 +234,6 @@ QVariantMap KateProjectPluginView::projectMap() const
 
 QStringList KateProjectPluginView::projectFiles() const
 {
-    // nothing there, skip
-    if (!m_toolView) {
-        return QStringList();
-    }
-
     KateProjectView *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
     if (!active) {
         return QStringList();
@@ -340,27 +309,22 @@ void KateProjectPluginView::slotViewChanged()
 
 void KateProjectPluginView::slotCurrentChanged(int index)
 {
-    // nothing there, skip
-    if (!m_toolView) {
-        return;
-    }
-
-    /**
-     * trigger change of stacked widgets
-     */
+    // trigger change of stacked widgets
     m_stackedProjectViews->setCurrentIndex(index);
     m_stackedProjectInfoViews->setCurrentIndex(index);
 
-    /**
-     * open currently selected document
-     */
+    // update focus proxy + open currently selected document
     if (QWidget *current = m_stackedProjectViews->currentWidget()) {
+        m_stackedProjectViews->setFocusProxy(current);
         static_cast<KateProjectView *>(current)->openSelectedDocument();
     }
 
-    /**
-     * project file name might have changed
-     */
+    // update focus proxy
+    if (QWidget *current = m_stackedProjectInfoViews->currentWidget()) {
+        m_stackedProjectInfoViews->setFocusProxy(current);
+    }
+
+    // project file name might have changed
     emit projectFileNameChanged();
     emit projectMapChanged();
 }
@@ -431,11 +395,6 @@ void KateProjectPluginView::slotViewDestroyed(QObject *view)
 
 void KateProjectPluginView::slotProjectPrev()
 {
-    // nothing there, skip
-    if (!m_toolView) {
-        return;
-    }
-
     if (!m_projectsCombo->count()) {
         return;
     }
@@ -449,11 +408,6 @@ void KateProjectPluginView::slotProjectPrev()
 
 void KateProjectPluginView::slotProjectNext()
 {
-    // nothing there, skip
-    if (!m_toolView) {
-        return;
-    }
-
     if (!m_projectsCombo->count()) {
         return;
     }
@@ -467,11 +421,6 @@ void KateProjectPluginView::slotProjectNext()
 
 void KateProjectPluginView::slotProjectReload()
 {
-    // nothing there, skip
-    if (!m_toolView) {
-        return;
-    }
-
     /**
      * force reload if any active project
      */
@@ -496,9 +445,6 @@ QString KateProjectPluginView::currentWord() const
 
 void KateProjectPluginView::slotProjectIndex()
 {
-    if (!m_toolView) {
-        return;
-    }
     const QString word = currentWord();
     if (!word.isEmpty()) {
         auto tabView = qobject_cast<QTabWidget*>(m_stackedProjectInfoViews->currentWidget());

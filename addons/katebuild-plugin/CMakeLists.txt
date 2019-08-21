@@ -1,22 +1,21 @@
-add_definitions(-DTRANSLATION_DOMAIN=\"katebuild-plugin\")
+add_library(katebuildplugin MODULE "")
+target_compile_definitions(katebuildplugin PRIVATE TRANSLATION_DOMAIN="katebuild-plugin")
+target_link_libraries(katebuildplugin PRIVATE KF5::TextEditor)
 
-set(katebuild_SRCS
+ki18n_wrap_ui(UI_SOURCES build.ui SelectTargetUi.ui)
+target_sources(katebuildplugin PRIVATE ${UI_SOURCES})
+
+target_sources(
+  katebuildplugin
+  PRIVATE
     plugin_katebuild.cpp
     targets.cpp
     TargetHtmlDelegate.cpp
     TargetModel.cpp
     UrlInserter.cpp
     SelectTargetView.cpp
+    plugin.qrc
 )
 
-ki18n_wrap_ui(katebuild_SRCS build.ui SelectTargetUi.ui)
-
-# resource for ui file and stuff
-qt5_add_resources(katebuild_SRCS plugin.qrc)
-
-add_library(katebuildplugin MODULE ${katebuild_SRCS})
 kcoreaddons_desktop_to_json (katebuildplugin katebuildplugin.desktop)
-target_link_libraries(katebuildplugin KF5::TextEditor KF5::I18n KF5::IconThemes)
-
 install(TARGETS katebuildplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-

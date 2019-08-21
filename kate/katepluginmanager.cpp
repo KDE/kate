@@ -18,8 +18,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "config.h"
-
 #include "katepluginmanager.h"
 
 #include "kateapp.h"
@@ -41,6 +39,14 @@ QString KatePluginInfo::saveName() const
     return QFileInfo(metaData.fileName()).baseName();
 }
 
+bool KatePluginInfo::operator<(const KatePluginInfo &other) const
+{
+    if (sortOrder != other.sortOrder)
+        return sortOrder < other.sortOrder;
+
+    return saveName() < other.saveName();
+}
+
 KatePluginManager::KatePluginManager(QObject *parent) : QObject(parent)
 {
     setupPluginList();
@@ -48,63 +54,53 @@ KatePluginManager::KatePluginManager(QObject *parent) : QObject(parent)
 
 KatePluginManager::~KatePluginManager()
 {
-    // than unload the plugins
     unloadAllPlugins();
 }
 
 void KatePluginManager::setupPluginList()
 {
-    /**
-     * get all KTextEditor/Plugins
-     */
+    // activate a hand-picked list of plugins per default, give them a hand-picked sort order for loading
+    const QMap<QString, int> defaultPlugins {
+      { QStringLiteral("katefiletreeplugin"), -1000 }
+    , { QStringLiteral("katesearchplugin"), -900 }
+    , { QStringLiteral("kateprojectplugin"), -800 }
+    , { QStringLiteral("tabswitcherplugin"), -100 }
+    , { QStringLiteral("textfilterplugin"), -100 }
+#ifndef WIN32
+    , { QStringLiteral("katefilebrowserplugin"), -100 } // currently works badly on Windows
+    , { QStringLiteral("katekonsoleplugin"), -100 } // currently does not work on Windows at all
+#endif
+    };
+
+    // handle all install KTextEditor plugins
+    m_pluginList.clear();
+    QSet<QString> unique;
     const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"), [](const KPluginMetaData & md) {
             return md.serviceTypes().contains(QStringLiteral("KTextEditor/Plugin"));
         });
-
-    /**
-     * move them to our internal data structure,
-     * activate some plugins per default,
-     * the following list is ordered alphabetically by plugin name
-     * (this is not a technical need; just to have some order)
-     */
-    QSet<QString> defaultPlugins;
-
-    defaultPlugins.insert(QStringLiteral("cuttlefishplugin")); // this comes with package plasma5-sdk but it won't hurt to list it here (activate by right click in the text area)
-#ifndef WIN32
-    defaultPlugins.insert(QStringLiteral("katefilebrowserplugin")); // currently works badly on Windows
-    defaultPlugins.insert(QStringLiteral("katekonsoleplugin")); // currently does not work on Windows at all
-#endif
-    defaultPlugins.insert(QStringLiteral("katefiletreeplugin"));
-    defaultPlugins.insert(QStringLiteral("kateprojectplugin"));
-    defaultPlugins.insert(QStringLiteral("katesearchplugin"));
-    //defaultPlugins.insert(QLatin1String("ktexteditorpreviewplugin")); // the feature is nice and needed, but in its current state we should not present it by default
-    defaultPlugins.insert(QStringLiteral("tabswitcherplugin"));
-    defaultPlugins.insert(QStringLiteral("textfilterplugin"));
-
-    m_pluginList.clear();
-    QVectorIterator<KPluginMetaData> i(plugins);
-    QSet<QString> unique;
-    while (i.hasNext()) {
+    for (const auto &pluginMetaData : plugins) {
         KatePluginInfo info;
-        info.metaData = i.next();
+        info.metaData = pluginMetaData;
 
         // only load plugins once, even if found multiple times!
         if (unique.contains(info.saveName()))
             continue;
 
         info.defaultLoad = defaultPlugins.contains(info.saveName());
+        info.sortOrder = defaultPlugins.value(info.saveName());
         info.load = false;
         info.plugin = nullptr;
         m_pluginList.push_back(info);
         unique.insert (info.saveName());
     }
 
-    /**
-     * construct fast lookup map
-     */
+    // sort to ensure some deterministic plugin load order, this is important for tool-view creation order
+    std::sort(m_pluginList.begin(), m_pluginList.end());
+
+    // construct fast lookup map, do this after vector has final size, resize will invalidate the pointers!
     m_name2Plugin.clear();
-    for (int i = 0; i < m_pluginList.size(); ++i) {
-        m_name2Plugin[m_pluginList[i].saveName()] = &(m_pluginList[i]);
+    for (auto& pluginInfo : m_pluginList) {
+        m_name2Plugin[pluginInfo.saveName()] = &pluginInfo;
     }
 }
 
@@ -120,25 +116,25 @@ void KatePluginManager::loadConfig(KConfig *config)
         KConfigGroup cg = KConfigGroup(config, QStringLiteral("Kate Plugins"));
 
         // disable all plugin if no config, beside the ones marked as default load
-        for (int i = 0; i < m_pluginList.size(); ++i) {
-            m_pluginList[i].load = cg.readEntry(m_pluginList[i].saveName(), m_pluginList[i].defaultLoad);
+        for (auto& pluginInfo: m_pluginList) {
+            pluginInfo.load = cg.readEntry(pluginInfo.saveName(), pluginInfo.defaultLoad);
         }
     }
 
     /**
      * load plugins
      */
-    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
-        if (it->load) {
+    for (auto& pluginInfo : m_pluginList) {
+        if (pluginInfo.load) {
             /**
              * load plugin + trigger update of GUI for already existing main windows
              */
-            loadPlugin(&(*it));
-            enablePluginGUI(&(*it));
+            loadPlugin(&pluginInfo);
+            enablePluginGUI(&pluginInfo);
 
             // restore config
-            if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (it->plugin)) {
-                KConfigGroup group(config, QStringLiteral("Plugin:%1:").arg(it->saveName()));
+            if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (pluginInfo.plugin)) {
+                KConfigGroup group(config, QStringLiteral("Plugin:%1:").arg(pluginInfo.saveName()));
                 interface->readSessionConfig(group);
             }
         }
@@ -165,27 +161,27 @@ void KatePluginManager::writeConfig(KConfig *config)
 
 void KatePluginManager::unloadAllPlugins()
 {
-    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
-        if (it->plugin) {
-            unloadPlugin(&(*it));
+    for (auto& pluginInfo : m_pluginList) {
+        if (pluginInfo.plugin) {
+            unloadPlugin(&pluginInfo);
         }
     }
 }
 
 void KatePluginManager::enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config)
 {
-    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
-        if (it->plugin) {
-            enablePluginGUI(&(*it), win, config);
+    for (auto& pluginInfo : m_pluginList) {
+        if (pluginInfo.plugin) {
+            enablePluginGUI(&pluginInfo, win, config);
         }
     }
 }
 
 void KatePluginManager::disableAllPluginsGUI(KateMainWindow *win)
 {
-    for (KatePluginList::iterator it = m_pluginList.begin(); it != m_pluginList.end(); ++it) {
-        if (it->plugin) {
-            disablePluginGUI(&(*it), win);
+    for (auto& pluginInfo : m_pluginList) {
+        if (pluginInfo.plugin) {
+            disablePluginGUI(&pluginInfo, win);
         }
     }
 }

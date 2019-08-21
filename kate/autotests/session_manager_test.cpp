@@ -31,7 +31,14 @@ QTEST_MAIN(KateSessionManagerTest)
 
 void KateSessionManagerTest::initTestCase()
 {
-    m_app = new KateApp(QCommandLineParser()); // FIXME: aaaah, why, why, why?!
+    /**
+     * init resources from our static lib
+     */
+    Q_INIT_RESOURCE(kate);
+
+    // we need an application object, as session loading will trigger modifications to that
+    m_app = new KateApp(QCommandLineParser());
+    m_app->sessionManager()->activateAnonymousSession();
 }
 
 void KateSessionManagerTest::cleanupTestCase()
@@ -57,7 +64,8 @@ void KateSessionManagerTest::basic()
 {
     QCOMPARE(m_manager->sessionsDir(), m_tempdir->path());
     QCOMPARE(m_manager->sessionList().size(), 0);
-    QCOMPARE(m_manager->activeSession()->isAnonymous(), true);
+    QVERIFY(m_manager->activateAnonymousSession());
+    QVERIFY(m_manager->activeSession());
 }
 
 void KateSessionManagerTest::activateNewNamedSession()
@@ -78,6 +86,7 @@ void KateSessionManagerTest::activateNewNamedSession()
 void KateSessionManagerTest::anonymousSessionFile()
 {
     const QString anonfile = QDir().cleanPath(m_tempdir->path() + QLatin1String("/../anonymous.katesession"));
+    QVERIFY(m_manager->activateAnonymousSession());
     QVERIFY(m_manager->activeSession()->isAnonymous());
     QCOMPARE(m_manager->activeSession()->config()->name(), anonfile);
 }
@@ -132,6 +141,7 @@ void KateSessionManagerTest::renameSession()
 
 void KateSessionManagerTest::saveActiveSessionWithAnynomous()
 {
+    QVERIFY(m_manager->activateAnonymousSession());
     QVERIFY(m_manager->activeSession()->isAnonymous());
     QVERIFY(m_manager->sessionList().size() == 0);
 

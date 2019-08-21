@@ -171,7 +171,7 @@
     <ul>
       <li>MDI, window splitting, window tabbing</li>
       <li xml:lang="ar">واجهة لعدّة مستندات، تقسيم وتلسين للنّوافذ</li>
-      <li xml:lang="ca">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
+      <li xml:lang="ca">MDI, divisió de finestres, finestres en pestanyes</li>
       <li xml:lang="ca-valencia">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
       <li xml:lang="cs">MDI, dělení oken, skládání oken do karet</li>
       <li xml:lang="da">MDI, vinduesopdeling, fanebladsivindue</li>
@@ -183,7 +183,7 @@
       <li xml:lang="eu">MDI, leiho-zatitzea, leihoak fitxa gisa antolatzea</li>
       <li xml:lang="fi">Monen tiedoston käyttöliittymä (MDI), ikkunoiden jakaminen ja välilehdet</li>
       <li xml:lang="fr">Interface multi-documents, fenêtres scindées, organisation par onglets</li>
-      <li xml:lang="gl">Capacidade para traballar en varios documentos á vez, coa posibilidade de dividir a xanela e usar lapelas.</li>
+      <li xml:lang="gl">Interface para varios documentos, división das xanelas, xanelas con lapelas</li>
       <li xml:lang="hu">MDI, ablakfelosztás, ablaklapok</li>
       <li xml:lang="ia">MDI, window splitting (division de fenestra), window tabbing (schedas de fenestra)</li>
       <li xml:lang="id">MDI, pemisahan window, penambahan tab window</li>

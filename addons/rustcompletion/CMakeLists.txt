@@ -1,24 +1,16 @@
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+add_library(kterustcompletionplugin MODULE "")
+target_compile_definitions(kterustcompletionplugin PRIVATE TRANSLATION_DOMAIN="kterustcompletion")
+target_link_libraries(kterustcompletionplugin PRIVATE KF5::TextEditor)
 
-add_definitions(-DTRANSLATION_DOMAIN=\"kterustcompletion\")
-
-set(kterustcompletion_SRCS
-  kterustcompletion.cpp
-  kterustcompletionconfigpage.cpp
-  kterustcompletionplugin.cpp
-  kterustcompletionpluginview.cpp
+target_sources(
+  kterustcompletionplugin 
+  PRIVATE
+    kterustcompletion.cpp
+    kterustcompletionconfigpage.cpp
+    kterustcompletionplugin.cpp
+    kterustcompletionpluginview.cpp
+    plugin.qrc
 )
-
-# resource for ui file and stuff
-qt5_add_resources(kterustcompletion_SRCS plugin.qrc)
-
-add_library(kterustcompletionplugin MODULE ${kterustcompletion_SRCS})
 
 kcoreaddons_desktop_to_json(kterustcompletionplugin kterustcompletionplugin.desktop)
-
-target_link_libraries(kterustcompletionplugin
-  KF5::TextEditor
-  KF5::XmlGui
-)
-
 install(TARGETS kterustcompletionplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

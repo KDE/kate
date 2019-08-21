@@ -222,6 +222,7 @@ m_switchToProjectModeWhenAvailable(false),
 m_searchDiskFilesDone(true),
 m_searchOpenFilesDone(true),
 m_isSearchAsYouType(false),
+m_isLeftRight(false),
 m_projectPluginView(nullptr),
 m_mainWindow (mainWin)
 {
@@ -548,7 +549,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
     }
 
     QStringList tmpTypes = types.split(QLatin1Char(','));
-    QVector<QRegExp> typeList;
+    QVector<QRegExp> typeList(tmpTypes.size());
     for (int i=0; i<tmpTypes.size(); i++) {
         QRegExp rx(tmpTypes[i].trimmed());
         rx.setPatternSyntax(QRegExp::Wildcard);
@@ -556,7 +557,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
     }
 
     QStringList tmpExcludes = excludes.split(QLatin1Char(','));
-    QVector<QRegExp> excludeList;
+    QVector<QRegExp> excludeList(tmpExcludes.size());
     for (int i=0; i<tmpExcludes.size(); i++) {
         QRegExp rx(tmpExcludes[i].trimmed());
         rx.setPatternSyntax(QRegExp::Wildcard);
@@ -572,8 +573,8 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
         }
 
         bool skip = false;
-        for (int i=0; i<excludeList.size(); i++) {
-            if (excludeList[i].exactMatch(nameToCheck)) {
+        for (const auto& regex : qAsConst(excludeList)) {
+            if (regex.exactMatch(nameToCheck)) {
                 skip = true;
                 break;
             }
@@ -583,8 +584,8 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
         }
 
 
-        for (int i=0; i<typeList.size(); i++) {
-            if (typeList[i].exactMatch(nameToCheck)) {
+        for (const auto& regex : qAsConst(typeList)) {
+            if (regex.exactMatch(nameToCheck)) {
                 filteredFiles << fileName;
                 break;
             }
@@ -951,7 +952,7 @@ void KatePluginSearchView::startSearch()
     m_ui.displayOptions->setDisabled(true);
     m_ui.replaceCheckedBtn->setDisabled(true);
     m_ui.replaceButton->setDisabled(true);
-    m_ui.stopAndNext->setCurrentIndex(1);
+    m_ui.stopAndNext->setCurrentWidget(m_ui.stopButton);
     m_ui.replaceCombo->setDisabled(true);
     m_ui.searchPlaceCombo->setDisabled(true);
     m_ui.useRegExp->setDisabled(true);
@@ -1174,7 +1175,7 @@ void KatePluginSearchView::searchDone()
     m_ui.newTabButton->setDisabled(false);
     m_ui.searchCombo->setDisabled(false);
     m_ui.searchButton->setDisabled(false);
-    m_ui.stopAndNext->setCurrentIndex(0);
+    m_ui.stopAndNext->setCurrentWidget(m_ui.nextButton);
     m_ui.displayOptions->setDisabled(false);
     m_ui.replaceCombo->setDisabled(false);
     m_ui.searchPlaceCombo->setDisabled(false);
@@ -1376,7 +1377,7 @@ void KatePluginSearchView::replaceChecked()
         return;
     }
 
-    m_ui.stopAndNext->setCurrentIndex(1);
+    m_ui.stopAndNext->setCurrentWidget(m_ui.stopButton);
     m_ui.displayOptions->setChecked(false);
     m_ui.displayOptions->setDisabled(true);
     m_ui.newTabButton->setDisabled(true);
@@ -1424,7 +1425,7 @@ void KatePluginSearchView::replaceStatus(const QUrl &url, int replacedInFile, in
 
 void KatePluginSearchView::replaceDone()
 {
-    m_ui.stopAndNext->setCurrentIndex(0);
+    m_ui.stopAndNext->setCurrentWidget(m_ui.nextButton);
     m_ui.replaceCombo->setDisabled(false);
     m_ui.newTabButton->setDisabled(false);
     m_ui.searchCombo->setDisabled(false);
@@ -1991,6 +1992,57 @@ void KatePluginSearchView::resultTabChanged(int index)
     searchPlaceChanged();
 }
 
+void KatePluginSearchView::onResize(const QSize& size)
+{
+    bool vertical = size.width() < size.height();
+
+    if(!m_isLeftRight && vertical) {
+        m_isLeftRight = true;
+
+        m_ui.gridLayout->addWidget(m_ui.searchCombo,        0, 1, 1, 8);
+        m_ui.gridLayout->addWidget(m_ui.findLabel,          0, 0);
+        m_ui.gridLayout->addWidget(m_ui.searchButton,       1, 0, 1, 2);
+        m_ui.gridLayout->addWidget(m_ui.stopAndNext,        1, 2);
+        m_ui.gridLayout->addWidget(m_ui.searchPlaceCombo,   1, 3, 1, 3);
+        m_ui.gridLayout->addWidget(m_ui.displayOptions,     1, 6);
+        m_ui.gridLayout->addWidget(m_ui.matchCase,          1, 7);
+        m_ui.gridLayout->addWidget(m_ui.useRegExp,          1, 8);
+
+        m_ui.gridLayout->addWidget(m_ui.replaceCombo,       2, 1, 1, 8);
+        m_ui.gridLayout->addWidget(m_ui.replaceLabel,       2, 0);
+        m_ui.gridLayout->addWidget(m_ui.replaceButton,      3, 0, 1, 2);
+        m_ui.gridLayout->addWidget(m_ui.replaceCheckedBtn,  3, 2);
+        m_ui.gridLayout->addWidget(m_ui.expandResults,      3, 7);
+        m_ui.gridLayout->addWidget(m_ui.newTabButton,       3, 8);
+
+        m_ui.gridLayout->setColumnStretch(4, 2);
+        m_ui.gridLayout->setColumnStretch(2, 0);
+    }
+    else if(m_isLeftRight && !vertical) {
+        m_isLeftRight = false;
+        m_ui.gridLayout->addWidget(m_ui.searchCombo,        0, 2);
+        m_ui.gridLayout->addWidget(m_ui.findLabel,          0, 1);
+        m_ui.gridLayout->addWidget(m_ui.searchButton,       0, 3);
+        m_ui.gridLayout->addWidget(m_ui.stopAndNext,        0, 4);
+        m_ui.gridLayout->addWidget(m_ui.searchPlaceCombo,   0, 5, 1, 4);
+        m_ui.gridLayout->addWidget(m_ui.matchCase,          1, 5);
+        m_ui.gridLayout->addWidget(m_ui.useRegExp,          1, 6);
+
+        m_ui.gridLayout->addWidget(m_ui.replaceCombo,       1, 2);
+        m_ui.gridLayout->addWidget(m_ui.replaceLabel,       1, 1);
+        m_ui.gridLayout->addWidget(m_ui.replaceButton,      1, 3);
+        m_ui.gridLayout->addWidget(m_ui.replaceCheckedBtn,  1, 4);
+        m_ui.gridLayout->addWidget(m_ui.expandResults,      1, 8);
+        m_ui.gridLayout->addWidget(m_ui.newTabButton,       0, 0);
+        m_ui.gridLayout->addWidget(m_ui.displayOptions,     1, 0);
+
+        m_ui.gridLayout->setColumnStretch(4, 0);
+        m_ui.gridLayout->setColumnStretch(2, 2);
+
+        m_ui.findLabel->setAlignment(Qt::AlignRight);
+        m_ui.replaceLabel->setAlignment(Qt::AlignRight);
+    }
+}
 
 bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
 {
@@ -2014,6 +2066,13 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
             }
         }
         // NOTE: Qt::Key_Escape is handled by handleEsc
+    }
+    if (event->type() == QEvent::Resize) {
+        QResizeEvent *re = static_cast<QResizeEvent*>(event);
+        if(obj == m_toolView)
+        {
+            onResize(re->size());
+        }
     }
     return QObject::eventFilter(obj, event);
 }

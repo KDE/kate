@@ -1,23 +1,17 @@
-project(katekonsoleplugin)
-add_definitions(-DTRANSLATION_DOMAIN=\"katekonsoleplugin\")
+if(WIN32)
+  return()
+endif()
 
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+add_library(katekonsoleplugin MODULE "")
+target_compile_definitions(katekonsoleplugin PRIVATE TRANSLATION_DOMAIN="katekonsoleplugin")
+target_link_libraries(katekonsoleplugin PRIVATE KF5::TextEditor)
 
-set(katekonsoleplugin_PART_SRCS kateconsole.cpp )
-
-# resource for ui file and stuff
-qt5_add_resources(katekonsoleplugin_PART_SRCS plugin.qrc)
-
-add_library (katekonsoleplugin MODULE ${katekonsoleplugin_PART_SRCS})
-
-kcoreaddons_desktop_to_json (katekonsoleplugin katekonsoleplugin.desktop)
-
-target_link_libraries(katekonsoleplugin
-    KF5::TextEditor
-    KF5::Parts
-    KF5::IconThemes
-    KF5::I18n
-    KF5::Service
+target_sources(
+  katekonsoleplugin 
+  PRIVATE
+    kateconsole.cpp 
+    plugin.qrc
 )
 
-install(TARGETS katekonsoleplugin  DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
+kcoreaddons_desktop_to_json(katekonsoleplugin katekonsoleplugin.desktop)
+install(TARGETS katekonsoleplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)

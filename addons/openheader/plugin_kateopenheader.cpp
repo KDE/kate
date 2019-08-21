@@ -116,14 +116,14 @@ bool PluginKateOpenHeader::tryOpenInternal( const QUrl& url, const QStringList& 
   QString basename = QFileInfo( url.path() ).baseName();
   QUrl newURL( url );
     
-  for( QStringList::ConstIterator it = extensions.begin(); it != extensions.end(); ++it ) {
-    setFileName( &newURL,basename + QStringLiteral(".") + *it );
+  for(const auto& extension : extensions) {
+    setFileName( &newURL,basename + QStringLiteral(".") + extension );
     KTextEditor::Document *doc= application->findUrl(newURL);
     if (doc) {
       application->activeMainWindow()->openUrl(newURL);
       return true;
     }
-    setFileName(&newURL, basename + QStringLiteral(".") + (*it).toUpper() );
+    setFileName(&newURL, basename + QStringLiteral(".") + extension.toUpper() );
     doc= application->findUrl(newURL);
     if (doc) {
       application->activeMainWindow()->openUrl(newURL);
@@ -145,13 +145,13 @@ void PluginKateOpenHeader::tryOpen( const QUrl& url, const QStringList& extensio
   QUrl newURL( url );
     
   
-  for( QStringList::ConstIterator it = extensions.begin(); it != extensions.end(); ++it ) {
-    setFileName( &newURL,basename + QStringLiteral(".") + *it );
+  for(const auto& extension : extensions) {
+    setFileName( &newURL,basename + QStringLiteral(".") + extension );
     if( fileExists( newURL) ) {
       application->activeMainWindow()->openUrl( newURL );
       return;
     }
-    setFileName(&newURL, basename + QStringLiteral(".") + (*it).toUpper() );
+    setFileName(&newURL, basename + QStringLiteral(".") + extension.toUpper() );
     if( fileExists( newURL) ) {
       application->activeMainWindow()->openUrl( newURL );
       return;

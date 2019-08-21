@@ -295,10 +295,9 @@ void KateFileTree::slotFixOpenWithMenu()
     QMimeType mime = db.mimeTypeForName(doc->mimeType());
 
     QAction *a = nullptr;
-    KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
+    const KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
     // for each one, insert a menu item...
-    for (KService::List::Iterator it = offers.begin(); it != offers.end(); ++it) {
-        KService::Ptr service = *it;
+    for (const auto& service : offers) {
         if (service->name() == QLatin1String("Kate")) {
             continue;
         }

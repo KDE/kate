@@ -1653,7 +1653,7 @@ void KatePluginSearchView::updateResultsRootItem()
         return;
     }
     int checkedItemCount = 0;
-    if (m_curResults->matches > 1) {
+    if (m_curResults->matches > 0) {
         for (QTreeWidgetItemIterator it(m_curResults->tree, QTreeWidgetItemIterator::Checked|QTreeWidgetItemIterator::NoChildren);
              *it; ++it)
              {

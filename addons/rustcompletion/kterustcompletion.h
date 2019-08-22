@@ -34,14 +34,14 @@ namespace KTextEditor {
 }
 
 struct CompletionMatch {
-    CompletionMatch() : type(KTextEditor::CodeCompletionModel::NoProperty), depth(0), line(-1), col(-1) {}
+    CompletionMatch() = default;
     QString text;
     QIcon icon;
-    KTextEditor::CodeCompletionModel::CompletionProperty type;
-    int depth;
+    KTextEditor::CodeCompletionModel::CompletionProperty type = KTextEditor::CodeCompletionModel::NoProperty;
+    int depth = 0;
     QUrl url;
-    int line;
-    int col;
+    int line = -1;
+    int col = -1;
 };
 
 class KTERustCompletion : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface

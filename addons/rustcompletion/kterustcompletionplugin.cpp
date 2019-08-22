@@ -32,9 +32,7 @@ K_PLUGIN_FACTORY_WITH_JSON(KTERustCompletionPluginFactory, "kterustcompletionplu
 
 KTERustCompletionPlugin::KTERustCompletionPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent),
-    m_completion(this),
-    m_rustSrcWatch(nullptr),
-    m_configOk(false)
+    m_completion(this)
 {
     readConfig();
 }

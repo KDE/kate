@@ -28,7 +28,6 @@
 KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin *plugin)
     :  KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
-    , m_changed(false)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);

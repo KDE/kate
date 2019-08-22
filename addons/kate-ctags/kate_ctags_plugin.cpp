@@ -42,7 +42,7 @@ K_PLUGIN_FACTORY_WITH_JSON (KateCTagsPluginFactory, "katectagsplugin.json", regi
 
 /******************************************************************/
 KateCTagsPlugin::KateCTagsPlugin(QObject* parent, const QList<QVariant>&):
-KTextEditor::Plugin (parent), m_view(nullptr)
+KTextEditor::Plugin (parent)
 {
     // FIXME KF5
     //KGlobal::locale()->insertCatalog("kate-ctags-plugin");

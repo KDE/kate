@@ -24,7 +24,7 @@
 
 
 LocalsView::LocalsView(QWidget *parent)
-:   QTreeWidget(parent), m_allAdded(true)
+:   QTreeWidget(parent)
 {
     QStringList headers;
     headers << i18n("Symbol");

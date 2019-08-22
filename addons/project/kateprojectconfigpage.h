@@ -49,7 +49,7 @@ private:
     QCheckBox *m_cbAutoSubversion;
     QCheckBox *m_cbAutoMercurial;
     KateProjectPlugin *m_plugin;
-    bool m_changed;
+    bool m_changed = false;
 };
 
 #endif /* KATE_PROJECT_CONFIGPAGE_H */

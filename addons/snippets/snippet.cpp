@@ -34,7 +34,7 @@
 #include <QAction>
 
 Snippet::Snippet()
-    : QStandardItem(i18n("<empty snippet>")), m_action(nullptr)
+    : QStandardItem(i18n("<empty snippet>"))
 {
     setIcon(QIcon::fromTheme(QStringLiteral("text-plain")));
 }

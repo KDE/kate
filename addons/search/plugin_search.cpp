@@ -110,7 +110,7 @@ private:
     }
 };
 
-Results::Results(QWidget *parent): QWidget(parent), matches(0), useRegExp(false), searchPlaceIndex(0)
+Results::Results(QWidget *parent): QWidget(parent)
 {
     setupUi(this);
 
@@ -121,8 +121,7 @@ Results::Results(QWidget *parent): QWidget(parent), matches(0), useRegExp(false)
 K_PLUGIN_FACTORY_WITH_JSON (KatePluginSearchFactory, "katesearch.json", registerPlugin<KatePluginSearch>();)
 
 KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
-    : KTextEditor::Plugin (parent),
-    m_searchCommand(nullptr)
+    : KTextEditor::Plugin (parent)
 {
     m_searchCommand = new KateSearchCommand(this);
 }

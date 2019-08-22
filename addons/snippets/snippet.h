@@ -69,7 +69,7 @@ private:
     /// the actual snippet contents aka \code<fillin>\endcode
     QString m_snippet;
     /// the insertion action for this snippet.
-    QAction* m_action;
+    QAction* m_action = nullptr;
 };
 
 Q_DECLARE_METATYPE ( Snippet* )

@@ -300,28 +300,23 @@ private:
             /**
              * Default constructor
              */
-            ViewData()
-                : active(false)
-                , lruAge(0)
-                , activityResource(Q_NULLPTR)
-            {
-            }
+            ViewData() = default;
 
             /**
              * view active?
              */
-            bool active;
+            bool active = false;
 
             /**
              * lru age of the view
              * important: smallest age ==> latest used view
              */
-            qint64 lruAge;
+            qint64 lruAge = 0;
 
             /**
              * activity resource for the view
              */
-            KActivities::ResourceInstance *activityResource;
+            KActivities::ResourceInstance *activityResource = nullptr;
     };
 
     /**

@@ -63,9 +63,9 @@ class KTERustCompletionPlugin : public KTextEditor::Plugin
 
         QString m_racerCmd;
         QUrl m_rustSrcPath;
-        KDirWatch *m_rustSrcWatch;
+        KDirWatch *m_rustSrcWatch{nullptr};
 
-        bool m_configOk;
+        bool m_configOk{false};
 };
 
 #endif

@@ -47,7 +47,7 @@ protected:
 private:
     void createWrappedItem(QTreeWidgetItem *parent, const QString &name, const QString &value);
     void createWrappedItem(QTreeWidget *parent, const QString &name, const QString &value);
-    bool    m_allAdded;
+    bool    m_allAdded = true;
     QString m_local;
 };
 

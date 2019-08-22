@@ -59,7 +59,7 @@ private:
     class QCheckBox *cbShowFullPath;
     KateFileTreePlugin *m_plug;
 
-    bool m_changed;
+    bool m_changed = false;
 };
 
 #endif /* KATE_FILETREE_CONFIGPAGE_H */

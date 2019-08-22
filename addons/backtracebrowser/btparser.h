@@ -35,21 +35,17 @@ public:
     /**
      * Default constructor => invalid element
      */
-    BtInfo()
-        : step(-1)
-        , line(-1)
-        , type(Invalid) {
-    }
+    BtInfo() = default;
 
 public:
     QString original;
     QString filename;
     QString function;
     QString address;
-    int step;
-    int line;
+    int step = -1;
+    int line = -1;
 
-    Type type;
+    Type type = Invalid;
 };
 
 namespace KateBtParser

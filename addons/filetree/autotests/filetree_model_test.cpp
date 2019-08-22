@@ -29,7 +29,7 @@ QTEST_GUILESS_MAIN(FileTreeModelTest)
 class ResultNode
 {
   public:
-    ResultNode() : name(), dir(true), children() {} // root node
+    ResultNode() = default; // root node
     ResultNode(const ResultNode &other) : name(other.name), dir(other.dir), children(other.children) {}
     ResultNode(const char *_name, const bool _dir = false) : ResultNode(QString::fromLatin1(_name), _dir) {}
     ResultNode(const QString &_name, const bool _dir = false) : name(_name), dir(_dir), children() {}
@@ -83,7 +83,7 @@ class ResultNode
     }
 
     QString name;
-    bool dir;
+    bool dir = true;
     QList<ResultNode> children;
 };
 

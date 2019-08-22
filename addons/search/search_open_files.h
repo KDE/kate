@@ -58,9 +58,9 @@ Q_SIGNALS:
 
 private:
     QList<KTextEditor::Document*> m_docList;
-    int                           m_nextIndex;
+    int                           m_nextIndex = -1;
     QRegularExpression            m_regExp;
-    bool                          m_cancelSearch;
+    bool                          m_cancelSearch = true;
     QString                       m_fullDoc;
     QVector<int>                  m_lineStart;
     QTime                         m_statusTime;

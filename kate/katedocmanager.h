@@ -42,18 +42,13 @@ public:
     enum CustomRoles {RestoreOpeningFailedRole };
 
 public:
-    KateDocumentInfo()
-        : modifiedOnDisc(false)
-        , modifiedOnDiscReason(KTextEditor::ModificationInterface::OnDiskUnmodified)
-        , openedByUser(false)
-        , openSuccess(true)
-    {}
+    KateDocumentInfo() = default;
 
-    bool modifiedOnDisc;
-    KTextEditor::ModificationInterface::ModifiedOnDiskReason modifiedOnDiscReason;
+    bool modifiedOnDisc = false;
+    KTextEditor::ModificationInterface::ModifiedOnDiskReason modifiedOnDiscReason = KTextEditor::ModificationInterface::OnDiskUnmodified;
 
-    bool openedByUser;
-    bool openSuccess;
+    bool openedByUser = false;
+    bool openSuccess = true;
 };
 
 class KateDocManager : public QObject

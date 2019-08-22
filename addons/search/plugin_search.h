@@ -52,12 +52,12 @@ class Results: public QWidget, public Ui::Results
     Q_OBJECT
 public:
     Results(QWidget *parent = nullptr);
-    int     matches;
+    int     matches = 0;
     QRegularExpression regExp;
-    bool    useRegExp;
+    bool    useRegExp = false;
     bool    matchCase;
     QString replaceStr;
-    int     searchPlaceIndex;
+    int     searchPlaceIndex = 0;
     QString treeRootText;
 };
 
@@ -87,7 +87,7 @@ public:
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
 private:
-    KateSearchCommand* m_searchCommand;
+    KateSearchCommand* m_searchCommand = nullptr;
 };
 
 

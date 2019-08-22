@@ -67,8 +67,7 @@ class ActionLBItem : public QListWidgetItem
 //BEGIN KateFileBrowserConfigPage
 KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, KateFileBrowser *kfb )
     : KTextEditor::ConfigPage( parent ),
-    fileBrowser( kfb ),
-    m_changed( false )
+    fileBrowser( kfb )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
   int spacing =  QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing);

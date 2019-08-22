@@ -59,13 +59,7 @@
 #include <QFileOpenEvent>
 
 KWrite::KWrite(KTextEditor::Document *doc, KWriteApplication *app)
-    : m_view(nullptr)
-    , m_recentFiles(nullptr)
-    , m_paShowPath(nullptr)
-    , m_paShowMenuBar(nullptr)
-    , m_paShowStatusBar(nullptr)
-    , m_activityResource(nullptr)
-    , m_app(app)
+    : m_app(app)
     , m_mainWindow(this)
 {
     if (!doc) {

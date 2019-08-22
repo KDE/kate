@@ -38,7 +38,7 @@ protected:
     /**
      * Current project
      */
-    KateProject *m_project;
+    KateProject *m_project = nullptr;
 
 public:
     virtual ~KateProjectCodeAnalysisTool();

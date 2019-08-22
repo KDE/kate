@@ -170,8 +170,7 @@ struct RevisionGuard {
 
     RevisionGuard(KTextEditor::Document *doc = nullptr)
         : m_doc(doc),
-          m_movingInterface(qobject_cast<KTextEditor::MovingInterface *>(doc)),
-          m_revision(-1)
+          m_movingInterface(qobject_cast<KTextEditor::MovingInterface *>(doc))
     {
         if (m_movingInterface) {
             m_revision = m_movingInterface->revision();

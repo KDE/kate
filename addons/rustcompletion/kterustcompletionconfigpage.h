@@ -52,7 +52,7 @@ class KTERustCompletionConfigPage : public KTextEditor::ConfigPage
         QLineEdit *m_racerCmd;
         KUrlRequester *m_rustSrcPath;
 
-        bool m_changed;
+        bool m_changed = false;
 
         KTERustCompletionPlugin *m_plugin;
 };

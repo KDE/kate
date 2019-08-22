@@ -554,7 +554,7 @@ private:
     class BarState
     {
     public:
-        BarState(): m_bar(nullptr), m_state(false) {}
+        BarState() = default;
         BarState(QWidget *bar): m_bar(bar), m_state(false) {}
         ~BarState() {}
         QWidget *bar() {
@@ -567,8 +567,8 @@ private:
             m_state = state;
         }
     private:
-        QWidget *m_bar;
-        bool m_state;
+        QWidget *m_bar = nullptr;
+        bool m_state = false;
     };
     QHash<KTextEditor::View *, BarState> m_bottomViewBarMapping;
 

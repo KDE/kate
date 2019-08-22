@@ -48,10 +48,10 @@ class PluginKateTextFilter : public KTextEditor::Plugin
     QString  m_strFilterOutput;
     QString  m_stderrOutput;
     QString  m_last_command;
-    KProcess * m_pFilterProcess;
+    KProcess * m_pFilterProcess = nullptr;
     QStringList completionList;
-    bool copyResult;
-    bool mergeOutput;
+    bool copyResult = false;
+    bool mergeOutput = false;
   public Q_SLOTS:
     void slotEditFilter ();
     void slotFilterReceivedStdout();

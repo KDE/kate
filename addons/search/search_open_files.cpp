@@ -22,7 +22,7 @@
 
 #include <QTime>
 
-SearchOpenFiles::SearchOpenFiles(QObject *parent) : QObject(parent), m_nextIndex(-1), m_cancelSearch(true)
+SearchOpenFiles::SearchOpenFiles(QObject *parent) : QObject(parent)
 {
     connect(this, &SearchOpenFiles::searchNextFile, this, &SearchOpenFiles::doSearchNextFile, Qt::QueuedConnection);
 }

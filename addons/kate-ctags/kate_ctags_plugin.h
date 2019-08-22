@@ -44,11 +44,11 @@ class KateCTagsPlugin : public KTextEditor::Plugin
 
         QObject *createView(KTextEditor::MainWindow *mainWindow) override;
    
-        int configPages() const override { return 1; };
+        int configPages() const override { return 1; }
         KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
         void readConfig();
         
-        KateCTagsView *m_view;
+        KateCTagsView *m_view = nullptr;
 };
 
 //******************************************************************/

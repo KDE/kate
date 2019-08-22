@@ -432,13 +432,13 @@ private:
     /**
      * sidebars state.
      */
-    bool m_sidebarsVisible;
+    bool m_sidebarsVisible = true;
 
     /**
      * config object for session restore, only valid between
      * start and finish restore calls
      */
-    KConfigBase *m_restoreConfig;
+    KConfigBase *m_restoreConfig = nullptr;
 
     /**
      * restore group

@@ -716,8 +716,6 @@ void Sidebar::saveSession(KConfigGroup &config)
 
 MainWindow::MainWindow(QWidget *parentWidget)
     : KParts::MainWindow(parentWidget, Qt::Window)
-    , m_sidebarsVisible(true)
-    , m_restoreConfig(nullptr)
     , m_guiClient(new GUIClient(this))
 {
     // init the internal widgets

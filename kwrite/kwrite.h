@@ -121,14 +121,14 @@ private:
     void saveGlobalProperties(KConfig *) override;
 
 private:
-    KTextEditor::View *m_view;
+    KTextEditor::View *m_view = nullptr;
 
-    KRecentFilesAction *m_recentFiles;
-    KToggleAction *m_paShowPath;
-    KToggleAction *m_paShowMenuBar;
-    KToggleAction *m_paShowStatusBar;
+    KRecentFilesAction *m_recentFiles = nullptr;
+    KToggleAction *m_paShowPath = nullptr;
+    KToggleAction *m_paShowMenuBar = nullptr;
+    KToggleAction *m_paShowStatusBar = nullptr;
     QAction *m_closeAction;
-    KActivities::ResourceInstance *m_activityResource;
+    KActivities::ResourceInstance *m_activityResource = nullptr;
     KWriteApplication *m_app;
     KTextEditor::MainWindow m_mainWindow;
 

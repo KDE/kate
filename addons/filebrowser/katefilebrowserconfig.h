@@ -55,7 +55,7 @@ class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
     KateFileBrowser *fileBrowser;
     KActionSelector *acSel;
 
-    bool m_changed;
+    bool m_changed = false;
 };
 
 #endif //KATE_FILEBROWSER_CONFIG_H

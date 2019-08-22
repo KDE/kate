@@ -60,8 +60,8 @@ Q_SIGNALS:
 private:
     QRegularExpression m_regExp;
     QStringList        m_files;
-    bool               m_cancelSearch;
-    int                m_matchCount;
+    bool               m_cancelSearch = true;
+    int                m_matchCount = 0;
     QTime              m_statusTime;
 };
 

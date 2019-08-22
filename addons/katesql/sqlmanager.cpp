@@ -34,7 +34,6 @@ using KWallet::Wallet;
 SQLManager::SQLManager(QObject *parent)
 : QObject(parent)
 , m_model(new ConnectionModel(this))
-, m_wallet(nullptr)
 {
 }
 

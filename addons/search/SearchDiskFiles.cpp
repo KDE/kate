@@ -26,8 +26,6 @@
 
 
 SearchDiskFiles::SearchDiskFiles(QObject *parent) : QThread(parent)
-,m_cancelSearch(true)
-,m_matchCount(0)
 {}
 
 SearchDiskFiles::~SearchDiskFiles()

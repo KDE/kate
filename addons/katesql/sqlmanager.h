@@ -65,7 +65,7 @@ class SQLManager : public QObject
 
   private:
     ConnectionModel *m_model;
-    KWallet::Wallet *m_wallet;
+    KWallet::Wallet *m_wallet = nullptr;
 };
 
 #endif // SQLMANAGER_H

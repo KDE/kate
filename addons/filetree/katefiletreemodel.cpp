@@ -842,10 +842,9 @@ void KateFileTreeModel::slotDocumentsDeleted(const QList<KTextEditor::Document *
 class EditViewCount
 {
 public:
-    EditViewCount(): edit(0), view(0)
-    {}
-    int edit;
-    int view;
+    EditViewCount() = default;
+    int edit = 0;
+    int view = 0;
 };
 
 void KateFileTreeModel::updateBackgrounds(bool force)

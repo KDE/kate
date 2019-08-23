@@ -58,6 +58,7 @@ public:
     bool m_diagnostics;
     bool m_diagnosticsHighlight;
     bool m_diagnosticsMark;
+    bool m_autoHover;
     bool m_onTypeFormatting;
     bool m_incrementalSync;
     QUrl m_configPath;

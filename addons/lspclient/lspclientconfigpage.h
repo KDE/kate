@@ -61,6 +61,7 @@ private:
     QCheckBox *m_diagnostics;
     QCheckBox *m_diagnosticsHighlight;
     QCheckBox *m_diagnosticsMark;
+    QCheckBox *m_autoHover;
     QCheckBox *m_onTypeFormatting;
     QCheckBox *m_incrementalSync;
     KUrlRequester *m_configPath;

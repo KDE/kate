@@ -42,6 +42,7 @@ static const QString CONFIG_SYMBOL_EXPAND { QStringLiteral("SymbolExpand") };
 static const QString CONFIG_SYMBOL_SORT { QStringLiteral("SymbolSort") };
 static const QString CONFIG_COMPLETION_DOC { QStringLiteral("CompletionDocumentation") };
 static const QString CONFIG_REFERENCES_DECLARATION { QStringLiteral("ReferencesDeclaration") };
+static const QString CONFIG_AUTO_HOVER { QStringLiteral("AutoHover") };
 static const QString CONFIG_TYPE_FORMATTING { QStringLiteral("TypeFormatting") };
 static const QString CONFIG_INCREMENTAL_SYNC { QStringLiteral("IncrementalSync") };
 static const QString CONFIG_DIAGNOSTICS { QStringLiteral("Diagnostics") };
@@ -101,6 +102,7 @@ void LSPClientPlugin::readConfig()
     m_symbolSort = config.readEntry(CONFIG_SYMBOL_SORT, false);
     m_complDoc = config.readEntry(CONFIG_COMPLETION_DOC, true);
     m_refDeclaration = config.readEntry(CONFIG_REFERENCES_DECLARATION, true);
+    m_autoHover = config.readEntry(CONFIG_AUTO_HOVER, true);
     m_onTypeFormatting = config.readEntry(CONFIG_TYPE_FORMATTING, false);
     m_incrementalSync = config.readEntry(CONFIG_INCREMENTAL_SYNC, false);
     m_diagnostics = config.readEntry(CONFIG_DIAGNOSTICS, true);
@@ -120,6 +122,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_SYMBOL_SORT, m_symbolSort);
     config.writeEntry(CONFIG_COMPLETION_DOC, m_complDoc);
     config.writeEntry(CONFIG_REFERENCES_DECLARATION, m_refDeclaration);
+    config.writeEntry(CONFIG_AUTO_HOVER, m_autoHover);
     config.writeEntry(CONFIG_TYPE_FORMATTING, m_onTypeFormatting);
     config.writeEntry(CONFIG_INCREMENTAL_SYNC, m_incrementalSync);
     config.writeEntry(CONFIG_DIAGNOSTICS, m_diagnostics);

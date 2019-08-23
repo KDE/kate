@@ -213,6 +213,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_triggerRename;
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_refDeclaration;
+    QPointer<QAction> m_autoHover;
     QPointer<QAction> m_onTypeFormatting;
     QPointer<QAction> m_incrementalSync;
     QPointer<QAction> m_diagnostics;
@@ -323,6 +324,11 @@ public:
                                               this, &self_type::displayOptionChanged);
         m_refDeclaration->setText(i18n("Include declaration in references"));
         m_refDeclaration->setCheckable(true);
+        m_autoHover =
+                actionCollection()->addAction(QStringLiteral("lspclient_auto_hover"), this,
+                                              &self_type::displayOptionChanged);
+        m_autoHover->setText(i18n("Show hover information"));
+        m_autoHover->setCheckable(true);
         m_onTypeFormatting =
                 actionCollection()->addAction(QStringLiteral("lspclient_type_formatting"), this,
                                               &self_type::displayOptionChanged);
@@ -379,6 +385,7 @@ public:
         menu->addSeparator();
         menu->addAction(m_complDocOn);
         menu->addAction(m_refDeclaration);
+        menu->addAction(m_autoHover);
         menu->addAction(m_onTypeFormatting);
         menu->addAction(m_incrementalSync);
         menu->addSeparator();
@@ -477,6 +484,8 @@ public:
             m_complDocOn->setChecked(m_plugin->m_complDoc);
         if (m_refDeclaration)
             m_refDeclaration->setChecked(m_plugin->m_refDeclaration);
+        if (m_autoHover)
+            m_autoHover->setChecked(m_plugin->m_autoHover);
         if (m_onTypeFormatting)
             m_onTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
         if (m_incrementalSync)
@@ -1584,7 +1593,7 @@ public:
         updateCompletion(activeView, server.data());
 
         // update hover with relevant server
-        m_hover->setServer(server);
+        m_hover->setServer((m_autoHover && m_autoHover->isChecked()) ?  server : nullptr);
         updateHover(activeView, server.data());
 
         // update marks if applicable

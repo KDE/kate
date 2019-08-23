@@ -36,6 +36,7 @@
 #include <QCoreApplication>
 #include <QTime>
 #include <QFileInfo>
+#include <utility>
 
 // good/bad old school; allows easier concatenate
 #define CONTENT_LENGTH "Content-Length"
@@ -209,7 +210,7 @@ static QJsonObject renameParams(const QUrl &document, const LSPPosition &pos,
 }
 
 static QJsonObject codeActionParams(const QUrl &document, const LSPRange &range,
-                                    QList<QString> kinds, QList<LSPDiagnostic> diagnostics)
+                                    const QList<QString>& kinds, const QList<LSPDiagnostic>& diagnostics)
 {
     auto params = textDocumentParams(document);
     params[MEMBER_RANGE] = to_json(range);
@@ -1058,7 +1059,7 @@ public:
     }
 
     RequestHandle documentRename(const QUrl &document, const LSPPosition &pos,
-                                 const QString newName, const GenericReplyHandler &h)
+                                 const QString& newName, const GenericReplyHandler &h)
     {
         auto params = renameParams(document, pos, newName);
         return send(init_request(QStringLiteral("textDocument/rename"), params), h);
@@ -1068,7 +1069,7 @@ public:
                                      const QList<QString> &kinds, QList<LSPDiagnostic> diagnostics,
                                      const GenericReplyHandler &h)
     {
-        auto params = codeActionParams(document, range, kinds, diagnostics);
+        auto params = codeActionParams(document, range, kinds, std::move(diagnostics));
         return send(init_request(QStringLiteral("textDocument/codeAction"), params), h);
     }
 
@@ -1323,7 +1324,7 @@ LSPClientServer::documentOnTypeFormatting(const QUrl &document, const LSPPositio
 }
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentRename(const QUrl &document, const LSPPosition &pos, const QString newName,
+LSPClientServer::documentRename(const QUrl &document, const LSPPosition &pos, const QString& newName,
                                 const QObject *context, const WorkspaceEditReplyHandler &h)
 {
     return d->documentRename(document, pos, newName, make_handler(h, context, parseWorkSpaceEdit));
@@ -1334,7 +1335,7 @@ LSPClientServer::documentCodeAction(const QUrl &document, const LSPRange &range,
                                     const QList<QString> &kinds, QList<LSPDiagnostic> diagnostics,
                                     const QObject *context, const CodeActionReplyHandler &h)
 {
-    return d->documentCodeAction(document, range, kinds, diagnostics,
+    return d->documentCodeAction(document, range, kinds, std::move(diagnostics),
                                  make_handler(h, context, parseCodeAction));
 }
 

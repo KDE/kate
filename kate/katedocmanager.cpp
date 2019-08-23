@@ -285,7 +285,7 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
     return closeDocuments(documents, closeUrl);
 }
 
-bool KateDocManager::closeDocumentList(QList<KTextEditor::Document *> documents)
+bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *>& documents)
 {
     QList<KTextEditor::Document *> modifiedDocuments;
     foreach(KTextEditor::Document * document, documents) {

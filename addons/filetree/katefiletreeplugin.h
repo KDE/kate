@@ -56,7 +56,7 @@ public:
 
     const KateFileTreePluginSettings &settings();
 
-    void applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole, bool showFulPath);
+    void applyConfig(bool shadingEnabled, const QColor& viewShade, const QColor& editShade, bool listMode, int sortRole, bool showFulPath);
 
 public Q_SLOTS:
     void viewDestroyed(QObject *view);

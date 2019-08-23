@@ -126,7 +126,7 @@ private:
     KTextEditor::Document *m_document;
 };
 
-KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEditor::Document *> documents):
+KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const QList<KTextEditor::Document *>& documents):
     QDialog(parent)
 {
     setWindowTitle(i18n("Save Documents"));

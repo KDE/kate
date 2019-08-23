@@ -626,7 +626,7 @@ private:
         emit serverChanged();
     }
 
-    void trackDocument(KTextEditor::Document *doc, QSharedPointer<LSPClientServer> server)
+    void trackDocument(KTextEditor::Document *doc, const QSharedPointer<LSPClientServer>& server)
     {
         auto it = m_docs.find(doc);
         if (it == m_docs.end()) {

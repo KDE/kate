@@ -41,6 +41,7 @@
 #include <QStandardItemModel>
 
 #include <memory>
+#include <utility>
 
 class LSPClientViewTrackerImpl : public LSPClientViewTracker
 {
@@ -175,7 +176,7 @@ public:
                             QSharedPointer<LSPClientServerManager> manager)
         : m_plugin(plugin),
           m_mainWindow(mainWin),
-          m_serverManager(manager),
+          m_serverManager(std::move(manager)),
           m_outline(new QStandardItemModel())
     {
         m_toolview.reset(m_mainWindow->createToolView(
@@ -377,7 +378,7 @@ public:
         setModel(newModel);
     }
 
-    void setModel(std::shared_ptr<QStandardItemModel> newModel)
+    void setModel(const std::shared_ptr<QStandardItemModel>& newModel)
     {
         Q_ASSERT(newModel);
 
@@ -548,7 +549,7 @@ private Q_SLOTS:
 QObject *LSPClientSymbolView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin,
                                    QSharedPointer<LSPClientServerManager> manager)
 {
-    return new LSPClientSymbolViewImpl(plugin, mainWin, manager);
+    return new LSPClientSymbolViewImpl(plugin, mainWin, std::move(manager));
 }
 
 #include "lspclientsymbolview.moc"

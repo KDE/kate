@@ -33,6 +33,7 @@
 #include <KTextEditor/View>
 
 #include <QToolTip>
+#include <utility>
 
 class LSPClientHoverImpl : public LSPClientHover
 {
@@ -47,7 +48,7 @@ class LSPClientHoverImpl : public LSPClientHover
 
 public:
     LSPClientHoverImpl(QSharedPointer<LSPClientServerManager> manager)
-        : LSPClientHover(), m_manager(manager), m_server(nullptr)
+        : LSPClientHover(), m_manager(std::move(manager)), m_server(nullptr)
     {
     }
 
@@ -112,7 +113,7 @@ public:
 LSPClientHover*
 LSPClientHover::new_(QSharedPointer<LSPClientServerManager> manager)
 {
-    return new LSPClientHoverImpl(manager);
+    return new LSPClientHoverImpl(std::move(manager));
 }
 
 #include "lspclienthover.moc"

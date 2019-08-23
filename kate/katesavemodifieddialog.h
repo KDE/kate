@@ -33,7 +33,7 @@ class KateSaveModifiedDialog: public QDialog
 {
     Q_OBJECT
 public:
-    KateSaveModifiedDialog(QWidget *parent, QList<KTextEditor::Document *> documents);
+    KateSaveModifiedDialog(QWidget *parent, const QList<KTextEditor::Document *>& documents);
     ~KateSaveModifiedDialog() override;
     static bool queryClose(QWidget *parent, const QList<KTextEditor::Document *> &documents);
 protected:

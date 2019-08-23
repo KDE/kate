@@ -278,7 +278,7 @@ void KateBuildView::readSessionConfig(const KConfigGroup& cg)
             }
             else {
                 for (int tn=0; tn<targetNames.size(); ++tn) {
-                    const QString targetName = targetNames.at(tn);
+                    const QString& targetName = targetNames.at(tn);
                     m_targetsUi->targetsModel.addCommand(i, targetName, cg.readEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(targetName), DefBuildCmd));
                 }
                 QString defCmd = cg.readEntry(QStringLiteral("%1 Target Default").arg(i), QString());

@@ -197,7 +197,7 @@ private Q_SLOTS:
      * @param topLevel new toplevel element for model
      * @param file2Item new file => item mapping
      */
-    void loadProjectDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);
+    void loadProjectDone(const KateProjectSharedQStandardItem& topLevel, KateProjectSharedQMapStringItem file2Item);
 
     /**
      * Used for worker to send back the results of index loading

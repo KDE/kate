@@ -92,7 +92,7 @@ void KateSessionManager::updateSessionList()
     bool changed = false;
 
     // Add new sessions to our list
-    for (const QString session : qAsConst(list)) {
+    for (const QString& session : qAsConst(list)) {
         if (!m_sessions.contains(session)) {
             const QString file = sessionFileForName(session);
             m_sessions.insert(session, KateSession::create(file, session));
@@ -100,7 +100,7 @@ void KateSessionManager::updateSessionList()
         }
     }
     // Remove gone sessions from our list
-    for (const QString session : m_sessions.keys()) {
+    for (const QString& session : m_sessions.keys()) {
         if ((list.indexOf(session) < 0) && (m_sessions.value(session) != activeSession())) {
             m_sessions.remove(session);
             changed = true;
@@ -337,7 +337,7 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
 void KateSessionManager::saveSessionTo(KConfig *sc) const
 {
     // Clear the session file to avoid to accumulate outdated entries
-    for (auto group : sc->groupList()) {
+    for (const auto& group : sc->groupList()) {
         sc->deleteGroup(group);
     }
 

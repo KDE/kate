@@ -64,6 +64,7 @@
 #include <QApplication>
 #include <QFileInfo>
 #include <QJsonObject>
+#include <utility>
 
 namespace RangeData {
 
@@ -277,7 +278,7 @@ public:
           m_plugin(plugin),
           m_mainWindow(mainWin),
           m_client(client),
-          m_serverManager(serverManager),
+          m_serverManager(std::move(serverManager)),
           m_completion(LSPClientCompletion::new_(m_serverManager)),
           m_hover(LSPClientHover::new_(m_serverManager)),
           m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
@@ -737,7 +738,7 @@ public:
         DiagnosticItem(const LSPDiagnostic &d) : m_diagnostic(d) {}
 
         DiagnosticItem(const LSPCodeAction &c, QSharedPointer<LSPClientRevisionSnapshot> s)
-            : m_codeAction(c), m_snapshot(s)
+            : m_codeAction(c), m_snapshot(std::move(s))
         {
             m_diagnostic.range = LSPRange::invalid();
         }
@@ -788,7 +789,7 @@ public:
         QPersistentModelIndex pindex(index);
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(
                 m_serverManager->snapshot(server.data()));
-        auto h = [this, url, snapshot, pindex](const QList<LSPCodeAction> actions) {
+        auto h = [this, url, snapshot, pindex](const QList<LSPCodeAction>& actions) {
             if (!pindex.isValid())
                 return;
             auto child = m_diagnosticsModel->itemFromIndex(pindex);

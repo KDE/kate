@@ -35,6 +35,7 @@
 #include <QUrl>
 
 #include <algorithm>
+#include <utility>
 
 #define RETURN_CACHED_ICON(name)                                                                   \
     {                                                                                              \
@@ -139,7 +140,7 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
     }
 };
 
-static bool compare_match(const LSPCompletionItem &a, const LSPCompletionItem b)
+static bool compare_match(const LSPCompletionItem &a, const LSPCompletionItem& b)
 {
     return a.sortText < b.sortText;
 }
@@ -163,7 +164,7 @@ class LSPClientCompletionImpl : public LSPClientCompletion
 
 public:
     LSPClientCompletionImpl(QSharedPointer<LSPClientServerManager> manager)
-        : LSPClientCompletion(nullptr), m_manager(manager), m_server(nullptr)
+        : LSPClientCompletion(nullptr), m_manager(std::move(manager)), m_server(nullptr)
     {
     }
 
@@ -330,7 +331,7 @@ public:
 
 LSPClientCompletion *LSPClientCompletion::new_(QSharedPointer<LSPClientServerManager> manager)
 {
-    return new LSPClientCompletionImpl(manager);
+    return new LSPClientCompletionImpl(std::move(manager));
 }
 
 #include "lspclientcompletion.moc"

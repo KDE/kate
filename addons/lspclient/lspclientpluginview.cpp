@@ -764,7 +764,7 @@ public:
             auto &action = it->m_codeAction;
             // apply edit before command
             applyWorkspaceEdit(action.edit, it->m_snapshot.data());
-            const auto &command = action.command;
+            auto &command = action.command;
             if (command.command.size()) {
                 // accept edit requests that may be sent to execute command
                 m_accept_edit = true;
@@ -772,6 +772,10 @@ public:
                 QTimer::singleShot(2000, this, [this] { m_accept_edit = false; });
                 server->executeCommand(command.command, command.arguments);
             }
+            // diagnostics are likely updated soon, but might be clicked again in meantime
+            // so clear once executed, so not executed again
+            action.edit.changes.clear();
+            action.command.command.clear();
             return;
         }
 

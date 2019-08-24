@@ -68,6 +68,9 @@ static QAction *menuEntry(QMenu *menu,
                           const QString &before, const QString &after, const QString &desc,
                           QString menuBefore = QString(), QString menuAfter = QString());
 
+/**
+ * When the action is triggered the cursor will be placed between @p before and @p after.
+ */
 static QAction *menuEntry(QMenu *menu,
                           const QString &before, const QString &after, const QString &desc,
                           QString menuBefore, QString menuAfter)
@@ -80,6 +83,92 @@ static QAction *menuEntry(QMenu *menu,
 
     action->setData(QString(before + QLatin1Char(' ') + after));
     return action;
+}
+
+/**
+ * adds items and separators for special chars in "replace" field
+ */
+static void addSpecialCharsHelperActionsForReplace(QSet<QAction*>* actionList, QMenu* menu)
+{
+    QSet<QAction*>& actionPointers = *actionList;
+    QString emptyQSTring;
+
+    actionPointers << menuEntry(menu, QStringLiteral("\\n"),emptyQSTring, i18n("Line break"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\t"),emptyQSTring, i18n("Tab"));
+}
+
+/**
+ * adds items and separators for regex in "search" field
+ */
+static void addRegexHelperActionsForSearch(QSet<QAction*>* actionList, QMenu* menu)
+{
+    QSet<QAction*>& actionPointers = *actionList;
+    QString emptyQSTring;
+
+    actionPointers << menuEntry(menu, QStringLiteral("^"),emptyQSTring, i18n("Beginning of line"));
+    actionPointers << menuEntry(menu, QStringLiteral("$"),emptyQSTring, i18n("End of line"));
+    menu->addSeparator();
+    actionPointers << menuEntry(menu, QStringLiteral("."),emptyQSTring, i18n("Any single character (excluding line breaks)"));
+    actionPointers << menuEntry(menu, QStringLiteral("[.]"),emptyQSTring, i18n("Literal dot"));
+    menu->addSeparator();
+    actionPointers << menuEntry(menu, QStringLiteral("+"),emptyQSTring, i18n("One or more occurrences"));
+    actionPointers << menuEntry(menu, QStringLiteral("*"),emptyQSTring, i18n("Zero or more occurrences"));
+    actionPointers << menuEntry(menu, QStringLiteral("?"),emptyQSTring, i18n("Zero or one occurrences"));
+    actionPointers << menuEntry(menu, QStringLiteral("{"), QStringLiteral(",}"), i18n("<a> through <b> occurrences"), QStringLiteral("{a"), QStringLiteral(",b}"));
+    menu->addSeparator();
+    actionPointers << menuEntry(menu, QStringLiteral("("), QStringLiteral(")"), i18n("Group, capturing"));
+    actionPointers << menuEntry(menu, QStringLiteral("|"),emptyQSTring, i18n("Or"));
+    actionPointers << menuEntry(menu, QStringLiteral("["), QStringLiteral("]"), i18n("Set of characters"));
+    actionPointers << menuEntry(menu, QStringLiteral("[^"), QStringLiteral("]"), i18n("Negative set of characters"));
+    actionPointers << menuEntry(menu, QStringLiteral("(?:"), QStringLiteral(")"), i18n("Group, non-capturing"), QStringLiteral("(?:E"));
+    actionPointers << menuEntry(menu, QStringLiteral("(?="), QStringLiteral(")"), i18n("Lookahead"), QStringLiteral("(?=E"));
+    actionPointers << menuEntry(menu, QStringLiteral("(?!"), QStringLiteral(")"), i18n("Negative lookahead"), QStringLiteral("(?!E"));
+
+    menu->addSeparator();
+    actionPointers << menuEntry(menu, QStringLiteral("\\n"),emptyQSTring, i18n("Line break"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\t"),emptyQSTring, i18n("Tab"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\b"),emptyQSTring, i18n("Word boundary"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\B"),emptyQSTring, i18n("Not word boundary"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\d"),emptyQSTring, i18n("Digit"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\D"),emptyQSTring, i18n("Non-digit"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\s"),emptyQSTring, i18n("Whitespace (excluding line breaks)"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\S"),emptyQSTring, i18n("Non-whitespace (excluding line breaks)"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\w"),emptyQSTring, i18n("Word character (alphanumerics plus '_')"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\W"),emptyQSTring, i18n("Non-word character"));
+}
+
+/**
+ * adds items and separators for regex in "replace" field
+ */
+static void addRegexHelperActionsForReplace(QSet<QAction*>* actionList, QMenu* menu)
+{
+    QSet<QAction*>& actionPointers = *actionList;
+    QString emptyQSTring;
+
+    menu->addSeparator();
+    actionPointers << menuEntry(menu, QStringLiteral("\\0"),emptyQSTring, i18n("Regular expression capture 0 (whole match)"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\"), emptyQSTring, i18n("Regular expression capture 1-9"), QStringLiteral("\\#"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\{"), QStringLiteral("}"), i18n("Regular expression capture 0-999"), QStringLiteral("\\{#"));
+    menu->addSeparator();
+    actionPointers << menuEntry(menu, QStringLiteral("\\U\\"),emptyQSTring, i18n("Upper-cased capture 0-9"), QStringLiteral("\\U\\#"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\U\\{"), QStringLiteral("}"), i18n("Upper-cased capture 0-999"), QStringLiteral("\\U\\{###"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\L\\"),emptyQSTring, i18n("Lower-cased capture 0-9"), QStringLiteral("\\L\\#"));
+    actionPointers << menuEntry(menu, QStringLiteral("\\L\\{"), QStringLiteral("}"), i18n("Lower-cased capture 0-999"), QStringLiteral("\\L\\{###"));
+}
+
+/**
+ * inserts text and sets cursor position
+ */
+static void regexHelperActOnAction(QAction* resultAction, const QSet<QAction*>& actionList, QLineEdit* lineEdit)
+{
+    if (resultAction && actionList.contains(resultAction)) {
+        const int cursorPos = lineEdit->cursorPosition();
+        QStringList beforeAfter = resultAction->data().toString().split(QLatin1Char(' '));
+        if (beforeAfter.size() != 2) return;
+        lineEdit->insert(beforeAfter[0] + beforeAfter[1]);
+        lineEdit->setCursorPosition(cursorPos + beforeAfter[0].count());
+        lineEdit->setFocus();
+    }
 }
 
 class TreeWidgetItem : public QTreeWidgetItem {
@@ -314,16 +403,6 @@ m_mainWindow (mainWin)
             res->matchCase = m_ui.matchCase->isChecked();
         }
     });
-    connect(m_ui.useRegExp, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
-    connect(m_ui.useRegExp, &QToolButton::toggled, this, [=]{
-        Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-        if (res) {
-            res->useRegExp = m_ui.useRegExp->isChecked();
-        }
-    });
-    m_changeTimer.setInterval(300);
-    m_changeTimer.setSingleShot(true);
-    connect(&m_changeTimer, &QTimer::timeout, this, &KatePluginSearchView::startSearchWhileTyping);
 
     connect(m_ui.searchCombo->lineEdit(), &QLineEdit::returnPressed, this, &KatePluginSearchView::startSearch);
 // connecting to returnPressed() of the folderRequester doesn't work, I haven't found out why yet. But connecting to the linedit works:
@@ -350,8 +429,6 @@ m_mainWindow (mainWin)
     connect(m_ui.replaceButton, &QPushButton::clicked, this, &KatePluginSearchView::replaceSingleMatch);
     connect(m_ui.replaceCheckedBtn, &QPushButton::clicked, this, &KatePluginSearchView::replaceChecked);
     connect(m_ui.replaceCombo->lineEdit(), &QLineEdit::returnPressed, this, &KatePluginSearchView::replaceChecked);
-
-
 
     m_ui.displayOptions->setChecked(true);
 
@@ -382,6 +459,14 @@ m_mainWindow (mainWin)
     m_ui.searchCombo->setInsertPolicy(QComboBox::NoInsert);
     m_ui.searchCombo->lineEdit()->setClearButtonEnabled(true);
     m_ui.searchCombo->setMaxCount(25);
+    QAction* searchComboActionForInsertRegexButton = m_ui.searchCombo->lineEdit()->addAction(QIcon::fromTheme(QStringLiteral("code-context"), QIcon::fromTheme(QStringLiteral("edit-find-replace"))), QLineEdit::TrailingPosition);
+    connect(searchComboActionForInsertRegexButton, &QAction::triggered, this, [this]() {
+        QMenu menu;
+        QSet<QAction*> actionList;
+        addRegexHelperActionsForSearch(&actionList, &menu);
+        auto&& action = menu.exec(QCursor::pos());
+        regexHelperActOnAction(action, actionList, m_ui.searchCombo->lineEdit());
+    });
 
     m_ui.replaceCombo->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_ui.replaceCombo, &QComboBox::customContextMenuRequested, this, &KatePluginSearchView::replaceContextMenu);
@@ -390,6 +475,39 @@ m_mainWindow (mainWin)
     m_ui.replaceCombo->setInsertPolicy(QComboBox::NoInsert);
     m_ui.replaceCombo->lineEdit()->setClearButtonEnabled(true);
     m_ui.replaceCombo->setMaxCount(25);
+    QAction* replaceComboActionForInsertRegexButton = m_ui.replaceCombo->lineEdit()->addAction(QIcon::fromTheme(QStringLiteral("code-context")), QLineEdit::TrailingPosition);
+    connect(replaceComboActionForInsertRegexButton, &QAction::triggered, this, [this]() {
+        QMenu menu;
+        QSet<QAction*> actionList;
+        addRegexHelperActionsForReplace(&actionList, &menu);
+        auto&& action = menu.exec(QCursor::pos());
+        regexHelperActOnAction(action, actionList, m_ui.replaceCombo->lineEdit());
+    });
+    QAction* replaceComboActionForInsertSpecialButton = m_ui.replaceCombo->lineEdit()->addAction(QIcon::fromTheme(QStringLiteral("insert-text")), QLineEdit::TrailingPosition);
+    connect(replaceComboActionForInsertSpecialButton, &QAction::triggered, this, [this]() {
+        QMenu menu;
+        QSet<QAction*> actionList;
+        addSpecialCharsHelperActionsForReplace(&actionList, &menu);
+        auto&& action = menu.exec(QCursor::pos());
+        regexHelperActOnAction(action, actionList, m_ui.replaceCombo->lineEdit());
+    });
+
+
+    connect(m_ui.useRegExp, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
+    auto onRegexToggleChanged = [=]{
+        Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+        if (res) {
+            bool useRegExp = m_ui.useRegExp->isChecked();
+            res->useRegExp = useRegExp;
+            searchComboActionForInsertRegexButton->setVisible(useRegExp);
+            replaceComboActionForInsertRegexButton->setVisible(useRegExp);
+        }
+    };
+    connect(m_ui.useRegExp, &QToolButton::toggled, this, onRegexToggleChanged);
+    onRegexToggleChanged(); // invoke initially
+    m_changeTimer.setInterval(300);
+    m_changeTimer.setSingleShot(true);
+    connect(&m_changeTimer, &QTimer::timeout, this, &KatePluginSearchView::startSearchWhileTyping);
 
     m_toolView->setMinimumHeight(container->sizeHint().height());
 
@@ -2089,49 +2207,12 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
 
         menu->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
 
-        actionPointers << menuEntry(menu, QStringLiteral("^"), QStringLiteral(""), i18n("Beginning of line"));
-        actionPointers << menuEntry(menu, QStringLiteral("$"), QStringLiteral(""), i18n("End of line"));
-        menu->addSeparator();
-        actionPointers << menuEntry(menu, QStringLiteral("."), QStringLiteral(""), i18n("Any single character (excluding line breaks)"));
-        menu->addSeparator();
-        actionPointers << menuEntry(menu, QStringLiteral("+"), QStringLiteral(""), i18n("One or more occurrences"));
-        actionPointers << menuEntry(menu, QStringLiteral("*"), QStringLiteral(""), i18n("Zero or more occurrences"));
-        actionPointers << menuEntry(menu, QStringLiteral("?"), QStringLiteral(""), i18n("Zero or one occurrences"));
-        actionPointers << menuEntry(menu, QStringLiteral("{"), QStringLiteral(",}"), i18n("<a> through <b> occurrences"), QStringLiteral("{a"), QStringLiteral(",b}"));
-        menu->addSeparator();
-        actionPointers << menuEntry(menu, QStringLiteral("("), QStringLiteral(")"), i18n("Group, capturing"));
-        actionPointers << menuEntry(menu, QStringLiteral("|"), QStringLiteral(""), i18n("Or"));
-        actionPointers << menuEntry(menu, QStringLiteral("["), QStringLiteral("]"), i18n("Set of characters"));
-        actionPointers << menuEntry(menu, QStringLiteral("[^"), QStringLiteral("]"), i18n("Negative set of characters"));
-        actionPointers << menuEntry(menu, QStringLiteral("(?:"), QStringLiteral(")"), i18n("Group, non-capturing"), QStringLiteral("(?:E"));
-        actionPointers << menuEntry(menu, QStringLiteral("(?="), QStringLiteral(")"), i18n("Lookahead"), QStringLiteral("(?=E"));
-        actionPointers << menuEntry(menu, QStringLiteral("(?!"), QStringLiteral(")"), i18n("Negative lookahead"), QStringLiteral("(?!E"));
-
-        menu->addSeparator();
-        actionPointers << menuEntry(menu, QStringLiteral("\\n"), QStringLiteral(""), i18n("Line break"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\t"), QStringLiteral(""), i18n("Tab"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\b"), QStringLiteral(""), i18n("Word boundary"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\B"), QStringLiteral(""), i18n("Not word boundary"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\d"), QStringLiteral(""), i18n("Digit"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\D"), QStringLiteral(""), i18n("Non-digit"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\s"), QStringLiteral(""), i18n("Whitespace (excluding line breaks)"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\S"), QStringLiteral(""), i18n("Non-whitespace (excluding line breaks)"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\w"), QStringLiteral(""), i18n("Word character (alphanumerics plus '_')"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\W"), QStringLiteral(""), i18n("Non-word character"));
+        addRegexHelperActionsForSearch(&actionPointers, menu);
     }
-    // Show menu
+
+    // Show menu and act
     QAction * const result = contextMenu->exec(m_ui.searchCombo->mapToGlobal(pos));
-
-    // Act on action
-    if (result && actionPointers.contains(result)) {
-        QLineEdit * lineEdit = m_ui.searchCombo->lineEdit();
-        const int cursorPos = lineEdit->cursorPosition();
-        QStringList beforeAfter = result->data().toString().split(QLatin1Char(' '));
-        if (beforeAfter.size() != 2) return;
-        lineEdit->insert(beforeAfter[0] + beforeAfter[1]);
-        lineEdit->setCursorPosition(cursorPos + beforeAfter[0].count());
-        lineEdit->setFocus();
-    }
+    regexHelperActOnAction(result, actionPointers, m_ui.searchCombo->lineEdit());
 }
 
 void KatePluginSearchView::replaceContextMenu(const QPoint& pos)
@@ -2144,34 +2225,15 @@ void KatePluginSearchView::replaceContextMenu(const QPoint& pos)
     menu->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
 
     QSet<QAction *> actionPointers;
-    actionPointers << menuEntry(menu, QStringLiteral("\\n"), QStringLiteral(""), i18n("Line break"));
-    actionPointers << menuEntry(menu, QStringLiteral("\\t"), QStringLiteral(""), i18n("Tab"));
-
+    addSpecialCharsHelperActionsForReplace(&actionPointers, menu);
 
     if (m_ui.useRegExp->isChecked()) {
-        menu->addSeparator();
-        actionPointers << menuEntry(menu, QStringLiteral("\\0"), QStringLiteral(""), i18n("Regular expression capture 0 (whole match)"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\"),  QStringLiteral(""), i18n("Regular expression capture 1-9"), QStringLiteral("\\#"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\{"), QStringLiteral("}"), i18n("Regular expression capture 0-999"), QStringLiteral("\\{#"));
-        menu->addSeparator();
-        actionPointers << menuEntry(menu, QStringLiteral("\\U\\"), QStringLiteral(""), i18n("Upper-cased capture 0-9"), QStringLiteral("\\U\\#"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\U\\{"), QStringLiteral("}"), i18n("Upper-cased capture 0-999"), QStringLiteral("\\U\\{###"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\L\\"), QStringLiteral(""), i18n("Lower-cased capture 0-9"), QStringLiteral("\\L\\#"));
-        actionPointers << menuEntry(menu, QStringLiteral("\\L\\{"), QStringLiteral("}"), i18n("Lower-cased capture 0-999"), QStringLiteral("\\L\\{###"));
+        addRegexHelperActionsForReplace(&actionPointers, menu);
     }
-    // Show menu
-    QAction * const result = contextMenu->exec(m_ui.replaceCombo->mapToGlobal(pos));
 
-    // Act on action
-    if (result && actionPointers.contains(result)) {
-        QLineEdit * lineEdit = m_ui.replaceCombo->lineEdit();
-        const int cursorPos = lineEdit->cursorPosition();
-        QStringList beforeAfter = result->data().toString().split(QLatin1Char(' '));
-        if (beforeAfter.size() != 2) return;
-        lineEdit->insert(beforeAfter[0] + beforeAfter[1]);
-        lineEdit->setCursorPosition(cursorPos + beforeAfter[0].count());
-        lineEdit->setFocus();
-    }
+    // Show menu and act
+    QAction * const result = contextMenu->exec(m_ui.replaceCombo->mapToGlobal(pos));
+    regexHelperActOnAction(result, actionPointers, m_ui.replaceCombo->lineEdit());
 }
 
 void KatePluginSearchView::slotPluginViewCreated(const QString &name, QObject *pluginView)

@@ -183,7 +183,7 @@ protected:
 private:
     QTreeWidgetItem *rootFileItem(const QString &url, const QString &fName);
     QStringList filterFiles(const QStringList& files) const;
-    
+
     void onResize(const QSize& size);
 
     Ui::SearchDialog                   m_ui;

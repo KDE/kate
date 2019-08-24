@@ -173,7 +173,7 @@
      <item row="1" column="6">
       <widget class="QToolButton" name="useRegExp">
        <property name="toolTip">
-        <string>Use regular expressions</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable regular expressions. Find help for regex syntax by using the buttons in the search and replace text fields.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string/>

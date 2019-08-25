@@ -11,6 +11,10 @@
         "cpp": {
             "use": "c"
         },
+        "d": {
+            "command": ["dls", "--stdio"],
+            "url": "https://github.com/d-language-server/dls"
+        },
         "latex": {
             "command": ["texlab"],
             "url": "https://texlab.netlify.com/"

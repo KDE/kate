@@ -150,16 +150,34 @@ static QJsonObject merge(const QJsonObject &bottom, const QJsonObject &top)
 // map (highlight)mode to lsp languageId
 static QString languageId(const QString &mode)
 {
-    // special cases
+    // lookup in cache first
     static QHash<QString, QString> m;
     auto it = m.find(mode);
     if (it != m.end()) {
         return *it;
     }
-    // assume sane naming
+
+    /**
+     * try to normalize the highlighting name
+     * - lower-case
+     * - transform some special characters
+     */
     QString result = mode.toLower();
     result = result.replace(QStringLiteral("++"), QStringLiteral("pp"));
-    return result.replace(QStringLiteral("#"), QStringLiteral("sharp"));
+    result = result.replace(QStringLiteral("#"), QStringLiteral("sharp"));
+
+    /**
+     * we still need to take care of some languages that have "very" different names than the normalized lsp names
+     */
+    if (result.contains(QLatin1String("fortran"))) {
+        result = QStringLiteral("fortran");
+    }
+
+    /**
+     * now, cache the resulting mapping and be done
+     */
+    m[mode] = result;
+    return result;
 }
 
 // helper guard to handle revision (un)lock

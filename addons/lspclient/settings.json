@@ -15,6 +15,11 @@
             "command": ["dls", "--stdio"],
             "url": "https://github.com/d-language-server/dls"
         },
+        "fortran": {
+            "command": ["fortls"],
+            "rootIndicationFileNames": [".fortls"],
+            "url": "https://github.com/hansec/fortran-language-server"
+        },
         "latex": {
             "command": ["texlab"],
             "url": "https://texlab.netlify.com/"

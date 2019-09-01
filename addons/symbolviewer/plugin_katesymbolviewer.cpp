@@ -326,7 +326,7 @@ void KatePluginSymbolViewerView::parseSymbols()
     parsePhpSymbols();
   else if (hlModeName == QLatin1String("Tcl/Tk"))
      parseTclSymbols();
-  else if (hlModeName == QLatin1String("Fortran"))
+  else if (hlModeName.contains(QLatin1String("Fortran")))
      parseFortranSymbols();
   else if (hlModeName == QLatin1String("Perl"))
      parsePerlSymbols();

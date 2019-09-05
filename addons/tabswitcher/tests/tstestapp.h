@@ -29,7 +29,7 @@ class TsTestApp : public QMainWindow
 
 public:
     explicit TsTestApp(QWidget *parent = nullptr);
-    ~TsTestApp();
+    ~TsTestApp() override;
 
 private:
    class Impl;

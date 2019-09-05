@@ -34,7 +34,7 @@ class KWriteApplication : public QObject
 
 public:
     KWriteApplication();
-    ~KWriteApplication();
+    ~KWriteApplication() override;
 
     void addDocument(KTextEditor::Document *doc) { m_documents.append(doc); }
     void removeDocument(KTextEditor::Document *doc) { m_documents.removeAll(doc); }

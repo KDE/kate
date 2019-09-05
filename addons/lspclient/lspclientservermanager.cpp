@@ -306,7 +306,7 @@ public:
         QTimer::singleShot(100, this, &self_type::updateServerConfig);
     }
 
-    ~LSPClientServerManagerImpl()
+    ~LSPClientServerManagerImpl() override
     {
         // stop everything as we go down
         // several stages;
@@ -402,13 +402,13 @@ public:
         restart(servers);
     }
 
-    virtual qint64 revision(KTextEditor::Document *doc) override
+    qint64 revision(KTextEditor::Document *doc) override
     {
         auto it = m_docs.find(doc);
         return it != m_docs.end() ? it->version : -1;
     }
 
-    virtual LSPClientRevisionSnapshot *snapshot(LSPClientServer *server) override
+    LSPClientRevisionSnapshot *snapshot(LSPClientServer *server) override
     {
         auto result = new LSPClientRevisionSnapshotImpl;
         for (auto it = m_docs.begin(); it != m_docs.end(); ++it) {

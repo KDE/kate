@@ -41,7 +41,7 @@ protected:
     KateProject *m_project = nullptr;
 
 public:
-    virtual ~KateProjectCodeAnalysisTool();
+    ~KateProjectCodeAnalysisTool() override;
 
     /**
      * bind to this project

@@ -433,7 +433,7 @@ public:
         updateState();
     }
 
-    ~LSPClientActionView()
+    ~LSPClientActionView() override
     {
         // unregister all code-completion providers, else we might crash
         for (auto view : qAsConst(m_completionViews)) {
@@ -1687,7 +1687,7 @@ public:
         m_mainWindow->guiFactory()->addClient(this);
     }
 
-    ~LSPClientPluginViewImpl()
+    ~LSPClientPluginViewImpl() override
     {
         // minimize/avoid some surprises;
         // safe construction/destruction by separate (helper) objects;

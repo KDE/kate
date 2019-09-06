@@ -181,7 +181,7 @@ public:
         }
     }
 
-    virtual void setSelectedDocumentation(bool s) override { m_selectedDocumentation = s; }
+    void setSelectedDocumentation(bool s) override { m_selectedDocumentation = s; }
 
     QVariant data(const QModelIndex &index, int role) const override
     {

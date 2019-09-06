@@ -57,7 +57,7 @@ class TabswitcherFilesModel : public QAbstractTableModel
 
 public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
-    virtual ~TabswitcherFilesModel() = default;
+    ~TabswitcherFilesModel() override = default;
     bool insertDocument(int row, KTextEditor::Document * document);
     bool removeDocument(KTextEditor::Document * document);
 

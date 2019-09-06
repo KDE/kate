@@ -102,7 +102,7 @@ public:
 
     LSPClientServer(const QStringList &server, const QUrl &root,
                     const QJsonValue &init = QJsonValue());
-    ~LSPClientServer();
+    ~LSPClientServer() override;
 
     // server management
     // request start

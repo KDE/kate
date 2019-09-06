@@ -1256,7 +1256,7 @@ public:
     template<typename Collection>
     void checkEditResult(const Collection &c)
     {
-        if (c.size() == 0) {
+        if (c.empty()) {
             showMessage(i18n("No edits"), KTextEditor::Message::Information);
         }
     }
@@ -1427,7 +1427,7 @@ public:
 
         if (!topItem) {
             // no need to create an empty one
-            if (diagnostics.diagnostics.size() == 0) {
+            if (diagnostics.diagnostics.empty()) {
                 return;
             }
             topItem = new QStandardItem();
@@ -1507,7 +1507,7 @@ public:
 
     void onTextChanged(KTextEditor::Document *doc)
     {
-        if (m_onTypeFormattingTriggers.size() == 0)
+        if (m_onTypeFormattingTriggers.empty())
             return;
 
         KTextEditor::View *activeView = m_mainWindow->activeView();

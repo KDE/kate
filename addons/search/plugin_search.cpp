@@ -737,7 +737,7 @@ void KatePluginSearchView::folderFileListChanged()
     // search order is important: Open files starts immediately and should finish
     // earliest after first event loop.
     // The DiskFile might finish immediately
-    if (openList.size() > 0) {
+    if (!openList.empty()) {
         m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
     }
     else {
@@ -1163,7 +1163,7 @@ void KatePluginSearchView::startSearch()
         // search order is important: Open files starts immediately and should finish
         // earliest after first event loop.
         // The DiskFile might finish immediately
-        if (openList.size() > 0) {
+        if (!openList.empty()) {
             m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
         } else {
             m_searchOpenFilesDone = true;

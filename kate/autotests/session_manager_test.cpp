@@ -143,7 +143,7 @@ void KateSessionManagerTest::saveActiveSessionWithAnynomous()
 {
     QVERIFY(m_manager->activateAnonymousSession());
     QVERIFY(m_manager->activeSession()->isAnonymous());
-    QVERIFY(m_manager->sessionList().size() == 0);
+    QVERIFY(m_manager->sessionList().empty());
 
     QCOMPARE(m_manager->saveActiveSession(), true);
     QCOMPARE(m_manager->activeSession()->isAnonymous(), true);

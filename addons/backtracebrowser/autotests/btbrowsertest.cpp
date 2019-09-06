@@ -93,7 +93,7 @@ void KateBtBrowserTest::testParser()
 
     bt = QStringLiteral("    Thread 1 (Thread 0x7fb6ba260780 (LWP 16447)):\n[KCrash Handler]");
     info = KateBtParser::parseBacktrace(bt);
-    QVERIFY(info.size() == 0);
+    QVERIFY(info.empty());
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -294,7 +294,7 @@ bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *>& doc
         }
     }
 
-    if (modifiedDocuments.size() > 0 && !KateSaveModifiedDialog::queryClose(nullptr, modifiedDocuments)) {
+    if (!modifiedDocuments.empty() && !KateSaveModifiedDialog::queryClose(nullptr, modifiedDocuments)) {
         return false;
     }
 

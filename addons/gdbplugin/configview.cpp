@@ -325,7 +325,7 @@ void ConfigView::slotAddTarget()
 void ConfigView::slotCopyTarget()
 {
     QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
-    if (tmp.size() < 1) {
+    if (tmp.empty()) {
         slotAddTarget();
         return;
     }

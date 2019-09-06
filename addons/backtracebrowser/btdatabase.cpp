@@ -64,7 +64,7 @@ QString KateBtDatabase::value(const QString &key)
             }
         }
         // try to use the first one
-        if (sl.size() > 0) {
+        if (!sl.empty()) {
             return sl[0];
         }
     }

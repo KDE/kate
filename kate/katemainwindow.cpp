@@ -469,7 +469,7 @@ void KateMainWindow::setupActions()
 
 void KateMainWindow::slotDocumentCloseAll()
 {
-    if (KateApp::self()->documentManager()->documentList().size() >= 1 && KMessageBox::warningContinueCancel(this,
+    if (!KateApp::self()->documentManager()->documentList().empty() && KMessageBox::warningContinueCancel(this,
             i18n("This will close all open documents. Are you sure you want to continue?"),
             i18n("Close all documents"),
             KStandardGuiItem::cont(),

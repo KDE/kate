@@ -195,7 +195,7 @@ void DebugView::slotDebugFinished(int /*exitCode*/, QProcess::ExitStatus status)
 
     // remove all old breakpoints
     BreakPoint bPoint;
-    while (m_breakPointList.size() > 0)
+    while (!m_breakPointList.empty())
     {
         bPoint = m_breakPointList.takeFirst();
         emit breakPointCleared(bPoint.file, bPoint.line -1);
@@ -404,7 +404,7 @@ void DebugView::processLine(QString line)
             {
                 // if there are still commands to execute remove them to remove unneeded output
                 // except  if the "kill was for "re-run"
-                if ((m_nextCommands.size() > 0) && !m_nextCommands[0].contains(QStringLiteral("file")))
+                if ((!m_nextCommands.empty()) && !m_nextCommands[0].contains(QStringLiteral("file")))
                 {
                     m_nextCommands.clear();
                 }
@@ -501,7 +501,7 @@ void DebugView::processLine(QString line)
 void DebugView::processErrors()
 {
     QString error;
-    while (m_errorList.size() > 0) {
+    while (!m_errorList.empty()) {
         error = m_errorList.takeFirst();
         //qDebug() << error;
         if(error == QLatin1String("The program is not being run."))
@@ -527,7 +527,7 @@ void DebugView::processErrors()
             }
             else if ((m_lastCommand == QLatin1String("kill")))
             {
-                if (m_nextCommands.size() > 0)
+                if (!m_nextCommands.empty())
                 {
                     if (!m_nextCommands[0].contains(QStringLiteral("file")))
                     {
@@ -606,7 +606,7 @@ void DebugView::issueNextCommand()
 {
     if(m_state == ready)
     {
-        if(m_nextCommands.size() > 0)
+        if(!m_nextCommands.empty())
         {
             QString cmd = m_nextCommands.takeFirst();
             //qDebug() << "Next command" << cmd;
@@ -683,7 +683,7 @@ void DebugView::outputTextMaybe(const QString &text)
 void DebugView::slotQueryLocals(bool query)
 {
     m_queryLocals = query;
-    if (query && (m_state == ready) && (m_nextCommands.size() == 0))
+    if (query && (m_state == ready) && (m_nextCommands.empty()))
     {
         m_nextCommands << QStringLiteral("(Q)info stack");
         m_nextCommands << QStringLiteral("(Q)frame");

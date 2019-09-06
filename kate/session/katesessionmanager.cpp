@@ -410,7 +410,7 @@ bool KateSessionManager::chooseSession()
     }
 
     // start with empty new session or in case no sessions exist
-    if (sesStart == QStringLiteral("new") || sessionList().size() == 0) {
+    if (sesStart == QStringLiteral("new") || sessionList().empty()) {
         return activateAnonymousSession();
     }
 

@@ -496,7 +496,7 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
     QList<LSPCompletionItem> ret;
     QJsonArray items = result.toArray();
     // might be CompletionList
-    if (items.size() == 0) {
+    if (items.empty()) {
         items = result.toObject().value(QStringLiteral("items")).toArray();
     }
     for (const auto &vitem : items) {
@@ -1088,7 +1088,7 @@ public:
     void didChange(const QUrl &document, int version, const QString &text,
                    const QList<LSPTextDocumentContentChangeEvent> &changes)
     {
-        Q_ASSERT(text.size() == 0 || changes.size() == 0);
+        Q_ASSERT(text.isEmpty() || changes.empty());
         auto params = textDocumentParams(document, version);
         params[QStringLiteral("contentChanges")] = text.size()
                 ? QJsonArray { QJsonObject { { MEMBER_TEXT, text } } }

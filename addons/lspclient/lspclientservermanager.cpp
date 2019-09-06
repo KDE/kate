@@ -724,7 +724,7 @@ private:
                 if (it->modified || force) {
                     (it->server)
                             ->didChange(it->url, it->version,
-                                        (it->changes.size() == 0) ? doc->text() : QString(),
+                                        (it->changes.empty()) ? doc->text() : QString(),
                                         it->changes);
                 }
             } else {

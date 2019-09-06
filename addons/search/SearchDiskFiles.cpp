@@ -37,7 +37,7 @@ SearchDiskFiles::~SearchDiskFiles()
 void SearchDiskFiles::startSearch(const QStringList &files,
                                   const QRegularExpression &regexp)
 {
-    if (files.size() == 0) {
+    if (files.empty()) {
         emit searchDone();
         return;
     }

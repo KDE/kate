@@ -98,5 +98,5 @@ QString KateProjectCodeAnalysisToolCppcheck::stdinMessages()
 
     auto&& fileList = filter(m_project->files());
     setActualFilesCount(fileList.size());
-    return fileList.join(QStringLiteral("\n"));
+    return fileList.join(QLatin1Char('\n'));
 }

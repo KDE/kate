@@ -163,8 +163,8 @@ static QString languageId(const QString &mode)
      * - transform some special characters
      */
     QString result = mode.toLower();
-    result = result.replace(QStringLiteral("++"), QStringLiteral("pp"));
-    result = result.replace(QStringLiteral("#"), QStringLiteral("sharp"));
+    result.replace(QStringLiteral("++"), QStringLiteral("pp"));
+    result.replace(QStringLiteral("#"), QStringLiteral("sharp"));
 
     /**
      * we still need to take care of some languages that have "very" different names than the normalized lsp names

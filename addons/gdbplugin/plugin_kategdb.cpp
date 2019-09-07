@@ -548,14 +548,14 @@ void KatePluginGDBView::insertStackFrame(QString const& level, QString const& in
         return;
     }
 
-    if (level == QLatin1String("0"))
+    if (level == QLatin1Char('0'))
     {
         m_stackTree->clear();
     }
     QStringList columns;
     columns << QStringLiteral("  "); // icon place holder
     columns << level;
-    int lastSpace = info.lastIndexOf(QLatin1String(" "));
+    int lastSpace = info.lastIndexOf(QLatin1Char(' '));
     QString shortInfo = info.mid(lastSpace);
     columns << shortInfo;
 

@@ -68,7 +68,7 @@ class ResultNode
           debugOutput(s, node, level + 1);
 
           if ((i + 1) < rootNode.children.size()) {
-            s+= QLatin1String("\n");
+            s+= QLatin1Char('\n');
           }
         }
         s += (level == 0) ? QLatin1String("\n);") : QLatin1String(")");

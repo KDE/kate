@@ -128,8 +128,8 @@ bool ReplaceMatches::replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *i
     replaceText.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
     replaceText.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
     QString html = item->data(0, ReplaceMatches::PreMatchRole).toString();
-    html += QStringLiteral("<i><s>") + item->data(0, ReplaceMatches::MatchRole).toString() + QStringLiteral("</s></i> ");
-    html += QStringLiteral("<b>") + replaceText + QStringLiteral("</b>");
+    html += QLatin1String("<i><s>") + item->data(0, ReplaceMatches::MatchRole).toString() + QLatin1String("</s></i> ");
+    html += QLatin1String("<b>") + replaceText + QLatin1String("</b>");
     html += item->data(0, ReplaceMatches::PostMatchRole).toString();
     item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",range.start().line()+1, html));
 

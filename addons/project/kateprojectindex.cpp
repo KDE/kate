@@ -83,7 +83,7 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
     /**
      * write files list and close write channel
      */
-    ctags.write(files.join(QStringLiteral("\n")).toLocal8Bit());
+    ctags.write(files.join(QLatin1Char('\n')).toLocal8Bit());
     ctags.closeWriteChannel();
 
     /**

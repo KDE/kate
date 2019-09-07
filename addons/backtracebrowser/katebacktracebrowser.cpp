@@ -346,13 +346,13 @@ void KateBtConfigWidget::reset()
     KConfigGroup cg(KSharedConfig::openConfig(), "backtracebrowser");
     lstFolders->clear();
     lstFolders->addItems(cg.readEntry("search-folders", QStringList()));
-    edtExtensions->setText(cg.readEntry("file-extensions", fileExtensions).join(QStringLiteral(" ")));
+    edtExtensions->setText(cg.readEntry("file-extensions", fileExtensions).join(QLatin1Char(' ')));
 }
 
 void KateBtConfigWidget::defaults()
 {
     lstFolders->clear();
-    edtExtensions->setText(fileExtensions.join(QStringLiteral(" ")));
+    edtExtensions->setText(fileExtensions.join(QLatin1Char(' ')));
 
     m_changed = true;
 }

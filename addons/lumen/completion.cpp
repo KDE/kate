@@ -44,8 +44,8 @@ bool LumenCompletionModel::shouldStartCompletion(View* view, const QString& inse
         view, insertedText, userInsertion, position
     );
 
-    complete = complete || insertedText.endsWith(QStringLiteral("(")); // calltip
-    complete = complete || insertedText.endsWith(QStringLiteral("import ")); // import
+    complete = complete || insertedText.endsWith(QLatin1Char('(')); // calltip
+    complete = complete || insertedText.endsWith(QLatin1String("import ")); // import
 
     return complete;
 }

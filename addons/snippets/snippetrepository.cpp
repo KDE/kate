@@ -207,7 +207,7 @@ void SnippetRepository::save()
 
     QDomElement root = doc.createElement(QStringLiteral("snippets"));
     root.setAttribute(QStringLiteral("name"), text());
-    root.setAttribute(QStringLiteral("filetypes"), m_filetypes.isEmpty() ? QStringLiteral("*") : m_filetypes.join(QLatin1String(";")));
+    root.setAttribute(QStringLiteral("filetypes"), m_filetypes.isEmpty() ? QStringLiteral("*") : m_filetypes.join(QLatin1Char(';')));
     root.setAttribute(QStringLiteral("authors"), m_authors);
     root.setAttribute(QStringLiteral("license"), m_license);
     root.setAttribute(QStringLiteral("namespace"), m_namespace);

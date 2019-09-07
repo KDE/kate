@@ -116,7 +116,7 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
         // transform for later display
         // sigh, remove (leading) whitespace (looking at clangd here)
         // could skip the [] if empty detail, but it is a handy watermark anyway ;-)
-        label = QString(label.simplified() + QStringLiteral(" [") + detail.simplified()
+        label = QString(label.simplified() + QLatin1String(" [") + detail.simplified()
                         + QStringLiteral("]"));
     }
 

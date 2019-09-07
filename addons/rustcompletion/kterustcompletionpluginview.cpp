@@ -159,8 +159,8 @@ void KTERustCompletionPluginView::registerCompletion(KTextEditor::View *view) {
 bool KTERustCompletionPluginView::isRustView(const KTextEditor::View *view)
 {
     if (view) {
-        return (view->document()->url().path().endsWith(QStringLiteral(".rs")) ||
-            view->document()->highlightingMode() == QStringLiteral("Rust"));
+        return (view->document()->url().path().endsWith(QLatin1String(".rs")) ||
+            view->document()->highlightingMode() == QLatin1String("Rust"));
     }
 
     return false;

@@ -254,7 +254,7 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
 
     // we use the object names here because there can be multiple replaceButtons (on multiple result tabs)
     if (next) {
-        if (currentWidget->objectName() == QStringLiteral("tree") || currentWidget == m_ui.binaryCheckBox) {
+        if (currentWidget->objectName() == QLatin1String("tree") || currentWidget == m_ui.binaryCheckBox) {
             m_ui.newTabButton->setFocus();
             *found = true;
             return;
@@ -292,7 +292,7 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
             return;
         }
         else {
-            if (currentWidget->objectName() == QStringLiteral("tree")) {
+            if (currentWidget->objectName() == QLatin1String("tree")) {
                 m_ui.displayOptions->setFocus();
                 *found = true;
                 return;
@@ -660,7 +660,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
 {
     QString types = m_ui.filterCombo->currentText();
     QString excludes = m_ui.excludeCombo->currentText();
-    if (((types.isEmpty() || types == QStringLiteral("*"))) && (excludes.isEmpty())) {
+    if (((types.isEmpty() || types == QLatin1String("*"))) && (excludes.isEmpty())) {
         // shortcut for use all files
         return files;
     }
@@ -797,7 +797,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
         path += QLatin1Char('/');
     }
-    path.replace(m_resultBaseDir, QString());
+    path.remove(m_resultBaseDir);
     QString name = fullUrl.fileName();
     if (url.isEmpty()) {
         name = fName;
@@ -880,7 +880,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, QTreeWidgetI
         if (!isReplaced) {
             // special handling for "(?=\\n)" in multi-line search
             QRegularExpression tmpReg = m_curResults->regExp;
-            if (m_curResults->regExp.pattern().endsWith(QStringLiteral("(?=\\n)"))) {
+            if (m_curResults->regExp.pattern().endsWith(QLatin1String("(?=\\n)"))) {
                 QString newPatern = tmpReg.pattern();
                 newPatern.replace(QStringLiteral("(?=\\n)"), QStringLiteral("$"));
                 tmpReg.setPattern(newPatern);
@@ -2241,7 +2241,7 @@ void KatePluginSearchView::replaceContextMenu(const QPoint& pos)
 void KatePluginSearchView::slotPluginViewCreated(const QString &name, QObject *pluginView)
 {
     // add view
-    if (pluginView && name == QStringLiteral("kateprojectplugin")) {
+    if (pluginView && name == QLatin1String("kateprojectplugin")) {
         m_projectPluginView = pluginView;
         slotProjectFileNameChanged();
         connect (pluginView, SIGNAL(projectFileNameChanged()), this, SLOT(slotProjectFileNameChanged()));
@@ -2251,7 +2251,7 @@ void KatePluginSearchView::slotPluginViewCreated(const QString &name, QObject *p
 void KatePluginSearchView::slotPluginViewDeleted(const QString &name, QObject *)
 {
     // remove view
-    if (name == QStringLiteral("kateprojectplugin")) {
+    if (name == QLatin1String("kateprojectplugin")) {
         m_projectPluginView = nullptr;
         slotProjectFileNameChanged();
     }
@@ -2311,22 +2311,22 @@ bool KateSearchCommand::exec(KTextEditor::View* /*view*/, const QString& cmd, QS
     QString command = args.takeFirst();
     QString searchText = args.join(QLatin1Char(' '));
 
-    if (command == QStringLiteral("grep") || command == QStringLiteral("newGrep")) {
+    if (command == QLatin1String("grep") || command == QLatin1String("newGrep")) {
         emit setSearchPlace(KatePluginSearchView::Folder);
         emit setCurrentFolder();
-        if (command == QStringLiteral("newGrep"))
+        if (command == QLatin1String("newGrep"))
             emit newTab();
     }
 
-    else if (command == QStringLiteral("search") || command == QStringLiteral("newSearch")) {
+    else if (command == QLatin1String("search") || command == QLatin1String("newSearch")) {
         emit setSearchPlace(KatePluginSearchView::OpenFiles);
-        if (command == QStringLiteral("newSearch"))
+        if (command == QLatin1String("newSearch"))
             emit newTab();
     }
 
-    else if (command == QStringLiteral("pgrep") || command == QStringLiteral("newPGrep")) {
+    else if (command == QLatin1String("pgrep") || command == QLatin1String("newPGrep")) {
         emit setSearchPlace(KatePluginSearchView::Project);
-        if (command == QStringLiteral("newPGrep"))
+        if (command == QLatin1String("newPGrep"))
             emit newTab();
     }
 
@@ -2338,24 +2338,24 @@ bool KateSearchCommand::exec(KTextEditor::View* /*view*/, const QString& cmd, QS
 
 bool KateSearchCommand::help(KTextEditor::View */*view*/, const QString &cmd, QString & msg)
 {
-    if (cmd.startsWith(QStringLiteral("grep"))) {
+    if (cmd.startsWith(QLatin1String("grep"))) {
         msg = i18n("Usage: grep [pattern to search for in folder]");
     }
-    else if (cmd.startsWith(QStringLiteral("newGrep"))) {
+    else if (cmd.startsWith(QLatin1String("newGrep"))) {
         msg = i18n("Usage: newGrep [pattern to search for in folder]");
     }
 
-    else if (cmd.startsWith(QStringLiteral("search"))) {
+    else if (cmd.startsWith(QLatin1String("search"))) {
         msg = i18n("Usage: search [pattern to search for in open files]");
     }
-    else if (cmd.startsWith(QStringLiteral("newSearch"))) {
+    else if (cmd.startsWith(QLatin1String("newSearch"))) {
         msg = i18n("Usage: search [pattern to search for in open files]");
     }
 
-    else if (cmd.startsWith(QStringLiteral("pgrep"))) {
+    else if (cmd.startsWith(QLatin1String("pgrep"))) {
         msg = i18n("Usage: pgrep [pattern to search for in current project]");
     }
-    else if (cmd.startsWith(QStringLiteral("newPGrep"))) {
+    else if (cmd.startsWith(QLatin1String("newPGrep"))) {
         msg = i18n("Usage: newPGrep [pattern to search for in current project]");
     }
 

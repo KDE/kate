@@ -138,7 +138,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
              fnd = stripped.indexOf(QLatin1Char('!'));
              if(fnd>0)
                {
-                stripped = stripped.left(fnd);
+                stripped.truncate(fnd);
                }
              paro+=currline.count(QLatin1Char(')'), Qt::CaseSensitive);
              parc+=currline.count(QLatin1Char('('), Qt::CaseSensitive);
@@ -186,7 +186,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
             fnd = stripped.indexOf(QLatin1Char('!'));
             if(fnd>0)
               {
-               stripped = stripped.left(fnd);
+               stripped.truncate(fnd);
               }
             if(stripped.indexOf(QLatin1Char('='))==-1)
               {
@@ -222,7 +222,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
             fnd = stripped.indexOf(QLatin1Char('!'));
             if(fnd>0)
               {
-               stripped = stripped.left(fnd);
+               stripped.truncate(fnd);
               }
             stripped = stripped.trimmed();
             paro+=currline.count(QLatin1Char(')'), Qt::CaseSensitive);

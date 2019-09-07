@@ -143,7 +143,7 @@ void KateCTagsConfigPage::reset()
     QString target;
     for (int i=0; i<numEntries; i++) {
         nr = QStringLiteral("%1").arg(i,3);
-        target = config.readEntry(QStringLiteral("GlobalTarget_")+nr, QString());
+        target = config.readEntry(QLatin1String("GlobalTarget_")+nr, QString());
         if (!listContains(target)) {
             new QListWidgetItem(target, m_confUi.targetList);
         }

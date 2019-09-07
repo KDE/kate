@@ -83,9 +83,9 @@ bool KTERustCompletion::shouldStartCompletion(KTextEditor::View *view, const QSt
     bool complete = CodeCompletionModelControllerInterface::shouldStartCompletion(view,
         insertedText, userInsertion, position);
 
-    complete = complete || insertedText.endsWith(QStringLiteral("("));
-    complete = complete || insertedText.endsWith(QStringLiteral("."));
-    complete = complete || insertedText.endsWith(QStringLiteral("::"));
+    complete = complete || insertedText.endsWith(QLatin1Char('('));
+    complete = complete || insertedText.endsWith(QLatin1Char('.'));
+    complete = complete || insertedText.endsWith(QLatin1String("::"));
 
     return complete;
 }
@@ -150,20 +150,20 @@ QList<CompletionMatch> KTERustCompletion::getMatches(const KTextEditor::Document
         if (proc.waitForFinished(1000)) {
             const QString &output = QString::fromUtf8(proc.readAllStandardOutput());
 
-            QStringList lines(output.split(QStringLiteral("\n"), QString::SkipEmptyParts));
+            QStringList lines(output.split(QLatin1Char('\n'), QString::SkipEmptyParts));
 
             foreach(QString line, lines) {
-                if (line.startsWith(QStringLiteral("MATCH "))) {
-                    line = line.mid(6);
+                if (line.startsWith(QLatin1String("MATCH "))) {
+                    line.remove(0, 6);
 
                     CompletionMatch match;
-                    match.text = line.section(QStringLiteral(","), 0, 0);
+                    match.text = line.section(QLatin1Char(','), 0, 0);
 
-                    const QString &type = line.section(QStringLiteral(","), 4, 4);
-                    match.depth = (type == QStringLiteral("StructField")) ? 1 : 0;
+                    const QString &type = line.section(QLatin1Char(','), 4, 4);
+                    match.depth = (type == QLatin1String("StructField")) ? 1 : 0;
                     addType(match, type);
 
-                    QString path = line.section(QStringLiteral(","), 3, 3);
+                    QString path = line.section(QLatin1Char(','), 3, 3);
 
                     if (path == file.fileName()) {
                         match.url = document->url();
@@ -173,10 +173,10 @@ QList<CompletionMatch> KTERustCompletion::getMatches(const KTextEditor::Document
 
                     bool ok = false;
 
-                    int row = line.section(QStringLiteral(","), 1, 1).toInt(&ok);
+                    int row = line.section(QLatin1Char(','), 1, 1).toInt(&ok);
                     if (ok) match.line = row - 1;
 
-                    int col = line.section(QStringLiteral(","), 2, 2).toInt(&ok);
+                    int col = line.section(QLatin1Char(','), 2, 2).toInt(&ok);
                     if (ok) match.col = col;
 
                     matches.append(match);
@@ -194,27 +194,27 @@ QList<CompletionMatch> KTERustCompletion::getMatches(const KTextEditor::Document
 
 void KTERustCompletion::addType(CompletionMatch &match, const QString &type)
 {
-    if (type == QStringLiteral("Function")) {
+    if (type == QLatin1String("Function")) {
         match.type = CodeCompletionModel::Function;
         match.icon = QIcon::fromTheme(QStringLiteral("code-function"));
-    } else if (type == QStringLiteral("Struct")) {
+    } else if (type == QLatin1String("Struct")) {
         match.type = CodeCompletionModel::Struct;
         match.icon = QIcon::fromTheme(QStringLiteral("code-class"));
-    } else if (type == QStringLiteral("StructField")) {
+    } else if (type == QLatin1String("StructField")) {
         match.icon = QIcon::fromTheme(QStringLiteral("field"));
-    } else if (type == QStringLiteral("Trait")) {
+    } else if (type == QLatin1String("Trait")) {
         match.type = CodeCompletionModel::Class;
         match.icon = QIcon::fromTheme(QStringLiteral("code-class"));
-    } else if (type == QStringLiteral("Module")) {
+    } else if (type == QLatin1String("Module")) {
         match.type = CodeCompletionModel::Namespace;
         match.icon = QIcon::fromTheme(QStringLiteral("field"));
-    } else if (type == QStringLiteral("Crate")) {
+    } else if (type == QLatin1String("Crate")) {
         match.type = CodeCompletionModel::Namespace;
         match.icon = QIcon::fromTheme(QStringLiteral("field"));
-    } else if (type == QStringLiteral("Let")) {
+    } else if (type == QLatin1String("Let")) {
         match.type = CodeCompletionModel::Variable;
         match.icon = QIcon::fromTheme(QStringLiteral("code-variable"));
-    } else if (type == QStringLiteral("Enum")) {
+    } else if (type == QLatin1String("Enum")) {
         match.type = CodeCompletionModel::Enum;
         match.icon = QIcon::fromTheme(QStringLiteral("icon"));
     }

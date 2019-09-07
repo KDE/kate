@@ -405,12 +405,12 @@ bool KateSessionManager::chooseSession()
     const QString sesStart(c.readEntry("Startup Session", "manual"));
 
     // uhh, just open last used session, show no chooser
-    if (sesStart == QStringLiteral("last")) {
+    if (sesStart == QLatin1String("last")) {
         return activateSession(lastSession, false);
     }
 
     // start with empty new session or in case no sessions exist
-    if (sesStart == QStringLiteral("new") || sessionList().empty()) {
+    if (sesStart == QLatin1String("new") || sessionList().empty()) {
         return activateAnonymousSession();
     }
 
@@ -468,7 +468,7 @@ QString KateSessionManager::askForNewSessionName(KateSession::Ptr session, const
 
         if (name.isEmpty()) {
             preset = suggestNewSessionName(session->name());
-            messageTotal = messageEmpty + QStringLiteral("\n\n") + messagePrompt;
+            messageTotal = messageEmpty + QLatin1String("\n\n") + messagePrompt;
 
         } else if (QFile::exists(sessionFileForName(name))) {
             preset = suggestNewSessionName(name);
@@ -476,7 +476,7 @@ QString KateSessionManager::askForNewSessionName(KateSession::Ptr session, const
                 // Very unlikely, but as fall back we keep users input
                 preset = name;
             }
-            messageTotal = messageExist.subs(name).toString() + QStringLiteral("\n\n") + messagePrompt;
+            messageTotal = messageExist.subs(name).toString() + QLatin1String("\n\n") + messagePrompt;
 
         } else {
             return name;
@@ -548,7 +548,7 @@ bool KateSessionManager::sessionIsActive(const QString &session)
     }
 
     for (const QString &s : qAsConst(services)) {
-        if (!s.startsWith(QStringLiteral("org.kde.kate-"))) {
+        if (!s.startsWith(QLatin1String("org.kde.kate-"))) {
             continue;
         }
 

@@ -103,7 +103,7 @@ ReplicodeView::~ReplicodeView()
 
 void ReplicodeView::viewChanged()
 {
-    if (m_mainWindow->activeView() && m_mainWindow->activeView()->document() && m_mainWindow->activeView()->document()->url().fileName().endsWith(QStringLiteral(".replicode"))) {
+    if (m_mainWindow->activeView() && m_mainWindow->activeView()->document() && m_mainWindow->activeView()->document()->url().fileName().endsWith(QLatin1String(".replicode"))) {
         m_mainWindow->showToolView(m_configSidebar);
     } else {
         m_mainWindow->hideToolView(m_configSidebar);

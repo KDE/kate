@@ -83,8 +83,8 @@ void LumenPluginView::registerCompletion(KTextEditor::View *view)
     KTextEditor::CodeCompletionInterface *completion =
         qobject_cast<KTextEditor::CodeCompletionInterface*>(view);
 
-    bool isD = view->document()->url().path().endsWith(QStringLiteral(".d")) ||
-               view->document()->highlightingMode() == QStringLiteral("D");
+    bool isD = view->document()->url().path().endsWith(QLatin1String(".d")) ||
+               view->document()->highlightingMode() == QLatin1Char('D');
 
     if (isD && !m_registered) {
         completion->registerCompletionModel(m_model);

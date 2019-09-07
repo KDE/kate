@@ -329,9 +329,9 @@ static LSPMarkupContent parseMarkupContent(const QJsonValue &v)
         const auto &vm = v.toObject();
         ret.value = vm.value(QStringLiteral("value")).toString();
         auto kind = vm.value(MEMBER_KIND).toString();
-        if (kind == QStringLiteral("plaintext")) {
+        if (kind == QLatin1String("plaintext")) {
             ret.kind = LSPMarkupKind::PlainText;
-        } else if (kind == QStringLiteral("markdown")) {
+        } else if (kind == QLatin1String("markdown")) {
             ret.kind = LSPMarkupKind::MarkDown;
         }
     } else if (v.isString()) {
@@ -1112,7 +1112,7 @@ public:
     void processNotification(const QJsonObject &msg)
     {
         auto method = msg[MEMBER_METHOD].toString();
-        if (method == QStringLiteral("textDocument/publishDiagnostics")) {
+        if (method == QLatin1String("textDocument/publishDiagnostics")) {
             emit q->publishDiagnostics(parseDiagnostics(msg[MEMBER_PARAMS].toObject()));
         } else {
             qCWarning(LSPCLIENT) << "discarding notification" << method;
@@ -1169,7 +1169,7 @@ public:
         auto msgid = msg[MEMBER_ID].toInt();
         auto params = msg[MEMBER_PARAMS];
         bool handled = false;
-        if (method == QStringLiteral("workspace/applyEdit")) {
+        if (method == QLatin1String("workspace/applyEdit")) {
             auto h = responseHandler<LSPApplyWorkspaceEditResponse>(prepareResponse(msgid),
                                                                     applyWorkspaceEditResponse);
             emit q->applyEdit(parseApplyWorkspaceEditParams(params.toObject()), h, handled);

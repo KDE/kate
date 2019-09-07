@@ -449,7 +449,7 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
     QString escaped;
     QString re_string;
 
-    if (unescaped.endsWith(QStringLiteral("$/"))) {
+    if (unescaped.endsWith(QLatin1String("$/"))) {
         reduced = unescaped.mid(2, unescaped.length() - 4);
         escaped = QRegularExpression::escape(reduced);
         re_string = QStringLiteral("^%1$").arg(escaped);

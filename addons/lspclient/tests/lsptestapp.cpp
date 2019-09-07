@@ -36,7 +36,7 @@ int main(int argc, char ** argv)
     if (argc < 5)
         return -1;
 
-    LSPClientServer lsp(QString::fromLatin1(argv[1]).split(QStringLiteral(" ")),
+    LSPClientServer lsp(QString::fromLatin1(argv[1]).split(QLatin1Char(' ')),
             QUrl(QString::fromLatin1(argv[2])));
 
     QCoreApplication app(argc, argv);
@@ -73,7 +73,7 @@ int main(int argc, char ** argv)
     lsp.documentSymbols(document, &app, ds_h);
     q.exec();
 
-    auto position = QString::fromLatin1(argv[4]).split(QStringLiteral(" "));
+    auto position = QString::fromLatin1(argv[4]).split(QLatin1Char(' '));
     auto def_h = [&q] (const QList<LSPLocation> & defs) {
         std::cout << "definition count: " << defs.length() << std::endl;
         q.quit();

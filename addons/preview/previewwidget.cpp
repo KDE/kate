@@ -188,7 +188,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document* document) {
                 // could that perhaps be solved by introducing the concept of "native" and "imported" mimetypes?
                 // or making a distinction between source editors/viewers and final editors/viewers?
                 // latter would also help other source editors/viewers like a hexeditor, which "supports" any mimetype
-                if (service && service->mimeTypes().contains(QStringLiteral("text/plain"))) {
+                if (service && service->mimeTypes().contains(QLatin1String("text/plain"))) {
                     qCDebug(KTEPREVIEW) << "Blindly discarding preferred service as it also supports text/plain, to avoid useless plain/text preview.";
                     service.reset();
                 }

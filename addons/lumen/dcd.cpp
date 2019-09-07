@@ -253,8 +253,8 @@ DCDCompletion DCD::processCompletion(const QString& data)
     }
 
     QString type = lines.front();
-    if (type == QStringLiteral("identifiers")) { completion.type = DCDCompletionType::Identifiers; }
-    else if (type == QStringLiteral("calltips")) { completion.type = DCDCompletionType::Calltips; }
+    if (type == QLatin1String("identifiers")) { completion.type = DCDCompletionType::Identifiers; }
+    else if (type == QLatin1String("calltips")) { completion.type = DCDCompletionType::Calltips; }
     else {
         qWarning() << "Invalid type:" << type;
         return completion;

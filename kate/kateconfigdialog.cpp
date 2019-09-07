@@ -201,9 +201,9 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     connect(sessionConfigUi->spinBoxRecentFilesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
 
     QString sesStart (cgGeneral.readEntry ("Startup Session", "manual"));
-    if (sesStart == QStringLiteral("new"))
+    if (sesStart == QLatin1String("new"))
         sessionConfigUi->startNewSessionRadioButton->setChecked (true);
-    else if (sesStart == QStringLiteral("last"))
+    else if (sesStart == QLatin1String("last"))
         sessionConfigUi->loadLastUserSessionRadioButton->setChecked (true);
     else
         sessionConfigUi->manuallyChooseSessionRadioButton->setChecked (true);

@@ -464,12 +464,12 @@ void KWrite::documentNameChanged()
 
         const QString homePath = QDir::homePath();
         if (c.startsWith(homePath)) {
-            c = QStringLiteral("~") + c.right(c.length() - homePath.length());
+            c = QLatin1String("~") + c.right(c.length() - homePath.length());
         }
 
         //File name shouldn't be too long - Maciek
         if (c.length() > 64) {
-            c = QStringLiteral("...") + c.right(64);
+            c = QLatin1String("...") + c.right(64);
         }
     } else {
         c = m_view->document()->url().fileName();

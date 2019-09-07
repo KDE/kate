@@ -143,7 +143,7 @@ void KateFileBrowser::setupToolbar()
   {
     QAction *ac = nullptr;
     if (it.isEmpty()) continue;
-    if (it == QStringLiteral("bookmarks") || it == QStringLiteral("sync_dir") || it == QStringLiteral("configure"))
+    if (it == QLatin1String("bookmarks") || it == QLatin1String("sync_dir") || it == QLatin1String("configure"))
       ac = actionCollection()->action(it);
     else
       ac = m_dirOperator->actionCollection()->action(it);
@@ -180,7 +180,7 @@ void KateFileBrowser::writeSessionConfig (KConfigGroup& cg)
 void KateFileBrowser::slotFilterChange(const QString & nf)
 {
   QString f = nf.trimmed();
-  const bool empty = f.isEmpty() || f == QStringLiteral("*");
+  const bool empty = f.isEmpty() || f == QLatin1String("*");
 
   if (empty) {
     m_dirOperator->clearFilter();

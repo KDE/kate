@@ -914,7 +914,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
     const KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
     // add all default open-with-actions except "Kate"
     for (const auto& service : offers) {
-        if (service->name() == QStringLiteral("Kate")) {
+        if (service->name() == QLatin1String("Kate")) {
             continue;
         }
         a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
@@ -1041,7 +1041,7 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
 
         const QString homePath = QDir::homePath();
         if (c.startsWith(homePath)) {
-            c = QStringLiteral("~") + c.right(c.length() - homePath.length());
+            c = QLatin1String("~") + c.right(c.length() - homePath.length());
         }
     }
 

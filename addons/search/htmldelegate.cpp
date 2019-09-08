@@ -27,6 +27,10 @@
 #include <QTextCharFormat>
 #include <KLocalizedString>
 
+// make list spacing resemble the default list spacing
+// (which would not be the case with default QTextDocument margin)
+static const int s_ItemMargin = 1;
+
 SPHtmlDelegate::SPHtmlDelegate( QObject* parent )
 : QStyledItemDelegate(parent)
 {}
@@ -39,7 +43,7 @@ void SPHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
     initStyleOption(&options, index);
 
     QTextDocument doc;
-    //doc.setDocumentMargin(0);
+    doc.setDocumentMargin(s_ItemMargin);
     doc.setHtml(index.data().toString());
 
     painter->save();
@@ -67,7 +71,7 @@ void SPHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
 QSize SPHtmlDelegate::sizeHint(const QStyleOptionViewItem& /*option*/, const QModelIndex& index) const
 {
     QTextDocument doc;
-    //doc.setDocumentMargin(0);
+    doc.setDocumentMargin(s_ItemMargin);
     doc.setHtml(index.data().toString());
     //qDebug() << doc.toPlainText() << doc.size().toSize();
     return doc.size().toSize() + QSize(30, 0); // add margin for the check-box

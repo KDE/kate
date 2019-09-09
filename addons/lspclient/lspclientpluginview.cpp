@@ -1119,6 +1119,10 @@ public:
                     const auto &item = itemConverter(defs.at(0));
                     const auto &pos = item.range.start();
                     goToDocumentLocation(item.uri, pos.line(), pos.column());
+                    // forego mark and such if only a single destination
+                    if (defs.count() == 1) {
+                        clearAllLocationMarks();
+                    }
                 }
                 // update marks
                 updateState();

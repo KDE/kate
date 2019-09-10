@@ -35,33 +35,39 @@ class QShowEvent;
 
 namespace KParts
 {
-  class ReadOnlyPart;
+class ReadOnlyPart;
 }
 
 class KateConsole;
 class KateKonsolePluginView;
 
-class KateKonsolePlugin: public KTextEditor::Plugin
+class KateKonsolePlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
-  friend class KateKonsolePluginView;
+    friend class KateKonsolePluginView;
 
-  public:
-    explicit KateKonsolePlugin( QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>() );
+public:
+    explicit KateKonsolePlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     ~KateKonsolePlugin() override;
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-    int configPages() const override { return 1; }
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
+    int configPages() const override
+    {
+        return 1;
+    }
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
     void readConfig();
 
-    QByteArray previousEditorEnv() {return m_previousEditorEnv;}
+    QByteArray previousEditorEnv()
+    {
+        return m_previousEditorEnv;
+    }
 
-  private:
-    QList<KateKonsolePluginView*> mViews;
+private:
+    QList<KateKonsolePluginView *> mViews;
     QByteArray m_previousEditorEnv;
 };
 
@@ -69,20 +75,20 @@ class KateKonsolePluginView : public QObject
 {
     Q_OBJECT
 
-  public:
+public:
     /**
-      * Constructor.
-      */
-    KateKonsolePluginView (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mainWindow);
+     * Constructor.
+     */
+    KateKonsolePluginView(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mainWindow);
 
     /**
      * Virtual destructor.
      */
-    ~KateKonsolePluginView () override;
+    ~KateKonsolePluginView() override;
 
     void readConfig();
 
-  private:
+private:
     KateKonsolePlugin *m_plugin;
     KateConsole *m_console;
 };
@@ -96,18 +102,18 @@ class KateConsole : public QWidget, public KXMLGUIClient
 {
     Q_OBJECT
 
-  public:
+public:
     /**
      * construct us
      * @param mw main window
      * @param parent toolview
      */
-    KateConsole (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mw, QWidget* parent);
+    KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw, QWidget *parent);
 
     /**
      * destruct us
      */
-    ~KateConsole () override;
+    ~KateConsole() override;
 
     void readConfig();
 
@@ -115,24 +121,24 @@ class KateConsole : public QWidget, public KXMLGUIClient
      * cd to dir
      * @param path given local directory
      */
-    void cd (const QString & path);
+    void cd(const QString &path);
 
     /**
      * send given text to console
      * @param text commands for console
      */
-    void sendInput( const QString& text );
+    void sendInput(const QString &text);
 
     KTextEditor::MainWindow *mainWindow()
     {
-      return m_mw;
+        return m_mw;
     }
 
-  public Q_SLOTS:
+public Q_SLOTS:
     /**
      * pipe current document to console
      */
-    void slotPipeToConsole ();
+    void slotPipeToConsole();
 
     /**
      * synchronize the konsole with the current document (cd to the directory)
@@ -149,12 +155,12 @@ class KateConsole : public QWidget, public KXMLGUIClient
      */
     void slotRun();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * the konsole exited ;)
      * handle that, hide the dock
      */
-    void slotDestroyed ();
+    void slotDestroyed();
 
     /**
      * construct console if needed
@@ -169,16 +175,16 @@ class KateConsole : public QWidget, public KXMLGUIClient
     /**
      * Handle that shortcuts are not eaten by console
      */
-    void overrideShortcut (QKeyEvent *event, bool &override);
+    void overrideShortcut(QKeyEvent *event, bool &override);
 
-  protected:
+protected:
     /**
      * the konsole get shown
      * @param ev show event
      */
     void showEvent(QShowEvent *ev) override;
 
-  private:
+private:
     /**
      * console part
      */
@@ -198,12 +204,14 @@ class KateConsole : public QWidget, public KXMLGUIClient
     QString m_currentPath;
 };
 
-class KateKonsoleConfigPage : public KTextEditor::ConfigPage {
+class KateKonsoleConfigPage : public KTextEditor::ConfigPage
+{
     Q_OBJECT
-  public:
-    explicit KateKonsoleConfigPage( QWidget* parent = nullptr, KateKonsolePlugin *plugin = nullptr );
+public:
+    explicit KateKonsoleConfigPage(QWidget *parent = nullptr, KateKonsolePlugin *plugin = nullptr);
     ~KateKonsoleConfigPage() override
-    {}
+    {
+    }
 
     QString name() const override;
     QString fullName() const override;
@@ -212,20 +220,21 @@ class KateKonsoleConfigPage : public KTextEditor::ConfigPage {
     void apply() override;
     void reset() override;
     void defaults() override
-    {}
-  private:
+    {
+    }
+
+private:
     class QCheckBox *cbAutoSyncronize;
     class QCheckBox *cbRemoveExtension;
     class QLineEdit *lePrefix;
     class QCheckBox *cbSetEditor;
     KateKonsolePlugin *mPlugin;
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * Enable the warning dialog for the next "Run in terminal"
      */
-    void slotEnableRunWarning ();
+    void slotEnableRunWarning();
 };
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;
-

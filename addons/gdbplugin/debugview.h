@@ -33,22 +33,21 @@
 
 class DebugView : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    DebugView(QObject* parent);
+    DebugView(QObject *parent);
     ~DebugView() override;
 
     void runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos);
     bool debuggerRunning() const;
     bool debuggerBusy() const;
-    bool hasBreakpoint(QUrl const& url, int line);
+    bool hasBreakpoint(QUrl const &url, int line);
 
-    void toggleBreakpoint(QUrl const& url, int line);
-    void movePC(QUrl const& url, int line);
-    void runToCursor(QUrl const& url, int line);
+    void toggleBreakpoint(QUrl const &url, int line);
+    void movePC(QUrl const &url, int line);
+    void runToCursor(QUrl const &url, int line);
 
-    void issueCommand(QString const& cmd);
-
+    void issueCommand(QString const &cmd);
 
 public Q_SLOTS:
     void slotInterrupt();
@@ -73,11 +72,11 @@ Q_SIGNALS:
     void breakPointSet(const QUrl &file, int lineNum);
     void breakPointCleared(const QUrl &file, int lineNum);
     void clearBreakpointMarks();
-    void stackFrameInfo(QString const& level, QString const& info);
+    void stackFrameInfo(QString const &level, QString const &info);
     void stackFrameChanged(int level);
     void threadInfo(int number, bool active);
 
-    void infoLocal(QString const& line);
+    void infoLocal(QString const &line);
 
     void outputText(const QString &text);
     void outputError(const QString &text);
@@ -86,31 +85,14 @@ Q_SIGNALS:
     void gdbEnded();
 
 private:
-    enum State
-    {
-        none,
-        ready,
-        executingCmd,
-        listingBreakpoints,
-        infoStack,
-        infoArgs,
-        printThis,
-        infoLocals,
-        infoThreads
-    };
+    enum State { none, ready, executingCmd, listingBreakpoints, infoStack, infoArgs, printThis, infoLocals, infoThreads };
 
-    enum SubState
-    {
-        normal,
-        stackFrameSeen,
-        stackTraceSeen
-    };
+    enum SubState { normal, stackFrameSeen, stackTraceSeen };
 
-    struct BreakPoint
-    {
-        int  number;
+    struct BreakPoint {
+        int number;
         QUrl file;
-        int  line;
+        int line;
     };
 
 private:
@@ -120,24 +102,24 @@ private:
     QUrl resolveFileName(const QString &fileName);
 
 private:
-    QProcess            m_debugProcess;
-    GDBTargetConf       m_targetConf;
-    QString             m_ioPipeString;
+    QProcess m_debugProcess;
+    GDBTargetConf m_targetConf;
+    QString m_ioPipeString;
 
-    State               m_state;
-    SubState            m_subState;
+    State m_state;
+    SubState m_subState;
 
-    QString             m_currentFile;
-    QString             m_newFrameFile;
-    int                 m_newFrameLevel;
-    QStringList         m_nextCommands;
-    QString             m_lastCommand;
-    bool                m_debugLocationChanged;
-    QList<BreakPoint>   m_breakPointList;
-    QString             m_outBuffer;
-    QString             m_errBuffer;
-    QStringList         m_errorList;
-    bool                m_queryLocals;
+    QString m_currentFile;
+    QString m_newFrameFile;
+    int m_newFrameLevel;
+    QStringList m_nextCommands;
+    QString m_lastCommand;
+    bool m_debugLocationChanged;
+    QList<BreakPoint> m_breakPointList;
+    QString m_outBuffer;
+    QString m_errBuffer;
+    QStringList m_errorList;
+    bool m_queryLocals;
 };
 
 #endif

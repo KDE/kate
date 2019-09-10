@@ -34,7 +34,9 @@ class KateFileTreeConfigPage : public KTextEditor::ConfigPage
     Q_OBJECT
 public:
     explicit KateFileTreeConfigPage(QWidget *parent = nullptr, KateFileTreePlugin *plug = nullptr);
-    ~KateFileTreeConfigPage() override {}
+    ~KateFileTreeConfigPage() override
+    {
+    }
 
     QString name() const override;
     QString fullName() const override;
@@ -45,7 +47,7 @@ public Q_SLOTS:
     void defaults() override;
     void reset() override;
 
-    //Q_SIGNALS:
+    // Q_SIGNALS:
     //  void changed();
 
 private Q_SLOTS:
@@ -63,4 +65,3 @@ private:
 };
 
 #endif /* KATE_FILETREE_CONFIGPAGE_H */
-

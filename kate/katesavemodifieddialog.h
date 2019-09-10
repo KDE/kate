@@ -29,13 +29,14 @@ class QTreeWidget;
 class QTreeWidgetItem;
 class QPushButton;
 
-class KateSaveModifiedDialog: public QDialog
+class KateSaveModifiedDialog : public QDialog
 {
     Q_OBJECT
 public:
-    KateSaveModifiedDialog(QWidget *parent, const QList<KTextEditor::Document *>& documents);
+    KateSaveModifiedDialog(QWidget *parent, const QList<KTextEditor::Document *> &documents);
     ~KateSaveModifiedDialog() override;
     static bool queryClose(QWidget *parent, const QList<KTextEditor::Document *> &documents);
+
 protected:
     bool doSave();
 protected Q_SLOTS:
@@ -51,4 +52,3 @@ private:
 };
 
 #endif
-

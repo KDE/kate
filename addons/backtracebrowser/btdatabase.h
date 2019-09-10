@@ -27,8 +27,12 @@
 class KateBtDatabase
 {
 public:
-    KateBtDatabase() {}
-    ~KateBtDatabase() {}
+    KateBtDatabase()
+    {
+    }
+    ~KateBtDatabase()
+    {
+    }
 
     void loadFromFile(const QString &url);
     void saveToFile(const QString &url) const;
@@ -44,6 +48,6 @@ private:
     QHash<QString, QStringList> db;
 };
 
-#endif //BTDATABASE_H
+#endif // BTDATABASE_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -27,36 +27,36 @@
 
 class KTERustCompletionPlugin;
 
-namespace KTextEditor {
-    class Document;
-    class MainWindow;
-    class View;
+namespace KTextEditor
+{
+class Document;
+class MainWindow;
+class View;
 }
 
 class KTERustCompletionPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
 
-    public:
-        KTERustCompletionPluginView(KTERustCompletionPlugin *plugin, KTextEditor::MainWindow *mainWindow);
-        ~KTERustCompletionPluginView() override;
+public:
+    KTERustCompletionPluginView(KTERustCompletionPlugin *plugin, KTextEditor::MainWindow *mainWindow);
+    ~KTERustCompletionPluginView() override;
 
-    private Q_SLOTS:
-        void goToDefinition();
-        void viewChanged();
-        void viewCreated(KTextEditor::View *view);
-        void viewDestroyed(QObject *view);
-        void documentChanged(KTextEditor::Document *document);
+private Q_SLOTS:
+    void goToDefinition();
+    void viewChanged();
+    void viewCreated(KTextEditor::View *view);
+    void viewDestroyed(QObject *view);
+    void documentChanged(KTextEditor::Document *document);
 
-    private:
-        void registerCompletion(KTextEditor::View *view);
+private:
+    void registerCompletion(KTextEditor::View *view);
 
-        static bool isRustView(const KTextEditor::View *view);
+    static bool isRustView(const KTextEditor::View *view);
 
-        KTERustCompletionPlugin *m_plugin;
-        KTextEditor::MainWindow *m_mainWindow;
-        QSet<KTextEditor::View *> m_completionViews;
+    KTERustCompletionPlugin *m_plugin;
+    KTextEditor::MainWindow *m_mainWindow;
+    QSet<KTextEditor::View *> m_completionViews;
 };
 
 #endif
-

@@ -40,7 +40,6 @@ public:
 
 class PseudoDTD
 {
-
 public:
     PseudoDTD();
     ~PseudoDTD();
@@ -54,7 +53,6 @@ public:
     QStringList requiredAttributes(const QString &parentElement) const;
 
 protected:
-
     bool parseElements(QDomDocument *doc, QProgressDialog *progress);
     bool parseAttributes(QDomDocument *doc, QProgressDialog *progress);
     bool parseAttributeValues(QDomDocument *doc, QProgressDialog *progress);
@@ -69,8 +67,7 @@ protected:
     // Attributes e.g. <"a", ( "href", "lang", "title" )>
     QMap<QString, ElementAttributes> m_attributesList;
     // Attribute values e.g. <"td", <"align", ( "left", "right", "justify" )>>
-    QMap< QString, QMap<QString, QStringList> > m_attributevaluesList;
-
+    QMap<QString, QMap<QString, QStringList>> m_attributevaluesList;
 };
 
 #endif // PSEUDO_DTD_H

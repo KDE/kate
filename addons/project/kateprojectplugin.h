@@ -33,8 +33,9 @@
 #include "kateproject.h"
 #include "kateprojectcompletion.h"
 
-namespace ThreadWeaver {
-    class Queue;
+namespace ThreadWeaver
+{
+class Queue;
 }
 
 class KateProjectPlugin : public KTextEditor::Plugin
@@ -48,7 +49,7 @@ public:
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
     int configPages() const override;
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
     /**
      * Create new project for given project filename.
@@ -81,7 +82,8 @@ public:
      * get list of all current open projects
      * @return list of all open projects
      */
-    QList<KateProject *> projects() const {
+    QList<KateProject *> projects() const
+    {
         return m_projects;
     }
 
@@ -89,7 +91,8 @@ public:
      * Get global code completion.
      * @return global completion object for KTextEditor::View
      */
-    KateProjectCompletion *completion() {
+    KateProjectCompletion *completion()
+    {
         return &m_completion;
     }
 
@@ -98,7 +101,8 @@ public:
      * @param document document we want to know which project it belongs to
      * @return project or 0 if none found for this document
      */
-    KateProject *projectForDocument(KTextEditor::Document *document) {
+    KateProject *projectForDocument(KTextEditor::Document *document)
+    {
         return m_document2Project.value(document);
     }
 

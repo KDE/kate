@@ -34,8 +34,9 @@ class TabSwitcherPluginView;
 class TabSwitcherTreeView;
 class QStandardItemModel;
 class QModelIndex;
-namespace detail {
-    class TabswitcherFilesModel;
+namespace detail
+{
+class TabswitcherFilesModel;
 }
 
 class TabSwitcherPlugin : public KTextEditor::Plugin
@@ -88,22 +89,22 @@ public Q_SLOTS:
     /**
      * Adds @p document to the model.
      */
-    void registerDocument(KTextEditor::Document * document);
+    void registerDocument(KTextEditor::Document *document);
 
     /**
      * Removes @p document from the model.
      */
-    void unregisterDocument(KTextEditor::Document * document);
+    void unregisterDocument(KTextEditor::Document *document);
 
     /**
      * Update the name in the model for @p document.
      */
-    void updateDocumentName(KTextEditor::Document * document);
+    void updateDocumentName(KTextEditor::Document *document);
 
     /**
      * Raise @p view in a lru fashion.
      */
-    void raiseView(KTextEditor::View * view);
+    void raiseView(KTextEditor::View *view);
 
     /**
      * Focus next item in the treeview.
@@ -118,12 +119,12 @@ public Q_SLOTS:
     /**
      * Activate the document for @p index.
      */
-    void switchToClicked(const QModelIndex& index);
+    void switchToClicked(const QModelIndex &index);
 
     /**
      * Show the document for @p index.
      */
-    void activateView(const QModelIndex& index);
+    void activateView(const QModelIndex &index);
 
 protected:
     /**
@@ -139,9 +140,9 @@ protected:
 private:
     TabSwitcherPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
-    detail::TabswitcherFilesModel * m_model;
+    detail::TabswitcherFilesModel *m_model;
     QSet<KTextEditor::Document *> m_documents;
-    TabSwitcherTreeView * m_treeView;
+    TabSwitcherTreeView *m_treeView;
 };
 
 #endif // KTEXTEDITOR_TAB_SWITCHER_PLUGIN_H

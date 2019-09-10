@@ -30,7 +30,8 @@
 
 #include <QSharedPointer>
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 class MainWindow;
 class Document;
 class View;
@@ -54,14 +55,11 @@ class LSPClientServerManager : public QObject
 
 public:
     // factory method; private implementation by interface
-    static QSharedPointer<LSPClientServerManager> new_(LSPClientPlugin *plugin,
-                                                       KTextEditor::MainWindow *mainWin);
+    static QSharedPointer<LSPClientServerManager> new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin);
 
-    virtual QSharedPointer<LSPClientServer> findServer(KTextEditor::Document *document,
-                                                       bool updatedoc = true) = 0;
+    virtual QSharedPointer<LSPClientServer> findServer(KTextEditor::Document *document, bool updatedoc = true) = 0;
 
-    virtual QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view,
-                                                       bool updatedoc = true) = 0;
+    virtual QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) = 0;
 
     virtual void update(KTextEditor::Document *doc, bool force) = 0;
 
@@ -87,8 +85,7 @@ class LSPClientRevisionSnapshot : public QObject
 
 public:
     // find a locked revision for url in snapshot
-    virtual void find(const QUrl &url, KTextEditor::MovingInterface *&miface,
-                      qint64 &revision) const = 0;
+    virtual void find(const QUrl &url, KTextEditor::MovingInterface *&miface, qint64 &revision) const = 0;
 };
 
 #endif

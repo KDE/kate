@@ -27,17 +27,19 @@
 #include <QObject>
 #include <QTimer>
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 class Document;
 }
-namespace KParts {
+namespace KParts
+{
 class ReadOnlyPart;
 }
 class QLabel;
 class QTemporaryFile;
 
-namespace KTextEditorPreview {
-
+namespace KTextEditorPreview
+{
 /**
  * Wrapper around a KPart which handles feeding it the content of a text document
  *
@@ -61,29 +63,29 @@ public:
      * @param service the description of the KPart which should be used, may not be a nullptr
      * @param parent the object taking ownership, can be a nullptr
      */
-    KPartView(const KService::Ptr& service, QObject* parent);
+    KPartView(const KService::Ptr &service, QObject *parent);
     ~KPartView() override;
 
     /**
      * Returns the widget object, ownership is not transferred.
      */
-    QWidget* widget() const;
+    QWidget *widget() const;
 
-    KParts::ReadOnlyPart* kPart() const;
+    KParts::ReadOnlyPart *kPart() const;
 
     /**
      * Sets the current document whose content should be previewed by the KPart.
      *
      * @param document the document or, if there is none to preview, a nullptr
      */
-    void setDocument(KTextEditor::Document* document);
+    void setDocument(KTextEditor::Document *document);
 
     /**
      * Returns the current document whose content is previewed by the KPart.
      *
      * @return current document or, if there is none, a nullptr
      */
-    KTextEditor::Document* document() const;
+    KTextEditor::Document *document() const;
 
     /**
      * Sets whether the preview should be updating automatically on document changes or not.
@@ -103,21 +105,21 @@ public:
     void updatePreview();
 
 protected:
-      bool eventFilter(QObject* object, QEvent* event) override;
+    bool eventFilter(QObject *object, QEvent *event) override;
 
 private:
     void triggerUpdatePreview();
-    void handleOpenUrlRequest(const QUrl& url);
+    void handleOpenUrlRequest(const QUrl &url);
 
 private:
-    QLabel* m_errorLabel = nullptr;
-    KParts::ReadOnlyPart* m_part = nullptr;
-    KTextEditor::Document* m_document = nullptr;
+    QLabel *m_errorLabel = nullptr;
+    KParts::ReadOnlyPart *m_part = nullptr;
+    KTextEditor::Document *m_document = nullptr;
 
     bool m_autoUpdating = true;
     bool m_previewDirty = true;
     QTimer m_updateSquashingTimer;
-    QTemporaryFile* m_bufferFile = nullptr;
+    QTemporaryFile *m_bufferFile = nullptr;
 };
 
 }

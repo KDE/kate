@@ -36,16 +36,11 @@ class Document;
  */
 class KateProjectItem : public QStandardItem
 {
-
 public:
     /**
      * Possible Types
      */
-    enum Type {
-        Project
-        , Directory
-        , File
-    };
+    enum Type { Project, Directory, File };
 
     /**
      * construct new item with given text
@@ -68,8 +63,7 @@ public:
 
 public:
     void slotModifiedChanged(KTextEditor::Document *);
-    void slotModifiedOnDisk(KTextEditor::Document *document,
-                            bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+    void slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
 
 private:
     QIcon *icon() const;
@@ -89,8 +83,6 @@ private:
      * for document icons
      */
     QString m_emblem;
-
 };
 
 #endif
-

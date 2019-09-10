@@ -29,25 +29,24 @@
 #include "TargetHtmlDelegate.h"
 #include "TargetModel.h"
 
-class TargetsUi: public QWidget
+class TargetsUi : public QWidget
 {
     Q_OBJECT
 
 public:
     TargetsUi(QObject *view, QWidget *parent = nullptr);
 
-    QLabel      *targetLabel;
-    QComboBox   *targetCombo;
+    QLabel *targetLabel;
+    QComboBox *targetCombo;
     QToolButton *newTarget;
     QToolButton *copyTarget;
     QToolButton *deleteTarget;
 
-    QTreeView   *targetsView;
-    TargetModel  targetsModel;
+    QTreeView *targetsView;
+    TargetModel targetsModel;
 
     QToolButton *addButton;
     QToolButton *buildButton;
-
 
 public Q_SLOTS:
     void targetSetSelected(int index);

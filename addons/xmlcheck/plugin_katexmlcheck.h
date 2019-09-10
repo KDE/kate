@@ -1,10 +1,10 @@
- /***************************************************************************
-                           plugin_katexmlcheck.h
-                           -------------------
-	begin                : 2002-07-06
-	copyright            : (C) 2002 by Daniel Naber
-	email                : daniel.naber@t-online.de
- ***************************************************************************/
+/***************************************************************************
+                          plugin_katexmlcheck.h
+                          -------------------
+   begin                : 2002-07-06
+   copyright            : (C) 2002 by Daniel Naber
+   email                : daniel.naber@t-online.de
+***************************************************************************/
 
 /***************************************************************************
  This program is free software; you can redistribute it and/or
@@ -69,16 +69,15 @@ private:
     QTreeWidget *listview;
 };
 
-
 class PluginKateXMLCheck : public KTextEditor::Plugin
 {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-  explicit PluginKateXMLCheck( QObject* parent = nullptr, const QVariantList& = QVariantList() );
+    explicit PluginKateXMLCheck(QObject *parent = nullptr, const QVariantList & = QVariantList());
 
     ~PluginKateXMLCheck() override;
-     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
 
 #endif // PLUGIN_KATEXMLCHECK_H

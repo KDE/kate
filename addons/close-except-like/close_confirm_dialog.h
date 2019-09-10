@@ -23,43 +23,43 @@
  */
 
 #ifndef __SRC__CLOSE_CONFIRM_DIALOG_H__
-# define __SRC__CLOSE_CONFIRM_DIALOG_H__
+#define __SRC__CLOSE_CONFIRM_DIALOG_H__
 
 // Project specific includes
 
 // Standard includes
-# include <QDialog>
-# include <KTextEditor/Document>
-# include <KToggleAction>
-# include <kwindowconfig.h>
-# include <QList>
-# include <QTreeWidget>
-# include <QTreeWidgetItem>
-# include <QCheckBox>
-# include "ui_close_confirm_dialog.h"
+#include <QDialog>
+#include <KTextEditor/Document>
+#include <KToggleAction>
+#include <kwindowconfig.h>
+#include <QList>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QCheckBox>
+#include "ui_close_confirm_dialog.h"
 
-namespace kate {
-
+namespace kate
+{
 /**
  * \brief [Type brief class description here]
  *
  * [More detailed description here]
  *
  */
-class CloseConfirmDialog : public QDialog, public Ui::CloseConfirmDialog 
+class CloseConfirmDialog : public QDialog, public Ui::CloseConfirmDialog
 {
     Q_OBJECT
 public:
     /// Default constructor
-    explicit CloseConfirmDialog(QList<KTextEditor::Document*>&, KToggleAction*, QWidget* const = nullptr);
+    explicit CloseConfirmDialog(QList<KTextEditor::Document *> &, KToggleAction *, QWidget *const = nullptr);
     ~CloseConfirmDialog() override;
 
 private Q_SLOTS:
     void updateDocsList();
 
 private:
-    QList<KTextEditor::Document*>& m_docs;
+    QList<KTextEditor::Document *> &m_docs;
 };
 
-}                                                           // namespace kate
-#endif                                                      // __SRC__CLOSE_CONFIRM_DIALOG_H__
+} // namespace kate
+#endif // __SRC__CLOSE_CONFIRM_DIALOG_H__

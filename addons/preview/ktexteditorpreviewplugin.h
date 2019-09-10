@@ -31,12 +31,12 @@ public:
     /**
      * Default constructor, with arguments as expected by KPluginFactory
      */
-    KTextEditorPreviewPlugin(QObject* parent, const QVariantList& args);
+    KTextEditorPreviewPlugin(QObject *parent, const QVariantList &args);
 
     ~KTextEditorPreviewPlugin() override;
 
 public: // KTextEditor::Plugin API
-    QObject* createView(KTextEditor::MainWindow* mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
 
 #endif

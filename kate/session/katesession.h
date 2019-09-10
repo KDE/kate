@@ -44,7 +44,8 @@ public:
      * session name
      * @return name for this session
      */
-    const QString &name() const {
+    const QString &name() const
+    {
         return m_name;
     }
 
@@ -62,7 +63,8 @@ public:
      * count of documents in this session
      * @return documents count
      */
-    unsigned int documents() const {
+    unsigned int documents() const
+    {
         return m_documents;
     }
 
@@ -74,7 +76,8 @@ public:
     /**
      * @return true if this is anonymous/new session
      */
-    bool isAnonymous() const {
+    bool isAnonymous() const
+    {
         return m_anonymous;
     }
 
@@ -86,7 +89,8 @@ public:
     /**
      * returns last save time of this session
      */
-    const QDateTime &timestamp() const {
+    const QDateTime &timestamp() const
+    {
         return m_timestamp;
     }
 
@@ -134,4 +138,3 @@ private:
 };
 
 #endif
-

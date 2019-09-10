@@ -79,7 +79,7 @@ private:
     /**
      * our plugin view
      */
-    KateProjectPluginView * const m_pluginView;
+    KateProjectPluginView *const m_pluginView;
 
     /**
      * our start directory for the terminal
@@ -98,4 +98,3 @@ private:
 };
 
 #endif
-

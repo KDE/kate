@@ -39,7 +39,7 @@ class KateMainWindow;
 class KateDocumentInfo
 {
 public:
-    enum CustomRoles {RestoreOpeningFailedRole };
+    enum CustomRoles { RestoreOpeningFailedRole };
 
 public:
     KateDocumentInfo() = default;
@@ -66,23 +66,18 @@ public:
     /** Returns the documentNumber of the doc with url URL or -1 if no such doc is found */
     KTextEditor::Document *findDocument(const QUrl &url) const;
 
-    const QList<KTextEditor::Document *> &documentList() const {
+    const QList<KTextEditor::Document *> &documentList() const
+    {
         return m_docList;
     }
 
-    KTextEditor::Document *openUrl(const QUrl &,
-                                   const QString &encoding = QString(),
-                                   bool isTempFile = false,
-                                   const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *openUrl(const QUrl &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    QList<KTextEditor::Document *> openUrls(const QList<QUrl> &,
-                                            const QString &encoding = QString(),
-                                            bool isTempFile = false,
-                                            const KateDocumentInfo &docInfo = KateDocumentInfo());
+    QList<KTextEditor::Document *> openUrls(const QList<QUrl> &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
     bool closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl = true);
-    bool closeDocumentList(const QList<KTextEditor::Document *>& documents);
+    bool closeDocumentList(const QList<KTextEditor::Document *> &documents);
     bool closeAllDocuments(bool closeUrl = true);
     bool closeOtherDocuments(KTextEditor::Document *);
 
@@ -92,17 +87,21 @@ public:
     void saveDocumentList(KConfig *config);
     void restoreDocumentList(KConfig *config);
 
-    inline bool getSaveMetaInfos() {
+    inline bool getSaveMetaInfos()
+    {
         return m_saveMetaInfos;
     }
-    inline void setSaveMetaInfos(bool b) {
+    inline void setSaveMetaInfos(bool b)
+    {
         m_saveMetaInfos = b;
     }
 
-    inline int getDaysMetaInfos() {
+    inline int getDaysMetaInfos()
+    {
         return m_daysMetaInfos;
     }
-    inline void setDaysMetaInfos(int i) {
+    inline void setDaysMetaInfos(int i)
+    {
         m_daysMetaInfos = i;
     }
 

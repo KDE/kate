@@ -26,15 +26,15 @@ class SchemaWidget;
 
 class SchemaBrowserWidget : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     SchemaBrowserWidget(QWidget *parent, SQLManager *manager);
     ~SchemaBrowserWidget() override;
 
     SchemaWidget *schemaWidget() const;
 
-  private:
+private:
     SchemaWidget *m_schemaWidget;
 };
 

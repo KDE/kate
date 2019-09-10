@@ -162,9 +162,11 @@ enum class LSPSymbolKind {
 };
 
 struct LSPSymbolInformation {
-    LSPSymbolInformation(const QString &_name, LSPSymbolKind _kind, LSPRange _range,
-                         const QString &_detail)
-        : name(_name), detail(_detail), kind(_kind), range(_range)
+    LSPSymbolInformation(const QString &_name, LSPSymbolKind _kind, LSPRange _range, const QString &_detail)
+        : name(_name)
+        , detail(_detail)
+        , kind(_kind)
+        , range(_range)
     {
     }
     QString name;

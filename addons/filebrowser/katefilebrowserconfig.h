@@ -32,10 +32,11 @@ class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
 {
     Q_OBJECT
 
-  public:
-    explicit KateFileBrowserConfigPage( QWidget* parent = nullptr, KateFileBrowser *kfb = nullptr);
+public:
+    explicit KateFileBrowserConfigPage(QWidget *parent = nullptr, KateFileBrowser *kfb = nullptr);
     ~KateFileBrowserConfigPage() override
-    {}
+    {
+    }
 
     QString name() const override;
     QString fullName() const override;
@@ -44,12 +45,13 @@ class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
     void apply() override;
     void reset() override;
     void defaults() override
-    {}
+    {
+    }
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void slotMyChanged();
 
-  private:
+private:
     void init();
 
     KateFileBrowser *fileBrowser;
@@ -58,6 +60,6 @@ class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
     bool m_changed = false;
 };
 
-#endif //KATE_FILEBROWSER_CONFIG_H
+#endif // KATE_FILEBROWSER_CONFIG_H
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

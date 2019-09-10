@@ -60,7 +60,8 @@ public:
     KTextEditor::View *createView(KTextEditor::Document *doc);
     void removeView(KTextEditor::View *v);
 
-    bool showView(KTextEditor::View *view) {
+    bool showView(KTextEditor::View *view)
+    {
         return showView(view->document());
     }
     bool showView(KTextEditor::Document *document);
@@ -74,13 +75,13 @@ public:
     /**
      * Returns the document LRU list of this view space.
      */
-    QVector<KTextEditor::Document*> lruDocumentList() const;
+    QVector<KTextEditor::Document *> lruDocumentList() const;
 
     /**
      * Called by the view manager if a viewspace was closed.
      * The documents of the closed are merged into this viewspace
      */
-    void mergeLruList(const QVector<KTextEditor::Document*> & lruList);
+    void mergeLruList(const QVector<KTextEditor::Document *> &lruList);
 
     /**
      * Called by the view manager to notify that new documents were created
@@ -125,13 +126,13 @@ private Q_SLOTS:
     /**
      * Add a tab for @p doc at position @p index.
      */
-    void insertTab(int index, KTextEditor::Document * doc);
+    void insertTab(int index, KTextEditor::Document *doc);
 
     /**
      * Remove tab for @p doc, and return the index (position)
      * of the removed tab.
      */
-    int removeTab(KTextEditor::Document * doc, bool documentDestroyed);
+    int removeTab(KTextEditor::Document *doc, bool documentDestroyed);
 
     /**
      * Remove @p count tabs, since the tab bar shrunk.
@@ -156,7 +157,7 @@ private Q_SLOTS:
      *        at a place where no tab exists
      * @param globalPos the position of the context menu in global coordinates
      */
-    void showContextMenu(int id, const QPoint & globalPos);
+    void showContextMenu(int id, const QPoint &globalPos);
 
     /**
      * Called to create a new empty document.
@@ -196,14 +197,14 @@ private:
     // the list of views that are contained in this view space,
     // mapped through a hash from Document to View.
     // note: the number of entries match stack->count();
-    QHash<KTextEditor::Document*, KTextEditor::View*> m_docToView;
+    QHash<KTextEditor::Document *, KTextEditor::View *> m_docToView;
 
     // tab bar that contains viewspace tabs
     KateTabBar *m_tabBar;
-    
+
     // split action
     QToolButton *m_split;
-    
+
     // quick open action
     QToolButton *m_quickOpen;
 

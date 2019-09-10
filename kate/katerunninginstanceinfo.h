@@ -27,17 +27,21 @@
 #include <QVariant>
 #include <iostream>
 
-class KateRunningInstanceInfo: public QObject
+class KateRunningInstanceInfo : public QObject
 {
     Q_OBJECT
 
 public:
-    KateRunningInstanceInfo(const QString &serviceName_):
-        QObject(), valid(false),
-        serviceName(serviceName_),
-        dbus_if(new QDBusInterface(serviceName_, QStringLiteral("/MainApplication"),
-                                   QString(), //I don't know why it does not work if I specify org.kde.Kate.Application here
-                                   QDBusConnection::sessionBus(), this)) {
+    KateRunningInstanceInfo(const QString &serviceName_)
+        : QObject()
+        , valid(false)
+        , serviceName(serviceName_)
+        , dbus_if(new QDBusInterface(serviceName_,
+                                     QStringLiteral("/MainApplication"),
+                                     QString(), // I don't know why it does not work if I specify org.kde.Kate.Application here
+                                     QDBusConnection::sessionBus(),
+                                     this))
+    {
         if (!dbus_if->isValid()) {
             std::cerr << qPrintable(QDBusConnection::sessionBus().lastError().message()) << std::endl;
         }
@@ -57,7 +61,8 @@ public:
             valid = true;
         }
     }
-    ~KateRunningInstanceInfo() override {
+    ~KateRunningInstanceInfo() override
+    {
         delete dbus_if;
     }
     bool valid;
@@ -75,4 +80,3 @@ Q_DECL_EXPORT bool fillinRunningKateAppInstances(KateRunningInstanceMap *map);
 Q_DECL_EXPORT void cleanupRunningKateAppInstanceMap(KateRunningInstanceMap *map);
 
 #endif
-

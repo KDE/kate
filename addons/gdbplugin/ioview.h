@@ -32,7 +32,7 @@ class QSocketNotifier;
 
 class IOView : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     IOView(QWidget *parent = nullptr);
     ~IOView() override;
@@ -62,22 +62,22 @@ private:
     void createFifos();
     QString createFifo(const QString &prefix);
 
-    QTextEdit       *m_output;
-    QLineEdit       *m_input;
+    QTextEdit *m_output;
+    QLineEdit *m_input;
 
-    QString          m_stdinFifo;
-    QString          m_stdoutFifo;
-    QString          m_stderrFifo;
+    QString m_stdinFifo;
+    QString m_stdoutFifo;
+    QString m_stderrFifo;
 
-    QFile            m_stdin;
-    QFile            m_stdout;
-    QFile            m_stderr;
+    QFile m_stdin;
+    QFile m_stdout;
+    QFile m_stderr;
 
-    QFile            m_stdoutD;
-    QFile            m_stderrD;
+    QFile m_stdoutD;
+    QFile m_stderrD;
 
-    int              m_stdoutFD;
-    int              m_stderrFD;
+    int m_stdoutFD;
+    int m_stderrFD;
 
     QSocketNotifier *m_stdoutNotifier;
     QSocketNotifier *m_stderrNotifier;

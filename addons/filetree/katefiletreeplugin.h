@@ -41,7 +41,7 @@ class KateFileTreeProxyModel;
 class KateFileTreeConfigPage;
 class KateFileTreePluginView;
 
-class KateFileTreePlugin: public KTextEditor::Plugin
+class KateFileTreePlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
@@ -56,7 +56,7 @@ public:
 
     const KateFileTreePluginSettings &settings();
 
-    void applyConfig(bool shadingEnabled, const QColor& viewShade, const QColor& editShade, bool listMode, int sortRole, bool showFulPath);
+    void applyConfig(bool shadingEnabled, const QColor &viewShade, const QColor &editShade, bool listMode, int sortRole, bool showFulPath);
 
 public Q_SLOTS:
     void viewDestroyed(QObject *view);
@@ -75,8 +75,8 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTex
 
 public:
     /**
-      * Constructor.
-      */
+     * Constructor.
+     */
     KateFileTreePluginView(KTextEditor::MainWindow *mainWindow, KateFileTreePlugin *plug);
 
     /**
@@ -138,5 +138,4 @@ private Q_SLOTS:
     void slotDocumentSaveAs();
 };
 
-#endif //KATE_FILETREE_PLUGIN_H
-
+#endif // KATE_FILETREE_PLUGIN_H

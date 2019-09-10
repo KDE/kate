@@ -1,7 +1,7 @@
 #ifndef KATE_CTAGS_VIEW_H
 #define KATE_CTAGS_VIEW_H
 /* Description : Kate CTags plugin
- * 
+ *
  * Copyright (C) 2008-2011 by Kare Sars <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or
@@ -20,7 +20,6 @@
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 
 #include <KTextEditor/View>
 #include <KTextEditor/Document>
@@ -43,8 +42,7 @@
 
 const static QString DEFAULT_CTAGS_CMD = QStringLiteral("ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=.");
 
-typedef struct
-{
+typedef struct {
     QUrl url;
     KTextEditor::Cursor cursor;
 } TagJump;
@@ -56,12 +54,12 @@ class KateCTagsView : public QObject, public KXMLGUIClient, public KTextEditor::
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
-  KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
+    KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
     ~KateCTagsView() override;
 
     // reimplemented: read and write session config
-    void readSessionConfig (const KConfigGroup& config) override;
-    void writeSessionConfig (KConfigGroup& config) override;
+    void readSessionConfig(const KConfigGroup &config) override;
+    void writeSessionConfig(KConfigGroup &config) override;
 
 public Q_SLOTS:
     void gotoDefinition();
@@ -72,10 +70,10 @@ public Q_SLOTS:
     void aboutToShow();
     void tagHitClicked(QTreeWidgetItem *);
     void startEditTmr();
-    
+
     void addTagTarget();
     void delTagTarget();
-    
+
     void updateSessionDB();
     void updateDone(int exitCode, QProcess::ExitStatus status);
 
@@ -90,30 +88,27 @@ private:
     bool listContains(const QString &target);
 
     QString currentWord();
-    
+
     void setNewLookupText(const QString &newText);
     void displayHits(const Tags::TagList &list);
-    
+
     void gotoTagForTypes(const QString &tag, QStringList const &types);
     void jumpToTag(const QString &file, const QString &pattern, const QString &word);
-    
 
     QPointer<KTextEditor::MainWindow> m_mWin;
-    QPointer<QWidget>      m_toolView;
-    Ui::kateCtags          m_ctagsUi;
+    QPointer<QWidget> m_toolView;
+    Ui::kateCtags m_ctagsUi;
 
-    QPointer<KActionMenu>  m_menu;
-    QAction               *m_gotoDef;
-    QAction               *m_gotoDec;
-    QAction               *m_lookup;
+    QPointer<KActionMenu> m_menu;
+    QAction *m_gotoDef;
+    QAction *m_gotoDec;
+    QAction *m_lookup;
 
-    QProcess               m_proc;
-    QString                m_commonDB;
+    QProcess m_proc;
+    QString m_commonDB;
 
-    QTimer                 m_editTimer;
-    QStack<TagJump>        m_jumpStack;
+    QTimer m_editTimer;
+    QStack<TagJump> m_jumpStack;
 };
 
-
 #endif
-

@@ -1,5 +1,5 @@
 /*   Kate search plugin
- * 
+ *
  * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -26,14 +26,14 @@
 #include <QTime>
 #include <ktexteditor/document.h>
 
-class SearchOpenFiles: public QObject
+class SearchOpenFiles : public QObject
 {
     Q_OBJECT
 
 public:
     SearchOpenFiles(QObject *parent = nullptr);
 
-    void startSearch(const QList<KTextEditor::Document*> &list,const QRegularExpression &regexp);
+    void startSearch(const QList<KTextEditor::Document *> &list, const QRegularExpression &regexp);
     bool searching();
 
 public Q_SLOTS:
@@ -51,20 +51,18 @@ private:
 
 Q_SIGNALS:
     void searchNextFile(int startLine);
-    void matchFound(const QString &url, const QString &fileName, const QString &lineContent, int matchLen,
-                    int line, int column, int endLine, int endColumn);
+    void matchFound(const QString &url, const QString &fileName, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
     void searchDone();
     void searching(const QString &file);
 
 private:
-    QList<KTextEditor::Document*> m_docList;
-    int                           m_nextIndex = -1;
-    QRegularExpression            m_regExp;
-    bool                          m_cancelSearch = true;
-    QString                       m_fullDoc;
-    QVector<int>                  m_lineStart;
-    QTime                         m_statusTime;
+    QList<KTextEditor::Document *> m_docList;
+    int m_nextIndex = -1;
+    QRegularExpression m_regExp;
+    bool m_cancelSearch = true;
+    QString m_fullDoc;
+    QVector<int> m_lineStart;
+    QTime m_statusTime;
 };
-
 
 #endif

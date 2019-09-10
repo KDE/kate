@@ -26,26 +26,25 @@ struct OutputStyle;
 #include <qcolor.h>
 #include <qfont.h>
 
-
 /// provide colors and styles
 class DataOutputModel : public CachedSqlQueryModel
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     DataOutputModel(QObject *parent = nullptr);
     ~DataOutputModel() override;
 
     bool useSystemLocale() const;
     void setUseSystemLocale(bool useSystemLocale);
 
-    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     void clear() override;
     void readConfig();
 
-  private:
-    QHash<QString,OutputStyle*> m_styles;
+private:
+    QHash<QString, OutputStyle *> m_styles;
     bool m_useSystemLocale;
 };
 

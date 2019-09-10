@@ -21,7 +21,6 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 
@@ -38,33 +37,43 @@ class KateCTagsPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
-    public:
-        explicit KateCTagsPlugin(QObject* parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-        ~KateCTagsPlugin() override {}
+public:
+    explicit KateCTagsPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    ~KateCTagsPlugin() override
+    {
+    }
 
-        QObject *createView(KTextEditor::MainWindow *mainWindow) override;
-   
-        int configPages() const override { return 1; }
-        KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
-        void readConfig();
-        
-        KateCTagsView *m_view = nullptr;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+
+    int configPages() const override
+    {
+        return 1;
+    }
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
+    void readConfig();
+
+    KateCTagsView *m_view = nullptr;
 };
 
 //******************************************************************/
-class KateCTagsConfigPage : public KTextEditor::ConfigPage {
+class KateCTagsConfigPage : public KTextEditor::ConfigPage
+{
     Q_OBJECT
 public:
-    explicit KateCTagsConfigPage( QWidget* parent = nullptr, KateCTagsPlugin *plugin = nullptr );
-    ~KateCTagsConfigPage() override {}
+    explicit KateCTagsConfigPage(QWidget *parent = nullptr, KateCTagsPlugin *plugin = nullptr);
+    ~KateCTagsConfigPage() override
+    {
+    }
 
     QString name() const override;
     QString fullName() const override;
     QIcon icon() const override;
-    
+
     void apply() override;
     void reset() override;
-    void defaults() override {}
+    void defaults() override
+    {
+    }
 
 private Q_SLOTS:
     void addGlobalTagTarget();
@@ -73,13 +82,11 @@ private Q_SLOTS:
     void updateDone(int exitCode, QProcess::ExitStatus status);
 
 private:
-
     bool listContains(const QString &target);
 
-    QProcess              m_proc;
-    KateCTagsPlugin      *m_plugin;
-    Ui_CTagsGlobalConfig  m_confUi;
+    QProcess m_proc;
+    KateCTagsPlugin *m_plugin;
+    Ui_CTagsGlobalConfig m_confUi;
 };
 
 #endif
-

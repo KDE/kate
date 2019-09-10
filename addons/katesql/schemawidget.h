@@ -29,26 +29,26 @@ class QMouseEvent;
 
 class SchemaWidget : public QTreeWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    static const int TableType        = QTreeWidgetItem::UserType + 1;
-    static const int SystemTableType  = QTreeWidgetItem::UserType + 2;
-    static const int ViewType         = QTreeWidgetItem::UserType + 3;
-    static const int FieldType        = QTreeWidgetItem::UserType + 4;
+public:
+    static const int TableType = QTreeWidgetItem::UserType + 1;
+    static const int SystemTableType = QTreeWidgetItem::UserType + 2;
+    static const int ViewType = QTreeWidgetItem::UserType + 3;
+    static const int FieldType = QTreeWidgetItem::UserType + 4;
     static const int TablesFolderType = QTreeWidgetItem::UserType + 101;
     static const int SystemTablesFolderType = QTreeWidgetItem::UserType + 102;
-    static const int ViewsFolderType  = QTreeWidgetItem::UserType + 103;
+    static const int ViewsFolderType = QTreeWidgetItem::UserType + 103;
 
     SchemaWidget(QWidget *parent, SQLManager *manager);
     ~SchemaWidget() override;
 
-    void buildDatabase(QTreeWidgetItem * databaseItem);
-    void buildTables(QTreeWidgetItem * tablesItem);
-    void buildViews(QTreeWidgetItem * viewsItem);
-    void buildFields(QTreeWidgetItem * tableItem);
+    void buildDatabase(QTreeWidgetItem *databaseItem);
+    void buildTables(QTreeWidgetItem *tablesItem);
+    void buildViews(QTreeWidgetItem *viewsItem);
+    void buildFields(QTreeWidgetItem *tableItem);
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void buildTree(const QString &connection);
     void refresh();
 
@@ -58,11 +58,11 @@ class SchemaWidget : public QTreeWidget
     void generateDelete();
     void generateStatement(QSqlDriver::StatementType type);
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void slotCustomContextMenuRequested(const QPoint &pos);
     void slotItemExpanded(QTreeWidgetItem *item);
 
-  private:
+private:
     void deleteChildren(QTreeWidgetItem *item);
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;

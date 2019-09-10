@@ -29,30 +29,28 @@ class DataOutputView;
 
 class DataOutputWidget : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    enum Option {
-      NoOptions = 0x0,
-      ExportColumnNames = 0x1,
-      ExportLineNumbers = 0x2
-    };
+public:
+    enum Option { NoOptions = 0x0, ExportColumnNames = 0x1, ExportLineNumbers = 0x2 };
 
     Q_DECLARE_FLAGS(Options, Option)
 
     DataOutputWidget(QWidget *parent);
     ~DataOutputWidget() override;
 
-    void exportData(QTextStream &stream,
-                    const QChar stringsQuoteChar = QLatin1Char ('\0'),
-                    const QChar numbersQuoteChar = QLatin1Char ('\0'),
-                    const QString &fieldDelimiter = QStringLiteral ("\t"),
-                    const Options opt = NoOptions);
+    void exportData(QTextStream &stream, const QChar stringsQuoteChar = QLatin1Char('\0'), const QChar numbersQuoteChar = QLatin1Char('\0'), const QString &fieldDelimiter = QStringLiteral("\t"), const Options opt = NoOptions);
 
-    DataOutputModel *model() const { return m_model; }
-    DataOutputView  *view()  const { return m_view; }
+    DataOutputModel *model() const
+    {
+        return m_model;
+    }
+    DataOutputView *view() const
+    {
+        return m_view;
+    }
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void showQueryResultSets(QSqlQuery &query);
     void resizeColumnsToContents();
     void resizeRowsToContents();
@@ -62,7 +60,7 @@ class DataOutputWidget : public QWidget
     void slotCopySelected();
     void slotExport();
 
-  private:
+private:
     QVBoxLayout *m_dataLayout;
 
     /// TODO: manage multiple views for query with multiple resultsets

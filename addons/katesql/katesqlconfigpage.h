@@ -30,29 +30,28 @@ class QCheckBox;
 
 class KateSQLConfigPage : public KTextEditor::ConfigPage
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit KateSQLConfigPage( QWidget* parent = nullptr );
+public:
+    explicit KateSQLConfigPage(QWidget *parent = nullptr);
     ~KateSQLConfigPage() override;
 
     QString name() const override;
     QString fullName() const override;
     QIcon icon() const override;
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void apply() override;
     void reset() override;
     void defaults() override;
 
-  private:
+private:
     KateSQLPlugin *m_plugin;
     QCheckBox *m_box;
     OutputStyleWidget *m_outputStyleWidget;
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void settingsChanged();
 };
 
 #endif // KATESQLCONFIGPAGE_H
-

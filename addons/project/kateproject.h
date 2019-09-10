@@ -36,13 +36,14 @@
 typedef QSharedPointer<QStandardItem> KateProjectSharedQStandardItem;
 Q_DECLARE_METATYPE(KateProjectSharedQStandardItem)
 
-typedef QSharedPointer<QMap<QString, KateProjectItem *> > KateProjectSharedQMapStringItem;
+typedef QSharedPointer<QMap<QString, KateProjectItem *>> KateProjectSharedQMapStringItem;
 Q_DECLARE_METATYPE(KateProjectSharedQMapStringItem)
 
 typedef QSharedPointer<KateProjectIndex> KateProjectSharedProjectIndex;
 Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
 
-namespace ThreadWeaver {
+namespace ThreadWeaver
+{
 class Queue;
 }
 
@@ -86,7 +87,8 @@ public:
      * Accessor to file name.
      * @return file name
      */
-    const QString &fileName() const {
+    const QString &fileName() const
+    {
         return m_fileName;
     }
 
@@ -94,7 +96,8 @@ public:
      * Return the base directory of this project.
      * @return base directory of project, might not be the directory of the fileName!
      */
-    const QString &baseDir() const {
+    const QString &baseDir() const
+    {
         return m_baseDir;
     }
 
@@ -102,13 +105,17 @@ public:
      * Return the time when the project file has been modified last.
      * @return QFileInfo::lastModified()
      */
-    QDateTime fileLastModified() const { return m_fileLastModified; }
+    QDateTime fileLastModified() const
+    {
+        return m_fileLastModified;
+    }
 
     /**
      * Accessor to project map containing the whole project info.
      * @return project info
      */
-    const QVariantMap &projectMap() const {
+    const QVariantMap &projectMap() const
+    {
         return m_projectMap;
     }
 
@@ -116,8 +123,9 @@ public:
      * Accessor to project name.
      * @return project name
      */
-    QString name() const {
-        //MSVC doesn't support QStringLiteral here
+    QString name() const
+    {
+        // MSVC doesn't support QStringLiteral here
         return m_projectMap[QStringLiteral("name")].toString();
     }
 
@@ -125,7 +133,8 @@ public:
      * Accessor for the model.
      * @return model of this project
      */
-    QStandardItemModel *model() {
+    QStandardItemModel *model()
+    {
         return &m_model;
     }
 
@@ -133,7 +142,8 @@ public:
      * Flat list of all files in the project
      * @return list of files in project
      */
-    QStringList files() {
+    QStringList files()
+    {
         return m_file2Item ? m_file2Item->keys() : QStringList();
     }
 
@@ -142,7 +152,8 @@ public:
      * @param file file to get item for
      * @return item for given file or 0
      */
-    KateProjectItem *itemForFile(const QString &file) {
+    KateProjectItem *itemForFile(const QString &file)
+    {
         return m_file2Item ? m_file2Item->value(file) : nullptr;
     }
 
@@ -152,7 +163,8 @@ public:
      * Don't store this pointer, might change.
      * @return project index
      */
-    KateProjectIndex *projectIndex() {
+    KateProjectIndex *projectIndex()
+    {
         return m_projectIndex.data();
     }
 
@@ -197,7 +209,7 @@ private Q_SLOTS:
      * @param topLevel new toplevel element for model
      * @param file2Item new file => item mapping
      */
-    void loadProjectDone(const KateProjectSharedQStandardItem& topLevel, KateProjectSharedQMapStringItem file2Item);
+    void loadProjectDone(const KateProjectSharedQStandardItem &topLevel, KateProjectSharedQMapStringItem file2Item);
 
     /**
      * Used for worker to send back the results of index loading
@@ -207,8 +219,7 @@ private Q_SLOTS:
 
     void slotModifiedChanged(KTextEditor::Document *);
 
-    void slotModifiedOnDisk(KTextEditor::Document *document,
-                            bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+    void slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
 
 Q_SIGNALS:
     /**
@@ -235,7 +246,6 @@ private:
     QVariantMap readProjectFile() const;
 
 private:
-
     /**
      * Last modification time of the project file
      */

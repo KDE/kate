@@ -43,39 +43,32 @@
 #include <kselectaction.h>
 
 struct GDBTargetConf {
-    QString     executable;
-    QString     workDir;
-    QString     arguments;
-    QString     gdbCmd;
+    QString executable;
+    QString workDir;
+    QString arguments;
+    QString gdbCmd;
     QStringList customInit;
     QStringList srcPaths;
 };
 
 class ConfigView : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    enum TargetStringOrder {
-        NameIndex = 0,
-        ExecIndex,
-        WorkDirIndex,
-        ArgsIndex,
-        GDBIndex,
-        CustomStartIndex
-    };
+    enum TargetStringOrder { NameIndex = 0, ExecIndex, WorkDirIndex, ArgsIndex, GDBIndex, CustomStartIndex };
 
-    ConfigView(QWidget* parent, KTextEditor::MainWindow* mainWin);
+    ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin);
     ~ConfigView() override;
 
 public:
-    void registerActions(KActionCollection* actionCollection);
+    void registerActions(KActionCollection *actionCollection);
 
-    void readConfig (const KConfigGroup& config);
-    void writeConfig (KConfigGroup& config);
+    void readConfig(const KConfigGroup &config);
+    void writeConfig(KConfigGroup &config);
 
     const GDBTargetConf currentTarget() const;
-    bool  takeFocusAlways() const;
-    bool  showIOTab() const;
+    bool takeFocusAlways() const;
+    bool showIOTab() const;
 
 Q_SIGNALS:
     void showIO(bool show);
@@ -99,34 +92,34 @@ private:
     void setAdvancedOptions();
 
 private:
-    KTextEditor::MainWindow*   m_mainWindow;
-    QComboBox*          m_targetCombo;
-    int                 m_currentTarget;
-    QToolButton*        m_addTarget;
-    QToolButton*        m_copyTarget;
-    QToolButton*        m_deleteTarget;
-    QFrame*             m_line;
+    KTextEditor::MainWindow *m_mainWindow;
+    QComboBox *m_targetCombo;
+    int m_currentTarget;
+    QToolButton *m_addTarget;
+    QToolButton *m_copyTarget;
+    QToolButton *m_deleteTarget;
+    QFrame *m_line;
 
-    QLineEdit*          m_executable;
-    QToolButton*        m_browseExe;
+    QLineEdit *m_executable;
+    QToolButton *m_browseExe;
 
-    QLineEdit*          m_workingDirectory;
-    QToolButton*        m_browseDir;
+    QLineEdit *m_workingDirectory;
+    QToolButton *m_browseDir;
 
-    QLineEdit*          m_arguments;
+    QLineEdit *m_arguments;
 
-    QCheckBox*          m_takeFocus;
-    QCheckBox*          m_redirectTerminal;
-    QPushButton*        m_advancedSettings;
-    QBoxLayout*         m_checBoxLayout;
+    QCheckBox *m_takeFocus;
+    QCheckBox *m_redirectTerminal;
+    QPushButton *m_advancedSettings;
+    QBoxLayout *m_checBoxLayout;
 
-    bool                m_useBottomLayout;
-    QLabel*             m_execLabel;
-    QLabel*             m_workDirLabel;
-    QLabel*             m_argumentsLabel;
-    KSelectAction*      m_targetSelectAction;
+    bool m_useBottomLayout;
+    QLabel *m_execLabel;
+    QLabel *m_workDirLabel;
+    QLabel *m_argumentsLabel;
+    KSelectAction *m_targetSelectAction;
 
-    AdvancedGDBSettings* m_advanced;
+    AdvancedGDBSettings *m_advanced;
 };
 
 #endif

@@ -21,29 +21,28 @@
 
 #include <qtreewidget.h>
 
-
 class OutputStyleWidget : public QTreeWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     OutputStyleWidget(QWidget *parent = nullptr);
     ~OutputStyleWidget() override;
 
-    QTreeWidgetItem* addContext(const QString &key, const QString &name);
+    QTreeWidgetItem *addContext(const QString &key, const QString &name);
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void readConfig();
     void writeConfig();
 
-  protected Q_SLOTS:
+protected Q_SLOTS:
     void slotChanged();
     void updatePreviews();
 
     void readConfig(QTreeWidgetItem *item);
     void writeConfig(QTreeWidgetItem *item);
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void changed();
 };
 

@@ -85,7 +85,8 @@ public:
      * as indicator whether ctags is installed or not.
      * @return true if a valid index exists, otherwise false
      */
-    bool isValid() const {
+    bool isValid() const
+    {
         return m_ctagsIndexHandle;
     }
 
@@ -110,4 +111,3 @@ private:
 };
 
 #endif
-

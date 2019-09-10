@@ -32,26 +32,27 @@ class Snippet;
 class SnippetRepository;
 class QModelIndex;
 
-namespace KTextEditor {
-  class View;
-  class Range;
-  class CodeCompletionModel;
+namespace KTextEditor
+{
+class View;
+class Range;
+class CodeCompletionModel;
 }
 
 class SnippetCompletionItem
 {
 public:
-    SnippetCompletionItem(Snippet* snippet, SnippetRepository* repo);
+    SnippetCompletionItem(Snippet *snippet, SnippetRepository *repo);
     ~SnippetCompletionItem();
 
-    void execute(KTextEditor::View* view, const KTextEditor::Range& word);
-    QVariant data( const QModelIndex& index, int role, const KTextEditor::CodeCompletionModel* model ) const;
+    void execute(KTextEditor::View *view, const KTextEditor::Range &word);
+    QVariant data(const QModelIndex &index, int role, const KTextEditor::CodeCompletionModel *model) const;
 
 private:
     // we copy since the snippet itself can be deleted at any time
     QString m_name;
     QString m_snippet;
-    SnippetRepository* m_repo;
+    SnippetRepository *m_repo;
 };
 
 #endif // SNIPPETCOMPLETIONITEM_H

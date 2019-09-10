@@ -32,6 +32,6 @@ public:
     ~TsTestApp() override;
 
 private:
-   class Impl;
-   std::unique_ptr<Impl> impl_;
+    class Impl;
+    std::unique_ptr<Impl> impl_;
 };

@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <Plasma/DataEngine>
 
-
 class KateSessionsEngine : public Plasma::DataEngine
 {
     Q_OBJECT
@@ -31,8 +30,7 @@ public:
     KateSessionsEngine(QObject *parent, const QVariantList &args);
     ~KateSessionsEngine() override;
 
-    Plasma::Service *serviceForSource (const QString &source) override;
-
+    Plasma::Service *serviceForSource(const QString &source) override;
 };
 
 #endif

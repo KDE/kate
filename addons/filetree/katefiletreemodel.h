@@ -130,4 +130,3 @@ private:
 };
 
 #endif /* KATEFILETREEMODEL_H */
-

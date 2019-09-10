@@ -26,7 +26,7 @@
 /**
  * Information provider for cppcheck
  */
-class KateProjectCodeAnalysisToolCppcheck: public KateProjectCodeAnalysisTool
+class KateProjectCodeAnalysisToolCppcheck : public KateProjectCodeAnalysisTool
 {
 public:
     explicit KateProjectCodeAnalysisToolCppcheck(QObject *parent = nullptr);

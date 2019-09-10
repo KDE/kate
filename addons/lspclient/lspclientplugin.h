@@ -36,8 +36,7 @@ class LSPClientPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit LSPClientPlugin(QObject *parent = nullptr,
-                             const QList<QVariant> & = QList<QVariant>());
+    explicit LSPClientPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     ~LSPClientPlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

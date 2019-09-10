@@ -52,7 +52,8 @@ public:
      * our project.
      * @return project
      */
-    KateProject *project() const {
+    KateProject *project() const
+    {
         return m_project;
     }
 
@@ -71,4 +72,3 @@ private:
 };
 
 #endif
-

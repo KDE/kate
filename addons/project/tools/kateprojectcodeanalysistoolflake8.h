@@ -26,7 +26,7 @@
 /**
  * Information provider for flake8
  */
-class KateProjectCodeAnalysisToolFlake8: public KateProjectCodeAnalysisTool
+class KateProjectCodeAnalysisToolFlake8 : public KateProjectCodeAnalysisTool
 {
 public:
     explicit KateProjectCodeAnalysisToolFlake8(QObject *parent = nullptr);

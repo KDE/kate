@@ -36,8 +36,9 @@ class QSpinBox;
 class KateMainWindow;
 class KPluralHandlingSpinBox;
 
-namespace Ui {
-    class SessionConfigWidget;
+namespace Ui
+{
+class SessionConfigWidget;
 }
 
 struct PluginPageListItem {
@@ -88,8 +89,8 @@ private:
     QCheckBox *m_modCloseAfterLast;
     QCheckBox *m_saveMetaInfos;
     KPluralHandlingSpinBox *m_daysMetaInfos;
-    QComboBox * m_cmbQuickOpenMatchMode;
-    QComboBox * m_cmbQuickOpenListMode;
+    QComboBox *m_cmbQuickOpenMatchMode;
+    QComboBox *m_cmbQuickOpenListMode;
 
     // Sessions Page
     Ui::SessionConfigWidget *sessionConfigUi;
@@ -103,4 +104,3 @@ private:
 };
 
 #endif
-

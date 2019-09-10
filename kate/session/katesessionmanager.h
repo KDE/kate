@@ -72,7 +72,8 @@ public:
      * sessionFile == empty means we have no session around for this instance of kate
      * @return session active atm
      */
-    inline KateSession::Ptr activeSession() {
+    inline KateSession::Ptr activeSession()
+    {
         return m_activeSession;
     }
 
@@ -80,7 +81,8 @@ public:
      * session dir
      * @return global session dir
      */
-    inline const QString &sessionsDir() const {
+    inline const QString &sessionsDir() const
+    {
         return m_sessionsDir;
     }
 
@@ -214,8 +216,8 @@ private:
     QString anonymousSessionFile() const;
 
     /**
-      * helper function to save the session to a given config object
-      */
+     * helper function to save the session to a given config object
+     */
     void saveSessionTo(KConfig *sc) const;
 
     /**
@@ -248,4 +250,3 @@ private:
 };
 
 #endif
-

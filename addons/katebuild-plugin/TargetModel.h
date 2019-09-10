@@ -18,7 +18,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
 
-
 #ifndef TargetModel_h
 #define TargetModel_h
 
@@ -34,7 +33,7 @@ public:
         QString name;
         QString workDir;
         QString defaultCmd;
-        QList<QPair<QString, QString> > commands;
+        QList<QPair<QString, QString>> commands;
     };
 
     TargetModel(QObject *parent = nullptr);
@@ -68,13 +67,16 @@ public Q_SLOTS:
     /** This function deletes the target-set with the same name */
     void deleteTargetSet(const QString &targetSet);
 
-    const QList<TargetSet> targetSets() const { return m_targets; }
+    const QList<TargetSet> targetSets() const
+    {
+        return m_targets;
+    }
 
     const QString command(const QModelIndex &itemIndex) const;
     const QString cmdName(const QModelIndex &itemIndex) const;
     const QString workDir(const QModelIndex &itemIndex) const;
     const QString targetName(const QModelIndex &itemIndex) const;
-    
+
 Q_SIGNALS:
 
 public:
@@ -82,7 +84,7 @@ public:
     // Model-View model functions
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-    bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole) override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     QModelIndex index(int row, int column = 0, const QModelIndex &parent = QModelIndex()) const override;
     QModelIndex parent(const QModelIndex &child) const override;
@@ -90,7 +92,6 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
 private:
-
     QList<TargetSet> m_targets;
 };
 

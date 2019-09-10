@@ -36,11 +36,23 @@ public:
     KWriteApplication();
     ~KWriteApplication() override;
 
-    void addDocument(KTextEditor::Document *doc) { m_documents.append(doc); }
-    void removeDocument(KTextEditor::Document *doc) { m_documents.removeAll(doc); }
-    void removeWindow(KWrite *kwrite) { m_kwrites.removeAll(kwrite); }
+    void addDocument(KTextEditor::Document *doc)
+    {
+        m_documents.append(doc);
+    }
+    void removeDocument(KTextEditor::Document *doc)
+    {
+        m_documents.removeAll(doc);
+    }
+    void removeWindow(KWrite *kwrite)
+    {
+        m_kwrites.removeAll(kwrite);
+    }
 
-    bool noWindows() { return m_kwrites.isEmpty(); }
+    bool noWindows()
+    {
+        return m_kwrites.isEmpty();
+    }
 
     KWrite *newWindow(KTextEditor::Document *doc = nullptr);
 
@@ -48,7 +60,10 @@ public:
     void saveProperties(KConfig *config);
 
 public Q_SLOTS:
-    QList<KTextEditor::Document *> documents() { return m_documents; }
+    QList<KTextEditor::Document *> documents()
+    {
+        return m_documents;
+    }
     bool quit();
     KTextEditor::MainWindow *activeMainWindow();
     QList<KTextEditor::MainWindow *> mainWindows();

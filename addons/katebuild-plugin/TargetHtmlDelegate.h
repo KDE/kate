@@ -27,7 +27,7 @@ class TargetHtmlDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    TargetHtmlDelegate(QObject* parent);
+    TargetHtmlDelegate(QObject *parent);
     ~TargetHtmlDelegate() override;
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
@@ -36,8 +36,8 @@ public:
 
     void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-    void paint(QPainter*, const QStyleOptionViewItem&, const QModelIndex&) const override;
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+    void paint(QPainter *, const QStyleOptionViewItem &, const QModelIndex &) const override;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     bool isEditing() const;
 
@@ -53,4 +53,3 @@ private:
 };
 
 #endif
-

@@ -73,7 +73,8 @@ public:
     void disablePluginGUI(KatePluginInfo *item, KateMainWindow *win);
     void disablePluginGUI(KatePluginInfo *item);
 
-    inline KatePluginList &pluginList() {
+    inline KatePluginList &pluginList()
+    {
         return m_pluginList;
     }
 

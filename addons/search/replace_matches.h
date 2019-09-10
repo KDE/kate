@@ -30,7 +30,7 @@
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
 
-class ReplaceMatches: public QObject
+class ReplaceMatches : public QObject
 {
     Q_OBJECT
 
@@ -72,18 +72,17 @@ Q_SIGNALS:
 private:
     void updateTreeViewItems(QTreeWidgetItem *fileItem);
 
-    KTextEditor::Application     *m_manager = nullptr;
-    QTreeWidget                  *m_tree = nullptr;
-    int                           m_rootIndex = -1;
-    int                           m_childStartIndex = -1;
-    QVector<KTextEditor::MovingRange*> m_currentMatches;
-    QVector<bool>                      m_currentReplaced;
+    KTextEditor::Application *m_manager = nullptr;
+    QTreeWidget *m_tree = nullptr;
+    int m_rootIndex = -1;
+    int m_childStartIndex = -1;
+    QVector<KTextEditor::MovingRange *> m_currentMatches;
+    QVector<bool> m_currentReplaced;
 
-    QRegularExpression            m_regExp;
-    QString                       m_replaceText;
-    bool                          m_cancelReplace;
-    QElapsedTimer                 m_progressTime;
+    QRegularExpression m_regExp;
+    QString m_replaceText;
+    bool m_cancelReplace;
+    QElapsedTimer m_progressTime;
 };
-
 
 #endif

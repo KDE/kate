@@ -23,10 +23,9 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
-
 class LocalsView : public QTreeWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     LocalsView(QWidget *parent = nullptr);
     ~LocalsView() override;
@@ -47,7 +46,7 @@ protected:
 private:
     void createWrappedItem(QTreeWidgetItem *parent, const QString &name, const QString &value);
     void createWrappedItem(QTreeWidget *parent, const QString &name, const QString &value);
-    bool    m_allAdded = true;
+    bool m_allAdded = true;
     QString m_local;
 };
 

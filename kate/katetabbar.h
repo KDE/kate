@@ -56,7 +56,7 @@ public:
      * @param position index of the tab, i.e. 0, ..., count()
      * @param text the text snippet
      */
-    int insertTab(int position, const QString & text);
+    int insertTab(int position, const QString &text);
 
     /**
      * Removes the tab with ID \a id.
@@ -85,7 +85,7 @@ public Q_SLOTS:
     /**
      * Activate the tab with \p id. No signal is emitted.
      */
-    void setCurrentTab(int index);   // does not emit signal
+    void setCurrentTab(int index); // does not emit signal
 
 public:
     /**
@@ -187,7 +187,7 @@ Q_SIGNALS:
      *        at a place where no tab exists
      * @param globalPos the position of the context menu in global coordinates
      */
-    void contextMenuRequest(int id, const QPoint & globalPos);
+    void contextMenuRequest(int id, const QPoint &globalPos);
 
     /**
      * This signal is emitted whenever the tab bar's width allows to
@@ -248,7 +248,7 @@ protected:
     void contextMenuEvent(QContextMenuEvent *ev) override;
 
     //! Cycle through tabs
-    void wheelEvent(QWheelEvent * event) override;
+    void wheelEvent(QWheelEvent *event) override;
 
     //! Support for drag & drop of tabs
     void dragEnterEvent(QDragEnterEvent *event) override;
@@ -257,7 +257,7 @@ protected:
 
 private:
     // pimpl data holder
-    KateTabBarPrivate * const d;
+    KateTabBarPrivate *const d;
 };
 
 #endif // KATE_TAB_BAR_H

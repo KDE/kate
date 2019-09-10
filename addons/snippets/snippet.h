@@ -1,7 +1,7 @@
 /*  This file is part of the Kate project.
  *  Based on the snippet plugin from KDevelop 4.
  *
- *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
+ *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net>
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
  *
@@ -54,14 +54,14 @@ public:
     /**
      * Sets the actual contents of this snippet.
      */
-    void setSnippet(const QString& snippet);
+    void setSnippet(const QString &snippet);
 
     /**
      * Action to trigger insertion of this snippet.
      */
-    QAction* action();
+    QAction *action();
 
-    void registerActionForView(QWidget* view);
+    void registerActionForView(QWidget *view);
 
     QVariant data(int role = Qt::UserRole + 1) const override;
 
@@ -69,9 +69,9 @@ private:
     /// the actual snippet contents aka \code<fillin>\endcode
     QString m_snippet;
     /// the insertion action for this snippet.
-    QAction* m_action = nullptr;
+    QAction *m_action = nullptr;
 };
 
-Q_DECLARE_METATYPE ( Snippet* )
+Q_DECLARE_METATYPE(Snippet *)
 
 #endif

@@ -32,29 +32,29 @@ class KTERustCompletionConfigPage : public KTextEditor::ConfigPage
 {
     Q_OBJECT
 
-    public:
-        explicit KTERustCompletionConfigPage(QWidget *parent = nullptr, KTERustCompletionPlugin *plugin = nullptr);
-        ~KTERustCompletionConfigPage() override {};
+public:
+    explicit KTERustCompletionConfigPage(QWidget *parent = nullptr, KTERustCompletionPlugin *plugin = nullptr);
+    ~KTERustCompletionConfigPage() override {};
 
-        QString name() const override;
-        QString fullName() const override;
-        QIcon icon() const override;
+    QString name() const override;
+    QString fullName() const override;
+    QIcon icon() const override;
 
-    public Q_SLOTS:
-        void apply() override;
-        void defaults() override;
-        void reset() override;
+public Q_SLOTS:
+    void apply() override;
+    void defaults() override;
+    void reset() override;
 
-    private Q_SLOTS:
-        void changedInternal();
+private Q_SLOTS:
+    void changedInternal();
 
-    private:
-        QLineEdit *m_racerCmd;
-        KUrlRequester *m_rustSrcPath;
+private:
+    QLineEdit *m_racerCmd;
+    KUrlRequester *m_rustSrcPath;
 
-        bool m_changed = false;
+    bool m_changed = false;
 
-        KTERustCompletionPlugin *m_plugin;
+    KTERustCompletionPlugin *m_plugin;
 };
 
 #endif

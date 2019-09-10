@@ -41,7 +41,7 @@ private Q_SLOTS:
     void stateChanged(QTreeWidgetItem *);
 };
 
-class KateConfigPluginPage: public QFrame
+class KateConfigPluginPage : public QFrame
 {
     Q_OBJECT
 
@@ -62,4 +62,3 @@ private Q_SLOTS:
 };
 
 #endif
-

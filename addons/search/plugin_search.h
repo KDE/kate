@@ -43,54 +43,55 @@
 #include "replace_matches.h"
 
 class KateSearchCommand;
-namespace KTextEditor{
-    class MovingRange;
+namespace KTextEditor
+{
+class MovingRange;
 }
 
-class Results: public QWidget, public Ui::Results
+class Results : public QWidget, public Ui::Results
 {
     Q_OBJECT
 public:
     Results(QWidget *parent = nullptr);
-    int     matches = 0;
+    int matches = 0;
     QRegularExpression regExp;
-    bool    useRegExp = false;
-    bool    matchCase;
+    bool useRegExp = false;
+    bool matchCase;
     QString replaceStr;
-    int     searchPlaceIndex = 0;
+    int searchPlaceIndex = 0;
     QString treeRootText;
 };
 
 // This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
-class ContainerWidget:public QWidget
+class ContainerWidget : public QWidget
 {
     Q_OBJECT
 public:
-    ContainerWidget(QWidget *parent): QWidget(parent) {}
+    ContainerWidget(QWidget *parent)
+        : QWidget(parent)
+    {
+    }
 
 Q_SIGNALS:
     void nextFocus(QWidget *currentWidget, bool *found, bool next);
 
 protected:
-    bool focusNextPrevChild (bool next) override;
+    bool focusNextPrevChild(bool next) override;
 };
-
 
 class KatePluginSearch : public KTextEditor::Plugin
 {
     Q_OBJECT
 
 public:
-    explicit KatePluginSearch(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
+    explicit KatePluginSearch(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     ~KatePluginSearch() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
 private:
-    KateSearchCommand* m_searchCommand = nullptr;
+    KateSearchCommand *m_searchCommand = nullptr;
 };
-
-
 
 class KatePluginSearchView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
@@ -98,19 +99,13 @@ class KatePluginSearchView : public QObject, public KXMLGUIClient, public KTextE
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
-    enum SearchPlaces {
-        CurrentFile,
-        OpenFiles,
-        Folder,
-        Project,
-        AllProjects
-    };
+    enum SearchPlaces { CurrentFile, OpenFiles, Folder, Project, AllProjects };
 
-    KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow, KTextEditor::Application* application);
+    KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow, KTextEditor::Application *application);
     ~KatePluginSearchView() override;
 
-    void readSessionConfig (const KConfigGroup& config) override;
-    void writeSessionConfig (KConfigGroup& config) override;
+    void readSessionConfig(const KConfigGroup &config) override;
+    void writeSessionConfig(KConfigGroup &config) override;
 
 public Q_SLOTS:
     void startSearch();
@@ -130,18 +125,17 @@ private Q_SLOTS:
     void tabCloseRequested(int index);
     void toggleOptions(bool show);
 
-    void searchContextMenu(const QPoint& pos);
-    void replaceContextMenu(const QPoint& pos);
+    void searchContextMenu(const QPoint &pos);
+    void replaceContextMenu(const QPoint &pos);
 
     void searchPlaceChanged();
     void startSearchWhileTyping();
 
     void folderFileListChanged();
 
-    void matchFound(const QString &url, const QString &fileName,
-                    const QString &lineContent, int matchLen, int startLine, int startColumn, int endLine, int endColumn);
+    void matchFound(const QString &url, const QString &fileName, const QString &lineContent, int matchLen, int startLine, int startColumn, int endLine, int endColumn);
 
-    void addMatchMark(KTextEditor::Document* doc, QTreeWidgetItem *item);
+    void addMatchMark(KTextEditor::Document *doc, QTreeWidgetItem *item);
 
     void searchDone();
     void searchWhileTypingDone();
@@ -152,7 +146,7 @@ private Q_SLOTS:
     void itemSelected(QTreeWidgetItem *item);
 
     void clearMarks();
-    void clearDocMarks(KTextEditor::Document* doc);
+    void clearDocMarks(KTextEditor::Document *doc);
 
     void replaceSingleMatch();
     void replaceChecked();
@@ -161,7 +155,6 @@ private Q_SLOTS:
     void replaceDone();
 
     void docViewChanged();
-
 
     void resultTabChanged(int index);
 
@@ -172,9 +165,9 @@ private Q_SLOTS:
     /**
      * keep track if the project plugin is alive and if the project file did change
      */
-    void slotPluginViewCreated (const QString &name, QObject *pluginView);
-    void slotPluginViewDeleted (const QString &name, QObject *pluginView);
-    void slotProjectFileNameChanged ();
+    void slotPluginViewCreated(const QString &name, QObject *pluginView);
+    void slotPluginViewDeleted(const QString &name, QObject *pluginView);
+    void slotProjectFileNameChanged();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
@@ -182,31 +175,31 @@ protected:
 
 private:
     QTreeWidgetItem *rootFileItem(const QString &url, const QString &fName);
-    QStringList filterFiles(const QStringList& files) const;
+    QStringList filterFiles(const QStringList &files) const;
 
-    void onResize(const QSize& size);
+    void onResize(const QSize &size);
 
-    Ui::SearchDialog                   m_ui;
-    QWidget                           *m_toolView;
-    KTextEditor::Application          *m_kateApp;
-    SearchOpenFiles                    m_searchOpenFiles;
-    FolderFilesList                    m_folderFilesList;
-    SearchDiskFiles                    m_searchDiskFiles;
-    ReplaceMatches                     m_replacer;
-    QAction                           *m_matchCase;
-    QAction                           *m_useRegExp;
-    Results                           *m_curResults;
-    bool                               m_searchJustOpened;
-    bool                               m_switchToProjectModeWhenAvailable;
-    bool                               m_searchDiskFilesDone;
-    bool                               m_searchOpenFilesDone;
-    bool                               m_isSearchAsYouType;
-    bool                               m_isLeftRight;
-    QString                            m_resultBaseDir;
-    QList<KTextEditor::MovingRange*>   m_matchRanges;
-    QTimer                             m_changeTimer;
-    QTimer                             m_updateSumaryTimer;
-    QPointer<KTextEditor::Message>     m_infoMessage;
+    Ui::SearchDialog m_ui;
+    QWidget *m_toolView;
+    KTextEditor::Application *m_kateApp;
+    SearchOpenFiles m_searchOpenFiles;
+    FolderFilesList m_folderFilesList;
+    SearchDiskFiles m_searchDiskFiles;
+    ReplaceMatches m_replacer;
+    QAction *m_matchCase;
+    QAction *m_useRegExp;
+    Results *m_curResults;
+    bool m_searchJustOpened;
+    bool m_switchToProjectModeWhenAvailable;
+    bool m_searchDiskFilesDone;
+    bool m_searchOpenFilesDone;
+    bool m_isSearchAsYouType;
+    bool m_isLeftRight;
+    QString m_resultBaseDir;
+    QList<KTextEditor::MovingRange *> m_matchRanges;
+    QTimer m_changeTimer;
+    QTimer m_updateSumaryTimer;
+    QPointer<KTextEditor::Message> m_infoMessage;
 
     /**
      * current project plugin view, if any
@@ -236,12 +229,10 @@ Q_SIGNALS:
     // KTextEditor::Command
     //
 public:
-    bool exec (KTextEditor::View *view, const QString &cmd, QString &msg,
-                      const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
-    bool help (KTextEditor::View *view, const QString &cmd, QString &msg) override;
+    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
+    bool help(KTextEditor::View *view, const QString &cmd, QString &msg) override;
 };
 
 #endif
 
 // kate: space-indent on; indent-width 4; replace-tabs on;
-

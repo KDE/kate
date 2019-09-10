@@ -28,9 +28,9 @@ class KConfigGroup;
 
 class SQLManager : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     SQLManager(QObject *parent = nullptr);
     ~SQLManager() override;
 
@@ -39,21 +39,21 @@ class SQLManager : public QObject
     bool testConnection(const Connection &conn, QSqlError &error);
     bool isValidAndOpen(const QString &connection);
 
-    KWallet::Wallet * openWallet();
+    KWallet::Wallet *openWallet();
     int storeCredentials(const Connection &conn);
     int readCredentials(const QString &name, QString &password);
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void removeConnection(const QString &name);
     void reopenConnection(const QString &name);
     void loadConnections(KConfigGroup *connectionsGroup);
     void saveConnections(KConfigGroup *connectionsGroup);
-    void runQuery(const QString &text, const QString &connection );
+    void runQuery(const QString &text, const QString &connection);
 
-  protected:
+protected:
     void saveConnection(KConfigGroup *connectionsGroup, const Connection &conn);
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void connectionCreated(const QString &name);
     void connectionRemoved(const QString &name);
     void connectionAboutToBeClosed(const QString &name);
@@ -63,7 +63,7 @@ class SQLManager : public QObject
     void error(const QString &message);
     void success(const QString &message);
 
-  private:
+private:
     ConnectionModel *m_model;
     KWallet::Wallet *m_wallet = nullptr;
 };

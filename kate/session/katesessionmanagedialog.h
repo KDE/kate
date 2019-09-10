@@ -31,8 +31,7 @@ class KateSessionChooserItem;
 #include "katesession.h"
 #include "ui_katesessionmanagedialog.h"
 
-class KateSessionManageDialog : public QDialog
-                              , public Ui::KateSessionManageDialogUi
+class KateSessionManageDialog : public QDialog, public Ui::KateSessionManageDialogUi
 {
     Q_OBJECT
 
@@ -211,7 +210,7 @@ private:
      * Will filled with sessions to be deleted by @c updateDeleteList() and process
      * by @c deleteSessions()
      */
-    QSet<KateSession::Ptr>  m_deleteList;
+    QSet<KateSession::Ptr> m_deleteList;
 };
 
 #endif

@@ -29,7 +29,8 @@
 
 class LSPClientPlugin;
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 class MainWindow;
 }
 

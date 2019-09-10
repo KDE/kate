@@ -255,7 +255,7 @@ const GDBTargetConf ConfigView::currentTarget() const
         if (cfg.customInit[i].isEmpty()) {
             cfg.customInit.removeAt(i);
         }
-        else if (cfg.customInit[i].startsWith(QStringLiteral("set directories "))) {
+        else if (cfg.customInit[i].startsWith(QLatin1String("set directories "))) {
             QString paths = cfg.customInit[i];
             paths.remove(QStringLiteral("set directories "));
             cfg.srcPaths = paths.split(pathSeparator, QString::SkipEmptyParts);
@@ -325,7 +325,7 @@ void ConfigView::slotAddTarget()
 void ConfigView::slotCopyTarget()
 {
     QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
-    if (tmp.size() < 1) {
+    if (tmp.empty()) {
         slotAddTarget();
         return;
     }

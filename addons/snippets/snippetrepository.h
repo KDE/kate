@@ -1,7 +1,7 @@
 /*  This file is part of the Kate project.
  *  Based on the snippet plugin from KDevelop 4.
  *
- *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
+ *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net>
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
  *
@@ -57,13 +57,13 @@ public:
      *
      * @param file Location of the snippet's repository file.
      */
-    SnippetRepository(const QString& file);
+    SnippetRepository(const QString &file);
     ~SnippetRepository() override;
 
     /**
      * Creates a snippet repository for the given name and adds it to the SnippetStore.
      */
-    static SnippetRepository* createRepoFromName(const QString& name);
+    static SnippetRepository *createRepoFromName(const QString &name);
 
     /**
      * The license for the snippets contained in this repository.
@@ -72,7 +72,7 @@ public:
     /**
      * Sets the license for the snippets contained in this repository.
      */
-    void setLicense(const QString& license);
+    void setLicense(const QString &license);
 
     /**
      * The author(s) of the snippets contained in this repository.
@@ -81,7 +81,7 @@ public:
     /**
      * Sets the author(s) of the snippets contained in this repository.
      */
-    void setAuthors(const QString& authors);
+    void setAuthors(const QString &authors);
 
     /**
      * The valid filetypes for the snippets contained in this repository.
@@ -94,12 +94,12 @@ public:
      * An empty list, or any list which contains an element "*" is treated as
      * a no-restriction filter.
      */
-    void setFileTypes(const QStringList& filetypes);
+    void setFileTypes(const QStringList &filetypes);
 
     /**
      * The path to this repository's file.
      */
-    const QString& file() const;
+    const QString &file() const;
 
     /**
      * The namespace associated with this repository.
@@ -109,7 +109,7 @@ public:
     /**
      * Sets the code completion namespace for this repository.
      */
-    void setCompletionNamespace(const QString& completionNamespace);
+    void setCompletionNamespace(const QString &completionNamespace);
 
     /**
      * The QtScript(s) associated with this repository.
@@ -120,10 +120,10 @@ public:
 
     /**
      * Sets the QtScript(s) associated with this repository.
-     * 
+     *
      * @since KDE 4.5
      */
-    void setScript(const QString& script);
+    void setScript(const QString &script);
 
     /**
      * Remove this repository from the disk. Also deletes the item and all its children.
@@ -141,7 +141,7 @@ public:
     static QDir dataPath();
 
     QVariant data(int role = Qt::UserRole + 1) const override;
-    void setData(const QVariant& value, int role = Qt::UserRole + 1) override;
+    void setData(const QVariant &value, int role = Qt::UserRole + 1) override;
 
 private Q_SLOTS:
     /// parses the XML file and load the containing snippets.
@@ -163,4 +163,3 @@ private:
 };
 
 #endif
-

@@ -30,25 +30,25 @@ class KateProjectCodeAnalysisToolShellcheck : public KateProjectCodeAnalysisTool
 public:
     explicit KateProjectCodeAnalysisToolShellcheck(QObject *parent = nullptr);
 
-    virtual ~KateProjectCodeAnalysisToolShellcheck() override;
+    ~KateProjectCodeAnalysisToolShellcheck() override;
 
-    virtual QString name() const override;
+    QString name() const override;
 
-    virtual QString description() const override;
+    QString description() const override;
 
-    virtual QString fileExtensions() const override;
+    QString fileExtensions() const override;
 
     virtual QStringList filter(const QStringList &files) const override;
 
-    virtual QString path() const override;
+    QString path() const override;
 
-    virtual QStringList arguments() override;
+    QStringList arguments() override;
 
-    virtual QString notInstalledMessage() const override;
+    QString notInstalledMessage() const override;
 
-    virtual QStringList parseLine(const QString &line) const override;
+    QStringList parseLine(const QString &line) const override;
 
-    virtual bool isSuccessfulExitCode(int exitCode) const override;
+    bool isSuccessfulExitCode(int exitCode) const override;
 
-    virtual QString stdinMessages() override;
+    QString stdinMessages() override;
 };

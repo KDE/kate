@@ -51,7 +51,7 @@ void BtFileIndexer::setFilter(const QStringList &fileFilter)
 
 void BtFileIndexer::run()
 {
-    if (filter.size() == 0) {
+    if (filter.empty()) {
         qDebug() << "Filter is empty. Aborting.";
         return;
     }

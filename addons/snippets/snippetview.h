@@ -1,7 +1,7 @@
 /*  This file is part of the Kate project.
  *  Based on the snippet plugin from KDevelop 4.
  *
- *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
+ *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net>
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
  *  Copyright (C) 2014 Sven Brauch <svenbrauch@gmail.com>
@@ -34,7 +34,8 @@ class KateSnippetGlobal;
 class QAction;
 class QSortFilterProxyModel;
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 }
 
 /**
@@ -47,10 +48,10 @@ class SnippetView : public QWidget, public Ui::SnippetViewBase
     Q_OBJECT
 
 public:
-    explicit SnippetView(KateSnippetGlobal* plugin, KTextEditor::MainWindow *mainWindow, QWidget* parent = nullptr);
+    explicit SnippetView(KateSnippetGlobal *plugin, KTextEditor::MainWindow *mainWindow, QWidget *parent = nullptr);
 
 public:
-    void setupActionsForWindow(QWidget* widget);
+    void setupActionsForWindow(QWidget *widget);
 
 private Q_SLOTS:
     /**
@@ -71,7 +72,7 @@ private Q_SLOTS:
     /**
      * Insert the selected snippet into the current file
      */
-    void slotSnippetClicked(const QModelIndex & index);
+    void slotSnippetClicked(const QModelIndex &index);
 
     /**
      * Open the edit dialog for the selected snippet
@@ -98,17 +99,18 @@ private Q_SLOTS:
      */
     void slotSnippetToGHNS();
 
-    void contextMenu (const QPoint & pos);
+    void contextMenu(const QPoint &pos);
     /// disables or enables available actions based on the currently selected item
     void validateActions();
 
     /// insert snippet on double click
-    bool eventFilter(QObject* , QEvent* ) override;
-private:
-    QStandardItem* currentItem();
+    bool eventFilter(QObject *, QEvent *) override;
 
-    KateSnippetGlobal* m_plugin;
-    QSortFilterProxyModel* m_proxy;
+private:
+    QStandardItem *currentItem();
+
+    KateSnippetGlobal *m_plugin;
+    QSortFilterProxyModel *m_proxy;
 
     QAction *m_addRepoAction;
     QAction *m_removeRepoAction;
@@ -121,4 +123,3 @@ private:
 };
 
 #endif
-

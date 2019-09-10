@@ -469,7 +469,7 @@ void KateMainWindow::setupActions()
 
 void KateMainWindow::slotDocumentCloseAll()
 {
-    if (KateApp::self()->documentManager()->documentList().size() >= 1 && KMessageBox::warningContinueCancel(this,
+    if (!KateApp::self()->documentManager()->documentList().empty() && KMessageBox::warningContinueCancel(this,
             i18n("This will close all open documents. Are you sure you want to continue?"),
             i18n("Close all documents"),
             KStandardGuiItem::cont(),
@@ -914,7 +914,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
     const KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
     // add all default open-with-actions except "Kate"
     for (const auto& service : offers) {
-        if (service->name() == QStringLiteral("Kate")) {
+        if (service->name() == QLatin1String("Kate")) {
             continue;
         }
         a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
@@ -1041,7 +1041,7 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
 
         const QString homePath = QDir::homePath();
         if (c.startsWith(homePath)) {
-            c = QStringLiteral("~") + c.right(c.length() - homePath.length());
+            c = QLatin1String("~") + c.right(c.length() - homePath.length());
         }
     }
 

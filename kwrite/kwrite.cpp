@@ -59,13 +59,7 @@
 #include <QFileOpenEvent>
 
 KWrite::KWrite(KTextEditor::Document *doc, KWriteApplication *app)
-    : m_view(nullptr)
-    , m_recentFiles(nullptr)
-    , m_paShowPath(nullptr)
-    , m_paShowMenuBar(nullptr)
-    , m_paShowStatusBar(nullptr)
-    , m_activityResource(nullptr)
-    , m_app(app)
+    : m_app(app)
     , m_mainWindow(this)
 {
     if (!doc) {
@@ -470,12 +464,12 @@ void KWrite::documentNameChanged()
 
         const QString homePath = QDir::homePath();
         if (c.startsWith(homePath)) {
-            c = QStringLiteral("~") + c.right(c.length() - homePath.length());
+            c = QLatin1String("~") + c.right(c.length() - homePath.length());
         }
 
         //File name shouldn't be too long - Maciek
         if (c.length() > 64) {
-            c = QStringLiteral("...") + c.right(64);
+            c = QLatin1String("...") + c.right(64);
         }
     } else {
         c = m_view->document()->url().fileName();

@@ -25,40 +25,30 @@
 class BtInfo
 {
 public:
-    enum Type {
-        Source = 0,
-        Lib,
-        Unknown,
-        Invalid
-    };
+    enum Type { Source = 0, Lib, Unknown, Invalid };
 
     /**
      * Default constructor => invalid element
      */
-    BtInfo()
-        : step(-1)
-        , line(-1)
-        , type(Invalid) {
-    }
+    BtInfo() = default;
 
 public:
     QString original;
     QString filename;
     QString function;
     QString address;
-    int step;
-    int line;
+    int step = -1;
+    int line = -1;
 
-    Type type;
+    Type type = Invalid;
 };
 
 namespace KateBtParser
 {
-
 QList<BtInfo> parseBacktrace(const QString &bt);
 
 }
 
-#endif //BTPARSER_H
+#endif // BTPARSER_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -193,9 +193,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                { j+=2; if (j>=cl.length()) break;}
 
              // Skip char declarations that could be interpreted as range start/end
-             if ( ((cl.indexOf(QStringLiteral("'\"'"), j) == j) ||
-                 (cl.indexOf(QStringLiteral("'{'"), j) == j) ||
-                 (cl.indexOf(QStringLiteral("'}'"), j) == j)) && comment != 3 )
+             if ( ((cl.indexOf(QLatin1String("'\"'"), j) == j) ||
+                 (cl.indexOf(QLatin1String("'{'"), j) == j) ||
+                 (cl.indexOf(QLatin1String("'}'"), j) == j)) && comment != 3 )
                { j+=3; if (j>=cl.length()) break;}
 
 

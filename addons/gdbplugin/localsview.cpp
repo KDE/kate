@@ -24,7 +24,7 @@
 
 
 LocalsView::LocalsView(QWidget *parent)
-:   QTreeWidget(parent), m_allAdded(true)
+:   QTreeWidget(parent)
 {
     QStringList headers;
     headers << i18n("Symbol");
@@ -159,7 +159,7 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
     while (start < vString.size()) {
         // Symbol
         symbolAndValue.clear();
-        end = vString.indexOf(QStringLiteral(" = "), start);
+        end = vString.indexOf(QLatin1String(" = "), start);
         if (end < 0) {
             // error situation -> bail out
             createWrappedItem(parent, QString(), vString.right(start));

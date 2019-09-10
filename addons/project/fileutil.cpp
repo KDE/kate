@@ -32,7 +32,7 @@ const QString FileUtil::commonParent(const QString& path1, const QString& path2)
     if (ret.isEmpty())
         return ret;
 
-    while (!ret.endsWith(QLatin1String("/")))
+    while (!ret.endsWith(QLatin1Char('/')))
         ret.chop(1);
 
     return ret;

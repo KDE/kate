@@ -238,7 +238,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
             m_mode = closingtag;
             m_allowed = QStringList(parentElement);
         }
-    } else if (leftCh == QLatin1String(" ") || (isQuote(leftCh) && secondLeftCh == QLatin1String("="))) {
+    } else if (leftCh == QLatin1Char(' ') || (isQuote(leftCh) && secondLeftCh == QLatin1String("="))) {
         // TODO: check secondLeftChar, too?! then you don't need to trigger
         // with space and we yet save CPU power
         QString currentElement = insideTag(*kv);
@@ -573,7 +573,7 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
             adjust++;    // the ">"
         }
 
-        if (dtd && dtd->allowedElements(list[0]).contains(QStringLiteral("__EMPTY"))) {
+        if (dtd && dtd->allowedElements(list[0]).contains(QLatin1String("__EMPTY"))) {
             pre = '<' + text + "/>";
             if (adjust) {
                 adjust++;    // for the "/"
@@ -692,7 +692,7 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View 
     else if (m_mode == elements) {
         // anders: if the tag is marked EMPTY, insert in form <tagname/>
         QString str;
-        bool isEmptyTag = m_docDtds[document]->allowedElements(text).contains(QStringLiteral("__EMPTY"));
+        bool isEmptyTag = m_docDtds[document]->allowedElements(text).contains(QLatin1String("__EMPTY"));
         if (isEmptyTag) {
             str = text + "/>";
         } else {

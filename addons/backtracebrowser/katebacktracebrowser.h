@@ -32,7 +32,6 @@
 #include <QTimer>
 #include <QDialog>
 
-
 class KateBtConfigWidget;
 class KateBtBrowserWidget;
 
@@ -77,8 +76,8 @@ public:
     KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KTextEditor::MainWindow *mainWindow);
 
     /**
-    * Virtual destructor.
-    */
+     * Virtual destructor.
+     */
     ~KateBtBrowserPluginView() override;
 
 private:
@@ -148,6 +147,6 @@ private:
     KateBtConfigWidget *m_configWidget;
 };
 
-#endif //KATE_BACKTRACEBROWSER_H
+#endif // KATE_BACKTRACEBROWSER_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

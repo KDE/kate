@@ -14,11 +14,10 @@
 
 #include <qstring.h>
 
-
 class CTagsKinds
 {
 public:
-    static QString findKind( const char * kindChar, const QString &extension);
+    static QString findKind(const char *kindChar, const QString &extension);
 };
 
 #endif

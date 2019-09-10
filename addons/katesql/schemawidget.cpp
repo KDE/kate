@@ -367,7 +367,7 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
       statement = drv->sqlStatement(statementType, tableName, rec, false);
 
       if (statementType == QSqlDriver::DeleteStatement)
-        statement += QLatin1String (" ") + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(QLatin1String (" IS NULL"), QLatin1String ("=?"));
+        statement += QLatin1Char(' ') + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(QLatin1String (" IS NULL"), QLatin1String ("=?"));
     }
     break;
   }
@@ -376,7 +376,7 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
   KTextEditor::View *kv = mw->activeView();
 
   // replace NULL with a more generic '?'
-  statement = statement.replace(QLatin1String ("NULL"), QLatin1String ("?"));
+  statement.replace(QLatin1String ("NULL"), QLatin1String ("?"));
 
   if (kv)
   {

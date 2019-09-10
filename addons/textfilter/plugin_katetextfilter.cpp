@@ -44,9 +44,6 @@ K_PLUGIN_FACTORY_WITH_JSON(TextFilterPluginFactory, "textfilterplugin.json", reg
 
 PluginKateTextFilter::PluginKateTextFilter(QObject *parent, const QList<QVariant> &):
     KTextEditor::Plugin(parent)
-    , m_pFilterProcess(Q_NULLPTR)
-    , copyResult(false)
-    , mergeOutput(false)
 {
     // register command
     new PluginKateTextFilterCommand(this);

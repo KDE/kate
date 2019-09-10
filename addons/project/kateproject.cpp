@@ -33,6 +33,7 @@
 #include <QPlainTextDocumentLayout>
 #include <QJsonDocument>
 #include <QJsonParseError>
+#include <utility>
 
 KateProject::KateProject(ThreadWeaver::Queue *weaver)
     : QObject()
@@ -156,12 +157,12 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
     return true;
 }
 
-void KateProject::loadProjectDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item)
+void KateProject::loadProjectDone(const KateProjectSharedQStandardItem& topLevel, KateProjectSharedQMapStringItem file2Item)
 {
     m_model.clear();
     m_model.invisibleRootItem()->appendColumn(topLevel->takeColumn(0));
 
-    m_file2Item = file2Item;
+    m_file2Item = std::move(file2Item);
 
     /**
      * readd the documents that are open atm
@@ -179,7 +180,7 @@ void KateProject::loadIndexDone(KateProjectSharedProjectIndex projectIndex)
     /**
      * move to our project
      */
-    m_projectIndex = projectIndex;
+    m_projectIndex = std::move(projectIndex);
 
     /**
      * notify external world that data is available

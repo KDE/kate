@@ -243,7 +243,7 @@ void KateCTagsView::lookupTag( )
 
     setNewLookupText(currWord);
     Tags::TagList list = Tags::getExactMatches(m_ctagsUi.tagsFile->text(), currWord);
-    if (list.size() == 0) list = Tags::getExactMatches(m_commonDB, currWord);
+    if (list.empty()) list = Tags::getExactMatches(m_commonDB, currWord);
     displayHits(list);
 
     // activate the hits tab
@@ -255,7 +255,7 @@ void KateCTagsView::lookupTag( )
 void KateCTagsView::editLookUp()
 {
     Tags::TagList list = Tags::getPartialMatches(m_ctagsUi.tagsFile->text(), m_ctagsUi.inputEdit->text());
-    if (list.size() == 0) list = Tags::getPartialMatches(m_commonDB, m_ctagsUi.inputEdit->text());
+    if (list.empty()) list = Tags::getPartialMatches(m_commonDB, m_ctagsUi.inputEdit->text());
     displayHits(list);
 }
 
@@ -298,7 +298,7 @@ void KateCTagsView::gotoDeclaration( )
 void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &types)
 {
     Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), word, false, types);
-    if (list.size() == 0) list = Tags::getMatches(m_commonDB, word, false, types);
+    if (list.empty()) list = Tags::getMatches(m_commonDB, word, false, types);
 
     //qCDebug(KTECTAGS) << "found" << list.count() << word << types;
     setNewLookupText(word);
@@ -449,7 +449,7 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
     QString escaped;
     QString re_string;
 
-    if (unescaped.endsWith(QStringLiteral("$/"))) {
+    if (unescaped.endsWith(QLatin1String("$/"))) {
         reduced = unescaped.mid(2, unescaped.length() - 4);
         escaped = QRegularExpression::escape(reduced);
         re_string = QStringLiteral("^%1$").arg(escaped);

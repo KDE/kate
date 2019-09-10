@@ -87,7 +87,8 @@ public:
      * Accessor methodes for interface and child objects
      */
 public:
-    KateViewManager *viewManager() {
+    KateViewManager *viewManager()
+    {
         return m_viewManager;
     }
 
@@ -95,7 +96,8 @@ public:
      * KTextEditor::MainWindow wrapper
      * @return KTextEditor::MainWindow wrapper.
      */
-    KTextEditor::MainWindow *wrapper() {
+    KTextEditor::MainWindow *wrapper()
+    {
         return m_wrapper;
     }
 
@@ -280,19 +282,23 @@ public:
         }
     }
 
-    bool modNotificationEnabled() const {
+    bool modNotificationEnabled() const
+    {
         return m_modNotification;
     }
 
-    void setModNotificationEnabled(bool e) {
+    void setModNotificationEnabled(bool e)
+    {
         m_modNotification = e;
     }
 
-    bool modCloseAfterLast() const {
+    bool modCloseAfterLast() const
+    {
         return m_modCloseAfterLast;
     }
 
-    void setModCloseAfterLast(bool e) {
+    void setModCloseAfterLast(bool e)
+    {
         m_modCloseAfterLast = e;
     }
 
@@ -302,7 +308,8 @@ public:
     void setQuickOpenListMode(KateQuickOpenModelList mode);
     KateQuickOpenModelList quickOpenListMode() const;
 
-    KRecentFilesAction *fileOpenRecent() const {
+    KRecentFilesAction *fileOpenRecent() const
+    {
         return m_fileOpenRecent;
     }
 
@@ -314,7 +321,8 @@ public Q_SLOTS:
      * get the toplevel widget.
      * \return the real main window widget.
      */
-    QWidget *window() {
+    QWidget *window()
+    {
         return this;
     }
 
@@ -322,7 +330,8 @@ public Q_SLOTS:
      * Accessor to the XMLGUIFactory.
      * \return the mainwindow's KXMLGUIFactory.
      */
-    KXMLGUIFactory *guiFactory() override {
+    KXMLGUIFactory *guiFactory() override
+    {
         return KateMDI::MainWindow::guiFactory();
     }
 
@@ -330,7 +339,8 @@ public Q_SLOTS:
      * Get a list of all views for this main window.
      * @return all views
      */
-    QList<KTextEditor::View *> views() {
+    QList<KTextEditor::View *> views()
+    {
         return viewManager()->views();
     }
 
@@ -338,7 +348,8 @@ public Q_SLOTS:
      * Access the active view.
      * \return active view
      */
-    KTextEditor::View *activeView() {
+    KTextEditor::View *activeView()
+    {
         return viewManager()->activeView();
     }
 
@@ -348,7 +359,8 @@ public Q_SLOTS:
      * \param document the document
      * \return activated view of this document
      */
-    KTextEditor::View *activateView(KTextEditor::Document *document) {
+    KTextEditor::View *activateView(KTextEditor::Document *document)
+    {
         return viewManager()->activateView(document);
     }
 
@@ -360,7 +372,8 @@ public Q_SLOTS:
      * \return a pointer to the created view for the new document, if a document
      *         with this url is already existing, its view will be activated
      */
-    KTextEditor::View *openUrl(const QUrl &url, const QString &encoding = QString()) {
+    KTextEditor::View *openUrl(const QUrl &url, const QString &encoding = QString())
+    {
         return viewManager()->openUrlWithView(url, encoding);
     }
 
@@ -390,8 +403,7 @@ public Q_SLOTS:
      * @returns true if the two given views share the same split view,
      * false otherwise.
      */
-    bool viewsInSameSplitView(KTextEditor::View *view1,
-                              KTextEditor::View *view2)
+    bool viewsInSameSplitView(KTextEditor::View *view1, KTextEditor::View *view2)
     {
         return m_viewManager->viewsInSameViewSpace(view1, view2);
     }
@@ -409,8 +421,9 @@ public Q_SLOTS:
      * Try to create a view bar for the given view.
      * Its parameter is the view for which we want a view bar
      * @return suitable widget that can host view bars widgets or nullptr
-    */
-    QWidget *createViewBar(KTextEditor::View *) {
+     */
+    QWidget *createViewBar(KTextEditor::View *)
+    {
         return bottomViewBarContainer();
     }
 
@@ -418,7 +431,8 @@ public Q_SLOTS:
      * Delete the view bar for the given view.
      * @param view view for which we want an view bar
      */
-    void deleteViewBar(KTextEditor::View *view) {
+    void deleteViewBar(KTextEditor::View *view)
+    {
         deleteBottomViewBarForView(view);
     }
 
@@ -427,7 +441,8 @@ public Q_SLOTS:
      * @param view view for which the view bar is used
      * @param bar bar widget, shall have the viewBarParent() as parent widget
      */
-    void addWidgetToViewBar(KTextEditor::View *view, QWidget *bar) {
+    void addWidgetToViewBar(KTextEditor::View *view, QWidget *bar)
+    {
         addToBottomViewBarContainer(view, bar);
     }
 
@@ -435,7 +450,8 @@ public Q_SLOTS:
      * Show the view bar for the given view
      * @param view view for which the view bar is used
      */
-    void showViewBar(KTextEditor::View *view) {
+    void showViewBar(KTextEditor::View *view)
+    {
         showBottomViewBarForView(view);
     }
 
@@ -443,7 +459,8 @@ public Q_SLOTS:
      * Hide the view bar for the given view
      * @param view view for which the view bar is used
      */
-    void hideViewBar(KTextEditor::View *view) {
+    void hideViewBar(KTextEditor::View *view)
+    {
         hideBottomViewBarForView(view);
     }
 
@@ -503,6 +520,7 @@ private Q_SLOTS:
     void slotDocumentCloseOther();
     void slotDocumentCloseOther(KTextEditor::Document *document);
     void slotDocumentCloseSelected(const QList<KTextEditor::Document *> &);
+
 private:
     /**
      * Notify about file modifications from other processes?
@@ -554,30 +572,42 @@ private:
     class BarState
     {
     public:
-        BarState(): m_bar(nullptr), m_state(false) {}
-        BarState(QWidget *bar): m_bar(bar), m_state(false) {}
-        ~BarState() {}
-        QWidget *bar() {
+        BarState() = default;
+        BarState(QWidget *bar)
+            : m_bar(bar)
+            , m_state(false)
+        {
+        }
+        ~BarState()
+        {
+        }
+        QWidget *bar()
+        {
             return m_bar;
         }
-        bool state() {
+        bool state()
+        {
             return m_state;
         }
-        void setState(bool state) {
+        void setState(bool state)
+        {
             m_state = state;
         }
+
     private:
-        QWidget *m_bar;
-        bool m_state;
+        QWidget *m_bar = nullptr;
+        bool m_state = false;
     };
     QHash<KTextEditor::View *, BarState> m_bottomViewBarMapping;
 
 public:
-    static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog *diag) {
+    static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog *diag)
+    {
         if (s_modOnHdDialog == diag) {
             s_modOnHdDialog = nullptr;
         }
     }
+
 private:
     static KateMwModOnHdDialog *s_modOnHdDialog;
 
@@ -597,4 +627,3 @@ protected:
 };
 
 #endif
-

@@ -27,20 +27,20 @@ class QTextEdit;
 
 class TextOutputWidget : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     TextOutputWidget(QWidget *parent = nullptr);
     ~TextOutputWidget() override;
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void showErrorMessage(const QString &message);
     void showSuccessMessage(const QString &message);
 
-  private:
+private:
     void writeMessage(const QString &msg);
 
-  private:
+private:
     QHBoxLayout *m_layout;
     QTextEdit *m_output;
 

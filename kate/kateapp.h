@@ -79,7 +79,8 @@ public:
      * KTextEditor::Application wrapper
      * @return KTextEditor::Application wrapper.
      */
-    KTextEditor::Application *wrapper() {
+    KTextEditor::Application *wrapper()
+    {
         return &m_wrapper;
     }
 
@@ -229,7 +230,8 @@ public Q_SLOTS:
      * Get a list of all main windows.
      * @return all main windows
      */
-    QList<KTextEditor::MainWindow *> mainWindows() {
+    QList<KTextEditor::MainWindow *> mainWindows()
+    {
         // assemble right list
         QList<KTextEditor::MainWindow *> windows;
         windows.reserve(m_mainWindows.size());
@@ -244,7 +246,8 @@ public Q_SLOTS:
      * Accessor to the active main window.
      * \return a pointer to the active mainwindow
      */
-    KTextEditor::MainWindow *activeMainWindow() {
+    KTextEditor::MainWindow *activeMainWindow()
+    {
         // either return wrapper or nullptr
         if (KateMainWindow *a = activeKateMainWindow()) {
             return a->wrapper();
@@ -257,7 +260,8 @@ public Q_SLOTS:
      * This might contain less documents than the editor has in his documents () list.
      * @return all documents the application manages
      */
-    QList<KTextEditor::Document *> documents() {
+    QList<KTextEditor::Document *> documents()
+    {
         return m_docManager.documentList();
     }
 
@@ -267,7 +271,8 @@ public Q_SLOTS:
      * \param url the document's URL
      * \return the document with the given \p url or NULL, if none found
      */
-    KTextEditor::Document *findUrl(const QUrl &url) {
+    KTextEditor::Document *findUrl(const QUrl &url)
+    {
         return m_docManager.findDocument(url);
     }
 
@@ -279,7 +284,8 @@ public Q_SLOTS:
      *        encoding will be guessed or the default encoding will be used.
      * \return a pointer to the created document
      */
-    KTextEditor::Document *openUrl(const QUrl &url, const QString &encoding = QString()) {
+    KTextEditor::Document *openUrl(const QUrl &url, const QString &encoding = QString())
+    {
         return m_docManager.openUrl(url, encoding);
     }
 
@@ -288,7 +294,8 @@ public Q_SLOTS:
      * \param document the document to be closed
      * \return \e true on success, otherwise \e false
      */
-    bool closeDocument(KTextEditor::Document *document) {
+    bool closeDocument(KTextEditor::Document *document)
+    {
         return m_docManager.closeDocument(document);
     }
 
@@ -299,7 +306,8 @@ public Q_SLOTS:
      * \param documents list of documents to be closed
      * \return \e true on success, otherwise \e false
      */
-    bool closeDocuments(const QList<KTextEditor::Document *> &documents) {
+    bool closeDocuments(const QList<KTextEditor::Document *> &documents)
+    {
         return m_docManager.closeDocumentList(documents);
     }
 

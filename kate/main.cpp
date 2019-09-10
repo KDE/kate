@@ -349,7 +349,7 @@ int main(int argc, char **argv)
                                 parser.value(usePidOption) :
                                 QString::fromLocal8Bit(qgetenv("KATE_PID"));
 
-                serviceName = QStringLiteral("org.kde.kate-") + usePid;
+                serviceName = QLatin1String("org.kde.kate-") + usePid;
                 if (!kateServices.contains(serviceName)) {
                     serviceName.clear();
                 }
@@ -439,7 +439,7 @@ int main(int argc, char **argv)
                         QVariant v = res.arguments()[0];
                         if (v.isValid()) {
                             QString s = v.toString();
-                            if ((!s.isEmpty()) && (s != QStringLiteral("ERROR"))) {
+                            if ((!s.isEmpty()) && (s != QLatin1String("ERROR"))) {
                                 tokens << s;
                             }
                         }

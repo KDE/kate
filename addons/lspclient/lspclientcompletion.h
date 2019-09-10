@@ -38,13 +38,13 @@ class LSPClientCompletion : public KTextEditor::CodeCompletionModel, public KTex
     Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 
 public:
-
     // implementation factory method
-    static LSPClientCompletion* new_(QSharedPointer<LSPClientServerManager> manager);
+    static LSPClientCompletion *new_(QSharedPointer<LSPClientServerManager> manager);
 
-    LSPClientCompletion(QObject * parent)
+    LSPClientCompletion(QObject *parent)
         : KTextEditor::CodeCompletionModel(parent)
-    {}
+    {
+    }
 
     virtual void setServer(QSharedPointer<LSPClientServer> server) = 0;
     virtual void setSelectedDocumentation(bool) = 0;

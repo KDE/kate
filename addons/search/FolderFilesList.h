@@ -1,5 +1,5 @@
 /*   Kate search plugin
- * 
+ *
  * Copyright (C) 2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@
 #include <QStringList>
 #include <QTime>
 
-class FolderFilesList: public QThread
+class FolderFilesList : public QThread
 {
     Q_OBJECT
 
@@ -38,13 +38,7 @@ public:
 
     void run() override;
 
-    void generateList(const QString &folder,
-                      bool recursive,
-                      bool hidden,
-                      bool symlinks,
-                      bool binary,
-                      const QString &types,
-                      const QString &excludes);
+    void generateList(const QString &folder, bool recursive, bool hidden, bool symlinks, bool binary, const QString &types, const QString &excludes);
 
     QStringList fileList();
 
@@ -58,18 +52,17 @@ private:
     void checkNextItem(const QFileInfo &item);
 
 private:
-    QString          m_folder;
-    QStringList      m_files;
-    bool             m_cancelSearch;
+    QString m_folder;
+    QStringList m_files;
+    bool m_cancelSearch;
 
-    bool             m_recursive;
-    bool             m_hidden;
-    bool             m_symlinks;
-    bool             m_binary;
-    QStringList      m_types;
+    bool m_recursive;
+    bool m_hidden;
+    bool m_symlinks;
+    bool m_binary;
+    QStringList m_types;
     QVector<QRegExp> m_excludeList;
-    QTime            m_time;
+    QTime m_time;
 };
-
 
 #endif

@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-**/
+ **/
 
 #ifndef LUMEN_COMPLETION_H
 #define LUMEN_COMPLETION_H
@@ -26,25 +26,22 @@
 
 using namespace KTextEditor;
 
-class LumenCompletionModel
-    : public CodeCompletionModel
-    , public KTextEditor::CodeCompletionModelControllerInterface
+class LumenCompletionModel : public CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 public:
-    LumenCompletionModel(QObject* parent, DCD* dcd);
+    LumenCompletionModel(QObject *parent, DCD *dcd);
     ~LumenCompletionModel() override;
 
-    bool shouldStartCompletion(View* view, const QString& insertedText, bool userInsertion, const Cursor& position) override;
-    void completionInvoked(View* view, const Range& range, InvocationType invocationType) override;
+    bool shouldStartCompletion(View *view, const QString &insertedText, bool userInsertion, const Cursor &position) override;
+    void completionInvoked(View *view, const Range &range, InvocationType invocationType) override;
     void executeCompletionItem(View *view, const Range &word, const QModelIndex &index) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
 private:
-    DCD* m_dcd;
+    DCD *m_dcd;
     DCDCompletion m_data;
 };
-
-
 
 #endif

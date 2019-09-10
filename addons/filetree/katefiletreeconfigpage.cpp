@@ -50,8 +50,7 @@ view needs to pull default settings from the main plugin config
 
 KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlugin *fl)
     :  KTextEditor::ConfigPage(parent),
-       m_plug(fl),
-       m_changed(false)
+       m_plug(fl)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);

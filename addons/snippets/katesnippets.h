@@ -31,7 +31,7 @@
 class SnippetView;
 class KateSnippetsPluginView;
 
-class KateSnippetsPlugin: public KTextEditor::Plugin
+class KateSnippetsPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
@@ -53,8 +53,8 @@ class KateSnippetsPluginView : public QObject, public KXMLGUIClient
 
 public:
     /**
-      * Constructor.
-      */
+     * Constructor.
+     */
     KateSnippetsPluginView(KateSnippetsPlugin *plugin, KTextEditor::MainWindow *mainWindow);
 
     /**
@@ -82,8 +82,7 @@ private:
     /**
      * remember for which text views we might need to cleanup stuff
      */
-    QVector< QPointer<KTextEditor::View> > m_textViews;
+    QVector<QPointer<KTextEditor::View>> m_textViews;
 };
 
 #endif
-

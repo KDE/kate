@@ -33,7 +33,7 @@ class QLabel;
 
 namespace KActivities
 {
-    class ResourceInstance;
+class ResourceInstance;
 }
 
 class KToggleAction;
@@ -92,9 +92,9 @@ public Q_SLOTS:
      * Overwrite size hint for better default window sizes
      * @return size hint
      */
-    QSize sizeHint () const override;
+    QSize sizeHint() const override;
 
-    //config file functions
+    // config file functions
 public:
     void readConfig(KSharedConfigPtr);
     void writeConfig(KSharedConfigPtr);
@@ -102,17 +102,26 @@ public:
     void readConfig();
     void writeConfig();
 
-    //session management
+    // session management
 public:
     void restore(KConfig *, int);
 
 public:
-    KTextEditor::MainWindow *mainWindow() { return &m_mainWindow; }
+    KTextEditor::MainWindow *mainWindow()
+    {
+        return &m_mainWindow;
+    }
 
 public Q_SLOTS:
-    QWidget *window() { return this; }
+    QWidget *window()
+    {
+        return this;
+    }
     QList<KTextEditor::View *> views();
-    KTextEditor::View *activeView() { return m_view; }
+    KTextEditor::View *activeView()
+    {
+        return m_view;
+    }
     KTextEditor::View *activateView(KTextEditor::Document *document);
 
 private:
@@ -121,14 +130,14 @@ private:
     void saveGlobalProperties(KConfig *) override;
 
 private:
-    KTextEditor::View *m_view;
+    KTextEditor::View *m_view = nullptr;
 
-    KRecentFilesAction *m_recentFiles;
-    KToggleAction *m_paShowPath;
-    KToggleAction *m_paShowMenuBar;
-    KToggleAction *m_paShowStatusBar;
+    KRecentFilesAction *m_recentFiles = nullptr;
+    KToggleAction *m_paShowPath = nullptr;
+    KToggleAction *m_paShowMenuBar = nullptr;
+    KToggleAction *m_paShowStatusBar = nullptr;
     QAction *m_closeAction;
-    KActivities::ResourceInstance *m_activityResource;
+    KActivities::ResourceInstance *m_activityResource = nullptr;
     KWriteApplication *m_app;
     KTextEditor::MainWindow m_mainWindow;
 

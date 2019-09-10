@@ -26,30 +26,30 @@
 /**
  * Information provider for cppcheck
  */
-class KateProjectCodeAnalysisToolCppcheck: public KateProjectCodeAnalysisTool
+class KateProjectCodeAnalysisToolCppcheck : public KateProjectCodeAnalysisTool
 {
 public:
     explicit KateProjectCodeAnalysisToolCppcheck(QObject *parent = nullptr);
 
-    virtual ~KateProjectCodeAnalysisToolCppcheck() override;
+    ~KateProjectCodeAnalysisToolCppcheck() override;
 
-    virtual QString name() const override;
+    QString name() const override;
 
-    virtual QString description() const override;
+    QString description() const override;
 
-    virtual QString fileExtensions() const override;
+    QString fileExtensions() const override;
 
     virtual QStringList filter(const QStringList &files) const override;
 
-    virtual QString path() const override;
+    QString path() const override;
 
-    virtual QStringList arguments() override;
+    QStringList arguments() override;
 
-    virtual QString notInstalledMessage() const override;
+    QString notInstalledMessage() const override;
 
-    virtual QStringList parseLine(const QString &line) const override;
+    QStringList parseLine(const QString &line) const override;
 
-    virtual QString stdinMessages() override;
+    QString stdinMessages() override;
 };
 
 #endif // KATE_PROJECT_CODE_ANALYSIS_TOOL_CPPCHECK_H

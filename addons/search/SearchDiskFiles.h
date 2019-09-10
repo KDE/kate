@@ -1,5 +1,5 @@
 /*   Kate search plugin
- * 
+ *
  * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -29,7 +29,7 @@
 #include <QStringList>
 #include <QTime>
 
-class SearchDiskFiles: public QThread
+class SearchDiskFiles : public QThread
 {
     Q_OBJECT
 
@@ -37,8 +37,7 @@ public:
     SearchDiskFiles(QObject *parent = nullptr);
     ~SearchDiskFiles() override;
 
-    void startSearch(const QStringList &iles,
-                     const QRegularExpression &regexp);
+    void startSearch(const QStringList &iles, const QRegularExpression &regexp);
     void run() override;
 
     bool searching();
@@ -51,19 +50,16 @@ public Q_SLOTS:
     void cancelSearch();
 
 Q_SIGNALS:
-    void matchFound(const QString &url, const QString &docName,
-                    const QString &lineContent, int matchLen,
-                    int line, int column, int endLine, int endColumn);
+    void matchFound(const QString &url, const QString &docName, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
     void searchDone();
     void searching(const QString &file);
 
 private:
     QRegularExpression m_regExp;
-    QStringList        m_files;
-    bool               m_cancelSearch;
-    int                m_matchCount;
-    QTime              m_statusTime;
+    QStringList m_files;
+    bool m_cancelSearch = true;
+    int m_matchCount = 0;
+    QTime m_statusTime;
 };
-
 
 #endif

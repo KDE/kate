@@ -99,7 +99,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     if(cl.indexOf(QRegularExpression(QLatin1String("^use +[a-z]"))) == 0 && m_struct->isChecked())
       {
        QString stripped=cl.remove( QRegularExpression(QLatin1String("^use +")) );
-       stripped=stripped.remove( QRegularExpression(QLatin1String(";$")) );
+       stripped.remove( QRegularExpression(QLatin1String(";$")) );
        if (m_treeOn->isChecked())
          {
           node = new QTreeWidgetItem(sctNode, lastSctNode);
@@ -117,7 +117,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     if(cl.indexOf(QRegularExpression(QLatin1String("^sub +")))==0 && m_func->isChecked())
       {
        QString stripped=cl.remove( QRegularExpression(QLatin1String("^sub +")) );
-       stripped=stripped.remove( QRegularExpression(QLatin1String("[{;] *$")) );
+       stripped.remove( QRegularExpression(QLatin1String("[{;] *$")) );
        if (m_treeOn->isChecked())
          {
           node = new QTreeWidgetItem(clsNode, lastClsNode);

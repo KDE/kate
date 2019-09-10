@@ -32,7 +32,7 @@ class TabCloseButton : public QAbstractButton
 
 public:
     // constructor
-    TabCloseButton(QWidget * parent = nullptr);
+    TabCloseButton(QWidget *parent = nullptr);
     // paint close button depending on its state
     void paintEvent(QPaintEvent *event) override;
     // returns the size hint depending on the style
@@ -89,7 +89,7 @@ public Q_SLOTS:
      * Animate the button's geometry from @p startGeom to @p endGeom
      * with linear interpolation.
      */
-    void setAnimatedGeometry(const QRect & startGeom, const QRect & endGeom);
+    void setAnimatedGeometry(const QRect &startGeom, const QRect &endGeom);
 
 Q_SIGNALS:
     /**
@@ -125,11 +125,10 @@ protected:
     void moveEvent(QMoveEvent *event) override;
 
 private:
-    TabCloseButton * m_closeButton;
-    QPropertyAnimation * m_geometryAnimation;
+    TabCloseButton *m_closeButton;
+    QPropertyAnimation *m_geometryAnimation;
     QPoint m_mouseDownPosition;
     QUrl m_url;
 };
 
 #endif
-

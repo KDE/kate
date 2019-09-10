@@ -33,39 +33,39 @@ class KTERustCompletionPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
-    public:
-        explicit KTERustCompletionPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-        ~KTERustCompletionPlugin() override;
+public:
+    explicit KTERustCompletionPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    ~KTERustCompletionPlugin() override;
 
-        QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-        int configPages() const override;
-        KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
+    int configPages() const override;
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
-        KTERustCompletion *completion();
+    KTERustCompletion *completion();
 
-        QString racerCmd() const;
-        void setRacerCmd(const QString &cmd);
+    QString racerCmd() const;
+    void setRacerCmd(const QString &cmd);
 
-        QUrl rustSrcPath() const;
-        void setRustSrcPath(const QUrl &path);
+    QUrl rustSrcPath() const;
+    void setRustSrcPath(const QUrl &path);
 
-        bool configOk() const;
+    bool configOk() const;
 
-    private Q_SLOTS:
-        void updateConfigOk();
+private Q_SLOTS:
+    void updateConfigOk();
 
-    private:
-        void readConfig();
-        void writeConfig();
+private:
+    void readConfig();
+    void writeConfig();
 
-        KTERustCompletion m_completion;
+    KTERustCompletion m_completion;
 
-        QString m_racerCmd;
-        QUrl m_rustSrcPath;
-        KDirWatch *m_rustSrcWatch;
+    QString m_racerCmd;
+    QUrl m_rustSrcPath;
+    KDirWatch *m_rustSrcWatch {nullptr};
 
-        bool m_configOk;
+    bool m_configOk {false};
 };
 
 #endif

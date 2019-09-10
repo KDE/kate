@@ -70,7 +70,7 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
                 continue;
 
             QString stripped = cl.remove(QRegularExpression(QLatin1String("^<[a-zA-Z_]+[a-zA-Z0-9_\\.\\-]* *")));
-            stripped = stripped.remove(QRegularExpression(QLatin1String(" */*>.*")));
+            stripped.remove(QRegularExpression(QLatin1String(" */*>.*")));
 
             if (m_treeOn->isChecked()) {
                 /* See if group already exists */

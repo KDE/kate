@@ -1,7 +1,7 @@
 /*  This file is part of the Kate project.
  *  Based on the snippet plugin from KDevelop 4.
  *
- *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
+ *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net>
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
  *
@@ -30,7 +30,8 @@
 class SnippetRepository;
 class KateSnippetGlobal;
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 }
 
 /**
@@ -47,27 +48,27 @@ public:
     /**
      * Initialize the SnippetStore.
      */
-    static void init(KateSnippetGlobal* plugin);
+    static void init(KateSnippetGlobal *plugin);
     /**
      * Retuns the SnippetStore. Call init() to set it up first.
      */
-    static SnippetStore* self();
+    static SnippetStore *self();
 
     ~SnippetStore() override;
     KConfigGroup getConfig();
-    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     /**
      * Returns the repository for the given @p file if there is any.
      */
-    SnippetRepository* repositoryForFile(const QString &file);
+    SnippetRepository *repositoryForFile(const QString &file);
+
 private:
-    SnippetStore(KateSnippetGlobal* plugin);
+    SnippetStore(KateSnippetGlobal *plugin);
 
-    Qt::ItemFlags flags (const QModelIndex & index) const override;
+    Qt::ItemFlags flags(const QModelIndex &index) const override;
 
-    static SnippetStore* m_self;
-    KateSnippetGlobal* m_plugin;
+    static SnippetStore *m_self;
+    KateSnippetGlobal *m_plugin;
 };
 
 #endif
-

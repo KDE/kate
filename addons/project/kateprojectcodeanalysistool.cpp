@@ -22,7 +22,6 @@
 
 KateProjectCodeAnalysisTool::KateProjectCodeAnalysisTool(QObject *parent)
     : QObject(parent)
-    , m_project(nullptr)
 {
 }
 

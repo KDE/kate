@@ -62,5 +62,4 @@ private:
     bool m_showFullPathOnRoots;
 };
 
-#endif //KATE_FILETREE_PLUGIN_H
-
+#endif // KATE_FILETREE_PLUGIN_H

@@ -30,7 +30,8 @@ class KateSessionChooserItem : public QTreeWidgetItem
 public:
     KateSessionChooserItem(QTreeWidget *tw, KateSession::Ptr s)
         : QTreeWidgetItem(tw, QStringList(s->name()))
-        , session(s) {
+        , session(s)
+    {
         QString docs;
         docs.setNum(s->documents());
         setText(1, docs);
@@ -40,4 +41,3 @@ public:
 };
 
 #endif
-

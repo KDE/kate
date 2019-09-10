@@ -28,7 +28,8 @@
 
 class KTextEditorPreviewPlugin;
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 class Document;
 class MainWindow;
 class View;
@@ -40,7 +41,8 @@ class KConfigGroup;
 class QWidgetAction;
 class QMenu;
 
-namespace KTextEditorPreview {
+namespace KTextEditorPreview
+{
 class KPartView;
 
 /**
@@ -55,7 +57,7 @@ class KPartView;
  * be changed if another view is activated, unless the document
  * itself is closed, where then the label is shown instead.
  */
-class PreviewWidget: public QStackedWidget, public KXMLGUIBuilder
+class PreviewWidget : public QStackedWidget, public KXMLGUIBuilder
 {
     Q_OBJECT
 
@@ -67,21 +69,19 @@ public:
      * @param mainWindow the main window with all the texteditor views
      * @param parent widget object taking the ownership
      */
-    PreviewWidget(KTextEditorPreviewPlugin* core, KTextEditor::MainWindow* mainWindow, QWidget* parent);
+    PreviewWidget(KTextEditorPreviewPlugin *core, KTextEditor::MainWindow *mainWindow, QWidget *parent);
     ~PreviewWidget() override;
 
-    void readSessionConfig(const KConfigGroup& configGroup);
-    void writeSessionConfig(KConfigGroup& configGroup) const;
+    void readSessionConfig(const KConfigGroup &configGroup);
+    void writeSessionConfig(KConfigGroup &configGroup) const;
 
 public: // KXMLGUIBuilder API
-    QWidget* createContainer(QWidget* parent, int index,
-                             const QDomElement& element, QAction*& containerAction) override;
-    void removeContainer(QWidget* container, QWidget* parent,
-                         QDomElement& element, QAction* containerAction) override;
+    QWidget *createContainer(QWidget *parent, int index, const QDomElement &element, QAction *&containerAction) override;
+    void removeContainer(QWidget *container, QWidget *parent, QDomElement &element, QAction *containerAction) override;
 
 protected:
-    void showEvent(QShowEvent* event) override;
-    void hideEvent(QHideEvent* event) override;
+    void showEvent(QShowEvent *event) override;
+    void hideEvent(QHideEvent *event) override;
 
 private Q_SLOTS:
     /**
@@ -95,9 +95,9 @@ private Q_SLOTS:
      *
      * @param view the view or, if there is none, a nullptr
      */
-    void setTextEditorView(KTextEditor::View* view);
-    void resetTextEditorView(KTextEditor::Document* document);
-    void unsetDocument(KTextEditor::Document* document);
+    void setTextEditorView(KTextEditor::View *view);
+    void resetTextEditorView(KTextEditor::Document *document);
+    void unsetDocument(KTextEditor::Document *document);
 
 private:
     void toggleDocumentLocking(bool locked);
@@ -107,22 +107,22 @@ private:
     void clearMenu();
 
 private:
-    KToggleAction* m_lockAction;
-    KToggleAction* m_autoUpdateAction;
-    QAction* m_updateAction;
-    QWidgetAction* m_kPartMenuAction;
-    QMenu* m_kPartMenu;
-    QAction* m_aboutKPartAction;
+    KToggleAction *m_lockAction;
+    KToggleAction *m_autoUpdateAction;
+    QAction *m_updateAction;
+    QWidgetAction *m_kPartMenuAction;
+    QMenu *m_kPartMenu;
+    QAction *m_aboutKPartAction;
 
-    KTextEditorPreviewPlugin* const m_core;
-    KTextEditor::MainWindow* const m_mainWindow;
+    KTextEditorPreviewPlugin *const m_core;
+    KTextEditor::MainWindow *const m_mainWindow;
 
-    KTextEditor::Document* m_previewedTextEditorDocument = nullptr;
-    KTextEditor::View* m_previewedTextEditorView = nullptr;
+    KTextEditor::Document *m_previewedTextEditorDocument = nullptr;
+    KTextEditor::View *m_previewedTextEditorView = nullptr;
     QString m_currentServiceId;
     QString m_currentMode;
     QPointer<KPartView> m_partView;
-    KXMLGUIFactory* m_xmlGuiFactory;
+    KXMLGUIFactory *m_xmlGuiFactory;
 };
 
 }

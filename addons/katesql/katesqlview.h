@@ -35,19 +35,21 @@ class QActionGroup;
 
 class KateSQLView : public QObject, public KXMLGUIClient
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
     ~KateSQLView() override;
 
-    void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-    void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    void readSessionConfig(KConfigBase *config, const QString &groupPrefix);
+    void writeSessionConfig(KConfigBase *config, const QString &groupPrefix);
 
-   
-    SchemaBrowserWidget *schemaBrowserWidget() const { return m_schemaBrowserWidget; }
+    SchemaBrowserWidget *schemaBrowserWidget() const
+    {
+        return m_schemaBrowserWidget;
+    }
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void slotConnectionCreate();
     void slotConnectionEdit();
     void slotConnectionRemove();
@@ -63,16 +65,16 @@ class KateSQLView : public QObject, public KXMLGUIClient
     void slotConnectionSelectedFromMenu(QAction *action);
     void slotConnectionAboutToBeClosed(const QString &name);
 
-  protected:
+protected:
     void setupActions();
 
-  private:
+private:
     QWidget *m_outputToolView;
     QWidget *m_schemaBrowserToolView;
     QActionGroup *m_connectionsGroup;
 
     KateSQLOutputWidget *m_outputWidget;
-    
+
     SchemaBrowserWidget *m_schemaBrowserWidget;
 
     KComboBox *m_connectionsComboBox;
@@ -85,4 +87,3 @@ class KateSQLView : public QObject, public KXMLGUIClient
 };
 
 #endif // KATESQLVIEW_H
-

@@ -30,7 +30,9 @@ class KateProjectConfigPage : public KTextEditor::ConfigPage
     Q_OBJECT
 public:
     explicit KateProjectConfigPage(QWidget *parent = nullptr, KateProjectPlugin *plugin = nullptr);
-    ~KateProjectConfigPage() override {}
+    ~KateProjectConfigPage() override
+    {
+    }
 
     QString name() const override;
     QString fullName() const override;
@@ -49,7 +51,7 @@ private:
     QCheckBox *m_cbAutoSubversion;
     QCheckBox *m_cbAutoMercurial;
     KateProjectPlugin *m_plugin;
-    bool m_changed;
+    bool m_changed = false;
 };
 
 #endif /* KATE_PROJECT_CONFIGPAGE_H */

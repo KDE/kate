@@ -166,7 +166,7 @@ bool ConnectionStandardServerPage::validatePage()
 
   if (!wiz->manager()->testConnection(c, e))
   {
-    KMessageBox::error(this, i18n("Unable to connect to database.") + QLatin1String("\n") + e.text());
+    KMessageBox::error(this, i18n("Unable to connect to database.") + QLatin1Char('\n') + e.text());
     return false;
   }
 

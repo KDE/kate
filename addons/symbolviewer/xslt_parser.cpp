@@ -88,7 +88,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
      if(cl.indexOf(QRegularExpression(QLatin1String("^<xsl:param "))) == 0 && m_macro->isChecked())
        {
         QString stripped = cl.remove(QRegularExpression(QLatin1String("^<xsl:param +name=\"")));
-        stripped = stripped.remove(QRegularExpression(QLatin1String("\".*")));
+        stripped.remove(QRegularExpression(QLatin1String("\".*")));
 
         if (m_treeOn->isChecked())
           {
@@ -104,7 +104,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
      if(cl.indexOf(QRegularExpression(QLatin1String("^<xsl:variable "))) == 0 && m_struct->isChecked())
        {
         QString stripped = cl.remove(QRegularExpression(QLatin1String("^<xsl:variable +name=\"")));
-        stripped = stripped.remove(QRegularExpression(QLatin1String("\".*")));
+        stripped.remove(QRegularExpression(QLatin1String("\".*")));
 
         if (m_treeOn->isChecked())
           {
@@ -120,7 +120,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
      if(cl.indexOf(QRegularExpression(QLatin1String("^<xsl:template +match="))) == 0 && m_func->isChecked())
        {
         QString stripped = cl.remove(QRegularExpression(QLatin1String("^<xsl:template +match=\"")));
-        stripped = stripped.remove(QRegularExpression(QLatin1String("\".*")));
+        stripped.remove(QRegularExpression(QLatin1String("\".*")));
 
         if (m_treeOn->isChecked())
           {
@@ -136,7 +136,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
      if(cl.indexOf(QRegularExpression(QLatin1String("^<xsl:template +name="))) == 0 && m_func->isChecked())
        {
         QString stripped = cl.remove(QRegularExpression(QLatin1String("^<xsl:template +name=\"")));
-        stripped = stripped.remove(QRegularExpression(QLatin1String("\".*")));
+        stripped.remove(QRegularExpression(QLatin1String("\".*")));
 
         if (m_treeOn->isChecked())
           {

@@ -1,7 +1,7 @@
 /*  This file is part of the Kate project.
  *  Based on the snippet plugin from KDevelop 4.
  *
- *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
+ *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
@@ -40,30 +40,36 @@ class KateSnippetGlobal : public QObject
     Q_OBJECT
 
 public:
-    KateSnippetGlobal(QObject *parent, const QVariantList &args = QVariantList() );
-    ~KateSnippetGlobal () override;
+    KateSnippetGlobal(QObject *parent, const QVariantList &args = QVariantList());
+    ~KateSnippetGlobal() override;
 
     /**
      * Inserts the given @p snippet into the currently active view.
      * If the current active view is not inherited from KTextEditor::View
      * nothing will happen.
      */
-    void insertSnippet(Snippet* snippet);
+    void insertSnippet(Snippet *snippet);
 
-    static KateSnippetGlobal* self() { return s_self; }
+    static KateSnippetGlobal *self()
+    {
+        return s_self;
+    }
 
     /**
      * Code completion model.
      * @return code completion model for snippets
      */
-    SnippetCompletionModel *completionModel () { return m_model.data(); }
+    SnippetCompletionModel *completionModel()
+    {
+        return m_model.data();
+    }
 
 public Q_SLOTS:
     /**
      * Create snippet for given view, e.g. by using the selection
      * @param view view to create snippet for
      */
-    void createSnippet (KTextEditor::View *view);
+    void createSnippet(KTextEditor::View *view);
 
     void insertSnippetFromActionData();
 
@@ -74,4 +80,3 @@ private:
 };
 
 #endif
-

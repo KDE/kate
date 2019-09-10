@@ -36,9 +36,10 @@
 #include <QCoreApplication>
 #include <QTime>
 #include <QFileInfo>
+#include <utility>
 
 // good/bad old school; allows easier concatenate
-#define CONTENT_LENGTH  "Content-Length"
+#define CONTENT_LENGTH "Content-Length"
 
 static const QString MEMBER_ID = QStringLiteral("id");
 static const QString MEMBER_METHOD = QStringLiteral("method");
@@ -69,51 +70,37 @@ static const QString MEMBER_ARGUMENTS = QStringLiteral("arguments");
 static const QString MEMBER_DIAGNOSTICS = QStringLiteral("diagnostics");
 
 // message construction helpers
-static QJsonObject
-to_json(const LSPPosition & pos)
+static QJsonObject to_json(const LSPPosition &pos)
 {
-    return QJsonObject {
-        { MEMBER_LINE, pos.line() },
-        { MEMBER_CHARACTER, pos.column() }
-    };
+    return QJsonObject { { MEMBER_LINE, pos.line() }, { MEMBER_CHARACTER, pos.column() } };
 }
 
-static QJsonObject
-to_json(const LSPRange & range)
+static QJsonObject to_json(const LSPRange &range)
 {
-    return QJsonObject {
-        { MEMBER_START, to_json(range.start()) },
-        { MEMBER_END, to_json(range.end()) }
-    };
+    return QJsonObject { { MEMBER_START, to_json(range.start()) },
+                         { MEMBER_END, to_json(range.end()) } };
 }
 
-static QJsonValue
-to_json(const LSPLocation & location)
+static QJsonValue to_json(const LSPLocation &location)
 {
     if (location.uri.isValid()) {
-        return QJsonObject {
-            { MEMBER_URI, location.uri.toString() },
-            { MEMBER_RANGE, to_json(location.range) }
-        };
+        return QJsonObject { { MEMBER_URI, location.uri.toString() },
+                             { MEMBER_RANGE, to_json(location.range) } };
     }
     return QJsonValue();
 }
 
-static QJsonValue
-to_json(const LSPDiagnosticRelatedInformation & related)
+static QJsonValue to_json(const LSPDiagnosticRelatedInformation &related)
 {
     auto loc = to_json(related.location);
     if (loc.isObject()) {
-        return QJsonObject {
-            { MEMBER_LOCATION, to_json(related.location) },
-            { MEMBER_MESSAGE, related.message }
-        };
+        return QJsonObject { { MEMBER_LOCATION, to_json(related.location) },
+                             { MEMBER_MESSAGE, related.message } };
     }
     return QJsonValue();
 }
 
-static QJsonObject
-to_json(const LSPDiagnostic & diagnostic)
+static QJsonObject to_json(const LSPDiagnostic &diagnostic)
 {
     // required
     auto result = QJsonObject();
@@ -123,7 +110,7 @@ to_json(const LSPDiagnostic & diagnostic)
     if (!diagnostic.code.isEmpty())
         result[QStringLiteral("code")] = diagnostic.code;
     if (diagnostic.severity != LSPDiagnosticSeverity::Unknown)
-        result[QStringLiteral("severity")] = (int) diagnostic.severity;
+        result[QStringLiteral("severity")] = (int)diagnostic.severity;
     if (!diagnostic.source.isEmpty())
         result[QStringLiteral("source")] = diagnostic.source;
     auto related = to_json(diagnostic.relatedInformation);
@@ -133,21 +120,17 @@ to_json(const LSPDiagnostic & diagnostic)
     return result;
 }
 
-static QJsonArray
-to_json(const QList<LSPTextDocumentContentChangeEvent> & changes)
+static QJsonArray to_json(const QList<LSPTextDocumentContentChangeEvent> &changes)
 {
     QJsonArray result;
-    for (const auto &change: changes) {
-        result.push_back(QJsonObject {
-                             {MEMBER_RANGE, to_json(change.range)},
-                             {MEMBER_TEXT, change.text}
-                         });
+    for (const auto &change : changes) {
+        result.push_back(QJsonObject { { MEMBER_RANGE, to_json(change.range) },
+                                       { MEMBER_TEXT, change.text } });
     }
     return result;
 }
 
-static QJsonObject
-versionedTextDocumentIdentifier(const QUrl & document, int version = -1)
+static QJsonObject versionedTextDocumentIdentifier(const QUrl &document, int version = -1)
 {
     QJsonObject map { { MEMBER_URI, document.toString() } };
     if (version >= 0)
@@ -155,9 +138,8 @@ versionedTextDocumentIdentifier(const QUrl & document, int version = -1)
     return map;
 }
 
-static QJsonObject
-textDocumentItem(const QUrl & document, const QString & lang,
-                 const QString & text, int version)
+static QJsonObject textDocumentItem(const QUrl &document, const QString &lang, const QString &text,
+                                    int version)
 {
     auto map = versionedTextDocumentIdentifier(document, version);
     map[MEMBER_TEXT] = text;
@@ -165,38 +147,32 @@ textDocumentItem(const QUrl & document, const QString & lang,
     return map;
 }
 
-static QJsonObject
-textDocumentParams(const QJsonObject & m)
+static QJsonObject textDocumentParams(const QJsonObject &m)
 {
-    return QJsonObject {
-        { QStringLiteral("textDocument"), m}
-    };
+    return QJsonObject { { QStringLiteral("textDocument"), m } };
 }
 
-static QJsonObject
-textDocumentParams(const QUrl & document, int version = -1)
-{ return textDocumentParams(versionedTextDocumentIdentifier(document, version)); }
+static QJsonObject textDocumentParams(const QUrl &document, int version = -1)
+{
+    return textDocumentParams(versionedTextDocumentIdentifier(document, version));
+}
 
-static QJsonObject
-textDocumentPositionParams(const QUrl & document, LSPPosition pos)
+static QJsonObject textDocumentPositionParams(const QUrl &document, LSPPosition pos)
 {
     auto params = textDocumentParams(document);
     params[MEMBER_POSITION] = to_json(pos);
     return params;
 }
 
-static QJsonObject
-referenceParams(const QUrl & document, LSPPosition pos, bool decl)
+static QJsonObject referenceParams(const QUrl &document, LSPPosition pos, bool decl)
 {
     auto params = textDocumentPositionParams(document, pos);
-    params[QStringLiteral("context")] = QJsonObject {
-        { QStringLiteral("includeDeclaration"), decl }
-    };
+    params[QStringLiteral("context")] =
+            QJsonObject { { QStringLiteral("includeDeclaration"), decl } };
     return params;
 }
 
-static QJsonObject
-formattingOptions(const LSPFormattingOptions & _options)
+static QJsonObject formattingOptions(const LSPFormattingOptions &_options)
 {
     auto options = _options.extra;
     options[QStringLiteral("tabSize")] = _options.tabSize;
@@ -204,9 +180,8 @@ formattingOptions(const LSPFormattingOptions & _options)
     return options;
 }
 
-static QJsonObject
-documentRangeFormattingParams(const QUrl & document, const LSPRange *range,
-    const LSPFormattingOptions & _options)
+static QJsonObject documentRangeFormattingParams(const QUrl &document, const LSPRange *range,
+                                                 const LSPFormattingOptions &_options)
 {
     auto params = textDocumentParams(document);
     if (range) {
@@ -216,9 +191,9 @@ documentRangeFormattingParams(const QUrl & document, const LSPRange *range,
     return params;
 }
 
-static QJsonObject
-documentOnTypeFormattingParams(const QUrl & document, const LSPPosition & pos,
-    const QChar & lastChar, const LSPFormattingOptions & _options)
+static QJsonObject documentOnTypeFormattingParams(const QUrl &document, const LSPPosition &pos,
+                                                  const QChar &lastChar,
+                                                  const LSPFormattingOptions &_options)
 {
     auto params = textDocumentPositionParams(document, pos);
     params[QStringLiteral("ch")] = QString(lastChar);
@@ -226,23 +201,22 @@ documentOnTypeFormattingParams(const QUrl & document, const LSPPosition & pos,
     return params;
 }
 
-static QJsonObject
-renameParams(const QUrl & document, const LSPPosition & pos, const QString & newName)
+static QJsonObject renameParams(const QUrl &document, const LSPPosition &pos,
+                                const QString &newName)
 {
     auto params = textDocumentPositionParams(document, pos);
     params[QStringLiteral("newName")] = newName;
     return params;
 }
 
-static QJsonObject
-codeActionParams(const QUrl & document, const LSPRange & range,
-    QList<QString> kinds, QList<LSPDiagnostic> diagnostics)
+static QJsonObject codeActionParams(const QUrl &document, const LSPRange &range,
+                                    const QList<QString>& kinds, const QList<LSPDiagnostic>& diagnostics)
 {
     auto params = textDocumentParams(document);
     params[MEMBER_RANGE] = to_json(range);
     QJsonObject context;
     QJsonArray diags;
-    for (const auto& diagnostic: diagnostics) {
+    for (const auto &diagnostic : diagnostics) {
         diags.push_back(to_json(diagnostic));
     }
     context[MEMBER_DIAGNOSTICS] = diags;
@@ -252,36 +226,27 @@ codeActionParams(const QUrl & document, const LSPRange & range,
     return params;
 }
 
-static QJsonObject
-executeCommandParams(const QString & command, const QJsonValue & args)
+static QJsonObject executeCommandParams(const QString &command, const QJsonValue &args)
 {
-    return QJsonObject {
-        { MEMBER_COMMAND, command },
-        { MEMBER_ARGUMENTS, args }
-    };
+    return QJsonObject { { MEMBER_COMMAND, command }, { MEMBER_ARGUMENTS, args } };
 }
 
-static QJsonObject
-applyWorkspaceEditResponse(const LSPApplyWorkspaceEditResponse & response)
+static QJsonObject applyWorkspaceEditResponse(const LSPApplyWorkspaceEditResponse &response)
 {
-    return QJsonObject {
-        { QStringLiteral("applied"), response.applied },
-        { QStringLiteral("failureReason"), response.failureReason }
-    };
+    return QJsonObject { { QStringLiteral("applied"), response.applied },
+                         { QStringLiteral("failureReason"), response.failureReason } };
 }
 
-static void
-from_json(QVector<QChar> & trigger, const QJsonValue & json)
+static void from_json(QVector<QChar> &trigger, const QJsonValue &json)
 {
-    for (const auto & t : json.toArray()) {
+    for (const auto &t : json.toArray()) {
         auto st = t.toString();
         if (st.length())
             trigger.push_back(st.at(0));
     }
 }
 
-static void
-from_json(LSPCompletionOptions & options, const QJsonValue & json)
+static void from_json(LSPCompletionOptions &options, const QJsonValue &json)
 {
     if (json.isObject()) {
         auto ob = json.toObject();
@@ -291,8 +256,7 @@ from_json(LSPCompletionOptions & options, const QJsonValue & json)
     }
 }
 
-static void
-from_json(LSPSignatureHelpOptions & options, const QJsonValue & json)
+static void from_json(LSPSignatureHelpOptions &options, const QJsonValue &json)
 {
     if (json.isObject()) {
         auto ob = json.toObject();
@@ -301,8 +265,7 @@ from_json(LSPSignatureHelpOptions & options, const QJsonValue & json)
     }
 }
 
-static void
-from_json(LSPDocumentOnTypeFormattingOptions & options, const QJsonValue & json)
+static void from_json(LSPDocumentOnTypeFormattingOptions &options, const QJsonValue &json)
 {
     if (json.isObject()) {
         auto ob = json.toObject();
@@ -315,12 +278,13 @@ from_json(LSPDocumentOnTypeFormattingOptions & options, const QJsonValue & json)
     }
 }
 
-static void
-from_json(LSPServerCapabilities & caps, const QJsonObject & json)
+static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
 {
     auto sync = json.value(QStringLiteral("textDocumentSync"));
-    caps.textDocumentSync = (LSPDocumentSyncKind)
-            (sync.isObject() ? sync.toObject().value(QStringLiteral("change")) : sync).toInt((int)LSPDocumentSyncKind::None);
+    caps.textDocumentSync =
+            (LSPDocumentSyncKind)(sync.isObject() ? sync.toObject().value(QStringLiteral("change"))
+                                                  : sync)
+                    .toInt((int)LSPDocumentSyncKind::None);
     caps.hoverProvider = json.value(QStringLiteral("hoverProvider")).toBool();
     from_json(caps.completionProvider, json.value(QStringLiteral("completionProvider")));
     from_json(caps.signatureHelpProvider, json.value(QStringLiteral("signatureHelpProvider")));
@@ -328,10 +292,14 @@ from_json(LSPServerCapabilities & caps, const QJsonObject & json)
     caps.declarationProvider = json.value(QStringLiteral("declarationProvider")).toBool();
     caps.referencesProvider = json.value(QStringLiteral("referencesProvider")).toBool();
     caps.documentSymbolProvider = json.value(QStringLiteral("documentSymbolProvider")).toBool();
-    caps.documentHighlightProvider = json.value(QStringLiteral("documentHighlightProvider")).toBool();
-    caps.documentFormattingProvider = json.value(QStringLiteral("documentFormattingProvider")).toBool();
-    caps.documentRangeFormattingProvider = json.value(QStringLiteral("documentRangeFormattingProvider")).toBool();
-    from_json(caps.documentOnTypeFormattingProvider, json.value(QStringLiteral("documentOnTypeFormattingProvider")));
+    caps.documentHighlightProvider =
+            json.value(QStringLiteral("documentHighlightProvider")).toBool();
+    caps.documentFormattingProvider =
+            json.value(QStringLiteral("documentFormattingProvider")).toBool();
+    caps.documentRangeFormattingProvider =
+            json.value(QStringLiteral("documentRangeFormattingProvider")).toBool();
+    from_json(caps.documentOnTypeFormattingProvider,
+              json.value(QStringLiteral("documentOnTypeFormattingProvider")));
     caps.renameProvider = json.value(QStringLiteral("renameProvider")).toBool();
     auto codeActionProvider = json.value(QStringLiteral("codeActionProvider"));
     caps.codeActionProvider = codeActionProvider.toBool() || codeActionProvider.isObject();
@@ -340,8 +308,7 @@ from_json(LSPServerCapabilities & caps, const QJsonObject & json)
 // follow suit; as performed in kate docmanager
 // normalize at this stage/layer to avoid surprises elsewhere
 // sadly this is not a single QUrl method as one might hope ...
-static QUrl
-normalizeUrl(const QUrl & url)
+static QUrl normalizeUrl(const QUrl &url)
 {
     // Resolve symbolic links for local files (done anyway in KTextEditor)
     if (url.isLocalFile()) {
@@ -355,17 +322,16 @@ normalizeUrl(const QUrl & url)
     return url.adjusted(QUrl::NormalizePathSegments);
 }
 
-static LSPMarkupContent
-parseMarkupContent(const QJsonValue & v)
+static LSPMarkupContent parseMarkupContent(const QJsonValue &v)
 {
     LSPMarkupContent ret;
     if (v.isObject()) {
-        const auto& vm = v.toObject();
+        const auto &vm = v.toObject();
         ret.value = vm.value(QStringLiteral("value")).toString();
         auto kind = vm.value(MEMBER_KIND).toString();
-        if (kind == QStringLiteral("plaintext")) {
+        if (kind == QLatin1String("plaintext")) {
             ret.kind = LSPMarkupKind::PlainText;
-        } else if (kind == QStringLiteral("markdown")) {
+        } else if (kind == QLatin1String("markdown")) {
             ret.kind = LSPMarkupKind::MarkDown;
         }
     } else if (v.isString()) {
@@ -375,50 +341,48 @@ parseMarkupContent(const QJsonValue & v)
     return ret;
 }
 
-static LSPPosition
-parsePosition(const QJsonObject & m)
+static LSPPosition parsePosition(const QJsonObject &m)
 {
     auto line = m.value(MEMBER_LINE).toInt(-1);
     auto column = m.value(MEMBER_CHARACTER).toInt(-1);
-    return {line, column};
+    return { line, column };
 }
 
-static bool
-isPositionValid(const LSPPosition & pos)
-{ return pos.isValid(); }
+static bool isPositionValid(const LSPPosition &pos)
+{
+    return pos.isValid();
+}
 
-static LSPRange
-parseRange(const QJsonObject & range)
+static LSPRange parseRange(const QJsonObject &range)
 {
     auto startpos = parsePosition(range.value(MEMBER_START).toObject());
     auto endpos = parsePosition(range.value(MEMBER_END).toObject());
-    return {startpos, endpos};
+    return { startpos, endpos };
 }
 
-static LSPLocation
-parseLocation(const QJsonObject & loc)
+static LSPLocation parseLocation(const QJsonObject &loc)
 {
     auto uri = normalizeUrl(QUrl(loc.value(MEMBER_URI).toString()));
     auto range = parseRange(loc.value(MEMBER_RANGE).toObject());
-    return {QUrl(uri), range};
+    return { QUrl(uri), range };
 }
 
-static LSPDocumentHighlight
-parseDocumentHighlight(const QJsonValue & result)
+static LSPDocumentHighlight parseDocumentHighlight(const QJsonValue &result)
 {
     auto hover = result.toObject();
     auto range = parseRange(hover.value(MEMBER_RANGE).toObject());
-    auto kind = (LSPDocumentHighlightKind)hover.value(MEMBER_KIND).toInt((int)LSPDocumentHighlightKind::Text); // default is DocumentHighlightKind.Text
-    return {range, kind};
+    auto kind = (LSPDocumentHighlightKind)hover.value(MEMBER_KIND)
+                        .toInt((int)LSPDocumentHighlightKind::Text); // default is
+                                                                     // DocumentHighlightKind.Text
+    return { range, kind };
 }
 
-static QList<LSPDocumentHighlight>
-parseDocumentHighlightList(const QJsonValue & result)
+static QList<LSPDocumentHighlight> parseDocumentHighlightList(const QJsonValue &result)
 {
     QList<LSPDocumentHighlight> ret;
     // could be array
     if (result.isArray()) {
-        for (const auto & def : result.toArray()) {
+        for (const auto &def : result.toArray()) {
             ret.push_back(parseDocumentHighlight(def));
         }
     } else if (result.isObject()) {
@@ -428,8 +392,7 @@ parseDocumentHighlightList(const QJsonValue & result)
     return ret;
 }
 
-static LSPMarkupContent
-parseHoverContentElement(const QJsonValue & contents)
+static LSPMarkupContent parseHoverContentElement(const QJsonValue &contents)
 {
     LSPMarkupContent result;
     if (contents.isString()) {
@@ -450,8 +413,7 @@ parseHoverContentElement(const QJsonValue & contents)
     return result;
 }
 
-static LSPHover
-parseHover(const QJsonValue & result)
+static LSPHover parseHover(const QJsonValue &result)
 {
     LSPHover ret;
     auto hover = result.toObject();
@@ -461,7 +423,7 @@ parseHover(const QJsonValue & result)
 
     // support the deprecated MarkedString[] variant, used by e.g. Rust rls
     if (contents.isArray()) {
-        for (const auto & c : contents.toArray()) {
+        for (const auto &c : contents.toArray()) {
             ret.contents.push_back(parseHoverContentElement(c));
         }
     } else {
@@ -471,8 +433,7 @@ parseHover(const QJsonValue & result)
     return ret;
 }
 
-static QList<LSPSymbolInformation>
-parseDocumentSymbols(const QJsonValue & result)
+static QList<LSPSymbolInformation> parseDocumentSymbols(const QJsonValue &result)
 {
     // the reply could be old SymbolInformation[] or new (hierarchical) DocumentSymbol[]
     // try to parse it adaptively in any case
@@ -483,45 +444,44 @@ parseDocumentSymbols(const QJsonValue & result)
     //   then it is the last instance that is used as a parent
 
     QList<LSPSymbolInformation> ret;
-    QMap<QString, LSPSymbolInformation*> index;
+    QMap<QString, LSPSymbolInformation *> index;
 
-    std::function<void(const QJsonObject & symbol, LSPSymbolInformation *parent)> parseSymbol =
-        [&] (const QJsonObject & symbol, LSPSymbolInformation *parent) {
-        // if flat list, try to find parent by name
-        if (!parent) {
-            auto container = symbol.value(QStringLiteral("containerName")).toString();
-            parent = index.value(container, nullptr);
-        }
-        auto list = parent ? &parent->children : &ret;
-        const auto& location = symbol.value(MEMBER_LOCATION).toObject();
-        const auto& mrange = symbol.contains(MEMBER_RANGE) ?
-                    symbol.value(MEMBER_RANGE) : location.value(MEMBER_RANGE);
-        auto range = parseRange(mrange.toObject());
-        if (isPositionValid(range.start()) && isPositionValid(range.end())) {
-            auto name = symbol.value(QStringLiteral("name")).toString();
-            auto kind = (LSPSymbolKind) symbol.value(MEMBER_KIND).toInt();
-            auto detail = symbol.value(MEMBER_DETAIL).toString();
-            list->push_back({name, kind, range, detail});
-            index[name] = &list->back();
-            // proceed recursively
-            for (const auto &child : symbol.value(QStringLiteral("children")).toArray())
-                parseSymbol(child.toObject(), &list->back());
-        }
-    };
+    std::function<void(const QJsonObject &symbol, LSPSymbolInformation *parent)> parseSymbol =
+            [&](const QJsonObject &symbol, LSPSymbolInformation *parent) {
+                // if flat list, try to find parent by name
+                if (!parent) {
+                    auto container = symbol.value(QStringLiteral("containerName")).toString();
+                    parent = index.value(container, nullptr);
+                }
+                auto list = parent ? &parent->children : &ret;
+                const auto &location = symbol.value(MEMBER_LOCATION).toObject();
+                const auto &mrange = symbol.contains(MEMBER_RANGE) ? symbol.value(MEMBER_RANGE)
+                                                                   : location.value(MEMBER_RANGE);
+                auto range = parseRange(mrange.toObject());
+                if (isPositionValid(range.start()) && isPositionValid(range.end())) {
+                    auto name = symbol.value(QStringLiteral("name")).toString();
+                    auto kind = (LSPSymbolKind)symbol.value(MEMBER_KIND).toInt();
+                    auto detail = symbol.value(MEMBER_DETAIL).toString();
+                    list->push_back({ name, kind, range, detail });
+                    index[name] = &list->back();
+                    // proceed recursively
+                    for (const auto &child : symbol.value(QStringLiteral("children")).toArray())
+                        parseSymbol(child.toObject(), &list->back());
+                }
+            };
 
-    for (const auto& info : result.toArray()) {
+    for (const auto &info : result.toArray()) {
         parseSymbol(info.toObject(), nullptr);
     }
     return ret;
 }
 
-static QList<LSPLocation>
-parseDocumentLocation(const QJsonValue & result)
+static QList<LSPLocation> parseDocumentLocation(const QJsonValue &result)
 {
     QList<LSPLocation> ret;
     // could be array
     if (result.isArray()) {
-        for (const auto & def : result.toArray()) {
+        for (const auto &def : result.toArray()) {
             ret.push_back(parseLocation(def.toObject()));
         }
     } else if (result.isObject()) {
@@ -531,17 +491,16 @@ parseDocumentLocation(const QJsonValue & result)
     return ret;
 }
 
-static QList<LSPCompletionItem>
-parseDocumentCompletion(const QJsonValue & result)
+static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result)
 {
     QList<LSPCompletionItem> ret;
     QJsonArray items = result.toArray();
     // might be CompletionList
-    if (items.size() == 0) {
+    if (items.empty()) {
         items = result.toObject().value(QStringLiteral("items")).toArray();
     }
-    for (const auto & vitem : items) {
-        const auto & item = vitem.toObject();
+    for (const auto &vitem : items) {
+        const auto &item = vitem.toObject();
         auto label = item.value(MEMBER_LABEL).toString();
         auto detail = item.value(MEMBER_DETAIL).toString();
         auto doc = parseMarkupContent(item.value(MEMBER_DOCUMENTATION));
@@ -551,20 +510,19 @@ parseDocumentCompletion(const QJsonValue & result)
         auto insertText = item.value(QStringLiteral("insertText")).toString();
         if (insertText.isEmpty())
             insertText = label;
-        auto kind = (LSPCompletionItemKind) item.value(MEMBER_KIND).toInt();
-        ret.push_back({label, kind, detail, doc, sortText, insertText});
+        auto kind = (LSPCompletionItemKind)item.value(MEMBER_KIND).toInt();
+        ret.push_back({ label, kind, detail, doc, sortText, insertText });
     }
     return ret;
 }
 
-static LSPSignatureInformation
-parseSignatureInformation(const QJsonObject & json)
+static LSPSignatureInformation parseSignatureInformation(const QJsonObject &json)
 {
     LSPSignatureInformation info;
 
     info.label = json.value(MEMBER_LABEL).toString();
     info.documentation = parseMarkupContent(json.value(MEMBER_DOCUMENTATION));
-    for (const auto & rpar : json.value(QStringLiteral("parameters")).toArray()) {
+    for (const auto &rpar : json.value(QStringLiteral("parameters")).toArray()) {
         auto par = rpar.toObject();
         auto label = par.value(MEMBER_LABEL);
         int begin = -1, end = -1;
@@ -587,18 +545,17 @@ parseSignatureInformation(const QJsonObject & json)
                 }
             }
         }
-        info.parameters.push_back({begin, end});
+        info.parameters.push_back({ begin, end });
     }
     return info;
 }
 
-static LSPSignatureHelp
-parseSignatureHelp(const QJsonValue & result)
+static LSPSignatureHelp parseSignatureHelp(const QJsonValue &result)
 {
     LSPSignatureHelp ret;
     QJsonObject sig = result.toObject();
 
-    for (const auto & info: sig.value(QStringLiteral("signatures")).toArray()) {
+    for (const auto &info : sig.value(QStringLiteral("signatures")).toArray()) {
         ret.signatures.push_back(parseSignatureInformation(info.toObject()));
     }
     ret.activeSignature = sig.value(QStringLiteral("activeSignature")).toInt(0);
@@ -608,32 +565,29 @@ parseSignatureHelp(const QJsonValue & result)
     return ret;
 }
 
-static QList<LSPTextEdit>
-parseTextEdit(const QJsonValue & result)
+static QList<LSPTextEdit> parseTextEdit(const QJsonValue &result)
 {
     QList<LSPTextEdit> ret;
-    for (const auto &redit: result.toArray()) {
+    for (const auto &redit : result.toArray()) {
         auto edit = redit.toObject();
         auto text = edit.value(QStringLiteral("newText")).toString();
         auto range = parseRange(edit.value(MEMBER_RANGE).toObject());
-        ret.push_back({range, text});
+        ret.push_back({ range, text });
     }
     return ret;
 }
 
-static LSPWorkspaceEdit
-parseWorkSpaceEdit(const QJsonValue & result)
+static LSPWorkspaceEdit parseWorkSpaceEdit(const QJsonValue &result)
 {
     QHash<QUrl, QList<LSPTextEdit>> ret;
     auto changes = result.toObject().value(QStringLiteral("changes")).toObject();
     for (auto it = changes.begin(); it != changes.end(); ++it) {
         ret.insert(normalizeUrl(QUrl(it.key())), parseTextEdit(it.value()));
     }
-    return {ret};
+    return { ret };
 }
 
-static LSPCommand
-parseCommand(const QJsonObject & result)
+static LSPCommand parseCommand(const QJsonObject &result)
 {
     auto title = result.value(MEMBER_TITLE).toString();
     auto command = result.value(MEMBER_COMMAND).toString();
@@ -641,30 +595,28 @@ parseCommand(const QJsonObject & result)
     return { title, command, args };
 }
 
-static QList<LSPDiagnostic>
-parseDiagnostics(const QJsonArray &result)
+static QList<LSPDiagnostic> parseDiagnostics(const QJsonArray &result)
 {
     QList<LSPDiagnostic> ret;
-    for (const auto & vdiag : result) {
+    for (const auto &vdiag : result) {
         auto diag = vdiag.toObject();
         auto range = parseRange(diag.value(MEMBER_RANGE).toObject());
-        auto severity = (LSPDiagnosticSeverity) diag.value(QStringLiteral("severity")).toInt();
+        auto severity = (LSPDiagnosticSeverity)diag.value(QStringLiteral("severity")).toInt();
         auto code = diag.value(QStringLiteral("code")).toString();
         auto source = diag.value(QStringLiteral("source")).toString();
         auto message = diag.value(MEMBER_MESSAGE).toString();
         auto related = diag.value(QStringLiteral("relatedInformation")).toObject();
         auto relLocation = parseLocation(related.value(MEMBER_LOCATION).toObject());
         auto relMessage = related.value(MEMBER_MESSAGE).toString();
-        ret.push_back({range, severity, code, source, message, relLocation, relMessage});
+        ret.push_back({ range, severity, code, source, message, relLocation, relMessage });
     }
     return ret;
 }
 
-static QList<LSPCodeAction>
-parseCodeAction(const QJsonValue & result)
+static QList<LSPCodeAction> parseCodeAction(const QJsonValue &result)
 {
     QList<LSPCodeAction> ret;
-    for (const auto &vaction: result.toArray()) {
+    for (const auto &vaction : result.toArray()) {
         auto action = vaction.toObject();
         // entry could be Command or CodeAction
         if (!action.value(MEMBER_COMMAND).isString()) {
@@ -674,18 +626,17 @@ parseCodeAction(const QJsonValue & result)
             auto command = parseCommand(action.value(MEMBER_COMMAND).toObject());
             auto edit = parseWorkSpaceEdit(action.value(MEMBER_EDIT));
             auto diagnostics = parseDiagnostics(action.value(MEMBER_DIAGNOSTICS).toArray());
-            ret.push_back({title, kind, diagnostics, edit, command});
+            ret.push_back({ title, kind, diagnostics, edit, command });
         } else {
             // Command
             auto command = parseCommand(action);
-            ret.push_back({command.title, QString(), {}, {}, command});
+            ret.push_back({ command.title, QString(), {}, {}, command });
         }
     }
     return ret;
 }
 
-static LSPPublishDiagnosticsParams
-parseDiagnostics(const QJsonObject & result)
+static LSPPublishDiagnosticsParams parseDiagnostics(const QJsonObject &result)
 {
     LSPPublishDiagnosticsParams ret;
 
@@ -694,8 +645,7 @@ parseDiagnostics(const QJsonObject & result)
     return ret;
 }
 
-static LSPApplyWorkspaceEditParams
-parseApplyWorkspaceEditParams(const QJsonObject & result)
+static LSPApplyWorkspaceEditParams parseApplyWorkspaceEditParams(const QJsonObject &result)
 {
     LSPApplyWorkspaceEditParams ret;
 
@@ -703,7 +653,6 @@ parseApplyWorkspaceEditParams(const QJsonObject & result)
     ret.edit = parseWorkSpaceEdit(result.value(MEMBER_EDIT));
     return ret;
 }
-
 
 using GenericReplyType = QJsonValue;
 using GenericReplyHandler = ReplyHandler<GenericReplyType>;
@@ -733,38 +682,26 @@ class LSPClientServer::LSPClientServerPrivate
     QHash<int, GenericReplyHandler> m_handlers;
     // pending request responses
     static constexpr int MAX_REQUESTS = 5;
-    QVector<int> m_requests{MAX_REQUESTS + 1};
+    QVector<int> m_requests { MAX_REQUESTS + 1 };
 
 public:
-    LSPClientServerPrivate(LSPClientServer * _q, const QStringList & server,
-        const QUrl & root, const QJsonValue & init)
+    LSPClientServerPrivate(LSPClientServer *_q, const QStringList &server, const QUrl &root,
+                           const QJsonValue &init)
         : q(_q), m_server(server), m_root(root), m_init(init)
     {
         // setup async reading
         QObject::connect(&m_sproc, &QProcess::readyRead, utils::mem_fun(&self_type::read, this));
-        QObject::connect(&m_sproc, &QProcess::stateChanged, utils::mem_fun(&self_type::onStateChanged, this));
+        QObject::connect(&m_sproc, &QProcess::stateChanged,
+                         utils::mem_fun(&self_type::onStateChanged, this));
     }
 
-    ~LSPClientServerPrivate()
-    {
-        stop(TIMEOUT_SHUTDOWN, TIMEOUT_SHUTDOWN);
-    }
+    ~LSPClientServerPrivate() { stop(TIMEOUT_SHUTDOWN, TIMEOUT_SHUTDOWN); }
 
-    const QStringList& cmdline() const
-    {
-        return m_server;
-    }
+    const QStringList &cmdline() const { return m_server; }
 
-    State state()
-    {
-        return m_state;
-    }
+    State state() { return m_state; }
 
-    const LSPServerCapabilities&
-    capabilities()
-    {
-        return m_capabilities;
-    }
+    const LSPServerCapabilities &capabilities() { return m_capabilities; }
 
     int cancel(int reqid)
     {
@@ -784,7 +721,8 @@ private:
         }
     }
 
-    RequestHandle write(const QJsonObject & msg, const GenericReplyHandler & h = nullptr, const int * id = nullptr)
+    RequestHandle write(const QJsonObject &msg, const GenericReplyHandler &h = nullptr,
+                        const int *id = nullptr)
     {
         RequestHandle ret;
         ret.m_server = q;
@@ -818,8 +756,7 @@ private:
         return ret;
     }
 
-    RequestHandle
-    send(const QJsonObject & msg, const GenericReplyHandler & h = nullptr)
+    RequestHandle send(const QJsonObject &msg, const GenericReplyHandler &h = nullptr)
     {
         if (m_state == State::Running)
             return write(msg, h);
@@ -875,7 +812,7 @@ private:
             buffer.remove(0, msgstart + length);
             qCInfo(LSPCLIENT) << "got message payload size " << length;
             qCDebug(LSPCLIENT) << "message payload:\n" << payload;
-            QJsonParseError error{};
+            QJsonParseError error {};
             auto msg = QJsonDocument::fromJson(payload, &error);
             if (error.error != QJsonParseError::NoError || !msg.isObject()) {
                 qCWarning(LSPCLIENT) << "invalid response payload";
@@ -914,39 +851,25 @@ private:
         }
     }
 
-    static QJsonObject
-    init_error(const LSPErrorCode code, const QString & msg)
+    static QJsonObject init_error(const LSPErrorCode code, const QString &msg)
     {
         return QJsonObject {
-            { MEMBER_ERROR, QJsonObject {
-                    { MEMBER_CODE, (int) code },
-                    { MEMBER_MESSAGE, msg }
-                }
-            }
+            { MEMBER_ERROR, QJsonObject { { MEMBER_CODE, (int)code }, { MEMBER_MESSAGE, msg } } }
         };
     }
 
-    static QJsonObject
-    init_request(const QString & method, const QJsonObject & params = QJsonObject())
+    static QJsonObject init_request(const QString &method,
+                                    const QJsonObject &params = QJsonObject())
     {
-        return QJsonObject {
-            { MEMBER_METHOD, method },
-            { MEMBER_PARAMS, params }
-        };
+        return QJsonObject { { MEMBER_METHOD, method }, { MEMBER_PARAMS, params } };
     }
 
-    static QJsonObject
-    init_response(const QJsonValue & result = QJsonValue())
+    static QJsonObject init_response(const QJsonValue &result = QJsonValue())
     {
-        return QJsonObject {
-            { MEMBER_RESULT, result }
-        };
+        return QJsonObject { { MEMBER_RESULT, result } };
     }
 
-    bool running()
-    {
-        return m_sproc.state() == QProcess::Running;
-    }
+    bool running() { return m_sproc.state() == QProcess::Running; }
 
     void onStateChanged(QProcess::ProcessState nstate)
     {
@@ -971,10 +894,11 @@ private:
         }
     }
 
-    void onInitializeReply(const QJsonValue & value)
+    void onInitializeReply(const QJsonValue &value)
     {
         // only parse parts that we use later on
-        from_json(m_capabilities, value.toObject().value(QStringLiteral("capabilities")).toObject());
+        from_json(m_capabilities,
+                  value.toObject().value(QStringLiteral("capabilities")).toObject());
         // finish init
         initialized();
     }
@@ -982,39 +906,32 @@ private:
     void initialize()
     {
         QJsonObject codeAction {
-            { QStringLiteral("codeActionLiteralSupport"), QJsonObject {
-                    { QStringLiteral("codeActionKind"), QJsonObject {
-                        { QStringLiteral("valueSet"), QJsonArray() }
-                        }
-                    }
-                }
-            }
+            { QStringLiteral("codeActionLiteralSupport"),
+              QJsonObject { { QStringLiteral("codeActionKind"),
+                              QJsonObject { { QStringLiteral("valueSet"), QJsonArray() } } } } }
         };
         QJsonObject capabilities {
             { QStringLiteral("textDocument"),
-                QJsonObject {
-                    { QStringLiteral("documentSymbol"),
-                                QJsonObject { { QStringLiteral("hierarchicalDocumentSymbolSupport"), true } },
-                    },
-                    { QStringLiteral("publishDiagnostics"),
-                                QJsonObject { { QStringLiteral("relatedInformation"), true } }
-                    },
-                    { QStringLiteral("codeAction"), codeAction }
-                }
-            }
+              QJsonObject {
+                      {
+                              QStringLiteral("documentSymbol"),
+                              QJsonObject { { QStringLiteral("hierarchicalDocumentSymbolSupport"),
+                                              true } },
+                      },
+                      { QStringLiteral("publishDiagnostics"),
+                        QJsonObject { { QStringLiteral("relatedInformation"), true } } },
+                      { QStringLiteral("codeAction"), codeAction } } }
         };
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
-        QJsonObject params {
-            { QStringLiteral("processId"), QCoreApplication::applicationPid() },
-            { QStringLiteral("rootPath"), m_root.path() },
-            { QStringLiteral("rootUri"), m_root.toString() },
-            { QStringLiteral("capabilities"), capabilities },
-            { QStringLiteral("initializationOptions"), m_init }
-        };
+        QJsonObject params { { QStringLiteral("processId"), QCoreApplication::applicationPid() },
+                             { QStringLiteral("rootPath"), m_root.path() },
+                             { QStringLiteral("rootUri"), m_root.toString() },
+                             { QStringLiteral("capabilities"), capabilities },
+                             { QStringLiteral("initializationOptions"), m_init } };
         //
         write(init_request(QStringLiteral("initialize"), params),
-             utils::mem_fun(&self_type::onInitializeReply, this));
+              utils::mem_fun(&self_type::onInitializeReply, this));
     }
 
     void initialized()
@@ -1063,137 +980,139 @@ public:
         }
     }
 
-    RequestHandle documentSymbols(const QUrl & document, const GenericReplyHandler & h)
+    RequestHandle documentSymbols(const QUrl &document, const GenericReplyHandler &h)
     {
         auto params = textDocumentParams(document);
         return send(init_request(QStringLiteral("textDocument/documentSymbol"), params), h);
     }
 
-    RequestHandle documentDefinition(const QUrl & document, const LSPPosition & pos,
-        const GenericReplyHandler & h)
+    RequestHandle documentDefinition(const QUrl &document, const LSPPosition &pos,
+                                     const GenericReplyHandler &h)
     {
         auto params = textDocumentPositionParams(document, pos);
         return send(init_request(QStringLiteral("textDocument/definition"), params), h);
     }
 
-    RequestHandle documentDeclaration(const QUrl & document, const LSPPosition & pos,
-        const GenericReplyHandler & h)
+    RequestHandle documentDeclaration(const QUrl &document, const LSPPosition &pos,
+                                      const GenericReplyHandler &h)
     {
         auto params = textDocumentPositionParams(document, pos);
         return send(init_request(QStringLiteral("textDocument/declaration"), params), h);
     }
 
-    RequestHandle documentHover(const QUrl & document, const LSPPosition & pos,
-        const GenericReplyHandler & h)
+    RequestHandle documentHover(const QUrl &document, const LSPPosition &pos,
+                                const GenericReplyHandler &h)
     {
         auto params = textDocumentPositionParams(document, pos);
         return send(init_request(QStringLiteral("textDocument/hover"), params), h);
     }
 
-    RequestHandle documentHighlight(const QUrl & document, const LSPPosition & pos,
-        const GenericReplyHandler & h)
+    RequestHandle documentHighlight(const QUrl &document, const LSPPosition &pos,
+                                    const GenericReplyHandler &h)
     {
         auto params = textDocumentPositionParams(document, pos);
         return send(init_request(QStringLiteral("textDocument/documentHighlight"), params), h);
     }
 
-    RequestHandle documentReferences(const QUrl & document, const LSPPosition & pos, bool decl,
-        const GenericReplyHandler & h)
+    RequestHandle documentReferences(const QUrl &document, const LSPPosition &pos, bool decl,
+                                     const GenericReplyHandler &h)
     {
         auto params = referenceParams(document, pos, decl);
         return send(init_request(QStringLiteral("textDocument/references"), params), h);
     }
 
-    RequestHandle documentCompletion(const QUrl & document, const LSPPosition & pos,
-        const GenericReplyHandler & h)
+    RequestHandle documentCompletion(const QUrl &document, const LSPPosition &pos,
+                                     const GenericReplyHandler &h)
     {
         auto params = textDocumentPositionParams(document, pos);
         return send(init_request(QStringLiteral("textDocument/completion"), params), h);
     }
 
-    RequestHandle signatureHelp(const QUrl & document, const LSPPosition & pos,
-        const GenericReplyHandler & h)
+    RequestHandle signatureHelp(const QUrl &document, const LSPPosition &pos,
+                                const GenericReplyHandler &h)
     {
         auto params = textDocumentPositionParams(document, pos);
         return send(init_request(QStringLiteral("textDocument/signatureHelp"), params), h);
     }
 
-    RequestHandle documentFormatting(const QUrl & document, const LSPFormattingOptions & options,
-        const GenericReplyHandler & h)
+    RequestHandle documentFormatting(const QUrl &document, const LSPFormattingOptions &options,
+                                     const GenericReplyHandler &h)
     {
         auto params = documentRangeFormattingParams(document, nullptr, options);
         return send(init_request(QStringLiteral("textDocument/formatting"), params), h);
     }
 
-    RequestHandle documentRangeFormatting(const QUrl & document, const LSPRange & range,
-        const LSPFormattingOptions & options, const GenericReplyHandler & h)
+    RequestHandle documentRangeFormatting(const QUrl &document, const LSPRange &range,
+                                          const LSPFormattingOptions &options,
+                                          const GenericReplyHandler &h)
     {
         auto params = documentRangeFormattingParams(document, &range, options);
         return send(init_request(QStringLiteral("textDocument/rangeFormatting"), params), h);
     }
 
-    RequestHandle documentOnTypeFormatting(const QUrl & document, const LSPPosition & pos,
-        QChar lastChar, const LSPFormattingOptions & options, const GenericReplyHandler & h)
+    RequestHandle documentOnTypeFormatting(const QUrl &document, const LSPPosition &pos,
+                                           QChar lastChar, const LSPFormattingOptions &options,
+                                           const GenericReplyHandler &h)
     {
         auto params = documentOnTypeFormattingParams(document, pos, lastChar, options);
         return send(init_request(QStringLiteral("textDocument/onTypeFormatting"), params), h);
     }
 
-    RequestHandle documentRename(const QUrl & document, const LSPPosition & pos,
-        const QString newName, const GenericReplyHandler & h)
+    RequestHandle documentRename(const QUrl &document, const LSPPosition &pos,
+                                 const QString& newName, const GenericReplyHandler &h)
     {
         auto params = renameParams(document, pos, newName);
         return send(init_request(QStringLiteral("textDocument/rename"), params), h);
     }
 
-    RequestHandle documentCodeAction(const QUrl & document, const LSPRange & range,
-        const QList<QString> & kinds, QList<LSPDiagnostic> diagnostics,
-        const GenericReplyHandler & h)
+    RequestHandle documentCodeAction(const QUrl &document, const LSPRange &range,
+                                     const QList<QString> &kinds, QList<LSPDiagnostic> diagnostics,
+                                     const GenericReplyHandler &h)
     {
-        auto params = codeActionParams(document, range, kinds, diagnostics);
+        auto params = codeActionParams(document, range, kinds, std::move(diagnostics));
         return send(init_request(QStringLiteral("textDocument/codeAction"), params), h);
     }
 
-    void executeCommand(const QString & command, const QJsonValue & args)
+    void executeCommand(const QString &command, const QJsonValue &args)
     {
         auto params = executeCommandParams(command, args);
         send(init_request(QStringLiteral("workspace/executeCommand"), params));
     }
 
-    void didOpen(const QUrl & document, int version, const QString & langId, const QString & text)
+    void didOpen(const QUrl &document, int version, const QString &langId, const QString &text)
     {
         auto params = textDocumentParams(textDocumentItem(document, langId, text, version));
         send(init_request(QStringLiteral("textDocument/didOpen"), params));
     }
 
-    void didChange(const QUrl & document, int version, const QString & text,
-        const QList<LSPTextDocumentContentChangeEvent> & changes)
+    void didChange(const QUrl &document, int version, const QString &text,
+                   const QList<LSPTextDocumentContentChangeEvent> &changes)
     {
-        Q_ASSERT(text.size() == 0 || changes.size() == 0);
+        Q_ASSERT(text.isEmpty() || changes.empty());
         auto params = textDocumentParams(document, version);
         params[QStringLiteral("contentChanges")] = text.size()
-                ? QJsonArray { QJsonObject {{MEMBER_TEXT, text}} }
+                ? QJsonArray { QJsonObject { { MEMBER_TEXT, text } } }
                 : to_json(changes);
         send(init_request(QStringLiteral("textDocument/didChange"), params));
     }
 
-    void didSave(const QUrl & document, const QString & text)
+    void didSave(const QUrl &document, const QString &text)
     {
         auto params = textDocumentParams(document);
         params[QStringLiteral("text")] = text;
         send(init_request(QStringLiteral("textDocument/didSave"), params));
     }
 
-    void didClose(const QUrl & document)
+    void didClose(const QUrl &document)
     {
         auto params = textDocumentParams(document);
         send(init_request(QStringLiteral("textDocument/didClose"), params));
     }
 
-    void processNotification(const QJsonObject & msg)
+    void processNotification(const QJsonObject &msg)
     {
         auto method = msg[MEMBER_METHOD].toString();
-        if (method == QStringLiteral("textDocument/publishDiagnostics")) {
+        if (method == QLatin1String("textDocument/publishDiagnostics")) {
             emit q->publishDiagnostics(parseDiagnostics(msg[MEMBER_PARAMS].toObject()));
         } else {
             qCWarning(LSPCLIENT) << "discarding notification" << method;
@@ -1201,16 +1120,18 @@ public:
     }
 
     template<typename ReplyType>
-    static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> & h,
-        const QObject *context,
-        typename utils::identity<std::function<ReplyType(const GenericReplyType&)>>::type c)
+    static GenericReplyHandler make_handler(
+            const ReplyHandler<ReplyType> &h, const QObject *context,
+            typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
     {
         QPointer<const QObject> ctx(context);
-        return [ctx, h, c] (const GenericReplyType & m) { if (ctx) h(c(m)); };
+        return [ctx, h, c](const GenericReplyType &m) {
+            if (ctx)
+                h(c(m));
+        };
     }
 
-    GenericReplyHandler
-    prepareResponse(int msgid)
+    GenericReplyHandler prepareResponse(int msgid)
     {
         // allow limited number of outstanding requests
         auto ctx = QPointer<LSPClientServer>(q);
@@ -1218,8 +1139,7 @@ public:
         if (m_requests.size() > MAX_REQUESTS) {
             m_requests.pop_front();
         }
-        auto h = [ctx, this, msgid] (const GenericReplyType & response)
-        {
+        auto h = [ctx, this, msgid](const GenericReplyType &response) {
             if (!ctx) {
                 return;
             }
@@ -1235,19 +1155,23 @@ public:
     }
 
     template<typename ReplyType>
-    static ReplyHandler<ReplyType> responseHandler(const GenericReplyHandler & h,
-        typename utils::identity<std::function<GenericReplyType(const ReplyType&)>>::type c)
-    { return [h, c] (const ReplyType & m) { h(c(m)); }; }
+    static ReplyHandler<ReplyType> responseHandler(
+            const GenericReplyHandler &h,
+            typename utils::identity<std::function<GenericReplyType(const ReplyType &)>>::type c)
+    {
+        return [h, c](const ReplyType &m) { h(c(m)); };
+    }
 
     // pretty rare and limited use, but anyway
-    void processRequest(const QJsonObject & msg)
+    void processRequest(const QJsonObject &msg)
     {
         auto method = msg[MEMBER_METHOD].toString();
         auto msgid = msg[MEMBER_ID].toInt();
         auto params = msg[MEMBER_PARAMS];
         bool handled = false;
-        if (method == QStringLiteral("workspace/applyEdit")) {
-            auto h = responseHandler<LSPApplyWorkspaceEditResponse>(prepareResponse(msgid), applyWorkspaceEditResponse);
+        if (method == QLatin1String("workspace/applyEdit")) {
+            auto h = responseHandler<LSPApplyWorkspaceEditResponse>(prepareResponse(msgid),
+                                                                    applyWorkspaceEditResponse);
             emit q->applyEdit(parseApplyWorkspaceEditParams(params.toObject()), h, handled);
         } else {
             write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, &msgid);
@@ -1256,129 +1180,188 @@ public:
     }
 };
 
-
 // generic convert handler
 // sprinkle some connection-like context safety
 // not so likely relevant/needed due to typical sequence of events,
 // but in case the latter would be changed in surprising ways ...
 template<typename ReplyType>
-static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> & h,
-    const QObject *context,
-    typename utils::identity<std::function<ReplyType(const GenericReplyType&)>>::type c)
+static GenericReplyHandler
+make_handler(const ReplyHandler<ReplyType> &h, const QObject *context,
+             typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
 {
     QPointer<const QObject> ctx(context);
-    return [ctx, h, c] (const GenericReplyType & m) { if (ctx) h(c(m)); };
+    return [ctx, h, c](const GenericReplyType &m) {
+        if (ctx)
+            h(c(m));
+    };
 }
 
-
-LSPClientServer::LSPClientServer(const QStringList & server, const QUrl & root,
-    const QJsonValue & init)
+LSPClientServer::LSPClientServer(const QStringList &server, const QUrl &root,
+                                 const QJsonValue &init)
     : d(new LSPClientServerPrivate(this, server, root, init))
-{}
+{
+}
 
 LSPClientServer::~LSPClientServer()
-{ delete d; }
+{
+    delete d;
+}
 
-const QStringList& LSPClientServer::cmdline() const
-{ return d->cmdline(); }
+const QStringList &LSPClientServer::cmdline() const
+{
+    return d->cmdline();
+}
 
 LSPClientServer::State LSPClientServer::state() const
-{ return d->state(); }
+{
+    return d->state();
+}
 
-const LSPServerCapabilities&
-LSPClientServer::capabilities() const
-{ return d->capabilities(); }
+const LSPServerCapabilities &LSPClientServer::capabilities() const
+{
+    return d->capabilities();
+}
 
 bool LSPClientServer::start()
-{ return d->start(); }
+{
+    return d->start();
+}
 
 void LSPClientServer::stop(int to_t, int to_k)
-{ return d->stop(to_t, to_k); }
+{
+    return d->stop(to_t, to_k);
+}
 
 int LSPClientServer::cancel(int reqid)
-{ return d->cancel(reqid); }
+{
+    return d->cancel(reqid);
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentSymbols(const QUrl & document, const QObject *context,
-    const DocumentSymbolsReplyHandler & h)
-{ return d->documentSymbols(document, make_handler(h, context, parseDocumentSymbols)); }
+LSPClientServer::documentSymbols(const QUrl &document, const QObject *context,
+                                 const DocumentSymbolsReplyHandler &h)
+{
+    return d->documentSymbols(document, make_handler(h, context, parseDocumentSymbols));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentDefinition(const QUrl & document, const LSPPosition & pos,
-    const QObject *context, const DocumentDefinitionReplyHandler & h)
-{ return d->documentDefinition(document, pos, make_handler(h, context, parseDocumentLocation)); }
+LSPClientServer::documentDefinition(const QUrl &document, const LSPPosition &pos,
+                                    const QObject *context, const DocumentDefinitionReplyHandler &h)
+{
+    return d->documentDefinition(document, pos, make_handler(h, context, parseDocumentLocation));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentDeclaration(const QUrl & document, const LSPPosition & pos,
-    const QObject *context, const DocumentDefinitionReplyHandler & h)
-{ return d->documentDeclaration(document, pos, make_handler(h, context, parseDocumentLocation)); }
+LSPClientServer::documentDeclaration(const QUrl &document, const LSPPosition &pos,
+                                     const QObject *context,
+                                     const DocumentDefinitionReplyHandler &h)
+{
+    return d->documentDeclaration(document, pos, make_handler(h, context, parseDocumentLocation));
+}
+
+LSPClientServer::RequestHandle LSPClientServer::documentHover(const QUrl &document,
+                                                              const LSPPosition &pos,
+                                                              const QObject *context,
+                                                              const DocumentHoverReplyHandler &h)
+{
+    return d->documentHover(document, pos, make_handler(h, context, parseHover));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentHover(const QUrl & document, const LSPPosition & pos,
-    const QObject *context, const DocumentHoverReplyHandler & h)
-{ return d->documentHover(document, pos, make_handler(h, context, parseHover)); }
+LSPClientServer::documentHighlight(const QUrl &document, const LSPPosition &pos,
+                                   const QObject *context, const DocumentHighlightReplyHandler &h)
+{
+    return d->documentHighlight(document, pos,
+                                make_handler(h, context, parseDocumentHighlightList));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentHighlight(const QUrl & document, const LSPPosition & pos,
-    const QObject *context, const DocumentHighlightReplyHandler & h)
-{ return d->documentHighlight(document, pos, make_handler(h, context, parseDocumentHighlightList)); }
+LSPClientServer::documentReferences(const QUrl &document, const LSPPosition &pos, bool decl,
+                                    const QObject *context, const DocumentDefinitionReplyHandler &h)
+{
+    return d->documentReferences(document, pos, decl,
+                                 make_handler(h, context, parseDocumentLocation));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentReferences(const QUrl & document, const LSPPosition & pos, bool decl,
-    const QObject *context, const DocumentDefinitionReplyHandler & h)
-{ return d->documentReferences(document, pos, decl, make_handler(h, context, parseDocumentLocation)); }
+LSPClientServer::documentCompletion(const QUrl &document, const LSPPosition &pos,
+                                    const QObject *context, const DocumentCompletionReplyHandler &h)
+{
+    return d->documentCompletion(document, pos, make_handler(h, context, parseDocumentCompletion));
+}
+
+LSPClientServer::RequestHandle LSPClientServer::signatureHelp(const QUrl &document,
+                                                              const LSPPosition &pos,
+                                                              const QObject *context,
+                                                              const SignatureHelpReplyHandler &h)
+{
+    return d->signatureHelp(document, pos, make_handler(h, context, parseSignatureHelp));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentCompletion(const QUrl & document, const LSPPosition & pos,
-    const QObject *context, const DocumentCompletionReplyHandler & h)
-{ return d->documentCompletion(document, pos, make_handler(h, context, parseDocumentCompletion)); }
+LSPClientServer::documentFormatting(const QUrl &document, const LSPFormattingOptions &options,
+                                    const QObject *context, const FormattingReplyHandler &h)
+{
+    return d->documentFormatting(document, options, make_handler(h, context, parseTextEdit));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::signatureHelp(const QUrl & document, const LSPPosition & pos,
-    const QObject *context, const SignatureHelpReplyHandler & h)
-{ return d->signatureHelp(document, pos, make_handler(h, context, parseSignatureHelp)); }
+LSPClientServer::documentRangeFormatting(const QUrl &document, const LSPRange &range,
+                                         const LSPFormattingOptions &options,
+                                         const QObject *context, const FormattingReplyHandler &h)
+{
+    return d->documentRangeFormatting(document, range, options,
+                                      make_handler(h, context, parseTextEdit));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentFormatting(const QUrl & document, const LSPFormattingOptions & options,
-    const QObject *context, const FormattingReplyHandler & h)
-{ return d->documentFormatting(document, options, make_handler(h, context, parseTextEdit)); }
+LSPClientServer::documentOnTypeFormatting(const QUrl &document, const LSPPosition &pos,
+                                          const QChar lastChar, const LSPFormattingOptions &options,
+                                          const QObject *context, const FormattingReplyHandler &h)
+{
+    return d->documentOnTypeFormatting(document, pos, lastChar, options,
+                                       make_handler(h, context, parseTextEdit));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentRangeFormatting(const QUrl & document, const LSPRange & range,
-    const LSPFormattingOptions & options,
-    const QObject *context, const FormattingReplyHandler & h)
-{ return d->documentRangeFormatting(document, range, options, make_handler(h, context, parseTextEdit)); }
+LSPClientServer::documentRename(const QUrl &document, const LSPPosition &pos, const QString& newName,
+                                const QObject *context, const WorkspaceEditReplyHandler &h)
+{
+    return d->documentRename(document, pos, newName, make_handler(h, context, parseWorkSpaceEdit));
+}
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentOnTypeFormatting(const QUrl & document, const LSPPosition & pos,
-    const QChar lastChar, const LSPFormattingOptions & options,
-    const QObject *context, const FormattingReplyHandler & h)
-{ return d->documentOnTypeFormatting(document, pos, lastChar, options, make_handler(h, context, parseTextEdit)); }
+LSPClientServer::documentCodeAction(const QUrl &document, const LSPRange &range,
+                                    const QList<QString> &kinds, QList<LSPDiagnostic> diagnostics,
+                                    const QObject *context, const CodeActionReplyHandler &h)
+{
+    return d->documentCodeAction(document, range, kinds, std::move(diagnostics),
+                                 make_handler(h, context, parseCodeAction));
+}
 
-LSPClientServer::RequestHandle
-LSPClientServer::documentRename(const QUrl & document, const LSPPosition & pos,
-    const QString newName,
-    const QObject *context, const WorkspaceEditReplyHandler & h)
-{ return d->documentRename(document, pos, newName, make_handler(h, context, parseWorkSpaceEdit)); }
+void LSPClientServer::executeCommand(const QString &command, const QJsonValue &args)
+{
+    return d->executeCommand(command, args);
+}
 
-LSPClientServer::RequestHandle
-LSPClientServer::documentCodeAction(const QUrl & document, const LSPRange & range,
-    const QList<QString> & kinds, QList<LSPDiagnostic> diagnostics,
-    const QObject *context, const CodeActionReplyHandler & h)
-{ return d->documentCodeAction(document, range, kinds, diagnostics, make_handler(h, context, parseCodeAction)); }
+void LSPClientServer::didOpen(const QUrl &document, int version, const QString &langId,
+                              const QString &text)
+{
+    return d->didOpen(document, version, langId, text);
+}
 
-void LSPClientServer::executeCommand(const QString & command, const QJsonValue & args)
-{ return d->executeCommand(command, args); }
+void LSPClientServer::didChange(const QUrl &document, int version, const QString &text,
+                                const QList<LSPTextDocumentContentChangeEvent> &changes)
+{
+    return d->didChange(document, version, text, changes);
+}
 
-void LSPClientServer::didOpen(const QUrl & document, int version, const QString & langId, const QString & text)
-{ return d->didOpen(document, version, langId, text); }
+void LSPClientServer::didSave(const QUrl &document, const QString &text)
+{
+    return d->didSave(document, text);
+}
 
-void LSPClientServer::didChange(const QUrl & document, int version, const QString & text,
-    const QList<LSPTextDocumentContentChangeEvent> & changes)
-{ return d->didChange(document, version, text, changes); }
-
-void LSPClientServer::didSave(const QUrl & document, const QString & text)
-{ return d->didSave(document, text); }
-
-void LSPClientServer::didClose(const QUrl & document)
-{ return d->didClose(document); }
+void LSPClientServer::didClose(const QUrl &document)
+{
+    return d->didClose(document);
+}

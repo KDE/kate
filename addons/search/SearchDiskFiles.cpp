@@ -26,8 +26,6 @@
 
 
 SearchDiskFiles::SearchDiskFiles(QObject *parent) : QThread(parent)
-,m_cancelSearch(true)
-,m_matchCount(0)
 {}
 
 SearchDiskFiles::~SearchDiskFiles()
@@ -39,7 +37,7 @@ SearchDiskFiles::~SearchDiskFiles()
 void SearchDiskFiles::startSearch(const QStringList &files,
                                   const QRegularExpression &regexp)
 {
-    if (files.size() == 0) {
+    if (files.empty()) {
         emit searchDone();
         return;
     }
@@ -63,7 +61,7 @@ void SearchDiskFiles::run()
             emit searching(fileName);
         }
 
-        if (m_regExp.pattern().contains(QStringLiteral("\\n"))) {
+        if (m_regExp.pattern().contains(QLatin1String("\\n"))) {
             searchMultiLineRegExp(fileName);
         }
         else {
@@ -144,7 +142,7 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
             lineStart << i+1;
         }
     }
-    if (tmpRegExp.pattern().endsWith(QStringLiteral("$"))) {
+    if (tmpRegExp.pattern().endsWith(QLatin1Char('$'))) {
         fullDoc += QLatin1Char('\n');
         QString newPatern = tmpRegExp.pattern();
         newPatern.replace(QStringLiteral("$"), QStringLiteral("(?=\\n)"));

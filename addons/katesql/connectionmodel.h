@@ -28,14 +28,14 @@
 
 class ConnectionModel : public QAbstractListModel
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     ConnectionModel(QObject *parent = nullptr);
     ~ConnectionModel() override;
 
-    int rowCount ( const QModelIndex & parent = QModelIndex() ) const override;
-    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     virtual int addConnection(const Connection &conn);
     virtual void removeConnection(const QString &name);
@@ -47,10 +47,10 @@ class ConnectionModel : public QAbstractListModel
 
     int indexOf(const QString &name);
 
-//     virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex());
-//     virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+    //     virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex());
+    //     virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
 
-  private:
+private:
     QHash<QString, Connection> m_connections;
     QHash<Connection::Status, QIcon> m_icons;
 };

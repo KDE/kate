@@ -39,8 +39,6 @@ public:
 
 protected:
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
-
 };
 
 #endif /* KATE_FILETREEPROXYMODEL_H */
-

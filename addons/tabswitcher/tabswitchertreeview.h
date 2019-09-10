@@ -51,18 +51,18 @@ Q_SIGNALS:
      * @note @p selectionIndex is a model index of the selectionModel()
      *       and not of the QListView's model itself.
      */
-    void itemActivated(const QModelIndex & selectionIndex);
+    void itemActivated(const QModelIndex &selectionIndex);
 
 protected:
     /**
      * Reimplemented for tracking the CTRL key modifier.
      */
-    void keyReleaseEvent(QKeyEvent * event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
 
     /**
      * Reimplemented for tracking the ESCAPE key.
      */
-    void keyPressEvent(QKeyEvent * event) override;
+    void keyPressEvent(QKeyEvent *event) override;
 
     /**
      * Reimplemented for adjusting the column widths to fit the contents

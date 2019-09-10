@@ -25,27 +25,27 @@ Boston, MA 02110-1301, USA.
 
 class CachedSqlQueryModel : public QSqlQueryModel
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  explicit CachedSqlQueryModel(QObject *parent = nullptr, int cacheCapacity = 1000);
+    explicit CachedSqlQueryModel(QObject *parent = nullptr, int cacheCapacity = 1000);
 
-  QVariant data(const QModelIndex &item, int role = Qt::DisplayRole) const override;
-  QSqlRecord record(int row) const;
-  void clear() override;
+    QVariant data(const QModelIndex &item, int role = Qt::DisplayRole) const override;
+    QSqlRecord record(int row) const;
+    void clear() override;
 
-  int cacheCapacity() const;
+    int cacheCapacity() const;
 
 public Q_SLOTS:
-  void clearCache();
-  void setCacheCapacity(int);
+    void clearCache();
+    void setCacheCapacity(int);
 
-  protected:
+protected:
     void queryChange() override;
 
 private:
-  void cacheRecords(int from, int to) const;
+    void cacheRecords(int from, int to) const;
 
-  mutable QContiguousCache<QSqlRecord> cache;
+    mutable QContiguousCache<QSqlRecord> cache;
 };
 
 #endif // CACHEDSQLQUERYMODEL_H

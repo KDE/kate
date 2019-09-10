@@ -29,7 +29,7 @@
 /**
  * Information provider for a code analysis tool
  */
-class KateProjectCodeAnalysisTool: public QObject
+class KateProjectCodeAnalysisTool : public QObject
 {
     Q_OBJECT
 protected:
@@ -38,10 +38,10 @@ protected:
     /**
      * Current project
      */
-    KateProject *m_project;
+    KateProject *m_project = nullptr;
 
 public:
-    virtual ~KateProjectCodeAnalysisTool();
+    ~KateProjectCodeAnalysisTool() override;
 
     /**
      * bind to this project
@@ -133,6 +133,6 @@ private:
     int m_filesCount = 0;
 };
 
-Q_DECLARE_METATYPE(KateProjectCodeAnalysisTool*)
+Q_DECLARE_METATYPE(KateProjectCodeAnalysisTool *)
 
 #endif // KATE_PROJECT_CODE_ANALYSIS_TOOL_H

@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-**/
+ **/
 
 #ifndef LUMEN_H
 #define LUMEN_H
@@ -37,50 +37,50 @@ using namespace KTextEditor;
 class LumenPlugin;
 class LumenHintProvider;
 
-class LumenPluginView: public QObject
+class LumenPluginView : public QObject
 {
     Q_OBJECT
-    public:
-        LumenPluginView(LumenPlugin *plugin, KTextEditor::MainWindow *view);
-        ~LumenPluginView() override;
-        void registerCompletion(KTextEditor::View *view);
-        void registerTextHints(KTextEditor::View *view);
-    private Q_SLOTS:
-        void urlChanged(KTextEditor::Document*);
-        void viewCreated(KTextEditor::View *view);
-        void viewDestroyed(QObject *view);
-        void documentChanged(KTextEditor::Document *document);
-    private:
-        LumenPlugin* m_plugin;
-        MainWindow* m_mainWin;
-        LumenCompletionModel* m_model;
-        QSet<View *> m_completionViews;
-        bool m_registered;
-        LumenHintProvider* m_hinter;
+public:
+    LumenPluginView(LumenPlugin *plugin, KTextEditor::MainWindow *view);
+    ~LumenPluginView() override;
+    void registerCompletion(KTextEditor::View *view);
+    void registerTextHints(KTextEditor::View *view);
+private Q_SLOTS:
+    void urlChanged(KTextEditor::Document *);
+    void viewCreated(KTextEditor::View *view);
+    void viewDestroyed(QObject *view);
+    void documentChanged(KTextEditor::Document *document);
+
+private:
+    LumenPlugin *m_plugin;
+    MainWindow *m_mainWin;
+    LumenCompletionModel *m_model;
+    QSet<View *> m_completionViews;
+    bool m_registered;
+    LumenHintProvider *m_hinter;
 };
 
 class LumenHintProvider : public KTextEditor::TextHintProvider
 {
 public:
-  explicit LumenHintProvider(LumenPlugin* plugin);
-  QString textHint(KTextEditor::View* view, const KTextEditor::Cursor& position) override;
+    explicit LumenHintProvider(LumenPlugin *plugin);
+    QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override;
 
 private:
-  LumenPlugin *m_plugin;
+    LumenPlugin *m_plugin;
 };
 
-
-class LumenPlugin: public Plugin
+class LumenPlugin : public Plugin
 {
     Q_OBJECT
-    public:
-        explicit LumenPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-        ~LumenPlugin() override;
-        DCD* dcd();
-        QObject *createView(MainWindow *mainWindow) override;
-    private:
-        DCD* m_dcd;
-};
+public:
+    explicit LumenPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    ~LumenPlugin() override;
+    DCD *dcd();
+    QObject *createView(MainWindow *mainWindow) override;
 
+private:
+    DCD *m_dcd;
+};
 
 #endif

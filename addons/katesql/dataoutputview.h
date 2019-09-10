@@ -23,12 +23,12 @@
 
 class DataOutputView : public QTableView
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     DataOutputView(QWidget *parent = nullptr);
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void slotCustomContextMenuRequested(const QPoint &pos);
 };
 

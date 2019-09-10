@@ -112,7 +112,7 @@ bool PluginKateOpenHeader::tryOpenInternal( const QUrl& url, const QStringList& 
   if (!application->activeMainWindow())
     return false;
 
-  qDebug() << "Trying to find already opened" << url.toString() << " with extensions " << extensions.join(QStringLiteral(" "));
+  qDebug() << "Trying to find already opened" << url.toString() << " with extensions " << extensions.join(QLatin1Char(' '));
   QString basename = QFileInfo( url.path() ).baseName();
   QUrl newURL( url );
     
@@ -140,7 +140,7 @@ void PluginKateOpenHeader::tryOpen( const QUrl& url, const QStringList& extensio
   if (!application->activeMainWindow())
     return;
 
-  qDebug() << "Trying to open " << url.toString() << " with extensions " << extensions.join(QStringLiteral(" "));
+  qDebug() << "Trying to open " << url.toString() << " with extensions " << extensions.join(QLatin1Char(' '));
   QString basename = QFileInfo( url.path() ).baseName();
   QUrl newURL( url );
     

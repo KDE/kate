@@ -45,14 +45,12 @@ class PluginKateXMLTools : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit PluginKateXMLTools(QObject *parent = nullptr, const QVariantList& = QVariantList());
+    explicit PluginKateXMLTools(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~PluginKateXMLTools() override;
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
 
-class PluginKateXMLToolsCompletionModel
-    : public KTextEditor::CodeCompletionModel
-    , public KTextEditor::CodeCompletionModelControllerInterface
+class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
@@ -61,9 +59,9 @@ public:
     PluginKateXMLToolsCompletionModel(QObject *parent);
     ~PluginKateXMLToolsCompletionModel() override;
 
-//
-// KTextEditor::CodeCompletionModel
-//
+    //
+    // KTextEditor::CodeCompletionModel
+    //
 public:
     int columnCount(const QModelIndex &) const override;
     int rowCount(const QModelIndex &parent) const override;
@@ -71,18 +69,13 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &idx, int role) const override;
 
-    void executeCompletionItem(KTextEditor::View *view,
-                                       const KTextEditor::Range &word,
-                                       const QModelIndex &index) const override;
+    void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override;
 
-//
-// KTextEditor::CodeCompletionModelControllerInterface
-//
+    //
+    // KTextEditor::CodeCompletionModelControllerInterface
+    //
 public:
-    bool shouldStartCompletion(KTextEditor::View *view,
-                                       const QString &insertedText,
-                                       bool userInsertion,
-                                       const KTextEditor::Cursor &position) override;
+    bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override;
 
 public Q_SLOTS:
 
@@ -100,10 +93,9 @@ public Q_SLOTS:
     void slotDocumentDeleted(KTextEditor::Document *doc);
 
 protected:
-
     QString currentModeToString() const;
     static QStringList sortQStringList(QStringList list);
-    //bool eventFilter( QObject *object, QEvent *event );
+    // bool eventFilter( QObject *object, QEvent *event );
 
     QString insideTag(KTextEditor::View &kv);
     QString insideAttribute(KTextEditor::View &kv);
@@ -115,10 +107,10 @@ protected:
 
     QString getParentElement(KTextEditor::View &view, int skipCharacters);
 
-    enum Mode {none, entities, attributevalues, attributes, elements, closingtag};
-    enum PopupMode {noPopup, tagname, attributename, attributevalue, entityname};
+    enum Mode { none, entities, attributevalues, attributes, elements, closingtag };
+    enum PopupMode { noPopup, tagname, attributename, attributevalue, entityname };
 
-    enum Level {groupNode = 1};
+    enum Level { groupNode = 1 };
 
     /// Assign the PseudoDTD @p dtd to the Kate::View @p view
     void assignDTD(PseudoDTD *dtd, KTextEditor::View *view);
@@ -150,7 +142,6 @@ class PluginKateXMLToolsView : public QObject, public KXMLGUIClient
     Q_OBJECT
 
 public:
-
     explicit PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin);
     ~PluginKateXMLToolsView() override;
 
@@ -173,8 +164,8 @@ private Q_SLOTS:
     void slotHistoryTextChanged(const QString &);
 
 private:
-    QComboBox * m_cmbElements;
-    QPushButton * m_okButton;
+    QComboBox *m_cmbElements;
+    QPushButton *m_okButton;
 };
 
 #endif // PLUGIN_KATEXMLTOOLS_H

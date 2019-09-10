@@ -30,12 +30,13 @@
 
 namespace KActivities
 {
-    class ResourceInstance;
+class ResourceInstance;
 }
 
-namespace KTextEditor {
-    class View;
-    class Document;
+namespace KTextEditor
+{
+class View;
+class Document;
 }
 
 class KateDocumentInfo;
@@ -68,16 +69,9 @@ public:
     /* restore it */
     void restoreViewConfiguration(const KConfigGroup &group);
 
-    KTextEditor::Document *openUrl(const QUrl &url,
-                                   const QString &encoding,
-                                   bool activate = true,
-                                   bool isTempFile = false,
-                                   const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *openUrl(const QUrl &url, const QString &encoding, bool activate = true, bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    KTextEditor::Document *openUrls(const QList<QUrl> &url,
-                                    const QString &encoding,
-                                    bool isTempFile = false,
-                                    const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *openUrls(const QList<QUrl> &url, const QString &encoding, bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     KTextEditor::View *openUrlWithView(const QUrl &url, const QString &encoding);
 
@@ -188,8 +182,7 @@ public Q_SLOTS:
     /**
      * @returns true of the two given views share the same view space.
      */
-    bool viewsInSameViewSpace(KTextEditor::View *view1,
-                              KTextEditor::View *view2);
+    bool viewsInSameViewSpace(KTextEditor::View *view1, KTextEditor::View *view2);
 
     /**
      * activate view for given document
@@ -198,12 +191,14 @@ public Q_SLOTS:
     KTextEditor::View *activateView(KTextEditor::Document *doc);
 
     /** Splits the active viewspace horizontally */
-    void slotSplitViewSpaceHoriz() {
+    void slotSplitViewSpaceHoriz()
+    {
         splitViewSpace(nullptr, Qt::Vertical);
     }
 
     /** Splits the active viewspace vertically */
-    void slotSplitViewSpaceVert() {
+    void slotSplitViewSpaceVert()
+    {
         splitViewSpace();
     }
 
@@ -211,27 +206,32 @@ public Q_SLOTS:
     void moveSplitter(Qt::Key key, int repeats = 1);
 
     /** moves the splitter to the right  */
-    void moveSplitterRight() {
+    void moveSplitterRight()
+    {
         moveSplitter(Qt::Key_Right);
     }
 
     /** moves the splitter to the left  */
-    void moveSplitterLeft() {
+    void moveSplitterLeft()
+    {
         moveSplitter(Qt::Key_Left);
     }
 
     /** moves the splitter up  */
-    void moveSplitterUp() {
+    void moveSplitterUp()
+    {
         moveSplitter(Qt::Key_Up);
     }
 
     /** moves the splitter down  */
-    void moveSplitterDown() {
+    void moveSplitterDown()
+    {
         moveSplitter(Qt::Key_Down);
     }
 
     /** closes the current view space. */
-    void slotCloseCurrentViewSpace() {
+    void slotCloseCurrentViewSpace()
+    {
         closeViewSpace();
     }
 
@@ -252,7 +252,8 @@ public Q_SLOTS:
      * Get a list of all views.
      * @return all views
      */
-    QList<KTextEditor::View *> views() const {
+    QList<KTextEditor::View *> views() const
+    {
         return m_views.keys();
     }
 
@@ -295,33 +296,29 @@ private:
     /**
      * View meta data
      */
-    class ViewData {
-        public:
-            /**
-             * Default constructor
-             */
-            ViewData()
-                : active(false)
-                , lruAge(0)
-                , activityResource(Q_NULLPTR)
-            {
-            }
+    class ViewData
+    {
+    public:
+        /**
+         * Default constructor
+         */
+        ViewData() = default;
 
-            /**
-             * view active?
-             */
-            bool active;
+        /**
+         * view active?
+         */
+        bool active = false;
 
-            /**
-             * lru age of the view
-             * important: smallest age ==> latest used view
-             */
-            qint64 lruAge;
+        /**
+         * lru age of the view
+         * important: smallest age ==> latest used view
+         */
+        qint64 lruAge = 0;
 
-            /**
-             * activity resource for the view
-             */
-            KActivities::ResourceInstance *activityResource;
+        /**
+         * activity resource for the view
+         */
+        KActivities::ResourceInstance *activityResource = nullptr;
     };
 
     /**

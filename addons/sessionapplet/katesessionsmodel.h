@@ -29,7 +29,6 @@
 
 #include <QStandardItemModel>
 
-
 class QModelIndex;
 class KConfigDialog;
 class QStringList;
@@ -40,27 +39,22 @@ class KateSessionsModel : public QStandardItemModel
 public:
     KateSessionsModel(QObject *parent);
     ~KateSessionsModel() override;
-    QHash< int, QByteArray > roleNames() const override;
-    enum SpecificRoles {
-        Uuid = Qt::UserRole+3,
-        TypeRole = Qt::UserRole+4
-    };
-
+    QHash<int, QByteArray> roleNames() const override;
+    enum SpecificRoles { Uuid = Qt::UserRole + 3, TypeRole = Qt::UserRole + 4 };
 
 protected Q_SLOTS:
-//    void slotOnItemClicked(const QModelIndex &index);
+    //    void slotOnItemClicked(const QModelIndex &index);
     void slotUpdateSessionMenu();
-//    void slotSaveConfig();
+    //    void slotSaveConfig();
 
 protected:
     void initSessionFiles();
-/*    void createConfigurationInterface(KConfigDialog *parent);
-    void configChanged();*/
+    /*    void createConfigurationInterface(KConfigDialog *parent);
+        void configChanged();*/
 private:
-
     QStringList m_sessions;
     QStringList m_fullList;
     QString m_sessionsDir;
-//    KateSessionConfigInterface *m_config;
+    //    KateSessionConfigInterface *m_config;
 };
 #endif

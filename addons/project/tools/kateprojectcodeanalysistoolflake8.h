@@ -26,30 +26,30 @@
 /**
  * Information provider for flake8
  */
-class KateProjectCodeAnalysisToolFlake8: public KateProjectCodeAnalysisTool
+class KateProjectCodeAnalysisToolFlake8 : public KateProjectCodeAnalysisTool
 {
 public:
     explicit KateProjectCodeAnalysisToolFlake8(QObject *parent = nullptr);
 
-    virtual ~KateProjectCodeAnalysisToolFlake8() override;
+    ~KateProjectCodeAnalysisToolFlake8() override;
 
-    virtual QString name() const override;
+    QString name() const override;
 
-    virtual QString description() const override;
+    QString description() const override;
 
-    virtual QString fileExtensions() const override;
+    QString fileExtensions() const override;
 
     virtual QStringList filter(const QStringList &files) const override;
 
-    virtual QString path() const override;
+    QString path() const override;
 
-    virtual QStringList arguments() override;
+    QStringList arguments() override;
 
-    virtual QString notInstalledMessage() const override;
+    QString notInstalledMessage() const override;
 
-    virtual QStringList parseLine(const QString &line) const override;
+    QStringList parseLine(const QString &line) const override;
 
-    virtual QString stdinMessages() override;
+    QString stdinMessages() override;
 };
 
 #endif // KATE_PROJECT_CODE_ANALYSIS_TOOL_FLAKE8_H

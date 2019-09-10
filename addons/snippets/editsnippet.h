@@ -1,7 +1,7 @@
 /*  This file is part of the Kate project.
  *  Based on the snippet plugin from KDevelop 4.
  *
- *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
+ *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net>
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
  *
@@ -26,12 +26,16 @@
 
 #include <QDialog>
 
-namespace KTextEditor { class View; }
+namespace KTextEditor
+{
+class View;
+}
 
 class SnippetRepository;
 class Snippet;
 
-namespace Ui {
+namespace Ui
+{
 class EditSnippetBase;
 }
 
@@ -44,26 +48,26 @@ class EditSnippet : public QDialog
 {
     Q_OBJECT
 
-  public:
+public:
     /// @p snippet set to 0 when you want to create a new snippet.
-    explicit EditSnippet(SnippetRepository* repo, Snippet* snippet, QWidget* parent = nullptr);
+    explicit EditSnippet(SnippetRepository *repo, Snippet *snippet, QWidget *parent = nullptr);
     ~EditSnippet() override;
 
-    void setSnippetText(const QString& text);
+    void setSnippetText(const QString &text);
 
     void reject() override;
 
-  private:
-    Ui::EditSnippetBase* m_ui;
-    SnippetRepository* m_repo;
-    Snippet* m_snippet;
-    KTextEditor::View* m_snippetView;
-    KTextEditor::View* m_scriptsView;
-    KTextEditor::View* m_testView;
+private:
+    Ui::EditSnippetBase *m_ui;
+    SnippetRepository *m_repo;
+    Snippet *m_snippet;
+    KTextEditor::View *m_snippetView;
+    KTextEditor::View *m_scriptsView;
+    KTextEditor::View *m_testView;
     bool m_topBoxModified;
-    QPushButton* m_okButton;
+    QPushButton *m_okButton;
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void test();
     void save();
     void validate();
@@ -71,4 +75,3 @@ class EditSnippet : public QDialog
 };
 
 #endif
-

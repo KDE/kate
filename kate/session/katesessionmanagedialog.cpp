@@ -131,7 +131,7 @@ void KateSessionManageDialog::filterChanged()
 
 void KateSessionManageDialog::done(int result)
 {
-    for (auto session : qAsConst(m_deleteList)) {
+    for (const auto& session : qAsConst(m_deleteList)) {
         KateApp::self()->sessionManager()->deleteSession(session);
     }
     m_deleteList.clear(); // May not needed, but anyway

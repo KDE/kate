@@ -25,19 +25,20 @@
 #include <QIcon>
 #include <QAbstractTableModel>
 
-namespace KTextEditor {
-    class Document;
+namespace KTextEditor
+{
+class Document;
 }
 
-namespace detail {
-
+namespace detail
+{
 /**
  * Represents one item in the table view of the tab switcher.
  */
 class FilenameListItem
 {
 public:
-    FilenameListItem(KTextEditor::Document* doc);
+    FilenameListItem(KTextEditor::Document *doc);
 
     KTextEditor::Document *document;
     QIcon icon() const;
@@ -57,9 +58,9 @@ class TabswitcherFilesModel : public QAbstractTableModel
 
 public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
-    virtual ~TabswitcherFilesModel() = default;
-    bool insertDocument(int row, KTextEditor::Document * document);
-    bool removeDocument(KTextEditor::Document * document);
+    ~TabswitcherFilesModel() override = default;
+    bool insertDocument(int row, KTextEditor::Document *document);
+    bool removeDocument(KTextEditor::Document *document);
 
     /**
      * Clears all data from the model
@@ -69,12 +70,12 @@ public:
     /**
      * NOTE: The returned pointer will become invalid as soon as the underlying vector changes.
      */
-    KTextEditor::Document * item(int row) const;
+    KTextEditor::Document *item(int row) const;
 
     /**
      * Move the document to row 0.
      */
-    void raiseDocument(KTextEditor::Document * document);
+    void raiseDocument(KTextEditor::Document *document);
 
     /*
      * Use this method to update all items.
@@ -86,29 +87,29 @@ public:
     /**
      * Reimplemented to return the column count of top-level items.
      */
-    int columnCount(const QModelIndex & parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
     /**
      * Reimplemented to return the top-level row count.
      */
-    int rowCount(const QModelIndex & parent = QModelIndex()) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
     /**
      * Returns the data for the requested model index.
      */
-    QVariant data(const QModelIndex & index, int role) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
 
     /**
      * Reimplemented to remove the specified rows.
      * The paret is always ignored since this is a table model.
      */
-    bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex()) override;
+    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
 private:
     FilenameList data_;
 };
 
-QString longestCommonPrefix(std::vector<QString> const & strs);
+QString longestCommonPrefix(std::vector<QString> const &strs);
 
 }
 

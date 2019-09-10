@@ -32,8 +32,8 @@ class KateBookmarkHandler : public QObject, public KBookmarkOwner
 {
     Q_OBJECT
 
-  public:
-    explicit KateBookmarkHandler( KateFileBrowser *parent, QMenu *kpopupmenu = nullptr );
+public:
+    explicit KateBookmarkHandler(KateFileBrowser *parent, QMenu *kpopupmenu = nullptr);
     ~KateBookmarkHandler() override;
 
     // KBookmarkOwner interface:
@@ -42,14 +42,14 @@ class KateBookmarkHandler : public QObject, public KBookmarkOwner
 
     QMenu *menu() const
     {
-      return m_menu;
+        return m_menu;
     }
-    void openBookmark( const KBookmark &, Qt::MouseButtons, Qt::KeyboardModifiers ) override;
+    void openBookmark(const KBookmark &, Qt::MouseButtons, Qt::KeyboardModifiers) override;
 
-  Q_SIGNALS:
-    void openUrl( const QString& url );
+Q_SIGNALS:
+    void openUrl(const QString &url);
 
-  private:
+private:
     KateFileBrowser *mParent;
     QMenu *m_menu;
     KBookmarkMenu *m_bookmarkMenu;
@@ -57,4 +57,3 @@ class KateBookmarkHandler : public QObject, public KBookmarkOwner
 
 #endif // KATE_BOOKMARK_HANDLER_H
 // kate: space-indent on; indent-width 2; replace-tabs on;
-

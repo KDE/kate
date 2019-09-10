@@ -64,8 +64,7 @@ public:
     bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override;
     bool shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion) override;
 
-    void saveMatches(KTextEditor::View *view,
-                     const KTextEditor::Range &range);
+    void saveMatches(KTextEditor::View *view, const KTextEditor::Range &range);
 
     int rowCount(const QModelIndex &parent) const override;
 
@@ -96,4 +95,3 @@ private:
 };
 
 #endif
-

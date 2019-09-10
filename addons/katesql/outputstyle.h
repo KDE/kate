@@ -24,11 +24,10 @@
 #include <qfont.h>
 #include <qbrush.h>
 
-struct OutputStyle
-{
-  QFont font;
-  QBrush background;
-  QBrush foreground;
+struct OutputStyle {
+    QFont font;
+    QBrush background;
+    QBrush foreground;
 };
 
 // Q_DECLARE_METATYPE(OutputStyle)

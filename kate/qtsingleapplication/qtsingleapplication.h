@@ -29,8 +29,8 @@
 
 QT_FORWARD_DECLARE_CLASS(QSharedMemory)
 
-namespace SharedTools {
-
+namespace SharedTools
+{
 class QtLocalPeer;
 
 class QtSingleApplication : public QApplication
@@ -43,8 +43,8 @@ public:
 
     bool isRunning(qint64 pid = -1);
 
-    void setActivationWindow(QWidget* aw, bool activateOnMessage = true);
-    QWidget* activationWindow() const;
+    void setActivationWindow(QWidget *aw, bool activateOnMessage = true);
+    QWidget *activationWindow() const;
     bool event(QEvent *event);
 
     QString applicationId() const;

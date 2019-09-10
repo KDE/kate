@@ -426,7 +426,7 @@ QStringList PseudoDTD::entities(const QString &start)
     QMap<QString, QString>::Iterator it;
     for (it = m_entityList.begin(); it != m_entityList.end(); ++it) {
         if ((*it).startsWith(start)) {
-            QString str = it.key();
+            const QString& str = it.key();
             /* TODO: show entities as unicode character
             if( !it.data().isEmpty() ) {
             //str += " -- " + it.data();

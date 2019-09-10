@@ -43,7 +43,7 @@ KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, Kat
 
     connect(m_manager, &KateSessionManager::sessionChanged, this, &KateSessionsAction::slotSessionChanged);
 
-    setDisabled(m_manager->sessionList().size() == 0);
+    setDisabled(m_manager->sessionList().empty());
 }
 
 void KateSessionsAction::slotAboutToShow()
@@ -77,6 +77,6 @@ void KateSessionsAction::openSession(QAction *action)
 
 void KateSessionsAction::slotSessionChanged()
 {
-    setDisabled(m_manager->sessionList().size() == 0);
+    setDisabled(m_manager->sessionList().empty());
 }
 

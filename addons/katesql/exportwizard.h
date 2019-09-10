@@ -19,7 +19,6 @@
 #ifndef EXPORTWIZARD_H
 #define EXPORTWIZARD_H
 
-
 class KUrlRequester;
 class KLineEdit;
 
@@ -31,21 +30,20 @@ class QCheckBox;
 class ExportWizard : public QWizard
 {
     Q_OBJECT
-  public:
+public:
     explicit ExportWizard(QWidget *parent);
     ~ExportWizard() override;
 };
 
-
 class ExportOutputPage : public QWizardPage
 {
-  public:
-    explicit ExportOutputPage(QWidget *parent=nullptr);
+public:
+    explicit ExportOutputPage(QWidget *parent = nullptr);
 
     void initializePage() override;
     bool validatePage() override;
 
-  private:
+private:
     QRadioButton *documentRadioButton;
     QRadioButton *clipboardRadioButton;
     QRadioButton *fileRadioButton;
@@ -54,13 +52,13 @@ class ExportOutputPage : public QWizardPage
 
 class ExportFormatPage : public QWizardPage
 {
-  public:
-    explicit ExportFormatPage(QWidget *parent=nullptr);
+public:
+    explicit ExportFormatPage(QWidget *parent = nullptr);
 
     void initializePage() override;
     bool validatePage() override;
 
-  private:
+private:
     QCheckBox *exportColumnNamesCheckBox;
     QCheckBox *exportLineNumbersCheckBox;
     QCheckBox *quoteStringsCheckBox;

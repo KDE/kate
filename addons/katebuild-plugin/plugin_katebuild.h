@@ -53,128 +53,112 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
     Q_PROPERTY(QUrl docUrl READ docUrl)
 
-    public:
+public:
+    enum ResultDetails { FullOutput, ParsedOutput, ErrorsAndWarnings, OnlyErrors };
 
-        enum ResultDetails {
-            FullOutput,
-            ParsedOutput,
-            ErrorsAndWarnings,
-            OnlyErrors
-        };
+    enum TreeWidgetRoles { ErrorRole = Qt::UserRole + 1, DataRole };
 
-        enum TreeWidgetRoles {
-            ErrorRole = Qt::UserRole+1,
-            DataRole
-        };
+    enum ErrorCategory { CategoryInfo, CategoryWarning, CategoryError };
 
-        enum ErrorCategory {
-            CategoryInfo,
-            CategoryWarning,
-            CategoryError
-        };
+    KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
+    ~KateBuildView() override;
 
-       KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
-        ~KateBuildView() override;
+    // reimplemented: read and write session config
+    void readSessionConfig(const KConfigGroup &config) override;
+    void writeSessionConfig(KConfigGroup &config) override;
 
-        // reimplemented: read and write session config
-        void readSessionConfig(const KConfigGroup& config) override;
-        void writeSessionConfig(KConfigGroup& config) override;
+    bool buildCurrentTarget();
 
-        bool buildCurrentTarget();
+    QUrl docUrl();
 
-        QUrl docUrl();
+private Q_SLOTS:
 
-    private Q_SLOTS:
+    // Building
+    void slotSelectTarget();
+    void slotBuildActiveTarget();
+    void slotBuildPreviousTarget();
+    void slotBuildDefaultTarget();
+    bool slotStop();
 
-        // Building
-        void slotSelectTarget();
-        void slotBuildActiveTarget();
-        void slotBuildPreviousTarget();
-        void slotBuildDefaultTarget();
-        bool slotStop();
+    // Parse output
+    void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
+    void slotReadReadyStdErr();
+    void slotReadReadyStdOut();
 
-        // Parse output
-        void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
-        void slotReadReadyStdErr();
-        void slotReadReadyStdOut();
+    // Selecting warnings/errors
+    void slotNext();
+    void slotPrev();
+    void slotErrorSelected(QTreeWidgetItem *item);
 
-        // Selecting warnings/errors
-        void slotNext();
-        void slotPrev();
-        void slotErrorSelected(QTreeWidgetItem *item);
+    // Settings
+    void targetSetNew();
+    void targetOrSetCopy();
+    void targetDelete();
 
-        // Settings
-        void targetSetNew();
-        void targetOrSetCopy();
-        void targetDelete();
+    void slotAddTargetClicked();
 
-        void slotAddTargetClicked();
+    void slotDisplayMode(int mode);
 
-        void slotDisplayMode(int mode);
+    void handleEsc(QEvent *e);
 
-        void handleEsc(QEvent *e);
+    void slotViewChanged();
+    void slotDisplayOption();
+    void slotMarkClicked(KTextEditor::Document *doc, KTextEditor::Mark mark, bool &handled);
+    void slotInvalidateMoving(KTextEditor::Document *doc);
+    /**
+     * keep track if the project plugin is alive and if the project map did change
+     */
+    void slotPluginViewCreated(const QString &name, QObject *pluginView);
+    void slotPluginViewDeleted(const QString &name, QObject *pluginView);
+    void slotProjectMapChanged();
+    void slotAddProjectTarget();
 
-        void slotViewChanged();
-        void slotDisplayOption();
-        void slotMarkClicked(KTextEditor::Document *doc, KTextEditor::Mark mark, bool &handled);
-        void slotInvalidateMoving(KTextEditor::Document* doc);
-        /**
-         * keep track if the project plugin is alive and if the project map did change
-         */
-        void slotPluginViewCreated(const QString &name, QObject *pluginView);
-        void slotPluginViewDeleted(const QString &name, QObject *pluginView);
-        void slotProjectMapChanged();
-        void slotAddProjectTarget();
+protected:
+    bool eventFilter(QObject *obj, QEvent *ev) override;
 
-    protected:
-        bool eventFilter(QObject *obj, QEvent *ev) override;
+private:
+    void processLine(const QString &);
+    void addError(const QString &filename, const QString &line, const QString &column, const QString &message);
+    bool startProcess(const QString &dir, const QString &command);
+    bool checkLocal(const QUrl &dir);
+    void clearBuildResults();
 
-    private:
-        void processLine(const QString &);
-        void addError(const QString &filename, const QString &line,
-                      const QString &column, const QString &message);
-        bool startProcess(const QString &dir, const QString &command);
-        bool checkLocal(const QUrl &dir);
-        void clearBuildResults();
+    void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
 
-        void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
+    void clearMarks();
+    void addMarks(KTextEditor::Document *doc, bool mark);
 
-        void clearMarks();
-        void addMarks(KTextEditor::Document *doc, bool mark);
+    KTextEditor::MainWindow *m_win;
+    QWidget *m_toolView;
+    Ui::build m_buildUi;
+    QWidget *m_buildWidget;
+    int m_outputWidgetWidth;
+    TargetsUi *m_targetsUi;
+    KProcess m_proc;
+    QString m_stdOut;
+    QString m_stdErr;
+    QString m_currentlyBuildingTarget;
+    bool m_buildCancelled;
+    int m_displayModeBeforeBuild;
+    QString m_make_dir;
+    QStack<QString> m_make_dir_stack;
+    QRegularExpression m_filenameDetector;
+    QRegularExpression m_filenameDetectorIcpc;
+    bool m_filenameDetectorGccWorked;
+    QRegularExpression m_newDirDetector;
+    unsigned int m_numErrors;
+    unsigned int m_numWarnings;
+    QString m_prevItemContent;
+    QModelIndex m_previousIndex;
+    QPointer<KTextEditor::Message> m_infoMessage;
+    QPointer<QAction> m_showMarks;
+    QHash<KTextEditor::Document *, QPointer<KTextEditor::Document>> m_markedDocs;
 
-        KTextEditor::MainWindow *m_win;
-        QWidget          *m_toolView;
-        Ui::build         m_buildUi;
-        QWidget          *m_buildWidget;
-        int               m_outputWidgetWidth;
-        TargetsUi        *m_targetsUi;
-        KProcess          m_proc;
-        QString           m_stdOut;
-        QString           m_stdErr;
-        QString           m_currentlyBuildingTarget;
-        bool              m_buildCancelled;
-        int               m_displayModeBeforeBuild;
-        QString           m_make_dir;
-        QStack<QString>   m_make_dir_stack;
-        QRegularExpression m_filenameDetector;
-        QRegularExpression m_filenameDetectorIcpc;
-        bool              m_filenameDetectorGccWorked;
-        QRegularExpression m_newDirDetector;
-        unsigned int      m_numErrors;
-        unsigned int      m_numWarnings;
-        QString           m_prevItemContent;
-        QModelIndex       m_previousIndex;
-        QPointer<KTextEditor::Message> m_infoMessage;
-        QPointer<QAction> m_showMarks;
-        QHash<KTextEditor::Document*, QPointer<KTextEditor::Document>> m_markedDocs;
-
-
-        /**
-        * current project plugin view, if any
-        */
-        QObject *m_projectPluginView = nullptr;
+    /**
+     * current project plugin view, if any
+     */
+    QObject *m_projectPluginView = nullptr;
 };
-
 
 typedef QList<QVariant> VariantList;
 
@@ -183,12 +167,13 @@ class KateBuildPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
-    public:
-        explicit KateBuildPlugin(QObject* parent = nullptr, const VariantList& = VariantList());
-        ~KateBuildPlugin() override {}
+public:
+    explicit KateBuildPlugin(QObject *parent = nullptr, const VariantList & = VariantList());
+    ~KateBuildPlugin() override
+    {
+    }
 
-        QObject *createView(KTextEditor::MainWindow *mainWindow) override;
- };
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+};
 
 #endif
-

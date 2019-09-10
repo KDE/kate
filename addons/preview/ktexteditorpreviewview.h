@@ -26,11 +26,13 @@
 #include <QObject>
 #include <QPointer>
 
-namespace KTextEditorPreview {
+namespace KTextEditorPreview
+{
 class PreviewWidget;
 }
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 class MainWindow;
 class View;
 }
@@ -39,21 +41,21 @@ class KTextEditorPreviewPlugin;
 
 class QWidget;
 
-class KTextEditorPreviewView: public QObject, public KTextEditor::SessionConfigInterface
+class KTextEditorPreviewView : public QObject, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
-    KTextEditorPreviewView(KTextEditorPreviewPlugin* plugin, KTextEditor::MainWindow* mainWindow);
+    KTextEditorPreviewView(KTextEditorPreviewPlugin *plugin, KTextEditor::MainWindow *mainWindow);
     ~KTextEditorPreviewView() override;
 
-    void readSessionConfig(const KConfigGroup& config) override;
-    void writeSessionConfig(KConfigGroup& config) override;
+    void readSessionConfig(const KConfigGroup &config) override;
+    void writeSessionConfig(KConfigGroup &config) override;
 
 private:
     QPointer<QWidget> m_toolView;
-    KTextEditorPreview::PreviewWidget* m_previewView;
+    KTextEditorPreview::PreviewWidget *m_previewView;
 };
 
 #endif

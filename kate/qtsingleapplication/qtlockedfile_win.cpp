@@ -46,7 +46,7 @@ static QString errorCodeToString(DWORD errorCode)
         LocalFree(data);
 
     if (result.endsWith(QLatin1Char('\n')))
-        result.truncate(result.length() - 1);
+        result.chop(1);
 
     return result;
 }

@@ -30,7 +30,7 @@ class QTemporaryFile;
 class QTreeWidget;
 class QTreeWidgetItem;
 
-typedef  QVector<KTextEditor::Document *> DocVector;
+typedef QVector<KTextEditor::Document *> DocVector;
 
 /**
  * A dialog for handling multiple documents modified on disk
@@ -66,7 +66,6 @@ private:
 protected:
     void closeEvent(QCloseEvent *e) override;
     void keyPressEvent(QKeyEvent *) override;
-
 };
 
 #endif // _KATE_MW_MODONHD_DIALOG_H_

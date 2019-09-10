@@ -31,12 +31,11 @@ class Document;
 
 class QActionGroup;
 
-class KateFileTree: public QTreeView
+class KateFileTree : public QTreeView
 {
     Q_OBJECT
 
 public:
-
     KateFileTree(QWidget *parent);
     ~KateFileTree() override;
 
@@ -67,7 +66,7 @@ Q_SIGNALS:
     void closeDocument(KTextEditor::Document *);
     void activateDocument(KTextEditor::Document *);
 
-    void openDocument(const QUrl&);
+    void openDocument(const QUrl &);
 
     void viewModeChanged(bool treeMode);
     void sortRoleChanged(int);
@@ -115,4 +114,3 @@ private:
 };
 
 #endif // KATE_FILETREE_H
-

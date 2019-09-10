@@ -41,8 +41,7 @@
 // Moreover, to avoid introducing a custom 'optional' type, absence of an optional
 // part/member is usually signalled by some 'invalid' marker (empty, negative).
 
-enum class LSPErrorCode
-{
+enum class LSPErrorCode {
     // Defined by JSON RPC
     ParseError = -32700,
     InvalidRequest = -32600,
@@ -59,31 +58,24 @@ enum class LSPErrorCode
     ContentModified = -32801
 };
 
-enum class LSPDocumentSyncKind
-{
-    None = 0,
-    Full = 1,
-    Incremental = 2
-};
+enum class LSPDocumentSyncKind { None = 0, Full = 1, Incremental = 2 };
 
-struct LSPCompletionOptions
-{
+struct LSPCompletionOptions {
     bool provider = false;
     bool resolveProvider = false;
     QVector<QChar> triggerCharacters;
 };
 
-struct LSPSignatureHelpOptions
-{
+struct LSPSignatureHelpOptions {
     bool provider = false;
     QVector<QChar> triggerCharacters;
 };
 
 // ensure distinct type
-struct LSPDocumentOnTypeFormattingOptions : public LSPSignatureHelpOptions {};
+struct LSPDocumentOnTypeFormattingOptions : public LSPSignatureHelpOptions {
+};
 
-struct LSPServerCapabilities
-{
+struct LSPServerCapabilities {
     LSPDocumentSyncKind textDocumentSync = LSPDocumentSyncKind::None;
     bool hoverProvider = false;
     LSPCompletionOptions completionProvider;
@@ -102,15 +94,9 @@ struct LSPServerCapabilities
     bool codeActionProvider = false;
 };
 
-enum class LSPMarkupKind
-{
-    None = 0,
-    PlainText = 1,
-    MarkDown = 2
-};
+enum class LSPMarkupKind { None = 0, PlainText = 1, MarkDown = 2 };
 
-struct LSPMarkupContent
-{
+struct LSPMarkupContent {
     LSPMarkupKind kind = LSPMarkupKind::None;
     QString value;
 };
@@ -129,34 +115,26 @@ using LSPPosition = KTextEditor::Cursor;
  */
 using LSPRange = KTextEditor::Range;
 
-struct LSPLocation
-{
+struct LSPLocation {
     QUrl uri;
     LSPRange range;
 };
 
-struct LSPTextDocumentContentChangeEvent
-{
+struct LSPTextDocumentContentChangeEvent {
     LSPRange range;
     QString text;
 };
 
-enum class LSPDocumentHighlightKind
-{
-    Text = 1,
-    Read = 2,
-    Write = 3
-};
+enum class LSPDocumentHighlightKind { Text = 1, Read = 2, Write = 3 };
 
-struct LSPDocumentHighlight
-{
+struct LSPDocumentHighlight {
     LSPRange range;
     LSPDocumentHighlightKind kind;
 };
 
-struct LSPHover
-{
-    // vector for contents to support all three variants: MarkedString | MarkedString[] | MarkupContent
+struct LSPHover {
+    // vector for contents to support all three variants:
+    // MarkedString | MarkedString[] | MarkupContent
     // vector variant is still in use e.g. by Rust rls
     QVector<LSPMarkupContent> contents;
     LSPRange range;
@@ -183,12 +161,14 @@ enum class LSPSymbolKind {
     Array = 18,
 };
 
-struct LSPSymbolInformation
-{
-    LSPSymbolInformation(const QString & _name, LSPSymbolKind _kind,
-                         LSPRange _range, const QString & _detail)
-        : name(_name), detail(_detail), kind(_kind), range(_range)
-    {}
+struct LSPSymbolInformation {
+    LSPSymbolInformation(const QString &_name, LSPSymbolKind _kind, LSPRange _range, const QString &_detail)
+        : name(_name)
+        , detail(_detail)
+        , kind(_kind)
+        , range(_range)
+    {
+    }
     QString name;
     QString detail;
     LSPSymbolKind kind;
@@ -196,8 +176,7 @@ struct LSPSymbolInformation
     QList<LSPSymbolInformation> children;
 };
 
-enum class LSPCompletionItemKind
-{
+enum class LSPCompletionItemKind {
     Text = 1,
     Method = 2,
     Function = 3,
@@ -225,8 +204,7 @@ enum class LSPCompletionItemKind
     TypeParameter = 25,
 };
 
-struct LSPCompletionItem
-{
+struct LSPCompletionItem {
     QString label;
     LSPCompletionItemKind kind;
     QString detail;
@@ -235,44 +213,38 @@ struct LSPCompletionItem
     QString insertText;
 };
 
-struct LSPParameterInformation
-{
+struct LSPParameterInformation {
     // offsets into overall signature label
     // (-1 if invalid)
     int start;
     int end;
 };
 
-struct LSPSignatureInformation
-{
+struct LSPSignatureInformation {
     QString label;
     LSPMarkupContent documentation;
     QList<LSPParameterInformation> parameters;
 };
 
-struct LSPSignatureHelp
-{
+struct LSPSignatureHelp {
     QList<LSPSignatureInformation> signatures;
     int activeSignature;
     int activeParameter;
 };
 
-struct LSPFormattingOptions
-{
+struct LSPFormattingOptions {
     int tabSize;
     bool insertSpaces;
     // additional fields
     QJsonObject extra;
 };
 
-struct LSPTextEdit
-{
+struct LSPTextEdit {
     LSPRange range;
     QString newText;
 };
 
-enum class LSPDiagnosticSeverity
-{
+enum class LSPDiagnosticSeverity {
     Unknown = 0,
     Error = 1,
     Warning = 2,
@@ -280,15 +252,13 @@ enum class LSPDiagnosticSeverity
     Hint = 4,
 };
 
-struct LSPDiagnosticRelatedInformation
-{
+struct LSPDiagnosticRelatedInformation {
     // empty url / invalid range when absent
     LSPLocation location;
     QString message;
 };
 
-struct LSPDiagnostic
-{
+struct LSPDiagnostic {
     LSPRange range;
     LSPDiagnosticSeverity severity;
     QString code;
@@ -297,28 +267,24 @@ struct LSPDiagnostic
     LSPDiagnosticRelatedInformation relatedInformation;
 };
 
-struct LSPPublishDiagnosticsParams
-{
+struct LSPPublishDiagnosticsParams {
     QUrl uri;
     QList<LSPDiagnostic> diagnostics;
 };
 
-struct LSPCommand
-{
+struct LSPCommand {
     QString title;
     QString command;
     // pretty opaque
     QJsonArray arguments;
 };
 
-struct LSPWorkspaceEdit
-{
+struct LSPWorkspaceEdit {
     // supported part for now
     QHash<QUrl, QList<LSPTextEdit>> changes;
 };
 
-struct LSPCodeAction
-{
+struct LSPCodeAction {
     QString title;
     QString kind;
     QList<LSPDiagnostic> diagnostics;
@@ -326,14 +292,12 @@ struct LSPCodeAction
     LSPCommand command;
 };
 
-struct LSPApplyWorkspaceEditParams
-{
+struct LSPApplyWorkspaceEditParams {
     QString label;
     LSPWorkspaceEdit edit;
 };
 
-struct LSPApplyWorkspaceEditResponse
-{
+struct LSPApplyWorkspaceEditResponse {
     bool applied;
     QString failureReason;
 };

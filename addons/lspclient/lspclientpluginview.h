@@ -29,17 +29,16 @@
 
 class LSPClientPlugin;
 
-namespace KTextEditor {
-    class MainWindow;
+namespace KTextEditor
+{
+class MainWindow;
 }
 
 class LSPClientPluginView
 {
 public:
     // only needs a factory; no other public interface
-    static QObject*
-    new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin);
+    static QObject *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin);
 };
 
 #endif
-

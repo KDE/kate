@@ -54,56 +54,64 @@ class KateFileBrowser : public QWidget
 {
     Q_OBJECT
 
-  public:
-    explicit KateFileBrowser( KTextEditor::MainWindow *mainWindow = nullptr,
-                      QWidget * parent = nullptr);
+public:
+    explicit KateFileBrowser(KTextEditor::MainWindow *mainWindow = nullptr, QWidget *parent = nullptr);
     ~KateFileBrowser() override;
 
-    void readSessionConfig (const KConfigGroup& config);
-    void writeSessionConfig (KConfigGroup& config);
+    void readSessionConfig(const KConfigGroup &config);
+    void writeSessionConfig(KConfigGroup &config);
 
     void setupToolbar();
-    void setView( KFile::FileView );
-    KDirOperator *dirOperator() { return m_dirOperator; }
+    void setView(KFile::FileView);
+    KDirOperator *dirOperator()
+    {
+        return m_dirOperator;
+    }
 
-    KActionCollection* actionCollection()
-    { return m_actionCollection; }
+    KActionCollection *actionCollection()
+    {
+        return m_actionCollection;
+    }
 
-  public Q_SLOTS:
-    void slotFilterChange(const QString&);
+public Q_SLOTS:
+    void slotFilterChange(const QString &);
     void setDir(const QUrl &);
-    void setDir( const QString &url ) { setDir( QUrl( url ) ); }
-    void selectorViewChanged( QAbstractItemView * );
+    void setDir(const QString &url)
+    {
+        setDir(QUrl(url));
+    }
+    void selectorViewChanged(QAbstractItemView *);
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void fileSelected(const KFileItem & /*file*/);
-    void updateDirOperator( const QUrl &u );
-    void updateUrlNavigator( const QUrl &u );
+    void updateDirOperator(const QUrl &u);
+    void updateUrlNavigator(const QUrl &u);
     void setActiveDocumentDir();
     void autoSyncFolder();
 
-  protected:
+protected:
     QUrl activeDocumentUrl();
     void openSelectedFiles();
     void setupActions();
 
-  public:
-    KTextEditor::MainWindow* mainWindow()
+public:
+    KTextEditor::MainWindow *mainWindow()
     {
-      return m_mainWindow;
+        return m_mainWindow;
     }
-  private:
+
+private:
     KToolBar *m_toolbar;
     KActionCollection *m_actionCollection;
     KateBookmarkHandler *m_bookmarkHandler;
     KUrlNavigator *m_urlNavigator;
-    KDirOperator * m_dirOperator;
-    KHistoryComboBox * m_filter;
+    KDirOperator *m_dirOperator;
+    KHistoryComboBox *m_filter;
     QAction *m_autoSyncFolder;
 
     KTextEditor::MainWindow *m_mainWindow;
 };
 
-#endif //KATE_FILEBROWSER_H
+#endif // KATE_FILEBROWSER_H
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -295,9 +295,9 @@ void DataOutputWidget::exportData(QTextStream &stream,
   QString fixedFieldDelimiter = fieldDelimiter;
 
   /// FIXME: ugly workaround...
-  fixedFieldDelimiter = fixedFieldDelimiter.replace(QLatin1String ("\\t"), QLatin1String ("\t"));
-  fixedFieldDelimiter = fixedFieldDelimiter.replace(QLatin1String ("\\r"), QLatin1String ("\r"));
-  fixedFieldDelimiter = fixedFieldDelimiter.replace(QLatin1String ("\\n"), QLatin1String ("\n"));
+  fixedFieldDelimiter.replace(QLatin1String ("\\t"), QLatin1String ("\t"));
+  fixedFieldDelimiter.replace(QLatin1String ("\\r"), QLatin1String ("\r"));
+  fixedFieldDelimiter.replace(QLatin1String ("\\n"), QLatin1String ("\n"));
 
   QTime t;
   t.start();

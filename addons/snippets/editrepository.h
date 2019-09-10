@@ -1,7 +1,7 @@
 /*  This file is part of the Kate project.
  *  Based on the snippet plugin from KDevelop 4.
  *
- *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
+ *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net>
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
  *
@@ -42,10 +42,10 @@ class EditRepository : public QDialog, public Ui::EditRepositoryBase
 
 public:
     /// @p repo set to 0 when you want to create a new repository.
-    explicit EditRepository(SnippetRepository* repo, QWidget* parent = nullptr);
+    explicit EditRepository(SnippetRepository *repo, QWidget *parent = nullptr);
 
 private:
-    SnippetRepository* m_repo;
+    SnippetRepository *m_repo;
 
 private Q_SLOTS:
     void save();
@@ -54,4 +54,3 @@ private Q_SLOTS:
 };
 
 #endif
-

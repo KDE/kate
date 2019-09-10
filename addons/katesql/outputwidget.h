@@ -28,22 +28,25 @@ class DataOutputWidget;
 
 class KateSQLOutputWidget : public QTabWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    
-    KateSQLOutputWidget (QWidget *parent);
+public:
+    KateSQLOutputWidget(QWidget *parent);
 
-    ~KateSQLOutputWidget () override;
-    
-    TextOutputWidget *textOutputWidget() const { return m_textOutputWidget; }
-    DataOutputWidget *dataOutputWidget() const { return m_dataOutputWidget; }
-  private:
+    ~KateSQLOutputWidget() override;
 
+    TextOutputWidget *textOutputWidget() const
+    {
+        return m_textOutputWidget;
+    }
+    DataOutputWidget *dataOutputWidget() const
+    {
+        return m_dataOutputWidget;
+    }
+
+private:
     TextOutputWidget *m_textOutputWidget;
     DataOutputWidget *m_dataOutputWidget;
-
-  
 };
 
 #endif

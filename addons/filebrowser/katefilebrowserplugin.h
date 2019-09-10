@@ -32,24 +32,25 @@
 class KateFileBrowser;
 class KateFileBrowserPluginView;
 
-class KateFileBrowserPlugin: public KTextEditor::Plugin
+class KateFileBrowserPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
-  public:
-    explicit KateFileBrowserPlugin( QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>() );
+public:
+    explicit KateFileBrowserPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     ~KateFileBrowserPlugin() override
-    {}
+    {
+    }
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
     int configPages() const override;
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
-    
-  public Q_SLOTS:
-    void viewDestroyed(QObject* view);
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
-  private:
+public Q_SLOTS:
+    void viewDestroyed(QObject *view);
+
+private:
     QList<KateFileBrowserPluginView *> m_views;
 };
 
@@ -58,22 +59,22 @@ class KateFileBrowserPluginView : public QObject, public KTextEditor::SessionCon
     Q_OBJECT
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
-  public:
+public:
     /**
-      * Constructor.
-      */
-    KateFileBrowserPluginView (KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow);
+     * Constructor.
+     */
+    KateFileBrowserPluginView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow);
 
     /**
      * Virtual destructor.
      */
-    ~KateFileBrowserPluginView () override;
+    ~KateFileBrowserPluginView() override;
 
-    void readSessionConfig (const KConfigGroup& config) override;
-    void writeSessionConfig (KConfigGroup& config) override;
+    void readSessionConfig(const KConfigGroup &config) override;
+    void writeSessionConfig(KConfigGroup &config) override;
 
-  private:
-    bool eventFilter(QObject*, QEvent*) override;
+private:
+    bool eventFilter(QObject *, QEvent *) override;
 
     QWidget *m_toolView;
     KateFileBrowser *m_fileBrowser;
@@ -81,6 +82,6 @@ class KateFileBrowserPluginView : public QObject, public KTextEditor::SessionCon
     friend class KateFileBrowserPlugin;
 };
 
-#endif //KATE_FILEBROWSER_PLUGIN_H
+#endif // KATE_FILEBROWSER_PLUGIN_H
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -28,24 +28,26 @@
 
 class KateSQLPlugin : public KTextEditor::Plugin
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit KateSQLPlugin(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
+public:
+    explicit KateSQLPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
 
     ~KateSQLPlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-    int configPages() const override { return 1; };
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = nullptr) override;
-    QString configPageName (int number = 0) const;
-    QString configPageFullName (int number = 0) const;
-    QIcon configPageIcon (int number = 0) const;
+    int configPages() const override
+    {
+        return 1;
+    };
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
+    QString configPageName(int number = 0) const;
+    QString configPageFullName(int number = 0) const;
+    QIcon configPageIcon(int number = 0) const;
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void globalSettingsChanged();
 };
 
 #endif // KATESQLPLUGIN_H
-

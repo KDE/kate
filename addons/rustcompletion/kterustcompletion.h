@@ -28,20 +28,21 @@
 
 class KTERustCompletionPlugin;
 
-namespace KTextEditor {
-    class Document;
-    class View;
+namespace KTextEditor
+{
+class Document;
+class View;
 }
 
 struct CompletionMatch {
-    CompletionMatch() : type(KTextEditor::CodeCompletionModel::NoProperty), depth(0), line(-1), col(-1) {}
+    CompletionMatch() = default;
     QString text;
     QIcon icon;
-    KTextEditor::CodeCompletionModel::CompletionProperty type;
-    int depth;
+    KTextEditor::CodeCompletionModel::CompletionProperty type = KTextEditor::CodeCompletionModel::NoProperty;
+    int depth = 0;
     QUrl url;
-    int line;
-    int col;
+    int line = -1;
+    int col = -1;
 };
 
 class KTERustCompletion : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface
@@ -50,32 +51,28 @@ class KTERustCompletion : public KTextEditor::CodeCompletionModel, public KTextE
 
     Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 
-    public:
-        KTERustCompletion(KTERustCompletionPlugin *plugin);
-        ~KTERustCompletion() override;
+public:
+    KTERustCompletion(KTERustCompletionPlugin *plugin);
+    ~KTERustCompletion() override;
 
-        enum MatchAction {
-            Complete = 0,
-            FindDefinition
-        };
+    enum MatchAction { Complete = 0, FindDefinition };
 
-        bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override;
+    bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override;
 
-        void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType) override;
+    void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType) override;
 
-        void aborted(KTextEditor::View *view) override;
+    void aborted(KTextEditor::View *view) override;
 
-        QVariant data(const QModelIndex &index, int role) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
 
-        QList<CompletionMatch> getMatches(const KTextEditor::Document *document, MatchAction action, const KTextEditor::Cursor &position);
+    QList<CompletionMatch> getMatches(const KTextEditor::Document *document, MatchAction action, const KTextEditor::Cursor &position);
 
-    private:
-        static void addType(CompletionMatch &match, const QString &type);
+private:
+    static void addType(CompletionMatch &match, const QString &type);
 
-        QList<CompletionMatch> m_matches;
+    QList<CompletionMatch> m_matches;
 
-        KTERustCompletionPlugin *m_plugin;
+    KTERustCompletionPlugin *m_plugin;
 };
 
 #endif
-

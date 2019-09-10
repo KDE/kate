@@ -32,23 +32,23 @@
 class KActionCollection;
 
 /**
-* Provides a menu that will offer to change the color scheme
-*
-* Furthermore, it will save the selection in the user configuration.
-*/
+ * Provides a menu that will offer to change the color scheme
+ *
+ * Furthermore, it will save the selection in the user configuration.
+ */
 class KateColorSchemeChooser : public QAction
 {
-    public:
-        KateColorSchemeChooser(QObject* parent);
+public:
+    KateColorSchemeChooser(QObject *parent);
 
-        QString currentSchemeName() const;
-    private Q_SLOTS:
-        void slotSchemeChanged(QAction* triggeredAction);
+    QString currentSchemeName() const;
+private Q_SLOTS:
+    void slotSchemeChanged(QAction *triggeredAction);
 
-    private:
-        QString loadCurrentScheme() const;
-        void    saveCurrentScheme(const QString &name);
-        QString currentDesktopDefaultScheme() const;
+private:
+    QString loadCurrentScheme() const;
+    void saveCurrentScheme(const QString &name);
+    QString currentDesktopDefaultScheme() const;
 };
 
 #endif // COLORSCHEMECHOOSER_H

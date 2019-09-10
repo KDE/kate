@@ -108,7 +108,7 @@ static QStandardItem *directoryParent(QMap<QString, QStandardItem *> &dir2Item, 
     /**
      * throw away simple /
      */
-    if (path == QStringLiteral("/")) {
+    if (path == QLatin1String("/")) {
         path = QString();
     }
 
@@ -202,7 +202,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         // get the directory's relative path to the base directory
         QString dirRelPath = dir.relativeFilePath(fileInfo.absolutePath());
         // if the relative path is ".", clean it up
-        if (dirRelPath == QStringLiteral(".")) {
+        if (dirRelPath == QLatin1Char('.')) {
             dirRelPath = QString();
         }
 
@@ -223,7 +223,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
 
 QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& filesEntry)
 {
-    const bool recursive = !filesEntry.contains(QStringLiteral("recursive")) || filesEntry[QStringLiteral("recursive")].toBool();
+    const bool recursive = !filesEntry.contains(QLatin1String("recursive")) || filesEntry[QStringLiteral("recursive")].toBool();
 
     if (filesEntry[QStringLiteral("git")].toBool()) {
         return filesFromGit(dir, recursive);
@@ -253,7 +253,7 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     const QStringList relFiles = gitLsFiles(dir);
     QStringList files;
     for (const QString &relFile : relFiles) {
-        if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
+        if (!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) {
             continue;
         }
 
@@ -306,7 +306,7 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursiv
     const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 
     for (const QString &relFile : relFiles) {
-        if (!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) {
+        if (!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) {
             continue;
         }
 
@@ -353,7 +353,7 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursi
             /**
              * try to find ., else fail
              */
-            prefixLength = line.lastIndexOf(QStringLiteral("."));
+            prefixLength = line.lastIndexOf(QLatin1Char('.'));
             if (prefixLength < 0) {
                 break;
             }
@@ -423,10 +423,10 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
     }
 
     for (const QString &relFile: relFiles) {
-        const QString path = dir.relativeFilePath(root + QStringLiteral("/") + relFile);
+        const QString path = dir.relativeFilePath(root + QLatin1String("/") + relFile);
 
-        if ((!recursive && (relFile.indexOf(QStringLiteral("/")) != -1)) ||
-            (recursive && (relFile.indexOf(QStringLiteral("..")) == 0))
+        if ((!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) ||
+            (recursive && (relFile.indexOf(QLatin1String("..")) == 0))
         ) {
             continue;
         }

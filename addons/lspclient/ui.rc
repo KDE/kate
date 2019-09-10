@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
-<gui name="lspclient" library="lspclient" version="3" translationDomain="lspclient">
+<gui name="lspclient" library="lspclient" version="4" translationDomain="lspclient">
   <MenuBar>
     <Menu name="LSPClient Menubar">
       <text>LSP Client</text>
@@ -14,6 +14,7 @@
       <Separator/>
       <Action name="lspclient_completion_doc"/>
       <Action name="lspclient_references_declaration"/>
+      <Action name="lspclient_auto_hover"/>
       <Action name="lspclient_type_formatting"/>
       <Action name="lspclient_incremental_sync"/>
       <Separator/>

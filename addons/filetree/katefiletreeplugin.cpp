@@ -95,7 +95,7 @@ const KateFileTreePluginSettings &KateFileTreePlugin::settings()
     return m_settings;
 }
 
-void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QColor editShade, bool listMode, int sortRole, bool showFullPath)
+void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor& viewShade, const QColor& editShade, bool listMode, int sortRole, bool showFullPath)
 {
     // save to settings
     m_settings.setShadingEnabled(shadingEnabled);

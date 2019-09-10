@@ -195,7 +195,7 @@ void DebugView::slotDebugFinished(int /*exitCode*/, QProcess::ExitStatus status)
 
     // remove all old breakpoints
     BreakPoint bPoint;
-    while (m_breakPointList.size() > 0)
+    while (!m_breakPointList.empty())
     {
         bPoint = m_breakPointList.takeFirst();
         emit breakPointCleared(bPoint.file, bPoint.line -1);
@@ -314,14 +314,14 @@ void DebugView::processLine(QString line)
                 emit clearBreakpointMarks();
                 m_breakPointList.clear();
             }
-            else if (line.contains(QStringLiteral("No breakpoints or watchpoints.")))
+            else if (line.contains(QLatin1String("No breakpoints or watchpoints.")))
             {
                 emit clearBreakpointMarks();
                 m_breakPointList.clear();
             }
             else if (stackFrameAny.exactMatch(line))
             {
-                if (m_lastCommand.contains(QStringLiteral("info stack")))
+                if (m_lastCommand.contains(QLatin1String("info stack")))
                 {
                     emit stackFrameInfo(stackFrameAny.cap(1), stackFrameAny.cap(2));
                 }
@@ -342,7 +342,7 @@ void DebugView::processLine(QString line)
                 m_currentFile = changeFile.cap(1).trimmed();
                 int lineNum = changeFile.cap(2).toInt();
 
-                if (!m_nextCommands.contains(QStringLiteral("continue"))) {
+                if (!m_nextCommands.contains(QLatin1String("continue"))) {
                     // GDB uses 1 based line numbers, kate uses 0 based...
                     emit debugLocationChanged(resolveFileName(m_currentFile), lineNum - 1);
                 }
@@ -356,7 +356,7 @@ void DebugView::processLine(QString line)
                 {
                     m_currentFile = m_newFrameFile;
                 }
-                if (!m_nextCommands.contains(QStringLiteral("continue"))) {
+                if (!m_nextCommands.contains(QLatin1String("continue"))) {
                     // GDB uses 1 based line numbers, kate uses 0 based...
                     emit debugLocationChanged(resolveFileName(m_currentFile), lineNum - 1);
                 }
@@ -399,12 +399,12 @@ void DebugView::processLine(QString line)
                 }
             }
             else if (exitProgram.exactMatch(line) ||
-                line.contains(QStringLiteral("The program no longer exists")) ||
-                line.contains(QStringLiteral("Kill the program being debugged")))
+                line.contains(QLatin1String("The program no longer exists")) ||
+                line.contains(QLatin1String("Kill the program being debugged")))
             {
                 // if there are still commands to execute remove them to remove unneeded output
                 // except  if the "kill was for "re-run"
-                if ((m_nextCommands.size() > 0) && !m_nextCommands[0].contains(QStringLiteral("file")))
+                if ((!m_nextCommands.empty()) && !m_nextCommands[0].contains(QLatin1String("file")))
                 {
                     m_nextCommands.clear();
                 }
@@ -501,7 +501,7 @@ void DebugView::processLine(QString line)
 void DebugView::processErrors()
 {
     QString error;
-    while (m_errorList.size() > 0) {
+    while (!m_errorList.empty()) {
         error = m_errorList.takeFirst();
         //qDebug() << error;
         if(error == QLatin1String("The program is not being run."))
@@ -527,9 +527,9 @@ void DebugView::processErrors()
             }
             else if ((m_lastCommand == QLatin1String("kill")))
             {
-                if (m_nextCommands.size() > 0)
+                if (!m_nextCommands.empty())
                 {
-                    if (!m_nextCommands[0].contains(QStringLiteral("file")))
+                    if (!m_nextCommands[0].contains(QLatin1String("file")))
                     {
                         m_nextCommands.clear();
                         m_nextCommands << QStringLiteral("quit");
@@ -545,20 +545,20 @@ void DebugView::processErrors()
             }
             // else do nothing
         }
-        else if (error.contains(QStringLiteral("No line ")) ||
-            error.contains(QStringLiteral("No source file named")))
+        else if (error.contains(QLatin1String("No line ")) ||
+            error.contains(QLatin1String("No source file named")))
         {
             // setting a breakpoint failed. Do not continue.
             m_nextCommands.clear();
             emit readyForInput(true);
         }
-        else if (error.contains(QStringLiteral("No stack")))
+        else if (error.contains(QLatin1String("No stack")))
         {
             m_nextCommands.clear();
             emit programEnded();
         }
 
-        if ((m_lastCommand == QLatin1String("(Q)print *this")) && error.contains(QStringLiteral("No symbol \"this\" in current context."))) {
+        if ((m_lastCommand == QLatin1String("(Q)print *this")) && error.contains(QLatin1String("No symbol \"this\" in current context."))) {
             continue;
         }
         emit outputError(error + QLatin1Char('\n'));
@@ -590,7 +590,7 @@ void DebugView::issueCommand(QString const& cmd)
         m_subState = normal;
         m_lastCommand = cmd;
 
-        if (cmd.startsWith(QStringLiteral("(Q)")))
+        if (cmd.startsWith(QLatin1String("(Q)")))
         {
             m_debugProcess.write(qPrintable(cmd.mid(3)));
         }
@@ -606,7 +606,7 @@ void DebugView::issueNextCommand()
 {
     if(m_state == ready)
     {
-        if(m_nextCommands.size() > 0)
+        if(!m_nextCommands.empty())
         {
             QString cmd = m_nextCommands.takeFirst();
             //qDebug() << "Next command" << cmd;
@@ -615,9 +615,9 @@ void DebugView::issueNextCommand()
         else 
         {
             // FIXME "thread" needs a better generic solution 
-            if (m_debugLocationChanged || m_lastCommand.startsWith(QStringLiteral("thread"))) {
+            if (m_debugLocationChanged || m_lastCommand.startsWith(QLatin1String("thread"))) {
                 m_debugLocationChanged = false;
-                if (m_queryLocals && !m_lastCommand.startsWith(QStringLiteral("(Q)"))) {
+                if (m_queryLocals && !m_lastCommand.startsWith(QLatin1String("(Q)"))) {
                     m_nextCommands << QStringLiteral("(Q)info stack");
                     m_nextCommands << QStringLiteral("(Q)frame");
                     m_nextCommands << QStringLiteral("(Q)info args");
@@ -673,7 +673,7 @@ QUrl DebugView::resolveFileName(const QString &fileName)
 
 void DebugView::outputTextMaybe(const QString &text)
 {
-    if (!m_lastCommand.startsWith(QStringLiteral("(Q)"))  && !text.contains(PromptStr))
+    if (!m_lastCommand.startsWith(QLatin1String("(Q)"))  && !text.contains(PromptStr))
     {
         emit outputText(text + QLatin1Char('\n'));
     }
@@ -683,7 +683,7 @@ void DebugView::outputTextMaybe(const QString &text)
 void DebugView::slotQueryLocals(bool query)
 {
     m_queryLocals = query;
-    if (query && (m_state == ready) && (m_nextCommands.size() == 0))
+    if (query && (m_state == ready) && (m_nextCommands.empty()))
     {
         m_nextCommands << QStringLiteral("(Q)info stack");
         m_nextCommands << QStringLiteral("(Q)frame");

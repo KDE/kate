@@ -17,7 +17,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-
 #ifndef PLUGIN_KATEOPENHEADER_H
 #define PLUGIN_KATEOPENHEADER_H
 
@@ -31,38 +30,37 @@
 
 class PluginKateOpenHeader : public KTextEditor::Plugin
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit PluginKateOpenHeader( QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>() );
+public:
+    explicit PluginKateOpenHeader(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     ~PluginKateOpenHeader() override;
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-  public Q_SLOTS:
-    void slotOpenHeader ();
-    void tryOpen( const QUrl& url, const QStringList& extensions );
-    bool tryOpenInternal( const QUrl& url, const QStringList& extensions );
-  private:
-    bool fileExists(const QUrl &url);    
-    void setFileName(QUrl *url,const QString &_txt);
+public Q_SLOTS:
+    void slotOpenHeader();
+    void tryOpen(const QUrl &url, const QStringList &extensions);
+    bool tryOpenInternal(const QUrl &url, const QStringList &extensions);
+
+private:
+    bool fileExists(const QUrl &url);
+    void setFileName(QUrl *url, const QString &_txt);
 };
 
-class PluginViewKateOpenHeader
-  : public KTextEditor::Command
-  , public KXMLGUIClient
+class PluginViewKateOpenHeader : public KTextEditor::Command, public KXMLGUIClient
 {
     Q_OBJECT
-    public:
-        PluginViewKateOpenHeader(PluginKateOpenHeader* plugin, KTextEditor::MainWindow *mainwindow);
-        ~PluginViewKateOpenHeader() override;
+public:
+    PluginViewKateOpenHeader(PluginKateOpenHeader *plugin, KTextEditor::MainWindow *mainwindow);
+    ~PluginViewKateOpenHeader() override;
 
-        bool exec (KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
-        bool help (KTextEditor::View *view, const QString &cmd, QString &msg) override;
+    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
+    bool help(KTextEditor::View *view, const QString &cmd, QString &msg) override;
 
-    private:
-        PluginKateOpenHeader* m_plugin;
-        KTextEditor::MainWindow *m_mainWindow;
+private:
+    PluginKateOpenHeader *m_plugin;
+    KTextEditor::MainWindow *m_mainWindow;
 };
 
 #endif // PLUGIN_KATEOPENHEADER_H

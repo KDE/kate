@@ -26,9 +26,9 @@ class ResultNode;
 
 class FileTreeModelTest : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void init();
     void cleanup();
     void initTestCase();
@@ -44,7 +44,7 @@ class FileTreeModelTest : public QObject
     void buildTreeBatch();
     void buildTreeBatchPrefill_data();
     void buildTreeBatchPrefill();
-    
+
     void listMode_data();
     void listMode();
 
@@ -56,7 +56,7 @@ class FileTreeModelTest : public QObject
     void rename_data();
     void rename();
 
-  private:
+private:
     void walkTree(KateFileTreeModel &model, const QModelIndex &i, ResultNode &node);
 };
 

@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-**/
+ **/
 
 #ifndef LUMEN_DCD_H
 #define LUMEN_DCD_H
@@ -28,30 +28,33 @@
 #include <QMap>
 #include <QIcon>
 
+namespace DCDCompletionType
+{
+enum DCDCompletionType { Identifiers, Calltips };
+}
+namespace DCDCompletionItemType
+{
+enum DCDCompletionItemType {
+    Invalid,
 
-namespace DCDCompletionType { enum DCDCompletionType { Identifiers, Calltips }; }
-namespace DCDCompletionItemType {
-    enum DCDCompletionItemType {
-        Invalid,
+    Calltip,
 
-        Calltip,
+    ClassName,
+    InterfaceName,
+    StructName,
+    UnionName,
+    VariableName,
+    MemberVariableName,
+    Keyword,
+    FunctionName,
+    EnumName,
+    EnumMember,
+    PackageName,
+    ModuleName,
+};
 
-        ClassName,
-        InterfaceName,
-        StructName,
-        UnionName,
-        VariableName,
-        MemberVariableName,
-        Keyword,
-        FunctionName,
-        EnumName,
-        EnumMember,
-        PackageName,
-        ModuleName,
-    };
-
-    char toChar(DCDCompletionItemType e);
-    DCDCompletionItemType fromChar(char c);
+char toChar(DCDCompletionItemType e);
+DCDCompletionItemType fromChar(char c);
 }
 
 struct DCDCompletionItem {
@@ -71,25 +74,26 @@ struct DCDCompletion {
 
 class DCD
 {
-    public:
-        DCD(int, const QString&, const QString&);
-        virtual ~DCD();
-        int port() const;
-        bool running();
-        bool startServer();
-        bool stopServer();
-        DCDCompletion complete(const QString&, int);
-        DCDCompletion complete(const QByteArray&, int);
-        QString doc(const QByteArray&, int);
-        void shutdown();
-        void addImportPath(const QString&);
-        void addImportPath(const QStringList&);
-    private:
-        DCDCompletion processCompletion(const QString&);
-        int m_port;
-        QString m_server;
-        QString m_client;
-        QProcess m_sproc;
+public:
+    DCD(int, const QString &, const QString &);
+    virtual ~DCD();
+    int port() const;
+    bool running();
+    bool startServer();
+    bool stopServer();
+    DCDCompletion complete(const QString &, int);
+    DCDCompletion complete(const QByteArray &, int);
+    QString doc(const QByteArray &, int);
+    void shutdown();
+    void addImportPath(const QString &);
+    void addImportPath(const QStringList &);
+
+private:
+    DCDCompletion processCompletion(const QString &);
+    int m_port;
+    QString m_server;
+    QString m_client;
+    QProcess m_sproc;
 };
 
 #endif

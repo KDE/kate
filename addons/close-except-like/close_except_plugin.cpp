@@ -241,7 +241,7 @@ void CloseExceptPluginView::updateMenu()
         {
             for (
                 QUrl url = *it
-              ; (!url.path().isEmpty()) && url.path() != QStringLiteral("/")
+              ; (!url.path().isEmpty()) && url.path() != QLatin1String("/")
               ; url = KIO::upUrl(url)
               )
             {

@@ -32,67 +32,65 @@ class KUrlRequester;
 
 class ConnectionWizard : public QWizard
 {
-  public:
+public:
+    enum { Page_Driver, Page_Standard_Server, Page_SQLite_Server, Page_Save };
 
-    enum
-    {
-      Page_Driver,
-      Page_Standard_Server,
-      Page_SQLite_Server,
-      Page_Save
-    };
-
-    ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent=nullptr, Qt::WindowFlags flags = nullptr);
+    ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent = nullptr, Qt::WindowFlags flags = nullptr);
     ~ConnectionWizard() override;
 
-    SQLManager *manager() { return m_manager; }
-    Connection *connection() { return m_connection; }
+    SQLManager *manager()
+    {
+        return m_manager;
+    }
+    Connection *connection()
+    {
+        return m_connection;
+    }
 
-  private:
+private:
     SQLManager *m_manager;
     Connection *m_connection;
 };
 
-
 class ConnectionDriverPage : public QWizardPage
 {
-  public:
-    ConnectionDriverPage(QWidget *parent=nullptr);
+public:
+    ConnectionDriverPage(QWidget *parent = nullptr);
     void initializePage() override;
     int nextId() const override;
 
-  private:
+private:
     KComboBox *driverComboBox;
 };
 
 class ConnectionStandardServerPage : public QWizardPage
 {
-  public:
-    ConnectionStandardServerPage(QWidget *parent=nullptr);
+public:
+    ConnectionStandardServerPage(QWidget *parent = nullptr);
     ~ConnectionStandardServerPage() override;
     void initializePage() override;
     bool validatePage() override;
     int nextId() const override;
 
-  private:
+private:
     KLineEdit *hostnameLineEdit;
     KLineEdit *usernameLineEdit;
     KLineEdit *passwordLineEdit;
     KLineEdit *databaseLineEdit;
     KLineEdit *optionsLineEdit;
-    QSpinBox  *portSpinBox;
+    QSpinBox *portSpinBox;
 };
 
 class ConnectionSQLiteServerPage : public QWizardPage
 {
-  public:
-    ConnectionSQLiteServerPage(QWidget *parent=nullptr);
+public:
+    ConnectionSQLiteServerPage(QWidget *parent = nullptr);
     void initializePage() override;
     bool validatePage() override;
     int nextId() const override;
 
-  private:
-//     KLineEdit *pathLineEdit;
+private:
+    //     KLineEdit *pathLineEdit;
     KUrlRequester *pathUrlRequester;
 
     KLineEdit *optionsLineEdit;
@@ -100,13 +98,13 @@ class ConnectionSQLiteServerPage : public QWizardPage
 
 class ConnectionSavePage : public QWizardPage
 {
-  public:
-    ConnectionSavePage(QWidget *parent=nullptr);
+public:
+    ConnectionSavePage(QWidget *parent = nullptr);
     void initializePage() override;
     bool validatePage() override;
     int nextId() const override;
 
-  private:
+private:
     KLineEdit *connectionNameLineEdit;
 };
 

@@ -278,7 +278,7 @@ void KateBuildView::readSessionConfig(const KConfigGroup& cg)
             }
             else {
                 for (int tn=0; tn<targetNames.size(); ++tn) {
-                    const QString targetName = targetNames.at(tn);
+                    const QString& targetName = targetNames.at(tn);
                     m_targetsUi->targetsModel.addCommand(i, targetName, cg.readEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(targetName), DefBuildCmd));
                 }
                 QString defCmd = cg.readEntry(QStringLiteral("%1 Target Default").arg(i), QString());
@@ -450,9 +450,9 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     QTreeWidgetItem* item = new QTreeWidgetItem(m_buildUi.errTreeWidget);
     item->setBackground(1, Qt::gray);
     // The strings are twice in case kate is translated but not make.
-    if (message.contains(QStringLiteral("error")) ||
+    if (message.contains(QLatin1String("error")) ||
         message.contains(i18nc("The same word as 'make' uses to mark an error.","error")) ||
-        message.contains(QStringLiteral("undefined reference")) ||
+        message.contains(QLatin1String("undefined reference")) ||
         message.contains(i18nc("The same word as 'ld' uses to mark an ...","undefined reference"))
        )
     {
@@ -461,7 +461,7 @@ void KateBuildView::addError(const QString &filename, const QString &line,
         m_numErrors++;
         item->setHidden(false);
     }
-    if (message.contains(QStringLiteral("warning")) ||
+    if (message.contains(QLatin1String("warning")) ||
         message.contains(i18nc("The same word as 'make' uses to mark a warning.","warning"))
        )
     {
@@ -838,9 +838,9 @@ bool KateBuildView::buildCurrentTarget()
     }
 
     // Check if the command contains the file name or directory
-    if (buildCmd.contains(QStringLiteral("%f")) ||
-        buildCmd.contains(QStringLiteral("%d")) ||
-        buildCmd.contains(QStringLiteral("%n")))
+    if (buildCmd.contains(QLatin1String("%f")) ||
+        buildCmd.contains(QLatin1String("%d")) ||
+        buildCmd.contains(QLatin1String("%n")))
     {
 
         if (docFInfo.absoluteFilePath().isEmpty()) {

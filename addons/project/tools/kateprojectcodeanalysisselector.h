@@ -26,14 +26,13 @@
 class KateProjectCodeAnalysisSelector
 {
 public:
-
     /**
      * Model attachable to a code analysis tool selector.
      *
      * Each item contains a pointer to a KateProjectCodeAnalysisTool
      * associated to the role Qt::UserRole + 1
      */
-    static QStandardItemModel *model(QObject* parent = nullptr);
+    static QStandardItemModel *model(QObject *parent = nullptr);
 };
 
 #endif // KATE_PROJECT_CODE_ANALYSIS_SELECTOR_H

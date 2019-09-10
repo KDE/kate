@@ -124,17 +124,17 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       pos = line.indexOf(QLatin1Char('#'));
       if (pos >= 0)
       {
-          line = line.left(pos);
+          line.truncate(pos);
       }
       pos = line.indexOf(QLatin1String("//"));
       if (pos >= 0)
       {
-          line = line.left(pos);
+          line.truncate(pos);
       }
       pos = line.indexOf(QLatin1String("/*"));
       if (pos >= 0)
       {
-          line = line.left(pos);
+          line.truncate(pos);
           inBlockComment = true;
       }
       pos = line.indexOf(QLatin1String("*/"));

@@ -49,7 +49,6 @@ class ConfigPageInterface;
 
 namespace KateMDI
 {
-
 class ToolView;
 
 class ToggleToolViewAction : public KToggleAction
@@ -132,11 +131,13 @@ Q_SIGNALS:
      * some internal methodes needed by the main window and the sidebars
      */
 protected:
-    MainWindow *mainWindow() {
+    MainWindow *mainWindow()
+    {
         return m_mainWin;
     }
 
-    Sidebar *sidebar() {
+    Sidebar *sidebar()
+    {
         return m_sidebar;
     }
 
@@ -156,7 +157,7 @@ private:
     Sidebar *m_sidebar;
     KToolBar *m_toolbar;
 
-    ///plugin this view belongs to, may be 0
+    /// plugin this view belongs to, may be 0
     QPointer<KTextEditor::Plugin> plugin;
 
     /**
@@ -195,30 +196,33 @@ public:
     bool showWidget(ToolView *widget);
     bool hideWidget(ToolView *widget);
 
-    void setLastSize(int s) {
+    void setLastSize(int s)
+    {
         m_lastSize = s;
     }
-    int lastSize() const {
+    int lastSize() const
+    {
         return m_lastSize;
     }
     void updateLastSize();
 
-    bool splitterVisible() const {
+    bool splitterVisible() const
+    {
         return m_ownSplit->isVisible();
     }
 
     void restoreSession();
 
     /**
-    * restore the current session config from given object, use current group
-    * @param config config object to use
-    */
+     * restore the current session config from given object, use current group
+     * @param config config object to use
+     */
     void restoreSession(KConfigGroup &config);
 
     /**
-    * save the current session config to given object, use current group
-    * @param config config object to use
-    */
+     * save the current session config to given object, use current group
+     * @param config config object to use
+     */
     void saveSession(KConfigGroup &config);
 
 public Q_SLOTS:
@@ -257,8 +261,7 @@ private:
     int m_popupButton;
 
 Q_SIGNALS:
-    void sigShowPluginConfigPage(KTextEditor::Plugin*configpageinterface, uint id);
-
+    void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, uint id);
 };
 
 class MainWindow : public KParts::MainWindow
@@ -432,13 +435,13 @@ private:
     /**
      * sidebars state.
      */
-    bool m_sidebarsVisible;
+    bool m_sidebarsVisible = true;
 
     /**
      * config object for session restore, only valid between
      * start and finish restore calls
      */
-    KConfigBase *m_restoreConfig;
+    KConfigBase *m_restoreConfig = nullptr;
 
     /**
      * restore group
@@ -451,11 +454,9 @@ private:
     GUIClient *m_guiClient;
 
 Q_SIGNALS:
-    void sigShowPluginConfigPage(KTextEditor::Plugin*configpageinterface, uint id);
-
+    void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, uint id);
 };
 
 }
 
 #endif
-

@@ -26,7 +26,7 @@ static QString eolDelimiter(const QString &str)
 {
     // find the split character
     QString separator(QLatin1Char('\n'));
-    if (str.indexOf(QStringLiteral("\r\n")) != -1) {
+    if (str.indexOf(QLatin1String("\r\n")) != -1) {
         separator = QStringLiteral("\r\n");
     } else if (str.indexOf(QLatin1Char('\r')) != -1) {
         separator = QLatin1Char('\r');

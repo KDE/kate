@@ -152,7 +152,7 @@ void GUIClient::registerToolView(ToolView *tv)
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
     QString shortcutString = cfg->group("Shortcuts").readEntry(aname, QString());
 
-    foreach(const QString & shortcut, shortcutString.split(QLatin1String(";"))) {
+    foreach(const QString & shortcut, shortcutString.split(QLatin1Char(';'))) {
         shortcuts << QKeySequence::fromString(shortcut);
     }
 
@@ -716,8 +716,6 @@ void Sidebar::saveSession(KConfigGroup &config)
 
 MainWindow::MainWindow(QWidget *parentWidget)
     : KParts::MainWindow(parentWidget, Qt::Window)
-    , m_sidebarsVisible(true)
-    , m_restoreConfig(nullptr)
     , m_guiClient(new GUIClient(this))
 {
     // init the internal widgets

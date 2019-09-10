@@ -842,10 +842,9 @@ void KateFileTreeModel::slotDocumentsDeleted(const QList<KTextEditor::Document *
 class EditViewCount
 {
 public:
-    EditViewCount(): edit(0), view(0)
-    {}
-    int edit;
-    int view;
+    EditViewCount() = default;
+    int edit = 0;
+    int view = 0;
 };
 
 void KateFileTreeModel::updateBackgrounds(bool force)
@@ -1075,7 +1074,7 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
         current_parts.append(part);
         ProxyItemDir *find = findChildNode(ptr, part);
         if (!find) {
-            const QString new_name = current_parts.join(QLatin1String("/"));
+            const QString new_name = current_parts.join(QLatin1Char('/'));
             const QModelIndex parent_index = (ptr == m_root) ? QModelIndex() : createIndex(ptr->row(), 0, ptr);
             beginInsertRows(parent_index, ptr->childCount(), ptr->childCount());
             ptr = new ProxyItemDir(new_name, ptr);

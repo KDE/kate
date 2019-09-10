@@ -115,11 +115,12 @@ Q_SIGNALS:
      */
     void exiting();
     void documentClosed(const QString &token);
+
 public:
     QString activeSession();
+
 private:
     KateApp *m_app;
 };
 
 #endif
-

@@ -47,10 +47,10 @@ class KatePluginGDB : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KatePluginGDB(QObject* parent = nullptr, const VariantList& = VariantList());
+    explicit KatePluginGDB(QObject *parent = nullptr, const VariantList & = VariantList());
     ~KatePluginGDB() override;
 
-    QObject* createView(KTextEditor::MainWindow* mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
 
 class KatePluginGDBView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
@@ -59,12 +59,12 @@ class KatePluginGDBView : public QObject, public KXMLGUIClient, public KTextEdit
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
-  KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
+    KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
     ~KatePluginGDBView() override;
 
     // reimplemented: read and write session config
-    void readSessionConfig (const KConfigGroup& config) override;
-    void writeSessionConfig (KConfigGroup& config) override;
+    void readSessionConfig(const KConfigGroup &config) override;
+    void writeSessionConfig(KConfigGroup &config) override;
 
 private Q_SLOTS:
     void slotDebug();
@@ -83,7 +83,7 @@ private Q_SLOTS:
     void programEnded();
     void gdbEnded();
 
-    void insertStackFrame(QString const& level, QString const& info);
+    void insertStackFrame(QString const &level, QString const &info);
     void stackFrameChanged(int level);
     void stackFrameSelected();
 
@@ -91,8 +91,8 @@ private Q_SLOTS:
     void threadSelected(int thread);
 
     void showIO(bool show);
-    void addOutputText(QString const& text);
-    void addErrorText(QString const& text);
+    void addOutputText(QString const &text);
+    void addErrorText(QString const &text);
     void clearMarks();
     void handleEsc(QEvent *e);
 
@@ -102,29 +102,28 @@ protected:
 private:
     QString currentWord();
 
-
     KTextEditor::Application *m_kateApplication;
-    KTextEditor::MainWindow  *m_mainWin;
-    QWidget*              m_toolView;
-    QWidget*              m_localsStackToolView;
-    QTabWidget*           m_tabWidget;
-    QTextEdit*            m_outputArea;
-    KHistoryComboBox*     m_inputArea;
-    QWidget*              m_gdbPage;
-    QComboBox*            m_threadCombo;
-    int                   m_activeThread;
-    QTreeWidget*          m_stackTree;
-    QString               m_lastCommand;
-    DebugView*            m_debugView;
-    ConfigView*           m_configView;
-    IOView*               m_ioView;
-    LocalsView*           m_localsView;
+    KTextEditor::MainWindow *m_mainWin;
+    QWidget *m_toolView;
+    QWidget *m_localsStackToolView;
+    QTabWidget *m_tabWidget;
+    QTextEdit *m_outputArea;
+    KHistoryComboBox *m_inputArea;
+    QWidget *m_gdbPage;
+    QComboBox *m_threadCombo;
+    int m_activeThread;
+    QTreeWidget *m_stackTree;
+    QString m_lastCommand;
+    DebugView *m_debugView;
+    ConfigView *m_configView;
+    IOView *m_ioView;
+    LocalsView *m_localsView;
     QPointer<KActionMenu> m_menu;
-    QAction*              m_breakpoint;
-    QUrl                  m_lastExecUrl;
-    int                   m_lastExecLine;
-    int                   m_lastExecFrame;
-    bool                  m_focusOnInput;
+    QAction *m_breakpoint;
+    QUrl m_lastExecUrl;
+    int m_lastExecLine;
+    int m_lastExecFrame;
+    bool m_focusOnInput;
 };
 
 #endif

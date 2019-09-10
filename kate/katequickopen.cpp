@@ -96,7 +96,8 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
 
 bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::KeyPress) {
+    // catch key presses + shortcut overrides to allow to have ESC as application wide shortcut, too, see bug 409856
+    if (event->type() == QEvent::KeyPress || event->type() == QEvent::ShortcutOverride) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == m_inputLine) {
             const bool forward2list = (keyEvent->key() == Qt::Key_Up)
@@ -111,6 +112,7 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
             if (keyEvent->key() == Qt::Key_Escape) {
                 m_mainWindow->slotWindowActivated();
                 m_inputLine->clear();
+                keyEvent->accept();
                 return true;
             }
         } else {

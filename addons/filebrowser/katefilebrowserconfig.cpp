@@ -67,8 +67,7 @@ class ActionLBItem : public QListWidgetItem
 //BEGIN KateFileBrowserConfigPage
 KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, KateFileBrowser *kfb )
     : KTextEditor::ConfigPage( parent ),
-    fileBrowser( kfb ),
-    m_changed( false )
+    fileBrowser( kfb )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
   int spacing =  QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing);
@@ -175,7 +174,7 @@ void KateFileBrowserConfigPage::init()
   {
     lb = l.contains( actionName ) ? acSel->selectedListWidget() : acSel->availableListWidget();
 
-    if ( actionName == QStringLiteral ("bookmarks") || actionName == QStringLiteral ("sync_dir") || actionName == QStringLiteral ("configure") )
+    if ( actionName == QLatin1String ("bookmarks") || actionName == QLatin1String ("sync_dir") || actionName == QLatin1String ("configure") )
       ac = fileBrowser->actionCollection()->action( actionName );
     else
       ac = fileBrowser->dirOperator()->actionCollection()->action( actionName );

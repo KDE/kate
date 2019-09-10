@@ -97,7 +97,8 @@ public:
      * the main window we belong to
      * @return our main window
      */
-    KTextEditor::MainWindow *mainWindow() const {
+    KTextEditor::MainWindow *mainWindow() const
+    {
         return m_mainWindow;
     }
 
@@ -233,7 +234,7 @@ private:
     /**
      * project => view
      */
-    QMap<KateProject *, QPair<KateProjectView *, KateProjectInfoView *> > m_project2View;
+    QMap<KateProject *, QPair<KateProjectView *, KateProjectInfoView *>> m_project2View;
 
     /**
      * remember current active view text editor view
@@ -253,4 +254,3 @@ private:
 };
 
 #endif
-

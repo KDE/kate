@@ -94,7 +94,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
     const KService::List offers = KMimeTypeTrader::self()->query(mimeType.name(), QStringLiteral("Application"));
     // For each one, insert a menu item...
     for (const auto& service : offers) {
-        if (service->name() == QStringLiteral("Kate")) {
+        if (service->name() == QLatin1String("Kate")) {
             continue;    // omit Kate
         }
         QAction *action = openWithMenu->addAction(QIcon::fromTheme(service->icon()), service->name());

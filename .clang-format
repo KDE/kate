@@ -1,82 +1,65 @@
-# Copyright (C) 2016 Olivier Goffart <ogoffart@woboq.com>
-#
-# You may use this file under the terms of the 3-clause BSD license.
-# See the file LICENSE from this package for details.
-
-# This is the clang-format configuration style to be used by Qt,
-# based on the rules from https://wiki.qt.io/Qt_Coding_Style and
-# https://wiki.qt.io/Coding_Conventions
-
 ---
-# Webkit style was loosely based on the Qt style
+
+# Style for C++
+Language: Cpp
+
+# base is WebKit coding style: http://www.webkit.org/coding/coding-style.html
+# below are only things set that diverge from this style!
 BasedOnStyle: WebKit
 
+# enforce C++11 (e.g. for std::vector<std::vector<lala>>
 Standard: Cpp11
 
-# Column width is limited to 100 in accordance with Qt Coding Style.
-# https://wiki.qt.io/Qt_Coding_Style
-# Note that this may be changed at some point in the future.
-ColumnLimit: 100
-# How much weight do extra characters after the line length limit have.
-# PenaltyExcessCharacter: 4
+# 4 spaces indent
+TabWidth: 4
 
-# Disable reflow of qdoc comments: indentation rules are different.
-# Translation comments are also excluded.
-CommentPragmas: "^!|^:"
+# 3 * 80 wide lines
+ColumnLimit: 240
 
-# We want a space between the type and the star for pointer types.
-PointerBindsToType: false
-
-# We use template< without space.
-SpaceAfterTemplateKeyword: false
-
-# We want to break before the operators, but not before a '='.
-BreakBeforeBinaryOperators: NonAssignment
-
-# Braces are usually attached, but not after functions or class declarations.
-BreakBeforeBraces: Custom
-BraceWrapping:
-    AfterClass: true
-    AfterControlStatement: false
-    AfterEnum: false
-    AfterFunction: true
-    AfterNamespace: false
-    AfterObjCDeclaration: false
-    AfterStruct: false
-    AfterUnion: false
-    BeforeCatch: false
-    BeforeElse: false
-    IndentBraces: false
-
-# When constructor initializers do not fit on one line, put them each on a new line.
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
-# Indent initializers by 4 spaces
-ConstructorInitializerIndentWidth: 4
-
-# Indent width for line continuations.
-ContinuationIndentWidth: 8
-
-# No indentation for namespaces.
-NamespaceIndentation: None
-
-# Horizontally align arguments after an open bracket.
-# The coding style does not specify the following, but this is what gives
-# results closest to the existing code.
-AlignAfterOpenBracket: true
-AlwaysBreakTemplateDeclarations: true
-
-# Ideally we should also allow less short function in a single line, but
-# clang-format does not handle that.
-AllowShortFunctionsOnASingleLine: Inline
-
-# The coding style specifies some include order categories, but also tells to
-# separate categories with an empty line. It does not specify the order within
-# the categories. Since the SortInclude feature of clang-format does not
-# re-order includes separated by empty lines, the feature is not used.
+# keep include order, that order has sometimes semantics!
 SortIncludes: false
 
-# macros for which the opening brace stays attached.
-ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH, forever, Q_FOREVER, QBENCHMARK, QBENCHMARK_ONCE ]
+# break before braces on function, namespace and class definitions.
+BreakBeforeBraces: Linux
 
-# Break constructor initializers before the colon and after the commas.
-BreakConstructorInitializers: BeforeColon
+# CrlInstruction *a;
+PointerAlignment: Right
+
+# horizontally aligns arguments after an open bracket.
+AlignAfterOpenBracket: Align
+
+# align trailing comments
+AlignTrailingComments: true
+
+# don't move all parameters to new line
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# no single line functions
+AllowShortFunctionsOnASingleLine: None
+
+# always break before you encounter multi line strings
+AlwaysBreakBeforeMultilineStrings: true
+
+# don't move arguments to own lines if they are not all on the same
+BinPackArguments: false
+
+# don't move parameters to own lines if they are not all on the same
+BinPackParameters: false
+
+# don't break binary ops
+BreakBeforeBinaryOperators: None
+
+# don't break tenary ops
+BreakBeforeTernaryOperators: false
+
+# format C++11 braced lists like function calls
+Cpp11BracedListStyle: true
+
+# indent case labels one level
+IndentCaseLabels: true
+
+# remove empty lines
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# no namespace indentation to keep indent level low
+NamespaceIndentation: None

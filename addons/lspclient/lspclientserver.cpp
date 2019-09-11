@@ -441,29 +441,42 @@ static QList<LSPSymbolInformation> parseDocumentSymbols(const QJsonValue &result
     // if old style, it is assumed the values enter linearly, that is;
     // * a parent/container is listed before its children
     // * if a name is defined/declared several times and then used as a parent,
-    //   then it is the last instance that is used as a parent
+    //   then we try to find such a parent whose range contains current range
+    //   (otherwise fall back to using the last instance as a parent)
 
     QList<LSPSymbolInformation> ret;
-    QMap<QString, LSPSymbolInformation *> index;
+    QMultiMap<QString, LSPSymbolInformation *> index;
 
     std::function<void(const QJsonObject &symbol, LSPSymbolInformation *parent)> parseSymbol =
             [&](const QJsonObject &symbol, LSPSymbolInformation *parent) {
-                // if flat list, try to find parent by name
-                if (!parent) {
-                    auto container = symbol.value(QStringLiteral("containerName")).toString();
-                    parent = index.value(container, nullptr);
-                }
-                auto list = parent ? &parent->children : &ret;
                 const auto &location = symbol.value(MEMBER_LOCATION).toObject();
                 const auto &mrange = symbol.contains(MEMBER_RANGE) ? symbol.value(MEMBER_RANGE)
                                                                    : location.value(MEMBER_RANGE);
                 auto range = parseRange(mrange.toObject());
+                // if flat list, try to find parent by name
+                if (!parent) {
+                    auto container = symbol.value(QStringLiteral("containerName")).toString();
+                    auto it = index.find(container);
+                    // default to last inserted
+                    if (it != index.end()) {
+                        parent = it.value();
+                    }
+                    // but prefer a containing range
+                    while (it != index.end() && it.key() == container) {
+                        if (it.value()->range.contains(range)) {
+                            parent = it.value();
+                            break;
+                        }
+                        ++it;
+                    }
+                }
+                auto list = parent ? &parent->children : &ret;
                 if (isPositionValid(range.start()) && isPositionValid(range.end())) {
                     auto name = symbol.value(QStringLiteral("name")).toString();
                     auto kind = (LSPSymbolKind)symbol.value(MEMBER_KIND).toInt();
                     auto detail = symbol.value(MEMBER_DETAIL).toString();
                     list->push_back({ name, kind, range, detail });
-                    index[name] = &list->back();
+                    index.insert(name, &list->back());
                     // proceed recursively
                     for (const auto &child : symbol.value(QStringLiteral("children")).toArray())
                         parseSymbol(child.toObject(), &list->back());

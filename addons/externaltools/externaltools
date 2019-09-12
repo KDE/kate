@@ -1,0 +1,169 @@
+[Global]
+tools=10
+version=1
+
+
+[Tool 0]
+actionName=externaltool_RunShellScript
+arguments=-e sh -c "cd %{Document:Path} && pwd && chmod -vc a+x %{Document:FileName} && ./%{Document:FileName} ; echo Press any key to continue. && read -n 1"
+category=
+cmdname=run-script
+executable=konsole
+icon=system-run
+input=
+mimetypes=
+name=Run Shell Script
+output=Ignore
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 1]
+actionName=externaltool_GoogleSelectedText
+arguments="https://www.google.com/search?q=%{Document:Selection:Text}"
+category=
+cmdname=google
+executable=xdg-open
+icon=globe
+input=
+mimetypes=
+name=Google Selected Text
+output=Ignore
+reload=false
+save=None
+workingDir=
+
+[Tool 10]
+actionName=externaltool_TestExternalTools
+arguments=
+category=Tools
+cmdname=external-tool-test
+executable=tac
+icon=
+input=Document:FileBaseName: %{Document:FileBaseName}\nDocument:FileName: %{Document:FileName}\nDocument:FilePath: %{Document:FilePath}\nDocument:FileExtension: %{Document:FileExtension}\nDocument:Text: %{Document:Text}\nDocument:Path: %{Document:Path}\nDocument:NativeFilePath: %{Document:NativeFilePath}\nDocument:NativePath: %{Document:NativePath}\nDocument:Cursor:Line: %{Document:Cursor:Line}\nDocument:Cursor:Column: %{Document:Cursor:Column}\nDocument:Cursor:XPos: %{Document:Cursor:XPos}\nDocument:Cursor:YPos: %{Document:Cursor:YPos}\nDocument:Selection:Text: %{Document:Selection:Text}\nDocument:Selection:StartLine: %{Document:Selection:StartLine}\nDocument:Selection:StartColumn: %{Document:Selection:StartColumn}\nDocument:Selection:EndLine: %{Document:Selection:EndLine}\nDocument:Selection:EndColumn: %{CurrentDocument:Selection:EndColumn}\nDocument:RowCount: %{CurrentDocument:RowCount}\nDate:dd.MM.yyyy: %{Date:dd.MM.yyyy}\nDate:Locale: %{Date:Locale}\nDate:ISO: %{Date:ISO}\nTime:hh:mm:ss.zzz: %{Time:hh:mm:ss.zzz}\nTime:Locale: %{Time:Locale}\nTime:ISO: %{Time:ISO}\nENV:KATE_PID: %{ENV:KATE_PID}\nUUID: %{UUID}\n
+mimetypes=
+name=Test External Tools
+output=DisplayInPane
+reload=false
+save=None
+workingDir=
+
+[Tool 2]
+actionName=externaltool_gitcola
+arguments=-r %{Document:Path}
+category=Git
+cmdname=git-cola
+executable=git-cola
+icon=git-cola
+input=
+mimetypes=
+name=git-cola
+output=Ignore
+reload=false
+save=None
+workingDir=
+
+[Tool 3]
+actionName=externaltool_gitk
+arguments=
+category=Git
+cmdname=gitk
+executable=gitk
+icon=git-gui
+input=
+mimetypes=
+name=gitk
+output=Ignore
+reload=false
+save=None
+workingDir=%{Document:Path}
+
+[Tool 4]
+actionName=externaltool_gitblame
+arguments=gui blame %{Document:FileName}
+category=Git
+cmdname=git-blame
+executable=git
+icon=
+input=
+mimetypes=
+name=git blame
+output=Ignore
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 5]
+actionName=externaltool_QtQuick2Previewqmlscene
+arguments=%{Document:FileName}
+category=Tools
+cmdname=qml-preview
+executable=qmlscene
+icon=
+input=
+mimetypes=text/x-qml
+name=Qt Quick 2 Preview (qmlscene)
+output=Ignore
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 6]
+actionName=externaltool_InsertUUID
+arguments=%{UUID}
+category=Tools
+cmdname=uuid
+executable=echo
+icon=
+input=
+mimetypes=
+name=Insert UUID
+output=InsertAtCursor
+reload=false
+save=None
+workingDir=
+
+[Tool 7]
+actionName=externaltool_ClangFormatFullFile
+arguments=-i %{Document:FileName}
+category=Tools
+cmdname=clang-format-file
+executable=clang-format
+icon=
+input=
+mimetypes=
+name=Clang Format Full File
+output=Ignore
+reload=true
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 8]
+actionName=externaltool_ClangFormatSelectedText
+arguments=-assume-filename=%{Document:FileName}
+category=Tools
+cmdname=clang-format-selection
+executable=clang-format
+icon=
+input=\s%{Document:Selection:Text}
+mimetypes=
+name=Clang Format Selected Text
+output=ReplaceSelectedText
+reload=false
+save=None
+workingDir=%{Document:Path}
+
+[Tool 9]
+actionName=externaltool_perl
+arguments=%{ENV:KATE_PID
+category=Tools
+cmdname=perl
+executable=echo
+icon=
+input=
+mimetypes=
+name=perl
+output=DisplayInPane
+reload=false
+save=None
+workingDir=

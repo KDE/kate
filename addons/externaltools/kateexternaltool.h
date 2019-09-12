@@ -47,15 +47,7 @@ public:
     /**
      * Defines where to redirect stdout from the tool.
      */
-    enum class OutputMode {
-        Ignore,
-        InsertAtCursor,
-        ReplaceSelectedText,
-        ReplaceCurrentDocument,
-        AppendToCurrentDocument,
-        InsertInNewDocument,
-        DisplayInPane
-    };
+    enum class OutputMode { Ignore, InsertAtCursor, ReplaceSelectedText, ReplaceCurrentDocument, AppendToCurrentDocument, InsertInNewDocument, DisplayInPane };
 
 public:
     /// The category used in the menu to categorize the tool.
@@ -93,7 +85,7 @@ public:
     /**
      * @return true if mimetypes is empty, or the @p mimetype matches.
      */
-    bool matchesMimetype(const QString& mimetype) const;
+    bool matchesMimetype(const QString &mimetype) const;
 
     /**
      * @return true if "executable" exists and has the executable bit set, or is
@@ -105,21 +97,21 @@ public:
     /**
      * Load tool data from the config group @p cg.
      */
-    void load(const KConfigGroup& cg);
+    void load(const KConfigGroup &cg);
 
     /**
      * Save tool data to the config group @p cg.
      */
-    void save(KConfigGroup& cg) const;
+    void save(KConfigGroup &cg) const;
 };
 
 /**
  * Compares for equality. All fields have to match.
  */
-bool operator==(const KateExternalTool & lhs, const KateExternalTool & rhs);
+bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs);
 
 // for use in QVariant (QAction::setData() and QAction::data())
-Q_DECLARE_METATYPE(KateExternalTool*)
+Q_DECLARE_METATYPE(KateExternalTool *)
 
 #endif // KTEXTEDITOR_KATE_EXTERNALTOOL_H
 

@@ -20,8 +20,14 @@
 #ifndef KTEXTEDITOR_EXTERNALTOOLS_H
 #define KTEXTEDITOR_EXTERNALTOOLS_H
 
-namespace KTextEditor { class MainWindow; }
-namespace KTextEditor { class View; }
+namespace KTextEditor
+{
+class MainWindow;
+}
+namespace KTextEditor
+{
+class View;
+}
 
 #include <KActionMenu>
 #include <KMacroExpander>
@@ -33,12 +39,12 @@ class KActionCollection;
 class KateExternalToolsPlugin;
 class KateExternalTool;
 
-namespace Ui { class ToolView; }
+namespace Ui
+{
+class ToolView;
+}
 
-enum class ToolViewFocus {
-    OutputTab = 0,
-    StatusTab
-};
+enum class ToolViewFocus { OutputTab = 0, StatusTab };
 
 /**
  * Menu action that displays all KateExternalTool in a submenu.
@@ -48,8 +54,7 @@ class KateExternalToolsMenuAction : public KActionMenu
 {
     Q_OBJECT
 public:
-    KateExternalToolsMenuAction(const QString& text, KActionCollection* collection, KateExternalToolsPlugin* plugin,
-                                class KTextEditor::MainWindow* mw = nullptr);
+    KateExternalToolsMenuAction(const QString &text, KActionCollection *collection, KateExternalToolsPlugin *plugin, class KTextEditor::MainWindow *mw = nullptr);
     virtual ~KateExternalToolsMenuAction();
 
     /**
@@ -57,19 +62,22 @@ public:
      */
     void reload();
 
-    KActionCollection* actionCollection() const { return m_actionCollection; }
+    KActionCollection *actionCollection() const
+    {
+        return m_actionCollection;
+    }
 
 private Q_SLOTS:
     /**
      * Called whenever the current view changed.
      * Required to enable/disable the tools that depend on specific mimetypes.
      */
-    void slotViewChanged(KTextEditor::View* view);
+    void slotViewChanged(KTextEditor::View *view);
 
 private:
-    KateExternalToolsPlugin* m_plugin;
-    KTextEditor::MainWindow* m_mainwindow; // for the actions to access view/doc managers
-    KActionCollection* m_actionCollection;
+    KateExternalToolsPlugin *m_plugin;
+    KTextEditor::MainWindow *m_mainwindow; // for the actions to access view/doc managers
+    KActionCollection *m_actionCollection;
 };
 
 class KateExternalToolsPluginView : public QObject, public KXMLGUIClient
@@ -80,7 +88,7 @@ public:
     /**
      * Constructor.
      */
-    KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow, KateExternalToolsPlugin* plugin);
+    KateExternalToolsPluginView(KTextEditor::MainWindow *mainWindow, KateExternalToolsPlugin *plugin);
 
     /**
      * Virtual destructor.
@@ -90,7 +98,7 @@ public:
     /**
      * Returns the associated mainWindow
      */
-    KTextEditor::MainWindow* mainWindow() const;
+    KTextEditor::MainWindow *mainWindow() const;
 
 public Q_SLOTS:
     /**
@@ -117,12 +125,12 @@ public Q_SLOTS:
      * Shows the External Tools toolview and points the error message along with
      * some more info about the tool.
      */
-    void addToolStatus(const QString& message);
+    void addToolStatus(const QString &message);
 
     /**
      * Sets the output data to data;
      */
-    void setOutputData(const QString& data);
+    void setOutputData(const QString &data);
 
     /**
      * Deletes the tool view, if existing.
@@ -130,13 +138,13 @@ public Q_SLOTS:
     void deleteToolView();
 
 private:
-    KateExternalToolsPlugin* m_plugin;
-    KTextEditor::MainWindow* m_mainWindow;
-    KateExternalToolsMenuAction* m_externalToolsMenu = nullptr;
-    QWidget* m_toolView = nullptr;
-    Ui::ToolView* m_ui = nullptr;
-    QTextDocument* m_outputDoc = nullptr;
-    QTextDocument* m_statusDoc = nullptr;
+    KateExternalToolsPlugin *m_plugin;
+    KTextEditor::MainWindow *m_mainWindow;
+    KateExternalToolsMenuAction *m_externalToolsMenu = nullptr;
+    QWidget *m_toolView = nullptr;
+    Ui::ToolView *m_ui = nullptr;
+    QTextDocument *m_outputDoc = nullptr;
+    QTextDocument *m_statusDoc = nullptr;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_H

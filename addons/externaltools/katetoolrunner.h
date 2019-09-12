@@ -31,8 +31,9 @@
 
 class KateExternalTool;
 class QProcess;
-namespace KTextEditor {
-    class View;
+namespace KTextEditor
+{
+class View;
 }
 
 /**
@@ -47,10 +48,10 @@ public:
      * Constructor that will run @p tool in the run() method.
      * The @p view can later be retrieved again with view() to process the data when the tool is finished.
      */
-    KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View * view, QObject* parent = nullptr);
+    KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View *view, QObject *parent = nullptr);
 
-    KateToolRunner(const KateToolRunner&) = delete;
-    void operator=(const KateToolRunner&) = delete;
+    KateToolRunner(const KateToolRunner &) = delete;
+    void operator=(const KateToolRunner &) = delete;
 
     ~KateToolRunner();
 
@@ -58,12 +59,12 @@ public:
      * Returns the view that was active when running the tool.
      * @warning May be a nullptr, since the view could have been closed in the meantime.
      */
-    KTextEditor::View* view() const;
+    KTextEditor::View *view() const;
 
     /**
      * Returns the tool that was passed in the constructor.
      */
-    KateExternalTool* tool() const;
+    KateExternalTool *tool() const;
 
     /**
      * Starts a child process that executes the tool.
@@ -90,7 +91,7 @@ Q_SIGNALS:
     /**
      * This signal is emitted when the tool is finished.
      */
-    void toolFinished(KateToolRunner* runner, int exitCode, bool crashed);
+    void toolFinished(KateToolRunner *runner, int exitCode, bool crashed);
 
 private:
     //! Use QPointer here, since the View may be closed in the meantime.

@@ -23,7 +23,10 @@
 #include <QVector>
 #include <KTextEditor/Plugin>
 
-namespace KTextEditor { class View; }
+namespace KTextEditor
+{
+class View;
+}
 
 class KateExternalToolsMenuAction;
 class KateExternalToolsPluginView;
@@ -36,7 +39,7 @@ class KateExternalToolsPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KateExternalToolsPlugin(QObject* parent = nullptr, const QList<QVariant>& = QList<QVariant>());
+    explicit KateExternalToolsPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     virtual ~KateExternalToolsPlugin();
 
     /**
@@ -47,12 +50,12 @@ public:
     /**
      * Reimplemented to return the KateExternalToolConfigWidget for number==0.
      */
-    KTextEditor::ConfigPage* configPage(int number = 0, QWidget* parent = nullptr) override;
+    KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
     /**
      * Reimplemented to instanciate a PluginView for each MainWindow.
      */
-    QObject* createView(KTextEditor::MainWindow* mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
     /**
      * Reloads the external tools from disk.
@@ -69,17 +72,17 @@ public:
     /**
      * Returns the KateExternalTool for a specific command line command 'cmd.
      */
-    const KateExternalTool* toolForCommand(const QString& cmd) const;
+    const KateExternalTool *toolForCommand(const QString &cmd) const;
 
     /**
      * Returns a list of all existing external tools.
      */
-    const QVector<KateExternalTool*> & tools() const;
+    const QVector<KateExternalTool *> &tools() const;
 
     /**
      * Executes the tool based on the view as current document.
      */
-    void runTool(const KateExternalTool& tool, KTextEditor::View* view);
+    void runTool(const KateExternalTool &tool, KTextEditor::View *view);
 
 Q_SIGNALS:
     /**
@@ -93,29 +96,31 @@ public:
     /**
      * Called by the KateExternalToolsPluginView to register itself.
      */
-    void registerPluginView(KateExternalToolsPluginView * view);
+    void registerPluginView(KateExternalToolsPluginView *view);
 
     /**
      * Called by the KateExternalToolsPluginView to unregister itself.
      */
-    void unregisterPluginView(KateExternalToolsPluginView * view);
+    void unregisterPluginView(KateExternalToolsPluginView *view);
 
     /**
      * Returns the KateExternalToolsPluginView for the given mainWindow.
      */
-    KateExternalToolsPluginView* viewForMainWindow(KTextEditor::MainWindow* mainWindow) const;
+    KateExternalToolsPluginView *viewForMainWindow(KTextEditor::MainWindow *mainWindow) const;
 
 private:
-    QVector<KateExternalToolsPluginView*> m_views;
-    QVector<KateExternalTool*> m_tools;
+    QVector<KateExternalToolsPluginView *> m_views;
+    QVector<KateExternalTool *> m_tools;
     QStringList m_commands;
-    KateExternalToolsCommand* m_command = nullptr;
+    KateExternalToolsCommand *m_command = nullptr;
 
-private Q_SLOT:
-    /**
-     * Called whenever an external tool is done.
-     */
-    void handleToolFinished(KateToolRunner* runner, int exitCode, bool crashed);
+private
+    Q_SLOT :
+        /**
+         * Called whenever an external tool is done.
+         */
+        void
+        handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed);
 };
 
 #endif

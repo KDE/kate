@@ -31,19 +31,18 @@ class KateExternalTool;
 class KateExternalToolsCommand : public KTextEditor::Command
 {
 public:
-    KateExternalToolsCommand(KateExternalToolsPlugin* plugin);
+    KateExternalToolsCommand(KateExternalToolsPlugin *plugin);
     virtual ~KateExternalToolsCommand() = default;
 
 public:
-    bool exec(KTextEditor::View* view, const QString& cmd, QString& msg,
-              const KTextEditor::Range& range = KTextEditor::Range::invalid()) override;
-    bool help(KTextEditor::View* view, const QString& cmd, QString& msg) override;
+    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
+    bool help(KTextEditor::View *view, const QString &cmd, QString &msg) override;
 
 private:
-    void runTool(KateExternalTool& tool, KTextEditor::View* view);
+    void runTool(KateExternalTool &tool, KTextEditor::View *view);
 
 private:
-    KateExternalToolsPlugin* m_plugin;
+    KateExternalToolsPlugin *m_plugin;
 };
 
 #endif // KTEXTEDITOR_KATE_EXTERNALTOOLS_COMMAND_H

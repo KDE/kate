@@ -45,7 +45,7 @@ class KateExternalToolsConfigWidget : public KTextEditor::ConfigPage, public Ui:
 {
     Q_OBJECT
 public:
-    KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin);
+    KateExternalToolsConfigWidget(QWidget *parent, KateExternalToolsPlugin *plugin);
     virtual ~KateExternalToolsConfigWidget();
 
     QString name() const override;
@@ -55,7 +55,10 @@ public:
 public Q_SLOTS:
     void apply() override;
     void reset() override;
-    void defaults() override { reset(); }
+    void defaults() override
+    {
+        reset();
+    }
 
 private Q_SLOTS:
     void slotAddCategory();
@@ -68,17 +71,17 @@ private Q_SLOTS:
      * Helper to open the ToolDialog.
      * Returns true, if the user clicked OK.
      */
-    bool editTool(KateExternalTool* tool);
+    bool editTool(KateExternalTool *tool);
 
     /**
      * Creates a new category or returns existing one.
      */
-    QStandardItem * addCategory(const QString & category);
+    QStandardItem *addCategory(const QString &category);
 
     /**
      * Returns the currently active category. The returned pointer is always valid.
      */
-    QStandardItem * currentCategory() const;
+    QStandardItem *currentCategory() const;
 
     /**
      * Clears the tools model.
@@ -89,11 +92,11 @@ private:
     QPixmap blankIcon();
 
 private:
-    KConfig* m_config = nullptr;
+    KConfig *m_config = nullptr;
     bool m_changed = false;
-    KateExternalToolsPlugin* m_plugin;
+    KateExternalToolsPlugin *m_plugin;
     QStandardItemModel m_toolsModel;
-    QStandardItem * m_noCategory = nullptr;
+    QStandardItem *m_noCategory = nullptr;
 };
 
 /**
@@ -104,7 +107,7 @@ class KateExternalToolServiceEditor : public QDialog
     Q_OBJECT
 
 public:
-    explicit KateExternalToolServiceEditor(KateExternalTool* tool = nullptr, QWidget* parent = nullptr);
+    explicit KateExternalToolServiceEditor(KateExternalTool *tool = nullptr, QWidget *parent = nullptr);
 
 private Q_SLOTS:
     /**
@@ -118,10 +121,10 @@ private Q_SLOTS:
     void showMTDlg();
 
 public:
-    Ui::ToolDialog* ui;
+    Ui::ToolDialog *ui;
 
 private:
-    KateExternalTool* m_tool;
+    KateExternalTool *m_tool;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_CONFIGWIDGET_H

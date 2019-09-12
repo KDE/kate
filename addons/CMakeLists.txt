@@ -12,12 +12,10 @@ ecm_optional_add_subdirectory(katebuild-plugin)
 ecm_optional_add_subdirectory(katesql) 
 ecm_optional_add_subdirectory(konsole)
 ecm_optional_add_subdirectory(lspclient) # Language Server Protocol (LSP) client plugin.
-ecm_optional_add_subdirectory(lumen) # D completion
 ecm_optional_add_subdirectory(openheader) # Open header matching to current file.
 ecm_optional_add_subdirectory(preview) # Live preview of sources in target format.
 ecm_optional_add_subdirectory(project) # Small & smart project manager.
 ecm_optional_add_subdirectory(replicode)
-ecm_optional_add_subdirectory(rustcompletion)
 ecm_optional_add_subdirectory(search)
 ecm_optional_add_subdirectory(sessionapplet)
 ecm_optional_add_subdirectory(snippets)

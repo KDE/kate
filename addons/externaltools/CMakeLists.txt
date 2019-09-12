@@ -1,17 +1,16 @@
 # find_package(KF5TextEditor QUIET REQUIRED)
 if(${KF5TextEditor_VERSION} VERSION_LESS 5.63.0)
-  return()
+    return()
 endif()
 
-find_package(KF5I18n QUIET REQUIRED)
-if(NOT KF5I18n_Found)
-  return()
+find_package(KF5I18n QUIET)
+if(NOT KF5I18n_FOUND)
+    return()
 endif()
 
 find_package(KF5IconThemes QUIET)
-set_package_properties(KF5IconThemes PROPERTIES PURPOSE "Required to build the externaltools addon")
 if(NOT KF5IconThemes_FOUND)
-  return()
+    return()
 endif()
 
 find_package(Qt5Test QUIET REQUIRED)

@@ -17,5 +17,5 @@ add_executable(externaltools_test
     ../katetoolrunner.cpp
 )
 add_test(plugin-externaltools_test externaltools_test)
-target_link_libraries(externaltools_test kdeinit_kate Qt5::Test KF5::ConfigCore KF5::CoreAddons)
+target_link_libraries(externaltools_test PRIVATE Qt5::Test KF5::ConfigCore KF5::CoreAddons KF5::TextEditor)
 ecm_mark_as_test(externaltools_test)

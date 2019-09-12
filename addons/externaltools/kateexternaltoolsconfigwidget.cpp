@@ -99,6 +99,16 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     ui->chkReload->setChecked(m_tool->reload);
     ui->cmbOutput->setCurrentIndex(static_cast<int>(m_tool->outputMode));
     ui->edtCommand->setText(m_tool->cmdname);
+
+    // add support for variable expansion
+    KTextEditor::Editor::instance()->addVariableExpansion(
+        {
+            ui->edtExecutable,
+            ui->edtArgs,
+            ui->edtInput,
+            ui->edtWorkingDir
+        }
+    );
 }
 
 void KateExternalToolServiceEditor::slotOKClicked()

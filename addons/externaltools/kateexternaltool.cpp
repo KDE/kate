@@ -75,12 +75,12 @@ bool KateExternalTool::checkExec() const
     return !QStandardPaths::findExecutable(executable).isEmpty();
 }
 
-bool KateExternalTool::matchesMimetype(const QString& mt) const
+bool KateExternalTool::matchesMimetype(const QString &mt) const
 {
     return mimetypes.isEmpty() || mimetypes.contains(mt);
 }
 
-void KateExternalTool::load(const KConfigGroup& cg)
+void KateExternalTool::load(const KConfigGroup &cg)
 {
     category = cg.readEntry("category", "");
     name = cg.readEntry("name", "");
@@ -99,7 +99,7 @@ void KateExternalTool::load(const KConfigGroup& cg)
     hasexec = checkExec();
 }
 
-void KateExternalTool::save(KConfigGroup& cg) const
+void KateExternalTool::save(KConfigGroup &cg) const
 {
     cg.writeEntry("category", category);
     cg.writeEntry("name", name);
@@ -116,7 +116,7 @@ void KateExternalTool::save(KConfigGroup& cg) const
     cg.writeEntry("output", toString(outputMode));
 }
 
-bool operator==(const KateExternalTool & lhs, const KateExternalTool & rhs)
+bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs)
 {
     return lhs.category == rhs.category
         && lhs.name == rhs.name

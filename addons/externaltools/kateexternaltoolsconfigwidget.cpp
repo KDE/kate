@@ -45,58 +45,57 @@
 
 #include <unistd.h>
 
-namespace {
-    constexpr int ToolRole = Qt::UserRole + 1;
+namespace
+{
+constexpr int ToolRole = Qt::UserRole + 1;
 
-    /**
-     * Helper function to create a QStandardItem that internally stores a pointer to a KateExternalTool.
-     */
-    QStandardItem * newToolItem(const QPixmap& icon, KateExternalTool* tool)
-    {
-        auto item = new QStandardItem(icon, tool->name);
-        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
-        item->setData(QVariant::fromValue(reinterpret_cast<quintptr>(tool)), ToolRole);
-        return item;
-    }
+/**
+ * Helper function to create a QStandardItem that internally stores a pointer to a KateExternalTool.
+ */
+QStandardItem *newToolItem(const QPixmap &icon, KateExternalTool *tool)
+{
+    auto item = new QStandardItem(icon, tool->name);
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
+    item->setData(QVariant::fromValue(reinterpret_cast<quintptr>(tool)), ToolRole);
+    return item;
+}
 
-    /**
-     * Helper function to return an internally stored KateExternalTool for a QStandardItem.
-     * If a nullptr is returned, it means the QStandardItem is a category.
-     */
-    KateExternalTool* toolForItem(QStandardItem* item)
-    {
-        return item ? reinterpret_cast<KateExternalTool*>(item->data(ToolRole).value<quintptr>()) : nullptr;
-    }
+/**
+ * Helper function to return an internally stored KateExternalTool for a QStandardItem.
+ * If a nullptr is returned, it means the QStandardItem is a category.
+ */
+KateExternalTool *toolForItem(QStandardItem *item)
+{
+    return item ? reinterpret_cast<KateExternalTool *>(item->data(ToolRole).value<quintptr>()) : nullptr;
+}
 
-    QPixmap blankIcon()
-    {
-        QPixmap pm(KIconLoader::SizeSmall, KIconLoader::SizeSmall);
-        pm.fill();
-        pm.setMask(pm.createHeuristicMask());
-        return pm;
-    }
+QPixmap blankIcon()
+{
+    QPixmap pm(KIconLoader::SizeSmall, KIconLoader::SizeSmall);
+    pm.fill();
+    pm.setMask(pm.createHeuristicMask());
+    return pm;
+}
 
-    //! Helper that ensures that tool->actionName is unique
-    static void makeActionNameUnique(KateExternalTool* tool, const std::vector<KateExternalTool*> & tools)
-    {
-        QString name = tool->actionName;
-        int i = 1;
-        while (true) {
-            auto it = std::find_if(tools.cbegin(), tools.cend(), [&name](const KateExternalTool* tool) {
-                return tool->actionName == name;
-            });
-            if (it == tools.cend()) {
-                break;
-            }
-            name = tool->actionName + QString::number(i);
-            ++i;
+//! Helper that ensures that tool->actionName is unique
+static void makeActionNameUnique(KateExternalTool *tool, const std::vector<KateExternalTool *> &tools)
+{
+    QString name = tool->actionName;
+    int i = 1;
+    while (true) {
+        auto it = std::find_if(tools.cbegin(), tools.cend(), [&name](const KateExternalTool *tool) { return tool->actionName == name; });
+        if (it == tools.cend()) {
+            break;
         }
-        tool->actionName = name;
+        name = tool->actionName + QString::number(i);
+        ++i;
     }
+    tool->actionName = name;
+}
 }
 
 // BEGIN KateExternalToolServiceEditor
-KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* tool, QWidget* parent)
+KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *tool, QWidget *parent)
     : QDialog(parent)
     , m_tool(tool)
 {
@@ -127,21 +126,13 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool* t
     ui->edtCommand->setText(m_tool->cmdname);
 
     // add support for variable expansion
-    KTextEditor::Editor::instance()->addVariableExpansion(
-        {
-            ui->edtExecutable,
-            ui->edtArgs,
-            ui->edtInput,
-            ui->edtWorkingDir
-        }
-    );
+    KTextEditor::Editor::instance()->addVariableExpansion({ui->edtExecutable, ui->edtArgs, ui->edtInput, ui->edtWorkingDir});
 }
 
 void KateExternalToolServiceEditor::slotOKClicked()
 {
     if (ui->edtName->text().isEmpty() || ui->edtExecutable->text().isEmpty()) {
-        QMessageBox::information(this, i18n("External Tool"),
-                                 i18n("You must specify at least a name and an executable"));
+        QMessageBox::information(this, i18n("External Tool"), i18n("You must specify at least a name and an executable"));
         return;
     }
     accept();
@@ -150,8 +141,7 @@ void KateExternalToolServiceEditor::slotOKClicked()
 void KateExternalToolServiceEditor::showMTDlg()
 {
     QString text = i18n("Select the MimeTypes for which to enable this tool.");
-    QStringList list
-        = ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+    QStringList list = ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
     KMimeTypeChooserDialog d(i18n("Select Mime Types"), text, list, QStringLiteral("text"), this);
     if (d.exec() == QDialog::Accepted) {
         ui->edtMimeType->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
@@ -159,19 +149,19 @@ void KateExternalToolServiceEditor::showMTDlg()
 }
 // END KateExternalToolServiceEditor
 
-static std::vector<QStandardItem*> childItems(const QStandardItem * item)
+static std::vector<QStandardItem *> childItems(const QStandardItem *item)
 {
     // collect all KateExternalTool items
-    std::vector<QStandardItem*> children;
+    std::vector<QStandardItem *> children;
     for (int i = 0; i < item->rowCount(); ++i) {
         children.push_back(item->child(i));
     }
     return children;
 }
 
-static std::vector<KateExternalTool*> collectTools(const QStandardItemModel & model)
+static std::vector<KateExternalTool *> collectTools(const QStandardItemModel &model)
 {
-    std::vector<KateExternalTool*> tools;
+    std::vector<KateExternalTool *> tools;
     for (auto categoryItem : childItems(model.invisibleRootItem())) {
         for (auto child : childItems(categoryItem)) {
             auto tool = toolForItem(child);
@@ -183,7 +173,7 @@ static std::vector<KateExternalTool*> collectTools(const QStandardItemModel & mo
 }
 
 // BEGIN KateExternalToolsConfigWidget
-KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, KateExternalToolsPlugin* plugin)
+KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, KateExternalToolsPlugin *plugin)
     : KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
 {
@@ -211,9 +201,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     connect(addToolAction, &QAction::triggered, this, &KateExternalToolsConfigWidget::slotAddTool);
     connect(btnRemove, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotRemove);
     connect(btnEdit, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotEdit);
-    connect(lbTools->selectionModel(), &QItemSelectionModel::currentChanged, [this](){
-        slotSelectionChanged();
-    });
+    connect(lbTools->selectionModel(), &QItemSelectionModel::currentChanged, [this]() { slotSelectionChanged(); });
     connect(lbTools, &QTreeView::doubleClicked, this, &KateExternalToolsConfigWidget::slotEdit);
 
     m_config = new KConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
@@ -222,7 +210,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     reset();
     slotSelectionChanged();
 
-    connect(&m_toolsModel, &QStandardItemModel::itemChanged, [this](){
+    connect(&m_toolsModel, &QStandardItemModel::itemChanged, [this]() {
         m_changed = true;
         Q_EMIT changed();
     });
@@ -278,7 +266,7 @@ void KateExternalToolsConfigWidget::apply()
     m_changed = false;
 
     // collect all KateExternalTool items
-    std::vector<KateExternalTool*> tools;
+    std::vector<KateExternalTool *> tools;
     for (auto categoryItem : childItems(m_toolsModel.invisibleRootItem())) {
         const QString category = (categoryItem == m_noCategory) ? QString() : categoryItem->text();
         for (auto child : childItems(categoryItem)) {
@@ -314,7 +302,7 @@ void KateExternalToolsConfigWidget::slotSelectionChanged()
     btnRemove->setEnabled(isToolItem);
 }
 
-bool KateExternalToolsConfigWidget::editTool(KateExternalTool* tool)
+bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
 {
     bool changed = false;
 
@@ -327,8 +315,7 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool* tool)
         tool->arguments = editor.ui->edtArgs->text();
         tool->input = editor.ui->edtInput->toPlainText();
         tool->workingDir = editor.ui->edtWorkingDir->text();
-        tool->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")),
-                                                            QString::SkipEmptyParts);
+        tool->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
         tool->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
         tool->reload = editor.ui->chkReload->isChecked();
         tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
@@ -353,7 +340,7 @@ void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
     }
 
     // create tool actions
-    std::map<QString, QMenu*> categories;
+    std::map<QString, QMenu *> categories;
 
     // first add categorized actions, such that the submenus appear at the top
     int defaultToolsIndex = 0;
@@ -369,9 +356,7 @@ void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
         auto a = categoryMenu->addAction(QIcon::fromTheme(tool.icon), tool.name);
         a->setData(defaultToolsIndex);
 
-        connect(a, &QAction::triggered, [this, a]() {
-            slotAddDefaultTool(a->data().toInt());
-        });
+        connect(a, &QAction::triggered, [this, a]() { slotAddDefaultTool(a->data().toInt()); });
         ++defaultToolsIndex;
     }
 }
@@ -398,7 +383,7 @@ void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
     m_changed = true;
 }
 
-QStandardItem * KateExternalToolsConfigWidget::addCategory(const QString & category)
+QStandardItem *KateExternalToolsConfigWidget::addCategory(const QString &category)
 {
     if (category.isEmpty()) {
         return m_noCategory;
@@ -421,7 +406,7 @@ QStandardItem * KateExternalToolsConfigWidget::addCategory(const QString & categ
     return item;
 }
 
-QStandardItem * KateExternalToolsConfigWidget::currentCategory() const
+QStandardItem *KateExternalToolsConfigWidget::currentCategory() const
 {
     auto index = lbTools->currentIndex();
     if (!index.isValid()) {
@@ -442,7 +427,7 @@ QStandardItem * KateExternalToolsConfigWidget::currentCategory() const
 void KateExternalToolsConfigWidget::clearTools()
 {
     // collect all KateExternalTool items and delete them, since they are copies
-    std::vector<KateExternalTool*> tools = collectTools(m_toolsModel);
+    std::vector<KateExternalTool *> tools = collectTools(m_toolsModel);
     qDeleteAll(tools);
     tools.clear();
     m_toolsModel.clear();

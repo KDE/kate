@@ -44,10 +44,8 @@
 #include <map>
 #include <vector>
 
-
 // BEGIN KateExternalToolsMenuAction
-KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString& text, KActionCollection* collection,
-                                                         KateExternalToolsPlugin* plugin, KTextEditor::MainWindow* mw)
+KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString &text, KActionCollection *collection, KateExternalToolsPlugin *plugin, KTextEditor::MainWindow *mw)
     : KActionMenu(text, mw)
     , m_plugin(plugin)
     , m_mainwindow(mw)
@@ -71,8 +69,8 @@ void KateExternalToolsMenuAction::reload()
     menu()->clear();
 
     // create tool actions
-    std::map<QString, KActionMenu*> categories;
-    std::vector<QAction*> uncategorizedActions;
+    std::map<QString, KActionMenu *> categories;
+    std::vector<QAction *> uncategorizedActions;
 
     // first add categorized actions, such that the submenus appear at the top
     for (auto tool : m_plugin->tools()) {
@@ -81,9 +79,7 @@ void KateExternalToolsMenuAction::reload()
             a->setIcon(QIcon::fromTheme(tool->icon));
             a->setData(QVariant::fromValue(tool));
 
-            connect(a, &QAction::triggered, [this, a]() {
-                m_plugin->runTool(*a->data().value<KateExternalTool*>(), m_mainwindow->activeView());
-            });
+            connect(a, &QAction::triggered, [this, a]() { m_plugin->runTool(*a->data().value<KateExternalTool *>(), m_mainwindow->activeView()); });
 
             m_actionCollection->addAction(tool->actionName, a);
             if (!tool->category.isEmpty()) {
@@ -106,15 +102,14 @@ void KateExternalToolsMenuAction::reload()
     }
 
     // load shortcuts
-    KSharedConfig::Ptr pConfig = KSharedConfig::openConfig(QStringLiteral("externaltools"), KConfig::NoGlobals,
-                                                           QStandardPaths::ApplicationsLocation);
+    KSharedConfig::Ptr pConfig = KSharedConfig::openConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
     KConfigGroup config(pConfig, "Global");
     config = KConfigGroup(pConfig, "Shortcuts");
     m_actionCollection->readSettings(&config);
     slotViewChanged(m_mainwindow->activeView());
 }
 
-void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)
+void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View *view)
 {
     // no active view, oh oh
     if (!view) {
@@ -123,22 +118,17 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View* view)
 
     // try to enable/disable to match current mime type
     const QString mimeType = view->document()->mimeType();
-    foreach (QAction* action, m_actionCollection->actions()) {
-        if (action && action->data().value<KateExternalTool*>()) {
-            auto tool = action->data().value<KateExternalTool*>();
+    foreach (QAction *action, m_actionCollection->actions()) {
+        if (action && action->data().value<KateExternalTool *>()) {
+            auto tool = action->data().value<KateExternalTool *>();
             action->setEnabled(tool->matchesMimetype(mimeType));
         }
     }
 }
 // END KateExternalToolsMenuAction
 
-
-
-
-
 // BEGIN KateExternalToolsPluginView
-KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow* mainWindow,
-                                                         KateExternalToolsPlugin* plugin)
+KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow *mainWindow, KateExternalToolsPlugin *plugin)
     : QObject(mainWindow)
     , m_plugin(plugin)
     , m_mainWindow(mainWindow)
@@ -159,7 +149,7 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     mainWindow->guiFactory()->addClient(this);
 
     // ESC should close & hide ToolView
-    connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, [this](QEvent* event) {
+    connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, [this](QEvent *event) {
         auto keyEvent = static_cast<QKeyEvent *>(event);
         if (keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
             deleteToolView();
@@ -182,7 +172,7 @@ KateExternalToolsPluginView::~KateExternalToolsPluginView()
 void KateExternalToolsPluginView::rebuildMenu()
 {
     if (m_externalToolsMenu) {
-        KXMLGUIFactory* f = factory();
+        KXMLGUIFactory *f = factory();
         f->removeClient(this);
         reloadXML();
         m_externalToolsMenu->reload();
@@ -190,7 +180,7 @@ void KateExternalToolsPluginView::rebuildMenu()
     }
 }
 
-KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const
+KTextEditor::MainWindow *KateExternalToolsPluginView::mainWindow() const
 {
     return m_mainWindow;
 }
@@ -198,8 +188,7 @@ KTextEditor::MainWindow* KateExternalToolsPluginView::mainWindow() const
 void KateExternalToolsPluginView::createToolView()
 {
     if (!m_toolView) {
-        m_toolView = mainWindow()->createToolView(m_plugin, QStringLiteral("ktexteditor_plugin_externaltools"),
-            KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"));
+        m_toolView = mainWindow()->createToolView(m_plugin, QStringLiteral("ktexteditor_plugin_externaltools"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"));
 
         m_ui = new Ui::ToolView();
         m_ui->setupUi(m_toolView);
@@ -241,7 +230,7 @@ void KateExternalToolsPluginView::clearToolView()
     m_statusDoc->clear();
 }
 
-void KateExternalToolsPluginView::addToolStatus(const QString& message)
+void KateExternalToolsPluginView::addToolStatus(const QString &message)
 {
     QTextCursor cursor(m_statusDoc);
     cursor.movePosition(QTextCursor::End);
@@ -249,7 +238,7 @@ void KateExternalToolsPluginView::addToolStatus(const QString& message)
     cursor.insertText(QStringLiteral("\n"));
 }
 
-void KateExternalToolsPluginView::setOutputData(const QString& data)
+void KateExternalToolsPluginView::setOutputData(const QString &data)
 {
     QTextCursor cursor(m_outputDoc);
     cursor.movePosition(QTextCursor::End);

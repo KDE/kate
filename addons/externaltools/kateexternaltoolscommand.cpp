@@ -23,14 +23,13 @@
 
 #include <KLocalizedString>
 
-KateExternalToolsCommand::KateExternalToolsCommand(KateExternalToolsPlugin* plugin)
+KateExternalToolsCommand::KateExternalToolsCommand(KateExternalToolsPlugin *plugin)
     : KTextEditor::Command(plugin->commands())
     , m_plugin(plugin)
 {
 }
 
-bool KateExternalToolsCommand::exec(KTextEditor::View* view, const QString& cmd, QString& msg,
-                                    const KTextEditor::Range& range)
+bool KateExternalToolsCommand::exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range)
 {
     Q_UNUSED(msg)
     Q_UNUSED(range)
@@ -44,7 +43,7 @@ bool KateExternalToolsCommand::exec(KTextEditor::View* view, const QString& cmd,
     return false;
 }
 
-bool KateExternalToolsCommand::help(KTextEditor::View*, const QString& cmd, QString& msg)
+bool KateExternalToolsCommand::help(KTextEditor::View *, const QString &cmd, QString &msg)
 {
     const QString command = cmd.trimmed();
     const auto tool = m_plugin->toolForCommand(command);

@@ -26,7 +26,7 @@
 #include <KTextEditor/View>
 #include <KLocalizedString>
 
-KateToolRunner::KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View * view, QObject* parent)
+KateToolRunner::KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View *view, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_tool(std::move(tool))
@@ -39,12 +39,12 @@ KateToolRunner::~KateToolRunner()
 {
 }
 
-KTextEditor::View* KateToolRunner::view() const
+KTextEditor::View *KateToolRunner::view() const
 {
     return m_view;
 }
 
-KateExternalTool* KateToolRunner::tool() const
+KateExternalTool *KateToolRunner::tool() const
 {
     return m_tool.get();
 }
@@ -62,16 +62,10 @@ void KateToolRunner::run()
         }
     }
 
-    QObject::connect(m_process.get(), &QProcess::readyReadStandardOutput, [this]() {
-        m_stdout += m_process->readAllStandardOutput();
-    });
-    QObject::connect(m_process.get(), &QProcess::readyReadStandardError, [this]() {
-        m_stderr += m_process->readAllStandardError();
-    });
-    QObject::connect(m_process.get(), static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
-        [this](int exitCode, QProcess::ExitStatus exitStatus) {
-            Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
-    });
+    QObject::connect(m_process.get(), &QProcess::readyReadStandardOutput, [this]() { m_stdout += m_process->readAllStandardOutput(); });
+    QObject::connect(m_process.get(), &QProcess::readyReadStandardError, [this]() { m_stderr += m_process->readAllStandardError(); });
+    QObject::connect(
+        m_process.get(), static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), [this](int exitCode, QProcess::ExitStatus exitStatus) { Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit); });
 
     // Write stdin to process, if applicable, then close write channel
     QObject::connect(m_process.get(), &QProcess::started, [this]() {

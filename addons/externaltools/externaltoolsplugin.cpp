@@ -56,10 +56,9 @@ static QVector<KateExternalTool> readDefaultTools()
     return tools;
 }
 
-K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json",
-                           registerPlugin<KateExternalToolsPlugin>();)
+K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json", registerPlugin<KateExternalToolsPlugin>();)
 
-KateExternalToolsPlugin::KateExternalToolsPlugin(QObject* parent, const QList<QVariant>&)
+KateExternalToolsPlugin::KateExternalToolsPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
     // read built-in external tools from compiled-in resource file
@@ -75,9 +74,9 @@ KateExternalToolsPlugin::~KateExternalToolsPlugin()
     m_command = nullptr;
 }
 
-QObject* KateExternalToolsPlugin::createView(KTextEditor::MainWindow* mainWindow)
+QObject *KateExternalToolsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KateExternalToolsPluginView* view = new KateExternalToolsPluginView(mainWindow, this);
+    KateExternalToolsPluginView *view = new KateExternalToolsPluginView(mainWindow, this);
     connect(this, &KateExternalToolsPlugin::externalToolsChanged, view, &KateExternalToolsPluginView::rebuildMenu);
     return view;
 }
@@ -106,7 +105,7 @@ void KateExternalToolsPlugin::reload()
         }
     } else {
         // first start -> use system config
-        for (const auto & tool : m_defaultTools) {
+        for (const auto &tool : m_defaultTools) {
             m_tools.push_back(new KateExternalTool(tool));
         }
     }
@@ -130,7 +129,7 @@ QStringList KateExternalToolsPlugin::commands() const
     return m_commands;
 }
 
-const KateExternalTool* KateExternalToolsPlugin::toolForCommand(const QString& cmd) const
+const KateExternalTool *KateExternalToolsPlugin::toolForCommand(const QString &cmd) const
 {
     for (auto tool : m_tools) {
         if (tool->cmdname == cmd) {
@@ -140,7 +139,7 @@ const KateExternalTool* KateExternalToolsPlugin::toolForCommand(const QString& c
     return nullptr;
 }
 
-const QVector<KateExternalTool*> & KateExternalToolsPlugin::tools() const
+const QVector<KateExternalTool *> &KateExternalToolsPlugin::tools() const
 {
     return m_tools;
 }
@@ -150,7 +149,7 @@ QVector<KateExternalTool> KateExternalToolsPlugin::defaultTools() const
     return m_defaultTools;
 }
 
-void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor::View* view)
+void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor::View *view)
 {
     // expand the macros in command if any,
     // and construct a command with an absolute path
@@ -163,8 +162,8 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
             view->document()->save();
         }
     } else if (tool.saveMode == KateExternalTool::SaveMode::AllDocuments) {
-        foreach (KXMLGUIClient* client, mw->guiFactory()->clients()) {
-            if (QAction* a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {
+        foreach (KXMLGUIClient *client, mw->guiFactory()->clients()) {
+            if (QAction *a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {
                 a->trigger();
                 break;
             }
@@ -199,7 +198,7 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool& tool, KTextEditor:
     runner->run();
 }
 
-void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner, int exitCode, bool crashed)
+void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed)
 {
     auto view = runner->view();
     if (view && !runner->outputData().isEmpty()) {
@@ -246,7 +245,7 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner* runner, int exi
         view->setUpdatesEnabled(wereUpdatesEnabled);
     }
 
-    KateExternalToolsPluginView* pluginView = runner->view() ? viewForMainWindow(runner->view()->mainWindow()) : nullptr;
+    KateExternalToolsPluginView *pluginView = runner->view() ? viewForMainWindow(runner->view()->mainWindow()) : nullptr;
     if (pluginView) {
         bool hasOutputInPane = false;
         if (runner->tool()->outputMode == KateExternalTool::OutputMode::DisplayInPane) {
@@ -283,7 +282,7 @@ int KateExternalToolsPlugin::configPages() const
     return 1;
 }
 
-KTextEditor::ConfigPage* KateExternalToolsPlugin::configPage(int number, QWidget* parent)
+KTextEditor::ConfigPage *KateExternalToolsPlugin::configPage(int number, QWidget *parent)
 {
     if (number == 0) {
         return new KateExternalToolsConfigWidget(parent, this);
@@ -291,19 +290,19 @@ KTextEditor::ConfigPage* KateExternalToolsPlugin::configPage(int number, QWidget
     return nullptr;
 }
 
-void KateExternalToolsPlugin::registerPluginView(KateExternalToolsPluginView * view)
+void KateExternalToolsPlugin::registerPluginView(KateExternalToolsPluginView *view)
 {
     Q_ASSERT(!m_views.contains(view));
     m_views.push_back(view);
 }
 
-void KateExternalToolsPlugin::unregisterPluginView(KateExternalToolsPluginView * view)
+void KateExternalToolsPlugin::unregisterPluginView(KateExternalToolsPluginView *view)
 {
     Q_ASSERT(m_views.contains(view));
     m_views.removeAll(view);
 }
 
-KateExternalToolsPluginView* KateExternalToolsPlugin::viewForMainWindow(KTextEditor::MainWindow* mainWindow) const
+KateExternalToolsPluginView *KateExternalToolsPlugin::viewForMainWindow(KTextEditor::MainWindow *mainWindow) const
 {
     for (auto view : m_views) {
         if (view->mainWindow() == mainWindow) {

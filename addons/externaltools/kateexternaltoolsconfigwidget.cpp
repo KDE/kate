@@ -75,6 +75,24 @@ namespace {
         pm.setMask(pm.createHeuristicMask());
         return pm;
     }
+
+    //! Helper that ensures that tool->actionName is unique
+    static void makeActionNameUnique(KateExternalTool* tool, const std::vector<KateExternalTool*> & tools)
+    {
+        QString name = tool->actionName;
+        int i = 1;
+        while (true) {
+            auto it = std::find_if(tools.cbegin(), tools.cend(), [&name](const KateExternalTool* tool) {
+                return tool->actionName == name;
+            });
+            if (it == tools.cend()) {
+                break;
+            }
+            name = tool->actionName + QString::number(i);
+            ++i;
+        }
+        tool->actionName = name;
+    }
 }
 
 // BEGIN KateExternalToolServiceEditor
@@ -325,6 +343,18 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool* tool)
     return changed;
 }
 
+void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
+{
+    makeActionNameUnique(tool, collectTools(m_toolsModel));
+    auto item = newToolItem(tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool);
+    auto category = addCategory(tool->category);
+    category->appendRow(item);
+    lbTools->setCurrentIndex(item->index());
+
+    Q_EMIT changed();
+    m_changed = true;
+}
+
 QStandardItem * KateExternalToolsConfigWidget::addCategory(const QString & category)
 {
     // searach for existing category
@@ -385,37 +415,11 @@ void KateExternalToolsConfigWidget::slotAddCategory()
     lbTools->edit(item->index());
 }
 
-//! Helper that ensures that tool->actionName is unique
-static void makeActionNameUnique(KateExternalTool* tool, const std::vector<KateExternalTool*> & tools)
-{
-    QString name = tool->actionName;
-    int i = 1;
-    bool notUnique = true;
-    while (notUnique) {
-        auto it = std::find_if(tools.cbegin(), tools.cend(), [&name](const KateExternalTool* tool) {
-            return tool->actionName == name;
-        });
-        if (it == tools.cend()) {
-            break;
-        }
-        name = tool->actionName + QString::number(i);
-        ++i;
-    }
-    tool->actionName = name;
-}
-
 void KateExternalToolsConfigWidget::slotAddTool()
 {
     auto t = new KateExternalTool();
     if (editTool(t)) {
-        makeActionNameUnique(t, collectTools(m_toolsModel));
-        auto item = newToolItem(t->icon.isEmpty() ? blankIcon() : SmallIcon(t->icon), t);
-        auto category = currentCategory();
-        category->appendRow(item);
-        lbTools->setCurrentIndex(item->index());
-
-        Q_EMIT changed();
-        m_changed = true;
+        addNewTool(t);
     } else {
         delete t;
     }

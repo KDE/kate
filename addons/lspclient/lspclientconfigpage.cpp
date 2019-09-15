@@ -34,7 +34,8 @@
 #include <KUrlRequester>
 
 LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugin)
-    : KTextEditor::ConfigPage(parent), m_plugin(plugin)
+    : KTextEditor::ConfigPage(parent)
+    , m_plugin(plugin)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
 
@@ -84,9 +85,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     reset();
 
-    for (const auto &cb : { m_symbolDetails, m_symbolExpand, m_symbolSort, m_symbolTree, m_complDoc,
-                            m_refDeclaration, m_diagnostics, m_diagnosticsMark, m_onTypeFormatting,
-                            m_incrementalSync, m_autoHover })
+    for (const auto &cb : {m_symbolDetails, m_symbolExpand, m_symbolSort, m_symbolTree, m_complDoc, m_refDeclaration, m_diagnostics, m_diagnosticsMark, m_onTypeFormatting, m_incrementalSync, m_autoHover})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::changed);
     connect(m_configPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::changed);

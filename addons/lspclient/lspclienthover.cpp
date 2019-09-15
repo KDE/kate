@@ -48,7 +48,9 @@ class LSPClientHoverImpl : public LSPClientHover
 
 public:
     LSPClientHoverImpl(QSharedPointer<LSPClientServerManager> manager)
-        : LSPClientHover(), m_manager(std::move(manager)), m_server(nullptr)
+        : LSPClientHover()
+        , m_manager(std::move(manager))
+        , m_server(nullptr)
     {
     }
 
@@ -70,14 +72,12 @@ public:
      * \param position text cursor under the mouse position
      * \return text tool tip to be displayed, may be Qt richtext
      */
-    QString textHint(KTextEditor::View *view,
-                             const KTextEditor::Cursor &position) override
+    QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
     {
         // hack: delayed handling of tooltip on our own, the API is too dumb for a-sync feedback ;=)
         if (m_server) {
             QPointer<KTextEditor::View> v(view);
-            auto h = [this,v,position] (const LSPHover & info)
-            {
+            auto h = [this, v, position](const LSPHover &info) {
                 if (!v || info.contents.isEmpty()) {
                     return;
                 }
@@ -107,11 +107,9 @@ public:
 
         return QString();
     }
-
 };
 
-LSPClientHover*
-LSPClientHover::new_(QSharedPointer<LSPClientServerManager> manager)
+LSPClientHover *LSPClientHover::new_(QSharedPointer<LSPClientServerManager> manager)
 {
     return new LSPClientHoverImpl(std::move(manager));
 }

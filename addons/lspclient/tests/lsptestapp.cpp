@@ -31,18 +31,17 @@
 #include <QTextStream>
 #include <QJsonObject>
 
-int main(int argc, char ** argv)
+int main(int argc, char **argv)
 {
     if (argc < 5)
         return -1;
 
-    LSPClientServer lsp(QString::fromLatin1(argv[1]).split(QLatin1Char(' ')),
-            QUrl(QString::fromLatin1(argv[2])));
+    LSPClientServer lsp(QString::fromLatin1(argv[1]).split(QLatin1Char(' ')), QUrl(QString::fromLatin1(argv[2])));
 
     QCoreApplication app(argc, argv);
     QEventLoop q;
 
-    auto state_h = [&lsp, &q] () {
+    auto state_h = [&lsp, &q]() {
         if (lsp.state() == LSPClientServer::State::Running)
             q.quit();
     };
@@ -51,9 +50,7 @@ int main(int argc, char ** argv)
     q.exec();
     QObject::disconnect(conn);
 
-    auto diagnostics_h = [] (const LSPPublishDiagnosticsParams & diag) {
-        std::cout << "diagnostics  " << diag.uri.path().toUtf8().toStdString() << " count: " << diag.diagnostics.length();
-    };
+    auto diagnostics_h = [](const LSPPublishDiagnosticsParams &diag) { std::cout << "diagnostics  " << diag.uri.path().toUtf8().toStdString() << " count: " << diag.diagnostics.length(); };
 
     QObject::connect(&lsp, &LSPClientServer::publishDiagnostics, diagnostics_h);
 
@@ -66,7 +63,7 @@ int main(int argc, char ** argv)
     QString content = in.readAll();
     lsp.didOpen(document, 0, QString(), content);
 
-    auto ds_h = [&q] (const QList<LSPSymbolInformation> & syms) {
+    auto ds_h = [&q](const QList<LSPSymbolInformation> &syms) {
         std::cout << "symbol count: " << syms.length() << std::endl;
         q.quit();
     };
@@ -74,28 +71,28 @@ int main(int argc, char ** argv)
     q.exec();
 
     auto position = QString::fromLatin1(argv[4]).split(QLatin1Char(' '));
-    auto def_h = [&q] (const QList<LSPLocation> & defs) {
+    auto def_h = [&q](const QList<LSPLocation> &defs) {
         std::cout << "definition count: " << defs.length() << std::endl;
         q.quit();
     };
     lsp.documentDefinition(document, {position[0].toInt(), position[1].toInt()}, &app, def_h);
     q.exec();
 
-    auto comp_h = [&q] (const QList<LSPCompletionItem> & completions) {
+    auto comp_h = [&q](const QList<LSPCompletionItem> &completions) {
         std::cout << "completion count: " << completions.length() << std::endl;
         q.quit();
     };
     lsp.documentCompletion(document, {position[0].toInt(), position[1].toInt()}, &app, comp_h);
     q.exec();
 
-    auto sig_h = [&q] (const LSPSignatureHelp & help) {
+    auto sig_h = [&q](const LSPSignatureHelp &help) {
         std::cout << "signature help count: " << help.signatures.length() << std::endl;
         q.quit();
     };
     lsp.signatureHelp(document, {position[0].toInt(), position[1].toInt()}, &app, sig_h);
     q.exec();
 
-    auto hover_h = [&q] (const LSPHover & hover) {
+    auto hover_h = [&q](const LSPHover &hover) {
         for (auto &element : hover.contents) {
             std::cout << "hover: " << element.value.toStdString() << std::endl;
         }
@@ -104,21 +101,21 @@ int main(int argc, char ** argv)
     lsp.documentHover(document, {position[0].toInt(), position[1].toInt()}, &app, hover_h);
     q.exec();
 
-    auto ref_h = [&q] (const QList<LSPLocation> & refs) {
+    auto ref_h = [&q](const QList<LSPLocation> &refs) {
         std::cout << "refs: " << refs.length() << std::endl;
         q.quit();
     };
     lsp.documentReferences(document, {position[0].toInt(), position[1].toInt()}, true, &app, ref_h);
     q.exec();
 
-    auto hl_h = [&q] (const QList<LSPDocumentHighlight> & hls) {
+    auto hl_h = [&q](const QList<LSPDocumentHighlight> &hls) {
         std::cout << "highlights: " << hls.length() << std::endl;
         q.quit();
     };
     lsp.documentHighlight(document, {position[0].toInt(), position[1].toInt()}, &app, hl_h);
     q.exec();
 
-    auto fmt_h = [&q] (const QList<LSPTextEdit> & edits) {
+    auto fmt_h = [&q](const QList<LSPTextEdit> &edits) {
         std::cout << "edits: " << edits.length() << std::endl;
         q.quit();
     };

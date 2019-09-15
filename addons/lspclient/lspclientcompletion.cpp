@@ -37,71 +37,72 @@
 #include <algorithm>
 #include <utility>
 
-#define RETURN_CACHED_ICON(name)                                                                   \
-    {                                                                                              \
-        static QIcon icon(QIcon::fromTheme(QStringLiteral(name)));                                 \
-        return icon;                                                                               \
+// clang-format off
+#define RETURN_CACHED_ICON(name) \
+    { \
+        static QIcon icon(QIcon::fromTheme(QStringLiteral(name))); \
+        return icon; \
     }
+// clang-format on
 
 static QIcon kind_icon(LSPCompletionItemKind kind)
 {
     switch (kind) {
-    case LSPCompletionItemKind::Method:
-    case LSPCompletionItemKind::Function:
-    case LSPCompletionItemKind::Constructor:
-        RETURN_CACHED_ICON("code-function")
-    case LSPCompletionItemKind::Variable:
-        RETURN_CACHED_ICON("code-variable")
-    case LSPCompletionItemKind::Class:
-    case LSPCompletionItemKind::Interface:
-    case LSPCompletionItemKind::Struct:
-        RETURN_CACHED_ICON("code-class");
-    case LSPCompletionItemKind::Module:
-        RETURN_CACHED_ICON("code-block");
-    case LSPCompletionItemKind::Field:
-    case LSPCompletionItemKind::Property:
-        // align with symbolview
-        RETURN_CACHED_ICON("code-variable");
-    case LSPCompletionItemKind::Enum:
-    case LSPCompletionItemKind::EnumMember:
-        RETURN_CACHED_ICON("enum");
-    default:
-        break;
+        case LSPCompletionItemKind::Method:
+        case LSPCompletionItemKind::Function:
+        case LSPCompletionItemKind::Constructor:
+            RETURN_CACHED_ICON("code-function")
+        case LSPCompletionItemKind::Variable:
+            RETURN_CACHED_ICON("code-variable")
+        case LSPCompletionItemKind::Class:
+        case LSPCompletionItemKind::Interface:
+        case LSPCompletionItemKind::Struct:
+            RETURN_CACHED_ICON("code-class");
+        case LSPCompletionItemKind::Module:
+            RETURN_CACHED_ICON("code-block");
+        case LSPCompletionItemKind::Field:
+        case LSPCompletionItemKind::Property:
+            // align with symbolview
+            RETURN_CACHED_ICON("code-variable");
+        case LSPCompletionItemKind::Enum:
+        case LSPCompletionItemKind::EnumMember:
+            RETURN_CACHED_ICON("enum");
+        default:
+            break;
     }
     return QIcon();
 }
 
-static KTextEditor::CodeCompletionModel::CompletionProperty
-kind_property(LSPCompletionItemKind kind)
+static KTextEditor::CodeCompletionModel::CompletionProperty kind_property(LSPCompletionItemKind kind)
 {
     using CompletionProperty = KTextEditor::CodeCompletionModel::CompletionProperty;
     auto p = CompletionProperty::NoProperty;
 
     switch (kind) {
-    case LSPCompletionItemKind::Method:
-    case LSPCompletionItemKind::Function:
-    case LSPCompletionItemKind::Constructor:
-        p = CompletionProperty::Function;
-        break;
-    case LSPCompletionItemKind::Variable:
-        p = CompletionProperty::Variable;
-        break;
-    case LSPCompletionItemKind::Class:
-    case LSPCompletionItemKind::Interface:
-        p = CompletionProperty::Class;
-        break;
-    case LSPCompletionItemKind::Struct:
-        p = CompletionProperty::Class;
-        break;
-    case LSPCompletionItemKind::Module:
-        p = CompletionProperty::Namespace;
-        break;
-    case LSPCompletionItemKind::Enum:
-    case LSPCompletionItemKind::EnumMember:
-        p = CompletionProperty::Enum;
-        break;
-    default:
-        break;
+        case LSPCompletionItemKind::Method:
+        case LSPCompletionItemKind::Function:
+        case LSPCompletionItemKind::Constructor:
+            p = CompletionProperty::Function;
+            break;
+        case LSPCompletionItemKind::Variable:
+            p = CompletionProperty::Variable;
+            break;
+        case LSPCompletionItemKind::Class:
+        case LSPCompletionItemKind::Interface:
+            p = CompletionProperty::Class;
+            break;
+        case LSPCompletionItemKind::Struct:
+            p = CompletionProperty::Class;
+            break;
+        case LSPCompletionItemKind::Module:
+            p = CompletionProperty::Namespace;
+            break;
+        case LSPCompletionItemKind::Enum:
+        case LSPCompletionItemKind::EnumMember:
+            p = CompletionProperty::Enum;
+            break;
+        default:
+            break;
     }
     return p;
 }
@@ -111,17 +112,16 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
     QString prefix;
     QString postfix;
 
-    LSPClientCompletionItem(const LSPCompletionItem &item) : LSPCompletionItem(item)
+    LSPClientCompletionItem(const LSPCompletionItem &item)
+        : LSPCompletionItem(item)
     {
         // transform for later display
         // sigh, remove (leading) whitespace (looking at clangd here)
         // could skip the [] if empty detail, but it is a handy watermark anyway ;-)
-        label = QString(label.simplified() + QLatin1String(" [") + detail.simplified()
-                        + QStringLiteral("]"));
+        label = QString(label.simplified() + QLatin1String(" [") + detail.simplified() + QStringLiteral("]"));
     }
 
-    LSPClientCompletionItem(const LSPSignatureInformation &sig, int activeParameter,
-                            const QString &_sortText)
+    LSPClientCompletionItem(const LSPSignatureInformation &sig, int activeParameter, const QString &_sortText)
     {
         argumentHintDepth = 1;
         documentation = sig.documentation;
@@ -130,8 +130,7 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
         // transform into prefix, name, suffix if active
         if (activeParameter >= 0 && activeParameter < sig.parameters.length()) {
             const auto &param = sig.parameters.at(activeParameter);
-            if (param.start >= 0 && param.start < label.length() && param.end >= 0
-                && param.end < label.length() && param.start < param.end) {
+            if (param.start >= 0 && param.start < label.length() && param.end >= 0 && param.end < label.length() && param.start < param.end) {
                 prefix = label.mid(0, param.start);
                 postfix = label.mid(param.end);
                 label = label.mid(param.start, param.end - param.start);
@@ -140,7 +139,7 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
     }
 };
 
-static bool compare_match(const LSPCompletionItem &a, const LSPCompletionItem& b)
+static bool compare_match(const LSPCompletionItem &a, const LSPCompletionItem &b)
 {
     return a.sortText < b.sortText;
 }
@@ -164,7 +163,9 @@ class LSPClientCompletionImpl : public LSPClientCompletion
 
 public:
     LSPClientCompletionImpl(QSharedPointer<LSPClientServerManager> manager)
-        : LSPClientCompletion(nullptr), m_manager(std::move(manager)), m_server(nullptr)
+        : LSPClientCompletion(nullptr)
+        , m_manager(std::move(manager))
+        , m_server(nullptr)
     {
     }
 
@@ -181,7 +182,10 @@ public:
         }
     }
 
-    void setSelectedDocumentation(bool s) override { m_selectedDocumentation = s; }
+    void setSelectedDocumentation(bool s) override
+    {
+        m_selectedDocumentation = s;
+    }
 
     QVariant data(const QModelIndex &index, int role) const override
     {
@@ -199,8 +203,7 @@ public:
             } else if (index.column() == KTextEditor::CodeCompletionModel::Postfix) {
                 return match.postfix;
             }
-        } else if (role == Qt::DecorationRole
-                   && index.column() == KTextEditor::CodeCompletionModel::Icon) {
+        } else if (role == Qt::DecorationRole && index.column() == KTextEditor::CodeCompletionModel::Icon) {
             return kind_icon(match.kind);
         } else if (role == KTextEditor::CodeCompletionModel::CompletionRole) {
             return kind_property(match.kind);
@@ -211,22 +214,18 @@ public:
             return index.row();
         } else if (role == KTextEditor::CodeCompletionModel::IsExpandable) {
             return !match.documentation.value.isEmpty();
-        } else if (role == KTextEditor::CodeCompletionModel::ExpandingWidget
-                   && !match.documentation.value.isEmpty()) {
+        } else if (role == KTextEditor::CodeCompletionModel::ExpandingWidget && !match.documentation.value.isEmpty()) {
             // probably plaintext, but let's show markdown as-is for now
             // FIXME better presentation of markdown
             return match.documentation.value;
-        } else if (role == KTextEditor::CodeCompletionModel::ItemSelected
-                   && !match.argumentHintDepth && !match.documentation.value.isEmpty()
-                   && m_selectedDocumentation) {
+        } else if (role == KTextEditor::CodeCompletionModel::ItemSelected && !match.argumentHintDepth && !match.documentation.value.isEmpty() && m_selectedDocumentation) {
             return match.documentation.value;
         }
 
         return QVariant();
     }
 
-    bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText,
-                               bool userInsertion, const KTextEditor::Cursor &position) override
+    bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override
     {
         qCInfo(LSPCLIENT) << "should start " << userInsertion << insertedText;
 
@@ -235,8 +234,7 @@ public:
         }
 
         // covers most already ...
-        bool complete = CodeCompletionModelControllerInterface::shouldStartCompletion(
-                view, insertedText, userInsertion, position);
+        bool complete = CodeCompletionModelControllerInterface::shouldStartCompletion(view, insertedText, userInsertion, position);
         QChar lastChar = insertedText.at(insertedText.count() - 1);
 
         m_triggerSignature = false;
@@ -249,8 +247,7 @@ public:
         return complete;
     }
 
-    void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range,
-                           InvocationType it) override
+    void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType it) override
     {
         Q_UNUSED(it)
 
@@ -280,8 +277,7 @@ public:
                     active = sig.activeParameter;
                 }
                 // trick active first, others after that
-                m_matches.push_back(
-                        { item, active, QString(QStringLiteral("%1").arg(sortIndex, 3, 10)) });
+                m_matches.push_back({item, active, QString(QStringLiteral("%1").arg(sortIndex, 3, 10))});
                 ++index;
             }
             std::stable_sort(m_matches.begin(), m_matches.end(), compare_match);
@@ -300,18 +296,15 @@ public:
             auto cursor = qMax(range.start(), qMin(range.end(), position));
             m_manager->update(document, false);
             if (!m_triggerSignature) {
-                m_handle = m_server->documentCompletion(
-                        document->url(), { cursor.line(), cursor.column() }, this, handler);
+                m_handle = m_server->documentCompletion(document->url(), {cursor.line(), cursor.column()}, this, handler);
             }
-            m_handleSig = m_server->signatureHelp(
-                    document->url(), { cursor.line(), cursor.column() }, this, sigHandler);
+            m_handleSig = m_server->signatureHelp(document->url(), {cursor.line(), cursor.column()}, this, sigHandler);
         }
         setRowCount(m_matches.size());
         endResetModel();
     }
 
-    void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word,
-                               const QModelIndex &index) const override
+    void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override
     {
         if (index.row() < m_matches.size())
             view->document()->replaceText(word, m_matches.at(index.row()).insertText);

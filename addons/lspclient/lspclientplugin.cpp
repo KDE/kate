@@ -35,23 +35,22 @@
 
 #include <QDir>
 
-static const QString CONFIG_LSPCLIENT { QStringLiteral("lspclient") };
-static const QString CONFIG_SYMBOL_DETAILS { QStringLiteral("SymbolDetails") };
-static const QString CONFIG_SYMBOL_TREE { QStringLiteral("SymbolTree") };
-static const QString CONFIG_SYMBOL_EXPAND { QStringLiteral("SymbolExpand") };
-static const QString CONFIG_SYMBOL_SORT { QStringLiteral("SymbolSort") };
-static const QString CONFIG_COMPLETION_DOC { QStringLiteral("CompletionDocumentation") };
-static const QString CONFIG_REFERENCES_DECLARATION { QStringLiteral("ReferencesDeclaration") };
-static const QString CONFIG_AUTO_HOVER { QStringLiteral("AutoHover") };
-static const QString CONFIG_TYPE_FORMATTING { QStringLiteral("TypeFormatting") };
-static const QString CONFIG_INCREMENTAL_SYNC { QStringLiteral("IncrementalSync") };
-static const QString CONFIG_DIAGNOSTICS { QStringLiteral("Diagnostics") };
-static const QString CONFIG_DIAGNOSTICS_HIGHLIGHT { QStringLiteral("DiagnosticsHighlight") };
-static const QString CONFIG_DIAGNOSTICS_MARK { QStringLiteral("DiagnosticsMark") };
-static const QString CONFIG_SERVER_CONFIG { QStringLiteral("ServerConfiguration") };
+static const QString CONFIG_LSPCLIENT {QStringLiteral("lspclient")};
+static const QString CONFIG_SYMBOL_DETAILS {QStringLiteral("SymbolDetails")};
+static const QString CONFIG_SYMBOL_TREE {QStringLiteral("SymbolTree")};
+static const QString CONFIG_SYMBOL_EXPAND {QStringLiteral("SymbolExpand")};
+static const QString CONFIG_SYMBOL_SORT {QStringLiteral("SymbolSort")};
+static const QString CONFIG_COMPLETION_DOC {QStringLiteral("CompletionDocumentation")};
+static const QString CONFIG_REFERENCES_DECLARATION {QStringLiteral("ReferencesDeclaration")};
+static const QString CONFIG_AUTO_HOVER {QStringLiteral("AutoHover")};
+static const QString CONFIG_TYPE_FORMATTING {QStringLiteral("TypeFormatting")};
+static const QString CONFIG_INCREMENTAL_SYNC {QStringLiteral("IncrementalSync")};
+static const QString CONFIG_DIAGNOSTICS {QStringLiteral("Diagnostics")};
+static const QString CONFIG_DIAGNOSTICS_HIGHLIGHT {QStringLiteral("DiagnosticsHighlight")};
+static const QString CONFIG_DIAGNOSTICS_MARK {QStringLiteral("DiagnosticsMark")};
+static const QString CONFIG_SERVER_CONFIG {QStringLiteral("ServerConfiguration")};
 
-K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json",
-                           registerPlugin<LSPClientPlugin>();)
+K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 
 LSPClientPlugin::LSPClientPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
@@ -62,17 +61,17 @@ LSPClientPlugin::LSPClientPlugin(QObject *parent, const QList<QVariant> &)
      */
     m_debugMode = (qgetenv("LSPCLIENT_DEBUG") == QByteArray("1"));
     if (!m_debugMode) {
-        QLoggingCategory::setFilterRules(
-                QStringLiteral("katelspclientplugin.debug=false\nkatelspclientplugin.info=false"));
+        QLoggingCategory::setFilterRules(QStringLiteral("katelspclientplugin.debug=false\nkatelspclientplugin.info=false"));
     } else {
-        QLoggingCategory::setFilterRules(
-                QStringLiteral("katelspclientplugin.debug=true\nkatelspclientplugin.info=true"));
+        QLoggingCategory::setFilterRules(QStringLiteral("katelspclientplugin.debug=true\nkatelspclientplugin.info=true"));
     }
 
     readConfig();
 }
 
-LSPClientPlugin::~LSPClientPlugin() {}
+LSPClientPlugin::~LSPClientPlugin()
+{
+}
 
 QObject *LSPClientPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {

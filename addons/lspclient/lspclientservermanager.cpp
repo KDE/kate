@@ -93,8 +93,7 @@
 #include <QTimer>
 
 // helper to find a proper root dir for the given document & file name that indicate the root dir
-static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *document,
-                                                        const QString &rootIndicationFileName)
+static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *document, const QString &rootIndicationFileName)
 {
     // search only feasible if document is local file
     if (!document->url().isLocalFile()) {
@@ -187,8 +186,8 @@ struct RevisionGuard {
     qint64 m_revision = -1;
 
     RevisionGuard(KTextEditor::Document *doc = nullptr)
-        : m_doc(doc),
-          m_movingInterface(qobject_cast<KTextEditor::MovingInterface *>(doc))
+        : m_doc(doc)
+        , m_movingInterface(qobject_cast<KTextEditor::MovingInterface *>(doc))
     {
         if (m_movingInterface) {
             m_revision = m_movingInterface->revision();
@@ -197,7 +196,8 @@ struct RevisionGuard {
     }
 
     // really only need/allow this one (out of 5)
-    RevisionGuard(RevisionGuard &&other) : RevisionGuard(nullptr)
+    RevisionGuard(RevisionGuard &&other)
+        : RevisionGuard(nullptr)
     {
         std::swap(m_doc, other.m_doc);
         std::swap(m_movingInterface, other.m_movingInterface);
@@ -245,18 +245,14 @@ public:
 
         // make sure revision is cleared when needed and no longer used (to unlock or otherwise)
         // see e.g. implementation in katetexthistory.cpp and assert's in place there
-        auto conn = connect(
-                doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this,
-                SLOT(clearRevisions(KTextEditor::Document *)));
+        auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRevisions(KTextEditor::Document *)));
         Q_ASSERT(conn);
-        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
-                       this, SLOT(clearRevisions(KTextEditor::Document *)));
+        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRevisions(KTextEditor::Document *)));
         Q_ASSERT(conn);
         m_guards.emplace(doc->url(), doc);
     }
 
-    void find(const QUrl &url, KTextEditor::MovingInterface *&miface,
-              qint64 &revision) const override
+    void find(const QUrl &url, KTextEditor::MovingInterface *&miface, qint64 &revision) const override
     {
         auto it = m_guards.find(url);
         if (it != m_guards.end()) {
@@ -300,7 +296,8 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
 
 public:
     LSPClientServerManagerImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
-        : m_plugin(plugin), m_mainWindow(mainWin)
+        : m_plugin(plugin)
+        , m_mainWindow(mainWin)
     {
         connect(plugin, &LSPClientPlugin::update, this, &self_type::updateServerConfig);
         QTimer::singleShot(100, this, &self_type::updateServerConfig);
@@ -358,10 +355,12 @@ public:
         }
     }
 
-    void setIncrementalSync(bool inc) override { m_incrementalSync = inc; }
+    void setIncrementalSync(bool inc) override
+    {
+        m_incrementalSync = inc;
+    }
 
-    QSharedPointer<LSPClientServer> findServer(KTextEditor::Document *document,
-                                               bool updatedoc = true) override
+    QSharedPointer<LSPClientServer> findServer(KTextEditor::Document *document, bool updatedoc = true) override
     {
         if (!document || document->url().isEmpty())
             return nullptr;
@@ -378,8 +377,7 @@ public:
         return server;
     }
 
-    QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view,
-                                               bool updatedoc = true) override
+    QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) override
     {
         return view ? findServer(view->document(), updatedoc) : nullptr;
     }
@@ -485,9 +483,7 @@ private:
             emit serverChanged();
         } else if (server->state() == LSPClientServer::State::None) {
             // went down
-            showMessage(i18n("Server terminated unexpectedly: %1",
-                             server->cmdline().join(QLatin1Char(' '))),
-                        KTextEditor::Message::Warning);
+            showMessage(i18n("Server terminated unexpectedly: %1", server->cmdline().join(QLatin1Char(' '))), KTextEditor::Message::Warning);
             restart(server);
         }
     }
@@ -495,19 +491,14 @@ private:
     QSharedPointer<LSPClientServer> _findServer(KTextEditor::Document *document)
     {
         QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
-        const auto projectBase =
-                QDir(projectView ? projectView->property("projectBaseDir").toString() : QString());
-        const auto &projectMap =
-                projectView ? projectView->property("projectMap").toMap() : QVariantMap();
+        const auto projectBase = QDir(projectView ? projectView->property("projectBaseDir").toString() : QString());
+        const auto &projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
 
         // compute the LSP standardized language id
         auto langId = languageId(document->highlightingMode());
 
         // merge with project specific
-        auto projectConfig = QJsonDocument::fromVariant(projectMap)
-                                     .object()
-                                     .value(QStringLiteral("lspclient"))
-                                     .toObject();
+        auto projectConfig = QJsonDocument::fromVariant(projectMap).object().value(QStringLiteral("lspclient")).toObject();
         auto serverConfig = merge(m_serverConfig, projectConfig);
 
         // locate server config
@@ -532,8 +523,7 @@ private:
             return nullptr;
 
         // merge global settings
-        serverConfig =
-                merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
+        serverConfig = merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
 
         QString rootpath;
         auto rootv = serverConfig.value(QStringLiteral("root"));
@@ -552,15 +542,13 @@ private:
          * clangd does
          */
         if (rootpath.isEmpty()) {
-            const auto fileNamesForDetection =
-                    serverConfig.value(QStringLiteral("rootIndicationFileNames"));
+            const auto fileNamesForDetection = serverConfig.value(QStringLiteral("rootIndicationFileNames"));
             if (fileNamesForDetection.isArray()) {
                 // we try each file name alternative in the listed order
                 // this allows to have preferences
                 for (auto name : fileNamesForDetection.toArray()) {
                     if (name.isString()) {
-                        rootpath =
-                                rootForDocumentAndRootIndicationFileName(document, name.toString());
+                        rootpath = rootForDocumentAndRootIndicationFileName(document, name.toString());
                         if (!rootpath.isEmpty()) {
                             break;
                         }
@@ -580,9 +568,7 @@ private:
             QStringList cmdline;
 
             // choose debug command line for debug mode, fallback to command
-            auto vcmdline =
-                    serverConfig.value(m_plugin->m_debugMode ? QStringLiteral("commandDebug")
-                                                             : QStringLiteral("command"));
+            auto vcmdline = serverConfig.value(m_plugin->m_debugMode ? QStringLiteral("commandDebug") : QStringLiteral("command"));
             if (vcmdline.isUndefined()) {
                 vcmdline = serverConfig.value(QStringLiteral("command"));
             }
@@ -596,15 +582,11 @@ private:
                 }
             }
             if (cmdline.length() > 0) {
-                server.reset(new LSPClientServer(
-                        cmdline, root,
-                        serverConfig.value(QStringLiteral("initializationOptions"))));
+                server.reset(new LSPClientServer(cmdline, root, serverConfig.value(QStringLiteral("initializationOptions"))));
                 m_servers[root][langId] = server;
-                connect(server.data(), &LSPClientServer::stateChanged, this,
-                        &self_type::onStateChanged, Qt::UniqueConnection);
+                connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start()) {
-                    showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))),
-                                KTextEditor::Message::Error);
+                    showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);
                 }
             }
         }
@@ -629,12 +611,10 @@ private:
                 if (json.isObject()) {
                     m_serverConfig = merge(m_serverConfig, json.object());
                 } else {
-                    showMessage(i18n("Failed to parse server configuration: %1", configPath),
-                                KTextEditor::Message::Error);
+                    showMessage(i18n("Failed to parse server configuration: %1", configPath), KTextEditor::Message::Error);
                 }
             } else {
-                showMessage(i18n("Failed to read server configuration: %1", configPath),
-                            KTextEditor::Message::Error);
+                showMessage(i18n("Failed to read server configuration: %1", configPath), KTextEditor::Message::Error);
             }
         }
 
@@ -644,33 +624,23 @@ private:
         emit serverChanged();
     }
 
-    void trackDocument(KTextEditor::Document *doc, const QSharedPointer<LSPClientServer>& server)
+    void trackDocument(KTextEditor::Document *doc, const QSharedPointer<LSPClientServer> &server)
     {
         auto it = m_docs.find(doc);
         if (it == m_docs.end()) {
-            KTextEditor::MovingInterface *miface =
-                    qobject_cast<KTextEditor::MovingInterface *>(doc);
-            it = m_docs.insert(doc, { server, miface, doc->url(), 0, false, false, {} });
+            KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+            it = m_docs.insert(doc, {server, miface, doc->url(), 0, false, false, {}});
             // track document
-            connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack,
-                    Qt::UniqueConnection);
-            connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack,
-                    Qt::UniqueConnection);
-            connect(doc, &KTextEditor::Document::aboutToClose, this, &self_type::untrack,
-                    Qt::UniqueConnection);
-            connect(doc, &KTextEditor::Document::destroyed, this, &self_type::untrack,
-                    Qt::UniqueConnection);
-            connect(doc, &KTextEditor::Document::textChanged, this, &self_type::onTextChanged,
-                    Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::aboutToClose, this, &self_type::untrack, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::destroyed, this, &self_type::untrack, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::textChanged, this, &self_type::onTextChanged, Qt::UniqueConnection);
             // in case of incremental change
-            connect(doc, &KTextEditor::Document::textInserted, this, &self_type::onTextInserted,
-                    Qt::UniqueConnection);
-            connect(doc, &KTextEditor::Document::textRemoved, this, &self_type::onTextRemoved,
-                    Qt::UniqueConnection);
-            connect(doc, &KTextEditor::Document::lineWrapped, this, &self_type::onLineWrapped,
-                    Qt::UniqueConnection);
-            connect(doc, &KTextEditor::Document::lineUnwrapped, this, &self_type::onLineUnwrapped,
-                    Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::textInserted, this, &self_type::onTextInserted, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::textRemoved, this, &self_type::onTextRemoved, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::lineWrapped, this, &self_type::onLineWrapped, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::lineUnwrapped, this, &self_type::onLineUnwrapped, Qt::UniqueConnection);
         } else {
             it->server = server;
         }
@@ -706,7 +676,10 @@ private:
         emit serverChanged();
     }
 
-    void close(KTextEditor::Document *doc) { _close(doc, false); }
+    void close(KTextEditor::Document *doc)
+    {
+        _close(doc, false);
+    }
 
     void update(const decltype(m_docs)::iterator &it, bool force)
     {
@@ -722,15 +695,10 @@ private:
             }
             if (it->open) {
                 if (it->modified || force) {
-                    (it->server)
-                            ->didChange(it->url, it->version,
-                                        (it->changes.empty()) ? doc->text() : QString(),
-                                        it->changes);
+                    (it->server)->didChange(it->url, it->version, (it->changes.empty()) ? doc->text() : QString(), it->changes);
                 }
             } else {
-                (it->server)
-                        ->didOpen(it->url, it->version, languageId(doc->highlightingMode()),
-                                  doc->text());
+                (it->server)->didOpen(it->url, it->version, languageId(doc->highlightingMode()), doc->text());
                 it->open = true;
             }
             it->modified = false;
@@ -775,22 +743,20 @@ private:
         return nullptr;
     }
 
-    void onTextInserted(KTextEditor::Document *doc, const KTextEditor::Cursor &position,
-                        const QString &text)
+    void onTextInserted(KTextEditor::Document *doc, const KTextEditor::Cursor &position, const QString &text)
     {
         auto info = getDocumentInfo(doc);
         if (info) {
-            info->changes.push_back({ LSPRange { position, position }, text });
+            info->changes.push_back({LSPRange {position, position}, text});
         }
     }
 
-    void onTextRemoved(KTextEditor::Document *doc, const KTextEditor::Range &range,
-                       const QString &text)
+    void onTextRemoved(KTextEditor::Document *doc, const KTextEditor::Range &range, const QString &text)
     {
         (void)text;
         auto info = getDocumentInfo(doc);
         if (info) {
-            info->changes.push_back({ range, QString() });
+            info->changes.push_back({range, QString()});
         }
     }
 
@@ -798,7 +764,7 @@ private:
     {
         // so a 'newline' has been inserted at position
         // could have been UNIX style or other kind, let's ask the document
-        auto text = doc->text({ position, { position.line() + 1, 0 } });
+        auto text = doc->text({position, {position.line() + 1, 0}});
         onTextInserted(doc, position, text);
     }
 
@@ -808,16 +774,15 @@ private:
         Q_ASSERT(line > 0);
         auto info = getDocumentInfo(doc);
         if (info) {
-            LSPRange oldrange { { line - 1, 0 }, { line + 1, 0 } };
-            LSPRange newrange { { line - 1, 0 }, { line, 0 } };
+            LSPRange oldrange {{line - 1, 0}, {line + 1, 0}};
+            LSPRange newrange {{line - 1, 0}, {line, 0}};
             auto text = doc->text(newrange);
-            info->changes.push_back({ oldrange, text });
+            info->changes.push_back({oldrange, text});
         }
     }
 };
 
-QSharedPointer<LSPClientServerManager>
-LSPClientServerManager::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
+QSharedPointer<LSPClientServerManager> LSPClientServerManager::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
 {
     return QSharedPointer<LSPClientServerManager>(new LSPClientServerManagerImpl(plugin, mainWin));
 }

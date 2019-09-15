@@ -400,7 +400,11 @@ void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
 
 QStandardItem * KateExternalToolsConfigWidget::addCategory(const QString & category)
 {
-    // searach for existing category
+    if (category.isEmpty()) {
+        return m_noCategory;
+    }
+
+    // search for existing category
     auto items = m_toolsModel.findItems(category);
     if (!items.empty()) {
         return items.front();

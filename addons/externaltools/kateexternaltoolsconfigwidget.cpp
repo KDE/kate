@@ -67,6 +67,14 @@ namespace {
     {
         return item ? reinterpret_cast<KateExternalTool*>(item->data(ToolRole).value<quintptr>()) : nullptr;
     }
+
+    QPixmap blankIcon()
+    {
+        QPixmap pm(KIconLoader::SizeSmall, KIconLoader::SizeSmall);
+        pm.fill();
+        pm.setMask(pm.createHeuristicMask());
+        return pm;
+    }
 }
 
 // BEGIN KateExternalToolServiceEditor
@@ -240,14 +248,6 @@ void KateExternalToolsConfigWidget::reset()
     }
     lbTools->expandAll();
     m_changed = false;
-}
-
-QPixmap KateExternalToolsConfigWidget::blankIcon()
-{
-    QPixmap pm(KIconLoader::SizeSmall, KIconLoader::SizeSmall);
-    pm.fill();
-    pm.setMask(pm.createHeuristicMask());
-    return pm;
 }
 
 void KateExternalToolsConfigWidget::apply()

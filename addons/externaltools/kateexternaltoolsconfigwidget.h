@@ -89,9 +89,6 @@ private Q_SLOTS:
     void clearTools();
 
 private:
-    QPixmap blankIcon();
-
-private:
     KConfig *m_config = nullptr;
     bool m_changed = false;
     KateExternalToolsPlugin *m_plugin;

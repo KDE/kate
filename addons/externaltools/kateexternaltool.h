@@ -66,8 +66,8 @@ public:
     QString workingDir;
     /// Optional list of mimetypes for which this action is valid.
     QStringList mimetypes;
-    /// The name for the action. This is generated first time the
-    /// action is is created.
+    /// The name for the action for persistent keyboard shortcuts.
+    /// This is generated first time the action is is created.
     QString actionName;
     /// The name for the commandline.
     QString cmdname;

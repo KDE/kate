@@ -20,3 +20,6 @@ CMakeLists.txt.user*
 
 # from dolphin
 .directory
+
+# LSP Server data
+.clangd

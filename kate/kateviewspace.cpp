@@ -249,6 +249,15 @@ void KateViewSpace::removeView(KTextEditor::View *v)
 
     // ...and now: remove from view space
     stack->removeWidget(v);
+
+    // switch to most recently used rather than letting stack choose one
+    // (last element could well be v->document() being removed here)
+    for (auto it = m_lruDocList.rbegin(); it != m_lruDocList.rend(); ++it) {
+        if (m_docToView.contains(*it)) {
+            showView(*it);
+            break;
+        }
+    }
 }
 
 bool KateViewSpace::showView(KTextEditor::Document *document)

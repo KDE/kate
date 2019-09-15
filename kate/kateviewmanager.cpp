@@ -547,9 +547,10 @@ KTextEditor::View *KateViewManager::activeView()
         return vs->currentView();
     }
 
-    // last attempt: just pick first
-    if (!m_views.isEmpty()) {
-        KTextEditor::View *v = m_views.begin().key();
+    // last attempt: pick MRU view
+    auto views = sortedViews();
+    if (!views.isEmpty()) {
+        KTextEditor::View *v = views.front();
         activateView(v);
         m_activeViewRunning = false;
         return v;

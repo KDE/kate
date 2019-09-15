@@ -40,12 +40,32 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
+static QVector<KateExternalTool> readDefaultTools()
+{
+    QVector<KateExternalTool> tools;
+    KConfig systemConfig(QStringLiteral("defaultexternaltoolsrc"));
+    KConfigGroup config(&systemConfig, "Global");
+    const int toolCount = config.readEntry("tools", 0);
+    for (int i = 0; i < toolCount; ++i) {
+        config = KConfigGroup(&systemConfig, QStringLiteral("Tool %1").arg(i));
+
+        KateExternalTool t;
+        t.load(config);
+        tools.push_back(t);
+    }
+    return tools;
+}
+
 K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json",
                            registerPlugin<KateExternalToolsPlugin>();)
 
 KateExternalToolsPlugin::KateExternalToolsPlugin(QObject* parent, const QList<QVariant>&)
     : KTextEditor::Plugin(parent)
 {
+    // read built-in external tools from compiled-in resource file
+    m_defaultTools = readDefaultTools();
+
+    // load config from disk
     reload();
 }
 
@@ -73,17 +93,28 @@ void KateExternalToolsPlugin::reload()
     KConfig _config(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
     KConfigGroup config(&_config, "Global");
     const int toolCount = config.readEntry("tools", 0);
+    const bool firstStart = config.readEntry("firststart", true);
 
-    for (int i = 0; i < toolCount; ++i) {
-        config = KConfigGroup(&_config, QStringLiteral("Tool %1").arg(i));
+    if (!firstStart || toolCount > 0) {
+        // read user config
+        for (int i = 0; i < toolCount; ++i) {
+            config = KConfigGroup(&_config, QStringLiteral("Tool %1").arg(i));
 
-        auto t = new KateExternalTool();
-        t->load(config);
-        m_tools.push_back(t);
+            auto t = new KateExternalTool();
+            t->load(config);
+            m_tools.push_back(t);
+        }
+    } else {
+        // first start -> use system config
+        for (const auto & tool : m_defaultTools) {
+            m_tools.push_back(new KateExternalTool(tool));
+        }
+    }
 
-        // FIXME test for a command name first!
-        if (t->hasexec && (!t->cmdname.isEmpty())) {
-            m_commands.push_back(t->cmdname);
+    // FIXME test for a command name first!
+    for (auto tool : m_tools) {
+        if (tool->hasexec && (!tool->cmdname.isEmpty())) {
+            m_commands.push_back(tool->cmdname);
         }
     }
 

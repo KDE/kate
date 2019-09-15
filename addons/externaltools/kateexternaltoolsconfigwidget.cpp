@@ -270,6 +270,7 @@ void KateExternalToolsConfigWidget::apply()
     }
 
     // write tool configuration to disk
+    m_config->group("Global").writeEntry("firststart", false);
     m_config->group("Global").writeEntry("tools", static_cast<int>(tools.size()));
     for (size_t i = 0; i < tools.size(); i++) {
         const QString section = QStringLiteral("Tool ") + QString::number(i);

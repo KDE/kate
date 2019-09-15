@@ -3,7 +3,7 @@
     <qresource prefix="/kxmlgui5/externaltools">
         <file>ui.rc</file>
     </qresource>
-    <qresource prefix="/externaltools">
-        <file>tools.cfg</file>
+    <qresource prefix="/kconfig">
+        <file>defaultexternaltoolsrc</file>
     </qresource>
 </RCC>

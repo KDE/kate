@@ -136,18 +136,3 @@ output=ReplaceSelectedText
 reload=false
 save=None
 workingDir=%{Document:Path}
-
-[Tool 9]
-actionName=externaltool_perl
-arguments=%{ENV:KATE_PID
-category=Tools
-cmdname=perl
-executable=echo
-icon=
-input=
-mimetypes=
-name=perl
-output=DisplayInPane
-reload=false
-save=None
-workingDir=

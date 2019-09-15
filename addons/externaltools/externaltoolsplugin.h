@@ -109,18 +109,17 @@ public:
     KateExternalToolsPluginView *viewForMainWindow(KTextEditor::MainWindow *mainWindow) const;
 
 private:
+    QVector<KateExternalTool> m_defaultTools;
     QVector<KateExternalToolsPluginView *> m_views;
     QVector<KateExternalTool *> m_tools;
     QStringList m_commands;
     KateExternalToolsCommand *m_command = nullptr;
 
-private
-    Q_SLOT :
-        /**
-         * Called whenever an external tool is done.
-         */
-        void
-        handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed);
+private Q_SLOTS:
+    /**
+     * Called whenever an external tool is done.
+     */
+    void handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed);
 };
 
 #endif

@@ -3,36 +3,6 @@ tools=9
 version=1
 
 [Tool 0]
-actionName=externaltool_RunShellScript
-arguments=-e sh -c "cd %{Document:Path} && pwd && chmod -vc a+x %{Document:FileName} && ./%{Document:FileName} ; echo Press any key to continue. && read -n 1"
-category=
-cmdname=run-script
-executable=konsole
-icon=system-run
-input=
-mimetypes=
-name=Run Shell Script
-output=Ignore
-reload=false
-save=CurrentDocument
-workingDir=%{Document:Path}
-
-[Tool 1]
-actionName=externaltool_GoogleSelectedText
-arguments="https://www.google.com/search?q=%{Document:Selection:Text}"
-category=
-cmdname=google
-executable=xdg-open
-icon=globe
-input=
-mimetypes=
-name=Google Selected Text
-output=Ignore
-reload=false
-save=None
-workingDir=
-
-[Tool 2]
 actionName=externaltool_gitcola
 arguments=-r %{Document:Path}
 category=Git
@@ -47,7 +17,7 @@ reload=false
 save=None
 workingDir=
 
-[Tool 3]
+[Tool 1]
 actionName=externaltool_gitk
 arguments=
 category=Git
@@ -62,7 +32,7 @@ reload=false
 save=None
 workingDir=%{Document:Path}
 
-[Tool 4]
+[Tool 2]
 actionName=externaltool_gitblame
 arguments=gui blame %{Document:FileName}
 category=Git
@@ -77,22 +47,37 @@ reload=false
 save=CurrentDocument
 workingDir=%{Document:Path}
 
-[Tool 5]
-actionName=externaltool_QtQuick2Previewqmlscene
-arguments=%{Document:FileName}
+[Tool 3]
+actionName=externaltool_RunShellScript
+arguments=-e sh -c "cd %{Document:Path} && pwd && chmod -vc a+x %{Document:FileName} && ./%{Document:FileName} ; echo Press any key to continue. && read -n 1"
 category=Tools
-cmdname=qml-preview
-executable=qmlscene
-icon=
+cmdname=run-script
+executable=konsole
+icon=system-run
 input=
-mimetypes=text/x-qml
-name=Qt Quick 2 Preview (qmlscene)
+mimetypes=
+name=Run Shell Script
 output=Ignore
 reload=false
 save=CurrentDocument
 workingDir=%{Document:Path}
 
-[Tool 6]
+[Tool 4]
+actionName=externaltool_GoogleSelectedText
+arguments="https://www.google.com/search?q=%{Document:Selection:Text}"
+category=Tools
+cmdname=google
+executable=xdg-open
+icon=globe
+input=
+mimetypes=
+name=Google Selected Text
+output=Ignore
+reload=false
+save=None
+workingDir=
+
+[Tool 5]
 actionName=externaltool_InsertUUID
 arguments=%{UUID}
 category=Tools
@@ -107,7 +92,7 @@ reload=false
 save=None
 workingDir=
 
-[Tool 7]
+[Tool 6]
 actionName=externaltool_ClangFormatFullFile
 arguments=-i %{Document:FileName}
 category=Tools
@@ -122,7 +107,7 @@ reload=true
 save=CurrentDocument
 workingDir=%{Document:Path}
 
-[Tool 8]
+[Tool 7]
 actionName=externaltool_ClangFormatSelectedText
 arguments=-assume-filename=%{Document:FileName}
 category=Tools
@@ -135,4 +120,19 @@ name=Clang Format Selected Text
 output=ReplaceSelectedText
 reload=false
 save=None
+workingDir=%{Document:Path}
+
+[Tool 8]
+actionName=externaltool_QtQuick2Previewqmlscene
+arguments=%{Document:FileName}
+category=Qt
+cmdname=qml-preview
+executable=qmlscene
+icon=
+input=
+mimetypes=text/x-qml
+name=Qt Quick 2 Preview (qmlscene)
+output=Ignore
+reload=false
+save=CurrentDocument
 workingDir=%{Document:Path}

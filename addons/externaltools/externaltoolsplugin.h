@@ -80,6 +80,12 @@ public:
     const QVector<KateExternalTool *> &tools() const;
 
     /**
+     * Returns the list of external tools that are shiped by default with
+     * the external tools plugin.
+     */
+    QVector<KateExternalTool> defaultTools() const;
+
+    /**
      * Executes the tool based on the view as current document.
      */
     void runTool(const KateExternalTool &tool, KTextEditor::View *view);

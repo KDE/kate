@@ -201,8 +201,11 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget* parent, Ka
     // Add... button popup menu
     auto addMenu = new QMenu();
     auto addToolAction = addMenu->addAction(i18n("Add Tool..."));
+    auto addDefaultsMenu = addMenu->addMenu(i18n("Add Tool from Defaults"));
+    addMenu->addSeparator();
     auto addCategoryAction = addMenu->addAction(i18n("Add Category"));
     btnAdd->setMenu(addMenu);
+    connect(addDefaultsMenu, &QMenu::aboutToShow, [this, addDefaultsMenu]() { lazyInitDefaultsMenu(addDefaultsMenu); });
 
     connect(addCategoryAction, &QAction::triggered, this, &KateExternalToolsConfigWidget::slotAddCategory);
     connect(addToolAction, &QAction::triggered, this, &KateExternalToolsConfigWidget::slotAddTool);
@@ -341,6 +344,46 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool* tool)
     m_config->sync();
 
     return changed;
+}
+
+void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
+{
+    if (!defaultsMenu->isEmpty()) {
+        return;
+    }
+
+    // create tool actions
+    std::map<QString, QMenu*> categories;
+
+    // first add categorized actions, such that the submenus appear at the top
+    int defaultToolsIndex = 0;
+    for (const auto &tool : m_plugin->defaultTools()) {
+        const QString category = tool.category.isEmpty() ? i18n("Uncategorized") : (tool.category);
+        auto categoryMenu = categories[category];
+        if (!categoryMenu) {
+            categoryMenu = new QMenu(category, this);
+            categories[category] = categoryMenu;
+            defaultsMenu->addMenu(categoryMenu);
+        }
+
+        auto a = categoryMenu->addAction(QIcon::fromTheme(tool.icon), tool.name);
+        a->setData(defaultToolsIndex);
+
+        connect(a, &QAction::triggered, [this, a]() {
+            slotAddDefaultTool(a->data().toInt());
+        });
+        ++defaultToolsIndex;
+    }
+}
+
+void KateExternalToolsConfigWidget::slotAddDefaultTool(int defaultToolsIndex)
+{
+    const auto &defaultTools = m_plugin->defaultTools();
+    if (defaultToolsIndex < 0 || defaultToolsIndex > defaultTools.size()) {
+        return;
+    }
+
+    addNewTool(new KateExternalTool(defaultTools[defaultToolsIndex]));
 }
 
 void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)

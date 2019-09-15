@@ -61,6 +61,9 @@ public Q_SLOTS:
     }
 
 private Q_SLOTS:
+    void addNewTool(KateExternalTool *tool);
+    void lazyInitDefaultsMenu(QMenu *defaultsMenu);
+    void slotAddDefaultTool(int defaultToolsIndex);
     void slotAddCategory();
     void slotAddTool();
     void slotEdit();

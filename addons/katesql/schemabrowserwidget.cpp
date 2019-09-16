@@ -23,21 +23,19 @@
 #include <QVBoxLayout>
 
 SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent, SQLManager *manager)
-: QWidget (parent)
-, m_schemaWidget(new SchemaWidget(this, manager))
+    : QWidget(parent)
+    , m_schemaWidget(new SchemaWidget(this, manager))
 {
-  QVBoxLayout *layout = new QVBoxLayout (this);
-  layout->addWidget (m_schemaWidget);
-  setLayout (layout);
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->addWidget(m_schemaWidget);
+    setLayout(layout);
 }
 
 SchemaBrowserWidget::~SchemaBrowserWidget()
 {
 }
 
-SchemaWidget* SchemaBrowserWidget::schemaWidget() const
+SchemaWidget *SchemaBrowserWidget::schemaWidget() const
 {
-  return m_schemaWidget;
+    return m_schemaWidget;
 }
-
-

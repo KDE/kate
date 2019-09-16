@@ -21,7 +21,6 @@
 #include "btbrowsertest.h"
 #include "btparser.h"
 
-
 #include <QtTestWidgets>
 #include <QTemporaryFile>
 #include <QFileInfo>
@@ -44,7 +43,6 @@ void KateBtBrowserTest::testParser()
     // 2) #39 0xb634211c in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0
     // 3) #41 0x0805e690 in ?? ()
     // 4) #5  0xffffe410 in __kernel_vsyscall ()
-
 
     QString bt = QStringLiteral("#24 0xb688ff8e in QApplication::notify (this=0xbf997e8c, receiver=0x82607e8, e=0xbf997074) at kernel/qapplication.cpp:3115");
     QList<BtInfo> info = KateBtParser::parseBacktrace(bt);

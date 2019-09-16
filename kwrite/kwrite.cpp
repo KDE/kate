@@ -86,7 +86,7 @@ KWrite::KWrite(KTextEditor::Document *doc, KWriteApplication *app)
     connect(m_view->document(), &KTextEditor::Document::documentUrlChanged, this, &KWrite::urlChanged);
 
     setAcceptDrops(true);
-    connect(m_view, SIGNAL(dropEventPass(QDropEvent*)), this, SLOT(slotDropEvent(QDropEvent*)));
+    connect(m_view, SIGNAL(dropEventPass(QDropEvent *)), this, SLOT(slotDropEvent(QDropEvent *)));
 
     setXMLFile(QStringLiteral("kwriteui.rc"));
     createShellGUI(true);
@@ -129,7 +129,7 @@ KWrite::~KWrite()
     KSharedConfig::openConfig()->sync();
 }
 
-QSize KWrite::sizeHint () const
+QSize KWrite::sizeHint() const
 {
     /**
      * have some useful size hint, else we have mini windows per default
@@ -145,10 +145,8 @@ void KWrite::setupActions()
     m_closeAction->setDisabled(true);
 
     // setup File menu
-    actionCollection()->addAction(KStandardAction::New, QStringLiteral("file_new"), this, SLOT(slotNew()))
-    ->setWhatsThis(i18n("Use this command to create a new document"));
-    actionCollection()->addAction(KStandardAction::Open, QStringLiteral("file_open"), this, SLOT(slotOpen()))
-    ->setWhatsThis(i18n("Use this command to open an existing document for editing"));
+    actionCollection()->addAction(KStandardAction::New, QStringLiteral("file_new"), this, SLOT(slotNew()))->setWhatsThis(i18n("Use this command to create a new document"));
+    actionCollection()->addAction(KStandardAction::Open, QStringLiteral("file_open"), this, SLOT(slotOpen()))->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
     m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(QUrl)), this);
     actionCollection()->addAction(m_recentFiles->objectName(), m_recentFiles);
@@ -160,8 +158,7 @@ void KWrite::setupActions()
     connect(a, &QAction::triggered, this, &KWrite::newView);
     a->setWhatsThis(i18n("Create another view containing the current document"));
 
-    actionCollection()->addAction(KStandardAction::Quit, this, SLOT(close()))
-    ->setWhatsThis(i18n("Close the current document view"));
+    actionCollection()->addAction(KStandardAction::Quit, this, SLOT(close()))->setWhatsThis(i18n("Close the current document view"));
 
     // setup Settings menu
     setStandardToolBarMenuEnabled(true);
@@ -180,8 +177,7 @@ void KWrite::setupActions()
     a = actionCollection()->addAction(KStandardAction::KeyBindings, this, SLOT(editKeys()));
     a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-    a = actionCollection()->addAction(KStandardAction::ConfigureToolbars, QStringLiteral("options_configure_toolbars"),
-                                      this, SLOT(editToolbars()));
+    a = actionCollection()->addAction(KStandardAction::ConfigureToolbars, QStringLiteral("options_configure_toolbars"), this, SLOT(editToolbars()));
     a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
     a = actionCollection()->addAction(QStringLiteral("help_about_editor"));
@@ -241,7 +237,7 @@ void KWrite::slotNew()
 void KWrite::slotOpen()
 {
     const QList<QUrl> urls = QFileDialog::getOpenFileUrls(this, i18n("Open File"), m_view->document()->url());
-    Q_FOREACH(QUrl url, urls) {
+    Q_FOREACH (QUrl url, urls) {
         slotOpen(url);
     }
 }
@@ -262,7 +258,7 @@ void KWrite::slotOpen(const QUrl &url)
 
 void KWrite::urlChanged()
 {
-    if (! m_view->document()->url().isEmpty()) {
+    if (!m_view->document()->url().isEmpty()) {
         m_recentFiles->addUrl(m_view->document()->url());
     }
 
@@ -283,8 +279,10 @@ void KWrite::toggleMenuBar(bool showMessage)
     } else {
         if (showMessage) {
             const QString accel = m_paShowMenuBar->shortcut().toString();
-            KMessageBox::information(this, i18n("This will hide the menu bar completely."
-                                                " You can show it again by typing %1.", accel),
+            KMessageBox::information(this,
+                                     i18n("This will hide the menu bar completely."
+                                          " You can show it again by typing %1.",
+                                          accel),
                                      i18n("Hide menu bar"),
                                      QStringLiteral("HideMenuBarWarning"));
         }
@@ -336,7 +334,7 @@ void KWrite::slotNewToolbarConfig()
 void KWrite::dragEnterEvent(QDragEnterEvent *event)
 {
     const QList<QUrl> uriList = event->mimeData()->urls();
-    event->setAccepted(! uriList.isEmpty());
+    event->setAccepted(!uriList.isEmpty());
 }
 
 void KWrite::dropEvent(QDropEvent *event)
@@ -348,8 +346,8 @@ void KWrite::slotDropEvent(QDropEvent *event)
 {
     const QList<QUrl> textlist = event->mimeData()->urls();
 
-    foreach(const QUrl & url, textlist)
-    slotOpen(url);
+    foreach (const QUrl &url, textlist)
+        slotOpen(url);
 }
 
 void KWrite::slotEnableActions(bool enable)
@@ -371,7 +369,7 @@ void KWrite::slotEnableActions(bool enable)
     }
 }
 
-//common config
+// common config
 void KWrite::readConfig(KSharedConfigPtr config)
 {
     KConfigGroup cfg(config, "General Options");
@@ -400,7 +398,7 @@ void KWrite::writeConfig(KSharedConfigPtr config)
     config->sync();
 }
 
-//config file
+// config file
 void KWrite::readConfig()
 {
     readConfig(KSharedConfig::openConfig());
@@ -434,7 +432,7 @@ void KWrite::saveProperties(KConfigGroup &config)
     m_view->writeSessionConfig(cg);
 }
 
-void KWrite::saveGlobalProperties(KConfig *config) //save documents
+void KWrite::saveGlobalProperties(KConfig *config) // save documents
 {
     m_app->saveProperties(config);
 }
@@ -467,14 +465,14 @@ void KWrite::documentNameChanged()
             c = QLatin1String("~") + c.right(c.length() - homePath.length());
         }
 
-        //File name shouldn't be too long - Maciek
+        // File name shouldn't be too long - Maciek
         if (c.length() > 64) {
             c = QLatin1String("...") + c.right(64);
         }
     } else {
         c = m_view->document()->url().fileName();
 
-        //File name shouldn't be too long - Maciek
+        // File name shouldn't be too long - Maciek
         if (c.length() > 64) {
             c = c.left(64) + QStringLiteral("...");
         }
@@ -493,7 +491,7 @@ bool KWrite::eventFilter(QObject *obj, QEvent *event)
          * try to open and activate the new document, like we would do for stuff
          * opened via file dialog
          */
-        QFileOpenEvent *foe = static_cast<QFileOpenEvent*>(event);
+        QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(event);
         slotOpen(foe->url());
         return true;
     }
@@ -510,7 +508,6 @@ QList<KTextEditor::View *> KWrite::views()
     list.append(m_view);
     return list;
 }
-
 
 KTextEditor::View *KWrite::activateView(KTextEditor::Document *document)
 {

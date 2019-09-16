@@ -47,11 +47,9 @@
 
 namespace KateMDI
 {
-
-//BEGIN TOGGLETOOLVIEWACTION
+// BEGIN TOGGLETOOLVIEWACTION
 //
-ToggleToolViewAction::ToggleToolViewAction(const QString &text, ToolView *tv,
-        QObject *parent)
+ToggleToolViewAction::ToggleToolViewAction(const QString &text, ToolView *tv, QObject *parent)
     : KToggleAction(text, parent)
     , m_tv(tv)
 {
@@ -62,7 +60,8 @@ ToggleToolViewAction::ToggleToolViewAction(const QString &text, ToolView *tv,
 }
 
 ToggleToolViewAction::~ToggleToolViewAction()
-{}
+{
+}
 
 void ToggleToolViewAction::toolVisibleChanged(bool)
 {
@@ -81,29 +80,29 @@ void ToggleToolViewAction::slotToggled(bool t)
     }
 }
 
-//END TOGGLETOOLVIEWACTION
+// END TOGGLETOOLVIEWACTION
 
-//BEGIN GUICLIENT
+// BEGIN GUICLIENT
 
 static const QString actionListName = QStringLiteral("kate_mdi_view_actions");
 
 // please don't use QStringLiteral since it can't be used with a concatenated string parameter on all platforms
-static const QString guiDescription = QStringLiteral(""
-                                      "<!DOCTYPE kpartgui><kpartgui name=\"kate_mdi_view_actions\">"
-                                      "<MenuBar>"
-                                      "    <Menu name=\"view\">"
-                                      "        <ActionList name=\"%1\" />"
-                                      "    </Menu>"
-                                      "</MenuBar>"
-                                      "</kpartgui>");
+static const QString guiDescription = QStringLiteral(
+    ""
+    "<!DOCTYPE kpartgui><kpartgui name=\"kate_mdi_view_actions\">"
+    "<MenuBar>"
+    "    <Menu name=\"view\">"
+    "        <ActionList name=\"%1\" />"
+    "    </Menu>"
+    "</MenuBar>"
+    "</kpartgui>");
 
 GUIClient::GUIClient(MainWindow *mw)
     : QObject(mw)
     , KXMLGUIClient(mw)
     , m_mw(mw)
 {
-    connect(m_mw->guiFactory(), &KXMLGUIFactory::clientAdded,
-            this, &GUIClient::clientAdded);
+    connect(m_mw->guiFactory(), &KXMLGUIFactory::clientAdded, this, &GUIClient::clientAdded);
 
     if (domDocument().documentElement().isNull()) {
         QString completeDescription = guiDescription.arg(actionListName);
@@ -130,12 +129,13 @@ GUIClient::GUIClient(MainWindow *mw)
     actionCollection()->readSettings();
 
     actionCollection()->addAssociatedWidget(m_mw);
-    foreach(QAction * action, actionCollection()->actions())
-    action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    foreach (QAction *action, actionCollection()->actions())
+        action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 }
 
 GUIClient::~GUIClient()
-{}
+{
+}
 
 void GUIClient::updateSidebarsVisibleAction()
 {
@@ -152,7 +152,7 @@ void GUIClient::registerToolView(ToolView *tv)
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
     QString shortcutString = cfg->group("Shortcuts").readEntry(aname, QString());
 
-    foreach(const QString & shortcut, shortcutString.split(QLatin1Char(';'))) {
+    foreach (const QString &shortcut, shortcutString.split(QLatin1Char(';'))) {
         shortcuts << QKeySequence::fromString(shortcut);
     }
 
@@ -205,9 +205,9 @@ void GUIClient::updateActions()
     plugActionList(actionListName, addList);
 }
 
-//END GUICLIENT
+// END GUICLIENT
 
-//BEGIN TOOLVIEW
+// BEGIN TOOLVIEW
 
 ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
     : QFrame(parent)
@@ -270,7 +270,7 @@ void ToolView::childEvent(QChildEvent *ev)
     QFrame::childEvent(ev);
 }
 
-void ToolView::actionEvent(QActionEvent* event)
+void ToolView::actionEvent(QActionEvent *event)
 {
     QFrame::actionEvent(event);
     if (event->type() == QEvent::ActionAdded) {
@@ -281,9 +281,9 @@ void ToolView::actionEvent(QActionEvent* event)
     m_toolbar->setVisible(!m_toolbar->actions().isEmpty());
 }
 
-//END TOOLVIEW
+// END TOOLVIEW
 
-//BEGIN SIDEBAR
+// BEGIN SIDEBAR
 
 Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QWidget *parent)
     : KMultiTabBar(pos, parent)
@@ -296,7 +296,8 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QW
 }
 
 Sidebar::~Sidebar()
-{}
+{
+}
 
 void Sidebar::setSplitter(QSplitter *sp)
 {
@@ -485,10 +486,10 @@ void Sidebar::tabClicked(int i)
 bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 {
     if (ev->type() == QEvent::ContextMenu) {
-        QContextMenuEvent *e = (QContextMenuEvent *) ev;
+        QContextMenuEvent *e = (QContextMenuEvent *)ev;
         KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab *>(obj);
         if (bt) {
-            //qCDebug(LOG_KATE) << "Request for popup";
+            // qCDebug(LOG_KATE) << "Request for popup";
 
             m_popupButton = bt->id();
 
@@ -505,8 +506,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
                 menu->addSection(QIcon::fromTheme(QStringLiteral("view_remove")), i18n("Behavior"));
 
-                menu->addAction(w->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen")),
-                                w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent")) -> setData(10);
+                menu->addAction(w->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen")), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"))->setData(10);
 
                 menu->addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
 
@@ -561,7 +561,7 @@ void Sidebar::buttonPopupActivate(QAction *a)
     // move ids
     if (id < 4) {
         // move + show ;)
-        m_mainWin->moveToolView(w, (KMultiTabBar::KMultiTabBarPosition) id);
+        m_mainWin->moveToolView(w, (KMultiTabBar::KMultiTabBarPosition)id);
         m_mainWin->showToolView(w);
     }
 
@@ -710,9 +710,9 @@ void Sidebar::saveSession(KConfigGroup &config)
     }
 }
 
-//END SIDEBAR
+// END SIDEBAR
 
-//BEGIN MAIN WINDOW
+// BEGIN MAIN WINDOW
 
 MainWindow::MainWindow(QWidget *parentWidget)
     : KParts::MainWindow(parentWidget, Qt::Window)
@@ -769,7 +769,6 @@ MainWindow::MainWindow(QWidget *parentWidget)
     for (const auto sidebar : qAsConst(m_sidebars)) {
         connect(sidebar, &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
     }
-
 }
 
 MainWindow::~MainWindow()
@@ -800,10 +799,10 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin, const QString 
     // try the restore config to figure out real pos
     if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
         KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-        pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos));
+        pos = (KMultiTabBar::KMultiTabBarPosition)cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos));
     }
 
-    ToolView *v  = m_sidebars[pos]->addWidget(icon, text, nullptr);
+    ToolView *v = m_sidebars[pos]->addWidget(icon, text, nullptr);
     v->id = identifier;
     v->plugin = plugin;
 
@@ -838,7 +837,6 @@ void MainWindow::toolViewDeleted(ToolView *widget)
 
     m_idToWidget.remove(widget->id);
     m_toolviews.removeAt(m_toolviews.indexOf(widget));
-
 }
 
 void MainWindow::setSidebarsVisible(bool visible)
@@ -863,7 +861,8 @@ void MainWindow::setSidebarsVisible(bool visible)
                                       "invoke <b>View &gt; Tool Views &gt; Show Sidebars</b> "
                                       "in the menu. It is still possible to show/hide "
                                       "the tool views with the assigned shortcuts.</qt>"),
-                                 QString(), QStringLiteral("Kate hide sidebars notification message"));
+                                 QString(),
+                                 QStringLiteral("Kate hide sidebars notification message"));
     }
 }
 
@@ -895,7 +894,7 @@ bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPositi
     // try the restore config to figure out real pos
     if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
         KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-        pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos));
+        pos = (KMultiTabBar::KMultiTabBarPosition)cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos));
     }
 
     m_sidebars[pos]->addWidget(widget->icon, widget->text, widget);
@@ -928,7 +927,7 @@ bool MainWindow::hideToolView(ToolView *widget)
         return true;
     }
 
-    const bool ret =  widget->sidebar()->hideWidget(widget);
+    const bool ret = widget->sidebar()->hideWidget(widget);
     m_centralWidget->setFocus();
     return ret;
 }
@@ -979,7 +978,7 @@ void MainWindow::finishRestore()
 
         // reshuffle toolviews only if needed
         for (const auto tv : qAsConst(m_toolviews)) {
-            KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
+            KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition)cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
 
             if (tv->sidebar()->position() != newPos) {
                 moveToolView(tv, newPos);
@@ -1047,7 +1046,6 @@ void MainWindow::saveSession(KConfigGroup &config)
     }
 }
 
-//END MAIN WINDOW
+// END MAIN WINDOW
 
 } // namespace KateMDI
-

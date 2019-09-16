@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-**/
+ **/
 
 #include "katefileactions.h"
 
@@ -39,25 +39,25 @@
 #include <QProcess>
 #include <QUrl>
 
-void KateFileActions::copyFilePathToClipboard(KTextEditor::Document* doc)
+void KateFileActions::copyFilePathToClipboard(KTextEditor::Document *doc)
 {
     QApplication::clipboard()->setText(doc->url().toDisplayString(QUrl::PreferLocalFile));
 }
 
-void KateFileActions::openContainingFolder(KTextEditor::Document* doc)
+void KateFileActions::openContainingFolder(KTextEditor::Document *doc)
 {
     KIO::highlightInFileManager({doc->url()});
 }
 
-void KateFileActions::openFilePropertiesDialog(KTextEditor::Document* doc)
+void KateFileActions::openFilePropertiesDialog(KTextEditor::Document *doc)
 {
     KFileItem fileItem(doc->url());
-    QDialog* dlg = new KPropertiesDialog(fileItem);
+    QDialog *dlg = new KPropertiesDialog(fileItem);
     dlg->setAttribute(Qt::WA_DeleteOnClose);
     dlg->show();
 }
 
-void KateFileActions::renameDocumentFile(QWidget* parent, KTextEditor::Document* doc)
+void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document *doc)
 {
     // TODO: code was copied and adapted from ../addons/filetree/katefiletree.cpp
     // (-> DUPLICATE CODE, the new code here should be also used there!)
@@ -75,7 +75,11 @@ void KateFileActions::renameDocumentFile(QWidget* parent, KTextEditor::Document*
     const QString oldFileName = doc->url().fileName();
     bool ok = false;
     QString newFileName = QInputDialog::getText(parent, // ADAPTED
-        i18n("Rename file"), i18n("New file name"), QLineEdit::Normal, oldFileName, &ok);
+                                                i18n("Rename file"),
+                                                i18n("New file name"),
+                                                QLineEdit::Normal,
+                                                oldFileName,
+                                                &ok);
     if (!ok) {
         return;
     }
@@ -93,13 +97,13 @@ void KateFileActions::renameDocumentFile(QWidget* parent, KTextEditor::Document*
 
     doc->waitSaveComplete();
 
-    KIO::CopyJob* job = KIO::move(oldFileUrl, newFileUrl);
+    KIO::CopyJob *job = KIO::move(oldFileUrl, newFileUrl);
     QSharedPointer<QMetaObject::Connection> sc(new QMetaObject::Connection());
-    auto success = [doc, sc] (KIO::Job*, const QUrl&, const QUrl &realNewFileUrl, const QDateTime&, bool, bool) {
-            doc->openUrl(realNewFileUrl);
-            doc->documentSavedOrUploaded(doc, true);
-            QObject::disconnect(*sc);
-        };
+    auto success = [doc, sc](KIO::Job *, const QUrl &, const QUrl &realNewFileUrl, const QDateTime &, bool, bool) {
+        doc->openUrl(realNewFileUrl);
+        doc->documentSavedOrUploaded(doc, true);
+        QObject::disconnect(*sc);
+    };
     *sc = parent->connect(job, &KIO::CopyJob::copyingDone, doc, success);
 
     if (!job->exec()) {
@@ -108,7 +112,7 @@ void KateFileActions::renameDocumentFile(QWidget* parent, KTextEditor::Document*
     }
 }
 
-void KateFileActions::deleteDocumentFile(QWidget* parent, KTextEditor::Document* doc)
+void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document *doc)
 {
     // TODO: code was copied and adapted from ../addons/filetree/katefiletree.cpp
     //       (-> DUPLICATE CODE, the new code here should be also used there!)
@@ -117,17 +121,14 @@ void KateFileActions::deleteDocumentFile(QWidget* parent, KTextEditor::Document*
         return;
     }
 
-    const auto&& url = doc->url();
+    const auto &&url = doc->url();
 
     if (url.isEmpty()) { // NEW
         return;
     }
 
-    bool go = (KMessageBox::warningContinueCancel(parent,
-               i18n("Do you really want to delete file \"%1\"?", url.toDisplayString()),
-               i18n("Delete file"),
-               KStandardGuiItem::yes(), KStandardGuiItem::no(), QStringLiteral("filetreedeletefile")
-                                                 ) == KMessageBox::Continue);
+    bool go = (KMessageBox::warningContinueCancel(
+                   parent, i18n("Do you really want to delete file \"%1\"?", url.toDisplayString()), i18n("Delete file"), KStandardGuiItem::yes(), KStandardGuiItem::no(), QStringLiteral("filetreedeletefile")) == KMessageBox::Continue);
 
     if (!go) {
         return;
@@ -159,7 +160,7 @@ QStringList KateFileActions::supportedDiffTools()
     return resultList;
 }
 
-bool KateFileActions::compareWithExternalProgram(KTextEditor::Document* documentA, KTextEditor::Document* documentB, const QString& diffExecutable)
+bool KateFileActions::compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable)
 {
     Q_ASSERT(documentA);
     Q_ASSERT(documentB);

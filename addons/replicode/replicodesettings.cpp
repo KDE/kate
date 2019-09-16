@@ -5,12 +5,12 @@
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
- 
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
- 
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -23,8 +23,8 @@
 #include <QDebug>
 #include <QString>
 
-ReplicodeSettings::ReplicodeSettings(QObject *parent) :
-    QObject(parent)
+ReplicodeSettings::ReplicodeSettings(QObject *parent)
+    : QObject(parent)
 {
     load();
 }
@@ -183,7 +183,7 @@ void ReplicodeSettings::setDefaults()
     primaryTimeHorizon = 3600000;
     secondaryTimeHorizon = 7200000;
 
-    //Debug
+    // Debug
     debug = true;
     debugWindows = 1;
     traceLevels = 0xCC;
@@ -209,4 +209,3 @@ void ReplicodeSettings::setDefaults()
     modelsPath = QString();
     testModels = false;
 }
-

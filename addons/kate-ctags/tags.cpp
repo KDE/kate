@@ -20,148 +20,145 @@ namespace ctags
 
 QString Tags::_tagsfile;
 
-Tags::TagEntry::TagEntry() {}
-
-Tags::TagEntry::TagEntry( const QString & tag, const QString & type, const QString & file, const QString & pattern )
-	: tag(tag), type(type), file(file), pattern(pattern)
-{}
-
-
-bool Tags::hasTag( const QString & tag )
+Tags::TagEntry::TagEntry()
 {
-	ctags::tagFileInfo info;
-	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit().constData(), &info );
-	ctags::tagEntry entry;
-
-	bool found = ( ctags::tagsFind( file, &entry, tag.toLocal8Bit().constData(), TAG_FULLMATCH | TAG_OBSERVECASE ) == ctags::TagSuccess );
-
-	ctags::tagsClose( file );
-
-	return found;
 }
 
-bool Tags::hasTag( const QString & fileName, const QString & tag )
+Tags::TagEntry::TagEntry(const QString &tag, const QString &type, const QString &file, const QString &pattern)
+    : tag(tag)
+    , type(type)
+    , file(file)
+    , pattern(pattern)
 {
-	setTagsFile( fileName );
-	ctags::tagFileInfo info;
-	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit().constData(), &info );
-	ctags::tagEntry entry;
-
-	bool found = ( ctags::tagsFind( file, &entry, tag.toLocal8Bit().constData(), TAG_FULLMATCH | TAG_OBSERVECASE ) == ctags::TagSuccess );
-
-	ctags::tagsClose( file );
-
-	return found;
 }
 
-unsigned int Tags::numberOfMatches( const QString & tagpart, bool partial )
+bool Tags::hasTag(const QString &tag)
 {
-	unsigned int n = 0;
+    ctags::tagFileInfo info;
+    ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
+    ctags::tagEntry entry;
 
-	if ( tagpart.isEmpty() ) return 0;
+    bool found = (ctags::tagsFind(file, &entry, tag.toLocal8Bit().constData(), TAG_FULLMATCH | TAG_OBSERVECASE) == ctags::TagSuccess);
 
-	ctags::tagFileInfo info;
-	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit().constData(), &info );
-	ctags::tagEntry entry;
+    ctags::tagsClose(file);
 
-	QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
-	if ( ctags::tagsFind( file, &entry, tagpartBArray.data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH) ) == ctags::TagSuccess )
-	{
-		do
-		{
-			n++;
-		}
-		while ( ctags::tagsFindNext( file, &entry ) == ctags::TagSuccess );
-	}
-
-	ctags::tagsClose( file );
-
-	return n;
+    return found;
 }
 
-Tags::TagList Tags::getMatches( const QString & tagpart, bool partial, const QStringList & types )
+bool Tags::hasTag(const QString &fileName, const QString &tag)
 {
-	Tags::TagList list;
+    setTagsFile(fileName);
+    ctags::tagFileInfo info;
+    ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
+    ctags::tagEntry entry;
 
-	if ( tagpart.isEmpty() ) return list;
+    bool found = (ctags::tagsFind(file, &entry, tag.toLocal8Bit().constData(), TAG_FULLMATCH | TAG_OBSERVECASE) == ctags::TagSuccess);
 
-	ctags::tagFileInfo info;
-	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit().constData(), &info );
-	ctags::tagEntry entry;
+    ctags::tagsClose(file);
 
-	QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
-	if ( ctags::tagsFind( file, &entry, tagpartBArray.data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH) ) == ctags::TagSuccess )
-	{
-		do
-		{
-			QString type( CTagsKinds::findKind( entry.kind, QString::fromLocal8Bit(entry.file).section( QLatin1Char('.') , -1 ) ) );
-			QString file = QString::fromLocal8Bit( entry.file );
-
-			if ( type.isEmpty() && file.endsWith( QLatin1String("Makefile") ) )
-			{
-				type = QStringLiteral("macro");
-			}
-			if ( types.isEmpty() || types.contains( QString::fromLocal8Bit(entry.kind) ) )
-			{
-				list << TagEntry( QString::fromLocal8Bit( entry.name ), type, file, QString::fromLocal8Bit( entry.address.pattern ) );
-			}
-		}
-		while ( ctags::tagsFindNext( file, &entry ) == ctags::TagSuccess );
-	}
-
-	ctags::tagsClose( file );
-
-	return list;
+    return found;
 }
 
-void Tags::setTagsFile( const QString & file )
+unsigned int Tags::numberOfMatches(const QString &tagpart, bool partial)
 {
-	_tagsfile = file;
+    unsigned int n = 0;
+
+    if (tagpart.isEmpty())
+        return 0;
+
+    ctags::tagFileInfo info;
+    ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
+    ctags::tagEntry entry;
+
+    QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
+    if (ctags::tagsFind(file, &entry, tagpartBArray.data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH)) == ctags::TagSuccess) {
+        do {
+            n++;
+        } while (ctags::tagsFindNext(file, &entry) == ctags::TagSuccess);
+    }
+
+    ctags::tagsClose(file);
+
+    return n;
 }
 
-QString Tags::getTagsFile( )
+Tags::TagList Tags::getMatches(const QString &tagpart, bool partial, const QStringList &types)
 {
-	return _tagsfile;
+    Tags::TagList list;
+
+    if (tagpart.isEmpty())
+        return list;
+
+    ctags::tagFileInfo info;
+    ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
+    ctags::tagEntry entry;
+
+    QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
+    if (ctags::tagsFind(file, &entry, tagpartBArray.data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH)) == ctags::TagSuccess) {
+        do {
+            QString type(CTagsKinds::findKind(entry.kind, QString::fromLocal8Bit(entry.file).section(QLatin1Char('.'), -1)));
+            QString file = QString::fromLocal8Bit(entry.file);
+
+            if (type.isEmpty() && file.endsWith(QLatin1String("Makefile"))) {
+                type = QStringLiteral("macro");
+            }
+            if (types.isEmpty() || types.contains(QString::fromLocal8Bit(entry.kind))) {
+                list << TagEntry(QString::fromLocal8Bit(entry.name), type, file, QString::fromLocal8Bit(entry.address.pattern));
+            }
+        } while (ctags::tagsFindNext(file, &entry) == ctags::TagSuccess);
+    }
+
+    ctags::tagsClose(file);
+
+    return list;
 }
 
-unsigned int Tags::numberOfPartialMatches( const QString & tagpart )
+void Tags::setTagsFile(const QString &file)
 {
-	return numberOfMatches( tagpart, true );
+    _tagsfile = file;
 }
 
-unsigned int Tags::numberOfExactMatches( const QString & tagpart )
+QString Tags::getTagsFile()
 {
-	return numberOfMatches( tagpart, false );
+    return _tagsfile;
 }
 
-Tags::TagList Tags::getPartialMatches( const QString & tagpart )
+unsigned int Tags::numberOfPartialMatches(const QString &tagpart)
 {
-	return getMatches( tagpart, true );
+    return numberOfMatches(tagpart, true);
 }
 
-Tags::TagList Tags::getExactMatches( const QString & tag )
+unsigned int Tags::numberOfExactMatches(const QString &tagpart)
 {
-	return getMatches( tag, false );
+    return numberOfMatches(tagpart, false);
 }
 
-Tags::TagList Tags::getPartialMatches( const QString & file, const QString & tagpart )
+Tags::TagList Tags::getPartialMatches(const QString &tagpart)
 {
-	setTagsFile( file );
-	return getMatches( tagpart, true );
+    return getMatches(tagpart, true);
 }
 
-Tags::TagList Tags::getExactMatches( const QString & file, const QString & tag )
+Tags::TagList Tags::getExactMatches(const QString &tag)
 {
-	setTagsFile( file );
-	return getMatches( tag, false );
+    return getMatches(tag, false);
 }
 
-Tags::TagList Tags::getMatches( const QString & file, const QString & tagpart,  bool partial, const QStringList & types )
+Tags::TagList Tags::getPartialMatches(const QString &file, const QString &tagpart)
 {
-	setTagsFile( file );
-	return getMatches( tagpart, partial, types);
+    setTagsFile(file);
+    return getMatches(tagpart, true);
 }
 
-	// kate: space-indent off; indent-width 4; tab-width 4; show-tabs on;
+Tags::TagList Tags::getExactMatches(const QString &file, const QString &tag)
+{
+    setTagsFile(file);
+    return getMatches(tag, false);
+}
 
+Tags::TagList Tags::getMatches(const QString &file, const QString &tagpart, bool partial, const QStringList &types)
+{
+    setTagsFile(file);
+    return getMatches(tagpart, partial, types);
+}
 
+// kate: space-indent off; indent-width 4; tab-width 4; show-tabs on;

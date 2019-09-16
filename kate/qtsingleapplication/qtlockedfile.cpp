@@ -25,8 +25,8 @@
 
 #include "qtlockedfile.h"
 
-namespace SharedTools {
-
+namespace SharedTools
+{
 /*!
     \class QtLockedFile
 

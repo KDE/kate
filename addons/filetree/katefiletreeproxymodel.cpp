@@ -52,20 +52,20 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
     collate.setNumericMode(true);
 
     switch (sortRole()) {
-    case Qt::DisplayRole: {
-        const QString left_name = model->data(left).toString();
-        const QString right_name = model->data(right).toString();
-        return collate.compare(left_name, right_name) < 0;
-    }
+        case Qt::DisplayRole: {
+            const QString left_name = model->data(left).toString();
+            const QString right_name = model->data(right).toString();
+            return collate.compare(left_name, right_name) < 0;
+        }
 
-    case KateFileTreeModel::PathRole: {
-        const QString left_name = model->data(left, KateFileTreeModel::PathRole).toString();
-        const QString right_name = model->data(right, KateFileTreeModel::PathRole).toString();
-        return collate.compare(left_name, right_name) < 0;
-    }
+        case KateFileTreeModel::PathRole: {
+            const QString left_name = model->data(left, KateFileTreeModel::PathRole).toString();
+            const QString right_name = model->data(right, KateFileTreeModel::PathRole).toString();
+            return collate.compare(left_name, right_name) < 0;
+        }
 
-    case KateFileTreeModel::OpeningOrderRole:
-        return (left.row() - right.row()) < 0;
+        case KateFileTreeModel::OpeningOrderRole:
+            return (left.row() - right.row()) < 0;
     }
 
     return false;
@@ -80,4 +80,3 @@ bool KateFileTreeProxyModel::isDir(const QModelIndex &index) const
 {
     return static_cast<KateFileTreeModel *>(sourceModel())->isDir(mapToSource(index));
 }
-

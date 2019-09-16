@@ -32,15 +32,12 @@
 
 using namespace KTextEditorPreview;
 
-KTextEditorPreviewView::KTextEditorPreviewView(KTextEditorPreviewPlugin* plugin, KTextEditor::MainWindow* mainWindow)
+KTextEditorPreviewView::KTextEditorPreviewView(KTextEditorPreviewPlugin *plugin, KTextEditor::MainWindow *mainWindow)
     : QObject(mainWindow)
 {
     Q_UNUSED(plugin);
 
-    m_toolView = mainWindow->createToolView(plugin, QStringLiteral("ktexteditorpreviewplugin"),
-                     KTextEditor::MainWindow::Right,
-                     QIcon::fromTheme(QStringLiteral("document-preview")),
-                     i18n("Preview"));
+    m_toolView = mainWindow->createToolView(plugin, QStringLiteral("ktexteditorpreviewplugin"), KTextEditor::MainWindow::Right, QIcon::fromTheme(QStringLiteral("document-preview")), i18n("Preview"));
 
     // add preview widget
     m_previewView = new PreviewWidget(plugin, mainWindow, m_toolView.data());
@@ -54,12 +51,12 @@ KTextEditorPreviewView::~KTextEditorPreviewView()
     delete m_toolView;
 }
 
-void KTextEditorPreviewView::readSessionConfig(const KConfigGroup& config)
+void KTextEditorPreviewView::readSessionConfig(const KConfigGroup &config)
 {
     m_previewView->readSessionConfig(config);
 }
 
-void KTextEditorPreviewView::writeSessionConfig(KConfigGroup& config)
+void KTextEditorPreviewView::writeSessionConfig(KConfigGroup &config)
 {
     m_previewView->writeSessionConfig(config);
 }

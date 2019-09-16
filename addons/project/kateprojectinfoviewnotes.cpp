@@ -43,4 +43,3 @@ KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProjectPluginView *plugin
 KateProjectInfoViewNotes::~KateProjectInfoViewNotes()
 {
 }
-

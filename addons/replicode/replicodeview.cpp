@@ -19,7 +19,6 @@
 
 #include "replicodeview.h"
 
-
 #include <QtGlobal>
 #include <QProcess>
 #include <QTemporaryFile>
@@ -48,10 +47,10 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
-ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow* mainWindow) :
-    QObject(mainWindow),
-    m_mainWindow(mainWindow),
-    m_executor(nullptr)
+ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow)
+    : QObject(mainWindow)
+    , m_mainWindow(mainWindow)
+    , m_executor(nullptr)
 {
     m_runAction = new QAction(QIcon(QStringLiteral("code-block")), i18n("Run replicode"), this);
     connect(m_runAction, &QAction::triggered, this, &ReplicodeView::runReplicode);
@@ -62,30 +61,20 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     actionCollection()->addAction(QStringLiteral("katereplicode_stop"), m_stopAction);
     m_stopAction->setEnabled(false);
 
-    m_toolview = m_mainWindow->createToolView(
-            plugin,
-            QStringLiteral("kate_private_plugin_katereplicodeplugin_run"),
-            KTextEditor::MainWindow::Bottom,
-            SmallIcon(QStringLiteral("code-block")),
-            i18n("Replicode Output"));
+    m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katereplicodeplugin_run"), KTextEditor::MainWindow::Bottom, SmallIcon(QStringLiteral("code-block")), i18n("Replicode Output"));
     m_replicodeOutput = new QListWidget(m_toolview);
     m_replicodeOutput->setSelectionMode(QAbstractItemView::ContiguousSelection);
     connect(m_replicodeOutput, &QListWidget::itemActivated, this, &ReplicodeView::outputClicked);
     m_mainWindow->hideToolView(m_toolview);
 
-    m_configSidebar = m_mainWindow->createToolView(
-            plugin,
-            QStringLiteral("kate_private_plugin_katereplicodeplugin_config")
-            , KTextEditor::MainWindow::Right,
-            SmallIcon(QStringLiteral("code-block")),
-            i18n("Replicode Config"));
+    m_configSidebar = m_mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katereplicodeplugin_config"), KTextEditor::MainWindow::Right, SmallIcon(QStringLiteral("code-block")), i18n("Replicode Config"));
     m_configView = new ReplicodeConfig(m_configSidebar);
 
     m_runButton = new QPushButton(i18nc("shortcut for action", "Run (%1)", m_runAction->shortcut().toString()));
     m_stopButton = new QPushButton(i18nc("shortcut for action", "Stop (%1)", m_stopAction->shortcut().toString()));
     m_stopButton->setEnabled(false);
 
-    QFormLayout *l = qobject_cast<QFormLayout*>(m_configView->widget(0)->layout());
+    QFormLayout *l = qobject_cast<QFormLayout *>(m_configView->widget(0)->layout());
     Q_ASSERT(l);
     l->addRow(m_runButton, m_stopButton);
     connect(m_runButton, &QPushButton::clicked, m_runAction, &QAction::trigger);
@@ -116,25 +105,19 @@ void ReplicodeView::runReplicode()
     m_mainWindow->showToolView(m_toolview);
     KTextEditor::View *editor = m_mainWindow->activeView();
     if (!editor || !editor->document()) {
-        QMessageBox::warning(m_mainWindow->window(),
-                             i18nc("@title:window", "Active Document Not Found"),
-                             i18n("Could not find an active document to run."));
+        QMessageBox::warning(m_mainWindow->window(), i18nc("@title:window", "Active Document Not Found"), i18n("Could not find an active document to run."));
         return;
     }
 
     if (editor->document()->isEmpty()) {
-        QMessageBox::warning(m_mainWindow->window(),
-                             i18nc("@title:window", "Empty Document"),
-                             i18n("Cannot execute an empty document."));
+        QMessageBox::warning(m_mainWindow->window(), i18nc("@title:window", "Empty Document"), i18n("Cannot execute an empty document."));
         return;
     }
 
     QFileInfo sourceFile = QFileInfo(editor->document()->url().toLocalFile());
 
     if (!sourceFile.isReadable()) {
-        QMessageBox::warning(m_mainWindow->window(),
-                             i18nc("@title:window", "File Not Found"),
-                             i18n("Unable to open source file for reading."));
+        QMessageBox::warning(m_mainWindow->window(), i18nc("@title:window", "File Not Found"), i18n("Unable to open source file for reading."));
         return;
     }
 
@@ -161,7 +144,8 @@ void ReplicodeView::runReplicode()
 
     m_replicodeOutput->clear();
 
-    if (m_executor) delete m_executor;
+    if (m_executor)
+        delete m_executor;
     m_executor = new QProcess(this);
     m_executor->setWorkingDirectory(sourceFile.canonicalPath());
     connect(m_executor, &QProcess::readyReadStandardError, this, &ReplicodeView::gotStderr);
@@ -190,15 +174,18 @@ void ReplicodeView::outputClicked(QListWidgetItem *item)
     QString output = item->text();
     QStringList pieces = output.split(QLatin1Char(':'));
 
-    if (pieces.length() < 2) return;
+    if (pieces.length() < 2)
+        return;
 
     QFileInfo file(pieces[0]);
-    if (!file.isReadable()) return;
+    if (!file.isReadable())
+        return;
 
     bool ok = false;
     int lineNumber = pieces[1].toInt(&ok);
     qDebug() << lineNumber;
-    if (!ok) return;
+    if (!ok)
+        return;
 
     KTextEditor::View *doc = m_mainWindow->openUrl(QUrl::fromLocalFile(pieces[0]));
     doc->setCursorPosition(KTextEditor::Cursor(lineNumber, 0));
@@ -228,18 +215,19 @@ void ReplicodeView::replicodeFinished()
     m_runButton->setEnabled(true);
     m_stopAction->setEnabled(false);
     m_stopButton->setEnabled(false);
-//    delete m_executor;
-//    delete m_settingsFile;
-//    m_executor = 0;
-//    m_settingsFile = 0;
+    //    delete m_executor;
+    //    delete m_settingsFile;
+    //    m_executor = 0;
+    //    m_settingsFile = 0;
 }
 
 void ReplicodeView::gotStderr()
 {
     QByteArray output = m_executor->readAllStandardError();
-    foreach(QByteArray line, output.split('\n')) {
+    foreach (QByteArray line, output.split('\n')) {
         line = line.simplified();
-        if (line.isEmpty()) continue;
+        if (line.isEmpty())
+            continue;
         QListWidgetItem *item = new QListWidgetItem(QString::fromLocal8Bit(line));
         item->setForeground(Qt::red);
         m_replicodeOutput->addItem(item);
@@ -250,13 +238,14 @@ void ReplicodeView::gotStderr()
 void ReplicodeView::gotStdout()
 {
     QByteArray output = m_executor->readAllStandardOutput();
-    foreach(QByteArray line, output.split('\n')) {
+    foreach (QByteArray line, output.split('\n')) {
         line = line.simplified();
-        if (line.isEmpty()) continue;
+        if (line.isEmpty())
+            continue;
         QListWidgetItem *item = new QListWidgetItem(QString::fromLocal8Bit(' ' + line));
-        if (line[0] == '>') item->setForeground(Qt::gray);
+        if (line[0] == '>')
+            item->setForeground(Qt::gray);
         m_replicodeOutput->addItem(item);
     }
     m_replicodeOutput->scrollToBottom();
 }
-

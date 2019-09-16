@@ -92,11 +92,8 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     /**
      * then use i18n and co
      */
-    KAboutData aboutData(QStringLiteral("kwrite"),
-                         i18n("KWrite"),
-                         QStringLiteral(KWRITE_VERSION),
-                         i18n("KWrite - Text Editor"), KAboutLicense::LGPL_V2,
-                         i18n("(c) 2000-2019 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
+    KAboutData aboutData(
+        QStringLiteral("kwrite"), i18n("KWrite"), QStringLiteral(KWRITE_VERSION), i18n("KWrite - Text Editor"), KAboutLicense::LGPL_V2, i18n("(c) 2000-2019 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
 
     /**
      * right dbus prefix == org.kde.
@@ -251,7 +248,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
             }
         } else {
             int docs_opened = 0;
-            Q_FOREACH(const QString positionalArgument, parser.positionalArguments()) {
+            Q_FOREACH (const QString positionalArgument, parser.positionalArguments()) {
                 UrlInfo info(positionalArgument);
                 if (nav) {
                     info.cursor = KTextEditor::Cursor(line, column);
@@ -272,8 +269,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 
                     if (info.cursor.isValid()) {
                         t->activeView()->setCursorPosition(info.cursor);
-                    }
-                    else if (info.url.hasQuery()) {
+                    } else if (info.url.hasQuery()) {
                         QUrlQuery q(info.url);
                         QString lineStr = q.queryItemValue(QStringLiteral("line"));
                         QString columnStr = q.queryItemValue(QStringLiteral("column"));
@@ -293,7 +289,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                 }
             }
             if (!docs_opened) {
-                ::exit(1);    // see http://bugs.kde.org/show_bug.cgi?id=124708
+                ::exit(1); // see http://bugs.kde.org/show_bug.cgi?id=124708
             }
         }
     }

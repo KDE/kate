@@ -27,31 +27,30 @@
 #include <qgroupbox.h>
 #include <qcheckbox.h>
 
-KateSQLConfigPage::KateSQLConfigPage( QWidget* parent )
-: KTextEditor::ConfigPage( parent )
+KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
+    : KTextEditor::ConfigPage(parent)
 {
-  QVBoxLayout *layout = new QVBoxLayout( this );
+    QVBoxLayout *layout = new QVBoxLayout(this);
 
-  m_box = new QCheckBox(i18nc("@option:check", "Save and restore connections in Kate session"), this);
+    m_box = new QCheckBox(i18nc("@option:check", "Save and restore connections in Kate session"), this);
 
-  QGroupBox *stylesGroupBox = new QGroupBox(i18nc("@title:group", "Output Customization"), this);
-  QVBoxLayout *stylesLayout = new QVBoxLayout(stylesGroupBox);
+    QGroupBox *stylesGroupBox = new QGroupBox(i18nc("@title:group", "Output Customization"), this);
+    QVBoxLayout *stylesLayout = new QVBoxLayout(stylesGroupBox);
 
-  m_outputStyleWidget = new OutputStyleWidget(this);
+    m_outputStyleWidget = new OutputStyleWidget(this);
 
-  stylesLayout->addWidget(m_outputStyleWidget);
+    stylesLayout->addWidget(m_outputStyleWidget);
 
-  layout->addWidget(m_box);
-  layout->addWidget(stylesGroupBox, 1);
+    layout->addWidget(m_box);
+    layout->addWidget(stylesGroupBox, 1);
 
-  setLayout(layout);
+    setLayout(layout);
 
-  reset();
+    reset();
 
-  connect(m_box, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
-  connect(m_outputStyleWidget, &OutputStyleWidget::changed, this, &KateSQLConfigPage::changed);
+    connect(m_box, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
+    connect(m_outputStyleWidget, &OutputStyleWidget::changed, this, &KateSQLConfigPage::changed);
 }
-
 
 KateSQLConfigPage::~KateSQLConfigPage()
 {
@@ -69,37 +68,35 @@ QString KateSQLConfigPage::fullName() const
 
 QIcon KateSQLConfigPage::icon() const
 {
-    return QIcon::fromTheme(QLatin1String ("server-database"));
+    return QIcon::fromTheme(QLatin1String("server-database"));
 }
 
 void KateSQLConfigPage::apply()
 {
-  KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
+    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
 
-  config.writeEntry("SaveConnections", m_box->isChecked());
+    config.writeEntry("SaveConnections", m_box->isChecked());
 
-  m_outputStyleWidget->writeConfig();
+    m_outputStyleWidget->writeConfig();
 
-  config.sync();
+    config.sync();
 
-  emit settingsChanged();
+    emit settingsChanged();
 }
-
 
 void KateSQLConfigPage::reset()
 {
-  KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
+    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
 
-  m_box->setChecked(config.readEntry("SaveConnections", true));
+    m_box->setChecked(config.readEntry("SaveConnections", true));
 
-  m_outputStyleWidget->readConfig();
+    m_outputStyleWidget->readConfig();
 }
-
 
 void KateSQLConfigPage::defaults()
 {
-  KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
+    KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
 
-  config.revertToDefault("SaveConnections");
-  config.revertToDefault("OutputCustomization");
+    config.revertToDefault("SaveConnections");
+    config.revertToDefault("OutputCustomization");
 }

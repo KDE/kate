@@ -18,7 +18,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-//BEGIN Includes
+// BEGIN Includes
 #include "kateviewmanager.h"
 
 #include "config.h"
@@ -47,7 +47,7 @@
 #include <QFileDialog>
 #include <QStyle>
 
-//END Includes
+// END Includes
 
 static const qint64 FileSizeAboveToAskUserIfProceedWithOpen = 10 * 1024 * 1024; // 10MB should suffice
 
@@ -81,24 +81,21 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     /**
      * before document is really deleted: cleanup all views!
      */
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentWillBeDeleted
-        , this, &KateViewManager::documentWillBeDeleted);
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentWillBeDeleted, this, &KateViewManager::documentWillBeDeleted);
 
     /**
      * handle document deletion transactions
      * disable view creation in between
      * afterwards ensure we have views ;)
      */
-    connect(KateApp::self()->documentManager(), &KateDocManager::aboutToDeleteDocuments
-        , this, &KateViewManager::aboutToDeleteDocuments);
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted
-        , this, &KateViewManager::documentsDeleted);
+    connect(KateApp::self()->documentManager(), &KateDocManager::aboutToDeleteDocuments, this, &KateViewManager::aboutToDeleteDocuments);
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewManager::documentsDeleted);
 
     // register all already existing documents
     m_blockViewCreationAndActivation = true;
 
     const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
-    foreach(KTextEditor::Document * doc, docs) {
+    foreach (KTextEditor::Document *doc, docs) {
         documentCreated(doc);
     }
 
@@ -183,7 +180,7 @@ void KateViewManager::setupActions()
 
     goPrev->setWhatsThis(i18n("Make the previous split view the active one."));
 
-    QAction * a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_right"));
+    QAction *a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_right"));
     a->setText(i18n("Move Splitter Right"));
     connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterRight);
 
@@ -225,7 +222,7 @@ void KateViewManager::slotDocumentNew()
 void KateViewManager::slotDocumentOpen()
 {
     // try to start dialog in useful dir: either dir of current doc or last used one
-    KTextEditor::View * const cv = activeView();
+    KTextEditor::View *const cv = activeView();
     QUrl startUrl = cv ? cv->document()->url() : QUrl();
     if (startUrl.isValid()) {
         m_lastOpenDialogUrl = startUrl;
@@ -238,7 +235,7 @@ void KateViewManager::slotDocumentOpen()
      * emit size warning, for local files
      */
     QString fileListWithTooLargeFiles;
-    Q_FOREACH(const QUrl & url, urls) {
+    Q_FOREACH (const QUrl &url, urls) {
         if (!url.isLocalFile()) {
             continue;
         }
@@ -249,8 +246,8 @@ void KateViewManager::slotDocumentOpen()
         }
     }
     if (!fileListWithTooLargeFiles.isEmpty()) {
-        const QString text = i18n("<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>"
-                                 , fileListWithTooLargeFiles);
+        const QString text = i18n("<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>",
+                                  fileListWithTooLargeFiles);
         const auto ret = KMessageBox::warningYesNo(this, text, i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop());
         if (ret == KMessageBox::No) {
             return;
@@ -283,14 +280,9 @@ void KateViewManager::slotDocumentClose()
     }
 
     slotDocumentClose(activeView()->document());
-
 }
 
-KTextEditor::Document *KateViewManager::openUrl(const QUrl &url,
-        const QString &encoding,
-        bool activate,
-        bool isTempFile,
-        const KateDocumentInfo &docInfo)
+KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool isTempFile, const KateDocumentInfo &docInfo)
 {
     KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding, isTempFile, docInfo);
 
@@ -305,14 +297,11 @@ KTextEditor::Document *KateViewManager::openUrl(const QUrl &url,
     return doc;
 }
 
-KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls,
-        const QString &encoding,
-        bool isTempFile,
-        const KateDocumentInfo &docInfo)
+KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
 {
     QList<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, isTempFile, docInfo);
 
-    foreach(const KTextEditor::Document * doc, docs) {
+    foreach (const KTextEditor::Document *doc, docs) {
         if (!doc->url().isEmpty()) {
             m_mainWindow->fileOpenRecent()->addUrl(doc->url());
         }
@@ -367,7 +356,7 @@ void KateViewManager::documentCreated(KTextEditor::Document *doc)
     /**
      * check if we have any empty viewspaces and give them a view
      */
-    Q_FOREACH(KateViewSpace * vs, m_viewSpaceList) {
+    Q_FOREACH (KateViewSpace *vs, m_viewSpaceList) {
         if (!vs->currentView()) {
             createView(activeView()->document(), vs);
         }
@@ -380,7 +369,7 @@ void KateViewManager::aboutToDeleteDocuments(const QList<KTextEditor::Document *
      * block view creation until the transaction is done
      * this shall not stack!
      */
-    Q_ASSERT (!m_blockViewCreationAndActivation);
+    Q_ASSERT(!m_blockViewCreationAndActivation);
     m_blockViewCreationAndActivation = true;
 
     /**
@@ -410,7 +399,7 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
         /**
          * check if we have any empty viewspaces and give them a view
          */
-        Q_FOREACH(KateViewSpace * vs, m_viewSpaceList) {
+        Q_FOREACH (KateViewSpace *vs, m_viewSpaceList) {
             if (!vs->currentView()) {
                 createView(newActiveView->document(), vs);
             }
@@ -465,7 +454,7 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     delete view->actionCollection()->action(QStringLiteral("set_confdlg"));
     delete view->actionCollection()->action(QStringLiteral("editor_options"));
 
-    connect(view, SIGNAL(dropEventPass(QDropEvent*)), mainWindow(), SLOT(slotDropEvent(QDropEvent*)));
+    connect(view, SIGNAL(dropEventPass(QDropEvent *)), mainWindow(), SLOT(slotDropEvent(QDropEvent *)));
     connect(view, &KTextEditor::View::focusIn, this, &KateViewManager::activateSpace);
 
     viewCreated(view);
@@ -503,8 +492,7 @@ bool KateViewManager::deleteView(KTextEditor::View *view)
 
 KateViewSpace *KateViewManager::activeViewSpace()
 {
-    for (QList<KateViewSpace *>::const_iterator it = m_viewSpaceList.constBegin();
-            it != m_viewSpaceList.constEnd(); ++it) {
+    for (QList<KateViewSpace *>::const_iterator it = m_viewSpaceList.constBegin(); it != m_viewSpaceList.constEnd(); ++it) {
         if ((*it)->isActiveSpace()) {
             return *it;
         }
@@ -611,10 +599,10 @@ void KateViewManager::activateView(KTextEditor::View *view)
         return;
     }
 
-    Q_ASSERT (m_views.contains(view));
+    Q_ASSERT(m_views.contains(view));
     if (!m_views[view].active) {
         // avoid flicker
-        KateUpdateDisabler disableUpdates (mainWindow());
+        KateUpdateDisabler disableUpdates(mainWindow());
 
         if (!activeViewSpace()->showView(view)) {
             // since it wasn't found, give'em a new one
@@ -626,14 +614,13 @@ void KateViewManager::activateView(KTextEditor::View *view)
 
         bool toolbarVisible = mainWindow()->toolBar()->isVisible();
         if (toolbarVisible) {
-            mainWindow()->toolBar()->hide();    // hide to avoid toolbar flickering
+            mainWindow()->toolBar()->hide(); // hide to avoid toolbar flickering
         }
 
         if (m_guiMergedView) {
             mainWindow()->guiFactory()->removeClient(m_guiMergedView);
             m_guiMergedView = nullptr;
         }
-
 
         if (!m_blockViewCreationAndActivation) {
             mainWindow()->guiFactory()->addClient(view);
@@ -744,7 +731,7 @@ void KateViewManager::closeView(KTextEditor::View *view)
         /**
          * check if we have any empty viewspaces and give them a view
          */
-        Q_FOREACH(KateViewSpace * vs, m_viewSpaceList) {
+        Q_FOREACH (KateViewSpace *vs, m_viewSpaceList) {
             if (!vs->currentView()) {
                 createView(newActiveView->document(), vs);
             }
@@ -754,7 +741,7 @@ void KateViewManager::closeView(KTextEditor::View *view)
     }
 }
 
-void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
+void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
                                      Qt::Orientation o) // = Qt::Horizontal
 {
     // emergency: fallback to activeViewSpace, and if still invalid, abort
@@ -772,7 +759,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs,  // = 0
     }
 
     // avoid flicker
-    KateUpdateDisabler disableUpdates (mainWindow());
+    KateUpdateDisabler disableUpdates(mainWindow());
 
     // index where to insert new splitter/viewspace
     const int index = currentSplitter->indexOf(vs);
@@ -850,7 +837,7 @@ void KateViewManager::toggleSplitterOrientation()
     }
 
     // avoid flicker
-    KateUpdateDisabler disableUpdates (mainWindow());
+    KateUpdateDisabler disableUpdates(mainWindow());
 
     // toggle orientation
     if (currentSplitter->orientation() == Qt::Horizontal) {
@@ -860,8 +847,7 @@ void KateViewManager::toggleSplitterOrientation()
     }
 }
 
-bool KateViewManager::viewsInSameViewSpace(KTextEditor::View *view1,
-                                           KTextEditor::View *view2)
+bool KateViewManager::viewsInSameViewSpace(KTextEditor::View *view1, KTextEditor::View *view2)
 {
     if (!view1 || !view2) {
         return false;
@@ -902,10 +888,10 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     //
 
     // backup LRU list
-    const QVector<KTextEditor::Document*> lruDocumntsList = viewspace->lruDocumentList();
+    const QVector<KTextEditor::Document *> lruDocumntsList = viewspace->lruDocumentList();
 
     // avoid flicker
-    KateUpdateDisabler disableUpdates (mainWindow());
+    KateUpdateDisabler disableUpdates(mainWindow());
 
     // delete views of the viewspace
     while (viewspace->currentView()) {
@@ -968,7 +954,7 @@ void KateViewManager::slotCloseOtherViews()
     KateUpdateDisabler disableUpdates(mainWindow());
 
     const KateViewSpace *active = activeViewSpace();
-    foreach(KateViewSpace  * v, m_viewSpaceList) {
+    foreach (KateViewSpace *v, m_viewSpaceList) {
         if (active != v) {
             removeViewSpace(v);
         }
@@ -981,7 +967,7 @@ void KateViewManager::slotHideOtherViews(bool hideOthers)
     KateUpdateDisabler disableUpdates(mainWindow());
 
     const KateViewSpace *active = activeViewSpace();
-    foreach(KateViewSpace * v, m_viewSpaceList) {
+    foreach (KateViewSpace *v, m_viewSpaceList) {
         if (active != v) {
             v->setVisible(!hideOthers);
         }
@@ -1133,15 +1119,14 @@ QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBas
     return grp;
 }
 
-void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QString &group,
-                                      QSplitter *parent, const QString &viewConfGrp)
+void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QString &group, QSplitter *parent, const QString &viewConfGrp)
 {
     KConfigGroup config(configBase, group);
 
     parent->setOrientation((Qt::Orientation)config.readEntry("Orientation", int(Qt::Horizontal)));
 
     const QStringList children = config.readEntry("Children", QStringList());
-    for (const auto& str : children) {
+    for (const auto &str : children) {
         // for a viewspace, create it and open all documents therein.
         if (str.startsWith(viewConfGrp + QStringLiteral("-ViewSpace"))) {
             KateViewSpace *vs = new KateViewSpace(this, nullptr);
@@ -1202,14 +1187,11 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
 
     // find correct splitter to be moved
     while (currentSplitter && currentSplitter->count() != 1) {
-
-        if (currentSplitter->orientation() == Qt::Horizontal
-                && (key == Qt::Key_Right || key == Qt::Key_Left)) {
+        if (currentSplitter->orientation() == Qt::Horizontal && (key == Qt::Key_Right || key == Qt::Key_Left)) {
             foundSplitter = true;
         }
 
-        if (currentSplitter->orientation() == Qt::Vertical
-                && (key == Qt::Key_Up || key == Qt::Key_Down)) {
+        if (currentSplitter->orientation() == Qt::Vertical && (key == Qt::Key_Up || key == Qt::Key_Down)) {
             foundSplitter = true;
         }
 
@@ -1218,13 +1200,11 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
             QList<int> currentSizes = currentSplitter->sizes();
             int index = currentSplitter->indexOf(currentWidget);
 
-            if ((index == 0 && (key == Qt::Key_Left || key == Qt::Key_Up))
-                    || (index == 1  && (key == Qt::Key_Right || key == Qt::Key_Down))) {
+            if ((index == 0 && (key == Qt::Key_Left || key == Qt::Key_Up)) || (index == 1 && (key == Qt::Key_Right || key == Qt::Key_Down))) {
                 currentSizes[index] -= move;
             }
 
-            if ((index == 0  && (key == Qt::Key_Right || key == Qt::Key_Down))
-                    || (index == 1 && (key == Qt::Key_Left || key == Qt::Key_Up))) {
+            if ((index == 0 && (key == Qt::Key_Right || key == Qt::Key_Down)) || (index == 1 && (key == Qt::Key_Left || key == Qt::Key_Up))) {
                 currentSizes[index] += move;
             }
 
@@ -1253,4 +1233,3 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         currentSplitter = qobject_cast<QSplitter *>(currentSplitter->parentWidget());
     }
 }
-

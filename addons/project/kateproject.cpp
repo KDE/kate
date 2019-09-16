@@ -106,7 +106,7 @@ QVariantMap KateProject::readProjectFile() const
     return project.toVariant().toMap();
 }
 
-bool KateProject::loadFromData(const QVariantMap& globalProject, const QString& directory)
+bool KateProject::loadFromData(const QVariantMap &globalProject, const QString &directory)
 {
     m_baseDir = directory;
     m_fileName = QDir(directory).filePath(QStringLiteral(".kateproject"));
@@ -148,8 +148,7 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
      */
     emit projectMapChanged();
 
-
-    KateProjectWorker * w = new KateProjectWorker(m_baseDir, m_projectMap);
+    KateProjectWorker *w = new KateProjectWorker(m_baseDir, m_projectMap);
     connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone);
     connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone);
     m_weaver->stream() << w;
@@ -157,7 +156,7 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
     return true;
 }
 
-void KateProject::loadProjectDone(const KateProjectSharedQStandardItem& topLevel, KateProjectSharedQMapStringItem file2Item)
+void KateProject::loadProjectDone(const KateProjectSharedQStandardItem &topLevel, KateProjectSharedQMapStringItem file2Item)
 {
     m_model.clear();
     m_model.invisibleRootItem()->appendColumn(topLevel->takeColumn(0));
@@ -293,8 +292,7 @@ void KateProject::slotModifiedChanged(KTextEditor::Document *document)
     item->slotModifiedChanged(document);
 }
 
-void KateProject::slotModifiedOnDisk(KTextEditor::Document *document,
-                                     bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
+void KateProject::slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
 {
     KateProjectItem *item = itemForFile(m_documents.value(document));
 
@@ -318,13 +316,19 @@ void KateProject::registerDocument(KTextEditor::Document *document)
     // if we got one, we are done, else create a dummy!
     if (item) {
         disconnect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
-        disconnect(document, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+        disconnect(document,
+                   SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+                   this,
+                   SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
         item->slotModifiedChanged(document);
 
         /*FIXME    item->slotModifiedOnDisk(document,document->isModified(),qobject_cast<KTextEditor::ModificationInterface*>(document)->modifiedOnDisk()); FIXME*/
 
         connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
-        connect(document, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+        connect(document,
+                SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+                this,
+                SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
         return;
     }
@@ -346,7 +350,10 @@ void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
     fileItem->setData(document->url().toLocalFile(), Qt::ToolTipRole);
     fileItem->slotModifiedChanged(document);
     connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
-    connect(document, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+    connect(document,
+            SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+            this,
+            SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
     bool inserted = false;
     for (int i = 0; i < m_untrackedDocumentsRoot->rowCount(); ++i) {
@@ -364,7 +371,7 @@ void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
     fileItem->setData(QVariant(true), Qt::UserRole + 3);
 
     if (!m_file2Item) {
-        m_file2Item = KateProjectSharedQMapStringItem(new QMap<QString, KateProjectItem *> ());
+        m_file2Item = KateProjectSharedQMapStringItem(new QMap<QString, KateProjectItem *>());
     }
     (*m_file2Item)[document->url().toLocalFile()] = fileItem;
 }

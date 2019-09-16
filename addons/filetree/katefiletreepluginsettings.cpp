@@ -111,4 +111,3 @@ void KateFileTreePluginSettings::setShowFullPathOnRoots(bool s)
 {
     m_showFullPathOnRoots = s;
 }
-

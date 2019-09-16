@@ -127,4 +127,3 @@ bool KateSession::compareByTimeDesc(const KateSession::Ptr &s1, const KateSessio
 {
     return s1->timestamp() > s2->timestamp();
 }
-

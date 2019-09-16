@@ -53,7 +53,6 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 
-
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/cursor.h>
 
@@ -67,225 +66,224 @@
 #include <QTimer>
 #include <QHeaderView>
 
-K_PLUGIN_FACTORY_WITH_JSON (KatePluginSymbolViewerFactory, "katesymbolviewerplugin.json", registerPlugin<KatePluginSymbolViewer>();)
+K_PLUGIN_FACTORY_WITH_JSON(KatePluginSymbolViewerFactory, "katesymbolviewerplugin.json", registerPlugin<KatePluginSymbolViewer>();)
 
 KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *plugin, KTextEditor::MainWindow *mw)
-:QObject(mw)
-,m_mainWindow(mw)
-,m_plugin(plugin)
+    : QObject(mw)
+    , m_mainWindow(mw)
+    , m_plugin(plugin)
 {
-  // FIXME KF5 KGlobal::locale()->insertCatalog("katesymbolviewerplugin");
+    // FIXME KF5 KGlobal::locale()->insertCatalog("katesymbolviewerplugin");
 
-  KXMLGUIClient::setComponentName (QStringLiteral("katesymbolviewer"), i18n ("SymbolViewer"));
-  setXMLFile(QStringLiteral("ui.rc"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katesymbolviewer"), i18n("SymbolViewer"));
+    setXMLFile(QStringLiteral("ui.rc"));
 
-  mw->guiFactory()->addClient (this);
-  m_symbols = nullptr;
+    mw->guiFactory()->addClient(this);
+    m_symbols = nullptr;
 
-  // FIXME Let the parser decide which options are available and how they are named
-  // because not all these options are supported by all parsers
-  m_popup = new QMenu(m_symbols);
-  m_treeOn = m_popup->addAction(i18n("Tree Mode"), this, &KatePluginSymbolViewerView::displayOptionChanged);
-  m_treeOn->setCheckable(true);
-  m_expandOn = m_popup->addAction(i18n("Expand Tree"), this, &KatePluginSymbolViewerView::displayOptionChanged);
-  m_expandOn->setCheckable(true);
-  m_sort = m_popup->addAction(i18n("Show Sorted"), this, &KatePluginSymbolViewerView::displayOptionChanged);
-  m_sort->setCheckable(true);
-  m_popup->addSeparator();
-  m_macro = m_popup->addAction(i18n("Show Macros"), this, &KatePluginSymbolViewerView::displayOptionChanged);
-  m_macro->setCheckable(true);
-  m_struct = m_popup->addAction(i18n("Show Structures"), this, &KatePluginSymbolViewerView::displayOptionChanged);
-  m_struct->setCheckable(true);
-  m_func = m_popup->addAction(i18n("Show Functions"), this, &KatePluginSymbolViewerView::displayOptionChanged);
-  m_func->setCheckable(true);
-  m_typesOn = m_popup->addAction(i18n("Show Parameters"), this, &KatePluginSymbolViewerView::displayOptionChanged);
-  m_typesOn->setCheckable(true);
+    // FIXME Let the parser decide which options are available and how they are named
+    // because not all these options are supported by all parsers
+    m_popup = new QMenu(m_symbols);
+    m_treeOn = m_popup->addAction(i18n("Tree Mode"), this, &KatePluginSymbolViewerView::displayOptionChanged);
+    m_treeOn->setCheckable(true);
+    m_expandOn = m_popup->addAction(i18n("Expand Tree"), this, &KatePluginSymbolViewerView::displayOptionChanged);
+    m_expandOn->setCheckable(true);
+    m_sort = m_popup->addAction(i18n("Show Sorted"), this, &KatePluginSymbolViewerView::displayOptionChanged);
+    m_sort->setCheckable(true);
+    m_popup->addSeparator();
+    m_macro = m_popup->addAction(i18n("Show Macros"), this, &KatePluginSymbolViewerView::displayOptionChanged);
+    m_macro->setCheckable(true);
+    m_struct = m_popup->addAction(i18n("Show Structures"), this, &KatePluginSymbolViewerView::displayOptionChanged);
+    m_struct->setCheckable(true);
+    m_func = m_popup->addAction(i18n("Show Functions"), this, &KatePluginSymbolViewerView::displayOptionChanged);
+    m_func->setCheckable(true);
+    m_typesOn = m_popup->addAction(i18n("Show Parameters"), this, &KatePluginSymbolViewerView::displayOptionChanged);
+    m_typesOn->setCheckable(true);
 
-  KConfigGroup config(KSharedConfig::openConfig(), "PluginSymbolViewer");
-  m_typesOn->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
-  m_expandOn->setChecked(config.readEntry(QStringLiteral("ExpandTree"), false));
-  m_treeOn->setChecked(config.readEntry(QStringLiteral("TreeView"), false));
-  m_sort->setChecked(config.readEntry(QStringLiteral("SortSymbols"), false));
+    KConfigGroup config(KSharedConfig::openConfig(), "PluginSymbolViewer");
+    m_typesOn->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
+    m_expandOn->setChecked(config.readEntry(QStringLiteral("ExpandTree"), false));
+    m_treeOn->setChecked(config.readEntry(QStringLiteral("TreeView"), false));
+    m_sort->setChecked(config.readEntry(QStringLiteral("SortSymbols"), false));
 
-  m_macro->setChecked(true);
-  m_struct->setChecked(true);
-  m_func->setChecked(true);
+    m_macro->setChecked(true);
+    m_struct->setChecked(true);
+    m_func->setChecked(true);
 
-  m_expandOn->setEnabled(m_treeOn->isChecked());
-  m_typesOn->setEnabled(m_func->isChecked());
+    m_expandOn->setEnabled(m_treeOn->isChecked());
+    m_typesOn->setEnabled(m_func->isChecked());
 
-  m_updateTimer.setSingleShot(true);
-  connect(&m_updateTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::parseSymbols);
+    m_updateTimer.setSingleShot(true);
+    connect(&m_updateTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::parseSymbols);
 
-  m_currItemTimer.setSingleShot(true);
-  connect(&m_currItemTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
+    m_currItemTimer.setSingleShot(true);
+    connect(&m_currItemTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
 
-  QPixmap cls( ( const char** ) class_xpm );
+    QPixmap cls((const char **)class_xpm);
 
-  m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_plugin_symbolviewer"),
-                                            KTextEditor::MainWindow::Left,
-                                            cls,
-                                            i18n("Symbol List"));
+    m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_plugin_symbolviewer"), KTextEditor::MainWindow::Left, cls, i18n("Symbol List"));
 
-  QWidget *container = new QWidget(m_toolview);
-  QHBoxLayout *layout = new QHBoxLayout(container);
+    QWidget *container = new QWidget(m_toolview);
+    QHBoxLayout *layout = new QHBoxLayout(container);
 
-  m_symbols = new QTreeWidget();
-  m_symbols->setFocusPolicy(Qt::NoFocus);
-  m_symbols->setLayoutDirection( Qt::LeftToRight );
-  layout->addWidget(m_symbols, 10);
-  layout->setContentsMargins(0,0,0,0);
+    m_symbols = new QTreeWidget();
+    m_symbols->setFocusPolicy(Qt::NoFocus);
+    m_symbols->setLayoutDirection(Qt::LeftToRight);
+    layout->addWidget(m_symbols, 10);
+    layout->setContentsMargins(0, 0, 0, 0);
 
-  connect(m_symbols, &QTreeWidget::itemClicked, this, &KatePluginSymbolViewerView::goToSymbol);
-  connect(m_symbols, &QTreeWidget::customContextMenuRequested, this, &KatePluginSymbolViewerView::slotShowContextMenu);
-  connect(m_symbols, &QTreeWidget::itemExpanded, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
-  connect(m_symbols, &QTreeWidget::itemCollapsed, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
+    connect(m_symbols, &QTreeWidget::itemClicked, this, &KatePluginSymbolViewerView::goToSymbol);
+    connect(m_symbols, &QTreeWidget::customContextMenuRequested, this, &KatePluginSymbolViewerView::slotShowContextMenu);
+    connect(m_symbols, &QTreeWidget::itemExpanded, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
+    connect(m_symbols, &QTreeWidget::itemCollapsed, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
 
-  connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KatePluginSymbolViewerView::slotDocChanged);
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KatePluginSymbolViewerView::slotDocChanged);
 
-  QStringList titles;
-  titles << i18nc("@title:column", "Symbols") << i18nc("@title:column", "Position");
-  m_symbols->setColumnCount(2);
-  m_symbols->setHeaderLabels(titles);
+    QStringList titles;
+    titles << i18nc("@title:column", "Symbols") << i18nc("@title:column", "Position");
+    m_symbols->setColumnCount(2);
+    m_symbols->setHeaderLabels(titles);
 
-  m_symbols->setColumnHidden(1, true);
-  m_symbols->setSortingEnabled(m_sort->isChecked());
-  // Sets the default sorting order:
-  m_symbols->sortByColumn(0, Qt::AscendingOrder);
-  m_symbols->setRootIsDecorated(0);
-  m_symbols->setContextMenuPolicy(Qt::CustomContextMenu);
-  m_symbols->setIndentation(10);
+    m_symbols->setColumnHidden(1, true);
+    m_symbols->setSortingEnabled(m_sort->isChecked());
+    // Sets the default sorting order:
+    m_symbols->sortByColumn(0, Qt::AscendingOrder);
+    m_symbols->setRootIsDecorated(0);
+    m_symbols->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_symbols->setIndentation(10);
 
-  m_toolview->installEventFilter(this);
+    m_toolview->installEventFilter(this);
 
-  // register view
-  m_plugin->m_views.insert(this);
+    // register view
+    m_plugin->m_views.insert(this);
 }
 
 KatePluginSymbolViewerView::~KatePluginSymbolViewerView()
 {
-  // un-register view
-  m_plugin->m_views.remove(this);
+    // un-register view
+    m_plugin->m_views.remove(this);
 
-  m_mainWindow->guiFactory()->removeClient (this);
-  delete m_toolview;
-  delete m_popup;
+    m_mainWindow->guiFactory()->removeClient(this);
+    delete m_toolview;
+    delete m_popup;
 }
 
 void KatePluginSymbolViewerView::slotDocChanged()
 {
- parseSymbols();
+    parseSymbols();
 
- KTextEditor::View *view = m_mainWindow->activeView();
- //qDebug()<<"Document changed !!!!" << view;
- if (view) {
-   connect(view, &KTextEditor::View::cursorPositionChanged, this, &KatePluginSymbolViewerView::cursorPositionChanged, Qt::UniqueConnection);
+    KTextEditor::View *view = m_mainWindow->activeView();
+    // qDebug()<<"Document changed !!!!" << view;
+    if (view) {
+        connect(view, &KTextEditor::View::cursorPositionChanged, this, &KatePluginSymbolViewerView::cursorPositionChanged, Qt::UniqueConnection);
 
-   if (view->document()) {
-     connect(view->document(), &KTextEditor::Document::textChanged, this, &KatePluginSymbolViewerView::slotDocEdited, Qt::UniqueConnection);
-   }
- }
+        if (view->document()) {
+            connect(view->document(), &KTextEditor::Document::textChanged, this, &KatePluginSymbolViewerView::slotDocEdited, Qt::UniqueConnection);
+        }
+    }
 }
 
 void KatePluginSymbolViewerView::slotDocEdited()
 {
-  m_currItemTimer.stop(); // Avoid unneeded update
-  m_updateTimer.start(500);
+    m_currItemTimer.stop(); // Avoid unneeded update
+    m_updateTimer.start(500);
 }
 
 void KatePluginSymbolViewerView::cursorPositionChanged()
 {
-  if (m_updateTimer.isActive()) {
-    // No need for update, will come anyway
-    return;
-  }
+    if (m_updateTimer.isActive()) {
+        // No need for update, will come anyway
+        return;
+    }
 
-  KTextEditor::View* editView = m_mainWindow->activeView();
-  if (!editView) {
-    return;
-  }
-  int currLine = editView->cursorPositionVirtual().line();
-  if (currLine != m_oldCursorLine) {
-    m_oldCursorLine = currLine;
-    m_currItemTimer.start(100);
-  }
+    KTextEditor::View *editView = m_mainWindow->activeView();
+    if (!editView) {
+        return;
+    }
+    int currLine = editView->cursorPositionVirtual().line();
+    if (currLine != m_oldCursorLine) {
+        m_oldCursorLine = currLine;
+        m_currItemTimer.start(100);
+    }
 }
 
 void KatePluginSymbolViewerView::updateCurrTreeItem()
 {
-  if (!m_mainWindow) {
-    return;
-  }
-  KTextEditor::View* editView = m_mainWindow->activeView();
-  if (!editView) {
-    return;
-  }
-  KTextEditor::Document* doc = editView->document();
-  if (!doc) {
-    return;
-  }
+    if (!m_mainWindow) {
+        return;
+    }
+    KTextEditor::View *editView = m_mainWindow->activeView();
+    if (!editView) {
+        return;
+    }
+    KTextEditor::Document *doc = editView->document();
+    if (!doc) {
+        return;
+    }
 
-  int currLine = editView->cursorPositionVirtual().line();
+    int currLine = editView->cursorPositionVirtual().line();
 
-  int newItemLine = 0;
-  QTreeWidgetItem *newItem = nullptr;
-  QTreeWidgetItem *tmp = nullptr;
-  for (int i=0; i<m_symbols->topLevelItemCount(); i++) {
-    tmp = newActveItem(newItemLine, currLine, m_symbols->topLevelItem(i));
-    if (tmp) newItem = tmp;
-  }
+    int newItemLine = 0;
+    QTreeWidgetItem *newItem = nullptr;
+    QTreeWidgetItem *tmp = nullptr;
+    for (int i = 0; i < m_symbols->topLevelItemCount(); i++) {
+        tmp = newActveItem(newItemLine, currLine, m_symbols->topLevelItem(i));
+        if (tmp)
+            newItem = tmp;
+    }
 
-  if (!newItem) {
-    return;
-  }
+    if (!newItem) {
+        return;
+    }
 
-  // check if the item has a parent and if that parent is expanded.
-  // if the parent is not expanded, set the parent as current item in stead of
-  // expanding the tree. The tree was probably collapsed on purpose
-  QTreeWidgetItem *parent = newItem->parent();
-  if (parent && !parent->isExpanded()) {
-    newItem = parent;
-  }
+    // check if the item has a parent and if that parent is expanded.
+    // if the parent is not expanded, set the parent as current item in stead of
+    // expanding the tree. The tree was probably collapsed on purpose
+    QTreeWidgetItem *parent = newItem->parent();
+    if (parent && !parent->isExpanded()) {
+        newItem = parent;
+    }
 
-  m_symbols->blockSignals(true);
-  m_symbols->setCurrentItem(newItem);
-  m_symbols->blockSignals(false);
+    m_symbols->blockSignals(true);
+    m_symbols->setCurrentItem(newItem);
+    m_symbols->blockSignals(false);
 }
 
 QTreeWidgetItem *KatePluginSymbolViewerView::newActveItem(int &newItemLine, int currLine, QTreeWidgetItem *item)
 {
-  QTreeWidgetItem *newItem = nullptr;
-  QTreeWidgetItem *tmp = nullptr;
-  int itemLine = item->data(1, Qt::DisplayRole).toInt();
-  if ((itemLine <= currLine) && (itemLine >= newItemLine)) {
-    newItemLine = itemLine;
-    newItem = item;
-  }
+    QTreeWidgetItem *newItem = nullptr;
+    QTreeWidgetItem *tmp = nullptr;
+    int itemLine = item->data(1, Qt::DisplayRole).toInt();
+    if ((itemLine <= currLine) && (itemLine >= newItemLine)) {
+        newItemLine = itemLine;
+        newItem = item;
+    }
 
-  for (int i=0; i<item->childCount(); i++) {
-    tmp = newActveItem(newItemLine, currLine, item->child(i));
-    if (tmp) newItem = tmp;
-  }
+    for (int i = 0; i < item->childCount(); i++) {
+        tmp = newActveItem(newItemLine, currLine, item->child(i));
+        if (tmp)
+            newItem = tmp;
+    }
 
-  return newItem;
+    return newItem;
 }
 
 bool KatePluginSymbolViewerView::eventFilter(QObject *obj, QEvent *event)
 {
-  if (event->type() == QEvent::KeyPress) {
-    QKeyEvent *ke = static_cast<QKeyEvent*>(event);
-    if ((obj == m_toolview) && (ke->key() == Qt::Key_Escape)) {
-      m_mainWindow->activeView()->setFocus();
-      event->accept();
-      return true;
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        if ((obj == m_toolview) && (ke->key() == Qt::Key_Escape)) {
+            m_mainWindow->activeView()->setFocus();
+            event->accept();
+            return true;
+        }
     }
-  }
-  return QObject::eventFilter(obj, event);
+    return QObject::eventFilter(obj, event);
 }
 
-void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint&)
+void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint &)
 {
-  m_popup->popup(QCursor::pos(), m_treeOn);
+    m_popup->popup(QCursor::pos(), m_treeOn);
 }
 
 /**
@@ -294,193 +292,197 @@ void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint&)
  */
 void KatePluginSymbolViewerView::displayOptionChanged()
 {
-  m_expandOn->setEnabled(m_treeOn->isChecked());
-  m_typesOn->setEnabled(m_func->isChecked());
-  parseSymbols();
+    m_expandOn->setEnabled(m_treeOn->isChecked());
+    m_typesOn->setEnabled(m_func->isChecked());
+    parseSymbols();
 }
 
 void KatePluginSymbolViewerView::parseSymbols()
 {
-  if (!m_symbols)
-    return;
+    if (!m_symbols)
+        return;
 
-  m_symbols->clear();
-  // Qt docu recommends to populate view with disabled sorting
-  // https://doc.qt.io/qt-5/qtreeview.html#sortingEnabled-prop
-  m_symbols->setSortingEnabled(false);
-  Qt::SortOrder sortOrder = m_symbols->header()->sortIndicatorOrder();
+    m_symbols->clear();
+    // Qt docu recommends to populate view with disabled sorting
+    // https://doc.qt.io/qt-5/qtreeview.html#sortingEnabled-prop
+    m_symbols->setSortingEnabled(false);
+    Qt::SortOrder sortOrder = m_symbols->header()->sortIndicatorOrder();
 
-  if (!m_mainWindow->activeView())
-    return;
+    if (!m_mainWindow->activeView())
+        return;
 
-  KTextEditor::Document *doc = m_mainWindow->activeView()->document();
+    KTextEditor::Document *doc = m_mainWindow->activeView()->document();
 
-  // be sure we have some document around !
-  if (!doc)
-    return;
+    // be sure we have some document around !
+    if (!doc)
+        return;
 
-  /** Get the current highlighting mode */
-  QString hlModeName = doc->mode();
+    /** Get the current highlighting mode */
+    QString hlModeName = doc->mode();
 
-  if (hlModeName.contains(QLatin1String("C++")) || hlModeName == QLatin1Char('C') || hlModeName == QLatin1String("ANSI C89"))
-     parseCppSymbols();
- else if (hlModeName == QLatin1String("PHP (HTML)"))
-    parsePhpSymbols();
-  else if (hlModeName == QLatin1String("Tcl/Tk"))
-     parseTclSymbols();
-  else if (hlModeName.contains(QLatin1String("Fortran")))
-     parseFortranSymbols();
-  else if (hlModeName == QLatin1String("Perl"))
-     parsePerlSymbols();
-  else if (hlModeName == QLatin1String("Python"))
-     parsePythonSymbols();
- else if (hlModeName == QLatin1String("Ruby"))
-    parseRubySymbols();
-  else if (hlModeName == QLatin1String("Java"))
-     parseCppSymbols();
-  else if (hlModeName == QLatin1String("xslt"))
-     parseXsltSymbols();
-  else if (hlModeName == QLatin1String("XML") || hlModeName == QLatin1String("HTML"))
-     parseXMLSymbols();
-  else if (hlModeName == QLatin1String("Bash"))
-     parseBashSymbols();
-  else if (hlModeName == QLatin1String("ActionScript 2.0") ||
-    hlModeName == QLatin1String("JavaScript") ||
-    hlModeName == QLatin1String("QML"))
-     parseEcmaSymbols();
-  else {
-    QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);
-    node->setText(0, i18n("Sorry, not supported yet!"));
-    // Setting invalid line number avoid jump to top of document when clicked
-    node->setText(1, QStringLiteral("-1"));
-    node = new QTreeWidgetItem(m_symbols);
-    node->setText(0, i18n("File type: %1", hlModeName));
-    node->setText(1, QStringLiteral("-1"));
-  }
+    if (hlModeName.contains(QLatin1String("C++")) || hlModeName == QLatin1Char('C') || hlModeName == QLatin1String("ANSI C89"))
+        parseCppSymbols();
+    else if (hlModeName == QLatin1String("PHP (HTML)"))
+        parsePhpSymbols();
+    else if (hlModeName == QLatin1String("Tcl/Tk"))
+        parseTclSymbols();
+    else if (hlModeName.contains(QLatin1String("Fortran")))
+        parseFortranSymbols();
+    else if (hlModeName == QLatin1String("Perl"))
+        parsePerlSymbols();
+    else if (hlModeName == QLatin1String("Python"))
+        parsePythonSymbols();
+    else if (hlModeName == QLatin1String("Ruby"))
+        parseRubySymbols();
+    else if (hlModeName == QLatin1String("Java"))
+        parseCppSymbols();
+    else if (hlModeName == QLatin1String("xslt"))
+        parseXsltSymbols();
+    else if (hlModeName == QLatin1String("XML") || hlModeName == QLatin1String("HTML"))
+        parseXMLSymbols();
+    else if (hlModeName == QLatin1String("Bash"))
+        parseBashSymbols();
+    else if (hlModeName == QLatin1String("ActionScript 2.0") || hlModeName == QLatin1String("JavaScript") || hlModeName == QLatin1String("QML"))
+        parseEcmaSymbols();
+    else {
+        QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);
+        node->setText(0, i18n("Sorry, not supported yet!"));
+        // Setting invalid line number avoid jump to top of document when clicked
+        node->setText(1, QStringLiteral("-1"));
+        node = new QTreeWidgetItem(m_symbols);
+        node->setText(0, i18n("File type: %1", hlModeName));
+        node->setText(1, QStringLiteral("-1"));
+    }
 
-  m_oldCursorLine = -1;
-  updateCurrTreeItem();
-  if (m_sort->isChecked()) {
-    m_symbols->setSortingEnabled(true);
-    m_symbols->sortItems(0, sortOrder);
-  }
+    m_oldCursorLine = -1;
+    updateCurrTreeItem();
+    if (m_sort->isChecked()) {
+        m_symbols->setSortingEnabled(true);
+        m_symbols->sortItems(0, sortOrder);
+    }
 }
 
 void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
 {
-  KTextEditor::View *kv = m_mainWindow->activeView();
+    KTextEditor::View *kv = m_mainWindow->activeView();
 
-  // be sure we really have a view !
-  if (!kv)
-    return;
+    // be sure we really have a view !
+    if (!kv)
+        return;
 
-  //qDebug()<<"Slot Activated at pos: "<<m_symbols->indexOfTopLevelItem(it);
-  if (!it || it->text(1).isEmpty()) {
-    return;
-  }
+    // qDebug()<<"Slot Activated at pos: "<<m_symbols->indexOfTopLevelItem(it);
+    if (!it || it->text(1).isEmpty()) {
+        return;
+    }
 
-  kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(nullptr, 10), 0));
+    kv->setCursorPosition(KTextEditor::Cursor(it->text(1).toInt(nullptr, 10), 0));
 }
 
-KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QList<QVariant>& )
-: KTextEditor::Plugin (parent)
+KatePluginSymbolViewer::KatePluginSymbolViewer(QObject *parent, const QList<QVariant> &)
+    : KTextEditor::Plugin(parent)
 {
- //qDebug()<<"KatePluginSymbolViewer";
+    // qDebug()<<"KatePluginSymbolViewer";
 }
 
 KatePluginSymbolViewer::~KatePluginSymbolViewer()
 {
-  //qDebug()<<"~KatePluginSymbolViewer";
+    // qDebug()<<"~KatePluginSymbolViewer";
 }
 
-QObject *KatePluginSymbolViewer::createView (KTextEditor::MainWindow *mainWindow)
+QObject *KatePluginSymbolViewer::createView(KTextEditor::MainWindow *mainWindow)
 {
-  return new KatePluginSymbolViewerView (this, mainWindow);
+    return new KatePluginSymbolViewerView(this, mainWindow);
 }
 
-KTextEditor::ConfigPage* KatePluginSymbolViewer::configPage(int, QWidget *parent)
+KTextEditor::ConfigPage *KatePluginSymbolViewer::configPage(int, QWidget *parent)
 {
-  KatePluginSymbolViewerConfigPage* p = new KatePluginSymbolViewerConfigPage(this, parent);
+    KatePluginSymbolViewerConfigPage *p = new KatePluginSymbolViewerConfigPage(this, parent);
 
-  KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
-  p->viewReturns->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
-  p->expandTree->setChecked(config.readEntry(QStringLiteral("ExpandTree"), false));
-  p->treeView->setChecked(config.readEntry(QStringLiteral("TreeView"), false));
-  p->sortSymbols->setChecked(config.readEntry(QStringLiteral("SortSymbols"), false));
-  connect(p, &KatePluginSymbolViewerConfigPage::configPageApplyRequest, this, &KatePluginSymbolViewer::applyConfig);
-  return (KTextEditor::ConfigPage*)p;
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
+    p->viewReturns->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
+    p->expandTree->setChecked(config.readEntry(QStringLiteral("ExpandTree"), false));
+    p->treeView->setChecked(config.readEntry(QStringLiteral("TreeView"), false));
+    p->sortSymbols->setChecked(config.readEntry(QStringLiteral("SortSymbols"), false));
+    connect(p, &KatePluginSymbolViewerConfigPage::configPageApplyRequest, this, &KatePluginSymbolViewer::applyConfig);
+    return (KTextEditor::ConfigPage *)p;
 }
 
-void KatePluginSymbolViewer::applyConfig(KatePluginSymbolViewerConfigPage* p)
+void KatePluginSymbolViewer::applyConfig(KatePluginSymbolViewerConfigPage *p)
 {
-  KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
-  config.writeEntry(QStringLiteral("ViewTypes"), p->viewReturns->isChecked());
-  config.writeEntry(QStringLiteral("ExpandTree"), p->expandTree->isChecked());
-  config.writeEntry(QStringLiteral("TreeView"), p->treeView->isChecked());
-  config.writeEntry(QStringLiteral("SortSymbols"), p->sortSymbols->isChecked());
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
+    config.writeEntry(QStringLiteral("ViewTypes"), p->viewReturns->isChecked());
+    config.writeEntry(QStringLiteral("ExpandTree"), p->expandTree->isChecked());
+    config.writeEntry(QStringLiteral("TreeView"), p->treeView->isChecked());
+    config.writeEntry(QStringLiteral("SortSymbols"), p->sortSymbols->isChecked());
 
-  for (auto view : m_views) {
-    view->m_typesOn->setChecked(p->viewReturns->isChecked());
-    view->m_expandOn->setChecked(p->expandTree->isChecked());
-    view->m_treeOn->setChecked(p->treeView->isChecked());
-    view->m_sort->setChecked(p->sortSymbols->isChecked());
+    for (auto view : m_views) {
+        view->m_typesOn->setChecked(p->viewReturns->isChecked());
+        view->m_expandOn->setChecked(p->expandTree->isChecked());
+        view->m_treeOn->setChecked(p->treeView->isChecked());
+        view->m_sort->setChecked(p->sortSymbols->isChecked());
 
-    view->m_expandOn->setEnabled(view->m_treeOn->isChecked());
-    view->m_typesOn->setEnabled(view->m_func->isChecked());
-  }
+        view->m_expandOn->setEnabled(view->m_treeOn->isChecked());
+        view->m_typesOn->setEnabled(view->m_func->isChecked());
+    }
 }
 
 // BEGIN KatePluginSymbolViewerConfigPage
-KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
-    QObject* /*parent*/ /*= 0L*/, QWidget *parentWidget /*= 0L*/)
-  : KTextEditor::ConfigPage( parentWidget )
+KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(QObject * /*parent*/ /*= 0L*/, QWidget *parentWidget /*= 0L*/)
+    : KTextEditor::ConfigPage(parentWidget)
 {
-  QVBoxLayout *lo = new QVBoxLayout( this );
-  //int spacing = KDialog::spacingHint();
-  //lo->setSpacing( spacing );
+    QVBoxLayout *lo = new QVBoxLayout(this);
+    // int spacing = KDialog::spacingHint();
+    // lo->setSpacing( spacing );
 
-  viewReturns = new QCheckBox(i18n("Display functions parameters"));
-  expandTree = new QCheckBox(i18n("Automatically expand nodes in tree mode"));
-  treeView = new QCheckBox(i18n("Always display symbols in tree mode"));
-  sortSymbols = new QCheckBox(i18n("Always sort symbols"));
+    viewReturns = new QCheckBox(i18n("Display functions parameters"));
+    expandTree = new QCheckBox(i18n("Automatically expand nodes in tree mode"));
+    treeView = new QCheckBox(i18n("Always display symbols in tree mode"));
+    sortSymbols = new QCheckBox(i18n("Always sort symbols"));
 
+    QGroupBox *parserGBox = new QGroupBox(i18n("Parser Options"), this);
+    QVBoxLayout *top = new QVBoxLayout(parserGBox);
+    top->addWidget(viewReturns);
+    top->addWidget(expandTree);
+    top->addWidget(treeView);
+    top->addWidget(sortSymbols);
 
-  QGroupBox* parserGBox = new QGroupBox( i18n("Parser Options"), this);
-  QVBoxLayout* top = new QVBoxLayout(parserGBox);
-  top->addWidget(viewReturns);
-  top->addWidget(expandTree);
-  top->addWidget(treeView);
-  top->addWidget(sortSymbols);
+    // QGroupBox* generalGBox = new QGroupBox( i18n("General Options"), this);
+    // QVBoxLayout* genLay = new QVBoxLayout(generalGBox);
+    // genLay->addWidget(  );
 
-  //QGroupBox* generalGBox = new QGroupBox( i18n("General Options"), this);
-  //QVBoxLayout* genLay = new QVBoxLayout(generalGBox);
-  //genLay->addWidget(  );
+    lo->addWidget(parserGBox);
+    // lo->addWidget( generalGBox );
+    lo->addStretch(1);
 
-  lo->addWidget( parserGBox );
-  //lo->addWidget( generalGBox );
-  lo->addStretch( 1 );
-
-
-//  throw signal changed
-  connect(viewReturns, &QCheckBox::toggled, this, &KatePluginSymbolViewerConfigPage::changed);
-  connect(expandTree, &QCheckBox::toggled, this, &KatePluginSymbolViewerConfigPage::changed);
-  connect(treeView, &QCheckBox::toggled, this, &KatePluginSymbolViewerConfigPage::changed);
-  connect(sortSymbols, &QCheckBox::toggled, this, &KatePluginSymbolViewerConfigPage::changed);
+    //  throw signal changed
+    connect(viewReturns, &QCheckBox::toggled, this, &KatePluginSymbolViewerConfigPage::changed);
+    connect(expandTree, &QCheckBox::toggled, this, &KatePluginSymbolViewerConfigPage::changed);
+    connect(treeView, &QCheckBox::toggled, this, &KatePluginSymbolViewerConfigPage::changed);
+    connect(sortSymbols, &QCheckBox::toggled, this, &KatePluginSymbolViewerConfigPage::changed);
 }
 
-KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage() {}
+KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage()
+{
+}
 
-QString KatePluginSymbolViewerConfigPage::name() const { return i18n("Symbol Viewer"); }
-QString KatePluginSymbolViewerConfigPage::fullName() const { return i18n("Symbol Viewer Configuration Page"); }
-QIcon   KatePluginSymbolViewerConfigPage::icon() const { return QPixmap(( const char** ) class_xpm ); }
+QString KatePluginSymbolViewerConfigPage::name() const
+{
+    return i18n("Symbol Viewer");
+}
+QString KatePluginSymbolViewerConfigPage::fullName() const
+{
+    return i18n("Symbol Viewer Configuration Page");
+}
+QIcon KatePluginSymbolViewerConfigPage::icon() const
+{
+    return QPixmap((const char **)class_xpm);
+}
 
 void KatePluginSymbolViewerConfigPage::apply()
 {
-  emit configPageApplyRequest( this );
-
+    emit configPageApplyRequest(this);
 }
 // END KatePluginSymbolViewerConfigPage
-
 
 #include "plugin_katesymbolviewer.moc"
 

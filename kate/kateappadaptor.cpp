@@ -37,7 +37,8 @@
 KateAppAdaptor::KateAppAdaptor(KateApp *app)
     : QDBusAbstractAdaptor(qApp)
     , m_app(app)
-{}
+{
+}
 
 void KateAppAdaptor::activate()
 {
@@ -68,7 +69,8 @@ bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding, bool i
     return m_app->openUrl(QUrl(url), encoding, isTempFile);
 }
 
-bool KateAppAdaptor::isOnActivity(const QString &activity) {
+bool KateAppAdaptor::isOnActivity(const QString &activity)
+{
     return m_app->isOnActivity(activity);
 }
 
@@ -139,4 +141,3 @@ void KateAppAdaptor::emitDocumentClosed(const QString &token)
 {
     documentClosed(token);
 }
-

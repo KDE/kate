@@ -1,5 +1,5 @@
 /*   Kate search plugin
- * 
+ *
  * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -24,9 +24,10 @@
 #include <QUrl>
 #include <QTextStream>
 
-
-SearchDiskFiles::SearchDiskFiles(QObject *parent) : QThread(parent)
-{}
+SearchDiskFiles::SearchDiskFiles(QObject *parent)
+    : QThread(parent)
+{
+}
 
 SearchDiskFiles::~SearchDiskFiles()
 {
@@ -34,8 +35,7 @@ SearchDiskFiles::~SearchDiskFiles()
     wait();
 }
 
-void SearchDiskFiles::startSearch(const QStringList &files,
-                                  const QRegularExpression &regexp)
+void SearchDiskFiles::startSearch(const QStringList &files, const QRegularExpression &regexp)
 {
     if (files.empty()) {
         emit searchDone();
@@ -63,8 +63,7 @@ void SearchDiskFiles::run()
 
         if (m_regExp.pattern().contains(QLatin1String("\\n"))) {
             searchMultiLineRegExp(fileName);
-        }
-        else {
+        } else {
             searchSingleLineRegExp(fileName);
         }
     }
@@ -84,7 +83,7 @@ bool SearchDiskFiles::searching()
 
 void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
 {
-    QFile file (fileName);
+    QFile file(fileName);
 
     if (!file.open(QFile::ReadOnly)) {
         return;
@@ -95,24 +94,25 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
     int i = 0;
     int column;
     QRegularExpressionMatch match;
-    while (!(line=stream.readLine()).isNull()) {
-        if (m_cancelSearch) break;
+    while (!(line = stream.readLine()).isNull()) {
+        if (m_cancelSearch)
+            break;
         match = m_regExp.match(line);
         column = match.capturedStart();
         while (column != -1 && !match.captured().isEmpty()) {
             // limit line length
-            if (line.length() > 1024) line = line.left(1024);
-            QUrl fileUrl =  QUrl::fromUserInput(fileName);
-            emit matchFound(fileUrl.toString(), fileUrl.fileName(),
-                            line, match.capturedLength(),
-                            i, column, i, column+match.capturedLength());
+            if (line.length() > 1024)
+                line = line.left(1024);
+            QUrl fileUrl = QUrl::fromUserInput(fileName);
+            emit matchFound(fileUrl.toString(), fileUrl.fileName(), line, match.capturedLength(), i, column, i, column + match.capturedLength());
 
             match = m_regExp.match(line, column + match.capturedLength());
             column = match.capturedStart();
             m_matchCount++;
             // NOTE: This sleep is here so that the main thread will get a chance to
             // handle any stop button clicks if there are a lot of matches
-            if (m_matchCount%50) msleep(1);
+            if (m_matchCount % 50)
+                msleep(1);
         }
         i++;
     }
@@ -137,9 +137,9 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
 
     lineStart.clear();
     lineStart << 0;
-    for (int i=0; i<fullDoc.size()-1; i++) {
+    for (int i = 0; i < fullDoc.size() - 1; i++) {
         if (fullDoc[i] == QLatin1Char('\n')) {
-            lineStart << i+1;
+            lineStart << i + 1;
         }
     }
     if (tmpRegExp.pattern().endsWith(QLatin1Char('$'))) {
@@ -153,34 +153,32 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
     match = tmpRegExp.match(fullDoc);
     column = match.capturedStart();
     while (column != -1 && !match.captured().isEmpty()) {
-        if (m_cancelSearch) break;
+        if (m_cancelSearch)
+            break;
         // search for the line number of the match
         int i;
         line = -1;
-        for (i=1; i<lineStart.size(); i++) {
+        for (i = 1; i < lineStart.size(); i++) {
             if (lineStart[i] > column) {
-                line = i-1;
+                line = i - 1;
                 break;
             }
         }
         if (line == -1) {
             break;
         }
-        QUrl fileUrl =  QUrl::fromUserInput(fileName);
+        QUrl fileUrl = QUrl::fromUserInput(fileName);
         int startColumn = (column - lineStart[line]);
         int endLine = line + match.captured().count(QLatin1Char('\n'));
         int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
-        int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL-1;
-        emit matchFound(fileUrl.toString(),fileUrl.fileName(),
-                        fullDoc.mid(lineStart[line], column - lineStart[line])+match.captured(),
-                        match.capturedLength(),
-                        line, startColumn, endLine, endColumn);
+        int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL - 1;
+        emit matchFound(fileUrl.toString(), fileUrl.fileName(), fullDoc.mid(lineStart[line], column - lineStart[line]) + match.captured(), match.capturedLength(), line, startColumn, endLine, endColumn);
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();
         m_matchCount++;
         // NOTE: This sleep is here so that the main thread will get a chance to
         // handle any stop button clicks if there are a lot of matches
-        if (m_matchCount%50) msleep(1);
+        if (m_matchCount % 50)
+            msleep(1);
     }
 }
-

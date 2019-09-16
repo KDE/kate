@@ -47,7 +47,7 @@
 #include <unistd.h>
 #endif
 
-//BEGIN KateSessionManager
+// BEGIN KateSessionManager
 
 KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsDir)
     : QObject(parent)
@@ -92,7 +92,7 @@ void KateSessionManager::updateSessionList()
     bool changed = false;
 
     // Add new sessions to our list
-    for (const QString& session : qAsConst(list)) {
+    for (const QString &session : qAsConst(list)) {
         if (!m_sessions.contains(session)) {
             const QString file = sessionFileForName(session);
             m_sessions.insert(session, KateSession::create(file, session));
@@ -100,7 +100,7 @@ void KateSessionManager::updateSessionList()
         }
     }
     // Remove gone sessions from our list
-    for (const QString& session : m_sessions.keys()) {
+    for (const QString &session : m_sessions.keys()) {
         if ((list.indexOf(session) < 0) && (m_sessions.value(session) != activeSession())) {
             m_sessions.remove(session);
             changed = true;
@@ -112,16 +112,14 @@ void KateSessionManager::updateSessionList()
     }
 }
 
-bool KateSessionManager::activateSession(KateSession::Ptr session,
-        const bool closeAndSaveLast,
-        const bool loadNew)
+bool KateSessionManager::activateSession(KateSession::Ptr session, const bool closeAndSaveLast, const bool loadNew)
 {
     if (activeSession() == session) {
         return true;
     }
 
     if (!session->isAnonymous()) {
-        //check if the requested session is already open in another instance
+        // check if the requested session is already open in another instance
         KateRunningInstanceMap instances;
         if (!fillinRunningKateAppInstances(&instances)) {
             KMessageBox::error(nullptr, i18n("Internal error: there is more than one instance open for a given session."));
@@ -129,8 +127,12 @@ bool KateSessionManager::activateSession(KateSession::Ptr session,
         }
 
         if (instances.contains(session->name())) {
-            if (KMessageBox::questionYesNo(nullptr, i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?", session->name()),
-                                           QString(), KStandardGuiItem::yes(), KStandardGuiItem::no(), QStringLiteral("katesessionmanager_switch_instance")) == KMessageBox::Yes) {
+            if (KMessageBox::questionYesNo(nullptr,
+                                           i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?", session->name()),
+                                           QString(),
+                                           KStandardGuiItem::yes(),
+                                           KStandardGuiItem::no(),
+                                           QStringLiteral("katesessionmanager_switch_instance")) == KMessageBox::Yes) {
                 instances[session->name()]->dbus_if->call(QStringLiteral("activate"));
                 cleanupRunningKateAppInstanceMap(&instances);
                 return false;
@@ -190,7 +192,7 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
     KConfig *cfg = sc;
     bool delete_cfg = false;
     // a new, named session, read settings of the default session.
-    if (! sc->hasGroup("Open MainWindows")) {
+    if (!sc->hasGroup("Open MainWindows")) {
         delete_cfg = true;
         cfg = new KConfig(anonymousSessionFile(), KConfig::SimpleConfig);
     }
@@ -314,9 +316,7 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
     KIO::CopyJob *job = KIO::move(srcUrl, dstUrl, KIO::HideProgressInfo);
 
     if (!job->exec()) {
-        KMessageBox::sorry(QApplication::activeWindow(),
-                           i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile),
-                           i18n("Session Renaming"));
+        KMessageBox::sorry(QApplication::activeWindow(), i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile), i18n("Session Renaming"));
         return QString();
     }
 
@@ -337,7 +337,7 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
 void KateSessionManager::saveSessionTo(KConfig *sc) const
 {
     // Clear the session file to avoid to accumulate outdated entries
-    for (const auto& group : sc->groupList()) {
+    for (const auto &group : sc->groupList()) {
         sc->deleteGroup(group);
     }
 
@@ -456,8 +456,9 @@ QString KateSessionManager::askForNewSessionName(KateSession::Ptr session, const
     }
 
     const QString messagePrompt = i18n("Session name:");
-    const KLocalizedString messageExist = ki18n("There is already an existing session with your chosen name: %1\n"
-                                                "Please choose a different one.");
+    const KLocalizedString messageExist = ki18n(
+        "There is already an existing session with your chosen name: %1\n"
+        "Please choose a different one.");
     const QString messageEmpty = i18n("To save a session, you must specify a name.");
 
     QString messageTotal = messagePrompt;
@@ -491,7 +492,7 @@ QString KateSessionManager::askForNewSessionName(KateSession::Ptr session, const
         }
         dlg.setLabelText(messageTotal);
         dlg.setTextValue(preset);
-        dlg.resize(900,100);  // FIXME Calc somehow a proper size
+        dlg.resize(900, 100); // FIXME Calc somehow a proper size
         bool ok = dlg.exec();
         name = dlg.textValue();
 
@@ -527,7 +528,6 @@ void KateSessionManager::sessionManage()
     QScopedPointer<KateSessionManageDialog>(new KateSessionManageDialog(KateApp::self()->activeKateMainWindow()))->exec();
 }
 
-
 bool KateSessionManager::sessionIsActive(const QString &session)
 {
     // Try to avoid unneed action
@@ -561,7 +561,6 @@ bool KateSessionManager::sessionIsActive(const QString &session)
     return false;
 }
 
-
 QString KateSessionManager::anonymousSessionFile() const
 {
     const QString file = m_sessionsDir + QStringLiteral("/../anonymous.katesession");
@@ -593,9 +592,7 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     QStringList newActions = df->readActions();
 
     // try to keep existing custom actions intact, only remove our "Session" actions and add them back later
-    newActions.erase(std::remove_if(newActions.begin(), newActions.end(), [](const QString &action) {
-        return action.startsWith(QLatin1String("Session "));
-    }), newActions.end());
+    newActions.erase(std::remove_if(newActions.begin(), newActions.end(), [](const QString &action) { return action.startsWith(QLatin1String("Session ")); }), newActions.end());
 
     // Limit the number of list entries we like to offer
     const int maxEntryCount = std::min(sessionList.count(), 10);
@@ -610,8 +607,7 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     sessionActions.reserve(maxEntryCount);
 
     for (int i = 0; i < maxEntryCount; ++i) {
-        sessionActions << QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(sessionSubList.at(i).toUtf8()
-                                                                             , QCryptographicHash::Md5).toHex()));
+        sessionActions << QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(sessionSubList.at(i).toUtf8(), QCryptographicHash::Md5).toHex()));
     }
 
     newActions += sessionActions;
@@ -647,5 +643,4 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
 #endif
 }
 
-//END KateSessionManager
-
+// END KateSessionManager

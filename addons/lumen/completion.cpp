@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-**/
+ **/
 
 #include "completion.h"
 #include <QRegularExpression>
@@ -26,8 +26,7 @@
 #include <KTextEditor/CodeCompletionModelControllerInterface>
 #include <klocalizedstring.h>
 
-
-LumenCompletionModel::LumenCompletionModel(QObject* parent, DCD* dcd)
+LumenCompletionModel::LumenCompletionModel(QObject *parent, DCD *dcd)
     : CodeCompletionModel(parent)
 {
     m_dcd = dcd;
@@ -35,31 +34,27 @@ LumenCompletionModel::LumenCompletionModel(QObject* parent, DCD* dcd)
 
 LumenCompletionModel::~LumenCompletionModel()
 {
-
 }
 
-bool LumenCompletionModel::shouldStartCompletion(View* view, const QString& insertedText, bool userInsertion, const Cursor& position)
+bool LumenCompletionModel::shouldStartCompletion(View *view, const QString &insertedText, bool userInsertion, const Cursor &position)
 {
-    bool complete = KTextEditor::CodeCompletionModelControllerInterface::shouldStartCompletion(
-        view, insertedText, userInsertion, position
-    );
+    bool complete = KTextEditor::CodeCompletionModelControllerInterface::shouldStartCompletion(view, insertedText, userInsertion, position);
 
-    complete = complete || insertedText.endsWith(QLatin1Char('(')); // calltip
+    complete = complete || insertedText.endsWith(QLatin1Char('('));         // calltip
     complete = complete || insertedText.endsWith(QLatin1String("import ")); // import
 
     return complete;
 }
 
-void LumenCompletionModel::completionInvoked(View* view, const Range& range, CodeCompletionModel::InvocationType invocationType)
+void LumenCompletionModel::completionInvoked(View *view, const Range &range, CodeCompletionModel::InvocationType invocationType)
 {
     Q_UNUSED(invocationType);
-    KTextEditor::Document* document = view->document();
+    KTextEditor::Document *document = view->document();
 
     KTextEditor::Cursor cursor = range.end();
     KTextEditor::Cursor cursorEnd = document->documentEnd();
     KTextEditor::Range range0c = KTextEditor::Range(0, 0, cursor.line(), cursor.column());
-    KTextEditor::Range rangece = KTextEditor::Range(cursor.line(), cursor.column(),
-                                                    cursorEnd.line(), cursorEnd.column());
+    KTextEditor::Range rangece = KTextEditor::Range(cursor.line(), cursor.column(), cursorEnd.line(), cursorEnd.column());
     QString text0c = document->text(range0c, false);
     QByteArray utf8 = text0c.toUtf8();
     int offset = utf8.length();
@@ -71,8 +66,7 @@ void LumenCompletionModel::completionInvoked(View* view, const Range& range, Cod
     setHasGroups(false);
 }
 
-
-void LumenCompletionModel::executeCompletionItem(View* view, const Range& word, const QModelIndex& index) const
+void LumenCompletionModel::executeCompletionItem(View *view, const Range &word, const QModelIndex &index) const
 {
     QModelIndex sibling = index.sibling(index.row(), Name);
     Document *document = view->document();
@@ -83,72 +77,70 @@ void LumenCompletionModel::executeCompletionItem(View* view, const Range& word, 
     if (crole & Function) {
         KTextEditor::Cursor cursor = view->cursorPosition();
         document->insertText(cursor, QStringLiteral("()"));
-        view->setCursorPosition(Cursor(cursor.line(), cursor.column()+1));
+        view->setCursorPosition(Cursor(cursor.line(), cursor.column() + 1));
     }
 }
 
-QVariant LumenCompletionModel::data(const QModelIndex& index, int role) const
+QVariant LumenCompletionModel::data(const QModelIndex &index, int role) const
 {
     DCDCompletionItem item = m_data.completions[index.row()];
 
-    switch (role)
-    {
-        case Qt::DecorationRole:
-        {
-            if(index.column() == Icon) {
+    switch (role) {
+        case Qt::DecorationRole: {
+            if (index.column() == Icon) {
                 return item.icon();
             }
             break;
         }
-        case Qt::DisplayRole:
-        {
-            if(item.type == DCDCompletionItemType::Calltip) {
+        case Qt::DisplayRole: {
+            if (item.type == DCDCompletionItemType::Calltip) {
                 QRegularExpression funcRE(QStringLiteral("^\\s*(\\w+)\\s+(\\w+\\s*\\(.*\\))\\s*$"));
                 QStringList matches = funcRE.match(item.name).capturedTexts();
 
-                switch(index.column()) {
-                    case Prefix: return matches[1];
-                    case Name: return matches[2];
+                switch (index.column()) {
+                    case Prefix:
+                        return matches[1];
+                    case Name:
+                        return matches[2];
                 }
             } else {
-                if(index.column() == Name) {
+                if (index.column() == Name) {
                     return item.name;
                 }
             }
             break;
         }
-        case CompletionRole:
-        {
+        case CompletionRole: {
             int p = NoProperty;
             switch (item.type) {
-                case DCDCompletionItemType::FunctionName: p |= Function; break;
-                case DCDCompletionItemType::VariableName: p |= Variable; break;
-                default: break;
+                case DCDCompletionItemType::FunctionName:
+                    p |= Function;
+                    break;
+                case DCDCompletionItemType::VariableName:
+                    p |= Variable;
+                    break;
+                default:
+                    break;
             }
             return p;
         }
-        case BestMatchesCount:
-        {
+        case BestMatchesCount: {
             return 5;
         }
-        case ArgumentHintDepth:
-        {
-            if(item.type == DCDCompletionItemType::Calltip) {
+        case ArgumentHintDepth: {
+            if (item.type == DCDCompletionItemType::Calltip) {
                 return 1;
             }
             break;
         }
-        case GroupRole:
-        {
+        case GroupRole: {
             break;
         }
-        case IsExpandable:
-        {
+        case IsExpandable: {
             // I like the green arrow
             return true;
         }
-        case ExpandingWidget:
-        {
+        case ExpandingWidget: {
             // TODO well implementation in DCD is missing
             return QVariant();
         }

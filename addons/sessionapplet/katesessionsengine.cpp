@@ -28,18 +28,17 @@ static const QString s_clipboardSourceName = QStringLiteral("katesessions");
 KateSessionsEngine::KateSessionsEngine(QObject *parent, const QVariantList &args)
     : Plasma::DataEngine(parent, args)
 {
-    setData(s_clipboardSourceName,QStringLiteral("test_data"),QLatin1String("This is just for testing"));  
-    setModel(s_clipboardSourceName,new KateSessionsModel(this));
+    setData(s_clipboardSourceName, QStringLiteral("test_data"), QLatin1String("This is just for testing"));
+    setModel(s_clipboardSourceName, new KateSessionsModel(this));
 }
 
 KateSessionsEngine::~KateSessionsEngine()
 {
-    
 }
 
 Plasma::Service *KateSessionsEngine::serviceForSource(const QString &source)
 {
-    qDebug()<< "Creating KateSessionService";
+    qDebug() << "Creating KateSessionService";
     Plasma::Service *service = new KateSessionsService(this, source);
     service->setParent(this);
     return service;

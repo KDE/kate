@@ -33,7 +33,8 @@ class KatePluginListItem : public QTreeWidgetItem
 public:
     KatePluginListItem(bool checked, KatePluginInfo *info);
 
-    KatePluginInfo *info() const {
+    KatePluginInfo *info() const
+    {
         return mInfo;
     }
 
@@ -80,7 +81,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     listView->setWhatsThis(i18n("Here you can see all available Kate plugins. Those with a check mark are loaded, and will be loaded again the next time Kate is started."));
 
     KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
-    for (auto& pluginInfo : pluginList) {
+    for (auto &pluginInfo : pluginList) {
         QTreeWidgetItem *item = new KatePluginListItem(pluginInfo.load, &pluginInfo);
         item->setText(0, pluginInfo.metaData.name());
         item->setText(1, pluginInfo.metaData.description());
@@ -122,4 +123,3 @@ void KateConfigPluginPage::unloadPlugin(KatePluginListItem *item)
 
     item->setCheckState(0, Qt::Unchecked);
 }
-

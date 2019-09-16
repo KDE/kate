@@ -48,7 +48,7 @@ void Test1::testShellCheckParsing()
     QString line = QStringLiteral("script.sh:3:11: note: Use ./*glob* or -- *glob* so ... options. [SC2035]");
     KateProjectCodeAnalysisToolShellcheck sc(nullptr);
     QStringList outList = sc.parseLine(line);
-    //qDebug() << outList;
+    // qDebug() << outList;
     QCOMPARE(outList.size(), 4);
 }
 

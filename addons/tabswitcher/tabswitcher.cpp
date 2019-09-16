@@ -38,8 +38,8 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(TabSwitcherPluginFactory, "tabswitcherplugin.json", registerPlugin<TabSwitcherPlugin>();)
 
-TabSwitcherPlugin::TabSwitcherPlugin(QObject *parent, const QList<QVariant> &):
-    KTextEditor::Plugin(parent)
+TabSwitcherPlugin::TabSwitcherPlugin(QObject *parent, const QList<QVariant> &)
+    : KTextEditor::Plugin(parent)
 {
 }
 
@@ -77,10 +77,9 @@ TabSwitcherPluginView::TabSwitcherPluginView(TabSwitcherPlugin *plugin, KTextEdi
     connect(m_treeView, &TabSwitcherTreeView::itemActivated, this, &TabSwitcherPluginView::activateView);
 
     // track existing documents
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated,
-            this, &TabSwitcherPluginView::registerDocument);
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted,
-            this, &TabSwitcherPluginView::unregisterDocument);;
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &TabSwitcherPluginView::registerDocument);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, this, &TabSwitcherPluginView::unregisterDocument);
+    ;
 
     // track lru activation of views to raise the respective documents in the model
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &TabSwitcherPluginView::raiseView);
@@ -130,7 +129,7 @@ void TabSwitcherPluginView::setupModel()
     }
 }
 
-void TabSwitcherPluginView::registerDocument(KTextEditor::Document * document)
+void TabSwitcherPluginView::registerDocument(KTextEditor::Document *document)
 {
     // insert into hash
     m_documents.insert(document);
@@ -142,7 +141,7 @@ void TabSwitcherPluginView::registerDocument(KTextEditor::Document * document)
     connect(document, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
 }
 
-void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)
+void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document *document)
 {
     // remove from hash
     if (!m_documents.contains(document)) {
@@ -157,7 +156,7 @@ void TabSwitcherPluginView::unregisterDocument(KTextEditor::Document * document)
     disconnect(document, nullptr, this, nullptr);
 }
 
-void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)
+void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document *document)
 {
     if (!m_documents.contains(document)) {
         return;
@@ -168,7 +167,7 @@ void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document * document)
     m_model->updateItems();
 }
 
-void TabSwitcherPluginView::raiseView(KTextEditor::View * view)
+void TabSwitcherPluginView::raiseView(KTextEditor::View *view)
 {
     if (!view || !m_documents.contains(view->document())) {
         return;
@@ -181,17 +180,19 @@ void TabSwitcherPluginView::walk(const int from, const int to)
 {
     QModelIndex index;
     const int step = from < to ? 1 : -1;
-    if (! m_treeView->isVisible()) {
+    if (!m_treeView->isVisible()) {
         updateViewGeometry();
         index = m_model->index(from + step, 0);
-        if(! index.isValid()) {
+        if (!index.isValid()) {
             index = m_model->index(0, 0);
         }
         m_treeView->show();
         m_treeView->setFocus();
     } else {
         int newRow = m_treeView->selectionModel()->currentIndex().row() + step;
-        if(newRow == to + step) { newRow = from; }
+        if (newRow == to + step) {
+            newRow = from;
+        }
         index = m_model->index(newRow, 0);
     }
 
@@ -211,12 +212,12 @@ void TabSwitcherPluginView::walkBackward()
 
 void TabSwitcherPluginView::updateViewGeometry()
 {
-    QWidget * window = m_mainWindow->window();
+    QWidget *window = m_mainWindow->window();
     const QSize centralSize = window->size();
 
     // Maximum size of the view is 3/4th of the central widget (the editor area)
     // so the view does not overlap the mainwindow since that looks awkward.
-    const QSize viewMaxSize( centralSize.width() * 3/4, centralSize.height() * 3/4 );
+    const QSize viewMaxSize(centralSize.width() * 3 / 4, centralSize.height() * 3 / 4);
 
     // The actual view size should be as big as the columns/rows need it, but
     // smaller than the max-size. This means the view will get quite high with
@@ -224,27 +225,28 @@ void TabSwitcherPluginView::updateViewGeometry()
     // max size to be only 1/2th of the central widget size
     const int rowHeight = m_treeView->sizeHintForRow(0);
     const int frameWidth = m_treeView->frameWidth();
-    //const QSize viewSize(std::min(m_treeView->sizeHintForColumn(0) + 2 * frameWidth + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()), // ORIG line, sizeHintForColumn was QListView but is protected for QTreeView so we introduced sizeHintWidth()
+    // const QSize viewSize(std::min(m_treeView->sizeHintForColumn(0) + 2 * frameWidth + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()), // ORIG line, sizeHintForColumn was QListView but is protected for QTreeView so we
+    // introduced sizeHintWidth()
     const QSize viewSize(std::min(m_treeView->sizeHintWidth() + 2 * frameWidth + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()),
-                         std::min(std::max(rowHeight * m_model->rowCount() + 2 * frameWidth, rowHeight * 6 ), viewMaxSize.height()));
+                         std::min(std::max(rowHeight * m_model->rowCount() + 2 * frameWidth, rowHeight * 6), viewMaxSize.height()));
 
     // Position should be central over the editor area, so map to global from
     // parent of central widget since the view is positioned in global coords
     const QPoint centralWidgetPos = window->parentWidget() ? window->mapToGlobal(window->pos()) : window->pos();
-    const int xPos = std::max(0, centralWidgetPos.x() + (centralSize.width()  - viewSize.width()  ) / 2);
-    const int yPos = std::max(0, centralWidgetPos.y() + (centralSize.height() - viewSize.height() ) / 2);
+    const int xPos = std::max(0, centralWidgetPos.x() + (centralSize.width() - viewSize.width()) / 2);
+    const int yPos = std::max(0, centralWidgetPos.y() + (centralSize.height() - viewSize.height()) / 2);
 
     m_treeView->setFixedSize(viewSize);
     m_treeView->move(xPos, yPos);
 }
 
-void TabSwitcherPluginView::switchToClicked(const QModelIndex & index)
+void TabSwitcherPluginView::switchToClicked(const QModelIndex &index)
 {
     m_treeView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
     activateView(index);
 }
 
-void TabSwitcherPluginView::activateView(const QModelIndex & index)
+void TabSwitcherPluginView::activateView(const QModelIndex &index)
 {
     Q_UNUSED(index)
 

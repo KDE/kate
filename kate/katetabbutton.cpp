@@ -36,7 +36,7 @@
 
 #include <math.h>
 
-TabCloseButton::TabCloseButton(QWidget * parent)
+TabCloseButton::TabCloseButton(QWidget *parent)
     : QAbstractButton(parent)
 {
     // should never have focus
@@ -51,9 +51,8 @@ void TabCloseButton::paintEvent(QPaintEvent *event)
     Q_UNUSED(event)
 
     // get the tab this close button belongs to
-    KateTabButton *tabButton = qobject_cast<KateTabButton*>(parent());
-    const bool isActive = underMouse()
-        || (tabButton && tabButton->isChecked());
+    KateTabButton *tabButton = qobject_cast<KateTabButton *>(parent());
+    const bool isActive = underMouse() || (tabButton && tabButton->isChecked());
 
     // set style options depending on current state
     QStyleOption opt;
@@ -92,7 +91,6 @@ void TabCloseButton::leaveEvent(QEvent *event)
     QAbstractButton::leaveEvent(event);
 }
 
-
 KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     : QAbstractButton(parent)
     , m_geometryAnimation(nullptr)
@@ -105,7 +103,7 @@ KateTabButton::KateTabButton(const QString &text, QWidget *parent)
     // add close button
     const int margin = style()->pixelMetric(QStyle::PM_ButtonMargin, nullptr, this);
     m_closeButton = new TabCloseButton(this);
-    QHBoxLayout * hbox = new QHBoxLayout(this);
+    QHBoxLayout *hbox = new QHBoxLayout(this);
     hbox->setSpacing(0);
     hbox->setContentsMargins(margin, 0, margin, 0);
     hbox->addStretch();
@@ -153,7 +151,7 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
 
     // icon, if applicable
     int leftMargin = margin;
-    if (! icon().isNull()) {
+    if (!icon().isNull()) {
         const int y = (height() - 16) / 2;
         icon().paint(&p, margin, y, 16, 16);
         leftMargin += 16;
@@ -161,12 +159,12 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
     }
 
     // the width of the text is reduced by the close button + 2 * margin
-    const int w = width() // width of widget
-                - m_closeButton->width() - 2 * margin // close button
-                - leftMargin; // modified button
+    const int w = width()                     // width of widget
+        - m_closeButton->width() - 2 * margin // close button
+        - leftMargin;                         // modified button
 
     // draw text, we need to elide to xxx...xxx is too long
-    const QString elidedText = QFontMetrics(font()).elidedText (text(), Qt::ElideMiddle, w);
+    const QString elidedText = QFontMetrics(font()).elidedText(text(), Qt::ElideMiddle, w);
     const QRect textRect(leftMargin, 0, w, height());
     const QPalette pal = QApplication::palette();
     style()->drawItemText(&p, textRect, Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText, QPalette::WindowText);
@@ -181,7 +179,7 @@ void KateTabButton::mousePressEvent(QMouseEvent *ev)
 
     // activation code
     if (ev->button() == Qt::LeftButton) {
-        if (! isChecked()) {
+        if (!isChecked()) {
             // make sure we stay checked
             setChecked(true);
         }
@@ -198,8 +196,7 @@ void KateTabButton::mousePressEvent(QMouseEvent *ev)
 void KateTabButton::mouseMoveEvent(QMouseEvent *event)
 {
     // possibly start drag event
-    if (QPoint(event->globalPos() - m_mouseDownPosition).manhattanLength() > QApplication::startDragDistance())
-    {
+    if (QPoint(event->globalPos() - m_mouseDownPosition).manhattanLength() > QApplication::startDragDistance()) {
         QMimeData *mimeData = new QMimeData;
         mimeData->setData(QStringLiteral("application/x-dndkatetabbutton"), QByteArray());
         mimeData->setUrls({m_url});
@@ -253,12 +250,10 @@ bool KateTabButton::isActiveTabBar() const
     return parentWidget()->property("isActive").toBool();
 }
 
-void KateTabButton::setAnimatedGeometry(const QRect & startGeom,
-                                        const QRect & endGeom)
+void KateTabButton::setAnimatedGeometry(const QRect &startGeom, const QRect &endGeom)
 {
     // stop animation in case it is running
-    if (m_geometryAnimation &&
-        m_geometryAnimation->state() != QAbstractAnimation::Stopped) {
+    if (m_geometryAnimation && m_geometryAnimation->state() != QAbstractAnimation::Stopped) {
         m_geometryAnimation->stop();
     }
 
@@ -268,14 +263,12 @@ void KateTabButton::setAnimatedGeometry(const QRect & startGeom,
     }
 
     // if the style does not want animations, just set geometry
-    if (! style()->styleHint(QStyle::SH_Widget_Animate, nullptr, this)
-        || (isVisible() && endGeom == startGeom))
-    {
+    if (!style()->styleHint(QStyle::SH_Widget_Animate, nullptr, this) || (isVisible() && endGeom == startGeom)) {
         setGeometry(endGeom);
         return;
     }
 
-    if (! m_geometryAnimation) {
+    if (!m_geometryAnimation) {
         m_geometryAnimation = new QPropertyAnimation(this, "geometry", this);
         m_geometryAnimation->setDuration(100);
     }
@@ -288,8 +281,7 @@ void KateTabButton::setAnimatedGeometry(const QRect & startGeom,
 
 bool KateTabButton::geometryAnimationRunning() const
 {
-    return m_geometryAnimation
-        && (m_geometryAnimation->state() != QAbstractAnimation::Stopped);
+    return m_geometryAnimation && (m_geometryAnimation->state() != QAbstractAnimation::Stopped);
 }
 
 QUrl KateTabButton::url() const

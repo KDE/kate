@@ -31,8 +31,8 @@
 K_PLUGIN_FACTORY_WITH_JSON(KTERustCompletionPluginFactory, "kterustcompletionplugin.json", registerPlugin<KTERustCompletionPlugin>();)
 
 KTERustCompletionPlugin::KTERustCompletionPlugin(QObject *parent, const QList<QVariant> &)
-    : KTextEditor::Plugin(parent),
-    m_completion(this)
+    : KTextEditor::Plugin(parent)
+    , m_completion(this)
 {
     readConfig();
 }
@@ -118,8 +118,7 @@ void KTERustCompletionPlugin::updateConfigOk()
             if (!m_rustSrcWatch) {
                 m_rustSrcWatch = new KDirWatch(this);
                 m_rustSrcWatch->addDir(path, KDirWatch::WatchDirOnly);
-                connect(m_rustSrcWatch, &KDirWatch::deleted,
-                    this, &KTERustCompletionPlugin::updateConfigOk, Qt::UniqueConnection);
+                connect(m_rustSrcWatch, &KDirWatch::deleted, this, &KTERustCompletionPlugin::updateConfigOk, Qt::UniqueConnection);
             }
         }
     }
@@ -129,8 +128,7 @@ void KTERustCompletionPlugin::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("kterustcompletion"));
     m_racerCmd = config.readEntry(QStringLiteral("racerCmd"), QStringLiteral("racer"));
-    m_rustSrcPath = config.readEntry(QStringLiteral("rustSrcPath"),
-        QUrl(QStringLiteral("/usr/local/src/rust/src")));
+    m_rustSrcPath = config.readEntry(QStringLiteral("rustSrcPath"), QUrl(QStringLiteral("/usr/local/src/rust/src")));
 
     updateConfigOk();
 }

@@ -1,5 +1,5 @@
 /*   Kate search plugin
- * 
+ *
  * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,16 +22,21 @@
 
 #include <QTime>
 
-SearchOpenFiles::SearchOpenFiles(QObject *parent) : QObject(parent)
+SearchOpenFiles::SearchOpenFiles(QObject *parent)
+    : QObject(parent)
 {
     connect(this, &SearchOpenFiles::searchNextFile, this, &SearchOpenFiles::doSearchNextFile, Qt::QueuedConnection);
 }
 
-bool SearchOpenFiles::searching() { return !m_cancelSearch; }
-
-void SearchOpenFiles::startSearch(const QList<KTextEditor::Document*> &list, const QRegularExpression &regexp)
+bool SearchOpenFiles::searching()
 {
-    if (m_nextIndex != -1) return;
+    return !m_cancelSearch;
+}
+
+void SearchOpenFiles::startSearch(const QList<KTextEditor::Document *> &list, const QRegularExpression &regexp)
+{
+    if (m_nextIndex != -1)
+        return;
 
     m_docList = list;
     m_nextIndex = 0;
@@ -65,12 +70,10 @@ void SearchOpenFiles::doSearchNextFile(int startLine)
             m_nextIndex = -1;
             m_cancelSearch = true;
             emit searchDone();
-        }
-        else {
+        } else {
             emit searchNextFile(0);
         }
-    }
-    else {
+    } else {
         emit searchNextFile(line);
     }
 }
@@ -97,16 +100,14 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
     time.start();
     for (int line = startLine; line < doc->lines(); line++) {
         if (time.elapsed() > 100) {
-            //qDebug() << "Search time exceeded" << time.elapsed() << line;
+            // qDebug() << "Search time exceeded" << time.elapsed() << line;
             return line;
         }
         QRegularExpressionMatch match;
         match = regExp.match(doc->line(line));
         column = match.capturedStart();
-        while (column != -1 &&  !match.captured().isEmpty()) {
-            emit matchFound(doc->url().toString(), doc->documentName(),
-                            doc->line(line), match.capturedLength(),
-                            line, column, line, column+match.capturedLength());
+        while (column != -1 && !match.captured().isEmpty()) {
+            emit matchFound(doc->url().toString(), doc->documentName(), doc->line(line), match.capturedLength(), line, column, line, column + match.capturedLength());
             match = regExp.match(doc->line(line), column + match.capturedLength());
             column = match.capturedStart();
         }
@@ -127,22 +128,20 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         m_fullDoc.clear();
         m_lineStart.clear();
         m_lineStart << 0;
-        for (int i=0; i<doc->lines(); i++) {
+        for (int i = 0; i < doc->lines(); i++) {
             m_fullDoc += doc->line(i) + QLatin1Char('\n');
             m_lineStart << m_fullDoc.size();
         }
         if (!regExp.pattern().endsWith(QLatin1Char('$'))) {
             // if regExp ends with '$' leave the extra newline at the end as
             // '$' will be replaced with (?=\\n), which needs the extra newline
-            m_fullDoc.remove(m_fullDoc.size()-1, 1);
+            m_fullDoc.remove(m_fullDoc.size() - 1, 1);
         }
-    }
-    else {
-        if (inStartLine>0 && inStartLine<m_lineStart.size()) {
+    } else {
+        if (inStartLine > 0 && inStartLine < m_lineStart.size()) {
             column = m_lineStart[inStartLine];
             startLine = inStartLine;
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -160,9 +159,9 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         // search for the line number of the match
         int i;
         startLine = -1;
-        for (i=1; i<m_lineStart.size(); i++) {
+        for (i = 1; i < m_lineStart.size(); i++) {
             if (m_lineStart[i] > column) {
-                startLine = i-1;
+                startLine = i - 1;
                 break;
             }
         }
@@ -173,18 +172,15 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         int startColumn = (column - m_lineStart[startLine]);
         int endLine = startLine + match.captured().count(QLatin1Char('\n'));
         int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
-        int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL-1;
+        int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL - 1;
 
-        emit matchFound(doc->url().toString(), doc->documentName(),
-                        doc->line(startLine).left(column - m_lineStart[startLine])+match.captured(),
-                        match.capturedLength(),
-                        startLine, startColumn, endLine, endColumn);
+        emit matchFound(doc->url().toString(), doc->documentName(), doc->line(startLine).left(column - m_lineStart[startLine]) + match.captured(), match.capturedLength(), startLine, startColumn, endLine, endColumn);
 
         match = tmpRegExp.match(m_fullDoc, column + match.capturedLength());
         column = match.capturedStart();
 
         if (time.elapsed() > 100) {
-            //qDebug() << "Search time exceeded" << time.elapsed() << line;
+            // qDebug() << "Search time exceeded" << time.elapsed() << line;
             return startLine;
         }
     }

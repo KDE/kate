@@ -26,7 +26,7 @@
 #include <KLocalizedString>
 
 KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin *plugin)
-    :  KTextEditor::ConfigPage(parent)
+    : KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -34,9 +34,9 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
 
     QVBoxLayout *vbox = new QVBoxLayout;
     QGroupBox *group = new QGroupBox(i18nc("Groupbox title", "Autoload Repositories"), this);
-    group->setWhatsThis(i18n(
-        "Project plugin is able to autoload repository working copies when "
-        "there is no .kateproject file defined yet."));
+    group->setWhatsThis(
+        i18n("Project plugin is able to autoload repository working copies when "
+             "there is no .kateproject file defined yet."));
 
     m_cbAutoGit = new QCheckBox(i18n("&Git"), this);
     vbox->addWidget(m_cbAutoGit);
@@ -82,10 +82,7 @@ void KateProjectConfigPage::apply()
 
     m_changed = false;
 
-    m_plugin->setAutoRepository(
-        m_cbAutoGit->checkState() == Qt::Checked,
-        m_cbAutoSubversion->checkState() == Qt::Checked,
-        m_cbAutoMercurial->checkState() == Qt::Checked);
+    m_plugin->setAutoRepository(m_cbAutoGit->checkState() == Qt::Checked, m_cbAutoSubversion->checkState() == Qt::Checked, m_cbAutoMercurial->checkState() == Qt::Checked);
 }
 
 void KateProjectConfigPage::reset()

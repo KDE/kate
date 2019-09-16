@@ -28,7 +28,7 @@
 #include <KUrlRequester>
 
 KTERustCompletionConfigPage::KTERustCompletionConfigPage(QWidget *parent, KTERustCompletionPlugin *plugin)
-    :  KTextEditor::ConfigPage(parent)
+    : KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);

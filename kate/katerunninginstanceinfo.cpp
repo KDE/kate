@@ -43,7 +43,7 @@ bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
 
     QString my_pid = QString::number(QCoreApplication::applicationPid());
 
-    foreach(const QString & s, services) {
+    foreach (const QString &s, services) {
         if (s.startsWith(QLatin1String("org.kde.kate-"))) {
             if (s.contains(my_pid)) {
                 continue;
@@ -51,10 +51,10 @@ bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
             KateRunningInstanceInfo *rii = new KateRunningInstanceInfo(s);
             if (rii->valid) {
                 if (map->contains(rii->sessionName)) {
-                    return false;    //ERROR no two instances may have the same session name
+                    return false; // ERROR no two instances may have the same session name
                 }
                 map->insert(rii->sessionName, rii);
-                //std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
+                // std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
             } else {
                 delete rii;
             }
@@ -70,4 +70,3 @@ void cleanupRunningKateAppInstanceMap(KateRunningInstanceMap *map)
     }
     map->clear();
 }
-

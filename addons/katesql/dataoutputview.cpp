@@ -24,22 +24,20 @@
 #include <qmenu.h>
 
 DataOutputView::DataOutputView(QWidget *parent)
-: QTableView(parent)
+    : QTableView(parent)
 {
-  setContextMenuPolicy(Qt::CustomContextMenu);
+    setContextMenuPolicy(Qt::CustomContextMenu);
 
-  connect(this, &DataOutputView::customContextMenuRequested,
-          this, &DataOutputView::slotCustomContextMenuRequested);
+    connect(this, &DataOutputView::customContextMenuRequested, this, &DataOutputView::slotCustomContextMenuRequested);
 }
 
 void DataOutputView::slotCustomContextMenuRequested(const QPoint &pos)
 {
-  Q_UNUSED(pos);
+    Q_UNUSED(pos);
 
-  QMenu menu;
+    QMenu menu;
 
-  menu.addActions(actions());
+    menu.addActions(actions());
 
-  menu.exec(QCursor::pos());
+    menu.exec(QCursor::pos());
 }
-

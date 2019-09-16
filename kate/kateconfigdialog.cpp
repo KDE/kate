@@ -72,7 +72,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     applicationItem->setEnabled(false);
     m_applicationPage = applicationItem;
 
-    //BEGIN General page
+    // BEGIN General page
     QFrame *generalFrame = new QFrame;
     KPageWidgetItem *item = addSubPage(applicationItem, generalFrame, i18n("General"));
     item->setHeader(i18n("General Options"));
@@ -88,25 +88,23 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     layout->addWidget(buttonGroup);
 
     // modified files notification
-    m_modNotifications = new QCheckBox(
-        i18n("Wa&rn about files modified by foreign processes"), buttonGroup);
+    m_modNotifications = new QCheckBox(i18n("Wa&rn about files modified by foreign processes"), buttonGroup);
     m_modNotifications->setChecked(parent->modNotificationEnabled());
-    m_modNotifications->setWhatsThis(i18n(
-                                         "If enabled, when Kate receives focus you will be asked what to do with "
-                                         "files that have been modified on the hard disk. If not enabled, you will "
-                                         "be asked what to do with a file that has been modified on the hard disk only "
-                                         "when that file is tried to be saved."));
+    m_modNotifications->setWhatsThis(
+        i18n("If enabled, when Kate receives focus you will be asked what to do with "
+             "files that have been modified on the hard disk. If not enabled, you will "
+             "be asked what to do with a file that has been modified on the hard disk only "
+             "when that file is tried to be saved."));
     connect(m_modNotifications, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     vbox->addWidget(m_modNotifications);
 
     // Closing last file closes Kate
-    m_modCloseAfterLast = new QCheckBox(
-        i18n("Close Kate entirely when the last file is closed"), buttonGroup);
+    m_modCloseAfterLast = new QCheckBox(i18n("Close Kate entirely when the last file is closed"), buttonGroup);
     m_modCloseAfterLast->setChecked(parent->modCloseAfterLast());
-    m_modCloseAfterLast->setWhatsThis(i18n(
-                                         "If enabled, Kate will shutdown when the last file being edited is closed, "
-                                         "otherwise a blank page will open so that you can start a new file."));
+    m_modCloseAfterLast->setWhatsThis(
+        i18n("If enabled, Kate will shutdown when the last file being edited is closed, "
+             "otherwise a blank page will open so that you can start a new file."));
     connect(m_modCloseAfterLast, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     vbox->addWidget(m_modCloseAfterLast);
@@ -121,10 +119,10 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     m_saveMetaInfos = new QCheckBox(buttonGroup);
     m_saveMetaInfos->setText(i18n("Keep &meta-information past sessions"));
     m_saveMetaInfos->setChecked(KateApp::self()->documentManager()->getSaveMetaInfos());
-    m_saveMetaInfos->setWhatsThis(i18n(
-                                      "Check this if you want document configuration like for example "
-                                      "bookmarks to be saved past editor sessions. The configuration will be "
-                                      "restored if the document has not changed when reopened."));
+    m_saveMetaInfos->setWhatsThis(
+        i18n("Check this if you want document configuration like for example "
+             "bookmarks to be saved past editor sessions. The configuration will be "
+             "restored if the document has not changed when reopened."));
     connect(m_saveMetaInfos, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     vbox->addWidget(m_saveMetaInfos);
@@ -182,9 +180,9 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     layout->addWidget(buttonGroup);
 
     layout->addStretch(1); // :-] works correct without autoadd
-    //END General page
+    // END General page
 
-    //BEGIN Session page
+    // BEGIN Session page
     QWidget *sessionsPage = new QWidget();
     item = addSubPage(applicationItem, sessionsPage, i18n("Sessions"));
     item->setHeader(i18n("Session Management"));
@@ -194,26 +192,26 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     sessionConfigUi->setupUi(sessionsPage);
 
     // restore view  config
-    sessionConfigUi->restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
+    sessionConfigUi->restoreVC->setChecked(cgGeneral.readEntry("Restore Window Configuration", true));
     connect(sessionConfigUi->restoreVC, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     sessionConfigUi->spinBoxRecentFilesCount->setValue(recentFilesMaxCount());
     connect(sessionConfigUi->spinBoxRecentFilesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
 
-    QString sesStart (cgGeneral.readEntry ("Startup Session", "manual"));
+    QString sesStart(cgGeneral.readEntry("Startup Session", "manual"));
     if (sesStart == QLatin1String("new"))
-        sessionConfigUi->startNewSessionRadioButton->setChecked (true);
+        sessionConfigUi->startNewSessionRadioButton->setChecked(true);
     else if (sesStart == QLatin1String("last"))
-        sessionConfigUi->loadLastUserSessionRadioButton->setChecked (true);
+        sessionConfigUi->loadLastUserSessionRadioButton->setChecked(true);
     else
-        sessionConfigUi->manuallyChooseSessionRadioButton->setChecked (true);
+        sessionConfigUi->manuallyChooseSessionRadioButton->setChecked(true);
 
     connect(sessionConfigUi->startNewSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
     connect(sessionConfigUi->loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
     connect(sessionConfigUi->manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
-    //END Session page
+    // END Session page
 
-    //BEGIN Plugins page
+    // BEGIN Plugins page
     QFrame *page = new QFrame(this);
     QVBoxLayout *vlayout = new QVBoxLayout(page);
     vlayout->setContentsMargins(0, 0, 0, 0);
@@ -228,14 +226,14 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-plugin")));
 
     KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
-    foreach(const KatePluginInfo & plugin, pluginList) {
+    foreach (const KatePluginInfo &plugin, pluginList) {
         if (plugin.load) {
             addPluginPage(plugin.plugin);
         }
     }
-    //END Plugins page
+    // END Plugins page
 
-// editor widgets from kwrite/kwdialog
+    // editor widgets from kwrite/kwdialog
     m_editorPage = addPage(new QWidget, i18n("Editor Component"));
     m_editorPage->setIcon(QIcon::fromTheme(QStringLiteral("accessories-text-editor")));
     m_editorPage->setHeader(i18n("Editor Component Options"));
@@ -262,7 +260,6 @@ KateConfigDialog::~KateConfigDialog()
 
 void KateConfigDialog::addEditorPages()
 {
-
     for (int i = 0; i < KTextEditor::Editor::instance()->configPages(); ++i) {
         KTextEditor::ConfigPage *page = KTextEditor::Editor::instance()->configPage(i, this);
         connect(page, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
@@ -379,10 +376,10 @@ void KateConfigDialog::slotApply()
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
-        foreach(KTextEditor::Document * doc, docs)
-        if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
-            qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
-        }
+        foreach (KTextEditor::Document *doc, docs)
+            if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
+                qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
+            }
 
         m_mainWindow->saveOptions();
 
@@ -392,7 +389,7 @@ void KateConfigDialog::slotApply()
         KateApp::self()->pluginManager()->writeConfig(sessionConfig);
     }
 
-    foreach(PluginPageListItem * plugin, m_pluginPages) {
+    foreach (PluginPageListItem *plugin, m_pluginPages) {
         if (!plugin) {
             continue;
         }
@@ -402,8 +399,8 @@ void KateConfigDialog::slotApply()
     }
 
     // apply ktexteditor pages
-    foreach(KTextEditor::ConfigPage * page, m_editorPages)
-    page->apply();
+    foreach (KTextEditor::ConfigPage *page, m_editorPages)
+        page->apply();
 
     config->sync();
 
@@ -419,7 +416,7 @@ void KateConfigDialog::slotChanged()
 
 void KateConfigDialog::showAppPluginPage(KTextEditor::Plugin *p, uint id)
 {
-    foreach(PluginPageListItem * plugin, m_pluginPages) {
+    foreach (PluginPageListItem *plugin, m_pluginPages) {
         if ((plugin->plugin == p) && (id == plugin->idInPlugin)) {
             setCurrentPage(plugin->pageWidgetItem);
             break;
@@ -445,12 +442,8 @@ void KateConfigDialog::closeEvent(QCloseEvent *event)
         return;
     }
 
-    const auto response = KMessageBox::warningYesNoCancel(this,
-                                        i18n("You have unsaved changes. Do you want to apply the changes or discard them?"),
-                                        i18n("Warning"),
-                                        KStandardGuiItem::save(),
-                                        KStandardGuiItem::discard(),
-                                        KStandardGuiItem::cancel());
+    const auto response =
+        KMessageBox::warningYesNoCancel(this, i18n("You have unsaved changes. Do you want to apply the changes or discard them?"), i18n("Warning"), KStandardGuiItem::save(), KStandardGuiItem::discard(), KStandardGuiItem::cancel());
     switch (response) {
         case KMessageBox::Yes:
             slotApply();

@@ -24,12 +24,17 @@
 #include <QTimer>
 #include <klocalizedstring.h>
 
-ReplaceMatches::ReplaceMatches(QObject *parent) : QObject(parent) {}
+ReplaceMatches::ReplaceMatches(QObject *parent)
+    : QObject(parent)
+{
+}
 
 void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegularExpression &regexp, const QString &replace)
 {
-    if (m_manager == nullptr) return;
-    if (m_rootIndex != -1) return; // already replacing
+    if (m_manager == nullptr)
+        return;
+    if (m_rootIndex != -1)
+        return; // already replacing
 
     m_tree = tree;
     m_rootIndex = 0;
@@ -53,10 +58,10 @@ void ReplaceMatches::cancelReplace()
 
 KTextEditor::Document *ReplaceMatches::findNamed(const QString &name)
 {
-    const QList<KTextEditor::Document*> docs = m_manager->documents();
+    const QList<KTextEditor::Document *> docs = m_manager->documents();
 
-    foreach (KTextEditor::Document* it, docs) {
-        if ( it->documentName() == name) {
+    foreach (KTextEditor::Document *it, docs) {
+        if (it->documentName() == name) {
             return it;
         }
     }
@@ -71,7 +76,7 @@ bool ReplaceMatches::replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *i
 
     // don't replace an already replaced item
     if (item->data(0, ReplaceMatches::ReplacedRole).toBool()) {
-        //qDebug() << "not replacing already replaced item";
+        // qDebug() << "not replacing already replaced item";
         return false;
     }
 
@@ -115,7 +120,7 @@ bool ReplaceMatches::replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *i
 
     int newEndLine = range.start().line() + replaceText.count(QLatin1Char('\n'));
     int lastNL = replaceText.lastIndexOf(QLatin1Char('\n'));
-    int newEndColumn = lastNL == -1 ? range.start().column() + replaceText.length() : replaceText.length() - lastNL-1;
+    int newEndColumn = lastNL == -1 ? range.start().column() + replaceText.length() : replaceText.length() - lastNL - 1;
 
     item->setData(0, ReplaceMatches::ReplacedRole, true);
     item->setData(0, ReplaceMatches::StartLineRole, range.start().line());
@@ -131,7 +136,7 @@ bool ReplaceMatches::replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *i
     html += QLatin1String("<i><s>") + item->data(0, ReplaceMatches::MatchRole).toString() + QLatin1String("</s></i> ");
     html += QLatin1String("<b>") + replaceText + QLatin1String("</b>");
     html += item->data(0, ReplaceMatches::PostMatchRole).toString();
-    item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",range.start().line()+1, html));
+    item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2", range.start().line() + 1, html));
 
     return true;
 }
@@ -148,24 +153,25 @@ bool ReplaceMatches::replaceSingleMatch(KTextEditor::Document *doc, QTreeWidgetI
     }
 
     // Create a vector of moving ranges for updating the tree-view after replace
-    QVector<KTextEditor::MovingRange*> matches;
+    QVector<KTextEditor::MovingRange *> matches;
     QVector<bool> replaced;
-    KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
 
     int i = 0;
 
     // Only add items after "item"
-    for (; i<rootItem->childCount(); i++) {
-        if (item == rootItem->child(i)) break;
+    for (; i < rootItem->childCount(); i++) {
+        if (item == rootItem->child(i))
+            break;
     }
-    for (int j=i; j<rootItem->childCount(); j++) {
+    for (int j = i; j < rootItem->childCount(); j++) {
         QTreeWidgetItem *tmp = rootItem->child(j);
         int startLine = tmp->data(0, ReplaceMatches::StartLineRole).toInt();
         int startColumn = tmp->data(0, ReplaceMatches::StartColumnRole).toInt();
         int endLine = tmp->data(0, ReplaceMatches::EndLineRole).toInt();
         int endColumn = tmp->data(0, ReplaceMatches::EndColumnRole).toInt();
         KTextEditor::Range range(startLine, startColumn, endLine, endColumn);
-        KTextEditor::MovingRange* mr = miface->newMovingRange(range);
+        KTextEditor::MovingRange *mr = miface->newMovingRange(range);
         matches.append(mr);
     }
 
@@ -181,7 +187,7 @@ bool ReplaceMatches::replaceSingleMatch(KTextEditor::Document *doc, QTreeWidgetI
     delete matches.takeFirst();
 
     // Update the remaining tree-view-items
-    for (int j=i+1; j<rootItem->childCount() && !matches.isEmpty(); j++) {
+    for (int j = i + 1; j < rootItem->childCount() && !matches.isEmpty(); j++) {
         QTreeWidgetItem *tmp = rootItem->child(j);
         tmp->setData(0, ReplaceMatches::StartLineRole, matches.first()->start().line());
         tmp->setData(0, ReplaceMatches::StartColumnRole, matches.first()->start().column());
@@ -238,8 +244,7 @@ void ReplaceMatches::doReplaceNextMatch()
     QString docUrl = fileItem->data(0, FileUrlRole).toString();
     if (docUrl.isEmpty()) {
         doc = findNamed(fileItem->data(0, FileNameRole).toString());
-    }
-    else {
+    } else {
         doc = m_manager->findUrl(QUrl::fromUserInput(docUrl));
         if (!doc) {
             doc = m_manager->openUrl(QUrl::fromUserInput(fileItem->data(0, FileUrlRole).toString()));
@@ -256,8 +261,7 @@ void ReplaceMatches::doReplaceNextMatch()
         m_progressTime.restart();
         if (m_currentMatches.isEmpty()) {
             emit replaceStatus(doc->url(), 0, 0);
-        }
-        else {
+        } else {
             emit replaceStatus(doc->url(), m_childStartIndex, m_currentMatches.count());
         }
     }
@@ -265,7 +269,7 @@ void ReplaceMatches::doReplaceNextMatch()
     if (m_childStartIndex == 0) {
         // Create a vector of moving ranges for updating the tree-view after replace
         QVector<bool> replaced;
-        KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+        KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
 
         for (int j = 0; j < fileItem->childCount(); ++j) {
             QTreeWidgetItem *item = fileItem->child(j);
@@ -274,7 +278,7 @@ void ReplaceMatches::doReplaceNextMatch()
             int endLine = item->data(0, ReplaceMatches::EndLineRole).toInt();
             int endColumn = item->data(0, ReplaceMatches::EndColumnRole).toInt();
             KTextEditor::Range range(startLine, startColumn, endLine, endColumn);
-            KTextEditor::MovingRange* mr = miface->newMovingRange(range);
+            KTextEditor::MovingRange *mr = miface->newMovingRange(range);
             m_currentMatches.append(mr);
             m_currentReplaced << false;
         }
@@ -305,8 +309,7 @@ void ReplaceMatches::doReplaceNextMatch()
             emit replaceDone();
             return;
         }
-    }
-    else {
+    } else {
         m_childStartIndex = i;
     }
     QTimer::singleShot(0, this, &ReplaceMatches::doReplaceNextMatch);
@@ -314,11 +317,8 @@ void ReplaceMatches::doReplaceNextMatch()
 
 void ReplaceMatches::updateTreeViewItems(QTreeWidgetItem *fileItem)
 {
-    if (fileItem &&
-        m_currentReplaced.size() == m_currentMatches.size() &&
-        m_currentReplaced.size() == fileItem->childCount())
-    {
-        for (int j=0; j<m_currentReplaced.size() && j<m_currentMatches.size(); ++j) {
+    if (fileItem && m_currentReplaced.size() == m_currentMatches.size() && m_currentReplaced.size() == fileItem->childCount()) {
+        for (int j = 0; j < m_currentReplaced.size() && j < m_currentMatches.size(); ++j) {
             QTreeWidgetItem *item = fileItem->child(j);
 
             if (!m_currentReplaced[j] && item) {
@@ -337,4 +337,3 @@ void ReplaceMatches::updateTreeViewItems(QTreeWidgetItem *fileItem)
     m_currentMatches.clear();
     m_currentReplaced.clear();
 }
-

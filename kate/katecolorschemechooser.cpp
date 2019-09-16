@@ -41,9 +41,8 @@
 #include "katemainwindow.h"
 #include "katedebug.h"
 
-
-KateColorSchemeChooser::KateColorSchemeChooser(QObject* parent)
-: QAction(parent)
+KateColorSchemeChooser::KateColorSchemeChooser(QObject *parent)
+    : QAction(parent)
 {
     auto manager = new KColorSchemeManager(parent);
 
@@ -52,8 +51,7 @@ KateColorSchemeChooser::KateColorSchemeChooser(QObject* parent)
 
     auto selectionMenu = manager->createSchemeSelectionMenu(scheme, this);
 
-    connect(selectionMenu->menu(), &QMenu::triggered,
-            this, &KateColorSchemeChooser::slotSchemeChanged);
+    connect(selectionMenu->menu(), &QMenu::triggered, this, &KateColorSchemeChooser::slotSchemeChanged);
 
     manager->activateScheme(manager->indexForScheme(scheme));
 
@@ -86,15 +84,17 @@ QString KateColorSchemeChooser::currentDesktopDefaultScheme() const
 
 QString KateColorSchemeChooser::currentSchemeName() const
 {
-    if(!menu()) return loadCurrentScheme();
+    if (!menu())
+        return loadCurrentScheme();
 
-    QAction* const action = menu()->activeAction();
+    QAction *const action = menu()->activeAction();
 
-    if(action) return KLocalizedString::removeAcceleratorMarker(action->text());
+    if (action)
+        return KLocalizedString::removeAcceleratorMarker(action->text());
     return currentDesktopDefaultScheme();
 }
 
-void KateColorSchemeChooser::slotSchemeChanged(QAction* triggeredAction)
+void KateColorSchemeChooser::slotSchemeChanged(QAction *triggeredAction)
 {
     saveCurrentScheme(KLocalizedString::removeAcceleratorMarker(triggeredAction->text()));
 }

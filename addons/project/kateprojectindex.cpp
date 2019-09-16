@@ -148,7 +148,7 @@ void KateProjectIndex::findMatches(QStandardItemModel &model, const QString &sea
      * fail if none found
      */
     tagEntry entry;
-    if (tagsFind(m_ctagsIndexHandle, &entry, word.constData(), TAG_PARTIALMATCH  | TAG_OBSERVECASE) != TagSuccess) {
+    if (tagsFind(m_ctagsIndexHandle, &entry, word.constData(), TAG_PARTIALMATCH | TAG_OBSERVECASE) != TagSuccess) {
         return;
     }
 
@@ -178,28 +178,27 @@ void KateProjectIndex::findMatches(QStandardItemModel &model, const QString &sea
          * construct right items
          */
         switch (type) {
-        case CompletionMatches:
-            /**
-             * add new completion item, if new name
-             */
-            if (!guard.contains(name)) {
-                model.appendRow(new QStandardItem(name));
-                guard.insert(name);
-            }
-            break;
+            case CompletionMatches:
+                /**
+                 * add new completion item, if new name
+                 */
+                if (!guard.contains(name)) {
+                    model.appendRow(new QStandardItem(name));
+                    guard.insert(name);
+                }
+                break;
 
-        case FindMatches:
-            /**
-             * add new find item, contains of multiple columns
-             */
-            QList<QStandardItem *> items;
-            items << new QStandardItem(name);
-            items << new QStandardItem(entry.kind ? QString::fromLocal8Bit(entry.kind) : QString());
-            items << new QStandardItem(entry.file ? QString::fromLocal8Bit(entry.file) : QString());
-            items << new QStandardItem(QString::number(entry.address.lineNumber));
-            model.appendRow(items);
-            break;
+            case FindMatches:
+                /**
+                 * add new find item, contains of multiple columns
+                 */
+                QList<QStandardItem *> items;
+                items << new QStandardItem(name);
+                items << new QStandardItem(entry.kind ? QString::fromLocal8Bit(entry.kind) : QString());
+                items << new QStandardItem(entry.file ? QString::fromLocal8Bit(entry.file) : QString());
+                items << new QStandardItem(QString::number(entry.address.lineNumber));
+                model.appendRow(items);
+                break;
         }
     } while (tagsFindNext(m_ctagsIndexHandle, &entry) == TagSuccess);
 }
-

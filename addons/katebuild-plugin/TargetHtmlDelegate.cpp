@@ -36,15 +36,18 @@
 
 #include <QDebug>
 
-TargetHtmlDelegate::TargetHtmlDelegate( QObject* parent )
-: QStyledItemDelegate(parent), m_isEditing(false)
+TargetHtmlDelegate::TargetHtmlDelegate(QObject *parent)
+    : QStyledItemDelegate(parent)
+    , m_isEditing(false)
 {
     connect(this, &TargetHtmlDelegate::sendEditStart, this, &TargetHtmlDelegate::editStarted);
 }
 
-TargetHtmlDelegate::~TargetHtmlDelegate() {}
+TargetHtmlDelegate::~TargetHtmlDelegate()
+{
+}
 
-void TargetHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+void TargetHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QStyleOptionViewItem options = option;
     initStyleOption(&options, index);
@@ -55,19 +58,15 @@ void TargetHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     if (!index.parent().isValid()) {
         if (index.column() == 0) {
             str = i18nc("T as in Target set", "<B>T:</B> %1", index.data().toString().toHtmlEscaped());
-        }
-        else if (index.column() == 1) {
+        } else if (index.column() == 1) {
             str = i18nc("D as in working Directory", "<B>Dir:</B> %1", index.data().toString().toHtmlEscaped());
         }
-    }
-    else {
+    } else {
         str = index.data().toString().toHtmlEscaped();
     }
 
     if (option.state & QStyle::State_Selected) {
-        str = QStringLiteral("<font color=\"%1\">").arg(option.palette.highlightedText().color().name())
-        + str
-        + QStringLiteral("</font>");
+        str = QStringLiteral("<font color=\"%1\">").arg(option.palette.highlightedText().color().name()) + str + QStringLiteral("</font>");
     }
     doc.setHtml(str);
     doc.setDocumentMargin(2);
@@ -77,12 +76,11 @@ void TargetHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     // paint background
     if (option.state & QStyle::State_Selected) {
         painter->fillRect(option.rect, option.palette.highlight());
-    }
-    else {
+    } else {
         painter->fillRect(option.rect, option.palette.base());
     }
 
-    options.text = QString();  // clear old text
+    options.text = QString(); // clear old text
     options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
     // draw text
@@ -95,8 +93,7 @@ void TargetHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     painter->restore();
 }
 
-
-QSize TargetHtmlDelegate::sizeHint(const QStyleOptionViewItem& /* option */, const QModelIndex& index) const
+QSize TargetHtmlDelegate::sizeHint(const QStyleOptionViewItem & /* option */, const QModelIndex &index) const
 {
     QTextDocument doc;
     doc.setHtml(index.data().toString().toHtmlEscaped());
@@ -107,7 +104,7 @@ QSize TargetHtmlDelegate::sizeHint(const QStyleOptionViewItem& /* option */, con
     return doc.size().toSize();
 }
 
-QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionViewItem &/* option */, const QModelIndex &index) const
+QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionViewItem & /* option */, const QModelIndex &index) const
 {
     QWidget *editor;
     if (index.internalId() == TargetModel::InvalidIndex && index.column() == 1) {
@@ -115,18 +112,14 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
         requester->setReplace(true);
         editor = requester;
         editor->setToolTip(i18n("Leave empty to use the directory of the current document."));
-    }
-    else if (index.column() == 1) {
+    } else if (index.column() == 1) {
         UrlInserter *urlEditor = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
         editor = urlEditor;
         editor->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
-    }
-    else {
-        QLineEdit *e =  new QLineEdit(dparent);
+    } else {
+        QLineEdit *e = new QLineEdit(dparent);
         QCompleter *completer = new QCompleter(e);
-        completer->setModel(new QDirModel(QStringList(),
-                                          QDir::AllDirs|QDir::NoDotAndDotDot,
-                                          QDir::Name, e));
+        completer->setModel(new QDirModel(QStringList(), QDir::AllDirs | QDir::NoDotAndDotDot, QDir::Name, e));
         e->setCompleter(completer);
         editor = e;
     }
@@ -136,17 +129,18 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
     return editor;
 }
 
-void TargetHtmlDelegate::setEditorData(QWidget *editor,  const QModelIndex &index) const
+void TargetHtmlDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     QString value = index.model()->data(index, Qt::EditRole).toString();
 
     if (index.column() == 1) {
-        UrlInserter *ledit = static_cast<UrlInserter*>(editor);
-        if (ledit) ledit->lineEdit()->setText(value);
-    }
-    else {
-        QLineEdit *ledit = static_cast<QLineEdit*>(editor);
-        if (ledit) ledit->setText(value);
+        UrlInserter *ledit = static_cast<UrlInserter *>(editor);
+        if (ledit)
+            ledit->lineEdit()->setText(value);
+    } else {
+        QLineEdit *ledit = static_cast<QLineEdit *>(editor);
+        if (ledit)
+            ledit->setText(value);
     }
 }
 
@@ -154,11 +148,10 @@ void TargetHtmlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model
 {
     QString value;
     if (index.column() == 1) {
-        UrlInserter *ledit = static_cast<UrlInserter*>(editor);
+        UrlInserter *ledit = static_cast<UrlInserter *>(editor);
         value = ledit->lineEdit()->text();
-    }
-    else {
-        QLineEdit *ledit = static_cast<QLineEdit*>(editor);
+    } else {
+        QLineEdit *ledit = static_cast<QLineEdit *>(editor);
         value = ledit->text();
     }
     model->setData(index, value, Qt::EditRole);
@@ -168,14 +161,23 @@ void TargetHtmlDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptio
 {
     QRect rect = option.rect;
     int heightDiff = QToolButton().sizeHint().height() - rect.height();
-    int half = heightDiff/2;
-    rect.adjust(0, -half, 0, heightDiff-half);
+    int half = heightDiff / 2;
+    rect.adjust(0, -half, 0, heightDiff - half);
     if (index.column() == 0 && index.internalId() != TargetModel::InvalidIndex) {
         rect.adjust(25, 0, 0, 0);
     }
     editor->setGeometry(rect);
 }
 
-void TargetHtmlDelegate::editStarted() { m_isEditing = true; }
-void TargetHtmlDelegate::editEnded() { m_isEditing = false; }
-bool TargetHtmlDelegate::isEditing() const { return m_isEditing; }
+void TargetHtmlDelegate::editStarted()
+{
+    m_isEditing = true;
+}
+void TargetHtmlDelegate::editEnded()
+{
+    m_isEditing = false;
+}
+bool TargetHtmlDelegate::isEditing() const
+{
+    return m_isEditing;
+}

@@ -31,10 +31,12 @@
 #include <QVBoxLayout>
 #include <QFileDialog>
 
-class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
+class AbstractKateSaveModifiedDialogCheckListItem : public QTreeWidgetItem
 {
 public:
-    AbstractKateSaveModifiedDialogCheckListItem(const QString &title, const QString &url): QTreeWidgetItem() {
+    AbstractKateSaveModifiedDialogCheckListItem(const QString &title, const QString &url)
+        : QTreeWidgetItem()
+    {
         setFlags(flags() | Qt::ItemIsUserCheckable);
         setText(0, title);
         setText(1, url);
@@ -42,41 +44,48 @@ public:
         setState(InitialState);
     }
     ~AbstractKateSaveModifiedDialogCheckListItem() override
-    {}
+    {
+    }
     virtual bool synchronousSave(QWidget *dialogParent) = 0;
-    enum STATE {InitialState, SaveOKState, SaveFailedState};
-    STATE state() const {
+    enum STATE { InitialState, SaveOKState, SaveFailedState };
+    STATE state() const
+    {
         return m_state;
     }
-    void setState(enum STATE state) {
+    void setState(enum STATE state)
+    {
         m_state = state;
         switch (state) {
-        case InitialState:
-            setIcon(0, QIcon());
-            break;
-        case SaveOKState:
-            setIcon(0, QIcon::fromTheme(QStringLiteral("dialog-ok")));
-            // QStringLiteral("ok") icon should probably be QStringLiteral("dialog-success"), but we don't have that icon in KDE 4.0
-            break;
-        case SaveFailedState:
-            setIcon(0, QIcon::fromTheme(QStringLiteral("dialog-error")));
-            break;
+            case InitialState:
+                setIcon(0, QIcon());
+                break;
+            case SaveOKState:
+                setIcon(0, QIcon::fromTheme(QStringLiteral("dialog-ok")));
+                // QStringLiteral("ok") icon should probably be QStringLiteral("dialog-success"), but we don't have that icon in KDE 4.0
+                break;
+            case SaveFailedState:
+                setIcon(0, QIcon::fromTheme(QStringLiteral("dialog-error")));
+                break;
         }
     }
+
 private:
     STATE m_state;
 };
 
-class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDialogCheckListItem
+class KateSaveModifiedDocumentCheckListItem : public AbstractKateSaveModifiedDialogCheckListItem
 {
 public:
     KateSaveModifiedDocumentCheckListItem(KTextEditor::Document *document)
-        : AbstractKateSaveModifiedDialogCheckListItem(document->documentName(), document->url().toString()) {
+        : AbstractKateSaveModifiedDialogCheckListItem(document->documentName(), document->url().toString())
+    {
         m_document = document;
     }
     ~KateSaveModifiedDocumentCheckListItem() override
-    {}
-    bool synchronousSave(QWidget *dialogParent) override {
+    {
+    }
+    bool synchronousSave(QWidget *dialogParent) override
+    {
         if (m_document->url().isEmpty()) {
             const QUrl url = QFileDialog::getSaveFileUrl(dialogParent, i18n("Save As (%1)", m_document->documentName()));
             if (!url.isEmpty()) {
@@ -96,11 +105,11 @@ public:
                     }
                 }
             } else {
-                //setState(SaveFailedState);
+                // setState(SaveFailedState);
                 return false;
             }
         } else {
-            //document has an existing location
+            // document has an existing location
             if (!m_document->save()) {
                 setState(SaveFailedState);
                 setText(1, m_document->url().toString());
@@ -116,18 +125,17 @@ public:
                     return true;
                 }
             }
-
         }
 
         return false;
-
     }
+
 private:
     KTextEditor::Document *m_document;
 };
 
-KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const QList<KTextEditor::Document *>& documents):
-    QDialog(parent)
+KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const QList<KTextEditor::Document *> &documents)
+    : QDialog(parent)
 {
     setWindowTitle(i18n("Save Documents"));
     setObjectName(QStringLiteral("KateSaveModifiedDialog"));
@@ -147,7 +155,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const QList<KTex
     m_list->setHeaderLabels(QStringList() << i18n("Documents") << i18n("Location"));
     m_list->setRootIsDecorated(true);
 
-    foreach(KTextEditor::Document * doc, documents) {
+    foreach (KTextEditor::Document *doc, documents) {
         m_list->addTopLevelItem(new KateSaveModifiedDocumentCheckListItem(doc));
     }
     m_list->resizeColumnToContents(0);
@@ -181,7 +189,8 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const QList<KTex
 }
 
 KateSaveModifiedDialog::~KateSaveModifiedDialog()
-{}
+{
+}
 
 void KateSaveModifiedDialog::slotItemActivated(QTreeWidgetItem *, int)
 {
@@ -243,4 +252,3 @@ bool KateSaveModifiedDialog::queryClose(QWidget *parent, const QList<KTextEditor
     KateSaveModifiedDialog d(parent, documents);
     return (d.exec() != QDialog::Rejected);
 }
-

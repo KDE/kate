@@ -39,16 +39,13 @@
 
 /******************************************************************/
 KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin)
-: QObject(mainWin)
-, m_proc(nullptr)
+    : QObject(mainWin)
+    , m_proc(nullptr)
 {
-    KXMLGUIClient::setComponentName (QStringLiteral("katectags"), i18n ("Kate CTag"));
-    setXMLFile( QStringLiteral("ui.rc") );
+    KXMLGUIClient::setComponentName(QStringLiteral("katectags"), i18n("Kate CTag"));
+    setXMLFile(QStringLiteral("ui.rc"));
 
-    m_toolView = mainWin->createToolView(plugin, QStringLiteral("kate_plugin_katectagsplugin"),
-                                        KTextEditor::MainWindow::Bottom,
-                                        QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
-                                        i18n("CTags"));
+    m_toolView = mainWin->createToolView(plugin, QStringLiteral("kate_plugin_katectagsplugin"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")), i18n("CTags"));
     m_mWin = mainWin;
 
     QAction *back = actionCollection()->addAction(QStringLiteral("ctags_return_step"));
@@ -69,13 +66,13 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     QAction *updateDB = actionCollection()->addAction(QStringLiteral("ctags_update_global_db"));
     updateDB->setText(i18n("Configure ..."));
-    connect(updateDB, &QAction::triggered, this, [this, plugin] (bool) {
+    connect(updateDB, &QAction::triggered, this, [this, plugin](bool) {
         if (m_mWin) {
-            KateCTagsPlugin *p = static_cast<KateCTagsPlugin*>(plugin);
+            KateCTagsPlugin *p = static_cast<KateCTagsPlugin *>(plugin);
             QDialog *confWin = new QDialog(m_mWin->window());
             confWin->setAttribute(Qt::WA_DeleteOnClose);
             auto confPage = p->configPage(0, confWin);
-            auto controls = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, Qt::Horizontal, confWin);
+            auto controls = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, confWin);
             connect(confWin, &QDialog::accepted, confPage, &KTextEditor::ConfigPage::apply);
             connect(controls, &QDialogButtonBox::accepted, confWin, &QDialog::accept);
             connect(controls, &QDialogButtonBox::rejected, confWin, &QDialog::reject);
@@ -94,9 +91,9 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_menu = new KActionMenu(i18n("CTags"), this);
     actionCollection()->addAction(QStringLiteral("popup_ctags"), m_menu);
 
-    m_gotoDec=m_menu->menu()->addAction(i18n("Go to Declaration: %1",QString()), this, &KateCTagsView::gotoDeclaration);
-    m_gotoDef=m_menu->menu()->addAction(i18n("Go to Definition: %1",QString()), this, &KateCTagsView::gotoDefinition);
-    m_lookup=m_menu->menu()->addAction(i18n("Lookup: %1",QString()), this, &KateCTagsView::lookupTag);
+    m_gotoDec = m_menu->menu()->addAction(i18n("Go to Declaration: %1", QString()), this, &KateCTagsView::gotoDeclaration);
+    m_gotoDef = m_menu->menu()->addAction(i18n("Go to Definition: %1", QString()), this, &KateCTagsView::gotoDefinition);
+    m_lookup = m_menu->menu()->addAction(i18n("Lookup: %1", QString()), this, &KateCTagsView::lookupTag);
 
     connect(m_menu->menu(), &QMenu::aboutToShow, this, &KateCTagsView::aboutToShow);
 
@@ -126,8 +123,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_ctagsUi.delButton, &QPushButton::clicked, this, &KateCTagsView::delTagTarget);
     connect(m_ctagsUi.updateButton, &QPushButton::clicked, this, &KateCTagsView::updateSessionDB);
     connect(m_ctagsUi.updateButton2, &QPushButton::clicked, this, &KateCTagsView::updateSessionDB);
-    connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
-            this, &KateCTagsView::updateDone);
+    connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateCTagsView::updateDone);
 
     connect(m_ctagsUi.inputEdit, &QLineEdit::textChanged, this, &KateCTagsView::startEditTmr);
 
@@ -146,12 +142,11 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_commonDB = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1String("/katectags/common_db");
 }
 
-
 /******************************************************************/
 KateCTagsView::~KateCTagsView()
 {
     if (m_mWin && m_mWin->guiFactory()) {
-        m_mWin->guiFactory()->removeClient( this );
+        m_mWin->guiFactory()->removeClient(this);
     }
 
     if (m_toolView) {
@@ -170,23 +165,22 @@ void KateCTagsView::aboutToShow()
     if (Tags::hasTag(m_commonDB, currWord) || Tags::hasTag(m_ctagsUi.tagsFile->text(), currWord)) {
         QString squeezed = KStringHandler::csqueeze(currWord, 30);
 
-        m_gotoDec->setText(i18n("Go to Declaration: %1",squeezed));
-        m_gotoDef->setText(i18n("Go to Definition: %1",squeezed));
-        m_lookup->setText(i18n("Lookup: %1",squeezed));
+        m_gotoDec->setText(i18n("Go to Declaration: %1", squeezed));
+        m_gotoDef->setText(i18n("Go to Definition: %1", squeezed));
+        m_lookup->setText(i18n("Lookup: %1", squeezed));
     }
 }
 
-
 /******************************************************************/
-void KateCTagsView::readSessionConfig (const KConfigGroup& cg)
+void KateCTagsView::readSessionConfig(const KConfigGroup &cg)
 {
     m_ctagsUi.cmdEdit->setText(cg.readEntry("TagsGenCMD", DEFAULT_CTAGS_CMD));
 
     int numEntries = cg.readEntry("SessionNumTargets", 0);
     QString nr;
     QString target;
-    for (int i=0; i<numEntries; i++) {
-        nr = QStringLiteral("%1").arg(i,3);
+    for (int i = 0; i < numEntries; i++) {
+        nr = QStringLiteral("%1").arg(i, 3);
         target = cg.readEntry(QStringLiteral("SessionTarget_%1").arg(nr), QString());
         if (!listContains(target)) {
             new QListWidgetItem(target, m_ctagsUi.targetList);
@@ -195,18 +189,17 @@ void KateCTagsView::readSessionConfig (const KConfigGroup& cg)
 
     QString sessionDB = cg.readEntry("SessionDatabase", QString());
     m_ctagsUi.tagsFile->setText(sessionDB);
-
 }
 
 /******************************************************************/
-void KateCTagsView::writeSessionConfig (KConfigGroup& cg)
+void KateCTagsView::writeSessionConfig(KConfigGroup &cg)
 {
     cg.writeEntry("TagsGenCMD", m_ctagsUi.cmdEdit->text());
     cg.writeEntry("SessionNumTargets", m_ctagsUi.targetList->count());
 
     QString nr;
-    for (int i=0; i<m_ctagsUi.targetList->count(); i++) {
-        nr = QStringLiteral("%1").arg(i,3);
+    for (int i = 0; i < m_ctagsUi.targetList->count(); i++) {
+        nr = QStringLiteral("%1").arg(i, 3);
         cg.writeEntry(QStringLiteral("SessionTarget_%1").arg(nr), m_ctagsUi.targetList->item(i)->text());
     }
 
@@ -214,7 +207,6 @@ void KateCTagsView::writeSessionConfig (KConfigGroup& cg)
 
     cg.sync();
 }
-
 
 /******************************************************************/
 void KateCTagsView::stepBack()
@@ -229,12 +221,10 @@ void KateCTagsView::stepBack()
     m_mWin->openUrl(back.url);
     m_mWin->activeView()->setCursorPosition(back.cursor);
     m_mWin->activeView()->setFocus();
-
 }
 
-
 /******************************************************************/
-void KateCTagsView::lookupTag( )
+void KateCTagsView::lookupTag()
 {
     QString currWord = currentWord();
     if (currWord.isEmpty()) {
@@ -243,7 +233,8 @@ void KateCTagsView::lookupTag( )
 
     setNewLookupText(currWord);
     Tags::TagList list = Tags::getExactMatches(m_ctagsUi.tagsFile->text(), currWord);
-    if (list.empty()) list = Tags::getExactMatches(m_commonDB, currWord);
+    if (list.empty())
+        list = Tags::getExactMatches(m_commonDB, currWord);
     displayHits(list);
 
     // activate the hits tab
@@ -255,12 +246,13 @@ void KateCTagsView::lookupTag( )
 void KateCTagsView::editLookUp()
 {
     Tags::TagList list = Tags::getPartialMatches(m_ctagsUi.tagsFile->text(), m_ctagsUi.inputEdit->text());
-    if (list.empty()) list = Tags::getPartialMatches(m_commonDB, m_ctagsUi.inputEdit->text());
+    if (list.empty())
+        list = Tags::getPartialMatches(m_commonDB, m_ctagsUi.inputEdit->text());
     displayHits(list);
 }
 
 /******************************************************************/
-void KateCTagsView::gotoDefinition( )
+void KateCTagsView::gotoDefinition()
 {
     QString currWord = currentWord();
     if (currWord.isEmpty()) {
@@ -273,7 +265,7 @@ void KateCTagsView::gotoDefinition( )
 }
 
 /******************************************************************/
-void KateCTagsView::gotoDeclaration( )
+void KateCTagsView::gotoDeclaration()
 {
     QString currWord = currentWord();
     if (currWord.isEmpty()) {
@@ -281,16 +273,7 @@ void KateCTagsView::gotoDeclaration( )
     }
 
     QStringList types;
-    types << QStringLiteral("L")
-    << QStringLiteral("c")
-    << QStringLiteral("e")
-    << QStringLiteral("g")
-    << QStringLiteral("m")
-    << QStringLiteral("n")
-    << QStringLiteral("p")
-    << QStringLiteral("s")
-    << QStringLiteral("u")
-    << QStringLiteral("x");
+    types << QStringLiteral("L") << QStringLiteral("c") << QStringLiteral("e") << QStringLiteral("g") << QStringLiteral("m") << QStringLiteral("n") << QStringLiteral("p") << QStringLiteral("s") << QStringLiteral("u") << QStringLiteral("x");
     gotoTagForTypes(currWord, types);
 }
 
@@ -298,12 +281,13 @@ void KateCTagsView::gotoDeclaration( )
 void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &types)
 {
     Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), word, false, types);
-    if (list.empty()) list = Tags::getMatches(m_commonDB, word, false, types);
+    if (list.empty())
+        list = Tags::getMatches(m_commonDB, word, false, types);
 
-    //qCDebug(KTECTAGS) << "found" << list.count() << word << types;
+    // qCDebug(KTECTAGS) << "found" << list.count() << word << types;
     setNewLookupText(word);
 
-    if ( list.count() < 1) {
+    if (list.count() < 1) {
         m_ctagsUi.tagTreeWidget->clear();
         new QTreeWidgetItem(m_ctagsUi.tagTreeWidget, QStringList(i18n("No hits found")));
         m_ctagsUi.tabWidget->setCurrentIndex(0);
@@ -316,8 +300,7 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
     if (list.count() == 1) {
         Tags::TagEntry tag = list.first();
         jumpToTag(tag.file, tag.pattern, word);
-    }
-    else {
+    } else {
         Tags::TagEntry tag = list.first();
         jumpToTag(tag.file, tag.pattern, word);
         m_ctagsUi.tabWidget->setCurrentIndex(0);
@@ -328,9 +311,9 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
 /******************************************************************/
 void KateCTagsView::setNewLookupText(const QString &newString)
 {
-    m_ctagsUi.inputEdit->blockSignals( true );
+    m_ctagsUi.inputEdit->blockSignals(true);
     m_ctagsUi.inputEdit->setText(newString);
-    m_ctagsUi.inputEdit->blockSignals( false );
+    m_ctagsUi.inputEdit->blockSignals(false);
 }
 
 /******************************************************************/
@@ -343,15 +326,15 @@ void KateCTagsView::displayHits(const Tags::TagList &list)
     }
     m_ctagsUi.tagTreeWidget->setSortingEnabled(false);
 
-    for (const auto& tag : list) {
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_ctagsUi.tagTreeWidget);
+    for (const auto &tag : list) {
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_ctagsUi.tagTreeWidget);
         item->setText(0, tag.tag);
         item->setText(1, tag.type);
         item->setText(2, tag.file);
         item->setData(0, Qt::UserRole, tag.pattern);
 
         QString pattern = tag.pattern;
-        pattern.replace( QStringLiteral("\\/"), QStringLiteral("/"));
+        pattern.replace(QStringLiteral("\\/"), QStringLiteral("/"));
         pattern = pattern.mid(2, pattern.length() - 4);
         pattern = pattern.trimmed();
 
@@ -374,7 +357,7 @@ void KateCTagsView::tagHitClicked(QTreeWidgetItem *item)
 }
 
 /******************************************************************/
-QString KateCTagsView::currentWord( )
+QString KateCTagsView::currentWord()
 {
     KTextEditor::View *kv = m_mWin->activeView();
     if (!kv) {
@@ -397,48 +380,43 @@ QString KateCTagsView::currentWord( )
 
     QString linestr = kv->document()->line(line);
 
-    int startPos = qMax(qMin(col, linestr.length()-1), 0);
+    int startPos = qMax(qMin(col, linestr.length() - 1), 0);
     int endPos = startPos;
-    while (startPos >= 0 && (linestr[startPos].isLetterOrNumber() ||
-        (linestr[startPos] == QLatin1Char(':') && includeColon) ||
-        linestr[startPos] == QLatin1Char('_') ||
-        linestr[startPos] == QLatin1Char('~')))
-    {
+    while (startPos >= 0 && (linestr[startPos].isLetterOrNumber() || (linestr[startPos] == QLatin1Char(':') && includeColon) || linestr[startPos] == QLatin1Char('_') || linestr[startPos] == QLatin1Char('~'))) {
         startPos--;
     }
-    while (endPos < (int)linestr.length() && (linestr[endPos].isLetterOrNumber() ||
-        (linestr[endPos] == QLatin1Char(':') && includeColon) ||
-        linestr[endPos] == QLatin1Char('_'))) {
+    while (endPos < (int)linestr.length() && (linestr[endPos].isLetterOrNumber() || (linestr[endPos] == QLatin1Char(':') && includeColon) || linestr[endPos] == QLatin1Char('_'))) {
         endPos++;
     }
-    if  (startPos == endPos) {
+    if (startPos == endPos) {
         qCDebug(KTECTAGS) << "no word found!" << endl;
         return QString();
     }
 
-    linestr = linestr.mid(startPos+1, endPos-startPos-1);
+    linestr = linestr.mid(startPos + 1, endPos - startPos - 1);
 
     while (linestr.endsWith(QLatin1Char(':'))) {
-        linestr.remove(linestr.size()-1, 1);
+        linestr.remove(linestr.size() - 1, 1);
     }
 
     while (linestr.startsWith(QLatin1Char(':'))) {
         linestr.remove(0, 1);
     }
 
-    //qCDebug(KTECTAGS) << linestr;
+    // qCDebug(KTECTAGS) << linestr;
     return linestr;
 }
 
 /******************************************************************/
 void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const QString &word)
 {
-    if (pattern.isEmpty()) return;
+    if (pattern.isEmpty())
+        return;
 
     // generate a regexp from the pattern
     // ctags interestingly escapes "/", but apparently nothing else. lets revert that
     QString unescaped = pattern;
-    unescaped.replace( QStringLiteral("\\/"), QStringLiteral("/") );
+    unescaped.replace(QStringLiteral("\\/"), QStringLiteral("/"));
 
     // most of the time, the ctags pattern has the form /^foo$/
     // but this isn't true for some macro definitions
@@ -453,9 +431,8 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
         reduced = unescaped.mid(2, unescaped.length() - 4);
         escaped = QRegularExpression::escape(reduced);
         re_string = QStringLiteral("^%1$").arg(escaped);
-    }
-    else {
-        reduced = unescaped.mid( 2, unescaped.length() -3 );
+    } else {
+        reduced = unescaped.mid(2, unescaped.length() - 3);
         escaped = QRegularExpression::escape(reduced);
         re_string = QStringLiteral("^%1").arg(escaped);
     }
@@ -464,13 +441,13 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
 
     // save current location
     TagJump from;
-    from.url    = m_mWin->activeView()->document()->url();
+    from.url = m_mWin->activeView()->document()->url();
     from.cursor = m_mWin->activeView()->cursorPosition();
     m_jumpStack.push(from);
 
     // open/activate the new file
     QFileInfo fInfo(file);
-    //qCDebug(KTECTAGS) << pattern << file << fInfo.absoluteFilePath();
+    // qCDebug(KTECTAGS) << pattern << file << fInfo.absoluteFilePath();
     m_mWin->openUrl(QUrl::fromLocalFile(fInfo.absoluteFilePath()));
 
     // any view active?
@@ -481,21 +458,20 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
     // look for the line
     QString linestr;
     int line;
-    for (line =0; line < m_mWin->activeView()->document()->lines(); line++) {
+    for (line = 0; line < m_mWin->activeView()->document()->lines(); line++) {
         linestr = m_mWin->activeView()->document()->line(line);
-        if (linestr.indexOf(re) > -1) break;
+        if (linestr.indexOf(re) > -1)
+            break;
     }
 
     // activate the line
     if (line != m_mWin->activeView()->document()->lines()) {
         // line found now look for the column
-        int column = linestr.indexOf(word) + (word.length()/2);
+        int column = linestr.indexOf(word) + (word.length() / 2);
         m_mWin->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
     }
     m_mWin->activeView()->setFocus();
-
 }
-
 
 /******************************************************************/
 void KateCTagsView::startEditTmr()
@@ -504,7 +480,6 @@ void KateCTagsView::startEditTmr()
         m_editTimer.start(500);
     }
 }
-
 
 /******************************************************************/
 void KateCTagsView::updateSessionDB()
@@ -515,12 +490,12 @@ void KateCTagsView::updateSessionDB()
 
     QString targets;
     QString target;
-    for (int i=0; i<m_ctagsUi.targetList->count(); i++) {
-      target = m_ctagsUi.targetList->item(i)->text();
-      if (target.endsWith(QLatin1Char('/')) || target.endsWith(QLatin1Char('\\'))) {
-        target = target.left(target.size() - 1);
-      }
-      targets += target + QLatin1Char(' ');
+    for (int i = 0; i < m_ctagsUi.targetList->count(); i++) {
+        target = m_ctagsUi.targetList->item(i)->text();
+        if (target.endsWith(QLatin1Char('/')) || target.endsWith(QLatin1Char('\\'))) {
+            target = target.left(target.size() - 1);
+        }
+        targets += target + QLatin1Char(' ');
     }
 
     QString pluginFolder = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1String("/katectags");
@@ -539,12 +514,11 @@ void KateCTagsView::updateSessionDB()
         return;
     }
 
-
     QString command = QStringLiteral("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text(), m_ctagsUi.tagsFile->text(), targets);
 
     m_proc.start(command);
 
-    if(!m_proc.waitForStarted(500)) {
+    if (!m_proc.waitForStarted(500)) {
         KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
         return;
     }
@@ -553,16 +527,13 @@ void KateCTagsView::updateSessionDB()
     m_ctagsUi.updateButton2->setDisabled(true);
 }
 
-
 /******************************************************************/
 void KateCTagsView::updateDone(int exitCode, QProcess::ExitStatus status)
 {
     if (status == QProcess::CrashExit) {
         KMessageBox::error(m_toolView, i18n("The CTags executable crashed."));
     } else if (exitCode != 0) {
-        KMessageBox::error(m_toolView, i18n("The CTags program exited with code %1: %2"
-        , exitCode
-        , QString::fromLocal8Bit(m_proc.readAllStandardError())));
+        KMessageBox::error(m_toolView, i18n("The CTags program exited with code %1: %2", exitCode, QString::fromLocal8Bit(m_proc.readAllStandardError())));
     }
 
     m_ctagsUi.updateButton->setDisabled(false);
@@ -584,7 +555,7 @@ void KateCTagsView::addTagTarget()
 
     QStringList urls = dialog.selectedFiles();
 
-    for (int i=0; i<urls.size(); i++) {
+    for (int i = 0; i < urls.size(); i++) {
         if (!listContains(urls[i])) {
             new QListWidgetItem(urls[i], m_ctagsUi.targetList);
         }
@@ -594,13 +565,13 @@ void KateCTagsView::addTagTarget()
 /******************************************************************/
 void KateCTagsView::delTagTarget()
 {
-    delete m_ctagsUi.targetList->currentItem ();
+    delete m_ctagsUi.targetList->currentItem();
 }
 
 /******************************************************************/
 bool KateCTagsView::listContains(const QString &target)
 {
-    for (int i=0; i<m_ctagsUi.targetList->count(); i++) {
+    for (int i = 0; i < m_ctagsUi.targetList->count(); i++) {
         if (m_ctagsUi.targetList->item(i)->text() == target) {
             return true;
         }
@@ -612,7 +583,7 @@ bool KateCTagsView::listContains(const QString &target)
 bool KateCTagsView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent*>(event);
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
             m_mWin->hideToolView(m_toolView);
             event->accept();
@@ -631,7 +602,8 @@ void KateCTagsView::resetCMD()
 /******************************************************************/
 void KateCTagsView::handleEsc(QEvent *e)
 {
-    if (!m_mWin) return;
+    if (!m_mWin)
+        return;
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
@@ -640,4 +612,3 @@ void KateCTagsView::handleEsc(QEvent *e)
         }
     }
 }
-

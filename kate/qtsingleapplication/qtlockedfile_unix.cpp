@@ -30,8 +30,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-namespace SharedTools {
-
+namespace SharedTools
+{
 bool QtLockedFile::lock(LockMode mode, bool block)
 {
     if (!isOpen()) {
@@ -62,11 +62,9 @@ bool QtLockedFile::lock(LockMode mode, bool block)
         return false;
     }
 
-
     m_lock_mode = mode;
     return true;
 }
-
 
 bool QtLockedFile::unlock()
 {

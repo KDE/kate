@@ -43,7 +43,7 @@ KTERustCompletionPluginView::KTERustCompletionPluginView(KTERustCompletionPlugin
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KTERustCompletionPluginView::viewChanged);
     connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &KTERustCompletionPluginView::viewCreated);
 
-    foreach(KTextEditor::View *view, m_mainWindow->views()) {
+    foreach (KTextEditor::View *view, m_mainWindow->views()) {
         viewCreated(view);
     }
 
@@ -70,8 +70,7 @@ void KTERustCompletionPluginView::goToDefinition()
     const KTextEditor::Document *document = activeView->document();
     const KTextEditor::Cursor cursor = activeView->cursorPosition();
 
-    QList<CompletionMatch> matches = m_plugin->completion()->getMatches(document,
-        KTERustCompletion::FindDefinition, cursor);
+    QList<CompletionMatch> matches = m_plugin->completion()->getMatches(document, KTERustCompletion::FindDefinition, cursor);
 
     if (matches.count()) {
         const CompletionMatch &match = matches.at(0);
@@ -109,12 +108,8 @@ void KTERustCompletionPluginView::viewChanged()
 
 void KTERustCompletionPluginView::viewCreated(KTextEditor::View *view)
 {
-    connect(view->document(), &KTextEditor::Document::documentUrlChanged,
-        this, &KTERustCompletionPluginView::documentChanged,
-        Qt::UniqueConnection);
-    connect(view->document(), &KTextEditor::Document::highlightingModeChanged,
-        this, &KTERustCompletionPluginView::documentChanged,
-        Qt::UniqueConnection);
+    connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, &KTERustCompletionPluginView::documentChanged, Qt::UniqueConnection);
+    connect(view->document(), &KTextEditor::Document::highlightingModeChanged, this, &KTERustCompletionPluginView::documentChanged, Qt::UniqueConnection);
 
     registerCompletion(view);
 }
@@ -126,12 +121,13 @@ void KTERustCompletionPluginView::viewDestroyed(QObject *view)
 
 void KTERustCompletionPluginView::documentChanged(KTextEditor::Document *document)
 {
-    foreach(KTextEditor::View *view, document->views()) {
+    foreach (KTextEditor::View *view, document->views()) {
         registerCompletion(view);
     }
 }
 
-void KTERustCompletionPluginView::registerCompletion(KTextEditor::View *view) {
+void KTERustCompletionPluginView::registerCompletion(KTextEditor::View *view)
+{
     bool registered = m_completionViews.contains(view);
     bool isRust = isRustView(view);
 
@@ -145,9 +141,7 @@ void KTERustCompletionPluginView::registerCompletion(KTextEditor::View *view) {
         cci->registerCompletionModel(m_plugin->completion());
         m_completionViews.insert(view);
 
-        connect(view, &KTextEditor::View::destroyed, this,
-            &KTERustCompletionPluginView::viewDestroyed,
-            Qt::UniqueConnection);
+        connect(view, &KTextEditor::View::destroyed, this, &KTERustCompletionPluginView::viewDestroyed, Qt::UniqueConnection);
     }
 
     if (registered && !isRust) {
@@ -159,8 +153,7 @@ void KTERustCompletionPluginView::registerCompletion(KTextEditor::View *view) {
 bool KTERustCompletionPluginView::isRustView(const KTextEditor::View *view)
 {
     if (view) {
-        return (view->document()->url().path().endsWith(QLatin1String(".rs")) ||
-            view->document()->highlightingMode() == QLatin1String("Rust"));
+        return (view->document()->url().path().endsWith(QLatin1String(".rs")) || view->document()->highlightingMode() == QLatin1String("Rust"));
     }
 
     return false;

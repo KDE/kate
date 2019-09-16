@@ -27,7 +27,10 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 
-FolderFilesList::FolderFilesList(QObject *parent) : QThread(parent) {}
+FolderFilesList::FolderFilesList(QObject *parent)
+    : QThread(parent)
+{
+}
 
 FolderFilesList::~FolderFilesList()
 {
@@ -42,26 +45,21 @@ void FolderFilesList::run()
     QFileInfo folderInfo(m_folder);
     checkNextItem(folderInfo);
 
-    if (m_cancelSearch) m_files.clear();
+    if (m_cancelSearch)
+        m_files.clear();
 }
 
-void FolderFilesList::generateList(const QString &folder,
-                                   bool recursive,
-                                   bool hidden,
-                                   bool symlinks,
-                                   bool binary,
-                                   const QString &types,
-                                   const QString &excludes)
+void FolderFilesList::generateList(const QString &folder, bool recursive, bool hidden, bool symlinks, bool binary, const QString &types, const QString &excludes)
 {
     m_cancelSearch = false;
-    m_folder       = folder;
+    m_folder = folder;
     if (!m_folder.endsWith(QLatin1Char('/'))) {
         m_folder += QLatin1Char('/');
     }
-    m_recursive    = recursive;
-    m_hidden       = hidden;
-    m_symlinks     = symlinks;
-    m_binary       = binary;
+    m_recursive = recursive;
+    m_hidden = hidden;
+    m_symlinks = symlinks;
+    m_binary = binary;
 
     m_types.clear();
     foreach (QString type, types.split(QLatin1Char(','), QString::SkipEmptyParts)) {
@@ -73,7 +71,7 @@ void FolderFilesList::generateList(const QString &folder,
 
     QStringList tmpExcludes = excludes.split(QLatin1Char(','));
     m_excludeList.clear();
-    for (int i=0; i<tmpExcludes.size(); i++) {
+    for (int i = 0; i < tmpExcludes.size(); i++) {
         QRegExp rx(tmpExcludes[i].trimmed());
         rx.setPatternSyntax(QRegExp::Wildcard);
         m_excludeList << rx;
@@ -83,7 +81,10 @@ void FolderFilesList::generateList(const QString &folder,
     start();
 }
 
-QStringList FolderFilesList::fileList() { return m_files; }
+QStringList FolderFilesList::fileList()
+{
+    return m_files;
+}
 
 void FolderFilesList::cancelSearch()
 {
@@ -107,8 +108,7 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
             }
         }
         m_files << item.canonicalFilePath();
-    }
-    else {
+    } else {
         QDir currentDir(item.absoluteFilePath());
 
         if (!currentDir.isReadable()) {
@@ -116,19 +116,21 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
             return;
         }
 
-        QDir::Filters    filter  = QDir::Files | QDir::NoDotAndDotDot | QDir::Readable;
-        if (m_hidden)    filter |= QDir::Hidden;
-        if (m_recursive) filter |= QDir::AllDirs;
-        if (!m_symlinks) filter |= QDir::NoSymLinks;
+        QDir::Filters filter = QDir::Files | QDir::NoDotAndDotDot | QDir::Readable;
+        if (m_hidden)
+            filter |= QDir::Hidden;
+        if (m_recursive)
+            filter |= QDir::AllDirs;
+        if (!m_symlinks)
+            filter |= QDir::NoSymLinks;
 
         // sort the items to have an deterministic order!
         const QFileInfoList currentItems = currentDir.entryInfoList(m_types, filter, QDir::Name | QDir::LocaleAware);
 
         bool skip;
-        for (const auto& currentItem : currentItems) {
+        for (const auto &currentItem : currentItems) {
             skip = false;
-            for (const auto& regex : qAsConst(m_excludeList)) {
-
+            for (const auto &regex : qAsConst(m_excludeList)) {
                 QString matchString = currentItem.filePath();
                 if (currentItem.filePath().startsWith(m_folder)) {
                     matchString = currentItem.filePath().mid(m_folder.size());
@@ -144,4 +146,3 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         }
     }
 }
-

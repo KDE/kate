@@ -87,7 +87,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * create views for all already existing projects
      * will create toolviews on demand!
      */
-    foreach(KateProject * project, m_plugin->projects())
+    foreach (KateProject *project, m_plugin->projects())
         viewForProject(project);
 
     /**
@@ -100,7 +100,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     /**
      * connect for all already existing views
      */
-    foreach(KTextEditor::View * view, m_mainWindow->views())
+    foreach (KTextEditor::View *view, m_mainWindow->views())
         slotViewCreated(view);
 
     /**
@@ -137,7 +137,7 @@ KateProjectPluginView::~KateProjectPluginView()
     /**
      * cleanup for all views
      */
-    foreach(QObject * view, m_textViews) {
+    foreach (QObject *view, m_textViews) {
         KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
         if (cci) {
             cci->unregisterCompletionModel(m_plugin->completion());
@@ -189,7 +189,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
     /**
      * remember and return it
      */
-    return (m_project2View[project] = QPair<KateProjectView *, KateProjectInfoView *> (view, infoView));
+    return (m_project2View[project] = QPair<KateProjectView *, KateProjectInfoView *>(view, infoView));
 }
 
 QString KateProjectPluginView::projectFileName() const
@@ -447,9 +447,9 @@ void KateProjectPluginView::slotProjectIndex()
 {
     const QString word = currentWord();
     if (!word.isEmpty()) {
-        auto tabView = qobject_cast<QTabWidget*>(m_stackedProjectInfoViews->currentWidget());
+        auto tabView = qobject_cast<QTabWidget *>(m_stackedProjectInfoViews->currentWidget());
         if (tabView) {
-            if (auto codeIndex = tabView->findChild<KateProjectInfoViewIndex*>()) {
+            if (auto codeIndex = tabView->findChild<KateProjectInfoViewIndex *>()) {
                 tabView->setCurrentWidget(codeIndex);
             }
         }

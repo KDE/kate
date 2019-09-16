@@ -17,7 +17,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-//BEGIN Includes
+// BEGIN Includes
 
 #include "katefiletreeplugin.h"
 #include "katefiletree.h"
@@ -43,13 +43,13 @@
 
 #include "katefiletreedebug.h"
 
-//END Includes
+// END Includes
 
 K_PLUGIN_FACTORY_WITH_JSON(KateFileTreeFactory, "katefiletreeplugin.json", registerPlugin<KateFileTreePlugin>();)
 
 Q_LOGGING_CATEGORY(FILETREE, "kate-filetree", QtWarningMsg)
 
-//BEGIN KateFileTreePlugin
+// BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
@@ -95,7 +95,7 @@ const KateFileTreePluginSettings &KateFileTreePlugin::settings()
     return m_settings;
 }
 
-void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor& viewShade, const QColor& editShade, bool listMode, int sortRole, bool showFullPath)
+void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor &viewShade, const QColor &editShade, bool listMode, int sortRole, bool showFullPath)
 {
     // save to settings
     m_settings.setShadingEnabled(shadingEnabled);
@@ -108,7 +108,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor& viewShad
     m_settings.save();
 
     // update views
-    foreach(KateFileTreePluginView * view, m_views) {
+    foreach (KateFileTreePluginView *view, m_views) {
         view->setHasLocalPrefs(false);
         view->model()->setShadingEnabled(shadingEnabled);
         view->model()->setViewShade(viewShade);
@@ -119,9 +119,9 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor& viewShad
     }
 }
 
-//END KateFileTreePlugin
+// END KateFileTreePlugin
 
-//BEGIN KateFileTreePluginView
+// BEGIN KateFileTreePluginView
 KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWindow, KateFileTreePlugin *plug)
     : QObject(mainWindow)
     , m_loadingDocuments(false)
@@ -164,26 +164,17 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_documentModel->setViewShade(m_plug->settings().viewShade());
     m_documentModel->setEditShade(m_plug->settings().editShade());
 
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted,
-            m_documentModel, &KateFileTreeModel::documentClosed);
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated,
-            this, &KateFileTreePluginView::documentOpened);
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted,
-            this, &KateFileTreePluginView::documentClosed);
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToCreateDocuments,
-            this, &KateFileTreePluginView::slotAboutToCreateDocuments);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, m_documentModel, &KateFileTreeModel::documentClosed);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KateFileTreePluginView::documentOpened);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, this, &KateFileTreePluginView::documentClosed);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToCreateDocuments, this, &KateFileTreePluginView::slotAboutToCreateDocuments);
 
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentsCreated,
-            this, &KateFileTreePluginView::slotDocumentsCreated);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentsCreated, this, &KateFileTreePluginView::slotDocumentsCreated);
 
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToDeleteDocuments,
-            m_documentModel, &KateFileTreeModel::slotAboutToDeleteDocuments);
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentsDeleted,
-            m_documentModel, &KateFileTreeModel::slotDocumentsDeleted);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToDeleteDocuments, m_documentModel, &KateFileTreeModel::slotAboutToDeleteDocuments);
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentsDeleted, m_documentModel, &KateFileTreeModel::slotDocumentsDeleted);
 
-    connect(m_documentModel, &KateFileTreeModel::triggerViewChangeAfterNameChange, [=] {
-                KateFileTreePluginView::viewChanged();
-            });
+    connect(m_documentModel, &KateFileTreeModel::triggerViewChangeAfterNameChange, [=] { KateFileTreePluginView::viewChanged(); });
 
     m_fileTree->setModel(m_proxyModel);
 
@@ -193,8 +184,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
 
     m_fileTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    connect(m_fileTree->selectionModel(), &QItemSelectionModel::currentChanged,
-            m_fileTree, &KateFileTree::slotCurrentChanged);
+    connect(m_fileTree->selectionModel(), &QItemSelectionModel::currentChanged, m_fileTree, &KateFileTree::slotCurrentChanged);
 
     connect(mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateFileTreePluginView::viewChanged);
 
@@ -455,6 +445,6 @@ void KateFileTreePluginView::slotDocumentSaveAs()
     }
 }
 
-//END KateFileTreePluginView
+// END KateFileTreePluginView
 
 #include "katefiletreeplugin.moc"

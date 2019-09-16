@@ -5,12 +5,12 @@
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
- 
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
- 
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -21,18 +21,12 @@
 #include "ui_config.h"
 #include "replicodesettings.h"
 
-enum TraceLevels {
-    CompositeInputs         = 1 << 0,
-    CompositeOutputs        = 1 << 1,
-    ModelInputs             = 1 << 2,
-    ModelOutputs            = 1 << 3,
-    PredictionMonitoring    = 1 << 4,
-    GoalMonitoring          = 1 << 5,
-    ModelRevision           = 1 << 6,
-    ModelCompositeInjection = 1 << 7
-};
+enum TraceLevels { CompositeInputs = 1 << 0, CompositeOutputs = 1 << 1, ModelInputs = 1 << 2, ModelOutputs = 1 << 3, PredictionMonitoring = 1 << 4, GoalMonitoring = 1 << 5, ModelRevision = 1 << 6, ModelCompositeInjection = 1 << 7 };
 
-ReplicodeConfig::ReplicodeConfig(QWidget* parent): QTabWidget(parent), m_ui(new Ui_tabWidget), m_settings(new ReplicodeSettings(this))
+ReplicodeConfig::ReplicodeConfig(QWidget *parent)
+    : QTabWidget(parent)
+    , m_ui(new Ui_tabWidget)
+    , m_settings(new ReplicodeSettings(this))
 {
     m_ui->setupUi(this);
     load();
@@ -122,14 +116,22 @@ void ReplicodeConfig::save()
     m_settings->userOperatorPath = m_ui->userModulePath->text();
 
     int trace = 0;
-    if (m_ui->traceCompInputs->isChecked()) trace |= CompositeInputs;
-    if (m_ui->traceCompOutputs->isChecked()) trace |= CompositeOutputs;
-    if (m_ui->traceModelIn->isChecked()) trace |= ModelInputs;
-    if (m_ui->traceModelOut->isChecked()) trace |= ModelOutputs;
-    if (m_ui->tracePredMon->isChecked()) trace |= PredictionMonitoring;
-    if (m_ui->traceGoalMon->isChecked()) trace |= GoalMonitoring;
-    if (m_ui->traceModelRev->isChecked()) trace |= ModelRevision;
-    if (m_ui->traceModComInj->isChecked()) trace |= ModelCompositeInjection;
+    if (m_ui->traceCompInputs->isChecked())
+        trace |= CompositeInputs;
+    if (m_ui->traceCompOutputs->isChecked())
+        trace |= CompositeOutputs;
+    if (m_ui->traceModelIn->isChecked())
+        trace |= ModelInputs;
+    if (m_ui->traceModelOut->isChecked())
+        trace |= ModelOutputs;
+    if (m_ui->tracePredMon->isChecked())
+        trace |= PredictionMonitoring;
+    if (m_ui->traceGoalMon->isChecked())
+        trace |= GoalMonitoring;
+    if (m_ui->traceModelRev->isChecked())
+        trace |= ModelRevision;
+    if (m_ui->traceModComInj->isChecked())
+        trace |= ModelCompositeInjection;
     m_settings->traceLevels = trace;
     m_settings->save();
 }
@@ -139,5 +141,3 @@ void ReplicodeConfig::reset()
     m_settings->setDefaults();
     load();
 }
-
-

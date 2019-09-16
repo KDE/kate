@@ -23,7 +23,6 @@
 #include <QDir>
 #include <QDebug>
 
-
 void KateBtDatabase::loadFromFile(const QString &url)
 {
     QFile file(url);
@@ -32,7 +31,7 @@ void KateBtDatabase::loadFromFile(const QString &url)
         QDataStream ds(&file);
         ds >> db;
     }
-//     qDebug() << "Number of entries in the backtrace database" << url << ":" << db.size();
+    //     qDebug() << "Number of entries in the backtrace database" << url << ":" << db.size();
 }
 
 void KateBtDatabase::saveToFile(const QString &url) const
@@ -43,7 +42,7 @@ void KateBtDatabase::saveToFile(const QString &url) const
         QDataStream ds(&file);
         ds << db;
     }
-//     qDebug() << "Saved backtrace database to" << url;
+    //     qDebug() << "Saved backtrace database to" << url;
 }
 
 QString KateBtDatabase::value(const QString &key)
@@ -75,7 +74,7 @@ QString KateBtDatabase::value(const QString &key)
 void KateBtDatabase::add(const QString &folder, const QStringList &files)
 {
     QMutexLocker locker(&mutex);
-    foreach(const QString &file, files) {
+    foreach (const QString &file, files) {
         QStringList &sl = db[file];
         QString entry = QDir::fromNativeSeparators(folder + QLatin1Char('/') + file);
         if (!sl.contains(entry)) {

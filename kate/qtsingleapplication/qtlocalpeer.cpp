@@ -32,7 +32,7 @@
 #if defined(Q_OS_WIN)
 #include <QLibrary>
 #include <qt_windows.h>
-typedef BOOL(WINAPI*PProcessIdToSessionId)(DWORD,DWORD*);
+typedef BOOL(WINAPI *PProcessIdToSessionId)(DWORD, DWORD *);
 static PProcessIdToSessionId pProcessIdToSessionId = 0;
 #endif
 
@@ -41,8 +41,8 @@ static PProcessIdToSessionId pProcessIdToSessionId = 0;
 #include <unistd.h>
 #endif
 
-namespace SharedTools {
-
+namespace SharedTools
+{
 static const char ack[] = "ack";
 
 QString QtLocalPeer::appSessionId(const QString &appId)
@@ -51,8 +51,7 @@ QString QtLocalPeer::appSessionId(const QString &appId)
     quint16 idNum = qChecksum(idc.constData(), idc.size());
     //### could do: two 16bit checksums over separate halves of id, for a 32bit result - improved uniqueness probability. Every-other-char split would be best.
 
-    QString res = QLatin1String("qtsingleapplication-")
-                 + QString::number(idNum, 16);
+    QString res = QLatin1String("qtsingleapplication-") + QString::number(idNum, 16);
 #if defined(Q_OS_WIN)
     if (!pProcessIdToSessionId) {
         QLibrary lib(QLatin1String("kernel32"));
@@ -70,16 +69,15 @@ QString QtLocalPeer::appSessionId(const QString &appId)
 }
 
 QtLocalPeer::QtLocalPeer(QObject *parent, const QString &appId)
-    : QObject(parent), id(appId)
+    : QObject(parent)
+    , id(appId)
 {
     if (id.isEmpty())
-        id = QCoreApplication::applicationFilePath();  //### On win, check if this returns .../argv[0] without casefolding; .\MYAPP == .\myapp on Win
+        id = QCoreApplication::applicationFilePath(); //### On win, check if this returns .../argv[0] without casefolding; .\MYAPP == .\myapp on Win
 
     socketName = appSessionId(id);
     server = new QLocalServer(this);
-    QString lockName = QDir(QDir::tempPath()).absolutePath()
-                       + QLatin1Char('/') + socketName
-                       + QLatin1String("-lockfile");
+    QString lockName = QDir(QDir::tempPath()).absolutePath() + QLatin1Char('/') + socketName + QLatin1String("-lockfile");
     lockFile.setFileName(lockName);
     lockFile.open(QIODevice::ReadWrite);
 }
@@ -111,14 +109,14 @@ bool QtLocalPeer::sendMessage(const QString &message, int timeout, bool block)
     for (int i = 0; i < 2; i++) {
         // Try twice, in case the other instance is just starting up
         socket.connectToServer(socketName);
-        connOk = socket.waitForConnected(timeout/2);
+        connOk = socket.waitForConnected(timeout / 2);
         if (connOk || i)
             break;
         int ms = 250;
 #if defined(Q_OS_WIN)
         Sleep(DWORD(ms));
 #else
-        struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
+        struct timespec ts = {ms / 1000, (ms % 1000) * 1000 * 1000};
         nanosleep(&ts, NULL);
 #endif
     }
@@ -138,7 +136,7 @@ bool QtLocalPeer::sendMessage(const QString &message, int timeout, bool block)
 
 void QtLocalPeer::receiveConnection()
 {
-    QLocalSocket* socket = server->nextPendingConnection();
+    QLocalSocket *socket = server->nextPendingConnection();
     if (!socket)
         return;
 
@@ -154,13 +152,13 @@ void QtLocalPeer::receiveConnection()
     ds >> remaining;
     uMsg.resize(remaining);
     int got = 0;
-    char* uMsgBuf = uMsg.data();
-    //qDebug() << "RCV: remaining" << remaining;
+    char *uMsgBuf = uMsg.data();
+    // qDebug() << "RCV: remaining" << remaining;
     do {
         got = ds.readRawData(uMsgBuf, remaining);
         remaining -= got;
         uMsgBuf += got;
-        //qDebug() << "RCV: got" << got << "remaining" << remaining;
+        // qDebug() << "RCV: got" << got << "remaining" << remaining;
     } while (remaining && got >= 0 && socket->waitForReadyRead(2000));
     //### error check: got<0
     if (got < 0) {

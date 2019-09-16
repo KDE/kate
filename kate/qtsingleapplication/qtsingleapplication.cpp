@@ -33,8 +33,8 @@
 #include <QSharedMemory>
 #include <QWidget>
 
-namespace SharedTools {
-
+namespace SharedTools
+{
 static const int instancesSize = 1024;
 
 static QString instancesLockFilename(const QString &appSessionId)
@@ -47,9 +47,9 @@ static QString instancesLockFilename(const QString &appSessionId)
 }
 
 QtSingleApplication::QtSingleApplication(const QString &appId, int &argc, char **argv)
-    : QApplication(argc, argv),
-      firstPeer(-1),
-      pidPeer(0)
+    : QApplication(argc, argv)
+    , firstPeer(-1)
+    , pidPeer(0)
 {
     this->appId = appId;
 
@@ -64,8 +64,7 @@ QtSingleApplication::QtSingleApplication(const QString &appId, int &argc, char *
     const bool created = instances->create(instancesSize);
     if (!created) {
         if (!instances->attach()) {
-            qWarning() << "Failed to initialize instances shared memory: "
-                       << instances->errorString();
+            qWarning() << "Failed to initialize instances shared memory: " << instances->errorString();
             delete instances;
             instances = 0;
             return;
@@ -89,9 +88,8 @@ QtSingleApplication::QtSingleApplication(const QString &appId, int &argc, char *
     // Add current pid to list and terminate it
     *pids++ = QCoreApplication::applicationPid();
     *pids = 0;
-    pidPeer = new QtLocalPeer(this, appId + QLatin1Char('-') +
-                              QString::number(QCoreApplication::applicationPid()));
-    connect(pidPeer, SIGNAL(messageReceived(QString,QObject*)), SIGNAL(messageReceived(QString,QObject*)));
+    pidPeer = new QtLocalPeer(this, appId + QLatin1Char('-') + QString::number(QCoreApplication::applicationPid()));
+    connect(pidPeer, SIGNAL(messageReceived(QString, QObject *)), SIGNAL(messageReceived(QString, QObject *)));
     pidPeer->isClient();
     lockfile.unlock();
 }
@@ -118,7 +116,7 @@ QtSingleApplication::~QtSingleApplication()
 bool QtSingleApplication::event(QEvent *event)
 {
     if (event->type() == QEvent::FileOpen) {
-        QFileOpenEvent *foe = static_cast<QFileOpenEvent*>(event);
+        QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(event);
         emit fileOpenRequest(foe->file());
         return true;
     }
@@ -165,17 +163,15 @@ void QtSingleApplication::setActivationWindow(QWidget *aw, bool activateOnMessag
     if (!pidPeer)
         return;
     if (activateOnMessage)
-        connect(pidPeer, SIGNAL(messageReceived(QString,QObject*)), this, SLOT(activateWindow()));
+        connect(pidPeer, SIGNAL(messageReceived(QString, QObject *)), this, SLOT(activateWindow()));
     else
-        disconnect(pidPeer, SIGNAL(messageReceived(QString,QObject*)), this, SLOT(activateWindow()));
+        disconnect(pidPeer, SIGNAL(messageReceived(QString, QObject *)), this, SLOT(activateWindow()));
 }
 
-
-QWidget* QtSingleApplication::activationWindow() const
+QWidget *QtSingleApplication::activationWindow() const
 {
     return actWin;
 }
-
 
 void QtSingleApplication::activateWindow()
 {

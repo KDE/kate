@@ -61,8 +61,8 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     sortModel->setRecursiveFilteringEnabled(true);
 #endif
 
-    //sortModel->setFilterRole(SortFilterRole);
-    //sortModel->setSortRole(SortFilterRole);
+    // sortModel->setFilterRole(SortFilterRole);
+    // sortModel->setSortRole(SortFilterRole);
     sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     sortModel->setSortCaseSensitivity(Qt::CaseInsensitive);
     sortModel->setSourceModel(m_project->model());

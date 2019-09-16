@@ -183,8 +183,7 @@ bool KateApp::startupKate()
             doc = openDocUrl(info.url, codec_name, tempfileSet);
             if (info.cursor.isValid()) {
                 setCursor(info.cursor.line(), info.cursor.column());
-            }
-            else if (info.url.hasQuery()) {
+            } else if (info.url.hasQuery()) {
                 QUrlQuery q(info.url);
                 QString lineStr = q.queryItemValue(QStringLiteral("line"));
                 QString columnStr = q.queryItemValue(QStringLiteral("column"));
@@ -200,8 +199,7 @@ bool KateApp::startupKate()
                 setCursor(line, column);
             }
         } else {
-            KMessageBox::sorry(activeKateMainWindow(),
-                               i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
+            KMessageBox::sorry(activeKateMainWindow(), i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
         }
     }
 
@@ -288,7 +286,7 @@ bool KateApp::openUrl(const QUrl &url, const QString &encoding, bool isTempFile)
 
 bool KateApp::isOnActivity(const QString &activity)
 {
-    for (const auto& window : m_mainWindows) {
+    for (const auto &window : m_mainWindows) {
         const KWindowInfo info(window->winId(), nullptr, NET::WM2Activities);
         const auto activities = info.activities();
         // handle special case of "on all activities"
@@ -322,8 +320,7 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
             doc = mainWindow->viewManager()->openUrl(url, QString(), true, isTempFile);
         }
     } else
-        KMessageBox::sorry(mainWindow,
-                           i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
+        KMessageBox::sorry(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
 
     return doc;
 }
@@ -436,7 +433,7 @@ bool KateApp::eventFilter(QObject *obj, QEvent *event)
          * try to open and activate the new document, like we would do for stuff
          * opened via dbus
          */
-        QFileOpenEvent *foe = static_cast<QFileOpenEvent*>(event);
+        QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(event);
         KTextEditor::Document *doc = openDocUrl(foe->url(), QString(), false);
         if (doc && activeKateMainWindow()) {
             activeKateMainWindow()->viewManager()->activateView(doc);
@@ -463,7 +460,7 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
      * open all passed urls
      */
     const QJsonArray urls = jsonMessage.object().value(QLatin1String("urls")).toArray();
-    Q_FOREACH(QJsonValue urlObject, urls) {
+    Q_FOREACH (QJsonValue urlObject, urls) {
         /**
          * get url meta data
          */
@@ -478,7 +475,6 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
         if (line >= 0 && column >= 0) {
             setCursor(line, column);
         }
-
     }
 
     // try to activate current window

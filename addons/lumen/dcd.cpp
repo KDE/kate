@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-**/
+ **/
 
 #include "dcd.h"
 #include <QDebug>
@@ -25,24 +25,37 @@
 #include <QRegularExpression>
 #include <QIcon>
 
-
 char DCDCompletionItemType::toChar(DCDCompletionItemType e)
 {
     switch (e) {
-        case Invalid: return 0;
-        case Calltip: return 1;
-        case ClassName: return 'c';
-        case InterfaceName: return 'i';
-        case StructName: return 's';
-        case UnionName: return 'u';
-        case VariableName: return 'v';
-        case MemberVariableName: return 'm';
-        case Keyword: return 'k';
-        case FunctionName: return 'f';
-        case EnumName: return 'g';
-        case EnumMember: return 'e';
-        case PackageName: return 'p';
-        case ModuleName: return 'M';
+        case Invalid:
+            return 0;
+        case Calltip:
+            return 1;
+        case ClassName:
+            return 'c';
+        case InterfaceName:
+            return 'i';
+        case StructName:
+            return 's';
+        case UnionName:
+            return 'u';
+        case VariableName:
+            return 'v';
+        case MemberVariableName:
+            return 'm';
+        case Keyword:
+            return 'k';
+        case FunctionName:
+            return 'f';
+        case EnumName:
+            return 'g';
+        case EnumMember:
+            return 'e';
+        case PackageName:
+            return 'p';
+        case ModuleName:
+            return 'M';
     }
 
     return 0;
@@ -51,52 +64,82 @@ char DCDCompletionItemType::toChar(DCDCompletionItemType e)
 DCDCompletionItemType::DCDCompletionItemType DCDCompletionItemType::fromChar(char c)
 {
     switch (c) {
-        case 0: return Invalid;
-        case 1: return Calltip;
-        case 'c': return ClassName;
-        case 'i': return InterfaceName;
-        case 's': return StructName;
-        case 'u': return UnionName;
-        case 'v': return VariableName;
-        case 'm': return MemberVariableName;
-        case 'k': return Keyword;
-        case 'f': return FunctionName;
-        case 'g': return EnumName;
-        case 'e': return EnumMember;
-        case 'p': return PackageName;
-        case 'M': return ModuleName;
+        case 0:
+            return Invalid;
+        case 1:
+            return Calltip;
+        case 'c':
+            return ClassName;
+        case 'i':
+            return InterfaceName;
+        case 's':
+            return StructName;
+        case 'u':
+            return UnionName;
+        case 'v':
+            return VariableName;
+        case 'm':
+            return MemberVariableName;
+        case 'k':
+            return Keyword;
+        case 'f':
+            return FunctionName;
+        case 'g':
+            return EnumName;
+        case 'e':
+            return EnumMember;
+        case 'p':
+            return PackageName;
+        case 'M':
+            return ModuleName;
     }
 
     return Invalid;
 }
 
-
-
-DCDCompletionItem::DCDCompletionItem(DCDCompletionItemType::DCDCompletionItemType t, const QString &s): type(t), name(s)
+DCDCompletionItem::DCDCompletionItem(DCDCompletionItemType::DCDCompletionItemType t, const QString &s)
+    : type(t)
+    , name(s)
 {
-
 }
 
-#define RETURN_CACHED_ICON(name) {static QIcon icon(QIcon::fromTheme(QStringLiteral(name)).pixmap(QSize(16, 16))); return icon;}
+#define RETURN_CACHED_ICON(name)                                                                                                                                                                                                               \
+    {                                                                                                                                                                                                                                          \
+        static QIcon icon(QIcon::fromTheme(QStringLiteral(name)).pixmap(QSize(16, 16)));                                                                                                                                                       \
+        return icon;                                                                                                                                                                                                                           \
+    }
 QIcon DCDCompletionItem::icon() const
 {
     using namespace DCDCompletionItemType;
-    switch (type)
-    {
-        case Invalid: break;
-        case Calltip: RETURN_CACHED_ICON("code-function")
-        case ClassName: RETURN_CACHED_ICON("code-class")
-        case InterfaceName: RETURN_CACHED_ICON("code-class")
-        case StructName: RETURN_CACHED_ICON("struct")
-        case UnionName: RETURN_CACHED_ICON("union")
-        case VariableName: RETURN_CACHED_ICON("code-variable")
-        case MemberVariableName: RETURN_CACHED_ICON("field")
-        case Keyword: RETURN_CACHED_ICON("field")
-        case FunctionName: RETURN_CACHED_ICON("code-function")
-        case EnumName: RETURN_CACHED_ICON("enum")
-        case EnumMember: RETURN_CACHED_ICON("enum")
-        case PackageName: RETURN_CACHED_ICON("field")
-        case ModuleName: RETURN_CACHED_ICON("field")
+    switch (type) {
+        case Invalid:
+            break;
+        case Calltip:
+            RETURN_CACHED_ICON("code-function")
+        case ClassName:
+            RETURN_CACHED_ICON("code-class")
+        case InterfaceName:
+            RETURN_CACHED_ICON("code-class")
+        case StructName:
+            RETURN_CACHED_ICON("struct")
+        case UnionName:
+            RETURN_CACHED_ICON("union")
+        case VariableName:
+            RETURN_CACHED_ICON("code-variable")
+        case MemberVariableName:
+            RETURN_CACHED_ICON("field")
+        case Keyword:
+            RETURN_CACHED_ICON("field")
+        case FunctionName:
+            RETURN_CACHED_ICON("code-function")
+        case EnumName:
+            RETURN_CACHED_ICON("enum")
+        case EnumMember:
+            RETURN_CACHED_ICON("enum")
+        case PackageName:
+            RETURN_CACHED_ICON("field")
+        case ModuleName:
+            RETURN_CACHED_ICON("field")
     }
 
     return QIcon();
@@ -105,27 +148,39 @@ QIcon DCDCompletionItem::icon() const
 QString DCDCompletionItem::typeLong() const
 {
     using namespace DCDCompletionItemType;
-    switch (type)
-    {
-        case Invalid: return QStringLiteral("invalid");
-        case Calltip: return QStringLiteral("calltip");
-        case ClassName: return QStringLiteral("class");
-        case InterfaceName: return QStringLiteral("interface");
-        case StructName: return QStringLiteral("struct");
-        case UnionName: return QStringLiteral("union");
-        case VariableName: return QStringLiteral("variable");
-        case MemberVariableName: return QStringLiteral("member");
-        case Keyword: return QStringLiteral("keyword");
-        case FunctionName: return QStringLiteral("function");
-        case EnumName: return QStringLiteral("enum");
-        case EnumMember: return QStringLiteral("enum member");
-        case PackageName: return QStringLiteral("package");
-        case ModuleName: return QStringLiteral("module");
+    switch (type) {
+        case Invalid:
+            return QStringLiteral("invalid");
+        case Calltip:
+            return QStringLiteral("calltip");
+        case ClassName:
+            return QStringLiteral("class");
+        case InterfaceName:
+            return QStringLiteral("interface");
+        case StructName:
+            return QStringLiteral("struct");
+        case UnionName:
+            return QStringLiteral("union");
+        case VariableName:
+            return QStringLiteral("variable");
+        case MemberVariableName:
+            return QStringLiteral("member");
+        case Keyword:
+            return QStringLiteral("keyword");
+        case FunctionName:
+            return QStringLiteral("function");
+        case EnumName:
+            return QStringLiteral("enum");
+        case EnumMember:
+            return QStringLiteral("enum member");
+        case PackageName:
+            return QStringLiteral("package");
+        case ModuleName:
+            return QStringLiteral("module");
     }
 
     return QStringLiteral("completion");
 }
-
 
 static const int TIMEOUT_START_SERVER = 200;
 static const int TIMEOUT_COMPLETE = 200;
@@ -133,8 +188,7 @@ static const int TIMEOUT_IMPORTPATH = 200;
 static const int TIMEOUT_SHUTDOWN = 350;
 static const int TIMEOUT_SHUTDOWN_SERVER = 200;
 
-
-DCD::DCD(int port, const QString& server, const QString& client)
+DCD::DCD(int port, const QString &server, const QString &client)
 {
     m_port = port;
     m_server = server;
@@ -150,7 +204,6 @@ bool DCD::running()
 {
     return m_sproc.state() == QProcess::Running;
 }
-
 
 bool DCD::startServer()
 {
@@ -168,17 +221,11 @@ bool DCD::startServer()
     return true;
 }
 
-
-DCDCompletion DCD::complete(const QString& file, int offset)
+DCDCompletion DCD::complete(const QString &file, int offset)
 {
     QProcess proc;
     proc.setProcessChannelMode(QProcess::MergedChannels);
-    proc.start(m_client,
-        QStringList()
-            << QStringLiteral("-p%1").arg(m_port)
-            << QStringLiteral("-c%1").arg(offset)
-            << file
-    );
+    proc.start(m_client, QStringList() << QStringLiteral("-p%1").arg(m_port) << QStringLiteral("-c%1").arg(offset) << file);
     proc.waitForFinished(TIMEOUT_COMPLETE);
     proc.terminate();
 
@@ -191,15 +238,11 @@ DCDCompletion DCD::complete(const QString& file, int offset)
     return processCompletion(QString::fromUtf8(proc.readAllStandardOutput()));
 }
 
-DCDCompletion DCD::complete(const QByteArray& data, int offset)
+DCDCompletion DCD::complete(const QByteArray &data, int offset)
 {
     QProcess proc;
     proc.setProcessChannelMode(QProcess::MergedChannels);
-    proc.start(m_client,
-        QStringList()
-            << QStringLiteral("-p%1").arg(m_port)
-            << QStringLiteral("-c%1").arg(offset)
-    );
+    proc.start(m_client, QStringList() << QStringLiteral("-p%1").arg(m_port) << QStringLiteral("-c%1").arg(offset));
     proc.write(data);
     proc.closeWriteChannel();
     if (!proc.waitForFinished(TIMEOUT_COMPLETE)) {
@@ -216,16 +259,11 @@ DCDCompletion DCD::complete(const QByteArray& data, int offset)
     return DCDCompletion();
 }
 
-QString DCD::doc(const QByteArray& data, int offset)
+QString DCD::doc(const QByteArray &data, int offset)
 {
     QProcess proc;
     proc.setProcessChannelMode(QProcess::MergedChannels);
-    proc.start(m_client,
-        QStringList()
-            << QStringLiteral("-p%1").arg(m_port)
-            << QStringLiteral("-c%1").arg(offset)
-            << QStringLiteral("--doc")
-    );
+    proc.start(m_client, QStringList() << QStringLiteral("-p%1").arg(m_port) << QStringLiteral("-c%1").arg(offset) << QStringLiteral("--doc"));
 
     proc.write(data);
     proc.closeWriteChannel();
@@ -242,8 +280,7 @@ QString DCD::doc(const QByteArray& data, int offset)
     return QString();
 }
 
-
-DCDCompletion DCD::processCompletion(const QString& data)
+DCDCompletion DCD::processCompletion(const QString &data)
 {
     DCDCompletion completion;
 
@@ -253,15 +290,17 @@ DCDCompletion DCD::processCompletion(const QString& data)
     }
 
     QString type = lines.front();
-    if (type == QLatin1String("identifiers")) { completion.type = DCDCompletionType::Identifiers; }
-    else if (type == QLatin1String("calltips")) { completion.type = DCDCompletionType::Calltips; }
-    else {
+    if (type == QLatin1String("identifiers")) {
+        completion.type = DCDCompletionType::Identifiers;
+    } else if (type == QLatin1String("calltips")) {
+        completion.type = DCDCompletionType::Calltips;
+    } else {
         qWarning() << "Invalid type:" << type;
         return completion;
     }
     lines.pop_front();
 
-    foreach(QString line, lines) {
+    foreach (QString line, lines) {
         if (line.trimmed().length() == 0) {
             continue;
         }
@@ -273,33 +312,28 @@ DCDCompletion DCD::processCompletion(const QString& data)
         }
 
         if (completion.type == DCDCompletionType::Identifiers) {
-            completion.completions.append(DCDCompletionItem(
-                DCDCompletionItemType::fromChar(kv[1].at(0).toLatin1()), kv[0]
-            ));
+            completion.completions.append(DCDCompletionItem(DCDCompletionItemType::fromChar(kv[1].at(0).toLatin1()), kv[0]));
         } else {
-            completion.completions.append(DCDCompletionItem(
-                DCDCompletionItemType::Calltip, line
-            ));
+            completion.completions.append(DCDCompletionItem(DCDCompletionItemType::Calltip, line));
         }
     }
 
     return completion;
 }
 
-
-void DCD::addImportPath(const QString& path)
+void DCD::addImportPath(const QString &path)
 {
     addImportPath(QStringList(path));
 }
 
-void DCD::addImportPath(const QStringList& paths)
+void DCD::addImportPath(const QStringList &paths)
 {
     if (paths.isEmpty()) {
         return;
     }
 
     QStringList arguments = QStringList(QStringLiteral("-p%1").arg(m_port));
-    foreach(QString path, paths) {
+    foreach (QString path, paths) {
         if (QFile::exists(path))
             arguments << QStringLiteral("-I%1").arg(path);
     }
@@ -319,11 +353,7 @@ void DCD::shutdown()
 {
     QProcess proc;
     proc.setProcessChannelMode(QProcess::MergedChannels);
-    proc.start(m_client,
-        QStringList()
-            << QStringLiteral("-p%1").arg(m_port)
-            << QStringLiteral("--shutdown")
-    );
+    proc.start(m_client, QStringList() << QStringLiteral("-p%1").arg(m_port) << QStringLiteral("--shutdown"));
     proc.waitForFinished(TIMEOUT_SHUTDOWN);
 
     if (proc.exitStatus() != QProcess::NormalExit || proc.exitCode() != 0) {
@@ -332,23 +362,20 @@ void DCD::shutdown()
     }
 }
 
-
 bool DCD::stopServer()
 {
     if (m_sproc.state() == QProcess::Running) {
         qDebug() << "shutting down dcd";
         shutdown();
-        if(!m_sproc.waitForFinished(TIMEOUT_SHUTDOWN_SERVER))
+        if (!m_sproc.waitForFinished(TIMEOUT_SHUTDOWN_SERVER))
             m_sproc.terminate();
-        if(!m_sproc.waitForFinished(TIMEOUT_SHUTDOWN_SERVER))
+        if (!m_sproc.waitForFinished(TIMEOUT_SHUTDOWN_SERVER))
             m_sproc.kill();
 
         return true;
     }
     return false;
 }
-
-
 
 DCD::~DCD()
 {

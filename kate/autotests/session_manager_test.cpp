@@ -174,5 +174,3 @@ void KateSessionManagerTest::startNonEmpty()
     KateSessionManager m(this, m_tempdir->path());
     QCOMPARE(m.sessionList().size(), 2);
 }
-
-

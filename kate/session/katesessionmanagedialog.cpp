@@ -71,7 +71,6 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)
     changeSortOrder(); // Set order to SortAlphabetical, set button text and fill session list
 }
 
-
 KateSessionManageDialog::KateSessionManageDialog(QWidget *parent, const QString &lastSession)
     : KateSessionManageDialog(parent)
 {
@@ -84,16 +83,14 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent, const QString 
     changeSortOrder(); // Set order to SortChronological
 }
 
-
 KateSessionManageDialog::~KateSessionManageDialog()
-{}
-
+{
+}
 
 void KateSessionManageDialog::dontAskToggled()
 {
     m_templateButton->setEnabled(!m_dontAskCheckBox->isChecked());
 }
-
 
 void KateSessionManageDialog::changeSortOrder()
 {
@@ -101,18 +98,17 @@ void KateSessionManageDialog::changeSortOrder()
         case SortAlphabetical:
             m_sortOrder = SortChronological;
             m_sortButton->setText(i18n("Sort Alphabetical"));
-            //m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
+            // m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
             break;
         case SortChronological:
             m_sortOrder = SortAlphabetical;
             m_sortButton->setText(i18n("Sort Last Used"));
-            //m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
+            // m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
             break;
     }
 
     updateSessionList();
 }
-
 
 void KateSessionManageDialog::filterChanged()
 {
@@ -128,10 +124,9 @@ void KateSessionManageDialog::filterChanged()
     delay->start();
 }
 
-
 void KateSessionManageDialog::done(int result)
 {
-    for (const auto& session : qAsConst(m_deleteList)) {
+    for (const auto &session : qAsConst(m_deleteList)) {
         KateApp::self()->sessionManager()->deleteSession(session);
     }
     m_deleteList.clear(); // May not needed, but anyway
@@ -145,21 +140,20 @@ void KateSessionManageDialog::done(int result)
         // write back our nice boolean :)
         KConfigGroup generalConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
         switch (result) {
-        case ResultOpen:
-            generalConfig.writeEntry("Startup Session", "last");
-            break;
-        case ResultNew:
-            generalConfig.writeEntry("Startup Session", "new");
-            break;
-        default:
-            break;
+            case ResultOpen:
+                generalConfig.writeEntry("Startup Session", "last");
+                break;
+            case ResultNew:
+                generalConfig.writeEntry("Startup Session", "new");
+                break;
+            default:
+                break;
         }
         generalConfig.sync();
     }
 
     QDialog::done(1);
 }
-
 
 void KateSessionManageDialog::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
@@ -199,7 +193,6 @@ void KateSessionManageDialog::selectionChanged(QTreeWidgetItem *current, QTreeWi
     }
 }
 
-
 void KateSessionManageDialog::disableButtons()
 {
     m_openButton->setEnabled(false);
@@ -213,7 +206,6 @@ void KateSessionManageDialog::disableButtons()
     m_sortButton->setEnabled(false);
     m_filterBox->setEnabled(false);
 }
-
 
 void KateSessionManageDialog::editBegin()
 {
@@ -240,7 +232,6 @@ void KateSessionManageDialog::editBegin()
     m_editByUser = item; // Do it last to block eventFilter() actions until we are ready
 }
 
-
 void KateSessionManageDialog::editDone()
 {
     m_editByUser = nullptr;
@@ -256,7 +247,6 @@ void KateSessionManageDialog::editDone()
     m_sessionList->setFocus();
 }
 
-
 void KateSessionManageDialog::editApply()
 {
     if (!m_editByUser) {
@@ -266,7 +256,6 @@ void KateSessionManageDialog::editApply()
     KateApp::self()->sessionManager()->renameSession(m_editByUser->session, m_editByUser->text(0));
     editDone();
 }
-
 
 void KateSessionManageDialog::copySession()
 {
@@ -279,7 +268,6 @@ void KateSessionManageDialog::copySession()
     m_prefferedSession = KateApp::self()->sessionManager()->copySession(item->session);
     m_sessionList->setFocus(); // Only needed when user abort
 }
-
 
 void KateSessionManageDialog::openSession()
 {
@@ -295,7 +283,6 @@ void KateSessionManageDialog::openSession()
     const bool success = KateApp::self()->sessionManager()->activateSession(item->session);
     done(success ? ResultOpen : ResultQuit);
 }
-
 
 void KateSessionManageDialog::openSessionAsTemplate()
 {
@@ -314,14 +301,12 @@ void KateSessionManageDialog::openSessionAsTemplate()
     done(ResultOpen);
 }
 
-
 void KateSessionManageDialog::openNewSession()
 {
     hide();
     KateApp::self()->sessionManager()->sessionNew();
     done(ResultNew);
 }
-
 
 void KateSessionManageDialog::updateDeleteList()
 {
@@ -348,7 +333,6 @@ void KateSessionManageDialog::updateDeleteList()
     m_sessionList->setFocus();
 }
 
-
 void KateSessionManageDialog::markItemAsToBeDeleted(QTreeWidgetItem *item)
 {
     item->setForeground(0, QBrush(KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText).color()));
@@ -356,12 +340,10 @@ void KateSessionManageDialog::markItemAsToBeDeleted(QTreeWidgetItem *item)
     item->setToolTip(0, i18n("Session will be deleted on dialog close"));
 }
 
-
 void KateSessionManageDialog::closeDialog()
 {
     done(ResultQuit);
 }
-
 
 void KateSessionManageDialog::updateSessionList()
 {
@@ -377,13 +359,17 @@ void KateSessionManageDialog::updateSessionList()
 
     KateSessionList slist = KateApp::self()->sessionManager()->sessionList();
     switch (m_sortOrder) {
-        case SortAlphabetical: std::sort (slist.begin(), slist.end(), KateSession::compareByName); break;
-        case SortChronological: std::sort (slist.begin(), slist.end(), KateSession::compareByTimeDesc); break;
+        case SortAlphabetical:
+            std::sort(slist.begin(), slist.end(), KateSession::compareByName);
+            break;
+        case SortChronological:
+            std::sort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
+            break;
     }
 
     KateSessionChooserItem *prefferedItem = nullptr;
     KateSessionChooserItem *currSessionItem = nullptr;
-    KateSessionChooserItem *activeSessionItem= nullptr;
+    KateSessionChooserItem *activeSessionItem = nullptr;
 
     for (const KateSession::Ptr &session : qAsConst(slist)) {
         if (!m_filterBox->text().isEmpty()) {
@@ -420,7 +406,7 @@ void KateSessionManageDialog::updateSessionList()
         m_sessionList->setCurrentItem(m_sessionList->topLevelItem(0));
     }
 
-    if (m_filterBox->hasFocus()){
+    if (m_filterBox->hasFocus()) {
         return;
     }
 
@@ -431,12 +417,10 @@ void KateSessionManageDialog::updateSessionList()
     }
 }
 
-
 KateSessionChooserItem *KateSessionManageDialog::currentSessionItem() const
 {
     return static_cast<KateSessionChooserItem *>(m_sessionList->currentItem());
 }
-
 
 KateSession::Ptr KateSessionManageDialog::currentSelectedSession() const
 {
@@ -449,10 +433,9 @@ KateSession::Ptr KateSessionManageDialog::currentSelectedSession() const
     return item->session;
 }
 
-
 bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
 {
-    QKeyEvent *ke = static_cast<QKeyEvent*>(event);
+    QKeyEvent *ke = static_cast<QKeyEvent *>(event);
 
     if (object == m_sessionList) {
         if (!m_editByUser) { // No need for further action
@@ -462,10 +445,10 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
         if (event->type() == QEvent::KeyPress) {
             switch (ke->key()) {
                 // Avoid to apply changes with untypical keys/don't left edit field this way
-                case Qt::Key_Up :
-                case Qt::Key_Down :
-                case Qt::Key_PageUp :
-                case Qt::Key_PageDown :
+                case Qt::Key_Up:
+                case Qt::Key_Down:
+                case Qt::Key_PageUp:
+                case Qt::Key_PageDown:
                     return true;
                 default:
                     break;
@@ -473,10 +456,10 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
 
         } else if (event->type() == QEvent::KeyRelease) {
             switch (ke->key()) {
-                case Qt::Key_Escape :
+                case Qt::Key_Escape:
                     editDone(); // Abort edit
                     break;
-                case Qt::Key_Return :
+                case Qt::Key_Return:
                     editApply();
                     break;
                 default:
@@ -495,7 +478,6 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
 
     return false;
 }
-
 
 void KateSessionManageDialog::closeEvent(QCloseEvent *event)
 {

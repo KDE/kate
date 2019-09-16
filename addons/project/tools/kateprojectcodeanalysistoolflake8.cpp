@@ -26,12 +26,10 @@
 KateProjectCodeAnalysisToolFlake8::KateProjectCodeAnalysisToolFlake8(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)
 {
-
 }
 
 KateProjectCodeAnalysisToolFlake8::~KateProjectCodeAnalysisToolFlake8()
 {
-
 }
 
 QString KateProjectCodeAnalysisToolFlake8::name() const
@@ -77,7 +75,7 @@ QStringList KateProjectCodeAnalysisToolFlake8::arguments()
           << QStringLiteral("--format=%(path)s////%(row)d////%(code)s////%(text)s");
 
     if (m_project) {
-        auto&& fileList = filter(m_project->files());
+        auto &&fileList = filter(m_project->files());
         setActualFilesCount(fileList.size());
         _args.append(fileList);
     }

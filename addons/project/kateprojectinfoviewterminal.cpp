@@ -105,8 +105,7 @@ void KateProjectInfoViewTerminal::loadTerminal()
      * guard destruction, create new terminal!
      */
     connect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
-    connect(m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent *, bool &)),
-            this, SLOT(overrideShortcut(QKeyEvent *, bool &)));
+    connect(m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent *, bool &)), this, SLOT(overrideShortcut(QKeyEvent *, bool &)));
 }
 
 void KateProjectInfoViewTerminal::overrideShortcut(QKeyEvent *, bool &override)
@@ -116,4 +115,3 @@ void KateProjectInfoViewTerminal::overrideShortcut(QKeyEvent *, bool &override)
      */
     override = true;
 }
-

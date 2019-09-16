@@ -26,7 +26,6 @@
 KateProjectCodeAnalysisToolShellcheck::KateProjectCodeAnalysisToolShellcheck(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)
 {
-
 }
 
 KateProjectCodeAnalysisToolShellcheck::~KateProjectCodeAnalysisToolShellcheck()
@@ -66,15 +65,15 @@ QStringList KateProjectCodeAnalysisToolShellcheck::arguments()
 
     // shellcheck --format=gcc script.sh
     // Example output:
-//        script.sh:2:12: note: Use ./*glob* or -- *glob* so names with dashes won't become options. [SC2035]
-//        script.sh:3:11: note: Use ./*glob* or -- *glob* so names with dashes won't become options. [SC2035]
-//        script.sh:3:20: warning: podir is referenced but not assigned. [SC2154]
-//        script.sh:3:20: note: Double quote to prevent globbing and word splitting. [SC2086]
+    //        script.sh:2:12: note: Use ./*glob* or -- *glob* so names with dashes won't become options. [SC2035]
+    //        script.sh:3:11: note: Use ./*glob* or -- *glob* so names with dashes won't become options. [SC2035]
+    //        script.sh:3:20: warning: podir is referenced but not assigned. [SC2154]
+    //        script.sh:3:20: note: Double quote to prevent globbing and word splitting. [SC2086]
 
     _args << QStringLiteral("--format=gcc");
 
     if (m_project) {
-        auto&& fileList = filter(m_project->files());
+        auto &&fileList = filter(m_project->files());
         setActualFilesCount(fileList.size());
         _args.append(fileList);
     }

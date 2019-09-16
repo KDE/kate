@@ -70,7 +70,7 @@ KateDocManager::~KateDocManager()
         if (m_daysMetaInfos > 0) {
             const QStringList groups = m_metaInfos.groupList();
             QDateTime def(QDate(1970, 1, 1));
-            for (const auto& group : groups) {
+            for (const auto &group : groups) {
                 QDateTime last = m_metaInfos.group(group).readEntry("Time", def);
                 if (last.daysTo(QDateTime::currentDateTimeUtc()) > m_daysMetaInfos) {
                     m_metaInfos.deleteGroup(group);
@@ -98,8 +98,10 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
 
     // connect internal signals...
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateDocManager::slotModChanged1);
-    connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-            this, SLOT(slotModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+    connect(doc,
+            SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+            this,
+            SLOT(slotModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
     // we have a new document, show it the world
     emit documentCreated(doc);
@@ -114,8 +116,7 @@ KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
     return m_docInfos.contains(doc) ? m_docInfos[doc] : nullptr;
 }
 
-static QUrl
-normalizeUrl(const QUrl & url)
+static QUrl normalizeUrl(const QUrl &url)
 {
     // Resolve symbolic links for local files (done anyway in KTextEditor)
     if (url.isLocalFile()) {
@@ -132,7 +133,7 @@ normalizeUrl(const QUrl & url)
 KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
 {
     const QUrl u(normalizeUrl(url));
-    for(KTextEditor::Document *it : m_docList) {
+    for (KTextEditor::Document *it : m_docList) {
         if (it->url() == u) {
             return it;
         }
@@ -146,7 +147,7 @@ QList<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls,
 
     emit aboutToCreateDocuments();
 
-    foreach(const QUrl & url, urls) {
+    foreach (const QUrl &url, urls) {
         docs << openUrl(url, encoding, isTempFile, docInfo);
     }
 
@@ -160,8 +161,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     // special handling: if only one unmodified empty buffer in the list,
     // keep this buffer in mind to close it after opening the new url
     KTextEditor::Document *untitledDoc = nullptr;
-    if ((documentList().count() == 1) && (!documentList().at(0)->isModified()
-                                          && documentList().at(0)->url().isEmpty())) {
+    if ((documentList().count() == 1) && (!documentList().at(0)->isModified() && documentList().at(0)->url().isEmpty())) {
         untitledDoc = documentList().first();
     }
 
@@ -179,7 +179,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     if (!doc) {
         if (untitledDoc) {
             // reuse the untitled document which is not needed
-            auto & info = m_docInfos.find(untitledDoc).value();
+            auto &info = m_docInfos.find(untitledDoc).value();
             delete info;
             info = new KateDocumentInfo(docInfo);
             doc = untitledDoc;
@@ -223,25 +223,26 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
 
     int last = 0;
     bool success = true;
-    foreach(KTextEditor::Document * doc, documents) {
+    foreach (KTextEditor::Document *doc, documents) {
         if (closeUrl && !doc->closeUrl()) {
-            success = false;    // get out on first error
+            success = false; // get out on first error
             break;
         }
 
         if (closeUrl && m_tempFiles.contains(doc)) {
-            QFileInfo fi(m_tempFiles[ doc ].first.toLocalFile());
-            if (fi.lastModified() <= m_tempFiles[ doc ].second ||
-                    KMessageBox::questionYesNo(KateApp::self()->activeKateMainWindow(),
-                                               i18n("The supposedly temporary file %1 has been modified. "
-                                                    "Do you want to delete it anyway?", m_tempFiles[ doc ].first.url(QUrl::PreferLocalFile)),
-                                               i18n("Delete File?")) == KMessageBox::Yes) {
-                KIO::del(m_tempFiles[ doc ].first, KIO::HideProgressInfo);
-                qCDebug(LOG_KATE) << "Deleted temporary file " << m_tempFiles[ doc ].first;
+            QFileInfo fi(m_tempFiles[doc].first.toLocalFile());
+            if (fi.lastModified() <= m_tempFiles[doc].second ||
+                KMessageBox::questionYesNo(KateApp::self()->activeKateMainWindow(),
+                                           i18n("The supposedly temporary file %1 has been modified. "
+                                                "Do you want to delete it anyway?",
+                                                m_tempFiles[doc].first.url(QUrl::PreferLocalFile)),
+                                           i18n("Delete File?")) == KMessageBox::Yes) {
+                KIO::del(m_tempFiles[doc].first, KIO::HideProgressInfo);
+                qCDebug(LOG_KATE) << "Deleted temporary file " << m_tempFiles[doc].first;
                 m_tempFiles.remove(doc);
             } else {
                 m_tempFiles.remove(doc);
-                qCDebug(LOG_KATE) << "The supposedly temporary file " << m_tempFiles[ doc ].first.url() << " have been modified since loaded, and has not been deleted.";
+                qCDebug(LOG_KATE) << "The supposedly temporary file " << m_tempFiles[doc].first.url() << " have been modified since loaded, and has not been deleted.";
             }
         }
 
@@ -285,10 +286,10 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
     return closeDocuments(documents, closeUrl);
 }
 
-bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *>& documents)
+bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *> &documents)
 {
     QList<KTextEditor::Document *> modifiedDocuments;
-    foreach(KTextEditor::Document * document, documents) {
+    foreach (KTextEditor::Document *document, documents) {
         if (document->isModified()) {
             modifiedDocuments.append(document);
         }
@@ -298,7 +299,7 @@ bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *>& doc
         return false;
     }
 
-    return closeDocuments(documents, false);   // Do not show save/discard dialog
+    return closeDocuments(documents, false); // Do not show save/discard dialog
 }
 
 bool KateDocManager::closeAllDocuments(bool closeUrl)
@@ -326,7 +327,7 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document *doc)
 QList<KTextEditor::Document *> KateDocManager::modifiedDocumentList()
 {
     QList<KTextEditor::Document *> modified;
-    foreach(KTextEditor::Document * doc, m_docList) {
+    foreach (KTextEditor::Document *doc, m_docList) {
         if (doc->isModified()) {
             modified.append(doc);
         }
@@ -337,12 +338,15 @@ QList<KTextEditor::Document *> KateDocManager::modifiedDocumentList()
 bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 {
     int docCount = m_docList.count();
-    foreach(KTextEditor::Document * doc, m_docList) {
+    foreach (KTextEditor::Document *doc, m_docList) {
         if (doc->url().isEmpty() && doc->isModified()) {
             int msgres = KMessageBox::warningYesNoCancel(w,
-                         i18n("<p>The document '%1' has been modified, but not saved.</p>"
-                              "<p>Do you want to save your changes or discard them?</p>", doc->documentName()),
-                         i18n("Close Document"), KStandardGuiItem::save(), KStandardGuiItem::discard());
+                                                         i18n("<p>The document '%1' has been modified, but not saved.</p>"
+                                                              "<p>Do you want to save your changes or discard them?</p>",
+                                                              doc->documentName()),
+                                                         i18n("Close Document"),
+                                                         KStandardGuiItem::save(),
+                                                         KStandardGuiItem::discard());
 
             if (msgres == KMessageBox::Cancel) {
                 return false;
@@ -367,9 +371,7 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 
     // document count changed while queryClose, abort and notify user
     if (m_docList.count() > docCount) {
-        KMessageBox::information(w,
-                                 i18n("New file opened while trying to close Kate, closing aborted."),
-                                 i18n("Closing Aborted"));
+        KMessageBox::information(w, i18n("New file opened while trying to close Kate, closing aborted."), i18n("Closing Aborted"));
         return false;
     }
 
@@ -378,15 +380,15 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 
 void KateDocManager::saveAll()
 {
-    foreach(KTextEditor::Document * doc, m_docList)
-    if (doc->isModified()) {
-        doc->documentSave();
-    }
+    foreach (KTextEditor::Document *doc, m_docList)
+        if (doc->isModified()) {
+            doc->documentSave();
+        }
 }
 
 void KateDocManager::saveSelected(const QList<KTextEditor::Document *> &docList)
 {
-    foreach(KTextEditor::Document * doc, docList) {
+    foreach (KTextEditor::Document *doc, docList) {
         if (doc->isModified()) {
             doc->documentSave();
         }
@@ -396,8 +398,8 @@ void KateDocManager::saveSelected(const QList<KTextEditor::Document *> &docList)
 void KateDocManager::reloadAll()
 {
     // reload all docs that are NOT modified on disk
-    foreach(KTextEditor::Document * doc, m_docList) {
-        if (! documentInfo(doc)->modifiedOnDisc) {
+    foreach (KTextEditor::Document *doc, m_docList) {
+        if (!documentInfo(doc)->modifiedOnDisc) {
             doc->documentReload();
         }
     }
@@ -410,7 +412,7 @@ void KateDocManager::closeOrphaned()
 {
     QList<KTextEditor::Document *> documents;
 
-    foreach(KTextEditor::Document * doc, m_docList) {
+    foreach (KTextEditor::Document *doc, m_docList) {
         KateDocumentInfo *info = documentInfo(doc);
         if (info && !info->openSuccess) {
             documents.append(doc);
@@ -427,7 +429,7 @@ void KateDocManager::saveDocumentList(KConfig *config)
     openDocGroup.writeEntry("Count", m_docList.count());
 
     int i = 0;
-    foreach(KTextEditor::Document * doc, m_docList) {
+    foreach (KTextEditor::Document *doc, m_docList) {
         KConfigGroup cg(config, QStringLiteral("Document %1").arg(i));
         doc->writeSessionConfig(cg);
         i++;
@@ -500,9 +502,9 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
         if (QString::fromLatin1(checksum) == old_checksum) {
             QSet<QString> flags;
             if (documentInfo(doc)->openedByUser) {
-                flags << QStringLiteral ("SkipEncoding");
+                flags << QStringLiteral("SkipEncoding");
             }
-            flags << QStringLiteral ("SkipUrl");
+            flags << QStringLiteral("SkipUrl");
             doc->readSessionConfig(urlGroup, flags);
         } else {
             urlGroup.deleteGroup();
@@ -532,7 +534,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
      * store meta info for all non-modified documents which have some checksum
      */
     const QDateTime now = QDateTime::currentDateTimeUtc();
-    foreach(KTextEditor::Document * doc, documents) {
+    foreach (KTextEditor::Document *doc, documents) {
         /**
          * skip modified docs
          */
@@ -542,7 +544,6 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
 
         const QByteArray checksum = doc->checksum().toHex();
         if (!checksum.isEmpty()) {
-
             /**
              * write the group with checksum and time
              */
@@ -572,8 +573,7 @@ void KateDocManager::slotModChanged(KTextEditor::Document *doc)
 
 void KateDocManager::slotModChanged1(KTextEditor::Document *doc)
 {
-    QMetaObject::invokeMethod(KateApp::self()->activeKateMainWindow(), "queueModifiedOnDisc",
-                                  Qt::QueuedConnection, Q_ARG(KTextEditor::Document *, doc));
+    QMetaObject::invokeMethod(KateApp::self()->activeKateMainWindow(), "queueModifiedOnDisc", Qt::QueuedConnection, Q_ARG(KTextEditor::Document *, doc));
 }
 
 void KateDocManager::documentOpened()
@@ -582,7 +582,7 @@ void KateDocManager::documentOpened()
 
     KTextEditor::Document *doc = qobject_cast<KTextEditor::Document *>(sender());
     if (!doc) {
-        return;    // should never happen, but who knows
+        return; // should never happen, but who knows
     }
     disconnect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
     disconnect(doc, &KParts::ReadOnlyPart::canceled, this, &KateDocManager::documentOpened);

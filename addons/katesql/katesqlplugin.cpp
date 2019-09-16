@@ -30,39 +30,36 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateSQLFactory, "katesql.json", registerPlugin<KateSQLPlugin>();)
 
-//BEGIN KateSQLPLugin
-KateSQLPlugin::KateSQLPlugin(QObject *parent, const QList<QVariant>&)
-    : KTextEditor::Plugin (parent)
+// BEGIN KateSQLPLugin
+KateSQLPlugin::KateSQLPlugin(QObject *parent, const QList<QVariant> &)
+    : KTextEditor::Plugin(parent)
 {
 }
-
 
 KateSQLPlugin::~KateSQLPlugin()
 {
 }
 
-
-QObject *KateSQLPlugin::createView (KTextEditor::MainWindow *mainWindow)
+QObject *KateSQLPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-  KateSQLView *view = new KateSQLView(this, mainWindow);
+    KateSQLView *view = new KateSQLView(this, mainWindow);
 
-  connect(this, &KateSQLPlugin::globalSettingsChanged, view, &KateSQLView::slotGlobalSettingsChanged);
+    connect(this, &KateSQLPlugin::globalSettingsChanged, view, &KateSQLView::slotGlobalSettingsChanged);
 
-  return view;
+    return view;
 }
 
-
-KTextEditor::ConfigPage* KateSQLPlugin::configPage(int number, QWidget *parent)
+KTextEditor::ConfigPage *KateSQLPlugin::configPage(int number, QWidget *parent)
 {
-  if (number != 0)
-    return nullptr;
+    if (number != 0)
+        return nullptr;
 
-  KateSQLConfigPage *page = new KateSQLConfigPage(parent);
-  connect(page, &KateSQLConfigPage::settingsChanged, this, &KateSQLPlugin::globalSettingsChanged);
+    KateSQLConfigPage *page = new KateSQLConfigPage(parent);
+    connect(page, &KateSQLConfigPage::settingsChanged, this, &KateSQLPlugin::globalSettingsChanged);
 
-  return page;
+    return page;
 }
 
-//END KateSQLPlugin
+// END KateSQLPlugin
 
 #include "katesqlplugin.moc"

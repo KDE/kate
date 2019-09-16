@@ -79,4 +79,3 @@ void KateSessionsAction::slotSessionChanged()
 {
     setDisabled(m_manager->sessionList().empty());
 }
-

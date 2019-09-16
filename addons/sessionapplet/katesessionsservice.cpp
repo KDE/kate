@@ -33,6 +33,6 @@ KateSessionsService::KateSessionsService(KateSessionsEngine *engine, const QStri
 
 Plasma::ServiceJob *KateSessionsService::createJob(const QString &operation, QVariantMap &parameters)
 {
-    qDebug()<<"creating KateSessionsJob";
+    qDebug() << "creating KateSessionsJob";
     return new KateSessionsJob(m_engine, m_uuid, operation, parameters, this);
 }

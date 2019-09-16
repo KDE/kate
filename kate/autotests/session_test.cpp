@@ -28,9 +28,13 @@
 
 QTEST_MAIN(KateSessionTest)
 
-void KateSessionTest::initTestCase() {}
+void KateSessionTest::initTestCase()
+{
+}
 
-void KateSessionTest::cleanupTestCase() {}
+void KateSessionTest::cleanupTestCase()
+{
+}
 
 void KateSessionTest::init()
 {
@@ -145,5 +149,3 @@ void KateSessionTest::setName()
     QCOMPARE(s->name(), newName);
     QCOMPARE(s->file(), m_tmpfile->fileName()); // on purpose, orthogonal
 }
-
-

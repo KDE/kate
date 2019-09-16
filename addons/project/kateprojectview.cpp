@@ -87,4 +87,3 @@ void KateProjectView::filterTextChanged(const QString &filterText)
         QTimer::singleShot(100, m_treeView, &QTreeView::expandAll);
     }
 }
-

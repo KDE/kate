@@ -52,16 +52,17 @@ QObject *KateSnippetsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 }
 
 KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KTextEditor::MainWindow *mainWindow)
-    : QObject(mainWindow), m_plugin(plugin), m_mainWindow(mainWindow), m_toolView(nullptr), m_snippets(nullptr)
+    : QObject(mainWindow)
+    , m_plugin(plugin)
+    , m_mainWindow(mainWindow)
+    , m_toolView(nullptr)
+    , m_snippets(nullptr)
 {
     KXMLGUIClient::setComponentName(QStringLiteral("katesnippets"), i18n("Snippets tool view"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     // Toolview for snippets
-    m_toolView = mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katesnippetsplugin"),
-                     KTextEditor::MainWindow::Right,
-                     QIcon::fromTheme(QStringLiteral("document-new")),
-                     i18n("Snippets"));
+    m_toolView = mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katesnippetsplugin"), KTextEditor::MainWindow::Right, QIcon::fromTheme(QStringLiteral("document-new")), i18n("Snippets"));
 
     // add snippets widget
     m_snippets = new SnippetView(KateSnippetGlobal::self(), mainWindow, m_toolView.data());
@@ -94,7 +95,7 @@ KateSnippetsPluginView::~KateSnippetsPluginView()
 {
     // cleanup for all views
     Q_FOREACH (auto view, m_textViews) {
-        if (! view) {
+        if (!view) {
             continue;
         }
         auto iface = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
@@ -128,4 +129,3 @@ void KateSnippetsPluginView::createSnippet()
 }
 
 #include "katesnippets.moc"
-

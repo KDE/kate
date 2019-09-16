@@ -9,20 +9,20 @@
     email                : hohenegger@gmail.com
 ***************************************************************************/
 /***************************************************************************
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-*
-***************************************************************************/
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ ***************************************************************************/
 
 #include "plugin_katesymbolviewer.h"
 
 void KatePluginSymbolViewerView::parseXMLSymbols(void)
 {
     if (!m_mainWindow->activeView())
-    return;
+        return;
 
     m_struct->setText(i18n("Show Tags"));
 
@@ -32,8 +32,8 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
     char comment = 0;
     int i;
 
-    QPixmap cls( ( const char** ) class_xpm );
-    QPixmap sct( ( const char** ) struct_xpm );
+    QPixmap cls((const char **)class_xpm);
+    QPixmap sct((const char **)struct_xpm);
 
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *topNode = nullptr;
@@ -42,24 +42,23 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
 
     m_symbols->setRootIsDecorated(0);
 
-    for (i=0; i<kv->lines(); i++) {
+    for (i = 0; i < kv->lines(); i++) {
         cl = kv->line(i);
         cl = cl.trimmed();
 
-        if(cl.indexOf(QRegularExpression(QLatin1String("<!--"))) >= 0) {
+        if (cl.indexOf(QRegularExpression(QLatin1String("<!--"))) >= 0) {
             comment = 1;
         }
-        if(cl.indexOf(QRegularExpression(QLatin1String("-->"))) >= 0) {
+        if (cl.indexOf(QRegularExpression(QLatin1String("-->"))) >= 0) {
             comment = 0;
             continue;
         }
 
-        if (comment==1) {
+        if (comment == 1) {
             continue;
         }
 
-        if(cl.indexOf(QRegularExpression(QLatin1String("^<[a-zA-Z_]+[a-zA-Z0-9_\\.\\-]*"))) == 0 && m_struct->isChecked()){
-
+        if (cl.indexOf(QRegularExpression(QLatin1String("^<[a-zA-Z_]+[a-zA-Z0-9_\\.\\-]*"))) == 0 && m_struct->isChecked()) {
             /* Get the tag type */
             QString type;
             QRegularExpressionMatch match;
@@ -74,8 +73,8 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
 
             if (m_treeOn->isChecked()) {
                 /* See if group already exists */
-                QList<QTreeWidgetItem*> reslist = m_symbols->findItems(type, Qt::MatchExactly);
-                if(reslist.isEmpty()) {
+                QList<QTreeWidgetItem *> reslist = m_symbols->findItems(type, Qt::MatchExactly);
+                if (reslist.isEmpty()) {
                     topNode = new QTreeWidgetItem(m_symbols, QStringList(type));
                     topNode->setIcon(0, QIcon(cls));
                     if (m_expandOn->isChecked()) {
@@ -91,7 +90,7 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
             }
             node->setIcon(0, QIcon(sct));
             node->setText(0, stripped);
-            node->setText(1, QString::number( i, 10));
+            node->setText(1, QString::number(i, 10));
         }
     }
 }

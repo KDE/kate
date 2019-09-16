@@ -51,11 +51,10 @@
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/editor.h>
 
+K_PLUGIN_FACTORY_WITH_JSON(KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
 
-K_PLUGIN_FACTORY_WITH_JSON (KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
-
-KatePluginGDB::KatePluginGDB(QObject* parent, const VariantList&)
-:   KTextEditor::Plugin(parent)
+KatePluginGDB::KatePluginGDB(QObject *parent, const VariantList &)
+    : KTextEditor::Plugin(parent)
 {
     // FIXME KF5 KGlobal::locale()->insertCatalog("kategdbplugin");
 }
@@ -64,13 +63,14 @@ KatePluginGDB::~KatePluginGDB()
 {
 }
 
-QObject* KatePluginGDB::createView(KTextEditor::MainWindow* mainWindow)
+QObject *KatePluginGDB::createView(KTextEditor::MainWindow *mainWindow)
 {
     return new KatePluginGDBView(this, mainWindow);
 }
 
 KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin)
-:   QObject(mainWin), m_mainWin(mainWin)
+    : QObject(mainWin)
+    , m_mainWin(mainWin)
 {
     m_lastExecUrl = QUrl();
     m_lastExecLine = -1;
@@ -79,23 +79,17 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     m_focusOnInput = true;
     m_activeThread = -1;
 
-    KXMLGUIClient::setComponentName (QStringLiteral("kategdb"), i18n ("Kate GDB"));
+    KXMLGUIClient::setComponentName(QStringLiteral("kategdb"), i18n("Kate GDB"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    m_toolView = m_mainWin->createToolView(plugin, i18n("Debug View"),
-                                           KTextEditor::MainWindow::Bottom,
-                                           QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
-                                           i18n("Debug View"));
+    m_toolView = m_mainWin->createToolView(plugin, i18n("Debug View"), KTextEditor::MainWindow::Bottom, QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")), i18n("Debug View"));
 
-    m_localsStackToolView = m_mainWin->createToolView(plugin, i18n("Locals and Stack"),
-                                                      KTextEditor::MainWindow::Right,
-                                                      QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
-                                                      i18n("Locals and Stack"));
+    m_localsStackToolView = m_mainWin->createToolView(plugin, i18n("Locals and Stack"), KTextEditor::MainWindow::Right, QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")), i18n("Locals and Stack"));
 
     m_tabWidget = new QTabWidget(m_toolView);
     // Output
     m_outputArea = new QTextEdit();
-    m_outputArea->setAcceptRichText(false );
+    m_outputArea->setAcceptRichText(false);
     m_outputArea->setReadOnly(true);
     m_outputArea->setUndoRedoEnabled(false);
     // fixed wide font, like konsole
@@ -104,7 +98,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     KColorScheme schemeView(QPalette::Active, KColorScheme::View);
     m_outputArea->setTextBackgroundColor(schemeView.foreground().color());
     m_outputArea->setTextColor(schemeView.background().color());
-    QPalette p = m_outputArea->palette ();
+    QPalette p = m_outputArea->palette();
     p.setColor(QPalette::Base, schemeView.foreground().color());
     m_outputArea->setPalette(p);
 
@@ -113,7 +107,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     connect(m_inputArea, static_cast<void (KHistoryComboBox::*)()>(&KHistoryComboBox::returnPressed), this, &KatePluginGDBView::slotSendCommand);
     QHBoxLayout *inputLayout = new QHBoxLayout();
     inputLayout->addWidget(m_inputArea, 10);
-    inputLayout->setContentsMargins(0,0,0,0);
+    inputLayout->setContentsMargins(0, 0, 0, 0);
     m_outputArea->setFocusProxy(m_inputArea); // take the focus from the outputArea
 
     m_gdbPage = new QWidget();
@@ -121,7 +115,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     layout->addWidget(m_outputArea);
     layout->addLayout(inputLayout);
     layout->setStretch(0, 10);
-    layout->setContentsMargins(0,0,0,0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     // stack page
@@ -132,7 +126,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     stackLayout->addWidget(m_threadCombo);
     stackLayout->addWidget(m_stackTree);
     stackLayout->setStretch(0, 10);
-    stackLayout->setContentsMargins(0,0,0,0);
+    stackLayout->setContentsMargins(0, 0, 0, 0);
     stackLayout->setSpacing(0);
     QStringList headers;
     headers << QStringLiteral("  ") << i18nc("Column label (frame number)", "Nr") << i18nc("Column label", "Frame");
@@ -144,7 +138,6 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     connect(m_stackTree, &QTreeWidget::itemActivated, this, &KatePluginGDBView::stackFrameSelected);
 
     connect(m_threadCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KatePluginGDBView::threadSelected);
-
 
     m_localsView = new LocalsView();
 
@@ -162,7 +155,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     m_tabWidget->addTab(m_gdbPage, i18nc("Tab label", "GDB Output"));
     m_tabWidget->addTab(m_configView, i18nc("Tab label", "Settings"));
 
-    m_debugView  = new DebugView(this);
+    m_debugView = new DebugView(this);
     connect(m_debugView, &DebugView::readyForInput, this, &KatePluginGDBView::enableDebugActions);
 
     connect(m_debugView, &DebugView::outputText, this, &KatePluginGDBView::addOutputText);
@@ -196,7 +189,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     // Actions
     m_configView->registerActions(actionCollection());
 
-    QAction* a = actionCollection()->addAction(QStringLiteral("debug"));
+    QAction *a = actionCollection()->addAction(QStringLiteral("debug"));
     a->setText(i18n("Start Debugging"));
     a->setIcon(QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotDebug);
@@ -209,12 +202,12 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     a = actionCollection()->addAction(QStringLiteral("rerun"));
     a->setText(i18n("Restart Debugging"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
-    connect(a, &QAction::triggered,this, &KatePluginGDBView::slotRestart);
+    connect(a, &QAction::triggered, this, &KatePluginGDBView::slotRestart);
 
     a = actionCollection()->addAction(QStringLiteral("toggle_breakpoint"));
     a->setText(i18n("Toggle Breakpoint / Break"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-pause")));
-    connect(a, &QAction::triggered,this, &KatePluginGDBView::slotToggleBreakpoint);
+    connect(a, &QAction::triggered, this, &KatePluginGDBView::slotToggleBreakpoint);
 
     a = actionCollection()->addAction(QStringLiteral("step_in"));
     a->setText(i18n("Step In"));
@@ -225,7 +218,6 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     a->setText(i18n("Step Over"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-over")));
     connect(a, &QAction::triggered, m_debugView, &DebugView::slotStepOver);
-
 
     a = actionCollection()->addAction(QStringLiteral("step_out"));
     a->setText(i18n("Step Out"));
@@ -256,20 +248,16 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     actionCollection()->addAction(QStringLiteral("popup_gdb"), m_menu);
     connect(m_menu->menu(), &QMenu::aboutToShow, this, &KatePluginGDBView::aboutToShowMenu);
 
-    m_breakpoint = m_menu->menu()->addAction(i18n("popup_breakpoint"),
-                                         this, &KatePluginGDBView::slotToggleBreakpoint);
+    m_breakpoint = m_menu->menu()->addAction(i18n("popup_breakpoint"), this, &KatePluginGDBView::slotToggleBreakpoint);
 
-    QAction* popupAction = m_menu->menu()->addAction(i18n("popup_run_to_cursor"),
-                                                   this, &KatePluginGDBView::slotRunToCursor);
+    QAction *popupAction = m_menu->menu()->addAction(i18n("popup_run_to_cursor"), this, &KatePluginGDBView::slotRunToCursor);
     popupAction->setText(i18n("Run To Cursor"));
-    popupAction = m_menu->menu()->addAction(QStringLiteral("move_pc"),
-                                          this, &KatePluginGDBView::slotMovePC);
+    popupAction = m_menu->menu()->addAction(QStringLiteral("move_pc"), this, &KatePluginGDBView::slotMovePC);
     popupAction->setText(i18nc("Move Program Counter (next execution)", "Move PC"));
 
     enableDebugActions(false);
 
-    connect(m_mainWin, &KTextEditor::MainWindow::unhandledShortcutOverride,
-            this, &KatePluginGDBView::handleEsc);
+    connect(m_mainWin, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KatePluginGDBView::handleEsc);
 
     m_toolView->installEventFilter(this);
 
@@ -283,12 +271,12 @@ KatePluginGDBView::~KatePluginGDBView()
     delete m_localsStackToolView;
 }
 
-void KatePluginGDBView::readSessionConfig( const KConfigGroup& config)
+void KatePluginGDBView::readSessionConfig(const KConfigGroup &config)
 {
     m_configView->readConfig(config);
 }
 
-void KatePluginGDBView::writeSessionConfig(KConfigGroup& config)
+void KatePluginGDBView::writeSessionConfig(KConfigGroup &config)
 {
     m_configView->writeConfig(config);
 }
@@ -300,8 +288,7 @@ void KatePluginGDBView::slotDebug()
     if (m_configView->showIOTab()) {
         connect(m_ioView, &IOView::stdOutText, m_ioView, &IOView::addStdOutText);
         connect(m_ioView, &IOView::stdErrText, m_ioView, &IOView::addStdErrText);
-    }
-    else {
+    } else {
         connect(m_ioView, &IOView::stdOutText, this, &KatePluginGDBView::addOutputText);
         connect(m_ioView, &IOView::stdErrText, this, &KatePluginGDBView::addErrorText);
     }
@@ -341,16 +328,15 @@ void KatePluginGDBView::aboutToShowMenu()
 
     m_breakpoint->setDisabled(false);
 
-    KTextEditor::View* editView = m_mainWin->activeView();
-    QUrl               url = editView->document()->url();
-    int                line = editView->cursorPosition().line();
+    KTextEditor::View *editView = m_mainWin->activeView();
+    QUrl url = editView->document()->url();
+    int line = editView->cursorPosition().line();
 
     line++; // GDB uses 1 based line numbers, kate uses 0 based...
 
     if (m_debugView->hasBreakpoint(url, line)) {
         m_breakpoint->setText(i18n("Remove breakpoint"));
-    }
-    else {
+    } else {
         m_breakpoint->setText(i18n("Insert breakpoint"));
     }
 }
@@ -359,11 +345,10 @@ void KatePluginGDBView::slotToggleBreakpoint()
 {
     if (!actionCollection()->action(QStringLiteral("continue"))->isEnabled()) {
         m_debugView->slotInterrupt();
-    }
-    else {
-        KTextEditor::View* editView = m_mainWin->activeView();
-        QUrl               currURL  = editView->document()->url();
-        int                line     = editView->cursorPosition().line();
+    } else {
+        KTextEditor::View *editView = m_mainWin->activeView();
+        QUrl currURL = editView->document()->url();
+        int line = editView->cursorPosition().line();
 
         m_debugView->toggleBreakpoint(currURL, line + 1);
     }
@@ -371,21 +356,18 @@ void KatePluginGDBView::slotToggleBreakpoint()
 
 void KatePluginGDBView::slotBreakpointSet(const QUrl &file, int line)
 {
-    KTextEditor::MarkInterface* iface =
-    qobject_cast<KTextEditor::MarkInterface*>(m_kateApplication->findUrl(file));
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_kateApplication->findUrl(file));
 
     if (iface) {
         iface->setMarkDescription(KTextEditor::MarkInterface::BreakpointActive, i18n("Breakpoint"));
-        iface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointActive,
-                             QIcon::fromTheme(QStringLiteral("media-playback-pause")).pixmap(10,10));
+        iface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-playback-pause")).pixmap(10, 10));
         iface->addMark(line, KTextEditor::MarkInterface::BreakpointActive);
     }
 }
 
 void KatePluginGDBView::slotBreakpointCleared(const QUrl &file, int line)
 {
-    KTextEditor::MarkInterface* iface =
-    qobject_cast<KTextEditor::MarkInterface*>(m_kateApplication->findUrl(file));
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_kateApplication->findUrl(file));
 
     if (iface) {
         iface->removeMark(line, KTextEditor::MarkInterface::BreakpointActive);
@@ -394,8 +376,8 @@ void KatePluginGDBView::slotBreakpointCleared(const QUrl &file, int line)
 
 void KatePluginGDBView::slotMovePC()
 {
-    KTextEditor::View*  editView = m_mainWin->activeView();
-    QUrl                currURL = editView->document()->url();
+    KTextEditor::View *editView = m_mainWin->activeView();
+    QUrl currURL = editView->document()->url();
     KTextEditor::Cursor cursor = editView->cursorPosition();
 
     m_debugView->movePC(currURL, cursor.line() + 1);
@@ -403,8 +385,8 @@ void KatePluginGDBView::slotMovePC()
 
 void KatePluginGDBView::slotRunToCursor()
 {
-    KTextEditor::View*  editView = m_mainWin->activeView();
-    QUrl                currURL = editView->document()->url();
+    KTextEditor::View *editView = m_mainWin->activeView();
+    QUrl currURL = editView->document()->url();
     KTextEditor::Cursor cursor = editView->cursorPosition();
 
     // GDB starts lines from 1, kate returns lines starting from 0 (displaying 1)
@@ -414,7 +396,7 @@ void KatePluginGDBView::slotRunToCursor()
 void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
 {
     // skip not existing files
-    if (!QFile::exists (url.toLocalFile ())) {
+    if (!QFile::exists(url.toLocalFile())) {
         m_lastExecLine = -1;
         return;
     }
@@ -422,7 +404,7 @@ void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
     m_lastExecUrl = url;
     m_lastExecLine = lineNum;
 
-    KTextEditor::View*  editView = m_mainWin->openUrl(m_lastExecUrl);
+    KTextEditor::View *editView = m_mainWin->openUrl(m_lastExecUrl);
     editView->setCursorPosition(KTextEditor::Cursor(m_lastExecLine, 0));
     m_mainWin->window()->raise();
     m_mainWin->window()->setFocus();
@@ -430,55 +412,51 @@ void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
 
 void KatePluginGDBView::enableDebugActions(bool enable)
 {
-    actionCollection()->action(QStringLiteral("step_in"      ))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("step_over"    ))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("step_out"     ))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("move_pc"      ))->setEnabled(enable);
+    actionCollection()->action(QStringLiteral("step_in"))->setEnabled(enable);
+    actionCollection()->action(QStringLiteral("step_over"))->setEnabled(enable);
+    actionCollection()->action(QStringLiteral("step_out"))->setEnabled(enable);
+    actionCollection()->action(QStringLiteral("move_pc"))->setEnabled(enable);
     actionCollection()->action(QStringLiteral("run_to_cursor"))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("popup_gdb"    ))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("continue"     ))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("print_value"  ))->setEnabled(enable);
+    actionCollection()->action(QStringLiteral("popup_gdb"))->setEnabled(enable);
+    actionCollection()->action(QStringLiteral("continue"))->setEnabled(enable);
+    actionCollection()->action(QStringLiteral("print_value"))->setEnabled(enable);
 
     // "toggle breakpoint" doubles as interrupt while the program is running
     actionCollection()->action(QStringLiteral("toggle_breakpoint"))->setEnabled(m_debugView->debuggerRunning());
-    actionCollection()->action(QStringLiteral("kill"             ))->setEnabled(m_debugView->debuggerRunning());
-    actionCollection()->action(QStringLiteral("rerun"            ))->setEnabled(m_debugView->debuggerRunning());
+    actionCollection()->action(QStringLiteral("kill"))->setEnabled(m_debugView->debuggerRunning());
+    actionCollection()->action(QStringLiteral("rerun"))->setEnabled(m_debugView->debuggerRunning());
 
     m_inputArea->setEnabled(enable);
     m_threadCombo->setEnabled(enable);
     m_stackTree->setEnabled(enable);
     m_localsView->setEnabled(enable);
 
-    if (enable)  {
+    if (enable) {
         m_inputArea->setFocusPolicy(Qt::WheelFocus);
 
         if (m_focusOnInput || m_configView->takeFocusAlways()) {
             m_inputArea->setFocus();
             m_focusOnInput = false;
-        }
-        else {
+        } else {
             m_mainWin->activeView()->setFocus();
         }
-    }
-    else {
+    } else {
         m_inputArea->setFocusPolicy(Qt::NoFocus);
-        if (m_mainWin->activeView()) m_mainWin->activeView()->setFocus();
+        if (m_mainWin->activeView())
+            m_mainWin->activeView()->setFocus();
     }
 
     m_ioView->enableInput(!enable && m_debugView->debuggerRunning());
 
-    if ((m_lastExecLine > -1))
-    {
-        KTextEditor::MarkInterface* iface =
-        qobject_cast<KTextEditor::MarkInterface*>(m_kateApplication->findUrl(m_lastExecUrl));
+    if ((m_lastExecLine > -1)) {
+        KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_kateApplication->findUrl(m_lastExecUrl));
 
         if (iface) {
             if (enable) {
                 iface->setMarkDescription(KTextEditor::MarkInterface::Execution, i18n("Execution point"));
-                iface->setMarkPixmap(KTextEditor::MarkInterface::Execution, QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10,10));
+                iface->setMarkPixmap(KTextEditor::MarkInterface::Execution, QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10));
                 iface->addMark(m_lastExecLine, KTextEditor::MarkInterface::Execution);
-            }
-            else {
+            } else {
                 iface->removeMark(m_lastExecLine, KTextEditor::MarkInterface::Execution);
             }
         }
@@ -508,18 +486,17 @@ void KatePluginGDBView::gdbEnded()
 
 void KatePluginGDBView::clearMarks()
 {
-    KTextEditor::MarkInterface* iface;
-    foreach (KTextEditor::Document* doc, m_kateApplication->documents()) {
-        iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
+    KTextEditor::MarkInterface *iface;
+    foreach (KTextEditor::Document *doc, m_kateApplication->documents()) {
+        iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
         if (iface) {
-            const QHash<int, KTextEditor::Mark*> marks = iface->marks();
-            QHashIterator<int, KTextEditor::Mark*> i(marks);
+            const QHash<int, KTextEditor::Mark *> marks = iface->marks();
+            QHashIterator<int, KTextEditor::Mark *> i(marks);
             while (i.hasNext()) {
                 i.next();
-                if ((i.value()->type == KTextEditor::MarkInterface::Execution) ||
-                    (i.value()->type == KTextEditor::MarkInterface::BreakpointActive)) {
+                if ((i.value()->type == KTextEditor::MarkInterface::Execution) || (i.value()->type == KTextEditor::MarkInterface::BreakpointActive)) {
                     iface->removeMark(i.value()->line, i.value()->type);
-                    }
+                }
             }
         }
     }
@@ -529,7 +506,8 @@ void KatePluginGDBView::slotSendCommand()
 {
     QString cmd = m_inputArea->currentText();
 
-    if (cmd.isEmpty()) cmd = m_lastCommand;
+    if (cmd.isEmpty())
+        cmd = m_lastCommand;
 
     m_inputArea->addToHistory(cmd);
     m_inputArea->setCurrentItem(QString());
@@ -541,15 +519,14 @@ void KatePluginGDBView::slotSendCommand()
     sb->setValue(sb->maximum());
 }
 
-void KatePluginGDBView::insertStackFrame(QString const& level, QString const& info)
+void KatePluginGDBView::insertStackFrame(QString const &level, QString const &info)
 {
     if (level.isEmpty() && info.isEmpty()) {
         m_stackTree->resizeColumnToContents(2);
         return;
     }
 
-    if (level == QLatin1Char('0'))
-    {
+    if (level == QLatin1Char('0')) {
         m_stackTree->clear();
     }
     QStringList columns;
@@ -574,11 +551,12 @@ void KatePluginGDBView::stackFrameChanged(int level)
     QTreeWidgetItem *current = m_stackTree->topLevelItem(m_lastExecFrame);
     QTreeWidgetItem *next = m_stackTree->topLevelItem(level);
 
-    if (current) current->setIcon (0, QIcon());
-    if (next)    next->setIcon(0, QIcon::fromTheme(QStringLiteral("arrow-right")));
+    if (current)
+        current->setIcon(0, QIcon());
+    if (next)
+        next->setIcon(0, QIcon::fromTheme(QStringLiteral("arrow-right")));
     m_lastExecFrame = level;
 }
-
 
 void KatePluginGDBView::insertThread(int number, bool active)
 {
@@ -588,21 +566,17 @@ void KatePluginGDBView::insertThread(int number, bool active)
         return;
     }
     if (!active) {
-        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10,10),
-                               i18n("Thread %1", number), number);
-    }
-    else {
-        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10,10),
-                               i18n("Thread %1", number), number);
-        m_activeThread = m_threadCombo->count()-1;
+        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10, 10), i18n("Thread %1", number), number);
+    } else {
+        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10), i18n("Thread %1", number), number);
+        m_activeThread = m_threadCombo->count() - 1;
     }
     m_threadCombo->setCurrentIndex(m_activeThread);
 }
 
 void KatePluginGDBView::threadSelected(int thread)
 {
-    m_debugView->issueCommand(QStringLiteral("thread %1").
-    arg(m_threadCombo->itemData(thread).toInt()));
+    m_debugView->issueCommand(QStringLiteral("thread %1").arg(m_threadCombo->itemData(thread).toInt()));
 }
 
 QString KatePluginGDBView::currentWord()
@@ -623,54 +597,48 @@ QString KatePluginGDBView::currentWord()
 
     QString linestr = kv->document()->line(line);
 
-    int startPos = qMax(qMin(col, linestr.length()-1), 0);
-    int lindex = linestr.length()-1;
+    int startPos = qMax(qMin(col, linestr.length() - 1), 0);
+    int lindex = linestr.length() - 1;
     int endPos = startPos;
     while (startPos >= 0 &&
-        (linestr[startPos].isLetterOrNumber() ||
-        linestr[startPos] == QLatin1Char('_') ||
-        linestr[startPos] == QLatin1Char('~') ||
-        ((startPos > 1) && (linestr[startPos] == QLatin1Char('.')) && !linestr[startPos-1].isSpace()) ||
-        ((startPos > 2) && (linestr[startPos] == QLatin1Char('>')) && (linestr[startPos-1] == QLatin1Char('-')) && !linestr[startPos-2].isSpace())))
-    {
+           (linestr[startPos].isLetterOrNumber() || linestr[startPos] == QLatin1Char('_') || linestr[startPos] == QLatin1Char('~') || ((startPos > 1) && (linestr[startPos] == QLatin1Char('.')) && !linestr[startPos - 1].isSpace()) ||
+            ((startPos > 2) && (linestr[startPos] == QLatin1Char('>')) && (linestr[startPos - 1] == QLatin1Char('-')) && !linestr[startPos - 2].isSpace()))) {
         if (linestr[startPos] == QLatin1Char('>')) {
             startPos--;
         }
         startPos--;
     }
     while (endPos < (int)linestr.length() &&
-        (linestr[endPos].isLetterOrNumber() ||
-        linestr[endPos] == QLatin1Char('_') ||
-        ((endPos < lindex-1) && (linestr[endPos] == QLatin1Char('.')) && !linestr[endPos+1].isSpace()) ||
-        ((endPos < lindex-2) && (linestr[endPos] == QLatin1Char('-')) && (linestr[endPos+1] == QLatin1Char('>')) && !linestr[endPos+2].isSpace()) ||
-        ((endPos > 1) && (linestr[endPos-1] == QLatin1Char('-')) && (linestr[endPos] == QLatin1Char('>')))
-       ))
-    {
+           (linestr[endPos].isLetterOrNumber() || linestr[endPos] == QLatin1Char('_') || ((endPos < lindex - 1) && (linestr[endPos] == QLatin1Char('.')) && !linestr[endPos + 1].isSpace()) ||
+            ((endPos < lindex - 2) && (linestr[endPos] == QLatin1Char('-')) && (linestr[endPos + 1] == QLatin1Char('>')) && !linestr[endPos + 2].isSpace()) ||
+            ((endPos > 1) && (linestr[endPos - 1] == QLatin1Char('-')) && (linestr[endPos] == QLatin1Char('>'))))) {
         if (linestr[endPos] == QLatin1Char('-')) {
             endPos++;
         }
         endPos++;
     }
-    if  (startPos == endPos) {
+    if (startPos == endPos) {
         qDebug() << "no word found!" << endl;
         return QString();
     }
 
-    //qDebug() << linestr.mid(startPos+1, endPos-startPos-1);
-    return linestr.mid(startPos+1, endPos-startPos-1);
+    // qDebug() << linestr.mid(startPos+1, endPos-startPos-1);
+    return linestr.mid(startPos + 1, endPos - startPos - 1);
 }
 
 void KatePluginGDBView::slotValue()
 {
     QString variable;
-    KTextEditor::View* editView = m_mainWin->activeView();
+    KTextEditor::View *editView = m_mainWin->activeView();
     if (editView && editView->selection() && editView->selectionRange().onSingleLine()) {
         variable = editView->selectionText();
     }
 
-    if (variable.isEmpty()) variable = currentWord();
+    if (variable.isEmpty())
+        variable = currentWord();
 
-    if (variable.isEmpty()) return;
+    if (variable.isEmpty())
+        return;
 
     QString cmd = QStringLiteral("print %1").arg(variable);
     m_debugView->issueCommand(cmd);
@@ -686,24 +654,23 @@ void KatePluginGDBView::slotValue()
 
 void KatePluginGDBView::showIO(bool show)
 {
-    if (show)
-    {
+    if (show) {
         m_tabWidget->addTab(m_ioView, i18n("IO"));
-    }
-    else
-    {
+    } else {
         m_tabWidget->removeTab(m_tabWidget->indexOf(m_ioView));
     }
 }
 
-void KatePluginGDBView::addOutputText(QString const& text)
+void KatePluginGDBView::addOutputText(QString const &text)
 {
     QScrollBar *scrollb = m_outputArea->verticalScrollBar();
-    if (!scrollb) return;
+    if (!scrollb)
+        return;
     bool atEnd = (scrollb->value() == scrollb->maximum());
 
     QTextCursor cursor = m_outputArea->textCursor();
-    if (!cursor.atEnd()) cursor.movePosition(QTextCursor::End);
+    if (!cursor.atEnd())
+        cursor.movePosition(QTextCursor::End);
     cursor.insertText(text);
 
     if (atEnd) {
@@ -711,7 +678,7 @@ void KatePluginGDBView::addOutputText(QString const& text)
     }
 }
 
-void KatePluginGDBView::addErrorText(QString const& text)
+void KatePluginGDBView::addErrorText(QString const &text)
 {
     m_outputArea->setFontItalic(true);
     addOutputText(text);
@@ -721,7 +688,7 @@ void KatePluginGDBView::addErrorText(QString const& text)
 bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent*>(event);
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
             m_mainWin->hideToolView(m_toolView);
             event->accept();
@@ -733,7 +700,8 @@ bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
 
 void KatePluginGDBView::handleEsc(QEvent *e)
 {
-    if (!m_mainWin) return;
+    if (!m_mainWin)
+        return;
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
@@ -744,4 +712,3 @@ void KatePluginGDBView::handleEsc(QEvent *e)
 }
 
 #include "plugin_kategdb.moc"
-

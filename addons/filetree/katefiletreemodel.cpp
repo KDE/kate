@@ -125,7 +125,9 @@ QDebug operator<<(QDebug dbg, ProxyItem *item)
 class ProxyItemDir : public ProxyItem
 {
 public:
-    ProxyItemDir(const QString &n, ProxyItemDir *p = nullptr) : ProxyItem(n, p) {
+    ProxyItemDir(const QString &n, ProxyItemDir *p = nullptr)
+        : ProxyItem(n, p)
+    {
         setFlag(ProxyItem::Dir);
         updateDisplay();
 
@@ -150,9 +152,13 @@ QDebug operator<<(QDebug dbg, ProxyItemDir *item)
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 
-//BEGIN ProxyItem
+// BEGIN ProxyItem
 ProxyItem::ProxyItem(const QString &d, ProxyItemDir *p, ProxyItem::Flags f)
-    : m_path(d), m_parent(Q_NULLPTR), m_row(-1), m_flags(f), m_doc(nullptr)
+    : m_path(d)
+    , m_parent(Q_NULLPTR)
+    , m_row(-1)
+    , m_flags(f)
+    , m_doc(nullptr)
 {
     updateDisplay();
 
@@ -303,7 +309,7 @@ QList<KTextEditor::Document *> ProxyItem::docTree() const
         return result;
     }
 
-    foreach(const ProxyItem * item, m_children) {
+    foreach (const ProxyItem *item, m_children) {
         result.append(item->docTree());
     }
 
@@ -360,7 +366,7 @@ void ProxyItem::updateDocumentName()
     }
 }
 
-//END ProxyItem
+// END ProxyItem
 
 KateFileTreeModel::KateFileTreeModel(QObject *p)
     : QAbstractItemModel(p)
@@ -429,7 +435,7 @@ void KateFileTreeModel::setShowFullPathOnRoots(bool s)
         m_root->clearFlag(ProxyItem::ShowFullPath);
     }
 
-    foreach(ProxyItem * root, m_root->children()) {
+    foreach (ProxyItem *root, m_root->children()) {
         root->updateDisplay();
     }
 }
@@ -437,7 +443,7 @@ void KateFileTreeModel::setShowFullPathOnRoots(bool s)
 void KateFileTreeModel::initModel()
 {
     // add already existing documents
-    foreach(KTextEditor::Document * doc, KTextEditor::Editor::instance()->application()->documents()) {
+    foreach (KTextEditor::Document *doc, KTextEditor::Editor::instance()->application()->documents()) {
         documentOpened(doc);
     }
 }
@@ -465,8 +471,10 @@ void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
-    connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-            this,  SLOT(documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+    connect(doc,
+            SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+            this,
+            SLOT(documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 }
 
 QModelIndex KateFileTreeModel::docIndex(const KTextEditor::Document *doc) const
@@ -516,53 +524,52 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
     }
 
     switch (role) {
-    case KateFileTreeModel::PathRole:
-        // allow to sort with hostname + path, bug 271488
-        return (item->doc() && !item->doc()->url().isEmpty()) ? item->doc()->url().toString() : item->path();
+        case KateFileTreeModel::PathRole:
+            // allow to sort with hostname + path, bug 271488
+            return (item->doc() && !item->doc()->url().isEmpty()) ? item->doc()->url().toString() : item->path();
 
-    case KateFileTreeModel::DocumentRole:
-        return QVariant::fromValue(item->doc());
+        case KateFileTreeModel::DocumentRole:
+            return QVariant::fromValue(item->doc());
 
-    case KateFileTreeModel::OpeningOrderRole:
-        return item->row();
+        case KateFileTreeModel::OpeningOrderRole:
+            return item->row();
 
-    case KateFileTreeModel::DocumentTreeRole:
-        return QVariant::fromValue(item->docTree());
+        case KateFileTreeModel::DocumentTreeRole:
+            return QVariant::fromValue(item->docTree());
 
-    case Qt::DisplayRole:
-        // in list mode we want to use kate's fancy names.
-        if (m_listMode) {
-            return item->documentName();
-        } else {
-            return item->display();
+        case Qt::DisplayRole:
+            // in list mode we want to use kate's fancy names.
+            if (m_listMode) {
+                return item->documentName();
+            } else {
+                return item->display();
+            }
+
+        case Qt::DecorationRole:
+            return item->icon();
+
+        case Qt::ToolTipRole: {
+            QString tooltip = item->path();
+            if (item->flag(ProxyItem::DeletedExternally) || item->flag(ProxyItem::ModifiedExternally)) {
+                tooltip = i18nc("%1 is the full path", "<p><b>%1</b></p><p>The document has been modified by another application.</p>", item->path());
+            }
+
+            return tooltip;
         }
 
-    case Qt::DecorationRole:
-        return item->icon();
+        case Qt::ForegroundRole: {
+            const KColorScheme colors(QPalette::Active);
+            if (!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) {
+                return colors.foreground(KColorScheme::InactiveText).color();
+            }
+        } break;
 
-    case Qt::ToolTipRole: {
-        QString tooltip = item->path();
-        if (item->flag(ProxyItem::DeletedExternally) || item->flag(ProxyItem::ModifiedExternally)) {
-            tooltip = i18nc("%1 is the full path", "<p><b>%1</b></p><p>The document has been modified by another application.</p>", item->path());
-        }
-
-        return tooltip;
-    }
-
-    case Qt::ForegroundRole: {
-        const KColorScheme colors(QPalette::Active);
-        if (!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) {
-            return colors.foreground(KColorScheme::InactiveText).color();
-        }
-    }
-    break;
-
-    case Qt::BackgroundRole:
-        // TODO: do that funky shading the file list does...
-        if (m_shadingEnabled && m_brushes.contains(item)) {
-            return m_brushes[item];
-        }
-        break;
+        case Qt::BackgroundRole:
+            // TODO: do that funky shading the file list does...
+            if (m_shadingEnabled && m_brushes.contains(item)) {
+                return m_brushes[item];
+            }
+            break;
     }
 
     return QVariant();
@@ -725,7 +732,7 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 
 void KateFileTreeModel::documentsOpened(const QList<KTextEditor::Document *> &docs)
 {
-    foreach(KTextEditor::Document * doc, docs) {
+    foreach (KTextEditor::Document *doc, docs) {
         if (m_docmap.contains(doc)) {
             documentNameChanged(doc);
         } else {
@@ -823,18 +830,20 @@ void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
 
 void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &docs)
 {
-    foreach(const KTextEditor::Document * doc, docs) {
+    foreach (const KTextEditor::Document *doc, docs) {
         disconnect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
         disconnect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
         disconnect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
-        disconnect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-                   this,  SLOT(documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+        disconnect(doc,
+                   SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+                   this,
+                   SLOT(documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
     }
 }
 
 void KateFileTreeModel::slotDocumentsDeleted(const QList<KTextEditor::Document *> &docs)
 {
-    foreach(const KTextEditor::Document * doc, docs) {
+    foreach (const KTextEditor::Document *doc, docs) {
         connectDocument(doc);
     }
 }
@@ -853,16 +862,16 @@ void KateFileTreeModel::updateBackgrounds(bool force)
         return;
     }
 
-    QMap <ProxyItem *, EditViewCount> helper;
+    QMap<ProxyItem *, EditViewCount> helper;
     int i = 1;
 
-    foreach(ProxyItem * item, m_viewHistory) {
+    foreach (ProxyItem *item, m_viewHistory) {
         helper[item].view = i;
         i++;
     }
 
     i = 1;
-    foreach(ProxyItem * item, m_editHistory) {
+    foreach (ProxyItem *item, m_editHistory) {
         helper[item].edit = i;
         i++;
     }
@@ -885,11 +894,7 @@ void KateFileTreeModel::updateBackgrounds(bool force)
 
             const int n = qMax(v + e, 1);
 
-            shade.setRgb(
-                ((shade.red() * v) + (eshade.red() * e)) / n,
-                ((shade.green() * v) + (eshade.green() * e)) / n,
-                ((shade.blue() * v) + (eshade.blue() * e)) / n
-            );
+            shade.setRgb(((shade.red() * v) + (eshade.red() * e)) / n, ((shade.green() * v) + (eshade.green() * e)) / n, ((shade.blue() * v) + (eshade.blue() * e)) / n);
         }
 
         // blend in the shade color; latest is most colored.
@@ -1011,7 +1016,7 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
 
 ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) const
 {
-    foreach(ProxyItem * item, m_root->children()) {
+    foreach (ProxyItem *item, m_root->children()) {
         if (!item->flag(ProxyItem::Dir)) {
             continue;
         }
@@ -1040,7 +1045,7 @@ ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const
         return nullptr;
     }
 
-    foreach(ProxyItem * item, parent->children()) {
+    foreach (ProxyItem *item, parent->children()) {
         if (!item->flag(ProxyItem::Dir)) {
             continue;
         }
@@ -1070,7 +1075,7 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
         parts.pop_back();
     }
 
-    foreach(const QString & part, parts) {
+    foreach (const QString &part, parts) {
         current_parts.append(part);
         ProxyItemDir *find = findChildNode(ptr, part);
         if (!find) {
@@ -1124,7 +1129,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     base += QLatin1Char('/');
 
     // try and merge existing roots with the new root node (new_root.path < root.path)
-    foreach(ProxyItem * root, m_root->children()) {
+    foreach (ProxyItem *root, m_root->children()) {
         if (root == new_root || !root->flag(ProxyItem::Dir)) {
             continue;
         }
@@ -1134,10 +1139,10 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
             m_root->remChild(root);
             endRemoveRows();
 
-            //beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
+            // beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
             // this can't use new_root->addChild directly, or it'll potentially miss a bunch of subdirs
             insertItemInto(new_root, root);
-            //endInsertRows();
+            // endInsertRows();
         }
     }
 
@@ -1164,7 +1169,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
             continue;
         }
 
-        foreach(ProxyItem * root, m_root->children()) {
+        foreach (ProxyItem *root, m_root->children()) {
             if (root == check_root || !root->flag(ProxyItem::Dir)) {
                 continue;
             }
@@ -1186,7 +1191,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
 
                     insertItemInto(irdir, root);
 
-                    foreach(ProxyItem * node, m_root->children()) {
+                    foreach (ProxyItem *node, m_root->children()) {
                         if (node == irdir || !root->flag(ProxyItem::Dir)) {
                             continue;
                         }
@@ -1230,9 +1235,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                 }
             }
         } // foreach root
-
     }
-
 }
 
 void KateFileTreeModel::handleNameChange(ProxyItem *item)
@@ -1328,9 +1331,8 @@ void KateFileTreeModel::resetHistory()
     m_editHistory.clear();
     m_brushes.clear();
 
-    foreach(ProxyItem * item, list) {
+    foreach (ProxyItem *item, list) {
         QModelIndex idx = createIndex(item->row(), 0, item);
         dataChanged(idx, idx, QVector<int>(1, Qt::BackgroundRole));
     }
 }
-

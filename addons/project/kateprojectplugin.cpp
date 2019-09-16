@@ -241,7 +241,7 @@ void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
 void KateProjectPlugin::slotDirectoryChanged(const QString &path)
 {
     QString fileName = QDir(path).filePath(ProjectFileName);
-    for (KateProject * project : m_projects) {
+    for (KateProject *project : m_projects) {
         if (project->fileName() == fileName) {
             QDateTime lastModified = QFileInfo(fileName).lastModified();
             if (project->fileLastModified().isNull() || (lastModified > project->fileLastModified())) {
@@ -252,7 +252,7 @@ void KateProjectPlugin::slotDirectoryChanged(const QString &path)
     }
 }
 
-KateProject* KateProjectPlugin::detectGit(const QDir &dir)
+KateProject *KateProjectPlugin::detectGit(const QDir &dir)
 {
     // allow .git as dir and file (file for git worktree stuff, https://git-scm.com/docs/git-worktree)
     if (m_autoGit && dir.exists(GitFolderName)) {
@@ -262,7 +262,7 @@ KateProject* KateProjectPlugin::detectGit(const QDir &dir)
     return nullptr;
 }
 
-KateProject* KateProjectPlugin::detectSubversion(const QDir &dir)
+KateProject *KateProjectPlugin::detectSubversion(const QDir &dir)
 {
     if (m_autoSubversion && dir.exists(SubversionFolderName) && QFileInfo(dir, SubversionFolderName).isDir()) {
         return createProjectForRepository(QStringLiteral("svn"), dir);
@@ -271,7 +271,7 @@ KateProject* KateProjectPlugin::detectSubversion(const QDir &dir)
     return nullptr;
 }
 
-KateProject* KateProjectPlugin::detectMercurial(const QDir &dir)
+KateProject *KateProjectPlugin::detectMercurial(const QDir &dir)
 {
     if (m_autoMercurial && dir.exists(MercurialFolderName) && QFileInfo(dir, MercurialFolderName).isDir()) {
         return createProjectForRepository(QStringLiteral("hg"), dir);

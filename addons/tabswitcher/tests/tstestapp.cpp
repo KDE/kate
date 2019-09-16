@@ -37,7 +37,7 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/Document>
 
-static KTextEditor::Document * addDoc(const QString & path)
+static KTextEditor::Document *addDoc(const QString &path)
 {
     auto doc = KTextEditor::Editor::instance()->createDocument(nullptr);
     doc->openUrl(QUrl::fromLocalFile(path));
@@ -77,12 +77,12 @@ public:
 
 public:
     detail::TabswitcherFilesModel model;
-    QTreeView* treeview1;
+    QTreeView *treeview1;
 };
 
-TsTestApp::TsTestApp(QWidget *parent) :
-    QMainWindow(parent),
-    impl_(new TsTestApp::Impl)
+TsTestApp::TsTestApp(QWidget *parent)
+    : QMainWindow(parent)
+    , impl_(new TsTestApp::Impl)
 {
     setGeometry(0, 0, 1024, 800);
     setCentralWidget(new QWidget(this));
@@ -115,8 +115,8 @@ TsTestApp::TsTestApp(QWidget *parent) :
     impl_->model.insertDocument(impl_->model.rowCount(), addDoc(QStringLiteral("/home/gm/dev/file3.py")));
     impl_->model.insertDocument(impl_->model.rowCount(), addDoc(QStringLiteral("/home/gm/dev/file3kjaskdfkljasdfklj089asdfkjklasdjf90asdfsdfkj.py")));
     impl_->model.insertDocument(impl_->model.rowCount(), addDoc(QStringLiteral("/home/gm/dev/proj2/asldfkjasdfk/asdlfkjasd;faf/;ajsdkfgjaskdfgasdf/file3.py")));
-    //impl_->insert_a_item();
-    //impl_->remove_a_item();
+    // impl_->insert_a_item();
+    // impl_->remove_a_item();
 
     impl_->model.rowCount();
     impl_->model.item(0);

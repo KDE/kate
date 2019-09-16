@@ -55,7 +55,6 @@
 #endif
 #include <iostream>
 
-
 int main(int argc, char **argv)
 {
 #ifndef Q_OS_WIN
@@ -79,7 +78,7 @@ int main(int argc, char **argv)
      * Create application first
      */
 #ifdef USE_QT_SINGLE_APP
-    SharedTools::QtSingleApplication app(QStringLiteral("kate"),argc, argv);
+    SharedTools::QtSingleApplication app(QStringLiteral("kate"), argc, argv);
 #else
     QApplication app(argc, argv);
 #endif
@@ -107,9 +106,8 @@ int main(int argc, char **argv)
     /**
      * construct about data for Kate
      */
-    KAboutData aboutData(QStringLiteral("kate"), i18n("Kate"), QStringLiteral(KATE_VERSION),
-                         i18n("Kate - Advanced Text Editor"), KAboutLicense::LGPL_V2,
-                         i18n("(c) 2000-2019 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
+    KAboutData aboutData(
+        QStringLiteral("kate"), i18n("Kate"), QStringLiteral(KATE_VERSION), i18n("Kate - Advanced Text Editor"), KAboutLicense::LGPL_V2, i18n("(c) 2000-2019 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
 
     /**
      * right dbus prefix == org.kde.
@@ -164,7 +162,7 @@ int main(int argc, char **argv)
     /**
      * set the new Kate mascot
      */
-    aboutData.setProgramLogo (QImage(QStringLiteral(":/kate/mascot.png")));
+    aboutData.setProgramLogo(QImage(QStringLiteral(":/kate/mascot.png")));
 
     /**
      * set and register app about data
@@ -191,7 +189,9 @@ int main(int argc, char **argv)
     parser.addOption(startAnonymousSessionOption);
 
     // -n/--new option
-    const QCommandLineOption startNewInstanceOption(QStringList() << QStringLiteral("n") << QStringLiteral("new"), i18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no URLs are given at all."));
+    const QCommandLineOption startNewInstanceOption(
+        QStringList() << QStringLiteral("n") << QStringLiteral("new"),
+        i18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no URLs are given at all."));
     parser.addOption(startNewInstanceOption);
 
     // -b/--block option
@@ -199,7 +199,8 @@ int main(int argc, char **argv)
     parser.addOption(startBlockingOption);
 
     // -p/--pid option
-    const QCommandLineOption usePidOption(QStringList() << QStringLiteral("p") << QStringLiteral("pid"), i18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)."), i18n("pid"));
+    const QCommandLineOption usePidOption(
+        QStringList() << QStringLiteral("p") << QStringLiteral("pid"), i18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)."), i18n("pid"));
     parser.addOption(usePidOption);
 
     // -e/--encoding option
@@ -248,15 +249,9 @@ int main(int argc, char **argv)
      */
     bool force_new = parser.isSet(startNewInstanceOption);
     if (!force_new) {
-        if (!(
-                    parser.isSet(startSessionOption) ||
-                    parser.isSet(startNewInstanceOption) ||
-                    parser.isSet(usePidOption) ||
-                    parser.isSet(useEncodingOption) ||
-                    parser.isSet(gotoLineOption) ||
-                    parser.isSet(gotoColumnOption) ||
-                    parser.isSet(readStdInOption)
-                ) && (urls.isEmpty())) {
+        if (!(parser.isSet(startSessionOption) || parser.isSet(startNewInstanceOption) || parser.isSet(usePidOption) || parser.isSet(useEncodingOption) || parser.isSet(gotoLineOption) || parser.isSet(gotoColumnOption) ||
+              parser.isSet(readStdInOption)) &&
+            (urls.isEmpty())) {
             force_new = true;
         }
     }
@@ -271,7 +266,7 @@ int main(int argc, char **argv)
      * allows for reuse of running Kate instances
      */
 #ifndef USE_QT_SINGLE_APP
-    if (QDBusConnectionInterface * const sessionBusInterface = QDBusConnection::sessionBus().interface()) {
+    if (QDBusConnectionInterface *const sessionBusInterface = QDBusConnection::sessionBus().interface()) {
         /**
          * try to get the current running kate instances
          */
@@ -281,9 +276,7 @@ int main(int argc, char **argv)
         }
 
         QString currentActivity;
-        QDBusMessage m = QDBusMessage::createMethodCall(
-                                        QStringLiteral("org.kde.ActivityManager"),
-                                        QStringLiteral("/ActivityManager/Activities"), QStringLiteral("org.kde.ActivityManager.Activities"), QStringLiteral("CurrentActivity"));
+        QDBusMessage m = QDBusMessage::createMethodCall(QStringLiteral("org.kde.ActivityManager"), QStringLiteral("/ActivityManager/Activities"), QStringLiteral("org.kde.ActivityManager.Activities"), QStringLiteral("CurrentActivity"));
         QDBusMessage res = QDBusConnection::sessionBus().call(m);
         QList<QVariant> answer = res.arguments();
         if (answer.size() == 1) {
@@ -295,8 +288,7 @@ int main(int argc, char **argv)
             QString serviceName = (*it)->serviceName;
 
             if (currentActivity.length() != 0) {
-                QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
-                                        QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("isOnActivity"));
+                QDBusMessage m = QDBusMessage::createMethodCall(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("isOnActivity"));
 
                 QList<QVariant> dbargs;
 
@@ -325,7 +317,7 @@ int main(int argc, char **argv)
         QString start_session;
         bool session_already_opened = false;
 
-        //check if we try to start an already opened session
+        // check if we try to start an already opened session
         if (parser.isSet(startAnonymousSessionOption)) {
             force_new = true;
         } else if (parser.isSet(startSessionOption)) {
@@ -337,17 +329,15 @@ int main(int argc, char **argv)
             }
         }
 
-        //cleanup map
+        // cleanup map
         cleanupRunningKateAppInstanceMap(&mapSessionRii);
 
-        //if no new instance is forced and no already opened session is requested,
-        //check if a pid is given, which should be reused.
+        // if no new instance is forced and no already opened session is requested,
+        // check if a pid is given, which should be reused.
         // two possibilities: pid given or not...
         if ((!force_new) && serviceName.isEmpty()) {
             if ((parser.isSet(usePidOption)) || (!qgetenv("KATE_PID").isEmpty())) {
-                QString usePid = (parser.isSet(usePidOption)) ?
-                                parser.value(usePidOption) :
-                                QString::fromLocal8Bit(qgetenv("KATE_PID"));
+                QString usePid = (parser.isSet(usePidOption)) ? parser.value(usePidOption) : QString::fromLocal8Bit(qgetenv("KATE_PID"));
 
                 serviceName = QLatin1String("org.kde.kate-") + usePid;
                 if (!kateServices.contains(serviceName)) {
@@ -361,7 +351,6 @@ int main(int argc, char **argv)
         if ((!force_new) && (serviceName.isEmpty())) {
             const int desktopnumber = KWindowSystem::currentDesktop();
             for (int s = 0; s < kateServices.count(); s++) {
-
                 serviceName = kateServices[s];
 
                 if (!serviceName.isEmpty()) {
@@ -369,8 +358,7 @@ int main(int argc, char **argv)
 
                     if (there.isValid() && there.value()) {
                         // query instance current desktop
-                        QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
-                                         QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("desktopNumber"));
+                        QDBusMessage m = QDBusMessage::createMethodCall(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("desktopNumber"));
 
                         QDBusMessage res = QDBusConnection::sessionBus().call(m);
                         QList<QVariant> answer = res.arguments();
@@ -389,7 +377,7 @@ int main(int argc, char **argv)
             }
         }
 
-        //check again if service is still running
+        // check again if service is still running
         foundRunningService = false;
         if (!serviceName.isEmpty()) {
             QDBusReply<bool> there = sessionBusInterface->isServiceRegistered(serviceName);
@@ -399,8 +387,7 @@ int main(int argc, char **argv)
         if (foundRunningService) {
             // open given session
             if (parser.isSet(startSessionOption) && (!session_already_opened)) {
-                QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
-                                QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("activateSession"));
+                QDBusMessage m = QDBusMessage::createMethodCall(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("activateSession"));
 
                 QList<QVariant> dbusargs;
                 dbusargs.append(parser.value(startSessionOption));
@@ -419,8 +406,7 @@ int main(int argc, char **argv)
             // Bug 397913: Reverse the order here so the new tabs are opened in same order as the files were passed in on the command line
             for (int i = urls.size() - 1; i >= 0; --i) {
                 const QString &url = urls[i];
-                QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
-                                QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("tokenOpenUrlAt"));
+                QDBusMessage m = QDBusMessage::createMethodCall(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("tokenOpenUrlAt"));
 
                 UrlInfo info(url);
                 QList<QVariant> dbusargs;
@@ -451,8 +437,7 @@ int main(int argc, char **argv)
                 QTextStream input(stdin, QIODevice::ReadOnly);
 
                 // set chosen codec
-                QTextCodec *codec = parser.isSet(useEncodingOption) ?
-                                    QTextCodec::codecForName(parser.value(useEncodingOption).toUtf8()) : nullptr;
+                QTextCodec *codec = parser.isSet(useEncodingOption) ? QTextCodec::codecForName(parser.value(useEncodingOption).toUtf8()) : nullptr;
 
                 if (codec) {
                     input.setCodec(codec);
@@ -466,8 +451,7 @@ int main(int argc, char **argv)
                     text.append(line + QLatin1Char('\n'));
                 } while (!line.isNull());
 
-                QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
-                                QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("openInput"));
+                QDBusMessage m = QDBusMessage::createMethodCall(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("openInput"));
 
                 QList<QVariant> dbusargs;
                 dbusargs.append(text);
@@ -492,8 +476,7 @@ int main(int argc, char **argv)
             }
 
             if (nav) {
-                QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
-                                QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("setCursor"));
+                QDBusMessage m = QDBusMessage::createMethodCall(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("setCursor"));
 
                 QList<QVariant> args;
                 args.append(line);
@@ -504,8 +487,7 @@ int main(int argc, char **argv)
             }
 
             // activate the used instance
-            QDBusMessage activateMsg = QDBusMessage::createMethodCall(serviceName,
-                                    QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("activate"));
+            QDBusMessage activateMsg = QDBusMessage::createMethodCall(serviceName, QStringLiteral("/MainApplication"), QStringLiteral("org.kde.Kate.Application"), QStringLiteral("activate"));
             QDBusConnection::sessionBus().call(activateMsg);
 
             // connect dbus signal
@@ -525,12 +507,8 @@ int main(int argc, char **argv)
             // We don't want the session manager to restart us on next login
             // if we block
             if (needToBlock) {
-                QObject::connect(qApp, &QGuiApplication::saveStateRequest, qApp,
-                                 [](QSessionManager &session) {
-                                     session.setRestartHint(QSessionManager::RestartNever);
-                                 },
-                                 Qt::DirectConnection
-                         );
+                QObject::connect(
+                    qApp, &QGuiApplication::saveStateRequest, qApp, [](QSessionManager &session) { session.setRestartHint(QSessionManager::RestartNever); }, Qt::DirectConnection);
             }
 
             // this will wait until exiting is emitted by the used instance, if wanted...
@@ -567,7 +545,7 @@ int main(int argc, char **argv)
              */
             QVariantMap message;
             QVariantList messageUrls;
-            foreach(const QString & url, urls) {
+            foreach (const QString &url, urls) {
                 /**
                  * get url info and pack them into the message as extra element in urls list
                  */
@@ -628,14 +606,12 @@ int main(int argc, char **argv)
     /**
      * else: connect the single application notifications
      */
-    QObject::connect(&app, &SharedTools::QtSingleApplication::messageReceived,
-                     &kateApp, &KateApp::remoteMessageReceived);
+    QObject::connect(&app, &SharedTools::QtSingleApplication::messageReceived, &kateApp, &KateApp::remoteMessageReceived);
 
     KateMainWindow *win = kateApp.activeKateMainWindow();
     app.setActivationWindow(win, true);
 
 #endif
-
 
     /**
      * start main event loop for our application

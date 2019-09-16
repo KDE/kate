@@ -44,7 +44,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-KTextEditor::View* createView(QWidget* tabWidget)
+KTextEditor::View *createView(QWidget *tabWidget)
 {
     auto document = KTextEditor::Editor::instance()->createDocument(tabWidget);
     auto view = document->createView(tabWidget);
@@ -55,9 +55,12 @@ KTextEditor::View* createView(QWidget* tabWidget)
     return view;
 }
 
-EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidget* parent)
-    : QDialog(parent), m_ui(new Ui::EditSnippetBase), m_repo(repository)
-    , m_snippet(snippet), m_topBoxModified(false)
+EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidget *parent)
+    : QDialog(parent)
+    , m_ui(new Ui::EditSnippetBase)
+    , m_repo(repository)
+    , m_snippet(snippet)
+    , m_topBoxModified(false)
 {
     Q_ASSERT(m_repo);
     m_ui->setupUi(this);
@@ -75,7 +78,7 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
 
     m_snippetView = createView(m_ui->snippetTab);
-    if ( !m_repo->fileTypes().isEmpty() ) {
+    if (!m_repo->fileTypes().isEmpty()) {
         m_snippetView->document()->setMode(m_repo->fileTypes().first());
     }
 
@@ -96,14 +99,12 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     connect(m_ui->snippetShortcut, &KKeySequenceWidget::keySequenceChanged, this, &EditSnippet::topBoxModified);
     connect(m_snippetView->document(), &KTextEditor::Document::textChanged, this, &EditSnippet::validate);
 
-    auto showHelp = [](const QString& text) {
-        QWhatsThis::showText(QCursor::pos(), text);
-    };
+    auto showHelp = [](const QString &text) { QWhatsThis::showText(QCursor::pos(), text); };
     connect(m_ui->snippetLabel, &QLabel::linkActivated, showHelp);
     connect(m_ui->scriptLabel, &QLabel::linkActivated, showHelp);
 
     // if we edit a snippet, add all existing data
-    if ( m_snippet ) {
+    if (m_snippet) {
         setWindowTitle(i18n("Edit Snippet %1 in %2", m_snippet->text(), m_repo->text()));
 
         m_snippetView->document()->setText(m_snippet->snippet());
@@ -124,15 +125,13 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     setTabOrder(m_ui->snippetNameEdit, m_snippetView);
 
     QSize initSize = sizeHint();
-    initSize.setHeight( initSize.height() + 200 );
+    initSize.setHeight(initSize.height() + 200);
 }
 
 void EditSnippet::test()
 {
     m_testView->document()->clear();
-    m_testView->insertTemplate(KTextEditor::Cursor(0, 0),
-                               m_snippetView->document()->text(),
-                               m_scriptsView->document()->text());
+    m_testView->insertTemplate(KTextEditor::Cursor(0, 0), m_snippetView->document()->text(), m_scriptsView->document()->text());
     m_testView->setFocus();
 }
 
@@ -141,7 +140,7 @@ EditSnippet::~EditSnippet()
     delete m_ui;
 }
 
-void EditSnippet::setSnippetText( const QString& text )
+void EditSnippet::setSnippetText(const QString &text)
 {
     m_snippetView->document()->setText(text);
     validate();
@@ -149,19 +148,18 @@ void EditSnippet::setSnippetText( const QString& text )
 
 void EditSnippet::validate()
 {
-    const QString& name = m_ui->snippetNameEdit->text();
+    const QString &name = m_ui->snippetNameEdit->text();
     bool valid = !name.isEmpty() && !m_snippetView->document()->isEmpty();
     // make sure the snippetname includes no spaces
-    if ( name.contains(QLatin1Char(' ')) || name.contains(QLatin1Char('\t')) ) {
+    if (name.contains(QLatin1Char(' ')) || name.contains(QLatin1Char('\t'))) {
         m_ui->messageWidget->setText(i18n("Snippet name cannot contain spaces"));
         m_ui->messageWidget->animatedShow();
         valid = false;
-    }
-    else {
+    } else {
         // hide message widget if snippet does not include spaces
         m_ui->messageWidget->animatedHide();
     }
-    if ( valid ) {
+    if (valid) {
         m_ui->messageWidget->hide();
     }
     m_okButton->setEnabled(valid);
@@ -171,10 +169,10 @@ void EditSnippet::save()
 {
     Q_ASSERT(!m_ui->snippetNameEdit->text().isEmpty());
 
-    if ( !m_snippet ) {
+    if (!m_snippet) {
         // save as new snippet
         m_snippet = new Snippet();
-        m_snippet->action();  // ensure that the snippet's QAction is created before it is added to a widget by the rowsInserted() signal
+        m_snippet->action(); // ensure that the snippet's QAction is created before it is added to a widget by the rowsInserted() signal
         m_repo->appendRow(m_snippet);
     }
     m_snippet->setSnippet(m_snippetView->document()->text());
@@ -192,10 +190,7 @@ void EditSnippet::save()
 void EditSnippet::reject()
 {
     if (m_topBoxModified || m_snippetView->document()->isModified() || m_scriptsView->document()->isModified()) {
-        int ret = KMessageBox::warningContinueCancel(qApp->activeWindow(),
-            i18n("The snippet contains unsaved changes. Do you want to continue and lose all changes?"),
-            i18n("Warning - Unsaved Changes")
-        );
+        int ret = KMessageBox::warningContinueCancel(qApp->activeWindow(), i18n("The snippet contains unsaved changes. Do you want to continue and lose all changes?"), i18n("Warning - Unsaved Changes"));
         if (ret == KMessageBox::Cancel) {
             return;
         }
@@ -207,4 +202,3 @@ void EditSnippet::topBoxModified()
 {
     m_topBoxModified = true;
 }
-

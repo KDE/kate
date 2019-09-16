@@ -28,22 +28,22 @@
 #include <QCompleter>
 #include <QDirModel>
 
-UrlInserter::UrlInserter(const QUrl &startUrl, QWidget* parent): QWidget(parent), m_startUrl(startUrl), m_replace(false)
+UrlInserter::UrlInserter(const QUrl &startUrl, QWidget *parent)
+    : QWidget(parent)
+    , m_startUrl(startUrl)
+    , m_replace(false)
 {
     m_lineEdit = new QLineEdit();
-    QCompleter* completer = new QCompleter(m_lineEdit);
-    completer->setModel(new QDirModel(QStringList(),
-                                      QDir::AllEntries|QDir::NoDotAndDotDot|QDir::Executable,
-                                      QDir::Name, m_lineEdit));
+    QCompleter *completer = new QCompleter(m_lineEdit);
+    completer->setModel(new QDirModel(QStringList(), QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Executable, QDir::Name, m_lineEdit));
     m_lineEdit->setCompleter(completer);
 
     m_toolButton = new QToolButton();
     m_toolButton->setIcon(QIcon::fromTheme(QStringLiteral("archive-insert-directory")));
     m_toolButton->setToolTip(i18n("Insert path"));
 
-
-    QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->setContentsMargins(0,0,0,0);
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     layout->addWidget(m_lineEdit);
     layout->addWidget(m_toolButton);
@@ -51,23 +51,19 @@ UrlInserter::UrlInserter(const QUrl &startUrl, QWidget* parent): QWidget(parent)
     connect(m_toolButton, &QToolButton::clicked, this, &UrlInserter::insertFolder);
 }
 
-
 void UrlInserter::insertFolder()
 {
     QUrl startUrl;
     if (QFileInfo(m_lineEdit->text()).exists()) {
         startUrl.setPath(m_lineEdit->text());
-    }
-    else {
+    } else {
         startUrl = m_startUrl;
     }
-    QString folder = QFileDialog::getExistingDirectory(this, i18n("Select directory to insert"),
-                                                       startUrl.path());
+    QString folder = QFileDialog::getExistingDirectory(this, i18n("Select directory to insert"), startUrl.path());
     if (!folder.isEmpty()) {
         if (!m_replace) {
             m_lineEdit->insert(folder);
-        }
-        else {
+        } else {
             m_lineEdit->setText(folder);
         }
     }

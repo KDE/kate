@@ -49,11 +49,9 @@
 #include <QToolButton>
 #include <QDomElement>
 
-
 using namespace KTextEditorPreview;
 
-PreviewWidget::PreviewWidget(KTextEditorPreviewPlugin* core, KTextEditor::MainWindow* mainWindow,
-                             QWidget* parent)
+PreviewWidget::PreviewWidget(KTextEditorPreviewPlugin *core, KTextEditor::MainWindow *mainWindow, QWidget *parent)
     : QStackedWidget(parent)
     , KXMLGUIBuilder(this)
     , m_core(core)
@@ -92,7 +90,7 @@ PreviewWidget::PreviewWidget(KTextEditorPreviewPlugin* core, KTextEditor::MainWi
     // see KXMLGUIBuilder::createContainer => tagName == d->tagMenu
     m_kPartMenu = new QMenu;
 
-    QToolButton* toolButton = new QToolButton();
+    QToolButton *toolButton = new QToolButton();
     toolButton->setMenu(m_kPartMenu);
     toolButton->setIcon(kPartMenuIcon);
     toolButton->setText(kPartMenuText);
@@ -114,8 +112,7 @@ PreviewWidget::PreviewWidget(KTextEditorPreviewPlugin* core, KTextEditor::MainWi
     label->setAlignment(Qt::AlignHCenter);
     addWidget(label);
 
-    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged,
-            this, &PreviewWidget::setTextEditorView);
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &PreviewWidget::setTextEditorView);
 
     setTextEditorView(m_mainWindow->activeView());
 }
@@ -125,25 +122,23 @@ PreviewWidget::~PreviewWidget()
     delete m_kPartMenu;
 }
 
-void PreviewWidget::readSessionConfig(const KConfigGroup& configGroup)
+void PreviewWidget::readSessionConfig(const KConfigGroup &configGroup)
 {
     // TODO: also store document id/url and see to catch the same document on restoring config
     m_lockAction->setChecked(configGroup.readEntry("documentLocked", false));
     m_autoUpdateAction->setChecked(configGroup.readEntry("automaticUpdate", false));
 }
 
-void PreviewWidget::writeSessionConfig(KConfigGroup& configGroup) const
+void PreviewWidget::writeSessionConfig(KConfigGroup &configGroup) const
 {
     configGroup.writeEntry("documentLocked", m_lockAction->isChecked());
     configGroup.writeEntry("automaticUpdate", m_autoUpdateAction->isChecked());
 }
 
-void PreviewWidget::setTextEditorView(KTextEditor::View* view)
+void PreviewWidget::setTextEditorView(KTextEditor::View *view)
 {
-    if ((view && view == m_previewedTextEditorView &&
-                 view->document() == m_previewedTextEditorDocument &&
-                 (!m_previewedTextEditorDocument || m_previewedTextEditorDocument->mode() == m_currentMode)) ||
-        !view || !isVisible() || m_lockAction->isChecked()) {
+    if ((view && view == m_previewedTextEditorView && view->document() == m_previewedTextEditorDocument && (!m_previewedTextEditorDocument || m_previewedTextEditorDocument->mode() == m_currentMode)) || !view || !isVisible() ||
+        m_lockAction->isChecked()) {
         return;
     }
 
@@ -153,7 +148,8 @@ void PreviewWidget::setTextEditorView(KTextEditor::View* view)
     resetTextEditorView(m_previewedTextEditorDocument);
 }
 
-void PreviewWidget::resetTextEditorView(KTextEditor::Document* document) {
+void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
+{
     if (!isVisible() || m_previewedTextEditorDocument != document) {
         return;
     }
@@ -173,9 +169,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document* document) {
         foreach (const auto mimeType, mimeTypes) {
             service = KMimeTypeTrader::self()->preferredService(mimeType, QStringLiteral("KParts/ReadOnlyPart"));
             if (service) {
-                qCDebug(KTEPREVIEW) << "Found preferred kpart service named" << service->name()
-                                    << "with library" <<service->library()
-                                    << "for mimetype" << mimeType;
+                qCDebug(KTEPREVIEW) << "Found preferred kpart service named" << service->name() << "with library" << service->library() << "for mimetype" << mimeType;
 
                 if (service->library().isEmpty()) {
                     qCWarning(KTEPREVIEW) << "Discarding preferred kpart service due to empty library name:" << service->name();
@@ -204,12 +198,10 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document* document) {
 
         // Update if the mode is changed. The signal may also be emitted, when a new
         // url is loaded, therefore wait (QueuedConnection) for the document to load.
-        connect(m_previewedTextEditorDocument, &KTextEditor::Document::modeChanged,
-                this, &PreviewWidget::resetTextEditorView, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
+        connect(m_previewedTextEditorDocument, &KTextEditor::Document::modeChanged, this, &PreviewWidget::resetTextEditorView, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
         // Explicitly clear the old document, which otherwise might be accessed in
         // m_partView->setDocument.
-        connect(m_previewedTextEditorDocument, &KTextEditor::Document::aboutToClose,
-                this, &PreviewWidget::unsetDocument, Qt::UniqueConnection);
+        connect(m_previewedTextEditorDocument, &KTextEditor::Document::aboutToClose, this, &PreviewWidget::unsetDocument, Qt::UniqueConnection);
     } else {
         m_currentMode.clear();
     }
@@ -259,7 +251,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document* document) {
     }
 }
 
-void PreviewWidget::unsetDocument(KTextEditor::Document* document)
+void PreviewWidget::unsetDocument(KTextEditor::Document *document)
 {
     if (!m_partView || m_previewedTextEditorDocument != document) {
         return;
@@ -275,7 +267,7 @@ void PreviewWidget::unsetDocument(KTextEditor::Document* document)
     m_currentServiceId.clear();
 }
 
-void PreviewWidget::showEvent(QShowEvent* event)
+void PreviewWidget::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
 
@@ -288,7 +280,7 @@ void PreviewWidget::showEvent(QShowEvent* event)
     }
 }
 
-void PreviewWidget::hideEvent(QHideEvent* event)
+void PreviewWidget::hideEvent(QHideEvent *event)
 {
     Q_UNUSED(event);
 
@@ -296,7 +288,7 @@ void PreviewWidget::hideEvent(QHideEvent* event)
     // TODO: we also get hide event in kdevelop when the view is changed,
     // need to find out how to filter this out or how to fix kdevelop
     // so currently keep the preview document
-//     unsetDocument(m_previewedTextEditorDocument);
+    //     unsetDocument(m_previewedTextEditorDocument);
 
     m_updateAction->setEnabled(false);
 }
@@ -326,7 +318,7 @@ void PreviewWidget::updatePreview()
     }
 }
 
-QWidget* PreviewWidget::createContainer(QWidget* parent, int index, const QDomElement& element, QAction*& containerAction)
+QWidget *PreviewWidget::createContainer(QWidget *parent, int index, const QDomElement &element, QAction *&containerAction)
 {
     containerAction = nullptr;
 
@@ -337,9 +329,7 @@ QWidget* PreviewWidget::createContainer(QWidget* parent, int index, const QDomEl
     const QString tagName = element.tagName().toLower();
     // filter out things we do not support
     // TODO: consider integrating the toolbars
-    if (tagName == QLatin1String("mainwindow") ||
-        tagName == QLatin1String("toolbar") ||
-        tagName == QLatin1String("statusbar")) {
+    if (tagName == QLatin1String("mainwindow") || tagName == QLatin1String("toolbar") || tagName == QLatin1String("statusbar")) {
         return nullptr;
     }
 
@@ -350,8 +340,7 @@ QWidget* PreviewWidget::createContainer(QWidget* parent, int index, const QDomEl
     return KXMLGUIBuilder::createContainer(parent, index, element, containerAction);
 }
 
-void PreviewWidget::removeContainer(QWidget* container, QWidget* parent,
-                                    QDomElement& element, QAction* containerAction)
+void PreviewWidget::removeContainer(QWidget *container, QWidget *parent, QDomElement &element, QAction *containerAction)
 {
     if (container == m_kPartMenu) {
         return;

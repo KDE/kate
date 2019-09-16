@@ -61,8 +61,7 @@ void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc)
     emitDataChanged();
 }
 
-void KateProjectItem::slotModifiedOnDisk(KTextEditor::Document *document,
-        bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
+void KateProjectItem::slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
 {
     Q_UNUSED(document)
     Q_UNUSED(isModified)
@@ -95,7 +94,7 @@ QVariant KateProjectItem::data(int role) const
     return QStandardItem::data(role);
 }
 
-QIcon* KateProjectItem::icon() const
+QIcon *KateProjectItem::icon() const
 {
     if (m_icon) {
         return m_icon;

@@ -23,14 +23,11 @@
 #include <QTimer>
 #include <klocalizedstring.h>
 
-
-
 TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir)
-: name(_name)
-, workDir(_dir)
+    : name(_name)
+    , workDir(_dir)
 {
 }
-
 
 // Model data
 // parent is the m_targets list index or InvalidIndex if it is a root element
@@ -38,10 +35,13 @@ TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir)
 // column 0 is command name or target-set name if it is a root element
 // column 1 is the command or working directory if it is a root element
 
-
-TargetModel::TargetModel(QObject *parent):QAbstractItemModel(parent) {}
-TargetModel::~TargetModel() {}
-
+TargetModel::TargetModel(QObject *parent)
+    : QAbstractItemModel(parent)
+{
+}
+TargetModel::~TargetModel()
+{
+}
 
 void TargetModel::clear()
 {
@@ -55,7 +55,7 @@ void TargetModel::setDefaultCmd(int rootRow, const QString &defCmd)
         return;
     }
 
-    for (int i=0; i<m_targets[rootRow].commands.size(); i++) {
+    for (int i = 0; i < m_targets[rootRow].commands.size(); i++) {
         if (defCmd == m_targets[rootRow].commands[i].first) {
             m_targets[rootRow].defaultCmd = defCmd;
             return;
@@ -67,10 +67,10 @@ int TargetModel::addTargetSet(const QString &setName, const QString &workDir)
 {
     // make the name unique
     QString newName = setName;
-    for (int i=0; i<m_targets.count(); i++) {
+    for (int i = 0; i < m_targets.count(); i++) {
         if (m_targets[i].name == newName) {
             newName += QStringLiteral(" 2");
-            i=-1;
+            i = -1;
         }
     }
 
@@ -90,10 +90,10 @@ QModelIndex TargetModel::addCommand(int rootRow, const QString &cmdName, const Q
 
     // make the name unique
     QString newName = cmdName;
-    for (int i=0; i<m_targets[rootRow].commands.count(); i++) {
+    for (int i = 0; i < m_targets[rootRow].commands.count(); i++) {
         if (m_targets[rootRow].commands[i].first == newName) {
             newName += QStringLiteral(" 2");
-            i=-1;
+            i = -1;
         }
     }
 
@@ -101,53 +101,58 @@ QModelIndex TargetModel::addCommand(int rootRow, const QString &cmdName, const Q
     beginInsertRows(rootIndex, m_targets[rootRow].commands.count(), m_targets[rootRow].commands.count());
     m_targets[rootRow].commands << QPair<QString, QString>(newName, command);
     endInsertRows();
-    return createIndex(m_targets[rootRow].commands.size()-1, 0, rootRow);
+    return createIndex(m_targets[rootRow].commands.size() - 1, 0, rootRow);
 }
 
 QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
 {
-    if (!index.isValid()) return QModelIndex();
+    if (!index.isValid())
+        return QModelIndex();
 
     quint32 rootRow = index.internalId();
     if (rootRow == InvalidIndex) {
         rootRow = index.row();
-        if (m_targets.count() <= (int)rootRow) return QModelIndex();
+        if (m_targets.count() <= (int)rootRow)
+            return QModelIndex();
 
         beginInsertRows(QModelIndex(), m_targets.count(), m_targets.count());
 
         QString newName = m_targets[rootRow].name + QStringLiteral(" 2");
-        for (int i=0; i<m_targets.count(); i++) {
+        for (int i = 0; i < m_targets.count(); i++) {
             if (m_targets[i].name == newName) {
                 newName += QStringLiteral(" 2");
-                i=-1;
+                i = -1;
             }
         }
         m_targets << m_targets[rootRow];
         m_targets.last().name = newName;
         endInsertRows();
 
-        return createIndex(m_targets.count()-1, 0, InvalidIndex);;
+        return createIndex(m_targets.count() - 1, 0, InvalidIndex);
+        ;
     }
 
-    if (m_targets.count() <= (int)rootRow) return QModelIndex();
-    if (index.row() < 0) return QModelIndex();
-    if (index.row() >= m_targets[rootRow].commands.count()) return QModelIndex();
+    if (m_targets.count() <= (int)rootRow)
+        return QModelIndex();
+    if (index.row() < 0)
+        return QModelIndex();
+    if (index.row() >= m_targets[rootRow].commands.count())
+        return QModelIndex();
 
     QModelIndex rootIndex = createIndex(rootRow, 0, InvalidIndex);
     beginInsertRows(rootIndex, m_targets[rootRow].commands.count(), m_targets[rootRow].commands.count());
 
     QString newName = m_targets[rootRow].commands[index.row()].first + QStringLiteral(" 2");
-    for (int i=0; i<m_targets[rootRow].commands.count(); i++) {
+    for (int i = 0; i < m_targets[rootRow].commands.count(); i++) {
         if (m_targets[rootRow].commands[i].first == newName) {
             newName += QStringLiteral(" 2");
-            i=-1;
+            i = -1;
         }
     }
-    m_targets[rootRow].commands
-    << QPair<QString, QString>(newName, m_targets[rootRow].commands[index.row()].second);
+    m_targets[rootRow].commands << QPair<QString, QString>(newName, m_targets[rootRow].commands[index.row()].second);
 
     endInsertRows();
-    return createIndex(m_targets[rootRow].commands.count()-1, 0, rootRow);
+    return createIndex(m_targets[rootRow].commands.count() - 1, 0, rootRow);
 }
 
 QModelIndex TargetModel::defaultTarget(const QModelIndex &index)
@@ -156,8 +161,7 @@ QModelIndex TargetModel::defaultTarget(const QModelIndex &index)
     if (index.isValid()) {
         if (index.internalId() == InvalidIndex) {
             targetRow = index.row();
-        }
-        else {
+        } else {
             targetRow = index.internalId();
         }
     }
@@ -175,10 +179,7 @@ void TargetModel::deleteItem(const QModelIndex &index)
         beginRemoveRows(index.parent(), index.row(), index.row());
         m_targets.removeAt(index.row());
         endRemoveRows();
-    }
-    else if (index.internalId() < (quint64)m_targets.size() &&
-        m_targets[(int)index.internalId()].commands.count() > index.row())
-    {
+    } else if (index.internalId() < (quint64)m_targets.size() && m_targets[(int)index.internalId()].commands.count() > index.row()) {
         beginRemoveRows(index.parent(), index.row(), index.row());
         m_targets[(int)index.internalId()].commands.removeAt(index.row());
         endRemoveRows();
@@ -187,7 +188,7 @@ void TargetModel::deleteItem(const QModelIndex &index)
 
 void TargetModel::deleteTargetSet(const QString &targetSet)
 {
-    for (int i=0; i<m_targets.count(); i++) {
+    for (int i = 0; i < m_targets.count(); i++) {
         if (m_targets[i].name == targetSet) {
             beginRemoveRows(QModelIndex(), i, i);
             m_targets.removeAt(i);
@@ -283,7 +284,8 @@ const QString TargetModel::targetName(const QModelIndex &itemIndex) const
 
 QVariant TargetModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) return QVariant();
+    if (!index.isValid())
+        return QVariant();
 
     if (index.column() < 0 || index.column() > 1) {
         return QVariant();
@@ -311,8 +313,7 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             case 1:
                 return m_targets[row].workDir;
         }
-    }
-    else {
+    } else {
         int rootIndex = index.internalId();
         if (rootIndex < 0 || rootIndex >= m_targets.size()) {
             return QVariant();
@@ -326,8 +327,7 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
                 return QVariant();
             }
             return m_targets[rootIndex].commands[row].first == m_targets[rootIndex].defaultCmd ? Qt::Checked : Qt::Unchecked;
-        }
-        else {
+        } else {
             switch (index.column()) {
                 case 0:
                     return m_targets[rootIndex].commands[row].first;
@@ -362,9 +362,12 @@ QVariant TargetModel::headerData(int section, Qt::Orientation orientation, int r
 bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     // FIXME
-    if (role != Qt::EditRole && role != Qt::CheckStateRole) return false;
-    if (!index.isValid()) return false;
-    if (index.column() < 0 || index.column() > 1) return false;
+    if (role != Qt::EditRole && role != Qt::CheckStateRole)
+        return false;
+    if (!index.isValid())
+        return false;
+    if (index.column() < 0 || index.column() > 1)
+        return false;
     int row = index.row();
 
     if (index.internalId() == InvalidIndex) {
@@ -379,8 +382,7 @@ bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int r
                 m_targets[row].workDir = value.toString();
                 return true;
         }
-    }
-    else {
+    } else {
         int rootIndex = index.internalId();
         if (rootIndex < 0 || rootIndex >= m_targets.size()) {
             return false;
@@ -392,11 +394,9 @@ bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int r
         if (role == Qt::CheckStateRole) {
             if (index.column() == 0) {
                 m_targets[rootIndex].defaultCmd = m_targets[rootIndex].commands[row].first;
-                emit dataChanged(createIndex(0, 0, rootIndex),
-                                 createIndex(m_targets[rootIndex].commands.size()-1, 0, rootIndex));
+                emit dataChanged(createIndex(0, 0, rootIndex), createIndex(m_targets[rootIndex].commands.size() - 1, 0, rootIndex));
             }
-        }
-        else {
+        } else {
             switch (index.column()) {
                 case 0:
                     m_targets[rootIndex].commands[row].first = value.toString();
@@ -422,7 +422,6 @@ Qt::ItemFlags TargetModel::flags(const QModelIndex &index) const
 
     return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
-
 
 int TargetModel::rowCount(const QModelIndex &parent) const
 {
@@ -455,12 +454,12 @@ QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) c
             rootIndex = parent.row();
         }
     }
-    return  createIndex(row, column, rootIndex);
+    return createIndex(row, column, rootIndex);
 }
 
 QModelIndex TargetModel::parent(const QModelIndex &child) const
 {
-    if (child.internalId() == InvalidIndex) return QModelIndex();
+    if (child.internalId() == InvalidIndex)
+        return QModelIndex();
     return createIndex(child.internalId(), 0, InvalidIndex);
 }
-

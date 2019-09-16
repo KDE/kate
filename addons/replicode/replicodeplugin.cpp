@@ -5,12 +5,12 @@
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
- 
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
- 
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,10 +25,10 @@
 
 #include <KTextEditor/Application>
 
-K_PLUGIN_FACTORY_WITH_JSON (KateReplicodePluginFactory, "katereplicodeplugin.json", registerPlugin<ReplicodePlugin>();)
+K_PLUGIN_FACTORY_WITH_JSON(KateReplicodePluginFactory, "katereplicodeplugin.json", registerPlugin<ReplicodePlugin>();)
 
-ReplicodePlugin::ReplicodePlugin(QObject* parent, const QList< QVariant > &args)
-: KTextEditor::Plugin(qobject_cast<KTextEditor::Application*>(parent))
+ReplicodePlugin::ReplicodePlugin(QObject *parent, const QList<QVariant> &args)
+    : KTextEditor::Plugin(qobject_cast<KTextEditor::Application *>(parent))
 {
     Q_UNUSED(args);
 }
@@ -37,7 +37,7 @@ ReplicodePlugin::~ReplicodePlugin()
 {
 }
 
-KTextEditor::ConfigPage* ReplicodePlugin::configPage(int number, QWidget* parent)
+KTextEditor::ConfigPage *ReplicodePlugin::configPage(int number, QWidget *parent)
 {
     Q_UNUSED(number);
     Q_ASSERT(number == 0);

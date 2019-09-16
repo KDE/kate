@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-**/
+ **/
 
 #include "lumen.h"
 
@@ -31,9 +31,7 @@
 #include <QFile>
 #include <QDir>
 
-
 K_PLUGIN_FACTORY_WITH_JSON(LumenPluginFactory, "ktexteditor_lumen.json", registerPlugin<LumenPlugin>();)
-
 
 LumenPluginView::LumenPluginView(LumenPlugin *plugin, KTextEditor::MainWindow *mainWin)
     : QObject(mainWin)
@@ -41,24 +39,20 @@ LumenPluginView::LumenPluginView(LumenPlugin *plugin, KTextEditor::MainWindow *m
     , m_mainWin(mainWin)
     , m_registered(false)
 {
-    m_model = new LumenCompletionModel((QObject*)m_mainWin, m_plugin->dcd());
+    m_model = new LumenCompletionModel((QObject *)m_mainWin, m_plugin->dcd());
     m_hinter = new LumenHintProvider(m_plugin);
 
     connect(m_mainWin, &KTextEditor::MainWindow::viewCreated, this, &LumenPluginView::viewCreated);
 
-    foreach(KTextEditor::View *view, m_mainWin->views()) {
+    foreach (KTextEditor::View *view, m_mainWin->views()) {
         viewCreated(view);
     }
 }
 
 void LumenPluginView::viewCreated(KTextEditor::View *view)
 {
-    connect(view->document(), &KTextEditor::Document::documentUrlChanged,
-        this, &LumenPluginView::documentChanged,
-        Qt::UniqueConnection);
-    connect(view->document(), &KTextEditor::Document::highlightingModeChanged,
-        this, &LumenPluginView::documentChanged,
-        Qt::UniqueConnection);
+    connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, &LumenPluginView::documentChanged, Qt::UniqueConnection);
+    connect(view->document(), &KTextEditor::Document::highlightingModeChanged, this, &LumenPluginView::documentChanged, Qt::UniqueConnection);
 
     connect(view->document(), &Document::documentUrlChanged, this, &LumenPluginView::urlChanged);
     registerCompletion(view);
@@ -71,25 +65,22 @@ void LumenPluginView::viewDestroyed(QObject *view)
 
 void LumenPluginView::documentChanged(KTextEditor::Document *document)
 {
-    foreach(KTextEditor::View *view, document->views()) {
+    foreach (KTextEditor::View *view, document->views()) {
         registerCompletion(view);
         registerTextHints(view);
-
     }
 }
 
 void LumenPluginView::registerCompletion(KTextEditor::View *view)
 {
-    KTextEditor::CodeCompletionInterface *completion =
-        qobject_cast<KTextEditor::CodeCompletionInterface*>(view);
+    KTextEditor::CodeCompletionInterface *completion = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
 
-    bool isD = view->document()->url().path().endsWith(QLatin1String(".d")) ||
-               view->document()->highlightingMode() == QLatin1Char('D');
+    bool isD = view->document()->url().path().endsWith(QLatin1String(".d")) || view->document()->highlightingMode() == QLatin1Char('D');
 
     if (isD && !m_registered) {
         completion->registerCompletionModel(m_model);
         m_registered = true;
-    } else if(!isD && m_registered) {
+    } else if (!isD && m_registered) {
         completion->unregisterCompletionModel(m_model);
         m_registered = false;
     }
@@ -97,8 +88,7 @@ void LumenPluginView::registerCompletion(KTextEditor::View *view)
 
 void LumenPluginView::registerTextHints(KTextEditor::View *view)
 {
-    KTextEditor::TextHintInterface *th =
-        qobject_cast<KTextEditor::TextHintInterface*>(view);
+    KTextEditor::TextHintInterface *th = qobject_cast<KTextEditor::TextHintInterface *>(view);
 
     if (th) {
         th->setTextHintDelay(500);
@@ -110,7 +100,7 @@ LumenPluginView::~LumenPluginView()
 {
 }
 
-void LumenPluginView::urlChanged(Document* document)
+void LumenPluginView::urlChanged(Document *document)
 {
     QStringList paths;
     QDir dir = QDir(document->url().toLocalFile());
@@ -121,7 +111,7 @@ void LumenPluginView::urlChanged(Document* document)
             while (!file.atEnd()) {
                 QString path = QString::fromUtf8(file.readLine().trimmed());
 
-                if (QDir::isRelativePath(path)){
+                if (QDir::isRelativePath(path)) {
                     path = QDir::cleanPath(dir.filePath(path));
                 }
 
@@ -135,20 +125,18 @@ void LumenPluginView::urlChanged(Document* document)
     }
 }
 
-
-LumenHintProvider::LumenHintProvider(LumenPlugin* plugin)
+LumenHintProvider::LumenHintProvider(LumenPlugin *plugin)
     : m_plugin(plugin)
 {
 }
 
-QString LumenHintProvider::textHint(View* view, const Cursor& position)
+QString LumenHintProvider::textHint(View *view, const Cursor &position)
 {
-    KTextEditor::Document* document = view->document();
+    KTextEditor::Document *document = view->document();
 
     KTextEditor::Cursor cursorEnd = document->documentEnd();
     KTextEditor::Range range0c = KTextEditor::Range(0, 0, position.line(), position.column());
-    KTextEditor::Range rangece = KTextEditor::Range(position.line(), position.column(),
-                                                    cursorEnd.line(), cursorEnd.column());
+    KTextEditor::Range rangece = KTextEditor::Range(position.line(), position.column(), cursorEnd.line(), cursorEnd.column());
     QString text0c = document->text(range0c, false);
     QByteArray utf8 = text0c.toUtf8();
     int offset = utf8.length();
@@ -156,7 +144,6 @@ QString LumenHintProvider::textHint(View* view, const Cursor& position)
 
     return m_plugin->dcd()->doc(utf8, offset).trimmed().replace(QStringLiteral("\\n"), QStringLiteral("\n"));
 }
-
 
 LumenPlugin::LumenPlugin(QObject *parent, const QList<QVariant> &)
     : Plugin(parent)
@@ -171,12 +158,12 @@ LumenPlugin::~LumenPlugin()
     delete m_dcd;
 }
 
-DCD* LumenPlugin::dcd()
+DCD *LumenPlugin::dcd()
 {
     return m_dcd;
 }
 
-QObject* LumenPlugin::createView(KTextEditor::MainWindow *mainWin)
+QObject *LumenPlugin::createView(KTextEditor::MainWindow *mainWin)
 {
     return new LumenPluginView(this, mainWin);
 }

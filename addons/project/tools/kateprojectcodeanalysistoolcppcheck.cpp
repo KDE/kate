@@ -27,12 +27,10 @@
 KateProjectCodeAnalysisToolCppcheck::KateProjectCodeAnalysisToolCppcheck(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)
 {
-
 }
 
 KateProjectCodeAnalysisToolCppcheck::~KateProjectCodeAnalysisToolCppcheck()
 {
-
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::name() const
@@ -53,9 +51,7 @@ QString KateProjectCodeAnalysisToolCppcheck::fileExtensions() const
 QStringList KateProjectCodeAnalysisToolCppcheck::filter(const QStringList &files) const
 {
     // c++ files
-    return files.filter(QRegularExpression(QStringLiteral("\\.(")
-    + fileExtensions().replace(QStringLiteral("+"), QStringLiteral("\\+"))
-    + QStringLiteral(")$")));
+    return files.filter(QRegularExpression(QStringLiteral("\\.(") + fileExtensions().replace(QStringLiteral("+"), QStringLiteral("\\+")) + QStringLiteral(")$")));
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::path() const
@@ -67,13 +63,8 @@ QStringList KateProjectCodeAnalysisToolCppcheck::arguments()
 {
     QStringList _args;
 
-    _args << QStringLiteral("-q")
-          << QStringLiteral("-f")
-          << QStringLiteral("-j") + QString::number(QThread::idealThreadCount())
-          << QStringLiteral("--inline-suppr")
-          << QStringLiteral("--enable=all")
-          << QStringLiteral("--template={file}////{line}////{severity}////{message}")
-          << QStringLiteral("--file-list=-");
+    _args << QStringLiteral("-q") << QStringLiteral("-f") << QStringLiteral("-j") + QString::number(QThread::idealThreadCount()) << QStringLiteral("--inline-suppr") << QStringLiteral("--enable=all")
+          << QStringLiteral("--template={file}////{line}////{severity}////{message}") << QStringLiteral("--file-list=-");
 
     return _args;
 }
@@ -96,7 +87,7 @@ QString KateProjectCodeAnalysisToolCppcheck::stdinMessages()
         return QString();
     }
 
-    auto&& fileList = filter(m_project->files());
+    auto &&fileList = filter(m_project->files());
     setActualFilesCount(fileList.size());
     return fileList.join(QLatin1Char('\n'));
 }

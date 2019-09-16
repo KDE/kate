@@ -45,16 +45,16 @@ void KateProjectCompletion::saveMatches(KTextEditor::View *view, const KTextEdit
 QVariant KateProjectCompletion::data(const QModelIndex &index, int role) const
 {
     if (role == InheritanceDepth) {
-        return 10010;    //Very high value, so the word-completion group and items are shown behind any other groups/items if there is multiple
+        return 10010; // Very high value, so the word-completion group and items are shown behind any other groups/items if there is multiple
     }
 
     if (!index.parent().isValid()) {
-        //It is the group header
+        // It is the group header
         switch (role) {
-        case Qt::DisplayRole:
-            return i18n("Project Completion");
-        case GroupRole:
-            return Qt::DisplayRole;
+            case Qt::DisplayRole:
+                return i18n("Project Completion");
+            case GroupRole:
+                return Qt::DisplayRole;
         }
     }
 
@@ -102,9 +102,9 @@ QModelIndex KateProjectCompletion::index(int row, int column, const QModelIndex 
 int KateProjectCompletion::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid() && !(m_matches.rowCount() == 0)) {
-        return 1;    //One root node to define the custom group
+        return 1; // One root node to define the custom group
     } else if (parent.parent().isValid()) {
-        return 0;    //Completion-items have no children
+        return 0; // Completion-items have no children
     } else {
         return m_matches.rowCount();
     }
@@ -121,7 +121,7 @@ bool KateProjectCompletion::shouldStartCompletion(KTextEditor::View *view, const
 
     QString text = view->document()->line(position.line()).left(position.column());
 
-    uint check = 3; //v->config()->wordCompletionMinimalWordLength();
+    uint check = 3; // v->config()->wordCompletionMinimalWordLength();
 
     if (check <= 0) {
         return true;
@@ -143,7 +143,6 @@ bool KateProjectCompletion::shouldStartCompletion(KTextEditor::View *view, const
 
 bool KateProjectCompletion::shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion)
 {
-
     if (m_automatic) {
         if (currentCompletion.length() < 3 /*v->config()->wordCompletionMinimalWordLength()*/) {
             return true;
@@ -220,4 +219,3 @@ KTextEditor::Range KateProjectCompletion::completionRange(KTextEditor::View *vie
 
     return KTextEditor::Range(KTextEditor::Cursor(line, col), position);
 }
-

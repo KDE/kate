@@ -44,9 +44,8 @@
 #include <QToolTip>
 #include <QWhatsThis>
 
-//BEGIN KateViewSpace
-KateViewSpace::KateViewSpace(KateViewManager *viewManager,
-                             QWidget *parent, const char *name)
+// BEGIN KateViewSpace
+KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, const char *name)
     : QWidget(parent)
     , m_viewManager(viewManager)
     , m_isActiveSpace(false)
@@ -56,7 +55,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
 
-    //BEGIN tab bar
+    // BEGIN tab bar
     QHBoxLayout *hLayout = new QHBoxLayout();
     hLayout->setSpacing(0);
     hLayout->setContentsMargins(0, 0, 0, 0);
@@ -80,10 +79,9 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     hLayout->addWidget(m_quickOpen);
 
     // forward tab bar quick open action to globa quick open action
-    QAction * bridge = new QAction(QIcon::fromTheme(QStringLiteral("tab-duplicate")),
-                                   i18nc("indicator for more documents", "+%1", 100), this);
+    QAction *bridge = new QAction(QIcon::fromTheme(QStringLiteral("tab-duplicate")), i18nc("indicator for more documents", "+%1", 100), this);
     m_quickOpen->setDefaultAction(bridge);
-    QAction * quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
+    QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
     Q_ASSERT(quickOpen);
     bridge->setToolTip(quickOpen->toolTip());
     bridge->setWhatsThis(i18n("Click here to switch to the Quick Open view."));
@@ -104,7 +102,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager,
     hLayout->addWidget(m_split);
 
     layout->addLayout(hLayout);
-    //END tab bar
+    // END tab bar
 
     stack = new QStackedWidget(this);
     stack->setFocus();
@@ -136,8 +134,7 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
         QHelpEvent *e = static_cast<QHelpEvent *>(event);
         QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
         Q_ASSERT(quickOpen);
-        QToolTip::showText(e->globalPos(),
-                           button->toolTip() + QStringLiteral(" (%1)").arg(quickOpen->shortcut().toString()), button);
+        QToolTip::showText(e->globalPos(), button->toolTip() + QStringLiteral(" (%1)").arg(quickOpen->shortcut().toString()), button);
         return true;
     }
 
@@ -145,17 +142,16 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
     if (button == m_quickOpen && event->type() == QEvent::WhatsThis) {
         QHelpEvent *e = static_cast<QHelpEvent *>(event);
         const int hiddenDocs = hiddenDocuments();
-        QString helpText = (hiddenDocs == 0)
-                         ? i18n("Click here to switch to the Quick Open view.")
-                         : i18np("Currently, there is one more document open. To see all open documents, switch to the Quick Open view by clicking here.",
-                                 "Currently, there are %1 more documents open. To see all open documents, switch to the Quick Open view by clicking here.",
-                                 hiddenDocs);
+        QString helpText = (hiddenDocs == 0) ? i18n("Click here to switch to the Quick Open view.") :
+                                               i18np("Currently, there is one more document open. To see all open documents, switch to the Quick Open view by clicking here.",
+                                                     "Currently, there are %1 more documents open. To see all open documents, switch to the Quick Open view by clicking here.",
+                                                     hiddenDocs);
         QWhatsThis::showText(e->globalPos(), helpText, m_quickOpen);
         return true;
     }
 
     // on mouse press on view space bar tool buttons: activate this space
-    if (button && ! isActiveSpace() && event->type() == QEvent::MouseButtonPress) {
+    if (button && !isActiveSpace() && event->type() == QEvent::MouseButtonPress) {
         m_viewManager->setActiveSpace(this);
         if (currentView()) {
             m_viewManager->activateView(currentView()->document());
@@ -166,27 +162,27 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 
 void KateViewSpace::statusBarToggled()
 {
-    KateUpdateDisabler updatesDisabled (m_viewManager->mainWindow());
-    Q_FOREACH(KTextEditor::Document * doc, m_lruDocList) {
+    KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
+    Q_FOREACH (KTextEditor::Document *doc, m_lruDocList) {
         if (m_docToView.contains(doc)) {
             m_docToView[doc]->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
         }
     }
 }
 
-QVector<KTextEditor::Document*> KateViewSpace::lruDocumentList() const
+QVector<KTextEditor::Document *> KateViewSpace::lruDocumentList() const
 {
     return m_lruDocList;
 }
 
-void KateViewSpace::mergeLruList(const QVector<KTextEditor::Document*> & lruList)
+void KateViewSpace::mergeLruList(const QVector<KTextEditor::Document *> &lruList)
 {
     // merge lruList documents that are not in m_lruDocList
-    QVectorIterator<KTextEditor::Document*> it(lruList);
+    QVectorIterator<KTextEditor::Document *> it(lruList);
     it.toBack();
     while (it.hasPrevious()) {
         KTextEditor::Document *doc = it.previous();
-        if (! m_lruDocList.contains(doc)) {
+        if (!m_lruDocList.contains(doc)) {
             registerDocument(doc, false);
         }
     }
@@ -194,7 +190,7 @@ void KateViewSpace::mergeLruList(const QVector<KTextEditor::Document*> & lruList
 
 void KateViewSpace::tabBarToggled()
 {
-    KateUpdateDisabler updatesDisabled (m_viewManager->mainWindow());
+    KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
     m_tabBar->setVisible(m_viewManager->mainWindow()->showTabBar());
     m_split->setVisible(m_viewManager->mainWindow()->showTabBar());
     m_quickOpen->setVisible(m_viewManager->mainWindow()->showTabBar());
@@ -203,7 +199,7 @@ void KateViewSpace::tabBarToggled()
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 {
     // should only be called if a view does not yet exist
-    Q_ASSERT(! m_docToView.contains(doc));
+    Q_ASSERT(!m_docToView.contains(doc));
 
     /**
      * Create a fresh view
@@ -216,7 +212,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     // restore the config of this view if possible
     if (!m_group.isEmpty()) {
         QString fn = v->document()->url().toString();
-        if (! fn.isEmpty()) {
+        if (!fn.isEmpty()) {
             QString vgroup = QStringLiteral("%1 %2").arg(m_group, fn);
 
             KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession();
@@ -228,7 +224,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     }
 
     // register document, it is shown below through showView() then
-    if (! m_lruDocList.contains(doc)) {
+    if (!m_lruDocList.contains(doc)) {
         registerDocument(doc);
         Q_ASSERT(m_lruDocList.contains(doc));
     }
@@ -268,7 +264,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
         return false;
     }
 
-    if (! m_docToView.contains(document)) {
+    if (!m_docToView.contains(document)) {
         return false;
     }
 
@@ -281,7 +277,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     kv->show();
 
     // in case a tab does not exist, add one
-    if (! m_docToTabId.contains(document)) {
+    if (!m_docToTabId.contains(document)) {
         // if space is available, add button
         if (m_tabBar->count() < m_tabBar->maxTabCount()) {
             // just insert
@@ -291,7 +287,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
             Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
 
             // we need to subtract by 1 more, as we just added ourself to the end of the lru list!
-            KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
+            KTextEditor::Document *docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
             Q_ASSERT(m_docToTabId.contains(docToHide));
             removeTab(docToHide, false);
 
@@ -313,7 +309,7 @@ void KateViewSpace::changeView(int id)
     Q_ASSERT(doc);
 
     // make sure we open the view in this view space
-    if (! isActiveSpace()) {
+    if (!isActiveSpace()) {
         m_viewManager->setActiveSpace(this);
     }
 
@@ -340,7 +336,7 @@ void KateViewSpace::setActive(bool active)
 
 void KateViewSpace::makeActive(bool focusCurrentView)
 {
-    if (! isActiveSpace()) {
+    if (!isActiveSpace()) {
         m_viewManager->setActiveSpace(this);
         if (focusCurrentView && currentView()) {
             m_viewManager->activateView(currentView()->document());
@@ -349,28 +345,25 @@ void KateViewSpace::makeActive(bool focusCurrentView)
     Q_ASSERT(isActiveSpace());
 }
 
-void KateViewSpace::insertTab(int index, KTextEditor::Document * doc)
+void KateViewSpace::insertTab(int index, KTextEditor::Document *doc)
 {
     // doc should be in the lru list
     Q_ASSERT(m_lruDocList.contains(doc));
 
     // doc should not have a id
-    Q_ASSERT(! m_docToTabId.contains(doc));
+    Q_ASSERT(!m_docToTabId.contains(doc));
 
     const int id = m_tabBar->insertTab(index, doc->documentName());
     m_tabBar->setTabToolTip(id, doc->url().toDisplayString());
     m_docToTabId[doc] = id;
     updateDocumentState(doc);
 
-    connect(doc, &KTextEditor::Document::documentNameChanged,
-            this, &KateViewSpace::updateDocumentName);
-    connect(doc, &KTextEditor::Document::documentUrlChanged,
-            this, &KateViewSpace::updateDocumentUrl);
-    connect(doc, &KTextEditor::Document::modifiedChanged,
-            this, &KateViewSpace::updateDocumentState);
+    connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateViewSpace::updateDocumentName);
+    connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateViewSpace::updateDocumentUrl);
+    connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateViewSpace::updateDocumentState);
 }
 
-int KateViewSpace::removeTab(KTextEditor::Document * doc, bool documentDestroyed)
+int KateViewSpace::removeTab(KTextEditor::Document *doc, bool documentDestroyed)
 {
     //
     // WARNING: removeTab() is also called from documentDestroyed().
@@ -385,12 +378,9 @@ int KateViewSpace::removeTab(KTextEditor::Document * doc, bool documentDestroyed
     m_docToTabId.remove(doc);
 
     if (!documentDestroyed) {
-        disconnect(doc, &KTextEditor::Document::documentNameChanged,
-               this, &KateViewSpace::updateDocumentName);
-        disconnect(doc, &KTextEditor::Document::documentUrlChanged,
-                this, &KateViewSpace::updateDocumentUrl);
-        disconnect(doc, &KTextEditor::Document::modifiedChanged,
-              this, &KateViewSpace::updateDocumentState);
+        disconnect(doc, &KTextEditor::Document::documentNameChanged, this, &KateViewSpace::updateDocumentName);
+        disconnect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateViewSpace::updateDocumentUrl);
+        disconnect(doc, &KTextEditor::Document::modifiedChanged, this, &KateViewSpace::updateDocumentState);
     }
 
     return removeIndex;
@@ -403,9 +393,9 @@ void KateViewSpace::removeTabs(int count)
     /// remove @p count tabs from the tab bar, as they do not all fit
     while (count > 0) {
         const int tabCount = m_tabBar->count();
-        KTextEditor::Document * removeDoc = m_lruDocList[m_lruDocList.size() - tabCount];
+        KTextEditor::Document *removeDoc = m_lruDocList[m_lruDocList.size() - tabCount];
         removeTab(removeDoc, false);
-        Q_ASSERT(! m_docToTabId.contains(removeDoc));
+        Q_ASSERT(!m_docToTabId.contains(removeDoc));
         --count;
     }
 
@@ -438,9 +428,9 @@ void KateViewSpace::addTabs(int count)
 void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
 {
     // at this point, the doc should be completely unknown
-    Q_ASSERT(! m_lruDocList.contains(doc));
-    Q_ASSERT(! m_docToView.contains(doc));
-    Q_ASSERT(! m_docToTabId.contains(doc));
+    Q_ASSERT(!m_lruDocList.contains(doc));
+    Q_ASSERT(!m_docToView.contains(doc));
+    Q_ASSERT(!m_docToTabId.contains(doc));
 
     if (append) {
         m_lruDocList.append(doc);
@@ -458,7 +448,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
         // remove "oldest" button and replace with new one
         Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
 
-        KTextEditor::Document * docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
+        KTextEditor::Document *docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
         Q_ASSERT(m_docToTabId.contains(docToHide));
         removeTab(docToHide, false);
 
@@ -482,11 +472,9 @@ void KateViewSpace::documentDestroyed(QObject *doc)
     if (m_docToTabId.contains(invalidDoc)) {
         removeTab(invalidDoc, true);
         // maybe show another tab button in its stead
-        if (m_lruDocList.size() >= m_tabBar->maxTabCount()
-            && m_tabBar->count() < m_tabBar->maxTabCount()
-        ) {
-            KTextEditor::Document * docToShow = m_lruDocList[m_lruDocList.size() - m_tabBar->count() - 1];
-            Q_ASSERT(! m_docToTabId.contains(docToShow));
+        if (m_lruDocList.size() >= m_tabBar->maxTabCount() && m_tabBar->count() < m_tabBar->maxTabCount()) {
+            KTextEditor::Document *docToShow = m_lruDocList[m_lruDocList.size() - m_tabBar->count() - 1];
+            Q_ASSERT(!m_docToTabId.contains(docToShow));
 
             // add tab that now fits into the bar
             insertTab(m_tabBar->count(), docToShow);
@@ -494,9 +482,9 @@ void KateViewSpace::documentDestroyed(QObject *doc)
     }
 
     // at this point, the doc should be completely unknown
-    Q_ASSERT(! m_lruDocList.contains(invalidDoc));
-    Q_ASSERT(! m_docToView.contains(invalidDoc));
-    Q_ASSERT(! m_docToTabId.contains(invalidDoc));
+    Q_ASSERT(!m_lruDocList.contains(invalidDoc));
+    Q_ASSERT(!m_docToView.contains(invalidDoc));
+    Q_ASSERT(!m_docToTabId.contains(invalidDoc));
 }
 
 void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
@@ -536,7 +524,7 @@ void KateViewSpace::closeTabRequest(int id)
 void KateViewSpace::createNewDocument()
 {
     // make sure we open the view in this view space
-    if (! isActiveSpace()) {
+    if (!isActiveSpace()) {
         m_viewManager->setActiveSpace(this);
     }
 
@@ -556,8 +544,7 @@ void KateViewSpace::updateQuickOpen()
         m_quickOpen->defaultAction()->setText(QString());
     } else {
         m_quickOpen->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        m_quickOpen->defaultAction()->setText(i18nc("indicator for more documents", "+%1",
-                                              hiddenDocs));
+        m_quickOpen->defaultAction()->setText(i18nc("indicator for more documents", "+%1", hiddenDocs));
     }
 }
 
@@ -584,7 +571,7 @@ int KateViewSpace::hiddenDocuments() const
     return hiddenDocs;
 }
 
-void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
+void KateViewSpace::showContextMenu(int id, const QPoint &globalPos)
 {
     // right now, show no context menu on empty tab bar space
     if (id < 0) {
@@ -594,8 +581,8 @@ void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
     KTextEditor::Document *doc = m_docToTabId.key(id);
     Q_ASSERT(doc);
 
-    auto addActionFromCollection = [this](QMenu* menu, const char* action_name) {
-        QAction* action = m_viewManager->mainWindow()->action(action_name);
+    auto addActionFromCollection = [this](QMenu *menu, const char *action_name) {
+        QAction *action = m_viewManager->mainWindow()->action(action_name);
         return menu->addAction(action->icon(), action->text());
     };
 
@@ -634,7 +621,7 @@ void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
     }
 
     if (mCompareWithActive->isEnabled()) {
-        for (auto&& diffTool : KateFileActions::supportedDiffTools()) {
+        for (auto &&diffTool : KateFileActions::supportedDiffTools()) {
             QAction *compareAction = mCompareWithActive->addAction(diffTool);
             compareAction->setData(diffTool);
         }
@@ -663,22 +650,20 @@ void KateViewSpace::showContextMenu(int id, const QPoint & globalPos)
     } else if (choice->parent() == mCompareWithActive) {
         QString actionData = choice->data().toString(); // name of the executable of the diff program
         if (!KateFileActions::compareWithExternalProgram(activeDocument, doc, actionData)) {
-            QMessageBox::information(this, i18n("Could not start program"),
-                                     i18n("The selected program could not be started. Maybe it is not installed."),
-                                     QMessageBox::StandardButton::Ok);
+            QMessageBox::information(this, i18n("Could not start program"), i18n("The selected program could not be started. Maybe it is not installed."), QMessageBox::StandardButton::Ok);
         }
     }
 }
 
-void KateViewSpace::saveConfig(KConfigBase *config, int myIndex , const QString &viewConfGrp)
+void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &viewConfGrp)
 {
-//   qCDebug(LOG_KATE)<<"KateViewSpace::saveConfig("<<myIndex<<", "<<viewConfGrp<<") - currentView: "<<currentView()<<")";
+    //   qCDebug(LOG_KATE)<<"KateViewSpace::saveConfig("<<myIndex<<", "<<viewConfGrp<<") - currentView: "<<currentView()<<")";
     QString groupname = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(myIndex);
 
     // aggregate all views in view space (LRU ordered)
-    QVector<KTextEditor::View*> views;
+    QVector<KTextEditor::View *> views;
     QStringList lruList;
-    Q_FOREACH(KTextEditor::Document* doc, m_lruDocList) {
+    Q_FOREACH (KTextEditor::Document *doc, m_lruDocList) {
         lruList << doc->url().toString();
         if (m_docToView.contains(doc)) {
             views.append(m_docToView[doc]);
@@ -744,9 +729,9 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
     // avoid empty view space
     if (m_docToView.isEmpty()) {
-        viewMan->createView (KateApp::self()->documentManager()->documentList().first(), this);
+        viewMan->createView(KateApp::self()->documentManager()->documentList().first(), this);
     }
 
     m_group = groupname; // used for restroing view configs later
 }
-//END KateViewSpace
+// END KateViewSpace

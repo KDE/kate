@@ -31,14 +31,17 @@
 // (which would not be the case with default QTextDocument margin)
 static const int s_ItemMargin = 1;
 
-SPHtmlDelegate::SPHtmlDelegate( QObject* parent )
-: QStyledItemDelegate(parent)
-{}
+SPHtmlDelegate::SPHtmlDelegate(QObject *parent)
+    : QStyledItemDelegate(parent)
+{
+}
 
-SPHtmlDelegate::~SPHtmlDelegate() {}
+SPHtmlDelegate::~SPHtmlDelegate()
+{
+}
 
-void SPHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
-{ 
+void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
     QStyleOptionViewItem options = option;
     initStyleOption(&options, index);
 
@@ -47,7 +50,7 @@ void SPHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
     doc.setHtml(index.data().toString());
 
     painter->save();
-    options.text = QString();  // clear old text
+    options.text = QString(); // clear old text
     options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
     // draw area
@@ -57,8 +60,7 @@ void SPHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
         painter->setPen(QWidget().palette().color(QPalette::Base));
         painter->drawRect(QRect(clip.topLeft() - QPoint(20, 0), clip.bottomRight()));
         painter->translate(clip.topLeft() - QPoint(20, 0));
-    }
-    else {
+    } else {
         painter->translate(clip.topLeft() - QPoint(0, 0));
     }
     QAbstractTextDocumentLayout::PaintContext pcontext;
@@ -67,11 +69,11 @@ void SPHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
     painter->restore();
 }
 
-QSize SPHtmlDelegate::sizeHint(const QStyleOptionViewItem& /*option*/, const QModelIndex& index) const
+QSize SPHtmlDelegate::sizeHint(const QStyleOptionViewItem & /*option*/, const QModelIndex &index) const
 {
     QTextDocument doc;
     doc.setDocumentMargin(s_ItemMargin);
     doc.setHtml(index.data().toString());
-    //qDebug() << doc.toPlainText() << doc.size().toSize();
+    // qDebug() << doc.toPlainText() << doc.size().toSize();
     return doc.size().toSize() + QSize(30, 0); // add margin for the check-box
 }

@@ -101,5 +101,3 @@ void KateSessionsActionTest::timesorted()
     TODO: any idea how to test this simply and not calling utime()?
     */
 }
-
-

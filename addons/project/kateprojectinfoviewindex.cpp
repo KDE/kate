@@ -158,4 +158,3 @@ void KateProjectInfoViewIndex::indexAvailable()
         m_messageWidget->animatedShow();
     }
 }
-

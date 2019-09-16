@@ -35,7 +35,6 @@
 #include <QTemporaryFile>
 #include <QLabel>
 
-
 using namespace KTextEditorPreview;
 
 // 300 ms as initial proposal, was found to be delay which worked for the
@@ -50,7 +49,7 @@ using namespace KTextEditorPreview;
 // eye that something is changing while one is editing the sources.
 static const int updateDelay = 300; // ms
 
-KPartView::KPartView(const KService::Ptr& service, QObject* parent)
+KPartView::KPartView(const KService::Ptr &service, QObject *parent)
     : QObject(parent)
 {
     QString errorString;
@@ -69,8 +68,7 @@ KPartView::KPartView(const KService::Ptr& service, QObject* parent)
 
         auto browserExtension = m_part->browserExtension();
         if (browserExtension) {
-            connect(browserExtension, &KParts::BrowserExtension::openUrlRequestDelayed,
-                    this, &KPartView::handleOpenUrlRequest);
+            connect(browserExtension, &KParts::BrowserExtension::openUrlRequestDelayed, this, &KPartView::handleOpenUrlRequest);
         }
         m_part->widget()->installEventFilter(this);
     }
@@ -81,17 +79,17 @@ KPartView::~KPartView()
     delete m_errorLabel;
 }
 
-QWidget* KPartView::widget() const
+QWidget *KPartView::widget() const
 {
     return m_part ? m_part->widget() : m_errorLabel;
 }
 
-KParts::ReadOnlyPart* KPartView::kPart() const
+KParts::ReadOnlyPart *KPartView::kPart() const
 {
     return m_part;
 }
 
-KTextEditor::Document* KPartView::document() const
+KTextEditor::Document *KPartView::document() const
 {
     return m_document;
 }
@@ -101,7 +99,7 @@ bool KPartView::isAutoUpdating() const
     return m_autoUpdating;
 }
 
-void KPartView::setDocument(KTextEditor::Document* document)
+void KPartView::setDocument(KTextEditor::Document *document)
 {
     if (m_document == document) {
         return;
@@ -178,8 +176,7 @@ void KPartView::updatePreview()
     // try to stream the data to avoid filesystem I/O
     // create url unique for this document
     // TODO: encode existing url instead, and for yet-to-be-stored docs some other unique id
-    const QUrl streamUrl(QStringLiteral("ktexteditorpreview:/object/%1")
-                         .arg(reinterpret_cast<quintptr>(m_document), 0, 16));
+    const QUrl streamUrl(QStringLiteral("ktexteditorpreview:/object/%1").arg(reinterpret_cast<quintptr>(m_document), 0, 16));
     if (m_part->openStream(mimeType, streamUrl)) {
         qCDebug(KTEPREVIEW) << "Pushing data via streaming API, url:" << streamUrl.url();
         m_part->writeStream(m_document->text().toUtf8());
@@ -212,12 +209,12 @@ void KPartView::updatePreview()
     m_previewDirty = false;
 }
 
-void KPartView::handleOpenUrlRequest(const QUrl& url)
+void KPartView::handleOpenUrlRequest(const QUrl &url)
 {
     QDesktopServices::openUrl(url);
 }
 
-bool KPartView::eventFilter(QObject* object, QEvent* event)
+bool KPartView::eventFilter(QObject *object, QEvent *event)
 {
     if (object == m_part->widget() && event->type() == QEvent::Show) {
         if (m_document && m_autoUpdating && m_previewDirty) {

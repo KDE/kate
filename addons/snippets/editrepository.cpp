@@ -1,7 +1,7 @@
 /*  This file is part of the Kate project.
  *  Based on the snippet plugin from KDevelop 4.
  *
- *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net> 
+ *  Copyright (C) 2007 Robert Gruber <rgruber@users.sourceforge.net>
  *  Copyright (C) 2010 Milian Wolff <mail@milianw.de>
  *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
  *  Copyright (C) 2014 Sven Brauch <svenbrauch@gmail.com>
@@ -36,8 +36,10 @@
 #include <QPushButton>
 #include <QDialogButtonBox>
 
-EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
-    : QDialog(parent), Ui::EditRepositoryBase(), m_repo(repository)
+EditRepository::EditRepository(SnippetRepository *repository, QWidget *parent)
+    : QDialog(parent)
+    , Ui::EditRepositoryBase()
+    , m_repo(repository)
 {
     setupUi(this);
 
@@ -57,29 +59,28 @@ EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
     repoFileTypesList->addItems(document->highlightingModes());
     repoFileTypesList->sortItems();
     repoFileTypesList->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    connect(repoFileTypesList->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &EditRepository::updateFileTypes);
+    connect(repoFileTypesList->selectionModel(), &QItemSelectionModel::selectionChanged, this, &EditRepository::updateFileTypes);
 
     // add default licenses
     repoLicenseEdit->addItems(QStringList() << QStringLiteral("BSD") << QStringLiteral("Artistic") << QStringLiteral("LGPL v2+") << QStringLiteral("LGPL v3+"));
     repoLicenseEdit->setEditable(true);
 
     // if we edit a repo, add all existing data
-    if ( m_repo ) {
+    if (m_repo) {
         repoNameEdit->setText(m_repo->text());
         repoAuthorsEdit->setText(m_repo->authors());
         repoNamespaceEdit->setText(m_repo->completionNamespace());
-        if ( !m_repo->license().isEmpty() ) {
+        if (!m_repo->license().isEmpty()) {
             int index = repoLicenseEdit->findText(m_repo->license());
-            if ( index == -1 ) {
+            if (index == -1) {
                 repoLicenseEdit->addItem(m_repo->license());
                 repoLicenseEdit->model()->sort(0);
                 index = repoLicenseEdit->findText(m_repo->license());
             }
             repoLicenseEdit->setCurrentIndex(index);
         }
-        foreach ( const QString& type, m_repo->fileTypes() ) {
-            foreach( QListWidgetItem* item, repoFileTypesList->findItems(type, Qt::MatchExactly) ) {
+        foreach (const QString &type, m_repo->fileTypes()) {
+            foreach (QListWidgetItem *item, repoFileTypesList->findItems(type, Qt::MatchExactly)) {
                 item->setSelected(true);
             }
         }
@@ -105,7 +106,7 @@ void EditRepository::validate()
 void EditRepository::save()
 {
     Q_ASSERT(!repoNameEdit->text().isEmpty());
-    if ( !m_repo ) {
+    if (!m_repo) {
         // save as new repo
         m_repo = SnippetRepository::createRepoFromName(repoNameEdit->text());
     }
@@ -115,7 +116,7 @@ void EditRepository::save()
     m_repo->setCompletionNamespace(repoNamespaceEdit->text());
 
     QStringList types;
-    foreach( QListWidgetItem* item, repoFileTypesList->selectedItems() ) {
+    foreach (QListWidgetItem *item, repoFileTypesList->selectedItems()) {
         types << item->text();
     }
     m_repo->setFileTypes(types);
@@ -127,10 +128,10 @@ void EditRepository::save()
 void EditRepository::updateFileTypes()
 {
     QStringList types;
-    foreach( QListWidgetItem* item, repoFileTypesList->selectedItems() ) {
+    foreach (QListWidgetItem *item, repoFileTypesList->selectedItems()) {
         types << item->text();
     }
-    if ( types.isEmpty() ) {
+    if (types.isEmpty()) {
         repoFileTypesListLabel->setText(i18n("<i>leave empty for general purpose snippets</i>"));
     } else {
         repoFileTypesListLabel->setText(types.join(QLatin1String(", ")));

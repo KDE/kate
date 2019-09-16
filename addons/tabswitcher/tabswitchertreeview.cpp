@@ -30,7 +30,7 @@ TabSwitcherTreeView::TabSwitcherTreeView()
     setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);
-    //setUniformItemSizes(true);
+    // setUniformItemSizes(true);
     setTextElideMode(Qt::ElideMiddle);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -49,7 +49,7 @@ void TabSwitcherTreeView::resizeColumnsToContents()
     resizeColumnToContents(1);
 }
 
-void TabSwitcherTreeView::keyReleaseEvent(QKeyEvent * event)
+void TabSwitcherTreeView::keyReleaseEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Control) {
         emit itemActivated(selectionModel()->currentIndex());
@@ -60,7 +60,7 @@ void TabSwitcherTreeView::keyReleaseEvent(QKeyEvent * event)
     }
 }
 
-void TabSwitcherTreeView::keyPressEvent(QKeyEvent * event)
+void TabSwitcherTreeView::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Escape) {
         event->accept();
@@ -70,7 +70,7 @@ void TabSwitcherTreeView::keyPressEvent(QKeyEvent * event)
     }
 }
 
-void TabSwitcherTreeView::showEvent(QShowEvent* event)
+void TabSwitcherTreeView::showEvent(QShowEvent *event)
 {
     resizeColumnsToContents();
     QTreeView::showEvent(event);

@@ -22,52 +22,73 @@
 #include <KConfigGroup>
 #include <QStandardPaths>
 
-namespace {
-    QString toString(KateExternalTool::SaveMode saveMode)
-    {
-        switch (saveMode) {
-            case KateExternalTool::SaveMode::None: return QStringLiteral("None");
-            case KateExternalTool::SaveMode::CurrentDocument: return QStringLiteral("CurrentDocument");
-            case KateExternalTool::SaveMode::AllDocuments: return QStringLiteral("AllDocuments");
-        }
-        Q_ASSERT(false); // yout forgot a case above
-        return QStringLiteral("None");
+namespace
+{
+QString toString(KateExternalTool::SaveMode saveMode)
+{
+    switch (saveMode) {
+        case KateExternalTool::SaveMode::None:
+            return QStringLiteral("None");
+        case KateExternalTool::SaveMode::CurrentDocument:
+            return QStringLiteral("CurrentDocument");
+        case KateExternalTool::SaveMode::AllDocuments:
+            return QStringLiteral("AllDocuments");
     }
+    Q_ASSERT(false); // yout forgot a case above
+    return QStringLiteral("None");
+}
 
-    KateExternalTool::SaveMode toSaveMode(const QString & mode)
-    {
-        if (mode == QStringLiteral("None")) return KateExternalTool::SaveMode::None;
-        if (mode == QStringLiteral("CurrentDocument")) return KateExternalTool::SaveMode::CurrentDocument;
-        if (mode == QStringLiteral("AllDocuments")) return KateExternalTool::SaveMode::AllDocuments;
+KateExternalTool::SaveMode toSaveMode(const QString &mode)
+{
+    if (mode == QStringLiteral("None"))
         return KateExternalTool::SaveMode::None;
-    }
+    if (mode == QStringLiteral("CurrentDocument"))
+        return KateExternalTool::SaveMode::CurrentDocument;
+    if (mode == QStringLiteral("AllDocuments"))
+        return KateExternalTool::SaveMode::AllDocuments;
+    return KateExternalTool::SaveMode::None;
+}
 
-    QString toString(KateExternalTool::OutputMode outputMode)
-    {
-        switch (outputMode) {
-            case KateExternalTool::OutputMode::Ignore: return QStringLiteral("Ignore");
-            case KateExternalTool::OutputMode::InsertAtCursor: return QStringLiteral("InsertAtCursor");
-            case KateExternalTool::OutputMode::ReplaceSelectedText: return QStringLiteral("ReplaceSelectedText");
-            case KateExternalTool::OutputMode::ReplaceCurrentDocument: return QStringLiteral("ReplaceCurrentDocument");
-            case KateExternalTool::OutputMode::AppendToCurrentDocument: return QStringLiteral("AppendToCurrentDocument");
-            case KateExternalTool::OutputMode::InsertInNewDocument: return QStringLiteral("InsertInNewDocument");
-            case KateExternalTool::OutputMode::DisplayInPane: return QStringLiteral("DisplayInPane");
-        }
-        Q_ASSERT(false); // yout forgot a case above
-        return QStringLiteral("Ignore");
+QString toString(KateExternalTool::OutputMode outputMode)
+{
+    switch (outputMode) {
+        case KateExternalTool::OutputMode::Ignore:
+            return QStringLiteral("Ignore");
+        case KateExternalTool::OutputMode::InsertAtCursor:
+            return QStringLiteral("InsertAtCursor");
+        case KateExternalTool::OutputMode::ReplaceSelectedText:
+            return QStringLiteral("ReplaceSelectedText");
+        case KateExternalTool::OutputMode::ReplaceCurrentDocument:
+            return QStringLiteral("ReplaceCurrentDocument");
+        case KateExternalTool::OutputMode::AppendToCurrentDocument:
+            return QStringLiteral("AppendToCurrentDocument");
+        case KateExternalTool::OutputMode::InsertInNewDocument:
+            return QStringLiteral("InsertInNewDocument");
+        case KateExternalTool::OutputMode::DisplayInPane:
+            return QStringLiteral("DisplayInPane");
     }
+    Q_ASSERT(false); // yout forgot a case above
+    return QStringLiteral("Ignore");
+}
 
-    KateExternalTool::OutputMode toOutputMode(const QString & mode)
-    {
-        if (mode == QStringLiteral("Ignore")) return KateExternalTool::OutputMode::Ignore;
-        if (mode == QStringLiteral("InsertAtCursor")) return KateExternalTool::OutputMode::InsertAtCursor;
-        if (mode == QStringLiteral("ReplaceSelectedText")) return KateExternalTool::OutputMode::ReplaceSelectedText;
-        if (mode == QStringLiteral("ReplaceCurrentDocument")) return KateExternalTool::OutputMode::ReplaceCurrentDocument;
-        if (mode == QStringLiteral("AppendToCurrentDocument")) return KateExternalTool::OutputMode::AppendToCurrentDocument;
-        if (mode == QStringLiteral("InsertInNewDocument")) return KateExternalTool::OutputMode::InsertInNewDocument;
-        if (mode == QStringLiteral("DisplayInPane")) return KateExternalTool::OutputMode::DisplayInPane;
+KateExternalTool::OutputMode toOutputMode(const QString &mode)
+{
+    if (mode == QStringLiteral("Ignore"))
         return KateExternalTool::OutputMode::Ignore;
-    }
+    if (mode == QStringLiteral("InsertAtCursor"))
+        return KateExternalTool::OutputMode::InsertAtCursor;
+    if (mode == QStringLiteral("ReplaceSelectedText"))
+        return KateExternalTool::OutputMode::ReplaceSelectedText;
+    if (mode == QStringLiteral("ReplaceCurrentDocument"))
+        return KateExternalTool::OutputMode::ReplaceCurrentDocument;
+    if (mode == QStringLiteral("AppendToCurrentDocument"))
+        return KateExternalTool::OutputMode::AppendToCurrentDocument;
+    if (mode == QStringLiteral("InsertInNewDocument"))
+        return KateExternalTool::OutputMode::InsertInNewDocument;
+    if (mode == QStringLiteral("DisplayInPane"))
+        return KateExternalTool::OutputMode::DisplayInPane;
+    return KateExternalTool::OutputMode::Ignore;
+}
 }
 
 bool KateExternalTool::checkExec() const
@@ -118,19 +139,8 @@ void KateExternalTool::save(KConfigGroup &cg) const
 
 bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs)
 {
-    return lhs.category == rhs.category
-        && lhs.name == rhs.name
-        && lhs.icon == rhs.icon
-        && lhs.executable == rhs.executable
-        && lhs.arguments == rhs.arguments
-        && lhs.input == rhs.input
-        && lhs.workingDir == rhs.workingDir
-        && lhs.mimetypes == rhs.mimetypes
-        && lhs.actionName == rhs.actionName
-        && lhs.cmdname == rhs.cmdname
-        && lhs.saveMode == rhs.saveMode
-        && lhs.reload == rhs.reload
-        && lhs.outputMode == rhs.outputMode;
+    return lhs.category == rhs.category && lhs.name == rhs.name && lhs.icon == rhs.icon && lhs.executable == rhs.executable && lhs.arguments == rhs.arguments && lhs.input == rhs.input && lhs.workingDir == rhs.workingDir &&
+        lhs.mimetypes == rhs.mimetypes && lhs.actionName == rhs.actionName && lhs.cmdname == rhs.cmdname && lhs.saveMode == rhs.saveMode && lhs.reload == rhs.reload && lhs.outputMode == rhs.outputMode;
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

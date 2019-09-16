@@ -27,44 +27,44 @@
 #include <QStandardPaths>
 #include <QMenu>
 
-KateBookmarkHandler::KateBookmarkHandler( KateFileBrowser *parent, QMenu* kpopupmenu )
-  : QObject( parent ),
-  KBookmarkOwner(),
-  mParent( parent ),
-  m_menu( kpopupmenu )
+KateBookmarkHandler::KateBookmarkHandler(KateFileBrowser *parent, QMenu *kpopupmenu)
+    : QObject(parent)
+    , KBookmarkOwner()
+    , mParent(parent)
+    , m_menu(kpopupmenu)
 {
-  setObjectName( QStringLiteral ("KateBookmarkHandler") );
-  if (!m_menu)
-    m_menu = new QMenu( parent);
+    setObjectName(QStringLiteral("KateBookmarkHandler"));
+    if (!m_menu)
+        m_menu = new QMenu(parent);
 
-  QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kate/fsbookmarks.xml"));
-  if ( file.isEmpty() )
-    file = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/fsbookmarks.xml");
+    QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kate/fsbookmarks.xml"));
+    if (file.isEmpty())
+        file = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/fsbookmarks.xml");
 
-  KBookmarkManager *manager = KBookmarkManager::managerForFile( file, QStringLiteral("kate") );
-  manager->setUpdate( true );
+    KBookmarkManager *manager = KBookmarkManager::managerForFile(file, QStringLiteral("kate"));
+    manager->setUpdate(true);
 
-  m_bookmarkMenu = new KBookmarkMenu( manager, this, m_menu, parent->actionCollection() );
+    m_bookmarkMenu = new KBookmarkMenu(manager, this, m_menu, parent->actionCollection());
 }
 
 KateBookmarkHandler::~KateBookmarkHandler()
 {
-  delete m_bookmarkMenu;
+    delete m_bookmarkMenu;
 }
 
 QUrl KateBookmarkHandler::currentUrl() const
 {
-  return mParent->dirOperator()->url();
+    return mParent->dirOperator()->url();
 }
 
 QString KateBookmarkHandler::currentTitle() const
 {
-  return currentUrl().url();
+    return currentUrl().url();
 }
 
-void KateBookmarkHandler::openBookmark( const KBookmark & bm, Qt::MouseButtons, Qt::KeyboardModifiers )
+void KateBookmarkHandler::openBookmark(const KBookmark &bm, Qt::MouseButtons, Qt::KeyboardModifiers)
 {
-  emit openUrl(bm.url().url());
+    emit openUrl(bm.url().url());
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

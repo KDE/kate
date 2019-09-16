@@ -26,22 +26,19 @@
 #include <KTextEditor/MainWindow>
 #include <KPluginFactory>
 
-
 K_PLUGIN_FACTORY_WITH_JSON(KTextEditorPreviewPluginFactory, "ktexteditorpreview.json", registerPlugin<KTextEditorPreviewPlugin>();)
 
-
-KTextEditorPreviewPlugin::KTextEditorPreviewPlugin(QObject* parent, const QVariantList& /*args*/)
+KTextEditorPreviewPlugin::KTextEditorPreviewPlugin(QObject *parent, const QVariantList & /*args*/)
     : KTextEditor::Plugin(parent)
 {
 }
 
 KTextEditorPreviewPlugin::~KTextEditorPreviewPlugin() = default;
 
-QObject* KTextEditorPreviewPlugin::createView(KTextEditor::MainWindow* mainwindow)
+QObject *KTextEditorPreviewPlugin::createView(KTextEditor::MainWindow *mainwindow)
 {
     return new KTextEditorPreviewView(this, mainwindow);
 }
-
 
 // needed for K_PLUGIN_FACTORY_WITH_JSON
 #include <ktexteditorpreviewplugin.moc>

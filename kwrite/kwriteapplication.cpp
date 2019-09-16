@@ -35,7 +35,7 @@ KWriteApplication::~KWriteApplication()
     delete m_application;
 }
 
-KWrite * KWriteApplication::newWindow(KTextEditor::Document* doc)
+KWrite *KWriteApplication::newWindow(KTextEditor::Document *doc)
 {
     KWrite *k = new KWrite(doc, this);
     m_kwrites.append(k);
@@ -75,7 +75,7 @@ void KWriteApplication::restore()
     }
 }
 
-void KWriteApplication::saveProperties(KConfig* config)
+void KWriteApplication::saveProperties(KConfig *config)
 {
     config->group("Number").writeEntry("NumberOfDocuments", m_documents.count());
 
@@ -96,7 +96,7 @@ void KWriteApplication::saveProperties(KConfig* config)
 bool KWriteApplication::quit()
 {
     QList<KWrite *> copy(m_kwrites);
-    for(auto kwrite: copy) {
+    for (auto kwrite : copy) {
         if (!kwrite->close()) {
             return false;
         }
@@ -109,7 +109,7 @@ bool KWriteApplication::quit()
 
 KTextEditor::MainWindow *KWriteApplication::activeMainWindow()
 {
-    for(auto kwrite: m_kwrites) {
+    for (auto kwrite : m_kwrites) {
         if (kwrite->isActiveWindow()) {
             return kwrite->mainWindow();
         }
@@ -121,17 +121,17 @@ KTextEditor::MainWindow *KWriteApplication::activeMainWindow()
 QList<KTextEditor::MainWindow *> KWriteApplication::mainWindows()
 {
     QList<KTextEditor::MainWindow *> windows;
-    for(auto kwrite: m_kwrites) {
+    for (auto kwrite : m_kwrites) {
         windows.append(kwrite->mainWindow());
     }
 
     return windows;
 }
 
-bool KWriteApplication::closeDocument(KTextEditor::Document* document)
+bool KWriteApplication::closeDocument(KTextEditor::Document *document)
 {
     QList<KWrite *> copy(m_kwrites);
-    for(auto kwrite: copy) {
+    for (auto kwrite : copy) {
         if (kwrite->activeView()->document() == document) {
             if (!kwrite->close()) {
                 return false;

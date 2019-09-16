@@ -24,8 +24,8 @@
 #include <QKeyEvent>
 #include <QDebug>
 
-TargetsUi::TargetsUi(QObject *view, QWidget *parent):
-QWidget(parent)
+TargetsUi::TargetsUi(QObject *view, QWidget *parent)
+    : QWidget(parent)
 {
     targetLabel = new QLabel(i18n("Active target-set:"));
     targetCombo = new QComboBox(this);
@@ -62,7 +62,7 @@ QWidget(parent)
     targetsView->setSelectionBehavior(QAbstractItemView::SelectItems);
     targetsView->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked | QAbstractItemView::EditKeyPressed);
 
-    QHBoxLayout* tLayout = new QHBoxLayout();
+    QHBoxLayout *tLayout = new QHBoxLayout();
 
     tLayout->addWidget(targetLabel);
     tLayout->addWidget(targetCombo);
@@ -73,34 +73,34 @@ QWidget(parent)
     tLayout->addWidget(newTarget);
     tLayout->addWidget(copyTarget);
     tLayout->addWidget(deleteTarget);
-    tLayout->setContentsMargins(0,0,0,0);
+    tLayout->setContentsMargins(0, 0, 0, 0);
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addLayout(tLayout);
     layout->addWidget(targetsView);
 
     connect(targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &TargetsUi::targetSetSelected);
-    connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged,
-            this, &TargetsUi::targetActivated);
-    //connect(targetsView, SIGNAL(clicked(QModelIndex)), this, SLOT(targetActivated(QModelIndex)));
+    connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::targetActivated);
+    // connect(targetsView, SIGNAL(clicked(QModelIndex)), this, SLOT(targetActivated(QModelIndex)));
 
     targetsView->installEventFilter(this);
 }
 
 void TargetsUi::targetSetSelected(int index)
 {
-    //qDebug() << index;
+    // qDebug() << index;
     targetsView->collapseAll();
     QModelIndex rootItem = targetsModel.index(index, 0);
 
     targetsView->setExpanded(rootItem, true);
-    targetsView->setCurrentIndex(rootItem.child(0,0));
+    targetsView->setCurrentIndex(rootItem.child(0, 0));
 }
 
 void TargetsUi::targetActivated(const QModelIndex &index)
 {
-    //qDebug() << index;
-    if (!index.isValid()) return;
+    // qDebug() << index;
+    if (!index.isValid())
+        return;
     QModelIndex rootItem = index;
     if (rootItem.parent().isValid()) {
         rootItem = rootItem.parent();
@@ -111,12 +111,10 @@ void TargetsUi::targetActivated(const QModelIndex &index)
 
 bool TargetsUi::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type()==QEvent::KeyPress) {
-        QKeyEvent *keyEvent=static_cast<QKeyEvent*>(event);
-        if (obj==targetsView) {
-            if (((keyEvent->key()==Qt::Key_Return)
-                || (keyEvent->key()==Qt::Key_Enter)) && m_delegate && !m_delegate->isEditing())
-            {
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if (obj == targetsView) {
+            if (((keyEvent->key() == Qt::Key_Return) || (keyEvent->key() == Qt::Key_Enter)) && m_delegate && !m_delegate->isEditing()) {
                 emit enterPressed();
                 return true;
             }

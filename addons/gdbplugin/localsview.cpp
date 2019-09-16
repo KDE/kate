@@ -22,9 +22,8 @@
 #include <QDebug>
 #include <klocalizedstring.h>
 
-
 LocalsView::LocalsView(QWidget *parent)
-:   QTreeWidget(parent)
+    : QTreeWidget(parent)
 {
     QStringList headers;
     headers << i18n("Symbol");
@@ -77,7 +76,7 @@ void LocalsView::addLocal(const QString &vString)
         clear();
         m_allAdded = false;
     }
-    
+
     if (vString.isEmpty()) {
         m_allAdded = true;
         return;
@@ -88,7 +87,8 @@ void LocalsView::addLocal(const QString &vString)
     }
     if (isPrettyQList.exactMatch(vString)) {
         m_local += vString.trimmed();
-        if (m_local.endsWith(QLatin1Char(','))) m_local += QLatin1Char(' ');
+        if (m_local.endsWith(QLatin1Char(',')))
+            m_local += QLatin1Char(' ');
         return;
     }
     if (vString == QLatin1String("}")) {
@@ -97,7 +97,7 @@ void LocalsView::addLocal(const QString &vString)
 
     QStringList symbolAndValue;
     QString value;
-    
+
     if (m_local.isEmpty()) {
         if (vString == QLatin1String("No symbol table info available.")) {
             return; /* this is not an error */
@@ -112,8 +112,7 @@ void LocalsView::addLocal(const QString &vString)
             symbolAndValue[0] = QStringLiteral("*this");
         }
         value = isValue.cap(2);
-    }
-    else {
+    } else {
         if (!isPrettyValue.exactMatch(m_local)) {
             qDebug() << "Could not parse:" << m_local;
             m_local.clear();
@@ -127,25 +126,21 @@ void LocalsView::addLocal(const QString &vString)
     if (value[0] == QLatin1Char('{')) {
         if (value[1] == QLatin1Char('{')) {
             item = new QTreeWidgetItem(this, symbolAndValue);
-            addArray(item, value.mid(1, value.size()-2));
-        }
-        else {
+            addArray(item, value.mid(1, value.size() - 2));
+        } else {
             if (isStruct.exactMatch(value)) {
                 item = new QTreeWidgetItem(this, symbolAndValue);
-                addStruct(item, value.mid(1, value.size()-2));
-            }
-            else {
+                addStruct(item, value.mid(1, value.size() - 2));
+            } else {
                 createWrappedItem(this, symbolAndValue[0], value);
             }
         }
-    }
-    else {
+    } else {
         createWrappedItem(this, symbolAndValue[0], value);
     }
 
     m_local.clear();
 }
-
 
 void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
 {
@@ -165,8 +160,8 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
             createWrappedItem(parent, QString(), vString.right(start));
             break;
         }
-        symbolAndValue << vString.mid(start, end-start);
-        //qDebug() << symbolAndValue;
+        symbolAndValue << vString.mid(start, end - start);
+        // qDebug() << symbolAndValue;
         // Value
         start = end + 3;
         end = start;
@@ -180,50 +175,51 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
             int count = 1;
             bool inComment = false;
             // search for the matching }
-            while(end < vString.size()) {
+            while (end < vString.size()) {
                 if (!inComment) {
-                    if (vString[end] == QLatin1Char('"')) inComment = true;
-                    else if (vString[end] == QLatin1Char('}')) count--;
-                    else if (vString[end] == QLatin1Char('{')) count++;
-                    if (count == 0) break;
-                }
-                else {
-                    if ((vString[end] == QLatin1Char('"')) && (vString[end-1] != QLatin1Char('\\'))) {
+                    if (vString[end] == QLatin1Char('"'))
+                        inComment = true;
+                    else if (vString[end] == QLatin1Char('}'))
+                        count--;
+                    else if (vString[end] == QLatin1Char('{'))
+                        count++;
+                    if (count == 0)
+                        break;
+                } else {
+                    if ((vString[end] == QLatin1Char('"')) && (vString[end - 1] != QLatin1Char('\\'))) {
                         inComment = false;
                     }
                 }
                 end++;
             }
-            subValue = vString.mid(start, end-start);
+            subValue = vString.mid(start, end - start);
             if (isArray.exactMatch(subValue)) {
                 item = new QTreeWidgetItem(parent, symbolAndValue);
                 addArray(item, subValue);
-            }
-            else if (isStruct.exactMatch(subValue)) {
+            } else if (isStruct.exactMatch(subValue)) {
                 item = new QTreeWidgetItem(parent, symbolAndValue);
                 addStruct(item, subValue);
-            }
-            else {
-                createWrappedItem(parent, symbolAndValue[0], vString.mid(start, end-start));
+            } else {
+                createWrappedItem(parent, symbolAndValue[0], vString.mid(start, end - start));
             }
             start = end + 3; // },_
-        }
-        else {
+        } else {
             // look for the end of the value in the vString
             bool inComment = false;
-            while(end < vString.size()) {
+            while (end < vString.size()) {
                 if (!inComment) {
-                    if (vString[end] == QLatin1Char('"')) inComment = true;
-                    else if (vString[end] == QLatin1Char(',')) break;
-                }
-                else {
-                    if ((vString[end] == QLatin1Char('"')) && (vString[end-1] != QLatin1Char('\\'))) {
+                    if (vString[end] == QLatin1Char('"'))
+                        inComment = true;
+                    else if (vString[end] == QLatin1Char(','))
+                        break;
+                } else {
+                    if ((vString[end] == QLatin1Char('"')) && (vString[end - 1] != QLatin1Char('\\'))) {
                         inComment = false;
                     }
                 }
                 end++;
             }
-            createWrappedItem(parent, symbolAndValue[0], vString.mid(start, end-start));
+            createWrappedItem(parent, symbolAndValue[0], vString.mid(start, end - start));
             start = end + 2; // ,_
         }
     }
@@ -242,26 +238,27 @@ void LocalsView::addArray(QTreeWidgetItem *parent, const QString &vString)
 
     while (end < vString.size()) {
         if (!inComment) {
-            if (vString[end] == QLatin1Char('"')) inComment = true;
-            else if (vString[end] == QLatin1Char('}')) count--;
-            else if (vString[end] == QLatin1Char('{')) count++;
+            if (vString[end] == QLatin1Char('"'))
+                inComment = true;
+            else if (vString[end] == QLatin1Char('}'))
+                count--;
+            else if (vString[end] == QLatin1Char('{'))
+                count++;
             if (count == 0) {
                 QStringList name;
                 name << QStringLiteral("[%1]").arg(index);
                 index++;
                 item = new QTreeWidgetItem(parent, name);
-                addStruct(item, vString.mid(start, end-start));
+                addStruct(item, vString.mid(start, end - start));
                 end += 4; // "}, {"
                 start = end;
                 count = 1;
             }
-        }
-        else {
-            if ((vString[end] == QLatin1Char('"')) && (vString[end-1] != QLatin1Char('\\'))) {
+        } else {
+            if ((vString[end] == QLatin1Char('"')) && (vString[end - 1] != QLatin1Char('\\'))) {
                 inComment = false;
             }
         }
         end++;
     }
 }
-

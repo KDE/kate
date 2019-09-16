@@ -42,7 +42,6 @@ KTERustCompletion::~KTERustCompletion()
 
 QVariant KTERustCompletion::data(const QModelIndex &index, int role) const
 {
-
     if (!index.isValid() || index.row() >= m_matches.size()) {
         return QVariant();
     }
@@ -80,8 +79,7 @@ bool KTERustCompletion::shouldStartCompletion(KTextEditor::View *view, const QSt
         return false;
     }
 
-    bool complete = CodeCompletionModelControllerInterface::shouldStartCompletion(view,
-        insertedText, userInsertion, position);
+    bool complete = CodeCompletionModelControllerInterface::shouldStartCompletion(view, insertedText, userInsertion, position);
 
     complete = complete || insertedText.endsWith(QLatin1Char('('));
     complete = complete || insertedText.endsWith(QLatin1Char('.'));
@@ -152,7 +150,7 @@ QList<CompletionMatch> KTERustCompletion::getMatches(const KTextEditor::Document
 
             QStringList lines(output.split(QLatin1Char('\n'), QString::SkipEmptyParts));
 
-            foreach(QString line, lines) {
+            foreach (QString line, lines) {
                 if (line.startsWith(QLatin1String("MATCH "))) {
                     line.remove(0, 6);
 
@@ -174,10 +172,12 @@ QList<CompletionMatch> KTERustCompletion::getMatches(const KTextEditor::Document
                     bool ok = false;
 
                     int row = line.section(QLatin1Char(','), 1, 1).toInt(&ok);
-                    if (ok) match.line = row - 1;
+                    if (ok)
+                        match.line = row - 1;
 
                     int col = line.section(QLatin1Char(','), 2, 2).toInt(&ok);
-                    if (ok) match.col = col;
+                    if (ok)
+                        match.col = col;
 
                     matches.append(match);
 

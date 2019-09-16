@@ -27,7 +27,7 @@
 
 // Standard includes
 #include <KConfig>
-#include <KLocalizedString>                                 /// \todo Where is \c i18n() defined?
+#include <KLocalizedString> /// \todo Where is \c i18n() defined?
 #include <KIconLoader>
 #include <KSharedConfig>
 #include <KConfigGroup>
@@ -38,52 +38,47 @@
 
 #include <cassert>
 
-namespace kate { namespace {
-
+namespace kate
+{
+namespace
+{
 class KateDocItem : public QTreeWidgetItem
 {
-  public:
-    KateDocItem(KTextEditor::Document* doc, QTreeWidget* tw)
-      : QTreeWidgetItem(tw)
-      , document(doc)
+public:
+    KateDocItem(KTextEditor::Document *doc, QTreeWidget *tw)
+        : QTreeWidgetItem(tw)
+        , document(doc)
     {
         setText(0, doc->documentName());
         setText(1, doc->url().toString());
         setCheckState(0, Qt::Checked);
     }
-    KTextEditor::Document* document;
+    KTextEditor::Document *document;
 };
-}                                                           // anonymous namespace
+} // anonymous namespace
 
-CloseConfirmDialog::CloseConfirmDialog(
-    QList<KTextEditor::Document*>& docs
-  , KToggleAction* show_confirmation_action
-  , QWidget* const parent
-  )
-  : QDialog(parent)
-  , m_docs(docs)
+CloseConfirmDialog::CloseConfirmDialog(QList<KTextEditor::Document *> &docs, KToggleAction *show_confirmation_action, QWidget *const parent)
+    : QDialog(parent)
+    , m_docs(docs)
 {
     assert("Documents container expected to be non empty" && !docs.isEmpty());
     setupUi(this);
-    
+
     setWindowTitle(i18nc("@title:window", "Close files confirmation"));
     setModal(true);
     buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
-    
-    icon->setPixmap(KIconLoader::global()->loadIcon(QStringLiteral("dialog-warning"),KIconLoader::Desktop,KIconLoader::SizeLarge));
 
-    text->setText(
-        i18nc("@label:listbox", "You are about to close the following documents:")
-    );
-    
+    icon->setPixmap(KIconLoader::global()->loadIcon(QStringLiteral("dialog-warning"), KIconLoader::Desktop, KIconLoader::SizeLarge));
+
+    text->setText(i18nc("@label:listbox", "You are about to close the following documents:"));
+
     QStringList headers;
     headers << i18nc("@title:column", "Document") << i18nc("@title:column", "Location");
     m_docs_tree->setHeaderLabels(headers);
     m_docs_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_docs_tree->setRootIsDecorated(false);
 
-    for (auto& doc : qAsConst(m_docs))
-    {
+    for (auto &doc : qAsConst(m_docs)) {
         new KateDocItem(doc, m_docs_tree);
     }
     m_docs_tree->header()->setStretchLastSection(false);
@@ -101,13 +96,13 @@ CloseConfirmDialog::CloseConfirmDialog(
     connect(this, &CloseConfirmDialog::accepted, this, &CloseConfirmDialog::updateDocsList);
 
     KConfigGroup gcg(KSharedConfig::openConfig(), "kate-close-except-like-CloseConfirmationDialog");
-    KWindowConfig::restoreWindowSize(windowHandle(),gcg);                                 // restore dialog geometry from config
+    KWindowConfig::restoreWindowSize(windowHandle(), gcg); // restore dialog geometry from config
 }
 
 CloseConfirmDialog::~CloseConfirmDialog()
 {
     KConfigGroup gcg(KSharedConfig::openConfig(), "kate-close-except-like-CloseConfirmationDialog");
-    KWindowConfig::saveWindowSize(windowHandle(),gcg);                                    // write dialog geometry to config
+    KWindowConfig::saveWindowSize(windowHandle(), gcg); // write dialog geometry to config
     gcg.sync();
 }
 
@@ -116,16 +111,11 @@ CloseConfirmDialog::~CloseConfirmDialog()
  */
 void CloseConfirmDialog::updateDocsList()
 {
-    for (
-        QTreeWidgetItemIterator it(m_docs_tree, QTreeWidgetItemIterator::NotChecked)
-      ; *it
-      ; ++it
-      )
-    {
-        KateDocItem* item = static_cast<KateDocItem*>(*it);
+    for (QTreeWidgetItemIterator it(m_docs_tree, QTreeWidgetItemIterator::NotChecked); *it; ++it) {
+        KateDocItem *item = static_cast<KateDocItem *>(*it);
         m_docs.removeAll(item->document);
         qDebug() << "do not close the file " << item->document->url().toString();
     }
 }
 
-}                                                           // namespace kate
+} // namespace kate

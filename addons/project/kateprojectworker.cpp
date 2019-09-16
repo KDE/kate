@@ -47,7 +47,7 @@ void KateProjectWorker::run(ThreadWeaver::JobPointer, ThreadWeaver::Thread *)
      * then load the project recursively
      */
     KateProjectSharedQStandardItem topLevel(new QStandardItem());
-    KateProjectSharedQMapStringItem file2Item(new QMap<QString, KateProjectItem *> ());
+    KateProjectSharedQMapStringItem file2Item(new QMap<QString, KateProjectItem *>());
     loadProject(topLevel.data(), m_projectMap, file2Item.data());
 
     /**
@@ -69,7 +69,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
      * recurse to sub-projects FIRST
      */
     QVariantList subGroups = project[QStringLiteral("projects")].toList();
-    for (const QVariant &subGroupVariant: subGroups) {
+    for (const QVariant &subGroupVariant : subGroups) {
         /**
          * convert to map and get name, else skip
          */
@@ -175,11 +175,11 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
      */
     QMap<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
-    QList<QPair<QStandardItem *, QStandardItem *> > item2ParentPath;
+    QList<QPair<QStandardItem *, QStandardItem *>> item2ParentPath;
     for (const QString &filePath : files) {
         /**
-          * skip dupes
-          */
+         * skip dupes
+         */
         if (file2Item->contains(filePath)) {
             continue;
         }
@@ -221,7 +221,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     }
 }
 
-QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap& filesEntry)
+QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry)
 {
     const bool recursive = !filesEntry.contains(QLatin1String("recursive")) || filesEntry[QStringLiteral("recursive")].toBool();
 
@@ -283,7 +283,7 @@ QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
     }
 
     const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
-    for (const QByteArray & byteArray : byteArrayList) {
+    for (const QByteArray &byteArray : byteArrayList) {
         files << QString::fromUtf8(byteArray);
     }
 
@@ -399,7 +399,7 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
         QRegularExpression exp(QStringLiteral("Root: ([^\\n\\r]*)"));
         auto match = exp.match(str);
 
-        if(!match.hasMatch())
+        if (!match.hasMatch())
             return files;
 
         root = match.captured(1);
@@ -410,24 +410,20 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
         QProcess darcs;
         QStringList args;
         darcs.setWorkingDirectory(dir.absolutePath());
-        args << QStringLiteral("list") << QStringLiteral("files")
-             << QStringLiteral("--no-directories") << QStringLiteral("--pending");
+        args << QStringLiteral("list") << QStringLiteral("files") << QStringLiteral("--no-directories") << QStringLiteral("--pending");
 
         darcs.start(cmd, args);
 
-        if(!darcs.waitForStarted() || !darcs.waitForFinished(-1))
+        if (!darcs.waitForStarted() || !darcs.waitForFinished(-1))
             return files;
 
-        relFiles = QString::fromLocal8Bit(darcs.readAllStandardOutput())
-            .split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+        relFiles = QString::fromLocal8Bit(darcs.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
     }
 
-    for (const QString &relFile: relFiles) {
+    for (const QString &relFile : relFiles) {
         const QString path = dir.relativeFilePath(root + QLatin1String("/") + relFile);
 
-        if ((!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) ||
-            (recursive && (relFile.indexOf(QLatin1String("..")) == 0))
-        ) {
+        if ((!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) || (recursive && (relFile.indexOf(QLatin1String("..")) == 0))) {
             continue;
         }
 

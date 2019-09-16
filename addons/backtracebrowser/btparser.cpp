@@ -21,7 +21,6 @@
 #include <QStringList>
 #include <QDebug>
 
-
 static QString eolDelimiter(const QString &str)
 {
     // find the split character
@@ -83,7 +82,6 @@ static BtInfo parseBtLine(const QString &line)
     // b) #39 0xb634211c in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0
     // c) #41 0x0805e690 in ?? ()
     // d) #5  0xffffe410 in __kernel_vsyscall ()
-
 
     // try a) cap #number(1), address(2), function(3), filename(4), linenumber(5)
     static QRegExp rxa(QStringLiteral("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)\\s+at\\s+(.+):(\\d+)$"));
@@ -152,7 +150,7 @@ static BtInfo parseBtLine(const QString &line)
     return info;
 }
 
-QList<BtInfo>  KateBtParser::parseBacktrace(const QString &bt)
+QList<BtInfo> KateBtParser::parseBacktrace(const QString &bt)
 {
     QStringList l = bt.split(eolDelimiter(bt), QString::SkipEmptyParts);
 

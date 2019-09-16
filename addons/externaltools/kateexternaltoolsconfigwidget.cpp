@@ -43,8 +43,6 @@
 #include <QStandardPaths>
 #include <QTreeView>
 
-#include <unistd.h>
-
 namespace
 {
 constexpr int ToolRole = Qt::UserRole + 1;

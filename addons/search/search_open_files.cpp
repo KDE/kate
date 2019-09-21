@@ -20,7 +20,7 @@
 
 #include "search_open_files.h"
 
-#include <QTime>
+#include <QElapsedTimer>
 
 SearchOpenFiles::SearchOpenFiles(QObject *parent)
     : QObject(parent)
@@ -95,7 +95,7 @@ int SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegularEx
 int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine)
 {
     int column;
-    QTime time;
+    QElapsedTimer time;
 
     time.start();
     for (int line = startLine; line < doc->lines(); line++) {
@@ -119,7 +119,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
 {
     int column = 0;
     int startLine = 0;
-    QTime time;
+    QElapsedTimer time;
     time.start();
     QRegularExpression tmpRegExp = regExp;
 

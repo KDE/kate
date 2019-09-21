@@ -23,7 +23,7 @@
 
 #include <QObject>
 #include <QRegularExpression>
-#include <QTime>
+#include <QElapsedTimer>
 #include <ktexteditor/document.h>
 
 class SearchOpenFiles : public QObject
@@ -62,7 +62,7 @@ private:
     bool m_cancelSearch = true;
     QString m_fullDoc;
     QVector<int> m_lineStart;
-    QTime m_statusTime;
+    QElapsedTimer m_statusTime;
 };
 
 #endif

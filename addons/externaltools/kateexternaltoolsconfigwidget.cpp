@@ -176,7 +176,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
     , m_plugin(plugin)
 {
     setupUi(this);
-    layout()->setMargin(0);
+    layout()->setContentsMargins(0, 0, 0, 0);
     lbTools->setModel(&m_toolsModel);
     lbTools->setSelectionMode(QAbstractItemView::SingleSelection);
     lbTools->setDragEnabled(true);

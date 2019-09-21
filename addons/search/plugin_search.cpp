@@ -784,7 +784,7 @@ void KatePluginSearchView::addHeaderItem()
 {
     QTreeWidgetItem *item = new QTreeWidgetItem(m_curResults->tree, QStringList());
     item->setCheckState(0, Qt::Checked);
-    item->setFlags(item->flags() | Qt::ItemIsTristate);
+    item->setFlags(item->flags() | Qt::ItemIsAutoTristate);
     m_curResults->tree->expandItem(item);
 }
 
@@ -834,7 +834,7 @@ QTreeWidgetItem *KatePluginSearchView::rootFileItem(const QString &url, const QS
     item->setData(0, ReplaceMatches::FileNameRole, fName);
     item->setData(0, ReplaceMatches::StartLineRole, 1);
     item->setCheckState(0, Qt::Checked);
-    item->setFlags(item->flags() | Qt::ItemIsTristate);
+    item->setFlags(item->flags() | Qt::ItemIsAutoTristate);
     return item;
 }
 
@@ -1248,7 +1248,7 @@ void KatePluginSearchView::startSearchWhileTyping()
     item->setData(0, ReplaceMatches::FileNameRole, doc->documentName());
     item->setData(0, ReplaceMatches::StartLineRole, 0);
     item->setCheckState(0, Qt::Checked);
-    item->setFlags(item->flags() | Qt::ItemIsTristate);
+    item->setFlags(item->flags() | Qt::ItemIsAutoTristate);
 
     // Do the search
     int searchStoppedAt = m_searchOpenFiles.searchOpenFile(doc, reg, 0);

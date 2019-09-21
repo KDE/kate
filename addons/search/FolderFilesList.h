@@ -26,7 +26,7 @@
 #include <QFileInfo>
 #include <QVector>
 #include <QStringList>
-#include <QTime>
+#include <QElapsedTimer>
 
 class FolderFilesList : public QThread
 {
@@ -62,7 +62,7 @@ private:
     bool m_binary;
     QStringList m_types;
     QVector<QRegExp> m_excludeList;
-    QTime m_time;
+    QElapsedTimer m_time;
 };
 
 #endif

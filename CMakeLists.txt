@@ -1,16 +1,16 @@
 # 3.1 is required for `target_sources`.
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
-project(kate)
-
-set(QT_MIN_VERSION "5.4.0")
-set(KF5_DEP_VERSION "5.40.0")
-
 # KDE Applications version, managed by release script.
 set(KDE_APPLICATIONS_VERSION_MAJOR "19")
 set(KDE_APPLICATIONS_VERSION_MINOR "11")
 set(KDE_APPLICATIONS_VERSION_MICRO "70")
 set(KDE_APPLICATIONS_VERSION "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATIONS_VERSION_MINOR}.${KDE_APPLICATIONS_VERSION_MICRO}")
+
+project(kate VERSION ${KDE_APPLICATIONS_VERSION})
+
+set(QT_MIN_VERSION "5.4.0")
+set(KF5_DEP_VERSION "5.40.0")
 
 # We need some parts of the ECM CMake helpers.
 find_package(ECM ${KF5_DEP_VERSION} QUIET REQUIRED NO_MODULE)

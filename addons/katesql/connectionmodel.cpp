@@ -57,24 +57,20 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     switch (role) {
         case Qt::DisplayRole:
             return QVariant(m_connections.value(key).name);
-            break;
 
         case Qt::UserRole:
             return QVariant::fromValue<Connection>(m_connections.value(key));
-            break;
 
         case Qt::DecorationRole:
             return m_icons[m_connections.value(key).status];
-            break;
 
         case Qt::SizeHintRole: {
             const QFontMetrics metrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
             return QSize(metrics.width(m_connections.value(key).name), 22);
-        } break;
+        }
 
         default:
             return QVariant();
-            break;
     }
 
     return QVariant();

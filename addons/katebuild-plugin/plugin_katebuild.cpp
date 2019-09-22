@@ -65,6 +65,7 @@ static const QString DefConfClean;
 static const QString DefTargetName = QStringLiteral("all");
 static const QString DefBuildCmd = QStringLiteral("make");
 static const QString DefCleanCmd = QStringLiteral("make clean");
+static const QString NinjaPrefix = QStringLiteral("[ninja]");
 
 static QIcon messageIcon(KateBuildView::ErrorCategory severity)
 {
@@ -699,6 +700,16 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
         return false;
     }
 
+    // ninja build tool sends all output to stdout,
+    // so follow https://github.com/ninja-build/ninja/issues/1537 to separate ninja and compiler output
+    auto env = QProcessEnvironment::systemEnvironment();
+    const auto nstatus = QStringLiteral("NINJA_STATUS");
+    auto curr = env.value(nstatus, QStringLiteral("[%f/%t] "));
+    // add marker to search on later on
+    env.insert(nstatus, NinjaPrefix + curr);
+    m_ninjaBuildDetected = false;
+
+    m_proc.setProcessEnvironment(env);
     m_proc.setWorkingDirectory(m_make_dir);
     m_proc.setShellCommand(command);
     m_proc.start();
@@ -916,7 +927,12 @@ void KateBuildView::slotReadReadyStdOut()
         if (end < 0)
             break;
 
-        const QString line = m_stdOut.mid(0, end);
+        QString line = m_stdOut.mid(0, end);
+        const bool ninjaOutput = line.startsWith(NinjaPrefix);
+        m_ninjaBuildDetected |= ninjaOutput;
+        if (ninjaOutput) {
+            line = line.mid(NinjaPrefix.length());
+        }
         m_buildUi.plainTextEdit->appendPlainText(line);
         // qDebug() << line;
 
@@ -935,6 +951,8 @@ void KateBuildView::slotReadReadyStdOut()
             }
 
             m_make_dir = newDir;
+        } else if (m_ninjaBuildDetected && !ninjaOutput) {
+            processLine(line);
         }
 
         m_stdOut.remove(0, end + 1);

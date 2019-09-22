@@ -145,6 +145,7 @@ private:
     QRegularExpression m_filenameDetector;
     QRegularExpression m_filenameDetectorIcpc;
     bool m_filenameDetectorGccWorked;
+    bool m_ninjaBuildDetected;
     QRegularExpression m_newDirDetector;
     unsigned int m_numErrors;
     unsigned int m_numWarnings;

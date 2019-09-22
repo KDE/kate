@@ -76,10 +76,6 @@ simple &gdb; frontend</para>
 </listitem>
 -->
 <listitem>
-<para><link linkend="kate-application-plugin-lumen">Lumen</link> - Lumen
-Autocompletion Plugin for D, using the DCD autocompletion server</para>
-</listitem>
-<listitem>
 <para><link linkend="kate-application-plugin-openheader">Open Header</link>
 - Opens the corresponding .h/[.cpp|.c] file</para>
 </listitem>
@@ -90,8 +86,8 @@ Autocompletion Plugin for D, using the DCD autocompletion server</para>
 <para>Replicode - Constructivist AI language and runtime</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-rust">Rust code completion</link>
-- Code completion for Rust source code</para>
+<para><link linkend="kate-application-plugin-lspclient">LSP Client</link>
+- LSP client providing code navigation and code completion for many languages</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-searchinfiles">Search &amp; Replace</link> -
@@ -1398,71 +1394,6 @@ writing much of this section.</para>
 
 </sect1>
 
-<sect1 id="kate-application-plugin-lumen">
-<!-- https://kate-editor.org/2014/02/20/lumen-a-code-completion-plugin-for-the-d-programming-language/ -->
-<title>Lumen Plugin</title>
-
-<para>Lumen is a plugin providing code-completion for the <ulink url="https://en.wikipedia.org/wiki/D_(programming_language)">
-D programming language</ulink>. It is just a connection between the editor and the D Completion
-Daemon (a server providing all the information) called DCD. The plugin currently supports
-all major features of the completion server: feeding the server with import files,
-displaying documentation and several types of completion:
-</para>
-
-<para>Imports:</para>
-<screenshot id="screenshot-lumen-import">
-<screeninfo>Imports</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="lumen-import.png" format="PNG"/></imageobject>
-</mediaobject>
-</screenshot>
-
-<para>Basic Completion:</para>
-<screenshot id="screenshot-lumen-completion">
-<screeninfo>Basic Completion</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="lumen-completition.png" format="PNG"/></imageobject>
-</mediaobject>
-</screenshot>
-
-<para>Completion (overloaded Function):</para>
-<screenshot id="screenshot-lumen-completitionoverload">
-<screeninfo>Completion (overloaded Function)</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="lumen-completition-overload.png" format="PNG"/></imageobject>
-</mediaobject>
-</screenshot>
-
-<para>Calltips:</para>
-<screenshot id="screenshot-lumen-calltips">
-<screeninfo>Calltips</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="lumen-calltips.png" format="PNG"/></imageobject>
-</mediaobject>
-</screenshot>
-
-<para>To make Lumen work you have to install DCD, using the information provided by
-the <ulink url="https://dlang.org/">D community</ulink>.
-</para>
-
-<para>After installing DCD edit <filename>~/.config/dcd/dcd.conf</filename> (create if it does not exist already)
-and add a path to your D include/import files &eg; <filename class="directory">/usr/include/dlang/dmd</filename>
-or <filename class="directory">/usr/include/d</filename>.
-</para>
-
-<para>Furthermore Lumen will try to read a <filename>.lumenconfig</filename> in every parent folder
-of the currently opened D source file and add every line in this file as include path to the
-DCD server. Add all dependencies of your current project to this file.
-</para>
-
-<para>Now start the completion server with <command>dcd-server</command>, enable the Lumen
-plugin in your settings and you will have code completion for the D programming
-language in &kate;
-</para>
-
-</sect1>
-
-
 <sect1 id="kate-application-plugin-openheader">
 
 <title>Open Header Plugin</title>
@@ -1842,19 +1773,19 @@ context menu Project->Lookup:xxx
 <!--FIXME Replicode
 Projects Replicode run / stop-->
 
-<sect1 id="kate-application-plugin-rust">
-<!--https://blogs.kde.org/2015/05/18/basic-code-completion-rust-kdes-kate-and-later-kdevelop
-https://blogs.kde.org/2015/05/22/updates-kates-rust-plugin-syntax-highlighting-and-rust-source-mime-type-->
-<title>Rust code completion Plugin</title>
+<sect1 id="kate-application-plugin-lspclient">
+<title>LSP Client Plugin</title>
 
-<para>This plugin provides code completion for the <ulink url="https://www.rust-lang.org/">Rust</ulink>
-programming language.</para>
+<para>The LSP Client plugin provides many language features such as code completion, code navigation or finding references
+based on the <ulink url="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</ulink>.</para>
 
-<para>Once you have enabled the Rust code completion item in the plugin page, a new
-page will appear in your &kate; configuration dialog.
+<para>Once you have enabled the LSP Client in the plugin page, a new
+page called LSP Client will appear in your &kate; configuration dialog.
 </para>
 
-<screenshot id="screenshot-rust-configuration">
+<!--TODO: Supported languages, describe features and actions a bit -->
+
+<!--<screenshot id="screenshot-rust-configuration">
 <screeninfo>Rust Configuration</screeninfo>
 <mediaobject>
 <imageobject><imagedata fileref="rust-configuration.png" format="PNG"/></imageobject>
@@ -1884,7 +1815,7 @@ in the context menu. You can configure a keyboard shortcut for it as well.
 
 <para>This action will open the document containing the definition if needed, activate
 its view and place the cursor at the start of the definition.
-</para>
+</para>-->
 
 </sect1>
 

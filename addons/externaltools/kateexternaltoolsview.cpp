@@ -101,6 +101,11 @@ void KateExternalToolsMenuAction::reload()
         addAction(uncategorizedAction);
     }
 
+    addSeparator();
+    auto cfgAction = new QAction(i18n("Configure..."), this);
+    addAction(cfgAction);
+    connect(cfgAction, &QAction::triggered, this, &KateExternalToolsMenuAction::showConfigPage, Qt::QueuedConnection);
+
     // load shortcuts
     KSharedConfig::Ptr pConfig = KSharedConfig::openConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
     KConfigGroup config(pConfig, "Global");
@@ -124,6 +129,11 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View *view)
             action->setEnabled(tool->matchesMimetype(mimeType));
         }
     }
+}
+
+void KateExternalToolsMenuAction::showConfigPage()
+{
+    m_mainwindow->showPluginConfigPage(m_plugin, 0);
 }
 // END KateExternalToolsMenuAction
 

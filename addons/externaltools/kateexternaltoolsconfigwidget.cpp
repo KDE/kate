@@ -39,6 +39,7 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QRegularExpression>
+#include <QRegularExpressionValidator>
 #include <QStandardItem>
 #include <QStandardPaths>
 #include <QTreeView>
@@ -124,6 +125,9 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     ui->chkReload->setChecked(m_tool->reload);
     ui->cmbOutput->setCurrentIndex(static_cast<int>(m_tool->outputMode));
     ui->edtCommand->setText(m_tool->cmdname);
+
+    static const QRegularExpressionValidator cmdLineValidator(QRegularExpression(QStringLiteral("[\\w-]*")));
+    ui->edtCommand->setValidator(&cmdLineValidator);
 
     // add support for variable expansion
     KTextEditor::Editor::instance()->addVariableExpansion({ui->edtExecutable, ui->edtArgs, ui->edtInput, ui->edtWorkingDir});

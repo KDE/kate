@@ -275,10 +275,10 @@
    <item row="9" column="1">
     <widget class="QLineEdit" name="edtCommand">
      <property name="whatsThis">
-      <string>If you specify a name here, you can invoke the command from the view command line with exttool-the_name_you_specified_here. Please do not use spaces or tabs in the name.</string>
+      <string>If you specify a name here, you can invoke the command from the view command line with the_name_you_specified_here. Please do not use spaces or tabs in the name.</string>
      </property>
      <property name="placeholderText">
-      <string>Optional command bar name</string>
+      <string>Optional view command line name</string>
      </property>
     </widget>
    </item>

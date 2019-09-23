@@ -47,7 +47,7 @@ public:
     /**
      * Defines where to redirect stdout from the tool.
      */
-    enum class OutputMode { Ignore, InsertAtCursor, ReplaceSelectedText, ReplaceCurrentDocument, AppendToCurrentDocument, InsertInNewDocument, DisplayInPane };
+    enum class OutputMode { Ignore, InsertAtCursor, ReplaceSelectedText, ReplaceCurrentDocument, AppendToCurrentDocument, InsertInNewDocument, CopyToClipboard, DisplayInPane };
 
 public:
     /// The category used in the menu to categorize the tool.

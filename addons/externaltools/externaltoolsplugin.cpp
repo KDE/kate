@@ -40,6 +40,9 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
+#include <QGuiApplication>
+#include <QClipboard>
+
 static QVector<KateExternalTool> readDefaultTools()
 {
     QVector<KateExternalTool> tools;
@@ -234,6 +237,10 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
                 auto newView = mainWindow->openUrl({});
                 newView->insertText(runner->outputData());
                 mainWindow->activateView(newView->document());
+                break;
+            }
+            case KateExternalTool::OutputMode::CopyToClipboard: {
+                  QGuiApplication::clipboard()->setText(runner->outputData());
                 break;
             }
             default:

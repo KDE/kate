@@ -45,6 +45,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QTime>
+#include <QElapsedTimer>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent)
     : QWidget(parent)
@@ -278,7 +279,7 @@ void DataOutputWidget::exportData(QTextStream &stream, const QChar stringsQuoteC
     fixedFieldDelimiter.replace(QLatin1String("\\r"), QLatin1String("\r"));
     fixedFieldDelimiter.replace(QLatin1String("\\n"), QLatin1String("\n"));
 
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     QSet<int> columns;

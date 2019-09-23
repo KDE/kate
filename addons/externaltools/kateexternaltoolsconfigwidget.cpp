@@ -137,7 +137,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     connect(ui->btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
 
     Q_ASSERT(m_tool != nullptr);
-    ui->edtName->setText(m_tool->name);
+    ui->edtName->setText(i18n(m_tool->name.toUtf8().data()));
     if (!m_tool->icon.isEmpty())
         ui->btnIcon->setIcon(m_tool->icon);
 

@@ -93,6 +93,31 @@ static void makeActionNameUnique(KateExternalTool *tool, const std::vector<KateE
     }
     tool->actionName = name;
 }
+
+/**
+ * Helper that ensures that the tool->cmdname is unique
+ */
+void makeEditorCommandUnique(KateExternalTool *tool, const std::vector<KateExternalTool *> &tools)
+{
+    // empty command line name is OK
+    if (tool->cmdname.isEmpty()) {
+        return;
+    }
+
+    QString cmdname = tool->cmdname;
+    int i = 1;
+    while (true) {
+        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &cmdname](const KateExternalTool *t) {
+            return (t != tool) && (t->cmdname == cmdname);
+        });
+        if (it == tools.cend()) {
+            break;
+        }
+        cmdname = tool->cmdname + QString::number(i);
+        ++i;
+    }
+    tool->cmdname = cmdname;
+}
 }
 
 // BEGIN KateExternalToolServiceEditor
@@ -139,6 +164,7 @@ void KateExternalToolServiceEditor::slotOKClicked()
         QMessageBox::information(this, i18n("External Tool"), i18n("You must specify at least a name and an executable"));
         return;
     }
+
     accept();
 }
 
@@ -329,7 +355,10 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
         if (tool->actionName.isEmpty()) {
             tool->actionName = QStringLiteral("externaltool_") + QString(tool->name).remove(QRegularExpression(QStringLiteral("\\W+")));
         }
-        makeActionNameUnique(tool, collectTools(m_toolsModel));
+
+        const auto tools = collectTools(m_toolsModel);
+        makeActionNameUnique(tool, tools);
+        makeEditorCommandUnique(tool, tools);
 
         changed = true;
     }
@@ -380,7 +409,10 @@ void KateExternalToolsConfigWidget::slotAddDefaultTool(int defaultToolsIndex)
 
 void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
 {
-    makeActionNameUnique(tool, collectTools(m_toolsModel));
+    const auto tools = collectTools(m_toolsModel);
+    makeActionNameUnique(tool, tools);
+    makeEditorCommandUnique(tool, tools);
+
     auto item = newToolItem(tool->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(tool->icon), tool);
     auto category = addCategory(tool->category);
     category->appendRow(item);

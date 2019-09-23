@@ -1,11 +1,11 @@
 <!DOCTYPE kpartgui>
-<gui name="externaltools" library="externaltoolsplugin" version="1">
-<MenuBar>
-  <Menu name="file"><text>&amp;File</text>
-    <Action name="file_mail" group="export_merge"/>
- </Menu>
- <Menu name="tools"><text>&amp;Tools</text>
-    <Action name="tools_external" />
- </Menu>
-</MenuBar>
+<gui name="externaltools" library="externaltoolsplugin" version="2">
+  <MenuBar>
+    <Menu name="tools"><text>&amp;Tools</text>
+      <Action name="tools_external" />
+    </Menu>
+  </MenuBar>
+  <ToolBar name="externaltoolsplugin">
+    <text>External Tools</text>
+  </ToolBar>
 </gui>

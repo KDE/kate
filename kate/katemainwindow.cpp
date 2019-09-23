@@ -844,10 +844,10 @@ void KateMainWindow::slotConfigure()
     showPluginConfigPage(nullptr, 0);
 }
 
-void KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterface, uint id)
+bool KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id)
 {
     if (!m_viewManager->activeView()) {
-        return;
+        return false;
     }
 
     KateConfigDialog *dlg = new KateConfigDialog(this, m_viewManager->activeView());
@@ -864,6 +864,8 @@ void KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterfa
     m_viewManager->reactivateActiveView(); // gui (toolbars...) needs to be updated, because
     // of possible changes that the configure dialog
     // could have done on it, specially for plugins.
+
+    return true;
 }
 
 QUrl KateMainWindow::activeDocumentUrl()

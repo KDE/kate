@@ -257,6 +257,11 @@
      </item>
      <item>
       <property name="text">
+       <string>Copy to Clipboard</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>Display in Pane</string>
       </property>
      </item>

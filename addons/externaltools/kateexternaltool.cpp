@@ -64,6 +64,8 @@ QString toString(KateExternalTool::OutputMode outputMode)
             return QStringLiteral("AppendToCurrentDocument");
         case KateExternalTool::OutputMode::InsertInNewDocument:
             return QStringLiteral("InsertInNewDocument");
+        case KateExternalTool::OutputMode::CopyToClipboard:
+            return QStringLiteral("CopyToClipboard");
         case KateExternalTool::OutputMode::DisplayInPane:
             return QStringLiteral("DisplayInPane");
     }
@@ -85,6 +87,8 @@ KateExternalTool::OutputMode toOutputMode(const QString &mode)
         return KateExternalTool::OutputMode::AppendToCurrentDocument;
     if (mode == QStringLiteral("InsertInNewDocument"))
         return KateExternalTool::OutputMode::InsertInNewDocument;
+    if (mode == QStringLiteral("CopyToClipboard"))
+        return KateExternalTool::OutputMode::CopyToClipboard;
     if (mode == QStringLiteral("DisplayInPane"))
         return KateExternalTool::OutputMode::DisplayInPane;
     return KateExternalTool::OutputMode::Ignore;

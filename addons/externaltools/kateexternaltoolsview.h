@@ -74,6 +74,11 @@ private Q_SLOTS:
      */
     void slotViewChanged(KTextEditor::View *view);
 
+    /**
+     * Triggered via Tools > External Tools > Configure...
+     */
+    void showConfigPage();
+
 private:
     KateExternalToolsPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainwindow; // for the actions to access view/doc managers

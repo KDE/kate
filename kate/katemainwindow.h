@@ -505,6 +505,15 @@ public Q_SLOTS:
     bool hideToolView(QWidget *widget);
 
     /**
+     * Shows the @p plugin's config page. The @p page specifies which
+     * config page will be shown, see KTextEditor::Plugin::configPages().
+     *
+     * \return \e true on success, otherwise \e false
+     * \since 5.63
+     */
+    bool showPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);
+
+    /**
      * Get a plugin view for the plugin with with identifier \p name.
      * \param name the plugin's name
      * \return pointer to the plugin view if a plugin with \p name is loaded and has a view for this mainwindow,
@@ -617,8 +626,6 @@ private:
     KTextEditor::MainWindow *m_wrapper;
 
 public Q_SLOTS:
-    void showPluginConfigPage(KTextEditor::Plugin *configpageinterface, uint id);
-
     void slotWindowActivated();
 
 protected:

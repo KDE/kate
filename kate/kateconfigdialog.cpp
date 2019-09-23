@@ -414,7 +414,7 @@ void KateConfigDialog::slotChanged()
     buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(true);
 }
 
-void KateConfigDialog::showAppPluginPage(KTextEditor::Plugin *p, uint id)
+void KateConfigDialog::showAppPluginPage(KTextEditor::Plugin *p, int id)
 {
     foreach (PluginPageListItem *plugin, m_pluginPages) {
         if ((plugin->plugin == p) && (id == plugin->idInPlugin)) {

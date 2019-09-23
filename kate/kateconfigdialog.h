@@ -43,7 +43,7 @@ class SessionConfigWidget;
 
 struct PluginPageListItem {
     KTextEditor::Plugin *plugin;
-    uint idInPlugin;
+    int idInPlugin;
     KTextEditor::ConfigPage *pluginPage;
     QWidget *pageParent;
     KPageWidgetItem *pageWidgetItem;
@@ -67,7 +67,7 @@ public: // static
 public:
     void addPluginPage(KTextEditor::Plugin *plugin);
     void removePluginPage(KTextEditor::Plugin *plugin);
-    void showAppPluginPage(KTextEditor::Plugin *plugin, uint id);
+    void showAppPluginPage(KTextEditor::Plugin *plugin, int id);
 
 protected Q_SLOTS:
     void slotApply();

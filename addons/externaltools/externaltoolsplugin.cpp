@@ -70,8 +70,7 @@ KateExternalToolsPlugin::KateExternalToolsPlugin(QObject *parent, const QList<QV
 
 KateExternalToolsPlugin::~KateExternalToolsPlugin()
 {
-    delete m_command;
-    m_command = nullptr;
+    clearTools();
 }
 
 QObject *KateExternalToolsPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -81,13 +80,18 @@ QObject *KateExternalToolsPlugin::createView(KTextEditor::MainWindow *mainWindow
     return view;
 }
 
-void KateExternalToolsPlugin::reload()
+void KateExternalToolsPlugin::clearTools()
 {
     delete m_command;
     m_command = nullptr;
     m_commands.clear();
     qDeleteAll(m_tools);
     m_tools.clear();
+}
+
+void KateExternalToolsPlugin::reload()
+{
+    clearTools();
 
     KConfig _config(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
     KConfigGroup config(&_config, "Global");

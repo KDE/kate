@@ -58,6 +58,11 @@ public:
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
     /**
+     * Deletes all tools.
+     */
+    void clearTools();
+
+    /**
      * Reloads the external tools from disk.
      */
     void reload();

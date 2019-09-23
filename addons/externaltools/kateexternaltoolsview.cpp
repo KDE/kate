@@ -81,11 +81,11 @@ void KateExternalToolsMenuAction::reload()
 
             connect(a, &QAction::triggered, [this, a]() { m_plugin->runTool(*a->data().value<KateExternalTool *>(), m_mainwindow->activeView()); });
 
-            m_actionCollection->addAction(tool->actionName, a);
+            m_actionCollection->addAction(i18n(tool->actionName.toUtf8().data()), a);
             if (!tool->category.isEmpty()) {
                 auto categoryMenu = categories[tool->category];
                 if (!categoryMenu) {
-                    categoryMenu = new KActionMenu(tool->category, this);
+                    categoryMenu = new KActionMenu(i18n(tool->category.toUtf8().data()), this);
                     categories[tool->category] = categoryMenu;
                     addAction(categoryMenu);
                 }

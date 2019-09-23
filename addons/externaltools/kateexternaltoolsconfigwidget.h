@@ -79,7 +79,7 @@ private Q_SLOTS:
     /**
      * Creates a new category or returns existing one.
      */
-    QStandardItem *addCategory(const QString &category);
+    QStandardItem *addCategory(const QString &translatedCategory);
 
     /**
      * Returns the currently active category. The returned pointer is always valid.

@@ -53,7 +53,7 @@ constexpr int ToolRole = Qt::UserRole + 1;
  */
 QStandardItem *newToolItem(const QIcon &icon, KateExternalTool *tool)
 {
-    auto item = new QStandardItem(icon, tool->name);
+    auto item = new QStandardItem(icon, i18n(tool->name.toUtf8().data()));
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
     item->setData(QVariant::fromValue(reinterpret_cast<quintptr>(tool)), ToolRole);
     return item;
@@ -381,7 +381,7 @@ void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
     // first add categorized actions, such that the submenus appear at the top
     int defaultToolsIndex = 0;
     for (const auto &tool : m_plugin->defaultTools()) {
-        const QString category = tool.category.isEmpty() ? i18n("Uncategorized") : (tool.category);
+        const QString category = tool.category.isEmpty() ? i18n("Uncategorized") : i18n(tool.category.toUtf8().data());
         auto categoryMenu = categories[category];
         if (!categoryMenu) {
             categoryMenu = new QMenu(category, this);
@@ -389,7 +389,7 @@ void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
             defaultsMenu->addMenu(categoryMenu);
         }
 
-        auto a = categoryMenu->addAction(QIcon::fromTheme(tool.icon), tool.name);
+        auto a = categoryMenu->addAction(QIcon::fromTheme(tool.icon), i18n(tool.name.toUtf8().data()));
         a->setData(defaultToolsIndex);
 
         connect(a, &QAction::triggered, [this, a]() { slotAddDefaultTool(a->data().toInt()); });
@@ -414,7 +414,7 @@ void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
     makeEditorCommandUnique(tool, tools);
 
     auto item = newToolItem(tool->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(tool->icon), tool);
-    auto category = addCategory(tool->category);
+    auto category = addCategory(i18n(tool->category.toUtf8().data()));
     category->appendRow(item);
     lbTools->setCurrentIndex(item->index());
 
@@ -422,20 +422,20 @@ void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
     m_changed = true;
 }
 
-QStandardItem *KateExternalToolsConfigWidget::addCategory(const QString &category)
+QStandardItem *KateExternalToolsConfigWidget::addCategory(const QString &translatedCategory)
 {
-    if (category.isEmpty()) {
+    if (translatedCategory.isEmpty()) {
         return m_noCategory;
     }
 
     // search for existing category
-    auto items = m_toolsModel.findItems(category);
+    auto items = m_toolsModel.findItems(translatedCategory);
     if (!items.empty()) {
         return items.front();
     }
 
     // ...otherwise, create it
-    auto item = new QStandardItem(category);
+    auto item = new QStandardItem(translatedCategory);
 
     // for now, categories are not movable, otherwise, the use can move a
     // category into another category, which is not supported right now

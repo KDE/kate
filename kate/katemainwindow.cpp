@@ -181,9 +181,9 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     if (firstStart)
         toolBar(QStringLiteral("mainToolBar"))->hide();
 
-    // pass focus to first view!
-    if (m_viewManager->activeView())
-        m_viewManager->activeView()->setFocus();
+    // in all cases: avoid that arbitrary plugin toolviews get focus, like terminal, bug 412227
+    // we need to delay this a bit due to lazy view creation (and lazy e.g. terminal widget creation)
+    QTimer::singleShot(0, centralWidget(), SLOT(setFocus()));
 }
 
 KateMainWindow::~KateMainWindow()

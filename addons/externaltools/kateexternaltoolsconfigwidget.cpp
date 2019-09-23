@@ -50,7 +50,7 @@ constexpr int ToolRole = Qt::UserRole + 1;
 /**
  * Helper function to create a QStandardItem that internally stores a pointer to a KateExternalTool.
  */
-QStandardItem *newToolItem(const QPixmap &icon, KateExternalTool *tool)
+QStandardItem *newToolItem(const QIcon &icon, KateExternalTool *tool)
 {
     auto item = new QStandardItem(icon, tool->name);
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
@@ -67,12 +67,12 @@ KateExternalTool *toolForItem(QStandardItem *item)
     return item ? reinterpret_cast<KateExternalTool *>(item->data(ToolRole).value<quintptr>()) : nullptr;
 }
 
-QPixmap blankIcon()
+QIcon blankIcon()
 {
     QPixmap pm(KIconLoader::SizeSmall, KIconLoader::SizeSmall);
     pm.fill();
     pm.setMask(pm.createHeuristicMask());
-    return pm;
+    return QIcon(pm);
 }
 
 //! Helper that ensures that tool->actionName is unique
@@ -249,7 +249,7 @@ void KateExternalToolsConfigWidget::reset()
     const auto tools = m_plugin->tools();
     for (auto tool : tools) {
         auto clone = new KateExternalTool(*tool);
-        auto item = newToolItem(clone->icon.isEmpty() ? blankIcon() : SmallIcon(clone->icon), clone);
+        auto item = newToolItem(clone->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(clone->icon), clone);
         auto category = clone->category.isEmpty() ? m_noCategory : addCategory(clone->category);
         category->appendRow(item);
     }
@@ -372,7 +372,7 @@ void KateExternalToolsConfigWidget::slotAddDefaultTool(int defaultToolsIndex)
 void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
 {
     makeActionNameUnique(tool, collectTools(m_toolsModel));
-    auto item = newToolItem(tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon), tool);
+    auto item = newToolItem(tool->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(tool->icon), tool);
     auto category = addCategory(tool->category);
     category->appendRow(item);
     lbTools->setCurrentIndex(item->index());
@@ -482,7 +482,7 @@ void KateExternalToolsConfigWidget::slotEdit()
     if (editTool(tool)) {
         // renew the icon and name
         item->setText(tool->name);
-        item->setIcon(tool->icon.isEmpty() ? blankIcon() : SmallIcon(tool->icon));
+        item->setIcon(tool->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(tool->icon));
 
         Q_EMIT changed();
         m_changed = true;

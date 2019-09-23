@@ -81,7 +81,9 @@ static void makeActionNameUnique(KateExternalTool *tool, const std::vector<KateE
     QString name = tool->actionName;
     int i = 1;
     while (true) {
-        auto it = std::find_if(tools.cbegin(), tools.cend(), [&name](const KateExternalTool *tool) { return tool->actionName == name; });
+        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool](const KateExternalTool *t) {
+            return (t != tool) && (t->actionName == tool->actionName);
+        });
         if (it == tools.cend()) {
             break;
         }
@@ -320,7 +322,10 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
         tool->cmdname = editor.ui->edtCommand->text();
 
         // sticky action collection name, never changes again, so that shortcuts stay
-        tool->actionName = QStringLiteral("externaltool_") + QString(tool->name).remove(QRegularExpression(QStringLiteral("\\W+")));
+        if (tool->actionName.isEmpty()) {
+            tool->actionName = QStringLiteral("externaltool_") + QString(tool->name).remove(QRegularExpression(QStringLiteral("\\W+")));
+        }
+        makeActionNameUnique(tool, collectTools(m_toolsModel));
 
         changed = true;
     }

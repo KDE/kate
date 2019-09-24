@@ -402,8 +402,8 @@ void KateFileTree::slotDocumentReload()
         return;
     }
 
-    QList<KTextEditor::Document *> docs = v.value<QList<KTextEditor::Document *>>();
-    foreach (KTextEditor::Document *doc, docs) {
+    const QList<KTextEditor::Document *> docs = v.value<QList<KTextEditor::Document *>>();
+    for (KTextEditor::Document *doc : docs) {
         doc->documentReload();
     }
 }

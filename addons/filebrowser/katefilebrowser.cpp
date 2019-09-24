@@ -130,7 +130,7 @@ void KateFileBrowser::setupToolbar()
     m_toolbar->clear();
 
     // now add all actions to the toolbar
-    foreach (const QString &it, actions) {
+    for (const QString &it : qAsConst(actions)) {
         QAction *ac = nullptr;
         if (it.isEmpty())
             continue;
@@ -235,7 +235,7 @@ void KateFileBrowser::openSelectedFiles()
             return;
     }
 
-    foreach (const KFileItem &item, list) {
+    for (const KFileItem &item : list) {
         m_mainWindow->openUrl(item.url());
     }
 
@@ -325,10 +325,12 @@ void KateFileBrowser::setupActions()
     // Remove all shortcuts due to shortcut clashes (e.g. F5: reload, Ctrl+B: bookmark)
     // BUGS: #188954, #236368
     //
-    foreach (QAction *a, m_actionCollection->actions()) {
+    const auto actions = m_actionCollection->actions();
+    for (QAction *a : actions) {
         a->setShortcut(QKeySequence());
     }
-    foreach (QAction *a, m_dirOperator->actionCollection()->actions()) {
+    const auto dirActions = m_dirOperator->actionCollection()->actions();
+    for (QAction *a : dirActions) {
         a->setShortcut(QKeySequence());
     }
 }

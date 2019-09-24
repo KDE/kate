@@ -66,9 +66,9 @@ bool SchemaWidget::isConnectionValidAndOpen()
 
 void SchemaWidget::deleteChildren(QTreeWidgetItem *item)
 {
-    QList<QTreeWidgetItem *> items = item->takeChildren();
+    const QList<QTreeWidgetItem *> items = item->takeChildren();
 
-    foreach (QTreeWidgetItem *i, items)
+    for (QTreeWidgetItem *i : items)
         delete i;
 }
 
@@ -124,7 +124,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     QStringList tables = db.tables(QSql::SystemTables);
 
-    foreach (const QString &table, tables) {
+    for (const QString &table : qAsConst(tables)) {
         QTreeWidgetItem *item = new QTreeWidgetItem(systemTablesItem, SystemTableType);
         item->setText(0, table);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));
@@ -133,7 +133,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
 
     tables = db.tables(QSql::Tables);
 
-    foreach (const QString &table, tables) {
+    for (const QString &table : qAsConst(tables)) {
         QTreeWidgetItem *item = new QTreeWidgetItem(tablesItem, TableType);
         item->setText(0, table);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));
@@ -152,7 +152,7 @@ void SchemaWidget::buildViews(QTreeWidgetItem *viewsItem)
 
     const QStringList views = db.tables(QSql::Views);
 
-    foreach (const QString &view, views) {
+    for (const QString &view : views) {
         QTreeWidgetItem *item = new QTreeWidgetItem(viewsItem, ViewType);
         item->setText(0, view);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-view.png")));

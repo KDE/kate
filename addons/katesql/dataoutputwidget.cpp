@@ -290,7 +290,7 @@ void DataOutputWidget::exportData(QTextStream &stream, const QChar stringsQuoteC
 
     snapshot.reserve(selectedIndexes.count());
 
-    foreach (const QModelIndex &index, selectedIndexes) {
+    for (const QModelIndex &index : selectedIndexes) {
         const QVariant data = index.data(Qt::UserRole);
 
         const int col = index.column();
@@ -334,7 +334,7 @@ void DataOutputWidget::exportData(QTextStream &stream, const QChar stringsQuoteC
         stream << "\n";
     }
 
-    foreach (const int row, rows) {
+    for (const int row : qAsConst(rows)) {
         if (opt.testFlag(ExportLineNumbers))
             stream << row + 1 << fixedFieldDelimiter;
 

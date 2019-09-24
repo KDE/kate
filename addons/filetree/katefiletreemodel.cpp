@@ -309,7 +309,7 @@ QList<KTextEditor::Document *> ProxyItem::docTree() const
         return result;
     }
 
-    foreach (const ProxyItem *item, m_children) {
+    for (const ProxyItem *item : qAsConst(m_children)) {
         result.append(item->docTree());
     }
 
@@ -732,7 +732,7 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 
 void KateFileTreeModel::documentsOpened(const QList<KTextEditor::Document *> &docs)
 {
-    foreach (KTextEditor::Document *doc, docs) {
+    for (KTextEditor::Document *doc : docs) {
         if (m_docmap.contains(doc)) {
             documentNameChanged(doc);
         } else {
@@ -830,7 +830,7 @@ void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
 
 void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &docs)
 {
-    foreach (const KTextEditor::Document *doc, docs) {
+    for (const KTextEditor::Document *doc : docs) {
         disconnect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
         disconnect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
         disconnect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
@@ -843,7 +843,7 @@ void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Docu
 
 void KateFileTreeModel::slotDocumentsDeleted(const QList<KTextEditor::Document *> &docs)
 {
-    foreach (const KTextEditor::Document *doc, docs) {
+    for (const KTextEditor::Document *doc : docs) {
         connectDocument(doc);
     }
 }
@@ -865,13 +865,13 @@ void KateFileTreeModel::updateBackgrounds(bool force)
     QMap<ProxyItem *, EditViewCount> helper;
     int i = 1;
 
-    foreach (ProxyItem *item, m_viewHistory) {
+    for (ProxyItem *item : qAsConst(m_viewHistory)) {
         helper[item].view = i;
         i++;
     }
 
     i = 1;
-    foreach (ProxyItem *item, m_editHistory) {
+    for (ProxyItem *item : qAsConst(m_editHistory)) {
         helper[item].edit = i;
         i++;
     }
@@ -1016,7 +1016,8 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
 
 ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) const
 {
-    foreach (ProxyItem *item, m_root->children()) {
+    const auto rootChildren = m_root->children();
+    for (ProxyItem *item : rootChildren) {
         if (!item->flag(ProxyItem::Dir)) {
             continue;
         }
@@ -1075,7 +1076,7 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
         parts.pop_back();
     }
 
-    foreach (const QString &part, parts) {
+    for (const QString &part : qAsConst(parts)) {
         current_parts.append(part);
         ProxyItemDir *find = findChildNode(ptr, part);
         if (!find) {
@@ -1331,7 +1332,7 @@ void KateFileTreeModel::resetHistory()
     m_editHistory.clear();
     m_brushes.clear();
 
-    foreach (ProxyItem *item, list) {
+    for (ProxyItem *item : qAsConst(list)) {
         QModelIndex idx = createIndex(item->row(), 0, item);
         dataChanged(idx, idx, QVector<int>(1, Qt::BackgroundRole));
     }

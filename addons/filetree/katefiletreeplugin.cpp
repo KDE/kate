@@ -108,7 +108,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor &viewShad
     m_settings.save();
 
     // update views
-    foreach (KateFileTreePluginView *view, m_views) {
+    for (KateFileTreePluginView *view : qAsConst(m_views)) {
         view->setHasLocalPrefs(false);
         view->model()->setShadingEnabled(shadingEnabled);
         view->model()->setViewShade(viewShade);

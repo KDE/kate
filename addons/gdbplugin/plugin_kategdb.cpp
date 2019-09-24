@@ -487,7 +487,8 @@ void KatePluginGDBView::gdbEnded()
 void KatePluginGDBView::clearMarks()
 {
     KTextEditor::MarkInterface *iface;
-    foreach (KTextEditor::Document *doc, m_kateApplication->documents()) {
+    const auto documents = m_kateApplication->documents();
+    for (KTextEditor::Document *doc : documents) {
         iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
         if (iface) {
             const QHash<int, KTextEditor::Mark *> marks = iface->marks();

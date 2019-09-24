@@ -118,8 +118,8 @@ void KateFileBrowserConfigPage::apply()
     KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
     QStringList l;
     ActionLBItem *aItem;
-    QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QStringLiteral("*"), Qt::MatchWildcard);
-    foreach (QListWidgetItem *item, list) {
+    const QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QStringLiteral("*"), Qt::MatchWildcard);
+    for (QListWidgetItem *item : list) {
         aItem = static_cast<ActionLBItem *>(item);
         l << aItem->idstring();
     }

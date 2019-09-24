@@ -1175,8 +1175,8 @@ void KateBuildView::slotAddProjectTarget()
 
     int set = m_targetsUi->targetsModel.addTargetSet(i18n("Project Plugin Targets"), buildMap.value(QStringLiteral("directory")).toString());
 
-    QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
-    foreach (const QVariant &targetVariant, targetsets) {
+    const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
+    for (const QVariant &targetVariant : targetsets) {
         QVariantMap targetMap = targetVariant.toMap();
         QString tgtName = targetMap[QStringLiteral("name")].toString();
         QString buildCmd = targetMap[QStringLiteral("build_cmd")].toString();

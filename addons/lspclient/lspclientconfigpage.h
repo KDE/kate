@@ -29,10 +29,7 @@
 
 class LSPClientPlugin;
 
-class QCheckBox;
-class QLineEdit;
-
-class KUrlRequester;
+namespace Ui { class LspConfigWidget; }
 
 class LSPClientConfigPage : public KTextEditor::ConfigPage
 {
@@ -40,7 +37,7 @@ class LSPClientConfigPage : public KTextEditor::ConfigPage
 
 public:
     explicit LSPClientConfigPage(QWidget *parent = nullptr, LSPClientPlugin *plugin = nullptr);
-    ~LSPClientConfigPage() override {};
+    ~LSPClientConfigPage() override;
 
     QString name() const override;
     QString fullName() const override;
@@ -52,20 +49,7 @@ public Q_SLOTS:
     void reset() override;
 
 private:
-    QCheckBox *m_symbolDetails;
-    QCheckBox *m_symbolExpand;
-    QCheckBox *m_symbolTree;
-    QCheckBox *m_symbolSort;
-    QCheckBox *m_complDoc;
-    QCheckBox *m_refDeclaration;
-    QCheckBox *m_diagnostics;
-    QCheckBox *m_diagnosticsHighlight;
-    QCheckBox *m_diagnosticsMark;
-    QCheckBox *m_autoHover;
-    QCheckBox *m_onTypeFormatting;
-    QCheckBox *m_incrementalSync;
-    KUrlRequester *m_configPath;
-
+    Ui::LspConfigWidget *ui;
     LSPClientPlugin *m_plugin;
 };
 

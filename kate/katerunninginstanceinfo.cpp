@@ -43,7 +43,7 @@ bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
 
     QString my_pid = QString::number(QCoreApplication::applicationPid());
 
-    foreach (const QString &s, services) {
+    for (const QString &s : qAsConst(services)) {
         if (s.startsWith(QLatin1String("org.kde.kate-"))) {
             if (s.contains(my_pid)) {
                 continue;

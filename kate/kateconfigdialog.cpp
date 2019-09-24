@@ -225,8 +225,8 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     item->setHeader(i18n("Plugin Manager"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-plugin")));
 
-    KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
-    foreach (const KatePluginInfo &plugin, pluginList) {
+    const KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
+    for (const KatePluginInfo &plugin : pluginList) {
         if (plugin.load) {
             addPluginPage(plugin.plugin);
         }
@@ -376,7 +376,7 @@ void KateConfigDialog::slotApply()
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
-        foreach (KTextEditor::Document *doc, docs)
+        for (KTextEditor::Document *doc : docs)
             if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
                 qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
             }
@@ -389,7 +389,7 @@ void KateConfigDialog::slotApply()
         KateApp::self()->pluginManager()->writeConfig(sessionConfig);
     }
 
-    foreach (PluginPageListItem *plugin, m_pluginPages) {
+    for (PluginPageListItem *plugin : qAsConst(m_pluginPages)) {
         if (!plugin) {
             continue;
         }
@@ -399,7 +399,7 @@ void KateConfigDialog::slotApply()
     }
 
     // apply ktexteditor pages
-    foreach (KTextEditor::ConfigPage *page, m_editorPages)
+    for (KTextEditor::ConfigPage *page : qAsConst(m_editorPages))
         page->apply();
 
     config->sync();
@@ -416,7 +416,7 @@ void KateConfigDialog::slotChanged()
 
 void KateConfigDialog::showAppPluginPage(KTextEditor::Plugin *p, int id)
 {
-    foreach (PluginPageListItem *plugin, m_pluginPages) {
+    for (PluginPageListItem *plugin : qAsConst(m_pluginPages)) {
         if ((plugin->plugin == p) && (id == plugin->idInPlugin)) {
             setCurrentPage(plugin->pageWidgetItem);
             break;

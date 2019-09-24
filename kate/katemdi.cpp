@@ -129,7 +129,8 @@ GUIClient::GUIClient(MainWindow *mw)
     actionCollection()->readSettings();
 
     actionCollection()->addAssociatedWidget(m_mw);
-    foreach (QAction *action, actionCollection()->actions())
+    const auto actions = actionCollection()->actions();
+    for (QAction *action : actions)
         action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 }
 
@@ -152,7 +153,8 @@ void GUIClient::registerToolView(ToolView *tv)
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
     QString shortcutString = cfg->group("Shortcuts").readEntry(aname, QString());
 
-    foreach (const QString &shortcut, shortcutString.split(QLatin1Char(';'))) {
+    const auto shortcutStrings = shortcutString.split(QLatin1Char(';'));
+    for (const QString &shortcut : shortcutStrings) {
         shortcuts << QKeySequence::fromString(shortcut);
     }
 

@@ -487,7 +487,7 @@ void KateMainWindow::slotDocumentCloseOther(KTextEditor::Document *document)
 void KateMainWindow::slotDocumentCloseSelected(const QList<KTextEditor::Document *> &docList)
 {
     QList<KTextEditor::Document *> documents;
-    foreach (KTextEditor::Document *doc, docList) {
+    for (KTextEditor::Document *doc : docList) {
         if (queryClose_internal(doc)) {
             documents.append(doc);
         }
@@ -772,7 +772,7 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
             }
         }
 
-        foreach (const QUrl &url, textlist) {
+        for (const QUrl &url : qAsConst(textlist)) {
             // if url has no file component, try and recursively scan dir
             KFileItem kitem(url);
             kitem.setDelayedMimeTypes(true);
@@ -803,7 +803,7 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
 void KateMainWindow::slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list)
 {
     const QUrl dir = static_cast<KIO::SimpleJob *>(job)->url();
-    foreach (const KIO::UDSEntry &entry, list) {
+    for (const KIO::UDSEntry &entry : list) {
         if (!entry.isDir()) {
             QUrl url(dir);
             url = url.adjusted(QUrl::StripTrailingSlash);
@@ -817,9 +817,9 @@ void KateMainWindow::editKeys()
 {
     KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this);
 
-    QList<KXMLGUIClient *> clients = guiFactory()->clients();
+    const QList<KXMLGUIClient *> clients = guiFactory()->clients();
 
-    foreach (KXMLGUIClient *client, clients) {
+    for (KXMLGUIClient *client : clients) {
         // FIXME there appear to be invalid clients after session switching
         //     qCDebug(LOG_KATE)<<"adding client to shortcut editor";
         //     qCDebug(LOG_KATE)<<client;
@@ -967,11 +967,10 @@ void KateMainWindow::slotFullScreen(bool t)
 
 bool KateMainWindow::showModOnDiskPrompt()
 {
-    KTextEditor::Document *doc;
-
+    const auto documents = KateApp::self()->documentManager()->documentList();
     DocVector list;
-    list.reserve(KateApp::self()->documentManager()->documentList().size());
-    foreach (doc, KateApp::self()->documentManager()->documentList()) {
+    list.reserve(documents.size());
+    for (auto doc : documents) {
         if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc && doc->isModified()) {
             list.append(doc);
         }
@@ -1049,7 +1048,8 @@ void KateMainWindow::saveProperties(KConfigGroup &config)
 
     // store all plugin view states
     int id = KateApp::self()->mainWindowID(this);
-    foreach (const KatePluginInfo &item, KateApp::self()->pluginManager()->pluginList()) {
+    const auto plugins = KateApp::self()->pluginManager()->pluginList();
+    for (const KatePluginInfo &item : plugins) {
         if (item.plugin && pluginViews().contains(item.plugin)) {
             if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *>(pluginViews().value(item.plugin))) {
                 KConfigGroup group(config.config(), QStringLiteral("Plugin:%1:MainWindow:%2").arg(item.saveName()).arg(id));

@@ -147,7 +147,7 @@ QList<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls,
 
     emit aboutToCreateDocuments();
 
-    foreach (const QUrl &url, urls) {
+    for (const QUrl &url : urls) {
         docs << openUrl(url, encoding, isTempFile, docInfo);
     }
 
@@ -223,7 +223,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
 
     int last = 0;
     bool success = true;
-    foreach (KTextEditor::Document *doc, documents) {
+    for (KTextEditor::Document *doc : documents) {
         if (closeUrl && !doc->closeUrl()) {
             success = false; // get out on first error
             break;
@@ -289,7 +289,7 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
 bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *> &documents)
 {
     QList<KTextEditor::Document *> modifiedDocuments;
-    foreach (KTextEditor::Document *document, documents) {
+    for (KTextEditor::Document *document : documents) {
         if (document->isModified()) {
             modifiedDocuments.append(document);
         }
@@ -327,7 +327,7 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document *doc)
 QList<KTextEditor::Document *> KateDocManager::modifiedDocumentList()
 {
     QList<KTextEditor::Document *> modified;
-    foreach (KTextEditor::Document *doc, m_docList) {
+    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
         if (doc->isModified()) {
             modified.append(doc);
         }
@@ -338,7 +338,7 @@ QList<KTextEditor::Document *> KateDocManager::modifiedDocumentList()
 bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 {
     int docCount = m_docList.count();
-    foreach (KTextEditor::Document *doc, m_docList) {
+    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
         if (doc->url().isEmpty() && doc->isModified()) {
             int msgres = KMessageBox::warningYesNoCancel(w,
                                                          i18n("<p>The document '%1' has been modified, but not saved.</p>"
@@ -380,7 +380,7 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 
 void KateDocManager::saveAll()
 {
-    foreach (KTextEditor::Document *doc, m_docList)
+    for (KTextEditor::Document *doc : qAsConst(m_docList))
         if (doc->isModified()) {
             doc->documentSave();
         }
@@ -388,7 +388,7 @@ void KateDocManager::saveAll()
 
 void KateDocManager::saveSelected(const QList<KTextEditor::Document *> &docList)
 {
-    foreach (KTextEditor::Document *doc, docList) {
+    for (KTextEditor::Document *doc : qAsConst(docList)) {
         if (doc->isModified()) {
             doc->documentSave();
         }
@@ -398,7 +398,7 @@ void KateDocManager::saveSelected(const QList<KTextEditor::Document *> &docList)
 void KateDocManager::reloadAll()
 {
     // reload all docs that are NOT modified on disk
-    foreach (KTextEditor::Document *doc, m_docList) {
+    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
         if (!documentInfo(doc)->modifiedOnDisc) {
             doc->documentReload();
         }
@@ -412,7 +412,7 @@ void KateDocManager::closeOrphaned()
 {
     QList<KTextEditor::Document *> documents;
 
-    foreach (KTextEditor::Document *doc, m_docList) {
+    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
         KateDocumentInfo *info = documentInfo(doc);
         if (info && !info->openSuccess) {
             documents.append(doc);
@@ -429,7 +429,7 @@ void KateDocManager::saveDocumentList(KConfig *config)
     openDocGroup.writeEntry("Count", m_docList.count());
 
     int i = 0;
-    foreach (KTextEditor::Document *doc, m_docList) {
+    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
         KConfigGroup cg(config, QStringLiteral("Document %1").arg(i));
         doc->writeSessionConfig(cg);
         i++;
@@ -534,7 +534,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
      * store meta info for all non-modified documents which have some checksum
      */
     const QDateTime now = QDateTime::currentDateTimeUtc();
-    foreach (KTextEditor::Document *doc, documents) {
+    for (KTextEditor::Document *doc : documents) {
         /**
          * skip modified docs
          */

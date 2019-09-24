@@ -74,7 +74,7 @@ QString KateBtDatabase::value(const QString &key)
 void KateBtDatabase::add(const QString &folder, const QStringList &files)
 {
     QMutexLocker locker(&mutex);
-    foreach (const QString &file, files) {
+    for (const QString &file : files) {
         QStringList &sl = db[file];
         QString entry = QDir::fromNativeSeparators(folder + QLatin1Char('/') + file);
         if (!sl.contains(entry)) {

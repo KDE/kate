@@ -123,7 +123,8 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View *view)
 
     // try to enable/disable to match current mime type
     const QString mimeType = view->document()->mimeType();
-    foreach (QAction *action, m_actionCollection->actions()) {
+    const auto actions = m_actionCollection->actions();
+    for (QAction *action : actions) {
         if (action && action->data().value<KateExternalTool *>()) {
             auto tool = action->data().value<KateExternalTool *>();
             action->setEnabled(tool->matchesMimetype(mimeType));

@@ -148,7 +148,7 @@ void KatePluginManager::writeConfig(KConfig *config)
     Q_ASSERT(config);
 
     KConfigGroup cg = KConfigGroup(config, QStringLiteral("Kate Plugins"));
-    foreach (const KatePluginInfo &plugin, m_pluginList) {
+    for (const KatePluginInfo &plugin : qAsConst(m_pluginList)) {
         QString saveName = plugin.saveName();
 
         cg.writeEntry(saveName, plugin.load);

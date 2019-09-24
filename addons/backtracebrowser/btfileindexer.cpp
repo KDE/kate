@@ -36,7 +36,7 @@ BtFileIndexer::~BtFileIndexer()
 void BtFileIndexer::setSearchPaths(const QStringList &urls)
 {
     searchPaths.clear();
-    foreach (const QString &url, urls) {
+    for (const QString &url : urls) {
         if (!searchPaths.contains(url)) {
             searchPaths += url;
         }

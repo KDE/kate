@@ -545,7 +545,7 @@ int main(int argc, char **argv)
              */
             QVariantMap message;
             QVariantList messageUrls;
-            foreach (const QString &url, urls) {
+            for (const QString &url : urls) {
                 /**
                  * get url info and pack them into the message as extra element in urls list
                  */

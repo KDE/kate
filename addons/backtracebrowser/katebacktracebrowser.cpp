@@ -175,10 +175,10 @@ void KateBtBrowserWidget::loadClipboard()
 
 void KateBtBrowserWidget::loadBacktrace(const QString &bt)
 {
-    QList<BtInfo> infos = KateBtParser::parseBacktrace(bt);
+    const QList<BtInfo> infos = KateBtParser::parseBacktrace(bt);
 
     lstBacktrace->clear();
-    foreach (const BtInfo &info, infos) {
+    for (const BtInfo &info : infos) {
         QTreeWidgetItem *it = new QTreeWidgetItem(lstBacktrace);
         it->setData(0, Qt::DisplayRole, QString::number(info.step));
         it->setData(0, Qt::ToolTipRole, QString::number(info.step));

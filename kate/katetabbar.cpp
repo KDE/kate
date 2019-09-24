@@ -509,7 +509,7 @@ void KateTabBar::paintEvent(QPaintEvent *event)
 void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
 {
     int id = -1;
-    foreach (KateTabButton *button, d->tabButtons) {
+    for (KateTabButton *button : qAsConst(d->tabButtons)) {
         if (button->rect().contains(button->mapFromGlobal(ev->globalPos()))) {
             id = d->idToTab.key(button, -1);
             Q_ASSERT(id >= 0);

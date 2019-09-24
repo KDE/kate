@@ -155,7 +155,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const QList<KTex
     m_list->setHeaderLabels(QStringList() << i18n("Documents") << i18n("Location"));
     m_list->setRootIsDecorated(true);
 
-    foreach (KTextEditor::Document *doc, documents) {
+    for (KTextEditor::Document *doc : documents) {
         m_list->addTopLevelItem(new KateSaveModifiedDocumentCheckListItem(doc));
     }
     m_list->resizeColumnToContents(0);

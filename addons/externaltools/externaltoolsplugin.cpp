@@ -169,7 +169,8 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor:
             view->document()->save();
         }
     } else if (tool.saveMode == KateExternalTool::SaveMode::AllDocuments) {
-        foreach (KXMLGUIClient *client, mw->guiFactory()->clients()) {
+        const auto guiClients = mw->guiFactory()->clients();
+        for (KXMLGUIClient *client : guiClients) {
             if (QAction *a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {
                 a->trigger();
                 break;

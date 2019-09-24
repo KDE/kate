@@ -435,7 +435,8 @@ void KateFileTreeModel::setShowFullPathOnRoots(bool s)
         m_root->clearFlag(ProxyItem::ShowFullPath);
     }
 
-    foreach (ProxyItem *root, m_root->children()) {
+    const auto rootChildren = m_root->children();
+    for (ProxyItem *root : rootChildren) {
         root->updateDisplay();
     }
 }
@@ -443,7 +444,8 @@ void KateFileTreeModel::setShowFullPathOnRoots(bool s)
 void KateFileTreeModel::initModel()
 {
     // add already existing documents
-    foreach (KTextEditor::Document *doc, KTextEditor::Editor::instance()->application()->documents()) {
+    const auto documents = KTextEditor::Editor::instance()->application()->documents();
+    for (KTextEditor::Document *doc : documents) {
         documentOpened(doc);
     }
 }
@@ -1046,7 +1048,8 @@ ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const
         return nullptr;
     }
 
-    foreach (ProxyItem *item, parent->children()) {
+    const auto children = parent->children();
+    for (ProxyItem *item : children) {
         if (!item->flag(ProxyItem::Dir)) {
             continue;
         }
@@ -1130,7 +1133,8 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     base += QLatin1Char('/');
 
     // try and merge existing roots with the new root node (new_root.path < root.path)
-    foreach (ProxyItem *root, m_root->children()) {
+    const auto rootChildren = m_root->children();
+    for (ProxyItem *root : rootChildren) {
         if (root == new_root || !root->flag(ProxyItem::Dir)) {
             continue;
         }
@@ -1170,7 +1174,8 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
             continue;
         }
 
-        foreach (ProxyItem *root, m_root->children()) {
+        const auto rootChildren = m_root->children();
+        for (ProxyItem *root : rootChildren) {
             if (root == check_root || !root->flag(ProxyItem::Dir)) {
                 continue;
             }
@@ -1192,7 +1197,8 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
 
                     insertItemInto(irdir, root);
 
-                    foreach (ProxyItem *node, m_root->children()) {
+                    const auto children = m_root->children();
+                    for (ProxyItem *node : children) {
                         if (node == irdir || !root->flag(ProxyItem::Dir)) {
                             continue;
                         }

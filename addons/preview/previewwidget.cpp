@@ -166,7 +166,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
         // Also try to guess from the content, if the above fails.
         mimeTypes << m_previewedTextEditorDocument->mimeType();
 
-        foreach (const auto mimeType, mimeTypes) {
+        for (const auto &mimeType : qAsConst(mimeTypes)) {
             service = KMimeTypeTrader::self()->preferredService(mimeType, QStringLiteral("KParts/ReadOnlyPart"));
             if (service) {
                 qCDebug(KTEPREVIEW) << "Found preferred kpart service named" << service->name() << "with library" << service->library() << "for mimetype" << mimeType;

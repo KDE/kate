@@ -60,7 +60,7 @@ KTextEditor::Document *ReplaceMatches::findNamed(const QString &name)
 {
     const QList<KTextEditor::Document *> docs = m_manager->documents();
 
-    foreach (KTextEditor::Document *it, docs) {
+    for (KTextEditor::Document *it : docs) {
         if (it->documentName() == name) {
             return it;
         }

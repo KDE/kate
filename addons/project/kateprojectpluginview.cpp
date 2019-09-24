@@ -137,7 +137,7 @@ KateProjectPluginView::~KateProjectPluginView()
     /**
      * cleanup for all views
      */
-    foreach (QObject *view, m_textViews) {
+    for (QObject *view : qAsConst(m_textViews)) {
         KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
         if (cci) {
             cci->unregisterCompletionModel(m_plugin->completion());

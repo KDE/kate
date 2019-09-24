@@ -1241,7 +1241,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                     break; // restart
                 }
             }
-        } // foreach root
+        } // for root
     }
 }
 

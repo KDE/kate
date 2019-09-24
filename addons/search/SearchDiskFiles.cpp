@@ -51,7 +51,7 @@ void SearchDiskFiles::startSearch(const QStringList &files, const QRegularExpres
 
 void SearchDiskFiles::run()
 {
-    foreach (QString fileName, m_files) {
+    for (const QString &fileName : qAsConst(m_files)) {
         if (m_cancelSearch) {
             break;
         }

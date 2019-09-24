@@ -129,7 +129,7 @@ void CloseExceptPluginView::updateMenuSlotStub(KTextEditor::Document *)
 
 void CloseExceptPluginView::appendActionsFrom(const std::set<QUrl> &paths, actions_map_type &actions, KActionMenu *menu, CloseFunction closeFunction)
 {
-    Q_FOREACH (const QUrl &path, paths) {
+    for (const QUrl &path : paths) {
         QString action = path.path() + QLatin1Char('*');
         actions[action] = QPointer<QAction>(new QAction(action, menu));
         menu->addAction(actions[action]);
@@ -139,7 +139,7 @@ void CloseExceptPluginView::appendActionsFrom(const std::set<QUrl> &paths, actio
 
 void CloseExceptPluginView::appendActionsFrom(const std::set<QString> &masks, actions_map_type &actions, KActionMenu *menu, CloseFunction closeFunction)
 {
-    Q_FOREACH (const QString &mask, masks) {
+    for (const QString &mask : masks) {
         QString action = mask.startsWith(QLatin1Char('*')) ? mask : mask + QLatin1Char('*');
         actions[action] = QPointer<QAction>(new QAction(action, menu));
         menu->addAction(actions[action]);
@@ -185,7 +185,7 @@ void CloseExceptPluginView::updateMenu()
         typedef std::set<QString> paths_set_type_masks;
         paths_set_type doc_paths;
         paths_set_type_masks masks;
-        Q_FOREACH (KTextEditor::Document *document, docs) {
+        for (KTextEditor::Document *document : docs) {
             const QString &ext = QFileInfo(document->url().path()).completeSuffix();
             if (!ext.isEmpty())
                 masks.insert(QStringLiteral("*.") + ext);
@@ -224,7 +224,7 @@ void CloseExceptPluginView::close(const QString &item, const bool close_if_match
 
     QList<KTextEditor::Document *> docs2close;
     const QList<KTextEditor::Document *> &docs = KTextEditor::Editor::instance()->application()->documents();
-    Q_FOREACH (KTextEditor::Document *document, docs) {
+    for (KTextEditor::Document *document : docs) {
         const QString &path = KIO::upUrl(document->url()).path();
         /// \note Take a dot in account, so \c *.c would not match for \c blah.kcfgc
         const QString &ext = QLatin1Char('.') + QFileInfo(document->url().fileName()).completeSuffix();

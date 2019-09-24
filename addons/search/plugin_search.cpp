@@ -687,7 +687,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
     }
 
     QStringList filteredFiles;
-    foreach (QString fileName, files) {
+    for (const QString &fileName : files) {
         bool isInSubDir = fileName.startsWith(m_resultBaseDir);
         QString nameToCheck = fileName;
         if (isInSubDir) {
@@ -966,7 +966,8 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
 
 void KatePluginSearchView::clearMarks()
 {
-    foreach (KTextEditor::Document *doc, m_kateApp->documents()) {
+    const auto docs = m_kateApp->documents();
+    for (KTextEditor::Document *doc : docs) {
         clearDocMarks(doc);
     }
     qDeleteAll(m_matchRanges);

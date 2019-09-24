@@ -87,7 +87,7 @@ KTextEditor::ConfigPage *KateKonsolePlugin::configPage(int number, QWidget *pare
 
 void KateKonsolePlugin::readConfig()
 {
-    foreach (KateKonsolePluginView *view, mViews)
+    for (KateKonsolePluginView *view : qAsConst(mViews))
         view->readConfig();
 }
 

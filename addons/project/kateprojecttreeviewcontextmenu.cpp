@@ -121,7 +121,8 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
     if (isGit(filename)) {
         menuFactory.fillMenuFromGroupingNames(&gitMenu, {QLatin1String("git-clients-and-actions")}, QUrl::fromLocalFile(filename));
         menu.addSection(i18n("Git:"));
-        Q_FOREACH (auto action, gitMenu.actions()) {
+        const auto gitActions = gitMenu.actions();
+        for (auto action : gitActions) {
             menu.addAction(action);
         }
     }

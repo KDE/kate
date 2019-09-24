@@ -61,13 +61,13 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     actionCollection()->addAction(QStringLiteral("katereplicode_stop"), m_stopAction);
     m_stopAction->setEnabled(false);
 
-    m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katereplicodeplugin_run"), KTextEditor::MainWindow::Bottom, SmallIcon(QStringLiteral("code-block")), i18n("Replicode Output"));
+    m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katereplicodeplugin_run"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("code-block")), i18n("Replicode Output"));
     m_replicodeOutput = new QListWidget(m_toolview);
     m_replicodeOutput->setSelectionMode(QAbstractItemView::ContiguousSelection);
     connect(m_replicodeOutput, &QListWidget::itemActivated, this, &ReplicodeView::outputClicked);
     m_mainWindow->hideToolView(m_toolview);
 
-    m_configSidebar = m_mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katereplicodeplugin_config"), KTextEditor::MainWindow::Right, SmallIcon(QStringLiteral("code-block")), i18n("Replicode Config"));
+    m_configSidebar = m_mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katereplicodeplugin_config"), KTextEditor::MainWindow::Right, QIcon::fromTheme(QStringLiteral("code-block")), i18n("Replicode Config"));
     m_configView = new ReplicodeConfig(m_configSidebar);
 
     m_runButton = new QPushButton(i18nc("shortcut for action", "Run (%1)", m_runAction->shortcut().toString()));

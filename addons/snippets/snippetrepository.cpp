@@ -345,10 +345,8 @@ void SnippetRepository::slotParseFile()
             continue;
         } else {
             const QStringList shortcuts = config.readEntry(QLatin1String("shortcut ") + snippet->text(), QStringList());
-
             QList<QKeySequence> sequences;
-
-            foreach (const QString &shortcut, shortcuts) {
+            for (const QString &shortcut : shortcuts) {
                 sequences << QKeySequence::fromString(shortcut);
             }
 

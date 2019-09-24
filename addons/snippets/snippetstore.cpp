@@ -46,14 +46,14 @@ SnippetStore::SnippetStore(KateSnippetGlobal *plugin)
         << QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QStringLiteral("ktexteditor_snippets/ghns"), QStandardPaths::LocateDirectory);
 
     QStringList files;
-    foreach (const QString &dir, dirs) {
+    for (const QString &dir : dirs) {
         const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.xml"));
-        foreach (const QString &file, fileNames) {
+        for (const QString &file : fileNames) {
             files.append(dir + QLatin1Char('/') + file);
         }
     }
 
-    foreach (const QString &file, files) {
+    for (const QString &file : qAsConst(files)) {
         SnippetRepository *repo = new SnippetRepository(file);
         appendRow(repo);
     }

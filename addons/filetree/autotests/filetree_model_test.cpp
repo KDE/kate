@@ -228,10 +228,10 @@ void FileTreeModelTest::buildTree_data()
 void FileTreeModelTest::buildTree()
 {
     KateFileTreeModel m(this);
-    QFETCH(QList<DummyDocument *>, documents);
+    QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(ResultNode, nodes);
 
-    foreach (DummyDocument *doc, documents) {
+    for (DummyDocument *doc : documents) {
         m.documentOpened(doc);
     }
 
@@ -251,12 +251,12 @@ void FileTreeModelTest::buildTreeBatch_data()
 void FileTreeModelTest::buildTreeBatch()
 {
     KateFileTreeModel m(this);
-    QFETCH(QList<DummyDocument *>, documents);
+    QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(ResultNode, nodes);
 
     QList<KTextEditor::Document *> list;
 
-    foreach (DummyDocument *doc, documents) {
+    for (DummyDocument *doc : documents) {
         list << doc;
     }
 
@@ -285,17 +285,17 @@ void FileTreeModelTest::buildTreeBatchPrefill_data()
 void FileTreeModelTest::buildTreeBatchPrefill()
 {
     KateFileTreeModel m(this);
-    QFETCH(QList<DummyDocument *>, prefill);
-    QFETCH(QList<DummyDocument *>, documents);
+    QFETCH(const QList<DummyDocument *>, prefill);
+    QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(ResultNode, nodes);
 
-    foreach (DummyDocument *doc, prefill) {
+    for (DummyDocument *doc : prefill) {
         m.documentOpened(doc);
     }
 
     QList<KTextEditor::Document *> list;
 
-    foreach (DummyDocument *doc, documents) {
+    for (DummyDocument *doc : documents) {
         list << doc;
     }
 
@@ -382,10 +382,10 @@ void FileTreeModelTest::buildTreeFullPath()
     KateFileTreeModel m(this);
     m.setShowFullPathOnRoots(true);
 
-    QFETCH(QList<DummyDocument *>, documents);
+    QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(ResultNode, nodes);
 
-    foreach (DummyDocument *doc, documents) {
+    for (DummyDocument *doc : documents) {
         m.documentOpened(doc);
     }
 
@@ -417,10 +417,10 @@ void FileTreeModelTest::listMode()
     KateFileTreeModel m(this);
     m.setListMode(true);
 
-    QFETCH(QList<DummyDocument *>, documents);
+    QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(ResultNode, nodes);
 
-    foreach (DummyDocument *doc, documents) {
+    for (DummyDocument *doc : documents) {
         m.documentOpened(doc);
     }
 
@@ -463,15 +463,15 @@ void FileTreeModelTest::deleteDocument_data()
 void FileTreeModelTest::deleteDocument()
 {
     KateFileTreeModel m(this);
-    QFETCH(QList<DummyDocument *>, documents);
-    QFETCH(QList<int>, remove);
+    QFETCH(const QList<DummyDocument *>, documents);
+    QFETCH(const QList<int>, remove);
     QFETCH(ResultNode, nodes);
 
-    foreach (DummyDocument *doc, documents) {
+    for (DummyDocument *doc : documents) {
         m.documentOpened(doc);
     }
 
-    foreach (const int &index, remove) {
+    for (const int &index : remove) {
         m.documentClosed(documents[index]);
     }
 
@@ -498,30 +498,30 @@ void FileTreeModelTest::deleteDocumentBatch_data()
 void FileTreeModelTest::deleteDocumentBatch()
 {
     KateFileTreeModel m(this);
-    QFETCH(QList<DummyDocument *>, documents);
-    QFETCH(QList<int>, remove);
-    QFETCH(QList<int>, fail);
+    QFETCH(const QList<DummyDocument *>, documents);
+    QFETCH(const QList<int>, remove);
+    QFETCH(const QList<int>, fail);
     QFETCH(ResultNode, nodes);
 
-    foreach (DummyDocument *doc, documents) {
+    for (DummyDocument *doc : documents) {
         m.documentOpened(doc);
     }
 
     QList<KTextEditor::Document *> removing;
-    foreach (const int &index, remove) {
+    for (const int &index : remove) {
         removing << documents[index];
     }
 
     m.slotAboutToDeleteDocuments(removing);
 
-    foreach (const int &index, remove) {
+    for (const int &index : remove) {
         if (!fail.contains(index)) {
             m.documentClosed(documents[index]);
         }
     }
 
     removing.clear();
-    foreach (const int &index, fail) {
+    for (const int &index : fail) {
         removing << documents[index];
     }
 
@@ -552,12 +552,12 @@ void FileTreeModelTest::rename_data()
 void FileTreeModelTest::rename()
 {
     KateFileTreeModel m(this);
-    QFETCH(QList<DummyDocument *>, documents);
+    QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(int, rename_idx);
     QFETCH(QString, rename_url);
     QFETCH(ResultNode, nodes);
 
-    foreach (DummyDocument *doc, documents) {
+    for (DummyDocument *doc : documents) {
         m.documentOpened(doc);
     }
 

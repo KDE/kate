@@ -95,7 +95,7 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     m_blockViewCreationAndActivation = true;
 
     const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
-    foreach (KTextEditor::Document *doc, docs) {
+    for (KTextEditor::Document *doc : docs) {
         documentCreated(doc);
     }
 
@@ -235,7 +235,7 @@ void KateViewManager::slotDocumentOpen()
      * emit size warning, for local files
      */
     QString fileListWithTooLargeFiles;
-    Q_FOREACH (const QUrl &url, urls) {
+    for (const QUrl &url : urls) {
         if (!url.isLocalFile()) {
             continue;
         }
@@ -299,9 +299,9 @@ KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &
 
 KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
 {
-    QList<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, isTempFile, docInfo);
+    const QList<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, isTempFile, docInfo);
 
-    foreach (const KTextEditor::Document *doc, docs) {
+    for (const KTextEditor::Document *doc : docs) {
         if (!doc->url().isEmpty()) {
             m_mainWindow->fileOpenRecent()->addUrl(doc->url());
         }
@@ -356,7 +356,7 @@ void KateViewManager::documentCreated(KTextEditor::Document *doc)
     /**
      * check if we have any empty viewspaces and give them a view
      */
-    Q_FOREACH (KateViewSpace *vs, m_viewSpaceList) {
+    for (KateViewSpace *vs : qAsConst(m_viewSpaceList)) {
         if (!vs->currentView()) {
             createView(activeView()->document(), vs);
         }
@@ -399,7 +399,7 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
         /**
          * check if we have any empty viewspaces and give them a view
          */
-        Q_FOREACH (KateViewSpace *vs, m_viewSpaceList) {
+        for (KateViewSpace *vs : qAsConst(m_viewSpaceList)) {
             if (!vs->currentView()) {
                 createView(newActiveView->document(), vs);
             }
@@ -699,7 +699,8 @@ void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)
      * collect all views of that document that belong to this manager
      */
     QList<KTextEditor::View *> closeList;
-    Q_FOREACH (KTextEditor::View *v, doc->views()) {
+    const auto views = doc->views();
+    for (KTextEditor::View *v : views) {
         if (m_views.contains(v)) {
             closeList.append(v);
         }
@@ -731,7 +732,7 @@ void KateViewManager::closeView(KTextEditor::View *view)
         /**
          * check if we have any empty viewspaces and give them a view
          */
-        Q_FOREACH (KateViewSpace *vs, m_viewSpaceList) {
+        for (KateViewSpace *vs :qAsConst(m_viewSpaceList)) {
             if (!vs->currentView()) {
                 createView(newActiveView->document(), vs);
             }
@@ -967,7 +968,7 @@ void KateViewManager::slotHideOtherViews(bool hideOthers)
     KateUpdateDisabler disableUpdates(mainWindow());
 
     const KateViewSpace *active = activeViewSpace();
-    foreach (KateViewSpace *v, m_viewSpaceList) {
+    for (KateViewSpace *v : qAsConst(m_viewSpaceList)) {
         if (active != v) {
             v->setVisible(!hideOthers);
         }

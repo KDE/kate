@@ -163,7 +163,7 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 void KateViewSpace::statusBarToggled()
 {
     KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
-    Q_FOREACH (KTextEditor::Document *doc, m_lruDocList) {
+    for (KTextEditor::Document *doc : qAsConst(m_lruDocList)) {
         if (m_docToView.contains(doc)) {
             m_docToView[doc]->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
         }
@@ -663,7 +663,7 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
     // aggregate all views in view space (LRU ordered)
     QVector<KTextEditor::View *> views;
     QStringList lruList;
-    Q_FOREACH (KTextEditor::Document *doc, m_lruDocList) {
+    for (KTextEditor::Document *doc : qAsConst(m_lruDocList)) {
         lruList << doc->url().toString();
         if (m_docToView.contains(doc)) {
             views.append(m_docToView[doc]);

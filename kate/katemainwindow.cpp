@@ -151,7 +151,8 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     KateApp::self()->pluginManager()->enableAllPluginsGUI(this, sconfig);
 
     // caption update
-    Q_FOREACH (auto doc, KateApp::self()->documentManager()->documentList()) {
+    const auto documents = KateApp::self()->documentManager()->documentList();
+    for (auto doc : documents) {
         slotDocumentCreated(doc);
     }
 

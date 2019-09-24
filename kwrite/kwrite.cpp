@@ -237,7 +237,7 @@ void KWrite::slotNew()
 void KWrite::slotOpen()
 {
     const QList<QUrl> urls = QFileDialog::getOpenFileUrls(this, i18n("Open File"), m_view->document()->url());
-    Q_FOREACH (QUrl url, urls) {
+    for (const QUrl &url : urls) {
         slotOpen(url);
     }
 }

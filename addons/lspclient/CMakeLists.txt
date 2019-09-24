@@ -8,6 +8,8 @@ endif()
 add_library(lspclientplugin MODULE "")
 target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient")
 
+ki18n_wrap_ui(UI_SOURCES lspconfigwidget.ui)
+
 target_link_libraries(
   lspclientplugin 
   PRIVATE 
@@ -36,6 +38,7 @@ target_sources(
     lspclientservermanager.cpp
     lspclientsymbolview.cpp
     plugin.qrc
+    ${UI_SOURCES}
 )
 
 kcoreaddons_desktop_to_json(lspclientplugin lspclientplugin.desktop)

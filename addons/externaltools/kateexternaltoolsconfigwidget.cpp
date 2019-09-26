@@ -82,9 +82,7 @@ static void makeActionNameUnique(KateExternalTool *tool, const std::vector<KateE
     QString name = tool->actionName;
     int i = 1;
     while (true) {
-        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &name](const KateExternalTool *t) {
-            return (t != tool) && (t->actionName == name);
-        });
+        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &name](const KateExternalTool *t) { return (t != tool) && (t->actionName == name); });
         if (it == tools.cend()) {
             break;
         }
@@ -107,9 +105,7 @@ void makeEditorCommandUnique(KateExternalTool *tool, const std::vector<KateExter
     QString cmdname = tool->cmdname;
     int i = 1;
     while (true) {
-        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &cmdname](const KateExternalTool *t) {
-            return (t != tool) && (t->cmdname == cmdname);
-        });
+        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &cmdname](const KateExternalTool *t) { return (t != tool) && (t->cmdname == cmdname); });
         if (it == tools.cend()) {
             break;
         }

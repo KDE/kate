@@ -37,7 +37,17 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     reset();
 
-    for (const auto &cb : {ui->chkSymbolDetails, ui->chkSymbolExpand, ui->chkSymbolSort, ui->chkSymbolTree, ui->chkComplDoc, ui->chkRefDeclaration, ui->chkDiagnostics, ui->chkDiagnosticsMark, ui->chkOnTypeFormatting, ui->chkIncrementalSync, ui->chkAutoHover})
+    for (const auto &cb : {ui->chkSymbolDetails,
+                           ui->chkSymbolExpand,
+                           ui->chkSymbolSort,
+                           ui->chkSymbolTree,
+                           ui->chkComplDoc,
+                           ui->chkRefDeclaration,
+                           ui->chkDiagnostics,
+                           ui->chkDiagnosticsMark,
+                           ui->chkOnTypeFormatting,
+                           ui->chkIncrementalSync,
+                           ui->chkAutoHover})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::changed);
     connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::changed);

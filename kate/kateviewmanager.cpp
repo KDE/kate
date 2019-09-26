@@ -732,7 +732,7 @@ void KateViewManager::closeView(KTextEditor::View *view)
         /**
          * check if we have any empty viewspaces and give them a view
          */
-        for (KateViewSpace *vs :qAsConst(m_viewSpaceList)) {
+        for (KateViewSpace *vs : qAsConst(m_viewSpaceList)) {
             if (!vs->currentView()) {
                 createView(newActiveView->document(), vs);
             }

@@ -241,7 +241,7 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
                 break;
             }
             case KateExternalTool::OutputMode::CopyToClipboard: {
-                  QGuiApplication::clipboard()->setText(runner->outputData());
+                QGuiApplication::clipboard()->setText(runner->outputData());
                 break;
             }
             default:

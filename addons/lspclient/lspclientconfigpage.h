@@ -29,7 +29,10 @@
 
 class LSPClientPlugin;
 
-namespace Ui { class LspConfigWidget; }
+namespace Ui
+{
+class LspConfigWidget;
+}
 
 class LSPClientConfigPage : public KTextEditor::ConfigPage
 {

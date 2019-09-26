@@ -1,3 +1,3 @@
 #! /bin/sh
-$EXTRACTRC *.rc >> rc.cpp
+$EXTRACTRC *.ui *.rc >> rc.cpp
 $XGETTEXT *.cpp -o $podir/lspclient.pot

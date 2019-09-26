@@ -112,7 +112,7 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         QDir currentDir(item.absoluteFilePath());
 
         if (!currentDir.isReadable()) {
-            qDebug() << currentDir.absolutePath() << "Not readable";
+            // qDebug() << currentDir.absolutePath() << "Not readable";
             return;
         }
 

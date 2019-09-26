@@ -890,12 +890,12 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, QTreeWidgetI
 
             // Check that the match still matches ;)
             if (tmpReg.match(doc->text(range)).capturedStart() != 0) {
-                qDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
+                // qDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
                 return;
             }
         } else {
             if (doc->text(range) != item->data(0, ReplaceMatches::ReplacedTextRole).toString()) {
-                qDebug() << doc->text(range) << "Does not match" << item->data(0, ReplaceMatches::ReplacedTextRole).toString();
+                // qDebug() << doc->text(range) << "Does not match" << item->data(0, ReplaceMatches::ReplacedTextRole).toString();
                 return;
             }
         }
@@ -1519,7 +1519,7 @@ void KatePluginSearchView::replaceChecked()
 void KatePluginSearchView::replaceStatus(const QUrl &url, int replacedInFile, int matchesInFile)
 {
     if (!m_curResults) {
-        qDebug() << "m_curResults == nullptr";
+        // qDebug() << "m_curResults == nullptr";
         return;
     }
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
@@ -1550,7 +1550,7 @@ void KatePluginSearchView::replaceDone()
     m_ui.currentFolderButton->setDisabled(false);
 
     if (!m_curResults) {
-        qDebug() << "m_curResults == nullptr";
+        // qDebug() << "m_curResults == nullptr";
         return;
     }
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
@@ -1567,7 +1567,7 @@ void KatePluginSearchView::docViewChanged()
 
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!res) {
-        qDebug() << "No res";
+        // qDebug() << "No res";
         return;
     }
 
@@ -2053,7 +2053,7 @@ void KatePluginSearchView::resultTabChanged(int index)
 
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->widget(index));
     if (!res) {
-        qDebug() << "No res found";
+        // qDebug() << "No res found";
         return;
     }
 

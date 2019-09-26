@@ -84,7 +84,7 @@ bool ReplaceMatches::replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *i
     QString matchLines = doc->text(range);
     QRegularExpressionMatch match = regExp.match(matchLines);
     if (match.capturedStart() != 0) {
-        qDebug() << matchLines << "Does not match" << regExp.pattern();
+        // qDebug() << matchLines << "Does not match" << regExp.pattern();
         return false;
     }
 

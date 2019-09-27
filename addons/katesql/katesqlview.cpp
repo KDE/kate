@@ -90,7 +90,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
     connect(m_manager, &SQLManager::queryActivated, this, &KateSQLView::slotQueryActivated);
     connect(m_manager, &SQLManager::connectionCreated, this, &KateSQLView::slotConnectionCreated);
     connect(m_manager, &SQLManager::connectionAboutToBeClosed, this, &KateSQLView::slotConnectionAboutToBeClosed);
-    connect(m_connectionsComboBox, QOverload<const QString &>::of(&KComboBox::currentIndexChanged), this, &KateSQLView::slotConnectionChanged);
+    connect(m_connectionsComboBox, QOverload<const QString &>::of(&QComboBox::currentIndexChanged), this, &KateSQLView::slotConnectionChanged);
 
     stateChanged(QStringLiteral("has_connection_selected"), KXMLGUIClient::StateReverse);
 }

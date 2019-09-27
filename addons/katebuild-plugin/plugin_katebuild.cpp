@@ -1056,7 +1056,7 @@ void KateBuildView::targetOrSetCopy()
 {
     QModelIndex newIndex = m_targetsUi->targetsModel.copyTargetOrSet(m_targetsUi->targetsView->currentIndex());
     if (m_targetsUi->targetsModel.hasChildren(newIndex)) {
-        m_targetsUi->targetsView->setCurrentIndex(newIndex.child(0, 0));
+        m_targetsUi->targetsView->setCurrentIndex(newIndex.model()->index(0, 0, newIndex));
         return;
     }
     m_targetsUi->targetsView->setCurrentIndex(newIndex);
@@ -1188,7 +1188,7 @@ void KateBuildView::slotAddProjectTarget()
     }
 
     QModelIndex ind = m_targetsUi->targetsModel.index(set);
-    if (!ind.child(0, 0).data().isValid()) {
+    if (!ind.model()->index(0, 0, ind).data().isValid()) {
         QString buildCmd = buildMap.value(QStringLiteral("build")).toString();
         QString cleanCmd = buildMap.value(QStringLiteral("clean")).toString();
         QString quickCmd = buildMap.value(QStringLiteral("quick")).toString();

@@ -151,7 +151,7 @@ void ReplicodeView::runReplicode()
     connect(m_executor, &QProcess::readyReadStandardError, this, &ReplicodeView::gotStderr);
     connect(m_executor, &QProcess::readyReadStandardOutput, this, &ReplicodeView::gotStdout);
     connect(m_executor, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &ReplicodeView::replicodeFinished);
-    connect(m_executor, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::error), this, &ReplicodeView::runErrored);
+    connect(m_executor, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::errorOccurred), this, &ReplicodeView::runErrored);
     qDebug() << executorPath << sourceFile.canonicalPath();
     m_completed = false;
     m_executor->start(executorPath, QStringList(), QProcess::ReadOnly);

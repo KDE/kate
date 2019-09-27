@@ -34,6 +34,7 @@ include(FeatureSummary)
 
 # forbid some old things
 add_definitions(-DQT_NO_FOREACH)
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
 
 ecm_optional_add_subdirectory(addons)
 ecm_optional_add_subdirectory(kwrite)

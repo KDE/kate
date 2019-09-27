@@ -44,12 +44,14 @@ public:
 
         if (index0.internalId() == 0xffffffff) {
             int i = 0;
-            while (index0.child(i, 0).data().isValid()) {
-                name = index0.child(i, 0).data().toString();
+            auto childIndex = index0.model()->index(i, 0, index0);
+            while (childIndex.data().isValid()) {
+                name = childIndex.data().toString();
                 if (name.contains(m_filter, Qt::CaseInsensitive)) {
                     return true;
                 }
                 i++;
+                childIndex = index0.model()->index(i, 0, index0);
             }
             return false;
         }

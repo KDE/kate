@@ -93,7 +93,7 @@ void TargetsUi::targetSetSelected(int index)
     QModelIndex rootItem = targetsModel.index(index, 0);
 
     targetsView->setExpanded(rootItem, true);
-    targetsView->setCurrentIndex(rootItem.child(0, 0));
+    targetsView->setCurrentIndex(targetsModel.index(0, 0, rootItem));
 }
 
 void TargetsUi::targetActivated(const QModelIndex &index)

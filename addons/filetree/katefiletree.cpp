@@ -353,7 +353,7 @@ void KateFileTree::slotExpandRecursive()
 
         // Append all children of current item
         for (int i = 0; i < model()->rowCount(index); ++i) {
-            worklist.append(index.child(i, 0));
+            worklist.append(model()->index(i, 0, index));
         }
     }
 }
@@ -375,7 +375,7 @@ void KateFileTree::slotCollapseRecursive()
 
         // Prepend all children of current item
         for (int i = 0; i < model()->rowCount(index); ++i) {
-            worklist.append(index.child(i, 0));
+            worklist.append(model()->index(i, 0, index));
         }
     }
 }

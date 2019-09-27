@@ -91,13 +91,13 @@ private:
     /**
      * our project, only as QObject, we only send messages back and forth!
      */
-    QObject *m_project;
+    QObject * m_project;
 
     /**
      * project base directory name
      */
-    QString m_baseDir;
-    QVariantMap m_projectMap;
+    const QString m_baseDir;
+    const QVariantMap m_projectMap;
 };
 
 #endif

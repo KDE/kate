@@ -143,16 +143,16 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
      */
     m_projectMap = globalProject;
 
-    /**
-     * emit that we changed stuff
-     */
+    // emit that we changed stuff
     emit projectMapChanged();
 
-    KateProjectWorker *w = new KateProjectWorker(m_baseDir, m_projectMap);
+    // trigger loading of project in background thread
+    auto w = new KateProjectWorker(m_baseDir, m_projectMap);
     connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone);
     connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone);
     m_weaver->stream() << w;
 
+    // we are done here
     return true;
 }
 

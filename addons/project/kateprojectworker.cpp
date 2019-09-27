@@ -57,9 +57,7 @@ void KateProjectWorker::run(ThreadWeaver::JobPointer, ThreadWeaver::Thread *)
 
     emit loadDone(topLevel, file2Item);
 
-    /**
-     * load index
-     */
+    // trigger index loading, will internally handle enable/disabled
     loadIndex(files);
 }
 
@@ -466,12 +464,21 @@ QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursi
 
 void KateProjectWorker::loadIndex(const QStringList &files)
 {
+
+    /**
+     * load index, if enabled
+     * before this was default on, which is dangerous for large repositories, e.g. out-of-memory or out-of-disk
+     */
+    if (!m_projectMap[QStringLiteral("index")].toBool()) {
+        emit loadIndexDone(KateProjectSharedProjectIndex());
+        return;
+    }
+
     /**
      * create new index, this will do the loading in the constructor
      * wrap it into shared pointer for transfer to main thread
      */
     const QString keyCtags = QStringLiteral("ctags");
     KateProjectSharedProjectIndex index(new KateProjectIndex(files, m_projectMap[keyCtags].toMap()));
-
     emit loadIndexDone(index);
 }

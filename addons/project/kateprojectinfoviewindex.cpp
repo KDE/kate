@@ -136,7 +136,7 @@ void KateProjectInfoViewIndex::indexAvailable()
     /**
      * update enabled state of widgets
      */
-    const bool valid = m_project->projectIndex()->isValid();
+    const bool valid = m_project->projectIndex() && m_project->projectIndex()->isValid();
     m_lineEdit->setEnabled(valid);
     m_treeView->setEnabled(valid);
 
@@ -152,7 +152,14 @@ void KateProjectInfoViewIndex::indexAvailable()
         m_messageWidget->setCloseButtonVisible(true);
         m_messageWidget->setMessageType(KMessageWidget::Warning);
         m_messageWidget->setWordWrap(false);
-        m_messageWidget->setText(i18n("The index could not be created. Please install 'ctags'."));
+
+        // disabled or failed to create?
+        if (m_project->projectIndex()) {
+            m_messageWidget->setText(i18n("The index could not be created. Please install 'ctags'."));
+        } else {
+            m_messageWidget->setText(i18n("The index is not enabled. Please add '\"index\": true' to your .kateproject file."));
+        }
+
         static_cast<QVBoxLayout *>(layout())->insertWidget(0, m_messageWidget);
     } else {
         m_messageWidget->animatedShow();

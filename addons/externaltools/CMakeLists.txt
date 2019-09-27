@@ -1,5 +1,4 @@
-# find_package(KF5TextEditor QUIET REQUIRED)
-if(${KF5TextEditor_VERSION} VERSION_LESS 5.63.0)
+if(${KF5TextEditor_VERSION} VERSION_LESS "5.63.0")
     return()
 endif()
 

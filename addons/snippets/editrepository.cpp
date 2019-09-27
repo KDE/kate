@@ -79,8 +79,10 @@ EditRepository::EditRepository(SnippetRepository *repository, QWidget *parent)
             }
             repoLicenseEdit->setCurrentIndex(index);
         }
-        foreach (const QString &type, m_repo->fileTypes()) {
-            foreach (QListWidgetItem *item, repoFileTypesList->findItems(type, Qt::MatchExactly)) {
+        const auto fileTypes = m_repo->fileTypes();
+        for (const QString &type : fileTypes) {
+            const auto items = repoFileTypesList->findItems(type, Qt::MatchExactly);
+            for (QListWidgetItem *item : items) {
                 item->setSelected(true);
             }
         }
@@ -116,7 +118,8 @@ void EditRepository::save()
     m_repo->setCompletionNamespace(repoNamespaceEdit->text());
 
     QStringList types;
-    foreach (QListWidgetItem *item, repoFileTypesList->selectedItems()) {
+    const auto selectedItems = repoFileTypesList->selectedItems();
+    for (QListWidgetItem *item : selectedItems) {
         types << item->text();
     }
     m_repo->setFileTypes(types);
@@ -128,7 +131,8 @@ void EditRepository::save()
 void EditRepository::updateFileTypes()
 {
     QStringList types;
-    foreach (QListWidgetItem *item, repoFileTypesList->selectedItems()) {
+    const auto selectedItems = repoFileTypesList->selectedItems();
+    for (QListWidgetItem *item : selectedItems) {
         types << item->text();
     }
     if (types.isEmpty()) {

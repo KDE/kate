@@ -321,15 +321,18 @@ void SnippetView::slotGHNS()
 {
     KNS3::DownloadDialog dialog(QStringLiteral(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
     dialog.exec();
-    foreach (const KNS3::Entry &entry, dialog.changedEntries()) {
-        foreach (const QString &path, entry.uninstalledFiles()) {
+    const auto changedEntries = dialog.changedEntries();
+    for (const KNS3::Entry &entry : changedEntries) {
+        const auto uninstalledFiles = entry.uninstalledFiles();
+        for (const QString &path : uninstalledFiles) {
             if (path.endsWith(QLatin1String(".xml"))) {
                 if (SnippetRepository *repo = SnippetStore::self()->repositoryForFile(path)) {
                     repo->remove();
                 }
             }
         }
-        foreach (const QString &path, entry.installedFiles()) {
+        const auto installedFiles = entry.installedFiles();
+        for (const QString &path : installedFiles) {
             if (path.endsWith(QLatin1String(".xml"))) {
                 SnippetStore::self()->appendRow(new SnippetRepository(path));
             }

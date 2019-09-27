@@ -81,7 +81,8 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     /**
      * connect for all already existing views
      */
-    foreach (KTextEditor::View *view, mainWindow->views()) {
+    const auto views = mainWindow->views();
+    for (KTextEditor::View *view : views) {
         slotViewCreated(view);
     }
 
@@ -94,7 +95,7 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
 KateSnippetsPluginView::~KateSnippetsPluginView()
 {
     // cleanup for all views
-    Q_FOREACH (auto view, m_textViews) {
+    for (auto view : qAsConst(m_textViews)) {
         if (!view) {
             continue;
         }

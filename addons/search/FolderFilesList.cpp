@@ -62,7 +62,8 @@ void FolderFilesList::generateList(const QString &folder, bool recursive, bool h
     m_binary = binary;
 
     m_types.clear();
-    foreach (QString type, types.split(QLatin1Char(','), QString::SkipEmptyParts)) {
+    const auto typesList = types.split(QLatin1Char(','), QString::SkipEmptyParts);
+    for (const QString &type : typesList) {
         m_types << type.trimmed();
     }
     if (m_types.isEmpty()) {

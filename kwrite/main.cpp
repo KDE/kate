@@ -248,7 +248,8 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
             }
         } else {
             int docs_opened = 0;
-            Q_FOREACH (const QString positionalArgument, parser.positionalArguments()) {
+            const auto positionalArguments = parser.positionalArguments();
+            for (const QString &positionalArgument : positionalArguments) {
                 UrlInfo info(positionalArgument);
                 if (nav) {
                     info.cursor = KTextEditor::Cursor(line, column);

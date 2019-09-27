@@ -223,8 +223,9 @@ void ReplicodeView::replicodeFinished()
 
 void ReplicodeView::gotStderr()
 {
-    QByteArray output = m_executor->readAllStandardError();
-    foreach (QByteArray line, output.split('\n')) {
+    const QByteArray output = m_executor->readAllStandardError();
+    const auto lines = output.split('\n');
+    for (QByteArray line : lines) {
         line = line.simplified();
         if (line.isEmpty())
             continue;
@@ -237,8 +238,9 @@ void ReplicodeView::gotStderr()
 
 void ReplicodeView::gotStdout()
 {
-    QByteArray output = m_executor->readAllStandardOutput();
-    foreach (QByteArray line, output.split('\n')) {
+    const QByteArray output = m_executor->readAllStandardOutput();
+    const auto lines = output.split('\n');
+    for (QByteArray line : lines) {
         line = line.simplified();
         if (line.isEmpty())
             continue;

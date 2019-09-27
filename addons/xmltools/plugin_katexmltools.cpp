@@ -501,7 +501,7 @@ void PluginKateXMLToolsCompletionModel::assignDTD(PseudoDTD *dtd, KTextEditor::V
 {
     m_docDtds.insert(view->document(), dtd);
 
-    // TODO:perhaps foreach views()?
+    // TODO:perhaps for all views()?
     KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
 
     if (cci) {

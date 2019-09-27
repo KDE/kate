@@ -464,7 +464,6 @@ QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursi
 
 void KateProjectWorker::loadIndex(const QStringList &files)
 {
-
     /**
      * load index, if enabled
      * before this was default on, which is dangerous for large repositories, e.g. out-of-memory or out-of-disk

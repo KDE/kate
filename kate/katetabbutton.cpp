@@ -204,7 +204,7 @@ void KateTabButton::mouseMoveEvent(QMouseEvent *event)
         auto drag = new QDrag(this);
         drag->setMimeData(mimeData);
         drag->setDragCursor(QPixmap(), Qt::MoveAction);
-        drag->start(Qt::MoveAction);
+        drag->exec(Qt::MoveAction);
         event->accept();
     }
     QAbstractButton::mouseMoveEvent(event);

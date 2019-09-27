@@ -379,9 +379,9 @@ public:
         // fixup sorting
         if (m_sortOn->isChecked()) {
             m_symbols->setSortingEnabled(true);
-            m_symbols->sortByColumn(0);
+            m_symbols->sortByColumn(0, Qt::AscendingOrder);
         } else {
-            m_symbols->sortByColumn(-1);
+            m_symbols->sortByColumn(-1, Qt::AscendingOrder);
         }
 
         // handle auto-expansion

@@ -16,6 +16,6 @@ add_executable(externaltools_test
     ../kateexternaltool.cpp
     ../katetoolrunner.cpp
 )
-add_test(plugin-externaltools_test externaltools_test)
+add_test(NAME plugin-externaltools_test COMMAND externaltools_test)
 target_link_libraries(externaltools_test PRIVATE Qt5::Test KF5::ConfigCore KF5::CoreAddons KF5::TextEditor)
 ecm_mark_as_test(externaltools_test)

@@ -250,7 +250,8 @@ void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
 {
     Connection c;
 
-    foreach (const QString &groupName, connectionsGroup->groupList()) {
+    const auto groupList = connectionsGroup->groupList();
+    for (const QString &groupName : groupList) {
         qDebug() << "reading group:" << groupName;
 
         KConfigGroup group = connectionsGroup->group(groupName);

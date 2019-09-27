@@ -69,7 +69,8 @@ void DataOutputModel::readConfig()
 
     KColorScheme scheme(QPalette::Active, KColorScheme::View);
 
-    foreach (const QString &k, m_styles.keys()) {
+    const auto styleKeys = m_styles.keys();
+    for (const QString &k : styleKeys) {
         OutputStyle *s = m_styles[k];
 
         KConfigGroup g = group.group(k);

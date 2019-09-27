@@ -32,6 +32,9 @@ include(ECMInstallIcons)
 
 include(FeatureSummary)
 
+# forbid some old things
+add_definitions(-DQT_NO_FOREACH)
+
 ecm_optional_add_subdirectory(addons)
 ecm_optional_add_subdirectory(kwrite)
 ecm_optional_add_subdirectory(kate)

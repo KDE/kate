@@ -87,7 +87,8 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * create views for all already existing projects
      * will create toolviews on demand!
      */
-    foreach (KateProject *project, m_plugin->projects())
+    const auto projectList = m_plugin->projects();
+    for (KateProject *project : projectList)
         viewForProject(project);
 
     /**
@@ -100,7 +101,8 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     /**
      * connect for all already existing views
      */
-    foreach (KTextEditor::View *view, m_mainWindow->views())
+    const auto views = m_mainWindow->views();
+    for (KTextEditor::View *view : views)
         slotViewCreated(view);
 
     /**
@@ -267,7 +269,8 @@ QStringList KateProjectPluginView::allProjectsFiles() const
 {
     QStringList fileList;
 
-    foreach (auto project, m_plugin->projects()) {
+    const auto projectList = m_plugin->projects();
+    for (auto project : projectList) {
         fileList.append(project->files());
     }
 

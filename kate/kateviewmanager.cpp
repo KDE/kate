@@ -955,7 +955,8 @@ void KateViewManager::slotCloseOtherViews()
     KateUpdateDisabler disableUpdates(mainWindow());
 
     const KateViewSpace *active = activeViewSpace();
-    foreach (KateViewSpace *v, m_viewSpaceList) {
+    const auto viewSpaces = m_viewSpaceList;
+    for (KateViewSpace *v : viewSpaces) {
         if (active != v) {
             removeViewSpace(v);
         }

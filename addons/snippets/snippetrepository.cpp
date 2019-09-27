@@ -264,7 +264,8 @@ void SnippetRepository::save()
 
         QStringList shortcuts;
 
-        foreach (const QKeySequence &keys, snippet->action()->shortcuts()) {
+        const auto shortcutList = snippet->action()->shortcuts();
+        for (const QKeySequence &keys : shortcutList) {
             shortcuts << keys.toString();
         }
 

@@ -44,6 +44,7 @@
 #include <QStyle>
 #include <QDomDocument>
 #include <QVBoxLayout>
+#include <QTimer>
 
 namespace KateMDI
 {
@@ -401,6 +402,14 @@ bool Sidebar::showWidget(ToolView *widget)
         if ((it.value() != widget) && !it.value()->persistent) {
             hideWidget(it.value());
         }
+        // lock persistents' size while show/hide reshuffle happens
+        // (could also make this behavior per-widget configurable)
+        if (it.value()->persistent) {
+            auto w = it.value();
+            auto s = w->size();
+            w->setMinimumSize(s);
+            w->setMaximumSize(s);
+        }
     }
 
     setTab(m_widgetToId[widget], true);
@@ -422,6 +431,18 @@ bool Sidebar::showWidget(ToolView *widget)
     }
     m_ownSplit->show();
     widget->show();
+
+    // release persistent size again
+    // (later on, when all event processing has happened)
+    auto func = [this]() {
+        auto wsizes = m_ownSplit->sizes();
+        for (auto w : m_idToWidget) {
+            w->setMinimumSize(QSize(0, 0));
+            w->setMaximumSize(QSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX));
+        }
+        m_ownSplit->setSizes(wsizes);
+    };
+    QTimer::singleShot(0, this, func);
 
     /**
      * we are visible again!

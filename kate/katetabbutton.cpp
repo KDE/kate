@@ -165,7 +165,10 @@ void KateTabButton::paintEvent(QPaintEvent *ev)
 
     // draw text, we need to elide to xxx...xxx is too long
     const QString elidedText = QFontMetrics(font()).elidedText(text(), Qt::ElideMiddle, w);
-    const QRect textRect(leftMargin, 0, w, height());
+    QRect textRect(leftMargin, 0, w, height());
+    if (layoutDirection() == Qt::RightToLeft) {
+        textRect.moveLeft(textRect.left() + 16);
+    }
     const QPalette pal = QApplication::palette();
     style()->drawItemText(&p, textRect, Qt::AlignHCenter | Qt::AlignVCenter, pal, true, elidedText, QPalette::WindowText);
 }

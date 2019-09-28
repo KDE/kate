@@ -401,7 +401,7 @@ public:
         m_diagnosticsTree->setAlternatingRowColors(true);
         m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
         m_diagnosticsModel.reset(new QStandardItemModel());
-        m_diagnosticsModel->setColumnCount(2);
+        m_diagnosticsModel->setColumnCount(1);
         m_diagnosticsTree->setModel(m_diagnosticsModel.data());
         connect(m_diagnosticsTree, &QTreeView::clicked, this, &self_type::goToItemLocation);
         connect(m_diagnosticsTree, &QTreeView::doubleClicked, this, &self_type::triggerCodeAction);
@@ -1393,12 +1393,12 @@ public:
                     continue;
                 }
                 auto relatedItemMessage = new QStandardItem();
-                relatedItemMessage->setText(related.message);
                 fillItemRoles(relatedItemMessage, related.location.uri, related.location.range, RangeData::KindEnum::Related);
-                auto relatedItemPath = new QStandardItem();
                 auto basename = QFileInfo(related.location.uri.path()).fileName();
-                relatedItemPath->setText(QStringLiteral("%1:%2").arg(basename).arg(related.location.range.start().line()));
-                item->appendRow({relatedItemMessage, relatedItemPath});
+                auto location = QStringLiteral("%1:%2").arg(basename).arg(related.location.range.start().line());
+                relatedItemMessage->setText(QStringLiteral("[%1] %2").arg(location).arg(related.message));
+                relatedItemMessage->setData(diagnosticsIcon(LSPDiagnosticSeverity::Information), Qt::DecorationRole);
+                item->appendRow({relatedItemMessage});
                 m_diagnosticsTree->setExpanded(item->index(), true);
             }
         }
@@ -1408,12 +1408,6 @@ public:
         m_diagnosticsTree->setExpanded(topItem->index(), true);
         m_diagnosticsTree->setRowHidden(topItem->row(), QModelIndex(), topItem->rowCount() == 0);
         m_diagnosticsTree->scrollTo(topItem->index(), QAbstractItemView::PositionAtTop);
-
-        auto header = m_diagnosticsTree->header();
-        header->setStretchLastSection(false);
-        header->setMinimumSectionSize(0);
-        header->setSectionResizeMode(0, QHeaderView::Stretch);
-        header->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
         updateState();
     }

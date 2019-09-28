@@ -76,6 +76,12 @@ int main(int argc, char **argv)
     Q_INIT_RESOURCE(kate);
 
     /**
+     * enable high dpi support
+     */
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
+
+    /**
      * Create application first
      */
 #ifdef USE_QT_SINGLE_APP
@@ -88,11 +94,6 @@ int main(int argc, char **argv)
      * Enforce application name even if the executable is renamed
      */
     app.setApplicationName(QStringLiteral("kate"));
-
-    /**
-     * enable high dpi support
-     */
-    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
     /**
      * Enable crash handling through KCrash.

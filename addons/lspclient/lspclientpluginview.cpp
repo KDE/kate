@@ -397,12 +397,12 @@ public:
 
         // diagnostics tab
         m_diagnosticsTree = new QTreeView();
-        configureTreeView(m_diagnosticsTree);
         m_diagnosticsTree->setAlternatingRowColors(true);
         m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
         m_diagnosticsModel.reset(new QStandardItemModel());
         m_diagnosticsModel->setColumnCount(1);
         m_diagnosticsTree->setModel(m_diagnosticsModel.data());
+        configureTreeView(m_diagnosticsTree);
         connect(m_diagnosticsTree, &QTreeView::clicked, this, &self_type::goToItemLocation);
         connect(m_diagnosticsTree, &QTreeView::doubleClicked, this, &self_type::triggerCodeAction);
 

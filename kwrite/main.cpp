@@ -65,17 +65,19 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
         }
     }
 #endif
+
+    /**
+     * enable high dpi support
+     */
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
+
     /**
      * Create application first
      * Enforce application name even if the executable is renamed
      */
     QApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("kwrite"));
-
-    /**
-     * enable high dpi support
-     */
-    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
     /**
      * Enable crash handling through KCrash.

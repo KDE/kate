@@ -33,9 +33,7 @@
 #include <KMessageBox>
 #include <KDBusService>
 #include <kcrash_version.h>
-#if KCrash_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 #include <KCrash>
-#endif // KCrash >= 5.15
 
 #include <QCommandLineParser>
 #include <QApplication>
@@ -82,9 +80,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     /**
      * Enable crash handling through KCrash.
      */
-#if KCrash_VERSION >= QT_VERSION_CHECK(5, 15, 0)
     KCrash::initialize();
-#endif
 
     /**
      * Connect application with translation catalogs
@@ -105,10 +101,11 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     /**
      * desktop file association to make application icon work (e.g. in Wayland window decoration)
      */
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 16, 0)
     aboutData.setDesktopFileName(QStringLiteral("org.kde.kwrite"));
-#endif
 
+    /**
+     * authors & co.
+     */
     aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("https://cullmann.io"));
     aboutData.addAuthor(i18n("Dominik Haumann"), i18n("Core Developer"), QStringLiteral("dhaumann@kde.org"));
     aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("http://www.alweb.dk"));

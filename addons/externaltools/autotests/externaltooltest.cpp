@@ -66,6 +66,11 @@ void ExternalToolTest::testLoadSave()
 
 void ExternalToolTest::testRunListDirectory()
 {
+    // Skip, if 'ls' is not installed
+    if (QStandardPaths::findExecutable(QStringLiteral("ls")).isEmpty()) {
+        QSKIP("'ls' not found - skipping test");
+    }
+
     std::unique_ptr<KateExternalTool> tool(new KateExternalTool());
     tool->category = QStringLiteral("Tools");
     tool->name = QStringLiteral("ls");
@@ -100,6 +105,11 @@ void ExternalToolTest::testRunListDirectory()
 
 void ExternalToolTest::testRunTac()
 {
+    // Skip, if 'tac' is not installed
+    if (QStandardPaths::findExecutable(QStringLiteral("tac")).isEmpty()) {
+        QSKIP("'tac' not found - skipping test");
+    }
+
     std::unique_ptr<KateExternalTool> tool(new KateExternalTool());
     tool->name = QStringLiteral("tac");
     tool->executable = QStringLiteral("tac");

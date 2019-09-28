@@ -110,10 +110,14 @@ static QJsonObject to_json(const LSPDiagnostic &diagnostic)
         result[QStringLiteral("severity")] = (int)diagnostic.severity;
     if (!diagnostic.source.isEmpty())
         result[QStringLiteral("source")] = diagnostic.source;
-    auto related = to_json(diagnostic.relatedInformation);
-    if (related.isObject()) {
-        result[QStringLiteral("relatedInformation")] = related;
+    QJsonArray relatedInfo;
+    for (const auto &vrelated : diagnostic.relatedInformation) {
+        auto related = to_json(vrelated);
+        if (related.isObject()) {
+            relatedInfo.push_back(related);
+        }
     }
+    result[QStringLiteral("relatedInformation")] = relatedInfo;
     return result;
 }
 
@@ -596,10 +600,15 @@ static QList<LSPDiagnostic> parseDiagnostics(const QJsonArray &result)
         auto code = diag.value(QStringLiteral("code")).toString();
         auto source = diag.value(QStringLiteral("source")).toString();
         auto message = diag.value(MEMBER_MESSAGE).toString();
-        auto related = diag.value(QStringLiteral("relatedInformation")).toObject();
-        auto relLocation = parseLocation(related.value(MEMBER_LOCATION).toObject());
-        auto relMessage = related.value(MEMBER_MESSAGE).toString();
-        ret.push_back({range, severity, code, source, message, relLocation, relMessage});
+        auto relatedInfo = diag.value(QStringLiteral("relatedInformation")).toArray();
+        QList<LSPDiagnosticRelatedInformation> relatedInfoList;
+        for (const auto &vrelated : relatedInfo) {
+            auto related = vrelated.toObject();
+            auto relLocation = parseLocation(related.value(MEMBER_LOCATION).toObject());
+            auto relMessage = related.value(MEMBER_MESSAGE).toString();
+            relatedInfoList.push_back({relLocation, relMessage});
+        }
+        ret.push_back({range, severity, code, source, message, relatedInfoList});
     }
     return ret;
 }

@@ -264,7 +264,7 @@ struct LSPDiagnostic {
     QString code;
     QString source;
     QString message;
-    LSPDiagnosticRelatedInformation relatedInformation;
+    QList<LSPDiagnosticRelatedInformation> relatedInformation;
 };
 
 struct LSPPublishDiagnosticsParams {

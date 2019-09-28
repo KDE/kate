@@ -1387,8 +1387,11 @@ public:
             item->setData(diagnosticsIcon(diag.severity), Qt::DecorationRole);
             item->setText(source + diag.message);
             fillItemRoles(item, diagnostics.uri, diag.range, diag.severity);
-            const auto &related = diag.relatedInformation;
-            if (!related.location.uri.isEmpty()) {
+            const auto &relatedInfo = diag.relatedInformation;
+            for (const auto &related : relatedInfo) {
+                if (related.location.uri.isEmpty()) {
+                    continue;
+                }
                 auto relatedItemMessage = new QStandardItem();
                 relatedItemMessage->setText(related.message);
                 fillItemRoles(relatedItemMessage, related.location.uri, related.location.range, RangeData::KindEnum::Related);

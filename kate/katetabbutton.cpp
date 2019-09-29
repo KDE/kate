@@ -37,35 +37,32 @@
 #include <math.h>
 
 TabCloseButton::TabCloseButton(QWidget *parent)
-    : QAbstractButton(parent)
+    : QPushButton(parent)
 {
     // should never have focus
     setFocusPolicy(Qt::NoFocus);
 
     // closing a tab closes the document
     setToolTip(i18n("Close Document"));
+    setIcon(QIcon::fromTheme(QStringLiteral("document-close")));
 }
 
-void TabCloseButton::paintEvent(QPaintEvent *event)
+void TabCloseButton::paintEvent(QPaintEvent *)
 {
-    Q_UNUSED(event)
-
     // get the tab this close button belongs to
     KateTabButton *tabButton = qobject_cast<KateTabButton *>(parent());
     const bool isActive = underMouse() || (tabButton && tabButton->isChecked());
 
-    // set style options depending on current state
-    QStyleOption opt;
-    opt.init(this);
-    if (isActive && !isChecked()) {
-        opt.state |= QStyle::State_Raised;
-    }
-    if (isChecked()) {
-        opt.state |= QStyle::State_Sunken;
-    }
+    QStyleOptionButton opt;
+    opt.initFrom(this);
+    opt.icon = icon();
+    opt.iconSize = sizeHint();
+    // removes the QStyleOptionButton::HasMenu ButtonFeature
+    opt.features = QStyleOptionButton::Flat;
+    opt.state.setFlag(QStyle::State_Enabled, isActive);
 
-    QPainter p(this);
-    style()->drawPrimitive(QStyle::PE_IndicatorTabClose, &opt, &p, this);
+    QPainter painter(this);
+    style()->drawControl(QStyle::CE_PushButton, &opt, &painter, this);
 }
 
 QSize TabCloseButton::sizeHint() const
@@ -82,13 +79,13 @@ QSize TabCloseButton::sizeHint() const
 void TabCloseButton::enterEvent(QEvent *event)
 {
     update(); // repaint on hover
-    QAbstractButton::enterEvent(event);
+    QPushButton::enterEvent(event);
 }
 
 void TabCloseButton::leaveEvent(QEvent *event)
 {
     update(); // repaint on hover
-    QAbstractButton::leaveEvent(event);
+    QPushButton::leaveEvent(event);
 }
 
 KateTabButton::KateTabButton(const QString &text, QWidget *parent)

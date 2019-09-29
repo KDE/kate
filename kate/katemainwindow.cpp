@@ -1243,8 +1243,7 @@ void KateMainWindow::slotQuickOpen()
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text)
 {
-    // FIXME KF5
-    return KateMDI::MainWindow::createToolView(plugin, identifier, (KMultiTabBar::KMultiTabBarPosition)(pos), icon.pixmap(QSize(16, 16)), text);
+    return KateMDI::MainWindow::createToolView(plugin, identifier, (KMultiTabBar::KMultiTabBarPosition)(pos), icon, text);
 }
 
 bool KateMainWindow::moveToolView(QWidget *widget, KTextEditor::MainWindow::ToolViewPosition pos)
@@ -1253,7 +1252,6 @@ bool KateMainWindow::moveToolView(QWidget *widget, KTextEditor::MainWindow::Tool
         return false;
     }
 
-    // FIXME KF5
     return KateMDI::MainWindow::moveToolView(qobject_cast<KateMDI::ToolView *>(widget), (KMultiTabBar::KMultiTabBarPosition)(pos));
 }
 

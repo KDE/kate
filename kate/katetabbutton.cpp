@@ -44,7 +44,7 @@ TabCloseButton::TabCloseButton(QWidget *parent)
 
     // closing a tab closes the document
     setToolTip(i18n("Close Document"));
-    setIcon(QIcon::fromTheme(QStringLiteral("document-close")));
+    setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
 }
 
 void TabCloseButton::paintEvent(QPaintEvent *)
@@ -60,6 +60,7 @@ void TabCloseButton::paintEvent(QPaintEvent *)
     // removes the QStyleOptionButton::HasMenu ButtonFeature
     opt.features = QStyleOptionButton::Flat;
     opt.state.setFlag(QStyle::State_Enabled, isActive);
+    opt.state.setFlag(QStyle::State_MouseOver, false);
 
     QPainter painter(this);
     style()->drawControl(QStyle::CE_PushButton, &opt, &painter, this);

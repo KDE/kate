@@ -21,12 +21,12 @@
 #ifndef KATE_TAB_BUTTON
 #define KATE_TAB_BUTTON
 
-#include <QAbstractButton>
+#include <QPushButton>
 #include <QUrl>
 
 class QPropertyAnimation;
 
-class TabCloseButton : public QAbstractButton
+class TabCloseButton : public QPushButton
 {
     Q_OBJECT
 

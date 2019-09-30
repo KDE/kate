@@ -70,6 +70,13 @@ private Q_SLOTS:
      */
     void overrideShortcut(QKeyEvent *event, bool &override);
 
+protected:
+    /**
+     * the konsole get shown
+     * @param ev show event
+     */
+    void showEvent(QShowEvent *ev) override;
+
 private:
     /**
      * plugin factory for the terminal

@@ -39,11 +39,6 @@ KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *
     m_layout = new QVBoxLayout(this);
     m_layout->setSpacing(0);
     m_layout->setContentsMargins(0, 0, 0, 0);
-
-    /**
-     * initial terminal creation
-     */
-    loadTerminal();
 }
 
 KateProjectInfoViewTerminal::~KateProjectInfoViewTerminal()
@@ -62,6 +57,16 @@ KPluginFactory *KateProjectInfoViewTerminal::pluginFactory()
         return s_pluginFactory;
     }
     return s_pluginFactory = KPluginLoader(QStringLiteral("konsolepart")).factory();
+}
+
+void KateProjectInfoViewTerminal::showEvent(QShowEvent *)
+{
+    /**
+     * we delay the terminal construction until we have some part to have a usable WINDOWID, see bug 411965
+     */
+    if (!m_konsolePart) {
+        loadTerminal();
+    }
 }
 
 void KateProjectInfoViewTerminal::loadTerminal()

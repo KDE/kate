@@ -1,11 +1,10 @@
 <!DOCTYPE kpartgui>
-<gui name="externaltools" library="externaltoolsplugin" version="2">
+<gui name="externaltools" version="4" translationDomain="externaltools">
   <MenuBar>
     <Menu name="tools"><text>&amp;Tools</text>
       <Action name="tools_external" />
     </Menu>
   </MenuBar>
-  <ToolBar name="externaltoolsplugin">
-    <text>External Tools</text>
+  <ToolBar name="mainToolBar" noMerge="1"><text>Main Toolbar</text>
   </ToolBar>
 </gui>

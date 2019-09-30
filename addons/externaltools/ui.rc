@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<gui name="externaltools" version="4" translationDomain="kateexternaltoolsplugin">
+<gui name="externaltools" version="5" translationDomain="kateexternaltoolsplugin">
   <MenuBar>
     <Menu name="tools"><text>&amp;Tools</text>
       <Action name="tools_external" />

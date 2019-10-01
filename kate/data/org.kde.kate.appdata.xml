@@ -937,4 +937,7 @@
   <provides>
     <binary>kate</binary>
   </provides>
+  <custom>
+     <value key="KDE::windows_store">https://www.microsoft.com/store/apps/9NWMW7BB59HW</value>
+  </custom>
 </component>

@@ -895,9 +895,9 @@
       <li xml:lang="zh-TW">可使用 JavaScript</li>
     </ul>
   </description>
-  <url type="homepage">http://kate-editor.org/</url>
+  <url type="homepage">https://kate-editor.org/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kate</url>
-  <url type="help">http://docs.kde.org/stable/en/applications/kate/index.html</url>
+  <url type="help">https://docs.kde.org/stable/en/applications/kate/index.html</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kate&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
@@ -930,7 +930,7 @@
       <caption xml:lang="x-test">xxEditing code with Katexx</caption>
       <caption xml:lang="zh-CN">使用 Kate 编辑代码</caption>
       <caption xml:lang="zh-TW">使用 Kate 編輯程式碼</caption>
-      <image>http://kde.org/images/screenshots/kate.png</image>
+      <image>https://kde.org/images/screenshots/kate.png</image>
     </screenshot>
   </screenshots>
   <project_group>KDE</project_group>

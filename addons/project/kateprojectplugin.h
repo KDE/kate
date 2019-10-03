@@ -151,6 +151,9 @@ private:
     void readConfig();
     void writeConfig();
 
+    void registerVariables();
+    void unregisterVariables();
+
 private:
     /**
      * open plugins, maps project base directory => project

@@ -25,6 +25,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
+#include <KLineEdit>
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -151,7 +152,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     ui->edtCommand->setValidator(&cmdLineValidator);
 
     // add support for variable expansion
-    KTextEditor::Editor::instance()->addVariableExpansion({ui->edtExecutable, ui->edtArgs, ui->edtInput, ui->edtWorkingDir});
+    KTextEditor::Editor::instance()->addVariableExpansion({ui->edtExecutable->lineEdit(), ui->edtArgs, ui->edtInput, ui->edtWorkingDir->lineEdit()});
 }
 
 void KateExternalToolServiceEditor::slotOKClicked()

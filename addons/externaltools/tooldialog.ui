@@ -46,32 +46,7 @@
      <property name="text">
       <string>E&amp;xecutable:</string>
      </property>
-     <property name="buddy">
-      <cstring>edtExecutable</cstring>
-     </property>
     </widget>
-   </item>
-   <item row="1" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLineEdit" name="edtExecutable">
-       <property name="placeholderText">
-        <string>Application or interpreter</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="btnExecutable">
-       <property name="icon">
-        <iconset theme="folder-open">
-         <normaloff>.</normaloff>.</iconset>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::InstantPopup</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="lblArgs">
@@ -112,32 +87,7 @@
      <property name="text">
       <string>Working &amp;directory:</string>
      </property>
-     <property name="buddy">
-      <cstring>edtWorkingDir</cstring>
-     </property>
     </widget>
-   </item>
-   <item row="4" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLineEdit" name="edtWorkingDir">
-       <property name="placeholderText">
-        <string>Uses current document path if empty</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="btnWorkingDir">
-       <property name="icon">
-        <iconset theme="folder-open">
-         <normaloff>.</normaloff>.</iconset>
-       </property>
-       <property name="popupMode">
-        <enum>QToolButton::InstantPopup</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
    <item row="5" column="0">
     <widget class="QLabel" name="lblMimeType">
@@ -294,6 +244,20 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="1">
+    <widget class="KUrlRequester" name="edtExecutable">
+     <property name="placeholderText">
+      <string>Application or interpreter</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="KUrlRequester" name="edtWorkingDir">
+     <property name="placeholderText">
+      <string>Uses current document path if empty</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -302,16 +266,19 @@
    <extends>QPushButton</extends>
    <header>kiconbutton.h</header>
   </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QWidget</extends>
+   <header>kurlrequester.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>edtName</tabstop>
   <tabstop>btnIcon</tabstop>
   <tabstop>edtExecutable</tabstop>
-  <tabstop>btnExecutable</tabstop>
   <tabstop>edtArgs</tabstop>
   <tabstop>edtInput</tabstop>
   <tabstop>edtWorkingDir</tabstop>
-  <tabstop>btnWorkingDir</tabstop>
   <tabstop>edtMimeType</tabstop>
   <tabstop>btnMimeType</tabstop>
   <tabstop>cmbSave</tabstop>

@@ -397,6 +397,7 @@ bool Sidebar::showWidget(ToolView *widget)
 
     // hide other non-persistent views
     QMapIterator<int, ToolView *> it(m_idToWidget);
+    bool unfixSize = false;
     while (it.hasNext()) {
         it.next();
         if ((it.value() != widget) && !it.value()->persistent) {
@@ -409,6 +410,7 @@ bool Sidebar::showWidget(ToolView *widget)
             auto s = w->size();
             w->setMinimumSize(s);
             w->setMaximumSize(s);
+            unfixSize = true;
         }
     }
 
@@ -442,7 +444,9 @@ bool Sidebar::showWidget(ToolView *widget)
         }
         m_ownSplit->setSizes(wsizes);
     };
-    QTimer::singleShot(0, this, func);
+    if (unfixSize) {
+        QTimer::singleShot(0, this, func);
+    }
 
     /**
      * we are visible again!

@@ -170,6 +170,8 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
         ui->buttonBox->setToolTip(i18n("Revert tool to default settings"));
         connect(ui->buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, [this, tool](){
             const auto t = defaultTool(tool->actionName, m_plugin->defaultTools());
+            ui->edtName->setText(i18n(t.name.toUtf8().data()));
+            ui->btnIcon->setIcon(t.icon);
             ui->edtExecutable->setText(t.executable);
             ui->edtArgs->setText(t.arguments);
             ui->edtInput->setText(t.input);

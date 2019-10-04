@@ -115,11 +115,25 @@ void makeEditorCommandUnique(KateExternalTool *tool, const std::vector<KateExter
     }
     tool->cmdname = cmdname;
 }
+
+static KateExternalTool defaultTool(const QString &actionName, const QVector<KateExternalTool> &defaultTools)
+{
+    auto it = std::find_if(defaultTools.cbegin(), defaultTools.cend(), [actionName](const KateExternalTool &defaultTool) {
+        return actionName == defaultTool.actionName;
+    });
+    return (it != defaultTools.cend()) ? *it : KateExternalTool();
+}
+
+static bool isDefaultTool(KateExternalTool *tool, const QVector<KateExternalTool> &defaultTools)
+{
+    return tool && !defaultTool(tool->actionName, defaultTools).actionName.isEmpty();
+}
 }
 
 // BEGIN KateExternalToolServiceEditor
-KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *tool, QWidget *parent)
+KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *tool, KateExternalToolsPlugin *plugin, QWidget *parent)
     : QDialog(parent)
+    , m_plugin(plugin)
     , m_tool(tool)
 {
     setWindowTitle(i18n("Edit External Tool"));
@@ -150,6 +164,23 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
 
     static const QRegularExpressionValidator cmdLineValidator(QRegularExpression(QStringLiteral("[\\w-]*")));
     ui->edtCommand->setValidator(&cmdLineValidator);
+
+    if (isDefaultTool(tool, m_plugin->defaultTools())) {
+        ui->buttonBox->setStandardButtons(ui->buttonBox->standardButtons() | QDialogButtonBox::RestoreDefaults);
+        ui->buttonBox->setToolTip(i18n("Revert tool to default settings"));
+        connect(ui->buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, [this, tool](){
+            const auto t = defaultTool(tool->actionName, m_plugin->defaultTools());
+            ui->edtExecutable->setText(t.executable);
+            ui->edtArgs->setText(t.arguments);
+            ui->edtInput->setText(t.input);
+            ui->edtWorkingDir->setText(t.workingDir);
+            ui->edtMimeType->setText(t.mimetypes.join(QStringLiteral("; ")));
+            ui->cmbSave->setCurrentIndex(static_cast<int>(t.saveMode));
+            ui->chkReload->setChecked(t.reload);
+            ui->cmbOutput->setCurrentIndex(static_cast<int>(t.outputMode));
+            ui->edtCommand->setText(t.cmdname);
+        });
+    }
 
     // add support for variable expansion
     KTextEditor::Editor::instance()->addVariableExpansion({ui->edtExecutable->lineEdit(), ui->edtArgs, ui->edtInput, ui->edtWorkingDir->lineEdit()});
@@ -333,7 +364,7 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
 {
     bool changed = false;
 
-    KateExternalToolServiceEditor editor(tool, this);
+    KateExternalToolServiceEditor editor(tool, m_plugin, this);
     editor.resize(m_config->group("Editor").readEntry("Size", QSize()));
     if (editor.exec() == QDialog::Accepted) {
         tool->name = editor.ui->edtName->text();

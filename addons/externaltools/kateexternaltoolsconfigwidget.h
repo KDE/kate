@@ -107,7 +107,7 @@ class KateExternalToolServiceEditor : public QDialog
     Q_OBJECT
 
 public:
-    explicit KateExternalToolServiceEditor(KateExternalTool *tool = nullptr, QWidget *parent = nullptr);
+    explicit KateExternalToolServiceEditor(KateExternalTool *tool, KateExternalToolsPlugin *plugin, QWidget *parent = nullptr);
 
 private Q_SLOTS:
     /**
@@ -124,6 +124,7 @@ public:
     Ui::ToolDialog *ui;
 
 private:
+    KateExternalToolsPlugin *m_plugin;
     KateExternalTool *m_tool;
 };
 

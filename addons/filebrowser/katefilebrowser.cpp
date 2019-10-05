@@ -44,6 +44,7 @@
 #include <QAction>
 #include <QDir>
 #include <QLineEdit>
+#include <QStyle>
 #include <QVBoxLayout>
 
 // END Includes
@@ -60,6 +61,12 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     m_toolbar->setMovable(false);
     m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
     m_toolbar->setContextMenuPolicy(Qt::NoContextMenu);
+
+    // ensure reasonable icons sizes, like e.g. the quick-open and co. icons
+    // the normal toolbar sizes are TOO large, e.g. for scaled stuff even more!
+    const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
+    m_toolbar->setIconSize(QSize(iconSize, iconSize));
+
     mainLayout->addWidget(m_toolbar);
 
     // includes some actions, but not hooked into the shortcut dialog atm

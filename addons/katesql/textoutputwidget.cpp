@@ -27,6 +27,7 @@
 #include <qlayout.h>
 #include <qtextedit.h>
 #include <qdatetime.h>
+#include <QStyle>
 
 TextOutputWidget::TextOutputWidget(QWidget *parent)
     : QWidget(parent)
@@ -49,7 +50,11 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
     KToolBar *toolbar = new KToolBar(this);
     toolbar->setOrientation(Qt::Vertical);
     toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-    toolbar->setIconSize(QSize(16, 16));
+
+    // ensure reasonable icons sizes, like e.g. the quick-open and co. icons
+    // the normal toolbar sizes are TOO large, e.g. for scaled stuff even more!
+    const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
+    toolbar->setIconSize(QSize(iconSize, iconSize));
 
     /// TODO: disable actions if no results are displayed
 

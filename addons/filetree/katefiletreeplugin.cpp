@@ -39,6 +39,7 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QStyle>
 #include <QVBoxLayout>
 
 #include "katefiletreedebug.h"
@@ -143,6 +144,12 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_toolbar->setMovable(false);
     m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
     m_toolbar->setContextMenuPolicy(Qt::NoContextMenu);
+
+    // ensure reasonable icons sizes, like e.g. the quick-open and co. icons
+    // the normal toolbar sizes are TOO large, e.g. for scaled stuff even more!
+    const int iconSize = m_toolView->style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, m_toolView);
+    m_toolbar->setIconSize(QSize(iconSize, iconSize));
+
     mainLayout->addWidget(m_toolbar);
 
     // create filetree

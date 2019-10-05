@@ -76,6 +76,7 @@
 #include <QApplication>
 #include <QMenu>
 #include <QMenuBar>
+#include <QStyle>
 #include <QToolButton>
 #include <QTimer>
 #include <QFontDatabase>

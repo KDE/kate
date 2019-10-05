@@ -5,18 +5,18 @@ if(NOT KF5GuiAddons_FOUND)
   return()
 endif()
 
-add_library(katefiletree MODULE "")
-target_compile_definitions(katefiletree PRIVATE TRANSLATION_DOMAIN="katefiletree")
+add_library(katefiletreeplugin MODULE "")
+target_compile_definitions(katefiletreeplugin PRIVATE TRANSLATION_DOMAIN="katefiletree")
 
 target_link_libraries(
-  katefiletree
+  katefiletreeplugin
   PUBLIC
     KF5::TextEditor
     KF5::GuiAddons
 )
 
 target_sources(
-  katefiletree
+  katefiletreeplugin
   PRIVATE
     katefiletree.cpp
     katefiletreeconfigpage.cpp
@@ -27,8 +27,8 @@ target_sources(
     plugin.qrc
 )
 
-kcoreaddons_desktop_to_json(katefiletree katefiletreeplugin.desktop)
-install(TARGETS katefiletree DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+kcoreaddons_desktop_to_json(katefiletreeplugin katefiletreeplugin.desktop)
+install(TARGETS katefiletreeplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

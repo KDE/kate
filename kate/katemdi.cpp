@@ -226,6 +226,11 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
     m_toolbar = new KToolBar(this);
     m_toolbar->setVisible(false);
     m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+
+    // ensure reasonable icons sizes, like e.g. the quick-open and co. icons
+    // the normal toolbar sizes are TOO large, e.g. for scaled stuff even more!
+    const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
+    m_toolbar->setIconSize(QSize(iconSize, iconSize));
 }
 
 QSize ToolView::sizeHint() const

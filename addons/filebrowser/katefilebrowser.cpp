@@ -44,6 +44,7 @@
 #include <QAction>
 #include <QDir>
 #include <QLineEdit>
+#include <QStyle>
 #include <QVBoxLayout>
 
 //END Includes
@@ -53,7 +54,6 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
   : QWidget (parent)
   , m_mainWindow(mainWindow)
 {
-
   QVBoxLayout *mainLayout = new QVBoxLayout(this);
   mainLayout->setContentsMargins(0, 0, 0, 0);
   mainLayout->setSpacing(0);
@@ -62,6 +62,12 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow,
   m_toolbar->setMovable(false);
   m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
   m_toolbar->setContextMenuPolicy(Qt::NoContextMenu);
+
+  // ensure reasonable icons sizes, like e.g. the quick-open and co. icons
+  // the normal toolbar sizes are TOO large, e.g. for scaled stuff even more!
+  const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
+  m_toolbar->setIconSize(QSize(iconSize, iconSize));
+
   mainLayout->addWidget(m_toolbar);
 
   // includes some actions, but not hooked into the shortcut dialog atm
@@ -243,7 +249,7 @@ void KateFileBrowser::openSelectedFiles()
     if (KMessageBox::questionYesNo(this,i18np("You are trying to open 1 file, are you sure?", "You are trying to open %1 files, are you sure?", list.count()))
       == KMessageBox::No) return;
   }
-  
+
   foreach (const KFileItem& item, list)
   {
     m_mainWindow->openUrl(item.url());
@@ -334,7 +340,7 @@ void KateFileBrowser::setupActions()
   optionsMenu->addAction(m_autoSyncFolder);
 
   m_actionCollection->addAction(QStringLiteral("configure"), optionsMenu);
-  
+
   //
   // Remove all shortcuts due to shortcut clashes (e.g. F5: reload, Ctrl+B: bookmark)
   // BUGS: #188954, #236368

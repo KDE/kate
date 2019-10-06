@@ -118,9 +118,7 @@ void makeEditorCommandUnique(KateExternalTool *tool, const std::vector<KateExter
 
 static KateExternalTool defaultTool(const QString &actionName, const QVector<KateExternalTool> &defaultTools)
 {
-    auto it = std::find_if(defaultTools.cbegin(), defaultTools.cend(), [actionName](const KateExternalTool &defaultTool) {
-        return actionName == defaultTool.actionName;
-    });
+    auto it = std::find_if(defaultTools.cbegin(), defaultTools.cend(), [actionName](const KateExternalTool &defaultTool) { return actionName == defaultTool.actionName; });
     return (it != defaultTools.cend()) ? *it : KateExternalTool();
 }
 
@@ -168,7 +166,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     if (isDefaultTool(tool, m_plugin->defaultTools())) {
         ui->buttonBox->setStandardButtons(ui->buttonBox->standardButtons() | QDialogButtonBox::RestoreDefaults);
         ui->buttonBox->setToolTip(i18n("Revert tool to default settings"));
-        connect(ui->buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, [this, tool](){
+        connect(ui->buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, [this, tool]() {
             const auto t = defaultTool(tool->actionName, m_plugin->defaultTools());
             ui->edtName->setText(i18n(t.name.toUtf8().data()));
             ui->btnIcon->setIcon(t.icon);

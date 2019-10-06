@@ -76,6 +76,9 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KateProjectPlugin::slotDocumentCreated);
     connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged, this, &KateProjectPlugin::slotDirectoryChanged);
 
+    // read configuration prior to cwd project setup below
+    readConfig();
+
 #ifdef HAVE_CTERMID
     /**
      * open project for our current working directory, if this kate has a terminal
@@ -90,8 +93,6 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
         ::close(fd);
     }
 #endif
-
-    readConfig();
 
     for (auto document : KTextEditor::Editor::instance()->application()->documents()) {
         slotDocumentCreated(document);

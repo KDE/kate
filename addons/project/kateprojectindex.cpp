@@ -33,7 +33,7 @@ KateProjectIndex::KateProjectIndex(const QString &baseDir, const QString &indexD
 {
     // allow project to override and specify a (re-usable) indexfile
     // otherwise fall-back to a temporary file if nothing specified
-    auto ctagsFile = ctagsMap.value(QStringLiteral("indexfile"));
+    auto ctagsFile = ctagsMap.value(QStringLiteral("index_file"));
     if (ctagsFile.userType() == QMetaType::QString) {
         auto path = ctagsFile.toString();
         if (!QDir::isAbsolutePath(path)) {

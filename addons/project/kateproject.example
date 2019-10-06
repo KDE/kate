@@ -12,9 +12,6 @@ struct
    /// Otherwise, the directory in which the project file is located as the base directory.
    string directory;
 
-   /// If "index" is set to "1", a ctags index file is generated.
-   bool index;
-
    /// The "files" struct describes which files belong to the project.
    /// There are five miutually exclusive methods to do this.
    struct files
@@ -82,6 +79,10 @@ struct
    /// If set, it may contain extra options for ctags command used to populate the auto completion popup in Kate.
    struct ctags
    {
+      /// If "enable" is set to "1", a ctags index file is generated.
+      /// If not present, generation of index depends on project plugin setting.
+      bool enable;
+
       /// "options" can be set to a list of ctags options. You may need to escape character "\".
       vector< string > options;
 

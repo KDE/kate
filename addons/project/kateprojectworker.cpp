@@ -466,13 +466,15 @@ QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursi
 
 void KateProjectWorker::loadIndex(const QStringList &files, bool force)
 {
+    const QString keyCtags = QStringLiteral("ctags");
+    const QVariantMap ctagsMap = m_projectMap[keyCtags].toMap();
     /**
      * load index, if enabled
      * before this was default on, which is dangerous for large repositories, e.g. out-of-memory or out-of-disk
      * if specified in project map; use that setting, otherwise fall back to global setting
      */
     bool indexEnabled = !m_indexDir.isEmpty();
-    auto indexValue = m_projectMap[QStringLiteral("index")];
+    auto indexValue = ctagsMap[QStringLiteral("enable")];
     if (!indexValue.isNull()) {
         indexEnabled = indexValue.toBool();
     }
@@ -485,8 +487,7 @@ void KateProjectWorker::loadIndex(const QStringList &files, bool force)
      * create new index, this will do the loading in the constructor
      * wrap it into shared pointer for transfer to main thread
      */
-    const QString keyCtags = QStringLiteral("ctags");
-    KateProjectSharedProjectIndex index(new KateProjectIndex(m_baseDir, m_indexDir, files, m_projectMap[keyCtags].toMap(), force));
+    KateProjectSharedProjectIndex index(new KateProjectIndex(m_baseDir, m_indexDir, files, ctagsMap, force));
 
     emit loadIndexDone(index);
 }

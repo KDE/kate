@@ -39,8 +39,8 @@ TabWidth: 4
 # 3 * 80 wide lines
 ColumnLimit: 240
 
-# keep include order, that order has sometimes semantics!
-SortIncludes: false
+# sematics shall be grouped via empty lines
+SortIncludes: true
 
 # break before braces on function, namespace and class definitions.
 BreakBeforeBraces: Linux

@@ -33,6 +33,8 @@
 #include <QPlainTextDocumentLayout>
 #include <QJsonDocument>
 #include <QJsonParseError>
+#include <QJsonObject>
+#include <QJsonArray>
 #include <utility>
 
 KateProject::KateProject(ThreadWeaver::Queue *weaver)
@@ -101,6 +103,32 @@ QVariantMap KateProject::readProjectFile() const
 
     if (parseError.error != QJsonParseError::NoError) {
         return QVariantMap();
+    }
+
+    /**
+     * convenience; align with auto-generated projects
+     * generate 'name' and 'files' if not specified explicitly,
+     * so those parts need not be given if only wishes to specify additional
+     * project configuration (e.g. build, ctags)
+     */
+    if (project.isObject()) {
+        auto dir = QFileInfo(m_fileName).dir();
+        auto object = project.object();
+        auto name = object[QStringLiteral("name")];
+        if (name.isUndefined() || name.isNull()) {
+            name = dir.dirName();
+        }
+        auto files = object[QStringLiteral("files")];
+        if (files.isUndefined() || files.isNull()) {
+            // support all we can, could try to detect,
+            // but it will be sorted out upon loading anyway
+            QJsonArray afiles;
+            for (const auto &t : {QStringLiteral("git"), QStringLiteral("hg"), QStringLiteral("svn"), QStringLiteral("darcs")}) {
+                afiles.push_back(QJsonObject {{t, true}});
+            }
+            files = afiles;
+        }
+        project.setObject(object);
     }
 
     return project.toVariant().toMap();

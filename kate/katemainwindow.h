@@ -24,21 +24,21 @@
 #include "katemdi.h"
 #include "kateviewmanager.h"
 
-#include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
+#include <ktexteditor/view.h>
 
 #include <KParts/Part>
 
 #include <QDragEnterEvent>
-#include <QEvent>
 #include <QDropEvent>
-#include <QVBoxLayout>
-#include <QModelIndex>
+#include <QEvent>
 #include <QHash>
-#include <QStackedWidget>
+#include <QModelIndex>
 #include <QStackedLayout>
+#include <QStackedWidget>
 #include <QUrl>
+#include <QVBoxLayout>
 
 class QMenu;
 

@@ -23,8 +23,8 @@
 
 #include "katesession.h"
 
-#include <QObject>
 #include <QHash>
+#include <QObject>
 
 typedef QList<KateSession::Ptr> KateSessionList;
 

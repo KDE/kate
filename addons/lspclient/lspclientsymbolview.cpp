@@ -34,11 +34,11 @@
 #include <KTextEditor/View>
 
 #include <QHBoxLayout>
-#include <QTreeView>
 #include <QMenu>
-#include <QTimer>
 #include <QPointer>
 #include <QStandardItemModel>
+#include <QTimer>
+#include <QTreeView>
 
 #include <memory>
 #include <utility>

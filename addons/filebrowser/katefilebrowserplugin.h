@@ -23,11 +23,11 @@
 #ifndef KATE_FILEBROWSER_PLUGIN_H
 #define KATE_FILEBROWSER_PLUGIN_H
 
-#include <ktexteditor/document.h>
-#include <ktexteditor/plugin.h>
-#include <ktexteditor/mainwindow.h>
-#include <ktexteditor/configpage.h>
 #include <KTextEditor/SessionConfigInterface>
+#include <ktexteditor/configpage.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/mainwindow.h>
+#include <ktexteditor/plugin.h>
 
 class KateFileBrowser;
 class KateFileBrowserPluginView;

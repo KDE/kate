@@ -23,8 +23,8 @@
 #include "previewwidget.h"
 
 // KF
-#include <KTextEditor/MainWindow>
 #include <KLocalizedString>
+#include <KTextEditor/MainWindow>
 
 // Qt
 #include <QIcon>

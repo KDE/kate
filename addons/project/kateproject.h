@@ -21,13 +21,13 @@
 #ifndef KATE_PROJECT_H
 #define KATE_PROJECT_H
 
+#include "kateprojectindex.h"
+#include "kateprojectitem.h"
+#include <KTextEditor/ModificationInterface>
 #include <QDateTime>
 #include <QMap>
 #include <QSharedPointer>
 #include <QTextDocument>
-#include <KTextEditor/ModificationInterface>
-#include "kateprojectindex.h"
-#include "kateprojectitem.h"
 
 /**
  * Shared pointer data types.

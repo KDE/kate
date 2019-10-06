@@ -25,13 +25,13 @@
 #ifndef LSPCLIENTPROTOCOL_H
 #define LSPCLIENTPROTOCOL_H
 
-#include <QString>
-#include <QUrl>
-#include <QList>
-#include <QVector>
 #include <QHash>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QList>
+#include <QString>
+#include <QUrl>
+#include <QVector>
 
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>

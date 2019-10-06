@@ -18,10 +18,10 @@
 */
 
 #include "replicodesettings.h"
-#include <QXmlStreamWriter>
-#include <QSettings>
 #include <QDebug>
+#include <QSettings>
 #include <QString>
+#include <QXmlStreamWriter>
 
 ReplicodeSettings::ReplicodeSettings(QObject *parent)
     : QObject(parent)

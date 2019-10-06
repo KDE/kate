@@ -27,13 +27,13 @@
 
 #include "lspclientprotocol.h"
 
+#include <QJsonValue>
+#include <QList>
 #include <QObject>
+#include <QPointer>
 #include <QString>
 #include <QUrl>
-#include <QList>
 #include <QVector>
-#include <QPointer>
-#include <QJsonValue>
 
 #include <functional>
 

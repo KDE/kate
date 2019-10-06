@@ -23,33 +23,33 @@
 
 #include <QFile>
 #include <QFileInfo>
-#include <QTabWidget>
-#include <QToolBar>
-#include <QSplitter>
-#include <QLayout>
-#include <QTextEdit>
-#include <QScrollBar>
-#include <QTreeWidget>
-#include <QKeyEvent>
 #include <QFontDatabase>
+#include <QKeyEvent>
+#include <QLayout>
+#include <QScrollBar>
+#include <QSplitter>
+#include <QTabWidget>
+#include <QTextEdit>
+#include <QToolBar>
+#include <QTreeWidget>
 
-#include <QAction>
-#include <KXMLGUIFactory>
 #include <KActionCollection>
 #include <KConfigGroup>
+#include <KXMLGUIFactory>
+#include <QAction>
 #include <QMenu>
 
-#include <klocalizedstring.h>
+#include <kaboutdata.h>
 #include <kcolorscheme.h>
+#include <khistorycombobox.h>
+#include <klocalizedstring.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kaboutdata.h>
-#include <khistorycombobox.h>
 
-#include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
-#include <ktexteditor/markinterface.h>
 #include <ktexteditor/editor.h>
+#include <ktexteditor/markinterface.h>
+#include <ktexteditor/view.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
 

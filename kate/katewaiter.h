@@ -22,10 +22,10 @@
 #define __KATE_WAITER_H__
 
 #include <QCoreApplication>
-#include <QObject>
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
 #include <QDBusServiceWatcher>
+#include <QObject>
 
 class KateWaiter : public QObject
 {

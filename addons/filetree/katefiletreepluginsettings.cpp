@@ -18,9 +18,9 @@
 */
 
 #include "katefiletreepluginsettings.h"
+#include "katefiletreedebug.h"
 #include <KColorScheme>
 #include <KColorUtils>
-#include "katefiletreedebug.h"
 
 KateFileTreePluginSettings::KateFileTreePluginSettings()
     : m_group(KSharedConfig::openConfig(), "filetree")

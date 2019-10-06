@@ -19,17 +19,17 @@
  */
 
 #include "katesnippets.h"
-#include "snippetcompletionmodel.h"
 #include "katesnippetglobal.h"
+#include "snippetcompletionmodel.h"
 #include "snippetview.h"
 
 #include <QAction>
 #include <QBoxLayout>
 
 #include <KActionCollection>
-#include <KXMLGUIFactory>
 #include <KLocalizedString>
 #include <KPluginFactory>
+#include <KXMLGUIFactory>
 
 #include <KTextEditor/CodeCompletionInterface>
 

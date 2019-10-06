@@ -21,9 +21,9 @@
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectpluginview.h"
 
-#include <klocalizedstring.h>
-#include <kde_terminal_interface.h>
 #include <KPluginLoader>
+#include <kde_terminal_interface.h>
+#include <klocalizedstring.h>
 
 KPluginFactory *KateProjectInfoViewTerminal::s_pluginFactory = nullptr;
 

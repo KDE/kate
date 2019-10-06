@@ -23,12 +23,12 @@
 
 #include <ktexteditor/application.h>
 
-#include "katetests_export.h"
-#include "katemainwindow.h"
+#include "kateappadaptor.h"
 #include "katedocmanager.h"
+#include "katemainwindow.h"
 #include "katepluginmanager.h"
 #include "katesessionmanager.h"
-#include "kateappadaptor.h"
+#include "katetests_export.h"
 
 #include <KConfig>
 #include <QList>

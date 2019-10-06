@@ -25,15 +25,15 @@
 #include <KTextEditor/Document>
 
 #include <KLocalizedString>
-#include <KPluginLoader>
-#include <KPluginFactory>
-#include <KParts/ReadOnlyPart>
 #include <KParts/BrowserExtension>
+#include <KParts/ReadOnlyPart>
+#include <KPluginFactory>
+#include <KPluginLoader>
 
 // Qt
 #include <QDesktopServices>
-#include <QTemporaryFile>
 #include <QLabel>
+#include <QTemporaryFile>
 
 using namespace KTextEditorPreview;
 

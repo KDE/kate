@@ -77,19 +77,19 @@
 
 #include "lspclient_debug.h"
 
+#include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
-#include <KTextEditor/View>
 #include <KTextEditor/Message>
-#include <KLocalizedString>
 #include <KTextEditor/MovingInterface>
+#include <KTextEditor/View>
 
 #include <QDir>
 #include <QEventLoop>
 #include <QFileInfo>
 #include <QJsonArray>
-#include <QJsonObject>
 #include <QJsonDocument>
+#include <QJsonObject>
 #include <QTimer>
 
 // helper to find a proper root dir for the given document & file name that indicate the root dir

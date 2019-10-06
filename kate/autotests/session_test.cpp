@@ -22,9 +22,9 @@
 #include <KConfig>
 #include <KConfigGroup>
 
-#include <QtTestWidgets>
-#include <QTemporaryFile>
 #include <QFileInfo>
+#include <QTemporaryFile>
+#include <QtTestWidgets>
 
 QTEST_MAIN(KateSessionTest)
 

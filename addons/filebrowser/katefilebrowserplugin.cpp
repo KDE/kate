@@ -22,14 +22,14 @@
 
 // BEGIN Includes
 #include "katefilebrowserplugin.h"
-#include "katefilebrowserconfig.h"
 #include "katefilebrowser.h"
+#include "katefilebrowserconfig.h"
 
 #include <KLocalizedString>
 #include <KPluginFactory>
 
-#include <QKeyEvent>
 #include <QIcon>
+#include <QKeyEvent>
 // END Includes
 
 K_PLUGIN_FACTORY_WITH_JSON(KateFileBrowserPluginFactory, "katefilebrowserplugin.json", registerPlugin<KateFileBrowserPlugin>();)

@@ -22,9 +22,9 @@
 #ifndef COLORSCHEMECHOOSER_H
 #define COLORSCHEMECHOOSER_H
 
-#include <QObject>
 #include <QAction>
 #include <QApplication>
+#include <QObject>
 #include <QString>
 
 #include <KColorSchemeManager>

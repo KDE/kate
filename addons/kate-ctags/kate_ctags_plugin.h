@@ -21,13 +21,13 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/view.h>
 
-#include <ktexteditor/application.h>
-#include <ktexteditor/mainwindow.h>
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/Plugin>
+#include <ktexteditor/application.h>
+#include <ktexteditor/mainwindow.h>
 
 #include "kate_ctags_view.h"
 #include "ui_CTagsGlobalConfig.h"

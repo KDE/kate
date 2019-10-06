@@ -24,10 +24,10 @@
 #ifndef __SNIPPETREPOSITORY_H__
 #define __SNIPPETREPOSITORY_H__
 
+#include <QDir>
 #include <QObject>
 #include <QStandardItem>
 #include <QStringList>
-#include <QDir>
 
 namespace KTextEditor
 {

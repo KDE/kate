@@ -23,8 +23,8 @@
 #include "kateapp.h"
 #include "katesessionmanager.h"
 
-#include <algorithm>
 #include <QMenu>
+#include <algorithm>
 
 KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager)
     : KActionMenu(text, parent)

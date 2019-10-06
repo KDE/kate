@@ -25,24 +25,24 @@
 
 #include <KAboutData>
 #include <KConfigGroup>
-#include <KLocalizedString>
-#include <KWindowSystem>
-#include <KStartupInfo>
-#include <kdbusservice.h>
 #include <KCrash>
+#include <KLocalizedString>
 #include <KSharedConfig>
+#include <KStartupInfo>
+#include <KWindowSystem>
+#include <kdbusservice.h>
 
+#include <QApplication>
 #include <QByteArray>
 #include <QCommandLineParser>
-#include <QTextCodec>
-#include <QUrl>
-#include <QVariant>
 #include <QDBusInterface>
 #include <QDBusMessage>
 #include <QDBusReply>
-#include <QApplication>
 #include <QDir>
 #include <QSessionManager>
+#include <QTextCodec>
+#include <QUrl>
+#include <QVariant>
 
 #include "../urlinfo.h"
 

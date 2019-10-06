@@ -21,22 +21,22 @@
 
 #include "kate_ctags_plugin.h"
 
-#include <QFileInfo>
-#include <QFileDialog>
 #include <QCheckBox>
+#include <QFileDialog>
+#include <QFileInfo>
 
 #include <KConfigGroup>
 #include <KSharedConfig>
 
 #include <kactioncollection.h>
-#include <kstringhandler.h>
-#include <kmessagebox.h>
-#include <ktexteditor/editor.h>
 #include <klocalizedstring.h>
+#include <kmessagebox.h>
+#include <kstringhandler.h>
+#include <ktexteditor/editor.h>
 
+#include <kaboutdata.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kaboutdata.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateCTagsPluginFactory, "katectagsplugin.json", registerPlugin<KateCTagsPlugin>();)
 

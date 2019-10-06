@@ -24,13 +24,13 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/modificationinterface.h>
 
-#include <QList>
-#include <QObject>
 #include <QByteArray>
-#include <QHash>
-#include <QMap>
-#include <QPair>
 #include <QDateTime>
+#include <QHash>
+#include <QList>
+#include <QMap>
+#include <QObject>
+#include <QPair>
 
 #include <KConfig>
 

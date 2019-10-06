@@ -19,10 +19,10 @@
 #ifndef BTDATABASE_H
 #define BTDATABASE_H
 
-#include <QString>
-#include <QStringList>
 #include <QHash>
 #include <QMutex>
+#include <QString>
+#include <QStringList>
 
 class KateBtDatabase
 {

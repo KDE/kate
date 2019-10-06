@@ -20,8 +20,8 @@
 
 #include "kateprojectcodeanalysistoolcppcheck.h"
 
-#include <QThread>
 #include <QRegularExpression>
+#include <QThread>
 #include <klocalizedstring.h>
 
 KateProjectCodeAnalysisToolCppcheck::KateProjectCodeAnalysisToolCppcheck(QObject *parent)

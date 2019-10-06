@@ -20,8 +20,8 @@
 
 #include "replace_matches.h"
 
-#include <QTreeWidgetItem>
 #include <QTimer>
+#include <QTreeWidgetItem>
 #include <klocalizedstring.h>
 
 ReplaceMatches::ReplaceMatches(QObject *parent)

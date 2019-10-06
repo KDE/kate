@@ -21,9 +21,9 @@
 #define KATEQUICKOPENMODEL_H
 
 #include <QAbstractTableModel>
+#include <QVariant>
 #include <QVector>
 #include <tuple>
-#include <QVariant>
 
 #include "katemainwindow.h"
 

@@ -12,9 +12,9 @@
 #ifndef TAGS_H
 #define TAGS_H
 
+#include <QList>
 #include <QString>
 #include <QStringList>
-#include <QList>
 
 class Tags
 {

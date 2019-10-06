@@ -23,13 +23,13 @@
 
 #include "debugview.h"
 
-#include <QRegExp>
 #include <QFile>
+#include <QRegExp>
 #include <QTimer>
 
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kurlrequester.h>
-#include <klocalizedstring.h>
 
 #include <signal.h>
 #include <stdlib.h>

@@ -18,10 +18,10 @@
 */
 
 #include "katerunninginstanceinfo.h"
-#include <QDBusReply>
-#include <QStringList>
 #include <QCoreApplication>
 #include <QDBusConnectionInterface>
+#include <QDBusReply>
+#include <QStringList>
 
 int KateRunningInstanceInfo::dummy_session = 0;
 

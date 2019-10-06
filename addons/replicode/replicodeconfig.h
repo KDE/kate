@@ -19,8 +19,8 @@
 #ifndef REPLICODECONFIG_H
 #define REPLICODECONFIG_H
 
-#include <QVariant>
 #include <QTabWidget>
+#include <QVariant>
 
 class Ui_tabWidget;
 class ReplicodeSettings;

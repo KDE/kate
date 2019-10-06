@@ -22,22 +22,22 @@
 
 #include "ioview.h"
 
-#include <QVBoxLayout>
-#include <QFile>
 #include <QDir>
-#include <QTextEdit>
+#include <QFile>
+#include <QFontDatabase>
 #include <QLineEdit>
 #include <QScrollBar>
 #include <QSocketNotifier>
 #include <QString>
-#include <QFontDatabase>
+#include <QTextEdit>
+#include <QVBoxLayout>
 
 #include <kcolorscheme.h>
 #include <krandom.h>
 
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 IOView::IOView(QWidget *parent)

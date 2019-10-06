@@ -28,8 +28,8 @@
 #include <KLocalizedString>
 
 #include <QSortFilterProxyModel>
-#include <QVBoxLayout>
 #include <QTimer>
+#include <QVBoxLayout>
 
 KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject *project)
     : QWidget()

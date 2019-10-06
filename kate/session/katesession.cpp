@@ -20,8 +20,8 @@
 
 #include "katesession.h"
 
-#include "katesessionmanager.h"
 #include "katedebug.h"
+#include "katesessionmanager.h"
 
 #include <KConfig>
 #include <KConfigGroup>

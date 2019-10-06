@@ -21,15 +21,15 @@
 #include "katedebug.h"
 
 #include <KGuiItem>
-#include <KStandardGuiItem>
-#include <KMessageBox>
 #include <KLocalizedString>
+#include <KMessageBox>
+#include <KStandardGuiItem>
 
+#include <QFileDialog>
 #include <QLabel>
 #include <QPushButton>
 #include <QTreeWidget>
 #include <QVBoxLayout>
-#include <QFileDialog>
 
 class AbstractKateSaveModifiedDialogCheckListItem : public QTreeWidgetItem
 {

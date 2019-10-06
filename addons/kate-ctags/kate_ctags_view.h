@@ -21,20 +21,20 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <KTextEditor/View>
 #include <KTextEditor/Document>
+#include <KTextEditor/View>
 
 #include <KTextEditor/Application>
 #include <KTextEditor/MainWindow>
 #include <ktexteditor/sessionconfiginterface.h>
 
-#include <QProcess>
 #include <KXMLGUIClient>
+#include <QProcess>
 
-#include <QStack>
-#include <QTimer>
 #include <KActionMenu>
 #include <QPointer>
+#include <QStack>
+#include <QTimer>
 
 #include "tags.h"
 

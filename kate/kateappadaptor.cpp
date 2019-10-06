@@ -19,9 +19,9 @@
 #include "kateappadaptor.h"
 
 #include "kateapp.h"
-#include "katesessionmanager.h"
 #include "katedocmanager.h"
 #include "katemainwindow.h"
+#include "katesessionmanager.h"
 
 #include "katedebug.h"
 

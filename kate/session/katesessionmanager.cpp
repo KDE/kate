@@ -27,13 +27,13 @@
 #include "katerunninginstanceinfo.h"
 
 #include <KConfigGroup>
-#include <KSharedConfig>
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KIO/CopyJob>
 #include <KDesktopFile>
 #include <KDirWatch>
+#include <KIO/CopyJob>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <KService>
+#include <KSharedConfig>
 #include <KShell>
 
 #include <QApplication>

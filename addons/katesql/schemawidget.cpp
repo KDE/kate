@@ -19,23 +19,23 @@
 #include "schemawidget.h"
 #include "sqlmanager.h"
 
-#include <ktexteditor/editor.h>
+#include <klocalizedstring.h>
 #include <ktexteditor/application.h>
+#include <ktexteditor/editor.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
-#include <klocalizedstring.h>
 
-#include <qvariant.h>
-#include <qstringlist.h>
-#include <qevent.h>
-#include <qsqldatabase.h>
-#include <qsqlrecord.h>
-#include <qsqlindex.h>
-#include <qsqlfield.h>
-#include <qmenu.h>
+#include <QApplication>
 #include <QDrag>
 #include <QMimeData>
-#include <QApplication>
+#include <qevent.h>
+#include <qmenu.h>
+#include <qsqldatabase.h>
+#include <qsqlfield.h>
+#include <qsqlindex.h>
+#include <qsqlrecord.h>
+#include <qstringlist.h>
+#include <qvariant.h>
 
 SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
     : QTreeWidget(parent)

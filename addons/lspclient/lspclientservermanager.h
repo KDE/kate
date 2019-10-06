@@ -25,8 +25,8 @@
 #ifndef LSPCLIENTSERVERMANAGER_H
 #define LSPCLIENTSERVERMANAGER_H
 
-#include "lspclientserver.h"
 #include "lspclientplugin.h"
+#include "lspclientserver.h"
 
 #include <QSharedPointer>
 

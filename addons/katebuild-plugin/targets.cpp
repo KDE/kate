@@ -18,11 +18,11 @@
 //  Boston, MA 02110-1301, USA.
 
 #include "targets.h"
-#include <klocalizedstring.h>
-#include <QIcon>
-#include <QEvent>
-#include <QKeyEvent>
 #include <QDebug>
+#include <QEvent>
+#include <QIcon>
+#include <QKeyEvent>
+#include <klocalizedstring.h>
 
 TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     : QWidget(parent)

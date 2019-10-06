@@ -19,23 +19,23 @@
 
 #include "kateapp.h"
 
-#include "kateviewmanager.h"
 #include "katemainwindow.h"
+#include "kateviewmanager.h"
 
 #include <KConfig>
-#include <KSharedConfig>
-#include <KMessageBox>
-#include <KStartupInfo>
-#include <KLocalizedString>
-#include <KConfigGui>
 #include <KConfigGroup>
+#include <KConfigGui>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KSharedConfig>
+#include <KStartupInfo>
 #include <KWindowInfo>
 
+#include <QApplication>
 #include <QCommandLineParser>
 #include <QFileInfo>
-#include <QTextCodec>
-#include <QApplication>
 #include <QFileOpenEvent>
+#include <QTextCodec>
 
 #include "../../urlinfo.h"
 

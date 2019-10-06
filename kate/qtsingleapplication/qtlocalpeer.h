@@ -27,9 +27,9 @@
 
 #include <qtlockedfile.h>
 
+#include <QDir>
 #include <QLocalServer>
 #include <QLocalSocket>
-#include <QDir>
 
 namespace SharedTools
 {

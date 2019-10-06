@@ -19,9 +19,9 @@
 
 #include "katequickopenmodel.h"
 
+#include "kateapp.h"
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
-#include "kateapp.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>

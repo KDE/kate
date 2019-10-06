@@ -24,37 +24,37 @@
 
 #include <klocalizedstring.h>
 #include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
 #include <ktexteditor/message.h>
+#include <ktexteditor/view.h>
 
-#include <kde_terminal_interface.h>
-#include <kshell.h>
-#include <kparts/part.h>
 #include <QAction>
 #include <kactioncollection.h>
+#include <kde_terminal_interface.h>
+#include <kparts/part.h>
+#include <kshell.h>
 
 #include <kmessagebox.h>
 
 #include <QApplication>
-#include <QStyle>
-#include <QIcon>
-#include <QShowEvent>
-#include <QLabel>
 #include <QCheckBox>
+#include <QFileInfo>
 #include <QGroupBox>
+#include <QIcon>
+#include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QShowEvent>
+#include <QStyle>
 #include <QVBoxLayout>
-#include <QFileInfo>
 
-#include <KPluginLoader>
-#include <KPluginFactory>
-#include <kaboutdata.h>
-#include <kpluginfactory.h>
 #include <KAuthorized>
 #include <KConfigGroup>
+#include <KPluginFactory>
+#include <KPluginLoader>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
+#include <kaboutdata.h>
+#include <kpluginfactory.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 

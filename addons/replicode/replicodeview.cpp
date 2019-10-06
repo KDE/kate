@@ -19,12 +19,12 @@
 
 #include "replicodeview.h"
 
-#include <QtGlobal>
-#include <QProcess>
-#include <QTemporaryFile>
-#include <QPushButton>
-#include "replicodesettings.h"
 #include "replicodeconfig.h"
+#include "replicodesettings.h"
+#include <QProcess>
+#include <QPushButton>
+#include <QTemporaryFile>
+#include <QtGlobal>
 
 #include <KXMLGUIFactory>
 #include <klocalizedstring.h>
@@ -38,11 +38,11 @@
 #include <QMessageBox>
 #include <QVBoxLayout>
 
-#include <KSharedConfig>
 #include <KAboutData>
 #include <KActionCollection>
 #include <KConfigGroup>
 #include <KIconLoader>
+#include <KSharedConfig>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>

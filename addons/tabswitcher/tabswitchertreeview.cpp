@@ -21,8 +21,8 @@
 #include "tabswitchertreeview.h"
 #include "tabswitcher.h"
 
-#include <QKeyEvent>
 #include <QDebug>
+#include <QKeyEvent>
 
 TabSwitcherTreeView::TabSwitcherTreeView()
     : QTreeView()

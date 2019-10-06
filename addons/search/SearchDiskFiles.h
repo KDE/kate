@@ -21,13 +21,13 @@
 #ifndef SearchDiskFiles_h
 #define SearchDiskFiles_h
 
-#include <QThread>
-#include <QRegularExpression>
-#include <QFileInfo>
-#include <QVector>
-#include <QMutex>
-#include <QStringList>
 #include <QElapsedTimer>
+#include <QFileInfo>
+#include <QMutex>
+#include <QRegularExpression>
+#include <QStringList>
+#include <QThread>
+#include <QVector>
 
 class SearchDiskFiles : public QThread
 {

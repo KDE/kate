@@ -19,16 +19,16 @@
 #include "connectionwizard.h"
 #include "sqlmanager.h"
 
-#include <klocalizedstring.h>
 #include <kcombobox.h>
-#include <kmessagebox.h>
 #include <klineedit.h>
+#include <klocalizedstring.h>
+#include <kmessagebox.h>
 #include <kurlrequester.h>
 
+#include <QSpinBox>
 #include <qformlayout.h>
 #include <qsqldatabase.h>
 #include <qsqlerror.h>
-#include <QSpinBox>
 
 ConnectionWizard::ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent, Qt::WindowFlags flags)
     : QWizard(parent, flags)

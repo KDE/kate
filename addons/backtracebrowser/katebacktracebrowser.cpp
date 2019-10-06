@@ -19,29 +19,29 @@
 // BEGIN Includes
 #include "katebacktracebrowser.h"
 
-#include "btparser.h"
 #include "btfileindexer.h"
+#include "btparser.h"
 
+#include <KConfigGroup>
+#include <KLineEdit>
+#include <kaboutdata.h>
 #include <klocalizedstring.h> // i18n
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kaboutdata.h>
-#include <ktexteditor/view.h>
 #include <ksharedconfig.h>
-#include <KConfigGroup>
-#include <KLineEdit>
+#include <ktexteditor/view.h>
 
+#include <QClipboard>
+#include <QDataStream>
+#include <QDialogButtonBox>
 #include <QDir>
 #include <QFile>
-#include <QFileInfo>
 #include <QFileDialog>
-#include <QDataStream>
+#include <QFileInfo>
 #include <QStandardPaths>
 #include <QTimer>
-#include <QClipboard>
-#include <QDialogButtonBox>
-#include <QUrl>
 #include <QTreeWidget>
+#include <QUrl>
 // END Includes
 
 K_PLUGIN_FACTORY_WITH_JSON(KateBtBrowserFactory, "katebacktracebrowserplugin.json", registerPlugin<KateBtBrowserPlugin>();)

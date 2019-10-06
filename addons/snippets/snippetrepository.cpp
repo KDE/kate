@@ -25,16 +25,16 @@
 
 #include "snippet.h"
 
-#include <QTimer>
+#include <QAction>
 #include <QFile>
 #include <QFileInfo>
-#include <QAction>
+#include <QTimer>
 
 #include <QDomDocument>
 #include <QDomElement>
 
-#include <KMessageBox>
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <QApplication>
 #include <QDebug>
 #include <QDir>

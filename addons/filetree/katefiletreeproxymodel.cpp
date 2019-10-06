@@ -18,8 +18,8 @@
 */
 
 #include "katefiletreeproxymodel.h"
-#include "katefiletreemodel.h"
 #include "katefiletreedebug.h"
+#include "katefiletreemodel.h"
 
 #include <QCollator>
 #include <ktexteditor/document.h>

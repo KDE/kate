@@ -17,39 +17,39 @@
 */
 
 #include "katesqlview.h"
-#include "katesqlplugin.h"
-#include "sqlmanager.h"
 #include "connectionmodel.h"
-#include "textoutputwidget.h"
-#include "dataoutputwidget.h"
+#include "connectionwizard.h"
 #include "dataoutputmodel.h"
 #include "dataoutputview.h"
-#include "schemawidget.h"
-#include "schemabrowserwidget.h"
-#include "connectionwizard.h"
+#include "dataoutputwidget.h"
+#include "katesqlplugin.h"
 #include "outputwidget.h"
+#include "schemabrowserwidget.h"
+#include "schemawidget.h"
+#include "sqlmanager.h"
+#include "textoutputwidget.h"
 
-#include <ktexteditor/plugin.h>
-#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/mainwindow.h>
+#include <ktexteditor/plugin.h>
 #include <ktexteditor/view.h>
 
-#include <QAction>
-#include <kactioncollection.h>
-#include <klocalizedstring.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kcombobox.h>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
+#include <QAction>
+#include <kactioncollection.h>
+#include <kcombobox.h>
+#include <kconfig.h>
+#include <kconfiggroup.h>
+#include <klocalizedstring.h>
 
-#include <qmenu.h>
-#include <qstring.h>
-#include <qsqlquery.h>
-#include <QVBoxLayout>
 #include <QApplication>
+#include <QVBoxLayout>
 #include <QWidgetAction>
+#include <qmenu.h>
+#include <qsqlquery.h>
+#include <qstring.h>
 
 KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
     : QObject(mw)

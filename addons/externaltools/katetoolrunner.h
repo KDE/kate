@@ -23,9 +23,9 @@
 
 #include <QByteArray>
 #include <QObject>
+#include <QPointer>
 #include <QProcess>
 #include <QString>
-#include <QPointer>
 
 #include <memory>
 

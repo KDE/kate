@@ -27,24 +27,24 @@
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KConfigGroup>
-#include <KMessageBox>
-#include <KXMLGUIFactory>
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <KSharedConfig>
-#include <kwindowconfig.h>
 #include <KToolBar>
+#include <KXMLGUIFactory>
+#include <kwindowconfig.h>
 
 #include <QChildEvent>
-#include <QEvent>
 #include <QContextMenuEvent>
-#include <QPixmap>
+#include <QDomDocument>
+#include <QEvent>
 #include <QMenu>
+#include <QPixmap>
 #include <QShortcut>
 #include <QSizePolicy>
 #include <QStyle>
-#include <QDomDocument>
-#include <QVBoxLayout>
 #include <QTimer>
+#include <QVBoxLayout>
 
 namespace KateMDI
 {

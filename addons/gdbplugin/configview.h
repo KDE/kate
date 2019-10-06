@@ -26,20 +26,20 @@
 
 #include "advanced_settings.h"
 
-#include <QWidget>
+#include <QBoxLayout>
+#include <QCheckBox>
+#include <QComboBox>
 #include <QLabel>
 #include <QLineEdit>
-#include <QToolButton>
-#include <QComboBox>
-#include <QCheckBox>
-#include <QBoxLayout>
 #include <QResizeEvent>
+#include <QToolButton>
+#include <QWidget>
 
 #include <QList>
 
 #include <KTextEditor/MainWindow>
-#include <kconfiggroup.h>
 #include <kactioncollection.h>
+#include <kconfiggroup.h>
 #include <kselectaction.h>
 
 struct GDBTargetConf {

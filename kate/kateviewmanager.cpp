@@ -24,20 +24,20 @@
 #include "config.h"
 #include "kateapp.h"
 #include "katemainwindow.h"
-#include "kateviewspace.h"
 #include "kateupdatedisabler.h"
+#include "kateviewspace.h"
 
-#include <KTextEditor/View>
-#include <KTextEditor/Document>
 #include <KTextEditor/Attribute>
+#include <KTextEditor/Document>
+#include <KTextEditor/View>
 
 #include <KActionCollection>
-#include <KToolBar>
-#include <KMessageBox>
-#include <KRecentFilesAction>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
+#include <KMessageBox>
+#include <KRecentFilesAction>
+#include <KToolBar>
 #include <KXMLGUIFactory>
 
 #ifdef KF5Activities_FOUND

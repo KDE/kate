@@ -20,10 +20,10 @@
 #include "SelectTargetView.h"
 #include "TargetHtmlDelegate.h"
 
-#include <QKeyEvent>
 #include <QDebug>
-#include <QTimer>
+#include <QKeyEvent>
 #include <QSortFilterProxyModel>
+#include <QTimer>
 
 class TargetFilterProxyModel : public QSortFilterProxyModel
 {

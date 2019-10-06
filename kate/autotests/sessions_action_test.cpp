@@ -17,14 +17,14 @@
  */
 
 #include "sessions_action_test.h"
-#include "katesessionsaction.h"
-#include "katesessionmanager.h"
 #include "kateapp.h"
+#include "katesessionmanager.h"
+#include "katesessionsaction.h"
 
-#include <QtTestWidgets>
-#include <QTemporaryDir>
 #include <QActionGroup>
 #include <QCommandLineParser>
+#include <QTemporaryDir>
+#include <QtTestWidgets>
 
 QTEST_MAIN(KateSessionsActionTest)
 

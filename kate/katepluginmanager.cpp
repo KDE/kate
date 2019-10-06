@@ -21,8 +21,8 @@
 #include "katepluginmanager.h"
 
 #include "kateapp.h"
-#include "katemainwindow.h"
 #include "katedebug.h"
+#include "katemainwindow.h"
 
 #include <KConfig>
 #include <KConfigGroup>

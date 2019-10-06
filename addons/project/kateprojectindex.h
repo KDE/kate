@@ -24,9 +24,9 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
+#include <QStandardItemModel>
 #include <QStringList>
 #include <QTemporaryFile>
-#include <QStandardItemModel>
 
 /**
  * ctags reading

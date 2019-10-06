@@ -23,8 +23,8 @@
 #ifndef __KATE_SNIPPET_GLOBAL_H__
 #define __KATE_SNIPPET_GLOBAL_H__
 
-#include <QVariant>
 #include <QPointer>
+#include <QVariant>
 
 #include <KTextEditor/View>
 

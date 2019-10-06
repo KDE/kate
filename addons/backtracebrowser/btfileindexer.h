@@ -19,9 +19,9 @@
 #ifndef BTFILEINDEXER_H
 #define BTFILEINDEXER_H
 
-#include <QThread>
 #include <QString>
 #include <QStringList>
+#include <QThread>
 
 class KateBtDatabase;
 

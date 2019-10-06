@@ -24,8 +24,8 @@
 
 #include <kdiroperator.h>
 
-#include <QStandardPaths>
 #include <QMenu>
+#include <QStandardPaths>
 
 KateBookmarkHandler::KateBookmarkHandler(KateFileBrowser *parent, QMenu *kpopupmenu)
     : QObject(parent)

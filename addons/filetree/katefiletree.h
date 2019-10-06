@@ -20,9 +20,9 @@
 #ifndef KATE_FILETREE_H
 #define KATE_FILETREE_H
 
-#include <QUrl>
 #include <QIcon>
 #include <QTreeView>
+#include <QUrl>
 
 namespace KTextEditor
 {

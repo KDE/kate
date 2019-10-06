@@ -20,8 +20,8 @@
 
 #include "kateprojectindex.h"
 
-#include <QProcess>
 #include <QDir>
+#include <QProcess>
 
 /**
  * include ctags reading

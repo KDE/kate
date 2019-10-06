@@ -25,10 +25,10 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include "snippetstore.h"
-#include "snippetrepository.h"
 #include "snippet.h"
 #include "snippetcompletionitem.h"
+#include "snippetrepository.h"
+#include "snippetstore.h"
 
 #include <KLocalizedString>
 

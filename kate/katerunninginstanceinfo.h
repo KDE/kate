@@ -21,9 +21,9 @@
 #ifndef _KATE_RUNNING_INSTANCE_INFO_
 #define _KATE_RUNNING_INSTANCE_INFO_
 
-#include <QMap>
-#include <QDBusInterface>
 #include <QDBusConnection>
+#include <QDBusInterface>
+#include <QMap>
 #include <QVariant>
 #include <iostream>
 

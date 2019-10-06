@@ -22,8 +22,8 @@
 
 #include <ktexteditor/document.h>
 
-#include <QList>
 #include <QDialog>
+#include <QList>
 
 class QTreeWidget;
 class QTreeWidgetItem;

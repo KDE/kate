@@ -18,8 +18,8 @@
 
 #include "btparser.h"
 
-#include <QStringList>
 #include <QDebug>
+#include <QStringList>
 
 static QString eolDelimiter(const QString &str)
 {

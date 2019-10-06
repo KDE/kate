@@ -21,8 +21,8 @@
 #include "kwriteapplication.h"
 #include "kwrite.h"
 
-#include <QApplication>
 #include <KConfigGui>
+#include <QApplication>
 
 KWriteApplication::KWriteApplication::KWriteApplication()
 {

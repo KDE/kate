@@ -22,33 +22,33 @@
 
 #include "ui_sessionconfigwidget.h"
 
-#include "katemainwindow.h"
-#include "katedocmanager.h"
-#include "katepluginmanager.h"
-#include "kateconfigplugindialogpage.h"
-#include "kateviewmanager.h"
 #include "kateapp.h"
-#include "katesessionmanager.h"
+#include "kateconfigplugindialogpage.h"
 #include "katedebug.h"
+#include "katedocmanager.h"
+#include "katemainwindow.h"
+#include "katepluginmanager.h"
 #include "katequickopenmodel.h"
+#include "katesessionmanager.h"
+#include "kateviewmanager.h"
 
 #include <KTextEditor/ConfigPage>
 
-#include <KStandardAction>
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KConfigGroup>
-#include <KSharedConfig>
 #include <KPluralHandlingSpinBox>
+#include <KSharedConfig>
+#include <KStandardAction>
 
-#include <QDesktopServices>
 #include <QCheckBox>
+#include <QComboBox>
+#include <QDesktopServices>
 #include <QDialogButtonBox>
 #include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
 #include <QVBoxLayout>
-#include <QComboBox>
 
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view)
     : KPageDialog(parent)

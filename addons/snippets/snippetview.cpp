@@ -23,21 +23,21 @@
 
 #include "snippetview.h"
 
-#include "snippet.h"
-#include "katesnippetglobal.h"
-#include "snippetrepository.h"
-#include "snippetstore.h"
 #include "editrepository.h"
 #include "editsnippet.h"
+#include "katesnippetglobal.h"
+#include "snippet.h"
+#include "snippetrepository.h"
+#include "snippetstore.h"
 
 #include <KAuthorized>
 #include <KLocalizedString>
 #include <KMessageBox>
 
 #include <QContextMenuEvent>
+#include <QMenu>
 #include <QSortFilterProxyModel>
 #include <QTimer>
-#include <QMenu>
 
 #include <kns3/downloaddialog.h>
 #include <kns3/uploaddialog.h>

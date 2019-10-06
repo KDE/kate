@@ -21,10 +21,10 @@
 #ifndef UrlInserter_H
 #define UrlInserter_H
 
-#include <QWidget>
 #include <QLineEdit>
 #include <QToolButton>
 #include <QUrl>
+#include <QWidget>
 
 class UrlInserter : public QWidget
 {

@@ -28,15 +28,15 @@
 // Project specific includes
 
 // Standard includes
-#include <QDialog>
+#include "ui_close_confirm_dialog.h"
 #include <KTextEditor/Document>
 #include <KToggleAction>
-#include <kwindowconfig.h>
+#include <QCheckBox>
+#include <QDialog>
 #include <QList>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-#include <QCheckBox>
-#include "ui_close_confirm_dialog.h"
+#include <kwindowconfig.h>
 
 namespace kate
 {

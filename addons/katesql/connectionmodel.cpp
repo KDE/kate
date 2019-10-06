@@ -21,8 +21,8 @@
 #include <QDebug>
 #include <QFontDatabase>
 #include <QIcon>
-#include <qfontmetrics.h>
 #include <qfont.h>
+#include <qfontmetrics.h>
 #include <qsize.h>
 #include <qstringlist.h>
 #include <qvariant.h>

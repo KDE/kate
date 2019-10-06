@@ -22,9 +22,9 @@
 
 #include <ktexteditor/document.h>
 
-#include <kpluginloader.h>
 #include <kaboutdata.h>
 #include <klocalizedstring.h>
+#include <kpluginloader.h>
 
 #include <QIcon>
 

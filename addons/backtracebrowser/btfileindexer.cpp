@@ -19,8 +19,8 @@
 #include "btfileindexer.h"
 #include "btdatabase.h"
 
-#include <QDir>
 #include <QDebug>
+#include <QDir>
 
 BtFileIndexer::BtFileIndexer(KateBtDatabase *database)
     : QThread()

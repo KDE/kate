@@ -21,13 +21,13 @@
 #ifndef KATE_PROJECT_WORKER_H
 #define KATE_PROJECT_WORKER_H
 
-#include "kateprojectitem.h"
 #include "kateproject.h"
+#include "kateprojectitem.h"
 
 #include <ThreadWeaver/Job>
 
-#include <QStandardItemModel>
 #include <QMap>
+#include <QStandardItemModel>
 
 class QDir;
 

@@ -22,9 +22,9 @@
 #ifndef KATE_PROJECT_COMPLETION_H
 #define KATE_PROJECT_COMPLETION_H
 
-#include <ktexteditor/view.h>
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
+#include <ktexteditor/view.h>
 
 #include <QStandardItemModel>
 

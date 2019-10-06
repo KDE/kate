@@ -28,8 +28,8 @@
 #include <QCoreApplication>
 #include <QEventLoop>
 #include <QFile>
-#include <QTextStream>
 #include <QJsonObject>
+#include <QTextStream>
 
 int main(int argc, char **argv)
 {

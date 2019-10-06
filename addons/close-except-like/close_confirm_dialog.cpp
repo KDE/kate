@@ -27,13 +27,13 @@
 
 // Standard includes
 #include <KConfig>
-#include <KLocalizedString> /// \todo Where is \c i18n() defined?
-#include <KIconLoader>
-#include <KSharedConfig>
 #include <KConfigGroup>
+#include <KIconLoader>
+#include <KLocalizedString> /// \todo Where is \c i18n() defined?
+#include <KSharedConfig>
 #include <QBoxLayout>
-#include <QLabel>
 #include <QHeaderView>
+#include <QLabel>
 #include <QPushButton>
 
 #include <cassert>

@@ -22,8 +22,8 @@
 
 #include <ktexteditor/document.h>
 
-#include <QVector>
 #include <QDialog>
+#include <QVector>
 
 class KProcess;
 class QTemporaryFile;

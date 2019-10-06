@@ -19,28 +19,28 @@
  */
 
 #include "kateprojectpluginview.h"
-#include "kateprojectinfoviewindex.h"
 #include "fileutil.h"
+#include "kateprojectinfoviewindex.h"
 
-#include <ktexteditor/editor.h>
 #include <ktexteditor/application.h>
-#include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/view.h>
 
-#include <kactioncollection.h>
-#include <kstringhandler.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
-#include <kactionmenu.h>
-#include <kaboutdata.h>
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
+#include <kaboutdata.h>
+#include <kactioncollection.h>
+#include <kactionmenu.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
+#include <kstringhandler.h>
 
-#include <QMenu>
 #include <QAction>
 #include <QDialog>
 #include <QHBoxLayout>
+#include <QMenu>
 #include <QVBoxLayout>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateProjectPluginFactory, "kateprojectplugin.json", registerPlugin<KateProjectPlugin>();)

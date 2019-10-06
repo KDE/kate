@@ -21,8 +21,8 @@
 #include "kateconfigplugindialogpage.h"
 
 #include "kateapp.h"
-#include "katepluginmanager.h"
 #include "kateconfigdialog.h"
+#include "katepluginmanager.h"
 
 #include <KLocalizedString>
 

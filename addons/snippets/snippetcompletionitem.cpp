@@ -22,14 +22,14 @@
 
 #include "snippetcompletionitem.h"
 
-#include <ktexteditor/document.h>
 #include <KLocalizedString>
-#include <QTextEdit>
 #include <QModelIndex>
+#include <QTextEdit>
+#include <ktexteditor/document.h>
 
-#include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
+#include <ktexteditor/view.h>
 
 #include "snippet.h"
 #include "snippetrepository.h"

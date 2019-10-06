@@ -23,9 +23,9 @@
 #ifndef PSEUDO_DTD_H
 #define PSEUDO_DTD_H
 
+#include <QMap>
 #include <qdom.h>
 #include <qprogressdialog.h>
-#include <QMap>
 
 /**
  * This class contains the attributes for one element.

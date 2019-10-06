@@ -21,10 +21,10 @@
 #ifndef __KATE_SNIPPETS_H__
 #define __KATE_SNIPPETS_H__
 
-#include <KTextEditor/Plugin>
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Plugin>
 
 #include "katesnippetglobal.h"
 

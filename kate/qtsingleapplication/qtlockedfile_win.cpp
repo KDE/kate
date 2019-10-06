@@ -25,8 +25,8 @@
 
 #include "qtlockedfile.h"
 
-#include <qt_windows.h>
 #include <QFileInfo>
+#include <qt_windows.h>
 
 namespace SharedTools
 {

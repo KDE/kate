@@ -18,12 +18,12 @@
 #ifndef PLUGIN_KATETEXTFILTER_H
 #define PLUGIN_KATETEXTFILTER_H
 
-#include <KTextEditor/Plugin>
 #include <KTextEditor/Application>
-#include <KTextEditor/MainWindow>
-#include <KTextEditor/View>
-#include <KTextEditor/Document>
 #include <KTextEditor/Command>
+#include <KTextEditor/Document>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/View>
 
 #include <KProcess>
 #include <QVariantList>

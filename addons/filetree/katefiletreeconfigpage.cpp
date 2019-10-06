@@ -35,18 +35,18 @@ view needs to pull default settings from the main plugin config
 */
 
 #include "katefiletreeconfigpage.h"
-#include "katefiletreeplugin.h"
 #include "katefiletreedebug.h"
 #include "katefiletreemodel.h"
+#include "katefiletreeplugin.h"
 #include "katefiletreeproxymodel.h"
 
-#include <QGroupBox>
 #include <KColorButton>
-#include <QLabel>
 #include <KComboBox>
-#include <QVBoxLayout>
-#include <QCheckBox>
 #include <KLocalizedString>
+#include <QCheckBox>
+#include <QGroupBox>
+#include <QLabel>
+#include <QVBoxLayout>
 
 KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlugin *fl)
     : KTextEditor::ConfigPage(parent)

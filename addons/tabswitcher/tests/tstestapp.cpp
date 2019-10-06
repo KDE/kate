@@ -21,21 +21,21 @@
 #include "tstestapp.h"
 #include "../tabswitcherfilesmodel.h"
 
-#include <QApplication>
-#include <QVBoxLayout>
-#include <QPushButton>
 #include <QAbstractTableModel>
-#include <QStandardItem>
-#include <QListView>
-#include <QTreeView>
-#include <QStringRef>
+#include <QApplication>
 #include <QDebug>
 #include <QIcon>
-#include <QMenu>
 #include <QLabel>
+#include <QListView>
+#include <QMenu>
+#include <QPushButton>
+#include <QStandardItem>
+#include <QStringRef>
+#include <QTreeView>
+#include <QVBoxLayout>
 
-#include <KTextEditor/Editor>
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 
 static KTextEditor::Document *addDoc(const QString &path)
 {

@@ -20,8 +20,8 @@
 
 #include "outputwidget.h"
 #include "dataoutputwidget.h"
-#include "textoutputwidget.h"
 #include "klocalizedstring.h"
+#include "textoutputwidget.h"
 
 KateSQLOutputWidget::KateSQLOutputWidget(QWidget *parent)
     : QTabWidget(parent)

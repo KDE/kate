@@ -21,9 +21,9 @@
 #ifndef KATE_VIEWSPACE_H
 #define KATE_VIEWSPACE_H
 
-#include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/modificationinterface.h>
+#include <ktexteditor/view.h>
 
 #include <QHash>
 #include <QWidget>

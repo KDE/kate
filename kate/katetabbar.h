@@ -23,9 +23,9 @@
 
 #include <QWidget>
 
-#include <QVector>
 #include <QHash>
 #include <QIcon>
+#include <QVector>
 
 class KateTabButton;
 class KateTabBarPrivate;

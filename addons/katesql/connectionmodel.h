@@ -21,10 +21,10 @@
 
 #include "connection.h"
 
-#include <QIcon>
 #include <QAbstractListModel>
-#include <qstring.h>
+#include <QIcon>
 #include <qhash.h>
+#include <qstring.h>
 
 class ConnectionModel : public QAbstractListModel
 {

@@ -20,43 +20,43 @@
 
 #include "kwrite.h"
 
-#include "kwriteapplication.h"
 #include "config.h"
+#include "kwriteapplication.h"
 
-#include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
-#include <ktexteditor/modificationinterface.h>
-#include <ktexteditor/editor.h>
 #include <ktexteditor/application.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/modificationinterface.h>
+#include <ktexteditor/view.h>
 
 #include <KAboutApplicationDialog>
 #include <KActionCollection>
-#include <KToggleAction>
+#include <KConfig>
+#include <KConfigGui>
 #include <KEditToolBar>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KRecentFilesAction>
 #include <KShortcutsDialog>
-#include <KStandardAction>
 #include <KSqueezedTextLabel>
+#include <KStandardAction>
+#include <KToggleAction>
 #include <KXMLGUIFactory>
-#include <KConfig>
-#include <KConfigGui>
 
 #ifdef KF5Activities_FOUND
 #include <KActivities/ResourceInstance>
 #endif
 
-#include <QTimer>
-#include <QTextCodec>
-#include <QMimeData>
 #include <QApplication>
-#include <QLabel>
-#include <QDragEnterEvent>
-#include <QMenuBar>
 #include <QDir>
+#include <QDragEnterEvent>
 #include <QFileDialog>
 #include <QFileOpenEvent>
+#include <QLabel>
+#include <QMenuBar>
+#include <QMimeData>
+#include <QTextCodec>
+#include <QTimer>
 
 KWrite::KWrite(KTextEditor::Document *doc, KWriteApplication *app)
     : m_app(app)

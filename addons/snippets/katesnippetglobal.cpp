@@ -21,23 +21,23 @@
  */
 #include "katesnippetglobal.h"
 
-#include "snippetcompletionmodel.h"
-#include "snippetstore.h"
-#include "snippet.h"
-#include "snippetrepository.h"
-#include "snippetcompletionitem.h"
 #include "editsnippet.h"
+#include "snippet.h"
+#include "snippetcompletionitem.h"
+#include "snippetcompletionmodel.h"
+#include "snippetrepository.h"
+#include "snippetstore.h"
 
-#include <KPluginFactory>
 #include <KAboutData>
+#include <KLocalizedString>
+#include <KPluginFactory>
 #include <KPluginLoader>
-#include <ktexteditor/view.h>
+#include <ktexteditor/application.h>
+#include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
-#include <ktexteditor/application.h>
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/codecompletioninterface.h>
-#include <KLocalizedString>
+#include <ktexteditor/view.h>
 
 #include <QDialogButtonBox>
 #include <QMenu>

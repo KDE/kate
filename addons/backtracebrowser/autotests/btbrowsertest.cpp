@@ -21,9 +21,9 @@
 #include "btbrowsertest.h"
 #include "btparser.h"
 
-#include <QtTestWidgets>
-#include <QTemporaryFile>
 #include <QFileInfo>
+#include <QTemporaryFile>
+#include <QtTestWidgets>
 
 QTEST_MAIN(KateBtBrowserTest)
 

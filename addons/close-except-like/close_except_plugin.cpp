@@ -27,18 +27,18 @@
 #include "close_confirm_dialog.h"
 
 // Standard includes
-#include <KLocalizedString>
-#include <KTextEditor/Application>
-#include <KTextEditor/MainWindow>
-#include <KTextEditor/Editor>
 #include <KAboutData>
 #include <KActionCollection>
+#include <KLocalizedString>
 #include <KPluginFactory>
 #include <KPluginLoader>
+#include <KTextEditor/Application>
+#include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
+#include <KXMLGUIFactory>
 #include <QFileInfo>
 #include <QUrl>
 #include <kio/global.h>
-#include <KXMLGUIFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON(CloseExceptPluginFactory, "katecloseexceptplugin.json", registerPlugin<kate::CloseExceptPlugin>();)
 

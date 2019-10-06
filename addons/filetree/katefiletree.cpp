@@ -21,32 +21,32 @@
 // BEGIN Includes
 #include "katefiletree.h"
 
+#include "katefiletreedebug.h"
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
-#include "katefiletreedebug.h"
 
+#include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
-#include <ktexteditor/application.h>
 
+#include <KIO/CopyJob>
+#include <KIO/DeleteJob>
+#include <KIO/OpenFileManagerWindowJob>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <KMimeTypeTrader>
 #include <KOpenWithDialog>
 #include <KRun>
-#include <KMessageBox>
-#include <KLocalizedString>
 #include <KStandardAction>
-#include <KIO/DeleteJob>
-#include <KIO/CopyJob>
-#include <KIO/OpenFileManagerWindowJob>
 
-#include <QMimeDatabase>
+#include <QApplication>
 #include <QClipboard>
 #include <QContextMenuEvent>
-#include <QApplication>
-#include <QMenu>
+#include <QDir>
 #include <QInputDialog>
 #include <QLineEdit>
-#include <QDir>
+#include <QMenu>
+#include <QMimeDatabase>
 // END Includes
 
 // BEGIN KateFileTree

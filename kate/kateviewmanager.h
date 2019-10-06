@@ -23,10 +23,10 @@
 
 #include "katedocmanager.h"
 
-#include <QPointer>
 #include <QList>
-#include <QSplitter>
 #include <QMap>
+#include <QPointer>
+#include <QSplitter>
 
 namespace KActivities
 {

@@ -19,17 +19,17 @@
  */
 #include "externaltoolsplugin.h"
 
-#include "kateexternaltoolsview.h"
 #include "kateexternaltool.h"
 #include "kateexternaltoolscommand.h"
-#include "katetoolrunner.h"
 #include "kateexternaltoolsconfigwidget.h"
+#include "kateexternaltoolsview.h"
+#include "katetoolrunner.h"
 
-#include <KTextEditor/Editor>
-#include <KTextEditor/Document>
-#include <KTextEditor/View>
 #include <KActionCollection>
 #include <KLocalizedString>
+#include <KTextEditor/Document>
+#include <KTextEditor/Editor>
+#include <KTextEditor/View>
 #include <QAction>
 #include <kparts/part.h>
 
@@ -40,8 +40,8 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
-#include <QGuiApplication>
 #include <QClipboard>
+#include <QGuiApplication>
 
 static QVector<KateExternalTool> readDefaultTools()
 {

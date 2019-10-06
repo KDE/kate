@@ -21,9 +21,9 @@
 #ifndef KTEXTEDITOR_TAB_SWITCHER_FILES_MODEL_H
 #define KTEXTEDITOR_TAB_SWITCHER_FILES_MODEL_H
 
-#include <QString>
-#include <QIcon>
 #include <QAbstractTableModel>
+#include <QIcon>
+#include <QString>
 
 namespace KTextEditor
 {

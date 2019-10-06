@@ -19,16 +19,16 @@
 
 #include "replicodeconfigpage.h"
 #include "replicodeconfig.h"
-#include <KUrlRequester>
-#include <KConfigGroup>
 #include <KConfig>
+#include <KConfigGroup>
 #include <KSharedConfig>
+#include <KUrlRequester>
 
 #include <QGridLayout>
-#include <QLayout>
-#include <klocalizedstring.h>
 #include <QLabel>
+#include <QLayout>
 #include <QTabWidget>
+#include <klocalizedstring.h>
 
 ReplicodeConfigPage::ReplicodeConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)

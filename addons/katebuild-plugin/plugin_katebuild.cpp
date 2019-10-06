@@ -29,29 +29,29 @@
 
 #include <cassert>
 
-#include <QRegularExpressionMatch>
-#include <QString>
-#include <QScrollBar>
 #include <QCompleter>
-#include <QDirModel>
-#include <QKeyEvent>
-#include <QFileInfo>
 #include <QDir>
+#include <QDirModel>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QIcon>
+#include <QKeyEvent>
+#include <QRegularExpressionMatch>
+#include <QScrollBar>
+#include <QString>
 
 #include <QAction>
 
+#include <KActionCollection>
 #include <KTextEditor/Application>
 #include <KXMLGUIFactory>
-#include <KActionCollection>
 
 #include <kmessagebox.h>
 
+#include <kaboutdata.h>
 #include <klocalizedstring.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kaboutdata.h>
 
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>

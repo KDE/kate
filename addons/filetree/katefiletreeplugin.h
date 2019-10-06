@@ -23,9 +23,9 @@
 #include <QIcon>
 
 #include <KTextEditor/Command>
+#include <KTextEditor/Plugin>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
-#include <KTextEditor/Plugin>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/sessionconfiginterface.h>
 

@@ -19,22 +19,22 @@
 
 #include "plugin_kateopenheader.h"
 
+#include <ktexteditor/application.h>
+#include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
-#include <ktexteditor/application.h>
 
+#include <KIO/StatJob>
+#include <KJobWidgets>
+#include <KXMLGUIFactory>
+#include <QAction>
+#include <QDir>
 #include <QFileInfo>
+#include <kaboutdata.h>
+#include <kactioncollection.h>
+#include <klocalizedstring.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kaboutdata.h>
-#include <QAction>
-#include <klocalizedstring.h>
-#include <kactioncollection.h>
-#include <KXMLGUIFactory>
-#include <KJobWidgets>
-#include <KIO/StatJob>
-#include <QDir>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateOpenHeaderFactory, "kateopenheaderplugin.json", registerPlugin<PluginKateOpenHeader>();)
 // K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheader",ki18n("Open Header"), "0.1", ki18n("Open header for a source file"), KAboutData::License_LGPL_V2)) )

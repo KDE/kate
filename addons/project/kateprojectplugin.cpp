@@ -24,14 +24,14 @@
 #include "kateprojectconfigpage.h"
 #include "kateprojectpluginview.h"
 
-#include <ktexteditor/editor.h>
 #include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
 #include <ktexteditor_version.h> // delete, when we depend on KF 5.63
 
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
-#include <KConfigGroup>
 #include <ThreadWeaver/Queue>
 
 #include <QFileInfo>
@@ -40,9 +40,9 @@
 #include <vector>
 
 #ifdef HAVE_CTERMID
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <termios.h>
 #include <unistd.h>
 #endif

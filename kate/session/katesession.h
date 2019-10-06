@@ -23,9 +23,9 @@
 
 #include "katetests_export.h"
 
+#include <QDateTime>
 #include <QExplicitlySharedDataPointer>
 #include <QString>
-#include <QDateTime>
 
 class KConfig;
 

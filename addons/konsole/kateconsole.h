@@ -23,11 +23,11 @@
 #define __KATE_CONSOLE_H__
 
 #include <KTextEditor/Plugin>
-#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpage.h>
+#include <ktexteditor/mainwindow.h>
 
-#include <QList>
 #include <QKeyEvent>
+#include <QList>
 
 #include <KXMLGUIClient>
 

@@ -22,8 +22,8 @@
 #include "../kateexternaltool.h"
 #include "../katetoolrunner.h"
 
-#include <QtTest>
 #include <QString>
+#include <QtTest>
 
 #include <KConfig>
 #include <KConfigGroup>

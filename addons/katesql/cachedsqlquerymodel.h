@@ -19,9 +19,9 @@ Boston, MA 02110-1301, USA.
 #ifndef CACHEDSQLQUERYMODEL_H
 #define CACHEDSQLQUERYMODEL_H
 
+#include <qcontiguouscache.h>
 #include <qsqlquerymodel.h>
 #include <qsqlrecord.h>
-#include <qcontiguouscache.h>
 
 class CachedSqlQueryModel : public QSqlQueryModel
 {

@@ -20,12 +20,12 @@
 
 #include "htmldelegate.h"
 
-#include <QPainter>
-#include <QModelIndex>
-#include <QTextDocument>
-#include <QAbstractTextDocumentLayout>
-#include <QTextCharFormat>
 #include <KLocalizedString>
+#include <QAbstractTextDocumentLayout>
+#include <QModelIndex>
+#include <QPainter>
+#include <QTextCharFormat>
+#include <QTextDocument>
 
 // make list spacing resemble the default list spacing
 // (which would not be the case with default QTextDocument margin)

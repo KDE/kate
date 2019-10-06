@@ -21,12 +21,12 @@
 #ifndef FolderFilesList_h
 #define FolderFilesList_h
 
-#include <QThread>
-#include <QRegExp>
-#include <QFileInfo>
-#include <QVector>
-#include <QStringList>
 #include <QElapsedTimer>
+#include <QFileInfo>
+#include <QRegExp>
+#include <QStringList>
+#include <QThread>
+#include <QVector>
 
 class FolderFilesList : public QThread
 {

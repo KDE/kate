@@ -29,8 +29,8 @@
 #include <KTextEditor/Plugin>
 
 #include <QDialog>
-#include <QStandardItemModel>
 #include <QPixmap>
+#include <QStandardItemModel>
 
 class KConfig;
 class KateExternalToolsPlugin;

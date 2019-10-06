@@ -21,13 +21,13 @@
 #ifndef _KATE_PROJECT_PLUGIN_VIEW_H_
 #define _KATE_PROJECT_PLUGIN_VIEW_H_
 
-#include "kateprojectplugin.h"
 #include "kateproject.h"
-#include "kateprojectview.h"
 #include "kateprojectinfoview.h"
+#include "kateprojectplugin.h"
+#include "kateprojectview.h"
 
-#include <QPointer>
 #include <QComboBox>
+#include <QPointer>
 #include <QStackedWidget>
 #include <QToolButton>
 

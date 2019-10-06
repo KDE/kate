@@ -21,12 +21,12 @@
 #ifndef KWRITE_MAIN_H
 #define KWRITE_MAIN_H
 
-#include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
+#include <ktexteditor/view.h>
 
-#include <KParts/MainWindow>
 #include <KConfigGroup>
+#include <KParts/MainWindow>
 #include <KSharedConfig>
 
 class QLabel;

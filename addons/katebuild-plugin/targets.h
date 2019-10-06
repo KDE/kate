@@ -20,14 +20,14 @@
 #ifndef TARGETS_H
 #define TARGETS_H
 
-#include <QGridLayout>
-#include <QToolButton>
-#include <QTreeView>
-#include <QComboBox>
-#include <QLabel>
-#include <QWidget>
 #include "TargetHtmlDelegate.h"
 #include "TargetModel.h"
+#include <QComboBox>
+#include <QGridLayout>
+#include <QLabel>
+#include <QToolButton>
+#include <QTreeView>
+#include <QWidget>
 
 class TargetsUi : public QWidget
 {

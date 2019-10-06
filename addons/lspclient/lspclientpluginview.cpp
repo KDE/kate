@@ -23,47 +23,47 @@
 */
 
 #include "lspclientpluginview.h"
-#include "lspclientsymbolview.h"
-#include "lspclientplugin.h"
-#include "lspclientservermanager.h"
 #include "lspclientcompletion.h"
 #include "lspclienthover.h"
+#include "lspclientplugin.h"
+#include "lspclientservermanager.h"
+#include "lspclientsymbolview.h"
 
 #include "lspclient_debug.h"
 
+#include <KAcceleratorManager>
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KLocalizedString>
 #include <KStandardAction>
 #include <KXMLGUIFactory>
-#include <KAcceleratorManager>
 
 #include <KTextEditor/CodeCompletionInterface>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
-#include <KTextEditor/View>
 #include <KTextEditor/Message>
 #include <KTextEditor/MovingInterface>
+#include <KTextEditor/View>
 #include <KXMLGUIClient>
 
+#include <ktexteditor/configinterface.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
-#include <ktexteditor/configinterface.h>
 
-#include <QKeyEvent>
-#include <QHBoxLayout>
 #include <QAction>
-#include <QTreeView>
-#include <QStandardItem>
-#include <QHeaderView>
-#include <QInputDialog>
-#include <QTimer>
-#include <QSet>
-#include <QTextCodec>
 #include <QApplication>
 #include <QFileInfo>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QInputDialog>
 #include <QJsonObject>
+#include <QKeyEvent>
+#include <QSet>
+#include <QStandardItem>
+#include <QTextCodec>
+#include <QTimer>
+#include <QTreeView>
 #include <utility>
 
 namespace RangeData

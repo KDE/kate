@@ -47,23 +47,23 @@
 #include <QHBoxLayout>
 //#include "plugin_katexmlcheck.moc" this goes to end
 
+#include <QApplication>
+#include <QHeaderView>
+#include <QTreeWidget>
+#include <kactioncollection.h>
 #include <qfile.h>
 #include <qinputdialog.h>
 #include <qregexp.h>
 #include <qstring.h>
 #include <qtextstream.h>
-#include <kactioncollection.h>
-#include <QApplication>
-#include <QTreeWidget>
-#include <QHeaderView>
 
 #include <QAction>
+#include <QProcess>
+#include <QTemporaryFile>
 #include <kcursor.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <QTemporaryFile>
 #include <kpluginfactory.h>
-#include <QProcess>
 
 #include <QComboBox>
 #include <QFile>

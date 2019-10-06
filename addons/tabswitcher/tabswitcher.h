@@ -21,8 +21,8 @@
 #ifndef KTEXTEDITOR_TAB_SWITCHER_PLUGIN_H
 #define KTEXTEDITOR_TAB_SWITCHER_PLUGIN_H
 
-#include <KTextEditor/Plugin>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/Plugin>
 
 #include <QList>
 #include <QSet>

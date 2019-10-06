@@ -26,16 +26,16 @@
 
 #include "lspclient_debug.h"
 
-#include <QScopedPointer>
 #include <QProcess>
+#include <QScopedPointer>
 #include <QVariantMap>
 
+#include <QCoreApplication>
+#include <QFileInfo>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
-#include <QCoreApplication>
 #include <QTime>
-#include <QFileInfo>
 #include <utility>
 
 // good/bad old school; allows easier concatenate

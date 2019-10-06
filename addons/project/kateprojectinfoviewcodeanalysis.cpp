@@ -19,14 +19,14 @@
  */
 
 #include "kateprojectinfoviewcodeanalysis.h"
-#include "kateprojectpluginview.h"
 #include "kateprojectcodeanalysistool.h"
+#include "kateprojectpluginview.h"
 #include "tools/kateprojectcodeanalysisselector.h"
 
 #include <QFileInfo>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QToolTip>
+#include <QVBoxLayout>
 
 #include <klocalizedstring.h>
 #include <kmessagewidget.h>

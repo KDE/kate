@@ -19,11 +19,11 @@
  */
 
 #include "kateprojectinfoview.h"
-#include "kateprojectpluginview.h"
-#include "kateprojectinfoviewterminal.h"
-#include "kateprojectinfoviewindex.h"
 #include "kateprojectinfoviewcodeanalysis.h"
+#include "kateprojectinfoviewindex.h"
 #include "kateprojectinfoviewnotes.h"
+#include "kateprojectinfoviewterminal.h"
+#include "kateprojectpluginview.h"
 
 #include "klocalizedstring.h"
 

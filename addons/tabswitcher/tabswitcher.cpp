@@ -19,8 +19,8 @@
 */
 
 #include "tabswitcher.h"
-#include "tabswitchertreeview.h"
 #include "tabswitcherfilesmodel.h"
+#include "tabswitchertreeview.h"
 
 #include <KTextEditor/Application>
 #include <KTextEditor/Document>

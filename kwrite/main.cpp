@@ -24,22 +24,22 @@
 #include "kwriteapplication.h"
 
 #include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
 #include <ktexteditor/editor.h>
+#include <ktexteditor/view.h>
 
 #include <KAboutData>
-#include <kcoreaddons_version.h> // for KAboutData::setDesktopFileName()
+#include <KCrash>
+#include <KDBusService>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KDBusService>
+#include <kcoreaddons_version.h> // for KAboutData::setDesktopFileName()
 #include <kcrash_version.h>
-#include <KCrash>
 
-#include <QCommandLineParser>
 #include <QApplication>
-#include <QTextCodec>
-#include <QFileInfo>
+#include <QCommandLineParser>
 #include <QDir>
+#include <QFileInfo>
+#include <QTextCodec>
 #include <QUrlQuery>
 
 #include "../urlinfo.h"

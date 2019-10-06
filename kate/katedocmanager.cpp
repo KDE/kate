@@ -21,30 +21,30 @@
 #include "katedocmanager.h"
 
 #include "kateapp.h"
-#include "katemainwindow.h"
-#include "kateviewmanager.h"
-#include "katesavemodifieddialog.h"
 #include "katedebug.h"
+#include "katemainwindow.h"
+#include "katesavemodifieddialog.h"
+#include "kateviewmanager.h"
 
-#include <ktexteditor/view.h>
 #include <ktexteditor/editor.h>
+#include <ktexteditor/view.h>
 
 #include <KCodecs>
-#include <KMessageBox>
-#include <KIO/DeleteJob>
 #include <KColorScheme>
-#include <KLocalizedString>
 #include <KConfigGroup>
+#include <KIO/DeleteJob>
+#include <KLocalizedString>
+#include <KMessageBox>
 
+#include <QApplication>
 #include <QByteArray>
 #include <QDateTime>
+#include <QFileDialog>
 #include <QHash>
-#include <QTextCodec>
-#include <QTimer>
-#include <QApplication>
 #include <QListView>
 #include <QProgressDialog>
-#include <QFileDialog>
+#include <QTextCodec>
+#include <QTimer>
 
 KateDocManager::KateDocManager(QObject *parent)
     : QObject(parent)

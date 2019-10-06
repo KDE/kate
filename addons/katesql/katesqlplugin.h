@@ -19,10 +19,10 @@
 #ifndef KATESQLPLUGIN_H
 #define KATESQLPLUGIN_H
 
-#include <ktexteditor/view.h>
-#include <ktexteditor/plugin.h>
 #include <ktexteditor/application.h>
 #include <ktexteditor/mainwindow.h>
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/view.h>
 
 #include <kpluginfactory.h>
 

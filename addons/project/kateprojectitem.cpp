@@ -20,13 +20,13 @@
 
 #include "kateprojectitem.h"
 
+#include <QCoreApplication>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QIcon>
-#include <QThread>
-#include <QCoreApplication>
 #include <QMimeDatabase>
+#include <QThread>
 
 #include <KIconUtils>
 

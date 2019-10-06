@@ -21,26 +21,26 @@
 #ifndef _PLUGIN_SEARCH_H_
 #define _PLUGIN_SEARCH_H_
 
-#include <ktexteditor/mainwindow.h>
-#include <KTextEditor/Plugin>
-#include <ktexteditor/application.h>
 #include <KTextEditor/Command>
-#include <ktexteditor/sessionconfiginterface.h>
 #include <KTextEditor/Message>
+#include <KTextEditor/Plugin>
 #include <QAction>
+#include <ktexteditor/application.h>
+#include <ktexteditor/mainwindow.h>
+#include <ktexteditor/sessionconfiginterface.h>
 
-#include <QTreeWidget>
 #include <QTimer>
+#include <QTreeWidget>
 
 #include <KXMLGUIClient>
 
-#include "ui_search.h"
 #include "ui_results.h"
+#include "ui_search.h"
 
-#include "search_open_files.h"
-#include "SearchDiskFiles.h"
 #include "FolderFilesList.h"
+#include "SearchDiskFiles.h"
 #include "replace_matches.h"
+#include "search_open_files.h"
 
 class KateSearchCommand;
 namespace KTextEditor

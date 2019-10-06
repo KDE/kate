@@ -21,12 +21,12 @@
 #ifndef _REPLACE_MATCHES_H_
 #define _REPLACE_MATCHES_H_
 
+#include <QElapsedTimer>
 #include <QObject>
 #include <QRegularExpression>
 #include <QTreeWidget>
-#include <QElapsedTimer>
-#include <ktexteditor/document.h>
 #include <ktexteditor/application.h>
+#include <ktexteditor/document.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
 

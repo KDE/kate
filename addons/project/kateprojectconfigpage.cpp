@@ -19,12 +19,12 @@
 #include "kateprojectconfigpage.h"
 #include "kateprojectplugin.h"
 
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QCheckBox>
-#include <QGroupBox>
 #include <KLocalizedString>
 #include <KUrlRequester>
+#include <QCheckBox>
+#include <QGroupBox>
+#include <QLabel>
+#include <QVBoxLayout>
 
 KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin *plugin)
     : KTextEditor::ConfigPage(parent)

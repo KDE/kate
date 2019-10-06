@@ -21,25 +21,25 @@
 
 #include "katecolorschemechooser.h"
 
-#include <QStringList>
-#include <QFileInfo>
+#include <QAction>
 #include <QActionGroup>
 #include <QApplication>
-#include <QAction>
-#include <QStandardPaths>
 #include <QDirIterator>
+#include <QFileInfo>
 #include <QMenu>
 #include <QModelIndex>
+#include <QStandardPaths>
+#include <QStringList>
 
+#include <KActionCollection>
 #include <KActionMenu>
 #include <KColorSchemeManager>
-#include <KLocalizedString>
-#include <KActionCollection>
-#include <KSharedConfig>
 #include <KConfigGroup>
+#include <KLocalizedString>
+#include <KSharedConfig>
 
-#include "katemainwindow.h"
 #include "katedebug.h"
+#include "katemainwindow.h"
 
 KateColorSchemeChooser::KateColorSchemeChooser(QObject *parent)
     : QAction(parent)

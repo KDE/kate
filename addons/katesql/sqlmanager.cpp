@@ -19,15 +19,15 @@
 #include "sqlmanager.h"
 #include "connectionmodel.h"
 
-#include <klocalizedstring.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
+#include <klocalizedstring.h>
 
 #include <QDebug>
 #include <qsqldatabase.h>
-#include <qsqlquery.h>
-#include <qsqlerror.h>
 #include <qsqldriver.h>
+#include <qsqlerror.h>
+#include <qsqlquery.h>
 
 using KWallet::Wallet;
 

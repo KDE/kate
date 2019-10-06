@@ -18,10 +18,10 @@
 
 #include "btdatabase.h"
 
-#include <QFile>
 #include <QDataStream>
-#include <QDir>
 #include <QDebug>
+#include <QDir>
+#include <QFile>
 
 void KateBtDatabase::loadFromFile(const QString &url)
 {

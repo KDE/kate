@@ -25,13 +25,13 @@
 
 #include <QCompleter>
 #include <QDirModel>
-#include <QLayout>
-#include <QTimer>
-#include <QPushButton>
 #include <QFileDialog>
+#include <QLayout>
+#include <QPushButton>
+#include <QTimer>
 
-#include <KTextEditor/View>
 #include <KTextEditor/Document>
+#include <KTextEditor/View>
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>

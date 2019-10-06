@@ -25,23 +25,23 @@
 
 #include "ui_editsnippet.h"
 
+#include "snippet.h"
 #include "snippetrepository.h"
 #include "snippetstore.h"
-#include "snippet.h"
 
 #include <KLocalizedString>
-#include <KMimeTypeTrader>
-#include <khelpclient.h>
 #include <KMessageBox>
 #include <KMessageWidget>
+#include <KMimeTypeTrader>
+#include <khelpclient.h>
 
-#include <QToolButton>
-#include <QPushButton>
-#include <QWhatsThis>
 #include <QAction>
+#include <QPushButton>
+#include <QToolButton>
+#include <QWhatsThis>
 
-#include <KTextEditor/Editor>
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
 KTextEditor::View *createView(QWidget *tabWidget)

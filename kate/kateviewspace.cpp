@@ -19,16 +19,16 @@
 */
 #include "kateviewspace.h"
 
-#include "katemainwindow.h"
-#include "kateviewmanager.h"
-#include "katedocmanager.h"
-#include "kateapp.h"
-#include "katefileactions.h"
-#include "katesessionmanager.h"
-#include "katedebug.h"
-#include "katetabbar.h"
 #include "kactioncollection.h"
+#include "kateapp.h"
+#include "katedebug.h"
+#include "katedocmanager.h"
+#include "katefileactions.h"
+#include "katemainwindow.h"
+#include "katesessionmanager.h"
+#include "katetabbar.h"
 #include "kateupdatedisabler.h"
+#include "kateviewmanager.h"
 
 #include <KAcceleratorManager>
 #include <KConfigGroup>

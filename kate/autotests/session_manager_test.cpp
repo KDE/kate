@@ -17,15 +17,15 @@
  */
 
 #include "session_manager_test.h"
-#include "katesessionmanager.h"
 #include "kateapp.h"
+#include "katesessionmanager.h"
 
 #include <KConfig>
 #include <KConfigGroup>
 
-#include <QtTestWidgets>
-#include <QTemporaryDir>
 #include <QCommandLineParser>
+#include <QTemporaryDir>
+#include <QtTestWidgets>
 
 QTEST_MAIN(KateSessionManagerTest)
 

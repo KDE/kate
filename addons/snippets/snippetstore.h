@@ -24,8 +24,8 @@
 #ifndef __SNIPPETSTORE_H__
 #define __SNIPPETSTORE_H__
 
-#include <QStandardItemModel>
 #include <KConfigGroup>
+#include <QStandardItemModel>
 
 class SnippetRepository;
 class KateSnippetGlobal;

@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *********************************************************************/
 #include "katesessionsjob.h"
 #include "katesessionsengine.h"
-#include <QDebug>
 #include <KToolInvocation>
+#include <QDebug>
 #include <QUrl>
 
 static const QString s_clipboardSourceName = QStringLiteral("katesessions");

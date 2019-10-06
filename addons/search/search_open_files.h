@@ -21,9 +21,9 @@
 #ifndef _SEARCH_OPEN_FILES_H_
 #define _SEARCH_OPEN_FILES_H_
 
+#include <QElapsedTimer>
 #include <QObject>
 #include <QRegularExpression>
-#include <QElapsedTimer>
 #include <ktexteditor/document.h>
 
 class SearchOpenFiles : public QObject

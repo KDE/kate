@@ -21,8 +21,8 @@
 #define ADVANCED_SETTINGS_H
 
 #include "ui_advanced_settings.h"
-#include <QStringList>
 #include <QDialog>
+#include <QStringList>
 
 class AdvancedGDBSettings : public QDialog, public Ui::AdvancedGDBSettings
 {

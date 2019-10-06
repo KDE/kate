@@ -23,8 +23,8 @@
 #include <ktexteditorpreview_debug.h>
 
 // KF
-#include <KTextEditor/MainWindow>
 #include <KPluginFactory>
+#include <KTextEditor/MainWindow>
 
 K_PLUGIN_FACTORY_WITH_JSON(KTextEditorPreviewPluginFactory, "ktexteditorpreview.json", registerPlugin<KTextEditorPreviewPlugin>();)
 

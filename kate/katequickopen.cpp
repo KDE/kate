@@ -20,33 +20,33 @@
 #include "katequickopen.h"
 #include "katequickopenmodel.h"
 
+#include "kateapp.h"
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
-#include "kateapp.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
 #include <tuple>
 
+#include <KAboutData>
+#include <KActionCollection>
+#include <KLineEdit>
+#include <KLocalizedString>
 #include <KPluginFactory>
 #include <KPluginLoader>
-#include <KAboutData>
-#include <KLineEdit>
-#include <KActionCollection>
-#include <KLocalizedString>
 
+#include <QBoxLayout>
+#include <QCoreApplication>
+#include <QDesktopWidget>
 #include <QEvent>
 #include <QFileInfo>
-#include <QSortFilterProxyModel>
-#include <QCoreApplication>
-#include <QPointer>
-#include <QStandardItemModel>
-#include <QDesktopWidget>
-#include <QBoxLayout>
-#include <QLabel>
-#include <QTreeView>
 #include <QHeaderView>
+#include <QLabel>
+#include <QPointer>
+#include <QSortFilterProxyModel>
+#include <QStandardItemModel>
+#include <QTreeView>
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 

@@ -21,10 +21,10 @@
 #ifndef KWRITE_APPLICATION_H
 #define KWRITE_APPLICATION_H
 
-#include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
 #include <ktexteditor/application.h>
+#include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
+#include <ktexteditor/view.h>
 
 class KWrite;
 

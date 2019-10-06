@@ -20,17 +20,17 @@
 #define KATE_BACKTRACEBROWSER_H
 
 #include <KTextEditor/Plugin>
-#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpage.h>
+#include <ktexteditor/mainwindow.h>
 
-#include "ui_btbrowserwidget.h"
-#include "ui_btconfigwidget.h"
 #include "btdatabase.h"
 #include "btfileindexer.h"
+#include "ui_btbrowserwidget.h"
+#include "ui_btconfigwidget.h"
 
+#include <QDialog>
 #include <QString>
 #include <QTimer>
-#include <QDialog>
 
 class KateBtConfigWidget;
 class KateBtBrowserWidget;

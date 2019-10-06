@@ -22,24 +22,24 @@
 #include "kateexternaltool.h"
 #include "ui_toolview.h"
 
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/Document>
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
 #include <KActionCollection>
 #include <KAuthorized>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KSharedConfig>
-#include <QStandardPaths>
-#include <QMenu>
-#include <KXMLGUIFactory>
 #include <KLocalizedString>
+#include <KSharedConfig>
+#include <KXMLGUIFactory>
+#include <QMenu>
+#include <QStandardPaths>
 
-#include <QToolButton>
-#include <QKeyEvent>
 #include <QFontDatabase>
+#include <QKeyEvent>
 #include <QTextDocument>
+#include <QToolButton>
 
 #include <map>
 #include <vector>

@@ -22,10 +22,10 @@
 #include "kateexternaltool.h"
 #include "katetoolrunner.h"
 
+#include <KLineEdit>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
-#include <KLineEdit>
 
 #include <KConfig>
 #include <KConfigGroup>

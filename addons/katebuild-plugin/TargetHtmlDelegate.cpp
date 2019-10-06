@@ -21,16 +21,16 @@
 #include "TargetHtmlDelegate.h"
 #include "TargetModel.h"
 
-#include <QPainter>
-#include <QModelIndex>
-#include <QTextDocument>
 #include <QAbstractTextDocumentLayout>
-#include <QTextCharFormat>
-#include <QLineEdit>
-#include <klocalizedstring.h>
-#include <QToolButton>
 #include <QCompleter>
 #include <QDirModel>
+#include <QLineEdit>
+#include <QModelIndex>
+#include <QPainter>
+#include <QTextCharFormat>
+#include <QTextDocument>
+#include <QToolButton>
+#include <klocalizedstring.h>
 
 #include "UrlInserter.h"
 

@@ -24,15 +24,15 @@
 
 #include <QPointer>
 
+#include <KActionMenu>
 #include <KTextEditor/Application>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
-#include <KXMLGUIClient>
-#include <KActionMenu>
 #include <KTextEditor/SessionConfigInterface>
+#include <KXMLGUIClient>
 
-#include "debugview.h"
 #include "configview.h"
+#include "debugview.h"
 #include "ioview.h"
 #include "localsview.h"
 

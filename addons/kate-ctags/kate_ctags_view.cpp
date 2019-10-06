@@ -20,22 +20,22 @@
  */
 
 #include "kate_ctags_view.h"
-#include "kate_ctags_plugin.h"
 #include "kate_ctags_debug.h"
+#include "kate_ctags_plugin.h"
 
-#include <QFileInfo>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QKeyEvent>
 
-#include <KXMLGUIFactory>
 #include <KActionCollection>
 #include <KConfigGroup>
+#include <KXMLGUIFactory>
 #include <QMenu>
 
-#include <klocalizedstring.h>
-#include <kstringhandler.h>
-#include <kmessagebox.h>
 #include <QStandardPaths>
+#include <klocalizedstring.h>
+#include <kmessagebox.h>
+#include <kstringhandler.h>
 
 /******************************************************************/
 KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin)

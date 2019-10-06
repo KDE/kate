@@ -19,8 +19,8 @@
  */
 
 #include "kateproject.h"
-#include "kateprojectworker.h"
 #include "kateprojectplugin.h"
+#include "kateprojectworker.h"
 
 #include <klocalizedstring.h>
 
@@ -31,11 +31,11 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QPlainTextDocumentLayout>
-#include <QJsonDocument>
-#include <QJsonParseError>
-#include <QJsonObject>
 #include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonParseError>
+#include <QPlainTextDocumentLayout>
 #include <utility>
 
 KateProject::KateProject(ThreadWeaver::Queue *weaver, KateProjectPlugin *plugin)

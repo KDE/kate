@@ -23,8 +23,8 @@
 
 #include "kateproject.h"
 
-#include <QVBoxLayout>
 #include <QKeyEvent>
+#include <QVBoxLayout>
 
 #include <KPluginFactory>
 #include <kparts/part.h>

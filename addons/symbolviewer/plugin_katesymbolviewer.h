@@ -18,23 +18,23 @@
 #ifndef _PLUGIN_KATE_SYMBOLVIEWER_H_
 #define _PLUGIN_KATE_SYMBOLVIEWER_H_
 
-#include <KTextEditor/MainWindow>
-#include <KTextEditor/Document>
-#include <KTextEditor/Plugin>
-#include <KTextEditor/View>
-#include <KTextEditor/SessionConfigInterface>
 #include <KTextEditor/ConfigPage>
+#include <KTextEditor/Document>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/SessionConfigInterface>
+#include <KTextEditor/View>
 
-#include <QMenu>
 #include <QCheckBox>
+#include <QMenu>
 
-#include <QPixmap>
 #include <QLabel>
-#include <QResizeEvent>
-#include <QTreeWidget>
 #include <QList>
+#include <QPixmap>
+#include <QResizeEvent>
 #include <QSet>
 #include <QTimer>
+#include <QTreeWidget>
 
 #include <klocalizedstring.h>
 

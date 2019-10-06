@@ -21,20 +21,20 @@
 
 #include <QDir>
 #include <QFileInfo>
+#include <QIcon>
 #include <QList>
 #include <QMimeData>
 #include <QMimeDatabase>
-#include <QIcon>
 #include <QStack>
 
 #include <KColorScheme>
 #include <KColorUtils>
-#include <KLocalizedString>
 #include <KIconUtils>
+#include <KLocalizedString>
 
+#include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
-#include <ktexteditor/application.h>
 
 #include "katefiletreedebug.h"
 

@@ -20,8 +20,8 @@
 #ifndef KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
 #define KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
 
-#include <QVector>
 #include <KTextEditor/Plugin>
+#include <QVector>
 
 namespace KTextEditor
 {

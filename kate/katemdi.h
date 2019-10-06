@@ -26,16 +26,16 @@
 #include <KParts/MainWindow>
 
 #include <KMultiTabBar>
-#include <KXMLGUIClient>
 #include <KToggleAction>
+#include <KXMLGUIClient>
 
-#include <QMap>
-#include <QSplitter>
-#include <QList>
-#include <QEvent>
 #include <QChildEvent>
-#include <QPointer>
+#include <QEvent>
 #include <QFrame>
+#include <QList>
+#include <QMap>
+#include <QPointer>
+#include <QSplitter>
 
 class KActionMenu;
 class QAction;

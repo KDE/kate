@@ -19,35 +19,35 @@
 
 #include "previewwidget.h"
 
-#include "ktexteditorpreviewplugin.h"
 #include "kpartview.h"
+#include "ktexteditorpreviewplugin.h"
 #include <ktexteditorpreview_debug.h>
 
 // KF
-#include <KTextEditor/View>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 
-#include <KParts/ReadOnlyPart>
-#include <KService>
-#include <KMimeTypeTrader>
-#include <KConfigGroup>
-#include <KLocalizedString>
-#include <KToggleAction>
-#include <KGuiItem>
 #include <KAboutApplicationDialog>
 #include <KAboutData>
-#include <KXMLGUIFactory>
+#include <KConfigGroup>
+#include <KGuiItem>
+#include <KLocalizedString>
+#include <KMimeTypeTrader>
+#include <KParts/ReadOnlyPart>
+#include <KService>
 #include <KSharedConfig>
+#include <KToggleAction>
+#include <KXMLGUIFactory>
 
 // Qt
-#include <QLabel>
-#include <QIcon>
-#include <QWidgetAction>
 #include <QAction>
+#include <QDomElement>
+#include <QIcon>
+#include <QLabel>
 #include <QMenu>
 #include <QToolButton>
-#include <QDomElement>
+#include <QWidgetAction>
 
 using namespace KTextEditorPreview;
 

@@ -19,13 +19,13 @@
 #include "katesqlconfigpage.h"
 #include "outputstylewidget.h"
 
+#include <KSharedConfig>
 #include <kconfiggroup.h>
 #include <klocalizedstring.h>
-#include <KSharedConfig>
 
 #include <qboxlayout.h>
-#include <qgroupbox.h>
 #include <qcheckbox.h>
+#include <qgroupbox.h>
 
 KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)

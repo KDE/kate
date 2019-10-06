@@ -20,10 +20,10 @@
 
 #include "FolderFilesList.h"
 
+#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QFileInfoList>
-#include <QDebug>
 #include <QMimeDatabase>
 #include <QMimeType>
 

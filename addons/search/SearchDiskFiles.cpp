@@ -21,8 +21,8 @@
 #include "SearchDiskFiles.h"
 
 #include <QDir>
-#include <QUrl>
 #include <QTextStream>
+#include <QUrl>
 
 SearchDiskFiles::SearchDiskFiles(QObject *parent)
     : QThread(parent)

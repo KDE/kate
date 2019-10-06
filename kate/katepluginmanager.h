@@ -24,12 +24,12 @@
 
 #include <KTextEditor/Plugin>
 
-#include <KPluginMetaData>
 #include <KConfigBase>
+#include <KPluginMetaData>
 
-#include <QObject>
 #include <QList>
 #include <QMap>
+#include <QObject>
 
 class KConfig;
 class KateMainWindow;

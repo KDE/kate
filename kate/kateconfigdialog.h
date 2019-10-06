@@ -22,10 +22,10 @@
 #ifndef __kate_configdialog_h__
 #define __kate_configdialog_h__
 
-#include <KTextEditor/Plugin>
 #include <KTextEditor/ConfigPage>
-#include <KTextEditor/Editor>
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
+#include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
 #include <KPageDialog>

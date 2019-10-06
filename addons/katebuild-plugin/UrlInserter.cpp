@@ -19,14 +19,14 @@
  ***************************************************************************/
 
 #include "UrlInserter.h"
-#include <klocalizedstring.h>
-#include <QHBoxLayout>
+#include <QCompleter>
+#include <QDebug>
+#include <QDirModel>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QHBoxLayout>
 #include <QIcon>
-#include <QDebug>
-#include <QCompleter>
-#include <QDirModel>
+#include <klocalizedstring.h>
 
 UrlInserter::UrlInserter(const QUrl &startUrl, QWidget *parent)
     : QWidget(parent)

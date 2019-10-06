@@ -19,23 +19,23 @@
  ***************************************************************************/
 
 #include "katesessionsmodel.h"
+#include <KDirWatch>
+#include <KLocalizedString>
+#include <KStringHandler>
+#include <KToolInvocation>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QGraphicsGridLayout>
+#include <QGraphicsLinearLayout>
+#include <QGraphicsProxyWidget>
+#include <QIcon>
+#include <QListWidgetItem>
+#include <QStandardItemModel>
+#include <QStandardPaths>
 #include <QStyleOptionGraphicsItem>
 #include <QTreeView>
 #include <QVBoxLayout>
-#include <QGraphicsGridLayout>
-#include <QGraphicsProxyWidget>
-#include <QListWidgetItem>
-#include <QStandardItemModel>
-#include <KToolInvocation>
-#include <KDirWatch>
-#include <QGraphicsLinearLayout>
-#include <KStringHandler>
-#include <QFile>
-#include <QDir>
-#include <QIcon>
-#include <KLocalizedString>
-#include <QStandardPaths>
-#include <QDebug>
 
 bool katesessions_compare_sessions(const QString &s1, const QString &s2)
 {

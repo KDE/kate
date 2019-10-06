@@ -21,8 +21,8 @@
 #ifndef KATE_PROJECT_TREE_VIEW_CONTEXT_MENU_H
 #define KATE_PROJECT_TREE_VIEW_CONTEXT_MENU_H
 
-#include <QString>
 #include <QPoint>
+#include <QString>
 
 class QWidget;
 

@@ -18,8 +18,8 @@
 //  Boston, MA 02110-1301, USA.
 
 #include "localsview.h"
-#include <QLabel>
 #include <QDebug>
+#include <QLabel>
 #include <klocalizedstring.h>
 
 LocalsView::LocalsView(QWidget *parent)

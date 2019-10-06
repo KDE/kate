@@ -23,8 +23,8 @@
 #ifndef IOVIEW_H
 #define IOVIEW_H
 
-#include <QWidget>
 #include <QFile>
+#include <QWidget>
 
 class QTextEdit;
 class QLineEdit;

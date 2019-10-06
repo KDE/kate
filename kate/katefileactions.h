@@ -22,8 +22,8 @@
 #ifndef KATE_FILEACTIONS_H
 #define KATE_FILEACTIONS_H
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 #include <QString>
 

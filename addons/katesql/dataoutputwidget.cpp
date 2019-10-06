@@ -21,32 +21,32 @@
 #include "dataoutputview.h"
 #include "exportwizard.h"
 
-#include <ktexteditor/editor.h>
 #include <ktexteditor/application.h>
-#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
 
-#include <ktoolbar.h>
-#include <ktoggleaction.h>
 #include <QAction>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
+#include <ktoggleaction.h>
+#include <ktoolbar.h>
 
-#include <qheaderview.h>
-#include <qlayout.h>
-#include <qsqlquery.h>
-#include <qsqlerror.h>
-#include <qsize.h>
-#include <qclipboard.h>
-#include <qtextstream.h>
-#include <qfile.h>
-#include <qtimer.h>
 #include <QApplication>
 #include <QClipboard>
+#include <QElapsedTimer>
 #include <QStyle>
 #include <QTime>
-#include <QElapsedTimer>
+#include <qclipboard.h>
+#include <qfile.h>
+#include <qheaderview.h>
+#include <qlayout.h>
+#include <qsize.h>
+#include <qsqlerror.h>
+#include <qsqlquery.h>
+#include <qtextstream.h>
+#include <qtimer.h>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent)
     : QWidget(parent)

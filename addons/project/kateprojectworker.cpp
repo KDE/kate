@@ -28,8 +28,8 @@
 #include <QProcess>
 #include <QRegularExpression>
 #include <QSet>
-#include <QTime>
 #include <QSettings>
+#include <QTime>
 
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
     : QObject()

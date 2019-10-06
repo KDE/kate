@@ -21,21 +21,21 @@
 
 #include "katefiletreeplugin.h"
 #include "katefiletree.h"
+#include "katefiletreeconfigpage.h"
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
-#include "katefiletreeconfigpage.h"
 
-#include <ktexteditor/view.h>
 #include <ktexteditor/application.h>
+#include <ktexteditor/view.h>
 
 #include <KAboutData>
-#include <KPluginFactory>
 #include <KActionCollection>
-#include <KLocalizedString>
 #include <KConfigGroup>
+#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KToolBar>
 #include <KXMLGUIFactory>
 #include <KXmlGuiWindow>
-#include <KToolBar>
 
 #include <QAction>
 #include <QApplication>

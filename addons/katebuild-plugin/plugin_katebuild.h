@@ -25,26 +25,26 @@
 ** MA 02110-1301, USA.
 */
 
-#include <QRegularExpression>
-#include <QString>
-#include <QStack>
-#include <QPointer>
-#include <QHash>
 #include <KProcess>
+#include <QHash>
+#include <QPointer>
+#include <QRegularExpression>
+#include <QStack>
+#include <QString>
 
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/Document>
-#include <KTextEditor/Plugin>
-#include <KTextEditor/View>
-#include <KTextEditor/SessionConfigInterface>
-#include <KTextEditor/Message>
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/MarkInterface>
+#include <KTextEditor/Message>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/SessionConfigInterface>
+#include <KTextEditor/View>
 
-#include <KXMLGUIClient>
 #include <KConfigGroup>
+#include <KXMLGUIClient>
 
-#include "ui_build.h"
 #include "targets.h"
+#include "ui_build.h"
 
 /******************************************************************/
 class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface

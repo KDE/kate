@@ -20,10 +20,10 @@
 #ifndef REPLICODEVIEW_H
 #define REPLICODEVIEW_H
 
-#include <QProcess>
-#include <KXMLGUIClient>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
+#include <KXMLGUIClient>
+#include <QProcess>
 
 class QListWidgetItem;
 class QListWidget;

@@ -23,8 +23,8 @@
 */
 
 #include "lspclientplugin.h"
-#include "lspclientpluginview.h"
 #include "lspclientconfigpage.h"
+#include "lspclientpluginview.h"
 
 #include "lspclient_debug.h"
 

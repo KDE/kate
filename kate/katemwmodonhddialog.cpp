@@ -23,17 +23,17 @@
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 
+#include <KIconLoader>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
 #include <KRun>
-#include <KLocalizedString>
-#include <KIconLoader>
 
-#include <QTemporaryFile>
-#include <QTextStream>
 #include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>
+#include <QTemporaryFile>
+#include <QTextStream>
 
 #include <QTreeWidget>
 #include <QTreeWidgetItem>

@@ -20,13 +20,13 @@
 #ifndef PLUGIN_KATEOPENHEADER_H
 #define PLUGIN_KATEOPENHEADER_H
 
-#include <ktexteditor/plugin.h>
-#include <ktexteditor/mainwindow.h>
 #include <KTextEditor/Command>
 #include <KXMLGUIClient>
-#include <kpluginfactory.h>
 #include <QObject>
 #include <QUrl>
+#include <kpluginfactory.h>
+#include <ktexteditor/mainwindow.h>
+#include <ktexteditor/plugin.h>
 
 class PluginKateOpenHeader : public KTextEditor::Plugin
 {

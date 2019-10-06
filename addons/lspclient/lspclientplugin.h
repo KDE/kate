@@ -25,9 +25,9 @@
 #ifndef LSPCLIENTPLUGIN_H
 #define LSPCLIENTPLUGIN_H
 
+#include <QMap>
 #include <QUrl>
 #include <QVariant>
-#include <QMap>
 
 #include <KTextEditor/Plugin>
 

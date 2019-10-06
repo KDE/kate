@@ -19,9 +19,9 @@
 #ifndef REPLICODEPLUGIN_H
 #define REPLICODEPLUGIN_H
 
-#include <KTextEditor/Plugin>
-#include <KTextEditor/ConfigPage>
 #include "replicodeview.h"
+#include <KTextEditor/ConfigPage>
+#include <KTextEditor/Plugin>
 
 class ReplicodePlugin : public KTextEditor::Plugin
 {

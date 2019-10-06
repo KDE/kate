@@ -21,12 +21,12 @@
 #ifndef _KATE_PROJECT_PLUGIN_H_
 #define _KATE_PROJECT_PLUGIN_H_
 
-#include <QFileSystemWatcher>
 #include <QDir>
+#include <QFileSystemWatcher>
 
+#include <KTextEditor/Plugin>
 #include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
-#include <KTextEditor/Plugin>
 
 #include <kxmlguiclient.h>
 

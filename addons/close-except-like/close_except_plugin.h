@@ -28,17 +28,17 @@
 // Project specific includes
 
 // Standard includes
-#include <KTextEditor/Editor>
-#include <KTextEditor/Plugin>
-#include <ktexteditor/sessionconfiginterface.h>
 #include <KActionMenu>
-#include <KTextEditor/Document>
-#include <KTextEditor/View>
-#include <KTextEditor/Message>
-#include <KToggleAction>
 #include <KConfigGroup>
+#include <KTextEditor/Document>
+#include <KTextEditor/Editor>
+#include <KTextEditor/Message>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/View>
+#include <KToggleAction>
 #include <QPointer>
 #include <cassert>
+#include <ktexteditor/sessionconfiginterface.h>
 #include <set>
 
 namespace kate

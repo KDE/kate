@@ -22,9 +22,9 @@
 
 #include "kateexternaltool.h"
 
+#include <KLocalizedString>
 #include <KShell>
 #include <KTextEditor/View>
-#include <KLocalizedString>
 
 KateToolRunner::KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View *view, QObject *parent)
     : QObject(parent)

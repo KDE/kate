@@ -23,37 +23,37 @@
 #include "htmldelegate.h"
 
 #include <ktexteditor/application.h>
-#include <ktexteditor/editor.h>
-#include <ktexteditor/view.h>
+#include <ktexteditor/configinterface.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
-#include <ktexteditor/configinterface.h>
+#include <ktexteditor/view.h>
 
 #include "kacceleratormanager.h"
+#include <kaboutdata.h>
 #include <kactioncollection.h>
+#include <kcolorscheme.h>
+#include <klineedit.h>
 #include <klocalizedstring.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kaboutdata.h>
 #include <kurlcompletion.h>
-#include <klineedit.h>
-#include <kcolorscheme.h>
 
-#include <KXMLGUIFactory>
 #include <KConfigGroup>
+#include <KXMLGUIFactory>
 
-#include <QKeyEvent>
 #include <QClipboard>
-#include <QMenu>
-#include <QMetaObject>
-#include <QTextDocument>
-#include <QScrollBar>
-#include <QFileInfo>
-#include <QDir>
 #include <QComboBox>
 #include <QCompleter>
+#include <QDir>
+#include <QFileInfo>
+#include <QKeyEvent>
+#include <QMenu>
+#include <QMetaObject>
+#include <QScrollBar>
+#include <QTextDocument>
 
 static QUrl localFileDirUp(const QUrl &url)
 {

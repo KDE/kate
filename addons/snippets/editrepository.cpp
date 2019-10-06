@@ -26,15 +26,15 @@
 #include "snippetrepository.h"
 #include "snippetstore.h"
 
-#include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
 
 #include <KLocalizedString>
 #include <KStandardGuiItem>
 #include <KUser>
 
-#include <QPushButton>
 #include <QDialogButtonBox>
+#include <QPushButton>
 
 EditRepository::EditRepository(SnippetRepository *repository, QWidget *parent)
     : QDialog(parent)

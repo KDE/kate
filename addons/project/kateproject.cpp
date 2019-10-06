@@ -20,6 +20,7 @@
 
 #include "kateproject.h"
 #include "kateprojectworker.h"
+#include "kateprojectplugin.h"
 
 #include <klocalizedstring.h>
 
@@ -37,12 +38,13 @@
 #include <QJsonArray>
 #include <utility>
 
-KateProject::KateProject(ThreadWeaver::Queue *weaver)
+KateProject::KateProject(ThreadWeaver::Queue *weaver, KateProjectPlugin *plugin)
     : QObject()
     , m_fileLastModified()
     , m_notesDocument(nullptr)
     , m_untrackedDocumentsRoot(nullptr)
     , m_weaver(weaver)
+    , m_plugin(plugin)
 {
 }
 
@@ -175,7 +177,15 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
     emit projectMapChanged();
 
     // trigger loading of project in background thread
-    auto w = new KateProjectWorker(m_baseDir, m_projectMap);
+    QString indexDir;
+    if (m_plugin->getIndexEnabled()) {
+        indexDir = m_plugin->getIndexDirectory().toLocalFile();
+        // if empty, use regular tempdir
+        if (indexDir.isEmpty()) {
+            indexDir = QDir::tempPath();
+        }
+    }
+    auto w = new KateProjectWorker(m_baseDir, indexDir, m_projectMap, force);
     connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone);
     connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone);
     m_weaver->stream() << w;

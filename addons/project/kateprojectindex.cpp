@@ -28,14 +28,27 @@
  */
 #include "ctags/readtags.c"
 
-KateProjectIndex::KateProjectIndex(const QStringList &files, const QVariantMap &ctagsMap)
-    : m_ctagsIndexFile(QDir::tempPath() + QStringLiteral("/kate.project.ctags"))
-    , m_ctagsIndexHandle(nullptr)
+KateProjectIndex::KateProjectIndex(const QString &baseDir, const QString &indexDir, const QStringList &files, const QVariantMap &ctagsMap, bool force)
+    : m_ctagsIndexHandle(nullptr)
 {
+    // allow project to override and specify a (re-usable) indexfile
+    // otherwise fall-back to a temporary file if nothing specified
+    auto ctagsFile = ctagsMap.value(QStringLiteral("indexfile"));
+    if (ctagsFile.userType() == QMetaType::QString) {
+        auto path = ctagsFile.toString();
+        if (!QDir::isAbsolutePath(path)) {
+            path = QDir(baseDir).absoluteFilePath(path);
+        }
+        m_ctagsIndexFile.reset(new QFile(path));
+    } else {
+        // indexDir is typically QDir::tempPath() or otherwise specified in configuration
+        m_ctagsIndexFile.reset(new QTemporaryFile(indexDir + QStringLiteral("/kate.project.ctags")));
+    }
+
     /**
      * load ctags
      */
-    loadCtags(files, ctagsMap);
+    loadCtags(files, ctagsMap, force);
 }
 
 KateProjectIndex::~KateProjectIndex()
@@ -49,20 +62,29 @@ KateProjectIndex::~KateProjectIndex()
     }
 }
 
-void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ctagsMap)
+void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ctagsMap, bool force)
 {
+    /**
+     * only overwrite existing index upon reload
+     * (a temporary index file will never exist)
+     */
+    if (m_ctagsIndexFile->exists() && !force) {
+        openCtags();
+        return;
+    }
+
     /**
      * create temporary file
      * if not possible, fail
      */
-    if (!m_ctagsIndexFile.open()) {
+    if (!m_ctagsIndexFile->open(QIODevice::ReadWrite)) {
         return;
     }
 
     /**
      * close file again, other process will use it
      */
-    m_ctagsIndexFile.close();
+    m_ctagsIndexFile->close();
 
     /**
      * try to run ctags for all files in this project
@@ -70,7 +92,7 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
      */
     QProcess ctags;
     QStringList args;
-    args << QStringLiteral("-L") << QStringLiteral("-") << QStringLiteral("-f") << m_ctagsIndexFile.fileName() << QStringLiteral("--fields=+K+n");
+    args << QStringLiteral("-L") << QStringLiteral("-") << QStringLiteral("-f") << m_ctagsIndexFile->fileName() << QStringLiteral("--fields=+K+n");
     const QString keyOptions = QStringLiteral("options");
     for (const QVariant &optVariant : ctagsMap[keyOptions].toList()) {
         args << optVariant.toString();
@@ -93,22 +115,27 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
         return;
     }
 
+    openCtags();
+}
+
+void KateProjectIndex::openCtags()
+{
     /**
      * file not openable, bad
      */
-    if (!m_ctagsIndexFile.open()) {
+    if (!m_ctagsIndexFile->open(QIODevice::ReadOnly)) {
         return;
     }
 
     /**
      * get size
      */
-    qint64 size = m_ctagsIndexFile.size();
+    qint64 size = m_ctagsIndexFile->size();
 
     /**
      * close again
      */
-    m_ctagsIndexFile.close();
+    m_ctagsIndexFile->close();
 
     /**
      * empty file, bad
@@ -118,11 +145,19 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
     }
 
     /**
+     * close current
+     */
+    if (m_ctagsIndexHandle) {
+        tagsClose(m_ctagsIndexHandle);
+        m_ctagsIndexHandle = nullptr;
+    }
+
+    /**
      * try to open ctags file
      */
     tagFileInfo info;
     memset(&info, 0, sizeof(tagFileInfo));
-    m_ctagsIndexHandle = tagsOpen(m_ctagsIndexFile.fileName().toLocal8Bit().constData(), &info);
+    m_ctagsIndexHandle = tagsOpen(m_ctagsIndexFile->fileName().toLocal8Bit().constData(), &info);
 }
 
 void KateProjectIndex::findMatches(QStandardItemModel &model, const QString &searchWord, MatchType type)

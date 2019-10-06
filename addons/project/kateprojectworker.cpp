@@ -31,11 +31,13 @@
 #include <QTime>
 #include <QSettings>
 
-KateProjectWorker::KateProjectWorker(const QString &baseDir, const QVariantMap &projectMap)
+KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
     : QObject()
     , ThreadWeaver::Job()
     , m_baseDir(baseDir)
+    , m_indexDir(indexDir)
     , m_projectMap(projectMap)
+    , m_force(force)
 {
     Q_ASSERT(!m_baseDir.isEmpty());
 }
@@ -58,7 +60,7 @@ void KateProjectWorker::run(ThreadWeaver::JobPointer, ThreadWeaver::Thread *)
     emit loadDone(topLevel, file2Item);
 
     // trigger index loading, will internally handle enable/disabled
-    loadIndex(files);
+    loadIndex(files, m_force);
 }
 
 void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &project, QMap<QString, KateProjectItem *> *file2Item)
@@ -462,13 +464,19 @@ QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursi
     return files;
 }
 
-void KateProjectWorker::loadIndex(const QStringList &files)
+void KateProjectWorker::loadIndex(const QStringList &files, bool force)
 {
     /**
      * load index, if enabled
      * before this was default on, which is dangerous for large repositories, e.g. out-of-memory or out-of-disk
+     * if specified in project map; use that setting, otherwise fall back to global setting
      */
-    if (!m_projectMap[QStringLiteral("index")].toBool()) {
+    bool indexEnabled = !m_indexDir.isEmpty();
+    auto indexValue = m_projectMap[QStringLiteral("index")];
+    if (!indexValue.isNull()) {
+        indexEnabled = indexValue.toBool();
+    }
+    if (!indexEnabled) {
         emit loadIndexDone(KateProjectSharedProjectIndex());
         return;
     }
@@ -478,6 +486,7 @@ void KateProjectWorker::loadIndex(const QStringList &files)
      * wrap it into shared pointer for transfer to main thread
      */
     const QString keyCtags = QStringLiteral("ctags");
-    KateProjectSharedProjectIndex index(new KateProjectIndex(files, m_projectMap[keyCtags].toMap()));
+    KateProjectSharedProjectIndex index(new KateProjectIndex(m_baseDir, m_indexDir, files, m_projectMap[keyCtags].toMap(), force));
+
     emit loadIndexDone(index);
 }

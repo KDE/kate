@@ -48,7 +48,7 @@ public:
      * @param files files to index
      * @param ctagsMap ctags section for extra options
      */
-    KateProjectIndex(const QStringList &files, const QVariantMap &ctagsMap);
+    KateProjectIndex(const QString &baseDir, const QString &indexDir, const QStringList &files, const QVariantMap &ctagsMap, bool force);
 
     /**
      * deconstruct project
@@ -96,13 +96,18 @@ private:
      * @param files files to index
      * @param ctagsMap ctags section for extra options
      */
-    void loadCtags(const QStringList &files, const QVariantMap &ctagsMap);
+    void loadCtags(const QStringList &files, const QVariantMap &ctagsMap, bool force);
+
+    /**
+     * Open ctags tags.
+     */
+    void openCtags();
 
 private:
     /**
      * ctags index file
      */
-    QTemporaryFile m_ctagsIndexFile;
+    QScopedPointer<QFile> m_ctagsIndexFile;
 
     /**
      * handle to ctags file for querying, if possible

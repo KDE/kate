@@ -76,6 +76,9 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KateProjectPlugin::slotDocumentCreated);
     connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged, this, &KateProjectPlugin::slotDirectoryChanged);
 
+    // read configuration prior to cwd project setup below
+    readConfig();
+
 #ifdef HAVE_CTERMID
     /**
      * open project for our current working directory, if this kate has a terminal
@@ -90,8 +93,6 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
         ::close(fd);
     }
 #endif
-
-    readConfig();
 
     for (auto document : KTextEditor::Editor::instance()->application()->documents()) {
         slotDocumentCreated(document);
@@ -134,7 +135,7 @@ KTextEditor::ConfigPage *KateProjectPlugin::configPage(int number, QWidget *pare
 
 KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName)
 {
-    KateProject *project = new KateProject(m_weaver);
+    KateProject *project = new KateProject(m_weaver, this);
     if (!project->loadFromFile(fileName)) {
         delete project;
         return nullptr;
@@ -293,7 +294,7 @@ KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, 
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
 
-    KateProject *project = new KateProject(m_weaver);
+    KateProject *project = new KateProject(m_weaver, this);
     project->loadFromData(cnf, dir.canonicalPath());
 
     m_projects.append(project);
@@ -325,6 +326,23 @@ bool KateProjectPlugin::autoMercurial() const
     return m_autoMercurial;
 }
 
+void KateProjectPlugin::setIndex(bool enabled, const QUrl &directory)
+{
+    m_indexEnabled = enabled;
+    m_indexDirectory = directory;
+    writeConfig();
+}
+
+bool KateProjectPlugin::getIndexEnabled() const
+{
+    return m_indexEnabled;
+}
+
+QUrl KateProjectPlugin::getIndexDirectory() const
+{
+    return m_indexDirectory;
+}
+
 void KateProjectPlugin::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), "project");
@@ -343,6 +361,9 @@ void KateProjectPlugin::readConfig()
     if (autorepository.contains(MercurialConfig)) {
         m_autoMercurial = true;
     }
+
+    m_indexEnabled = config.readEntry("index", false);
+    m_indexDirectory = config.readEntry("indexDirectory", QUrl());
 }
 
 void KateProjectPlugin::writeConfig()
@@ -363,6 +384,9 @@ void KateProjectPlugin::writeConfig()
     }
 
     config.writeEntry("autorepository", repos);
+
+    config.writeEntry("index", m_indexEnabled);
+    config.writeEntry("indexDirectory", m_indexDirectory);
 }
 
 #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 63, 0)

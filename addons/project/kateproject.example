@@ -79,8 +79,16 @@ struct
    /// If set, it may contain extra options for ctags command used to populate the auto completion popup in Kate.
    struct ctags
    {
+      /// If "enable" is set to "1", a ctags index file is generated.
+      /// If not present, generation of index depends on project plugin setting.
+      bool enable;
+
       /// "options" can be set to a list of ctags options. You may need to escape character "\".
       vector< string > options;
+
+      /// "index_file" can be set to path of ctags file to generate.
+      /// A relative path is wrt to the project base directory.
+      string index_file;
    }
 
 };

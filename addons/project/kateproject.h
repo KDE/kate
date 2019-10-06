@@ -47,6 +47,8 @@ namespace ThreadWeaver
 class Queue;
 }
 
+class KateProjectPlugin;
+
 /**
  * Class representing a project.
  * Holds project properties like name, groups, contained files, ...
@@ -59,7 +61,7 @@ public:
     /**
      * construct empty project
      */
-    KateProject(ThreadWeaver::Queue *weaver);
+    KateProject(ThreadWeaver::Queue *weaver, KateProjectPlugin *plugin);
 
     /**
      * deconstruct project
@@ -307,6 +309,11 @@ private:
      * project configuration (read from file or injected)
      */
     QVariantMap m_globalProject;
+
+    /**
+     * Project plugin (configuration)
+     */
+    KateProjectPlugin *m_plugin;
 };
 
 #endif

@@ -45,7 +45,7 @@ public:
      */
     typedef QMap<QString, KateProjectItem *> MapString2Item;
 
-    explicit KateProjectWorker(const QString &baseDir, const QVariantMap &projectMap);
+    explicit KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force);
 
     void run(ThreadWeaver::JobPointer self, ThreadWeaver::Thread *thread) override;
 
@@ -75,7 +75,7 @@ private:
      * Load index for whole project.
      * @param files list of all project files to index
      */
-    void loadIndex(const QStringList &files);
+    void loadIndex(const QStringList &files, bool force);
 
     QStringList findFiles(const QDir &dir, const QVariantMap &filesEntry);
 
@@ -97,7 +97,14 @@ private:
      * project base directory name
      */
     const QString m_baseDir;
+
+    /**
+     * index directory
+     */
+    const QString m_indexDir;
+
     const QVariantMap m_projectMap;
+    const bool m_force;
 };
 
 #endif

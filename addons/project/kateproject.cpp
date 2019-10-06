@@ -20,6 +20,7 @@
 
 #include "kateproject.h"
 #include "kateprojectworker.h"
+#include "kateprojectplugin.h"
 
 #include <klocalizedstring.h>
 
@@ -33,14 +34,17 @@
 #include <QPlainTextDocumentLayout>
 #include <QJsonDocument>
 #include <QJsonParseError>
+#include <QJsonObject>
+#include <QJsonArray>
 #include <utility>
 
-KateProject::KateProject(ThreadWeaver::Queue *weaver)
+KateProject::KateProject(ThreadWeaver::Queue *weaver, KateProjectPlugin *plugin)
     : QObject()
     , m_fileLastModified()
     , m_notesDocument(nullptr)
     , m_untrackedDocumentsRoot(nullptr)
     , m_weaver(weaver)
+    , m_plugin(plugin)
 {
 }
 
@@ -103,6 +107,32 @@ QVariantMap KateProject::readProjectFile() const
         return QVariantMap();
     }
 
+    /**
+     * convenience; align with auto-generated projects
+     * generate 'name' and 'files' if not specified explicitly,
+     * so those parts need not be given if only wishes to specify additional
+     * project configuration (e.g. build, ctags)
+     */
+    if (project.isObject()) {
+        auto dir = QFileInfo(m_fileName).dir();
+        auto object = project.object();
+        auto name = object[QStringLiteral("name")];
+        if (name.isUndefined() || name.isNull()) {
+            name = dir.dirName();
+        }
+        auto files = object[QStringLiteral("files")];
+        if (files.isUndefined() || files.isNull()) {
+            // support all we can, could try to detect,
+            // but it will be sorted out upon loading anyway
+            QJsonArray afiles;
+            for (const auto &t : {QStringLiteral("git"), QStringLiteral("hg"), QStringLiteral("svn"), QStringLiteral("darcs")}) {
+                afiles.push_back(QJsonObject {{t, true}});
+            }
+            files = afiles;
+        }
+        project.setObject(object);
+    }
+
     return project.toVariant().toMap();
 }
 
@@ -147,7 +177,15 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
     emit projectMapChanged();
 
     // trigger loading of project in background thread
-    auto w = new KateProjectWorker(m_baseDir, m_projectMap);
+    QString indexDir;
+    if (m_plugin->getIndexEnabled()) {
+        indexDir = m_plugin->getIndexDirectory().toLocalFile();
+        // if empty, use regular tempdir
+        if (indexDir.isEmpty()) {
+            indexDir = QDir::tempPath();
+        }
+    }
+    auto w = new KateProjectWorker(m_baseDir, indexDir, m_projectMap, force);
     connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone);
     connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone);
     m_weaver->stream() << w;

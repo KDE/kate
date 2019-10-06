@@ -111,6 +111,10 @@ public:
     bool autoSubversion() const;
     bool autoMercurial() const;
 
+    void setIndex(bool enabled, const QUrl &directory);
+    bool getIndexEnabled() const;
+    QUrl getIndexDirectory() const;
+
 Q_SIGNALS:
     /**
      * Signal that a new project got created.
@@ -179,6 +183,8 @@ private:
     bool m_autoGit : 1;
     bool m_autoSubversion : 1;
     bool m_autoMercurial : 1;
+    bool m_indexEnabled : 1;
+    QUrl m_indexDirectory;
 
     ThreadWeaver::Queue *m_weaver;
 };

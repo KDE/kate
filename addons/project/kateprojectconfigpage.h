@@ -24,6 +24,7 @@
 class KateProjectPlugin;
 class QWidget;
 class QCheckBox;
+class KUrlRequester;
 
 class KateProjectConfigPage : public KTextEditor::ConfigPage
 {
@@ -50,6 +51,8 @@ private:
     QCheckBox *m_cbAutoGit;
     QCheckBox *m_cbAutoSubversion;
     QCheckBox *m_cbAutoMercurial;
+    QCheckBox *m_cbIndexEnabled;
+    KUrlRequester *m_indexPath;
     KateProjectPlugin *m_plugin;
     bool m_changed = false;
 };

@@ -12,6 +12,9 @@ struct
    /// Otherwise, the directory in which the project file is located as the base directory.
    string directory;
 
+   /// If "index" is set to "1", a ctags index file is generated.
+   bool index;
+
    /// The "files" struct describes which files belong to the project.
    /// There are five miutually exclusive methods to do this.
    struct files
@@ -81,6 +84,10 @@ struct
    {
       /// "options" can be set to a list of ctags options. You may need to escape character "\".
       vector< string > options;
+
+      /// "index_file" can be set to path of ctags file to generate.
+      /// A relative path is wrt to the project base directory.
+      string index_file;
    }
 
 };

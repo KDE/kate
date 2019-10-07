@@ -20,6 +20,7 @@
 #include "kateexternaltool.h"
 
 #include <KConfigGroup>
+#include <KLocalizedString>>
 #include <QStandardPaths>
 
 namespace
@@ -139,6 +140,16 @@ void KateExternalTool::save(KConfigGroup &cg) const
     cg.writeEntry("save", toString(saveMode));
     cg.writeEntry("reload", reload);
     cg.writeEntry("output", toString(outputMode));
+}
+
+QString KateExternalTool::translatedName() const
+{
+    return name.isEmpty() ? QString() : i18n(name.toUtf8().data());
+}
+
+QString KateExternalTool::translatedCategory() const
+{
+    return category.isEmpty() ? QString() : i18n(category.toUtf8().data());
 }
 
 bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs)

@@ -54,7 +54,7 @@ constexpr int ToolRole = Qt::UserRole + 1;
  */
 QStandardItem *newToolItem(const QIcon &icon, KateExternalTool *tool)
 {
-    auto item = new QStandardItem(icon, i18n(tool->name.toUtf8().data()));
+    auto item = new QStandardItem(icon, tool->translatedName());
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
     item->setData(QVariant::fromValue(reinterpret_cast<quintptr>(tool)), ToolRole);
     return item;
@@ -146,7 +146,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     connect(ui->btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
 
     Q_ASSERT(m_tool != nullptr);
-    ui->edtName->setText(i18n(m_tool->name.toUtf8().data()));
+    ui->edtName->setText(m_tool->translatedName());
     if (!m_tool->icon.isEmpty())
         ui->btnIcon->setIcon(m_tool->icon);
 
@@ -168,7 +168,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
         ui->buttonBox->setToolTip(i18n("Revert tool to default settings"));
         connect(ui->buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, [this, tool]() {
             const auto t = defaultTool(tool->actionName, m_plugin->defaultTools());
-            ui->edtName->setText(i18n(t.name.toUtf8().data()));
+            ui->edtName->setText(t.translatedName());
             ui->btnIcon->setIcon(t.icon);
             ui->edtExecutable->setText(t.executable);
             ui->edtArgs->setText(t.arguments);
@@ -409,7 +409,7 @@ void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
     // first add categorized actions, such that the submenus appear at the top
     int defaultToolsIndex = 0;
     for (const auto &tool : m_plugin->defaultTools()) {
-        const QString category = tool.category.isEmpty() ? i18n("Uncategorized") : i18n(tool.category.toUtf8().data());
+        const QString category = tool.category.isEmpty() ? i18n("Uncategorized") : tool.translatedCategory();
         auto categoryMenu = categories[category];
         if (!categoryMenu) {
             categoryMenu = new QMenu(category, this);
@@ -417,7 +417,7 @@ void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
             defaultsMenu->addMenu(categoryMenu);
         }
 
-        auto a = categoryMenu->addAction(QIcon::fromTheme(tool.icon), i18n(tool.name.toUtf8().data()));
+        auto a = categoryMenu->addAction(QIcon::fromTheme(tool.icon), tool.translatedName());
         a->setData(defaultToolsIndex);
 
         connect(a, &QAction::triggered, [this, a]() { slotAddDefaultTool(a->data().toInt()); });
@@ -442,7 +442,7 @@ void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
     makeEditorCommandUnique(tool, tools);
 
     auto item = newToolItem(tool->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(tool->icon), tool);
-    auto category = addCategory(i18n(tool->category.toUtf8().data()));
+    auto category = addCategory(tool->translatedCategory());
     category->appendRow(item);
     lbTools->setCurrentIndex(item->index());
 
@@ -452,7 +452,7 @@ void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
 
 QStandardItem *KateExternalToolsConfigWidget::addCategory(const QString &translatedCategory)
 {
-    if (translatedCategory.isEmpty()) {
+    if (translatedCategory.isEmpty() || (m_noCategory && translatedCategory == i18n("Uncategorized"))) {
         return m_noCategory;
     }
 

@@ -103,6 +103,16 @@ public:
      * Save tool data to the config group @p cg.
      */
     void save(KConfigGroup &cg) const;
+
+    /**
+     * Returns the translated name if possible.
+     */
+    QString translatedName() const;
+
+    /**
+     * Returns the translated category if possible.
+     */
+    QString translatedCategory() const;
 };
 
 /**

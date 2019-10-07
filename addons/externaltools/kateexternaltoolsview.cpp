@@ -75,7 +75,7 @@ void KateExternalToolsMenuAction::reload()
     // first add categorized actions, such that the submenus appear at the top
     for (auto tool : m_plugin->tools()) {
         if (tool->hasexec) {
-            auto a = new QAction(tool->name, this);
+            auto a = new QAction(tool->translatedName(), this);
             a->setIcon(QIcon::fromTheme(tool->icon));
             a->setData(QVariant::fromValue(tool));
 
@@ -85,7 +85,7 @@ void KateExternalToolsMenuAction::reload()
             if (!tool->category.isEmpty()) {
                 auto categoryMenu = categories[tool->category];
                 if (!categoryMenu) {
-                    categoryMenu = new KActionMenu(i18n(tool->category.toUtf8().data()), this);
+                    categoryMenu = new KActionMenu(tool->translatedCategory(), this);
                     categories[tool->category] = categoryMenu;
                     addAction(categoryMenu);
                 }

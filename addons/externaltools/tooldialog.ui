@@ -44,7 +44,10 @@
    <item row="1" column="0">
     <widget class="QLabel" name="lblExecutable">
      <property name="text">
-      <string>E&amp;xecutable:</string>
+      <string>Executable:</string>
+     </property>
+     <property name="buddy">
+      <cstring>edtExecutable</cstring>
      </property>
     </widget>
    </item>
@@ -85,7 +88,10 @@
    <item row="4" column="0">
     <widget class="QLabel" name="lblWorkingDir">
      <property name="text">
-      <string>Working &amp;directory:</string>
+      <string>Working directory:</string>
+     </property>
+     <property name="buddy">
+      <cstring>edtWorkingDir</cstring>
      </property>
     </widget>
    </item>

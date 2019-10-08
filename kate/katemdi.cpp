@@ -224,8 +224,14 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
     QSizePolicy policy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     policy.setRetainSizeWhenHidden(true);
     setSizePolicy(policy);
+
+    // per default vbox layout
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+    setLayout(layout);
+
+    // toolbar to collect actions
     m_toolbar = new KToolBar(this);
     m_toolbar->setVisible(false);
     m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);

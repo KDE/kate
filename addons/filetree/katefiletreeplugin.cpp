@@ -40,7 +40,6 @@
 #include <QAction>
 #include <QApplication>
 #include <QStyle>
-#include <QVBoxLayout>
 
 #include "katefiletreedebug.h"
 
@@ -134,11 +133,6 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
 
     m_toolView = mainWindow->createToolView(plug, QStringLiteral("kate_private_plugin_katefiletreeplugin"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QStringLiteral("document-open")), i18n("Documents"));
 
-    Q_ASSERT(m_toolView->layout());
-    m_toolView->layout()->setContentsMargins(0, 0, 0, 0);
-    m_toolView->layout()->setSpacing(0);
-    auto mainLayout = m_toolView->layout();
-
     // create toolbar
     m_toolbar = new KToolBar(m_toolView);
     m_toolbar->setMovable(false);
@@ -150,12 +144,9 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     const int iconSize = m_toolView->style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, m_toolView);
     m_toolbar->setIconSize(QSize(iconSize, iconSize));
 
-    mainLayout->addWidget(m_toolbar);
-
     // create filetree
     m_fileTree = new KateFileTree(m_toolView);
     m_fileTree->setSortingEnabled(true);
-    mainLayout->addWidget(m_fileTree);
 
     connect(m_fileTree, &KateFileTree::activateDocument, this, &KateFileTreePluginView::activateDocument);
     connect(m_fileTree, &KateFileTree::viewModeChanged, this, &KateFileTreePluginView::viewModeChanged);

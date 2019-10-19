@@ -79,28 +79,28 @@ class KindEnum
 {
 public:
     enum _kind {
-        Text = (int)LSPDocumentHighlightKind::Text,
-        Read = (int)LSPDocumentHighlightKind::Read,
-        Write = (int)LSPDocumentHighlightKind::Write,
-        Error = 10 + (int)LSPDiagnosticSeverity::Error,
-        Warning = 10 + (int)LSPDiagnosticSeverity::Warning,
-        Information = 10 + (int)LSPDiagnosticSeverity::Information,
-        Hint = 10 + (int)LSPDiagnosticSeverity::Hint,
+        Text = static_cast<int>(LSPDocumentHighlightKind::Text),
+        Read = static_cast<int>(LSPDocumentHighlightKind::Read),
+        Write = static_cast<int>(LSPDocumentHighlightKind::Write),
+        Error = 10 + static_cast<int>(LSPDiagnosticSeverity::Error),
+        Warning = 10 + static_cast<int>(LSPDiagnosticSeverity::Warning),
+        Information = 10 + static_cast<int>(LSPDiagnosticSeverity::Information),
+        Hint = 10 + static_cast<int>(LSPDiagnosticSeverity::Hint),
         Related
     };
 
     KindEnum(int v)
     {
-        m_value = (_kind)v;
+        m_value = _kind(v);
     }
 
     KindEnum(LSPDocumentHighlightKind hl)
-        : KindEnum((_kind)(hl))
+        : KindEnum(static_cast<_kind>(hl))
     {
     }
 
     KindEnum(LSPDiagnosticSeverity sev)
-        : KindEnum(_kind(10 + (int)sev))
+        : KindEnum(_kind(10 + static_cast<int>(sev)))
     {
     }
 
@@ -555,7 +555,7 @@ public:
 
         KTextEditor::Range range = item->data(RangeData::RangeRole).value<LSPRange>();
         auto line = range.start().line();
-        RangeData::KindEnum kind = (RangeData::KindEnum)item->data(RangeData::KindRole).toInt();
+        RangeData::KindEnum kind = RangeData::KindEnum(item->data(RangeData::KindRole).toInt());
 
         KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
@@ -908,7 +908,7 @@ public:
         QVariant vrange;
         vrange.setValue(range);
         item->setData(vrange, RangeData::RangeRole);
-        item->setData((int)kind, RangeData::KindRole);
+        item->setData(static_cast<int>(kind), RangeData::KindRole);
     }
 
     void makeTree(const QVector<RangeItem> &locations, const LSPClientRevisionSnapshot *snapshot)

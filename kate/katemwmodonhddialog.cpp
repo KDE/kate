@@ -99,7 +99,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
 
     m_stateTexts << QString() << i18n("Modified") << i18n("Created") << i18n("Deleted");
     for (auto &doc : qAsConst(docs)) {
-        new KateDocItem(doc, m_stateTexts[(uint)KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason], twDocuments);
+        new KateDocItem(doc, m_stateTexts[static_cast<uint>(KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason)], twDocuments);
     }
     twDocuments->header()->setStretchLastSection(false);
     twDocuments->header()->setSectionResizeMode(0, QHeaderView::Stretch);
@@ -184,7 +184,7 @@ void KateMwModOnHdDialog::handleSelected(int action)
     // collect all items we can remove
     QList<QTreeWidgetItem *> itemsToDelete;
     for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
-        KateDocItem *item = (KateDocItem *)*it;
+        KateDocItem *item = static_cast<KateDocItem *>(*it);
         if (item->checkState(0) == Qt::Checked) {
             KTextEditor::ModificationInterface::ModifiedOnDiskReason reason = KateApp::self()->documentManager()->documentInfo(item->document)->modifiedOnDiscReason;
             bool success = true;
@@ -335,13 +335,13 @@ void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
         return;
 
     for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
-        KateDocItem *item = (KateDocItem *)*it;
+        KateDocItem *item = static_cast<KateDocItem *>(*it);
         if (item->document == doc) {
             delete item;
             break;
         }
     }
-    uint reason = (uint)KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason;
+    uint reason = static_cast<uint>(KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason);
     if (reason) {
         new KateDocItem(doc, m_stateTexts[reason], twDocuments);
     }

@@ -27,10 +27,10 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
     char mclass = 0, block = 0, comment = 0; // comment: 0-no comment 1-inline comment 2-multiline comment 3-string
     char macro = 0 /*, macro_pos = 0*/, func_close = 0;
     bool structure = false;
-    QPixmap cls((const char **)class_xpm);
-    QPixmap sct((const char **)struct_xpm);
-    QPixmap mcr((const char **)macro_xpm);
-    QPixmap mtd((const char **)method_xpm);
+    QPixmap cls(class_xpm);
+    QPixmap sct(struct_xpm);
+    QPixmap mcr(macro_xpm);
+    QPixmap mtd(method_xpm);
 
     // It is necessary to change names to defaults
     m_macro->setText(i18n("Show Macros"));
@@ -72,7 +72,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
         func_close = 0;
         if ((cl.length() >= 2) && (cl.at(0) == QLatin1Char('/') && cl.at(1) == QLatin1Char('/')))
             continue;
-        if (cl.indexOf(QLatin1String("/*")) == 0 && (cl.indexOf(QLatin1String("*/")) == ((signed)cl.length() - 2)) && graph == 0)
+        if (cl.indexOf(QLatin1String("/*")) == 0 && (cl.indexOf(QLatin1String("*/")) == (cl.length() - 2)) && graph == 0)
             continue; // workaround :(
         if (cl.indexOf(QLatin1String("/*")) >= 0 && graph == 0)
             comment = 1;
@@ -255,7 +255,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                 break;
                             }
 
-                            if ((cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char(';')) < 0) || (cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char('}')) > (int)j)) {
+                            if ((cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char(';')) < 0) || (cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char('}')) > j)) {
                                 stripped.replace(0x9, QLatin1String(" "));
                                 if (m_func->isChecked()) {
                                     QString strippedWithTypes = stripped;

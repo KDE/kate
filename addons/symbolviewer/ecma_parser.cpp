@@ -40,8 +40,8 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
     // a list of inserted nodes with the index being the brace depth at insertion
     QList<QTreeWidgetItem *> nodes;
 
-    QPixmap cls((const char **)class_xpm);
-    QPixmap mtd((const char **)method_xpm);
+    QPixmap cls(class_xpm);
+    QPixmap mtd(method_xpm);
     QTreeWidgetItem *node = nullptr;
 
     if (m_treeOn->isChecked()) {

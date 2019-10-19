@@ -609,7 +609,7 @@ QString KatePluginGDBView::currentWord()
         }
         startPos--;
     }
-    while (endPos < (int)linestr.length() &&
+    while (endPos < linestr.length() &&
            (linestr[endPos].isLetterOrNumber() || linestr[endPos] == QLatin1Char('_') || ((endPos < lindex - 1) && (linestr[endPos] == QLatin1Char('.')) && !linestr[endPos + 1].isSpace()) ||
             ((endPos < lindex - 2) && (linestr[endPos] == QLatin1Char('-')) && (linestr[endPos + 1] == QLatin1Char('>')) && !linestr[endPos + 2].isSpace()) ||
             ((endPos > 1) && (linestr[endPos - 1] == QLatin1Char('-')) && (linestr[endPos] == QLatin1Char('>'))))) {

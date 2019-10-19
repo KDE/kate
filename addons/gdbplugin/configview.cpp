@@ -467,7 +467,7 @@ void ConfigView::slotBrowseExec()
             exe = view->document()->url().toLocalFile();
         }
     }
-    m_executable->setText(QFileDialog::getOpenFileName((QWidget *)nullptr, QString(), exe, QStringLiteral("application/x-executable")));
+    m_executable->setText(QFileDialog::getOpenFileName(nullptr, QString(), exe, QStringLiteral("application/x-executable")));
 }
 
 void ConfigView::slotBrowseDir()

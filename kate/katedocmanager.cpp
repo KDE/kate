@@ -246,7 +246,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
             }
         }
 
-        KateApp::self()->emitDocumentClosed(QString::number((qptrdiff)doc));
+        KateApp::self()->emitDocumentClosed(QString::number(reinterpret_cast<qptrdiff>(doc)));
 
         // document will be deleted, soon
         emit documentWillBeDeleted(doc);

@@ -385,7 +385,7 @@ QString KateCTagsView::currentWord()
     while (startPos >= 0 && (linestr[startPos].isLetterOrNumber() || (linestr[startPos] == QLatin1Char(':') && includeColon) || linestr[startPos] == QLatin1Char('_') || linestr[startPos] == QLatin1Char('~'))) {
         startPos--;
     }
-    while (endPos < (int)linestr.length() && (linestr[endPos].isLetterOrNumber() || (linestr[endPos] == QLatin1Char(':') && includeColon) || linestr[endPos] == QLatin1Char('_'))) {
+    while (endPos < linestr.length() && (linestr[endPos].isLetterOrNumber() || (linestr[endPos] == QLatin1Char(':') && includeColon) || linestr[endPos] == QLatin1Char('_'))) {
         endPos++;
     }
     if (startPos == endPos) {

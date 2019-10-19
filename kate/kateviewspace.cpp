@@ -320,7 +320,7 @@ void KateViewSpace::changeView(int id)
 KTextEditor::View *KateViewSpace::currentView()
 {
     // might be 0 if the stack contains no view
-    return (KTextEditor::View *)stack->currentWidget();
+    return static_cast<KTextEditor::View *>(stack->currentWidget());
 }
 
 bool KateViewSpace::isActiveSpace()

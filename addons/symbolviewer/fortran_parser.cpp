@@ -35,9 +35,9 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
     QTreeWidgetItem *subrNode = nullptr, *funcNode = nullptr, *modNode = nullptr;
     QTreeWidgetItem *lastSubrNode = nullptr, *lastFuncNode = nullptr, *lastModNode = nullptr;
 
-    QPixmap func((const char **)class_xpm);
-    QPixmap subr((const char **)macro_xpm);
-    QPixmap mod((const char **)struct_xpm);
+    QPixmap func(class_xpm);
+    QPixmap subr(macro_xpm);
+    QPixmap mod(struct_xpm);
 
     // It is necessary to change names
     m_macro->setText(i18n("Show Subroutines"));

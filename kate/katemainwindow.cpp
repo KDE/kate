@@ -619,8 +619,8 @@ void KateMainWindow::readOptions()
     m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
 
-    m_quickOpen->setMatchMode(generalGroup.readEntry("Quick Open Search Mode", (int)KateQuickOpenModel::Columns::FileName));
-    int listMode = generalGroup.readEntry("Quick Open List Mode", (int)KateQuickOpenModel::List::CurrentProject);
+    m_quickOpen->setMatchMode(generalGroup.readEntry("Quick Open Search Mode", static_cast<int>(KateQuickOpenModel::Columns::FileName)));
+    int listMode = generalGroup.readEntry("Quick Open List Mode", static_cast<int>(KateQuickOpenModel::List::CurrentProject));
     m_quickOpen->setListMode(static_cast<KateQuickOpenModel::List>(listMode));
 
     // emit signal to hide/show statusbars
@@ -1015,13 +1015,13 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
     }
 
     // block signals from inactive docs
-    if (!((KTextEditor::Document *)m_viewManager->activeView()->document() == doc)) {
+    if (m_viewManager->activeView()->document() != doc) {
         return;
     }
 
     QString c;
     if (m_viewManager->activeView()->document()->url().isEmpty() || (!m_paShowPath || !m_paShowPath->isChecked())) {
-        c = ((KTextEditor::Document *)m_viewManager->activeView()->document())->documentName();
+        c = m_viewManager->activeView()->document()->documentName();
     } else {
         c = m_viewManager->activeView()->document()->url().toString(QUrl::PreferLocalFile);
 
@@ -1106,7 +1106,7 @@ void KateMainWindow::saveWindowConfig(const KConfigGroup &_config)
     KConfigGroup config(_config);
     saveMainWindowSettings(config);
     KWindowConfig::saveWindowSize(windowHandle(), config);
-    config.writeEntry("WindowState", int(((KParts::MainWindow *)this)->windowState()));
+    config.writeEntry("WindowState", static_cast<int>(windowState()));
     config.sync();
 }
 
@@ -1146,7 +1146,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
     if (!docInfo) {
         return;
     }
-    bool modOnDisk = (uint)docInfo->modifiedOnDisc;
+    bool modOnDisk = static_cast<uint>(docInfo->modifiedOnDisc);
 
     if (s_modOnHdDialog == nullptr && modOnDisk) {
         DocVector list;
@@ -1231,7 +1231,7 @@ void KateMainWindow::slotQuickOpen()
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text)
 {
-    return KateMDI::MainWindow::createToolView(plugin, identifier, (KMultiTabBar::KMultiTabBarPosition)(pos), icon, text);
+    return KateMDI::MainWindow::createToolView(plugin, identifier, static_cast<KMultiTabBar::KMultiTabBarPosition>(pos), icon, text);
 }
 
 bool KateMainWindow::moveToolView(QWidget *widget, KTextEditor::MainWindow::ToolViewPosition pos)
@@ -1240,7 +1240,7 @@ bool KateMainWindow::moveToolView(QWidget *widget, KTextEditor::MainWindow::Tool
         return false;
     }
 
-    return KateMDI::MainWindow::moveToolView(qobject_cast<KateMDI::ToolView *>(widget), (KMultiTabBar::KMultiTabBarPosition)(pos));
+    return KateMDI::MainWindow::moveToolView(qobject_cast<KateMDI::ToolView *>(widget), static_cast<KMultiTabBar::KMultiTabBarPosition>(pos));
 }
 
 bool KateMainWindow::showToolView(QWidget *widget)

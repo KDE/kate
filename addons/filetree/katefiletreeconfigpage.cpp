@@ -81,9 +81,9 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     cmbSort = new KComboBox(this);
     lo2->addWidget(cmbSort);
     lSort->setBuddy(cmbSort);
-    cmbSort->addItem(i18n("Opening Order"), (int)KateFileTreeModel::OpeningOrderRole);
-    cmbSort->addItem(i18n("Document Name"), (int)Qt::DisplayRole);
-    cmbSort->addItem(i18n("Url"), (int)KateFileTreeModel::PathRole);
+    cmbSort->addItem(i18n("Opening Order"), static_cast<int>(KateFileTreeModel::OpeningOrderRole));
+    cmbSort->addItem(i18n("Document Name"), static_cast<int>(Qt::DisplayRole));
+    cmbSort->addItem(i18n("Url"), static_cast<int>(KateFileTreeModel::PathRole));
 
     // view mode
     QHBoxLayout *lo3 = new QHBoxLayout;

@@ -116,7 +116,7 @@ QDebug operator<<(QDebug dbg, ProxyItem *item)
 
     const void *parent = static_cast<void *>(item->parent());
 
-    dbg.nospace() << "ProxyItem(" << (void *)item << ",";
+    dbg.nospace() << "ProxyItem(" << item << ",";
     dbg.nospace() << parent << "," << item->row() << ",";
     dbg.nospace() << item->doc() << "," << item->path() << ") ";
     return dbg.maybeSpace();
@@ -144,7 +144,7 @@ QDebug operator<<(QDebug dbg, ProxyItemDir *item)
 
     const void *parent = static_cast<void *>(item->parent());
 
-    dbg.nospace() << "ProxyItemDir(" << (void *)item << ",";
+    dbg.nospace() << "ProxyItemDir(" << item << ",";
     dbg.nospace() << parent << "," << item->row() << ",";
     dbg.nospace() << item->path() << ", children:" << item->childCount() << ") ";
     return dbg.maybeSpace();

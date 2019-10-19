@@ -27,11 +27,7 @@
 
 #include <QContextMenuEvent>
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
-#include <krecursivefilterproxymodel.h>
-#else
 #include <QSortFilterProxyModel>
-#endif
 
 KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, KateProject *project)
     : QTreeView()

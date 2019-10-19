@@ -240,15 +240,14 @@ corresponding to the octal number ooo (between 0 and
 
 <varlistentry>
 <term><userinput>\w</userinput></term>
-<listitem><para>Matches any <quote>word character</quote> - in this case any letter or digit. Note that
-underscore (<literal>_</literal>) is not matched, as is the case with perl regular expressions.
-Equal to <literal>[a-zA-Z0-9]</literal></para></listitem>
+<listitem><para>Matches any <quote>word character</quote> - in this case any letter, digit or underscore.
+Equal to <literal>[a-zA-Z0-9_]</literal></para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>\W</userinput></term>
-<listitem><para>Matches any non-word character - anything but letters or numbers.
-Equal to <literal>[^a-zA-Z0-9]</literal> or <literal>[^\w]</literal></para></listitem>
+<listitem><para>Matches any non-word character - anything but letters, numbers or underscore.
+Equal to <literal>[^a-zA-Z0-9_]</literal> or <literal>[^\w]</literal></para></listitem>
 </varlistentry>
 
 
@@ -256,12 +255,16 @@ Equal to <literal>[^a-zA-Z0-9]</literal> or <literal>[^\w]</literal></para></lis
 
 </para>
 
+<para>The <emphasis>POSIX notation of classes</emphasis>,
+<userinput>[:&lt;class name&gt;:]</userinput> are also supported.
+For example, <userinput>[:digit:]</userinput> is equivalent to <userinput>\d</userinput>,
+and <userinput>[:space:]</userinput> to <userinput>\s</userinput>.
+See the full list of POSIX character classes
+<ulink url="https://www.regular-expressions.info/posixbrackets.html">here</ulink>.</para>
+
 <para>The abbreviated classes can be put inside a custom class, for
 example to match a word character, a blank or a dot, you could write
 <userinput>[\w \.]</userinput></para>
-
-<note> <para>The POSIX notation of classes, <userinput>[:&lt;class
-name&gt;:]</userinput> is currently not supported.</para> </note>
 
 <sect3>
 <title>Characters with special meanings inside character classes</title>
@@ -331,12 +334,14 @@ put the alternatives inside a subpattern:
 
 </sect3>
 
-<sect3>
+<sect3 id="regex-capturing">
 
 <title>Capturing matching text (back references)</title>
 
-<para>If you want to use a back reference, use a sub pattern to have
-the desired part of the pattern remembered.</para>
+<para>If you want to use a back reference, use a sub pattern <userinput>(PATTERN)</userinput>
+to have the desired part of the pattern remembered.
+To prevent the sub pattern from being remembered, use a non-capturing group
+<userinput>(?:PATTERN)</userinput>.</para>
 
 <para>For example, if you want to find two occurrences of the same
 word separated by a comma and possibly some whitespace, you could
@@ -654,6 +659,28 @@ char* foo</quote> while it can not match <quote>const QString</quote>
 in <quote>const QString&amp; bar</quote> because the
 <quote>&amp;</quote> matches the negative lookahead assertion
 pattern.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>(PATTERN)</userinput> (Capturing group)</term>
+
+<listitem><para>The sub pattern within the parentheses is captured and remembered,
+so that it can be used in back references. For example, the expression
+<userinput>(&amp;quot;+)[^&amp;quot;]*\1</userinput> matches
+<userinput>&quot;&quot;&quot;&quot;text&quot;&quot;&quot;&quot;</userinput> and
+<userinput>&quot;text&quot;</userinput>.</para>
+<para>See the section <link linkend="regex-capturing">Capturing matching text (back references)</link>
+for more information.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>(?:PATTERN)</userinput> (Non-capturing group)</term>
+
+<listitem><para>The sub pattern within the parentheses is not captured and
+is not remembered. It is preferable to always use non-capturing groups if
+the captures will not be used.</para>
 </listitem>
 </varlistentry>
 

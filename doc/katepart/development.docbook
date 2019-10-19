@@ -339,7 +339,8 @@ In this example, the <userinput>itemData</userinput> <emphasis>Normal Text</emph
 <varlistentry>
 <term>The last part of a highlight definition is the optional
 <userinput>general</userinput> section. It may contain information
-about keywords, code folding, comments and indentation.</term>
+about keywords, code folding, comments, indentation, empty lines and
+spell checking.</term>
 
 <listitem>
 <para>The <userinput>comment</userinput> section defines with what
@@ -350,12 +351,24 @@ user presses the corresponding shortcut for <emphasis>comment/uncomment</emphasi
 <para>The <userinput>keywords</userinput> section defines whether
 keyword lists are case sensitive or not. Other attributes will be
 explained later.</para>
+<para>The other sections, <userinput>folding</userinput>,
+<userinput>emptyLines</userinput> and <userinput>spellchecking</userinput>,
+are usually not necessary and are explained later.</para>
 <programlisting>
   &lt;general&gt;
     &lt;comments&gt;
       &lt;comment name="singleLine" start="#"/&gt;
     &lt;/comments&gt;
     &lt;keywords casesensitive="1"/&gt;
+    &lt;folding indentationsensitive="0"/&gt;
+    &lt;emptyLines&gt;
+      &lt;emptyLine regexpr="\s+"/&gt;
+      &lt;emptyLine regexpr="\s*#.*"/&gt;
+    &lt;/emptyLines&gt;
+    &lt;spellchecking&gt;
+      &lt;encoding char="&#225;" string="\&#39;a"/&gt;
+      &lt;encoding char="&#224;" string="\&#96;a"/&gt;
+    &lt;/spellchecking&gt;
   &lt;/general&gt;
 &lt;/language&gt;
 </programlisting>
@@ -397,6 +410,10 @@ to the context specified in fallthroughContext if no rule matches.
 Default: <emphasis>false</emphasis>.</para>
 <para><userinput>fallthroughContext</userinput> specifies the next context
 if no rule matches.</para>
+<para><userinput>noIndentationBasedFolding</userinput> disables indentation-based folding
+in the context. If indentation-based folding is not activated, this attribute is useless.
+This is defined in the element <emphasis>folding</emphasis> of the group <emphasis>general</emphasis>.
+Default: <emphasis>false</emphasis>.</para>
 </listitem>
 </varlistentry>
 
@@ -486,6 +503,35 @@ Available attributes are:</term>
 <para><userinput>indentationsensitive</userinput> if <emphasis>true</emphasis>, the code folding markers
 will be added indentation based, as in the scripting language Python. Usually you
 do not need to set it, as it defaults to <emphasis>false</emphasis>.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term>The element <userinput>emptyLine</userinput> in the group <userinput>emptyLines</userinput>
+defines which lines should be treated as empty lines. This allows modifying the behavior of the
+<emphasis>lineEmptyContext</emphasis> attribute in the elements <userinput>context</userinput>.
+Available attributes are:</term>
+
+<listitem>
+<para><userinput>regexpr</userinput> defines a regular expression that will be treated as an empty line.
+By default, empty lines do not contain any characters, therefore, this adds additional empty lines,
+for example, if you want lines with spaces to also be considered empty lines.
+However, in most syntax definitions you do not need to set this attribute.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term>The element <userinput>encoding</userinput> in the group <userinput>spellchecking</userinput>
+defines a character encoding for spell checking. Available attributes:</term>
+
+<listitem>
+<para><userinput>char</userinput> is a encoded character.</para>
+<para><userinput>string</userinput> is a sequence of characters that will be encoded as
+the character <emphasis>char</emphasis> in the spell checking.
+For example, in the language LaTeX, the string <userinput>\&quot;{A}</userinput> represents
+the character <userinput>&#196;</userinput>.</para>
 </listitem>
 </varlistentry>
 
@@ -654,7 +700,7 @@ current context in its <userinput>string</userinput> or
 <userinput>char</userinput> attributes. In a <userinput>string</userinput>,
 the placeholder <replaceable>%N</replaceable> (where N is a number) will be
 replaced with the corresponding capture <replaceable>N</replaceable>
-from the calling regular expression. In a
+from the calling regular expression, starting from 1. In a
 <userinput>char</userinput> the placeholder must be a number
 <replaceable>N</replaceable> and it will be replaced with the first character of
 the corresponding capture <replaceable>N</replaceable> from the calling regular
@@ -665,6 +711,93 @@ expression. Whenever a rule allows this attribute it will contain a
 <para><emphasis>dynamic</emphasis>: may be <emphasis>(true|false)</emphasis>.</para>
 </listitem>
 </itemizedlist>
+
+<para>How does it work:</para>
+
+<para>In the <link linkend="regular-expressions">regular expressions</link> of the
+<userinput>RegExpr</userinput> rules, all text within simple curved brackets
+<userinput>(PATTERN)</userinput> is captured and remembered.
+These captures can be used in the context to which it is switched, in the rules with the
+attribute <userinput>dynamic</userinput> <emphasis>true</emphasis>, by
+<replaceable>%N</replaceable> (in <emphasis>String</emphasis>) or
+<replaceable>N</replaceable> (in <emphasis>char</emphasis>).</para>
+
+<para>It is important to mention that a text captured in a <userinput>RegExpr</userinput> rule is
+only stored for the switched context, specified in its <userinput>context</userinput> attribute.</para>
+
+<tip>
+<itemizedlist>
+
+<listitem>
+<para>If the captures will not be used, both by dynamic rules and in the same regular expression,
+<userinput>non-capturing groups</userinput> should be used: <userinput>(?:PATTERN)</userinput></para>
+<para>The <emphasis>lookahead</emphasis> or <emphasis>lookbehind</emphasis> groups such as
+<userinput>(?=PATTERN)</userinput> or <userinput>(?!PATTERN)</userinput> are not captured.
+See <link linkend="regular-expressions">Regular Expressions</link> for more information.</para>
+</listitem>
+
+<listitem>
+<para>The capture groups can be used within the same regular expression,
+using <replaceable>\N</replaceable> instead of <replaceable>%N</replaceable> respectively.
+For more information, see <link linkend="regex-capturing">Capturing matching text (back references)</link>
+in <link linkend="regular-expressions">Regular Expressions</link>.</para>
+</listitem>
+
+</itemizedlist>
+</tip>
+
+<para>Example 1:</para>
+<para>In this simple example, the text matched by the regular expression
+<userinput>=*</userinput> is captured and inserted into <replaceable>%1</replaceable>
+in the dynamic rule. This allows the comment to end with the same amount of
+<userinput>=</userinput> as at the beginning. This matches text like:
+<userinput>[[ comment ]]</userinput>, <userinput>[=[ comment ]=]</userinput> or
+<userinput>[=====[ comment ]=====]</userinput>.</para>
+<para>In addition, the captures are available only in the switched context
+<emphasis>Multi-line Comment</emphasis>.</para>
+
+<programlisting>
+&lt;context name="Normal" attribute="Normal Text" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="Multi-line Comment" attribute="Comment" String="\[(=*)\[" beginRegion="RegionComment"/&gt;
+&lt;/context&gt;
+&lt;context name="Multi-line Comment" attribute="Comment" lineEndContext="#stay"&gt;
+  &lt;StringDetect context="#pop" attribute="Comment" String="]%1]" dynamic="true" endRegion="RegionComment"/&gt;
+&lt;/context&gt;
+</programlisting>
+
+<para>Example 2:</para>
+<para>In the dynamic rule, <replaceable>%1</replaceable> corresponds to the capture that matches
+<userinput>#+</userinput>, and <replaceable>%2</replaceable> to <userinput>&amp;quot;+</userinput>.
+This matches text as: <userinput>#label""""inside the context""""#</userinput>.</para>
+<para>These captures will not be available in other contexts, such as
+<emphasis>OtherContext</emphasis>, <emphasis>FindEscapes</emphasis> or
+<emphasis>SomeContext</emphasis>.</para>
+
+<programlisting>
+&lt;context name="SomeContext" attribute="Normal Text" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="#pop!NamedString" attribute="String" String="(#+)(?:[\w-]|[^[:ascii:]])(&amp;quot;+)"/&gt;
+&lt;/context&gt;
+&lt;context name="NamedString" attribute="String" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="#pop!OtherContext" attribute="String" String="%2(?:%1)?" dynamic="true"/&gt;
+  &lt;DetectChar context="FindEscapes" attribute="Escape" char="\"/&gt;
+&lt;/context&gt;
+</programlisting>
+
+<para>Example 3:</para>
+<para>This matches text like:
+<userinput>Class::function&lt;T&gt;( ... )</userinput>.</para>
+
+<programlisting>
+&lt;context name="Normal" attribute="Normal Text" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="FunctionName" String="\b([a-zA-Z_][\w-]*)(::)([a-zA-Z_][\w-]*)(?:&amp;lt;[\w\-\s]*&amp;gt;)?(\()" lookAhead="true"/&gt;
+&lt;/context&gt;
+&lt;context name="FunctionName" attribute="Normal Text" lineEndContext="#pop"&gt;
+  &lt;StringDetect context="#stay" attribute="Class" String="%1" dynamic="true"/&gt;
+  &lt;StringDetect context="#stay" attribute="Operator" String="%2" dynamic="true"/&gt;
+  &lt;StringDetect context="#stay" attribute="Function" String="%3" dynamic="true"/&gt;
+  &lt;DetectChar context="#pop" attribute="Normal Text" char="4" dynamic="true"/&gt;
+&lt;/context&gt;
+</programlisting>
 
 <sect3 id="highlighting-rules-in-detail">
 <title>The Rules in Detail</title>
@@ -953,6 +1086,16 @@ If you want to match the regular expression <userinput>'^#'</userinput> you
 can still use <userinput>DetectChar</userinput> with the attribute <userinput>column=&quot;0&quot;</userinput>.
 The attribute <userinput>column</userinput> counts characters, so a tabulator is only one character.
 </para>
+</listitem>
+<listitem>
+<para>In <userinput>RegExpr</userinput> rules, use the attribute <userinput>column="0"</userinput> if the pattern
+<userinput>^PATTERN</userinput> will be used to match text at the beginning of a line.
+This improves performance, as it will avoid looking for matches in the rest of the columns.</para>
+</listitem>
+<listitem>
+<para>In regular expressions, use non-capturing groups <userinput>(?:PATTERN)</userinput> instead of
+capturing groups <userinput>(PATTERN)</userinput>, if the captures will not be used in the same regular
+expression or in dynamic rules. This avoids storing captures unnecessarily.</para>
 </listitem>
 <listitem>
 <para>You can switch contexts without processing characters. Assume that you

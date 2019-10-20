@@ -102,6 +102,15 @@ public:
         return m_mainWindow;
     }
 
+    /**
+     * the plugin we belong to
+     * @return our plugin
+     */
+    KateProjectPlugin *plugin() const
+    {
+        return m_plugin;
+    }
+
 public Q_SLOTS:
     /**
      * Create views for given project.
@@ -112,6 +121,11 @@ public Q_SLOTS:
     QPair<KateProjectView *, KateProjectInfoView *> viewForProject(KateProject *project);
 
 private Q_SLOTS:
+    /**
+     * Plugin config updated
+     */
+    void slotConfigUpdated();
+
     /**
      * New view got created, we need to update our connections
      * @param view new created view
@@ -145,6 +159,11 @@ private Q_SLOTS:
      */
     void slotProjectIndex();
 
+    /**
+     * Goto current word
+     */
+    void slotGotoSymbol();
+
 Q_SIGNALS:
     /**
      * Emitted if projectFileName changed.
@@ -161,6 +180,12 @@ Q_SIGNALS:
      * @param word lookup word
      */
     void projectLookupWord(const QString &word);
+
+    /**
+     * Emitted when a ctags goto sysmbol is requested
+     * @param word lookup word
+     */
+    void gotoSymbol(const QString &word, int &results);
 
 private Q_SLOTS:
     /**
@@ -212,6 +237,11 @@ private:
     QWidget *m_toolInfoView;
 
     /**
+     * our cross-projects toolview
+     */
+    QWidget *m_toolMultiView;
+
+    /**
      * combo box with all loaded projects inside
      */
     QComboBox *m_projectsCombo;
@@ -251,6 +281,12 @@ private:
      * lookup action
      */
     QAction *m_lookupAction;
+
+    /**
+     * goto symbol action
+     */
+    QAction *m_gotoSymbolAction;
+    QAction *m_gotoSymbolActionAppMenu;
 };
 
 #endif

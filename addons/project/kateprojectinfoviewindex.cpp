@@ -25,8 +25,8 @@
 #include <klocalizedstring.h>
 #include <kmessagewidget.h>
 
-KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *pluginView, KateProject *project)
-    : QWidget()
+KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *pluginView, KateProject *project, QWidget *parent)
+    : QWidget(parent)
     , m_pluginView(pluginView)
     , m_project(project)
     , m_messageWidget(nullptr)
@@ -68,7 +68,12 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *plugin
     connect(m_pluginView, &KateProjectPluginView::projectLookupWord, m_lineEdit, &QLineEdit::setText);
     connect(m_lineEdit, &QLineEdit::textChanged, this, &KateProjectInfoViewIndex::slotTextChanged);
     connect(m_treeView, &QTreeView::clicked, this, &KateProjectInfoViewIndex::slotClicked);
-    connect(m_project, &KateProject::indexChanged, this, &KateProjectInfoViewIndex::indexAvailable);
+    if (m_project) {
+        connect(m_project, &KateProject::indexChanged, this, &KateProjectInfoViewIndex::indexAvailable);
+    } else {
+        connect(m_pluginView, &KateProjectPluginView::gotoSymbol, this, &KateProjectInfoViewIndex::slotGotoSymbol);
+        enableWidgets(true);
+    }
 
     /**
      * trigger once search with nothing
@@ -78,6 +83,17 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *plugin
 
 KateProjectInfoViewIndex::~KateProjectInfoViewIndex()
 {
+}
+
+void KateProjectInfoViewIndex::slotGotoSymbol(const QString &text, int &results)
+{
+    // trigger fill model
+    m_lineEdit->setText(text);
+    results = m_model->rowCount();
+    // immediately goto if only a single option
+    if (results == 1) {
+        slotClicked(m_model->index(0, 0));
+    }
 }
 
 void KateProjectInfoViewIndex::slotTextChanged(const QString &text)
@@ -91,8 +107,14 @@ void KateProjectInfoViewIndex::slotTextChanged(const QString &text)
     /**
      * get results
      */
-    if (m_project->projectIndex() && !text.isEmpty()) {
+    if (m_project && m_project->projectIndex() && !text.isEmpty()) {
         m_project->projectIndex()->findMatches(*m_model, text, KateProjectIndex::FindMatches);
+    } else if (!text.isEmpty()) {
+        for (const auto &project : m_pluginView->plugin()->projects()) {
+            if (project->projectIndex()) {
+                project->projectIndex()->findMatches(*m_model, text, KateProjectIndex::FindMatches, TAG_FULLMATCH | TAG_OBSERVECASE);
+            }
+        }
     }
 
     /**
@@ -133,10 +155,15 @@ void KateProjectInfoViewIndex::slotClicked(const QModelIndex &index)
 
 void KateProjectInfoViewIndex::indexAvailable()
 {
+    const bool valid = m_project->projectIndex() && m_project->projectIndex()->isValid();
+    enableWidgets(valid);
+}
+
+void KateProjectInfoViewIndex::enableWidgets(bool valid)
+{
     /**
      * update enabled state of widgets
      */
-    const bool valid = m_project->projectIndex() && m_project->projectIndex()->isValid();
     m_lineEdit->setEnabled(valid);
     m_treeView->setEnabled(valid);
 

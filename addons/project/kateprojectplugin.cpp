@@ -343,6 +343,23 @@ QUrl KateProjectPlugin::getIndexDirectory() const
     return m_indexDirectory;
 }
 
+bool KateProjectPlugin::multiProjectCompletion() const
+{
+    return m_multiProjectCompletion;
+}
+
+bool KateProjectPlugin::multiProjectGoto() const
+{
+    return m_multiProjectGoto;
+}
+
+void KateProjectPlugin::setMultiProject(bool completion, bool gotoSymbol)
+{
+    m_multiProjectCompletion = completion;
+    m_multiProjectGoto = gotoSymbol;
+    writeConfig();
+}
+
 void KateProjectPlugin::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), "project");
@@ -364,6 +381,11 @@ void KateProjectPlugin::readConfig()
 
     m_indexEnabled = config.readEntry("index", false);
     m_indexDirectory = config.readEntry("indexDirectory", QUrl());
+
+    m_multiProjectCompletion = config.readEntry("multiProjectCompletion", false);
+    m_multiProjectGoto = config.readEntry("multiProjectCompletion", false);
+
+    emit configUpdated();
 }
 
 void KateProjectPlugin::writeConfig()
@@ -387,6 +409,11 @@ void KateProjectPlugin::writeConfig()
 
     config.writeEntry("index", m_indexEnabled);
     config.writeEntry("indexDirectory", m_indexDirectory);
+
+    config.writeEntry("multiProjectCompletion", m_multiProjectCompletion);
+    config.writeEntry("multiProjectGoto", m_multiProjectGoto);
+
+    emit configUpdated();
 }
 
 #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 63, 0)

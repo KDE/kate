@@ -77,8 +77,9 @@ public:
      * @param model model to fill with matches
      * @param searchWord word to search for
      * @param type type of matches
+     * @param options ctags find options (use default if -1)
      */
-    void findMatches(QStandardItemModel &model, const QString &searchWord, MatchType type);
+    void findMatches(QStandardItemModel &model, const QString &searchWord, MatchType type, int options = -1);
 
     /**
      * Check if running ctags was successful. This can be used

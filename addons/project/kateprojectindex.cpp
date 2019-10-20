@@ -160,7 +160,7 @@ void KateProjectIndex::openCtags()
     m_ctagsIndexHandle = tagsOpen(m_ctagsIndexFile->fileName().toLocal8Bit().constData(), &info);
 }
 
-void KateProjectIndex::findMatches(QStandardItemModel &model, const QString &searchWord, MatchType type)
+void KateProjectIndex::findMatches(QStandardItemModel &model, const QString &searchWord, MatchType type, int options)
 {
     /**
      * abort if no ctags index
@@ -183,7 +183,10 @@ void KateProjectIndex::findMatches(QStandardItemModel &model, const QString &sea
      * fail if none found
      */
     tagEntry entry;
-    if (tagsFind(m_ctagsIndexHandle, &entry, word.constData(), TAG_PARTIALMATCH | TAG_OBSERVECASE) != TagSuccess) {
+    if (options == -1) {
+        options = TAG_PARTIALMATCH | TAG_OBSERVECASE;
+    }
+    if (tagsFind(m_ctagsIndexHandle, &entry, word.constData(), options) != TagSuccess) {
         return;
     }
 

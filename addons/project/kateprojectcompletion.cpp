@@ -180,18 +180,25 @@ void KateProjectCompletion::completionInvoked(KTextEditor::View *view, const KTe
 void KateProjectCompletion::allMatches(QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range) const
 {
     /**
-     * get project for this document, else fail
+     * get project scope for this document, else fail
      */
-    KateProject *project = m_plugin->projectForDocument(view->document());
-    if (!project) {
-        return;
+    QList<KateProject *> projects;
+    if (m_plugin->multiProjectCompletion()) {
+        projects = m_plugin->projects();
+    } else {
+        auto project = m_plugin->projectForDocument(view->document());
+        if (project) {
+            projects.push_back(project);
+        }
     }
 
     /**
      * let project index fill the completion for this document
      */
-    if (project->projectIndex()) {
-        project->projectIndex()->findMatches(model, view->document()->text(range), KateProjectIndex::CompletionMatches);
+    for (const auto &project : projects) {
+        if (project->projectIndex()) {
+            project->projectIndex()->findMatches(model, view->document()->text(range), KateProjectIndex::CompletionMatches);
+        }
     }
 }
 

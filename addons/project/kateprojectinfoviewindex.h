@@ -43,7 +43,7 @@ public:
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectInfoViewIndex(KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectInfoViewIndex(KateProjectPluginView *pluginView, KateProject *project, QWidget *parent = nullptr);
 
     /**
      * deconstruct info view
@@ -77,6 +77,19 @@ private Q_SLOTS:
      * it's used to show a warning, if ctags is not installed.
      */
     void indexAvailable();
+
+    /**
+     * called to enable or disable widgets
+     * @param enable
+     */
+    void enableWidgets(bool enable);
+
+    /**
+     * called if goto symbol is requested
+     * @param text target symbol
+     * @param number of results
+     */
+    void slotGotoSymbol(const QString &text, int &results);
 
 private:
     /**

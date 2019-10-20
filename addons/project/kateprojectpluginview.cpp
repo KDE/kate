@@ -51,7 +51,10 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     , m_mainWindow(mainWin)
     , m_toolView(nullptr)
     , m_toolInfoView(nullptr)
+    , m_toolMultiView(nullptr)
     , m_lookupAction(nullptr)
+    , m_gotoSymbolAction(nullptr)
+    , m_gotoSymbolActionAppMenu(nullptr)
 {
     KXMLGUIClient::setComponentName(QStringLiteral("kateproject"), i18n("Kate Project Manager"));
     setXMLFile(QStringLiteral("ui.rc"));
@@ -95,6 +98,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * connect to important signals, e.g. for auto project view creation
      */
     connect(m_plugin, &KateProjectPlugin::projectCreated, this, &KateProjectPluginView::viewForProject);
+    connect(m_plugin, &KateProjectPlugin::configUpdated, this, &KateProjectPluginView::slotConfigUpdated);
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateProjectPluginView::slotViewChanged);
     connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &KateProjectPluginView::slotViewCreated);
 
@@ -120,12 +124,14 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     a = actionCollection()->addAction(QStringLiteral("projects_goto_index"), this, SLOT(slotProjectIndex()));
     a->setText(i18n("Lookup"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
+    m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"), this, SLOT(slotGotoSymbol()));
 
     // popup menu
     auto popup = new KActionMenu(i18n("Project"), this);
     actionCollection()->addAction(QStringLiteral("popup_project"), popup);
 
     m_lookupAction = popup->menu()->addAction(i18n("Lookup: %1", QString()), this, &KateProjectPluginView::slotProjectIndex);
+    m_gotoSymbolAction = popup->menu()->addAction(i18n("Goto: %1", QString()), this, &KateProjectPluginView::slotGotoSymbol);
 
     connect(popup->menu(), &QMenu::aboutToShow, this, &KateProjectPluginView::slotContextMenuAboutToShow);
 
@@ -133,6 +139,11 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * add us to gui
      */
     m_mainWindow->guiFactory()->addClient(this);
+
+    /**
+     * align to current config
+     */
+    slotConfigUpdated();
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -154,11 +165,29 @@ KateProjectPluginView::~KateProjectPluginView()
     m_toolView = nullptr;
     delete m_toolInfoView;
     m_toolInfoView = nullptr;
+    delete m_toolMultiView;
+    m_toolMultiView = nullptr;
 
     /**
      * cu gui client
      */
     m_mainWindow->guiFactory()->removeClient(this);
+}
+
+void KateProjectPluginView::slotConfigUpdated()
+{
+    if (!m_plugin->multiProjectGoto()) {
+        delete m_toolMultiView;
+        m_toolMultiView = nullptr;
+    } else if (!m_toolMultiView) {
+        m_toolMultiView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateprojectmulti"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("view-choose")), i18n("Projects Index"));
+        auto gotoindex = new KateProjectInfoViewIndex(this, nullptr, m_toolMultiView);
+        m_toolMultiView->layout()->addWidget(gotoindex);
+    }
+
+    // update action state
+    m_gotoSymbolActionAppMenu->setEnabled(m_toolMultiView);
+    m_gotoSymbolAction->setEnabled(m_toolMultiView);
 }
 
 QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForProject(KateProject *project)
@@ -462,6 +491,22 @@ void KateProjectPluginView::slotProjectIndex()
     }
 }
 
+void KateProjectPluginView::slotGotoSymbol()
+{
+    if (!m_toolMultiView) {
+        return;
+    }
+
+    const QString word = currentWord();
+    if (!word.isEmpty()) {
+        int results = 0;
+        emit gotoSymbol(word, results);
+        if (results > 1) {
+            m_mainWindow->showToolView(m_toolMultiView);
+        }
+    }
+}
+
 void KateProjectPluginView::slotContextMenuAboutToShow()
 {
     const QString word = currentWord();
@@ -471,6 +516,7 @@ void KateProjectPluginView::slotContextMenuAboutToShow()
 
     const QString squeezed = KStringHandler::csqueeze(word, 30);
     m_lookupAction->setText(i18n("Lookup: %1", squeezed));
+    m_gotoSymbolAction->setText(i18n("Goto: %1", squeezed));
 }
 
 #include "kateprojectpluginview.moc"

@@ -115,12 +115,21 @@ public:
     bool getIndexEnabled() const;
     QUrl getIndexDirectory() const;
 
+    void setMultiProject(bool completion, bool gotoSymbol);
+    bool multiProjectCompletion() const;
+    bool multiProjectGoto() const;
+
 Q_SIGNALS:
     /**
      * Signal that a new project got created.
      * @param project new created project
      */
     void projectCreated(KateProject *project);
+
+    /**
+     * Signal that plugin configuration changed
+     */
+    void configUpdated();
 
 public Q_SLOTS:
     /**
@@ -184,6 +193,8 @@ private:
     bool m_autoSubversion : 1;
     bool m_autoMercurial : 1;
     bool m_indexEnabled : 1;
+    bool m_multiProjectCompletion : 1;
+    bool m_multiProjectGoto : 1;
     QUrl m_indexDirectory;
 
     ThreadWeaver::Queue *m_weaver;

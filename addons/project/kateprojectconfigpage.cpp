@@ -67,6 +67,17 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     group->setLayout(vbox);
     layout->addWidget(group);
 
+    vbox = new QVBoxLayout;
+    group = new QGroupBox(i18nc("Groupbox title", "Cross-Project Functionality"), this);
+    group->setWhatsThis(i18n("Project plugin is able to perform some operations across multiple projects"));
+    m_cbMultiProjectCompletion = new QCheckBox(i18n("Cross-Project Completion"), this);
+    vbox->addWidget(m_cbMultiProjectCompletion);
+    m_cbMultiProjectGoto = new QCheckBox(i18n("Cross-Project Goto Symbol"), this);
+    vbox->addWidget(m_cbMultiProjectGoto);
+    vbox->addStretch(1);
+    group->setLayout(vbox);
+    layout->addWidget(group);
+
     layout->insertStretch(-1, 10);
 
     reset();
@@ -77,6 +88,8 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     connect(m_cbIndexEnabled, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_indexPath, &KUrlRequester::textChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_indexPath, &KUrlRequester::urlSelected, this, &KateProjectConfigPage::slotMyChanged);
+    connect(m_cbMultiProjectCompletion, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
+    connect(m_cbMultiProjectGoto, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
 }
 
 QString KateProjectConfigPage::name() const
@@ -104,6 +117,7 @@ void KateProjectConfigPage::apply()
 
     m_plugin->setAutoRepository(m_cbAutoGit->checkState() == Qt::Checked, m_cbAutoSubversion->checkState() == Qt::Checked, m_cbAutoMercurial->checkState() == Qt::Checked);
     m_plugin->setIndex(m_cbIndexEnabled->checkState() == Qt::Checked, m_indexPath->url());
+    m_plugin->setMultiProject(m_cbMultiProjectCompletion->checkState() == Qt::Checked, m_cbMultiProjectGoto->checkState() == Qt::Checked);
 }
 
 void KateProjectConfigPage::reset()
@@ -113,6 +127,8 @@ void KateProjectConfigPage::reset()
     m_cbAutoMercurial->setCheckState(m_plugin->autoMercurial() ? Qt::Checked : Qt::Unchecked);
     m_cbIndexEnabled->setCheckState(m_plugin->getIndexEnabled() ? Qt::Checked : Qt::Unchecked);
     m_indexPath->setUrl(m_plugin->getIndexDirectory());
+    m_cbMultiProjectCompletion->setCheckState(m_plugin->multiProjectCompletion() ? Qt::Checked : Qt::Unchecked);
+    m_cbMultiProjectGoto->setCheckState(m_plugin->multiProjectGoto() ? Qt::Checked : Qt::Unchecked);
     m_changed = false;
 }
 

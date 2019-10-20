@@ -53,6 +53,8 @@ private:
     QCheckBox *m_cbAutoMercurial;
     QCheckBox *m_cbIndexEnabled;
     KUrlRequester *m_indexPath;
+    QCheckBox *m_cbMultiProjectCompletion;
+    QCheckBox *m_cbMultiProjectGoto;
     KateProjectPlugin *m_plugin;
     bool m_changed = false;
 };

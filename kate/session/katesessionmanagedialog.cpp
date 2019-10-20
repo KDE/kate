@@ -95,16 +95,16 @@ void KateSessionManageDialog::dontAskToggled()
 void KateSessionManageDialog::changeSortOrder()
 {
     switch (m_sortOrder) {
-        case SortAlphabetical:
-            m_sortOrder = SortChronological;
-            m_sortButton->setText(i18n("Sort Alphabetical"));
-            // m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
-            break;
-        case SortChronological:
-            m_sortOrder = SortAlphabetical;
-            m_sortButton->setText(i18n("Sort Last Used"));
-            // m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
-            break;
+    case SortAlphabetical:
+        m_sortOrder = SortChronological;
+        m_sortButton->setText(i18n("Sort Alphabetical"));
+        // m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
+        break;
+    case SortChronological:
+        m_sortOrder = SortAlphabetical;
+        m_sortButton->setText(i18n("Sort Last Used"));
+        // m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
+        break;
     }
 
     updateSessionList();
@@ -140,14 +140,14 @@ void KateSessionManageDialog::done(int result)
         // write back our nice boolean :)
         KConfigGroup generalConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
         switch (result) {
-            case ResultOpen:
-                generalConfig.writeEntry("Startup Session", "last");
-                break;
-            case ResultNew:
-                generalConfig.writeEntry("Startup Session", "new");
-                break;
-            default:
-                break;
+        case ResultOpen:
+            generalConfig.writeEntry("Startup Session", "last");
+            break;
+        case ResultNew:
+            generalConfig.writeEntry("Startup Session", "new");
+            break;
+        default:
+            break;
         }
         generalConfig.sync();
     }
@@ -359,12 +359,12 @@ void KateSessionManageDialog::updateSessionList()
 
     KateSessionList slist = KateApp::self()->sessionManager()->sessionList();
     switch (m_sortOrder) {
-        case SortAlphabetical:
-            std::sort(slist.begin(), slist.end(), KateSession::compareByName);
-            break;
-        case SortChronological:
-            std::sort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
-            break;
+    case SortAlphabetical:
+        std::sort(slist.begin(), slist.end(), KateSession::compareByName);
+        break;
+    case SortChronological:
+        std::sort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
+        break;
     }
 
     KateSessionChooserItem *prefferedItem = nullptr;
@@ -444,26 +444,26 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
 
         if (event->type() == QEvent::KeyPress) {
             switch (ke->key()) {
-                // Avoid to apply changes with untypical keys/don't left edit field this way
-                case Qt::Key_Up:
-                case Qt::Key_Down:
-                case Qt::Key_PageUp:
-                case Qt::Key_PageDown:
-                    return true;
-                default:
-                    break;
+            // Avoid to apply changes with untypical keys/don't left edit field this way
+            case Qt::Key_Up:
+            case Qt::Key_Down:
+            case Qt::Key_PageUp:
+            case Qt::Key_PageDown:
+                return true;
+            default:
+                break;
             }
 
         } else if (event->type() == QEvent::KeyRelease) {
             switch (ke->key()) {
-                case Qt::Key_Escape:
-                    editDone(); // Abort edit
-                    break;
-                case Qt::Key_Return:
-                    editApply();
-                    break;
-                default:
-                    break;
+            case Qt::Key_Escape:
+                editDone(); // Abort edit
+                break;
+            case Qt::Key_Return:
+                editApply();
+                break;
+            default:
+                break;
             }
         }
 

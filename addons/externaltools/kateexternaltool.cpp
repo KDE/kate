@@ -28,12 +28,12 @@ namespace
 QString toString(KateExternalTool::SaveMode saveMode)
 {
     switch (saveMode) {
-        case KateExternalTool::SaveMode::None:
-            return QStringLiteral("None");
-        case KateExternalTool::SaveMode::CurrentDocument:
-            return QStringLiteral("CurrentDocument");
-        case KateExternalTool::SaveMode::AllDocuments:
-            return QStringLiteral("AllDocuments");
+    case KateExternalTool::SaveMode::None:
+        return QStringLiteral("None");
+    case KateExternalTool::SaveMode::CurrentDocument:
+        return QStringLiteral("CurrentDocument");
+    case KateExternalTool::SaveMode::AllDocuments:
+        return QStringLiteral("AllDocuments");
     }
     Q_ASSERT(false); // yout forgot a case above
     return QStringLiteral("None");
@@ -53,22 +53,22 @@ KateExternalTool::SaveMode toSaveMode(const QString &mode)
 QString toString(KateExternalTool::OutputMode outputMode)
 {
     switch (outputMode) {
-        case KateExternalTool::OutputMode::Ignore:
-            return QStringLiteral("Ignore");
-        case KateExternalTool::OutputMode::InsertAtCursor:
-            return QStringLiteral("InsertAtCursor");
-        case KateExternalTool::OutputMode::ReplaceSelectedText:
-            return QStringLiteral("ReplaceSelectedText");
-        case KateExternalTool::OutputMode::ReplaceCurrentDocument:
-            return QStringLiteral("ReplaceCurrentDocument");
-        case KateExternalTool::OutputMode::AppendToCurrentDocument:
-            return QStringLiteral("AppendToCurrentDocument");
-        case KateExternalTool::OutputMode::InsertInNewDocument:
-            return QStringLiteral("InsertInNewDocument");
-        case KateExternalTool::OutputMode::CopyToClipboard:
-            return QStringLiteral("CopyToClipboard");
-        case KateExternalTool::OutputMode::DisplayInPane:
-            return QStringLiteral("DisplayInPane");
+    case KateExternalTool::OutputMode::Ignore:
+        return QStringLiteral("Ignore");
+    case KateExternalTool::OutputMode::InsertAtCursor:
+        return QStringLiteral("InsertAtCursor");
+    case KateExternalTool::OutputMode::ReplaceSelectedText:
+        return QStringLiteral("ReplaceSelectedText");
+    case KateExternalTool::OutputMode::ReplaceCurrentDocument:
+        return QStringLiteral("ReplaceCurrentDocument");
+    case KateExternalTool::OutputMode::AppendToCurrentDocument:
+        return QStringLiteral("AppendToCurrentDocument");
+    case KateExternalTool::OutputMode::InsertInNewDocument:
+        return QStringLiteral("InsertInNewDocument");
+    case KateExternalTool::OutputMode::CopyToClipboard:
+        return QStringLiteral("CopyToClipboard");
+    case KateExternalTool::OutputMode::DisplayInPane:
+        return QStringLiteral("DisplayInPane");
     }
     Q_ASSERT(false); // yout forgot a case above
     return QStringLiteral("Ignore");

@@ -4,6 +4,7 @@
 *.orig
 *.out
 CMakeLists.txt.user*
+.clang-format
 
 # kate
 *~

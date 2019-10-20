@@ -56,16 +56,16 @@ public:
     {
         m_state = state;
         switch (state) {
-            case InitialState:
-                setIcon(0, QIcon());
-                break;
-            case SaveOKState:
-                setIcon(0, QIcon::fromTheme(QStringLiteral("dialog-ok")));
-                // QStringLiteral("ok") icon should probably be QStringLiteral("dialog-success"), but we don't have that icon in KDE 4.0
-                break;
-            case SaveFailedState:
-                setIcon(0, QIcon::fromTheme(QStringLiteral("dialog-error")));
-                break;
+        case InitialState:
+            setIcon(0, QIcon());
+            break;
+        case SaveOKState:
+            setIcon(0, QIcon::fromTheme(QStringLiteral("dialog-ok")));
+            // QStringLiteral("ok") icon should probably be QStringLiteral("dialog-success"), but we don't have that icon in KDE 4.0
+            break;
+        case SaveFailedState:
+            setIcon(0, QIcon::fromTheme(QStringLiteral("dialog-error")));
+            break;
         }
     }
 

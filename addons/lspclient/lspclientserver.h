@@ -41,18 +41,18 @@ namespace utils
 {
 // template helper
 // function bind helpers
-template <typename R, typename T, typename Tp, typename... Args> inline std::function<R(Args...)> mem_fun(R (T::*pm)(Args...), Tp object)
+template<typename R, typename T, typename Tp, typename... Args> inline std::function<R(Args...)> mem_fun(R (T::*pm)(Args...), Tp object)
 {
     return [object, pm](Args... args) { return (object->*pm)(std::forward<Args>(args)...); };
 }
 
-template <typename R, typename T, typename Tp, typename... Args> inline std::function<R(Args...)> mem_fun(R (T::*pm)(Args...) const, Tp object)
+template<typename R, typename T, typename Tp, typename... Args> inline std::function<R(Args...)> mem_fun(R (T::*pm)(Args...) const, Tp object)
 {
     return [object, pm](Args... args) { return (object->*pm)(std::forward<Args>(args)...); };
 }
 
 // prevent argument deduction
-template <typename T> struct identity {
+template<typename T> struct identity {
     typedef T type;
 };
 
@@ -60,7 +60,7 @@ template <typename T> struct identity {
 
 static const int TIMEOUT_SHUTDOWN = 200;
 
-template <typename T> using ReplyHandler = std::function<void(const T &)>;
+template<typename T> using ReplyHandler = std::function<void(const T &)>;
 
 using DocumentSymbolsReplyHandler = ReplyHandler<QList<LSPSymbolInformation>>;
 using DocumentDefinitionReplyHandler = ReplyHandler<QList<LSPLocation>>;

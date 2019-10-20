@@ -142,8 +142,8 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
     if (button == m_quickOpen && event->type() == QEvent::WhatsThis) {
         QHelpEvent *e = static_cast<QHelpEvent *>(event);
         const int hiddenDocs = hiddenDocuments();
-        QString helpText = (hiddenDocs == 0) ? i18n("Click here to switch to the Quick Open view.") :
-                                               i18np("Currently, there is one more document open. To see all open documents, switch to the Quick Open view by clicking here.",
+        QString helpText = (hiddenDocs == 0) ? i18n("Click here to switch to the Quick Open view.")
+                                             : i18np("Currently, there is one more document open. To see all open documents, switch to the Quick Open view by clicking here.",
                                                      "Currently, there are %1 more documents open. To see all open documents, switch to the Quick Open view by clicking here.",
                                                      hiddenDocs);
         QWhatsThis::showText(e->globalPos(), helpText, m_quickOpen);

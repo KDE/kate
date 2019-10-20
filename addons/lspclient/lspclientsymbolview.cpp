@@ -261,15 +261,15 @@ public:
     void onViewState(KTextEditor::View *, LSPClientViewTracker::State newState)
     {
         switch (newState) {
-            case LSPClientViewTracker::ViewChanged:
-                refresh(true);
-                break;
-            case LSPClientViewTracker::TextChanged:
-                refresh(false);
-                break;
-            case LSPClientViewTracker::LineChanged:
-                updateCurrentTreeItem();
-                break;
+        case LSPClientViewTracker::ViewChanged:
+            refresh(true);
+            break;
+        case LSPClientViewTracker::TextChanged:
+            refresh(false);
+            break;
+        case LSPClientViewTracker::LineChanged:
+            updateCurrentTreeItem();
+            break;
         }
     }
 
@@ -278,39 +278,39 @@ public:
         const QIcon *icon = nullptr;
         for (const auto &symbol : symbols) {
             switch (symbol.kind) {
-                case LSPSymbolKind::File:
-                case LSPSymbolKind::Module:
-                case LSPSymbolKind::Namespace:
-                case LSPSymbolKind::Package:
-                    if (symbol.children.count() == 0)
-                        continue;
-                    icon = &m_icon_pkg;
-                    break;
-                case LSPSymbolKind::Class:
-                case LSPSymbolKind::Interface:
-                    icon = &m_icon_class;
-                    break;
-                case LSPSymbolKind::Enum:
-                    icon = &m_icon_typedef;
-                    break;
-                case LSPSymbolKind::Method:
-                case LSPSymbolKind::Function:
-                case LSPSymbolKind::Constructor:
-                    icon = &m_icon_function;
-                    break;
-                // all others considered/assumed Variable
-                case LSPSymbolKind::Variable:
-                case LSPSymbolKind::Constant:
-                case LSPSymbolKind::String:
-                case LSPSymbolKind::Number:
-                case LSPSymbolKind::Property:
-                case LSPSymbolKind::Field:
-                default:
-                    // skip local variable
-                    // property, field, etc unlikely in such case anyway
-                    if (parent && parent->icon().cacheKey() == m_icon_function.cacheKey())
-                        continue;
-                    icon = &m_icon_var;
+            case LSPSymbolKind::File:
+            case LSPSymbolKind::Module:
+            case LSPSymbolKind::Namespace:
+            case LSPSymbolKind::Package:
+                if (symbol.children.count() == 0)
+                    continue;
+                icon = &m_icon_pkg;
+                break;
+            case LSPSymbolKind::Class:
+            case LSPSymbolKind::Interface:
+                icon = &m_icon_class;
+                break;
+            case LSPSymbolKind::Enum:
+                icon = &m_icon_typedef;
+                break;
+            case LSPSymbolKind::Method:
+            case LSPSymbolKind::Function:
+            case LSPSymbolKind::Constructor:
+                icon = &m_icon_function;
+                break;
+            // all others considered/assumed Variable
+            case LSPSymbolKind::Variable:
+            case LSPSymbolKind::Constant:
+            case LSPSymbolKind::String:
+            case LSPSymbolKind::Number:
+            case LSPSymbolKind::Property:
+            case LSPSymbolKind::Field:
+            default:
+                // skip local variable
+                // property, field, etc unlikely in such case anyway
+                if (parent && parent->icon().cacheKey() == m_icon_function.cacheKey())
+                    continue;
+                icon = &m_icon_var;
             }
 
             auto node = new QStandardItem();

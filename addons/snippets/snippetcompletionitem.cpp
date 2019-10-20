@@ -58,33 +58,33 @@ QVariant SnippetCompletionItem::data(const QModelIndex &index, int role, const K
     Q_UNUSED(model);
 
     switch (role) {
-        case Qt::DisplayRole:
-            switch (index.column()) {
-                case KTextEditor::CodeCompletionModel::Name:
-                    return m_name;
-                case KTextEditor::CodeCompletionModel::Prefix:
-                    return QString();
-                case KTextEditor::CodeCompletionModel::Postfix:
-                    return QString();
-                case KTextEditor::CodeCompletionModel::Arguments:
-                    return QString();
-            }
-            break;
-        case KTextEditor::CodeCompletionModel::IsExpandable:
-            return QVariant(true);
-        case KTextEditor::CodeCompletionModel::ExpandingWidget: {
-            QTextEdit *textEdit = new QTextEdit();
-            /// TODO: somehow make it possible to scroll like in other expanding widgets
-            // don't make it too large, only show a few lines
-            textEdit->resize(textEdit->width(), 100);
-            textEdit->setPlainText(m_snippet);
-            textEdit->setReadOnly(true);
-            textEdit->setLineWrapMode(QTextEdit::NoWrap);
-
-            QVariant v;
-            v.setValue<QWidget *>(textEdit);
-            return v;
+    case Qt::DisplayRole:
+        switch (index.column()) {
+        case KTextEditor::CodeCompletionModel::Name:
+            return m_name;
+        case KTextEditor::CodeCompletionModel::Prefix:
+            return QString();
+        case KTextEditor::CodeCompletionModel::Postfix:
+            return QString();
+        case KTextEditor::CodeCompletionModel::Arguments:
+            return QString();
         }
+        break;
+    case KTextEditor::CodeCompletionModel::IsExpandable:
+        return QVariant(true);
+    case KTextEditor::CodeCompletionModel::ExpandingWidget: {
+        QTextEdit *textEdit = new QTextEdit();
+        /// TODO: somehow make it possible to scroll like in other expanding widgets
+        // don't make it too large, only show a few lines
+        textEdit->resize(textEdit->width(), 100);
+        textEdit->setPlainText(m_snippet);
+        textEdit->setReadOnly(true);
+        textEdit->setLineWrapMode(QTextEdit::NoWrap);
+
+        QVariant v;
+        v.setValue<QWidget *>(textEdit);
+        return v;
+    }
     }
 
     return QVariant();

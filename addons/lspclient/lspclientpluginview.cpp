@@ -131,15 +131,15 @@ static QIcon diagnosticsIcon(LSPDiagnosticSeverity severity)
     }
     // clang-format on
     switch (severity) {
-        case LSPDiagnosticSeverity::Error:
-            RETURN_CACHED_ICON("dialog-error")
-        case LSPDiagnosticSeverity::Warning:
-            RETURN_CACHED_ICON("dialog-warning")
-        case LSPDiagnosticSeverity::Information:
-        case LSPDiagnosticSeverity::Hint:
-            RETURN_CACHED_ICON("dialog-information")
-        default:
-            break;
+    case LSPDiagnosticSeverity::Error:
+        RETURN_CACHED_ICON("dialog-error")
+    case LSPDiagnosticSeverity::Warning:
+        RETURN_CACHED_ICON("dialog-warning")
+    case LSPDiagnosticSeverity::Information:
+    case LSPDiagnosticSeverity::Hint:
+        RETURN_CACHED_ICON("dialog-information")
+    default:
+        break;
     }
     return QIcon();
 }
@@ -562,43 +562,43 @@ public:
         bool enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsHighlight && m_diagnosticsHighlight->isChecked();
         KTextEditor::MarkInterface::MarkTypes markType = RangeData::markType;
         switch (kind) {
-            case RangeData::KindEnum::Text: {
-                // well, it's a bit like searching for something, so re-use that color
-                QColor rangeColor = Qt::yellow;
-                if (ciface) {
-                    rangeColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
-                }
-                attr->setBackground(rangeColor);
-                enabled = true;
-                break;
+        case RangeData::KindEnum::Text: {
+            // well, it's a bit like searching for something, so re-use that color
+            QColor rangeColor = Qt::yellow;
+            if (ciface) {
+                rangeColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
             }
-            // FIXME are there any symbolic/configurable ways to pick these colors?
-            case RangeData::KindEnum::Read:
-                attr->setBackground(Qt::green);
-                enabled = true;
-                break;
-            case RangeData::KindEnum::Write:
-                attr->setBackground(Qt::red);
-                enabled = true;
-                break;
-            // use underlining for diagnostics to avoid lots of fancy flickering
-            case RangeData::KindEnum::Error:
-                markType = RangeData::markTypeDiagError;
-                attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-                attr->setUnderlineColor(Qt::red);
-                break;
-            case RangeData::KindEnum::Warning:
-                markType = RangeData::markTypeDiagWarning;
-                attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-                attr->setUnderlineColor(QColor(255, 128, 0));
-                break;
-            case RangeData::KindEnum::Information:
-            case RangeData::KindEnum::Hint:
-            case RangeData::KindEnum::Related:
-                markType = RangeData::markTypeDiagOther;
-                attr->setUnderlineStyle(QTextCharFormat::DashUnderline);
-                attr->setUnderlineColor(Qt::blue);
-                break;
+            attr->setBackground(rangeColor);
+            enabled = true;
+            break;
+        }
+        // FIXME are there any symbolic/configurable ways to pick these colors?
+        case RangeData::KindEnum::Read:
+            attr->setBackground(Qt::green);
+            enabled = true;
+            break;
+        case RangeData::KindEnum::Write:
+            attr->setBackground(Qt::red);
+            enabled = true;
+            break;
+        // use underlining for diagnostics to avoid lots of fancy flickering
+        case RangeData::KindEnum::Error:
+            markType = RangeData::markTypeDiagError;
+            attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+            attr->setUnderlineColor(Qt::red);
+            break;
+        case RangeData::KindEnum::Warning:
+            markType = RangeData::markTypeDiagWarning;
+            attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+            attr->setUnderlineColor(QColor(255, 128, 0));
+            break;
+        case RangeData::KindEnum::Information:
+        case RangeData::KindEnum::Hint:
+        case RangeData::KindEnum::Related:
+            markType = RangeData::markTypeDiagOther;
+            attr->setUnderlineStyle(QTextCharFormat::DashUnderline);
+            attr->setUnderlineColor(Qt::blue);
+            break;
         }
         if (activeView) {
             attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
@@ -618,27 +618,27 @@ public:
         bool handleClick = true;
         enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsMark && m_diagnosticsMark->isChecked();
         switch (markType) {
-            case RangeData::markType:
-                iface->setMarkDescription(markType, i18n("RangeHighLight"));
-                iface->setMarkPixmap(markType, QIcon().pixmap(0, 0));
-                handleClick = false;
-                enabled = true;
-                break;
-            case RangeData::markTypeDiagError:
-                iface->setMarkDescription(markType, i18n("Error"));
-                iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Error).pixmap(ps, ps));
-                break;
-            case RangeData::markTypeDiagWarning:
-                iface->setMarkDescription(markType, i18n("Warning"));
-                iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Warning).pixmap(ps, ps));
-                break;
-            case RangeData::markTypeDiagOther:
-                iface->setMarkDescription(markType, i18n("Information"));
-                iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Information).pixmap(ps, ps));
-                break;
-            default:
-                Q_ASSERT(false);
-                break;
+        case RangeData::markType:
+            iface->setMarkDescription(markType, i18n("RangeHighLight"));
+            iface->setMarkPixmap(markType, QIcon().pixmap(0, 0));
+            handleClick = false;
+            enabled = true;
+            break;
+        case RangeData::markTypeDiagError:
+            iface->setMarkDescription(markType, i18n("Error"));
+            iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Error).pixmap(ps, ps));
+            break;
+        case RangeData::markTypeDiagWarning:
+            iface->setMarkDescription(markType, i18n("Warning"));
+            iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Warning).pixmap(ps, ps));
+            break;
+        case RangeData::markTypeDiagOther:
+            iface->setMarkDescription(markType, i18n("Information"));
+            iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Information).pixmap(ps, ps));
+            break;
+        default:
+            Q_ASSERT(false);
+            break;
         }
         if (enabled && docs) {
             iface->addMark(line, markType);
@@ -1007,9 +1007,9 @@ public:
         }
     }
 
-    template <typename Handler> using LocationRequest = std::function<LSPClientServer::RequestHandle(LSPClientServer &, const QUrl &document, const LSPPosition &pos, const QObject *context, const Handler &h)>;
+    template<typename Handler> using LocationRequest = std::function<LSPClientServer::RequestHandle(LSPClientServer &, const QUrl &document, const LSPPosition &pos, const QObject *context, const Handler &h)>;
 
-    template <typename Handler> void positionRequest(const LocationRequest<Handler> &req, const Handler &h, QScopedPointer<LSPClientRevisionSnapshot> *snapshot = nullptr)
+    template<typename Handler> void positionRequest(const LocationRequest<Handler> &req, const Handler &h, QScopedPointer<LSPClientRevisionSnapshot> *snapshot = nullptr)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
@@ -1041,7 +1041,7 @@ public:
     }
 
     // some template and function type trickery here, but at least that buck stops here then ...
-    template <typename ReplyEntryType, bool doshow = true, typename HandlerType = ReplyHandler<QList<ReplyEntryType>>>
+    template<typename ReplyEntryType, bool doshow = true, typename HandlerType = ReplyHandler<QList<ReplyEntryType>>>
     void processLocations(const QString &title,
                           const typename utils::identity<LocationRequest<HandlerType>>::type &req,
                           bool onlyshow,
@@ -1207,7 +1207,7 @@ public:
         h({m_accept_edit, QString()});
     }
 
-    template <typename Collection> void checkEditResult(const Collection &c)
+    template<typename Collection> void checkEditResult(const Collection &c)
     {
         if (c.empty()) {
             showMessage(i18n("No edits"), KTextEditor::Message::Information);
@@ -1248,8 +1248,8 @@ public:
         };
 
         auto options = LSPFormattingOptions {tabSize, insertSpaces, QJsonObject()};
-        auto handle = !lastChar.isNull() ? server->documentOnTypeFormatting(document->url(), activeView->cursorPosition(), lastChar, options, this, h) :
-                                           (activeView->selection() ? server->documentRangeFormatting(document->url(), activeView->selectionRange(), options, this, h) : server->documentFormatting(document->url(), options, this, h));
+        auto handle = !lastChar.isNull() ? server->documentOnTypeFormatting(document->url(), activeView->cursorPosition(), lastChar, options, this, h)
+                                         : (activeView->selection() ? server->documentRangeFormatting(document->url(), activeView->selectionRange(), options, this, h) : server->documentFormatting(document->url(), options, this, h));
         delayCancelRequest(std::move(handle));
     }
 
@@ -1337,15 +1337,15 @@ public:
         // select top item on view change,
         // but otherwise leave selection unchanged if no match
         switch (newState) {
-            case LSPClientViewTracker::ViewChanged:
-                syncDiagnostics(view->document(), view->cursorPosition().line(), true, false);
-                break;
-            case LSPClientViewTracker::LineChanged:
-                syncDiagnostics(view->document(), view->cursorPosition().line(), false, false);
-                break;
-            default:
-                // should not happen
-                break;
+        case LSPClientViewTracker::ViewChanged:
+            syncDiagnostics(view->document(), view->cursorPosition().line(), true, false);
+            break;
+        case LSPClientViewTracker::LineChanged:
+            syncDiagnostics(view->document(), view->cursorPosition().line(), false, false);
+            break;
+        default:
+            // should not happen
+            break;
         }
     }
 

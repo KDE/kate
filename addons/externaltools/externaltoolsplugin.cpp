@@ -211,41 +211,41 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
     auto view = runner->view();
     if (view && !runner->outputData().isEmpty()) {
         switch (runner->tool()->outputMode) {
-            case KateExternalTool::OutputMode::InsertAtCursor: {
-                KTextEditor::Document::EditingTransaction transaction(view->document());
-                view->removeSelection();
-                view->insertText(runner->outputData());
-                break;
-            }
-            case KateExternalTool::OutputMode::ReplaceSelectedText: {
-                KTextEditor::Document::EditingTransaction transaction(view->document());
-                view->removeSelectionText();
-                view->insertText(runner->outputData());
-                break;
-            }
-            case KateExternalTool::OutputMode::ReplaceCurrentDocument: {
-                KTextEditor::Document::EditingTransaction transaction(view->document());
-                view->document()->clear();
-                view->insertText(runner->outputData());
-                break;
-            }
-            case KateExternalTool::OutputMode::AppendToCurrentDocument: {
-                view->document()->insertText(view->document()->documentEnd(), runner->outputData());
-                break;
-            }
-            case KateExternalTool::OutputMode::InsertInNewDocument: {
-                auto mainWindow = view->mainWindow();
-                auto newView = mainWindow->openUrl({});
-                newView->insertText(runner->outputData());
-                mainWindow->activateView(newView->document());
-                break;
-            }
-            case KateExternalTool::OutputMode::CopyToClipboard: {
-                QGuiApplication::clipboard()->setText(runner->outputData());
-                break;
-            }
-            default:
-                break;
+        case KateExternalTool::OutputMode::InsertAtCursor: {
+            KTextEditor::Document::EditingTransaction transaction(view->document());
+            view->removeSelection();
+            view->insertText(runner->outputData());
+            break;
+        }
+        case KateExternalTool::OutputMode::ReplaceSelectedText: {
+            KTextEditor::Document::EditingTransaction transaction(view->document());
+            view->removeSelectionText();
+            view->insertText(runner->outputData());
+            break;
+        }
+        case KateExternalTool::OutputMode::ReplaceCurrentDocument: {
+            KTextEditor::Document::EditingTransaction transaction(view->document());
+            view->document()->clear();
+            view->insertText(runner->outputData());
+            break;
+        }
+        case KateExternalTool::OutputMode::AppendToCurrentDocument: {
+            view->document()->insertText(view->document()->documentEnd(), runner->outputData());
+            break;
+        }
+        case KateExternalTool::OutputMode::InsertInNewDocument: {
+            auto mainWindow = view->mainWindow();
+            auto newView = mainWindow->openUrl({});
+            newView->insertText(runner->outputData());
+            mainWindow->activateView(newView->document());
+            break;
+        }
+        case KateExternalTool::OutputMode::CopyToClipboard: {
+            QGuiApplication::clipboard()->setText(runner->outputData());
+            break;
+        }
+        default:
+            break;
         }
     }
 

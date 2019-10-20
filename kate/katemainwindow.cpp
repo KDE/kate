@@ -1185,13 +1185,13 @@ QObject *KateMainWindow::pluginView(const QString &name)
 void KateMainWindow::mousePressEvent(QMouseEvent *e)
 {
     switch (e->button()) {
-        case Qt::ForwardButton:
-            slotFocusNextTab();
-            break;
-        case Qt::BackButton:
-            slotFocusPrevTab();
-            break;
-        default:;
+    case Qt::ForwardButton:
+        slotFocusNextTab();
+        break;
+    case Qt::BackButton:
+        slotFocusPrevTab();
+        break;
+    default:;
     }
 }
 

@@ -63,17 +63,17 @@ const QStringList AdvancedGDBSettings::configs() const
 
     tmp << u_gdbCmd->text();
     switch (u_localRemote->currentIndex()) {
-        case 1:
-            tmp << QStringLiteral("target remote %1:%2").arg(u_tcpHost->text(), u_tcpPort->text());
-            tmp << QString();
-            break;
-        case 2:
-            tmp << QStringLiteral("target remote %1").arg(u_ttyPort->text());
-            tmp << QStringLiteral("set remotebaud %1").arg(u_baudCombo->currentText());
-            break;
-        default:
-            tmp << QString();
-            tmp << QString();
+    case 1:
+        tmp << QStringLiteral("target remote %1:%2").arg(u_tcpHost->text(), u_tcpPort->text());
+        tmp << QString();
+        break;
+    case 2:
+        tmp << QStringLiteral("target remote %1").arg(u_ttyPort->text());
+        tmp << QStringLiteral("set remotebaud %1").arg(u_baudCombo->currentText());
+        break;
+    default:
+        tmp << QString();
+        tmp << QString();
     }
     if (!u_soAbsPrefix->text().isEmpty()) {
         tmp << QStringLiteral("set solib-absolute-prefix %1").arg(u_soAbsPrefix->text());

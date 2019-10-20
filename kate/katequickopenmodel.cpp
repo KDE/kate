@@ -59,10 +59,10 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     auto entry = m_modelEntries.at(idx.row());
     if (role == Qt::DisplayRole) {
         switch (idx.column()) {
-            case Columns::FileName:
-                return entry.fileName;
-            case Columns::FilePath:
-                return entry.filePath;
+        case Columns::FileName:
+            return entry.fileName;
+        case Columns::FilePath:
+            return entry.filePath;
         }
     } else if (role == Qt::FontRole) {
         if (entry.bold) {

@@ -1102,7 +1102,7 @@ public:
         }
     }
 
-    template <typename ReplyType> static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
+    template<typename ReplyType> static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
     {
         QPointer<const QObject> ctx(context);
         return [ctx, h, c](const GenericReplyType &m) {
@@ -1134,7 +1134,7 @@ public:
         return h;
     }
 
-    template <typename ReplyType> static ReplyHandler<ReplyType> responseHandler(const GenericReplyHandler &h, typename utils::identity<std::function<GenericReplyType(const ReplyType &)>>::type c)
+    template<typename ReplyType> static ReplyHandler<ReplyType> responseHandler(const GenericReplyHandler &h, typename utils::identity<std::function<GenericReplyType(const ReplyType &)>>::type c)
     {
         return [h, c](const ReplyType &m) { h(c(m)); };
     }
@@ -1160,7 +1160,7 @@ public:
 // sprinkle some connection-like context safety
 // not so likely relevant/needed due to typical sequence of events,
 // but in case the latter would be changed in surprising ways ...
-template <typename ReplyType> static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
+template<typename ReplyType> static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
 {
     QPointer<const QObject> ctx(context);
     return [ctx, h, c](const GenericReplyType &m) {

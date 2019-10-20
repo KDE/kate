@@ -324,25 +324,25 @@ QVariant PluginKateXMLToolsCompletionModel::data(const QModelIndex &index, int r
 
     if (index.internalId() == groupNode) { // Return group level node data
         switch (role) {
-            case KTextEditor::CodeCompletionModel::GroupRole:
-                return QVariant(Qt::DisplayRole);
-            case Qt::DisplayRole:
-                return currentModeToString();
-            default:
-                break;
+        case KTextEditor::CodeCompletionModel::GroupRole:
+            return QVariant(Qt::DisplayRole);
+        case Qt::DisplayRole:
+            return currentModeToString();
+        default:
+            break;
         }
         return QVariant(); // Nothing to return for other roles
     }
     switch (role) {
-        case Qt::DisplayRole:
-            switch (index.column()) {
-                case KTextEditor::CodeCompletionModel::Name:
-                    return m_allowed.at(index.row());
-                default:
-                    break;
-            }
+    case Qt::DisplayRole:
+        switch (index.column()) {
+        case KTextEditor::CodeCompletionModel::Name:
+            return m_allowed.at(index.row());
         default:
             break;
+        }
+    default:
+        break;
     }
     return QVariant();
 }
@@ -847,99 +847,99 @@ QString PluginKateXMLToolsCompletionModel::getParentElement(KTextEditor::View &k
         ushort ch = str.at(col).unicode();
 
         switch (parseState) {
-            case parsingIgnore:
-                // ignore the specified number of characters
-                parseState = (--skipCharacters > 0) ? parsingIgnore : parsingText;
+        case parsingIgnore:
+            // ignore the specified number of characters
+            parseState = (--skipCharacters > 0) ? parsingIgnore : parsingText;
+            break;
+
+        case parsingText:
+            switch (ch) {
+            case '<':
+                // hmm... we were actually inside an element
+                return QString();
+
+            case '>':
+                // we just hit an element boundary
+                parseState = parsingElementBoundary;
+                break;
+            }
+            break;
+
+        case parsingElement:
+            switch (ch) {
+            case '"': // attribute ( double quoted )
+                parseState = parsingAttributeDquote;
                 break;
 
-            case parsingText:
-                switch (ch) {
-                    case '<':
-                        // hmm... we were actually inside an element
-                        return QString();
+            case '\'': // attribute ( single quoted )
+                parseState = parsingAttributeSquote;
+                break;
 
-                    case '>':
-                        // we just hit an element boundary
-                        parseState = parsingElementBoundary;
-                        break;
+            case '/': // close tag
+                parseState = parsingNonElement;
+                ++nestingLevel;
+                break;
+
+            case '<':
+                // we just hit the start of the element...
+                if (nestingLevel--) {
+                    break;
                 }
-                break;
 
-            case parsingElement:
-                switch (ch) {
-                    case '"': // attribute ( double quoted )
-                        parseState = parsingAttributeDquote;
+                QString tag = str.mid(col + 1);
+                for (uint pos = 0, len = tag.length(); pos < len; ++pos) {
+                    ch = tag.at(pos).unicode();
+                    if (ch == ' ' || ch == '\t' || ch == '>') {
+                        tag.truncate(pos);
                         break;
-
-                    case '\'': // attribute ( single quoted )
-                        parseState = parsingAttributeSquote;
-                        break;
-
-                    case '/': // close tag
-                        parseState = parsingNonElement;
-                        ++nestingLevel;
-                        break;
-
-                    case '<':
-                        // we just hit the start of the element...
-                        if (nestingLevel--) {
-                            break;
-                        }
-
-                        QString tag = str.mid(col + 1);
-                        for (uint pos = 0, len = tag.length(); pos < len; ++pos) {
-                            ch = tag.at(pos).unicode();
-                            if (ch == ' ' || ch == '\t' || ch == '>') {
-                                tag.truncate(pos);
-                                break;
-                            }
-                        }
-                        return tag;
+                    }
                 }
+                return tag;
+            }
+            break;
+
+        case parsingElementBoundary:
+            switch (ch) {
+            case '?': // processing instruction
+            case '-': // comment
+            case '/': // empty element
+                parseState = parsingNonElement;
                 break;
 
-            case parsingElementBoundary:
-                switch (ch) {
-                    case '?': // processing instruction
-                    case '-': // comment
-                    case '/': // empty element
-                        parseState = parsingNonElement;
-                        break;
-
-                    case '"':
-                        parseState = parsingAttributeDquote;
-                        break;
-
-                    case '\'':
-                        parseState = parsingAttributeSquote;
-                        break;
-
-                    case '<': // empty tag ( bad XML )
-                        parseState = parsingText;
-                        break;
-
-                    default:
-                        parseState = parsingElement;
-                }
+            case '"':
+                parseState = parsingAttributeDquote;
                 break;
 
-            case parsingAttributeDquote:
-                if (ch == '"') {
-                    parseState = parsingElement;
-                }
+            case '\'':
+                parseState = parsingAttributeSquote;
                 break;
 
-            case parsingAttributeSquote:
-                if (ch == '\'') {
-                    parseState = parsingElement;
-                }
+            case '<': // empty tag ( bad XML )
+                parseState = parsingText;
                 break;
 
-            case parsingNonElement:
-                if (ch == '<') {
-                    parseState = parsingText;
-                }
-                break;
+            default:
+                parseState = parsingElement;
+            }
+            break;
+
+        case parsingAttributeDquote:
+            if (ch == '"') {
+                parseState = parsingElement;
+            }
+            break;
+
+        case parsingAttributeSquote:
+            if (ch == '\'') {
+                parseState = parsingElement;
+            }
+            break;
+
+        case parsingNonElement:
+            if (ch == '<') {
+                parseState = parsingText;
+            }
+            break;
         }
     }
 }
@@ -982,17 +982,17 @@ bool PluginKateXMLToolsCompletionModel::isQuote(const QString &ch)
 QString PluginKateXMLToolsCompletionModel::currentModeToString() const
 {
     switch (m_mode) {
-        case entities:
-            return i18n("XML entities");
-        case attributevalues:
-            return i18n("XML attribute values");
-        case attributes:
-            return i18n("XML attributes");
-        case elements:
-        case closingtag:
-            return i18n("XML elements");
-        default:
-            break;
+    case entities:
+        return i18n("XML entities");
+    case attributevalues:
+        return i18n("XML attribute values");
+    case attributes:
+        return i18n("XML attributes");
+    case elements:
+    case closingtag:
+        return i18n("XML elements");
+    default:
+        break;
     }
     return QString();
 }

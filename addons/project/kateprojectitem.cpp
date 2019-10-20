@@ -101,24 +101,24 @@ QIcon *KateProjectItem::icon() const
     }
 
     switch (m_type) {
-        case Project:
-            m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("folder-documents")));
-            break;
+    case Project:
+        m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("folder-documents")));
+        break;
 
-        case Directory:
-            m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("folder")));
-            break;
+    case Directory:
+        m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("folder")));
+        break;
 
-        case File: {
-            QString iconName = QMimeDatabase().mimeTypeForUrl(QUrl::fromLocalFile(data(Qt::UserRole).toString())).iconName();
-            QStringList emblems;
-            if (!m_emblem.isEmpty()) {
-                m_icon = new QIcon(KIconUtils::addOverlay(QIcon::fromTheme(iconName), QIcon(m_emblem), Qt::TopLeftCorner));
-            } else {
-                m_icon = new QIcon(QIcon::fromTheme(iconName));
-            }
-            break;
+    case File: {
+        QString iconName = QMimeDatabase().mimeTypeForUrl(QUrl::fromLocalFile(data(Qt::UserRole).toString())).iconName();
+        QStringList emblems;
+        if (!m_emblem.isEmpty()) {
+            m_icon = new QIcon(KIconUtils::addOverlay(QIcon::fromTheme(iconName), QIcon(m_emblem), Qt::TopLeftCorner));
+        } else {
+            m_icon = new QIcon(QIcon::fromTheme(iconName));
         }
+        break;
+    }
     }
 
     return m_icon;

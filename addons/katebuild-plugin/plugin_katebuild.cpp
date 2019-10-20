@@ -75,12 +75,12 @@ static QIcon messageIcon(KateBuildView::ErrorCategory severity)
         return icon;                                                                                                                                                                                                                           \
     }
     switch (severity) {
-        case KateBuildView::CategoryError:
-            RETURN_CACHED_ICON("dialog-error")
-        case KateBuildView::CategoryWarning:
-            RETURN_CACHED_ICON("dialog-warning")
-        default:
-            break;
+    case KateBuildView::CategoryError:
+        RETURN_CACHED_ICON("dialog-error")
+    case KateBuildView::CategoryWarning:
+        RETURN_CACHED_ICON("dialog-warning")
+    default:
+        break;
     }
     return QIcon();
 }
@@ -526,18 +526,18 @@ void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
             KTextEditor::MarkInterface::MarkTypes markType {};
 
             switch (category) {
-                case CategoryError: {
-                    markType = KTextEditor::MarkInterface::Error;
-                    iface->setMarkDescription(markType, i18n("Error"));
-                    break;
-                }
-                case CategoryWarning: {
-                    markType = KTextEditor::MarkInterface::Warning;
-                    iface->setMarkDescription(markType, i18n("Warning"));
-                    break;
-                }
-                default:
-                    break;
+            case CategoryError: {
+                markType = KTextEditor::MarkInterface::Error;
+                iface->setMarkDescription(markType, i18n("Error"));
+                break;
+            }
+            case CategoryWarning: {
+                markType = KTextEditor::MarkInterface::Warning;
+                iface->setMarkDescription(markType, i18n("Warning"));
+                break;
+            }
+            default:
+                break;
             }
 
             if (markType) {
@@ -1082,18 +1082,18 @@ void KateBuildView::slotDisplayMode(int mode)
 
     QString modeText;
     switch (mode) {
-        case OnlyErrors:
-            modeText = i18n("Only Errors");
-            break;
-        case ErrorsAndWarnings:
-            modeText = i18n("Errors and Warnings");
-            break;
-        case ParsedOutput:
-            modeText = i18n("Parsed Output");
-            break;
-        case FullOutput:
-            modeText = i18n("Full Output");
-            break;
+    case OnlyErrors:
+        modeText = i18n("Only Errors");
+        break;
+    case ErrorsAndWarnings:
+        modeText = i18n("Errors and Warnings");
+        break;
+    case ParsedOutput:
+        modeText = i18n("Parsed Output");
+        break;
+    case FullOutput:
+        modeText = i18n("Full Output");
+        break;
     }
     m_buildUi.displayModeLabel->setText(modeText);
 
@@ -1109,15 +1109,15 @@ void KateBuildView::slotDisplayMode(int mode)
         const ErrorCategory errorCategory = static_cast<ErrorCategory>(item->data(0, ErrorRole).toInt());
 
         switch (errorCategory) {
-            case CategoryInfo:
-                item->setHidden(mode > 1);
-                break;
-            case CategoryWarning:
-                item->setHidden(mode > 2);
-                break;
-            case CategoryError:
-                item->setHidden(false);
-                break;
+        case CategoryInfo:
+            item->setHidden(mode > 1);
+            break;
+        case CategoryWarning:
+            item->setHidden(mode > 2);
+            break;
+        case CategoryError:
+            item->setHidden(false);
+            break;
         }
     }
 }

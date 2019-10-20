@@ -55,22 +55,22 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     const QString key = m_connections.keys().at(index.row());
 
     switch (role) {
-        case Qt::DisplayRole:
-            return QVariant(m_connections.value(key).name);
+    case Qt::DisplayRole:
+        return QVariant(m_connections.value(key).name);
 
-        case Qt::UserRole:
-            return QVariant::fromValue<Connection>(m_connections.value(key));
+    case Qt::UserRole:
+        return QVariant::fromValue<Connection>(m_connections.value(key));
 
-        case Qt::DecorationRole:
-            return m_icons[m_connections.value(key).status];
+    case Qt::DecorationRole:
+        return m_icons[m_connections.value(key).status];
 
-        case Qt::SizeHintRole: {
-            const QFontMetrics metrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
-            return QSize(metrics.boundingRect(m_connections.value(key).name).width(), 22);
-        }
+    case Qt::SizeHintRole: {
+        const QFontMetrics metrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
+        return QSize(metrics.boundingRect(m_connections.value(key).name).width(), 22);
+    }
 
-        default:
-            return QVariant();
+    default:
+        return QVariant();
     }
 
     return QVariant();

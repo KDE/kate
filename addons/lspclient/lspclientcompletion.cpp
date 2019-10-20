@@ -48,27 +48,27 @@
 static QIcon kind_icon(LSPCompletionItemKind kind)
 {
     switch (kind) {
-        case LSPCompletionItemKind::Method:
-        case LSPCompletionItemKind::Function:
-        case LSPCompletionItemKind::Constructor:
-            RETURN_CACHED_ICON("code-function")
-        case LSPCompletionItemKind::Variable:
-            RETURN_CACHED_ICON("code-variable")
-        case LSPCompletionItemKind::Class:
-        case LSPCompletionItemKind::Interface:
-        case LSPCompletionItemKind::Struct:
-            RETURN_CACHED_ICON("code-class");
-        case LSPCompletionItemKind::Module:
-            RETURN_CACHED_ICON("code-block");
-        case LSPCompletionItemKind::Field:
-        case LSPCompletionItemKind::Property:
-            // align with symbolview
-            RETURN_CACHED_ICON("code-variable");
-        case LSPCompletionItemKind::Enum:
-        case LSPCompletionItemKind::EnumMember:
-            RETURN_CACHED_ICON("enum");
-        default:
-            break;
+    case LSPCompletionItemKind::Method:
+    case LSPCompletionItemKind::Function:
+    case LSPCompletionItemKind::Constructor:
+        RETURN_CACHED_ICON("code-function")
+    case LSPCompletionItemKind::Variable:
+        RETURN_CACHED_ICON("code-variable")
+    case LSPCompletionItemKind::Class:
+    case LSPCompletionItemKind::Interface:
+    case LSPCompletionItemKind::Struct:
+        RETURN_CACHED_ICON("code-class");
+    case LSPCompletionItemKind::Module:
+        RETURN_CACHED_ICON("code-block");
+    case LSPCompletionItemKind::Field:
+    case LSPCompletionItemKind::Property:
+        // align with symbolview
+        RETURN_CACHED_ICON("code-variable");
+    case LSPCompletionItemKind::Enum:
+    case LSPCompletionItemKind::EnumMember:
+        RETURN_CACHED_ICON("enum");
+    default:
+        break;
     }
     return QIcon();
 }
@@ -79,30 +79,30 @@ static KTextEditor::CodeCompletionModel::CompletionProperty kind_property(LSPCom
     auto p = CompletionProperty::NoProperty;
 
     switch (kind) {
-        case LSPCompletionItemKind::Method:
-        case LSPCompletionItemKind::Function:
-        case LSPCompletionItemKind::Constructor:
-            p = CompletionProperty::Function;
-            break;
-        case LSPCompletionItemKind::Variable:
-            p = CompletionProperty::Variable;
-            break;
-        case LSPCompletionItemKind::Class:
-        case LSPCompletionItemKind::Interface:
-            p = CompletionProperty::Class;
-            break;
-        case LSPCompletionItemKind::Struct:
-            p = CompletionProperty::Class;
-            break;
-        case LSPCompletionItemKind::Module:
-            p = CompletionProperty::Namespace;
-            break;
-        case LSPCompletionItemKind::Enum:
-        case LSPCompletionItemKind::EnumMember:
-            p = CompletionProperty::Enum;
-            break;
-        default:
-            break;
+    case LSPCompletionItemKind::Method:
+    case LSPCompletionItemKind::Function:
+    case LSPCompletionItemKind::Constructor:
+        p = CompletionProperty::Function;
+        break;
+    case LSPCompletionItemKind::Variable:
+        p = CompletionProperty::Variable;
+        break;
+    case LSPCompletionItemKind::Class:
+    case LSPCompletionItemKind::Interface:
+        p = CompletionProperty::Class;
+        break;
+    case LSPCompletionItemKind::Struct:
+        p = CompletionProperty::Class;
+        break;
+    case LSPCompletionItemKind::Module:
+        p = CompletionProperty::Namespace;
+        break;
+    case LSPCompletionItemKind::Enum:
+    case LSPCompletionItemKind::EnumMember:
+        p = CompletionProperty::Enum;
+        break;
+    default:
+        break;
     }
     return p;
 }

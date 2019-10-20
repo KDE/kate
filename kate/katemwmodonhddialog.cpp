@@ -194,19 +194,19 @@ void KateMwModOnHdDialog::handleSelected(int action)
             }
 
             switch (action) {
-                case Overwrite:
-                    success = item->document->save();
-                    if (!success) {
-                        KMessageBox::sorry(this, i18n("Could not save the document \n'%1'", item->document->url().toString()));
-                    }
-                    break;
+            case Overwrite:
+                success = item->document->save();
+                if (!success) {
+                    KMessageBox::sorry(this, i18n("Could not save the document \n'%1'", item->document->url().toString()));
+                }
+                break;
 
-                case Reload:
-                    item->document->documentReload();
-                    break;
+            case Reload:
+                item->document->documentReload();
+                break;
 
-                default:
-                    break;
+            default:
+                break;
             }
 
             if (success) {

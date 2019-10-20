@@ -1656,29 +1656,28 @@ void KatePluginSearchView::updateResultsRootItem()
     }
 
     switch (searchPlace) {
-        case CurrentFile:
-            root->setData(0, Qt::DisplayRole, i18np("<b><i>One match (%2) found in file</i></b>", "<b><i>%1 matches (%2) found in file</i></b>", m_curResults->matches, checkedStr));
-            break;
-        case OpenFiles:
-            root->setData(0, Qt::DisplayRole, i18np("<b><i>One match (%2) found in open files</i></b>", "<b><i>%1 matches (%2) found in open files</i></b>", m_curResults->matches, checkedStr));
-            break;
-        case Folder:
-            root->setData(0, Qt::DisplayRole, i18np("<b><i>One match (%3) found in folder %2</i></b>", "<b><i>%1 matches (%3) found in folder %2</i></b>", m_curResults->matches, m_resultBaseDir, checkedStr));
-            break;
-        case Project: {
-            QString projectName;
-            if (m_projectPluginView) {
-                projectName = m_projectPluginView->property("projectName").toString();
-            }
-            root->setData(0, Qt::DisplayRole, i18np("<b><i>One match (%4) found in project %2 (%3)</i></b>", "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>", m_curResults->matches, projectName, m_resultBaseDir, checkedStr));
-            break;
+    case CurrentFile:
+        root->setData(0, Qt::DisplayRole, i18np("<b><i>One match (%2) found in file</i></b>", "<b><i>%1 matches (%2) found in file</i></b>", m_curResults->matches, checkedStr));
+        break;
+    case OpenFiles:
+        root->setData(0, Qt::DisplayRole, i18np("<b><i>One match (%2) found in open files</i></b>", "<b><i>%1 matches (%2) found in open files</i></b>", m_curResults->matches, checkedStr));
+        break;
+    case Folder:
+        root->setData(0, Qt::DisplayRole, i18np("<b><i>One match (%3) found in folder %2</i></b>", "<b><i>%1 matches (%3) found in folder %2</i></b>", m_curResults->matches, m_resultBaseDir, checkedStr));
+        break;
+    case Project: {
+        QString projectName;
+        if (m_projectPluginView) {
+            projectName = m_projectPluginView->property("projectName").toString();
         }
-        case AllProjects: // "in Open Projects"
-            root->setData(
-                0,
-                Qt::DisplayRole,
-                i18np("<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>", "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>", m_curResults->matches, m_resultBaseDir, checkedStr));
-            break;
+        root->setData(0, Qt::DisplayRole, i18np("<b><i>One match (%4) found in project %2 (%3)</i></b>", "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>", m_curResults->matches, projectName, m_resultBaseDir, checkedStr));
+        break;
+    }
+    case AllProjects: // "in Open Projects"
+        root->setData(0,
+                      Qt::DisplayRole,
+                      i18np("<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>", "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>", m_curResults->matches, m_resultBaseDir, checkedStr));
+        break;
     }
 
     docViewChanged();

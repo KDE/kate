@@ -51,10 +51,10 @@ QVariant KateProjectCompletion::data(const QModelIndex &index, int role) const
     if (!index.parent().isValid()) {
         // It is the group header
         switch (role) {
-            case Qt::DisplayRole:
-                return i18n("Project Completion");
-            case GroupRole:
-                return Qt::DisplayRole;
+        case Qt::DisplayRole:
+            return i18n("Project Completion");
+        case GroupRole:
+            return Qt::DisplayRole;
         }
     }
 

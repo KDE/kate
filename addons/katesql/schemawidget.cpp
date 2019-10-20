@@ -232,25 +232,25 @@ void SchemaWidget::slotItemExpanded(QTreeWidgetItem *item)
         return;
 
     switch (item->type()) {
-        case SchemaWidget::TablesFolderType: {
-            if (!m_tablesLoaded)
-                buildTables(item);
-        } break;
+    case SchemaWidget::TablesFolderType: {
+        if (!m_tablesLoaded)
+            buildTables(item);
+    } break;
 
-        case SchemaWidget::ViewsFolderType: {
-            if (!m_viewsLoaded)
-                buildViews(item);
-        } break;
+    case SchemaWidget::ViewsFolderType: {
+        if (!m_viewsLoaded)
+            buildViews(item);
+    } break;
 
-        case SchemaWidget::TableType:
-        case SchemaWidget::SystemTableType:
-        case SchemaWidget::ViewType: {
-            if (item->childCount() == 0)
-                buildFields(item);
-        } break;
+    case SchemaWidget::TableType:
+    case SchemaWidget::SystemTableType:
+    case SchemaWidget::ViewType: {
+        if (item->childCount() == 0)
+            buildFields(item);
+    } break;
 
-        default:
-            break;
+    default:
+        break;
     }
 }
 
@@ -297,41 +297,41 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
     QString statement;
 
     switch (item->type()) {
-        case TableType:
-        case SystemTableType:
-        case ViewType: {
-            QString tableName = item->text(0);
+    case TableType:
+    case SystemTableType:
+    case ViewType: {
+        QString tableName = item->text(0);
 
-            QSqlRecord rec = db.record(tableName);
+        QSqlRecord rec = db.record(tableName);
 
-            // set all fields to a value (NULL)
-            // values are needed to generate update and insert statements
-            if (statementType == QSqlDriver::UpdateStatement || statementType == QSqlDriver::InsertStatement)
-                for (int i = 0, n = rec.count(); i < n; ++i)
-                    rec.setNull(i);
+        // set all fields to a value (NULL)
+        // values are needed to generate update and insert statements
+        if (statementType == QSqlDriver::UpdateStatement || statementType == QSqlDriver::InsertStatement)
+            for (int i = 0, n = rec.count(); i < n; ++i)
+                rec.setNull(i);
 
-            statement = drv->sqlStatement(statementType, tableName, rec, false);
-        } break;
+        statement = drv->sqlStatement(statementType, tableName, rec, false);
+    } break;
 
-        case FieldType: {
-            QString tableName = item->parent()->text(0);
-            QSqlRecord rec = db.record(tableName);
+    case FieldType: {
+        QString tableName = item->parent()->text(0);
+        QSqlRecord rec = db.record(tableName);
 
-            // get the selected column...
-            QSqlField field = rec.field(item->text(0));
+        // get the selected column...
+        QSqlField field = rec.field(item->text(0));
 
-            // ...and set its value to NULL
-            field.clear();
+        // ...and set its value to NULL
+        field.clear();
 
-            // clear all columns and re-append the selected one
-            rec.clear();
-            rec.append(field);
+        // clear all columns and re-append the selected one
+        rec.clear();
+        rec.append(field);
 
-            statement = drv->sqlStatement(statementType, tableName, rec, false);
+        statement = drv->sqlStatement(statementType, tableName, rec, false);
 
-            if (statementType == QSqlDriver::DeleteStatement)
-                statement += QLatin1Char(' ') + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(QLatin1String(" IS NULL"), QLatin1String("=?"));
-        } break;
+        if (statementType == QSqlDriver::DeleteStatement)
+            statement += QLatin1Char(' ') + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(QLatin1String(" IS NULL"), QLatin1String("=?"));
+    } break;
     }
 
     KTextEditor::MainWindow *mw = KTextEditor::Editor::instance()->application()->activeMainWindow();

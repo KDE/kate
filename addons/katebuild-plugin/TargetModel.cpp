@@ -308,10 +308,10 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
         switch (index.column()) {
-            case 0:
-                return m_targets[row].name;
-            case 1:
-                return m_targets[row].workDir;
+        case 0:
+            return m_targets[row].name;
+        case 1:
+            return m_targets[row].workDir;
         }
     } else {
         int rootIndex = index.internalId();
@@ -329,10 +329,10 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return m_targets[rootIndex].commands[row].first == m_targets[rootIndex].defaultCmd ? Qt::Checked : Qt::Unchecked;
         } else {
             switch (index.column()) {
-                case 0:
-                    return m_targets[rootIndex].commands[row].first;
-                case 1:
-                    return m_targets[rootIndex].commands[row].second;
+            case 0:
+                return m_targets[rootIndex].commands[row].first;
+            case 1:
+                return m_targets[rootIndex].commands[row].second;
             }
         }
     }
@@ -375,12 +375,12 @@ bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int r
             return false;
         }
         switch (index.column()) {
-            case 0:
-                m_targets[row].name = value.toString();
-                return true;
-            case 1:
-                m_targets[row].workDir = value.toString();
-                return true;
+        case 0:
+            m_targets[row].name = value.toString();
+            return true;
+        case 1:
+            m_targets[row].workDir = value.toString();
+            return true;
         }
     } else {
         int rootIndex = index.internalId();
@@ -398,12 +398,12 @@ bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int r
             }
         } else {
             switch (index.column()) {
-                case 0:
-                    m_targets[rootIndex].commands[row].first = value.toString();
-                    return true;
-                case 1:
-                    m_targets[rootIndex].commands[row].second = value.toString();
-                    return true;
+            case 0:
+                m_targets[rootIndex].commands[row].first = value.toString();
+                return true;
+            case 1:
+                m_targets[rootIndex].commands[row].second = value.toString();
+                return true;
             }
         }
     }

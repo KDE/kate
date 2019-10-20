@@ -445,16 +445,16 @@ void KateConfigDialog::closeEvent(QCloseEvent *event)
     const auto response =
         KMessageBox::warningYesNoCancel(this, i18n("You have unsaved changes. Do you want to apply the changes or discard them?"), i18n("Warning"), KStandardGuiItem::save(), KStandardGuiItem::discard(), KStandardGuiItem::cancel());
     switch (response) {
-        case KMessageBox::Yes:
-            slotApply();
-            Q_FALLTHROUGH();
-        case KMessageBox::No:
-            event->accept();
-            break;
-        case KMessageBox::Cancel:
-            event->ignore();
-            break;
-        default:
-            break;
+    case KMessageBox::Yes:
+        slotApply();
+        Q_FALLTHROUGH();
+    case KMessageBox::No:
+        event->accept();
+        break;
+    case KMessageBox::Cancel:
+        event->ignore();
+        break;
+    default:
+        break;
     }
 }

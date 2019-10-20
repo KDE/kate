@@ -526,52 +526,52 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
     }
 
     switch (role) {
-        case KateFileTreeModel::PathRole:
-            // allow to sort with hostname + path, bug 271488
-            return (item->doc() && !item->doc()->url().isEmpty()) ? item->doc()->url().toString() : item->path();
+    case KateFileTreeModel::PathRole:
+        // allow to sort with hostname + path, bug 271488
+        return (item->doc() && !item->doc()->url().isEmpty()) ? item->doc()->url().toString() : item->path();
 
-        case KateFileTreeModel::DocumentRole:
-            return QVariant::fromValue(item->doc());
+    case KateFileTreeModel::DocumentRole:
+        return QVariant::fromValue(item->doc());
 
-        case KateFileTreeModel::OpeningOrderRole:
-            return item->row();
+    case KateFileTreeModel::OpeningOrderRole:
+        return item->row();
 
-        case KateFileTreeModel::DocumentTreeRole:
-            return QVariant::fromValue(item->docTree());
+    case KateFileTreeModel::DocumentTreeRole:
+        return QVariant::fromValue(item->docTree());
 
-        case Qt::DisplayRole:
-            // in list mode we want to use kate's fancy names.
-            if (m_listMode) {
-                return item->documentName();
-            } else {
-                return item->display();
-            }
-
-        case Qt::DecorationRole:
-            return item->icon();
-
-        case Qt::ToolTipRole: {
-            QString tooltip = item->path();
-            if (item->flag(ProxyItem::DeletedExternally) || item->flag(ProxyItem::ModifiedExternally)) {
-                tooltip = i18nc("%1 is the full path", "<p><b>%1</b></p><p>The document has been modified by another application.</p>", item->path());
-            }
-
-            return tooltip;
+    case Qt::DisplayRole:
+        // in list mode we want to use kate's fancy names.
+        if (m_listMode) {
+            return item->documentName();
+        } else {
+            return item->display();
         }
 
-        case Qt::ForegroundRole: {
-            const KColorScheme colors(QPalette::Active);
-            if (!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) {
-                return colors.foreground(KColorScheme::InactiveText).color();
-            }
-        } break;
+    case Qt::DecorationRole:
+        return item->icon();
 
-        case Qt::BackgroundRole:
-            // TODO: do that funky shading the file list does...
-            if (m_shadingEnabled && m_brushes.contains(item)) {
-                return m_brushes[item];
-            }
-            break;
+    case Qt::ToolTipRole: {
+        QString tooltip = item->path();
+        if (item->flag(ProxyItem::DeletedExternally) || item->flag(ProxyItem::ModifiedExternally)) {
+            tooltip = i18nc("%1 is the full path", "<p><b>%1</b></p><p>The document has been modified by another application.</p>", item->path());
+        }
+
+        return tooltip;
+    }
+
+    case Qt::ForegroundRole: {
+        const KColorScheme colors(QPalette::Active);
+        if (!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) {
+            return colors.foreground(KColorScheme::InactiveText).color();
+        }
+    } break;
+
+    case Qt::BackgroundRole:
+        // TODO: do that funky shading the file list does...
+        if (m_shadingEnabled && m_brushes.contains(item)) {
+            return m_brushes[item];
+        }
+        break;
     }
 
     return QVariant();

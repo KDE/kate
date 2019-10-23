@@ -229,7 +229,13 @@ void KateViewManager::slotDocumentOpen()
     } else {
         startUrl = m_lastOpenDialogUrl;
     }
-    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(m_mainWindow, i18n("Open File"), startUrl);
+    // if file is not local, then remove filename from url
+    QList<QUrl> urls;
+    if (startUrl.isLocalFile()) {
+        urls = QFileDialog::getOpenFileUrls(m_mainWindow, i18n("Open File"), startUrl);
+    } else {
+        urls = QFileDialog::getOpenFileUrls(m_mainWindow, i18n("Open File"), startUrl.adjusted(QUrl::RemoveFilename));
+    }
 
     /**
      * emit size warning, for local files

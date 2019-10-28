@@ -1,4 +1,7 @@
-/*
+/*  SPDX-License-Identifier: LGPL-2.0-or-later
+
+    Copyright (C) 2018 Tomaz Canabrava <tcanabrava@kde.org>
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
     License as published by the Free Software Foundation; either
@@ -13,8 +16,6 @@
     along with this library; see the file COPYING.LIB.  If not, write to
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA 02110-1301, USA.
-    ---
-    Copyright (C) 2018 Tomaz Canabrava <tcanabrava@kde.org>
 */
 
 #ifndef KATEQUICKOPENMODEL_H

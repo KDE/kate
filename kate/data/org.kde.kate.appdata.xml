@@ -100,6 +100,7 @@
     <p xml:lang="el">Το Kate είναι ένας πολλών εγγράφων, πολλών προβολών επεξεργαστής κειμένου από το KDE. Περιέχει λειτουργίες όπως απόκρυψη κώδικα, επισήμανση σύνταξης, δυναμική αναδίπλωση λέξεων, ενσωματωμένη κονσόλα, εκτεταμένο περιβάλλον χρήσης προσθέτων και κάποια βασική υποστήριξη συγγραφής σεναρίων.</p>
     <p xml:lang="en-GB">Kate is a multi-document, multi-view text editor by KDE. It features stuff like code folding, syntax highlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.</p>
     <p xml:lang="es">Kate es un editor de texto creado por KDE que puede abrir varios documentos a la vez y que cuenta con varios modos de vista. Entre otras funcionalidades dispone de plegado de código, resaltado de sintaxis, justificado de línea dinámico, consola integrada, una amplia interfaz para complementos y admite scripts de manera preliminar.</p>
+    <p xml:lang="et">Kate on KDE mitut dokumenti redigeerida võimaldav mitme vaatega tekstiredaktor. See suudab koodi voltida, süntaksit esile tõsta, dünaamiliselt ridu murda, pakub põimitud konsooli, ulatuslikult pluginaid ja mõningat skriptimise toetust.</p>
     <p xml:lang="eu">Kate KDEk eginiko testu-editore dokumentu-anitza, ikuspegi-anitza da. Kode-tolestea, sintaxi-nabarmentzea, itzulbiratze-dinamikoa, kapsulatutako kontsola, osagarri interfaze zabal bat eta hastapenetan dagoen script bidez hedatzeko euskarria gisako eginbideak eskaintzen ditu.</p>
     <p xml:lang="fi">Kate on KDE:n usean tiedoston ja näkymän tekstimuokkain, jossa on on koodin laskostus, syntaksikorostus, dynaaminen rivitys, upotettu konsoli, kattava liitännäisrajapinta sekä alustava skriptaustuki.</p>
     <p xml:lang="fr">Kate est un éditeur de texte multi-documents et multi-vues pour KDE. Il offre des fonctionnalités comme le repliement de code, la coloration syntaxique, le retour à la ligne automatique, une console intégrée, une interface complète pour modules complémentaires, et un début de prise en charge d'automatisation par scripts.</p>
@@ -909,6 +910,7 @@
       <caption xml:lang="el">Επεξεργασία κώδικα με το Kate</caption>
       <caption xml:lang="en-GB">Editing code with Kate</caption>
       <caption xml:lang="es">Edición de código con Kate</caption>
+      <caption xml:lang="et">Koodi muutmine Kates</caption>
       <caption xml:lang="eu">Kate-rekin kodea editatzea</caption>
       <caption xml:lang="fi">Koodin muokkaus Katella</caption>
       <caption xml:lang="fr">Édition de code avec Kate</caption>

@@ -104,6 +104,7 @@
     <p xml:lang="el">Το KWrite είναι ένας επεξεργαστής κειμένου από το KDE, με βάση το συστατικό του επεξεργαστή Kate.</p>
     <p xml:lang="en-GB">KWrite is a text editor by KDE, based on the Kate's editor component.</p>
     <p xml:lang="es">KWrite es un editor de texto creado por KDE basado en el componente de edición de Kate.</p>
+    <p xml:lang="et">KWrite on KDE tekstiredaktor, mille aluseks on Kate redaktorikomponent.</p>
     <p xml:lang="eu">Kwrite KDEk eginiko testu-editore bat da, Kate-ren editore osagaian oinarritua.</p>
     <p xml:lang="fi">KWrite on KDE:n tekstimuokkain, joka perustuu Katen muokkainosaan.</p>
     <p xml:lang="fr">KWrite est un éditeur de texte fait par KDE et s'appuyant sur le composant éditeur de Kate.</p>
@@ -409,6 +410,7 @@
       <caption xml:lang="el">Επεξεργασία κικα με το KWrite</caption>
       <caption xml:lang="en-GB">Editing code with KWrite</caption>
       <caption xml:lang="es">Edición de código con KWrite</caption>
+      <caption xml:lang="et">Koodi muutmine KWrite'is</caption>
       <caption xml:lang="eu">KWrite-rekin kodea editatzea</caption>
       <caption xml:lang="fi">Koodin muokkaus KWritella</caption>
       <caption xml:lang="fr">Modification de code avec KWrite</caption>

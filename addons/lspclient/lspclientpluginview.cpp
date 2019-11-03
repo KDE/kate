@@ -59,6 +59,7 @@
 #include <QInputDialog>
 #include <QJsonObject>
 #include <QKeyEvent>
+#include <QMenu>
 #include <QSet>
 #include <QStandardItem>
 #include <QTextCodec>
@@ -437,6 +438,14 @@ public:
         treeView->setLayoutDirection(Qt::LeftToRight);
         treeView->setSortingEnabled(false);
         treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+        // context menu
+        treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+        auto menu = new QMenu(treeView);
+        menu->addAction(i18n("Expand All"), treeView, &QTreeView::expandAll);
+        menu->addAction(i18n("Collapse All"), treeView, &QTreeView::collapseAll);
+        auto h = [menu](const QPoint &) { menu->popup(QCursor::pos()); };
+        connect(treeView, &QTreeView::customContextMenuRequested, h);
     }
 
     void displayOptionChanged()

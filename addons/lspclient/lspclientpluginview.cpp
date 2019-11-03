@@ -1531,8 +1531,8 @@ public:
         updateCompletion(activeView, server.data());
 
         // update hover with relevant server
-        m_hover->setServer((m_autoHover && m_autoHover->isChecked()) ? server : nullptr);
-        updateHover(activeView, server.data());
+        m_hover->setServer(server);
+        updateHover(activeView, (m_autoHover && m_autoHover->isChecked()) ? server.data() : nullptr);
 
         // update marks if applicable
         if (m_markModel && doc)

@@ -1173,7 +1173,13 @@ void KateBuildView::slotAddProjectTarget()
     // Delete any old project plugin targets
     m_targetsUi->targetsModel.deleteTargetSet(i18n("Project Plugin Targets"));
 
-    int set = m_targetsUi->targetsModel.addTargetSet(i18n("Project Plugin Targets"), buildMap.value(QStringLiteral("directory")).toString());
+    // handle build directory as relative to project file, if possible, see bug 413306
+    QString projectsBuildDir = buildMap.value(QStringLiteral("directory")).toString();
+    const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
+    if (!projectsBaseDir.isEmpty()) {
+        projectsBuildDir = QDir(projectsBaseDir).absoluteFilePath(projectsBuildDir);
+    }
+    const int set = m_targetsUi->targetsModel.addTargetSet(i18n("Project Plugin Targets"), projectsBuildDir);
 
     const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
     for (const QVariant &targetVariant : targetsets) {

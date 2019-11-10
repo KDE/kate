@@ -309,7 +309,7 @@ QModelIndex PluginKateXMLToolsCompletionModel::index(const int row, const int co
     }
     if (parent.internalId() == groupNode) {                   // Is this a group node?
         if (0 <= row && row < m_allowed.size()) {             // Make sure to return only valid indices
-            return createIndex(row, column, (void *)nullptr); // Just return a leaf-level index
+            return createIndex(row, column, nullptr); // Just return a leaf-level index
         }
     }
     // Leaf node has no children... nothing to return
@@ -658,7 +658,7 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View 
         }
 
         // find right quote:
-        for (endAttValue = col; endAttValue <= (uint)lineStr.length(); endAttValue++) {
+        for (endAttValue = col; endAttValue <= static_cast<uint>(lineStr.length()); endAttValue++) {
             QString ch = lineStr.mid(endAttValue - 1, 1);
             if (isQuote(ch)) {
                 break;

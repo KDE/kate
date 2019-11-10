@@ -81,7 +81,7 @@ QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding
     if (!doc) {
         return QStringLiteral("ERROR");
     }
-    return QStringLiteral("%1").arg((qptrdiff)doc);
+    return QStringLiteral("%1").arg(reinterpret_cast<qptrdiff>(doc));
 }
 
 QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding, bool isTempFile)
@@ -91,7 +91,7 @@ QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding
     if (!doc) {
         return QStringLiteral("ERROR");
     }
-    return QStringLiteral("%1").arg((qptrdiff)doc);
+    return QStringLiteral("%1").arg(reinterpret_cast<qptrdiff>(doc));
 }
 
 QString KateAppAdaptor::tokenOpenUrlAt(const QString &url, int line, int column, const QString &encoding, bool isTempFile)
@@ -102,7 +102,7 @@ QString KateAppAdaptor::tokenOpenUrlAt(const QString &url, int line, int column,
         return QStringLiteral("ERROR");
     }
     m_app->setCursor(line, column);
-    return QStringLiteral("%1").arg((qptrdiff)doc);
+    return QStringLiteral("%1").arg(reinterpret_cast<qptrdiff>(doc));
 }
 //--------
 

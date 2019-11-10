@@ -807,7 +807,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     vsNew->setActive(true);
     vsNew->show();
 
-    createView((KTextEditor::Document *)activeView()->document());
+    createView(activeView()->document());
 
     updateViewSpaceActions();
 }
@@ -1125,7 +1125,7 @@ void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QStri
 {
     KConfigGroup config(configBase, group);
 
-    parent->setOrientation((Qt::Orientation)config.readEntry("Orientation", int(Qt::Horizontal)));
+    parent->setOrientation(static_cast<Qt::Orientation>(config.readEntry("Orientation", int(Qt::Horizontal))));
 
     const QStringList children = config.readEntry("Children", QStringList());
     for (const auto &str : children) {
@@ -1184,7 +1184,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         move = fm.height() * repeats;
     }
 
-    QWidget *currentWidget = (QWidget *)vs;
+    QWidget *currentWidget = static_cast<QWidget *>(vs);
     bool foundSplitter = false;
 
     // find correct splitter to be moved
@@ -1230,7 +1230,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
             break;
         }
 
-        currentWidget = (QWidget *)currentSplitter;
+        currentWidget = static_cast<QWidget *>(currentSplitter);
         // the parent of the current splitter will become the current splitter
         currentSplitter = qobject_cast<QSplitter *>(currentSplitter->parentWidget());
     }

@@ -525,7 +525,7 @@ void Sidebar::tabClicked(int i)
 bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 {
     if (ev->type() == QEvent::ContextMenu) {
-        QContextMenuEvent *e = (QContextMenuEvent *)ev;
+        QContextMenuEvent *e = static_cast<QContextMenuEvent *>(ev);
         KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab *>(obj);
         if (bt) {
             // qCDebug(LOG_KATE) << "Request for popup";
@@ -600,7 +600,7 @@ void Sidebar::buttonPopupActivate(QAction *a)
     // move ids
     if (id < 4) {
         // move + show ;)
-        m_mainWin->moveToolView(w, (KMultiTabBar::KMultiTabBarPosition)id);
+        m_mainWin->moveToolView(w, static_cast<KMultiTabBar::KMultiTabBarPosition>(id));
         m_mainWin->showToolView(w);
     }
 
@@ -677,7 +677,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
 
         // then: remove this items from the button bar
         // do this backwards, to minimize the relayout efforts
-        for (int i = m_toolviews.size() - 1; i >= (int)firstWrong; --i) {
+        for (int i = m_toolviews.size() - 1; i >= firstWrong; --i) {
             removeTab(m_widgetToId[m_toolviews[i]]);
         }
 
@@ -838,7 +838,7 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin, const QString 
     // try the restore config to figure out real pos
     if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
         KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-        pos = (KMultiTabBar::KMultiTabBarPosition)cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos));
+        pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos)));
     }
 
     ToolView *v = m_sidebars[pos]->addWidget(icon, text, nullptr);
@@ -933,7 +933,7 @@ bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPositi
     // try the restore config to figure out real pos
     if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
         KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-        pos = (KMultiTabBar::KMultiTabBarPosition)cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos));
+        pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos)));
     }
 
     m_sidebars[pos]->addWidget(widget->icon, widget->text, widget);
@@ -998,7 +998,7 @@ void MainWindow::startRestore(KConfigBase *config, const QString &group)
     KConfigGroup cg(m_restoreConfig, m_restoreGroup);
     KWindowConfig::restoreWindowSize(windowHandle(), cg);
 
-    setToolViewStyle((KMultiTabBar::KMultiTabBarStyle)cg.readEntry("Kate-MDI-Sidebar-Style", (int)toolViewStyle()));
+    setToolViewStyle(static_cast<KMultiTabBar::KMultiTabBarStyle>(cg.readEntry("Kate-MDI-Sidebar-Style", static_cast<int>(toolViewStyle()))));
     // after reading m_sidebarsVisible, update the GUI toggle action
     m_sidebarsVisible = cg.readEntry("Kate-MDI-Sidebar-Visible", true);
     m_guiClient->updateSidebarsVisibleAction();
@@ -1017,7 +1017,7 @@ void MainWindow::finishRestore()
 
         // reshuffle toolviews only if needed
         for (const auto tv : qAsConst(m_toolviews)) {
-            KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition)cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
+            KMultiTabBar::KMultiTabBarPosition newPos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position())));
 
             if (tv->sidebar()->position() != newPos) {
                 moveToolView(tv, newPos);
@@ -1076,7 +1076,7 @@ void MainWindow::saveSession(KConfigGroup &config)
     config.writeEntry("Kate-MDI-V-Splitter", vs);
 
     // save sidebar style
-    config.writeEntry("Kate-MDI-Sidebar-Style", (int)toolViewStyle());
+    config.writeEntry("Kate-MDI-Sidebar-Style", static_cast<int>(toolViewStyle()));
     config.writeEntry("Kate-MDI-Sidebar-Visible", m_sidebarsVisible);
 
     // save the sidebars

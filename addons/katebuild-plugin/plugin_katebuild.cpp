@@ -522,7 +522,7 @@ void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
 
         auto line = item->data(1, Qt::UserRole).toInt();
         if (mark) {
-            ErrorCategory category = (ErrorCategory)item->data(0, ErrorRole).toInt();
+            ErrorCategory category = static_cast<ErrorCategory>(item->data(0, ErrorRole).toInt());
             KTextEditor::MarkInterface::MarkTypes markType {};
 
             switch (category) {

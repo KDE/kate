@@ -88,7 +88,7 @@ void KateQuickOpenModel::refresh()
     QVector<ModelEntry> allDocuments;
     allDocuments.reserve(sortedViews.size() + openDocs.size() + projectDocs.size());
 
-    size_t sort_id = (size_t)-1;
+    size_t sort_id = static_cast<size_t>(-1);
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
         allDocuments.push_back({doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), true, sort_id--});

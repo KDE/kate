@@ -32,8 +32,8 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
     char comment = 0;
     int i;
 
-    QPixmap cls((const char **)class_xpm);
-    QPixmap sct((const char **)struct_xpm);
+    QPixmap cls(class_xpm);
+    QPixmap sct(struct_xpm);
 
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *topNode = nullptr;

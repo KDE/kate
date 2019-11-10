@@ -26,10 +26,10 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     QString cl; // Current Line
     QString stripped;
     char comment = 0;
-    QPixmap cls((const char **)class_xpm);
-    QPixmap sct((const char **)struct_xpm);
-    QPixmap mcr((const char **)macro_xpm);
-    QPixmap cls_int((const char **)class_int_xpm);
+    QPixmap cls(class_xpm);
+    QPixmap sct(struct_xpm);
+    QPixmap mcr(macro_xpm);
+    QPixmap cls_int(class_int_xpm);
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *mcrNode = nullptr, *sctNode = nullptr, *clsNode = nullptr;
     QTreeWidgetItem *lastMcrNode = nullptr, *lastSctNode = nullptr, *lastClsNode = nullptr;

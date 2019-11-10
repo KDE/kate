@@ -119,7 +119,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
     m_currItemTimer.setSingleShot(true);
     connect(&m_currItemTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
 
-    QPixmap cls((const char **)class_xpm);
+    QPixmap cls(class_xpm);
 
     m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_plugin_symbolviewer"), KTextEditor::MainWindow::Left, cls, i18n("Symbol List"));
 
@@ -404,7 +404,7 @@ KTextEditor::ConfigPage *KatePluginSymbolViewer::configPage(int, QWidget *parent
     p->treeView->setChecked(config.readEntry(QStringLiteral("TreeView"), false));
     p->sortSymbols->setChecked(config.readEntry(QStringLiteral("SortSymbols"), false));
     connect(p, &KatePluginSymbolViewerConfigPage::configPageApplyRequest, this, &KatePluginSymbolViewer::applyConfig);
-    return (KTextEditor::ConfigPage *)p;
+    return static_cast<KTextEditor::ConfigPage *>(p);
 }
 
 void KatePluginSymbolViewer::applyConfig(KatePluginSymbolViewerConfigPage *p)
@@ -475,7 +475,7 @@ QString KatePluginSymbolViewerConfigPage::fullName() const
 }
 QIcon KatePluginSymbolViewerConfigPage::icon() const
 {
-    return QPixmap((const char **)class_xpm);
+    return QPixmap(class_xpm);
 }
 
 void KatePluginSymbolViewerConfigPage::apply()

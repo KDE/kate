@@ -78,7 +78,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
 
     m_mainWindow->guiFactory()->addClient(this);
 
-    QMenu *sqlMenu = (QMenu *)factory()->container(QStringLiteral("SQL"), this);
+    QMenu *sqlMenu = static_cast<QMenu *>(factory()->container(QStringLiteral("SQL"), this));
 
     m_connectionsGroup = new QActionGroup(sqlMenu);
     m_connectionsGroup->setExclusive(true);
@@ -153,7 +153,7 @@ void KateSQLView::slotSQLMenuAboutToShow()
 {
     qDeleteAll(m_connectionsGroup->actions());
 
-    QMenu *sqlMenu = (QMenu *)factory()->container(QStringLiteral("SQL"), this);
+    QMenu *sqlMenu = static_cast<QMenu *>(factory()->container(QStringLiteral("SQL"), this));
     QAction *before = action("query_run");
     QAbstractItemModel *model = m_manager->connectionModel();
 

@@ -267,7 +267,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
 
 void KateFileTree::slotFixOpenWithMenu()
 {
-    QMenu *menu = (QMenu *)sender();
+    QMenu *menu = static_cast<QMenu *>(sender());
     menu->clear();
 
     KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();

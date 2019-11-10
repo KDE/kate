@@ -107,7 +107,7 @@ static QJsonObject to_json(const LSPDiagnostic &diagnostic)
     if (!diagnostic.code.isEmpty())
         result[QStringLiteral("code")] = diagnostic.code;
     if (diagnostic.severity != LSPDiagnosticSeverity::Unknown)
-        result[QStringLiteral("severity")] = (int)diagnostic.severity;
+        result[QStringLiteral("severity")] = static_cast<int>(diagnostic.severity);
     if (!diagnostic.source.isEmpty())
         result[QStringLiteral("source")] = diagnostic.source;
     QJsonArray relatedInfo;
@@ -273,7 +273,7 @@ static void from_json(LSPDocumentOnTypeFormattingOptions &options, const QJsonVa
 static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
 {
     auto sync = json.value(QStringLiteral("textDocumentSync"));
-    caps.textDocumentSync = (LSPDocumentSyncKind)(sync.isObject() ? sync.toObject().value(QStringLiteral("change")) : sync).toInt((int)LSPDocumentSyncKind::None);
+    caps.textDocumentSync = static_cast<LSPDocumentSyncKind>((sync.isObject() ? sync.toObject().value(QStringLiteral("change")) : sync).toInt(static_cast<int>(LSPDocumentSyncKind::None)));
     caps.hoverProvider = json.value(QStringLiteral("hoverProvider")).toBool();
     from_json(caps.completionProvider, json.value(QStringLiteral("completionProvider")));
     from_json(caps.signatureHelpProvider, json.value(QStringLiteral("signatureHelpProvider")));
@@ -356,7 +356,7 @@ static LSPDocumentHighlight parseDocumentHighlight(const QJsonValue &result)
 {
     auto hover = result.toObject();
     auto range = parseRange(hover.value(MEMBER_RANGE).toObject());
-    auto kind = (LSPDocumentHighlightKind)hover.value(MEMBER_KIND).toInt((int)LSPDocumentHighlightKind::Text); // default is
+    auto kind = static_cast<LSPDocumentHighlightKind>(hover.value(MEMBER_KIND).toInt(static_cast<int>(LSPDocumentHighlightKind::Text))); // default is
                                                                                                                // DocumentHighlightKind.Text
     return {range, kind};
 }
@@ -455,7 +455,7 @@ static QList<LSPSymbolInformation> parseDocumentSymbols(const QJsonValue &result
         auto list = parent ? &parent->children : &ret;
         if (isPositionValid(range.start()) && isPositionValid(range.end())) {
             auto name = symbol.value(QStringLiteral("name")).toString();
-            auto kind = (LSPSymbolKind)symbol.value(MEMBER_KIND).toInt();
+            auto kind = static_cast<LSPSymbolKind>(symbol.value(MEMBER_KIND).toInt());
             auto detail = symbol.value(MEMBER_DETAIL).toString();
             list->push_back({name, kind, range, detail});
             index.insert(name, &list->back());
@@ -505,7 +505,7 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
         auto insertText = item.value(QStringLiteral("insertText")).toString();
         if (insertText.isEmpty())
             insertText = label;
-        auto kind = (LSPCompletionItemKind)item.value(MEMBER_KIND).toInt();
+        auto kind = static_cast<LSPCompletionItemKind>(item.value(MEMBER_KIND).toInt());
         ret.push_back({label, kind, detail, doc, sortText, insertText});
     }
     return ret;
@@ -596,7 +596,7 @@ static QList<LSPDiagnostic> parseDiagnostics(const QJsonArray &result)
     for (const auto &vdiag : result) {
         auto diag = vdiag.toObject();
         auto range = parseRange(diag.value(MEMBER_RANGE).toObject());
-        auto severity = (LSPDiagnosticSeverity)diag.value(QStringLiteral("severity")).toInt();
+        auto severity = static_cast<LSPDiagnosticSeverity>(diag.value(QStringLiteral("severity")).toInt());
         auto code = diag.value(QStringLiteral("code")).toString();
         auto source = diag.value(QStringLiteral("source")).toString();
         auto message = diag.value(MEMBER_MESSAGE).toString();
@@ -865,7 +865,7 @@ private:
 
     static QJsonObject init_error(const LSPErrorCode code, const QString &msg)
     {
-        return QJsonObject {{MEMBER_ERROR, QJsonObject {{MEMBER_CODE, (int)code}, {MEMBER_MESSAGE, msg}}}};
+        return QJsonObject {{MEMBER_ERROR, QJsonObject {{MEMBER_CODE, static_cast<int>(code)}, {MEMBER_MESSAGE, msg}}}};
     }
 
     static QJsonObject init_request(const QString &method, const QJsonObject &params = QJsonObject())

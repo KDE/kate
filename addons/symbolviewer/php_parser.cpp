@@ -21,12 +21,12 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
 {
     if (m_mainWindow->activeView()) {
         QString line, lineWithliterals;
-        QPixmap namespacePix((const char **)class_int_xpm);
-        QPixmap definePix((const char **)macro_xpm);
-        QPixmap varPix((const char **)struct_xpm);
-        QPixmap classPix((const char **)class_xpm);
-        QPixmap constPix((const char **)macro_xpm);
-        QPixmap functionPix((const char **)method_xpm);
+        QPixmap namespacePix(class_int_xpm);
+        QPixmap definePix(macro_xpm);
+        QPixmap varPix(struct_xpm);
+        QPixmap classPix(class_xpm);
+        QPixmap constPix(macro_xpm);
+        QPixmap functionPix(method_xpm);
         QTreeWidgetItem *node = nullptr;
         QTreeWidgetItem *namespaceNode = nullptr, *defineNode = nullptr, *classNode = nullptr, *functionNode = nullptr;
         QTreeWidgetItem *lastNamespaceNode = nullptr, *lastDefineNode = nullptr, *lastClassNode = nullptr, *lastFunctionNode = nullptr;

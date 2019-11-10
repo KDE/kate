@@ -112,7 +112,7 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
     quint32 rootRow = index.internalId();
     if (rootRow == InvalidIndex) {
         rootRow = index.row();
-        if (m_targets.count() <= (int)rootRow)
+        if (m_targets.count() <= static_cast<int>(rootRow))
             return QModelIndex();
 
         beginInsertRows(QModelIndex(), m_targets.count(), m_targets.count());
@@ -132,7 +132,7 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
         ;
     }
 
-    if (m_targets.count() <= (int)rootRow)
+    if (m_targets.count() <= static_cast<int>(rootRow))
         return QModelIndex();
     if (index.row() < 0)
         return QModelIndex();
@@ -179,9 +179,9 @@ void TargetModel::deleteItem(const QModelIndex &index)
         beginRemoveRows(index.parent(), index.row(), index.row());
         m_targets.removeAt(index.row());
         endRemoveRows();
-    } else if (index.internalId() < (quint64)m_targets.size() && m_targets[(int)index.internalId()].commands.count() > index.row()) {
+    } else if (index.internalId() < static_cast<quint64>(m_targets.size()) && m_targets[static_cast<int>(index.internalId())].commands.count() > index.row()) {
         beginRemoveRows(index.parent(), index.row(), index.row());
-        m_targets[(int)index.internalId()].commands.removeAt(index.row());
+        m_targets[static_cast<int>(index.internalId())].commands.removeAt(index.row());
         endRemoveRows();
     }
 }
@@ -210,11 +210,11 @@ const QString TargetModel::command(const QModelIndex &itemIndex) const
         cRow = 0;
     }
 
-    if ((int)rRow >= m_targets.count()) {
+    if (static_cast<int>(rRow) >= m_targets.count()) {
         return QString();
     }
 
-    if (cRow < 0 || cRow >= m_targets[(int)rRow].commands.count()) {
+    if (cRow < 0 || cRow >= m_targets[static_cast<int>(rRow)].commands.count()) {
         return QString();
     }
 
@@ -233,15 +233,15 @@ const QString TargetModel::cmdName(const QModelIndex &itemIndex) const
         cRow = 0;
     }
 
-    if ((int)rRow >= m_targets.count()) {
+    if (static_cast<int>(rRow) >= m_targets.count()) {
         return QString();
     }
 
-    if (cRow < 0 || cRow >= m_targets[(int)rRow].commands.count()) {
+    if (cRow < 0 || cRow >= m_targets[static_cast<int>(rRow)].commands.count()) {
         return QString();
     }
 
-    return m_targets[(int)rRow].commands[cRow].first;
+    return m_targets[static_cast<int>(rRow)].commands[cRow].first;
 }
 
 const QString TargetModel::workDir(const QModelIndex &itemIndex) const
@@ -256,11 +256,11 @@ const QString TargetModel::workDir(const QModelIndex &itemIndex) const
         cRow = 0;
     }
 
-    if ((int)rRow >= m_targets.count()) {
+    if (static_cast<int>(rRow) >= m_targets.count()) {
         return QString();
     }
 
-    return m_targets[(int)rRow].workDir;
+    return m_targets[static_cast<int>(rRow)].workDir;
 }
 
 const QString TargetModel::targetName(const QModelIndex &itemIndex) const
@@ -275,11 +275,11 @@ const QString TargetModel::targetName(const QModelIndex &itemIndex) const
         cRow = 0;
     }
 
-    if ((int)rRow >= m_targets.count()) {
+    if (static_cast<int>(rRow) >= m_targets.count()) {
         return QString();
     }
 
-    return m_targets[(int)rRow].name;
+    return m_targets[static_cast<int>(rRow)].name;
 }
 
 QVariant TargetModel::data(const QModelIndex &index, int role) const

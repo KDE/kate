@@ -32,10 +32,10 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
     char templ = 0;
     int i;
 
-    QPixmap cls((const char **)class_xpm);
-    QPixmap sct((const char **)struct_xpm);
-    QPixmap mcr((const char **)macro_xpm);
-    QPixmap cls_int((const char **)class_int_xpm);
+    QPixmap cls(class_xpm);
+    QPixmap sct(struct_xpm);
+    QPixmap mcr(macro_xpm);
+    QPixmap cls_int(class_int_xpm);
 
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *mcrNode = nullptr, *sctNode = nullptr, *clsNode = nullptr;

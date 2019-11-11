@@ -27,6 +27,7 @@
 
 #include <KStartupInfo>
 #include <KWindowSystem>
+#include <kwindowsystem_version.h>
 
 #include <QApplication>
 
@@ -53,7 +54,12 @@ void KateAppAdaptor::activate()
     win->activateWindow();
 
     // try to raise window, see bug 407288
+#if KWINDOWSYSTEM_VERSION >= QT_VERSION_CHECK(5,62,0)
+    win->setAttribute(Qt::WA_NativeWindow, true);
+    KStartupInfo::setNewStartupId(win->windowHandle(), KStartupInfo::startupId());
+#else
     KStartupInfo::setNewStartupId(win, KStartupInfo::startupId());
+#endif
     KWindowSystem::activateWindow(win->effectiveWinId());
 }
 

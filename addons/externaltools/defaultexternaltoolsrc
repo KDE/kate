@@ -1,5 +1,5 @@
 [Global]
-tools=9
+tools=11
 version=1
 
 [Tool 0]
@@ -133,6 +133,36 @@ input=
 mimetypes=text/x-qml
 name=Qt Quick 2 Preview (qmlscene)
 output=Ignore
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 9]
+actionName=externaltool_JSONFormatFullFile
+arguments='.' %{Document:FileName}
+category=Tools
+cmdname=json-format-file
+executable=jq
+icon=application-json
+input=
+mimetypes=
+name=JSON Format Full File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 10]
+actionName=externaltool_XMLFormatFullFile
+arguments=--format %{Document:FileName}
+category=Tools
+cmdname=xml-format-file
+executable=xmllint
+icon=application-xml
+input=
+mimetypes=
+name=XML Format Full File
+output=ReplaceCurrentDocument
 reload=false
 save=CurrentDocument
 workingDir=%{Document:Path}

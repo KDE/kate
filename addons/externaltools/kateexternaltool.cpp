@@ -20,7 +20,7 @@
 #include "kateexternaltool.h"
 
 #include <KConfigGroup>
-#include <KLocalizedString>>
+#include <KLocalizedString>
 #include <QStandardPaths>
 
 namespace

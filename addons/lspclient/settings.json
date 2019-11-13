@@ -37,6 +37,10 @@
             "command": ["rls"],
             "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
             "url": "https://github.com/rust-lang/rls"
+        },
+        "ocaml": {
+            "command": ["ocamlmerlin-lsp"],
+            "url": "https://github.com/ocaml/merlin"
         }
     }
 }

@@ -170,6 +170,8 @@ static QString languageId(const QString &mode)
      */
     if (result.contains(QLatin1String("fortran"))) {
         result = QStringLiteral("fortran");
+    } else if (result.contains(QLatin1String("objective caml"))) {
+        result = QStringLiteral("ocaml");
     }
 
     /**

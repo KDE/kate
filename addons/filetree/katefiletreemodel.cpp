@@ -79,7 +79,7 @@ public:
     KTextEditor::Document *doc() const;
 
     /**
-     * the view usess this to close all the documents under the folder
+     * the view uses this to close all the documents under the folder
      * @returns list of all the (nested) documents under this node
      */
     QList<KTextEditor::Document *> docTree() const;

@@ -261,7 +261,7 @@ KateSession::Ptr KateSessionManager::giveSession(const QString &name)
     saveSessionTo(s->config());
     m_sessions[name] = s;
     // Due to this add to m_sessions will updateSessionList() no signal emit,
-    // but it's importand to add. Otherwise could it be happen that m_activeSession
+    // but it's important to add. Otherwise could it be happen that m_activeSession
     // is not part of m_sessions but a double
     emit sessionListChanged();
 

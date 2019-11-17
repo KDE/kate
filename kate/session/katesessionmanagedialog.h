@@ -43,7 +43,7 @@ public:
 
     /**
      * The special ctor for chooser mode
-     * Set a differend window title, enables some extra widget and try to select
+     * Set a different window title, enables some extra widget and try to select
      * the @p lastSession in the session list.
      */
     KateSessionManageDialog(QWidget *parent, const QString &lastSession);

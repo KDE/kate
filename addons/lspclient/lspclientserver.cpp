@@ -670,7 +670,7 @@ class LSPClientServer::LSPClientServerPrivate
     QJsonValue m_init;
     // server process
     QProcess m_sproc;
-    // server declared capabilites
+    // server declared capabilities
     LSPServerCapabilities m_capabilities;
     // server state
     State m_state = State::None;

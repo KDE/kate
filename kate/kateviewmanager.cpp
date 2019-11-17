@@ -935,7 +935,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
         currentSplitter->setSizes(sizes);
     }
 
-    // merge docuemnts of closed view space
+    // merge documents of closed view space
     activeViewSpace()->mergeLruList(lruDocumntsList);
 
     // find the view that is now active.

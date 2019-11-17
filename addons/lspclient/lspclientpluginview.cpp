@@ -1423,7 +1423,7 @@ public:
 
     void onDocumentUrlChanged(KTextEditor::Document *doc)
     {
-        // url already changed by this time and new url not useufl
+        // url already changed by this time and new url not useful
         (void)doc;
         // note; url also changes when closed
         // spec says;

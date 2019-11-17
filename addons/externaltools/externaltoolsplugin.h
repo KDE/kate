@@ -53,7 +53,7 @@ public:
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
     /**
-     * Reimplemented to instanciate a PluginView for each MainWindow.
+     * Reimplemented to instantiate a PluginView for each MainWindow.
      */
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
@@ -85,7 +85,7 @@ public:
     const QVector<KateExternalTool *> &tools() const;
 
     /**
-     * Returns the list of external tools that are shiped by default with
+     * Returns the list of external tools that are shipped by default with
      * the external tools plugin.
      */
     QVector<KateExternalTool> defaultTools() const;

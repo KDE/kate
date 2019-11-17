@@ -72,7 +72,7 @@ public:
     void run();
 
     /**
-     * Blocking call that waits until the tool is finised.
+     * Blocking call that waits until the tool is finished.
      * Used internally for unit testing.
      */
     void waitForFinished();

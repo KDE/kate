@@ -35,7 +35,7 @@ QString toString(KateExternalTool::SaveMode saveMode)
     case KateExternalTool::SaveMode::AllDocuments:
         return QStringLiteral("AllDocuments");
     }
-    Q_ASSERT(false); // yout forgot a case above
+    Q_ASSERT(false); // you forgot a case above
     return QStringLiteral("None");
 }
 
@@ -70,7 +70,7 @@ QString toString(KateExternalTool::OutputMode outputMode)
     case KateExternalTool::OutputMode::DisplayInPane:
         return QStringLiteral("DisplayInPane");
     }
-    Q_ASSERT(false); // yout forgot a case above
+    Q_ASSERT(false); // you forgot a case above
     return QStringLiteral("Ignore");
 }
 

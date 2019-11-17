@@ -50,7 +50,7 @@ public:
      */
     static void init(KateSnippetGlobal *plugin);
     /**
-     * Retuns the SnippetStore. Call init() to set it up first.
+     * Returns the SnippetStore. Call init() to set it up first.
      */
     static SnippetStore *self();
 

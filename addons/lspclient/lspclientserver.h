@@ -139,7 +139,7 @@ public:
     void didSave(const QUrl &document, const QString &text);
     void didClose(const QUrl &document);
 
-    // notifcation = signal
+    // notification = signal
 Q_SIGNALS:
     void publishDiagnostics(const LSPPublishDiagnosticsParams &);
 

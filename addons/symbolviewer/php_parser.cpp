@@ -61,19 +61,19 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
             m_symbols->setRootIsDecorated(0);
         }
 
-        // Namespaces: http://www.php.net/manual/en/language.namespaces.php
+        // Namespaces: https://www.php.net/manual/en/language.namespaces.php
         QRegExp namespaceRegExp(QLatin1String("^namespace\\s+([^;\\s]+)"), Qt::CaseInsensitive);
-        // defines: http://www.php.net/manual/en/function.define.php
+        // defines: https://www.php.net/manual/en/function.define.php
         QRegExp defineRegExp(QLatin1String("(^|\\W)define\\s*\\(\\s*['\"]([^'\"]+)['\"]"), Qt::CaseInsensitive);
-        // classes: http://www.php.net/manual/en/language.oop5.php
+        // classes: https://www.php.net/manual/en/language.oop5.php
         QRegExp classRegExp(QLatin1String("^((abstract\\s+|final\\s+)?)class\\s+([\\w_][\\w\\d_]*)\\s*(implements\\s+[\\w\\d_]*)?"), Qt::CaseInsensitive);
-        // interfaces: http://www.php.net/manual/en/language.oop5.php
+        // interfaces: https://www.php.net/manual/en/language.oop5.php
         QRegExp interfaceRegExp(QLatin1String("^interface\\s+([\\w_][\\w\\d_]*)"), Qt::CaseInsensitive);
-        // classes constants: http://www.php.net/manual/en/language.oop5.constants.php
+        // classes constants: https://www.php.net/manual/en/language.oop5.constants.php
         QRegExp constantRegExp(QLatin1String("^const\\s+([\\w_][\\w\\d_]*)"), Qt::CaseInsensitive);
-        // functions: http://www.php.net/manual/en/language.oop5.constants.php
+        // functions: https://www.php.net/manual/en/language.oop5.constants.php
         QRegExp functionRegExp(QLatin1String("^((public|protected|private)?(\\s*static)?\\s+)?function\\s+&?\\s*([\\w_][\\w\\d_]*)\\s*(.*)$"), Qt::CaseInsensitive);
-        // variables: http://www.php.net/manual/en/language.oop5.properties.php
+        // variables: https://www.php.net/manual/en/language.oop5.properties.php
         QRegExp varRegExp(QLatin1String("^((var|public|protected|private)?(\\s*static)?\\s+)?\\$([\\w_][\\w\\d_]*)"), Qt::CaseInsensitive);
 
         // function args detection: “function a($b, $c=null)” => “$b, $v”

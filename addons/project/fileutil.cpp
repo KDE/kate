@@ -20,7 +20,7 @@
 
 #include "fileutil.h"
 
-// code taken from http://stackoverflow.com/questions/15713529/get-common-parent-of-2-qdir
+// code taken from https://stackoverflow.com/questions/15713529/get-common-parent-of-2-qdir
 // note that there is unit test
 const QString FileUtil::commonParent(const QString &path1, const QString &path2)
 {

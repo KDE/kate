@@ -82,7 +82,7 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
 #ifdef HAVE_CTERMID
     /**
      * open project for our current working directory, if this kate has a terminal
-     * http://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
+     * https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
      */
     char tty[L_ctermid + 1] = {0};
     ctermid(tty);

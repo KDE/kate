@@ -35,6 +35,9 @@ include(FeatureSummary)
 # forbid some old things
 add_definitions(-DQT_NO_FOREACH)
 
+# Required here so that the version comparison below works
+find_package(Qt5Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
+
 # Qt 5.13 deprecated QComboBox::currentIndexChanged(QString) and Qt 5.14 undid that...
 if (Qt5Widgets_VERSION VERSION_GREATER_EQUAL 5.14.0)
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)

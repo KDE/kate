@@ -1,4 +1,4 @@
-find_package(KF5ItemViews QUIET)
+find_package(KF5ItemViews ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5ItemViews PROPERTIES PURPOSE "Required to build the search addon")
 
 if(NOT KF5ItemViews_FOUND)

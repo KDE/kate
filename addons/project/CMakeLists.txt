@@ -1,5 +1,5 @@
 find_package(
-  KF5
+  KF5 ${KF5_DEP_VERSION}
   QUIET
   COMPONENTS
     GuiAddons

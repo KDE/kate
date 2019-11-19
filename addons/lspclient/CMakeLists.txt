@@ -1,4 +1,4 @@
-find_package(KF5ItemModels QUIET)
+find_package(KF5ItemModels ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5ItemModels PROPERTIES PURPOSE "Required to build the lspclient addon")
 
 if(NOT KF5ItemModels_FOUND)

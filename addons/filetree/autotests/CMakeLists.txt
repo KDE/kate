@@ -3,7 +3,7 @@ include(ECMMarkAsTest)
 add_executable(filetree_model_test "")
 target_include_directories(filetree_model_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-find_package(Qt5Test QUIET REQUIRED)
+find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   filetree_model_test 
   PRIVATE

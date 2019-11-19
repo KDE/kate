@@ -1,4 +1,4 @@
-find_package(KF5GuiAddons QUIET)
+find_package(KF5GuiAddons ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5GuiAddons PROPERTIES PURPOSE "Required to build the katefiletree addon")
 
 if(NOT KF5GuiAddons_FOUND)

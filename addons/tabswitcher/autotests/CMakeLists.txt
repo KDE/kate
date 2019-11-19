@@ -3,7 +3,7 @@ include(ECMMarkAsTest)
 add_executable(tabswitcher_test "")
 target_include_directories(tabswitcher_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-find_package(Qt5Test QUIET REQUIRED)
+find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   tabswitcher_test 
   PRIVATE

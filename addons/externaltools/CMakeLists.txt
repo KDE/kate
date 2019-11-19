@@ -2,17 +2,17 @@ if(${KF5TextEditor_VERSION} VERSION_LESS "5.63.0")
     return()
 endif()
 
-find_package(KF5I18n QUIET)
+find_package(KF5I18n ${KF5_DEP_VERSION} QUIET)
 if(NOT KF5I18n_FOUND)
     return()
 endif()
 
-find_package(KF5IconThemes QUIET)
+find_package(KF5IconThemes ${KF5_DEP_VERSION} QUIET)
 if(NOT KF5IconThemes_FOUND)
     return()
 endif()
 
-find_package(Qt5Test QUIET REQUIRED)
+find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
 add_library(externaltoolsplugin MODULE "")
 target_compile_definitions(externaltoolsplugin PRIVATE TRANSLATION_DOMAIN="kateexternaltoolsplugin")

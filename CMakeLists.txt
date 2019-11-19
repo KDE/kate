@@ -38,6 +38,15 @@ add_definitions(-DQT_NO_FOREACH)
 # Required here so that the version comparison below works
 find_package(Qt5Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
 
+# Required here so that the ki18n_install/kdoctools_install calls injected by
+# the release scripts work.
+find_package(KF5I18n ${KF5_REQUIRED_VERSION}
+    REQUIRED COMPONENTS
+        I18n
+    OPTIONAL_COMPONENTS
+        DocTools
+)
+
 # Qt 5.13 deprecated QComboBox::currentIndexChanged(QString) and Qt 5.14 undid that...
 if (Qt5Widgets_VERSION VERSION_GREATER_EQUAL 5.14.0)
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)

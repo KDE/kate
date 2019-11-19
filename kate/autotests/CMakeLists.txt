@@ -1,6 +1,6 @@
 include(ECMMarkAsTest)
 
-find_package(Qt5Test QUIET REQUIRED)
+find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
 macro(kate_executable_tests)
   foreach(_testname ${ARGN})

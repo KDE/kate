@@ -1,4 +1,4 @@
-find_package(KF5IconThemes QUIET)
+find_package(KF5IconThemes ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5IconThemes PROPERTIES PURPOSE "Required to build the close-except-like addon")
 
 if(NOT KF5IconThemes_FOUND)

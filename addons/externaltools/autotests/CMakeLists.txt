@@ -1,11 +1,11 @@
 include(ECMMarkAsTest)
 
-find_package(KF5Config QUIET) # KConfig, KConfigGroup
+find_package(KF5Config ${KF5_DEP_VERSION} QUIET) # KConfig, KConfigGroup
 if(NOT KF5Config_FOUND)
   return()
 endif()
 
-find_package(KF5CoreAddons QUIET) # KShell
+find_package(KF5CoreAddons ${KF5_DEP_VERSION} QUIET) # KShell
 if(NOT KF5CoreAddons_FOUND)
   return()
 endif()

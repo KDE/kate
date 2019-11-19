@@ -4,7 +4,7 @@ configure_file(config.h.in config.h)
 target_include_directories(kwrite PRIVATE ${CMAKE_CURRENT_BINARY_DIR}) # config.h
 
 find_package(
-  KF5
+  KF5 ${KF5_DEP_VERSION}
   QUIET
   REQUIRED
   COMPONENTS

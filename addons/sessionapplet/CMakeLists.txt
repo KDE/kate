@@ -1,7 +1,7 @@
-find_package(KF5Plasma QUIET)
+find_package(KF5Plasma ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5Plasma PROPERTIES PURPOSE "Required to build the sessionapplet addon")
 
-find_package(Qt5Widgets QUIET)
+find_package(Qt5Widgets ${QT_MIN_VERSION} QUIET)
 set_package_properties(Qt5Widgets PROPERTIES PURPOSE "Required to build the sessionapplet addon")
 
 if(NOT KF5Plasma_FOUND OR NOT Qt5Widgets_FOUND)

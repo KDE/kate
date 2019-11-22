@@ -155,7 +155,7 @@ ecm_install_icons(
 
 install(
   PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.desktop 
-  DESTINATION ${XDG_APPS_INSTALL_DIR}
+  DESTINATION ${KDE_INSTALL_APPDIR}
 )
 
 install(

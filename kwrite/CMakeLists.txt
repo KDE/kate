@@ -73,7 +73,7 @@ install(TARGETS kwrite ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(
   FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.desktop  
-  DESTINATION ${XDG_APPS_INSTALL_DIR}
+  DESTINATION ${KDE_INSTALL_APPDIR}
 )
 
 install(

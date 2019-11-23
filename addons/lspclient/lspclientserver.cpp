@@ -36,6 +36,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTime>
+#include <QtEndian>
 #include <utility>
 
 // good/bad old school; allows easier concatenate
@@ -270,6 +271,23 @@ static void from_json(LSPDocumentOnTypeFormattingOptions &options, const QJsonVa
     }
 }
 
+static void from_json(LSPSemanticHighlightingOptions &options, const QJsonValue &json)
+{
+    if (!json.isObject())
+        return;
+    const auto scopes = json.toObject().value(QStringLiteral("scopes"));
+    options.scopes.clear();
+    for (const auto &scope_entry : scopes.toArray()) {
+        QVector<QString> entries;
+        const auto json_entries = scope_entry.toArray();
+        entries.reserve(json_entries.size());
+        for (const auto &inner_json_entry : json_entries) {
+            entries.push_back(inner_json_entry.toString());
+        }
+        options.scopes.push_back(entries);
+    }
+}
+
 static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
 {
     auto sync = json.value(QStringLiteral("textDocumentSync"));
@@ -288,6 +306,7 @@ static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
     caps.renameProvider = json.value(QStringLiteral("renameProvider")).toBool();
     auto codeActionProvider = json.value(QStringLiteral("codeActionProvider"));
     caps.codeActionProvider = codeActionProvider.toBool() || codeActionProvider.isObject();
+    from_json(caps.semanticHighlightingProvider, json.value(QStringLiteral("semanticHighlighting")).toObject());
 }
 
 // follow suit; as performed in kate docmanager
@@ -654,6 +673,47 @@ static LSPApplyWorkspaceEditParams parseApplyWorkspaceEditParams(const QJsonObje
     return ret;
 }
 
+static LSPVersionedTextDocumentIdentifier parseVersionedTextDocumentIdentifier(const QJsonObject &result)
+{
+    LSPVersionedTextDocumentIdentifier ret;
+    ret.uri = normalizeUrl(QUrl(result.value(MEMBER_URI).toString()));
+    ret.version = result.value(QStringLiteral("version")).toInt(-1);
+    return ret;
+}
+
+static LSPSemanticHighlightingParams parseSemanticHighlighting(const QJsonObject &result)
+{
+    LSPSemanticHighlightingParams ret;
+    ret.textDocument = parseVersionedTextDocumentIdentifier(result.value(QStringLiteral("textDocument")).toObject());
+    for (const auto &line_json : result.value(QStringLiteral("lines")).toArray()) {
+        const auto line_obj = line_json.toObject();
+        LSPSemanticHighlightingInformation info;
+        info.line = line_obj.value(QStringLiteral("line")).toInt(-1);
+
+        const auto tokenString = line_obj.value(QStringLiteral("tokens"));
+        constexpr auto TokenSize = sizeof(LSPSemanticHighlightingToken);
+        // the raw tokens are in big endian, we may need to convert that to little endian
+        const auto rawTokens = QByteArray::fromBase64(tokenString.toString().toUtf8());
+        if (rawTokens.size() % TokenSize != 0) {
+            qWarning() << "unexpected raw token size" << rawTokens.size() << "for string" << tokenString << "in line" << info.line;
+            continue;
+        }
+        const auto numTokens = rawTokens.size() / TokenSize;
+        const auto *begin = reinterpret_cast<const LSPSemanticHighlightingToken *>(rawTokens.constData());
+        const auto *end = begin + numTokens;
+        info.tokens.resize(numTokens);
+        std::transform(begin, end, info.tokens.begin(), [](const LSPSemanticHighlightingToken &rawToken) {
+            LSPSemanticHighlightingToken token;
+            token.character = qFromBigEndian(rawToken.character);
+            token.length = qFromBigEndian(rawToken.length);
+            token.scope = qFromBigEndian(rawToken.scope);
+            return token;
+        });
+        ret.lines.push_back(info);
+    }
+    return ret;
+}
+
 using GenericReplyType = QJsonValue;
 using GenericReplyHandler = ReplyHandler<GenericReplyType>;
 
@@ -923,7 +983,8 @@ private:
                                                     QJsonObject {{QStringLiteral("hierarchicalDocumentSymbolSupport"), true}},
                                                 },
                                                 {QStringLiteral("publishDiagnostics"), QJsonObject {{QStringLiteral("relatedInformation"), true}}},
-                                                {QStringLiteral("codeAction"), codeAction}}}};
+                                                {QStringLiteral("codeAction"), codeAction},
+                                                {QStringLiteral("semanticHighlightingCapabilities"), QJsonObject {{QStringLiteral("semanticHighlighting"), true}}}}}};
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
         QJsonObject params {{QStringLiteral("processId"), QCoreApplication::applicationPid()},
@@ -1097,6 +1158,8 @@ public:
         auto method = msg[MEMBER_METHOD].toString();
         if (method == QLatin1String("textDocument/publishDiagnostics")) {
             emit q->publishDiagnostics(parseDiagnostics(msg[MEMBER_PARAMS].toObject()));
+        } else if (method == QLatin1String("textDocument/semanticHighlighting")) {
+            emit q->semanticHighlighting(parseSemanticHighlighting(msg[MEMBER_PARAMS].toObject()));
         } else {
             qCWarning(LSPCLIENT) << "discarding notification" << method;
         }

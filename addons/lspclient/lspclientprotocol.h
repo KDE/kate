@@ -75,6 +75,11 @@ struct LSPSignatureHelpOptions {
 struct LSPDocumentOnTypeFormattingOptions : public LSPSignatureHelpOptions {
 };
 
+struct LSPSemanticHighlightingOptions {
+    // cf. https://manual.macromates.com/en/language_grammars
+    QVector<QVector<QString>> scopes;
+};
+
 struct LSPServerCapabilities {
     LSPDocumentSyncKind textDocumentSync = LSPDocumentSyncKind::None;
     bool hoverProvider = false;
@@ -92,6 +97,7 @@ struct LSPServerCapabilities {
     bool renameProvider = false;
     // CodeActionOptions not useful/considered at present
     bool codeActionProvider = false;
+    LSPSemanticHighlightingOptions semanticHighlightingProvider;
 };
 
 enum class LSPMarkupKind { None = 0, PlainText = 1, MarkDown = 2 };
@@ -270,6 +276,28 @@ struct LSPDiagnostic {
 struct LSPPublishDiagnosticsParams {
     QUrl uri;
     QList<LSPDiagnostic> diagnostics;
+};
+
+struct LSPSemanticHighlightingToken {
+    quint32 character = 0;
+    quint16 length = 0;
+    quint16 scope = 0;
+};
+Q_DECLARE_TYPEINFO(LSPSemanticHighlightingToken, Q_MOVABLE_TYPE);
+
+struct LSPSemanticHighlightingInformation {
+    int line = -1;
+    QVector<LSPSemanticHighlightingToken> tokens;
+};
+
+struct LSPVersionedTextDocumentIdentifier {
+    QUrl uri;
+    int version = -1;
+};
+
+struct LSPSemanticHighlightingParams {
+    LSPVersionedTextDocumentIdentifier textDocument;
+    QVector<LSPSemanticHighlightingInformation> lines;
 };
 
 struct LSPCommand {

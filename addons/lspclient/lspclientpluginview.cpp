@@ -243,6 +243,7 @@ class LSPClientActionView : public QObject
     // applied search ranges
     typedef QMultiHash<KTextEditor::Document *, KTextEditor::MovingRange *> RangeCollection;
     RangeCollection m_ranges;
+    QHash<KTextEditor::Document *, QHash<int, QVector<KTextEditor::MovingRange*>>> m_semanticHighlightRanges;
     // applied marks
     typedef QSet<KTextEditor::Document *> DocumentCollection;
     DocumentCollection m_marks;
@@ -1418,6 +1419,174 @@ public:
         updateState();
     }
 
+    KTextEditor::View *viewForUrl(const QUrl &url) const
+    {
+        for (auto *view : m_mainWindow->views()) {
+            if (view->document()->url() == url)
+                return view;
+        }
+        return nullptr;
+    }
+
+    Q_SLOT void clearSemanticHighlighting(KTextEditor::Document *document)
+    {
+        auto &documentRanges = m_semanticHighlightRanges[document];
+        for (const auto &lineRanges : documentRanges)
+            qDeleteAll(lineRanges);
+        documentRanges.clear();
+    }
+
+    void onSemanticHighlighting(const LSPSemanticHighlightingParams &params)
+    {
+        auto *view = viewForUrl(params.textDocument.uri);
+        if (!view) {
+            qWarning() << "failed to find view for uri" << params.textDocument.uri;
+            return;
+        }
+
+        auto server = m_serverManager->findServer(view);
+        if (!server) {
+            qWarning() << "failed to find server for view" << params.textDocument.uri;
+            return;
+        }
+
+        auto *document = view->document();
+        auto *miface = qobject_cast<KTextEditor::MovingInterface *>(document);
+        Q_ASSERT(miface);
+
+        // TODO: translate between locked revision, if possible?
+        auto version = params.textDocument.version;
+        if (version == -1) { // use version from disk
+            version = miface->lastSavedRevision();
+            if (version == -1) { // never saved
+                version = miface->revision();
+            }
+        }
+        if (version != miface->revision()) {
+            qWarning() << "discarding highlighting, versions don't match:"
+                       << params.textDocument.version << version << miface->revision();
+            return;
+        }
+
+        // ensure runtime match
+        connect(document, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearSemanticHighlighting(KTextEditor::Document *)), Qt::UniqueConnection);
+        connect(document, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearSemanticHighlighting(KTextEditor::Document *)), Qt::UniqueConnection);
+
+        // TODO: make schema attributes accessible via some new interface,
+        // or at least add configuration to the lsp plugin config
+        auto attributeForScopes = [view](const QVector<QString> &scopes) -> KTextEditor::Attribute::Ptr {
+            for (const auto &scope : scopes) {
+                if (scope == QLatin1String("entity.name.function.method.cpp")) {
+                    static KTextEditor::Attribute::Ptr attr;
+                    if (!attr) {
+                        attr = view->defaultStyleAttribute(KTextEditor::dsFunction);
+                        attr.detach();
+                        attr->setForeground(Qt::yellow);
+                        attr->setFontItalic(true);
+                    }
+                    return attr;
+                } else if(scope == QLatin1String("entity.name.function.cpp")) {
+                    static KTextEditor::Attribute::Ptr attr;
+                    if (!attr) {
+                        attr = view->defaultStyleAttribute(KTextEditor::dsFunction);
+                        attr.detach();
+                        attr->setForeground(Qt::yellow);
+                    }
+                    return attr;
+                } else if (scope == QLatin1String("variable.other.cpp")) {
+                    static KTextEditor::Attribute::Ptr attr;
+                    if (!attr) {
+                        attr = view->defaultStyleAttribute(KTextEditor::dsVariable);
+                        attr.detach();
+                        attr->setForeground(Qt::cyan);
+                    }
+                    return attr;
+                } else if (scope == QLatin1String("variable.other.field.cpp")) {
+                    static KTextEditor::Attribute::Ptr attr;
+                    if (!attr) {
+                        attr = view->defaultStyleAttribute(KTextEditor::dsVariable);
+                        attr.detach();
+                        attr->setForeground(Qt::cyan);
+                        attr->setFontItalic(true);
+                    }
+                    return attr;
+                } else if (scope == QLatin1String("entity.name.type.enum.cpp")) {
+                    static KTextEditor::Attribute::Ptr attr;
+                    if (!attr) {
+                        attr = view->defaultStyleAttribute(KTextEditor::dsConstant);
+                        attr.detach();
+                        attr->setForeground(Qt::magenta);
+                    }
+                    return attr;
+                } else if (scope == QLatin1String("variable.other.enummember.cpp")) {
+                    static KTextEditor::Attribute::Ptr attr;
+                    if (!attr) {
+                        attr = view->defaultStyleAttribute(KTextEditor::dsConstant);
+                        attr.detach();
+                        attr->setForeground(Qt::darkMagenta);
+                    }
+                    return attr;
+                } else if (scope == QLatin1String("entity.name.type.class.cpp")
+                        || scope == QLatin1String("entity.name.type.template.cpp"))
+                {
+                    static KTextEditor::Attribute::Ptr attr;
+                    if (!attr) {
+                        attr = view->defaultStyleAttribute(KTextEditor::dsDataType);
+                        attr.detach();
+                        attr->setForeground(Qt::green);
+                    }
+                    return attr;
+                } else if (scope == QLatin1String("entity.name.namespace.cpp")) {
+                    static KTextEditor::Attribute::Ptr attr;
+                    if (!attr) {
+                        attr = view->defaultStyleAttribute(KTextEditor::dsDataType);
+                        attr.detach();
+                        attr->setForeground(Qt::darkGreen);
+                    }
+                    return attr;
+                }
+            }
+            return {};
+        };
+
+        // TODO: we should try to recycle the moving ranges instead of recreating them all the time
+
+        const auto scopes = server->capabilities().semanticHighlightingProvider.scopes;
+        qDebug() << params.textDocument.uri << scopes;
+
+        auto &documentRanges = m_semanticHighlightRanges[document];
+        QSet<int> handledLines;
+        for (const auto &line : params.lines) {
+            handledLines.insert(line.line);
+            auto &lineRanges = documentRanges[line.line];
+            qDeleteAll(lineRanges);
+            lineRanges.clear();
+            qDebug() << "line:" << line.line;
+            for (const auto &token : line.tokens) {
+                qDebug() << "token:" << token.character << token.length << token.scope << scopes.value(token.scope);
+                auto attribute = attributeForScopes(scopes.value(token.scope));
+                if (!attribute)
+                    continue;
+
+                const auto columnStart = static_cast<int>(token.character);
+                const auto columnEnd = columnStart + static_cast<int>(token.length);
+                constexpr auto expand = KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight;
+                auto *range = miface->newMovingRange({line.line, columnStart, line.line, columnEnd},
+                                                     expand, KTextEditor::MovingRange::InvalidateIfEmpty);
+                range->setAttribute(attribute);
+            }
+        }
+        // clear lines that got removed or commented out
+        for (auto it = documentRanges.begin(); it != documentRanges.end();) {
+            if (!handledLines.contains(it.key())) {
+                qDeleteAll(it.value());
+                it = documentRanges.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    }
+
     void onDocumentUrlChanged(KTextEditor::Document *doc)
     {
         // url already changed by this time and new url not useful
@@ -1486,6 +1655,7 @@ public:
             renameEnabled = caps.renameProvider;
 
             connect(server.data(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
+            connect(server.data(), &LSPClientServer::semanticHighlighting, this, &self_type::onSemanticHighlighting, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::applyEdit, this, &self_type::onApplyEdit, Qt::UniqueConnection);
 
             // update format trigger characters

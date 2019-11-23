@@ -142,6 +142,7 @@ public:
     // notification = signal
 Q_SIGNALS:
     void publishDiagnostics(const LSPPublishDiagnosticsParams &);
+    void semanticHighlighting(const LSPSemanticHighlightingParams &);
 
     // request = signal
     void applyEdit(const LSPApplyWorkspaceEditParams &req, const ApplyEditReplyHandler &h, bool &handled);

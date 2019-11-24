@@ -79,7 +79,12 @@ QString KateColorSchemeChooser::currentDesktopDefaultScheme() const
 {
     KSharedConfigPtr config = KSharedConfig::openConfig(QStringLiteral("kdeglobals"));
     KConfigGroup group(config, "General");
-    return group.readEntry("ColorScheme", QStringLiteral("Breeze"));
+    const QString scheme = group.readEntry("ColorScheme", QStringLiteral("Breeze"));
+    const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+        QStringLiteral("color-schemes/%1.colors").arg(scheme));
+    KSharedConfigPtr schemeFile =  KSharedConfig::openConfig(path, KConfig::SimpleConfig);
+    const QString name = KConfigGroup(schemeFile, "General").readEntry("Name", scheme);
+    return name;
 }
 
 QString KateColorSchemeChooser::currentSchemeName() const

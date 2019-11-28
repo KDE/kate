@@ -551,12 +551,11 @@ public:
     {
         Q_ASSERT(item);
         KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+        Q_ASSERT(miface);
         KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
+        Q_ASSERT(iface);
         KTextEditor::View *activeView = m_mainWindow->activeView();
         KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(activeView);
-
-        if (!miface || !iface)
-            return;
 
         auto url = item->data(RangeData::FileUrlRole).toUrl();
         if (url != doc->url())
@@ -1153,8 +1152,7 @@ public:
     void applyEdits(KTextEditor::Document *doc, const LSPClientRevisionSnapshot *snapshot, const QList<LSPTextEdit> &edits)
     {
         KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-        if (!miface)
-            return;
+        Q_ASSERT(miface);
 
         // NOTE:
         // server might be pretty sloppy wrt edits (e.g. python-language-server)
@@ -1239,10 +1237,9 @@ public:
         int tabSize = 4;
         bool insertSpaces = true;
         auto cfgiface = qobject_cast<KTextEditor::ConfigInterface *>(document);
-        if (cfgiface) {
-            tabSize = cfgiface->configValue(QStringLiteral("tab-width")).toInt();
-            insertSpaces = cfgiface->configValue(QStringLiteral("replace-tabs")).toBool();
-        }
+        Q_ASSERT(cfgiface);
+        tabSize = cfgiface->configValue(QStringLiteral("tab-width")).toInt();
+        insertSpaces = cfgiface->configValue(QStringLiteral("replace-tabs")).toBool();
 
         // sigh, no move initialization capture ...
         // (again) assuming reply ranges wrt revisions submitted at this time
@@ -1558,10 +1555,7 @@ public:
         bool registered = m_completionViews.contains(view);
 
         KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
-
-        if (!cci) {
-            return;
-        }
+        Q_ASSERT(cci);
 
         if (!registered && server && server->capabilities().completionProvider.provider) {
             qCInfo(LSPCLIENT) << "registering cci";
@@ -1581,10 +1575,7 @@ public:
         bool registered = m_hoverViews.contains(view);
 
         KTextEditor::TextHintInterface *cci = qobject_cast<KTextEditor::TextHintInterface *>(view);
-
-        if (!cci) {
-            return;
-        }
+        Q_ASSERT(cci);
 
         if (!registered && server && server->capabilities().hoverProvider) {
             qCInfo(LSPCLIENT) << "registering cci";

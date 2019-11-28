@@ -196,10 +196,9 @@ struct RevisionGuard {
         : m_doc(doc)
         , m_movingInterface(qobject_cast<KTextEditor::MovingInterface *>(doc))
     {
-        if (m_movingInterface) {
-            m_revision = m_movingInterface->revision();
-            m_movingInterface->lockRevision(m_revision);
-        }
+        Q_ASSERT(m_movingInterface);
+        m_revision = m_movingInterface->revision();
+        m_movingInterface->lockRevision(m_revision);
     }
 
     // really only need/allow this one (out of 5)
@@ -692,11 +691,8 @@ private:
     {
         auto doc = it.key();
         if (it != m_docs.end() && it->server) {
-            if (it->movingInterface) {
-                it->version = it->movingInterface->revision();
-            } else if (it->modified) {
-                ++it->version;
-            }
+            it->version = it->movingInterface->revision();
+
             if (!m_incrementalSync) {
                 it->changes.clear();
             }

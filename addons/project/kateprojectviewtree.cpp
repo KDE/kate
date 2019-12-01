@@ -50,15 +50,11 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
      */
     QItemSelectionModel *m = selectionModel();
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
-    QSortFilterProxyModel *sortModel = new KRecursiveFilterProxyModel(this);
-#else
     QSortFilterProxyModel *sortModel = new QSortFilterProxyModel(this);
-    sortModel->setRecursiveFilteringEnabled(true);
-#endif
 
     // sortModel->setFilterRole(SortFilterRole);
     // sortModel->setSortRole(SortFilterRole);
+    sortModel->setRecursiveFilteringEnabled(true);
     sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     sortModel->setSortCaseSensitivity(Qt::CaseInsensitive);
     sortModel->setSourceModel(m_project->model());

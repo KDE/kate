@@ -27,7 +27,7 @@
 
 #include <KLineEdit>
 #include <KLocalizedString>
-#include <KRecursiveFilterProxyModel>
+#include <QSortFilterProxyModel>
 
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
@@ -160,7 +160,7 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     // last outline model we constructed
     std::shared_ptr<QStandardItemModel> m_outline;
     // filter model, setup once
-    KRecursiveFilterProxyModel m_filterModel;
+    QSortFilterProxyModel m_filterModel;
 
     // cached icons for model
     const QIcon m_icon_pkg = QIcon::fromTheme(QStringLiteral("code-block"));
@@ -202,6 +202,7 @@ public:
         m_filterModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
         m_filterModel.setSortCaseSensitivity(Qt::CaseInsensitive);
         m_filterModel.setSourceModel(m_outline.get());
+        m_filterModel.setRecursiveFilteringEnabled(true);
         m_symbols->setModel(&m_filterModel);
         delete m;
 

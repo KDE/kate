@@ -144,12 +144,12 @@ void KateExternalTool::save(KConfigGroup &cg) const
 
 QString KateExternalTool::translatedName() const
 {
-    return name.isEmpty() ? QString() : i18n(name.toUtf8().data());
+    return name.isEmpty() ? QString() : i18nc("External tool name", name.toUtf8().data());
 }
 
 QString KateExternalTool::translatedCategory() const
 {
-    return category.isEmpty() ? QString() : i18n(category.toUtf8().data());
+    return category.isEmpty() ? QString() : i18nc("External tool category", category.toUtf8().data());
 }
 
 bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs)

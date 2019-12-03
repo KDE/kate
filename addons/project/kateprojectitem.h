@@ -55,7 +55,7 @@ public:
     ~KateProjectItem() override;
 
     /**
-     * Overwritten data methode for on-demand icon creation and co.
+     * Overwritten data method for on-demand icon creation and co.
      * @param role role to get data for
      * @return data for role
      */

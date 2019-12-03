@@ -466,7 +466,7 @@ public Q_SLOTS:
 
     /**
      * Create a new toolview with unique \p identifier at side \p pos
-     * with \p icon and caption \p text. Use the returned widget to embedd
+     * with \p icon and caption \p text. Use the returned widget to embed
      * your widgets.
      * \param plugin which owns this tool view
      * \param identifier unique identifier for this toolview

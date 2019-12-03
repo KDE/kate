@@ -58,10 +58,10 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     m_cbIndexEnabled = new QCheckBox(i18n("Enable indexing"), this);
     vbox->addWidget(m_cbIndexEnabled);
     auto label = new QLabel(this);
-    label->setText(QStringLiteral("Directory for index files"));
+    label->setText(i18n("Directory for index files"));
     vbox->addWidget(label);
     m_indexPath = new KUrlRequester(this);
-    m_indexPath->setToolTip(QStringLiteral("The system tempory directory is used if not specified, which may overflow for very large repositories"));
+    m_indexPath->setToolTip(i18n("The system temporary directory is used if not specified, which may overflow for very large repositories"));
     vbox->addWidget(m_indexPath);
     vbox->addStretch(1);
     group->setLayout(vbox);

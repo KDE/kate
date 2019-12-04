@@ -495,7 +495,7 @@ Qt::ItemFlags KateFileTreeModel::flags(const QModelIndex &index) const
     Qt::ItemFlags flags = Qt::ItemIsEnabled;
 
     if (!index.isValid()) {
-        return nullptr;
+        return Qt::NoItemFlags;
     }
 
     const ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());

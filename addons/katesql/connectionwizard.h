@@ -35,7 +35,7 @@ class ConnectionWizard : public QWizard
 public:
     enum { Page_Driver, Page_Standard_Server, Page_SQLite_Server, Page_Save };
 
-    ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent = nullptr, Qt::WindowFlags flags = nullptr);
+    ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent = nullptr, Qt::WindowFlags flags = {});
     ~ConnectionWizard() override;
 
     SQLManager *manager()

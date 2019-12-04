@@ -294,7 +294,7 @@ bool KateApp::openUrl(const QUrl &url, const QString &encoding, bool isTempFile)
 bool KateApp::isOnActivity(const QString &activity)
 {
     for (const auto &window : m_mainWindows) {
-        const KWindowInfo info(window->winId(), nullptr, NET::WM2Activities);
+        const KWindowInfo info(window->winId(), {}, NET::WM2Activities);
         const auto activities = info.activities();
         // handle special case of "on all activities"
         if (activities.isEmpty() || activities.contains(activity))

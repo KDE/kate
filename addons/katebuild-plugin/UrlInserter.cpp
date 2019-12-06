@@ -21,7 +21,7 @@
 #include "UrlInserter.h"
 #include <QCompleter>
 #include <QDebug>
-#include <QDirModel>
+#include <QFileSystemModel>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QHBoxLayout>
@@ -35,7 +35,9 @@ UrlInserter::UrlInserter(const QUrl &startUrl, QWidget *parent)
 {
     m_lineEdit = new QLineEdit();
     QCompleter *completer = new QCompleter(m_lineEdit);
-    completer->setModel(new QDirModel(QStringList(), QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Executable, QDir::Name, m_lineEdit));
+    QFileSystemModel *model = new QFileSystemModel(m_lineEdit);
+    model->setFilter(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Executable);
+    completer->setModel(model);
     m_lineEdit->setCompleter(completer);
 
     m_toolButton = new QToolButton();

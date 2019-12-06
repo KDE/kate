@@ -24,7 +24,7 @@
 #include "configview.h"
 
 #include <QCompleter>
-#include <QDirModel>
+#include <QFileSystemModel>
 #include <QFileDialog>
 #include <QLayout>
 #include <QPushButton>
@@ -73,7 +73,9 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
 
     m_executable = new QLineEdit();
     QCompleter *completer1 = new QCompleter(this);
-    completer1->setModel(new QDirModel(QStringList(), QDir::AllDirs | QDir::NoDotAndDotDot, QDir::Name, this));
+    QFileSystemModel *model = new QFileSystemModel(this);
+    model->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
+    completer1->setModel(model);
     m_executable->setCompleter(completer1);
     m_executable->setClearButtonEnabled(true);
     m_browseExe = new QToolButton(this);
@@ -81,7 +83,9 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
 
     m_workingDirectory = new QLineEdit();
     QCompleter *completer2 = new QCompleter(this);
-    completer2->setModel(new QDirModel(completer2));
+    QFileSystemModel *model2 = new QFileSystemModel(completer2);
+
+    completer2->setModel(model2);
     m_workingDirectory->setCompleter(completer2);
     m_workingDirectory->setClearButtonEnabled(true);
     m_workDirLabel = new QLabel(i18n("Working Directory:"));

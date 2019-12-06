@@ -23,7 +23,7 @@
 
 #include <QAbstractTextDocumentLayout>
 #include <QCompleter>
-#include <QDirModel>
+#include <QFileSystemModel>
 #include <QLineEdit>
 #include <QModelIndex>
 #include <QPainter>
@@ -119,7 +119,9 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
     } else {
         QLineEdit *e = new QLineEdit(dparent);
         QCompleter *completer = new QCompleter(e);
-        completer->setModel(new QDirModel(QStringList(), QDir::AllDirs | QDir::NoDotAndDotDot, QDir::Name, e));
+        QFileSystemModel *model = new QFileSystemModel(e);
+        model->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
+        completer->setModel(model);
         e->setCompleter(completer);
         editor = e;
     }

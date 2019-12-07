@@ -168,6 +168,11 @@ private Q_SLOTS:
     void loadConsoleIfNeeded();
 
     /**
+     * Show or hide the konsole view as appropriate.
+     */
+    void slotToggleVisibility();
+
+    /**
      * set or clear focus as appropriate.
      */
     void slotToggleFocus();

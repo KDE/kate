@@ -146,10 +146,16 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
     a->setText(i18nc("@action", "Run Current Document"));
     connect(a, &QAction::triggered, this, &KateConsole::slotRun);
 
-    a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_focus"));
+    a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_visibility"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
-    a->setText(i18nc("@action", "&Focus Terminal"));
+    a->setText(i18nc("@action", "S&how Terminal"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::Key_F4));
+    connect(a, &QAction::triggered, this, &KateConsole::slotToggleVisibility);
+
+    a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_focus"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("swap-panels")));
+    a->setText(i18nc("@action", "&Focus Terminal"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_F4));
     connect(a, &QAction::triggered, this, &KateConsole::slotToggleFocus);
 
     m_mw->guiFactory()->addClient(this);
@@ -360,6 +366,18 @@ void KateConsole::slotRun()
         }
         // echo to terminal
         sendInput(output_str);
+    }
+}
+
+void KateConsole::slotToggleVisibility()
+{
+    QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_visibility"));
+    if (!m_part || !m_part->widget()->isVisible()) {
+        m_mw->showToolView(parentWidget());
+        action->setText(i18nc("@action", "&Hide Terminal"));
+    } else {
+        m_mw->hideToolView(m_toolView);
+        action->setText(i18nc("@action", "S&how Terminal"));
     }
 }
 

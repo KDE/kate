@@ -435,7 +435,9 @@ public:
                 m_models.move(it - m_models.begin(), 0);
                 auto &model = m_models.front();
                 // re-use if possible
-                if (revision == model.revision && model.model) {
+                // reloaded document recycles revision number, so avoid stale cache
+                // (clear := view switch)
+                if (revision == model.revision && model.model && (clear || revision > 0)) {
                     setModel(model.model);
                     return;
                 }

@@ -52,8 +52,7 @@
  *
  * From the above, the gist is presumably clear.  In addition, each server
  * entry object may also have an "initializationOptions" entry, which is passed
- * along to the server as part of the 'initialize' method.  A clangd-specific
- * HACK^Hfeature uses this to add "compilationDatabasePath".
+ * along to the server as part of the 'initialize' method.
  *
  * Various stages of override/merge are applied;
  * + user configuration (loaded from file) overrides (internal) default configuration
@@ -61,9 +60,12 @@
  * + the resulting "global" entry is used to supplement (not override) any server entry
  *
  * One server instance is used per (root, servertype) combination.
- * If "root" is not specified, it default to the $HOME directory.  If it is
- * specified as an absolute path, then it used as-is, otherwise it is relative
- * to the projectBase.  For any document, the resulting "root" then determines
+ * If "root" is specified as an absolute path, then it used as-is,
+ * otherwise it is relative to the projectBase.  If not specified and
+ * "rootIndicationFileNames" is an array as filenames, then a parent directory
+ * of current document containing such a file is selected.  As a last fallback,
+ * the home directory is selected as "root" (or the "root" entry in "global").
+ * For any document, the resulting "root" then determines
  * whether or not a separate instance is needed. If so, the "root" is passed
  * as rootUri/rootPath.
  *

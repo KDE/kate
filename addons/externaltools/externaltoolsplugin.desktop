@@ -2,6 +2,7 @@
 Type=Service
 ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=externaltoolsplugin
+Icon=system-run
 Name=External Tools
 Name[ar]=الأدوات الخارجية
 Name[ca]=Eines externes

@@ -1783,6 +1783,283 @@ based on the <ulink url="https://microsoft.github.io/language-server-protocol/">
 page called LSP Client will appear in your &kate; configuration dialog.
 </para>
 
+<sect2 id="lspclient-menu">
+<title>Menu Structure</title>
+
+<para>
+If appropriate, a corresponding LSP command is also mentioned in the
+explanation below, the documentation of which may then provide additional
+background and interpretation, though it may vary depending on the actual
+language. The phrase 'current symbol' refers to the symbol corresponding to the
+current cursor position, as so determined by the language and server
+implementation.
+</para>
+
+<variablelist>
+
+<varlistentry id="lspclient-definition">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Go to Definition</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/definition] Go to current symbol definition.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-declaration">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Go to Declaration</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/declaration] Go to current symbol declaration.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-references">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Find References</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/references] Find references to current symbol.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-highlight">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Highlight</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/documentHighlight] Highlight current symbol references in current document.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-hover">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Hover</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/hover] Hover info for current symbol.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-format">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Format</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/formatting] [textDocument/rangeFormatting]
+Format the current document or current selection.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-rename">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Rename</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/rename] Rename current symbol.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-completion-documentation">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Show selected completion documentation</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Show documentation for a selected item in the completion list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-declaration-references">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Include declaration in references</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Request to include a symbol's declaration when requesting references.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-show-hover">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Show hover information</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Show hover information upon (mouse cursor) hover.
+Regardless of this setting, the request can always be manually initiated.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-format-typing">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Format on typing</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[document/onTypeFormatting] Format parts of document when typing certain trigger characters.
+For example, this might apply indentation upon newline, or as otherwise determined by LSP Server.
+Note that editor indentation scripts might be trying to do the same (depending on the mode)
+and so it may not be advisable to have both enabled at the same time.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-incremental-sync">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Incremental document synchronization</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Send partial document edits to update the server rather than whole document text (if supported).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-diagnostics">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Show diagnostics notifications</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/publishDiagnostics] Process and show diagnostics notifications sent by server.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-diagnostics-highlight">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Show diagnostics highlights</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Add text highlights for ranges indicated in diagnostics.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-diagnostics-marks">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Show diagnostics marks</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Add document marks for lines indicated in diagnostics.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-diagnostics-tab">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Switch to diagnostic tab</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Switch to the diagnostic tab in the plugin toolview.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-close-non-diagnostics">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Close all non-diagnostics tabs</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Close all non-diagnostics (e.g. references) tabs in plugin toolview.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-restart">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Restart LSP Server</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Restart current document's LSP Server.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-restart-all">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Restart all LSP Servers</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Stop all LSP Servers which will then be (re)started as needed.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+
+<sect2 id="lspclient-configuration">
+<title>Configuration</title>
+
+<para>
+The plugin's configuration page mostly allows for persistent configuration of
+some of the above menu items.  However, there is one additional entry
+to specify the Server Configuration file.  This is a JSON file that
+can be used to specify the LSP server to start (and then to communicate
+with over stdin/stdout).  For convenience, the following default configuration
+is included (though alternative server implementation are equally valid
+and possible):
+
+<screen>
+&lspclient-config;
+</screen>
+
+Note that each "command" may be an array or a string (in which case it is
+split into an array).  Also, a top-level "global" entry (next to "server") is
+considered as well (see further below).
+</para>
+
+<para>
+From the above example, the gist is presumably clear.  In addition, each server
+entry object may also have an "initializationOptions" entry, which is passed
+along to the server as part of the 'initialize' method.
+</para>
+
+<para>
+Various stages of override/merge are applied;
+<itemizedlist>
+<listitem>
+<para>user configuration (loaded from file) overrides (internal) default configuration</para>
+</listitem>
+<listitem>
+<para>"lspclient" entry in <filename>.kateproject</filename> project configuration overrides the above</para>
+</listitem>
+<listitem>
+<para>the resulting "global" entry is used to supplement (not override) any server entry</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para> One server instance is used per (root, servertype) combination. If
+"root" is specified as an absolute path, then it used as-is, otherwise it is
+relative to the <quote>projectBase</quote> (as determined by the <link
+linkend="kate-application-plugin-projects">Project plugin</link>). If not
+specified and "rootIndicationFileNames" is an array as filenames, then a parent
+directory of current document containing such a file is selected. As a last
+fallback, the home directory is selected as "root". For any document, the
+resulting "root" then determines whether or not a separate instance is needed.
+If so, the "root" is passed as rootUri/rootPath. </para>
+
+<para>
+In general, it is recommended to leave root unspecified, as it is not that
+important for a server (your mileage may vary though).  Fewer server instances
+are obviously more efficient, and they also have a 'wider' view than
+the view of many separate instances.
+</para>
+
+</sect2>
+
 <!--TODO: Supported languages, describe features and actions a bit -->
 
 <!--<screenshot id="screenshot-rust-configuration">

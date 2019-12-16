@@ -2012,7 +2012,52 @@ is included (though alternative server implementation are equally valid
 and possible):
 
 <screen>
-&lspclient-config;
+{
+    "servers": {
+        "bibtex": {
+            "use": "latex"
+        },
+        "c": {
+            "command": ["clangd", "-log=error", "--background-index"],
+            "commandDebug": ["clangd", "-log=verbose", "--background-index"],
+            "url": "https://clang.llvm.org/extra/clangd/"
+        },
+        "cpp": {
+            "use": "c"
+        },
+        "d": {
+            "command": ["dls", "--stdio"],
+            "url": "https://github.com/d-language-server/dls"
+        },
+        "fortran": {
+            "command": ["fortls"],
+            "rootIndicationFileNames": [".fortls"],
+            "url": "https://github.com/hansec/fortran-language-server"
+        },
+        "latex": {
+            "command": ["texlab"],
+            "url": "https://texlab.netlify.com/"
+        },
+        "go": {
+            "command": ["go-langserver"],
+            "commandDebug": ["go-langserver", "-trace"],
+            "url": "https://github.com/sourcegraph/go-langserver"
+        },
+        "python": {
+            "command": ["python3", "-m", "pyls", "--check-parent-process"],
+            "url": "https://github.com/palantir/python-language-server"
+        },
+        "rust": {
+            "command": ["rls"],
+            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
+            "url": "https://github.com/rust-lang/rls"
+        },
+        "ocaml": {
+            "command": ["ocamlmerlin-lsp"],
+            "url": "https://github.com/ocaml/merlin"
+        }
+    }
+}
 </screen>
 
 Note that each "command" may be an array or a string (in which case it is

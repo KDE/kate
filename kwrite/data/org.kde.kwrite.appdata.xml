@@ -27,6 +27,7 @@
   <name xml:lang="it">KWrite</name>
   <name xml:lang="ko">KWrite</name>
   <name xml:lang="lt">KWrite</name>
+  <name xml:lang="ml">KWrite</name>
   <name xml:lang="nb">KWrite</name>
   <name xml:lang="nl">KWrite</name>
   <name xml:lang="nn">KWrite</name>
@@ -71,6 +72,7 @@
   <summary xml:lang="it">Editor di testo</summary>
   <summary xml:lang="ko">텍스트 편집기</summary>
   <summary xml:lang="lt">Rašyklė</summary>
+  <summary xml:lang="ml">ടെക്സ്റ്റ് എഡിറ്റർ</summary>
   <summary xml:lang="nb">Tekstredigering</summary>
   <summary xml:lang="nl">Teksteditor</summary>
   <summary xml:lang="nn">Skriveprogram</summary>
@@ -113,6 +115,7 @@
     <p xml:lang="id">KWrite adalah sebuah pengedit teks oleh KDE, berdasarkan pada komponen editor Kate.</p>
     <p xml:lang="it">KWrite è un editor di testo di KDE, basato sul componente dell'editor di Kate.</p>
     <p xml:lang="ko">KWrite는 Kate 편집기 구성 요소를 사용하는 KDE 텍스트 편집기입니다.</p>
+    <p xml:lang="ml">KWrite എന്നത് KDE യുടെ  Kate നെ അടിസ്ഥാന ഭാഗമായ ടെക്സ്റ്റ് എഡിറ്റർ ആണ്.</p>
     <p xml:lang="nl">KWrite is een tekstbewerker door KDE, gebaseerd op de tekstbewerkercomponent van Kate.</p>
     <p xml:lang="nn">KWrite er eit skriveprogram frå KDE, basert på skrivekomponenten i Kate.</p>
     <p xml:lang="pa">ਕੇ-ਰਾਈਟ ਕੇਡੀਈ ਵਲੋਂ ਕੇਟ ਅਧਾਰਿਤ ਸੰਪਾਦਕੀ ਭਾਗਾਂ ਉੱਤੇ ਬਣਾਇਆ ਗਿਆ ਲਿਖਤ ਸੰਪਾਦਕ ਹੈ।</p>
@@ -156,6 +159,7 @@
     <p xml:lang="it">Funzionalità:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="lt">Ypatybės:</p>
+    <p xml:lang="ml">സവിശേഷതകൾ:</p>
     <p xml:lang="nb">Funksjoner:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="nn">Funksjonar:</p>
@@ -200,6 +204,7 @@
       <li xml:lang="it">Evidenziazione della sintassi in base al tipo di file</li>
       <li xml:lang="ko">파일 형식별 구문 강조</li>
       <li xml:lang="lt">Sintaksės paryškinimas, priklausomai nuo dokumento tipo</li>
+      <li xml:lang="ml">ഫയൽ രീതി അനുസരിച്ച് പദവിന്യാസം പ്രമുഖമാണ്. </li>
       <li xml:lang="nb">Syntaksfremheving etter filtype</li>
       <li xml:lang="nl">Syntaxisaccentuering volgens bestandstype</li>
       <li xml:lang="nn">Syntaksmerking basert på filtype</li>
@@ -243,6 +248,7 @@
       <li xml:lang="it">Completamento delle parole</li>
       <li xml:lang="ko">단어 완성</li>
       <li xml:lang="lt">Žodžių užbaigimas</li>
+      <li xml:lang="ml">വാക്യ പൂർത്തീകരണം</li>
       <li xml:lang="nb">Fullføring av ord</li>
       <li xml:lang="nl">Woordaanvulling</li>
       <li xml:lang="nn">Autofullføring</li>
@@ -287,6 +293,7 @@
       <li xml:lang="it">Rientro automatico</li>
       <li xml:lang="ko">자동 들여쓰기</li>
       <li xml:lang="lt">Automatinė įtrauka</li>
+      <li xml:lang="ml">സ്വയം-അകലക്രമീകരണം</li>
       <li xml:lang="nb">Automatisk innrykk</li>
       <li xml:lang="nl">Automatisch inspringen</li>
       <li xml:lang="nn">Automatiske innrykk</li>
@@ -330,6 +337,7 @@
       <li xml:lang="it">Supporto delle estensioni</li>
       <li xml:lang="ko">플러그인 지원</li>
       <li xml:lang="lt">Papildinių palaikymas</li>
+      <li xml:lang="ml">സംയോജക പിന്തുണ</li>
       <li xml:lang="nb">Støtte for programtillegg</li>
       <li xml:lang="nl">Ondersteuning van plug-ins</li>
       <li xml:lang="nn">Støtte for programtillegg</li>
@@ -374,6 +382,7 @@
       <li xml:lang="it">Modalità di inserimento Vi.</li>
       <li xml:lang="ko">VI 입력 모드</li>
       <li xml:lang="lt">Vi įvesties režimas</li>
+      <li xml:lang="ml">Vi എഴുത്ത് രീതി</li>
       <li xml:lang="nb">Inndatamodus som i Vi</li>
       <li xml:lang="nl">VI-invoermethode</li>
       <li xml:lang="nn">Vi-tastemodus</li>
@@ -419,6 +428,7 @@
       <caption xml:lang="id">Pengeditan kode menggunakan KWrite</caption>
       <caption xml:lang="it">Modificare il codice con KWrite</caption>
       <caption xml:lang="ko">KWrite로 코드 편집</caption>
+      <caption xml:lang="ml">KWrite ഉപയോഗിച്ചു കോഡ് മാറ്റം വരുത്തൽ</caption>
       <caption xml:lang="nl">Broncode bewerken met KWrite</caption>
       <caption xml:lang="nn">Redigering av kjeldekode med KWrite</caption>
       <caption xml:lang="pa">ਕੇ-ਲੇਖਕ ਨਾਲ ਕੋਡ ਸੋਧਣਾ</caption>

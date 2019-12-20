@@ -25,6 +25,7 @@
   <name xml:lang="id">Kate</name>
   <name xml:lang="it">Kate</name>
   <name xml:lang="ko">Kate</name>
+  <name xml:lang="ml">കെയ്റ്റ്</name>
   <name xml:lang="nb">Kate</name>
   <name xml:lang="nl">Kate</name>
   <name xml:lang="nn">Kate</name>
@@ -67,6 +68,7 @@
   <summary xml:lang="id">Pengedit Teks Tingkat Lanjut</summary>
   <summary xml:lang="it">Editor di testi avanzato</summary>
   <summary xml:lang="ko">고급 텍스트 편집기</summary>
+  <summary xml:lang="ml">വിസ്തൃതമായ പദാവലി എഡിറ്റർ</summary>
   <summary xml:lang="nb">Avansert skriveprogram</summary>
   <summary xml:lang="nl">Geavanceerde teksteditor</summary>
   <summary xml:lang="nn">Avansert skriveprogram</summary>
@@ -109,6 +111,7 @@
     <p xml:lang="id">Kate adalah editor teks multi-dokumen multi-tampilan oleh KDE. Ini fitur hal-hal seperti codefolding, syntaxhighlighting, bungkus kata dinamis, konsol tertanam, antarmuka plugin yang luas dan beberapa dukungan scripting awal.</p>
     <p xml:lang="it">Kate è un editor di testi multi-documento e multi-vista di KDE. È dotato di funzionalità come il raggruppamento del codice, l'evidenziazione della sintassi, a capo automatico dinamico, una console integrata, un'interfaccia potenziabile tramite estensioni e qualche supporto preliminare per la creazione di script.</p>
     <p xml:lang="ko">Kate는 KDE의 다문서 다화면 텍스트 편집기입니다. 코드 접기, 구문 강조, 동적 줄 바꿈, 내장된 콘솔, 플러그인 인터페이스, 스크립트 기능을 지원합니다.</p>
+    <p xml:lang="ml">കെയ്റ്റ് എന്നത് കെ.ഡി.ഇ. യുടെ വിവിധോദ്യേശ പദാവലി എഡിറ്റർ ആണ്. ഇത് കോഡ് മടക്കൽ, സിന്റാക്സ് പ്രധാനീകരിക്കൽ, ചലനാത്മകമായ അക്ഷര സൗന്ദര്യവൽക്കരണം, ബന്ധിപ്പിച്ചിട്ടുള്ള കൺസോൾ, വിപുലമായ പ്ലഗ്ഇൻ വിനിമയതലം, അടിസ്ഥാനമായ സ്ക്രിപ്റ്റിംഗ് എന്നിവ പിന്തുണ നൽകുന്നു.</p>
     <p xml:lang="nl">Kate is een multi-document, multi-view tekstbewerker door KDE. Het bevat functies zoals opvouwen van code, accentuering van syntaxis, dynamisch afbreken van de regel, een ingebed console, een extensieve plug-in-interface en enige beginnende ondersteuning voor scripts.</p>
     <p xml:lang="nn">Kate er eit skriveprogram frå KDE som kan handsama fleire dokument og fleire visingar samtidig. Det har funksjonar som kodefalding, syntaksmerking, dymamisk linjebryting, ein innebygd terminalemulator, eit omfattande grensesnitt for programtillegg og enkel skriptstøtte.</p>
     <p xml:lang="pl">Kate jest wielodokumentowym, wielowidokowym edytorem tekstu stworzonym przez KDE. Umożliwia zwijanie kodu, podświetlanie składni, dynamiczne zawijanie wyrazów, osadzoną konsolę, rozbudowany interfejs dla wtyczek i zapewnia podstawową obsługę skryptów.</p>
@@ -149,6 +152,7 @@
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Funzionalità:</p>
     <p xml:lang="ko">기능:</p>
+    <p xml:lang="ml">വിശേഷതകൾ:</p>
     <p xml:lang="nb">Funksjoner:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="nn">Funksjonar:</p>
@@ -190,6 +194,7 @@
       <li xml:lang="id">MDI, pemisahan window, penambahan tab window</li>
       <li xml:lang="it">MDI, divisione della finestra, schede delle finestre</li>
       <li xml:lang="ko">MDI, 창 나누기, 탭 기능</li>
+      <li xml:lang="ml">MDI, ജാലക വേർതിരിക്കൽ, ജാലക ടാബിംഗ്</li>
       <li xml:lang="nb">MDI, vindusdeling, vindusfaner</li>
       <li xml:lang="nl">MDI, splitsing van vensters, tabbladen</li>
       <li xml:lang="nn">MDI, vindaugsdeling, vindaugsfaner</li>
@@ -232,6 +237,7 @@
       <li xml:lang="id">Pengecekan ejaan</li>
       <li xml:lang="it">Controllo ortografico</li>
       <li xml:lang="ko">맞춤법 검사</li>
+      <li xml:lang="ml">അക്ഷര പരിശോധന</li>
       <li xml:lang="nb">Stavekontroll</li>
       <li xml:lang="nl">Spellingcontrole</li>
       <li xml:lang="nn">Stavekontroll</li>
@@ -272,6 +278,7 @@
       <li xml:lang="id">Dukungan CR, CRLF, LF newline</li>
       <li xml:lang="it">Supporto ritorno a capo CR, CRLF, LF</li>
       <li xml:lang="ko">CR, CRLF, LF 새 줄지 원</li>
+      <li xml:lang="ml">CR, CRLF, LF അന്ത്യാക്ഷര പിന്തുണ</li>
       <li xml:lang="nb">Støtte for ny linje med CR, CRLF eller LF</li>
       <li xml:lang="nl">Ondersteuning van CR, CRLF, LF nieuwe-regel</li>
       <li xml:lang="nn">Støtte for linjeskift med CR, CRLF eller LF</li>
@@ -313,6 +320,7 @@
       <li xml:lang="id">Dukungan pengkodean (utf-8, utf-16, ascii dll.)</li>
       <li xml:lang="it">Supporto di codifica (utf-8, utf-16, ascii, ecc.)</li>
       <li xml:lang="ko">인코딩 지원(UTF-8, UTF-16, ASCII 등)</li>
+      <li xml:lang="ml">എൻകോഡിംഗ് പിന്തുണ (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="nb">Støtte for tegnkoding (utf-8. utf-16, ascii osv.)</li>
       <li xml:lang="nl">Ondersteuning voor codering (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="nn">Støtte for teiknkoding (UTF-8, UTF-16, ASCII, ….)</li>
@@ -353,6 +361,7 @@
       <li xml:lang="id">Konversi pengkodean</li>
       <li xml:lang="it">Conversione di codifica</li>
       <li xml:lang="ko">인코딩 변환</li>
+      <li xml:lang="ml">എൻകോഡിംഗ് പരിവർത്തനം</li>
       <li xml:lang="nb">Kodekonvertering</li>
       <li xml:lang="nl">Conversie van codering</li>
       <li xml:lang="nn">Støtte for teinkodingskonvertering</li>
@@ -393,6 +402,7 @@
       <li xml:lang="id">Ekspresi reguler berdasarkan cari &amp; ganti</li>
       <li xml:lang="it">Ricerche e sostituzioni basate sulle espressioni regolari</li>
       <li xml:lang="ko">정규 표현식 기반 찾기 및 바꾸기</li>
+      <li xml:lang="ml">RegEx അടിസ്ഥാനമാക്കിയുള്ള find &amp; replace ആവിഷ്കരണം</li>
       <li xml:lang="nb">Finn og erstatt basert på regulære uttrykk</li>
       <li xml:lang="nl">Op reguliere expressies gebaseerd zoeken &amp; vervangen</li>
       <li xml:lang="nn">«Finn og byt ut» basert på regulære uttrykk</li>
@@ -433,6 +443,7 @@
       <li xml:lang="id">Penyorotan sintaks dan pencocokan tandakurungsiku yang ampuh</li>
       <li xml:lang="it">Potente evidenziazione della sintassi e verifica delle parentesi</li>
       <li xml:lang="ko">강력한 구문 강조 및 괄호 일치</li>
+      <li xml:lang="ml">ശക്തിയേറിയ സിന്റാക്സ് പ്രധാനീകരിക്കലും ബ്രാക്കറ്റ് ചേർച്ചയും</li>
       <li xml:lang="nb">Kraftig syntaksfremheving og parentesparing</li>
       <li xml:lang="nl">Krachtige syntaxisaccentuering en overeenkomende haakjes</li>
       <li xml:lang="nn">Kraftig syntaksmerking og markering av parentespar</li>
@@ -472,6 +483,7 @@
       <li xml:lang="id">Pelipatan kode dan teks</li>
       <li xml:lang="it">Raggruppamento del codice e del testo</li>
       <li xml:lang="ko">코드 및 텍스트 접기</li>
+      <li xml:lang="ml">കോഡും അക്ഷര മടക്കലും</li>
       <li xml:lang="nb">Kode- og tekstbryting</li>
       <li xml:lang="nl">Code en tekst invouwen</li>
       <li xml:lang="nn">Kode- og tekstfalding</li>
@@ -513,6 +525,7 @@
       <li xml:lang="id">Dukungan urungkan/lanjurkan tak terbatas</li>
       <li xml:lang="it">Supporto annulla/rifai infinito</li>
       <li xml:lang="ko">무한 실행 취소/다시 실행 지원</li>
+      <li xml:lang="ml">അനന്തമായ നിഷ്‍ഫലമാക്കൽ / വീണ്ടും ചെയ്യൽ പിന്തുണ</li>
       <li xml:lang="nb">Ubegrenset støtte for angring/omgjøring</li>
       <li xml:lang="nl">Ondersteuning van oneindig ongedaan maken/opnieuw</li>
       <li xml:lang="nn">Uavgrensa støtte for angring/omgjering</li>
@@ -553,6 +566,7 @@
       <li xml:lang="id">Mode seleksi blok</li>
       <li xml:lang="it">Modalità di selezione a blocchi</li>
       <li xml:lang="ko">블록 선택 모드</li>
+      <li xml:lang="ml">ബ്ലോക്ക് തെരഞ്ഞെടുക്കൽ രീതി</li>
       <li xml:lang="nb">Blokkmerkingsmodus</li>
       <li xml:lang="nl">Blokselectiemodus</li>
       <li xml:lang="nn">Blokkmerkingsmodus</li>
@@ -594,6 +608,7 @@
       <li xml:lang="id">Indentasi otomatis</li>
       <li xml:lang="it">Rientro automatico</li>
       <li xml:lang="ko">자동 들여쓰기</li>
+      <li xml:lang="ml">സ്വയം അകലക്രമീകരണം</li>
       <li xml:lang="nb">Automatisk innrykk</li>
       <li xml:lang="nl">Automatisch inspringen</li>
       <li xml:lang="nn">Automatiske innrykk</li>
@@ -634,6 +649,7 @@
       <li xml:lang="id">Dukungan penyelesaian otomatis</li>
       <li xml:lang="it">Supporto completamento automatico</li>
       <li xml:lang="ko">자동 완성 지원</li>
+      <li xml:lang="ml">സ്വയ പൂർത്തീകരണ പിന്തുണ</li>
       <li xml:lang="nb">Autofullføring</li>
       <li xml:lang="nl">Ondersteuning voor automatische aanvulling</li>
       <li xml:lang="nn">Støtte for autofullføring</li>
@@ -674,6 +690,7 @@
       <li xml:lang="id">Integrasi dengan Shell</li>
       <li xml:lang="it">Integrazione con la shell</li>
       <li xml:lang="ko">셸 통합</li>
+      <li xml:lang="ml">ഷെൽ ഏകീകരണം</li>
       <li xml:lang="nb">Skall-integrasjon</li>
       <li xml:lang="nl">Integratie van de shell</li>
       <li xml:lang="nn">Skalintegrering</li>
@@ -714,6 +731,7 @@
       <li xml:lang="id">Dukungan protokol yang luas (http, ftp, ssh, webdav dll.) menggunakan kioslaves</li>
       <li xml:lang="it">Ampio supporto di protocolli (http, ftp, ssh, WebDAV, ecc.) utilizzando i kioslave</li>
       <li xml:lang="ko">KIO 슬레이브를 사용한 다양한 프로토콜 지원(HTTP, FTP, SSH, WebDAV 등)</li>
+      <li xml:lang="ml">kioslaves ഉപയോഗിച്ചുള്ള വിസ്തൃതമായ നിയമാവലി പിന്തുണ (http, ftp, ssh, webdav etc.)</li>
       <li xml:lang="nb">Bred protokollstøtte (http, ftp, ssh, webdav osv.) ved bruk av kioslaver</li>
       <li xml:lang="nl">Brede ondersteuning van protocollen (http, ftp, ssh, webdav etc.) met kioslaves</li>
       <li xml:lang="nn">Omfattande protokollstøtte (http, ftp, ssh, webdav, …) ved bruk av KIO-slavar</li>
@@ -754,6 +772,7 @@
       <li xml:lang="id">Arsitektur pengaya untuk aplikasi dan komponen penyunting</li>
       <li xml:lang="it">Architettura con estensioni per i componenti dell'applicazione e dell'editor</li>
       <li xml:lang="ko">프로그램과 편집기 구성 요소 플러그인 구조</li>
+      <li xml:lang="ml">ആപ്ലിക്കേഷനും ചിട്ടപ്പെടുത്തൽ ഉപകരണത്തിനും പ്ലഗ് ഇൻ രൂപകല്പന</li>
       <li xml:lang="nb">Modularkitektur for programmet og redigeringskomponenten</li>
       <li xml:lang="nl">Plug-in-architectuur voor de applicatie- en editor-component</li>
       <li xml:lang="nn">Støtte for programtillegg til programmet og redigeringskomponenten</li>
@@ -795,6 +814,7 @@
       <li xml:lang="id">Pintasan dapat dikustomisasi</li>
       <li xml:lang="it">Scorciatoie personalizzabili</li>
       <li xml:lang="ko">사용자 정의 가능한 단축키</li>
+      <li xml:lang="ml">അഭിരുചിക്കനുസൃതമാക്കാവുന്ന കുറുക്കുവഴികൾ</li>
       <li xml:lang="nb">Brukerstyrte snarveier</li>
       <li xml:lang="nl">Aanpasbare sneltoetsen</li>
       <li xml:lang="nn">Tilpassbare snarvegar</li>
@@ -835,6 +855,7 @@
       <li xml:lang="id">Baris perintah yang terintegrasi</li>
       <li xml:lang="it">Riga di comando integrata</li>
       <li xml:lang="ko">내장 명령행</li>
+      <li xml:lang="ml">ഏകീകരിച്ച ആജ്ഞാസ്ഥാനം</li>
       <li xml:lang="nb">Integrert kommandolinje</li>
       <li xml:lang="nl">Geïntegreerde opdrachtregel</li>
       <li xml:lang="nn">Integrert kommandolinje</li>
@@ -875,6 +896,7 @@
       <li xml:lang="id">Skrip menggunakan JavaScript</li>
       <li xml:lang="it">Creazione di script con JavaScript</li>
       <li xml:lang="ko">JavaScript를 사용한 스크립트</li>
+      <li xml:lang="ml">ജാവാസ്ക്രിപ്റ്റ് ഉപയോഗിച്ച് സ്ക്രിപ്റ്റ് ചെയ്യാവുന്നത്</li>
       <li xml:lang="nb">Kan skriptes med Javascript</li>
       <li xml:lang="nl">JavaScript te gebruiken in scripts</li>
       <li xml:lang="nn">Støtte for JavaScript-støtte</li>
@@ -919,6 +941,7 @@
       <caption xml:lang="id">Pengeditan kode menggunakan Kate</caption>
       <caption xml:lang="it">Modificare il codice con Kate</caption>
       <caption xml:lang="ko">Kate로 코드 편집</caption>
+      <caption xml:lang="ml">കെയ്റ്റ് ഉപയോഗിച്ചുള്ള കോഡ് ചിട്ടപ്പെടുത്തൽ</caption>
       <caption xml:lang="nl">Broncode bewerken met Kate</caption>
       <caption xml:lang="nn">Redigering av kjeldekode med Kate</caption>
       <caption xml:lang="pl">Edytowanie kodu z Kate</caption>

@@ -696,7 +696,7 @@ static LSPSemanticHighlightingParams parseSemanticHighlighting(const QJsonObject
         // the raw tokens are in big endian, we may need to convert that to little endian
         const auto rawTokens = QByteArray::fromBase64(tokenString.toString().toUtf8());
         if (rawTokens.size() % TokenSize != 0) {
-            qWarning() << "unexpected raw token size" << rawTokens.size() << "for string" << tokenString << "in line" << info.line;
+            qCWarning(LSPCLIENT) << "unexpected raw token size" << rawTokens.size() << "for string" << tokenString << "in line" << info.line;
             continue;
         }
         const auto numTokens = rawTokens.size() / TokenSize;

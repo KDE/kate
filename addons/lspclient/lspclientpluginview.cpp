@@ -1440,13 +1440,13 @@ public:
     {
         auto *view = viewForUrl(params.textDocument.uri);
         if (!view) {
-            qWarning() << "failed to find view for uri" << params.textDocument.uri;
+            qCWarning(LSPCLIENT) << "failed to find view for uri" << params.textDocument.uri;
             return;
         }
 
         auto server = m_serverManager->findServer(view);
         if (!server) {
-            qWarning() << "failed to find server for view" << params.textDocument.uri;
+            qCWarning(LSPCLIENT) << "failed to find server for view" << params.textDocument.uri;
             return;
         }
 
@@ -1463,7 +1463,7 @@ public:
             }
         }
         if (version != miface->revision()) {
-            qWarning() << "discarding highlighting, versions don't match:"
+            qCWarning(LSPCLIENT) << "discarding highlighting, versions don't match:"
                        << params.textDocument.version << version << miface->revision();
             return;
         }
@@ -1552,7 +1552,7 @@ public:
         // TODO: we should try to recycle the moving ranges instead of recreating them all the time
 
         const auto scopes = server->capabilities().semanticHighlightingProvider.scopes;
-        qDebug() << params.textDocument.uri << scopes;
+        //qDebug() << params.textDocument.uri << scopes;
 
         auto &documentRanges = m_semanticHighlightRanges[document];
         QSet<int> handledLines;
@@ -1561,9 +1561,9 @@ public:
             auto &lineRanges = documentRanges[line.line];
             qDeleteAll(lineRanges);
             lineRanges.clear();
-            qDebug() << "line:" << line.line;
+            //qDebug() << "line:" << line.line;
             for (const auto &token : line.tokens) {
-                qDebug() << "token:" << token.character << token.length << token.scope << scopes.value(token.scope);
+                //qDebug() << "token:" << token.character << token.length << token.scope << scopes.value(token.scope);
                 auto attribute = attributeForScopes(scopes.value(token.scope));
                 if (!attribute)
                     continue;

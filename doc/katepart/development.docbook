@@ -237,6 +237,8 @@ GenericDataLocation</option></userinput> which usually is
 <para>On &Windows; these files are located <filename>%USERPROFILE%/AppData/Local/org.kde.syntax-highlighting/syntax</filename>.
 <replaceable>%USERPROFILE%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
 
+<para>If multiple files exist for the same language, the file with the highest <userinput>version</userinput> attribute in the <userinput>language</userinput> element will be loaded.</para>
+
 <variablelist>
 <title>Main sections of &kappname; Highlight Definition files</title>
 

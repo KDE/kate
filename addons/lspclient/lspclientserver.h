@@ -73,6 +73,8 @@ using CodeActionReplyHandler = ReplyHandler<QList<LSPCodeAction>>;
 using WorkspaceEditReplyHandler = ReplyHandler<LSPWorkspaceEdit>;
 using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
 
+class LSPClientPlugin;
+
 class LSPClientServer : public QObject
 {
     Q_OBJECT
@@ -101,7 +103,7 @@ public:
 
     // server management
     // request start
-    bool start();
+    bool start(LSPClientPlugin *plugin);
     // request shutdown/stop
     // if to_xxx >= 0 -> send signal if not exit'ed after timeout
     void stop(int to_term_ms, int to_kill_ms);

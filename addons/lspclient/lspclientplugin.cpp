@@ -49,6 +49,7 @@ static const QString CONFIG_DIAGNOSTICS {QStringLiteral("Diagnostics")};
 static const QString CONFIG_DIAGNOSTICS_HIGHLIGHT {QStringLiteral("DiagnosticsHighlight")};
 static const QString CONFIG_DIAGNOSTICS_MARK {QStringLiteral("DiagnosticsMark")};
 static const QString CONFIG_SERVER_CONFIG {QStringLiteral("ServerConfiguration")};
+static const QString CONFIG_SEMANTIC_HIGHLIGHTING {QStringLiteral("SemanticHighlighting")};
 
 K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 
@@ -108,6 +109,7 @@ void LSPClientPlugin::readConfig()
     m_diagnosticsHighlight = config.readEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, true);
     m_diagnosticsMark = config.readEntry(CONFIG_DIAGNOSTICS_MARK, true);
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
+    m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, false);
 
     emit update();
 }
@@ -128,6 +130,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, m_diagnosticsHighlight);
     config.writeEntry(CONFIG_DIAGNOSTICS_MARK, m_diagnosticsMark);
     config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
+    config.writeEntry(CONFIG_SEMANTIC_HIGHLIGHTING, m_semanticHighlighting);
 
     emit update();
 }

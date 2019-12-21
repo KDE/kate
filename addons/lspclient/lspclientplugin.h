@@ -61,6 +61,7 @@ public:
     bool m_onTypeFormatting;
     bool m_incrementalSync;
     QUrl m_configPath;
+    bool m_semanticHighlighting;
 
     // debug mode?
     bool m_debugMode = false;

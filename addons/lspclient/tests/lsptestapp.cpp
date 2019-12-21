@@ -46,7 +46,7 @@ int main(int argc, char **argv)
             q.quit();
     };
     auto conn = QObject::connect(&lsp, &LSPClientServer::stateChanged, state_h);
-    lsp.start();
+    lsp.start(nullptr /* no plugin for extra config */);
     q.exec();
     QObject::disconnect(conn);
 

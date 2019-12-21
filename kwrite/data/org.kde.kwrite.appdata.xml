@@ -27,7 +27,7 @@
   <name xml:lang="it">KWrite</name>
   <name xml:lang="ko">KWrite</name>
   <name xml:lang="lt">KWrite</name>
-  <name xml:lang="ml">KWrite</name>
+  <name xml:lang="ml">കെഎഴുത്ത്</name>
   <name xml:lang="nb">KWrite</name>
   <name xml:lang="nl">KWrite</name>
   <name xml:lang="nn">KWrite</name>
@@ -159,7 +159,7 @@
     <p xml:lang="it">Funzionalità:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="lt">Ypatybės:</p>
-    <p xml:lang="ml">സവിശേഷതകൾ:</p>
+    <p xml:lang="ml">വിശേഷതകൾ:</p>
     <p xml:lang="nb">Funksjoner:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="nn">Funksjonar:</p>
@@ -204,7 +204,7 @@
       <li xml:lang="it">Evidenziazione della sintassi in base al tipo di file</li>
       <li xml:lang="ko">파일 형식별 구문 강조</li>
       <li xml:lang="lt">Sintaksės paryškinimas, priklausomai nuo dokumento tipo</li>
-      <li xml:lang="ml">ഫയൽ രീതി അനുസരിച്ച് പദവിന്യാസം പ്രമുഖമാണ്. </li>
+      <li xml:lang="ml">ഫയൽ രീതി അനുസരിച്ച് പദവിന്യാസം പ്രമുഖമാണ്</li>
       <li xml:lang="nb">Syntaksfremheving etter filtype</li>
       <li xml:lang="nl">Syntaxisaccentuering volgens bestandstype</li>
       <li xml:lang="nn">Syntaksmerking basert på filtype</li>

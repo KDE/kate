@@ -47,6 +47,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkDiagnosticsMark,
                            ui->chkOnTypeFormatting,
                            ui->chkIncrementalSync,
+                           ui->chkSemanticHighlighting,
                            ui->chkAutoHover})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::changed);
@@ -98,6 +99,7 @@ void LSPClientConfigPage::apply()
     m_plugin->m_autoHover = ui->chkAutoHover->isChecked();
     m_plugin->m_onTypeFormatting = ui->chkOnTypeFormatting->isChecked();
     m_plugin->m_incrementalSync = ui->chkIncrementalSync->isChecked();
+    m_plugin->m_semanticHighlighting = ui->chkSemanticHighlighting->isChecked();
 
     m_plugin->m_configPath = ui->edtConfigPath->url();
 
@@ -121,6 +123,7 @@ void LSPClientConfigPage::reset()
     ui->chkAutoHover->setChecked(m_plugin->m_autoHover);
     ui->chkOnTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
     ui->chkIncrementalSync->setChecked(m_plugin->m_incrementalSync);
+    ui->chkSemanticHighlighting->setChecked(m_plugin->m_semanticHighlighting);
 
     ui->edtConfigPath->setUrl(m_plugin->m_configPath);
 }

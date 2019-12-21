@@ -102,6 +102,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="chkSemanticHighlighting">
+        <property name="text">
+         <string>Enable semantic highlighting</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QCheckBox" name="chkDiagnostics">

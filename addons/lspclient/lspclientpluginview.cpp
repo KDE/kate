@@ -1474,6 +1474,7 @@ public:
 
         // TODO: make schema attributes accessible via some new interface,
         // or at least add configuration to the lsp plugin config
+        // FIXME: static attributes break if one e.g. switches the color scheme on the fly!
         auto attributeForScopes = [view](const QVector<QString> &scopes) -> KTextEditor::Attribute::Ptr {
             for (const auto &scope : scopes) {
                 if (scope == QLatin1String("entity.name.function.method.cpp")) {
@@ -1481,7 +1482,7 @@ public:
                     if (!attr) {
                         attr = view->defaultStyleAttribute(KTextEditor::dsFunction);
                         attr.detach();
-                        attr->setForeground(Qt::yellow);
+                        attr->setForeground(Qt::darkYellow);
                         attr->setFontItalic(true);
                     }
                     return attr;
@@ -1490,7 +1491,7 @@ public:
                     if (!attr) {
                         attr = view->defaultStyleAttribute(KTextEditor::dsFunction);
                         attr.detach();
-                        attr->setForeground(Qt::yellow);
+                        attr->setForeground(Qt::darkYellow);
                     }
                     return attr;
                 } else if (scope == QLatin1String("variable.other.cpp")) {
@@ -1498,7 +1499,7 @@ public:
                     if (!attr) {
                         attr = view->defaultStyleAttribute(KTextEditor::dsVariable);
                         attr.detach();
-                        attr->setForeground(Qt::cyan);
+                        attr->setForeground(Qt::darkCyan);
                     }
                     return attr;
                 } else if (scope == QLatin1String("variable.other.field.cpp")) {
@@ -1506,7 +1507,7 @@ public:
                     if (!attr) {
                         attr = view->defaultStyleAttribute(KTextEditor::dsVariable);
                         attr.detach();
-                        attr->setForeground(Qt::cyan);
+                        attr->setForeground(Qt::darkCyan);
                         attr->setFontItalic(true);
                     }
                     return attr;
@@ -1515,7 +1516,7 @@ public:
                     if (!attr) {
                         attr = view->defaultStyleAttribute(KTextEditor::dsConstant);
                         attr.detach();
-                        attr->setForeground(Qt::magenta);
+                        attr->setForeground(Qt::darkMagenta);
                     }
                     return attr;
                 } else if (scope == QLatin1String("variable.other.enummember.cpp")) {
@@ -1524,6 +1525,7 @@ public:
                         attr = view->defaultStyleAttribute(KTextEditor::dsConstant);
                         attr.detach();
                         attr->setForeground(Qt::darkMagenta);
+                        attr->setFontItalic(true);
                     }
                     return attr;
                 } else if (scope == QLatin1String("entity.name.type.class.cpp")
@@ -1533,7 +1535,7 @@ public:
                     if (!attr) {
                         attr = view->defaultStyleAttribute(KTextEditor::dsDataType);
                         attr.detach();
-                        attr->setForeground(Qt::green);
+                        attr->setForeground(Qt::darkMagenta);
                     }
                     return attr;
                 } else if (scope == QLatin1String("entity.name.namespace.cpp")) {
@@ -1542,6 +1544,7 @@ public:
                         attr = view->defaultStyleAttribute(KTextEditor::dsDataType);
                         attr.detach();
                         attr->setForeground(Qt::darkGreen);
+                        attr->setFontItalic(true);
                     }
                     return attr;
                 }

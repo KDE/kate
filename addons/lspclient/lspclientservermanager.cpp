@@ -174,6 +174,9 @@ static QString languageId(const QString &mode)
         result = QStringLiteral("fortran");
     } else if (result.contains(QLatin1String("objective caml"))) {
         result = QStringLiteral("ocaml");
+    } else if (result.startsWith(QLatin1String("php"))) {
+        // only consider at start, as it might be a subset of other generated languages
+        result = QStringLiteral("php");
     }
 
     /**

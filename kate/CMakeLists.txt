@@ -1,4 +1,4 @@
-# We use an intermediate static library because linking tests directly to an executable is not 
+# We use an intermediate static library because linking tests directly to an executable is not
 # possible with CMake yet.
 add_library(kate-lib STATIC "")
 
@@ -39,7 +39,7 @@ target_link_libraries(
   PUBLIC
     KF5::TextEditor
     KF5::IconThemes
-    KF5::WindowSystem    
+    KF5::WindowSystem
     KF5::DBusAddons
     KF5::Crash
 )
@@ -51,26 +51,11 @@ endif()
 ki18n_wrap_ui(UI_SOURCES ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)
 target_sources(kate-lib PRIVATE ${UI_SOURCES})
 
-set(ICONS_PNG
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/22-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/32-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/48-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/64-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/128-apps-kate.png
-)
-
-set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate.svgz)
-
-# Add icon files to the application's source files to have CMake bundle them in the executable.
-ecm_add_app_icon(ICONS_SOURCES ICONS ${ICONS_PNG})
-target_sources(kate-lib PRIVATE ${ICONS_SOURCES})
-
 target_sources(
-  kate-lib 
+  kate-lib
   PRIVATE
     data/kate.qrc
-    
+
     session/katesession.cpp
     session/katesessionmanagedialog.cpp
     session/katesessionmanager.cpp
@@ -101,7 +86,7 @@ target_sources(
 # Use a single application on MacOS + Windows instead of dbus.
 if(APPLE OR WIN32)
   target_compile_definitions(kate-lib PRIVATE USE_QT_SINGLE_APP)
-  
+
   target_sources(
     kate-lib
     PRIVATE
@@ -120,6 +105,21 @@ endif()
 # Executable only adds the main definition.
 add_executable(kate-bin main.cpp)
 target_link_libraries(kate-bin PRIVATE kate-lib)
+
+set(ICONS_PNG
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/22-apps-kate.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/32-apps-kate.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/48-apps-kate.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/64-apps-kate.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/128-apps-kate.png
+)
+
+set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate.svgz)
+
+# Add icon files to the application's source files to have CMake bundle them in the executable.
+ecm_add_app_icon(ICONS_SOURCES ICONS ${ICONS_PNG})
+target_sources(kate-bin PRIVATE ${ICONS_SOURCES})
 
 set_property(
   TARGET kate-bin
@@ -148,18 +148,18 @@ endif()
 install(TARGETS kate-bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ecm_install_icons(
-  ICONS ${ICONS_PNG} ${ICONS_SVG} 
-  DESTINATION ${ICON_INSTALL_DIR} 
+  ICONS ${ICONS_PNG} ${ICONS_SVG}
+  DESTINATION ${ICON_INSTALL_DIR}
   THEME hicolor
 )
 
 install(
-  PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.desktop 
+  PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.desktop
   DESTINATION ${KDE_INSTALL_APPDIR}
 )
 
 install(
-  FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.appdata.xml 
+  FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.appdata.xml
   DESTINATION ${CMAKE_INSTALL_METAINFODIR}
 )
 

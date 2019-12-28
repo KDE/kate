@@ -92,6 +92,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QRegularExpression>
 #include <QTimer>
 
 // helper to find a proper root dir for the given document & file name that indicate the root dir
@@ -145,44 +146,6 @@ static QJsonObject merge(const QJsonObject &bottom, const QJsonObject &top)
             result.insert(item.key(), item.value());
         }
     }
-    return result;
-}
-
-// map (highlight)mode to lsp languageId
-static QString languageId(const QString &mode)
-{
-    // lookup in cache first
-    static QHash<QString, QString> m;
-    auto it = m.find(mode);
-    if (it != m.end()) {
-        return *it;
-    }
-
-    /**
-     * try to normalize the highlighting name
-     * - lower-case
-     * - transform some special characters
-     */
-    QString result = mode.toLower();
-    result.replace(QStringLiteral("++"), QStringLiteral("pp"));
-    result.replace(QStringLiteral("#"), QStringLiteral("sharp"));
-
-    /**
-     * we still need to take care of some languages that have "very" different names than the normalized lsp names
-     */
-    if (result.contains(QLatin1String("fortran"))) {
-        result = QStringLiteral("fortran");
-    } else if (result.contains(QLatin1String("objective caml"))) {
-        result = QStringLiteral("ocaml");
-    } else if (result.startsWith(QLatin1String("php"))) {
-        // only consider at start, as it might be a subset of other generated languages
-        result = QStringLiteral("php");
-    }
-
-    /**
-     * now, cache the resulting mapping and be done
-     */
-    m[mode] = result;
     return result;
 }
 
@@ -298,6 +261,12 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     QHash<KTextEditor::Document *, DocumentInfo> m_docs;
     bool m_incrementalSync = false;
 
+    // highlightingModeRegex => language id
+    std::vector<std::pair<QRegularExpression, QString>> m_highlightingModeRegexToLanguageId;
+
+    // cache of highlighting mode => language id, to avoid massive regex matching
+    QHash<QString, QString> m_highlightingModeToLanguageIdCache;
+
     typedef QVector<QSharedPointer<LSPClientServer>> ServerList;
 
 public:
@@ -359,6 +328,27 @@ public:
             }
             run(100);
         }
+    }
+
+    // map (highlight)mode to lsp languageId
+    QString languageId(const QString &mode)
+    {
+        // query cache first
+        const auto cacheIt = m_highlightingModeToLanguageIdCache.find(mode);
+        if (cacheIt != m_highlightingModeToLanguageIdCache.end())
+            return cacheIt.value();
+
+        // match via regexes + cache result
+        for (auto it : m_highlightingModeRegexToLanguageId) {
+            if (it.first.match(mode).hasMatch()) {
+                m_highlightingModeToLanguageIdCache[mode] = it.second;
+                return it.second;
+            }
+        }
+
+        // else: we have no matching server!
+        m_highlightingModeToLanguageIdCache[mode] = QString();
+        return QString();
     }
 
     void setIncrementalSync(bool inc) override
@@ -496,12 +486,15 @@ private:
 
     QSharedPointer<LSPClientServer> _findServer(KTextEditor::Document *document)
     {
+        // compute the LSP standardized language id, none found => no change
+        auto langId = languageId(document->highlightingMode());
+        if (langId.isEmpty())
+            return nullptr;
+
         QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
         const auto projectBase = QDir(projectView ? projectView->property("projectBaseDir").toString() : QString());
         const auto &projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
 
-        // compute the LSP standardized language id
-        auto langId = languageId(document->highlightingMode());
 
         // merge with project specific
         auto projectConfig = QJsonDocument::fromVariant(projectMap).object().value(QStringLiteral("lspclient")).toObject();
@@ -622,6 +615,19 @@ private:
             } else {
                 showMessage(i18n("Failed to read server configuration: %1", configPath), KTextEditor::Message::Error);
             }
+        }
+
+        // build regex of highlightingMode => language id
+        m_highlightingModeRegexToLanguageId.clear();
+        m_highlightingModeToLanguageIdCache.clear();
+        const auto servers = m_serverConfig.value(QLatin1String("servers")).toObject();
+        for (auto it = servers.begin(); it != servers.end(); ++it) {
+            // get highlighting mode regex for this server, if not set, fallback to just the name
+            QString highlightingModeRegex = it.value()[QLatin1String("highlightingModeRegex")].toString();
+            if (highlightingModeRegex.isEmpty()) {
+                highlightingModeRegex = it.key();
+            }
+            m_highlightingModeRegexToLanguageId.emplace_back(QRegularExpression(highlightingModeRegex, QRegularExpression::CaseInsensitiveOption), it.key());
         }
 
         // we could (but do not) perform restartAll here;

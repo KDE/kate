@@ -2010,6 +2010,7 @@ can be used to specify the LSP server to start (and then to communicate
 with over stdin/stdout).  For convenience, the following default configuration
 is included (though alternative server implementation are equally valid
 and possible):
+</para>
 
 <screen>
 {
@@ -2070,10 +2071,13 @@ and possible):
 }
 </screen>
 
+<para>
 Note that each "command" may be an array or a string (in which case it is
-split into an array).  Also, a top-level "global" entry (next to "server") is
+split into an array). Also, a top-level "global" entry (next to "server") is
 considered as well (see further below).
+</para>
 
+<para>
 The "highlightingModeRegex" is used to map the highlighting mode as used by Kate
 to the language id of the server. If no regular expression is given, the language id
 itself is used.

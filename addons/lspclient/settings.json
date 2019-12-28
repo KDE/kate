@@ -1,46 +1,56 @@
 {
     "servers": {
         "bibtex": {
-            "use": "latex"
+            "use": "latex",
+            "highlightingModeRegex": "^BibTeX$"
         },
         "c": {
             "command": ["clangd", "-log=error", "--background-index"],
             "commandDebug": ["clangd", "-log=verbose", "--background-index"],
-            "url": "https://clang.llvm.org/extra/clangd/"
+            "url": "https://clang.llvm.org/extra/clangd/",
+            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
         },
         "cpp": {
-            "use": "c"
+            "use": "c",
+            "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
         },
         "d": {
             "command": ["dls", "--stdio"],
-            "url": "https://github.com/d-language-server/dls"
+            "url": "https://github.com/d-language-server/dls",
+            "highlightingModeRegex": "^D$"
         },
         "fortran": {
             "command": ["fortls"],
             "rootIndicationFileNames": [".fortls"],
-            "url": "https://github.com/hansec/fortran-language-server"
+            "url": "https://github.com/hansec/fortran-language-server",
+            "highlightingModeRegex": "^Fortran.*$"
         },
         "latex": {
             "command": ["texlab"],
-            "url": "https://texlab.netlify.com/"
+            "url": "https://texlab.netlify.com/",
+            "highlightingModeRegex": "^LaTeX$"
         },
         "go": {
             "command": ["go-langserver"],
             "commandDebug": ["go-langserver", "-trace"],
-            "url": "https://github.com/sourcegraph/go-langserver"
+            "url": "https://github.com/sourcegraph/go-langserver",
+            "highlightingModeRegex": "^Go$"
         },
         "python": {
             "command": ["python3", "-m", "pyls", "--check-parent-process"],
-            "url": "https://github.com/palantir/python-language-server"
+            "url": "https://github.com/palantir/python-language-server",
+            "highlightingModeRegex": "^Python$"
         },
         "rust": {
             "command": ["rls"],
             "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
-            "url": "https://github.com/rust-lang/rls"
+            "url": "https://github.com/rust-lang/rls",
+            "highlightingModeRegex": "^Rust$"
         },
         "ocaml": {
             "command": ["ocamlmerlin-lsp"],
-            "url": "https://github.com/ocaml/merlin"
+            "url": "https://github.com/ocaml/merlin",
+            "highlightingModeRegex": "^Objective Caml$"
         }
     }
 }

@@ -50,7 +50,7 @@
         "ocaml": {
             "command": ["ocamlmerlin-lsp"],
             "url": "https://github.com/ocaml/merlin",
-            "highlightingModeRegex": "^Objective Caml$"
+            "highlightingModeRegex": "^Objective Caml.*$"
         }
     }
 }

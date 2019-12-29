@@ -48,8 +48,8 @@
             "highlightingModeRegex": "^Rust$"
         },
         "ocaml": {
-            "command": ["ocamlmerlin-lsp"],
-            "url": "https://github.com/ocaml/merlin",
+            "command": ["ocamllsp"],
+            "url": "https://github.com/ocaml/ocaml-lsp",
             "highlightingModeRegex": "^Objective Caml.*$"
         }
     }

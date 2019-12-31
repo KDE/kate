@@ -622,7 +622,7 @@ private:
         const auto servers = m_serverConfig.value(QLatin1String("servers")).toObject();
         for (auto it = servers.begin(); it != servers.end(); ++it) {
             // get highlighting mode regex for this server, if not set, fallback to just the name
-            QString highlightingModeRegex = it.value()[QLatin1String("highlightingModeRegex")].toString();
+            QString highlightingModeRegex = it.value().toObject().value(QLatin1String("highlightingModeRegex")).toString();
             if (highlightingModeRegex.isEmpty()) {
                 highlightingModeRegex = it.key();
             }

@@ -1725,6 +1725,10 @@ public:
 
     void updateCompletion(KTextEditor::View *view, LSPClientServer *server)
     {
+        if (!view) {
+            return;
+        }
+
         bool registered = m_completionViews.contains(view);
 
         KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
@@ -1745,6 +1749,10 @@ public:
 
     void updateHover(KTextEditor::View *view, LSPClientServer *server)
     {
+        if (!view) {
+            return;
+        }
+
         bool registered = m_hoverViews.contains(view);
 
         KTextEditor::TextHintInterface *cci = qobject_cast<KTextEditor::TextHintInterface *>(view);

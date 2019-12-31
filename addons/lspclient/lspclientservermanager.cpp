@@ -495,7 +495,6 @@ private:
         const auto projectBase = QDir(projectView ? projectView->property("projectBaseDir").toString() : QString());
         const auto &projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
 
-
         // merge with project specific
         auto projectConfig = QJsonDocument::fromVariant(projectMap).object().value(QStringLiteral("lspclient")).toObject();
         auto serverConfig = merge(m_serverConfig, projectConfig);

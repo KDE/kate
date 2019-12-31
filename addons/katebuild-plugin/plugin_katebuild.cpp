@@ -637,7 +637,7 @@ QUrl KateBuildView::docUrl()
 {
     KTextEditor::View *kv = m_win->activeView();
     if (!kv) {
-        qDebug() << "no KTextEditor::View" << endl;
+        qDebug() << "no KTextEditor::View";
         return QUrl();
     }
 

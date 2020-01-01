@@ -25,6 +25,13 @@
             "url": "https://github.com/hansec/fortran-language-server",
             "highlightingModeRegex": "^Fortran.*$"
         },
+        "javascript": {
+            "command": ["javascript-typescript-stdio"],
+            "commandDebug": ["javascript-typescript-stdio", "-t"],
+            "rootIndicationFileNames": ["package.json", "package-lock.json"],
+            "url": "https://github.com/sourcegraph/vscode-javascript-typescript",
+            "highlightingModeRegex": "^JavaScript.*$"
+        },
         "latex": {
             "command": ["texlab"],
             "url": "https://texlab.netlify.com/",
@@ -51,6 +58,10 @@
             "command": ["ocamllsp"],
             "url": "https://github.com/ocaml/ocaml-lsp",
             "highlightingModeRegex": "^Objective Caml.*$"
+        },
+        "typescript": {
+            "use": "javascript",
+            "highlightingModeRegex": "^TypeScript.*$"
         }
     }
 }

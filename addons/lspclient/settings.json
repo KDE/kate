@@ -25,6 +25,12 @@
             "url": "https://github.com/hansec/fortran-language-server",
             "highlightingModeRegex": "^Fortran.*$"
         },
+        "go": {
+            "command": ["go-langserver"],
+            "commandDebug": ["go-langserver", "-trace"],
+            "url": "https://github.com/sourcegraph/go-langserver",
+            "highlightingModeRegex": "^Go$"
+        },
         "javascript": {
             "command": ["javascript-typescript-stdio"],
             "commandDebug": ["javascript-typescript-stdio", "-t"],
@@ -37,11 +43,10 @@
             "url": "https://texlab.netlify.com/",
             "highlightingModeRegex": "^LaTeX$"
         },
-        "go": {
-            "command": ["go-langserver"],
-            "commandDebug": ["go-langserver", "-trace"],
-            "url": "https://github.com/sourcegraph/go-langserver",
-            "highlightingModeRegex": "^Go$"
+        "ocaml": {
+            "command": ["ocamllsp"],
+            "url": "https://github.com/ocaml/ocaml-lsp",
+            "highlightingModeRegex": "^Objective Caml.*$"
         },
         "python": {
             "command": ["python3", "-m", "pyls", "--check-parent-process"],
@@ -53,11 +58,6 @@
             "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
             "url": "https://github.com/rust-lang/rls",
             "highlightingModeRegex": "^Rust$"
-        },
-        "ocaml": {
-            "command": ["ocamllsp"],
-            "url": "https://github.com/ocaml/ocaml-lsp",
-            "highlightingModeRegex": "^Objective Caml.*$"
         },
         "typescript": {
             "use": "javascript",

@@ -160,12 +160,7 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     mainWindow->guiFactory()->addClient(this);
 
     // ESC should close & hide ToolView
-    connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, [this](QEvent *event) {
-        auto keyEvent = static_cast<QKeyEvent *>(event);
-        if (keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
-            deleteToolView();
-        }
-    });
+    connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateExternalToolsPluginView::handleEsc);
 }
 
 KateExternalToolsPluginView::~KateExternalToolsPluginView()
@@ -266,6 +261,15 @@ void KateExternalToolsPluginView::deleteToolView()
         m_toolView = nullptr;
     }
 }
+
+void KateExternalToolsPluginView::handleEsc(QEvent *event)
+{
+    auto keyEvent = dynamic_cast<QKeyEvent *>(event);
+    if (keyEvent && keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
+        deleteToolView();
+    }
+}
+
 // END KateExternalToolsPluginView
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

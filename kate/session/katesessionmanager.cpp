@@ -581,7 +581,6 @@ KateSessionList KateSessionManager::sessionList()
 
 void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
     KService::Ptr service = KService::serviceByStorageId(qApp->desktopFileName());
     if (!service) {
         return;
@@ -640,7 +639,6 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     }
 
     df->desktopGroup().writeXdgListEntry("Actions", newActions);
-#endif
 }
 
 // END KateSessionManager

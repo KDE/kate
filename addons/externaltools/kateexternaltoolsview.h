@@ -142,6 +142,11 @@ public Q_SLOTS:
      */
     void deleteToolView();
 
+    /**
+     * On Escape, hide tool view.
+     */
+    void handleEsc(QEvent *event);
+
 private:
     KateExternalToolsPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;

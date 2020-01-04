@@ -92,6 +92,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonParseError>
 #include <QRegularExpression>
 #include <QTimer>
 
@@ -606,11 +607,16 @@ private:
             if (f.open(QIODevice::ReadOnly)) {
                 const auto data = f.readAll();
                 if (!data.isEmpty()) {
-                    auto json = QJsonDocument::fromJson(data);
-                    if (json.isObject()) {
-                        m_serverConfig = merge(m_serverConfig, json.object());
+                    QJsonParseError error;
+                    auto json = QJsonDocument::fromJson(data, &error);
+                    if (error.error == QJsonParseError::NoError) {
+                        if (json.isObject()) {
+                            m_serverConfig = merge(m_serverConfig, json.object());
+                        } else {
+                            showMessage(i18n("Failed to parse server configuration '%1': no JSON object", configPath), KTextEditor::Message::Error);
+                        }
                     } else {
-                        showMessage(i18n("Failed to parse server configuration: %1", configPath), KTextEditor::Message::Error);
+                        showMessage(i18n("Failed to parse server configuration '%1': %2", configPath, error.errorString()), KTextEditor::Message::Error);
                     }
                 }
             } else {

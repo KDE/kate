@@ -205,9 +205,13 @@ void LSPClientConfigPage::updateConfigTextErrorState()
 
     // check json validity
     QJsonParseError error;
-    QJsonDocument::fromJson(data, &error);
+    auto json = QJsonDocument::fromJson(data, &error);
     if (error.error == QJsonParseError::NoError) {
-        ui->userConfigError->setText(i18n("JSON data is valid."));
+        if (json.isObject()) {
+            ui->userConfigError->setText(i18n("JSON data is valid."));
+        } else {
+            ui->userConfigError->setText(i18n("JSON data is invalid: no JSON object"));
+        }
     } else {
         ui->userConfigError->setText(i18n("JSON data is invalid: %1", error.errorString()));
     }

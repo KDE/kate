@@ -71,6 +71,13 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
 
     /**
+     * allow fractional scaling
+     */
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
+
+    /**
      * Create application first
      * Enforce application name even if the executable is renamed
      */

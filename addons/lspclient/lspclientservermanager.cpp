@@ -604,12 +604,14 @@ private:
         if (!configPath.isEmpty() && QFile::exists(configPath)) {
             QFile f(configPath);
             if (f.open(QIODevice::ReadOnly)) {
-                auto data = f.readAll();
-                auto json = QJsonDocument::fromJson(data);
-                if (json.isObject()) {
-                    m_serverConfig = merge(m_serverConfig, json.object());
-                } else {
-                    showMessage(i18n("Failed to parse server configuration: %1", configPath), KTextEditor::Message::Error);
+                const auto data = f.readAll();
+                if (!data.isEmpty()) {
+                    auto json = QJsonDocument::fromJson(data);
+                    if (json.isObject()) {
+                        m_serverConfig = merge(m_serverConfig, json.object());
+                    } else {
+                        showMessage(i18n("Failed to parse server configuration: %1", configPath), KTextEditor::Message::Error);
+                    }
                 }
             } else {
                 showMessage(i18n("Failed to read server configuration: %1", configPath), KTextEditor::Message::Error);

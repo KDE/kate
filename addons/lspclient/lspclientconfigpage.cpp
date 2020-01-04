@@ -32,6 +32,8 @@
 #include <KSyntaxHighlighting/SyntaxHighlighter>
 #include <KSyntaxHighlighting/Theme>
 
+#include <QJsonDocument>
+#include <QJsonParseError>
 #include <QPalette>
 
 LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugin)
@@ -87,7 +89,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::configUrlChanged);
     connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::configUrlChanged);
-    connect(ui->userConfig, &QTextEdit::textChanged, this, &LSPClientConfigPage::changed);
+    connect(ui->userConfig, &QTextEdit::textChanged, this, &LSPClientConfigPage::configTextChanged);
 
     // custom control logic
     auto h = [this]() {
@@ -189,6 +191,35 @@ void LSPClientConfigPage::readUserConfig(const QString &fileName)
     } else {
         ui->userConfig->clear();
     }
+
+    updateConfigTextErrorState();
+}
+
+void LSPClientConfigPage::updateConfigTextErrorState()
+{
+    const auto data = ui->userConfig->toPlainText().toUtf8();
+    if (data.isEmpty()) {
+        ui->userConfigError->setText(i18n("No JSON data to validate."));
+        return;
+    }
+
+    // check json validity
+    QJsonParseError error;
+    QJsonDocument::fromJson(data, &error);
+    if (error.error == QJsonParseError::NoError) {
+        ui->userConfigError->setText(i18n("JSON data is valid."));
+    } else {
+        ui->userConfigError->setText(i18n("JSON data is invalid: %1", error.errorString()));
+    }
+}
+
+void LSPClientConfigPage::configTextChanged()
+{
+    // check for errors
+    updateConfigTextErrorState();
+
+    // remember changed
+    changed();
 }
 
 void LSPClientConfigPage::configUrlChanged()

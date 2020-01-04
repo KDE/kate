@@ -51,10 +51,12 @@ public Q_SLOTS:
     void apply() override;
     void defaults() override;
     void reset() override;
+    void configTextChanged();
     void configUrlChanged();
 
 private:
     void readUserConfig(const QString &fileName);
+    void updateConfigTextErrorState();
 
     Ui::LspConfigWidget *ui;
     LSPClientPlugin *m_plugin;

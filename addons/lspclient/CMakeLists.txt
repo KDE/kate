@@ -1,7 +1,10 @@
 find_package(KF5ItemModels ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5ItemModels PROPERTIES PURPOSE "Required to build the lspclient addon")
 
-if(NOT KF5ItemModels_FOUND)
+find_package(KF5SyntaxHighlighting ${KF5_DEP_VERSION} QUIET)
+set_package_properties(KF5SyntaxHighlighting PROPERTIES PURPOSE "Required to build the lspclient addon")
+
+if(NOT KF5ItemModels_FOUND OR NOT KF5SyntaxHighlighting_FOUND)
   return()
 endif()
 
@@ -11,10 +14,11 @@ target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient
 ki18n_wrap_ui(UI_SOURCES lspconfigwidget.ui)
 
 target_link_libraries(
-  lspclientplugin 
-  PRIVATE 
+  lspclientplugin
+  PRIVATE
     KF5::ItemModels
     KF5::TextEditor
+    KF5::SyntaxHighlighting
 )
 
 include(ECMQtDeclareLoggingCategory)

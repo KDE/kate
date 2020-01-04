@@ -28,12 +28,35 @@
 
 #include <KLocalizedString>
 
+#include <KSyntaxHighlighting/Definition>
+#include <KSyntaxHighlighting/SyntaxHighlighter>
+#include <KSyntaxHighlighting/Theme>
+
+#include <QPalette>
+
 LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugin)
     : KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
 {
     ui = new Ui::LspConfigWidget();
     ui->setupUi(this);
+
+    // setup JSON highlighter for the default json stuff
+    auto highlighter = new KSyntaxHighlighting::SyntaxHighlighter(ui->defaultConfig->document());
+    highlighter->setDefinition(m_repository.definitionForFileName(QStringLiteral("settings.json")));
+
+    // we want mono-spaced font
+    ui->defaultConfig->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+
+    // we want to have the proper theme for the current palette
+    const auto theme = (palette().color(QPalette::Base).lightness() < 128) ? m_repository.defaultTheme(KSyntaxHighlighting::Repository::DarkTheme) : m_repository.defaultTheme(KSyntaxHighlighting::Repository::LightTheme);
+    auto pal = qApp->palette();
+    if (theme.isValid()) {
+        pal.setColor(QPalette::Base, theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+        pal.setColor(QPalette::Highlight, theme.editorColor(KSyntaxHighlighting::Theme::TextSelection));
+    }
+    ui->defaultConfig->setPalette(pal);
+    highlighter->setTheme(theme);
 
     // setup default json settings
     QFile defaultConfigFile(QStringLiteral(":/lspclient/settings.json"));

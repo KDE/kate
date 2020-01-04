@@ -26,6 +26,7 @@
 #define LSPCLIENTCONFIGPAGE_H
 
 #include <KTextEditor/ConfigPage>
+#include <KSyntaxHighlighting/Repository>
 
 class LSPClientPlugin;
 
@@ -54,6 +55,7 @@ public Q_SLOTS:
 private:
     Ui::LspConfigWidget *ui;
     LSPClientPlugin *m_plugin;
+    KSyntaxHighlighting::Repository m_repository;
 };
 
 #endif

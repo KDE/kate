@@ -189,7 +189,14 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
-           <widget class="QTextBrowser" name="defaultConfig"/>
+           <widget class="QTextBrowser" name="defaultConfig">
+            <property name="lineWrapMode">
+             <enum>QTextEdit::NoWrap</enum>
+            </property>
+            <property name="acceptRichText">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

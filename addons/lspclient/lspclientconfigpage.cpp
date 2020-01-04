@@ -41,28 +41,34 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     ui = new Ui::LspConfigWidget();
     ui->setupUi(this);
 
-    // setup JSON highlighter for the default json stuff
-    auto highlighter = new KSyntaxHighlighting::SyntaxHighlighter(ui->defaultConfig->document());
-    highlighter->setDefinition(m_repository.definitionForFileName(QStringLiteral("settings.json")));
+    // fix-up our two text edits to be proper JSON file editors
+    for (auto textEdit : {ui->userConfig, static_cast<QTextEdit *>(ui->defaultConfig)}) {
+        // setup JSON highlighter for the default json stuff
+        auto highlighter = new KSyntaxHighlighting::SyntaxHighlighter(textEdit->document());
+        highlighter->setDefinition(m_repository.definitionForFileName(QStringLiteral("settings.json")));
 
-    // we want mono-spaced font
-    ui->defaultConfig->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+        // we want mono-spaced font
+        textEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
-    // we want to have the proper theme for the current palette
-    const auto theme = (palette().color(QPalette::Base).lightness() < 128) ? m_repository.defaultTheme(KSyntaxHighlighting::Repository::DarkTheme) : m_repository.defaultTheme(KSyntaxHighlighting::Repository::LightTheme);
-    auto pal = qApp->palette();
-    if (theme.isValid()) {
-        pal.setColor(QPalette::Base, theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
-        pal.setColor(QPalette::Highlight, theme.editorColor(KSyntaxHighlighting::Theme::TextSelection));
+        // we want to have the proper theme for the current palette
+        const auto theme = (palette().color(QPalette::Base).lightness() < 128) ? m_repository.defaultTheme(KSyntaxHighlighting::Repository::DarkTheme) : m_repository.defaultTheme(KSyntaxHighlighting::Repository::LightTheme);
+        auto pal = qApp->palette();
+        if (theme.isValid()) {
+            pal.setColor(QPalette::Base, theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+            pal.setColor(QPalette::Highlight, theme.editorColor(KSyntaxHighlighting::Theme::TextSelection));
+        }
+        textEdit->setPalette(pal);
+        highlighter->setTheme(theme);
     }
-    ui->defaultConfig->setPalette(pal);
-    highlighter->setTheme(theme);
 
     // setup default json settings
     QFile defaultConfigFile(QStringLiteral(":/lspclient/settings.json"));
     defaultConfigFile.open(QIODevice::ReadOnly);
     Q_ASSERT(defaultConfigFile.isOpen());
     ui->defaultConfig->setPlainText(QString::fromUtf8(defaultConfigFile.readAll()));
+
+    // setup default config path as placeholder to show user where it is
+    ui->edtConfigPath->setPlaceholderText(m_plugin->m_defaultConfigPath.toLocalFile());
 
     reset();
 
@@ -79,8 +85,9 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkSemanticHighlighting,
                            ui->chkAutoHover})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
-    connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::changed);
-    connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::changed);
+    connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::configUrlChanged);
+    connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::configUrlChanged);
+    connect(ui->userConfig, &QTextEdit::textChanged, this, &LSPClientConfigPage::changed);
 
     // custom control logic
     auto h = [this]() {
@@ -132,6 +139,15 @@ void LSPClientConfigPage::apply()
 
     m_plugin->m_configPath = ui->edtConfigPath->url();
 
+    // own scope to ensure file is flushed before we signal below in writeConfig!
+    {
+        QFile configFile(m_plugin->configPath().toLocalFile());
+        configFile.open(QIODevice::WriteOnly);
+        if (configFile.isOpen()) {
+            configFile.write(ui->userConfig->toPlainText().toUtf8());
+        }
+    }
+
     m_plugin->writeConfig();
 }
 
@@ -155,9 +171,31 @@ void LSPClientConfigPage::reset()
     ui->chkSemanticHighlighting->setChecked(m_plugin->m_semanticHighlighting);
 
     ui->edtConfigPath->setUrl(m_plugin->m_configPath);
+
+    readUserConfig(m_plugin->configPath().toLocalFile());
 }
 
 void LSPClientConfigPage::defaults()
 {
     reset();
+}
+
+void LSPClientConfigPage::readUserConfig(const QString &fileName)
+{
+    QFile configFile(fileName);
+    configFile.open(QIODevice::ReadOnly);
+    if (configFile.isOpen()) {
+        ui->userConfig->setPlainText(QString::fromUtf8(configFile.readAll()));
+    } else {
+        ui->userConfig->clear();
+    }
+}
+
+void LSPClientConfigPage::configUrlChanged()
+{
+    // re-read config
+    readUserConfig(ui->edtConfigPath->url().isEmpty() ? m_plugin->m_defaultConfigPath.toLocalFile() : ui->edtConfigPath->url().toLocalFile());
+
+    // remember changed
+    changed();
 }

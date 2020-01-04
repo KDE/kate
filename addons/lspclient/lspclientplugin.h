@@ -50,6 +50,9 @@ public:
     // path for local setting files, auto-created on load
     const QString m_settingsPath;
 
+    // default config path
+    const QUrl m_defaultConfigPath;
+
     // settings
     bool m_symbolDetails;
     bool m_symbolExpand;
@@ -68,6 +71,12 @@ public:
 
     // debug mode?
     bool m_debugMode = false;
+
+    // get current config path
+    QUrl configPath() const
+    {
+        return m_configPath.isEmpty() ? m_defaultConfigPath : m_configPath;
+    }
 
 private:
 Q_SIGNALS:

@@ -31,6 +31,12 @@
             "url": "https://github.com/sourcegraph/go-langserver",
             "highlightingModeRegex": "^Go$"
         },
+        "haskell": {
+            "command": ["hie-wrapper"],
+            "rootIndicationFileNames": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml"],
+            "url": "https://github.com/haskell/haskell-ide-engine",
+            "highlightingModeRegex": "^Haskell$"
+        },
         "javascript": {
             "command": ["javascript-typescript-stdio"],
             "commandDebug": ["javascript-typescript-stdio", "-t"],

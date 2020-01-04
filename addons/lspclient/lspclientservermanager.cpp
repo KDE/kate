@@ -599,9 +599,9 @@ private:
         Q_ASSERT(defaultConfigFile.isOpen());
         m_serverConfig = QJsonDocument::fromJson(defaultConfigFile.readAll()).object();
 
-        // consider specified configuration
+        // consider specified configuration if existing
         const auto &configPath = m_plugin->m_configPath.path();
-        if (!configPath.isEmpty()) {
+        if (!configPath.isEmpty() && QFile::exists(configPath)) {
             QFile f(configPath);
             if (f.open(QIODevice::ReadOnly)) {
                 auto data = f.readAll();

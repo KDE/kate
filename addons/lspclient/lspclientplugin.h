@@ -47,6 +47,9 @@ public:
     void readConfig();
     void writeConfig() const;
 
+    // path for local setting files, auto-created on load
+    const QString m_settingsPath;
+
     // settings
     bool m_symbolDetails;
     bool m_symbolExpand;

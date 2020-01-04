@@ -34,6 +34,7 @@
 #include <KSharedConfig>
 
 #include <QDir>
+#include <QStandardPaths>
 
 static const QString CONFIG_LSPCLIENT {QStringLiteral("lspclient")};
 static const QString CONFIG_SYMBOL_DETAILS {QStringLiteral("SymbolDetails")};
@@ -55,7 +56,11 @@ K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", regis
 
 LSPClientPlugin::LSPClientPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
+    , m_settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/lsp"))
 {
+    // ensure settings path exist, for e.g. local settings.json
+    QDir().mkpath(m_settingsPath);
+
     /**
      * handle plugin verbosity
      * the m_debugMode will be used to e.g. set debug level for started clangd, too
@@ -110,6 +115,11 @@ void LSPClientPlugin::readConfig()
     m_diagnosticsMark = config.readEntry(CONFIG_DIAGNOSTICS_MARK, true);
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
     m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, false);
+
+    // ensure we default to the default local config path for server config
+    if (m_configPath.isEmpty()) {
+        m_configPath = QUrl::fromLocalFile(m_settingsPath + QStringLiteral("/settings.json"));
+    }
 
     emit update();
 }

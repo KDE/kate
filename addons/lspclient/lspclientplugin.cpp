@@ -56,7 +56,7 @@ K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", regis
 
 LSPClientPlugin::LSPClientPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
-    , m_settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/lsp"))
+    , m_settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/lspclient"))
 {
     // ensure settings path exist, for e.g. local settings.json
     QDir().mkpath(m_settingsPath);

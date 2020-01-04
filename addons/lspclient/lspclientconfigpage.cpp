@@ -35,6 +35,12 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     ui = new Ui::LspConfigWidget();
     ui->setupUi(this);
 
+    // setup default json settings
+    QFile defaultConfigFile(QStringLiteral(":/lspclient/settings.json"));
+    defaultConfigFile.open(QIODevice::ReadOnly);
+    Q_ASSERT(defaultConfigFile.isOpen());
+    ui->defaultConfig->setPlainText(QString::fromUtf8(defaultConfigFile.readAll()));
+
     reset();
 
     for (const auto &cb : {ui->chkSymbolDetails,

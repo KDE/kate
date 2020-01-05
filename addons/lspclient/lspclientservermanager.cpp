@@ -94,6 +94,7 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QRegularExpression>
+#include <QTime>
 #include <QTimer>
 
 // helper to find a proper root dir for the given document & file name that indicate the root dir
@@ -242,6 +243,14 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
 
     typedef LSPClientServerManagerImpl self_type;
 
+    struct ServerInfo {
+        QSharedPointer<LSPClientServer> server;
+        // config specified server url
+        QString url;
+        QTime started;
+        int failcount = 0;
+    };
+
     struct DocumentInfo {
         QSharedPointer<LSPClientServer> server;
         KTextEditor::MovingInterface *movingInterface;
@@ -258,7 +267,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     // merged default and user config
     QJsonObject m_serverConfig;
     // root -> (mode -> server)
-    QMap<QUrl, QMap<QString, QSharedPointer<LSPClientServer>>> m_servers;
+    QMap<QUrl, QMap<QString, ServerInfo>> m_servers;
     QHash<KTextEditor::Document *, DocumentInfo> m_docs;
     bool m_incrementalSync = false;
 
@@ -301,7 +310,10 @@ public:
 
         int count = 0;
         for (const auto &el : m_servers) {
-            for (const auto &s : el) {
+            for (const auto &si : el) {
+                auto &s = si.server;
+                if (!s)
+                    continue;
                 disconnect(s.data(), nullptr, this, nullptr);
                 if (s->state() != LSPClientServer::State::None) {
                     auto handler = [&q, &count, s]() {
@@ -323,7 +335,10 @@ public:
         count = 0;
         for (count = 0; count < 2; ++count) {
             for (const auto &el : m_servers) {
-                for (const auto &s : el) {
+                for (const auto &si : el) {
+                    auto &s = si.server;
+                    if (!s)
+                        continue;
                     s->stop(count == 0 ? 1 : -1, count == 0 ? -1 : 1);
                 }
             }
@@ -386,8 +401,8 @@ public:
         // find entry for server(s) and move out
         for (auto &m : m_servers) {
             for (auto it = m.begin(); it != m.end();) {
-                if (!server || it->data() == server) {
-                    servers.push_back(*it);
+                if (!server || it->server.data() == server) {
+                    servers.push_back(it->server);
                     it = m.erase(it);
                 } else {
                     ++it;
@@ -480,8 +495,37 @@ private:
             emit serverChanged();
         } else if (server->state() == LSPClientServer::State::None) {
             // went down
-            showMessage(i18n("Server terminated unexpectedly: %1", server->cmdline().join(QLatin1Char(' '))), KTextEditor::Message::Warning);
-            restart(server);
+            // find server info to see how bad this is
+            // if this is an occasional termination/crash ... ok then
+            // if this happens quickly (bad/missing server, wrong cmdline/config), then no restart
+            QSharedPointer<LSPClientServer> sserver;
+            QString url;
+            bool retry = true;
+            for (auto &m : m_servers) {
+                for (auto &si : m) {
+                    if (si.server.data() == server) {
+                        url = si.url;
+                        if (si.started.secsTo(QTime::currentTime()) < 60) {
+                            ++si.failcount;
+                        }
+                        // clear the entry, which will be re-filled if needed
+                        // otherwise, leave it in place as a dead mark not to re-create one in _findServer
+                        if (si.failcount < 2) {
+                            std::swap(sserver, si.server);
+                        } else {
+                            sserver = si.server;
+                            retry = false;
+                        }
+                    }
+                }
+            }
+            auto action = retry ? i18n("Restarting") : i18n("NOT Restarting");
+            showMessage(i18n("Server terminated unexpectedly ... %1 [%2] [homepage: %3] ", action, server->cmdline().join(QLatin1Char(' ')), url), KTextEditor::Message::Warning);
+            if (sserver) {
+                // sserver might still be in m_servers
+                // but since it died already bringing it down will have no (ill) effect
+                restart({sserver});
+            }
         }
     }
 
@@ -562,7 +606,8 @@ private:
         }
 
         auto root = QUrl::fromLocalFile(rootpath);
-        auto server = m_servers.value(root).value(langId);
+        auto &serverinfo = m_servers[root][langId];
+        auto &server = serverinfo.server;
         if (!server) {
             QStringList cmdline;
 
@@ -582,11 +627,13 @@ private:
             }
             if (cmdline.length() > 0) {
                 server.reset(new LSPClientServer(cmdline, root, serverConfig.value(QStringLiteral("initializationOptions"))));
-                m_servers[root][langId] = server;
                 connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start(m_plugin)) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);
                 }
+                serverinfo.started = QTime::currentTime();
+                serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();
+                // leave failcount as-is
             }
         }
         return (server && server->state() == LSPClientServer::State::Running) ? server : nullptr;

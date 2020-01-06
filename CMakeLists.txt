@@ -48,7 +48,7 @@ find_package(KF5 ${KF5_REQUIRED_VERSION}
 )
 
 # Qt 5.13 deprecated QComboBox::currentIndexChanged(QString) and Qt 5.14 undid that...
-if (Qt5Widgets_VERSION VERSION_GREATER_EQUAL 5.14.0)
+if (NOT Qt5Widgets_VERSION VERSION_LESS 5.14.0)
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
 endif()
 

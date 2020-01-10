@@ -734,7 +734,8 @@ only stored for the switched context, specified in its <userinput>context</useri
 <para>If the captures will not be used, both by dynamic rules and in the same regular expression,
 <userinput>non-capturing groups</userinput> should be used: <userinput>(?:PATTERN)</userinput></para>
 <para>The <emphasis>lookahead</emphasis> or <emphasis>lookbehind</emphasis> groups such as
-<userinput>(?=PATTERN)</userinput> or <userinput>(?!PATTERN)</userinput> are not captured.
+<userinput>(?=PATTERN)</userinput>, <userinput>(?!PATTERN)</userinput> or
+<userinput>(?&lt;=PATTERN)</userinput> are not captured.
 See <link linkend="regular-expressions">Regular Expressions</link> for more information.</para>
 </listitem>
 
@@ -910,7 +911,7 @@ loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 <varlistentry>
 <term>Int</term>
 <listitem>
-<para>Detect an integer number.</para>
+<para>Detect an integer number (as the regular expression: <userinput>\b[0-9]+</userinput>).</para>
 <para><programlisting>&lt;Int (common attributes) /&gt;</programlisting></para>
 <para>This rule has no specific attributes.</para>
 </listitem>
@@ -919,7 +920,8 @@ loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 <varlistentry>
 <term>Float</term>
 <listitem>
-<para>Detect a floating point number.</para>
+<para>Detect a floating point number (as the regular expression:
+<userinput>(\b[0-9]+\.[0-9]*|\.[0-9]+)([eE][-+]?[0-9]+)?</userinput>).</para>
 <para><programlisting>&lt;Float (common attributes) /&gt;</programlisting></para>
 <para>This rule has no specific attributes.</para>
 </listitem>
@@ -928,7 +930,8 @@ loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 <varlistentry>
 <term>HlCOct</term>
 <listitem>
-<para>Detect an octal point number representation.</para>
+<para>Detect an octal point number representation (as the regular
+expression: <userinput>\b0[0-7]+</userinput>).</para>
 <para><programlisting>&lt;HlCOct (common attributes) /&gt;</programlisting></para>
 <para>This rule has no specific attributes.</para>
 </listitem>
@@ -937,7 +940,8 @@ loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 <varlistentry>
 <term>HlCHex</term>
 <listitem>
-<para>Detect a hexadecimal number representation.</para>
+<para>Detect a hexadecimal number representation (as a regular expression:
+<userinput>\b0[xX][0-9a-fA-F]+</userinput>).</para>
 <para><programlisting>&lt;HlCHex (common attributes) /&gt;</programlisting></para>
 <para>This rule has no specific attributes.</para>
 </listitem>
@@ -1048,7 +1052,8 @@ time due to no match.</para>
 <varlistentry>
 <term>DetectIdentifier</term>
 <listitem>
-<para>Detect identifier strings (as a regular expression: [a-zA-Z_][a-zA-Z0-9_]*).</para>
+<para>Detect identifier strings (as the regular expression:
+<userinput>[a-zA-Z_][a-zA-Z0-9_]*</userinput>).</para>
 <programlisting>&lt;DetectIdentifier (common attributes) /&gt;</programlisting>
 
 <para>This rule has no specific attributes.</para>

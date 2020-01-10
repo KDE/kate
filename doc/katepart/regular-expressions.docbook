@@ -384,6 +384,23 @@ but silently ignore the other matches.)</para>
 
 </sect3>
 
+<sect3 id="lookbehind-assertions">
+<title>Lookbehind Assertions</title>
+
+<para>A lookbehind assertion is a sub pattern, starting with either
+<literal>?&lt;=</literal> or <literal>?&lt;!</literal>.</para>
+
+<para>Lookbehind has the same effect as the lookahead, but works backwards.
+For example to match the literal string <quote>fruit</quote> but
+only if not preceded by <quote>grape</quote>, you could use this
+expression: <userinput>(?&lt;!grape)fruit</userinput>.</para>
+
+<para>Sub patterns used for assertions are not captured.</para>
+
+<para>See also <link linkend="assertions">Assertions</link></para>
+
+</sect3>
+
 </sect2>
 
 <sect2 id="special-characters-in-patterns">
@@ -659,6 +676,28 @@ char* foo</quote> while it can not match <quote>const QString</quote>
 in <quote>const QString&amp; bar</quote> because the
 <quote>&amp;</quote> matches the negative lookahead assertion
 pattern.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>(?&lt;=PATTERN)</userinput> (Positive lookbehind)</term>
+<listitem><para>Lookbehind has the same effect as the lookahead, but works backwards.
+A lookbehind looks at the part of the string previous a possible match. The positive
+lookbehind will match a string only if it is preceded by the <emphasis>PATTERN</emphasis>
+of the assertion, but the text matched by that will not be included in the result.</para>
+<para>The expression <userinput>(?&lt;cup)cake</userinput> will match at <quote>cake</quote>
+if it is succeeded by <quote>cup</quote> (in <quote>cupcake</quote> but not in
+<quote>cheesecake</quote> or in <quote>cake</quote> alone).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>(?&lt;!PATTERN)</userinput> (Negative lookbehind)</term>
+<listitem><para>The negative lookbehind prevents a possible match to be acknowledged if
+the previous part of the searched string does match its <emphasis>PATTERN</emphasis>.</para>
+<para>The expression <userinput>(?&lt;![\w\.])[0-9]+</userinput> will match at <quote>123</quote>
+in the strings <quote>=123</quote> and <quote>-123</quote> while it can not match <quote>123</quote>
+in <quote>.123</quote> or <quote>word123</quote>.</para>
 </listitem>
 </varlistentry>
 

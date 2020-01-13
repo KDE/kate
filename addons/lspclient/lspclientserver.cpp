@@ -231,6 +231,11 @@ static QJsonObject applyWorkspaceEditResponse(const LSPApplyWorkspaceEditRespons
     return QJsonObject {{QStringLiteral("applied"), response.applied}, {QStringLiteral("failureReason"), response.failureReason}};
 }
 
+static QJsonObject changeConfigurationParams(const QJsonValue &settings)
+{
+    return QJsonObject {{QStringLiteral("settings"), settings}};
+}
+
 static void from_json(QVector<QChar> &trigger, const QJsonValue &json)
 {
     for (const auto &t : json.toArray()) {
@@ -1154,6 +1159,12 @@ public:
         send(init_request(QStringLiteral("textDocument/didClose"), params));
     }
 
+    void didChangeConfiguration(const QJsonValue &settings)
+    {
+        auto params = changeConfigurationParams(settings);
+        send(init_request(QStringLiteral("workspace/didChangeConfiguration"), params));
+    }
+
     void processNotification(const QJsonObject &msg)
     {
         auto method = msg[MEMBER_METHOD].toString();
@@ -1361,4 +1372,9 @@ void LSPClientServer::didSave(const QUrl &document, const QString &text)
 void LSPClientServer::didClose(const QUrl &document)
 {
     return d->didClose(document);
+}
+
+void LSPClientServer::didChangeConfiguration(const QJsonValue &settings)
+{
+    return d->didChangeConfiguration(settings);
 }

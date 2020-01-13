@@ -141,6 +141,9 @@ public:
     void didSave(const QUrl &document, const QString &text);
     void didClose(const QUrl &document);
 
+    // misc
+    void didChangeConfiguration(const QJsonValue &settings);
+
     // notification = signal
 Q_SIGNALS:
     void publishDiagnostics(const LSPPublishDiagnosticsParams &);

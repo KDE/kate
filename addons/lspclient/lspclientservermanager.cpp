@@ -249,6 +249,8 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
         QString url;
         QTime started;
         int failcount = 0;
+        // pending settings to be submitted
+        QJsonValue settings;
     };
 
     struct DocumentInfo {
@@ -491,6 +493,14 @@ private:
     void onStateChanged(LSPClientServer *server)
     {
         if (server->state() == LSPClientServer::State::Running) {
+            // send settings if pending
+            for (auto &m : m_servers) {
+                for (auto &si : m) {
+                    if (si.server.data() == server && !si.settings.isNull()) {
+                        server->didChangeConfiguration(si.settings);
+                    }
+                }
+            }
             // clear for normal operation
             emit serverChanged();
         } else if (server->state() == LSPClientServer::State::None) {
@@ -631,6 +641,7 @@ private:
                 if (!server->start(m_plugin)) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);
                 }
+                serverinfo.settings = serverConfig.value(QStringLiteral("settings"));
                 serverinfo.started = QTime::currentTime();
                 serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();
                 // leave failcount as-is

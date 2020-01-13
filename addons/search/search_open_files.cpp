@@ -53,7 +53,7 @@ void SearchOpenFiles::cancelSearch()
 
 void SearchOpenFiles::doSearchNextFile(int startLine)
 {
-    if (m_cancelSearch) {
+    if (m_cancelSearch || m_nextIndex >= m_docList.size()) {
         m_nextIndex = -1;
         m_cancelSearch = true;
         emit searchDone();

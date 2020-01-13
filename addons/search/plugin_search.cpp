@@ -1095,7 +1095,10 @@ void KatePluginSearchView::startSearch()
         m_searchDiskFilesDone = true;
         m_resultBaseDir.clear();
         QList<KTextEditor::Document *> documents;
-        documents << m_mainWindow->activeView()->document();
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        if (activeView) {
+            documents << activeView->document();
+        }
         addHeaderItem();
         m_searchOpenFiles.startSearch(documents, reg);
     } else if (m_ui.searchPlaceCombo->currentIndex() == OpenFiles) {

@@ -2087,6 +2087,8 @@ itself is used.
 From the above example, the gist is presumably clear.  In addition, each server
 entry object may also have an "initializationOptions" entry, which is passed
 along to the server as part of the 'initialize' method.
+If present, a "settings" entry is passed to the server by means of the
+'workspace/didChangeConfiguration' notification.
 </para>
 
 <para>
@@ -2120,6 +2122,61 @@ important for a server (your mileage may vary though).  Fewer server instances
 are obviously more efficient, and they also have a 'wider' view than
 the view of many separate instances.
 </para>
+
+<sect3 id="lspclient-customization">
+<title>LSP Server Configuration</title>
+
+<para>
+
+Each particular LSP server has its own way of customization and may use
+language/tool specific means for configuration, e.g.
+<filename>tox.ini</filename> (a.o. for python),
+<filename>.clang-format</filename> for C++ style format. Such configuration may
+then also be used by other (non-LSP) tools (such as then
+<application>tox</application> or <application>clang-format</application>). On
+top of that, some LSP servers also load configuration from custom files (e.g.
+<filename>.ccls</filename>). Furthermore, custom server configuration can also
+be passed through LSP (protocol), see the aforementioned
+"initializationOptions" and "settings" entries in server configuration.
+
+</para>
+
+<para>
+Since various level of override/merge are applied, the following example
+of user specified client configuration tweaks some python-language-server
+configuration.
+</para>
+
+<screen>
+{
+    "servers": {
+        "python": {
+            "settings": {
+                "pyls": {
+                    "plugins": {
+                        "pylint": {
+                            "enable": true
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</screen>
+
+<para>
+Unfortunately, LSP server configuration/customization is often not so well
+documented, in ways that only examining the source code shows configuration
+approaches and the set of available configuration options.  In particular,
+the above example's server supports many more options in "settings".
+See <ulink url="https://github.com/neoclide/coc.nvim/wiki/Language-servers">
+another LSP client's documentation</ulink> for various other language server
+examples and corresponding settings, which can easily and readily be
+transformed to the JSON configuration that is used here and outlined above.
+</para>
+
+</sect3>
 
 </sect2>
 

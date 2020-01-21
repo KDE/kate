@@ -25,6 +25,7 @@
 #include <KLocalizedString>
 #include <KShell>
 #include <KTextEditor/View>
+#include <QFileInfo>
 
 KateToolRunner::KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View *view, QObject *parent)
     : QObject(parent)
@@ -56,9 +57,9 @@ void KateToolRunner::run()
     } else if (m_view) {
         // if nothing is set, use the current document's directory
         const auto url = m_view->document()->url();
-        if (url.isValid()) {
-            const QString path = m_view->document()->url().toString(QUrl::RemoveScheme | QUrl::RemoveFilename);
-            m_process->setWorkingDirectory(path);
+        if (url.isLocalFile()) {
+            const QString localFilePath = url.toLocalFile();
+            m_process->setWorkingDirectory(QFileInfo(localFilePath).absolutePath());
         }
     }
 

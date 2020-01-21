@@ -64,7 +64,7 @@ workingDir=%{Document:Path}
 
 [Tool 4]
 actionName=externaltool_GoogleSelectedText
-arguments="https://www.google.com/search?q=%{Document:Selection:Text}"
+arguments="https://www.google.com/search?q=%{PercentEncoded:%{Document:Selection:Text}}"
 category=Tools
 cmdname=google
 executable=xdg-open

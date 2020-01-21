@@ -122,7 +122,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     // e.g. from icpc: "main.cpp(14): error: no suitable conversion function from "std::string" to "int" exists"
     , m_filenameDetectorIcpc(QStringLiteral("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\+\\-/\\\\]+\\.[a-zA-Z0-9]+)\\(([0-9]+)\\)(:.*)"))
     , m_filenameDetectorGccWorked(false)
-    , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ `.*'"))
+    , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ '(.*)'"))
 {
     KXMLGUIClient::setComponentName(QStringLiteral("katebuild"), i18n("Kate Build Plugin"));
     setXMLFile(QStringLiteral("ui.rc"));
@@ -457,6 +457,7 @@ void KateBuildView::addError(const QString &filename, const QString &line, const
     // visible text
     // remove path from visible file name
     QFileInfo file(filename);
+
     item->setText(0, file.fileName());
     item->setText(1, line);
     item->setText(2, message.trimmed());
@@ -936,11 +937,11 @@ void KateBuildView::slotReadReadyStdOut()
         m_buildUi.plainTextEdit->appendPlainText(line);
         // qDebug() << line;
 
-        if (m_newDirDetector.match(line).hasMatch()) {
+        QRegularExpressionMatch match = m_newDirDetector.match(line);
+
+        if (match.hasMatch()) {
             // qDebug() << "Enter/Exit dir found";
-            int open = line.indexOf(QLatin1Char('`'));
-            int close = line.indexOf(QLatin1Char('\''));
-            QString newDir = line.mid(open + 1, close - open - 1);
+            QString newDir = match.captured(1);
             // qDebug () << "New dir = " << newDir;
 
             if ((m_make_dir_stack.size() > 1) && (m_make_dir_stack.top() == newDir)) {

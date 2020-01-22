@@ -32,7 +32,7 @@
 #include <KWindowInfo>
 #include <kwindowsystem_version.h>
 
-#ifdef WITH_KUSERFEEDBACKCORE
+#ifdef WITH_KUSERFEEDBACK
 #include <KUserFeedback/ApplicationVersionSource>
 #include <KUserFeedback/PlatformInfoSource>
 #include <KUserFeedback/ScreenInfoSource>
@@ -76,7 +76,7 @@ KateApp::KateApp(const QCommandLineParser &args)
      */
     qApp->installEventFilter(this);
 
-#ifdef WITH_KUSERFEEDBACKCORE
+#ifdef WITH_KUSERFEEDBACK
     /**
      * defaults, inspired by plasma
      */

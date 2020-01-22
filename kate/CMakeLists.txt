@@ -50,9 +50,9 @@ endif()
 
 # optional KUserFeedback integration
 find_package(KUserFeedback)
-if (TARGET KUserFeedbackCore)
-    target_link_libraries(kate-lib PUBLIC KUserFeedbackCore)
-    target_compile_definitions(kate-lib PUBLIC -DWITH_KUSERFEEDBACKCORE)
+if (TARGET KUserFeedbackWidgets)
+    target_link_libraries(kate-lib PUBLIC KUserFeedbackWidgets)
+    target_compile_definitions(kate-lib PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 
 ki18n_wrap_ui(UI_SOURCES ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)

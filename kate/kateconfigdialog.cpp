@@ -233,6 +233,23 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     }
     // END Plugins page
 
+#ifdef WITH_KUSERFEEDBACK
+    // KUserFeedback Config
+    page = new QFrame(this);
+    vlayout = new QVBoxLayout(page);
+    vlayout->setContentsMargins(0, 0, 0, 0);
+    vlayout->setSpacing(0);
+
+    m_userFeedbackWidget = new KUserFeedback::FeedbackConfigWidget(page);
+    m_userFeedbackWidget->setFeedbackProvider(&KateApp::self()->userFeedbackProvider());
+    connect(m_userFeedbackWidget, &KUserFeedback::FeedbackConfigWidget::configurationChanged, this, &KateConfigDialog::slotChanged);
+    vlayout->addWidget(m_userFeedbackWidget);
+
+    item = addSubPage(applicationItem, page, i18n("User Feedback"));
+    item->setHeader(i18n("User Feedback"));
+    item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-locale")));
+#endif
+
     // editor widgets from kwrite/kwdialog
     m_editorPage = addPage(new QWidget, i18n("Editor Component"));
     m_editorPage->setIcon(QIcon::fromTheme(QStringLiteral("accessories-text-editor")));

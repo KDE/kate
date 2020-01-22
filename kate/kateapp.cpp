@@ -32,6 +32,13 @@
 #include <KWindowInfo>
 #include <kwindowsystem_version.h>
 
+#ifdef WITH_KUSERFEEDBACKCORE
+#include <KUserFeedback/ApplicationVersionSource>
+#include <KUserFeedback/PlatformInfoSource>
+#include <KUserFeedback/ScreenInfoSource>
+#include <KUserFeedback/QtVersionSource>
+#endif
+
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QFileInfo>
@@ -68,6 +75,30 @@ KateApp::KateApp(const QCommandLineParser &args)
      * handle mac os x like file open request via event filter
      */
     qApp->installEventFilter(this);
+
+#ifdef WITH_KUSERFEEDBACKCORE
+    /**
+     * defaults, inspired by plasma
+     */
+    m_userFeedbackProvider.setProductIdentifier(QStringLiteral("org.kde.kate"));
+    m_userFeedbackProvider.setFeedbackServer(QUrl(QStringLiteral("https://telemetry.kde.org/")));
+    m_userFeedbackProvider.setSubmissionInterval(7);
+    m_userFeedbackProvider.setApplicationStartsUntilEncouragement(5);
+    m_userFeedbackProvider.setEncouragementDelay(30);
+
+    /**
+     * add some feedback providers
+     */
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::ApplicationVersionSource);
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::PlatformInfoSource);
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::ScreenInfoSource);
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::QtVersionSource);
+
+    /**
+     * default is no feedback!
+     */
+     m_userFeedbackProvider.setTelemetryMode(KUserFeedback::Provider::TelemetryMode(KSharedConfig::openConfig()->group("General").readEntry("TelemetryMode", int(KUserFeedback::Provider::NoTelemetry))));
+#endif
 }
 
 KateApp::~KateApp()

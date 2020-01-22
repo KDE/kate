@@ -404,6 +404,12 @@ void KateConfigDialog::slotApply()
         KateSessionManager *sessionmanager = KateApp::self()->sessionManager();
         KConfig *sessionConfig = sessionmanager->activeSession()->config();
         KateApp::self()->pluginManager()->writeConfig(sessionConfig);
+
+#ifdef WITH_KUSERFEEDBACK
+        // set current active mode + write back the config for future starts
+        KateApp::self()->userFeedbackProvider().setTelemetryMode(m_userFeedbackWidget->telemetryMode());
+        cg.writeEntry("TelemetryMode", int(m_userFeedbackWidget->telemetryMode()));
+#endif
     }
 
     for (PluginPageListItem *plugin : qAsConst(m_pluginPages)) {

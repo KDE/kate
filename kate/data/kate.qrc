@@ -1,8 +1,5 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-    <qresource prefix="/kate">
-        <file>mascot.png</file>
-    </qresource>
     <qresource prefix="/kxmlgui5/kate">
         <file>kateui.rc</file>
     </qresource>

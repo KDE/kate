@@ -107,15 +107,18 @@ add_executable(kate-bin main.cpp)
 target_link_libraries(kate-bin PRIVATE kate-lib)
 
 set(ICONS_PNG
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/22-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/32-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/48-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/64-apps-kate.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/128-apps-kate.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate-editor.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/22-apps-kate-editor.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/32-apps-kate-editor.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/44-apps-kate-editor.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/48-apps-kate-editor.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/64-apps-kate-editor.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/128-apps-kate-editor.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/150-apps-kate-editor.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/310-apps-kate-editor.png
 )
 
-set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate.svgz)
+set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate-editor.svgz)
 
 # Add icon files to the application's source files to have CMake bundle them in the executable.
 ecm_add_app_icon(ICONS_SOURCES ICONS ${ICONS_PNG})

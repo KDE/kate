@@ -118,7 +118,7 @@ set(ICONS_PNG
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/310-apps-kate-editor.png
 )
 
-set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate-editor.svgz)
+set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate-editor.svg)
 
 # Add icon files to the application's source files to have CMake bundle them in the executable.
 ecm_add_app_icon(ICONS_SOURCES ICONS ${ICONS_PNG})

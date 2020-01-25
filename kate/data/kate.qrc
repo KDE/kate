@@ -3,4 +3,7 @@
     <qresource prefix="/kxmlgui5/kate">
         <file>kateui.rc</file>
     </qresource>
+    <qresource prefix="/kate">
+        <file alias="kate.svg">../icons/sc-apps-kate-editor.svg</file>
+    </qresource>
 </RCC>

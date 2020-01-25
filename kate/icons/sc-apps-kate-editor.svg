@@ -11,13 +11,13 @@
    inkscape:export-ydpi="300"
    inkscape:export-xdpi="300"
    inkscape:export-filename="/home/tysontan/Pictures/000_Creation/Artwork/2020/Vectors/kate.png"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="252mm"
+   height="252mm"
+   viewBox="0 0 252 252"
    version="1.1"
    id="svg8"
-   sodipodi:docname="kate.svg"
-   inkscape:version="1.0beta2 (bac9fcc, 2020-01-22)">
+   sodipodi:docname="sc-apps-kate-editor.svg"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14">
   <defs
      id="defs2">
     <linearGradient
@@ -191,18 +191,22 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="266.32635"
-     inkscape:cy="599.8824"
+     inkscape:cx="141.39856"
+     inkscape:cy="558.72784"
      inkscape:document-units="mm"
      inkscape:current-layer="layer2"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="2210"
      inkscape:window-height="1601"
-     inkscape:window-x="213"
-     inkscape:window-y="530"
+     inkscape:window-x="927"
+     inkscape:window-y="127"
      inkscape:window-maximized="0"
-     showguides="true" />
+     showguides="true"
+     fit-margin-top="20"
+     fit-margin-bottom="20"
+     fit-margin-left="31.5"
+     fit-margin-right="31.5" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -219,7 +223,8 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Vector Base"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(20.25973,-34.111133)">
     <g
        transform="matrix(10.185345,0,0,10.412473,-593.68883,-1032.1515)"
        id="g958">

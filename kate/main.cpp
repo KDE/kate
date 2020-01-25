@@ -168,6 +168,11 @@ int main(int argc, char **argv)
     aboutData.addCredit(i18n("All people who have contributed and I have forgotten to mention"));
 
     /**
+     * set proper Kate icon for our about dialog
+     */
+    aboutData.setProgramLogo(QIcon(QStringLiteral(":/kate/kate.svg")));
+
+    /**
      * set and register app about data
      */
     KAboutData::setApplicationData(aboutData);
@@ -175,7 +180,7 @@ int main(int argc, char **argv)
     /**
      * set the program icon
      */
-    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kate-editor"), app.windowIcon()));
+    QApplication::setWindowIcon(QIcon(QStringLiteral(":/kate/kate.svg")));
 
     /**
      * Create command line parser and feed it with known options

@@ -30,11 +30,13 @@
 #include <QModelIndex>
 #include <QStandardPaths>
 #include <QStringList>
+#include <QtGlobal>
 
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KColorSchemeManager>
 #include <KConfigGroup>
+#include <kconfigwidgets_version.h>
 #include <KLocalizedString>
 #include <KSharedConfig>
 
@@ -57,7 +59,7 @@ KateColorSchemeChooser::KateColorSchemeChooser(QObject *parent)
 
     setMenu(selectionMenu->menu());
     menu()->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-color")));
-    menu()->setTitle(i18n("&Color Theme"));
+    menu()->setTitle(i18n("&Color Scheme"));
 }
 
 QString KateColorSchemeChooser::loadCurrentScheme() const
@@ -77,6 +79,7 @@ void KateColorSchemeChooser::saveCurrentScheme(const QString &name)
 
 QString KateColorSchemeChooser::currentDesktopDefaultScheme() const
 {
+#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 67, 0)
     KSharedConfigPtr config = KSharedConfig::openConfig(QStringLiteral("kdeglobals"));
     KConfigGroup group(config, "General");
     const QString scheme = group.readEntry("ColorScheme", QStringLiteral("Breeze"));
@@ -85,6 +88,10 @@ QString KateColorSchemeChooser::currentDesktopDefaultScheme() const
     KSharedConfigPtr schemeFile =  KSharedConfig::openConfig(path, KConfig::SimpleConfig);
     const QString name = KConfigGroup(schemeFile, "General").readEntry("Name", scheme);
     return name;
+#else
+    return QString();
+#endif
+
 }
 
 QString KateColorSchemeChooser::currentSchemeName() const

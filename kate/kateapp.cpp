@@ -35,8 +35,10 @@
 #ifdef WITH_KUSERFEEDBACK
 #include <KUserFeedback/ApplicationVersionSource>
 #include <KUserFeedback/PlatformInfoSource>
-#include <KUserFeedback/ScreenInfoSource>
 #include <KUserFeedback/QtVersionSource>
+#include <KUserFeedback/ScreenInfoSource>
+#include <KUserFeedback/StartCountSource>
+#include <KUserFeedback/UsageTimeSource>
 #endif
 
 #include <QApplication>
@@ -89,10 +91,18 @@ KateApp::KateApp(const QCommandLineParser &args)
     /**
      * add some feedback providers
      */
+
+    // software version info
     m_userFeedbackProvider.addDataSource(new KUserFeedback::ApplicationVersionSource);
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::QtVersionSource);
+
+    // info about the machine
     m_userFeedbackProvider.addDataSource(new KUserFeedback::PlatformInfoSource);
     m_userFeedbackProvider.addDataSource(new KUserFeedback::ScreenInfoSource);
-    m_userFeedbackProvider.addDataSource(new KUserFeedback::QtVersionSource);
+
+    // usage info
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::StartCountSource);
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::UsageTimeSource);
 #endif
 }
 

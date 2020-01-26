@@ -409,8 +409,6 @@ void KateConfigDialog::slotApply()
         // set current active mode + write back the config for future starts
         KateApp::self()->userFeedbackProvider().setTelemetryMode(m_userFeedbackWidget->telemetryMode());
         KateApp::self()->userFeedbackProvider().setSurveyInterval(m_userFeedbackWidget->surveyInterval());
-        cg.writeEntry("TelemetryMode", int(m_userFeedbackWidget->telemetryMode()));
-        cg.writeEntry("SurveyInterval", m_userFeedbackWidget->surveyInterval());
 #endif
     }
 

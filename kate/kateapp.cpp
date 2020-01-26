@@ -93,13 +93,6 @@ KateApp::KateApp(const QCommandLineParser &args)
     m_userFeedbackProvider.addDataSource(new KUserFeedback::PlatformInfoSource);
     m_userFeedbackProvider.addDataSource(new KUserFeedback::ScreenInfoSource);
     m_userFeedbackProvider.addDataSource(new KUserFeedback::QtVersionSource);
-
-    /**
-     * default is no feedback!
-     */
-    KConfigGroup cg(KSharedConfig::openConfig(), "General");
-    m_userFeedbackProvider.setTelemetryMode(KUserFeedback::Provider::TelemetryMode(cg.readEntry("TelemetryMode", int(KUserFeedback::Provider::NoTelemetry))));
-    m_userFeedbackProvider.setSurveyInterval(cg.readEntry("SurveyInterval", -1));
 #endif
 }
 

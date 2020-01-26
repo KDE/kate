@@ -85,6 +85,14 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     app.setApplicationName(QStringLiteral("kwrite"));
 
     /**
+     * For Windows and macOS: use Breeze if available
+     * Of all tested styles that works the best for us
+     */
+#if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
+    QApplication::setStyle(QStringLiteral("breeze"));
+#endif
+
+    /**
      * Enable crash handling through KCrash.
      */
     KCrash::initialize();

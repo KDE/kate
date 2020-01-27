@@ -496,7 +496,7 @@ private:
             // send settings if pending
             for (auto &m : m_servers) {
                 for (auto &si : m) {
-                    if (si.server.data() == server && !si.settings.isNull()) {
+                    if (si.server.data() == server && !si.settings.isUndefined()) {
                         server->didChangeConfiguration(si.settings);
                     }
                 }

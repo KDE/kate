@@ -45,6 +45,7 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QRegularExpression>
+#include <QThread>
 #include <QTime>
 #include <QTimer>
 
@@ -255,11 +256,18 @@ public:
         QTimer t;
         connect(&t, &QTimer::timeout, &q, &QEventLoop::quit);
 
-        auto run = [&q, &t](int ms) {
-            t.setSingleShot(true);
-            t.start(ms);
-            q.exec();
-        };
+        /* some msleep are used below which is somewhat BAD as it blocks/hangs
+         * the mainloop, however there is not much alternative:
+         * + running an inner mainloop leads to event processing,
+         *   which could trigger an unexpected sequence of 'events'
+         *   such as (re)loading plugin that is currently still unloading
+         *   (consider scenario of fast-clicking enable/disable of LSP plugin)
+         * + could reduce or forego the sleep, but that increases chances
+         *   on an unclean shutdown of LSP server, which may or may not
+         *   be able to handle that properly (so let's try and be a polite
+         *   client and try to avoid that to some degree)
+         * So we are left with a minor sleep compromise ...
+         */
 
         int count = 0;
         for (const auto &el : m_servers) {
@@ -282,7 +290,7 @@ public:
                 }
             }
         }
-        run(500);
+        QThread::msleep(500);
 
         // stage 2 and 3
         count = 0;
@@ -295,7 +303,7 @@ public:
                     s->stop(count == 0 ? 1 : -1, count == 0 ? -1 : 1);
                 }
             }
-            run(100);
+            QThread::msleep(100);
         }
     }
 

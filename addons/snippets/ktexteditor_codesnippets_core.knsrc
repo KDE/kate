@@ -1,6 +1,6 @@
 [KNewStuff3]
 #ProvidersUrl=http://.../provider.xml
-ProvidersUrl=https://download.kde.org/ocs/providers.xml
+ProvidersUrl=https://autoconfig.kde.org/ocs/providers.xml
 Categories=KTextEditor Snippet
 UploadCategories=KTextEditor Snippet
 

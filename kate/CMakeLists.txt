@@ -26,7 +26,6 @@ find_package(
   REQUIRED
   COMPONENTS
     TextEditor
-    IconThemes
     WindowSystem
     DBusAddons
     Crash
@@ -38,7 +37,6 @@ target_link_libraries(
   kate-lib
   PUBLIC
     KF5::TextEditor
-    KF5::IconThemes
     KF5::WindowSystem
     KF5::DBusAddons
     KF5::Crash

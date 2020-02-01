@@ -28,13 +28,13 @@
 // Standard includes
 #include <KConfig>
 #include <KConfigGroup>
-#include <KIconLoader>
 #include <KLocalizedString> /// \todo Where is \c i18n() defined?
 #include <KSharedConfig>
 #include <QBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>
+#include <QStyle>
 
 #include <cassert>
 
@@ -68,7 +68,7 @@ CloseConfirmDialog::CloseConfirmDialog(QList<KTextEditor::Document *> &docs, KTo
     setModal(true);
     buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
-    icon->setPixmap(KIconLoader::global()->loadIcon(QStringLiteral("dialog-warning"), KIconLoader::Desktop, KIconLoader::SizeLarge));
+    icon->setPixmap(QIcon::fromTheme(QStringLiteral("dialog-warning")).pixmap(style()->pixelMetric(QStyle::PM_LargeIconSize, nullptr, this)));
 
     text->setText(i18nc("@label:listbox", "You are about to close the following documents:"));
 

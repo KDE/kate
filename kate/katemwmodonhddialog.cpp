@@ -23,7 +23,6 @@
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
@@ -32,9 +31,9 @@
 #include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>
+#include <QStyle>
 #include <QTemporaryFile>
 #include <QTextStream>
-
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
@@ -80,7 +79,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     // dialog text
     QLabel *icon = new QLabel(this);
     hb->addWidget(icon);
-    icon->setPixmap(QIcon::fromTheme(QStringLiteral("dialog-warning")).pixmap(KIconLoader::SizeLarge));
+    icon->setPixmap(QIcon::fromTheme(QStringLiteral("dialog-warning")).pixmap(style()->pixelMetric(QStyle::PM_LargeIconSize, nullptr, this)));
 
     QLabel *t = new QLabel(i18n("<qt>The documents listed below have changed on disk.<p>Select one "
                                 "or more at once, and press an action button until the list is empty.</p></qt>"),

@@ -1,18 +1,10 @@
-find_package(KF5IconThemes ${KF5_DEP_VERSION} QUIET)
-set_package_properties(KF5IconThemes PROPERTIES PURPOSE "Required to build the replicode addon")
-
-if(NOT KF5IconThemes_FOUND)
-  return()
-endif()
-
 add_library(katereplicodeplugin MODULE "")
 target_compile_definitions(katereplicodeplugin PRIVATE TRANSLATION_DOMAIN="kate-replicode-plugin")
 
 target_link_libraries(
-  katereplicodeplugin 
-  PRIVATE 
+  katereplicodeplugin
+  PRIVATE
     KF5::TextEditor
-    KF5::IconThemes
 )
 
 ki18n_wrap_ui(UI_SOURCES config.ui)

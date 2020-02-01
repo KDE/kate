@@ -41,7 +41,6 @@
 #include <KAboutData>
 #include <KActionCollection>
 #include <KConfigGroup>
-#include <KIconLoader>
 #include <KSharedConfig>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>

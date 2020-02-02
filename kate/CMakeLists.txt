@@ -83,9 +83,13 @@ target_sources(
     katewaiter.cpp
 )
 
+# Executable only adds the main definition.
+add_executable(kate-bin main.cpp)
+target_link_libraries(kate-bin PRIVATE kate-lib)
+
 # Use a single application on MacOS + Windows instead of dbus.
 if(APPLE OR WIN32)
-  target_compile_definitions(kate-lib PRIVATE USE_QT_SINGLE_APP)
+  target_compile_definitions(kate-bin PRIVATE USE_QT_SINGLE_APP)
 
   target_sources(
     kate-lib
@@ -102,9 +106,6 @@ if(APPLE OR WIN32)
   endif()
 endif()
 
-# Executable only adds the main definition.
-add_executable(kate-bin main.cpp)
-target_link_libraries(kate-bin PRIVATE kate-lib)
 
 set(ICONS_PNG
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate.png

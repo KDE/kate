@@ -177,7 +177,7 @@
       <li>MDI, window splitting, window tabbing</li>
       <li xml:lang="ar">واجهة لعدّة مستندات، تقسيم وتلسين للنّوافذ</li>
       <li xml:lang="ca">MDI, divisió de finestres, finestres en pestanyes</li>
-      <li xml:lang="ca-valencia">MDI, divisió de finestres, canvi de finestres per pestanyes</li>
+      <li xml:lang="ca-valencia">MDI, divisió de finestres, finestres en pestanyes</li>
       <li xml:lang="cs">MDI, dělení oken, skládání oken do karet</li>
       <li xml:lang="da">MDI, vinduesopdeling, fanebladsivindue</li>
       <li xml:lang="de">MDI (Multiple Document Interface = Benutzeroberfläche mit mehreren gleichzeitig geöffneten Dokumenten), geteilte Fenster, Unterfenster</li>
@@ -714,7 +714,7 @@
       <li>Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
       <li xml:lang="ar">دعم واسع للموافيق (http، وftp، وssh وwebdav وغيرها) عبر «عبيد KIO»</li>
       <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
-      <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
+      <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
       <li xml:lang="cs">Široká podpora protokolů pomocí kioslaves (http, ftp, ssh, webdav atd.)</li>
       <li xml:lang="da">Bred understøttelse af protokoller (http, ftp, ssh, webdav osv.) ved brug af kioslaves</li>
       <li xml:lang="de">Unterstützung für viele Protokolle (http, ftp, ssh, webdav usw.) unter Verwendung von Ein-/Ausgabemodulen</li>

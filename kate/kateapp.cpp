@@ -32,6 +32,15 @@
 #include <KWindowInfo>
 #include <kwindowsystem_version.h>
 
+#ifdef WITH_KUSERFEEDBACK
+#include <KUserFeedback/ApplicationVersionSource>
+#include <KUserFeedback/PlatformInfoSource>
+#include <KUserFeedback/QtVersionSource>
+#include <KUserFeedback/ScreenInfoSource>
+#include <KUserFeedback/StartCountSource>
+#include <KUserFeedback/UsageTimeSource>
+#endif
+
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QFileInfo>
@@ -68,6 +77,33 @@ KateApp::KateApp(const QCommandLineParser &args)
      * handle mac os x like file open request via event filter
      */
     qApp->installEventFilter(this);
+
+#ifdef WITH_KUSERFEEDBACK
+    /**
+     * defaults, inspired by plasma
+     */
+    m_userFeedbackProvider.setProductIdentifier(QStringLiteral("org.kde.kate"));
+    m_userFeedbackProvider.setFeedbackServer(QUrl(QStringLiteral("https://telemetry.kde.org/")));
+    m_userFeedbackProvider.setSubmissionInterval(7);
+    m_userFeedbackProvider.setApplicationStartsUntilEncouragement(5);
+    m_userFeedbackProvider.setEncouragementDelay(30);
+
+    /**
+     * add some feedback providers
+     */
+
+    // software version info
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::ApplicationVersionSource);
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::QtVersionSource);
+
+    // info about the machine
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::PlatformInfoSource);
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::ScreenInfoSource);
+
+    // usage info
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::StartCountSource);
+    m_userFeedbackProvider.addDataSource(new KUserFeedback::UsageTimeSource);
+#endif
 }
 
 KateApp::~KateApp()

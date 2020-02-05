@@ -24,6 +24,10 @@
 
 #include <ktexteditor/application.h>
 
+#ifdef WITH_KUSERFEEDBACK
+#include <KUserFeedback/Provider>
+#endif
+
 #include "kateappadaptor.h"
 #include "katedocmanager.h"
 #include "katemainwindow.h"
@@ -84,6 +88,17 @@ public:
     {
         return &m_wrapper;
     }
+
+#ifdef WITH_KUSERFEEDBACK
+    /**
+     * Get our global user feedback provider
+     * @return user feedback provider
+     */
+    KUserFeedback::Provider &userFeedbackProvider()
+    {
+        return m_userFeedbackProvider;
+    }
+#endif
 
     /**
      * kate init
@@ -380,6 +395,13 @@ private:
      * session manager
      */
     KateSessionManager m_sessionManager;
+
+#ifdef WITH_KUSERFEEDBACK
+    /**
+     * user feedback provider
+     */
+    KUserFeedback::Provider m_userFeedbackProvider;
+#endif
 };
 
 #endif

@@ -46,6 +46,13 @@ if(KF5Activities_FOUND)
   target_link_libraries(kate-lib PUBLIC KF5::Activities)
 endif()
 
+# optional KUserFeedback integration
+find_package(KUserFeedback)
+if (TARGET KUserFeedbackWidgets)
+    target_link_libraries(kate-lib PUBLIC KUserFeedbackWidgets)
+    target_compile_definitions(kate-lib PUBLIC -DWITH_KUSERFEEDBACK)
+endif()
+
 ki18n_wrap_ui(UI_SOURCES ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)
 target_sources(kate-lib PRIVATE ${UI_SOURCES})
 

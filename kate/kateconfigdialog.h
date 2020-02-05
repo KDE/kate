@@ -31,6 +31,10 @@
 
 #include <KPageDialog>
 
+#ifdef WITH_KUSERFEEDBACK
+#include <KUserFeedback/FeedbackConfigWidget>
+#endif
+
 class QCheckBox;
 class QComboBox;
 class QSpinBox;
@@ -102,6 +106,10 @@ private:
     KPageWidgetItem *m_editorPage;
 
     void addEditorPages();
+
+#ifdef WITH_KUSERFEEDBACK
+    KUserFeedback::FeedbackConfigWidget *m_userFeedbackWidget = nullptr;
+#endif
 };
 
 #endif

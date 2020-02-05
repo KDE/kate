@@ -233,6 +233,23 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     }
     // END Plugins page
 
+#ifdef WITH_KUSERFEEDBACK
+    // KUserFeedback Config
+    page = new QFrame(this);
+    vlayout = new QVBoxLayout(page);
+    vlayout->setContentsMargins(0, 0, 0, 0);
+    vlayout->setSpacing(0);
+
+    m_userFeedbackWidget = new KUserFeedback::FeedbackConfigWidget(page);
+    m_userFeedbackWidget->setFeedbackProvider(&KateApp::self()->userFeedbackProvider());
+    connect(m_userFeedbackWidget, &KUserFeedback::FeedbackConfigWidget::configurationChanged, this, &KateConfigDialog::slotChanged);
+    vlayout->addWidget(m_userFeedbackWidget);
+
+    item = addSubPage(applicationItem, page, i18n("User Feedback"));
+    item->setHeader(i18n("User Feedback"));
+    item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-locale")));
+#endif
+
     // editor widgets from kwrite/kwdialog
     m_editorPage = addPage(new QWidget, i18n("Editor Component"));
     m_editorPage->setIcon(QIcon::fromTheme(QStringLiteral("accessories-text-editor")));
@@ -387,6 +404,12 @@ void KateConfigDialog::slotApply()
         KateSessionManager *sessionmanager = KateApp::self()->sessionManager();
         KConfig *sessionConfig = sessionmanager->activeSession()->config();
         KateApp::self()->pluginManager()->writeConfig(sessionConfig);
+
+#ifdef WITH_KUSERFEEDBACK
+        // set current active mode + write back the config for future starts
+        KateApp::self()->userFeedbackProvider().setTelemetryMode(m_userFeedbackWidget->telemetryMode());
+        KateApp::self()->userFeedbackProvider().setSurveyInterval(m_userFeedbackWidget->surveyInterval());
+#endif
     }
 
     for (PluginPageListItem *plugin : qAsConst(m_pluginPages)) {

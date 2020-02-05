@@ -13,6 +13,10 @@ Kate Application
 
 For licensing and more see kate/README.md
 
+Kate is using KUserFeedback for telemetry starting with release 20.04.
+
+For details of the opt-in send information, see https://community.kde.org/Telemetry_Use
+
 ## kwrite
 
 KWrite Application

@@ -23,6 +23,8 @@
 #include <QDBusConnectionInterface>
 #include <QDBusReply>
 #include <QStringList>
+#include <QFileInfo>
+#include <QRegularExpression>
 
 int KateRunningInstanceInfo::dummy_session = 0;
 
@@ -40,15 +42,12 @@ bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
         services = servicesReply.value();
     }
 
-    QString serviceName;
-
-    QString my_pid = QString::number(QCoreApplication::applicationPid());
+    const bool inSandbox = QFileInfo::exists(QStringLiteral("/flatpak-info"));
+    const QString my_pid = inSandbox ? QDBusConnection::sessionBus().baseService().replace(QRegularExpression(QStringLiteral("[\\.:]")), QStringLiteral("_"))
+                                     : QString::number(QCoreApplication::applicationPid());
 
     for (const QString &s : qAsConst(services)) {
-        if (s.startsWith(QLatin1String("org.kde.kate-"))) {
-            if (s.contains(my_pid)) {
-                continue;
-            }
+        if (s.startsWith(QLatin1String("org.kde.kate")) && !s.endsWith(my_pid)) {
             KateRunningInstanceInfo *rii = new KateRunningInstanceInfo(s);
             if (rii->valid) {
                 if (map->contains(rii->sessionName)) {

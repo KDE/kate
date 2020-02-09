@@ -41,9 +41,11 @@
         <key>CFBundleDocumentTypes</key>
         <array>
             <dict>
-                <key>CFBundleTypeExtensions</key>
+                <key>LSItemContentTypes</key>
                 <array>
-                        <string>*</string>
+                        <string>public.text</string>
+                        <string>public.plain-text</string>
+                        <string>public.html</string>
                 </array>
                 <key>CFBundleTypeName</key>
                 <string>NSStringPboardType</string>

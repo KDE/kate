@@ -227,14 +227,13 @@ void KateBtBrowserWidget::itemActivated(QTreeWidgetItem *item, int column)
         // if not absolute path + exists, try to find with index
         if (!QFile::exists(path)) {
             // try to match the backtrace forms ".*/foo/bar.txt" and "foo/bar.txt"
-            static QRegExp rx1(QStringLiteral("/([^/]+)/([^/]+)$"));
-            int idx = rx1.indexIn(file);
-            if (idx != -1) {
-                file = rx1.cap(1) + QLatin1Char('/') + rx1.cap(2);
+            static const QRegularExpression rx1(QStringLiteral("/([^/]+)/([^/]+)$"));
+            QRegularExpressionMatch match = rx1.match(file);
+            if (match.hasMatch()) {
+                file = match.captured(1) + QLatin1Char('/') + match.captured(2);
             } else {
-                static QRegExp rx2(QStringLiteral("([^/]+)/([^/]+)$"));
-                idx = rx2.indexIn(file);
-                if (idx != -1) {
+                static const QRegularExpression rx2(QStringLiteral("([^/]+)/([^/]+)$"));
+                if (rx2.match(file).hasMatch()) {
                     // file is of correct form
                 } else {
                     qDebug() << "file patter did not match:" << file;

@@ -19,6 +19,7 @@
 #include "btparser.h"
 
 #include <QDebug>
+#include <QRegularExpression>
 #include <QStringList>
 
 static QString eolDelimiter(const QString &str)
@@ -35,11 +36,13 @@ static QString eolDelimiter(const QString &str)
 
 static bool lineNoLessThan(const QString &lhs, const QString &rhs)
 {
-    QRegExp rx(QStringLiteral("^#(\\d+)"));
-    int ilhs = rx.indexIn(lhs);
-    int lhsLn = rx.cap(1).toInt();
-    int irhs = rx.indexIn(rhs);
-    int rhsLn = rx.cap(1).toInt();
+    const QRegularExpression rx(QStringLiteral("^#(\\d+)"));
+    QRegularExpressionMatch match = rx.match(lhs);
+    int ilhs = match.capturedStart(0);
+    int lhsLn = match.captured(1).toInt();
+    match = rx.match(rhs);
+    int irhs = match.capturedStart(0);
+    int rhsLn = match.captured(1).toInt();
     if (ilhs != -1 && irhs != -1) {
         return lhsLn < rhsLn;
     } else {
@@ -75,7 +78,6 @@ static QStringList normalizeBt(const QStringList &l)
 
 static BtInfo parseBtLine(const QString &line)
 {
-    int index;
 
     // the syntax types we support are
     // a) #24 0xb688ff8e in QApplication::notify (this=0xbf997e8c, receiver=0x82607e8, e=0xbf997074) at kernel/qapplication.cpp:3115
@@ -84,61 +86,61 @@ static BtInfo parseBtLine(const QString &line)
     // d) #5  0xffffe410 in __kernel_vsyscall ()
 
     // try a) cap #number(1), address(2), function(3), filename(4), linenumber(5)
-    static QRegExp rxa(QStringLiteral("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)\\s+at\\s+(.+):(\\d+)$"));
-    index = rxa.indexIn(line);
-    if (index == 0) {
+    static const QRegularExpression rxa(QStringLiteral("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)\\s+at\\s+(.+):(\\d+)$"));
+    QRegularExpressionMatch match = rxa.match(line);
+    if (match.hasMatch()) {
         BtInfo info;
         info.original = line;
-        info.filename = rxa.cap(4);
-        info.function = rxa.cap(3);
-        info.address = rxa.cap(2);
-        info.line = rxa.cap(5).toInt();
-        info.step = rxa.cap(1).toInt();
+        info.filename = match.captured(4);
+        info.function = match.captured(3);
+        info.address = match.captured(2);
+        info.line = match.captured(5).toInt();
+        info.step = match.captured(1).toInt();
         info.type = BtInfo::Source;
         return info;
     }
 
     // try b) cap #number(1), address(2), function(3), lib(4)
-    static QRegExp rxb(QStringLiteral("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)\\s+from\\s+(.+)$"));
-    index = rxb.indexIn(line);
-    if (index == 0) {
+    static const QRegularExpression rxb(QStringLiteral("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)\\s+from\\s+(.+)$"));
+    match = rxb.match(line);
+    if (match.hasMatch()) {
         BtInfo info;
         info.original = line;
-        info.filename = rxb.cap(4);
-        info.function = rxb.cap(3);
-        info.address = rxb.cap(2);
+        info.filename = match.captured(4);
+        info.function = match.captured(3);
+        info.address = match.captured(2);
         info.line = -1;
-        info.step = rxb.cap(1).toInt();
+        info.step = match.captured(1).toInt();
         info.type = BtInfo::Lib;
         return info;
     }
 
     // try c) #41 0x0805e690 in ?? ()
-    static QRegExp rxc(QStringLiteral("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+\\?\\?\\s+\\(\\)$"));
-    index = rxc.indexIn(line);
-    if (index == 0) {
+    static const QRegularExpression rxc(QStringLiteral("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+\\?\\?\\s+\\(\\)$"));
+    match = rxc.match(line);
+    if (match.hasMatch()) {
         BtInfo info;
         info.original = line;
         info.filename = QString();
         info.function = QString();
-        info.address = rxc.cap(2);
+        info.address = match.captured(2);
         info.line = -1;
-        info.step = rxc.cap(1).toInt();
+        info.step = match.captured(1).toInt();
         info.type = BtInfo::Unknown;
         return info;
     }
 
     // try d) #5  0xffffe410 in __kernel_vsyscall ()
-    static QRegExp rxd(QStringLiteral("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)$"));
-    index = rxd.indexIn(line);
-    if (index == 0) {
+    static const QRegularExpression rxd(QStringLiteral("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)$"));
+    match = rxd.match(line);
+    if (match.hasMatch()) {
         BtInfo info;
         info.original = line;
         info.filename = QString();
-        info.function = rxd.cap(3);
-        info.address = rxd.cap(2);
+        info.function = match.captured(3);
+        info.address = match.captured(2);
         info.line = -1;
-        info.step = rxd.cap(1).toInt();
+        info.step = match.captured(1).toInt();
         info.type = BtInfo::Unknown;
         return info;
     }

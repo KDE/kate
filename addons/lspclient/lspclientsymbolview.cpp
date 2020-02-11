@@ -449,7 +449,7 @@ public:
                 }
             }
 
-            server->documentSymbols(view->document()->url(), this, utils::mem_fun(&self_type::onDocumentSymbols, this));
+            m_handle = server->documentSymbols(view->document()->url(), this, utils::mem_fun(&self_type::onDocumentSymbols, this));
 
             return;
         }

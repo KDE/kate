@@ -365,12 +365,12 @@ void KateSessionManageDialog::updateSessionList()
             markItemAsToBeDeleted(item);
         }
     }
-    
+
     m_sessionList->header()->setStretchLastSection(false);
     m_sessionList->header()->setSectionResizeMode(0, QHeaderView::Stretch); // stretch "Session Name" column
     m_sessionList->resizeColumnToContents(1); // Fit "Files" column
     m_sessionList->resizeColumnToContents(2); // Fit "Last update" column
-    m_sessionList->sortByColumn(2); // sort by "Last update" column.. don't worry, it only sorts when the model data changes.
+    m_sessionList->sortByColumn(2, Qt::DescendingOrder); // sort by "Last update" column.. don't worry, it only sorts when the model data changes.
 
     if (!preferredItem) {
         preferredItem = currSessionItem ? currSessionItem : activeSessionItem;

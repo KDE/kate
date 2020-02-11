@@ -34,19 +34,6 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="m_sortButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string notr="true">Sort</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item>
@@ -56,6 +43,9 @@
        </property>
        <property name="itemsExpandable">
         <bool>false</bool>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
        </property>
        <property name="allColumnsShowFocus">
         <bool>true</bool>
@@ -71,6 +61,11 @@
         </property>
         <property name="textAlignment">
          <set>AlignLeading|AlignVCenter</set>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Last opened</string>
         </property>
        </column>
       </widget>
@@ -235,7 +230,6 @@
   <tabstop>m_closeButton</tabstop>
   <tabstop>m_filterBox</tabstop>
   <tabstop>m_sessionList</tabstop>
-  <tabstop>m_sortButton</tabstop>
   <tabstop>m_openButton</tabstop>
  </tabstops>
  <resources/>

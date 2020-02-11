@@ -35,6 +35,7 @@ public:
         QString docs;
         docs.setNum(s->documents());
         setText(1, docs);
+        setText(2, s->timestamp().toString(QString::fromStdString("yyyy-MM-dd  hh:mm:ss")));
     }
 
     KateSession::Ptr session;

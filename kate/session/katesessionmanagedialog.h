@@ -127,11 +127,6 @@ protected Q_SLOTS:
     void dontAskToggled();
 
     /**
-     * To change the sort order of the session list
-     */
-    void changeSortOrder();
-
-    /**
      * Slot for @c m_filterField
      */
     void filterChanged();
@@ -144,14 +139,6 @@ private:
         ResultQuit = QDialog::Rejected,
         ResultOpen,
         ResultNew,
-    };
-
-    /**
-     * Sort order of the session list
-     */
-    enum SortOrder {
-        SortAlphabetical,
-        SortChronological,
     };
 
     /**
@@ -194,12 +181,7 @@ private:
     /**
      * Used by @c updateSessionList() to choose a new current item
      */
-    QString m_prefferedSession;
-
-    /**
-     * How the list of sessions has to be ordered
-     */
-    int m_sortOrder = SortChronological;
+    QString m_preferredSession;
 
     /**
      * Used in dtor to do some savings or not

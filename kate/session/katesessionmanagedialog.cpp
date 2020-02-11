@@ -47,7 +47,6 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)
 
     m_filterBox->installEventFilter(this);
     connect(m_filterBox, &QLineEdit::textChanged, this, &KateSessionManageDialog::filterChanged);
-    connect(m_sortButton, &QPushButton::clicked, this, &KateSessionManageDialog::changeSortOrder);
 
     connect(m_newButton, &QPushButton::clicked, this, &KateSessionManageDialog::openNewSession);
 
@@ -67,8 +66,6 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)
     connect(m_closeButton, &QPushButton::clicked, this, &KateSessionManageDialog::closeDialog);
 
     connect(KateApp::self()->sessionManager(), &KateSessionManager::sessionListChanged, this, &KateSessionManageDialog::updateSessionList);
-
-    changeSortOrder(); // Set order to SortAlphabetical, set button text and fill session list
 }
 
 KateSessionManageDialog::KateSessionManageDialog(QWidget *parent, const QString &lastSession)
@@ -79,8 +76,8 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent, const QString 
     m_chooserMode = true;
     connect(m_dontAskCheckBox, &QCheckBox::toggled, this, &KateSessionManageDialog::dontAskToggled);
 
-    m_prefferedSession = lastSession;
-    changeSortOrder(); // Set order to SortChronological
+    m_preferredSession = lastSession;
+    updateSessionList();
 }
 
 KateSessionManageDialog::~KateSessionManageDialog()
@@ -90,24 +87,6 @@ KateSessionManageDialog::~KateSessionManageDialog()
 void KateSessionManageDialog::dontAskToggled()
 {
     m_templateButton->setEnabled(!m_dontAskCheckBox->isChecked());
-}
-
-void KateSessionManageDialog::changeSortOrder()
-{
-    switch (m_sortOrder) {
-    case SortAlphabetical:
-        m_sortOrder = SortChronological;
-        m_sortButton->setText(i18n("Sort Alphabetical"));
-        // m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
-        break;
-    case SortChronological:
-        m_sortOrder = SortAlphabetical;
-        m_sortButton->setText(i18n("Sort Last Used"));
-        // m_sortButton->setIcon(QIcon::fromTheme(QStringLiteral("FIXME")));
-        break;
-    }
-
-    updateSessionList();
 }
 
 void KateSessionManageDialog::filterChanged()
@@ -203,7 +182,6 @@ void KateSessionManageDialog::disableButtons()
     m_renameButton->setEnabled(false);
     m_deleteButton->setEnabled(false);
     m_closeButton->setEnabled(false);
-    m_sortButton->setEnabled(false);
     m_filterBox->setEnabled(false);
 }
 
@@ -241,7 +219,6 @@ void KateSessionManageDialog::editDone()
     m_newButton->setEnabled(true);
     m_dontAskCheckBox->setEnabled(true);
     m_closeButton->setEnabled(true);
-    m_sortButton->setEnabled(true);
     m_filterBox->setEnabled(true);
 
     m_sessionList->setFocus();
@@ -265,7 +242,7 @@ void KateSessionManageDialog::copySession()
         return;
     }
 
-    m_prefferedSession = KateApp::self()->sessionManager()->copySession(item->session);
+    m_preferredSession = KateApp::self()->sessionManager()->copySession(item->session);
     m_sessionList->setFocus(); // Only needed when user abort
 }
 
@@ -358,16 +335,12 @@ void KateSessionManageDialog::updateSessionList()
     m_sessionList->clear();
 
     KateSessionList slist = KateApp::self()->sessionManager()->sessionList();
-    switch (m_sortOrder) {
-    case SortAlphabetical:
-        std::sort(slist.begin(), slist.end(), KateSession::compareByName);
-        break;
-    case SortChronological:
-        std::sort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
-        break;
-    }
+    // SortAlphabetical:
+    // std::sort(slist.begin(), slist.end(), KateSession::compareByName);
+    // SortChronological:
+    // std::sort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
 
-    KateSessionChooserItem *prefferedItem = nullptr;
+    KateSessionChooserItem *preferredItem = nullptr;
     KateSessionChooserItem *currSessionItem = nullptr;
     KateSessionChooserItem *activeSessionItem = nullptr;
 
@@ -383,25 +356,29 @@ void KateSessionManageDialog::updateSessionList()
             currSessionItem = item;
         } else if (session == activeSession) {
             activeSessionItem = item;
-        } else if (session->name() == m_prefferedSession) {
-            prefferedItem = item;
-            m_prefferedSession.clear();
+        } else if (session->name() == m_preferredSession) {
+            preferredItem = item;
+            m_preferredSession.clear();
         }
 
         if (m_deleteList.contains(session)) {
             markItemAsToBeDeleted(item);
         }
     }
+    
+    m_sessionList->header()->setStretchLastSection(false);
+    m_sessionList->header()->setSectionResizeMode(0, QHeaderView::Stretch); // stretch "Session Name" column
+    m_sessionList->resizeColumnToContents(1); // Fit "Files" column
+    m_sessionList->resizeColumnToContents(2); // Fit "Last update" column
+    m_sessionList->sortByColumn(2); // sort by "Last update" column.. don't worry, it only sorts when the model data changes.
 
-    m_sessionList->resizeColumnToContents(1); // Minimize "Files" column
-
-    if (!prefferedItem) {
-        prefferedItem = currSessionItem ? currSessionItem : activeSessionItem;
+    if (!preferredItem) {
+        preferredItem = currSessionItem ? currSessionItem : activeSessionItem;
     }
 
-    if (prefferedItem) {
-        m_sessionList->setCurrentItem(prefferedItem);
-        m_sessionList->scrollToItem(prefferedItem);
+    if (preferredItem) {
+        m_sessionList->setCurrentItem(preferredItem);
+        m_sessionList->scrollToItem(preferredItem);
     } else if (m_sessionList->topLevelItemCount() > 0) {
         m_sessionList->setCurrentItem(m_sessionList->topLevelItem(0));
     }

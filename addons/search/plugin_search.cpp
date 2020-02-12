@@ -315,7 +315,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     , m_kateApp(application)
     , m_curResults(nullptr)
     , m_searchJustOpened(false)
-    , m_switchToProjectModeWhenAvailable(false)
+    , m_projectSearchPlaceIndex(0)
     , m_searchDiskFilesDone(true)
     , m_searchOpenFilesDone(true)
     , m_isSearchAsYouType(false)
@@ -1018,7 +1018,7 @@ void KatePluginSearchView::startSearch()
 {
     m_changeTimer.stop();                       // make sure not to start a "while you type" search now
     m_mainWindow->showToolView(m_toolView);     // in case we are invoked from the command interface
-    m_switchToProjectModeWhenAvailable = false; // now that we started, don't switch back automatically
+    m_projectSearchPlaceIndex = 0;              // now that we started, don't switch back automatically
 
     if (m_ui.searchCombo->currentText().isEmpty()) {
         // return pressed in the folder combo or filter combo
@@ -1949,9 +1949,9 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     if (searchPlaceIndex < 0) {
         searchPlaceIndex = Folder; // for the case we happen to read -1 as Place
     }
-    if ((searchPlaceIndex == Project) && (searchPlaceIndex >= m_ui.searchPlaceCombo->count())) {
+    if ((searchPlaceIndex >= Project) && (searchPlaceIndex >= m_ui.searchPlaceCombo->count())) {
         // handle the case that project mode was selected, but not yet available
-        m_switchToProjectModeWhenAvailable = true;
+        m_projectSearchPlaceIndex = searchPlaceIndex;
         searchPlaceIndex = Folder;
     }
     m_ui.searchPlaceCombo->setCurrentIndex(searchPlaceIndex);
@@ -2243,14 +2243,13 @@ void KatePluginSearchView::slotProjectFileNameChanged()
         if (m_ui.searchPlaceCombo->count() <= Project) {
             // add "in Project"
             m_ui.searchPlaceCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), i18n("In Current Project"));
-            if (m_switchToProjectModeWhenAvailable) {
-                // switch to search "in Project"
-                m_switchToProjectModeWhenAvailable = false;
-                setSearchPlace(Project);
-            }
-
             // add "in Open Projects"
             m_ui.searchPlaceCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), i18n("In All Open Projects"));
+            if (m_projectSearchPlaceIndex >= Project) {
+                // switch to search "in (all) Project"
+                setSearchPlace(m_projectSearchPlaceIndex);
+                m_projectSearchPlaceIndex = 0;
+            }
         }
     }
 
@@ -2258,7 +2257,9 @@ void KatePluginSearchView::slotProjectFileNameChanged()
     else {
         if (m_ui.searchPlaceCombo->count() >= Project) {
             // switch to search "in Open files", if "in Project" is active
-            if (m_ui.searchPlaceCombo->currentIndex() >= Project) {
+            int searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
+            if (searchPlaceIndex >= Project) {
+                m_projectSearchPlaceIndex = searchPlaceIndex;
                 setSearchPlace(OpenFiles);
             }
 

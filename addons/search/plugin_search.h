@@ -190,7 +190,7 @@ private:
     QAction *m_useRegExp;
     Results *m_curResults;
     bool m_searchJustOpened;
-    bool m_switchToProjectModeWhenAvailable;
+    int m_projectSearchPlaceIndex;
     bool m_searchDiskFilesDone;
     bool m_searchOpenFilesDone;
     bool m_isSearchAsYouType;

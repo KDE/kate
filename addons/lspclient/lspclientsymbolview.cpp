@@ -397,10 +397,6 @@ public:
         // (as an indication there is nothing to show anyway)
         m_detailsOn->setEnabled(details);
 
-        // hide detail column if not needed/wanted
-        bool showDetails = m_detailsOn->isChecked() && details;
-        m_symbols->setColumnHidden(1, !showDetails);
-
         // current item tracking
         updateCurrentTreeItem();
     }

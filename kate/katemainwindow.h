@@ -106,6 +106,13 @@ public:
      * anders: I add this for use from the file selector. */
     QUrl activeDocumentUrl();
 
+    /** Enumeration to specify if files modified on disk should show up
+     * in the reload dialog even if not edited in this instance. */
+    enum ModOnDiskMode {
+        PromptEdited,  ///< Do not list files that have not been edited
+        PromptAll,     ///< Include all files modified on disk
+    };
+
     /**
      * Prompts the user for what to do with files that are modified on disk if any.
      * This is optionally run when the window receives focus, and when the last
@@ -113,7 +120,7 @@ public:
      * @return true if no documents are modified on disk, or all documents were
      * handled by the dialog; otherwise (the dialog was canceled) false.
      */
-    bool showModOnDiskPrompt();
+    bool showModOnDiskPrompt(ModOnDiskMode mode);
 
 public:
     /*reimp*/ void readProperties(const KConfigGroup &config) override;

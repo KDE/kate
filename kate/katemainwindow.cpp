@@ -507,7 +507,7 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
 {
     int documentCount = KateApp::self()->documentManager()->documentList().size();
 
-    if (!showModOnDiskPrompt()) {
+    if (!showModOnDiskPrompt(PromptEdited)) {
         return false;
     }
 
@@ -967,13 +967,15 @@ void KateMainWindow::slotFullScreen(bool t)
     }
 }
 
-bool KateMainWindow::showModOnDiskPrompt()
+bool KateMainWindow::showModOnDiskPrompt(ModOnDiskMode mode)
 {
     const auto documents = KateApp::self()->documentManager()->documentList();
     DocVector list;
     list.reserve(documents.size());
     for (auto doc : documents) {
-        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc && doc->isModified()) {
+        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc &&
+            (doc->isModified() || mode == PromptAll))
+        {
             list.append(doc);
         }
     }

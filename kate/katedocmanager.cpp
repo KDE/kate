@@ -405,7 +405,7 @@ void KateDocManager::reloadAll()
     }
 
     // take care of all documents that ARE modified on disk
-    KateApp::self()->activeKateMainWindow()->showModOnDiskPrompt();
+    KateApp::self()->activeKateMainWindow()->showModOnDiskPrompt(KateMainWindow::PromptAll);
 }
 
 void KateDocManager::closeOrphaned()

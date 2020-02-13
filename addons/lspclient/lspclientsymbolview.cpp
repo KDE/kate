@@ -315,10 +315,11 @@ public:
             }
 
             auto node = new QStandardItem();
+            auto line = new QStandardItem();
             if (parent && tree)
-                parent->appendRow(node);
+                parent->appendRow({node, line});
             else
-                model->appendRow(node);
+                model->appendRow({node, line});
 
             if (!symbol.detail.isEmpty())
                 details = true;
@@ -326,6 +327,8 @@ public:
             node->setText(symbol.name + detail);
             node->setIcon(*icon);
             node->setData(QVariant::fromValue<KTextEditor::Range>(symbol.range), Qt::UserRole);
+            static const QChar prefix = QChar::fromLatin1('0');
+            line->setText(QStringLiteral("%1").arg(symbol.range.start().line(), 7, 10, prefix));
             // recurse children
             makeNodes(symbol.children, tree, show_detail, model, node, details);
         }
@@ -382,8 +385,13 @@ public:
             m_symbols->setSortingEnabled(true);
             m_symbols->sortByColumn(0, Qt::AscendingOrder);
         } else {
-            m_symbols->sortByColumn(-1, Qt::AscendingOrder);
+            // most servers provide items in reasonable file/input order
+            // however sadly not all, so let's sort by hidden line number column to make sure
+            m_symbols->setSortingEnabled(true);
+            m_symbols->sortByColumn(1, Qt::AscendingOrder);
         }
+        // no need to show internal info
+        m_symbols->setColumnHidden(1, true);
 
         // handle auto-expansion
         if (m_expandOn->isChecked()) {

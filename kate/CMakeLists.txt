@@ -106,8 +106,9 @@ if(APPLE OR WIN32)
   endif()
 endif()
 
-
-set(ICONS_PNG
+# application icon, in all sizes needed to have e.g. nice Windows icons, too
+set(ICON_FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate.svg
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kate.png
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/22-apps-kate.png
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/32-apps-kate.png
@@ -116,13 +117,13 @@ set(ICONS_PNG
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/64-apps-kate.png
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/128-apps-kate.png
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/150-apps-kate.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/256-apps-kate.png
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/310-apps-kate.png
+  ${CMAKE_CURRENT_SOURCE_DIR}/icons/512-apps-kate.png
 )
 
-set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kate.svg)
-
 # Add icon files to the application's source files to have CMake bundle them in the executable.
-ecm_add_app_icon(ICONS_SOURCES ICONS ${ICONS_PNG})
+ecm_add_app_icon(ICONS_SOURCES ICONS ${ICON_FILES})
 target_sources(kate-bin PRIVATE ${ICONS_SOURCES})
 
 set_property(
@@ -152,7 +153,7 @@ endif()
 install(TARGETS kate-bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ecm_install_icons(
-  ICONS ${ICONS_PNG} ${ICONS_SVG}
+  ICONS ${ICON_FILES}
   DESTINATION ${ICON_INSTALL_DIR}
   THEME hicolor
 )

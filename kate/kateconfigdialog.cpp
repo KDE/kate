@@ -162,7 +162,11 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     m_cmbQuickOpenMatchMode->addItem(i18n("Filepath"), QVariant(KateQuickOpenModel::Columns::FilePath));
     m_cmbQuickOpenMatchMode->setCurrentIndex(m_cmbQuickOpenMatchMode->findData(m_mainWindow->quickOpenMatchMode()));
     m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_cmbQuickOpenMatchMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+#else
+    connect(m_cmbQuickOpenMatchMode, static_cast<void (QComboBox::*)(int, const QString &)>(&QComboBox::currentIndexChanged) , this, &KateConfigDialog::slotChanged);
+#endif
     vbox->addLayout(hlayout);
     // quick open list mode
     hlayout = new QHBoxLayout;
@@ -175,7 +179,11 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     m_cmbQuickOpenListMode->addItem(i18n("All Projects Files"), QVariant(KateQuickOpenModel::List::AllProjects));
     m_cmbQuickOpenListMode->setCurrentIndex(m_cmbQuickOpenListMode->findData(m_mainWindow->quickOpenListMode()));
     m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_cmbQuickOpenListMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+#else
+    connect(m_cmbQuickOpenListMode, static_cast<void (QComboBox::*)(int, const QString &)>(&QComboBox::currentIndexChanged) , this, &KateConfigDialog::slotChanged);
+#endif
     vbox->addLayout(hlayout);
     layout->addWidget(buttonGroup);
 

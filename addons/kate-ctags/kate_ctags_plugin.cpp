@@ -220,7 +220,7 @@ void KateCTagsConfigPage::updateGlobalDB()
     }
 
     QString command = QStringLiteral("%1 -f %2 %3").arg(m_confUi.cmdEdit->text(), file, targets);
-    m_proc.start(command);
+    m_proc.start(command, QStringList());
 
     if (!m_proc.waitForStarted(500)) {
         KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));

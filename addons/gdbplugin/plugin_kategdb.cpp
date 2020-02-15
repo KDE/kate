@@ -137,7 +137,11 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     m_stackTree->setAutoScroll(false);
     connect(m_stackTree, &QTreeWidget::itemActivated, this, &KatePluginGDBView::stackFrameSelected);
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_threadCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KatePluginGDBView::threadSelected);
+#else
+    connect(m_threadCombo, static_cast<void (QComboBox::*)(int, const QString &)>(&QComboBox::currentIndexChanged) , this, &KatePluginGDBView::threadSelected);
+#endif
 
     m_localsView = new LocalsView();
 

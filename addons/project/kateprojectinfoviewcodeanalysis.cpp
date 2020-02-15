@@ -67,7 +67,11 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
      * Connect selection change callback
      * and attach model to code analysis selector
      */
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_toolSelector, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged);
+#else
+    connect(m_toolSelector, static_cast<void (QComboBox::*)(int, const QString &)>(&QComboBox::currentIndexChanged) , this, &KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged);
+#endif
     m_toolSelector->setModel(KateProjectCodeAnalysisSelector::model(this));
 
     /**

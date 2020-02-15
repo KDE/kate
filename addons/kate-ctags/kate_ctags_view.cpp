@@ -516,7 +516,7 @@ void KateCTagsView::updateSessionDB()
 
     QString command = QStringLiteral("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text(), m_ctagsUi.tagsFile->text(), targets);
 
-    m_proc.start(command);
+    m_proc.start(command, QStringList());
 
     if (!m_proc.waitForStarted(500)) {
         KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));

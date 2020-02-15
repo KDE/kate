@@ -81,7 +81,7 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
 
         connect(&m_debugProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &DebugView::slotDebugFinished);
 
-        m_debugProcess.start(m_targetConf.gdbCmd);
+        m_debugProcess.start(m_targetConf.gdbCmd, QStringList());
 
         m_nextCommands << QStringLiteral("set pagination off");
         m_state = ready;

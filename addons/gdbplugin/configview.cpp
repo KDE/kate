@@ -118,7 +118,11 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     m_advanced->hide();
 
     connect(m_targetCombo, &QComboBox::editTextChanged, this, &ConfigView::slotTargetEdited);
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ConfigView::slotTargetSelected);
+#else
+    connect(m_targetCombo, static_cast<void (QComboBox::*)(int, const QString &)>(&QComboBox::currentIndexChanged) , this, &ConfigView::slotTargetSelected);
+#endif
     connect(m_addTarget, &QToolButton::clicked, this, &ConfigView::slotAddTarget);
     connect(m_copyTarget, &QToolButton::clicked, this, &ConfigView::slotCopyTarget);
     connect(m_deleteTarget, &QToolButton::clicked, this, &ConfigView::slotDeleteTarget);

@@ -69,7 +69,11 @@ KateDocManager::~KateDocManager()
         // purge saved filesessions
         if (m_daysMetaInfos > 0) {
             const QStringList groups = m_metaInfos.groupList();
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
             QDateTime def(QDate(1970, 1, 1));
+#else
+            QDateTime def(QDate(1970, 1, 1).startOfDay());
+#endif
             for (const auto &group : groups) {
                 QDateTime last = m_metaInfos.group(group).readEntry("Time", def);
                 if (last.daysTo(QDateTime::currentDateTimeUtc()) > m_daysMetaInfos) {

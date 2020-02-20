@@ -340,15 +340,23 @@ void KateConsole::slotRun()
 
         // The string that should be output to terminal, upon acceptance
         QString output_str;
-        // prefix first
-        output_str += KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("RunPrefix", "");
+        // Set prefix first
+        QString first_line = document->textLines(KTextEditor::Range(0, 0, 1, 0)).first();
+        QString shebang = QString::fromLatin1("#!");
+        if (first_line.startsWith(shebang)) {
+            // If there's a shebang, respect it
+            output_str += first_line.remove(shebang).append(QLatin1Char(' '));
+        } else {
+            output_str += KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("RunPrefix", "");
+        }
         // then filename
+        QFileInfo file_path = QFileInfo(u.path());
         if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("RemoveExtension", true)) {
             // append filename without extension (i.e. keep only the basename)
-            output_str += QFileInfo(u.path()).baseName() + QLatin1Char('\n');
+            output_str += file_path.absoluteFilePath().remove(file_path.suffix());
         } else {
             // append filename to the terminal
-            output_str += QFileInfo(u.path()).fileName() + QLatin1Char('\n');
+            output_str += file_path.absoluteFilePath();
         }
 
         if (KMessageBox::Continue !=
@@ -365,7 +373,7 @@ void KateConsole::slotRun()
             return;
         }
         // echo to terminal
-        sendInput(output_str);
+        sendInput(output_str + QLatin1Char('\n'));
     }
 }
 

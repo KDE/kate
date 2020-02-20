@@ -50,6 +50,7 @@
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
+#include <ktexteditor_version.h>
 
 #include <QAction>
 #include <QApplication>
@@ -554,7 +555,11 @@ public:
         Q_ASSERT(item);
         KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
         Q_ASSERT(miface);
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+        KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
+#else
         KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
+#endif
         Q_ASSERT(iface);
         KTextEditor::View *activeView = m_mainWindow->activeView();
         KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(activeView);
@@ -630,21 +635,37 @@ public:
         switch (markType) {
         case RangeData::markType:
             iface->setMarkDescription(markType, i18n("RangeHighLight"));
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+            iface->setMarkIcon(markType, QIcon());
+#else
             iface->setMarkPixmap(markType, QIcon().pixmap(0, 0));
+#endif
             handleClick = false;
             enabled = true;
             break;
         case RangeData::markTypeDiagError:
             iface->setMarkDescription(markType, i18n("Error"));
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+            iface->setMarkIcon(markType, diagnosticsIcon(LSPDiagnosticSeverity::Error));
+#else
             iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Error).pixmap(ps, ps));
+#endif
             break;
         case RangeData::markTypeDiagWarning:
             iface->setMarkDescription(markType, i18n("Warning"));
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+            iface->setMarkIcon(markType, diagnosticsIcon(LSPDiagnosticSeverity::Warning));
+#else
             iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Warning).pixmap(ps, ps));
+#endif
             break;
         case RangeData::markTypeDiagOther:
             iface->setMarkDescription(markType, i18n("Information"));
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+            iface->setMarkIcon(markType, diagnosticsIcon(LSPDiagnosticSeverity::Information));
+#else
             iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Information).pixmap(ps, ps));
+#endif
             break;
         default:
             Q_ASSERT(false);

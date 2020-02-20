@@ -30,6 +30,7 @@
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/view.h>
+#include <ktexteditor_version.h>
 
 #include "kacceleratormanager.h"
 #include <kaboutdata.h>
@@ -917,11 +918,19 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, QTreeWidgetI
     m_matchRanges.append(mr);
 
     // Add a match mark
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
+#else
     KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
+#endif
     if (!iface)
         return;
     iface->setMarkDescription(KTextEditor::MarkInterface::markType32, i18n("SearchHighLight"));
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+    iface->setMarkIcon(KTextEditor::MarkInterface::markType32, QIcon());
+#else
     iface->setMarkPixmap(KTextEditor::MarkInterface::markType32, QIcon().pixmap(0, 0));
+#endif
     iface->addMark(line, KTextEditor::MarkInterface::markType32);
 
     connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarks()), Qt::UniqueConnection);

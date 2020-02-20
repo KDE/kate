@@ -50,6 +50,7 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/view.h>
+#include <ktexteditor_version.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
 
@@ -360,11 +361,19 @@ void KatePluginGDBView::slotToggleBreakpoint()
 
 void KatePluginGDBView::slotBreakpointSet(const QUrl &file, int line)
 {
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(m_kateApplication->findUrl(file));
+#else
     KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_kateApplication->findUrl(file));
+#endif
 
     if (iface) {
         iface->setMarkDescription(KTextEditor::MarkInterface::BreakpointActive, i18n("Breakpoint"));
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+        iface->setMarkIcon(KTextEditor::MarkInterface::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-playback-pause")));
+#else
         iface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-playback-pause")).pixmap(10, 10));
+#endif
         iface->addMark(line, KTextEditor::MarkInterface::BreakpointActive);
     }
 }
@@ -458,7 +467,11 @@ void KatePluginGDBView::enableDebugActions(bool enable)
         if (iface) {
             if (enable) {
                 iface->setMarkDescription(KTextEditor::MarkInterface::Execution, i18n("Execution point"));
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+                iface->setMarkIcon(KTextEditor::MarkInterface::Execution, QIcon::fromTheme(QStringLiteral("arrow-right")));
+#else
                 iface->setMarkPixmap(KTextEditor::MarkInterface::Execution, QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10));
+#endif
                 iface->addMark(m_lastExecLine, KTextEditor::MarkInterface::Execution);
             } else {
                 iface->removeMark(m_lastExecLine, KTextEditor::MarkInterface::Execution);

@@ -69,16 +69,19 @@ static const QString NinjaPrefix = QStringLiteral("[ninja]");
 
 static QIcon messageIcon(KateBuildView::ErrorCategory severity)
 {
-#define RETURN_CACHED_ICON(name)                                                                                                                                                                                                               \
-    {                                                                                                                                                                                                                                          \
-        static QIcon icon(QIcon::fromTheme(QStringLiteral(name)));                                                                                                                                                                             \
-        return icon;                                                                                                                                                                                                                           \
+    // clang-format off
+#define RETURN_CACHED_ICON(name, fallbackname) \
+    { \
+        static QIcon icon(QIcon::fromTheme(QStringLiteral(name), \
+                                           QIcon::fromTheme(QStringLiteral(fallbackname)))); \
+        return icon; \
     }
+    // clang-format on
     switch (severity) {
     case KateBuildView::CategoryError:
-        RETURN_CACHED_ICON("dialog-error")
+        RETURN_CACHED_ICON("data-error", "dialog-error")
     case KateBuildView::CategoryWarning:
-        RETURN_CACHED_ICON("dialog-warning")
+        RETURN_CACHED_ICON("data-warning", "dialog-warning")
     default:
         break;
     }

@@ -125,20 +125,21 @@ static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagAll = KTextEd
 static QIcon diagnosticsIcon(LSPDiagnosticSeverity severity)
 {
     // clang-format off
-#define RETURN_CACHED_ICON(name) \
+#define RETURN_CACHED_ICON(name, fallbackname) \
     { \
-        static QIcon icon(QIcon::fromTheme(QStringLiteral(name))); \
+        static QIcon icon(QIcon::fromTheme(QStringLiteral(name), \
+                                           QIcon::fromTheme(QStringLiteral(fallbackname)))); \
         return icon; \
     }
     // clang-format on
     switch (severity) {
     case LSPDiagnosticSeverity::Error:
-        RETURN_CACHED_ICON("dialog-error")
+        RETURN_CACHED_ICON("data-error", "dialog-error")
     case LSPDiagnosticSeverity::Warning:
-        RETURN_CACHED_ICON("dialog-warning")
+        RETURN_CACHED_ICON("data-warning", "dialog-warning")
     case LSPDiagnosticSeverity::Information:
     case LSPDiagnosticSeverity::Hint:
-        RETURN_CACHED_ICON("dialog-information")
+        RETURN_CACHED_ICON("data-information", "dialog-information")
     default:
         break;
     }

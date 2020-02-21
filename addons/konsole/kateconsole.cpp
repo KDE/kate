@@ -341,7 +341,7 @@ void KateConsole::slotRun()
         // The string that should be output to terminal, upon acceptance
         QString output_str;
         // Set prefix first
-        QString first_line = document->textLines(KTextEditor::Range(0, 0, 1, 0)).first();
+        QString first_line = document->line(0);
         QString shebang = QString::fromLatin1("#!");
         if (first_line.startsWith(shebang)) {
             // If there's a shebang, respect it

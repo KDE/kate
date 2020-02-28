@@ -66,6 +66,8 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)
     connect(m_closeButton, &QPushButton::clicked, this, &KateSessionManageDialog::closeDialog);
 
     connect(KateApp::self()->sessionManager(), &KateSessionManager::sessionListChanged, this, &KateSessionManageDialog::updateSessionList);
+
+    updateSessionList();
 }
 
 KateSessionManageDialog::KateSessionManageDialog(QWidget *parent, const QString &lastSession)

@@ -40,7 +40,7 @@ find_package(Qt5Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
 
 # Required here so that the ki18n_install/kdoctools_install calls injected by
 # the release scripts work.
-find_package(KF5 ${KF5_REQUIRED_VERSION}
+find_package(KF5 ${KF5_DEP_VERSION}
     REQUIRED COMPONENTS
         I18n
     OPTIONAL_COMPONENTS

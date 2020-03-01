@@ -405,9 +405,9 @@
       <li xml:lang="zh-TW">VI 輸入模式</li>
     </ul>
   </description>
-  <url type="homepage">http://kate-editor.org/</url>
+  <url type="homepage">https://kate-editor.org/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kwrite</url>
-  <url type="help">http://docs.kde.org/stable/en/applications/kwrite/index.html</url>
+  <url type="help">https://docs.kde.org/?application=kwrite</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kwrite&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
@@ -442,7 +442,7 @@
       <caption xml:lang="x-test">xxEditing code with KWritexx</caption>
       <caption xml:lang="zh-CN">使用 Kwrite 编辑代码</caption>
       <caption xml:lang="zh-TW">使用 KWrite 編輯程式碼</caption>
-      <image>http://kde.org/images/screenshots/kwrite.png</image>
+      <image>https://cdn.kde.org/screenshots/kwrite/kwrite.png</image>
     </screenshot>
   </screenshots>
   <project_group>KDE</project_group>
@@ -451,6 +451,7 @@
   </provides>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="19.12.2" date="2020-02-06"/>
     <release version="19.12.1" date="2020-01-09"/>
     <release version="19.12.0" date="2019-12-12"/>
   </releases>

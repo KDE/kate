@@ -898,7 +898,7 @@
   </description>
   <url type="homepage">https://kate-editor.org/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kate</url>
-  <url type="help">https://docs.kde.org/stable/en/applications/kate/index.html</url>
+  <url type="help">https://docs.kde.org/?application=kate</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kate&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
@@ -932,7 +932,7 @@
       <caption xml:lang="x-test">xxEditing code with Katexx</caption>
       <caption xml:lang="zh-CN">使用 Kate 编辑代码</caption>
       <caption xml:lang="zh-TW">使用 Kate 編輯程式碼</caption>
-      <image>https://kde.org/images/screenshots/kate.png</image>
+      <image>https://cdn.kde.org/screenshots/kate/kate.png</image>
     </screenshot>
   </screenshots>
   <project_group>KDE</project_group>

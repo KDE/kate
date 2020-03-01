@@ -15,7 +15,7 @@
 ways to extend its functionality.  You can <link linkend="dev-scripting">write
 simple scripts to add functionality with JavaScript</link>.
 Finally, once you have extended &katepart;, you are
-welcome to <ulink url="http://kate-editor.org/join-us/">join us</ulink>
+welcome to <ulink url="https://kate-editor.org/join-us/">join us</ulink>
 and share your enhancements with the world!</para>
 
 </sect1>
@@ -1466,7 +1466,7 @@ The fields for one action are as follows:
 <listitem><para><literal>name</literal> [required]: The text appears in the script menu.</para></listitem>
 <listitem><para><literal>icon</literal> [optional]: The icon appears next to the text in the menu. All &kde; icon names can be used here.</para></listitem>
 <listitem><para><literal>category</literal> [optional]: If a category is specified, the script appears in a submenu.</para></listitem>
-<listitem><para><literal>shortcut</literal> [optional]: The shortcut given here is the default shortcut. Example: <literal>Ctrl+Alt+t</literal>. See the <ulink url="http://qt-project.org/doc/qt-5/qt.html#Key-enum">Qt documentation</ulink> for further details.</para></listitem>
+<listitem><para><literal>shortcut</literal> [optional]: The shortcut given here is the default shortcut. Example: <literal>Ctrl+Alt+t</literal>. See the <ulink url="https://doc.qt.io/qt-5/qt.html#Key-enum">Qt documentation</ulink> for further details.</para></listitem>
 <listitem><para><literal>interactive</literal> [optional]: If the script needs user input in the command line, set this to <literal>true</literal>.</para></listitem>
 </itemizedlist>
 </para>
@@ -1912,7 +1912,7 @@ console launching the application.
 <para>In order to support full localization, there are several functions to translate
 strings in scripts, namely <literal>i18n</literal>, <literal>i18nc</literal>,
 <literal>i18np</literal> and <literal>i18ncp</literal>. These functions behave
-exactly like <ulink url="http://techbase.kde.org/Development/Tutorials/Localization/i18n">
+exactly like <ulink url="https://techbase.kde.org/Development/Tutorials/Localization/i18n">
 &kde;'s translation functions</ulink>.
 </para>
 

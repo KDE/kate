@@ -49,6 +49,8 @@ static const QString CONFIG_INCREMENTAL_SYNC {QStringLiteral("IncrementalSync")}
 static const QString CONFIG_DIAGNOSTICS {QStringLiteral("Diagnostics")};
 static const QString CONFIG_DIAGNOSTICS_HIGHLIGHT {QStringLiteral("DiagnosticsHighlight")};
 static const QString CONFIG_DIAGNOSTICS_MARK {QStringLiteral("DiagnosticsMark")};
+static const QString CONFIG_MESSAGES {QStringLiteral("Messages")};
+static const QString CONFIG_MESSAGES_AUTO_SWITCH {QStringLiteral("MessagesAutoSwitch")};
 static const QString CONFIG_SERVER_CONFIG {QStringLiteral("ServerConfiguration")};
 static const QString CONFIG_SEMANTIC_HIGHLIGHTING {QStringLiteral("SemanticHighlighting")};
 
@@ -114,6 +116,8 @@ void LSPClientPlugin::readConfig()
     m_diagnostics = config.readEntry(CONFIG_DIAGNOSTICS, true);
     m_diagnosticsHighlight = config.readEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, true);
     m_diagnosticsMark = config.readEntry(CONFIG_DIAGNOSTICS_MARK, true);
+    m_messages = config.readEntry(CONFIG_MESSAGES, true);
+    m_messagesAutoSwitch = config.readEntry(CONFIG_MESSAGES_AUTO_SWITCH, 1);
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
     m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, false);
 
@@ -135,6 +139,8 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_DIAGNOSTICS, m_diagnostics);
     config.writeEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, m_diagnosticsHighlight);
     config.writeEntry(CONFIG_DIAGNOSTICS_MARK, m_diagnosticsMark);
+    config.writeEntry(CONFIG_MESSAGES, m_messages);
+    config.writeEntry(CONFIG_MESSAGES_AUTO_SWITCH, m_messagesAutoSwitch);
     config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
     config.writeEntry(CONFIG_SEMANTIC_HIGHLIGHTING, m_semanticHighlighting);
 

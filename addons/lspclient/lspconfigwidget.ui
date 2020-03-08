@@ -108,6 +108,53 @@
               </item>
              </layout>
             </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QCheckBox" name="chkMessages">
+                <property name="text">
+                 <string>Show messages</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_1">
+                <property name="text">
+                 <string>Switch to messages tab upon level</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboMessagesSwitch">
+                <item>
+                 <property name="text">
+                  <string>Never</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Error</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Warning</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Information</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Log</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
            </layout>
           </widget>
          </item>

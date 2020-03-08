@@ -28,6 +28,8 @@
 #include "lspclientplugin.h"
 #include "lspclientserver.h"
 
+#include <KTextEditor/Message>
+
 #include <QSharedPointer>
 
 namespace KTextEditor
@@ -74,9 +76,21 @@ public:
     // locks are released when returned snapshot is delete'd
     virtual LSPClientRevisionSnapshot *snapshot(LSPClientServer *server) = 0;
 
+    // helper method providing descriptive label for a server
+    static QString serverDescription(LSPClientServer *server)
+    {
+        if (server) {
+            auto root = server->root().toLocalFile();
+            return QStringLiteral("%1@%2").arg(server->langId()).arg(root);
+        } else {
+            return {};
+        }
+    }
+
 public:
 Q_SIGNALS:
     void serverChanged();
+    void showMessage(KTextEditor::Message::MessageType level, const QString &msg);
 };
 
 class LSPClientRevisionSnapshot : public QObject

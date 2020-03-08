@@ -82,11 +82,13 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkRefDeclaration,
                            ui->chkDiagnostics,
                            ui->chkDiagnosticsMark,
+                           ui->chkMessages,
                            ui->chkOnTypeFormatting,
                            ui->chkIncrementalSync,
                            ui->chkSemanticHighlighting,
                            ui->chkAutoHover})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
+    connect(ui->comboMessagesSwitch, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this](int) { changed(); });
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::configUrlChanged);
     connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::configUrlChanged);
     connect(ui->userConfig, &QTextEdit::textChanged, this, &LSPClientConfigPage::configTextChanged);
@@ -96,6 +98,8 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
         bool enabled = ui->chkDiagnostics->isChecked();
         ui->chkDiagnosticsHighlight->setEnabled(enabled);
         ui->chkDiagnosticsMark->setEnabled(enabled);
+        enabled = ui->chkMessages->isChecked();
+        ui->comboMessagesSwitch->setEnabled(enabled);
     };
     connect(this, &LSPClientConfigPage::changed, this, h);
 }
@@ -139,6 +143,9 @@ void LSPClientConfigPage::apply()
     m_plugin->m_incrementalSync = ui->chkIncrementalSync->isChecked();
     m_plugin->m_semanticHighlighting = ui->chkSemanticHighlighting->isChecked();
 
+    m_plugin->m_messages = ui->chkMessages->isChecked();
+    m_plugin->m_messagesAutoSwitch = ui->comboMessagesSwitch->currentIndex();
+
     m_plugin->m_configPath = ui->edtConfigPath->url();
 
     // own scope to ensure file is flushed before we signal below in writeConfig!
@@ -171,6 +178,9 @@ void LSPClientConfigPage::reset()
     ui->chkOnTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
     ui->chkIncrementalSync->setChecked(m_plugin->m_incrementalSync);
     ui->chkSemanticHighlighting->setChecked(m_plugin->m_semanticHighlighting);
+
+    ui->chkMessages->setChecked(m_plugin->m_messages);
+    ui->comboMessagesSwitch->setCurrentIndex(m_plugin->m_messagesAutoSwitch);
 
     ui->edtConfigPath->setUrl(m_plugin->m_configPath);
 

@@ -395,16 +395,8 @@ public:
 private:
     void showMessage(const QString &msg, KTextEditor::Message::MessageType level)
     {
-        KTextEditor::View *view = m_mainWindow->activeView();
-        if (!view || !view->document())
-            return;
-
-        auto kmsg = new KTextEditor::Message(xi18nc("@info", "<b>LSP Client:</b> %1", msg), level);
-        kmsg->setPosition(KTextEditor::Message::AboveView);
-        kmsg->setAutoHide(5000);
-        kmsg->setAutoHideMode(KTextEditor::Message::Immediate);
-        kmsg->setView(view);
-        view->document()->postMessage(kmsg);
+        // inform interested view(er) which will decide how/where to show
+        emit LSPClientServerManager::showMessage(level, msg);
     }
 
     // caller ensures that servers are no longer present in m_servers
@@ -601,6 +593,8 @@ private:
                 connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start(m_plugin)) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);
+                } else {
+                    showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())), KTextEditor::Message::Positive);
                 }
                 serverinfo.settings = serverConfig.value(QStringLiteral("settings"));
                 serverinfo.started = QTime::currentTime();

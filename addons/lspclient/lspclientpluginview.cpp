@@ -54,6 +54,7 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QDateTime>
 #include <QFileInfo>
 #include <QHBoxLayout>
 #include <QHeaderView>
@@ -61,6 +62,7 @@
 #include <QJsonObject>
 #include <QKeyEvent>
 #include <QMenu>
+#include <QPlainTextEdit>
 #include <QSet>
 #include <QStandardItem>
 #include <QTextCodec>
@@ -236,6 +238,9 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_diagnosticsMark;
     QPointer<QAction> m_diagnosticsSwitch;
     QPointer<QAction> m_diagnosticsCloseNon;
+    QPointer<QAction> m_messages;
+    QPointer<KSelectAction> m_messagesAutoSwitch;
+    QPointer<QAction> m_messagesSwitch;
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
 
@@ -269,6 +274,12 @@ class LSPClientActionView : public QObject
     RangeCollection m_diagnosticsRanges;
     // and marks
     DocumentCollection m_diagnosticsMarks;
+
+    using MessagesWidget = QPlainTextEdit;
+    // messages tab
+    QPointer<MessagesWidget> m_messagesView;
+    // widget is either owned here or by tab
+    QScopedPointer<MessagesWidget> m_messagesViewOwn;
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
@@ -305,6 +316,7 @@ public:
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
         connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
         connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, &self_type::updateState);
+        connect(m_serverManager.data(), &LSPClientServerManager::showMessage, this, &self_type::onShowMessage);
 
         m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
         m_findDef->setText(i18n("Go to Definition"));
@@ -355,6 +367,17 @@ public:
         m_diagnosticsCloseNon = actionCollection()->addAction(QStringLiteral("lspclient_diagnostic_close_non"), this, &self_type::closeNonDiagnostics);
         m_diagnosticsCloseNon->setText(i18n("Close all non-diagnostics tabs"));
 
+        // messages
+        m_messages = actionCollection()->addAction(QStringLiteral("lspclient_messages"), this, &self_type::displayOptionChanged);
+        m_messages->setText(i18n("Show messages"));
+        m_messages->setCheckable(true);
+        m_messagesAutoSwitch = new KSelectAction(i18n("Switch to messages tab upon message level"), this);
+        actionCollection()->addAction(QStringLiteral("lspclient_messages_auto_switch"), m_messagesAutoSwitch);
+        const QStringList list {i18nc("@info", "Never"), i18nc("@info", "Error"), i18nc("@info", "Warning"), i18nc("@info", "Information"), i18nc("@info", "Log")};
+        m_messagesAutoSwitch->setItems(list);
+        m_messagesSwitch = actionCollection()->addAction(QStringLiteral("lspclient_messages_switch"), this, &self_type::switchToMessages);
+        m_messagesSwitch->setText(i18n("Switch to messages tab"));
+
         // server control
         m_restartServer = actionCollection()->addAction(QStringLiteral("lspclient_restart_server"), this, &self_type::restartCurrent);
         m_restartServer->setText(i18n("Restart LSP Server"));
@@ -384,6 +407,10 @@ public:
         menu->addAction(m_diagnosticsSwitch);
         menu->addAction(m_diagnosticsCloseNon);
         menu->addSeparator();
+        menu->addAction(m_messages);
+        menu->addAction(m_messagesAutoSwitch);
+        menu->addAction(m_messagesSwitch);
+        menu->addSeparator();
         menu->addAction(m_restartServer);
         menu->addAction(m_restartAll);
 
@@ -398,6 +425,7 @@ public:
         m_tabWidget->setTabsClosable(true);
         KAcceleratorManager::setNoAccel(m_tabWidget);
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &self_type::tabCloseRequested);
+        connect(m_tabWidget, &QTabWidget::currentChanged, this, &self_type::tabChanged);
 
         // diagnostics tab
         m_diagnosticsTree = new QTreeView();
@@ -409,6 +437,12 @@ public:
         configureTreeView(m_diagnosticsTree);
         connect(m_diagnosticsTree, &QTreeView::clicked, this, &self_type::goToItemLocation);
         connect(m_diagnosticsTree, &QTreeView::doubleClicked, this, &self_type::triggerCodeAction);
+
+        // messages tab
+        m_messagesView = new QPlainTextEdit();
+        m_messagesView->setMaximumBlockCount(100);
+        m_messagesView->setReadOnly(true);
+        m_messagesViewOwn.reset(m_messagesView);
 
         // track position in view to sync diagnostics list
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 0, 500));
@@ -455,14 +489,26 @@ public:
     {
         m_diagnosticsHighlight->setEnabled(m_diagnostics->isChecked());
         m_diagnosticsMark->setEnabled(m_diagnostics->isChecked());
-        auto index = m_tabWidget->indexOf(m_diagnosticsTree);
+        // messages tab should go first
+        int messagesIndex = m_tabWidget->indexOf(m_messagesView);
+        if (m_messages->isChecked() && m_messagesViewOwn) {
+            m_tabWidget->insertTab(0, m_messagesView, i18nc("@title:tab", "Messages"));
+            messagesIndex = 0;
+            m_messagesViewOwn.take();
+        } else if (!m_messages->isChecked() && !m_messagesViewOwn) {
+            m_messagesViewOwn.reset(m_messagesView);
+            m_tabWidget->removeTab(messagesIndex);
+            messagesIndex = -1;
+        }
+        // diagnstics tab next
+        int diagnosticsIndex = m_tabWidget->indexOf(m_diagnosticsTree);
         // setTabEnabled may still show it ... so let's be more forceful
         if (m_diagnostics->isChecked() && m_diagnosticsTreeOwn) {
             m_diagnosticsTreeOwn.take();
-            m_tabWidget->insertTab(0, m_diagnosticsTree, i18nc("@title:tab", "Diagnostics"));
+            m_tabWidget->insertTab(messagesIndex + 1, m_diagnosticsTree, i18nc("@title:tab", "Diagnostics"));
         } else if (!m_diagnostics->isChecked() && !m_diagnosticsTreeOwn) {
             m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
-            m_tabWidget->removeTab(index);
+            m_tabWidget->removeTab(diagnosticsIndex);
         }
         m_diagnosticsSwitch->setEnabled(m_diagnostics->isChecked());
         m_serverManager->setIncrementalSync(m_incrementalSync->isChecked());
@@ -487,6 +533,10 @@ public:
             m_diagnosticsHighlight->setChecked(m_plugin->m_diagnosticsHighlight);
         if (m_diagnosticsMark)
             m_diagnosticsMark->setChecked(m_plugin->m_diagnosticsMark);
+        if (m_messages)
+            m_messages->setChecked(m_plugin->m_messages);
+        if (m_messagesAutoSwitch)
+            m_messagesAutoSwitch->setCurrentItem(m_plugin->m_messagesAutoSwitch);
         displayOptionChanged();
     }
 
@@ -833,7 +883,7 @@ public:
     void tabCloseRequested(int index)
     {
         auto widget = m_tabWidget->widget(index);
-        if (widget != m_diagnosticsTree) {
+        if (widget != m_diagnosticsTree && widget != m_messagesView) {
             if (m_markModel && widget == m_markModel->parent()) {
                 clearAllLocationMarks();
             }
@@ -841,9 +891,21 @@ public:
         }
     }
 
+    void tabChanged(int index)
+    {
+        // reset to regular foreground
+        m_tabWidget->tabBar()->setTabTextColor(index, QColor());
+    }
+
     void switchToDiagnostics()
     {
         m_tabWidget->setCurrentWidget(m_diagnosticsTree);
+        m_mainWindow->showToolView(m_toolView.data());
+    }
+
+    void switchToMessages()
+    {
+        m_tabWidget->setCurrentWidget(m_messagesView);
         m_mainWindow->showToolView(m_toolView.data());
     }
 
@@ -1450,6 +1512,76 @@ public:
         return nullptr;
     }
 
+    void addMessage(LSPMessageType level, const QString &header, const QString &msg)
+    {
+        if (!m_messagesView)
+            return;
+
+        QString lvl = i18nc("@info", "Unknown");
+        switch (level) {
+        case LSPMessageType::Error:
+            lvl = i18nc("@info", "Error");
+            break;
+        case LSPMessageType::Warning:
+            lvl = i18nc("@info", "Warning");
+            break;
+        case LSPMessageType::Info:
+            lvl = i18nc("@info", "Information");
+            break;
+        case LSPMessageType::Log:
+            lvl = i18nc("@info", "Log");
+            break;
+        }
+
+        // let's consider this expert info and use ISO date
+        auto now = QDateTime::currentDateTime().toString(Qt::ISODate);
+        auto text = QStringLiteral("[%1] [%2] [%3]\n%4\n").arg(now).arg(lvl).arg(header).arg(msg.trimmed());
+        m_messagesView->appendPlainText(text);
+
+        if (static_cast<int>(level) <= m_messagesAutoSwitch->currentItem()) {
+            switchToMessages();
+        } else {
+            // show arrival of new message
+            auto index = m_tabWidget->indexOf(m_messagesView);
+            if (m_tabWidget->currentIndex() != index)
+                m_tabWidget->tabBar()->setTabTextColor(index, Qt::gray);
+        }
+    }
+
+    // params type is same for show or log and is treated the same way
+    void onMessage(const LSPLogMessageParams &params)
+    {
+        // determine server description
+        auto server = dynamic_cast<LSPClientServer *>(sender());
+        auto desc = i18nc("@info", "LSP Server");
+        if (server)
+            desc += QStringLiteral(": %1").arg(LSPClientServerManager::serverDescription(server));
+        addMessage(params.type, desc, params.message);
+    }
+
+    void onShowMessage(KTextEditor::Message::MessageType level, const QString &msg)
+    {
+        // translate level
+        LSPMessageType lvl = LSPMessageType::Log;
+        using KMessage = KTextEditor::Message;
+        switch (level) {
+        case KMessage::Error:
+            lvl = LSPMessageType::Error;
+            break;
+        case KMessage::Warning:
+            lvl = LSPMessageType::Warning;
+            break;
+        case KMessage::Information:
+            lvl = LSPMessageType::Info;
+            break;
+        case KMessage::Positive:
+            lvl = LSPMessageType::Log;
+            break;
+        }
+
+        addMessage(lvl, i18nc("@info", "LSP Client"), msg);
+    }
+
     Q_SLOT void clearSemanticHighlighting(KTextEditor::Document *document)
     {
         auto &documentRanges = m_semanticHighlightRanges[document];
@@ -1680,6 +1812,8 @@ public:
             renameEnabled = caps.renameProvider;
 
             connect(server.data(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
+            connect(server.data(), &LSPClientServer::showMessage, this, &self_type::onMessage, Qt::UniqueConnection);
+            connect(server.data(), &LSPClientServer::logMessage, this, &self_type::onMessage, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::semanticHighlighting, this, &self_type::onSemanticHighlighting, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::applyEdit, this, &self_type::onApplyEdit, Qt::UniqueConnection);
 

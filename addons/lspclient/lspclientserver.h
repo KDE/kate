@@ -146,6 +146,8 @@ public:
 
     // notification = signal
 Q_SIGNALS:
+    void showMessage(const LSPShowMessageParams &);
+    void logMessage(const LSPLogMessageParams &);
     void publishDiagnostics(const LSPPublishDiagnosticsParams &);
     void semanticHighlighting(const LSPSemanticHighlightingParams &);
 

@@ -278,6 +278,15 @@ struct LSPPublishDiagnosticsParams {
     QList<LSPDiagnostic> diagnostics;
 };
 
+enum class LSPMessageType { Error = 1, Warning = 2, Info = 3, Log = 4 };
+
+struct LSPShowMessageParams {
+    LSPMessageType type;
+    QString message;
+};
+
+using LSPLogMessageParams = LSPShowMessageParams;
+
 struct LSPSemanticHighlightingToken {
     quint32 character = 0;
     quint16 length = 0;

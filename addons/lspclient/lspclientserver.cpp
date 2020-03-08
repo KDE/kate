@@ -687,6 +687,15 @@ static LSPVersionedTextDocumentIdentifier parseVersionedTextDocumentIdentifier(c
     return ret;
 }
 
+static LSPShowMessageParams parseMessage(const QJsonObject &result)
+{
+    LSPShowMessageParams ret;
+
+    ret.type = static_cast<LSPMessageType>(result.value(QStringLiteral("type")).toInt());
+    ret.message = result.value(MEMBER_MESSAGE).toString();
+    return ret;
+}
+
 static LSPSemanticHighlightingParams parseSemanticHighlighting(const QJsonObject &result)
 {
     LSPSemanticHighlightingParams ret;
@@ -1172,6 +1181,10 @@ public:
             emit q->publishDiagnostics(parseDiagnostics(msg[MEMBER_PARAMS].toObject()));
         } else if (method == QLatin1String("textDocument/semanticHighlighting")) {
             emit q->semanticHighlighting(parseSemanticHighlighting(msg[MEMBER_PARAMS].toObject()));
+        } else if (method == QLatin1String("window/showMessage")) {
+            emit q->showMessage(parseMessage(msg[MEMBER_PARAMS].toObject()));
+        } else if (method == QLatin1String("window/logMessage")) {
+            emit q->logMessage(parseMessage(msg[MEMBER_PARAMS].toObject()));
         } else {
             qCWarning(LSPCLIENT) << "discarding notification" << method;
         }

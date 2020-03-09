@@ -741,6 +741,8 @@ class LSPClientServer::LSPClientServerPrivate
     QStringList m_server;
     // workspace root to pass along
     QUrl m_root;
+    // language id
+    QString m_langId;
     // user provided init
     QJsonValue m_init;
     // server process
@@ -760,10 +762,11 @@ class LSPClientServer::LSPClientServerPrivate
     QVector<int> m_requests {MAX_REQUESTS + 1};
 
 public:
-    LSPClientServerPrivate(LSPClientServer *_q, const QStringList &server, const QUrl &root, const QJsonValue &init)
+    LSPClientServerPrivate(LSPClientServer *_q, const QStringList &server, const QUrl &root, const QString &langId, const QJsonValue &init)
         : q(_q)
         , m_server(server)
         , m_root(root)
+        , m_langId(langId)
         , m_init(init)
     {
         // setup async reading
@@ -779,6 +782,16 @@ public:
     const QStringList &cmdline() const
     {
         return m_server;
+    }
+
+    const QUrl &root() const
+    {
+        return m_root;
+    }
+
+    const QString &langId() const
+    {
+        return m_langId;
     }
 
     State state()
@@ -1257,8 +1270,8 @@ template<typename ReplyType> static GenericReplyHandler make_handler(const Reply
     };
 }
 
-LSPClientServer::LSPClientServer(const QStringList &server, const QUrl &root, const QJsonValue &init)
-    : d(new LSPClientServerPrivate(this, server, root, init))
+LSPClientServer::LSPClientServer(const QStringList &server, const QUrl &root, const QString &langId, const QJsonValue &init)
+    : d(new LSPClientServerPrivate(this, server, root, langId, init))
 {
 }
 
@@ -1270,6 +1283,16 @@ LSPClientServer::~LSPClientServer()
 const QStringList &LSPClientServer::cmdline() const
 {
     return d->cmdline();
+}
+
+const QUrl &LSPClientServer::root() const
+{
+    return d->root();
+}
+
+const QString &LSPClientServer::langId() const
+{
+    return d->langId();
 }
 
 LSPClientServer::State LSPClientServer::state() const

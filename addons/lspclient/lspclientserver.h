@@ -98,7 +98,7 @@ public:
         }
     };
 
-    LSPClientServer(const QStringList &server, const QUrl &root, const QJsonValue &init = QJsonValue());
+    LSPClientServer(const QStringList &server, const QUrl &root, const QString &langId = QString(), const QJsonValue &init = QJsonValue());
     ~LSPClientServer() override;
 
     // server management
@@ -111,6 +111,8 @@ public:
 
     // properties
     const QStringList &cmdline() const;
+    const QUrl &root() const;
+    const QString &langId() const;
     State state() const;
     Q_SIGNAL void stateChanged(LSPClientServer *server);
 

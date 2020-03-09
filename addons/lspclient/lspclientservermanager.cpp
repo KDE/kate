@@ -516,6 +516,8 @@ private:
         // locate server config
         QJsonValue config;
         QSet<QString> used;
+        // reduce langId
+        auto realLangId = langId;
         while (true) {
             qCInfo(LSPCLIENT) << "language id " << langId;
             used << langId;
@@ -595,7 +597,7 @@ private:
                 }
             }
             if (cmdline.length() > 0) {
-                server.reset(new LSPClientServer(cmdline, root, serverConfig.value(QStringLiteral("initializationOptions"))));
+                server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions"))));
                 connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start(m_plugin)) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);

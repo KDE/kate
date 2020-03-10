@@ -462,7 +462,11 @@ void KatePluginGDBView::enableDebugActions(bool enable)
     m_ioView->enableInput(!enable && m_debugView->debuggerRunning());
 
     if ((m_lastExecLine > -1)) {
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+        KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(m_kateApplication->findUrl(m_lastExecUrl));
+#else
         KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_kateApplication->findUrl(m_lastExecUrl));
+#endif
 
         if (iface) {
             if (enable) {

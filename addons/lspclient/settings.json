@@ -55,7 +55,7 @@
             "highlightingModeRegex": "^Objective Caml.*$"
         },
         "python": {
-            "command": ["python3", "-m", "pyls", "--check-parent-process"],
+            "command": ["pyls", "--check-parent-process"],
             "url": "https://github.com/palantir/python-language-server",
             "highlightingModeRegex": "^Python$"
         },

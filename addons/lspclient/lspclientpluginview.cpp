@@ -237,10 +237,10 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_diagnosticsHighlight;
     QPointer<QAction> m_diagnosticsMark;
     QPointer<QAction> m_diagnosticsSwitch;
-    QPointer<QAction> m_diagnosticsCloseNon;
     QPointer<QAction> m_messages;
     QPointer<KSelectAction> m_messagesAutoSwitch;
     QPointer<QAction> m_messagesSwitch;
+    QPointer<QAction> m_closeDynamic;
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
 
@@ -364,8 +364,6 @@ public:
         m_diagnosticsMark->setCheckable(true);
         m_diagnosticsSwitch = actionCollection()->addAction(QStringLiteral("lspclient_diagnostic_switch"), this, &self_type::switchToDiagnostics);
         m_diagnosticsSwitch->setText(i18n("Switch to diagnostics tab"));
-        m_diagnosticsCloseNon = actionCollection()->addAction(QStringLiteral("lspclient_diagnostic_close_non"), this, &self_type::closeNonDiagnostics);
-        m_diagnosticsCloseNon->setText(i18n("Close all non-diagnostics tabs"));
 
         // messages
         m_messages = actionCollection()->addAction(QStringLiteral("lspclient_messages"), this, &self_type::displayOptionChanged);
@@ -378,7 +376,9 @@ public:
         m_messagesSwitch = actionCollection()->addAction(QStringLiteral("lspclient_messages_switch"), this, &self_type::switchToMessages);
         m_messagesSwitch->setText(i18n("Switch to messages tab"));
 
-        // server control
+        // server control and misc actions
+        m_closeDynamic = actionCollection()->addAction(QStringLiteral("lspclient_close_dynamic"), this, &self_type::closeDynamic);
+        m_closeDynamic->setText(i18n("Close all dynamic reference tabs"));
         m_restartServer = actionCollection()->addAction(QStringLiteral("lspclient_restart_server"), this, &self_type::restartCurrent);
         m_restartServer->setText(i18n("Restart LSP Server"));
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
@@ -405,12 +405,12 @@ public:
         menu->addAction(m_diagnosticsHighlight);
         menu->addAction(m_diagnosticsMark);
         menu->addAction(m_diagnosticsSwitch);
-        menu->addAction(m_diagnosticsCloseNon);
         menu->addSeparator();
         menu->addAction(m_messages);
         menu->addAction(m_messagesAutoSwitch);
         menu->addAction(m_messagesSwitch);
         menu->addSeparator();
+        menu->addAction(m_closeDynamic);
         menu->addAction(m_restartServer);
         menu->addAction(m_restartAll);
 
@@ -880,7 +880,7 @@ public:
         server->documentCodeAction(url, range, {}, {it->m_diagnostic}, this, h);
     }
 
-    void tabCloseRequested(int index)
+    bool tabCloseRequested(int index)
     {
         auto widget = m_tabWidget->widget(index);
         if (widget != m_diagnosticsTree && widget != m_messagesView) {
@@ -888,7 +888,9 @@ public:
                 clearAllLocationMarks();
             }
             delete widget;
+            return true;
         }
+        return false;
     }
 
     void tabChanged(int index)
@@ -909,14 +911,12 @@ public:
         m_mainWindow->showToolView(m_toolView.data());
     }
 
-    void closeNonDiagnostics()
+    void closeDynamic()
     {
         for (int i = 0; i < m_tabWidget->count();) {
-            if (m_tabWidget->widget(i) != m_diagnosticsTree) {
-                tabCloseRequested(i);
-            } else {
+            // if so deemed suitable, tab will be spared and not closed
+            if (!tabCloseRequested(i))
                 ++i;
-            }
         }
     }
 

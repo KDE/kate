@@ -59,7 +59,7 @@ public Q_SLOTS:
     QModelIndex copyTargetOrSet(const QModelIndex &index);
 
     /** This function returns the model index of the default command of the target-set */
-    QModelIndex defaultTarget(const QModelIndex &index);
+    QModelIndex defaultTarget(int targetSet);
 
     /** This function deletes the index */
     void deleteItem(const QModelIndex &index);
@@ -76,6 +76,7 @@ public Q_SLOTS:
     const QString cmdName(const QModelIndex &itemIndex) const;
     const QString workDir(const QModelIndex &itemIndex) const;
     const QString targetName(const QModelIndex &itemIndex) const;
+    int getDefaultCmdIndex(int rootRow) const;
 
 Q_SIGNALS:
 

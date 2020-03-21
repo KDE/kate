@@ -63,6 +63,23 @@ void TargetModel::setDefaultCmd(int rootRow, const QString &defCmd)
     }
 }
 
+int TargetModel::getDefaultCmdIndex(int rootRow) const
+{
+    if (rootRow < 0 || rootRow >= m_targets.size()) {
+        qDebug() << "rootRow not valid";
+        return 0;
+    }
+
+    auto defCmd = m_targets[rootRow].defaultCmd;
+    for (int i = 0; i < m_targets[rootRow].commands.size(); i++) {
+        if (defCmd == m_targets[rootRow].commands[i].first) {
+            return i;
+        }
+    }
+
+    return 0;
+}
+
 int TargetModel::addTargetSet(const QString &setName, const QString &workDir)
 {
     // make the name unique
@@ -155,18 +172,9 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
     return createIndex(m_targets[rootRow].commands.count() - 1, 0, rootRow);
 }
 
-QModelIndex TargetModel::defaultTarget(const QModelIndex &index)
+QModelIndex TargetModel::defaultTarget(int targetSet)
 {
-    int targetRow = 0;
-    if (index.isValid()) {
-        if (index.internalId() == InvalidIndex) {
-            targetRow = index.row();
-        } else {
-            targetRow = index.internalId();
-        }
-    }
-
-    return createIndex(0, 0, targetRow);
+    return createIndex(getDefaultCmdIndex(targetSet), 0, targetSet);
 }
 
 void TargetModel::deleteItem(const QModelIndex &index)

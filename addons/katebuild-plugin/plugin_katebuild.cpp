@@ -779,7 +779,7 @@ void KateBuildView::slotBuildPreviousTarget()
 /******************************************************************/
 void KateBuildView::slotBuildDefaultTarget()
 {
-    QModelIndex defaultTarget = m_targetsUi->targetsModel.defaultTarget(m_targetsUi->targetsView->currentIndex());
+    QModelIndex defaultTarget = m_targetsUi->targetsModel.defaultTarget(m_targetsUi->targetCombo->currentIndex());
     m_targetsUi->targetsView->setCurrentIndex(defaultTarget);
     buildCurrentTarget();
 }

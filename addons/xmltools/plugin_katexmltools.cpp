@@ -75,7 +75,7 @@ TODO:
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStandardPaths>
 #include <QString>
 #include <QUrl>
@@ -388,16 +388,16 @@ void PluginKateXMLToolsCompletionModel::getDTD()
     // <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
     uint checkMaxLines = 200;
     QString documentStart = kv->document()->text(KTextEditor::Range(0, 0, checkMaxLines + 1, 0));
-    QRegExp re("<!DOCTYPE\\s+(.*)\\s+PUBLIC\\s+[\"'](.*)[\"']", Qt::CaseInsensitive);
-    re.setMinimal(true);
-    int matchPos = re.indexIn(documentStart);
+    const QRegularExpression re(QStringLiteral("<!DOCTYPE\\s+\\b(\\w+)\\b\\s+PUBLIC\\s+[\"\']([^\"\']+?)[\"\']"),
+                                QRegularExpression::CaseInsensitiveOption);
+    const QRegularExpressionMatch match = re.match(documentStart);
     QString filename;
     QString doctype;
     QString topElement;
 
-    if (matchPos != -1) {
-        topElement = re.cap(1);
-        doctype = re.cap(2);
+    if (match.hasMatch()) {
+        topElement = match.captured(1);
+        doctype = match.captured(2);
         qDebug() << "Top element: " << topElement;
         qDebug() << "Doctype match: " << doctype;
         // XHTML:

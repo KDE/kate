@@ -24,3 +24,4 @@ CMakeLists.txt.user*
 
 # LSP Server data
 .clangd
+.cmake/

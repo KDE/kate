@@ -419,16 +419,8 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(m_ui.searchButton, &QPushButton::clicked, this, &KatePluginSearchView::startSearch);
 
     connect(m_ui.displayOptions, &QToolButton::toggled, this, &KatePluginSearchView::toggleOptions);
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_ui.searchPlaceCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KatePluginSearchView::searchPlaceChanged);
-#else
-    connect(m_ui.searchPlaceCombo, static_cast<void (QComboBox::*)(int, const QString &)>(&QComboBox::currentIndexChanged) , this, &KatePluginSearchView::searchPlaceChanged);
-#endif
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_ui.searchPlaceCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this](int) {
-#else
-    connect(m_ui.searchPlaceCombo, static_cast<void (QComboBox::*)(int, const QString &)>(&QComboBox::currentIndexChanged) , this, [this](int) {
-#endif
         if (m_ui.searchPlaceCombo->currentIndex() == Folder) {
             m_ui.displayOptions->setChecked(true);
         }

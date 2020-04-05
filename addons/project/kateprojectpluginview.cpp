@@ -83,11 +83,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_stackedProjectViews = new QStackedWidget(m_toolView);
     m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
-#else
-    connect(m_projectsCombo, static_cast<void (QComboBox::*)(int, const QString &)>(&QComboBox::currentIndexChanged) , this, &KateProjectPluginView::slotCurrentChanged);
-#endif
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
 
     /**

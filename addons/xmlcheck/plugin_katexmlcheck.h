@@ -61,8 +61,8 @@ public Q_SLOTS:
 
 private:
     QTemporaryFile *m_tmp_file;
-    KParts::ReadOnlyPart *part;
-    bool m_validating;
+    KParts::ReadOnlyPart *part = nullptr;
+    bool m_validating = false;
     QProcess m_proc;
     QString m_proc_stderr;
     QString m_dtdname;

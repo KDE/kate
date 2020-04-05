@@ -42,7 +42,6 @@ public:
     ResultNode(const QString &_name, const bool _dir = false)
         : name(_name)
         , dir(_dir)
-        , children()
     {
     }
 

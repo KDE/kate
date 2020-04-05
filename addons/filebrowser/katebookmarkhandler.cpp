@@ -29,7 +29,6 @@
 
 KateBookmarkHandler::KateBookmarkHandler(KateFileBrowser *parent, QMenu *kpopupmenu)
     : QObject(parent)
-    , KBookmarkOwner()
     , mParent(parent)
     , m_menu(kpopupmenu)
 {

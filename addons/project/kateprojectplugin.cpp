@@ -67,6 +67,9 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     , m_autoGit(true)
     , m_autoSubversion(true)
     , m_autoMercurial(true)
+    , m_indexEnabled(false)
+    , m_multiProjectCompletion(false)
+    , m_multiProjectGoto(false)
     , m_weaver(new ThreadWeaver::Queue(this))
 {
     qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");

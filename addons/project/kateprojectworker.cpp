@@ -32,9 +32,7 @@
 #include <QTime>
 
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
-    : QObject()
-    , ThreadWeaver::Job()
-    , m_baseDir(baseDir)
+    : m_baseDir(baseDir)
     , m_indexDir(indexDir)
     , m_projectMap(projectMap)
     , m_force(force)

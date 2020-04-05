@@ -24,8 +24,7 @@
 #include <QVBoxLayout>
 
 KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProjectPluginView *pluginView, KateProject *project)
-    : QWidget()
-    , m_pluginView(pluginView)
+    : m_pluginView(pluginView)
     , m_project(project)
     , m_edit(new QPlainTextEdit())
 {

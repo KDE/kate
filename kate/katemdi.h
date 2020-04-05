@@ -241,9 +241,9 @@ private Q_SLOTS:
 private:
     MainWindow *m_mainWin;
 
-    KMultiTabBar::KMultiTabBarPosition m_pos;
+    KMultiTabBar::KMultiTabBarPosition m_pos{};
     QSplitter *m_splitter;
-    KMultiTabBar *m_tabBar;
+    KMultiTabBar *m_tabBar = nullptr;
     QSplitter *m_ownSplit;
 
     QMap<int, ToolView *> m_idToWidget;
@@ -259,7 +259,7 @@ private:
 
     QSize m_preHideSize;
 
-    int m_popupButton;
+    int m_popupButton = 0;
 
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);
@@ -431,7 +431,7 @@ private:
     /**
      * sidebars for the four sides
      */
-    Sidebar *m_sidebars[4];
+    Sidebar *m_sidebars[4]{};
 
     /**
      * sidebars state.

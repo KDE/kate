@@ -77,7 +77,7 @@ public:
 
 public:
     detail::TabswitcherFilesModel model;
-    QTreeView *treeview1;
+    QTreeView *treeview1 = nullptr;
 };
 
 TsTestApp::TsTestApp(QWidget *parent)

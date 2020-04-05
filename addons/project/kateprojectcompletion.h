@@ -91,7 +91,7 @@ private:
     /**
      * automatic invocation?
      */
-    bool m_automatic;
+    bool m_automatic = false;
 };
 
 #endif

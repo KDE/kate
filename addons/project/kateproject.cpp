@@ -39,9 +39,7 @@
 #include <utility>
 
 KateProject::KateProject(ThreadWeaver::Queue *weaver, KateProjectPlugin *plugin)
-    : QObject()
-    , m_fileLastModified()
-    , m_notesDocument(nullptr)
+    : m_notesDocument(nullptr)
     , m_untrackedDocumentsRoot(nullptr)
     , m_weaver(weaver)
     , m_plugin(plugin)
@@ -100,7 +98,7 @@ QVariantMap KateProject::readProjectFile() const
      * parse the whole file, bail out again on error!
      */
     const QByteArray jsonData = file.readAll();
-    QJsonParseError parseError;
+    QJsonParseError parseError{};
     QJsonDocument project(QJsonDocument::fromJson(jsonData, &parseError));
 
     if (parseError.error != QJsonParseError::NoError) {

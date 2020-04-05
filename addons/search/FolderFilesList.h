@@ -54,12 +54,12 @@ private:
 private:
     QString m_folder;
     QStringList m_files;
-    bool m_cancelSearch;
+    bool m_cancelSearch = false;
 
-    bool m_recursive;
-    bool m_hidden;
-    bool m_symlinks;
-    bool m_binary;
+    bool m_recursive = false;
+    bool m_hidden = false;
+    bool m_symlinks = false;
+    bool m_binary = false;
     QStringList m_types;
     QVector<QRegExp> m_excludeList;
     QElapsedTimer m_time;

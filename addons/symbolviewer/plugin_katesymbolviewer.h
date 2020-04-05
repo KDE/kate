@@ -129,7 +129,7 @@ private:
 
     QTimer m_updateTimer;
     QTimer m_currItemTimer;
-    int m_oldCursorLine;
+    int m_oldCursorLine = 0;
 
     void updatePixmapScroll();
 

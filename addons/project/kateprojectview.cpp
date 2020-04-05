@@ -32,8 +32,7 @@
 #include <QVBoxLayout>
 
 KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject *project)
-    : QWidget()
-    , m_pluginView(pluginView)
+    : m_pluginView(pluginView)
     , m_project(project)
     , m_treeView(new KateProjectViewTree(pluginView, project))
     , m_filter(new KLineEdit())

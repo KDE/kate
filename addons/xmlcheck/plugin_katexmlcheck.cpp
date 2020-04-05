@@ -103,7 +103,6 @@ QObject *PluginKateXMLCheck::createView(KTextEditor::MainWindow *mainWindow)
 //---------------------------------
 PluginKateXMLCheckView::PluginKateXMLCheckView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainwin)
     : QObject(mainwin)
-    , KXMLGUIClient()
     , m_mainWindow(mainwin)
 {
     KXMLGUIClient::setComponentName(QStringLiteral("katexmlcheck"), i18n("Kate XML check")); // where i18n resources?

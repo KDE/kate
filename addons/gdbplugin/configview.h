@@ -94,7 +94,7 @@ private:
 private:
     KTextEditor::MainWindow *m_mainWindow;
     QComboBox *m_targetCombo;
-    int m_currentTarget;
+    int m_currentTarget = 0;
     QToolButton *m_addTarget;
     QToolButton *m_copyTarget;
     QToolButton *m_deleteTarget;
@@ -117,7 +117,7 @@ private:
     QLabel *m_execLabel;
     QLabel *m_workDirLabel;
     QLabel *m_argumentsLabel;
-    KSelectAction *m_targetSelectAction;
+    KSelectAction *m_targetSelectAction = nullptr;
 
     AdvancedGDBSettings *m_advanced;
 };

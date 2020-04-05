@@ -41,7 +41,6 @@ K_PLUGIN_FACTORY_WITH_JSON(KateOpenHeaderFactory, "kateopenheaderplugin.json", r
 
 PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin, KTextEditor::MainWindow *mainwindow)
     : KTextEditor::Command(QStringList() << QStringLiteral("toggle-header"), mainwindow)
-    , KXMLGUIClient()
     , m_plugin(plugin)
     , m_mainWindow(mainwindow)
 {

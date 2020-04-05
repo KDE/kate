@@ -56,7 +56,7 @@ public:
     int matches = 0;
     QRegularExpression regExp;
     bool useRegExp = false;
-    bool matchCase;
+    bool matchCase = false;
     QString replaceStr;
     int searchPlaceIndex = 0;
     QString treeRootText;
@@ -179,15 +179,15 @@ private:
 
     void onResize(const QSize &size);
 
-    Ui::SearchDialog m_ui;
+    Ui::SearchDialog m_ui{};
     QWidget *m_toolView;
     KTextEditor::Application *m_kateApp;
     SearchOpenFiles m_searchOpenFiles;
     FolderFilesList m_folderFilesList;
     SearchDiskFiles m_searchDiskFiles;
     ReplaceMatches m_replacer;
-    QAction *m_matchCase;
-    QAction *m_useRegExp;
+    QAction *m_matchCase = nullptr;
+    QAction *m_useRegExp = nullptr;
     Results *m_curResults;
     bool m_searchJustOpened;
     int m_projectSearchPlaceIndex;

@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 
 KateSessionsService::KateSessionsService(KateSessionsEngine *engine, const QString &uuid)
-    : Plasma::Service()
-    , m_engine(engine)
+    : m_engine(engine)
     , m_uuid(uuid)
 {
     setName(QStringLiteral("org.kde.plasma.katesessions"));

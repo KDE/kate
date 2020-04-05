@@ -112,7 +112,6 @@ QObject *PluginKateXMLTools::createView(KTextEditor::MainWindow *mainWindow)
 
 PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
     : QObject(mainWin)
-    , KXMLGUIClient()
     , m_mainWindow(mainWin)
     , m_model(this)
 {

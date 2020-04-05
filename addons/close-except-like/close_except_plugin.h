@@ -125,7 +125,7 @@ public Q_SLOTS:
     }
 
 private:
-    bool m_show_confirmation_needed;
+    bool m_show_confirmation_needed = false;
 };
 
 } // namespace kate

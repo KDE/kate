@@ -620,7 +620,7 @@ private:
             if (f.open(QIODevice::ReadOnly)) {
                 const auto data = f.readAll();
                 if (!data.isEmpty()) {
-                    QJsonParseError error;
+                    QJsonParseError error{};
                     auto json = QJsonDocument::fromJson(data, &error);
                     if (error.error == QJsonParseError::NoError) {
                         if (json.isObject()) {

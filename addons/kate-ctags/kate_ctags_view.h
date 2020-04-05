@@ -97,7 +97,7 @@ private:
 
     QPointer<KTextEditor::MainWindow> m_mWin;
     QPointer<QWidget> m_toolView;
-    Ui::kateCtags m_ctagsUi;
+    Ui::kateCtags m_ctagsUi{};
 
     QPointer<KActionMenu> m_menu;
     QAction *m_gotoDef;

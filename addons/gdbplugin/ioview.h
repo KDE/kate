@@ -76,11 +76,11 @@ private:
     QFile m_stdoutD;
     QFile m_stderrD;
 
-    int m_stdoutFD;
-    int m_stderrFD;
+    int m_stdoutFD = 0;
+    int m_stderrFD = 0;
 
-    QSocketNotifier *m_stdoutNotifier;
-    QSocketNotifier *m_stderrNotifier;
+    QSocketNotifier *m_stdoutNotifier = nullptr;
+    QSocketNotifier *m_stderrNotifier = nullptr;
 };
 
 #endif

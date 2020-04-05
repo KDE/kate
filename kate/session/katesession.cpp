@@ -39,7 +39,6 @@ KateSession::KateSession(const QString &file, const QString &name, const bool an
     , m_anonymous(anonymous)
     , m_documents(0)
     , m_config(nullptr)
-    , m_timestamp()
 {
     Q_ASSERT(!m_file.isEmpty());
 

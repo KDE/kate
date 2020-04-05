@@ -41,56 +41,56 @@ public:
 
     ///////
     // Init
-    int basePeriod;
-    int reductionCoreCount;
-    int timeCoreCount;
+    int basePeriod = 0;
+    int reductionCoreCount = 0;
+    int timeCoreCount = 0;
 
     /////////
     // System
-    int perfSamplingPeriod;
-    float floatTolerance;
-    int timeTolerance;
-    int primaryTimeHorizon;
-    int secondaryTimeHorizon;
+    int perfSamplingPeriod = 0;
+    float floatTolerance = 0;
+    int timeTolerance = 0;
+    int primaryTimeHorizon = 0;
+    int secondaryTimeHorizon = 0;
 
     // Model
-    float mdlInertiaSuccessRateThreshold;
-    int mdlInertiaCountThreshold;
+    float mdlInertiaSuccessRateThreshold = 0;
+    int mdlInertiaCountThreshold = 0;
 
     // Targeted Pattern Extractor
-    float tpxDeltaSuccessRateThreshold;
-    int tpxTimehorizon;
+    float tpxDeltaSuccessRateThreshold = 0;
+    int tpxTimehorizon{};
 
     // Simulation
-    int minimumSimulationTimeHorizon;
-    int maximumSimulationTimeHorizon;
-    float simulationTimeHorizon;
+    int minimumSimulationTimeHorizon = 0;
+    int maximumSimulationTimeHorizon = 0;
+    float simulationTimeHorizon = 0;
 
     ////////
     // Debug
-    bool debug;
-    int notificationMarkerResilience;
-    int goalPredictionSuccessResilience;
-    int debugWindows;
-    int traceLevels;
+    bool debug = false;
+    int notificationMarkerResilience = 0;
+    int goalPredictionSuccessResilience = 0;
+    int debugWindows = 0;
+    int traceLevels = 0;
 
-    bool getObjects;
-    bool decompileObjects;
+    bool getObjects = false;
+    bool decompileObjects = false;
     QString decompilationFilePath;
-    bool ignoreNamedObjects;
+    bool ignoreNamedObjects = false;
     QString objectsPath;
-    bool testObjects;
+    bool testObjects = false;
 
     //////
     // Run
-    int runTime;
-    int probeLevel;
+    int runTime = 0;
+    int probeLevel = 0;
 
-    bool getModels;
-    bool decompileModels;
-    bool ignoreNamedModels;
+    bool getModels = false;
+    bool decompileModels = false;
+    bool ignoreNamedModels = false;
     QString modelsPath;
-    bool testModels;
+    bool testModels = false;
 };
 
 #endif // REPLICODESETTINGS_H

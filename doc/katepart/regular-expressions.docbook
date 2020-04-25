@@ -685,7 +685,7 @@ pattern.</para>
 A lookbehind looks at the part of the string previous a possible match. The positive
 lookbehind will match a string only if it is preceded by the <emphasis>PATTERN</emphasis>
 of the assertion, but the text matched by that will not be included in the result.</para>
-<para>The expression <userinput>(?&lt;cup)cake</userinput> will match at <quote>cake</quote>
+<para>The expression <userinput>(?&lt;=cup)cake</userinput> will match at <quote>cake</quote>
 if it is succeeded by <quote>cup</quote> (in <quote>cupcake</quote> but not in
 <quote>cheesecake</quote> or in <quote>cake</quote> alone).</para>
 </listitem>

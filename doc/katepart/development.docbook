@@ -231,11 +231,17 @@ Highlighting repository</ulink> in the file <filename>language.xsd</filename>
 located in <filename class="directory">org.kde.syntax-highlighting/syntax/</filename> in
 your user folder found with <userinput><command>qtpaths</command><option>--paths
 GenericDataLocation</option></userinput> which usually is
-<filename class="directory"><envar>$HOME</envar>/.local/share</filename>
+<filename class="directory"><envar>$HOME</envar>/.local/share/</filename>.
 </para>
 
 <para>On &Windows; these files are located <filename>%USERPROFILE%/AppData/Local/org.kde.syntax-highlighting/syntax</filename>.
 <replaceable>%USERPROFILE%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
+
+<para>For <ulink url="https://flathub.org/apps/details/org.kde.kate">Kate's Flatpak package</ulink>,
+these files are located <filename class="directory"><envar>$HOME</envar>/.var/app/org.kde.kate/data/org.kde.syntax-highlighting/syntax/</filename>
+and for <ulink url="https://snapcraft.io/kate">Kate's Snap package</ulink>,
+it is <filename class="directory"><envar>$HOME</envar>/snap/kate/current/.local/share/org.kde.syntax-highlighting/syntax/</filename>.
+</para>
 
 <para>If multiple files exist for the same language, the file with the highest <userinput>version</userinput> attribute in the <userinput>language</userinput> element will be loaded.</para>
 

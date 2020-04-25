@@ -23,8 +23,7 @@
 #include <QDir>
 
 BtFileIndexer::BtFileIndexer(KateBtDatabase *database)
-    : QThread()
-    , cancelAsap(false)
+    : cancelAsap(false)
     , db(database)
 {
 }

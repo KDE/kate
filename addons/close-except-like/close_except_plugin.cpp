@@ -72,7 +72,6 @@ void CloseExceptPlugin::writeSessionConfig(KConfigGroup &config)
 // BEGIN CloseExceptPluginView
 CloseExceptPluginView::CloseExceptPluginView(KTextEditor::MainWindow *mw, CloseExceptPlugin *plugin)
     : QObject(mw)
-    , KXMLGUIClient()
     , m_plugin(plugin)
     , m_show_confirmation_action(new KToggleAction(i18nc("@action:inmenu", "Show Confirmation"), this))
     , m_except_menu(new KActionMenu(i18nc("@action:inmenu close docs except the following...", "Close Except"), this))

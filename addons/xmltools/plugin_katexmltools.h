@@ -128,7 +128,7 @@ protected:
     int m_correctPos;
 
     // code completion stuff:
-    KTextEditor::CodeCompletionInterface *m_codeInterface;
+    KTextEditor::CodeCompletionInterface *m_codeInterface = nullptr;
 
     /// maps KTE::Document -> DTD
     QHash<KTextEditor::Document *, PseudoDTD *> m_docDtds;

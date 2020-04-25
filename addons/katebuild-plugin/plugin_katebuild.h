@@ -130,7 +130,7 @@ private:
 
     KTextEditor::MainWindow *m_win;
     QWidget *m_toolView;
-    Ui::build m_buildUi;
+    Ui::build m_buildUi{};
     QWidget *m_buildWidget;
     int m_outputWidgetWidth;
     TargetsUi *m_targetsUi;
@@ -145,10 +145,10 @@ private:
     QRegularExpression m_filenameDetector;
     QRegularExpression m_filenameDetectorIcpc;
     bool m_filenameDetectorGccWorked;
-    bool m_ninjaBuildDetected;
+    bool m_ninjaBuildDetected = false;
     QRegularExpression m_newDirDetector;
-    unsigned int m_numErrors;
-    unsigned int m_numWarnings;
+    unsigned int m_numErrors = 0;
+    unsigned int m_numWarnings = 0;
     QString m_prevItemContent;
     QModelIndex m_previousIndex;
     QPointer<KTextEditor::Message> m_infoMessage;

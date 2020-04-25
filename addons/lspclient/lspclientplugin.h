@@ -54,22 +54,22 @@ public:
     const QUrl m_defaultConfigPath;
 
     // settings
-    bool m_symbolDetails;
-    bool m_symbolExpand;
-    bool m_symbolTree;
-    bool m_symbolSort;
-    bool m_complDoc;
-    bool m_refDeclaration;
-    bool m_diagnostics;
-    bool m_diagnosticsHighlight;
-    bool m_diagnosticsMark;
-    bool m_messages;
-    int m_messagesAutoSwitch;
-    bool m_autoHover;
-    bool m_onTypeFormatting;
-    bool m_incrementalSync;
+    bool m_symbolDetails = false;
+    bool m_symbolExpand = false;
+    bool m_symbolTree = false;
+    bool m_symbolSort = false;
+    bool m_complDoc = false;
+    bool m_refDeclaration = false;
+    bool m_diagnostics = false;
+    bool m_diagnosticsHighlight = false;
+    bool m_diagnosticsMark = false;
+    bool m_messages = false;
+    int m_messagesAutoSwitch = 0;
+    bool m_autoHover = false;
+    bool m_onTypeFormatting = false;
+    bool m_incrementalSync = false;
     QUrl m_configPath;
-    bool m_semanticHighlighting;
+    bool m_semanticHighlighting = false;
 
     // debug mode?
     bool m_debugMode = false;

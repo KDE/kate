@@ -30,8 +30,7 @@
 #include <QSortFilterProxyModel>
 
 KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, KateProject *project)
-    : QTreeView()
-    , m_pluginView(pluginView)
+    : m_pluginView(pluginView)
     , m_project(project)
 {
     /**

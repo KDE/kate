@@ -63,7 +63,7 @@ public Q_SLOTS:
 
 private:
     QList<KateFileTreePluginView *> m_views;
-    KateFileTreeConfigPage *m_confPage;
+    KateFileTreeConfigPage *m_confPage = nullptr;
     KateFileTreePluginSettings m_settings;
 };
 
@@ -117,7 +117,7 @@ private:
     KateFileTree *m_fileTree;
     KateFileTreeProxyModel *m_proxyModel;
     KateFileTreeModel *m_documentModel;
-    bool m_hasLocalPrefs;
+    bool m_hasLocalPrefs = false;
     bool m_loadingDocuments;
     KateFileTreePlugin *m_plug;
     KTextEditor::MainWindow *m_mainWindow;

@@ -46,7 +46,7 @@ public Q_SLOTS:
     void defaults() override;
 
 private:
-    KateSQLPlugin *m_plugin;
+    KateSQLPlugin *m_plugin = nullptr;
     QCheckBox *m_box;
     OutputStyleWidget *m_outputStyleWidget;
 

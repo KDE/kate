@@ -46,8 +46,7 @@ private:
 };
 
 KatePluginListItem::KatePluginListItem(bool checked, KatePluginInfo *info)
-    : QTreeWidgetItem()
-    , mInfo(info)
+    : mInfo(info)
 {
     setCheckState(0, checked ? Qt::Checked : Qt::Unchecked);
 }

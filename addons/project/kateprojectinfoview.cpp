@@ -30,8 +30,7 @@
 #include <QFileInfo>
 
 KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, KateProject *project)
-    : QTabWidget()
-    , m_pluginView(pluginView)
+    : m_pluginView(pluginView)
     , m_project(project)
 {
     /**

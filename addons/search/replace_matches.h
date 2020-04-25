@@ -81,7 +81,7 @@ private:
 
     QRegularExpression m_regExp;
     QString m_replaceText;
-    bool m_cancelReplace;
+    bool m_cancelReplace = false;
     QElapsedTimer m_progressTime;
 };
 

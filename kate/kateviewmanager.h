@@ -276,14 +276,14 @@ private:
     KateMainWindow *m_mainWindow;
     bool m_init;
 
-    QAction *m_splitViewVert;
-    QAction *m_splitViewHoriz;
-    QAction *m_closeView;
-    QAction *m_closeOtherViews;
-    QAction *m_toggleSplitterOrientation;
-    QAction *m_hideOtherViews;
-    QAction *goNext;
-    QAction *goPrev;
+    QAction *m_splitViewVert = nullptr;
+    QAction *m_splitViewHoriz = nullptr;
+    QAction *m_closeView = nullptr;
+    QAction *m_closeOtherViews = nullptr;
+    QAction *m_toggleSplitterOrientation = nullptr;
+    QAction *m_hideOtherViews = nullptr;
+    QAction *goNext = nullptr;
+    QAction *goPrev = nullptr;
 
     QList<KateViewSpace *> m_viewSpaceList;
 
@@ -291,7 +291,7 @@ private:
 
     bool m_activeViewRunning;
 
-    int m_splitterIndex; // used during saving splitter config.
+    int m_splitterIndex = 0; // used during saving splitter config.
 
     /**
      * View meta data

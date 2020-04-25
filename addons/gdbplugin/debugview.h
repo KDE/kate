@@ -111,7 +111,7 @@ private:
 
     QString m_currentFile;
     QString m_newFrameFile;
-    int m_newFrameLevel;
+    int m_newFrameLevel = 0;
     QStringList m_nextCommands;
     QString m_lastCommand;
     bool m_debugLocationChanged;

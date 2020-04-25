@@ -53,7 +53,6 @@
 
 KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
     : QObject(mw)
-    , KXMLGUIClient()
     , m_manager(new SQLManager(this))
     , m_mainWindow(mw)
 {

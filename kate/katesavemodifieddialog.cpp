@@ -35,7 +35,6 @@ class AbstractKateSaveModifiedDialogCheckListItem : public QTreeWidgetItem
 {
 public:
     AbstractKateSaveModifiedDialogCheckListItem(const QString &title, const QString &url)
-        : QTreeWidgetItem()
     {
         setFlags(flags() | Qt::ItemIsUserCheckable);
         setText(0, title);
@@ -70,7 +69,7 @@ public:
     }
 
 private:
-    STATE m_state;
+    STATE m_state = InitialState;
 };
 
 class KateSaveModifiedDocumentCheckListItem : public AbstractKateSaveModifiedDialogCheckListItem

@@ -32,8 +32,7 @@
 #include <kmessagewidget.h>
 
 KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPluginView *pluginView, KateProject *project)
-    : QWidget()
-    , m_pluginView(pluginView)
+    : m_pluginView(pluginView)
     , m_project(project)
     , m_messageWidget(nullptr)
     , m_startStopAnalysis(new QPushButton(i18n("Start Analysis...")))

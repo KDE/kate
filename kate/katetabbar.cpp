@@ -34,27 +34,27 @@ class KateTabBarPrivate
 {
 public:
     // pointer to tabbar
-    KateTabBar *q;
+    KateTabBar *q = nullptr;
 
     // minimum and maximum tab width
-    int minimumTabWidth;
-    int maximumTabWidth;
+    int minimumTabWidth = 0;
+    int maximumTabWidth = 0;
 
     // current tab width: when closing tabs with the mouse, we keep
     // the tab width fixed until the mouse leaves the tab bar. This
     // way the user can keep clicking the close button without moving
     // the ouse.
-    qreal currentTabWidth;
-    bool keepTabWidth;
+    qreal currentTabWidth = 0;
+    bool keepTabWidth = false;
 
-    bool isActive;
+    bool isActive = false;
 
     QVector<KateTabButton *> tabButtons;
     QHash<int, KateTabButton *> idToTab;
 
-    KateTabButton *activeButton;
+    KateTabButton *activeButton = nullptr;
 
-    int nextID;
+    int nextID = 0;
 
 public: // functions
     /**

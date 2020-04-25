@@ -136,7 +136,7 @@ private:
     KToggleAction *m_paShowPath = nullptr;
     KToggleAction *m_paShowMenuBar = nullptr;
     KToggleAction *m_paShowStatusBar = nullptr;
-    QAction *m_closeAction;
+    QAction *m_closeAction = nullptr;
     KActivities::ResourceInstance *m_activityResource = nullptr;
     KWriteApplication *m_app;
     KTextEditor::MainWindow m_mainWindow;

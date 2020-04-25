@@ -48,8 +48,7 @@ class LSPClientHoverImpl : public LSPClientHover
 
 public:
     LSPClientHoverImpl(QSharedPointer<LSPClientServerManager> manager)
-        : LSPClientHover()
-        , m_manager(std::move(manager))
+        : m_manager(std::move(manager))
         , m_server(nullptr)
     {
     }

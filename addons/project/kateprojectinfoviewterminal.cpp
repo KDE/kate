@@ -28,8 +28,7 @@
 KPluginFactory *KateProjectInfoViewTerminal::s_pluginFactory = nullptr;
 
 KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *pluginView, const QString &directory)
-    : QWidget()
-    , m_pluginView(pluginView)
+    : m_pluginView(pluginView)
     , m_directory(directory)
     , m_konsolePart(nullptr)
 {

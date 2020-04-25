@@ -541,35 +541,35 @@ private:
     /**
      * Notify about file modifications from other processes?
      */
-    bool m_modNotification;
+    bool m_modNotification = false;
 
     /**
      * Shutdown Kate after last file is closed
      */
-    bool m_modCloseAfterLast;
+    bool m_modCloseAfterLast = false;
 
     /**
      * stacked widget containing the central area, aka view manager, quickopen, ...
      */
-    QStackedWidget *m_mainStackedWidget;
+    QStackedWidget *m_mainStackedWidget = nullptr;
 
     /**
      * quick open to fast switch documents
      */
-    KateQuickOpen *m_quickOpen;
+    KateQuickOpen *m_quickOpen = nullptr;
 
     /**
      * keeps track of views
      */
-    KateViewManager *m_viewManager;
+    KateViewManager *m_viewManager = nullptr;
 
-    KRecentFilesAction *m_fileOpenRecent;
+    KRecentFilesAction *m_fileOpenRecent = nullptr;
 
-    KActionMenu *documentOpenWith;
+    KActionMenu *documentOpenWith = nullptr;
 
-    KToggleAction *settingsShowFileselector;
+    KToggleAction *settingsShowFileselector = nullptr;
 
-    KToggleAction *m_showFullScreenAction;
+    KToggleAction *m_showFullScreenAction = nullptr;
 
     bool m_modignore;
 
@@ -577,13 +577,13 @@ private:
     QHash<KTextEditor::Plugin *, QObject *> m_pluginViews;
 
     // options: show statusbar + show path
-    KToggleAction *m_paShowPath;
-    KToggleAction *m_paShowMenuBar;
-    KToggleAction *m_paShowStatusBar;
-    KToggleAction *m_paShowTabBar;
+    KToggleAction *m_paShowPath = nullptr;
+    KToggleAction *m_paShowMenuBar = nullptr;
+    KToggleAction *m_paShowStatusBar = nullptr;
+    KToggleAction *m_paShowTabBar = nullptr;
 
-    QWidget *m_bottomViewBarContainer;
-    KateContainerStackedLayout *m_bottomContainerStack;
+    QWidget *m_bottomViewBarContainer = nullptr;
+    KateContainerStackedLayout *m_bottomContainerStack = nullptr;
 
     class BarState
     {

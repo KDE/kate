@@ -103,11 +103,11 @@ public:
 private:
     KToolBar *m_toolbar;
     KActionCollection *m_actionCollection;
-    KateBookmarkHandler *m_bookmarkHandler;
+    KateBookmarkHandler *m_bookmarkHandler = nullptr;
     KUrlNavigator *m_urlNavigator;
     KDirOperator *m_dirOperator;
     KHistoryComboBox *m_filter;
-    QAction *m_autoSyncFolder;
+    QAction *m_autoSyncFolder = nullptr;
 
     KTextEditor::MainWindow *m_mainWindow;
 };

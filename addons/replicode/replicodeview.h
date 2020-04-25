@@ -70,7 +70,7 @@ private:
     QAction *m_runAction;
     QAction *m_stopAction;
     ReplicodeConfig *m_configView;
-    bool m_completed;
+    bool m_completed = false;
 };
 
 #endif

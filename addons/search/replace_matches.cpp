@@ -42,6 +42,7 @@ void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegularExpression 
     m_regExp = regexp;
     m_replaceText = replace;
     m_cancelReplace = false;
+    m_terminateReplace = false;
     m_progressTime.restart();
     doReplaceNextMatch();
 }
@@ -54,6 +55,12 @@ void ReplaceMatches::setDocumentManager(KTextEditor::Application *manager)
 void ReplaceMatches::cancelReplace()
 {
     m_cancelReplace = true;
+}
+
+void ReplaceMatches::terminateReplace()
+{
+    m_cancelReplace = true;
+    m_terminateReplace = true;
 }
 
 KTextEditor::Document *ReplaceMatches::findNamed(const QString &name)
@@ -201,6 +208,10 @@ bool ReplaceMatches::replaceSingleMatch(KTextEditor::Document *doc, QTreeWidgetI
 
 void ReplaceMatches::doReplaceNextMatch()
 {
+    if (m_terminateReplace) {
+        return;
+    }
+
     if (!m_manager || m_tree->topLevelItemCount() != 1) {
         updateTreeViewItems(nullptr);
         m_rootIndex = -1;

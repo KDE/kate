@@ -61,6 +61,7 @@ public:
 
 public Q_SLOTS:
     void cancelReplace();
+    void terminateReplace();
 
 private Q_SLOTS:
     void doReplaceNextMatch();
@@ -82,6 +83,7 @@ private:
     QRegularExpression m_regExp;
     QString m_replaceText;
     bool m_cancelReplace = false;
+    bool m_terminateReplace = false;
     QElapsedTimer m_progressTime;
 };
 

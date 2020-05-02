@@ -314,14 +314,6 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
 KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin, KTextEditor::Application *application)
     : QObject(mainWin)
     , m_kateApp(application)
-    , m_curResults(nullptr)
-    , m_searchJustOpened(false)
-    , m_projectSearchPlaceIndex(0)
-    , m_searchDiskFilesDone(true)
-    , m_searchOpenFilesDone(true)
-    , m_isSearchAsYouType(false)
-    , m_isLeftRight(false)
-    , m_projectPluginView(nullptr)
     , m_mainWindow(mainWin)
 {
     KXMLGUIClient::setComponentName(QStringLiteral("katesearch"), i18n("Kate Search & Replace"));
@@ -426,10 +418,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
         }
     });
 
-    connect(m_ui.stopButton, &QPushButton::clicked, &m_searchOpenFiles, &SearchOpenFiles::cancelSearch);
-    connect(m_ui.stopButton, &QPushButton::clicked, &m_searchDiskFiles, &SearchDiskFiles::cancelSearch);
-    connect(m_ui.stopButton, &QPushButton::clicked, &m_folderFilesList, &FolderFilesList::cancelSearch);
-    connect(m_ui.stopButton, &QPushButton::clicked, &m_replacer, &ReplaceMatches::cancelReplace);
+    connect(m_ui.stopButton, &QPushButton::clicked, this, &KatePluginSearchView::stopClicked);
 
     connect(m_ui.nextButton, &QToolButton::clicked, this, &KatePluginSearchView::goToNextMatch);
 
@@ -443,7 +432,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(&m_searchOpenFiles, &SearchOpenFiles::searchDone, this, &KatePluginSearchView::searchDone);
     connect(&m_searchOpenFiles, static_cast<void (SearchOpenFiles::*)(const QString &)>(&SearchOpenFiles::searching), this, &KatePluginSearchView::searching);
 
-    connect(&m_folderFilesList, &FolderFilesList::finished, this, &KatePluginSearchView::folderFileListChanged);
+    connect(&m_folderFilesList, &FolderFilesList::fileListReady, this, &KatePluginSearchView::folderFileListChanged);
     connect(&m_folderFilesList, &FolderFilesList::searching, this, &KatePluginSearchView::searching);
 
     connect(&m_searchDiskFiles, &SearchDiskFiles::matchFound, this, &KatePluginSearchView::matchFound);
@@ -938,7 +927,7 @@ static const int contextLen = 70;
 
 void KatePluginSearchView::matchFound(const QString &url, const QString &fName, const QString &lineContent, int matchLen, int startLine, int startColumn, int endLine, int endColumn)
 {
-    if (!m_curResults) {
+    if (!m_curResults || (sender() == &m_searchDiskFiles && m_blockDiskMatchFound)) {
         return;
     }
     int preLen = contextLen;
@@ -1021,8 +1010,31 @@ void KatePluginSearchView::clearDocMarks(KTextEditor::Document *doc)
     }
 }
 
+void KatePluginSearchView::stopClicked()
+{
+    m_folderFilesList.cancelSearch();
+    m_searchOpenFiles.cancelSearch();
+    m_searchDiskFiles.cancelSearch();
+    m_replacer.cancelReplace();
+    m_searchDiskFilesDone = true;
+    m_searchOpenFilesDone = true;
+    searchDone(); // Just in case the folder list was being populated...
+}
+
 void KatePluginSearchView::startSearch()
 {
+    // Forcefully stop any ongoing search or replace
+    m_blockDiskMatchFound = true; // Do not allow leftover machFound:s from a previous search to be added
+    m_folderFilesList.terminateSearch();
+    m_searchOpenFiles.terminateSearch();
+    m_searchDiskFiles.terminateSearch();
+    // Re-enable the handling of fisk-file-matches after one event loop
+    // For some reason blocking of signals or disconnect/connect does not prevent the slot from being called,
+    // so we use m_blockDiskMatchFound to skip any old matchFound signals during the first event loop.
+    // New matches from disk-files should not come before the first event loop has executed.
+    QTimer::singleShot(0, this, [this]() { m_blockDiskMatchFound = false; });
+    m_replacer.terminateReplace();
+
     m_changeTimer.stop();                       // make sure not to start a "while you type" search now
     m_mainWindow->showToolView(m_toolView);     // in case we are invoked from the command interface
     m_projectSearchPlaceIndex = 0;              // now that we started, don't switch back automatically
@@ -2053,6 +2065,7 @@ void KatePluginSearchView::tabCloseRequested(int index)
     if (m_curResults == tmp) {
         m_searchOpenFiles.cancelSearch();
         m_searchDiskFiles.cancelSearch();
+        m_folderFilesList.cancelSearch();
     }
     if (m_ui.resultTabWidget->count() > 1) {
         delete tmp; // remove the tab

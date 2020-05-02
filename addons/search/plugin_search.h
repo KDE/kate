@@ -108,6 +108,7 @@ public:
     void writeSessionConfig(KConfigGroup &config) override;
 
 public Q_SLOTS:
+    void stopClicked();
     void startSearch();
     void setSearchString(const QString &pattern);
     void navigateFolderUp();
@@ -188,13 +189,14 @@ private:
     ReplaceMatches m_replacer;
     QAction *m_matchCase = nullptr;
     QAction *m_useRegExp = nullptr;
-    Results *m_curResults;
-    bool m_searchJustOpened;
-    int m_projectSearchPlaceIndex;
-    bool m_searchDiskFilesDone;
-    bool m_searchOpenFilesDone;
-    bool m_isSearchAsYouType;
-    bool m_isLeftRight;
+    Results *m_curResults = nullptr;
+    bool m_searchJustOpened = false;
+    int m_projectSearchPlaceIndex = 0;
+    bool m_searchDiskFilesDone = true;
+    bool m_searchOpenFilesDone = true;
+    bool m_isSearchAsYouType = false;
+    bool m_isLeftRight = false;
+    bool m_blockDiskMatchFound = false;
     QString m_resultBaseDir;
     QList<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;
@@ -204,7 +206,7 @@ private:
     /**
      * current project plugin view, if any
      */
-    QObject *m_projectPluginView;
+    QObject *m_projectPluginView = nullptr;
 
     /**
      * our main window

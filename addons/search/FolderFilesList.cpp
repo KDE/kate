@@ -45,8 +45,12 @@ void FolderFilesList::run()
     QFileInfo folderInfo(m_folder);
     checkNextItem(folderInfo);
 
-    if (m_cancelSearch)
+    if (m_cancelSearch) {
         m_files.clear();
+    }
+    else {
+        Q_EMIT fileListReady();
+    }
 }
 
 void FolderFilesList::generateList(const QString &folder, bool recursive, bool hidden, bool symlinks, bool binary, const QString &types, const QString &excludes)
@@ -80,6 +84,12 @@ void FolderFilesList::generateList(const QString &folder, bool recursive, bool h
 
     m_time.restart();
     start();
+}
+
+void FolderFilesList::terminateSearch()
+{
+    m_cancelSearch = true;
+    wait();
 }
 
 QStringList FolderFilesList::fileList()

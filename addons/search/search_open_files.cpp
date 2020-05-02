@@ -25,7 +25,9 @@
 SearchOpenFiles::SearchOpenFiles(QObject *parent)
     : QObject(parent)
 {
-    connect(this, &SearchOpenFiles::searchNextFile, this, &SearchOpenFiles::doSearchNextFile, Qt::QueuedConnection);
+    m_nextRunTimer.setInterval(0);
+    m_nextRunTimer.setSingleShot(true);
+    connect(&m_nextRunTimer, &QTimer::timeout, this, [this](){ doSearchNextFile(m_nextLine); });
 }
 
 bool SearchOpenFiles::searching()
@@ -35,15 +37,26 @@ bool SearchOpenFiles::searching()
 
 void SearchOpenFiles::startSearch(const QList<KTextEditor::Document *> &list, const QRegularExpression &regexp)
 {
-    if (m_nextIndex != -1)
+    if (m_nextFileIndex != -1)
         return;
 
     m_docList = list;
-    m_nextIndex = 0;
+    m_nextFileIndex = 0;
     m_regExp = regexp;
     m_cancelSearch = false;
+    m_terminateSearch = false;
     m_statusTime.restart();
-    emit searchNextFile(0);
+    m_nextLine = 0;
+    m_nextRunTimer.start(0);
+}
+
+void SearchOpenFiles::terminateSearch()
+{
+    m_cancelSearch = true;
+    m_terminateSearch = true;
+    m_nextFileIndex = -1;
+    m_nextLine = -1;
+    m_nextRunTimer.stop();
 }
 
 void SearchOpenFiles::cancelSearch()
@@ -53,29 +66,30 @@ void SearchOpenFiles::cancelSearch()
 
 void SearchOpenFiles::doSearchNextFile(int startLine)
 {
-    if (m_cancelSearch || m_nextIndex >= m_docList.size()) {
-        m_nextIndex = -1;
+    if (m_cancelSearch || m_nextFileIndex >= m_docList.size()) {
+        m_nextFileIndex = -1;
         m_cancelSearch = true;
-        emit searchDone();
+        m_nextLine = -1;
         return;
     }
 
     // NOTE The document managers signal documentWillBeDeleted() must be connected to
     // cancelSearch(). A closed file could lead to a crash if it is not handled.
-    int line = searchOpenFile(m_docList[m_nextIndex], m_regExp, startLine);
+    int line = searchOpenFile(m_docList[m_nextFileIndex], m_regExp, startLine);
     if (line == 0) {
         // file searched go to next
-        m_nextIndex++;
-        if (m_nextIndex == m_docList.size()) {
-            m_nextIndex = -1;
+        m_nextFileIndex++;
+        if (m_nextFileIndex == m_docList.size()) {
+            m_nextFileIndex = -1;
             m_cancelSearch = true;
             emit searchDone();
         } else {
-            emit searchNextFile(0);
+            m_nextLine = 0;
         }
     } else {
-        emit searchNextFile(line);
+        m_nextLine = line;
     }
+    m_nextRunTimer.start();
 }
 
 int SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine)

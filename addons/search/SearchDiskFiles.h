@@ -39,6 +39,7 @@ public:
 
     void startSearch(const QStringList &iles, const QRegularExpression &regexp);
     void run() override;
+    void terminateSearch();
 
     bool searching();
 
@@ -58,6 +59,7 @@ private:
     QRegularExpression m_regExp;
     QStringList m_files;
     bool m_cancelSearch = true;
+    bool m_terminateSearch = false;
     int m_matchCount = 0;
     QElapsedTimer m_statusTime;
 };

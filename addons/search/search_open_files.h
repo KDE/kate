@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QRegularExpression>
 #include <ktexteditor/document.h>
+#include <QTimer>
 
 class SearchOpenFiles : public QObject
 {
@@ -35,6 +36,7 @@ public:
 
     void startSearch(const QList<KTextEditor::Document *> &list, const QRegularExpression &regexp);
     bool searching();
+    void terminateSearch();
 
 public Q_SLOTS:
     void cancelSearch();
@@ -50,16 +52,18 @@ private:
     int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 
 Q_SIGNALS:
-    void searchNextFile(int startLine);
-    void matchFound(const QString &url, const QString &fileName, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
+     void matchFound(const QString &url, const QString &fileName, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
     void searchDone();
     void searching(const QString &file);
 
 private:
     QList<KTextEditor::Document *> m_docList;
-    int m_nextIndex = -1;
+    int m_nextFileIndex = -1;
+    QTimer m_nextRunTimer;
+    int m_nextLine = -1;
     QRegularExpression m_regExp;
     bool m_cancelSearch = true;
+    bool m_terminateSearch = false;
     QString m_fullDoc;
     QVector<int> m_lineStart;
     QElapsedTimer m_statusTime;

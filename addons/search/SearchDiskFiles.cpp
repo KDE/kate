@@ -42,6 +42,7 @@ void SearchDiskFiles::startSearch(const QStringList &files, const QRegularExpres
         return;
     }
     m_cancelSearch = false;
+    m_terminateSearch = false;
     m_files = files;
     m_regExp = regexp;
     m_matchCount = 0;
@@ -67,13 +68,23 @@ void SearchDiskFiles::run()
             searchSingleLineRegExp(fileName);
         }
     }
-    emit searchDone();
+
+    if (!m_terminateSearch) {
+        emit searchDone();
+    }
     m_cancelSearch = true;
 }
 
 void SearchDiskFiles::cancelSearch()
 {
     m_cancelSearch = true;
+}
+
+void SearchDiskFiles::terminateSearch()
+{
+    m_cancelSearch = true;
+    m_terminateSearch = true;
+    wait();
 }
 
 bool SearchDiskFiles::searching()
@@ -84,6 +95,7 @@ bool SearchDiskFiles::searching()
 void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
 {
     QFile file(fileName);
+    QUrl fileUrl = QUrl::fromUserInput(fileName);
 
     if (!file.open(QFile::ReadOnly)) {
         return;
@@ -100,10 +112,12 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
         match = m_regExp.match(line);
         column = match.capturedStart();
         while (column != -1 && !match.captured().isEmpty()) {
-            // limit line length
+            if (m_cancelSearch)
+                break;
+            // limit line length in the treeview
             if (line.length() > 1024)
                 line = line.left(1024);
-            QUrl fileUrl = QUrl::fromUserInput(fileName);
+
             emit matchFound(fileUrl.toString(), fileUrl.fileName(), line, match.capturedLength(), i, column, i, column + match.capturedLength());
 
             match = m_regExp.match(line, column + match.capturedLength());

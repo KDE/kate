@@ -40,6 +40,8 @@ public:
 
     void generateList(const QString &folder, bool recursive, bool hidden, bool symlinks, bool binary, const QString &types, const QString &excludes);
 
+    void terminateSearch();
+
     QStringList fileList();
 
 public Q_SLOTS:
@@ -47,6 +49,7 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void searching(const QString &path);
+    void fileListReady();
 
 private:
     void checkNextItem(const QFileInfo &item);

@@ -659,6 +659,12 @@ void KatePluginSearchView::toggleOptions(bool show)
 
 void KatePluginSearchView::setSearchPlace(int place)
 {
+    if (place >= m_ui.searchPlaceCombo->count()) {
+        // This probably means the project plugin is not active or no project loaded
+        // fallback to search in folder
+        qDebug() << place << "is not a valid search place index";
+        place = Folder;
+    }
     m_ui.searchPlaceCombo->setCurrentIndex(place);
 }
 
@@ -1176,6 +1182,7 @@ void KatePluginSearchView::startSearch()
         }
         m_searchDiskFiles.startSearch(files, reg);
     } else {
+        qDebug() << "Case not handled:" << m_ui.searchPlaceCombo->currentIndex();
         Q_ASSERT_X(false, "KatePluginSearchView::startSearch", "case not handled");
     }
 }

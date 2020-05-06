@@ -117,6 +117,9 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
+#ifdef Q_OS_WIN
+    QString caseFixed(const QString &path);
+#endif
     void processLine(const QString &);
     void addError(const QString &filename, const QString &line, const QString &column, const QString &message);
     bool startProcess(const QString &dir, const QString &command);

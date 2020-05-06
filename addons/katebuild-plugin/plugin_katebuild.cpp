@@ -395,7 +395,36 @@ void KateBuildView::slotPrev()
     }
 }
 
+#ifdef Q_OS_WIN
 /******************************************************************/
+QString KateBuildView::caseFixed(const QString &path)
+{
+    QStringList paths = path.split(QLatin1Char('/'));
+    if (paths.isEmpty()) { return path; }
+
+    qDebug() << "PATH=" << paths;
+
+    QString result = paths[0].toUpper() + QLatin1Char('/');
+    for (int i=1; i<paths.count(); ++i) {
+        QDir curDir(result);
+        const QStringList items = curDir.entryList();
+        int j;
+        for (j=0; j<items.size(); ++j) {
+            if (items[j].compare(paths[i], Qt::CaseInsensitive) == 0) {
+                qDebug() << "adding" << items[j];
+                result += items[j];
+                if (i < paths.count()-1) {
+                    result += QLatin1Char('/');
+                }
+                break;
+            }
+        }
+        if (j==items.size()) { return path; }
+    }
+    return result;
+}
+#endif
+
 void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
 {
     // any view active?
@@ -415,7 +444,7 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
     }
 
     // get stuff
-    const QString filename = item->data(0, Qt::UserRole).toString();
+    QString filename = item->data(0, Qt::UserRole).toString();
     if (filename.isEmpty()) {
         return;
     }
@@ -428,6 +457,10 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
         line = data.cursor->line();
         column = data.cursor->column();
     }
+
+#ifdef Q_OS_WIN
+    filename = caseFixed(filename);
+#endif
 
     // open file (if needed, otherwise, this will activate only the right view...)
     m_win->openUrl(QUrl::fromLocalFile(filename));
@@ -1026,7 +1059,12 @@ void KateBuildView::processLine(const QString &line)
     const QString line_n = match.captured(3);
     const QString msg = match.captured(4);
 
-    // qDebug() << "File Name:"<<filename<< " msg:"<< msg;
+#ifdef Q_OS_WIN
+    // convert '\' to '/' so the concatenation works
+    filename = QFileInfo(filename).filePath();
+#endif
+
+    //qDebug() << "File Name:"<<m_make_dir << filename << " msg:"<< msg;
     // add path to file
     if (QFile::exists(m_make_dir + QLatin1Char('/') + filename)) {
         filename = m_make_dir + QLatin1Char('/') + filename;

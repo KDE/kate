@@ -462,6 +462,12 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
     filename = caseFixed(filename);
 #endif
 
+    // Check if the file exists
+    if (!QFileInfo::exists(filename)) {
+        displayMessage(xi18nc("@info", "<title>Could not open file:</title><nl/>%1", filename), KTextEditor::Message::Error);
+        return;
+    }
+
     // open file (if needed, otherwise, this will activate only the right view...)
     m_win->openUrl(QUrl::fromLocalFile(filename));
 
@@ -902,6 +908,23 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
     m_infoMessage->setWordWrap(true);
     m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
     m_infoMessage->setAutoHide(5000);
+    m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+    m_infoMessage->setView(kv);
+    kv->document()->postMessage(m_infoMessage);
+}
+
+/******************************************************************/
+void KateBuildView::displayMessage(const QString &msg, KTextEditor::Message::MessageType level)
+{
+    KTextEditor::View *kv = m_win->activeView();
+    if (!kv)
+        return;
+
+    delete m_infoMessage;
+    m_infoMessage = new KTextEditor::Message(msg, level);
+    m_infoMessage->setWordWrap(true);
+    m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
+    m_infoMessage->setAutoHide(8000);
     m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
     m_infoMessage->setView(kv);
     kv->document()->postMessage(m_infoMessage);

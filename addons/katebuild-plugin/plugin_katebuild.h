@@ -127,6 +127,7 @@ private:
     void clearBuildResults();
 
     void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
+    void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
 
     void clearMarks();
     void addMarks(KTextEditor::Document *doc, bool mark);

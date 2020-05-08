@@ -219,8 +219,10 @@ void KateCTagsConfigPage::updateGlobalDB()
         return;
     }
 
-    QString command = QStringLiteral("%1 -f %2 %3").arg(m_confUi.cmdEdit->text(), file, targets);
-    m_proc.start(command, QStringList());
+    QString commandLine = QStringLiteral("%1 -f %2 %3").arg(m_confUi.cmdEdit->text(), file, targets);
+    QStringList arguments = commandLine.split(QLatin1Char(' '));
+    QString command = arguments.takeFirst();
+    m_proc.start(command, arguments);
 
     if (!m_proc.waitForStarted(500)) {
         KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));

@@ -1016,7 +1016,7 @@ private:
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
         QJsonObject params {{QStringLiteral("processId"), QCoreApplication::applicationPid()},
-                            {QStringLiteral("rootPath"), m_root.path()},
+                            {QStringLiteral("rootPath"), m_root.toLocalFile()},
                             {QStringLiteral("rootUri"), m_root.toString()},
                             {QStringLiteral("capabilities"), capabilities},
                             {QStringLiteral("initializationOptions"), m_init}};
@@ -1042,7 +1042,7 @@ public:
         qCInfo(LSPCLIENT) << "starting" << m_server << "with root" << m_root;
 
         // start LSP server in project root
-        m_sproc.setWorkingDirectory(m_root.path());
+        m_sproc.setWorkingDirectory(m_root.toLocalFile());
 
         // at least we see some errors somewhere then
         m_sproc.setProcessChannelMode(QProcess::ForwardedErrorChannel);

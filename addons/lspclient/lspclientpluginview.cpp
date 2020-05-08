@@ -176,7 +176,7 @@ class FileLineReader
 
 public:
     FileLineReader(const QUrl &url)
-        : file(url.path())
+        : file(url.toLocalFile())
     {
         file.open(QIODevice::ReadOnly);
     }
@@ -1015,7 +1015,7 @@ public:
         for (const auto &loc : locations) {
             if (loc.uri != lastUrl) {
                 if (parent) {
-                    parent->setText(QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->rowCount()));
+                    parent->setText(QStringLiteral("%1: %2").arg(lastUrl.toLocalFile()).arg(parent->rowCount()));
                 }
                 lastUrl = loc.uri;
                 parent = new QStandardItem();
@@ -1028,7 +1028,7 @@ public:
             fillItemRoles(item, loc.uri, loc.range, loc.kind, snapshot);
         }
         if (parent)
-            parent->setText(QStringLiteral("%1: %2").arg(lastUrl.path()).arg(parent->rowCount()));
+            parent->setText(QStringLiteral("%1: %2").arg(lastUrl.toLocalFile()).arg(parent->rowCount()));
 
         // plain heuristic; mark for auto-expand all when safe and/or useful to do so
         if (treeModel->rowCount() <= 2 || locations.size() <= 20) {
@@ -1372,7 +1372,7 @@ public:
 
     static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)
     {
-        auto l = model.findItems(url.path());
+        auto l = model.findItems(url.toLocalFile());
         if (l.length()) {
             return l.at(0);
         }
@@ -1463,7 +1463,7 @@ public:
             }
             topItem = new QStandardItem();
             model->appendRow(topItem);
-            topItem->setText(diagnostics.uri.path());
+            topItem->setText(diagnostics.uri.toLocalFile());
         } else {
             topItem->setRowCount(0);
         }
@@ -1485,7 +1485,7 @@ public:
                 }
                 auto relatedItemMessage = new QStandardItem();
                 fillItemRoles(relatedItemMessage, related.location.uri, related.location.range, RangeData::KindEnum::Related);
-                auto basename = QFileInfo(related.location.uri.path()).fileName();
+                auto basename = QFileInfo(related.location.uri.toLocalFile()).fileName();
                 auto location = QStringLiteral("%1:%2").arg(basename).arg(related.location.range.start().line());
                 relatedItemMessage->setText(QStringLiteral("[%1] %2").arg(location).arg(related.message));
                 relatedItemMessage->setData(diagnosticsIcon(LSPDiagnosticSeverity::Information), Qt::DecorationRole);
@@ -1756,7 +1756,7 @@ public:
         QSet<QString> fpaths;
         for (const auto &view : m_mainWindow->views()) {
             if (auto doc = view->document()) {
-                fpaths.insert(doc->url().path());
+                fpaths.insert(doc->url().toLocalFile());
             }
         }
         // check and clear defunct entries

@@ -236,7 +236,13 @@ void KWrite::slotNew()
 
 void KWrite::slotOpen()
 {
-    const QList<QUrl> urls = QFileDialog::getOpenFileUrls(this, i18n("Open File"), m_view->document()->url());
+    // if file is not local, then remove filename from url
+    QList<QUrl> urls;
+    if (m_view->document()->url().isLocalFile()) {
+        urls = QFileDialog::getOpenFileUrls(this, i18n("Open File"), m_view->document()->url());
+    } else {
+        urls = QFileDialog::getOpenFileUrls(this, i18n("Open File"), m_view->document()->url().adjusted(QUrl::RemoveFilename));
+    }
     for (const QUrl &url : urls) {
         slotOpen(url);
     }

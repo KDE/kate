@@ -1,6 +1,6 @@
 /*   Kate search plugin
  *
- * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
+ * Copyright (C) 2011-2020 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -212,27 +212,6 @@ private:
      * our main window
      */
     KTextEditor::MainWindow *m_mainWindow;
-};
-
-class KateSearchCommand : public KTextEditor::Command
-{
-    Q_OBJECT
-public:
-    KateSearchCommand(QObject *parent);
-
-Q_SIGNALS:
-    void setSearchPlace(int place);
-    void setCurrentFolder();
-    void setSearchString(const QString &pattern);
-    void startSearch();
-    void newTab();
-
-    //
-    // KTextEditor::Command
-    //
-public:
-    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
-    bool help(KTextEditor::View *view, const QString &cmd, QString &msg) override;
 };
 
 #endif

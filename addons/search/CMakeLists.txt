@@ -27,6 +27,7 @@ target_sources(
     FolderFilesList.cpp
     replace_matches.cpp
     htmldelegate.cpp
+    KateSearchCommand.cpp
     plugin.qrc
 )
 

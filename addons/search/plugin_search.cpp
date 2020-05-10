@@ -2154,16 +2154,111 @@ void KatePluginSearchView::onResize(const QSize &size)
     }
 }
 
+static QString copySearchSummary(const QTreeWidgetItem *summaryItem)
+{
+    if (summaryItem) {
+        int matches = 0;
+        for (int i=0; i<summaryItem->childCount(); ++i) {
+            matches += summaryItem->child(i)->childCount();
+        }
+        return i18np("A total of %1 match found\n", "A total of %1 matches found\n", matches);
+    }
+    return QString();
+}
+
+static QString copySearchMatchFile(QTreeWidgetItem *fileItem)
+{
+    if (fileItem) {
+        QUrl url(fileItem->data(0, ReplaceMatches::FileUrlRole).toString());
+        int matches = fileItem->childCount();
+        return i18np("%1 match found in: %2\n", "%1 matches found in: %2\n", matches, url.toLocalFile());
+    }
+    return QString();
+}
+
+static QString copySearchMatch(QTreeWidgetItem *matchItem)
+{
+    if (matchItem) {
+        int startLine = matchItem->data(0, ReplaceMatches::StartLineRole).toInt();
+        int startColumn = matchItem->data(0, ReplaceMatches::StartColumnRole).toInt();
+        QString match = matchItem->data(0, ReplaceMatches::PreMatchRole).toString();
+        match += matchItem->data(0, ReplaceMatches::MatchRole).toString();
+        match += matchItem->data(0, ReplaceMatches::PostMatchRole).toString();
+        return i18n("\tLine: %1 column: %2: %3\n", startLine, startColumn, match);
+    }
+    return QString();
+}
+
+void KatePluginSearchView::copySearchToClipboard(bool all)
+{
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+    if (res->tree->topLevelItemCount() == 0) {
+        return;
+    }
+
+    QString clipboard;
+
+    QTreeWidgetItem *currentItem = res->tree->currentItem();
+    if (!currentItem || all) {
+        currentItem = res->tree->topLevelItem(0);
+    }
+
+    QTreeWidgetItem *parent = currentItem->parent();
+    if (currentItem->childCount() == 0) {
+        // this is probably a single match
+        if (parent) {
+            clipboard += copySearchMatchFile(parent);
+            clipboard += copySearchMatch(currentItem);
+        }
+        else {
+            clipboard = i18n("No matches found\n");
+        }
+    }
+    else {
+        if (parent) {
+            clipboard += copySearchSummary(parent);
+            clipboard += copySearchMatchFile(currentItem);
+        }
+        else {
+            clipboard += m_isSearchAsYouType ? copySearchMatchFile(currentItem) : copySearchSummary(currentItem);
+        }
+
+        for (int i=0; i<currentItem->childCount() && (currentItem->isExpanded() || all); ++i) {
+            QTreeWidgetItem *child = currentItem->child(i);
+            if (child->childCount() == 0) {
+                clipboard += copySearchMatch(child);
+            }
+            else {
+                clipboard += copySearchMatchFile(child);
+                for (int j=0; j<child->childCount() && (child->isExpanded() || all); ++j) {
+                    QTreeWidgetItem *grandChild = child->child(j);
+                    clipboard += copySearchMatch(grandChild);
+                }
+            }
+        }
+    }
+    QApplication::clipboard()->setText(clipboard);
+}
+
 bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::KeyPress) {
+    if (event->type() == QEvent::ShortcutOverride) {
+        // Ignore copy in ShortcutOverride and handle it in the KeyPress event
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        if (ke->matches(QKeySequence::Copy)) {
+            event->accept();
+            return true;
+        }
+    }
+    else if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         QTreeWidget *tree = qobject_cast<QTreeWidget *>(obj);
         if (tree) {
             if (ke->matches(QKeySequence::Copy)) {
-                // user pressed ctrl+c -> copy full URL to the clipboard
-                QVariant variant = tree->currentItem()->data(0, ReplaceMatches::FileUrlRole);
-                QApplication::clipboard()->setText(variant.toString());
+                copySearchToClipboard(false);
                 event->accept();
                 return true;
             }
@@ -2177,7 +2272,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
         }
         // NOTE: Qt::Key_Escape is handled by handleEsc
     }
-    if (event->type() == QEvent::Resize) {
+    else if (event->type() == QEvent::Resize) {
         QResizeEvent *re = static_cast<QResizeEvent *>(event);
         if (obj == m_toolView) {
             onResize(re->size());

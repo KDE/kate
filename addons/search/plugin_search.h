@@ -170,6 +170,8 @@ private Q_SLOTS:
     void slotPluginViewDeleted(const QString &name, QObject *pluginView);
     void slotProjectFileNameChanged();
 
+    void copySearchToClipboard(bool all);
+
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
     void addHeaderItem();

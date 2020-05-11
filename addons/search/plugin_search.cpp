@@ -55,6 +55,7 @@
 #include <QMetaObject>
 #include <QScrollBar>
 #include <QTextDocument>
+#include <QPoint>
 
 static QUrl localFileDirUp(const QUrl &url)
 {
@@ -2044,8 +2045,10 @@ void KatePluginSearchView::addTab()
     Results *res = new Results();
 
     res->tree->setRootIsDecorated(false);
+    res->tree->setContextMenuPolicy(Qt::CustomContextMenu);
 
     connect(res->tree, &QTreeWidget::itemDoubleClicked, this, &KatePluginSearchView::itemSelected, Qt::UniqueConnection);
+    connect(res->tree, &QTreeWidget::customContextMenuRequested, this, &KatePluginSearchView::customResMenuRequested, Qt::UniqueConnection);
 
     res->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
     res->useRegExp = m_ui.useRegExp->isChecked();
@@ -2154,6 +2157,28 @@ void KatePluginSearchView::onResize(const QSize &size)
     }
 }
 
+void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
+{
+    QTreeWidget *tree = qobject_cast<QTreeWidget *>(sender());
+    if (tree == nullptr) {
+        return;
+    }
+    QMenu *menu = new QMenu(tree);
+
+    QAction *copyAll = new QAction(i18n("Copy all"), tree);
+    copyAll->setShortcut(QKeySequence::Copy);
+    copyAll->setShortcutVisibleInContextMenu(true);
+    menu->addAction(copyAll);
+
+    QAction *copyExpanded = new QAction(i18n("Copy expanded"), tree);
+    menu->addAction(copyExpanded);
+
+    menu->popup(tree->viewport()->mapToGlobal(pos));
+
+    connect(copyAll, &QAction::triggered, this, [this](bool) { copySearchToClipboard(All); });
+    connect(copyExpanded, &QAction::triggered, this, [this](bool) { copySearchToClipboard(AllExpanded); });
+}
+
 static QString copySearchSummary(const QTreeWidgetItem *summaryItem)
 {
     if (summaryItem) {
@@ -2189,7 +2214,7 @@ static QString copySearchMatch(QTreeWidgetItem *matchItem)
     return QString();
 }
 
-void KatePluginSearchView::copySearchToClipboard(bool all)
+void KatePluginSearchView::copySearchToClipboard(CopyResultType copyType)
 {
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!res) {
@@ -2201,10 +2226,7 @@ void KatePluginSearchView::copySearchToClipboard(bool all)
 
     QString clipboard;
 
-    QTreeWidgetItem *currentItem = res->tree->currentItem();
-    if (!currentItem || all) {
-        currentItem = res->tree->topLevelItem(0);
-    }
+    QTreeWidgetItem *currentItem = res->tree->topLevelItem(0);
 
     QTreeWidgetItem *parent = currentItem->parent();
     if (currentItem->childCount() == 0) {
@@ -2226,14 +2248,14 @@ void KatePluginSearchView::copySearchToClipboard(bool all)
             clipboard += m_isSearchAsYouType ? copySearchMatchFile(currentItem) : copySearchSummary(currentItem);
         }
 
-        for (int i=0; i<currentItem->childCount() && (currentItem->isExpanded() || all); ++i) {
+        for (int i=0; i<currentItem->childCount() && (currentItem->isExpanded() || copyType == All); ++i) {
             QTreeWidgetItem *child = currentItem->child(i);
             if (child->childCount() == 0) {
                 clipboard += copySearchMatch(child);
             }
             else {
                 clipboard += copySearchMatchFile(child);
-                for (int j=0; j<child->childCount() && (child->isExpanded() || all); ++j) {
+                for (int j=0; j<child->childCount() && (child->isExpanded() || copyType == All); ++j) {
                     QTreeWidgetItem *grandChild = child->child(j);
                     clipboard += copySearchMatch(grandChild);
                 }
@@ -2258,7 +2280,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
         QTreeWidget *tree = qobject_cast<QTreeWidget *>(obj);
         if (tree) {
             if (ke->matches(QKeySequence::Copy)) {
-                copySearchToClipboard(false);
+                copySearchToClipboard(All);
                 event->accept();
                 return true;
             }

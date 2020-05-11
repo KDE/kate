@@ -43,6 +43,7 @@
 #include "search_open_files.h"
 
 class KateSearchCommand;
+class QPoint;
 namespace KTextEditor
 {
 class MovingRange;
@@ -117,6 +118,12 @@ public Q_SLOTS:
     void goToNextMatch();
     void goToPreviousMatch();
 
+private:
+    enum CopyResultType {
+        AllExpanded,
+        All
+    };
+
 private Q_SLOTS:
     void openSearchView();
     void handleEsc(QEvent *e);
@@ -170,7 +177,8 @@ private Q_SLOTS:
     void slotPluginViewDeleted(const QString &name, QObject *pluginView);
     void slotProjectFileNameChanged();
 
-    void copySearchToClipboard(bool all);
+    void copySearchToClipboard(CopyResultType type);
+    void customResMenuRequested(const QPoint &pos);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;

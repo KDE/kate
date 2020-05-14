@@ -122,10 +122,10 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     , m_displayModeBeforeBuild(1)
     // NOTE this will not allow spaces in file names.
     // e.g. from gcc: "main.cpp:14: error: cannot convert ‘std::string’ to ‘int’ in return"
-    , m_filenameDetector(QStringLiteral("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\+\\-/\\\\]+\\.[a-zA-Z0-9]+):([0-9]+)(.*)"))
+    // e.g. from gcc: "main.cpp:14:8: error: cannot convert ‘std::string’ to ‘int’ in return"
     // e.g. from icpc: "main.cpp(14): error: no suitable conversion function from "std::string" to "int" exists"
-    , m_filenameDetectorIcpc(QStringLiteral("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\+\\-/\\\\]+\\.[a-zA-Z0-9]+)\\(([0-9]+)\\)(:.*)"))
-    , m_filenameDetectorGccWorked(false)
+    // e.g. from clang: ""main.cpp(14,8): fatal error: 'boost/scoped_array.hpp' file not found"
+    , m_filenameDetector(QStringLiteral("((?:[a-np-zA-Z]:[\\\\/])?[\\.a-zA-Z0-9\\\\/\\-_]+\\.[a-zA-Z0-9]+)[:\\(](\\d+)[,:]?(\\d+)?[\\):]* (.*)"))
     , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ '(.*)'"))
 {
     KXMLGUIClient::setComponentName(QStringLiteral("katebuild"), i18n("Kate Build Plugin"));
@@ -888,7 +888,6 @@ bool KateBuildView::buildCurrentTarget()
         buildCmd.replace(QStringLiteral("%f"), docFInfo.absoluteFilePath());
         buildCmd.replace(QStringLiteral("%d"), docFInfo.absolutePath());
     }
-    m_filenameDetectorGccWorked = false;
     m_currentlyBuildingTarget = QStringLiteral("%1: %2").arg(targetSet, cmdName);
     m_buildCancelled = false;
     QString msg = i18n("Building target <b>%1</b> ...", m_currentlyBuildingTarget);
@@ -1059,20 +1058,6 @@ void KateBuildView::processLine(const QString &line)
     // look for a filename
     QRegularExpressionMatch match = m_filenameDetector.match(line);
 
-    if (match.hasMatch()) {
-        m_filenameDetectorGccWorked = true;
-    } else {
-        if (!m_filenameDetectorGccWorked) {
-            // let's see whether the icpc regexp works:
-            // so for icpc users error detection will be a bit slower,
-            // since always both regexps are checked.
-            // But this should be the minority, for gcc and clang users
-            // both regexes will only be checked until the first regex
-            // matched the first time.
-            match = m_filenameDetectorIcpc.match(line);
-        }
-    }
-
     if (!match.hasMatch()) {
         addError(QString(), QStringLiteral("0"), QString(), line);
         // kDebug() << "A filename was not found in the line ";
@@ -1080,7 +1065,8 @@ void KateBuildView::processLine(const QString &line)
     }
 
     QString filename = match.captured(1);
-    const QString line_n = match.captured(3);
+    const QString line_n = match.captured(2);
+    const QString col_n = match.captured(3);
     const QString msg = match.captured(4);
 
 #ifdef Q_OS_WIN
@@ -1110,7 +1096,7 @@ void KateBuildView::processLine(const QString &line)
     }
 
     // Now we have the data we need show the error/warning
-    addError(filename, line_n, QStringLiteral("1"), msg);
+    addError(filename, line_n, col_n, msg);
 }
 
 /******************************************************************/

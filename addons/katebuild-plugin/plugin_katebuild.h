@@ -148,8 +148,6 @@ private:
     QStack<QString> m_make_dir_stack;
     QStringList m_searchPaths;
     QRegularExpression m_filenameDetector;
-    QRegularExpression m_filenameDetectorIcpc;
-    bool m_filenameDetectorGccWorked;
     bool m_ninjaBuildDetected = false;
     QRegularExpression m_newDirDetector;
     unsigned int m_numErrors = 0;

@@ -111,7 +111,7 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
         UrlInserter *requester = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
         requester->setReplace(true);
         editor = requester;
-        editor->setToolTip(i18n("Leave empty to use the directory of the current document."));
+        editor->setToolTip(i18n("Leave empty to use the directory of the current document.\nAdd search directories by adding paths separated by ';'"));
     } else if (index.column() == 1) {
         UrlInserter *urlEditor = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
         editor = urlEditor;

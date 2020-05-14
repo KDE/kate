@@ -464,7 +464,7 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
 
     // Check if the file exists
     if (!QFileInfo::exists(filename)) {
-        displayMessage(xi18nc("@info", "<title>Could not open file:</title><nl/>%1", filename), KTextEditor::Message::Error);
+        displayMessage(xi18nc("@info", "<title>Could not open file:</title><nl/>%1<br>Try adding a search path to the working directory in the Target Settings", filename), KTextEditor::Message::Error);
         return;
     }
 
@@ -858,7 +858,8 @@ bool KateBuildView::buildCurrentTarget()
 
     QString buildCmd = m_targetsUi->targetsModel.command(ind);
     QString cmdName = m_targetsUi->targetsModel.cmdName(ind);
-    QString workDir = m_targetsUi->targetsModel.workDir(ind);
+    m_searchPaths = m_targetsUi->targetsModel.workDir(ind).split(QLatin1Char(';'));
+    QString workDir = m_searchPaths.isEmpty() ? QString() : m_searchPaths.first();
     QString targetSet = m_targetsUi->targetsModel.targetName(ind);
 
     QString dir = workDir;
@@ -1091,6 +1092,15 @@ void KateBuildView::processLine(const QString &line)
     // add path to file
     if (QFile::exists(m_make_dir + QLatin1Char('/') + filename)) {
         filename = m_make_dir + QLatin1Char('/') + filename;
+    }
+
+    // If we still do not have a file name try the extra search paths
+    int i = 1;
+    while (!QFile::exists(filename) && i < m_searchPaths.size()) {
+        if (QFile::exists(m_searchPaths[i] + QLatin1Char('/') + filename)) {
+            filename = m_searchPaths[i] + QLatin1Char('/') + filename;
+        }
+        i++;
     }
 
     // get canonical path, if possible, to avoid duplicated opened files

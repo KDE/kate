@@ -146,6 +146,7 @@ private:
     int m_displayModeBeforeBuild;
     QString m_make_dir;
     QStack<QString> m_make_dir_stack;
+    QStringList m_searchPaths;
     QRegularExpression m_filenameDetector;
     QRegularExpression m_filenameDetectorIcpc;
     bool m_filenameDetectorGccWorked;

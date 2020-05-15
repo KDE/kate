@@ -1501,6 +1501,10 @@ public:
         m_diagnosticsTree->scrollTo(topItem->index(), QAbstractItemView::PositionAtTop);
 
         updateState();
+        // also sync updated diagnositic to current position
+        auto currentView = m_mainWindow->activeView();
+        if (currentView && currentView->document())
+            syncDiagnostics(currentView->document(), currentView->cursorPosition().line(), false, false);
     }
 
     KTextEditor::View *viewForUrl(const QUrl &url) const

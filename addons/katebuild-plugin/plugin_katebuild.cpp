@@ -464,7 +464,7 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
 
     // Check if the file exists
     if (!QFileInfo::exists(filename)) {
-        displayMessage(xi18nc("@info", "<title>Could not open file:</title><nl/>%1<br>Try adding a search path to the working directory in the Target Settings", filename), KTextEditor::Message::Error);
+        displayMessage(xi18nc("@info", "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to the working directory in the Target Settings", filename), KTextEditor::Message::Error);
         return;
     }
 

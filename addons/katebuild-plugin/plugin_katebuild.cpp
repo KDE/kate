@@ -402,8 +402,6 @@ QString KateBuildView::caseFixed(const QString &path)
     QStringList paths = path.split(QLatin1Char('/'));
     if (paths.isEmpty()) { return path; }
 
-    qDebug() << "PATH=" << paths;
-
     QString result = paths[0].toUpper() + QLatin1Char('/');
     for (int i=1; i<paths.count(); ++i) {
         QDir curDir(result);
@@ -411,7 +409,6 @@ QString KateBuildView::caseFixed(const QString &path)
         int j;
         for (j=0; j<items.size(); ++j) {
             if (items[j].compare(paths[i], Qt::CaseInsensitive) == 0) {
-                qDebug() << "adding" << items[j];
                 result += items[j];
                 if (i < paths.count()-1) {
                     result += QLatin1Char('/');

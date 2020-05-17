@@ -307,6 +307,7 @@ void ConfigView::slotTargetSelected(int index)
     setAdvancedOptions();
 
     // Keep combo box and menu in sync
+    m_targetCombo->setCurrentIndex(index);
     m_targetSelectAction->setCurrentItem(index);
 }
 

@@ -90,7 +90,10 @@ KateCTagsConfigPage::KateCTagsConfigPage(QWidget *parent, KateCTagsPlugin *plugi
     connect(m_confUi.delButton, &QPushButton::clicked, this, &KateCTagsConfigPage::delGlobalTagTarget);
 
     connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateCTagsConfigPage::updateDone);
-
+    connect(&m_proc, &QProcess::readyReadStandardError, this, [this]() {
+        QString error = QString::fromLocal8Bit(m_proc.readAllStandardError());
+        KMessageBox::sorry(nullptr, error);
+    });
     reset();
 }
 
@@ -207,7 +210,7 @@ void KateCTagsConfigPage::updateGlobalDB()
         if (target.endsWith(QLatin1Char('/')) || target.endsWith(QLatin1Char('\\'))) {
             target = target.left(target.size() - 1);
         }
-        targets += target + QLatin1Char(' ');
+        targets += QLatin1Char('\"') + target + QLatin1String("\" ");
     }
 
     QString file = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1String("/katectags");
@@ -220,12 +223,16 @@ void KateCTagsConfigPage::updateGlobalDB()
     }
 
     QString commandLine = QStringLiteral("%1 -f %2 %3").arg(m_confUi.cmdEdit->text(), file, targets);
-    QStringList arguments = commandLine.split(QLatin1Char(' '));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    QStringList arguments = m_proc.splitCommand(commandLine);
     QString command = arguments.takeFirst();
     m_proc.start(command, arguments);
+#else
+    m_proc.start(commandLine);
+#endif
 
     if (!m_proc.waitForStarted(500)) {
-        KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
+        KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", commandLine, m_proc.exitStatus()));
         return;
     }
     m_confUi.updateDB->setDisabled(true);

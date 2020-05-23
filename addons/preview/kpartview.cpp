@@ -37,17 +37,14 @@
 
 using namespace KTextEditorPreview;
 
-// 300 ms as initial proposal, was found to be delay which worked for the
-// author with the use-case of quickly peeking over to the preview while
-// typing to see if things are working out as intended, without getting a
-// having-to-wait feeling.
-// Surely could get some more serious research what is a proper (default) value.
-// Perhaps the whole update logic cpuld also be overhauled, to only do an
-// update once there was at least xxx ms idle time to meet the use-case of
-// quickly-peeking-over. And otherwise update in bigger intervals of
-// 500-2000(?) ms, to cover the use-case of seeing from the corner of one's
-// eye that something is changing while one is editing the sources.
-static const int updateDelay = 300; // ms
+// There are two timers that run on update. One timer is fast, but is
+// cancelled each time a new updated comes in. Another timer is slow, but is 
+// not cancelled if another update comes in. With this, "while typing", the
+// preview is updated every 1000ms, thus one sees that something is happening
+// from the corner of one's eyes. After stopping typing, the preview is
+// updated quickly after 150ms so that the preview has the newest version.
+static const int updateDelayFast = 150; // ms
+static const int updateDelaySlow = 1000; // ms
 
 KPartView::KPartView(const KService::Ptr &service, QObject *parent)
     : QObject(parent)
@@ -62,9 +59,13 @@ KPartView::KPartView(const KService::Ptr &service, QObject *parent)
         delete m_part;
         m_errorLabel = new QLabel(QStringLiteral("KPart provides no widget."));
     } else {
-        m_updateSquashingTimer.setSingleShot(true);
-        m_updateSquashingTimer.setInterval(updateDelay);
-        connect(&m_updateSquashingTimer, &QTimer::timeout, this, &KPartView::updatePreview);
+        m_updateSquashingTimerFast.setSingleShot(true);
+        m_updateSquashingTimerFast.setInterval(updateDelayFast);
+        connect(&m_updateSquashingTimerFast, &QTimer::timeout, this, &KPartView::updatePreview);
+
+        m_updateSquashingTimerSlow.setSingleShot(true);
+        m_updateSquashingTimerSlow.setInterval(updateDelaySlow);
+        connect(&m_updateSquashingTimerSlow, &QTimer::timeout, this, &KPartView::updatePreview);
 
         auto browserExtension = m_part->browserExtension();
         if (browserExtension) {
@@ -110,7 +111,8 @@ void KPartView::setDocument(KTextEditor::Document *document)
 
     if (m_document) {
         disconnect(m_document, &KTextEditor::Document::textChanged, this, &KPartView::triggerUpdatePreview);
-        m_updateSquashingTimer.stop();
+        m_updateSquashingTimerFast.stop();
+        m_updateSquashingTimerSlow.stop();
     }
 
     m_document = document;
@@ -143,21 +145,28 @@ void KPartView::setAutoUpdating(bool autoUpdating)
             updatePreview();
         }
     } else {
-        m_updateSquashingTimer.stop();
+        m_updateSquashingTimerSlow.stop();
+        m_updateSquashingTimerFast.stop();
     }
 }
 
 void KPartView::triggerUpdatePreview()
 {
     m_previewDirty = true;
-
-    if (m_part->widget()->isVisible() && m_autoUpdating && !m_updateSquashingTimer.isActive()) {
-        m_updateSquashingTimer.start();
+    
+    if (m_part->widget()->isVisible() && m_autoUpdating) {
+        // Reset fast timer each time
+        m_updateSquashingTimerFast.start();
+        // Start slow timer, if not already running (don't reset!)
+        if(!m_updateSquashingTimerSlow.isActive())
+            m_updateSquashingTimerSlow.start();
     }
 }
 
 void KPartView::updatePreview()
 {
+    m_updateSquashingTimerSlow.stop();
+    m_updateSquashingTimerFast.stop();
     if (!m_part->widget()->isVisible()) {
         return;
     }

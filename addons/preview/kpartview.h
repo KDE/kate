@@ -118,7 +118,8 @@ private:
 
     bool m_autoUpdating = true;
     bool m_previewDirty = true;
-    QTimer m_updateSquashingTimer;
+    QTimer m_updateSquashingTimerFast;
+    QTimer m_updateSquashingTimerSlow;
     QTemporaryFile *m_bufferFile = nullptr;
 };
 

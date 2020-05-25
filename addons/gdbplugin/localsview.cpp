@@ -70,12 +70,12 @@ void LocalsView::createWrappedItem(QTreeWidget *parent, const QString &name, con
 
 void LocalsView::addLocal(const QString &vString)
 {
-    static QRegExp isValue(QStringLiteral("(\\S*)\\s=\\s(.*)"));
-    static QRegExp isStruct(QStringLiteral("\\{\\S*\\s=\\s.*"));
-    static QRegExp isStartPartial(QStringLiteral("\\S*\\s=\\s\\S*\\s=\\s\\{"));
-    static QRegExp isPrettyQList(QStringLiteral("\\s*\\[\\S*\\]\\s=\\s\\S*"));
-    static QRegExp isPrettyValue(QStringLiteral("(\\S*)\\s=\\s(\\S*)\\s=\\s(.*)"));
-    static QRegExp isThisValue(QStringLiteral("\\$\\d+"));
+    static const QRegularExpression isValue(QStringLiteral("\\A(\\S*)\\s=\\s(.*)\\z"));
+    static const QRegularExpression isStruct(QStringLiteral("\\A\\{\\S*\\s=\\s.*\\z"));
+    static const QRegularExpression isStartPartial(QStringLiteral("\\A\\S*\\s=\\s\\S*\\s=\\s\\{\\z"));
+    static const QRegularExpression isPrettyQList(QStringLiteral("\\A\\s*\\[\\S*\\]\\s=\\s\\S*\\z"));
+    static const QRegularExpression isPrettyValue(QStringLiteral("\\A(\\S*)\\s=\\s(\\S*)\\s=\\s(.*)\\z"));
+    static const QRegularExpression isThisValue(QStringLiteral("\\A\\$\\d+\\z"));
 
     if (m_allAdded) {
         clear();
@@ -86,11 +86,14 @@ void LocalsView::addLocal(const QString &vString)
         m_allAdded = true;
         return;
     }
-    if (isStartPartial.exactMatch(vString)) {
+
+    QRegularExpressionMatch match = isStartPartial.match(vString);
+    if (match.hasMatch()) {
         m_local = vString;
         return;
     }
-    if (isPrettyQList.exactMatch(vString)) {
+    match = isPrettyQList.match(vString);
+    if (match.hasMatch()) {
         m_local += vString.trimmed();
         if (m_local.endsWith(QLatin1Char(',')))
             m_local += QLatin1Char(' ');
@@ -107,24 +110,27 @@ void LocalsView::addLocal(const QString &vString)
         if (vString == QLatin1String("No symbol table info available.")) {
             return; /* this is not an error */
         }
-        if (!isValue.exactMatch(vString)) {
+        match = isValue.match(vString);
+        if (!match.hasMatch()) {
             qDebug() << "Could not parse:" << vString;
             return;
         }
-        symbolAndValue << isValue.cap(1);
+        symbolAndValue << match.captured(1);
+        value = match.captured(2);
         // check out for "print *this"
-        if (isThisValue.exactMatch(symbolAndValue[0])) {
+        match = isThisValue.match(symbolAndValue[0]);
+        if (match.hasMatch()) {
             symbolAndValue[0] = QStringLiteral("*this");
         }
-        value = isValue.cap(2);
     } else {
-        if (!isPrettyValue.exactMatch(m_local)) {
+        match = isPrettyValue.match(m_local);
+        if (!match.hasMatch()) {
             qDebug() << "Could not parse:" << m_local;
             m_local.clear();
             return;
         }
-        symbolAndValue << isPrettyValue.cap(1) << isPrettyValue.cap(2);
-        value = isPrettyValue.cap(3);
+        symbolAndValue << match.captured(1) << match.captured(2);
+        value = match.captured(3);
     }
 
     QTreeWidgetItem *item;
@@ -133,7 +139,8 @@ void LocalsView::addLocal(const QString &vString)
             item = new QTreeWidgetItem(this, symbolAndValue);
             addArray(item, value.mid(1, value.size() - 2));
         } else {
-            if (isStruct.exactMatch(value)) {
+            match = isStruct.match(value);
+            if (match.hasMatch()) {
                 item = new QTreeWidgetItem(this, symbolAndValue);
                 addStruct(item, value.mid(1, value.size() - 2));
             } else {
@@ -149,8 +156,8 @@ void LocalsView::addLocal(const QString &vString)
 
 void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
 {
-    static QRegExp isArray(QStringLiteral("\\{\\.*\\s=\\s.*"));
-    static QRegExp isStruct(QStringLiteral("\\.*\\s=\\s.*"));
+    static const QRegularExpression isArray(QStringLiteral("\\A\\{\\.*\\s=\\s.*\\z"));
+    static const QRegularExpression isStruct(QStringLiteral("\\A\\.*\\s=\\s.*\\z"));
     QTreeWidgetItem *item;
     QStringList symbolAndValue;
     QString subValue;
@@ -198,10 +205,10 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
                 end++;
             }
             subValue = vString.mid(start, end - start);
-            if (isArray.exactMatch(subValue)) {
+            if (isArray.match(subValue).hasMatch()) {
                 item = new QTreeWidgetItem(parent, symbolAndValue);
                 addArray(item, subValue);
-            } else if (isStruct.exactMatch(subValue)) {
+            } else if (isStruct.match(subValue).hasMatch()) {
                 item = new QTreeWidgetItem(parent, symbolAndValue);
                 addStruct(item, subValue);
             } else {

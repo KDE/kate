@@ -24,7 +24,7 @@
 #include "debugview.h"
 
 #include <QFile>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTimer>
 
 #include <klocalizedstring.h>
@@ -262,23 +262,24 @@ void DebugView::slotContinue()
     issueCommand(QStringLiteral("continue"));
 }
 
-static QRegExp breakpointList(QStringLiteral("Num\\s+Type\\s+Disp\\s+Enb\\s+Address\\s+What.*"));
-static QRegExp breakpointListed(QStringLiteral("(\\d)\\s+breakpoint\\s+keep\\sy\\s+0x[\\da-f]+\\sin\\s.+\\sat\\s([^:]+):(\\d+).*"));
-static QRegExp stackFrameAny(QStringLiteral("#(\\d+)\\s(.*)"));
-static QRegExp stackFrameFile(QStringLiteral("#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\(.*\\)) at ([^:]+):(\\d+).*"));
-static QRegExp changeFile(QStringLiteral("(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s*|0x[\\da-f]+\\s*in\\s*)?[^\\s]+\\s*\\([^)]*\\)\\s*at\\s*([^:]+):(\\d+).*"));
-static QRegExp changeLine(QStringLiteral("(\\d+)\\s+.*"));
-static QRegExp breakPointReg(QStringLiteral("Breakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+file\\s+([^\\,]+)\\,\\s+line\\s+(\\d+).*"));
-static QRegExp breakPointMultiReg(QStringLiteral("Breakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+([^\\,]+):(\\d+).*"));
-static QRegExp breakPointDel(QStringLiteral("Deleted\\s+breakpoint.*"));
-static QRegExp exitProgram(QStringLiteral("(?:Program|.*Inferior.*)\\s+exited.*"));
-static QRegExp threadLine(QStringLiteral("\\**\\s+(\\d+)\\s+Thread.*"));
+static const QRegularExpression breakpointList(QStringLiteral("\\ANum\\s+Type\\s+Disp\\s+Enb\\s+Address\\s+What.*\\z"));
+static const QRegularExpression breakpointListed(QStringLiteral("\\A(\\d)\\s+breakpoint\\s+keep\\sy\\s+0x[\\da-f]+\\sin\\s.+\\sat\\s([^:]+):(\\d+).*\\z"));
+static const QRegularExpression stackFrameAny(QStringLiteral("\\A#(\\d+)\\s(.*)\\z"));
+static const QRegularExpression stackFrameFile(QStringLiteral("\\A#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\(.*\\)) at ([^:]+):(\\d+).*\\z"));
+static const QRegularExpression changeFile(QStringLiteral("\\A(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s*|0x[\\da-f]+\\s*in\\s*)?[^\\s]+\\s*\\([^)]*\\)\\s*at\\s*([^:]+):(\\d+).*\\z"));
+static const QRegularExpression changeLine(QStringLiteral("\\A(\\d+)\\s+.*\\z"));
+static const QRegularExpression breakPointReg(QStringLiteral("\\ABreakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+file\\s+([^\\,]+)\\,\\s+line\\s+(\\d+).*\\z"));
+static const QRegularExpression breakPointMultiReg(QStringLiteral("\\ABreakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+([^\\,]+):(\\d+).*\\z"));
+static const QRegularExpression breakPointDel(QStringLiteral("\\ADeleted\\s+breakpoint.*\\z"));
+static const QRegularExpression exitProgram(QStringLiteral("\\A(?:Program|.*Inferior.*)\\s+exited.*\\z"));
+static const QRegularExpression threadLine(QStringLiteral("\\A\\**\\s+(\\d+)\\s+Thread.*\\z"));
 
 void DebugView::processLine(QString line)
 {
     if (line.isEmpty())
         return;
 
+    static QRegularExpressionMatch match;
     switch (m_state) {
     case none:
     case ready:
@@ -289,36 +290,36 @@ void DebugView::processLine(QString line)
         break;
 
     case executingCmd:
-        if (breakpointList.exactMatch(line)) {
+        if (breakpointList.match(line).hasMatch()) {
             m_state = listingBreakpoints;
             emit clearBreakpointMarks();
             m_breakPointList.clear();
         } else if (line.contains(QLatin1String("No breakpoints or watchpoints."))) {
             emit clearBreakpointMarks();
             m_breakPointList.clear();
-        } else if (stackFrameAny.exactMatch(line)) {
+        } else if ((match = stackFrameAny.match(line)).hasMatch()) {
             if (m_lastCommand.contains(QLatin1String("info stack"))) {
-                emit stackFrameInfo(stackFrameAny.cap(1), stackFrameAny.cap(2));
+                emit stackFrameInfo(match.captured(1), match.captured(2));
             } else {
                 m_subState = (m_subState == normal) ? stackFrameSeen : stackTraceSeen;
 
-                m_newFrameLevel = stackFrameAny.cap(1).toInt();
+                m_newFrameLevel = match.captured(1).toInt();
 
-                if (stackFrameFile.exactMatch(line)) {
-                    m_newFrameFile = stackFrameFile.cap(4);
+                if ((match = stackFrameFile.match(line)).hasMatch()) {
+                    m_newFrameFile = match.captured(4);
                 }
             }
-        } else if (changeFile.exactMatch(line)) {
-            m_currentFile = changeFile.cap(1).trimmed();
-            int lineNum = changeFile.cap(2).toInt();
+        } else if ((match = changeFile.match(line)).hasMatch()) {
+            m_currentFile = match.captured(1).trimmed();
+            int lineNum = match.captured(2).toInt();
 
             if (!m_nextCommands.contains(QLatin1String("continue"))) {
                 // GDB uses 1 based line numbers, kate uses 0 based...
                 emit debugLocationChanged(resolveFileName(m_currentFile), lineNum - 1);
             }
             m_debugLocationChanged = true;
-        } else if (changeLine.exactMatch(line)) {
-            int lineNum = changeLine.cap(1).toInt();
+        } else if ((match = changeLine.match(line)).hasMatch()) {
+            int lineNum = match.captured(1).toInt();
 
             if (m_subState == stackFrameSeen) {
                 m_currentFile = m_newFrameFile;
@@ -328,21 +329,21 @@ void DebugView::processLine(QString line)
                 emit debugLocationChanged(resolveFileName(m_currentFile), lineNum - 1);
             }
             m_debugLocationChanged = true;
-        } else if (breakPointReg.exactMatch(line)) {
+        } else if ((match = breakPointReg.match(line)).hasMatch()) {
             BreakPoint breakPoint;
-            breakPoint.number = breakPointReg.cap(1).toInt();
-            breakPoint.file = resolveFileName(breakPointReg.cap(2));
-            breakPoint.line = breakPointReg.cap(3).toInt();
+            breakPoint.number = match.captured(1).toInt();
+            breakPoint.file = resolveFileName(match.captured(2));
+            breakPoint.line = match.captured(3).toInt();
             m_breakPointList << breakPoint;
             emit breakPointSet(breakPoint.file, breakPoint.line - 1);
-        } else if (breakPointMultiReg.exactMatch(line)) {
+        } else if ((match = breakPointMultiReg.match(line)).hasMatch()) {
             BreakPoint breakPoint;
-            breakPoint.number = breakPointMultiReg.cap(1).toInt();
-            breakPoint.file = resolveFileName(breakPointMultiReg.cap(2));
-            breakPoint.line = breakPointMultiReg.cap(3).toInt();
+            breakPoint.number = match.captured(1).toInt();
+            breakPoint.file = resolveFileName(match.captured(2));
+            breakPoint.line = match.captured(3).toInt();
             m_breakPointList << breakPoint;
             emit breakPointSet(breakPoint.file, breakPoint.line - 1);
-        } else if (breakPointDel.exactMatch(line)) {
+        } else if (breakPointDel.match(line).hasMatch()) {
             line.remove(QStringLiteral("Deleted breakpoint"));
             line.remove(QLatin1Char('s')); // in case of multiple breakpoints
             QStringList numbers = line.split(QLatin1Char(' '), QString::SkipEmptyParts);
@@ -355,7 +356,7 @@ void DebugView::processLine(QString line)
                     }
                 }
             }
-        } else if (exitProgram.exactMatch(line) || line.contains(QLatin1String("The program no longer exists")) || line.contains(QLatin1String("Kill the program being debugged"))) {
+        } else if (exitProgram.match(line).hasMatch() || line.contains(QLatin1String("The program no longer exists")) || line.contains(QLatin1String("Kill the program being debugged"))) {
             // if there are still commands to execute remove them to remove unneeded output
             // except  if the "kill was for "re-run"
             if ((!m_nextCommands.empty()) && !m_nextCommands[0].contains(QLatin1String("file"))) {
@@ -374,12 +375,12 @@ void DebugView::processLine(QString line)
         }
         break;
 
-    case listingBreakpoints:
-        if (breakpointListed.exactMatch(line)) {
+    case listingBreakpoints:;
+        if ((match = breakpointListed.match(line)).hasMatch()) {
             BreakPoint breakPoint;
-            breakPoint.number = breakpointListed.cap(1).toInt();
-            breakPoint.file = resolveFileName(breakpointListed.cap(2));
-            breakPoint.line = breakpointListed.cap(3).toInt();
+            breakPoint.number = match.captured(1).toInt();
+            breakPoint.file = resolveFileName(match.captured(2));
+            breakPoint.line = match.captured(3).toInt();
             m_breakPointList << breakPoint;
             emit breakPointSet(breakPoint.file, breakPoint.line - 1);
         } else if (PromptStr == line) {
@@ -417,16 +418,16 @@ void DebugView::processLine(QString line)
             m_state = ready;
             emit stackFrameInfo(QString(), QString());
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
-        } else if (stackFrameAny.exactMatch(line)) {
-            emit stackFrameInfo(stackFrameAny.cap(1), stackFrameAny.cap(2));
+        } else if ((match = stackFrameAny.match(line)).hasMatch()) {
+            emit stackFrameInfo(match.captured(1), match.captured(2));
         }
         break;
     case infoThreads:
         if (PromptStr == line) {
             m_state = ready;
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
-        } else if (threadLine.exactMatch(line)) {
-            emit threadInfo(threadLine.cap(1).toInt(), (line[0] == QLatin1Char('*')));
+        } else if ((match = threadLine.match(line)).hasMatch()) {
+            emit threadInfo(match.captured(1).toInt(), (line[0] == QLatin1Char('*')));
         }
         break;
     }

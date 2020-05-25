@@ -29,7 +29,7 @@ LocalsView::LocalsView(QWidget *parent)
     headers << i18n("Symbol");
     headers << i18n("Value");
     setHeaderLabels(headers);
-    setAutoScroll(false);
+    setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 }
 
 LocalsView::~LocalsView()
@@ -53,6 +53,9 @@ void LocalsView::createWrappedItem(QTreeWidgetItem *parent, const QString &name,
     label->setWordWrap(true);
     setItemWidget(item, 1, label);
     item->setData(1, Qt::UserRole, value);
+    item->setToolTip(0, QStringLiteral("<qt>%1<qt>").arg(name));
+    item->setToolTip(1, QStringLiteral("<qt>%1<qt>").arg(value));
+    parent->setToolTip(0, QStringLiteral("<qt>%1<qt>").arg(parent->text(0)));
 }
 
 void LocalsView::createWrappedItem(QTreeWidget *parent, const QString &name, const QString &value)
@@ -61,6 +64,8 @@ void LocalsView::createWrappedItem(QTreeWidget *parent, const QString &name, con
     QLabel *label = new QLabel(value);
     label->setWordWrap(true);
     setItemWidget(item, 1, label);
+    item->setToolTip(0, QStringLiteral("<qt>%1<qt>").arg(name));
+    item->setToolTip(1, QStringLiteral("<qt>%1<qt>").arg(value));
 }
 
 void LocalsView::addLocal(const QString &vString)

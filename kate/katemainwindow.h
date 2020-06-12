@@ -315,10 +315,11 @@ public:
     void setQuickOpenListMode(KateQuickOpenModelList mode);
     KateQuickOpenModelList quickOpenListMode() const;
 
-    KRecentFilesAction *fileOpenRecent() const
-    {
-        return m_fileOpenRecent;
-    }
+    /**
+     * add given url to list of recently opened files
+     * @param url url that got opened
+     */
+    void addRecentOpenedFile(const QUrl &url);
 
     //
     // KTextEditor::MainWindow interface, get called by invokeMethod from our wrapper object!

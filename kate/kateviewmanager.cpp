@@ -292,9 +292,7 @@ KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &
 {
     KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding, isTempFile, docInfo);
 
-    if (!doc->url().isEmpty()) {
-        m_mainWindow->fileOpenRecent()->addUrl(doc->url());
-    }
+    m_mainWindow->addRecentOpenedFile(doc->url());
 
     if (activate) {
         activateView(doc);
@@ -308,9 +306,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const 
     const QList<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, isTempFile, docInfo);
 
     for (const KTextEditor::Document *doc : docs) {
-        if (!doc->url().isEmpty()) {
-            m_mainWindow->fileOpenRecent()->addUrl(doc->url());
-        }
+        m_mainWindow->addRecentOpenedFile(doc->url());
     }
 
     return docs.isEmpty() ? nullptr : docs.last();
@@ -324,9 +320,7 @@ KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QStri
         return nullptr;
     }
 
-    if (!doc->url().isEmpty()) {
-        m_mainWindow->fileOpenRecent()->addUrl(doc->url());
-    }
+    m_mainWindow->addRecentOpenedFile(doc->url());
 
     activateView(doc);
 
@@ -422,9 +416,7 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
 
 void KateViewManager::documentSavedOrUploaded(KTextEditor::Document *doc, bool)
 {
-    if (!doc->url().isEmpty()) {
-        m_mainWindow->fileOpenRecent()->addUrl(doc->url());
-    }
+    m_mainWindow->addRecentOpenedFile(doc->url());
 }
 
 KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateViewSpace *vs)

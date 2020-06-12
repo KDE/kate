@@ -51,6 +51,7 @@
 #include <KMimeTypeTrader>
 #include <KMultiTabBar>
 #include <KOpenWithDialog>
+#include <KRecentDocument>
 #include <KRecentFilesAction>
 #include <KRun>
 #include <KSharedConfig>
@@ -1281,4 +1282,18 @@ void KateMainWindow::setQuickOpenListMode(KateQuickOpenModel::List mode)
 KateQuickOpenModel::List KateMainWindow::quickOpenListMode() const
 {
     return m_quickOpen->listMode();
+}
+
+void KateMainWindow::addRecentOpenedFile(const QUrl &url)
+{
+    // skip non-existing urls for untitled documents
+    if (url.isEmpty()) {
+        return;
+    }
+
+    // to our local list, aka menu
+    m_fileOpenRecent->addUrl(url);
+
+    // to the global "Recent Document Menu", see bug 420504
+    KRecentDocument::add(url);
 }

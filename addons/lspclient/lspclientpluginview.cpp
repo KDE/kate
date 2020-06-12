@@ -1943,10 +1943,12 @@ public:
         : QObject(mainWin)
         , m_mainWindow(mainWin)
         , m_serverManager(LSPClientServerManager::new_(plugin, mainWin))
-        , m_actionView(new LSPClientActionView(plugin, mainWin, this, m_serverManager))
     {
         KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
         setXMLFile(QStringLiteral("ui.rc"));
+
+        // we need to do this AFTER the setComponentName above
+        m_actionView.reset(new LSPClientActionView(plugin, mainWin, this, m_serverManager));
 
         m_mainWindow->guiFactory()->addClient(this);
     }

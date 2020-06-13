@@ -1209,15 +1209,6 @@ public:
         }
     }
 
-    template<typename ReplyType> static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
-    {
-        QPointer<const QObject> ctx(context);
-        return [ctx, h, c](const GenericReplyType &m) {
-            if (ctx)
-                h(c(m));
-        };
-    }
-
     GenericReplyHandler prepareResponse(int msgid)
     {
         // allow limited number of outstanding requests

@@ -120,7 +120,7 @@ public:
     const LSPServerCapabilities &capabilities() const;
 
     // language
-    RequestHandle documentSymbols(const QUrl &document, const QObject *context, const DocumentSymbolsReplyHandler &h);
+    RequestHandle documentSymbols(const QUrl &document, const QObject *context, const DocumentSymbolsReplyHandler &h, const ErrorReplyHandler &eh = nullptr);
     RequestHandle documentDefinition(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h);
     RequestHandle documentDeclaration(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h);
     RequestHandle documentHighlight(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentHighlightReplyHandler &h);

@@ -1097,10 +1097,10 @@ public:
         }
     }
 
-    RequestHandle documentSymbols(const QUrl &document, const GenericReplyHandler &h)
+    RequestHandle documentSymbols(const QUrl &document, const GenericReplyHandler &h, const GenericReplyHandler &eh)
     {
         auto params = textDocumentParams(document);
-        return send(init_request(QStringLiteral("textDocument/documentSymbol"), params), h);
+        return send(init_request(QStringLiteral("textDocument/documentSymbol"), params), h, eh);
     }
 
     RequestHandle documentDefinition(const QUrl &document, const LSPPosition &pos, const GenericReplyHandler &h)
@@ -1342,9 +1342,9 @@ int LSPClientServer::cancel(int reqid)
     return d->cancel(reqid);
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentSymbols(const QUrl &document, const QObject *context, const DocumentSymbolsReplyHandler &h)
+LSPClientServer::RequestHandle LSPClientServer::documentSymbols(const QUrl &document, const QObject *context, const DocumentSymbolsReplyHandler &h, const ErrorReplyHandler &eh)
 {
-    return d->documentSymbols(document, make_handler(h, context, parseDocumentSymbols));
+    return d->documentSymbols(document, make_handler(h, context, parseDocumentSymbols), make_handler(eh, context, parseResponseError));
 }
 
 LSPClientServer::RequestHandle LSPClientServer::documentDefinition(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)

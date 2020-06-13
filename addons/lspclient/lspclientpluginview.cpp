@@ -615,10 +615,14 @@ public:
         KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(activeView);
 
         auto url = item->data(RangeData::FileUrlRole).toUrl();
-        if (url != doc->url())
+        // document url could end up empty while in intermediate reload state
+        // (and then it might match a parent item with no RangeData at all)
+        if (url != doc->url() || url.isEmpty())
             return;
 
         KTextEditor::Range range = item->data(RangeData::RangeRole).value<LSPRange>();
+        if (!range.isValid() || range.isEmpty())
+            return;
         auto line = range.start().line();
         RangeData::KindEnum kind = RangeData::KindEnum(item->data(RangeData::KindRole).toInt());
 

@@ -453,7 +453,22 @@ public:
                 }
             }
 
-            m_handle = server->documentSymbols(view->document()->url(), this, utils::mem_fun(&self_type::onDocumentSymbols, this));
+            // a cancelled request or modified content might result in error response,
+            // so arrange to process it as an error rather than an empty result,
+            // since the latter would (temporarily) clear the symbol outline
+            // and lead to flicker until the next/final request has a proper result again
+            auto eh = [this](const LSPResponseError &err) {
+                switch (err.code) {
+                case LSPErrorCode::ContentModified:
+                case LSPErrorCode::RequestCancelled:
+                    break;
+                default:
+                    onDocumentSymbols({});
+                    break;
+                }
+            };
+
+            m_handle = server->documentSymbols(doc->url(), this, utils::mem_fun(&self_type::onDocumentSymbols, this), eh);
 
             return;
         }

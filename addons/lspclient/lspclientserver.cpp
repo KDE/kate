@@ -332,6 +332,18 @@ static QUrl normalizeUrl(const QUrl &url)
     return url.adjusted(QUrl::NormalizePathSegments);
 }
 
+static LSPResponseError parseResponseError(const QJsonValue &v)
+{
+    LSPResponseError ret;
+    if (v.isObject()) {
+        const auto &vm = v.toObject();
+        ret.code = LSPErrorCode(vm.value(MEMBER_CODE).toInt());
+        ret.message = vm.value(MEMBER_MESSAGE).toString();
+        ret.data = vm.value(QStringLiteral("data"));
+    }
+    return ret;
+}
+
 static LSPMarkupContent parseMarkupContent(const QJsonValue &v)
 {
     LSPMarkupContent ret;
@@ -756,7 +768,8 @@ class LSPClientServer::LSPClientServerPrivate
     // receive buffer
     QByteArray m_receive;
     // registered reply handlers
-    QHash<int, GenericReplyHandler> m_handlers;
+    // (result handler, error result handler)
+    QHash<int, std::pair<GenericReplyHandler, GenericReplyHandler>> m_handlers;
     // pending request responses
     static constexpr int MAX_REQUESTS = 5;
     QVector<int> m_requests {MAX_REQUESTS + 1};
@@ -822,7 +835,7 @@ private:
         }
     }
 
-    RequestHandle write(const QJsonObject &msg, const GenericReplyHandler &h = nullptr, const int *id = nullptr)
+    RequestHandle write(const QJsonObject &msg, const GenericReplyHandler &h = nullptr, const GenericReplyHandler &eh = nullptr, const int *id = nullptr)
     {
         RequestHandle ret;
         ret.m_server = q;
@@ -836,7 +849,7 @@ private:
         if (h) {
             ob.insert(MEMBER_ID, ++m_id);
             ret.m_id = m_id;
-            m_handlers[m_id] = h;
+            m_handlers[m_id] = {h, eh};
         } else if (id) {
             ob.insert(MEMBER_ID, *id);
         }
@@ -856,10 +869,10 @@ private:
         return ret;
     }
 
-    RequestHandle send(const QJsonObject &msg, const GenericReplyHandler &h = nullptr)
+    RequestHandle send(const QJsonObject &msg, const GenericReplyHandler &h = nullptr, const GenericReplyHandler &eh = nullptr)
     {
         if (m_state == State::Running)
-            return write(msg, h);
+            return write(msg, h, eh);
         else
             qCWarning(LSPCLIENT) << "send for non-running server";
         return RequestHandle();
@@ -949,7 +962,15 @@ private:
                 m_handlers.erase(it);
 
                 // run handler, might e.g. trigger some new LSP actions for this server
-                handler(result.value(MEMBER_RESULT));
+                // process and provide error if caller interested,
+                // otherwise reply will resolve to 'empty' response
+                auto &h = handler.first;
+                auto &eh = handler.second;
+                if (result.contains(MEMBER_ERROR) && eh) {
+                    eh(result.value(MEMBER_ERROR));
+                } else {
+                    h(result.value(MEMBER_RESULT));
+                }
             } else {
                 // could have been canceled
                 qCDebug(LSPCLIENT) << "unexpected reply id" << msgid;
@@ -1224,7 +1245,7 @@ public:
             auto index = m_requests.indexOf(msgid);
             if (index >= 0) {
                 m_requests.remove(index);
-                write(init_response(response), nullptr, &msgid);
+                write(init_response(response), nullptr, nullptr, &msgid);
             } else {
                 qCWarning(LSPCLIENT) << "discarding response" << msgid;
             }
@@ -1248,7 +1269,7 @@ public:
             auto h = responseHandler<LSPApplyWorkspaceEditResponse>(prepareResponse(msgid), applyWorkspaceEditResponse);
             emit q->applyEdit(parseApplyWorkspaceEditParams(params.toObject()), h, handled);
         } else {
-            write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, &msgid);
+            write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, nullptr, &msgid);
             qCWarning(LSPCLIENT) << "discarding request" << method;
         }
     }
@@ -1260,6 +1281,10 @@ public:
 // but in case the latter would be changed in surprising ways ...
 template<typename ReplyType> static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
 {
+    // empty provided handler leads to empty handler
+    if (!h || !c)
+        return nullptr;
+
     QPointer<const QObject> ctx(context);
     return [ctx, h, c](const GenericReplyType &m) {
         if (ctx)

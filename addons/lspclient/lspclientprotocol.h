@@ -58,6 +58,12 @@ enum class LSPErrorCode {
     ContentModified = -32801
 };
 
+struct LSPResponseError {
+    LSPErrorCode code {};
+    QString message;
+    QJsonValue data;
+};
+
 enum class LSPDocumentSyncKind { None = 0, Full = 1, Incremental = 2 };
 
 struct LSPCompletionOptions {

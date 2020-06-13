@@ -62,6 +62,7 @@ static const int TIMEOUT_SHUTDOWN = 200;
 
 template<typename T> using ReplyHandler = std::function<void(const T &)>;
 
+using ErrorReplyHandler = ReplyHandler<LSPResponseError>;
 using DocumentSymbolsReplyHandler = ReplyHandler<QList<LSPSymbolInformation>>;
 using DocumentDefinitionReplyHandler = ReplyHandler<QList<LSPLocation>>;
 using DocumentHighlightReplyHandler = ReplyHandler<QList<LSPDocumentHighlight>>;

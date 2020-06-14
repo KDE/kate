@@ -150,7 +150,7 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     LSPClientServer::RequestHandle m_handle;
     // cached outline models
     struct ModelData {
-        KTextEditor::Document *document;
+        QPointer<KTextEditor::Document> document;
         qint64 revision;
         std::shared_ptr<QStandardItemModel> model;
     };
@@ -429,10 +429,15 @@ public:
             auto doc = view->document();
             auto revision = m_serverManager->revision(doc);
             auto it = m_models.begin();
-            for (; it != m_models.end(); ++it) {
+            for (; it != m_models.end();) {
                 if (it->document == doc) {
                     break;
                 }
+                if (!it->document) {
+                    it = m_models.erase(it);
+                    continue;
+                }
+                ++it;
             }
             if (it != m_models.end()) {
                 // move to most recently used head

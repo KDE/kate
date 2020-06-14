@@ -733,6 +733,8 @@ public:
         // ensure runtime match
         connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearAllMarks(KTextEditor::Document *)), Qt::UniqueConnection);
         connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearAllMarks(KTextEditor::Document *)), Qt::UniqueConnection);
+        // reload might save/restore marks before/after above signals, so let's clear before that
+        connect(doc, &KTextEditor::Document::aboutToReload, this, &self_type::clearAllMarks, Qt::UniqueConnection);
 
         if (handleClick) {
             connect(doc, SIGNAL(markClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)), this, SLOT(onMarkClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)), Qt::UniqueConnection);

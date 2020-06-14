@@ -125,7 +125,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     // e.g. from gcc: "main.cpp:14:8: error: cannot convert ‘std::string’ to ‘int’ in return"
     // e.g. from icpc: "main.cpp(14): error: no suitable conversion function from "std::string" to "int" exists"
     // e.g. from clang: ""main.cpp(14,8): fatal error: 'boost/scoped_array.hpp' file not found"
-    , m_filenameDetector(QStringLiteral("((?:[a-np-zA-Z]:[\\\\/])?[\\.a-zA-Z0-9\\\\/\\-_]+\\.[a-zA-Z0-9]+)[:\\(](\\d+)[,:]?(\\d+)?[\\):]* (.*)"))
+    , m_filenameDetector(QStringLiteral("((?:[a-np-zA-Z]:[\\\\/])?[^\\s:(]+)[:\\(](\\d+)[,:]?(\\d+)?[\\):]* (.*)"))
     , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ '(.*)'"))
 {
     KXMLGUIClient::setComponentName(QStringLiteral("katebuild"), i18n("Kate Build Plugin"));

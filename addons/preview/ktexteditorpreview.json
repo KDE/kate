@@ -36,7 +36,6 @@
                 "Name[sr]": "Фридрих В.Х. Косебау",
                 "Name[sv]": "Friedrich W. H. Kossebau",
                 "Name[uk]": "Friedrich W. H. Kossebau",
-                "Name[x-test]": "xxFriedrich W. H. Kossebauxx",
                 "Name[zh_CN]": "Friedrich W. H. Kossebau",
                 "Name[zh_TW]": "Friedrich W. H. Kossebau"
             }
@@ -74,7 +73,6 @@
         "Description[sr]": "Прегледајте документ у циљном формату",
         "Description[sv]": "Förhandsgranska dokumentet i målformatet",
         "Description[uk]": "Попередній перегляд документа у форматі призначення",
-        "Description[x-test]": "xxPreview the document in the target formatxx",
         "Description[zh_CN]": "以目标格式预览文档",
         "Description[zh_TW]": "以目標格式顯示文件預覽",
         "Icon": "document-preview",
@@ -113,7 +111,6 @@
         "Name[sr]": "Преглед документа",
         "Name[sv]": "Dokumentförhandsgranskning",
         "Name[uk]": "Перегляд документа",
-        "Name[x-test]": "xxDocument Previewxx",
         "Name[zh_CN]": "文档预览",
         "Name[zh_TW]": "文件預覽",
         "ServiceTypes": [

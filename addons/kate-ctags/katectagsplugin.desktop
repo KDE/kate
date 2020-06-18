@@ -58,6 +58,7 @@ Name[tr]=CTags
 Name[ug]=CTags
 Name[uk]=CTags
 Name[wa]=CTags
+Name[x-test]=xxCTagsxx
 Name[zh_CN]=CTags
 Name[zh_TW]=CTags
 Comment=Look up definitions/declarations with CTags
@@ -112,6 +113,7 @@ Comment[tg]=Намоиши маъно/эъломияҳо тавассути CTag
 Comment[tr]=CTags ile bildirimlerde ve tanımlamalarda ara
 Comment[ug]=CTags ئىشلىتىپ كودتىكى ئېنىقلىما/بايانات ئىزدەيدۇ
 Comment[uk]=Пошук визначень і оголошень за допомогою CTags
+Comment[x-test]=xxLook up definitions/declarations with CTagsxx
 Comment[zh_CN]=使用 CTags 查阅代码中的定义/声明
 Comment[zh_TW]=使用 CTags 尋找定義與宣告
 

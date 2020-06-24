@@ -88,13 +88,13 @@ bool KateTabBar::isActive() const
 
 int KateTabBar::prevTab() const
 {
-    return currentIndex() == 0 ? count() - 1 // first index, wrap to last
+    return currentIndex() == 0 ? 0 // first index, keep it here.
          : currentIndex() - 1;
 }
 
 int KateTabBar::nextTab() const
 {
-    return currentIndex() == count() - 1 ? 0 // last index, wrap to first
+    return currentIndex() == count() - 1 ? count() - 1 // last index, keep it here.
          : currentIndex() + 1;
 }
 

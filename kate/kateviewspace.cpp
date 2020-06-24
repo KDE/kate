@@ -232,7 +232,6 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     // insert View into stack
     stack->addWidget(v);
     m_docToView[doc] = v;
-    showView(v);
 
     return v;
 }
@@ -297,10 +296,9 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     return true;
 }
 
-void KateViewSpace::changeView(int id)
+void KateViewSpace::changeView(int idx)
 {
-#if 0
-    KTextEditor::Document *doc = m_docToTabId.key(id);
+    KTextEditor::Document *doc = m_tabBar->tabDocument(idx);
     Q_ASSERT(doc);
 
     // make sure we open the view in this view space
@@ -310,7 +308,6 @@ void KateViewSpace::changeView(int id)
 
     // tell the view manager to show the view
     m_viewManager->activateView(doc);
-#endif
 }
 
 KTextEditor::View *KateViewSpace::currentView()
@@ -343,7 +340,6 @@ void KateViewSpace::makeActive(bool focusCurrentView)
 
 void KateViewSpace::insertTab(int index, KTextEditor::Document *doc)
 {
-    qDebug() << "Adding tab " << index << "with doc" << doc;
     if (m_tabBar->documentIdx(doc) != -1) {
         return;
     }
@@ -351,9 +347,7 @@ void KateViewSpace::insertTab(int index, KTextEditor::Document *doc)
     // doc should be in the lru list
     Q_ASSERT(m_lruDocList.contains(doc));
 
-    const int idx = m_tabBar->insertTab(index, doc->documentName());
-    m_tabBar->setTabDocument(idx, doc);
-    m_tabBar->setTabToolTip(idx, doc->url().toDisplayString());
+    m_tabBar->insertTab(index, doc);
 
     updateDocumentState(doc);
 
@@ -403,7 +397,6 @@ void KateViewSpace::removeTabs(int count)
 
 void KateViewSpace::addTabs(int count)
 {
-    qDebug() << "Starting with " << count << "new tabs";
     const int start = count;
 
     /// @p count tabs still fit into the tab bar: add as man as possible

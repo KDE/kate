@@ -44,6 +44,7 @@ public:
     // pointer to tabbar
     KateTabBar *q = nullptr;
     bool isActive = false;
+    KTextEditor::Document *beingAdded;
 };
 
 /**
@@ -58,6 +59,7 @@ KateTabBar::KateTabBar(QWidget *parent)
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     setAcceptDrops(true);
+    setExpanding(false);
 }
 
 /**
@@ -132,7 +134,7 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
     if (!isActive()) {
         emit activateViewSpaceRequested();
     }
-    QWidget::mousePressEvent(event);
+    QTabBar::mousePressEvent(event);
 }
 
 
@@ -192,5 +194,32 @@ KTextEditor::Document *KateTabBar::tabDocument(int idx)
 {
     QVariant data = ensureValidTabData(idx);
     KateTabButtonData buttonData = data.value<KateTabButtonData>();
-    return buttonData.doc;
+
+    KTextEditor::Document *doc = nullptr;
+    // The tab got activated before the correct finalixation,
+    // we need to plug the document before returning.
+    if (buttonData.doc == nullptr && d->beingAdded) {
+        setTabDocument(idx, d->beingAdded);
+        doc = d->beingAdded;
+        d->beingAdded = nullptr;
+    } else {
+        doc = buttonData.doc;
+    }
+
+    return doc;
+}
+
+int KateTabBar::insertTab(int idx, KTextEditor::Document* doc)
+{
+    d->beingAdded = doc;
+    return insertTab(idx, doc->documentName());
+}
+
+void KateTabBar::tabInserted(int idx)
+{
+    if (d->beingAdded) {
+        setTabDocument(idx, d->beingAdded);
+    }
+    setTabToolTip(idx, tabDocument(idx)->url().toDisplayString());
+    d->beingAdded = nullptr;
 }

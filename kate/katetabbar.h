@@ -43,6 +43,8 @@ class KateTabBar : public QTabBar
 public:
     explicit KateTabBar(QWidget *parent = nullptr);
     ~KateTabBar() override;
+    int insertTab(int idx, KTextEditor::Document *doc);
+    void tabInserted(int idx) override;
 
     /**
      * Get the ID of the tab that is located left of the current tab.
@@ -156,6 +158,9 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
 
 private:
+    using QTabBar::insertTab;
+    using QTabBar::addTab;
+
     class KateTabBarPrivate;
     // pimpl data holder
     KateTabBarPrivate *const d;

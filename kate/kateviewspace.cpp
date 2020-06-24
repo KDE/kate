@@ -298,6 +298,10 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
 
 void KateViewSpace::changeView(int idx)
 {
+    if (idx == -1) {
+        return;
+    }
+
     KTextEditor::Document *doc = m_tabBar->tabDocument(idx);
     Q_ASSERT(doc);
 

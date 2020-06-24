@@ -60,6 +60,8 @@ KateTabBar::KateTabBar(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     setAcceptDrops(true);
     setExpanding(false);
+    setTabsClosable(true);
+    setMovable(true);
 }
 
 /**

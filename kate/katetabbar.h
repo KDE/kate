@@ -21,14 +21,12 @@
 #ifndef KATE_TAB_BAR_H
 #define KATE_TAB_BAR_H
 
-#include <QWidget>
+#include <QTabBar>
+#include <QUrl>
 
-#include <QHash>
-#include <QIcon>
-#include <QVector>
-
-class KateTabButton;
-class KateTabBarPrivate;
+namespace KTextEditor {
+    class Document;
+}
 
 /**
  * The \p KateTabBar class provides a tab bar, e.g. for tabbed documents.
@@ -37,7 +35,7 @@ class KateTabBarPrivate;
  *
  * @author Dominik Haumann
  */
-class KateTabBar : public QWidget
+class KateTabBar : public QTabBar
 {
     Q_OBJECT
     Q_PROPERTY(bool isActive READ isActive WRITE setActive)
@@ -45,29 +43,6 @@ class KateTabBar : public QWidget
 public:
     explicit KateTabBar(QWidget *parent = nullptr);
     ~KateTabBar() override;
-
-    /**
-     * Adds a new tab with \a text. Returns the new tab's id.
-     */
-    int addTab(const QString &text);
-
-    /**
-     * Insert a tab at \p position with \a text. Returns the new tab's id.
-     * @param position index of the tab, i.e. 0, ..., count()
-     * @param text the text snippet
-     */
-    int insertTab(int position, const QString &text);
-
-    /**
-     * Removes the tab with ID \a id.
-     * @return the position where the tab was
-     */
-    int removeTab(int index);
-
-    /**
-     * Get the ID of the tab bar's activated tab. Returns -1 if no tab is activated.
-     */
-    int currentTab() const;
 
     /**
      * Get the ID of the tab that is located left of the current tab.
@@ -81,40 +56,11 @@ public:
      */
     int nextTab() const;
 
-public Q_SLOTS:
-    /**
-     * Activate the tab with \p id. No signal is emitted.
-     */
-    void setCurrentTab(int index); // does not emit signal
-
-public:
     /**
      * Returns whether a tab with ID \a id exists.
      */
     bool containsTab(int index) const;
 
-    /**
-     * Set the button @p id's tool tip to @p tip.
-     */
-    void setTabToolTip(int index, const QString &tip);
-
-    /**
-     * Get the button @p id's url. Result is QStrint() if not available.
-     */
-    QString tabToolTip(int index) const;
-
-    /**
-     * Sets the text of the tab with ID \a id to \a text.
-     * \see tabText()
-     */
-    void setTabText(int index, const QString &text);
-
-    /**
-     * Returns the text of the tab with ID \a id. If the button id does not
-     * exist \a QString() is returned.
-     * \see setTabText()
-     */
-    QString tabText(int index) const;
 
     /**
      * Sets the URL of the tab with ID \a id to \a url.
@@ -129,24 +75,14 @@ public:
      * \see setTabUrl()
      * \since 17.08
      */
-    QUrl tabUrl(int index) const;
+    QUrl tabUrl(int index);
 
-    /**
-     * Sets the icon of the tab with ID \a id to \a icon.
-     * \see tabIcon()
-     */
-    void setTabIcon(int index, const QIcon &pixmap);
-    /**
-     * Returns the icon of the tab with ID \a id. If the button id does not
-     * exist \a QIcon() is returned.
-     * \see setTabIcon()
-     */
-    QIcon tabIcon(int index) const;
+    QVariant ensureValidTabData(int idx);
 
-    /**
-     * Returns the number of tabs in the tab bar.
-     */
-    int count() const;
+    void setCurrentDocument(KTextEditor::Document *doc);
+    int documentIdx(KTextEditor::Document *doc);
+    void setTabDocument(int idx, KTextEditor::Document *doc);
+    KTextEditor::Document *tabDocument(int idx);
 
     /**
      * Return the maximum amount of tabs that fit into the tab bar given
@@ -170,16 +106,6 @@ public:
     bool isActive() const;
 
 Q_SIGNALS:
-    /**
-     * This signal is emitted whenever the current activated tab changes.
-     */
-    void currentChanged(int id);
-
-    /**
-     * This signal is emitted whenever tab @p id should be closed.
-     */
-    void closeTabRequested(int id);
-
     /**
      * This signal is emitted whenever the context menu is requested for
      * button @p id at position @p globalPos.
@@ -216,33 +142,12 @@ Q_SIGNALS:
      */
     void activateViewSpaceRequested();
 
-protected Q_SLOTS:
-    /**
-     * Active button changed. Emit signal \p currentChanged() with the button's ID.
-     */
-    void tabButtonActivated(KateTabButton *tabButton);
-
-    /**
-     * If the user wants to close a tab with the context menu, it sends a close
-     * request.
-     */
-    void tabButtonCloseRequest(KateTabButton *tabButton);
-
 protected:
-    //! Recalculate geometry for all tabs.
-    void resizeEvent(QResizeEvent *event) override;
-
     //! Override to avoid requesting a new tab.
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 
     //! Override to request making the tab bar active.
     void mousePressEvent(QMouseEvent *event) override;
-
-    //! trigger repaint on hover leave event
-    void leaveEvent(QEvent *event) override;
-
-    //! Paint tab separators
-    void paintEvent(QPaintEvent *event) override;
 
     //! Request context menu
     void contextMenuEvent(QContextMenuEvent *ev) override;
@@ -250,12 +155,8 @@ protected:
     //! Cycle through tabs
     void wheelEvent(QWheelEvent *event) override;
 
-    //! Support for drag & drop of tabs
-    void dragEnterEvent(QDragEnterEvent *event) override;
-    void dragMoveEvent(QDragMoveEvent *event) override;
-    void dropEvent(QDropEvent *event) override;
-
 private:
+    class KateTabBarPrivate;
     // pimpl data holder
     KateTabBarPrivate *const d;
 };

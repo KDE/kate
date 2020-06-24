@@ -207,9 +207,6 @@ private:
 
     // quick open action
     QToolButton *m_quickOpen;
-
-    // map from Document to button id
-    QHash<KTextEditor::Document *, int> m_docToTabId;
 };
 
 #endif

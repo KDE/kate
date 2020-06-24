@@ -45,7 +45,7 @@ public:
     ~KateTabBar() override;
     int insertTab(int idx, KTextEditor::Document *doc);
     void tabInserted(int idx) override;
-
+    void tabRemoved(int idx) override;
     /**
      * Get the ID of the tab that is located left of the current tab.
      * The return value is -1, if there is no previous tab.
@@ -87,12 +87,6 @@ public:
     KTextEditor::Document *tabDocument(int idx);
 
     /**
-     * Return the maximum amount of tabs that fit into the tab bar given
-     * the minimumTabWidth().
-     */
-    int maxTabCount() const;
-
-    /**
      * Marks this tabbar as active. That is, current-tab indicators are
      * properly highlighted, indicating that child widgets of this tabbar
      * will get input.
@@ -107,6 +101,7 @@ public:
      */
     bool isActive() const;
 
+    void calculateHiddenTabs();
 Q_SIGNALS:
     /**
      * This signal is emitted whenever the context menu is requested for
@@ -116,20 +111,6 @@ Q_SIGNALS:
      * @param globalPos the position of the context menu in global coordinates
      */
     void contextMenuRequest(int id, const QPoint &globalPos);
-
-    /**
-     * This signal is emitted whenever the tab bar's width allows to
-     * show more tabs than currently available. In other words,
-     * you can safely add @p count tabs which are guaranteed to be visible.
-     */
-    void moreTabsRequested(int count);
-
-    /**
-     * This signal is emitted whenever the tab bar's width is too small,
-     * such that not all tabs can be shown.
-     * Therefore, @p count tabs should be removed.
-     */
-    void lessTabsRequested(int count);
 
     /**
      * This signal is emitted whenever the users double clicks on the free
@@ -144,6 +125,8 @@ Q_SIGNALS:
      */
     void activateViewSpaceRequested();
 
+    void hiddenTabsChanged(int nr);
+
 protected:
     //! Override to avoid requesting a new tab.
     void mouseDoubleClickEvent(QMouseEvent *event) override;
@@ -156,6 +139,9 @@ protected:
 
     //! Cycle through tabs
     void wheelEvent(QWheelEvent *event) override;
+
+    //! Update the number of visible tabs.
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     using QTabBar::insertTab;

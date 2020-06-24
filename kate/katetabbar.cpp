@@ -158,11 +158,6 @@ void KateTabBar::wheelEvent(QWheelEvent *event)
     setCurrentIndex(idx);
 }
 
-int KateTabBar::maxTabCount() const
-{
-    return 10; // TODO: Fix this.
-}
-
 void KateTabBar::setTabDocument(int idx, KTextEditor::Document* doc)
 {
 
@@ -224,4 +219,34 @@ void KateTabBar::tabInserted(int idx)
     }
     setTabToolTip(idx, tabDocument(idx)->url().toDisplayString());
     d->beingAdded = nullptr;
+    calculateHiddenTabs();
+}
+
+void KateTabBar::tabRemoved(int idx)
+{
+    calculateHiddenTabs();
+}
+
+void KateTabBar::calculateHiddenTabs()
+{
+    QRect r = rect();
+    int numTabs = count();
+    int firstVisible = 0;
+    int lastVisible = numTabs - 1;
+
+    while(firstVisible < numTabs && !r.intersects(tabRect(firstVisible))) {
+        firstVisible += 1;
+    }
+
+    while(lastVisible > 0 && !r.intersects(tabRect(lastVisible))) {
+        lastVisible -= 1;
+    }
+
+    emit hiddenTabsChanged(count() - (lastVisible - (firstVisible-1)));
+}
+
+void KateTabBar::resizeEvent(QResizeEvent *ev)
+{
+    QTabBar::resizeEvent(ev);
+    calculateHiddenTabs();
 }

@@ -135,16 +135,6 @@ private Q_SLOTS:
     int removeTab(KTextEditor::Document *doc, bool documentDestroyed);
 
     /**
-     * Remove @p count tabs, since the tab bar shrunk.
-     */
-    void removeTabs(int count);
-
-    /**
-     * Add @p count tabs, since the tab bar grew.
-     */
-    void addTabs(int count);
-
-    /**
      * This slot is called by the tabbar, if tab @p id was closed through the
      * context menu.
      */
@@ -167,7 +157,7 @@ private Q_SLOTS:
     /**
      * Update the quick open button to reflect the currently hidden tabs.
      */
-    void updateQuickOpen();
+    void updateQuickOpen(int hiddenTabs);
 
 private:
     /**

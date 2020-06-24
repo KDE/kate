@@ -63,11 +63,10 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     // add tab bar
     m_tabBar = new KateTabBar(this);
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
-    connect(m_tabBar, &KateTabBar::moreTabsRequested, this, &KateViewSpace::addTabs);
-    connect(m_tabBar, &KateTabBar::lessTabsRequested, this, &KateViewSpace::removeTabs);
     connect(m_tabBar, &KateTabBar::tabCloseRequested, this, &KateViewSpace::closeTabRequest, Qt::QueuedConnection);
     connect(m_tabBar, &KateTabBar::contextMenuRequest, this, &KateViewSpace::showContextMenu, Qt::QueuedConnection);
     connect(m_tabBar, &KateTabBar::newTabRequested, this, &KateViewSpace::createNewDocument);
+    connect(m_tabBar, &KateTabBar::hiddenTabsChanged, this, &KateViewSpace::updateQuickOpen);
     connect(m_tabBar, SIGNAL(activateViewSpaceRequested()), this, SLOT(makeActive()));
     hLayout->addWidget(m_tabBar);
 
@@ -118,11 +117,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     // init the bars...
     statusBarToggled();
     tabBarToggled();
-
-    // make sure we show correct number of hidden documents
-    updateQuickOpen();
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentCreated, this, &KateViewSpace::updateQuickOpen);
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewSpace::updateQuickOpen);
 }
 
 bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
@@ -277,16 +271,6 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
 
     // in case a tab does not exist, add one
     if (!m_tabBar->documentIdx(document)) {
-        // if space is available, add button
-        if (m_tabBar->count() >= m_tabBar->maxTabCount()) {
-            // remove "oldest" button and replace with new one
-            Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
-
-            // we need to subtract by 1 more, as we just added ourself to the end of the lru list!
-            KTextEditor::Document *docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
-            removeTab(docToHide, false);
-        }
-        // add new one always at the beginning
         insertTab(0, document);
     }
 
@@ -381,44 +365,6 @@ int KateViewSpace::removeTab(KTextEditor::Document *doc, bool documentDestroyed)
     return idx;
 }
 
-void KateViewSpace::removeTabs(int count)
-{
-    const int start = count;
-
-    /// remove @p count tabs from the tab bar, as they do not all fit
-    while (count > 0) {
-        const int tabCount = m_tabBar->count();
-        KTextEditor::Document *removeDoc = m_lruDocList[m_lruDocList.size() - tabCount];
-        removeTab(removeDoc, false);
-        --count;
-    }
-
-    // make sure quick open shows the correct number of hidden documents
-    if (start != count) {
-        updateQuickOpen();
-    }
-}
-
-void KateViewSpace::addTabs(int count)
-{
-    const int start = count;
-
-    /// @p count tabs still fit into the tab bar: add as man as possible
-    while (count > 0) {
-        const int tabCount = m_tabBar->count();
-        if (m_lruDocList.size() <= tabCount) {
-            break;
-        }
-        insertTab(tabCount, m_lruDocList[m_lruDocList.size() - tabCount - 1]);
-        --count;
-    }
-
-    // make sure quick open shows the correct number of hidden documents
-    if (start != count) {
-        updateQuickOpen();
-    }
-}
-
 void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
 {
     // at this point, the doc should be completely unknown
@@ -434,19 +380,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
     connect(doc, &QObject::destroyed, this, &KateViewSpace::documentDestroyed);
 
     // if space is available, add button
-    if (m_tabBar->count() < m_tabBar->maxTabCount()) {
-        insertTab(0, doc);
-        updateQuickOpen();
-    } else if (append) {
-        // remove "oldest" button and replace with new one
-        Q_ASSERT(m_lruDocList.size() > m_tabBar->count());
-
-        KTextEditor::Document *docToHide = m_lruDocList[m_lruDocList.size() - m_tabBar->maxTabCount() - 1];
-        removeTab(docToHide, false);
-
-        // add new one at removed position
-        insertTab(0, doc);
-    }
+    insertTab(0, doc);
 }
 
 void KateViewSpace::documentDestroyed(QObject *doc)
@@ -463,13 +397,6 @@ void KateViewSpace::documentDestroyed(QObject *doc)
     // case: there was no view created yet, but still a button was added
     if (m_tabBar->documentIdx(invalidDoc) != -1) {
         removeTab(invalidDoc, true);
-        // maybe show another tab button in its stead
-        if (m_lruDocList.size() >= m_tabBar->maxTabCount() && m_tabBar->count() < m_tabBar->maxTabCount()) {
-            KTextEditor::Document *docToShow = m_lruDocList[m_lruDocList.size() - m_tabBar->count() - 1];
-
-            // add tab that now fits into the bar
-            insertTab(m_tabBar->count(), docToShow);
-        }
     }
 
     // at this point, the doc should be completely unknown
@@ -524,16 +451,14 @@ void KateViewSpace::createNewDocument()
     m_viewManager->activateView(doc);
 }
 
-void KateViewSpace::updateQuickOpen()
+void KateViewSpace::updateQuickOpen(int hiddenTabs)
 {
-    const int hiddenDocs = hiddenDocuments();
-
-    if (hiddenDocs == 0) {
+    if (hiddenTabs == 0) {
         m_quickOpen->setToolButtonStyle(Qt::ToolButtonIconOnly);
         m_quickOpen->defaultAction()->setText(QString());
     } else {
         m_quickOpen->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        m_quickOpen->defaultAction()->setText(i18nc("indicator for more documents", "+%1", hiddenDocs));
+        m_quickOpen->defaultAction()->setText(i18nc("indicator for more documents", "+%1", hiddenTabs));
     }
 }
 

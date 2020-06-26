@@ -36,54 +36,32 @@ struct KateTabButtonData {
     KTextEditor::Document *doc = nullptr;
 };
 
-Q_DECLARE_METATYPE(KateTabButtonData);
-
-class KateTabBar::KateTabBarPrivate
-{
-public:
-    // pointer to tabbar
-    KateTabBar *q = nullptr;
-    bool isActive = false;
-    KTextEditor::Document *beingAdded;
-};
+Q_DECLARE_METATYPE(KateTabButtonData)
 
 /**
  * Creates a new tab bar with the given \a parent.
  */
 KateTabBar::KateTabBar(QWidget *parent)
     : QTabBar(parent)
-    , d(new KateTabBarPrivate())
 {
-    d->q = this;
-    d->isActive = false;
-
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     setAcceptDrops(true);
-    setExpanding(false);
+    setExpanding(true);
     setTabsClosable(true);
     setMovable(true);
 }
 
-/**
- * Destroys the tab bar.
- */
-KateTabBar::~KateTabBar()
-{
-    delete d;
-}
-
 void KateTabBar::setActive(bool active)
 {
-    if (active == d->isActive) {
+    if (active == m_isActive) {
         return;
     }
-    d->isActive = active;
+    m_isActive = active;
     update();
 }
 
 bool KateTabBar::isActive() const
 {
-    return d->isActive;
+    return m_isActive;
 }
 
 int KateTabBar::prevTab() const
@@ -195,10 +173,10 @@ KTextEditor::Document *KateTabBar::tabDocument(int idx)
     KTextEditor::Document *doc = nullptr;
     // The tab got activated before the correct finalixation,
     // we need to plug the document before returning.
-    if (buttonData.doc == nullptr && d->beingAdded) {
-        setTabDocument(idx, d->beingAdded);
-        doc = d->beingAdded;
-        d->beingAdded = nullptr;
+    if (buttonData.doc == nullptr && m_beingAdded) {
+        setTabDocument(idx, m_beingAdded);
+        doc = m_beingAdded;
+        m_beingAdded = nullptr;
     } else {
         doc = buttonData.doc;
     }
@@ -208,45 +186,15 @@ KTextEditor::Document *KateTabBar::tabDocument(int idx)
 
 int KateTabBar::insertTab(int idx, KTextEditor::Document* doc)
 {
-    d->beingAdded = doc;
+    m_beingAdded = doc;
     return insertTab(idx, doc->documentName());
 }
 
 void KateTabBar::tabInserted(int idx)
 {
-    if (d->beingAdded) {
-        setTabDocument(idx, d->beingAdded);
+    if (m_beingAdded) {
+        setTabDocument(idx, m_beingAdded);
     }
     setTabToolTip(idx, tabDocument(idx)->url().toDisplayString());
-    d->beingAdded = nullptr;
-    calculateHiddenTabs();
-}
-
-void KateTabBar::tabRemoved(int idx)
-{
-    calculateHiddenTabs();
-}
-
-void KateTabBar::calculateHiddenTabs()
-{
-    QRect r = rect();
-    int numTabs = count();
-    int firstVisible = 0;
-    int lastVisible = numTabs - 1;
-
-    while(firstVisible < numTabs && !r.intersects(tabRect(firstVisible))) {
-        firstVisible += 1;
-    }
-
-    while(lastVisible > 0 && !r.intersects(tabRect(lastVisible))) {
-        lastVisible -= 1;
-    }
-
-    emit hiddenTabsChanged(count() - (lastVisible - (firstVisible-1)));
-}
-
-void KateTabBar::resizeEvent(QResizeEvent *ev)
-{
-    QTabBar::resizeEvent(ev);
-    calculateHiddenTabs();
+    m_beingAdded = nullptr;
 }

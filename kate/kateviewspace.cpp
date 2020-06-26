@@ -66,7 +66,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     connect(m_tabBar, &KateTabBar::tabCloseRequested, this, &KateViewSpace::closeTabRequest, Qt::QueuedConnection);
     connect(m_tabBar, &KateTabBar::contextMenuRequest, this, &KateViewSpace::showContextMenu, Qt::QueuedConnection);
     connect(m_tabBar, &KateTabBar::newTabRequested, this, &KateViewSpace::createNewDocument);
-    connect(m_tabBar, &KateTabBar::hiddenTabsChanged, this, &KateViewSpace::updateQuickOpen);
     connect(m_tabBar, SIGNAL(activateViewSpaceRequested()), this, SLOT(makeActive()));
     hLayout->addWidget(m_tabBar);
 
@@ -271,7 +270,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
 
     // in case a tab does not exist, add one
     if (!m_tabBar->documentIdx(document)) {
-        insertTab(0, document);
+        insertTab(-1, document);
     }
 
     // follow current view
@@ -380,7 +379,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
     connect(doc, &QObject::destroyed, this, &KateViewSpace::documentDestroyed);
 
     // if space is available, add button
-    insertTab(0, doc);
+    insertTab(-1, doc);
 }
 
 void KateViewSpace::documentDestroyed(QObject *doc)
@@ -449,17 +448,6 @@ void KateViewSpace::createNewDocument()
 
     // tell the view manager to show the document
     m_viewManager->activateView(doc);
-}
-
-void KateViewSpace::updateQuickOpen(int hiddenTabs)
-{
-    if (hiddenTabs == 0) {
-        m_quickOpen->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        m_quickOpen->defaultAction()->setText(QString());
-    } else {
-        m_quickOpen->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        m_quickOpen->defaultAction()->setText(i18nc("indicator for more documents", "+%1", hiddenTabs));
-    }
 }
 
 void KateViewSpace::focusPrevTab()

@@ -42,10 +42,9 @@ class KateTabBar : public QTabBar
 
 public:
     explicit KateTabBar(QWidget *parent = nullptr);
-    ~KateTabBar() override;
     int insertTab(int idx, KTextEditor::Document *doc);
     void tabInserted(int idx) override;
-    void tabRemoved(int idx) override;
+
     /**
      * Get the ID of the tab that is located left of the current tab.
      * The return value is -1, if there is no previous tab.
@@ -101,7 +100,6 @@ public:
      */
     bool isActive() const;
 
-    void calculateHiddenTabs();
 Q_SIGNALS:
     /**
      * This signal is emitted whenever the context menu is requested for
@@ -125,8 +123,6 @@ Q_SIGNALS:
      */
     void activateViewSpaceRequested();
 
-    void hiddenTabsChanged(int nr);
-
 protected:
     //! Override to avoid requesting a new tab.
     void mouseDoubleClickEvent(QMouseEvent *event) override;
@@ -140,16 +136,12 @@ protected:
     //! Cycle through tabs
     void wheelEvent(QWheelEvent *event) override;
 
-    //! Update the number of visible tabs.
-    void resizeEvent(QResizeEvent *event) override;
-
 private:
     using QTabBar::insertTab;
     using QTabBar::addTab;
 
-    class KateTabBarPrivate;
-    // pimpl data holder
-    KateTabBarPrivate *const d;
+    bool m_isActive = false;
+    KTextEditor::Document *m_beingAdded = nullptr;
 };
 
 #endif // KATE_TAB_BAR_H

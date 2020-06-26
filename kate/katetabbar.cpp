@@ -44,9 +44,21 @@ Q_DECLARE_METATYPE(KateTabButtonData)
 KateTabBar::KateTabBar(QWidget *parent)
     : QTabBar(parent)
 {
+    // enable document mode, docs tell this will trigger:
+    // On macOS this will look similar to the tabs in Safari or Sierra's Terminal.app.
+    // this seems reasonable for our document tabs
+    setDocumentMode(true);
+
+    // we want drag and drop
     setAcceptDrops(true);
+
+    // use as much size as possible for each tab
     setExpanding(true);
+
+    // document close function should be there
     setTabsClosable(true);
+
+    // allow users to re-arrange the tabs
     setMovable(true);
 }
 

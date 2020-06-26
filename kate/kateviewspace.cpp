@@ -269,7 +269,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     kv->show();
 
     // in case a tab does not exist, add one
-    if (!m_tabBar->documentIdx(document)) {
+    if (m_tabBar->documentIdx(document) == -1) {
         insertTab(-1, document);
     }
 

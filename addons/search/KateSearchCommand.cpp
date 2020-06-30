@@ -30,7 +30,11 @@ KateSearchCommand::KateSearchCommand(QObject *parent)
 bool KateSearchCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, QString & /*msg*/, const KTextEditor::Range &)
 {
     // create a list of args
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     QStringList args(cmd.split(QLatin1Char(' '), QString::KeepEmptyParts));
+#else
+    QStringList args(cmd.split(QLatin1Char(' '), Qt::KeepEmptyParts));
+#endif
     QString command = args.takeFirst();
     QString searchText = args.join(QLatin1Char(' '));
 

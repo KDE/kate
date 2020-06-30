@@ -313,7 +313,11 @@ void KateBtConfigWidget::apply()
 
         QString filter = edtExtensions->text();
         filter.replace(QLatin1Char(','), QLatin1Char(' ')).replace(QLatin1Char(';'), QLatin1Char(' '));
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         cg.writeEntry("file-extensions", filter.split(QLatin1Char(' '), QString::SkipEmptyParts));
+#else
+        cg.writeEntry("file-extensions", filter.split(QLatin1Char(' '), Qt::SkipEmptyParts));
+#endif
 
         KateBtBrowserPlugin::self().startIndexer();
         m_changed = false;

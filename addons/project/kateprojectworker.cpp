@@ -301,7 +301,11 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursiv
         return files;
     }
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+#else
+    const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
+#endif
 
     for (const QString &relFile : relFiles) {
         if (!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) {
@@ -335,7 +339,11 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursi
     /**
      * get output and split up into lines
      */
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     const QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+#else
+    const QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
+#endif
 
     /**
      * remove start of line that is no filename, sort out unknown and ignore
@@ -415,7 +423,11 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
         if (!darcs.waitForStarted() || !darcs.waitForFinished(-1))
             return files;
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         relFiles = QString::fromLocal8Bit(darcs.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+#else
+        relFiles = QString::fromLocal8Bit(darcs.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
+#endif
     }
 
     for (const QString &relFile : relFiles) {

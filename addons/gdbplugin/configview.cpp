@@ -259,7 +259,11 @@ const GDBTargetConf ConfigView::currentTarget() const
         } else if (cfg.customInit[i].startsWith(QLatin1String("set directories "))) {
             QString paths = cfg.customInit[i];
             paths.remove(QStringLiteral("set directories "));
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
             cfg.srcPaths = paths.split(pathSeparator, QString::SkipEmptyParts);
+#else
+            cfg.srcPaths = paths.split(pathSeparator, Qt::SkipEmptyParts);
+#endif
         }
         i--;
     }

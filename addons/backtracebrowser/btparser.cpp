@@ -154,7 +154,11 @@ static BtInfo parseBtLine(const QString &line)
 
 QList<BtInfo> KateBtParser::parseBacktrace(const QString &bt)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     QStringList l = bt.split(eolDelimiter(bt), QString::SkipEmptyParts);
+#else
+    QStringList l = bt.split(eolDelimiter(bt), Qt::SkipEmptyParts);
+#endif
 
     l = normalizeBt(l);
 

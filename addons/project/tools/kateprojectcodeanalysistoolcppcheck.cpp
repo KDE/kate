@@ -76,7 +76,11 @@ QString KateProjectCodeAnalysisToolCppcheck::notInstalledMessage() const
 
 QStringList KateProjectCodeAnalysisToolCppcheck::parseLine(const QString &line) const
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     return line.split(QRegularExpression(QStringLiteral("////")), QString::SkipEmptyParts);
+#else
+    return line.split(QRegularExpression(QStringLiteral("////")), Qt::SkipEmptyParts);
+#endif
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::stdinMessages()

@@ -305,7 +305,11 @@ void SnippetRepository::slotParseFile()
     }
     setLicense(docElement.attribute(QStringLiteral("license")));
     setAuthors(docElement.attribute(QStringLiteral("authors")));
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     setFileTypes(docElement.attribute(QStringLiteral("filetypes")).split(QLatin1Char(';'), QString::SkipEmptyParts));
+#else
+    setFileTypes(docElement.attribute(QStringLiteral("filetypes")).split(QLatin1Char(';'), Qt::SkipEmptyParts));
+#endif
     setText(docElement.attribute(QStringLiteral("name")));
     setCompletionNamespace(docElement.attribute(QStringLiteral("namespace")));
 

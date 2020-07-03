@@ -1385,15 +1385,9 @@ public:
         return nullptr;
     }
 
-    // select/scroll to diagnostics item for document and (optionally) line
-    bool syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow)
+    static QStandardItem *getItem(const QStandardItem *topItem, KTextEditor::Cursor pos, bool onlyLine)
     {
-        if (!m_diagnosticsTree)
-            return false;
-
-        auto hint = QAbstractItemView::PositionAtTop;
         QStandardItem *targetItem = nullptr;
-        QStandardItem *topItem = getItem(*m_diagnosticsModel, document->url());
         if (topItem) {
             int count = topItem->rowCount();
             // let's not run wild on a linear search in a flood of diagnostics
@@ -1402,13 +1396,27 @@ public:
                 count = 0;
             for (int i = 0; i < count; ++i) {
                 auto item = topItem->child(i);
-                int itemline = item->data(RangeData::RangeRole).value<LSPRange>().start().line();
-                if (line == itemline && m_diagnosticsTree) {
+                auto range = item->data(RangeData::RangeRole).value<LSPRange>();
+                if ((onlyLine && pos.line() == range.start().line()) || (range.contains(pos))) {
                     targetItem = item;
-                    hint = QAbstractItemView::PositionAtCenter;
                     break;
                 }
             }
+        }
+        return targetItem;
+    }
+
+    // select/scroll to diagnostics item for document and (optionally) line
+    bool syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow)
+    {
+        if (!m_diagnosticsTree)
+            return false;
+
+        auto hint = QAbstractItemView::PositionAtTop;
+        QStandardItem *topItem = getItem(*m_diagnosticsModel, document->url());
+        QStandardItem *targetItem = getItem(topItem, {line, 0}, true);
+        if (targetItem) {
+            hint = QAbstractItemView::PositionAtCenter;
         }
         if (!targetItem && allowTop) {
             targetItem = topItem;

@@ -625,6 +625,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
             auto view = viewMan->createView(doc, this);
             if (view) {
                 view->readSessionConfig(configGroup);
+                m_tabBar->setCurrentDocument(doc);
             }
         }
     }

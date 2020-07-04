@@ -219,6 +219,7 @@ class LSPClientActionView : public QObject
     QScopedPointer<LSPClientViewTracker> m_viewTracker;
     QScopedPointer<LSPClientCompletion> m_completion;
     QScopedPointer<LSPClientHover> m_hover;
+    QScopedPointer<KTextEditor::TextHintProvider> m_forwardHover;
     QScopedPointer<QObject> m_symbolView;
 
     QPointer<QAction> m_findDef;
@@ -236,6 +237,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_diagnostics;
     QPointer<QAction> m_diagnosticsHighlight;
     QPointer<QAction> m_diagnosticsMark;
+    QPointer<QAction> m_diagnosticsHover;
     QPointer<QAction> m_diagnosticsSwitch;
     QPointer<QAction> m_messages;
     QPointer<KSelectAction> m_messagesAutoSwitch;
@@ -302,6 +304,23 @@ class LSPClientActionView : public QObject
         return m_client->actionCollection();
     }
 
+    // inner class that forwards directly to method for convenience
+    class ForwardingTextHintProvider : public KTextEditor::TextHintProvider
+    {
+        LSPClientActionView *m_parent;
+    public:
+        ForwardingTextHintProvider(LSPClientActionView *parent)
+            : m_parent(parent)
+        {
+            Q_ASSERT(m_parent);
+        }
+
+        virtual QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
+        {
+            return m_parent->onTextHint(view, position);
+        }
+    };
+
 public:
     LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
         : QObject(mainWin)
@@ -311,6 +330,7 @@ public:
         , m_serverManager(std::move(serverManager))
         , m_completion(LSPClientCompletion::new_(m_serverManager))
         , m_hover(LSPClientHover::new_(m_serverManager))
+        , m_forwardHover(new ForwardingTextHintProvider(this))
         , m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
     {
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
@@ -362,6 +382,9 @@ public:
         m_diagnosticsMark = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_mark"), this, &self_type::displayOptionChanged);
         m_diagnosticsMark->setText(i18n("Show diagnostics marks"));
         m_diagnosticsMark->setCheckable(true);
+        m_diagnosticsHover = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_hover"), this, &self_type::displayOptionChanged);
+        m_diagnosticsHover->setText(i18n("Show diagnostics on hover"));
+        m_diagnosticsHover->setCheckable(true);
         m_diagnosticsSwitch = actionCollection()->addAction(QStringLiteral("lspclient_diagnostic_switch"), this, &self_type::switchToDiagnostics);
         m_diagnosticsSwitch->setText(i18n("Switch to diagnostics tab"));
 
@@ -404,6 +427,7 @@ public:
         menu->addAction(m_diagnostics);
         menu->addAction(m_diagnosticsHighlight);
         menu->addAction(m_diagnosticsMark);
+        menu->addAction(m_diagnosticsHover);
         menu->addAction(m_diagnosticsSwitch);
         menu->addSeparator();
         menu->addAction(m_messages);
@@ -489,6 +513,7 @@ public:
     {
         m_diagnosticsHighlight->setEnabled(m_diagnostics->isChecked());
         m_diagnosticsMark->setEnabled(m_diagnostics->isChecked());
+        m_diagnosticsHover->setEnabled(m_diagnostics->isChecked());
         // messages tab should go first
         int messagesIndex = m_tabWidget->indexOf(m_messagesView);
         if (m_messages->isChecked() && m_messagesViewOwn) {
@@ -533,6 +558,8 @@ public:
             m_diagnosticsHighlight->setChecked(m_plugin->m_diagnosticsHighlight);
         if (m_diagnosticsMark)
             m_diagnosticsMark->setChecked(m_plugin->m_diagnosticsMark);
+        if (m_diagnosticsHover)
+            m_diagnosticsHover->setChecked(m_plugin->m_diagnosticsHover);
         if (m_messages)
             m_messages->setChecked(m_plugin->m_messages);
         if (m_messagesAutoSwitch)
@@ -1521,6 +1548,44 @@ public:
             syncDiagnostics(currentView->document(), currentView->cursorPosition().line(), false, false);
     }
 
+    QString onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position)
+    {
+        QString result;
+        auto document = view->document();
+
+        if (!m_diagnosticsTree || !m_diagnosticsModel || !document)
+            return result;
+
+        bool autoHover = m_autoHover && m_autoHover->isChecked();
+        bool diagHover = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsHover && m_diagnosticsHover->isChecked();
+
+        QStandardItem *topItem = diagHover ? getItem(*m_diagnosticsModel, document->url()) : nullptr;
+        QStandardItem *targetItem = getItem(topItem, position, false);
+        if (targetItem) {
+            result = targetItem->text();
+            // also include related info
+            int count = targetItem->rowCount();
+            for (int i = 0; i < count; ++i) {
+                auto item = targetItem->child(i);
+                result += QStringLiteral("\n<br>");
+                result += item->text();
+            }
+            // but let's not get carried away too far
+            const int maxsize = m_plugin->m_diagnosticsSize;
+            if (result.size() > maxsize) {
+                result.resize(maxsize);
+                result.append(QStringLiteral("..."));
+            }
+        } else if (autoHover) {
+            // only trigger generic hover if no diagnostic to show;
+            // avoids interference by generic hover info
+            // (which is likely not so useful in this case/position anyway)
+            result = m_hover->textHint(view, position);
+        }
+
+        return result;
+    }
+
     KTextEditor::View *viewForUrl(const QUrl &url) const
     {
         for (auto *view : m_mainWindow->views()) {
@@ -1875,8 +1940,10 @@ public:
         updateCompletion(activeView, server.data());
 
         // update hover with relevant server
-        m_hover->setServer(server);
-        updateHover(activeView, (m_autoHover && m_autoHover->isChecked()) ? server.data() : nullptr);
+        m_hover->setServer(server && server->capabilities().hoverProvider ? server : nullptr);
+        // need hover either for generic documentHover or for diagnostics
+        // so register anyway if server available and will sort out what to do/show later
+        updateHover(activeView, server.data());
 
         // update marks if applicable
         if (m_markModel && doc)
@@ -1932,15 +1999,15 @@ public:
         KTextEditor::TextHintInterface *cci = qobject_cast<KTextEditor::TextHintInterface *>(view);
         Q_ASSERT(cci);
 
-        if (!registered && server && server->capabilities().hoverProvider) {
-            qCInfo(LSPCLIENT) << "registering cci";
-            cci->registerTextHintProvider(m_hover.data());
+        if (!registered && server) {
+            qCInfo(LSPCLIENT) << "registering thi";
+            cci->registerTextHintProvider(m_forwardHover.data());
             m_hoverViews.insert(view);
         }
 
         if (registered && !server) {
-            qCInfo(LSPCLIENT) << "unregistering cci";
-            cci->unregisterTextHintProvider(m_hover.data());
+            qCInfo(LSPCLIENT) << "unregistering thi";
+            cci->unregisterTextHintProvider(m_forwardHover.data());
             m_hoverViews.remove(view);
         }
     }

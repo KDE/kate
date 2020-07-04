@@ -63,6 +63,8 @@ public:
     bool m_diagnostics = false;
     bool m_diagnosticsHighlight = false;
     bool m_diagnosticsMark = false;
+    bool m_diagnosticsHover = false;
+    unsigned m_diagnosticsSize = 0;
     bool m_messages = false;
     int m_messagesAutoSwitch = 0;
     bool m_autoHover = false;

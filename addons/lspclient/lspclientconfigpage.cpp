@@ -82,13 +82,16 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkRefDeclaration,
                            ui->chkDiagnostics,
                            ui->chkDiagnosticsMark,
+                           ui->chkDiagnosticsHover,
                            ui->chkMessages,
                            ui->chkOnTypeFormatting,
                            ui->chkIncrementalSync,
                            ui->chkSemanticHighlighting,
                            ui->chkAutoHover})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
-    connect(ui->comboMessagesSwitch, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this](int) { changed(); });
+    auto ch = [this](int) { this->changed(); };
+    connect(ui->comboMessagesSwitch, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, ch);
+    connect(ui->spinDiagnosticsSize, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, ch);
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::configUrlChanged);
     connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::configUrlChanged);
     connect(ui->userConfig, &QTextEdit::textChanged, this, &LSPClientConfigPage::configTextChanged);
@@ -98,6 +101,9 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
         bool enabled = ui->chkDiagnostics->isChecked();
         ui->chkDiagnosticsHighlight->setEnabled(enabled);
         ui->chkDiagnosticsMark->setEnabled(enabled);
+        ui->chkDiagnosticsHover->setEnabled(enabled);
+        enabled = enabled && ui->chkDiagnosticsHover->isChecked();
+        ui->spinDiagnosticsSize->setEnabled(enabled);
         enabled = ui->chkMessages->isChecked();
         ui->comboMessagesSwitch->setEnabled(enabled);
     };
@@ -137,6 +143,8 @@ void LSPClientConfigPage::apply()
     m_plugin->m_diagnostics = ui->chkDiagnostics->isChecked();
     m_plugin->m_diagnosticsHighlight = ui->chkDiagnosticsHighlight->isChecked();
     m_plugin->m_diagnosticsMark = ui->chkDiagnosticsMark->isChecked();
+    m_plugin->m_diagnosticsHover = ui->chkDiagnosticsHover->isChecked();
+    m_plugin->m_diagnosticsSize = ui->spinDiagnosticsSize->value();
 
     m_plugin->m_autoHover = ui->chkAutoHover->isChecked();
     m_plugin->m_onTypeFormatting = ui->chkOnTypeFormatting->isChecked();
@@ -173,6 +181,8 @@ void LSPClientConfigPage::reset()
     ui->chkDiagnostics->setChecked(m_plugin->m_diagnostics);
     ui->chkDiagnosticsHighlight->setChecked(m_plugin->m_diagnosticsHighlight);
     ui->chkDiagnosticsMark->setChecked(m_plugin->m_diagnosticsMark);
+    ui->chkDiagnosticsHover->setChecked(m_plugin->m_diagnosticsHover);
+    ui->spinDiagnosticsSize->setValue(m_plugin->m_diagnosticsSize);
 
     ui->chkAutoHover->setChecked(m_plugin->m_autoHover);
     ui->chkOnTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);

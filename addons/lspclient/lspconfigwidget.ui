@@ -106,6 +106,26 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QCheckBox" name="chkDiagnosticsHover">
+                <property name="text">
+                 <string>On hover</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="spinDiagnosticsSize">
+                <property name="toolTip">
+                 <string>max diagnostics tooltip size</string>
+                </property>
+                <property name="minimum">
+                 <number>80</number>
+                </property>
+                <property name="maximum">
+                 <number>10240</number>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
             <item>

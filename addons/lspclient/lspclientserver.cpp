@@ -922,7 +922,13 @@ private:
             // check if it is the expected result
             int msgid = -1;
             if (result.contains(MEMBER_ID)) {
-                msgid = result[MEMBER_ID].toInt();
+                // allow id to be returned as a string value, happens e.g. for Perl LSP server
+                const auto idValue = result[MEMBER_ID];
+                if (idValue.isString()) {
+                    msgid = idValue.toString().toInt();
+                } else {
+                    msgid = idValue.toInt();
+                }
             } else {
                 processNotification(result);
                 continue;
@@ -946,7 +952,7 @@ private:
                 handler(result.value(MEMBER_RESULT));
             } else {
                 // could have been canceled
-                qCDebug(LSPCLIENT) << "unexpected reply id";
+                qCDebug(LSPCLIENT) << "unexpected reply id" << msgid;
             }
         }
     }

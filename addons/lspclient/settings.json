@@ -54,6 +54,12 @@
             "url": "https://github.com/ocaml/ocaml-lsp",
             "highlightingModeRegex": "^Objective Caml.*$"
         },
+        "perl": {
+            "command": ["perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--"],
+            "commandDebug": ["perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--debug"],
+            "url": "https://github.com/richterger/Perl-LanguageServer",
+            "highlightingModeRegex": "^Perl$"
+        },
         "python": {
             "command": ["pyls", "--check-parent-process"],
             "url": "https://github.com/palantir/python-language-server",

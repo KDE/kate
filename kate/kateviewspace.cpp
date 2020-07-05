@@ -222,9 +222,13 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
         Q_ASSERT(m_lruDocList.contains(doc));
     }
 
+    // view shall still be not registered
+    Q_ASSERT(!m_docToView.contains(doc));
+
     // insert View into stack
     stack->addWidget(v);
     m_docToView[doc] = v;
+    showView(v);
 
     return v;
 }
@@ -268,6 +272,11 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     stack->setCurrentWidget(kv);
     kv->show();
 
+    /**
+     * we need to avoid that below's index changes will mess with current view
+     */
+    disconnect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
+
     // in case a tab does not exist, add one
     if (m_tabBar->documentIdx(document) == -1) {
         insertTab(-1, document);
@@ -276,6 +285,8 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     // follow current view
     m_tabBar->setCurrentIndex(m_tabBar->documentIdx(document));
 
+    // track tab changes again
+    connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     return true;
 }
 
@@ -376,10 +387,19 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc, bool append)
         // prepending == merge doc of closed viewspace
         m_lruDocList.prepend(doc);
     }
+
+    /**
+     * ensure we cleanup after document is deleted, e.g. we remove the tab bar button
+     */
     connect(doc, &QObject::destroyed, this, &KateViewSpace::documentDestroyed);
 
-    // if space is available, add button
+    /**
+     * register document is used in places that don't like view creation
+     * therefore we must ensure the currentChanged doesn't trigger that
+     */
+    disconnect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     insertTab(-1, doc);
+    connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
 }
 
 void KateViewSpace::documentDestroyed(QObject *doc)

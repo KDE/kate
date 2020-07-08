@@ -90,7 +90,7 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
         // here we have to trigger it manually.
         QTimer::singleShot(0, this, &DebugView::issueNextCommand);
     }
-    m_nextCommands << QStringLiteral("file %1").arg(m_targetConf.executable);
+    m_nextCommands << QStringLiteral("file \"%1\"").arg(m_targetConf.executable);
     m_nextCommands << QStringLiteral("set args %1 %2").arg(m_targetConf.arguments).arg(m_ioPipeString);
     m_nextCommands << QStringLiteral("set inferior-tty /dev/null");
     m_nextCommands << m_targetConf.customInit;
@@ -230,7 +230,7 @@ void DebugView::slotKill()
 void DebugView::slotReRun()
 {
     slotKill();
-    m_nextCommands << QStringLiteral("file %1").arg(m_targetConf.executable);
+    m_nextCommands << QStringLiteral("file \"%1\"").arg(m_targetConf.executable);
     m_nextCommands << QStringLiteral("set args %1 %2").arg(m_targetConf.arguments).arg(m_ioPipeString);
     m_nextCommands << QStringLiteral("set inferior-tty /dev/null");
     m_nextCommands << m_targetConf.customInit;

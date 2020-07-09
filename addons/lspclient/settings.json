@@ -15,8 +15,8 @@
             "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
         },
         "d": {
-            "command": ["dls", "--stdio"],
-            "url": "https://github.com/d-language-server/dls",
+            "command": ["serve-d"],
+            "url": "https://github.com/Pure-D/serve-d",
             "highlightingModeRegex": "^D$"
         },
         "fortran": {

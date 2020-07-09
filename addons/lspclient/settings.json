@@ -16,6 +16,7 @@
         },
         "d": {
             "command": ["serve-d"],
+            "rootIndicationFileNames": ["dub.json"],
             "url": "https://github.com/Pure-D/serve-d",
             "highlightingModeRegex": "^D$"
         },

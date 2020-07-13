@@ -21,11 +21,11 @@
 #include <QDebug>
 #include <QFontDatabase>
 #include <QIcon>
-#include <qfont.h>
-#include <qfontmetrics.h>
-#include <qsize.h>
-#include <qstringlist.h>
-#include <qvariant.h>
+#include <QFont>
+#include <QFontMetrics>
+#include <QSize>
+#include <QStringList>
+#include <QVariant>
 
 ConnectionModel::ConnectionModel(QObject *parent)
     : QAbstractListModel(parent)

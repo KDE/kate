@@ -22,7 +22,7 @@
 #include "kateprojectplugin.h"
 #include "kateprojectworker.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <ktexteditor/document.h>
 

@@ -24,8 +24,8 @@ class QMouseEvent;
 
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-#include <qsqldriver.h>
-#include <qstring.h>
+#include <QSqlDriver>
+#include <QString>
 
 class SchemaWidget : public QTreeWidget
 {

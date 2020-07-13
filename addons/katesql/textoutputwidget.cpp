@@ -20,14 +20,14 @@
 #include "connection.h"
 
 #include <QAction>
-#include <klocalizedstring.h>
-#include <ktoolbar.h>
+#include <KLocalizedString>
+#include <KToolBar>
 
 #include <QFontDatabase>
 #include <QStyle>
-#include <qdatetime.h>
-#include <qlayout.h>
-#include <qtextedit.h>
+#include <QDateTime>
+#include <QLayout>
+#include <QTextEdit>
 
 TextOutputWidget::TextOutputWidget(QWidget *parent)
     : QWidget(parent)

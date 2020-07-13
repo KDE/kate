@@ -23,7 +23,7 @@ class QHBoxLayout;
 class QTextEdit;
 
 #include "connection.h"
-#include <qwidget.h>
+#include <QWidget>
 
 class TextOutputWidget : public QWidget
 {

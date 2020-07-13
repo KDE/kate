@@ -19,7 +19,7 @@
 #ifndef DATAOUTPUTVIEW_H
 #define DATAOUTPUTVIEW_H
 
-#include <qtableview.h>
+#include <QTableView>
 
 class DataOutputView : public QTableView
 {

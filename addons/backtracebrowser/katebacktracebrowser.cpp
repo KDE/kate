@@ -24,11 +24,11 @@
 
 #include <KConfigGroup>
 #include <KLineEdit>
-#include <kaboutdata.h>
-#include <klocalizedstring.h> // i18n
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
-#include <ksharedconfig.h>
+#include <KAboutData>
+#include <KLocalizedString> // i18n
+#include <KPluginFactory>
+#include <KPluginLoader>
+#include <KSharedConfig>
 #include <ktexteditor/view.h>
 
 #include <QClipboard>

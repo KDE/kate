@@ -23,8 +23,8 @@ class ConnectionModel;
 class KConfigGroup;
 
 #include "connection.h"
-#include <kwallet.h>
-#include <qsqlquery.h>
+#include <KWallet>
+#include <QSqlQuery>
 
 class SQLManager : public QObject
 {

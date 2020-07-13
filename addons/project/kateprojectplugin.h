@@ -28,7 +28,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
 
-#include <kxmlguiclient.h>
+#include <KXMLGUIClient>
 
 #include "kateproject.h"
 #include "kateprojectcompletion.h"

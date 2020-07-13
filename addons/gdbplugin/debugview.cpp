@@ -27,9 +27,9 @@
 #include <QRegularExpression>
 #include <QTimer>
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kurlrequester.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KUrlRequester>
 
 #include <signal.h>
 #include <stdlib.h>

@@ -22,7 +22,7 @@
 #include "katebookmarkhandler.h"
 #include "katefilebrowser.h"
 
-#include <kdiroperator.h>
+#include <KDirOperator>
 
 #include <QMenu>
 #include <QStandardPaths>

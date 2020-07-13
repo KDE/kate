@@ -12,7 +12,7 @@
 #ifndef CTAGSKINDS_H
 #define CTAGSKINDS_H
 
-#include <qstring.h>
+#include <QString>
 
 class CTagsKinds
 {

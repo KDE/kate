@@ -46,12 +46,12 @@
 #include <KTextEditor/Application>
 #include <KXMLGUIFactory>
 
-#include <kmessagebox.h>
+#include <KMessageBox>
 
-#include <kaboutdata.h>
-#include <klocalizedstring.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
+#include <KAboutData>
+#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KPluginLoader>
 
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>

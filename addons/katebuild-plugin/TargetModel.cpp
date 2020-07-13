@@ -21,7 +21,7 @@
 #include "TargetModel.h"
 #include <QDebug>
 #include <QTimer>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir)
     : name(_name)

@@ -22,7 +22,7 @@
 
 #include <QTimer>
 #include <QTreeWidgetItem>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 ReplaceMatches::ReplaceMatches(QObject *parent)
     : QObject(parent)

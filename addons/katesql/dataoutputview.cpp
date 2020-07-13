@@ -20,8 +20,8 @@
 
 #include <QAction>
 
-#include <qcursor.h>
-#include <qmenu.h>
+#include <QCursor>
+#include <QMenu>
 
 DataOutputView::DataOutputView(QWidget *parent)
     : QTableView(parent)

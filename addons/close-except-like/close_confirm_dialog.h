@@ -36,7 +36,7 @@
 #include <QList>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-#include <kwindowconfig.h>
+#include <KWindowConfig>
 
 namespace kate
 {

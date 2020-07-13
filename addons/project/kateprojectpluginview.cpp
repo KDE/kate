@@ -30,12 +30,12 @@
 
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
-#include <kaboutdata.h>
-#include <kactioncollection.h>
-#include <kactionmenu.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
-#include <kstringhandler.h>
+#include <KAboutData>
+#include <KActionCollection>
+#include <KActionMenu>
+#include <KPluginFactory>
+#include <KPluginLoader>
+#include <KStringHandler>
 
 #include <QAction>
 #include <QDialog>

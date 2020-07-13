@@ -27,7 +27,7 @@
 #include <QtGlobal>
 
 #include <KXMLGUIFactory>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QAction>
 #include <QDebug>

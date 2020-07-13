@@ -20,7 +20,7 @@
 #include "schemawidget.h"
 
 #include <QVBoxLayout>
-#include <qtreeview.h>
+#include <QTreeView>
 
 SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent, SQLManager *manager)
     : QWidget(parent)

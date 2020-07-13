@@ -24,21 +24,21 @@
 
 #include <QAction>
 #include <QDialog>
-#include <klineedit.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
-#include <qstring.h>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KProcess>
+#include <QString>
 
 #include <KAuthorized>
 #include <KConfigGroup>
 #include <KPluginFactory>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
-#include <kactioncollection.h>
+#include <KActionCollection>
 
-#include <qapplication.h>
-#include <qclipboard.h>
+#include <QApplication>
+#include <QClipboard>
 
 K_PLUGIN_FACTORY_WITH_JSON(TextFilterPluginFactory, "textfilterplugin.json", registerPlugin<PluginKateTextFilter>();)
 

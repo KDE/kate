@@ -20,7 +20,7 @@
 
 #include "outputwidget.h"
 #include "dataoutputwidget.h"
-#include "klocalizedstring.h"
+#include <KLocalizedString>
 #include "textoutputwidget.h"
 
 KateSQLOutputWidget::KateSQLOutputWidget(QWidget *parent)

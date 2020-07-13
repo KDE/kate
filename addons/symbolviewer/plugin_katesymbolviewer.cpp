@@ -47,11 +47,11 @@
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
 #include <QAction>
-#include <kaboutdata.h>
-#include <klocalizedstring.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
-#include <ktoggleaction.h>
+#include <KAboutData>
+#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KPluginLoader>
+#include <KToggleAction>
 
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/cursor.h>

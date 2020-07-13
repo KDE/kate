@@ -84,14 +84,14 @@ TODO:
 #include <ktexteditor/editor.h>
 #include <ktexteditor/mainwindow.h>
 
-#include <kactioncollection.h>
-#include <khistorycombobox.h>
+#include <KActionCollection>
+#include <KHistoryComboBox>
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kpluginfactory.h>
-#include <kxmlguiclient.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KPluginFactory>
+#include <KXMLGUIClient>
 #include <kxmlguifactory.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(PluginKateXMLToolsFactory, "katexmltools.json", registerPlugin<PluginKateXMLTools>();)

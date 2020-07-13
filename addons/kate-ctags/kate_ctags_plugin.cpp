@@ -28,15 +28,15 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 
-#include <kactioncollection.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kstringhandler.h>
+#include <KActionCollection>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KStringHandler>
 #include <ktexteditor/editor.h>
 
-#include <kaboutdata.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
+#include <KAboutData>
+#include <KPluginFactory>
+#include <KPluginLoader>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateCTagsPluginFactory, "katectagsplugin.json", registerPlugin<KateCTagsPlugin>();)
 

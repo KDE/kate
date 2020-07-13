@@ -20,9 +20,9 @@
 #include "outputstyle.h"
 
 #include <KSharedConfig>
-#include <kcolorscheme.h>
-#include <kconfiggroup.h>
-#include <klocalizedstring.h>
+#include <KColorScheme>
+#include <KConfigGroup>
+#include <KLocalizedString>
 
 #include <QFontDatabase>
 #include <QLocale>

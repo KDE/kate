@@ -19,10 +19,10 @@
 #ifndef OUTPUTSTYLE_H
 #define OUTPUTSTYLE_H
 
-#include <qbrush.h>
-#include <qfont.h>
-#include <qmetatype.h>
-#include <qstring.h>
+#include <QBrush>
+#include <QFont>
+#include <QMetaType>
+#include <QString>
 
 struct OutputStyle {
     QFont font;

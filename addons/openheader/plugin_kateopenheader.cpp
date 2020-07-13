@@ -30,11 +30,11 @@
 #include <QAction>
 #include <QDir>
 #include <QFileInfo>
-#include <kaboutdata.h>
-#include <kactioncollection.h>
-#include <klocalizedstring.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
+#include <KAboutData>
+#include <KActionCollection>
+#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KPluginLoader>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateOpenHeaderFactory, "kateopenheaderplugin.json", registerPlugin<PluginKateOpenHeader>();)
 // K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheader",ki18n("Open Header"), "0.1", ki18n("Open header for a source file"), KAboutData::License_LGPL_V2)) )

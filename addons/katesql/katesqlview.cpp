@@ -38,18 +38,18 @@
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
 #include <QAction>
-#include <kactioncollection.h>
-#include <kcombobox.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <klocalizedstring.h>
+#include <KActionCollection>
+#include <KComboBox>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KLocalizedString>
 
 #include <QApplication>
 #include <QVBoxLayout>
 #include <QWidgetAction>
-#include <qmenu.h>
-#include <qsqlquery.h>
-#include <qstring.h>
+#include <QMenu>
+#include <QSqlQuery>
+#include <QString>
 
 KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
     : QObject(mw)

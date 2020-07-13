@@ -24,7 +24,7 @@
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/view.h>
 
-#include <kpluginfactory.h>
+#include <KPluginFactory>
 
 class KateSQLPlugin : public KTextEditor::Plugin
 {

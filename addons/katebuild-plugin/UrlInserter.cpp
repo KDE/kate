@@ -26,7 +26,7 @@
 #include <QFileInfo>
 #include <QHBoxLayout>
 #include <QIcon>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 UrlInserter::UrlInserter(const QUrl &startUrl, QWidget *parent)
     : QWidget(parent)

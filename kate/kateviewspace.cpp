@@ -19,7 +19,7 @@
 */
 #include "kateviewspace.h"
 
-#include "kactioncollection.h"
+#include <KActionCollection>
 #include "kateapp.h"
 #include "katedebug.h"
 #include "katedocmanager.h"

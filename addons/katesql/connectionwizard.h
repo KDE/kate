@@ -27,7 +27,7 @@ class KUrlRequester;
 
 #include "connection.h"
 
-#include <kwallet.h>
+#include <KWallet>
 #include <qwizard.h>
 
 class ConnectionWizard : public QWizard

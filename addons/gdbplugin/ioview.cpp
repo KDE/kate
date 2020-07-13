@@ -32,8 +32,8 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
-#include <kcolorscheme.h>
-#include <krandom.h>
+#include <KColorScheme>
+#include <KRandom>
 
 #include <fcntl.h>
 #include <sys/stat.h>

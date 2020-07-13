@@ -24,7 +24,7 @@
 #include <KXMLGUIClient>
 #include <QObject>
 #include <QUrl>
-#include <kpluginfactory.h>
+#include <KPluginFactory>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/plugin.h>
 

@@ -23,8 +23,8 @@
 
 #include <QAbstractListModel>
 #include <QIcon>
-#include <qhash.h>
-#include <qstring.h>
+#include <QHash>
+#include <QString>
 
 class ConnectionModel : public QAbstractListModel
 {

@@ -39,12 +39,12 @@
 #include <QAction>
 #include <QMenu>
 
-#include <kaboutdata.h>
-#include <kcolorscheme.h>
-#include <khistorycombobox.h>
-#include <klocalizedstring.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
+#include <KAboutData>
+#include <KColorScheme>
+#include <KHistoryComboBox>
+#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KPluginLoader>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>

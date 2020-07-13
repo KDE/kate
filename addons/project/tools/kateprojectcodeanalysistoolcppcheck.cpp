@@ -22,7 +22,7 @@
 
 #include <QRegularExpression>
 #include <QThread>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 KateProjectCodeAnalysisToolCppcheck::KateProjectCodeAnalysisToolCppcheck(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)

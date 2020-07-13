@@ -30,7 +30,7 @@
 #include <KSharedConfig>
 #include <KStartupInfo>
 #include <KWindowSystem>
-#include <kdbusservice.h>
+#include <KDBusService>
 
 #include <QApplication>
 #include <QByteArray>

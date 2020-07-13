@@ -19,7 +19,7 @@
 #ifndef OUTPUTSTYLEWIDGET_H
 #define OUTPUTSTYLEWIDGET_H
 
-#include <qtreewidget.h>
+#include <QTreeWidget>
 
 class OutputStyleWidget : public QTreeWidget
 {

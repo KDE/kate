@@ -61,8 +61,8 @@
 #include <KToolBar>
 #include <KWindowSystem>
 #include <KXMLGUIFactory>
-#include <khelpclient.h>
-#include <kwindowconfig.h>
+#include <KHelpClient>
+#include <KWindowConfig>
 
 #include <KFileItem>
 #include <KIO/Job>

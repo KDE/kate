@@ -23,7 +23,7 @@
 
 #include <KPluginLoader>
 #include <kde_terminal_interface.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 KPluginFactory *KateProjectInfoViewTerminal::s_pluginFactory = nullptr;
 

@@ -19,8 +19,8 @@
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
-#include <qmetatype.h>
-#include <qstring.h>
+#include <QMetaType>
+#include <QString>
 
 struct Connection {
     enum Status { UNKNOWN = 0, ONLINE = 1, OFFLINE = 2, REQUIRE_PASSWORD = 3 };

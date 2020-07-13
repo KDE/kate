@@ -25,7 +25,7 @@
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectpluginview.h"
 
-#include "klocalizedstring.h"
+#include <KLocalizedString>
 
 #include <QFileInfo>
 

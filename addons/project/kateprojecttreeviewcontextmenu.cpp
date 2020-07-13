@@ -26,7 +26,7 @@
 #include <KNS3/KMoreToolsMenuFactory>
 #include <KPropertiesDialog>
 #include <KRun>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QApplication>
 #include <QClipboard>

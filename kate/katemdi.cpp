@@ -33,7 +33,7 @@
 #include <KSharedConfig>
 #include <KToolBar>
 #include <KXMLGUIFactory>
-#include <kwindowconfig.h>
+#include <KWindowConfig>
 
 #include <QChildEvent>
 #include <QContextMenuEvent>

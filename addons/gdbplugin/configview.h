@@ -38,9 +38,9 @@
 #include <QList>
 
 #include <KTextEditor/MainWindow>
-#include <kactioncollection.h>
-#include <kconfiggroup.h>
-#include <kselectaction.h>
+#include <KActionCollection>
+#include <KConfigGroup>
+#include <KSelectAction>
 
 struct GDBTargetConf {
     QString executable;

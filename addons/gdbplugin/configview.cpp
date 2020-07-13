@@ -33,8 +33,8 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 #ifdef WIN32
 static const QLatin1Char pathSeparator(';');

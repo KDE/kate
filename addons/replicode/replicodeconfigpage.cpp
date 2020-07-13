@@ -28,7 +28,7 @@
 #include <QLabel>
 #include <QLayout>
 #include <QTabWidget>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 ReplicodeConfigPage::ReplicodeConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)

@@ -22,7 +22,7 @@
 #include <QEvent>
 #include <QIcon>
 #include <QKeyEvent>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     : QWidget(parent)

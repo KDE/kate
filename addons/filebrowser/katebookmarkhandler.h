@@ -22,8 +22,8 @@
 #ifndef KATE_BOOKMARK_HANDLER_H
 #define KATE_BOOKMARK_HANDLER_H
 
-#include <kbookmarkmanager.h>
-#include <kbookmarkmenu.h>
+#include <KBookmarkManager>
+#include <KBookmarkMenu>
 
 class KateFileBrowser;
 class QMenu;

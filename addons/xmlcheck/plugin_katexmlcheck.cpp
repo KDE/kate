@@ -50,20 +50,20 @@
 #include <QApplication>
 #include <QHeaderView>
 #include <QTreeWidget>
-#include <kactioncollection.h>
-#include <qfile.h>
-#include <qinputdialog.h>
-#include <qregexp.h>
-#include <qstring.h>
-#include <qtextstream.h>
+#include <KActionCollection>
+#include <QFile>
+#include <QInputDialog>
+#include <QRegExp>
+#include <QString>
+#include <QTextStream>
 
 #include <QAction>
 #include <QProcess>
 #include <QTemporaryFile>
-#include <kcursor.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kpluginfactory.h>
+#include <KCursor>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KPluginFactory>
 
 #include <QComboBox>
 #include <QFile>

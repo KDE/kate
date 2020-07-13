@@ -11,7 +11,7 @@
 
 #include "ctagskinds.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 struct CTagsKindMapping {
     char abbrev;

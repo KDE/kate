@@ -33,9 +33,9 @@
 #include <QMenu>
 
 #include <QStandardPaths>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kstringhandler.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KStringHandler>
 
 /******************************************************************/
 KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin)

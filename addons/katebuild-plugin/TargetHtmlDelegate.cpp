@@ -30,7 +30,7 @@
 #include <QTextCharFormat>
 #include <QTextDocument>
 #include <QToolButton>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include "UrlInserter.h"
 

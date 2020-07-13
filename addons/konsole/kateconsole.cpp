@@ -22,18 +22,18 @@
 
 #include "kateconsole.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <ktexteditor/document.h>
 #include <ktexteditor/message.h>
 #include <ktexteditor/view.h>
 
 #include <QAction>
-#include <kactioncollection.h>
+#include <KActionCollection>
 #include <kde_terminal_interface.h>
 #include <kparts/part.h>
-#include <kshell.h>
+#include <KShell>
 
-#include <kmessagebox.h>
+#include <KMessageBox>
 
 #include <QApplication>
 #include <QCheckBox>
@@ -53,8 +53,8 @@
 #include <KPluginLoader>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
-#include <kaboutdata.h>
-#include <kpluginfactory.h>
+#include <KAboutData>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 

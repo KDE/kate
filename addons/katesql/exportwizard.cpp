@@ -19,17 +19,17 @@
 #include "exportwizard.h"
 #include "dataoutputwidget.h"
 
-#include <klineedit.h>
-#include <klocalizedstring.h>
-#include <kurlrequester.h>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KUrlRequester>
 
-#include <qcheckbox.h>
-#include <qformlayout.h>
-#include <qgridlayout.h>
-#include <qgroupbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qradiobutton.h>
+#include <QCheckBox>
+#include <QFormLayout>
+#include <QGridLayout>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLayout>
+#include <QRadioButton>
 
 // BEGIN ExportWizard
 ExportWizard::ExportWizard(QWidget *parent)

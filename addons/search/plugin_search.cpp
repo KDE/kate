@@ -33,14 +33,14 @@
 #include <ktexteditor_version.h>
 
 #include "kacceleratormanager.h"
-#include <kaboutdata.h>
-#include <kactioncollection.h>
-#include <kcolorscheme.h>
-#include <klineedit.h>
-#include <klocalizedstring.h>
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
-#include <kurlcompletion.h>
+#include <KAboutData>
+#include <KActionCollection>
+#include <KColorScheme>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KPluginLoader>
+#include <KUrlCompletion>
 
 #include <KConfigGroup>
 #include <KXMLGUIFactory>

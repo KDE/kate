@@ -23,10 +23,10 @@
 #include "pseudo_dtd.h"
 
 #include <qdom.h>
-#include <qregexp.h>
+#include <QRegExp>
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 PseudoDTD::PseudoDTD()
 {

@@ -36,7 +36,7 @@
 #include <QTimer>
 #include <QTreeWidget>
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 /**
  * Plugin's config page

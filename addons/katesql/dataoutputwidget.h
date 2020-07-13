@@ -25,7 +25,7 @@ class QSqlQuery;
 class DataOutputModel;
 class DataOutputView;
 
-#include <qwidget.h>
+#include <QWidget>
 
 class DataOutputWidget : public QWidget
 {

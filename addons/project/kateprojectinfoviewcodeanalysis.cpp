@@ -28,8 +28,8 @@
 #include <QToolTip>
 #include <QVBoxLayout>
 
-#include <klocalizedstring.h>
-#include <kmessagewidget.h>
+#include <KLocalizedString>
+#include <KMessageWidget>
 
 KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)

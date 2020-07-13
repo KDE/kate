@@ -25,7 +25,7 @@
 
 #include <QMap>
 #include <qdom.h>
-#include <qprogressdialog.h>
+#include <QProgressDialog>
 
 /**
  * This class contains the attributes for one element.

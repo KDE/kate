@@ -33,7 +33,7 @@
 #include <KMessageBox>
 #include <KMessageWidget>
 #include <KMimeTypeTrader>
-#include <khelpclient.h>
+#include <KHelpClient>
 
 #include <QAction>
 #include <QPushButton>

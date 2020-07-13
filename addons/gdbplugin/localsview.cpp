@@ -20,7 +20,7 @@
 #include "localsview.h"
 #include <QDebug>
 #include <QLabel>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 LocalsView::LocalsView(QWidget *parent)
     : QTreeWidget(parent)

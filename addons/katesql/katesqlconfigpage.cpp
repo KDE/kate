@@ -20,12 +20,12 @@
 #include "outputstylewidget.h"
 
 #include <KSharedConfig>
-#include <kconfiggroup.h>
-#include <klocalizedstring.h>
+#include <KConfigGroup>
+#include <KLocalizedString>
 
-#include <qboxlayout.h>
-#include <qcheckbox.h>
-#include <qgroupbox.h>
+#include <QBoxLayout>
+#include <QCheckBox>
+#include <QGroupBox>
 
 KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)

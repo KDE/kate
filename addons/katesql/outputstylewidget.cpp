@@ -21,16 +21,16 @@
 #include <KSharedConfig>
 #include <QFontDatabase>
 #include <QIcon>
-#include <qbrush.h>
-#include <qcheckbox.h>
-#include <qfont.h>
-#include <qvariant.h>
+#include <QBrush>
+#include <QCheckBox>
+#include <QFont>
+#include <QVariant>
 
-#include <kcolorbutton.h>
-#include <kcolorscheme.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <klocalizedstring.h>
+#include <KColorButton>
+#include <KColorScheme>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KLocalizedString>
 
 OutputStyleWidget::OutputStyleWidget(QWidget *parent)
     : QTreeWidget(parent)

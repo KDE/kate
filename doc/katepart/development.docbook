@@ -486,8 +486,9 @@ and tabulator (<userinput>'\t'</userinput>).</para>
 <varlistentry>
 <term>The element <userinput>comment</userinput> in the group
 <userinput>comments</userinput> defines comment properties which are used
-for <menuchoice><guimenu>Tools</guimenu><guimenuitem>Comment</guimenuitem></menuchoice> and
-<menuchoice><guimenu>Tools</guimenu><guimenuitem>Uncomment</guimenuitem></menuchoice>.
+for <menuchoice><guimenu>Tools</guimenu><guimenuitem>Comment</guimenuitem></menuchoice>,
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Uncomment</guimenuitem></menuchoice> and
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Toggle Comment</guimenuitem></menuchoice>.
 Available attributes are:</term>
 
 <listitem>
@@ -505,6 +506,14 @@ multiline comment. Assume you have <emphasis>beginRegion="Comment"</emphasis>
 <emphasis>region="Comment"</emphasis>. This way uncomment works even if you
 do not select all the text of the multiline comment. The cursor only must be
 in the multiline comment.</para>
+<para><userinput>position</userinput> defines where the comment is inserted.
+By default, the comment is placed at the beginning of the line at column 0,
+but if you use <emphasis>position="afterwhitespace"</emphasis> the comment is
+inserted after leading whitespaces right, before the first non-whitespace character.
+This is useful for putting comments correctly in languages where indentation
+is important, such as Python or YAML.
+This attribute is optional and the only possible value is
+<emphasis>afterwhitespace</emphasis>.</para>
 </listitem>
 </varlistentry>
 

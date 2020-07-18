@@ -22,10 +22,10 @@
 class SQLManager;
 class QMouseEvent;
 
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
 #include <QSqlDriver>
 #include <QString>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
 class SchemaWidget : public QTreeWidget
 {

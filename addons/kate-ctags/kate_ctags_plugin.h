@@ -86,7 +86,7 @@ private:
 
     QProcess m_proc;
     KateCTagsPlugin *m_plugin;
-    Ui_CTagsGlobalConfig m_confUi{};
+    Ui_CTagsGlobalConfig m_confUi {};
 };
 
 #endif

@@ -25,8 +25,8 @@
 #include <KMessageBox>
 #include <KUrlRequester>
 
-#include <QSpinBox>
 #include <QFormLayout>
+#include <QSpinBox>
 #include <QSqlDatabase>
 #include <QSqlError>
 

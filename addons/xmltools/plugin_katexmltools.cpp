@@ -86,12 +86,12 @@ TODO:
 
 #include <KActionCollection>
 #include <KHistoryComboBox>
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPluginFactory>
 #include <KXMLGUIClient>
+#include <kio/job.h>
+#include <kio/jobuidelegate.h>
 #include <kxmlguifactory.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(PluginKateXMLToolsFactory, "katexmltools.json", registerPlugin<PluginKateXMLTools>();)
@@ -306,8 +306,8 @@ QModelIndex PluginKateXMLToolsCompletionModel::index(const int row, const int co
         // At 'top' level only 'header' present, so nothing else than row 0 can be here...
         return row == 0 ? createIndex(row, column, groupNode) : QModelIndex();
     }
-    if (parent.internalId() == groupNode) {                   // Is this a group node?
-        if (0 <= row && row < m_allowed.size()) {             // Make sure to return only valid indices
+    if (parent.internalId() == groupNode) {           // Is this a group node?
+        if (0 <= row && row < m_allowed.size()) {     // Make sure to return only valid indices
             return createIndex(row, column, nullptr); // Just return a leaf-level index
         }
     }
@@ -387,8 +387,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
     // <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
     uint checkMaxLines = 200;
     QString documentStart = kv->document()->text(KTextEditor::Range(0, 0, checkMaxLines + 1, 0));
-    const QRegularExpression re(QStringLiteral("<!DOCTYPE\\s+\\b(\\w+)\\b\\s+PUBLIC\\s+[\"\']([^\"\']+?)[\"\']"),
-                                QRegularExpression::CaseInsensitiveOption);
+    const QRegularExpression re(QStringLiteral("<!DOCTYPE\\s+\\b(\\w+)\\b\\s+PUBLIC\\s+[\"\']([^\"\']+?)[\"\']"), QRegularExpression::CaseInsensitiveOption);
     const QRegularExpressionMatch match = re.match(documentStart);
     QString filename;
     QString doctype;

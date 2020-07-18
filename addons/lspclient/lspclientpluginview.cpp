@@ -252,7 +252,7 @@ class LSPClientActionView : public QObject
     // applied search ranges
     typedef QMultiHash<KTextEditor::Document *, KTextEditor::MovingRange *> RangeCollection;
     RangeCollection m_ranges;
-    QHash<KTextEditor::Document *, QHash<int, QVector<KTextEditor::MovingRange*>>> m_semanticHighlightRanges;
+    QHash<KTextEditor::Document *, QHash<int, QVector<KTextEditor::MovingRange *>>> m_semanticHighlightRanges;
     // applied marks
     typedef QSet<KTextEditor::Document *> DocumentCollection;
     DocumentCollection m_marks;
@@ -308,6 +308,7 @@ class LSPClientActionView : public QObject
     class ForwardingTextHintProvider : public KTextEditor::TextHintProvider
     {
         LSPClientActionView *m_parent;
+
     public:
         ForwardingTextHintProvider(LSPClientActionView *parent)
             : m_parent(parent)
@@ -632,7 +633,7 @@ public:
         Q_ASSERT(item);
         KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
         Q_ASSERT(miface);
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
         KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
 #else
         KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
@@ -716,7 +717,7 @@ public:
         switch (markType) {
         case RangeData::markType:
             iface->setMarkDescription(markType, i18n("RangeHighLight"));
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
             iface->setMarkIcon(markType, QIcon());
 #else
             iface->setMarkPixmap(markType, QIcon().pixmap(0, 0));
@@ -726,7 +727,7 @@ public:
             break;
         case RangeData::markTypeDiagError:
             iface->setMarkDescription(markType, i18n("Error"));
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
             iface->setMarkIcon(markType, diagnosticsIcon(LSPDiagnosticSeverity::Error));
 #else
             iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Error).pixmap(ps, ps));
@@ -734,7 +735,7 @@ public:
             break;
         case RangeData::markTypeDiagWarning:
             iface->setMarkDescription(markType, i18n("Warning"));
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
             iface->setMarkIcon(markType, diagnosticsIcon(LSPDiagnosticSeverity::Warning));
 #else
             iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Warning).pixmap(ps, ps));
@@ -742,7 +743,7 @@ public:
             break;
         case RangeData::markTypeDiagOther:
             iface->setMarkDescription(markType, i18n("Information"));
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
             iface->setMarkIcon(markType, diagnosticsIcon(LSPDiagnosticSeverity::Information));
 #else
             iface->setMarkPixmap(markType, diagnosticsIcon(LSPDiagnosticSeverity::Information).pixmap(ps, ps));
@@ -1700,8 +1701,7 @@ public:
             }
         }
         if (version != miface->revision()) {
-            qCWarning(LSPCLIENT) << "discarding highlighting, versions don't match:"
-                       << params.textDocument.version << version << miface->revision();
+            qCWarning(LSPCLIENT) << "discarding highlighting, versions don't match:" << params.textDocument.version << version << miface->revision();
             return;
         }
 
@@ -1723,7 +1723,7 @@ public:
                         attr->setFontItalic(true);
                     }
                     return attr;
-                } else if(scope == QLatin1String("entity.name.function.cpp")) {
+                } else if (scope == QLatin1String("entity.name.function.cpp")) {
                     static KTextEditor::Attribute::Ptr attr;
                     if (!attr) {
                         attr = view->defaultStyleAttribute(KTextEditor::dsFunction);
@@ -1765,9 +1765,7 @@ public:
                         attr->setFontItalic(true);
                     }
                     return attr;
-                } else if (scope == QLatin1String("entity.name.type.class.cpp")
-                        || scope == QLatin1String("entity.name.type.template.cpp"))
-                {
+                } else if (scope == QLatin1String("entity.name.type.class.cpp") || scope == QLatin1String("entity.name.type.template.cpp")) {
                     static KTextEditor::Attribute::Ptr attr;
                     if (!attr) {
                         attr = view->defaultStyleAttribute(KTextEditor::dsDataType);
@@ -1792,7 +1790,7 @@ public:
         // TODO: we should try to recycle the moving ranges instead of recreating them all the time
 
         const auto scopes = server->capabilities().semanticHighlightingProvider.scopes;
-        //qDebug() << params.textDocument.uri << scopes;
+        // qDebug() << params.textDocument.uri << scopes;
 
         auto &documentRanges = m_semanticHighlightRanges[document];
         QSet<int> handledLines;
@@ -1801,9 +1799,9 @@ public:
             auto &lineRanges = documentRanges[line.line];
             qDeleteAll(lineRanges);
             lineRanges.clear();
-            //qDebug() << "line:" << line.line;
+            // qDebug() << "line:" << line.line;
             for (const auto &token : line.tokens) {
-                //qDebug() << "token:" << token.character << token.length << token.scope << scopes.value(token.scope);
+                // qDebug() << "token:" << token.character << token.length << token.scope << scopes.value(token.scope);
                 auto attribute = attributeForScopes(scopes.value(token.scope));
                 if (!attribute)
                     continue;
@@ -1811,8 +1809,7 @@ public:
                 const auto columnStart = static_cast<int>(token.character);
                 const auto columnEnd = columnStart + static_cast<int>(token.length);
                 constexpr auto expand = KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight;
-                auto *range = miface->newMovingRange({line.line, columnStart, line.line, columnEnd},
-                                                     expand, KTextEditor::MovingRange::InvalidateIfEmpty);
+                auto *range = miface->newMovingRange({line.line, columnStart, line.line, columnEnd}, expand, KTextEditor::MovingRange::InvalidateIfEmpty);
                 range->setAttribute(attribute);
             }
         }

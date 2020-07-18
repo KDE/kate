@@ -19,7 +19,6 @@
 */
 #include "kateviewspace.h"
 
-#include <KActionCollection>
 #include "kateapp.h"
 #include "katedebug.h"
 #include "katedocmanager.h"
@@ -28,6 +27,7 @@
 #include "katesessionmanager.h"
 #include "kateupdatedisabler.h"
 #include "kateviewmanager.h"
+#include <KActionCollection>
 
 #include <KAcceleratorManager>
 #include <KConfigGroup>
@@ -156,7 +156,7 @@ void KateViewSpace::statusBarToggled()
 {
     KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
     for (auto view : qAsConst(m_docToView)) {
-       view->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
+        view->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
     }
 }
 
@@ -196,7 +196,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     }
 
     // register document, it is shown below through showView() then
-   registerDocument(doc);
+    registerDocument(doc);
 
     // view shall still be not registered
     Q_ASSERT(!m_docToView.contains(doc));

@@ -46,6 +46,7 @@
 #include <KActionMenu>
 #include <KConfigGroup>
 #include <KEditToolBar>
+#include <KHelpClient>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMimeTypeTrader>
@@ -59,10 +60,9 @@
 #include <KStandardAction>
 #include <KToggleFullScreenAction>
 #include <KToolBar>
+#include <KWindowConfig>
 #include <KWindowSystem>
 #include <KXMLGUIFactory>
-#include <KHelpClient>
-#include <KWindowConfig>
 
 #include <KFileItem>
 #include <KIO/Job>
@@ -974,9 +974,7 @@ bool KateMainWindow::showModOnDiskPrompt(ModOnDiskMode mode)
     DocVector list;
     list.reserve(documents.size());
     for (auto doc : documents) {
-        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc &&
-            (doc->isModified() || mode == PromptAll))
-        {
+        if (KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDisc && (doc->isModified() || mode == PromptAll)) {
             list.append(doc);
         }
     }

@@ -21,6 +21,7 @@
 #include "TargetHtmlDelegate.h"
 #include "TargetModel.h"
 
+#include <KLocalizedString>
 #include <QAbstractTextDocumentLayout>
 #include <QCompleter>
 #include <QFileSystemModel>
@@ -30,7 +31,6 @@
 #include <QTextCharFormat>
 #include <QTextDocument>
 #include <QToolButton>
-#include <KLocalizedString>
 
 #include "UrlInserter.h"
 

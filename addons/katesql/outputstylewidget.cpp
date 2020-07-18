@@ -19,11 +19,11 @@
 #include "outputstylewidget.h"
 
 #include <KSharedConfig>
-#include <QFontDatabase>
-#include <QIcon>
 #include <QBrush>
 #include <QCheckBox>
 #include <QFont>
+#include <QFontDatabase>
+#include <QIcon>
 #include <QVariant>
 
 #include <KColorButton>

@@ -119,10 +119,7 @@ public Q_SLOTS:
     void goToPreviousMatch();
 
 private:
-    enum CopyResultType {
-        AllExpanded,
-        All
-    };
+    enum CopyResultType { AllExpanded, All };
 
 private Q_SLOTS:
     void openSearchView();
@@ -190,7 +187,7 @@ private:
 
     void onResize(const QSize &size);
 
-    Ui::SearchDialog m_ui{};
+    Ui::SearchDialog m_ui {};
     QWidget *m_toolView;
     KTextEditor::Application *m_kateApp;
     SearchOpenFiles m_searchOpenFiles;

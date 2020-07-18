@@ -20,11 +20,11 @@
 #ifndef PLUGIN_KATEOPENHEADER_H
 #define PLUGIN_KATEOPENHEADER_H
 
+#include <KPluginFactory>
 #include <KTextEditor/Command>
 #include <KXMLGUIClient>
 #include <QObject>
 #include <QUrl>
-#include <KPluginFactory>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/plugin.h>
 

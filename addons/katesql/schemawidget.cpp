@@ -27,16 +27,16 @@
 
 #include <QApplication>
 #include <QDrag>
-#include <QMimeData>
 #include <QEvent>
 #include <QMenu>
+#include <QMimeData>
+#include <QMouseEvent>
 #include <QSqlDatabase>
 #include <QSqlField>
 #include <QSqlIndex>
 #include <QSqlRecord>
 #include <QStringList>
 #include <QVariant>
-#include <QMouseEvent>
 
 SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
     : QTreeWidget(parent)

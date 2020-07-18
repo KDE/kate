@@ -31,12 +31,12 @@
 #include "ui_close_confirm_dialog.h"
 #include <KTextEditor/Document>
 #include <KToggleAction>
+#include <KWindowConfig>
 #include <QCheckBox>
 #include <QDialog>
 #include <QList>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-#include <KWindowConfig>
 
 namespace kate
 {

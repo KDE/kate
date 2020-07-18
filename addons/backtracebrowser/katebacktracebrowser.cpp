@@ -22,9 +22,9 @@
 #include "btfileindexer.h"
 #include "btparser.h"
 
+#include <KAboutData>
 #include <KConfigGroup>
 #include <KLineEdit>
-#include <KAboutData>
 #include <KLocalizedString> // i18n
 #include <KPluginFactory>
 #include <KPluginLoader>

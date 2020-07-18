@@ -224,7 +224,7 @@ void LSPClientConfigPage::updateConfigTextErrorState()
     }
 
     // check json validity
-    QJsonParseError error{};
+    QJsonParseError error {};
     auto json = QJsonDocument::fromJson(data, &error);
     if (error.error == QJsonParseError::NoError) {
         if (json.isObject()) {

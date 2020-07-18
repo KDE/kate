@@ -29,42 +29,46 @@ static const CTagsKindMapping kindMappingAsp[] = {{'f', I18N_NOOP2("Tag Type", "
 
 static const CTagsKindMapping kindMappingAwk[] = {{'f', I18N_NOOP2("Tag Type", "function")}, {0, nullptr}};
 
-static const CTagsKindMapping kindMappingBeta[] = {{'f', I18N_NOOP2("Tag Type", "fragment definition")}, {'p', I18N_NOOP2("Tag Type", "any pattern")}, {'s', I18N_NOOP2("Tag Type", "slot")}, {'v', I18N_NOOP2("Tag Type", "pattern")}, {0, nullptr}};
+static const CTagsKindMapping kindMappingBeta[] = {{'f', I18N_NOOP2("Tag Type", "fragment definition")},
+                                                   {'p', I18N_NOOP2("Tag Type", "any pattern")},
+                                                   {'s', I18N_NOOP2("Tag Type", "slot")},
+                                                   {'v', I18N_NOOP2("Tag Type", "pattern")},
+                                                   {0, nullptr}};
 
 static const CTagsKindMapping kindMappingC[] = {{'c', I18N_NOOP2("Tag Type", "class")},
-                                          {'d', I18N_NOOP2("Tag Type", "macro")},
-                                          {'e', I18N_NOOP2("Tag Type", "enumerator")},
-                                          {'f', I18N_NOOP2("Tag Type", "function")},
-                                          {'g', I18N_NOOP2("Tag Type", "enumeration")},
-                                          {'m', I18N_NOOP2("Tag Type", "member")},
-                                          {'n', I18N_NOOP2("Tag Type", "namespace")},
-                                          {'p', I18N_NOOP2("Tag Type", "prototype")},
-                                          {'s', I18N_NOOP2("Tag Type", "struct")},
-                                          {'t', I18N_NOOP2("Tag Type", "typedef")},
-                                          {'u', I18N_NOOP2("Tag Type", "union")},
-                                          {'v', I18N_NOOP2("Tag Type", "variable")},
-                                          {'x', I18N_NOOP2("Tag Type", "external variable")},
-                                          {0, nullptr}};
+                                                {'d', I18N_NOOP2("Tag Type", "macro")},
+                                                {'e', I18N_NOOP2("Tag Type", "enumerator")},
+                                                {'f', I18N_NOOP2("Tag Type", "function")},
+                                                {'g', I18N_NOOP2("Tag Type", "enumeration")},
+                                                {'m', I18N_NOOP2("Tag Type", "member")},
+                                                {'n', I18N_NOOP2("Tag Type", "namespace")},
+                                                {'p', I18N_NOOP2("Tag Type", "prototype")},
+                                                {'s', I18N_NOOP2("Tag Type", "struct")},
+                                                {'t', I18N_NOOP2("Tag Type", "typedef")},
+                                                {'u', I18N_NOOP2("Tag Type", "union")},
+                                                {'v', I18N_NOOP2("Tag Type", "variable")},
+                                                {'x', I18N_NOOP2("Tag Type", "external variable")},
+                                                {0, nullptr}};
 
 static const CTagsKindMapping kindMappingCobol[] = {{'p', I18N_NOOP2("Tag Type", "paragraph")}, {0, nullptr}};
 
 static const CTagsKindMapping kindMappingEiffel[] = {{'c', I18N_NOOP2("Tag Type", "class")}, {'f', I18N_NOOP2("Tag Type", "feature")}, {'l', I18N_NOOP2("Tag Type", "local entity")}, {0, nullptr}};
 
 static const CTagsKindMapping kindMappingFortran[] = {{'b', I18N_NOOP2("Tag Type", "block")},
-                                                {'c', I18N_NOOP2("Tag Type", "common")},
-                                                {'e', I18N_NOOP2("Tag Type", "entry")},
-                                                {'f', I18N_NOOP2("Tag Type", "function")},
-                                                {'i', I18N_NOOP2("Tag Type", "interface")},
-                                                {'k', I18N_NOOP2("Tag Type", "type component")},
-                                                {'l', I18N_NOOP2("Tag Type", "label")},
-                                                {'L', I18N_NOOP2("Tag Type", "local")},
-                                                {'m', I18N_NOOP2("Tag Type", "module")},
-                                                {'n', I18N_NOOP2("Tag Type", "namelist")},
-                                                {'p', I18N_NOOP2("Tag Type", "program")},
-                                                {'s', I18N_NOOP2("Tag Type", "subroutine")},
-                                                {'t', I18N_NOOP2("Tag Type", "type")},
-                                                {'v', I18N_NOOP2("Tag Type", "variable")},
-                                                {0, nullptr}};
+                                                      {'c', I18N_NOOP2("Tag Type", "common")},
+                                                      {'e', I18N_NOOP2("Tag Type", "entry")},
+                                                      {'f', I18N_NOOP2("Tag Type", "function")},
+                                                      {'i', I18N_NOOP2("Tag Type", "interface")},
+                                                      {'k', I18N_NOOP2("Tag Type", "type component")},
+                                                      {'l', I18N_NOOP2("Tag Type", "label")},
+                                                      {'L', I18N_NOOP2("Tag Type", "local")},
+                                                      {'m', I18N_NOOP2("Tag Type", "module")},
+                                                      {'n', I18N_NOOP2("Tag Type", "namelist")},
+                                                      {'p', I18N_NOOP2("Tag Type", "program")},
+                                                      {'s', I18N_NOOP2("Tag Type", "subroutine")},
+                                                      {'t', I18N_NOOP2("Tag Type", "type")},
+                                                      {'v', I18N_NOOP2("Tag Type", "variable")},
+                                                      {0, nullptr}};
 
 static const CTagsKindMapping kindMappingJava[] =
     {{'c', I18N_NOOP2("Tag Type", "class")}, {'f', I18N_NOOP2("Tag Type", "field")}, {'i', I18N_NOOP2("Tag Type", "interface")}, {'m', I18N_NOOP2("Tag Type", "method")}, {'p', I18N_NOOP2("Tag Type", "package")}, {0, nullptr}};

@@ -53,9 +53,9 @@
 #include <QKeyEvent>
 #include <QMenu>
 #include <QMetaObject>
+#include <QPoint>
 #include <QScrollBar>
 #include <QTextDocument>
-#include <QPoint>
 
 static QUrl localFileDirUp(const QUrl &url)
 {
@@ -906,7 +906,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, QTreeWidgetI
     m_matchRanges.append(mr);
 
     // Add a match mark
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
     KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
 #else
     KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
@@ -914,7 +914,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, QTreeWidgetI
     if (!iface)
         return;
     iface->setMarkDescription(KTextEditor::MarkInterface::markType32, i18n("SearchHighLight"));
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
     iface->setMarkIcon(KTextEditor::MarkInterface::markType32, QIcon());
 #else
     iface->setMarkPixmap(KTextEditor::MarkInterface::markType32, QIcon().pixmap(0, 0));
@@ -1036,9 +1036,9 @@ void KatePluginSearchView::startSearch()
     QTimer::singleShot(0, this, [this]() { m_blockDiskMatchFound = false; });
     m_replacer.terminateReplace();
 
-    m_changeTimer.stop();                       // make sure not to start a "while you type" search now
-    m_mainWindow->showToolView(m_toolView);     // in case we are invoked from the command interface
-    m_projectSearchPlaceIndex = 0;              // now that we started, don't switch back automatically
+    m_changeTimer.stop();                   // make sure not to start a "while you type" search now
+    m_mainWindow->showToolView(m_toolView); // in case we are invoked from the command interface
+    m_projectSearchPlaceIndex = 0;          // now that we started, don't switch back automatically
 
     if (m_ui.searchCombo->currentText().isEmpty()) {
         // return pressed in the folder combo or filter combo
@@ -2183,7 +2183,7 @@ static QString copySearchSummary(const QTreeWidgetItem *summaryItem)
 {
     if (summaryItem) {
         int matches = 0;
-        for (int i=0; i<summaryItem->childCount(); ++i) {
+        for (int i = 0; i < summaryItem->childCount(); ++i) {
             matches += summaryItem->child(i)->childCount();
         }
         return i18np("A total of %1 match found\n", "A total of %1 matches found\n", matches);
@@ -2234,28 +2234,24 @@ void KatePluginSearchView::copySearchToClipboard(CopyResultType copyType)
         if (parent) {
             clipboard += copySearchMatchFile(parent);
             clipboard += copySearchMatch(currentItem);
-        }
-        else {
+        } else {
             clipboard = i18n("No matches found\n");
         }
-    }
-    else {
+    } else {
         if (parent) {
             clipboard += copySearchSummary(parent);
             clipboard += copySearchMatchFile(currentItem);
-        }
-        else {
+        } else {
             clipboard += m_isSearchAsYouType ? copySearchMatchFile(currentItem) : copySearchSummary(currentItem);
         }
 
-        for (int i=0; i<currentItem->childCount() && (currentItem->isExpanded() || copyType == All); ++i) {
+        for (int i = 0; i < currentItem->childCount() && (currentItem->isExpanded() || copyType == All); ++i) {
             QTreeWidgetItem *child = currentItem->child(i);
             if (child->childCount() == 0) {
                 clipboard += copySearchMatch(child);
-            }
-            else {
+            } else {
                 clipboard += copySearchMatchFile(child);
-                for (int j=0; j<child->childCount() && (child->isExpanded() || copyType == All); ++j) {
+                for (int j = 0; j < child->childCount() && (child->isExpanded() || copyType == All); ++j) {
                     QTreeWidgetItem *grandChild = child->child(j);
                     clipboard += copySearchMatch(grandChild);
                 }
@@ -2274,8 +2270,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
             event->accept();
             return true;
         }
-    }
-    else if (event->type() == QEvent::KeyPress) {
+    } else if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         QTreeWidget *tree = qobject_cast<QTreeWidget *>(obj);
         if (tree) {
@@ -2293,8 +2288,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
             }
         }
         // NOTE: Qt::Key_Escape is handled by handleEsc
-    }
-    else if (event->type() == QEvent::Resize) {
+    } else if (event->type() == QEvent::Resize) {
         QResizeEvent *re = static_cast<QResizeEvent *>(event);
         if (obj == m_toolView) {
             onResize(re->size());
@@ -2408,7 +2402,6 @@ void KatePluginSearchView::slotProjectFileNameChanged()
         }
     }
 }
-
 
 #include "plugin_search.moc"
 

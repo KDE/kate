@@ -37,10 +37,10 @@
 
 #include <QList>
 
-#include <KTextEditor/MainWindow>
 #include <KActionCollection>
 #include <KConfigGroup>
 #include <KSelectAction>
+#include <KTextEditor/MainWindow>
 
 struct GDBTargetConf {
     QString executable;

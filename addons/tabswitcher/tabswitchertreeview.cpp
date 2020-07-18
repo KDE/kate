@@ -24,7 +24,7 @@
 #include <QDebug>
 #include <QKeyEvent>
 
-TabSwitcherTreeView::TabSwitcherTreeView() 
+TabSwitcherTreeView::TabSwitcherTreeView()
 {
     setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
     setSelectionBehavior(QAbstractItemView::SelectRows);

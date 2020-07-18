@@ -20,9 +20,9 @@
 
 #include "kateprojectcodeanalysistoolcppcheck.h"
 
+#include <KLocalizedString>
 #include <QRegularExpression>
 #include <QThread>
-#include <KLocalizedString>
 
 KateProjectCodeAnalysisToolCppcheck::KateProjectCodeAnalysisToolCppcheck(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)

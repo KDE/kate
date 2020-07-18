@@ -22,8 +22,8 @@
 #include "connection.h"
 
 #include <QAbstractListModel>
-#include <QIcon>
 #include <QHash>
+#include <QIcon>
 #include <QString>
 
 class ConnectionModel : public QAbstractListModel

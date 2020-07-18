@@ -24,8 +24,9 @@
 #include <QTabBar>
 #include <QUrl>
 
-namespace KTextEditor {
-    class Document;
+namespace KTextEditor
+{
+class Document;
 }
 
 /**
@@ -61,7 +62,6 @@ public:
      * Returns whether a tab with ID \a id exists.
      */
     bool containsTab(int index) const;
-
 
     /**
      * Sets the URL of the tab with ID \a id to \a url.
@@ -143,8 +143,8 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
 
 private:
-    using QTabBar::insertTab;
     using QTabBar::addTab;
+    using QTabBar::insertTab;
 
     bool m_isActive = false;
     KTextEditor::Document *m_beingAdded = nullptr;

@@ -32,10 +32,10 @@
 #include <KXMLGUIFactory>
 #include <QMenu>
 
-#include <QStandardPaths>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KStringHandler>
+#include <QStandardPaths>
 
 /******************************************************************/
 KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin)

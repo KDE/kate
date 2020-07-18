@@ -20,8 +20,8 @@
 
 #include "kateprojectcodeanalysistoolshellcheck.h"
 
-#include <QRegularExpression>
 #include <KLocalizedString>
+#include <QRegularExpression>
 
 KateProjectCodeAnalysisToolShellcheck::KateProjectCodeAnalysisToolShellcheck(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)

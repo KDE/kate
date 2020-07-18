@@ -19,14 +19,14 @@
 #include "textoutputwidget.h"
 #include "connection.h"
 
-#include <QAction>
 #include <KLocalizedString>
 #include <KToolBar>
+#include <QAction>
 
-#include <QFontDatabase>
-#include <QStyle>
 #include <QDateTime>
+#include <QFontDatabase>
 #include <QLayout>
+#include <QStyle>
 #include <QTextEdit>
 
 TextOutputWidget::TextOutputWidget(QWidget *parent)

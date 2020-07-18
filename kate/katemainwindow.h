@@ -109,8 +109,8 @@ public:
     /** Enumeration to specify if files modified on disk should show up
      * in the reload dialog even if not edited in this instance. */
     enum ModOnDiskMode {
-        PromptEdited,  ///< Do not list files that have not been edited
-        PromptAll,     ///< Include all files modified on disk
+        PromptEdited, ///< Do not list files that have not been edited
+        PromptAll,    ///< Include all files modified on disk
     };
 
     /**

@@ -20,9 +20,9 @@
 
 #include "replace_matches.h"
 
+#include <KLocalizedString>
 #include <QTimer>
 #include <QTreeWidgetItem>
-#include <KLocalizedString>
 
 ReplaceMatches::ReplaceMatches(QObject *parent)
     : QObject(parent)

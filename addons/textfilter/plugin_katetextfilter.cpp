@@ -22,20 +22,20 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/message.h>
 
-#include <QAction>
-#include <QDialog>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
+#include <QAction>
+#include <QDialog>
 #include <QString>
 
+#include <KActionCollection>
 #include <KAuthorized>
 #include <KConfigGroup>
 #include <KPluginFactory>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
-#include <KActionCollection>
 
 #include <QApplication>
 #include <QClipboard>

@@ -78,7 +78,6 @@ static QStringList normalizeBt(const QStringList &l)
 
 static BtInfo parseBtLine(const QString &line)
 {
-
     // the syntax types we support are
     // a) #24 0xb688ff8e in QApplication::notify (this=0xbf997e8c, receiver=0x82607e8, e=0xbf997074) at kernel/qapplication.cpp:3115
     // b) #39 0xb634211c in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0

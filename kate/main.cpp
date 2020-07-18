@@ -26,11 +26,11 @@
 #include <KAboutData>
 #include <KConfigGroup>
 #include <KCrash>
+#include <KDBusService>
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <KStartupInfo>
 #include <KWindowSystem>
-#include <KDBusService>
 
 #include <QApplication>
 #include <QByteArray>

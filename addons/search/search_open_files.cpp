@@ -27,7 +27,7 @@ SearchOpenFiles::SearchOpenFiles(QObject *parent)
 {
     m_nextRunTimer.setInterval(0);
     m_nextRunTimer.setSingleShot(true);
-    connect(&m_nextRunTimer, &QTimer::timeout, this, [this](){ doSearchNextFile(m_nextLine); });
+    connect(&m_nextRunTimer, &QTimer::timeout, this, [this]() { doSearchNextFile(m_nextLine); });
 }
 
 bool SearchOpenFiles::searching()

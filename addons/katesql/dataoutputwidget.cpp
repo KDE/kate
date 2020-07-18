@@ -27,25 +27,24 @@
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
 
-#include <QAction>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KToggleAction>
 #include <KToolBar>
+#include <QAction>
 
 #include <QApplication>
 #include <QClipboard>
 #include <QElapsedTimer>
-#include <QStyle>
-#include <QTime>
-#include <QClipboard>
 #include <QFile>
 #include <QHeaderView>
 #include <QLayout>
 #include <QSize>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QStyle>
 #include <QTextStream>
+#include <QTime>
 #include <QTimer>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent)

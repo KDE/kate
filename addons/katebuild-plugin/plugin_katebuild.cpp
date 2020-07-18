@@ -400,23 +400,27 @@ void KateBuildView::slotPrev()
 QString KateBuildView::caseFixed(const QString &path)
 {
     QStringList paths = path.split(QLatin1Char('/'));
-    if (paths.isEmpty()) { return path; }
+    if (paths.isEmpty()) {
+        return path;
+    }
 
     QString result = paths[0].toUpper() + QLatin1Char('/');
-    for (int i=1; i<paths.count(); ++i) {
+    for (int i = 1; i < paths.count(); ++i) {
         QDir curDir(result);
         const QStringList items = curDir.entryList();
         int j;
-        for (j=0; j<items.size(); ++j) {
+        for (j = 0; j < items.size(); ++j) {
             if (items[j].compare(paths[i], Qt::CaseInsensitive) == 0) {
                 result += items[j];
-                if (i < paths.count()-1) {
+                if (i < paths.count() - 1) {
                     result += QLatin1Char('/');
                 }
                 break;
             }
         }
-        if (j==items.size()) { return path; }
+        if (j == items.size()) {
+            return path;
+        }
     }
     return result;
 }
@@ -546,7 +550,7 @@ void KateBuildView::clearMarks()
 
 void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
 {
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
     KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
 #else
     KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
@@ -586,7 +590,7 @@ void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
             }
 
             if (markType) {
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5,69,0)
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
                 iface->setMarkIcon(markType, messageIcon(category));
 #else
                 const int ps = 32;
@@ -1071,7 +1075,7 @@ void KateBuildView::processLine(const QString &line)
     filename = QFileInfo(filename).filePath();
 #endif
 
-    //qDebug() << "File Name:"<<m_make_dir << filename << " msg:"<< msg;
+    // qDebug() << "File Name:"<<m_make_dir << filename << " msg:"<< msg;
     // add path to file
     if (QFile::exists(m_make_dir + QLatin1Char('/') + filename)) {
         filename = m_make_dir + QLatin1Char('/') + filename;

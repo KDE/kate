@@ -19,9 +19,9 @@
 #include "katesqlconfigpage.h"
 #include "outputstylewidget.h"
 
-#include <KSharedConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 
 #include <QBoxLayout>
 #include <QCheckBox>

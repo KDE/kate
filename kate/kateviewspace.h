@@ -25,6 +25,8 @@
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/view.h>
 
+#include "katetabbar.h"
+
 #include <QHash>
 #include <QWidget>
 
@@ -32,7 +34,6 @@ class KConfigBase;
 class KateViewManager;
 class QStackedWidget;
 class QToolButton;
-class KateTabBar;
 
 class KateViewSpace : public QWidget
 {
@@ -73,22 +74,19 @@ public:
     void restoreConfig(KateViewManager *viewMan, const KConfigBase *config, const QString &group);
 
     /**
-     * Returns the document LRU list of this view space.
+     * Returns the document list of this tab bar.
+     * @return document list in order of tabs
      */
-    QVector<KTextEditor::Document *> lruDocumentList() const;
+    QVector<KTextEditor::Document *> documentList() const
+    {
+        return m_tabBar->documentList();
+    }
 
     /**
-     * Called by the view manager if a viewspace was closed.
-     * The documents of the closed are merged into this viewspace
+     * Register one document for this view space.
+     * Each registered document will get e.g. a tab bar button.
      */
-    void mergeLruList(const QVector<KTextEditor::Document *> &lruList);
-
-    /**
-     * Called by the view manager to notify that new documents were created
-     * while this view space was active. If @p append is @e true, the @p doc
-     * is appended to the lru document list, otherwise, it is prepended.
-     */
-    void registerDocument(KTextEditor::Document *doc, bool append = true);
+    void registerDocument(KTextEditor::Document *doc);
 
     /**
      * Event filter to catch events from view space tool buttons.
@@ -122,17 +120,6 @@ private Q_SLOTS:
      * @param focusCurrentView if @e true, the current view will get focus
      */
     void makeActive(bool focusCurrentView = true);
-
-    /**
-     * Add a tab for @p doc at position @p index.
-     */
-    void insertTab(int index, KTextEditor::Document *doc);
-
-    /**
-     * Remove tab for @p doc, and return the index (position)
-     * of the removed tab.
-     */
-    int removeTab(KTextEditor::Document *doc, bool documentDestroyed);
 
     /**
      * This slot is called by the tabbar, if tab @p id was closed through the
@@ -175,9 +162,11 @@ private:
     // widget stack that contains all KTE::Views
     QStackedWidget *stack;
 
-    // document's in the view space, sorted in LRU mode:
-    // the most recently used Document is at the end of the list
-    QVector<KTextEditor::Document *> m_lruDocList;
+    /**
+     * all documents this view space is aware of
+     * the all will have tab bar buttons existing
+     */
+    QSet<KTextEditor::Document *> m_registeredDocuments;
 
     // the list of views that are contained in this view space,
     // mapped through a hash from Document to View.

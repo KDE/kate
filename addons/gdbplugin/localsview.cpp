@@ -18,9 +18,9 @@
 //  Boston, MA 02110-1301, USA.
 
 #include "localsview.h"
+#include <KLocalizedString>
 #include <QDebug>
 #include <QLabel>
-#include <KLocalizedString>
 
 LocalsView::LocalsView(QWidget *parent)
     : QTreeWidget(parent)

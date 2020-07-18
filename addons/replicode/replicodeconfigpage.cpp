@@ -24,11 +24,11 @@
 #include <KSharedConfig>
 #include <KUrlRequester>
 
+#include <KLocalizedString>
 #include <QGridLayout>
 #include <QLabel>
 #include <QLayout>
 #include <QTabWidget>
-#include <KLocalizedString>
 
 ReplicodeConfigPage::ReplicodeConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)

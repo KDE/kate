@@ -21,9 +21,9 @@
 #include "kateprojectinfoviewindex.h"
 #include "kateprojectpluginview.h"
 
-#include <QVBoxLayout>
 #include <KLocalizedString>
 #include <KMessageWidget>
+#include <QVBoxLayout>
 
 KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *pluginView, KateProject *project, QWidget *parent)
     : QWidget(parent)

@@ -27,11 +27,11 @@
 #include <ktexteditor/message.h>
 #include <ktexteditor/view.h>
 
-#include <QAction>
 #include <KActionCollection>
+#include <KShell>
+#include <QAction>
 #include <kde_terminal_interface.h>
 #include <kparts/part.h>
-#include <KShell>
 
 #include <KMessageBox>
 
@@ -47,14 +47,13 @@
 #include <QStyle>
 #include <QVBoxLayout>
 
+#include <KAboutData>
 #include <KAuthorized>
 #include <KConfigGroup>
 #include <KPluginFactory>
 #include <KPluginLoader>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
-#include <KAboutData>
-#include <KPluginFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 

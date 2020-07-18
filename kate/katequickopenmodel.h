@@ -69,7 +69,7 @@ private:
      * code.
      */
     KateMainWindow *m_mainWindow;
-    List m_listMode{};
+    List m_listMode {};
 };
 
 #endif

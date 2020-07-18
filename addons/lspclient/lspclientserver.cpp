@@ -394,7 +394,7 @@ static LSPDocumentHighlight parseDocumentHighlight(const QJsonValue &result)
     auto hover = result.toObject();
     auto range = parseRange(hover.value(MEMBER_RANGE).toObject());
     auto kind = static_cast<LSPDocumentHighlightKind>(hover.value(MEMBER_KIND).toInt(static_cast<int>(LSPDocumentHighlightKind::Text))); // default is
-                                                                                                               // DocumentHighlightKind.Text
+                                                                                                                                         // DocumentHighlightKind.Text
     return {range, kind};
 }
 

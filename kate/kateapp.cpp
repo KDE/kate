@@ -200,7 +200,7 @@ bool KateApp::startupKate()
 
     // notify about start
     QWidget *win = activeKateMainWindow();
-#if KWINDOWSYSTEM_VERSION >= QT_VERSION_CHECK(5,62,0)
+#if KWINDOWSYSTEM_VERSION >= QT_VERSION_CHECK(5, 62, 0)
     win->setAttribute(Qt::WA_NativeWindow, true);
     KStartupInfo::setNewStartupId(win->windowHandle(), KStartupInfo::startupId());
 #else

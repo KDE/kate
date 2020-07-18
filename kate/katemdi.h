@@ -241,7 +241,7 @@ private Q_SLOTS:
 private:
     MainWindow *m_mainWin;
 
-    KMultiTabBar::KMultiTabBarPosition m_pos{};
+    KMultiTabBar::KMultiTabBarPosition m_pos {};
     QSplitter *m_splitter;
     KMultiTabBar *m_tabBar = nullptr;
     QSplitter *m_ownSplit;
@@ -431,7 +431,7 @@ private:
     /**
      * sidebars for the four sides
      */
-    Sidebar *m_sidebars[4]{};
+    Sidebar *m_sidebars[4] {};
 
     /**
      * sidebars state.

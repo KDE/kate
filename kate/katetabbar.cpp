@@ -79,13 +79,13 @@ bool KateTabBar::isActive() const
 int KateTabBar::prevTab() const
 {
     return currentIndex() == 0 ? 0 // first index, keep it here.
-         : currentIndex() - 1;
+                               : currentIndex() - 1;
 }
 
 int KateTabBar::nextTab() const
 {
     return currentIndex() == count() - 1 ? count() - 1 // last index, keep it here.
-         : currentIndex() + 1;
+                                         : currentIndex() + 1;
 }
 
 bool KateTabBar::containsTab(int index) const
@@ -96,7 +96,7 @@ bool KateTabBar::containsTab(int index) const
 QVariant KateTabBar::ensureValidTabData(int idx)
 {
     if (!tabData(idx).isValid()) {
-        setTabData(idx, QVariant::fromValue(KateTabButtonData{}));
+        setTabData(idx, QVariant::fromValue(KateTabButtonData {}));
     }
     return tabData(idx);
 }
@@ -129,7 +129,6 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
     QTabBar::mousePressEvent(event);
 }
 
-
 void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
 {
     int id = tabAt(ev->pos());
@@ -148,9 +147,8 @@ void KateTabBar::wheelEvent(QWheelEvent *event)
     setCurrentIndex(idx);
 }
 
-void KateTabBar::setTabDocument(int idx, KTextEditor::Document* doc)
+void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
 {
-
     QVariant data = ensureValidTabData(idx);
     KateTabButtonData buttonData = data.value<KateTabButtonData>();
     buttonData.doc = doc;
@@ -196,7 +194,7 @@ KTextEditor::Document *KateTabBar::tabDocument(int idx)
     return doc;
 }
 
-int KateTabBar::insertTab(int idx, KTextEditor::Document* doc)
+int KateTabBar::insertTab(int idx, KTextEditor::Document *doc)
 {
     m_beingAdded = doc;
     return insertTab(idx, doc->documentName());

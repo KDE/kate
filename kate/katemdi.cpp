@@ -32,8 +32,8 @@
 #include <KMessageBox>
 #include <KSharedConfig>
 #include <KToolBar>
-#include <KXMLGUIFactory>
 #include <KWindowConfig>
+#include <KXMLGUIFactory>
 
 #include <QChildEvent>
 #include <QContextMenuEvent>

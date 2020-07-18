@@ -24,9 +24,10 @@
 #include <KTextEditor/Command>
 #include <QString>
 
-namespace KTextEditor {
-    class View;
-    class Range;
+namespace KTextEditor
+{
+class View;
+class Range;
 }
 
 class KateSearchCommand : public KTextEditor::Command

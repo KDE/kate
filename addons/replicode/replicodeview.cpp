@@ -26,8 +26,8 @@
 #include <QTemporaryFile>
 #include <QtGlobal>
 
-#include <KXMLGUIFactory>
 #include <KLocalizedString>
+#include <KXMLGUIFactory>
 
 #include <QAction>
 #include <QDebug>

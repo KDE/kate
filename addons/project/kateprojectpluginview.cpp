@@ -28,14 +28,14 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 
-#include <KLocalizedString>
-#include <KXMLGUIFactory>
 #include <KAboutData>
 #include <KActionCollection>
 #include <KActionMenu>
+#include <KLocalizedString>
 #include <KPluginFactory>
 #include <KPluginLoader>
 #include <KStringHandler>
+#include <KXMLGUIFactory>
 
 #include <QAction>
 #include <QDialog>

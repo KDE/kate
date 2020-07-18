@@ -21,12 +21,12 @@
 #include "kateprojecttreeviewcontextmenu.h"
 
 #include <KIO/OpenFileManagerWindowJob>
+#include <KLocalizedString>
 #include <KMimeTypeTrader>
 #include <KNS3/KMoreTools>
 #include <KNS3/KMoreToolsMenuFactory>
 #include <KPropertiesDialog>
 #include <KRun>
-#include <KLocalizedString>
 
 #include <QApplication>
 #include <QClipboard>

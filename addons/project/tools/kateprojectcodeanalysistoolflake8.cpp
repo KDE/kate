@@ -20,8 +20,8 @@
 
 #include "kateprojectcodeanalysistoolflake8.h"
 
-#include <QRegularExpression>
 #include <KLocalizedString>
+#include <QRegularExpression>
 
 KateProjectCodeAnalysisToolFlake8::KateProjectCodeAnalysisToolFlake8(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)

@@ -19,8 +19,8 @@
 #include "schemabrowserwidget.h"
 #include "schemawidget.h"
 
-#include <QVBoxLayout>
 #include <QTreeView>
+#include <QVBoxLayout>
 
 SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent, SQLManager *manager)
     : QWidget(parent)

@@ -370,9 +370,9 @@ void KateSessionManageDialog::updateSessionList()
 
     m_sessionList->header()->setStretchLastSection(false);
     m_sessionList->header()->setSectionResizeMode(0, QHeaderView::Stretch); // stretch "Session Name" column
-    m_sessionList->resizeColumnToContents(1); // Fit "Files" column
-    m_sessionList->resizeColumnToContents(2); // Fit "Last update" column
-    m_sessionList->sortByColumn(0, Qt::AscendingOrder); // sort by "Session Name" column.. don't worry, it only sorts when the model data changes.
+    m_sessionList->resizeColumnToContents(1);                               // Fit "Files" column
+    m_sessionList->resizeColumnToContents(2);                               // Fit "Last update" column
+    m_sessionList->sortByColumn(0, Qt::AscendingOrder);                     // sort by "Session Name" column.. don't worry, it only sorts when the model data changes.
 
     if (!preferredItem) {
         preferredItem = currSessionItem ? currSessionItem : activeSessionItem;

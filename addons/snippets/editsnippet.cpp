@@ -29,11 +29,11 @@
 #include "snippetrepository.h"
 #include "snippetstore.h"
 
+#include <KHelpClient>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMessageWidget>
 #include <KMimeTypeTrader>
-#include <KHelpClient>
 
 #include <QAction>
 #include <QPushButton>

@@ -38,12 +38,12 @@
 using namespace KTextEditorPreview;
 
 // There are two timers that run on update. One timer is fast, but is
-// cancelled each time a new updated comes in. Another timer is slow, but is 
+// cancelled each time a new updated comes in. Another timer is slow, but is
 // not cancelled if another update comes in. With this, "while typing", the
 // preview is updated every 1000ms, thus one sees that something is happening
 // from the corner of one's eyes. After stopping typing, the preview is
 // updated quickly after 150ms so that the preview has the newest version.
-static const int updateDelayFast = 150; // ms
+static const int updateDelayFast = 150;  // ms
 static const int updateDelaySlow = 1000; // ms
 
 KPartView::KPartView(const KService::Ptr &service, QObject *parent)
@@ -153,12 +153,12 @@ void KPartView::setAutoUpdating(bool autoUpdating)
 void KPartView::triggerUpdatePreview()
 {
     m_previewDirty = true;
-    
+
     if (m_part->widget()->isVisible() && m_autoUpdating) {
         // Reset fast timer each time
         m_updateSquashingTimerFast.start();
         // Start slow timer, if not already running (don't reset!)
-        if(!m_updateSquashingTimerSlow.isActive())
+        if (!m_updateSquashingTimerSlow.isActive())
             m_updateSquashingTimerSlow.start();
     }
 }

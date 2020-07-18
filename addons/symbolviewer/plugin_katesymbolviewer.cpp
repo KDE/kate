@@ -42,16 +42,16 @@
 
 #include "plugin_katesymbolviewer.h"
 
+#include <KAboutData>
 #include <KActionCollection>
 #include <KConfigGroup>
-#include <KSharedConfig>
-#include <KXMLGUIFactory>
-#include <QAction>
-#include <KAboutData>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KPluginLoader>
+#include <KSharedConfig>
 #include <KToggleAction>
+#include <KXMLGUIFactory>
+#include <QAction>
 
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/cursor.h>

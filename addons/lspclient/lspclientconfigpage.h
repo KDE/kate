@@ -25,8 +25,8 @@
 #ifndef LSPCLIENTCONFIGPAGE_H
 #define LSPCLIENTCONFIGPAGE_H
 
-#include <KTextEditor/ConfigPage>
 #include <KSyntaxHighlighting/Repository>
+#include <KTextEditor/ConfigPage>
 
 class LSPClientPlugin;
 

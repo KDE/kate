@@ -98,7 +98,7 @@ QVariantMap KateProject::readProjectFile() const
      * parse the whole file, bail out again on error!
      */
     const QByteArray jsonData = file.readAll();
-    QJsonParseError parseError{};
+    QJsonParseError parseError {};
     QJsonDocument project(QJsonDocument::fromJson(jsonData, &parseError));
 
     if (parseError.error != QJsonParseError::NoError) {

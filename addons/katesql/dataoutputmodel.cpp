@@ -19,10 +19,10 @@
 #include "dataoutputmodel.h"
 #include "outputstyle.h"
 
-#include <KSharedConfig>
 #include <KColorScheme>
 #include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 
 #include <QFontDatabase>
 #include <QLocale>

@@ -47,8 +47,7 @@ void FolderFilesList::run()
 
     if (m_cancelSearch) {
         m_files.clear();
-    }
-    else {
+    } else {
         Q_EMIT fileListReady();
     }
 }

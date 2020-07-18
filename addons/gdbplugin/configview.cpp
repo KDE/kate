@@ -24,8 +24,8 @@
 #include "configview.h"
 
 #include <QCompleter>
-#include <QFileSystemModel>
 #include <QFileDialog>
+#include <QFileSystemModel>
 #include <QLayout>
 #include <QPushButton>
 #include <QTimer>

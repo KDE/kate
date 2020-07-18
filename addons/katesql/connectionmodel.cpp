@@ -19,10 +19,10 @@
 #include "connectionmodel.h"
 
 #include <QDebug>
-#include <QFontDatabase>
-#include <QIcon>
 #include <QFont>
+#include <QFontDatabase>
 #include <QFontMetrics>
+#include <QIcon>
 #include <QSize>
 #include <QStringList>
 #include <QVariant>

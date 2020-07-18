@@ -36,9 +36,9 @@
 #include <KActionMenu>
 #include <KColorSchemeManager>
 #include <KConfigGroup>
-#include <kconfigwidgets_version.h>
 #include <KLocalizedString>
 #include <KSharedConfig>
+#include <kconfigwidgets_version.h>
 
 #include "katedebug.h"
 #include "katemainwindow.h"
@@ -83,15 +83,13 @@ QString KateColorSchemeChooser::currentDesktopDefaultScheme() const
     KSharedConfigPtr config = KSharedConfig::openConfig(QStringLiteral("kdeglobals"));
     KConfigGroup group(config, "General");
     const QString scheme = group.readEntry("ColorScheme", QStringLiteral("Breeze"));
-    const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-        QStringLiteral("color-schemes/%1.colors").arg(scheme));
-    KSharedConfigPtr schemeFile =  KSharedConfig::openConfig(path, KConfig::SimpleConfig);
+    const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("color-schemes/%1.colors").arg(scheme));
+    KSharedConfigPtr schemeFile = KSharedConfig::openConfig(path, KConfig::SimpleConfig);
     const QString name = KConfigGroup(schemeFile, "General").readEntry("Name", scheme);
     return name;
 #else
     return QString();
 #endif
-
 }
 
 QString KateColorSchemeChooser::currentSchemeName() const

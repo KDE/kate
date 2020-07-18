@@ -24,8 +24,8 @@
 #include <QElapsedTimer>
 #include <QObject>
 #include <QRegularExpression>
-#include <ktexteditor/document.h>
 #include <QTimer>
+#include <ktexteditor/document.h>
 
 class SearchOpenFiles : public QObject
 {
@@ -52,7 +52,7 @@ private:
     int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 
 Q_SIGNALS:
-     void matchFound(const QString &url, const QString &fileName, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
+    void matchFound(const QString &url, const QString &fileName, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
     void searchDone();
     void searching(const QString &file);
 

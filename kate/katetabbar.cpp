@@ -210,3 +210,16 @@ void KateTabBar::tabInserted(int idx)
     setTabToolTip(idx, tabDocument(idx)->url().toDisplayString());
     m_beingAdded = nullptr;
 }
+
+QVector<KTextEditor::Document *> KateTabBar::documentList() const
+{
+    QVector<KTextEditor::Document *> result;
+    for (int idx = 0; idx < count(); idx++) {
+        QVariant data = tabData(idx);
+        if (!data.isValid()) {
+            continue;
+        }
+        result.append(data.value<KateTabButtonData>().doc);
+    }
+    return result;
+}

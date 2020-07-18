@@ -886,8 +886,8 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     // 3. add LRU documents from deleted viewspace to new active viewspace
     //
 
-    // backup LRU list
-    const QVector<KTextEditor::Document *> lruDocumntsList = viewspace->lruDocumentList();
+    // backup list of known documents to have tab buttons
+    const auto documentList = viewspace->documentList();
 
     // avoid flicker
     KateUpdateDisabler disableUpdates(mainWindow());
@@ -933,8 +933,10 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
         currentSplitter->setSizes(sizes);
     }
 
-    // merge documents of closed view space
-    activeViewSpace()->mergeLruList(lruDocumntsList);
+    // add the known documents to the current view space to not loose tab buttons
+    for (auto doc : documentList) {
+        activeViewSpace()->registerDocument(doc);
+    }
 
     // find the view that is now active.
     KTextEditor::View *v = activeViewSpace()->currentView();

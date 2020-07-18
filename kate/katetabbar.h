@@ -100,6 +100,12 @@ public:
      */
     bool isActive() const;
 
+    /**
+     * Returns the document list of this tab bar.
+     * @return document list in order of tabs
+     */
+    QVector<KTextEditor::Document *> documentList() const;
+
 Q_SIGNALS:
     /**
      * This signal is emitted whenever the context menu is requested for

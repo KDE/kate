@@ -75,6 +75,11 @@
         "typescript": {
             "use": "javascript",
             "highlightingModeRegex": "^TypeScript.*$"
+        },
+        "r": {
+            "command": ["R", "--slave", "-e", "languageserver::run()"],
+            "url": "https://github.com/REditorSupport/languageserver",
+            "highlightingModeRegex": "^R Script$"
         }
     }
 }

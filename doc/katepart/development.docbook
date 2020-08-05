@@ -373,6 +373,7 @@ are usually not necessary and are explained later.</para>
   &lt;general&gt;
     &lt;comments&gt;
       &lt;comment name="singleLine" start="#"/&gt;
+      &lt;comment name="multiLine" start="###" end="###" region="CommentFolding"/&gt;
     &lt;/comments&gt;
     &lt;keywords casesensitive="1"/&gt;
     &lt;folding indentationsensitive="0"/&gt;
@@ -495,25 +496,29 @@ Available attributes are:</term>
 <para><userinput>name</userinput> is either <emphasis>singleLine</emphasis>
 or <emphasis>multiLine</emphasis>. If you choose <emphasis>multiLine</emphasis>
 the attributes <emphasis>end</emphasis> and <emphasis>region</emphasis> are
-required.</para>
+required. If you choose <emphasis>singleLine</emphasis> you can add the optional
+attribute <emphasis>position</emphasis>.</para>
 <para><userinput>start</userinput> defines the string used to start a comment.
-In C++ this would be &quot;/*&quot;.</para>
+In C++ this would be &quot;/*&quot; in multiline comments. This attribute is required
+for types <emphasis>multiLine</emphasis> and <emphasis>singleLine</emphasis>.</para>
 <para><userinput>end</userinput> defines the string used to close a comment.
-In C++ this would be &quot;*/&quot;.</para>
+In C++ this would be &quot;*/&quot;. This attribute is only available and is
+required for comments of type <emphasis>multiLine</emphasis>.</para>
 <para><userinput>region</userinput> should be the name of the foldable
 multiline comment. Assume you have <emphasis>beginRegion="Comment"</emphasis>
 ... <emphasis>endRegion="Comment"</emphasis> in your rules, you should use
 <emphasis>region="Comment"</emphasis>. This way uncomment works even if you
 do not select all the text of the multiline comment. The cursor only must be
-in the multiline comment.</para>
-<para><userinput>position</userinput> defines where the comment is inserted.
-By default, the comment is placed at the beginning of the line at column 0,
+in the multiline comment. This attribute is only available for type
+<emphasis>multiLine</emphasis>.</para>
+<para><userinput>position</userinput> defines where the single line comment is inserted.
+By default, the single line comment is placed at the beginning of the line at column 0,
 but if you use <emphasis>position="afterwhitespace"</emphasis> the comment is
 inserted after leading whitespaces right, before the first non-whitespace character.
 This is useful for putting comments correctly in languages where indentation
-is important, such as Python or YAML.
-This attribute is optional and the only possible value is
-<emphasis>afterwhitespace</emphasis>.</para>
+is important, such as Python or YAML. This attribute is optional and the only
+possible value is <emphasis>afterwhitespace</emphasis>.
+This is only available for type <emphasis>singleLine</emphasis>.</para>
 </listitem>
 </varlistentry>
 
@@ -814,7 +819,8 @@ This matches text as: <userinput>#label""""inside the context""""#</userinput>.<
 
 <programlisting>
 &lt;context name="Normal" attribute="Normal Text" lineEndContext="#stay"&gt;
-  &lt;RegExpr context="FunctionName" String="\b([a-zA-Z_][\w-]*)(::)([a-zA-Z_][\w-]*)(?:&amp;lt;[\w\-\s]*&amp;gt;)?(\()" lookAhead="true"/&gt;
+  &lt;RegExpr context="FunctionName" lookAhead="true"
+              String="\b([a-zA-Z_][\w-]*)(::)([a-zA-Z_][\w-]*)(?:&amp;lt;[\w\-\s]*&amp;gt;)?(\()"/&gt;
 &lt;/context&gt;
 &lt;context name="FunctionName" attribute="Normal Text" lineEndContext="#pop"&gt;
   &lt;StringDetect context="#stay" attribute="Class" String="%1" dynamic="true"/&gt;

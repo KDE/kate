@@ -34,7 +34,7 @@
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KMimeTypeTrader>
+#include <KApplicationTrader>
 #include <KOpenWithDialog>
 #include <KRun>
 #include <KStandardAction>
@@ -280,7 +280,7 @@ void KateFileTree::slotFixOpenWithMenu()
     QMimeType mime = db.mimeTypeForName(doc->mimeType());
 
     QAction *a = nullptr;
-    const KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
+    const KService::List offers = KApplicationTrader::queryByMimeType(mime.name());
     // for each one, insert a menu item...
     for (const auto &service : offers) {
         if (service->name() == QLatin1String("Kate")) {

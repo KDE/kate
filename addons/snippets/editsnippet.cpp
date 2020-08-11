@@ -33,7 +33,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMessageWidget>
-#include <KMimeTypeTrader>
 
 #include <QAction>
 #include <QPushButton>

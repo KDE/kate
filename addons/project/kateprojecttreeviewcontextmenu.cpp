@@ -22,7 +22,7 @@
 
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
-#include <KMimeTypeTrader>
+#include <KApplicationTrader>
 #include <KNS3/KMoreTools>
 #include <KNS3/KMoreToolsMenuFactory>
 #include <KPropertiesDialog>
@@ -91,7 +91,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
      */
     QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
     QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
-    const KService::List offers = KMimeTypeTrader::self()->query(mimeType.name(), QStringLiteral("Application"));
+    const KService::List offers = KApplicationTrader::queryByMimeType(mimeType.name());
     // For each one, insert a menu item...
     for (const auto &service : offers) {
         if (service->name() == QLatin1String("Kate")) {

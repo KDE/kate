@@ -49,7 +49,7 @@
 #include <KHelpClient>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KMimeTypeTrader>
+#include <KApplicationTrader>
 #include <KMultiTabBar>
 #include <KOpenWithDialog>
 #include <KRecentDocument>
@@ -901,7 +901,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
     // qCDebug(LOG_KATE) << "mime type: " << mime.name();
 
     QAction *a = nullptr;
-    const KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QStringLiteral("Application"));
+    const KService::List offers = KApplicationTrader::queryByMimeType(mime.name());
     // add all default open-with-actions except "Kate"
     for (const auto &service : offers) {
         if (service->name() == QLatin1String("Kate")) {

@@ -22,7 +22,6 @@
 #include <KDirWatch>
 #include <KLocalizedString>
 #include <KStringHandler>
-#include <KToolInvocation>
 #include <QDebug>
 #include <QDir>
 #include <QFile>

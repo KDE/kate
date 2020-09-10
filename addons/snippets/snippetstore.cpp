@@ -96,6 +96,10 @@ bool SnippetStore::setData(const QModelIndex &index, const QVariant &value, int 
         // don't allow empty names
         return false;
     }
+    if (value == data(index, role)) {
+        // if unchanged, avoid saving
+        return true;
+    }
     const bool success = QStandardItemModel::setData(index, value, role);
     if (!success || role != Qt::EditRole) {
         return success;

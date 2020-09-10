@@ -242,7 +242,7 @@ void SnippetRepository::save()
             outname = dir.absoluteFilePath(QString::number(i) + fi.fileName());
         }
         KMessageBox::information(QApplication::activeWindow(),
-                                 i18n("You have edited a data file not located in your personal data directory; as such, a renamed clone of the original data file has been created within your personal data directory."));
+                                 i18n("You have edited a snippet repository file not located in your personal directory; as such, a copy of the original file has been created within your personal data directory."));
     }
 
     QFile outfile(outname);

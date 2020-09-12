@@ -182,9 +182,9 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const QList<KTex
     QPushButton *cancelButton = new QPushButton;
     KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
     cancelButton->setDefault(true);
-    cancelButton->setFocus();
     buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
     connect(cancelButton, &QPushButton::clicked, this, &KateSaveModifiedDialog::reject);
+    cancelButton->setFocus();
 }
 
 KateSaveModifiedDialog::~KateSaveModifiedDialog()

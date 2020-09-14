@@ -168,10 +168,19 @@ void KateTabBar::wheelEvent(QWheelEvent *event)
 
 void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
 {
+    // get right icon to use
+    QIcon icon;
+    if (doc->isModified()) {
+        icon = QIcon::fromTheme(QStringLiteral("document-save"));
+    }
+
     QVariant data = ensureValidTabData(idx);
     KateTabButtonData buttonData = data.value<KateTabButtonData>();
     buttonData.doc = doc;
     setTabData(idx, QVariant::fromValue(buttonData));
+    setTabText(idx, doc->documentName());
+    setTabToolTip(idx, doc->url().toDisplayString());
+    setTabIcon(idx, icon);
 }
 
 void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
@@ -188,18 +197,11 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
         return;
     }
 
-    // get right icon to use
-    QIcon icon;
-    if (doc->isModified()) {
-        icon = QIcon::fromTheme(QStringLiteral("document-save"));
-    }
-
     // else: if we are still inside the allowed number of tabs or have no limit
     // => create new tab and be done
     if ((m_tabCountLimit == 0) || count() < m_tabCountLimit) {
         m_beingAdded = doc;
-        int inserted = insertTab(-1, doc->documentName());
-        setTabIcon(inserted, icon);
+        insertTab(-1, doc->documentName());
         return;
     }
 
@@ -227,10 +229,7 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
     m_docToLruCounterAndHasTab[docToReplace].second = false;
 
     // replace it's data + set it as active
-    setTabText(indexToReplace, doc->documentName());
     setTabDocument(indexToReplace, doc);
-    setTabToolTip(indexToReplace, doc->url().toDisplayString());
-    setTabIcon(indexToReplace, icon);
     setCurrentIndex(indexToReplace);
 }
 
@@ -242,9 +241,6 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
     // remove document if needed, we might have no tab for it, if tab count is limited!
     const int idx = documentIdx(doc);
     if (idx != -1) {
-        // purge the tab we have
-        removeTab(idx);
-
         // if we have some tab limit, replace the removed tab with the next best document that has none!
         if (m_tabCountLimit > 0) {
             quint64 maxCounter = 0;
@@ -262,22 +258,22 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
                 }
             }
 
-            // any document found? add tab for it
+            // any document found? replace the tab we want to close and be done
             if (docToReplace) {
-                // get right icon to use
-                QIcon icon;
-                if (docToReplace->isModified()) {
-                    icon = QIcon::fromTheme(QStringLiteral("document-save"));
-                }
-
-                m_beingAdded = docToReplace;
-                int inserted = insertTab(idx, docToReplace->documentName());
-                setTabIcon(inserted, icon);
-
                 // mark the replace doc as "has a tab"
                 m_docToLruCounterAndHasTab[docToReplace].second = true;
+
+                // replace info for the tab
+                setTabDocument(idx, docToReplace);
+                setCurrentIndex(idx);
+                emit currentChanged(idx);
+                return;
             }
         }
+
+        // if we arrive here, we just need to purge the tab
+        // this happens if we have no limit or no document to replace the current one
+        removeTab(idx);
     }
 }
 
@@ -320,7 +316,6 @@ void KateTabBar::tabInserted(int idx)
     if (m_beingAdded) {
         setTabDocument(idx, m_beingAdded);
     }
-    setTabToolTip(idx, tabDocument(idx)->url().toDisplayString());
     m_beingAdded = nullptr;
 }
 

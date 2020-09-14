@@ -24,6 +24,8 @@
 #include <QTabBar>
 #include <QUrl>
 
+#include <unordered_map>
+
 namespace KTextEditor
 {
 class Document;
@@ -43,7 +45,12 @@ class KateTabBar : public QTabBar
 
 public:
     explicit KateTabBar(QWidget *parent = nullptr);
-    int insertTab(int idx, KTextEditor::Document *doc);
+
+    /**
+     * Read and apply tab limit as configured
+     */
+    void readTabCountLimitConfig();
+
     void tabInserted(int idx) override;
 
     /**
@@ -84,6 +91,7 @@ public:
     int documentIdx(KTextEditor::Document *doc);
     void setTabDocument(int idx, KTextEditor::Document *doc);
     KTextEditor::Document *tabDocument(int idx);
+    void removeDocument(KTextEditor::Document *doc);
 
     /**
      * Marks this tabbar as active. That is, current-tab indicators are
@@ -148,6 +156,24 @@ private:
 
     bool m_isActive = false;
     KTextEditor::Document *m_beingAdded = nullptr;
+
+    /**
+     * limit of number of tabs we should keep
+     * default unlimited == 0
+     */
+    int m_tabCountLimit = 0;
+
+    /**
+     * next lru counter value for a tab
+     */
+    quint64 m_lruCounter = 0;
+
+    /**
+     * LRU counter storage, to determine which document has which age
+     * simple 64-bit counter, worst thing that can happen on 64-bit wraparound
+     * is a bit strange tab replacement a few times
+     */
+    std::unordered_map<const KTextEditor::Document *, quint64> m_docToLruCounter;
 };
 
 #endif // KATE_TAB_BAR_H

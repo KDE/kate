@@ -179,6 +179,23 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     vbox->addLayout(hlayout);
     layout->addWidget(buttonGroup);
 
+    // tabbar => we allow to configure some limit on number of tabs to show
+    buttonGroup = new QGroupBox(i18n("&Tabbar"), generalFrame);
+    vbox = new QVBoxLayout;
+    buttonGroup->setLayout(vbox);
+    hlayout = new QHBoxLayout;
+    label = new QLabel(i18n("&Limit Tabbar to a fixed number of tabs:"), buttonGroup);
+    hlayout->addWidget(label);
+    m_tabLimit = new QSpinBox(buttonGroup);
+    hlayout->addWidget(m_tabLimit);
+    label->setBuddy(m_tabLimit);
+    m_tabLimit->setRange(0, 256);
+    m_tabLimit->setSpecialValueText(i18n("Unlimited"));
+    m_tabLimit->setValue(cgGeneral.readEntry("Tabbar Tab Limit", 0));
+    connect(m_tabLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
+    vbox->addLayout(hlayout);
+    layout->addWidget(buttonGroup);
+
     layout->addStretch(1); // :-] works correct without autoadd
     // END General page
 
@@ -391,6 +408,8 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Quick Open List Mode", m_cmbQuickOpenListMode->currentData().toInt());
         m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));
 
+        cg.writeEntry("Tabbar Tab Limit", m_tabLimit->value());
+
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
         for (KTextEditor::Document *doc : docs)
@@ -426,6 +445,11 @@ void KateConfigDialog::slotApply()
         page->apply();
 
     config->sync();
+
+    // emit config change
+    if (m_dataChanged) {
+        KateApp::self()->emitConfigurationChanged();
+    }
 
     m_dataChanged = false;
     buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);

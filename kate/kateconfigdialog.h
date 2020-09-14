@@ -96,6 +96,7 @@ private:
     KPluralHandlingSpinBox *m_daysMetaInfos;
     QComboBox *m_cmbQuickOpenMatchMode;
     QComboBox *m_cmbQuickOpenListMode;
+    QSpinBox *m_tabLimit;
 
     // Sessions Page
     Ui::SessionConfigWidget *sessionConfigUi;

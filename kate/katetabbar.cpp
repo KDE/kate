@@ -18,6 +18,7 @@
     Boston, MA 02110-1301, USA.
 */
 
+#include "kateapp.h"
 #include "katetabbar.h"
 
 #include <math.h> // ceil
@@ -28,6 +29,9 @@
 #include <QResizeEvent>
 #include <QStyleOptionTab>
 #include <QWheelEvent>
+
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include <KTextEditor/Document>
 
@@ -60,6 +64,37 @@ KateTabBar::KateTabBar(QWidget *parent)
 
     // allow users to re-arrange the tabs
     setMovable(true);
+
+    // enforce configured limit
+    readTabCountLimitConfig();
+
+    // handle config changes
+    connect(KateApp::self(), &KateApp::configurationChanged, this, &KateTabBar::readTabCountLimitConfig);
+}
+
+void KateTabBar::readTabCountLimitConfig()
+{
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+
+    // 0 == unlimited, normalized other inputs
+    const int tabCountLimit = cgGeneral.readEntry("Tabbar Tab Limit", 0);
+    m_tabCountLimit = (tabCountLimit <= 0) ? 0 : tabCountLimit;
+
+    // use scroll buttons if we have no limit
+    setUsesScrollButtons(m_tabCountLimit == 0);
+
+    // elide if we have some limit
+    setElideMode((m_tabCountLimit == 0) ? Qt::ElideNone : Qt::ElideMiddle);
+
+    // if we enforce a limit: purge tabs that violate it
+    if (m_tabCountLimit > 0 && (count() > m_tabCountLimit)) {
+        // just purge last X tabs, this isn't that clever but happens only on config changes!
+        while (count() > m_tabCountLimit) {
+            removeTab(count() - 1);
+        }
+        setCurrentIndex(0);
+    }
 }
 
 void KateTabBar::setActive(bool active)
@@ -157,7 +192,60 @@ void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
 
 void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
 {
-    setCurrentIndex(documentIdx(doc));
+    // in any case: update lru counter for this document, might add new element to hash
+    m_docToLruCounter[doc] = ++m_lruCounter;
+
+    // do we have a tab for this document?
+    // if yes => just set as current one
+    const int existingIndex = documentIdx(doc);
+    if (existingIndex != -1) {
+        setCurrentIndex(existingIndex);
+        return;
+    }
+
+    // else: if we are still inside the allowed number of tabs or have no limit
+    // => create new tab and be done
+    if ((m_tabCountLimit == 0) || count() < m_tabCountLimit) {
+        m_beingAdded = doc;
+        insertTab(-1, doc->documentName());
+        return;
+    }
+
+    // ok, we have already the limit of tabs reached:
+    // replace the tab with the lowest lru counter => the least recently used
+
+    // search for the right tab
+    quint64 minCounter = static_cast<quint64>(-1);
+    int indexToReplace = 0;
+    for (int idx = 0; idx < count(); idx++) {
+        QVariant data = tabData(idx);
+        if (!data.isValid()) {
+            continue;
+        }
+        const quint64 currentCounter = m_docToLruCounter[data.value<KateTabButtonData>().doc];
+        if (currentCounter <= minCounter) {
+            minCounter = currentCounter;
+            indexToReplace = idx;
+        }
+    }
+
+    // replace it's data + set it as active
+    setTabText(indexToReplace, doc->documentName());
+    setTabDocument(indexToReplace, doc);
+    setTabToolTip(indexToReplace, doc->url().toDisplayString());
+    setCurrentIndex(indexToReplace);
+}
+
+void KateTabBar::removeDocument(KTextEditor::Document *doc)
+{
+    // remove document if needed, we might have no tab for it, if tab count is limited!
+    const int idx = documentIdx(doc);
+    if (idx != -1) {
+        removeTab(idx);
+    }
+
+    // purge LRU storage, must work
+    Q_ASSERT(m_docToLruCounter.erase(doc) == 1);
 }
 
 int KateTabBar::documentIdx(KTextEditor::Document *doc)
@@ -192,12 +280,6 @@ KTextEditor::Document *KateTabBar::tabDocument(int idx)
     }
 
     return doc;
-}
-
-int KateTabBar::insertTab(int idx, KTextEditor::Document *doc)
-{
-    m_beingAdded = doc;
-    return insertTab(idx, doc->documentName());
 }
 
 void KateTabBar::tabInserted(int idx)

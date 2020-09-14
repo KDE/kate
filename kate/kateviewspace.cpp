@@ -242,11 +242,8 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
 
     /**
      * follow current view
-     * we have tabs available for all registered documents!
      */
-    const auto idx = m_tabBar->documentIdx(document);
-    Q_ASSERT(idx != -1);
-    m_tabBar->setCurrentIndex(idx);
+    m_tabBar->setCurrentDocument(document);
 
     // track tab changes again
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
@@ -325,11 +322,9 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
     disconnect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
 
     /**
-     * we want a tab for each known document
-     * if we arrive here, there shall be no existing tab!
+     * create the tab for this document, if necessary
      */
-    Q_ASSERT(m_tabBar->documentIdx(doc) == -1);
-    m_tabBar->insertTab(-1, doc);
+    m_tabBar->setCurrentDocument(doc);
 
     updateDocumentState(doc);
 
@@ -362,12 +357,9 @@ void KateViewSpace::documentDestroyed(QObject *doc)
     disconnect(doc, nullptr, this, nullptr);
 
     /**
-     * remove the tab for this document
-     * as we only handle registered documents here, there shall be a tab!
+     * remove the tab for this document, if existing
      */
-    const int idx = m_tabBar->documentIdx(invalidDoc);
-    Q_ASSERT(idx != -1);
-    m_tabBar->removeTab(idx);
+    m_tabBar->removeDocument(invalidDoc);
 }
 
 void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)

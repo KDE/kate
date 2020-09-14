@@ -159,7 +159,7 @@ private:
      * simple 64-bit counter, worst thing that can happen on 64-bit wraparound
      * is a bit strange tab replacement a few times
      */
-    std::unordered_map<const KTextEditor::Document *, quint64> m_docToLruCounter;
+    std::unordered_map<KTextEditor::Document *, std::pair<quint64, bool>> m_docToLruCounterAndHasTab;
 };
 
 #endif // KATE_TAB_BAR_H

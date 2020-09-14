@@ -177,7 +177,8 @@ void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
 void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
 {
     // in any case: update lru counter for this document, might add new element to hash
-    m_docToLruCounter[doc] = ++m_lruCounter;
+    // we have a tab after this call, too!
+    m_docToLruCounterAndHasTab[doc] = std::make_pair(++m_lruCounter, true);
 
     // do we have a tab for this document?
     // if yes => just set as current one
@@ -208,17 +209,22 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
     // search for the right tab
     quint64 minCounter = static_cast<quint64>(-1);
     int indexToReplace = 0;
+    KTextEditor::Document *docToReplace = nullptr;
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
         if (!data.isValid()) {
             continue;
         }
-        const quint64 currentCounter = m_docToLruCounter[data.value<KateTabButtonData>().doc];
+        const quint64 currentCounter = m_docToLruCounterAndHasTab[data.value<KateTabButtonData>().doc].first;
         if (currentCounter <= minCounter) {
             minCounter = currentCounter;
             indexToReplace = idx;
+            docToReplace = data.value<KateTabButtonData>().doc;
         }
     }
+
+    // mark the replace doc as "has no tab"
+    m_docToLruCounterAndHasTab[docToReplace].second = false;
 
     // replace it's data + set it as active
     setTabText(indexToReplace, doc->documentName());
@@ -230,14 +236,49 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
 
 void KateTabBar::removeDocument(KTextEditor::Document *doc)
 {
+    // purge LRU storage, must work
+    Q_ASSERT(m_docToLruCounterAndHasTab.erase(doc) == 1);
+
     // remove document if needed, we might have no tab for it, if tab count is limited!
     const int idx = documentIdx(doc);
     if (idx != -1) {
+        // purge the tab we have
         removeTab(idx);
-    }
 
-    // purge LRU storage, must work
-    Q_ASSERT(m_docToLruCounter.erase(doc) == 1);
+        // if we have some tab limit, replace the removed tab with the next best document that has none!
+        if (m_tabCountLimit > 0) {
+            quint64 maxCounter = 0;
+            KTextEditor::Document *docToReplace = nullptr;
+            for (const auto &lru : m_docToLruCounterAndHasTab) {
+                // ignore stuff with tabs
+                if (lru.second.second) {
+                    continue;
+                }
+
+                // search most recently used one
+                if (lru.second.first >= maxCounter) {
+                    maxCounter = lru.second.first;
+                    docToReplace = lru.first;
+                }
+            }
+
+            // any document found? add tab for it
+            if (docToReplace) {
+                // get right icon to use
+                QIcon icon;
+                if (docToReplace->isModified()) {
+                    icon = QIcon::fromTheme(QStringLiteral("document-save"));
+                }
+
+                m_beingAdded = docToReplace;
+                int inserted = insertTab(idx, docToReplace->documentName());
+                setTabIcon(inserted, icon);
+
+                // mark the replace doc as "has a tab"
+                m_docToLruCounterAndHasTab[docToReplace].second = true;
+            }
+        }
+    }
 }
 
 int KateTabBar::documentIdx(KTextEditor::Document *doc)

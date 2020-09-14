@@ -1,6 +1,7 @@
 /*  SPDX-License-Identifier: LGPL-2.0-or-later
 
     Copyright (C) 2014 Dominik Haumann <dhaumann@kde.org>
+    Copyright (C) 2020 Christoph Cullmann <cullmann@kde.org>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -21,9 +22,6 @@
 #include "kateapp.h"
 #include "katetabbar.h"
 
-#include <math.h> // ceil
-
-// #include <QDebug>
 #include <QMimeData>
 #include <QPainter>
 #include <QResizeEvent>

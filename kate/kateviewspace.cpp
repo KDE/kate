@@ -364,17 +364,21 @@ void KateViewSpace::documentDestroyed(QObject *doc)
 
 void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
 {
+    // update tab button if available, might not be the case for tab limit set!
     const int buttonId = m_tabBar->documentIdx(doc);
-    Q_ASSERT(buttonId >= 0);
-    m_tabBar->setTabText(buttonId, doc->documentName());
-    m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
+    if (buttonId >= 0) {
+        m_tabBar->setTabText(buttonId, doc->documentName());
+        m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
+    }
 }
 
 void KateViewSpace::updateDocumentUrl(KTextEditor::Document *doc)
 {
+    // update tab button if available, might not be the case for tab limit set!
     const int buttonId = m_tabBar->documentIdx(doc);
-    Q_ASSERT(buttonId >= 0);
-    m_tabBar->setTabUrl(buttonId, doc->url());
+    if (buttonId >= 0) {
+        m_tabBar->setTabUrl(buttonId, doc->url());
+    }
 }
 
 void KateViewSpace::updateDocumentState(KTextEditor::Document *doc)
@@ -384,8 +388,11 @@ void KateViewSpace::updateDocumentState(KTextEditor::Document *doc)
         icon = QIcon::fromTheme(QStringLiteral("document-save"));
     }
 
+    // update tab button if available, might not be the case for tab limit set!
     const int buttonId = m_tabBar->documentIdx(doc);
-    m_tabBar->setTabIcon(buttonId, icon);
+    if (buttonId >= 0) {
+        m_tabBar->setTabIcon(buttonId, icon);
+    }
 }
 
 void KateViewSpace::closeTabRequest(int idx)

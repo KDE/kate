@@ -71,21 +71,6 @@ public:
      */
     bool containsTab(int index) const;
 
-    /**
-     * Sets the URL of the tab with ID \a id to \a url.
-     * \see tabUrl()
-     * \since 17.08
-     */
-    void setTabUrl(int index, const QUrl &url);
-
-    /**
-     * Returns the text of the tab with ID \a id. If the button id does not
-     * exist \a QString() is returned.
-     * \see setTabUrl()
-     * \since 17.08
-     */
-    QUrl tabUrl(int index);
-
     QVariant ensureValidTabData(int idx);
 
     void setCurrentDocument(KTextEditor::Document *doc);

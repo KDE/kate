@@ -326,8 +326,9 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
      */
     m_tabBar->setCurrentDocument(doc);
 
-    updateDocumentState(doc);
-
+    /**
+     * handle later document state changes
+     */
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateViewSpace::updateDocumentName);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateViewSpace::updateDocumentUrl);
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateViewSpace::updateDocumentState);
@@ -368,7 +369,6 @@ void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
     const int buttonId = m_tabBar->documentIdx(doc);
     if (buttonId >= 0) {
         m_tabBar->setTabText(buttonId, doc->documentName());
-        m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
     }
 }
 
@@ -377,7 +377,7 @@ void KateViewSpace::updateDocumentUrl(KTextEditor::Document *doc)
     // update tab button if available, might not be the case for tab limit set!
     const int buttonId = m_tabBar->documentIdx(doc);
     if (buttonId >= 0) {
-        m_tabBar->setTabUrl(buttonId, doc->url());
+        m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
     }
 }
 

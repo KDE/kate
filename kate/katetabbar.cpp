@@ -22,6 +22,7 @@
 #include "kateapp.h"
 #include "katetabbar.h"
 
+#include <QIcon>
 #include <QMimeData>
 #include <QPainter>
 #include <QResizeEvent>
@@ -34,7 +35,6 @@
 #include <KTextEditor/Document>
 
 struct KateTabButtonData {
-    QUrl url;
     KTextEditor::Document *doc = nullptr;
 };
 
@@ -134,20 +134,6 @@ QVariant KateTabBar::ensureValidTabData(int idx)
     return tabData(idx);
 }
 
-void KateTabBar::setTabUrl(int idx, const QUrl &url)
-{
-    QVariant data = ensureValidTabData(idx);
-    KateTabButtonData buttonData = data.value<KateTabButtonData>();
-    buttonData.url = url;
-    setTabData(idx, QVariant::fromValue(buttonData));
-}
-
-QUrl KateTabBar::tabUrl(int idx)
-{
-    QVariant data = ensureValidTabData(idx);
-    return data.value<KateTabButtonData>().url;
-}
-
 void KateTabBar::mouseDoubleClickEvent(QMouseEvent *event)
 {
     event->accept();
@@ -201,11 +187,18 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
         return;
     }
 
+    // get right icon to use
+    QIcon icon;
+    if (doc->isModified()) {
+        icon = QIcon::fromTheme(QStringLiteral("document-save"));
+    }
+
     // else: if we are still inside the allowed number of tabs or have no limit
     // => create new tab and be done
     if ((m_tabCountLimit == 0) || count() < m_tabCountLimit) {
         m_beingAdded = doc;
-        insertTab(-1, doc->documentName());
+        int inserted = insertTab(-1, doc->documentName());
+        setTabIcon(inserted, icon);
         return;
     }
 
@@ -231,6 +224,7 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
     setTabText(indexToReplace, doc->documentName());
     setTabDocument(indexToReplace, doc);
     setTabToolTip(indexToReplace, doc->url().toDisplayString());
+    setTabIcon(indexToReplace, icon);
     setCurrentIndex(indexToReplace);
 }
 

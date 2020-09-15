@@ -180,11 +180,11 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     layout->addWidget(buttonGroup);
 
     // tabbar => we allow to configure some limit on number of tabs to show
-    buttonGroup = new QGroupBox(i18n("&Tabbar"), generalFrame);
+    buttonGroup = new QGroupBox(i18n("&Tabs"), generalFrame);
     vbox = new QVBoxLayout;
     buttonGroup->setLayout(vbox);
     hlayout = new QHBoxLayout;
-    label = new QLabel(i18n("&Limit Tabbar to a fixed number of tabs:"), buttonGroup);
+    label = new QLabel(i18n("&Limit number of tabs:"), buttonGroup);
     hlayout->addWidget(label);
     m_tabLimit = new QSpinBox(buttonGroup);
     hlayout->addWidget(m_tabLimit);

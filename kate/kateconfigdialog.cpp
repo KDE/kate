@@ -448,7 +448,7 @@ void KateConfigDialog::slotApply()
 
     // emit config change
     if (m_dataChanged) {
-        KateApp::self()->emitConfigurationChanged();
+        KateApp::self()->configurationChanged();
     }
 
     m_dataChanged = false;

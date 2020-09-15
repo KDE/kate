@@ -354,15 +354,6 @@ public Q_SLOTS:
      */
     void remoteMessageReceived(const QString &message, QObject *socket);
 
-public:
-    /**
-     * trigger emission of configurationChanged
-     */
-    void emitConfigurationChanged()
-    {
-        emit configurationChanged();
-    }
-
 Q_SIGNALS:
     /**
      * Emitted when the configuration got changed via the global config dialog.

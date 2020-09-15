@@ -240,41 +240,43 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
 
     // remove document if needed, we might have no tab for it, if tab count is limited!
     const int idx = documentIdx(doc);
-    if (idx != -1) {
-        // if we have some tab limit, replace the removed tab with the next best document that has none!
-        if (m_tabCountLimit > 0) {
-            quint64 maxCounter = 0;
-            KTextEditor::Document *docToReplace = nullptr;
-            for (const auto &lru : m_docToLruCounterAndHasTab) {
-                // ignore stuff with tabs
-                if (lru.second.second) {
-                    continue;
-                }
+    if (idx == -1) {
+        return;
+    }
 
-                // search most recently used one
-                if (lru.second.first >= maxCounter) {
-                    maxCounter = lru.second.first;
-                    docToReplace = lru.first;
-                }
+    // if we have some tab limit, replace the removed tab with the next best document that has none!
+    if (m_tabCountLimit > 0) {
+        quint64 maxCounter = 0;
+        KTextEditor::Document *docToReplace = nullptr;
+        for (const auto &lru : m_docToLruCounterAndHasTab) {
+            // ignore stuff with tabs
+            if (lru.second.second) {
+                continue;
             }
 
-            // any document found? replace the tab we want to close and be done
-            if (docToReplace) {
-                // mark the replace doc as "has a tab"
-                m_docToLruCounterAndHasTab[docToReplace].second = true;
-
-                // replace info for the tab
-                setTabDocument(idx, docToReplace);
-                setCurrentIndex(idx);
-                emit currentChanged(idx);
-                return;
+            // search most recently used one
+            if (lru.second.first >= maxCounter) {
+                maxCounter = lru.second.first;
+                docToReplace = lru.first;
             }
         }
 
-        // if we arrive here, we just need to purge the tab
-        // this happens if we have no limit or no document to replace the current one
-        removeTab(idx);
+        // any document found? replace the tab we want to close and be done
+        if (docToReplace) {
+            // mark the replace doc as "has a tab"
+            m_docToLruCounterAndHasTab[docToReplace].second = true;
+
+            // replace info for the tab
+            setTabDocument(idx, docToReplace);
+            setCurrentIndex(idx);
+            emit currentChanged(idx);
+            return;
+        }
     }
+
+    // if we arrive here, we just need to purge the tab
+    // this happens if we have no limit or no document to replace the current one
+    removeTab(idx);
 }
 
 int KateTabBar::documentIdx(KTextEditor::Document *doc)

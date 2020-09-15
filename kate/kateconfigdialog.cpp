@@ -184,7 +184,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 
     // BEGIN Session page
     QWidget *sessionsPage = new QWidget();
-    item = addSubPage(applicationItem, sessionsPage, i18n("Sessions"));
+    item = addSubPage(applicationItem, sessionsPage, i18n("Session"));
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
 

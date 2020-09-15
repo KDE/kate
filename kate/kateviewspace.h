@@ -164,7 +164,8 @@ private:
 
     /**
      * all documents this view space is aware of
-     * the all will have tab bar buttons existing
+     * depending on the limit of tabs, not all will have a corresponding
+     * tab in the KateTabBar
      */
     QSet<KTextEditor::Document *> m_registeredDocuments;
 

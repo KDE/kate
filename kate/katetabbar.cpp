@@ -127,6 +127,14 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
         emit activateViewSpaceRequested();
     }
     QTabBar::mousePressEvent(event);
+
+    // handle close for middle mouse button
+    if (event->button() == Qt::MidButton) {
+        int id = tabAt(event->pos());
+        if (id >= 0) {
+            emit tabCloseRequested(id);
+        }
+    }
 }
 
 void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)

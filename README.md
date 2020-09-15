@@ -28,7 +28,3 @@ Plugins
 ## doc
 
 Kate & KWrite manuals
-
-## mac
-
-Documentation and build scripts for Apple Mac OS

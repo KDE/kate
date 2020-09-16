@@ -117,7 +117,7 @@ otherwise a blank page will open so that you can start a new file.</para>
 
 <varlistentry>
 <term><anchor id="config-general-meta-data"/>
-<guilabel>Meta Information</guilabel></term>
+<guilabel>Meta-Information</guilabel></term>
  <listitem>
 
 <variablelist>
@@ -142,11 +142,49 @@ reasonably sized.</para></listitem>
 </listitem>
 </varlistentry><!-- /meta data group -->
 
+<varlistentry>
+<term><anchor id="config-general-quick-open"/>
+<guilabel>Quick Open</guilabel></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term><anchor id="config-general-quick-open-match-mode"/>
+<guilabel>Match Mode</guilabel></term>
+<listitem><para>Set the list mode for the <link linkend="view-quick-open">Quick Open</link> tool. The files can be matched by their name or by their path.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="config-general-quick-open-list-mode"/>
+<guilabel>List Mode</guilabel></term>
+<listitem><para>Set the list mode for the <link linkend="view-quick-open">Quick Open</link> tool. It is possible to choose from <guilabel>Current Project Files</guilabel> and <guilabel>All Projects Files</guilabel>.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</listitem>
+</varlistentry><!-- /quick open group -->
+
+<varlistentry>
+<term><anchor id="config-general-tabs"/>
+<guilabel>Tabs</guilabel></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term><anchor id="config-general-limit-number-of-tabs"/>
+<guilabel>Limit number of tabs</guilabel></term>
+<listitem><para>Set the maximum number of tabs. Choose <guimenuitem>Unlimited</guimenuitem> if you do not want to restrict this number.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry><!-- /tabs group -->
 </variablelist>
 </sect2>
 
 <sect2 id="config-dialog-sessions">
-<title>Sessions</title>
+<title>Session</title>
 
 <para>This section contains options related to <link
 linkend="fundamentals-using-sessions">using sessions</link>.</para>

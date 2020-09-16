@@ -405,7 +405,12 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
             }
         }
 
-        emit viewChanged(newActiveView);
+        /**
+         * reactivate will ensure we really merge up the GUI again
+         * this might be missed as above we had m_blockViewCreationAndActivation set to true
+         * see bug 426605, no view XMLGUI stuff merged after tab close
+         */
+        reactivateActiveView();
     }
 
     /**

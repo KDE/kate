@@ -33,6 +33,7 @@
   <name xml:lang="pl">Kate</name>
   <name xml:lang="pt">Kate</name>
   <name xml:lang="pt-BR">Kate</name>
+  <name xml:lang="ro">Kate</name>
   <name xml:lang="ru">Kate</name>
   <name xml:lang="sk">Kate</name>
   <name xml:lang="sl">Kate</name>
@@ -76,6 +77,7 @@
   <summary xml:lang="pl">Zaawansowany edytor tekstu</summary>
   <summary xml:lang="pt">Editor de Texto Avançado</summary>
   <summary xml:lang="pt-BR">Editor de Texto Avançado</summary>
+  <summary xml:lang="ro">Redactor de text avansat</summary>
   <summary xml:lang="ru">Улучшенный текстовый редактор</summary>
   <summary xml:lang="sk">Pokročilý textový editor</summary>
   <summary xml:lang="sl">Napreden urejevalnik besedil</summary>
@@ -160,6 +162,7 @@
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Funcionalidades:</p>
+    <p xml:lang="ro">Caracteristici:</p>
     <p xml:lang="ru">Возможности:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Zmožnosti:</p>
@@ -245,6 +248,7 @@
       <li xml:lang="pl">Sprawdzanie pisowni</li>
       <li xml:lang="pt">Verificação ortográfica</li>
       <li xml:lang="pt-BR">Verificação ortográfica</li>
+      <li xml:lang="ro">Verificare ortografică</li>
       <li xml:lang="ru">Проверка орфографии</li>
       <li xml:lang="sk">Kontrola pravopisu</li>
       <li xml:lang="sl">Preverjanje črkovanja</li>
@@ -369,6 +373,7 @@
       <li xml:lang="pl">Przekształcanie kodowań</li>
       <li xml:lang="pt">Conversão de codificações</li>
       <li xml:lang="pt-BR">Conversão de codificação de caracteres</li>
+      <li xml:lang="ro">Conversie codare</li>
       <li xml:lang="ru">Преобразование кодировки</li>
       <li xml:lang="sk">Konverzia kódovania</li>
       <li xml:lang="sl">Pretvorba kodiranja</li>
@@ -491,6 +496,7 @@
       <li xml:lang="pl">Zwijanie kodu i tekstu</li>
       <li xml:lang="pt">Dobragem de código e texto</li>
       <li xml:lang="pt-BR">Dobradura de código e texto</li>
+      <li xml:lang="ro">Îndosarierea codului și textului</li>
       <li xml:lang="ru">Сворачивание блоков исходного кода</li>
       <li xml:lang="sk">Zabaľovanie kódu a textu</li>
       <li xml:lang="sl">Zvijanje kode in besedila</li>
@@ -533,6 +539,7 @@
       <li xml:lang="pl">Nieskończona historia cofania/przywracania</li>
       <li xml:lang="pt">Suporte para desfazer/refazer ilimitado</li>
       <li xml:lang="pt-BR">Suporte para desfazer/refazer sem limite de ações</li>
+      <li xml:lang="ro">Suport pentru desfacere/refacere infinită</li>
       <li xml:lang="ru">Поддержка бесконечной глубины отмены и повтора действий</li>
       <li xml:lang="sk">Nekonečná podpora späť/znova</li>
       <li xml:lang="sl">Podpora neskončno razveljavitvam/uveljavitvam</li>
@@ -573,6 +580,7 @@
       <li xml:lang="pl">Tryb zaznaczania bloków</li>
       <li xml:lang="pt">Modo de selecção em bloco</li>
       <li xml:lang="pt-BR">Modo de seleção de blocos</li>
+      <li xml:lang="ro">Regim de selecție în bloc</li>
       <li xml:lang="ru">Режим блочного выделения</li>
       <li xml:lang="sk">Režim výberu bloku</li>
       <li xml:lang="sl">Način bločne izbire</li>
@@ -615,6 +623,7 @@
       <li xml:lang="pl">Automatyczne wcięcia</li>
       <li xml:lang="pt">Indentação automática</li>
       <li xml:lang="pt-BR">Recuo automático</li>
+      <li xml:lang="ro">Indentare automată</li>
       <li xml:lang="ru">Автоматические отступы</li>
       <li xml:lang="sk">Automatické odsadzovanie</li>
       <li xml:lang="sl">Samodejno zamikanje</li>
@@ -656,6 +665,7 @@
       <li xml:lang="pl">Obsługa samouzupełniania</li>
       <li xml:lang="pt">Modo de completação automática</li>
       <li xml:lang="pt-BR">Suporte para completamento automático</li>
+      <li xml:lang="ro">Suport pentru completare automată</li>
       <li xml:lang="ru">Поддержка автоматического дополнения текста</li>
       <li xml:lang="sk">Podpora automatického ukončovania</li>
       <li xml:lang="sl">Podpora samodejnemu dopolnjevanju</li>
@@ -698,6 +708,7 @@
       <li xml:lang="pl">Integracja z powłoką</li>
       <li xml:lang="pt">Integração com a consola</li>
       <li xml:lang="pt-BR">Integração com o console</li>
+      <li xml:lang="ro">Integrare cu consola</li>
       <li xml:lang="ru">Вызов функций из командной строки</li>
       <li xml:lang="sk">Integrácia shellu</li>
       <li xml:lang="sl">Vgrajena lupina</li>
@@ -821,6 +832,7 @@
       <li xml:lang="pl">Dostosowywalne skróty</li>
       <li xml:lang="pt">Atalhos de teclado personalizados</li>
       <li xml:lang="pt-BR">Atalhos de teclado personalizados</li>
+      <li xml:lang="ro">Scurtături personalizabile</li>
       <li xml:lang="ru">Настраиваемые комбинации клавиш</li>
       <li xml:lang="sk">Prispôsobiteľné skratky</li>
       <li xml:lang="sl">Prilagodljive bližnjice</li>
@@ -863,6 +875,7 @@
       <li xml:lang="pl">Zintegrowany wiersz poleceń</li>
       <li xml:lang="pt">Linha de comandos integrada</li>
       <li xml:lang="pt-BR">Linha de comando integrada</li>
+      <li xml:lang="ro">Linie de comandă integrată</li>
       <li xml:lang="ru">Встроенный командный терминал</li>
       <li xml:lang="sk">Integrovaný príkazový riadok</li>
       <li xml:lang="sl">Vgrajena ukazna vrstica</li>
@@ -947,6 +960,7 @@
       <caption xml:lang="pl">Edytowanie kodu z Kate</caption>
       <caption xml:lang="pt">Edição de código com o Kate</caption>
       <caption xml:lang="pt-BR">Editando código no Kate</caption>
+      <caption xml:lang="ro">Redactarea codului cu Kate</caption>
       <caption xml:lang="ru">Редактирование исходного текста программы в Kate</caption>
       <caption xml:lang="sk">Úprava kódu s Kate</caption>
       <caption xml:lang="sl">Urejanje kode s Kate</caption>

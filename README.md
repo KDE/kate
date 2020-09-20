@@ -5,6 +5,28 @@ So you want to participate in developing kate? Great! The project is always in n
 However, before you start comitting to this repository, read
 https://techbase.kde.org/Projects/Kate/Commit_Policy
 
+## Licensing
+
+Contributions to kate.git shall be licensed under LGPLv2+ or MIT.
+
+All files shall contain a proper "SPDX-License-Identifier: LGPL-2.0-or-later" or "SPDX-License-Identifier: MIT" identifier inside a header like:
+
+```cpp
+/*
+    SPDX-FileCopyrightText: 2020 Christoph Cullmann <cullmann@kde.org>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
+```
+
+```cpp
+/*
+    SPDX-FileCopyrightText: 2020 Christoph Cullmann <cullmann@kde.org>
+
+    SPDX-License-Identifier: MIT
+*/
+```
+
 # kate.git content
 
 ## kate

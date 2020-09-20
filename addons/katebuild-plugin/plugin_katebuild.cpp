@@ -1,18 +1,15 @@
 /* plugin_katebuild.c                    Kate Plugin
 **
-** Copyright (C) 2013 by Alexander Neundorf <neundorf@kde.org>
-** Copyright (C) 2006-2015 by Kåre Särs <kare.sars@iki.fi>
-** Copyright (C) 2011 by Ian Wakeling <ian.wakeling@ntlworld.com>
+** SPDX-FileCopyrightText: 2013 Alexander Neundorf <neundorf@kde.org>
+** SPDX-FileCopyrightText: 2006-2015 Kåre Särs <kare.sars@iki.fi>
+** SPDX-FileCopyrightText: 2011 Ian Wakeling <ian.wakeling@ntlworld.com>
 **
 ** This code is mostly a modification of the GPL'ed Make plugin
 ** by Adriaan de Groot.
 */
 
 /*
-** This program is free software; you can redistribute it and/or modify
-** it under the terms of the GNU General Public License as published by
-** the Free Software Foundation; either version 2 of the License, or
-** (at your option) any later version.
+** SPDX-License-Identifier: GPL-2.0-or-later
 **
 ** This program is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of

@@ -1,6 +1,6 @@
 /*
 *
-*   Copyright (c) 1996-2003, Darren Hiebert <dhiebert at users dot sourceforge dot net>
+*   SPDX-FileCopyrightText: 1996-2003 Darren Hiebert <dhiebert at users dot sourceforge dot net>
 *
 *   This source code is released into the public domain.
 *

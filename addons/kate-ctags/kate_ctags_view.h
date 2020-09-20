@@ -2,7 +2,7 @@
 #define KATE_CTAGS_VIEW_H
 /* Description : Kate CTags plugin
  *
- * Copyright (C) 2008-2011 by Kare Sars <kare.sars@iki.fi>
+ * SPDX-FileCopyrightText: 2008-2011 Kare Sars <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public

@@ -4,22 +4,10 @@
 // Description: View for configuring the set of targets to be used with the debugger
 //
 //
-// Copyright (c) 2010 Ian Wakeling <ian.wakeling@ntlworld.com>
-// Copyright (c) 2012 Kåre Särs <kare.sars@iki.fi>
+// SPDX-FileCopyrightText: 2010 Ian Wakeling <ian.wakeling@ntlworld.com>
+// SPDX-FileCopyrightText: 2012 Kåre Särs <kare.sars@iki.fi>
 //
-//  This library is free software; you can redistribute it and/or
-//  modify it under the terms of the GNU Library General Public
-//  License version 2 as published by the Free Software Foundation.
-//
-//  This library is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//  Library General Public License for more details.
-//
-//  You should have received a copy of the GNU Library General Public License
-//  along with this library; see the file COPYING.LIB.  If not, write to
-//  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-//  Boston, MA 02110-1301, USA.
+//  SPDX-License-Identifier: LGPL-2.0-only
 
 #ifndef CONFIGVIEW_H
 #define CONFIGVIEW_H

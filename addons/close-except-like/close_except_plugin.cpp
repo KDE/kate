@@ -3,7 +3,7 @@
  *
  * \brief Kate Close Except/Like plugin implementation
  *
- * Copyright (C) 2012 Alex Turbov <i.zaufi@gmail.com>
+ * SPDX-FileCopyrightText: 2012 Alex Turbov <i.zaufi@gmail.com>
  *
  * \date Thu Mar  8 08:13:43 MSK 2012 -- Initial design
  */

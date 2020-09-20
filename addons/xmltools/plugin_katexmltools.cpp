@@ -7,7 +7,7 @@
   copyright         : ( C ) 2001-2002 by Daniel Naber
   email             : daniel.naber@t-online.de
 
-  Copyright (C) 2005 by Anders Lund <anders@alweb.dk>
+  SPDX-FileCopyrightText: 2005 Anders Lund <anders@alweb.dk>
 
   KDE SC 4 version (C) 2010 Tomas Trnka <tomastrnka@gmx.com>
  ***************************************************************************/

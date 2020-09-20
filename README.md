@@ -7,7 +7,7 @@ https://techbase.kde.org/Projects/Kate/Commit_Policy
 
 ## Licensing
 
-Contributions to kate.git shall be licensed under LGPLv2+ or MIT.
+Contributions to kate.git shall be licensed under [LGPLv2+](LICENSES/LGPL-2.0-or-later.txt) or [MIT](LICENSES/MIT.txt).
 
 All files shall contain a proper "SPDX-License-Identifier: LGPL-2.0-or-later" or "SPDX-License-Identifier: MIT" identifier inside a header like:
 

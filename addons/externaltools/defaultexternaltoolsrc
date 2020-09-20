@@ -34,7 +34,7 @@ workingDir=%{Document:Path}
 
 [Tool 2]
 actionName=externaltool_gitblame
-arguments=gui blame %{Document:FileName}
+arguments=gui blame --line=%{Document:Cursor:Line} %{Document:FileName}
 category=Git
 cmdname=git-blame
 executable=git

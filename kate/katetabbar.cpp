@@ -6,8 +6,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "kateapp.h"
 #include "katetabbar.h"
+#include "kateapp.h"
 
 #include <QIcon>
 #include <QMimeData>
@@ -16,8 +16,8 @@
 #include <QStyleOptionTab>
 #include <QWheelEvent>
 
-#include <KSharedConfig>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <KTextEditor/Document>
 

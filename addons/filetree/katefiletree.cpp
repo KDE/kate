@@ -16,12 +16,12 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
+#include <KApplicationTrader>
 #include <KIO/CopyJob>
 #include <KIO/DeleteJob>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KApplicationTrader>
 #include <KOpenWithDialog>
 #include <KRun>
 #include <KStandardAction>

@@ -32,12 +32,12 @@
 #include <KAboutData>
 #include <KActionCollection>
 #include <KActionMenu>
+#include <KApplicationTrader>
 #include <KConfigGroup>
 #include <KEditToolBar>
 #include <KHelpClient>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KApplicationTrader>
 #include <KMultiTabBar>
 #include <KOpenWithDialog>
 #include <KRecentDocument>

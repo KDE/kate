@@ -7,9 +7,9 @@
 
 #include "kateprojecttreeviewcontextmenu.h"
 
+#include <KApplicationTrader>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
-#include <KApplicationTrader>
 #include <KNS3/KMoreTools>
 #include <KNS3/KMoreToolsMenuFactory>
 #include <KPropertiesDialog>

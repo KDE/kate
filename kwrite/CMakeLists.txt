@@ -16,7 +16,7 @@ find_package(
 )
 
 target_link_libraries(
-  kwrite 
+  kwrite
   PUBLIC
     KF5::TextEditor
     KF5::DBusAddons
@@ -66,23 +66,23 @@ if(APPLE)
   set(MACOSX_BUNDLE_LONG_VERSION_STRING "KWrite ${RELEASE_SERVICE_VERSION}")
   set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_VERSION_MINOR}")
   set(MACOSX_BUNDLE_BUNDLE_VERSION "${RELEASE_SERVICE_VERSION}")
-  set(MACOSX_BUNDLE_COPYRIGHT "2000-2016 The KWrite Authors")
+  set(MACOSX_BUNDLE_COPYRIGHT "2000-2020 The KWrite Authors")
 endif()
 
 install(TARGETS kwrite ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(
-  FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.desktop  
+  FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.desktop
   DESTINATION ${KDE_INSTALL_APPDIR}
 )
 
 install(
-  FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.appdata.xml 
+  FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.appdata.xml
   DESTINATION ${CMAKE_INSTALL_METAINFODIR}
 )
 
 ecm_install_icons(
-  ICONS ${ICONS_PNG} ${ICONS_SVG} 
-  DESTINATION ${ICON_INSTALL_DIR} 
+  ICONS ${ICONS_PNG} ${ICONS_SVG}
+  DESTINATION ${ICON_INSTALL_DIR}
   THEME hicolor
 )

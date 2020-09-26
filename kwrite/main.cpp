@@ -97,7 +97,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * then use i18n and co
      */
     KAboutData aboutData(
-        QStringLiteral("kwrite"), i18n("KWrite"), QStringLiteral(KWRITE_VERSION), i18n("KWrite - Text Editor"), KAboutLicense::LGPL_V2, i18n("(c) 2000-2019 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
+        QStringLiteral("kwrite"), i18n("KWrite"), QStringLiteral(KWRITE_VERSION), i18n("KWrite - Text Editor"), KAboutLicense::LGPL_V2, i18n("(c) 2000-2020 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
 
     /**
      * right dbus prefix == org.kde.

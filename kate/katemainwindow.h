@@ -206,7 +206,6 @@ private Q_SLOTS:
     void updateCaption();
 
     void pluginHelp();
-    void aboutEditor();
     void slotFullScreen(bool);
 
     void slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list);

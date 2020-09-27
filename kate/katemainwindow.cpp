@@ -28,7 +28,6 @@
 #include "kateviewmanager.h"
 #include "kateviewspace.h"
 
-#include <KAboutApplicationDialog>
 #include <KAboutData>
 #include <KActionCollection>
 #include <KActionMenu>
@@ -407,10 +406,6 @@ void KateMainWindow::setupActions()
         connect(a, &QAction::triggered, this, &KateMainWindow::pluginHelp);
         a->setWhatsThis(i18n("This shows help files for various available plugins."));
     }
-
-    a = actionCollection()->addAction(QStringLiteral("help_about_editor"));
-    a->setText(i18n("&About Editor Component"));
-    connect(a, &QAction::triggered, this, &KateMainWindow::aboutEditor);
 
     connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotWindowActivated);
     connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateOpenWith);
@@ -929,12 +924,6 @@ void KateMainWindow::slotOpenWithMenuAction(QAction *a)
 void KateMainWindow::pluginHelp()
 {
     KHelpClient::invokeHelp(QString(), QStringLiteral("kate-plugins"));
-}
-
-void KateMainWindow::aboutEditor()
-{
-    KAboutApplicationDialog ad(KTextEditor::Editor::instance()->aboutData(), this);
-    ad.exec();
 }
 
 void KateMainWindow::slotFullScreen(bool t)

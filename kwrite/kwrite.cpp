@@ -17,7 +17,6 @@
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/view.h>
 
-#include <KAboutApplicationDialog>
 #include <KActionCollection>
 #include <KConfig>
 #include <KConfigGui>
@@ -167,10 +166,6 @@ void KWrite::setupActions()
 
     a = actionCollection()->addAction(KStandardAction::ConfigureToolbars, QStringLiteral("options_configure_toolbars"), this, SLOT(editToolbars()));
     a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
-
-    a = actionCollection()->addAction(QStringLiteral("help_about_editor"));
-    a->setText(i18n("&About Editor Component"));
-    connect(a, &QAction::triggered, this, &KWrite::aboutEditor);
 }
 
 // load on url
@@ -429,12 +424,6 @@ void KWrite::saveProperties(KConfigGroup &config)
 void KWrite::saveGlobalProperties(KConfig *config) // save documents
 {
     m_app->saveProperties(config);
-}
-
-void KWrite::aboutEditor()
-{
-    KAboutApplicationDialog dlg(KTextEditor::Editor::instance()->aboutData(), this);
-    dlg.exec();
 }
 
 void KWrite::documentNameChanged()

@@ -60,7 +60,6 @@ public Q_SLOTS:
     void toggleMenuBar(bool showMessage = true);
     void editKeys();
     void editToolbars();
-    void aboutEditor();
     void modifiedChanged();
 
 private Q_SLOTS:

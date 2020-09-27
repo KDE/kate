@@ -18,8 +18,6 @@
 
 #include <KPageDialog>
 
-#include <memory>
-
 #ifdef WITH_KUSERFEEDBACK
 #include <KUserFeedback/FeedbackConfigWidget>
 #endif
@@ -84,14 +82,11 @@ private:
 
     QCheckBox *m_modNotifications;
     QCheckBox *m_modCloseAfterLast;
-    QCheckBox *m_saveMetaInfos;
-    KPluralHandlingSpinBox *m_daysMetaInfos;
     QComboBox *m_cmbQuickOpenMatchMode;
     QComboBox *m_cmbQuickOpenListMode;
     QSpinBox *m_tabLimit;
 
-    // Sessions Page
-    std::unique_ptr<Ui::SessionConfigWidget> sessionConfigUi;
+    Ui::SessionConfigWidget sessionConfigUi;
 
     QHash<KPageWidgetItem *, PluginPageListItem *> m_pluginPages;
     QList<KTextEditor::ConfigPage *> m_editorPages;

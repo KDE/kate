@@ -40,10 +40,8 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     : KPageDialog(parent)
     , m_mainWindow(parent)
 {
-  //  setFaceType(List);
     setWindowTitle(i18n("Configure"));
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
-    setObjectName(QStringLiteral("configdialog"));
 
     // first: add the KTextEditor config pages
     // rational: most people want to alter e.g. the fonts, the colors or some other editor stuff first
@@ -109,50 +107,13 @@ void KateConfigDialog::addBehaviorPage()
     vbox->addWidget(m_modCloseAfterLast);
     buttonGroup->setLayout(vbox);
 
-    // GROUP with the one below: "Meta-information"
-    buttonGroup = new QGroupBox(i18n("Meta-Information"), generalFrame);
-    vbox = new QVBoxLayout;
-    layout->addWidget(buttonGroup);
-
-    // save meta infos
-    m_saveMetaInfos = new QCheckBox(buttonGroup);
-    m_saveMetaInfos->setText(i18n("Keep &meta-information past sessions"));
-    m_saveMetaInfos->setChecked(KateApp::self()->documentManager()->getSaveMetaInfos());
-    m_saveMetaInfos->setWhatsThis(
-        i18n("Check this if you want document configuration like for example "
-             "bookmarks to be saved past editor sessions. The configuration will be "
-             "restored if the document has not changed when reopened."));
-    connect(m_saveMetaInfos, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
-
-    vbox->addWidget(m_saveMetaInfos);
-
-    // meta infos days
-    QFrame *metaInfos = new QFrame(buttonGroup);
-    QHBoxLayout *hlayout = new QHBoxLayout(metaInfos);
-
-    metaInfos->setEnabled(KateApp::self()->documentManager()->getSaveMetaInfos());
-    QLabel *label = new QLabel(i18n("&Delete unused meta-information after:"), metaInfos);
-    hlayout->addWidget(label);
-    m_daysMetaInfos = new KPluralHandlingSpinBox(metaInfos);
-    m_daysMetaInfos->setMaximum(180);
-    m_daysMetaInfos->setSpecialValueText(i18nc("The special case of 'Delete unused meta-information after'", "(never)"));
-    m_daysMetaInfos->setSuffix(ki18ncp("The suffix of 'Delete unused meta-information after'", " day", " days"));
-    m_daysMetaInfos->setValue(KateApp::self()->documentManager()->getDaysMetaInfos());
-    hlayout->addWidget(m_daysMetaInfos);
-    label->setBuddy(m_daysMetaInfos);
-    connect(m_saveMetaInfos, &QCheckBox::toggled, metaInfos, &QFrame::setEnabled);
-    connect(m_daysMetaInfos, static_cast<void (KPluralHandlingSpinBox::*)(int)>(&KPluralHandlingSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
-
-    vbox->addWidget(metaInfos);
-    buttonGroup->setLayout(vbox);
-
     // quick search
     buttonGroup = new QGroupBox(i18n("&Quick Open"), generalFrame);
     vbox = new QVBoxLayout;
     buttonGroup->setLayout(vbox);
     // quick open match mode
-    hlayout = new QHBoxLayout;
-    label = new QLabel(i18n("&Match Mode:"), buttonGroup);
+    auto hlayout = new QHBoxLayout;
+    auto label = new QLabel(i18n("&Match Mode:"), buttonGroup);
     hlayout->addWidget(label);
     m_cmbQuickOpenMatchMode = new QComboBox(buttonGroup);
     hlayout->addWidget(m_cmbQuickOpenMatchMode);
@@ -208,27 +169,37 @@ void KateConfigDialog::addSessionPage()
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
 
-    sessionConfigUi.reset(new Ui::SessionConfigWidget());
-    sessionConfigUi->setupUi(sessionsPage);
+    sessionConfigUi.setupUi(sessionsPage);
+
+    // save meta infos
+    sessionConfigUi.saveMetaInfos->setChecked(KateApp::self()->documentManager()->getSaveMetaInfos());
+    connect(sessionConfigUi.saveMetaInfos, &QGroupBox::toggled, this, &KateConfigDialog::slotChanged);
+
+    // meta infos days
+    sessionConfigUi.daysMetaInfos->setMaximum(180);
+    sessionConfigUi.daysMetaInfos->setSpecialValueText(i18nc("The special case of 'Delete unused meta-information after'", "(never)"));
+    sessionConfigUi.daysMetaInfos->setSuffix(ki18ncp("The suffix of 'Delete unused meta-information after'", " day", " days"));
+    sessionConfigUi.daysMetaInfos->setValue(KateApp::self()->documentManager()->getDaysMetaInfos());
+    connect(sessionConfigUi.daysMetaInfos, static_cast<void (KPluralHandlingSpinBox::*)(int)>(&KPluralHandlingSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
 
     // restore view  config
-    sessionConfigUi->restoreVC->setChecked(cgGeneral.readEntry("Restore Window Configuration", true));
-    connect(sessionConfigUi->restoreVC, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi.restoreVC->setChecked(cgGeneral.readEntry("Restore Window Configuration", true));
+    connect(sessionConfigUi.restoreVC, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
-    sessionConfigUi->spinBoxRecentFilesCount->setValue(recentFilesMaxCount());
-    connect(sessionConfigUi->spinBoxRecentFilesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
+    sessionConfigUi.spinBoxRecentFilesCount->setValue(recentFilesMaxCount());
+    connect(sessionConfigUi.spinBoxRecentFilesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
 
     QString sesStart(cgGeneral.readEntry("Startup Session", "manual"));
     if (sesStart == QLatin1String("new"))
-        sessionConfigUi->startNewSessionRadioButton->setChecked(true);
+        sessionConfigUi.startNewSessionRadioButton->setChecked(true);
     else if (sesStart == QLatin1String("last"))
-        sessionConfigUi->loadLastUserSessionRadioButton->setChecked(true);
+        sessionConfigUi.loadLastUserSessionRadioButton->setChecked(true);
     else
-        sessionConfigUi->manuallyChooseSessionRadioButton->setChecked(true);
+        sessionConfigUi.manuallyChooseSessionRadioButton->setChecked(true);
 
-    connect(sessionConfigUi->startNewSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
-    connect(sessionConfigUi->loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
-    connect(sessionConfigUi->manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi.startNewSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi.loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi.manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
 }
 
 void KateConfigDialog::addPluginsPage()
@@ -363,23 +334,23 @@ void KateConfigDialog::slotApply()
     if (m_dataChanged) {
         KConfigGroup cg = KConfigGroup(config, "General");
 
-        cg.writeEntry("Restore Window Configuration", sessionConfigUi->restoreVC->isChecked());
+        cg.writeEntry("Restore Window Configuration", sessionConfigUi.restoreVC->isChecked());
 
-        cg.writeEntry("Recent File List Entry Count", sessionConfigUi->spinBoxRecentFilesCount->value());
+        cg.writeEntry("Recent File List Entry Count", sessionConfigUi.spinBoxRecentFilesCount->value());
 
-        if (sessionConfigUi->startNewSessionRadioButton->isChecked()) {
+        if (sessionConfigUi.startNewSessionRadioButton->isChecked()) {
             cg.writeEntry("Startup Session", "new");
-        } else if (sessionConfigUi->loadLastUserSessionRadioButton->isChecked()) {
+        } else if (sessionConfigUi.loadLastUserSessionRadioButton->isChecked()) {
             cg.writeEntry("Startup Session", "last");
         } else {
             cg.writeEntry("Startup Session", "manual");
         }
 
-        cg.writeEntry("Save Meta Infos", m_saveMetaInfos->isChecked());
-        KateApp::self()->documentManager()->setSaveMetaInfos(m_saveMetaInfos->isChecked());
+        cg.writeEntry("Save Meta Infos", sessionConfigUi.saveMetaInfos->isChecked());
+        KateApp::self()->documentManager()->setSaveMetaInfos(sessionConfigUi.saveMetaInfos->isChecked());
 
-        cg.writeEntry("Days Meta Infos", m_daysMetaInfos->value());
-        KateApp::self()->documentManager()->setDaysMetaInfos(m_daysMetaInfos->value());
+        cg.writeEntry("Days Meta Infos", sessionConfigUi.daysMetaInfos->value());
+        KateApp::self()->documentManager()->setDaysMetaInfos(sessionConfigUi.daysMetaInfos->value());
 
         cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
         m_mainWindow->setModNotificationEnabled(m_modNotifications->isChecked());

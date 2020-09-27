@@ -18,20 +18,19 @@
 
 #include <KPageDialog>
 
+#include <memory>
+
 #ifdef WITH_KUSERFEEDBACK
 #include <KUserFeedback/FeedbackConfigWidget>
 #endif
+
+#include "ui_sessionconfigwidget.h"
 
 class QCheckBox;
 class QComboBox;
 class QSpinBox;
 class KateMainWindow;
 class KPluralHandlingSpinBox;
-
-namespace Ui
-{
-class SessionConfigWidget;
-}
 
 struct PluginPageListItem {
     KTextEditor::Plugin *plugin;
@@ -46,8 +45,7 @@ class KateConfigDialog : public KPageDialog
     Q_OBJECT
 
 public:
-    KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view);
-    ~KateConfigDialog() override;
+    KateConfigDialog(KateMainWindow *parent);
 
 public: // static
     /**
@@ -72,9 +70,16 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private:
-    KateMainWindow *m_mainWindow;
+    void addBehaviorPage();
+    void addSessionPage();
+    void addPluginsPage();
+    void addFeedbackPage();
+    void addPluginPages();
+    void addEditorPages();
 
-    KTextEditor::View *m_view;
+private:
+    KateMainWindow * const m_mainWindow;
+
     bool m_dataChanged = false;
 
     QCheckBox *m_modNotifications;
@@ -86,14 +91,10 @@ private:
     QSpinBox *m_tabLimit;
 
     // Sessions Page
-    Ui::SessionConfigWidget *sessionConfigUi;
+    std::unique_ptr<Ui::SessionConfigWidget> sessionConfigUi;
 
     QHash<KPageWidgetItem *, PluginPageListItem *> m_pluginPages;
     QList<KTextEditor::ConfigPage *> m_editorPages;
-    KPageWidgetItem *m_applicationPage;
-    KPageWidgetItem *m_editorPage;
-
-    void addEditorPages();
 
 #ifdef WITH_KUSERFEEDBACK
     KUserFeedback::FeedbackConfigWidget *m_userFeedbackWidget = nullptr;

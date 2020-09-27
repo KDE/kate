@@ -843,7 +843,7 @@ bool KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterfa
         return false;
     }
 
-    KateConfigDialog *dlg = new KateConfigDialog(this, m_viewManager->activeView());
+    KateConfigDialog *dlg = new KateConfigDialog(this);
     if (configpageinterface) {
         dlg->showAppPluginPage(configpageinterface, id);
     }

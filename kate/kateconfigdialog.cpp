@@ -8,8 +8,6 @@
 
 #include "kateconfigdialog.h"
 
-#include "ui_sessionconfigwidget.h"
-
 #include "kateapp.h"
 #include "kateconfigplugindialogpage.h"
 #include "katedebug.h"
@@ -38,34 +36,47 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *view)
+KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     : KPageDialog(parent)
     , m_mainWindow(parent)
-    , m_view(view)
 {
-    setFaceType(Tree);
+  //  setFaceType(List);
     setWindowTitle(i18n("Configure"));
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
     setObjectName(QStringLiteral("configdialog"));
 
+    // first: add the KTextEditor config pages
+    // rational: most people want to alter e.g. the fonts, the colors or some other editor stuff first
+    addEditorPages();
+
+    // second: add out own config pages
+    // this includes all plugin config pages, added to the bottom
+    addBehaviorPage();
+    addSessionPage();
+    addFeedbackPage();
+    addPluginsPage();
+    addPluginPages();
+
+    // handle dialog actions
+    connect(this, &KateConfigDialog::accepted, this, &KateConfigDialog::slotApply);
+    connect(buttonBox()->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KateConfigDialog::slotApply);
+    connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
+    connect(this, &KateConfigDialog::currentPageChanged, this, &KateConfigDialog::slotCurrentPageChanged);
+
+    // ensure no stray signals already set this!
+    buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);
+    m_dataChanged = false;
+}
+
+void KateConfigDialog::addBehaviorPage()
+{
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
 
-    buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);
-
-    KPageWidgetItem *applicationItem = addPage(new QWidget, i18n("Application"));
-    applicationItem->setIcon(QIcon::fromTheme(QStringLiteral("preferences-other")));
-    applicationItem->setHeader(i18n("Application Options"));
-    applicationItem->setCheckable(false);
-    applicationItem->setEnabled(false);
-    m_applicationPage = applicationItem;
-
-    // BEGIN General page
     QFrame *generalFrame = new QFrame;
-    KPageWidgetItem *item = addSubPage(applicationItem, generalFrame, i18n("General"));
-    item->setHeader(i18n("General Options"));
+    KPageWidgetItem *item = addPage(generalFrame, i18n("Behavior"));
+    item->setHeader(i18n("Behavior Options"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("go-home")));
-    setCurrentPage(item);
 
     QVBoxLayout *layout = new QVBoxLayout(generalFrame);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -77,7 +88,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 
     // modified files notification
     m_modNotifications = new QCheckBox(i18n("Wa&rn about files modified by foreign processes"), buttonGroup);
-    m_modNotifications->setChecked(parent->modNotificationEnabled());
+    m_modNotifications->setChecked(m_mainWindow->modNotificationEnabled());
     m_modNotifications->setWhatsThis(
         i18n("If enabled, when Kate receives focus you will be asked what to do with "
              "files that have been modified on the hard disk. If not enabled, you will "
@@ -89,7 +100,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
 
     // Closing last file closes Kate
     m_modCloseAfterLast = new QCheckBox(i18n("Close Kate entirely when the last file is closed"), buttonGroup);
-    m_modCloseAfterLast->setChecked(parent->modCloseAfterLast());
+    m_modCloseAfterLast->setChecked(m_mainWindow->modCloseAfterLast());
     m_modCloseAfterLast->setWhatsThis(
         i18n("If enabled, Kate will shutdown when the last file being edited is closed, "
              "otherwise a blank page will open so that you can start a new file."));
@@ -185,15 +196,19 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     layout->addWidget(buttonGroup);
 
     layout->addStretch(1); // :-] works correct without autoadd
-    // END General page
+}
 
-    // BEGIN Session page
+void KateConfigDialog::addSessionPage()
+{
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+
     QWidget *sessionsPage = new QWidget();
-    item = addSubPage(applicationItem, sessionsPage, i18n("Session"));
+    auto item = addPage(sessionsPage, i18n("Session"));
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
 
-    sessionConfigUi = new Ui::SessionConfigWidget();
+    sessionConfigUi.reset(new Ui::SessionConfigWidget());
     sessionConfigUi->setupUi(sessionsPage);
 
     // restore view  config
@@ -214,9 +229,10 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     connect(sessionConfigUi->startNewSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
     connect(sessionConfigUi->loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
     connect(sessionConfigUi->manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
-    // END Session page
+}
 
-    // BEGIN Plugins page
+void KateConfigDialog::addPluginsPage()
+{
     QFrame *page = new QFrame(this);
     QVBoxLayout *vlayout = new QVBoxLayout(page);
     vlayout->setContentsMargins(0, 0, 0, 0);
@@ -226,22 +242,17 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     vlayout->addWidget(configPluginPage);
     connect(configPluginPage, &KateConfigPluginPage::changed, this, &KateConfigDialog::slotChanged);
 
-    item = addSubPage(applicationItem, page, i18n("Plugins"));
+    auto item = addPage(page, i18n("Plugins"));
     item->setHeader(i18n("Plugin Manager"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-plugin")));
+}
 
-    const KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
-    for (const KatePluginInfo &plugin : pluginList) {
-        if (plugin.load) {
-            addPluginPage(plugin.plugin);
-        }
-    }
-    // END Plugins page
-
+void KateConfigDialog::addFeedbackPage()
+{
 #ifdef WITH_KUSERFEEDBACK
     // KUserFeedback Config
-    page = new QFrame(this);
-    vlayout = new QVBoxLayout(page);
+    auto page = new QFrame(this);
+    auto vlayout = new QVBoxLayout(page);
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 
@@ -250,34 +261,20 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent, KTextEditor::View *vi
     connect(m_userFeedbackWidget, &KUserFeedback::FeedbackConfigWidget::configurationChanged, this, &KateConfigDialog::slotChanged);
     vlayout->addWidget(m_userFeedbackWidget);
 
-    item = addSubPage(applicationItem, page, i18n("User Feedback"));
+    auto item = addPage(page, i18n("User Feedback"));
     item->setHeader(i18n("User Feedback"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-locale")));
 #endif
-
-    // editor widgets from kwrite/kwdialog
-    m_editorPage = addPage(new QWidget, i18n("Editor Component"));
-    m_editorPage->setIcon(QIcon::fromTheme(QStringLiteral("accessories-text-editor")));
-    m_editorPage->setHeader(i18n("Editor Component Options"));
-    m_editorPage->setCheckable(false);
-    m_editorPage->setEnabled(false);
-
-    addEditorPages();
-
-    connect(this, &KateConfigDialog::accepted, this, &KateConfigDialog::slotApply);
-    connect(buttonBox()->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KateConfigDialog::slotApply);
-    connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
-    connect(this, &KateConfigDialog::currentPageChanged, this, &KateConfigDialog::slotCurrentPageChanged);
-
-    resize(minimumSizeHint());
-
-    // ensure no stray signals already set this!
-    m_dataChanged = false;
 }
 
-KateConfigDialog::~KateConfigDialog()
+void KateConfigDialog::addPluginPages()
 {
-    delete sessionConfigUi;
+    const KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
+    for (const KatePluginInfo &plugin : pluginList) {
+        if (plugin.load) {
+            addPluginPage(plugin.plugin);
+        }
+    }
 }
 
 void KateConfigDialog::addEditorPages()
@@ -286,7 +283,7 @@ void KateConfigDialog::addEditorPages()
         KTextEditor::ConfigPage *page = KTextEditor::Editor::instance()->configPage(i, this);
         connect(page, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
         m_editorPages.push_back(page);
-        KPageWidgetItem *item = addSubPage(m_editorPage, page, page->name());
+        KPageWidgetItem *item = addPage(page, page->name());
         item->setHeader(page->fullName());
         item->setIcon(page->icon());
     }
@@ -303,7 +300,7 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
         KTextEditor::ConfigPage *cp = plugin->configPage(i, page);
         page->layout()->addWidget(cp);
 
-        KPageWidgetItem *item = addSubPage(m_applicationPage, page, cp->name());
+        KPageWidgetItem *item = addPage(page, cp->name());
         item->setHeader(cp->fullName());
         item->setIcon(cp->icon());
 

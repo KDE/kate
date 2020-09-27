@@ -16,14 +16,21 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
+#include <kio_version.h>
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
+#include <KOpenWithDialog>
+#include <KRun>
+#else
+#include <KIO/ApplicationLauncherJob>
+#include <KIO/JobUiDelegate>
+#endif
+
 #include <KApplicationTrader>
 #include <KIO/CopyJob>
 #include <KIO/DeleteJob>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KOpenWithDialog>
-#include <KRun>
 #include <KStandardAction>
 
 #include <QApplication>
@@ -283,15 +290,14 @@ void KateFileTree::slotFixOpenWithMenu()
 
 void KateFileTree::slotOpenWithMenuAction(QAction *a)
 {
-    QList<QUrl> list;
-
     KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
     if (!doc) {
         return;
     }
 
-    list.append(doc->url());
+    const QList<QUrl> list({doc->url()});
 
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
     const QString openWith = a->data().toString();
     if (openWith.isEmpty()) {
         // display "open with" dialog
@@ -308,6 +314,14 @@ void KateFileTree::slotOpenWithMenuAction(QAction *a)
     } else {
         KMessageBox::error(this, i18n("Application '%1' not found.", openWith), i18n("Application not found"));
     }
+#else
+    KService::Ptr app = KService::serviceByDesktopPath(a->data().toString());
+    // If app is null, ApplicationLauncherJob will invoke the open-with dialog
+    auto *job = new KIO::ApplicationLauncherJob(app);
+    job->setUrls(list);
+    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+    job->start();
+#endif
 }
 
 Q_DECLARE_METATYPE(QList<KTextEditor::Document *>)

@@ -7,13 +7,20 @@
 
 #include "kateprojecttreeviewcontextmenu.h"
 
+#include <kio_version.h>
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
+#include <KRun>
+#else
+#include <KIO/ApplicationLauncherJob>
+#include <KIO/JobUiDelegate>
+#endif
+
 #include <KApplicationTrader>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KNS3/KMoreTools>
 #include <KNS3/KMoreToolsMenuFactory>
 #include <KPropertiesDialog>
-#include <KRun>
 
 #include <QApplication>
 #include <QClipboard>
@@ -114,6 +121,22 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
         }
     }
 
+    auto handleOpenWith = [parent](QAction *action, const QString &filename) {
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
+        const QString openWith = action->data().toString();
+        if (KService::Ptr app = KService::serviceByDesktopPath(openWith)) {
+            KRun::runService(*app, {QUrl::fromLocalFile(filename)}, parent);
+        }
+#else
+        KService::Ptr app = KService::serviceByDesktopPath(action->data().toString());
+        // If app is null, ApplicationLauncherJob will invoke the open-with dialog
+        auto *job = new KIO::ApplicationLauncherJob(app);
+        job->setUrls({QUrl::fromLocalFile(filename)});
+        job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
+        job->start();
+#endif
+    };
+
     /**
      * run menu and handle the triggered action
      */
@@ -122,12 +145,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
             QApplication::clipboard()->setText(filename);
         } else if (action->parentWidget() == openWithMenu) {
             // handle "open with"
-            const QString openWith = action->data().toString();
-            if (KService::Ptr app = KService::serviceByDesktopPath(openWith)) {
-                QList<QUrl> list;
-                list << QUrl::fromLocalFile(filename);
-                KRun::runService(*app, list, parent);
-            }
+            handleOpenWith(action, filename);
         } else if (action == openContaingFolderAction) {
             KIO::highlightInFileManager({QUrl::fromLocalFile(filename)});
         } else if (action == filePropertiesAction) {

@@ -41,7 +41,6 @@
 #include <KOpenWithDialog>
 #include <KRecentDocument>
 #include <KRecentFilesAction>
-#include <KRun>
 #include <KSharedConfig>
 #include <KShortcutsDialog>
 #include <KStandardAction>
@@ -50,6 +49,14 @@
 #include <KWindowConfig>
 #include <KWindowSystem>
 #include <KXMLGUIFactory>
+
+#include <kio_version.h>
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
+#include <KRun>
+#else
+#include <KIO/ApplicationLauncherJob>
+#include <KIO/JobUiDelegate>
+#endif
 
 #include <KFileItem>
 #include <KIO/Job>
@@ -900,8 +907,8 @@ void KateMainWindow::mSlotFixOpenWithMenu()
 
 void KateMainWindow::slotOpenWithMenuAction(QAction *a)
 {
-    QList<QUrl> list;
-    list.append(m_viewManager->activeView()->document()->url());
+    const QList<QUrl> list({m_viewManager->activeView()->document()->url()});
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
 
     const QString openWith = a->data().toString();
     if (openWith.isEmpty()) {
@@ -919,6 +926,14 @@ void KateMainWindow::slotOpenWithMenuAction(QAction *a)
     } else {
         KMessageBox::error(this, i18n("Application '%1' not found.", openWith), i18n("Application not found"));
     }
+#else
+    KService::Ptr app = KService::serviceByDesktopPath(a->data().toString());
+    // If app is null, ApplicationLauncherJob will invoke the open-with dialog
+    auto *job = new KIO::ApplicationLauncherJob(app);
+    job->setUrls(list);
+    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+    job->start();
+#endif
 }
 
 void KateMainWindow::pluginHelp()

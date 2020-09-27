@@ -96,15 +96,6 @@ void KateConfigDialog::addBehaviorPage()
 
     vbox->addWidget(m_modNotifications);
 
-    // Closing last file closes Kate
-    m_modCloseAfterLast = new QCheckBox(i18n("Close Kate entirely when the last file is closed"), buttonGroup);
-    m_modCloseAfterLast->setChecked(m_mainWindow->modCloseAfterLast());
-    m_modCloseAfterLast->setWhatsThis(
-        i18n("If enabled, Kate will shutdown when the last file being edited is closed, "
-             "otherwise a blank page will open so that you can start a new file."));
-    connect(m_modCloseAfterLast, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
-
-    vbox->addWidget(m_modCloseAfterLast);
     buttonGroup->setLayout(vbox);
 
     // quick search
@@ -200,6 +191,10 @@ void KateConfigDialog::addSessionPage()
     connect(sessionConfigUi.startNewSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
     connect(sessionConfigUi.loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
     connect(sessionConfigUi.manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+
+    // Closing last file closes Kate
+    sessionConfigUi.modCloseAfterLast->setChecked(m_mainWindow->modCloseAfterLast());
+    connect(sessionConfigUi.modCloseAfterLast, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 }
 
 void KateConfigDialog::addPluginsPage()
@@ -355,8 +350,8 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
         m_mainWindow->setModNotificationEnabled(m_modNotifications->isChecked());
 
-        cg.writeEntry("Close After Last", m_modCloseAfterLast->isChecked());
-        m_mainWindow->setModCloseAfterLast(m_modCloseAfterLast->isChecked());
+        cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
+        m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
 
         cg.writeEntry("Quick Open Search Mode", m_cmbQuickOpenMatchMode->currentData().toInt());
         m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());

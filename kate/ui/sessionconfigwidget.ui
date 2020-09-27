@@ -12,43 +12,50 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
-    <widget class="QGroupBox" name="saveMetaInfos">
-     <property name="whatsThis">
-      <string>Check this if you want document configuration like for example bookmarks to be saved past editor sessions. The configuration will be restored if the document has not changed when reopened.</string>
-     </property>
+    <widget class="QGroupBox" name="gbAppStartup">
      <property name="title">
-      <string>Keep &amp;meta-information past sessions</string>
+      <string>Application Startup Behavior</string>
      </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>&amp;Delete unused meta-information after:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="KPluralHandlingSpinBox" name="daysMetaInfos"/>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
+       <widget class="QRadioButton" name="startNewSessionRadioButton">
+        <property name="text">
+         <string>&amp;Start new session</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="loadLastUserSessionRadioButton">
+        <property name="text">
+         <string>&amp;Load last used session</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="manuallyChooseSessionRadioButton">
+        <property name="text">
+         <string>&amp;Manually choose a session</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Application Shutdown Behavior</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <widget class="QCheckBox" name="modCloseAfterLast">
+        <property name="whatsThis">
+         <string>If enabled, Kate will shutdown when the last file being edited is closed, otherwise a blank page will open so that you can start a new file.</string>
+        </property>
+        <property name="text">
+         <string>Close Kate entirely when the last file is closed</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -113,31 +120,43 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbAppStartup">
-     <property name="title">
-      <string>Behaviour on Application Startup</string>
+    <widget class="QGroupBox" name="saveMetaInfos">
+     <property name="whatsThis">
+      <string>Check this if you want document configuration like for example bookmarks to be saved past editor sessions. The configuration will be restored if the document has not changed when reopened.</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <property name="title">
+      <string>Keep &amp;meta-information past sessions</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QRadioButton" name="startNewSessionRadioButton">
-        <property name="text">
-         <string>&amp;Start new session</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="loadLastUserSessionRadioButton">
-        <property name="text">
-         <string>&amp;Load last used session</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="manuallyChooseSessionRadioButton">
-        <property name="text">
-         <string>&amp;Manually choose a session</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>&amp;Delete unused meta-information after:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="KPluralHandlingSpinBox" name="daysMetaInfos"/>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

@@ -74,7 +74,7 @@ void KateConfigDialog::addBehaviorPage()
     QFrame *generalFrame = new QFrame;
     KPageWidgetItem *item = addPage(generalFrame, i18n("Behavior"));
     item->setHeader(i18n("Behavior Options"));
-    item->setIcon(QIcon::fromTheme(QStringLiteral("go-home")));
+    item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-system-windows-behavior")));
 
     QVBoxLayout *layout = new QVBoxLayout(generalFrame);
     layout->setContentsMargins(0, 0, 0, 0);

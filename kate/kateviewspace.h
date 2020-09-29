@@ -154,8 +154,9 @@ private:
      * all documents this view space is aware of
      * depending on the limit of tabs, not all will have a corresponding
      * tab in the KateTabBar
+     * these are stored in used order (MRU last)
      */
-    QSet<KTextEditor::Document *> m_registeredDocuments;
+    QVector<KTextEditor::Document *> m_registeredDocuments;
 
     // the list of views that are contained in this view space,
     // mapped through a hash from Document to View.

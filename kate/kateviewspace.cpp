@@ -205,6 +205,15 @@ void KateViewSpace::removeView(KTextEditor::View *v)
 
     // ...and now: remove from view space
     stack->removeWidget(v);
+
+    // switch to most recently used rather than letting stack choose one
+    // (last element could well be v->document() being removed here)
+    for (auto it = m_registeredDocuments.rbegin(); it != m_registeredDocuments.rend(); ++it) {
+        if (m_docToView.contains(*it)) {
+            showView(*it);
+            break;
+        }
+    }
 }
 
 bool KateViewSpace::showView(KTextEditor::Document *document)
@@ -215,6 +224,18 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     if (!m_docToView.contains(document)) {
         return false;
     }
+
+    /**
+     * update mru list order
+     */
+    const int index = m_registeredDocuments.lastIndexOf(document);
+    // move view to end of list
+    if (index < 0) {
+        return false;
+    }
+    // move view to end of list
+    m_registeredDocuments.removeAt(index);
+    m_registeredDocuments.append(document);
 
     /**
      * show the wanted view
@@ -296,7 +317,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
     /**
      * remember our new document
      */
-    m_registeredDocuments.insert(doc);
+    m_registeredDocuments.insert(0, doc);
 
     /**
      * ensure we cleanup after document is deleted, e.g. we remove the tab bar button
@@ -335,7 +356,7 @@ void KateViewSpace::documentDestroyed(QObject *doc)
      */
     KTextEditor::Document *invalidDoc = static_cast<KTextEditor::Document *>(doc);
     Q_ASSERT(m_registeredDocuments.contains(invalidDoc));
-    m_registeredDocuments.remove(invalidDoc);
+    m_registeredDocuments.removeAll(invalidDoc);
 
     /**
      * we shall have no views for this document at this point in time!

@@ -55,15 +55,14 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     addPluginsPage();
     addPluginPages();
 
+    // ensure no stray signals already set this!
+    m_dataChanged = false;
+    buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);
+
     // handle dialog actions
     connect(this, &KateConfigDialog::accepted, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
-    connect(this, &KateConfigDialog::currentPageChanged, this, &KateConfigDialog::slotCurrentPageChanged);
-
-    // ensure no stray signals already set this!
-    buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);
-    m_dataChanged = false;
 }
 
 void KateConfigDialog::addBehaviorPage()
@@ -279,22 +278,6 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
         connect(info->pluginPage, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
         m_pluginPages.insert(item, info);
     }
-}
-
-void KateConfigDialog::slotCurrentPageChanged(KPageWidgetItem *current, KPageWidgetItem * /*before*/)
-{
-    PluginPageListItem *info = m_pluginPages[current];
-    if (!info) {
-        return;
-    }
-    if (info->pluginPage) {
-        return;
-    }
-    qCDebug(LOG_KATE) << "creating config page (should not get here)";
-    info->pluginPage = info->plugin->configPage(info->idInPlugin, info->pageParent);
-    info->pageParent->layout()->addWidget(info->pluginPage);
-    info->pluginPage->show();
-    connect(info->pluginPage, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
 }
 
 void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)

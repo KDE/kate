@@ -62,8 +62,6 @@ protected Q_SLOTS:
     void slotChanged();
     void slotHelp();
 
-    void slotCurrentPageChanged(KPageWidgetItem *current, KPageWidgetItem *before);
-
 protected:
     void closeEvent(QCloseEvent *event) override;
 

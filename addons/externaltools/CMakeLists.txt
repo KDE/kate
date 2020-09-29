@@ -12,8 +12,6 @@ if(NOT KF5IconThemes_FOUND)
     return()
 endif()
 
-find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
-
 add_library(externaltoolsplugin MODULE "")
 target_compile_definitions(externaltoolsplugin PRIVATE TRANSLATION_DOMAIN="kateexternaltoolsplugin")
 target_link_libraries(externaltoolsplugin PRIVATE

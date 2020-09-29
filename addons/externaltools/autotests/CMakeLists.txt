@@ -1,5 +1,7 @@
 include(ECMMarkAsTest)
 
+find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
+
 find_package(KF5Config ${KF5_DEP_VERSION} QUIET) # KConfig, KConfigGroup
 if(NOT KF5Config_FOUND)
   return()

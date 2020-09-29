@@ -535,8 +535,6 @@ void DebugView::issueNextCommand()
 
 QUrl DebugView::resolveFileName(const QString &fileName)
 {
-    QUrl url;
-
     QFileInfo fInfo = QFileInfo(fileName);
     // did we end up with an absolute path or a relative one?
     if (fInfo.exists()) {
@@ -568,6 +566,7 @@ QUrl DebugView::resolveFileName(const QString &fileName)
     }
 
     // we can not do anything just return the fileName
+    emit sourceFileNotFound(fileName);
     return QUrl::fromUserInput(fileName);
 }
 
@@ -590,4 +589,14 @@ void DebugView::slotQueryLocals(bool query)
         m_nextCommands << QStringLiteral("(Q)info thread");
         issueNextCommand();
     }
+}
+
+QString DebugView::targetName() const
+{
+    return m_targetConf.targetName;
+}
+
+void DebugView::setFileSearchPaths(const QStringList &paths)
+{
+    m_targetConf.srcPaths = paths;
 }

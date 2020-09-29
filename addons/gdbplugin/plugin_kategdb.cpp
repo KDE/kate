@@ -173,7 +173,18 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 
     connect(m_debugView, &DebugView::threadInfo, this, &KatePluginGDBView::insertThread);
 
+    connect(m_debugView, &DebugView::sourceFileNotFound, this, [this](const QString &fileName) {
+        displayMessage(xi18nc("@info", "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to Advanced Settings -> Source file search paths", fileName), KTextEditor::Message::Error);
+    });
+
     connect(m_localsView, &LocalsView::localsVisible, m_debugView, &DebugView::slotQueryLocals);
+
+    connect(m_configView, &ConfigView::configChanged, this, [this]() {
+        GDBTargetConf config = m_configView->currentTarget();
+        if (m_debugView->targetName() == config.targetName) {
+            m_debugView->setFileSearchPaths(config.srcPaths);
+        }
+    });
 
     // Actions
     m_configView->registerActions(actionCollection());
@@ -716,5 +727,23 @@ void KatePluginGDBView::handleEsc(QEvent *e)
         }
     }
 }
+
+void KatePluginGDBView::displayMessage(const QString &msg, KTextEditor::Message::MessageType level)
+{
+    KTextEditor::View *kv = m_mainWin->activeView();
+    if (!kv)
+        return;
+
+    delete m_infoMessage;
+    m_infoMessage = new KTextEditor::Message(msg, level);
+    m_infoMessage->setWordWrap(true);
+    m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
+    m_infoMessage->setAutoHide(8000);
+    m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+    m_infoMessage->setView(kv);
+    kv->document()->postMessage(m_infoMessage);
+}
+
+
 
 #include "plugin_kategdb.moc"

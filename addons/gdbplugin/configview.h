@@ -31,6 +31,7 @@
 #include <KTextEditor/MainWindow>
 
 struct GDBTargetConf {
+    QString targetName;
     QString executable;
     QString workDir;
     QString arguments;
@@ -60,6 +61,8 @@ public:
 
 Q_SIGNALS:
     void showIO(bool show);
+
+    void configChanged();
 
 private Q_SLOTS:
     void slotTargetEdited(const QString &newText);

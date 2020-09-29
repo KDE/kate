@@ -159,7 +159,11 @@ void AdvancedGDBSettings::setConfigs(const QStringList &cfgs)
         return;
     start = 16; // "set directories "
     tmp = cfgs[SrcPathsIndex].mid(start);
-    u_srcPaths->addItems(tmp.split(pathSeparator));
+    #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+    u_srcPaths->addItems(tmp.split(pathSeparator, QString::SkipEmptyParts));
+    #else
+    u_srcPaths->addItems(tmp.split(pathSeparator, Qt::SkipEmptyParts));
+    #endif
 
     // Custom init
     for (int i = CustomStartIndex; i < cfgs.count(); i++) {

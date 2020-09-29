@@ -37,6 +37,9 @@ public:
 
     void issueCommand(QString const &cmd);
 
+    QString targetName() const;
+    void setFileSearchPaths(const QStringList &paths);
+
 public Q_SLOTS:
     void slotInterrupt();
     void slotStepInto();
@@ -71,6 +74,7 @@ Q_SIGNALS:
     void readyForInput(bool ready);
     void programEnded();
     void gdbEnded();
+    void sourceFileNotFound(const QString &fileName);
 
 private:
     enum State { none, ready, executingCmd, listingBreakpoints, infoStack, infoArgs, printThis, infoLocals, infoThreads };

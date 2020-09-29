@@ -228,6 +228,7 @@ void ConfigView::writeConfig(KConfigGroup &group)
 const GDBTargetConf ConfigView::currentTarget() const
 {
     GDBTargetConf cfg;
+    cfg.targetName = m_targetCombo->currentText();
     cfg.executable = m_executable->text();
     cfg.workDir = m_workingDirectory->text();
     cfg.arguments = m_arguments->text();
@@ -270,8 +271,16 @@ bool ConfigView::showIOTab() const
 
 void ConfigView::slotTargetEdited(const QString &newText)
 {
+    QString newComboText(newText);
+    for (int i=0; i<m_targetCombo->count(); ++i) {
+        if (i != m_targetCombo->currentIndex() &&
+            m_targetCombo->itemText(i) == newComboText)
+        {
+            newComboText = newComboText + QStringLiteral(" 2");
+        }
+    }
     int cursorPosition = m_targetCombo->lineEdit()->cursorPosition();
-    m_targetCombo->setItemText(m_targetCombo->currentIndex(), newText);
+    m_targetCombo->setItemText(m_targetCombo->currentIndex(), newComboText);
     m_targetCombo->lineEdit()->setCursorPosition(cursorPosition);
 
     // rebuild the target menu
@@ -449,6 +458,7 @@ void ConfigView::slotAdvancedClicked()
         // save the new values
         newList << m_advanced->configs();
         m_targetCombo->setItemData(m_targetCombo->currentIndex(), newList);
+        emit configChanged();
     }
 }
 

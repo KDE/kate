@@ -15,6 +15,7 @@
 #include <KActionMenu>
 #include <KTextEditor/Application>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
 #include <KXMLGUIClient>
@@ -90,6 +91,8 @@ protected:
 private:
     QString currentWord();
 
+    void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
+
     KTextEditor::Application *m_kateApplication;
     KTextEditor::MainWindow *m_mainWin;
     QWidget *m_toolView;
@@ -112,6 +115,7 @@ private:
     int m_lastExecLine;
     int m_lastExecFrame;
     bool m_focusOnInput;
+    QPointer<KTextEditor::Message> m_infoMessage;
 };
 
 #endif

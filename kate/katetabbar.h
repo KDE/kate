@@ -37,7 +37,7 @@ public:
     /**
      * Read and apply tab limit as configured
      */
-    void readTabCountLimitConfig();
+    void readConfig();
 
     void tabInserted(int idx) override;
 

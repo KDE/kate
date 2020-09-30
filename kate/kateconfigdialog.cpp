@@ -144,6 +144,19 @@ void KateConfigDialog::addBehaviorPage()
     m_tabLimit->setValue(cgGeneral.readEntry("Tabbar Tab Limit", 0));
     connect(m_tabLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
     vbox->addLayout(hlayout);
+
+    m_showTabCloseButton = new QCheckBox(i18n("&Show close button"), buttonGroup);
+    m_showTabCloseButton->setChecked(cgGeneral.readEntry("Show Tabs Close Button", true));
+    m_showTabCloseButton->setToolTip(i18n("When checked each tab will display a close button."));
+    connect(m_showTabCloseButton, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_showTabCloseButton);
+
+    m_expandTabs = new QCheckBox(i18n("&Expand tabs"), buttonGroup);
+    m_expandTabs->setChecked(cgGeneral.readEntry("Expand Tabs", true));
+    m_expandTabs->setToolTip(i18n("When checked tabs take as much size as possible."));
+    connect(m_expandTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_expandTabs);
+
     layout->addWidget(buttonGroup);
 
     layout->addStretch(1); // :-] works correct without autoadd
@@ -343,6 +356,10 @@ void KateConfigDialog::slotApply()
         m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));
 
         cg.writeEntry("Tabbar Tab Limit", m_tabLimit->value());
+
+        cg.writeEntry("Show Tabs Close Button", m_showTabCloseButton->isChecked());
+
+        cg.writeEntry("Expand Tabs", m_expandTabs->isChecked());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

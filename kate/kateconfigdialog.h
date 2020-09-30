@@ -82,6 +82,8 @@ private:
     QComboBox *m_cmbQuickOpenMatchMode;
     QComboBox *m_cmbQuickOpenListMode;
     QSpinBox *m_tabLimit;
+    QCheckBox *m_showTabCloseButton;
+    QCheckBox *m_expandTabs;
 
     Ui::SessionConfigWidget sessionConfigUi;
 

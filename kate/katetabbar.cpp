@@ -33,6 +33,9 @@ Q_DECLARE_METATYPE(KateTabButtonData)
 KateTabBar::KateTabBar(QWidget *parent)
     : QTabBar(parent)
 {
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+
     // enable document mode, docs tell this will trigger:
     // On macOS this will look similar to the tabs in Safari or Sierra's Terminal.app.
     // this seems reasonable for our document tabs
@@ -42,10 +45,10 @@ KateTabBar::KateTabBar(QWidget *parent)
     setAcceptDrops(true);
 
     // use as much size as possible for each tab
-    setExpanding(true);
+    setExpanding(cgGeneral.readEntry("Expand Tabs", true));
 
     // document close function should be there
-    setTabsClosable(true);
+    setTabsClosable(cgGeneral.readEntry("Show Tabs Close Button", true));
 
     // allow users to re-arrange the tabs
     setMovable(true);
@@ -55,6 +58,10 @@ KateTabBar::KateTabBar(QWidget *parent)
 
     // handle config changes
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateTabBar::readTabCountLimitConfig);
+    connect(KateApp::self(), &KateApp::configurationChanged, this, [=]() {
+        setExpanding(cgGeneral.readEntry("Expand Tabs", true));
+        setTabsClosable(cgGeneral.readEntry("Show Tabs Close Button", true));
+    });
 }
 
 void KateTabBar::readTabCountLimitConfig()

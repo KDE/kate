@@ -22,6 +22,7 @@ target_sources(
     katefilebrowserconfig.cpp
     katefilebrowser.cpp
     katebookmarkhandler.cpp
+    katefilebrowseropenwithmenu.cpp
 )
 
 kcoreaddons_desktop_to_json(katefilebrowserplugin katefilebrowserplugin.desktop)

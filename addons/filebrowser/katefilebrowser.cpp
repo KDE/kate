@@ -34,6 +34,19 @@
 #include <QLineEdit>
 #include <QStyle>
 #include <QVBoxLayout>
+#include <QMenu>
+
+#include <kio_version.h>
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
+#   include <KOpenWithDialog>
+#   include <KRun>
+#else
+#   include <KIO/ApplicationLauncherJob>
+#   include <KIO/JobUiDelegate>
+#endif
+#include <KApplicationTrader>
+#include "katefilebrowseropenwithmenu.h"
+
 
 // END Includes
 
@@ -106,6 +119,8 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
 
     connect(m_dirOperator, &KDirOperator::fileSelected, this, &KateFileBrowser::fileSelected);
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateFileBrowser::autoSyncFolder);
+
+    connect(m_dirOperator, &KDirOperator::contextMenuAboutToShow, this, &KateFileBrowser::contextMenuAboutToShow);
 }
 
 KateFileBrowser::~KateFileBrowser()
@@ -212,6 +227,74 @@ void KateFileBrowser::setDir(const QUrl &u)
     m_dirOperator->setUrl(newurl, true);
 }
 
+void KateFileBrowser::contextMenuAboutToShow(const KFileItem &item, QMenu *menu)
+{
+    if(m_openWithMenu == nullptr) {
+        m_openWithMenu = new KateFileBrowserOpenWithMenu(i18nc("@action:inmenu", "Open With"), this);
+        menu->insertMenu(menu->actions().at(1), m_openWithMenu);
+        menu->insertSeparator(menu->actions().at(2));
+        connect(m_openWithMenu, &QMenu::aboutToShow, this, &KateFileBrowser::fixOpenWithMenu);
+        connect(m_openWithMenu, &QMenu::triggered, this, &KateFileBrowser::openWithMenuAction);
+    }
+    m_openWithMenu->setItem(item);
+}
+
+void KateFileBrowser::fixOpenWithMenu()
+{
+    KateFileBrowserOpenWithMenu *menu = static_cast<KateFileBrowserOpenWithMenu *>(sender());
+    menu->clear();
+
+    // get a list of appropriate services.
+    QMimeType mime = menu->item().determineMimeType();
+
+    QAction *a = nullptr;
+    const KService::List offers = KApplicationTrader::queryByMimeType(mime.name());
+    // for each one, insert a menu item...
+    for (const auto &service : offers) {
+        if (service->name() == QLatin1String("Kate")) {
+            continue;
+        }
+        a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
+        a->setData(QVariant(QList<QString>({service->entryPath(), menu->item().url().toString()})));
+    }
+    // append "Other..." to call the KDE "open with" dialog.
+    a = menu->addAction(i18n("&Other..."));
+    a->setData(QVariant(QList<QString>({QString(), menu->item().url().toString()})));
+
+}
+
+void KateFileBrowser::openWithMenuAction(QAction *a)
+{
+    const QString application = a->data().toStringList().first();
+    const QString fileName = a->data().toStringList().last();
+    const QList<QUrl> list({QUrl(fileName)});
+
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
+    if (application.isEmpty()) {
+        // display "open with" dialog
+        KOpenWithDialog dlg(list);
+        if (dlg.exec()) {
+            KRun::runService(*dlg.service(), list, this);
+        }
+        return;
+    }
+
+    KService::Ptr app = KService::serviceByDesktopPath(application);
+    if (app) {
+        KRun::runService(*app, list, this);
+    } else {
+        KMessageBox::error(this, i18n("Application '%1' not found.", application), i18n("Application not found"));
+    }
+#else
+    KService::Ptr app = KService::serviceByDesktopPath(application);
+    // If app is null, ApplicationLauncherJob will invoke the open-with dialog
+    auto *job = new KIO::ApplicationLauncherJob(app);
+    job->setUrls(list);
+    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+    job->start();
+#endif
+
+}
 // END Public Slots
 
 // BEGIN Private Slots

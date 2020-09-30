@@ -17,6 +17,9 @@
 
 #include <QUrl>
 #include <QWidget>
+#include <QMenu>
+
+#include "katefilebrowseropenwithmenu.h"
 
 class KateBookmarkHandler;
 class KActionCollection;
@@ -76,6 +79,10 @@ private Q_SLOTS:
     void updateUrlNavigator(const QUrl &u);
     void setActiveDocumentDir();
     void autoSyncFolder();
+    void contextMenuAboutToShow(const KFileItem &item, QMenu *menu);
+    void fixOpenWithMenu();
+    void openWithMenuAction(QAction *a);
+
 
 protected:
     QUrl activeDocumentUrl();
@@ -96,6 +103,7 @@ private:
     KDirOperator *m_dirOperator;
     KHistoryComboBox *m_filter;
     QAction *m_autoSyncFolder = nullptr;
+    KateFileBrowserOpenWithMenu *m_openWithMenu = nullptr;
 
     KTextEditor::MainWindow *m_mainWindow;
 };

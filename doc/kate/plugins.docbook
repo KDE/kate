@@ -80,7 +80,7 @@ simple &gdb; frontend</para>
 - Opens the corresponding .h/[.cpp|.c] file</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-projects">Project Plugin</link> - Integration with Git and other source control systems</para>
+<para><link linkend="kate-application-plugin-projects">Project Plugin</link> - Integration with &git; and other source control systems</para>
 </listitem>
 <listitem>
 <para>Replicode - Constructivist AI language and runtime</para>
@@ -105,7 +105,7 @@ query on SQL databases</para>
 - Extract and show reference symbols from source</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-konsole">Terminal tool view</link> - Have a terminal at the ready, using KDE's Konsole widget</para>
+<para><link linkend="kate-application-plugin-konsole">Terminal tool view</link> - Have a terminal at the ready, using &kde;'s &konsole; widget</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-textfilter">Text Filter</link> - Process text using terminal commands</para>
@@ -143,7 +143,7 @@ directories where the source code is located.
 <member><filename>kdepim-runtime/resources/gmail/saslplugin/config.h</filename></member>
 </simplelist>
 
-<para>To pick the right choice, the plugin picks the last two parts of the url,
+<para>To pick the right choice, the plugin picks the last two parts of the &URL;,
 in this case this would be</para>
 
 <simplelist>
@@ -173,14 +173,14 @@ in this case this would be</para>
 <para>Clicking <guibutton>OK</guibutton> will start indexing.
 When indexing is finished, open the toolview <guilabel>Backtrace Browser</guilabel>.</para>
 <para>Now you can load a backtrace from the clipboard (&eg;, when you clicked
-<guibutton>Copy to Clipboard</guibutton> in DrKonqi) or from a file.</para>
+<guibutton>Copy to Clipboard</guibutton> in &drkonqi;) or from a file.</para>
 
 </sect2>
 
 </sect1>
 
 <sect1 id="kate-application-plugin-build">
-<!--http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
+<!--https://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
 <sect1info>
 <authorgroup>
 <author><firstname>Salma</firstname> <surname>Sultana</surname></author>
@@ -336,7 +336,7 @@ To navigate to the next error, press
 
 <varlistentry id="build-previous-error">
 <term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo></shortcut>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;&Left;</keycombo></shortcut>
 <guimenu>Build</guimenu><guimenuitem>Previous Error</guimenuitem>
 </menuchoice></term>
 <listitem><para>Moves the cursor to the location of the previous error in the
@@ -345,7 +345,7 @@ document.</para></listitem>
 
 <varlistentry id="build-next-error">
 <term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo></shortcut>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;&Right;</keycombo></shortcut>
 <guimenu>Build</guimenu><guimenuitem>Next Error</guimenuitem>
 </menuchoice></term>
 <listitem><para>Moves the cursor to the location of the next error in the
@@ -475,7 +475,7 @@ directories containing the source code and regenerate the common CTags database.
 </para>
 
 <para>For more information about all available options please read the CTags man page. This man page
-is available in &khelpcenter; and you can also enter the &URL; <emphasis>man/:ctags</emphasis>
+is available in &khelpcenter; and you can also enter the &URL; <emphasis>man:/ctags</emphasis>
 directly into &konqueror;
 </para>
 
@@ -611,13 +611,13 @@ place the cursor at the start of the definition.</para>
 <title>Introduction</title>
 <para>
 The plugin enables a live preview of the currently edited text document in the
-final format in the sidebar. So when editing &eg; a Markdown text or an SVG image,
+final format in the sidebar. So when editing &eg; a &Markdown; text or an &SVG; image,
 the result is instantly visible next to the source text.
 </para>
 
-<para>For the display the plugin uses that KParts plugin which is currently selected
+<para>For the display the plugin uses that &kparts; plugin which is currently selected
 as the preferred one for the &MIME; type of the document.
-If there is no KParts plugin for that type, no preview is possible.
+If there is no &kparts; plugin for that type, no preview is possible.
 </para>
 
 <para>To change the preferred plugin open the <guilabel>File Associations</guilabel>
@@ -626,23 +626,23 @@ on the <guilabel>Embedding</guilabel> tab.
 </para>
 
 <table>
-<title>Some available KParts plugins</title>
+<title>Some available &kparts; plugins</title>
 <tgroup cols="2">
 <tbody>
 <row>
-<entry>&MIME; type</entry><entry>KParts plugin</entry>
+<entry>&MIME; type</entry><entry>&kparts; plugin</entry>
 </row>
 <row>
-<entry>Markdown text</entry><entry>KMarkdownWebViewPart or OkularPart</entry>
+<entry>&Markdown; text</entry><entry>KMarkdownWebViewPart or OkularPart</entry>
 </row>
 <row>
-<entry>SVG image</entry><entry>SVGPart</entry>
+<entry>&SVG; image</entry><entry>SVGPart</entry>
 </row>
 <row>
 <entry>&Qt; UI files</entry><entry>KUIViewerPart</entry>
 </row>
 <row>
-<entry>Dot graph files</entry><entry>KGraphviewerPart</entry>
+<entry>&DOT; graph files</entry><entry>KGraphviewerPart</entry>
 </row>
 </tbody>
 </tgroup>
@@ -683,7 +683,7 @@ this document.</para>
 <para>Manually update the preview of the current document content</para>
 </listitem>
 <listitem>
-<para>A dropdown menu with actions from the KParts plugin</para>
+<para>A dropdown menu with actions from the &kparts; plugin</para>
 </listitem>
 </itemizedlist>
 </sect2>
@@ -1087,7 +1087,7 @@ View.</para></listitem>
 </sect1>
 
 <sect1 id="kate-application-plugin-gdb">
-<!--http://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
+<!--https://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 <sect1info>
 <authorgroup>
 <author><firstname>Martin</firstname> <surname>Gergov</surname></author>
@@ -1104,7 +1104,7 @@ Project Debugger.</para>
 
 <important>
 <para>Previous experience with &gdb; is strongly recommended.  For more
-information on using &gdb;, visit <ulink url="http://www.gnu.org/s/gdb/">the
+information on using &gdb;, visit <ulink url="https://www.gnu.org/software/gdb/">the
 &gdb; website</ulink>.</para>
 </important>
 
@@ -1609,8 +1609,8 @@ For instance, the <quote>Kate</quote> <filename>.kateproject</filename> file loo
 }
 </screen>
 
-<para>The file content is written in JSON syntax. The project name is <quote>Kate</quote>, and
-the files contained in should be read from git.
+<para>The file content is written in &JSON; syntax. The project name is <quote>Kate</quote>, and
+the files contained in should be read from &git;.
 </para>
 
 <para>
@@ -1970,7 +1970,7 @@ and so it may not be advisable to have both enabled at the same time.
 <guisubmenu>Close all non-diagnostics tabs</guisubmenu>
 </menuchoice></term>
 <listitem>
-<para>Close all non-diagnostics (e.g. references) tabs in plugin toolview.</para>
+<para>Close all non-diagnostics (&eg; references) tabs in plugin toolview.</para>
 </listitem>
 </varlistentry>
 
@@ -2005,7 +2005,7 @@ and so it may not be advisable to have both enabled at the same time.
 <para>
 The plugin's configuration page mostly allows for persistent configuration of
 some of the above menu items.  However, there is one additional entry
-to specify the Server Configuration file.  This is a JSON file that
+to specify the Server Configuration file.  This is a &JSON; file that
 can be used to specify the LSP server to start (and then to communicate
 with over stdin/stdout).  For convenience, the following default configuration
 is included (though alternative server implementation are equally valid
@@ -2078,7 +2078,7 @@ considered as well (see further below).
 </para>
 
 <para>
-The "highlightingModeRegex" is used to map the highlighting mode as used by Kate
+The "highlightingModeRegex" is used to map the highlighting mode as used by &kate;
 to the language id of the server. If no regular expression is given, the language id
 itself is used.
 </para>
@@ -2129,12 +2129,12 @@ the view of many separate instances.
 <para>
 
 Each particular LSP server has its own way of customization and may use
-language/tool specific means for configuration, e.g.
+language/tool specific means for configuration, &eg;
 <filename>tox.ini</filename> (a.o. for python),
 <filename>.clang-format</filename> for C++ style format. Such configuration may
 then also be used by other (non-LSP) tools (such as then
 <application>tox</application> or <application>clang-format</application>). On
-top of that, some LSP servers also load configuration from custom files (e.g.
+top of that, some LSP servers also load configuration from custom files (&eg;
 <filename>.ccls</filename>). Furthermore, custom server configuration can also
 be passed through LSP (protocol), see the aforementioned
 "initializationOptions" and "settings" entries in server configuration.
@@ -2173,7 +2173,7 @@ the above example's server supports many more options in "settings".
 See <ulink url="https://github.com/neoclide/coc.nvim/wiki/Language-servers">
 another LSP client's documentation</ulink> for various other language server
 examples and corresponding settings, which can easily and readily be
-transformed to the JSON configuration that is used here and outlined above.
+transformed to the &JSON; configuration that is used here and outlined above.
 </para>
 
 </sect3>
@@ -2452,7 +2452,7 @@ are typically hidden by your &OS;. This option is only available when using
 <term><guilabel>Follow symbolic links</guilabel></term>
 <listitem><para>
 The Search in Files plugin typically does not follow
-<ulink url="http://en.wikipedia.org/wiki/Symbolic_link">symbolic links</ulink>.
+<ulink url="https://en.wikipedia.org/wiki/Symbolic_link">symbolic links</ulink>.
 When this option is enabled, the plugin will follow them instead and search inside
 the files or folders they reference. This option is only available when using
 <guilabel>Folder</guilabel> mode.
@@ -2566,13 +2566,13 @@ plugin.</para>
 <author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
 </authorgroup>
 </sect1info>
-<title>Kate Snippets</title>
+<title>&kate; Snippets</title>
 
 <sect2 id="snippets-intro">
 <title>Introduction</title>
-<para>Kate Snippets is a plugin used to save you some time by adding support for
+<para>&kate; Snippets is a plugin used to save you some time by adding support for
 so-called <quote>snippets</quote> (re-usable source code, machine code or text). The plugin
-also supports code completion and JavaScript.</para>
+also supports code completion and &javascript;.</para>
 </sect2>
 
 <sect2 id="snippets-menu">
@@ -2605,7 +2605,7 @@ may insert in any part of any document.</para>
 <title>Snippets panel</title>
 
 <screenshot id="screenshot-snippets-panel">
-<screeninfo>Kate Snippets Panel</screeninfo>
+<screeninfo>&kate; Snippets Panel</screeninfo>
 <mediaobject>
 <imageobject><imagedata fileref="snippets-panel.png" format="PNG"/></imageobject>
 <textobject><phrase>The &kate; snippets panel.</phrase></textobject>
@@ -2721,12 +2721,12 @@ simple, editable field. All subsequent occurrences of the same
 of the first during editing.</para>
 <para><userinput>${<replaceable>field_name=default</replaceable>}</userinput>
 can be used to specify a default value for the field.
-<replaceable>default</replaceable> can be any JavaScript expression.</para>
+<replaceable>default</replaceable> can be any &javascript; expression.</para>
 <para>Use <userinput>${<replaceable>field_name</replaceable>=<replaceable>text</replaceable>}</userinput>
 to specify a fixed string as default value.</para>
 <para><userinput>${func(<replaceable>other_field1</replaceable>,
 <replaceable>other_field2</replaceable>, ...)}</userinput> can be used to create a
-field which evaluates a JavaScript function on each edit and contains its
+field which evaluates a &javascript; function on each edit and contains its
 contents. See the <guilabel>Scripts</guilabel> tab for more information.</para>
 <para><userinput>${cursor}</userinput> can be used to mark the end position
 of the cursor after everything else was filled in.</para>
@@ -2735,8 +2735,8 @@ of the cursor after everything else was filled in.</para>
 
 <varlistentry>
 <term><guilabel>Scripts</guilabel></term>
-<listitem><para>JavaScript helper functions to use in your snippets.</para>
-<para>All JavaScript functions should return the contents you want to place in a
+<listitem><para>&javascript; helper functions to use in your snippets.</para>
+<para>All &javascript; functions should return the contents you want to place in a
 template field as a string.</para>
 <para>Functions are called in a scope which contains the contents of all
 editable template fields as local variables. For example in a snippet
@@ -2763,7 +2763,7 @@ documentation for more information</para>
 <title>Using Snippets</title>
 
 <screenshot id="screenshot-snippets-usage">
-<screeninfo>Kate Snippets in Action</screeninfo>
+<screeninfo>&kate; Snippets in Action</screeninfo>
 <mediaobject>
 <imageobject><imagedata fileref="snippets-usage.png" format="PNG"/></imageobject>
 <textobject><phrase>Accessing &kate; Snippets from a tool view and a drop down menu.</phrase></textobject>
@@ -2776,7 +2776,7 @@ documentation for more information</para>
 <itemizedlist>
 <listitem><para>By choosing the snippet from the tool view.</para></listitem>
 <listitem><para>While writing, you can press <keycombo action="simul">&Ctrl;
-<keysym>Space</keysym></keycombo>, which will display all the snippets in a
+&Space;</keycombo>, which will display all the snippets in a
 convenient window from which you can choose.  This key combination provides
 functionality similar to code completion.</para></listitem>
 </itemizedlist>
@@ -2829,7 +2829,7 @@ deleting, and requesting information from databases.</para>
 <title>Connecting to a Database</title>
 
 <para>Select <guibutton>Add Connection</guibutton> from the <guimenu>SQL</guimenu>
-menu or toolbar, and then select the Qt database driver you want to use (including
+menu or toolbar, and then select the &Qt; database driver you want to use (including
 QSQLITE, QMYSQL3, QMYSQL, QODBC3, QODBC, QPSQL7, and QPSQL).  If you can't see
 the desired driver, you need to install it.  Then, press <guibutton>Next</guibutton>.
 </para>
@@ -2929,7 +2929,7 @@ current document in the Comma Separated Values format.</para></listitem>
 
 <varlistentry>
 <term><guibutton>Clear</guibutton></term>
-<listitem><para>Removes everything from the table view</para></listitem>
+<listitem><para>Removes everything from the table view.</para></listitem>
 </varlistentry>
 
 <!--FIXME Use system locale -->
@@ -2937,7 +2937,7 @@ current document in the Comma Separated Values format.</para></listitem>
 </variablelist>
 
 <para>You can now change the colors displayed in the table in the <guilabel>SQL</guilabel>
-section of <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kate;</guimenuitem>
+section of <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kate;...</guimenuitem>
 </menuchoice>.</para>
 
 </sect3>
@@ -3033,7 +3033,7 @@ writing much of this section.</para>
 <para>It allows developers to view symbols (functions, macros and structures) from source code.</para>
 <para>By clicking the parsed information you can easily browse the code.</para>
 <para>At the moment the following languages are supported:</para>
-<para>C/C++, Java, Perl, PHP, Python, Ruby, XSLT, Tcl/Tk, Fortran</para>
+<para>C/C++, &Java;, Perl, PHP, Python, Ruby, XSLT, Tcl/Tk, Fortran</para>
 
 <para>Feature list:</para>
 <simplelist>
@@ -3307,7 +3307,7 @@ However, remote DTDs specified via http are supported.</para>
 
 <para>If the file has no doctype it will be checked for being well-formed.</para>
 
-<para>To learn more about &XML; check out the <ulink url="http://www.w3.org/XML/"> official W3C &XML; pages</ulink>.</para>
+<para>To learn more about &XML; check out the <ulink url="https://www.w3.org/XML/"> official W3C &XML; pages</ulink>.</para>
 
 <para>Internally this plugin calls the external command <command>xmllint</command>, which
 is part of libxml2. If this command is not correctly installed on your system, the plugin
@@ -3492,7 +3492,7 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 &kate; Plugin <quote>&XML; Completion</quote> copyright 2001,2002 &Daniel.Naber;
 &Daniel.Naber.mail;.
 </para>
-<para>KDE SC 4 version copyright 2010 Tomáš Trnka</para>
+<para>&kde; SC 4 version copyright 2010 Tomáš Trnka</para>
 <para>Documentation copyright 2001,2002 &Daniel.Naber;</para>
 </sect2>
 </sect1>

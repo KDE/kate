@@ -2,6 +2,7 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
 "dtd/kdedbx45.dtd" [
   <!ENTITY gdb "<acronym>GDB</acronym>">
+  <!ENTITY kparts "<acronym>KParts</acronym>">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
@@ -178,7 +179,7 @@ documentation</para></listitem>
 </varlistentry>
 <varlistentry>
 <term>&Michael.Koch; &Michael.Koch.mail;</term>
-<listitem><para>&kwrite; port to KParts</para></listitem>
+<listitem><para>&kwrite; port to &kparts;</para></listitem>
 </varlistentry>
 <varlistentry>
 <term>&Christian.Gebauer; <email>gebauer@bigfoot.com</email></term>
@@ -234,7 +235,7 @@ documentation</para></listitem>
 </varlistentry>
 <varlistentry>
 <term>&Carsten.Niehaus;</term>
-<listitem><para>Highlighting for LaTeX</para></listitem>
+<listitem><para>Highlighting for &latex;</para></listitem>
 </varlistentry>
 <varlistentry>
 <term>Per Wigren</term>

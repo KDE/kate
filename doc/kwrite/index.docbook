@@ -59,7 +59,7 @@ Bash, Modula 2, &HTML;, and Ada.  &kwrite; has a single document interface
 
 <para>
 &kwrite; is a simple interface to the &katepart; component also used by &kate;,
-KDevelop, and other applications from &kde; that require advanced text editing.
+&kdevelop;, and other applications from &kde; that require advanced text editing.
 Therefore, complete documentation for all the features of &kwrite; can be found
 in the <ulink url="help:/katepart">&katepart; Handbook</ulink>.
 </para>
@@ -126,7 +126,7 @@ line.</para></listitem>
 <term><userinput><command>kwrite</command>
 <option>--author</option></userinput></term>
 <listitem><para>Lists &kwrite;'s authors in the terminal
-window</para></listitem>
+window.</para></listitem>
 </varlistentry>
 <varlistentry>
 
@@ -136,7 +136,7 @@ window</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><userinput><command>&kwrite;</command>
+<term><userinput><command>kwrite</command>
 <option>--license</option></userinput></term>
 <listitem>
 <para>Shows license information.</para>

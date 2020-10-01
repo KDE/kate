@@ -192,7 +192,7 @@ This allows you to quickly switch to another part of the document.</para>
 <listitem><para>If this option is checked, every new view will show a mini map of the 
 document on the vertical scrollbar.</para>
 <para>For more information on the scrollbar minimap, see
-<xref linkend="kate-part-scrollbar-minimap"/></para></listitem>
+<xref linkend="kate-part-scrollbar-minimap"/>.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>Minimap Width</guilabel></term>
@@ -348,14 +348,14 @@ folding documentation</link>.</para></listitem>
 <term><guilabel>Modified Lines</guilabel></term>
 <listitem><para>This color is used to highlight to the left of a document lines
 that have been modified but not yet saved.  For more information, see
-<xref linkend="kate-part-line-modification"/></para></listitem>
+<xref linkend="kate-part-line-modification"/>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Saved Lines</guilabel></term>
 <listitem><para>This color is used to highlight to the left of a document lines
 that have been modified this session and saved.  For more information, see
-<xref linkend="kate-part-line-modification"/></para></listitem>
+<xref linkend="kate-part-line-modification"/>.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -662,9 +662,9 @@ skip white space and go to the start of a line's text.</para>
 <term><guilabel>PageUp/PageDown moves cursor</guilabel></term>
 <listitem>
 <para>This option changes the behavior of the cursor when the user presses
-the <keycap>Page Up</keycap> or <keycap>Page Down</keycap> key. If unselected
-the text cursor will maintain its relative position within the visible text in
-&kappname; as new text becomes visible as a result of the operation.  So if the
+the &PgUp; or &PgDn; key. If unselected the text cursor will maintain its
+relative position within the visible text in &kappname; as new text becomes
+visible as a result of the operation.  So if the
 cursor is in the middle of the visible text when the operation occurs it will
 remain there (except when one reaches the beginning or end.)  With this option
 selected, the first key press will cause the cursor to move to either the top or
@@ -816,7 +816,7 @@ if the cursor is located in the leading blank space of a line.</para>
 <listitem>
 <para>
 If you want &Tab; to align the current line in the current code block
-like in emacs, make &Tab; a shortcut to the action <guimenuitem>Align</guimenuitem>.
+like in &Emacs;, make &Tab; a shortcut to the action <guimenuitem>Align</guimenuitem>.
 </para>
 <variablelist>
 <varlistentry>
@@ -1025,7 +1025,7 @@ type. The first found end of line type will be used for the whole file.</para>
 <para>The byte order mark is a special sequence at the beginning of unicode
 encoded documents. It helps editors to open text documents with the correct
 unicode encoding. For more information see <ulink
-url="http://en.wikipedia.org/wiki/Byte_Order_Mark">Byte Order Mark</ulink>.</para>
+url="https://en.wikipedia.org/wiki/Byte_order_mark">Byte Order Mark</ulink>.</para>
 </listitem>
 </varlistentry>
 
@@ -1142,8 +1142,8 @@ This is useful for network file systems to avoid unnecessary network traffic.</p
 <sect3 id="pref-open-save-modes-filetypes">
 <title>Modes &amp; Filetypes</title>
 <para>This page allows you to override the default configuration for documents
-of specified mimetypes. When the editor loads a document, it will try if it
-matches the file masks or mimetypes for one of the defined filetypes, and if so
+of specified &MIME; types. When the editor loads a document, it will try if it
+matches the file masks or &MIME; types for one of the defined filetypes, and if so
 apply the variables defined. If more filetypes match, the one with the highest
 priority will be used.
 </para>
@@ -1179,7 +1179,7 @@ listed.</para>
 <listitem><para>The name of the filetype will be the text of the corresponding
 menu item. This name is displayed in the
 <menuchoice><guimenu>Tools</guimenu><guimenuitem>Filetypes</guimenuitem>
-</menuchoice ></para></listitem>
+</menuchoice> menu.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>Section:</guilabel></term>
@@ -1191,9 +1191,8 @@ menus. This is also used in the
 <varlistentry>
 <term><guilabel>Variables:</guilabel></term>
 <listitem><para>This string allows you to configure &kappname;'s settings for the
-files selected by this mimetype using &kappname; variables. You can set almost any
-configuration option, such as highlight, indent-mode,
-etc.</para>
+files selected by this &MIME; type using &kappname; variables. You can set almost any
+configuration option, such as highlight, indent-mode, &etc;</para>
 <para>Press <guibutton>Edit</guibutton> to see a list of all available variables
 and their descriptions.  Select the checkbox on the left to enable a particular
 variable and then set the value of the variable on the right.  Some variables
@@ -1228,7 +1227,7 @@ masks.</para></listitem>
 <varlistentry>
 <term><guilabel>MIME types:</guilabel></term>
 <listitem><para>Displays a wizard that helps you easily select
-mimetypes.</para></listitem>
+&MIME; types.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1261,7 +1260,7 @@ Variable names are single words (no whitespace), and anything up to the next
 semicolon is the value. The semicolon is required.</para>
 
 <para>Here is an example variable line, forcing indentation settings for a C++,
-java or javascript file:
+&Java; or &javascript; file:
 
 <programlisting>// kate: replace-tabs on; indent-width 4; indent-mode cstyle;</programlisting>
 </para>
@@ -1279,7 +1278,7 @@ additionally plugins can use variables, in which case it should be documented in
 the plugin's documentation.</para>
 
 <para>&kappname; has support for reading configurations from <filename>.editorconfig</filename>
-files, when the <ulink url="http://editorconfig.org/">editorconfig</ulink> library is installed.
+files, when the <ulink url="https://editorconfig.org/">editorconfig</ulink> library is installed.
 &kappname; automatically searches for a <filename>.editorconfig</filename>
 whenever you open a file. It gives priority to <filename>.kateconfig</filename> files, though.
 </para>
@@ -1594,13 +1593,13 @@ And Makefiles use tabs, &ie; tabs are not replaced with spaces.</para>
 
 <programlisting>kate-wildcard(*.json;*.xml): indent-width 2;</programlisting>
 
-<para>Further, you can also use the mimetype to match certain files, &eg; to indent
+<para>Further, you can also use the &MIME; type to match certain files, &eg; to indent
 all C++ source files with 4 spaces, you can write:
 </para>
 
 <programlisting>kate-mimetype(text/x-c++src): indent-width 4;</programlisting>
 
-<note><para>Next to the support in <filename>.kateconfig</filename> files, wildcard and mimetype
+<note><para>Next to the support in <filename>.kateconfig</filename> files, wildcard and &MIME; type
 dependent document variables are also supported in the files itself as comments.
 </para></note>
 

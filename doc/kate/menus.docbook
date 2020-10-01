@@ -63,7 +63,7 @@ location.
 </term>
 <listitem>
 <para>
-This submenu presents a list of applications known to handle the mime type
+This submenu presents a list of applications known to handle the &MIME; type
 of your current document. Activating an entry will open the current document
 with that application.</para>
 <para>In addition, an entry <guimenuitem>Other...</guimenuitem> launches
@@ -300,7 +300,7 @@ action="simul">&Ctrl;<keycap>Z</keycap></keycombo>
 <guimenuitem>Undo</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>Undo the last editing command (typing, copying, cutting etc.)</para>
+<para>Undo the last editing command (typing, copying, cutting &etc;)</para>
 <note><para>This may undo several editing commands of the same type, like typing
 in characters.</para></note>
 </listitem>
@@ -315,7 +315,7 @@ in characters.</para></note>
 <guimenuitem>Redo</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>This will reverse the most recent change (if any) made using Undo</para>
+<para>This will reverse the most recent change (if any) made using Undo.</para>
 </listitem>
 </varlistentry>
 
@@ -702,7 +702,7 @@ The new instance will be identical to your previous instance.
 <varlistentry id="view-next-tab">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;<keysym>Right</keysym></keycombo>
+<keycombo action="simul">&Alt;&Right;</keycombo>
 </shortcut>
 <guimenu>View</guimenu>
 <guimenuitem>Next Tab</guimenuitem>
@@ -715,7 +715,7 @@ The new instance will be identical to your previous instance.
 <varlistentry id="view-previous-tab">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;<keysym>Left</keysym></keycombo>
+<keycombo action="simul">&Alt;&Left;</keycombo>
 </shortcut>
 <guimenu>View</guimenu>
 <guimenuitem>Previous Tab</guimenuitem>
@@ -738,7 +738,7 @@ The new instance will be identical to your previous instance.
 While entering text in the search
 field the document names and document &URL;s are searched for matching text.
 While entering text in the search field you can use
-the cursor keys <keysym>Up</keysym> and <keysym>Down</keysym> to navigate in the
+the cursor keys &Up; and &Down; to navigate in the
 list view. Pressing the &Enter; key or double clicking on an item in the list switches
 the view to the document selected in the list view. This makes switching between
 documents easier, if there are a lot of them open.</para>
@@ -790,7 +790,7 @@ area in more views.</para>
 <para>This will split the frame (which may be the main editing area) in two equally sized frames,
 the new one to the left of the current one. The new frame gets the focus, and will display the
 same document as the old one.</para>
-<para>See also <link linkend="kate-mdi">Working with the &kate; MDI</link></para>
+<para>See also <link linkend="kate-mdi">Working with the &kate; MDI</link>.</para>
 </listitem>
 </varlistentry>
 
@@ -1222,7 +1222,7 @@ the list of markers which is appended at the bottom of this menu item.
 <varlistentry id="bookmarks-bookmarks-previous">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;<keycap>PgUp</keycap></keycombo>
+<keycombo action="simul">&Alt;&PgUp;</keycombo>
 </shortcut>
 <guimenu>Bookmarks</guimenu>
 <guimenuitem>Previous</guimenuitem>
@@ -1236,7 +1236,7 @@ in a line above the cursor.</para></listitem>
 <varlistentry id="bookmarks-bookmarks-next">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;<keycap>PgDown</keycap></keycombo>
+<keycombo action="simul">&Alt;&PgDn;</keycombo>
 </shortcut>
 <guimenu>Bookmarks</guimenu>
 <guimenuitem>Next</guimenuitem>
@@ -1415,7 +1415,7 @@ document. This overwrites the global end of line mode set in <menuchoice>
 <para>Checking this action you can explicitly add a byte order mark for unicode
 encoded documents. The byte order mark (BOM) is a Unicode character used to signal
 the endianness (byte order) of a text file or stream, for more information see
-<ulink url="http://en.wikipedia.org/wiki/Byte_Order_Mark">Byte Order Mark</ulink>.</para>
+<ulink url="https://en.wikipedia.org/wiki/Byte_order_mark">Byte Order Mark</ulink>.</para>
 </listitem>
 </varlistentry>
 
@@ -1438,7 +1438,7 @@ scripts in the &katepart; documentation.</ulink></para>
 <varlistentry id="tools-invoke-code-completition">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;<keycap>Space</keycap></keycombo>
+<keycombo action="simul">&Ctrl;&Space;</keycombo>
 </shortcut>
 <guimenu>Tools</guimenu>
 <guimenuitem>Invoke Code Completion</guimenuitem>
@@ -1669,7 +1669,7 @@ a new line of text will automatically start when the current
 line exceeds the length specified by the <guilabel>Wrap words at</guilabel> option
 in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
-Editor...</guimenuitem></menuchoice></para></listitem>
+Editor...</guimenuitem></menuchoice>.</para></listitem>
 </varlistentry>
 
 </variablelist>

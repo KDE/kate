@@ -98,22 +98,20 @@ Wrapping Text</link></para></listitem>
 
 <para>Moving around in the text in &kappname; is similar to most graphical text
 editors. You move the cursor using the arrow keys and the
-<keycap>Page Up</keycap>, <keycap>Page Down</keycap>, <keycap>Home</keycap> and
-<keycap>End</keycap> keys in combination with the &Ctrl; and
+&PgUp;, &PgDn;, &Home; and &End; keys in combination with the &Ctrl; and
 &Shift; modifiers. The &Shift; key is always used
 to generate a selection, while the &Ctrl; key has different
 effects on different keys:
 <itemizedlist>
-<listitem><para>For the <keycap>Up</keycap> and <keycap>Down</keycap> keys it
+<listitem><para>For the &Up; and &Down; keys it
 means scroll rather than move the cursor.</para></listitem>
-<listitem><para>For the <keycap>Left</keycap> and <keycap>Right</keycap>
+<listitem><para>For the &Left; and &Right;
 keys it means skip words rather than characters.</para></listitem>
-<listitem><para>For the <keycap>Page Up</keycap> and <keycap>Page Down</keycap>
+<listitem><para>For the &PgUp; and &PgDn;
 keys it means move to the visible edge of the view rather than browse.</para>
 </listitem>
-<listitem><para>For the <keycap>Home</keycap> and <keycap>End</keycap> keys it
-means move to the beginning or end of the document rather than the beginning or
-end of the line.</para></listitem>
+<listitem><para>For the &Home; and &End; keys it means move to the beginning or
+end of the document rather than the beginning or end of the line.</para></listitem>
 </itemizedlist>
 </para>
 
@@ -161,9 +159,8 @@ application to which you want to paste the text.
 </note>
 
 <para>To select using the keyboard, hold down the &Shift; key while
-using the navigation keys (Arrow keys, <keycap>Page Up</keycap>,
-<keycap>Page Down</keycap>, <keycap>Home</keycap> and
-<keycap>End</keycap>, possibly in combination with &Ctrl; to extend
+using the navigation keys (Arrow keys, &PgUp;, &PgDn;, &Home; and
+&End;, possibly in combination with &Ctrl; to extend
 the move of the text cursor).</para>
 
 <para>See also the section <link
@@ -257,8 +254,7 @@ the X selection.</para>
 menu item.</para>
 
 <para>Additionally, text selected with the mouse may be pasted by
-clicking the <mousebutton>middle</mousebutton> mouse button at the
-desired position.</para>
+clicking the &MMB; at the desired position.</para>
 
 <tip>
 <para>If you are using the &kde; desktop, you can retrieve earlier
@@ -491,11 +487,9 @@ bookmark.</para>
 
 <para>To quickly move between bookmarks or to the next/previous bookmark,
 use the <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Next</guimenuitem>
-</menuchoice> (<keycombo action="simul">&Alt;
-<keycap>PgDown</keycap></keycombo>)  or <menuchoice>
+</menuchoice> (<keycombo action="simul">&Alt;&PgDn;</keycombo>) or <menuchoice>
 <guimenu>Bookmarks</guimenu><guimenuitem>Previous</guimenuitem></menuchoice>
-(<keycombo action="simul">&Alt;<keycap>PgUp</keycap>
-</keycombo>) commands.</para>
+(<keycombo action="simul">&Alt;&PgUp;</keycombo>) commands.</para>
 
 </sect1>
 
@@ -528,7 +522,7 @@ no lines are longer than the maximum line width, if they contain any whitespace 
 </para>
 
 <note><para>There is currently no way to set word wrap for document types, or even to enable or disable
-the feature on a per document level. This will be fixed in a future version of &kappname;</para></note>
+the feature on a per document level. This will be fixed in a future version of &kappname;.</para></note>
 
 </sect1>
 
@@ -572,7 +566,7 @@ with using the indent and unindent actions for indenting to your own taste.
 
 <varlistentry><term>C Style</term>
 <listitem><para>An indenter for C and similar languages, such as
-C++, C#, java, javascript and so on. This indenter will not work with scripting
+C++, C#, &Java;, &javascript; and so on. This indenter will not work with scripting
 languages such as Perl or PHP.</para></listitem>
 </varlistentry>
 

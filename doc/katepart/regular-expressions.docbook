@@ -176,39 +176,39 @@ defined, making life still a bit easier:
 
 <varlistentry>
 <term><userinput>\a</userinput></term>
-<listitem><para> This matches the <acronym>ASCII</acronym> bell character (BEL, 0x07).</para></listitem>
+<listitem><para> This matches the &ASCII; bell character (BEL, 0x07).</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>\f</userinput></term>
-<listitem><para> This matches the <acronym>ASCII</acronym> form feed character (FF, 0x0C).</para></listitem>
+<listitem><para> This matches the &ASCII; form feed character (FF, 0x0C).</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>\n</userinput></term>
-<listitem><para> This matches the <acronym>ASCII</acronym> line feed character (LF, 0x0A, Unix newline).</para></listitem>
+<listitem><para> This matches the &ASCII; line feed character (LF, 0x0A, Unix newline).</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>\r</userinput></term>
-<listitem><para> This matches the <acronym>ASCII</acronym> carriage return character (CR, 0x0D).</para></listitem>
+<listitem><para> This matches the &ASCII; carriage return character (CR, 0x0D).</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>\t</userinput></term>
-<listitem><para> This matches the <acronym>ASCII</acronym> horizontal tab character (HT, 0x09).</para></listitem>
+<listitem><para> This matches the &ASCII; horizontal tab character (HT, 0x09).</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>\v</userinput></term>
-<listitem><para> This matches the <acronym>ASCII</acronym> vertical tab character (VT, 0x0B).</para></listitem>
+<listitem><para> This matches the &ASCII; vertical tab character (VT, 0x0B).</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><userinput>\xhhhh</userinput></term>
 
 <listitem><para> This matches the Unicode character corresponding to
 the hexadecimal number hhhh (between 0x0000 and 0xFFFF). \0ooo (&ie;,
-\zero ooo) matches the <acronym>ASCII</acronym>/Latin-1 character
+\zero ooo) matches the &ASCII;/Latin-1 character
 corresponding to the octal number ooo (between 0 and
 0377).</para></listitem>
 </varlistentry>
@@ -277,7 +277,7 @@ literally included in a class:</para>
 <varlistentry>
 <term><userinput>]</userinput></term>
 <listitem><para>Ends the character class. Must be escaped unless it is the very first character in the
-class (may follow an unescaped caret)</para></listitem>
+class (may follow an unescaped caret).</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><userinput>^</userinput> (caret)</term>
@@ -350,7 +350,7 @@ write <userinput>(\w+),\s*\1</userinput>. The sub pattern
 entire expression would match if those were followed by a comma, 0 or
 more whitespace and then an equal chunk of word characters.  (The
 string <literal>\1</literal> references <emphasis>the first sub pattern
-enclosed in parentheses</emphasis>)</para>
+enclosed in parentheses</emphasis>.)</para>
 
 <note>
 <para>To avoid ambiguities with usage of <userinput>\1</userinput> with some digits behind it (&eg; <userinput>\12</userinput> can be 12th subpattern or just the first subpattern with <userinput>2</userinput>) we use <userinput>\{12}</userinput> as syntax for multi-digit subpatterns.</para>
@@ -380,7 +380,7 @@ but silently ignore the other matches.)</para>
 
 <para>Sub patterns used for assertions are not captured.</para>
 
-<para>See also <link linkend="assertions">Assertions</link></para>
+<para>See also <link linkend="assertions">Assertions</link>.</para>
 
 </sect3>
 
@@ -558,24 +558,24 @@ default behavior.</para>
 <sect2>
 <title>In context examples</title>
 
-<para>Here are a few examples of using quantifiers</para>
+<para>Here are a few examples of using quantifiers:</para>
 
 <variablelist>
 
 <varlistentry>
 <term><userinput>^\d{4,5}\s</userinput></term>
 <listitem><para>Matches the digits in <quote>1234 go</quote> and <quote>12345 now</quote>, but neither in <quote>567 eleven</quote>
-nor in <quote>223459 somewhere</quote></para></listitem>
+nor in <quote>223459 somewhere</quote>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>\s+</userinput></term>
-<listitem><para>Matches one or more whitespace characters</para></listitem>
+<listitem><para>Matches one or more whitespace characters.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>(bla){1,}</userinput></term>
-<listitem><para>Matches all of <quote>blablabla</quote> and the <quote>bla</quote> in <quote>blackbird</quote> or <quote>tabla</quote></para></listitem>
+<listitem><para>Matches all of <quote>blablabla</quote> and the <quote>bla</quote> in <quote>blackbird</quote> or <quote>tabla</quote>.</para></listitem>
 </varlistentry>
 
 <varlistentry>

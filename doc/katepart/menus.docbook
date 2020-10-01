@@ -206,7 +206,7 @@ action="simul">&Ctrl;<keycap>Z</keycap></keycombo>
 <guimenuitem>Undo</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>Undo the last editing command (typing, copying, cutting etc.)</para>
+<para>Undo the last editing command (typing, copying, cutting &etc;)</para>
 <note><para>This may undo several editing commands of the same type, like typing
 in characters.</para></note>
 </listitem>
@@ -221,7 +221,7 @@ in characters.</para></note>
 <guimenuitem>Redo</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>This will reverse the most recent change (if any) made using Undo</para>
+<para>This will reverse the most recent change (if any) made using Undo.</para>
 </listitem>
 </varlistentry>
 
@@ -354,7 +354,7 @@ the current mode. The behavior of this mode can be configured in the
 <varlistentry id="edit-overwrite-mode">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul"><keycap>Ins</keycap></keycombo>
+<keycombo action="simul">&Ins;</keycombo>
 </shortcut>
 <guimenu>Edit</guimenu>
 <guimenuitem>Overwrite Mode</guimenuitem>
@@ -750,7 +750,7 @@ linkend="view-show-icon-border">Icon Border</link>.</para>
 </menuchoice></term>
 <listitem><para>This will replace the scrollbar with a visualization of the
 current document. For more information on the scrollbar minimap, see
-<xref linkend="kate-part-scrollbar-minimap"/></para></listitem>
+<xref linkend="kate-part-scrollbar-minimap"/>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="view-code-folding">
@@ -865,7 +865,7 @@ the list of markers which is appended at the bottom of this menu item.
 <varlistentry id="bookmarks-bookmarks-previous">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;<keycap>PgUp</keycap></keycombo>
+<keycombo action="simul">&Alt;&PgUp;</keycombo>
 </shortcut>
 <guimenu>Bookmarks</guimenu>
 <guimenuitem>Previous</guimenuitem>
@@ -879,7 +879,7 @@ in a line above the cursor.</para></listitem>
 <varlistentry id="bookmarks-bookmarks-next">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;<keycap>PgDown</keycap></keycombo>
+<keycombo action="simul">&Alt;&PgDn;</keycombo>
 </shortcut>
 <guimenu>Bookmarks</guimenu>
 <guimenuitem>Next</guimenuitem>
@@ -986,7 +986,7 @@ document. This overwrites the global end of line mode set in <menuchoice>
 <para>Checking this action you can explicitly add a byte order mark for unicode
 encoded documents. The byte order mark (BOM) is a Unicode character used to signal
 the endianness (byte order) of a text file or stream, for more information see
-<ulink url="http://en.wikipedia.org/wiki/Byte_Order_Mark">Byte Order Mark</ulink>.</para>
+<ulink url="https://en.wikipedia.org/wiki/Byte_order_mark">Byte Order Mark</ulink>.</para>
 </listitem>
 </varlistentry>
 
@@ -1014,7 +1014,7 @@ own scripts</link>. This way, &katepart; can be extended with user-defined tools
 <varlistentry id="tools-scripts-navigation-previous-indent">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;&Shift;<keysym>Up</keysym></keycombo>
+<keycombo action="simul">&Alt;&Shift;&Up;</keycombo>
 </shortcut>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1030,7 +1030,7 @@ the same level as the current line.
 <varlistentry id="tools-scripts-navigation-next-indent">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Alt;&Shift;<keysym>Down</keysym></keycombo>
+<keycombo action="simul">&Alt;&Shift;&Down;</keycombo>
 </shortcut>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1075,7 +1075,7 @@ Sorts the selected text or whole document in ascending order.
 <varlistentry id="tools-scripts-editing-move-down">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;&Shift;<keysym>Down</keysym></keycombo>
+<keycombo action="simul">&Ctrl;&Shift;&Down;</keycombo>
 </shortcut>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1090,7 +1090,7 @@ Move selected lines down.
 <varlistentry id="tools-scripts-editing-move-up">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;&Shift;<keysym>Up</keysym></keycombo>
+<keycombo action="simul">&Ctrl;&Shift;&Up;</keycombo>
 </shortcut>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1105,7 +1105,7 @@ Move selected lines up.
 <varlistentry id="tools-scripts-editing-dupe-down">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Down</keysym></keycombo>
+<keycombo action="simul">&Ctrl;&Alt;&Down;</keycombo>
 </shortcut>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1120,7 +1120,7 @@ Duplicates the selected lines down.
 <varlistentry id="tools-scripts-editing-dupe-up">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;&Alt;<keysym>Up</keysym></keycombo>
+<keycombo action="simul">&Ctrl;&Alt;&Up;</keycombo>
 </shortcut>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu>
@@ -1361,7 +1361,7 @@ For example, if <userinput>4.5</userinput> is selected, it will become
 <varlistentry id="tools-invoke-code-completition">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;<keycap>Space</keycap></keycombo>
+<keycombo action="simul">&Ctrl;&Space;</keycombo>
 </shortcut>
 <guimenu>Tools</guimenu>
 <guimenuitem>Invoke Code Completion</guimenuitem>
@@ -1702,7 +1702,7 @@ a new line of text will automatically start when the current
 line exceeds the length specified by the <guilabel>Wrap words at</guilabel> option
 in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
-Editor...</guimenuitem></menuchoice></para></listitem>
+Editor...</guimenuitem></menuchoice> menu.</para></listitem>
 </varlistentry>
 
 </variablelist>

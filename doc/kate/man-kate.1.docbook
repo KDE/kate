@@ -51,7 +51,7 @@ line</replaceable></group>
 the name &kwrite;.</para>
 <para>Some of &kate;'s many features include configurable syntax
 highlighting for languages ranging from C and C++ to
-<acronym>HTML</acronym> to bash scripts, the ability to create and
+&HTML; to bash scripts, the ability to create and
 maintain projects, a multiple document interface
 (<acronym>MDI</acronym>), and a self-contained terminal emulator.
 </para>
@@ -98,33 +98,33 @@ pid</replaceable></term>
 <varlistentry>
 <term><option>-e, --encoding</option> <replaceable>
 name</replaceable></term>
-<listitem><para>Set encoding for the file to open</para><para>You can use
+<listitem><para>Set encoding for the file to open.</para><para>You can use
 this to force a file opened in utf-8 format, for instance.  (The command
 <command>iconv -l</command> provides a list of encodings, which may be
 helpful to you.)</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><option>-l, --line</option> <replaceable> line</replaceable></term>
-<listitem><para>Navigate to this line</para></listitem>
+<listitem><para>Navigate to this line.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><option>-c, --column</option> <replaceable>
 column</replaceable></term>
-<listitem><para>Navigate to this column</para></listitem>
+<listitem><para>Navigate to this column.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><option>-i, --stdin</option></term>
 <listitem><para>Read the contents of
-<filename>stdin</filename></para></listitem>
+<filename>stdin</filename>.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><option>--tempfile</option></term>
 <listitem><para>The files/&URL;s opened by the application will be
-deleted after use</para></listitem>
+deleted after use.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><option><replaceable>file</replaceable></option></term>
-<listitem><para>File to open</para></listitem>
+<listitem><para>File to open.</para></listitem>
 </varlistentry>
 </variablelist>
 
@@ -135,13 +135,13 @@ deleted after use</para></listitem>
 
 <simplelist><member>More detailed user documentation is available from <ulink
 url="help:/kate">help:/kate</ulink>
-(either enter this <acronym>URL</acronym> into &konqueror;, or run
+(either enter this &URL; into &konqueror;, or run
 <userinput><command>khelpcenter</command>
 <parameter>help:/kate</parameter></userinput>).</member>
 <member>kf5options(7)</member>
 <member>qt5options(7)</member>
 <member>There is also further information available at the <ulink
-url="http://kate-editor.org/">&kate; website</ulink>.</member>
+url="https://kate-editor.org/">&kate; website</ulink>.</member>
 </simplelist>
 </refsect1>
 
@@ -155,12 +155,12 @@ line 25, in an existing &kate; window, you could use:</para>
 </screen>
 
 <para>If you have an active internet connection, you can take advantage of
-&kde;'s network transparency to open a file from an ftp site. If you do not
+&kde;'s network transparency to open a file from an &FTP; site. If you do not
 have write permission on the remote server, the file will be opened read
 only and you will be prompted for a local filename to save to if you make
 changes.  If you do have write permission, changes will be saved
 transparently over the network.</para>
-<screen><userinput><command>kate</command> <option><replaceable>ftp://ftp.kde.org/pub/kde/README</replaceable></option></userinput></screen>
+<screen><userinput><command>kate</command> <option><replaceable>&kde-ftp;README</replaceable></option></userinput></screen>
 
 <!-- FIXME: Some more useful examples would be cool, how about this snagged -->
 <!-- from a mail of anders (slightly edited /line/l to remove the double -->

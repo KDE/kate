@@ -29,8 +29,8 @@ On this tab you can set options for the VI Input Mode and define and edit
 the key mapping in this mode.
 VI Input Mode can also be toggled with the <guimenuitem>VI Input Mode</guimenuitem>
 setting in the <guimenu>Edit</guimenu> menu. (The default shortcut key is
-<keycombo action="simul"><keysym>Meta</keysym>&Ctrl;<keycap>V</keycap></keycombo>
- - where <keysym>Meta</keysym> usually is the <keysym>Windows</keysym> key).</para>
+<keycombo action="simul">&Meta;&Ctrl;<keycap>V</keycap></keycombo>
+ - where &Meta; usually is the <keysym>Windows</keysym> key).</para>
 
 <note>
 <para>Many Vi Mode keyboard commands are case-sensitive, unlike most &kde;
@@ -106,7 +106,7 @@ and puts you in insert mode.</para>
 <para>Vim: <userinput>O</userinput> and <userinput>o</userinput> opens a new line and inserts
 text [<replaceable>count</replaceable>] times when leaving insert mode.</para>
 <para>This is mostly done as a consequence of witnessing many people being
-confused by this behavior on a vim irc channel (#vim on freenode).</para>
+confused by this behavior on a vim &irc; channel (#vim on freenode).</para>
 </listitem>
 </itemizedlist>
 
@@ -139,25 +139,25 @@ some specific to &kappname;.  For more information on these commands, see
 press <keycap>:</keycap>, enter the command, and press &Enter;.</para>
 </listitem>
 </itemizedlist>
-<!-- add a picture like http://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
+<!-- add a picture like https://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
 </sect2>
 
 <sect2 id="vi-integration">
-<title>Integration with Kate features</title>
+<title>Integration with &kate; features</title>
 <itemizedlist>
 
 <listitem>
 <para>Visual Mode is entered automatically when text is selected with the mouse.
-It is also entered when using functions of Kate that select text, such as Select
+It is also entered when using functions of &kate; that select text, such as Select
 All (either from the menu or via <keycombo action="simul">&Ctrl;<keycap>A</keycap>
 </keycombo>.)</para>
 </listitem>
 
 <listitem>
-<para>Vi marks and <link linkend="kate-part-bookmarks">Kate bookmarks</link> are
-integrated.  When a mark is created in Vi Mode, a corresponding Kate bookmark is
+<para>Vi marks and <link linkend="kate-part-bookmarks">&kate; bookmarks</link> are
+integrated.  When a mark is created in Vi Mode, a corresponding &kate; bookmark is
 created and appears in the <guimenu>Bookmarks</guimenu> menu.  Conversely, when
-a Kate bookmark is created, a corresponding Vi mark at the 0 column is also
+a &kate; bookmark is created, a corresponding Vi mark at the 0 column is also
 created.</para>
 </listitem>
 
@@ -185,7 +185,7 @@ created.</para>
 <row><entry><para><userinput>i</userinput></para></entry>
 <entry><para>Enter Insert Mode; insert before cursor</para></entry>
 </row>
-<row><entry><para><keycap>Insert</keycap></para></entry>
+<row><entry><para>&Ins;</para></entry>
 <entry><para>Enter Insert Mode; insert before cursor</para></entry>
 </row>
 <row><entry><para><userinput>I</userinput></para></entry>
@@ -242,7 +242,7 @@ created.</para>
 <row><entry><para><userinput>x</userinput></para></entry>
 <entry><para>Delete character to right of cursor</para></entry>
 </row>
-<row><entry><para><keycap>Delete</keycap></para></entry>
+<row><entry><para>&Del;</para></entry>
 <entry><para>Delete character to right of cursor</para></entry>
 </row>
 <row><entry><para><userinput>X</userinput></para></entry>
@@ -330,7 +330,7 @@ created.</para>
 <entry><para>Page up</para></entry>
 </row>
 <row><entry><para><userinput>ga</userinput></para></entry>
-<entry><para>Print the ASCII value of the character</para></entry>
+<entry><para>Print the &ASCII; value of the character</para></entry>
 </row>
 <row><entry><para><userinput>.</userinput></para></entry>
 <entry><para>Repeat last change</para></entry>
@@ -357,25 +357,25 @@ created.</para>
 <row><entry><para><keycombo action="simul">&Ctrl;
 <keycap>W</keycap></keycombo>, <userinput>h</userinput></para>
 <para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>W</keycap></keycombo><keysym>Left</keysym></keycombo></para></entry>
+<keycap>W</keycap></keycombo>&Left;</keycombo></para></entry>
 <entry><para>Go to left split window</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;
 <keycap>W</keycap></keycombo>, <userinput>l</userinput></para>
 <para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>W</keycap></keycombo><keysym>Right</keysym></keycombo></para></entry>
+<keycap>W</keycap></keycombo>&Right;</keycombo></para></entry>
 <entry><para>Go to right split window</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;
 <keycap>W</keycap></keycombo>, <userinput>k</userinput></para>
 <para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>W</keycap></keycombo><keysym>Up</keysym></keycombo></para></entry>
+<keycap>W</keycap></keycombo>&Up;</keycombo></para></entry>
 <entry><para>Go to above split window</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;
 <keycap>W</keycap></keycombo>, <userinput>j</userinput></para>
 <para><keycombo action="seq"><keycombo action="simul">&Ctrl;
-<keycap>W</keycap></keycombo><keysym>Down</keysym></keycombo></para></entry>
+<keycap>W</keycap></keycombo>&Down;</keycombo></para></entry>
 <entry><para>Go to below split window</para></entry>
 </row>
 </tbody>
@@ -402,7 +402,7 @@ which indicates how many of the appropriate movements to make.</para>
 <row><entry><para><userinput>h</userinput></para></entry>
 <entry><para>Left</para></entry>
 </row>
-<row><entry><para><keysym>Left</keysym></para></entry>
+<row><entry><para>&Left;</para></entry>
 <entry><para>Left</para></entry>
 </row>
 <row><entry><para>&Backspace;</para></entry>
@@ -411,34 +411,34 @@ which indicates how many of the appropriate movements to make.</para>
 <row><entry><para><userinput>j</userinput></para></entry>
 <entry><para>Down</para></entry>
 </row>
-<row><entry><para><keysym>Down</keysym></para></entry>
+<row><entry><para>&Down;</para></entry>
 <entry><para>Down</para></entry>
 </row>
 <row><entry><para><userinput>k</userinput></para></entry>
 <entry><para>Up</para></entry>
 </row>
-<row><entry><para><keysym>Up</keysym></para></entry>
+<row><entry><para>&Up;</para></entry>
 <entry><para>Up</para></entry>
 </row>
 <row><entry><para><userinput>l</userinput></para></entry>
 <entry><para>Right</para></entry>
 </row>
-<row><entry><para><keysym>Right</keysym></para></entry>
+<row><entry><para>&Right;</para></entry>
 <entry><para>Right</para></entry>
 </row>
-<row><entry><para><keysym>Space</keysym></para></entry>
+<row><entry><para>&Space;</para></entry>
 <entry><para>Right</para></entry>
 </row>
 <row><entry><para><userinput>$</userinput></para></entry>
 <entry><para>End of line</para></entry>
 </row>
-<row><entry><para><keycap>End</keycap></para></entry>
+<row><entry><para>&End;</para></entry>
 <entry><para>End of line</para></entry>
 </row>
 <row><entry><para><userinput>0</userinput></para></entry>
 <entry><para>First character of line (Column 0)</para></entry>
 </row>
-<row><entry><para><keycap>Home</keycap></para></entry>
+<row><entry><para>&Home;</para></entry>
 <entry><para>First character of line</para></entry>
 </row>
 <row><entry><para><userinput>^</userinput></para></entry>
@@ -526,10 +526,10 @@ which indicates how many of the appropriate movements to make.</para>
 <entry><para>Go one line up visually (when using dynamic word wrap)</para></entry></row>
 <row><entry><para><userinput>gj</userinput></para></entry>
 <entry><para>Go one line down visually (when using dynamic word wrap)</para></entry></row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>Left</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;&Left;</keycombo></para></entry>
 <entry><para>Move one word left</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>Right</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;&Right;</keycombo></para></entry>
 <entry><para>Move one word right</para></entry>
 </row>
 </tbody>
@@ -654,7 +654,7 @@ excluding the backticks</para></entry>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>H</keycap></keycombo></para></entry>
 <entry><para>Delete char backward</para></entry>
 </row>
-<row><entry><para><keycombo action="simul">&Ctrl;<keycap>Home</keycap></keycombo></para></entry>
+<row><entry><para><keycombo action="simul">&Ctrl;&Home;</keycombo></para></entry>
 <entry><para>Move to first character in the document</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo>

@@ -57,7 +57,7 @@ of &kde;'s network transparency to open files on the internet.
 
 <informalexample>
 <screen>
-<prompt>%</prompt><userinput><command>kate</command> <option><replaceable>ftp://ftp.kde.org/pub/kde/README</replaceable></option></userinput>
+<prompt>%</prompt><userinput><command>kate</command> <option><replaceable>&kde-ftp;README</replaceable></option></userinput>
 </screen>
 </informalexample>
 
@@ -89,7 +89,7 @@ This lists the options available at the command line.
 <option>-s</option> <option>--start</option> <parameter>name</parameter></userinput></term>
 <listitem>
 <para>
-Starts kate with the session <parameter>name</parameter>. The session is created
+Starts &kate; with the session <parameter>name</parameter>. The session is created
 if it does not exist already. If a &kate; instance running the specified session
 exists, the specified files are loaded in that instance.
 </para>
@@ -160,10 +160,10 @@ if no parameters and no URLs are given at all.</para></listitem>
 given to open.</para>
 <para>
 You can use &kate; with this option as editor for typing in commit messages for version
-control systems like <application>Git</application> or <application>Subversion</application>.
+control systems like &git; or <application>Subversion</application>.
 These systems expect to block the editor till you have entered your
 message, because they then open the temporary file, which would be empty
-if kate immediately returned to the caller.
+if &kate; immediately returned to the caller.
 </para>
 <para>This option is also needed with KIO (&kde; Input/Output), if you open a remote file (which has been
 downloaded to a temporary) and should be reuploaded, after you saved it.
@@ -226,7 +226,7 @@ Shows license information.
 <title>Drag and Drop</title>
 <para>
 &kate; uses the &kde; Drag and Drop protocol. Files may be dragged and
-dropped onto &kate; from the Desktop, the filemanager &dolphin; or some remote ftp
+dropped onto &kate; from the Desktop, the filemanager &dolphin; or some remote &FTP;
 site opened in one of &dolphin;'s windows.
 </para>
 </sect2>
@@ -466,7 +466,7 @@ focused frame.</para>
 <title>Using Sessions</title>
 
 <para>Sessions is how &kate; lets you keep more than one list of files and
-GUI configuration around. You can have as many named sessions as you want,
+&GUI; configuration around. You can have as many named sessions as you want,
 and you can use unnamed or anonymous sessions for files you want to use only
 once. Currently &kate; can save the list of open files, and the general window
 configuration in the session; future versions of &kate; may add more features
@@ -479,7 +479,7 @@ one as it used to do as the default behavior.</para>
 <itemizedlist>
 <listitem><para><link linkend="command-line-options"><emphasis>Command line
 options</emphasis></link> that lets you select and start sessions when launching
-kate from the command line.</para>
+&kate; from the command line.</para>
 </listitem>
 <listitem><para><link linkend="sessions-menu"><emphasis>The Sessions
 menu</emphasis></link> that lets you switch, save, start and manage your
@@ -491,7 +491,7 @@ behave.</para></listitem>
 
 </para>
 
-<para>When starting a new session, the GUI configuration of <guilabel>Default
+<para>When starting a new session, the &GUI; configuration of <guilabel>Default
 Session</guilabel> is loaded. To save window configuration in the default
 session, you need to enable saving window configuration in the sessions
 configuration page of the configuration dialog and then load the default
@@ -499,14 +499,14 @@ session, set up the window as desired and save the session again.</para>
 
 <para>When a named session is loaded, &kate; will display the session name at
 the start of the window title, which then has the form
-&quot;<replaceable>Session Name</replaceable>: <replaceable>Document name or
-&URL;</replaceable> - &kate;&quot;</para>
+<quote><replaceable>Session Name</replaceable>: <replaceable>Document name or
+&URL;</replaceable> - &kate;</quote>.</para>
 
 <para>When opening files on the command line with <option>--start
 <replaceable>name</replaceable></option> or if a session is selected using the
 session chooser, the specified session is loaded prior to the files specified
 on the command line. To open files from the command line in a new, unnamed
-session, configure kate to start a new session as default in the session page of
+session, configure &kate; to start a new session as default in the session page of
 the configuration dialog or use <option>--start</option> with an empty string:
 <replaceable>''</replaceable>.</para>
 <!--FIXME still valid for kf5 -->
@@ -588,7 +588,7 @@ info documentation, or you can use &konqueror;.</para>
 <sect2>
 <title>Articles on &kate;</title>
 
-<para>&kate;'s homepage provides some <ulink url="http://kate-editor.org/featured-articles">
+<para>&kate;'s homepage provides some <ulink url="https://kate-editor.org/featured-articles">
 Articles and Howtos</ulink> with further information beyond the scope of this handbook.</para>
 
 </sect2>

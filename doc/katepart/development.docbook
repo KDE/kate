@@ -13,7 +13,7 @@
 
 <para>Like any advanced text editor component, &katepart; offers a variety of
 ways to extend its functionality.  You can <link linkend="dev-scripting">write
-simple scripts to add functionality with JavaScript</link>.
+simple scripts to add functionality with &javascript;</link>.
 Finally, once you have extended &katepart;, you are
 welcome to <ulink url="https://kate-editor.org/join-us/">join us</ulink>
 and share your enhancements with the world!</para>
@@ -178,7 +178,7 @@ emphasize concepts of the text formats.</para>
 <title>Default Styles</title>
 
 <para>If you open a C++ source file, a &Java; source file and an
-<acronym>HTML</acronym> document in &kappname;, you will see that even
+&HTML; document in &kappname;, you will see that even
 though the formats are different, and thus different words are chosen
 for special treatment, the colors used are the same. This is because
 &kappname; has a predefined list of Default Styles which are employed by
@@ -213,7 +213,7 @@ will be explained later.</para>
 <title>Overview</title>
 
 <para>&kappname; uses the Syntax-Highlighting framework from &kde-frameworks;.
-The default highlighting xml files shipped with &kappname; are compiled
+The default highlighting &XML; files shipped with &kappname; are compiled
 into the Syntax-Highlighting library by default.
 </para>
 
@@ -240,10 +240,10 @@ for each application. In a Flatpak application, usually is
 <filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>package-name</replaceable>/data/</filename>
 and in a Snap application is
 <filename class="directory"><envar>$HOME</envar>/snap/<replaceable>package-name</replaceable>/current/.local/share/</filename>.
-For example, for <ulink url="https://flathub.org/apps/details/org.kde.kate">Kate's Flatpak package</ulink>,
+For example, for <ulink url="https://flathub.org/apps/details/org.kde.kate">&kate;'s Flatpak package</ulink>,
 the custom &XML; files are located in
 <filename class="directory"><envar>$HOME</envar>/.var/app/org.kde.kate/data/org.kde.syntax-highlighting/syntax/</filename>
-and for <ulink url="https://snapcraft.io/kate">Kate's Snap package</ulink>,
+and for <ulink url="https://snapcraft.io/kate">&kate;'s Snap package</ulink>,
 it is <filename class="directory"><envar>$HOME</envar>/snap/kate/current/.local/share/org.kde.syntax-highlighting/syntax/</filename>.
 </para>
 
@@ -256,7 +256,7 @@ it is <filename class="directory"><envar>$HOME</envar>/snap/kate/current/.local/
 <title>Main sections of &kappname; Highlight Definition files</title>
 
 <varlistentry>
-<term>A highlighting file contains a header that sets the XML version:</term>
+<term>A highlighting file contains a header that sets the &XML; version:</term>
 <listitem>
 <programlisting>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
@@ -581,11 +581,11 @@ as a short summary: Default styles are predefined font and color styles.</para>
 <para><userinput>dsNormal</userinput>, when no special highlighting is required.</para>
 <para><userinput>dsKeyword</userinput>, built-in language keywords.</para>
 <para><userinput>dsFunction</userinput>, function calls and definitions.</para>
-<para><userinput>dsVariable</userinput>, if applicable: variable names (e.g. $someVar in PHP/Perl).</para>
+<para><userinput>dsVariable</userinput>, if applicable: variable names (&eg; $someVar in PHP/Perl).</para>
 <para><userinput>dsControlFlow</userinput>, control flow keywords like if, else, switch, break, return, yield, ...</para>
 <para><userinput>dsOperator</userinput>, operators like + - * / :: &lt; &gt;</para>
 <para><userinput>dsBuiltIn</userinput>, built-in functions, classes, and objects.</para>
-<para><userinput>dsExtension</userinput>, common extensions, such as Qt classes and functions/macros in C++ and Python.</para>
+<para><userinput>dsExtension</userinput>, common extensions, such as &Qt; classes and functions/macros in C++ and Python.</para>
 <para><userinput>dsPreprocessor</userinput>, preprocessor statements or macro definitions.</para>
 <para><userinput>dsAttribute</userinput>, annotations such as @override and __declspec(...).</para>
 </listitem>
@@ -598,7 +598,7 @@ as a short summary: Default styles are predefined font and color styles.</para>
 <para><userinput>dsSpecialChar</userinput>, chars with special meaning in strings such as escapes, substitutions, or regex operators.</para>
 <para><userinput>dsString</userinput>, strings like "hello world".</para>
 <para><userinput>dsVerbatimString</userinput>, verbatim or raw strings like 'raw \backlash' in Perl, CoffeeScript, and shells, as well as r'\raw' in Python.</para>
-<para><userinput>dsSpecialString</userinput>, SQL, regexes, HERE docs, LaTeX math mode, ...</para>
+<para><userinput>dsSpecialString</userinput>, SQL, regexes, HERE docs, &latex; math mode, ...</para>
 <para><userinput>dsImport</userinput>, import, include, require of modules.</para>
 </listitem>
 </varlistentry>
@@ -678,7 +678,7 @@ previous context used in the string (<userinput>#pop</userinput>).</para>
 <para>An <emphasis>order</emphasis> followed by an exclamation mark
 (<emphasis>!</emphasis>) and an <emphasis>identifier</emphasis>, which
 will make the engine first follow the order and then switch to the
-other context, e.g. <userinput>#pop#pop!OtherContext</userinput>.</para>
+other context, &eg; <userinput>#pop#pop!OtherContext</userinput>.</para>
 </listitem>
 </itemizedlist>
 
@@ -891,7 +891,7 @@ to match. The <userinput>insensitive</userinput> attribute defaults to
 <emphasis>false</emphasis> and is passed to the string comparison
 function. If the value is <emphasis>true</emphasis> insensitive
 comparing is used.</para>
-<para>Since: Kate 3.5 (KDE 4.5)</para>
+<para>Since: &kate; 3.5 (&kde; 4.5)</para>
 </listitem>
 </varlistentry>
 
@@ -1029,7 +1029,7 @@ will not find strings spanning over a line break.</para>
 <para>Matches a specified char at the end of a line.</para>
 <programlisting>&lt;LineContinue (common attributes) [char="\"] /&gt;</programlisting>
 <para><userinput>char</userinput> optional character to match, default is
-backslash (<userinput>'\'</userinput>). New since KDE 4.13.</para>
+backslash (<userinput>'\'</userinput>). New since &kde; 4.13.</para>
 <para>This rule is useful for switching context at end of line. This is needed for
  example in C/C++ to continue macros or strings.</para>
 </listitem>
@@ -1151,10 +1151,10 @@ keep the matched string for the next context.
 <para>Use default styles whenever you can. This way the user will find a familiar environment.</para>
 </listitem>
 <listitem>
-<para>Look into other XML-files to see how other people implement tricky rules.</para>
+<para>Look into other &XML; files to see how other people implement tricky rules.</para>
 </listitem>
 <listitem>
-<para>You can validate every XML file by using the command
+<para>You can validate every &XML; file by using the command
 <command>validatehl.sh language.xsd mySyntax.xml</command>.
 The files <filename>validatehl.sh</filename> and <filename>language.xsd</filename>
 are available in <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema">Syntax
@@ -1183,11 +1183,11 @@ expression.</para>
 
 
 <sect1 id="dev-scripting">
-<title>Scripting with JavaScript</title>
+<title>Scripting with &javascript;</title>
 
 <para>
 The &kappname; editor component is easily extensible by writing scripts.
-The scripting language is ECMAScript (widely known as JavaScript).
+The scripting language is ECMAScript (widely known as &javascript;).
 &kappname; supports two kinds of scripts: indentation and command line scripts.
 </para>
 
@@ -1214,7 +1214,7 @@ either <filename>~/.local</filename> or <filename>~/.local/share</filename>.
 <sect3 id="dev-scripting-indentation-header">
 <title>The Indentation Script Header</title>
 <para>
-The header of the file <filename>javascript.js</filename> is embedded as JSON at the beginning of the document as follows:
+The header of the file <filename>javascript.js</filename> is embedded as &JSON; at the beginning of the document as follows:
 
 <programlisting>
 var katescript = {
@@ -1252,7 +1252,7 @@ and in the configuration dialog.
 <literal>required-syntax-style</literal> [optional]: The required syntax style, which matches the specified <literal>style</literal> in syntax highlighting files. This is important for indenters that rely on specific highlight information in the document. If a required syntax style is specified, the indenter is available only when the appropriate highlighter is active. This prevents <quote>undefined behavior</quote> caused by using the indenter without the expected highlighting schema. For instance, the Ruby indenter makes use of this in the files <filename>ruby.js</filename> and <filename>ruby.xml</filename>.
 </para></listitem>
 <listitem><para>
-<literal>indent-languages</literal> [optional]: JSON array of syntax styles the indenter can indent correctly, &eg;: <literal>["c++", "java"]</literal>.
+<literal>indent-languages</literal> [optional]: &JSON; array of syntax styles the indenter can indent correctly, &eg;: <literal>["c++", "java"]</literal>.
 </para></listitem>
 <listitem><para>
 <literal>priority</literal> [optional]: If several indenters are suited for a certain highlighted file, the priority decides which indenter is chosen as default indenter.
@@ -1269,7 +1269,7 @@ Having specified the header this section explains how the indentation scripting
 itself works. The basic skeleton of the body looks like this:
 
 <programlisting>
-// required katepart js libraries, e.g. range.js if you use Range
+// required katepart js libraries, &eg; range.js if you use Range
 require ("range.js");
 
 triggerCharacters = "{}/:;";
@@ -1325,7 +1325,7 @@ with a different tab width.
 
 <para>
 A default &kde; installation ships &kappname; with several indenters. The
-corresponding JavaScript source code can be found in <filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/script/indentation</filename>.</para>
+corresponding &javascript; source code can be found in <filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/script/indentation</filename>.</para>
 <para>On &Windows; these files are located in <filename>%USERPROFILE%\AppData\Local\katepart5\indentation</filename>.
 <replaceable>%USERPROFILE%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.
 </para>
@@ -1370,7 +1370,7 @@ either <filename>~/.local</filename> or <filename>~/.local/share</filename>.</pa
 <sect3 id="dev-scripting-command-line-header">
 <title>The Command Line Script Header</title>
 <para>
-The header of each command line script is embedded in JSON at the beginning of the script as follows:
+The header of each command line script is embedded in &JSON; at the beginning of the script as follows:
 
 <programlisting>
 var katescript = {
@@ -1401,13 +1401,13 @@ Each entry is explained in detail now:
 <listitem><para><literal>license</literal> [optional]: Short form of the license, such as BSD License or LGPLv2.</para></listitem>
 <listitem><para><literal>revision</literal> [required]: The revision of the script. This number should be increased whenever the script is modified.</para></listitem>
 <listitem><para><literal>kate-version</literal> [required]: Minimum required &kappname; version.</para></listitem>
-<listitem><para><literal>functions</literal> [required]: JSON array of commands in the script.</para></listitem>
-<listitem><para><literal>actions</literal> [optional]: JSON Array of JSON objects that defines the actions that appear in the application menu. Detailed information is provided in the section <link linkend="advanced-editing-tools-commandline">Binding Shortcuts</link>.</para></listitem>
+<listitem><para><literal>functions</literal> [required]: &JSON; array of commands in the script.</para></listitem>
+<listitem><para><literal>actions</literal> [optional]: &JSON; Array of &JSON; objects that defines the actions that appear in the application menu. Detailed information is provided in the section <link linkend="advanced-editing-tools-commandline">Binding Shortcuts</link>.</para></listitem>
 </itemizedlist>
 </para>
 
 <para>
-Since the value of <literal>functions</literal> is a JSON array, a single script is able to contain an arbitrary number
+Since the value of <literal>functions</literal> is a &JSON; array, a single script is able to contain an arbitrary number
 of command line commands. Each function is available through &kappname;'s
 <link linkend="advanced-editing-tools-commandline">built-in command line</link>.
 </para>
@@ -1423,7 +1423,7 @@ functions <command>sort</command> and <command>moveLinesDown</command>.
 All functions have the following syntax:
 
 <programlisting>
-// required katepart js libraries, e.g. range.js if you use Range
+// required katepart js libraries, &eg; range.js if you use Range
 require ("range.js");
 
 function &lt;name&gt;(arg1, arg2, ...)
@@ -1435,7 +1435,7 @@ function &lt;name&gt;(arg1, arg2, ...)
 
 <para>
 Arguments in the command line are passed to the function as
-<parameter>arg1</parameter>, <parameter>arg2</parameter>, etc.
+<parameter>arg1</parameter>, <parameter>arg2</parameter>, &etc;
 In order to provide documentation for each command, simply implement the
 '<function>help</function>' function as follows:
 
@@ -1494,7 +1494,7 @@ The fields for one action are as follows:
 <listitem><para><literal>name</literal> [required]: The text appears in the script menu.</para></listitem>
 <listitem><para><literal>icon</literal> [optional]: The icon appears next to the text in the menu. All &kde; icon names can be used here.</para></listitem>
 <listitem><para><literal>category</literal> [optional]: If a category is specified, the script appears in a submenu.</para></listitem>
-<listitem><para><literal>shortcut</literal> [optional]: The shortcut given here is the default shortcut. Example: <literal>Ctrl+Alt+t</literal>. See the <ulink url="https://doc.qt.io/qt-5/qt.html#Key-enum">Qt documentation</ulink> for further details.</para></listitem>
+<listitem><para><literal>shortcut</literal> [optional]: The shortcut given here is the default shortcut. Example: <literal>Ctrl+Alt+t</literal>. See the <ulink url="https://doc.qt.io/qt-5/qt.html#Key-enum">&Qt; documentation</ulink> for further details.</para></listitem>
 <listitem><para><literal>interactive</literal> [optional]: If the script needs user input in the command line, set this to <literal>true</literal>.</para></listitem>
 </itemizedlist>
 </para>
@@ -1518,7 +1518,7 @@ The <classname>Cursor</classname> and <classname>Range</classname> classes are p
 If you want to use them in your script, which needs to use some of the <classname>Document</classname> or <classname>View</classname> functions, please include the necessary library by using:
 
 <programlisting>
-// required katepart js libraries, e.g. range.js if you use Range
+// required katepart js libraries, &eg; range.js if you use Range
 require ("range.js");
 </programlisting>
 </para>
@@ -1541,7 +1541,7 @@ require ("myscriptnamehere.js");
 To extend existing prototypes like <classname>Cursor</classname> or
 <classname>Range</classname>, the recommended way is to
 <emphasis>not</emphasis> modify the global <filename>*.js</filename> files.
-Instead, change the <classname>Cursor</classname> prototype in JavaScript after the <filename>cursor.js</filename> is included into your
+Instead, change the <classname>Cursor</classname> prototype in &javascript; after the <filename>cursor.js</filename> is included into your
 script via <literal>require</literal>.
 </para>
 
@@ -1962,7 +1962,7 @@ void i18n(<parameter>String <replaceable>text</replaceable></parameter>, <replac
 <listitem><para>
 Translates <replaceable>text</replaceable> into the language used by the application.
 The arguments <replaceable>arg1</replaceable>, ..., are optional and used to
-replace the placeholders <literal>%1</literal>, <literal>%2</literal>, etc.</para></listitem>
+replace the placeholders <literal>%1</literal>, <literal>%2</literal>, &etc;</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1974,7 +1974,7 @@ Translates <replaceable>text</replaceable> into the language used by the
 application. Additionally, the string <replaceable>context</replaceable> is
 visible to translators so they can provide a better translation.
 The arguments <replaceable>arg1</replaceable>, ..., are optional and used to
-replace the placeholders <literal>%1</literal>, <literal>%2</literal>, etc.</para></listitem>
+replace the placeholders <literal>%1</literal>, <literal>%2</literal>, &etc;</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1986,7 +1986,7 @@ Translates either <replaceable>singular</replaceable> or
 <replaceable>plural</replaceable> into the language used by the application,
 depending on the given <replaceable>number</replaceable>.
 The arguments <replaceable>arg1</replaceable>, ..., are optional and used to
-replace the placeholders <literal>%1</literal>, <literal>%2</literal>, etc.</para></listitem>
+replace the placeholders <literal>%1</literal>, <literal>%2</literal>, &etc;</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -2000,7 +2000,7 @@ depending on the given <replaceable>number</replaceable>. Additionally, the
 string <replaceable>context</replaceable> is visible to translators so they
 can provide a better translation. The arguments <replaceable>arg1</replaceable>,
 ..., are optional and used to replace the placeholders <literal>%1</literal>,
-<literal>%2</literal>, etc.</para></listitem>
+<literal>%2</literal>, &etc;</para></listitem>
 </varlistentry></variablelist>
 
 </sect4>
@@ -2170,7 +2170,7 @@ Returns the document's filename or an empty string for unsaved text buffers.
 String document.url();
 </synopsis></term>
 <listitem><para>
-Returns the document's full url or an empty string for unsaved text buffers.
+Returns the document's full &URL; or an empty string for unsaved text buffers.
 </para></listitem>
 </varlistentry>
 
@@ -2180,8 +2180,8 @@ Returns the document's full url or an empty string for unsaved text buffers.
 String document.mimeType();
 </synopsis></term>
 <listitem><para>
-Returns the document's mime type or the mime type <literal>application/octet-stream</literal>
-if no appropriate mime type could be found.
+Returns the document's &MIME; type or the &MIME; type <literal>application/octet-stream</literal>
+if no appropriate &MIME; type could be found.
 </para></listitem>
 </varlistentry>
 

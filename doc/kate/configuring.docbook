@@ -63,7 +63,7 @@ document.</para></listitem>
 left, and a configuration page corresponding to the selected topic on
 the right.</para>
 
-<para>The configuration is divided into two groups, namely
+<para>The configuration is divided into two groups, namely:
 <itemizedlist>
 <listitem><para><link linkend="config-dialog">Application configuration</link>
 </para></listitem>

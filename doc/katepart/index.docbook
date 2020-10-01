@@ -53,7 +53,7 @@
 <legalnotice>&FDLNotice;</legalnotice>
 
 <date>2018-08-20</date>
-<releaseinfo>Frameworks 5.50</releaseinfo>
+<releaseinfo>&frameworks; 5.50</releaseinfo>
 
 <abstract>
 <para>&katepart; is a fully featured editor component by &kde;.</para>
@@ -183,7 +183,7 @@ The original &kwrite; documentation was written by &Thad.McGinnis;
 <para>The current &katepart; documentation is maintained by &TC.Hollingsworth;
 &TC.Hollingsworth.mail;.  Please send comments or suggestions to the &katepart;
 development mailing list at <email>kwrite-devel@kde.org</email> or file a bug
-in the <ulink url="https://bugs.kde.org/">KDE Bugtracking System</ulink>.</para>
+in the <ulink url="https://bugs.kde.org/">&kde; Bugtracking System</ulink>.</para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 

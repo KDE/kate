@@ -53,7 +53,7 @@ action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo>.</para>
 <title>The Editor Component Command Line</title>
 
 <para>&kappname;'s editor component has an internal command line, allowing you to
-perform various actions from a minimal GUI. The command line is a text entry
+perform various actions from a minimal &GUI;. The command line is a text entry
 at the bottom of the editor area; to show it select
 <menuchoice><guimenu>View</guimenu><guimenuitem>Switch to Command Line</guimenuitem></menuchoice>
 or use the shortcut (default is
@@ -73,8 +73,8 @@ issue <command>help list</command>; to view help for a specific command, do
 <command>help <replaceable>command</replaceable></command>.</para>
 
 <para>The command line has a built in history, so you can reuse commands already
-typed. To navigate the history, use the <keycap>Up</keycap> and
-<keycap>Down</keycap> keys. When showing historical commands, the argument part
+typed. To navigate the history, use the &Up; and
+&Down; keys. When showing historical commands, the argument part
 of the command will be selected, allowing you to easily overwrite the
 arguments.</para>
 
@@ -237,8 +237,8 @@ argument.</para></listitem>
 
 <varlistentry>
 <term><cmdsynopsis><command>reload-scripts</command></cmdsynopsis></term>
-<listitem><para>Reload all <link linkend="dev-scripting">JavaScript
-scripts</link> used by Kate, including indenters and command line scripts.</para></listitem>
+<listitem><para>Reload all <link linkend="dev-scripting">&javascript;
+scripts</link> used by &kate;, including indenters and command line scripts.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -373,12 +373,12 @@ if none is specified. The following translations are done when interpreting
 <tbody>
 <row><entry><literal>d</literal></entry><entry>The day as number without a leading zero (1-31).</entry></row>
 <row><entry><literal>dd</literal></entry><entry>The day as number with a leading zero (01-31).</entry></row>
-<row><entry><literal>ddd</literal></entry><entry>The abbreviated localized day name (e.g. 'Mon'..'Sun').</entry></row>
-<row><entry><literal>dddd</literal></entry><entry>The long localized day name (e.g. 'Monday'..'Sunday').</entry></row>
+<row><entry><literal>ddd</literal></entry><entry>The abbreviated localized day name (&eg; 'Mon'..'Sun').</entry></row>
+<row><entry><literal>dddd</literal></entry><entry>The long localized day name (&eg; 'Monday'..'Sunday').</entry></row>
 <row><entry><literal>M</literal></entry><entry>The month as number without a leading zero (1-12).</entry></row>
 <row><entry><literal>MM</literal></entry><entry>The month as number with a leading zero (01-12).</entry></row>
-<row><entry><literal>MMMM</literal></entry><entry>The long localized month name (e.g. 'January'..'December').</entry></row>
-<row><entry><literal>MMM</literal></entry><entry>The abbreviated localized month name (e.g. 'Jan'..'Dec').</entry></row>
+<row><entry><literal>MMMM</literal></entry><entry>The long localized month name (&eg; 'January'..'December').</entry></row>
+<row><entry><literal>MMM</literal></entry><entry>The abbreviated localized month name (&eg; 'Jan'..'Dec').</entry></row>
 <row><entry><literal>yy</literal></entry><entry>The year as two digit number
 (00-99).</entry></row>
 <row><entry><literal>yyyy</literal></entry><entry>The year as four digit number (1752-8000).</entry></row>
@@ -598,7 +598,7 @@ document.</para></listitem>
 
 <varlistentry>
 <term><cmdsynopsis><command>each</command><arg choice="req">STRING script</arg></cmdsynopsis></term>
-<listitem><para>Given a JavaScript function as an argument, call that for the list of
+<listitem><para>Given a &javascript; function as an argument, call that for the list of
 selected lines and replace them with the return value of that callback.</para>
 
 <example>
@@ -617,7 +617,7 @@ selected lines and replace them with the return value of that callback.</para>
 
 <varlistentry>
 <term><cmdsynopsis><command>filter</command><arg choice="req">STRING script</arg></cmdsynopsis></term>
-<listitem><para>Given a JavaScript function as an argument, call that for the list of
+<listitem><para>Given a &javascript; function as an argument, call that for the list of
 selected lines and remove those where the callback returns false.</para>
 
 <example>
@@ -634,7 +634,7 @@ selected lines and remove those where the callback returns false.</para>
 
 <varlistentry>
 <term><cmdsynopsis><command>map</command><arg choice="req">STRING script</arg></cmdsynopsis></term>
-<listitem><para>Given a JavaScript function as an argument, call that for the list of
+<listitem><para>Given a &javascript; function as an argument, call that for the list of
 selected lines and replace the line with the value of the callback.</para>
 
 <example>
@@ -681,7 +681,7 @@ line.replace(/^s+/,"");}'
 </cmdsynopsis></term>
 <listitem><para>Search the document for the regular expression
 <userinput>pattern</userinput>. For more information, see
-<xref linkend="regular-expressions" /></para>
+<xref linkend="regular-expressions" />.</para>
 </listitem>
 </varlistentry>
 
@@ -741,7 +741,7 @@ replacement string.</para></listitem>
 <listitem><para>This command provides <quote>as-you-type</quote> searching. You
 can configure the behavior of the search by appending a colon
 followed by one or more options, like this:
-<userinput>ifind:options pattern</userinput>. Allowed options are
+<userinput>ifind:options pattern</userinput>. Allowed options are:
 
 <variablelist>
 <varlistentry>

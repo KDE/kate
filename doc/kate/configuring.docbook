@@ -176,6 +176,18 @@ reasonably sized.</para></listitem>
 <guilabel>Limit number of tabs</guilabel></term>
 <listitem><para>Set the maximum number of tabs. Choose <guimenuitem>Unlimited</guimenuitem> if you do not want to restrict this number.</para></listitem>
 </varlistentry>
+
+<varlistentry>
+<term><anchor id="config-general-show-close-button"/>
+<guilabel>Show close button</guilabel></term>
+<listitem><para>When checked each tab will display a close button.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="config-general-expand-tabs"/>
+<guilabel>Expand tabs</guilabel></term>
+<listitem><para>When checked tabs take as much size as possible.</para></listitem>
+</varlistentry>
 </variablelist>
 
 </listitem>

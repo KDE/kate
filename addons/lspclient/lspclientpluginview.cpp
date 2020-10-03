@@ -1047,7 +1047,8 @@ public:
         QUrl lastUrl;
         QStandardItem *parent = nullptr;
         for (const auto &loc : locations) {
-            if (loc.uri != lastUrl) {
+            // ensure we create a parent, if not already there (bug 427270) or we have a different url
+            if (!parent || loc.uri != lastUrl) {
                 if (parent) {
                     parent->setText(QStringLiteral("%1: %2").arg(lastUrl.toLocalFile()).arg(parent->rowCount()));
                 }

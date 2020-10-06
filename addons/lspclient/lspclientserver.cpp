@@ -53,6 +53,9 @@ static const QString MEMBER_EDIT = QStringLiteral("edit");
 static const QString MEMBER_TITLE = QStringLiteral("title");
 static const QString MEMBER_ARGUMENTS = QStringLiteral("arguments");
 static const QString MEMBER_DIAGNOSTICS = QStringLiteral("diagnostics");
+static const QString MEMBER_TARGET_URI = QStringLiteral("targetUri");
+static const QString MEMBER_TARGET_RANGE = QStringLiteral("targetRange");
+static const QString MEMBER_TARGET_SELECTION_RANGE = QStringLiteral("targetSelectionRange");
 
 // message construction helpers
 static QJsonObject to_json(const LSPPosition &pos)
@@ -372,6 +375,18 @@ static LSPLocation parseLocation(const QJsonObject &loc)
     return {QUrl(uri), range};
 }
 
+static LSPLocation parseLocationLink(const QJsonObject &loc)
+{
+    auto uri = normalizeUrl(QUrl(loc.value(MEMBER_TARGET_URI).toString()));
+    // both should be present, selection contained by the other
+    // so let's preferentially pick the smallest one
+    auto vrange = loc.value(MEMBER_TARGET_SELECTION_RANGE);
+    if (vrange.isUndefined())
+        vrange = loc.value(MEMBER_TARGET_RANGE);
+    auto range = parseRange(vrange.toObject());
+    return {QUrl(uri), range};
+}
+
 static LSPDocumentHighlight parseDocumentHighlight(const QJsonValue &result)
 {
     auto hover = result.toObject();
@@ -497,7 +512,13 @@ static QList<LSPLocation> parseDocumentLocation(const QJsonValue &result)
     // could be array
     if (result.isArray()) {
         for (const auto &def : result.toArray()) {
-            ret.push_back(parseLocation(def.toObject()));
+            const auto &ob = def.toObject();
+            ret.push_back(parseLocation(ob));
+            // bogus server might have sent LocationLink[] instead
+            // let's try to handle it, but not announce in capabilities
+            if (ret.back().uri.isEmpty()) {
+                ret.back() = parseLocationLink(ob);
+            }
         }
     } else if (result.isObject()) {
         // or a single value

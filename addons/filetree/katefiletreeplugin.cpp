@@ -26,7 +26,9 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QLineEdit>
 #include <QStyle>
+#include <QTimer>
 
 #include "katefiletreedebug.h"
 
@@ -143,11 +145,22 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_proxyModel = new KateFileTreeProxyModel(this);
     m_proxyModel->setSourceModel(m_documentModel);
     m_proxyModel->setDynamicSortFilter(true);
+    m_proxyModel->setRecursiveFilteringEnabled(true);
 
     m_documentModel->setShowFullPathOnRoots(m_plug->settings().showFullPathOnRoots());
     m_documentModel->setShadingEnabled(m_plug->settings().shadingEnabled());
     m_documentModel->setViewShade(m_plug->settings().viewShade());
     m_documentModel->setEditShade(m_plug->settings().editShade());
+
+    m_filter = new QLineEdit(m_toolView);
+    m_filter->setPlaceholderText(QStringLiteral("Filter..."));
+    m_filter->setClearButtonEnabled(true);
+    connect(m_filter, &QLineEdit::textChanged, this, [this](const QString &text) {
+        m_proxyModel->setFilterRegularExpression(text);
+        if (!text.isEmpty()) {
+            QTimer::singleShot(100, m_fileTree, &QTreeView::expandAll);
+        }
+    });
 
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, m_documentModel, &KateFileTreeModel::documentClosed);
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KateFileTreePluginView::documentOpened);

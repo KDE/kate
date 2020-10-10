@@ -28,6 +28,8 @@ class KateFileTreeProxyModel;
 class KateFileTreeConfigPage;
 class KateFileTreePluginView;
 
+class QLineEdit;
+
 class KateFileTreePlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
@@ -103,6 +105,7 @@ private:
     KToolBar *m_toolbar;
     KateFileTree *m_fileTree;
     KateFileTreeProxyModel *m_proxyModel;
+    QLineEdit *m_filter;
     KateFileTreeModel *m_documentModel;
     bool m_hasLocalPrefs = false;
     bool m_loadingDocuments;

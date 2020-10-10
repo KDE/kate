@@ -1,27 +1,7 @@
 [KNewStuff3]
-#ProvidersUrl=http://.../provider.xml
 ProvidersUrl=https://autoconfig.kde.org/ocs/providers.xml
 Categories=KTextEditor Snippet
 UploadCategories=KTextEditor Snippet
-
-# # How to check? Any number of the lines below, 'ifpossible' is default
-# ChecksumPolicy=... # never/ifpossible/always
-# SignaturePolicy=... # never/ifpossible/always
-
-# # Where to install? Exactly one of the lines below
-# # Note: if all three are missing, entry is considered remote resource
-# StandardResource=wallpapers # becomes $KDEHOME/share/wallpapers
-# becomes $KDEHOME/share/apps/appname/datadir
 TargetDir=/ktexteditor_snippets/ghns
-# InstallPath=.dir/subdir # becomes $HOME/.dir/subdir
-
-# # How to name the files?
-  #doesn't use payload file name
-
 CustomName=true
 
-# # What to do after installation? Any number of the lines below
-# # unpack the downloaded archive
-# Uncompress=true
-# # post-installation command
-# InstallationCommand=dbus-send ... %f ...

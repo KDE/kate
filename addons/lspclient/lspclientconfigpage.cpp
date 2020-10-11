@@ -77,7 +77,15 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     connect(ui->spinDiagnosticsSize, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, ch);
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::configUrlChanged);
     connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::configUrlChanged);
-    connect(ui->userConfig, &QTextEdit::textChanged, this, &LSPClientConfigPage::configTextChanged);
+
+    auto cfgh = [this](int position, int added, int removed) {
+        Q_UNUSED(position);
+        // discard format change
+        // (e.g. due to syntax highlighting)
+        if (added || removed)
+            configTextChanged();
+    };
+    connect(ui->userConfig->document(), &QTextDocument::contentsChange, this, cfgh);
 
     // custom control logic
     auto h = [this]() {

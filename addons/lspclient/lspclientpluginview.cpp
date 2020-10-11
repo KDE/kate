@@ -469,7 +469,7 @@ public:
 
         // unregister all text-hint providers, else we might crash
         for (auto view : qAsConst(m_hoverViews)) {
-            qobject_cast<KTextEditor::TextHintInterface *>(view)->unregisterTextHintProvider(m_hover.data());
+            qobject_cast<KTextEditor::TextHintInterface *>(view)->unregisterTextHintProvider(m_forwardHover.data());
         }
 
         clearAllLocationMarks();

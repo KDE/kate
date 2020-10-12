@@ -156,7 +156,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_filter->setPlaceholderText(QStringLiteral("Filter..."));
     m_filter->setClearButtonEnabled(true);
     connect(m_filter, &QLineEdit::textChanged, this, [this](const QString &text) {
-        m_proxyModel->setFilterRegularExpression(text);
+        m_proxyModel->setFilterRegularExpression(QRegularExpression(text, QRegularExpression::CaseInsensitiveOption));
         if (!text.isEmpty()) {
             QTimer::singleShot(100, m_fileTree, &QTreeView::expandAll);
         }

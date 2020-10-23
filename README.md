@@ -2,7 +2,7 @@
 
 So you want to participate in developing kate? Great! The project is always in need of helping hands.
 
-However, before you start comitting to this repository, read
+However, before you start committing to this repository, read
 https://techbase.kde.org/Projects/Kate/Commit_Policy
 
 ## Licensing

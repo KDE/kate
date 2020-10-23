@@ -62,7 +62,6 @@
 #include <KMessageBox>
 #include <KPluginFactory>
 #include <QAction>
-#include <QProcess>
 #include <QTemporaryFile>
 
 #include <QComboBox>
@@ -79,7 +78,6 @@
 #include <QVBoxLayout>
 
 #include <ktexteditor/editor.h>
-#include <ktexteditor/mainwindow.h>
 
 #include <kxmlguifactory.h>
 

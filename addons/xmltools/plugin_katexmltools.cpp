@@ -77,12 +77,10 @@ TODO:
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QStandardPaths>
-#include <QString>
 #include <QUrl>
 #include <QVBoxLayout>
 
 #include <ktexteditor/editor.h>
-#include <ktexteditor/mainwindow.h>
 
 #include <KActionCollection>
 #include <KHistoryComboBox>

@@ -8,7 +8,6 @@
 #include "katequickopenmodel.h"
 
 #include "kateapp.h"
-#include "katemainwindow.h"
 #include "kateviewmanager.h"
 
 #include <ktexteditor/document.h>

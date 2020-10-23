@@ -25,7 +25,6 @@
 #include "katesessionmanager.h"
 #include "katesessionsaction.h"
 #include "kateupdatedisabler.h"
-#include "kateviewmanager.h"
 #include "kateviewspace.h"
 
 #include <KAboutData>
@@ -64,9 +63,6 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QDir>
-#include <QDragEnterEvent>
-#include <QDropEvent>
-#include <QEvent>
 #include <QFontDatabase>
 #include <QList>
 #include <QMenu>

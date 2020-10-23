@@ -27,7 +27,6 @@
 #include <QGraphicsProxyWidget>
 #include <QIcon>
 #include <QListWidgetItem>
-#include <QStandardItemModel>
 #include <QStandardPaths>
 #include <QStyleOptionGraphicsItem>
 #include <QTreeView>

@@ -22,10 +22,8 @@
 #include <KWindowConfig>
 #include <KXMLGUIFactory>
 
-#include <QChildEvent>
 #include <QContextMenuEvent>
 #include <QDomDocument>
-#include <QEvent>
 #include <QMenu>
 #include <QPixmap>
 #include <QShortcut>

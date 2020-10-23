@@ -5,7 +5,6 @@
 */
 
 #include "textoutputwidget.h"
-#include "connection.h"
 
 #include <KLocalizedString>
 #include <KToolBar>

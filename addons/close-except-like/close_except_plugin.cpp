@@ -33,7 +33,6 @@
 #include <KPluginFactory>
 #include <KPluginLoader>
 #include <KTextEditor/Application>
-#include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KXMLGUIFactory>
 #include <QFileInfo>

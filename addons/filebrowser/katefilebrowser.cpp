@@ -34,7 +34,6 @@
 #include <QLineEdit>
 #include <QStyle>
 #include <QVBoxLayout>
-#include <QMenu>
 
 #include <kio_version.h>
 #if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
@@ -45,7 +44,6 @@
 #   include <KIO/JobUiDelegate>
 #endif
 #include <KApplicationTrader>
-#include "katefilebrowseropenwithmenu.h"
 
 
 // END Includes

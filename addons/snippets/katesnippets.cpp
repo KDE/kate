@@ -6,7 +6,6 @@
  */
 
 #include "katesnippets.h"
-#include "katesnippetglobal.h"
 #include "snippetcompletionmodel.h"
 #include "snippetview.h"
 

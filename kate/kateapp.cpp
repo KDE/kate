@@ -7,10 +7,8 @@
 
 #include "kateapp.h"
 
-#include "katemainwindow.h"
 #include "kateviewmanager.h"
 
-#include <KConfig>
 #include <KConfigGroup>
 #include <KConfigGui>
 #include <KLocalizedString>

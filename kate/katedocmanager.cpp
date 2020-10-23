@@ -14,7 +14,6 @@
 #include "katesavemodifieddialog.h"
 #include "kateviewmanager.h"
 
-#include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 
 #include <KCodecs>
@@ -25,10 +24,7 @@
 #include <KMessageBox>
 
 #include <QApplication>
-#include <QByteArray>
-#include <QDateTime>
 #include <QFileDialog>
-#include <QHash>
 #include <QListView>
 #include <QProgressDialog>
 #include <QTextCodec>

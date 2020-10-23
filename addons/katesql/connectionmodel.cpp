@@ -10,7 +10,6 @@
 #include <QFont>
 #include <QFontDatabase>
 #include <QFontMetrics>
-#include <QIcon>
 #include <QSize>
 #include <QStringList>
 #include <QVariant>

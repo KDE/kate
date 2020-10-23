@@ -17,7 +17,6 @@
 
 #include "search_open_files.h"
 
-#include <QElapsedTimer>
 
 SearchOpenFiles::SearchOpenFiles(QObject *parent)
     : QObject(parent)

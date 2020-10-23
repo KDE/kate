@@ -7,12 +7,10 @@
 
 #include "kateprojectplugin.h"
 
-#include "kateproject.h"
 #include "kateprojectconfigpage.h"
 #include "kateprojectpluginview.h"
 
 #include <ktexteditor/application.h>
-#include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor_version.h> // delete, when we depend on KF 5.63
 

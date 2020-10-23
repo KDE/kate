@@ -17,7 +17,6 @@
 #include <KIO/StatJob>
 #include <KJobWidgets>
 #include <KLocalizedString>
-#include <KPluginFactory>
 #include <KPluginLoader>
 #include <KXMLGUIFactory>
 #include <QAction>

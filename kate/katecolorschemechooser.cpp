@@ -7,9 +7,7 @@
 
 #include "katecolorschemechooser.h"
 
-#include <QAction>
 #include <QActionGroup>
-#include <QApplication>
 #include <QDirIterator>
 #include <QFileInfo>
 #include <QMenu>
@@ -20,7 +18,6 @@
 
 #include <KActionCollection>
 #include <KActionMenu>
-#include <KColorSchemeManager>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>

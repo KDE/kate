@@ -19,7 +19,6 @@
 
 #include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
-#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/view.h>
 

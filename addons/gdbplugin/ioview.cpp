@@ -11,7 +11,6 @@
 #include "ioview.h"
 
 #include <QDir>
-#include <QFile>
 #include <QFontDatabase>
 #include <QLineEdit>
 #include <QScrollBar>

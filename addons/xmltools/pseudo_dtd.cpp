@@ -23,7 +23,6 @@
 #include "pseudo_dtd.h"
 
 #include <QRegExp>
-#include <qdom.h>
 
 #include <KLocalizedString>
 #include <KMessageBox>

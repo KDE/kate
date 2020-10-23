@@ -15,7 +15,6 @@
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlError>
-#include <QSqlQuery>
 
 using KWallet::Wallet;
 

@@ -8,7 +8,6 @@
 
 #include "replicodeconfig.h"
 #include "replicodesettings.h"
-#include <QProcess>
 #include <QPushButton>
 #include <QTemporaryFile>
 #include <QtGlobal>

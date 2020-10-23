@@ -22,7 +22,6 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KProcess>
 #include <QAction>
 #include <QDialog>
 #include <QString>

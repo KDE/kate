@@ -16,7 +16,6 @@
 #include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
-#include <KTextEditor/Message>
 #include <KTextEditor/MovingInterface>
 #include <KTextEditor/View>
 

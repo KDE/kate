@@ -7,7 +7,6 @@
 // BEGIN Includes
 #include "katebacktracebrowser.h"
 
-#include "btfileindexer.h"
 #include "btparser.h"
 
 #include <KAboutData>
@@ -27,7 +26,6 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QStandardPaths>
-#include <QTimer>
 #include <QTreeWidget>
 #include <QUrl>
 // END Includes

@@ -24,7 +24,6 @@
 #include <KMessageBox>
 #include <QApplication>
 #include <QDebug>
-#include <QDir>
 
 #include <KColorScheme>
 

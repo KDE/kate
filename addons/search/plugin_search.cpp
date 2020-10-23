@@ -19,7 +19,6 @@
 #include "KateSearchCommand.h"
 #include "htmldelegate.h"
 
-#include <ktexteditor/application.h>
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>

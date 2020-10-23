@@ -18,7 +18,6 @@
 #include "katesessionmanager.h"
 #include "kateviewmanager.h"
 
-#include <KTextEditor/ConfigPage>
 
 #include <KConfigGroup>
 #include <KLocalizedString>

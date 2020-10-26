@@ -80,6 +80,11 @@
             "command": ["R", "--slave", "-e", "languageserver::run()"],
             "url": "https://github.com/REditorSupport/languageserver",
             "highlightingModeRegex": "^R Script$"
+        },
+        "zig": {
+            "command": ["zls"],
+            "url": "https://github.com/zigtools/zls",
+            "highlightingModeRegex": "^Zig$"
         }
     }
 }

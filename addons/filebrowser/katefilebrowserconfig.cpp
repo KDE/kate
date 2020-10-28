@@ -75,9 +75,6 @@ KateFileBrowserConfigPage::KateFileBrowserConfigPage(QWidget *parent, KateFileBr
     connect(acSel, &KActionSelector::movedUp, this, &KateFileBrowserConfigPage::slotMyChanged);
     connect(acSel, &KActionSelector::movedDown, this, &KateFileBrowserConfigPage::slotMyChanged);
 
-    // make it look nice
-    lo->addStretch(1);
-
     init();
 }
 

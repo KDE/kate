@@ -133,7 +133,7 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
     QTabBar::mousePressEvent(event);
 
     // handle close for middle mouse button
-    if (event->button() == Qt::MidButton) {
+    if (event->button() == Qt::MiddleButton) {
         int id = tabAt(event->pos());
         if (id >= 0) {
             emit tabCloseRequested(id);

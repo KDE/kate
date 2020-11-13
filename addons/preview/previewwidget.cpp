@@ -15,8 +15,14 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
+#include <kcoreaddons_version.h>
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+#include <KAboutPluginDialog>
+#include <KPluginMetaData>
+#else
 #include <KAboutApplicationDialog>
 #include <KAboutData>
+#endif
 #include <KConfigGroup>
 #include <KGuiItem>
 #include <KLocalizedString>
@@ -217,7 +223,11 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
             if (kPart) {
                 m_xmlGuiFactory->addClient(kPart);
 
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+                const auto kPartDisplayName = kPart->metaData().name();
+#else
                 const auto kPartDisplayName = kPart->componentData().displayName();
+#endif
                 m_aboutKPartAction->setText(i18n("About %1", kPartDisplayName));
                 m_aboutKPartAction->setEnabled(true);
                 m_kPartMenu->addSeparator();
@@ -339,7 +349,11 @@ void PreviewWidget::removeContainer(QWidget *container, QWidget *parent, QDomEle
 void PreviewWidget::showAboutKPartPlugin()
 {
     if (m_partView && m_partView->kPart()) {
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+        QPointer<KAboutPluginDialog> aboutDialog = new KAboutPluginDialog(m_partView->kPart()->metaData(), this);
+#else
         QPointer<KAboutApplicationDialog> aboutDialog = new KAboutApplicationDialog(m_partView->kPart()->componentData(), this);
+#endif
         aboutDialog->exec();
         delete aboutDialog;
     }

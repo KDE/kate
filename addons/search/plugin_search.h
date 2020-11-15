@@ -199,7 +199,7 @@ private:
     bool m_searchDiskFilesDone = true;
     bool m_searchOpenFilesDone = true;
     bool m_isSearchAsYouType = false;
-    bool m_isLeftRight = false;
+    bool m_isVerticalLayout = false;
     bool m_blockDiskMatchFound = false;
     QString m_resultBaseDir;
     QList<KTextEditor::MovingRange *> m_matchRanges;

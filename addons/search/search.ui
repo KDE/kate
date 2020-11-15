@@ -6,41 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
-    <height>204</height>
+    <width>606</width>
+    <height>251</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1,0,0,0,0,0,0,0">
-     <item row="0" column="0">
-      <widget class="QToolButton" name="newTabButton">
-       <property name="toolTip">
-        <string>Add new search tab</string>
-       </property>
-       <property name="text">
-        <string>...</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" alignment="Qt::AlignRight">
-      <widget class="QLabel" name="findLabel">
-       <property name="text">
-        <string>Find:</string>
-       </property>
-       <property name="buddy">
-        <cstring>searchCombo</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QComboBox" name="searchCombo">
-       <property name="editable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0,0,0,0">
+     <item row="0" column="1">
       <widget class="QPushButton" name="searchButton">
        <property name="enabled">
         <bool>false</bool>
@@ -53,98 +26,7 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="4">
-      <widget class="QStackedWidget" name="stopAndNext">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-        </property>
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-          <widget class="QPushButton" name="nextButton">
-          <property name="enabled">
-          <bool>false</bool>
-          </property>
-           <property name="toolTip">
-            <string>Next</string>
-           </property>
-           <property name="text">
-            <string>Next</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="stopButton">
-           <property name="toolTip">
-            <string>Stop</string>
-           </property>
-           <property name="text">
-            <string>Stop</string>
-           </property>
-          </widget>
-      </widget>
-     </item>
-     <item row="0" column="5" colspan="5">
-      <widget class="QComboBox" name="searchPlaceCombo">
-       <item>
-        <property name="text">
-         <string>In Current File</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>In Open Files</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>In Folder</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QToolButton" name="displayOptions">
-       <property name="toolTip">
-        <string>Show search options</string>
-       </property>
-       <property name="text">
-        <string>...</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="replaceLabel">
-       <property name="text">
-        <string>Replace:</string>
-       </property>
-       <property name="buddy">
-        <cstring>replaceCombo</cstring>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="2">
-      <widget class="QComboBox" name="replaceCombo">
-       <property name="editable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QPushButton" name="replaceButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>Replace</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
       <widget class="QPushButton" name="replaceCheckedBtn">
        <property name="enabled">
         <bool>false</bool>
@@ -154,64 +36,205 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="2">
+      <widget class="QStackedWidget" name="stopAndNext">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QPushButton" name="nextButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string>Next</string>
+        </property>
+        <property name="text">
+         <string>Next</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="stopButton">
+        <property name="toolTip">
+         <string>Stop</string>
+        </property>
+        <property name="text">
+         <string>Stop</string>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QComboBox" name="replaceCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QComboBox" name="searchCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QWidget" name="searchOptionsLayoutW" native="true">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="matchCase">
+          <property name="toolTip">
+           <string>Match case</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="useRegExp">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable regular expressions. Find help for regex syntax by using the buttons in the search and replace text fields.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>5</width>
+            <height>5</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QToolButton" name="expandResults">
+          <property name="toolTip">
+           <string>Expand results</string>
+          </property>
+          <property name="text">
+           <string extracomment="When this is checked the result treeview will be expanded after a search"/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="replaceButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Replace</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3" colspan="3">
+      <widget class="QWidget" name="searchPlaceLayoutW" native="true">
+       <layout class="QHBoxLayout" name="searchPlaceLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QComboBox" name="searchPlaceCombo">
+          <item>
+           <property name="text">
+            <string>In Current File</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>In Open Files</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>In Folder</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="currentFolderButton">
+          <property name="toolTip">
+           <string>Use the current document's path.</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
      <item row="1" column="5">
-      <widget class="QToolButton" name="matchCase">
+      <widget class="QToolButton" name="displayOptions">
        <property name="toolTip">
-        <string>Match case</string>
+        <string>Show more search options</string>
        </property>
        <property name="text">
-        <string/>
+        <string>...</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="autoRaise">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="1" column="6">
-      <widget class="QToolButton" name="useRegExp">
+     <item row="1" column="4">
+      <widget class="QToolButton" name="newTabButton">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable regular expressions. Find help for regex syntax by using the buttons in the search and replace text fields.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>Add new search tab</string>
        </property>
        <property name="text">
-        <string/>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="7">
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>13</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="8">
-      <widget class="QToolButton" name="expandResults">
-       <property name="toolTip">
-        <string>Expand results</string>
-       </property>
-       <property name="text">
-        <string extracomment="When this is checked the result treeview will be expanded after a search"/>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
+        <string>...</string>
        </property>
       </widget>
      </item>
@@ -325,19 +348,12 @@
           <item row="1" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="KUrlComboRequester" name="folderRequester" native="true"/>
+             <widget class="KUrlComboRequester" name="folderRequester"/>
             </item>
             <item>
              <widget class="QToolButton" name="folderUpButton">
               <property name="toolTip">
                <string>Go one folder up.</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="currentFolderButton">
-              <property name="toolTip">
-               <string>Use the current document's path.</string>
               </property>
              </widget>
             </item>
@@ -451,9 +467,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QWidget</extends>
-   <header>kurlrequester.h</header>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KUrlComboRequester</class>
@@ -461,13 +477,12 @@
    <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
+   <class>KUrlRequester</class>
+   <extends>QWidget</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>newTabButton</tabstop>
   <tabstop>searchCombo</tabstop>
   <tabstop>replaceCombo</tabstop>
   <tabstop>searchButton</tabstop>
@@ -476,13 +491,14 @@
   <tabstop>replaceButton</tabstop>
   <tabstop>replaceCheckedBtn</tabstop>
   <tabstop>searchPlaceCombo</tabstop>
+  <tabstop>currentFolderButton</tabstop>
   <tabstop>matchCase</tabstop>
   <tabstop>useRegExp</tabstop>
   <tabstop>expandResults</tabstop>
+  <tabstop>newTabButton</tabstop>
   <tabstop>displayOptions</tabstop>
   <tabstop>folderRequester</tabstop>
   <tabstop>folderUpButton</tabstop>
-  <tabstop>currentFolderButton</tabstop>
   <tabstop>filterCombo</tabstop>
   <tabstop>excludeCombo</tabstop>
   <tabstop>recursiveCheckBox</tabstop>

@@ -263,18 +263,33 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
         return;
     }
 
-    // we use the object names here because there can be multiple replaceButtons (on multiple result tabs)
+    // we use the object names here because there can be multiple trees (on multiple result tabs)
     if (next) {
         if (currentWidget->objectName() == QLatin1String("tree") || currentWidget == m_ui.binaryCheckBox) {
-            m_ui.newTabButton->setFocus();
+            m_ui.searchCombo->setFocus();
+            *found = true;
+            return;
+        }
+        if (currentWidget == m_ui.excludeCombo && m_ui.searchPlaceCombo->currentIndex() > Folder) {
+            m_ui.searchCombo->setFocus();
             *found = true;
             return;
         }
         if (currentWidget == m_ui.displayOptions) {
             if (m_ui.displayOptions->isChecked()) {
-                m_ui.folderRequester->setFocus();
-                *found = true;
-                return;
+                if (m_ui.searchPlaceCombo->currentIndex() < Folder) {
+                    m_ui.searchCombo->setFocus();
+                    *found = true;
+                    return;
+                } else if (m_ui.searchPlaceCombo->currentIndex() == Folder) {
+                    m_ui.folderRequester->setFocus();
+                    *found = true;
+                    return;
+                } else {
+                    m_ui.filterCombo->setFocus();
+                    *found = true;
+                    return;
+                }
             } else {
                 Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
                 if (!res) {
@@ -286,9 +301,21 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
             }
         }
     } else {
-        if (currentWidget == m_ui.newTabButton) {
+        if (currentWidget == m_ui.searchCombo) {
             if (m_ui.displayOptions->isChecked()) {
-                m_ui.binaryCheckBox->setFocus();
+                if (m_ui.searchPlaceCombo->currentIndex() < Folder) {
+                    m_ui.displayOptions->setFocus();
+                    *found = true;
+                    return;
+                } else if (m_ui.searchPlaceCombo->currentIndex() == Folder) {
+                    m_ui.binaryCheckBox->setFocus();
+                    *found = true;
+                    return;
+                } else {
+                    m_ui.excludeCombo->setFocus();
+                    *found = true;
+                    return;
+                }
             } else {
                 Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
                 if (!res) {
@@ -444,6 +471,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     connect(&m_replacer, &ReplaceMatches::replaceStatus, this, &KatePluginSearchView::replaceStatus);
 
+    m_ui.searchCombo->lineEdit()->setPlaceholderText(i18n("Find"));
     // Hook into line edit context menus
     m_ui.searchCombo->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_ui.searchCombo, &QComboBox::customContextMenuRequested, this, &KatePluginSearchView::searchContextMenu);
@@ -461,6 +489,8 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
         regexHelperActOnAction(action, actionList, m_ui.searchCombo->lineEdit());
     });
 
+    m_ui.replaceCombo->lineEdit()->setPlaceholderText(i18n("Replace"));
+    // Hook into line edit context menus
     m_ui.replaceCombo->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_ui.replaceCombo, &QComboBox::customContextMenuRequested, this, &KatePluginSearchView::replaceContextMenu);
     m_ui.replaceCombo->completer()->setCompletionMode(QCompleter::PopupCompletion);
@@ -1323,7 +1353,7 @@ void KatePluginSearchView::searchDone()
     m_ui.useRegExp->setDisabled(false);
     m_ui.matchCase->setDisabled(false);
     m_ui.expandResults->setDisabled(false);
-    m_ui.currentFolderButton->setDisabled(false);
+    m_ui.currentFolderButton->setDisabled(m_ui.searchPlaceCombo->currentIndex() != Folder);
 
     if (!m_curResults) {
         return;
@@ -2106,50 +2136,49 @@ void KatePluginSearchView::onResize(const QSize &size)
 {
     bool vertical = size.width() < size.height();
 
-    if (!m_isLeftRight && vertical) {
-        m_isLeftRight = true;
+    if (!m_isVerticalLayout && vertical) {
+        // Change the layout to vertical (left/right)
+        m_isVerticalLayout = true;
 
-        m_ui.gridLayout->addWidget(m_ui.searchCombo, 0, 1, 1, 8);
-        m_ui.gridLayout->addWidget(m_ui.findLabel, 0, 0);
-        m_ui.gridLayout->addWidget(m_ui.searchButton, 1, 0, 1, 2);
-        m_ui.gridLayout->addWidget(m_ui.stopAndNext, 1, 2);
-        m_ui.gridLayout->addWidget(m_ui.searchPlaceCombo, 1, 3, 1, 3);
-        m_ui.gridLayout->addWidget(m_ui.displayOptions, 1, 6);
-        m_ui.gridLayout->addWidget(m_ui.matchCase, 1, 7);
-        m_ui.gridLayout->addWidget(m_ui.useRegExp, 1, 8);
+        // Search row 1
+        m_ui.gridLayout->addWidget(m_ui.searchCombo, 0, 0, 1, 5);
+        // Search row 2
+        m_ui.gridLayout->addWidget(m_ui.searchButton, 1, 0);
+        m_ui.gridLayout->addWidget(m_ui.stopAndNext, 1, 1);
+        m_ui.gridLayout->addWidget(m_ui.searchPlaceLayoutW, 1, 2, 1, 3);
 
-        m_ui.gridLayout->addWidget(m_ui.replaceCombo, 2, 1, 1, 8);
-        m_ui.gridLayout->addWidget(m_ui.replaceLabel, 2, 0);
-        m_ui.gridLayout->addWidget(m_ui.replaceButton, 3, 0, 1, 2);
-        m_ui.gridLayout->addWidget(m_ui.replaceCheckedBtn, 3, 2);
-        m_ui.gridLayout->addWidget(m_ui.expandResults, 3, 7);
-        m_ui.gridLayout->addWidget(m_ui.newTabButton, 3, 8);
+        // Replace row 1
+        m_ui.gridLayout->addWidget(m_ui.replaceCombo, 2, 0, 1, 5);
 
-        m_ui.gridLayout->setColumnStretch(4, 2);
+        // Replace row 2
+        m_ui.gridLayout->addWidget(m_ui.replaceButton, 3, 0);
+        m_ui.gridLayout->addWidget(m_ui.replaceCheckedBtn, 3, 1);
+        m_ui.gridLayout->addWidget(m_ui.searchOptionsLayoutW, 3, 2);
+        m_ui.gridLayout->addWidget(m_ui.newTabButton, 3, 3);
+        m_ui.gridLayout->addWidget(m_ui.displayOptions, 3, 4);
+
+        m_ui.gridLayout->setColumnStretch(0, 0);
+        m_ui.gridLayout->setColumnStretch(2, 4);
+
+    } else if (m_isVerticalLayout && !vertical) {
+        // Change layout to horizontal (top/bottom)
+        m_isVerticalLayout = false;
+        // Top row
+        m_ui.gridLayout->addWidget(m_ui.searchCombo, 0, 0);
+        m_ui.gridLayout->addWidget(m_ui.searchButton, 0, 1);
+        m_ui.gridLayout->addWidget(m_ui.stopAndNext, 0, 2);
+        m_ui.gridLayout->addWidget(m_ui.searchPlaceLayoutW, 0, 3, 1, 3);
+
+        // Second row
+        m_ui.gridLayout->addWidget(m_ui.replaceCombo, 1, 0);
+        m_ui.gridLayout->addWidget(m_ui.replaceButton, 1, 1);
+        m_ui.gridLayout->addWidget(m_ui.replaceCheckedBtn, 1, 2);
+        m_ui.gridLayout->addWidget(m_ui.searchOptionsLayoutW, 1, 3);
+        m_ui.gridLayout->addWidget(m_ui.newTabButton, 1, 4);
+        m_ui.gridLayout->addWidget(m_ui.displayOptions, 1, 5);
+
+        m_ui.gridLayout->setColumnStretch(0, 4);
         m_ui.gridLayout->setColumnStretch(2, 0);
-    } else if (m_isLeftRight && !vertical) {
-        m_isLeftRight = false;
-        m_ui.gridLayout->addWidget(m_ui.searchCombo, 0, 2);
-        m_ui.gridLayout->addWidget(m_ui.findLabel, 0, 1);
-        m_ui.gridLayout->addWidget(m_ui.searchButton, 0, 3);
-        m_ui.gridLayout->addWidget(m_ui.stopAndNext, 0, 4);
-        m_ui.gridLayout->addWidget(m_ui.searchPlaceCombo, 0, 5, 1, 4);
-        m_ui.gridLayout->addWidget(m_ui.matchCase, 1, 5);
-        m_ui.gridLayout->addWidget(m_ui.useRegExp, 1, 6);
-
-        m_ui.gridLayout->addWidget(m_ui.replaceCombo, 1, 2);
-        m_ui.gridLayout->addWidget(m_ui.replaceLabel, 1, 1);
-        m_ui.gridLayout->addWidget(m_ui.replaceButton, 1, 3);
-        m_ui.gridLayout->addWidget(m_ui.replaceCheckedBtn, 1, 4);
-        m_ui.gridLayout->addWidget(m_ui.expandResults, 1, 8);
-        m_ui.gridLayout->addWidget(m_ui.newTabButton, 0, 0);
-        m_ui.gridLayout->addWidget(m_ui.displayOptions, 1, 0);
-
-        m_ui.gridLayout->setColumnStretch(4, 0);
-        m_ui.gridLayout->setColumnStretch(2, 2);
-
-        m_ui.findLabel->setAlignment(Qt::AlignRight);
-        m_ui.replaceLabel->setAlignment(Qt::AlignRight);
     }
 }
 

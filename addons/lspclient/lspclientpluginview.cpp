@@ -209,7 +209,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_findDecl;
     QPointer<QAction> m_findRef;
     QPointer<QAction> m_triggerHighlight;
-    QPointer<QAction> m_triggerHover;
+    QPointer<QAction> m_triggerSymbolInfo;
     QPointer<QAction> m_triggerFormat;
     QPointer<QAction> m_triggerRename;
     QPointer<QAction> m_complDocOn;
@@ -330,10 +330,8 @@ public:
         m_findRef->setText(i18n("Find References"));
         m_triggerHighlight = actionCollection()->addAction(QStringLiteral("lspclient_highlight"), this, &self_type::highlight);
         m_triggerHighlight->setText(i18n("Highlight"));
-        // perhaps hover suggests to do so on mouse-over,
-        // but let's just use a (convenient) action/shortcut for it
-        m_triggerHover = actionCollection()->addAction(QStringLiteral("lspclient_hover"), this, &self_type::hover);
-        m_triggerHover->setText(i18n("Hover"));
+        m_triggerSymbolInfo = actionCollection()->addAction(QStringLiteral("lspclient_symbol_info"), this, &self_type::symbolInfo);
+        m_triggerSymbolInfo->setText(i18n("Symbol info"));
         m_triggerFormat = actionCollection()->addAction(QStringLiteral("lspclient_format"), this, &self_type::format);
         m_triggerFormat->setText(i18n("Format"));
         m_triggerRename = actionCollection()->addAction(QStringLiteral("lspclient_rename"), this, &self_type::rename);
@@ -398,7 +396,7 @@ public:
         menu->addAction(m_findDecl);
         menu->addAction(m_findRef);
         menu->addAction(m_triggerHighlight);
-        menu->addAction(m_triggerHover);
+        menu->addAction(m_triggerSymbolInfo);
         menu->addAction(m_triggerFormat);
         menu->addAction(m_triggerRename);
         menu->addSeparator();
@@ -1244,7 +1242,7 @@ public:
         processLocations<LSPDocumentHighlight, false>(title, &LSPClientServer::documentHighlight, true, converter);
     }
 
-    void hover()
+    void symbolInfo()
     {
         // trigger manually the normally automagic hover
         if (auto activeView = m_mainWindow->activeView()) {
@@ -1903,8 +1901,8 @@ public:
             m_findRef->setEnabled(refEnabled);
         if (m_triggerHighlight)
             m_triggerHighlight->setEnabled(highlightEnabled);
-        if (m_triggerHover)
-            m_triggerHover->setEnabled(hoverEnabled);
+        if (m_triggerSymbolInfo)
+            m_triggerSymbolInfo->setEnabled(hoverEnabled);
         if (m_triggerFormat)
             m_triggerFormat->setEnabled(formatEnabled);
         if (m_triggerRename)

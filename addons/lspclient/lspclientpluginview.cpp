@@ -332,7 +332,7 @@ public:
         m_triggerHighlight = actionCollection()->addAction(QStringLiteral("lspclient_highlight"), this, &self_type::highlight);
         m_triggerHighlight->setText(i18n("Highlight"));
         m_triggerSymbolInfo = actionCollection()->addAction(QStringLiteral("lspclient_symbol_info"), this, &self_type::symbolInfo);
-        m_triggerSymbolInfo->setText(i18n("Symbol info"));
+        m_triggerSymbolInfo->setText(i18n("Symbol Info"));
         m_triggerFormat = actionCollection()->addAction(QStringLiteral("lspclient_format"), this, &self_type::format);
         m_triggerFormat->setText(i18n("Format"));
         m_triggerRename = actionCollection()->addAction(QStringLiteral("lspclient_rename"), this, &self_type::rename);

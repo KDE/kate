@@ -2080,7 +2080,10 @@ considered as well (see further below).
 <para>
 The "highlightingModeRegex" is used to map the highlighting mode as used by &kate;
 to the language id of the server. If no regular expression is given, the language id
-itself is used.
+itself is used.  If a "documentLanguageId" entry is set to false, then no
+language id is provided to the server when opening the document.  This may
+have better results for some servers that are more precise in determining
+the document type than doing so based on a kate mode.
 </para>
 
 <para>

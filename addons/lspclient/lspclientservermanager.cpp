@@ -209,9 +209,12 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
 
     // highlightingModeRegex => language id
     std::vector<std::pair<QRegularExpression, QString>> m_highlightingModeRegexToLanguageId;
-
     // cache of highlighting mode => language id, to avoid massive regex matching
     QHash<QString, QString> m_highlightingModeToLanguageIdCache;
+    // whether to pass the language id (key) to server when opening document
+    // most either do not care about the id, or can find out themselves
+    // (and might get confused if we pass a not so accurate one)
+    QHash<QString, bool> m_documentLanguageId;
 
     typedef QVector<QSharedPointer<LSPClientServer>> ServerList;
 
@@ -308,6 +311,20 @@ public:
         // else: we have no matching server!
         m_highlightingModeToLanguageIdCache[mode] = QString();
         return QString();
+    }
+
+    QString documentLanguageId(const QString mode)
+    {
+        auto langId = languageId(mode);
+        const auto it = m_documentLanguageId.find(langId);
+        // FIXME ?? perhaps use default false
+        // most servers can find out much better on their own
+        // (though it would actually have to be confirmed as such)
+        bool useId = true;
+        if (it != m_documentLanguageId.end())
+            useId = it.value();
+
+        return useId ? langId : QString();
     }
 
     void setIncrementalSync(bool inc) override
@@ -625,11 +642,17 @@ private:
         const auto servers = m_serverConfig.value(QLatin1String("servers")).toObject();
         for (auto it = servers.begin(); it != servers.end(); ++it) {
             // get highlighting mode regex for this server, if not set, fallback to just the name
-            QString highlightingModeRegex = it.value().toObject().value(QLatin1String("highlightingModeRegex")).toString();
+            const auto &server = it.value().toObject();
+            QString highlightingModeRegex = server.value(QLatin1String("highlightingModeRegex")).toString();
             if (highlightingModeRegex.isEmpty()) {
                 highlightingModeRegex = it.key();
             }
             m_highlightingModeRegexToLanguageId.emplace_back(QRegularExpression(highlightingModeRegex, QRegularExpression::CaseInsensitiveOption), it.key());
+            // should we use the languageId in didOpen
+            auto docLanguageId = server.value(QLatin1String("documentLanguageId"));
+            if (docLanguageId.isBool()) {
+                m_documentLanguageId[it.key()] = docLanguageId.toBool();
+            }
         }
 
         // we could (but do not) perform restartAll here;
@@ -709,7 +732,7 @@ private:
                     (it->server)->didChange(it->url, it->version, (it->changes.empty()) ? doc->text() : QString(), it->changes);
                 }
             } else {
-                (it->server)->didOpen(it->url, it->version, languageId(doc->highlightingMode()), doc->text());
+                (it->server)->didOpen(it->url, it->version, documentLanguageId(doc->highlightingMode()), doc->text());
                 it->open = true;
             }
             it->modified = false;

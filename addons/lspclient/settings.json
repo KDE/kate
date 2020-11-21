@@ -39,11 +39,11 @@
             "highlightingModeRegex": "^Haskell$"
         },
         "javascript": {
-            "command": ["javascript-typescript-stdio"],
-            "commandDebug": ["javascript-typescript-stdio", "-t"],
+            "command": ["typescript-language-server", "--stdio"],
             "rootIndicationFileNames": ["package.json", "package-lock.json"],
-            "url": "https://github.com/sourcegraph/vscode-javascript-typescript",
-            "highlightingModeRegex": "^JavaScript.*$"
+            "url": "https://github.com/theia-ide/typescript-language-server",
+            "highlightingModeRegex": "^JavaScript.*$",
+            "documentLanguageId": false
         },
         "latex": {
             "command": ["texlab"],

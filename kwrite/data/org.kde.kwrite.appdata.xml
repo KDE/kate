@@ -195,7 +195,7 @@
       <li xml:lang="de">Syntaxhervorhebung passend zum Dateityp</li>
       <li xml:lang="el">Επισήμανση σύνταξης ανάλογα με τον τύπο αρχείου</li>
       <li xml:lang="en-GB">Syntax highlighting according to the file type</li>
-      <li xml:lang="es">Resaltado de sintaxis según el tipo de archivo</li>
+      <li xml:lang="es">Resaltado sintáctico según el tipo de archivo</li>
       <li xml:lang="et">Süntaksi esiletõstmine vastavalt failitüübile</li>
       <li xml:lang="eu">Sintaxi nabarmentzea fitxategi motaren arabera</li>
       <li xml:lang="fi">Syntaksin korostus tiedostotyypin perusteella</li>
@@ -240,7 +240,7 @@
       <li xml:lang="de">Wortvervollständigung</li>
       <li xml:lang="el">Συμπλήρωση λέξεων</li>
       <li xml:lang="en-GB">Word completion</li>
-      <li xml:lang="es">Comletado de palabras</li>
+      <li xml:lang="es">Completación de palabras</li>
       <li xml:lang="et">Sõnalõpetus</li>
       <li xml:lang="eu">Hitz-osatzea</li>
       <li xml:lang="fi">Sanantäydennys</li>

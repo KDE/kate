@@ -28,9 +28,9 @@ view needs to pull default settings from the main plugin config
 #include "katefiletreeproxymodel.h"
 
 #include <KColorButton>
-#include <KComboBox>
 #include <KLocalizedString>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QGroupBox>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -65,7 +65,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     layout->addLayout(lo2);
     lSort = new QLabel(i18n("&Sort by:"), this);
     lo2->addWidget(lSort);
-    cmbSort = new KComboBox(this);
+    cmbSort = new QComboBox(this);
     lo2->addWidget(cmbSort);
     lSort->setBuddy(cmbSort);
     cmbSort->addItem(i18n("Opening Order"), static_cast<int>(KateFileTreeModel::OpeningOrderRole));
@@ -77,7 +77,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     layout->addLayout(lo3);
     lMode = new QLabel(i18n("&View Mode:"), this);
     lo3->addWidget(lMode);
-    cmbMode = new KComboBox(this);
+    cmbMode = new QComboBox(this);
     lo3->addWidget(cmbMode);
     lMode->setBuddy(cmbMode);
     cmbMode->addItem(i18n("Tree View"), QVariant(false));
@@ -113,8 +113,8 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     connect(gbEnableShading, &QGroupBox::toggled, this, &KateFileTreeConfigPage::slotMyChanged);
     connect(kcbViewShade, &KColorButton::changed, this, &KateFileTreeConfigPage::slotMyChanged);
     connect(kcbEditShade, &KColorButton::changed, this, &KateFileTreeConfigPage::slotMyChanged);
-    connect(cmbSort, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
-    connect(cmbMode, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(cmbSort, QOverload<int>::of(&QComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(cmbMode, QOverload<int>::of(&QComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
     connect(cbShowFullPath, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
 }
 

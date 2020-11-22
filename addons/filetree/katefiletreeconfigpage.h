@@ -15,6 +15,7 @@
 #include <ktexteditor/configpage.h>
 
 class KateFileTreePlugin;
+class QComboBox;
 
 class KateFileTreeConfigPage : public KTextEditor::ConfigPage
 {
@@ -44,7 +45,7 @@ private:
     class QGroupBox *gbEnableShading;
     class KColorButton *kcbViewShade, *kcbEditShade;
     class QLabel *lEditShade, *lViewShade, *lSort, *lMode;
-    class KComboBox *cmbSort, *cmbMode;
+    QComboBox *cmbSort, *cmbMode;
     class QCheckBox *cbShowFullPath;
     KateFileTreePlugin *m_plug;
 

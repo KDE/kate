@@ -9,7 +9,7 @@
 #include "document_dummy.h"
 
 #include <QtTest>
-QTEST_GUILESS_MAIN(FileTreeModelTest)
+QTEST_MAIN(FileTreeModelTest)
 
 // BEGIN ResultNode
 class ResultNode

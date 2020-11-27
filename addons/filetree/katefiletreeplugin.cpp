@@ -267,17 +267,17 @@ void KateFileTreePluginView::setupActions()
     m_toolbar->addAction(aSaveAs);
 }
 
-KateFileTreeModel *KateFileTreePluginView::model()
+KateFileTreeModel *KateFileTreePluginView::model() const
 {
     return m_documentModel;
 }
 
-KateFileTreeProxyModel *KateFileTreePluginView::proxy()
+KateFileTreeProxyModel *KateFileTreePluginView::proxy() const
 {
     return m_proxyModel;
 }
 
-KateFileTree *KateFileTreePluginView::tree()
+KateFileTree *KateFileTreePluginView::tree() const
 {
     return m_fileTree;
 }
@@ -374,7 +374,7 @@ void KateFileTreePluginView::showActiveDocument()
     showToolView();
 }
 
-bool KateFileTreePluginView::hasLocalPrefs()
+bool KateFileTreePluginView::hasLocalPrefs() const
 {
     return m_hasLocalPrefs;
 }
@@ -429,14 +429,14 @@ void KateFileTreePluginView::slotDocumentsCreated(const QList<KTextEditor::Docum
     viewChanged();
 }
 
-void KateFileTreePluginView::slotDocumentSave()
+void KateFileTreePluginView::slotDocumentSave() const
 {
     if (auto view = m_mainWindow->activeView()) {
         view->document()->documentSave();
     }
 }
 
-void KateFileTreePluginView::slotDocumentSaveAs()
+void KateFileTreePluginView::slotDocumentSaveAs() const
 {
     if (auto view = m_mainWindow->activeView()) {
         view->document()->documentSaveAs();

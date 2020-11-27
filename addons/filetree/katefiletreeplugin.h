@@ -80,21 +80,21 @@ public:
      * The file tree model.
      * @return the file tree model
      */
-    KateFileTreeModel *model();
+    KateFileTreeModel *model() const;
     /**
      * The file tree proxy model.
      * @return the file tree proxy model
      */
-    KateFileTreeProxyModel *proxy();
+    KateFileTreeProxyModel *proxy() const;
     /**
      * The file tree.
      * @return the file tree
      */
-    KateFileTree *tree();
+    KateFileTree *tree() const;
 
     void setListMode(bool listMode);
 
-    bool hasLocalPrefs();
+    bool hasLocalPrefs() const;
     void setHasLocalPrefs(bool);
 
 protected:
@@ -124,8 +124,8 @@ private Q_SLOTS:
     void sortRoleChanged(int);
     void slotAboutToCreateDocuments();
     void slotDocumentsCreated(const QList<KTextEditor::Document *> &);
-    void slotDocumentSave();
-    void slotDocumentSaveAs();
+    void slotDocumentSave() const;
+    void slotDocumentSaveAs() const;
 };
 
 #endif // KATE_FILETREE_PLUGIN_H

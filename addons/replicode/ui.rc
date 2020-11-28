@@ -1,4 +1,5 @@
-<!DOCTYPE kpartgui>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="katereplicode-plugin" library="katereplicodeplugin" version="7">
 <MenuBar>
  <Menu name="projects"><Text>&amp;Projects</Text>

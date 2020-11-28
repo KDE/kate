@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE kpartgui>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="katexmltools" library="libkatexmltoolsplugin" version="9" translationDomain="katexmltools">
   <MenuBar>
     <Menu name="xml">

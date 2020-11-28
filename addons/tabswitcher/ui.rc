@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE kpartgui>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="tabswitcher" library="tabswitcherplugin" version="2" translationDomain="tabswitcherplugin">
   <MenuBar>
     <Menu name="view">

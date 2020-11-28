@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE kpartgui>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="katesnippets" library="katesnippetsplugin" version="3" translationDomain="katesnippetsplugin">
   <MenuBar>
     <Menu name="tools">

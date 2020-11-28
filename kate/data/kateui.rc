@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="86" translationDomain="kate">
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="kate" version="86" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -149,5 +149,5 @@
       <Action name="show_doc_name"/>
     </Menu>
   </Menu>
-</kpartgui>
+</gui>
 <!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

@@ -1,4 +1,5 @@
-<!DOCTYPE kpartgui>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
 <gui name="externaltools" version="5" translationDomain="kateexternaltoolsplugin">
   <MenuBar>
     <Menu name="tools"><text>&amp;Tools</text>

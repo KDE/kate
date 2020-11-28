@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kwrite" version="19">
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="kwrite" version="19">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -72,5 +72,5 @@
   <Menu name="ktexteditor_popup" noMerge="1">
     <DefineGroup name="popup_operations"/>
   </Menu>
-</kpartgui>
+</gui>
 <!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

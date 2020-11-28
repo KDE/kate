@@ -76,13 +76,13 @@ static const QString actionListName = QStringLiteral("kate_mdi_view_actions");
 // please don't use QStringLiteral since it can't be used with a concatenated string parameter on all platforms
 static const QString guiDescription = QStringLiteral(
     ""
-    "<!DOCTYPE kpartgui><kpartgui name=\"kate_mdi_view_actions\">"
+    "<!DOCTYPE gui><gui name=\"kate_mdi_view_actions\">"
     "<MenuBar>"
     "    <Menu name=\"view\">"
     "        <ActionList name=\"%1\" />"
     "    </Menu>"
     "</MenuBar>"
-    "</kpartgui>");
+    "</gui>");
 
 GUIClient::GUIClient(MainWindow *mw)
     : QObject(mw)

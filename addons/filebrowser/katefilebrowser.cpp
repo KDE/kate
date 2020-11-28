@@ -16,6 +16,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
+#include <kwidgetsaddons_version.h>
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KConfigGroup>
@@ -363,7 +364,11 @@ void KateFileBrowser::setupActions()
 {
     // bookmarks action!
     KActionMenu *acmBookmarks = new KActionMenu(QIcon::fromTheme(QStringLiteral("bookmarks")), i18n("Bookmarks"), this);
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+    acmBookmarks->setPopupMode(QToolButton::InstantPopup);
+#else
     acmBookmarks->setDelayed(false);
+#endif
     m_bookmarkHandler = new KateBookmarkHandler(this, acmBookmarks->menu());
     acmBookmarks->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
@@ -379,7 +384,11 @@ void KateFileBrowser::setupActions()
 
     // section for settings menu
     KActionMenu *optionsMenu = new KActionMenu(QIcon::fromTheme(QStringLiteral("configure")), i18n("Options"), this);
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+    optionsMenu->setPopupMode(QToolButton::InstantPopup);
+#else
     optionsMenu->setDelayed(false);
+#endif
     optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("short view")));
     optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("detailed view")));
     optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("tree view")));

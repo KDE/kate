@@ -22,7 +22,6 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 #include <QBoxLayout>
 #include <QCoreApplication>

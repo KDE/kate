@@ -43,7 +43,6 @@
 #include <KActionCollection>
 #include <KConfigGroup>
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KSharedConfig>
 #include <KToggleAction>
 #include <KXMLGUIFactory>

@@ -48,7 +48,6 @@
 #include <KAboutData>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>

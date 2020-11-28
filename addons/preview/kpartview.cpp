@@ -15,7 +15,6 @@
 #include <KParts/BrowserExtension>
 #include <KParts/ReadOnlyPart>
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 // Qt
 #include <QDesktopServices>

@@ -35,7 +35,6 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KUrlCompletion>
 
 #include <KConfigGroup>

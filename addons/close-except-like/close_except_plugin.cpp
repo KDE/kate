@@ -31,7 +31,6 @@
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KTextEditor/Application>
 #include <KTextEditor/MainWindow>
 #include <KXMLGUIFactory>

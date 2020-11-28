@@ -18,7 +18,6 @@
 #include <KAboutData>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <ktexteditor/application.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/document.h>

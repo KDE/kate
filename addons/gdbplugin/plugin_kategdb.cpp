@@ -32,7 +32,6 @@
 #include <KHistoryComboBox>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>

@@ -12,7 +12,6 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
-#include <KPluginLoader>
 
 #include <QIcon>
 

@@ -8,7 +8,6 @@
 #include "replicodeconfigpage.h"
 
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 #include <KTextEditor/Application>
 

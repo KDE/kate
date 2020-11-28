@@ -14,7 +14,6 @@
 #include <KLineEdit>
 #include <KLocalizedString> // i18n
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KSharedConfig>
 #include <ktexteditor/view.h>
 

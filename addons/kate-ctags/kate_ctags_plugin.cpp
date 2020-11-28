@@ -36,7 +36,6 @@
 
 #include <KAboutData>
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateCTagsPluginFactory, "katectagsplugin.json", registerPlugin<KateCTagsPlugin>();)
 

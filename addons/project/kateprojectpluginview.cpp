@@ -20,7 +20,6 @@
 #include <KActionMenu>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KStringHandler>
 #include <KXMLGUIFactory>
 

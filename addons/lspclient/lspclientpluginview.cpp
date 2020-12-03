@@ -228,7 +228,6 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_closeDynamic;
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
-    QPointer<KSelectAction> m_moreOptions;
 
     // toolview
     QScopedPointer<QWidget> m_toolView;

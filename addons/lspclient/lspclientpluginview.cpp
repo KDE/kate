@@ -390,22 +390,22 @@ public:
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
         m_restartAll->setText(i18n("Restart All LSP Servers"));
 
-		// more options
-		auto moreOptions = new KActionMenu(i18n("More options"), this);
-		actionCollection()->addAction(QStringLiteral("lspclient_more_options"), moreOptions);
-		moreOptions->addAction(m_complDocOn);
-		moreOptions->addAction(m_refDeclaration);
-		moreOptions->addAction(m_autoHover);
-		moreOptions->addAction(m_onTypeFormatting);
-		moreOptions->addAction(m_incrementalSync);
-		moreOptions->addSeparator();
-		moreOptions->addAction(m_diagnostics);
-		moreOptions->addAction(m_diagnosticsHighlight);
-		moreOptions->addAction(m_diagnosticsMark);
-		moreOptions->addAction(m_diagnosticsHover);
-		moreOptions->addSeparator();
-		moreOptions->addAction(m_messages);
-		moreOptions->addAction(m_messagesAutoSwitch);
+        // more options
+        auto moreOptions = new KActionMenu(i18n("More options"), this);
+        actionCollection()->addAction(QStringLiteral("lspclient_more_options"), moreOptions);
+        moreOptions->addAction(m_complDocOn);
+        moreOptions->addAction(m_refDeclaration);
+        moreOptions->addAction(m_autoHover);
+        moreOptions->addAction(m_onTypeFormatting);
+        moreOptions->addAction(m_incrementalSync);
+        moreOptions->addSeparator();
+        moreOptions->addAction(m_diagnostics);
+        moreOptions->addAction(m_diagnosticsHighlight);
+        moreOptions->addAction(m_diagnosticsMark);
+        moreOptions->addAction(m_diagnosticsHover);
+        moreOptions->addSeparator();
+        moreOptions->addAction(m_messages);
+        moreOptions->addAction(m_messagesAutoSwitch);
 
         // popup menu
         auto menu = new KActionMenu(i18n("LSP Client"), this);

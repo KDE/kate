@@ -389,9 +389,27 @@ public:
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
         m_restartAll->setText(i18n("Restart All LSP Servers"));
 
+        // popup menu
+        auto menu = new KActionMenu(i18n("LSP Client"), this);
+        actionCollection()->addAction(QStringLiteral("popup_lspclient"), menu);
+        menu->addAction(m_findDef);
+        menu->addAction(m_findDecl);
+        menu->addAction(m_findRef);
+        menu->addAction(m_triggerHighlight);
+        menu->addAction(m_triggerSymbolInfo);
+        menu->addAction(m_triggerFormat);
+        menu->addAction(m_triggerRename);
+        menu->addSeparator();
+        menu->addAction(m_diagnosticsSwitch);
+        menu->addAction(m_messagesSwitch);
+        menu->addAction(m_closeDynamic);
+        menu->addSeparator();
+        menu->addAction(m_restartServer);
+        menu->addAction(m_restartAll);
+        menu->addSeparator();
         // more options
         auto moreOptions = new KActionMenu(i18n("More options"), this);
-        actionCollection()->addAction(QStringLiteral("lspclient_more_options"), moreOptions);
+        menu->addAction(moreOptions);
         moreOptions->addAction(m_complDocOn);
         moreOptions->addAction(m_refDeclaration);
         moreOptions->addAction(m_autoHover);
@@ -405,37 +423,6 @@ public:
         moreOptions->addSeparator();
         moreOptions->addAction(m_messages);
         moreOptions->addAction(m_messagesAutoSwitch);
-
-        // popup menu
-        auto menu = new KActionMenu(i18n("LSP Client"), this);
-        actionCollection()->addAction(QStringLiteral("popup_lspclient"), menu);
-        menu->addAction(m_findDef);
-        menu->addAction(m_findDecl);
-        menu->addAction(m_findRef);
-        menu->addAction(m_triggerHighlight);
-        menu->addAction(m_triggerSymbolInfo);
-        menu->addAction(m_triggerFormat);
-        menu->addAction(m_triggerRename);
-        menu->addSeparator();
-        menu->addAction(m_complDocOn);
-        menu->addAction(m_refDeclaration);
-        menu->addAction(m_autoHover);
-        menu->addAction(m_onTypeFormatting);
-        menu->addAction(m_incrementalSync);
-        menu->addSeparator();
-        menu->addAction(m_diagnostics);
-        menu->addAction(m_diagnosticsHighlight);
-        menu->addAction(m_diagnosticsMark);
-        menu->addAction(m_diagnosticsHover);
-        menu->addAction(m_diagnosticsSwitch);
-        menu->addSeparator();
-        menu->addAction(m_messages);
-        menu->addAction(m_messagesAutoSwitch);
-        menu->addAction(m_messagesSwitch);
-        menu->addSeparator();
-        menu->addAction(m_closeDynamic);
-        menu->addAction(m_restartServer);
-        menu->addAction(m_restartAll);
 
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);

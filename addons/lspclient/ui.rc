@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="lspclient" library="lspclient" version="8" translationDomain="lspclient">
+<gui name="lspclient" library="lspclient" version="9" translationDomain="lspclient">
   <MenuBar>
     <Menu name="LSPClient Menubar">
       <text>LSP Client</text>
@@ -19,7 +19,24 @@
       <Action name="lspclient_restart_server"/>
       <Action name="lspclient_restart_all"/>
       <Separator/>
-      <Action name="lspclient_more_options"/>
+      <Menu name="lspclient_more_options" noMerge="1">
+        <text>More Options</text>
+        <DefineGroup name="lspclient_more_options"/>
+        <Action name="lspclient_completion_doc"/>
+        <Action name="lspclient_completion_doc"/>
+        <Action name="lspclient_references_declaration"/>
+        <Action name="lspclient_auto_hover"/>
+        <Action name="lspclient_type_formatting"/>
+        <Action name="lspclient_incremental_sync"/>
+        <Separator/>
+        <Action name="lspclient_diagnostics"/>
+        <Action name="lspclient_diagnostics_highlight"/>
+        <Action name="lspclient_diagnostics_mark"/>
+        <Action name="lspclient_diagnostics_hover"/>
+        <Separator/>
+        <Action name="lspclient_messages"/>
+        <Action name="lspclient_messages_auto_switch"/>
+      </Menu>
     </Menu>
   </MenuBar>
   <Menu name="ktexteditor_popup" noMerge="1">

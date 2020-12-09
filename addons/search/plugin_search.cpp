@@ -350,7 +350,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(container, &ContainerWidget::nextFocus, this, &KatePluginSearchView::nextFocus);
 
     QAction *a = actionCollection()->addAction(QStringLiteral("search_in_files"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_F));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_F));
     a->setText(i18n("Search in Files"));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::openSearchView);
 
@@ -367,7 +367,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     a = actionCollection()->addAction(QStringLiteral("go_to_prev_match"));
     a->setText(i18n("Go to Previous Match"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::SHIFT + Qt::Key_F6));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::SHIFT | Qt::Key_F6));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch);
 
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);

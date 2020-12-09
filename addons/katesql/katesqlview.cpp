@@ -124,14 +124,14 @@ void KateSQLView::setupActions()
     action = collection->addAction(QStringLiteral("query_run"));
     action->setText(i18nc("@action:inmenu", "Run query"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
-    collection->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_E));
+    collection->setDefaultShortcut(action, QKeySequence(Qt::CTRL | Qt::Key_E));
     connect(action, &QAction::triggered, this, &KateSQLView::slotRunQuery);
 
     /// TODO: stop sql query
     //   action = collection->addAction("sql_stop");
     //   action->setText( i18n("Stop query") );
     //   action->setIcon( KIcon("process-stop") );
-    //   action->setShortcut( QKeySequence(Qt::ALT + Qt::Key_F5) );
+    //   action->setShortcut( QKeySequence(Qt::ALT | Qt::Key_F5) );
     //   connect( action , SIGNAL(triggered()) , this , SLOT(stopQuery()));
 }
 

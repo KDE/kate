@@ -215,7 +215,7 @@ QVariant detail::TabswitcherFilesModel::data(const QModelIndex &index, int role)
         return row.fullPath();
     } else if (role == Qt::TextAlignmentRole) {
         if (index.column() == 0)
-            return Qt::AlignRight + Qt::AlignVCenter;
+            return Qt::AlignRight | Qt::AlignVCenter;
         else
             return Qt::AlignVCenter;
     } else if (role == Qt::ForegroundRole) {

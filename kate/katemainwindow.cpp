@@ -250,7 +250,7 @@ void KateMainWindow::setupImportantActions()
     a = actionCollection()->addAction(QStringLiteral("view_quick_open"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
     a->setText(i18n("&Quick Open"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 }
@@ -295,7 +295,7 @@ void KateMainWindow::setupActions()
     a = actionCollection()->addAction(QStringLiteral("file_save_all"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
     a->setText(i18n("Save A&ll"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_L));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_L));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::saveAll);
     a->setWhatsThis(i18n("Save all open, modified documents to disk."));
 

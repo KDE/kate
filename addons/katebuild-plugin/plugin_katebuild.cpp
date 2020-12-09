@@ -149,13 +149,13 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     a = actionCollection()->addAction(QStringLiteral("goto_next"));
     a->setText(i18n("Next Error"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
-    actionCollection()->setDefaultShortcut(a, Qt::SHIFT + Qt::ALT + Qt::Key_Right);
+    actionCollection()->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Right);
     connect(a, &QAction::triggered, this, &KateBuildView::slotNext);
 
     a = actionCollection()->addAction(QStringLiteral("goto_prev"));
     a->setText(i18n("Previous Error"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
-    actionCollection()->setDefaultShortcut(a, Qt::SHIFT + Qt::ALT + Qt::Key_Left);
+    actionCollection()->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Left);
     connect(a, &QAction::triggered, this, &KateBuildView::slotPrev);
 
     m_showMarks = a = actionCollection()->addAction(QStringLiteral("show_marks"));

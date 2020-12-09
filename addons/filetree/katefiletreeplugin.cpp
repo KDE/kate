@@ -215,13 +215,13 @@ void KateFileTreePluginView::setupActions()
     auto aPrev = actionCollection()->addAction(QStringLiteral("filetree_prev_document"));
     aPrev->setText(i18n("Previous Document"));
     aPrev->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
-    actionCollection()->setDefaultShortcut(aPrev, Qt::ALT + Qt::Key_Up);
+    actionCollection()->setDefaultShortcut(aPrev, Qt::ALT | Qt::Key_Up);
     connect(aPrev, &QAction::triggered, m_fileTree, &KateFileTree::slotDocumentPrev);
 
     auto aNext = actionCollection()->addAction(QStringLiteral("filetree_next_document"));
     aNext->setText(i18n("Next Document"));
     aNext->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
-    actionCollection()->setDefaultShortcut(aNext, Qt::ALT + Qt::Key_Down);
+    actionCollection()->setDefaultShortcut(aNext, Qt::ALT | Qt::Key_Down);
     connect(aNext, &QAction::triggered, m_fileTree, &KateFileTree::slotDocumentNext);
 
     auto aShowActive = actionCollection()->addAction(QStringLiteral("filetree_show_active_document"));

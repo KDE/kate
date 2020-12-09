@@ -16,7 +16,6 @@
 
 #include <ktexteditor/view.h>
 
-#include <KCodecs>
 #include <KColorScheme>
 #include <KConfigGroup>
 #include <KIO/DeleteJob>

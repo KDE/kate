@@ -3,6 +3,7 @@ find_package(KF5TextEditor ${KF5_DEP_VERSION} QUIET REQUIRED)
 
 ecm_optional_add_subdirectory(backtracebrowser)
 ecm_optional_add_subdirectory(close-except-like) # Close all documents except this one (or similar).
+ecm_optional_add_subdirectory(colorpicker) # Inline color preview/picker
 ecm_optional_add_subdirectory(externaltools)
 ecm_optional_add_subdirectory(filebrowser)
 ecm_optional_add_subdirectory(filetree)

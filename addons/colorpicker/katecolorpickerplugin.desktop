@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KTextEditor/Plugin
+X-KDE-Library=katecolorpickerplugin
+Name=Color Picker
+Name[x-test]=xxColor Pickerx
+Comment=Adds an inline Color preview/picker to colors in the text (e.g. #FFFFFF, white)
+Comment[x-test]=xxAdds an inline Color preview/picker to colors in the text (e.g. #FFFFFF, white)xx

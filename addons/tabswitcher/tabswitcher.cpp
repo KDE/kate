@@ -103,6 +103,7 @@ void TabSwitcherPluginView::setupActions()
 
     auto aClose = actionCollection()->addAction(QStringLiteral("view_lru_document_close"));
     aClose->setText(i18n("Close View"));
+    aClose->setShortcutContext(Qt::WidgetShortcut);
     actionCollection()->setDefaultShortcut(aClose, Qt::CTRL | Qt::Key_W);
     aClose->setWhatsThis(i18n("Closes the selected view in the list of last used views."));
     aClose->setStatusTip(i18n("Closes the selected view in the list of last used views."));

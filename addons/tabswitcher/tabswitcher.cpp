@@ -66,7 +66,6 @@ TabSwitcherPluginView::TabSwitcherPluginView(TabSwitcherPlugin *plugin, KTextEdi
     // track existing documents
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &TabSwitcherPluginView::registerDocument);
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, this, &TabSwitcherPluginView::unregisterDocument);
-    ;
 
     // track lru activation of views to raise the respective documents in the model
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &TabSwitcherPluginView::raiseView);
@@ -102,9 +101,17 @@ void TabSwitcherPluginView::setupActions()
     aPrev->setStatusTip(i18n("Walk through the list of last used views"));
     connect(aPrev, &QAction::triggered, this, &TabSwitcherPluginView::walkBackward);
 
+    auto aClose = actionCollection()->addAction(QStringLiteral("view_lru_document_close"));
+    aClose->setText(i18n("Close View"));
+    actionCollection()->setDefaultShortcut(aClose, Qt::CTRL | Qt::Key_W);
+    aClose->setWhatsThis(i18n("Closes the selected view in the list of last used views."));
+    aClose->setStatusTip(i18n("Closes the selected view in the list of last used views."));
+    connect(aClose, &QAction::triggered, this, &TabSwitcherPluginView::closeView);
+
     // make sure action work when the popup has focus
     m_treeView->addAction(aNext);
     m_treeView->addAction(aPrev);
+    m_treeView->addAction(aClose);
 }
 
 void TabSwitcherPluginView::setupModel()
@@ -248,6 +255,19 @@ void TabSwitcherPluginView::activateView(const QModelIndex &index)
     m_mainWindow->activateView(doc);
 
     m_treeView->hide();
+}
+
+void TabSwitcherPluginView::closeView()
+{
+    if (m_treeView->selectionModel()->selectedRows().isEmpty()) {
+        return;
+    }
+
+    const int row = m_treeView->selectionModel()->selectedRows().first().row();
+    KTextEditor::Document* doc = m_model->item(row);
+    if (doc) {
+        KTextEditor::Editor::instance()->application()->closeDocument(doc);
+    }
 }
 
 // required for TabSwitcherPluginFactory vtable

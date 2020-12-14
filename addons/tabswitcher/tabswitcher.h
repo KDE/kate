@@ -113,6 +113,11 @@ public Q_SLOTS:
      */
     void activateView(const QModelIndex &index);
 
+    /**
+     * Closes the current view
+     */
+    void closeView();
+
 protected:
     /**
      * Move through the list.

@@ -978,6 +978,8 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
     row << i18n("Line: <b>%1</b> Column: <b>%2</b>: %3", startLine + 1, startColumn + 1, pre + QStringLiteral("<b>") + match + QStringLiteral("</b>") + post);
 
     TreeWidgetItem *item = new TreeWidgetItem(rootFileItem(url, fName), row);
+
+    m_curResults->tree->model()->blockSignals(true);
     item->setData(0, ReplaceMatches::FileUrlRole, url);
     item->setData(0, Qt::ToolTipRole, url);
     item->setData(0, ReplaceMatches::FileNameRole, fName);
@@ -990,6 +992,7 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
     item->setData(0, ReplaceMatches::EndLineRole, endLine);
     item->setData(0, ReplaceMatches::EndColumnRole, endColumn);
     item->setCheckState(0, Qt::Checked);
+    m_curResults->tree->model()->blockSignals(false);
 
     m_curResults->matches++;
 }

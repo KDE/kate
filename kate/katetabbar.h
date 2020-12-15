@@ -142,6 +142,16 @@ private:
     quint64 m_lruCounter = 0;
 
     /**
+     * should a double click create a new document?
+     */
+    bool m_doubleClickNewDocument = false;
+
+    /*
+     * should a middle click close a document?
+     */
+    bool m_middleClickCloseDocument = false;
+
+    /**
      * LRU counter storage, to determine which document has which age
      * simple 64-bit counter, worst thing that can happen on 64-bit wraparound
      * is a bit strange tab replacement a few times

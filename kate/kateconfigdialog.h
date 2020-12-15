@@ -84,6 +84,8 @@ private:
     QSpinBox *m_tabLimit;
     QCheckBox *m_showTabCloseButton;
     QCheckBox *m_expandTabs;
+    QCheckBox *m_tabDoubleClickNewDocument;
+    QCheckBox *m_tabMiddleClickCloseDocument;
 
     Ui::SessionConfigWidget sessionConfigUi;
 

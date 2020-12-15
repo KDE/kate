@@ -156,6 +156,18 @@ void KateConfigDialog::addBehaviorPage()
     connect(m_expandTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_expandTabs);
 
+    m_tabDoubleClickNewDocument = new QCheckBox(i18n("&Double click opens a new document"), buttonGroup);
+    m_tabDoubleClickNewDocument->setChecked(cgGeneral.readEntry("Tab Double Click New Document", true));
+    m_tabDoubleClickNewDocument->setToolTip(i18n("When checked double click opens a new document."));
+    connect(m_tabDoubleClickNewDocument, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_tabDoubleClickNewDocument);
+
+    m_tabMiddleClickCloseDocument = new QCheckBox(i18n("&Middle click closes a document"), buttonGroup);
+    m_tabMiddleClickCloseDocument->setChecked(cgGeneral.readEntry("Tab Middle Click Close Document", true));
+    m_tabMiddleClickCloseDocument->setToolTip(i18n("When checked middle click closes a document."));
+    connect(m_tabMiddleClickCloseDocument, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_tabMiddleClickCloseDocument);
+
     layout->addWidget(buttonGroup);
 
     layout->addStretch(1); // :-] works correct without autoadd
@@ -359,6 +371,9 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Show Tabs Close Button", m_showTabCloseButton->isChecked());
 
         cg.writeEntry("Expand Tabs", m_expandTabs->isChecked());
+
+        cg.writeEntry("Tab Double Click New Document", m_tabDoubleClickNewDocument->isChecked());
+        cg.writeEntry("Tab Middle Click Close Document", m_tabMiddleClickCloseDocument->isChecked());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

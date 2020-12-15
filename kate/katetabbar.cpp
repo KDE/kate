@@ -78,6 +78,10 @@ void KateTabBar::readConfig()
     // handle tab close button and expansion
     setExpanding(cgGeneral.readEntry("Expand Tabs", true));
     setTabsClosable(cgGeneral.readEntry("Show Tabs Close Button", true));
+
+    // get mouse click rules
+    m_doubleClickNewDocument = cgGeneral.readEntry("Tab Double Click New Document", true);
+    m_middleClickCloseDocument = cgGeneral.readEntry("Tab Middle Click Close Document", true);
 }
 
 void KateTabBar::setActive(bool active)
@@ -122,7 +126,10 @@ QVariant KateTabBar::ensureValidTabData(int idx)
 void KateTabBar::mouseDoubleClickEvent(QMouseEvent *event)
 {
     event->accept();
-    emit newTabRequested();
+
+    if (m_doubleClickNewDocument) {
+        emit newTabRequested();
+    }
 }
 
 void KateTabBar::mousePressEvent(QMouseEvent *event)
@@ -133,7 +140,7 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
     QTabBar::mousePressEvent(event);
 
     // handle close for middle mouse button
-    if (event->button() == Qt::MiddleButton) {
+    if (m_middleClickCloseDocument && event->button() == Qt::MiddleButton) {
         int id = tabAt(event->pos());
         if (id >= 0) {
             emit tabCloseRequested(id);

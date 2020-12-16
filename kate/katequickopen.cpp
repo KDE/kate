@@ -35,6 +35,33 @@
 #include <QStandardItemModel>
 #include <QTreeView>
 
+class QuickOpenFilterProxyModel : public QSortFilterProxyModel {
+public:
+    QuickOpenFilterProxyModel(QObject *parent = nullptr) : QSortFilterProxyModel(parent)
+    {}
+
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+    {
+        const QString fileName = sourceModel()->index(sourceRow, 0, sourceParent).data().toString();
+        for (const QString& str : filterStrings) {
+            if (!fileName.contains(str, Qt::CaseInsensitive)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+public Q_SLOTS:
+    void setFilterText(const QString& text)
+    {
+        filterStrings = text.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        invalidateFilter();
+    }
+
+private:
+    QStringList filterStrings;
+};
+
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
 KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
@@ -58,14 +85,14 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
 
     m_base_model = new KateQuickOpenModel(m_mainWindow, this);
 
-    m_model = new QSortFilterProxyModel(this);
+    m_model = new QuickOpenFilterProxyModel(this);
     m_model->setFilterRole(Qt::DisplayRole);
     m_model->setSortRole(Qt::DisplayRole);
     m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
     m_model->setFilterKeyColumn(0);
 
-    connect(m_inputLine, &KLineEdit::textChanged, m_model, &QSortFilterProxyModel::setFilterWildcard);
+    connect(m_inputLine, &KLineEdit::textChanged, m_model, &QuickOpenFilterProxyModel::setFilterText);
     connect(m_inputLine, &KLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_model, &QSortFilterProxyModel::rowsInserted, this, &KateQuickOpen::reselectFirst);
     connect(m_model, &QSortFilterProxyModel::rowsRemoved, this, &KateQuickOpen::reselectFirst);

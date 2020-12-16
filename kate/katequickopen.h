@@ -20,6 +20,8 @@ class QTreeView;
 class KateQuickOpenModel;
 enum KateQuickOpenModelList : int;
 
+class QuickOpenFilterProxyModel;
+
 class KateQuickOpen : public QWidget
 {
     Q_OBJECT
@@ -62,7 +64,7 @@ private:
     /**
      * filtered model we search in
      */
-    QSortFilterProxyModel *m_model;
+    QuickOpenFilterProxyModel *m_model;
 };
 
 #endif

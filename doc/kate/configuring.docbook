@@ -188,6 +188,18 @@ reasonably sized.</para></listitem>
 <guilabel>Expand tabs</guilabel></term>
 <listitem><para>When checked tabs take as much size as possible.</para></listitem>
 </varlistentry>
+
+<varlistentry>
+<term><anchor id="config-general-double-click"/>
+<guilabel>Double click opens a new document</guilabel></term>
+<listitem><para>When checked double click opens a new document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="config-general-middle-click"/>
+<guilabel>Middle click closes a document</guilabel></term>
+<listitem><para>When checked middle click closes a document.</para></listitem>
+</varlistentry>
 </variablelist>
 
 </listitem>

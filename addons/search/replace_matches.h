@@ -18,7 +18,6 @@
 #ifndef _REPLACE_MATCHES_H_
 #define _REPLACE_MATCHES_H_
 
-#include <QElapsedTimer>
 #include <QObject>
 #include <QRegularExpression>
 #include <QTreeWidget>
@@ -78,7 +77,6 @@ private:
     QString m_replaceText;
     bool m_cancelReplace = false;
     bool m_terminateReplace = false;
-    QElapsedTimer m_progressTime;
 };
 
 #endif

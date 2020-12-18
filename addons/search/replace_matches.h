@@ -68,14 +68,11 @@ Q_SIGNALS:
     void replaceDone();
 
 private:
-    void updateTreeViewItems(QTreeWidgetItem *fileItem);
+    void updateTreeViewItems(QTreeWidgetItem *fileItem, const QVector<KTextEditor::MovingRange *> &matches = QVector<KTextEditor::MovingRange *>(), const QVector<bool> &replaced = QVector<bool>());
 
     KTextEditor::Application *m_manager = nullptr;
     QTreeWidget *m_tree = nullptr;
     int m_rootIndex = -1;
-    int m_childStartIndex = -1;
-    QVector<KTextEditor::MovingRange *> m_currentMatches;
-    QVector<bool> m_currentReplaced;
 
     QRegularExpression m_regExp;
     QString m_replaceText;

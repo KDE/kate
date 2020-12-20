@@ -271,6 +271,29 @@ transfer data between applications.</para>
 </listitem>
 </varlistentry>
 
+<varlistentry id="edit-paste-selection">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;&Ins;</keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Paste Selection</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>This will paste previously <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System">mouse selection</ulink> contents. Mark some text with the mouse pointer to paste it in the currently open file using this menu item.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-swap-with-clipboard-contents">
+<term><menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Swap with clipboard contents</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>This will swap the selected text with the <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System">clipboard</ulink> contents.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="edit-clipboard-history">
 <term><menuchoice>
 <guimenu>Edit</guimenu>

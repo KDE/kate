@@ -171,3 +171,4 @@ InitialPreference=8
 X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kde.kwrite
 Categories=Qt;KDE;Utility;TextEditor;
+StartupWMClass=kwrite

@@ -374,7 +374,7 @@ transfer data between applications.</para>
 <guimenuitem>Paste Selection</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>This will paste previously <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System">mouse selection</ulink> contents. Mark some text with the mouse pointer to paste it in the currently open file using this menu item.</para>
+<para>This will paste the <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System">mouse selection</ulink> contents that were chosen previously. Mark some text with the mouse pointer to paste it in the currently open file using this menu item.</para>
 </listitem>
 </varlistentry>
 

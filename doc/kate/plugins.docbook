@@ -48,6 +48,10 @@ The available application plugins are:
 - Close group of documents based on a common path or file extension</para>
 </listitem>
 <listitem>
+<para><link linkend="kate-application-plugin-colorpicker">Color Picker</link>
+- Show preview for known color names</para>
+</listitem>
+<listitem>
 <para><link linkend="kate-application-plugin-ctags">CTags</link> -
 Look up definitions/declarations with CTags</para>
 </listitem>
@@ -432,6 +436,55 @@ which match the path or file extension selected from the submenu.</para>
 
 </sect1>
 
+<sect1 id="kate-application-plugin-colorpicker">
+
+<title>Color Picker Plugin</title>
+
+<sect2 id="colorpicker-intro">
+<title>Introduction</title>
+
+<para>This plugin adds an inline color preview/picker to colors in the text (&eg;, <literal>#FFFFFF</literal>, 
+<literal>white</literal>).</para>
+
+<para>To load this plugin open &kate;'s configuration dialog under <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
+Then select <guilabel>Color Picker</guilabel> and close the dialog.
+</para>
+</sect2>
+
+<sect2 id="colorpicker-config">
+<title>Configuration</title>
+
+<para>On the Color Picker settings page in &kate;'s configuration, you can configure the following options of the plugin behavior.</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Show preview for known color names</guilabel></term>
+<listitem>
+<para>Whether to show the color picker for known color names (&eg;, <literal>skyblue</literal>). See <ulink url="https://www.w3.org/TR/SVG11/types.html#ColorKeywords">this page</ulink> for the list of colors.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Place preview after text color</guilabel></term>
+<listitem>
+<para>Whether to place the inline preview after text color in the text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Hex color matching</guilabel></term>
+<listitem>
+<para>Here, you can choose the best matching option for the colors used in your code.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
 
 <sect1 id="kate-application-plugin-ctags">
 <!--https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/-->

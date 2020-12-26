@@ -15,6 +15,7 @@ class CTagsKinds
 {
 public:
     static QString findKind(const char *kindChar, const QString &extension);
+    static QString findKindNoi18n(const char *kindChar, const QStringRef &extension);
 };
 
 #endif

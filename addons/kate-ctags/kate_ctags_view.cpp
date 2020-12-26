@@ -129,6 +129,17 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         KMessageBox::sorry(nullptr, error);
     });
 
+    m_gotoSymbWidget = new GotoSymbolWidget(mainWin, this);
+    auto openLocal = actionCollection()->addAction(QStringLiteral("open_local_gts"));
+    actionCollection()->setDefaultShortcut(openLocal, Qt::CTRL | Qt::ALT | Qt::Key_P);
+    connect(openLocal, &QAction::triggered, this, &KateCTagsView::showSymbols);
+    m_gotoSymbWidget->addAction(openLocal);
+
+    auto openGlobal = actionCollection()->addAction(QStringLiteral("open_global_gts"));
+    actionCollection()->setDefaultShortcut(openGlobal, Qt::CTRL | Qt::SHIFT | Qt::Key_P);
+    connect(openGlobal, &QAction::triggered, this, &KateCTagsView::showGlobalSymbols);
+    m_gotoSymbWidget->addAction(openLocal);
+
     connect(m_ctagsUi.inputEdit, &QLineEdit::textChanged, this, &KateCTagsView::startEditTmr);
 
     m_editTimer.setSingleShot(true);
@@ -620,4 +631,18 @@ void KateCTagsView::handleEsc(QEvent *e)
             m_mWin->hideToolView(m_toolView);
         }
     }
+}
+
+void KateCTagsView::showSymbols()
+{
+    m_gotoSymbWidget->showSymbols(m_mWin->activeView()->document()->url().toLocalFile());
+    m_gotoSymbWidget->show();
+    m_gotoSymbWidget->setFocus();
+}
+
+void KateCTagsView::showGlobalSymbols()
+{
+    m_gotoSymbWidget->showGlobalSymbols(m_ctagsUi.tagsFile->text());
+    m_gotoSymbWidget->show();
+    m_gotoSymbWidget->setFocus();
 }

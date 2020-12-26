@@ -40,6 +40,8 @@
 
 #include "ui_kate_ctags.h"
 
+#include "gotosymbolwidget.h"
+
 const static QString DEFAULT_CTAGS_CMD = QStringLiteral("ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=.");
 
 typedef struct {
@@ -60,6 +62,8 @@ public:
     // reimplemented: read and write session config
     void readSessionConfig(const KConfigGroup &config) override;
     void writeSessionConfig(KConfigGroup &config) override;
+
+    void jumpToTag(const QString &file, const QString &pattern, const QString &word);
 
 public Q_SLOTS:
     void gotoDefinition();
@@ -83,6 +87,8 @@ protected:
 private Q_SLOTS:
     void resetCMD();
     void handleEsc(QEvent *e);
+    void showSymbols();
+    void showGlobalSymbols();
 
 private:
     bool listContains(const QString &target);
@@ -93,11 +99,11 @@ private:
     void displayHits(const Tags::TagList &list);
 
     void gotoTagForTypes(const QString &tag, QStringList const &types);
-    void jumpToTag(const QString &file, const QString &pattern, const QString &word);
 
     QPointer<KTextEditor::MainWindow> m_mWin;
     QPointer<QWidget> m_toolView;
     Ui::kateCtags m_ctagsUi {};
+    GotoSymbolWidget* m_gotoSymbWidget;
 
     QPointer<KActionMenu> m_menu;
     QAction *m_gotoDef;

@@ -107,10 +107,8 @@ static CTagsExtensionMapping extensionMapping[] = {
     {"sh", kindMappingSh},       {"SH", kindMappingSh},       {"bsh", kindMappingSh},      {"bash", kindMappingSh},       {"ksh", kindMappingSh},     {"zsh", kindMappingSh},        {"sl", kindMappingSlang},    {"tcl", kindMappingTcl},
     {"wish", kindMappingTcl},    {"vim", kindMappingVim},     {nullptr, nullptr}};
 
-static const CTagsKindMapping *findKindMapping(const QString &extension)
+static const CTagsKindMapping *findKindMapping(const char* pextension)
 {
-    const char *pextension = extension.toLocal8Bit().constData();
-
     CTagsExtensionMapping *pem = extensionMapping;
     while (pem->extension != nullptr) {
         if (strcmp(pem->extension, pextension) == 0)
@@ -123,15 +121,33 @@ static const CTagsKindMapping *findKindMapping(const QString &extension)
 
 QString CTagsKinds::findKind(const char *kindChar, const QString &extension)
 {
-    if (kindChar == nullptr)
+    if (kindChar == nullptr || extension.isEmpty())
         return QString();
 
-    const CTagsKindMapping *kindMapping = findKindMapping(extension);
+    const CTagsKindMapping *kindMapping = findKindMapping(extension.toLocal8Bit().constData());
     if (kindMapping) {
         const CTagsKindMapping *pkm = kindMapping;
         while (pkm->verbose != nullptr) {
             if (pkm->abbrev == *kindChar)
                 return i18nc("Tag Type", pkm->verbose);
+            ++pkm;
+        }
+    }
+
+    return QString();
+}
+
+QString CTagsKinds::findKindNoi18n(const char *kindChar, const QStringRef &extension)
+{
+    if (kindChar == nullptr || extension.isEmpty())
+        return QString();
+
+    const CTagsKindMapping *kindMapping = findKindMapping(extension.toLocal8Bit().constData());
+    if (kindMapping) {
+        const CTagsKindMapping *pkm = kindMapping;
+        while (pkm->verbose != nullptr) {
+            if (pkm->abbrev == *kindChar)
+                return QString::fromLocal8Bit(pkm->verbose);
             ++pkm;
         }
     }

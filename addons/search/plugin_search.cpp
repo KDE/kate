@@ -949,35 +949,21 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, QTreeWidgetI
     connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarks()), Qt::UniqueConnection);
 }
 
-static const int contextLen = 70;
-
 void KatePluginSearchView::matchFound(const QString &url, const QString &fName, const QString &lineContent, int matchLen, int startLine, int startColumn, int endLine, int endColumn)
 {
     if (!m_curResults || (sender() == &m_searchDiskFiles && m_blockDiskMatchFound)) {
         return;
     }
-    int preLen = contextLen;
-    int preStart = startColumn - preLen;
-    if (preStart < 0) {
-        preLen += preStart;
-        preStart = 0;
-    }
-    QString pre;
-    if (preLen == contextLen) {
-        pre = QStringLiteral("...");
-    }
-    pre += lineContent.mid(preStart, preLen).toHtmlEscaped();
-    QString match = lineContent.mid(startColumn, matchLen).toHtmlEscaped();
-    match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
-    QString post = lineContent.mid(startColumn + matchLen, contextLen);
-    if (post.size() >= contextLen) {
-        post += QStringLiteral("...");
-    }
-    post = post.toHtmlEscaped();
-    QStringList row;
-    row << i18n("Line: <b>%1</b> Column: <b>%2</b>: %3", startLine + 1, startColumn + 1, pre + QStringLiteral("<b>") + match + QStringLiteral("</b>") + post);
 
-    TreeWidgetItem *item = new TreeWidgetItem(static_cast<TreeWidgetItem*>(nullptr), row);
+    QString pre = lineContent.mid(0, startColumn).toHtmlEscaped();
+    QString match = lineContent.mid(startColumn, matchLen);
+    match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+    QString post = lineContent.mid(startColumn + matchLen).toHtmlEscaped();
+    QString style = QStringLiteral("<span style=\"background-color:") + m_searchBackgroundColor + QStringLiteral(";\">");
+    pre.append(style).append(match).append(QStringLiteral("</span>")).append(post);
+
+    QStringList txt{pre};
+    TreeWidgetItem *item = new TreeWidgetItem(static_cast<TreeWidgetItem*>(nullptr), txt);
 
     item->setData(0, ReplaceMatches::FileUrlRole, url);
     item->setData(0, Qt::ToolTipRole, url);
@@ -1110,6 +1096,11 @@ void KatePluginSearchView::startSearch()
         indicateMatch(false);
         return;
     }
+
+    // search color to use in search results
+    KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWindow->activeView());
+    if (ciface)
+        m_searchBackgroundColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>().name();
 
     m_curResults->regExp = reg;
     m_curResults->useRegExp = m_ui.useRegExp->isChecked();

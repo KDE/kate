@@ -830,6 +830,25 @@ This matches text as: <userinput>#label""""inside the context""""#</userinput>.<
 &lt;/context&gt;
 </programlisting>
 
+<itemizedlist>
+<title>Local deliminators</title>
+<para>Some rules allow the optional attributes <userinput>weakDeliminator</userinput>
+and <userinput>additionalDeliminator</userinput> which are combined with attributes
+of the same name of <userinput>keywords</userinput> tag. For example, when
+<userinput>'%'</userinput> is a weak delimiter of <userinput>keywords</userinput>,
+it can become a word delimiter only for a rule by putting it in its
+<userinput>additionalDeliminator</userinput> attribute. Whenever a rule allows these
+attributes it will contain a <emphasis>(local deliminators)</emphasis>.</para>
+
+<listitem>
+<para><emphasis>weakDeliminator</emphasis>: list of characters that do not act as word
+delimiters.</para>
+</listitem>
+<listitem>
+<para><emphasis>additionalDeliminator</emphasis>: defines additional delimiters.</para>
+</listitem>
+</itemizedlist>
+
 <sect3 id="highlighting-rules-in-detail">
 <title>The Rules in Detail</title>
 
@@ -885,7 +904,7 @@ comparing is used.</para>
 such as a dot <userinput>'.'</userinput> or a whitespace on the beginning
 and the end of the word. Think of <userinput>\b&lt;string&gt;\b</userinput>
 in terms of a regular expression, but it is faster than the rule <userinput>RegExpr</userinput>.</para>
-<programlisting>&lt;WordDetect String=&quot;(string)&quot; [insensitive=&quot;true|false&quot;] (common attributes) /&gt;</programlisting>
+<programlisting>&lt;WordDetect String=&quot;(string)&quot; [insensitive=&quot;true|false&quot;] (common attributes) (local deliminators) /&gt;</programlisting>
 <para>The <userinput>String</userinput> attribute defines the string
 to match. The <userinput>insensitive</userinput> attribute defaults to
 <emphasis>false</emphasis> and is passed to the string comparison
@@ -921,7 +940,7 @@ for more information on those.</para>
 <term>keyword</term>
 <listitem>
 <para>Detect a keyword from a specified list.</para>
-<programlisting>&lt;keyword String=&quot;(list name)&quot; (common attributes) /&gt;</programlisting>
+<programlisting>&lt;keyword String=&quot;(list name)&quot; (common attributes) (local deliminators) /&gt;</programlisting>
 <para>The <userinput>String</userinput> attribute identifies the
 keyword list by name. A list with that name must exist.</para>
 <para>The highlighting system processes keyword rules in a very optimized way.
@@ -932,7 +951,10 @@ property of the <emphasis>keywords</emphasis> tag.</para>
 <para>If a keyword to be matched shall contain a delimiter character, this
 respective character must be added to the <emphasis>weakDeliminator</emphasis>
 property of the <emphasis>keywords</emphasis> tag.  This character will then
-loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
+loose its delimiter property in all <emphasis>keyword</emphasis> rules. It is
+also possible to use the <emphasis>weakDeliminator</emphasis> attribute of
+<emphasis>keyword</emphasis> so that this modification only applies to this
+rule.</para>
 </listitem>
 </varlistentry>
 
@@ -940,7 +962,7 @@ loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 <term>Int</term>
 <listitem>
 <para>Detect an integer number (as the regular expression: <userinput>\b[0-9]+</userinput>).</para>
-<para><programlisting>&lt;Int (common attributes) /&gt;</programlisting></para>
+<para><programlisting>&lt;Int (common attributes) (local deliminators) /&gt;</programlisting></para>
 <para>This rule has no specific attributes.</para>
 </listitem>
 </varlistentry>
@@ -950,7 +972,7 @@ loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 <listitem>
 <para>Detect a floating point number (as the regular expression:
 <userinput>(\b[0-9]+\.[0-9]*|\.[0-9]+)([eE][-+]?[0-9]+)?</userinput>).</para>
-<para><programlisting>&lt;Float (common attributes) /&gt;</programlisting></para>
+<para><programlisting>&lt;Float (common attributes) (local deliminators) /&gt;</programlisting></para>
 <para>This rule has no specific attributes.</para>
 </listitem>
 </varlistentry>
@@ -960,7 +982,7 @@ loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 <listitem>
 <para>Detect an octal point number representation (as the regular
 expression: <userinput>\b0[0-7]+</userinput>).</para>
-<para><programlisting>&lt;HlCOct (common attributes) /&gt;</programlisting></para>
+<para><programlisting>&lt;HlCOct (common attributes) (local deliminators) /&gt;</programlisting></para>
 <para>This rule has no specific attributes.</para>
 </listitem>
 </varlistentry>
@@ -970,7 +992,7 @@ expression: <userinput>\b0[0-7]+</userinput>).</para>
 <listitem>
 <para>Detect a hexadecimal number representation (as a regular expression:
 <userinput>\b0[xX][0-9a-fA-F]+</userinput>).</para>
-<para><programlisting>&lt;HlCHex (common attributes) /&gt;</programlisting></para>
+<para><programlisting>&lt;HlCHex (common attributes) (local deliminators) /&gt;</programlisting></para>
 <para>This rule has no specific attributes.</para>
 </listitem>
 </varlistentry>

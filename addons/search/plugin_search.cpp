@@ -959,8 +959,21 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
     QString match = lineContent.mid(startColumn, matchLen);
     match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
     QString post = lineContent.mid(startColumn + matchLen).toHtmlEscaped();
+
+    // a string too long can lead to rendering issues and slow downs
+    if (pre.length() + post.length() > 300) {
+        // which is greater in length? resize that
+        if (post.length() > 150) {
+            post.truncate(97);
+            post.append(QStringLiteral("..."));
+        } else if (pre.length() > 150) {
+            pre.truncate(97);
+            pre.append(QStringLiteral("..."));
+        }
+    }
+
     QString style = QStringLiteral("<span style=\"background-color:") + m_searchBackgroundColor + QStringLiteral(";\">");
-    pre.append(style).append(match).append(QStringLiteral("</span>")).append(post);
+    pre.append(style + match + QStringLiteral("</span>") + post);
 
     QStringList txt{pre};
     TreeWidgetItem *item = new TreeWidgetItem(static_cast<TreeWidgetItem*>(nullptr), txt);
@@ -1099,8 +1112,10 @@ void KatePluginSearchView::startSearch()
 
     // search color to use in search results
     KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWindow->activeView());
-    if (ciface)
+    if (ciface) {
         m_searchBackgroundColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>().name();
+        qobject_cast<SPHtmlDelegate*>(m_curResults->tree->itemDelegate())->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
+    }
 
     m_curResults->regExp = reg;
     m_curResults->useRegExp = m_ui.useRegExp->isChecked();

@@ -27,9 +27,10 @@
             "highlightingModeRegex": "^Fortran.*$"
         },
         "go": {
-            "command": ["go-langserver"],
-            "commandDebug": ["go-langserver", "-trace"],
-            "url": "https://github.com/sourcegraph/go-langserver",
+            "command": ["gopls"],
+            "commandDebug": ["gopls", "-rpc.trace"],
+            "rootIndicationFileNames": ["go.mod"],
+            "url": "golang.org/x/tools/gopls",
             "highlightingModeRegex": "^Go$"
         },
         "haskell": {

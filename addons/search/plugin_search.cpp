@@ -951,26 +951,29 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, QTreeWidgetI
 
 void KatePluginSearchView::matchFound(const QString &url, const QString &fName, const QString &lineContent, int matchLen, int startLine, int startColumn, int endLine, int endColumn)
 {
+    static constexpr int contextLen = 140;
+
     if (!m_curResults || (sender() == &m_searchDiskFiles && m_blockDiskMatchFound)) {
         return;
     }
-
-    QString pre = lineContent.mid(0, startColumn).toHtmlEscaped();
-    QString match = lineContent.mid(startColumn, matchLen);
-    match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
-    QString post = lineContent.mid(startColumn + matchLen).toHtmlEscaped();
-
-    // a string too long can lead to rendering issues and slow downs
-    if (pre.length() + post.length() > 300) {
-        // which is greater in length? resize that
-        if (post.length() > 150) {
-            post.truncate(97);
-            post.append(QStringLiteral("..."));
-        } else if (pre.length() > 150) {
-            pre.truncate(97);
-            pre.append(QStringLiteral("..."));
-        }
+    int preLen = contextLen;
+    int preStart = startColumn - preLen;
+    if (preStart < 0) {
+        preLen += preStart;
+        preStart = 0;
     }
+    QString pre;
+    if (preLen == contextLen) {
+        pre = QStringLiteral("...");
+    }
+    pre += lineContent.mid(preStart, preLen).toHtmlEscaped();
+    QString match = lineContent.mid(startColumn, matchLen).toHtmlEscaped();
+    match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+    QString post = lineContent.mid(startColumn + matchLen, contextLen);
+    if (post.size() >= contextLen) {
+        post += QStringLiteral("...");
+    }
+    post = post.toHtmlEscaped();
 
     QString style = QStringLiteral("<span style=\"background-color:") + m_searchBackgroundColor + QStringLiteral(";\">");
     pre.append(style + match + QStringLiteral("</span>") + post);

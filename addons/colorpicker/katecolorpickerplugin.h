@@ -27,7 +27,7 @@ public:
     ColorPickerInlineNoteProvider(KTextEditor::Document *doc);
     ~ColorPickerInlineNoteProvider();
 
-    static void updateColorMatchingCriteria();
+    void updateColorMatchingCriteria();
     // if startLine == -1, update all notes. endLine is inclusive and optional
     void updateNotes(int startLine = -1, int endLine = -1);
 
@@ -45,8 +45,8 @@ private:
     mutable QHash<int, QHash<int, int>> m_colorNoteIndices;
 
     // config variables shared between all note providers
-    static QRegularExpression s_colorRegEx;
-    static bool s_putPreviewAfterColor;
+    QRegularExpression m_colorRegEx;
+    bool m_putPreviewAfterColor;
 };
 
 class KateColorPickerPlugin : public KTextEditor::Plugin

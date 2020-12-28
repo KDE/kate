@@ -30,15 +30,12 @@
 #include <QRegularExpression>
 #include <QVariant>
 
-QRegularExpression ColorPickerInlineNoteProvider::s_colorRegEx = QRegularExpression();
-bool ColorPickerInlineNoteProvider::s_putPreviewAfterColor = true;
-
 ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Document *doc)
     : m_doc(doc)
 {
     // initialize the color regex
     updateColorMatchingCriteria();
-    s_colorRegEx.setPatternOptions(QRegularExpression::DontCaptureOption);
+    m_colorRegEx.setPatternOptions(QRegularExpression::DontCaptureOption | QRegularExpression::CaseInsensitiveOption);
 
     for (auto view : m_doc->views()) {
         qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
@@ -98,7 +95,7 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
     // sort by decreasing number of digits to maximize matched hex
     std::sort(matchHexLengths.rbegin(), matchHexLengths.rend());
     if (matchHexLengths.size() > 0) {
-        colorRegex = QLatin1String("#(%1)(?![[:xdigit:]])");
+        colorRegex = QLatin1String("#(%1)(?![-\\w])");
         QStringList hexRegex;
         for (const int hexLength : matchHexLengths) {
             hexRegex.append(QStringLiteral("[[:xdigit:]]{%1}").arg(hexLength));
@@ -139,8 +136,8 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
         colorRegex = QLatin1String("(?!)");
     }
 
-    s_colorRegEx.setPattern(colorRegex);
-    s_putPreviewAfterColor = config.readEntry("PreviewAfterColor", true);
+    m_colorRegEx.setPattern(colorRegex);
+    m_putPreviewAfterColor = config.readEntry("PreviewAfterColor", true);
 }
 
 void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine)
@@ -169,12 +166,12 @@ QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
     if (!m_colorNoteIndices.contains(line)) {
         m_colorNoteIndices.insert(line, {});
 
-        auto matchIterator = s_colorRegEx.globalMatch(m_doc->line(line).toLower());
+        auto matchIterator = m_colorRegEx.globalMatch(m_doc->line(line));
         while (matchIterator.hasNext()) {
             const auto match = matchIterator.next();
             int colorOtherIndex = match.capturedStart();
             int colorNoteIndex = colorOtherIndex + match.capturedLength();
-            if (!s_putPreviewAfterColor) {
+            if (!m_putPreviewAfterColor) {
                 colorOtherIndex = colorNoteIndex;
                 colorNoteIndex = match.capturedStart();
             }
@@ -280,10 +277,9 @@ void KateColorPickerPlugin::addDocument(KTextEditor::Document *doc)
     });
 }
 
-void KateColorPickerPlugin::readConfig()
-{
-    ColorPickerInlineNoteProvider::updateColorMatchingCriteria();
+void KateColorPickerPlugin::readConfig() {
     for (auto colorNoteProvider : m_inlineColorNoteProviders.values()) {
+        colorNoteProvider->updateColorMatchingCriteria();
         colorNoteProvider->updateNotes();
     }
 }

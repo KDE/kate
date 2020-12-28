@@ -103,7 +103,7 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
         colorRegex = colorRegex.arg(hexRegex.join(QLatin1String("|")));
     }
 
-    if (config.readEntry("NamedColors", true)) {
+    if (config.readEntry("NamedColors", false)) {
         if (!colorRegex.isEmpty()) {
             colorRegex = QStringLiteral("(%1)|").arg(colorRegex);
         }
@@ -185,7 +185,7 @@ QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
 
 QSize ColorPickerInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note) const
 {
-    return QSize(note.lineHeight(), note.lineHeight());
+    return QSize(note.lineHeight()-1, note.lineHeight()-1);
 }
 
 void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const

@@ -116,7 +116,7 @@ void KateColorPickerConfigPage::apply()
 void KateColorPickerConfigPage::reset()
 {
     KConfigGroup config(KSharedConfig::openConfig(), "ColorPicker");
-    chkNamedColors->setChecked(config.readEntry("NamedColors", true));
+    chkNamedColors->setChecked(config.readEntry("NamedColors", false));
     chkPreviewAfterColor->setChecked(config.readEntry("PreviewAfterColor", true));
 
     QList<int> enabledHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 8, 6, 3});

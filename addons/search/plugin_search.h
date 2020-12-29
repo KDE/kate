@@ -207,6 +207,8 @@ private:
     QTimer m_updateSumaryTimer;
     QPointer<KTextEditor::Message> m_infoMessage;
     QString m_searchBackgroundColor;
+    QString m_foregroundColor;
+    QString m_lineNumberColor;
 
     /**
      * current project plugin view, if any

@@ -41,10 +41,16 @@ private:
     int m_startChangedLines = -1;
     int m_previousNumLines = -1;
 
-    // line, <colorNoteIndex, otherColorIndex>
-    mutable QHash<int, QHash<int, int>> m_colorNoteIndices;
+    struct ColorIndices {
+        // When m_putPreviewAfterColor is true, otherColorIndices holds the starting color indices while colorNoteIndices holds the end color indices
+        // colorNoteIndices[i] corresponds to otherColorIndices[i]
+        QVector<int> colorNoteIndices;
+        QVector<int> otherColorIndices;
+    };
 
-    // config variables shared between all note providers
+    // mutable is used here since InlineNoteProvider::inlineNotes is const only, and we update the notes lazily (only when inlineNotes is called)
+    mutable QHash<int, ColorIndices> m_colorNoteIndices;
+
     QRegularExpression m_colorRegEx;
     bool m_putPreviewAfterColor;
 };

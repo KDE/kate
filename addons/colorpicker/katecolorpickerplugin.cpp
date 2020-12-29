@@ -176,11 +176,12 @@ QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
                 colorNoteIndex = match.capturedStart();
             }
 
-            m_colorNoteIndices[line][colorNoteIndex] = colorOtherIndex;
+            m_colorNoteIndices[line].colorNoteIndices.append(colorNoteIndex);
+            m_colorNoteIndices[line].otherColorIndices.append(colorOtherIndex);
         }
     }
 
-    return m_colorNoteIndices.value(line).keys().toVector();
+    return m_colorNoteIndices[line].colorNoteIndices;
 }
 
 QSize ColorPickerInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note) const
@@ -192,7 +193,11 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
 {
     const auto line = note.position().line();
     auto colorEnd = note.position().column();
-    auto colorStart = m_colorNoteIndices[line][colorEnd];
+
+    const QVector<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
+    // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes, we can use binary search to find the index (or color note number) for the line
+    const int colorNoteNumber = std::lower_bound(colorNoteIndices.cbegin(), colorNoteIndices.cend(), colorEnd) - colorNoteIndices.cbegin();
+    auto colorStart = m_colorNoteIndices[line].otherColorIndices[colorNoteNumber];
     if (colorStart > colorEnd) {
         colorEnd = colorStart;
         colorStart = note.position().column();
@@ -216,7 +221,11 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
 {
     const auto line = note.position().line();
     auto colorEnd = note.position().column();
-    auto colorStart = m_colorNoteIndices[line][colorEnd];
+
+    const QVector<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
+    // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes, we can use binary search to find the index (or color note number) for the line
+    const int colorNoteNumber = std::lower_bound(colorNoteIndices.cbegin(), colorNoteIndices.cend(), colorEnd) - colorNoteIndices.cbegin();
+    auto colorStart = m_colorNoteIndices[line].otherColorIndices[colorNoteNumber];
     if (colorStart > colorEnd) {
         colorEnd = colorStart;
         colorStart = note.position().column();

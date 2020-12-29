@@ -290,6 +290,7 @@ static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
     caps.definitionProvider = json.value(QStringLiteral("definitionProvider")).toBool();
     caps.declarationProvider = json.value(QStringLiteral("declarationProvider")).toBool();
     caps.referencesProvider = json.value(QStringLiteral("referencesProvider")).toBool();
+    caps.implementationProvider = json.value(QStringLiteral("implementationProvider")).toBool();
     caps.documentSymbolProvider = json.value(QStringLiteral("documentSymbolProvider")).toBool();
     caps.documentHighlightProvider = json.value(QStringLiteral("documentHighlightProvider")).toBool();
     caps.documentFormattingProvider = json.value(QStringLiteral("documentFormattingProvider")).toBool();
@@ -1119,6 +1120,12 @@ public:
         return send(init_request(QStringLiteral("textDocument/declaration"), params), h);
     }
 
+    RequestHandle documentImplementation(const QUrl &document, const LSPPosition &pos, const GenericReplyHandler &h)
+    {
+        auto params = textDocumentPositionParams(document, pos);
+        return send(init_request(QStringLiteral("textDocument/implementation"), params), h);
+    }
+
     RequestHandle documentHover(const QUrl &document, const LSPPosition &pos, const GenericReplyHandler &h)
     {
         auto params = textDocumentPositionParams(document, pos);
@@ -1354,6 +1361,11 @@ LSPClientServer::RequestHandle LSPClientServer::documentSymbols(const QUrl &docu
 LSPClientServer::RequestHandle LSPClientServer::documentDefinition(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
 {
     return d->documentDefinition(document, pos, make_handler(h, context, parseDocumentLocation));
+}
+
+LSPClientServer::RequestHandle LSPClientServer::documentImplementation(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
+{
+    return d->documentImplementation(document, pos, make_handler(h, context, parseDocumentLocation));
 }
 
 LSPClientServer::RequestHandle LSPClientServer::documentDeclaration(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)

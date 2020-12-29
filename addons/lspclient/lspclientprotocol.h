@@ -78,6 +78,7 @@ struct LSPServerCapabilities {
     // FIXME ? clangd unofficial extension
     bool declarationProvider = false;
     bool referencesProvider = false;
+    bool implementationProvider = false;
     bool documentSymbolProvider = false;
     bool documentHighlightProvider = false;
     bool documentFormattingProvider = false;

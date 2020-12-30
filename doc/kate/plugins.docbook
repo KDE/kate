@@ -264,7 +264,7 @@ or one can obtain the current date in the preferred format like
 <para><userinput>Document:Selection:EndLine</userinput>: End line of selected text of the current document.</para>
 <para><userinput>Document:Selection:EndColumn</userinput>: End column of selected text of the current document.</para>
 <para><userinput>Document:RowCount</userinput>: Number of rows of the current document.</para>
-<para><userinput>Document:Variable:&lt;variable&gt;</userinput>: Expand arbitrary <ulink url="help:/katepart/config-variables.html">dobument variables</ulink>.</para>
+<para><userinput>Document:Variable:&lt;variable&gt;</userinput>: Expand arbitrary <ulink url="help:/katepart/config-variables.html">document variables</ulink>.</para>
 <para><userinput>Date:Locale</userinput>: The current date in current locale format.</para>
 <para><userinput>Date:ISO</userinput>: The current date (ISO).</para>
 <para><userinput>Date:&lt;value&gt;</userinput>: The current date (<ulink url="https://doc.qt.io/qt-5/qdate.html#toString">QDate formatstring</ulink>).</para>

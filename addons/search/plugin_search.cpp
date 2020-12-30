@@ -978,8 +978,7 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
     QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(startLine + 1).arg(startColumn + 1);
     QString matchHighlighted = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_searchBackgroundColor).arg(m_foregroundColor).arg(match);
-    pre.append(matchHighlighted + post);
-    displayText.append(pre);
+    displayText = displayText + pre + matchHighlighted + post;
 
     TreeWidgetItem *item = new TreeWidgetItem(static_cast<TreeWidgetItem*>(nullptr), QStringList{displayText});
 

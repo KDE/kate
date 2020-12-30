@@ -181,6 +181,7 @@ protected:
 private:
     QTreeWidgetItem *rootFileItem(const QString &url, const QString &fName);
     QStringList filterFiles(const QStringList &files) const;
+    void updateSearchColors();
 
     void onResize(const QSize &size);
 
@@ -208,7 +209,6 @@ private:
     QPointer<KTextEditor::Message> m_infoMessage;
     QString m_searchBackgroundColor;
     QString m_foregroundColor;
-    QString m_lineNumberColor;
 
     /**
      * current project plugin view, if any

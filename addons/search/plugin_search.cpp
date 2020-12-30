@@ -975,7 +975,8 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
     }
     post = post.toHtmlEscaped();
 
-    QString displayText = QStringLiteral("(<span style=\"color:%3;\">%1:%2</span>) &nbsp;").arg(startLine + 1).arg(startColumn + 1).arg(m_lineNumberColor);
+    // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
+    QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(startLine + 1).arg(startColumn + 1);
     QString matchHighlighted = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_searchBackgroundColor).arg(m_foregroundColor).arg(match);
     pre.append(matchHighlighted + post);
     displayText.append(pre);
@@ -1052,6 +1053,28 @@ void KatePluginSearchView::stopClicked()
     searchDone(); // Just in case the folder list was being populated...
 }
 
+/**
+  * update the search widget colors and font. This is done on start of every
+  * search so that if the user changes the theme, he can see the new colors
+  * on the next search
+  */
+void KatePluginSearchView::updateSearchColors()
+{
+    auto* view = m_mainWindow->activeView();
+    KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(view);
+    if (ciface && view) {
+        // save for later reuse when the search tree starts getting populated
+        m_searchBackgroundColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>().name();
+        m_foregroundColor = view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color().name();
+        if (m_curResults && m_curResults->tree) {
+            auto* delegate = qobject_cast<SPHtmlDelegate*>(m_curResults->tree->itemDelegate());
+            if (delegate) {
+                delegate->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
+            }
+        }
+    }
+}
+
 void KatePluginSearchView::startSearch()
 {
     // Forcefully stop any ongoing search or replace
@@ -1114,21 +1137,7 @@ void KatePluginSearchView::startSearch()
         return;
     }
 
-    /**
-      * update the search widget colors. This is done on start of every
-      * search so that if the user changes the theme, he can see the new colors
-      * on the next search
-      */
-    {
-        KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWindow->activeView());
-        if (ciface) {
-            // save for later reuse when the search tree starts getting populated
-            m_searchBackgroundColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>().name();
-            m_lineNumberColor = ciface->configValue(QStringLiteral("line-number-color")).value<QColor>().name();
-            m_foregroundColor = m_mainWindow->activeView()->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color().name();
-            qobject_cast<SPHtmlDelegate*>(m_curResults->tree->itemDelegate())->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
-        }
-    }
+    updateSearchColors();
 
     m_curResults->regExp = reg;
     m_curResults->useRegExp = m_ui.useRegExp->isChecked();
@@ -1251,6 +1260,7 @@ void KatePluginSearchView::startSearchWhileTyping()
     if (!m_searchDiskFilesDone || !m_searchOpenFilesDone) {
         return;
     }
+    updateSearchColors();
 
     m_isSearchAsYouType = true;
 

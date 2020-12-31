@@ -16,9 +16,13 @@
 
 #include <QHash>
 #include <QList>
-#include <QRegularExpression>
 #include <QVariant>
 #include <QVector>
+
+struct ColorIndex {
+    int start;
+    int end;
+};
 
 class ColorPickerInlineNoteProvider : public KTextEditor::InlineNoteProvider
 {
@@ -30,6 +34,9 @@ public:
     void updateColorMatchingCriteria();
     // if startLine == -1, update all notes. endLine is inclusive and optional
     void updateNotes(int startLine = -1, int endLine = -1);
+
+    ColorIndex findNamedColor(const QStringView lineText, int start) const;
+    ColorIndex findHexColor(const QStringView lineText, int start) const;
 
     QVector<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
@@ -51,8 +58,10 @@ private:
     // mutable is used here since InlineNoteProvider::inlineNotes is const only, and we update the notes lazily (only when inlineNotes is called)
     mutable QHash<int, ColorIndices> m_colorNoteIndices;
 
-    QRegularExpression m_colorRegEx;
+    static QVector<QString> s_namedColors;
+    QList<int> m_matchHexLengths;
     bool m_putPreviewAfterColor;
+    bool m_matchNamedColors;
 };
 
 class KateColorPickerPlugin : public KTextEditor::Plugin

@@ -13,6 +13,7 @@ class MainWindow;
 }
 namespace KTextEditor
 {
+class Document;
 class View;
 }
 
@@ -57,9 +58,14 @@ public:
 private Q_SLOTS:
     /**
      * Called whenever the current view changed.
-     * Required to enable/disable the tools that depend on specific mimetypes.
+     * Calls updateActionState() for the corresponding document.
      */
     void slotViewChanged(KTextEditor::View *view);
+
+    /**
+     * Required to enable/disable the tools that depend on specific mimetypes.
+     */
+    void updateActionState(KTextEditor::Document *activeDoc);
 
     /**
      * Triggered via Tools > External Tools > Configure...
@@ -70,6 +76,7 @@ private:
     KateExternalToolsPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainwindow; // for the actions to access view/doc managers
     KActionCollection *m_actionCollection;
+    QMetaObject::Connection m_docUrlChangedConnection;
 };
 
 class KateExternalToolsPluginView : public QObject, public KXMLGUIClient

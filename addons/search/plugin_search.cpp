@@ -816,6 +816,26 @@ QTreeWidgetItem *KatePluginSearchView::rootFileItem(const QString &url, const QS
         return nullptr;
     }
 
+    // make sure we have a root item
+    if (m_curResults->tree->topLevelItemCount() == 0) {
+        addHeaderItem();
+    }
+    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+
+    // return early if search as you type or search in "current file"
+    if (m_isSearchAsYouType) {
+        return root;
+    } else if (root->childCount() == 1 && m_ui.searchPlaceCombo->currentIndex() == CurrentFile) {
+        // return early for search in CurrentFile
+        int matches = root->child(0)->data(0, ReplaceMatches::StartLineRole).toInt() + 1;
+        QString path = root->child(0)->data(0, ReplaceMatches::FileUrlRole).toString();
+        QString name = root->child(0)->data(0, ReplaceMatches::FileNameRole).toString();
+        QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, name).arg(matches);
+        root->child(0)->setData(0, Qt::DisplayRole, tmpUrl);
+        root->child(0)->setData(0, ReplaceMatches::StartLineRole, matches);
+        return root->child(0);
+    }
+
     QUrl fullUrl = QUrl::fromUserInput(url);
     QString path = fullUrl.isLocalFile() ? localFileDirUp(fullUrl).path() : fullUrl.url();
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
@@ -825,16 +845,6 @@ QTreeWidgetItem *KatePluginSearchView::rootFileItem(const QString &url, const QS
     QString name = fullUrl.fileName();
     if (url.isEmpty()) {
         name = fName;
-    }
-
-    // make sure we have a root item
-    if (m_curResults->tree->topLevelItemCount() == 0) {
-        addHeaderItem();
-    }
-    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
-
-    if (m_isSearchAsYouType) {
-        return root;
     }
 
     for (int i = 0; i < root->childCount(); i++) {
@@ -860,16 +870,11 @@ QTreeWidgetItem *KatePluginSearchView::rootFileItem(const QString &url, const QS
     return item;
 }
 
-void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, QTreeWidgetItem *item)
+void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, KTextEditor::MovingInterface *miface, QTreeWidgetItem *item)
 {
     if (!doc || !item) {
         return;
     }
-
-    KTextEditor::View *activeView = m_mainWindow->activeView();
-    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-    KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(activeView);
-    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
     int line = item->data(0, ReplaceMatches::StartLineRole).toInt();
     int column = item->data(0, ReplaceMatches::StartColumnRole).toInt();
@@ -877,25 +882,14 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, QTreeWidgetI
     int endColumn = item->data(0, ReplaceMatches::EndColumnRole).toInt();
     bool isReplaced = item->data(0, ReplaceMatches::ReplacedRole).toBool();
 
+    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
+
     if (isReplaced) {
-        QColor replaceColor(Qt::green);
-        if (ciface)
-            replaceColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
-        attr->setBackground(replaceColor);
-
-        if (activeView) {
-            attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
-        }
+        attr->setBackground(m_replaceHighlightColor);
     } else {
-        QColor searchColor(Qt::yellow);
-        if (ciface)
-            searchColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
-        attr->setBackground(searchColor);
-
-        if (activeView) {
-            attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
-        }
+        attr->setBackground(m_searchBackgroundColor);
     }
+    attr->setForeground(m_foregroundColor);
 
     KTextEditor::Range range(line, column, endLine, endColumn);
 
@@ -945,8 +939,6 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, QTreeWidgetI
     iface->setMarkPixmap(KTextEditor::MarkInterface::markType32, QIcon().pixmap(0, 0));
 #endif
     iface->addMark(line, KTextEditor::MarkInterface::markType32);
-
-    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarks()), Qt::UniqueConnection);
 }
 
 void KatePluginSearchView::matchFound(const QString &url, const QString &fName, const QString &lineContent, int matchLen, int startLine, int startColumn, int endLine, int endColumn)
@@ -977,7 +969,7 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
     QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(startLine + 1).arg(startColumn + 1);
-    QString matchHighlighted = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_searchBackgroundColor).arg(m_foregroundColor).arg(match);
+    QString matchHighlighted = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_searchBackgroundColor.color().name()).arg(m_foregroundColor.color().name()).arg(match);
     displayText = displayText + pre + matchHighlighted + post;
 
     TreeWidgetItem *item = new TreeWidgetItem(static_cast<TreeWidgetItem*>(nullptr), QStringList{displayText});
@@ -1063,8 +1055,14 @@ void KatePluginSearchView::updateSearchColors()
     KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(view);
     if (ciface && view) {
         // save for later reuse when the search tree starts getting populated
-        m_searchBackgroundColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>().name();
-        m_foregroundColor = view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color().name();
+        m_searchBackgroundColor = QBrush(ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>());
+        if (!m_searchBackgroundColor.color().isValid())
+            m_searchBackgroundColor = Qt::yellow;
+        m_replaceHighlightColor = QBrush(ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>());
+        if (!m_replaceHighlightColor.color().isValid())
+            m_replaceHighlightColor = Qt::green;
+        m_foregroundColor = QBrush(view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
+
         if (m_curResults && m_curResults->tree) {
             auto* delegate = qobject_cast<SPHtmlDelegate*>(m_curResults->tree->itemDelegate());
             if (delegate) {
@@ -1681,12 +1679,14 @@ void KatePluginSearchView::docViewChanged()
             if (m_isSearchAsYouType) {
                 fileItem = fileItem->parent();
             }
+            connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarks()), Qt::UniqueConnection);
+            KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
 
             for (int i = 0; i < fileItem->childCount(); i++) {
                 if (fileItem->child(i)->checkState(0) == Qt::Unchecked) {
                     continue;
                 }
-                addMatchMark(doc, fileItem->child(i));
+                addMatchMark(doc, miface, fileItem->child(i));
             }
         }
         // Re-add the highlighting on document reload

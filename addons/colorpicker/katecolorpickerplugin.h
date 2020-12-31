@@ -32,8 +32,8 @@ public:
     ~ColorPickerInlineNoteProvider();
 
     void updateColorMatchingCriteria();
-    // if startLine == -1, update all notes. endLine is inclusive and optional
-    void updateNotes(int startLine = -1, int endLine = -1);
+    // if startLine == -1, update all notes. endLine is optional
+    void updateNotes(int startLine=-1, int endLine=-1);
 
     ColorIndex findNamedColor(const QStringView lineText, int start) const;
     ColorIndex findHexColor(const QStringView lineText, int start) const;
@@ -46,6 +46,7 @@ public:
 private:
     KTextEditor::Document *m_doc;
     int m_startChangedLines = -1;
+    int m_endChangedLines = -1;
     int m_previousNumLines = -1;
 
     struct ColorIndices {

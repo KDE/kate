@@ -45,20 +45,30 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
         qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
     });
 
-    // textInserted and textRemoved are emitted per line, then the last line is followed by a textChanged signal
-    connect(m_doc, &KTextEditor::Document::textInserted, this, [this](KTextEditor::Document *, const KTextEditor::Cursor &cur, const QString &) {
-        int line = cur.line();
-        if (m_startChangedLines == -1 || m_startChangedLines > line) {
+    auto lineChanged = [this](const int line) {
+        if (m_startChangedLines == -1 || m_endChangedLines == -1) {
             m_startChangedLines = line;
+        // changed line is directly above/below the previous changed line, so we just update them
+        } else if (line == m_endChangedLines) { // handled below. Condition added here to avoid fallthrough
+        } else if (line == m_startChangedLines-1) {
+            m_startChangedLines = line;
+        } else if (line < m_startChangedLines || line > m_endChangedLines) {
+            // changed line is outside the range of previous changes. Change proably skipped lines
+            updateNotes(m_startChangedLines, m_endChangedLines);
+            m_startChangedLines = line;
+            m_endChangedLines = -1;
         }
-    });
-    connect(m_doc, &KTextEditor::Document::textRemoved, this, [this](KTextEditor::Document *, const KTextEditor::Range &range, const QString &) {
-        int startLine = range.start().line();
-        if (m_startChangedLines == -1 || m_startChangedLines > startLine) {
-            m_startChangedLines = startLine;
-        }
-    });
 
+        m_endChangedLines = line >= m_endChangedLines ? line + 1 : m_endChangedLines;
+    };
+
+    // textInserted and textRemoved are emitted per line, then the last line is followed by a textChanged signal
+    connect(m_doc, &KTextEditor::Document::textInserted, this, [lineChanged](KTextEditor::Document *, const KTextEditor::Cursor &cur, const QString &) {
+        lineChanged(cur.line());
+    });
+    connect(m_doc, &KTextEditor::Document::textRemoved, this, [lineChanged](KTextEditor::Document *, const KTextEditor::Range &range, const QString &) {
+        lineChanged(range.start().line());
+    });
     connect(m_doc, &KTextEditor::Document::textChanged, this, [this](KTextEditor::Document *) {
         int newNumLines = m_doc->lines();
         if (m_startChangedLines == -1) {
@@ -67,12 +77,15 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
             //   *the document is newly opened so we update all lines
             updateNotes();
         } else {
-            // if the change involves the insertion/deletion of lines, all lines after it get shifted, so we need to update all of them
-            int endLine = m_previousNumLines != newNumLines ? newNumLines - 1 : -1;
-            updateNotes(m_startChangedLines, endLine);
+            if (m_previousNumLines != newNumLines) {
+                // either whole line(s) were removed or inserted. We update all lines (even those that are now non-existent) below m_startChangedLines
+                m_endChangedLines = newNumLines > m_previousNumLines ? newNumLines : m_previousNumLines;
+            }
+            updateNotes(m_startChangedLines, m_endChangedLines);
         }
 
         m_startChangedLines = -1;
+        m_endChangedLines = -1;
         m_previousNumLines = newNumLines;
     });
 
@@ -94,22 +107,20 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
     m_matchNamedColors = config.readEntry("NamedColors", false);
 }
 
-void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine)
-{
-    int maxLine = m_doc->lines() - 1;
+void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine) {
     startLine = startLine < -1 ? -1 : startLine;
-    endLine = endLine > maxLine ? maxLine : endLine;
-
     if (startLine == -1) {
         startLine = 0;
-        endLine = maxLine;
+        //  we use whichever of newNumLines and m_previousNumLines are longer so that note indices for non-existent lines are also removed
+        const int lastLine = m_doc->lines();
+        endLine = lastLine > m_previousNumLines ? lastLine : m_previousNumLines;
     }
 
     if (endLine == -1) {
         endLine = startLine;
     }
 
-    for (int line = startLine; line <= endLine; ++line) {
+    for (int line = startLine; line < endLine; ++line) {
         m_colorNoteIndices.remove(line);
         emit inlineNotesChanged(line);
     }

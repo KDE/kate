@@ -138,7 +138,7 @@ bool ReplaceMatches::replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *i
     html += QLatin1String("<i><s>") + item->data(0, ReplaceMatches::MatchRole).toString() + QLatin1String("</s></i> ");
     html += QLatin1String("<b>") + replaceText + QLatin1String("</b>");
     html += item->data(0, ReplaceMatches::PostMatchRole).toString();
-    item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2", range.start().line() + 1, html));
+    item->setData(0, Qt::DisplayRole, QStringLiteral("(<b>%1:%2</b>): %3").arg(range.start().line() + 1).arg(range.start().column() + 1).arg(html));
 
     return true;
 }

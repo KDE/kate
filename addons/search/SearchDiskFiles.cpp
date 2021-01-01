@@ -18,6 +18,7 @@
 #include "SearchDiskFiles.h"
 
 #include <QDir>
+#include <QMimeDatabase>
 #include <QTextStream>
 #include <QUrl>
 
@@ -32,12 +33,13 @@ SearchDiskFiles::~SearchDiskFiles()
     wait();
 }
 
-void SearchDiskFiles::startSearch(const QStringList &files, const QRegularExpression &regexp)
+void SearchDiskFiles::startSearch(const QStringList &files, const QRegularExpression &regexp, const bool includeBinaryFiles)
 {
     if (files.empty()) {
         emit searchDone();
         return;
     }
+    m_includeBinaryFiles = includeBinaryFiles;
     m_cancelSearch = false;
     m_terminateSearch = false;
     m_files = files;
@@ -57,6 +59,14 @@ void SearchDiskFiles::run()
         if (m_statusTime.elapsed() > 100) {
             m_statusTime.restart();
             emit searching(fileName);
+        }
+
+        // exclude binary files?
+        if (!m_includeBinaryFiles) {
+            const auto mimeType = QMimeDatabase().mimeTypeForFile(fileName);
+            if (!mimeType.inherits(QStringLiteral("text/plain"))) {
+                continue;
+            }
         }
 
         if (m_regExp.pattern().contains(QLatin1String("\\n"))) {

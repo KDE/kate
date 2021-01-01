@@ -35,7 +35,7 @@ public:
 
     void run() override;
 
-    void generateList(const QString &folder, bool recursive, bool hidden, bool symlinks, bool binary, const QString &types, const QString &excludes);
+    void generateList(const QString &folder, bool recursive, bool hidden, bool symlinks, const QString &types, const QString &excludes);
 
     void terminateSearch();
 
@@ -59,7 +59,6 @@ private:
     bool m_recursive = false;
     bool m_hidden = false;
     bool m_symlinks = false;
-    bool m_binary = false;
     QStringList m_types;
     QVector<QRegExp> m_excludeList;
     QElapsedTimer m_time;

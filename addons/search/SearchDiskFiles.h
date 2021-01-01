@@ -34,7 +34,7 @@ public:
     SearchDiskFiles(QObject *parent = nullptr);
     ~SearchDiskFiles() override;
 
-    void startSearch(const QStringList &iles, const QRegularExpression &regexp);
+    void startSearch(const QStringList &iles, const QRegularExpression &regexp, const bool includeBinaryFiles);
     void run() override;
     void terminateSearch();
 
@@ -59,6 +59,7 @@ private:
     bool m_terminateSearch = false;
     int m_matchCount = 0;
     QElapsedTimer m_statusTime;
+    bool m_includeBinaryFiles = false;
 };
 
 #endif

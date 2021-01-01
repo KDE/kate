@@ -769,13 +769,15 @@ void KatePluginSearchView::folderFileListChanged()
         m_searchOpenFilesDone = true;
     }
 
-    m_searchDiskFiles.startSearch(fileList, m_curResults->regExp);
+    m_searchDiskFiles.startSearch(fileList, m_curResults->regExp, m_ui.binaryCheckBox->isChecked());
 }
 
 void KatePluginSearchView::searchPlaceChanged()
 {
     int searchPlace = m_ui.searchPlaceCombo->currentIndex();
     const bool inFolder = (searchPlace == Folder);
+    const bool inCurrentProject = searchPlace == Project;
+    const bool inAllOpenProjects = searchPlace == AllProjects;
 
     m_ui.filterCombo->setEnabled(searchPlace >= Folder);
     m_ui.excludeCombo->setEnabled(searchPlace >= Folder);
@@ -785,7 +787,7 @@ void KatePluginSearchView::searchPlaceChanged()
     m_ui.recursiveCheckBox->setEnabled(inFolder);
     m_ui.hiddenCheckBox->setEnabled(inFolder);
     m_ui.symLinkCheckBox->setEnabled(inFolder);
-    m_ui.binaryCheckBox->setEnabled(inFolder);
+    m_ui.binaryCheckBox->setEnabled(inFolder || inCurrentProject || inAllOpenProjects);
 
     if (inFolder && sender() == m_ui.searchPlaceCombo) {
         setCurrentFolder();
@@ -1196,7 +1198,6 @@ void KatePluginSearchView::startSearch()
                                        m_ui.recursiveCheckBox->isChecked(),
                                        m_ui.hiddenCheckBox->isChecked(),
                                        m_ui.symLinkCheckBox->isChecked(),
-                                       m_ui.binaryCheckBox->isChecked(),
                                        m_ui.filterCombo->currentText(),
                                        m_ui.excludeCombo->currentText());
         // the file list will be ready when the thread returns (connected to folderFileListChanged)
@@ -1245,7 +1246,7 @@ void KatePluginSearchView::startSearch()
         } else {
             m_searchOpenFilesDone = true;
         }
-        m_searchDiskFiles.startSearch(files, reg);
+        m_searchDiskFiles.startSearch(files, reg, m_ui.binaryCheckBox->isChecked());
     } else {
         qDebug() << "Case not handled:" << m_ui.searchPlaceCombo->currentIndex();
         Q_ASSERT_X(false, "KatePluginSearchView::startSearch", "case not handled");

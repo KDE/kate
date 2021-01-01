@@ -1466,9 +1466,9 @@ void KatePluginSearchView::searching(const QString &file)
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
     if (root) {
         if (file.size() > 70) {
-            root->setData(0, Qt::DisplayRole, i18n("<b>Searching (%1 matches): ...%2</b>", m_curResults->matches, file.right(70)));
+            root->setData(0, Qt::DisplayRole, i18n("<b>Searching: ...%1</b>", file.right(70)));
         } else {
-            root->setData(0, Qt::DisplayRole, i18n("<b>Searching (%1 matches): %2</b>", m_curResults->matches, file));
+            root->setData(0, Qt::DisplayRole, i18n("<b>Searching: %1</b>", file));
         }
     }
 }

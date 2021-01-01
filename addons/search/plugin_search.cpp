@@ -1466,9 +1466,9 @@ void KatePluginSearchView::searching(const QString &file)
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
     if (root) {
         if (file.size() > 70) {
-            root->setData(0, Qt::DisplayRole, i18n("<b>Searching: ...%1</b>", file.right(70)));
+            root->setData(0, Qt::DisplayRole, i18n("<b>Searching (%1 matches): ...%2</b>", m_curResults->matches, file.right(70)));
         } else {
-            root->setData(0, Qt::DisplayRole, i18n("<b>Searching: %1</b>", file));
+            root->setData(0, Qt::DisplayRole, i18n("<b>Searching (%1 matches): %2</b>", m_curResults->matches, file));
         }
     }
 }
@@ -1702,16 +1702,18 @@ void KatePluginSearchView::expandResults()
         return;
     }
 
-    if (m_ui.expandResults->isChecked()) {
+    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+    if (!root) {
+        return;
+    }
+
+    // we expand recursively if we either are told so or we have just one toplevel match item
+    if (m_ui.expandResults->isChecked() || (root->childCount() <= 1)) {
         m_curResults->tree->expandAll();
     } else {
-        QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+        // first collapse all and the expand the root, much faster than collapsing all children manually
+        m_curResults->tree->collapseAll();
         m_curResults->tree->expandItem(root);
-        if (root && (root->childCount() > 1)) {
-            for (int i = 0; i < root->childCount(); i++) {
-                m_curResults->tree->collapseItem(root->child(i));
-            }
-        }
     }
 }
 

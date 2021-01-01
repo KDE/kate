@@ -120,7 +120,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
         match = regExp.match(doc->line(line));
         column = match.capturedStart();
         while (column != -1 && !match.captured().isEmpty()) {
-            matches.push_back(KateSearchMatch{doc->line(line), match.capturedLength(), line, column, line, column + match.capturedLength()});
+            matches.push_back(KateSearchMatch{doc->line(line), match.capturedLength(), KTextEditor::Range{line, column, line, column + match.capturedLength()}});
             match = regExp.match(doc->line(line), column + match.capturedLength());
             column = match.capturedStart();
         }
@@ -195,7 +195,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
         int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL - 1;
 
-        matches.push_back(KateSearchMatch{doc->line(startLine).left(column - m_lineStart[startLine]) + match.captured(), match.capturedLength(), startLine, startColumn, endLine, endColumn});
+        matches.push_back(KateSearchMatch{doc->line(startLine).left(column - m_lineStart[startLine]) + match.captured(), match.capturedLength(), KTextEditor::Range{startLine, startColumn, endLine, endColumn}});
 
         match = tmpRegExp.match(m_fullDoc, column + match.capturedLength());
         column = match.capturedStart();

@@ -968,7 +968,7 @@ void KatePluginSearchView::matchesFound(const QString &url, const QString &fName
     QList<QTreeWidgetItem *> items;
     for (const auto &searchMatch : searchMatches) {
         int preLen = contextLen;
-        int preStart = searchMatch.startColumn - preLen;
+        int preStart = searchMatch.matchRange.start().column() - preLen;
         if (preStart < 0) {
             preLen += preStart;
             preStart = 0;
@@ -978,16 +978,16 @@ void KatePluginSearchView::matchesFound(const QString &url, const QString &fName
             pre = QStringLiteral("...");
         }
         pre += searchMatch.lineContent.mid(preStart, preLen).toHtmlEscaped();
-        QString match = searchMatch.lineContent.mid(searchMatch.startColumn, searchMatch.matchLen).toHtmlEscaped();
+        QString match = searchMatch.lineContent.mid(searchMatch.matchRange.start().column(), searchMatch.matchLen).toHtmlEscaped();
         match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
-        QString post = searchMatch.lineContent.mid(searchMatch.startColumn + searchMatch.matchLen, contextLen);
+        QString post = searchMatch.lineContent.mid(searchMatch.matchRange.start().column() + searchMatch.matchLen, contextLen);
         if (post.size() >= contextLen) {
             post += QStringLiteral("...");
         }
         post = post.toHtmlEscaped();
 
         // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-        QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(searchMatch.startLine + 1).arg(searchMatch.startColumn + 1);
+        QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(searchMatch.matchRange.start().line() + 1).arg(searchMatch.matchRange.start().column() + 1);
         QString matchHighlighted = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_searchBackgroundColor.color().name()).arg(m_foregroundColor.color().name()).arg(match);
         displayText = displayText + pre + matchHighlighted + post;
 
@@ -996,14 +996,14 @@ void KatePluginSearchView::matchesFound(const QString &url, const QString &fName
         item->setData(0, ReplaceMatches::FileUrlRole, url);
         item->setData(0, Qt::ToolTipRole, url);
         item->setData(0, ReplaceMatches::FileNameRole, fName);
-        item->setData(0, ReplaceMatches::StartLineRole, searchMatch.startLine);
-        item->setData(0, ReplaceMatches::StartColumnRole, searchMatch.startColumn);
+        item->setData(0, ReplaceMatches::StartLineRole, searchMatch.matchRange.start().line());
+        item->setData(0, ReplaceMatches::StartColumnRole, searchMatch.matchRange.start().column());
         item->setData(0, ReplaceMatches::MatchLenRole, searchMatch.matchLen);
         item->setData(0, ReplaceMatches::PreMatchRole, pre);
         item->setData(0, ReplaceMatches::MatchRole, match);
         item->setData(0, ReplaceMatches::PostMatchRole, post);
-        item->setData(0, ReplaceMatches::EndLineRole, searchMatch.endLine);
-        item->setData(0, ReplaceMatches::EndColumnRole, searchMatch.endColumn);
+        item->setData(0, ReplaceMatches::EndLineRole, searchMatch.matchRange.end().line());
+        item->setData(0, ReplaceMatches::EndColumnRole, searchMatch.matchRange.end().column());
         item->setCheckState(0, Qt::Checked);
         items.push_back(item);
     }

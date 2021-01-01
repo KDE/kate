@@ -124,7 +124,7 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
             if (line.length() > 1024)
                 line = line.left(1024);
 
-            matches.push_back(KateSearchMatch{line, match.capturedLength(), i, column, i, column + match.capturedLength()});
+            matches.push_back(KateSearchMatch{line, match.capturedLength(), KTextEditor::Range{i, column, i, column + match.capturedLength()}});
 
             match = m_regExp.match(line, column + match.capturedLength());
             column = match.capturedStart();
@@ -198,7 +198,7 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         int endLine = line + match.captured().count(QLatin1Char('\n'));
         int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
         int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL - 1;
-        matches.push_back(KateSearchMatch{fullDoc.mid(lineStart[line], column - lineStart[line]) + match.captured(), match.capturedLength(), line, startColumn, endLine, endColumn});
+        matches.push_back(KateSearchMatch{fullDoc.mid(lineStart[line], column - lineStart[line]) + match.captured(), match.capturedLength(), KTextEditor::Range{line, startColumn, endLine, endColumn}});
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();
         m_matchCount++;

@@ -223,6 +223,9 @@ K_PLUGIN_FACTORY_WITH_JSON(KatePluginSearchFactory, "katesearch.json", registerP
 KatePluginSearch::KatePluginSearch(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
+    // ensure we can send over vector of matches via queued connection
+    qRegisterMetaType<QVector<KateSearchMatch>>();
+
     m_searchCommand = new KateSearchCommand(this);
 }
 
@@ -451,14 +454,14 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     m_ui.displayOptions->setChecked(true);
 
-    connect(&m_searchOpenFiles, &SearchOpenFiles::matchFound, this, &KatePluginSearchView::matchFound);
+    connect(&m_searchOpenFiles, &SearchOpenFiles::matchesFound, this, &KatePluginSearchView::matchesFound);
     connect(&m_searchOpenFiles, &SearchOpenFiles::searchDone, this, &KatePluginSearchView::searchDone);
     connect(&m_searchOpenFiles, static_cast<void (SearchOpenFiles::*)(const QString &)>(&SearchOpenFiles::searching), this, &KatePluginSearchView::searching);
 
     connect(&m_folderFilesList, &FolderFilesList::fileListReady, this, &KatePluginSearchView::folderFileListChanged);
     connect(&m_folderFilesList, &FolderFilesList::searching, this, &KatePluginSearchView::searching);
 
-    connect(&m_searchDiskFiles, &SearchDiskFiles::matchFound, this, &KatePluginSearchView::matchFound);
+    connect(&m_searchDiskFiles, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound);
     connect(&m_searchDiskFiles, &SearchDiskFiles::searchDone, this, &KatePluginSearchView::searchDone);
     connect(&m_searchDiskFiles, static_cast<void (SearchDiskFiles::*)(const QString &)>(&SearchDiskFiles::searching), this, &KatePluginSearchView::searching);
 
@@ -812,10 +815,14 @@ void KatePluginSearchView::addHeaderItem()
     m_curResults->tree->expandItem(item);
 }
 
-QTreeWidgetItem *KatePluginSearchView::rootFileItem(const QString &url, const QString &fName)
+void KatePluginSearchView::addMatchesToRootFileItem(const QString &url, const QString &fName, const QList<QTreeWidgetItem *> &matchItems)
 {
     if (!m_curResults) {
-        return nullptr;
+        return;
+    }
+
+    if (matchItems.isEmpty()) {
+        return;
     }
 
     // make sure we have a root item
@@ -826,16 +833,18 @@ QTreeWidgetItem *KatePluginSearchView::rootFileItem(const QString &url, const QS
 
     // return early if search as you type or search in "current file"
     if (m_isSearchAsYouType) {
-        return root;
+        root->addChildren(matchItems);
+        return;
     } else if (root->childCount() == 1 && m_ui.searchPlaceCombo->currentIndex() == CurrentFile) {
         // return early for search in CurrentFile
-        int matches = root->child(0)->data(0, ReplaceMatches::StartLineRole).toInt() + 1;
+        int matches = root->child(0)->data(0, ReplaceMatches::StartLineRole).toInt() + matchItems.size();
         QString path = root->child(0)->data(0, ReplaceMatches::FileUrlRole).toString();
         QString name = root->child(0)->data(0, ReplaceMatches::FileNameRole).toString();
         QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, name).arg(matches);
         root->child(0)->setData(0, Qt::DisplayRole, tmpUrl);
         root->child(0)->setData(0, ReplaceMatches::StartLineRole, matches);
-        return root->child(0);
+        root->child(0)->addChildren(matchItems);
+        return;
     }
 
     QUrl fullUrl = QUrl::fromUserInput(url);
@@ -852,24 +861,25 @@ QTreeWidgetItem *KatePluginSearchView::rootFileItem(const QString &url, const QS
     for (int i = 0; i < root->childCount(); i++) {
         // qDebug() << root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() << fName;
         if ((root->child(i)->data(0, ReplaceMatches::FileUrlRole).toString() == url) && (root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() == fName)) {
-            int matches = root->child(i)->data(0, ReplaceMatches::StartLineRole).toInt() + 1;
+            int matches = root->child(i)->data(0, ReplaceMatches::StartLineRole).toInt() + matchItems.size();
             QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, name).arg(matches);
             root->child(i)->setData(0, Qt::DisplayRole, tmpUrl);
             root->child(i)->setData(0, ReplaceMatches::StartLineRole, matches);
-            return root->child(i);
+            root->child(i)->addChildren(matchItems);
+            return;
         }
     }
 
     // file item not found create a new one
-    QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, name).arg(1);
+    QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, name).arg(matchItems.size());
 
     TreeWidgetItem *item = new TreeWidgetItem(root, QStringList(tmpUrl));
     item->setData(0, ReplaceMatches::FileUrlRole, url);
     item->setData(0, ReplaceMatches::FileNameRole, fName);
-    item->setData(0, ReplaceMatches::StartLineRole, 1);
+    item->setData(0, ReplaceMatches::StartLineRole, matchItems.size());
     item->setCheckState(0, Qt::Checked);
     item->setFlags(item->flags() | Qt::ItemIsAutoTristate);
-    return item;
+    item->addChildren(matchItems);
 }
 
 void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, KTextEditor::MovingInterface *miface, QTreeWidgetItem *item)
@@ -944,54 +954,61 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, KTextEditor:
     iface->addMark(line, KTextEditor::MarkInterface::markType32);
 }
 
-void KatePluginSearchView::matchFound(const QString &url, const QString &fName, const QString &lineContent, int matchLen, int startLine, int startColumn, int endLine, int endColumn)
+void KatePluginSearchView::matchesFound(const QString &url, const QString &fName, const QVector<KateSearchMatch> &searchMatches)
 {
     static constexpr int contextLen = 70;
 
     if (!m_curResults || (sender() == &m_searchDiskFiles && m_blockDiskMatchFound)) {
         return;
     }
-    int preLen = contextLen;
-    int preStart = startColumn - preLen;
-    if (preStart < 0) {
-        preLen += preStart;
-        preStart = 0;
+
+    /**
+     * handle all received matches, add them as one operation to the widget afterwards
+     */
+    QList<QTreeWidgetItem *> items;
+    for (const auto &searchMatch : searchMatches) {
+        int preLen = contextLen;
+        int preStart = searchMatch.startColumn - preLen;
+        if (preStart < 0) {
+            preLen += preStart;
+            preStart = 0;
+        }
+        QString pre;
+        if (preLen == contextLen) {
+            pre = QStringLiteral("...");
+        }
+        pre += searchMatch.lineContent.mid(preStart, preLen).toHtmlEscaped();
+        QString match = searchMatch.lineContent.mid(searchMatch.startColumn, searchMatch.matchLen).toHtmlEscaped();
+        match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+        QString post = searchMatch.lineContent.mid(searchMatch.startColumn + searchMatch.matchLen, contextLen);
+        if (post.size() >= contextLen) {
+            post += QStringLiteral("...");
+        }
+        post = post.toHtmlEscaped();
+
+        // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
+        QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(searchMatch.startLine + 1).arg(searchMatch.startColumn + 1);
+        QString matchHighlighted = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_searchBackgroundColor.color().name()).arg(m_foregroundColor.color().name()).arg(match);
+        displayText = displayText + pre + matchHighlighted + post;
+
+        TreeWidgetItem *item = new TreeWidgetItem(static_cast<TreeWidgetItem*>(nullptr), QStringList{displayText});
+
+        item->setData(0, ReplaceMatches::FileUrlRole, url);
+        item->setData(0, Qt::ToolTipRole, url);
+        item->setData(0, ReplaceMatches::FileNameRole, fName);
+        item->setData(0, ReplaceMatches::StartLineRole, searchMatch.startLine);
+        item->setData(0, ReplaceMatches::StartColumnRole, searchMatch.startColumn);
+        item->setData(0, ReplaceMatches::MatchLenRole, searchMatch.matchLen);
+        item->setData(0, ReplaceMatches::PreMatchRole, pre);
+        item->setData(0, ReplaceMatches::MatchRole, match);
+        item->setData(0, ReplaceMatches::PostMatchRole, post);
+        item->setData(0, ReplaceMatches::EndLineRole, searchMatch.endLine);
+        item->setData(0, ReplaceMatches::EndColumnRole, searchMatch.endColumn);
+        item->setCheckState(0, Qt::Checked);
+        items.push_back(item);
     }
-    QString pre;
-    if (preLen == contextLen) {
-        pre = QStringLiteral("...");
-    }
-    pre += lineContent.mid(preStart, preLen).toHtmlEscaped();
-    QString match = lineContent.mid(startColumn, matchLen).toHtmlEscaped();
-    match.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
-    QString post = lineContent.mid(startColumn + matchLen, contextLen);
-    if (post.size() >= contextLen) {
-        post += QStringLiteral("...");
-    }
-    post = post.toHtmlEscaped();
-
-    // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-    QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(startLine + 1).arg(startColumn + 1);
-    QString matchHighlighted = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_searchBackgroundColor.color().name()).arg(m_foregroundColor.color().name()).arg(match);
-    displayText = displayText + pre + matchHighlighted + post;
-
-    TreeWidgetItem *item = new TreeWidgetItem(static_cast<TreeWidgetItem*>(nullptr), QStringList{displayText});
-
-    item->setData(0, ReplaceMatches::FileUrlRole, url);
-    item->setData(0, Qt::ToolTipRole, url);
-    item->setData(0, ReplaceMatches::FileNameRole, fName);
-    item->setData(0, ReplaceMatches::StartLineRole, startLine);
-    item->setData(0, ReplaceMatches::StartColumnRole, startColumn);
-    item->setData(0, ReplaceMatches::MatchLenRole, matchLen);
-    item->setData(0, ReplaceMatches::PreMatchRole, pre);
-    item->setData(0, ReplaceMatches::MatchRole, match);
-    item->setData(0, ReplaceMatches::PostMatchRole, post);
-    item->setData(0, ReplaceMatches::EndLineRole, endLine);
-    item->setData(0, ReplaceMatches::EndColumnRole, endColumn);
-    item->setCheckState(0, Qt::Checked);
-    rootFileItem(url, fName)->addChild(item);
-
-    m_curResults->matches++;
+    addMatchesToRootFileItem(url, fName, items);
+    m_curResults->matches += items.size();
 }
 
 void KatePluginSearchView::clearMarks()

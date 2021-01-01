@@ -135,7 +135,7 @@ private Q_SLOTS:
 
     void folderFileListChanged();
 
-    void matchFound(const QString &url, const QString &fileName, const QString &lineContent, int matchLen, int startLine, int startColumn, int endLine, int endColumn);
+    void matchesFound(const QString &url, const QString &fileName, const QVector<KateSearchMatch> &searchMatches);
 
     void addMatchMark(KTextEditor::Document *doc, KTextEditor::MovingInterface *miface, QTreeWidgetItem *item);
 
@@ -179,7 +179,7 @@ protected:
     void addHeaderItem();
 
 private:
-    QTreeWidgetItem *rootFileItem(const QString &url, const QString &fName);
+    void addMatchesToRootFileItem(const QString &url, const QString &fName, const QList<QTreeWidgetItem *> &matchItems);
     QStringList filterFiles(const QStringList &files) const;
     void updateSearchColors();
 

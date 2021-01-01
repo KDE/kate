@@ -26,6 +26,23 @@
 #include <QThread>
 #include <QVector>
 
+/**
+ * data holder for one match in one file
+ * used to transfer multiple matches at once via signals to avoid heavy costs for files with a lot of matches
+ */
+class KateSearchMatch
+{
+    public:
+        QString lineContent;
+        int matchLen;
+        int startLine;
+        int startColumn;
+        int endLine;
+        int endColumn;
+};
+
+Q_DECLARE_METATYPE(KateSearchMatch)
+
 class SearchDiskFiles : public QThread
 {
     Q_OBJECT
@@ -48,7 +65,7 @@ public Q_SLOTS:
     void cancelSearch();
 
 Q_SIGNALS:
-    void matchFound(const QString &url, const QString &docName, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
+    void matchesFound(const QString &url, const QString &docName, const QVector<KateSearchMatch> &searchMatches);
     void searchDone();
     void searching(const QString &file);
 

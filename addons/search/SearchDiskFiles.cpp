@@ -102,8 +102,6 @@ bool SearchDiskFiles::searching()
 void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
 {
     QFile file(fileName);
-    QUrl fileUrl = QUrl::fromUserInput(fileName);
-
     if (!file.open(QFile::ReadOnly)) {
         return;
     }
@@ -113,6 +111,7 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
     int i = 0;
     int column;
     QRegularExpressionMatch match;
+    QVector<KateSearchMatch> matches;
     while (!(line = stream.readLine()).isNull()) {
         if (m_cancelSearch)
             break;
@@ -125,7 +124,7 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
             if (line.length() > 1024)
                 line = line.left(1024);
 
-            emit matchFound(fileUrl.toString(), fileUrl.fileName(), line, match.capturedLength(), i, column, i, column + match.capturedLength());
+            matches.push_back(KateSearchMatch{line, match.capturedLength(), i, column, i, column + match.capturedLength()});
 
             match = m_regExp.match(line, column + match.capturedLength());
             column = match.capturedStart();
@@ -136,6 +135,12 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
                 msleep(1);
         }
         i++;
+    }
+
+    // emit all matches batched
+    if (!matches.isEmpty()) {
+        const QUrl fileUrl = QUrl::fromUserInput(fileName);
+        emit matchesFound(fileUrl.toString(), fileUrl.fileName(), matches);
     }
 }
 
@@ -173,6 +178,7 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
     QRegularExpressionMatch match;
     match = tmpRegExp.match(fullDoc);
     column = match.capturedStart();
+    QVector<KateSearchMatch> matches;
     while (column != -1 && !match.captured().isEmpty()) {
         if (m_cancelSearch)
             break;
@@ -188,12 +194,11 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         if (line == -1) {
             break;
         }
-        QUrl fileUrl = QUrl::fromUserInput(fileName);
         int startColumn = (column - lineStart[line]);
         int endLine = line + match.captured().count(QLatin1Char('\n'));
         int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
         int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL - 1;
-        emit matchFound(fileUrl.toString(), fileUrl.fileName(), fullDoc.mid(lineStart[line], column - lineStart[line]) + match.captured(), match.capturedLength(), line, startColumn, endLine, endColumn);
+        matches.push_back(KateSearchMatch{fullDoc.mid(lineStart[line], column - lineStart[line]) + match.captured(), match.capturedLength(), line, startColumn, endLine, endColumn});
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();
         m_matchCount++;
@@ -201,5 +206,11 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         // handle any stop button clicks if there are a lot of matches
         if (m_matchCount % 50)
             msleep(1);
+    }
+
+    // emit all matches batched
+    if (!matches.isEmpty()) {
+        const QUrl fileUrl = QUrl::fromUserInput(fileName);
+        emit matchesFound(fileUrl.toString(), fileUrl.fileName(), matches);
     }
 }

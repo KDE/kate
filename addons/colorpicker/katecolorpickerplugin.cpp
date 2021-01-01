@@ -102,7 +102,7 @@ ColorPickerInlineNoteProvider::~ColorPickerInlineNoteProvider()
 void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
 {
     KConfigGroup config(KSharedConfig::openConfig(), "ColorPicker");
-    m_matchHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 8, 6, 3});
+    m_matchHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 8, 6, 3}).toVector();
     m_putPreviewAfterColor = config.readEntry("PreviewAfterColor", true);
     m_matchNamedColors = config.readEntry("NamedColors", false);
 }
@@ -126,7 +126,7 @@ void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine) {
     }
 }
 
-ColorIndex ColorPickerInlineNoteProvider::findNamedColor(const QStringView lineText, int start) const
+ColorRange ColorPickerInlineNoteProvider::findNamedColor(const QStringView lineText, int start) const
 {
     // only return when a valid named color is found, a # is found, or we have reached the end of the line
     while (start < lineText.length()) {
@@ -168,7 +168,7 @@ ColorIndex ColorPickerInlineNoteProvider::findNamedColor(const QStringView lineT
     return {-1, start};
 }
 
-ColorIndex ColorPickerInlineNoteProvider::findHexColor(const QStringView lineText, int start) const
+ColorRange ColorPickerInlineNoteProvider::findHexColor(const QStringView lineText, int start) const
 {
     if (m_matchHexLengths.size() == 0) {
         return {-1, -1};
@@ -207,7 +207,7 @@ QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
 
         const QString lineText = m_doc->line(line);
         for (int lineIndex = 0; lineIndex < lineText.length(); ++lineIndex) {
-            ColorIndex color{-1, -1};
+            ColorRange color;
             bool isNamedColor = true;
             if (m_matchNamedColors) {
                 color = findNamedColor(lineText, lineIndex);
@@ -267,7 +267,7 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
     auto colorEnd = note.position().column();
 
     const QVector<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
-    // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes, we can use binary search to find the index (or color note number) for the line
+    // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes(), we can use binary search to find the index (or color note number) for the line
     const int colorNoteNumber = std::lower_bound(colorNoteIndices.cbegin(), colorNoteIndices.cend(), colorEnd) - colorNoteIndices.cbegin();
     auto colorStart = m_colorNoteIndices[line].otherColorIndices[colorNoteNumber];
 
@@ -277,10 +277,11 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
     }
 
     const auto color = QColor(m_doc->text({line, colorStart, line, colorEnd}));
-    auto penColor = color;
-    penColor.setAlpha(255);
     // ensure that the border color is always visible
-    painter.setPen((penColor.value() < 128 ? penColor.lighter(150) : penColor.darker(150)));
+    QColor penColor = color;
+    penColor.setAlpha(255);
+    painter.setPen(penColor.value() < 128 ? penColor.lighter(150) : penColor.darker(150));
+
     painter.setBrush(color);
     painter.setRenderHint(QPainter::Antialiasing, false);
     const QFontMetricsF fm(note.font());
@@ -305,14 +306,13 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
     }
 
     const auto oldColor = QColor(m_doc->text({line, colorStart, line, colorEnd}));
-
     QColorDialog::ColorDialogOptions dialogOptions = QColorDialog::ShowAlphaChannel;
     QString title = i18n("Select Color (Hex output)");
     if (!m_doc->isReadWrite()) {
         dialogOptions |= QColorDialog::NoButtons;
         title = i18n("View Color [Read only]");
     }
-    const auto newColor = QColorDialog::getColor(oldColor, const_cast<KTextEditor::View *>(note.view()), title, dialogOptions);
+    const QColor newColor = QColorDialog::getColor(oldColor, const_cast<KTextEditor::View*>(note.view()), title, dialogOptions);
     if (!newColor.isValid()) {
         return;
     }

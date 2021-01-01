@@ -19,7 +19,8 @@
 #include <QVariant>
 #include <QVector>
 
-struct ColorIndex {
+struct ColorRange {
+    ColorRange(const int s = -1, const int e = -1) : start(s), end(e) {}
     int start;
     int end;
 };
@@ -35,8 +36,8 @@ public:
     // if startLine == -1, update all notes. endLine is optional
     void updateNotes(int startLine=-1, int endLine=-1);
 
-    ColorIndex findNamedColor(const QStringView lineText, int start) const;
-    ColorIndex findHexColor(const QStringView lineText, int start) const;
+    ColorRange findNamedColor(const QStringView lineText, int start) const;
+    ColorRange findHexColor(const QStringView lineText, int start) const;
 
     QVector<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
@@ -50,17 +51,17 @@ private:
     int m_previousNumLines = -1;
 
     struct ColorIndices {
-        // When m_putPreviewAfterColor is true, otherColorIndices holds the starting color indices while colorNoteIndices holds the end color indices
+        // When m_putPreviewAfterColor is true, otherColorIndices holds the starting color indices while colorNoteIndices holds the end color indices (and vice versa)
         // colorNoteIndices[i] corresponds to otherColorIndices[i]
         QVector<int> colorNoteIndices;
         QVector<int> otherColorIndices;
     };
 
-    // mutable is used here since InlineNoteProvider::inlineNotes is const only, and we update the notes lazily (only when inlineNotes is called)
+    // mutable is used here since InlineNoteProvider::inlineNotes() is const only, and we update the notes lazily (only when inlineNotes() is called)
     mutable QHash<int, ColorIndices> m_colorNoteIndices;
 
     static QVector<QString> s_namedColors;
-    QList<int> m_matchHexLengths;
+    QVector<int> m_matchHexLengths;
     bool m_putPreviewAfterColor;
     bool m_matchNamedColors;
 };

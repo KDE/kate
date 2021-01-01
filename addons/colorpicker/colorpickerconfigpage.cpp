@@ -89,10 +89,8 @@ QIcon KateColorPickerConfigPage::icon() const
 void KateColorPickerConfigPage::apply()
 {
     if (!m_colorConfigChanged) {
-        // apply() gets called when the "Apply" or "OK" button is pressed
-        // this means that if a user presses "Apply" THEN "OK", the config is updated twice
-        // since the reconstruction of the regex (and the regeneration of color note positions) is expensive,
-        // we only update on the first call to apply() before changes are made again
+        // apply() gets called when the "Apply" or "OK" button is pressed. This means that if a user presses "Apply" THEN "OK", the config is updated twice
+        // Since the the regeneration of color note positions is expensive, we only update on the first call to apply() before changes are made again
         return;
     }
 

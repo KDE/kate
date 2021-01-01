@@ -1707,6 +1707,11 @@ void KatePluginSearchView::expandResults()
         return;
     }
 
+    // ensure we waste no time for updates & animations
+    m_curResults->tree->setUpdatesEnabled(false);
+    const bool oldAnimationState = m_curResults->tree->isAnimated();
+    m_curResults->tree->setAnimated(false);
+
     // we expand recursively if we either are told so or we have just one toplevel match item
     if (m_ui.expandResults->isChecked() || (root->childCount() <= 1)) {
         m_curResults->tree->expandAll();
@@ -1715,6 +1720,9 @@ void KatePluginSearchView::expandResults()
         m_curResults->tree->collapseAll();
         m_curResults->tree->expandItem(root);
     }
+
+    m_curResults->tree->setAnimated(oldAnimationState);
+    m_curResults->tree->setUpdatesEnabled(true);
 }
 
 void KatePluginSearchView::updateResultsRootItem()

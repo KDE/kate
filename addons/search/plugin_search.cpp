@@ -216,6 +216,8 @@ Results::Results(QWidget *parent)
     setupUi(this);
 
     tree->setItemDelegate(new SPHtmlDelegate(tree));
+    treeView->setItemDelegate(new SPHtmlDelegate(tree));
+    treeView->setModel(&matchModel);
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginSearchFactory, "katesearch.json", registerPlugin<KatePluginSearch>();)
@@ -464,6 +466,8 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(&m_searchDiskFiles, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound);
     connect(&m_searchDiskFiles, &SearchDiskFiles::searchDone, this, &KatePluginSearchView::searchDone);
     connect(&m_searchDiskFiles, static_cast<void (SearchDiskFiles::*)(const QString &)>(&SearchDiskFiles::searching), this, &KatePluginSearchView::searching);
+
+
 
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, &m_searchOpenFiles, &SearchOpenFiles::cancelSearch);
 
@@ -815,7 +819,7 @@ void KatePluginSearchView::addHeaderItem()
     m_curResults->tree->expandItem(item);
 }
 
-void KatePluginSearchView::addMatchesToRootFileItem(const QString &url, const QString &fName, const QList<QTreeWidgetItem *> &matchItems)
+void KatePluginSearchView::addMatchesToRootFileItem(const QUrl &url, const QList<QTreeWidgetItem *> &matchItems)
 {
     if (!m_curResults) {
         return;
@@ -847,22 +851,18 @@ void KatePluginSearchView::addMatchesToRootFileItem(const QString &url, const QS
         return;
     }
 
-    QUrl fullUrl = QUrl::fromUserInput(url);
-    QString path = fullUrl.isLocalFile() ? localFileDirUp(fullUrl).path() : fullUrl.url();
+    QString path = url.isLocalFile() ? localFileDirUp(url).path() : url.url();
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
         path += QLatin1Char('/');
     }
     path.remove(m_resultBaseDir);
-    QString name = fullUrl.fileName();
-    if (url.isEmpty()) {
-        name = fName;
-    }
+    QString fileName = url.fileName();
 
     for (int i = 0; i < root->childCount(); i++) {
         // qDebug() << root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() << fName;
-        if ((root->child(i)->data(0, ReplaceMatches::FileUrlRole).toString() == url) && (root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() == fName)) {
+        if (root->child(i)->data(0, ReplaceMatches::FileUrlRole).toUrl() == url) {
             int matches = root->child(i)->data(0, ReplaceMatches::StartLineRole).toInt() + matchItems.size();
-            QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, name).arg(matches);
+            QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, fileName).arg(matches);
             root->child(i)->setData(0, Qt::DisplayRole, tmpUrl);
             root->child(i)->setData(0, ReplaceMatches::StartLineRole, matches);
             root->child(i)->addChildren(matchItems);
@@ -871,12 +871,13 @@ void KatePluginSearchView::addMatchesToRootFileItem(const QString &url, const QS
     }
 
     // file item not found create a new one
-    QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, name).arg(matchItems.size());
+    QString tmpUrl = QStringLiteral("%1<b>%2</b>: <b>%3</b>").arg(path, fileName).arg(matchItems.size());
 
     TreeWidgetItem *item = new TreeWidgetItem(root, QStringList(tmpUrl));
     item->setData(0, ReplaceMatches::FileUrlRole, url);
-    item->setData(0, ReplaceMatches::FileNameRole, fName);
+    item->setData(0, ReplaceMatches::FileNameRole, fileName);
     item->setData(0, ReplaceMatches::StartLineRole, matchItems.size());
+
     item->setCheckState(0, Qt::Checked);
     item->setFlags(item->flags() | Qt::ItemIsAutoTristate);
     item->addChildren(matchItems);
@@ -954,7 +955,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, KTextEditor:
     iface->addMark(line, KTextEditor::MarkInterface::markType32);
 }
 
-void KatePluginSearchView::matchesFound(const QString &url, const QString &fName, const QVector<KateSearchMatch> &searchMatches)
+void KatePluginSearchView::matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches)
 {
     static constexpr int contextLen = 70;
 
@@ -996,10 +997,9 @@ void KatePluginSearchView::matchesFound(const QString &url, const QString &fName
         displayText = displayText + pre + matchHighlighted + post;
 
         TreeWidgetItem *item = new TreeWidgetItem(static_cast<TreeWidgetItem*>(nullptr), QStringList{displayText});
-
         item->setData(0, ReplaceMatches::FileUrlRole, url);
         item->setData(0, Qt::ToolTipRole, url);
-        item->setData(0, ReplaceMatches::FileNameRole, fName);
+        item->setData(0, ReplaceMatches::FileNameRole, url.fileName());
         item->setData(0, ReplaceMatches::StartLineRole, searchMatch.matchRange.start().line());
         item->setData(0, ReplaceMatches::StartColumnRole, searchMatch.matchRange.start().column());
         item->setData(0, ReplaceMatches::MatchLenRole, searchMatch.matchLen);
@@ -1011,7 +1011,7 @@ void KatePluginSearchView::matchesFound(const QString &url, const QString &fName
         item->setCheckState(0, Qt::Checked);
         items.push_back(item);
     }
-    addMatchesToRootFileItem(url, fName, items);
+    addMatchesToRootFileItem(url, items);
     m_curResults->matches += items.size();
 }
 
@@ -1092,6 +1092,11 @@ void KatePluginSearchView::updateSearchColors()
             if (delegate) {
                 delegate->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
             }
+            auto* delegate2 = qobject_cast<SPHtmlDelegate*>(m_curResults->treeView->itemDelegate());
+            if (delegate2) {
+                delegate2->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
+            }
+            m_curResults->matchModel.setMatchColors(m_foregroundColor.color(), m_searchBackgroundColor.color(), m_replaceHighlightColor.color());
         }
     }
 }
@@ -1103,7 +1108,7 @@ void KatePluginSearchView::startSearch()
     m_folderFilesList.terminateSearch();
     m_searchOpenFiles.terminateSearch();
     m_searchDiskFiles.terminateSearch();
-    // Re-enable the handling of fisk-file-matches after one event loop
+    // Re-enable the handling of disk-file-matches after one event loop
     // For some reason blocking of signals or disconnect/connect does not prevent the slot from being called,
     // so we use m_blockDiskMatchFound to skip any old matchFound signals during the first event loop.
     // New matches from disk-files should not come before the first event loop has executed.
@@ -1118,6 +1123,8 @@ void KatePluginSearchView::startSearch()
         // return pressed in the folder combo or filter combo
         return;
     }
+
+    m_matchModel.clear();
 
     m_isSearchAsYouType = false;
 
@@ -1191,6 +1198,8 @@ void KatePluginSearchView::startSearch()
     m_toolView->setCursor(Qt::WaitCursor);
     m_searchDiskFilesDone = false;
     m_searchOpenFilesDone = false;
+
+    m_curResults->matchModel.clear();
 
     const bool inCurrentProject = m_ui.searchPlaceCombo->currentIndex() == Project;
     const bool inAllOpenProjects = m_ui.searchPlaceCombo->currentIndex() == AllProjects;
@@ -1350,6 +1359,8 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_curResults->tree->clear();
     m_curResults->tree->setCurrentItem(nullptr);
     m_curResults->matches = 0;
+
+    m_curResults->matchModel.clear();
 
     // Add the search-as-you-type header item
     TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());

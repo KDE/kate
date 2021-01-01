@@ -64,7 +64,7 @@ public Q_SLOTS:
     void cancelSearch();
 
 Q_SIGNALS:
-    void matchesFound(const QString &url, const QString &docName, const QVector<KateSearchMatch> &searchMatches);
+    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
     void searchDone();
     void searching(const QString &file);
 

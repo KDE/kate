@@ -34,6 +34,7 @@
 #include "ui_results.h"
 #include "ui_search.h"
 
+#include "MatchModel.h"
 #include "FolderFilesList.h"
 #include "SearchDiskFiles.h"
 #include "replace_matches.h"
@@ -58,6 +59,7 @@ public:
     QString replaceStr;
     int searchPlaceIndex = 0;
     QString treeRootText;
+    MatchModel matchModel;
 };
 
 // This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
@@ -135,7 +137,7 @@ private Q_SLOTS:
 
     void folderFileListChanged();
 
-    void matchesFound(const QString &url, const QString &fileName, const QVector<KateSearchMatch> &searchMatches);
+    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
 
     void addMatchMark(KTextEditor::Document *doc, KTextEditor::MovingInterface *miface, QTreeWidgetItem *item);
 
@@ -179,7 +181,8 @@ protected:
     void addHeaderItem();
 
 private:
-    void addMatchesToRootFileItem(const QString &url, const QString &fName, const QList<QTreeWidgetItem *> &matchItems);
+    void addMatchesToRootFileItem(const QUrl &url, const QList<QTreeWidgetItem *> &matchItems);
+
     QStringList filterFiles(const QStringList &files) const;
     void updateSearchColors();
 
@@ -203,6 +206,7 @@ private:
     bool m_isVerticalLayout = false;
     bool m_blockDiskMatchFound = false;
     QString m_resultBaseDir;
+    MatchModel m_matchModel;
     QList<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;
     QTimer m_updateSumaryTimer;

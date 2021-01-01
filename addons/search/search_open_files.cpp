@@ -128,7 +128,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
 
     // emit all matches batched
     if (!matches.isEmpty()) {
-        emit matchesFound(doc->url().toString(), doc->documentName(), matches);
+        emit matchesFound(doc->url(), matches);
     }
 
     return resultLine;
@@ -196,7 +196,6 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL - 1;
 
         matches.push_back(KateSearchMatch{doc->line(startLine).left(column - m_lineStart[startLine]) + match.captured(), match.capturedLength(), KTextEditor::Range{startLine, startColumn, endLine, endColumn}});
-
         match = tmpRegExp.match(m_fullDoc, column + match.capturedLength());
         column = match.capturedStart();
 
@@ -209,7 +208,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
 
     // emit all matches batched
     if (!matches.isEmpty()) {
-        emit matchesFound(doc->url().toString(), doc->documentName(), matches);
+        emit matchesFound(doc->url(), matches);
     }
 
     return resultLine;

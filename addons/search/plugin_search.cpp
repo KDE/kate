@@ -962,10 +962,14 @@ void KatePluginSearchView::matchesFound(const QString &url, const QString &fName
         return;
     }
 
+    const QString bgColor = m_searchBackgroundColor.color().name();
+    const QString fgColor = m_foregroundColor.color().name();
+
     /**
      * handle all received matches, add them as one operation to the widget afterwards
      */
     QList<QTreeWidgetItem *> items;
+    items.reserve(searchMatches.size());
     for (const auto &searchMatch : searchMatches) {
         int preLen = contextLen;
         int preStart = searchMatch.matchRange.start().column() - preLen;
@@ -988,7 +992,7 @@ void KatePluginSearchView::matchesFound(const QString &url, const QString &fName
 
         // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
         QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(searchMatch.matchRange.start().line() + 1).arg(searchMatch.matchRange.start().column() + 1);
-        QString matchHighlighted = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_searchBackgroundColor.color().name()).arg(m_foregroundColor.color().name()).arg(match);
+        QString matchHighlighted = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(bgColor).arg(fgColor).arg(match);
         displayText = displayText + pre + matchHighlighted + post;
 
         TreeWidgetItem *item = new TreeWidgetItem(static_cast<TreeWidgetItem*>(nullptr), QStringList{displayText});

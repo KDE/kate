@@ -27,14 +27,14 @@
 #include <QFontMetricsF>
 #include <QHash>
 #include <QPainter>
+#include <QRegularExpression>
 #include <QVariant>
-
-QVector<QString> ColorPickerInlineNoteProvider::s_namedColors = QColor::colorNames().toVector();
 
 ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Document *doc)
     : m_doc(doc)
 {
     // initialize the color regex
+    m_colorRegex.setPatternOptions(QRegularExpression::DontCaptureOption | QRegularExpression::CaseInsensitiveOption);
     updateColorMatchingCriteria();
 
     for (auto view : m_doc->views()) {
@@ -105,6 +105,28 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
     m_matchHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 8, 6, 3}).toVector();
     m_putPreviewAfterColor = config.readEntry("PreviewAfterColor", true);
     m_matchNamedColors = config.readEntry("NamedColors", false);
+
+    QString colorRegex;
+    if (m_matchHexLengths.size() > 0) {
+        colorRegex += QLatin1String("(#[[:xdigit:]]{3,12})");
+    }
+
+    if (m_matchNamedColors) {
+        if (!colorRegex.isEmpty()) {
+            colorRegex += QLatin1Char('|');
+        }
+        // shortest and longest colors have 3 (e.g. red) and 20 (lightgoldenrodyellow) characters respectively
+        colorRegex += QLatin1String("((?<![\\w])[a-z]{3,20})");
+    }
+
+    if (!colorRegex.isEmpty()) {
+        colorRegex = QStringLiteral("(?<![-])(%1)(?![-\\w])").arg(colorRegex);
+    } else {
+        // No matching criteria enabled. Set regex to negative lookahead to match nothing.
+        colorRegex = QLatin1String("(?!)");
+    }
+
+   m_colorRegex.setPattern(colorRegex);
 }
 
 void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine) {
@@ -126,130 +148,34 @@ void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine) {
     }
 }
 
-ColorRange ColorPickerInlineNoteProvider::findNamedColor(const QStringView lineText, int start) const
-{
-    // only return when a valid named color is found, a # is found, or we have reached the end of the line
-    while (start < lineText.length()) {
-        for ( ; start < lineText.length(); ++start) {
-            const QChar chr = lineText.at(start);
-            if (chr.isLetter()) {
-                break;
-            } else if (chr == QLatin1Char('#')) {
-                // return current position so that hex colors can be matched
-                return {-1, start};
-            }
-        }
-
-        int end;
-        for (end = start+1; end < lineText.length(); ++end) {
-            if (!lineText.at(end).isLetter()) {
-                break;
-            }
-        }
-
-        if (end <= start+1) {
-            ++start;
-            continue;
-        }
-
-        const auto color = lineText.mid(start, end-start);
-        const auto matchIter = std::lower_bound(s_namedColors.cbegin(), s_namedColors.cend(), color, [](const QStringView other, const QStringView color) {
-            return other.compare(color, Qt::CaseInsensitive) < 0;
-        });
-
-        if (matchIter == s_namedColors.cend() || color.compare(*matchIter, Qt::CaseInsensitive) != 0) {
-            start = end;
-            continue;
-        }
-
-        return {start, end};
-    }
-
-    return {-1, start};
-}
-
-ColorRange ColorPickerInlineNoteProvider::findHexColor(const QStringView lineText, int start) const
-{
-    if (m_matchHexLengths.size() == 0) {
-        return {-1, -1};
-    }
-
-    // find the first occurrence of #. For simplicity, we assume that named colors from <start> to the first # or space have already been handled
-    for ( ; start < lineText.length(); ++start) {
-        const QChar chr = lineText.at(start);
-        if (chr == QLatin1Char('#')) {
-            break;
-        } else if (chr.isSpace()) {
-            // return the next position since a named color might start from there
-            return {-1, start+1};
-        }
-    }
-
-    int end;
-    for (end = start+1; end < lineText.length(); ++end) {
-        QChar chr = lineText.at(end).toLower();
-        if (! (chr.isDigit() || (chr >= QLatin1Char('a') && chr <= QLatin1Char('f'))) ) {
-            break;
-        }
-    }
-
-    if (!m_matchHexLengths.contains(end-start-1)) {
-        return {-1, end};
-    }
-
-    return {start, end};
-}
-
 QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
 {
     if (!m_colorNoteIndices.contains(line)) {
         m_colorNoteIndices.insert(line, {});
 
         const QString lineText = m_doc->line(line);
-        for (int lineIndex = 0; lineIndex < lineText.length(); ++lineIndex) {
-            ColorRange color;
-            bool isNamedColor = true;
-            if (m_matchNamedColors) {
-                color = findNamedColor(lineText, lineIndex);
-            }
-
-            if (color.start == -1) {
-                color = findHexColor(lineText, color.end == -1 ? lineIndex : color.end);
-                isNamedColor = false;
-            }
-
-            if (color.start == -1) {
-                if (color.end != -1) {
-                    lineIndex = color.end - 1;
-                }
+        auto matchIter = m_colorRegex.globalMatch(lineText);
+        while (matchIter.hasNext()) {
+            const auto match = matchIter.next();
+            if (!QColor(match.captured()).isValid()) {
                 continue;
             }
 
-            // check if the color found is surrounded by letters, numbers, or -
-            if (color.start != 0) {
-                const QChar chr = lineText.at(color.start-1);
-                if (chr == QLatin1Char('-') || (isNamedColor && chr.isLetterOrNumber())) {
-                    lineIndex = color.end - 1;
-                    continue;
-                }
-            }
-            if (color.end < lineText.length()) {
-                const QChar chr = lineText.at(color.end);
-                if (chr == QLatin1Char('-') || chr.isLetterOrNumber()) {
-                    lineIndex = color.end - 1;
-                    continue;
-                }
+            if (lineText.at(match.capturedStart()) == QLatin1Char('#')
+                && !m_matchHexLengths.contains(match.capturedLength()-1)) {
+                // matching for this hex color format is disabled
+                continue;
             }
 
-            const int end = color.end;
+            int start = match.capturedStart();
+            int end = start + match.capturedLength();
             if (m_putPreviewAfterColor) {
-                color.end = color.start;
-                color.start = end;
+                start = end;
+                end = match.capturedStart();
             }
 
-            m_colorNoteIndices[line].colorNoteIndices.append(color.start);
-            m_colorNoteIndices[line].otherColorIndices.append(color.end);
-            lineIndex = end - 1;
+            m_colorNoteIndices[line].colorNoteIndices.append(start);
+            m_colorNoteIndices[line].otherColorIndices.append(end);
         }
     }
 

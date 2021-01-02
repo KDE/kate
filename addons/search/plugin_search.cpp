@@ -944,7 +944,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, KTextEditor:
 #endif
     if (!iface)
         return;
-    static const auto description = i18n("SearchHighLight");
+    static const auto description = i18n("Search Match");
     iface->setMarkDescription(KTextEditor::MarkInterface::markType32, description);
 #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
     iface->setMarkIcon(KTextEditor::MarkInterface::markType32, QIcon());

@@ -25,6 +25,7 @@ set(CMAKE_AUTORCC ON)
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
+include(KDEClangFormat)
 
 include(ECMOptionalAddSubdirectory)
 include(ECMAddAppIcon)
@@ -59,11 +60,6 @@ ecm_optional_add_subdirectory(doc)
 
 feature_summary(INCLUDE_QUIET_PACKAGES WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
-# this needs at least ECM 5.64...
-if(${ECM_VERSION} VERSION_GREATER "5.63.0")
-    include(KDEClangFormat)
-
-    # add clang-format target for all our real source files
-    file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
-    kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})
-endif()
+# add clang-format target for all our real source files
+file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
+kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})

@@ -29,7 +29,7 @@ public:
     UrlInfo(QString path)
         : cursor(KTextEditor::Cursor::invalid())
     {
-        const QString currentDirPath = QDir::current().absolutePath();
+        QString currentDirPath = QDir::current().absolutePath();
         if (!currentDirPath.endsWith(QLatin1Char('/'))) {
             currentDirPath += QLatin1Char('/');
         }

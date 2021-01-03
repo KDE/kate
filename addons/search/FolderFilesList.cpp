@@ -20,8 +20,6 @@
 #include <QDebug>
 #include <QDir>
 #include <QFileInfoList>
-#include <QMimeDatabase>
-#include <QMimeType>
 
 FolderFilesList::FolderFilesList(QObject *parent)
     : QThread(parent)
@@ -48,7 +46,7 @@ void FolderFilesList::run()
     }
 }
 
-void FolderFilesList::generateList(const QString &folder, bool recursive, bool hidden, bool symlinks, bool binary, const QString &types, const QString &excludes)
+void FolderFilesList::generateList(const QString &folder, bool recursive, bool hidden, bool symlinks, const QString &types, const QString &excludes)
 {
     m_cancelSearch = false;
     m_folder = folder;
@@ -58,7 +56,6 @@ void FolderFilesList::generateList(const QString &folder, bool recursive, bool h
     m_recursive = recursive;
     m_hidden = hidden;
     m_symlinks = symlinks;
-    m_binary = binary;
 
     m_types.clear();
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
@@ -111,12 +108,6 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         emit searching(item.absoluteFilePath());
     }
     if (item.isFile()) {
-        if (!m_binary) {
-            QMimeType mimeType = QMimeDatabase().mimeTypeForFile(item);
-            if (!mimeType.inherits(QStringLiteral("text/plain"))) {
-                return;
-            }
-        }
         m_files << item.canonicalFilePath();
     } else {
         QDir currentDir(item.absoluteFilePath());

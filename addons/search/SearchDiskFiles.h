@@ -26,6 +26,22 @@
 #include <QThread>
 #include <QVector>
 
+#include <KTextEditor/Range>
+
+/**
+ * data holder for one match in one file
+ * used to transfer multiple matches at once via signals to avoid heavy costs for files with a lot of matches
+ */
+class KateSearchMatch
+{
+    public:
+        QString lineContent;
+        int matchLen;
+        KTextEditor::Range matchRange;
+};
+
+Q_DECLARE_METATYPE(KateSearchMatch)
+
 class SearchDiskFiles : public QThread
 {
     Q_OBJECT
@@ -34,7 +50,7 @@ public:
     SearchDiskFiles(QObject *parent = nullptr);
     ~SearchDiskFiles() override;
 
-    void startSearch(const QStringList &iles, const QRegularExpression &regexp);
+    void startSearch(const QStringList &iles, const QRegularExpression &regexp, const bool includeBinaryFiles);
     void run() override;
     void terminateSearch();
 
@@ -48,7 +64,7 @@ public Q_SLOTS:
     void cancelSearch();
 
 Q_SIGNALS:
-    void matchFound(const QString &url, const QString &docName, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
+    void matchesFound(const QString &url, const QString &docName, const QVector<KateSearchMatch> &searchMatches);
     void searchDone();
     void searching(const QString &file);
 
@@ -59,6 +75,7 @@ private:
     bool m_terminateSearch = false;
     int m_matchCount = 0;
     QElapsedTimer m_statusTime;
+    bool m_includeBinaryFiles = false;
 };
 
 #endif

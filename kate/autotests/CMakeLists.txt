@@ -5,9 +5,9 @@ find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
 macro(kate_executable_tests)
   foreach(_testname ${ARGN})
     add_executable(${_testname} ${_testname}.cpp)
-    
+
     target_link_libraries(
-      ${_testname} 
+      ${_testname}
       PRIVATE
         kate-lib
         Qt5::Test
@@ -22,4 +22,5 @@ kate_executable_tests(
   session_test
   session_manager_test
   sessions_action_test
+  urlinfo_test
 )

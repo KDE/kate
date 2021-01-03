@@ -9,15 +9,25 @@
 #define HTML_DELEGATE_H
 
 #include <QStyledItemDelegate>
+#include <QFont>
 
 class SPHtmlDelegate : public QStyledItemDelegate
 {
+    Q_OBJECT
+
 public:
     explicit SPHtmlDelegate(QObject *parent);
     ~SPHtmlDelegate() override;
 
     void paint(QPainter *, const QStyleOptionViewItem &, const QModelIndex &) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    void setDisplayFont(const QFont& font)
+    {
+        m_font = font;
+    }
+
+private:
+    QFont m_font;
 };
 
 #endif

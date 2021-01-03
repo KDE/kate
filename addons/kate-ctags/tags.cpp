@@ -79,6 +79,45 @@ unsigned int Tags::numberOfMatches(const QString &tagpart, bool partial)
     return n;
 }
 
+Tags::TagList Tags::getPartialMatchesNoi8n(const QString &tagFile, const QString &tagpart)
+{
+    setTagsFile(tagFile);
+
+    auto getExtension = [](const QString& fileUrl) -> QStringRef {
+        int dotPos = fileUrl.lastIndexOf(QLatin1Char('.'));
+        if (dotPos > -1)
+            return fileUrl.midRef(dotPos + 1);
+        return QStringRef();
+    };
+
+    Tags::TagList list;
+
+    if (tagpart.isEmpty())
+        return list;
+
+    ctags::tagFileInfo info;
+    ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
+    ctags::tagEntry entry;
+
+    QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
+    if (ctags::tagsFind(file, &entry, tagpartBArray.data(), TAG_OBSERVECASE |  TAG_PARTIALMATCH) == ctags::TagSuccess) {
+        do {
+            QString file = QString::fromLocal8Bit(entry.file);
+            QString type(CTagsKinds::findKindNoi18n(entry.kind, getExtension(file)));
+
+            if (type.isEmpty() && file.endsWith(QLatin1String("Makefile"))) {
+                type = QStringLiteral("macro");
+            }
+
+            list << TagEntry(QString::fromLocal8Bit(entry.name), type, file, QString::fromLocal8Bit(entry.address.pattern));
+        } while (ctags::tagsFindNext(file, &entry) == ctags::TagSuccess);
+    }
+
+    ctags::tagsClose(file);
+
+    return list;
+}
+
 Tags::TagList Tags::getMatches(const QString &tagpart, bool partial, const QStringList &types)
 {
     Tags::TagList list;
@@ -93,8 +132,8 @@ Tags::TagList Tags::getMatches(const QString &tagpart, bool partial, const QStri
     QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
     if (ctags::tagsFind(file, &entry, tagpartBArray.data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH)) == ctags::TagSuccess) {
         do {
-            QString type(CTagsKinds::findKind(entry.kind, QString::fromLocal8Bit(entry.file).section(QLatin1Char('.'), -1)));
             QString file = QString::fromLocal8Bit(entry.file);
+            QString type(CTagsKinds::findKind(entry.kind, file.section(QLatin1Char('.'), -1)));
 
             if (type.isEmpty() && file.endsWith(QLatin1String("Makefile"))) {
                 type = QStringLiteral("macro");

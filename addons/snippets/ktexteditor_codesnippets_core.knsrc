@@ -3,5 +3,4 @@ ProvidersUrl=https://autoconfig.kde.org/ocs/providers.xml
 Categories=KTextEditor Snippet
 UploadCategories=KTextEditor Snippet
 TargetDir=/ktexteditor_snippets/ghns
-CustomName=true
 

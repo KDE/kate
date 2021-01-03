@@ -208,6 +208,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_findDef;
     QPointer<QAction> m_findDecl;
     QPointer<QAction> m_findRef;
+    QPointer<QAction> m_findImpl;
     QPointer<QAction> m_triggerHighlight;
     QPointer<QAction> m_triggerSymbolInfo;
     QPointer<QAction> m_triggerFormat;
@@ -328,6 +329,8 @@ public:
         m_findDecl->setText(i18n("Go to Declaration"));
         m_findRef = actionCollection()->addAction(QStringLiteral("lspclient_find_references"), this, &self_type::findReferences);
         m_findRef->setText(i18n("Find References"));
+        m_findImpl = actionCollection()->addAction(QStringLiteral("lspclient_find_implementations"), this, &self_type::findImplementation);
+        m_findImpl->setText(i18n("Find Implementations"));
         m_triggerHighlight = actionCollection()->addAction(QStringLiteral("lspclient_highlight"), this, &self_type::highlight);
         m_triggerHighlight->setText(i18n("Highlight"));
         m_triggerSymbolInfo = actionCollection()->addAction(QStringLiteral("lspclient_symbol_info"), this, &self_type::symbolInfo);
@@ -395,6 +398,7 @@ public:
         menu->addAction(m_findDef);
         menu->addAction(m_findDecl);
         menu->addAction(m_findRef);
+        menu->addAction(m_findImpl);
         menu->addAction(m_triggerHighlight);
         menu->addAction(m_triggerSymbolInfo);
         menu->addAction(m_triggerFormat);
@@ -1231,6 +1235,17 @@ public:
         processLocations<LSPLocation>(title, req, true, &self_type::locationToRangeItem);
     }
 
+    void findImplementation()
+    {
+        auto title = i18nc("@title:tab", "Implementation: %1", currentWord());
+        // clang-format off
+        auto req = [](LSPClientServer &server, const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
+        { return server.documentImplementation(document, pos, context, h); };
+        // clang-format on
+
+        processLocations<LSPLocation>(title, req, true, &self_type::locationToRangeItem);
+    }
+
     void highlight()
     {
         // determine current url to capture and use later on
@@ -1861,7 +1876,7 @@ public:
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto doc = activeView ? activeView->document() : nullptr;
         auto server = m_serverManager->findServer(activeView);
-        bool defEnabled = false, declEnabled = false, refEnabled = false;
+        bool defEnabled = false, declEnabled = false, refEnabled = false, implEnabled = false;
         bool hoverEnabled = false, highlightEnabled = false;
         bool formatEnabled = false;
         bool renameEnabled = false;
@@ -1872,6 +1887,7 @@ public:
             // FIXME no real official protocol way to detect, so enable anyway
             declEnabled = caps.declarationProvider || true;
             refEnabled = caps.referencesProvider;
+            implEnabled = caps.implementationProvider;
             hoverEnabled = caps.hoverProvider;
             highlightEnabled = caps.documentHighlightProvider;
             formatEnabled = caps.documentFormattingProvider || caps.documentRangeFormattingProvider;
@@ -1903,6 +1919,8 @@ public:
             m_findDecl->setEnabled(declEnabled);
         if (m_findRef)
             m_findRef->setEnabled(refEnabled);
+        if (m_findImpl)
+            m_findImpl->setEnabled(implEnabled);
         if (m_triggerHighlight)
             m_triggerHighlight->setEnabled(highlightEnabled);
         if (m_triggerSymbolInfo)

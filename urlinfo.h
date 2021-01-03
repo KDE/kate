@@ -21,22 +21,34 @@ class UrlInfo
 {
 public:
     /**
-     * Parses a file path argument and determines its line number and column and full path
+     * Parses a file path argument and determines its line number and column and full path,
+     * we use absolute file paths because we will e.g. pass this over dbus to other processes.
+     *
      * @param path path passed on e.g. command line to parse into an URL
      */
     UrlInfo(QString path)
         : cursor(KTextEditor::Cursor::invalid())
     {
-        /**
-         * first try: just check if the path is an existing file
-         */
-        if (QFile::exists(path)) {
-            /**
-             * create absolute file path, we will e.g. pass this over dbus to other processes
-             * and then we are done, no cursor can be detected here!
-             */
-            url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
-            return;
+        QString currentDirPath = QDir::current().absolutePath();
+        if (!currentDirPath.endsWith(QLatin1Char('/'))) {
+            currentDirPath += QLatin1Char('/');
+        }
+
+        // QDir::isAbsolutePath()/absoluteFilePath() treat paths starting with ':' as Qt
+        // Resource (qrc) paths, and consider them absolute
+        if (!path.startsWith(QLatin1Char(':')) && QDir::isAbsolutePath(path)) {
+            if (QFile::exists(path)) { // Existing absolute path, no cursor can be detected
+                url = QUrl::fromLocalFile(path);
+                return;
+            }
+        } else {
+            // Relative path, maybe starting with ':'; we concatenate the absolute path manually
+            QString absolutePath = currentDirPath + path;
+
+            if (QFile::exists(absolutePath)) { // Existing absolute path, no cursor can be detected
+                url = QUrl::fromLocalFile(absolutePath);
+                return;
+            }
         }
 
         /**
@@ -51,6 +63,16 @@ public:
             path.chop(match.capturedLength());
 
             /**
+             * After cutting the line/column part, if the file exists make "path" absolute.
+             * Note that we can't rely on QUrl::fromUserInput() because of paths starting with
+             * ':', see comment above about QDir::isAbsolutePath().
+             */
+            const QString absolutePath = currentDirPath + path;
+            if (QFile::exists(absolutePath)) {
+                path = absolutePath;
+            }
+
+            /**
              * set right cursor position
              * don't use an invalid column when the line is valid
              */
@@ -60,22 +82,13 @@ public:
         }
 
         /**
-         * construct url:
-         *   - make relative paths absolute using the current working directory
-         *   - prefer local file, if in doubt!
+         * Construct url: "path" has already been made absolute above.
+         * This should work with:
+         * - local paths, "/path/to/somefile" becomes file:///path/to/some/file
+         * - file: urls, file:///path/to/some/file
+         * - remote urls, e.g. sftp://1.2.3.4:22/path/to/some/file
          */
-        url = QUrl::fromUserInput(path, QDir::currentPath(), QUrl::AssumeLocalFile);
-
-        /**
-         * in some cases, this will fail, e.g. if you have line/column specs like test.c:10:1
-         * => fallback: assume a local file and just convert it to an url
-         */
-        if (!url.isValid()) {
-            /**
-             * create absolute file path, we will e.g. pass this over dbus to other processes
-             */
-            url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
-        }
+        url = QUrl::fromUserInput(path, QString(), QUrl::AssumeLocalFile);
     }
 
     /**

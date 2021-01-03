@@ -33,6 +33,7 @@ void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     initStyleOption(&options, index);
 
     QTextDocument doc;
+    doc.setDefaultFont(m_font);
     doc.setDocumentMargin(s_ItemMargin);
     doc.setHtml(index.data().toString());
 

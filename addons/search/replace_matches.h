@@ -18,7 +18,6 @@
 #ifndef _REPLACE_MATCHES_H_
 #define _REPLACE_MATCHES_H_
 
-#include <QElapsedTimer>
 #include <QObject>
 #include <QRegularExpression>
 #include <QTreeWidget>
@@ -68,20 +67,16 @@ Q_SIGNALS:
     void replaceDone();
 
 private:
-    void updateTreeViewItems(QTreeWidgetItem *fileItem);
+    void updateTreeViewItems(QTreeWidgetItem *fileItem, const QVector<KTextEditor::MovingRange *> &matches = QVector<KTextEditor::MovingRange *>(), const QVector<bool> &replaced = QVector<bool>());
 
     KTextEditor::Application *m_manager = nullptr;
     QTreeWidget *m_tree = nullptr;
     int m_rootIndex = -1;
-    int m_childStartIndex = -1;
-    QVector<KTextEditor::MovingRange *> m_currentMatches;
-    QVector<bool> m_currentReplaced;
 
     QRegularExpression m_regExp;
     QString m_replaceText;
     bool m_cancelReplace = false;
     bool m_terminateReplace = false;
-    QElapsedTimer m_progressTime;
 };
 
 #endif

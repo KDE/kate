@@ -22,6 +22,10 @@ target_sources(
     ctagskinds.cpp
     kate_ctags_view.cpp
     kate_ctags_plugin.cpp
+    gotosymbolmodel.cpp
+    gotoglobalsymbolmodel.cpp
+    gotosymboltreeview.cpp
+    gotosymbolwidget.cpp
     plugin.qrc
 )
 

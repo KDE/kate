@@ -37,6 +37,10 @@ The available application plugins are:
 </para>
 <itemizedlist>
 <listitem>
+<para><link linkend="kate-application-plugin-external-tools">External Tools</link>
+- Run external tools and applications</para>
+</listitem>
+<listitem>
 <para><link linkend="kate-application-plugin-backtracebrowser">Backtrace Browser</link>
 - C/C++ Backtrace navigation tool view</para>
 </listitem>
@@ -46,6 +50,10 @@ The available application plugins are:
 <listitem>
 <para><link linkend="kate-application-plugin-closeexceptlike">Close Except/Like</link>
 - Close group of documents based on a common path or file extension</para>
+</listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-colorpicker">Color Picker</link>
+- Show preview for known color names</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-ctags">CTags</link> -
@@ -118,6 +126,379 @@ attributes, attribute values and entities allowed by DTD</para>
 <para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
 </listitem>
 </itemizedlist>
+</sect1>
+
+<sect1 id="kate-application-plugin-external-tools">
+<title>External Tools</title>
+
+<para>The <guilabel>External Tools</guilabel> plugin allows to invoke
+external applications with data related to the current document, for example
+its URL, directory, text or selection. Once enabled, a config page appears
+as depicted below that allows to change or remove existing tools. Similarly,
+new tools can be added to your liking. The tools will then appear in the
+<guisubmenu>External Tools</guisubmenu> submenu of the <guimenu>Tools</guimenu>
+menu of the application.
+</para>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="kateexternaltools.png"/>
+</imageobject>
+</mediaobject>
+
+<para>
+The config page allows to add new external tools by clicking on the
+<guilabel>Add</guilabel> button. In this case, a popup menu appears where one
+can either add a new external tool, add an existing tool from a predefined list,
+or add a new category to organize the external tools into categories. Similarly,
+the existing tools can be modified either by double-click or by invoking
+<guilabel>Edit...</guilabel>, and <guilabel>Remove</guilabel> removes the
+selected tools.
+</para>
+
+<sect2 id="kate-application-plugin-external-tools-edit">
+<title>Configuring External Tools</title>
+
+<para>Editing a tool opens a config dialog that allows fine-grained
+configuration of the tool:</para>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="kateeditexternaltool.png"/>
+</imageobject>
+</mediaobject>
+
+<variablelist>
+<varlistentry>
+<term>As can be seen, many details can be defined, namely:</term>
+<listitem>
+<para><userinput>Name</userinput>, the name of the tool, which will later appear in the menu.</para>
+<para><userinput>Icon</userinput>, optional icon that is visible in the menu.</para>
+<para><userinput>Executable</userinput>, executable including either a full path, or your executable must be in the <envar>PATH</envar> environment variable.</para>
+<para><userinput>Arguments</userinput>, optional arguments that are passed to the executable.</para>
+<para><userinput>Input</userinput>, optional input that is passed to the process via stdin.</para>
+<para><userinput>Working directory</userinput>, the working directory the tool will be started in. If empty, the working directory is set to the current document’s path.</para>
+<para><userinput>Mime types</userinput>, if set, the tool is active only if the current document’s mime type matches.</para>
+<para><userinput>Save</userinput>, when invoked, saves none, the current document, or all documents.</para>
+<para><userinput>Reload current document after execution</userinput>, useful when the current file is modified on disk.</para>
+<para><userinput>Output</userinput>, the output defines the target of stdout. It is either set to <userinput>Ignored</userinput>, <userinput>Insert at Cursor Position</userinput>, <userinput>Replace Selected Text</userinput>, <userinput>Replace Current Document</userinput>, <userinput>Append to Current Document</userinput>, <userinput>Insert in New Document</userinput>, <userinput>Copy to Clipboard</userinput>, or <userinput>Display in Pane</userinput>.</para>
+<para><userinput>Editor command</userinput>, optional command that can be used to invoke the external tool via the built-in <ulink url="help:/katepart/advanced.html#advanced-editing-tools-commandline">command line</ulink>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>The button <guilabel>Defaults</guilabel> is visible only for tools that
+are shipped with Kate. When clicked, all tool’s settings reverted to default
+(aka factory) values.
+</para>
+
+</sect2>
+
+<sect2 id="kate-application-plugin-external-tools-variables">
+<title>Variable Expansion</title>
+
+<para>
+Some editing fields such as the <guilabel>Executable</guilabel>, the
+<guilabel>Arguments</guilabel>, the <guilabel>Input</guilabel> and the
+<guilabel>Working Directory</guilabel> support variables that are expanded
+on tool invocation. This is indicated by the icon <guilabel>{}</guilabel>
+that appears once one of these text input fields has focus (see red circle):
+</para>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="katevariableexpansion.png"/>
+</imageobject>
+</mediaobject>
+
+<para>
+Hovering over one of these text input fields also shows a tooltip with the
+current expanded text. Further, clicking on the <guilabel>{}</guilabel>
+action will open a dialog that lists all available variables:
+</para>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="kateexternaltoolvariablechooser.png"/>
+</imageobject>
+</mediaobject>
+
+<para>
+This feature provides a lot of flexibility when defining an external tool since
+all variables of the form <userinput>%{...}</userinput> are expanded when the tool
+gets invoked. There are two kind of variables supported:
+
+<itemizedlist>
+<listitem><para><userinput>%{variable-name}</userinput></para></listitem>
+<listitem><para><userinput>%{variable-name:&lt;value&gt;}</userinput></para></listitem>
+</itemizedlist>
+The first form <userinput>%{variable-name}</userinput> simply replaces the
+variable with its contents. For instance, the variable <userinput>%{Document:FileName}</userinput>
+is replaced by the current document’s filename without its path.
+The second form <userinput>%{variable-name:&lg;value&gt;}</userinput> gets the
+<userinput>&lt;value&gt;</userinput> as contents. For example, this can be used
+to expand an environment variable with <userinput>%{ENV:HOME}</userinput>,
+or one can obtain the current date in the preferred format like
+<userinput>%{Date:yyyy-MM-dd}</userinput>.
+</para>
+
+<variablelist>
+<varlistentry>
+<term>Supported variables include:</term>
+<listitem>
+<para><userinput>Document:FileBaseName</userinput>: File base name without path and suffix of the current document.</para>
+<para><userinput>Document:FileExtension</userinput>: File extension of the current document.</para>
+<para><userinput>Document:FileName</userinput>: File name without path of the current document.</para>
+<para><userinput>Document:FilePath</userinput>: Full path of the current document including the file name</para>
+<para><userinput>Document:Text</userinput>: Contents of the current document.</para>
+<para><userinput>Document:Path</userinput>: Full path of the current document excluding the file name.</para>
+<para><userinput>Document:NativeFilePath</userinput>: Full document path including file name, with native path separator (backslash on Windows).</para>
+<para><userinput>Document:NativePath</userinput>: Full document path excluding file name, with native path separator (backslash on Windows).</para>
+<para><userinput>Document:Cursor:Line</userinput>: Line number of the text cursor position in current document (starts with 0).</para>
+<para><userinput>Document:Cursor:Column</userinput>: Column number of the text cursor position in current document (starts with 0).</para>
+<para><userinput>Document:Cursor:XPos</userinput>: X component in global screen coordinates of the cursor position.</para>
+<para><userinput>Document:Cursor:YPos</userinput>: Y component in global screen coordinates of the cursor position.</para>
+<para><userinput>Document:Selection:Text</userinput>: Text selection of the current document.</para>
+<para><userinput>Document:Selection:StartLine</userinput>: Start line of selected text of the current document.</para>
+<para><userinput>Document:Selection:StartColumn</userinput>: Start column of selected text of the current document.</para>
+<para><userinput>Document:Selection:EndLine</userinput>: End line of selected text of the current document.</para>
+<para><userinput>Document:Selection:EndColumn</userinput>: End column of selected text of the current document.</para>
+<para><userinput>Document:RowCount</userinput>: Number of rows of the current document.</para>
+<para><userinput>Document:Variable:&lt;variable&gt;</userinput>: Expand arbitrary <ulink url="help:/katepart/config-variables.html">document variables</ulink>.</para>
+<para><userinput>Date:Locale</userinput>: The current date in current locale format.</para>
+<para><userinput>Date:ISO</userinput>: The current date (ISO).</para>
+<para><userinput>Date:&lt;value&gt;</userinput>: The current date (<ulink url="https://doc.qt.io/qt-5/qdate.html#toString">QDate formatstring</ulink>).</para>
+<para><userinput>Time:Locale</userinput>: The current time in current locale format.</para>
+<para><userinput>Time:ISO</userinput>: The current time (ISO).</para>
+<para><userinput>Time:&lt;value&gt;</userinput>: The current time (<ulink url="https://doc.qt.io/qt-5/qtime.html#toString">QTime formatstring</ulink>).</para>
+<para><userinput>ENV:&lt;value&gt;</userinput>: Access to environment variables.</para>
+<para><userinput>JS:&lt;expression&gt;</userinput>: Evaluate simple JavaScript statements.</para>
+<para><userinput>PercentEncoded:&lt;text&gt;</userinput>: Percent encoded text.</para>
+<para><userinput>UUID</userinput>: Generate a new UUID.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>
+</para>
+
+</sect2>
+
+<sect2 id="kate-application-plugin-external-tools-defaults">
+<title>List of Default Tools</title>
+
+<para>
+Several tools are shipped by default. However, if you have more useful tools
+please contribute those to <email>kwrite-devel@kde.org</email> so that we can add them to this list.
+All default tools are visible in the list view by default. However, all tools can be
+changed to your liking, including the category or even deleting tools.
+Deleted tools can be added back again by clicking on the <guibutton>Add</guibutton>
+button in the config page as described above.
+</para>
+
+<variablelist>
+<title>git-cola</title>
+
+<varlistentry>
+<term>git-cola is a graphical git client that enables you to easily stage and commit changes.
+If installed, it is available also through the command line by typing <userinput>git-cola</userinput></term>
+<listitem>
+<para><userinput>Name</userinput>: git-cola</para>
+<para><userinput>Icon</userinput>: git-cola</para>
+<para><userinput>Executable</userinput>: git-cola</para>
+<para><userinput>Arguments</userinput>: -r %{Document:Path}</para>
+<para><userinput>Editor command</userinput>: git-cola</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>gitk</title>
+
+<varlistentry>
+<term>gitk is a git client as well that allows to nicely visualize the git history.</term>
+<listitem>
+<para><userinput>Name</userinput>: gitk</para>
+<para><userinput>Icon</userinput>: git-gui</para>
+<para><userinput>Executable</userinput>: gitk</para>
+<para><userinput>Working directory</userinput>: %{Document:Path}</para>
+<para><userinput>Editor command</userinput>: gitk</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>git blame</title>
+
+<varlistentry>
+<term>Starts git blame to easily follow git changes in the current file.</term>
+<listitem>
+<para><userinput>Name</userinput>: git blame</para>
+<para><userinput>Executable</userinput>: git</para>
+<para><userinput>Arguments</userinput>: gui blame %{Document:FileName}</para>
+<para><userinput>Save</userinput>: Current Document</para>
+<para><userinput>Working directory</userinput>: %{Document:Path}</para>
+<para><userinput>Editor command</userinput>: git-blame</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>Run Shell Script</title>
+
+<varlistentry>
+<term>Starts an external konsole in which the current document is executed.
+The script needs to state the interpreter in the first line via a shebang <userinput>#!/path/interpreter</userinput>.</term>
+<listitem>
+<para><userinput>Name</userinput>: Run Shell Script</para>
+<para><userinput>Icon</userinput>: system-run</para>
+<para><userinput>Executable</userinput>: konsole</para>
+<para><userinput>Arguments</userinput>: -e sh -c &quot;cd %{Document:Path} &amp;&amp; pwd &amp;&amp; chmod -vc a+x %{Document:FileName} &amp;&amp; ./%{Document:FileName} ; echo Press any key to continue. &amp;&amp; read -n 1&quot;</para>
+<para><userinput>Save</userinput>: Current Document</para>
+<para><userinput>Working directory</userinput>: %{Document:Path}</para>
+<para><userinput>Editor command</userinput>: run-script</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>Google Selected Text</title>
+
+<varlistentry>
+<term>Search in google for the selected text.</term>
+<listitem>
+<para><userinput>Name</userinput>: Google Selected Text</para>
+<para><userinput>Icon</userinput>: globe</para>
+<para><userinput>Executable</userinput>: xdg-open</para>
+<para><userinput>Arguments</userinput>: &quot;https://www.google.com/search?q=%{Document:Selection:Text}&quot;</para>
+<para><userinput>Editor command</userinput>: google</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>Insert UUID</title>
+
+<varlistentry>
+<term>Inserts a new UUID each time this action is invoked.</term>
+<listitem>
+<para><userinput>Name</userinput>: Insert UUID</para>
+<para><userinput>Executable</userinput>: echo</para>
+<para><userinput>Arguments</userinput>: %{UUID}</para>
+<para><userinput>Output</userinput>: Insert at Cursor Position</para>
+<para><userinput>Editor command</userinput>: uuid</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>Clang Format Full File</title>
+
+<varlistentry>
+<term>Runs clang-format on the current file on disk. The document is reloaded afterwards.</term>
+<listitem>
+<para><userinput>Name</userinput>: Clang Format Full File</para>
+<para><userinput>Executable</userinput>: clang-format</para>
+<para><userinput>Arguments</userinput>: -i %{Document:FileName}</para>
+<para><userinput>Working directory</userinput>: %{Document:Path}</para>
+<para><userinput>Save</userinput>: Current Document</para>
+<para><userinput>Reload</userinput>: Yes</para>
+<para><userinput>Editor command</userinput>: clang-format-file</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>Clang Format Selected Text</title>
+
+<varlistentry>
+<term>Runs clang-format just on the selected text in the current document.</term>
+<listitem>
+<para><userinput>Name</userinput>: Clang Format Selected Text</para>
+<para><userinput>Executable</userinput>: clang-format</para>
+<para><userinput>Arguments</userinput>: -assume-fileName: %{Document:FileName}</para>
+<para><userinput>Working directory</userinput>: %{Document:Path}</para>
+<para><userinput>Input</userinput>: %{Document:Selection:Text}</para>
+<para><userinput>Output</userinput>: Replace Selected Text</para>
+<para><userinput>Editor command</userinput>: clang-format-selection</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>Qt Quick 2 Preview (qmlscene)</title>
+
+<varlistentry>
+<term>Previews the current qml file in qmlscene.</term>
+<listitem>
+<para><userinput>Name</userinput>: Qt Quick 2 Preview (qmlscene)</para>
+<para><userinput>Executable</userinput>: qmlscene</para>
+<para><userinput>Arguments</userinput>: %{Document:FileName}</para>
+<para><userinput>Save</userinput>: Current Document</para>
+<para><userinput>Working directory</userinput>: %{Document:Path}</para>
+<para><userinput>Editor command</userinput>: qml-preview</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>JSON Format Full File</title>
+
+<varlistentry>
+<term>Format the entire JSON file.</term>
+<listitem>
+<para><userinput>Name</userinput>: JSON Format Full File</para>
+<para><userinput>Icon</userinput>: application-json</para>
+<para><userinput>Executable</userinput>: jq</para>
+<para><userinput>Arguments</userinput>: %{Document:FileName}</para>
+<para><userinput>Save</userinput>: Current Document</para>
+<para><userinput>Working directory</userinput>: %{Document:Path}</para>
+<para><userinput>Output</userinput>: Replace Current Document</para>
+<para><userinput>Editor command</userinput>: json-format-file</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<variablelist>
+<title>XML Format Full File</title>
+
+<varlistentry>
+<term>Format the entire XML file.</term>
+<listitem>
+<para><userinput>Name</userinput>: JSON Format Full File</para>
+<para><userinput>Icon</userinput>: application-xml</para>
+<para><userinput>Executable</userinput>: xmllint</para>
+<para><userinput>Arguments</userinput>: --format %{Document:FileName}</para>
+<para><userinput>Save</userinput>: Current Document</para>
+<para><userinput>Working directory</userinput>: %{Document:Path}</para>
+<para><userinput>Output</userinput>: Replace Current Document</para>
+<para><userinput>Editor command</userinput>: xml-format-file</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
 </sect1>
 
 <sect1 id="kate-application-plugin-backtracebrowser">
@@ -432,6 +813,55 @@ which match the path or file extension selected from the submenu.</para>
 
 </sect1>
 
+<sect1 id="kate-application-plugin-colorpicker">
+
+<title>Color Picker Plugin</title>
+
+<sect2 id="colorpicker-intro">
+<title>Introduction</title>
+
+<para>This plugin adds an inline color preview/picker to colors in the text (&eg;, <literal>#FFFFFF</literal>, 
+<literal>white</literal>).</para>
+
+<para>To load this plugin open &kate;'s configuration dialog under <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure &kate;...</guimenuitem></menuchoice>.
+Then select <guilabel>Color Picker</guilabel> and close the dialog.
+</para>
+</sect2>
+
+<sect2 id="colorpicker-config">
+<title>Configuration</title>
+
+<para>On the Color Picker settings page in &kate;'s configuration, you can configure the following options of the plugin behavior.</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Show preview for known color names</guilabel></term>
+<listitem>
+<para>Whether to show the color picker for known color names (&eg;, <literal>skyblue</literal>). See <ulink url="https://www.w3.org/TR/SVG11/types.html#ColorKeywords">this page</ulink> for the list of colors.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Place preview after text color</guilabel></term>
+<listitem>
+<para>Whether to place the inline preview after text color in the text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Hex color matching</guilabel></term>
+<listitem>
+<para>Here, you can choose the best matching option for the colors used in your code.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
 
 <sect1 id="kate-application-plugin-ctags">
 <!--https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/-->

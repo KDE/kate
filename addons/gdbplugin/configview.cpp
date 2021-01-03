@@ -21,6 +21,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
+#include <kwidgetsaddons_version.h>
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -124,7 +125,11 @@ void ConfigView::registerActions(KActionCollection *actionCollection)
 {
     m_targetSelectAction = actionCollection->add<KSelectAction>(QStringLiteral("targets"));
     m_targetSelectAction->setText(i18n("Targets"));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 78, 0)
+    connect(m_targetSelectAction, &KSelectAction::indexTriggered, this, &ConfigView::slotTargetSelected);
+#else
     connect(m_targetSelectAction, static_cast<void (KSelectAction::*)(int)>(&KSelectAction::triggered), this, &ConfigView::slotTargetSelected);
+#endif
 }
 
 void ConfigView::readConfig(const KConfigGroup &group)

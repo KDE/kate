@@ -24,6 +24,8 @@
 #include <QTimer>
 #include <ktexteditor/document.h>
 
+#include "SearchDiskFiles.h"
+
 class SearchOpenFiles : public QObject
 {
     Q_OBJECT
@@ -49,7 +51,7 @@ private:
     int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 
 Q_SIGNALS:
-    void matchFound(const QString &url, const QString &fileName, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
+    void matchesFound(const QString &url, const QString &fileName, const QVector<KateSearchMatch> &searchMatches);
     void searchDone();
     void searching(const QString &file);
 

@@ -114,7 +114,7 @@ int main(int argc, char **argv)
      * construct about data for Kate
      */
     KAboutData aboutData(
-        QStringLiteral("kate"), i18n("Kate"), QStringLiteral(KATE_VERSION), i18n("Kate - Advanced Text Editor"), KAboutLicense::LGPL_V2, i18n("(c) 2000-2020 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
+        QStringLiteral("kate"), i18n("Kate"), QStringLiteral(KATE_VERSION), i18n("Kate - Advanced Text Editor"), KAboutLicense::LGPL_V2, i18n("(c) 2000-2021 The Kate Authors"), QString(), QStringLiteral("https://kate-editor.org"));
 
     /**
      * right dbus prefix == org.kde.

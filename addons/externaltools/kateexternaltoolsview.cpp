@@ -108,8 +108,22 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View *view)
         return;
     }
 
+    disconnect(m_docUrlChangedConnection);
+    m_docUrlChangedConnection = connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, [this](KTextEditor::Document* doc) {
+        updateActionState(doc);
+    });
+
+    updateActionState(view->document());
+}
+
+void KateExternalToolsMenuAction::updateActionState(KTextEditor::Document *activeDoc)
+{
+    if (!activeDoc) {
+        return;
+    }
+
     // try to enable/disable to match current mime type
-    const QString mimeType = view->document()->mimeType();
+    const QString mimeType = activeDoc->mimeType();
     const auto actions = m_actionCollection->actions();
     for (QAction *action : actions) {
         if (action && action->data().value<KateExternalTool *>()) {

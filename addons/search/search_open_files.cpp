@@ -108,21 +108,30 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
     QElapsedTimer time;
 
     time.start();
+    int resultLine = 0;
+    QVector<KateSearchMatch> matches;
     for (int line = startLine; line < doc->lines(); line++) {
         if (time.elapsed() > 100) {
             // qDebug() << "Search time exceeded" << time.elapsed() << line;
-            return line;
+            resultLine = line;
+            break;
         }
         QRegularExpressionMatch match;
         match = regExp.match(doc->line(line));
         column = match.capturedStart();
         while (column != -1 && !match.captured().isEmpty()) {
-            emit matchFound(doc->url().toString(), doc->documentName(), doc->line(line), match.capturedLength(), line, column, line, column + match.capturedLength());
+            matches.push_back(KateSearchMatch{doc->line(line), match.capturedLength(), KTextEditor::Range{line, column, line, column + match.capturedLength()}});
             match = regExp.match(doc->line(line), column + match.capturedLength());
             column = match.capturedStart();
         }
     }
-    return 0;
+
+    // emit all matches batched
+    if (!matches.isEmpty()) {
+        emit matchesFound(doc->url().toString(), doc->documentName(), matches);
+    }
+
+    return resultLine;
 }
 
 int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int inStartLine)
@@ -165,6 +174,8 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
     QRegularExpressionMatch match;
     match = tmpRegExp.match(m_fullDoc, column);
     column = match.capturedStart();
+    int resultLine = 0;
+    QVector<KateSearchMatch> matches;
     while (column != -1 && !match.captured().isEmpty()) {
         // search for the line number of the match
         int i;
@@ -184,15 +195,22 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
         int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL - 1;
 
-        emit matchFound(doc->url().toString(), doc->documentName(), doc->line(startLine).left(column - m_lineStart[startLine]) + match.captured(), match.capturedLength(), startLine, startColumn, endLine, endColumn);
+        matches.push_back(KateSearchMatch{doc->line(startLine).left(column - m_lineStart[startLine]) + match.captured(), match.capturedLength(), KTextEditor::Range{startLine, startColumn, endLine, endColumn}});
 
         match = tmpRegExp.match(m_fullDoc, column + match.capturedLength());
         column = match.capturedStart();
 
         if (time.elapsed() > 100) {
             // qDebug() << "Search time exceeded" << time.elapsed() << line;
-            return startLine;
+            resultLine = startLine;
+            break;
         }
     }
-    return 0;
+
+    // emit all matches batched
+    if (!matches.isEmpty()) {
+        emit matchesFound(doc->url().toString(), doc->documentName(), matches);
+    }
+
+    return resultLine;
 }

@@ -35,12 +35,10 @@ void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegularExpression 
 
     m_tree = tree;
     m_rootIndex = 0;
-    m_childStartIndex = 0;
     m_regExp = regexp;
     m_replaceText = replace;
     m_cancelReplace = false;
     m_terminateReplace = false;
-    m_progressTime.restart();
     doReplaceNextMatch();
 }
 
@@ -140,7 +138,7 @@ bool ReplaceMatches::replaceMatch(KTextEditor::Document *doc, QTreeWidgetItem *i
     html += QLatin1String("<i><s>") + item->data(0, ReplaceMatches::MatchRole).toString() + QLatin1String("</s></i> ");
     html += QLatin1String("<b>") + replaceText + QLatin1String("</b>");
     html += item->data(0, ReplaceMatches::PostMatchRole).toString();
-    item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2", range.start().line() + 1, html));
+    item->setData(0, Qt::DisplayRole, QStringLiteral("(<b>%1:%2</b>): %3").arg(range.start().line() + 1).arg(range.start().column() + 1).arg(html));
 
     return true;
 }
@@ -220,7 +218,8 @@ void ReplaceMatches::doReplaceNextMatch()
     // cancelReplace(). A closed file could lead to a crash if it is not handled.
 
     // Open the file
-    QTreeWidgetItem *fileItem = m_tree->topLevelItem(0)->child(m_rootIndex);
+    const auto fileItemIndex = m_rootIndex;
+    QTreeWidgetItem *fileItem = m_tree->topLevelItem(0)->child(fileItemIndex);
     if (!fileItem) {
         updateTreeViewItems(nullptr);
         m_rootIndex = -1;
@@ -265,83 +264,75 @@ void ReplaceMatches::doReplaceNextMatch()
         return;
     }
 
-    if (m_progressTime.elapsed() > 100) {
-        m_progressTime.restart();
-        if (m_currentMatches.isEmpty()) {
-            emit replaceStatus(doc->url(), 0, 0);
-        } else {
-            emit replaceStatus(doc->url(), m_childStartIndex, m_currentMatches.count());
-        }
-    }
+    emit replaceStatus(doc->url(), 0, 0);
 
-    if (m_childStartIndex == 0) {
-        // Create a vector of moving ranges for updating the tree-view after replace
-        QVector<bool> replaced;
-        KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-
-        for (int j = 0; j < fileItem->childCount(); ++j) {
-            QTreeWidgetItem *item = fileItem->child(j);
-            int startLine = item->data(0, ReplaceMatches::StartLineRole).toInt();
-            int startColumn = item->data(0, ReplaceMatches::StartColumnRole).toInt();
-            int endLine = item->data(0, ReplaceMatches::EndLineRole).toInt();
-            int endColumn = item->data(0, ReplaceMatches::EndColumnRole).toInt();
-            KTextEditor::Range range(startLine, startColumn, endLine, endColumn);
-            KTextEditor::MovingRange *mr = miface->newMovingRange(range);
-            m_currentMatches.append(mr);
-            m_currentReplaced << false;
-        }
+    // Create a vector of moving ranges for updating the tree-view after replace
+    QVector<KTextEditor::MovingRange *> matches(fileItem->childCount(), nullptr);
+    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+    for (int j = 0; j < fileItem->childCount(); ++j) {
+        QTreeWidgetItem *item = fileItem->child(j);
+        int startLine = item->data(0, ReplaceMatches::StartLineRole).toInt();
+        int startColumn = item->data(0, ReplaceMatches::StartColumnRole).toInt();
+        int endLine = item->data(0, ReplaceMatches::EndLineRole).toInt();
+        int endColumn = item->data(0, ReplaceMatches::EndColumnRole).toInt();
+        KTextEditor::Range range(startLine, startColumn, endLine, endColumn);
+        matches[j] = miface->newMovingRange(range);
     }
 
     // Make one transaction for the whole replace to speed up things
     // and get all replacements in one "undo"
-    KTextEditor::Document::EditingTransaction transaction(doc);
-
-    // now do the replaces
-    int i = m_childStartIndex;
-    for (; i < fileItem->childCount(); ++i) {
-        if (m_progressTime.elapsed() > 100) {
-            break;
-        }
-        QTreeWidgetItem *item = fileItem->child(i);
-
-        if (item->checkState(0) == Qt::Checked) {
-            m_currentReplaced[i] = replaceMatch(doc, item, m_currentMatches[i]->toRange(), m_regExp, m_replaceText);
-            item->setCheckState(0, Qt::PartiallyChecked);
-        }
-    }
-
-    if (i == fileItem->childCount()) {
-        updateTreeViewItems(fileItem);
-        if (isSearchAsYouType) {
-            m_rootIndex = -1;
-            emit replaceDone();
-            return;
-        }
-    } else {
-        m_childStartIndex = i;
-    }
-    QTimer::singleShot(0, this, &ReplaceMatches::doReplaceNextMatch);
-}
-
-void ReplaceMatches::updateTreeViewItems(QTreeWidgetItem *fileItem)
-{
-    if (fileItem && m_currentReplaced.size() == m_currentMatches.size() && m_currentReplaced.size() == fileItem->childCount()) {
-        for (int j = 0; j < m_currentReplaced.size() && j < m_currentMatches.size(); ++j) {
-            QTreeWidgetItem *item = fileItem->child(j);
-
-            if (!m_currentReplaced[j] && item) {
-                item->setData(0, ReplaceMatches::StartLineRole, m_currentMatches[j]->start().line());
-                item->setData(0, ReplaceMatches::StartColumnRole, m_currentMatches[j]->start().column());
-                item->setData(0, ReplaceMatches::EndLineRole, m_currentMatches[j]->end().line());
-                item->setData(0, ReplaceMatches::EndColumnRole, m_currentMatches[j]->end().column());
+    QVector<bool> replaced(fileItem->childCount(), false);
+    {
+        // now do the replaces
+        KTextEditor::Document::EditingTransaction transaction(doc);
+        for (int i = 0; i < fileItem->childCount(); ++i) {
+            QTreeWidgetItem *item = fileItem->child(i);
+            if (item->checkState(0) == Qt::Checked) {
+                replaced[i] = replaceMatch(doc, item, matches[i]->toRange(), m_regExp, m_replaceText);
             }
         }
     }
 
-    qDeleteAll(m_currentMatches);
+    // hack to avoid update costs, remove item from widget,
+    // otherwise the item->setXXX actions will trigger update cascades
+    fileItem = m_tree->topLevelItem(0)->takeChild(fileItemIndex);
+
+    // update stuff: important -> only trigger here checked updates
+    updateTreeViewItems(fileItem, matches, replaced);
+
+    // insert stuff back after updates
+    m_tree->topLevelItem(0)->insertChild(fileItemIndex, fileItem);
+
+    // free our moving ranges
+    qDeleteAll(matches);
+
+    if (isSearchAsYouType) {
+        m_rootIndex = -1;
+        emit replaceDone();
+        return;
+    }
+
+    QTimer::singleShot(0, this, &ReplaceMatches::doReplaceNextMatch);
+}
+
+void ReplaceMatches::updateTreeViewItems(QTreeWidgetItem *fileItem, const QVector<KTextEditor::MovingRange *> &matches, const QVector<bool> &replaced)
+{
+    // if we have a non-empty matches, we need to update stuff
+    // we always pass only matching sized vectors if non-empty!
+    if (fileItem && !matches.isEmpty()) {
+        Q_ASSERT(fileItem->childCount() == replaced.size());
+        Q_ASSERT(matches.size() == replaced.size());
+        for (int j = 0; j < fileItem->childCount(); ++j) {
+            QTreeWidgetItem *item = fileItem->child(j);
+            if (!replaced[j]) {
+                item->setData(0, ReplaceMatches::StartLineRole, matches[j]->start().line());
+                item->setData(0, ReplaceMatches::StartColumnRole, matches[j]->start().column());
+                item->setData(0, ReplaceMatches::EndLineRole, matches[j]->end().line());
+                item->setData(0, ReplaceMatches::EndColumnRole, matches[j]->end().column());
+                item->setCheckState(0, Qt::PartiallyChecked);
+            }
+        }
+    }
 
     m_rootIndex++;
-    m_childStartIndex = 0;
-    m_currentMatches.clear();
-    m_currentReplaced.clear();
 }

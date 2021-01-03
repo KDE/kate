@@ -358,9 +358,9 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
     KateExternalToolServiceEditor editor(tool, m_plugin, this);
     editor.resize(m_config->group("Editor").readEntry("Size", QSize()));
     if (editor.exec() == QDialog::Accepted) {
-        tool->name = editor.ui->edtName->text();
+        tool->name = editor.ui->edtName->text().trimmed();
         tool->icon = editor.ui->btnIcon->icon();
-        tool->executable = editor.ui->edtExecutable->text();
+        tool->executable = editor.ui->edtExecutable->text().trimmed();
         tool->arguments = editor.ui->edtArgs->text();
         tool->input = editor.ui->edtInput->toPlainText();
         tool->workingDir = editor.ui->edtWorkingDir->text();
@@ -372,7 +372,7 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
         tool->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
         tool->reload = editor.ui->chkReload->isChecked();
         tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
-        tool->cmdname = editor.ui->edtCommand->text();
+        tool->cmdname = editor.ui->edtCommand->text().trimmed();
 
         // sticky action collection name, never changes again, so that shortcuts stay
         if (tool->actionName.isEmpty()) {

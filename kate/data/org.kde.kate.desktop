@@ -178,3 +178,4 @@ InitialPreference=9
 X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kde.kate
 Categories=Qt;KDE;Utility;TextEditor;
+StartupWMClass=kate

@@ -15,7 +15,8 @@
 #include <algorithm>    // std::count_if
 
 
-static const quintptr InvalidIndex = 0xFFFFFFFF;
+static const quintptr InfoItemId = 0xFFFFFFFF;
+static const quintptr FileItemId = 0x7FFFFFFF;
 
 static QUrl localFileDirUp(const QUrl &url)
 {
@@ -147,13 +148,19 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::CheckStateRole) {
+    int fileRow = index.internalId() == InfoItemId ? -1 : index.internalId() == FileItemId ? index.row() : (int)index.internalId();
+    int matchRow = index.internalId() == InfoItemId || index.internalId() == FileItemId ? -1 : index.row();
+
+    if (fileRow == -1) {
+        // Info Item
+        switch (role) {
+            case Qt::DisplayRole:
+                return m_infoHtmlString;
+            case Qt::CheckStateRole:
+                return m_infoCheckState;
+        }
         return QVariant();
     }
-
-    // FIXME add one more level
-    int fileRow = index.internalId() == InvalidIndex ? index.row() : (int)index.internalId();
-    int matchRow = index.internalId() == InvalidIndex ? -1 : index.row();
 
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
         qDebug() << "Should be a file (or the info item in the near future)" << fileRow;
@@ -167,6 +174,8 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
                 return fileItemToHtmlString(m_matchFiles[fileRow]);
             case Qt::CheckStateRole:
                 return m_matchFiles[fileRow].checkState;
+            case FileUrlRole:
+                return m_matchFiles[fileRow].fileUrl;
         }
     }
     else if (matchRow < m_matchFiles[fileRow].matches.size()) {
@@ -177,6 +186,28 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
                 return matchToHtmlString(match);
             case Qt::CheckStateRole:
                 return match.checked ? Qt::Checked : Qt::Unchecked;
+            case FileUrlRole:
+                return m_matchFiles[fileRow].fileUrl;
+            case StartLineRole:
+                return match.startLine;
+            case StartColumnRole:
+                return match.startColumn;
+            case EndLineRole:
+                return match.endLine;
+            case EndColumnRole:
+                return match.endColumn;
+            case MatchLenRole:
+                return match.matchLen;
+            case PreMatchRole:
+                return match.preMatchStr;
+            case MatchRole:
+                return match.matchStr;
+            case PostMatchRole:
+                return match.postMatchStr;
+            case ReplacedRole:
+                return !match.replaceText.isEmpty();
+            case ReplaceTextRole:
+                return match.replaceText;
         }
     }
     else {
@@ -190,10 +221,23 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
 
 static bool isChecked(const MatchModel::Match &match) { return match.checked; }
 
+bool MatchModel::setFileChecked(int fileRow, bool checked)
+{
+    if (fileRow < 0 || fileRow >= m_matchFiles.size()) return false;
+    QVector<Match> &matches = m_matchFiles[fileRow].matches;
+    for (int i = 0; i < matches.size(); ++i) {
+        matches[i].checked = checked;
+    }
+    m_matchFiles[fileRow].checkState = checked ? Qt::Checked : Qt::Unchecked;
+    QModelIndex rootFileIndex = index(fileRow, 0, createIndex(0, 0, InfoItemId));
+    dataChanged(index(0, 0, rootFileIndex), index(matches.count()-1, 0, rootFileIndex), QVector<int>(Qt::CheckStateRole));
+    dataChanged(rootFileIndex, rootFileIndex, QVector<int>(Qt::CheckStateRole));
+    return true;
+}
+
 
 bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int role)
 {
-    // FIXME
     if (role != Qt::CheckStateRole)
         return false;
     if (!itemIndex.isValid())
@@ -201,19 +245,36 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     if (itemIndex.column() != 0)
         return false;
 
-    // Check/un-check the root-item and it's children
-    if (itemIndex.internalId() == InvalidIndex) {
-        int row = itemIndex.row();
-        if (row < 0 || row >= m_matchFiles.size()) return false;
-        QVector<Match> &matches = m_matchFiles[row].matches;
-        bool checked = m_matchFiles[row].checkState != Qt::Checked; // we toggle the current value
-        for (int i = 0; i < matches.size(); ++i) {
-            matches[i].checked = checked;
+    // Check/un-check the File Item and it's children
+    if (itemIndex.internalId() == InfoItemId) {
+        bool checked = m_infoCheckState != Qt::Checked;
+        for (int i=0; i<m_matchFiles.size(); ++i) {
+            setFileChecked(i, checked);
         }
-        m_matchFiles[row].checkState = checked ? Qt::Checked : Qt::Unchecked;
-        QModelIndex rootFileIndex = index(row, 0);
-        dataChanged(rootFileIndex, rootFileIndex, QVector<int>(Qt::CheckStateRole));
-        dataChanged(index(0, 0, rootFileIndex), index(matches.count()-1, 0, rootFileIndex), QVector<int>(Qt::CheckStateRole));
+        m_infoCheckState = checked ? Qt::Checked : Qt::Unchecked;
+        QModelIndex infoIndex = createIndex(0, 0, InfoItemId);
+        dataChanged(infoIndex, infoIndex, QVector<int>(Qt::CheckStateRole));
+        return true;
+    }
+
+
+    if (itemIndex.internalId() == FileItemId) {
+        int fileRrow = itemIndex.row();
+        if (fileRrow < 0 || fileRrow >= m_matchFiles.size()) return false;
+        bool checked = m_matchFiles[fileRrow].checkState != Qt::Checked; // we toggle the current value
+        setFileChecked(fileRrow, checked);
+
+        // compare file items
+        Qt::CheckState checkState = m_matchFiles[0].checkState;
+        for (int i=1; i<m_matchFiles.size(); ++i) {
+            if (checkState != m_matchFiles[i].checkState) {
+                checkState = Qt::PartiallyChecked;
+                break;
+            }
+        }
+        m_infoCheckState = checkState;
+        QModelIndex infoIndex = createIndex(0, 0, InfoItemId);
+        dataChanged(infoIndex, infoIndex, QVector<int>(Qt::CheckStateRole));
         return true;
     }
 
@@ -263,13 +324,19 @@ Qt::ItemFlags MatchModel::flags(const QModelIndex &index) const
 int MatchModel::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
+        return 1;
+    }
+
+    if (parent.internalId() == InfoItemId) {
         return m_matchFiles.size();
     }
 
-    if (parent.internalId() != InvalidIndex) {
+    if (parent.internalId() != FileItemId) {
+        // matches do not have children
         return 0;
     }
 
+    // If we get here parent.internalId() == FileItemId
     int row = parent.row();
     if (row < 0 || row >= m_matchFiles.size()) {
         return 0;
@@ -285,17 +352,34 @@ int MatchModel::columnCount(const QModelIndex &) const
 
 QModelIndex MatchModel::index(int row, int column, const QModelIndex &parent) const
 {
-    quint32 rootIndex = InvalidIndex;
-    if (parent.isValid() && parent.internalId() == InvalidIndex) {
-        rootIndex = parent.row();
+    // Create the Info Item
+    if (!parent.isValid()) {
+        return createIndex(0, 0, InfoItemId);
     }
-    return createIndex(row, column, rootIndex);
+
+    // File Item
+    if (parent.internalId() == InfoItemId) {
+        return createIndex(row, column, FileItemId);
+    }
+
+    // Match Item
+    if (parent.internalId() == FileItemId) {
+        return createIndex(row, column, parent.row());
+    }
+
+    // Parent is a match which does not have children
+    return QModelIndex();
 }
 
 QModelIndex MatchModel::parent(const QModelIndex &child) const
 {
-    if (child.internalId() == InvalidIndex) {
+    if (child.internalId() == InfoItemId) {
         return QModelIndex();
     }
-    return createIndex(child.internalId(), 0, InvalidIndex);
+
+    if (child.internalId() == FileItemId) {
+        return createIndex(0, 0, InfoItemId);
+    }
+
+    return createIndex(child.internalId(), 0, FileItemId);
 }

@@ -1124,8 +1124,6 @@ void KatePluginSearchView::startSearch()
         return;
     }
 
-    m_matchModel.clear();
-
     m_isSearchAsYouType = false;
 
     QString currentSearchText = m_ui.searchCombo->currentText();
@@ -1193,13 +1191,14 @@ void KatePluginSearchView::startSearch()
     m_curResults->matches = 0;
     disconnect(m_curResults->tree, &QTreeWidget::itemChanged, &m_updateSumaryTimer, nullptr);
 
+    m_curResults->matchModel.clear();
+    m_curResults->treeView->expand(m_curResults->matchModel.index(0,0));
+
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(), m_ui.searchCombo->currentText());
 
     m_toolView->setCursor(Qt::WaitCursor);
     m_searchDiskFilesDone = false;
     m_searchOpenFilesDone = false;
-
-    m_curResults->matchModel.clear();
 
     const bool inCurrentProject = m_ui.searchPlaceCombo->currentIndex() == Project;
     const bool inAllOpenProjects = m_ui.searchPlaceCombo->currentIndex() == AllProjects;
@@ -1361,6 +1360,8 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_curResults->matches = 0;
 
     m_curResults->matchModel.clear();
+    m_curResults->treeView->expand(m_curResults->matchModel.index(0,0));
+
 
     // Add the search-as-you-type header item
     TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());
@@ -1864,6 +1865,51 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     m_mainWindow->activeView()->setFocus();
 }
 
+void KatePluginSearchView::itemSelected2(const QModelIndex &item)
+{
+    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!m_curResults) {
+        qDebug() << "No result widget available";
+        return;
+    }
+
+    // open any children to go to the first match in the file
+    QModelIndex matchItem = item;
+    while (m_curResults->matchModel.hasChildren(matchItem)) {
+        matchItem = m_curResults->matchModel.index(0,0, matchItem);
+    }
+
+    // get stuff
+    int toLine = matchItem.data(MatchModel::StartLineRole).toInt();
+    int toColumn = matchItem.data(MatchModel::StartColumnRole).toInt();
+    QUrl url = matchItem.data(MatchModel::FileUrlRole).toUrl();
+    KTextEditor::Document *doc = m_kateApp->findUrl(url);
+
+    // add the marks to the document if it is not already open
+    if (!doc) {
+        doc = m_kateApp->openUrl(url);
+    }
+    if (!doc) {
+        qDebug() << "Could not open" << url;
+        Q_ASSERT(false); // If we get here we have a bug
+        return;
+    }
+
+    // open the right view...
+    m_mainWindow->activateView(doc);
+
+    // any view active?
+    if (!m_mainWindow->activeView()) {
+        qDebug() << "Could not activate view for:" << url;
+        Q_ASSERT(false);
+        return;
+    }
+
+    // set the cursor to the correct position
+    m_mainWindow->activeView()->setCursorPosition(KTextEditor::Cursor(toLine, toColumn));
+    m_mainWindow->activeView()->setFocus();
+}
+
 void KatePluginSearchView::goToNextMatch()
 {
     bool wrapFromFirst = false;
@@ -2148,6 +2194,10 @@ void KatePluginSearchView::addTab()
 
     connect(res->tree, &QTreeWidget::itemDoubleClicked, this, &KatePluginSearchView::itemSelected, Qt::UniqueConnection);
     connect(res->tree, &QTreeWidget::customContextMenuRequested, this, &KatePluginSearchView::customResMenuRequested, Qt::UniqueConnection);
+
+    res->treeView->setRootIsDecorated(false);
+    connect(res->treeView, &QTreeView::doubleClicked, this, &KatePluginSearchView::itemSelected2, Qt::UniqueConnection);
+    connect(res->treeView, &QTreeView::customContextMenuRequested, this, &KatePluginSearchView::customResMenuRequested, Qt::UniqueConnection);
 
     res->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
     res->useRegExp = m_ui.useRegExp->isChecked();

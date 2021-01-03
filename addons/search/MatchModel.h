@@ -30,8 +30,7 @@ public:
         MatchRole,
         PostMatchRole,
         ReplacedRole,
-        ReplaceTextRole,
-        CheckedRole,
+        ReplaceTextRole
     };
     Q_ENUM(MatchDataRoles)
 
@@ -93,11 +92,16 @@ private:
     QString matchToHtmlString(const Match &match) const;
     QString fileItemToHtmlString(const MatchFile &matchFile) const;
 
+    bool setFileChecked(int fileRow, bool checked);
+
     QVector<MatchFile> m_matchFiles;
-    QHash<QUrl, int>   m_matchFileIndexHash;
+    QHash<QUrl, int> m_matchFileIndexHash;
     QColor m_searchBackgroundColor;
     QColor m_foregroundColor;
     QColor m_replaceHighlightColor;
+
+    Qt::CheckState m_infoCheckState = Qt::Checked;
+    QString m_infoHtmlString;
 };
 
 #endif

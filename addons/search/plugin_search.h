@@ -148,6 +148,7 @@ private Q_SLOTS:
     void searching(const QString &file);
 
     void itemSelected(QTreeWidgetItem *item);
+    void itemSelected2(const QModelIndex &item);
 
     void clearMarks();
     void clearDocMarks(KTextEditor::Document *doc);
@@ -206,7 +207,6 @@ private:
     bool m_isVerticalLayout = false;
     bool m_blockDiskMatchFound = false;
     QString m_resultBaseDir;
-    MatchModel m_matchModel;
     QList<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;
     QTimer m_updateSumaryTimer;

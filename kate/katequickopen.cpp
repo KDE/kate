@@ -100,7 +100,7 @@ public:
 
         int j = 0;
         for (int i = 0; i < str.size() && j < m_filterString.size(); ++i) {
-            if (str.at(i) == m_filterString.at(j)) {
+            if (str.at(i).toLower() == m_filterString.at(j).toLower()) {
                 str.replace(i, 1, QStringLiteral("<b>") + str.at(i) + QStringLiteral("</b>"));
                 i += 7;
                 ++j;

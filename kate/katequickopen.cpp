@@ -15,8 +15,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include <tuple>
-
 #include <KAboutData>
 #include <KActionCollection>
 #include <KLineEdit>
@@ -35,31 +33,45 @@
 #include <QStandardItemModel>
 #include <QTreeView>
 
-class QuickOpenFilterProxyModel : public QSortFilterProxyModel {
+#include "kfts_fuzzy_match.h"
+
+class QuickOpenFilterProxyModel : public QSortFilterProxyModel
+{
+
 public:
     QuickOpenFilterProxyModel(QObject *parent = nullptr) : QSortFilterProxyModel(parent)
     {}
 
+protected:
+    bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const override
+    {
+        int l = source_left.data(KateQuickOpenModel::Score).toInt();
+        int r = source_right.data(KateQuickOpenModel::Score).toInt();
+        return l < r;
+    }
+
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
+        if (filterStrings.isEmpty())
+            return true;
         const QString fileName = sourceModel()->index(sourceRow, 0, sourceParent).data().toString();
-        for (const QString& str : filterStrings) {
-            if (!fileName.contains(str, Qt::CaseInsensitive)) {
-                return false;
-            }
-        }
-        return true;
+        int score;
+        auto res = kfts::fuzzy_match(filterStrings.constData(), fileName.constData(), score);
+        auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
+        sourceModel()->setData(idx, score, KateQuickOpenModel::Score);
+        return res;
     }
 
 public Q_SLOTS:
     void setFilterText(const QString& text)
     {
-        filterStrings = text.split(QLatin1Char(' '), Qt::SkipEmptyParts);
-        invalidateFilter();
+        beginResetModel();
+        filterStrings = text;
+        endResetModel();
     }
 
 private:
-    QStringList filterStrings;
+    QString filterStrings;
 };
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
@@ -87,10 +99,10 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
 
     m_model = new QuickOpenFilterProxyModel(this);
     m_model->setFilterRole(Qt::DisplayRole);
-    m_model->setSortRole(Qt::DisplayRole);
+    m_model->setSortRole(KateQuickOpenModel::Score);
     m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
-    m_model->setFilterKeyColumn(0);
+    m_model->setFilterKeyColumn(Qt::DisplayRole);
 
     connect(m_inputLine, &KLineEdit::textChanged, m_model, &QuickOpenFilterProxyModel::setFilterText);
     connect(m_inputLine, &KLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
@@ -100,6 +112,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     connect(m_listView, &QTreeView::activated, this, &KateQuickOpen::slotReturnPressed);
 
     m_listView->setModel(m_model);
+    m_listView->setSortingEnabled(true);
     m_model->setSourceModel(m_base_model);
 
     m_inputLine->installEventFilter(this);

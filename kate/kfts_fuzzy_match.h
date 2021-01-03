@@ -16,65 +16,70 @@
  */
 
 namespace kfts {
-    static bool fuzzy_match_simple(const QChar* pattern, const QChar* str);
-    static bool fuzzy_match(const QChar* pattern, const QChar* str, int & outScore);
-    static bool fuzzy_match(const QChar* pattern, const QChar* str, int & outScore, uint8_t * matches, int maxMatches);
+    static bool fuzzy_match_simple(const QStringView pattern, const QStringView str);
+    static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore);
+    static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore, uint8_t * matches, int maxMatches);
 }
 
 namespace kfts {
 
     // Forward declarations for "private" implementation
     namespace fuzzy_internal {
-        static bool fuzzy_match_recursive(const QChar* pattern, const QChar* str, int & outScore, const QChar* strBegin,
+        static bool fuzzy_match_recursive(QStringView::const_iterator pattern, QStringView::const_iterator str, int & outScore, const QStringView::const_iterator strBegin, const QStringView::const_iterator strEnd, const QStringView::const_iterator patternEnd,
             uint8_t const * srcMatches,  uint8_t * newMatches,  int maxMatches, int nextMatch,
-            int & recursionCount, int recursionLimit);
+            int & recursionCount);
     }
 
     // Public interface
-    static bool fuzzy_match_simple(const QChar* pattern, const QChar* str)
+    static bool fuzzy_match_simple(const QStringView pattern, const QStringView str)
     {
-        while (!pattern->isNull() && !str->isNull())  {
-            if (pattern->toLower() == str->toLower())
-                ++pattern;
-            ++str;
+        auto patternIt = pattern.cbegin();
+        for (auto strIt = str.cbegin(); strIt != str.cend() && patternIt != pattern.cend(); ++strIt) {
+            if (strIt->toLower() == patternIt->toLower())
+                ++patternIt;
         }
-
-        return pattern->isNull() ? true : false;
+        return patternIt == pattern.cend();
     }
 
-    static bool fuzzy_match(const QChar* pattern, const QChar* str, int & outScore)
+    static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore)
     {
-        uint8_t matches[32];
+        uint8_t matches[256];
         return fuzzy_match(pattern, str, outScore, matches, sizeof(matches));
     }
 
-    static bool fuzzy_match(const QChar* pattern, const QChar* str, int & outScore, uint8_t * matches, int maxMatches)
+    static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore, uint8_t * matches, int maxMatches)
     {
         int recursionCount = 0;
-        int recursionLimit = 10;
 
-        return fuzzy_internal::fuzzy_match_recursive(pattern, str, outScore, str, nullptr, matches, maxMatches, 0, recursionCount, recursionLimit);
+        auto strIt = str.cbegin();
+        auto patternIt = pattern.cbegin();
+        const auto patternEnd = pattern.cend();
+        const auto strEnd = str.cend();
+
+        return fuzzy_internal::fuzzy_match_recursive(patternIt, strIt, outScore, strIt, strEnd, patternEnd, nullptr, matches, maxMatches, 0, recursionCount);
     }
 
     // Private implementation
-    static bool fuzzy_internal::fuzzy_match_recursive(const QChar* pattern,
-                                                      const QChar* str,
-                                                      int & outScore,
-                                                      const QChar* strBegin,
-                                                      uint8_t const * srcMatches,
-                                                      uint8_t * matches,
+    static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pattern,
+                                                      QStringView::const_iterator str,
+                                                      int& outScore,
+                                                      const QStringView::const_iterator strBegin,
+                                                      const QStringView::const_iterator strEnd,
+                                                      const QStringView::const_iterator patternEnd,
+                                                      const uint8_t* srcMatches,
+                                                      uint8_t* matches,
                                                       int maxMatches,
                                                       int nextMatch,
-                                                      int & recursionCount,
-                                                      int recursionLimit)
+                                                      int& recursionCount)
     {
         // Count recursions
+        static constexpr int recursionLimit = 10;
         ++recursionCount;
         if (recursionCount >= recursionLimit)
             return false;
 
         // Detect end of strings
-        if (pattern->isNull() || str->isNull())
+        if (pattern == patternEnd || str == strEnd)
             return false;
 
         // Recursion params
@@ -84,7 +89,7 @@ namespace kfts {
 
         // Loop through pattern and str looking for a match
         bool first_match = true;
-        while (!pattern->isNull() && !str->isNull()) {
+        while (pattern != patternEnd && str != strEnd) {
 
             // Found match
             if (pattern->toLower() == str->toLower()) {
@@ -102,7 +107,8 @@ namespace kfts {
                 // Recursive call that "skips" this match
                 uint8_t recursiveMatches[256];
                 int recursiveScore;
-                if (fuzzy_match_recursive(pattern, str + 1, recursiveScore, strBegin, matches, recursiveMatches, sizeof(recursiveMatches), nextMatch, recursionCount, recursionLimit)) {
+                auto strNextChar = std::next(str);
+                if (fuzzy_match_recursive(pattern, strNextChar, recursiveScore, strBegin, strEnd, patternEnd, matches, recursiveMatches, sizeof(recursiveMatches), nextMatch, recursionCount)) {
 
                     // Pick best recursive score
                     if (!recursiveMatch || recursiveScore > bestRecursiveScore) {
@@ -113,14 +119,14 @@ namespace kfts {
                 }
 
                 // Advance
-                matches[nextMatch++] = (uint8_t)(str - strBegin);
+                matches[nextMatch++] = (uint8_t)(std::distance(strBegin, str));
                 ++pattern;
             }
             ++str;
         }
 
         // Determine if full pattern was matched
-        bool matched = pattern->isNull() ? true : false;
+        bool matched = pattern == patternEnd ? true : false;
 
         // Calculate score
         if (matched) {
@@ -134,7 +140,7 @@ namespace kfts {
             static constexpr int unmatched_letter_penalty = -1;    // penalty for every letter that doesn't matter
 
             // Iterate str to end
-            while (!str->isNull())
+            while (str != strEnd)
                 ++str;
 
             // Initialize score
@@ -147,7 +153,7 @@ namespace kfts {
             outScore += penalty;
 
             // Apply unmatched penalty
-            int unmatched = (int)(str - strBegin) - nextMatch;
+            const int unmatched = (int)(std::distance(strBegin, str)) - nextMatch;
             outScore += unmatched_letter_penalty * unmatched;
 
             // Apply ordering bonuses
@@ -165,8 +171,8 @@ namespace kfts {
                 // Check for bonuses based on neighbor character value
                 if (currIdx > 0) {
                     // Camel case
-                    QChar neighbor = strBegin[currIdx - 1];
-                    QChar curr = strBegin[currIdx];
+                    QChar neighbor = *(strBegin + currIdx - 1);
+                    QChar curr = *(strBegin + currIdx);
                     if (neighbor.isLower() && curr.isUpper())
                         outScore += camel_bonus;
 

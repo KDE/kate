@@ -46,22 +46,27 @@ public:
     {}
 
 protected:
-    bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const override
+    bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
     {
-        int l = source_left.data(KateQuickOpenModel::Score).toInt();
-        int r = source_right.data(KateQuickOpenModel::Score).toInt();
+        int l = sourceLeft.data(KateQuickOpenModel::Score).toInt();
+        int r = sourceRight.data(KateQuickOpenModel::Score).toInt();
         return l < r;
     }
 
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
-        if (filterStrings.isEmpty())
+        if (pattern.isEmpty())
             return true;
         const QString fileName = sourceModel()->index(sourceRow, 0, sourceParent).data().toString();
-        int score;
-        auto res = kfts::fuzzy_match(filterStrings.constData(), fileName.constData(), score);
+
+        // match
+        int score = 0;
+        auto res = kfts::fuzzy_match(pattern, fileName, score);
+
+        // store the score for sorting later
         auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
         sourceModel()->setData(idx, score, KateQuickOpenModel::Score);
+
         return res;
     }
 
@@ -69,12 +74,12 @@ public Q_SLOTS:
     void setFilterText(const QString& text)
     {
         beginResetModel();
-        filterStrings = text;
+        pattern = text;
         endResetModel();
     }
 
 private:
-    QString filterStrings;
+    QString pattern;
 };
 
 class QuickOpenStyleDelegate : public QStyledItemDelegate {

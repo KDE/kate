@@ -31,7 +31,10 @@
 #include <QPointer>
 #include <QSortFilterProxyModel>
 #include <QStandardItemModel>
+#include <QStyledItemDelegate>
 #include <QTreeView>
+#include <QTextDocument>
+#include <QPainter>
 
 #include "kfts_fuzzy_match.h"
 
@@ -74,6 +77,58 @@ private:
     QString filterStrings;
 };
 
+class QuickOpenStyleDelegate : public QStyledItemDelegate {
+
+public:
+    QuickOpenStyleDelegate(QObject* parent = nullptr)
+        : QStyledItemDelegate(parent)
+    {}
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        QStyleOptionViewItem options = option;
+        initStyleOption(&options, index);
+
+        QTextDocument doc;
+
+        QString str = index.data().toString();
+        for (const auto c : m_filterString) {
+            const QRegularExpression re (QStringLiteral("(")+QRegularExpression::escape(c)+QStringLiteral(")"), QRegularExpression::CaseInsensitiveOption);
+            str.replace(re, QStringLiteral("<b>\\1</b>"));
+        }
+
+        doc.setHtml(str);
+        doc.setDocumentMargin(2);
+
+        painter->save();
+
+        // paint background
+        if (option.state & QStyle::State_Selected) {
+            painter->fillRect(option.rect, option.palette.highlight());
+        } else {
+            painter->fillRect(option.rect, option.palette.base());
+        }
+
+        options.text = QString(); // clear old text
+        options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+
+        // draw text
+        painter->translate(option.rect.x(), option.rect.y());
+        doc.drawContents(painter);
+
+        painter->restore();
+    }
+
+public Q_SLOTS:
+    void setFilterString(const QString& text)
+    {
+        m_filterString = text;
+    }
+
+private:
+    QString m_filterString;
+};
+
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
 KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
@@ -104,7 +159,12 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
     m_model->setFilterKeyColumn(Qt::DisplayRole);
 
+    QuickOpenStyleDelegate* delegate = new QuickOpenStyleDelegate(this);
+    m_listView->setItemDelegateForColumn(0, delegate);
+
     connect(m_inputLine, &KLineEdit::textChanged, m_model, &QuickOpenFilterProxyModel::setFilterText);
+    connect(m_inputLine, &KLineEdit::textChanged, delegate, &QuickOpenStyleDelegate::setFilterString);
+    connect(m_inputLine, &KLineEdit::textChanged, this, [this](){ m_listView->viewport()->update(); });
     connect(m_inputLine, &KLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_model, &QSortFilterProxyModel::rowsInserted, this, &KateQuickOpen::reselectFirst);
     connect(m_model, &QSortFilterProxyModel::rowsRemoved, this, &KateQuickOpen::reselectFirst);

@@ -97,9 +97,14 @@ public:
         QTextDocument doc;
 
         QString str = index.data().toString();
-        for (const auto c : m_filterString) {
-            const QRegularExpression re (QStringLiteral("(")+QRegularExpression::escape(c)+QStringLiteral(")"), QRegularExpression::CaseInsensitiveOption);
-            str.replace(re, QStringLiteral("<b>\\1</b>"));
+
+        int j = 0;
+        for (int i = 0; i < str.size() && j < m_filterString.size(); ++i) {
+            if (str.at(i) == m_filterString.at(j)) {
+                str.replace(i, 1, QStringLiteral("<b>") + str.at(i) + QStringLiteral("</b>"));
+                i += 7;
+                ++j;
+            }
         }
 
         doc.setHtml(str);

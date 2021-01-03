@@ -124,14 +124,14 @@ namespace kfts {
 
         // Calculate score
         if (matched) {
-            const int sequential_bonus = 15;            // bonus for adjacent matches
-            const int separator_bonus = 30;             // bonus if match occurs after a separator
-            const int camel_bonus = 30;                 // bonus if match is uppercase and prev is lower
-            const int first_letter_bonus = 15;          // bonus if the first letter is matched
+            static constexpr int sequential_bonus = 15;            // bonus for adjacent matches
+            static constexpr int separator_bonus = 30;             // bonus if match occurs after a separator
+            static constexpr int camel_bonus = 30;                 // bonus if match is uppercase and prev is lower
+            static constexpr int first_letter_bonus = 15;          // bonus if the first letter is matched
 
-            const int leading_letter_penalty = -5;      // penalty applied for every letter in str before the first match
-            const int max_leading_letter_penalty = -15; // maximum penalty for leading letters
-            const int unmatched_letter_penalty = -1;    // penalty for every letter that doesn't matter
+            static constexpr int leading_letter_penalty = -5;      // penalty applied for every letter in str before the first match
+            static constexpr int max_leading_letter_penalty = -15; // maximum penalty for leading letters
+            static constexpr int unmatched_letter_penalty = -1;    // penalty for every letter that doesn't matter
 
             // Iterate str to end
             while (!str->isNull())

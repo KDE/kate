@@ -112,6 +112,5 @@ void KateQuickOpenModel::refresh()
 
     beginResetModel();
     m_modelEntries = allDocuments;
-    currentRowCount = 0;
     endResetModel();
 }

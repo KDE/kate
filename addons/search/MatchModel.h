@@ -13,6 +13,25 @@
 #include <QUrl>
 #include <QBrush>
 
+#include <KTextEditor/Range>
+
+
+/**
+ * data holder for one match in one file
+ * used to transfer multiple matches at once via signals to avoid heavy costs for files with a lot of matches
+ */
+class KateSearchMatch
+{
+public:
+    QString lineContent;
+    int matchLen;
+    KTextEditor::Range matchRange;
+};
+
+Q_DECLARE_METATYPE(KateSearchMatch)
+
+
+
 class MatchModel : public QAbstractItemModel
 {
     Q_OBJECT
@@ -68,7 +87,7 @@ public Q_SLOTS:
     int matchFileRow(const QUrl& fileUrl);
 
     /** This function is used to add a new file */
-    void addMatch(const QUrl &fileUrl, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn);
+    void addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches);
 
 //     /** This function is used to modify a match */
 //     void replaceMatch(const QModelIndex &matchIndex, const QRegularExpression &regexp, const QString &replaceText);

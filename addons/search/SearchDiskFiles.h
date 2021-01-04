@@ -26,21 +26,7 @@
 #include <QThread>
 #include <QVector>
 
-#include <KTextEditor/Range>
-
-/**
- * data holder for one match in one file
- * used to transfer multiple matches at once via signals to avoid heavy costs for files with a lot of matches
- */
-class KateSearchMatch
-{
-    public:
-        QString lineContent;
-        int matchLen;
-        KTextEditor::Range matchRange;
-};
-
-Q_DECLARE_METATYPE(KateSearchMatch)
+#include "MatchModel.h"
 
 class SearchDiskFiles : public QThread
 {

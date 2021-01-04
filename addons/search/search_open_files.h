@@ -24,7 +24,7 @@
 #include <QTimer>
 #include <ktexteditor/document.h>
 
-#include "SearchDiskFiles.h"
+#include "MatchModel.h"
 
 class SearchOpenFiles : public QObject
 {

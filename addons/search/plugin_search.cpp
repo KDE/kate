@@ -966,6 +966,8 @@ void KatePluginSearchView::matchesFound(const QUrl &url, const QVector<KateSearc
     const QString bgColor = m_searchBackgroundColor.color().name();
     const QString fgColor = m_foregroundColor.color().name();
 
+    m_curResults->matchModel.addMatches(url, searchMatches);
+
     /**
      * handle all received matches, add them as one operation to the widget afterwards
      */

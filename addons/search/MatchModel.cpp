@@ -53,7 +53,7 @@ int MatchModel::matchFileRow(const QUrl& fileUrl)
 static const int totalContectLen = 150;
 
 /** This function is used to add a match to a new file */
-void MatchModel::addMatch(const QUrl &fileUrl, const QString &lineContent, int matchLen, int line, int column, int endLine, int endColumn)
+void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches)
 {
     int fileIndex = matchFileRow(fileUrl);
     if (fileIndex == -1) {
@@ -65,29 +65,31 @@ void MatchModel::addMatch(const QUrl &fileUrl, const QString &lineContent, int m
         m_matchFiles[fileIndex].fileUrl = fileUrl;
         endInsertRows();
     }
-    MatchModel::Match match;
-    match.matchLen = matchLen;
-    match.startLine = line;
-    match.startColumn = column;
-    match.endLine = endLine;
-    match.endColumn = endColumn;
-
-    int contextLen = totalContectLen - matchLen;
-    int preLen = qMin(contextLen/3, column);
-    int postLen = contextLen - preLen;
-
-    match.preMatchStr = lineContent.mid(column-preLen, preLen);
-    if (column > preLen) match.preMatchStr.prepend(QLatin1String("..."));
-
-    match.postMatchStr = lineContent.mid(endColumn, postLen);
-    if (endColumn+preLen < lineContent.size()) match.postMatchStr.append(QLatin1String("..."));
-
-    match.matchStr = lineContent.mid(column, matchLen);
 
     int matchIndex = m_matchFiles[fileIndex].matches.size();
-    beginInsertRows(index(fileIndex, 0), matchIndex, matchIndex);
-    // We are always starting the insert at the end, so we could optimize by delaying/grouping the signaling of the updates
-    m_matchFiles[fileIndex].matches.append(match);
+    beginInsertRows(index(fileIndex, 0), matchIndex, matchIndex + searchMatches.size()-1);
+    for (const auto &sMatch: searchMatches) {
+        MatchModel::Match match;
+        match.matchLen = sMatch.matchLen;
+        match.startLine = sMatch.matchRange.start().line();
+        match.startColumn = sMatch.matchRange.start().column();
+        match.endLine = sMatch.matchRange.end().line();
+        match.endColumn = sMatch.matchRange.end().column();
+
+        int contextLen = totalContectLen - sMatch.matchLen;
+        int preLen = qMin(contextLen/3, match.startColumn);
+        int postLen = contextLen - preLen;
+
+        match.preMatchStr = sMatch.lineContent.mid(match.startColumn-preLen, preLen);
+        if (match.startColumn > preLen) match.preMatchStr.prepend(QLatin1String("..."));
+
+        match.postMatchStr = sMatch.lineContent.mid(match.endColumn, postLen);
+        if (match.endColumn+preLen < sMatch.lineContent.size()) match.postMatchStr.append(QLatin1String("..."));
+
+        match.matchStr = sMatch.lineContent.mid(match.startColumn, sMatch.matchLen);
+
+        m_matchFiles[fileIndex].matches.append(match);
+    }
     endInsertRows();
 }
 

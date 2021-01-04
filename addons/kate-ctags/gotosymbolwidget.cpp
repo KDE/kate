@@ -73,9 +73,17 @@ public:
 
         QString str = index.data().toString();
         for (const auto& string : m_filterStrings) {
+            // FIXME: need to do to better here
+            if (string == QLatin1String("b"))
+                continue;
             const QRegularExpression re (QStringLiteral("(")+QRegularExpression::escape(string)+QStringLiteral(")"), QRegularExpression::CaseInsensitiveOption);
             str.replace(re, QStringLiteral("<b>\\1</b>"));
         }
+
+        auto file = index.data(GotoGlobalSymbolModel::FileUrl).toString();
+        // this will be empty for local symbol mode
+        if (!file.isEmpty())
+            str += QStringLiteral(" &nbsp;<span style=\"color: gray;\">") + QFileInfo(file).fileName() + QStringLiteral("</span>");
 
         doc.setHtml(str);
         doc.setDocumentMargin(2);

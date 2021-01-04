@@ -11,14 +11,36 @@
 #include <QString>
 
 /**
- *  This is based on https://github.com/forrestthewoods/lib_fts/blob/master/code/fts_fuzzy_match.h
- *  with modifications for Qt
+ * This is based on https://github.com/forrestthewoods/lib_fts/blob/master/code/fts_fuzzy_match.h
+ * with modifications for Qt
+ *
+ * Dont include this file in a header file, please :)
  */
 
 namespace kfts {
+    /**
+     * @brief simple fuzzy matching of chars in @a pattern with chars in @a str sequentially
+     */
     static bool fuzzy_match_simple(const QStringView pattern, const QStringView str);
+
+    /**
+     * @brief This should be the main function you should use. @a outscore is the score
+     * of this match and should be used to sort the results later. Without sorting of the
+     * results this function won't be as effective.
+     */
     static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore);
     static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore, uint8_t * matches, int maxMatches);
+
+    /**
+     * @brief get string for display in treeview / listview. This should be used from style delegate.
+     * For example: with @a pattern = "kate", @a str = "kateapp" and @htmlTag = "<b>
+     * the output will be <b>k</b><b>a</b><b>t</b><b>e</b>app which will be visible to user as
+     * <b>kate</b>app.
+     *
+     * TODO: improve this so that we don't have to put html tags on every char probably using some kind
+     * of interval container
+     */
+    static QString to_fuzzy_matched_display_string(const QStringView pattern, QString &str, const QString &htmlTag, const QString &htmlTagClose);
 }
 
 namespace kfts {
@@ -204,6 +226,19 @@ namespace kfts {
             return false;
         }
     }
-} // namespace fts
+
+    static QString to_fuzzy_matched_display_string(const QStringView pattern, QString& str, const QString& htmlTag, const QString& htmlTagClose)
+    {
+        int j = 0;
+        for (int i = 0; i < str.size() && j < pattern.size(); ++i) {
+            if (str.at(i).toLower() == pattern.at(j).toLower()) {
+                str.replace(i, 1, htmlTag + str.at(i) + htmlTagClose);
+                i += 7;
+                ++j;
+            }
+        }
+        return str;
+    }
+} // namespace kfts
 
 #endif // KFTS_FUZZY_MATCH_H

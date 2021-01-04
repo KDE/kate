@@ -18,6 +18,7 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/session
     ${CMAKE_CURRENT_SOURCE_DIR}/qtsingleapplication
     ${CMAKE_CURRENT_BINARY_DIR} # katetests_export.h + config.h
+    ${CMAKE_SOURCE_DIR}/shared
 )
 
 find_package(

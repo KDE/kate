@@ -37,6 +37,9 @@ class MatchModel : public QAbstractItemModel
     Q_OBJECT
 public:
 
+    enum SearchPlaces { CurrentFile, OpenFiles, Folder, Project, AllProjects };
+    Q_ENUM(SearchPlaces)
+
     enum MatchDataRoles {
         FileUrlRole = Qt::UserRole,
         FileNameRole,
@@ -77,10 +80,10 @@ public:
 
     void setMatchColors(const QColor &foreground, const QColor &background, const QColor &replaseBackground);
 
-public Q_SLOTS:
-
     /** This function clears all matches in all files */
     void clear();
+
+public Q_SLOTS:
 
     /** This function returns the row index of the specified file.
      * If the file does not exist in the model, the file will be added to the model. */

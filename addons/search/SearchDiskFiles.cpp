@@ -138,10 +138,8 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
     }
 
     // emit all matches batched
-    if (!matches.isEmpty()) {
-        const QUrl fileUrl = QUrl::fromUserInput(fileName);
-        emit matchesFound(fileUrl, matches);
-    }
+    const QUrl fileUrl = QUrl::fromUserInput(fileName);
+    emit matchesFound(fileUrl, matches);
 }
 
 void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
@@ -209,8 +207,6 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
     }
 
     // emit all matches batched
-    if (!matches.isEmpty()) {
-        const QUrl fileUrl = QUrl::fromUserInput(fileName);
-        emit matchesFound(fileUrl, matches);
-    }
+    const QUrl fileUrl = QUrl::fromUserInput(fileName);
+    emit matchesFound(fileUrl, matches);
 }

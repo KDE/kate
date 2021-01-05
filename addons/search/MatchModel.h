@@ -40,6 +40,9 @@ public:
     enum SearchPlaces { CurrentFile, OpenFiles, Folder, Project, AllProjects };
     Q_ENUM(SearchPlaces)
 
+    enum SearchState { SearchDone, Searching, Replacing };
+    Q_ENUM(SearchState)
+
     enum MatchDataRoles {
         FileUrlRole = Qt::UserRole,
         FileNameRole,
@@ -56,6 +59,7 @@ public:
     };
     Q_ENUM(MatchDataRoles)
 
+private:
     struct Match {
         int startLine = 0;
         int startColumn = 0;
@@ -75,10 +79,19 @@ public:
         Qt::CheckState checkState = Qt::Checked;
     };
 
+public:
     MatchModel(QObject *parent = nullptr);
     ~MatchModel() override;
 
     void setMatchColors(const QColor &foreground, const QColor &background, const QColor &replaseBackground);
+
+    void setSearchPlace(MatchModel::SearchPlaces searchPlace);
+
+    void setSearchState(MatchModel::SearchState searchState);
+
+    void setBaseSearchPath(const QString &baseSearchPath);
+
+    void setProjectName(const QString &projectName);
 
     /** This function clears all matches in all files */
     void clear();
@@ -116,6 +129,8 @@ private:
 
     bool setFileChecked(int fileRow, bool checked);
 
+    QString infoHtmlString() const;
+
     QVector<MatchFile> m_matchFiles;
     QHash<QUrl, int> m_matchFileIndexHash;
     QColor m_searchBackgroundColor;
@@ -123,7 +138,11 @@ private:
     QColor m_replaceHighlightColor;
 
     Qt::CheckState m_infoCheckState = Qt::Checked;
-    QString m_infoHtmlString;
+    SearchPlaces m_searchPlace = CurrentFile;
+    SearchState m_searchState = SearchDone;
+    QString m_resultBaseDir;
+    QString m_projectName;
+    QUrl m_lastMatchUrl;
 };
 
 #endif

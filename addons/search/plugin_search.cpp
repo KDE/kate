@@ -1193,9 +1193,6 @@ void KatePluginSearchView::startSearch()
     m_curResults->matches = 0;
     disconnect(m_curResults->tree, &QTreeWidget::itemChanged, &m_updateSumaryTimer, nullptr);
 
-    m_curResults->matchModel.clear();
-    m_curResults->treeView->expand(m_curResults->matchModel.index(0,0));
-
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(), m_ui.searchCombo->currentText());
 
     m_toolView->setCursor(Qt::WaitCursor);
@@ -1204,6 +1201,11 @@ void KatePluginSearchView::startSearch()
 
     const bool inCurrentProject = m_ui.searchPlaceCombo->currentIndex() == MatchModel::Project;
     const bool inAllOpenProjects = m_ui.searchPlaceCombo->currentIndex() == MatchModel::AllProjects;
+
+    m_curResults->matchModel.clear();
+    m_curResults->matchModel.setSearchPlace(static_cast<MatchModel::SearchPlaces>(m_curResults->searchPlaceIndex));
+    m_curResults->matchModel.setSearchState(MatchModel::Searching);
+    m_curResults->treeView->expand(m_curResults->matchModel.index(0,0));
 
     if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::CurrentFile) {
         m_searchDiskFilesDone = true;
@@ -1225,6 +1227,7 @@ void KatePluginSearchView::startSearch()
         m_resultBaseDir = m_ui.folderRequester->url().path();
         if (!m_resultBaseDir.isEmpty() && !m_resultBaseDir.endsWith(QLatin1Char('/')))
             m_resultBaseDir += QLatin1Char('/');
+        m_curResults->matchModel.setBaseSearchPath(m_resultBaseDir);
         addHeaderItem();
         m_folderFilesList.generateList(m_ui.folderRequester->text(),
                                        m_ui.recursiveCheckBox->isChecked(),
@@ -1242,8 +1245,10 @@ void KatePluginSearchView::startSearch()
         if (m_projectPluginView) {
             if (inCurrentProject) {
                 m_resultBaseDir = m_projectPluginView->property("projectBaseDir").toString();
+                m_curResults->matchModel.setProjectName(m_projectPluginView->property("projectName").toString());
             } else {
                 m_resultBaseDir = m_projectPluginView->property("allProjectsCommonBaseDir").toString();
+                m_curResults->matchModel.setProjectName(m_projectPluginView->property("projectName").toString());
             }
 
             if (!m_resultBaseDir.endsWith(QLatin1Char('/')))
@@ -1258,6 +1263,8 @@ void KatePluginSearchView::startSearch()
 
             files = filterFiles(projectFiles);
         }
+        m_curResults->matchModel.setBaseSearchPath(m_resultBaseDir);
+
         addHeaderItem();
 
         QList<KTextEditor::Document *> openList;
@@ -1362,6 +1369,8 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_curResults->matches = 0;
 
     m_curResults->matchModel.clear();
+    m_curResults->matchModel.setSearchPlace(MatchModel::CurrentFile);
+    m_curResults->matchModel.setSearchState(MatchModel::Searching);
     m_curResults->treeView->expand(m_curResults->matchModel.index(0,0));
 
 
@@ -1442,6 +1451,9 @@ void KatePluginSearchView::searchDone()
     connect(m_curResults->tree, &QTreeWidget::itemChanged, &m_updateSumaryTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
 
     indicateMatch(m_curResults->matches > 0);
+
+    m_curResults->matchModel.setSearchState(MatchModel::SearchDone);
+
     m_curResults = nullptr;
     m_toolView->unsetCursor();
 
@@ -1482,6 +1494,8 @@ void KatePluginSearchView::searchWhileTypingDone()
         updateResultsRootItem();
         connect(m_curResults->tree, &QTreeWidget::itemChanged, &m_updateSumaryTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
     }
+
+    m_curResults->matchModel.setSearchState(MatchModel::SearchDone);
 
     m_curResults = nullptr;
 

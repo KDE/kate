@@ -12,11 +12,20 @@
 #include <QRegularExpression>
 #include <QFileInfo>
 #include <QDir>
-#include <algorithm>    // std::count_if
+#include <algorithm> // std::count_if
 
 
 static const quintptr InfoItemId = 0xFFFFFFFF;
 static const quintptr FileItemId = 0x7FFFFFFF;
+
+// Model indexes
+// - (0, 0, InfoItemId) (row, column, internalId)
+//   | - (0, 0, FileItemId)
+//   |    | - (0, 0, 0)
+//   |    | - (1, 0, 0)
+//   | - (1, 0, FileItemId)
+//   |    | - (0, 0, 1)
+//   |    | - (1, 0, 1)
 
 static QUrl localFileDirUp(const QUrl &url)
 {
@@ -34,6 +43,78 @@ MatchModel::MatchModel(QObject *parent)
 MatchModel::~MatchModel()
 {
 }
+
+void MatchModel::setSearchPlace(MatchModel::SearchPlaces searchPlace)
+{
+    m_searchPlace = searchPlace;
+    dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+}
+
+void MatchModel::setSearchState(MatchModel::SearchState searchState)
+{
+    m_searchState = searchState;
+    dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+}
+
+void MatchModel::setBaseSearchPath(const QString &baseSearchPath)
+{
+    m_resultBaseDir = baseSearchPath;
+    dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+}
+
+void MatchModel::setProjectName(const QString &projectName)
+{
+    m_projectName = projectName;
+    dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+}
+
+
+QString MatchModel::infoHtmlString() const
+{
+    if (m_matchFiles.isEmpty()) {
+        return QString();
+    }
+
+    int matchesTotal = 0;
+    int checkedTotal = 0;
+    for (const auto &matchFile: qAsConst(m_matchFiles)) {
+        matchesTotal += matchFile.matches.size();
+        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const MatchModel::Match &match) {return match.checked;} );
+    }
+
+    if (m_searchState == Searching) {
+        QString searchUrl = m_lastMatchUrl.toDisplayString();
+
+        if (searchUrl.size() > 73) {
+            return i18np("<b><i>One match found, searching: ...%2</b>", "<b><i>%1 matches found, searching: ...%2</b>", matchesTotal, searchUrl.right(70));
+        } else {
+            return i18np("<b><i>One match found, searching: %2</b>", "<b><i>%1 matches found, searching: %2</b>", matchesTotal, searchUrl);
+        }
+    }
+
+    QString checkedStr = i18np("One checked", "%1 checked", checkedTotal);
+
+    switch (m_searchPlace) {
+        case CurrentFile:
+            return i18np("<b><i>One match (%2) found in file</i></b>", "<b><i>%1 matches (%2) found in current file</i></b>", matchesTotal, checkedStr);
+        case MatchModel::OpenFiles:
+            return i18np("<b><i>One match (%2) found in open files</i></b>", "<b><i>%1 matches (%2) found in open files</i></b>", matchesTotal, checkedStr);
+            break;
+        case MatchModel::Folder:
+            return i18np("<b><i>One match (%3) found in folder %2</i></b>", "<b><i>%1 matches (%3) found in folder %2</i></b>", matchesTotal, m_resultBaseDir, checkedStr);
+            break;
+        case MatchModel::Project: {
+            return i18np("<b><i>One match (%4) found in project %2 (%3)</i></b>", "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>", matchesTotal, m_projectName, m_resultBaseDir, checkedStr);
+            break;
+        }
+        case MatchModel::AllProjects: // "in Open Projects"
+            return i18np("<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>", "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>", matchesTotal, m_resultBaseDir, checkedStr);
+            break;
+    }
+
+    return QString();
+}
+
 
 void MatchModel::clear()
 {
@@ -55,6 +136,12 @@ static const int totalContectLen = 150;
 /** This function is used to add a match to a new file */
 void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches)
 {
+    m_lastMatchUrl = fileUrl;
+    if (searchMatches.isEmpty()) {
+        dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+        return;
+    }
+
     int fileIndex = matchFileRow(fileUrl);
     if (fileIndex == -1) {
         fileIndex = m_matchFiles.size();
@@ -157,7 +244,7 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
         // Info Item
         switch (role) {
             case Qt::DisplayRole:
-                return m_infoHtmlString;
+                return infoHtmlString();
             case Qt::CheckStateRole:
                 return m_infoCheckState;
         }
@@ -220,8 +307,6 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
 
     return QVariant();
 }
-
-static bool isChecked(const MatchModel::Match &match) { return match.checked; }
 
 bool MatchModel::setFileChecked(int fileRow, bool checked)
 {
@@ -292,7 +377,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     // we toggle the current value
     matches[row].checked = !matches[row].checked;
 
-    int checkedCount = std::count_if(matches.begin(), matches.end(), isChecked);
+    int checkedCount = std::count_if(matches.begin(), matches.end(), [](const MatchModel::Match &match) {return match.checked;});
 
     if (checkedCount == matches.size()) {
         m_matchFiles[rootRow].checkState = Qt::Checked;
@@ -326,7 +411,7 @@ Qt::ItemFlags MatchModel::flags(const QModelIndex &index) const
 int MatchModel::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
-        return 1;
+        return m_matchFiles.isEmpty() ? 0 : 1;
     }
 
     if (parent.internalId() == InfoItemId) {

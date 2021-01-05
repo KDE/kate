@@ -127,9 +127,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
     }
 
     // emit all matches batched
-    if (!matches.isEmpty()) {
-        emit matchesFound(doc->url(), matches);
-    }
+    emit matchesFound(doc->url(), matches);
 
     return resultLine;
 }
@@ -207,9 +205,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
     }
 
     // emit all matches batched
-    if (!matches.isEmpty()) {
-        emit matchesFound(doc->url(), matches);
-    }
+    emit matchesFound(doc->url(), matches);
 
     return resultLine;
 }

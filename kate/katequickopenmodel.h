@@ -11,9 +11,9 @@
 #include <QAbstractTableModel>
 #include <QVariant>
 #include <QVector>
-#include <tuple>
+#include <QUrl>
 
-#include "katemainwindow.h"
+class KateMainWindow;
 
 struct ModelEntry {
     QUrl url;         // used for actually opening a selected file (local or remote)
@@ -21,6 +21,7 @@ struct ModelEntry {
     QString filePath; // display string for right column
     bool bold;        // format line in bold text or not
     size_t sort_id;
+    int score;
 };
 
 // needs to be defined outside of class to support forward declaration elsewhere
@@ -31,6 +32,7 @@ class KateQuickOpenModel : public QAbstractTableModel
     Q_OBJECT
 public:
     enum Columns : int { FileName, FilePath, Bold };
+    enum Role { Score = Qt::UserRole + 1 };
     explicit KateQuickOpenModel(KateMainWindow *mainWindow, QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent) const override;
     int columnCount(const QModelIndex &parent) const override;
@@ -45,6 +47,17 @@ public:
     void setListMode(List mode)
     {
         m_listMode = mode;
+    }
+
+    bool setData(const QModelIndex &index, const QVariant &value, int role) override
+    {
+        if (!index.isValid())
+            return false;
+        if (role == Role::Score) {
+            auto row = index.row();
+            m_modelEntries[row].score = value.toInt();
+        }
+        return QAbstractTableModel::setData(index, value, role);
     }
 
 private:

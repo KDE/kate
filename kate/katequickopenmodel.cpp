@@ -9,6 +9,7 @@
 
 #include "kateapp.h"
 #include "kateviewmanager.h"
+#include "katemainwindow.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -39,7 +40,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
         return {};
     }
 
-    if (role != Qt::DisplayRole && role != Qt::FontRole && role != Qt::UserRole) {
+    if (role != Qt::DisplayRole && role != Qt::FontRole && role != Qt::UserRole && role != Role::Score) {
         return {};
     }
 
@@ -59,6 +60,8 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
         }
     } else if (role == Qt::UserRole) {
         return entry.url;
+    } else if (role == Role::Score) {
+        return entry.score;
     }
 
     return {};
@@ -77,18 +80,18 @@ void KateQuickOpenModel::refresh()
     size_t sort_id = static_cast<size_t>(-1);
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
-        allDocuments.push_back({doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), true, sort_id--});
+        allDocuments.push_back({doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), true, sort_id--, -1});
     }
 
     for (auto *doc : qAsConst(openDocs)) {
         const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
-        allDocuments.push_back({doc->url(), doc->documentName(), normalizedUrl, true, 0});
+        allDocuments.push_back({doc->url(), doc->documentName(), normalizedUrl, true, 0, -1});
     }
 
     for (const auto &file : qAsConst(projectDocs)) {
         QFileInfo fi(file);
         const auto localFile = QUrl::fromLocalFile(fi.absoluteFilePath());
-        allDocuments.push_back({localFile, fi.fileName(), localFile.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), false, 0});
+        allDocuments.push_back({localFile, fi.fileName(), localFile.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile), false, 0, -1});
     }
 
     /** Sort the arrays by filePath. */

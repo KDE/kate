@@ -11,9 +11,6 @@
 #include "kateproject.h"
 
 #include <QTreeView>
-#include <QSortFilterProxyModel>
-
-#include <kfts_fuzzy_match.h>
 
 class KateProjectPluginView;
 

@@ -21,15 +21,15 @@ namespace kfts {
     /**
      * @brief simple fuzzy matching of chars in @a pattern with chars in @a str sequentially
      */
-    static bool fuzzy_match_simple(const QStringView pattern, const QStringView str);
+    Q_DECL_UNUSED static bool fuzzy_match_simple(const QStringView pattern, const QStringView str);
 
     /**
      * @brief This should be the main function you should use. @a outscore is the score
      * of this match and should be used to sort the results later. Without sorting of the
      * results this function won't be as effective.
      */
-    static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore);
-    static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore, uint8_t * matches, int maxMatches);
+    Q_DECL_UNUSED static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore);
+    Q_DECL_UNUSED static bool fuzzy_match(const QStringView pattern, const QStringView str, int & outScore, uint8_t * matches, int maxMatches);
 
     /**
      * @brief get string for display in treeview / listview. This should be used from style delegate.
@@ -40,7 +40,7 @@ namespace kfts {
      * TODO: improve this so that we don't have to put html tags on every char probably using some kind
      * of interval container
      */
-    static QString to_fuzzy_matched_display_string(const QStringView pattern, QString &str, const QString &htmlTag, const QString &htmlTagClose);
+    Q_DECL_UNUSED static QString to_fuzzy_matched_display_string(const QStringView pattern, QString &str, const QString &htmlTag, const QString &htmlTagClose);
 }
 
 namespace kfts {

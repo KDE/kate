@@ -73,7 +73,9 @@ public:
 
         QString str = index.data().toString();
         for (const auto& string : m_filterStrings) {
-            // FIXME: need to do to better here
+            // FIXME: This will skip the letter 'b' if the string
+            // has only one letter so that we don't match inside
+            // <b> tags.
             if (string == QLatin1String("b"))
                 continue;
             const QRegularExpression re (QStringLiteral("(")+QRegularExpression::escape(string)+QStringLiteral(")"), QRegularExpression::CaseInsensitiveOption);

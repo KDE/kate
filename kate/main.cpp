@@ -32,7 +32,7 @@
 #include <QUrl>
 #include <QVariant>
 
-#include "../urlinfo.h"
+#include <urlinfo.h>
 
 #ifdef USE_QT_SINGLE_APP
 #include "qtsingleapplication/qtsingleapplication.h"

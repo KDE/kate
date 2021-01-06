@@ -30,7 +30,7 @@
 #include <QTextCodec>
 #include <QUrlQuery>
 
-#include "../urlinfo.h"
+#include <urlinfo.h>
 
 #ifndef Q_OS_WIN
 #include <unistd.h>

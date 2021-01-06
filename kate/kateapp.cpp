@@ -33,7 +33,7 @@
 #include <QFileOpenEvent>
 #include <QTextCodec>
 
-#include "../../urlinfo.h"
+#include <urlinfo.h>
 
 /**
  * singleton instance pointer

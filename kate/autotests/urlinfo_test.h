@@ -7,7 +7,8 @@
 #pragma once
 
 #include <QObject>
-#include "../../urlinfo.h"
+
+#include <urlinfo.h>
 
 class UrlInfoTest : public QObject
 {

@@ -73,7 +73,7 @@ void KateQuickOpenModel::refresh()
     const QList<KTextEditor::View *> sortedViews = m_mainWindow->viewManager()->sortedViews();
     const QList<KTextEditor::Document *> openDocs = KateApp::self()->documentManager()->documentList();
     const QStringList projectDocs = projectView ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList() : QStringList();
-    const QString projectBase = projectView ? (m_listMode == CurrentProject ? projectView->property("projectBaseDir") : projectView->property("allProjectsCommonBaseDir")).toString() : QString();
+    const QString projectBase = projectView ? (m_listMode == CurrentProject ? projectView->property("projectBaseDir") : projectView->property("allProjectsCommonBaseDir")).toString() + QStringLiteral("/") : QString();
 
     QVector<ModelEntry> allDocuments;
     allDocuments.reserve(sortedViews.size() + openDocs.size() + projectDocs.size());

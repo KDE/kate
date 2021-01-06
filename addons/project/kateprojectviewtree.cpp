@@ -8,13 +8,12 @@
 #include "kateprojectviewtree.h"
 #include "kateprojectpluginview.h"
 #include "kateprojecttreeviewcontextmenu.h"
+#include "kateprojectfiltermodel.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
 #include <QContextMenuEvent>
-
-#include <QSortFilterProxyModel>
 
 KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
@@ -36,7 +35,7 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
      */
     QItemSelectionModel *m = selectionModel();
 
-    QSortFilterProxyModel *sortModel = new QSortFilterProxyModel(this);
+    KateProjectFilterProxyModel *sortModel = new KateProjectFilterProxyModel(this);
 
     // sortModel->setFilterRole(SortFilterRole);
     // sortModel->setSortRole(SortFilterRole);

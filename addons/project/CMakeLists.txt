@@ -27,6 +27,12 @@ target_link_libraries(
     KF5::ThreadWeaver
 )
 
+target_include_directories(
+    kateprojectplugin
+    PUBLIC
+    ${CMAKE_SOURCE_DIR}/shared
+)
+
 include(CheckFunctionExists)
 check_function_exists(ctermid HAVE_CTERMID)
 

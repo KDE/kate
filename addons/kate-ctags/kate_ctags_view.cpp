@@ -42,7 +42,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     : QObject(mainWin)
     , m_proc(nullptr)
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katectags"), i18n("Kate CTag"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katectags"), i18n("Kate CTags"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     m_toolView = mainWin->createToolView(plugin, QStringLiteral("kate_plugin_katectagsplugin"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")), i18n("CTags"));
@@ -131,11 +131,13 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     m_gotoSymbWidget = new GotoSymbolWidget(mainWin, this);
     auto openLocal = actionCollection()->addAction(QStringLiteral("open_local_gts"));
+    openLocal->setText(i18n("Go To Local Symbol"));
     actionCollection()->setDefaultShortcut(openLocal, Qt::CTRL | Qt::ALT | Qt::Key_P);
     connect(openLocal, &QAction::triggered, this, &KateCTagsView::showSymbols);
     m_gotoSymbWidget->addAction(openLocal);
 
     auto openGlobal = actionCollection()->addAction(QStringLiteral("open_global_gts"));
+    openGlobal->setText(i18n("Go To Global Symbol"));
     actionCollection()->setDefaultShortcut(openGlobal, Qt::CTRL | Qt::SHIFT | Qt::Key_P);
     connect(openGlobal, &QAction::triggered, this, &KateCTagsView::showGlobalSymbols);
     m_gotoSymbWidget->addAction(openLocal);

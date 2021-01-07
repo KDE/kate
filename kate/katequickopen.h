@@ -32,6 +32,7 @@ public:
      * will fill model with current open documents, project documents, ...
      */
     void update();
+    void updateViewGeometry();
 
     KateQuickOpenModelList listMode() const;
     void setListMode(KateQuickOpenModelList mode);
@@ -62,7 +63,6 @@ private:
      * filtered model we search in
      */
     QuickOpenFilterProxyModel *m_model;
-    void updateViewGeometry();
 };
 
 #endif

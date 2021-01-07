@@ -623,6 +623,7 @@ public Q_SLOTS:
 protected:
     bool event(QEvent *e) override;
     void mousePressEvent(QMouseEvent *e) override;
+    void resizeEvent(QResizeEvent *event) override;
 };
 
 #endif

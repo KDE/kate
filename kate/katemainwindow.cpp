@@ -1181,6 +1181,14 @@ void KateMainWindow::mousePressEvent(QMouseEvent *e)
     }
 }
 
+void KateMainWindow::resizeEvent(QResizeEvent *event)
+{
+    if (event && !m_quickOpen->isHidden()) {
+        m_quickOpen->updateViewGeometry();
+        event->accept();
+    }
+}
+
 void KateMainWindow::slotFocusPrevTab()
 {
     if (m_viewManager->activeViewSpace()) {

@@ -100,22 +100,10 @@ void KateConfigDialog::addBehaviorPage()
     buttonGroup = new QGroupBox(i18n("&Quick Open"), generalFrame);
     vbox = new QVBoxLayout;
     buttonGroup->setLayout(vbox);
-    // quick open match mode
-    auto hlayout = new QHBoxLayout;
-    auto label = new QLabel(i18n("&Match Mode:"), buttonGroup);
-    hlayout->addWidget(label);
-    m_cmbQuickOpenMatchMode = new QComboBox(buttonGroup);
-    hlayout->addWidget(m_cmbQuickOpenMatchMode);
-    label->setBuddy(m_cmbQuickOpenMatchMode);
-    m_cmbQuickOpenMatchMode->addItem(i18n("Filename"), QVariant(KateQuickOpenModel::Columns::FileName));
-    m_cmbQuickOpenMatchMode->addItem(i18n("Filepath"), QVariant(KateQuickOpenModel::Columns::FilePath));
-    m_cmbQuickOpenMatchMode->setCurrentIndex(m_cmbQuickOpenMatchMode->findData(m_mainWindow->quickOpenMatchMode()));
-    m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
-    connect(m_cmbQuickOpenMatchMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
-    vbox->addLayout(hlayout);
+
     // quick open list mode
-    hlayout = new QHBoxLayout;
-    label = new QLabel(i18n("&List Mode:"), buttonGroup);
+    auto hlayout = new QHBoxLayout;
+    auto label = new QLabel(i18n("&List Mode:"), buttonGroup);
     hlayout->addWidget(label);
     m_cmbQuickOpenListMode = new QComboBox(buttonGroup);
     hlayout->addWidget(m_cmbQuickOpenListMode);
@@ -359,9 +347,6 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
         m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
-
-        cg.writeEntry("Quick Open Search Mode", m_cmbQuickOpenMatchMode->currentData().toInt());
-        m_mainWindow->setQuickOpenMatchMode(m_cmbQuickOpenMatchMode->currentData().toInt());
 
         cg.writeEntry("Quick Open List Mode", m_cmbQuickOpenListMode->currentData().toInt());
         m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));

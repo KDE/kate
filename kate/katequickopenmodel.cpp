@@ -31,7 +31,7 @@ int KateQuickOpenModel::rowCount(const QModelIndex &parent) const
 int KateQuickOpenModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return 2;
+    return 1;
 }
 
 QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
@@ -48,9 +48,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     if (role == Qt::DisplayRole) {
         switch (idx.column()) {
         case Columns::FileName:
-            return entry.fileName;
-        case Columns::FilePath:
-            return entry.filePath;
+            return QString(entry.fileName + QStringLiteral("{[split]}") + entry.filePath);
         }
     } else if (role == Qt::FontRole) {
         if (entry.bold) {
@@ -73,7 +71,19 @@ void KateQuickOpenModel::refresh()
     const QList<KTextEditor::View *> sortedViews = m_mainWindow->viewManager()->sortedViews();
     const QList<KTextEditor::Document *> openDocs = KateApp::self()->documentManager()->documentList();
     const QStringList projectDocs = projectView ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList() : QStringList();
-    const QString projectBase = projectView ? (m_listMode == CurrentProject ? projectView->property("projectBaseDir") : projectView->property("allProjectsCommonBaseDir")).toString() + QStringLiteral("/") : QString();
+    const QString projectBase = [this, projectView]() -> QString {
+        if (!projectView)
+            return QString();
+        QString ret;
+        if (m_listMode == CurrentProject) {
+            ret = projectView->property("projectBaseDir").toString();
+        } else {
+            ret =  projectView->property("allProjectsCommonBaseDir").toString();
+        }
+        if (!ret.endsWith(QLatin1Char('/')))
+            ret.append(QLatin1Char('/'));
+        return ret;
+    }();
 
     QVector<ModelEntry> allDocuments;
     allDocuments.reserve(sortedViews.size() + openDocs.size() + projectDocs.size());

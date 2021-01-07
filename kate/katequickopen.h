@@ -26,15 +26,12 @@ class KateQuickOpen : public QWidget
 {
     Q_OBJECT
 public:
-    KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow);
+    KateQuickOpen(KateMainWindow *mainWindow);
     /**
      * update state
      * will fill model with current open documents, project documents, ...
      */
     void update();
-
-    int matchMode();
-    void setMatchMode(int mode);
 
     KateQuickOpenModelList listMode() const;
     void setListMode(KateQuickOpenModelList mode);
@@ -65,6 +62,7 @@ private:
      * filtered model we search in
      */
     QuickOpenFilterProxyModel *m_model;
+    void updateViewGeometry();
 };
 
 #endif

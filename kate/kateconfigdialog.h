@@ -79,7 +79,6 @@ private:
     bool m_dataChanged = false;
 
     QCheckBox *m_modNotifications;
-    QComboBox *m_cmbQuickOpenMatchMode;
     QComboBox *m_cmbQuickOpenListMode;
     QSpinBox *m_tabLimit;
     QCheckBox *m_showTabCloseButton;

@@ -34,7 +34,7 @@ public:
     enum Columns : int { FileName, FilePath, Bold };
     enum Role { Score = Qt::UserRole + 1 };
     explicit KateQuickOpenModel(KateMainWindow *mainWindow, QObject *parent = nullptr);
-    int rowCount(const QModelIndex &parent) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &idx, int role) const override;
     void refresh();

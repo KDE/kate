@@ -296,9 +296,6 @@ public:
         m_modCloseAfterLast = e;
     }
 
-    void setQuickOpenMatchMode(int mode);
-    int quickOpenMatchMode();
-
     void setQuickOpenListMode(KateQuickOpenModelList mode);
     KateQuickOpenModelList quickOpenListMode() const;
 

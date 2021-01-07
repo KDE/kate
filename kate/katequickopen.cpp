@@ -58,16 +58,20 @@ protected:
         if (pattern.isEmpty())
             return true;
         const QString fileName = sourceModel()->index(sourceRow, 0, sourceParent).data().toString();
-
+        const auto nameAndPath = fileName.splitRef(QStringLiteral("{[split]}"));
+        const auto name = nameAndPath.at(0);
+        const auto path = nameAndPath.at(1);
         // match
-        int score = 0;
-        auto res = kfts::fuzzy_match(pattern, fileName, score);
+        int score1 = 0;
+        auto res = kfts::fuzzy_match(pattern, name, score1);
+        int score2 = 0;
+        auto res1 = kfts::fuzzy_match(pattern, path, score2);
 
         // store the score for sorting later
         auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        sourceModel()->setData(idx, score, KateQuickOpenModel::Score);
+        sourceModel()->setData(idx, score1 + score2, KateQuickOpenModel::Score);
 
-        return res;
+        return res || res1;
     }
 
 public Q_SLOTS:
@@ -98,9 +102,14 @@ public:
 
         QString str = index.data().toString();
 
-        kfts::to_fuzzy_matched_display_string(m_filterString, str, QStringLiteral("<b>"), QStringLiteral("</b>"));
+        auto namePath = str.split(QStringLiteral("{[split]}"));
+        auto name = namePath.at(0);
+        auto path = namePath.at(1);
+        kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b>"), QStringLiteral("</b>"));
+        kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
 
-        doc.setHtml(str);
+        const auto pathFontsize = option.font.pointSize();
+        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize + 1) + name + QStringLiteral("</span>") + QStringLiteral("<br>") + QStringLiteral("<span style=\"color: gray; font-size: %1pt;\">").arg(pathFontsize) + path + QStringLiteral("</span>"));
         doc.setDocumentMargin(2);
 
         painter->save();
@@ -116,7 +125,7 @@ public:
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
         // draw text
-        painter->translate(option.rect.x(), option.rect.y());
+        painter->translate(option.rect.x() + 5, option.rect.y());
         doc.drawContents(painter);
 
         painter->restore();
@@ -130,12 +139,30 @@ public Q_SLOTS:
 
 private:
     QString m_filterString;
+
+    // QAbstractItemDelegate interface
+public:
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        QSize size = this->QStyledItemDelegate::sizeHint(option, index);
+        static int height = -1;
+        if (height > -1) {
+            size.setHeight(height);
+            return size;
+        }
+
+        QFontMetrics metrics(option.font);
+        QRect outRect = metrics.boundingRect(QRect(QPoint(0, 0), size), Qt::AlignLeft, option.text);
+        height = outRect.height() * 2 + 4;
+        size.setHeight(outRect.height() * 2 + 4);
+        return size;
+    }
 };
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
-KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
-    : QWidget(parent)
+KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
+    : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
 {
     QVBoxLayout *layout = new QVBoxLayout();
@@ -173,6 +200,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     connect(m_model, &QSortFilterProxyModel::rowsRemoved, this, &KateQuickOpen::reselectFirst);
 
     connect(m_listView, &QTreeView::activated, this, &KateQuickOpen::slotReturnPressed);
+    connect(m_listView, &QTreeView::clicked, this, &KateQuickOpen::slotReturnPressed); // for single click
 
     m_listView->setModel(m_model);
     m_listView->setSortingEnabled(true);
@@ -182,6 +210,9 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     m_listView->installEventFilter(this);
     m_listView->setHeaderHidden(true);
     m_listView->setRootIsDecorated(false);
+    m_listView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    setHidden(true);
 }
 
 bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
@@ -200,6 +231,7 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
                 m_mainWindow->slotWindowActivated();
                 m_inputLine->clear();
                 keyEvent->accept();
+                hide();
                 return true;
             }
         } else {
@@ -216,6 +248,7 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
     else if (event->type() == QEvent::FocusOut && !(m_inputLine->hasFocus() || m_listView->hasFocus())) {
         m_mainWindow->slotWindowActivated();
         m_inputLine->clear();
+        hide();
         return true;
     }
 
@@ -237,25 +270,20 @@ void KateQuickOpen::update()
     m_base_model->refresh();
     m_listView->resizeColumnToContents(0);
     reselectFirst();
+    updateViewGeometry();
+
+    show();
+    setFocus();
 }
 
 void KateQuickOpen::slotReturnPressed()
 {
-    const auto index = m_listView->model()->index(m_listView->currentIndex().row(), KateQuickOpenModel::Columns::FilePath);
+    const auto index = m_listView->model()->index(m_listView->currentIndex().row(), 0);
     auto url = index.data(Qt::UserRole).toUrl();
     m_mainWindow->wrapper()->openUrl(url);
+    hide();
     m_mainWindow->slotWindowActivated();
     m_inputLine->clear();
-}
-
-void KateQuickOpen::setMatchMode(int mode)
-{
-    m_model->setFilterKeyColumn(mode);
-}
-
-int KateQuickOpen::matchMode()
-{
-    return m_model->filterKeyColumn();
 }
 
 void KateQuickOpen::setListMode(KateQuickOpenModel::List mode)
@@ -266,4 +294,38 @@ void KateQuickOpen::setListMode(KateQuickOpenModel::List mode)
 KateQuickOpenModel::List KateQuickOpen::listMode() const
 {
     return m_base_model->listMode();
+}
+
+void KateQuickOpen::updateViewGeometry()
+{
+    QWidget *window = m_mainWindow->window();
+    const QSize centralSize = window->size();
+
+    // width: 1/3 of editor, height: 1/2 of editor
+    const QSize viewMaxSize(centralSize.width() / 3, centralSize.height() / 2);
+
+    const int rowHeight = m_listView->sizeHintForRow(0) == -1 ? 0 : m_listView->sizeHintForRow(0);
+
+    int frameWidth = this->frameSize().width();
+    frameWidth = frameWidth > centralSize.width() / 3 ? centralSize.width() / 3 : frameWidth;
+
+    const int width = viewMaxSize.width();
+
+    const QSize viewSize(width,
+                         std::min(std::max(rowHeight * m_base_model->rowCount() + 2 * frameWidth, rowHeight * 6), viewMaxSize.height()));
+
+    // Position should be central over the editor area, so map to global from
+    // parent of central widget since the view is positioned in global coords
+    const QPoint centralWidgetPos = window->parentWidget() ? window->mapToGlobal(window->pos()) : window->pos();
+    const int xPos = std::max(0, centralWidgetPos.x() + (centralSize.width() - viewSize.width()) / 2);
+    const int yPos = std::max(0, centralWidgetPos.y() + (centralSize.height() - viewSize.height()) * 1 / 4);
+
+    move(xPos, yPos);
+
+    QPointer<QPropertyAnimation> animation = new QPropertyAnimation(this, "size");
+    animation->setDuration(150);
+    animation->setStartValue(this->size());
+    animation->setEndValue(viewSize);
+
+    animation->start();
 }

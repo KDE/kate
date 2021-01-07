@@ -266,8 +266,7 @@ void KateMainWindow::setupMainWindow()
     centralWidget()->layout()->addWidget(m_mainStackedWidget);
     (static_cast<QBoxLayout *>(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget, 100);
 
-    m_quickOpen = new KateQuickOpen(m_mainStackedWidget, this);
-    m_mainStackedWidget->addWidget(m_quickOpen);
+    m_quickOpen = new KateQuickOpen(this);
 
     m_viewManager = new KateViewManager(m_mainStackedWidget, this);
     m_mainStackedWidget->addWidget(m_viewManager);
@@ -606,7 +605,6 @@ void KateMainWindow::readOptions()
     m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
 
-    m_quickOpen->setMatchMode(generalGroup.readEntry("Quick Open Search Mode", static_cast<int>(KateQuickOpenModel::Columns::FileName)));
     int listMode = generalGroup.readEntry("Quick Open List Mode", static_cast<int>(KateQuickOpenModel::List::CurrentProject));
     m_quickOpen->setListMode(static_cast<KateQuickOpenModel::List>(listMode));
 
@@ -1129,6 +1127,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
     if (!m_modNotification) {
         return;
     }
+
     KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(doc);
     if (!docInfo) {
         return;
@@ -1199,21 +1198,10 @@ void KateMainWindow::slotFocusNextTab()
 void KateMainWindow::slotQuickOpen()
 {
     /**
-     * toggle back to view manager when when quick open is already shown
-     */
-    if (m_mainStackedWidget->currentWidget() == m_quickOpen) {
-        m_mainStackedWidget->setCurrentWidget(m_viewManager);
-        centralWidget()->setFocusProxy(m_viewManager);
-        return;
-    }
-
-    /**
      * show quick open and pass focus to it
      */
     m_quickOpen->update();
-    m_mainStackedWidget->setCurrentWidget(m_quickOpen);
     centralWidget()->setFocusProxy(m_quickOpen);
-    m_quickOpen->setFocus();
 }
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text)
@@ -1246,16 +1234,6 @@ bool KateMainWindow::hideToolView(QWidget *widget)
     }
 
     return KateMDI::MainWindow::hideToolView(qobject_cast<KateMDI::ToolView *>(widget));
-}
-
-void KateMainWindow::setQuickOpenMatchMode(int mode)
-{
-    m_quickOpen->setMatchMode(mode);
-}
-
-int KateMainWindow::quickOpenMatchMode()
-{
-    return m_quickOpen->matchMode();
 }
 
 void KateMainWindow::setQuickOpenListMode(KateQuickOpenModel::List mode)

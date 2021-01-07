@@ -298,8 +298,7 @@ KateQuickOpenModel::List KateQuickOpen::listMode() const
 
 void KateQuickOpen::updateViewGeometry()
 {
-    QWidget *window = m_mainWindow->window();
-    const QSize centralSize = window->size();
+    const QSize centralSize = m_mainWindow->size();
 
     // width: 1/3 of editor, height: 1/2 of editor
     const QSize viewMaxSize(centralSize.width() / 3, centralSize.height() / 2);
@@ -311,14 +310,12 @@ void KateQuickOpen::updateViewGeometry()
 
     const int width = viewMaxSize.width();
 
-    const QSize viewSize(width,
+    const QSize viewSize(width < 300 ? 300 : width, // never go below this
                          std::min(std::max(rowHeight * m_base_model->rowCount() + 2 * frameWidth, rowHeight * 6), viewMaxSize.height()));
 
-    // Position should be central over the editor area, so map to global from
-    // parent of central widget since the view is positioned in global coords
-    const QPoint centralWidgetPos = window->parentWidget() ? window->mapToGlobal(window->pos()) : window->pos();
-    const int xPos = std::max(0, centralWidgetPos.x() + (centralSize.width() - viewSize.width()) / 2);
-    const int yPos = std::max(0, centralWidgetPos.y() + (centralSize.height() - viewSize.height()) * 1 / 4);
+    // Position should be central over the editor area
+    const int xPos = std::max(0, (centralSize.width() - viewSize.width()) / 2);
+    const int yPos = std::max(0, (centralSize.height() - viewSize.height()) * 1 / 4);
 
     move(xPos, yPos);
 

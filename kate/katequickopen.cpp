@@ -17,7 +17,7 @@
 
 #include <KAboutData>
 #include <KActionCollection>
-#include <KLineEdit>
+//#include <KLineEdit>
 #include <KLocalizedString>
 #include <KPluginFactory>
 
@@ -45,6 +45,11 @@ public:
     QuickOpenFilterProxyModel(QObject *parent = nullptr) : QSortFilterProxyModel(parent)
     {}
 
+    void changeMode(FilterModes m)
+    {
+        mode = m;
+    }
+
 protected:
     bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
     {
@@ -59,19 +64,30 @@ protected:
             return true;
         const QString fileName = sourceModel()->index(sourceRow, 0, sourceParent).data().toString();
         const auto nameAndPath = fileName.splitRef(QStringLiteral("{[split]}"));
+
         const auto name = nameAndPath.at(0);
         const auto path = nameAndPath.at(1);
-        // match
-        int score1 = 0;
-        auto res = kfts::fuzzy_match(pattern, name, score1);
-        int score2 = 0;
-        auto res1 = kfts::fuzzy_match(pattern, path, score2);
+        int score = 0;
 
-        // store the score for sorting later
+        bool res = false;
+        if (mode == FilterMode::FilterByName) {
+            res = filterByName(name, score);
+        } else if (mode == FilterMode::FilterByPath) {
+            res = filterByPath(path, score);
+        } else {
+            int scorep= 0, scoren = 0;
+            bool resp = filterByPath(path, scorep);
+            bool resn = filterByName(name, scoren);
+
+            // store the score for sorting later
+            score = scoren + scorep;
+            res = resp || resn;
+        }
+
         auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        sourceModel()->setData(idx, score1 + score2, KateQuickOpenModel::Score);
+        sourceModel()->setData(idx, score, KateQuickOpenModel::Score);
 
-        return res || res1;
+        return res;
     }
 
 public Q_SLOTS:
@@ -83,7 +99,19 @@ public Q_SLOTS:
     }
 
 private:
+    inline bool filterByPath(const QStringRef& path, int& score) const
+    {
+        return kfts::fuzzy_match(pattern, path, score);
+    }
+
+    inline bool filterByName(const QStringRef& name, int& score) const
+    {
+        return kfts::fuzzy_match(pattern, name, score);
+    }
+
+private:
     QString pattern;
+    FilterModes mode;
 };
 
 class QuickOpenStyleDelegate : public QStyledItemDelegate {
@@ -103,10 +131,17 @@ public:
         QString str = index.data().toString();
 
         auto namePath = str.split(QStringLiteral("{[split]}"));
-        auto name = namePath.at(0);
-        auto path = namePath.at(1);
-        kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b>"), QStringLiteral("</b>"));
-        kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
+        QString name = namePath.at(0);
+        QString path = namePath.at(1);
+
+        if (mode == FilterMode::FilterByName) {
+            kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b>"), QStringLiteral("</b>"));
+        } else if (mode == FilterMode::FilterByPath) {
+            kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
+        } else {
+            kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b>"), QStringLiteral("</b>"));
+            kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
+        }
 
         const auto pathFontsize = option.font.pointSize();
         doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize + 1) + name + QStringLiteral("</span>") + QStringLiteral("<br>") + QStringLiteral("<span style=\"color: gray; font-size: %1pt;\">").arg(pathFontsize) + path + QStringLiteral("</span>"));
@@ -131,6 +166,11 @@ public:
         painter->restore();
     }
 
+    void changeMode(FilterModes m)
+    {
+        mode = m;
+    }
+
 public Q_SLOTS:
     void setFilterString(const QString& text)
     {
@@ -139,6 +179,7 @@ public Q_SLOTS:
 
 private:
     QString m_filterString;
+    FilterModes mode;
 
     // QAbstractItemDelegate interface
 public:
@@ -170,7 +211,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     layout->setContentsMargins(0, 0, 0, 0);
     setLayout(layout);
 
-    m_inputLine = new KLineEdit();
+    m_inputLine = new QuickOpenLineEdit(this);
     setFocusProxy(m_inputLine);
     m_inputLine->setPlaceholderText(i18n("Quick Open Search"));
 
@@ -189,13 +230,14 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
     m_model->setFilterKeyColumn(Qt::DisplayRole);
 
-    QuickOpenStyleDelegate* delegate = new QuickOpenStyleDelegate(this);
-    m_listView->setItemDelegateForColumn(0, delegate);
+    m_styleDelegate = new QuickOpenStyleDelegate(this);
+    m_listView->setItemDelegate(m_styleDelegate);
 
-    connect(m_inputLine, &KLineEdit::textChanged, m_model, &QuickOpenFilterProxyModel::setFilterText);
-    connect(m_inputLine, &KLineEdit::textChanged, delegate, &QuickOpenStyleDelegate::setFilterString);
-    connect(m_inputLine, &KLineEdit::textChanged, this, [this](){ m_listView->viewport()->update(); });
-    connect(m_inputLine, &KLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
+    connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_model, &QuickOpenFilterProxyModel::setFilterText);
+    connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_styleDelegate, &QuickOpenStyleDelegate::setFilterString);
+    connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this](){ m_listView->viewport()->update(); });
+    connect(m_inputLine, &QuickOpenLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
+    connect(m_inputLine, &QuickOpenLineEdit::filterModeChanged, this, &KateQuickOpen::slotfilterModeChanged);
     connect(m_model, &QSortFilterProxyModel::rowsInserted, this, &KateQuickOpen::reselectFirst);
     connect(m_model, &QSortFilterProxyModel::rowsRemoved, this, &KateQuickOpen::reselectFirst);
 
@@ -213,6 +255,8 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_listView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setHidden(true);
+
+    m_filterMode = m_inputLine->filterMode();
 }
 
 bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
@@ -284,6 +328,14 @@ void KateQuickOpen::slotReturnPressed()
     hide();
     m_mainWindow->slotWindowActivated();
     m_inputLine->clear();
+}
+
+void KateQuickOpen::slotfilterModeChanged(FilterModes mode)
+{
+    m_filterMode = mode;
+    m_model->changeMode(mode);
+    m_styleDelegate->changeMode(mode);
+    m_model->invalidate();
 }
 
 void KateQuickOpen::setListMode(KateQuickOpenModel::List mode)

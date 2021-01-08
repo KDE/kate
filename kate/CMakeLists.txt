@@ -86,6 +86,7 @@ target_sources(
     kateviewmanager.cpp
     kateviewspace.cpp
     katewaiter.cpp
+    katequickopenlineedit.cpp
 )
 
 # Executable only adds the main definition.

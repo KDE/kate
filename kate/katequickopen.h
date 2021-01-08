@@ -10,12 +10,14 @@
 
 #include <QWidget>
 
+#include "katequickopenlineedit.h"
+
 class KateMainWindow;
-class KLineEdit;
 
 class QModelIndex;
 class QStandardItemModel;
 class QSortFilterProxyModel;
+class QuickOpenStyleDelegate;
 class QTreeView;
 class KateQuickOpenModel;
 enum KateQuickOpenModelList : int;
@@ -49,10 +51,14 @@ private Q_SLOTS:
      */
     void slotReturnPressed();
 
+    void slotfilterModeChanged(FilterModes mode);
+
 private:
     KateMainWindow *m_mainWindow;
     QTreeView *m_listView;
-    KLineEdit *m_inputLine;
+    QuickOpenLineEdit *m_inputLine;
+    QuickOpenStyleDelegate* m_styleDelegate;
+    FilterModes m_filterMode;
 
     /**
      * our model we search in

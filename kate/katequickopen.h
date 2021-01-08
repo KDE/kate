@@ -8,7 +8,7 @@
 #ifndef KATE_QUICK_OPEN_H
 #define KATE_QUICK_OPEN_H
 
-#include <QWidget>
+#include <QMenu>
 
 #include "katequickopenlineedit.h"
 
@@ -24,7 +24,7 @@ enum KateQuickOpenModelList : int;
 
 class QuickOpenFilterProxyModel;
 
-class KateQuickOpen : public QWidget
+class KateQuickOpen : public QMenu
 {
     Q_OBJECT
 public:

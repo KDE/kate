@@ -203,12 +203,13 @@ public:
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
 KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
-    : QWidget(mainWindow)
+    : QMenu(mainWindow)
     , m_mainWindow(mainWindow)
 {
+    // ensure the components have some proper frame
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(0);
-    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setContentsMargins(4, 4, 4, 4);
     setLayout(layout);
 
     m_inputLine = new QuickOpenLineEdit(this);

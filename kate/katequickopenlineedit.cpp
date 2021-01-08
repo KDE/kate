@@ -24,7 +24,7 @@ void SwitchModeButton::paintEvent(QPaintEvent *)
 {
     const QPixmap iconPixmap = m_icon.pixmap(sizeHint(), QIcon::Normal);
     QStylePainter painter(this);
-    QRect pixmapRect(QPoint(0,0), iconPixmap.size() / devicePixelRatio());
+    QRect pixmapRect(QPoint(0,0), sizeHint());
     pixmapRect.moveCenter(rect().center());
 
     painter.drawPixmap(pixmapRect, iconPixmap);

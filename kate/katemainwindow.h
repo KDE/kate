@@ -296,9 +296,6 @@ public:
         m_modCloseAfterLast = e;
     }
 
-    void setQuickOpenListMode(KateQuickOpenModelList mode);
-    KateQuickOpenModelList quickOpenListMode() const;
-
     /**
      * add given url to list of recently opened files
      * @param url url that got opened

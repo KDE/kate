@@ -52,6 +52,29 @@ QuickOpenLineEdit::QuickOpenLineEdit(QWidget* parent)
     });
     act->setChecked(true);
 
+    m_menu->addSeparator();
+
+    QActionGroup* actGp = new QActionGroup(this);
+    actGp->setExclusionPolicy(QActionGroup::ExclusionPolicy::Exclusive);
+
+    act = m_menu->addAction(QStringLiteral("All Projects"));
+    act->setCheckable(true);
+    connect(act, &QAction::toggled, this, [this](bool checked){
+        if (checked)
+            emit listModeChanged(KateQuickOpenModelList::AllProjects);
+    });
+
+    actGp->addAction(act);
+
+    act = m_menu->addAction(QStringLiteral("Current Project"));
+    connect(act, &QAction::toggled, this, [this](bool checked){
+        if (checked)
+            emit listModeChanged(KateQuickOpenModelList::CurrentProject);
+    });
+    act->setCheckable(true);
+
+    actGp->addAction(act);
+
     connect(m_button, &SwitchModeButton::clicked, this, &QuickOpenLineEdit::openMenu);
 }
 

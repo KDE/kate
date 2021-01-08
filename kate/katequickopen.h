@@ -36,9 +36,6 @@ public:
     void update();
     void updateViewGeometry();
 
-    KateQuickOpenModelList listMode() const;
-    void setListMode(KateQuickOpenModelList mode);
-
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
@@ -52,6 +49,8 @@ private Q_SLOTS:
     void slotReturnPressed();
 
     void slotfilterModeChanged(FilterModes mode);
+
+    void slotListModeChanged(KateQuickOpenModelList mode);
 
 private:
     KateMainWindow *m_mainWindow;

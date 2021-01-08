@@ -11,6 +11,8 @@
 #include <QAbstractButton>
 #include <QIcon>
 
+#include "katequickopenmodel.h"
+
 class SwitchModeButton : public QAbstractButton
 {
 
@@ -63,6 +65,7 @@ private Q_SLOTS:
 
 Q_SIGNALS:
     void filterModeChanged(FilterModes mode);
+    void listModeChanged(KateQuickOpenModelList mode);
 };
 
 #endif // QUICKOPENLINEEDIT_H

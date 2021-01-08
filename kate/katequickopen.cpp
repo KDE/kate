@@ -238,6 +238,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this](){ m_listView->viewport()->update(); });
     connect(m_inputLine, &QuickOpenLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_inputLine, &QuickOpenLineEdit::filterModeChanged, this, &KateQuickOpen::slotfilterModeChanged);
+    connect(m_inputLine, &QuickOpenLineEdit::listModeChanged, this, &KateQuickOpen::slotListModeChanged);
     connect(m_model, &QSortFilterProxyModel::rowsInserted, this, &KateQuickOpen::reselectFirst);
     connect(m_model, &QSortFilterProxyModel::rowsRemoved, this, &KateQuickOpen::reselectFirst);
 
@@ -338,14 +339,9 @@ void KateQuickOpen::slotfilterModeChanged(FilterModes mode)
     m_model->invalidate();
 }
 
-void KateQuickOpen::setListMode(KateQuickOpenModel::List mode)
+void KateQuickOpen::slotListModeChanged(KateQuickOpenModel::List mode)
 {
     m_base_model->setListMode(mode);
-}
-
-KateQuickOpenModel::List KateQuickOpen::listMode() const
-{
-    return m_base_model->listMode();
 }
 
 void KateQuickOpen::updateViewGeometry()

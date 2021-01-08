@@ -20,7 +20,6 @@
 #include "katemwmodonhddialog.h"
 #include "katepluginmanager.h"
 #include "katequickopen.h"
-#include "katequickopenmodel.h"
 #include "katesavemodifieddialog.h"
 #include "katesessionmanager.h"
 #include "katesessionsaction.h"
@@ -604,9 +603,6 @@ void KateMainWindow::readOptions()
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
     m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
-
-    int listMode = generalGroup.readEntry("Quick Open List Mode", static_cast<int>(KateQuickOpenModel::List::CurrentProject));
-    m_quickOpen->setListMode(static_cast<KateQuickOpenModel::List>(listMode));
 
     // emit signal to hide/show statusbars
     toggleShowStatusBar();
@@ -1242,16 +1238,6 @@ bool KateMainWindow::hideToolView(QWidget *widget)
     }
 
     return KateMDI::MainWindow::hideToolView(qobject_cast<KateMDI::ToolView *>(widget));
-}
-
-void KateMainWindow::setQuickOpenListMode(KateQuickOpenModel::List mode)
-{
-    m_quickOpen->setListMode(mode);
-}
-
-KateQuickOpenModel::List KateMainWindow::quickOpenListMode() const
-{
-    return m_quickOpen->listMode();
 }
 
 void KateMainWindow::addRecentOpenedFile(const QUrl &url)

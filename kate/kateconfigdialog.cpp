@@ -96,32 +96,12 @@ void KateConfigDialog::addBehaviorPage()
 
     buttonGroup->setLayout(vbox);
 
-    // quick search
-    buttonGroup = new QGroupBox(i18n("&Quick Open"), generalFrame);
-    vbox = new QVBoxLayout;
-    buttonGroup->setLayout(vbox);
-
-    // quick open list mode
-    auto hlayout = new QHBoxLayout;
-    auto label = new QLabel(i18n("&List Mode:"), buttonGroup);
-    hlayout->addWidget(label);
-    m_cmbQuickOpenListMode = new QComboBox(buttonGroup);
-    hlayout->addWidget(m_cmbQuickOpenListMode);
-    label->setBuddy(m_cmbQuickOpenListMode);
-    m_cmbQuickOpenListMode->addItem(i18n("Current Project Files"), QVariant(KateQuickOpenModel::List::CurrentProject));
-    m_cmbQuickOpenListMode->addItem(i18n("All Projects Files"), QVariant(KateQuickOpenModel::List::AllProjects));
-    m_cmbQuickOpenListMode->setCurrentIndex(m_cmbQuickOpenListMode->findData(m_mainWindow->quickOpenListMode()));
-    m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));
-    connect(m_cmbQuickOpenListMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
-    vbox->addLayout(hlayout);
-    layout->addWidget(buttonGroup);
-
     // tabbar => we allow to configure some limit on number of tabs to show
     buttonGroup = new QGroupBox(i18n("&Tabs"), generalFrame);
     vbox = new QVBoxLayout;
     buttonGroup->setLayout(vbox);
-    hlayout = new QHBoxLayout;
-    label = new QLabel(i18n("&Limit number of tabs:"), buttonGroup);
+    auto hlayout = new QHBoxLayout;
+    auto label = new QLabel(i18n("&Limit number of tabs:"), buttonGroup);
     hlayout->addWidget(label);
     m_tabLimit = new QSpinBox(buttonGroup);
     hlayout->addWidget(m_tabLimit);
@@ -347,9 +327,6 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
         m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
-
-        cg.writeEntry("Quick Open List Mode", m_cmbQuickOpenListMode->currentData().toInt());
-        m_mainWindow->setQuickOpenListMode(static_cast<KateQuickOpenModel::List>(m_cmbQuickOpenListMode->currentData().toInt()));
 
         cg.writeEntry("Tabbar Tab Limit", m_tabLimit->value());
 

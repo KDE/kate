@@ -17,6 +17,7 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/session
     ${CMAKE_CURRENT_SOURCE_DIR}/qtsingleapplication
+    ${CMAKE_CURRENT_SOURCE_DIR}/quickopen
     ${CMAKE_CURRENT_BINARY_DIR} # katetests_export.h + config.h
     ${CMAKE_SOURCE_DIR}/shared
 )
@@ -67,6 +68,10 @@ target_sources(
     session/katesessionmanager.cpp
     session/katesessionsaction.cpp
 
+    quickopen/katequickopen.cpp
+    quickopen/katequickopenmodel.cpp
+    quickopen/katequickopenlineedit.cpp
+
     kateapp.cpp
     kateappadaptor.cpp
     katecolorschemechooser.cpp
@@ -78,15 +83,14 @@ target_sources(
     katemdi.cpp
     katemwmodonhddialog.cpp
     katepluginmanager.cpp
-    katequickopen.cpp
-    katequickopenmodel.cpp
+
+
     katerunninginstanceinfo.cpp
     katesavemodifieddialog.cpp
     katetabbar.cpp
     kateviewmanager.cpp
     kateviewspace.cpp
     katewaiter.cpp
-    katequickopenlineedit.cpp
 )
 
 # Executable only adds the main definition.

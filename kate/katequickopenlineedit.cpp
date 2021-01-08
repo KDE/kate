@@ -94,5 +94,7 @@ void QuickOpenLineEdit::resizeEvent(QResizeEvent*)
 
 void QuickOpenLineEdit::openMenu()
 {
-    m_menu->exec(QWidget::cursor().pos());
+    int y = pos().y() + height();
+    int x = pos().x() + width() - m_menu->sizeHint().width();
+    m_menu->exec(mapToGlobal(QPoint(x, y)));
 }

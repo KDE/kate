@@ -12,8 +12,10 @@
 #include <QString>
 #include <QUrl>
 #include <QBrush>
+#include <QTimer>
 
 #include <KTextEditor/Range>
+#include <KTextEditor/Cursor>
 
 
 /**
@@ -61,10 +63,7 @@ public:
 
 private:
     struct Match {
-        int startLine = 0;
-        int startColumn = 0;
-        int endLine = 0;
-        int endColumn = 0;
+        KTextEditor::Range range;
         int matchLen = 0;
         QString preMatchStr;
         QString matchStr;
@@ -100,20 +99,30 @@ public Q_SLOTS:
 
     /** This function returns the row index of the specified file.
      * If the file does not exist in the model, the file will be added to the model. */
-    int matchFileRow(const QUrl& fileUrl);
+    int matchFileRow(const QUrl& fileUrl) const;
 
     /** This function is used to add a new file */
     void addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches);
 
-//     /** This function is used to modify a match */
+//     /** This function is used to replace a match */
 //     void replaceMatch(const QModelIndex &matchIndex, const QRegularExpression &regexp, const QString &replaceText);
-//
+
 //     /** Replace all matches that have been checked */
 //     void replaceChecked(const QRegularExpression &regexp, const QString &replace);
 
 Q_SIGNALS:
 
 public:
+    bool isMatch(const QModelIndex &itemIndex) const;
+    QModelIndex fileIndex(const QUrl &url) const;
+    QModelIndex firstMatch() const;
+    QModelIndex lastMatch() const;
+    QModelIndex firstFileMatch(const QUrl &url) const;
+    QModelIndex closestMatchAfter(const QUrl &url, const KTextEditor::Cursor &cursor) const;
+    QModelIndex closestMatchBefore(const QUrl &url, const KTextEditor::Cursor &cursor) const;
+    QModelIndex nextMatch(const QModelIndex &itemIndex) const;
+    QModelIndex prevMatch(const QModelIndex &itemIndex) const;
+
     // Model-View model functions
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
@@ -143,6 +152,7 @@ private:
     QString m_resultBaseDir;
     QString m_projectName;
     QUrl m_lastMatchUrl;
+    QTimer m_infoUpdateTimer;
 };
 
 #endif

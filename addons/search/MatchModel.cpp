@@ -39,6 +39,11 @@ static QUrl localFileDirUp(const QUrl &url)
 MatchModel::MatchModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
+    m_infoUpdateTimer.setInterval(500); // FIXME why does this delay not work?
+    m_infoUpdateTimer.setSingleShot(true);
+    connect(&m_infoUpdateTimer, &QTimer::timeout, this, [this]() {
+        dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+    });
 }
 MatchModel::~MatchModel()
 {
@@ -47,25 +52,25 @@ MatchModel::~MatchModel()
 void MatchModel::setSearchPlace(MatchModel::SearchPlaces searchPlace)
 {
     m_searchPlace = searchPlace;
-    dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
 }
 
 void MatchModel::setSearchState(MatchModel::SearchState searchState)
 {
     m_searchState = searchState;
-    dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
 }
 
 void MatchModel::setBaseSearchPath(const QString &baseSearchPath)
 {
     m_resultBaseDir = baseSearchPath;
-    dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
 }
 
 void MatchModel::setProjectName(const QString &projectName)
 {
     m_projectName = projectName;
-    dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
 }
 
 
@@ -126,7 +131,7 @@ void MatchModel::clear()
 
 /** This function returns the row index of the specified file.
  * If the file does not exist in the model, the file will be added to the model. */
-int MatchModel::matchFileRow(const QUrl& fileUrl)
+int MatchModel::matchFileRow(const QUrl& fileUrl) const
 {
     return m_matchFileIndexHash.value(fileUrl, -1);
 }
@@ -137,8 +142,15 @@ static const int totalContectLen = 150;
 void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches)
 {
     m_lastMatchUrl = fileUrl;
+    // update match/search info
+    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
+
+    if (m_matchFiles.isEmpty()) {
+        beginInsertRows(QModelIndex(), 0, 0);
+        endInsertRows();
+    }
+
     if (searchMatches.isEmpty()) {
-        dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
         return;
     }
 
@@ -146,7 +158,7 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     if (fileIndex == -1) {
         fileIndex = m_matchFiles.size();
         m_matchFileIndexHash.insert(fileUrl, fileIndex);
-        beginInsertRows(QModelIndex(), fileIndex, fileIndex);
+        beginInsertRows(createIndex(0,0,InfoItemId), fileIndex, fileIndex);
         // We are always starting the insert at the end, so we could optimize by delaying/grouping the signaling of the updates
         m_matchFiles.append(MatchFile());
         m_matchFiles[fileIndex].fileUrl = fileUrl;
@@ -154,26 +166,26 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     }
 
     int matchIndex = m_matchFiles[fileIndex].matches.size();
-    beginInsertRows(index(fileIndex, 0), matchIndex, matchIndex + searchMatches.size()-1);
+    beginInsertRows(createIndex(fileIndex, 0 , FileItemId), matchIndex, matchIndex + searchMatches.size()-1);
     for (const auto &sMatch: searchMatches) {
         MatchModel::Match match;
         match.matchLen = sMatch.matchLen;
-        match.startLine = sMatch.matchRange.start().line();
-        match.startColumn = sMatch.matchRange.start().column();
-        match.endLine = sMatch.matchRange.end().line();
-        match.endColumn = sMatch.matchRange.end().column();
+        match.range = sMatch.matchRange;
+
+        int matchStartColumn = match.range.start().column();
+        int matchEndColumn = match.range.end().column();
 
         int contextLen = totalContectLen - sMatch.matchLen;
-        int preLen = qMin(contextLen/3, match.startColumn);
+        int preLen = qMin(contextLen/3, matchStartColumn);
         int postLen = contextLen - preLen;
 
-        match.preMatchStr = sMatch.lineContent.mid(match.startColumn-preLen, preLen);
-        if (match.startColumn > preLen) match.preMatchStr.prepend(QLatin1String("..."));
+        match.preMatchStr = sMatch.lineContent.mid(matchStartColumn-preLen, preLen);
+        if (matchStartColumn > preLen) match.preMatchStr.prepend(QLatin1String("..."));
 
-        match.postMatchStr = sMatch.lineContent.mid(match.endColumn, postLen);
-        if (match.endColumn+preLen < sMatch.lineContent.size()) match.postMatchStr.append(QLatin1String("..."));
+        match.postMatchStr = sMatch.lineContent.mid(matchEndColumn, postLen);
+        if (matchEndColumn+preLen < sMatch.lineContent.size()) match.postMatchStr.append(QLatin1String("..."));
 
-        match.matchStr = sMatch.lineContent.mid(match.startColumn, sMatch.matchLen);
+        match.matchStr = sMatch.lineContent.mid(matchStartColumn, sMatch.matchLen);
 
         m_matchFiles[fileIndex].matches.append(match);
     }
@@ -191,9 +203,19 @@ void MatchModel::setMatchColors(const QColor &foreground, const QColor &backgrou
 // /** This function is used to modify a match */
 // void MatchModel::replaceMatch(const QModelIndex &matchIndex, const QRegularExpression &regexp, const QString &replaceText)
 // {
-//     if (!matchIndex.isValid()) return;
-// }
+//     if (!matchIndex.isValid()) {
+//         qDebug() << "This should not be possible";
+//         return;
+//     }
 //
+//     if (matchIndex.internalId() == InfoItemId || matchIndex.internalId() == FileItemId) {
+//         qDebug() << "You cannot replace a file or the info item";
+//         return;
+//     }
+//
+//
+// }
+
 // /** Replace all matches that have been checked */
 // void MatchModel::replaceChecked(const QRegularExpression &regexp, const QString &replace)
 // {
@@ -210,7 +232,7 @@ QString MatchModel::matchToHtmlString(const Match &match) const
     QString post = match.postMatchStr.toHtmlEscaped();
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-    QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(match.startLine + 1).arg(match.startColumn + 1) + pre + matchStr + post;
+    QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(match.range.start().line() + 1).arg(match.range.start().column() + 1) + pre + matchStr + post;
 
     return displayText;
 }
@@ -227,6 +249,130 @@ QString MatchModel::fileItemToHtmlString(const MatchFile &matchFile) const
     return tmpStr;
 }
 
+
+bool MatchModel::isMatch(const QModelIndex &itemIndex) const
+{
+    if (!itemIndex.isValid()) return false;
+    if (itemIndex.internalId() == InfoItemId) return false;
+    if (itemIndex.internalId() == FileItemId) return false;
+
+    return true;
+}
+
+QModelIndex MatchModel::fileIndex(const QUrl &url) const
+{
+    int row = matchFileRow(url);
+    if (row == -1) return QModelIndex();
+    return createIndex(row, 0, FileItemId);
+}
+
+QModelIndex MatchModel::firstMatch() const
+{
+    if (m_matchFiles.isEmpty()) return QModelIndex();
+
+    return createIndex(0, 0, static_cast<quintptr>(0));
+}
+
+QModelIndex MatchModel::lastMatch() const
+{
+    if (m_matchFiles.isEmpty()) return QModelIndex();
+    const MatchFile &matchFile = m_matchFiles.constLast();
+    return createIndex(matchFile.matches.size()-1, 0, m_matchFiles.size()-1);
+}
+
+QModelIndex MatchModel::firstFileMatch(const QUrl &url) const
+{
+    int row = matchFileRow(url);
+    if (row == -1) return QModelIndex();
+
+    // if a file is in the vector it has a match
+    return createIndex(0, 0, row);
+}
+
+QModelIndex MatchModel::closestMatchAfter(const QUrl &url, const KTextEditor::Cursor &cursor) const
+{
+    int row = matchFileRow(url);
+    if (row < 0) return QModelIndex();
+    if (row >= m_matchFiles.size()) return QModelIndex();
+    if (!cursor.isValid()) return QModelIndex();
+
+    // if a file is in the vector it has a match
+    const MatchFile &matchFile = m_matchFiles[row];
+
+    int i=0;
+    for (; i<matchFile.matches.size()-1; ++i) {
+        if (matchFile.matches[i].range.end() >= cursor) {
+            break;
+        }
+    }
+
+    return createIndex(i, 0, row);
+}
+
+QModelIndex MatchModel::closestMatchBefore(const QUrl &url, const KTextEditor::Cursor &cursor) const
+{
+    int row = matchFileRow(url);
+    if (row < 0) return QModelIndex();
+    if (row >= m_matchFiles.size()) return QModelIndex();
+    if (!cursor.isValid()) return QModelIndex();
+
+    // if a file is in the vector it has a match
+    const MatchFile &matchFile = m_matchFiles[row];
+
+    int i=matchFile.matches.size()-1;
+    for (; i>=0; --i) {
+        if (matchFile.matches[i].range.start() <= cursor) {
+            break;
+        }
+    }
+
+    return createIndex(i, 0, row);
+}
+
+QModelIndex MatchModel::nextMatch(const QModelIndex &itemIndex) const
+{
+    if (!itemIndex.isValid()) return firstMatch();
+
+    int fileRow = itemIndex.internalId() < FileItemId ? itemIndex.internalId() : itemIndex.row();
+    if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
+        return QModelIndex();
+    }
+
+    int matchRow = itemIndex.internalId() < FileItemId ? itemIndex.row() : 0;
+    matchRow++;
+    if (matchRow >= m_matchFiles[fileRow].matches.size()) {
+        fileRow++;
+        matchRow = 0;
+    }
+
+    if (fileRow >= m_matchFiles.size()) {
+        fileRow = 0;
+    }
+    return createIndex(matchRow, 0, fileRow);
+}
+
+QModelIndex MatchModel::prevMatch(const QModelIndex &itemIndex) const
+{
+    if (!itemIndex.isValid()) return lastMatch();
+
+    int fileRow = itemIndex.internalId() < FileItemId ? itemIndex.internalId() : itemIndex.row();
+    if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
+        return QModelIndex();
+    }
+
+    int matchRow = itemIndex.internalId() < FileItemId ? itemIndex.row() : 0;
+    matchRow--;
+    if (matchRow < 0) {
+        fileRow--;
+    }
+    if (fileRow < 0) {
+        fileRow = m_matchFiles.size()-1;
+    }
+    if (matchRow < 0) {
+        matchRow = m_matchFiles[fileRow].matches.size()-1;
+    }
+    return createIndex(matchRow, 0, fileRow);
+}
 
 QVariant MatchModel::data(const QModelIndex &index, int role) const
 {
@@ -278,13 +424,13 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
             case FileUrlRole:
                 return m_matchFiles[fileRow].fileUrl;
             case StartLineRole:
-                return match.startLine;
+                return match.range.start().line();
             case StartColumnRole:
-                return match.startColumn;
+                return match.range.start().column();
             case EndLineRole:
-                return match.endLine;
+                return match.range.end().line();
             case EndColumnRole:
-                return match.endColumn;
+                return match.range.end().column();
             case MatchLenRole:
                 return match.matchLen;
             case PreMatchRole:

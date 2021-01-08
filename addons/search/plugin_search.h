@@ -113,7 +113,9 @@ public Q_SLOTS:
     void setCurrentFolder();
     void setSearchPlace(int place);
     void goToNextMatch();
+    void goToNextMatch2();
     void goToPreviousMatch();
+    void goToPreviousMatch2();
 
 private:
     enum CopyResultType { AllExpanded, All };

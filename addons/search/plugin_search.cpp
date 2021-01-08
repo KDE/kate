@@ -368,12 +368,12 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     a = actionCollection()->addAction(QStringLiteral("go_to_next_match"));
     a->setText(i18n("Go to Next Match"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::Key_F6));
-    connect(a, &QAction::triggered, this, &KatePluginSearchView::goToNextMatch);
+    connect(a, &QAction::triggered, this, &KatePluginSearchView::goToNextMatch2);
 
     a = actionCollection()->addAction(QStringLiteral("go_to_prev_match"));
     a->setText(i18n("Go to Previous Match"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::SHIFT | Qt::Key_F6));
-    connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch);
+    connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch2);
 
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
@@ -1563,6 +1563,12 @@ void KatePluginSearchView::replaceSingleMatch()
     if (!res) {
         return; // Security measure
     }
+
+    QModelIndex itemIndex = res->treeView->currentIndex();
+    if (!res->matchModel.isMatch(itemIndex)) {
+        goToNextMatch2();
+    }
+
     QTreeWidgetItem *item = res->tree->currentItem();
     if (!item || !item->parent()) {
         // Nothing was selected
@@ -1895,6 +1901,8 @@ void KatePluginSearchView::itemSelected2(const QModelIndex &item)
         matchItem = m_curResults->matchModel.index(0,0, matchItem);
     }
 
+    m_curResults->treeView->setCurrentIndex(matchItem);
+
     // get stuff
     int toLine = matchItem.data(MatchModel::StartLineRole).toInt();
     int toColumn = matchItem.data(MatchModel::StartColumnRole).toInt();
@@ -2022,6 +2030,84 @@ void KatePluginSearchView::goToNextMatch()
     }
 }
 
+void KatePluginSearchView::goToNextMatch2()
+{
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+
+    m_ui.displayOptions->setChecked(false);
+
+    QModelIndex currentIndex = res->treeView->currentIndex();
+    bool focusInView = m_mainWindow->activeView() && m_mainWindow->activeView()->hasFocus();
+
+    if (!currentIndex.isValid() && focusInView) {
+        // no item has been visited && focus is not in searchCombo (probably in the view) ->
+        // jump to the closest match after current cursor position
+        QUrl docUrl = m_mainWindow->activeView()->document()->url();
+
+        // check if current file is in the file list
+        currentIndex = res->matchModel.firstFileMatch(docUrl);
+        if (currentIndex.isValid()) {
+            // We have the index of the first match in the file
+            // expand the file item
+            res->treeView->expand(currentIndex.parent());
+
+            // check if we can get the next match after the
+            currentIndex = res->matchModel.closestMatchAfter(docUrl, m_mainWindow->activeView()->cursorPosition());
+            if (currentIndex.isValid()) {
+                itemSelected2(currentIndex);
+                delete m_infoMessage;
+                const QString msg = i18n("Next from cursor");
+                m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+                m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
+                m_infoMessage->setAutoHide(2000);
+                m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+                m_infoMessage->setView(m_mainWindow->activeView());
+                m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+                return;
+            }
+        }
+    }
+
+    if (!currentIndex.isValid()) {
+        currentIndex = res->matchModel.firstMatch();
+        if (currentIndex.isValid()) {
+            itemSelected2(currentIndex);
+            delete m_infoMessage;
+            const QString msg = i18n("Starting from first match");
+            m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+            m_infoMessage->setPosition(KTextEditor::Message::TopInView);
+            m_infoMessage->setAutoHide(2000);
+            m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+            m_infoMessage->setView(m_mainWindow->activeView());
+            m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+            return;
+        }
+    }
+    if (!currentIndex.isValid()) {
+        // no matches to activate
+        return;
+    }
+
+    // we had an active item go to next
+    currentIndex = res->matchModel.nextMatch(currentIndex);
+    itemSelected2(currentIndex);
+    qDebug() << currentIndex << res->matchModel.firstMatch();
+    if (currentIndex == res->matchModel.firstMatch()) {
+        qDebug() << "ontinuing from first match";
+        delete m_infoMessage;
+        const QString msg = i18n("Continuing from first match");
+        m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+        m_infoMessage->setPosition(KTextEditor::Message::TopInView);
+        m_infoMessage->setAutoHide(2000);
+        m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+        m_infoMessage->setView(m_mainWindow->activeView());
+        m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+    }
+}
+
 void KatePluginSearchView::goToPreviousMatch()
 {
     bool fromLast = false;
@@ -2108,6 +2194,82 @@ void KatePluginSearchView::goToPreviousMatch()
         const QString msg = i18n("Continuing from last match");
         m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
         m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
+        m_infoMessage->setAutoHide(2000);
+        m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+        m_infoMessage->setView(m_mainWindow->activeView());
+        m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+    }
+}
+
+void KatePluginSearchView::goToPreviousMatch2()
+{
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+
+    m_ui.displayOptions->setChecked(false);
+
+    QModelIndex currentIndex = res->treeView->currentIndex();
+    bool focusInView = m_mainWindow->activeView() && m_mainWindow->activeView()->hasFocus();
+
+    if (!currentIndex.isValid() && focusInView) {
+        // no item has been visited && focus is not in the view ->
+        // jump to the closest match before current cursor position
+        QUrl docUrl = m_mainWindow->activeView()->document()->url();
+
+        // check if current file is in the file list
+        currentIndex = res->matchModel.firstFileMatch(docUrl);
+        if (currentIndex.isValid()) {
+            // We have the index of the first match in the file
+            // expand the file item
+            res->treeView->expand(currentIndex.parent());
+
+            // check if we can get the next match after the
+            currentIndex = res->matchModel.closestMatchBefore(docUrl, m_mainWindow->activeView()->cursorPosition());
+            if (currentIndex.isValid()) {
+                itemSelected2(currentIndex);
+                delete m_infoMessage;
+                const QString msg = i18n("Next from cursor");
+                m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+                m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
+                m_infoMessage->setAutoHide(2000);
+                m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+                m_infoMessage->setView(m_mainWindow->activeView());
+                m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+                return;
+            }
+        }
+    }
+
+    if (!currentIndex.isValid()) {
+        currentIndex = res->matchModel.lastMatch();
+        if (currentIndex.isValid()) {
+            itemSelected2(currentIndex);
+            delete m_infoMessage;
+            const QString msg = i18n("Starting from last match");
+            m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+            m_infoMessage->setPosition(KTextEditor::Message::TopInView);
+            m_infoMessage->setAutoHide(2000);
+            m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+            m_infoMessage->setView(m_mainWindow->activeView());
+            m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+            return;
+        }
+    }
+    if (!currentIndex.isValid()) {
+        // no matches to activate
+        return;
+    }
+
+    // we had an active item go to next
+    currentIndex = res->matchModel.prevMatch(currentIndex);
+    itemSelected2(currentIndex);
+    if (currentIndex == res->matchModel.lastMatch()) {
+        delete m_infoMessage;
+        const QString msg = i18n("Continuing from last match");
+        m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+        m_infoMessage->setPosition(KTextEditor::Message::TopInView);
         m_infoMessage->setAutoHide(2000);
         m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
         m_infoMessage->setView(m_mainWindow->activeView());

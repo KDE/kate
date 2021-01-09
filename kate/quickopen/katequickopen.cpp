@@ -27,22 +27,23 @@
 #include <QFileInfo>
 #include <QHeaderView>
 #include <QLabel>
+#include <QPainter>
 #include <QPointer>
 #include <QSortFilterProxyModel>
 #include <QStandardItemModel>
 #include <QStyledItemDelegate>
-#include <QTreeView>
 #include <QTextDocument>
-#include <QPainter>
+#include <QTreeView>
 
 #include <kfts_fuzzy_match.h>
 
 class QuickOpenFilterProxyModel : public QSortFilterProxyModel
 {
-
 public:
-    QuickOpenFilterProxyModel(QObject *parent = nullptr) : QSortFilterProxyModel(parent)
-    {}
+    QuickOpenFilterProxyModel(QObject *parent = nullptr)
+        : QSortFilterProxyModel(parent)
+    {
+    }
 
     void changeMode(FilterModes m)
     {
@@ -74,7 +75,7 @@ protected:
         } else if (mode == FilterMode::FilterByPath) {
             res = filterByPath(path, score);
         } else {
-            int scorep= 0, scoren = 0;
+            int scorep = 0, scoren = 0;
             bool resp = filterByPath(path, scorep);
             bool resn = filterByName(name, scoren);
 
@@ -90,7 +91,7 @@ protected:
     }
 
 public Q_SLOTS:
-    void setFilterText(const QString& text)
+    void setFilterText(const QString &text)
     {
         beginResetModel();
         pattern = text;
@@ -98,12 +99,12 @@ public Q_SLOTS:
     }
 
 private:
-    inline bool filterByPath(const QStringRef& path, int& score) const
+    inline bool filterByPath(const QStringRef &path, int &score) const
     {
         return kfts::fuzzy_match(pattern, path, score);
     }
 
-    inline bool filterByName(const QStringRef& name, int& score) const
+    inline bool filterByName(const QStringRef &name, int &score) const
     {
         return kfts::fuzzy_match(pattern, name, score);
     }
@@ -113,12 +114,13 @@ private:
     FilterModes mode;
 };
 
-class QuickOpenStyleDelegate : public QStyledItemDelegate {
-
+class QuickOpenStyleDelegate : public QStyledItemDelegate
+{
 public:
-    QuickOpenStyleDelegate(QObject* parent = nullptr)
+    QuickOpenStyleDelegate(QObject *parent = nullptr)
         : QStyledItemDelegate(parent)
-    {}
+    {
+    }
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
     {
@@ -145,8 +147,7 @@ public:
         }
 
         const auto pathFontsize = option.font.pointSize();
-        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize) + name + QStringLiteral("</span>") +
-                    QStringLiteral(" &nbsp;") +
+        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize) + name + QStringLiteral("</span>") + QStringLiteral(" &nbsp;") +
                     QStringLiteral("<span style=\"color:gray; font-size:%1pt;\">").arg(pathFontsize - 1) + path + QStringLiteral("</span>"));
         doc.setDocumentMargin(2);
 
@@ -178,7 +179,7 @@ public:
     }
 
 public Q_SLOTS:
-    void setFilterString(const QString& text)
+    void setFilterString(const QString &text)
     {
         m_filterString = text;
     }
@@ -223,7 +224,9 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
 
     connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_model, &QuickOpenFilterProxyModel::setFilterText);
     connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_styleDelegate, &QuickOpenStyleDelegate::setFilterString);
-    connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this](){ m_listView->viewport()->update(); });
+    connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this]() {
+        m_listView->viewport()->update();
+    });
     connect(m_inputLine, &QuickOpenLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_inputLine, &QuickOpenLineEdit::filterModeChanged, this, &KateQuickOpen::slotfilterModeChanged);
     connect(m_inputLine, &QuickOpenLineEdit::listModeChanged, this, &KateQuickOpen::slotListModeChanged);
@@ -301,10 +304,9 @@ void KateQuickOpen::reselectFirst()
 void KateQuickOpen::update()
 {
     m_base_model->refresh();
-    m_listView->resizeColumnToContents(0);
     reselectFirst();
-    updateViewGeometry();
 
+    updateViewGeometry();
     show();
     setFocus();
 }
@@ -341,19 +343,17 @@ void KateQuickOpen::updateViewGeometry()
 
     const int rowHeight = m_listView->sizeHintForRow(0) == -1 ? 0 : m_listView->sizeHintForRow(0);
 
-    int frameWidth = this->frameSize().width();
-    frameWidth = frameWidth > centralSize.width() / 3 ? centralSize.width() / 3 : frameWidth;
-
     const int width = viewMaxSize.width();
 
-    const QSize viewSize(width < 300 ? 300 : width, // never go below this
-                         std::min(std::max(rowHeight * m_base_model->rowCount() + 2 * frameWidth, rowHeight * 6), viewMaxSize.height()));
+    const QSize viewSize(std::max(300, width), // never go below this
+                         std::min(std::max(rowHeight * m_base_model->rowCount() + 2, rowHeight * 6), viewMaxSize.height()));
 
-    // Position should be central over the editor area
+    // Position should be central over window
     const int xPos = std::max(0, (centralSize.width() - viewSize.width()) / 2);
     const int yPos = std::max(0, (centralSize.height() - viewSize.height()) * 1 / 4);
 
-    move(xPos, yPos);
+    const QPoint p(xPos, yPos);
+    move(p + m_mainWindow->pos());
 
     QPointer<QPropertyAnimation> animation = new QPropertyAnimation(this, "size");
     animation->setDuration(150);

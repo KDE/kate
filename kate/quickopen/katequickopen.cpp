@@ -67,8 +67,8 @@ protected:
         const QString fileName = sourceModel()->index(sourceRow, 0, sourceParent).data().toString();
         const auto nameAndPath = fileName.splitRef(QStringLiteral("{[split]}"));
 
-        const auto name = nameAndPath.at(0);
-        const auto path = nameAndPath.at(1);
+        const auto &name = nameAndPath.at(0);
+        const auto &path = nameAndPath.at(1);
         int score = 0;
 
         bool res = false;

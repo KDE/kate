@@ -233,7 +233,7 @@ namespace kfts {
         for (int i = 0; i < str.size() && j < pattern.size(); ++i) {
             if (str.at(i).toLower() == pattern.at(j).toLower()) {
                 str.replace(i, 1, htmlTag + str.at(i) + htmlTagClose);
-                i += 7;
+                i += htmlTag.size() + htmlTagClose.size();
                 ++j;
             }
         }

@@ -136,7 +136,7 @@ public:
         const QString nameColor = option.palette.color(QPalette::Link).name();
 
         if (mode == FilterMode::FilterByName) {
-            kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b>"), QStringLiteral("</b>"));
+            kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
         } else if (mode == FilterMode::FilterByPath) {
             kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
         } else {
@@ -145,9 +145,9 @@ public:
         }
 
         const auto pathFontsize = option.font.pointSize();
-        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize+1) + name + QStringLiteral("</span>") +
+        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize) + name + QStringLiteral("</span>") +
                     QStringLiteral(" &nbsp;") +
-                    QStringLiteral("<span style=\"color: gray; font-size: %1pt;\">") + path + QStringLiteral("</span>"));
+                    QStringLiteral("<span style=\"color:gray; font-size:%1pt;\">").arg(pathFontsize - 1) + path + QStringLiteral("</span>"));
         doc.setDocumentMargin(2);
 
         painter->save();
@@ -336,8 +336,8 @@ void KateQuickOpen::updateViewGeometry()
 {
     const QSize centralSize = m_mainWindow->size();
 
-    // width: 1/3 of editor, height: 1/2 of editor
-    const QSize viewMaxSize(centralSize.width() / 3, centralSize.height() / 2);
+    // width: 2.4 of editor, height: 1/2 of editor
+    const QSize viewMaxSize(centralSize.width() / 2.4, centralSize.height() / 2);
 
     const int rowHeight = m_listView->sizeHintForRow(0) == -1 ? 0 : m_listView->sizeHintForRow(0);
 

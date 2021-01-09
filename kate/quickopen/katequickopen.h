@@ -29,6 +29,8 @@ class KateQuickOpen : public QMenu
     Q_OBJECT
 public:
     KateQuickOpen(KateMainWindow *mainWindow);
+
+    ~KateQuickOpen();
     /**
      * update state
      * will fill model with current open documents, project documents, ...
@@ -56,7 +58,7 @@ private:
     KateMainWindow *m_mainWindow;
     QTreeView *m_listView;
     QuickOpenLineEdit *m_inputLine;
-    QuickOpenStyleDelegate* m_styleDelegate;
+    QuickOpenStyleDelegate *m_styleDelegate;
     FilterModes m_filterMode;
 
     /**

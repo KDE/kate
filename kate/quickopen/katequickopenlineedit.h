@@ -25,7 +25,7 @@ class QuickOpenLineEdit : public QLineEdit
 public:
     explicit QuickOpenLineEdit(QWidget *parent);
 
-    FilterModes filterMode()
+    FilterModes filterMode() const
     {
         return m_mode;
     }

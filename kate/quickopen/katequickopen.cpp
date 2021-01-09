@@ -17,8 +17,10 @@
 
 #include <KAboutData>
 #include <KActionCollection>
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KPluginFactory>
+#include <KSharedConfig>
 
 #include <QBoxLayout>
 #include <QCoreApplication>
@@ -249,6 +251,15 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     setHidden(true);
 
     m_filterMode = m_inputLine->filterMode();
+}
+
+KateQuickOpen::~KateQuickOpen()
+{
+    KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
+    KConfigGroup cg(cfg, "General");
+
+    cg.writeEntry("Quickopen Filter Mode", static_cast<int>(m_filterMode));
+    cg.writeEntry("Quickopen List Mode", m_base_model->listMode() == KateQuickOpenModelList::CurrentProject);
 }
 
 bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)

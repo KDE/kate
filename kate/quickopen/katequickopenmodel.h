@@ -9,18 +9,18 @@
 #define KATEQUICKOPENMODEL_H
 
 #include <QAbstractTableModel>
+#include <QIcon>
+#include <QUrl>
 #include <QVariant>
 #include <QVector>
-#include <QUrl>
-#include <QIcon>
 
 class KateMainWindow;
 
 struct ModelEntry {
-    QUrl url;         // used for actually opening a selected file (local or remote)
+    QUrl url; // used for actually opening a selected file (local or remote)
     QString fileName; // display string for left column
     QString filePath; // display string for right column
-    bool bold;        // format line in bold text or not
+    bool bold; // format line in bold text or not
     size_t sort_id;
     int score;
 };
@@ -70,7 +70,7 @@ private:
      * code.
      */
     KateMainWindow *m_mainWindow;
-    List m_listMode {};
+    List m_listMode{};
 };
 
 #endif

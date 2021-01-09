@@ -30,6 +30,11 @@ public:
         return m_mode;
     }
 
+    KateQuickOpenModelList listMode() const
+    {
+        return m_listMode;
+    }
+
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
@@ -37,8 +42,9 @@ private:
     void setupMenu();
 
 private:
-    FilterModes m_mode = (FilterMode)(FilterMode::FilterByName | FilterMode::FilterByPath);
     std::unique_ptr<QMenu> menu;
+    FilterModes m_mode;
+    KateQuickOpenModelList m_listMode;
 
 Q_SIGNALS:
     void filterModeChanged(FilterModes mode);

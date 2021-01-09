@@ -250,7 +250,9 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
 
     setHidden(true);
 
-    m_filterMode = m_inputLine->filterMode();
+    // restore settings
+    slotfilterModeChanged(m_inputLine->filterMode());
+    slotListModeChanged(m_inputLine->listMode());
 }
 
 KateQuickOpen::~KateQuickOpen()

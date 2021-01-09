@@ -8,8 +8,8 @@
 #include "katequickopenmodel.h"
 
 #include "kateapp.h"
-#include "kateviewmanager.h"
 #include "katemainwindow.h"
+#include "kateviewmanager.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -78,7 +78,7 @@ void KateQuickOpenModel::refresh()
         if (m_listMode == CurrentProject) {
             ret = projectView->property("projectBaseDir").toString();
         } else {
-            ret =  projectView->property("allProjectsCommonBaseDir").toString();
+            ret = projectView->property("allProjectsCommonBaseDir").toString();
         }
         if (!ret.endsWith(QLatin1Char('/')))
             ret.append(QLatin1Char('/'));
@@ -108,13 +108,20 @@ void KateQuickOpenModel::refresh()
     }
 
     /** Sort the arrays by filePath. */
-    std::stable_sort(std::begin(allDocuments), std::end(allDocuments), [](const ModelEntry &a, const ModelEntry &b) { return a.filePath < b.filePath; });
+    std::stable_sort(std::begin(allDocuments), std::end(allDocuments), [](const ModelEntry &a, const ModelEntry &b) {
+        return a.filePath < b.filePath;
+    });
 
     /** remove Duplicates.
      * Note that the stable_sort above guarantees that the items that the
      * bold/sort_id fields of the items added first are correctly preserved.
      */
-    allDocuments.erase(std::unique(allDocuments.begin(), allDocuments.end(), [](const ModelEntry &a, const ModelEntry &b) { return a.url == b.url; }), std::end(allDocuments));
+    allDocuments.erase(std::unique(allDocuments.begin(),
+                                   allDocuments.end(),
+                                   [](const ModelEntry &a, const ModelEntry &b) {
+                                       return a.url == b.url;
+                                   }),
+                       std::end(allDocuments));
 
     /** sort the arrays via boldness (open or not */
     std::stable_sort(std::begin(allDocuments), std::end(allDocuments), [](const ModelEntry &a, const ModelEntry &b) {

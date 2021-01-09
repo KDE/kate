@@ -49,11 +49,14 @@ void QuickOpenLineEdit::setupMenu()
         emit filterModeChanged(m_mode);
     });
 
-    if (cfgFilterMode == FilterMode::FilterByName) {
+    if (cfgFilterMode == FilterMode::FilterByPath) {
+        m_mode = FilterMode::FilterByPath;
         act1->setChecked(true);
-    } else if (cfgFilterMode == FilterMode::FilterByPath) {
+    } else if (cfgFilterMode == FilterMode::FilterByName) {
+        m_mode = FilterMode::FilterByName;
         act2->setChecked(true);
     } else {
+        m_mode = (FilterMode)(FilterMode::FilterByName | FilterMode::FilterByPath);
         act1->setChecked(true);
         act2->setChecked(true);
     }
@@ -80,6 +83,7 @@ void QuickOpenLineEdit::setupMenu()
             emit listModeChanged(KateQuickOpenModelList::CurrentProject);
     });
     act->setChecked(cfgListMode);
+    m_listMode = cfgListMode ? KateQuickOpenModelList::CurrentProject : KateQuickOpenModelList::AllProjects;
 
     actGp->addAction(act);
 }

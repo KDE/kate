@@ -133,17 +133,21 @@ public:
         QString name = namePath.at(0);
         QString path = namePath.at(1);
 
+        const QString nameColor = option.palette.color(QPalette::Link).name();
+
         if (mode == FilterMode::FilterByName) {
             kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b>"), QStringLiteral("</b>"));
         } else if (mode == FilterMode::FilterByPath) {
             kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
         } else {
-            kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b>"), QStringLiteral("</b>"));
+            kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
             kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
         }
 
         const auto pathFontsize = option.font.pointSize();
-        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize + 1) + name + QStringLiteral("</span>") + QStringLiteral(" &nbsp;") + QStringLiteral("<span style=\"color: gray; font-size: %1pt;\">").arg(pathFontsize) + path + QStringLiteral("</span>"));
+        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize+1) + name + QStringLiteral("</span>") +
+                    QStringLiteral(" &nbsp;") +
+                    QStringLiteral("<span style=\"color: gray; font-size: %1pt;\">") + path + QStringLiteral("</span>"));
         doc.setDocumentMargin(2);
 
         painter->save();
@@ -182,24 +186,6 @@ public Q_SLOTS:
 private:
     QString m_filterString;
     FilterModes mode;
-
-    // QAbstractItemDelegate interface
-public:
-//    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override
-//    {
-//        QSize size = this->QStyledItemDelegate::sizeHint(option, index);
-//        static int height = -1;
-//        if (height > -1) {
-//            size.setHeight(height);
-//            return size;
-//        }
-
-//        QFontMetrics metrics(option.font);
-//        QRect outRect = metrics.boundingRect(QRect(QPoint(0, 0), size), Qt::AlignLeft, option.text);
-//        height = outRect.height() * 2 + 4;
-//        size.setHeight(outRect.height() * 2 + 4);
-//        return size;
-//    }
 };
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)

@@ -17,7 +17,6 @@
 
 #include <KAboutData>
 #include <KActionCollection>
-//#include <KLineEdit>
 #include <KLocalizedString>
 #include <KPluginFactory>
 
@@ -144,7 +143,7 @@ public:
         }
 
         const auto pathFontsize = option.font.pointSize();
-        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize + 1) + name + QStringLiteral("</span>") + QStringLiteral("<br>") + QStringLiteral("<span style=\"color: gray; font-size: %1pt;\">").arg(pathFontsize) + path + QStringLiteral("</span>"));
+        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize + 1) + name + QStringLiteral("</span>") + QStringLiteral(" &nbsp;") + QStringLiteral("<span style=\"color: gray; font-size: %1pt;\">").arg(pathFontsize) + path + QStringLiteral("</span>"));
         doc.setDocumentMargin(2);
 
         painter->save();
@@ -160,7 +159,10 @@ public:
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
         // draw text
-        painter->translate(option.rect.x() + 5, option.rect.y());
+        painter->translate(option.rect.x(), option.rect.y());
+        if (index.column() == 0) {
+            painter->translate(25, 0);
+        }
         doc.drawContents(painter);
 
         painter->restore();
@@ -183,21 +185,21 @@ private:
 
     // QAbstractItemDelegate interface
 public:
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override
-    {
-        QSize size = this->QStyledItemDelegate::sizeHint(option, index);
-        static int height = -1;
-        if (height > -1) {
-            size.setHeight(height);
-            return size;
-        }
+//    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override
+//    {
+//        QSize size = this->QStyledItemDelegate::sizeHint(option, index);
+//        static int height = -1;
+//        if (height > -1) {
+//            size.setHeight(height);
+//            return size;
+//        }
 
-        QFontMetrics metrics(option.font);
-        QRect outRect = metrics.boundingRect(QRect(QPoint(0, 0), size), Qt::AlignLeft, option.text);
-        height = outRect.height() * 2 + 4;
-        size.setHeight(outRect.height() * 2 + 4);
-        return size;
-    }
+//        QFontMetrics metrics(option.font);
+//        QRect outRect = metrics.boundingRect(QRect(QPoint(0, 0), size), Qt::AlignLeft, option.text);
+//        height = outRect.height() * 2 + 4;
+//        size.setHeight(outRect.height() * 2 + 4);
+//        return size;
+//    }
 };
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
@@ -214,7 +216,6 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
 
     m_inputLine = new QuickOpenLineEdit(this);
     setFocusProxy(m_inputLine);
-    m_inputLine->setPlaceholderText(i18n("Quick Open Search"));
 
     layout->addWidget(m_inputLine);
 

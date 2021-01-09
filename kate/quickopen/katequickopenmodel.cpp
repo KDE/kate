@@ -14,6 +14,8 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
+#include <QMimeDatabase>
+
 KateQuickOpenModel::KateQuickOpenModel(KateMainWindow *mainWindow, QObject *parent)
     : QAbstractTableModel(parent)
     , m_mainWindow(mainWindow)
@@ -40,10 +42,6 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
         return {};
     }
 
-    if (role != Qt::DisplayRole && role != Qt::FontRole && role != Qt::UserRole && role != Role::Score) {
-        return {};
-    }
-
     auto entry = m_modelEntries.at(idx.row());
     if (role == Qt::DisplayRole) {
         switch (idx.column()) {
@@ -56,6 +54,8 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
             font.setBold(true);
             return font;
         }
+    } else if (role == Qt::DecorationRole) {
+        return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(entry.fileName, QMimeDatabase::MatchExtension).iconName());
     } else if (role == Qt::UserRole) {
         return entry.url;
     } else if (role == Role::Score) {
@@ -88,21 +88,23 @@ void KateQuickOpenModel::refresh()
     QVector<ModelEntry> allDocuments;
     allDocuments.reserve(sortedViews.size() + openDocs.size() + projectDocs.size());
 
+    QMimeDatabase mdb;
+
     size_t sort_id = static_cast<size_t>(-1);
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
-        allDocuments.push_back({doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase), true, sort_id--, -1});
+        allDocuments.push_back({doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase).remove(QStringLiteral("/") + doc->documentName()), true, sort_id--, -1});
     }
 
     for (auto *doc : qAsConst(openDocs)) {
-        const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase);
+        const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase).remove(QStringLiteral("/") + doc->documentName());
         allDocuments.push_back({doc->url(), doc->documentName(), normalizedUrl, true, 0, -1});
     }
 
     for (const auto &file : qAsConst(projectDocs)) {
         QFileInfo fi(file);
         const auto localFile = QUrl::fromLocalFile(fi.absoluteFilePath());
-        allDocuments.push_back({localFile, fi.fileName(), fi.filePath().remove(projectBase), false, 0, -1});
+        allDocuments.push_back({localFile, fi.fileName(), fi.filePath().remove(projectBase).remove(QStringLiteral("/") + fi.fileName()), false, 0, -1});
     }
 
     /** Sort the arrays by filePath. */
@@ -112,7 +114,7 @@ void KateQuickOpenModel::refresh()
      * Note that the stable_sort above guarantees that the items that the
      * bold/sort_id fields of the items added first are correctly preserved.
      */
-    allDocuments.erase(std::unique(allDocuments.begin(), allDocuments.end(), [](const ModelEntry &a, const ModelEntry &b) { return a.filePath == b.filePath; }), std::end(allDocuments));
+    allDocuments.erase(std::unique(allDocuments.begin(), allDocuments.end(), [](const ModelEntry &a, const ModelEntry &b) { return a.url == b.url; }), std::end(allDocuments));
 
     /** sort the arrays via boldness (open or not */
     std::stable_sort(std::begin(allDocuments), std::end(allDocuments), [](const ModelEntry &a, const ModelEntry &b) {

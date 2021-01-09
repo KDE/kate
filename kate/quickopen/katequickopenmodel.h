@@ -12,6 +12,7 @@
 #include <QVariant>
 #include <QVector>
 #include <QUrl>
+#include <QIcon>
 
 class KateMainWindow;
 

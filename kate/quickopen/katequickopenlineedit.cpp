@@ -11,24 +11,25 @@
 
 #include <KLocalizedString>
 
-QuickOpenLineEdit::QuickOpenLineEdit(QWidget* parent)
+QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
     : QLineEdit(parent)
 {
     setPlaceholderText(i18n("Quick Open Search (configure via context menu)"));
+    menu.reset(createStandardContextMenu());
+    setupMenu();
 }
 
 void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)
 {
-    // standard stuff like copy & paste...
-    QMenu *contextMenu = createStandardContextMenu();
+    menu->exec(event->globalPos());
+}
 
-    QMenu* menu = new QMenu(QStringLiteral("Filter..."));
-
-    // our configuration actions
+void QuickOpenLineEdit::setupMenu()
+{
     menu->addSeparator();
     auto act = menu->addAction(QStringLiteral("Filter By Path"));
     act->setCheckable(true);
-    connect(act, &QAction::toggled, this, [this](bool checked){
+    connect(act, &QAction::toggled, this, [this](bool checked) {
         m_mode.setFlag(FilterMode::FilterByPath, checked);
         emit filterModeChanged(m_mode);
     });
@@ -36,7 +37,7 @@ void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)
 
     act = menu->addAction(QStringLiteral("Filter By Name"));
     act->setCheckable(true);
-    connect(act, &QAction::toggled, this, [this](bool checked){
+    connect(act, &QAction::toggled, this, [this](bool checked) {
         m_mode.setFlag(FilterMode::FilterByName, checked);
         emit filterModeChanged(m_mode);
     });
@@ -44,30 +45,24 @@ void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)
 
     menu->addSeparator();
 
-    QActionGroup* actGp = new QActionGroup(this);
+    QActionGroup *actGp = new QActionGroup(this);
     actGp->setExclusionPolicy(QActionGroup::ExclusionPolicy::Exclusive);
 
     act = menu->addAction(QStringLiteral("All Projects"));
     act->setCheckable(true);
-    connect(act, &QAction::toggled, this, [this](bool checked){
+    connect(act, &QAction::toggled, this, [this](bool checked) {
         if (checked)
             emit listModeChanged(KateQuickOpenModelList::AllProjects);
     });
-    act->setChecked(true);
 
     actGp->addAction(act);
 
     act = menu->addAction(QStringLiteral("Current Project"));
-    connect(act, &QAction::toggled, this, [this](bool checked){
+    connect(act, &QAction::toggled, this, [this](bool checked) {
         if (checked)
             emit listModeChanged(KateQuickOpenModelList::CurrentProject);
     });
     act->setCheckable(true);
 
     actGp->addAction(act);
-
-    contextMenu->addMenu(menu);
-
-    contextMenu->exec(event->globalPos());
-    delete contextMenu;
 }

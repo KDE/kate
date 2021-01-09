@@ -8,11 +8,11 @@
 #define QUICKOPENLINEEDIT_H
 
 #include <QLineEdit>
+#include <memory>
 
 #include "katequickopenmodel.h"
 
-enum FilterMode : uint8_t
-{
+enum FilterMode : uint8_t {
     FilterByName = 0x01, /* By File Name */
     FilterByPath = 0x02 /* By File Path */
 };
@@ -34,7 +34,11 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
+    void setupMenu();
+
+private:
     FilterModes m_mode = (FilterMode)(FilterMode::FilterByName | FilterMode::FilterByPath);
+    std::unique_ptr<QMenu> menu;
 
 Q_SIGNALS:
     void filterModeChanged(FilterModes mode);

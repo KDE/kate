@@ -95,6 +95,8 @@ public:
     /** This function clears all matches in all files */
     void clear();
 
+    KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
+
 public Q_SLOTS:
 
     /** This function returns the row index of the specified file.
@@ -104,13 +106,14 @@ public Q_SLOTS:
     /** This function is used to add a new file */
     void addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches);
 
-//     /** This function is used to replace a match */
-//     void replaceMatch(const QModelIndex &matchIndex, const QRegularExpression &regexp, const QString &replaceText);
+    /** This function is used to replace a single match */
+    bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceStringText);
 
 //     /** Replace all matches that have been checked */
 //     void replaceChecked(const QRegularExpression &regexp, const QString &replace);
 
 Q_SIGNALS:
+    void replaceDone();
 
 public:
     bool isMatch(const QModelIndex &itemIndex) const;
@@ -133,12 +136,17 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
 private:
+    bool replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
+
+
     QString matchToHtmlString(const Match &match) const;
     QString fileItemToHtmlString(const MatchFile &matchFile) const;
 
     bool setFileChecked(int fileRow, bool checked);
 
     QString infoHtmlString() const;
+
+    Match *matchFromIndex(const QModelIndex &matchIndex);
 
     QVector<MatchFile> m_matchFiles;
     QHash<QUrl, int> m_matchFileIndexHash;

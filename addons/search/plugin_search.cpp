@@ -1569,50 +1569,26 @@ void KatePluginSearchView::replaceSingleMatch()
         goToNextMatch2();
     }
 
-    QTreeWidgetItem *item = res->tree->currentItem();
-    if (!item || !item->parent()) {
-        // Nothing was selected
-        goToNextMatch();
-        return;
-    }
-
     if (!m_mainWindow->activeView() || !m_mainWindow->activeView()->cursorPosition().isValid()) {
-        itemSelected(item); // Correct any bad cursor positions
+        itemSelected2(itemIndex); // Correct any bad cursor positions
         return;
     }
 
-    int cursorLine = m_mainWindow->activeView()->cursorPosition().line();
-    int cursorColumn = m_mainWindow->activeView()->cursorPosition().column();
+    KTextEditor::Range matchRange = res->matchModel.matchRange(itemIndex);
 
-    int startLine = item->data(0, ReplaceMatches::StartLineRole).toInt();
-    int startColumn = item->data(0, ReplaceMatches::StartColumnRole).toInt();
-
-    if ((cursorLine != startLine) || (cursorColumn != startColumn)) {
-        itemSelected(item);
+    if (m_mainWindow->activeView()->cursorPosition() != matchRange.start()) {
+        itemSelected2(itemIndex);
         return;
     }
 
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
     // Find the corresponding range
-    int i;
-    for (i = 0; i < m_matchRanges.size(); i++) {
-        if (m_matchRanges[i]->document() != doc)
-            continue;
-        if (m_matchRanges[i]->start().line() != startLine)
-            continue;
-        if (m_matchRanges[i]->start().column() != startColumn)
-            continue;
-        break;
-    }
 
-    if (i >= m_matchRanges.size()) {
-        goToNextMatch();
-        return;
-    }
+    // FIXME why did we go through the m_matchRanges?
 
-    m_replacer.replaceSingleMatch(doc, item, res->regExp, m_ui.replaceCombo->currentText());
+    res->matchModel.replaceSingleMatch(doc, itemIndex, res->regExp, m_ui.replaceCombo->currentText());
 
-    goToNextMatch();
+    goToNextMatch2();
 }
 
 void KatePluginSearchView::replaceChecked()
@@ -2094,9 +2070,7 @@ void KatePluginSearchView::goToNextMatch2()
     // we had an active item go to next
     currentIndex = res->matchModel.nextMatch(currentIndex);
     itemSelected2(currentIndex);
-    qDebug() << currentIndex << res->matchModel.firstMatch();
     if (currentIndex == res->matchModel.firstMatch()) {
-        qDebug() << "ontinuing from first match";
         delete m_infoMessage;
         const QString msg = i18n("Continuing from first match");
         m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);

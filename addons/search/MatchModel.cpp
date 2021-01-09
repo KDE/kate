@@ -14,6 +14,8 @@
 #include <QDir>
 #include <algorithm> // std::count_if
 
+#include <ktexteditor/movinginterface.h>
+#include <ktexteditor/movingrange.h>
 
 static const quintptr InfoItemId = 0xFFFFFFFF;
 static const quintptr FileItemId = 0x7FFFFFFF;
@@ -199,22 +201,155 @@ void MatchModel::setMatchColors(const QColor &foreground, const QColor &backgrou
     m_replaceHighlightColor = replaseBackground;
 }
 
+MatchModel::Match *MatchModel::matchFromIndex(const QModelIndex &matchIndex)
+{
+    if (!isMatch(matchIndex)) {
+        qDebug() << "Not a valid match index";
+        return nullptr;
+    }
 
-// /** This function is used to modify a match */
-// void MatchModel::replaceMatch(const QModelIndex &matchIndex, const QRegularExpression &regexp, const QString &replaceText)
-// {
-//     if (!matchIndex.isValid()) {
-//         qDebug() << "This should not be possible";
-//         return;
-//     }
-//
-//     if (matchIndex.internalId() == InfoItemId || matchIndex.internalId() == FileItemId) {
-//         qDebug() << "You cannot replace a file or the info item";
-//         return;
-//     }
-//
-//
-// }
+    int fileRow = matchIndex.internalId();
+    int matchRow = matchIndex.row();
+
+    return &m_matchFiles[fileRow].matches[matchRow];
+}
+
+KTextEditor::Range MatchModel::matchRange(const QModelIndex &matchIndex) const
+{
+    if (!isMatch(matchIndex)) {
+        qDebug() << "Not a valid match index";
+        return KTextEditor::Range();
+    }
+    int fileRow = matchIndex.internalId();
+    int matchRow = matchIndex.row();
+    return m_matchFiles[fileRow].matches[matchRow].range;
+}
+
+
+/** This function is used to replace a match */
+bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString)
+{
+    if (!doc) {
+        qDebug() << "No doc";
+        return false;
+    }
+
+    Match *matchItem = matchFromIndex(matchIndex);
+
+    if (!matchItem) {
+        qDebug() << "Not a valid index";
+        return false;
+    }
+
+    // don't replace an already replaced item
+    if (!matchItem->replaceText.isEmpty()) {
+        // qDebug() << "not replacing already replaced item";
+        return false;
+    }
+
+    // Check that the text has not been modified and still matches + get captures for the replace
+    QString matchLines = doc->text(matchItem->range);
+    QRegularExpressionMatch match = regExp.match(matchLines);
+    if (match.capturedStart() != 0) {
+        qDebug() << matchLines << "Does not match" << regExp.pattern();
+        return false;
+    }
+
+    // Modify the replace string according to this match
+    QString replaceText = replaceString;
+    replaceText.replace(QLatin1String("\\\\"), QLatin1String("¤Search&Replace¤"));
+
+    // allow captures \0 .. \9
+    for (int j = qMin(9, match.lastCapturedIndex()); j >= 0; --j) {
+        QString captureLX = QStringLiteral("\\L\\%1").arg(j);
+        QString captureUX = QStringLiteral("\\U\\%1").arg(j);
+        QString captureX = QStringLiteral("\\%1").arg(j);
+        replaceText.replace(captureLX, match.captured(j).toLower());
+        replaceText.replace(captureUX, match.captured(j).toUpper());
+        replaceText.replace(captureX, match.captured(j));
+    }
+
+    // allow captures \{0} .. \{9999999}...
+    for (int j = match.lastCapturedIndex(); j >= 0; --j) {
+        QString captureLX = QStringLiteral("\\L\\{%1}").arg(j);
+        QString captureUX = QStringLiteral("\\U\\{%1}").arg(j);
+        QString captureX = QStringLiteral("\\{%1}").arg(j);
+        replaceText.replace(captureLX, match.captured(j).toLower());
+        replaceText.replace(captureUX, match.captured(j).toUpper());
+        replaceText.replace(captureX, match.captured(j));
+    }
+
+    replaceText.replace(QLatin1String("\\n"), QLatin1String("\n"));
+    replaceText.replace(QLatin1String("\\t"), QLatin1String("\t"));
+    replaceText.replace(QLatin1String("¤Search&Replace¤"), QLatin1String("\\"));
+
+    // Replace the string
+    doc->replaceText(matchItem->range, replaceText);
+
+    // update the range
+    int newEndLine = matchItem->range.start().line() + replaceText.count(QLatin1Char('\n'));
+    int lastNL = replaceText.lastIndexOf(QLatin1Char('\n'));
+    int newEndColumn = lastNL == -1 ? matchItem->range.start().column() + replaceText.length() : replaceText.length() - lastNL - 1;
+    matchItem->range.setEnd(KTextEditor::Cursor{newEndLine, newEndColumn});
+
+    // Convert replace text back to "html"
+    replaceText.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+    replaceText.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
+    matchItem->replaceText = replaceText;
+    return true;
+}
+
+/** This function is used to replace a match */
+bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString)
+{
+    if (!doc) {
+        qDebug() << "No doc";
+        return false;
+    }
+
+    if (!isMatch(matchIndex)) {
+        qDebug() << "This should not be possible";
+        return false;
+    }
+
+    if (matchIndex.internalId() == InfoItemId || matchIndex.internalId() == FileItemId) {
+        qDebug() << "You cannot replace a file or the info item";
+        return false;
+    }
+
+    // Create a vector of moving ranges for updating the tree-view after replace
+    QVector<KTextEditor::MovingRange *> matchRanges;
+    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+
+    // Only add items after "matchIndex"
+    int fileRow = matchIndex.internalId();
+    int matchRow = matchIndex.row();
+
+    QVector<Match> &matches = m_matchFiles[fileRow].matches;
+
+    for (int i = matchRow+1; i < matches.size(); ++i) {
+        KTextEditor::MovingRange *mr = miface->newMovingRange(matches[i].range);
+        matchRanges.append(mr);
+    }
+
+    // The first range in the vector is for this match
+    if (!replaceMatch(doc, matchIndex, regExp, replaceString)) {
+        return false;
+    }
+
+    // Update the items after the matchIndex
+    for (int i = matchRow+1; i < matches.size(); ++i) {
+        Q_ASSERT(!matchRanges.isEmpty());
+        KTextEditor::MovingRange *mr = matchRanges.takeFirst();
+        matches[i].range = mr->toRange();
+        delete mr;
+    }
+    Q_ASSERT(matchRanges.isEmpty());
+
+    dataChanged(createIndex(matchRow, 0, fileRow), createIndex(matches.size()-1, 0, fileRow));
+
+    return true;
+}
 
 // /** Replace all matches that have been checked */
 // void MatchModel::replaceChecked(const QRegularExpression &regexp, const QString &replace)
@@ -224,11 +359,21 @@ void MatchModel::setMatchColors(const QColor &foreground, const QColor &backgrou
 QString MatchModel::matchToHtmlString(const Match &match) const
 {
     QString pre =match.preMatchStr.toHtmlEscaped();
+
     QString matchStr = match.matchStr;
     matchStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
     matchStr = matchStr.toHtmlEscaped();
+    QString replaceStr = match.replaceText.toHtmlEscaped();
+    if (!replaceStr.isEmpty()) {
+        matchStr = QLatin1String("<i><s>") + matchStr + QLatin1String("</s></i> ");
+    }
     matchStr = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>")
     .arg(m_searchBackgroundColor.name(), m_foregroundColor.name(), matchStr);
+
+    if (!replaceStr.isEmpty()) {
+        matchStr += QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>")
+        .arg(m_replaceHighlightColor.name(), m_foregroundColor.name(), replaceStr);
+    }
     QString post = match.postMatchStr.toHtmlEscaped();
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....

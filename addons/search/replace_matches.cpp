@@ -320,6 +320,7 @@ void ReplaceMatches::updateTreeViewItems(QTreeWidgetItem *fileItem, const QVecto
     // if we have a non-empty matches, we need to update stuff
     // we always pass only matching sized vectors if non-empty!
     if (fileItem && !matches.isEmpty()) {
+        qDebug() << fileItem->childCount() << replaced.size() << matches.size();
         Q_ASSERT(fileItem->childCount() == replaced.size());
         Q_ASSERT(matches.size() == replaced.size());
         for (int j = 0; j < fileItem->childCount(); ++j) {

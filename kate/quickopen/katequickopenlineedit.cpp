@@ -27,7 +27,7 @@ void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)
 void QuickOpenLineEdit::setupMenu()
 {
     menu->addSeparator();
-    auto act = menu->addAction(QStringLiteral("Filter By Path"));
+    auto act = menu->addAction(i18n("Filter By Path"));
     act->setCheckable(true);
     connect(act, &QAction::toggled, this, [this](bool checked) {
         m_mode.setFlag(FilterMode::FilterByPath, checked);
@@ -35,7 +35,7 @@ void QuickOpenLineEdit::setupMenu()
     });
     act->setChecked(true);
 
-    act = menu->addAction(QStringLiteral("Filter By Name"));
+    act = menu->addAction(i18n("Filter By Name"));
     act->setCheckable(true);
     connect(act, &QAction::toggled, this, [this](bool checked) {
         m_mode.setFlag(FilterMode::FilterByName, checked);
@@ -48,7 +48,7 @@ void QuickOpenLineEdit::setupMenu()
     QActionGroup *actGp = new QActionGroup(this);
     actGp->setExclusionPolicy(QActionGroup::ExclusionPolicy::Exclusive);
 
-    act = menu->addAction(QStringLiteral("All Projects"));
+    act = menu->addAction(i18n("All Projects"));
     act->setCheckable(true);
     connect(act, &QAction::toggled, this, [this](bool checked) {
         if (checked)
@@ -57,7 +57,7 @@ void QuickOpenLineEdit::setupMenu()
 
     actGp->addAction(act);
 
-    act = menu->addAction(QStringLiteral("Current Project"));
+    act = menu->addAction(i18n("Current Project"));
     connect(act, &QAction::toggled, this, [this](bool checked) {
         if (checked)
             emit listModeChanged(KateQuickOpenModelList::CurrentProject);

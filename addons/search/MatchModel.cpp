@@ -47,8 +47,13 @@ MatchModel::MatchModel(QObject *parent)
         dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
     });
 }
-MatchModel::~MatchModel()
+
+MatchModel::~MatchModel() {}
+
+void MatchModel::setDocumentManager(KTextEditor::Application *manager)
 {
+    m_docManager = manager;
+    connect(m_docManager, &KTextEditor::Application::documentWillBeDeleted, this, &MatchModel::cancelReplace);
 }
 
 void MatchModel::setSearchPlace(MatchModel::SearchPlaces searchPlace)
@@ -351,10 +356,101 @@ bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelInde
     return true;
 }
 
-// /** Replace all matches that have been checked */
-// void MatchModel::replaceChecked(const QRegularExpression &regexp, const QString &replace)
-// {
-// }
+void MatchModel::doReplaceNextMatch()
+{
+    Q_ASSERT(m_docManager);
+
+    if (m_cancelReplace || m_replaceFile >= m_matchFiles.size()) {
+        m_replaceFile = -1;
+        emit replaceDone();
+        return;
+    }
+
+    // NOTE The document managers signal documentWillBeDeleted() must be connected to
+    // cancelReplace(). A closed file could lead to a crash if it is not handled.
+    // this is now done in setDocumentManager()
+
+    MatchFile &matchFile = m_matchFiles[m_replaceFile];
+
+    if (matchFile.checkState == Qt::Unchecked) {
+        m_replaceFile++;
+        QTimer::singleShot(0, this, &MatchModel::doReplaceNextMatch);
+        return;
+    }
+
+    KTextEditor::Document *doc;
+    doc = m_docManager->findUrl(matchFile.fileUrl);
+    if (!doc) {
+        doc = m_docManager->openUrl(matchFile.fileUrl);
+    }
+
+    if (!doc) {
+        qDebug() << "Failed to open the document" << matchFile.fileUrl;
+        m_replaceFile++;
+        QTimer::singleShot(0, this, &MatchModel::doReplaceNextMatch);
+        return;
+    }
+
+    if (doc->url() != matchFile.fileUrl) {
+        qDebug() << "url differences" << matchFile.fileUrl << doc->url();
+        matchFile.fileUrl = doc->url();
+    }
+
+    auto &matches = matchFile.matches;
+
+    // Create a vector of moving ranges for updating the matches after replace
+    QVector<KTextEditor::MovingRange *> matchRanges;
+    matchRanges.reserve(matches.size());
+    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+    for (const auto &match: qAsConst(matches)) {
+        matchRanges.append(miface->newMovingRange(match.range));
+    }
+
+    // Make one transaction for the whole replace to speed up things
+    // and get all replacements in one "undo"
+    KTextEditor::Document::EditingTransaction transaction(doc);
+
+    for (int i = 0; i < matches.size(); ++i) {
+        if (matches[i].checked) {
+            replaceMatch(doc, createIndex(i, 0, m_replaceFile), m_regExp, m_replaceText);
+        }
+        // The document has been modified -> make sure the next match has the correct range
+        if (i < matches.size()-1) {
+            matches[i+1].range = matchRanges[i+1]->toRange();
+        }
+    }
+
+    dataChanged(createIndex(0, 0, m_replaceFile), createIndex(matches.size()-1, 0, m_replaceFile));
+
+    // free our moving ranges
+    qDeleteAll(matchRanges);
+
+    m_replaceFile++;
+    QTimer::singleShot(0, this, &MatchModel::doReplaceNextMatch);
+}
+
+
+/** Initiate a replace of all matches that have been checked */
+void MatchModel::replaceChecked(const QRegularExpression &regExp, const QString &replaceString)
+{
+    Q_ASSERT(m_docManager != nullptr);
+    if (m_replaceFile != -1) {
+        Q_ASSERT(m_replaceFile != -1);
+        return; // already replacing
+    }
+
+    m_replaceFile = 0;
+    m_regExp = regExp;
+    m_replaceText = replaceString;
+    m_cancelReplace = false;
+    doReplaceNextMatch();
+}
+
+void MatchModel::cancelReplace()
+{
+    m_replaceFile = -1;
+    m_cancelReplace = true;
+}
 
 QString MatchModel::matchToHtmlString(const Match &match) const
 {

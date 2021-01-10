@@ -1582,10 +1582,9 @@ void KatePluginSearchView::replaceSingleMatch()
     }
 
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
-    // Find the corresponding range
 
-    // FIXME why did we go through the m_matchRanges?
-
+    // FIXME The document might have been edited after the search.
+    // Fix the ranges before attempting the replace
     res->matchModel.replaceSingleMatch(doc, itemIndex, res->regExp, m_ui.replaceCombo->currentText());
 
     goToNextMatch2();
@@ -1626,12 +1625,7 @@ void KatePluginSearchView::replaceChecked()
 
     m_curResults->replaceStr = m_ui.replaceCombo->currentText();
 
-    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
-
-    if (root) {
-        m_curResults->treeRootText = root->data(0, Qt::DisplayRole).toString();
-    }
-    m_replacer.replaceChecked(m_curResults->tree, m_curResults->regExp, m_curResults->replaceStr);
+    m_curResults->matchModel.replaceChecked(m_curResults->regExp, m_curResults->replaceStr);
 }
 
 void KatePluginSearchView::replaceStatus(const QUrl &url, int replacedInFile, int matchesInFile)
@@ -1666,15 +1660,6 @@ void KatePluginSearchView::replaceDone()
     m_ui.matchCase->setDisabled(false);
     m_ui.expandResults->setDisabled(false);
     m_ui.currentFolderButton->setDisabled(false);
-
-    if (!m_curResults) {
-        // qDebug() << "m_curResults == nullptr";
-        return;
-    }
-    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
-    if (root) {
-        root->setData(0, Qt::DisplayRole, m_curResults->treeRootText);
-    }
 }
 
 void KatePluginSearchView::docViewChanged()
@@ -2350,6 +2335,8 @@ void KatePluginSearchView::addTab()
     res->treeView->setRootIsDecorated(false);
     connect(res->treeView, &QTreeView::doubleClicked, this, &KatePluginSearchView::itemSelected2, Qt::UniqueConnection);
     connect(res->treeView, &QTreeView::customContextMenuRequested, this, &KatePluginSearchView::customResMenuRequested, Qt::UniqueConnection);
+    res->matchModel.setDocumentManager(m_kateApp);
+    connect(&res->matchModel, &MatchModel::replaceDone, this, &KatePluginSearchView::replaceDone);
 
     res->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
     res->useRegExp = m_ui.useRegExp->isChecked();

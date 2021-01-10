@@ -13,7 +13,9 @@
 #include <QUrl>
 #include <QBrush>
 #include <QTimer>
+#include <QRegularExpression>
 
+#include <ktexteditor/application.h>
 #include <KTextEditor/Range>
 #include <KTextEditor/Cursor>
 
@@ -82,6 +84,8 @@ public:
     MatchModel(QObject *parent = nullptr);
     ~MatchModel() override;
 
+    void setDocumentManager(KTextEditor::Application *manager);
+
     void setMatchColors(const QColor &foreground, const QColor &background, const QColor &replaseBackground);
 
     void setSearchPlace(MatchModel::SearchPlaces searchPlace);
@@ -107,10 +111,14 @@ public Q_SLOTS:
     void addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches);
 
     /** This function is used to replace a single match */
-    bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceStringText);
+    bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
 
-//     /** Replace all matches that have been checked */
-//     void replaceChecked(const QRegularExpression &regexp, const QString &replace);
+    /** Initiate a replace of all matches that have been checked.
+     * The actual replacing is split up into slot calls that are added to the event loop */
+    void replaceChecked(const QRegularExpression &regExp, const QString &replaceString);
+
+    /** Cancel the replacing of checked matches. NOTE: This will only be handled when the next file is handled */
+    void cancelReplace();
 
 Q_SIGNALS:
     void replaceDone();
@@ -134,6 +142,9 @@ public:
     QModelIndex parent(const QModelIndex &child) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+
+private Q_SLOTS:
+    void doReplaceNextMatch();
 
 private:
     bool replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
@@ -161,6 +172,14 @@ private:
     QString m_projectName;
     QUrl m_lastMatchUrl;
     QTimer m_infoUpdateTimer;
+
+    // Replacing related objects
+    KTextEditor::Application *m_docManager = nullptr;
+    int m_replaceFile = -1;
+    QRegularExpression m_regExp;
+    QString m_replaceText;
+    bool m_cancelReplace = true;
+
 };
 
 #endif

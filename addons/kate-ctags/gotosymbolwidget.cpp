@@ -128,7 +128,7 @@ GotoSymbolWidget::GotoSymbolWidget(KTextEditor::MainWindow* mainWindow, KateCTag
       m_mainWindow(mainWindow),
       oldPos(-1, -1)
 {
-    setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint);
 
     mode = Local;
 
@@ -164,7 +164,7 @@ GotoSymbolWidget::GotoSymbolWidget(KTextEditor::MainWindow* mainWindow, KateCTag
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(0);
-    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setContentsMargins(4, 4, 4, 4);
     layout->addWidget(m_lineEdit);
     layout->addWidget(m_treeView);
     setLayout(layout);
@@ -293,22 +293,15 @@ void GotoSymbolWidget::updateViewGeometry()
     QWidget *window = m_mainWindow->window();
     const QSize centralSize = window->size();
 
-    // width: 1/3 of editor, height: 1/2 of editor
-    const QSize viewMaxSize(centralSize.width() / 3, centralSize.height() / 2);
+    // width: 2.4 of editor, height: 1/2 of editor
+    const QSize viewMaxSize(centralSize.width() / 2.4, centralSize.height() / 2);
 
     const int rowHeight = m_treeView->sizeHintForRow(0) == -1 ? 0 : m_treeView->sizeHintForRow(0);
 
     int frameWidth = this->frameSize().width();
-    frameWidth = frameWidth > centralSize.width() / 3 ? centralSize.width() / 3 : frameWidth;
+    frameWidth = frameWidth > centralSize.width() / 2.4 ? centralSize.width() / 2.4 : frameWidth;
 
-    int width = 0;
-    // disable dynamic width in case there are too many rows
-    if (mode == Global && m_globalSymbolsModel->rowCount() > 3000) {
-             width = viewMaxSize.width();
-    } else {
-        width = std::min(m_treeView->sizeHintWidth() + 2 * frameWidth + m_treeView->verticalScrollBar()->width(),
-                 viewMaxSize.width());
-    }
+    const int width = viewMaxSize.width();
 
     const int rowCount = mode == Global ? m_globalSymbolsModel->rowCount() : m_symbolsModel->rowCount();
 

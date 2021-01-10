@@ -15,14 +15,6 @@ class GotoGlobalSymbolModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    struct GSymbolItem
-    {
-        QString name;
-        QString fileName;
-        QString fileUrl;
-        QString pattern;
-        QString type;
-    };
 
     enum Roles {
         Name = Qt::UserRole,

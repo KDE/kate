@@ -113,9 +113,7 @@ public Q_SLOTS:
     void setCurrentFolder();
     void setSearchPlace(int place);
     void goToNextMatch();
-    void goToNextMatch2();
     void goToPreviousMatch();
-    void goToPreviousMatch2();
 
 private:
     enum CopyResultType { AllExpanded, All };
@@ -145,10 +143,7 @@ private Q_SLOTS:
     void searchWhileTypingDone();
     void indicateMatch(bool hasMatch);
 
-    void searching(const QString &file);
-
-    void itemSelected(QTreeWidgetItem *item);
-    void itemSelected2(const QModelIndex &item);
+    void itemSelected(const QModelIndex &item);
 
     void clearMarks();
     void clearDocMarks(KTextEditor::Document *doc);
@@ -158,13 +153,11 @@ private Q_SLOTS:
 
     void replaceDone();
 
-    void docViewChanged();
+    void updateMatchMarks();
 
     void resultTabChanged(int index);
 
     void expandResults();
-
-    void updateResultsRootItem();
 
     /**
      * keep track if the project plugin is alive and if the project file did change
@@ -178,7 +171,6 @@ private Q_SLOTS:
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
-    void addHeaderItem();
 
 private:
     void addMatchesToRootFileItem(const QUrl &url, const QList<QTreeWidgetItem *> &matchItems);
@@ -208,7 +200,6 @@ private:
     QString m_resultBaseDir;
     QList<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;
-    QTimer m_updateSumaryTimer;
     QPointer<KTextEditor::Message> m_infoMessage;
     QBrush m_searchBackgroundColor;
     QBrush m_foregroundColor;

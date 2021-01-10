@@ -24,6 +24,7 @@
 
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
+#include <KTextEditor/Message>
 
 class QuickOpenFilterProxyModel : public QSortFilterProxyModel {
 public:
@@ -230,8 +231,16 @@ void GotoSymbolWidget::showGlobalSymbols(const QString &tagFilePath)
 
 void GotoSymbolWidget::loadGlobalSymbols(const QString &text)
 {
+    if (m_tagFile.isEmpty() || !QFileInfo(m_tagFile).exists() || !QFileInfo(m_tagFile).isFile()) {
+        Tags::TagEntry e(i18n("Tags file not found. Please generate one manually or using the CTags plugin"), QString(), QString(), QString());
+        m_globalSymbolsModel->setSymbolsData({e});
+        return;
+    }
+
     if (text.length() < 3 || mode == Local)
         return;
+
+
     QString currentWord = text;
     Tags::TagList list = Tags::getPartialMatchesNoi8n(m_tagFile, currentWord);
 
@@ -254,7 +263,49 @@ void GotoSymbolWidget::slotReturnPressed()
         QString tag = idx.data(Qt::UserRole).toString();
         QString pattern = idx.data(GotoGlobalSymbolModel::Pattern).toString();
         QString file = idx.data(GotoGlobalSymbolModel::FileUrl).toString();
-        ctagsPluginView->jumpToTag(file, pattern, tag);
+        bool fileFound = true;
+
+        QFileInfo fi(file);
+        QString url;
+        // if the file doesn't exist, try to load it using project base dir
+        if (!fi.exists()) {
+            fileFound = false;
+            QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
+            QString ret = projectView->property("projectBaseDir").toString();
+            if (!ret.endsWith(QLatin1Char('/'))) {
+                ret.append(QLatin1Char('/'));
+            }
+            url = ret + file;
+            fi.setFile(url);
+
+            // check again
+            // not found? use tagFile path as base path
+            if (!fi.exists()) {
+                url.clear();
+                fi.setFile(m_tagFile);
+                QString path = fi.absolutePath();
+                url = path + QStringLiteral("/") + file;
+
+                fi.setFile(url);
+                if (fi.exists())
+                    fileFound = true;
+            } else {
+                fileFound = true;
+            }
+        } else {
+            url = file;
+        }
+
+        if (fileFound) {
+            ctagsPluginView->jumpToTag(url, pattern, tag);
+        } else {
+            QString msg = i18n("File for '%1' not found.", tag);
+            auto message = new KTextEditor::Message(msg, KTextEditor::Message::MessageType::Error);
+            if (auto view = m_mainWindow->activeView()) {
+                view->document()->postMessage(message);
+            }
+        }
+
     } else {
         int line = idx.data(Qt::UserRole).toInt();
 

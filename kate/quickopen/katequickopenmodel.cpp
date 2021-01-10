@@ -88,8 +88,6 @@ void KateQuickOpenModel::refresh()
     QVector<ModelEntry> allDocuments;
     allDocuments.reserve(sortedViews.size() + openDocs.size() + projectDocs.size());
 
-    QMimeDatabase mdb;
-
     size_t sort_id = static_cast<size_t>(-1);
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();

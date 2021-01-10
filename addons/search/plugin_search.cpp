@@ -168,48 +168,6 @@ static void regexHelperActOnAction(QAction *resultAction, const QSet<QAction *> 
     }
 }
 
-class TreeWidgetItem : public QTreeWidgetItem
-{
-public:
-    TreeWidgetItem(QTreeWidget *parent)
-        : QTreeWidgetItem(parent)
-    {
-    }
-    TreeWidgetItem(QTreeWidget *parent, const QStringList &list)
-        : QTreeWidgetItem(parent, list)
-    {
-    }
-    TreeWidgetItem(QTreeWidgetItem *parent, const QStringList &list)
-        : QTreeWidgetItem(parent, list)
-    {
-    }
-
-private:
-    bool operator<(const QTreeWidgetItem &other) const override
-    {
-        if (childCount() == 0) {
-            int line = data(0, ReplaceMatches::StartLineRole).toInt();
-            int column = data(0, ReplaceMatches::StartColumnRole).toInt();
-            int oLine = other.data(0, ReplaceMatches::StartLineRole).toInt();
-            int oColumn = other.data(0, ReplaceMatches::StartColumnRole).toInt();
-            if (line < oLine) {
-                return true;
-            }
-            if ((line == oLine) && (column < oColumn)) {
-                return true;
-            }
-            return false;
-        }
-        int sepCount = data(0, ReplaceMatches::FileUrlRole).toString().count(QDir::separator());
-        int oSepCount = other.data(0, ReplaceMatches::FileUrlRole).toString().count(QDir::separator());
-        if (sepCount < oSepCount)
-            return true;
-        if (sepCount > oSepCount)
-            return false;
-        return data(0, ReplaceMatches::FileUrlRole).toString().toLower() < other.data(0, ReplaceMatches::FileUrlRole).toString().toLower();
-    }
-};
-
 Results::Results(QWidget *parent)
     : QWidget(parent)
 {
@@ -1478,9 +1436,8 @@ void KatePluginSearchView::updateMatchMarks()
     // Re-add the highlighting on document reload
     connect(doc, &KTextEditor::Document::reloaded, this, &KatePluginSearchView::updateMatchMarks, Qt::UniqueConnection);
 
-    // FIXME for all matches in file
+    // Add match marks for all matches in the file
     QModelIndex fileIndex = res->matchModel.fileIndex(doc->url());
-
     int fileMatches = res->matchModel.rowCount(fileIndex);
     for (int i=0; i<fileMatches; ++i) {
         QModelIndex matchIndex = res->matchModel.index(i, 0, fileIndex);
@@ -1813,7 +1770,7 @@ void KatePluginSearchView::addTab()
     m_ui.resultTabWidget->tabBar()->show();
     m_ui.displayOptions->setChecked(false);
 
-    // FIXME res->treeView->installEventFilter(this);
+    res->treeView->installEventFilter(this);
 }
 
 void KatePluginSearchView::tabCloseRequested(int index)
@@ -2025,7 +1982,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
         }
     } else if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-        QTreeView *treeView = qobject_cast<QTreeWidget *>(obj);
+        QTreeView *treeView = qobject_cast<QTreeView *>(obj);
         if (treeView) {
             if (ke->matches(QKeySequence::Copy)) {
                 copySearchToClipboard(All);
@@ -2033,11 +1990,11 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
                 return true;
             }
             if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
-                //FIXME if (tree->currentItem()) {
-                //    itemSelected(tree->currentItem());
-                //    event->accept();
-                //    return true;
-                //}
+                if (treeView->currentIndex().isValid()) {
+                    itemSelected(treeView->currentIndex());
+                   event->accept();
+                   return true;
+                }
             }
         }
         // NOTE: Qt::Key_Escape is handled by handleEsc

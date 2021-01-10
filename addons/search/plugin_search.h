@@ -139,7 +139,7 @@ private Q_SLOTS:
 
     void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
 
-    void addMatchMark(KTextEditor::Document *doc, KTextEditor::MovingInterface *miface, QTreeWidgetItem *item);
+    void addMatchMark(KTextEditor::Document *doc, const QModelIndex &matchIndex);
 
     void searchDone();
     void searchWhileTypingDone();
@@ -156,7 +156,6 @@ private Q_SLOTS:
     void replaceSingleMatch();
     void replaceChecked();
 
-    void replaceStatus(const QUrl &url, int replacedInFile, int matchesInFile);
     void replaceDone();
 
     void docViewChanged();

@@ -475,8 +475,6 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, &KatePluginSearchView::clearDocMarks);
 
-    connect(&m_replacer, &ReplaceMatches::replaceStatus, this, &KatePluginSearchView::replaceStatus);
-
     m_ui.searchCombo->lineEdit()->setPlaceholderText(i18n("Find"));
     // Hook into line edit context menus
     m_ui.searchCombo->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -883,17 +881,19 @@ void KatePluginSearchView::addMatchesToRootFileItem(const QUrl &url, const QList
     item->addChildren(matchItems);
 }
 
-void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, KTextEditor::MovingInterface *miface, QTreeWidgetItem *item)
+void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, const QModelIndex &itemIndex)
 {
-    if (!doc || !item) {
+    if (!doc || !itemIndex.isValid()) {
         return;
     }
 
-    int line = item->data(0, ReplaceMatches::StartLineRole).toInt();
-    int column = item->data(0, ReplaceMatches::StartColumnRole).toInt();
-    int endLine = item->data(0, ReplaceMatches::EndLineRole).toInt();
-    int endColumn = item->data(0, ReplaceMatches::EndColumnRole).toInt();
-    bool isReplaced = item->data(0, ReplaceMatches::ReplacedRole).toBool();
+    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+
+    int line        = itemIndex.data(MatchModel::StartLineRole).toInt();
+    int column      = itemIndex.data(MatchModel::StartColumnRole).toInt();
+    int endLine     = itemIndex.data(MatchModel::EndLineRole).toInt();
+    int endColumn   = itemIndex.data(MatchModel::EndColumnRole).toInt();
+    bool isReplaced = itemIndex.data(MatchModel::ReplacedRole).toBool();
 
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
@@ -923,7 +923,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, KTextEditor:
                 return;
             }
         } else {
-            if (doc->text(range) != item->data(0, ReplaceMatches::ReplacedTextRole).toString()) {
+            if (doc->text(range) != itemIndex.data(MatchModel::ReplaceTextRole).toString()) {
                 // qDebug() << doc->text(range) << "Does not match" << item->data(0, ReplaceMatches::ReplacedTextRole).toString();
                 return;
             }
@@ -1628,23 +1628,6 @@ void KatePluginSearchView::replaceChecked()
     m_curResults->matchModel.replaceChecked(m_curResults->regExp, m_curResults->replaceStr);
 }
 
-void KatePluginSearchView::replaceStatus(const QUrl &url, int replacedInFile, int matchesInFile)
-{
-    if (!m_curResults) {
-        // qDebug() << "m_curResults == nullptr";
-        return;
-    }
-    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
-    if (root) {
-        QString file = url.toString(QUrl::PreferLocalFile);
-        if (file.size() > 70) {
-            root->setData(0, Qt::DisplayRole, i18n("<b>Processed %1 of %2 matches in: ...%3</b>", replacedInFile, matchesInFile, file.right(70)));
-        } else {
-            root->setData(0, Qt::DisplayRole, i18n("<b>Processed %1 of %2 matches in: %3</b>", replacedInFile, matchesInFile, file));
-        }
-    }
-}
-
 void KatePluginSearchView::replaceDone()
 {
     m_ui.stopAndNext->setCurrentWidget(m_ui.nextButton);
@@ -1660,6 +1643,7 @@ void KatePluginSearchView::replaceDone()
     m_ui.matchCase->setDisabled(false);
     m_ui.expandResults->setDisabled(false);
     m_ui.currentFolderButton->setDisabled(false);
+    docViewChanged();
 }
 
 void KatePluginSearchView::docViewChanged()
@@ -1678,37 +1662,23 @@ void KatePluginSearchView::docViewChanged()
 
     // add the marks if it is not already open
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
-    if (doc && res->tree->topLevelItemCount() > 0) {
-        // There is always one root item with match count
-        // and X children with files or matches in case of search while typing
-        QTreeWidgetItem *rootItem = res->tree->topLevelItem(0);
-        QTreeWidgetItem *fileItem = nullptr;
-        for (int i = 0; i < rootItem->childCount(); i++) {
-            QString url = rootItem->child(i)->data(0, ReplaceMatches::FileUrlRole).toString();
-            QString fName = rootItem->child(i)->data(0, ReplaceMatches::FileNameRole).toString();
-            if (url == doc->url().toString() && fName == doc->documentName()) {
-                fileItem = rootItem->child(i);
-                break;
-            }
-        }
-        if (fileItem) {
-            clearDocMarks(doc);
 
-            if (m_isSearchAsYouType) {
-                fileItem = fileItem->parent();
-            }
-            connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarks()), Qt::UniqueConnection);
-            KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+    if (!doc) {
+        return;
+    }
 
-            for (int i = 0; i < fileItem->childCount(); i++) {
-                if (fileItem->child(i)->checkState(0) == Qt::Unchecked) {
-                    continue;
-                }
-                addMatchMark(doc, miface, fileItem->child(i));
-            }
-        }
-        // Re-add the highlighting on document reload
-        connect(doc, &KTextEditor::Document::reloaded, this, &KatePluginSearchView::docViewChanged, Qt::UniqueConnection);
+    clearDocMarks(doc);
+    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarks()), Qt::UniqueConnection);
+    // Re-add the highlighting on document reload
+    connect(doc, &KTextEditor::Document::reloaded, this, &KatePluginSearchView::docViewChanged, Qt::UniqueConnection);
+
+    // FIXME for all matches in file
+    QModelIndex fileIndex = res->matchModel.fileIndex(doc->url());
+
+    int fileMatches = res->matchModel.rowCount(fileIndex);
+    for (int i=0; i<fileMatches; ++i) {
+        QModelIndex matchIndex = res->matchModel.index(i, 0, fileIndex);
+        addMatchMark(doc, matchIndex);
     }
 }
 

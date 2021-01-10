@@ -240,7 +240,6 @@ void GotoSymbolWidget::loadGlobalSymbols(const QString &text)
     if (text.length() < 3 || mode == Local)
         return;
 
-
     QString currentWord = text;
     Tags::TagList list = Tags::getPartialMatchesNoi8n(m_tagFile, currentWord);
 
@@ -271,8 +270,8 @@ void GotoSymbolWidget::slotReturnPressed()
         if (!fi.exists()) {
             fileFound = false;
             QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
-            QString ret = projectView->property("projectBaseDir").toString();
-            if (!ret.endsWith(QLatin1Char('/'))) {
+            QString ret = projectView ? projectView->property("projectBaseDir").toString() : QString();
+            if (!ret.isEmpty() && !ret.endsWith(QLatin1Char('/'))) {
                 ret.append(QLatin1Char('/'));
             }
             url = ret + file;

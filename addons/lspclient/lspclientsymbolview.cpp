@@ -26,6 +26,8 @@
 #include <memory>
 #include <utility>
 
+#include <kfts_fuzzy_match.h>
+
 class LSPClientViewTrackerImpl : public LSPClientViewTracker
 {
     Q_OBJECT
@@ -103,6 +105,46 @@ LSPClientViewTracker *LSPClientViewTracker::new_(LSPClientPlugin *plugin, KTextE
     return new LSPClientViewTrackerImpl(plugin, mainWin, change_ms, motion_ms);
 }
 
+class LSPClientSymbolViewFilterProxyModel : public QSortFilterProxyModel
+{
+public:
+    LSPClientSymbolViewFilterProxyModel(QObject *parent = nullptr)
+        : QSortFilterProxyModel(parent)
+    {
+    }
+
+    void setFilterString(const QString &string)
+    {
+        m_pattern = string;
+        invalidateFilter();
+    }
+
+protected:
+    bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
+    {
+        const int l = sourceLeft.data(WeightRole).toInt();
+        const int r = sourceRight.data(WeightRole).toInt();
+        return l < r;
+    }
+
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+    {
+        if (m_pattern.isEmpty())
+            return true;
+
+        int score = 0;
+        const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
+        const QString symbol = idx.data().toString();
+        const bool res = kfts::fuzzy_match(m_pattern, symbol, score);
+        sourceModel()->setData(idx, score, WeightRole);
+        return res;
+    }
+
+private:
+    QString m_pattern;
+    static constexpr int WeightRole = Qt::UserRole + 1;
+};
+
 /*
  * Instantiates and manages the symbol outline toolview.
  */
@@ -143,7 +185,7 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     // last outline model we constructed
     std::shared_ptr<QStandardItemModel> m_outline;
     // filter model, setup once
-    QSortFilterProxyModel m_filterModel;
+    LSPClientSymbolViewFilterProxyModel m_filterModel;
 
     // cached icons for model
     const QIcon m_icon_pkg = QIcon::fromTheme(QStringLiteral("code-block"));
@@ -347,7 +389,7 @@ public:
         newModel->invisibleRootItem()->setData(details);
 
         // fixup headers
-        QStringList headers {i18n("Symbols")};
+        QStringList headers{i18n("Symbols")};
         newModel->setHorizontalHeaderLabels(headers);
 
         setModel(newModel);
@@ -527,7 +569,7 @@ private Q_SLOTS:
         /**
          * filter
          */
-        m_filterModel.setFilterFixedString(filterText);
+        m_filterModel.setFilterString(filterText);
 
         /**
          * expand

@@ -45,6 +45,12 @@ target_sources(
     ${UI_SOURCES}
 )
 
+target_include_directories(
+    lspclientplugin
+    PUBLIC
+    ${CMAKE_SOURCE_DIR}/shared
+)
+
 kcoreaddons_desktop_to_json(lspclientplugin lspclientplugin.desktop)
 install(TARGETS lspclientplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
 

@@ -425,8 +425,6 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, &m_searchOpenFiles, &SearchOpenFiles::cancelSearch);
 
-    connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, &m_replacer, &ReplaceMatches::cancelReplace);
-
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, &KatePluginSearchView::clearDocMarks);
 
     m_ui.searchCombo->lineEdit()->setPlaceholderText(i18n("Find"));
@@ -503,9 +501,6 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     // Connect signals from project plugin to our slots
     m_projectPluginView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
     slotPluginViewCreated(QStringLiteral("kateprojectplugin"), m_projectPluginView);
-
-    m_replacer.setDocumentManager(m_kateApp);
-    connect(&m_replacer, &ReplaceMatches::replaceDone, this, &KatePluginSearchView::replaceDone);
 
     searchPlaceChanged();
 
@@ -885,7 +880,10 @@ void KatePluginSearchView::stopClicked()
     m_folderFilesList.cancelSearch();
     m_searchOpenFiles.cancelSearch();
     m_searchDiskFiles.cancelSearch();
-    m_replacer.cancelReplace();
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (res) {
+        res->matchModel.cancelReplace();
+    }
     m_searchDiskFilesDone = true;
     m_searchOpenFilesDone = true;
     searchDone(); // Just in case the folder list was being populated...
@@ -932,7 +930,12 @@ void KatePluginSearchView::startSearch()
     // so we use m_blockDiskMatchFound to skip any old matchFound signals during the first event loop.
     // New matches from disk-files should not come before the first event loop has executed.
     QTimer::singleShot(0, this, [this]() { m_blockDiskMatchFound = false; });
-    m_replacer.terminateReplace();
+    // FIXME check if this above is needed
+
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (res) {
+        res->matchModel.cancelReplace();
+    }
 
     m_changeTimer.stop();                   // make sure not to start a "while you type" search now
     m_mainWindow->showToolView(m_toolView); // in case we are invoked from the command interface

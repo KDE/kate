@@ -28,7 +28,6 @@ target_sources(
     htmldelegate.cpp
     plugin.qrc
     plugin_search.cpp
-    replace_matches.cpp
     search_open_files.cpp
 )
 

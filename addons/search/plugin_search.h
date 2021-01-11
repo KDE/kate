@@ -37,7 +37,6 @@
 #include "MatchModel.h"
 #include "FolderFilesList.h"
 #include "SearchDiskFiles.h"
-#include "replace_matches.h"
 #include "search_open_files.h"
 
 class KateSearchCommand;
@@ -186,7 +185,6 @@ private:
     SearchOpenFiles m_searchOpenFiles;
     FolderFilesList m_folderFilesList;
     SearchDiskFiles m_searchDiskFiles;
-    ReplaceMatches m_replacer;
     QAction *m_matchCase = nullptr;
     QAction *m_useRegExp = nullptr;
     Results *m_curResults = nullptr;

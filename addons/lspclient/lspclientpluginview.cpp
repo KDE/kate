@@ -593,12 +593,15 @@ public:
 
         const auto coords = wid->mapTo(v, mouseEvent->pos());
         const auto cur =  v->coordinatesToCursor(coords);
-        const auto word = v->document()->wordAt(cur);
+        // there isn't much we can do now, just bail out
+        if (!cur.isValid())
+            return false;
 
         // The user pressed Ctrl + Click
         if (event->type() == QEvent::MouseButtonPress) {
             if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
                 // must set cursor else we will be jumping somewhere else!!
+                const auto word = v->document()->wordAt(cur);
                 v->setCursorPosition(cur);
                 if (!word.isEmpty()) {
                     m_ctrlHoverFeedback.clear(m_mainWindow->activeView());

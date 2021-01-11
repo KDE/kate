@@ -1300,7 +1300,7 @@ public:
 
     template<typename Handler> using LocationRequest = std::function<LSPClientServer::RequestHandle(LSPClientServer &, const QUrl &document, const LSPPosition &pos, const QObject *context, const Handler &h)>;
 
-    template<typename Handler> void positionRequest(const LocationRequest<Handler> &req, const Handler &h, QScopedPointer<LSPClientRevisionSnapshot> *snapshot = nullptr,  KTextEditor::Cursor cur = KTextEditor::Cursor(-1, -1))
+    template<typename Handler> void positionRequest(const LocationRequest<Handler> &req, const Handler &h, QScopedPointer<LSPClientRevisionSnapshot> *snapshot = nullptr,  KTextEditor::Cursor cur = KTextEditor::Cursor::invalid())
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);

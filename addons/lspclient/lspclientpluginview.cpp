@@ -997,7 +997,7 @@ public:
         }
         mr->setView(view);
         mr->setAttribute(attr);
-        QTimer::singleShot(1000, this, [mr](){
+        QTimer::singleShot(1000, doc, [mr] {
             mr->setRange(KTextEditor::Range::invalid());
             delete mr;
         });

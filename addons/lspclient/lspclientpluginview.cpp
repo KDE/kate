@@ -283,6 +283,8 @@ class LSPClientActionView : public QObject
     // characters to trigger format request
     QVector<QChar> m_onTypeFormattingTriggers;
 
+    QWidget* cursorChangeWid = nullptr;
+
     KActionCollection *actionCollection() const
     {
         return m_client->actionCollection();
@@ -462,8 +464,86 @@ public:
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 0, 500));
         connect(m_viewTracker.data(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
 
+        connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &LSPClientActionView::onViewCreated);
+
+        connect(this, &LSPClientActionView::ctrlClickDefRecieved, this, &LSPClientActionView::onCtrlMouseMove);
+
         configUpdated();
         updateState();
+    }
+
+    void onViewCreated(KTextEditor::View *view)
+    {
+        if (view) {
+            view->installEventFilter(this);
+            auto childs = view->children();
+            for (auto c : childs) {
+                if (c)
+                    c->installEventFilter(this);
+            }
+        }
+    }
+
+    // taken from KDevelop :)
+    KTextEditor::View* viewFromWidget(QWidget* widget)
+    {
+        if (!widget)
+            return nullptr;
+        auto* view = qobject_cast<KTextEditor::View*>(widget);
+        if (view)
+            return view;
+        else
+            return viewFromWidget(widget->parentWidget());
+    }
+
+    bool eventFilter(QObject* obj, QEvent* event) override {
+        auto mouseEvent = dynamic_cast<QMouseEvent*>(event);
+
+        if (mouseEvent) {
+            // common stuff that we need for both events
+            auto wid = qobject_cast<QWidget*>(obj);
+            auto v = viewFromWidget(wid);
+            if (!v)
+                return false;
+
+            const auto coords = wid->mapTo(v, mouseEvent->pos());
+            const auto cur =  v->coordinatesToCursor(coords);
+            const auto word = v->document()->wordAt(cur);
+
+            // The user pressed Ctrl + Click
+            if (event->type() == QEvent::MouseButtonPress) {
+                if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
+                    // must set cursor else we will be jumping somewhere else!!
+                    v->setCursorPosition(cur);
+                    if (!word.isEmpty()) {
+                        cursorChangeWid = nullptr;
+                        goToDefinition();
+                    }
+                }
+            }
+            // The user is hovering with Ctrl pressed
+            else if (event->type() == QEvent::MouseMove) {
+                if (mouseEvent->modifiers() == Qt::ControlModifier) {
+                    if (!word.isEmpty()) {
+                        cursorChangeWid = wid;
+                        // this will not go anywhere actually, but just signal whether we have a definition
+                        // Also, please rethink very hard if you are going to reuse this method. It's made
+                        // only for Ctrl+Hover
+                        processCtrlMouseHover(cur);
+                    } else {
+                        // if there is no word, unset the cursor
+                        if (wid)
+                            wid->unsetCursor();
+                    }
+                } else {
+                    // simple mouse move, make sure to unset the cursor
+                    if (wid)
+                        wid->unsetCursor();
+                }
+            }
+        }
+
+        return false;
     }
 
     ~LSPClientActionView() override
@@ -700,7 +780,6 @@ public:
         }
 
         // add match mark for range
-        const int ps = 32;
         bool handleClick = true;
         enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsMark && m_diagnosticsMark->isChecked();
         switch (markType) {
@@ -948,6 +1027,11 @@ public:
         QUrl uri;
         LSPRange range;
         LSPDocumentHighlightKind kind;
+
+        bool isValid() const
+        {
+            return uri.isValid() && range.isValid();
+        }
     };
 
     static bool compareRangeItem(const RangeItem &a, const RangeItem &b)
@@ -1126,7 +1210,7 @@ public:
 
     template<typename Handler> using LocationRequest = std::function<LSPClientServer::RequestHandle(LSPClientServer &, const QUrl &document, const LSPPosition &pos, const QObject *context, const Handler &h)>;
 
-    template<typename Handler> void positionRequest(const LocationRequest<Handler> &req, const Handler &h, QScopedPointer<LSPClientRevisionSnapshot> *snapshot = nullptr)
+    template<typename Handler> void positionRequest(const LocationRequest<Handler> &req, const Handler &h, QScopedPointer<LSPClientRevisionSnapshot> *snapshot = nullptr,  KTextEditor::Cursor cur = KTextEditor::Cursor(-1, -1))
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
@@ -1138,7 +1222,7 @@ public:
             snapshot->reset(m_serverManager->snapshot(server.data()));
         }
 
-        KTextEditor::Cursor cursor = activeView->cursorPosition();
+        KTextEditor::Cursor cursor = cur.isValid() ? cur : activeView->cursorPosition();
 
         clearAllLocationMarks();
         m_req_timeout = false;
@@ -1154,6 +1238,16 @@ public:
             return activeView->document()->wordAt(cursor);
         } else {
             return QString();
+        }
+    }
+
+    Q_SIGNAL void ctrlClickDefRecieved(const RangeItem& range);
+
+    Q_SLOT void onCtrlMouseMove(const RangeItem& range)
+    {
+        if (range.isValid()) {
+            if (cursorChangeWid)
+                cursorChangeWid->setCursor(Qt::PointingHandCursor);
         }
     }
 
@@ -1205,6 +1299,28 @@ public:
 
         positionRequest<HandlerType>(req, h, s.data());
     }
+
+    /**
+     * @brief processCtrlMouseHover This function just processes Ctrl + Mouse move hovering.
+     * It should not be used for other purposes ideally.
+     */
+    void processCtrlMouseHover(const KTextEditor::Cursor& cursor)
+    {
+        auto h = [this](const QList<LSPLocation> &defs) {
+            if (defs.isEmpty()) {
+                return;
+            } else {
+                const auto item = locationToRangeItem(defs.at(0));
+                emit this->ctrlClickDefRecieved(item);
+                return;
+            }
+        };
+
+        using Handler = std::function<void(const QList<LSPLocation> &)>;
+        auto request = &LSPClientServer::documentDefinition;
+        positionRequest<Handler>(request, h, nullptr, cursor);
+    }
+
 
     static RangeItem locationToRangeItem(const LSPLocation &loc)
     {

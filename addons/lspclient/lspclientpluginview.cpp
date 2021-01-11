@@ -968,12 +968,12 @@ public:
 
         if (document && uri == document->url()) {
             activeView->setCursorPosition(cdef);
-            highlightLandingLocation(document, location);
+            highlightLandingLocation(activeView, location);
         } else {
             KTextEditor::View *view = m_mainWindow->openUrl(uri);
             if (view) {
                 view->setCursorPosition(cdef);
-                highlightLandingLocation(view->document(), location);
+                highlightLandingLocation(view, location);
             }
         }
     }
@@ -981,9 +981,11 @@ public:
     /**
      * @brief give a short 1sec temporary highlight where you land
      */
-    void highlightLandingLocation(KTextEditor::Document* doc, const KTextEditor::Range& location)
+    void highlightLandingLocation(KTextEditor::View* view, const KTextEditor::Range& location)
     {
-        Q_ASSERT(doc);
+        auto doc = view->document();
+        if (!doc)
+            return;
         auto miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
         if (!miface)
             return;
@@ -993,6 +995,7 @@ public:
             attr = new KTextEditor::Attribute;
             attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
         }
+        mr->setView(view);
         mr->setAttribute(attr);
         QTimer::singleShot(1000, this, [mr](){
             mr->setRange(KTextEditor::Range::invalid());

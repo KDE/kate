@@ -193,7 +193,7 @@ public:
 /**
  * @brief This is just a helper class that provides "underline" on Ctrl + click
  */
-struct CtrlHoverFeedback : public QObject
+class CtrlHoverFeedback : public QObject
 {
     Q_OBJECT
 public:

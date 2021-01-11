@@ -955,8 +955,10 @@ public:
         addMarksRec(doc, treeModel->invisibleRootItem(), oranges, odocs);
     }
 
-    void goToDocumentLocation(const QUrl &uri, int line, int column)
+    void goToDocumentLocation(const QUrl &uri, const KTextEditor::Range& location)
     {
+        int line = location.start().line();
+        int column = location.start().column();
         KTextEditor::View *activeView = m_mainWindow->activeView();
         if (!activeView || uri.isEmpty() || line < 0 || column < 0)
             return;
@@ -966,19 +968,43 @@ public:
 
         if (document && uri == document->url()) {
             activeView->setCursorPosition(cdef);
+            highlightLandingLocation(document, location);
         } else {
             KTextEditor::View *view = m_mainWindow->openUrl(uri);
             if (view) {
                 view->setCursorPosition(cdef);
+                highlightLandingLocation(view->document(), location);
             }
         }
+    }
+
+    /**
+     * @brief give a short 1sec temporary highlight where you land
+     */
+    void highlightLandingLocation(KTextEditor::Document* doc, const KTextEditor::Range& location)
+    {
+        Q_ASSERT(doc);
+        auto miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+        if (!miface)
+            return;
+        auto mr = miface->newMovingRange(location);
+        static KTextEditor::Attribute::Ptr attr;
+        if (!attr) {
+            attr = new KTextEditor::Attribute;
+            attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
+        }
+        mr->setAttribute(attr);
+        QTimer::singleShot(1000, this, [mr](){
+            mr->setRange(KTextEditor::Range::invalid());
+            delete mr;
+        });
     }
 
     void goToItemLocation(const QModelIndex &index)
     {
         auto url = index.data(RangeData::FileUrlRole).toUrl();
-        auto start = index.data(RangeData::RangeRole).value<LSPRange>().start();
-        goToDocumentLocation(url, start.line(), start.column());
+        auto start = index.data(RangeData::RangeRole).value<LSPRange>();
+        goToDocumentLocation(url, start);
     }
 
     // custom item subclass that captures additional attributes;
@@ -1381,8 +1407,7 @@ public:
                 if (!m_req_timeout && !onlyshow) {
                     // assuming here that the first location is the best one
                     const auto &item = itemConverter(defs.at(0));
-                    const auto &pos = item.range.start();
-                    goToDocumentLocation(item.uri, pos.line(), pos.column());
+                    goToDocumentLocation(item.uri, item.range);
                     // forego mark and such if only a single destination
                     if (defs.count() == 1) {
                         clearAllLocationMarks();

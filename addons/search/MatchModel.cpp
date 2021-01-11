@@ -183,14 +183,17 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
         int matchEndColumn = match.range.end().column();
 
         int contextLen = totalContectLen - sMatch.matchLen;
-        int preLen = qMin(contextLen/3, matchStartColumn);
-        int postLen = contextLen - preLen;
+        int preLength = qMin(contextLen/3, matchStartColumn);
+        int postLength = contextLen - preLength;
 
-        match.preMatchStr = sMatch.lineContent.mid(matchStartColumn-preLen, preLen);
-        if (matchStartColumn > preLen) match.preMatchStr.prepend(QLatin1String("..."));
+        match.preMatchStr = sMatch.lineContent.mid(matchStartColumn-preLength, preLength);
+        if (matchStartColumn > preLength) match.preMatchStr.prepend(QLatin1String("..."));
 
-        match.postMatchStr = sMatch.lineContent.mid(matchEndColumn, postLen);
-        if (matchEndColumn+preLen < sMatch.lineContent.size()) match.postMatchStr.append(QLatin1String("..."));
+        match.postMatchStr = sMatch.lineContent.mid(matchEndColumn, postLength);
+        if (matchEndColumn+postLength < sMatch.lineContent.size()-1) {
+            qDebug() << matchEndColumn << postLength << matchEndColumn+postLength << sMatch.lineContent.size();
+            match.postMatchStr.append(QLatin1String("..."));
+        }
 
         match.matchStr = sMatch.lineContent.mid(matchStartColumn, sMatch.matchLen);
 
@@ -452,6 +455,17 @@ void MatchModel::cancelReplace()
     m_cancelReplace = true;
 }
 
+static QString nbsFormated(int number, int width)
+{
+    QString str = QString::number(number);
+    int strWidth = str.size();
+    while (strWidth < width) {
+        str = QStringLiteral("&nbsp;") + str;
+        strWidth++;
+    }
+    return str;
+}
+
 QString MatchModel::matchToHtmlString(const Match &match) const
 {
     QString pre =match.preMatchStr.toHtmlEscaped();
@@ -473,7 +487,9 @@ QString MatchModel::matchToHtmlString(const Match &match) const
     QString post = match.postMatchStr.toHtmlEscaped();
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-    QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;").arg(match.range.start().line() + 1).arg(match.range.start().column() + 1) + pre + matchStr + post;
+    QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;")
+    .arg(nbsFormated(match.range.start().line() + 1, 3))
+    .arg(nbsFormated(match.range.start().column() + 1, 3)) + pre + matchStr + post;
 
     return displayText;
 }

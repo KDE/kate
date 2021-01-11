@@ -189,6 +189,61 @@ public:
     }
 };
 
+
+/**
+ * @brief This is just a helper class that provides "underline" on Ctrl + click
+ */
+struct CtrlHoverFeedback
+{
+public:
+
+    void highlight(KTextEditor::View* activeView)
+    {
+        if (w)
+            w->setCursor(Qt::PointingHandCursor);
+        if (activeView) {
+            if (mr) {
+                mr->setRange(range);
+            } else {
+                auto miface = qobject_cast<KTextEditor::MovingInterface*>(activeView->document());
+                if (!miface)
+                    return;
+                mr.reset(miface->newMovingRange(range));
+            }
+
+            static KTextEditor::Attribute::Ptr attr;
+            if (!attr) {
+                attr = new KTextEditor::Attribute;
+                attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
+            }
+            mr->setAttribute(attr);
+        }
+    }
+
+    void clear()
+    {
+        if (mr) {
+            mr->setRange({-1,-1,-1,-1});
+        }
+    }
+
+    void setRangeAndWidget(const KTextEditor::Range& r, QWidget* wid)
+    {
+        range = r;
+        w = wid;
+    }
+
+    bool isValid() const
+    {
+        return w != nullptr;
+    }
+
+private:
+    QWidget* w = nullptr;
+    std::unique_ptr<KTextEditor::MovingRange> mr;
+    KTextEditor::Range range;
+};
+
 class LSPClientActionView : public QObject
 {
     Q_OBJECT
@@ -283,7 +338,7 @@ class LSPClientActionView : public QObject
     // characters to trigger format request
     QVector<QChar> m_onTypeFormattingTriggers;
 
-    QWidget* cursorChangeWid = nullptr;
+    CtrlHoverFeedback m_ctrlHoverFeedback = {};
 
     KActionCollection *actionCollection() const
     {
@@ -484,7 +539,7 @@ public:
         }
     }
 
-    // taken from KDevelop :)
+    // This is taken from KDevelop :)
     KTextEditor::View* viewFromWidget(QWidget* widget)
     {
         if (!widget)
@@ -516,7 +571,7 @@ public:
                     // must set cursor else we will be jumping somewhere else!!
                     v->setCursorPosition(cur);
                     if (!word.isEmpty()) {
-                        cursorChangeWid = nullptr;
+                        m_ctrlHoverFeedback.clear();
                         goToDefinition();
                     }
                 }
@@ -524,8 +579,11 @@ public:
             // The user is hovering with Ctrl pressed
             else if (event->type() == QEvent::MouseMove) {
                 if (mouseEvent->modifiers() == Qt::ControlModifier) {
-                    if (!word.isEmpty()) {
-                        cursorChangeWid = wid;
+                    auto doc = v->document();
+                    const auto hoveredWord = doc->wordAt(cur);
+                    const auto range = doc->wordRangeAt(cur);
+                    if (!hoveredWord.isEmpty() && range.isValid()) {
+                        m_ctrlHoverFeedback.setRangeAndWidget(range, wid);
                         // this will not go anywhere actually, but just signal whether we have a definition
                         // Also, please rethink very hard if you are going to reuse this method. It's made
                         // only for Ctrl+Hover
@@ -534,11 +592,13 @@ public:
                         // if there is no word, unset the cursor
                         if (wid)
                             wid->unsetCursor();
+                        m_ctrlHoverFeedback.clear();
                     }
                 } else {
                     // simple mouse move, make sure to unset the cursor
                     if (wid)
                         wid->unsetCursor();
+                    m_ctrlHoverFeedback.clear();
                 }
             }
         }
@@ -1246,8 +1306,8 @@ public:
     Q_SLOT void onCtrlMouseMove(const RangeItem& range)
     {
         if (range.isValid()) {
-            if (cursorChangeWid)
-                cursorChangeWid->setCursor(Qt::PointingHandCursor);
+            if (m_ctrlHoverFeedback.isValid())
+                m_ctrlHoverFeedback.highlight(m_mainWindow->activeView());
         }
     }
 

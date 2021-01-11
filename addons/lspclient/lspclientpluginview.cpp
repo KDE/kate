@@ -597,11 +597,16 @@ public:
         if (!cur.isValid())
             return false;
 
+        auto doc = v->document();
+        if (!doc)
+            return false;
+
+        const auto word = doc->wordAt(cur);
+
         // The user pressed Ctrl + Click
         if (event->type() == QEvent::MouseButtonPress) {
             if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
                 // must set cursor else we will be jumping somewhere else!!
-                const auto word = v->document()->wordAt(cur);
                 v->setCursorPosition(cur);
                 if (!word.isEmpty()) {
                     m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
@@ -612,10 +617,8 @@ public:
         // The user is hovering with Ctrl pressed
         else if (event->type() == QEvent::MouseMove) {
             if (mouseEvent->modifiers() == Qt::ControlModifier) {
-                auto doc = v->document();
-                const auto hoveredWord = doc->wordAt(cur);
                 const auto range = doc->wordRangeAt(cur);
-                if (!hoveredWord.isEmpty() && range.isValid()) {
+                if (!word.isEmpty() && range.isValid()) {
                     m_ctrlHoverFeedback.setRangeAndWidget(range, wid);
                     // this will not go anywhere actually, but just signal whether we have a definition
                     // Also, please rethink very hard if you are going to reuse this method. It's made

@@ -200,32 +200,38 @@ public:
 
     void highlight(KTextEditor::View* activeView)
     {
+        // sanity checks
+        if (!activeView)
+            return;
+
+        auto doc = activeView->document();
+        if (!doc)
+            return;
+
+        // set the cursor
         if (w)
             w->setCursor(Qt::PointingHandCursor);
-        if (activeView) {
-            auto mr = ranges[activeView->document()];
-            if (mr) {
-                mr->setRange(range);
-            } else {
-                auto miface = qobject_cast<KTextEditor::MovingInterface*>(activeView->document());
-                if (!miface)
-                    return;
-                auto doc = activeView->document();
-                if (doc) {
-                    mr = miface->newMovingRange(range);
-                    ranges[doc] = mr;
-                    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clear(KTextEditor::Document *)), Qt::UniqueConnection);
-                    connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clear(KTextEditor::Document *)), Qt::UniqueConnection);
-                }
-            }
 
-            static KTextEditor::Attribute::Ptr attr;
-            if (!attr) {
-                attr = new KTextEditor::Attribute;
-                attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
-            }
-            mr->setAttribute(attr);
+        // underline the hovered word
+        auto mr = ranges[doc];
+        if (mr) {
+            mr->setRange(range);
+        } else {
+            auto miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+            if (!miface)
+                return;
+            mr = miface->newMovingRange(range);
+            ranges[doc] = mr;
+            connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clear(KTextEditor::Document *)), Qt::UniqueConnection);
+            connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clear(KTextEditor::Document *)), Qt::UniqueConnection);
         }
+
+        static KTextEditor::Attribute::Ptr attr;
+        if (!attr) {
+            attr = new KTextEditor::Attribute;
+            attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
+        }
+        mr->setAttribute(attr);
     }
 
     void clear(KTextEditor::View* activeView)
@@ -235,7 +241,7 @@ public:
             if (doc) {
                 auto& mr = ranges[doc];
                 if (mr)
-                    mr->setRange({-1,-1,-1,-1});
+                    mr->setRange(KTextEditor::Range::invalid());
             }
         }
     }
@@ -575,52 +581,55 @@ public:
     bool eventFilter(QObject* obj, QEvent* event) override {
         auto mouseEvent = dynamic_cast<QMouseEvent*>(event);
 
-        if (mouseEvent) {
-            // common stuff that we need for both events
-            auto wid = qobject_cast<QWidget*>(obj);
-            auto v = viewFromWidget(wid);
-            if (!v)
-                return false;
+        // we are only concerned with mouse events for now :)
+        if (!mouseEvent)
+            return false;
 
-            const auto coords = wid->mapTo(v, mouseEvent->pos());
-            const auto cur =  v->coordinatesToCursor(coords);
-            const auto word = v->document()->wordAt(cur);
+        // common stuff that we need for both events
+        auto wid = qobject_cast<QWidget*>(obj);
+        auto v = viewFromWidget(wid);
+        if (!v)
+            return false;
 
-            // The user pressed Ctrl + Click
-            if (event->type() == QEvent::MouseButtonPress) {
-                if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
-                    // must set cursor else we will be jumping somewhere else!!
-                    v->setCursorPosition(cur);
-                    if (!word.isEmpty()) {
-                        m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
-                        goToDefinition();
-                    }
+        const auto coords = wid->mapTo(v, mouseEvent->pos());
+        const auto cur =  v->coordinatesToCursor(coords);
+        const auto word = v->document()->wordAt(cur);
+
+        // The user pressed Ctrl + Click
+        if (event->type() == QEvent::MouseButtonPress) {
+            if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
+                // must set cursor else we will be jumping somewhere else!!
+                v->setCursorPosition(cur);
+                if (!word.isEmpty()) {
+                    m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
+                    goToDefinition();
                 }
             }
-            // The user is hovering with Ctrl pressed
-            else if (event->type() == QEvent::MouseMove) {
-                if (mouseEvent->modifiers() == Qt::ControlModifier) {
-                    auto doc = v->document();
-                    const auto hoveredWord = doc->wordAt(cur);
-                    const auto range = doc->wordRangeAt(cur);
-                    if (!hoveredWord.isEmpty() && range.isValid()) {
-                        m_ctrlHoverFeedback.setRangeAndWidget(range, wid);
-                        // this will not go anywhere actually, but just signal whether we have a definition
-                        // Also, please rethink very hard if you are going to reuse this method. It's made
-                        // only for Ctrl+Hover
-                        processCtrlMouseHover(cur);
-                    } else {
-                        // if there is no word, unset the cursor
-                        if (wid)
-                            wid->unsetCursor();
-                        m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
-                    }
+        }
+        // The user is hovering with Ctrl pressed
+        else if (event->type() == QEvent::MouseMove) {
+            if (mouseEvent->modifiers() == Qt::ControlModifier) {
+                auto doc = v->document();
+                const auto hoveredWord = doc->wordAt(cur);
+                const auto range = doc->wordRangeAt(cur);
+                if (!hoveredWord.isEmpty() && range.isValid()) {
+                    m_ctrlHoverFeedback.setRangeAndWidget(range, wid);
+                    // this will not go anywhere actually, but just signal whether we have a definition
+                    // Also, please rethink very hard if you are going to reuse this method. It's made
+                    // only for Ctrl+Hover
+                    processCtrlMouseHover(cur);
                 } else {
-                    // simple mouse move, make sure to unset the cursor
+                    // if there is no word, unset the cursor and remove the highlight
                     if (wid)
                         wid->unsetCursor();
                     m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
                 }
+            } else {
+                // simple mouse move, make sure to unset the cursor
+                // and remove the highlight
+                if (wid)
+                    wid->unsetCursor();
+                m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
             }
         }
 

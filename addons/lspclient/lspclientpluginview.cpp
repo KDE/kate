@@ -193,8 +193,9 @@ public:
 /**
  * @brief This is just a helper class that provides "underline" on Ctrl + click
  */
-struct CtrlHoverFeedback
+struct CtrlHoverFeedback : public QObject
 {
+    Q_OBJECT
 public:
 
     void highlight(KTextEditor::View* activeView)
@@ -202,13 +203,20 @@ public:
         if (w)
             w->setCursor(Qt::PointingHandCursor);
         if (activeView) {
+            auto mr = ranges[activeView->document()];
             if (mr) {
                 mr->setRange(range);
             } else {
                 auto miface = qobject_cast<KTextEditor::MovingInterface*>(activeView->document());
                 if (!miface)
                     return;
-                mr.reset(miface->newMovingRange(range));
+                auto doc = activeView->document();
+                if (doc) {
+                    mr = miface->newMovingRange(range);
+                    ranges[doc] = mr;
+                    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clear(KTextEditor::Document *)), Qt::UniqueConnection);
+                    connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clear(KTextEditor::Document *)), Qt::UniqueConnection);
+                }
             }
 
             static KTextEditor::Attribute::Ptr attr;
@@ -220,10 +228,15 @@ public:
         }
     }
 
-    void clear()
+    void clear(KTextEditor::View* activeView)
     {
-        if (mr) {
-            mr->setRange({-1,-1,-1,-1});
+        if (activeView) {
+            auto doc = activeView->document();
+            if (doc) {
+                auto& mr = ranges[doc];
+                if (mr)
+                    mr->setRange({-1,-1,-1,-1});
+            }
         }
     }
 
@@ -239,8 +252,16 @@ public:
     }
 
 private:
+
+    Q_SLOT void clear(KTextEditor::Document* doc)
+    {
+        if (doc)
+            delete ranges[doc];
+    }
+
+private:
     QWidget* w = nullptr;
-    std::unique_ptr<KTextEditor::MovingRange> mr;
+    QHash<KTextEditor::Document*, KTextEditor::MovingRange*> ranges;
     KTextEditor::Range range;
 };
 
@@ -571,7 +592,7 @@ public:
                     // must set cursor else we will be jumping somewhere else!!
                     v->setCursorPosition(cur);
                     if (!word.isEmpty()) {
-                        m_ctrlHoverFeedback.clear();
+                        m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
                         goToDefinition();
                     }
                 }
@@ -592,13 +613,13 @@ public:
                         // if there is no word, unset the cursor
                         if (wid)
                             wid->unsetCursor();
-                        m_ctrlHoverFeedback.clear();
+                        m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
                     }
                 } else {
                     // simple mouse move, make sure to unset the cursor
                     if (wid)
                         wid->unsetCursor();
-                    m_ctrlHoverFeedback.clear();
+                    m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
                 }
             }
         }

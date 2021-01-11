@@ -990,11 +990,8 @@ public:
         if (!miface)
             return;
         auto mr = miface->newMovingRange(location);
-        static KTextEditor::Attribute::Ptr attr;
-        if (!attr) {
-            attr = new KTextEditor::Attribute;
-            attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
-        }
+        KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute);
+        attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
         mr->setView(view);
         mr->setAttribute(attr);
         QTimer::singleShot(1000, doc, [mr] {

@@ -1870,108 +1870,58 @@ void KatePluginSearchView::onResize(const QSize &size)
     }
 }
 
-void KatePluginSearchView::customResMenuRequested(const QPoint &/*pos*/)
+void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
 {
-// FIXME    QTreeWidget *tree = qobject_cast<QTreeWidget *>(sender());
-//     if (tree == nullptr) {
-//         return;
-//     }
-//     QMenu *menu = new QMenu(tree);
-//
-//     QAction *copyAll = new QAction(i18n("Copy all"), tree);
-//     copyAll->setShortcut(QKeySequence::Copy);
-//     copyAll->setShortcutVisibleInContextMenu(true);
-//     menu->addAction(copyAll);
-//
-//     QAction *copyExpanded = new QAction(i18n("Copy expanded"), tree);
-//     menu->addAction(copyExpanded);
-//
-//     menu->popup(tree->viewport()->mapToGlobal(pos));
-//
-//     connect(copyAll, &QAction::triggered, this, [this](bool) { copySearchToClipboard(All); });
-//     connect(copyExpanded, &QAction::triggered, this, [this](bool) { copySearchToClipboard(AllExpanded); });
+    QTreeView *tree = qobject_cast<QTreeView *>(sender());
+    if (tree == nullptr) {
+        return;
+    }
+    QMenu *menu = new QMenu(tree);
+
+    QAction *copyAll = new QAction(i18n("Copy all"), tree);
+    copyAll->setShortcut(QKeySequence::Copy);
+    copyAll->setShortcutVisibleInContextMenu(true);
+    menu->addAction(copyAll);
+
+    QAction *copyExpanded = new QAction(i18n("Copy expanded"), tree);
+    menu->addAction(copyExpanded);
+
+    menu->popup(tree->viewport()->mapToGlobal(pos));
+
+    connect(copyAll, &QAction::triggered, this, [this](bool) { copySearchToClipboard(All); });
+    connect(copyExpanded, &QAction::triggered, this, [this](bool) { copySearchToClipboard(AllExpanded); });
 }
 
-// FIXME static QString copySearchSummary(const QTreeWidgetItem *summaryItem)
-// {
-//     if (summaryItem) {
-//         int matches = 0;
-//         for (int i = 0; i < summaryItem->childCount(); ++i) {
-//             matches += summaryItem->child(i)->childCount();
-//         }
-//         return i18np("A total of %1 match found\n", "A total of %1 matches found\n", matches);
-//     }
-//     return QString();
-// }
-
-// FIXME static QString copySearchMatchFile(QTreeWidgetItem *fileItem)
-// {
-//     if (fileItem) {
-//         QUrl url(fileItem->data(0, ReplaceMatches::FileUrlRole).toString());
-//         int matches = fileItem->childCount();
-//         return i18np("%1 match found in: %2\n", "%1 matches found in: %2\n", matches, url.toLocalFile());
-//     }
-//     return QString();
-// }
-//
-// static QString copySearchMatch(QTreeWidgetItem *matchItem)
-// {
-//     if (matchItem) {
-//         int startLine = matchItem->data(0, ReplaceMatches::StartLineRole).toInt();
-//         int startColumn = matchItem->data(0, ReplaceMatches::StartColumnRole).toInt();
-//         QString match = matchItem->data(0, ReplaceMatches::PreMatchRole).toString();
-//         match += matchItem->data(0, ReplaceMatches::MatchRole).toString();
-//         match += matchItem->data(0, ReplaceMatches::PostMatchRole).toString();
-//         return i18n("\tLine: %1 column: %2: %3\n", startLine, startColumn, match);
-//     }
-//     return QString();
-// }
-
-void KatePluginSearchView::copySearchToClipboard(CopyResultType /*copyType*/)
+void KatePluginSearchView::copySearchToClipboard(CopyResultType copyType)
 {
-// FIXME    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-//     if (!res) {
-//         return;
-//     }
-//     if (res->tree->topLevelItemCount() == 0) {
-//         return;
-//     }
-//
-//     QString clipboard;
-//
-//     QTreeWidgetItem *currentItem = res->tree->topLevelItem(0);
-//
-//     QTreeWidgetItem *parent = currentItem->parent();
-//     if (currentItem->childCount() == 0) {
-//         // this is probably a single match
-//         if (parent) {
-//             clipboard += copySearchMatchFile(parent);
-//             clipboard += copySearchMatch(currentItem);
-//         } else {
-//             clipboard = i18n("No matches found\n");
-//         }
-//     } else {
-//         if (parent) {
-//             clipboard += copySearchSummary(parent);
-//             clipboard += copySearchMatchFile(currentItem);
-//         } else {
-//             clipboard += m_isSearchAsYouType ? copySearchMatchFile(currentItem) : copySearchSummary(currentItem);
-//         }
-//
-//         for (int i = 0; i < currentItem->childCount() && (currentItem->isExpanded() || copyType == All); ++i) {
-//             QTreeWidgetItem *child = currentItem->child(i);
-//             if (child->childCount() == 0) {
-//                 clipboard += copySearchMatch(child);
-//             } else {
-//                 clipboard += copySearchMatchFile(child);
-//                 for (int j = 0; j < child->childCount() && (child->isExpanded() || copyType == All); ++j) {
-//                     QTreeWidgetItem *grandChild = child->child(j);
-//                     clipboard += copySearchMatch(grandChild);
-//                 }
-//             }
-//         }
-//     }
-//     QApplication::clipboard()->setText(clipboard);
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+    if (res->matchModel.rowCount() == 0) {
+        return;
+    }
+
+    QString clipboard;
+
+    QModelIndex rootIndex = res->matchModel.index(0, 0);
+
+    clipboard = rootIndex.data(MatchModel::PlainTextRole).toString();
+
+    int fileCount = res->matchModel.rowCount(rootIndex);
+    for (int i = 0; i < fileCount; ++i) {
+        QModelIndex fileIndex = res->matchModel.index(i, 0, rootIndex);
+        if (res->treeView->isExpanded(fileIndex) || copyType == All) {
+            clipboard += QLatin1String("\n") + fileIndex.data(MatchModel::PlainTextRole).toString();
+            int matchCount = res->matchModel.rowCount(fileIndex);
+            for (int j=0; j<matchCount; ++j) {
+                QModelIndex matchIndex = res->matchModel.index(j, 0, fileIndex);
+                clipboard += QLatin1String("\n") + matchIndex.data(MatchModel::PlainTextRole).toString();
+            }
+        }
+    }
+    clipboard += QLatin1String("\n");
+    QApplication::clipboard()->setText(clipboard);
 }
 
 bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)

@@ -59,7 +59,8 @@ public:
         MatchRole,
         PostMatchRole,
         ReplacedRole,
-        ReplaceTextRole
+        ReplaceTextRole,
+        PlainTextRole
     };
     Q_ENUM(MatchDataRoles)
 
@@ -150,12 +151,15 @@ private:
     bool replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
 
 
+    QString infoHtmlString() const;
+    QString fileToHtmlString(const MatchFile &matchFile) const;
     QString matchToHtmlString(const Match &match) const;
-    QString fileItemToHtmlString(const MatchFile &matchFile) const;
+
+    QString infoToPlainText() const;
+    QString fileToPlainText(const MatchFile &matchFile) const;
+    QString matchToPlainText(const Match &match) const;
 
     bool setFileChecked(int fileRow, bool checked);
-
-    QString infoHtmlString() const;
 
     Match *matchFromIndex(const QModelIndex &matchIndex);
 

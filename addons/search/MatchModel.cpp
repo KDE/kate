@@ -80,54 +80,6 @@ void MatchModel::setProjectName(const QString &projectName)
     if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
 }
 
-
-QString MatchModel::infoHtmlString() const
-{
-    if (m_matchFiles.isEmpty()) {
-        return QString();
-    }
-
-    int matchesTotal = 0;
-    int checkedTotal = 0;
-    for (const auto &matchFile: qAsConst(m_matchFiles)) {
-        matchesTotal += matchFile.matches.size();
-        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const MatchModel::Match &match) {return match.checked;} );
-    }
-
-    if (m_searchState == Searching) {
-        QString searchUrl = m_lastMatchUrl.toDisplayString();
-
-        if (searchUrl.size() > 73) {
-            return i18np("<b><i>One match found, searching: ...%2</b>", "<b><i>%1 matches found, searching: ...%2</b>", matchesTotal, searchUrl.right(70));
-        } else {
-            return i18np("<b><i>One match found, searching: %2</b>", "<b><i>%1 matches found, searching: %2</b>", matchesTotal, searchUrl);
-        }
-    }
-
-    QString checkedStr = i18np("One checked", "%1 checked", checkedTotal);
-
-    switch (m_searchPlace) {
-        case CurrentFile:
-            return i18np("<b><i>One match (%2) found in file</i></b>", "<b><i>%1 matches (%2) found in current file</i></b>", matchesTotal, checkedStr);
-        case MatchModel::OpenFiles:
-            return i18np("<b><i>One match (%2) found in open files</i></b>", "<b><i>%1 matches (%2) found in open files</i></b>", matchesTotal, checkedStr);
-            break;
-        case MatchModel::Folder:
-            return i18np("<b><i>One match (%3) found in folder %2</i></b>", "<b><i>%1 matches (%3) found in folder %2</i></b>", matchesTotal, m_resultBaseDir, checkedStr);
-            break;
-        case MatchModel::Project: {
-            return i18np("<b><i>One match (%4) found in project %2 (%3)</i></b>", "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>", matchesTotal, m_projectName, m_resultBaseDir, checkedStr);
-            break;
-        }
-        case MatchModel::AllProjects: // "in Open Projects"
-            return i18np("<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>", "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>", matchesTotal, m_resultBaseDir, checkedStr);
-            break;
-    }
-
-    return QString();
-}
-
-
 void MatchModel::clear()
 {
     beginResetModel();
@@ -466,6 +418,66 @@ static QString nbsFormated(int number, int width)
     return str;
 }
 
+QString MatchModel::infoHtmlString() const
+{
+    if (m_matchFiles.isEmpty()) {
+        return QString();
+    }
+
+    int matchesTotal = 0;
+    int checkedTotal = 0;
+    for (const auto &matchFile: qAsConst(m_matchFiles)) {
+        matchesTotal += matchFile.matches.size();
+        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const MatchModel::Match &match) {return match.checked;} );
+    }
+
+    if (m_searchState == Searching) {
+        QString searchUrl = m_lastMatchUrl.toDisplayString();
+
+        if (searchUrl.size() > 73) {
+            return i18np("<b><i>One match found, searching: ...%2</b>", "<b><i>%1 matches found, searching: ...%2</b>", matchesTotal, searchUrl.right(70));
+        } else {
+            return i18np("<b><i>One match found, searching: %2</b>", "<b><i>%1 matches found, searching: %2</b>", matchesTotal, searchUrl);
+        }
+    }
+
+    QString checkedStr = i18np("One checked", "%1 checked", checkedTotal);
+
+    switch (m_searchPlace) {
+        case CurrentFile:
+            return i18np("<b><i>One match (%2) found in file</i></b>", "<b><i>%1 matches (%2) found in current file</i></b>", matchesTotal, checkedStr);
+        case MatchModel::OpenFiles:
+            return i18np("<b><i>One match (%2) found in open files</i></b>", "<b><i>%1 matches (%2) found in open files</i></b>", matchesTotal, checkedStr);
+            break;
+        case MatchModel::Folder:
+            return i18np("<b><i>One match (%3) found in folder %2</i></b>", "<b><i>%1 matches (%3) found in folder %2</i></b>", matchesTotal, m_resultBaseDir, checkedStr);
+            break;
+        case MatchModel::Project: {
+            return i18np("<b><i>One match (%4) found in project %2 (%3)</i></b>", "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>", matchesTotal, m_projectName, m_resultBaseDir, checkedStr);
+            break;
+        }
+        case MatchModel::AllProjects: // "in Open Projects"
+            return i18np("<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>", "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>", matchesTotal, m_resultBaseDir, checkedStr);
+            break;
+    }
+
+    return QString();
+}
+
+
+QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
+{
+    QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
+    if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
+        path += QLatin1Char('/');
+    }
+
+    QString tmpStr = QStringLiteral("%1<b>%2: %3</b>").arg(path, matchFile.fileUrl.fileName()).arg(matchFile.matches.size());
+
+    return tmpStr;
+}
+
+
 QString MatchModel::matchToHtmlString(const Match &match) const
 {
     QString pre =match.preMatchStr.toHtmlEscaped();
@@ -494,16 +506,86 @@ QString MatchModel::matchToHtmlString(const Match &match) const
     return displayText;
 }
 
-QString MatchModel::fileItemToHtmlString(const MatchFile &matchFile) const
+
+QString MatchModel::infoToPlainText() const
+{
+    if (m_matchFiles.isEmpty()) {
+        return QString();
+    }
+
+    int matchesTotal = 0;
+    int checkedTotal = 0;
+    for (const auto &matchFile: qAsConst(m_matchFiles)) {
+        matchesTotal += matchFile.matches.size();
+        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const MatchModel::Match &match) {return match.checked;} );
+    }
+
+    if (m_searchState == Searching) {
+        QString searchUrl = m_lastMatchUrl.toDisplayString();
+
+        if (searchUrl.size() > 73) {
+            return i18np("One match found, searching: ...%2", "%1 matches found, searching: ...%2", matchesTotal, searchUrl.right(70));
+        } else {
+            return i18np("One match found, searching: %2", "%1 matches found, searching: %2", matchesTotal, searchUrl);
+        }
+    }
+
+    QString checkedStr = i18np("One checked", "%1 checked", checkedTotal);
+
+    switch (m_searchPlace) {
+        case CurrentFile:
+            return i18np("One match (%2) found in file", "%1 matches (%2) found in current file", matchesTotal, checkedStr);
+        case MatchModel::OpenFiles:
+            return i18np("One match (%2) found in open files", "%1 matches (%2) found in open files", matchesTotal, checkedStr);
+            break;
+        case MatchModel::Folder:
+            return i18np("One match (%3) found in folder %2", "%1 matches (%3) found in folder %2", matchesTotal, m_resultBaseDir, checkedStr);
+            break;
+        case MatchModel::Project: {
+            return i18np("One match (%4) found in project %2 (%3)", "%1 matches (%4) found in project %2 (%3)", matchesTotal, m_projectName, m_resultBaseDir, checkedStr);
+            break;
+        }
+        case MatchModel::AllProjects: // "in Open Projects"
+            return i18np("One match (%3) found in all open projects (common parent: %2)", "%1 matches (%3) found in all open projects (common parent: %2)", matchesTotal, m_resultBaseDir, checkedStr);
+            break;
+    }
+
+    return QString();
+}
+
+
+QString MatchModel::fileToPlainText(const MatchFile &matchFile) const
 {
     QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
         path += QLatin1Char('/');
     }
 
-    QString tmpStr = QStringLiteral("%1<b>%2: %3</b>").arg(path, matchFile.fileUrl.fileName()).arg(matchFile.matches.size());
+    QString tmpStr = QStringLiteral("%1%2: %3").arg(path, matchFile.fileUrl.fileName()).arg(matchFile.matches.size());
 
     return tmpStr;
+}
+
+
+QString MatchModel::matchToPlainText(const Match &match) const
+{
+    QString pre =match.preMatchStr;
+
+    QString matchStr = match.matchStr;
+    matchStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+
+    QString replaceStr = match.replaceText;
+    if (!replaceStr.isEmpty()) {
+        matchStr = QLatin1String("----") + matchStr + QLatin1String("----");
+        matchStr += QLatin1String("++++") + replaceStr + QLatin1String("++++");
+    }
+    QString post = match.postMatchStr;
+
+    // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
+    QString displayText = QStringLiteral("(%1:%2) ")
+    .arg(match.range.start().line() + 1, 3)
+    .arg(match.range.start().column() + 1, 3) + pre + matchStr + post;
+    return displayText;
 }
 
 
@@ -648,6 +730,8 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
         switch (role) {
             case Qt::DisplayRole:
                 return infoHtmlString();
+            case PlainTextRole:
+                return infoToPlainText();
             case Qt::CheckStateRole:
                 return m_infoCheckState;
         }
@@ -663,11 +747,13 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
         // File item
         switch (role) {
             case Qt::DisplayRole:
-                return fileItemToHtmlString(m_matchFiles[fileRow]);
+                return fileToHtmlString(m_matchFiles[fileRow]);
             case Qt::CheckStateRole:
                 return m_matchFiles[fileRow].checkState;
             case FileUrlRole:
                 return m_matchFiles[fileRow].fileUrl;
+            case PlainTextRole:
+                return fileToPlainText(m_matchFiles[fileRow]);
         }
     }
     else if (matchRow < m_matchFiles[fileRow].matches.size()) {
@@ -700,6 +786,8 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
                 return !match.replaceText.isEmpty();
             case ReplaceTextRole:
                 return match.replaceText;
+            case PlainTextRole:
+                return matchToPlainText(match);
         }
     }
     else {

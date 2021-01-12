@@ -50,7 +50,12 @@ public:
 public Q_SLOTS:
     void setFilterText(const QString& text)
     {
+        #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+        m_filterStrings = text.split(QLatin1Char(' '), QString::SkipEmptyParts);
+        #else
         m_filterStrings = text.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        #endif
+
         invalidateFilter();
     }
 
@@ -116,7 +121,11 @@ public:
 public Q_SLOTS:
     void setFilterStrings(const QString& text)
     {
+        #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+        m_filterStrings = text.split(QLatin1Char(' '), QString::SkipEmptyParts);
+        #else
         m_filterStrings = text.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        #endif
     }
 
 private:

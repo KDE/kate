@@ -107,7 +107,7 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
 
     if (config.readEntry("NamedColors", true)) {
         if (!colorRegex.isEmpty()) {
-            colorRegex = QLatin1String("(%1)|").arg(colorRegex);
+            colorRegex = QStringLiteral("(%1)|").arg(colorRegex);
         }
 
         QHash <int, QStringList> colorsByLength;
@@ -130,7 +130,7 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
             colorNames.append(colorsByLength[length]);
         }
 
-        colorRegex.append(QLatin1String("(?<![-\\w])(%1)(?![-\\w])").arg(colorNames.join(QLatin1String("|"))));
+        colorRegex.append(QStringLiteral("(?<![-\\w])(%1)(?![-\\w])").arg(colorNames.join(QLatin1String("|"))));
     }
 
     if (colorRegex.isEmpty()) {

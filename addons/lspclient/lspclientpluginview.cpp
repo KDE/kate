@@ -876,6 +876,9 @@ public:
         }
 
         // add match mark for range
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 69, 0)
+        const int ps = 32;
+#endif
         bool handleClick = true;
         enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsMark && m_diagnosticsMark->isChecked();
         switch (markType) {

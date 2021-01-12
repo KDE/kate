@@ -64,7 +64,6 @@ void QuickOpenLineEdit::setupMenu()
     menu->addSeparator();
 
     QActionGroup *actGp = new QActionGroup(this);
-    actGp->setExclusionPolicy(QActionGroup::ExclusionPolicy::Exclusive);
 
     auto act = menu->addAction(i18n("All Projects"));
     act->setCheckable(true);

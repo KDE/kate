@@ -1242,12 +1242,13 @@ void KatePluginSearchView::searchDone()
         m_curResults->treeView->setColumnWidth(0, m_curResults->treeView->width() - 30);
     }
 
+    // Set search to done. This sorts the model and collapses all items in the view
+    m_curResults->matchModel.setSearchState(MatchModel::SearchDone);
+
     // expand the "header item " to display all files and all results if configured
     expandResults();
 
     indicateMatch(m_curResults->matches > 0);
-
-    m_curResults->matchModel.setSearchState(MatchModel::SearchDone);
 
     m_curResults = nullptr;
     m_toolView->unsetCursor();
@@ -1278,9 +1279,13 @@ void KatePluginSearchView::searchWhileTypingDone()
         m_curResults->treeView->setColumnWidth(0, m_curResults->treeView->width() - 30);
     }
 
-    indicateMatch(m_curResults->matches > 0);
-
+    // Set search to done. This sorts the model and collapses all items in the view
     m_curResults->matchModel.setSearchState(MatchModel::SearchDone);
+
+    // expand the "header item " to display all files and all results if configured
+    expandResults();
+
+    indicateMatch(m_curResults->matches > 0);
 
     m_curResults = nullptr;
 

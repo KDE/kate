@@ -66,6 +66,14 @@ void MatchModel::setSearchState(MatchModel::SearchState searchState)
 {
     m_searchState = searchState;
     if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
+    if (m_searchState == SearchDone) {
+        beginResetModel();
+        std::sort(m_matchFiles.begin(), m_matchFiles.end(), [](const MatchFile &l, const MatchFile &r) { return l.fileUrl < r.fileUrl; });
+        for (int i=0; i<m_matchFiles.size(); ++i) {
+            m_matchFileIndexHash[m_matchFiles[i].fileUrl] = i;
+        }
+        endResetModel();
+    }
 }
 
 void MatchModel::setBaseSearchPath(const QString &baseSearchPath)

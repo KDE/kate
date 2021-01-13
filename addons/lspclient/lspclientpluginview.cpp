@@ -261,8 +261,13 @@ private:
 
     Q_SLOT void clear(KTextEditor::Document* doc)
     {
-        if (doc)
-            delete ranges[doc];
+        if (doc) {
+            auto it = ranges.find(doc);
+            if (it != ranges.end()) {
+                delete *it;
+                ranges.remove(doc);
+            }
+        }
     }
 
 private:

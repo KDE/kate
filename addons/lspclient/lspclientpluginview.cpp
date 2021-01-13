@@ -265,7 +265,7 @@ private:
             auto it = ranges.find(doc);
             if (it != ranges.end()) {
                 delete *it;
-                ranges.remove(doc);
+                ranges.erase(it);
             }
         }
     }

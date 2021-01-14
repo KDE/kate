@@ -223,6 +223,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_listView = new QTreeView();
     layout->addWidget(m_listView, 1);
     m_listView->setTextElideMode(Qt::ElideLeft);
+    m_listView->setUniformRowHeights(true);
 
     m_base_model = new KateQuickOpenModel(m_mainWindow, this);
 

@@ -261,8 +261,13 @@ private:
 
     Q_SLOT void clear(KTextEditor::Document* doc)
     {
-        if (doc)
-            delete ranges[doc];
+        if (doc) {
+            auto it = ranges.find(doc);
+            if (it != ranges.end()) {
+                delete *it;
+                ranges.erase(it);
+            }
+        }
     }
 
 private:
@@ -876,6 +881,9 @@ public:
         }
 
         // add match mark for range
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 69, 0)
+        const int ps = 32;
+#endif
         bool handleClick = true;
         enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsMark && m_diagnosticsMark->isChecked();
         switch (markType) {

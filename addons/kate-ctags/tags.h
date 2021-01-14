@@ -9,7 +9,7 @@
 #ifndef TAGS_H
 #define TAGS_H
 
-#include <QList>
+#include <QVector>
 #include <QString>
 #include <QStringList>
 

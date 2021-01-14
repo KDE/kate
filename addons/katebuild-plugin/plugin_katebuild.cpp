@@ -773,7 +773,8 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_buildUi.buildAgainButton->setEnabled(false);
     m_buildUi.buildAgainButton2->setEnabled(false);
 
-    QApplication::setOverrideCursor(QCursor(Qt::BusyCursor));
+    m_targetsUi->setCursor(Qt::BusyCursor);
+
     return true;
 }
 
@@ -930,7 +931,7 @@ void KateBuildView::displayMessage(const QString &msg, KTextEditor::Message::Mes
 /******************************************************************/
 void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 {
-    QApplication::restoreOverrideCursor();
+    m_targetsUi->unsetCursor();
     m_buildUi.cancelBuildButton->setEnabled(false);
     m_buildUi.cancelBuildButton2->setEnabled(false);
     m_buildUi.buildAgainButton->setEnabled(true);

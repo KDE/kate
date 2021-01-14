@@ -91,18 +91,18 @@ void KateQuickOpenModel::refresh()
     size_t sort_id = static_cast<size_t>(-1);
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
-        allDocuments.push_back({doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase).remove(QStringLiteral("/") + doc->documentName()), true, sort_id--, -1});
+        allDocuments.push_back({doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase), true, sort_id--, -1});
     }
 
     for (auto *doc : qAsConst(openDocs)) {
-        const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase).remove(QStringLiteral("/") + doc->documentName());
+        const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase);
         allDocuments.push_back({doc->url(), doc->documentName(), normalizedUrl, true, 0, -1});
     }
 
     for (const auto &file : qAsConst(projectDocs)) {
         QFileInfo fi(file);
         const auto localFile = QUrl::fromLocalFile(fi.absoluteFilePath());
-        allDocuments.push_back({localFile, fi.fileName(), fi.filePath().remove(projectBase).remove(QStringLiteral("/") + fi.fileName()), false, 0, -1});
+        allDocuments.push_back({localFile, fi.fileName(), fi.filePath().remove(projectBase), false, 0, -1});
     }
 
     /** Sort the arrays by filePath. */

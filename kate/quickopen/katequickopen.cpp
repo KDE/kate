@@ -137,6 +137,8 @@ public:
         QString name = namePath.at(0);
         QString path = namePath.at(1);
 
+        path.remove(QStringLiteral("/") + name);
+
         const QString nameColor = option.palette.color(QPalette::Link).name();
 
         if (mode == FilterMode::FilterByName) {
@@ -144,7 +146,17 @@ public:
         } else if (mode == FilterMode::FilterByPath) {
             kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
         } else {
-            kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+            // check if there's a / separtion in filter string
+            // if there is, we use the last part to highlight the
+            // filename
+            int pos = m_filterString.lastIndexOf(QLatin1Char('/'));
+            if (pos > -1) {
+                ++pos;
+                auto pattern = m_filterString.midRef(pos);
+                kfts::to_fuzzy_matched_display_string(pattern, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+            } else {
+                kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+            }
             kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
         }
 

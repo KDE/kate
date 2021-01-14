@@ -22,18 +22,18 @@
 
 /**
  * data holder for one match in one file
- * used to transfer multiple matches at once via signals to avoid heavy costs for files with a lot of matches
+ * used to transfer and hold multiple matches at once via signals to avoid heavy costs for files with a lot of matches
  */
 class KateSearchMatch
 {
 public:
-    QString lineContent;
-    int matchLen;
-    KTextEditor::Range matchRange;
+    QString preMatchStr;
+    QString matchStr;
+    QString postMatchStr;
+    QString replaceText;
+    KTextEditor::Range range;
+    bool checked;
 };
-
-Q_DECLARE_METATYPE(KateSearchMatch)
-
 
 
 class MatchModel : public QAbstractItemModel
@@ -54,7 +54,6 @@ public:
         StartColumnRole,
         EndLineRole,
         EndColumnRole,
-        MatchLenRole,
         PreMatchRole,
         MatchRole,
         PostMatchRole,
@@ -64,17 +63,13 @@ public:
     };
     Q_ENUM(MatchDataRoles)
 
-private:
-    struct Match {
-        KTextEditor::Range range;
-        int matchLen = 0;
-        QString preMatchStr;
-        QString matchStr;
-        QString postMatchStr;
-        QString replaceText;
-        bool checked = true;
-    };
+    static constexpr int PreContextLen = 80;
+    static constexpr int PostContextLen = 100;
 
+    typedef KateSearchMatch Match;
+
+
+private:
     struct MatchFile {
         QUrl fileUrl;
         QVector<Match> matches;
@@ -185,5 +180,8 @@ private:
     bool m_cancelReplace = true;
 
 };
+
+
+Q_DECLARE_METATYPE(KateSearchMatch)
 
 #endif

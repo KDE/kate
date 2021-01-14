@@ -120,11 +120,13 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
         while (column != -1 && !match.captured().isEmpty()) {
             if (m_cancelSearch)
                 break;
-            // limit line length in the treeview
-            if (line.length() > 1024)
-                line = line.left(1024);
 
-            matches.push_back(KateSearchMatch{line, match.capturedLength(), KTextEditor::Range{i, column, i, column + match.capturedLength()}});
+            int endColumn = column + match.capturedLength();
+            int preContextStart = qMax(0, column-MatchModel::PreContextLen);
+            QString preContext = line.mid(preContextStart, column-preContextStart);
+            QString postContext = line.mid(endColumn, MatchModel::PostContextLen);
+
+            matches.push_back(KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{i, column, i, column + match.capturedLength()}, true});
 
             match = m_regExp.match(line, column + match.capturedLength());
             column = match.capturedStart();
@@ -196,7 +198,13 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         int endLine = line + match.captured().count(QLatin1Char('\n'));
         int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
         int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL - 1;
-        matches.push_back(KateSearchMatch{fullDoc.mid(lineStart[line], column - lineStart[line]) + match.captured(), match.capturedLength(), KTextEditor::Range{line, startColumn, endLine, endColumn}});
+
+        int preContextStart = qMax(lineStart[line], column-MatchModel::PreContextLen);
+        QString preContext = fullDoc.mid(preContextStart, column-preContextStart);
+        QString postContext = fullDoc.mid(column + match.captured().length(), MatchModel::PostContextLen);
+
+        matches.push_back(KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{line, startColumn, endLine, endColumn}, true});
+
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();
         m_matchCount++;

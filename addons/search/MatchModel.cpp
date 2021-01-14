@@ -103,8 +103,6 @@ int MatchModel::matchFileRow(const QUrl& fileUrl) const
     return m_matchFileIndexHash.value(fileUrl, -1);
 }
 
-static const int totalContectLen = 150;
-
 /** This function is used to add a match to a new file */
 void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches)
 {
@@ -134,31 +132,7 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
 
     int matchIndex = m_matchFiles[fileIndex].matches.size();
     beginInsertRows(createIndex(fileIndex, 0 , FileItemId), matchIndex, matchIndex + searchMatches.size()-1);
-    for (const auto &sMatch: searchMatches) {
-        MatchModel::Match match;
-        match.matchLen = sMatch.matchLen;
-        match.range = sMatch.matchRange;
-
-        int matchStartColumn = match.range.start().column();
-        int matchEndColumn = match.range.end().column();
-
-        int contextLen = totalContectLen - sMatch.matchLen;
-        int preLength = qMin(contextLen/3, matchStartColumn);
-        int postLength = contextLen - preLength;
-
-        match.preMatchStr = sMatch.lineContent.mid(matchStartColumn-preLength, preLength);
-        if (matchStartColumn > preLength) match.preMatchStr.prepend(QLatin1String("..."));
-
-        match.postMatchStr = sMatch.lineContent.mid(matchEndColumn, postLength);
-        if (matchEndColumn+postLength < sMatch.lineContent.size()-1) {
-            qDebug() << matchEndColumn << postLength << matchEndColumn+postLength << sMatch.lineContent.size();
-            match.postMatchStr.append(QLatin1String("..."));
-        }
-
-        match.matchStr = sMatch.lineContent.mid(matchStartColumn, sMatch.matchLen);
-
-        m_matchFiles[fileIndex].matches.append(match);
-    }
+    m_matchFiles[fileIndex].matches += searchMatches;
     endInsertRows();
 }
 
@@ -169,7 +143,7 @@ void MatchModel::setMatchColors(const QColor &foreground, const QColor &backgrou
     m_replaceHighlightColor = replaseBackground;
 }
 
-MatchModel::Match *MatchModel::matchFromIndex(const QModelIndex &matchIndex)
+KateSearchMatch *MatchModel::matchFromIndex(const QModelIndex &matchIndex)
 {
     if (!isMatch(matchIndex)) {
         qDebug() << "Not a valid match index";
@@ -436,7 +410,7 @@ QString MatchModel::infoHtmlString() const
     int checkedTotal = 0;
     for (const auto &matchFile: qAsConst(m_matchFiles)) {
         matchesTotal += matchFile.matches.size();
-        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const MatchModel::Match &match) {return match.checked;} );
+        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {return match.checked;} );
     }
 
     if (m_searchState == Searching) {
@@ -488,7 +462,11 @@ QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
 
 QString MatchModel::matchToHtmlString(const Match &match) const
 {
-    QString pre =match.preMatchStr.toHtmlEscaped();
+    QString pre = match.preMatchStr;
+    if (match.preMatchStr.size() == PreContextLen) {
+        pre.replace(0, 3, QLatin1String("..."));
+    }
+    pre = pre.toHtmlEscaped();
 
     QString matchStr = match.matchStr;
     matchStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
@@ -504,7 +482,16 @@ QString MatchModel::matchToHtmlString(const Match &match) const
         matchStr += QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>")
         .arg(m_replaceHighlightColor.name(), m_foregroundColor.name(), replaceStr);
     }
-    QString post = match.postMatchStr.toHtmlEscaped();
+
+    QString post = match.postMatchStr;
+    int nlIndex = post.indexOf(QLatin1Char('\n'));
+    if (nlIndex != -1) {
+        post = post.mid(0, nlIndex);
+    }
+    if (post.size() == PostContextLen) {
+        post.replace(PostContextLen-3, 3, QLatin1String("..."));
+    }
+    post = post.toHtmlEscaped();
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
     QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;")
@@ -525,7 +512,7 @@ QString MatchModel::infoToPlainText() const
     int checkedTotal = 0;
     for (const auto &matchFile: qAsConst(m_matchFiles)) {
         matchesTotal += matchFile.matches.size();
-        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const MatchModel::Match &match) {return match.checked;} );
+        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {return match.checked;} );
     }
 
     if (m_searchState == Searching) {
@@ -782,8 +769,6 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
                 return match.range.end().line();
             case EndColumnRole:
                 return match.range.end().column();
-            case MatchLenRole:
-                return match.matchLen;
             case PreMatchRole:
                 return match.preMatchStr;
             case MatchRole:
@@ -876,7 +861,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     // we toggle the current value
     matches[row].checked = !matches[row].checked;
 
-    int checkedCount = std::count_if(matches.begin(), matches.end(), [](const MatchModel::Match &match) {return match.checked;});
+    int checkedCount = std::count_if(matches.begin(), matches.end(), [](const KateSearchMatch &match) {return match.checked;});
 
     if (checkedCount == matches.size()) {
         m_matchFiles[rootRow].checkState = Qt::Checked;

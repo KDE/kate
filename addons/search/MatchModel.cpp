@@ -41,10 +41,10 @@ static QUrl localFileDirUp(const QUrl &url)
 MatchModel::MatchModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
-    m_infoUpdateTimer.setInterval(500); // FIXME why does this delay not work?
+    m_infoUpdateTimer.setInterval(100); // FIXME why does this delay not work?
     m_infoUpdateTimer.setSingleShot(true);
     connect(&m_infoUpdateTimer, &QTimer::timeout, this, [this]() {
-        dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId), QVector<int>(Qt::DisplayRole));
+        dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId));
     });
 }
 
@@ -59,6 +59,13 @@ void MatchModel::setDocumentManager(KTextEditor::Application *manager)
 void MatchModel::setSearchPlace(MatchModel::SearchPlaces searchPlace)
 {
     m_searchPlace = searchPlace;
+    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
+}
+
+void MatchModel::setFileListUpdate(const QString &path)
+{
+    m_lastSearchPath = path;
+    m_searchState = Preparing;
     if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
 }
 
@@ -107,6 +114,7 @@ int MatchModel::matchFileRow(const QUrl& fileUrl) const
 void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches)
 {
     m_lastMatchUrl = fileUrl;
+    m_searchState = Searching;
     // update match/search info
     if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
 
@@ -402,7 +410,7 @@ static QString nbsFormated(int number, int width)
 
 QString MatchModel::infoHtmlString() const
 {
-    if (m_matchFiles.isEmpty()) {
+    if (m_matchFiles.isEmpty() && m_searchState == SearchDone) {
         return QString();
     }
 
@@ -413,8 +421,17 @@ QString MatchModel::infoHtmlString() const
         checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {return match.checked;} );
     }
 
+    if (m_searchState == Preparing) {
+
+        if (m_lastSearchPath.size() >= 73) {
+            return i18n("<b><i>Generating file list: ...%1</i></b>", m_lastSearchPath.right(70));
+        } else {
+            return i18n("<b><i>Generating file list: ...%1</i></b>", m_lastSearchPath);
+        }
+    }
+
     if (m_searchState == Searching) {
-        QString searchUrl = m_lastMatchUrl.toDisplayString();
+        QString searchUrl = m_lastMatchUrl.toDisplayString(QUrl::PreferLocalFile);
 
         if (searchUrl.size() > 73) {
             return i18np("<b><i>One match found, searching: ...%2</b>", "<b><i>%1 matches found, searching: ...%2</b>", matchesTotal, searchUrl.right(70));
@@ -504,7 +521,7 @@ QString MatchModel::matchToHtmlString(const Match &match) const
 
 QString MatchModel::infoToPlainText() const
 {
-    if (m_matchFiles.isEmpty()) {
+    if (m_matchFiles.isEmpty() && m_searchState == SearchDone) {
         return QString();
     }
 
@@ -515,8 +532,17 @@ QString MatchModel::infoToPlainText() const
         checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {return match.checked;} );
     }
 
+    if (m_searchState == Preparing) {
+
+        if (m_lastSearchPath.size() >= 73) {
+            return i18n("Generating file list: ...%1", m_lastSearchPath.right(70));
+        } else {
+            return i18n("Generating file list: ...%1", m_lastSearchPath);
+        }
+    }
+
     if (m_searchState == Searching) {
-        QString searchUrl = m_lastMatchUrl.toDisplayString();
+        QString searchUrl = m_lastMatchUrl.toDisplayString(QUrl::PreferLocalFile);
 
         if (searchUrl.size() > 73) {
             return i18np("One match found, searching: ...%2", "%1 matches found, searching: ...%2", matchesTotal, searchUrl.right(70));
@@ -895,7 +921,7 @@ Qt::ItemFlags MatchModel::flags(const QModelIndex &index) const
 int MatchModel::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
-        return m_matchFiles.isEmpty() ? 0 : 1;
+        return m_matchFiles.isEmpty() && m_searchState == SearchDone ? 0 : 1;
     }
 
     if (parent.internalId() == InfoItemId) {

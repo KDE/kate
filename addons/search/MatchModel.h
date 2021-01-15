@@ -44,7 +44,7 @@ public:
     enum SearchPlaces { CurrentFile, OpenFiles, Folder, Project, AllProjects };
     Q_ENUM(SearchPlaces)
 
-    enum SearchState { SearchDone, Searching, Replacing };
+    enum SearchState { SearchDone, Preparing, Searching, Replacing };
     Q_ENUM(SearchState)
 
     enum MatchDataRoles {
@@ -105,6 +105,10 @@ public Q_SLOTS:
 
     /** This function is used to add a new file */
     void addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches);
+
+    /** This function is used to set the last added file to the search list.
+     * This is done to update the match tree when we generate the search file list. */
+    void setFileListUpdate(const QString &path);
 
     /** This function is used to replace a single match */
     bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
@@ -170,6 +174,7 @@ private:
     QString m_resultBaseDir;
     QString m_projectName;
     QUrl m_lastMatchUrl;
+    QString m_lastSearchPath;
     QTimer m_infoUpdateTimer;
 
     // Replacing related objects

@@ -417,6 +417,12 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(&m_searchOpenFiles, &SearchOpenFiles::searchDone, this, &KatePluginSearchView::searchDone);
 
     connect(&m_folderFilesList, &FolderFilesList::fileListReady, this, &KatePluginSearchView::folderFileListChanged);
+    connect(&m_folderFilesList, &FolderFilesList::searching, this, [this](const QString &path) {
+        Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+        if (res) {
+            res->matchModel.setFileListUpdate(path);
+        }
+    });
 
     connect(&m_searchDiskFiles, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound);
     connect(&m_searchDiskFiles, &SearchDiskFiles::searchDone, this, &KatePluginSearchView::searchDone);

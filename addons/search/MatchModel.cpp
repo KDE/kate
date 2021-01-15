@@ -242,9 +242,6 @@ bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &mat
     int newEndColumn = lastNL == -1 ? matchItem->range.start().column() + replaceText.length() : replaceText.length() - lastNL - 1;
     matchItem->range.setEnd(KTextEditor::Cursor{newEndLine, newEndColumn});
 
-    // Convert replace text back to "html"
-    replaceText.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
-    replaceText.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
     matchItem->replaceText = replaceText;
     return true;
 }
@@ -485,10 +482,10 @@ QString MatchModel::matchToHtmlString(const Match &match) const
     }
     pre = pre.toHtmlEscaped();
 
-    QString matchStr = match.matchStr;
-    matchStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
-    matchStr = matchStr.toHtmlEscaped();
+    QString matchStr = match.matchStr.toHtmlEscaped();;
+
     QString replaceStr = match.replaceText.toHtmlEscaped();
+
     if (!replaceStr.isEmpty()) {
         matchStr = QLatin1String("<i><s>") + matchStr + QLatin1String("</s></i> ");
     }
@@ -499,6 +496,9 @@ QString MatchModel::matchToHtmlString(const Match &match) const
         matchStr += QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>")
         .arg(m_replaceHighlightColor.name(), m_foregroundColor.name(), replaceStr);
     }
+
+    matchStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+    matchStr.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
 
     QString post = match.postMatchStr;
     int nlIndex = post.indexOf(QLatin1Char('\n'));
@@ -601,6 +601,11 @@ QString MatchModel::matchToPlainText(const Match &match) const
         matchStr += QLatin1String("++++") + replaceStr + QLatin1String("++++");
     }
     QString post = match.postMatchStr;
+
+    matchStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+    matchStr.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
+    replaceStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+    replaceStr.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
     QString displayText = QStringLiteral("(%1:%2) ")

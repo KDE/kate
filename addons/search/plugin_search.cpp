@@ -798,7 +798,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, const QModel
             }
         } else {
             if (doc->text(range) != itemIndex.data(MatchModel::ReplaceTextRole).toString()) {
-                // qDebug() << doc->text(range) << "Does not match" << item->data(0, ReplaceMatches::ReplacedTextRole).toString();
+                ///qDebug() << doc->text(range) << "Does not match" << itemIndex.data(MatchModel::ReplaceTextRole).toString();
                 return;
             }
         }

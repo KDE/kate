@@ -10,7 +10,7 @@
 #include "../katetoolrunner.h"
 
 #include <QString>
-#include <QtTest>
+#include <QTest>
 
 #include <KConfig>
 #include <KConfigGroup>

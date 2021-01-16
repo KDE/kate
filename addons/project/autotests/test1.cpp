@@ -9,7 +9,7 @@
 #include "fileutil.h"
 #include "tools/kateprojectcodeanalysistoolshellcheck.h"
 
-#include <QtTest>
+#include <QTest>
 
 #include <QString>
 

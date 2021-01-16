@@ -8,7 +8,7 @@
 
 #include "document_dummy.h"
 
-#include <QtTest>
+#include <QTest>
 QTEST_MAIN(FileTreeModelTest)
 
 // BEGIN ResultNode

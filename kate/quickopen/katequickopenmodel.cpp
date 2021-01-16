@@ -14,6 +14,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
+#include <QFileInfo>
 #include <QMimeDatabase>
 
 KateQuickOpenModel::KateQuickOpenModel(KateMainWindow *mainWindow, QObject *parent)

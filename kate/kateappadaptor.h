@@ -8,7 +8,7 @@
 #ifndef _kateapp_adaptor_h_
 #define _kateapp_adaptor_h_
 
-#include <QtDBus>
+#include <QDBusAbstractAdaptor>
 
 class KateApp;
 

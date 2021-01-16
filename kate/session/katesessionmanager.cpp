@@ -25,6 +25,8 @@
 
 #include <QApplication>
 #include <QCryptographicHash>
+#include <QDBusReply>
+#include <QDBusConnectionInterface>
 #include <QDir>
 #include <QInputDialog>
 #include <QScopedPointer>

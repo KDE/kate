@@ -29,9 +29,14 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QDBusConnection>
 #include <QFileInfo>
 #include <QFileOpenEvent>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QLoggingCategory>
 #include <QTextCodec>
+#include <QUrlQuery>
 
 #include <urlinfo.h>
 

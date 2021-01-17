@@ -64,7 +64,8 @@ protected:
     {
         if (pattern.isEmpty())
             return true;
-        const QString fileName = sourceModel()->index(sourceRow, 0, sourceParent).data().toString();
+        const auto idx =  sourceModel()->index(sourceRow, 0, sourceParent);
+        const QString fileName = idx.data().toString();
         const auto nameAndPath = fileName.splitRef(QStringLiteral("{[split]}"));
 
         const auto &name = nameAndPath.at(0);
@@ -86,7 +87,6 @@ protected:
             res = resp || resn;
         }
 
-        auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
         sourceModel()->setData(idx, score, KateQuickOpenModel::Score);
 
         return res;
@@ -241,12 +241,11 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_styleDelegate, &QuickOpenStyleDelegate::setFilterString);
     connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this]() {
         m_listView->viewport()->update();
+        reselectFirst(); // hacky way
     });
     connect(m_inputLine, &QuickOpenLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_inputLine, &QuickOpenLineEdit::filterModeChanged, this, &KateQuickOpen::slotfilterModeChanged);
     connect(m_inputLine, &QuickOpenLineEdit::listModeChanged, this, &KateQuickOpen::slotListModeChanged);
-    connect(m_model, &QSortFilterProxyModel::rowsInserted, this, &KateQuickOpen::reselectFirst);
-    connect(m_model, &QSortFilterProxyModel::rowsRemoved, this, &KateQuickOpen::reselectFirst);
 
     connect(m_listView, &QTreeView::activated, this, &KateQuickOpen::slotReturnPressed);
     connect(m_listView, &QTreeView::clicked, this, &KateQuickOpen::slotReturnPressed); // for single click

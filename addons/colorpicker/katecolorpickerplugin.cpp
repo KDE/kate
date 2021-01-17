@@ -2,6 +2,7 @@
     SPDX-FileCopyrightText: 2018 Sven Brauch <mail@svenbrauch.de>
     SPDX-FileCopyrightText: 2018 Michal Srb <michalsrb@gmail.com>
     SPDX-FileCopyrightText: 2020 Jan Paul Batrina <jpmbatrina01@gmail.com>
+    SPDX-FileCopyrightText: 2021 Dominik Haumann <dhaumann@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */

@@ -1,8 +1,8 @@
 /*   Kate search plugin
  *
- * SPDX-FileCopyrightText: 2011-2020 Kåre Särs <kare.sars@iki.fi>
+ * SPDX-FileCopyrightText: 2011-2021 Kåre Särs <kare.sars@iki.fi>
  *
- * SPDX-License-Identifier: GPL-2.0-or-later
+ * SPDX-License-Identifier: LGPL-2.0-or-later
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -34,9 +34,9 @@
 #include "ui_results.h"
 #include "ui_search.h"
 
+#include "MatchModel.h"
 #include "FolderFilesList.h"
 #include "SearchDiskFiles.h"
-#include "replace_matches.h"
 #include "search_open_files.h"
 
 class KateSearchCommand;
@@ -58,6 +58,7 @@ public:
     QString replaceStr;
     int searchPlaceIndex = 0;
     QString treeRootText;
+    MatchModel matchModel;
 };
 
 // This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
@@ -97,8 +98,6 @@ class KatePluginSearchView : public QObject, public KXMLGUIClient, public KTextE
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
-    enum SearchPlaces { CurrentFile, OpenFiles, Folder, Project, AllProjects };
-
     KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow, KTextEditor::Application *application);
     ~KatePluginSearchView() override;
 
@@ -135,34 +134,31 @@ private Q_SLOTS:
 
     void folderFileListChanged();
 
-    void matchesFound(const QString &url, const QString &fileName, const QVector<KateSearchMatch> &searchMatches);
+    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
 
-    void addMatchMark(KTextEditor::Document *doc, KTextEditor::MovingInterface *miface, QTreeWidgetItem *item);
+    void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match);
 
     void searchDone();
     void searchWhileTypingDone();
     void indicateMatch(bool hasMatch);
 
-    void searching(const QString &file);
+    void itemSelected(const QModelIndex &item);
 
-    void itemSelected(QTreeWidgetItem *item);
-
-    void clearMarks();
-    void clearDocMarks(KTextEditor::Document *doc);
+    void clearMarksAndRanges();
+    void clearDocMarksAndRanges(KTextEditor::Document *doc);
 
     void replaceSingleMatch();
     void replaceChecked();
 
-    void replaceStatus(const QUrl &url, int replacedInFile, int matchesInFile);
     void replaceDone();
 
-    void docViewChanged();
+    void updateMatchMarks();
+
+    void syncModelRanges();
 
     void resultTabChanged(int index);
 
     void expandResults();
-
-    void updateResultsRootItem();
 
     /**
      * keep track if the project plugin is alive and if the project file did change
@@ -176,10 +172,8 @@ private Q_SLOTS:
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
-    void addHeaderItem();
 
 private:
-    void addMatchesToRootFileItem(const QString &url, const QString &fName, const QList<QTreeWidgetItem *> &matchItems);
     QStringList filterFiles(const QStringList &files) const;
     void updateSearchColors();
 
@@ -191,7 +185,6 @@ private:
     SearchOpenFiles m_searchOpenFiles;
     FolderFilesList m_folderFilesList;
     SearchDiskFiles m_searchDiskFiles;
-    ReplaceMatches m_replacer;
     QAction *m_matchCase = nullptr;
     QAction *m_useRegExp = nullptr;
     Results *m_curResults = nullptr;
@@ -203,9 +196,8 @@ private:
     bool m_isVerticalLayout = false;
     bool m_blockDiskMatchFound = false;
     QString m_resultBaseDir;
-    QList<KTextEditor::MovingRange *> m_matchRanges;
+    QVector<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;
-    QTimer m_updateSumaryTimer;
     QPointer<KTextEditor::Message> m_infoMessage;
     QBrush m_searchBackgroundColor;
     QBrush m_foregroundColor;

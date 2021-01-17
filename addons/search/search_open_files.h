@@ -1,8 +1,8 @@
 /*   Kate search plugin
  *
- * SPDX-FileCopyrightText: 2011-2013 Kåre Särs <kare.sars@iki.fi>
+ * SPDX-FileCopyrightText: 2011-2021 Kåre Särs <kare.sars@iki.fi>
  *
- * SPDX-License-Identifier: GPL-2.0-or-later
+ * SPDX-License-Identifier: LGPL-2.0-or-later
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,7 +24,7 @@
 #include <QTimer>
 #include <ktexteditor/document.h>
 
-#include "SearchDiskFiles.h"
+#include "MatchModel.h"
 
 class SearchOpenFiles : public QObject
 {
@@ -51,7 +51,7 @@ private:
     int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 
 Q_SIGNALS:
-    void matchesFound(const QString &url, const QString &fileName, const QVector<KateSearchMatch> &searchMatches);
+    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
     void searchDone();
     void searching(const QString &file);
 

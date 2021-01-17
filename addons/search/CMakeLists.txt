@@ -21,14 +21,14 @@ target_sources(katesearchplugin PRIVATE ${UI_SOURCES})
 target_sources(
   katesearchplugin
   PRIVATE
+    FolderFilesList.cpp
+    KateSearchCommand.cpp
+    MatchModel.cpp
+    SearchDiskFiles.cpp
+    htmldelegate.cpp
+    plugin.qrc
     plugin_search.cpp
     search_open_files.cpp
-    SearchDiskFiles.cpp
-    FolderFilesList.cpp
-    replace_matches.cpp
-    htmldelegate.cpp
-    KateSearchCommand.cpp
-    plugin.qrc
 )
 
 kcoreaddons_desktop_to_json(katesearchplugin katesearch.desktop)

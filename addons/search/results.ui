@@ -10,29 +10,27 @@
     <height>110</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3" stretch="10">
-   <property name="margin">
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QTreeWidget" name="tree">
+    <widget class="QTreeView" name="treeView">
      <property name="uniformRowHeights">
-      <bool>true</bool>
-     </property>
-     <property name="allColumnsShowFocus">
       <bool>true</bool>
      </property>
      <property name="headerHidden">
       <bool>true</bool>
      </property>
-     <attribute name="headerStretchLastSection">
-      <bool>false</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string notr="true">1</string>
-      </property>
-     </column>
     </widget>
    </item>
   </layout>

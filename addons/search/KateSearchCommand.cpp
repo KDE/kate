@@ -2,7 +2,7 @@
  *
  * SPDX-FileCopyrightText: 2020 Kåre Särs <kare.sars@iki.fi>
  *
- * SPDX-License-Identifier: GPL-2.0-or-later
+ * SPDX-License-Identifier: LGPL-2.0-or-later
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,7 +16,9 @@
  */
 
 #include "KateSearchCommand.h"
-#include "plugin_search.h"
+#include "MatchModel.h"
+
+#include <KLocalizedString>
 
 KateSearchCommand::KateSearchCommand(QObject *parent)
     : KTextEditor::Command(QStringList() << QStringLiteral("grep") << QStringLiteral("newGrep") << QStringLiteral("search") << QStringLiteral("newSearch") << QStringLiteral("pgrep") << QStringLiteral("newPGrep"), parent)
@@ -35,20 +37,20 @@ bool KateSearchCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, Q
     QString searchText = args.join(QLatin1Char(' '));
 
     if (command == QLatin1String("grep") || command == QLatin1String("newGrep")) {
-        emit setSearchPlace(KatePluginSearchView::Folder);
+        emit setSearchPlace(MatchModel::Folder);
         emit setCurrentFolder();
         if (command == QLatin1String("newGrep"))
             emit newTab();
     }
 
     else if (command == QLatin1String("search") || command == QLatin1String("newSearch")) {
-        emit setSearchPlace(KatePluginSearchView::OpenFiles);
+        emit setSearchPlace(MatchModel::OpenFiles);
         if (command == QLatin1String("newSearch"))
             emit newTab();
     }
 
     else if (command == QLatin1String("pgrep") || command == QLatin1String("newPGrep")) {
-        emit setSearchPlace(KatePluginSearchView::Project);
+        emit setSearchPlace(MatchModel::Project);
         if (command == QLatin1String("newPGrep"))
             emit newTab();
     }

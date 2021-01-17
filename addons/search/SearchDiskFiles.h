@@ -1,8 +1,8 @@
 /*   Kate search plugin
  *
- * SPDX-FileCopyrightText: 2011-2013 Kåre Särs <kare.sars@iki.fi>
+ * SPDX-FileCopyrightText: 2011-2021 Kåre Särs <kare.sars@iki.fi>
  *
- * SPDX-License-Identifier: GPL-2.0-or-later
+ * SPDX-License-Identifier: LGPL-2.0-or-later
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -26,21 +26,7 @@
 #include <QThread>
 #include <QVector>
 
-#include <KTextEditor/Range>
-
-/**
- * data holder for one match in one file
- * used to transfer multiple matches at once via signals to avoid heavy costs for files with a lot of matches
- */
-class KateSearchMatch
-{
-    public:
-        QString lineContent;
-        int matchLen;
-        KTextEditor::Range matchRange;
-};
-
-Q_DECLARE_METATYPE(KateSearchMatch)
+#include "MatchModel.h"
 
 class SearchDiskFiles : public QThread
 {
@@ -64,7 +50,7 @@ public Q_SLOTS:
     void cancelSearch();
 
 Q_SIGNALS:
-    void matchesFound(const QString &url, const QString &docName, const QVector<KateSearchMatch> &searchMatches);
+    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
     void searchDone();
     void searching(const QString &file);
 

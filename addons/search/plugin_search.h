@@ -136,7 +136,7 @@ private Q_SLOTS:
 
     void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
 
-    void addMatchMark(KTextEditor::Document *doc, const QModelIndex &matchIndex);
+    void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match);
 
     void searchDone();
     void searchWhileTypingDone();
@@ -144,8 +144,8 @@ private Q_SLOTS:
 
     void itemSelected(const QModelIndex &item);
 
-    void clearMarks();
-    void clearDocMarks(KTextEditor::Document *doc);
+    void clearMarksAndRanges();
+    void clearDocMarksAndRanges(KTextEditor::Document *doc);
 
     void replaceSingleMatch();
     void replaceChecked();
@@ -153,6 +153,8 @@ private Q_SLOTS:
     void replaceDone();
 
     void updateMatchMarks();
+
+    void syncModelRanges();
 
     void resultTabChanged(int index);
 
@@ -172,8 +174,6 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
-    void addMatchesToRootFileItem(const QUrl &url, const QList<QTreeWidgetItem *> &matchItems);
-
     QStringList filterFiles(const QStringList &files) const;
     void updateSearchColors();
 
@@ -196,7 +196,7 @@ private:
     bool m_isVerticalLayout = false;
     bool m_blockDiskMatchFound = false;
     QString m_resultBaseDir;
-    QList<KTextEditor::MovingRange *> m_matchRanges;
+    QVector<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;
     QPointer<KTextEditor::Message> m_infoMessage;
     QBrush m_searchBackgroundColor;

@@ -175,6 +175,53 @@ KTextEditor::Range MatchModel::matchRange(const QModelIndex &matchIndex) const
     return m_matchFiles[fileRow].matches[matchRow].range;
 }
 
+const QVector<KateSearchMatch> &MatchModel::fileMatches(const QUrl& fileUrl) const
+{
+    static const QVector<KateSearchMatch> EmptyDummy;
+
+    int row = matchFileRow(fileUrl);
+    if (row < 0 || row >= m_matchFiles.size()) {
+        return EmptyDummy;
+    }
+    return m_matchFiles[row].matches;
+}
+
+void MatchModel::updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ranges)
+{
+    if (ranges.isEmpty()) {
+        return;
+    }
+
+    const QUrl &fileUrl = ranges.first()->document()->url();
+    // NOTE: we assume there are only ranges for one document in the provided ranges
+    // NOTE: we also assume the document is not deleted as we clear the ranges when the document is deleted
+
+    int fileRow = matchFileRow(fileUrl);
+    if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
+        //qDebug() << "No such results" << fileRow << fileUrl;
+        return; // No such document in the results
+    }
+
+    QVector<KateSearchMatch> &matches = m_matchFiles[fileRow].matches;
+
+    if (ranges.size() != matches.size()) {
+        // The sizes do not match so we cannot match the ranges easily.. abort
+        qDebug() << ranges.size() << "!=" << matches.size();
+        return;
+    }
+
+    if (ranges.size() > 1000) {
+        // if we have > 1000 matches in a file it could get slow to update it all the time
+        return;
+    }
+
+    for (int i=0; i<ranges.size(); ++i) {
+        matches[i].range = ranges[i]->toRange();
+    }
+    QModelIndex rootFileIndex = index(fileRow, 0, createIndex(0, 0, InfoItemId));
+    dataChanged(index(0, 0, rootFileIndex), index(matches.count()-1, 0, rootFileIndex));
+}
+
 
 /** This function is used to replace a match */
 bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString)
@@ -926,7 +973,7 @@ Qt::ItemFlags MatchModel::flags(const QModelIndex &index) const
 int MatchModel::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
-        return m_matchFiles.isEmpty() && m_searchState == SearchDone ? 0 : 1;
+        return /*m_matchFiles.isEmpty() && m_searchState == SearchDone ? 0 :*/ 1;
     }
 
     if (parent.internalId() == InfoItemId) {

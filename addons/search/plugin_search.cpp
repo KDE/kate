@@ -427,11 +427,14 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(&m_searchDiskFiles, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound);
     connect(&m_searchDiskFiles, &SearchDiskFiles::searchDone, this, &KatePluginSearchView::searchDone);
 
-
-
+    connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, &KatePluginSearchView::clearDocMarksAndRanges);
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, &m_searchOpenFiles, &SearchOpenFiles::cancelSearch);
-
-    connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, &KatePluginSearchView::clearDocMarks);
+    connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, [this]() {
+        Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+        if (res) {
+            res->matchModel.cancelReplace();
+        }
+    });
 
     m_ui.searchCombo->lineEdit()->setPlaceholderText(i18n("Find"));
     // Hook into line edit context menus
@@ -517,8 +520,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
 KatePluginSearchView::~KatePluginSearchView()
 {
-    clearMarks();
-
+    clearMarksAndRanges();
     m_mainWindow->guiFactory()->removeClient(this);
     delete m_toolView;
 }
@@ -599,16 +601,9 @@ void KatePluginSearchView::handleEsc(QEvent *e)
         }
         lastTimeStamp = k->timestamp();
         if (!m_matchRanges.isEmpty()) {
-            clearMarks();
+            clearMarksAndRanges();
         } else if (m_toolView->isVisible()) {
             m_mainWindow->hideToolView(m_toolView);
-        }
-
-        // Remove check marks
-        Results *curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-        if (!curResults) {
-            qWarning() << "This is a bug";
-            return;
         }
     }
 }
@@ -755,80 +750,6 @@ void KatePluginSearchView::searchPlaceChanged()
     }
 }
 
-void KatePluginSearchView::addMatchMark(KTextEditor::Document *doc, const QModelIndex &itemIndex)
-{
-    if (!doc || !itemIndex.isValid()) {
-        return;
-    }
-
-    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-
-    int line        = itemIndex.data(MatchModel::StartLineRole).toInt();
-    int column      = itemIndex.data(MatchModel::StartColumnRole).toInt();
-    int endLine     = itemIndex.data(MatchModel::EndLineRole).toInt();
-    int endColumn   = itemIndex.data(MatchModel::EndColumnRole).toInt();
-    bool isReplaced = itemIndex.data(MatchModel::ReplacedRole).toBool();
-
-    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-
-    if (isReplaced) {
-        attr->setBackground(m_replaceHighlightColor);
-    } else {
-        attr->setBackground(m_searchBackgroundColor);
-    }
-    attr->setForeground(m_foregroundColor);
-
-    KTextEditor::Range range(line, column, endLine, endColumn);
-
-    // Check that the match still matches
-    if (m_curResults) {
-        if (!isReplaced) {
-            // special handling for "(?=\\n)" in multi-line search
-            QRegularExpression tmpReg = m_curResults->regExp;
-            if (m_curResults->regExp.pattern().endsWith(QLatin1String("(?=\\n)"))) {
-                QString newPatern = tmpReg.pattern();
-                newPatern.replace(QStringLiteral("(?=\\n)"), QStringLiteral("$"));
-                tmpReg.setPattern(newPatern);
-            }
-
-            // Check that the match still matches ;)
-            if (tmpReg.match(doc->text(range)).capturedStart() != 0) {
-                // qDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
-                return;
-            }
-        } else {
-            if (doc->text(range) != itemIndex.data(MatchModel::ReplaceTextRole).toString()) {
-                ///qDebug() << doc->text(range) << "Does not match" << itemIndex.data(MatchModel::ReplaceTextRole).toString();
-                return;
-            }
-        }
-    }
-
-    // Highlight the match
-    KTextEditor::MovingRange *mr = miface->newMovingRange(range);
-    mr->setAttribute(attr);
-    mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
-    mr->setAttributeOnlyForViews(true);
-    m_matchRanges.append(mr);
-
-    // Add a match mark
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
-    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
-#else
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
-#endif
-    if (!iface)
-        return;
-    static const auto description = i18n("Search Match");
-    iface->setMarkDescription(KTextEditor::MarkInterface::markType32, description);
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
-    iface->setMarkIcon(KTextEditor::MarkInterface::markType32, QIcon());
-#else
-    iface->setMarkPixmap(KTextEditor::MarkInterface::markType32, QIcon().pixmap(0, 0));
-#endif
-    iface->addMark(line, KTextEditor::MarkInterface::markType32);
-}
-
 void KatePluginSearchView::matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches)
 {
     if (!m_curResults || (sender() == &m_searchDiskFiles && m_blockDiskMatchFound)) {
@@ -837,48 +758,6 @@ void KatePluginSearchView::matchesFound(const QUrl &url, const QVector<KateSearc
 
     m_curResults->matchModel.addMatches(url, searchMatches);
     m_curResults->matches += searchMatches.size();
-}
-
-void KatePluginSearchView::clearMarks()
-{
-    const auto docs = m_kateApp->documents();
-    for (KTextEditor::Document *doc : docs) {
-        clearDocMarks(doc);
-    }
-    qDeleteAll(m_matchRanges);
-    m_matchRanges.clear();
-}
-
-void KatePluginSearchView::clearDocMarks(KTextEditor::Document *doc)
-{
-    KTextEditor::MarkInterface *iface;
-    iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
-    if (iface) {
-        const QHash<int, KTextEditor::Mark *> marks = iface->marks();
-        QHashIterator<int, KTextEditor::Mark *> i(marks);
-        while (i.hasNext()) {
-            i.next();
-            if (i.value()->type & KTextEditor::MarkInterface::markType32) {
-                iface->removeMark(i.value()->line, KTextEditor::MarkInterface::markType32);
-            }
-        }
-    }
-
-    int i = 0;
-    while (i < m_matchRanges.size()) {
-        if (m_matchRanges.at(i)->document() == doc) {
-            delete m_matchRanges.at(i);
-            m_matchRanges.removeAt(i);
-        } else {
-            i++;
-        }
-    }
-
-    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!m_curResults) {
-        qWarning() << "This is a bug";
-        return;
-    }
 }
 
 void KatePluginSearchView::stopClicked()
@@ -1013,7 +892,7 @@ void KatePluginSearchView::startSearch()
     m_ui.expandResults->setDisabled(true);
     m_ui.currentFolderButton->setDisabled(true);
 
-    clearMarks();
+    clearMarksAndRanges();
     m_curResults->matches = 0;
 
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(), m_ui.searchCombo->currentText());
@@ -1178,7 +1057,7 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_ui.searchCombo->blockSignals(false);
 
     // Prepare for the new search content
-    clearMarks();
+    clearMarksAndRanges();
     m_resultBaseDir.clear();
     m_curResults->matches = 0;
 
@@ -1370,6 +1249,9 @@ void KatePluginSearchView::replaceSingleMatch()
 
 void KatePluginSearchView::replaceChecked()
 {
+    // Sync the current documents ranges with the model in case it has been edited
+    syncModelRanges();
+
     if (m_ui.searchCombo->findText(m_ui.searchCombo->currentText()) == -1) {
         m_ui.searchCombo->insertItem(1, m_ui.searchCombo->currentText());
         m_ui.searchCombo->setCurrentIndex(1);
@@ -1424,39 +1306,140 @@ void KatePluginSearchView::replaceDone()
     updateMatchMarks();
 }
 
+/** Remove all moving ranges and document marks belonging to Search & Replace */
+void KatePluginSearchView::clearMarksAndRanges()
+{
+    // If we have a MovingRange we have a corresponding MatchMark
+    while (!m_matchRanges.isEmpty()) {
+        clearDocMarksAndRanges(m_matchRanges.first()->document());
+    }
+}
+
+void KatePluginSearchView::clearDocMarksAndRanges(KTextEditor::Document *doc)
+{
+    // Before removing the ranges try to update the ranges in the model in case we have document changes.
+    syncModelRanges();
+
+    KTextEditor::MarkInterface *iface;
+    iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
+    if (iface) {
+        const QHash<int, KTextEditor::Mark *> marks = iface->marks();
+        QHashIterator<int, KTextEditor::Mark *> i(marks);
+        while (i.hasNext()) {
+            i.next();
+            if (i.value()->type & KTextEditor::MarkInterface::markType32) {
+                iface->removeMark(i.value()->line, KTextEditor::MarkInterface::markType32);
+            }
+        }
+    }
+
+    int i = 0;
+    while (i < m_matchRanges.size()) {
+        if (m_matchRanges.at(i)->document() == doc) {
+            delete m_matchRanges.at(i);
+            m_matchRanges.removeAt(i);
+        } else {
+            i++;
+        }
+    }
+}
+
+void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match)
+{
+    if (!doc) return;
+
+    bool isReplaced = !match.replaceText.isEmpty();
+
+    // Check that the match still matches
+    if (m_curResults) {
+        if (!isReplaced) {
+            // special handling for "(?=\\n)" in multi-line search
+            QRegularExpression tmpReg = m_curResults->regExp;
+            if (m_curResults->regExp.pattern().endsWith(QLatin1String("(?=\\n)"))) {
+                QString newPatern = tmpReg.pattern();
+                newPatern.replace(QStringLiteral("(?=\\n)"), QStringLiteral("$"));
+                tmpReg.setPattern(newPatern);
+            }
+            // Check that the match still matches ;)
+            if (tmpReg.match(doc->text(match.range)).capturedStart() != 0) {
+                // qDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
+                return;
+            }
+        } else {
+            if (doc->text(match.range) != match.replaceText) {
+                ///qDebug() << doc->text(range) << "Does not match" << itemIndex.data(MatchModel::ReplaceTextRole).toString();
+                return;
+            }
+        }
+    }
+
+    // Highlight the match
+    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
+    if (isReplaced) {
+        attr->setBackground(m_replaceHighlightColor);
+    } else {
+        attr->setBackground(m_searchBackgroundColor);
+    }
+    attr->setForeground(m_foregroundColor);
+
+    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+    KTextEditor::MovingRange *mr = miface->newMovingRange(match.range);
+    mr->setAttribute(attr);
+    mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
+    mr->setAttributeOnlyForViews(true);
+    m_matchRanges.append(mr);
+
+    // Add a match mark
+    #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
+    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
+    #else
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
+    #endif
+    if (!iface)
+        return;
+    static const auto description = i18n("Search Match");
+    iface->setMarkDescription(KTextEditor::MarkInterface::markType32, description);
+    #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
+    iface->setMarkIcon(KTextEditor::MarkInterface::markType32, QIcon());
+    #else
+    iface->setMarkPixmap(KTextEditor::MarkInterface::markType32, QIcon().pixmap(0, 0));
+    #endif
+    iface->addMark(match.range.start().line(), KTextEditor::MarkInterface::markType32);
+}
+
+
 void KatePluginSearchView::updateMatchMarks()
 {
-    if (!m_mainWindow->activeView()) {
-        return;
-    }
+    // We only keep marks & ranges for one document at a time so clear the rest
+    // This will also update the model ranges corresponding to the cleared ranges.
+    clearMarksAndRanges();
+
+    if (!m_mainWindow->activeView()) return;
 
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!res) {
-        // qDebug() << "No res";
-        return;
-    }
-
+    if (!res)  return;
     m_curResults = res;
 
     // add the marks if it is not already open
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
+    if (!doc) return;
 
-    if (!doc) {
-        return;
-    }
-
-    clearDocMarks(doc);
-    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarks()), Qt::UniqueConnection);
+    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarksAndRanges()), Qt::UniqueConnection);
     // Re-add the highlighting on document reload
     connect(doc, &KTextEditor::Document::reloaded, this, &KatePluginSearchView::updateMatchMarks, Qt::UniqueConnection);
 
     // Add match marks for all matches in the file
-    QModelIndex fileIndex = res->matchModel.fileIndex(doc->url());
-    int fileMatches = res->matchModel.rowCount(fileIndex);
-    for (int i=0; i<fileMatches; ++i) {
-        QModelIndex matchIndex = res->matchModel.index(i, 0, fileIndex);
-        addMatchMark(doc, matchIndex);
+    const QVector<KateSearchMatch> &fileMatches = res->matchModel.fileMatches(doc->url());
+    for (const KateSearchMatch &match: fileMatches) {
+        addRangeAndMark(doc, match);
     }
+}
+
+void KatePluginSearchView::syncModelRanges()
+{
+    if (!m_curResults) return;
+    // NOTE: We assume there are only ranges for one document in the ranges at a time...
+    m_curResults->matchModel.updateMatchRanges(m_matchRanges);
 }
 
 void KatePluginSearchView::expandResults()
@@ -1486,6 +1469,10 @@ void KatePluginSearchView::itemSelected(const QModelIndex &item)
         qDebug() << "No result widget available";
         return;
     }
+
+    // Sync the current document matches with the model before jumping
+    // FIXME do we want to do this on every edit in stead?
+    syncModelRanges();
 
     // open any children to go to the first match in the file
     QModelIndex matchItem = item;
@@ -1532,6 +1519,7 @@ void KatePluginSearchView::goToNextMatch()
     if (!res) {
         return;
     }
+    m_curResults = res;
 
     m_ui.displayOptions->setChecked(false);
 
@@ -1608,6 +1596,7 @@ void KatePluginSearchView::goToPreviousMatch()
     if (!res) {
         return;
     }
+    m_curResults = res;
 
     m_ui.displayOptions->setChecked(false);
 

@@ -16,8 +16,9 @@
 #include <QRegularExpression>
 
 #include <ktexteditor/application.h>
-#include <KTextEditor/Range>
 #include <KTextEditor/Cursor>
+#include <KTextEditor/Range>
+#include <KTextEditor/MovingRange>
 
 
 /**
@@ -72,7 +73,7 @@ public:
 private:
     struct MatchFile {
         QUrl fileUrl;
-        QVector<Match> matches;
+        QVector<KateSearchMatch> matches;
         Qt::CheckState checkState = Qt::Checked;
     };
 
@@ -96,6 +97,10 @@ public:
     void clear();
 
     KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
+
+    const QVector<KateSearchMatch> &fileMatches(const QUrl& fileUrl) const;
+
+    void updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ranges);
 
 public Q_SLOTS:
 

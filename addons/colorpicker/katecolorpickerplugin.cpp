@@ -22,6 +22,7 @@
 
 #include <QColor>
 #include <QColorDialog>
+#include <QFontMetricsF>
 #include <QHash>
 #include <QPainter>
 #include <QRegularExpression>
@@ -206,7 +207,12 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
     // ensure that the border color is always visible
     painter.setPen( (penColor.value() < 128 ? penColor.lighter(150) : penColor.darker(150)) );
     painter.setBrush(color);
-    painter.drawRoundedRect(1, 1, note.width() - 2, note.lineHeight() - 2, 2, 2);
+    painter.setRenderHint(QPainter::Antialiasing, false);
+    const QFontMetricsF fm(note.font());
+    const int inc = note.underMouse() ? 1 : 0;
+    const int ascent = fm.ascent();
+    const int margin = (note.lineHeight() - ascent) / 2;
+    painter.drawRect(margin - inc, margin - inc, ascent - 1 + 2 * inc, ascent - 1 + 2 * inc);
 }
 
 void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNote &note, Qt::MouseButtons, const QPoint &)

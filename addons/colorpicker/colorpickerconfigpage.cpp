@@ -31,7 +31,6 @@ KTextEditor::ConfigPage *KateColorPickerPlugin::configPage(int number, QWidget *
 KateColorPickerConfigPage::KateColorPickerConfigPage(QWidget *parent, KateColorPickerPlugin *plugin)
     : KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
-    , m_colorConfigChanged(true)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);

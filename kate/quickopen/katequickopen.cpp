@@ -31,6 +31,7 @@
 #include <QLabel>
 #include <QPainter>
 #include <QPointer>
+#include <QPropertyAnimation>
 #include <QSortFilterProxyModel>
 #include <QStandardItemModel>
 #include <QStyledItemDelegate>

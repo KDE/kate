@@ -27,6 +27,7 @@
 #include <QDBusMessage>
 #include <QDBusReply>
 #include <QDir>
+#include <QJsonDocument>
 #include <QSessionManager>
 #include <QTextCodec>
 #include <QUrl>

@@ -11,6 +11,9 @@
 #include <QKeyEvent>
 #include <QCoreApplication>
 #include <QSortFilterProxyModel>
+#include <QPainter>
+#include <QStyledItemDelegate>
+#include <QTextDocument>
 
 #include <kfts_fuzzy_match.h>
 
@@ -54,6 +57,59 @@ private:
     QString m_pattern;
 };
 
+class CommandBarStyleDelegate : public QStyledItemDelegate
+{
+public:
+    CommandBarStyleDelegate(QObject *parent = nullptr)
+        : QStyledItemDelegate(parent)
+    {
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        QStyleOptionViewItem options = option;
+        initStyleOption(&options, index);
+
+        QTextDocument doc;
+
+        QString str = index.data().toString();
+        const QString nameColor = option.palette.color(QPalette::Link).name();
+        kfts::to_fuzzy_matched_display_string(m_filterString, str, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+
+        doc.setHtml(QStringLiteral("<span>") + str + QStringLiteral("</span>"));
+        doc.setDocumentMargin(2);
+
+        painter->save();
+
+        // paint background
+        if (option.state & QStyle::State_Selected) {
+            painter->fillRect(option.rect, option.palette.highlight());
+        } else {
+            painter->fillRect(option.rect, option.palette.base());
+        }
+
+        options.text = QString(); // clear old text
+        options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+
+        // draw text
+        painter->translate(option.rect.x(), option.rect.y());
+        // leave space for icon
+        painter->translate(25, 0);
+        doc.drawContents(painter);
+
+        painter->restore();
+    }
+
+public Q_SLOTS:
+    void setFilterString(const QString &text)
+    {
+        m_filterString = text;
+    }
+
+private:
+    QString m_filterString;
+};
+
 KateCommandBar::KateCommandBar(QWidget *parent)
     : QMenu(parent)
 {
@@ -74,6 +130,9 @@ KateCommandBar::KateCommandBar(QWidget *parent)
 
     m_model = new CommandModel(this);
 
+    CommandBarStyleDelegate* delegate = new CommandBarStyleDelegate(this);
+    m_treeView->setItemDelegateForColumn(0, delegate);
+
     m_proxyModel = new CommandBarFilterModel(this);
     m_proxyModel->setFilterRole(Qt::DisplayRole);
     m_proxyModel->setSortRole(CommandModel::Score);
@@ -83,7 +142,12 @@ KateCommandBar::KateCommandBar(QWidget *parent)
 
     connect(m_lineEdit, &QLineEdit::returnPressed, this, &KateCommandBar::slotReturnPressed);
     connect(m_lineEdit, &QLineEdit::textChanged, m_proxyModel, &CommandBarFilterModel::setFilterString);
-    connect(m_lineEdit, &QLineEdit::textChanged, m_proxyModel, [this](){ reselectFirst(); });
+    connect(m_lineEdit, &QLineEdit::textChanged, delegate, &CommandBarStyleDelegate::setFilterString);
+    connect(m_lineEdit, &QLineEdit::textChanged, this, [this](){
+        m_treeView->viewport()->update();
+        reselectFirst();
+    });
+    connect(m_treeView, &QTreeView::clicked, this, &KateCommandBar::slotReturnPressed);
 
     m_proxyModel->setSourceModel(m_model);
     m_treeView->setSortingEnabled(true);

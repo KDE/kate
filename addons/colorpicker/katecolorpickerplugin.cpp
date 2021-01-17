@@ -17,6 +17,7 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 #include <KConfigGroup>
+#include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
 
@@ -228,10 +229,10 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
     const auto oldColor = QColor(m_doc->text({line, colorStart, line, colorEnd}));
 
     QColorDialog::ColorDialogOptions dialogOptions = QColorDialog::ShowAlphaChannel;
-    QString title = QLatin1String("Select Color (Hex output)");
+    QString title = i18n("Select Color (Hex output)");
     if (!m_doc->isReadWrite()) {
         dialogOptions |= QColorDialog::NoButtons;
-        title = QLatin1String("View Color [Read only]");
+        title = i18n("View Color [Read only]");
     }
     const auto newColor = QColorDialog::getColor(oldColor, const_cast<KTextEditor::View*>(note.view()), title, dialogOptions);
     if (!newColor.isValid()) {

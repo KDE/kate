@@ -1,8 +1,8 @@
 /*   Kate search plugin
  *
- * SPDX-FileCopyrightText: 2011-2013 Kåre Särs <kare.sars@iki.fi>
+ * SPDX-FileCopyrightText: 2011-2021 Kåre Särs <kare.sars@iki.fi>
  *
- * SPDX-License-Identifier: GPL-2.0-or-later
+ * SPDX-License-Identifier: LGPL-2.0-or-later
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of

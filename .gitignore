@@ -4,7 +4,7 @@
 *.orig
 *.out
 CMakeLists.txt.user*
-.clang-format
+/.clang-format
 
 # kate
 *~
@@ -23,5 +23,7 @@ CMakeLists.txt.user*
 .directory
 
 # LSP Server data
-.clangd
-.cmake/
+/.clangd
+/.cmake/
+/.cache/
+/compile_commands.json

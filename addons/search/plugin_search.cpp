@@ -793,12 +793,19 @@ void KatePluginSearchView::updateSearchColors()
             m_replaceHighlightColor = Qt::green;
         m_foregroundColor = QBrush(view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
 
+        QColor lineNrBackgroundColor = ciface->configValue(QStringLiteral("icon-border-color")).value<QColor>();
+        if (!lineNrBackgroundColor.isValid())
+            lineNrBackgroundColor = view->defaultStyleAttribute(KTextEditor::dsNormal)->background().color();
+
         if (m_curResults) {
             auto* delegate = qobject_cast<SPHtmlDelegate*>(m_curResults->treeView->itemDelegate());
             if (delegate) {
                 delegate->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
             }
-            m_curResults->matchModel.setMatchColors(m_foregroundColor.color(), m_searchBackgroundColor.color(), m_replaceHighlightColor.color());
+            m_curResults->matchModel.setMatchColors(m_foregroundColor.color(),
+                                                    m_searchBackgroundColor.color(),
+                                                    m_replaceHighlightColor.color(),
+                                                    lineNrBackgroundColor);
         }
     }
 }

@@ -144,11 +144,12 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     endInsertRows();
 }
 
-void MatchModel::setMatchColors(const QColor &foreground, const QColor &background, const QColor &replaseBackground)
+void MatchModel::setMatchColors(const QColor &foreground, const QColor &background, const QColor &replaceBackground, const QColor &lineNrBackground)
 {
     m_foregroundColor = foreground;
     m_searchBackgroundColor = background;
-    m_replaceHighlightColor = replaseBackground;
+    m_replaceHighlightColor = replaceBackground;
+    m_lineNumberBackgroundColor = lineNrBackground;
 }
 
 KateSearchMatch *MatchModel::matchFromIndex(const QModelIndex &matchIndex)
@@ -558,7 +559,8 @@ QString MatchModel::matchToHtmlString(const Match &match) const
     post = post.toHtmlEscaped();
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-    QString displayText = QStringLiteral("(<b>%1:%2</b>) &nbsp;")
+    QString displayText = QStringLiteral("<span style=\"background-color:%1; color:%2;\">&nbsp;<b>%3:%4:</b></span>&nbsp;")
+    .arg(m_lineNumberBackgroundColor.name()).arg(m_foregroundColor.name())
     .arg(nbsFormated(match.range.start().line() + 1, 3))
     .arg(nbsFormated(match.range.start().column() + 1, 3)) + pre + matchStr + post;
 
@@ -655,7 +657,7 @@ QString MatchModel::matchToPlainText(const Match &match) const
     replaceStr.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-    QString displayText = QStringLiteral("(%1:%2) ")
+    QString displayText = QStringLiteral("%1:%2: ")
     .arg(match.range.start().line() + 1, 3)
     .arg(match.range.start().column() + 1, 3) + pre + matchStr + post;
     return displayText;

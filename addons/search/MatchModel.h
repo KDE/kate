@@ -83,7 +83,7 @@ public:
 
     void setDocumentManager(KTextEditor::Application *manager);
 
-    void setMatchColors(const QColor &foreground, const QColor &background, const QColor &replaseBackground);
+    void setMatchColors(const QColor &foreground, const QColor &background, const QColor &replaceBackground, const QColor &lineNrBackground);
 
     void setSearchPlace(MatchModel::SearchPlaces searchPlace);
 
@@ -172,6 +172,7 @@ private:
     QColor m_searchBackgroundColor;
     QColor m_foregroundColor;
     QColor m_replaceHighlightColor;
+    QColor m_lineNumberBackgroundColor;
 
     Qt::CheckState m_infoCheckState = Qt::Checked;
     SearchPlaces m_searchPlace = CurrentFile;

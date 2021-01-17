@@ -35,8 +35,6 @@ bool ColorPickerInlineNoteProvider::s_putPreviewAfterColor = true;
 
 ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Document *doc)
     : m_doc(doc)
-    , m_startChangedLines(-1)
-    , m_previousNumLines(-1)
 {
     // initialize the color regex
     updateColorMatchingCriteria();

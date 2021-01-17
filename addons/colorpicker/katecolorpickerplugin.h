@@ -38,8 +38,9 @@ public:
 
 private:
     KTextEditor::Document *m_doc;
-    int m_startChangedLines;
-    int m_previousNumLines;
+    int m_startChangedLines = -1;
+    int m_previousNumLines = -1;
+
     // line, <colorNoteIndex, otherColorIndex>
     mutable QHash<int, QHash<int, int>> m_colorNoteIndices;
 

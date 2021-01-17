@@ -25,6 +25,7 @@
 #include "katesessionsaction.h"
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
+#include "katecommandbar.h"
 
 #include <KAboutData>
 #include <KActionCollection>
@@ -252,6 +253,12 @@ void KateMainWindow::setupImportantActions()
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
+
+    a = actionCollection()->addAction(QStringLiteral("view_commandbar_open"));
+//    a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
+//    a->setText(i18n("&Quick Open"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_I));
+    connect(a, &QAction::triggered, this, &KateMainWindow::slotCommandBarOpen);
 }
 
 void KateMainWindow::setupMainWindow()
@@ -266,6 +273,8 @@ void KateMainWindow::setupMainWindow()
     (static_cast<QBoxLayout *>(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget, 100);
 
     m_quickOpen = new KateQuickOpen(this);
+
+    m_commandBar = new KateCommandBar(this);
 
     m_viewManager = new KateViewManager(m_mainStackedWidget, this);
     m_mainStackedWidget->addWidget(m_viewManager);
@@ -1206,6 +1215,19 @@ void KateMainWindow::slotQuickOpen()
      */
     m_quickOpen->update();
     centralWidget()->setFocusProxy(m_quickOpen);
+}
+
+void KateMainWindow::slotCommandBarOpen()
+{
+    QList<QAction*> acts;
+
+    auto clients = guiFactory()->clients();
+    for (auto c : clients) {
+        acts.append(c->actionCollection()->actions());
+    }
+
+    m_commandBar->updateBar(acts);
+    centralWidget()->setFocusProxy(m_commandBar);
 }
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text)

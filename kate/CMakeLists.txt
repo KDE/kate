@@ -84,13 +84,15 @@ target_sources(
     katemwmodonhddialog.cpp
     katepluginmanager.cpp
 
-
     katerunninginstanceinfo.cpp
     katesavemodifieddialog.cpp
     katetabbar.cpp
     kateviewmanager.cpp
     kateviewspace.cpp
     katewaiter.cpp
+
+    katecommandbar.cpp
+    commandmodel.cpp
 )
 
 # Executable only adds the main definition.

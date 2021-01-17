@@ -43,6 +43,7 @@ class KateViewManager;
 class KateMwModOnHdDialog;
 class KateQuickOpen;
 enum KateQuickOpenModelList : int;
+class KateCommandBar;
 
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
@@ -170,6 +171,8 @@ public Q_SLOTS:
      * Show quick open
      */
     void slotQuickOpen();
+
+    void slotCommandBarOpen();
 
     /**
      * Overwrite size hint for better default window sizes
@@ -539,6 +542,11 @@ private:
      * quick open to fast switch documents
      */
     KateQuickOpen *m_quickOpen = nullptr;
+
+    /**
+     * quick command bar to quickly trigger any action
+     */
+    KateCommandBar* m_commandBar = nullptr;
 
     /**
      * keeps track of views

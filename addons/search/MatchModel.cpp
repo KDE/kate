@@ -975,7 +975,7 @@ Qt::ItemFlags MatchModel::flags(const QModelIndex &index) const
 int MatchModel::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
-        return /*m_matchFiles.isEmpty() && m_searchState == SearchDone ? 0 :*/ 1;
+        return (m_matchFiles.isEmpty() && m_searchState == SearchDone) ? 0 : 1;
     }
 
     if (parent.internalId() == InfoItemId) {

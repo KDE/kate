@@ -201,7 +201,7 @@ private:
     QTimer m_changeTimer;
     QPointer<KTextEditor::Message> m_infoMessage;
     QColor m_replaceHighlightColor;
-    KTextEditor::Attribute::Ptr resultAttr;
+    KTextEditor::Attribute::Ptr m_resultAttr;
 
     /**
      * current project plugin view, if any

@@ -797,12 +797,12 @@ void KatePluginSearchView::updateSearchColors()
         if (!lineNrBackgroundColor.isValid())
             lineNrBackgroundColor = view->defaultStyleAttribute(KTextEditor::dsNormal)->background().color();
 
-        if (!resultAttr)
-            resultAttr = new KTextEditor::Attribute();
+        if (!m_resultAttr)
+            m_resultAttr = new KTextEditor::Attribute();
         // reset colors at the start of search
-        resultAttr->clear();
-        resultAttr->setBackground(searchBackgroundColor);
-        resultAttr->setForeground(foregroundColor);
+        m_resultAttr->clear();
+        m_resultAttr->setBackground(searchBackgroundColor);
+        m_resultAttr->setForeground(foregroundColor);
 
         if (m_curResults) {
             auto* delegate = qobject_cast<SPHtmlDelegate*>(m_curResults->treeView->itemDelegate());
@@ -1443,7 +1443,7 @@ void KatePluginSearchView::updateMatchMarks()
     // Add match marks for all matches in the file
     const QVector<KateSearchMatch> &fileMatches = res->matchModel.fileMatches(doc->url());
     for (const KateSearchMatch &match: fileMatches) {
-        addRangeAndMark(doc, match, resultAttr, miface);
+        addRangeAndMark(doc, match, m_resultAttr, miface);
     }
 }
 

@@ -15,6 +15,8 @@
 #include <QStyledItemDelegate>
 #include <QTextDocument>
 
+#include <KActionCollection>
+
 #include <kfts_fuzzy_match.h>
 
 class CommandBarFilterModel : public QSortFilterProxyModel
@@ -47,7 +49,7 @@ protected:
 
         int score = 0;
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        const QString actionName = idx.data().toString();
+        const auto actionName = idx.data().toString().splitRef(QLatin1Char(':')).at(1);
         const bool res = kfts::fuzzy_match(m_pattern, actionName, score);
         sourceModel()->setData(idx, score, CommandModel::Score);
         return res;
@@ -72,11 +74,14 @@ public:
 
         QTextDocument doc;
 
-        QString str = index.data().toString();
+        const auto strs = index.data().toString().split(QLatin1Char(':'));
+        QString str = strs.at(1);
         const QString nameColor = option.palette.color(QPalette::Link).name();
         kfts::to_fuzzy_matched_display_string(m_filterString, str, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
 
-        doc.setHtml(QStringLiteral("<span>") + str + QStringLiteral("</span>"));
+        const QString component = QStringLiteral("<span style=\"color: gray;\">") + strs.at(0) + QStringLiteral(": </span>");
+
+        doc.setHtml(component + str);
         doc.setDocumentMargin(2);
 
         painter->save();
@@ -164,9 +169,16 @@ KateCommandBar::KateCommandBar(QWidget *parent)
     setHidden(true);
 }
 
-void KateCommandBar::updateBar(QList<QAction *> actions)
+void KateCommandBar::updateBar(QList<KActionCollection *> actionCollections)
 {
-    m_model->refresh(actions);
+    QVector<QPair<QString, QAction*>> actionList;
+    for (const auto collection : actionCollections) {
+        for (const auto action : collection->actions()) {
+            actionList.append({collection->componentDisplayName(), action});
+        }
+    }
+
+    m_model->refresh(actionList);
     reselectFirst();
 
     updateViewGeometry();

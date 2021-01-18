@@ -9,12 +9,12 @@ CommandModel::CommandModel(QObject *parent)
 {
 }
 
-void CommandModel::refresh(QList<QAction *> actions)
+void CommandModel::refresh(QVector<QPair<QString, QAction*>> actionList)
 {
     QVector<Item> temp;
-    temp.reserve(actions.size());
-    for (auto action : actions) {
-        temp.push_back({action, 0});
+    temp.reserve(actionList.size());
+    for (auto action : actionList) {
+        temp.push_back({action.first, action.second, 0});
     }
 
     beginResetModel();
@@ -34,7 +34,7 @@ QVariant CommandModel::data(const QModelIndex &index, int role) const
     {
     case Qt::DisplayRole:
         if (col == 0)
-            return KLocalizedString::removeAcceleratorMarker(entry.action->text());
+            return QString(entry.component + QStringLiteral(": ") + KLocalizedString::removeAcceleratorMarker(entry.action->text()));
         else
             return entry.action->shortcut().toString();
     case Qt::DecorationRole:

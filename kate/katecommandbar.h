@@ -6,6 +6,7 @@ class QLineEdit;
 class CommandModel;
 class QAction;
 class CommandBarFilterModel;
+class KActionCollection;
 
 class KateCommandBar : public QMenu
 {
@@ -13,7 +14,7 @@ class KateCommandBar : public QMenu
 public:
     KateCommandBar(QWidget* parent = nullptr);
 
-    void updateBar(QList<QAction*> actions);
+    void updateBar(QList<KActionCollection*> actions);
 
     void updateViewGeometry();
 

@@ -10,6 +10,7 @@ class CommandModel : public QAbstractTableModel
 {
     struct Item
     {
+        QString component;
         QAction* action;
         int score;
     };
@@ -20,7 +21,7 @@ public:
 
     enum Role { Score = Qt::UserRole + 1 };
 
-    void refresh(QList<QAction*> actions);
+    void refresh(QVector<QPair<QString, QAction*>> actionList);
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const override
     {

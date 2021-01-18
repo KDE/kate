@@ -1219,14 +1219,14 @@ void KateMainWindow::slotQuickOpen()
 
 void KateMainWindow::slotCommandBarOpen()
 {
-    QList<QAction*> acts;
+    QList<KActionCollection*> actionCollections;
 
     auto clients = guiFactory()->clients();
     for (auto c : clients) {
-        acts.append(c->actionCollection()->actions());
+        actionCollections.append(c->actionCollection());
     }
 
-    m_commandBar->updateBar(acts);
+    m_commandBar->updateBar(actionCollections);
     centralWidget()->setFocusProxy(m_commandBar);
 }
 

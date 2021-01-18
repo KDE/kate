@@ -1347,15 +1347,16 @@ void KatePluginSearchView::clearDocMarksAndRanges(KTextEditor::Document *doc)
         }
     }
 
-    int i = 0;
-    while (i < m_matchRanges.size()) {
-        if (m_matchRanges.at(i)->document() == doc) {
-            delete m_matchRanges.at(i);
-            m_matchRanges.removeAt(i);
-        } else {
-            i++;
-        }
-    }
+    m_matchRanges.erase(std::remove_if(m_matchRanges.begin(),
+                                   m_matchRanges.end(),
+                                   [doc](KTextEditor::MovingRange *r) {
+                                       if (r->document() == doc) {
+                                           delete r;
+                                           return true;
+                                       }
+                                       return false;
+                                   }),
+                    m_matchRanges.end());
 }
 
 void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr, KTextEditor::MovingInterface *miface)

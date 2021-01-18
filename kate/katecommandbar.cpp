@@ -240,6 +240,14 @@ void KateCommandBar::slotReturnPressed()
             auto menuActions = menu->actions();
             QVector<QPair<QString, QAction*>> list;
             list.reserve(menuActions.size());
+
+            // if there are no actions, trigger load actions
+            // this happens with some menus that are loaded on demand
+            if (menuActions.size() == 0) {
+                Q_EMIT menu->aboutToShow();
+                menuActions = menu->actions();
+            }
+
             for (auto menuAction : menuActions) {
                 if (menuAction) {
                     list.append({KLocalizedString::removeAcceleratorMarker(act->text()), menuAction});
@@ -247,11 +255,6 @@ void KateCommandBar::slotReturnPressed()
             }
             m_model->refresh(list);
             m_lineEdit->clear();
-            // if there are no actions for some reason??! hide, dont stay empty
-            // This is currently happening with Color Themes :/
-            if (list.size() == 0) {
-                hide();
-            }
             return;
         } else {
             act->trigger();

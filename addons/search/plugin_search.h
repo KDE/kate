@@ -44,6 +44,7 @@ class QPoint;
 namespace KTextEditor
 {
 class MovingRange;
+class MovingInterface;
 }
 
 class Results : public QWidget, public Ui::Results
@@ -136,7 +137,7 @@ private Q_SLOTS:
 
     void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
 
-    void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match);
+    void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr, KTextEditor::MovingInterface *miface);
 
     void searchDone();
     void searchWhileTypingDone();
@@ -199,9 +200,8 @@ private:
     QVector<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;
     QPointer<KTextEditor::Message> m_infoMessage;
-    QBrush m_searchBackgroundColor;
-    QBrush m_foregroundColor;
-    QBrush m_replaceHighlightColor;
+    QColor m_replaceHighlightColor;
+    KTextEditor::Attribute::Ptr resultAttr;
 
     /**
      * current project plugin view, if any

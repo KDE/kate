@@ -785,26 +785,33 @@ void KatePluginSearchView::updateSearchColors()
     KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(view);
     if (ciface && view) {
         // save for later reuse when the search tree starts getting populated
-        m_searchBackgroundColor = QBrush(ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>());
-        if (!m_searchBackgroundColor.color().isValid())
-            m_searchBackgroundColor = Qt::yellow;
-        m_replaceHighlightColor = QBrush(ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>());
-        if (!m_replaceHighlightColor.color().isValid())
-            m_replaceHighlightColor = Qt::green;
-        m_foregroundColor = QBrush(view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
+        QColor searchBackgroundColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
+        if (!searchBackgroundColor.isValid())
+            searchBackgroundColor = Qt::yellow;
+        QColor replaceHighlightColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
+        if (!replaceHighlightColor.isValid())
+            replaceHighlightColor = Qt::green;
+        QColor foregroundColor = view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color();
 
         QColor lineNrBackgroundColor = ciface->configValue(QStringLiteral("icon-border-color")).value<QColor>();
         if (!lineNrBackgroundColor.isValid())
             lineNrBackgroundColor = view->defaultStyleAttribute(KTextEditor::dsNormal)->background().color();
+
+        if (!resultAttr)
+            resultAttr = new KTextEditor::Attribute();
+        // reset colors at the start of search
+        resultAttr->clear();
+        resultAttr->setBackground(searchBackgroundColor);
+        resultAttr->setForeground(foregroundColor);
 
         if (m_curResults) {
             auto* delegate = qobject_cast<SPHtmlDelegate*>(m_curResults->treeView->itemDelegate());
             if (delegate) {
                 delegate->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
             }
-            m_curResults->matchModel.setMatchColors(m_foregroundColor.color(),
-                                                    m_searchBackgroundColor.color(),
-                                                    m_replaceHighlightColor.color(),
+            m_curResults->matchModel.setMatchColors(foregroundColor,
+                                                    searchBackgroundColor,
+                                                    replaceHighlightColor,
                                                     lineNrBackgroundColor);
         }
     }
@@ -1351,7 +1358,7 @@ void KatePluginSearchView::clearDocMarksAndRanges(KTextEditor::Document *doc)
     }
 }
 
-void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match)
+void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr, KTextEditor::MovingInterface *miface)
 {
     if (!doc) return;
 
@@ -1381,15 +1388,10 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc, const Kat
     }
 
     // Highlight the match
-    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
     if (isReplaced) {
         attr->setBackground(m_replaceHighlightColor);
-    } else {
-        attr->setBackground(m_searchBackgroundColor);
     }
-    attr->setForeground(m_foregroundColor);
 
-    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
     KTextEditor::MovingRange *mr = miface->newMovingRange(match.range);
     mr->setAttribute(attr);
     mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
@@ -1435,10 +1437,12 @@ void KatePluginSearchView::updateMatchMarks()
     // Re-add the highlighting on document reload
     connect(doc, &KTextEditor::Document::reloaded, this, &KatePluginSearchView::updateMatchMarks, Qt::UniqueConnection);
 
+    KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+
     // Add match marks for all matches in the file
     const QVector<KateSearchMatch> &fileMatches = res->matchModel.fileMatches(doc->url());
     for (const KateSearchMatch &match: fileMatches) {
-        addRangeAndMark(doc, match);
+        addRangeAndMark(doc, match, resultAttr, miface);
     }
 }
 

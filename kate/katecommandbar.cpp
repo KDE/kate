@@ -21,6 +21,7 @@
 #include <QTextDocument>
 
 #include <KActionCollection>
+#include <KLocalizedString>
 
 #include <kfts_fuzzy_match.h>
 
@@ -179,10 +180,6 @@ void KateCommandBar::updateBar(QList<KActionCollection *> actionCollections)
     QVector<QPair<QString, QAction*>> actionList;
     for (const auto collection : actionCollections) {
         for (const auto action : collection->actions()) {
-            // filter out stuff one can not really trigger
-            if (action->menu())
-                continue;
-
             actionList.append({collection->componentDisplayName(), action});
         }
     }
@@ -236,8 +233,30 @@ bool KateCommandBar::eventFilter(QObject *obj, QEvent *event)
 void KateCommandBar::slotReturnPressed()
 {
     auto act = m_proxyModel->data(m_treeView->currentIndex(), Qt::UserRole).value<QAction*>();
-    if (act)
-        act->trigger();
+    if (act) {
+        // if the action is a menu, we take all its actions
+        // and reload our dialog with these instead.
+        if (auto menu = act->menu()) {
+            auto menuActions = menu->actions();
+            QVector<QPair<QString, QAction*>> list;
+            list.reserve(menuActions.size());
+            for (auto menuAction : menuActions) {
+                if (menuAction) {
+                    list.append({KLocalizedString::removeAcceleratorMarker(act->text()), menuAction});
+                }
+            }
+            m_model->refresh(list);
+            m_lineEdit->clear();
+            // if there are no actions for some reason??! hide, dont stay empty
+            // This is currently happening with Color Themes :/
+            if (list.size() == 0) {
+                hide();
+            }
+            return;
+        } else {
+            act->trigger();
+        }
+    }
     m_lineEdit->clear();
     hide();
 }

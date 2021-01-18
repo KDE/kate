@@ -174,6 +174,10 @@ void KateCommandBar::updateBar(QList<KActionCollection *> actionCollections)
     QVector<QPair<QString, QAction*>> actionList;
     for (const auto collection : actionCollections) {
         for (const auto action : collection->actions()) {
+            // filter out stuff one can not really trigger
+            if (action->menu())
+                continue;
+
             actionList.append({collection->componentDisplayName(), action});
         }
     }

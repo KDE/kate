@@ -173,10 +173,16 @@ public:
             int i = 0;
             painter->setRenderHint(QPainter::Antialiasing); // :)
             for (const auto& pxm : btnRects) {
-                // draw rounded rect
+                // draw rounded rect shadown
                 painter->setPen(Qt::NoPen);
-                painter->setBrush(option.palette.button());
                 QRect r(dx, y, pxm.first.width(), pxm.first.height());
+                auto shadow = r.translated(0, 1);
+
+                painter->setBrush(option.palette.shadow());
+                painter->drawRoundedRect(shadow, 3, 3);
+
+                // draw rounded rect itself
+                painter->setBrush(option.palette.button());
                 painter->drawRoundedRect(r, 3, 3);
 
                 // draw text inside rounded rect

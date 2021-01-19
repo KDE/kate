@@ -154,16 +154,13 @@ public:
 
         if (!strs.isEmpty()) {
             // collect button-style pixmaps
-            QVector<QPixmap> btnPixmaps;
+            QVector<QPair<QRect, QString>> btnRects;
             auto list = strs.split(QLatin1Char('+'));
             for (auto text : list) {
                 auto r = option.fontMetrics.boundingRect(text);
                 r.setWidth(r.width() + 8);
                 r.setHeight(r.height() + 4);
-                QPushButton b(text);
-                b.setGeometry(r);
-                auto px = b.grab();
-                btnPixmaps.append(px);
+                btnRects.append({r, text});
             }
 
             auto plusRect = option.fontMetrics.boundingRect(QLatin1Char('+'));
@@ -172,13 +169,24 @@ public:
             int dx = option.rect.x();
             int y = option.rect.y();
             int py = option.rect.y() + plusRect.height() / 2;
-            int total = btnPixmaps.size();
+            int total = btnRects.size();
             int i = 0;
-            for (const auto& pxm : btnPixmaps) {
-                painter->drawPixmap(dx, y, pxm);
+            painter->setRenderHint(QPainter::Antialiasing); // :)
+            for (const auto& pxm : btnRects) {
+                // draw rounded rect
+                painter->setPen(Qt::NoPen);
+                painter->setBrush(option.palette.button());
+                QRect r(dx, y, pxm.first.width(), pxm.first.height());
+                painter->drawRoundedRect(r, 3, 3);
+
+                // draw text inside rounded rect
+                painter->setPen(option.palette.buttonText().color());
+                painter->drawText(r, Qt::AlignCenter, pxm.second);
+
+                // draw '+'
                 if (i + 1 < total) {
-                    dx += pxm.width() + 8;
-                    painter->drawText(QPoint(dx, py + (pxm.height() / 2)), QStringLiteral("+"));
+                    dx += pxm.first.width() + 8;
+                    painter->drawText(QPoint(dx, py + (pxm.first.height() / 2)), QStringLiteral("+"));
                     dx += plusRect.width() + 8;
                 }
                 i++;

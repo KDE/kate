@@ -6,17 +6,17 @@
 #include "katecommandbar.h"
 #include "commandmodel.h"
 
+#include <QCoreApplication>
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QLineEdit>
-#include <QDebug>
 #include <QAction>
-#include <QPropertyAnimation>
 #include <QPointer>
 #include <QKeyEvent>
-#include <QCoreApplication>
-#include <QSortFilterProxyModel>
 #include <QPainter>
+#include <QPixmap>
+#include <QPushButton>
+#include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QTextDocument>
 
@@ -121,6 +121,74 @@ private:
     QString m_filterString;
 };
 
+class ShortcutStyleDelegate : public QStyledItemDelegate
+{
+public:
+    ShortcutStyleDelegate(QObject *parent = nullptr)
+        : QStyledItemDelegate(parent)
+    {
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        QStyleOptionViewItem options = option;
+        initStyleOption(&options, index);
+
+        QTextDocument doc;
+
+        const auto strs = index.data().toString();
+        doc.setDocumentMargin(2);
+        doc.setHtml(strs);
+
+        painter->save();
+
+        // paint background
+        if (option.state & QStyle::State_Selected) {
+            painter->fillRect(option.rect, option.palette.highlight());
+        } else {
+            painter->fillRect(option.rect, option.palette.base());
+        }
+
+        options.text = QString(); // clear old text
+        options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+
+        if (!strs.isEmpty()) {
+            // collect button-style pixmaps
+            QVector<QPixmap> btnPixmaps;
+            auto list = strs.split(QLatin1Char('+'));
+            for (auto text : list) {
+                auto r = option.fontMetrics.boundingRect(text);
+                r.setWidth(r.width() + 8);
+                r.setHeight(r.height() + 4);
+                QPushButton b(text);
+                b.setGeometry(r);
+                auto px = b.grab();
+                btnPixmaps.append(px);
+            }
+
+            auto plusRect = option.fontMetrics.boundingRect(QLatin1Char('+'));
+
+            // draw them
+            int dx = option.rect.x();
+            int y = option.rect.y();
+            int py = option.rect.y() + plusRect.height() / 2;
+            int total = btnPixmaps.size();
+            int i = 0;
+            for (const auto& pxm : btnPixmaps) {
+                painter->drawPixmap(dx, y, pxm);
+                if (i + 1 < total) {
+                    dx += pxm.width() + 8;
+                    painter->drawText(QPoint(dx, py + (pxm.height() / 2)), QStringLiteral("+"));
+                    dx += plusRect.width() + 8;
+                }
+                i++;
+            }
+        }
+
+        painter->restore();
+    }
+};
+
 KateCommandBar::KateCommandBar(QWidget *parent)
     : QMenu(parent)
 {
@@ -142,7 +210,9 @@ KateCommandBar::KateCommandBar(QWidget *parent)
     m_model = new CommandModel(this);
 
     CommandBarStyleDelegate* delegate = new CommandBarStyleDelegate(this);
+    ShortcutStyleDelegate* del = new ShortcutStyleDelegate(this);
     m_treeView->setItemDelegateForColumn(0, delegate);
+    m_treeView->setItemDelegateForColumn(1, del);
 
     m_proxyModel = new CommandBarFilterModel(this);
     m_proxyModel->setFilterRole(Qt::DisplayRole);

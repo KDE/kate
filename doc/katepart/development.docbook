@@ -2038,6 +2038,39 @@ view. The following is a list of all available View functions.
 
 <varlistentry>
 <term><synopsis>
+<function>void view.copy()</function>
+</synopsis></term>
+<listitem>
+<para>Copy the selection if there is one, otherwise the current line if the option <userinput>[ ] Copy/Cut the current line if no selection</userinput> is set.</para>
+<para>Since: &kde-frameworks; 5.79</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
+<function>void view.cut()</function>
+</synopsis></term>
+<listitem>
+<para>Cut the selection if there is one, otherwise the current line if the option <userinput>[ ] Copy/Cut the current line if no selection</userinput> is set.</para>
+<para>Since: &kde-frameworks; 5.79</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
+<function>void view.paste()</function>
+</synopsis></term>
+<listitem>
+<para>Paste the clipboard content.</para>
+<para>Since: &kde-frameworks; 5.79</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
 <function>Cursor view.cursorPosition()</function>
 </synopsis></term>
 <listitem><para>Returns the current cursor position in the view.</para></listitem>

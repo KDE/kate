@@ -19,7 +19,7 @@ class KateCommandBar : public QMenu
 public:
     KateCommandBar(QWidget* parent = nullptr);
 
-    void updateBar(QList<KActionCollection*> actions);
+    void updateBar(const QList<KActionCollection*>& actions);
 
     void updateViewGeometry();
 

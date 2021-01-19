@@ -225,8 +225,6 @@ KateCommandBar::KateCommandBar(QWidget *parent)
     m_proxyModel = new CommandBarFilterModel(this);
     m_proxyModel->setFilterRole(Qt::DisplayRole);
     m_proxyModel->setSortRole(CommandModel::Score);
-    m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    m_proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
     m_proxyModel->setFilterKeyColumn(0);
 
     connect(m_lineEdit, &QLineEdit::returnPressed, this, &KateCommandBar::slotReturnPressed);
@@ -253,7 +251,7 @@ KateCommandBar::KateCommandBar(QWidget *parent)
     setHidden(true);
 }
 
-void KateCommandBar::updateBar(QList<KActionCollection *> actionCollections)
+void KateCommandBar::updateBar(const QList<KActionCollection *> &actionCollections)
 {
     QVector<QPair<QString, QAction*>> actionList;
     for (const auto collection : actionCollections) {
@@ -262,7 +260,7 @@ void KateCommandBar::updateBar(QList<KActionCollection *> actionCollections)
         }
     }
 
-    m_model->refresh(actionList);
+    m_model->refresh(std::move(actionList));
     reselectFirst();
 
     updateViewGeometry();

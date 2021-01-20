@@ -80,6 +80,8 @@ public:
 
         QTextDocument doc;
 
+        const auto original = index.data().toString();
+
         const auto strs = index.data().toString().split(QLatin1Char(':'));
         QString str = strs.at(1);
         const QString nameColor = option.palette.color(QPalette::Link).name();
@@ -102,10 +104,27 @@ public:
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
+        // fix stuff for rtl
+        // QTextDocument doesn't work with RTL text out of the box so we give it a hand here by increasing
+        // the text width to our rect size. Icon displacement is also calculated here because 'translate()'
+        // later will not work.
+        const bool rtl = original.isRightToLeft();
+        if (rtl) {
+            auto r = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
+            auto hasIcon = index.data(Qt::DecorationRole).value<QIcon>().isNull();
+            if (hasIcon)
+                doc.setTextWidth(r.width() - 25);
+            else
+                doc.setTextWidth(r.width());
+        }
+
         // draw text
         painter->translate(option.rect.x(), option.rect.y());
         // leave space for icon
-        painter->translate(25, 0);
+
+        if (!rtl)
+            painter->translate(25, 0);
+
         doc.drawContents(painter);
 
         painter->restore();

@@ -290,10 +290,9 @@ public:
     /**
      * @brief return next char *after* the range
      */
-    static QString peekNextChar(KTextEditor::Document* doc, const KTextEditor::Range& range)
+    static QChar peekNextChar(KTextEditor::Document* doc, const KTextEditor::Range& range)
     {
-        auto n = doc->text(KTextEditor::Range(range.end().line(), range.end().column(), range.end().line(), range.end().column() + 1 ));
-        return n;
+        return doc->characterAt(KTextEditor::Cursor(range.end().line(), range.end().column()));
     }
 
     void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override

@@ -102,7 +102,7 @@ ColorPickerInlineNoteProvider::~ColorPickerInlineNoteProvider()
 void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
 {
     KConfigGroup config(KSharedConfig::openConfig(), "ColorPicker");
-    m_matchHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 8, 6, 3}).toVector();
+    m_matchHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 6, 3}).toVector();
     m_putPreviewAfterColor = config.readEntry("PreviewAfterColor", true);
     m_matchNamedColors = config.readEntry("NamedColors", false);
 

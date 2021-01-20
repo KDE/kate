@@ -117,7 +117,7 @@ void KateColorPickerConfigPage::reset()
     chkNamedColors->setChecked(config.readEntry("NamedColors", false));
     chkPreviewAfterColor->setChecked(config.readEntry("PreviewAfterColor", true));
 
-    QList<int> enabledHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 8, 6, 3});
+    QList<int> enabledHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 6, 3});
     for (const int hexLength : chkHexLengths.keys()) {
         chkHexLengths[hexLength]->setChecked(enabledHexLengths.contains(hexLength));
     }

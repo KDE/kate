@@ -16,6 +16,7 @@
 #include <QStyleOptionTab>
 #include <QWheelEvent>
 
+#include <KAcceleratorManager>
 #include <KConfigGroup>
 #include <KSharedConfig>
 
@@ -33,6 +34,9 @@ Q_DECLARE_METATYPE(KateTabButtonData)
 KateTabBar::KateTabBar(QWidget *parent)
     : QTabBar(parent)
 {
+    // we want no auto-accelerators here
+    KAcceleratorManager::setNoAccel(this);
+
     // enable document mode, docs tell this will trigger:
     // On macOS this will look similar to the tabs in Safari or Sierra's Terminal.app.
     // this seems reasonable for our document tabs

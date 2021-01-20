@@ -287,10 +287,26 @@ public:
         endResetModel();
     }
 
+    /**
+     * @brief return next char *after* the range
+     */
+    static QString peekNextChar(KTextEditor::Document* doc, const KTextEditor::Range& range)
+    {
+        auto n = doc->text(KTextEditor::Range(range.end().line(), range.end().column(), range.end().line(), range.end().column() + 1 ));
+        return n;
+    }
+
     void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override
     {
-        if (index.row() < m_matches.size())
-            view->document()->replaceText(word, m_matches.at(index.row()).insertText);
+        if (index.row() < m_matches.size()) {
+            auto next = peekNextChar(view->document(), word);
+            auto matching = m_matches.at(index.row()).insertText;
+            // if there is already a '"', remove it, this happens with #include "xx.h"
+            if (next == QLatin1Char('"') && matching.endsWith(QLatin1Char('"'))) {
+                matching.chop(1);
+            }
+            view->document()->replaceText(word, matching);
+        }
     }
 
     void aborted(KTextEditor::View *view) override

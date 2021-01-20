@@ -281,7 +281,11 @@ void KateCommandBar::updateBar(const QList<KActionCollection *> &actionCollectio
     QVector<QPair<QString, QAction*>> actionList;
     for (const auto collection : actionCollections) {
         for (const auto action : collection->actions()) {
-            actionList.append({collection->componentDisplayName(), action});
+            // sanity + empty check ensures displayable actions and removes ourself
+            // from the action list
+            if (action && !action->text().isEmpty()) {
+                actionList.append({collection->componentDisplayName(), action});
+            }
         }
     }
 

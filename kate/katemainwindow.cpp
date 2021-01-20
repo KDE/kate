@@ -254,9 +254,8 @@ void KateMainWindow::setupImportantActions()
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
+    // kate command bar
     a = actionCollection()->addAction(QStringLiteral("view_commandbar_open"));
-//    a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
-//    a->setText(i18n("&Quick Open"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_I));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotCommandBarOpen);
 }
@@ -1223,6 +1222,10 @@ void KateMainWindow::slotCommandBarOpen()
 
     auto clients = guiFactory()->clients();
     for (auto c : clients) {
+        if (!c)
+            continue;
+        if (!c->actionCollection())
+            continue;
         actionCollections.append(c->actionCollection());
     }
 

@@ -175,6 +175,18 @@ Results::Results(QWidget *parent)
 
     treeView->setItemDelegate(new SPHtmlDelegate(treeView));
     treeView->setModel(&matchModel);
+
+    auto e = KTextEditor::Editor::instance();
+    auto bg = QColor::fromRgba(e->theme().editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+    auto fg = QColor::fromRgba(e->theme().textColor(KSyntaxHighlighting::Theme::Normal));
+    auto hl = QColor::fromRgba(e->theme().editorColor(KSyntaxHighlighting::Theme::CurrentLine));
+
+    auto pal = treeView->palette();
+    pal.setColor(QPalette::Base, bg);
+    pal.setColor(QPalette::Highlight, hl);
+    pal.setColor(QPalette::Text, fg);
+    pal.setColor(QPalette::HighlightedText, fg);
+    treeView->setPalette(pal);
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginSearchFactory, "katesearch.json", registerPlugin<KatePluginSearch>();)

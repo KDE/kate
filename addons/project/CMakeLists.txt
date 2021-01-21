@@ -4,12 +4,10 @@ find_package(
   COMPONENTS
     GuiAddons
     NewStuff
-    ThreadWeaver  
 )
 
 set_package_properties(KFGuiAddons PROPERTIES PURPOSE "Required to build the project addon")
 set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the project addon")
-set_package_properties(KF5ThreadWeaver PROPERTIES PURPOSE "Required to build the project addon")
 
 if(NOT KF5_FOUND)
   return()
@@ -19,12 +17,11 @@ add_library(kateprojectplugin MODULE "")
 target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="kateproject")
 
 target_link_libraries(
-  kateprojectplugin 
+  kateprojectplugin
   PRIVATE
     KF5::GuiAddons
     KF5::NewStuff
     KF5::TextEditor
-    KF5::ThreadWeaver
 )
 
 target_include_directories(
@@ -41,7 +38,7 @@ if(HAVE_CTERMID)
 endif()
 
 target_sources(
-  kateprojectplugin 
+  kateprojectplugin
   PRIVATE
     fileutil.cpp
     kateprojectplugin.cpp

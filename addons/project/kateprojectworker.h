@@ -11,9 +11,8 @@
 #include "kateproject.h"
 #include "kateprojectitem.h"
 
-#include <ThreadWeaver/Job>
-
 #include <QMap>
+#include <QRunnable>
 #include <QStandardItemModel>
 
 class QDir;
@@ -22,7 +21,7 @@ class QDir;
  * Class representing a project background worker.
  * This worker will build up the model for the project on load and do other stuff in the background.
  */
-class KateProjectWorker : public QObject, public ThreadWeaver::Job
+class KateProjectWorker : public QObject, public QRunnable
 {
     Q_OBJECT
 
@@ -34,7 +33,7 @@ public:
 
     explicit KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force);
 
-    void run(ThreadWeaver::JobPointer self, ThreadWeaver::Thread *thread) override;
+    void run() override;
 
 Q_SIGNALS:
     void loadDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);

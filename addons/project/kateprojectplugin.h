@@ -10,6 +10,7 @@
 
 #include <QDir>
 #include <QFileSystemWatcher>
+#include <QThreadPool>
 
 #include <KTextEditor/Plugin>
 #include <ktexteditor/document.h>
@@ -19,11 +20,6 @@
 
 #include "kateproject.h"
 #include "kateprojectcompletion.h"
-
-namespace ThreadWeaver
-{
-class Queue;
-}
 
 class KateProjectPlugin : public KTextEditor::Plugin
 {
@@ -184,7 +180,11 @@ private:
     bool m_multiProjectGoto : 1;
     QUrl m_indexDirectory;
 
-    ThreadWeaver::Queue *m_weaver;
+
+    /**
+     * thread pool for our workers
+     */
+    QThreadPool m_threadPool;
 };
 
 #endif

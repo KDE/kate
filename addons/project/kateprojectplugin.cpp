@@ -17,7 +17,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
-#include <ThreadWeaver/Queue>
 
 #include <QFileInfo>
 #include <QTime>
@@ -55,7 +54,6 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     , m_indexEnabled(false)
     , m_multiProjectCompletion(false)
     , m_multiProjectGoto(false)
-    , m_weaver(new ThreadWeaver::Queue(this))
 {
     qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
     qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");
@@ -98,9 +96,6 @@ KateProjectPlugin::~KateProjectPlugin()
         delete project;
     }
     m_projects.clear();
-
-    m_weaver->shutDown();
-    delete m_weaver;
 }
 
 QObject *KateProjectPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -123,7 +118,7 @@ KTextEditor::ConfigPage *KateProjectPlugin::configPage(int number, QWidget *pare
 
 KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName)
 {
-    KateProject *project = new KateProject(m_weaver, this);
+    KateProject *project = new KateProject(m_threadPool, this);
     if (!project->loadFromFile(fileName)) {
         delete project;
         return nullptr;
@@ -282,7 +277,7 @@ KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, 
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
 
-    KateProject *project = new KateProject(m_weaver, this);
+    KateProject *project = new KateProject(m_threadPool, this);
     project->loadFromData(cnf, dir.canonicalPath());
 
     m_projects.append(project);

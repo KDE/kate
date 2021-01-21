@@ -16,6 +16,7 @@
 #include <QSet>
 #include <QSettings>
 #include <QTime>
+#include <QThread>
 
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
     : m_baseDir(baseDir)
@@ -26,7 +27,7 @@ KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &inde
     Q_ASSERT(!m_baseDir.isEmpty());
 }
 
-void KateProjectWorker::run(ThreadWeaver::JobPointer, ThreadWeaver::Thread *)
+void KateProjectWorker::run()
 {
     /**
      * Create dummy top level parent item and empty map inside shared pointers

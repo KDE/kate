@@ -13,8 +13,6 @@
 
 #include <ktexteditor/document.h>
 
-#include <ThreadWeaver/Queue>
-
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -25,10 +23,10 @@
 #include <QPlainTextDocumentLayout>
 #include <utility>
 
-KateProject::KateProject(ThreadWeaver::Queue *weaver, KateProjectPlugin *plugin)
+KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin)
     : m_notesDocument(nullptr)
     , m_untrackedDocumentsRoot(nullptr)
-    , m_weaver(weaver)
+    , m_threadPool(threadPool)
     , m_plugin(plugin)
 {
 }
@@ -170,10 +168,12 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
             indexDir = QDir::tempPath();
         }
     }
+
+    // let's run the stuff in our own thread pool
     auto w = new KateProjectWorker(m_baseDir, indexDir, m_projectMap, force);
     connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone);
     connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone);
-    m_weaver->stream() << w;
+    m_threadPool.start(w);
 
     // we are done here
     return true;

@@ -29,12 +29,8 @@ Q_DECLARE_METATYPE(KateProjectSharedQMapStringItem)
 typedef QSharedPointer<KateProjectIndex> KateProjectSharedProjectIndex;
 Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
 
-namespace ThreadWeaver
-{
-class Queue;
-}
-
 class KateProjectPlugin;
+class QThreadPool;
 
 /**
  * Class representing a project.
@@ -48,7 +44,7 @@ public:
     /**
      * construct empty project
      */
-    KateProject(ThreadWeaver::Queue *weaver, KateProjectPlugin *plugin);
+    KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin);
 
     /**
      * deconstruct project
@@ -290,7 +286,10 @@ private:
      */
     QStandardItem *m_untrackedDocumentsRoot;
 
-    ThreadWeaver::Queue *m_weaver;
+    /**
+     * thread pool used for project worker
+     */
+    QThreadPool &m_threadPool;
 
     /**
      * project configuration (read from file or injected)

@@ -176,6 +176,7 @@ Results::Results(QWidget *parent)
     treeView->setItemDelegate(new SPHtmlDelegate(treeView));
     treeView->setModel(&matchModel);
 
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
     auto updateColors = [this](KTextEditor::Editor* e){
         if (!e)
             return;
@@ -199,8 +200,8 @@ Results::Results(QWidget *parent)
 
     auto e = KTextEditor::Editor::instance();
     connect(e, &KTextEditor::Editor::configChanged, this, updateColors);
-
     updateColors(e);
+#endif
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginSearchFactory, "katesearch.json", registerPlugin<KatePluginSearch>();)
@@ -811,26 +812,37 @@ void KatePluginSearchView::updateViewColors()
     KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(view);
     if (ciface && view) {
         // save for later reuse when the search tree starts getting populated
-        QColor searchBackgroundColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
-        if (!searchBackgroundColor.isValid())
-            searchBackgroundColor = Qt::yellow;
+        QColor search = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
+        if (!search.isValid())
+            search = Qt::yellow;
         m_replaceHighlightColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
         if (!m_replaceHighlightColor.isValid())
             m_replaceHighlightColor = Qt::green;
-        QColor foregroundColor = view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color();
+        QColor fg = view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color();
 
         if (!m_resultAttr)
             m_resultAttr = new KTextEditor::Attribute();
         // reset colors at the start of search
         m_resultAttr->clear();
-        m_resultAttr->setBackground(searchBackgroundColor);
-        m_resultAttr->setForeground(foregroundColor);
+        m_resultAttr->setBackground(search);
+        m_resultAttr->setForeground(fg);
 
         if (m_curResults) {
             auto* delegate = qobject_cast<SPHtmlDelegate*>(m_curResults->treeView->itemDelegate());
             if (delegate) {
                 delegate->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
             }
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 79, 0)
+         m_curResults->matchModel.setMatchColors(fg.name(QColor::HexArgb), search.name(QColor::HexArgb), m_replaceHighlightColor.name(QColor::HexArgb));
+
+         QColor selection = ciface->configValue(QStringLiteral("selection-color")).value<QColor>();
+         QColor bg = ciface->configValue(QStringLiteral("background-color")).value<QColor>();
+         auto pal = m_curResults->treeView->palette();
+         pal.setColor(QPalette::Base, bg);
+         pal.setColor(QPalette::Highlight, selection);
+         pal.setColor(QPalette::Text, fg);
+         m_curResults->treeView->setPalette(pal);
+#endif
         }
     }
 }
@@ -1786,9 +1798,12 @@ void KatePluginSearchView::addTab()
     }
 
     Results *res = new Results();
+
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
     connect(res, &Results::colorsChanged, this, [this](){
         updateViewColors();
     });
+#endif
 
     res->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     res->treeView->setRootIsDecorated(false);

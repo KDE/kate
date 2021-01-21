@@ -176,17 +176,31 @@ Results::Results(QWidget *parent)
     treeView->setItemDelegate(new SPHtmlDelegate(treeView));
     treeView->setModel(&matchModel);
 
-    auto e = KTextEditor::Editor::instance();
-    auto bg = QColor::fromRgba(e->theme().editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
-    auto fg = QColor::fromRgba(e->theme().textColor(KSyntaxHighlighting::Theme::Normal));
-    auto hl = QColor::fromRgba(e->theme().editorColor(KSyntaxHighlighting::Theme::CurrentLine));
+    auto updateColors = [this](KTextEditor::Editor* e){
+        if (!e)
+            return;
 
-    auto pal = treeView->palette();
-    pal.setColor(QPalette::Base, bg);
-    pal.setColor(QPalette::Highlight, hl);
-    pal.setColor(QPalette::Text, fg);
-    pal.setColor(QPalette::HighlightedText, fg);
-    treeView->setPalette(pal);
+        const auto theme = e->theme();
+        auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+        auto hl = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::TextSelection));
+        auto search = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight));
+        auto replace = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::ReplaceHighlight));
+        auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal));
+
+        auto pal = treeView->palette();
+        pal.setColor(QPalette::Base, bg);
+        pal.setColor(QPalette::Highlight, hl);
+        pal.setColor(QPalette::Text, fg);
+        matchModel.setMatchColors(fg.name(), search.name(), replace.name());
+        treeView->setPalette(pal);
+
+        emit colorsChanged();
+    };
+
+    auto e = KTextEditor::Editor::instance();
+    connect(e, &KTextEditor::Editor::configChanged, this, updateColors);
+
+    updateColors(e);
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginSearchFactory, "katesearch.json", registerPlugin<KatePluginSearch>();)
@@ -791,7 +805,7 @@ void KatePluginSearchView::stopClicked()
   * search so that if the user changes the theme, he can see the new colors
   * on the next search
   */
-void KatePluginSearchView::updateSearchColors()
+void KatePluginSearchView::updateViewColors()
 {
     auto* view = m_mainWindow->activeView();
     KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(view);
@@ -800,14 +814,10 @@ void KatePluginSearchView::updateSearchColors()
         QColor searchBackgroundColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
         if (!searchBackgroundColor.isValid())
             searchBackgroundColor = Qt::yellow;
-        QColor replaceHighlightColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
-        if (!replaceHighlightColor.isValid())
-            replaceHighlightColor = Qt::green;
+        m_replaceHighlightColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
+        if (!m_replaceHighlightColor.isValid())
+            m_replaceHighlightColor = Qt::green;
         QColor foregroundColor = view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color();
-
-        QColor lineNrBackgroundColor = ciface->configValue(QStringLiteral("icon-border-color")).value<QColor>();
-        if (!lineNrBackgroundColor.isValid())
-            lineNrBackgroundColor = view->defaultStyleAttribute(KTextEditor::dsNormal)->background().color();
 
         if (!m_resultAttr)
             m_resultAttr = new KTextEditor::Attribute();
@@ -821,10 +831,6 @@ void KatePluginSearchView::updateSearchColors()
             if (delegate) {
                 delegate->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
             }
-            m_curResults->matchModel.setMatchColors(foregroundColor,
-                                                    searchBackgroundColor,
-                                                    replaceHighlightColor,
-                                                    lineNrBackgroundColor);
         }
     }
 }
@@ -896,7 +902,7 @@ void KatePluginSearchView::startSearch()
         return;
     }
 
-    updateSearchColors();
+    updateViewColors();
 
     m_curResults->regExp = reg;
     m_curResults->useRegExp = m_ui.useRegExp->isChecked();
@@ -1020,7 +1026,7 @@ void KatePluginSearchView::startSearchWhileTyping()
     if (!m_searchDiskFilesDone || !m_searchOpenFilesDone) {
         return;
     }
-    updateSearchColors();
+    updateViewColors();
 
     m_isSearchAsYouType = true;
 
@@ -1780,6 +1786,9 @@ void KatePluginSearchView::addTab()
     }
 
     Results *res = new Results();
+    connect(res, &Results::colorsChanged, this, [this](){
+        updateViewColors();
+    });
 
     res->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     res->treeView->setRootIsDecorated(false);

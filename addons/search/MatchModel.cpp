@@ -144,12 +144,11 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     endInsertRows();
 }
 
-void MatchModel::setMatchColors(const QColor &foreground, const QColor &background, const QColor &replaceBackground, const QColor &lineNrBackground)
+void MatchModel::setMatchColors(const QString &foreground, const QString &background, const QString &replaceBackground)
 {
     m_foregroundColor = foreground;
     m_searchBackgroundColor = background;
     m_replaceHighlightColor = replaceBackground;
-    m_lineNumberBackgroundColor = lineNrBackground;
 }
 
 KateSearchMatch *MatchModel::matchFromIndex(const QModelIndex &matchIndex)
@@ -446,6 +445,7 @@ static QString nbsFormated(int number, int width)
 {
     QString str = QString::number(number);
     int strWidth = str.size();
+    str.reserve(width);
     while (strWidth < width) {
         str = QStringLiteral("&nbsp;") + str;
         strWidth++;
@@ -538,11 +538,11 @@ QString MatchModel::matchToHtmlString(const Match &match) const
         matchStr = QLatin1String("<i><s>") + matchStr + QLatin1String("</s></i> ");
     }
     matchStr = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>")
-    .arg(m_searchBackgroundColor.name(), m_foregroundColor.name(), matchStr);
+    .arg(m_searchBackgroundColor, m_foregroundColor, matchStr);
 
     if (!replaceStr.isEmpty()) {
         matchStr += QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>")
-        .arg(m_replaceHighlightColor.name(), m_foregroundColor.name(), replaceStr);
+        .arg(m_replaceHighlightColor, m_foregroundColor, replaceStr);
     }
 
     matchStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
@@ -559,8 +559,8 @@ QString MatchModel::matchToHtmlString(const Match &match) const
     post = post.toHtmlEscaped();
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-    QString displayText = QStringLiteral("<span style=\"background-color:%1; color:%2;\">&nbsp;<b>%3:%4:</b></span>&nbsp;")
-    .arg(m_lineNumberBackgroundColor.name()).arg(m_foregroundColor.name())
+    QString displayText = QStringLiteral("<span style=\"color:%1;\">&nbsp;<b>%2:%3</b></span>&nbsp;")
+    .arg(m_foregroundColor)
     .arg(nbsFormated(match.range.start().line() + 1, 3))
     .arg(nbsFormated(match.range.start().column() + 1, 3)) + pre + matchStr + post;
 

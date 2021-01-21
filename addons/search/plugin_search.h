@@ -60,6 +60,9 @@ public:
     int searchPlaceIndex = 0;
     QString treeRootText;
     MatchModel matchModel;
+
+Q_SIGNALS:
+    void colorsChanged();
 };
 
 // This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
@@ -176,7 +179,7 @@ protected:
 
 private:
     QStringList filterFiles(const QStringList &files) const;
-    void updateSearchColors();
+    void updateViewColors();
 
     void onResize(const QSize &size);
 

@@ -52,6 +52,7 @@ void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         painter->translate(clip.topLeft() - QPoint(0, 0));
     }
     QAbstractTextDocumentLayout::PaintContext pcontext;
+    pcontext.palette.setColor(QPalette::Text, options.palette.text().color());
     doc.documentLayout()->draw(painter, pcontext);
 
     painter->restore();

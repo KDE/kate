@@ -300,8 +300,8 @@ public:
         if (index.row() < m_matches.size()) {
             auto next = peekNextChar(view->document(), word);
             auto matching = m_matches.at(index.row()).insertText;
-            // if there is already a '"', remove it, this happens with #include "xx.h"
-            if (next == QLatin1Char('"') && matching.endsWith(QLatin1Char('"'))) {
+            // if there is already a '"' or >, remove it, this happens with #include "xx.h"
+            if ((next == QLatin1Char('"') && matching.endsWith(QLatin1Char('"'))) || (next == QLatin1Char('>') && matching.endsWith(QLatin1Char('>')))) {
                 matching.chop(1);
             }
             view->document()->replaceText(word, matching);

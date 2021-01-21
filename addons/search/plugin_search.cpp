@@ -191,7 +191,7 @@ Results::Results(QWidget *parent)
         pal.setColor(QPalette::Base, bg);
         pal.setColor(QPalette::Highlight, hl);
         pal.setColor(QPalette::Text, fg);
-        matchModel.setMatchColors(fg.name(), search.name(), replace.name());
+        matchModel.setMatchColors(fg.name(QColor::HexArgb), search.name(QColor::HexArgb), replace.name(QColor::HexArgb));
         treeView->setPalette(pal);
 
         emit colorsChanged();

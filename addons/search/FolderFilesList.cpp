@@ -24,6 +24,8 @@
 FolderFilesList::FolderFilesList(QObject *parent)
     : QThread(parent)
 {
+    // ensure we have a proper thread name during e.g. perf profiling
+    setObjectName(QStringLiteral("FolderFilesList"));
 }
 
 FolderFilesList::~FolderFilesList()

@@ -25,6 +25,8 @@
 SearchDiskFiles::SearchDiskFiles(QObject *parent)
     : QThread(parent)
 {
+    // ensure we have a proper thread name during e.g. perf profiling
+    setObjectName(QStringLiteral("SearchDiskFiles"));
 }
 
 SearchDiskFiles::~SearchDiskFiles()

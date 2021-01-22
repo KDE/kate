@@ -479,9 +479,9 @@ QString MatchModel::infoHtmlString() const
         QString searchUrl = m_lastMatchUrl.toDisplayString(QUrl::PreferLocalFile);
 
         if (searchUrl.size() > 73) {
-            return i18np("<b><i>One match found, searching: ...%2</b>", "<b><i>%1 matches found, searching: ...%2</b>", matchesTotal, searchUrl.right(70));
+            return i18np("<b><i>One match found, searching: ...%2</i></b>", "<b><i>%1 matches found, searching: ...%2</i></b>", matchesTotal, searchUrl.right(70));
         } else {
-            return i18np("<b><i>One match found, searching: %2</b>", "<b><i>%1 matches found, searching: %2</b>", matchesTotal, searchUrl);
+            return i18np("<b><i>One match found, searching: %2</i></b>", "<b><i>%1 matches found, searching: %2</i></b>", matchesTotal, searchUrl);
         }
     }
 

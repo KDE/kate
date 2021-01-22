@@ -41,6 +41,7 @@
 
 #include <KActionCollection>
 #include <KTextEditor/Application>
+#include <KTextEditor/ConfigInterface>
 #include <KXMLGUIFactory>
 
 #include <KMessageBox>
@@ -500,7 +501,7 @@ void KateBuildView::addError(const QString &filename, const QString &line, const
 
     item->setText(0, file.fileName());
     item->setText(1, line);
-    item->setText(2, message.trimmed());
+    item->setText(2, message);
 
     // used to read from when activating an item
     item->setData(0, Qt::UserRole, filename);
@@ -739,6 +740,16 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_displayModeBeforeBuild = m_buildUi.displayModeSlider->value();
     m_buildUi.displayModeSlider->setValue(0);
     m_win->showToolView(m_toolView);
+
+    KTextEditor::View *kv = m_win->activeView();
+    if (kv) {
+        KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(kv);
+        if (ciface) {
+            QFont font = ciface->configValue(QStringLiteral("font")).value<QFont>();
+            m_buildUi.errTreeWidget->setFont(font);
+            //m_buildUi.plainTextEdit->setFont(font);
+        }
+    }
 
     // set working directory
     m_make_dir = dir;

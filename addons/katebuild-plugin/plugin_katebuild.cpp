@@ -747,7 +747,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
         if (ciface) {
             QFont font = ciface->configValue(QStringLiteral("font")).value<QFont>();
             m_buildUi.errTreeWidget->setFont(font);
-            //m_buildUi.plainTextEdit->setFont(font);
+            m_buildUi.plainTextEdit->setFont(font);
         }
     }
 

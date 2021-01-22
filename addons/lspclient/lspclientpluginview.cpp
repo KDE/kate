@@ -2032,10 +2032,10 @@ public:
             }
             return {};
         };
-
+        (void)attributeForScopes; // shut the warning for kf >= 5.79
         // TODO: we should try to recycle the moving ranges instead of recreating them all the time
 
-        const auto scopes = server->capabilities().semanticHighlightingProvider.scopes;
+        const auto& scopes = server->capabilities().semanticHighlightingProvider.scopes;
         // qDebug() << params.textDocument.uri << scopes;
 
         auto &documentRanges = m_semanticHighlightRanges[document];
@@ -2048,7 +2048,11 @@ public:
             // qDebug() << "line:" << line.line;
             for (const auto &token : line.tokens) {
                 // qDebug() << "token:" << token.character << token.length << token.scope << scopes.value(token.scope);
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 79, 0)
                 auto attribute = attributeForScopes(scopes.value(token.scope));
+#else
+                auto attribute = scopes.attrForScope(token.scope);
+#endif
                 if (!attribute)
                     continue;
 

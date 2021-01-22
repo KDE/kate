@@ -269,15 +269,20 @@ static void from_json(LSPSemanticHighlightingOptions &options, const QJsonValue 
         return;
     const auto scopes = json.toObject().value(QStringLiteral("scopes"));
     options.scopes.clear();
+    QVector<QString> entries;
     for (const auto &scope_entry : scopes.toArray()) {
-        QVector<QString> entries;
         const auto json_entries = scope_entry.toArray();
         entries.reserve(json_entries.size());
         for (const auto &inner_json_entry : json_entries) {
             entries.push_back(inner_json_entry.toString());
         }
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 79, 0)
         options.scopes.push_back(entries);
+#endif
     }
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
+    options.scopes.scopesToAttrVector(entries);
+#endif
 }
 
 static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)

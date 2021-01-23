@@ -38,12 +38,38 @@ void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
     fixedAttrs[0]->setFontBold(theme.isBold(Style::Function));
     fixedAttrs[0]->setFontItalic(theme.isItalic(Style::Function));
 
-    QColor v = QColor::fromRgba(theme.textColor(Style::Variable));
     if (!fixedAttrs[1])
         fixedAttrs[1] = new KTextEditor::Attribute();
-    fixedAttrs[1]->setForeground(v);
-    fixedAttrs[1]->setFontBold(theme.isBold(Style::Variable));
-    fixedAttrs[1]->setFontItalic(theme.isItalic(Style::Variable));
+    {
+        // This is only for function parameter which are not
+        // directly supported by themes so we load some hard
+        // coded values here for some of the themes we have
+        // and for others we just read the "Variable" text-style.
+        QColor v;
+        bool italic = false;
+        static const char MonokaiVP[] = "#fd971f";
+        static const char DraculaVP[] = "#ffb86c";
+        static const char AyuDarkLightVP[] = "#a37acc";
+        static const char AyuMirageVP[] = "#d4bfff";
+        if (theme.name() == QStringLiteral("Monokai")) {
+            v = QColor(MonokaiVP);
+            italic = true;
+        } else if (theme.name() == QStringLiteral("Dracula")) {
+            v = QColor(DraculaVP);
+            italic = true;
+        } else if (theme.name() == QStringLiteral("ayu Light") || theme.name() == QStringLiteral("ayu Dark")) {
+            v = QColor(AyuDarkLightVP);
+        } else if (theme.name() == QStringLiteral("ayu Mirage")) {
+            v = QColor(AyuMirageVP);
+        } else {
+            v = QColor::fromRgba(theme.textColor(Style::Variable));
+            italic = theme.isItalic(Style::Variable);
+        }
+
+        fixedAttrs[1]->setForeground(v);
+        fixedAttrs[1]->setFontBold(theme.isBold(Style::Variable));
+        fixedAttrs[1]->setFontItalic(italic);
+    }
 
     QColor c = QColor::fromRgba(theme.textColor(Style::Constant));
     if (!fixedAttrs[2])

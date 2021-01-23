@@ -53,6 +53,7 @@ void SearchDiskFiles::startSearch(const QStringList &files, const QRegularExpres
 
 void SearchDiskFiles::run()
 {
+    const QMimeDatabase db;
     for (const QString &fileName : qAsConst(m_files)) {
         if (m_cancelSearch) {
             break;
@@ -63,18 +64,24 @@ void SearchDiskFiles::run()
             emit searching(fileName);
         }
 
+        // open file early, this allows mime-type detection & search to use same io device
+        QFile file(fileName);
+        if (!file.open(QFile::ReadOnly)) {
+            continue;
+        }
+
         // exclude binary files?
         if (!m_includeBinaryFiles) {
-            const auto mimeType = QMimeDatabase().mimeTypeForFile(fileName);
+            const auto mimeType = db.mimeTypeForFileNameAndData(fileName, &file);
             if (!mimeType.inherits(QStringLiteral("text/plain"))) {
                 continue;
             }
         }
 
         if (m_regExp.pattern().contains(QLatin1String("\\n"))) {
-            searchMultiLineRegExp(fileName);
+            searchMultiLineRegExp(file);
         } else {
-            searchSingleLineRegExp(fileName);
+            searchSingleLineRegExp(file);
         }
     }
 
@@ -101,13 +108,8 @@ bool SearchDiskFiles::searching()
     return !m_cancelSearch;
 }
 
-void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
+void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
 {
-    QFile file(fileName);
-    if (!file.open(QFile::ReadOnly)) {
-        return;
-    }
-
     QTextStream stream(&file);
     QString line;
     int i = 0;
@@ -142,22 +144,17 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
     }
 
     // emit all matches batched
-    const QUrl fileUrl = QUrl::fromUserInput(fileName);
+    const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
     emit matchesFound(fileUrl, matches);
 }
 
-void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
+void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
 {
-    QFile file(fileName);
     int column = 0;
     int line = 0;
     static QString fullDoc;
     static QVector<int> lineStart;
     QRegularExpression tmpRegExp = m_regExp;
-
-    if (!file.open(QFile::ReadOnly)) {
-        return;
-    }
 
     QTextStream stream(&file);
     fullDoc = stream.readAll();
@@ -217,6 +214,6 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
     }
 
     // emit all matches batched
-    const QUrl fileUrl = QUrl::fromUserInput(fileName);
+    const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
     emit matchesFound(fileUrl, matches);
 }

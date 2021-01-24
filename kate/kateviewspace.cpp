@@ -575,6 +575,11 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 {
     KConfigGroup group(config, groupname);
 
+    // workaround for the weird bug where the tabbar sometimes becomes invisible after opening a session via the session chooser dialog or the --start cmd option
+    // TODO: Debug the actual reason for the bug. See https://invent.kde.org/utilities/kate/-/merge_requests/189
+    m_tabBar->hide();
+    m_tabBar->show();
+
     // restore Document lru list so that all tabs from the last session reappear
     const QStringList lruList = group.readEntry("Documents", QStringList());
     for (int i = 0; i < lruList.size(); ++i) {

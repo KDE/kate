@@ -40,9 +40,7 @@ KateTabBar::KateTabBar(QWidget *parent)
     // enable document mode, docs tell this will trigger:
     // On macOS this will look similar to the tabs in Safari or Sierra's Terminal.app.
     // this seems reasonable for our document tabs
-    // => deactivated, tabbar doesn't show up on session load, see
-    // https://invent.kde.org/utilities/kate/-/merge_requests/189
-    // setDocumentMode(true);
+    setDocumentMode(true);
 
     // we want drag and drop
     setAcceptDrops(true);

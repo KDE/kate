@@ -868,7 +868,7 @@ public:
             break;
         }
         if (activeView) {
-            attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color());
+            attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground());
         }
 
         // highlight the range

@@ -14,6 +14,8 @@
 
 #include <KSyntaxHighlighting/Theme>
 
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
+
 SemanticHighlighting::SemanticHighlighting(QObject *parent) :
     QObject(parent)
 {
@@ -219,3 +221,5 @@ void SemanticHighlighting::refresh()
         }
     }
 }
+
+#endif

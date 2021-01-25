@@ -7,6 +7,10 @@
 #ifndef SEMANTICTOKENMAP_H
 #define SEMANTICTOKENMAP_H
 
+#include <ktexteditor_version.h>
+
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
+
 #include <QObject>
 
 #include <vector>
@@ -72,5 +76,7 @@ private:
     std::vector<KTextEditor::Attribute::Ptr> sharedAttrs;
     KTextEditor::Attribute::Ptr fixedAttrs[6];
 };
+
+#endif
 
 #endif // SEMANTICTOKENMAP_H

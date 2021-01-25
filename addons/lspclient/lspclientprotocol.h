@@ -18,7 +18,6 @@
 
 #include "lspsemantichighlighting.h"
 
-#include <ktexteditor_version.h>
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
 

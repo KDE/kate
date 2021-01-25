@@ -7,11 +7,10 @@
 #ifndef SEMANTICTOKENMAP_H
 #define SEMANTICTOKENMAP_H
 
+#include <QObject>
 #include <ktexteditor_version.h>
 
 #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
-
-#include <QObject>
 
 #include <vector>
 

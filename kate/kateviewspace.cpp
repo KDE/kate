@@ -580,6 +580,9 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     m_tabBar->hide();
     m_tabBar->show();
 
+    // set back bar status to configured variant
+    tabBarToggled();
+
     // restore Document lru list so that all tabs from the last session reappear
     const QStringList lruList = group.readEntry("Documents", QStringList());
     for (int i = 0; i < lruList.size(); ++i) {

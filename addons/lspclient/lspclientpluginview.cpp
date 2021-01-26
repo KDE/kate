@@ -583,6 +583,37 @@ public:
             return viewFromWidget(widget->parentWidget());
     }
 
+    /**
+     * @brief normal word range queried from doc->wordRangeAt() will not include
+     * full header from a #include line. For example in line "#include <abc/some>"
+     * we get either abc or some. But for Ctrl + click we need to highlight it as
+     * one thing, so this function expands the range from wordRangeAt() to do that.
+     */
+    static void expandToFullHeaderRange(KTextEditor::Range& range, QStringView lineText)
+    {
+        auto expandRangeTo = [lineText, &range](QChar c, int startPos) {
+            int end = lineText.indexOf(c, startPos);
+            if (end > -1) {
+                auto startC = range.start();
+                startC.setColumn(startPos + 1);
+                auto endC = range.end();
+                endC.setColumn(end);
+                range.setStart(startC);
+                range.setEnd(endC);
+            }
+        };
+
+        int angleBracketPos = lineText.indexOf(QLatin1Char('<'), 7);
+        if (angleBracketPos > -1) {
+            expandRangeTo(QLatin1Char('>'), angleBracketPos);
+        } else {
+            int startPos = lineText.indexOf(QLatin1Char('"'), 7);
+            if (startPos > -1) {
+                expandRangeTo(QLatin1Char('"'), startPos);
+            }
+        }
+    }
+
     bool eventFilter(QObject* obj, QEvent* event) override {
         auto mouseEvent = dynamic_cast<QMouseEvent*>(event);
 
@@ -622,8 +653,16 @@ public:
         // The user is hovering with Ctrl pressed
         else if (event->type() == QEvent::MouseMove) {
             if (mouseEvent->modifiers() == Qt::ControlModifier) {
-                const auto range = doc->wordRangeAt(cur);
+                auto range = doc->wordRangeAt(cur);
                 if (!word.isEmpty() && range.isValid()) {
+
+                    // check if we are in #include
+                    // and expand the word range
+                    auto lineText = doc->line(range.start().line());
+                    if (lineText.startsWith(QLatin1String("#include")) && range.start().column() > 7) {
+                        expandToFullHeaderRange(range, lineText);
+                    }
+
                     m_ctrlHoverFeedback.setRangeAndWidget(range, wid);
                     // this will not go anywhere actually, but just signal whether we have a definition
                     // Also, please rethink very hard if you are going to reuse this method. It's made

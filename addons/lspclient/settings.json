@@ -34,9 +34,9 @@
             "highlightingModeRegex": "^Go$"
         },
         "haskell": {
-            "command": ["hie-wrapper"],
+            "command": ["haskell-language-server-wrapper", "--lsp"],
             "rootIndicationFileNames": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml"],
-            "url": "https://github.com/haskell/haskell-ide-engine",
+            "url": "https://github.com/haskell/haskell-language-server",
             "highlightingModeRegex": "^Haskell$"
         },
         "javascript": {

@@ -2045,9 +2045,9 @@ public:
             auto &lineRanges = documentRanges[line.line];
             qDeleteAll(lineRanges);
             lineRanges.clear();
-            // qDebug() << "line:" << line.line;
+//             qDebug() << "line:" << line.line << ", toks " << line.tokens.size();
             for (const auto &token : line.tokens) {
-                // qDebug() << "token:" << token.character << token.length << token.scope << scopes.value(token.scope);
+//                 qDebug() << "token:" << token.character << token.length << token.scope;
 #if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 79, 0)
                 auto attribute = attributeForScopes(scopes.value(token.scope));
 #else
@@ -2061,15 +2061,7 @@ public:
                 constexpr auto expand = KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight;
                 auto *range = miface->newMovingRange({line.line, columnStart, line.line, columnEnd}, expand, KTextEditor::MovingRange::InvalidateIfEmpty);
                 range->setAttribute(attribute);
-            }
-        }
-        // clear lines that got removed or commented out
-        for (auto it = documentRanges.begin(); it != documentRanges.end();) {
-            if (!handledLines.contains(it.key())) {
-                qDeleteAll(it.value());
-                it = documentRanges.erase(it);
-            } else {
-                ++it;
+                lineRanges.append(range);
             }
         }
     }

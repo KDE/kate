@@ -413,8 +413,26 @@ void KateConsole::slotToggleFocus()
 void KateConsole::readConfig()
 {
     disconnect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotSync);
+    disconnect(m_mw, &KTextEditor::MainWindow::viewCreated, this, nullptr);
+    QList<KTextEditor::View *> views = m_mw->views();
+    for (KTextEditor::View *view : views) {
+      disconnect(view->document(), &KTextEditor::Document::documentUrlChanged, this, nullptr);
+    }
+
     if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("AutoSyncronize", true)) {
         connect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotSync);
+        // sync path when document url changes (e.g. document is saved or document is opened but viewChanged is not emitted)
+        auto urlChangedSync = [this](const KTextEditor::Document *doc) {
+            if (m_mw->activeView()->document() == doc) {
+              slotSync();
+            }
+        };
+        for (KTextEditor::View *view : views) {
+            connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, urlChangedSync);
+        }
+        connect(m_mw, &KTextEditor::MainWindow::viewCreated, this, [this,urlChangedSync](KTextEditor::View *view) {
+          connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, urlChangedSync);
+        });
     }
 
     if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("SetEditor", false))

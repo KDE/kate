@@ -132,6 +132,7 @@ public Q_SLOTS:
      * synchronize the konsole with the current document (cd to the directory)
      */
     void slotSync(KTextEditor::View *view = nullptr);
+    void slotSync(const KTextEditor::Document *doc);
 
     /**
      * When syncing is done by the user, also show the terminal if it is hidden

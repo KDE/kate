@@ -16,6 +16,7 @@
 
 #include <QKeyEvent>
 #include <QList>
+#include <QPointer>
 
 #include <KXMLGUIClient>
 
@@ -131,8 +132,12 @@ public Q_SLOTS:
     /**
      * synchronize the konsole with the current document (cd to the directory)
      */
-    void slotSync(KTextEditor::View *view = nullptr);
-    void slotSync(const KTextEditor::Document *doc);
+    void slotSync();
+
+    /**
+     * synchronize the konsole when the current document's url changes (e.g. save as)
+     */
+    void slotViewOrUrlChanged(KTextEditor::View *view = nullptr);
 
     /**
      * When syncing is done by the user, also show the terminal if it is hidden
@@ -196,6 +201,7 @@ private:
 
     KateKonsolePlugin *m_plugin;
     QString m_currentPath;
+    QMetaObject::Connection m_urlChangedConnection;
 };
 
 class KateKonsoleConfigPage : public KTextEditor::ConfigPage

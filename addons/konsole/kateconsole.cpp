@@ -294,7 +294,7 @@ void KateConsole::slotPipeToConsole()
         sendInput(v->document()->text());
 }
 
-void KateConsole::slotSync(KTextEditor::View *)
+void KateConsole::slotSync()
 {
     if (m_mw->activeView()) {
         QUrl u = m_mw->activeView()->document()->url();
@@ -307,11 +307,15 @@ void KateConsole::slotSync(KTextEditor::View *)
     }
 }
 
-void KateConsole::slotSync(const KTextEditor::Document *doc) {
-    const KTextEditor::View *activeView = m_mw->activeView();
-    if (activeView && activeView->document() == doc) {
-      slotSync();
+void KateConsole::slotViewOrUrlChanged(KTextEditor::View *view)
+{
+    disconnect(m_urlChangedConnection);
+    if (view) {
+        KTextEditor::Document *doc = view->document();
+        m_urlChangedConnection = connect(doc, &KParts::ReadOnlyPart::urlChanged, this, &KateConsole::slotSync);
     }
+
+    slotSync();
 }
 
 void KateConsole::slotManualSync()
@@ -419,25 +423,11 @@ void KateConsole::slotToggleFocus()
 
 void KateConsole::readConfig()
 {
-    const auto slotSyncView = static_cast<void (KateConsole::*)(KTextEditor::View *)>(&KateConsole::slotSync);
-    const auto slotSyncDoc = static_cast<void (KateConsole::*)(const KTextEditor::Document *)>(&KateConsole::slotSync);
-
-    disconnect(m_mw, &KTextEditor::MainWindow::viewChanged, this, slotSyncView);
-    disconnect(m_mw, &KTextEditor::MainWindow::viewCreated, this, nullptr);
-    QList<KTextEditor::View *> views = m_mw->views();
-    for (KTextEditor::View *view : views) {
-      disconnect(view->document(), &KTextEditor::Document::documentUrlChanged, this, slotSyncDoc);
-    }
+    disconnect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotViewOrUrlChanged);
+    disconnect(m_urlChangedConnection);
 
     if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("AutoSyncronize", true)) {
-        connect(m_mw, &KTextEditor::MainWindow::viewChanged, this, slotSyncView);
-        // sync path when document url changes (e.g. document is saved or document is opened but viewChanged is not emitted)
-        for (KTextEditor::View *view : views) {
-            connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, slotSyncDoc, Qt::UniqueConnection);
-        }
-        connect(m_mw, &KTextEditor::MainWindow::viewCreated, this, [this, slotSyncDoc](KTextEditor::View *view) {
-          connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, slotSyncDoc, Qt::UniqueConnection);
-        });
+        connect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotViewOrUrlChanged);
     }
 
     if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("SetEditor", false))

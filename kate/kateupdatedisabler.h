@@ -22,8 +22,9 @@ public:
     explicit KateUpdateDisabler(QWidget *widget)
         : m_widget((widget && widget->updatesEnabled()) ? widget : nullptr)
     {
-        if (m_widget)
+        if (m_widget) {
             m_widget->setUpdatesEnabled(false);
+        }
     }
 
     /**
@@ -31,8 +32,9 @@ public:
      */
     ~KateUpdateDisabler()
     {
-        if (m_widget)
+        if (m_widget) {
             m_widget->setUpdatesEnabled(true);
+        }
     }
 
 private:

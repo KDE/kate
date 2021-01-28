@@ -51,12 +51,14 @@ void KateSnippetGlobal::insertSnippet(Snippet *snippet)
     KTextEditor::View *view = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
 
     // fallback to stuff set for dialog
-    if (!view)
+    if (!view) {
         view = m_activeViewForDialog;
+    }
 
     // no view => nothing to do
-    if (!view)
+    if (!view) {
         return;
+    }
 
     // try to insert snippet
     SnippetCompletionItem item(snippet, static_cast<SnippetRepository *>(snippet->parent()));
@@ -78,13 +80,15 @@ void KateSnippetGlobal::insertSnippetFromActionData()
 void KateSnippetGlobal::createSnippet(KTextEditor::View *view)
 {
     // no active view, bad
-    if (!view)
+    if (!view) {
         return;
+    }
 
     // get mode
     QString mode = view->document()->highlightingModeAt(view->selectionRange().isValid() ? view->selectionRange().start() : view->cursorPosition());
-    if (mode.isEmpty())
+    if (mode.isEmpty()) {
         mode = view->document()->mode();
+    }
 
     // try to look for a fitting repo
     SnippetRepository *match = nullptr;

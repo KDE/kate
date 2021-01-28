@@ -170,12 +170,14 @@ QStandardItem *SnippetView::currentItem()
 void SnippetView::slotSnippetClicked(const QModelIndex &index)
 {
     QStandardItem *item = SnippetStore::self()->itemFromIndex(m_proxy->mapToSource(index));
-    if (!item)
+    if (!item) {
         return;
+    }
 
     Snippet *snippet = dynamic_cast<Snippet *>(item);
-    if (!snippet)
+    if (!snippet) {
         return;
+    }
 
     m_plugin->insertSnippet(snippet);
 }
@@ -221,16 +223,19 @@ void SnippetView::contextMenu(const QPoint &pos)
 void SnippetView::slotEditSnippet()
 {
     QStandardItem *item = currentItem();
-    if (!item)
+    if (!item) {
         return;
+    }
 
     Snippet *snippet = dynamic_cast<Snippet *>(item);
-    if (!snippet)
+    if (!snippet) {
         return;
+    }
 
     SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item->parent());
-    if (!repo)
+    if (!repo) {
         return;
+    }
 
     EditSnippet dlg(repo, snippet, this);
     dlg.exec();
@@ -239,14 +244,16 @@ void SnippetView::slotEditSnippet()
 void SnippetView::slotAddSnippet()
 {
     QStandardItem *item = currentItem();
-    if (!item)
+    if (!item) {
         return;
+    }
 
     SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item);
     if (!repo) {
         repo = dynamic_cast<SnippetRepository *>(item->parent());
-        if (!repo)
+        if (!repo) {
             return;
+        }
     }
 
     EditSnippet dlg(repo, nullptr, this);
@@ -256,12 +263,14 @@ void SnippetView::slotAddSnippet()
 void SnippetView::slotRemoveSnippet()
 {
     QStandardItem *item = currentItem();
-    if (!item)
+    if (!item) {
         return;
+    }
 
     SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item->parent());
-    if (!repo)
+    if (!repo) {
         return;
+    }
 
     int ans = KMessageBox::warningContinueCancel(QApplication::activeWindow(), i18n("Do you really want to delete the snippet \"%1\"?", item->text()));
     if (ans == KMessageBox::Continue) {
@@ -279,12 +288,14 @@ void SnippetView::slotAddRepo()
 void SnippetView::slotEditRepo()
 {
     QStandardItem *item = currentItem();
-    if (!item)
+    if (!item) {
         return;
+    }
 
     SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item);
-    if (!repo)
+    if (!repo) {
         return;
+    }
 
     EditRepository dlg(repo, this);
     dlg.exec();
@@ -293,12 +304,14 @@ void SnippetView::slotEditRepo()
 void SnippetView::slotRemoveRepo()
 {
     QStandardItem *item = currentItem();
-    if (!item)
+    if (!item) {
         return;
+    }
 
     SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item);
-    if (!repo)
+    if (!repo) {
         return;
+    }
 
     int ans = KMessageBox::warningContinueCancel(QApplication::activeWindow(),
                                                  i18n("Do you really want to delete the repository \"%1\" with all its snippets?", repo->text()));
@@ -333,12 +346,14 @@ void SnippetView::slotGHNS()
 void SnippetView::slotSnippetToGHNS()
 {
     QStandardItem *item = currentItem();
-    if (!item)
+    if (!item) {
         return;
+    }
 
     SnippetRepository *repo = dynamic_cast<SnippetRepository *>(item);
-    if (!repo)
+    if (!repo) {
         return;
+    }
 
     KNS3::UploadDialog dialog(QStringLiteral(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
     dialog.setUploadFile(QUrl::fromLocalFile(repo->file()));

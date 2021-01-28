@@ -92,12 +92,15 @@ static QJsonObject to_json(const LSPDiagnostic &diagnostic)
     result[MEMBER_RANGE] = to_json(diagnostic.range);
     result[MEMBER_MESSAGE] = diagnostic.message;
     // optional
-    if (!diagnostic.code.isEmpty())
+    if (!diagnostic.code.isEmpty()) {
         result[QStringLiteral("code")] = diagnostic.code;
-    if (diagnostic.severity != LSPDiagnosticSeverity::Unknown)
+    }
+    if (diagnostic.severity != LSPDiagnosticSeverity::Unknown) {
         result[QStringLiteral("severity")] = static_cast<int>(diagnostic.severity);
-    if (!diagnostic.source.isEmpty())
+    }
+    if (!diagnostic.source.isEmpty()) {
         result[QStringLiteral("source")] = diagnostic.source;
+    }
     QJsonArray relatedInfo;
     for (const auto &vrelated : diagnostic.relatedInformation) {
         auto related = to_json(vrelated);
@@ -121,8 +124,9 @@ static QJsonArray to_json(const QList<LSPTextDocumentContentChangeEvent> &change
 static QJsonObject versionedTextDocumentIdentifier(const QUrl &document, int version = -1)
 {
     QJsonObject map{{MEMBER_URI, document.toString()}};
-    if (version >= 0)
+    if (version >= 0) {
         map[MEMBER_VERSION] = version;
+    }
     return map;
 }
 
@@ -201,8 +205,9 @@ static QJsonObject codeActionParams(const QUrl &document, const LSPRange &range,
         diags.push_back(to_json(diagnostic));
     }
     context[MEMBER_DIAGNOSTICS] = diags;
-    if (kinds.length())
+    if (kinds.length()) {
         context[QStringLiteral("only")] = QJsonArray::fromStringList(kinds);
+    }
     params[QStringLiteral("context")] = context;
     return params;
 }
@@ -226,8 +231,9 @@ static void from_json(QVector<QChar> &trigger, const QJsonValue &json)
 {
     for (const auto &t : json.toArray()) {
         auto st = t.toString();
-        if (st.length())
+        if (st.length()) {
             trigger.push_back(st.at(0));
+        }
     }
 }
 
@@ -265,8 +271,9 @@ static void from_json(LSPDocumentOnTypeFormattingOptions &options, const QJsonVa
 
 static void from_json(LSPSemanticHighlightingOptions &options, const QJsonValue &json)
 {
-    if (!json.isObject())
+    if (!json.isObject()) {
         return;
+    }
     const auto scopes = json.toObject().value(QStringLiteral("scopes"));
     options.scopes.clear();
     QVector<QString> entries;
@@ -388,8 +395,9 @@ static LSPLocation parseLocationLink(const QJsonObject &loc)
     // both should be present, selection contained by the other
     // so let's preferentially pick the smallest one
     auto vrange = loc.value(MEMBER_TARGET_SELECTION_RANGE);
-    if (vrange.isUndefined())
+    if (vrange.isUndefined()) {
         vrange = loc.value(MEMBER_TARGET_RANGE);
+    }
     auto range = parseRange(vrange.toObject());
     return {QUrl(uri), range};
 }
@@ -434,8 +442,9 @@ static LSPMarkupContent parseHoverContentElement(const QJsonValue &contents)
             result.value = text;
         }
     }
-    if (result.value.length())
+    if (result.value.length()) {
         result.kind = LSPMarkupKind::PlainText;
+    }
     return result;
 }
 
@@ -502,8 +511,9 @@ static QList<LSPSymbolInformation> parseDocumentSymbols(const QJsonValue &result
             list->push_back({name, kind, range, detail});
             index.insert(name, &list->back());
             // proceed recursively
-            for (const auto &child : symbol.value(QStringLiteral("children")).toArray())
+            for (const auto &child : symbol.value(QStringLiteral("children")).toArray()) {
                 parseSymbol(child.toObject(), &list->back());
+            }
         }
     };
 
@@ -548,11 +558,13 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
         auto detail = item.value(MEMBER_DETAIL).toString();
         auto doc = parseMarkupContent(item.value(MEMBER_DOCUMENTATION));
         auto sortText = item.value(QStringLiteral("sortText")).toString();
-        if (sortText.isEmpty())
+        if (sortText.isEmpty()) {
             sortText = label;
+        }
         auto insertText = item.value(QStringLiteral("insertText")).toString();
-        if (insertText.isEmpty())
+        if (insertText.isEmpty()) {
             insertText = label;
+        }
         auto kind = static_cast<LSPCompletionItemKind>(item.value(MEMBER_KIND).toInt());
         ret.push_back({label, kind, detail, doc, sortText, insertText});
     }
@@ -574,10 +586,12 @@ static LSPSignatureInformation parseSignatureInformation(const QJsonObject &json
             if (range.size() == 2) {
                 begin = range.at(0).toInt(-1);
                 end = range.at(1).toInt(-1);
-                if (begin > info.label.length())
+                if (begin > info.label.length()) {
                     begin = -1;
-                if (end > info.label.length())
+                }
+                if (end > info.label.length()) {
                     end = -1;
+                }
             }
         } else {
             auto sub = label.toString();
@@ -851,8 +865,9 @@ private:
         RequestHandle ret;
         ret.m_server = q;
 
-        if (!running())
+        if (!running()) {
             return ret;
+        }
 
         auto ob = msg;
         ob.insert(QStringLiteral("jsonrpc"), QStringLiteral("2.0"));
@@ -882,10 +897,11 @@ private:
 
     RequestHandle send(const QJsonObject &msg, const GenericReplyHandler &h = nullptr, const GenericReplyHandler &eh = nullptr)
     {
-        if (m_state == State::Running)
+        if (m_state == State::Running) {
             return write(msg, h, eh);
-        else
+        } else {
             qCWarning(LSPCLIENT) << "send for non-running server";
+        }
         return RequestHandle();
     }
 
@@ -903,15 +919,17 @@ private:
             int index = buffer.indexOf(header);
             if (index < 0) {
                 // avoid collecting junk
-                if (buffer.length() > 1 << 20)
+                if (buffer.length() > 1 << 20) {
                     buffer.clear();
+                }
                 break;
             }
             index += header.length();
             int endindex = buffer.indexOf("\r\n", index);
             auto msgstart = buffer.indexOf("\r\n\r\n", index);
-            if (endindex < 0 || msgstart < 0)
+            if (endindex < 0 || msgstart < 0) {
                 break;
+            }
             msgstart += 4;
             bool ok = false;
             auto length = buffer.mid(index, endindex - index).toInt(&ok, 10);
@@ -929,8 +947,9 @@ private:
                 buffer.clear();
                 continue;
             }
-            if (msgstart + length > buffer.length())
+            if (msgstart + length > buffer.length()) {
                 break;
+            }
             // now onto payload
             auto payload = buffer.mid(msgstart, length);
             buffer.remove(0, msgstart + length);
@@ -1073,8 +1092,9 @@ private:
 public:
     bool start(LSPClientPlugin *plugin)
     {
-        if (m_state != State::None)
+        if (m_state != State::None) {
             return true;
+        }
 
         auto program = m_server.front();
         auto args = m_server;
@@ -1103,10 +1123,12 @@ public:
     {
         if (running()) {
             shutdown();
-            if ((to_term >= 0) && !m_sproc.waitForFinished(to_term))
+            if ((to_term >= 0) && !m_sproc.waitForFinished(to_term)) {
                 m_sproc.terminate();
-            if ((to_kill >= 0) && !m_sproc.waitForFinished(to_kill))
+            }
+            if ((to_kill >= 0) && !m_sproc.waitForFinished(to_kill)) {
                 m_sproc.kill();
+            }
         }
     }
 
@@ -1309,13 +1331,15 @@ static GenericReplyHandler
 make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
 {
     // empty provided handler leads to empty handler
-    if (!h || !c)
+    if (!h || !c) {
         return nullptr;
+    }
 
     QPointer<const QObject> ctx(context);
     return [ctx, h, c](const GenericReplyType &m) {
-        if (ctx)
+        if (ctx) {
             h(c(m));
+        }
     };
 }
 

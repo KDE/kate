@@ -54,8 +54,9 @@ void KateExternalToolsMenuAction::reload()
     // clear action collection
     bool needs_readd = (m_actionCollection->takeAction(this) != nullptr);
     m_actionCollection->clear();
-    if (needs_readd)
+    if (needs_readd) {
         m_actionCollection->addAction(QStringLiteral("tools_external"), this);
+    }
     menu()->clear();
 
     // create tool actions

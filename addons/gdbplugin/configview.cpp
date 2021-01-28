@@ -145,8 +145,9 @@ void ConfigView::readConfig(const KConfigGroup &group)
 
     for (int i = 0; i < targetCount; i++) {
         targetConfStrs = group.readEntry(targetKey.arg(i), QStringList());
-        if (targetConfStrs.count() == 0)
+        if (targetConfStrs.count() == 0) {
             continue;
+        }
 
         if ((version == 1) && (targetConfStrs.count() == 3)) {
             // valid old style config, translate it now; note the
@@ -182,8 +183,9 @@ void ConfigView::readConfig(const KConfigGroup &group)
                 if (i > 0) {
                     // copy the firsts and change the arguments
                     targetConfStrs[0] = targetName.arg(targetConfStrs[0]).arg(i + 1);
-                    if (targetConfStrs.count() > 3)
+                    if (targetConfStrs.count() > 3) {
                         targetConfStrs[3] = argStr;
+                    }
                     m_targetCombo->addItem(targetConfStrs[0], targetConfStrs);
                 }
             }
@@ -200,8 +202,9 @@ void ConfigView::readConfig(const KConfigGroup &group)
     }
     m_targetSelectAction->setItems(targetNames);
 
-    if (lastTarget < 0 || lastTarget >= m_targetCombo->count())
+    if (lastTarget < 0 || lastTarget >= m_targetCombo->count()) {
         lastTarget = 0;
+    }
     m_targetCombo->setCurrentIndex(lastTarget);
 
     m_takeFocus->setChecked(group.readEntry("alwaysFocusOnInput", false));
@@ -431,16 +434,18 @@ void ConfigView::setAdvancedOptions()
     QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
 
     // make sure we have enough strings;
-    while (tmp.count() < CustomStartIndex)
+    while (tmp.count() < CustomStartIndex) {
         tmp << QString();
+    }
 
     if (tmp[GDBIndex].isEmpty()) {
         tmp[GDBIndex] = QStringLiteral("gdb");
     }
 
     // Remove the strings that are not part of the advanced settings
-    for (int i = 0; i < GDBIndex; i++)
+    for (int i = 0; i < GDBIndex; i++) {
         tmp.takeFirst();
+    }
 
     m_advanced->setConfigs(tmp);
 }
@@ -451,11 +456,13 @@ void ConfigView::slotAdvancedClicked()
 
     QStringList newList = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
     // make sure we have enough strings;
-    while (newList.count() < GDBIndex)
+    while (newList.count() < GDBIndex) {
         newList << QString();
+    }
     // Remove old advanced settings
-    while (newList.count() > GDBIndex)
+    while (newList.count() > GDBIndex) {
         newList.takeLast();
+    }
 
     if (m_advanced->exec() == QDialog::Accepted) {
         // save the new values
@@ -503,8 +510,9 @@ void ConfigView::saveCurrentToIndex(int index)
 
     QStringList tmp = m_targetCombo->itemData(index).toStringList();
     // make sure we have enough strings. The custom init strings are set in slotAdvancedClicked().
-    while (tmp.count() < CustomStartIndex)
+    while (tmp.count() < CustomStartIndex) {
         tmp << QString();
+    }
 
     tmp[NameIndex] = m_targetCombo->itemText(index);
     tmp[ExecIndex] = m_executable->text();
@@ -522,8 +530,9 @@ void ConfigView::loadFromIndex(int index)
 
     QStringList tmp = m_targetCombo->itemData(index).toStringList();
     // make sure we have enough strings. The custom init strings are set in slotAdvancedClicked().
-    while (tmp.count() < CustomStartIndex)
+    while (tmp.count() < CustomStartIndex) {
         tmp << QString();
+    }
 
     m_executable->setText(tmp[ExecIndex]);
     m_workingDirectory->setText(tmp[WorkDirIndex]);

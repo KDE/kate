@@ -252,8 +252,9 @@ void KateCTagsView::lookupTag()
 
     setNewLookupText(currWord);
     Tags::TagList list = Tags::getExactMatches(m_ctagsUi.tagsFile->text(), currWord);
-    if (list.empty())
+    if (list.empty()) {
         list = Tags::getExactMatches(m_commonDB, currWord);
+    }
     displayHits(list);
 
     // activate the hits tab
@@ -265,8 +266,9 @@ void KateCTagsView::lookupTag()
 void KateCTagsView::editLookUp()
 {
     Tags::TagList list = Tags::getPartialMatches(m_ctagsUi.tagsFile->text(), m_ctagsUi.inputEdit->text());
-    if (list.empty())
+    if (list.empty()) {
         list = Tags::getPartialMatches(m_commonDB, m_ctagsUi.inputEdit->text());
+    }
     displayHits(list);
 }
 
@@ -301,8 +303,9 @@ void KateCTagsView::gotoDeclaration()
 void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &types)
 {
     Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), word, false, types);
-    if (list.empty())
+    if (list.empty()) {
         list = Tags::getMatches(m_commonDB, word, false, types);
+    }
 
     // qCDebug(KTECTAGS) << "found" << list.count() << word << types;
     setNewLookupText(word);
@@ -433,8 +436,9 @@ QString KateCTagsView::currentWord()
 /******************************************************************/
 void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const QString &word)
 {
-    if (pattern.isEmpty())
+    if (pattern.isEmpty()) {
         return;
+    }
 
     // generate a regexp from the pattern
     // ctags interestingly escapes "/", but apparently nothing else. lets revert that
@@ -483,8 +487,9 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
     int line;
     for (line = 0; line < m_mWin->activeView()->document()->lines(); line++) {
         linestr = m_mWin->activeView()->document()->line(line);
-        if (linestr.indexOf(re) > -1)
+        if (linestr.indexOf(re) > -1) {
             break;
+        }
     }
 
     // activate the line
@@ -630,8 +635,9 @@ void KateCTagsView::resetCMD()
 /******************************************************************/
 void KateCTagsView::handleEsc(QEvent *e)
 {
-    if (!m_mWin)
+    if (!m_mWin) {
         return;
+    }
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {

@@ -124,12 +124,14 @@ void TargetHtmlDelegate::setEditorData(QWidget *editor, const QModelIndex &index
 
     if (index.column() == 1) {
         UrlInserter *ledit = static_cast<UrlInserter *>(editor);
-        if (ledit)
+        if (ledit) {
             ledit->lineEdit()->setText(value);
+        }
     } else {
         QLineEdit *ledit = static_cast<QLineEdit *>(editor);
-        if (ledit)
+        if (ledit) {
             ledit->setText(value);
+        }
     }
 }
 

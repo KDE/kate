@@ -175,11 +175,14 @@ void ExportFormatPage::initializePage()
 
 bool ExportFormatPage::validatePage()
 {
-    if ((quoteStringsCheckBox->isChecked() && quoteStringsLine->text().isEmpty()) || (quoteNumbersCheckBox->isChecked() && quoteNumbersLine->text().isEmpty()))
+    if ((quoteStringsCheckBox->isChecked() && quoteStringsLine->text().isEmpty())
+        || (quoteNumbersCheckBox->isChecked() && quoteNumbersLine->text().isEmpty())) {
         return false;
+    }
 
-    if (fieldDelimiterLine->text().isEmpty())
+    if (fieldDelimiterLine->text().isEmpty()) {
         return false;
+    }
 
     return true;
 }

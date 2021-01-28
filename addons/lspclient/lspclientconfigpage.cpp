@@ -71,8 +71,9 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkOnTypeFormatting,
                            ui->chkIncrementalSync,
                            ui->chkSemanticHighlighting,
-                           ui->chkAutoHover})
+                           ui->chkAutoHover}) {
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
+    }
     auto ch = [this](int) {
         this->changed();
     };
@@ -85,8 +86,9 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
         Q_UNUSED(position);
         // discard format change
         // (e.g. due to syntax highlighting)
-        if (added || removed)
+        if (added || removed) {
             configTextChanged();
+        }
     };
     connect(ui->userConfig->document(), &QTextDocument::contentsChange, this, cfgh);
 

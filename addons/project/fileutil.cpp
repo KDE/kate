@@ -13,14 +13,17 @@ const QString FileUtil::commonParent(const QString &path1, const QString &path2)
 {
     QString ret = path2;
 
-    while (!path1.startsWith(ret))
+    while (!path1.startsWith(ret)) {
         ret.chop(1);
+    }
 
-    if (ret.isEmpty())
+    if (ret.isEmpty()) {
         return ret;
+    }
 
-    while (!ret.endsWith(QLatin1Char('/')))
+    while (!ret.endsWith(QLatin1Char('/'))) {
         ret.chop(1);
+    }
 
     return ret;
 }

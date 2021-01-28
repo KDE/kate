@@ -223,12 +223,14 @@ bool KateApp::startupKate()
                 QString columnStr = q.queryItemValue(QStringLiteral("column"));
 
                 int line = lineStr.toInt();
-                if (line > 0)
+                if (line > 0) {
                     line--;
+                }
 
                 int column = columnStr.toInt();
-                if (column > 0)
+                if (column > 0) {
                     column--;
+                }
 
                 setCursor(line, column);
             }
@@ -325,8 +327,9 @@ bool KateApp::isOnActivity(const QString &activity)
         const KWindowInfo info(window->winId(), {}, NET::WM2Activities);
         const auto activities = info.activities();
         // handle special case of "on all activities"
-        if (activities.isEmpty() || activities.contains(activity))
+        if (activities.isEmpty() || activities.contains(activity)) {
             return true;
+        }
     }
 
     return false;
@@ -354,8 +357,9 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
         } else {
             doc = mainWindow->viewManager()->openUrl(url, QString(), true, isTempFile);
         }
-    } else
+    } else {
         KMessageBox::sorry(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
+    }
 
     return doc;
 }
@@ -488,8 +492,9 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
      * try to parse message, ignore if no object
      */
     const QJsonDocument jsonMessage = QJsonDocument::fromJson(message.toUtf8());
-    if (!jsonMessage.isObject())
+    if (!jsonMessage.isObject()) {
         return;
+    }
 
     /**
      * open all passed urls

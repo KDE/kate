@@ -45,8 +45,9 @@ OutputStyleWidget::OutputStyleWidget(QWidget *parent)
     addContext(QStringLiteral("null"), i18nc("@item:intable", "NULL"));
     addContext(QStringLiteral("blob"), i18nc("@item:intable", "BLOB"));
 
-    for (int i = 0; i < columnCount(); ++i)
+    for (int i = 0; i < columnCount(); ++i) {
         resizeColumnToContents(i);
+    }
 
     updatePreviews();
 }
@@ -145,8 +146,9 @@ void OutputStyleWidget::readConfig()
 {
     QTreeWidgetItem *root = invisibleRootItem();
 
-    for (int i = 0; i < root->childCount(); ++i)
+    for (int i = 0; i < root->childCount(); ++i) {
         readConfig(root->child(i));
+    }
 }
 
 void OutputStyleWidget::writeConfig()
@@ -156,8 +158,9 @@ void OutputStyleWidget::writeConfig()
 
     QTreeWidgetItem *root = invisibleRootItem();
 
-    for (int i = 0; i < root->childCount(); ++i)
+    for (int i = 0; i < root->childCount(); ++i) {
         writeConfig(root->child(i));
+    }
 }
 
 void OutputStyleWidget::updatePreviews()

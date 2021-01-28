@@ -133,8 +133,9 @@ protected:
 
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
-        if (m_pattern.isEmpty())
+        if (m_pattern.isEmpty()) {
             return true;
+        }
 
         int score = 0;
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
@@ -318,8 +319,9 @@ public:
             case LSPSymbolKind::Module:
             case LSPSymbolKind::Namespace:
             case LSPSymbolKind::Package:
-                if (symbol.children.count() == 0)
+                if (symbol.children.count() == 0) {
                     continue;
+                }
                 icon = &m_icon_pkg;
                 break;
             case LSPSymbolKind::Class:
@@ -344,20 +346,23 @@ public:
             default:
                 // skip local variable
                 // property, field, etc unlikely in such case anyway
-                if (parent && parent->icon().cacheKey() == m_icon_function.cacheKey())
+                if (parent && parent->icon().cacheKey() == m_icon_function.cacheKey()) {
                     continue;
+                }
                 icon = &m_icon_var;
             }
 
             auto node = new QStandardItem();
             auto line = new QStandardItem();
-            if (parent && tree)
+            if (parent && tree) {
                 parent->appendRow({node, line});
-            else
+            } else {
                 model->appendRow({node, line});
+            }
 
-            if (!symbol.detail.isEmpty())
+            if (!symbol.detail.isEmpty()) {
                 details = true;
+            }
             auto detail = show_detail ? symbol.detail : QString();
             node->setText(symbol.name + detail);
             node->setIcon(*icon);
@@ -376,8 +381,9 @@ public:
 
     void onDocumentSymbolsOrProblem(const QList<LSPSymbolInformation> &outline, const QString &problem = QString(), bool cache = false)
     {
-        if (!m_symbols)
+        if (!m_symbols) {
             return;
+        }
 
         // construct new model for data
         auto newModel = std::make_shared<QStandardItemModel>();

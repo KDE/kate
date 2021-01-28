@@ -72,8 +72,9 @@ const QStringList AdvancedGDBSettings::configs() const
     if (u_soSearchPaths->count() > 0) {
         QString paths = QStringLiteral("set solib-search-path ");
         for (int i = 0; i < u_soSearchPaths->count(); ++i) {
-            if (i != 0)
+            if (i != 0) {
                 paths += pathSeparator;
+            }
             paths += u_soSearchPaths->item(i)->text();
         }
         tmp << paths;
@@ -84,8 +85,9 @@ const QStringList AdvancedGDBSettings::configs() const
     if (u_srcPaths->count() > 0) {
         QString paths = QStringLiteral("set directories ");
         for (int i = 0; i < u_srcPaths->count(); ++i) {
-            if (i != 0)
+            if (i != 0) {
                 paths += pathSeparator;
+            }
             paths += u_srcPaths->item(i)->text();
         }
         tmp << paths;
@@ -112,13 +114,15 @@ void AdvancedGDBSettings::setConfigs(const QStringList &cfgs)
     u_baudCombo->setCurrentIndex(0);
 
     // GDB
-    if (cfgs.count() <= GDBIndex)
+    if (cfgs.count() <= GDBIndex) {
         return;
+    }
     u_gdbCmd->setText(cfgs[GDBIndex]);
 
     // Local / Remote
-    if (cfgs.count() <= LocalRemoteIndex)
+    if (cfgs.count() <= LocalRemoteIndex) {
         return;
+    }
 
     int start;
     int end;
@@ -143,20 +147,23 @@ void AdvancedGDBSettings::setConfigs(const QStringList &cfgs)
     }
 
     // Solib absolute path
-    if (cfgs.count() <= SoAbsoluteIndex)
+    if (cfgs.count() <= SoAbsoluteIndex) {
         return;
+    }
     start = 26; // "set solib-absolute-prefix "
     u_soAbsPrefix->setText(cfgs[SoAbsoluteIndex].mid(start));
 
     // Solib search path
-    if (cfgs.count() <= SoRelativeIndex)
+    if (cfgs.count() <= SoRelativeIndex) {
         return;
+    }
     start = 22; // "set solib-search-path "
     QString tmp = cfgs[SoRelativeIndex].mid(start);
     u_soSearchPaths->addItems(tmp.split(pathSeparator));
 
-    if (cfgs.count() <= SrcPathsIndex)
+    if (cfgs.count() <= SrcPathsIndex) {
         return;
+    }
     start = 16; // "set directories "
     tmp = cfgs[SrcPathsIndex].mid(start);
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
@@ -183,8 +190,9 @@ void AdvancedGDBSettings::slotBrowseGDB()
 
 void AdvancedGDBSettings::setComboText(QComboBox *combo, const QString &str)
 {
-    if (!combo)
+    if (!combo) {
         return;
+    }
 
     for (int i = 0; i < combo->count(); i++) {
         if (combo->itemText(i) == str) {
@@ -200,8 +208,9 @@ void AdvancedGDBSettings::setComboText(QComboBox *combo, const QString &str)
 void AdvancedGDBSettings::slotSetSoPrefix()
 {
     QString prefix = QFileDialog::getExistingDirectory(this);
-    if (prefix.isEmpty())
+    if (prefix.isEmpty()) {
         return;
+    }
 
     u_soAbsPrefix->setText(prefix);
 }
@@ -209,8 +218,9 @@ void AdvancedGDBSettings::slotSetSoPrefix()
 void AdvancedGDBSettings::slotAddSoPath()
 {
     QString path = QFileDialog::getExistingDirectory(this);
-    if (path.isEmpty())
+    if (path.isEmpty()) {
         return;
+    }
 
     u_soSearchPaths->addItem(path);
 }
@@ -224,8 +234,9 @@ void AdvancedGDBSettings::slotDelSoPath()
 void AdvancedGDBSettings::slotAddSrcPath()
 {
     QString path = QFileDialog::getExistingDirectory(this);
-    if (path.isEmpty())
+    if (path.isEmpty()) {
         return;
+    }
 
     u_srcPaths->addItem(path);
 }

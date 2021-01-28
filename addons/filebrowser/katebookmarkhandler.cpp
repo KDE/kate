@@ -21,12 +21,14 @@ KateBookmarkHandler::KateBookmarkHandler(KateFileBrowser *parent, QMenu *kpopupm
     , m_menu(kpopupmenu)
 {
     setObjectName(QStringLiteral("KateBookmarkHandler"));
-    if (!m_menu)
+    if (!m_menu) {
         m_menu = new QMenu(parent);
+    }
 
     QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kate/fsbookmarks.xml"));
-    if (file.isEmpty())
+    if (file.isEmpty()) {
         file = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/fsbookmarks.xml");
+    }
 
     KBookmarkManager *manager = KBookmarkManager::managerForFile(file, QStringLiteral("kate"));
     manager->setUpdate(true);

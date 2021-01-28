@@ -33,8 +33,9 @@ SnippetCompletionModel::~SnippetCompletionModel()
 
 QVariant SnippetCompletionModel::data(const QModelIndex &idx, int role) const
 {
-    if (role == KTextEditor::CodeCompletionModel::InheritanceDepth)
+    if (role == KTextEditor::CodeCompletionModel::InheritanceDepth) {
         return 11000;
+    }
 
     // grouping of snippets
     if (!idx.parent().isValid()) {

@@ -43,8 +43,9 @@ public:
 
     bool setData(const QModelIndex &index, const QVariant &value, int role) override
     {
-        if (!index.isValid())
+        if (!index.isValid()) {
             return false;
+        }
         if (role == Role::Score) {
             auto row = index.row();
             m_rows[row].score = value.toInt();

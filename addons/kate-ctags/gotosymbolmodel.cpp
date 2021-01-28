@@ -32,11 +32,13 @@ QVariant GotoSymbolModel::data(const QModelIndex &index, int role) const
 
     const auto &row = m_rows.at(index.row());
     if (role == Qt::DisplayRole) {
-        if (index.column() == 0)
+        if (index.column() == 0) {
             return row.name;
+        }
     } else if (role == Qt::DecorationRole) {
-        if (index.column() == 0)
+        if (index.column() == 0) {
             return row.icon;
+        }
     } else if (role == Qt::UserRole) {
         return row.line;
     }
@@ -91,27 +93,31 @@ void GotoSymbolModel::refresh(const QString &filePath)
             item.icon = funcIcon;
             break;
         case 'm':
-            if (items.at(1) == "method")
+            if (items.at(1) == "method") {
                 item.icon = funcIcon;
-            else
+            } else {
                 item.icon = defIcon;
+            }
             break;
         case 'g':
-            if (items.at(1) == "getter")
+            if (items.at(1) == "getter") {
                 item.icon = funcIcon;
-            else
+            } else {
                 item.icon = defIcon;
+            }
             break;
         case 'c':
         case 's':
-            if (items.at(1) == "class" || items.at(1) == "struct")
+            if (items.at(1) == "class" || items.at(1) == "struct") {
                 item.icon = classIcon;
-            else
+            } else {
                 item.icon = defIcon;
+            }
             break;
         case 'n':
-            if (items.at(1) == "namespace")
+            if (items.at(1) == "namespace") {
                 item.icon = nsIcon;
+            }
             break;
         case 'v':
             item.icon = varIcon;

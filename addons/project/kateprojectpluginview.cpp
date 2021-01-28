@@ -85,8 +85,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * will create toolviews on demand!
      */
     const auto projectList = m_plugin->projects();
-    for (KateProject *project : projectList)
+    for (KateProject *project : projectList) {
         viewForProject(project);
+    }
 
     /**
      * connect to important signals, e.g. for auto project view creation
@@ -100,8 +101,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * connect for all already existing views
      */
     const auto views = m_mainWindow->views();
-    for (KTextEditor::View *view : views)
+    for (KTextEditor::View *view : views) {
         slotViewCreated(view);
+    }
 
     /**
      * trigger once view change, to highlight right document

@@ -18,8 +18,9 @@
 
 void KatePluginSymbolViewerView::parseXMLSymbols(void)
 {
-    if (!m_mainWindow->activeView())
+    if (!m_mainWindow->activeView()) {
         return;
+    }
 
     m_struct->setText(i18n("Show Tags"));
 
@@ -60,10 +61,11 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
             QString type;
             QRegularExpressionMatch match;
             QRegularExpression re(QLatin1String("^<([a-zA-Z_]+[a-zA-Z0-9_\\.\\-]*)"));
-            if (cl.contains(re, &match))
+            if (cl.contains(re, &match)) {
                 type = match.captured(1);
-            else
+            } else {
                 continue;
+            }
 
             QString stripped = cl.remove(QRegularExpression(QLatin1String("^<[a-zA-Z_]+[a-zA-Z0-9_\\.\\-]* *")));
             stripped.remove(QRegularExpression(QLatin1String(" */*>.*")));

@@ -337,8 +337,9 @@ void KWrite::slotDropEvent(QDropEvent *event)
 {
     const QList<QUrl> textlist = event->mimeData()->urls();
 
-    for (const QUrl &url : textlist)
+    for (const QUrl &url : textlist) {
         slotOpen(url);
+    }
 }
 
 void KWrite::slotEnableActions(bool enable)

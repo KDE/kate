@@ -54,8 +54,9 @@
 
 static QUrl localFileDirUp(const QUrl &url)
 {
-    if (!url.isLocalFile())
+    if (!url.isLocalFile()) {
         return url;
+    }
 
     // else go up
     return QUrl::fromLocalFile(QFileInfo(url.toLocalFile()).dir().absolutePath());
@@ -69,14 +70,17 @@ menuEntry(QMenu *menu, const QString &before, const QString &after, const QStrin
  */
 static QAction *menuEntry(QMenu *menu, const QString &before, const QString &after, const QString &desc, QString menuBefore, QString menuAfter)
 {
-    if (menuBefore.isEmpty())
+    if (menuBefore.isEmpty()) {
         menuBefore = before;
-    if (menuAfter.isEmpty())
+    }
+    if (menuAfter.isEmpty()) {
         menuAfter = after;
+    }
 
     QAction *const action = menu->addAction(menuBefore + menuAfter + QLatin1Char('\t') + desc);
-    if (!action)
+    if (!action) {
         return nullptr;
+    }
 
     action->setData(QString(before + QLatin1Char(' ') + after));
     return action;
@@ -162,8 +166,9 @@ static void regexHelperActOnAction(QAction *resultAction, const QSet<QAction *> 
     if (resultAction && actionList.contains(resultAction)) {
         const int cursorPos = lineEdit->cursorPosition();
         QStringList beforeAfter = resultAction->data().toString().split(QLatin1Char(' '));
-        if (beforeAfter.size() != 2)
+        if (beforeAfter.size() != 2) {
             return;
+        }
         lineEdit->insert(beforeAfter[0] + beforeAfter[1]);
         lineEdit->setCursorPosition(cursorPos + beforeAfter[0].count());
         lineEdit->setFocus();
@@ -180,8 +185,9 @@ Results::Results(QWidget *parent)
 
 #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
     auto updateColors = [this](KTextEditor::Editor *e) {
-        if (!e)
+        if (!e) {
             return;
+        }
 
         const auto theme = e->theme();
         auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
@@ -627,8 +633,9 @@ void KatePluginSearchView::openSearchView()
 
 void KatePluginSearchView::handleEsc(QEvent *e)
 {
-    if (!m_mainWindow)
+    if (!m_mainWindow) {
         return;
+    }
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
@@ -866,15 +873,18 @@ void KatePluginSearchView::updateViewColors()
     if (ciface && view) {
         // save for later reuse when the search tree starts getting populated
         QColor search = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
-        if (!search.isValid())
+        if (!search.isValid()) {
             search = Qt::yellow;
+        }
         m_replaceHighlightColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
-        if (!m_replaceHighlightColor.isValid())
+        if (!m_replaceHighlightColor.isValid()) {
             m_replaceHighlightColor = Qt::green;
+        }
         QColor fg = view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color();
 
-        if (!m_resultAttr)
+        if (!m_resultAttr) {
             m_resultAttr = new KTextEditor::Attribute();
+        }
         // reset colors at the start of search
         m_resultAttr->clear();
         m_resultAttr->setBackground(search);
@@ -1015,8 +1025,9 @@ void KatePluginSearchView::startSearch()
         m_searchOpenFiles.startSearch(documents, reg);
     } else if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::Folder) {
         m_resultBaseDir = m_ui.folderRequester->url().path();
-        if (!m_resultBaseDir.isEmpty() && !m_resultBaseDir.endsWith(QLatin1Char('/')))
+        if (!m_resultBaseDir.isEmpty() && !m_resultBaseDir.endsWith(QLatin1Char('/'))) {
             m_resultBaseDir += QLatin1Char('/');
+        }
         m_curResults->matchModel.setBaseSearchPath(m_resultBaseDir);
         m_folderFilesList.generateList(m_ui.folderRequester->text(),
                                        m_ui.recursiveCheckBox->isChecked(),
@@ -1040,8 +1051,9 @@ void KatePluginSearchView::startSearch()
                 m_curResults->matchModel.setProjectName(m_projectPluginView->property("projectName").toString());
             }
 
-            if (!m_resultBaseDir.endsWith(QLatin1Char('/')))
+            if (!m_resultBaseDir.endsWith(QLatin1Char('/'))) {
                 m_resultBaseDir += QLatin1Char('/');
+            }
 
             QStringList projectFiles;
             if (inCurrentProject) {
@@ -1091,15 +1103,18 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_ui.searchButton->setDisabled(currentSearchText.isEmpty());
 
     // Do not clear the search results if you press up by mistake
-    if (currentSearchText.isEmpty())
+    if (currentSearchText.isEmpty()) {
         return;
+    }
 
-    if (!m_mainWindow->activeView())
+    if (!m_mainWindow->activeView()) {
         return;
+    }
 
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
-    if (!doc)
+    if (!doc) {
         return;
+    }
 
     m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
@@ -1429,8 +1444,9 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
                                            KTextEditor::Attribute::Ptr attr,
                                            KTextEditor::MovingInterface *miface)
 {
-    if (!doc)
+    if (!doc) {
         return;
+    }
 
     bool isReplaced = !match.replaceText.isEmpty();
 
@@ -1474,8 +1490,9 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
 #else
     KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
 #endif
-    if (!iface)
+    if (!iface) {
         return;
+    }
     static const auto description = i18n("Search Match");
     iface->setMarkDescription(KTextEditor::MarkInterface::markType32, description);
 #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
@@ -1492,18 +1509,21 @@ void KatePluginSearchView::updateMatchMarks()
     // This will also update the model ranges corresponding to the cleared ranges.
     clearMarksAndRanges();
 
-    if (!m_mainWindow->activeView())
+    if (!m_mainWindow->activeView()) {
         return;
+    }
 
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!res)
+    if (!res) {
         return;
+    }
     m_curResults = res;
 
     // add the marks if it is not already open
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
-    if (!doc)
+    if (!doc) {
         return;
+    }
 
     connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarksAndRanges()), Qt::UniqueConnection);
     // Re-add the highlighting on document reload
@@ -1520,8 +1540,9 @@ void KatePluginSearchView::updateMatchMarks()
 
 void KatePluginSearchView::syncModelRanges()
 {
-    if (!m_curResults)
+    if (!m_curResults) {
         return;
+    }
     // NOTE: We assume there are only ranges for one document in the ranges at a time...
     m_curResults->matchModel.updateMatchRanges(m_matchRanges);
 }
@@ -2059,13 +2080,15 @@ void KatePluginSearchView::searchContextMenu(const QPoint &pos)
     QSet<QAction *> actionPointers;
 
     QMenu *const contextMenu = m_ui.searchCombo->lineEdit()->createStandardContextMenu();
-    if (!contextMenu)
+    if (!contextMenu) {
         return;
+    }
 
     if (m_ui.useRegExp->isChecked()) {
         QMenu *menu = contextMenu->addMenu(i18n("Add..."));
-        if (!menu)
+        if (!menu) {
             return;
+        }
 
         menu->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
 
@@ -2080,12 +2103,14 @@ void KatePluginSearchView::searchContextMenu(const QPoint &pos)
 void KatePluginSearchView::replaceContextMenu(const QPoint &pos)
 {
     QMenu *const contextMenu = m_ui.replaceCombo->lineEdit()->createStandardContextMenu();
-    if (!contextMenu)
+    if (!contextMenu) {
         return;
+    }
 
     QMenu *menu = contextMenu->addMenu(i18n("Add..."));
-    if (!menu)
+    if (!menu) {
         return;
+    }
     menu->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
 
     QSet<QAction *> actionPointers;

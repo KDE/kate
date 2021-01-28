@@ -57,8 +57,9 @@ QObject *KateCTagsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 /******************************************************************/
 KTextEditor::ConfigPage *KateCTagsPlugin::configPage(int number, QWidget *parent)
 {
-    if (number != 0)
+    if (number != 0) {
         return nullptr;
+    }
     return new KateCTagsConfigPage(parent, this);
 }
 

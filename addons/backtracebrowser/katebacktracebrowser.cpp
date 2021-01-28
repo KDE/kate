@@ -332,12 +332,13 @@ void KateBtConfigWidget::defaults()
 void KateBtConfigWidget::add()
 {
     QDir url(edtUrl->lineEdit()->text());
-    if (url.exists())
+    if (url.exists()) {
         if (lstFolders->findItems(url.absolutePath(), Qt::MatchExactly).empty()) {
             lstFolders->addItem(url.absolutePath());
             emit changed();
             m_changed = true;
         }
+    }
 }
 
 void KateBtConfigWidget::remove()

@@ -119,12 +119,15 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         }
 
         QDir::Filters filter = QDir::Files | QDir::NoDotAndDotDot | QDir::Readable;
-        if (m_hidden)
+        if (m_hidden) {
             filter |= QDir::Hidden;
-        if (m_recursive)
+        }
+        if (m_recursive) {
             filter |= QDir::AllDirs;
-        if (!m_symlinks)
+        }
+        if (!m_symlinks) {
             filter |= QDir::NoSymLinks;
+        }
 
         // sort the items to have an deterministic order!
         const QFileInfoList currentItems = currentDir.entryInfoList(m_types, filter, QDir::Name | QDir::LocaleAware);

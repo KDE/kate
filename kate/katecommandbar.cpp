@@ -49,8 +49,9 @@ protected:
 
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
-        if (m_pattern.isEmpty())
+        if (m_pattern.isEmpty()) {
             return true;
+        }
 
         int score = 0;
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
@@ -122,8 +123,9 @@ public:
         painter->translate(option.rect.x(), option.rect.y());
         // leave space for icon
 
-        if (!rtl)
+        if (!rtl) {
             painter->translate(25, 0);
+        }
 
         doc.drawContents(painter);
 

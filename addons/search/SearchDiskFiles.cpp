@@ -76,13 +76,15 @@ void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
     QRegularExpressionMatch match;
     QVector<KateSearchMatch> matches;
     while (!(line = stream.readLine()).isNull()) {
-        if (m_cancelSearch)
+        if (m_cancelSearch) {
             break;
+        }
         match = m_regExp.match(line);
         column = match.capturedStart();
         while (column != -1 && !match.captured().isEmpty()) {
-            if (m_cancelSearch)
+            if (m_cancelSearch) {
                 break;
+            }
 
             int endColumn = column + match.capturedLength();
             int preContextStart = qMax(0, column - MatchModel::PreContextLen);
@@ -134,8 +136,9 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
     column = match.capturedStart();
     QVector<KateSearchMatch> matches;
     while (column != -1 && !match.captured().isEmpty()) {
-        if (m_cancelSearch)
+        if (m_cancelSearch) {
             break;
+        }
         // search for the line number of the match
         int i;
         line = -1;

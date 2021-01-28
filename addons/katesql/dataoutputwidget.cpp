@@ -108,8 +108,9 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
     /// When one of the statements is a non-select statement a count of affected rows
     /// may be available instead of a result set.
 
-    if (!query.isSelect() || query.lastError().isValid())
+    if (!query.isSelect() || query.lastError().isValid()) {
         return;
+    }
 
     m_model->setQuery(query);
 
@@ -123,8 +124,9 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
 void DataOutputWidget::clearResults()
 {
     // avoid crash when calling QSqlQueryModel::clear() after removing connection from the QSqlDatabase list
-    if (m_isEmpty)
+    if (m_isEmpty) {
         return;
+    }
 
     m_model->clear();
 
@@ -140,23 +142,26 @@ void DataOutputWidget::clearResults()
 
 void DataOutputWidget::resizeColumnsToContents()
 {
-    if (m_model->rowCount() == 0)
+    if (m_model->rowCount() == 0) {
         return;
+    }
 
     m_view->resizeColumnsToContents();
 }
 
 void DataOutputWidget::resizeRowsToContents()
 {
-    if (m_model->rowCount() == 0)
+    if (m_model->rowCount() == 0) {
         return;
+    }
 
     m_view->resizeRowsToContents();
 
     int h = m_view->rowHeight(0);
 
-    if (h > 0)
+    if (h > 0) {
         m_view->verticalHeader()->setDefaultSectionSize(h);
+    }
 }
 
 void DataOutputWidget::slotToggleLocale()
@@ -166,39 +171,47 @@ void DataOutputWidget::slotToggleLocale()
 
 void DataOutputWidget::slotCopySelected()
 {
-    if (m_model->rowCount() <= 0)
+    if (m_model->rowCount() <= 0) {
         return;
+    }
 
-    while (m_model->canFetchMore())
+    while (m_model->canFetchMore()) {
         m_model->fetchMore();
+    }
 
-    if (!m_view->selectionModel()->hasSelection())
+    if (!m_view->selectionModel()->hasSelection()) {
         m_view->selectAll();
+    }
 
     QString text;
     QTextStream stream(&text);
 
     exportData(stream);
 
-    if (!text.isEmpty())
+    if (!text.isEmpty()) {
         QApplication::clipboard()->setText(text);
+    }
 }
 
 void DataOutputWidget::slotExport()
 {
-    if (m_model->rowCount() <= 0)
+    if (m_model->rowCount() <= 0) {
         return;
+    }
 
-    while (m_model->canFetchMore())
+    while (m_model->canFetchMore()) {
         m_model->fetchMore();
+    }
 
-    if (!m_view->selectionModel()->hasSelection())
+    if (!m_view->selectionModel()->hasSelection()) {
         m_view->selectAll();
+    }
 
     ExportWizard wizard(this);
 
-    if (wizard.exec() != QDialog::Accepted)
+    if (wizard.exec() != QDialog::Accepted) {
         return;
+    }
 
     bool outputInDocument = wizard.field(QStringLiteral("outDocument")).toBool();
     bool outputInClipboard = wizard.field(QStringLiteral("outClipboard")).toBool();
@@ -209,10 +222,12 @@ void DataOutputWidget::slotExport()
 
     Options opt = NoOptions;
 
-    if (exportColumnNames)
+    if (exportColumnNames) {
         opt |= ExportColumnNames;
-    if (exportLineNumbers)
+    }
+    if (exportLineNumbers) {
         opt |= ExportLineNumbers;
+    }
 
     bool quoteStrings = wizard.field(QStringLiteral("checkQuoteStrings")).toBool();
     bool quoteNumbers = wizard.field(QStringLiteral("checkQuoteNumbers")).toBool();
@@ -226,8 +241,9 @@ void DataOutputWidget::slotExport()
         KTextEditor::MainWindow *mw = KTextEditor::Editor::instance()->application()->activeMainWindow();
         KTextEditor::View *kv = mw->activeView();
 
-        if (!kv)
+        if (!kv) {
             return;
+        }
 
         QString text;
         QTextStream stream(&text);
@@ -266,8 +282,9 @@ void DataOutputWidget::exportData(QTextStream &stream,
 {
     QItemSelectionModel *selectionModel = m_view->selectionModel();
 
-    if (!selectionModel->hasSelection())
+    if (!selectionModel->hasSelection()) {
         return;
+    }
 
     QString fixedFieldDelimiter = fieldDelimiter;
 
@@ -293,54 +310,63 @@ void DataOutputWidget::exportData(QTextStream &stream,
         const int col = index.column();
         const int row = index.row();
 
-        if (!columns.contains(col))
+        if (!columns.contains(col)) {
             columns.insert(col);
-        if (!rows.contains(row))
+        }
+        if (!rows.contains(row)) {
             rows.insert(row);
+        }
 
         if (data.type() < 7) // is numeric or boolean
         {
-            if (numbersQuoteChar != QLatin1Char('\0'))
+            if (numbersQuoteChar != QLatin1Char('\0')) {
                 snapshot[qMakePair(row, col)] = numbersQuoteChar + data.toString() + numbersQuoteChar;
-            else
+            } else {
                 snapshot[qMakePair(row, col)] = data.toString();
+            }
         } else {
-            if (stringsQuoteChar != QLatin1Char('\0'))
+            if (stringsQuoteChar != QLatin1Char('\0')) {
                 snapshot[qMakePair(row, col)] = stringsQuoteChar + data.toString() + stringsQuoteChar;
-            else
+            } else {
                 snapshot[qMakePair(row, col)] = data.toString();
+            }
         }
     }
 
     if (opt.testFlag(ExportColumnNames)) {
-        if (opt.testFlag(ExportLineNumbers))
+        if (opt.testFlag(ExportLineNumbers)) {
             stream << fixedFieldDelimiter;
+        }
 
         QSetIterator<int> j(columns);
         while (j.hasNext()) {
             const QVariant data = m_model->headerData(j.next(), Qt::Horizontal);
 
-            if (stringsQuoteChar != QLatin1Char('\0'))
+            if (stringsQuoteChar != QLatin1Char('\0')) {
                 stream << stringsQuoteChar + data.toString() + stringsQuoteChar;
-            else
+            } else {
                 stream << data.toString();
+            }
 
-            if (j.hasNext())
+            if (j.hasNext()) {
                 stream << fixedFieldDelimiter;
+            }
         }
         stream << "\n";
     }
 
     for (const int row : qAsConst(rows)) {
-        if (opt.testFlag(ExportLineNumbers))
+        if (opt.testFlag(ExportLineNumbers)) {
             stream << row + 1 << fixedFieldDelimiter;
+        }
 
         QSetIterator<int> j(columns);
         while (j.hasNext()) {
             stream << snapshot.value(qMakePair(row, j.next()));
 
-            if (j.hasNext())
+            if (j.hasNext()) {
                 stream << fixedFieldDelimiter;
+            }
         }
         stream << "\n";
     }

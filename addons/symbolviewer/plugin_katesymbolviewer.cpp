@@ -219,8 +219,9 @@ void KatePluginSymbolViewerView::updateCurrTreeItem()
     QTreeWidgetItem *tmp = nullptr;
     for (int i = 0; i < m_symbols->topLevelItemCount(); i++) {
         tmp = newActveItem(newItemLine, currLine, m_symbols->topLevelItem(i));
-        if (tmp)
+        if (tmp) {
             newItem = tmp;
+        }
     }
 
     if (!newItem) {
@@ -252,8 +253,9 @@ QTreeWidgetItem *KatePluginSymbolViewerView::newActveItem(int &newItemLine, int 
 
     for (int i = 0; i < item->childCount(); i++) {
         tmp = newActveItem(newItemLine, currLine, item->child(i));
-        if (tmp)
+        if (tmp) {
             newItem = tmp;
+        }
     }
 
     return newItem;
@@ -290,8 +292,9 @@ void KatePluginSymbolViewerView::displayOptionChanged()
 
 void KatePluginSymbolViewerView::parseSymbols()
 {
-    if (!m_symbols)
+    if (!m_symbols) {
         return;
+    }
 
     m_symbols->clear();
     // Qt docu recommends to populate view with disabled sorting
@@ -299,43 +302,45 @@ void KatePluginSymbolViewerView::parseSymbols()
     m_symbols->setSortingEnabled(false);
     Qt::SortOrder sortOrder = m_symbols->header()->sortIndicatorOrder();
 
-    if (!m_mainWindow->activeView())
+    if (!m_mainWindow->activeView()) {
         return;
+    }
 
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
 
     // be sure we have some document around !
-    if (!doc)
+    if (!doc) {
         return;
+    }
 
     /** Get the current highlighting mode */
     QString hlModeName = doc->mode();
 
-    if (hlModeName.contains(QLatin1String("C++")) || hlModeName == QLatin1Char('C') || hlModeName == QLatin1String("ANSI C89"))
+    if (hlModeName.contains(QLatin1String("C++")) || hlModeName == QLatin1Char('C') || hlModeName == QLatin1String("ANSI C89")) {
         parseCppSymbols();
-    else if (hlModeName == QLatin1String("PHP (HTML)"))
+    } else if (hlModeName == QLatin1String("PHP (HTML)")) {
         parsePhpSymbols();
-    else if (hlModeName == QLatin1String("Tcl/Tk"))
+    } else if (hlModeName == QLatin1String("Tcl/Tk")) {
         parseTclSymbols();
-    else if (hlModeName.contains(QLatin1String("Fortran")))
+    } else if (hlModeName.contains(QLatin1String("Fortran"))) {
         parseFortranSymbols();
-    else if (hlModeName == QLatin1String("Perl"))
+    } else if (hlModeName == QLatin1String("Perl")) {
         parsePerlSymbols();
-    else if (hlModeName == QLatin1String("Python"))
+    } else if (hlModeName == QLatin1String("Python")) {
         parsePythonSymbols();
-    else if (hlModeName == QLatin1String("Ruby"))
+    } else if (hlModeName == QLatin1String("Ruby")) {
         parseRubySymbols();
-    else if (hlModeName == QLatin1String("Java"))
+    } else if (hlModeName == QLatin1String("Java")) {
         parseCppSymbols();
-    else if (hlModeName == QLatin1String("xslt"))
+    } else if (hlModeName == QLatin1String("xslt")) {
         parseXsltSymbols();
-    else if (hlModeName == QLatin1String("XML") || hlModeName == QLatin1String("HTML"))
+    } else if (hlModeName == QLatin1String("XML") || hlModeName == QLatin1String("HTML")) {
         parseXMLSymbols();
-    else if (hlModeName == QLatin1String("Bash"))
+    } else if (hlModeName == QLatin1String("Bash")) {
         parseBashSymbols();
-    else if (hlModeName == QLatin1String("ActionScript 2.0") || hlModeName == QLatin1String("JavaScript") || hlModeName == QLatin1String("QML"))
+    } else if (hlModeName == QLatin1String("ActionScript 2.0") || hlModeName == QLatin1String("JavaScript") || hlModeName == QLatin1String("QML")) {
         parseEcmaSymbols();
-    else {
+    } else {
         QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);
         node->setText(0, i18n("Sorry, not supported yet!"));
         // Setting invalid line number avoid jump to top of document when clicked
@@ -358,8 +363,9 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
     KTextEditor::View *kv = m_mainWindow->activeView();
 
     // be sure we really have a view !
-    if (!kv)
+    if (!kv) {
         return;
+    }
 
     // qDebug()<<"Slot Activated at pos: "<<m_symbols->indexOfTopLevelItem(it);
     if (!it || it->text(1).isEmpty()) {

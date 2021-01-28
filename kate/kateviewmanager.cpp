@@ -1084,8 +1084,9 @@ QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBas
     const auto sizes = s->sizes();
     for (int it = 0; it < s->count(); ++it) {
         // skip empty sized invisible ones, if not last one, we need one thing at least
-        if ((sizes[it] == 0) && ((it + 1 < s->count()) || !childList.empty()))
+        if ((sizes[it] == 0) && ((it + 1 < s->count()) || !childList.empty())) {
             continue;
+        }
 
         // For KateViewSpaces, ask them to save the file list.
         auto obj = s->widget(it);
@@ -1105,8 +1106,9 @@ QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBas
     }
 
     // if only one thing, skip splitter config export, if not top splitter
-    if ((s != this) && (childList.size() == 1))
+    if ((s != this) && (childList.size() == 1)) {
         return childList.at(0);
+    }
 
     // Save sizes, orient, children for this splitter
     KConfigGroup config(configBase, grp);

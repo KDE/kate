@@ -14,8 +14,9 @@
 
 void KatePluginSymbolViewerView::parsePythonSymbols(void)
 {
-    if (!m_mainWindow->activeView())
+    if (!m_mainWindow->activeView()) {
         return;
+    }
 
     m_macro->setText(i18n("Show Globals"));
     m_struct->setText(i18n("Show Methods"));
@@ -51,74 +52,86 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         mtdNode = clsNode;
         lastMtdNode = clsNode;
         m_symbols->setRootIsDecorated(1);
-    } else
+    } else {
         m_symbols->setRootIsDecorated(0);
+    }
 
     for (int i = 0; i < kv->lines(); i++) {
         int line = i;
         cl = kv->line(i);
         // concatenate continued lines and remove continuation marker
-        if (cl.length() == 0)
+        if (cl.length() == 0) {
             continue;
+        }
         while (cl[cl.length() - 1] == QLatin1Char('\\')) {
             cl = cl.left(cl.length() - 1);
             i++;
-            if (i < kv->lines())
+            if (i < kv->lines()) {
                 cl += kv->line(i);
-            else
+            } else {
                 break;
+            }
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^class [a-zA-Z0-9_,\\s\\(\\).]+:"))) >= 0)
+        if (cl.indexOf(QRegularExpression(QLatin1String("^class [a-zA-Z0-9_,\\s\\(\\).]+:"))) >= 0) {
             in_class = 1;
+        }
 
         // if(cl.find( QRegularExpression(QLatin1String("[\\s]+def [a-zA-Z_]+[^#]*:")) ) >= 0) in_class = 2;
-        if (cl.indexOf(QRegularExpression(QLatin1String("^def\\s+[a-zA-Z_]+[^#]*:"))) >= 0)
+        if (cl.indexOf(QRegularExpression(QLatin1String("^def\\s+[a-zA-Z_]+[^#]*:"))) >= 0) {
             in_class = 0;
+        }
 
         if (cl.indexOf(QLatin1String("def ")) >= 0 || (cl.indexOf(QLatin1String("class ")) >= 0 && in_class == 1)) {
-            if (cl.indexOf(QLatin1String("def ")) >= 0 && in_class == 1)
+            if (cl.indexOf(QLatin1String("def ")) >= 0 && in_class == 1) {
                 in_class = 2;
+            }
             state = 1;
-            if (cl.indexOf(QLatin1Char(':')) >= 0)
+            if (cl.indexOf(QLatin1Char(':')) >= 0) {
                 state = 3; // found in the same line. Done
-            else if (cl.indexOf(QLatin1Char('(')) >= 0)
+            } else if (cl.indexOf(QLatin1Char('(')) >= 0) {
                 state = 2;
+            }
 
-            if (state == 2 || state == 3)
+            if (state == 2 || state == 3) {
                 name = cl.left(cl.indexOf(QLatin1Char('(')));
+            }
         }
 
         if (state > 0 && state < 3) {
             for (j = 0; j < cl.length(); j++) {
-                if (cl.at(j) == QLatin1Char('('))
+                if (cl.at(j) == QLatin1Char('(')) {
                     state = 2;
-                else if (cl.at(j) == QLatin1Char(':')) {
+                } else if (cl.at(j) == QLatin1Char(':')) {
                     state = 3;
                     break;
                 }
 
-                if (state == 1)
+                if (state == 1) {
                     name += cl.at(j);
+                }
             }
         }
         if (state == 3) {
             // qDebug(13000)<<"Function -- Inserted : "<<name<<" at row : "<<i;
-            if (in_class == 1) // strip off the word "class "
+            if (in_class == 1) { // strip off the word "class "
                 name = name.trimmed().mid(6);
-            else // strip off the word "def "
+            } else { // strip off the word "def "
                 name = name.trimmed().mid(4);
+            }
 
             if (m_func->isChecked() && in_class == 1) {
                 if (m_treeOn->isChecked()) {
                     node = new QTreeWidgetItem(clsNode, lastClsNode);
-                    if (m_expandOn->isChecked())
+                    if (m_expandOn->isChecked()) {
                         m_symbols->expandItem(node);
+                    }
                     lastClsNode = node;
                     mtdNode = lastClsNode;
                     lastMtdNode = lastClsNode;
-                } else
+                } else {
                     node = new QTreeWidgetItem(m_symbols);
+                }
 
                 node->setText(0, name);
                 node->setIcon(0, QIcon(cls));
@@ -129,8 +142,9 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 if (m_treeOn->isChecked()) {
                     node = new QTreeWidgetItem(mtdNode, lastMtdNode);
                     lastMtdNode = node;
-                } else
+                } else {
                     node = new QTreeWidgetItem(m_symbols);
+                }
 
                 node->setText(0, name);
                 node->setIcon(0, QIcon(mtd));
@@ -141,8 +155,9 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 if (m_treeOn->isChecked()) {
                     node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                     lastMcrNode = node;
-                } else
+                } else {
                     node = new QTreeWidgetItem(m_symbols);
+                }
 
                 node->setText(0, name);
                 node->setIcon(0, QIcon(mcr));

@@ -138,8 +138,9 @@ void ReplicodeView::runReplicode()
 
     m_replicodeOutput->clear();
 
-    if (m_executor)
+    if (m_executor) {
         delete m_executor;
+    }
     m_executor = new QProcess(this);
     m_executor->setWorkingDirectory(sourceFile.canonicalPath());
     connect(m_executor, &QProcess::readyReadStandardError, this, &ReplicodeView::gotStderr);
@@ -168,18 +169,21 @@ void ReplicodeView::outputClicked(QListWidgetItem *item)
     QString output = item->text();
     QStringList pieces = output.split(QLatin1Char(':'));
 
-    if (pieces.length() < 2)
+    if (pieces.length() < 2) {
         return;
+    }
 
     QFileInfo file(pieces[0]);
-    if (!file.isReadable())
+    if (!file.isReadable()) {
         return;
+    }
 
     bool ok = false;
     int lineNumber = pieces[1].toInt(&ok);
     qDebug() << lineNumber;
-    if (!ok)
+    if (!ok) {
         return;
+    }
 
     KTextEditor::View *doc = m_mainWindow->openUrl(QUrl::fromLocalFile(pieces[0]));
     doc->setCursorPosition(KTextEditor::Cursor(lineNumber, 0));
@@ -221,8 +225,9 @@ void ReplicodeView::gotStderr()
     const auto lines = output.split('\n');
     for (QByteArray line : lines) {
         line = line.simplified();
-        if (line.isEmpty())
+        if (line.isEmpty()) {
             continue;
+        }
         QListWidgetItem *item = new QListWidgetItem(QString::fromLocal8Bit(line));
         item->setForeground(Qt::red);
         m_replicodeOutput->addItem(item);
@@ -236,11 +241,13 @@ void ReplicodeView::gotStdout()
     const auto lines = output.split('\n');
     for (QByteArray line : lines) {
         line = line.simplified();
-        if (line.isEmpty())
+        if (line.isEmpty()) {
             continue;
+        }
         QListWidgetItem *item = new QListWidgetItem(QString::fromLocal8Bit(' ' + line));
-        if (line[0] == '>')
+        if (line[0] == '>') {
             item->setForeground(Qt::gray);
+        }
         m_replicodeOutput->addItem(item);
     }
     m_replicodeOutput->scrollToBottom();

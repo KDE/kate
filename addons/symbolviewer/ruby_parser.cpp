@@ -14,8 +14,9 @@
 
 void KatePluginSymbolViewerView::parseRubySymbols(void)
 {
-    if (!m_mainWindow->activeView())
+    if (!m_mainWindow->activeView()) {
         return;
+    }
 
     m_macro->setText(i18n("Show Globals"));
     m_struct->setText(i18n("Show Methods"));
@@ -40,14 +41,16 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
         clsNode = new QTreeWidgetItem(m_symbols);
         clsNode->setText(0, i18n("Classes"));
         clsNode->setIcon(0, QIcon(cls));
-        if (m_expandOn->isChecked())
+        if (m_expandOn->isChecked()) {
             m_symbols->expandItem(clsNode);
+        }
         lastClsNode = clsNode;
         mtdNode = clsNode;
         lastMtdNode = clsNode;
         m_symbols->setRootIsDecorated(1);
-    } else
+    } else {
         m_symbols->setRootIsDecorated(0);
+    }
 
     for (i = 0; i < kv->lines(); i++) {
         cl = kv->line(i);
@@ -57,13 +60,15 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
             if (m_func->isChecked()) {
                 if (m_treeOn->isChecked()) {
                     node = new QTreeWidgetItem(clsNode, lastClsNode);
-                    if (m_expandOn->isChecked())
+                    if (m_expandOn->isChecked()) {
                         m_symbols->expandItem(node);
+                    }
                     lastClsNode = node;
                     mtdNode = lastClsNode;
                     lastMtdNode = lastClsNode;
-                } else
+                } else {
                     node = new QTreeWidgetItem(m_symbols);
+                }
                 node->setText(0, cl.mid(6));
                 node->setIcon(0, QIcon(cls));
                 node->setText(1, QString::number(i, 10));
@@ -74,8 +79,9 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
                 if (m_treeOn->isChecked()) {
                     node = new QTreeWidgetItem(mtdNode, lastMtdNode);
                     lastMtdNode = node;
-                } else
+                } else {
                     node = new QTreeWidgetItem(m_symbols);
+                }
 
                 name = cl.mid(4);
                 node->setToolTip(0, name);

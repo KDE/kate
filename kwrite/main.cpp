@@ -298,12 +298,14 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                         QString columnStr = q.queryItemValue(QStringLiteral("column"));
 
                         line = lineStr.toInt();
-                        if (line > 0)
+                        if (line > 0) {
                             line--;
+                        }
 
                         column = columnStr.toInt();
-                        if (column > 0)
+                        if (column > 0) {
                             column--;
+                        }
 
                         t->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
                     }

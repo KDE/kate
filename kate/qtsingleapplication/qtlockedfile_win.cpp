@@ -24,8 +24,9 @@ static QString errorCodeToString(DWORD errorCode)
     if (data != 0)
         LocalFree(data);
 
-    if (result.endsWith(QLatin1Char('\n')))
+    if (result.endsWith(QLatin1Char('\n'))) {
         result.chop(1);
+    }
 
     return result;
 }
@@ -37,11 +38,13 @@ bool QtLockedFile::lock(LockMode mode, bool block)
         return false;
     }
 
-    if (mode == m_lock_mode)
+    if (mode == m_lock_mode) {
         return true;
+    }
 
-    if (m_lock_mode != 0)
+    if (m_lock_mode != 0) {
         unlock();
+    }
 
     if (m_semaphore_hnd == 0) {
         QFileInfo fi(*this);
@@ -117,14 +120,16 @@ bool QtLockedFile::unlock()
         return false;
     }
 
-    if (!isLocked())
+    if (!isLocked()) {
         return true;
+    }
 
     int increment;
-    if (m_lock_mode == ReadLock)
+    if (m_lock_mode == ReadLock) {
         increment = 1;
-    else
+    } else {
         increment = SEMAPHORE_MAX;
+    }
 
     DWORD ret = ReleaseSemaphore(m_semaphore_hnd, increment, 0);
     if (ret == 0) {
@@ -139,8 +144,9 @@ bool QtLockedFile::unlock()
 
 QtLockedFile::~QtLockedFile()
 {
-    if (isOpen())
+    if (isOpen()) {
         unlock();
+    }
     if (m_mutex_hnd != 0) {
         DWORD ret = CloseHandle(m_mutex_hnd);
         if (ret == 0) {

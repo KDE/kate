@@ -46,8 +46,9 @@ QVariant GotoGlobalSymbolModel::data(const QModelIndex &index, int role) const
 
     const Tags::TagEntry &row = m_rows.at(index.row());
     if (role == Qt::DisplayRole) {
-        if (index.column() == 0)
+        if (index.column() == 0) {
             return filterName(row.tag);
+        }
     } else if (role == Qt::UserRole) {
         return row.tag;
     } else if (role == Qt::DecorationRole) {

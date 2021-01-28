@@ -333,8 +333,9 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         set = ind.internalId();
         setRow = ind.row();
     }
-    if (setRow < 0)
+    if (setRow < 0) {
         setRow = 0;
+    }
 
     cg.writeEntry(QStringLiteral("Active Target Index"), set);
     cg.writeEntry(QStringLiteral("Active Target Command"), setRow);
@@ -353,8 +354,9 @@ void KateBuildView::slotNext()
     }
 
     QTreeWidgetItem *item = m_buildUi.errTreeWidget->currentItem();
-    if (item && item->isHidden())
+    if (item && item->isHidden()) {
         item = nullptr;
+    }
 
     int i = (item == nullptr) ? -1 : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
 
@@ -379,8 +381,9 @@ void KateBuildView::slotPrev()
     }
 
     QTreeWidgetItem *item = m_buildUi.errTreeWidget->currentItem();
-    if (item && item->isHidden())
+    if (item && item->isHidden()) {
         item = nullptr;
+    }
 
     int i = (item == nullptr) ? itemCount : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
 
@@ -561,8 +564,9 @@ void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
     KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
 #endif
     KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-    if (!iface || m_markedDocs.contains(doc))
+    if (!iface || m_markedDocs.contains(doc)) {
         return;
+    }
 
     QTreeWidgetItemIterator it(m_buildUi.errTreeWidget, QTreeWidgetItemIterator::All);
     while (*it) {
@@ -571,8 +575,9 @@ void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
 
         auto filename = item->data(0, Qt::UserRole).toString();
         auto url = QUrl::fromLocalFile(filename);
-        if (url != doc->url())
+        if (url != doc->url()) {
             continue;
+        }
 
         auto line = item->data(1, Qt::UserRole).toInt();
         if (mark) {
@@ -711,8 +716,9 @@ QUrl KateBuildView::docUrl()
         return QUrl();
     }
 
-    if (kv->document()->isModified())
+    if (kv->document()->isModified()) {
         kv->document()->save();
+    }
     return kv->document()->url();
 }
 
@@ -929,8 +935,9 @@ bool KateBuildView::buildCurrentTarget()
 void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message::MessageType level)
 {
     KTextEditor::View *kv = m_win->activeView();
-    if (!kv)
+    if (!kv) {
         return;
+    }
 
     delete m_infoMessage;
     m_infoMessage = new KTextEditor::Message(xi18nc("@info", "<title>Make Results:</title><nl/>%1", msg), level);
@@ -946,8 +953,9 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
 void KateBuildView::displayMessage(const QString &msg, KTextEditor::Message::MessageType level)
 {
     KTextEditor::View *kv = m_win->activeView();
-    if (!kv)
+    if (!kv) {
         return;
+    }
 
     delete m_infoMessage;
     m_infoMessage = new KTextEditor::Message(msg, level);
@@ -1022,8 +1030,9 @@ void KateBuildView::slotReadReadyStdOut()
     // handle one line at a time
     do {
         const int end = m_stdOut.indexOf(QLatin1Char('\n'));
-        if (end < 0)
+        if (end < 0) {
             break;
+        }
 
         QString line = m_stdOut.mid(0, end);
         const bool ninjaOutput = line.startsWith(NinjaPrefix);
@@ -1067,8 +1076,9 @@ void KateBuildView::slotReadReadyStdErr()
 
     do {
         const int end = m_stdErr.indexOf(QLatin1Char('\n'));
-        if (end < 0)
+        if (end < 0) {
             break;
+        }
 
         const QString line = m_stdErr.mid(0, end);
         m_buildUi.plainTextEdit->appendPlainText(line);
@@ -1343,8 +1353,9 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
 /******************************************************************/
 void KateBuildView::handleEsc(QEvent *e)
 {
-    if (!m_win)
+    if (!m_win) {
         return;
+    }
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {

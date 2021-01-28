@@ -29,8 +29,9 @@ QString KatePluginInfo::saveName() const
 
 bool KatePluginInfo::operator<(const KatePluginInfo &other) const
 {
-    if (sortOrder != other.sortOrder)
+    if (sortOrder != other.sortOrder) {
         return sortOrder < other.sortOrder;
+    }
 
     return saveName() < other.saveName();
 }
@@ -75,8 +76,9 @@ void KatePluginManager::setupPluginList()
         info.metaData = pluginMetaData;
 
         // only load plugins once, even if found multiple times!
-        if (unique.contains(info.saveName()))
+        if (unique.contains(info.saveName())) {
             continue;
+        }
 
         info.defaultLoad = defaultPlugins.contains(info.saveName());
         info.sortOrder = defaultPlugins.value(info.saveName());

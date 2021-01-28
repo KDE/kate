@@ -77,13 +77,15 @@ QString KateColorSchemeChooser::currentDesktopDefaultScheme() const
 
 QString KateColorSchemeChooser::currentSchemeName() const
 {
-    if (!menu())
+    if (!menu()) {
         return loadCurrentScheme();
+    }
 
     QAction *const action = menu()->activeAction();
 
-    if (action)
+    if (action) {
         return KLocalizedString::removeAcceleratorMarker(action->text());
+    }
     return currentDesktopDefaultScheme();
 }
 

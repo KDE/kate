@@ -171,8 +171,9 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     toggleShowMenuBar(false);
 
     // on first start: deactivate toolbar
-    if (firstStart)
+    if (firstStart) {
         toolBar(QStringLiteral("mainToolBar"))->hide();
+    }
 
     // in all cases: avoid that arbitrary plugin toolviews get focus, like terminal, bug 412227
     // we need to delay this a bit due to lazy view creation (and lazy e.g. terminal widget creation)
@@ -966,8 +967,9 @@ void KateMainWindow::slotFullScreen(bool t)
         b->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     } else {
         QWidget *w = mb->cornerWidget(Qt::TopRightCorner);
-        if (w)
+        if (w) {
             w->deleteLater();
+        }
     }
 }
 

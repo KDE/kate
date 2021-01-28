@@ -16,14 +16,17 @@ CachedSqlQueryModel::CachedSqlQueryModel(QObject *parent, int cacheCapacity)
 
 QVariant CachedSqlQueryModel::data(const QModelIndex &item, int role) const
 {
-    if (!item.isValid())
+    if (!item.isValid()) {
         return QVariant();
+    }
 
-    if (role == Qt::EditRole)
+    if (role == Qt::EditRole) {
         return QSqlQueryModel::data(item, role);
+    }
 
-    if (role != Qt::DisplayRole)
+    if (role != Qt::DisplayRole) {
         return QVariant();
+    }
 
     const int row = item.row();
 
@@ -33,29 +36,32 @@ QVariant CachedSqlQueryModel::data(const QModelIndex &item, int role) const
 QSqlRecord CachedSqlQueryModel::record(int row) const
 {
     // if cache capacity is set to 0, don't use cache
-    if (cacheCapacity() == 0)
+    if (cacheCapacity() == 0) {
         return QSqlQueryModel::record(row);
+    }
 
     const int lookAhead = cacheCapacity() / 5;
     const int halfLookAhead = lookAhead / 2;
 
     if (row > cache.lastIndex()) {
-        if (row - cache.lastIndex() > lookAhead)
+        if (row - cache.lastIndex() > lookAhead) {
             cacheRecords(row - halfLookAhead, qMin(rowCount(), row + halfLookAhead));
-        else {
+        } else {
             int until = qMin(rowCount(), cache.lastIndex() + lookAhead);
 
-            while (cache.lastIndex() < until)
+            while (cache.lastIndex() < until) {
                 cache.append(QSqlQueryModel::record(cache.lastIndex() + 1));
+            }
         }
     } else if (row < cache.firstIndex()) {
-        if (cache.firstIndex() - row > lookAhead)
+        if (cache.firstIndex() - row > lookAhead) {
             cacheRecords(qMax(0, row - halfLookAhead), row + halfLookAhead);
-        else {
+        } else {
             int until = qMax(0, cache.firstIndex() - lookAhead);
 
-            while (cache.firstIndex() > until)
+            while (cache.firstIndex() > until) {
                 cache.prepend(QSqlQueryModel::record(cache.firstIndex() - 1));
+            }
         }
     }
 
@@ -73,8 +79,9 @@ void CachedSqlQueryModel::cacheRecords(int from, int to) const
 {
     qDebug() << "caching records from" << from << "to" << to;
 
-    for (int i = from; i <= to; ++i)
+    for (int i = from; i <= to; ++i) {
         cache.insert(i, QSqlQueryModel::record(i));
+    }
 }
 
 void CachedSqlQueryModel::clearCache()

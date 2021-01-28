@@ -62,16 +62,19 @@ QObject *PluginKateOpenHeader::createView(KTextEditor::MainWindow *mainWindow)
 void PluginKateOpenHeader::slotOpenHeader()
 {
     KTextEditor::Application *application = KTextEditor::Editor::instance()->application();
-    if (!application->activeMainWindow())
+    if (!application->activeMainWindow()) {
         return;
+    }
 
     KTextEditor::View *kv(application->activeMainWindow()->activeView());
-    if (!kv)
+    if (!kv) {
         return;
+    }
 
     QUrl url = kv->document()->url();
-    if ((!url.isValid()) || (url.isEmpty()))
+    if ((!url.isValid()) || (url.isEmpty())) {
         return;
+    }
 
     qDebug() << "Trying to open opposite of " << url.toString();
     qDebug() << "Trying to open opposite of toLocalFile:" << url.toLocalFile();
@@ -84,12 +87,14 @@ void PluginKateOpenHeader::slotOpenHeader()
                                       << QStringLiteral("m") << QStringLiteral("cu"));
 
     if (sources.contains(extension)) {
-        if (tryOpenInternal(url, headers))
+        if (tryOpenInternal(url, headers)) {
             return;
+        }
         tryOpen(url, headers);
     } else if (headers.contains(extension)) {
-        if (tryOpenInternal(url, sources))
+        if (tryOpenInternal(url, sources)) {
             return;
+        }
         tryOpen(url, sources);
     }
 }
@@ -97,8 +102,9 @@ void PluginKateOpenHeader::slotOpenHeader()
 bool PluginKateOpenHeader::tryOpenInternal(const QUrl &url, const QStringList &extensions)
 {
     KTextEditor::Application *application = KTextEditor::Editor::instance()->application();
-    if (!application->activeMainWindow())
+    if (!application->activeMainWindow()) {
         return false;
+    }
 
     qDebug() << "Trying to find already opened" << url.toString() << " with extensions " << extensions.join(QLatin1Char(' '));
     QString basename = QFileInfo(url.path()).baseName();
@@ -124,8 +130,9 @@ bool PluginKateOpenHeader::tryOpenInternal(const QUrl &url, const QStringList &e
 void PluginKateOpenHeader::tryOpen(const QUrl &url, const QStringList &extensions)
 {
     KTextEditor::Application *application = KTextEditor::Editor::instance()->application();
-    if (!application->activeMainWindow())
+    if (!application->activeMainWindow()) {
         return;
+    }
 
     qDebug() << "Trying to open " << url.toString() << " with extensions " << extensions.join(QLatin1Char(' '));
     QString basename = QFileInfo(url.path()).baseName();
@@ -169,13 +176,13 @@ void PluginKateOpenHeader::setFileName(QUrl *url, const QString &_txt)
     QString tmp = i ? _txt.mid(i) : _txt;
 
     QString path = url->path();
-    if (path.isEmpty())
+    if (path.isEmpty()) {
 #ifdef Q_OS_WIN
         path = url->isLocalFile() ? QDir::rootPath() : QStringLiteral("/");
 #else
         path = QDir::rootPath();
 #endif
-    else {
+    } else {
         int lastSlash = path.lastIndexOf(QLatin1Char('/'));
         if (lastSlash == -1) {
             path.clear(); // there's only the file name, remove it

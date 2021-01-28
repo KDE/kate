@@ -87,8 +87,9 @@ void TargetsUi::targetSetSelected(int index)
 void TargetsUi::targetActivated(const QModelIndex &index)
 {
     // qDebug() << index;
-    if (!index.isValid())
+    if (!index.isValid()) {
         return;
+    }
     QModelIndex rootItem = index;
     if (rootItem.parent().isValid()) {
         rootItem = rootItem.parent();

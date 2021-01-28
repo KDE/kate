@@ -75,16 +75,18 @@ void KateQuickOpenModel::refresh()
         ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList()
         : QStringList();
     const QString projectBase = [this, projectView]() -> QString {
-        if (!projectView)
+        if (!projectView) {
             return QString();
+        }
         QString ret;
         if (m_listMode == CurrentProject) {
             ret = projectView->property("projectBaseDir").toString();
         } else {
             ret = projectView->property("allProjectsCommonBaseDir").toString();
         }
-        if (!ret.endsWith(QLatin1Char('/')))
+        if (!ret.endsWith(QLatin1Char('/'))) {
             ret.append(QLatin1Char('/'));
+        }
         return ret;
     }();
 
@@ -131,8 +133,9 @@ void KateQuickOpenModel::refresh()
 
     /** sort the arrays via boldness (open or not */
     std::stable_sort(std::begin(allDocuments), std::end(allDocuments), [](const ModelEntry &a, const ModelEntry &b) {
-        if (a.bold == b.bold)
+        if (a.bold == b.bold) {
             return a.sort_id > b.sort_id;
+        }
         return a.bold > b.bold;
     });
 

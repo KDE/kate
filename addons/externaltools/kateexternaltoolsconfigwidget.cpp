@@ -140,8 +140,9 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
 
     Q_ASSERT(m_tool != nullptr);
     ui->edtName->setText(m_tool->translatedName());
-    if (!m_tool->icon.isEmpty())
+    if (!m_tool->icon.isEmpty()) {
         ui->btnIcon->setIcon(m_tool->icon);
+    }
 
     ui->edtExecutable->setText(m_tool->executable);
     ui->edtArgs->setText(m_tool->arguments);
@@ -320,8 +321,9 @@ void KateExternalToolsConfigWidget::reset()
 
 void KateExternalToolsConfigWidget::apply()
 {
-    if (!m_changed)
+    if (!m_changed) {
         return;
+    }
     m_changed = false;
 
     // collect all KateExternalTool items

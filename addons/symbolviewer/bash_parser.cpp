@@ -13,8 +13,9 @@
 
 void KatePluginSymbolViewerView::parseBashSymbols(void)
 {
-    if (!m_mainWindow->activeView())
+    if (!m_mainWindow->activeView()) {
         return;
+    }
 
     QString currline;
     QString funcStr(QStringLiteral("function "));
@@ -42,8 +43,9 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
         lastFuncNode = funcNode;
 
         m_symbols->setRootIsDecorated(1);
-    } else
+    } else {
         m_symbols->setRootIsDecorated(0);
+    }
 
     KTextEditor::Document *kDoc = m_mainWindow->activeView()->document();
 
@@ -54,10 +56,12 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
 
         bool comment = false;
         // qDebug(13000)<<currline<<endl;
-        if (currline.isEmpty())
+        if (currline.isEmpty()) {
             continue;
-        if (currline.at(0) == QLatin1Char('#'))
+        }
+        if (currline.at(0) == QLatin1Char('#')) {
             comment = true;
+        }
 
         // mainprog=false;
         if (!comment && m_func->isChecked()) {
@@ -66,21 +70,24 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
             // skip line if no function defined
             // note: function name must match regex: [a-zA-Z0-9-_]+
             if (!currline.contains(QRegularExpression(QLatin1String("^(function )*[a-zA-Z0-9-_]+ *\\( *\\)")))
-                && !currline.contains(QRegularExpression(QLatin1String("^function [a-zA-Z0-9-_]+"))))
+                && !currline.contains(QRegularExpression(QLatin1String("^function [a-zA-Z0-9-_]+")))) {
                 continue;
+            }
 
             // strip everything unneeded and get the function's name
             currline.remove(QRegularExpression(QLatin1String("^(function )*")));
             funcName = currline.split(QRegularExpression(QLatin1String("((\\( *\\))|[^a-zA-Z0-9-_])")))[0].simplified();
-            if (!funcName.size())
+            if (!funcName.size()) {
                 continue;
+            }
             funcName.append(QLatin1String("()"));
 
             if (m_treeOn->isChecked()) {
                 node = new QTreeWidgetItem(funcNode, lastFuncNode);
                 lastFuncNode = node;
-            } else
+            } else {
                 node = new QTreeWidgetItem(m_symbols);
+            }
 
             node->setText(0, funcName);
             node->setIcon(0, QIcon(func));

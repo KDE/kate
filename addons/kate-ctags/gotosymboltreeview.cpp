@@ -30,8 +30,9 @@ int GotoSymbolTreeView::sizeHintWidth() const
 
 void GotoSymbolTreeView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
-    if (globalMode)
+    if (globalMode) {
         return QTreeView::currentChanged(current, previous);
+    }
 
     int line = current.data(Qt::UserRole).toInt();
     KTextEditor::Cursor c(--line, 0);

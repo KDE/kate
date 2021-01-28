@@ -242,8 +242,9 @@ public:
         auto handler = [this](const QList<LSPCompletionItem> & compl ) {
             beginResetModel();
             qCInfo(LSPCLIENT) << "adding completions " << compl .size();
-            for (const auto &item : compl )
+            for (const auto &item : compl ) {
                 m_matches.push_back(item);
+            }
             std::stable_sort(m_matches.begin(), m_matches.end(), compare_match);
             setRowCount(m_matches.size());
             endResetModel();

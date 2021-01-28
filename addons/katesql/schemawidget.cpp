@@ -57,8 +57,9 @@ void SchemaWidget::deleteChildren(QTreeWidgetItem *item)
 {
     const QList<QTreeWidgetItem *> items = item->takeChildren();
 
-    for (QTreeWidgetItem *i : items)
+    for (QTreeWidgetItem *i : items) {
         delete i;
+    }
 }
 
 void SchemaWidget::buildTree(const QString &connection)
@@ -70,8 +71,9 @@ void SchemaWidget::buildTree(const QString &connection)
     m_tablesLoaded = false;
     m_viewsLoaded = false;
 
-    if (!m_connectionName.isEmpty())
+    if (!m_connectionName.isEmpty()) {
         buildDatabase(new QTreeWidgetItem(this));
+    }
 }
 
 void SchemaWidget::refresh()
@@ -102,8 +104,9 @@ void SchemaWidget::buildDatabase(QTreeWidgetItem *databaseItem)
 
 void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
 {
-    if (!isConnectionValidAndOpen())
+    if (!isConnectionValidAndOpen()) {
         return;
+    }
 
     QTreeWidgetItem *systemTablesItem = new QTreeWidgetItem(tablesItem, SystemTablesFolderType);
     systemTablesItem->setText(0, i18nc("@title Folder name", "System Tables"));
@@ -134,8 +137,9 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
 
 void SchemaWidget::buildViews(QTreeWidgetItem *viewsItem)
 {
-    if (!isConnectionValidAndOpen())
+    if (!isConnectionValidAndOpen()) {
         return;
+    }
 
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
 
@@ -153,8 +157,9 @@ void SchemaWidget::buildViews(QTreeWidgetItem *viewsItem)
 
 void SchemaWidget::buildFields(QTreeWidgetItem *tableItem)
 {
-    if (!isConnectionValidAndOpen())
+    if (!isConnectionValidAndOpen()) {
         return;
+    }
 
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
 
@@ -171,44 +176,51 @@ void SchemaWidget::buildFields(QTreeWidgetItem *tableItem)
         QTreeWidgetItem *item = new QTreeWidgetItem(tableItem, FieldType);
         item->setText(0, fieldName);
 
-        if (pk.contains(fieldName))
+        if (pk.contains(fieldName)) {
             item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-field-pk.png")));
-        else
+        } else {
             item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-field.png")));
+        }
     }
 }
 
 void SchemaWidget::mousePressEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton)
+    if (event->button() == Qt::LeftButton) {
         m_dragStartPosition = event->pos();
+    }
     QTreeWidget::mousePressEvent(event);
 }
 
 void SchemaWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if (!(event->buttons() & Qt::LeftButton))
+    if (!(event->buttons() & Qt::LeftButton)) {
         return;
-    if ((event->pos() - m_dragStartPosition).manhattanLength() < QApplication::startDragDistance())
+    }
+    if ((event->pos() - m_dragStartPosition).manhattanLength() < QApplication::startDragDistance()) {
         return;
+    }
 
     //   QTreeWidgetItem *item = currentItem();
     QTreeWidgetItem *item = itemAt(event->pos());
 
-    if (!item)
+    if (!item) {
         return;
+    }
 
     if (item->type() != SchemaWidget::SystemTableType && item->type() != SchemaWidget::TableType && item->type() != SchemaWidget::ViewType
-        && item->type() != SchemaWidget::FieldType)
+        && item->type() != SchemaWidget::FieldType) {
         return;
+    }
 
     QDrag *drag = new QDrag(this);
     QMimeData *mimeData = new QMimeData;
 
-    if (item->type() == SchemaWidget::FieldType)
+    if (item->type() == SchemaWidget::FieldType) {
         mimeData->setText(QStringLiteral("%1.%2").arg(item->parent()->text(0), item->text(0)));
-    else
+    } else {
         mimeData->setText(item->text(0));
+    }
 
     drag->setMimeData(mimeData);
     drag->exec(Qt::CopyAction);
@@ -218,25 +230,29 @@ void SchemaWidget::mouseMoveEvent(QMouseEvent *event)
 
 void SchemaWidget::slotItemExpanded(QTreeWidgetItem *item)
 {
-    if (!item)
+    if (!item) {
         return;
+    }
 
     switch (item->type()) {
     case SchemaWidget::TablesFolderType: {
-        if (!m_tablesLoaded)
+        if (!m_tablesLoaded) {
             buildTables(item);
+        }
     } break;
 
     case SchemaWidget::ViewsFolderType: {
-        if (!m_viewsLoaded)
+        if (!m_viewsLoaded) {
             buildViews(item);
+        }
     } break;
 
     case SchemaWidget::TableType:
     case SchemaWidget::SystemTableType:
     case SchemaWidget::ViewType: {
-        if (item->childCount() == 0)
+        if (item->childCount() == 0) {
             buildFields(item);
+        }
     } break;
 
     default:
@@ -270,20 +286,23 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
 
 void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
 {
-    if (!isConnectionValidAndOpen())
+    if (!isConnectionValidAndOpen()) {
         return;
+    }
 
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
 
     QSqlDriver *drv = db.driver();
 
-    if (!drv)
+    if (!drv) {
         return;
+    }
 
     QTreeWidgetItem *item = currentItem();
 
-    if (!item)
+    if (!item) {
         return;
+    }
 
     QString statement;
 
@@ -297,9 +316,11 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
 
         // set all fields to a value (NULL)
         // values are needed to generate update and insert statements
-        if (statementType == QSqlDriver::UpdateStatement || statementType == QSqlDriver::InsertStatement)
-            for (int i = 0, n = rec.count(); i < n; ++i)
+        if (statementType == QSqlDriver::UpdateStatement || statementType == QSqlDriver::InsertStatement) {
+            for (int i = 0, n = rec.count(); i < n; ++i) {
                 rec.setNull(i);
+            }
+        }
 
         statement = drv->sqlStatement(statementType, tableName, rec, false);
     } break;
@@ -320,9 +341,10 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
 
         statement = drv->sqlStatement(statementType, tableName, rec, false);
 
-        if (statementType == QSqlDriver::DeleteStatement)
+        if (statementType == QSqlDriver::DeleteStatement) {
             statement +=
                 QLatin1Char(' ') + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(QLatin1String(" IS NULL"), QLatin1String("=?"));
+        }
     } break;
     }
 

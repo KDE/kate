@@ -130,8 +130,9 @@ void DebugView::slotReadDebugStdOut()
     // handle one line at a time
     do {
         end = m_outBuffer.indexOf(QLatin1Char('\n'));
-        if (end < 0)
+        if (end < 0) {
             break;
+        }
         processLine(m_outBuffer.mid(0, end));
         m_outBuffer.remove(0, end + 1);
     } while (1);
@@ -149,8 +150,9 @@ void DebugView::slotReadDebugStdErr()
     // add whole lines at a time to the error list
     do {
         end = m_errBuffer.indexOf(QLatin1Char('\n'));
-        if (end < 0)
+        if (end < 0) {
             break;
+        }
         m_errorList << m_errBuffer.mid(0, end);
         m_errBuffer.remove(0, end + 1);
     } while (1);
@@ -265,8 +267,9 @@ static const QRegularExpression threadLine(QStringLiteral("\\A\\**\\s+(\\d+)\\s+
 
 void DebugView::processLine(QString line)
 {
-    if (line.isEmpty())
+    if (line.isEmpty()) {
         return;
+    }
 
     static QRegularExpressionMatch match;
     switch (m_state) {

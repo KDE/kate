@@ -265,8 +265,9 @@ void PluginKateXMLCheckView::slotClicked(QTreeWidgetItem *item, int column)
         uint column = item->text(2).toUInt(&ok);
         if (ok && ok2) {
             KTextEditor::View *kv = m_mainWindow->activeView();
-            if (!kv)
+            if (!kv) {
                 return;
+            }
 
             kv->setCursorPosition(KTextEditor::Cursor(line - 1, column));
         }
@@ -287,8 +288,9 @@ bool PluginKateXMLCheckView::slotValidate()
     m_dtdname = QLatin1String("");
 
     KTextEditor::View *kv = m_mainWindow->activeView();
-    if (!kv)
+    if (!kv) {
         return false;
+    }
     delete m_tmp_file;
     m_tmp_file = new QTemporaryFile();
     if (!m_tmp_file->open()) {

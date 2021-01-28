@@ -460,8 +460,9 @@ void KatePluginGDBView::enableDebugActions(bool enable)
         }
     } else {
         m_inputArea->setFocusPolicy(Qt::NoFocus);
-        if (m_mainWin->activeView())
+        if (m_mainWin->activeView()) {
             m_mainWin->activeView()->setFocus();
+        }
     }
 
     m_ioView->enableInput(!enable && m_debugView->debuggerRunning());
@@ -533,8 +534,9 @@ void KatePluginGDBView::slotSendCommand()
 {
     QString cmd = m_inputArea->currentText();
 
-    if (cmd.isEmpty())
+    if (cmd.isEmpty()) {
         cmd = m_lastCommand;
+    }
 
     m_inputArea->addToHistory(cmd);
     m_inputArea->setCurrentItem(QString());
@@ -578,10 +580,12 @@ void KatePluginGDBView::stackFrameChanged(int level)
     QTreeWidgetItem *current = m_stackTree->topLevelItem(m_lastExecFrame);
     QTreeWidgetItem *next = m_stackTree->topLevelItem(level);
 
-    if (current)
+    if (current) {
         current->setIcon(0, QIcon());
-    if (next)
+    }
+    if (next) {
         next->setIcon(0, QIcon::fromTheme(QStringLiteral("arrow-right")));
+    }
     m_lastExecFrame = level;
 }
 
@@ -665,11 +669,13 @@ void KatePluginGDBView::slotValue()
         variable = editView->selectionText();
     }
 
-    if (variable.isEmpty())
+    if (variable.isEmpty()) {
         variable = currentWord();
+    }
 
-    if (variable.isEmpty())
+    if (variable.isEmpty()) {
         return;
+    }
 
     QString cmd = QStringLiteral("print %1").arg(variable);
     m_debugView->issueCommand(cmd);
@@ -695,13 +701,15 @@ void KatePluginGDBView::showIO(bool show)
 void KatePluginGDBView::addOutputText(QString const &text)
 {
     QScrollBar *scrollb = m_outputArea->verticalScrollBar();
-    if (!scrollb)
+    if (!scrollb) {
         return;
+    }
     bool atEnd = (scrollb->value() == scrollb->maximum());
 
     QTextCursor cursor = m_outputArea->textCursor();
-    if (!cursor.atEnd())
+    if (!cursor.atEnd()) {
         cursor.movePosition(QTextCursor::End);
+    }
     cursor.insertText(text);
 
     if (atEnd) {
@@ -731,8 +739,9 @@ bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
 
 void KatePluginGDBView::handleEsc(QEvent *e)
 {
-    if (!m_mainWin)
+    if (!m_mainWin) {
         return;
+    }
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
@@ -745,8 +754,9 @@ void KatePluginGDBView::handleEsc(QEvent *e)
 void KatePluginGDBView::displayMessage(const QString &msg, KTextEditor::Message::MessageType level)
 {
     KTextEditor::View *kv = m_mainWin->activeView();
-    if (!kv)
+    if (!kv) {
         return;
+    }
 
     delete m_infoMessage;
     m_infoMessage = new KTextEditor::Message(msg, level);

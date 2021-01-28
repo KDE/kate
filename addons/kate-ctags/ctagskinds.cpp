@@ -132,8 +132,9 @@ static const CTagsKindMapping *findKindMapping(const char *pextension)
 {
     CTagsExtensionMapping *pem = extensionMapping;
     while (pem->extension != nullptr) {
-        if (strcmp(pem->extension, pextension) == 0)
+        if (strcmp(pem->extension, pextension) == 0) {
             return pem->kinds;
+        }
         ++pem;
     }
 
@@ -142,15 +143,17 @@ static const CTagsKindMapping *findKindMapping(const char *pextension)
 
 QString CTagsKinds::findKind(const char *kindChar, const QString &extension)
 {
-    if (kindChar == nullptr || extension.isEmpty())
+    if (kindChar == nullptr || extension.isEmpty()) {
         return QString();
+    }
 
     const CTagsKindMapping *kindMapping = findKindMapping(extension.toLocal8Bit().constData());
     if (kindMapping) {
         const CTagsKindMapping *pkm = kindMapping;
         while (pkm->verbose != nullptr) {
-            if (pkm->abbrev == *kindChar)
+            if (pkm->abbrev == *kindChar) {
                 return i18nc("Tag Type", pkm->verbose);
+            }
             ++pkm;
         }
     }
@@ -160,15 +163,17 @@ QString CTagsKinds::findKind(const char *kindChar, const QString &extension)
 
 QString CTagsKinds::findKindNoi18n(const char *kindChar, const QStringRef &extension)
 {
-    if (kindChar == nullptr || extension.isEmpty())
+    if (kindChar == nullptr || extension.isEmpty()) {
         return QString();
+    }
 
     const CTagsKindMapping *kindMapping = findKindMapping(extension.toLocal8Bit().constData());
     if (kindMapping) {
         const CTagsKindMapping *pkm = kindMapping;
         while (pkm->verbose != nullptr) {
-            if (pkm->abbrev == *kindChar)
+            if (pkm->abbrev == *kindChar) {
                 return QString::fromLocal8Bit(pkm->verbose);
+            }
             ++pkm;
         }
     }

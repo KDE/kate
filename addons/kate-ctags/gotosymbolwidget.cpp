@@ -86,8 +86,9 @@ public:
             // FIXME: This will skip the letter 'b' if the string
             // has only one letter so that we don't match inside
             // <b> tags.
-            if (string == QLatin1String("b"))
+            if (string == QLatin1String("b")) {
                 continue;
+            }
             const QRegularExpression re(QStringLiteral("(") + QRegularExpression::escape(string) + QStringLiteral(")"),
                                         QRegularExpression::CaseInsensitiveOption);
             str.replace(re, QStringLiteral("<b>\\1</b>"));
@@ -95,8 +96,9 @@ public:
 
         auto file = index.data(GotoGlobalSymbolModel::FileUrl).toString();
         // this will be empty for local symbol mode
-        if (!file.isEmpty())
+        if (!file.isEmpty()) {
             str += QStringLiteral(" &nbsp;<span style=\"color: gray;\">") + QFileInfo(file).fileName() + QStringLiteral("</span>");
+        }
 
         doc.setHtml(str);
         doc.setDocumentMargin(2);
@@ -254,14 +256,16 @@ void GotoSymbolWidget::loadGlobalSymbols(const QString &text)
         return;
     }
 
-    if (text.length() < 3 || mode == Local)
+    if (text.length() < 3 || mode == Local) {
         return;
+    }
 
     QString currentWord = text;
     Tags::TagList list = Tags::getPartialMatchesNoi8n(m_tagFile, currentWord);
 
-    if (list.isEmpty())
+    if (list.isEmpty()) {
         return;
+    }
 
     m_globalSymbolsModel->setSymbolsData(std::move(list));
     updateViewGeometry();
@@ -303,8 +307,9 @@ void GotoSymbolWidget::slotReturnPressed()
                 url = path + QStringLiteral("/") + file;
 
                 fi.setFile(url);
-                if (fi.exists())
+                if (fi.exists()) {
                     fileFound = true;
+                }
             } else {
                 fileFound = true;
             }
@@ -393,6 +398,7 @@ void GotoSymbolWidget::updateViewGeometry()
 void GotoSymbolWidget::reselectFirst()
 {
     QModelIndex index = m_proxyModel->index(0, 0);
-    if (index.isValid())
+    if (index.isValid()) {
         m_treeView->setCurrentIndex(index);
+    }
 }

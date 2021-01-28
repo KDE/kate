@@ -369,10 +369,11 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 
 void KateDocManager::saveAll()
 {
-    for (KTextEditor::Document *doc : qAsConst(m_docList))
+    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
         if (doc->isModified()) {
             doc->documentSave();
         }
+    }
 }
 
 void KateDocManager::saveSelected(const QList<KTextEditor::Document *> &docList)

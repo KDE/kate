@@ -258,8 +258,9 @@ public:
         for (const auto &el : m_servers) {
             for (const auto &si : el) {
                 auto &s = si.server;
-                if (!s)
+                if (!s) {
                     continue;
+                }
                 disconnect(s.data(), nullptr, this, nullptr);
                 if (s->state() != LSPClientServer::State::None) {
                     auto handler = [&q, &count, s]() {
@@ -283,8 +284,9 @@ public:
             for (const auto &el : m_servers) {
                 for (const auto &si : el) {
                     auto &s = si.server;
-                    if (!s)
+                    if (!s) {
                         continue;
+                    }
                     s->stop(count == 0 ? 1 : -1, count == 0 ? -1 : 1);
                 }
             }
@@ -297,8 +299,9 @@ public:
     {
         // query cache first
         const auto cacheIt = m_highlightingModeToLanguageIdCache.find(mode);
-        if (cacheIt != m_highlightingModeToLanguageIdCache.end())
+        if (cacheIt != m_highlightingModeToLanguageIdCache.end()) {
             return cacheIt.value();
+        }
 
         // match via regexes + cache result
         for (auto it : m_highlightingModeRegexToLanguageId) {
@@ -321,8 +324,9 @@ public:
         // most servers can find out much better on their own
         // (though it would actually have to be confirmed as such)
         bool useId = true;
-        if (it != m_documentLanguageId.end())
+        if (it != m_documentLanguageId.end()) {
             useId = it.value();
+        }
 
         return useId ? langId : QString();
     }
@@ -334,18 +338,21 @@ public:
 
     QSharedPointer<LSPClientServer> findServer(KTextEditor::Document *document, bool updatedoc = true) override
     {
-        if (!document || document->url().isEmpty())
+        if (!document || document->url().isEmpty()) {
             return nullptr;
+        }
 
         auto it = m_docs.find(document);
         auto server = it != m_docs.end() ? it->server : nullptr;
         if (!server) {
-            if ((server = _findServer(document)))
+            if ((server = _findServer(document))) {
                 trackDocument(document, server);
+            }
         }
 
-        if (server && updatedoc)
+        if (server && updatedoc) {
             update(server.data(), false);
+        }
         return server;
     }
 
@@ -500,8 +507,9 @@ private:
     {
         // compute the LSP standardized language id, none found => no change
         auto langId = languageId(document->highlightingMode());
-        if (langId.isEmpty())
+        if (langId.isEmpty()) {
             return nullptr;
+        }
 
         QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
         const auto projectBase = QDir(projectView ? projectView->property("projectBaseDir").toString() : QString());
@@ -531,8 +539,9 @@ private:
             break;
         }
 
-        if (!config.isObject())
+        if (!config.isObject()) {
             return nullptr;
+        }
 
         // merge global settings
         serverConfig = merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
@@ -772,8 +781,9 @@ private:
 
     DocumentInfo *getDocumentInfo(KTextEditor::Document *doc)
     {
-        if (!m_incrementalSync)
+        if (!m_incrementalSync) {
             return nullptr;
+        }
 
         auto it = m_docs.find(doc);
         if (it != m_docs.end() && it->server) {

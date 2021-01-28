@@ -110,14 +110,16 @@ QModelIndex TargetModel::addCommand(int rootRow, const QString &cmdName, const Q
 
 QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return QModelIndex();
+    }
 
     quint32 rootRow = index.internalId();
     if (rootRow == InvalidIndex) {
         rootRow = index.row();
-        if (m_targets.count() <= static_cast<int>(rootRow))
+        if (m_targets.count() <= static_cast<int>(rootRow)) {
             return QModelIndex();
+        }
 
         beginInsertRows(QModelIndex(), m_targets.count(), m_targets.count());
 
@@ -136,12 +138,15 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
         ;
     }
 
-    if (m_targets.count() <= static_cast<int>(rootRow))
+    if (m_targets.count() <= static_cast<int>(rootRow)) {
         return QModelIndex();
-    if (index.row() < 0)
+    }
+    if (index.row() < 0) {
         return QModelIndex();
-    if (index.row() >= m_targets[rootRow].commands.count())
+    }
+    if (index.row() >= m_targets[rootRow].commands.count()) {
         return QModelIndex();
+    }
 
     QModelIndex rootIndex = createIndex(rootRow, 0, InvalidIndex);
     beginInsertRows(rootIndex, m_targets[rootRow].commands.count(), m_targets[rootRow].commands.count());
@@ -279,8 +284,9 @@ const QString TargetModel::targetName(const QModelIndex &itemIndex) const
 
 QVariant TargetModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return QVariant();
+    }
 
     if (index.column() < 0 || index.column() > 1) {
         return QVariant();
@@ -357,12 +363,15 @@ QVariant TargetModel::headerData(int section, Qt::Orientation orientation, int r
 bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     // FIXME
-    if (role != Qt::EditRole && role != Qt::CheckStateRole)
+    if (role != Qt::EditRole && role != Qt::CheckStateRole) {
         return false;
-    if (!index.isValid())
+    }
+    if (!index.isValid()) {
         return false;
-    if (index.column() < 0 || index.column() > 1)
+    }
+    if (index.column() < 0 || index.column() > 1) {
         return false;
+    }
     int row = index.row();
 
     if (index.internalId() == InvalidIndex) {
@@ -454,7 +463,8 @@ QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) c
 
 QModelIndex TargetModel::parent(const QModelIndex &child) const
 {
-    if (child.internalId() == InvalidIndex)
+    if (child.internalId() == InvalidIndex) {
         return QModelIndex();
+    }
     return createIndex(child.internalId(), 0, InvalidIndex);
 }

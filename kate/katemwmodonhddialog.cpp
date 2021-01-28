@@ -336,8 +336,9 @@ void KateMwModOnHdDialog::slotPDone()
 void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
 {
     // guard this e.g. during handleSelected
-    if (m_blockAddDocument)
+    if (m_blockAddDocument) {
         return;
+    }
 
     for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
         KateDocItem *item = static_cast<KateDocItem *>(*it);

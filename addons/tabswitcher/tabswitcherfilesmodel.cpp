@@ -205,10 +205,11 @@ QVariant detail::TabswitcherFilesModel::data(const QModelIndex &index, int role)
 {
     if (role == Qt::DisplayRole) {
         const auto &row = data_[index.row()];
-        if (index.column() == 0)
+        if (index.column() == 0) {
             return row.displayPathPrefix;
-        else
+        } else {
             return row.documentName();
+        }
     } else if (role == Qt::DecorationRole) {
         if (index.column() == 1) {
             const auto &row = data_[index.row()];
@@ -218,15 +219,17 @@ QVariant detail::TabswitcherFilesModel::data(const QModelIndex &index, int role)
         const auto &row = data_[index.row()];
         return row.fullPath();
     } else if (role == Qt::TextAlignmentRole) {
-        if (index.column() == 0)
+        if (index.column() == 0) {
             return Qt::AlignRight + Qt::AlignVCenter;
-        else
+        } else {
             return Qt::AlignVCenter;
+        }
     } else if (role == Qt::ForegroundRole) {
-        if (index.column() == 0)
+        if (index.column() == 0) {
             return QBrush(Qt::darkGray);
-        else
+        } else {
             return QVariant();
+        }
     }
     return QVariant();
 }

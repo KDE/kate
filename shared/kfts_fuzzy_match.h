@@ -73,8 +73,9 @@ static bool fuzzy_match_simple(const QStringView pattern, const QStringView str)
 {
     auto patternIt = pattern.cbegin();
     for (auto strIt = str.cbegin(); strIt != str.cend() && patternIt != pattern.cend(); ++strIt) {
-        if (strIt->toLower() == patternIt->toLower())
+        if (strIt->toLower() == patternIt->toLower()) {
             ++patternIt;
+        }
     }
     return patternIt == pattern.cend();
 }
@@ -127,12 +128,14 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
     // Count recursions
     static constexpr int recursionLimit = 10;
     ++recursionCount;
-    if (recursionCount >= recursionLimit)
+    if (recursionCount >= recursionLimit) {
         return false;
+    }
 
     // Detect end of strings
-    if (pattern == patternEnd || str == strEnd)
+    if (pattern == patternEnd || str == strEnd) {
         return false;
+    }
 
     // Recursion params
     bool recursiveMatch = false;
@@ -145,8 +148,9 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
         // Found match
         if (pattern->toLower() == str->toLower()) {
             // Supplied matches buffer was too short
-            if (nextMatch >= maxMatches)
+            if (nextMatch >= maxMatches) {
                 return false;
+            }
 
             // "Copy-on-Write" srcMatches into matches
             if (first_match && srcMatches) {
@@ -199,16 +203,18 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
         static constexpr int unmatched_letter_penalty = -1; // penalty for every letter that doesn't matter
 
         // Iterate str to end
-        while (str != strEnd)
+        while (str != strEnd) {
             ++str;
+        }
 
         // Initialize score
         outScore = 100;
 
         // Apply leading letter penalty
         int penalty = leading_letter_penalty * matches[0];
-        if (penalty < max_leading_letter_penalty)
+        if (penalty < max_leading_letter_penalty) {
             penalty = max_leading_letter_penalty;
+        }
         outScore += penalty;
 
         // Apply unmatched penalty
@@ -223,8 +229,9 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
                 uint8_t prevIdx = matches[i - 1];
 
                 // Sequential
-                if (currIdx == (prevIdx + 1))
+                if (currIdx == (prevIdx + 1)) {
                     outScore += sequential_bonus;
+                }
             }
 
             // Check for bonuses based on neighbor character value
@@ -232,13 +239,15 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
                 // Camel case
                 QChar neighbor = *(strBegin + currIdx - 1);
                 QChar curr = *(strBegin + currIdx);
-                if (neighbor.isLower() && curr.isUpper())
+                if (neighbor.isLower() && curr.isUpper()) {
                     outScore += camel_bonus;
+                }
 
                 // Separator
                 bool neighborSeparator = neighbor == QLatin1Char('_') || neighbor == QLatin1Char(' ');
-                if (neighborSeparator)
+                if (neighborSeparator) {
                     outScore += separator_bonus;
+                }
             } else {
                 // First letter
                 outScore += first_letter_bonus;

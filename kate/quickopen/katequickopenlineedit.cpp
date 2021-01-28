@@ -68,8 +68,9 @@ void QuickOpenLineEdit::setupMenu()
     auto act = menu->addAction(i18n("All Projects"));
     act->setCheckable(true);
     connect(act, &QAction::toggled, this, [this](bool checked) {
-        if (checked)
+        if (checked) {
             emit listModeChanged(KateQuickOpenModelList::AllProjects);
+        }
     });
     act->setChecked(!cfgListMode);
 
@@ -78,8 +79,9 @@ void QuickOpenLineEdit::setupMenu()
     act = menu->addAction(i18n("Current Project"));
     act->setCheckable(true);
     connect(act, &QAction::toggled, this, [this](bool checked) {
-        if (checked)
+        if (checked) {
             emit listModeChanged(KateQuickOpenModelList::CurrentProject);
+        }
     });
     act->setChecked(cfgListMode);
     m_listMode = cfgListMode ? KateQuickOpenModelList::CurrentProject : KateQuickOpenModelList::AllProjects;

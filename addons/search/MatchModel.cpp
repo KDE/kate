@@ -31,8 +31,9 @@ static const quintptr FileItemId = 0x7FFFFFFF;
 
 static QUrl localFileDirUp(const QUrl &url)
 {
-    if (!url.isLocalFile())
+    if (!url.isLocalFile()) {
         return url;
+    }
 
     // else go up
     return QUrl::fromLocalFile(QFileInfo(url.toLocalFile()).dir().absolutePath());
@@ -61,23 +62,26 @@ void MatchModel::setDocumentManager(KTextEditor::Application *manager)
 void MatchModel::setSearchPlace(MatchModel::SearchPlaces searchPlace)
 {
     m_searchPlace = searchPlace;
-    if (!m_infoUpdateTimer.isActive())
+    if (!m_infoUpdateTimer.isActive()) {
         m_infoUpdateTimer.start();
+    }
 }
 
 void MatchModel::setFileListUpdate(const QString &path)
 {
     m_lastSearchPath = path;
     m_searchState = Preparing;
-    if (!m_infoUpdateTimer.isActive())
+    if (!m_infoUpdateTimer.isActive()) {
         m_infoUpdateTimer.start();
+    }
 }
 
 void MatchModel::setSearchState(MatchModel::SearchState searchState)
 {
     m_searchState = searchState;
-    if (!m_infoUpdateTimer.isActive())
+    if (!m_infoUpdateTimer.isActive()) {
         m_infoUpdateTimer.start();
+    }
     if (m_searchState == SearchDone) {
         beginResetModel();
         std::sort(m_matchFiles.begin(), m_matchFiles.end(), [](const MatchFile &l, const MatchFile &r) {
@@ -93,15 +97,17 @@ void MatchModel::setSearchState(MatchModel::SearchState searchState)
 void MatchModel::setBaseSearchPath(const QString &baseSearchPath)
 {
     m_resultBaseDir = baseSearchPath;
-    if (!m_infoUpdateTimer.isActive())
+    if (!m_infoUpdateTimer.isActive()) {
         m_infoUpdateTimer.start();
+    }
 }
 
 void MatchModel::setProjectName(const QString &projectName)
 {
     m_projectName = projectName;
-    if (!m_infoUpdateTimer.isActive())
+    if (!m_infoUpdateTimer.isActive()) {
         m_infoUpdateTimer.start();
+    }
 }
 
 void MatchModel::clear()
@@ -125,8 +131,9 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     m_lastMatchUrl = fileUrl;
     m_searchState = Searching;
     // update match/search info
-    if (!m_infoUpdateTimer.isActive())
+    if (!m_infoUpdateTimer.isActive()) {
         m_infoUpdateTimer.start();
+    }
 
     if (m_matchFiles.isEmpty()) {
         beginInsertRows(QModelIndex(), 0, 0);
@@ -693,12 +700,15 @@ QString MatchModel::matchToPlainText(const Match &match) const
 
 bool MatchModel::isMatch(const QModelIndex &itemIndex) const
 {
-    if (!itemIndex.isValid())
+    if (!itemIndex.isValid()) {
         return false;
-    if (itemIndex.internalId() == InfoItemId)
+    }
+    if (itemIndex.internalId() == InfoItemId) {
         return false;
-    if (itemIndex.internalId() == FileItemId)
+    }
+    if (itemIndex.internalId() == FileItemId) {
         return false;
+    }
 
     return true;
 }
@@ -706,23 +716,26 @@ bool MatchModel::isMatch(const QModelIndex &itemIndex) const
 QModelIndex MatchModel::fileIndex(const QUrl &url) const
 {
     int row = matchFileRow(url);
-    if (row == -1)
+    if (row == -1) {
         return QModelIndex();
+    }
     return createIndex(row, 0, FileItemId);
 }
 
 QModelIndex MatchModel::firstMatch() const
 {
-    if (m_matchFiles.isEmpty())
+    if (m_matchFiles.isEmpty()) {
         return QModelIndex();
+    }
 
     return createIndex(0, 0, static_cast<quintptr>(0));
 }
 
 QModelIndex MatchModel::lastMatch() const
 {
-    if (m_matchFiles.isEmpty())
+    if (m_matchFiles.isEmpty()) {
         return QModelIndex();
+    }
     const MatchFile &matchFile = m_matchFiles.constLast();
     return createIndex(matchFile.matches.size() - 1, 0, m_matchFiles.size() - 1);
 }
@@ -730,8 +743,9 @@ QModelIndex MatchModel::lastMatch() const
 QModelIndex MatchModel::firstFileMatch(const QUrl &url) const
 {
     int row = matchFileRow(url);
-    if (row == -1)
+    if (row == -1) {
         return QModelIndex();
+    }
 
     // if a file is in the vector it has a match
     return createIndex(0, 0, row);
@@ -740,12 +754,15 @@ QModelIndex MatchModel::firstFileMatch(const QUrl &url) const
 QModelIndex MatchModel::closestMatchAfter(const QUrl &url, const KTextEditor::Cursor &cursor) const
 {
     int row = matchFileRow(url);
-    if (row < 0)
+    if (row < 0) {
         return QModelIndex();
-    if (row >= m_matchFiles.size())
+    }
+    if (row >= m_matchFiles.size()) {
         return QModelIndex();
-    if (!cursor.isValid())
+    }
+    if (!cursor.isValid()) {
         return QModelIndex();
+    }
 
     // if a file is in the vector it has a match
     const MatchFile &matchFile = m_matchFiles[row];
@@ -763,12 +780,15 @@ QModelIndex MatchModel::closestMatchAfter(const QUrl &url, const KTextEditor::Cu
 QModelIndex MatchModel::closestMatchBefore(const QUrl &url, const KTextEditor::Cursor &cursor) const
 {
     int row = matchFileRow(url);
-    if (row < 0)
+    if (row < 0) {
         return QModelIndex();
-    if (row >= m_matchFiles.size())
+    }
+    if (row >= m_matchFiles.size()) {
         return QModelIndex();
-    if (!cursor.isValid())
+    }
+    if (!cursor.isValid()) {
         return QModelIndex();
+    }
 
     // if a file is in the vector it has a match
     const MatchFile &matchFile = m_matchFiles[row];
@@ -785,8 +805,9 @@ QModelIndex MatchModel::closestMatchBefore(const QUrl &url, const KTextEditor::C
 
 QModelIndex MatchModel::nextMatch(const QModelIndex &itemIndex) const
 {
-    if (!itemIndex.isValid())
+    if (!itemIndex.isValid()) {
         return firstMatch();
+    }
 
     int fileRow = itemIndex.internalId() < FileItemId ? itemIndex.internalId() : itemIndex.row();
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
@@ -808,8 +829,9 @@ QModelIndex MatchModel::nextMatch(const QModelIndex &itemIndex) const
 
 QModelIndex MatchModel::prevMatch(const QModelIndex &itemIndex) const
 {
-    if (!itemIndex.isValid())
+    if (!itemIndex.isValid()) {
         return lastMatch();
+    }
 
     int fileRow = itemIndex.internalId() < FileItemId ? itemIndex.internalId() : itemIndex.row();
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
@@ -832,8 +854,9 @@ QModelIndex MatchModel::prevMatch(const QModelIndex &itemIndex) const
 
 QVariant MatchModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return QVariant();
+    }
 
     if (index.column() < 0 || index.column() > 1) {
         return QVariant();
@@ -913,8 +936,9 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
 
 bool MatchModel::setFileChecked(int fileRow, bool checked)
 {
-    if (fileRow < 0 || fileRow >= m_matchFiles.size())
+    if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
         return false;
+    }
     QVector<Match> &matches = m_matchFiles[fileRow].matches;
     for (int i = 0; i < matches.size(); ++i) {
         matches[i].checked = checked;
@@ -928,12 +952,15 @@ bool MatchModel::setFileChecked(int fileRow, bool checked)
 
 bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int role)
 {
-    if (role != Qt::CheckStateRole)
+    if (role != Qt::CheckStateRole) {
         return false;
-    if (!itemIndex.isValid())
+    }
+    if (!itemIndex.isValid()) {
         return false;
-    if (itemIndex.column() != 0)
+    }
+    if (itemIndex.column() != 0) {
         return false;
+    }
 
     // Check/un-check the File Item and it's children
     if (itemIndex.internalId() == InfoItemId) {
@@ -949,8 +976,9 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
 
     if (itemIndex.internalId() == FileItemId) {
         int fileRrow = itemIndex.row();
-        if (fileRrow < 0 || fileRrow >= m_matchFiles.size())
+        if (fileRrow < 0 || fileRrow >= m_matchFiles.size()) {
             return false;
+        }
         bool checked = m_matchFiles[fileRrow].checkState != Qt::Checked; // we toggle the current value
         setFileChecked(fileRrow, checked);
 
@@ -969,13 +997,15 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     }
 
     int rootRow = itemIndex.internalId();
-    if (rootRow < 0 || rootRow >= m_matchFiles.size())
+    if (rootRow < 0 || rootRow >= m_matchFiles.size()) {
         return false;
+    }
 
     int row = itemIndex.row();
     QVector<Match> &matches = m_matchFiles[rootRow].matches;
-    if (row < 0 || row >= matches.size())
+    if (row < 0 || row >= matches.size()) {
         return false;
+    }
 
     // we toggle the current value
     matches[row].checked = !matches[row].checked;

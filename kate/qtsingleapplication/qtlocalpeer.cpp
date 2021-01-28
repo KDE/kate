@@ -53,8 +53,9 @@ QtLocalPeer::QtLocalPeer(QObject *parent, const QString &appId)
     : QObject(parent)
     , id(appId)
 {
-    if (id.isEmpty())
+    if (id.isEmpty()) {
         id = QCoreApplication::applicationFilePath(); //### On win, check if this returns .../argv[0] without casefolding; .\MYAPP == .\myapp on Win
+    }
 
     socketName = appSessionId(id);
     server = new QLocalServer(this);
@@ -65,25 +66,30 @@ QtLocalPeer::QtLocalPeer(QObject *parent, const QString &appId)
 
 bool QtLocalPeer::isClient()
 {
-    if (lockFile.isLocked())
+    if (lockFile.isLocked()) {
         return false;
+    }
 
-    if (!lockFile.lock(QtLockedFile::WriteLock, false))
+    if (!lockFile.lock(QtLockedFile::WriteLock, false)) {
         return true;
+    }
 
-    if (!QLocalServer::removeServer(socketName))
+    if (!QLocalServer::removeServer(socketName)) {
         qWarning("QtSingleCoreApplication: could not cleanup socket");
+    }
     bool res = server->listen(socketName);
-    if (!res)
+    if (!res) {
         qWarning("QtSingleCoreApplication: listen on local socket failed, %s", qPrintable(server->errorString()));
+    }
     QObject::connect(server, SIGNAL(newConnection()), SLOT(receiveConnection()));
     return false;
 }
 
 bool QtLocalPeer::sendMessage(const QString &message, int timeout, bool block)
 {
-    if (!isClient())
+    if (!isClient()) {
         return false;
+    }
 
     QLocalSocket socket;
     bool connOk = false;
@@ -91,8 +97,9 @@ bool QtLocalPeer::sendMessage(const QString &message, int timeout, bool block)
         // Try twice, in case the other instance is just starting up
         socket.connectToServer(socketName);
         connOk = socket.waitForConnected(timeout / 2);
-        if (connOk || i)
+        if (connOk || i) {
             break;
+        }
         int ms = 250;
 #if defined(Q_OS_WIN)
         Sleep(DWORD(ms));
@@ -101,8 +108,9 @@ bool QtLocalPeer::sendMessage(const QString &message, int timeout, bool block)
         nanosleep(&ts, NULL);
 #endif
     }
-    if (!connOk)
+    if (!connOk) {
         return false;
+    }
 
     QByteArray uMsg(message.toUtf8());
     QDataStream ds(&socket);
@@ -110,21 +118,24 @@ bool QtLocalPeer::sendMessage(const QString &message, int timeout, bool block)
     bool res = socket.waitForBytesWritten(timeout);
     res &= socket.waitForReadyRead(timeout); // wait for ack
     res &= (socket.read(qstrlen(ack)) == ack);
-    if (block) // block until peer disconnects
+    if (block) { // block until peer disconnects
         socket.waitForDisconnected(-1);
+    }
     return res;
 }
 
 void QtLocalPeer::receiveConnection()
 {
     QLocalSocket *socket = server->nextPendingConnection();
-    if (!socket)
+    if (!socket) {
         return;
+    }
 
     // Why doesn't Qt have a blocking stream that takes care of this shait???
     while (socket->bytesAvailable() < static_cast<int>(sizeof(quint32))) {
-        if (!socket->isValid()) // stale request
+        if (!socket->isValid()) { // stale request
             return;
+        }
         socket->waitForReadyRead(1000);
     }
     QDataStream ds(socket);

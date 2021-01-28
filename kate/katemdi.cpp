@@ -117,8 +117,9 @@ GUIClient::GUIClient(MainWindow *mw)
 
     actionCollection()->addAssociatedWidget(m_mw);
     const auto actions = actionCollection()->actions();
-    for (QAction *action : actions)
+    for (QAction *action : actions) {
         action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    }
 }
 
 GUIClient::~GUIClient()
@@ -654,13 +655,15 @@ void Sidebar::restoreSession(KConfigGroup &config)
         }
 
         // now: sort the stuff we need to reshuffle
-        for (int m = 0; m < toSort.size(); ++m)
-            for (int n = m + 1; n < toSort.size(); ++n)
+        for (int m = 0; m < toSort.size(); ++m) {
+            for (int n = m + 1; n < toSort.size(); ++n) {
                 if (toSort[n].pos < toSort[m].pos) {
                     TmpToolViewSorter tmp = toSort[n];
                     toSort[n] = toSort[m];
                     toSort[m] = tmp;
                 }
+            }
+        }
 
         // then: remove this items from the button bar
         // do this backwards, to minimize the relayout efforts

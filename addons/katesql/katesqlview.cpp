@@ -162,8 +162,9 @@ void KateSQLView::slotSQLMenuAboutToShow()
         QAction *act = new QAction(connectionName, m_connectionsGroup);
         act->setCheckable(true);
 
-        if (m_connectionsComboBox->currentText() == connectionName)
+        if (m_connectionsComboBox->currentText() == connectionName) {
             act->setChecked(true);
+        }
 
         sqlMenu->insertAction(before, act);
     }
@@ -194,8 +195,9 @@ void KateSQLView::readSessionConfig(KConfigBase *config, const QString &groupPre
 
     bool saveConnections = globalConfig.readEntry("SaveConnections", true);
 
-    if (!saveConnections)
+    if (!saveConnections) {
         return;
+    }
 
     KConfigGroup group(config, groupPrefix + QLatin1String(":connections"));
 
@@ -203,8 +205,9 @@ void KateSQLView::readSessionConfig(KConfigBase *config, const QString &groupPre
 
     QString lastConnection = group.readEntry("LastUsed");
 
-    if (m_connectionsComboBox->contains(lastConnection))
+    if (m_connectionsComboBox->contains(lastConnection)) {
         m_connectionsComboBox->setCurrentItem(lastConnection);
+    }
 }
 
 void KateSQLView::writeSessionConfig(KConfigBase *config, const QString &groupPrefix)
@@ -231,24 +234,28 @@ void KateSQLView::slotConnectionCreate()
 
     ConnectionWizard wizard(m_manager, &c);
 
-    if (wizard.exec() != QDialog::Accepted)
+    if (wizard.exec() != QDialog::Accepted) {
         return;
+    }
 
-    for (int i = 1; QSqlDatabase::contains(c.name); i++)
+    for (int i = 1; QSqlDatabase::contains(c.name); i++) {
         c.name = QStringLiteral("%1 (%2)").arg(c.name).arg(i);
+    }
 
     m_manager->createConnection(c);
 
-    if (m_manager->storeCredentials(c) != 0)
+    if (m_manager->storeCredentials(c) != 0) {
         qDebug() << "Connection credentials not saved";
+    }
 }
 
 void KateSQLView::slotConnectionEdit()
 {
     int i = m_connectionsComboBox->currentIndex();
 
-    if (i == -1)
+    if (i == -1) {
         return;
+    }
 
     ConnectionModel *model = m_manager->connectionModel();
     Connection c = model->data(model->index(i), Qt::UserRole).value<Connection>();
@@ -257,38 +264,43 @@ void KateSQLView::slotConnectionEdit()
 
     ConnectionWizard wizard(m_manager, &c);
 
-    if (wizard.exec() != QDialog::Accepted)
+    if (wizard.exec() != QDialog::Accepted) {
         return;
+    }
 
     m_manager->removeConnection(previousName);
     m_manager->createConnection(c);
 
-    if (m_manager->storeCredentials(c) != 0)
+    if (m_manager->storeCredentials(c) != 0) {
         qDebug() << "Connection credentials not saved";
+    }
 }
 
 void KateSQLView::slotConnectionRemove()
 {
     QString connection = m_connectionsComboBox->currentText();
 
-    if (!connection.isEmpty())
+    if (!connection.isEmpty()) {
         m_manager->removeConnection(connection);
+    }
 }
 
 void KateSQLView::slotConnectionReconnect()
 {
     QString connection = m_connectionsComboBox->currentText();
 
-    if (!connection.isEmpty())
+    if (!connection.isEmpty()) {
         m_manager->reopenConnection(connection);
+    }
 }
 
 void KateSQLView::slotConnectionAboutToBeClosed(const QString &name)
 {
     /// must delete the QSqlQuery object inside the model before closing connection
 
-    if (name == m_currentResultsetConnection)
+    if (name == m_currentResultsetConnection) {
         m_outputWidget->dataOutputWidget()->clearResults();
+    }
 }
 
 void KateSQLView::slotRunQuery()
@@ -305,14 +317,16 @@ void KateSQLView::slotRunQuery()
 
     KTextEditor::View *view = m_mainWindow->activeView();
 
-    if (!view)
+    if (!view) {
         return;
+    }
 
     QString text = (view->selection()) ? view->selectionText() : view->document()->text();
     text = text.trimmed();
 
-    if (text.isEmpty())
+    if (text.isEmpty()) {
         return;
+    }
 
     m_manager->runQuery(text, connection);
 }

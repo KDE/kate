@@ -134,9 +134,10 @@ void KateFileBrowser::setupToolbar()
 {
     KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
     QStringList actions = config.readEntry("toolbar actions", QStringList());
-    if (actions.isEmpty()) // default toolbar
+    if (actions.isEmpty()) { // default toolbar
         actions << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("bookmarks") << QStringLiteral("sync_dir")
                 << QStringLiteral("configure");
+    }
 
     // remove all actions from the toolbar (there should be none)
     m_toolbar->clear();
@@ -144,15 +145,18 @@ void KateFileBrowser::setupToolbar()
     // now add all actions to the toolbar
     for (const QString &it : qAsConst(actions)) {
         QAction *ac = nullptr;
-        if (it.isEmpty())
+        if (it.isEmpty()) {
             continue;
-        if (it == QLatin1String("bookmarks") || it == QLatin1String("sync_dir") || it == QLatin1String("configure"))
+        }
+        if (it == QLatin1String("bookmarks") || it == QLatin1String("sync_dir") || it == QLatin1String("configure")) {
             ac = actionCollection()->action(it);
-        else
+        } else {
             ac = m_dirOperator->actionCollection()->action(it);
+        }
 
-        if (ac)
+        if (ac) {
             m_toolbar->addAction(ac);
+        }
     }
 }
 
@@ -196,8 +200,9 @@ void KateFileBrowser::slotFilterChange(const QString &nf)
 
 bool kateFileSelectorIsReadable(const QUrl &url)
 {
-    if (!url.isLocalFile())
+    if (!url.isLocalFile()) {
         return true; // what else can we say?
+    }
 
     QDir dir(url.toLocalFile());
     return dir.exists();
@@ -207,14 +212,16 @@ void KateFileBrowser::setDir(const QUrl &u)
 {
     QUrl newurl;
 
-    if (!u.isValid())
+    if (!u.isValid()) {
         newurl = QUrl::fromLocalFile(QDir::homePath());
-    else
+    } else {
         newurl = u;
+    }
 
     QString path(newurl.path());
-    if (!path.endsWith(QLatin1Char('/')))
+    if (!path.endsWith(QLatin1Char('/'))) {
         path += QLatin1Char('/');
+    }
     newurl.setPath(path);
 
     if (!kateFileSelectorIsReadable(newurl)) {
@@ -311,8 +318,9 @@ void KateFileBrowser::openSelectedFiles()
     if (list.count() > 20) {
         if (KMessageBox::questionYesNo(this,
                                        i18np("You are trying to open 1 file, are you sure?", "You are trying to open %1 files, are you sure?", list.count()))
-            == KMessageBox::No)
+            == KMessageBox::No) {
             return;
+        }
     }
 
     for (const KFileItem &item : list) {
@@ -335,8 +343,9 @@ void KateFileBrowser::updateUrlNavigator(const QUrl &u)
 void KateFileBrowser::setActiveDocumentDir()
 {
     QUrl u = activeDocumentUrl();
-    if (!u.isEmpty())
+    if (!u.isEmpty()) {
         setDir(KIO::upUrl(u));
+    }
 }
 
 void KateFileBrowser::autoSyncFolder()
@@ -358,8 +367,9 @@ void KateFileBrowser::selectorViewChanged(QAbstractItemView *newView)
 QUrl KateFileBrowser::activeDocumentUrl()
 {
     KTextEditor::View *v = m_mainWindow->activeView();
-    if (v)
+    if (v) {
         return v->document()->url();
+    }
     return QUrl();
 }
 

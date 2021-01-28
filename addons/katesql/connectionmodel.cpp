@@ -36,8 +36,9 @@ int ConnectionModel::rowCount(const QModelIndex &parent) const
 
 QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return QVariant();
+    }
 
     const QString key = m_connections.keys().at(index.row());
 
@@ -100,16 +101,18 @@ int ConnectionModel::indexOf(const QString &name)
 
 Connection::Status ConnectionModel::status(const QString &name) const
 {
-    if (!m_connections.contains(name))
+    if (!m_connections.contains(name)) {
         return Connection::UNKNOWN;
+    }
 
     return m_connections[name].status;
 }
 
 void ConnectionModel::setStatus(const QString &name, const Connection::Status status)
 {
-    if (!m_connections.contains(name))
+    if (!m_connections.contains(name)) {
         return;
+    }
 
     m_connections[name].status = status;
 
@@ -120,8 +123,9 @@ void ConnectionModel::setStatus(const QString &name, const Connection::Status st
 
 void ConnectionModel::setPassword(const QString &name, const QString &password)
 {
-    if (!m_connections.contains(name))
+    if (!m_connections.contains(name)) {
         return;
+    }
 
     m_connections[name].password = password;
 

@@ -76,15 +76,17 @@ QObject *KateKonsolePlugin::createView(KTextEditor::MainWindow *mainWindow)
 
 KTextEditor::ConfigPage *KateKonsolePlugin::configPage(int number, QWidget *parent)
 {
-    if (number != 0)
+    if (number != 0) {
         return nullptr;
+    }
     return new KateKonsoleConfigPage(parent, this);
 }
 
 void KateKonsolePlugin::readConfig()
 {
-    for (KateKonsolePluginView *view : qAsConst(mViews))
+    for (KateKonsolePluginView *view : qAsConst(mViews)) {
         view->readConfig();
+    }
 }
 
 KateKonsolePluginView::KateKonsolePluginView(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mainWindow)
@@ -166,31 +168,37 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
 KateConsole::~KateConsole()
 {
     m_mw->guiFactory()->removeClient(this);
-    if (m_part)
+    if (m_part) {
         disconnect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);
+    }
 }
 
 void KateConsole::loadConsoleIfNeeded()
 {
-    if (m_part)
+    if (m_part) {
         return;
+    }
 
-    if (!window() || !parentWidget())
+    if (!window() || !parentWidget()) {
         return;
-    if (!window() || !isVisibleTo(window()))
+    }
+    if (!window() || !isVisibleTo(window())) {
         return;
+    }
 
     /**
      * get konsole part factory
      */
     KPluginFactory *factory = KPluginLoader(QStringLiteral("konsolepart")).factory();
-    if (!factory)
+    if (!factory) {
         return;
+    }
 
     m_part = factory->create<KParts::ReadOnlyPart>(this, this);
 
-    if (!m_part)
+    if (!m_part) {
         return;
+    }
 
     layout()->addWidget(m_part->widget());
 
@@ -229,19 +237,22 @@ void KateConsole::overrideShortcut(QKeyEvent *, bool &override)
 
 void KateConsole::showEvent(QShowEvent *)
 {
-    if (m_part)
+    if (m_part) {
         return;
+    }
 
     loadConsoleIfNeeded();
 }
 
 void KateConsole::cd(const QString &path)
 {
-    if (m_currentPath == path)
+    if (m_currentPath == path) {
         return;
+    }
 
-    if (!m_part)
+    if (!m_part) {
         return;
+    }
 
     m_currentPath = path;
     QString command = QLatin1String(" cd ") + KShell::quoteArg(m_currentPath) + QLatin1Char('\n');
@@ -267,13 +278,15 @@ void KateConsole::sendInput(const QString &text)
 {
     loadConsoleIfNeeded();
 
-    if (!m_part)
+    if (!m_part) {
         return;
+    }
 
     TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part);
 
-    if (!t)
+    if (!t) {
         return;
+    }
 
     t->sendInput(text);
 }
@@ -287,18 +300,21 @@ void KateConsole::slotPipeToConsole()
             KGuiItem(i18n("Pipe to Terminal")),
             KStandardGuiItem::cancel(),
             QStringLiteral("Pipe To Terminal Warning"))
-        != KMessageBox::Continue)
+        != KMessageBox::Continue) {
         return;
+    }
 
     KTextEditor::View *v = m_mw->activeView();
 
-    if (!v)
+    if (!v) {
         return;
+    }
 
-    if (v->selection())
+    if (v->selection()) {
         sendInput(v->selectionText());
-    else
+    } else {
         sendInput(v->document()->text());
+    }
 }
 
 void KateConsole::slotSync()
@@ -329,8 +345,9 @@ void KateConsole::slotManualSync()
 {
     m_currentPath.clear();
     slotSync();
-    if (!m_part || !m_part->widget()->isVisible())
+    if (!m_part || !m_part->widget()->isVisible()) {
         m_mw->showToolView(parentWidget());
+    }
 }
 
 void KateConsole::slotRun()
@@ -411,19 +428,22 @@ void KateConsole::slotToggleFocus()
         return; // this shows and focuses the konsole
     }
 
-    if (!m_part)
+    if (!m_part) {
         return;
+    }
 
     if (m_part->widget()->hasFocus()) {
-        if (m_mw->activeView())
+        if (m_mw->activeView()) {
             m_mw->activeView()->setFocus();
+        }
         action->setText(i18n("Focus Terminal"));
     } else {
         // show the view if it is hidden
-        if (parentWidget()->isHidden())
+        if (parentWidget()->isHidden()) {
             m_mw->showToolView(parentWidget());
-        else // should focus the widget too!
+        } else { // should focus the widget too!
             m_part->widget()->setFocus(Qt::OtherFocusReason);
+        }
         action->setText(i18n("Defocus Terminal"));
     }
 }
@@ -437,10 +457,11 @@ void KateConsole::readConfig()
         connect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotViewOrUrlChanged);
     }
 
-    if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("SetEditor", false))
+    if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("SetEditor", false)) {
         qputenv("EDITOR", "kate -b");
-    else
+    } else {
         setEditorEnv(m_plugin->previousEditorEnv());
+    }
 }
 
 KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin *plugin)

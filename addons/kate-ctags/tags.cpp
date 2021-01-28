@@ -60,8 +60,9 @@ unsigned int Tags::numberOfMatches(const QString &tagpart, bool partial)
 {
     unsigned int n = 0;
 
-    if (tagpart.isEmpty())
+    if (tagpart.isEmpty()) {
         return 0;
+    }
 
     ctags::tagFileInfo info;
     ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
@@ -85,15 +86,17 @@ Tags::TagList Tags::getPartialMatchesNoi8n(const QString &tagFile, const QString
 
     auto getExtension = [](const QString &fileUrl) -> QStringRef {
         int dotPos = fileUrl.lastIndexOf(QLatin1Char('.'));
-        if (dotPos > -1)
+        if (dotPos > -1) {
             return fileUrl.midRef(dotPos + 1);
+        }
         return QStringRef();
     };
 
     Tags::TagList list;
 
-    if (tagpart.isEmpty())
+    if (tagpart.isEmpty()) {
         return list;
+    }
 
     ctags::tagFileInfo info;
     ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
@@ -122,8 +125,9 @@ Tags::TagList Tags::getMatches(const QString &tagpart, bool partial, const QStri
 {
     Tags::TagList list;
 
-    if (tagpart.isEmpty())
+    if (tagpart.isEmpty()) {
         return list;
+    }
 
     ctags::tagFileInfo info;
     ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);

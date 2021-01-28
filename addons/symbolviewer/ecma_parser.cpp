@@ -15,8 +15,9 @@
 void KatePluginSymbolViewerView::parseEcmaSymbols(void)
 {
     // make sure there is an active view to attach to
-    if (!m_mainWindow->activeView())
+    if (!m_mainWindow->activeView()) {
         return;
+    }
 
     // the current line
     QString cl;
@@ -58,13 +59,15 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         for (c = 0; c < cl.length(); c++) {
             // get the current character and the next
             current = cl.at(c);
-            if ((c + 1) < cl.length())
+            if ((c + 1) < cl.length()) {
                 next = cl.at(c + 1);
-            else
+            } else {
                 next = QLatin1Char('\0');
+            }
             // skip the rest of the line if we find a line comment
-            if ((!in_comment) && (current == QLatin1Char('/')) && (next == QLatin1Char('/')))
+            if ((!in_comment) && (current == QLatin1Char('/')) && (next == QLatin1Char('/'))) {
                 break;
+            }
             // open/close multiline comments
             if ((!in_string) && (current == QLatin1Char('/')) && (next == QLatin1Char('*'))) {
                 in_comment = true;
@@ -128,8 +131,9 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                 // get the node to add the class entry to
                 if ((m_treeOn->isChecked()) && (!nodes.isEmpty())) {
                     node = new QTreeWidgetItem(nodes.last());
-                    if (m_expandOn->isChecked())
+                    if (m_expandOn->isChecked()) {
                         m_symbols->expandItem(node);
+                    }
                 } else {
                     node = new QTreeWidgetItem(m_symbols);
                 }
@@ -137,8 +141,9 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                 node->setText(0, identifier);
                 node->setIcon(0, QIcon(cls));
                 node->setText(1, QString::number(line, 10));
-                if (m_expandOn->isChecked())
+                if (m_expandOn->isChecked()) {
                     m_symbols->expandItem(node);
+                }
             } // (look for classes)
 
             // look for function definitions
@@ -165,25 +170,27 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                     for (int end = function_start - 1; end >= 0; end--) {
                         ch = stripped.at(end);
                         // skip whitespace
-                        if ((ch == QLatin1Char(' ')) || (ch == QLatin1Char('\t')))
+                        if ((ch == QLatin1Char(' ')) || (ch == QLatin1Char('\t'))) {
                             continue;
+                        }
                         // if we hit an assignment or object property operator,
                         //  get the preceding identifier
                         if ((ch == QLatin1Char('=')) || (ch == QLatin1Char(':'))) {
                             end--;
                             while (end >= 0) {
                                 ch = stripped.at(end);
-                                if ((ch != QLatin1Char(' ')) && (ch != QLatin1Char('\t')))
+                                if ((ch != QLatin1Char(' ')) && (ch != QLatin1Char('\t'))) {
                                     break;
+                                }
                                 end--;
                             }
                             int start = end;
                             while (start >= 0) {
                                 ch = stripped.at(start);
                                 if (((ch >= QLatin1Char('a')) && (ch <= QLatin1Char('z'))) || ((ch >= QLatin1Char('A')) && (ch <= QLatin1Char('Z')))
-                                    || ((ch >= QLatin1Char('0')) && (ch <= QLatin1Char('9'))) || (ch == QLatin1Char('_')))
+                                    || ((ch >= QLatin1Char('0')) && (ch <= QLatin1Char('9'))) || (ch == QLatin1Char('_'))) {
                                     start--;
-                                else {
+                                } else {
                                     start++;
                                     break;
                                 }
@@ -193,8 +200,9 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                         }
                         // if we hit something else, we're not going to be able
                         //  to read an assignment identifier
-                        else
+                        else {
                             break;
+                        }
                     }
                 }
                 // if we have a function identifier, make a node
@@ -204,10 +212,11 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                     if (!nodes.isEmpty()) {
                         parent = nodes.last();
                     }
-                    if ((m_treeOn->isChecked()) && (parent != nullptr))
+                    if ((m_treeOn->isChecked()) && (parent != nullptr)) {
                         node = new QTreeWidgetItem(parent);
-                    else
+                    } else {
                         node = new QTreeWidgetItem(m_symbols);
+                    }
                     // mark the parent as a class (if it's not the root level)
                     if (parent != nullptr) {
                         parent->setIcon(0, QIcon(cls));
@@ -221,8 +230,9 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                     // add the function
                     node->setText(0, identifier);
                     node->setText(1, QString::number(line, 10));
-                    if (m_expandOn->isChecked())
+                    if (m_expandOn->isChecked()) {
                         m_symbols->expandItem(node);
+                    }
                 }
             } // (look for functions)
 
@@ -250,10 +260,11 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                     if (!nodes.isEmpty()) {
                         parent = nodes.last();
                     }
-                    if ((m_treeOn->isChecked()) && (parent != nullptr))
+                    if ((m_treeOn->isChecked()) && (parent != nullptr)) {
                         node = new QTreeWidgetItem(parent);
-                    else
+                    } else {
                         node = new QTreeWidgetItem(m_symbols);
+                    }
 
                     // mark the node as a class
                     node->setIcon(0, QIcon(cls));
@@ -261,8 +272,9 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                     // add the id
                     node->setText(0, identifier);
                     node->setText(1, QString::number(line, 10));
-                    if (m_expandOn->isChecked())
+                    if (m_expandOn->isChecked()) {
                         m_symbols->expandItem(node);
+                    }
                 }
             }
 
@@ -271,17 +283,19 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                 brace_depth++;
                 // if a node has been added at this level or above,
                 //  use it to extend the stack
-                if (node != nullptr)
+                if (node != nullptr) {
                     nodes.append(node);
-                // if no node has been added, extend the last node to this depth
-                else if (!nodes.isEmpty())
+                    // if no node has been added, extend the last node to this depth
+                } else if (!nodes.isEmpty()) {
                     nodes.append(nodes.last());
+                }
             } else if (current == QLatin1Char('}')) {
                 brace_depth--;
                 // pop the last node off the stack
                 node = nullptr;
-                if (!nodes.isEmpty())
+                if (!nodes.isEmpty()) {
                     nodes.removeLast();
+                }
             }
         } // (scan the stripped line)
 

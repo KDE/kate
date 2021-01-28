@@ -25,22 +25,25 @@ SemanticHighlighting::SemanticHighlighting(QObject *parent)
 
 void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
 {
-    if (!e)
+    if (!e) {
         return;
+    }
 
     using Style = KSyntaxHighlighting::Theme::TextStyle;
 
     const auto theme = e->theme();
 
     QColor f = QColor::fromRgba(theme.textColor(Style::Function));
-    if (!fixedAttrs[0])
+    if (!fixedAttrs[0]) {
         fixedAttrs[0] = new KTextEditor::Attribute();
+    }
     fixedAttrs[0]->setForeground(f);
     fixedAttrs[0]->setFontBold(theme.isBold(Style::Function));
     fixedAttrs[0]->setFontItalic(theme.isItalic(Style::Function));
 
-    if (!fixedAttrs[1])
+    if (!fixedAttrs[1]) {
         fixedAttrs[1] = new KTextEditor::Attribute();
+    }
     {
         // This is only for function parameter which are not
         // directly supported by themes so we load some hard
@@ -73,29 +76,33 @@ void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
     }
 
     QColor c = QColor::fromRgba(theme.textColor(Style::Constant));
-    if (!fixedAttrs[2])
+    if (!fixedAttrs[2]) {
         fixedAttrs[2] = new KTextEditor::Attribute();
+    }
     fixedAttrs[2]->setForeground(c);
     fixedAttrs[2]->setFontBold(theme.isBold(Style::Constant));
     fixedAttrs[2]->setFontItalic(theme.isItalic(Style::Constant));
 
     QColor k = QColor::fromRgba(theme.textColor(Style::Keyword));
-    if (!fixedAttrs[3])
+    if (!fixedAttrs[3]) {
         fixedAttrs[3] = new KTextEditor::Attribute();
+    }
     fixedAttrs[3]->setForeground(k);
     fixedAttrs[3]->setFontBold(theme.isBold(Style::Keyword));
     fixedAttrs[3]->setFontItalic(theme.isItalic(Style::Keyword));
 
     QColor cm = QColor::fromRgba(theme.textColor(Style::Comment));
-    if (!fixedAttrs[4])
+    if (!fixedAttrs[4]) {
         fixedAttrs[4] = new KTextEditor::Attribute();
+    }
     fixedAttrs[4]->setForeground(cm);
     fixedAttrs[4]->setFontBold(theme.isBold(Style::Comment));
     fixedAttrs[4]->setFontItalic(theme.isItalic(Style::Comment));
 
     QColor p = QColor::fromRgba(theme.textColor(Style::Preprocessor));
-    if (!fixedAttrs[5])
+    if (!fixedAttrs[5]) {
         fixedAttrs[5] = new KTextEditor::Attribute();
+    }
     fixedAttrs[5]->setForeground(p);
     fixedAttrs[5]->setFontBold(theme.isBold(Style::Preprocessor));
     fixedAttrs[5]->setFontItalic(theme.isItalic(Style::Preprocessor));

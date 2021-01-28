@@ -69,17 +69,19 @@ void PluginKateTextFilter::slotFilterReceivedStdout()
 void PluginKateTextFilter::slotFilterReceivedStderr()
 {
     const QString block = QString::fromLocal8Bit(m_pFilterProcess->readAllStandardError());
-    if (mergeOutput)
+    if (mergeOutput) {
         m_strFilterOutput += block;
-    else
+    } else {
         m_stderrOutput += block;
+    }
 }
 
 void PluginKateTextFilter::slotFilterProcessExited(int, QProcess::ExitStatus)
 {
     KTextEditor::View *kv(KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView());
-    if (!kv)
+    if (!kv) {
         return;
+    }
 
     // Is there any error output to display?
     if (!mergeOutput && !m_stderrOutput.isEmpty()) {
@@ -97,8 +99,9 @@ void PluginKateTextFilter::slotFilterProcessExited(int, QProcess::ExitStatus)
     }
 
     // Do not even try to change the document if no result collected...
-    if (m_strFilterOutput.isEmpty())
+    if (m_strFilterOutput.isEmpty()) {
         return;
+    }
 
     KTextEditor::Document::EditingTransaction transaction(kv->document());
 
@@ -141,12 +144,14 @@ void PluginKateTextFilter::slotEditFilter()
                            i18n("Access Restrictions"));
         return;
     }
-    if (!KTextEditor::Editor::instance()->application()->activeMainWindow())
+    if (!KTextEditor::Editor::instance()->application()->activeMainWindow()) {
         return;
+    }
 
     KTextEditor::View *kv(KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView());
-    if (!kv)
+    if (!kv) {
         return;
+    }
 
     QDialog dialog(KTextEditor::Editor::instance()->application()->activeMainWindow()->window());
 

@@ -144,8 +144,9 @@ void KPartView::triggerUpdatePreview()
         // Reset fast timer each time
         m_updateSquashingTimerFast.start();
         // Start slow timer, if not already running (don't reset!)
-        if (!m_updateSquashingTimerSlow.isActive())
+        if (!m_updateSquashingTimerSlow.isActive()) {
             m_updateSquashingTimerSlow.start();
+        }
     }
 }
 

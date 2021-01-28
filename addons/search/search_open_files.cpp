@@ -34,8 +34,9 @@ bool SearchOpenFiles::searching()
 
 void SearchOpenFiles::startSearch(const QList<KTextEditor::Document *> &list, const QRegularExpression &regexp)
 {
-    if (m_nextFileIndex != -1)
+    if (m_nextFileIndex != -1) {
         return;
+    }
 
     m_docList = list;
     m_nextFileIndex = 0;

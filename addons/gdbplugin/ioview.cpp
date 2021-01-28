@@ -81,18 +81,21 @@ void IOView::createFifos()
     m_stderrFifo = createFifo(QStringLiteral("stdErrFifo"));
 
     m_stdin.setFileName(m_stdinFifo);
-    if (!m_stdin.open(QIODevice::ReadWrite))
+    if (!m_stdin.open(QIODevice::ReadWrite)) {
         return;
+    }
 
     m_stdoutD.setFileName(m_stdoutFifo);
     m_stdoutD.open(QIODevice::ReadWrite);
 
     m_stdout.setFileName(m_stdoutFifo);
     m_stdoutFD = ::open(m_stdoutFifo.toLocal8Bit().data(), O_RDWR | O_NONBLOCK);
-    if (m_stdoutFD == -1)
+    if (m_stdoutFD == -1) {
         return;
-    if (!m_stdout.open(m_stdoutFD, QIODevice::ReadWrite))
+    }
+    if (!m_stdout.open(m_stdoutFD, QIODevice::ReadWrite)) {
         return;
+    }
 
     m_stdoutNotifier = new QSocketNotifier(m_stdoutFD, QSocketNotifier::Read, this);
     connect(m_stdoutNotifier, &QSocketNotifier::activated, this, &IOView::readOutput);
@@ -103,10 +106,12 @@ void IOView::createFifos()
 
     m_stderr.setFileName(m_stderrFifo);
     m_stderrFD = ::open(m_stderrFifo.toLocal8Bit().data(), O_RDONLY | O_NONBLOCK);
-    if (m_stderrFD == -1)
+    if (m_stderrFD == -1) {
         return;
-    if (!m_stderr.open(m_stderrFD, QIODevice::ReadOnly))
+    }
+    if (!m_stderr.open(m_stderrFD, QIODevice::ReadOnly)) {
         return;
+    }
 
     m_stderrNotifier = new QSocketNotifier(m_stderrFD, QSocketNotifier::Read, this);
     connect(m_stderrNotifier, &QSocketNotifier::activated, this, &IOView::readErrors);
@@ -171,13 +176,15 @@ void IOView::readErrors()
 void IOView::addStdOutText(const QString &text)
 {
     QScrollBar *scrollb = m_output->verticalScrollBar();
-    if (!scrollb)
+    if (!scrollb) {
         return;
+    }
     bool atEnd = (scrollb->value() == scrollb->maximum());
 
     QTextCursor cursor = m_output->textCursor();
-    if (!cursor.atEnd())
+    if (!cursor.atEnd()) {
         cursor.movePosition(QTextCursor::End);
+    }
     cursor.insertText(text);
 
     if (atEnd) {
@@ -196,8 +203,9 @@ QString IOView::createFifo(const QString &prefix)
 {
     QString fifo = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + prefix + KRandom::randomString(3);
     int result = mkfifo(QFile::encodeName(fifo).data(), 0666);
-    if (result != 0)
+    if (result != 0) {
         return QString();
+    }
     return fifo;
 }
 

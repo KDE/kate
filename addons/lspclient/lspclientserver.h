@@ -80,8 +80,9 @@ public:
     public:
         RequestHandle &cancel()
         {
-            if (m_server)
+            if (m_server) {
                 m_server->cancel(m_id);
+            }
             return *this;
         }
     };

@@ -16,8 +16,9 @@
 
 void KatePluginSymbolViewerView::parseTclSymbols(void)
 {
-    if (!m_mainWindow->activeView())
+    if (!m_mainWindow->activeView()) {
         return;
+    }
 
     QString currline, prevline;
     bool prevComment = false;
@@ -48,8 +49,9 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
             m_symbols->expandItem(mcrNode);
         }
         m_symbols->setRootIsDecorated(1);
-    } else
+    } else {
         m_symbols->setRootIsDecorated(0);
+    }
 
     KTextEditor::Document *kDoc = m_mainWindow->activeView()->document();
 
@@ -61,15 +63,18 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
         currline = currline.trimmed();
         bool comment = false;
         // qDebug(13000)<<currline;
-        if (currline.isEmpty())
+        if (currline.isEmpty()) {
             continue;
-        if (currline.at(0) == QLatin1Char('#'))
+        }
+        if (currline.at(0) == QLatin1Char('#')) {
             comment = true;
+        }
 
         if (i > 0) {
             prevline = kDoc->line(i - 1);
-            if (prevline.endsWith(QLatin1String("\\")) && prevComment)
+            if (prevline.endsWith(QLatin1String("\\")) && prevComment) {
                 comment = true;
+            }
         }
         prevComment = comment;
 
@@ -81,14 +86,16 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                     stripped = stripped.simplified();
                     int fnd = stripped.indexOf(QLatin1Char(' '));
                     // fnd = stripped.indexOf(QLatin1Char(';'));
-                    if (fnd > 0)
+                    if (fnd > 0) {
                         stripped = stripped.left(fnd);
+                    }
 
                     if (m_treeOn->isChecked()) {
                         node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                         lastMcrNode = node;
-                    } else
+                    } else {
                         node = new QTreeWidgetItem(m_symbols);
+                    }
                     node->setText(0, stripped);
                     node->setIcon(0, QIcon(mcr));
                     node->setText(1, QString::number(i, 10));
@@ -103,8 +110,9 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
             if (parse_func == 1) {
                 for (j = 0; j < currline.length(); j++) {
                     if (block == 1) {
-                        if (currline.at(j) == QLatin1Char('{'))
+                        if (currline.at(j) == QLatin1Char('{')) {
                             graph++;
+                        }
                         if (currline.at(j) == QLatin1Char('}')) {
                             graph--;
                             if (graph == 0) {
@@ -116,8 +124,9 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                     }
                     if (block == 0) {
                         stripped += currline.at(j);
-                        if (currline.at(j) == QLatin1Char('{'))
+                        if (currline.at(j) == QLatin1Char('{')) {
                             args_par++;
+                        }
                         if (currline.at(j) == QLatin1Char('}')) {
                             args_par--;
                             if (args_par == 0) {
@@ -126,8 +135,9 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                                     if (m_treeOn->isChecked()) {
                                         node = new QTreeWidgetItem(clsNode, lastClsNode);
                                         lastClsNode = node;
-                                    } else
+                                    } else {
                                         node = new QTreeWidgetItem(m_symbols);
+                                    }
                                     node->setText(0, stripped);
                                     node->setIcon(0, QIcon(cls));
                                     node->setText(1, QString::number(i, 10));

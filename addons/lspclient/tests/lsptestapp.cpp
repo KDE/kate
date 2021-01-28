@@ -16,8 +16,9 @@
 
 int main(int argc, char **argv)
 {
-    if (argc < 5)
+    if (argc < 5) {
         return -1;
+    }
 
     LSPClientServer lsp(QString::fromLatin1(argv[1]).split(QLatin1Char(' ')), QUrl(QString::fromLatin1(argv[2])));
 
@@ -25,8 +26,9 @@ int main(int argc, char **argv)
     QEventLoop q;
 
     auto state_h = [&lsp, &q]() {
-        if (lsp.state() == LSPClientServer::State::Running)
+        if (lsp.state() == LSPClientServer::State::Running) {
             q.quit();
+        }
     };
     auto conn = QObject::connect(&lsp, &LSPClientServer::stateChanged, state_h);
     lsp.start(nullptr /* no plugin for extra config */);
@@ -42,8 +44,9 @@ int main(int argc, char **argv)
     auto document = QUrl(QString::fromLatin1(argv[3]));
 
     QFile file(document.toLocalFile());
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return -1;
+    }
     QTextStream in(&file);
     QString content = in.readAll();
     lsp.didOpen(document, 0, QString(), content);

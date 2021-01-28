@@ -83,8 +83,9 @@ void LocalsView::addLocal(const QString &vString)
     match = isPrettyQList.match(vString);
     if (match.hasMatch()) {
         m_local += vString.trimmed();
-        if (m_local.endsWith(QLatin1Char(',')))
+        if (m_local.endsWith(QLatin1Char(','))) {
             m_local += QLatin1Char(' ');
+        }
         return;
     }
     if (vString == QLatin1String("}")) {
@@ -177,14 +178,16 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
             // search for the matching }
             while (end < vString.size()) {
                 if (!inComment) {
-                    if (vString[end] == QLatin1Char('"'))
+                    if (vString[end] == QLatin1Char('"')) {
                         inComment = true;
-                    else if (vString[end] == QLatin1Char('}'))
+                    } else if (vString[end] == QLatin1Char('}')) {
                         count--;
-                    else if (vString[end] == QLatin1Char('{'))
+                    } else if (vString[end] == QLatin1Char('{')) {
                         count++;
-                    if (count == 0)
+                    }
+                    if (count == 0) {
                         break;
+                    }
                 } else {
                     if ((vString[end] == QLatin1Char('"')) && (vString[end - 1] != QLatin1Char('\\'))) {
                         inComment = false;
@@ -208,10 +211,11 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
             bool inComment = false;
             while (end < vString.size()) {
                 if (!inComment) {
-                    if (vString[end] == QLatin1Char('"'))
+                    if (vString[end] == QLatin1Char('"')) {
                         inComment = true;
-                    else if (vString[end] == QLatin1Char(','))
+                    } else if (vString[end] == QLatin1Char(',')) {
                         break;
+                    }
                 } else {
                     if ((vString[end] == QLatin1Char('"')) && (vString[end - 1] != QLatin1Char('\\'))) {
                         inComment = false;
@@ -238,12 +242,13 @@ void LocalsView::addArray(QTreeWidgetItem *parent, const QString &vString)
 
     while (end < vString.size()) {
         if (!inComment) {
-            if (vString[end] == QLatin1Char('"'))
+            if (vString[end] == QLatin1Char('"')) {
                 inComment = true;
-            else if (vString[end] == QLatin1Char('}'))
+            } else if (vString[end] == QLatin1Char('}')) {
                 count--;
-            else if (vString[end] == QLatin1Char('{'))
+            } else if (vString[end] == QLatin1Char('{')) {
                 count++;
+            }
             if (count == 0) {
                 QStringList name;
                 name << QStringLiteral("[%1]").arg(index);

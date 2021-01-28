@@ -55,8 +55,9 @@ public:
 
     KTextEditor::Attribute::Ptr attrForScope(quint16 scopeidx) const
     {
-        if (scopeidx > m_scopes.size())
+        if (scopeidx > m_scopes.size()) {
             return {};
+        }
         return sharedAttrs.at(scopeidx);
     }
 

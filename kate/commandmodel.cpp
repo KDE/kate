@@ -29,27 +29,31 @@ void CommandModel::refresh(QVector<QPair<QString, QAction *>> actionList)
 
 QVariant CommandModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return {};
+    };
 
     auto entry = m_rows[index.row()];
     int col = index.column();
 
     switch (role) {
     case Qt::DisplayRole:
-        if (col == 0)
+        if (col == 0) {
             return QString(entry.component + QStringLiteral(": ") + KLocalizedString::removeAcceleratorMarker(entry.action->text()));
-        else
+        } else {
             return entry.action->shortcut().toString();
+        }
     case Qt::DecorationRole:
-        if (col == 0)
+        if (col == 0) {
             return entry.action->icon();
+        }
         break;
     case Qt::TextAlignmentRole:
-        if (col == 0)
+        if (col == 0) {
             return Qt::AlignLeft;
-        else
+        } else {
             return Qt::AlignRight;
+        }
     case Qt::UserRole: {
         QVariant v;
         v.setValue(entry.action);

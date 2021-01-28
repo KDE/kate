@@ -174,12 +174,13 @@ void KateConfigDialog::addSessionPage()
     connect(sessionConfigUi.spinBoxRecentFilesCount, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
 
     QString sesStart(cgGeneral.readEntry("Startup Session", "manual"));
-    if (sesStart == QLatin1String("new"))
+    if (sesStart == QLatin1String("new")) {
         sessionConfigUi.startNewSessionRadioButton->setChecked(true);
-    else if (sesStart == QLatin1String("last"))
+    } else if (sesStart == QLatin1String("last")) {
         sessionConfigUi.loadLastUserSessionRadioButton->setChecked(true);
-    else
+    } else {
         sessionConfigUi.manuallyChooseSessionRadioButton->setChecked(true);
+    }
 
     connect(sessionConfigUi.startNewSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
     connect(sessionConfigUi.loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
@@ -341,10 +342,11 @@ void KateConfigDialog::slotApply()
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
-        for (KTextEditor::Document *doc : docs)
+        for (KTextEditor::Document *doc : docs) {
             if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
                 qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
             }
+        }
 
         m_mainWindow->saveOptions();
 
@@ -370,8 +372,9 @@ void KateConfigDialog::slotApply()
     }
 
     // apply ktexteditor pages
-    for (KTextEditor::ConfigPage *page : qAsConst(m_editorPages))
+    for (KTextEditor::ConfigPage *page : qAsConst(m_editorPages)) {
         page->apply();
+    }
 
     config->sync();
 

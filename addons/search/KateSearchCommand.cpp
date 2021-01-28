@@ -41,20 +41,23 @@ bool KateSearchCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, Q
     if (command == QLatin1String("grep") || command == QLatin1String("newGrep")) {
         Q_EMIT setSearchPlace(MatchModel::Folder);
         Q_EMIT setCurrentFolder();
-        if (command == QLatin1String("newGrep"))
+        if (command == QLatin1String("newGrep")) {
             Q_EMIT newTab();
+        }
     }
 
     else if (command == QLatin1String("search") || command == QLatin1String("newSearch")) {
         Q_EMIT setSearchPlace(MatchModel::OpenFiles);
-        if (command == QLatin1String("newSearch"))
+        if (command == QLatin1String("newSearch")) {
             Q_EMIT newTab();
+        }
     }
 
     else if (command == QLatin1String("pgrep") || command == QLatin1String("newPGrep")) {
         Q_EMIT setSearchPlace(MatchModel::Project);
-        if (command == QLatin1String("newPGrep"))
+        if (command == QLatin1String("newPGrep")) {
             Q_EMIT newTab();
+        }
     }
 
     Q_EMIT setSearchString(searchText);

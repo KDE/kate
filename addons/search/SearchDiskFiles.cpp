@@ -22,34 +22,25 @@
 #include <QTextStream>
 #include <QUrl>
 
-SearchDiskFiles::SearchDiskFiles(QObject *parent)
-    : QThread(parent)
+SearchDiskFiles::SearchDiskFiles(const QStringList &files, const QRegularExpression &regexp, const bool includeBinaryFiles)
+    : QObject(nullptr)
+    , m_files(files)
+    , m_regExp(regexp)
+    , m_includeBinaryFiles(includeBinaryFiles)
 {
+    m_includeBinaryFiles = includeBinaryFiles;
+    m_cancelSearch = false;
+    m_files = files;
+    m_regExp = regexp;
+
     // ensure we have a proper thread name during e.g. perf profiling
     setObjectName(QStringLiteral("SearchDiskFiles"));
 }
 
 SearchDiskFiles::~SearchDiskFiles()
 {
-    m_cancelSearch = true;
-    wait();
 }
 
-void SearchDiskFiles::startSearch(const QStringList &files, const QRegularExpression &regexp, const bool includeBinaryFiles)
-{
-    if (files.empty()) {
-        emit searchDone();
-        return;
-    }
-    m_includeBinaryFiles = includeBinaryFiles;
-    m_cancelSearch = false;
-    m_terminateSearch = false;
-    m_files = files;
-    m_regExp = regexp;
-    m_matchCount = 0;
-    m_statusTime.restart();
-    start();
-}
 
 void SearchDiskFiles::run()
 {
@@ -57,11 +48,6 @@ void SearchDiskFiles::run()
     for (const QString &fileName : qAsConst(m_files)) {
         if (m_cancelSearch) {
             break;
-        }
-
-        if (m_statusTime.elapsed() > 100) {
-            m_statusTime.restart();
-            emit searching(fileName);
         }
 
         // open file early, this allows mime-type detection & search to use same io device
@@ -84,28 +70,11 @@ void SearchDiskFiles::run()
             searchSingleLineRegExp(file);
         }
     }
-
-    if (!m_terminateSearch) {
-        emit searchDone();
-    }
-    m_cancelSearch = true;
 }
 
 void SearchDiskFiles::cancelSearch()
 {
     m_cancelSearch = true;
-}
-
-void SearchDiskFiles::terminateSearch()
-{
-    m_cancelSearch = true;
-    m_terminateSearch = true;
-    wait();
-}
-
-bool SearchDiskFiles::searching()
-{
-    return !m_cancelSearch;
 }
 
 void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
@@ -134,18 +103,13 @@ void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
 
             match = m_regExp.match(line, column + match.capturedLength());
             column = match.capturedStart();
-            m_matchCount++;
-            // NOTE: This sleep is here so that the main thread will get a chance to
-            // handle any stop button clicks if there are a lot of matches
-            if (m_matchCount % 50)
-                msleep(1);
         }
         i++;
     }
 
-    // emit all matches batched
+    // Q_EMIT all matches batched
     const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
-    emit matchesFound(fileUrl, matches);
+    Q_EMIT matchesFound(fileUrl, matches);
 }
 
 void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
@@ -206,14 +170,9 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
 
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();
-        m_matchCount++;
-        // NOTE: This sleep is here so that the main thread will get a chance to
-        // handle any stop button clicks if there are a lot of matches
-        if (m_matchCount % 50)
-            msleep(1);
     }
 
-    // emit all matches batched
+    // Q_EMIT all matches batched
     const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
-    emit matchesFound(fileUrl, matches);
+    Q_EMIT matchesFound(fileUrl, matches);
 }

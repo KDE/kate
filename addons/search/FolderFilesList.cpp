@@ -43,9 +43,8 @@ void FolderFilesList::run()
 
     if (m_cancelSearch) {
         m_files.clear();
-    } else {
-        Q_EMIT fileListReady();
     }
+    Q_EMIT fileListReady();
 }
 
 void FolderFilesList::generateList(const QString &folder, bool recursive, bool hidden, bool symlinks, const QString &types, const QString &excludes)
@@ -107,7 +106,7 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
     }
     if (m_time.elapsed() > 100) {
         m_time.restart();
-        emit searching(item.absoluteFilePath());
+        Q_EMIT searching(item.absoluteFilePath());
     }
     if (item.isFile()) {
         m_files << item.canonicalFilePath();

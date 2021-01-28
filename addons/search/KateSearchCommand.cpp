@@ -37,26 +37,26 @@ bool KateSearchCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, Q
     QString searchText = args.join(QLatin1Char(' '));
 
     if (command == QLatin1String("grep") || command == QLatin1String("newGrep")) {
-        emit setSearchPlace(MatchModel::Folder);
-        emit setCurrentFolder();
+        Q_EMIT setSearchPlace(MatchModel::Folder);
+        Q_EMIT setCurrentFolder();
         if (command == QLatin1String("newGrep"))
-            emit newTab();
+            Q_EMIT newTab();
     }
 
     else if (command == QLatin1String("search") || command == QLatin1String("newSearch")) {
-        emit setSearchPlace(MatchModel::OpenFiles);
+        Q_EMIT setSearchPlace(MatchModel::OpenFiles);
         if (command == QLatin1String("newSearch"))
-            emit newTab();
+            Q_EMIT newTab();
     }
 
     else if (command == QLatin1String("pgrep") || command == QLatin1String("newPGrep")) {
-        emit setSearchPlace(MatchModel::Project);
+        Q_EMIT setSearchPlace(MatchModel::Project);
         if (command == QLatin1String("newPGrep"))
-            emit newTab();
+            Q_EMIT newTab();
     }
 
-    emit setSearchString(searchText);
-    emit startSearch();
+    Q_EMIT setSearchString(searchText);
+    Q_EMIT startSearch();
 
     return true;
 }

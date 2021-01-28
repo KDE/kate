@@ -18,50 +18,43 @@
 #ifndef SearchDiskFiles_h
 #define SearchDiskFiles_h
 
-#include <QElapsedTimer>
-#include <QFileInfo>
-#include <QMutex>
-#include <QRegularExpression>
+#include <QObject>
 #include <QStringList>
-#include <QThread>
-#include <QVector>
+#include <QRegularExpression>
+#include <QRunnable>
 
 #include "MatchModel.h"
 
-class SearchDiskFiles : public QThread
+class QString;
+class QUrl;
+class QFile;
+
+
+class SearchDiskFiles : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
-    SearchDiskFiles(QObject *parent = nullptr);
+    SearchDiskFiles(const QStringList &iles, const QRegularExpression &regexp, const bool includeBinaryFiles);
     ~SearchDiskFiles() override;
 
-    void startSearch(const QStringList &iles, const QRegularExpression &regexp, const bool includeBinaryFiles);
     void run() override;
-    void terminateSearch();
-
-    bool searching();
-
-private:
-    void searchSingleLineRegExp(QFile &file);
-    void searchMultiLineRegExp(QFile &file);
 
 public Q_SLOTS:
     void cancelSearch();
 
 Q_SIGNALS:
     void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
-    void searchDone();
-    void searching(const QString &file);
 
 private:
-    QRegularExpression m_regExp;
+    void searchSingleLineRegExp(QFile &file);
+    void searchMultiLineRegExp(QFile &file);
+
+private:
     QStringList m_files;
-    bool m_cancelSearch = true;
-    bool m_terminateSearch = false;
-    int m_matchCount = 0;
-    QElapsedTimer m_statusTime;
+    QRegularExpression m_regExp;
     bool m_includeBinaryFiles = false;
+    bool m_cancelSearch = true;
 };
 
 #endif

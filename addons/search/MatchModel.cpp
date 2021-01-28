@@ -351,7 +351,7 @@ void MatchModel::doReplaceNextMatch()
 
     if (m_cancelReplace || m_replaceFile >= m_matchFiles.size()) {
         m_replaceFile = -1;
-        emit replaceDone();
+        Q_EMIT replaceDone();
         return;
     }
 

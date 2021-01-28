@@ -78,7 +78,7 @@ void SearchOpenFiles::doSearchNextFile(int startLine)
         if (m_nextFileIndex == m_docList.size()) {
             m_nextFileIndex = -1;
             m_cancelSearch = true;
-            emit searchDone();
+            Q_EMIT searchDone();
         } else {
             m_nextLine = 0;
         }
@@ -92,7 +92,7 @@ int SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegularEx
 {
     if (m_statusTime.elapsed() > 100) {
         m_statusTime.restart();
-        emit searching(doc->url().toString());
+        Q_EMIT searching(doc->url().toString());
     }
 
     if (regExp.pattern().contains(QLatin1String("\\n"))) {
@@ -135,8 +135,8 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
         }
     }
 
-    // emit all matches batched
-    emit matchesFound(doc->url(), matches);
+    // Q_EMIT all matches batched
+    Q_EMIT matchesFound(doc->url(), matches);
 
     return resultLine;
 }
@@ -219,8 +219,8 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         }
     }
 
-    // emit all matches batched
-    emit matchesFound(doc->url(), matches);
+    // Q_EMIT all matches batched
+    Q_EMIT matchesFound(doc->url(), matches);
 
     return resultLine;
 }

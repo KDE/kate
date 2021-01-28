@@ -27,7 +27,8 @@
 #include <ktexteditor/sessionconfiginterface.h>
 
 #include <QTimer>
-#include <QTreeWidget>
+#include <QTreeView>
+#include <QThreadPool>
 
 #include <KXMLGUIClient>
 
@@ -174,11 +175,18 @@ private Q_SLOTS:
     void copySearchToClipboard(CopyResultType type);
     void customResMenuRequested(const QPoint &pos);
 
+Q_SIGNALS:
+    void cancelSearch();
+
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
-    QStringList filterFiles(const QStringList &files) const;
+    QStringList filterFiles(const QStringList &fileList) const;
+    void startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, bool includeBinaryFiles);
+    void cancelDiskFileSearch();
+    bool searchingDiskFiles();
+
     void updateViewColors();
 
     void onResize(const QSize &size);
@@ -188,17 +196,15 @@ private:
     KTextEditor::Application *m_kateApp;
     SearchOpenFiles m_searchOpenFiles;
     FolderFilesList m_folderFilesList;
-    SearchDiskFiles m_searchDiskFiles;
+    QThreadPool m_searchDiskFilePool;
+    QTimer m_diskSearchDoneTimer;
     QAction *m_matchCase = nullptr;
     QAction *m_useRegExp = nullptr;
     Results *m_curResults = nullptr;
     bool m_searchJustOpened = false;
     int m_projectSearchPlaceIndex = 0;
-    bool m_searchDiskFilesDone = true;
-    bool m_searchOpenFilesDone = true;
     bool m_isSearchAsYouType = false;
     bool m_isVerticalLayout = false;
-    bool m_blockDiskMatchFound = false;
     QString m_resultBaseDir;
     QVector<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;

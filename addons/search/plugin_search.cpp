@@ -195,7 +195,7 @@ Results::Results(QWidget *parent)
         matchModel.setMatchColors(fg.name(QColor::HexArgb), search.name(QColor::HexArgb), replace.name(QColor::HexArgb));
         treeView->setPalette(pal);
 
-        emit colorsChanged();
+        Q_EMIT colorsChanged();
     };
 
     auto e = KTextEditor::Editor::instance();
@@ -235,7 +235,7 @@ bool ContainerWidget::focusNextPrevChild(bool next)
 {
     QWidget *fw = focusWidget();
     bool found = false;
-    emit nextFocus(fw, &found, next);
+    Q_EMIT nextFocus(fw, &found, next);
 
     if (found) {
         return true;
@@ -443,6 +443,10 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(&m_searchOpenFiles, &SearchOpenFiles::matchesFound, this, &KatePluginSearchView::matchesFound);
     connect(&m_searchOpenFiles, &SearchOpenFiles::searchDone, this, &KatePluginSearchView::searchDone);
 
+    m_diskSearchDoneTimer.setSingleShot(true);
+    m_diskSearchDoneTimer.setInterval(10);
+    connect(&m_diskSearchDoneTimer, &QTimer::timeout, this, &KatePluginSearchView::searchDone);
+
     connect(&m_folderFilesList, &FolderFilesList::fileListReady, this, &KatePluginSearchView::folderFileListChanged);
     connect(&m_folderFilesList, &FolderFilesList::searching, this, [this](const QString &path) {
         Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
@@ -450,9 +454,6 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
             res->matchModel.setFileListUpdate(path);
         }
     });
-
-    connect(&m_searchDiskFiles, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound);
-    connect(&m_searchDiskFiles, &SearchDiskFiles::searchDone, this, &KatePluginSearchView::searchDone);
 
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, &KatePluginSearchView::clearDocMarksAndRanges);
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, &m_searchOpenFiles, &SearchOpenFiles::cancelSearch);
@@ -712,17 +713,17 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
 
 void KatePluginSearchView::folderFileListChanged()
 {
-    m_searchDiskFilesDone = false;
-    m_searchOpenFilesDone = false;
-
     if (!m_curResults) {
         qWarning() << "This is a bug";
-        m_searchDiskFilesDone = true;
-        m_searchOpenFilesDone = true;
         searchDone();
         return;
     }
     QStringList fileList = m_folderFilesList.fileList();
+
+    if (fileList.isEmpty()) {
+        searchDone();
+        return;
+    }
 
     QList<KTextEditor::Document *> openList;
     for (int i = 0; i < m_kateApp->documents().size(); i++) {
@@ -738,12 +739,53 @@ void KatePluginSearchView::folderFileListChanged()
     // The DiskFile might finish immediately
     if (!openList.empty()) {
         m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
-    } else {
-        m_searchOpenFilesDone = true;
     }
 
-    m_searchDiskFiles.startSearch(fileList, m_curResults->regExp, m_ui.binaryCheckBox->isChecked());
+    startDiskFileSearch(fileList, m_curResults->regExp, m_ui.binaryCheckBox->isChecked());
 }
+
+void KatePluginSearchView::startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, bool includeBinaryFiles)
+{
+    if (fileList.isEmpty()) {
+        searchDone();
+        return;
+    }
+
+    // Note: Experimented with different thread counts. 1 to QThread::idealThreadCount()
+    // The optimum was two threads.... My theory is that the disk is the main bottleneck.
+    int chunkSize = (fileList.size() / 2) + 1;
+
+    chunkSize = qMax(chunkSize, 1);
+    int nextChunk = 0;
+    while (nextChunk < fileList.size()) {
+        QStringList chunckList = fileList.mid(nextChunk, chunkSize);
+        SearchDiskFiles *runner = new SearchDiskFiles(chunckList, reg, includeBinaryFiles);
+        connect(runner, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound);
+        connect(this, &KatePluginSearchView::cancelSearch, runner, &SearchDiskFiles::cancelSearch);
+        connect(runner, &SearchDiskFiles::destroyed, this, [this]() {
+            if (m_searchDiskFilePool.activeThreadCount() == 0) {
+                if (!m_diskSearchDoneTimer.isActive()) {
+                    m_diskSearchDoneTimer.start();
+                }
+            }
+        });
+        m_searchDiskFilePool.start(runner);
+        nextChunk += chunkSize;
+    }
+}
+
+void KatePluginSearchView::cancelDiskFileSearch()
+{
+    Q_EMIT cancelSearch();
+    m_searchDiskFilePool.clear();
+    m_searchDiskFilePool.waitForDone();
+}
+
+bool KatePluginSearchView::searchingDiskFiles()
+{
+    return m_searchDiskFilePool.activeThreadCount() > 0;
+}
+
 
 void KatePluginSearchView::searchPlaceChanged()
 {
@@ -779,7 +821,7 @@ void KatePluginSearchView::searchPlaceChanged()
 
 void KatePluginSearchView::matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches)
 {
-    if (!m_curResults || (sender() == &m_searchDiskFiles && m_blockDiskMatchFound)) {
+    if (!m_curResults) {
         return;
     }
 
@@ -791,14 +833,11 @@ void KatePluginSearchView::stopClicked()
 {
     m_folderFilesList.cancelSearch();
     m_searchOpenFiles.cancelSearch();
-    m_searchDiskFiles.cancelSearch();
+    cancelDiskFileSearch();
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (res) {
         res->matchModel.cancelReplace();
     }
-    m_searchDiskFilesDone = true;
-    m_searchOpenFilesDone = true;
-    searchDone(); // Just in case the folder list was being populated...
 }
 
 /**
@@ -847,19 +886,15 @@ void KatePluginSearchView::updateViewColors()
     }
 }
 
+//static QElapsedTimer s_timer;
 void KatePluginSearchView::startSearch()
 {
+    //s_timer.start();
+
     // Forcefully stop any ongoing search or replace
-    m_blockDiskMatchFound = true; // Do not allow leftover machFound:s from a previous search to be added
     m_folderFilesList.terminateSearch();
     m_searchOpenFiles.terminateSearch();
-    m_searchDiskFiles.terminateSearch();
-    // Re-enable the handling of disk-file-matches after one event loop
-    // For some reason blocking of signals or disconnect/connect does not prevent the slot from being called,
-    // so we use m_blockDiskMatchFound to skip any old matchFound signals during the first event loop.
-    // New matches from disk-files should not come before the first event loop has executed.
-    QTimer::singleShot(0, this, [this]() { m_blockDiskMatchFound = false; });
-    // FIXME check if this above is needed
+    cancelDiskFileSearch();
 
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (res) {
@@ -942,8 +977,6 @@ void KatePluginSearchView::startSearch()
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(), m_ui.searchCombo->currentText());
 
     m_toolView->setCursor(Qt::WaitCursor);
-    m_searchDiskFilesDone = false;
-    m_searchOpenFilesDone = false;
 
     const bool inCurrentProject = m_ui.searchPlaceCombo->currentIndex() == MatchModel::Project;
     const bool inAllOpenProjects = m_ui.searchPlaceCombo->currentIndex() == MatchModel::AllProjects;
@@ -954,7 +987,6 @@ void KatePluginSearchView::startSearch()
     m_curResults->treeView->expand(m_curResults->matchModel.index(0,0));
 
     if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::CurrentFile) {
-        m_searchDiskFilesDone = true;
         m_resultBaseDir.clear();
         QList<KTextEditor::Document *> documents;
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -963,7 +995,6 @@ void KatePluginSearchView::startSearch()
         }
         m_searchOpenFiles.startSearch(documents, reg);
     } else if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::OpenFiles) {
-        m_searchDiskFilesDone = true;
         m_resultBaseDir.clear();
         const QList<KTextEditor::Document *> documents = m_kateApp->documents();
         m_searchOpenFiles.startSearch(documents, reg);
@@ -1023,11 +1054,10 @@ void KatePluginSearchView::startSearch()
         // The DiskFile might finish immediately
         if (!openList.empty()) {
             m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
-        } else {
-            m_searchOpenFilesDone = true;
         }
-        m_searchDiskFiles.startSearch(files, reg, m_ui.binaryCheckBox->isChecked());
-    } else {
+        startDiskFileSearch(files, m_curResults->regExp, m_ui.binaryCheckBox->isChecked());
+    }
+    else {
         qDebug() << "Case not handled:" << m_ui.searchPlaceCombo->currentIndex();
         Q_ASSERT_X(false, "KatePluginSearchView::startSearch", "case not handled");
     }
@@ -1035,7 +1065,7 @@ void KatePluginSearchView::startSearch()
 
 void KatePluginSearchView::startSearchWhileTyping()
 {
-    if (!m_searchDiskFilesDone || !m_searchOpenFilesDone) {
+    if (searchingDiskFiles() || m_searchOpenFiles.searching()) {
         return;
     }
     updateViewColors();
@@ -1130,14 +1160,7 @@ void KatePluginSearchView::searchDone()
 {
     m_changeTimer.stop(); // avoid "while you type" search directly after
 
-    if (sender() == &m_searchDiskFiles) {
-        m_searchDiskFilesDone = true;
-    }
-    if (sender() == &m_searchOpenFiles) {
-        m_searchOpenFilesDone = true;
-    }
-
-    if (!m_searchDiskFilesDone || !m_searchOpenFilesDone) {
+    if (searchingDiskFiles() || m_searchOpenFiles.searching()) {
         return;
     }
 
@@ -1164,18 +1187,13 @@ void KatePluginSearchView::searchDone()
     m_ui.replaceButton->setDisabled(m_curResults->matches < 1);
     m_ui.nextButton->setDisabled(m_curResults->matches < 1);
 
-    // FIXME m_curResults->tree->sortItems(0, Qt::AscendingOrder);
-
-    m_curResults->treeView->resizeColumnToContents(0);
-    if (m_curResults->treeView->columnWidth(0) < m_curResults->treeView->width() - 30) {
-        m_curResults->treeView->setColumnWidth(0, m_curResults->treeView->width() - 30);
-    }
-
     // Set search to done. This sorts the model and collapses all items in the view
     m_curResults->matchModel.setSearchState(MatchModel::SearchDone);
 
     // expand the "header item " to display all files and all results if configured
     expandResults();
+
+    m_curResults->treeView->resizeColumnToContents(0);
 
     indicateMatch(m_curResults->matches > 0);
 
@@ -1188,6 +1206,8 @@ void KatePluginSearchView::searchDone()
 
     m_searchJustOpened = false;
     updateMatchMarks();
+
+    //qDebug() << "done:" << s_timer.elapsed();
 }
 
 void KatePluginSearchView::searchWhileTypingDone()
@@ -1829,7 +1849,7 @@ void KatePluginSearchView::tabCloseRequested(int index)
     Results *tmp = qobject_cast<Results *>(m_ui.resultTabWidget->widget(index));
     if (m_curResults == tmp) {
         m_searchOpenFiles.cancelSearch();
-        m_searchDiskFiles.cancelSearch();
+        cancelDiskFileSearch();
         m_folderFilesList.cancelSearch();
     }
     if (m_ui.resultTabWidget->count() > 1) {

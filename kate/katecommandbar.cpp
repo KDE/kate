@@ -171,6 +171,7 @@ public:
             // collect rects for each word
             QVector<QPair<QRect, QString>> btns;
             const auto list = shortcutString.split(QLatin1Char('+'));
+            btns.reserve(list.size());
             for (const QString& text : list) {
                 QRect r = option.fontMetrics.boundingRect(text);
                 r.setWidth(r.width() + 8);
@@ -274,16 +275,19 @@ KateCommandBar::KateCommandBar(QWidget *parent)
     setHidden(true);
 }
 
-void KateCommandBar::updateBar(const QList<KActionCollection *> &actionCollections)
+void KateCommandBar::updateBar(const QList<KActionCollection *> &actionCollections, int totalActions)
 {
     QVector<QPair<QString, QAction*>> actionList;
+    actionList.reserve(totalActions);
+
     for (const auto collection : actionCollections) {
         const QList<QAction*> collectionActions = collection->actions();
+        const QString componentName = collection->componentDisplayName();
         for (const auto action : collectionActions) {
             // sanity + empty check ensures displayable actions and removes ourself
             // from the action list
             if (action && !action->text().isEmpty()) {
-                actionList.append({collection->componentDisplayName(), action});
+                actionList.append({componentName, action});
             }
         }
     }
@@ -352,7 +356,7 @@ void KateCommandBar::slotReturnPressed()
                 menuActions = menu->actions();
             }
 
-            for (auto menuAction : menuActions) {
+            for (auto menuAction : qAsConst(menuActions)) {
                 if (menuAction) {
                     list.append({KLocalizedString::removeAcceleratorMarker(act->text()), menuAction});
                 }

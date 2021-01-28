@@ -1221,17 +1221,18 @@ void KateMainWindow::slotCommandBarOpen()
     QList<KActionCollection*> actionCollections;
 
     auto clients = guiFactory()->clients();
+    int actionsCount = 0;
     for (const KXMLGUIClient* c : clients) {
         if (!c) {
             continue;
         }
-        if (!c->actionCollection()) {
-            continue;
+        if (auto collection = c->actionCollection()) {
+            actionCollections.append(collection);
+            actionsCount += collection->count();
         }
-        actionCollections.append(c->actionCollection());
     }
 
-    m_commandBar->updateBar(actionCollections);
+    m_commandBar->updateBar(actionCollections, actionsCount);
     centralWidget()->setFocusProxy(m_commandBar);
 }
 

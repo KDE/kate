@@ -16,7 +16,6 @@
 
 #include <QKeyEvent>
 #include <QList>
-#include <QPointer>
 
 #include <KXMLGUIClient>
 

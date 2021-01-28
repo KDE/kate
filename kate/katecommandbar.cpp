@@ -14,7 +14,6 @@
 #include <QPointer>
 #include <QKeyEvent>
 #include <QPainter>
-#include <QPixmap>
 #include <QPushButton>
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>

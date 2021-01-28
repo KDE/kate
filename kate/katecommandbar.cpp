@@ -112,10 +112,11 @@ public:
         if (rtl) {
             auto r = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
             auto hasIcon = index.data(Qt::DecorationRole).value<QIcon>().isNull();
-            if (hasIcon)
+            if (hasIcon){
                 doc.setTextWidth(r.width() - 25);
-            else
+            } else {
                 doc.setTextWidth(r.width());
+            }
         }
 
         // draw text
@@ -152,14 +153,9 @@ public:
     {
         QStyleOptionViewItem options = option;
         initStyleOption(&options, index);
-
-        QTextDocument doc;
-
-        const auto strs = index.data().toString();
-        doc.setDocumentMargin(2);
-        doc.setHtml(strs);
-
         painter->save();
+
+        const auto shortcutString = index.data().toString();
 
         // paint background
         if (option.state & QStyle::State_Selected) {
@@ -171,48 +167,50 @@ public:
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-        if (!strs.isEmpty()) {
-            // collect button-style pixmaps
-            QVector<QPair<QRect, QString>> btnRects;
-            auto list = strs.split(QLatin1Char('+'));
-            for (auto text : list) {
-                auto r = option.fontMetrics.boundingRect(text);
+        if (!shortcutString.isEmpty()) {
+            // collect rects for each word
+            QVector<QPair<QRect, QString>> btns;
+            const auto list = shortcutString.split(QLatin1Char('+'));
+            for (const QString& text : list) {
+                QRect r = option.fontMetrics.boundingRect(text);
                 r.setWidth(r.width() + 8);
                 r.setHeight(r.height() + 4);
-                btnRects.append({r, text});
+                btns.append({r, text});
             }
 
-            auto plusRect = option.fontMetrics.boundingRect(QLatin1Char('+'));
+            const auto plusRect = option.fontMetrics.boundingRect(QLatin1Char('+'));
 
             // draw them
-            int dx = option.rect.x();
-            int y = option.rect.y();
-            int py = option.rect.y() + plusRect.height() / 2;
-            int total = btnRects.size();
+            int x = option.rect.x();
+            const int y = option.rect.y();
+            const int plusY = option.rect.y() + plusRect.height() / 2;
+            const int total = btns.size();
             int i = 0;
-            painter->setRenderHint(QPainter::Antialiasing); // :)
-            for (const auto& pxm : btnRects) {
-                // draw rounded rect shadown
+            painter->setRenderHint(QPainter::Antialiasing);
+            for (const auto& btn : btns) {
                 painter->setPen(Qt::NoPen);
-                QRect r(dx, y, pxm.first.width(), pxm.first.height());
-                auto shadow = r.translated(0, 1);
+                const QRect& rect = btn.first;
 
+                QRect buttonRect(x, y, rect.width(), rect.height());
+
+                // draw rounded rect shadow
+                auto shadowRect = buttonRect.translated(0, 1);
                 painter->setBrush(option.palette.shadow());
-                painter->drawRoundedRect(shadow, 3, 3);
+                painter->drawRoundedRect(shadowRect, 3, 3);
 
                 // draw rounded rect itself
                 painter->setBrush(option.palette.button());
-                painter->drawRoundedRect(r, 3, 3);
+                painter->drawRoundedRect(buttonRect, 3, 3);
 
                 // draw text inside rounded rect
                 painter->setPen(option.palette.buttonText().color());
-                painter->drawText(r, Qt::AlignCenter, pxm.second);
+                painter->drawText(buttonRect, Qt::AlignCenter, btn.second);
 
                 // draw '+'
                 if (i + 1 < total) {
-                    dx += pxm.first.width() + 8;
-                    painter->drawText(QPoint(dx, py + (pxm.first.height() / 2)), QStringLiteral("+"));
-                    dx += plusRect.width() + 8;
+                    x += rect.width() + 8;
+                    painter->drawText(QPoint(x, plusY + (rect.height() / 2)), QStringLiteral("+"));
+                    x += plusRect.width() + 8;
                 }
                 i++;
             }
@@ -280,7 +278,8 @@ void KateCommandBar::updateBar(const QList<KActionCollection *> &actionCollectio
 {
     QVector<QPair<QString, QAction*>> actionList;
     for (const auto collection : actionCollections) {
-        for (const auto action : collection->actions()) {
+        const QList<QAction*> collectionActions = collection->actions();
+        for (const auto action : collectionActions) {
             // sanity + empty check ensures displayable actions and removes ourself
             // from the action list
             if (action && !action->text().isEmpty()) {

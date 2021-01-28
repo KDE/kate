@@ -1221,11 +1221,13 @@ void KateMainWindow::slotCommandBarOpen()
     QList<KActionCollection*> actionCollections;
 
     auto clients = guiFactory()->clients();
-    for (auto c : clients) {
-        if (!c)
+    for (const KXMLGUIClient* c : clients) {
+        if (!c) {
             continue;
-        if (!c->actionCollection())
+        }
+        if (!c->actionCollection()) {
             continue;
+        }
         actionCollections.append(c->actionCollection());
     }
 

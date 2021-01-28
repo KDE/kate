@@ -1,3 +1,5 @@
+# clang-tidy: Force braces around statements
+af8dfcefa1931bb4223b8602b5ebce47229d1f28
 # clang-format revisions
 6f36d5a58f32dc82f07749c4d74c9d07a5b7a619
 6d035cec510003ca62ab03b00e759112d1dfa426

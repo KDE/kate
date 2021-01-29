@@ -460,10 +460,12 @@ void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
+    // clang-format off
     connect(doc,
-            SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+            SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
             this,
-            SLOT(documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+            SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+    // clang-format on
 }
 
 QModelIndex KateFileTreeModel::docIndex(const KTextEditor::Document *doc) const
@@ -823,10 +825,12 @@ void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Docu
         disconnect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
         disconnect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
         disconnect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
+        // clang-format off
         disconnect(doc,
-                   SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+                   SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
                    this,
-                   SLOT(documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+                   SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+        // clang-format on
     }
 }
 

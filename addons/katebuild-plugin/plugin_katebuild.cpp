@@ -626,24 +626,26 @@ void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
     }
 
     // ensure cleanup
+    // clang-format off
     if (miface) {
         auto conn = connect(doc,
-                            SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                            SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
                             this,
-                            SLOT(slotInvalidateMoving(KTextEditor::Document *)),
+                            SLOT(slotInvalidateMoving(KTextEditor::Document*)),
                             Qt::UniqueConnection);
         conn = connect(doc,
-                       SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                       SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
                        this,
-                       SLOT(slotInvalidateMoving(KTextEditor::Document *)),
+                       SLOT(slotInvalidateMoving(KTextEditor::Document*)),
                        Qt::UniqueConnection);
     }
 
     connect(doc,
-            SIGNAL(markClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)),
+            SIGNAL(markClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
             this,
-            SLOT(slotMarkClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)),
+            SLOT(slotMarkClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
             Qt::UniqueConnection);
+    // clang-format on
 }
 
 void KateBuildView::slotInvalidateMoving(KTextEditor::Document *doc)

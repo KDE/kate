@@ -96,7 +96,9 @@ void KateProjectInfoViewTerminal::loadTerminal()
      * guard destruction, create new terminal!
      */
     connect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
-    connect(m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent *, bool &)), this, SLOT(overrideShortcut(QKeyEvent *, bool &)));
+    // clang-format off
+    connect(m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent*,bool&)), this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
+    // clang-format on
 }
 
 void KateProjectInfoViewTerminal::overrideShortcut(QKeyEvent *, bool &override)

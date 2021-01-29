@@ -71,7 +71,9 @@ KWrite::KWrite(KTextEditor::Document *doc, KWriteApplication *app)
     connect(m_view->document(), &KTextEditor::Document::documentUrlChanged, this, &KWrite::urlChanged);
 
     setAcceptDrops(true);
-    connect(m_view, SIGNAL(dropEventPass(QDropEvent *)), this, SLOT(slotDropEvent(QDropEvent *)));
+    // clang-format off
+    connect(m_view, SIGNAL(dropEventPass(QDropEvent*)), this, SLOT(slotDropEvent(QDropEvent*)));
+    // clang-format on
 
     setXMLFile(QStringLiteral("kwriteui.rc"));
     createShellGUI(true);

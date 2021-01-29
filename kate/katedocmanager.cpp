@@ -85,10 +85,12 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
 
     // connect internal signals...
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateDocManager::slotModChanged1);
+    // clang-format off
     connect(doc,
-            SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+            SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
             this,
-            SLOT(slotModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+            SLOT(slotModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+    // clang-format on
 
     // we have a new document, show it the world
     emit documentCreated(doc);
@@ -563,7 +565,9 @@ void KateDocManager::slotModChanged(KTextEditor::Document *doc)
 
 void KateDocManager::slotModChanged1(KTextEditor::Document *doc)
 {
-    QMetaObject::invokeMethod(KateApp::self()->activeKateMainWindow(), "queueModifiedOnDisc", Qt::QueuedConnection, Q_ARG(KTextEditor::Document *, doc));
+    // clang-format off
+    QMetaObject::invokeMethod(KateApp::self()->activeKateMainWindow(), "queueModifiedOnDisc", Qt::QueuedConnection, Q_ARG(KTextEditor::Document*,doc));
+    // clang-format on
 }
 
 void KateDocManager::documentOpened()

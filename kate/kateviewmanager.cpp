@@ -447,7 +447,9 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     delete view->actionCollection()->action(QStringLiteral("set_confdlg"));
     delete view->actionCollection()->action(QStringLiteral("editor_options"));
 
-    connect(view, SIGNAL(dropEventPass(QDropEvent *)), mainWindow(), SLOT(slotDropEvent(QDropEvent *)));
+    // clang-format off
+    connect(view, SIGNAL(dropEventPass(QDropEvent*)), mainWindow(), SLOT(slotDropEvent(QDropEvent*)));
+    // clang-format on
     connect(view, &KTextEditor::View::focusIn, this, &KateViewManager::activateSpace);
 
     viewCreated(view);

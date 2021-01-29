@@ -1525,7 +1525,9 @@ void KatePluginSearchView::updateMatchMarks()
         return;
     }
 
-    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearMarksAndRanges()), Qt::UniqueConnection);
+    // clang-format off
+    connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)), this, SLOT(clearMarksAndRanges()), Qt::UniqueConnection);
+    // clang-format on
     // Re-add the highlighting on document reload
     connect(doc, &KTextEditor::Document::reloaded, this, &KatePluginSearchView::updateMatchMarks, Qt::UniqueConnection);
 

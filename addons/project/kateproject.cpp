@@ -338,12 +338,13 @@ void KateProject::registerDocument(KTextEditor::Document *document)
     KateProjectItem *item = itemForFile(document->url().toLocalFile());
 
     // if we got one, we are done, else create a dummy!
+    // clang-format off
     if (item) {
         disconnect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
         disconnect(document,
-                   SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+                   SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
                    this,
-                   SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+                   SLOT(slotModifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
         item->slotModifiedChanged(document);
 
         /*FIXME    item->slotModifiedOnDisk(document,document->isModified(),qobject_cast<KTextEditor::ModificationInterface*>(document)->modifiedOnDisk());
@@ -351,12 +352,13 @@ void KateProject::registerDocument(KTextEditor::Document *document)
 
         connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
         connect(document,
-                SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+                SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
                 this,
-                SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+                SLOT(slotModifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
         return;
     }
+    // clang-format on
 
     registerUntrackedDocument(document);
 }
@@ -375,10 +377,12 @@ void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
     fileItem->setData(document->url().toLocalFile(), Qt::ToolTipRole);
     fileItem->slotModifiedChanged(document);
     connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
+    // clang-format off
     connect(document,
-            SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+            SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
             this,
-            SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+            SLOT(slotModifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+    // clang-format on
 
     bool inserted = false;
     for (int i = 0; i < m_untrackedDocumentsRoot->rowCount(); ++i) {

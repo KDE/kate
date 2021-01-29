@@ -150,10 +150,12 @@ public:
 
         // make sure revision is cleared when needed and no longer used (to unlock or otherwise)
         // see e.g. implementation in katetexthistory.cpp and assert's in place there
-        auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRevisions(KTextEditor::Document *)));
+        // clang-format off
+        auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)), this, SLOT(clearRevisions(KTextEditor::Document*)));
         Q_ASSERT(conn);
-        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRevisions(KTextEditor::Document *)));
+        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)), this, SLOT(clearRevisions(KTextEditor::Document*)));
         Q_ASSERT(conn);
+        // clang-format on
         m_guards.emplace(doc->url(), doc);
     }
 

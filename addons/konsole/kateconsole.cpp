@@ -211,7 +211,9 @@ void KateConsole::loadConsoleIfNeeded()
     m_part->widget()->show();
 
     connect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);
-    connect(m_part, SIGNAL(overrideShortcut(QKeyEvent *, bool &)), this, SLOT(overrideShortcut(QKeyEvent *, bool &)));
+    // clang-format off
+    connect(m_part, SIGNAL(overrideShortcut(QKeyEvent*,bool&)), this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
+    // clang-format on
     slotSync();
 }
 

@@ -227,16 +227,18 @@ public:
             }
             mr = miface->newMovingRange(range);
             ranges[doc] = mr;
+            // clang-format off
             connect(doc,
-                    SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                    SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
                     this,
-                    SLOT(clear(KTextEditor::Document *)),
+                    SLOT(clear(KTextEditor::Document*)),
                     Qt::UniqueConnection);
             connect(doc,
-                    SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                    SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
                     this,
-                    SLOT(clear(KTextEditor::Document *)),
+                    SLOT(clear(KTextEditor::Document*)),
                     Qt::UniqueConnection);
+            // clang-format on
         }
 
         static KTextEditor::Attribute::Ptr attr;
@@ -1016,26 +1018,28 @@ public:
         }
 
         // ensure runtime match
+        // clang-format off
         connect(doc,
-                SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
                 this,
-                SLOT(clearAllMarks(KTextEditor::Document *)),
+                SLOT(clearAllMarks(KTextEditor::Document*)),
                 Qt::UniqueConnection);
         connect(doc,
-                SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
                 this,
-                SLOT(clearAllMarks(KTextEditor::Document *)),
+                SLOT(clearAllMarks(KTextEditor::Document*)),
                 Qt::UniqueConnection);
         // reload might save/restore marks before/after above signals, so let's clear before that
         connect(doc, &KTextEditor::Document::aboutToReload, this, &self_type::clearAllMarks, Qt::UniqueConnection);
 
         if (handleClick) {
             connect(doc,
-                    SIGNAL(markClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)),
+                    SIGNAL(markClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
                     this,
-                    SLOT(onMarkClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)),
+                    SLOT(onMarkClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
                     Qt::UniqueConnection);
         }
+        // clang-format on
     }
 
     void addMarksRec(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)
@@ -2100,16 +2104,18 @@ public:
         }
 
         // ensure runtime match
+        // clang-format off
         connect(document,
-                SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
                 this,
-                SLOT(clearSemanticHighlighting(KTextEditor::Document *)),
+                SLOT(clearSemanticHighlighting(KTextEditor::Document*)),
                 Qt::UniqueConnection);
         connect(document,
-                SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
                 this,
-                SLOT(clearSemanticHighlighting(KTextEditor::Document *)),
+                SLOT(clearSemanticHighlighting(KTextEditor::Document*)),
                 Qt::UniqueConnection);
+        // clang-format on
 
         // TODO: make schema attributes accessible via some new interface,
         // or at least add configuration to the lsp plugin config

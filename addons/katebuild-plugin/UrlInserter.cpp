@@ -43,7 +43,7 @@ UrlInserter::UrlInserter(const QUrl &startUrl, QWidget *parent)
 void UrlInserter::insertFolder()
 {
     QUrl startUrl;
-    if (QFileInfo(m_lineEdit->text()).exists()) {
+    if (QFileInfo::exists(m_lineEdit->text())) {
         startUrl.setPath(m_lineEdit->text());
     } else {
         startUrl = m_startUrl;

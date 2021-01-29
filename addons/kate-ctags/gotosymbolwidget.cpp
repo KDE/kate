@@ -250,7 +250,7 @@ void GotoSymbolWidget::showGlobalSymbols(const QString &tagFilePath)
 
 void GotoSymbolWidget::loadGlobalSymbols(const QString &text)
 {
-    if (m_tagFile.isEmpty() || !QFileInfo(m_tagFile).exists() || !QFileInfo(m_tagFile).isFile()) {
+    if (m_tagFile.isEmpty() || !QFileInfo::exists(m_tagFile) || !QFileInfo(m_tagFile).isFile()) {
         Tags::TagEntry e(i18n("Tags file not found. Please generate one manually or using the CTags plugin"), QString(), QString(), QString());
         m_globalSymbolsModel->setSymbolsData({e});
         return;

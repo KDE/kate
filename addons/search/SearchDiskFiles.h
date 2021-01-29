@@ -36,7 +36,6 @@ class SearchDiskFiles : public QObject, public QRunnable
 
 public:
     SearchDiskFiles(const QStringList &iles, const QRegularExpression &regexp, const bool includeBinaryFiles);
-    ~SearchDiskFiles() override;
 
     void run() override;
 
@@ -54,7 +53,7 @@ private:
     QStringList m_files;
     QRegularExpression m_regExp;
     bool m_includeBinaryFiles = false;
-    bool m_cancelSearch = true;
+    bool m_cancelSearch = false;
 };
 
 #endif

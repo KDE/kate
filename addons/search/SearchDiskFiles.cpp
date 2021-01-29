@@ -28,19 +28,9 @@ SearchDiskFiles::SearchDiskFiles(const QStringList &files, const QRegularExpress
     , m_regExp(regexp)
     , m_includeBinaryFiles(includeBinaryFiles)
 {
-    m_includeBinaryFiles = includeBinaryFiles;
-    m_cancelSearch = false;
-    m_files = files;
-    m_regExp = regexp;
-
     // ensure we have a proper thread name during e.g. perf profiling
     setObjectName(QStringLiteral("SearchDiskFiles"));
 }
-
-SearchDiskFiles::~SearchDiskFiles()
-{
-}
-
 
 void SearchDiskFiles::run()
 {

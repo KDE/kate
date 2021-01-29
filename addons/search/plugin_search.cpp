@@ -768,44 +768,58 @@ void KatePluginSearchView::startDiskFileSearch(const QStringList &fileList, cons
         return;
     }
 
-    // Note: Experimented with different thread counts. 1 to QThread::idealThreadCount()
-    // The optimum was two threads.... My theory is that the disk is the main bottleneck.
-    int chunkSize = (fileList.size() / 2) + 1;
+    // spread work to X threads => default to ideal thread count
+    const int threadCount = m_searchDiskFilePool.maxThreadCount();
 
-    chunkSize = qMax(chunkSize, 1);
-    int nextChunk = 0;
-    while (nextChunk < fileList.size()) {
-        QStringList chunckList = fileList.mid(nextChunk, chunkSize);
-        SearchDiskFiles *runner = new SearchDiskFiles(chunckList, reg, includeBinaryFiles);
+    // init worklist for these number of threads
+    m_worklistForDiskFiles.init(fileList, threadCount);
+
+    // spawn enough runnables, they will pull the files themself from our worklist
+    // this must exactly match the count we used to init the worklist above, as this is used to finalize stuff!
+    for (int i = 0; i < threadCount; ++i) {
+        // new runnable, will pull work from the worklist itself!
+        // worklist is used to drive if we need to stop the work, too!
+        SearchDiskFiles *runner = new SearchDiskFiles(m_worklistForDiskFiles, reg, includeBinaryFiles);
+
+        // queued connection for the results, this is emitted by a different thread than the runnable object and this one!
         connect(runner, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound, Qt::QueuedConnection);
-        connect(this, &KatePluginSearchView::cancelSearch, runner, &SearchDiskFiles::cancelSearch, Qt::QueuedConnection);
+
+        // queued connection for the results, this is emitted by a different thread than the runnable object and this one!
         connect(
             runner,
             &SearchDiskFiles::destroyed,
             this,
             [this]() {
-                if (m_searchDiskFilePool.activeThreadCount() == 0) {
+                // signal the worklist one runnable more is done
+                m_worklistForDiskFiles.markOnRunnableAsDone();
+
+                // if no longer anything running, signal finished!
+                if (!m_worklistForDiskFiles.isRunning()) {
                     if (!m_diskSearchDoneTimer.isActive()) {
                         m_diskSearchDoneTimer.start();
                     }
                 }
             },
             Qt::QueuedConnection);
+
+        // launch the runnable
         m_searchDiskFilePool.start(runner);
-        nextChunk += chunkSize;
     }
 }
 
 void KatePluginSearchView::cancelDiskFileSearch()
 {
-    Q_EMIT cancelSearch();
+    // signal canceling to runnables
+    m_worklistForDiskFiles.cancel();
+
+    // wait for finalization
     m_searchDiskFilePool.clear();
     m_searchDiskFilePool.waitForDone();
 }
 
 bool KatePluginSearchView::searchingDiskFiles()
 {
-    return m_searchDiskFilePool.activeThreadCount() > 0;
+    return m_worklistForDiskFiles.isRunning();
 }
 
 void KatePluginSearchView::searchPlaceChanged()
@@ -910,10 +924,10 @@ void KatePluginSearchView::updateViewColors()
     }
 }
 
-// static QElapsedTimer s_timer;
+static QElapsedTimer s_timer;
 void KatePluginSearchView::startSearch()
 {
-    // s_timer.start();
+    s_timer.start();
 
     // Forcefully stop any ongoing search or replace
     m_folderFilesList.terminateSearch();
@@ -1237,7 +1251,7 @@ void KatePluginSearchView::searchDone()
     m_searchJustOpened = false;
     updateMatchMarks();
 
-    // qDebug() << "done:" << s_timer.elapsed();
+    qDebug() << "done:" << s_timer.elapsed();
 }
 
 void KatePluginSearchView::searchWhileTypingDone()

@@ -22,10 +22,9 @@
 #include <QTextStream>
 #include <QUrl>
 
-SearchDiskFiles::SearchDiskFiles(const QStringList &files, const QRegularExpression &regexp, const bool includeBinaryFiles)
-    : QObject(nullptr)
-    , m_files(files)
-    , m_regExp(regexp)
+SearchDiskFiles::SearchDiskFiles(SearchDiskFilesWorkList &worklist, const QRegularExpression &regexp, const bool includeBinaryFiles)
+    : m_worklist(worklist)
+    , m_regExp(regexp.pattern(), regexp.patternOptions()) // we WANT to kill the sharing, ELSE WE LOCK US DEAD!
     , m_includeBinaryFiles(includeBinaryFiles)
 {
     // ensure we have a proper thread name during e.g. perf profiling
@@ -35,8 +34,10 @@ SearchDiskFiles::SearchDiskFiles(const QStringList &files, const QRegularExpress
 void SearchDiskFiles::run()
 {
     const QMimeDatabase db;
-    for (const QString &fileName : qAsConst(m_files)) {
-        if (m_cancelSearch) {
+    while (true) {
+        // get next file, we get empty string if all done or search canceled!
+        const auto fileName = m_worklist.nextFileToSearch();
+        if (fileName.isEmpty()) {
             break;
         }
 
@@ -48,10 +49,10 @@ void SearchDiskFiles::run()
 
         // exclude binary files?
         if (!m_includeBinaryFiles) {
-            const auto mimeType = db.mimeTypeForFileNameAndData(fileName, &file);
-            if (!mimeType.inherits(QStringLiteral("text/plain"))) {
-                continue;
-            }
+            /*   const auto mimeType = db.mimeTypeForFileNameAndData(fileName, &file);
+               if (!mimeType.inherits(QStringLiteral("text/plain"))) {
+                   continue;
+               }*/
         }
 
         if (m_regExp.pattern().contains(QLatin1String("\\n"))) {
@@ -60,11 +61,6 @@ void SearchDiskFiles::run()
             searchSingleLineRegExp(file);
         }
     }
-}
-
-void SearchDiskFiles::cancelSearch()
-{
-    m_cancelSearch = true;
 }
 
 void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
@@ -76,13 +72,13 @@ void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
     QRegularExpressionMatch match;
     QVector<KateSearchMatch> matches;
     while (!(line = stream.readLine()).isNull()) {
-        if (m_cancelSearch) {
+        if (m_worklist.isCanceled()) {
             break;
         }
         match = m_regExp.match(line);
         column = match.capturedStart();
         while (column != -1 && !match.captured().isEmpty()) {
-            if (m_cancelSearch) {
+            if (m_worklist.isCanceled()) {
                 break;
             }
 
@@ -136,7 +132,7 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
     column = match.capturedStart();
     QVector<KateSearchMatch> matches;
     while (column != -1 && !match.captured().isEmpty()) {
-        if (m_cancelSearch) {
+        if (m_worklist.isCanceled()) {
             break;
         }
         // search for the line number of the match

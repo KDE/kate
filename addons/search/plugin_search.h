@@ -175,9 +175,6 @@ private Q_SLOTS:
     void copySearchToClipboard(CopyResultType type);
     void customResMenuRequested(const QPoint &pos);
 
-Q_SIGNALS:
-    void cancelSearch();
-
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
@@ -196,7 +193,17 @@ private:
     KTextEditor::Application *m_kateApp;
     SearchOpenFiles m_searchOpenFiles;
     FolderFilesList m_folderFilesList;
+
+    /**
+     * worklist for runnables, must survive thread pool below!
+     */
+    SearchDiskFilesWorkList m_worklistForDiskFiles;
+
+    /**
+     * threadpool for multi-threaded disk search
+     */
     QThreadPool m_searchDiskFilePool;
+
     QTimer m_diskSearchDoneTimer;
     QAction *m_matchCase = nullptr;
     QAction *m_useRegExp = nullptr;

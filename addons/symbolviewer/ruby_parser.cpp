@@ -25,7 +25,6 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
     QString cl; // Current Line
     QPixmap cls(class_xpm);
     QPixmap mtd(method_xpm);
-    QPixmap mcr(macro_xpm);
 
     int i;
     QString name;

@@ -24,7 +24,6 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
     m_func->setText(i18n("Show Templates"));
 
     QString cl; // Current Line
-    QString stripped;
 
     char comment = 0;
     char templ = 0;

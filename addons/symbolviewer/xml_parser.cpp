@@ -25,7 +25,6 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
     m_struct->setText(i18n("Show Tags"));
 
     QString cl;
-    QString stripped;
 
     char comment = 0;
     int i;

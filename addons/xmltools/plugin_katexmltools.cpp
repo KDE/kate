@@ -632,7 +632,6 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View 
     int line, col;
     view->cursorPosition().position(line, col);
     QString lineStr = document->line(line);
-    QString leftCh = lineStr.mid(col - 1, 1);
     QString rightCh = lineStr.mid(col, 1);
 
     int posCorrection = 0; // where to move the cursor after completion ( >0 = move right )

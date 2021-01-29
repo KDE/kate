@@ -326,8 +326,6 @@ void KateFileTreePluginView::viewChanged(KTextEditor::View *)
     KTextEditor::Document *doc = view->document();
     QModelIndex index = m_proxyModel->docIndex(doc);
 
-    QString display = m_proxyModel->data(index, Qt::DisplayRole).toString();
-
     // update the model on which doc is active
     m_documentModel->documentActivated(doc);
 

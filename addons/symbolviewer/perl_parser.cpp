@@ -22,7 +22,6 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     m_struct->setText(i18n("Show Pragmas"));
     m_func->setText(i18n("Show Subroutines"));
     QString cl; // Current Line
-    QString stripped;
     char comment = 0;
     QPixmap cls(class_xpm);
     QPixmap sct(struct_xpm);

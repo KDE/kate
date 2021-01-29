@@ -18,7 +18,6 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
     }
 
     QString currline;
-    QString funcStr(QStringLiteral("function "));
 
     int i;
     // bool mainprog;

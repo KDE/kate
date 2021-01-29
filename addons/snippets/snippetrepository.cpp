@@ -220,7 +220,6 @@ void SnippetRepository::save()
     QString outname = dir.absoluteFilePath(fi.fileName());
 
     if (m_file != outname) {
-        QFileInfo fiout(outname);
         // there could be cases that new new name clashes with a global file, but I guess it is not that often.
         int i = 0;
         while (QFile::exists(outname)) {

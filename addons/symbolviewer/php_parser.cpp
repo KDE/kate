@@ -77,7 +77,6 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         // function args detection: “function a($b, $c=null)” => “$b, $v”
         QRegExp functionArgsRegExp(QLatin1String("(\\$[\\w_]+)"), Qt::CaseInsensitive);
         QStringList functionArgsList;
-        QString functionArgs;
         QString nameWithTypes;
 
         // replace literals by empty strings: “function a($b='nothing', $c="pretty \"cool\" string")” => “function ($b='', $c="")”

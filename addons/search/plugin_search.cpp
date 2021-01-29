@@ -564,6 +564,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
 KatePluginSearchView::~KatePluginSearchView()
 {
+    cancelDiskFileSearch();
     clearMarksAndRanges();
     m_mainWindow->guiFactory()->removeClient(this);
     delete m_toolView;

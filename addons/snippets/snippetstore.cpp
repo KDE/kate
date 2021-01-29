@@ -29,7 +29,9 @@ SnippetStore::SnippetStore(KateSnippetGlobal *plugin)
 {
     m_self = this;
 
-    const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QStringLiteral("ktexteditor_snippets/data"), QStandardPaths::LocateDirectory)
+    const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, //
+                                                       QStringLiteral("ktexteditor_snippets/data"),
+                                                       QStandardPaths::LocateDirectory)
         << QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QStringLiteral("ktexteditor_snippets/ghns"), QStandardPaths::LocateDirectory);
 
     QStringList files;

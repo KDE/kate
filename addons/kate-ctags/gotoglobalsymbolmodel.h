@@ -15,11 +15,10 @@ class GotoGlobalSymbolModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-
     enum Roles {
         Name = Qt::UserRole,
         Pattern,
-        FileUrl
+        FileUrl,
     };
 
     explicit GotoGlobalSymbolModel(QObject* parent = nullptr);

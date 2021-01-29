@@ -499,7 +499,8 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
         auto &&action = menu.exec(QCursor::pos());
         regexHelperActOnAction(action, actionList, m_ui.replaceCombo->lineEdit());
     });
-    QAction *replaceComboActionForInsertSpecialButton = m_ui.replaceCombo->lineEdit()->addAction(QIcon::fromTheme(QStringLiteral("insert-text")), QLineEdit::TrailingPosition);
+    QAction *replaceComboActionForInsertSpecialButton = m_ui.replaceCombo->lineEdit()->addAction(QIcon::fromTheme(QStringLiteral("insert-text")), //
+                                                                                                 QLineEdit::TrailingPosition);
     connect(replaceComboActionForInsertSpecialButton, &QAction::triggered, this, [this]() {
         QMenu menu;
         QSet<QAction *> actionList;

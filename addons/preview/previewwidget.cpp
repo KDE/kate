@@ -62,7 +62,9 @@ PreviewWidget::PreviewWidget(KTextEditorPreviewPlugin *core, KTextEditor::MainWi
     const QIcon autoUpdateIcon = QIcon::fromTheme(QStringLiteral("media-playback-start"));
     m_autoUpdateAction = new KToggleAction(autoUpdateIcon, i18n("Automatically Update Preview"), this);
     m_autoUpdateAction->setToolTip(i18n("Enable automatic updates of the preview to the current document content"));
-    m_autoUpdateAction->setCheckedState(KGuiItem(i18n("Manually Update Preview"), autoUpdateIcon, i18n("Disable automatic updates of the preview to the current document content")));
+    m_autoUpdateAction->setCheckedState(KGuiItem(i18n("Manually Update Preview"), //
+                                                 autoUpdateIcon,
+                                                 i18n("Disable automatic updates of the preview to the current document content")));
     m_autoUpdateAction->setChecked(false);
     connect(m_autoUpdateAction, &QAction::triggered, this, &PreviewWidget::toggleAutoUpdating);
     addAction(m_autoUpdateAction);

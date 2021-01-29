@@ -18,4 +18,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json (katebuildplugin katebuildplugin.desktop)
-install(TARGETS katebuildplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katebuildplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

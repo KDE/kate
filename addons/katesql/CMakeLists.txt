@@ -42,4 +42,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katesqlplugin katesql.desktop)
-install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katesqlplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

@@ -15,4 +15,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katexmlcheckplugin katexmlcheck.desktop)
-install(TARGETS katexmlcheckplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katexmlcheckplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

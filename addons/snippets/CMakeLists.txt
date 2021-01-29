@@ -35,4 +35,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katesnippetsplugin katesnippetsplugin.desktop)
-install(TARGETS katesnippetsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katesnippetsplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

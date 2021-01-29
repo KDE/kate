@@ -16,7 +16,7 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katexmltoolsplugin katexmltools.desktop)
-install(TARGETS katexmltoolsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katexmltoolsplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 
 install(
   FILES 
@@ -32,5 +32,5 @@ install(
     language.dtd.xml 
     kpartgui.dtd.xml 
     kcfg.dtd.xml
-  DESTINATION ${DATA_INSTALL_DIR}/katexmltools
+  DESTINATION ${KDE_INSTALL_DATADIR}/katexmltools
 )

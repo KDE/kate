@@ -26,4 +26,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katefilebrowserplugin katefilebrowserplugin.desktop)
-install(TARGETS katefilebrowserplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katefilebrowserplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

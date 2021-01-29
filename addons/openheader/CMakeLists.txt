@@ -10,4 +10,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(kateopenheaderplugin kateopenheaderplugin.desktop)
-install(TARGETS kateopenheaderplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS kateopenheaderplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

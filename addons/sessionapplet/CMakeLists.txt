@@ -30,7 +30,7 @@ target_sources(
 
 plasma_install_package(applet org.kde.plasma.katesessions)
 kcoreaddons_desktop_to_json(plasma_engine_katesessions plasma-dataengine-katesessions.desktop)
-install(TARGETS plasma_engine_katesessions DESTINATION ${PLUGIN_INSTALL_DIR}/plasma/dataengine)
-install(FILES plasma-dataengine-katesessions.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS plasma_engine_katesessions DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/dataengine)
+install(FILES plasma-dataengine-katesessions.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
 install(FILES org.kde.plasma.katesessions.operations DESTINATION ${PLASMA_DATA_INSTALL_DIR}/services)
 

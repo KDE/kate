@@ -32,4 +32,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katesearchplugin katesearch.desktop)
-install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katesearchplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

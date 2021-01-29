@@ -15,7 +15,7 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katebacktracebrowserplugin katebacktracebrowserplugin.desktop)
-install(TARGETS katebacktracebrowserplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katebacktracebrowserplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

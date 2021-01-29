@@ -23,4 +23,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(kategdbplugin kategdbplugin.desktop)
-install(TARGETS kategdbplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS kategdbplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

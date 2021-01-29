@@ -30,4 +30,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katectagsplugin katectagsplugin.desktop)
-install(TARGETS katectagsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katectagsplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

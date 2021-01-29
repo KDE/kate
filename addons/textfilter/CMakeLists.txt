@@ -13,4 +13,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(textfilterplugin textfilterplugin.desktop)
-install(TARGETS textfilterplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS textfilterplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

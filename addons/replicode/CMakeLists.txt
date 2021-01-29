@@ -22,4 +22,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katereplicodeplugin katereplicodeplugin.desktop)
-install(TARGETS katereplicodeplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katereplicodeplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

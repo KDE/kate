@@ -42,7 +42,7 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json (externaltoolsplugin externaltoolsplugin.desktop)
-install(TARGETS externaltoolsplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor )
+install(TARGETS externaltoolsplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor )
 
 if (BUILD_TESTING)
     add_subdirectory(autotests)

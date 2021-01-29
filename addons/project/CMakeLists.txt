@@ -66,8 +66,8 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(kateprojectplugin kateprojectplugin.desktop)
-install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
-install(FILES kateproject.example DESTINATION ${DATA_INSTALL_DIR}/kateproject)
+install(TARGETS kateprojectplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
+install(FILES kateproject.example DESTINATION ${KDE_INSTALL_DATADIR}/kateproject)
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

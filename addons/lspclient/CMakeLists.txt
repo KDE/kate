@@ -53,7 +53,7 @@ target_include_directories(
 )
 
 kcoreaddons_desktop_to_json(lspclientplugin lspclientplugin.desktop)
-install(TARGETS lspclientplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS lspclientplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 
 if(BUILD_TESTING)
   add_subdirectory(tests)

@@ -21,4 +21,4 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katesymbolviewerplugin katesymbolviewerplugin.desktop)
-install(TARGETS katesymbolviewerplugin DESTINATION ${PLUGIN_INSTALL_DIR}/ktexteditor)
+install(TARGETS katesymbolviewerplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

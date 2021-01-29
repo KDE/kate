@@ -18,7 +18,6 @@
 #include "SearchDiskFiles.h"
 
 #include <QDir>
-#include <QMimeDatabase>
 #include <QTextStream>
 #include <QUrl>
 
@@ -33,7 +32,6 @@ SearchDiskFiles::SearchDiskFiles(SearchDiskFilesWorkList &worklist, const QRegul
 
 void SearchDiskFiles::run()
 {
-    const QMimeDatabase db;
     while (true) {
         // get next file, we get empty string if all done or search canceled!
         const auto fileName = m_worklist.nextFileToSearch();
@@ -47,14 +45,6 @@ void SearchDiskFiles::run()
             continue;
         }
 
-        // exclude binary files?
-        if (!m_includeBinaryFiles) {
-            /*   const auto mimeType = db.mimeTypeForFileNameAndData(fileName, &file);
-               if (!mimeType.inherits(QStringLiteral("text/plain"))) {
-                   continue;
-               }*/
-        }
-
         if (m_regExp.pattern().contains(QLatin1String("\\n"))) {
             searchMultiLineRegExp(file);
         } else {
@@ -65,6 +55,7 @@ void SearchDiskFiles::run()
 
 void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
 {
+    const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
     QTextStream stream(&file);
     QString line;
     int i = 0;
@@ -75,6 +66,16 @@ void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
         if (m_worklist.isCanceled()) {
             break;
         }
+
+        // check if not binary data....
+        // bad, but stuff better than asking QMimeDatabase which is a performance & threading disaster...
+        if (!m_includeBinaryFiles && line.contains(QLatin1Char('\0'))) {
+            // kill all seen matches and be done
+            matches.clear();
+            Q_EMIT matchesFound(fileUrl, matches);
+            return;
+        }
+
         match = m_regExp.match(line);
         column = match.capturedStart();
         while (column != -1 && !match.captured().isEmpty()) {
@@ -97,7 +98,6 @@ void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
     }
 
     // Q_EMIT all matches batched
-    const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
     Q_EMIT matchesFound(fileUrl, matches);
 }
 
@@ -109,8 +109,20 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
     static QVector<int> lineStart;
     QRegularExpression tmpRegExp = m_regExp;
 
+    const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
+    QVector<KateSearchMatch> matches;
     QTextStream stream(&file);
     fullDoc = stream.readAll();
+
+    // check if not binary data....
+    // bad, but stuff better than asking QMimeDatabase which is a performance & threading disaster...
+    if (!m_includeBinaryFiles && fullDoc.contains(QLatin1Char('\0'))) {
+        // kill all seen matches and be done
+        matches.clear();
+        Q_EMIT matchesFound(fileUrl, matches);
+        return;
+    }
+
     fullDoc.remove(QLatin1Char('\r'));
 
     lineStart.clear();
@@ -130,7 +142,6 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
     QRegularExpressionMatch match;
     match = tmpRegExp.match(fullDoc);
     column = match.capturedStart();
-    QVector<KateSearchMatch> matches;
     while (column != -1 && !match.captured().isEmpty()) {
         if (m_worklist.isCanceled()) {
             break;
@@ -164,6 +175,5 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
     }
 
     // Q_EMIT all matches batched
-    const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
     Q_EMIT matchesFound(fileUrl, matches);
 }

@@ -997,10 +997,10 @@ bool KateMainWindow::showModOnDiskPrompt(ModOnDiskMode mode)
 
 void KateMainWindow::slotDocumentCreated(KTextEditor::Document *doc)
 {
-    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(updateCaption(KTextEditor::Document *)));
-    connect(doc, SIGNAL(readWriteChanged(KTextEditor::Document *)), this, SLOT(updateCaption(KTextEditor::Document *)));
-    connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(updateCaption(KTextEditor::Document *)));
-    connect(doc, SIGNAL(documentUrlChanged(KTextEditor::Document *)), this, SLOT(updateCaption(KTextEditor::Document *)));
+    connect(doc, &KTextEditor::Document::modifiedChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
+    connect(doc, &KTextEditor::Document::readWriteChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
+    connect(doc, &KTextEditor::Document::documentNameChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
+    connect(doc, &KTextEditor::Document::documentUrlChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateMainWindow::slotUpdateOpenWith);
 
     updateCaption(doc);

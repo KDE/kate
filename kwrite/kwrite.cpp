@@ -137,7 +137,7 @@ void KWrite::setupActions()
         ->addAction(KStandardAction::Open, QStringLiteral("file_open"), this, SLOT(slotOpen()))
         ->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
-    m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(QUrl)), this);
+    m_recentFiles = KStandardAction::openRecent(this, QOverload<const QUrl &>::of(&KWrite::slotOpen), this);
     actionCollection()->addAction(m_recentFiles->objectName(), m_recentFiles);
     m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
@@ -152,9 +152,9 @@ void KWrite::setupActions()
     // setup Settings menu
     setStandardToolBarMenuEnabled(true);
 
-    m_paShowMenuBar = KStandardAction::showMenubar(this, SLOT(toggleMenuBar()), actionCollection());
+    m_paShowMenuBar = KStandardAction::showMenubar(this, &KWrite::toggleMenuBar, actionCollection());
 
-    m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), this);
+    m_paShowStatusBar = KStandardAction::showStatusbar(this, &KWrite::toggleStatusBar, this);
     actionCollection()->addAction(m_paShowStatusBar->objectName(), m_paShowStatusBar);
     m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 

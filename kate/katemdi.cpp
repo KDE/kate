@@ -680,7 +680,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
             // readd the button
             int newId = m_widgetToId[tv];
             appendTab(tv->icon, newId, tv->text);
-            connect(tab(newId), SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
+            connect(tab(newId), &KMultiTabBarTab::clicked, this, &Sidebar::tabClicked);
             tab(newId)->installEventFilter(this);
             tab(newId)->setToolTip(QString());
 

@@ -92,10 +92,10 @@ KateFileTree::KateFileTree(QWidget *parent)
     connect(m_filelistRenameFile, &QAction::triggered, this, &KateFileTree::slotRenameFile);
     m_filelistRenameFile->setWhatsThis(i18n("Rename the selected file."));
 
-    m_filelistPrintDocument = KStandardAction::print(this, SLOT(slotPrintDocument()), this);
+    m_filelistPrintDocument = KStandardAction::print(this, &KateFileTree::slotPrintDocument, this);
     m_filelistPrintDocument->setWhatsThis(i18n("Print selected document."));
 
-    m_filelistPrintDocumentPreview = KStandardAction::printPreview(this, SLOT(slotPrintDocumentPreview()), this);
+    m_filelistPrintDocumentPreview = KStandardAction::printPreview(this, &KateFileTree::slotPrintDocumentPreview, this);
     m_filelistPrintDocumentPreview->setWhatsThis(i18n("Show print preview of current document"));
 
     m_filelistDeleteDocument = new QAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18nc("@action:inmenu", "Delete"), this);

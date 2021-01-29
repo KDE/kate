@@ -2010,7 +2010,7 @@ public:
 
         // let's consider this expert info and use ISO date
         auto now = QDateTime::currentDateTime().toString(Qt::ISODate);
-        auto text = QStringLiteral("[%1] [%2] [%3]\n%4\n").arg(now).arg(lvl).arg(header).arg(msg.trimmed());
+        auto text = QStringLiteral("[%1] [%2] [%3]\n%4\n").arg(now, lvl, header, msg.trimmed());
         m_messagesView->appendPlainText(text);
 
         if (static_cast<int>(level) <= m_messagesAutoSwitch->currentItem()) {

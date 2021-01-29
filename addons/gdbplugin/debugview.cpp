@@ -50,7 +50,7 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
     }
     m_targetConf = conf;
     if (ioFifos.size() == 3) {
-        m_ioPipeString = QStringLiteral("< %1 1> %2 2> %3").arg(ioFifos[0]).arg(ioFifos[1]).arg(ioFifos[2]);
+        m_ioPipeString = QStringLiteral("< %1 1> %2 2> %3").arg(ioFifos[0], ioFifos[1], ioFifos[2]);
     }
 
     if (m_state == none) {
@@ -79,7 +79,7 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
         QTimer::singleShot(0, this, &DebugView::issueNextCommand);
     }
     m_nextCommands << QStringLiteral("file \"%1\"").arg(m_targetConf.executable);
-    m_nextCommands << QStringLiteral("set args %1 %2").arg(m_targetConf.arguments).arg(m_ioPipeString);
+    m_nextCommands << QStringLiteral("set args %1 %2").arg(m_targetConf.arguments, m_ioPipeString);
     m_nextCommands << QStringLiteral("set inferior-tty /dev/null");
     m_nextCommands << m_targetConf.customInit;
     m_nextCommands << QStringLiteral("(Q) info breakpoints");

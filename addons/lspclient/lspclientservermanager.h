@@ -64,7 +64,7 @@ public:
     {
         if (server) {
             auto root = server->root().toLocalFile();
-            return QStringLiteral("%1@%2").arg(server->langId()).arg(root);
+            return QStringLiteral("%1@%2").arg(server->langId(), root);
         } else {
             return {};
         }

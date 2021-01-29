@@ -89,7 +89,7 @@ void TextOutputWidget::showSuccessMessage(const QString &message)
 
 void TextOutputWidget::writeMessage(const QString &msg)
 {
-    m_output->append(QStringLiteral("%1: %2\n").arg(QDateTime::currentDateTime().toString(Qt::SystemLocaleDate)).arg(msg));
+    m_output->append(QStringLiteral("%1: %2\n").arg(QDateTime::currentDateTime().toString(Qt::SystemLocaleDate), msg));
 
     raise();
 }

@@ -170,9 +170,10 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
     }
 
     // let's run the stuff in our own thread pool
+    // do manual queued connect, as only run() is done in extra thread, object stays in this one
     auto w = new KateProjectWorker(m_baseDir, indexDir, m_projectMap, force);
-    connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone);
-    connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone);
+    connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone, Qt::QueuedConnection);
+    connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone, Qt::QueuedConnection);
     m_threadPool.start(w);
 
     // we are done here

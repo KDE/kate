@@ -924,10 +924,10 @@ void KatePluginSearchView::updateViewColors()
     }
 }
 
-static QElapsedTimer s_timer;
+// static QElapsedTimer s_timer;
 void KatePluginSearchView::startSearch()
 {
-    s_timer.start();
+    // s_timer.start();
 
     // Forcefully stop any ongoing search or replace
     m_folderFilesList.terminateSearch();
@@ -1251,7 +1251,7 @@ void KatePluginSearchView::searchDone()
     m_searchJustOpened = false;
     updateMatchMarks();
 
-    qDebug() << "done:" << s_timer.elapsed();
+    // qDebug() << "done:" << s_timer.elapsed();
 }
 
 void KatePluginSearchView::searchWhileTypingDone()

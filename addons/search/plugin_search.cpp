@@ -760,15 +760,15 @@ void KatePluginSearchView::startDiskFileSearch(const QStringList &fileList, cons
     while (nextChunk < fileList.size()) {
         QStringList chunckList = fileList.mid(nextChunk, chunkSize);
         SearchDiskFiles *runner = new SearchDiskFiles(chunckList, reg, includeBinaryFiles);
-        connect(runner, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound);
-        connect(this, &KatePluginSearchView::cancelSearch, runner, &SearchDiskFiles::cancelSearch);
+        connect(runner, &SearchDiskFiles::matchesFound, this, &KatePluginSearchView::matchesFound, Qt::QueuedConnection);
+        connect(this, &KatePluginSearchView::cancelSearch, runner, &SearchDiskFiles::cancelSearch, Qt::QueuedConnection);
         connect(runner, &SearchDiskFiles::destroyed, this, [this]() {
             if (m_searchDiskFilePool.activeThreadCount() == 0) {
                 if (!m_diskSearchDoneTimer.isActive()) {
                     m_diskSearchDoneTimer.start();
                 }
             }
-        });
+        }, Qt::QueuedConnection);
         m_searchDiskFilePool.start(runner);
         nextChunk += chunkSize;
     }

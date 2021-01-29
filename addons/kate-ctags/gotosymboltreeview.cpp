@@ -11,8 +11,8 @@
 #include <QHeaderView>
 
 GotoSymbolTreeView::GotoSymbolTreeView(KTextEditor::MainWindow *mainWindow, QWidget *parent)
-    : QTreeView(parent),
-      m_mainWindow(mainWindow)
+    : QTreeView(parent)
+    , m_mainWindow(mainWindow)
 {
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);

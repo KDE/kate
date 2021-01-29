@@ -6,8 +6,8 @@
 #ifndef GOTOSYMBOLWIDGET_H
 #define GOTOSYMBOLWIDGET_H
 
-#include <QWidget>
 #include <KTextEditor/Cursor>
+#include <QWidget>
 
 class GotoSymbolTreeView;
 class GotoSymbolModel;
@@ -18,7 +18,8 @@ class GotoGlobalSymbolModel;
 class KateCTagsView;
 class GotoStyleDelegate;
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 class MainWindow;
 }
 
@@ -27,16 +28,16 @@ class GotoSymbolWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit GotoSymbolWidget(KTextEditor::MainWindow* mainWindow, KateCTagsView* pluginView, QWidget *parent = nullptr);
+    explicit GotoSymbolWidget(KTextEditor::MainWindow *mainWindow, KateCTagsView *pluginView, QWidget *parent = nullptr);
 
     bool eventFilter(QObject *watched, QEvent *event) override;
     void updateViewGeometry();
-    void showSymbols(const QString& filePath);
-    void showGlobalSymbols(const QString& tagFilePath);
-    void loadGlobalSymbols(const QString& text);
+    void showSymbols(const QString &filePath);
+    void showGlobalSymbols(const QString &tagFilePath);
+    void loadGlobalSymbols(const QString &text);
     void reselectFirst();
 
-    enum Mode { Global, Local};
+    enum Mode { Global, Local };
 
 private Q_SLOTS:
     void slotReturnPressed();
@@ -46,14 +47,14 @@ private:
 
 private:
     Mode mode;
-    KateCTagsView* ctagsPluginView;
-    GotoStyleDelegate* m_styleDelegate;
-    KTextEditor::MainWindow* m_mainWindow;
-    GotoSymbolTreeView* m_treeView;
-    QuickOpenFilterProxyModel* m_proxyModel;
-    GotoSymbolModel* m_symbolsModel;
-    GotoGlobalSymbolModel* m_globalSymbolsModel;
-    QLineEdit* m_lineEdit;
+    KateCTagsView *ctagsPluginView;
+    GotoStyleDelegate *m_styleDelegate;
+    KTextEditor::MainWindow *m_mainWindow;
+    GotoSymbolTreeView *m_treeView;
+    QuickOpenFilterProxyModel *m_proxyModel;
+    GotoSymbolModel *m_symbolsModel;
+    GotoGlobalSymbolModel *m_globalSymbolsModel;
+    QLineEdit *m_lineEdit;
     KTextEditor::Cursor oldPos;
     QString m_tagFile;
 };

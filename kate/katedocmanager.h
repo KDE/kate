@@ -59,9 +59,11 @@ public:
         return m_docList;
     }
 
-    KTextEditor::Document *openUrl(const QUrl &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *
+    openUrl(const QUrl &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    QList<KTextEditor::Document *> openUrls(const QList<QUrl> &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
+    QList<KTextEditor::Document *>
+    openUrls(const QList<QUrl> &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
     bool closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl = true);

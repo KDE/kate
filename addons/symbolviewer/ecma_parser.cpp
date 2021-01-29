@@ -180,7 +180,8 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                             int start = end;
                             while (start >= 0) {
                                 ch = stripped.at(start);
-                                if (((ch >= QLatin1Char('a')) && (ch <= QLatin1Char('z'))) || ((ch >= QLatin1Char('A')) && (ch <= QLatin1Char('Z'))) || ((ch >= QLatin1Char('0')) && (ch <= QLatin1Char('9'))) || (ch == QLatin1Char('_')))
+                                if (((ch >= QLatin1Char('a')) && (ch <= QLatin1Char('z'))) || ((ch >= QLatin1Char('A')) && (ch <= QLatin1Char('Z')))
+                                    || ((ch >= QLatin1Char('0')) && (ch <= QLatin1Char('9'))) || (ch == QLatin1Char('_')))
                                     start--;
                                 else {
                                     start++;

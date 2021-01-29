@@ -8,10 +8,10 @@
 
 #include "colorpickerconfigpage.h"
 
-#include <KTextEditor/ConfigPage>
-#include <KLocalizedString>
 #include <KConfigGroup>
+#include <KLocalizedString>
 #include <KSharedConfig>
+#include <KTextEditor/ConfigPage>
 
 #include <QApplication>
 #include <QCheckBox>
@@ -36,7 +36,8 @@ KateColorPickerConfigPage::KateColorPickerConfigPage(QWidget *parent, KateColorP
     layout->setContentsMargins(0, 0, 0, 0);
 
     chkNamedColors = new QCheckBox(i18n("Show preview for known color names"), this);
-    chkNamedColors->setToolTip(i18n("Also show the color picker for known color names (e.g. skyblue).\nSee https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of colors."));
+    chkNamedColors->setToolTip(i18n(
+        "Also show the color picker for known color names (e.g. skyblue).\nSee https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of colors."));
     layout->addWidget(chkNamedColors);
 
     chkPreviewAfterColor = new QCheckBox(i18n("Place preview after text color"), this);

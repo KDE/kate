@@ -6,8 +6,8 @@
  */
 
 #include "kateprojectview.h"
-#include "kateprojectpluginview.h"
 #include "kateprojectfiltermodel.h"
+#include "kateprojectpluginview.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -65,7 +65,7 @@ void KateProjectView::filterTextChanged(const QString &filterText)
     /**
      * filter
      */
-    static_cast<KateProjectFilterProxyModel*>(m_treeView->model())->setFilterString(filterText);
+    static_cast<KateProjectFilterProxyModel *>(m_treeView->model())->setFilterString(filterText);
 
     /**
      * expand

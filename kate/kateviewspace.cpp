@@ -122,10 +122,11 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
     if (button == m_quickOpen && event->type() == QEvent::WhatsThis) {
         QHelpEvent *e = static_cast<QHelpEvent *>(event);
         const int hiddenDocs = hiddenDocuments();
-        QString helpText = (hiddenDocs == 0) ? i18n("Click here to switch to the Quick Open view.")
-                                             : i18np("Currently, there is one more document open. To see all open documents, switch to the Quick Open view by clicking here.",
-                                                     "Currently, there are %1 more documents open. To see all open documents, switch to the Quick Open view by clicking here.",
-                                                     hiddenDocs);
+        QString helpText = (hiddenDocs == 0)
+            ? i18n("Click here to switch to the Quick Open view.")
+            : i18np("Currently, there is one more document open. To see all open documents, switch to the Quick Open view by clicking here.",
+                    "Currently, there are %1 more documents open. To see all open documents, switch to the Quick Open view by clicking here.",
+                    hiddenDocs);
         QWhatsThis::showText(e->globalPos(), helpText, m_quickOpen);
         return true;
     }
@@ -491,7 +492,9 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         mCompareWithActive->setEnabled(false);
     }
 
-    auto activeDocument = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView()->document(); // used for mCompareWithActive which is used with another tab which is not active
+    auto activeDocument =
+        KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView()->document(); // used for mCompareWithActive which is used with another
+                                                                                                      // tab which is not active
     // both documents must have urls and must not be the same to have the compare feature enabled
     if (activeDocument->url().isEmpty() || activeDocument == doc) {
         mCompareWithActive->setEnabled(false);
@@ -527,7 +530,10 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     } else if (choice->parent() == mCompareWithActive) {
         QString actionData = choice->data().toString(); // name of the executable of the diff program
         if (!KateFileActions::compareWithExternalProgram(activeDocument, doc, actionData)) {
-            QMessageBox::information(this, i18n("Could not start program"), i18n("The selected program could not be started. Maybe it is not installed."), QMessageBox::StandardButton::Ok);
+            QMessageBox::information(this,
+                                     i18n("Could not start program"),
+                                     i18n("The selected program could not be started. Maybe it is not installed."),
+                                     QMessageBox::StandardButton::Ok);
         }
     }
 }
@@ -575,7 +581,8 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 {
     KConfigGroup group(config, groupname);
 
-    // workaround for the weird bug where the tabbar sometimes becomes invisible after opening a session via the session chooser dialog or the --start cmd option
+    // workaround for the weird bug where the tabbar sometimes becomes invisible after opening a session via the session chooser dialog or the --start cmd
+    // option
     // TODO: Debug the actual reason for the bug. See https://invent.kde.org/utilities/kate/-/merge_requests/189
     m_tabBar->hide();
     m_tabBar->show();

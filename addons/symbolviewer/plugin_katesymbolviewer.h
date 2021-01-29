@@ -117,7 +117,7 @@ private:
     QWidget *m_toolview;
     QTreeWidget *m_symbols;
     QAction *m_treeOn; // FIXME Rename other actions accordingly
-    QAction *m_sort;   // m_sortOn etc
+    QAction *m_sort; // m_sortOn etc
     QAction *m_macro;
     QAction *m_struct;
     QAction *m_func;

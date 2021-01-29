@@ -228,7 +228,7 @@ private Q_SLOTS:
 private:
     MainWindow *m_mainWin;
 
-    KMultiTabBar::KMultiTabBarPosition m_pos {};
+    KMultiTabBar::KMultiTabBarPosition m_pos{};
     QSplitter *m_splitter;
     KMultiTabBar *m_tabBar = nullptr;
     QSplitter *m_ownSplit;
@@ -285,7 +285,8 @@ public:
      * @param text text to use in addition to icon
      * @return created toolview on success or 0
      */
-    ToolView *createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QIcon &icon, const QString &text);
+    ToolView *
+    createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QIcon &icon, const QString &text);
 
     /**
      * give you handle to toolview for the given name, 0 if no toolview around
@@ -418,7 +419,7 @@ private:
     /**
      * sidebars for the four sides
      */
-    Sidebar *m_sidebars[4] {};
+    Sidebar *m_sidebars[4]{};
 
     /**
      * sidebars state.

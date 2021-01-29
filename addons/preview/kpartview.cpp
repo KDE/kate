@@ -29,7 +29,7 @@ using namespace KTextEditorPreview;
 // preview is updated every 1000ms, thus one sees that something is happening
 // from the corner of one's eyes. After stopping typing, the preview is
 // updated quickly after 150ms so that the preview has the newest version.
-static const int updateDelayFast = 150;  // ms
+static const int updateDelayFast = 150; // ms
 static const int updateDelaySlow = 1000; // ms
 
 KPartView::KPartView(const KService::Ptr &service, QObject *parent)

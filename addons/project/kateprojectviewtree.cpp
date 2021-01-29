@@ -6,9 +6,9 @@
  */
 
 #include "kateprojectviewtree.h"
+#include "kateprojectfiltermodel.h"
 #include "kateprojectpluginview.h"
 #include "kateprojecttreeviewcontextmenu.h"
-#include "kateprojectfiltermodel.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>

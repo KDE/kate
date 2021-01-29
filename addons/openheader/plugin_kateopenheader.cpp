@@ -23,7 +23,8 @@
 #include <QFileInfo>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateOpenHeaderFactory, "kateopenheaderplugin.json", registerPlugin<PluginKateOpenHeader>();)
-// K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheader",ki18n("Open Header"), "0.1", ki18n("Open header for a source file"), KAboutData::License_LGPL_V2)) )
+// K_EXPORT_PLUGIN(KateOpenHeaderFactory(KAboutData("kateopenheader","kateopenheader",ki18n("Open Header"), "0.1", ki18n("Open header for a source file"),
+// KAboutData::License_LGPL_V2)) )
 
 PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin, KTextEditor::MainWindow *mainwindow)
     : KTextEditor::Command(QStringList() << QStringLiteral("toggle-header"), mainwindow)
@@ -79,7 +80,8 @@ void PluginKateOpenHeader::slotOpenHeader()
     QString extension = info.suffix().toLower();
 
     QStringList headers(QStringList() << QStringLiteral("h") << QStringLiteral("H") << QStringLiteral("hh") << QStringLiteral("hpp") << QStringLiteral("cuh"));
-    QStringList sources(QStringList() << QStringLiteral("c") << QStringLiteral("cpp") << QStringLiteral("cc") << QStringLiteral("cp") << QStringLiteral("cxx") << QStringLiteral("m") << QStringLiteral("cu"));
+    QStringList sources(QStringList() << QStringLiteral("c") << QStringLiteral("cpp") << QStringLiteral("cc") << QStringLiteral("cp") << QStringLiteral("cxx")
+                                      << QStringLiteral("m") << QStringLiteral("cu"));
 
     if (sources.contains(extension)) {
         if (tryOpenInternal(url, headers))

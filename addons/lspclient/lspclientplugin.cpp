@@ -19,25 +19,25 @@
 #include <QDir>
 #include <QStandardPaths>
 
-static const QString CONFIG_LSPCLIENT {QStringLiteral("lspclient")};
-static const QString CONFIG_SYMBOL_DETAILS {QStringLiteral("SymbolDetails")};
-static const QString CONFIG_SYMBOL_TREE {QStringLiteral("SymbolTree")};
-static const QString CONFIG_SYMBOL_EXPAND {QStringLiteral("SymbolExpand")};
-static const QString CONFIG_SYMBOL_SORT {QStringLiteral("SymbolSort")};
-static const QString CONFIG_COMPLETION_DOC {QStringLiteral("CompletionDocumentation")};
-static const QString CONFIG_REFERENCES_DECLARATION {QStringLiteral("ReferencesDeclaration")};
-static const QString CONFIG_AUTO_HOVER {QStringLiteral("AutoHover")};
-static const QString CONFIG_TYPE_FORMATTING {QStringLiteral("TypeFormatting")};
-static const QString CONFIG_INCREMENTAL_SYNC {QStringLiteral("IncrementalSync")};
-static const QString CONFIG_DIAGNOSTICS {QStringLiteral("Diagnostics")};
-static const QString CONFIG_DIAGNOSTICS_HIGHLIGHT {QStringLiteral("DiagnosticsHighlight")};
-static const QString CONFIG_DIAGNOSTICS_MARK {QStringLiteral("DiagnosticsMark")};
-static const QString CONFIG_DIAGNOSTICS_HOVER {QStringLiteral("DiagnosticsHover")};
-static const QString CONFIG_DIAGNOSTICS_SIZE {QStringLiteral("DiagnosticsSize")};
-static const QString CONFIG_MESSAGES {QStringLiteral("Messages")};
-static const QString CONFIG_MESSAGES_AUTO_SWITCH {QStringLiteral("MessagesAutoSwitch")};
-static const QString CONFIG_SERVER_CONFIG {QStringLiteral("ServerConfiguration")};
-static const QString CONFIG_SEMANTIC_HIGHLIGHTING {QStringLiteral("SemanticHighlighting")};
+static const QString CONFIG_LSPCLIENT{QStringLiteral("lspclient")};
+static const QString CONFIG_SYMBOL_DETAILS{QStringLiteral("SymbolDetails")};
+static const QString CONFIG_SYMBOL_TREE{QStringLiteral("SymbolTree")};
+static const QString CONFIG_SYMBOL_EXPAND{QStringLiteral("SymbolExpand")};
+static const QString CONFIG_SYMBOL_SORT{QStringLiteral("SymbolSort")};
+static const QString CONFIG_COMPLETION_DOC{QStringLiteral("CompletionDocumentation")};
+static const QString CONFIG_REFERENCES_DECLARATION{QStringLiteral("ReferencesDeclaration")};
+static const QString CONFIG_AUTO_HOVER{QStringLiteral("AutoHover")};
+static const QString CONFIG_TYPE_FORMATTING{QStringLiteral("TypeFormatting")};
+static const QString CONFIG_INCREMENTAL_SYNC{QStringLiteral("IncrementalSync")};
+static const QString CONFIG_DIAGNOSTICS{QStringLiteral("Diagnostics")};
+static const QString CONFIG_DIAGNOSTICS_HIGHLIGHT{QStringLiteral("DiagnosticsHighlight")};
+static const QString CONFIG_DIAGNOSTICS_MARK{QStringLiteral("DiagnosticsMark")};
+static const QString CONFIG_DIAGNOSTICS_HOVER{QStringLiteral("DiagnosticsHover")};
+static const QString CONFIG_DIAGNOSTICS_SIZE{QStringLiteral("DiagnosticsSize")};
+static const QString CONFIG_MESSAGES{QStringLiteral("Messages")};
+static const QString CONFIG_MESSAGES_AUTO_SWITCH{QStringLiteral("MessagesAutoSwitch")};
+static const QString CONFIG_SERVER_CONFIG{QStringLiteral("ServerConfiguration")};
+static const QString CONFIG_SEMANTIC_HIGHLIGHTING{QStringLiteral("SemanticHighlighting")};
 
 K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 

@@ -16,7 +16,8 @@
 
 #include <KTextEditor/Attribute>
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 class Editor;
 }
 
@@ -25,10 +26,9 @@ class SemanticHighlighting : public QObject
     Q_OBJECT
 
 public:
-    explicit SemanticHighlighting(QObject* parent = nullptr);
+    explicit SemanticHighlighting(QObject *parent = nullptr);
 
-    enum TokenType : quint16
-    {
+    enum TokenType : quint16 {
         variableOtherCpp = 0,
         variableOtherLocalCpp,
         variableParameterCpp,
@@ -51,7 +51,7 @@ public:
         metaDisabled
     };
 
-    Q_SLOT void themeChange(KTextEditor::Editor* e);
+    Q_SLOT void themeChange(KTextEditor::Editor *e);
 
     KTextEditor::Attribute::Ptr attrForScope(quint16 scopeidx) const
     {
@@ -60,7 +60,7 @@ public:
         return sharedAttrs.at(scopeidx);
     }
 
-    void scopesToAttrVector(const QVector<QString>& scopes);
+    void scopesToAttrVector(const QVector<QString> &scopes);
 
     void refresh();
 

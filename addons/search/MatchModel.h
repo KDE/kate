@@ -9,17 +9,16 @@
 #define MatchModel_h
 
 #include <QAbstractItemModel>
-#include <QString>
-#include <QUrl>
 #include <QBrush>
-#include <QTimer>
 #include <QRegularExpression>
+#include <QString>
+#include <QTimer>
+#include <QUrl>
 
-#include <ktexteditor/application.h>
 #include <KTextEditor/Cursor>
-#include <KTextEditor/Range>
 #include <KTextEditor/MovingRange>
-
+#include <KTextEditor/Range>
+#include <ktexteditor/application.h>
 
 /**
  * data holder for one match in one file
@@ -36,12 +35,10 @@ public:
     bool checked;
 };
 
-
 class MatchModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-
     enum SearchPlaces { CurrentFile, OpenFiles, Folder, Project, AllProjects };
     Q_ENUM(SearchPlaces)
 
@@ -68,7 +65,6 @@ public:
     static constexpr int PostContextLen = 100;
 
     typedef KateSearchMatch Match;
-
 
 private:
     struct MatchFile {
@@ -98,7 +94,7 @@ public:
 
     KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
 
-    const QVector<KateSearchMatch> &fileMatches(const QUrl& fileUrl) const;
+    const QVector<KateSearchMatch> &fileMatches(const QUrl &fileUrl) const;
 
     void updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ranges);
 
@@ -106,7 +102,7 @@ public Q_SLOTS:
 
     /** This function returns the row index of the specified file.
      * If the file does not exist in the model, the file will be added to the model. */
-    int matchFileRow(const QUrl& fileUrl) const;
+    int matchFileRow(const QUrl &fileUrl) const;
 
     /** This function is used to add a new file */
     void addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches);
@@ -154,7 +150,6 @@ private Q_SLOTS:
 private:
     bool replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
 
-
     QString infoHtmlString() const;
     QString fileToHtmlString(const MatchFile &matchFile) const;
     QString matchToHtmlString(const Match &match) const;
@@ -188,9 +183,7 @@ private:
     QRegularExpression m_regExp;
     QString m_replaceText;
     bool m_cancelReplace = true;
-
 };
-
 
 Q_DECLARE_METATYPE(KateSearchMatch)
 

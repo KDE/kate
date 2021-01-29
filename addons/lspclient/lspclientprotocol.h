@@ -44,7 +44,7 @@ enum class LSPErrorCode {
 };
 
 struct LSPResponseError {
-    LSPErrorCode code {};
+    LSPErrorCode code{};
     QString message;
     QJsonValue data;
 };

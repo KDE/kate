@@ -46,7 +46,7 @@ public:
 
     // Targeted Pattern Extractor
     float tpxDeltaSuccessRateThreshold = 0;
-    int tpxTimehorizon {};
+    int tpxTimehorizon{};
 
     // Simulation
     int minimumSimulationTimeHorizon = 0;

@@ -104,7 +104,8 @@ static constexpr KTextEditor::MarkInterface::MarkTypes markType = KTextEditor::M
 static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagError = KTextEditor::MarkInterface::Error;
 static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagWarning = KTextEditor::MarkInterface::Warning;
 static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagOther = KTextEditor::MarkInterface::markType30;
-static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagAll = KTextEditor::MarkInterface::MarkTypes(markTypeDiagError | markTypeDiagWarning | markTypeDiagOther);
+static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagAll =
+    KTextEditor::MarkInterface::MarkTypes(markTypeDiagError | markTypeDiagWarning | markTypeDiagOther);
 
 }
 
@@ -189,7 +190,6 @@ public:
     }
 };
 
-
 /**
  * @brief This is just a helper class that provides "underline" on Ctrl + click
  */
@@ -197,8 +197,7 @@ class CtrlHoverFeedback : public QObject
 {
     Q_OBJECT
 public:
-
-    void highlight(KTextEditor::View* activeView)
+    void highlight(KTextEditor::View *activeView)
     {
         // sanity checks
         if (!activeView)
@@ -217,13 +216,21 @@ public:
         if (mr) {
             mr->setRange(range);
         } else {
-            auto miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+            auto miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
             if (!miface)
                 return;
             mr = miface->newMovingRange(range);
             ranges[doc] = mr;
-            connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clear(KTextEditor::Document *)), Qt::UniqueConnection);
-            connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clear(KTextEditor::Document *)), Qt::UniqueConnection);
+            connect(doc,
+                    SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                    this,
+                    SLOT(clear(KTextEditor::Document *)),
+                    Qt::UniqueConnection);
+            connect(doc,
+                    SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                    this,
+                    SLOT(clear(KTextEditor::Document *)),
+                    Qt::UniqueConnection);
         }
 
         static KTextEditor::Attribute::Ptr attr;
@@ -234,19 +241,19 @@ public:
         mr->setAttribute(attr);
     }
 
-    void clear(KTextEditor::View* activeView)
+    void clear(KTextEditor::View *activeView)
     {
         if (activeView) {
             auto doc = activeView->document();
             if (doc) {
-                auto& mr = ranges[doc];
+                auto &mr = ranges[doc];
                 if (mr)
                     mr->setRange(KTextEditor::Range::invalid());
             }
         }
     }
 
-    void setRangeAndWidget(const KTextEditor::Range& r, QWidget* wid)
+    void setRangeAndWidget(const KTextEditor::Range &r, QWidget *wid)
     {
         range = r;
         w = wid;
@@ -258,8 +265,7 @@ public:
     }
 
 private:
-
-    Q_SLOT void clear(KTextEditor::Document* doc)
+    Q_SLOT void clear(KTextEditor::Document *doc)
     {
         if (doc) {
             auto it = ranges.find(doc);
@@ -271,8 +277,8 @@ private:
     }
 
 private:
-    QWidget* w = nullptr;
-    QHash<KTextEditor::Document*, KTextEditor::MovingRange*> ranges;
+    QWidget *w = nullptr;
+    QHash<KTextEditor::Document *, KTextEditor::MovingRange *> ranges;
     KTextEditor::Range range;
 };
 
@@ -468,7 +474,11 @@ public:
         m_messages->setCheckable(true);
         m_messagesAutoSwitch = new KSelectAction(i18n("Switch to messages tab upon message level"), this);
         actionCollection()->addAction(QStringLiteral("lspclient_messages_auto_switch"), m_messagesAutoSwitch);
-        const QStringList list {i18nc("@info", "Never"), i18nc("@info", "Error"), i18nc("@info", "Warning"), i18nc("@info", "Information"), i18nc("@info", "Log")};
+        const QStringList list{i18nc("@info", "Never"),
+                               i18nc("@info", "Error"),
+                               i18nc("@info", "Warning"),
+                               i18nc("@info", "Information"),
+                               i18nc("@info", "Log")};
         m_messagesAutoSwitch->setItems(list);
         m_messagesSwitch = actionCollection()->addAction(QStringLiteral("lspclient_messages_switch"), this, &self_type::switchToMessages);
         m_messagesSwitch->setText(i18n("Switch to messages tab"));
@@ -521,7 +531,11 @@ public:
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
 
         // toolview
-        m_toolView.reset(mainWin->createToolView(plugin, QStringLiteral("kate_lspclient"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")), i18n("LSP Client")));
+        m_toolView.reset(mainWin->createToolView(plugin,
+                                                 QStringLiteral("kate_lspclient"),
+                                                 KTextEditor::MainWindow::Bottom,
+                                                 QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
+                                                 i18n("LSP Client")));
         m_tabWidget = new QTabWidget(m_toolView.data());
         m_toolView->layout()->addWidget(m_tabWidget);
         m_tabWidget->setFocusPolicy(Qt::NoFocus);
@@ -572,11 +586,11 @@ public:
     }
 
     // This is taken from KDevelop :)
-    KTextEditor::View* viewFromWidget(QWidget* widget)
+    KTextEditor::View *viewFromWidget(QWidget *widget)
     {
         if (!widget)
             return nullptr;
-        auto* view = qobject_cast<KTextEditor::View*>(widget);
+        auto *view = qobject_cast<KTextEditor::View *>(widget);
         if (view)
             return view;
         else
@@ -589,7 +603,7 @@ public:
      * we get either abc or some. But for Ctrl + click we need to highlight it as
      * one thing, so this function expands the range from wordRangeAt() to do that.
      */
-    static void expandToFullHeaderRange(KTextEditor::Range& range, QStringView lineText)
+    static void expandToFullHeaderRange(KTextEditor::Range &range, QStringView lineText)
     {
         auto expandRangeTo = [lineText, &range](QChar c, int startPos) {
             int end = lineText.indexOf(c, startPos);
@@ -614,21 +628,22 @@ public:
         }
     }
 
-    bool eventFilter(QObject* obj, QEvent* event) override {
-        auto mouseEvent = dynamic_cast<QMouseEvent*>(event);
+    bool eventFilter(QObject *obj, QEvent *event) override
+    {
+        auto mouseEvent = dynamic_cast<QMouseEvent *>(event);
 
         // we are only concerned with mouse events for now :)
         if (!mouseEvent)
             return false;
 
         // common stuff that we need for both events
-        auto wid = qobject_cast<QWidget*>(obj);
+        auto wid = qobject_cast<QWidget *>(obj);
         auto v = viewFromWidget(wid);
         if (!v)
             return false;
 
         const auto coords = wid->mapTo(v, mouseEvent->pos());
-        const auto cur =  v->coordinatesToCursor(coords);
+        const auto cur = v->coordinatesToCursor(coords);
         // there isn't much we can do now, just bail out
         if (!cur.isValid())
             return false;
@@ -655,7 +670,6 @@ public:
             if (mouseEvent->modifiers() == Qt::ControlModifier) {
                 auto range = doc->wordRangeAt(cur);
                 if (!word.isEmpty() && range.isValid()) {
-
                     // check if we are in #include
                     // and expand the word range
                     auto lineText = doc->line(range.start().line());
@@ -715,7 +729,9 @@ public:
         auto menu = new QMenu(treeView);
         menu->addAction(i18n("Expand All"), treeView, &QTreeView::expandAll);
         menu->addAction(i18n("Collapse All"), treeView, &QTreeView::collapseAll);
-        auto h = [menu](const QPoint &) { menu->popup(QCursor::pos()); };
+        auto h = [menu](const QPoint &) {
+            menu->popup(QCursor::pos());
+        };
         connect(treeView, &QTreeView::customContextMenuRequested, h);
     }
 
@@ -970,13 +986,25 @@ public:
         }
 
         // ensure runtime match
-        connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearAllMarks(KTextEditor::Document *)), Qt::UniqueConnection);
-        connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearAllMarks(KTextEditor::Document *)), Qt::UniqueConnection);
+        connect(doc,
+                SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                this,
+                SLOT(clearAllMarks(KTextEditor::Document *)),
+                Qt::UniqueConnection);
+        connect(doc,
+                SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                this,
+                SLOT(clearAllMarks(KTextEditor::Document *)),
+                Qt::UniqueConnection);
         // reload might save/restore marks before/after above signals, so let's clear before that
         connect(doc, &KTextEditor::Document::aboutToReload, this, &self_type::clearAllMarks, Qt::UniqueConnection);
 
         if (handleClick) {
-            connect(doc, SIGNAL(markClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)), this, SLOT(onMarkClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)), Qt::UniqueConnection);
+            connect(doc,
+                    SIGNAL(markClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)),
+                    this,
+                    SLOT(onMarkClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)),
+                    Qt::UniqueConnection);
         }
     }
 
@@ -1002,7 +1030,7 @@ public:
         addMarksRec(doc, treeModel->invisibleRootItem(), oranges, odocs);
     }
 
-    void goToDocumentLocation(const QUrl &uri, const KTextEditor::Range& location)
+    void goToDocumentLocation(const QUrl &uri, const KTextEditor::Range &location)
     {
         int line = location.start().line();
         int column = location.start().column();
@@ -1028,12 +1056,12 @@ public:
     /**
      * @brief give a short 1sec temporary highlight where you land
      */
-    void highlightLandingLocation(KTextEditor::View* view, const KTextEditor::Range& location)
+    void highlightLandingLocation(KTextEditor::View *view, const KTextEditor::Range &location)
     {
         auto doc = view->document();
         if (!doc)
             return;
-        auto miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
+        auto miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
         if (!miface)
             return;
         auto mr = miface->newMovingRange(location);
@@ -1102,7 +1130,9 @@ public:
                 // accept edit requests that may be sent to execute command
                 m_accept_edit = true;
                 // but only for a short time
-                QTimer::singleShot(2000, this, [this] { m_accept_edit = false; });
+                QTimer::singleShot(2000, this, [this] {
+                    m_accept_edit = false;
+                });
                 server->executeCommand(command.command, command.arguments);
             }
             // diagnostics are likely updated soon, but might be clicked again in meantime
@@ -1270,7 +1300,8 @@ public:
         return result;
     }
 
-    void fillItemRoles(QStandardItem *item, const QUrl &url, const LSPRange _range, RangeData::KindEnum kind, const LSPClientRevisionSnapshot *snapshot = nullptr)
+    void
+    fillItemRoles(QStandardItem *item, const QUrl &url, const LSPRange _range, RangeData::KindEnum kind, const LSPClientRevisionSnapshot *snapshot = nullptr)
     {
         auto range = snapshot ? transformRange(url, *snapshot, _range) : _range;
         item->setData(QVariant(url), RangeData::FileUrlRole);
@@ -1377,9 +1408,15 @@ public:
         }
     }
 
-    template<typename Handler> using LocationRequest = std::function<LSPClientServer::RequestHandle(LSPClientServer &, const QUrl &document, const LSPPosition &pos, const QObject *context, const Handler &h)>;
+    template<typename Handler>
+    using LocationRequest = std::function<
+        LSPClientServer::RequestHandle(LSPClientServer &, const QUrl &document, const LSPPosition &pos, const QObject *context, const Handler &h)>;
 
-    template<typename Handler> void positionRequest(const LocationRequest<Handler> &req, const Handler &h, QScopedPointer<LSPClientRevisionSnapshot> *snapshot = nullptr,  KTextEditor::Cursor cur = KTextEditor::Cursor::invalid())
+    template<typename Handler>
+    void positionRequest(const LocationRequest<Handler> &req,
+                         const Handler &h,
+                         QScopedPointer<LSPClientRevisionSnapshot> *snapshot = nullptr,
+                         KTextEditor::Cursor cur = KTextEditor::Cursor::invalid())
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
@@ -1395,7 +1432,9 @@ public:
 
         clearAllLocationMarks();
         m_req_timeout = false;
-        QTimer::singleShot(1000, this, [this] { m_req_timeout = true; });
+        QTimer::singleShot(1000, this, [this] {
+            m_req_timeout = true;
+        });
         m_handle.cancel() = req(*server, activeView->document()->url(), {cursor.line(), cursor.column()}, this, h);
     }
 
@@ -1410,9 +1449,9 @@ public:
         }
     }
 
-    Q_SIGNAL void ctrlClickDefRecieved(const RangeItem& range);
+    Q_SIGNAL void ctrlClickDefRecieved(const RangeItem &range);
 
-    Q_SLOT void onCtrlMouseMove(const RangeItem& range)
+    Q_SLOT void onCtrlMouseMove(const RangeItem &range)
     {
         if (range.isValid()) {
             if (m_ctrlHoverFeedback.isValid())
@@ -1472,7 +1511,7 @@ public:
      * @brief processCtrlMouseHover This function just processes Ctrl + Mouse move hovering.
      * It should not be used for other purposes ideally.
      */
-    void processCtrlMouseHover(const KTextEditor::Cursor& cursor)
+    void processCtrlMouseHover(const KTextEditor::Cursor &cursor)
     {
         auto h = [this](const QList<LSPLocation> &defs) {
             if (defs.isEmpty()) {
@@ -1488,7 +1527,6 @@ public:
         auto request = &LSPClientServer::documentDefinition;
         positionRequest<Handler>(request, h, nullptr, cursor);
     }
-
 
     static RangeItem locationToRangeItem(const LSPLocation &loc)
     {
@@ -1540,7 +1578,9 @@ public:
         }
 
         auto title = i18nc("@title:tab", "Highlight: %1", currentWord());
-        auto converter = [url](const LSPDocumentHighlight &hl) { return RangeItem {url, hl.range, hl.kind}; };
+        auto converter = [url](const LSPDocumentHighlight &hl) {
+            return RangeItem{url, hl.range, hl.kind};
+        };
 
         processLocations<LSPDocumentHighlight, false>(title, &LSPClientServer::documentHighlight, true, converter);
     }
@@ -1627,7 +1667,9 @@ public:
 
     void delayCancelRequest(LSPClientServer::RequestHandle &&h, int timeout_ms = 4000)
     {
-        QTimer::singleShot(timeout_ms, this, [h]() mutable { h.cancel(); });
+        QTimer::singleShot(timeout_ms, this, [h]() mutable {
+            h.cancel();
+        });
     }
 
     void format(QChar lastChar = QChar())
@@ -1657,9 +1699,11 @@ public:
             }
         };
 
-        auto options = LSPFormattingOptions {tabSize, insertSpaces, QJsonObject()};
-        auto handle = !lastChar.isNull() ? server->documentOnTypeFormatting(document->url(), activeView->cursorPosition(), lastChar, options, this, h)
-                                         : (activeView->selection() ? server->documentRangeFormatting(document->url(), activeView->selectionRange(), options, this, h) : server->documentFormatting(document->url(), options, this, h));
+        auto options = LSPFormattingOptions{tabSize, insertSpaces, QJsonObject()};
+        auto handle = !lastChar.isNull()
+            ? server->documentOnTypeFormatting(document->url(), activeView->cursorPosition(), lastChar, options, this, h)
+            : (activeView->selection() ? server->documentRangeFormatting(document->url(), activeView->selectionRange(), options, this, h)
+                                       : server->documentFormatting(document->url(), options, this, h));
         delayCancelRequest(std::move(handle));
     }
 
@@ -1675,7 +1719,12 @@ public:
         // results are typically (too) limited
         // due to server implementation or limited view/scope
         // so let's add a disclaimer that it's not our fault
-        QString newName = QInputDialog::getText(activeView, i18nc("@title:window", "Rename"), i18nc("@label:textbox", "New name (caution: not all references may be replaced)"), QLineEdit::Normal, QString(), &ok);
+        QString newName = QInputDialog::getText(activeView,
+                                                i18nc("@title:window", "Rename"),
+                                                i18nc("@label:textbox", "New name (caution: not all references may be replaced)"),
+                                                QLineEdit::Normal,
+                                                QString(),
+                                                &ok);
         if (!ok) {
             return;
         }
@@ -1991,8 +2040,16 @@ public:
         }
 
         // ensure runtime match
-        connect(document, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearSemanticHighlighting(KTextEditor::Document *)), Qt::UniqueConnection);
-        connect(document, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearSemanticHighlighting(KTextEditor::Document *)), Qt::UniqueConnection);
+        connect(document,
+                SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                this,
+                SLOT(clearSemanticHighlighting(KTextEditor::Document *)),
+                Qt::UniqueConnection);
+        connect(document,
+                SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                this,
+                SLOT(clearSemanticHighlighting(KTextEditor::Document *)),
+                Qt::UniqueConnection);
 
         // TODO: make schema attributes accessible via some new interface,
         // or at least add configuration to the lsp plugin config
@@ -2074,7 +2131,7 @@ public:
         (void)attributeForScopes; // shut the warning for kf >= 5.79
         // TODO: we should try to recycle the moving ranges instead of recreating them all the time
 
-        const auto& scopes = server->capabilities().semanticHighlightingProvider.scopes;
+        const auto &scopes = server->capabilities().semanticHighlightingProvider.scopes;
         // qDebug() << params.textDocument.uri << scopes;
 
         auto &documentRanges = m_semanticHighlightRanges[document];
@@ -2084,7 +2141,7 @@ public:
             auto &lineRanges = documentRanges[line.line];
             qDeleteAll(lineRanges);
             lineRanges.clear();
-//             qDebug() << "line:" << line.line << ", toks " << line.tokens.size();
+            //             qDebug() << "line:" << line.line << ", toks " << line.tokens.size();
             for (const auto &token : line.tokens) {
 //                 qDebug() << "token:" << token.character << token.length << token.scope;
 #if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 79, 0)

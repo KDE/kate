@@ -94,7 +94,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                     node->setText(1, QString::number(i, 10));
                     stripped.clear();
                 } // macro
-            }     // starts with "set"
+            } // starts with "set"
 
             else if (currline.startsWith(procStr)) {
                 parse_func = 1;
@@ -137,10 +137,10 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                             }
                         }
                     } // block = 0
-                }     // for j loop
-            }         // m_func->isChecked()
-        }             // not a comment
-    }                 // for i loop
+                } // for j loop
+            } // m_func->isChecked()
+        } // not a comment
+    } // for i loop
 
     // positions.resize(m_symbols->itemIndex(node) + 1);
 }

@@ -9,9 +9,9 @@
 #ifndef TAGS_H
 #define TAGS_H
 
-#include <QVector>
 #include <QString>
 #include <QStringList>
+#include <QVector>
 
 class Tags
 {
@@ -55,7 +55,7 @@ public:
     static TagList getPartialMatches(const QString &file, const QString &tagpart);
     static TagList getExactMatches(const QString &file, const QString &tag);
     static TagList getMatches(const QString &file, const QString &tagpart, bool partial, const QStringList &types = QStringList());
-    static TagList getPartialMatchesNoi8n(const QString& tagFile, const QString &tagpart);
+    static TagList getPartialMatchesNoi8n(const QString &tagFile, const QString &tagpart);
 
 private:
     static QString _tagsfile;

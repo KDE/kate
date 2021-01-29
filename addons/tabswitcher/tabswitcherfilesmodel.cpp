@@ -53,7 +53,9 @@ QString longestCommonPrefix(std::vector<QString> const &strs)
     }
 
     // get the min length
-    auto it = std::min_element(strs.begin(), strs.end(), [](const QString &lhs, const QString &rhs) { return lhs.size() < rhs.size(); });
+    auto it = std::min_element(strs.begin(), strs.end(), [](const QString &lhs, const QString &rhs) {
+        return lhs.size() < rhs.size();
+    });
     const int n = it->size();
 
     for (int pos = 0; pos < n; pos++) { // check each character
@@ -123,7 +125,9 @@ bool detail::TabswitcherFilesModel::insertDocument(int row, KTextEditor::Documen
 
 bool detail::TabswitcherFilesModel::removeDocument(KTextEditor::Document *document)
 {
-    auto it = std::find_if(data_.begin(), data_.end(), [document](FilenameListItem &item) { return item.document == document; });
+    auto it = std::find_if(data_.begin(), data_.end(), [document](FilenameListItem &item) {
+        return item.document == document;
+    });
     if (it == data_.end()) {
         return false;
     }

@@ -28,7 +28,8 @@ OutputStyleWidget::OutputStyleWidget(QWidget *parent)
 
     QStringList headerLabels;
 
-    headerLabels << i18nc("@title:column", "Context") << QString() << QString() << QString() << QString() << i18nc("@title:column", "Text Color") << i18nc("@title:column", "Background Color");
+    headerLabels << i18nc("@title:column", "Context") << QString() << QString() << QString() << QString() << i18nc("@title:column", "Text Color")
+                 << i18nc("@title:column", "Background Color");
 
     setHeaderLabels(headerLabels);
 

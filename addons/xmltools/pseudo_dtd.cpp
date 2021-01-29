@@ -296,7 +296,7 @@ QStringList PseudoDTD::requiredAttributes(const QString &element) const
  */
 bool PseudoDTD::parseAttributeValues(QDomDocument *doc, QProgressDialog *progress)
 {
-    m_attributevaluesList.clear();                 // 1 element : n possible attributes
+    m_attributevaluesList.clear(); // 1 element : n possible attributes
     QMap<QString, QStringList> attributevaluesTmp; // 1 attribute : n possible values
     QDomNodeList list = doc->elementsByTagName(QStringLiteral("attlist"));
     uint listLength = list.count();

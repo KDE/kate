@@ -29,7 +29,7 @@ public:
 
     static void updateColorMatchingCriteria();
     // if startLine == -1, update all notes. endLine is inclusive and optional
-    void updateNotes(int startLine=-1, int endLine=-1);
+    void updateNotes(int startLine = -1, int endLine = -1);
 
     QVector<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
@@ -69,8 +69,7 @@ private:
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
     KTextEditor::MainWindow *m_mainWindow;
-    QHash<KTextEditor::Document*, ColorPickerInlineNoteProvider*> m_inlineColorNoteProviders;
-
+    QHash<KTextEditor::Document *, ColorPickerInlineNoteProvider *> m_inlineColorNoteProviders;
 };
 
 #endif // KATE_COLORPICKER_H

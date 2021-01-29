@@ -38,7 +38,8 @@ QString KateProjectCodeAnalysisToolCppcheck::fileExtensions() const
 QStringList KateProjectCodeAnalysisToolCppcheck::filter(const QStringList &files) const
 {
     // c++ files
-    return files.filter(QRegularExpression(QStringLiteral("\\.(") + fileExtensions().replace(QStringLiteral("+"), QStringLiteral("\\+")) + QStringLiteral(")$")));
+    return files.filter(
+        QRegularExpression(QStringLiteral("\\.(") + fileExtensions().replace(QStringLiteral("+"), QStringLiteral("\\+")) + QStringLiteral(")$")));
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::path() const
@@ -50,8 +51,9 @@ QStringList KateProjectCodeAnalysisToolCppcheck::arguments()
 {
     QStringList _args;
 
-    _args << QStringLiteral("-q") << QStringLiteral("-f") << QStringLiteral("-j") + QString::number(QThread::idealThreadCount()) << QStringLiteral("--inline-suppr") << QStringLiteral("--enable=all")
-          << QStringLiteral("--template={file}////{line}////{severity}////{message}") << QStringLiteral("--file-list=-");
+    _args << QStringLiteral("-q") << QStringLiteral("-f") << QStringLiteral("-j") + QString::number(QThread::idealThreadCount())
+          << QStringLiteral("--inline-suppr") << QStringLiteral("--enable=all") << QStringLiteral("--template={file}////{line}////{severity}////{message}")
+          << QStringLiteral("--file-list=-");
 
     return _args;
 }

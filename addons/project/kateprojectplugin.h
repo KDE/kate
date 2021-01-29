@@ -180,7 +180,6 @@ private:
     bool m_multiProjectGoto : 1;
     QUrl m_indexDirectory;
 
-
     /**
      * thread pool for our workers
      */

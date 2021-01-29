@@ -198,7 +198,8 @@ void SchemaWidget::mouseMoveEvent(QMouseEvent *event)
     if (!item)
         return;
 
-    if (item->type() != SchemaWidget::SystemTableType && item->type() != SchemaWidget::TableType && item->type() != SchemaWidget::ViewType && item->type() != SchemaWidget::FieldType)
+    if (item->type() != SchemaWidget::SystemTableType && item->type() != SchemaWidget::TableType && item->type() != SchemaWidget::ViewType
+        && item->type() != SchemaWidget::FieldType)
         return;
 
     QDrag *drag = new QDrag(this);
@@ -252,7 +253,8 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
     QTreeWidgetItem *item = itemAt(pos);
 
     if (item) {
-        if (item->type() == SchemaWidget::SystemTableType || item->type() == SchemaWidget::TableType || item->type() == SchemaWidget::ViewType || item->type() == SchemaWidget::FieldType) {
+        if (item->type() == SchemaWidget::SystemTableType || item->type() == SchemaWidget::TableType || item->type() == SchemaWidget::ViewType
+            || item->type() == SchemaWidget::FieldType) {
             menu.addSeparator();
             QMenu *submenu = menu.addMenu(QIcon::fromTheme(QStringLiteral("tools-wizard")), i18nc("@action:inmenu Submenu title", "Generate"));
 
@@ -319,7 +321,8 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
         statement = drv->sqlStatement(statementType, tableName, rec, false);
 
         if (statementType == QSqlDriver::DeleteStatement)
-            statement += QLatin1Char(' ') + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(QLatin1String(" IS NULL"), QLatin1String("=?"));
+            statement +=
+                QLatin1Char(' ') + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(QLatin1String(" IS NULL"), QLatin1String("=?"));
     } break;
     }
 

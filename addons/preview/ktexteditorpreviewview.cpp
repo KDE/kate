@@ -24,7 +24,11 @@ KTextEditorPreviewView::KTextEditorPreviewView(KTextEditorPreviewPlugin *plugin,
 {
     Q_UNUSED(plugin);
 
-    m_toolView = mainWindow->createToolView(plugin, QStringLiteral("ktexteditorpreviewplugin"), KTextEditor::MainWindow::Right, QIcon::fromTheme(QStringLiteral("document-preview")), i18n("Preview"));
+    m_toolView = mainWindow->createToolView(plugin,
+                                            QStringLiteral("ktexteditorpreviewplugin"),
+                                            KTextEditor::MainWindow::Right,
+                                            QIcon::fromTheme(QStringLiteral("document-preview")),
+                                            i18n("Preview"));
 
     // add preview widget
     m_previewView = new PreviewWidget(plugin, mainWindow, m_toolView.data());

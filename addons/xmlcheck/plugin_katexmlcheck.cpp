@@ -106,7 +106,11 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(KTextEditor::Plugin *plugin, KTex
     KXMLGUIClient::setComponentName(QStringLiteral("katexmlcheck"), i18n("Kate XML check")); // where i18n resources?
     setXMLFile(QStringLiteral("ui.rc"));
 
-    dock = m_mainWindow->createToolView(plugin, QStringLiteral("kate_plugin_xmlcheck_ouputview"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("misc")), i18n("XML Checker Output"));
+    dock = m_mainWindow->createToolView(plugin,
+                                        QStringLiteral("kate_plugin_xmlcheck_ouputview"),
+                                        KTextEditor::MainWindow::Bottom,
+                                        QIcon::fromTheme(QStringLiteral("misc")),
+                                        i18n("XML Checker Output"));
     listview = new QTreeWidget(dock);
     m_tmp_file = nullptr;
     QAction *a = actionCollection()->addAction(QStringLiteral("xml_check"));

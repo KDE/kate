@@ -201,7 +201,8 @@ public:
             // probably plaintext, but let's show markdown as-is for now
             // FIXME better presentation of markdown
             return match.documentation.value;
-        } else if (role == KTextEditor::CodeCompletionModel::ItemSelected && !match.argumentHintDepth && !match.documentation.value.isEmpty() && m_selectedDocumentation) {
+        } else if (role == KTextEditor::CodeCompletionModel::ItemSelected && !match.argumentHintDepth && !match.documentation.value.isEmpty()
+                   && m_selectedDocumentation) {
             return match.documentation.value;
         }
 
@@ -290,7 +291,7 @@ public:
     /**
      * @brief return next char *after* the range
      */
-    static QChar peekNextChar(KTextEditor::Document* doc, const KTextEditor::Range& range)
+    static QChar peekNextChar(KTextEditor::Document *doc, const KTextEditor::Range &range)
     {
         return doc->characterAt(KTextEditor::Cursor(range.end().line(), range.end().column()));
     }

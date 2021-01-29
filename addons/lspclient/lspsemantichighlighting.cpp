@@ -16,12 +16,11 @@
 
 #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
 
-SemanticHighlighting::SemanticHighlighting(QObject *parent) :
-    QObject(parent)
+SemanticHighlighting::SemanticHighlighting(QObject *parent)
+    : QObject(parent)
 {
     themeChange(KTextEditor::Editor::instance());
-    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged,
-            this, &SemanticHighlighting::themeChange);
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &SemanticHighlighting::themeChange);
 }
 
 void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
@@ -108,65 +107,46 @@ void SemanticHighlighting::scopesToAttrVector(const QVector<QString> &scopes)
     m_scopes.resize(scopes.size());
 
     int i = 0;
-    for (const auto& scope : scopes) {
+    for (const auto &scope : scopes) {
         if (scope == QStringLiteral("variable.other.cpp")) {
             m_scopes[i] = TokenType::variableOtherCpp;
-        }
-        else if (scope == QStringLiteral("variable.other.local.cpp")) {
+        } else if (scope == QStringLiteral("variable.other.local.cpp")) {
             m_scopes[i] = TokenType::variableOtherLocalCpp;
-        }
-        else if (scope == QStringLiteral("variable.parameter.cpp")) {
+        } else if (scope == QStringLiteral("variable.parameter.cpp")) {
             m_scopes[i] = TokenType::variableParameterCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.function.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.function.cpp")) {
             m_scopes[i] = TokenType::entityNameFunctionCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.function.method.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.function.method.cpp")) {
             m_scopes[i] = TokenType::entityNameFunctionMethodCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.function.method.static.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.function.method.static.cpp")) {
             m_scopes[i] = TokenType::entityNameFunctionMethodStaticCpp;
-        }
-        else if (scope == QStringLiteral("variable.other.field.cpp")) {
+        } else if (scope == QStringLiteral("variable.other.field.cpp")) {
             m_scopes[i] = TokenType::variableOtherFieldCpp;
-        }
-        else if (scope == QStringLiteral("variable.other.field.static.cpp")) {
+        } else if (scope == QStringLiteral("variable.other.field.static.cpp")) {
             m_scopes[i] = TokenType::variableOtherFieldStaticCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.type.class.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.type.class.cpp")) {
             m_scopes[i] = TokenType::entityNameTypeClassCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.type.enum.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.type.enum.cpp")) {
             m_scopes[i] = TokenType::entityNameTypeEnumCpp;
-        }
-        else if (scope == QStringLiteral("variable.other.enummember.cpp")) {
+        } else if (scope == QStringLiteral("variable.other.enummember.cpp")) {
             m_scopes[i] = TokenType::variableOtherEnummemberCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.type.typedef.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.type.typedef.cpp")) {
             m_scopes[i] = TokenType::entityNameTypeTypedefCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.type.dependent.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.type.dependent.cpp")) {
             m_scopes[i] = TokenType::entityNameTypeDependentCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.other.dependent.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.other.dependent.cpp")) {
             m_scopes[i] = TokenType::entityNameOtherDependentCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.namespace.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.namespace.cpp")) {
             m_scopes[i] = TokenType::entityNameNamespaceCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.type.template.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.type.template.cpp")) {
             m_scopes[i] = TokenType::entityNameTypeTemplateCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.type.concept.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.type.concept.cpp")) {
             m_scopes[i] = TokenType::entityNameTypeConceptCpp;
-        }
-        else if (scope == QStringLiteral("storage.type.primitive.cpp")) {
+        } else if (scope == QStringLiteral("storage.type.primitive.cpp")) {
             m_scopes[i] = TokenType::storageTypePrimitiveCpp;
-        }
-        else if (scope == QStringLiteral("entity.name.function.preprocessor.cpp")) {
+        } else if (scope == QStringLiteral("entity.name.function.preprocessor.cpp")) {
             m_scopes[i] = TokenType::entityNameFunctionPreprocessorCpp;
-        }
-        else if (scope == QStringLiteral("meta.disabled")) {
+        } else if (scope == QStringLiteral("meta.disabled")) {
             m_scopes[i] = TokenType::metaDisabled;
         }
         i++;
@@ -181,8 +161,7 @@ void SemanticHighlighting::refresh()
     sharedAttrs.clear();
     sharedAttrs.resize(m_scopes.size());
     for (size_t i = 0; i < m_scopes.size(); ++i) {
-        switch (m_scopes.at(i))
-        {
+        switch (m_scopes.at(i)) {
         case variableParameterCpp:
             sharedAttrs[i] = fixedAttrs[1];
             break;
@@ -206,7 +185,7 @@ void SemanticHighlighting::refresh()
             sharedAttrs[i] = fixedAttrs[4];
             break;
         default:
-            //unused
+            // unused
             //            case variableOtherCpp:
             //            case variableOtherLocalCpp:
             //            case variableOtherFieldCpp:

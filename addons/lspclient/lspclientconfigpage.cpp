@@ -36,7 +36,8 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
         textEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
         // we want to have the proper theme for the current palette
-        const auto theme = (palette().color(QPalette::Base).lightness() < 128) ? m_repository.defaultTheme(KSyntaxHighlighting::Repository::DarkTheme) : m_repository.defaultTheme(KSyntaxHighlighting::Repository::LightTheme);
+        const auto theme = (palette().color(QPalette::Base).lightness() < 128) ? m_repository.defaultTheme(KSyntaxHighlighting::Repository::DarkTheme)
+                                                                               : m_repository.defaultTheme(KSyntaxHighlighting::Repository::LightTheme);
         auto pal = qApp->palette();
         if (theme.isValid()) {
             pal.setColor(QPalette::Base, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor)));
@@ -72,7 +73,9 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkSemanticHighlighting,
                            ui->chkAutoHover})
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
-    auto ch = [this](int) { this->changed(); };
+    auto ch = [this](int) {
+        this->changed();
+    };
     connect(ui->comboMessagesSwitch, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, ch);
     connect(ui->spinDiagnosticsSize, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, ch);
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::configUrlChanged);
@@ -215,7 +218,7 @@ void LSPClientConfigPage::updateConfigTextErrorState()
     }
 
     // check json validity
-    QJsonParseError error {};
+    QJsonParseError error{};
     auto json = QJsonDocument::fromJson(data, &error);
     if (error.error == QJsonParseError::NoError) {
         if (json.isObject()) {

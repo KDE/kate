@@ -20,7 +20,10 @@ struct CTagsExtensionMapping {
     const CTagsKindMapping *kinds;
 };
 
-static const CTagsKindMapping kindMappingAsm[] = {{'d', I18N_NOOP2("Tag Type", "define")}, {'l', I18N_NOOP2("Tag Type", "label")}, {'m', I18N_NOOP2("Tag Type", "macro")}, {0, nullptr}};
+static const CTagsKindMapping kindMappingAsm[] = {{'d', I18N_NOOP2("Tag Type", "define")},
+                                                  {'l', I18N_NOOP2("Tag Type", "label")},
+                                                  {'m', I18N_NOOP2("Tag Type", "macro")},
+                                                  {0, nullptr}};
 
 static const CTagsKindMapping kindMappingAsp[] = {{'f', I18N_NOOP2("Tag Type", "function")}, {'s', I18N_NOOP2("Tag Type", "subroutine")}, {0, nullptr}};
 
@@ -49,7 +52,10 @@ static const CTagsKindMapping kindMappingC[] = {{'c', I18N_NOOP2("Tag Type", "cl
 
 static const CTagsKindMapping kindMappingCobol[] = {{'p', I18N_NOOP2("Tag Type", "paragraph")}, {0, nullptr}};
 
-static const CTagsKindMapping kindMappingEiffel[] = {{'c', I18N_NOOP2("Tag Type", "class")}, {'f', I18N_NOOP2("Tag Type", "feature")}, {'l', I18N_NOOP2("Tag Type", "local entity")}, {0, nullptr}};
+static const CTagsKindMapping kindMappingEiffel[] = {{'c', I18N_NOOP2("Tag Type", "class")},
+                                                     {'f', I18N_NOOP2("Tag Type", "feature")},
+                                                     {'l', I18N_NOOP2("Tag Type", "local entity")},
+                                                     {0, nullptr}};
 
 static const CTagsKindMapping kindMappingFortran[] = {{'b', I18N_NOOP2("Tag Type", "block")},
                                                       {'c', I18N_NOOP2("Tag Type", "common")},
@@ -67,8 +73,12 @@ static const CTagsKindMapping kindMappingFortran[] = {{'b', I18N_NOOP2("Tag Type
                                                       {'v', I18N_NOOP2("Tag Type", "variable")},
                                                       {0, nullptr}};
 
-static const CTagsKindMapping kindMappingJava[] =
-    {{'c', I18N_NOOP2("Tag Type", "class")}, {'f', I18N_NOOP2("Tag Type", "field")}, {'i', I18N_NOOP2("Tag Type", "interface")}, {'m', I18N_NOOP2("Tag Type", "method")}, {'p', I18N_NOOP2("Tag Type", "package")}, {0, nullptr}};
+static const CTagsKindMapping kindMappingJava[] = {{'c', I18N_NOOP2("Tag Type", "class")},
+                                                   {'f', I18N_NOOP2("Tag Type", "field")},
+                                                   {'i', I18N_NOOP2("Tag Type", "interface")},
+                                                   {'m', I18N_NOOP2("Tag Type", "method")},
+                                                   {'p', I18N_NOOP2("Tag Type", "package")},
+                                                   {0, nullptr}};
 
 static const CTagsKindMapping kindMappingLisp[] = {{'f', I18N_NOOP2("Tag Type", "function")}, {0, nullptr}};
 
@@ -84,7 +94,10 @@ static const CTagsKindMapping kindMappingPython[] = {{'c', I18N_NOOP2("Tag Type"
 
 static const CTagsKindMapping kindMappingRexx[] = {{'s', I18N_NOOP2("Tag Type", "subroutine")}, {0, nullptr}};
 
-static const CTagsKindMapping kindMappingRuby[] = {{'c', I18N_NOOP2("Tag Type", "class")}, {'f', I18N_NOOP2("Tag Type", "function")}, {'m', I18N_NOOP2("Tag Type", "mixin")}, {0, nullptr}};
+static const CTagsKindMapping kindMappingRuby[] = {{'c', I18N_NOOP2("Tag Type", "class")},
+                                                   {'f', I18N_NOOP2("Tag Type", "function")},
+                                                   {'m', I18N_NOOP2("Tag Type", "mixin")},
+                                                   {0, nullptr}};
 
 static const CTagsKindMapping kindMappingScheme[] = {{'f', I18N_NOOP2("Tag Type", "function")}, {'s', I18N_NOOP2("Tag Type", "set")}, {0, nullptr}};
 
@@ -97,17 +110,25 @@ static const CTagsKindMapping kindMappingTcl[] = {{'p', I18N_NOOP2("Tag Type", "
 static const CTagsKindMapping kindMappingVim[] = {{'f', I18N_NOOP2("Tag Type", "function")}, {0, nullptr}};
 
 static CTagsExtensionMapping extensionMapping[] = {
-    {"asm", kindMappingAsm},     {"s", kindMappingAsm},       {"S", kindMappingAsm},       {"asp", kindMappingAsp},       {"asa", kindMappingAsp},    {"awk", kindMappingAwk},       {"c++", kindMappingC},       {"cc", kindMappingC},
-    {"cp", kindMappingC},        {"cpp", kindMappingC},       {"cxx", kindMappingC},       {"h", kindMappingC},           {"h++", kindMappingC},      {"hh", kindMappingC},          {"hp", kindMappingC},        {"hpp", kindMappingC},
-    {"hxx", kindMappingC},       {"beta", kindMappingBeta},   {"cob", kindMappingCobol},   {"COB", kindMappingCobol},     {"e", kindMappingEiffel},   {"f", kindMappingFortran},     {"for", kindMappingFortran}, {"ftn", kindMappingFortran},
-    {"f77", kindMappingFortran}, {"f90", kindMappingFortran}, {"f95", kindMappingFortran}, {"java", kindMappingJava},     {"cl", kindMappingLisp},    {"clisp", kindMappingLisp},    {"el", kindMappingLisp},     {"l", kindMappingLisp},
-    {"lisp", kindMappingLisp},   {"lsp", kindMappingLisp},    {"ml", kindMappingLisp},     {"mak", kindMappingMake},      {"p", kindMappingPascal},   {"pas", kindMappingPascal},    {"pl", kindMappingPerl},     {"pm", kindMappingPerl},
-    {"perl", kindMappingPerl},   {"php", kindMappingPHP},     {"php3", kindMappingPHP},    {"phtml", kindMappingPHP},     {"py", kindMappingPython},  {"python", kindMappingPython}, {"cmd", kindMappingRexx},    {"rexx", kindMappingRexx},
-    {"rx", kindMappingRexx},     {"rb", kindMappingRuby},     {"sch", kindMappingScheme},  {"scheme", kindMappingScheme}, {"scm", kindMappingScheme}, {"sm", kindMappingScheme},     {"SCM", kindMappingScheme},  {"SM", kindMappingScheme},
-    {"sh", kindMappingSh},       {"SH", kindMappingSh},       {"bsh", kindMappingSh},      {"bash", kindMappingSh},       {"ksh", kindMappingSh},     {"zsh", kindMappingSh},        {"sl", kindMappingSlang},    {"tcl", kindMappingTcl},
-    {"wish", kindMappingTcl},    {"vim", kindMappingVim},     {nullptr, nullptr}};
+    {"asm", kindMappingAsm},     {"s", kindMappingAsm},         {"S", kindMappingAsm},       {"asp", kindMappingAsp},
+    {"asa", kindMappingAsp},     {"awk", kindMappingAwk},       {"c++", kindMappingC},       {"cc", kindMappingC},
+    {"cp", kindMappingC},        {"cpp", kindMappingC},         {"cxx", kindMappingC},       {"h", kindMappingC},
+    {"h++", kindMappingC},       {"hh", kindMappingC},          {"hp", kindMappingC},        {"hpp", kindMappingC},
+    {"hxx", kindMappingC},       {"beta", kindMappingBeta},     {"cob", kindMappingCobol},   {"COB", kindMappingCobol},
+    {"e", kindMappingEiffel},    {"f", kindMappingFortran},     {"for", kindMappingFortran}, {"ftn", kindMappingFortran},
+    {"f77", kindMappingFortran}, {"f90", kindMappingFortran},   {"f95", kindMappingFortran}, {"java", kindMappingJava},
+    {"cl", kindMappingLisp},     {"clisp", kindMappingLisp},    {"el", kindMappingLisp},     {"l", kindMappingLisp},
+    {"lisp", kindMappingLisp},   {"lsp", kindMappingLisp},      {"ml", kindMappingLisp},     {"mak", kindMappingMake},
+    {"p", kindMappingPascal},    {"pas", kindMappingPascal},    {"pl", kindMappingPerl},     {"pm", kindMappingPerl},
+    {"perl", kindMappingPerl},   {"php", kindMappingPHP},       {"php3", kindMappingPHP},    {"phtml", kindMappingPHP},
+    {"py", kindMappingPython},   {"python", kindMappingPython}, {"cmd", kindMappingRexx},    {"rexx", kindMappingRexx},
+    {"rx", kindMappingRexx},     {"rb", kindMappingRuby},       {"sch", kindMappingScheme},  {"scheme", kindMappingScheme},
+    {"scm", kindMappingScheme},  {"sm", kindMappingScheme},     {"SCM", kindMappingScheme},  {"SM", kindMappingScheme},
+    {"sh", kindMappingSh},       {"SH", kindMappingSh},         {"bsh", kindMappingSh},      {"bash", kindMappingSh},
+    {"ksh", kindMappingSh},      {"zsh", kindMappingSh},        {"sl", kindMappingSlang},    {"tcl", kindMappingTcl},
+    {"wish", kindMappingTcl},    {"vim", kindMappingVim},       {nullptr, nullptr}};
 
-static const CTagsKindMapping *findKindMapping(const char* pextension)
+static const CTagsKindMapping *findKindMapping(const char *pextension)
 {
     CTagsExtensionMapping *pem = extensionMapping;
     while (pem->extension != nullptr) {

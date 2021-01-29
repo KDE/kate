@@ -71,7 +71,9 @@ void KateQuickOpenModel::refresh()
     QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
     const QList<KTextEditor::View *> sortedViews = m_mainWindow->viewManager()->sortedViews();
     const QList<KTextEditor::Document *> openDocs = KateApp::self()->documentManager()->documentList();
-    const QStringList projectDocs = projectView ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList() : QStringList();
+    const QStringList projectDocs = projectView
+        ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList()
+        : QStringList();
     const QString projectBase = [this, projectView]() -> QString {
         if (!projectView)
             return QString();
@@ -92,7 +94,12 @@ void KateQuickOpenModel::refresh()
     size_t sort_id = static_cast<size_t>(-1);
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
-        allDocuments.push_back({doc->url(), doc->documentName(), doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase), true, sort_id--, -1});
+        allDocuments.push_back({doc->url(),
+                                doc->documentName(),
+                                doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase),
+                                true,
+                                sort_id--,
+                                -1});
     }
 
     for (auto *doc : qAsConst(openDocs)) {

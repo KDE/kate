@@ -103,7 +103,8 @@ bool SelectTargetView::eventFilter(QObject *obj, QEvent *event)
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == u_filterEdit) {
-            if ((keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp) || (keyEvent->key() == Qt::Key_PageDown)) {
+            if ((keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp)
+                || (keyEvent->key() == Qt::Key_PageDown)) {
                 QCoreApplication::sendEvent(u_treeView, event);
                 return true;
             }

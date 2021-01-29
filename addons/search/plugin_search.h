@@ -26,17 +26,17 @@
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/sessionconfiginterface.h>
 
+#include <QThreadPool>
 #include <QTimer>
 #include <QTreeView>
-#include <QThreadPool>
 
 #include <KXMLGUIClient>
 
 #include "ui_results.h"
 #include "ui_search.h"
 
-#include "MatchModel.h"
 #include "FolderFilesList.h"
+#include "MatchModel.h"
 #include "SearchDiskFiles.h"
 #include "search_open_files.h"
 
@@ -191,7 +191,7 @@ private:
 
     void onResize(const QSize &size);
 
-    Ui::SearchDialog m_ui {};
+    Ui::SearchDialog m_ui{};
     QWidget *m_toolView;
     KTextEditor::Application *m_kateApp;
     SearchOpenFiles m_searchOpenFiles;

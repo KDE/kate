@@ -27,7 +27,11 @@ public:
     DataOutputWidget(QWidget *parent);
     ~DataOutputWidget() override;
 
-    void exportData(QTextStream &stream, const QChar stringsQuoteChar = QLatin1Char('\0'), const QChar numbersQuoteChar = QLatin1Char('\0'), const QString &fieldDelimiter = QStringLiteral("\t"), const Options opt = NoOptions);
+    void exportData(QTextStream &stream,
+                    const QChar stringsQuoteChar = QLatin1Char('\0'),
+                    const QChar numbersQuoteChar = QLatin1Char('\0'),
+                    const QString &fieldDelimiter = QStringLiteral("\t"),
+                    const Options opt = NoOptions);
 
     DataOutputModel *model() const
     {

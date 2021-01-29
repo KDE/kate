@@ -9,20 +9,20 @@
 #ifndef KATEPROJECTFILTERMODEL_H
 #define KATEPROJECTFILTERMODEL_H
 
-#include <QSortFilterProxyModel>
 #include <QDebug>
+#include <QSortFilterProxyModel>
 
 #include <kfts_fuzzy_match.h>
 
 class KateProjectFilterProxyModel : public QSortFilterProxyModel
 {
-
 public:
-    KateProjectFilterProxyModel(QObject* parent = nullptr) :
-        QSortFilterProxyModel(parent)
-    {}
+    KateProjectFilterProxyModel(QObject *parent = nullptr)
+        : QSortFilterProxyModel(parent)
+    {
+    }
 
-    void setFilterString(const QString& string)
+    void setFilterString(const QString &string)
     {
         m_pattern = string;
         invalidateFilter();

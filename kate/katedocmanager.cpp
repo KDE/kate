@@ -218,18 +218,20 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
 
         if (closeUrl && m_tempFiles.contains(doc)) {
             QFileInfo fi(m_tempFiles[doc].first.toLocalFile());
-            if (fi.lastModified() <= m_tempFiles[doc].second ||
-                KMessageBox::questionYesNo(KateApp::self()->activeKateMainWindow(),
-                                           i18n("The supposedly temporary file %1 has been modified. "
-                                                "Do you want to delete it anyway?",
-                                                m_tempFiles[doc].first.url(QUrl::PreferLocalFile)),
-                                           i18n("Delete File?")) == KMessageBox::Yes) {
+            if (fi.lastModified() <= m_tempFiles[doc].second
+                || KMessageBox::questionYesNo(KateApp::self()->activeKateMainWindow(),
+                                              i18n("The supposedly temporary file %1 has been modified. "
+                                                   "Do you want to delete it anyway?",
+                                                   m_tempFiles[doc].first.url(QUrl::PreferLocalFile)),
+                                              i18n("Delete File?"))
+                    == KMessageBox::Yes) {
                 KIO::del(m_tempFiles[doc].first, KIO::HideProgressInfo);
                 qCDebug(LOG_KATE) << "Deleted temporary file " << m_tempFiles[doc].first;
                 m_tempFiles.remove(doc);
             } else {
                 m_tempFiles.remove(doc);
-                qCDebug(LOG_KATE) << "The supposedly temporary file " << m_tempFiles[doc].first.url() << " have been modified since loaded, and has not been deleted.";
+                qCDebug(LOG_KATE) << "The supposedly temporary file " << m_tempFiles[doc].first.url()
+                                  << " have been modified since loaded, and has not been deleted.";
             }
         }
 

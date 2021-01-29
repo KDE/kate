@@ -65,7 +65,8 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     QStringList headers;
     headers << i18n("Name") << i18n("Description");
     listView->setHeaderLabels(headers);
-    listView->setWhatsThis(i18n("Here you can see all available Kate plugins. Those with a check mark are loaded, and will be loaded again the next time Kate is started."));
+    listView->setWhatsThis(
+        i18n("Here you can see all available Kate plugins. Those with a check mark are loaded, and will be loaded again the next time Kate is started."));
 
     KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
     for (auto &pluginInfo : pluginList) {

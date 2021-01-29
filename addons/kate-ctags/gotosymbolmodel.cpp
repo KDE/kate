@@ -5,21 +5,21 @@
 */
 #include "gotosymbolmodel.h"
 
-#include <QProcess>
-#include <QDebug>
 #include <KLocalizedString>
+#include <QDebug>
+#include <QProcess>
 
 GotoSymbolModel::GotoSymbolModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
 }
 
-int GotoSymbolModel::columnCount(const QModelIndex&) const
+int GotoSymbolModel::columnCount(const QModelIndex &) const
 {
     return 1;
 }
 
-int GotoSymbolModel::rowCount(const QModelIndex&) const
+int GotoSymbolModel::rowCount(const QModelIndex &) const
 {
     return m_rows.count();
 }
@@ -38,13 +38,13 @@ QVariant GotoSymbolModel::data(const QModelIndex &index, int role) const
         if (index.column() == 0)
             return row.icon;
     } else if (role == Qt::UserRole) {
-            return row.line;
+        return row.line;
     }
 
     return QVariant();
 }
 
-void GotoSymbolModel::refresh(const QString& filePath)
+void GotoSymbolModel::refresh(const QString &filePath)
 {
     static const QIcon nsIcon = QIcon::fromTheme(QStringLiteral("code-block"));
     static const QIcon classIcon = QIcon::fromTheme(QStringLiteral("code-class"));
@@ -57,12 +57,7 @@ void GotoSymbolModel::refresh(const QString& filePath)
     endResetModel();
 
     QProcess p;
-    p.start(QStringLiteral("ctags"),
-            {
-                QStringLiteral("-x"),
-                QStringLiteral("--_xformat=%{name}%{signature}\t%{kind}\t%{line}"),
-                filePath
-            });
+    p.start(QStringLiteral("ctags"), {QStringLiteral("-x"), QStringLiteral("--_xformat=%{name}%{signature}\t%{kind}\t%{line}"), filePath});
 
     QByteArray out;
     if (p.waitForFinished()) {
@@ -78,9 +73,9 @@ void GotoSymbolModel::refresh(const QString& filePath)
     QVector<SymbolItem> symItems;
     const auto tags = out.split('\n');
     symItems.reserve(tags.size());
-    for (const auto& tag : tags) {
+    for (const auto &tag : tags) {
         const auto items = tag.split('\t');
-        if (items.isEmpty() || items.count() < 3){
+        if (items.isEmpty() || items.count() < 3) {
             continue;
         }
 

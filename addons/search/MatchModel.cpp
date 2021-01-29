@@ -8,10 +8,10 @@
 #include "MatchModel.h"
 #include <KLocalizedString>
 #include <QDebug>
-#include <QTimer>
-#include <QRegularExpression>
-#include <QFileInfo>
 #include <QDir>
+#include <QFileInfo>
+#include <QRegularExpression>
+#include <QTimer>
 #include <algorithm> // std::count_if
 
 #include <ktexteditor/movinginterface.h>
@@ -48,7 +48,9 @@ MatchModel::MatchModel(QObject *parent)
     });
 }
 
-MatchModel::~MatchModel() {}
+MatchModel::~MatchModel()
+{
+}
 
 void MatchModel::setDocumentManager(KTextEditor::Application *manager)
 {
@@ -59,24 +61,29 @@ void MatchModel::setDocumentManager(KTextEditor::Application *manager)
 void MatchModel::setSearchPlace(MatchModel::SearchPlaces searchPlace)
 {
     m_searchPlace = searchPlace;
-    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
+    if (!m_infoUpdateTimer.isActive())
+        m_infoUpdateTimer.start();
 }
 
 void MatchModel::setFileListUpdate(const QString &path)
 {
     m_lastSearchPath = path;
     m_searchState = Preparing;
-    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
+    if (!m_infoUpdateTimer.isActive())
+        m_infoUpdateTimer.start();
 }
 
 void MatchModel::setSearchState(MatchModel::SearchState searchState)
 {
     m_searchState = searchState;
-    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
+    if (!m_infoUpdateTimer.isActive())
+        m_infoUpdateTimer.start();
     if (m_searchState == SearchDone) {
         beginResetModel();
-        std::sort(m_matchFiles.begin(), m_matchFiles.end(), [](const MatchFile &l, const MatchFile &r) { return l.fileUrl < r.fileUrl; });
-        for (int i=0; i<m_matchFiles.size(); ++i) {
+        std::sort(m_matchFiles.begin(), m_matchFiles.end(), [](const MatchFile &l, const MatchFile &r) {
+            return l.fileUrl < r.fileUrl;
+        });
+        for (int i = 0; i < m_matchFiles.size(); ++i) {
             m_matchFileIndexHash[m_matchFiles[i].fileUrl] = i;
         }
         endResetModel();
@@ -86,13 +93,15 @@ void MatchModel::setSearchState(MatchModel::SearchState searchState)
 void MatchModel::setBaseSearchPath(const QString &baseSearchPath)
 {
     m_resultBaseDir = baseSearchPath;
-    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
+    if (!m_infoUpdateTimer.isActive())
+        m_infoUpdateTimer.start();
 }
 
 void MatchModel::setProjectName(const QString &projectName)
 {
     m_projectName = projectName;
-    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
+    if (!m_infoUpdateTimer.isActive())
+        m_infoUpdateTimer.start();
 }
 
 void MatchModel::clear()
@@ -105,7 +114,7 @@ void MatchModel::clear()
 
 /** This function returns the row index of the specified file.
  * If the file does not exist in the model, the file will be added to the model. */
-int MatchModel::matchFileRow(const QUrl& fileUrl) const
+int MatchModel::matchFileRow(const QUrl &fileUrl) const
 {
     return m_matchFileIndexHash.value(fileUrl, -1);
 }
@@ -116,7 +125,8 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     m_lastMatchUrl = fileUrl;
     m_searchState = Searching;
     // update match/search info
-    if (!m_infoUpdateTimer.isActive()) m_infoUpdateTimer.start();
+    if (!m_infoUpdateTimer.isActive())
+        m_infoUpdateTimer.start();
 
     if (m_matchFiles.isEmpty()) {
         beginInsertRows(QModelIndex(), 0, 0);
@@ -131,7 +141,7 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     if (fileIndex == -1) {
         fileIndex = m_matchFiles.size();
         m_matchFileIndexHash.insert(fileUrl, fileIndex);
-        beginInsertRows(createIndex(0,0,InfoItemId), fileIndex, fileIndex);
+        beginInsertRows(createIndex(0, 0, InfoItemId), fileIndex, fileIndex);
         // We are always starting the insert at the end, so we could optimize by delaying/grouping the signaling of the updates
         m_matchFiles.append(MatchFile());
         m_matchFiles[fileIndex].fileUrl = fileUrl;
@@ -139,7 +149,7 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     }
 
     int matchIndex = m_matchFiles[fileIndex].matches.size();
-    beginInsertRows(createIndex(fileIndex, 0 , FileItemId), matchIndex, matchIndex + searchMatches.size()-1);
+    beginInsertRows(createIndex(fileIndex, 0, FileItemId), matchIndex, matchIndex + searchMatches.size() - 1);
     m_matchFiles[fileIndex].matches += searchMatches;
     endInsertRows();
 }
@@ -175,7 +185,7 @@ KTextEditor::Range MatchModel::matchRange(const QModelIndex &matchIndex) const
     return m_matchFiles[fileRow].matches[matchRow].range;
 }
 
-const QVector<KateSearchMatch> &MatchModel::fileMatches(const QUrl& fileUrl) const
+const QVector<KateSearchMatch> &MatchModel::fileMatches(const QUrl &fileUrl) const
 {
     static const QVector<KateSearchMatch> EmptyDummy;
 
@@ -198,7 +208,7 @@ void MatchModel::updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ra
 
     int fileRow = matchFileRow(fileUrl);
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
-        //qDebug() << "No such results" << fileRow << fileUrl;
+        // qDebug() << "No such results" << fileRow << fileUrl;
         return; // No such document in the results
     }
 
@@ -215,13 +225,12 @@ void MatchModel::updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ra
         return;
     }
 
-    for (int i=0; i<ranges.size(); ++i) {
+    for (int i = 0; i < ranges.size(); ++i) {
         matches[i].range = ranges[i]->toRange();
     }
     QModelIndex rootFileIndex = index(fileRow, 0, createIndex(0, 0, InfoItemId));
-    dataChanged(index(0, 0, rootFileIndex), index(matches.count()-1, 0, rootFileIndex));
+    dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex));
 }
-
 
 /** This function is used to replace a match */
 bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString)
@@ -321,7 +330,7 @@ bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelInde
 
     QVector<Match> &matches = m_matchFiles[fileRow].matches;
 
-    for (int i = matchRow+1; i < matches.size(); ++i) {
+    for (int i = matchRow + 1; i < matches.size(); ++i) {
         KTextEditor::MovingRange *mr = miface->newMovingRange(matches[i].range);
         matchRanges.append(mr);
     }
@@ -332,7 +341,7 @@ bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelInde
     }
 
     // Update the items after the matchIndex
-    for (int i = matchRow+1; i < matches.size(); ++i) {
+    for (int i = matchRow + 1; i < matches.size(); ++i) {
         Q_ASSERT(!matchRanges.isEmpty());
         KTextEditor::MovingRange *mr = matchRanges.takeFirst();
         matches[i].range = mr->toRange();
@@ -340,7 +349,7 @@ bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelInde
     }
     Q_ASSERT(matchRanges.isEmpty());
 
-    dataChanged(createIndex(matchRow, 0, fileRow), createIndex(matches.size()-1, 0, fileRow));
+    dataChanged(createIndex(matchRow, 0, fileRow), createIndex(matches.size() - 1, 0, fileRow));
 
     return true;
 }
@@ -391,7 +400,7 @@ void MatchModel::doReplaceNextMatch()
     QVector<KTextEditor::MovingRange *> matchRanges;
     matchRanges.reserve(matches.size());
     KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-    for (const auto &match: qAsConst(matches)) {
+    for (const auto &match : qAsConst(matches)) {
         matchRanges.append(miface->newMovingRange(match.range));
     }
 
@@ -404,12 +413,12 @@ void MatchModel::doReplaceNextMatch()
             replaceMatch(doc, createIndex(i, 0, m_replaceFile), m_regExp, m_replaceText);
         }
         // The document has been modified -> make sure the next match has the correct range
-        if (i < matches.size()-1) {
-            matches[i+1].range = matchRanges[i+1]->toRange();
+        if (i < matches.size() - 1) {
+            matches[i + 1].range = matchRanges[i + 1]->toRange();
         }
     }
 
-    dataChanged(createIndex(0, 0, m_replaceFile), createIndex(matches.size()-1, 0, m_replaceFile));
+    dataChanged(createIndex(0, 0, m_replaceFile), createIndex(matches.size() - 1, 0, m_replaceFile));
 
     // free our moving ranges
     qDeleteAll(matchRanges);
@@ -417,7 +426,6 @@ void MatchModel::doReplaceNextMatch()
     m_replaceFile++;
     QTimer::singleShot(0, this, &MatchModel::doReplaceNextMatch);
 }
-
 
 /** Initiate a replace of all matches that have been checked */
 void MatchModel::replaceChecked(const QRegularExpression &regExp, const QString &replaceString)
@@ -461,13 +469,14 @@ QString MatchModel::infoHtmlString() const
 
     int matchesTotal = 0;
     int checkedTotal = 0;
-    for (const auto &matchFile: qAsConst(m_matchFiles)) {
+    for (const auto &matchFile : qAsConst(m_matchFiles)) {
         matchesTotal += matchFile.matches.size();
-        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {return match.checked;} );
+        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {
+            return match.checked;
+        });
     }
 
     if (m_searchState == Preparing) {
-
         if (m_lastSearchPath.size() >= 73) {
             return i18n("<b><i>Generating file list: ...%1</i></b>", m_lastSearchPath.right(70));
         } else {
@@ -479,7 +488,10 @@ QString MatchModel::infoHtmlString() const
         QString searchUrl = m_lastMatchUrl.toDisplayString(QUrl::PreferLocalFile);
 
         if (searchUrl.size() > 73) {
-            return i18np("<b><i>One match found, searching: ...%2</i></b>", "<b><i>%1 matches found, searching: ...%2</i></b>", matchesTotal, searchUrl.right(70));
+            return i18np("<b><i>One match found, searching: ...%2</i></b>",
+                         "<b><i>%1 matches found, searching: ...%2</i></b>",
+                         matchesTotal,
+                         searchUrl.right(70));
         } else {
             return i18np("<b><i>One match found, searching: %2</i></b>", "<b><i>%1 matches found, searching: %2</i></b>", matchesTotal, searchUrl);
         }
@@ -488,26 +500,38 @@ QString MatchModel::infoHtmlString() const
     QString checkedStr = i18np("One checked", "%1 checked", checkedTotal);
 
     switch (m_searchPlace) {
-        case CurrentFile:
-            return i18np("<b><i>One match (%2) found in file</i></b>", "<b><i>%1 matches (%2) found in current file</i></b>", matchesTotal, checkedStr);
-        case MatchModel::OpenFiles:
-            return i18np("<b><i>One match (%2) found in open files</i></b>", "<b><i>%1 matches (%2) found in open files</i></b>", matchesTotal, checkedStr);
-            break;
-        case MatchModel::Folder:
-            return i18np("<b><i>One match (%3) found in folder %2</i></b>", "<b><i>%1 matches (%3) found in folder %2</i></b>", matchesTotal, m_resultBaseDir, checkedStr);
-            break;
-        case MatchModel::Project: {
-            return i18np("<b><i>One match (%4) found in project %2 (%3)</i></b>", "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>", matchesTotal, m_projectName, m_resultBaseDir, checkedStr);
-            break;
-        }
-        case MatchModel::AllProjects: // "in Open Projects"
-            return i18np("<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>", "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>", matchesTotal, m_resultBaseDir, checkedStr);
-            break;
+    case CurrentFile:
+        return i18np("<b><i>One match (%2) found in file</i></b>", "<b><i>%1 matches (%2) found in current file</i></b>", matchesTotal, checkedStr);
+    case MatchModel::OpenFiles:
+        return i18np("<b><i>One match (%2) found in open files</i></b>", "<b><i>%1 matches (%2) found in open files</i></b>", matchesTotal, checkedStr);
+        break;
+    case MatchModel::Folder:
+        return i18np("<b><i>One match (%3) found in folder %2</i></b>",
+                     "<b><i>%1 matches (%3) found in folder %2</i></b>",
+                     matchesTotal,
+                     m_resultBaseDir,
+                     checkedStr);
+        break;
+    case MatchModel::Project: {
+        return i18np("<b><i>One match (%4) found in project %2 (%3)</i></b>",
+                     "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>",
+                     matchesTotal,
+                     m_projectName,
+                     m_resultBaseDir,
+                     checkedStr);
+        break;
+    }
+    case MatchModel::AllProjects: // "in Open Projects"
+        return i18np("<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>",
+                     "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>",
+                     matchesTotal,
+                     m_resultBaseDir,
+                     checkedStr);
+        break;
     }
 
     return QString();
 }
-
 
 QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
 {
@@ -521,7 +545,6 @@ QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
     return tmpStr;
 }
 
-
 QString MatchModel::matchToHtmlString(const Match &match) const
 {
     QString pre = match.preMatchStr;
@@ -530,19 +553,18 @@ QString MatchModel::matchToHtmlString(const Match &match) const
     }
     pre = pre.toHtmlEscaped();
 
-    QString matchStr = match.matchStr.toHtmlEscaped();;
+    QString matchStr = match.matchStr.toHtmlEscaped();
+    ;
 
     QString replaceStr = match.replaceText.toHtmlEscaped();
 
     if (!replaceStr.isEmpty()) {
         matchStr = QLatin1String("<i><s>") + matchStr + QLatin1String("</s></i> ");
     }
-    matchStr = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>")
-    .arg(m_searchBackgroundColor, m_foregroundColor, matchStr);
+    matchStr = QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_searchBackgroundColor, m_foregroundColor, matchStr);
 
     if (!replaceStr.isEmpty()) {
-        matchStr += QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>")
-        .arg(m_replaceHighlightColor, m_foregroundColor, replaceStr);
+        matchStr += QStringLiteral("<span style=\"background-color:%1; color:%2;\">%3</span>").arg(m_replaceHighlightColor, m_foregroundColor, replaceStr);
     }
 
     matchStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
@@ -554,19 +576,19 @@ QString MatchModel::matchToHtmlString(const Match &match) const
         post = post.mid(0, nlIndex);
     }
     if (post.size() == PostContextLen) {
-        post.replace(PostContextLen-3, 3, QLatin1String("..."));
+        post.replace(PostContextLen - 3, 3, QLatin1String("..."));
     }
     post = post.toHtmlEscaped();
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
     QString displayText = QStringLiteral("<span style=\"color:%1;\">&nbsp;<b>%2:%3</b></span>&nbsp;")
-    .arg(m_foregroundColor)
-    .arg(nbsFormated(match.range.start().line() + 1, 3))
-    .arg(nbsFormated(match.range.start().column() + 1, 3)) + pre + matchStr + post;
+                              .arg(m_foregroundColor)
+                              .arg(nbsFormated(match.range.start().line() + 1, 3))
+                              .arg(nbsFormated(match.range.start().column() + 1, 3))
+        + pre + matchStr + post;
 
     return displayText;
 }
-
 
 QString MatchModel::infoToPlainText() const
 {
@@ -576,13 +598,14 @@ QString MatchModel::infoToPlainText() const
 
     int matchesTotal = 0;
     int checkedTotal = 0;
-    for (const auto &matchFile: qAsConst(m_matchFiles)) {
+    for (const auto &matchFile : qAsConst(m_matchFiles)) {
         matchesTotal += matchFile.matches.size();
-        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {return match.checked;} );
+        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {
+            return match.checked;
+        });
     }
 
     if (m_searchState == Preparing) {
-
         if (m_lastSearchPath.size() >= 73) {
             return i18n("Generating file list: ...%1", m_lastSearchPath.right(70));
         } else {
@@ -603,26 +626,34 @@ QString MatchModel::infoToPlainText() const
     QString checkedStr = i18np("One checked", "%1 checked", checkedTotal);
 
     switch (m_searchPlace) {
-        case CurrentFile:
-            return i18np("One match (%2) found in file", "%1 matches (%2) found in current file", matchesTotal, checkedStr);
-        case MatchModel::OpenFiles:
-            return i18np("One match (%2) found in open files", "%1 matches (%2) found in open files", matchesTotal, checkedStr);
-            break;
-        case MatchModel::Folder:
-            return i18np("One match (%3) found in folder %2", "%1 matches (%3) found in folder %2", matchesTotal, m_resultBaseDir, checkedStr);
-            break;
-        case MatchModel::Project: {
-            return i18np("One match (%4) found in project %2 (%3)", "%1 matches (%4) found in project %2 (%3)", matchesTotal, m_projectName, m_resultBaseDir, checkedStr);
-            break;
-        }
-        case MatchModel::AllProjects: // "in Open Projects"
-            return i18np("One match (%3) found in all open projects (common parent: %2)", "%1 matches (%3) found in all open projects (common parent: %2)", matchesTotal, m_resultBaseDir, checkedStr);
-            break;
+    case CurrentFile:
+        return i18np("One match (%2) found in file", "%1 matches (%2) found in current file", matchesTotal, checkedStr);
+    case MatchModel::OpenFiles:
+        return i18np("One match (%2) found in open files", "%1 matches (%2) found in open files", matchesTotal, checkedStr);
+        break;
+    case MatchModel::Folder:
+        return i18np("One match (%3) found in folder %2", "%1 matches (%3) found in folder %2", matchesTotal, m_resultBaseDir, checkedStr);
+        break;
+    case MatchModel::Project: {
+        return i18np("One match (%4) found in project %2 (%3)",
+                     "%1 matches (%4) found in project %2 (%3)",
+                     matchesTotal,
+                     m_projectName,
+                     m_resultBaseDir,
+                     checkedStr);
+        break;
+    }
+    case MatchModel::AllProjects: // "in Open Projects"
+        return i18np("One match (%3) found in all open projects (common parent: %2)",
+                     "%1 matches (%3) found in all open projects (common parent: %2)",
+                     matchesTotal,
+                     m_resultBaseDir,
+                     checkedStr);
+        break;
     }
 
     return QString();
 }
-
 
 QString MatchModel::fileToPlainText(const MatchFile &matchFile) const
 {
@@ -636,10 +667,9 @@ QString MatchModel::fileToPlainText(const MatchFile &matchFile) const
     return tmpStr;
 }
 
-
 QString MatchModel::matchToPlainText(const Match &match) const
 {
-    QString pre =match.preMatchStr;
+    QString pre = match.preMatchStr;
 
     QString matchStr = match.matchStr;
     matchStr.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
@@ -657,18 +687,18 @@ QString MatchModel::matchToPlainText(const Match &match) const
     replaceStr.replace(QLatin1Char('\t'), QStringLiteral("\\t"));
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-    QString displayText = QStringLiteral("%1:%2: ")
-    .arg(match.range.start().line() + 1, 3)
-    .arg(match.range.start().column() + 1, 3) + pre + matchStr + post;
+    QString displayText = QStringLiteral("%1:%2: ").arg(match.range.start().line() + 1, 3).arg(match.range.start().column() + 1, 3) + pre + matchStr + post;
     return displayText;
 }
 
-
 bool MatchModel::isMatch(const QModelIndex &itemIndex) const
 {
-    if (!itemIndex.isValid()) return false;
-    if (itemIndex.internalId() == InfoItemId) return false;
-    if (itemIndex.internalId() == FileItemId) return false;
+    if (!itemIndex.isValid())
+        return false;
+    if (itemIndex.internalId() == InfoItemId)
+        return false;
+    if (itemIndex.internalId() == FileItemId)
+        return false;
 
     return true;
 }
@@ -676,28 +706,32 @@ bool MatchModel::isMatch(const QModelIndex &itemIndex) const
 QModelIndex MatchModel::fileIndex(const QUrl &url) const
 {
     int row = matchFileRow(url);
-    if (row == -1) return QModelIndex();
+    if (row == -1)
+        return QModelIndex();
     return createIndex(row, 0, FileItemId);
 }
 
 QModelIndex MatchModel::firstMatch() const
 {
-    if (m_matchFiles.isEmpty()) return QModelIndex();
+    if (m_matchFiles.isEmpty())
+        return QModelIndex();
 
     return createIndex(0, 0, static_cast<quintptr>(0));
 }
 
 QModelIndex MatchModel::lastMatch() const
 {
-    if (m_matchFiles.isEmpty()) return QModelIndex();
+    if (m_matchFiles.isEmpty())
+        return QModelIndex();
     const MatchFile &matchFile = m_matchFiles.constLast();
-    return createIndex(matchFile.matches.size()-1, 0, m_matchFiles.size()-1);
+    return createIndex(matchFile.matches.size() - 1, 0, m_matchFiles.size() - 1);
 }
 
 QModelIndex MatchModel::firstFileMatch(const QUrl &url) const
 {
     int row = matchFileRow(url);
-    if (row == -1) return QModelIndex();
+    if (row == -1)
+        return QModelIndex();
 
     // if a file is in the vector it has a match
     return createIndex(0, 0, row);
@@ -706,15 +740,18 @@ QModelIndex MatchModel::firstFileMatch(const QUrl &url) const
 QModelIndex MatchModel::closestMatchAfter(const QUrl &url, const KTextEditor::Cursor &cursor) const
 {
     int row = matchFileRow(url);
-    if (row < 0) return QModelIndex();
-    if (row >= m_matchFiles.size()) return QModelIndex();
-    if (!cursor.isValid()) return QModelIndex();
+    if (row < 0)
+        return QModelIndex();
+    if (row >= m_matchFiles.size())
+        return QModelIndex();
+    if (!cursor.isValid())
+        return QModelIndex();
 
     // if a file is in the vector it has a match
     const MatchFile &matchFile = m_matchFiles[row];
 
-    int i=0;
-    for (; i<matchFile.matches.size()-1; ++i) {
+    int i = 0;
+    for (; i < matchFile.matches.size() - 1; ++i) {
         if (matchFile.matches[i].range.end() >= cursor) {
             break;
         }
@@ -726,15 +763,18 @@ QModelIndex MatchModel::closestMatchAfter(const QUrl &url, const KTextEditor::Cu
 QModelIndex MatchModel::closestMatchBefore(const QUrl &url, const KTextEditor::Cursor &cursor) const
 {
     int row = matchFileRow(url);
-    if (row < 0) return QModelIndex();
-    if (row >= m_matchFiles.size()) return QModelIndex();
-    if (!cursor.isValid()) return QModelIndex();
+    if (row < 0)
+        return QModelIndex();
+    if (row >= m_matchFiles.size())
+        return QModelIndex();
+    if (!cursor.isValid())
+        return QModelIndex();
 
     // if a file is in the vector it has a match
     const MatchFile &matchFile = m_matchFiles[row];
 
-    int i=matchFile.matches.size()-1;
-    for (; i>=0; --i) {
+    int i = matchFile.matches.size() - 1;
+    for (; i >= 0; --i) {
         if (matchFile.matches[i].range.start() <= cursor) {
             break;
         }
@@ -745,7 +785,8 @@ QModelIndex MatchModel::closestMatchBefore(const QUrl &url, const KTextEditor::C
 
 QModelIndex MatchModel::nextMatch(const QModelIndex &itemIndex) const
 {
-    if (!itemIndex.isValid()) return firstMatch();
+    if (!itemIndex.isValid())
+        return firstMatch();
 
     int fileRow = itemIndex.internalId() < FileItemId ? itemIndex.internalId() : itemIndex.row();
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
@@ -767,7 +808,8 @@ QModelIndex MatchModel::nextMatch(const QModelIndex &itemIndex) const
 
 QModelIndex MatchModel::prevMatch(const QModelIndex &itemIndex) const
 {
-    if (!itemIndex.isValid()) return lastMatch();
+    if (!itemIndex.isValid())
+        return lastMatch();
 
     int fileRow = itemIndex.internalId() < FileItemId ? itemIndex.internalId() : itemIndex.row();
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
@@ -780,10 +822,10 @@ QModelIndex MatchModel::prevMatch(const QModelIndex &itemIndex) const
         fileRow--;
     }
     if (fileRow < 0) {
-        fileRow = m_matchFiles.size()-1;
+        fileRow = m_matchFiles.size() - 1;
     }
     if (matchRow < 0) {
-        matchRow = m_matchFiles[fileRow].matches.size()-1;
+        matchRow = m_matchFiles[fileRow].matches.size() - 1;
     }
     return createIndex(matchRow, 0, fileRow);
 }
@@ -803,12 +845,12 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
     if (fileRow == -1) {
         // Info Item
         switch (role) {
-            case Qt::DisplayRole:
-                return infoHtmlString();
-            case PlainTextRole:
-                return infoToPlainText();
-            case Qt::CheckStateRole:
-                return m_infoCheckState;
+        case Qt::DisplayRole:
+            return infoHtmlString();
+        case PlainTextRole:
+            return infoToPlainText();
+        case Qt::CheckStateRole:
+            return m_infoCheckState;
         }
         return QVariant();
     }
@@ -821,71 +863,68 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
     if (matchRow < 0) {
         // File item
         switch (role) {
-            case Qt::DisplayRole:
-                return fileToHtmlString(m_matchFiles[fileRow]);
-            case Qt::CheckStateRole:
-                return m_matchFiles[fileRow].checkState;
-            case FileUrlRole:
-                return m_matchFiles[fileRow].fileUrl;
-            case PlainTextRole:
-                return fileToPlainText(m_matchFiles[fileRow]);
+        case Qt::DisplayRole:
+            return fileToHtmlString(m_matchFiles[fileRow]);
+        case Qt::CheckStateRole:
+            return m_matchFiles[fileRow].checkState;
+        case FileUrlRole:
+            return m_matchFiles[fileRow].fileUrl;
+        case PlainTextRole:
+            return fileToPlainText(m_matchFiles[fileRow]);
         }
-    }
-    else if (matchRow < m_matchFiles[fileRow].matches.size()) {
+    } else if (matchRow < m_matchFiles[fileRow].matches.size()) {
         // Match
         const Match &match = m_matchFiles[fileRow].matches[matchRow];
         switch (role) {
-            case Qt::DisplayRole:
-                return matchToHtmlString(match);
-            case Qt::CheckStateRole:
-                return match.checked ? Qt::Checked : Qt::Unchecked;
-            case FileUrlRole:
-                return m_matchFiles[fileRow].fileUrl;
-            case StartLineRole:
-                return match.range.start().line();
-            case StartColumnRole:
-                return match.range.start().column();
-            case EndLineRole:
-                return match.range.end().line();
-            case EndColumnRole:
-                return match.range.end().column();
-            case PreMatchRole:
-                return match.preMatchStr;
-            case MatchRole:
-                return match.matchStr;
-            case PostMatchRole:
-                return match.postMatchStr;
-            case ReplacedRole:
-                return !match.replaceText.isEmpty();
-            case ReplaceTextRole:
-                return match.replaceText;
-            case PlainTextRole:
-                return matchToPlainText(match);
+        case Qt::DisplayRole:
+            return matchToHtmlString(match);
+        case Qt::CheckStateRole:
+            return match.checked ? Qt::Checked : Qt::Unchecked;
+        case FileUrlRole:
+            return m_matchFiles[fileRow].fileUrl;
+        case StartLineRole:
+            return match.range.start().line();
+        case StartColumnRole:
+            return match.range.start().column();
+        case EndLineRole:
+            return match.range.end().line();
+        case EndColumnRole:
+            return match.range.end().column();
+        case PreMatchRole:
+            return match.preMatchStr;
+        case MatchRole:
+            return match.matchStr;
+        case PostMatchRole:
+            return match.postMatchStr;
+        case ReplacedRole:
+            return !match.replaceText.isEmpty();
+        case ReplaceTextRole:
+            return match.replaceText;
+        case PlainTextRole:
+            return matchToPlainText(match);
         }
-    }
-    else {
+    } else {
         qDebug() << "bad index";
         return QVariant();
     }
-
 
     return QVariant();
 }
 
 bool MatchModel::setFileChecked(int fileRow, bool checked)
 {
-    if (fileRow < 0 || fileRow >= m_matchFiles.size()) return false;
+    if (fileRow < 0 || fileRow >= m_matchFiles.size())
+        return false;
     QVector<Match> &matches = m_matchFiles[fileRow].matches;
     for (int i = 0; i < matches.size(); ++i) {
         matches[i].checked = checked;
     }
     m_matchFiles[fileRow].checkState = checked ? Qt::Checked : Qt::Unchecked;
     QModelIndex rootFileIndex = index(fileRow, 0, createIndex(0, 0, InfoItemId));
-    dataChanged(index(0, 0, rootFileIndex), index(matches.count()-1, 0, rootFileIndex), QVector<int>(Qt::CheckStateRole));
+    dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex), QVector<int>(Qt::CheckStateRole));
     dataChanged(rootFileIndex, rootFileIndex, QVector<int>(Qt::CheckStateRole));
     return true;
 }
-
 
 bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int role)
 {
@@ -899,7 +938,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     // Check/un-check the File Item and it's children
     if (itemIndex.internalId() == InfoItemId) {
         bool checked = m_infoCheckState != Qt::Checked;
-        for (int i=0; i<m_matchFiles.size(); ++i) {
+        for (int i = 0; i < m_matchFiles.size(); ++i) {
             setFileChecked(i, checked);
         }
         m_infoCheckState = checked ? Qt::Checked : Qt::Unchecked;
@@ -908,16 +947,16 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
         return true;
     }
 
-
     if (itemIndex.internalId() == FileItemId) {
         int fileRrow = itemIndex.row();
-        if (fileRrow < 0 || fileRrow >= m_matchFiles.size()) return false;
+        if (fileRrow < 0 || fileRrow >= m_matchFiles.size())
+            return false;
         bool checked = m_matchFiles[fileRrow].checkState != Qt::Checked; // we toggle the current value
         setFileChecked(fileRrow, checked);
 
         // compare file items
         Qt::CheckState checkState = m_matchFiles[0].checkState;
-        for (int i=1; i<m_matchFiles.size(); ++i) {
+        for (int i = 1; i < m_matchFiles.size(); ++i) {
             if (checkState != m_matchFiles[i].checkState) {
                 checkState = Qt::PartiallyChecked;
                 break;
@@ -941,15 +980,15 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     // we toggle the current value
     matches[row].checked = !matches[row].checked;
 
-    int checkedCount = std::count_if(matches.begin(), matches.end(), [](const KateSearchMatch &match) {return match.checked;});
+    int checkedCount = std::count_if(matches.begin(), matches.end(), [](const KateSearchMatch &match) {
+        return match.checked;
+    });
 
     if (checkedCount == matches.size()) {
         m_matchFiles[rootRow].checkState = Qt::Checked;
-    }
-    else if (checkedCount == 0) {
+    } else if (checkedCount == 0) {
         m_matchFiles[rootRow].checkState = Qt::Unchecked;
-    }
-    else {
+    } else {
         m_matchFiles[rootRow].checkState = Qt::PartiallyChecked;
     }
 
@@ -975,9 +1014,7 @@ Qt::ItemFlags MatchModel::flags(const QModelIndex &index) const
 int MatchModel::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid()) {
-        return (m_matchFiles.isEmpty() &&
-        m_searchState == SearchDone &&
-        m_lastMatchUrl.isEmpty()) ? 0 : 1;
+        return (m_matchFiles.isEmpty() && m_searchState == SearchDone && m_lastMatchUrl.isEmpty()) ? 0 : 1;
     }
 
     if (parent.internalId() == InfoItemId) {

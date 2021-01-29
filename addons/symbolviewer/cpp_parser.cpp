@@ -201,7 +201,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                     }
 
                     // Skip char declarations that could be interpreted as range start/end
-                    if (((cl.indexOf(QLatin1String("'\"'"), j) == j) || (cl.indexOf(QLatin1String("'{'"), j) == j) || (cl.indexOf(QLatin1String("'}'"), j) == j)) && comment != 3) {
+                    if (((cl.indexOf(QLatin1String("'\"'"), j) == j) || (cl.indexOf(QLatin1String("'{'"), j) == j)
+                         || (cl.indexOf(QLatin1String("'}'"), j) == j))
+                        && comment != 3) {
                         j += 3;
                         if (j >= cl.length())
                             break;
@@ -252,7 +254,8 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                 break;
                             }
 
-                            if ((cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char(';')) < 0) || (cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char('}')) > j)) {
+                            if ((cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char(';')) < 0)
+                                || (cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char('}')) > j)) {
                                 stripped.replace(0x9, QLatin1String(" "));
                                 if (m_func->isChecked()) {
                                     QString strippedWithTypes = stripped;
@@ -347,10 +350,10 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                             if (cl.at(j) >= 0x20)
                                 stripped += cl.at(j);
                         } // BLOCK 4
-                    }     // comment != 2
-                          // qDebug(13000)<<"Stripped : "<<stripped<<" at row : "<<i;
-                }         // End of For cycle
-            }             // BLOCK > 0
+                    } // comment != 2
+                      // qDebug(13000)<<"Stripped : "<<stripped<<" at row : "<<i;
+                } // End of For cycle
+            } // BLOCK > 0
             if (mclass == 4 && block == 0 && func_close == 0) {
                 if (cl.indexOf(QLatin1Char('}')) >= 0) {
                     cl = cl.mid(cl.indexOf(QLatin1Char('}')));
@@ -358,7 +361,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                 }
             }
         } // Comment != 1
-    }     // for kv->numlines
+    } // for kv->numlines
 
     // for (i= 0; i < (m_symbols->itemIndex(node) + 1); i++)
     //    qDebug(13000)<<"Symbol row :"<<positions.at(i);

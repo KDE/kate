@@ -32,7 +32,10 @@
 #include <vector>
 
 // BEGIN KateExternalToolsMenuAction
-KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString &text, KActionCollection *collection, KateExternalToolsPlugin *plugin, KTextEditor::MainWindow *mw)
+KateExternalToolsMenuAction::KateExternalToolsMenuAction(const QString &text,
+                                                         KActionCollection *collection,
+                                                         KateExternalToolsPlugin *plugin,
+                                                         KTextEditor::MainWindow *mw)
     : KActionMenu(text, mw)
     , m_plugin(plugin)
     , m_mainwindow(mw)
@@ -66,7 +69,9 @@ void KateExternalToolsMenuAction::reload()
             a->setIcon(QIcon::fromTheme(tool->icon));
             a->setData(QVariant::fromValue(tool));
 
-            connect(a, &QAction::triggered, [this, a]() { m_plugin->runTool(*a->data().value<KateExternalTool *>(), m_mainwindow->activeView()); });
+            connect(a, &QAction::triggered, [this, a]() {
+                m_plugin->runTool(*a->data().value<KateExternalTool *>(), m_mainwindow->activeView());
+            });
 
             m_actionCollection->addAction(tool->actionName, a);
             if (!tool->category.isEmpty()) {
@@ -109,7 +114,7 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View *view)
     }
 
     disconnect(m_docUrlChangedConnection);
-    m_docUrlChangedConnection = connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, [this](KTextEditor::Document* doc) {
+    m_docUrlChangedConnection = connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, [this](KTextEditor::Document *doc) {
         updateActionState(doc);
     });
 
@@ -195,7 +200,11 @@ KTextEditor::MainWindow *KateExternalToolsPluginView::mainWindow() const
 void KateExternalToolsPluginView::createToolView()
 {
     if (!m_toolView) {
-        m_toolView = mainWindow()->createToolView(m_plugin, QStringLiteral("ktexteditor_plugin_externaltools"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"));
+        m_toolView = mainWindow()->createToolView(m_plugin,
+                                                  QStringLiteral("ktexteditor_plugin_externaltools"),
+                                                  KTextEditor::MainWindow::Bottom,
+                                                  QIcon::fromTheme(QStringLiteral("system-run")),
+                                                  i18n("External Tools"));
 
         m_ui = new Ui::ToolView();
         m_ui->setupUi(m_toolView);

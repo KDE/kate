@@ -120,7 +120,11 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     KXMLGUIClient::setComponentName(QStringLiteral("katefiletree"), i18n("Kate File Tree"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    m_toolView = mainWindow->createToolView(plug, QStringLiteral("kate_private_plugin_katefiletreeplugin"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QStringLiteral("document-open")), i18n("Documents"));
+    m_toolView = mainWindow->createToolView(plug,
+                                            QStringLiteral("kate_private_plugin_katefiletreeplugin"),
+                                            KTextEditor::MainWindow::Left,
+                                            QIcon::fromTheme(QStringLiteral("document-open")),
+                                            i18n("Documents"));
 
     // create toolbar
     m_toolbar = new KToolBar(m_toolView);
@@ -162,17 +166,31 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
         }
     });
 
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, m_documentModel, &KateFileTreeModel::documentClosed);
+    connect(KTextEditor::Editor::instance()->application(),
+            &KTextEditor::Application::documentWillBeDeleted,
+            m_documentModel,
+            &KateFileTreeModel::documentClosed);
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KateFileTreePluginView::documentOpened);
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, this, &KateFileTreePluginView::documentClosed);
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToCreateDocuments, this, &KateFileTreePluginView::slotAboutToCreateDocuments);
+    connect(KTextEditor::Editor::instance()->application(),
+            &KTextEditor::Application::aboutToCreateDocuments,
+            this,
+            &KateFileTreePluginView::slotAboutToCreateDocuments);
 
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentsCreated, this, &KateFileTreePluginView::slotDocumentsCreated);
 
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::aboutToDeleteDocuments, m_documentModel, &KateFileTreeModel::slotAboutToDeleteDocuments);
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentsDeleted, m_documentModel, &KateFileTreeModel::slotDocumentsDeleted);
+    connect(KTextEditor::Editor::instance()->application(),
+            &KTextEditor::Application::aboutToDeleteDocuments,
+            m_documentModel,
+            &KateFileTreeModel::slotAboutToDeleteDocuments);
+    connect(KTextEditor::Editor::instance()->application(),
+            &KTextEditor::Application::documentsDeleted,
+            m_documentModel,
+            &KateFileTreeModel::slotDocumentsDeleted);
 
-    connect(m_documentModel, &KateFileTreeModel::triggerViewChangeAfterNameChange, [=] { KateFileTreePluginView::viewChanged(); });
+    connect(m_documentModel, &KateFileTreeModel::triggerViewChangeAfterNameChange, [=] {
+        KateFileTreePluginView::viewChanged();
+    });
 
     m_fileTree->setModel(m_proxyModel);
 

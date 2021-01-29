@@ -128,7 +128,11 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     KXMLGUIClient::setComponentName(QStringLiteral("katebuild"), i18n("Kate Build Plugin"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    m_toolView = mw->createToolView(plugin, QStringLiteral("kate_plugin_katebuildplugin"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")), i18n("Build Output"));
+    m_toolView = mw->createToolView(plugin,
+                                    QStringLiteral("kate_plugin_katebuildplugin"),
+                                    KTextEditor::MainWindow::Bottom,
+                                    QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
+                                    i18n("Build Output"));
 
     QAction *a = actionCollection()->addAction(QStringLiteral("select_target"));
     a->setText(i18n("Select Target..."));
@@ -462,7 +466,10 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
 
     // Check if the file exists
     if (!QFileInfo::exists(filename)) {
-        displayMessage(xi18nc("@info", "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to the working directory in the Target Settings", filename), KTextEditor::Message::Error);
+        displayMessage(xi18nc("@info",
+                              "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to the working directory in the Target Settings",
+                              filename),
+                       KTextEditor::Message::Error);
         return;
     }
 
@@ -480,8 +487,9 @@ void KateBuildView::addError(const QString &filename, const QString &line, const
     QTreeWidgetItem *item = new QTreeWidgetItem(m_buildUi.errTreeWidget);
     item->setBackground(1, Qt::gray);
     // The strings are twice in case kate is translated but not make.
-    if (message.contains(QLatin1String("error")) || message.contains(i18nc("The same word as 'make' uses to mark an error.", "error")) || message.contains(QLatin1String("undefined reference")) ||
-        message.contains(i18nc("The same word as 'ld' uses to mark an ...", "undefined reference"))) {
+    if (message.contains(QLatin1String("error")) || message.contains(i18nc("The same word as 'make' uses to mark an error.", "error"))
+        || message.contains(QLatin1String("undefined reference"))
+        || message.contains(i18nc("The same word as 'ld' uses to mark an ...", "undefined reference"))) {
         errorCategory = CategoryError;
         item->setForeground(1, Qt::red);
         m_numErrors++;
@@ -569,7 +577,7 @@ void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
         auto line = item->data(1, Qt::UserRole).toInt();
         if (mark) {
             ErrorCategory category = static_cast<ErrorCategory>(item->data(0, ErrorRole).toInt());
-            KTextEditor::MarkInterface::MarkTypes markType {};
+            KTextEditor::MarkInterface::MarkTypes markType{};
 
             switch (category) {
             case CategoryError: {
@@ -614,11 +622,23 @@ void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
 
     // ensure cleanup
     if (miface) {
-        auto conn = connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(slotInvalidateMoving(KTextEditor::Document *)), Qt::UniqueConnection);
-        conn = connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(slotInvalidateMoving(KTextEditor::Document *)), Qt::UniqueConnection);
+        auto conn = connect(doc,
+                            SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                            this,
+                            SLOT(slotInvalidateMoving(KTextEditor::Document *)),
+                            Qt::UniqueConnection);
+        conn = connect(doc,
+                       SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                       this,
+                       SLOT(slotInvalidateMoving(KTextEditor::Document *)),
+                       Qt::UniqueConnection);
     }
 
-    connect(doc, SIGNAL(markClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)), this, SLOT(slotMarkClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)), Qt::UniqueConnection);
+    connect(doc,
+            SIGNAL(markClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)),
+            this,
+            SLOT(slotMarkClicked(KTextEditor::Document *, KTextEditor::Mark, bool &)),
+            Qt::UniqueConnection);
 }
 
 void KateBuildView::slotInvalidateMoving(KTextEditor::Document *doc)

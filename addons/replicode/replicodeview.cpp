@@ -46,13 +46,21 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     actionCollection()->addAction(QStringLiteral("katereplicode_stop"), m_stopAction);
     m_stopAction->setEnabled(false);
 
-    m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katereplicodeplugin_run"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("code-block")), i18n("Replicode Output"));
+    m_toolview = m_mainWindow->createToolView(plugin,
+                                              QStringLiteral("kate_private_plugin_katereplicodeplugin_run"),
+                                              KTextEditor::MainWindow::Bottom,
+                                              QIcon::fromTheme(QStringLiteral("code-block")),
+                                              i18n("Replicode Output"));
     m_replicodeOutput = new QListWidget(m_toolview);
     m_replicodeOutput->setSelectionMode(QAbstractItemView::ContiguousSelection);
     connect(m_replicodeOutput, &QListWidget::itemActivated, this, &ReplicodeView::outputClicked);
     m_mainWindow->hideToolView(m_toolview);
 
-    m_configSidebar = m_mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katereplicodeplugin_config"), KTextEditor::MainWindow::Right, QIcon::fromTheme(QStringLiteral("code-block")), i18n("Replicode Config"));
+    m_configSidebar = m_mainWindow->createToolView(plugin,
+                                                   QStringLiteral("kate_private_plugin_katereplicodeplugin_config"),
+                                                   KTextEditor::MainWindow::Right,
+                                                   QIcon::fromTheme(QStringLiteral("code-block")),
+                                                   i18n("Replicode Config"));
     m_configView = new ReplicodeConfig(m_configSidebar);
 
     m_runButton = new QPushButton(i18nc("shortcut for action", "Run (%1)", m_runAction->shortcut().toString()));
@@ -77,7 +85,8 @@ ReplicodeView::~ReplicodeView()
 
 void ReplicodeView::viewChanged()
 {
-    if (m_mainWindow->activeView() && m_mainWindow->activeView()->document() && m_mainWindow->activeView()->document()->url().fileName().endsWith(QLatin1String(".replicode"))) {
+    if (m_mainWindow->activeView() && m_mainWindow->activeView()->document()
+        && m_mainWindow->activeView()->document()->url().fileName().endsWith(QLatin1String(".replicode"))) {
         m_mainWindow->showToolView(m_configSidebar);
     } else {
         m_mainWindow->hideToolView(m_configSidebar);

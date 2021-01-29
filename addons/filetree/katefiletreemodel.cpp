@@ -883,7 +883,9 @@ void KateFileTreeModel::updateBackgrounds(bool force)
 
             const int n = qMax(v + e, 1);
 
-            shade.setRgb(((shade.red() * v) + (eshade.red() * e)) / n, ((shade.green() * v) + (eshade.green() * e)) / n, ((shade.blue() * v) + (eshade.blue() * e)) / n);
+            shade.setRgb(((shade.red() * v) + (eshade.red() * e)) / n,
+                         ((shade.green() * v) + (eshade.green() * e)) / n,
+                         ((shade.blue() * v) + (eshade.blue() * e)) / n);
         }
 
         // blend in the shade color; latest is most colored.

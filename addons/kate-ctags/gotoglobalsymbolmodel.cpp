@@ -13,12 +13,12 @@ GotoGlobalSymbolModel::GotoGlobalSymbolModel(QObject *parent)
 {
 }
 
-int GotoGlobalSymbolModel::columnCount(const QModelIndex&) const
+int GotoGlobalSymbolModel::columnCount(const QModelIndex &) const
 {
     return 1;
 }
 
-int GotoGlobalSymbolModel::rowCount(const QModelIndex&) const
+int GotoGlobalSymbolModel::rowCount(const QModelIndex &) const
 {
     return m_rows.size();
 }

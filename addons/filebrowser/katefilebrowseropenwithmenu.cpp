@@ -10,7 +10,8 @@
 
 // BEGIN KateFileBrowserOpenWithMenu
 
-KateFileBrowserOpenWithMenu::KateFileBrowserOpenWithMenu(const QString &title, QWidget *parent) : QMenu(title, parent)
+KateFileBrowserOpenWithMenu::KateFileBrowserOpenWithMenu(const QString &title, QWidget *parent)
+    : QMenu(title, parent)
 {
 }
 

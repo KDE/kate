@@ -19,16 +19,15 @@
 #define SearchDiskFiles_h
 
 #include <QObject>
-#include <QStringList>
 #include <QRegularExpression>
 #include <QRunnable>
+#include <QStringList>
 
 #include "MatchModel.h"
 
 class QString;
 class QUrl;
 class QFile;
-
 
 class SearchDiskFiles : public QObject, public QRunnable
 {

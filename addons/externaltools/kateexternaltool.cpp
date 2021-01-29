@@ -141,8 +141,9 @@ QString KateExternalTool::translatedCategory() const
 
 bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs)
 {
-    return lhs.category == rhs.category && lhs.name == rhs.name && lhs.icon == rhs.icon && lhs.executable == rhs.executable && lhs.arguments == rhs.arguments && lhs.input == rhs.input && lhs.workingDir == rhs.workingDir &&
-        lhs.mimetypes == rhs.mimetypes && lhs.actionName == rhs.actionName && lhs.cmdname == rhs.cmdname && lhs.saveMode == rhs.saveMode && lhs.reload == rhs.reload && lhs.outputMode == rhs.outputMode;
+    return lhs.category == rhs.category && lhs.name == rhs.name && lhs.icon == rhs.icon && lhs.executable == rhs.executable && lhs.arguments == rhs.arguments
+        && lhs.input == rhs.input && lhs.workingDir == rhs.workingDir && lhs.mimetypes == rhs.mimetypes && lhs.actionName == rhs.actionName
+        && lhs.cmdname == rhs.cmdname && lhs.saveMode == rhs.saveMode && lhs.reload == rhs.reload && lhs.outputMode == rhs.outputMode;
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

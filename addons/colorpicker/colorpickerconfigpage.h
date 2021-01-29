@@ -37,7 +37,7 @@ public:
 private:
     QCheckBox *chkNamedColors;
     QCheckBox *chkPreviewAfterColor;
-    QMap <int, QCheckBox*> chkHexLengths;
+    QMap<int, QCheckBox *> chkHexLengths;
     KateColorPickerPlugin *m_plugin;
     bool m_colorConfigChanged = false;
 };

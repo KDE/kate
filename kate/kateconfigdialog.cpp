@@ -18,7 +18,6 @@
 #include "katesessionmanager.h"
 #include "kateviewmanager.h"
 
-
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -162,7 +161,10 @@ void KateConfigDialog::addSessionPage()
     sessionConfigUi.daysMetaInfos->setSpecialValueText(i18nc("The special case of 'Delete unused meta-information after'", "(never)"));
     sessionConfigUi.daysMetaInfos->setSuffix(ki18ncp("The suffix of 'Delete unused meta-information after'", " day", " days"));
     sessionConfigUi.daysMetaInfos->setValue(KateApp::self()->documentManager()->getDaysMetaInfos());
-    connect(sessionConfigUi.daysMetaInfos, static_cast<void (KPluralHandlingSpinBox::*)(int)>(&KPluralHandlingSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi.daysMetaInfos,
+            static_cast<void (KPluralHandlingSpinBox::*)(int)>(&KPluralHandlingSpinBox::valueChanged),
+            this,
+            &KateConfigDialog::slotChanged);
 
     // restore view  config
     sessionConfigUi.restoreVC->setChecked(cgGeneral.readEntry("Restore Window Configuration", true));
@@ -416,8 +418,12 @@ void KateConfigDialog::closeEvent(QCloseEvent *event)
         return;
     }
 
-    const auto response =
-        KMessageBox::warningYesNoCancel(this, i18n("You have unsaved changes. Do you want to apply the changes or discard them?"), i18n("Warning"), KStandardGuiItem::save(), KStandardGuiItem::discard(), KStandardGuiItem::cancel());
+    const auto response = KMessageBox::warningYesNoCancel(this,
+                                                          i18n("You have unsaved changes. Do you want to apply the changes or discard them?"),
+                                                          i18n("Warning"),
+                                                          KStandardGuiItem::save(),
+                                                          KStandardGuiItem::discard(),
+                                                          KStandardGuiItem::cancel());
     switch (response) {
     case KMessageBox::Yes:
         slotApply();

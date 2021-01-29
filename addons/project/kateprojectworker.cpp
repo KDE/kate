@@ -15,8 +15,8 @@
 #include <QRegularExpression>
 #include <QSet>
 #include <QSettings>
-#include <QTime>
 #include <QThread>
+#include <QTime>
 
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
     : m_baseDir(baseDir)
@@ -289,7 +289,8 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursiv
     }
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
+    const QStringList relFiles =
+        QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), QString::SkipEmptyParts);
 #else
     const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
 #endif

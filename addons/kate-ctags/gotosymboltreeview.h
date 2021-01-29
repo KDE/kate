@@ -7,7 +7,8 @@
 */
 #include <QTreeView>
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 class MainWindow;
 }
 
@@ -16,8 +17,7 @@ class GotoSymbolTreeView : public QTreeView
     Q_OBJECT
 
 public:
-
-    GotoSymbolTreeView(KTextEditor::MainWindow* mainWindow, QWidget* parent = nullptr);
+    GotoSymbolTreeView(KTextEditor::MainWindow *mainWindow, QWidget *parent = nullptr);
     int sizeHintWidth() const;
     void setGlobalMode(bool value)
     {
@@ -28,7 +28,7 @@ protected:
     void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
 
 private:
-    KTextEditor::MainWindow* m_mainWindow;
+    KTextEditor::MainWindow *m_mainWindow;
     bool globalMode = false;
 };
 

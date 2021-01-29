@@ -33,7 +33,7 @@ class SnippetFilterModel : public QSortFilterProxyModel
 {
 public:
     SnippetFilterModel(QObject *parent = nullptr)
-        : QSortFilterProxyModel(parent) {};
+        : QSortFilterProxyModel(parent){};
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
         auto index = sourceModel()->index(sourceRow, 0, sourceParent);
@@ -134,7 +134,9 @@ SnippetView::SnippetView(KateSnippetGlobal *plugin, KTextEditor::MainWindow *mai
     connect(snippetTree->selectionModel(), &QItemSelectionModel::selectionChanged, this, &SnippetView::validateActions);
     validateActions();
 
-    connect(snippetTree->model(), &QAbstractItemModel::rowsInserted, this, [this, mainWindow]() { setupActionsForWindow(mainWindow->window()); });
+    connect(snippetTree->model(), &QAbstractItemModel::rowsInserted, this, [this, mainWindow]() {
+        setupActionsForWindow(mainWindow->window());
+    });
 
     m_proxy->setDynamicSortFilter(true);
     m_proxy->sort(0, Qt::AscendingOrder);
@@ -298,7 +300,8 @@ void SnippetView::slotRemoveRepo()
     if (!repo)
         return;
 
-    int ans = KMessageBox::warningContinueCancel(QApplication::activeWindow(), i18n("Do you really want to delete the repository \"%1\" with all its snippets?", repo->text()));
+    int ans = KMessageBox::warningContinueCancel(QApplication::activeWindow(),
+                                                 i18n("Do you really want to delete the repository \"%1\" with all its snippets?", repo->text()));
     if (ans == KMessageBox::Continue) {
         repo->remove();
     }

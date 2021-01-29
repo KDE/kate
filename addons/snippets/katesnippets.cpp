@@ -48,7 +48,11 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     setXMLFile(QStringLiteral("ui.rc"));
 
     // Toolview for snippets
-    m_toolView = mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katesnippetsplugin"), KTextEditor::MainWindow::Right, QIcon::fromTheme(QStringLiteral("document-new")), i18n("Snippets"));
+    m_toolView = mainWindow->createToolView(plugin,
+                                            QStringLiteral("kate_private_plugin_katesnippetsplugin"),
+                                            KTextEditor::MainWindow::Right,
+                                            QIcon::fromTheme(QStringLiteral("document-new")),
+                                            i18n("Snippets"));
 
     // add snippets widget
     m_snippets = new SnippetView(KateSnippetGlobal::self(), mainWindow, m_toolView.data());

@@ -15,9 +15,9 @@
 
 #include <KFile>
 
+#include <QMenu>
 #include <QUrl>
 #include <QWidget>
-#include <QMenu>
 
 #include "katefilebrowseropenwithmenu.h"
 
@@ -82,7 +82,6 @@ private Q_SLOTS:
     void contextMenuAboutToShow(const KFileItem &item, QMenu *menu);
     void fixOpenWithMenu();
     void openWithMenuAction(QAction *a);
-
 
 protected:
     QUrl activeDocumentUrl();

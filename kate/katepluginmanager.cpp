@@ -49,7 +49,7 @@ KatePluginManager::~KatePluginManager()
 void KatePluginManager::setupPluginList()
 {
     // activate a hand-picked list of plugins per default, give them a hand-picked sort order for loading
-    const QMap<QString, int> defaultPlugins {
+    const QMap<QString, int> defaultPlugins{
         {QStringLiteral("katefiletreeplugin"), -1000},
         {QStringLiteral("katesearchplugin"), -900},
         {QStringLiteral("kateprojectplugin"), -800},
@@ -67,7 +67,9 @@ void KatePluginManager::setupPluginList()
     // handle all install KTextEditor plugins
     m_pluginList.clear();
     QSet<QString> unique;
-    const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"), [](const KPluginMetaData &md) { return md.serviceTypes().contains(QLatin1String("KTextEditor/Plugin")); });
+    const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"), [](const KPluginMetaData &md) {
+        return md.serviceTypes().contains(QLatin1String("KTextEditor/Plugin"));
+    });
     for (const auto &pluginMetaData : plugins) {
         KatePluginInfo info;
         info.metaData = pluginMetaData;

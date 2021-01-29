@@ -5,36 +5,39 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "gotosymbolwidget.h"
-#include "gotosymboltreeview.h"
-#include "gotosymbolmodel.h"
 #include "gotoglobalsymbolmodel.h"
-#include "tags.h"
+#include "gotosymbolmodel.h"
+#include "gotosymboltreeview.h"
 #include "kate_ctags_view.h"
+#include "tags.h"
 
-#include <QLineEdit>
-#include <QVBoxLayout>
-#include <QKeyEvent>
-#include <QScrollBar>
-#include <QSortFilterProxyModel>
 #include <QCoreApplication>
-#include <QStyledItemDelegate>
-#include <QTextDocument>
+#include <QKeyEvent>
+#include <QLineEdit>
 #include <QPainter>
 #include <QPropertyAnimation>
+#include <QScrollBar>
+#include <QSortFilterProxyModel>
+#include <QStyledItemDelegate>
+#include <QTextDocument>
+#include <QVBoxLayout>
 
 #include <KTextEditor/MainWindow>
-#include <KTextEditor/View>
 #include <KTextEditor/Message>
+#include <KTextEditor/View>
 
-class QuickOpenFilterProxyModel : public QSortFilterProxyModel {
+class QuickOpenFilterProxyModel : public QSortFilterProxyModel
+{
 public:
-    QuickOpenFilterProxyModel(QObject *parent = nullptr) : QSortFilterProxyModel(parent)
-    {}
+    QuickOpenFilterProxyModel(QObject *parent = nullptr)
+        : QSortFilterProxyModel(parent)
+    {
+    }
 
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
         const QString fileName = sourceModel()->index(sourceRow, 0, sourceParent).data().toString();
-        for (const QString& str : m_filterStrings) {
+        for (const QString &str : m_filterStrings) {
             if (!fileName.contains(str, Qt::CaseInsensitive)) {
                 return false;
             }
@@ -48,13 +51,13 @@ public:
     }
 
 public Q_SLOTS:
-    void setFilterText(const QString& text)
+    void setFilterText(const QString &text)
     {
-        #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         m_filterStrings = text.split(QLatin1Char(' '), QString::SkipEmptyParts);
-        #else
+#else
         m_filterStrings = text.split(QLatin1Char(' '), Qt::SkipEmptyParts);
-        #endif
+#endif
 
         invalidateFilter();
     }
@@ -63,12 +66,13 @@ private:
     QStringList m_filterStrings;
 };
 
-class GotoStyleDelegate : public QStyledItemDelegate {
-
+class GotoStyleDelegate : public QStyledItemDelegate
+{
 public:
-    GotoStyleDelegate(QObject* parent = nullptr)
+    GotoStyleDelegate(QObject *parent = nullptr)
         : QStyledItemDelegate(parent)
-    {}
+    {
+    }
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
     {
@@ -78,13 +82,14 @@ public:
         QTextDocument doc;
 
         QString str = index.data().toString();
-        for (const auto& string : m_filterStrings) {
+        for (const auto &string : m_filterStrings) {
             // FIXME: This will skip the letter 'b' if the string
             // has only one letter so that we don't match inside
             // <b> tags.
             if (string == QLatin1String("b"))
                 continue;
-            const QRegularExpression re (QStringLiteral("(")+QRegularExpression::escape(string)+QStringLiteral(")"), QRegularExpression::CaseInsensitiveOption);
+            const QRegularExpression re(QStringLiteral("(") + QRegularExpression::escape(string) + QStringLiteral(")"),
+                                        QRegularExpression::CaseInsensitiveOption);
             str.replace(re, QStringLiteral("<b>\\1</b>"));
         }
 
@@ -119,24 +124,24 @@ public:
     }
 
 public Q_SLOTS:
-    void setFilterStrings(const QString& text)
+    void setFilterStrings(const QString &text)
     {
-        #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         m_filterStrings = text.split(QLatin1Char(' '), QString::SkipEmptyParts);
-        #else
+#else
         m_filterStrings = text.split(QLatin1Char(' '), Qt::SkipEmptyParts);
-        #endif
+#endif
     }
 
 private:
     QStringList m_filterStrings;
 };
 
-GotoSymbolWidget::GotoSymbolWidget(KTextEditor::MainWindow* mainWindow, KateCTagsView *pluginView, QWidget *widget)
-    : QWidget(widget),
-      ctagsPluginView(pluginView),
-      m_mainWindow(mainWindow),
-      oldPos(-1, -1)
+GotoSymbolWidget::GotoSymbolWidget(KTextEditor::MainWindow *mainWindow, KateCTagsView *pluginView, QWidget *widget)
+    : QWidget(widget)
+    , ctagsPluginView(pluginView)
+    , m_mainWindow(mainWindow)
+    , oldPos(-1, -1)
 {
     setWindowFlags(Qt::FramelessWindowHint);
 
@@ -164,7 +169,9 @@ GotoSymbolWidget::GotoSymbolWidget(KTextEditor::MainWindow* mainWindow, KateCTag
 
     connect(m_lineEdit, &QLineEdit::textChanged, m_proxyModel, &QuickOpenFilterProxyModel::setFilterText);
     connect(m_lineEdit, &QLineEdit::textChanged, m_styleDelegate, &GotoStyleDelegate::setFilterStrings);
-    connect(m_lineEdit, &QLineEdit::textChanged, this, [this](){ m_treeView->viewport()->update(); });
+    connect(m_lineEdit, &QLineEdit::textChanged, this, [this]() {
+        m_treeView->viewport()->update();
+    });
     connect(m_lineEdit, &QLineEdit::textChanged, this, &GotoSymbolWidget::loadGlobalSymbols);
     connect(m_lineEdit, &QLineEdit::returnPressed, this, &GotoSymbolWidget::slotReturnPressed);
 
@@ -188,7 +195,8 @@ bool GotoSymbolWidget::eventFilter(QObject *obj, QEvent *event)
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::ShortcutOverride) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == m_lineEdit) {
-            const bool forward2list = (keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp) || (keyEvent->key() == Qt::Key_PageDown);
+            const bool forward2list = (keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp)
+                || (keyEvent->key() == Qt::Key_PageDown);
             if (forward2list) {
                 QCoreApplication::sendEvent(m_treeView, event);
                 return true;
@@ -204,8 +212,8 @@ bool GotoSymbolWidget::eventFilter(QObject *obj, QEvent *event)
                 return true;
             }
         } else {
-            const bool forward2input = (keyEvent->key() != Qt::Key_Up) && (keyEvent->key() != Qt::Key_Down) && (keyEvent->key() != Qt::Key_PageUp) && (keyEvent->key() != Qt::Key_PageDown) && (keyEvent->key() != Qt::Key_Tab) &&
-                (keyEvent->key() != Qt::Key_Backtab);
+            const bool forward2input = (keyEvent->key() != Qt::Key_Up) && (keyEvent->key() != Qt::Key_Down) && (keyEvent->key() != Qt::Key_PageUp)
+                && (keyEvent->key() != Qt::Key_PageDown) && (keyEvent->key() != Qt::Key_Tab) && (keyEvent->key() != Qt::Key_Backtab);
             if (forward2input) {
                 QCoreApplication::sendEvent(m_lineEdit, event);
                 return true;
@@ -341,7 +349,7 @@ void GotoSymbolWidget::changeMode(GotoSymbolWidget::Mode newMode)
     if (mode == Global) {
         m_proxyModel->setSourceModel(m_globalSymbolsModel);
         m_treeView->setGlobalMode(true);
-    } else if (mode == Local){
+    } else if (mode == Local) {
         m_proxyModel->setSourceModel(m_symbolsModel);
         m_treeView->setGlobalMode(false);
     }
@@ -364,8 +372,7 @@ void GotoSymbolWidget::updateViewGeometry()
 
     const int rowCount = mode == Global ? m_globalSymbolsModel->rowCount() : m_symbolsModel->rowCount();
 
-    const QSize viewSize(width,
-                         std::min(std::max(rowHeight * rowCount + 2 * frameWidth, rowHeight * 6), viewMaxSize.height()));
+    const QSize viewSize(width, std::min(std::max(rowHeight * rowCount + 2 * frameWidth, rowHeight * 6), viewMaxSize.height()));
 
     // Position should be central over the editor area, so map to global from
     // parent of central widget since the view is positioned in global coords

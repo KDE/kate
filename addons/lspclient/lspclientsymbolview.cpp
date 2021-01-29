@@ -52,11 +52,15 @@ public:
     {
         // get updated
         m_changeTimer.setSingleShot(true);
-        auto ch = [this]() { emit newState(m_mainWindow->activeView(), TextChanged); };
+        auto ch = [this]() {
+            emit newState(m_mainWindow->activeView(), TextChanged);
+        };
         connect(&m_changeTimer, &QTimer::timeout, this, ch);
 
         m_motionTimer.setSingleShot(true);
-        auto mh = [this]() { emit newState(m_mainWindow->activeView(), LineChanged); };
+        auto mh = [this]() {
+            emit newState(m_mainWindow->activeView(), LineChanged);
+        };
         connect(&m_motionTimer, &QTimer::timeout, this, mh);
 
         // track views
@@ -201,7 +205,11 @@ public:
         , m_serverManager(std::move(manager))
         , m_outline(new QStandardItemModel())
     {
-        m_toolview.reset(m_mainWindow->createToolView(plugin, QStringLiteral("lspclient_symbol_outline"), KTextEditor::MainWindow::Right, QIcon::fromTheme(QStringLiteral("code-context")), i18n("LSP Client Symbol Outline")));
+        m_toolview.reset(m_mainWindow->createToolView(plugin,
+                                                      QStringLiteral("lspclient_symbol_outline"),
+                                                      KTextEditor::MainWindow::Right,
+                                                      QIcon::fromTheme(QStringLiteral("code-context")),
+                                                      i18n("LSP Client Symbol Outline")));
 
         m_symbols = new QTreeView(m_toolview.data());
         m_symbols->setFocusPolicy(Qt::NoFocus);
@@ -255,7 +263,9 @@ public:
         // get updated
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 500, 100));
         connect(m_viewTracker.data(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
-        connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, [this]() { refresh(false); });
+        connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, [this]() {
+            refresh(false);
+        });
 
         // limit cached models; will not go beyond capacity set here
         m_models.reserve(MAX_MODELS + 1);

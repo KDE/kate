@@ -25,8 +25,8 @@
 
 #include <QApplication>
 #include <QCryptographicHash>
-#include <QDBusReply>
 #include <QDBusConnectionInterface>
+#include <QDBusReply>
 #include <QDir>
 #include <QInputDialog>
 #include <QScopedPointer>
@@ -121,7 +121,8 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
                                            QString(),
                                            KStandardGuiItem::yes(),
                                            KStandardGuiItem::no(),
-                                           QStringLiteral("katesessionmanager_switch_instance")) == KMessageBox::Yes) {
+                                           QStringLiteral("katesessionmanager_switch_instance"))
+                == KMessageBox::Yes) {
                 instances[session->name()]->dbus_if->call(QStringLiteral("activate"));
                 cleanupRunningKateAppInstanceMap(&instances);
                 return false;
@@ -305,7 +306,9 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
     KIO::CopyJob *job = KIO::move(srcUrl, dstUrl, KIO::HideProgressInfo);
 
     if (!job->exec()) {
-        KMessageBox::sorry(QApplication::activeWindow(), i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile), i18n("Session Renaming"));
+        KMessageBox::sorry(QApplication::activeWindow(),
+                           i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile),
+                           i18n("Session Renaming"));
         return QString();
     }
 
@@ -580,7 +583,12 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     QStringList newActions = df->readActions();
 
     // try to keep existing custom actions intact, only remove our "Session" actions and add them back later
-    newActions.erase(std::remove_if(newActions.begin(), newActions.end(), [](const QString &action) { return action.startsWith(QLatin1String("Session ")); }), newActions.end());
+    newActions.erase(std::remove_if(newActions.begin(),
+                                    newActions.end(),
+                                    [](const QString &action) {
+                                        return action.startsWith(QLatin1String("Session "));
+                                    }),
+                     newActions.end());
 
     // Limit the number of list entries we like to offer
     const int maxEntryCount = std::min(sessionList.count(), 10);
@@ -595,7 +603,8 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     sessionActions.reserve(maxEntryCount);
 
     for (int i = 0; i < maxEntryCount; ++i) {
-        sessionActions << QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(sessionSubList.at(i).toUtf8(), QCryptographicHash::Md5).toHex()));
+        sessionActions
+            << QStringLiteral("Session %1").arg(QString::fromLatin1(QCryptographicHash::hash(sessionSubList.at(i).toUtf8(), QCryptographicHash::Md5).toHex()));
     }
 
     newActions += sessionActions;

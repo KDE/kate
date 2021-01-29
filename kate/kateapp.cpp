@@ -233,7 +233,8 @@ bool KateApp::startupKate()
                 setCursor(line, column);
             }
         } else {
-            KMessageBox::sorry(activeKateMainWindow(), i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
+            KMessageBox::sorry(activeKateMainWindow(),
+                               i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
         }
     }
 

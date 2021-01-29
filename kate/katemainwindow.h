@@ -99,7 +99,7 @@ public:
      * in the reload dialog even if not edited in this instance. */
     enum ModOnDiskMode {
         PromptEdited, ///< Do not list files that have not been edited
-        PromptAll,    ///< Include all files modified on disk
+        PromptAll, ///< Include all files modified on disk
     };
 
     /**
@@ -468,7 +468,11 @@ public Q_SLOTS:
      * \param text translated text (i18n()) to use in addition to icon
      * \return created toolview on success, otherwise NULL
      */
-    QWidget *createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text);
+    QWidget *createToolView(KTextEditor::Plugin *plugin,
+                            const QString &identifier,
+                            KTextEditor::MainWindow::ToolViewPosition pos,
+                            const QIcon &icon,
+                            const QString &text);
 
     /**
      * Move the toolview \p widget to position \p pos.
@@ -546,7 +550,7 @@ private:
     /**
      * quick command bar to quickly trigger any action
      */
-    KateCommandBar* m_commandBar = nullptr;
+    KateCommandBar *m_commandBar = nullptr;
 
     /**
      * keeps track of views

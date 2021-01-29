@@ -6,18 +6,18 @@
 #include "katecommandbar.h"
 #include "commandmodel.h"
 
-#include <QCoreApplication>
-#include <QTreeView>
-#include <QVBoxLayout>
-#include <QLineEdit>
 #include <QAction>
-#include <QPointer>
+#include <QCoreApplication>
 #include <QKeyEvent>
+#include <QLineEdit>
 #include <QPainter>
+#include <QPointer>
 #include <QPushButton>
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QTextDocument>
+#include <QTreeView>
+#include <QVBoxLayout>
 
 #include <KActionCollection>
 #include <KLocalizedString>
@@ -111,7 +111,7 @@ public:
         if (rtl) {
             auto r = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
             auto hasIcon = index.data(Qt::DecorationRole).value<QIcon>().isNull();
-            if (hasIcon){
+            if (hasIcon) {
                 doc.setTextWidth(r.width() - 25);
             } else {
                 doc.setTextWidth(r.width());
@@ -171,7 +171,7 @@ public:
             QVector<QPair<QRect, QString>> btns;
             const auto list = shortcutString.split(QLatin1Char('+'));
             btns.reserve(list.size());
-            for (const QString& text : list) {
+            for (const QString &text : list) {
                 QRect r = option.fontMetrics.boundingRect(text);
                 r.setWidth(r.width() + 8);
                 r.setHeight(r.height() + 4);
@@ -187,9 +187,9 @@ public:
             const int total = btns.size();
             int i = 0;
             painter->setRenderHint(QPainter::Antialiasing);
-            for (const auto& btn : btns) {
+            for (const auto &btn : btns) {
                 painter->setPen(Qt::NoPen);
-                const QRect& rect = btn.first;
+                const QRect &rect = btn.first;
 
                 QRect buttonRect(x, y, rect.width(), rect.height());
 
@@ -240,8 +240,8 @@ KateCommandBar::KateCommandBar(QWidget *parent)
 
     m_model = new CommandModel(this);
 
-    CommandBarStyleDelegate* delegate = new CommandBarStyleDelegate(this);
-    ShortcutStyleDelegate* del = new ShortcutStyleDelegate(this);
+    CommandBarStyleDelegate *delegate = new CommandBarStyleDelegate(this);
+    ShortcutStyleDelegate *del = new ShortcutStyleDelegate(this);
     m_treeView->setItemDelegateForColumn(0, delegate);
     m_treeView->setItemDelegateForColumn(1, del);
 
@@ -253,7 +253,7 @@ KateCommandBar::KateCommandBar(QWidget *parent)
     connect(m_lineEdit, &QLineEdit::returnPressed, this, &KateCommandBar::slotReturnPressed);
     connect(m_lineEdit, &QLineEdit::textChanged, m_proxyModel, &CommandBarFilterModel::setFilterString);
     connect(m_lineEdit, &QLineEdit::textChanged, delegate, &CommandBarStyleDelegate::setFilterString);
-    connect(m_lineEdit, &QLineEdit::textChanged, this, [this](){
+    connect(m_lineEdit, &QLineEdit::textChanged, this, [this]() {
         m_treeView->viewport()->update();
         reselectFirst();
     });
@@ -276,11 +276,11 @@ KateCommandBar::KateCommandBar(QWidget *parent)
 
 void KateCommandBar::updateBar(const QList<KActionCollection *> &actionCollections, int totalActions)
 {
-    QVector<QPair<QString, QAction*>> actionList;
+    QVector<QPair<QString, QAction *>> actionList;
     actionList.reserve(totalActions);
 
     for (const auto collection : actionCollections) {
-        const QList<QAction*> collectionActions = collection->actions();
+        const QList<QAction *> collectionActions = collection->actions();
         const QString componentName = collection->componentDisplayName();
         for (const auto action : collectionActions) {
             // sanity + empty check ensures displayable actions and removes ourself
@@ -305,7 +305,8 @@ bool KateCommandBar::eventFilter(QObject *obj, QEvent *event)
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::ShortcutOverride) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == m_lineEdit) {
-            const bool forward2list = (keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp) || (keyEvent->key() == Qt::Key_PageDown);
+            const bool forward2list = (keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp)
+                || (keyEvent->key() == Qt::Key_PageDown);
             if (forward2list) {
                 QCoreApplication::sendEvent(m_treeView, event);
                 return true;
@@ -318,8 +319,8 @@ bool KateCommandBar::eventFilter(QObject *obj, QEvent *event)
                 return true;
             }
         } else {
-            const bool forward2input = (keyEvent->key() != Qt::Key_Up) && (keyEvent->key() != Qt::Key_Down) && (keyEvent->key() != Qt::Key_PageUp) && (keyEvent->key() != Qt::Key_PageDown) && (keyEvent->key() != Qt::Key_Tab) &&
-                (keyEvent->key() != Qt::Key_Backtab);
+            const bool forward2input = (keyEvent->key() != Qt::Key_Up) && (keyEvent->key() != Qt::Key_Down) && (keyEvent->key() != Qt::Key_PageUp)
+                && (keyEvent->key() != Qt::Key_PageDown) && (keyEvent->key() != Qt::Key_Tab) && (keyEvent->key() != Qt::Key_Backtab);
             if (forward2input) {
                 QCoreApplication::sendEvent(m_lineEdit, event);
                 return true;
@@ -339,13 +340,13 @@ bool KateCommandBar::eventFilter(QObject *obj, QEvent *event)
 
 void KateCommandBar::slotReturnPressed()
 {
-    auto act = m_proxyModel->data(m_treeView->currentIndex(), Qt::UserRole).value<QAction*>();
+    auto act = m_proxyModel->data(m_treeView->currentIndex(), Qt::UserRole).value<QAction *>();
     if (act) {
         // if the action is a menu, we take all its actions
         // and reload our dialog with these instead.
         if (auto menu = act->menu()) {
             auto menuActions = menu->actions();
-            QVector<QPair<QString, QAction*>> list;
+            QVector<QPair<QString, QAction *>> list;
             list.reserve(menuActions.size());
 
             // if there are no actions, trigger load actions

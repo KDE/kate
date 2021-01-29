@@ -83,7 +83,9 @@ void PluginKateTextFilter::slotFilterProcessExited(int, QProcess::ExitStatus)
 
     // Is there any error output to display?
     if (!mergeOutput && !m_stderrOutput.isEmpty()) {
-        QPointer<KTextEditor::Message> message = new KTextEditor::Message(xi18nc("@info", "<title>Result of:</title><nl /><pre><code>$ %1\n<nl />%2</code></pre>", m_last_command, m_stderrOutput), KTextEditor::Message::Error);
+        QPointer<KTextEditor::Message> message =
+            new KTextEditor::Message(xi18nc("@info", "<title>Result of:</title><nl /><pre><code>$ %1\n<nl />%2</code></pre>", m_last_command, m_stderrOutput),
+                                     KTextEditor::Message::Error);
         message->setWordWrap(true);
         message->setAutoHide(1000);
         kv->document()->postMessage(message);
@@ -191,7 +193,10 @@ void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filte
 
         connect(m_pFilterProcess, &KProcess::readyReadStandardError, this, &PluginKateTextFilter::slotFilterReceivedStderr);
 
-        connect(m_pFilterProcess, static_cast<void (KProcess::*)(int, KProcess::ExitStatus)>(&KProcess::finished), this, &PluginKateTextFilter::slotFilterProcessExited);
+        connect(m_pFilterProcess,
+                static_cast<void (KProcess::*)(int, KProcess::ExitStatus)>(&KProcess::finished),
+                this,
+                &PluginKateTextFilter::slotFilterProcessExited);
     }
     m_pFilterProcess->setOutputChannelMode(mergeOutput ? KProcess::MergedChannels : KProcess::SeparateChannels);
 

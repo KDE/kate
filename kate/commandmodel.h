@@ -13,22 +13,21 @@ class QAction;
 
 class CommandModel : public QAbstractTableModel
 {
-    struct Item
-    {
+    struct Item {
         QString component;
-        QAction* action;
+        QAction *action;
         int score;
     };
 
     Q_OBJECT
 public:
-    CommandModel(QObject* parent = nullptr);
+    CommandModel(QObject *parent = nullptr);
 
     enum Role { Score = Qt::UserRole + 1 };
 
-    void refresh(QVector<QPair<QString, QAction*>> actionList);
+    void refresh(QVector<QPair<QString, QAction *>> actionList);
 
-    int rowCount(const QModelIndex & parent = QModelIndex()) const override
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override
     {
         if (parent.isValid()) {
             return 0;
@@ -36,7 +35,7 @@ public:
         return m_rows.size();
     }
 
-    int columnCount(const QModelIndex & parent = QModelIndex()) const override
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override
     {
         Q_UNUSED(parent);
         return 2;
@@ -57,7 +56,6 @@ public:
 
 private:
     QVector<Item> m_rows;
-
 };
 
 #endif // COMMANDMODEL_H

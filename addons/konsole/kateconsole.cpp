@@ -54,7 +54,8 @@ KateKonsolePlugin::KateKonsolePlugin(QObject *parent, const QList<QVariant> &)
     }
 }
 
-void setEditorEnv(const QByteArray& value) {
+void setEditorEnv(const QByteArray &value)
+{
     if (value.isNull()) {
         qunsetenv("EDITOR");
     } else {
@@ -91,7 +92,11 @@ KateKonsolePluginView::KateKonsolePluginView(KateKonsolePlugin *plugin, KTextEdi
     , m_plugin(plugin)
 {
     // init console
-    QWidget *toolview = mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katekonsoleplugin"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Terminal"));
+    QWidget *toolview = mainWindow->createToolView(plugin,
+                                                   QStringLiteral("kate_private_plugin_katekonsoleplugin"),
+                                                   KTextEditor::MainWindow::Bottom,
+                                                   QIcon::fromTheme(QStringLiteral("utilities-terminal")),
+                                                   i18n("Terminal"));
     m_console = new KateConsole(m_plugin, mainWindow, toolview);
 
     // register this view
@@ -275,12 +280,14 @@ void KateConsole::sendInput(const QString &text)
 
 void KateConsole::slotPipeToConsole()
 {
-    if (KMessageBox::warningContinueCancel(m_mw->window(),
-                                           i18n("Do you really want to pipe the text to the console? This will execute any contained commands with your user rights."),
-                                           i18n("Pipe to Terminal?"),
-                                           KGuiItem(i18n("Pipe to Terminal")),
-                                           KStandardGuiItem::cancel(),
-                                           QStringLiteral("Pipe To Terminal Warning")) != KMessageBox::Continue)
+    if (KMessageBox::warningContinueCancel(
+            m_mw->window(),
+            i18n("Do you really want to pipe the text to the console? This will execute any contained commands with your user rights."),
+            i18n("Pipe to Terminal?"),
+            KGuiItem(i18n("Pipe to Terminal")),
+            KStandardGuiItem::cancel(),
+            QStringLiteral("Pipe To Terminal Warning"))
+        != KMessageBox::Continue)
         return;
 
     KTextEditor::View *v = m_mw->activeView();
@@ -365,17 +372,17 @@ void KateConsole::slotRun()
             output_str += file_path.absoluteFilePath();
         }
 
-        if (KMessageBox::Continue !=
-            KMessageBox::warningContinueCancel(m_mw->window(),
-                                               i18n("Do you really want to Run the document ?\n"
-                                                    "This will execute the following command,\n"
-                                                    "with your user rights, in the terminal:\n"
-                                                    "'%1'",
-                                                    output_str),
-                                               i18n("Run in Terminal?"),
-                                               KGuiItem(i18n("Run")),
-                                               KStandardGuiItem::cancel(),
-                                               QStringLiteral("Konsole: Run in Terminal Warning"))) {
+        if (KMessageBox::Continue
+            != KMessageBox::warningContinueCancel(m_mw->window(),
+                                                  i18n("Do you really want to Run the document ?\n"
+                                                       "This will execute the following command,\n"
+                                                       "with your user rights, in the terminal:\n"
+                                                       "'%1'",
+                                                       output_str),
+                                                  i18n("Run in Terminal?"),
+                                                  KGuiItem(i18n("Run")),
+                                                  KStandardGuiItem::cancel(),
+                                                  QStringLiteral("Konsole: Run in Terminal Warning"))) {
             return;
         }
         // echo to terminal

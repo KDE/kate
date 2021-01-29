@@ -180,7 +180,8 @@ void KateMwModOnHdDialog::handleSelected(int action)
     for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
         KateDocItem *item = static_cast<KateDocItem *>(*it);
         if (item->checkState(0) == Qt::Checked) {
-            KTextEditor::ModificationInterface::ModifiedOnDiskReason reason = KateApp::self()->documentManager()->documentInfo(item->document)->modifiedOnDiscReason;
+            KTextEditor::ModificationInterface::ModifiedOnDiskReason reason =
+                KateApp::self()->documentManager()->documentInfo(item->document)->modifiedOnDiscReason;
             bool success = true;
 
             if (KTextEditor::ModificationInterface *iface = qobject_cast<KTextEditor::ModificationInterface *>(item->document)) {
@@ -231,7 +232,9 @@ void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWi
 {
     KateDocItem *currentDocItem = static_cast<KateDocItem *>(current);
     // set the diff button enabled
-    btnDiff->setEnabled(currentDocItem && KateApp::self()->documentManager()->documentInfo(currentDocItem->document)->modifiedOnDiscReason != KTextEditor::ModificationInterface::OnDiskDeleted);
+    btnDiff->setEnabled(currentDocItem
+                        && KateApp::self()->documentManager()->documentInfo(currentDocItem->document)->modifiedOnDiscReason
+                            != KTextEditor::ModificationInterface::OnDiskDeleted);
 }
 
 // ### the code below is slightly modified from kdelibs/kate/part/katedialogs,

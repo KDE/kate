@@ -142,8 +142,12 @@ void KateFileTreeConfigPage::apply()
     m_changed = false;
 
     // apply config to views
-    m_plug->applyConfig(
-        gbEnableShading->isChecked(), kcbViewShade->color(), kcbEditShade->color(), cmbMode->itemData(cmbMode->currentIndex()).toBool(), cmbSort->itemData(cmbSort->currentIndex()).toInt(), cbShowFullPath->checkState() == Qt::Checked);
+    m_plug->applyConfig(gbEnableShading->isChecked(),
+                        kcbViewShade->color(),
+                        kcbEditShade->color(),
+                        cmbMode->itemData(cmbMode->currentIndex()).toBool(),
+                        cmbSort->itemData(cmbSort->currentIndex()).toInt(),
+                        cbShowFullPath->checkState() == Qt::Checked);
 }
 
 void KateFileTreeConfigPage::reset()

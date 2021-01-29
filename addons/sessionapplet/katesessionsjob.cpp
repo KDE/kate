@@ -17,7 +17,11 @@ SPDX-License-Identifier: GPL-2.0-or-later
 
 static const QString s_clipboardSourceName = QStringLiteral("katesessions");
 
-KateSessionsJob::KateSessionsJob(KateSessionsEngine *engine, const QString &destination, const QString &operation, const QVariantMap &parameters, QObject *parent)
+KateSessionsJob::KateSessionsJob(KateSessionsEngine *engine,
+                                 const QString &destination,
+                                 const QString &operation,
+                                 const QVariantMap &parameters,
+                                 QObject *parent)
     : Plasma::ServiceJob(destination, operation, parameters, parent)
     , m_engine(engine)
 {

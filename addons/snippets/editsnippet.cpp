@@ -85,7 +85,9 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     connect(m_ui->snippetShortcut, &KKeySequenceWidget::keySequenceChanged, this, &EditSnippet::topBoxModified);
     connect(m_snippetView->document(), &KTextEditor::Document::textChanged, this, &EditSnippet::validate);
 
-    auto showHelp = [](const QString &text) { QWhatsThis::showText(QCursor::pos(), text); };
+    auto showHelp = [](const QString &text) {
+        QWhatsThis::showText(QCursor::pos(), text);
+    };
     connect(m_ui->snippetLabel, &QLabel::linkActivated, showHelp);
     connect(m_ui->scriptLabel, &QLabel::linkActivated, showHelp);
 
@@ -176,7 +178,9 @@ void EditSnippet::save()
 void EditSnippet::reject()
 {
     if (m_topBoxModified || m_snippetView->document()->isModified() || m_scriptsView->document()->isModified()) {
-        int ret = KMessageBox::warningContinueCancel(qApp->activeWindow(), i18n("The snippet contains unsaved changes. Do you want to continue and lose all changes?"), i18n("Warning - Unsaved Changes"));
+        int ret = KMessageBox::warningContinueCancel(qApp->activeWindow(),
+                                                     i18n("The snippet contains unsaved changes. Do you want to continue and lose all changes?"),
+                                                     i18n("Warning - Unsaved Changes"));
         if (ret == KMessageBox::Cancel) {
             return;
         }

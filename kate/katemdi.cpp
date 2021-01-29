@@ -530,7 +530,9 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
                 menu->addSection(QIcon::fromTheme(QStringLiteral("view_remove")), i18n("Behavior"));
 
-                menu->addAction(w->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen")), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"))->setData(10);
+                menu->addAction(w->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen")),
+                                w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"))
+                    ->setData(10);
 
                 menu->addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
 
@@ -814,7 +816,11 @@ QWidget *MainWindow::centralWidget() const
     return m_centralWidget;
 }
 
-ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QIcon &icon, const QString &text)
+ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
+                                     const QString &identifier,
+                                     KMultiTabBar::KMultiTabBarPosition pos,
+                                     const QIcon &icon,
+                                     const QString &text)
 {
     if (m_idToWidget[identifier]) {
         return nullptr;
@@ -1002,7 +1008,8 @@ void MainWindow::finishRestore()
 
         // reshuffle toolviews only if needed
         for (const auto tv : qAsConst(m_toolviews)) {
-            KMultiTabBar::KMultiTabBarPosition newPos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position())));
+            KMultiTabBar::KMultiTabBarPosition newPos = static_cast<KMultiTabBar::KMultiTabBarPosition>(
+                cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position())));
 
             if (tv->sidebar()->position() != newPos) {
                 moveToolView(tv, newPos);

@@ -45,7 +45,11 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     KXMLGUIClient::setComponentName(QStringLiteral("katectags"), i18n("Kate CTags"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    m_toolView = mainWin->createToolView(plugin, QStringLiteral("kate_plugin_katectagsplugin"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")), i18n("CTags"));
+    m_toolView = mainWin->createToolView(plugin,
+                                         QStringLiteral("kate_plugin_katectagsplugin"),
+                                         KTextEditor::MainWindow::Bottom,
+                                         QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
+                                         i18n("CTags"));
     m_mWin = mainWin;
 
     QAction *back = actionCollection()->addAction(QStringLiteral("ctags_return_step"));
@@ -288,7 +292,8 @@ void KateCTagsView::gotoDeclaration()
     }
 
     QStringList types;
-    types << QStringLiteral("L") << QStringLiteral("c") << QStringLiteral("e") << QStringLiteral("g") << QStringLiteral("m") << QStringLiteral("n") << QStringLiteral("p") << QStringLiteral("s") << QStringLiteral("u") << QStringLiteral("x");
+    types << QStringLiteral("L") << QStringLiteral("c") << QStringLiteral("e") << QStringLiteral("g") << QStringLiteral("m") << QStringLiteral("n")
+          << QStringLiteral("p") << QStringLiteral("s") << QStringLiteral("u") << QStringLiteral("x");
     gotoTagForTypes(currWord, types);
 }
 
@@ -397,10 +402,13 @@ QString KateCTagsView::currentWord()
 
     int startPos = qMax(qMin(col, linestr.length() - 1), 0);
     int endPos = startPos;
-    while (startPos >= 0 && (linestr[startPos].isLetterOrNumber() || (linestr[startPos] == QLatin1Char(':') && includeColon) || linestr[startPos] == QLatin1Char('_') || linestr[startPos] == QLatin1Char('~'))) {
+    while (startPos >= 0
+           && (linestr[startPos].isLetterOrNumber() || (linestr[startPos] == QLatin1Char(':') && includeColon) || linestr[startPos] == QLatin1Char('_')
+               || linestr[startPos] == QLatin1Char('~'))) {
         startPos--;
     }
-    while (endPos < linestr.length() && (linestr[endPos].isLetterOrNumber() || (linestr[endPos] == QLatin1Char(':') && includeColon) || linestr[endPos] == QLatin1Char('_'))) {
+    while (endPos < linestr.length()
+           && (linestr[endPos].isLetterOrNumber() || (linestr[endPos] == QLatin1Char(':') && includeColon) || linestr[endPos] == QLatin1Char('_'))) {
         endPos++;
     }
     if (startPos == endPos) {

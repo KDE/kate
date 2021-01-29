@@ -26,12 +26,16 @@ namespace utils
 // function bind helpers
 template<typename R, typename T, typename Tp, typename... Args> inline std::function<R(Args...)> mem_fun(R (T::*pm)(Args...), Tp object)
 {
-    return [object, pm](Args... args) { return (object->*pm)(std::forward<Args>(args)...); };
+    return [object, pm](Args... args) {
+        return (object->*pm)(std::forward<Args>(args)...);
+    };
 }
 
 template<typename R, typename T, typename Tp, typename... Args> inline std::function<R(Args...)> mem_fun(R (T::*pm)(Args...) const, Tp object)
 {
-    return [object, pm](Args... args) { return (object->*pm)(std::forward<Args>(args)...); };
+    return [object, pm](Args... args) {
+        return (object->*pm)(std::forward<Args>(args)...);
+    };
 }
 
 // prevent argument deduction
@@ -114,11 +118,26 @@ public:
     RequestHandle signatureHelp(const QUrl &document, const LSPPosition &pos, const QObject *context, const SignatureHelpReplyHandler &h);
 
     RequestHandle documentFormatting(const QUrl &document, const LSPFormattingOptions &options, const QObject *context, const FormattingReplyHandler &h);
-    RequestHandle documentRangeFormatting(const QUrl &document, const LSPRange &range, const LSPFormattingOptions &options, const QObject *context, const FormattingReplyHandler &h);
-    RequestHandle documentOnTypeFormatting(const QUrl &document, const LSPPosition &pos, QChar lastChar, const LSPFormattingOptions &options, const QObject *context, const FormattingReplyHandler &h);
-    RequestHandle documentRename(const QUrl &document, const LSPPosition &pos, const QString &newName, const QObject *context, const WorkspaceEditReplyHandler &h);
+    RequestHandle documentRangeFormatting(const QUrl &document,
+                                          const LSPRange &range,
+                                          const LSPFormattingOptions &options,
+                                          const QObject *context,
+                                          const FormattingReplyHandler &h);
+    RequestHandle documentOnTypeFormatting(const QUrl &document,
+                                           const LSPPosition &pos,
+                                           QChar lastChar,
+                                           const LSPFormattingOptions &options,
+                                           const QObject *context,
+                                           const FormattingReplyHandler &h);
+    RequestHandle
+    documentRename(const QUrl &document, const LSPPosition &pos, const QString &newName, const QObject *context, const WorkspaceEditReplyHandler &h);
 
-    RequestHandle documentCodeAction(const QUrl &document, const LSPRange &range, const QList<QString> &kinds, QList<LSPDiagnostic> diagnostics, const QObject *context, const CodeActionReplyHandler &h);
+    RequestHandle documentCodeAction(const QUrl &document,
+                                     const LSPRange &range,
+                                     const QList<QString> &kinds,
+                                     QList<LSPDiagnostic> diagnostics,
+                                     const QObject *context,
+                                     const CodeActionReplyHandler &h);
     void executeCommand(const QString &command, const QJsonValue &args);
 
     // sync

@@ -254,7 +254,8 @@ static const QRegularExpression breakpointList(QStringLiteral("\\ANum\\s+Type\\s
 static const QRegularExpression breakpointListed(QStringLiteral("\\A(\\d)\\s+breakpoint\\s+keep\\sy\\s+0x[\\da-f]+\\sin\\s.+\\sat\\s([^:]+):(\\d+).*\\z"));
 static const QRegularExpression stackFrameAny(QStringLiteral("\\A#(\\d+)\\s(.*)\\z"));
 static const QRegularExpression stackFrameFile(QStringLiteral("\\A#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\(.*\\)) at ([^:]+):(\\d+).*\\z"));
-static const QRegularExpression changeFile(QStringLiteral("\\A(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s*|0x[\\da-f]+\\s*in\\s*)?[^\\s]+\\s*\\([^)]*\\)\\s*at\\s*([^:]+):(\\d+).*\\z"));
+static const QRegularExpression changeFile(
+    QStringLiteral("\\A(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s*|0x[\\da-f]+\\s*in\\s*)?[^\\s]+\\s*\\([^)]*\\)\\s*at\\s*([^:]+):(\\d+).*\\z"));
 static const QRegularExpression changeLine(QStringLiteral("\\A(\\d+)\\s+.*\\z"));
 static const QRegularExpression breakPointReg(QStringLiteral("\\ABreakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+file\\s+([^\\,]+)\\,\\s+line\\s+(\\d+).*\\z"));
 static const QRegularExpression breakPointMultiReg(QStringLiteral("\\ABreakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+([^\\,]+):(\\d+).*\\z"));
@@ -348,7 +349,8 @@ void DebugView::processLine(QString line)
                     }
                 }
             }
-        } else if (exitProgram.match(line).hasMatch() || line.contains(QLatin1String("The program no longer exists")) || line.contains(QLatin1String("Kill the program being debugged"))) {
+        } else if (exitProgram.match(line).hasMatch() || line.contains(QLatin1String("The program no longer exists"))
+                   || line.contains(QLatin1String("Kill the program being debugged"))) {
             // if there are still commands to execute remove them to remove unneeded output
             // except  if the "kill was for "re-run"
             if ((!m_nextCommands.empty()) && !m_nextCommands[0].contains(QLatin1String("file"))) {

@@ -16,7 +16,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include <kwidgetsaddons_version.h>
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KConfigGroup>
@@ -28,6 +27,7 @@
 #include <KSharedConfig>
 #include <KToolBar>
 #include <KUrlNavigator>
+#include <kwidgetsaddons_version.h>
 
 #include <QAbstractItemView>
 #include <QAction>
@@ -38,14 +38,13 @@
 
 #include <kio_version.h>
 #if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-#   include <KOpenWithDialog>
-#   include <KRun>
+#include <KOpenWithDialog>
+#include <KRun>
 #else
-#   include <KIO/ApplicationLauncherJob>
-#   include <KIO/JobUiDelegate>
+#include <KIO/ApplicationLauncherJob>
+#include <KIO/JobUiDelegate>
 #endif
 #include <KApplicationTrader>
-
 
 // END Includes
 
@@ -108,7 +107,10 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
 
     connect(m_filter, &KHistoryComboBox::editTextChanged, this, &KateFileBrowser::slotFilterChange);
     connect(m_filter, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed), m_filter, &KHistoryComboBox::addToHistory);
-    connect(m_filter, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed), m_dirOperator, static_cast<void (KDirOperator::*)()>(&KDirOperator::setFocus));
+    connect(m_filter,
+            static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed),
+            m_dirOperator,
+            static_cast<void (KDirOperator::*)()>(&KDirOperator::setFocus));
     connect(m_dirOperator, &KDirOperator::urlEntered, this, &KateFileBrowser::updateUrlNavigator);
 
     // Connect the bookmark handler
@@ -133,7 +135,8 @@ void KateFileBrowser::setupToolbar()
     KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
     QStringList actions = config.readEntry("toolbar actions", QStringList());
     if (actions.isEmpty()) // default toolbar
-        actions << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
+        actions << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("bookmarks") << QStringLiteral("sync_dir")
+                << QStringLiteral("configure");
 
     // remove all actions from the toolbar (there should be none)
     m_toolbar->clear();
@@ -228,7 +231,7 @@ void KateFileBrowser::setDir(const QUrl &u)
 
 void KateFileBrowser::contextMenuAboutToShow(const KFileItem &item, QMenu *menu)
 {
-    if(m_openWithMenu == nullptr) {
+    if (m_openWithMenu == nullptr) {
         m_openWithMenu = new KateFileBrowserOpenWithMenu(i18nc("@action:inmenu", "Open With"), this);
         menu->insertMenu(menu->actions().at(1), m_openWithMenu);
         menu->insertSeparator(menu->actions().at(2));
@@ -259,7 +262,6 @@ void KateFileBrowser::fixOpenWithMenu()
     // append "Other..." to call the KDE "open with" dialog.
     a = menu->addAction(i18n("&Other..."));
     a->setData(QVariant(QList<QString>({QString(), menu->item().url().toString()})));
-
 }
 
 void KateFileBrowser::openWithMenuAction(QAction *a)
@@ -292,7 +294,6 @@ void KateFileBrowser::openWithMenuAction(QAction *a)
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
     job->start();
 #endif
-
 }
 // END Public Slots
 
@@ -308,7 +309,9 @@ void KateFileBrowser::openSelectedFiles()
     const KFileItemList list = m_dirOperator->selectedItems();
 
     if (list.count() > 20) {
-        if (KMessageBox::questionYesNo(this, i18np("You are trying to open 1 file, are you sure?", "You are trying to open %1 files, are you sure?", list.count())) == KMessageBox::No)
+        if (KMessageBox::questionYesNo(this,
+                                       i18np("You are trying to open 1 file, are you sure?", "You are trying to open %1 files, are you sure?", list.count()))
+            == KMessageBox::No)
             return;
     }
 

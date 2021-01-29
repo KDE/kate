@@ -83,7 +83,8 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
 
     toolbar->addSeparator();
 
-    KToggleAction *toggleAction = new KToggleAction(QIcon::fromTheme(QStringLiteral("applications-education-language")), i18nc("@action:intoolbar", "Use system locale"), this);
+    KToggleAction *toggleAction =
+        new KToggleAction(QIcon::fromTheme(QStringLiteral("applications-education-language")), i18nc("@action:intoolbar", "Use system locale"), this);
     toolbar->addAction(toggleAction);
     connect(toggleAction, &QAction::triggered, this, &DataOutputWidget::slotToggleLocale);
 
@@ -257,7 +258,11 @@ void DataOutputWidget::slotExport()
     }
 }
 
-void DataOutputWidget::exportData(QTextStream &stream, const QChar stringsQuoteChar, const QChar numbersQuoteChar, const QString &fieldDelimiter, const Options opt)
+void DataOutputWidget::exportData(QTextStream &stream,
+                                  const QChar stringsQuoteChar,
+                                  const QChar numbersQuoteChar,
+                                  const QString &fieldDelimiter,
+                                  const Options opt)
 {
     QItemSelectionModel *selectionModel = m_view->selectionModel();
 

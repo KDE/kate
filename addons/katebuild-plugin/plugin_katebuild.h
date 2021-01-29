@@ -131,7 +131,7 @@ private:
 
     KTextEditor::MainWindow *m_win;
     QWidget *m_toolView;
-    Ui::build m_buildUi {};
+    Ui::build m_buildUi{};
     QWidget *m_buildWidget;
     int m_outputWidgetWidth;
     TargetsUi *m_targetsUi;

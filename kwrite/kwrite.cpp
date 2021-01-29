@@ -130,8 +130,12 @@ void KWrite::setupActions()
     m_closeAction->setDisabled(true);
 
     // setup File menu
-    actionCollection()->addAction(KStandardAction::New, QStringLiteral("file_new"), this, SLOT(slotNew()))->setWhatsThis(i18n("Use this command to create a new document"));
-    actionCollection()->addAction(KStandardAction::Open, QStringLiteral("file_open"), this, SLOT(slotOpen()))->setWhatsThis(i18n("Use this command to open an existing document for editing"));
+    actionCollection()
+        ->addAction(KStandardAction::New, QStringLiteral("file_new"), this, SLOT(slotNew()))
+        ->setWhatsThis(i18n("Use this command to create a new document"));
+    actionCollection()
+        ->addAction(KStandardAction::Open, QStringLiteral("file_open"), this, SLOT(slotOpen()))
+        ->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
     m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(QUrl)), this);
     actionCollection()->addAction(m_recentFiles->objectName(), m_recentFiles);

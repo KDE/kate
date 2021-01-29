@@ -431,13 +431,19 @@ private:
 
         // initiate delayed stages (TERM and KILL)
         // async, so give a bit more time
-        QTimer::singleShot(2 * TIMEOUT_SHUTDOWN, this, [stopservers]() { stopservers(1, -1); });
-        QTimer::singleShot(4 * TIMEOUT_SHUTDOWN, this, [stopservers]() { stopservers(-1, 1); });
+        QTimer::singleShot(2 * TIMEOUT_SHUTDOWN, this, [stopservers]() {
+            stopservers(1, -1);
+        });
+        QTimer::singleShot(4 * TIMEOUT_SHUTDOWN, this, [stopservers]() {
+            stopservers(-1, 1);
+        });
 
         // as for the start part
         // trigger interested parties, which will again request a server as needed
         // let's delay this; less chance for server instances to trip over each other
-        QTimer::singleShot(6 * TIMEOUT_SHUTDOWN, this, [this]() { emit serverChanged(); });
+        QTimer::singleShot(6 * TIMEOUT_SHUTDOWN, this, [this]() {
+            emit serverChanged();
+        });
     }
 
     void onStateChanged(LSPClientServer *server)
@@ -480,7 +486,8 @@ private:
                 }
             }
             auto action = retry ? i18n("Restarting") : i18n("NOT Restarting");
-            showMessage(i18n("Server terminated unexpectedly ... %1 [%2] [homepage: %3] ", action, server->cmdline().join(QLatin1Char(' ')), url), KTextEditor::Message::Warning);
+            showMessage(i18n("Server terminated unexpectedly ... %1 [%2] [homepage: %3] ", action, server->cmdline().join(QLatin1Char(' ')), url),
+                        KTextEditor::Message::Warning);
             if (sserver) {
                 // sserver might still be in m_servers
                 // but since it died already bringing it down will have no (ill) effect
@@ -593,7 +600,8 @@ private:
                 if (!server->start(m_plugin)) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);
                 } else {
-                    showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())), KTextEditor::Message::Positive);
+                    showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())),
+                                KTextEditor::Message::Positive);
                 }
                 serverinfo.settings = serverConfig.value(QStringLiteral("settings"));
                 serverinfo.started = QTime::currentTime();
@@ -619,7 +627,7 @@ private:
             if (f.open(QIODevice::ReadOnly)) {
                 const auto data = f.readAll();
                 if (!data.isEmpty()) {
-                    QJsonParseError error {};
+                    QJsonParseError error{};
                     auto json = QJsonDocument::fromJson(data, &error);
                     if (error.error == QJsonParseError::NoError) {
                         if (json.isObject()) {
@@ -781,7 +789,7 @@ private:
     {
         auto info = getDocumentInfo(doc);
         if (info) {
-            info->changes.push_back({LSPRange {position, position}, text});
+            info->changes.push_back({LSPRange{position, position}, text});
         }
     }
 
@@ -808,8 +816,8 @@ private:
         Q_ASSERT(line > 0);
         auto info = getDocumentInfo(doc);
         if (info) {
-            LSPRange oldrange {{line - 1, 0}, {line + 1, 0}};
-            LSPRange newrange {{line - 1, 0}, {line, 0}};
+            LSPRange oldrange{{line - 1, 0}, {line + 1, 0}};
+            LSPRange newrange{{line - 1, 0}, {line, 0}};
             auto text = doc->text(newrange);
             info->changes.push_back({oldrange, text});
         }

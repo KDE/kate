@@ -129,23 +129,23 @@ void KateFileBrowserConfigPage::init()
         l << QStringLiteral("back") << QStringLiteral("forward") << QStringLiteral("bookmarks") << QStringLiteral("sync_dir") << QStringLiteral("configure");
 
     // actions from diroperator + two of our own
-    const QStringList allActions {QStringLiteral("up"),
-                                  QStringLiteral("back"),
-                                  QStringLiteral("forward"),
-                                  QStringLiteral("home"),
-                                  QStringLiteral("reload"),
-                                  QStringLiteral("mkdir"),
-                                  QStringLiteral("delete"),
-                                  QStringLiteral("short view"),
-                                  QStringLiteral("detailed view"),
-                                  QStringLiteral("tree view"),
-                                  QStringLiteral("detailed tree view"),
-                                  QStringLiteral("show hidden"),
-                                  // QStringLiteral("view menu"),
-                                  // QStringLiteral("properties"),
-                                  QStringLiteral("bookmarks"),
-                                  QStringLiteral("sync_dir"),
-                                  QStringLiteral("configure")};
+    const QStringList allActions{QStringLiteral("up"),
+                                 QStringLiteral("back"),
+                                 QStringLiteral("forward"),
+                                 QStringLiteral("home"),
+                                 QStringLiteral("reload"),
+                                 QStringLiteral("mkdir"),
+                                 QStringLiteral("delete"),
+                                 QStringLiteral("short view"),
+                                 QStringLiteral("detailed view"),
+                                 QStringLiteral("tree view"),
+                                 QStringLiteral("detailed tree view"),
+                                 QStringLiteral("show hidden"),
+                                 // QStringLiteral("view menu"),
+                                 // QStringLiteral("properties"),
+                                 QStringLiteral("bookmarks"),
+                                 QStringLiteral("sync_dir"),
+                                 QStringLiteral("configure")};
 
     QRegularExpression re(QStringLiteral("&(?=[^&])"));
     QAction *ac = nullptr;

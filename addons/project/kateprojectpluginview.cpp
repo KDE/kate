@@ -48,8 +48,16 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     /**
      * create toolviews
      */
-    m_toolView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateproject"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QStringLiteral("project-open")), i18n("Projects"));
-    m_toolInfoView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateprojectinfo"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("view-choose")), i18n("Current Project"));
+    m_toolView = m_mainWindow->createToolView(m_plugin,
+                                              QStringLiteral("kateproject"),
+                                              KTextEditor::MainWindow::Left,
+                                              QIcon::fromTheme(QStringLiteral("project-open")),
+                                              i18n("Projects"));
+    m_toolInfoView = m_mainWindow->createToolView(m_plugin,
+                                                  QStringLiteral("kateprojectinfo"),
+                                                  KTextEditor::MainWindow::Bottom,
+                                                  QIcon::fromTheme(QStringLiteral("view-choose")),
+                                                  i18n("Current Project"));
 
     /**
      * create the combo + buttons for the toolViews + stacked widgets
@@ -166,7 +174,11 @@ void KateProjectPluginView::slotConfigUpdated()
         delete m_toolMultiView;
         m_toolMultiView = nullptr;
     } else if (!m_toolMultiView) {
-        m_toolMultiView = m_mainWindow->createToolView(m_plugin, QStringLiteral("kateprojectmulti"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("view-choose")), i18n("Projects Index"));
+        m_toolMultiView = m_mainWindow->createToolView(m_plugin,
+                                                       QStringLiteral("kateprojectmulti"),
+                                                       KTextEditor::MainWindow::Bottom,
+                                                       QIcon::fromTheme(QStringLiteral("view-choose")),
+                                                       i18n("Projects Index"));
         auto gotoindex = new KateProjectInfoViewIndex(this, nullptr, m_toolMultiView);
         m_toolMultiView->layout()->addWidget(gotoindex);
     }

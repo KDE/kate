@@ -50,10 +50,17 @@ void KateToolRunner::run()
         }
     }
 
-    QObject::connect(m_process.get(), &QProcess::readyReadStandardOutput, [this]() { m_stdout += m_process->readAllStandardOutput(); });
-    QObject::connect(m_process.get(), &QProcess::readyReadStandardError, [this]() { m_stderr += m_process->readAllStandardError(); });
-    QObject::connect(
-        m_process.get(), static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), [this](int exitCode, QProcess::ExitStatus exitStatus) { Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit); });
+    QObject::connect(m_process.get(), &QProcess::readyReadStandardOutput, [this]() {
+        m_stdout += m_process->readAllStandardOutput();
+    });
+    QObject::connect(m_process.get(), &QProcess::readyReadStandardError, [this]() {
+        m_stderr += m_process->readAllStandardError();
+    });
+    QObject::connect(m_process.get(),
+                     static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
+                     [this](int exitCode, QProcess::ExitStatus exitStatus) {
+                         Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
+                     });
 
     // Write stdin to process, if applicable, then close write channel
     QObject::connect(m_process.get(), &QProcess::started, [this]() {

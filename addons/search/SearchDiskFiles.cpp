@@ -85,11 +85,12 @@ void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
                 break;
 
             int endColumn = column + match.capturedLength();
-            int preContextStart = qMax(0, column-MatchModel::PreContextLen);
-            QString preContext = line.mid(preContextStart, column-preContextStart);
+            int preContextStart = qMax(0, column - MatchModel::PreContextLen);
+            QString preContext = line.mid(preContextStart, column - preContextStart);
             QString postContext = line.mid(endColumn, MatchModel::PostContextLen);
 
-            matches.push_back(KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{i, column, i, column + match.capturedLength()}, true});
+            matches.push_back(
+                KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{i, column, i, column + match.capturedLength()}, true});
 
             match = m_regExp.match(line, column + match.capturedLength());
             column = match.capturedStart();
@@ -152,11 +153,12 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
         int lastNL = match.captured().lastIndexOf(QLatin1Char('\n'));
         int endColumn = lastNL == -1 ? startColumn + match.captured().length() : match.captured().length() - lastNL - 1;
 
-        int preContextStart = qMax(lineStart[line], column-MatchModel::PreContextLen);
-        QString preContext = fullDoc.mid(preContextStart, column-preContextStart);
+        int preContextStart = qMax(lineStart[line], column - MatchModel::PreContextLen);
+        QString preContext = fullDoc.mid(preContextStart, column - preContextStart);
         QString postContext = fullDoc.mid(column + match.captured().length(), MatchModel::PostContextLen);
 
-        matches.push_back(KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{line, startColumn, endLine, endColumn}, true});
+        matches.push_back(
+            KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{line, startColumn, endLine, endColumn}, true});
 
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();

@@ -220,8 +220,8 @@ void TabSwitcherPluginView::updateViewGeometry()
     // max size to be only 1/2th of the central widget size
     const int rowHeight = m_treeView->sizeHintForRow(0);
     const int frameWidth = m_treeView->frameWidth();
-    // const QSize viewSize(std::min(m_treeView->sizeHintForColumn(0) + 2 * frameWidth + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()), // ORIG line, sizeHintForColumn was QListView but is protected for QTreeView so we
-    // introduced sizeHintWidth()
+    // const QSize viewSize(std::min(m_treeView->sizeHintForColumn(0) + 2 * frameWidth + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()), // ORIG
+    // line, sizeHintForColumn was QListView but is protected for QTreeView so we introduced sizeHintWidth()
     const QSize viewSize(std::min(m_treeView->sizeHintWidth() + 2 * frameWidth + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()),
                          std::min(std::max(rowHeight * m_model->rowCount() + 2 * frameWidth, rowHeight * 6), viewMaxSize.height()));
 
@@ -265,7 +265,7 @@ void TabSwitcherPluginView::closeView()
     }
 
     const int row = m_treeView->selectionModel()->selectedRows().first().row();
-    KTextEditor::Document* doc = m_model->item(row);
+    KTextEditor::Document *doc = m_model->item(row);
     if (doc) {
         KTextEditor::Editor::instance()->application()->closeDocument(doc);
     }

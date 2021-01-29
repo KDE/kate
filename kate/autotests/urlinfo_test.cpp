@@ -17,14 +17,16 @@ QTEST_MAIN(UrlInfoTest)
 void UrlInfoTest::someUrls()
 {
     // check that some things convert correctly to urls
-    QCOMPARE(UrlInfo(QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file")).url.toString(), QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file"));
+    QCOMPARE(UrlInfo(QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file")).url.toString(),
+             QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file"));
     QCOMPARE(UrlInfo(QStringLiteral("sftp://127.0.0.1:1234/path/to/file")).url.toString(), QStringLiteral("sftp://127.0.0.1:1234/path/to/file"));
 }
 
 void UrlInfoTest::someCursors()
 {
     // check that some things convert correctly to urls + cursors
-    QCOMPARE(UrlInfo(QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file:1234:12")).url.toString(), QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file"));
+    QCOMPARE(UrlInfo(QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file:1234:12")).url.toString(),
+             QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file"));
     QCOMPARE(UrlInfo(QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file:1234:12")).cursor, KTextEditor::Cursor(1233, 11));
     QCOMPARE(UrlInfo(QStringLiteral("sftp://127.0.0.1:1234/path/to/file:1:1")).url.toString(), QStringLiteral("sftp://127.0.0.1:1234/path/to/file"));
     QCOMPARE(UrlInfo(QStringLiteral("sftp://127.0.0.1:1234/path/to/file:1:1")).cursor, KTextEditor::Cursor(0, 0));

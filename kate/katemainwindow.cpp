@@ -12,6 +12,7 @@
 
 #include "kateapp.h"
 #include "katecolorschemechooser.h"
+#include "katecommandbar.h"
 #include "kateconfigdialog.h"
 #include "kateconfigplugindialogpage.h"
 #include "katedebug.h"
@@ -25,7 +26,6 @@
 #include "katesessionsaction.h"
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
-#include "katecommandbar.h"
 
 #include <KAboutData>
 #include <KActionCollection>
@@ -290,8 +290,12 @@ void KateMainWindow::setupActions()
 {
     QAction *a;
 
-    actionCollection()->addAction(KStandardAction::New, QStringLiteral("file_new"), m_viewManager, SLOT(slotDocumentNew()))->setWhatsThis(i18n("Create a new document"));
-    actionCollection()->addAction(KStandardAction::Open, QStringLiteral("file_open"), m_viewManager, SLOT(slotDocumentOpen()))->setWhatsThis(i18n("Open an existing document for editing"));
+    actionCollection()
+        ->addAction(KStandardAction::New, QStringLiteral("file_new"), m_viewManager, SLOT(slotDocumentNew()))
+        ->setWhatsThis(i18n("Create a new document"));
+    actionCollection()
+        ->addAction(KStandardAction::Open, QStringLiteral("file_open"), m_viewManager, SLOT(slotDocumentOpen()))
+        ->setWhatsThis(i18n("Open an existing document for editing"));
 
     m_fileOpenRecent = KStandardAction::openRecent(m_viewManager, SLOT(openUrl(QUrl)), this);
     m_fileOpenRecent->setMaxItems(KateConfigDialog::recentFilesMaxCount());
@@ -357,7 +361,9 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("file_compare"));
     a->setText(i18n("Compare"));
-    connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() { QMessageBox::information(this, i18n("Compare"), i18n("Use the Tabbar context menu to compare two documents")); });
+    connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
+        QMessageBox::information(this, i18n("Compare"), i18n("Use the Tabbar context menu to compare two documents"));
+    });
     a->setWhatsThis(i18n("Shows a hint how to compare documents."));
 
     a = actionCollection()->addAction(QStringLiteral("file_close_orphaned"));
@@ -455,9 +461,14 @@ void KateMainWindow::setupActions()
 
 void KateMainWindow::slotDocumentCloseAll()
 {
-    if (!KateApp::self()->documentManager()->documentList().empty() &&
-        KMessageBox::warningContinueCancel(
-            this, i18n("This will close all open documents. Are you sure you want to continue?"), i18n("Close all documents"), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), QStringLiteral("closeAll")) != KMessageBox::Cancel) {
+    if (!KateApp::self()->documentManager()->documentList().empty()
+        && KMessageBox::warningContinueCancel(this,
+                                              i18n("This will close all open documents. Are you sure you want to continue?"),
+                                              i18n("Close all documents"),
+                                              KStandardGuiItem::cont(),
+                                              KStandardGuiItem::cancel(),
+                                              QStringLiteral("closeAll"))
+            != KMessageBox::Cancel) {
         if (queryClose_internal()) {
             KateApp::self()->documentManager()->closeAllDocuments(false);
         }
@@ -466,13 +477,14 @@ void KateMainWindow::slotDocumentCloseAll()
 
 void KateMainWindow::slotDocumentCloseOther(KTextEditor::Document *document)
 {
-    if (KateApp::self()->documentManager()->documentList().size() > 1 &&
-        KMessageBox::warningContinueCancel(this,
-                                           i18n("This will close all open documents beside the current one. Are you sure you want to continue?"),
-                                           i18n("Close all documents beside current one"),
-                                           KStandardGuiItem::cont(),
-                                           KStandardGuiItem::cancel(),
-                                           QStringLiteral("closeOther")) != KMessageBox::Cancel) {
+    if (KateApp::self()->documentManager()->documentList().size() > 1
+        && KMessageBox::warningContinueCancel(this,
+                                              i18n("This will close all open documents beside the current one. Are you sure you want to continue?"),
+                                              i18n("Close all documents beside current one"),
+                                              KStandardGuiItem::cont(),
+                                              KStandardGuiItem::cancel(),
+                                              QStringLiteral("closeOther"))
+            != KMessageBox::Cancel) {
         if (queryClose_internal(document)) {
             KateApp::self()->documentManager()->closeOtherDocuments(document);
         }
@@ -772,7 +784,8 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
                                                i18n("You dropped the directory %1 into Kate. "
                                                     "Do you want to load all files contained in it ?",
                                                     url.url()),
-                                               i18n("Load files recursively?")) == KMessageBox::Yes) {
+                                               i18n("Load files recursively?"))
+                    == KMessageBox::Yes) {
                     KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
                     connect(list_job, &KIO::ListJob::entries, this, &KateMainWindow::slotListRecursiveEntries);
                 }
@@ -1218,11 +1231,11 @@ void KateMainWindow::slotQuickOpen()
 
 void KateMainWindow::slotCommandBarOpen()
 {
-    QList<KActionCollection*> actionCollections;
+    QList<KActionCollection *> actionCollections;
 
     auto clients = guiFactory()->clients();
     int actionsCount = 0;
-    for (const KXMLGUIClient* c : clients) {
+    for (const KXMLGUIClient *c : clients) {
         if (!c) {
             continue;
         }
@@ -1236,7 +1249,11 @@ void KateMainWindow::slotCommandBarOpen()
     centralWidget()->setFocusProxy(m_commandBar);
 }
 
-QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text)
+QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin,
+                                        const QString &identifier,
+                                        KTextEditor::MainWindow::ToolViewPosition pos,
+                                        const QIcon &icon,
+                                        const QString &text)
 {
     return KateMDI::MainWindow::createToolView(plugin, identifier, static_cast<KMultiTabBar::KMultiTabBarPosition>(pos), icon, text);
 }

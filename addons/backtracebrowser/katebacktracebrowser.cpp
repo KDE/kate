@@ -32,8 +32,8 @@
 K_PLUGIN_FACTORY_WITH_JSON(KateBtBrowserFactory, "katebacktracebrowserplugin.json", registerPlugin<KateBtBrowserPlugin>();)
 
 KateBtBrowserPlugin *KateBtBrowserPlugin::s_self = nullptr;
-static QStringList fileExtensions = QStringList() << QStringLiteral("*.cpp") << QStringLiteral("*.cxx") << QStringLiteral("*.c") << QStringLiteral("*.cc") << QStringLiteral("*.h") << QStringLiteral("*.hpp") << QStringLiteral("*.hxx")
-                                                  << QStringLiteral("*.moc");
+static QStringList fileExtensions = QStringList() << QStringLiteral("*.cpp") << QStringLiteral("*.cxx") << QStringLiteral("*.c") << QStringLiteral("*.cc")
+                                                  << QStringLiteral("*.h") << QStringLiteral("*.hpp") << QStringLiteral("*.hxx") << QStringLiteral("*.moc");
 
 KateBtBrowserPlugin::KateBtBrowserPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
@@ -110,7 +110,11 @@ KateBtBrowserPluginView::KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KT
     , m_plugin(plugin)
 {
     // init console
-    QWidget *toolview = mainWindow->createToolView(plugin, QStringLiteral("kate_private_plugin_katebacktracebrowserplugin"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("tools-report-bug")), i18n("Backtrace Browser"));
+    QWidget *toolview = mainWindow->createToolView(plugin,
+                                                   QStringLiteral("kate_private_plugin_katebacktracebrowserplugin"),
+                                                   KTextEditor::MainWindow::Bottom,
+                                                   QIcon::fromTheme(QStringLiteral("tools-report-bug")),
+                                                   i18n("Backtrace Browser"));
     m_widget = new KateBtBrowserWidget(mainWindow, toolview);
 
     connect(plugin, &KateBtBrowserPlugin::newStatus, m_widget, &KateBtBrowserWidget::setStatus);

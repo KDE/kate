@@ -60,18 +60,18 @@ static const QString MEMBER_TARGET_SELECTION_RANGE = QStringLiteral("targetSelec
 // message construction helpers
 static QJsonObject to_json(const LSPPosition &pos)
 {
-    return QJsonObject {{MEMBER_LINE, pos.line()}, {MEMBER_CHARACTER, pos.column()}};
+    return QJsonObject{{MEMBER_LINE, pos.line()}, {MEMBER_CHARACTER, pos.column()}};
 }
 
 static QJsonObject to_json(const LSPRange &range)
 {
-    return QJsonObject {{MEMBER_START, to_json(range.start())}, {MEMBER_END, to_json(range.end())}};
+    return QJsonObject{{MEMBER_START, to_json(range.start())}, {MEMBER_END, to_json(range.end())}};
 }
 
 static QJsonValue to_json(const LSPLocation &location)
 {
     if (location.uri.isValid()) {
-        return QJsonObject {{MEMBER_URI, location.uri.toString()}, {MEMBER_RANGE, to_json(location.range)}};
+        return QJsonObject{{MEMBER_URI, location.uri.toString()}, {MEMBER_RANGE, to_json(location.range)}};
     }
     return QJsonValue();
 }
@@ -80,7 +80,7 @@ static QJsonValue to_json(const LSPDiagnosticRelatedInformation &related)
 {
     auto loc = to_json(related.location);
     if (loc.isObject()) {
-        return QJsonObject {{MEMBER_LOCATION, to_json(related.location)}, {MEMBER_MESSAGE, related.message}};
+        return QJsonObject{{MEMBER_LOCATION, to_json(related.location)}, {MEMBER_MESSAGE, related.message}};
     }
     return QJsonValue();
 }
@@ -113,14 +113,14 @@ static QJsonArray to_json(const QList<LSPTextDocumentContentChangeEvent> &change
 {
     QJsonArray result;
     for (const auto &change : changes) {
-        result.push_back(QJsonObject {{MEMBER_RANGE, to_json(change.range)}, {MEMBER_TEXT, change.text}});
+        result.push_back(QJsonObject{{MEMBER_RANGE, to_json(change.range)}, {MEMBER_TEXT, change.text}});
     }
     return result;
 }
 
 static QJsonObject versionedTextDocumentIdentifier(const QUrl &document, int version = -1)
 {
-    QJsonObject map {{MEMBER_URI, document.toString()}};
+    QJsonObject map{{MEMBER_URI, document.toString()}};
     if (version >= 0)
         map[MEMBER_VERSION] = version;
     return map;
@@ -136,7 +136,7 @@ static QJsonObject textDocumentItem(const QUrl &document, const QString &lang, c
 
 static QJsonObject textDocumentParams(const QJsonObject &m)
 {
-    return QJsonObject {{QStringLiteral("textDocument"), m}};
+    return QJsonObject{{QStringLiteral("textDocument"), m}};
 }
 
 static QJsonObject textDocumentParams(const QUrl &document, int version = -1)
@@ -154,7 +154,7 @@ static QJsonObject textDocumentPositionParams(const QUrl &document, LSPPosition 
 static QJsonObject referenceParams(const QUrl &document, LSPPosition pos, bool decl)
 {
     auto params = textDocumentPositionParams(document, pos);
-    params[QStringLiteral("context")] = QJsonObject {{QStringLiteral("includeDeclaration"), decl}};
+    params[QStringLiteral("context")] = QJsonObject{{QStringLiteral("includeDeclaration"), decl}};
     return params;
 }
 
@@ -209,17 +209,17 @@ static QJsonObject codeActionParams(const QUrl &document, const LSPRange &range,
 
 static QJsonObject executeCommandParams(const QString &command, const QJsonValue &args)
 {
-    return QJsonObject {{MEMBER_COMMAND, command}, {MEMBER_ARGUMENTS, args}};
+    return QJsonObject{{MEMBER_COMMAND, command}, {MEMBER_ARGUMENTS, args}};
 }
 
 static QJsonObject applyWorkspaceEditResponse(const LSPApplyWorkspaceEditResponse &response)
 {
-    return QJsonObject {{QStringLiteral("applied"), response.applied}, {QStringLiteral("failureReason"), response.failureReason}};
+    return QJsonObject{{QStringLiteral("applied"), response.applied}, {QStringLiteral("failureReason"), response.failureReason}};
 }
 
 static QJsonObject changeConfigurationParams(const QJsonValue &settings)
 {
-    return QJsonObject {{QStringLiteral("settings"), settings}};
+    return QJsonObject{{QStringLiteral("settings"), settings}};
 }
 
 static void from_json(QVector<QChar> &trigger, const QJsonValue &json)
@@ -288,7 +288,8 @@ static void from_json(LSPSemanticHighlightingOptions &options, const QJsonValue 
 static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
 {
     auto sync = json.value(QStringLiteral("textDocumentSync"));
-    caps.textDocumentSync = static_cast<LSPDocumentSyncKind>((sync.isObject() ? sync.toObject().value(QStringLiteral("change")) : sync).toInt(static_cast<int>(LSPDocumentSyncKind::None)));
+    caps.textDocumentSync = static_cast<LSPDocumentSyncKind>(
+        (sync.isObject() ? sync.toObject().value(QStringLiteral("change")) : sync).toInt(static_cast<int>(LSPDocumentSyncKind::None)));
     caps.hoverProvider = json.value(QStringLiteral("hoverProvider")).toBool();
     from_json(caps.completionProvider, json.value(QStringLiteral("completionProvider")));
     from_json(caps.signatureHelpProvider, json.value(QStringLiteral("signatureHelpProvider")));
@@ -782,7 +783,7 @@ class LSPClientServer::LSPClientServerPrivate
     QHash<int, std::pair<GenericReplyHandler, GenericReplyHandler>> m_handlers;
     // pending request responses
     static constexpr int MAX_REQUESTS = 5;
-    QVector<int> m_requests {MAX_REQUESTS + 1};
+    QVector<int> m_requests{MAX_REQUESTS + 1};
 
 public:
     LSPClientServerPrivate(LSPClientServer *_q, const QStringList &server, const QUrl &root, const QString &langId, const QJsonValue &init)
@@ -830,7 +831,7 @@ public:
     int cancel(int reqid)
     {
         if (m_handlers.remove(reqid) > 0) {
-            auto params = QJsonObject {{MEMBER_ID, reqid}};
+            auto params = QJsonObject{{MEMBER_ID, reqid}};
             write(init_request(QStringLiteral("$/cancelRequest"), params));
         }
         return -1;
@@ -935,7 +936,7 @@ private:
             buffer.remove(0, msgstart + length);
             qCInfo(LSPCLIENT) << "got message payload size " << length;
             qCDebug(LSPCLIENT) << "message payload:\n" << payload;
-            QJsonParseError error {};
+            QJsonParseError error{};
             auto msg = QJsonDocument::fromJson(payload, &error);
             if (error.error != QJsonParseError::NoError || !msg.isObject()) {
                 qCWarning(LSPCLIENT) << "invalid response payload";
@@ -990,17 +991,17 @@ private:
 
     static QJsonObject init_error(const LSPErrorCode code, const QString &msg)
     {
-        return QJsonObject {{MEMBER_ERROR, QJsonObject {{MEMBER_CODE, static_cast<int>(code)}, {MEMBER_MESSAGE, msg}}}};
+        return QJsonObject{{MEMBER_ERROR, QJsonObject{{MEMBER_CODE, static_cast<int>(code)}, {MEMBER_MESSAGE, msg}}}};
     }
 
     static QJsonObject init_request(const QString &method, const QJsonObject &params = QJsonObject())
     {
-        return QJsonObject {{MEMBER_METHOD, method}, {MEMBER_PARAMS, params}};
+        return QJsonObject{{MEMBER_METHOD, method}, {MEMBER_PARAMS, params}};
     }
 
     static QJsonObject init_response(const QJsonValue &result = QJsonValue())
     {
-        return QJsonObject {{MEMBER_RESULT, result}};
+        return QJsonObject{{MEMBER_RESULT, result}};
     }
 
     bool running()
@@ -1041,22 +1042,24 @@ private:
 
     void initialize(LSPClientPlugin *plugin)
     {
-        QJsonObject codeAction {{QStringLiteral("codeActionLiteralSupport"), QJsonObject {{QStringLiteral("codeActionKind"), QJsonObject {{QStringLiteral("valueSet"), QJsonArray()}}}}}};
-        QJsonObject capabilities {{QStringLiteral("textDocument"),
-                                   QJsonObject {{
-                                                    QStringLiteral("documentSymbol"),
-                                                    QJsonObject {{QStringLiteral("hierarchicalDocumentSymbolSupport"), true}},
-                                                },
-                                                {QStringLiteral("publishDiagnostics"), QJsonObject {{QStringLiteral("relatedInformation"), true}}},
-                                                {QStringLiteral("codeAction"), codeAction},
-                                                {QStringLiteral("semanticHighlightingCapabilities"), QJsonObject {{QStringLiteral("semanticHighlighting"), !plugin || plugin->m_semanticHighlighting}}}}}};
+        QJsonObject codeAction{{QStringLiteral("codeActionLiteralSupport"),
+                                QJsonObject{{QStringLiteral("codeActionKind"), QJsonObject{{QStringLiteral("valueSet"), QJsonArray()}}}}}};
+        QJsonObject capabilities{{QStringLiteral("textDocument"),
+                                  QJsonObject{{
+                                                  QStringLiteral("documentSymbol"),
+                                                  QJsonObject{{QStringLiteral("hierarchicalDocumentSymbolSupport"), true}},
+                                              },
+                                              {QStringLiteral("publishDiagnostics"), QJsonObject{{QStringLiteral("relatedInformation"), true}}},
+                                              {QStringLiteral("codeAction"), codeAction},
+                                              {QStringLiteral("semanticHighlightingCapabilities"),
+                                               QJsonObject{{QStringLiteral("semanticHighlighting"), !plugin || plugin->m_semanticHighlighting}}}}}};
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
-        QJsonObject params {{QStringLiteral("processId"), QCoreApplication::applicationPid()},
-                            {QStringLiteral("rootPath"), m_root.toLocalFile()},
-                            {QStringLiteral("rootUri"), m_root.toString()},
-                            {QStringLiteral("capabilities"), capabilities},
-                            {QStringLiteral("initializationOptions"), m_init}};
+        QJsonObject params{{QStringLiteral("processId"), QCoreApplication::applicationPid()},
+                           {QStringLiteral("rootPath"), m_root.toLocalFile()},
+                           {QStringLiteral("rootUri"), m_root.toString()},
+                           {QStringLiteral("capabilities"), capabilities},
+                           {QStringLiteral("initializationOptions"), m_init}};
         //
         write(init_request(QStringLiteral("initialize"), params), utils::mem_fun(&self_type::onInitializeReply, this));
     }
@@ -1173,7 +1176,8 @@ public:
         return send(init_request(QStringLiteral("textDocument/rangeFormatting"), params), h);
     }
 
-    RequestHandle documentOnTypeFormatting(const QUrl &document, const LSPPosition &pos, QChar lastChar, const LSPFormattingOptions &options, const GenericReplyHandler &h)
+    RequestHandle
+    documentOnTypeFormatting(const QUrl &document, const LSPPosition &pos, QChar lastChar, const LSPFormattingOptions &options, const GenericReplyHandler &h)
     {
         auto params = documentOnTypeFormattingParams(document, pos, lastChar, options);
         return send(init_request(QStringLiteral("textDocument/onTypeFormatting"), params), h);
@@ -1185,7 +1189,8 @@ public:
         return send(init_request(QStringLiteral("textDocument/rename"), params), h);
     }
 
-    RequestHandle documentCodeAction(const QUrl &document, const LSPRange &range, const QList<QString> &kinds, QList<LSPDiagnostic> diagnostics, const GenericReplyHandler &h)
+    RequestHandle
+    documentCodeAction(const QUrl &document, const LSPRange &range, const QList<QString> &kinds, QList<LSPDiagnostic> diagnostics, const GenericReplyHandler &h)
     {
         auto params = codeActionParams(document, range, kinds, std::move(diagnostics));
         return send(init_request(QStringLiteral("textDocument/codeAction"), params), h);
@@ -1207,7 +1212,7 @@ public:
     {
         Q_ASSERT(text.isEmpty() || changes.empty());
         auto params = textDocumentParams(document, version);
-        params[QStringLiteral("contentChanges")] = text.size() ? QJsonArray {QJsonObject {{MEMBER_TEXT, text}}} : to_json(changes);
+        params[QStringLiteral("contentChanges")] = text.size() ? QJsonArray{QJsonObject{{MEMBER_TEXT, text}}} : to_json(changes);
         send(init_request(QStringLiteral("textDocument/didChange"), params));
     }
 
@@ -1269,9 +1274,13 @@ public:
         return h;
     }
 
-    template<typename ReplyType> static ReplyHandler<ReplyType> responseHandler(const GenericReplyHandler &h, typename utils::identity<std::function<GenericReplyType(const ReplyType &)>>::type c)
+    template<typename ReplyType>
+    static ReplyHandler<ReplyType> responseHandler(const GenericReplyHandler &h,
+                                                   typename utils::identity<std::function<GenericReplyType(const ReplyType &)>>::type c)
     {
-        return [h, c](const ReplyType &m) { h(c(m)); };
+        return [h, c](const ReplyType &m) {
+            h(c(m));
+        };
     }
 
     // pretty rare and limited use, but anyway
@@ -1295,7 +1304,9 @@ public:
 // sprinkle some connection-like context safety
 // not so likely relevant/needed due to typical sequence of events,
 // but in case the latter would be changed in surprising ways ...
-template<typename ReplyType> static GenericReplyHandler make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
+template<typename ReplyType>
+static GenericReplyHandler
+make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename utils::identity<std::function<ReplyType(const GenericReplyType &)>>::type c)
 {
     // empty provided handler leads to empty handler
     if (!h || !c)
@@ -1358,72 +1369,100 @@ int LSPClientServer::cancel(int reqid)
     return d->cancel(reqid);
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentSymbols(const QUrl &document, const QObject *context, const DocumentSymbolsReplyHandler &h, const ErrorReplyHandler &eh)
+LSPClientServer::RequestHandle
+LSPClientServer::documentSymbols(const QUrl &document, const QObject *context, const DocumentSymbolsReplyHandler &h, const ErrorReplyHandler &eh)
 {
     return d->documentSymbols(document, make_handler(h, context, parseDocumentSymbols), make_handler(eh, context, parseResponseError));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentDefinition(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
+LSPClientServer::RequestHandle
+LSPClientServer::documentDefinition(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
 {
     return d->documentDefinition(document, pos, make_handler(h, context, parseDocumentLocation));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentImplementation(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
+LSPClientServer::RequestHandle
+LSPClientServer::documentImplementation(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
 {
     return d->documentImplementation(document, pos, make_handler(h, context, parseDocumentLocation));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentDeclaration(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
+LSPClientServer::RequestHandle
+LSPClientServer::documentDeclaration(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
 {
     return d->documentDeclaration(document, pos, make_handler(h, context, parseDocumentLocation));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentHover(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentHoverReplyHandler &h)
+LSPClientServer::RequestHandle
+LSPClientServer::documentHover(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentHoverReplyHandler &h)
 {
     return d->documentHover(document, pos, make_handler(h, context, parseHover));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentHighlight(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentHighlightReplyHandler &h)
+LSPClientServer::RequestHandle
+LSPClientServer::documentHighlight(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentHighlightReplyHandler &h)
 {
     return d->documentHighlight(document, pos, make_handler(h, context, parseDocumentHighlightList));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentReferences(const QUrl &document, const LSPPosition &pos, bool decl, const QObject *context, const DocumentDefinitionReplyHandler &h)
+LSPClientServer::RequestHandle
+LSPClientServer::documentReferences(const QUrl &document, const LSPPosition &pos, bool decl, const QObject *context, const DocumentDefinitionReplyHandler &h)
 {
     return d->documentReferences(document, pos, decl, make_handler(h, context, parseDocumentLocation));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentCompletion(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentCompletionReplyHandler &h)
+LSPClientServer::RequestHandle
+LSPClientServer::documentCompletion(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentCompletionReplyHandler &h)
 {
     return d->documentCompletion(document, pos, make_handler(h, context, parseDocumentCompletion));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::signatureHelp(const QUrl &document, const LSPPosition &pos, const QObject *context, const SignatureHelpReplyHandler &h)
+LSPClientServer::RequestHandle
+LSPClientServer::signatureHelp(const QUrl &document, const LSPPosition &pos, const QObject *context, const SignatureHelpReplyHandler &h)
 {
     return d->signatureHelp(document, pos, make_handler(h, context, parseSignatureHelp));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentFormatting(const QUrl &document, const LSPFormattingOptions &options, const QObject *context, const FormattingReplyHandler &h)
+LSPClientServer::RequestHandle
+LSPClientServer::documentFormatting(const QUrl &document, const LSPFormattingOptions &options, const QObject *context, const FormattingReplyHandler &h)
 {
     return d->documentFormatting(document, options, make_handler(h, context, parseTextEdit));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentRangeFormatting(const QUrl &document, const LSPRange &range, const LSPFormattingOptions &options, const QObject *context, const FormattingReplyHandler &h)
+LSPClientServer::RequestHandle LSPClientServer::documentRangeFormatting(const QUrl &document,
+                                                                        const LSPRange &range,
+                                                                        const LSPFormattingOptions &options,
+                                                                        const QObject *context,
+                                                                        const FormattingReplyHandler &h)
 {
     return d->documentRangeFormatting(document, range, options, make_handler(h, context, parseTextEdit));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentOnTypeFormatting(const QUrl &document, const LSPPosition &pos, const QChar lastChar, const LSPFormattingOptions &options, const QObject *context, const FormattingReplyHandler &h)
+LSPClientServer::RequestHandle LSPClientServer::documentOnTypeFormatting(const QUrl &document,
+                                                                         const LSPPosition &pos,
+                                                                         const QChar lastChar,
+                                                                         const LSPFormattingOptions &options,
+                                                                         const QObject *context,
+                                                                         const FormattingReplyHandler &h)
 {
     return d->documentOnTypeFormatting(document, pos, lastChar, options, make_handler(h, context, parseTextEdit));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentRename(const QUrl &document, const LSPPosition &pos, const QString &newName, const QObject *context, const WorkspaceEditReplyHandler &h)
+LSPClientServer::RequestHandle LSPClientServer::documentRename(const QUrl &document,
+                                                               const LSPPosition &pos,
+                                                               const QString &newName,
+                                                               const QObject *context,
+                                                               const WorkspaceEditReplyHandler &h)
 {
     return d->documentRename(document, pos, newName, make_handler(h, context, parseWorkSpaceEdit));
 }
 
-LSPClientServer::RequestHandle LSPClientServer::documentCodeAction(const QUrl &document, const LSPRange &range, const QList<QString> &kinds, QList<LSPDiagnostic> diagnostics, const QObject *context, const CodeActionReplyHandler &h)
+LSPClientServer::RequestHandle LSPClientServer::documentCodeAction(const QUrl &document,
+                                                                   const LSPRange &range,
+                                                                   const QList<QString> &kinds,
+                                                                   QList<LSPDiagnostic> diagnostics,
+                                                                   const QObject *context,
+                                                                   const CodeActionReplyHandler &h)
 {
     return d->documentCodeAction(document, range, kinds, std::move(diagnostics), make_handler(h, context, parseCodeAction));
 }

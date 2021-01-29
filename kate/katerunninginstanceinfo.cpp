@@ -30,7 +30,8 @@ bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
     }
 
     const bool inSandbox = QFileInfo::exists(QStringLiteral("/flatpak-info"));
-    const QString my_pid = inSandbox ? QDBusConnection::sessionBus().baseService().replace(QRegularExpression(QStringLiteral("[\\.:]")), QStringLiteral("_")) : QString::number(QCoreApplication::applicationPid());
+    const QString my_pid = inSandbox ? QDBusConnection::sessionBus().baseService().replace(QRegularExpression(QStringLiteral("[\\.:]")), QStringLiteral("_"))
+                                     : QString::number(QCoreApplication::applicationPid());
 
     for (const QString &s : qAsConst(services)) {
         if (s.startsWith(QLatin1String("org.kde.kate")) && !s.endsWith(my_pid)) {

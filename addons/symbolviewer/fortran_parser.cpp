@@ -92,11 +92,13 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                 stripped.clear();
             }
             // Functions
-            else if ((((currline.startsWith(QLatin1String("real")) || currline.startsWith(QLatin1String("double")) || currline.startsWith(QLatin1String("integer")) || currline.startsWith(QLatin1String("character"))) ||
-                       currline.startsWith(QLatin1String("logical")) || currline.startsWith(QLatin1String("pure")) || currline.startsWith(QLatin1String("elemental")) || currline.startsWith(QLatin1String("recursive")) ||
-                       currline.startsWith(QLatin1String("type"))) &&
-                      currline.indexOf(funcStr) > 0) ||
-                     currline.startsWith(funcStr)) {
+            else if ((((currline.startsWith(QLatin1String("real")) || currline.startsWith(QLatin1String("double"))
+                        || currline.startsWith(QLatin1String("integer")) || currline.startsWith(QLatin1String("character")))
+                       || currline.startsWith(QLatin1String("logical")) || currline.startsWith(QLatin1String("pure"))
+                       || currline.startsWith(QLatin1String("elemental")) || currline.startsWith(QLatin1String("recursive"))
+                       || currline.startsWith(QLatin1String("type")))
+                      && currline.indexOf(funcStr) > 0)
+                     || currline.startsWith(funcStr)) {
                 block = 3;
                 stripped.clear();
             }

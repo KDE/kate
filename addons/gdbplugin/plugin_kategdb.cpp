@@ -70,9 +70,17 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     KXMLGUIClient::setComponentName(QStringLiteral("kategdb"), i18n("Kate GDB"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    m_toolView = m_mainWin->createToolView(plugin, i18n("Debug View"), KTextEditor::MainWindow::Bottom, QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")), i18n("Debug View"));
+    m_toolView = m_mainWin->createToolView(plugin,
+                                           i18n("Debug View"),
+                                           KTextEditor::MainWindow::Bottom,
+                                           QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
+                                           i18n("Debug View"));
 
-    m_localsStackToolView = m_mainWin->createToolView(plugin, i18n("Locals and Stack"), KTextEditor::MainWindow::Right, QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")), i18n("Locals and Stack"));
+    m_localsStackToolView = m_mainWin->createToolView(plugin,
+                                                      i18n("Locals and Stack"),
+                                                      KTextEditor::MainWindow::Right,
+                                                      QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
+                                                      i18n("Locals and Stack"));
 
     m_tabWidget = new QTabWidget(m_toolView);
     // Output
@@ -173,7 +181,10 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     connect(m_debugView, &DebugView::threadInfo, this, &KatePluginGDBView::insertThread);
 
     connect(m_debugView, &DebugView::sourceFileNotFound, this, [this](const QString &fileName) {
-        displayMessage(xi18nc("@info", "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to Advanced Settings -> Source file search paths", fileName), KTextEditor::Message::Error);
+        displayMessage(xi18nc("@info",
+                              "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to Advanced Settings -> Source file search paths",
+                              fileName),
+                       KTextEditor::Message::Error);
     });
 
     connect(m_localsView, &LocalsView::localsVisible, m_debugView, &DebugView::slotQueryLocals);
@@ -616,18 +627,22 @@ QString KatePluginGDBView::currentWord()
     int startPos = qMax(qMin(col, linestr.length() - 1), 0);
     int lindex = linestr.length() - 1;
     int endPos = startPos;
-    while (startPos >= 0 &&
-           (linestr[startPos].isLetterOrNumber() || linestr[startPos] == QLatin1Char('_') || linestr[startPos] == QLatin1Char('~') || ((startPos > 1) && (linestr[startPos] == QLatin1Char('.')) && !linestr[startPos - 1].isSpace()) ||
-            ((startPos > 2) && (linestr[startPos] == QLatin1Char('>')) && (linestr[startPos - 1] == QLatin1Char('-')) && !linestr[startPos - 2].isSpace()))) {
+    while (startPos >= 0
+           && (linestr[startPos].isLetterOrNumber() || linestr[startPos] == QLatin1Char('_') || linestr[startPos] == QLatin1Char('~')
+               || ((startPos > 1) && (linestr[startPos] == QLatin1Char('.')) && !linestr[startPos - 1].isSpace())
+               || ((startPos > 2) && (linestr[startPos] == QLatin1Char('>')) && (linestr[startPos - 1] == QLatin1Char('-'))
+                   && !linestr[startPos - 2].isSpace()))) {
         if (linestr[startPos] == QLatin1Char('>')) {
             startPos--;
         }
         startPos--;
     }
-    while (endPos < linestr.length() &&
-           (linestr[endPos].isLetterOrNumber() || linestr[endPos] == QLatin1Char('_') || ((endPos < lindex - 1) && (linestr[endPos] == QLatin1Char('.')) && !linestr[endPos + 1].isSpace()) ||
-            ((endPos < lindex - 2) && (linestr[endPos] == QLatin1Char('-')) && (linestr[endPos + 1] == QLatin1Char('>')) && !linestr[endPos + 2].isSpace()) ||
-            ((endPos > 1) && (linestr[endPos - 1] == QLatin1Char('-')) && (linestr[endPos] == QLatin1Char('>'))))) {
+    while (
+        endPos < linestr.length()
+        && (linestr[endPos].isLetterOrNumber() || linestr[endPos] == QLatin1Char('_')
+            || ((endPos < lindex - 1) && (linestr[endPos] == QLatin1Char('.')) && !linestr[endPos + 1].isSpace())
+            || ((endPos < lindex - 2) && (linestr[endPos] == QLatin1Char('-')) && (linestr[endPos + 1] == QLatin1Char('>')) && !linestr[endPos + 2].isSpace())
+            || ((endPos > 1) && (linestr[endPos - 1] == QLatin1Char('-')) && (linestr[endPos] == QLatin1Char('>'))))) {
         if (linestr[endPos] == QLatin1Char('-')) {
             endPos++;
         }
@@ -742,7 +757,5 @@ void KatePluginGDBView::displayMessage(const QString &msg, KTextEditor::Message:
     m_infoMessage->setView(kv);
     kv->document()->postMessage(m_infoMessage);
 }
-
-
 
 #include "plugin_kategdb.moc"

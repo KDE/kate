@@ -122,7 +122,7 @@ bool KateTabBar::containsTab(int index) const
 QVariant KateTabBar::ensureValidTabData(int idx)
 {
     if (!tabData(idx).isValid()) {
-        setTabData(idx, QVariant::fromValue(KateTabButtonData {}));
+        setTabData(idx, QVariant::fromValue(KateTabButtonData{}));
     }
     return tabData(idx);
 }

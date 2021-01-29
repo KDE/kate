@@ -46,10 +46,17 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
     KXMLGUIClient::setComponentName(QStringLiteral("katesql"), i18n("Kate SQL Plugin"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    m_outputToolView = mw->createToolView(plugin, QStringLiteral("kate_private_plugin_katesql_output"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("view-form-table")), i18nc("@title:window", "SQL Results"));
+    m_outputToolView = mw->createToolView(plugin,
+                                          QStringLiteral("kate_private_plugin_katesql_output"),
+                                          KTextEditor::MainWindow::Bottom,
+                                          QIcon::fromTheme(QStringLiteral("view-form-table")),
+                                          i18nc("@title:window", "SQL Results"));
 
-    m_schemaBrowserToolView =
-        mw->createToolView(plugin, QStringLiteral("kate_private_plugin_katesql_schemabrowser"), KTextEditor::MainWindow::Left, QIcon::fromTheme(QStringLiteral("view-list-tree")), i18nc("@title:window", "SQL Schema Browser"));
+    m_schemaBrowserToolView = mw->createToolView(plugin,
+                                                 QStringLiteral("kate_private_plugin_katesql_schemabrowser"),
+                                                 KTextEditor::MainWindow::Left,
+                                                 QIcon::fromTheme(QStringLiteral("view-list-tree")),
+                                                 i18nc("@title:window", "SQL Schema Browser"));
 
     m_outputWidget = new KateSQLOutputWidget(m_outputToolView);
 

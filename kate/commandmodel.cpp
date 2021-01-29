@@ -5,8 +5,8 @@
 */
 #include "commandmodel.h"
 
-#include <QAction>
 #include <KLocalizedString>
+#include <QAction>
 #include <QDebug>
 
 CommandModel::CommandModel(QObject *parent)
@@ -14,7 +14,7 @@ CommandModel::CommandModel(QObject *parent)
 {
 }
 
-void CommandModel::refresh(QVector<QPair<QString, QAction*>> actionList)
+void CommandModel::refresh(QVector<QPair<QString, QAction *>> actionList)
 {
     QVector<Item> temp;
     temp.reserve(actionList.size());
@@ -35,8 +35,7 @@ QVariant CommandModel::data(const QModelIndex &index, int role) const
     auto entry = m_rows[index.row()];
     int col = index.column();
 
-    switch (role)
-    {
+    switch (role) {
     case Qt::DisplayRole:
         if (col == 0)
             return QString(entry.component + QStringLiteral(": ") + KLocalizedString::removeAcceleratorMarker(entry.action->text()));
@@ -51,8 +50,7 @@ QVariant CommandModel::data(const QModelIndex &index, int role) const
             return Qt::AlignLeft;
         else
             return Qt::AlignRight;
-    case Qt::UserRole:
-    {
+    case Qt::UserRole: {
         QVariant v;
         v.setValue(entry.action);
         return v;

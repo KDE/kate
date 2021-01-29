@@ -8,7 +8,16 @@
 #include "replicodesettings.h"
 #include "ui_config.h"
 
-enum TraceLevels { CompositeInputs = 1 << 0, CompositeOutputs = 1 << 1, ModelInputs = 1 << 2, ModelOutputs = 1 << 3, PredictionMonitoring = 1 << 4, GoalMonitoring = 1 << 5, ModelRevision = 1 << 6, ModelCompositeInjection = 1 << 7 };
+enum TraceLevels {
+    CompositeInputs = 1 << 0,
+    CompositeOutputs = 1 << 1,
+    ModelInputs = 1 << 2,
+    ModelOutputs = 1 << 3,
+    PredictionMonitoring = 1 << 4,
+    GoalMonitoring = 1 << 5,
+    ModelRevision = 1 << 6,
+    ModelCompositeInjection = 1 << 7
+};
 
 ReplicodeConfig::ReplicodeConfig(QWidget *parent)
     : QTabWidget(parent)

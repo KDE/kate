@@ -70,7 +70,9 @@ static void makeActionNameUnique(KateExternalTool *tool, const std::vector<KateE
     QString name = tool->actionName;
     int i = 1;
     while (true) {
-        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &name](const KateExternalTool *t) { return (t != tool) && (t->actionName == name); });
+        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &name](const KateExternalTool *t) {
+            return (t != tool) && (t->actionName == name);
+        });
         if (it == tools.cend()) {
             break;
         }
@@ -93,7 +95,9 @@ void makeEditorCommandUnique(KateExternalTool *tool, const std::vector<KateExter
     QString cmdname = tool->cmdname;
     int i = 1;
     while (true) {
-        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &cmdname](const KateExternalTool *t) { return (t != tool) && (t->cmdname == cmdname); });
+        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &cmdname](const KateExternalTool *t) {
+            return (t != tool) && (t->cmdname == cmdname);
+        });
         if (it == tools.cend()) {
             break;
         }
@@ -105,7 +109,9 @@ void makeEditorCommandUnique(KateExternalTool *tool, const std::vector<KateExter
 
 static KateExternalTool defaultTool(const QString &actionName, const QVector<KateExternalTool> &defaultTools)
 {
-    auto it = std::find_if(defaultTools.cbegin(), defaultTools.cend(), [actionName](const KateExternalTool &defaultTool) { return actionName == defaultTool.actionName; });
+    auto it = std::find_if(defaultTools.cbegin(), defaultTools.cend(), [actionName](const KateExternalTool &defaultTool) {
+        return actionName == defaultTool.actionName;
+    });
     return (it != defaultTools.cend()) ? *it : KateExternalTool();
 }
 
@@ -244,13 +250,17 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
     addMenu->addSeparator();
     auto addCategoryAction = addMenu->addAction(i18n("Add Category"));
     btnAdd->setMenu(addMenu);
-    connect(addDefaultsMenu, &QMenu::aboutToShow, [this, addDefaultsMenu]() { lazyInitDefaultsMenu(addDefaultsMenu); });
+    connect(addDefaultsMenu, &QMenu::aboutToShow, [this, addDefaultsMenu]() {
+        lazyInitDefaultsMenu(addDefaultsMenu);
+    });
 
     connect(addCategoryAction, &QAction::triggered, this, &KateExternalToolsConfigWidget::slotAddCategory);
     connect(addToolAction, &QAction::triggered, this, &KateExternalToolsConfigWidget::slotAddTool);
     connect(btnRemove, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotRemove);
     connect(btnEdit, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotEdit);
-    connect(lbTools->selectionModel(), &QItemSelectionModel::currentChanged, [this]() { slotSelectionChanged(); });
+    connect(lbTools->selectionModel(), &QItemSelectionModel::currentChanged, [this]() {
+        slotSelectionChanged();
+    });
     connect(lbTools, &QTreeView::doubleClicked, this, &KateExternalToolsConfigWidget::slotEdit);
 
     m_config = new KConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
@@ -415,7 +425,9 @@ void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
         auto a = categoryMenu->addAction(QIcon::fromTheme(tool.icon), tool.translatedName());
         a->setData(defaultToolsIndex);
 
-        connect(a, &QAction::triggered, [this, a]() { slotAddDefaultTool(a->data().toInt()); });
+        connect(a, &QAction::triggered, [this, a]() {
+            slotAddDefaultTool(a->data().toInt());
+        });
         ++defaultToolsIndex;
     }
 }

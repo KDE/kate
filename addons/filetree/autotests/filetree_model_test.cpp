@@ -153,9 +153,11 @@ void FileTreeModelTest::buildTree_data()
     QTest::addColumn<QList<DummyDocument *>>("documents");
     QTest::addColumn<ResultNode>("nodes");
 
-    QTest::newRow("easy") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt")) << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")));
+    QTest::newRow("easy") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt"))
+                          << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")));
 
-    QTest::newRow("two") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt")) << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt") << ResultNode("bar.txt")));
+    QTest::newRow("two") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt"))
+                         << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt") << ResultNode("bar.txt")));
 
     QTest::newRow("strangers") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///b/bar.txt"))
                                << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")) << (ResultNode("b", true) << ResultNode("bar.txt")));
@@ -163,8 +165,10 @@ void FileTreeModelTest::buildTree_data()
     QTest::newRow("lvl1 strangers") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt"))
                                     << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")) << (ResultNode("b", true) << ResultNode("bar.txt")));
 
-    QTest::newRow("multiples") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt") << new DummyDocument("file:///c/a/bar.txt"))
-                               << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt") << ResultNode("bar.txt")) << (ResultNode("b", true) << ResultNode("bar.txt")));
+    QTest::newRow("multiples") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt")
+                                                            << new DummyDocument("file:///c/a/bar.txt"))
+                               << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt") << ResultNode("bar.txt"))
+                                                << (ResultNode("b", true) << ResultNode("bar.txt")));
 
     QTest::newRow("stairs") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/bar.txt"))
                             << (ResultNode() << (ResultNode("c", true) << (ResultNode("a", true) << ResultNode("foo.txt")) << ResultNode("bar.txt")));
@@ -173,42 +177,61 @@ void FileTreeModelTest::buildTree_data()
                                     << (ResultNode() << (ResultNode("c", true) << ResultNode("bar.txt") << (ResultNode("a", true) << ResultNode("foo.txt"))));
 
     QTest::newRow("matching") << (QList<DummyDocument *>() << new DummyDocument("file:///a/x/foo.txt") << new DummyDocument("file:///b/x/bar.txt"))
-                              << (ResultNode() << (ResultNode("a", true) << (ResultNode("x", true) << ResultNode("foo.txt"))) << (ResultNode("b", true) << (ResultNode("x", true) << ResultNode("bar.txt"))));
+                              << (ResultNode() << (ResultNode("a", true) << (ResultNode("x", true) << ResultNode("foo.txt")))
+                                               << (ResultNode("b", true) << (ResultNode("x", true) << ResultNode("bar.txt"))));
 
-    QTest::newRow("matching even more") << (QList<DummyDocument *>() << new DummyDocument("file:///a/x/y/z/foo.txt") << new DummyDocument("file:///b/x/y/z/bar.txt"))
-                                        << (ResultNode() << (ResultNode("a", true) << (ResultNode("x", true) << (ResultNode("y", true) << (ResultNode("z", true) << ResultNode("foo.txt")))))
-                                                         << (ResultNode("b", true) << (ResultNode("x", true) << (ResultNode("y", true) << (ResultNode("z", true) << ResultNode("bar.txt"))))));
+    QTest::newRow("matching even more")
+        << (QList<DummyDocument *>() << new DummyDocument("file:///a/x/y/z/foo.txt") << new DummyDocument("file:///b/x/y/z/bar.txt"))
+        << (ResultNode() << (ResultNode("a", true) << (ResultNode("x", true) << (ResultNode("y", true) << (ResultNode("z", true) << ResultNode("foo.txt")))))
+                         << (ResultNode("b", true) << (ResultNode("x", true) << (ResultNode("y", true) << (ResultNode("z", true) << ResultNode("bar.txt"))))));
 
-    QTest::newRow("matching with booby trap") << (QList<DummyDocument *>() << new DummyDocument("file:///x/y/foo.txt") << new DummyDocument("file:///c/x/bar.txt") << new DummyDocument("file:///d/y/baz.txt"))
-                                              << (ResultNode() << (ResultNode("x", true) << (ResultNode("y", true) << ResultNode("foo.txt"))) << (ResultNode("d", true) << (ResultNode("y", true) << ResultNode("baz.txt")))
+    QTest::newRow("matching with booby trap") << (QList<DummyDocument *>()
+                                                  << new DummyDocument("file:///x/y/foo.txt") << new DummyDocument("file:///c/x/bar.txt")
+                                                  << new DummyDocument("file:///d/y/baz.txt"))
+                                              << (ResultNode() << (ResultNode("x", true) << (ResultNode("y", true) << ResultNode("foo.txt")))
+                                                               << (ResultNode("d", true) << (ResultNode("y", true) << ResultNode("baz.txt")))
                                                                << (ResultNode("c", true) << (ResultNode("x", true) << ResultNode("bar.txt"))));
 
-    QTest::newRow("branches") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt") << new DummyDocument("file:///d/a/foo.txt"))
-                              << (ResultNode() << (ResultNode("c", true) << (ResultNode("a", true) << ResultNode("foo.txt")) << (ResultNode("b", true) << ResultNode("bar.txt")))
+    QTest::newRow("branches") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt")
+                                                           << new DummyDocument("file:///d/a/foo.txt"))
+                              << (ResultNode() << (ResultNode("c", true)
+                                                   << (ResultNode("a", true) << ResultNode("foo.txt")) << (ResultNode("b", true) << ResultNode("bar.txt")))
                                                << (ResultNode("d", true) << (ResultNode("a", true) << ResultNode("foo.txt"))));
 
-    QTest::newRow("branches (more)") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt") << new DummyDocument("file:///c/c/bar.txt")
-                                                                  << new DummyDocument("file:///d/a/foo.txt"))
-                                     << (ResultNode() << (ResultNode("c", true) << (ResultNode("a", true) << ResultNode("foo.txt")) << (ResultNode("b", true) << ResultNode("bar.txt")) << (ResultNode("c", true) << ResultNode("bar.txt")))
+    QTest::newRow("branches (more)") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt")
+                                                                  << new DummyDocument("file:///c/c/bar.txt") << new DummyDocument("file:///d/a/foo.txt"))
+                                     << (ResultNode() << (ResultNode("c", true) << (ResultNode("a", true) << ResultNode("foo.txt"))
+                                                                                << (ResultNode("b", true) << ResultNode("bar.txt"))
+                                                                                << (ResultNode("c", true) << ResultNode("bar.txt")))
                                                       << (ResultNode("d", true) << (ResultNode("a", true) << ResultNode("foo.txt"))));
 
-    QTest::newRow("bug347578") << (QList<DummyDocument *>() << new DummyDocument("file:///f/g/a/b/c/d/e.txt") << new DummyDocument("file:///f/g/a/t/b/c/d/e.txt"))
-                               << (ResultNode() << (ResultNode("a", true) << (ResultNode("b", true) << (ResultNode("c", true) << (ResultNode("d", true) << ResultNode("e.txt"))))
-                                                                          << (ResultNode("t", true) << (ResultNode("b", true) << (ResultNode("c", true) << (ResultNode("d", true) << ResultNode("e.txt")))))));
+    QTest::newRow("bug347578") << (QList<DummyDocument *>()
+                                   << new DummyDocument("file:///f/g/a/b/c/d/e.txt") << new DummyDocument("file:///f/g/a/t/b/c/d/e.txt"))
+                               << (ResultNode() << (ResultNode("a", true)
+                                                    << (ResultNode("b", true) << (ResultNode("c", true) << (ResultNode("d", true) << ResultNode("e.txt"))))
+                                                    << (ResultNode("t", true)
+                                                        << (ResultNode("b", true)
+                                                            << (ResultNode("c", true) << (ResultNode("d", true) << ResultNode("e.txt")))))));
 
-    QTest::newRow("levels") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt") << new DummyDocument("file:///d/foo.txt"))
-                            << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")) << (ResultNode("b", true) << ResultNode("bar.txt")) << (ResultNode("d", true) << ResultNode("foo.txt")));
+    QTest::newRow("levels") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt")
+                                                         << new DummyDocument("file:///d/foo.txt"))
+                            << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")) << (ResultNode("b", true) << ResultNode("bar.txt"))
+                                             << (ResultNode("d", true) << ResultNode("foo.txt")));
 
-    QTest::newRow("remote simple") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/foo.txt")) << (ResultNode() << (ResultNode("[example.org]", true) << ResultNode("foo.txt")));
+    QTest::newRow("remote simple") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/foo.txt"))
+                                   << (ResultNode() << (ResultNode("[example.org]", true) << ResultNode("foo.txt")));
 
-    QTest::newRow("remote nested") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/a/foo.txt")) << (ResultNode() << (ResultNode("[example.org]a", true) << ResultNode("foo.txt")));
+    QTest::newRow("remote nested") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/a/foo.txt"))
+                                   << (ResultNode() << (ResultNode("[example.org]a", true) << ResultNode("foo.txt")));
 
     /* NOTE: this one is also not completely ok, is it?
      * on other hand, it would get confusing or overly leveled if opening
      * something like http://example.org/a/b/c/d/e/f/g.txt
      */
-    QTest::newRow("remote diverge") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/a/foo.txt") << new DummyDocument("http://example.org/b/foo.txt"))
-                                    << (ResultNode() << (ResultNode("[example.org]a", true) << ResultNode("foo.txt")) << (ResultNode("[example.org]b", true) << ResultNode("foo.txt")));
+    QTest::newRow("remote diverge") << (QList<DummyDocument *>()
+                                        << new DummyDocument("http://example.org/a/foo.txt") << new DummyDocument("http://example.org/b/foo.txt"))
+                                    << (ResultNode() << (ResultNode("[example.org]a", true) << ResultNode("foo.txt"))
+                                                     << (ResultNode("[example.org]b", true) << ResultNode("foo.txt")));
 }
 
 void FileTreeModelTest::buildTree()
@@ -261,10 +284,12 @@ void FileTreeModelTest::buildTreeBatchPrefill_data()
     QTest::addColumn<QList<DummyDocument *>>("documents");
     QTest::addColumn<ResultNode>("nodes");
 
-    QTest::newRow("easy") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt")) << (QList<DummyDocument *>() << new DummyDocument("file:///a/bar.txt"))
+    QTest::newRow("easy") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt"))
+                          << (QList<DummyDocument *>() << new DummyDocument("file:///a/bar.txt"))
                           << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt") << ResultNode("bar.txt")));
 
-    QTest::newRow("split") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt")) << (QList<DummyDocument *>() << new DummyDocument("file:///b/foo.txt"))
+    QTest::newRow("split") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt"))
+                           << (QList<DummyDocument *>() << new DummyDocument("file:///b/foo.txt"))
                            << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")) << (ResultNode("b", true) << ResultNode("foo.txt")));
 }
 
@@ -315,10 +340,13 @@ void FileTreeModelTest::buildTreeFullPath_data()
     QTest::addColumn<QList<DummyDocument *>>("documents");
     QTest::addColumn<ResultNode>("nodes");
 
-    QTest::newRow("two") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt")) << (ResultNode() << (ResultNode("/a", true) << ResultNode("foo.txt") << ResultNode("bar.txt")));
+    QTest::newRow("two") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt"))
+                         << (ResultNode() << (ResultNode("/a", true) << ResultNode("foo.txt") << ResultNode("bar.txt")));
 
-    QTest::newRow("multiples") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt") << new DummyDocument("file:///c/a/bar.txt"))
-                               << (ResultNode() << (ResultNode("/c/a", true) << ResultNode("foo.txt") << ResultNode("bar.txt")) << (ResultNode("/c/b", true) << ResultNode("bar.txt")));
+    QTest::newRow("multiples") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt")
+                                                            << new DummyDocument("file:///c/a/bar.txt"))
+                               << (ResultNode() << (ResultNode("/c/a", true) << ResultNode("foo.txt") << ResultNode("bar.txt"))
+                                                << (ResultNode("/c/b", true) << ResultNode("bar.txt")));
 
     /* This one and the case after can get a little bit tricky and
      * in some situation could end up in little bit confusing layout.
@@ -354,13 +382,17 @@ void FileTreeModelTest::buildTreeFullPath_data()
     );
     */
 
-    QTest::newRow("remote simple") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/foo.txt")) << (ResultNode() << (ResultNode("[example.org]", true) << ResultNode("foo.txt")));
+    QTest::newRow("remote simple") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/foo.txt"))
+                                   << (ResultNode() << (ResultNode("[example.org]", true) << ResultNode("foo.txt")));
 
-    QTest::newRow("remote nested") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/a/b/foo.txt")) << (ResultNode() << (ResultNode("[example.org]/a/b", true) << ResultNode("foo.txt")));
+    QTest::newRow("remote nested") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/a/b/foo.txt"))
+                                   << (ResultNode() << (ResultNode("[example.org]/a/b", true) << ResultNode("foo.txt")));
 
     /* NOTE: see the similar testcase in buildTree */
-    QTest::newRow("remote diverge") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/c/a/foo.txt") << new DummyDocument("http://example.org/c/b/foo.txt"))
-                                    << (ResultNode() << (ResultNode("[example.org]/c/a", true) << ResultNode("foo.txt")) << (ResultNode("[example.org]/c/b", true) << ResultNode("foo.txt")));
+    QTest::newRow("remote diverge") << (QList<DummyDocument *>()
+                                        << new DummyDocument("http://example.org/c/a/foo.txt") << new DummyDocument("http://example.org/c/b/foo.txt"))
+                                    << (ResultNode() << (ResultNode("[example.org]/c/a", true) << ResultNode("foo.txt"))
+                                                     << (ResultNode("[example.org]/c/b", true) << ResultNode("foo.txt")));
 }
 
 void FileTreeModelTest::buildTreeFullPath()
@@ -389,12 +421,15 @@ void FileTreeModelTest::listMode_data()
 
     QTest::newRow("easy") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt")) << (ResultNode() << ResultNode("foo.txt"));
 
-    QTest::newRow("two") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt")) << (ResultNode() << ResultNode("foo.txt") << ResultNode("bar.txt"));
+    QTest::newRow("two") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt"))
+                         << (ResultNode() << ResultNode("foo.txt") << ResultNode("bar.txt"));
 
-    QTest::newRow("multiples") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt") << new DummyDocument("file:///c/a/bar.txt"))
+    QTest::newRow("multiples") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt")
+                                                            << new DummyDocument("file:///c/a/bar.txt"))
                                << (ResultNode() << ResultNode("foo.txt") << ResultNode("bar.txt") << ResultNode("bar.txt"));
 
-    QTest::newRow("remote diverge") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/a/foo.txt") << new DummyDocument("http://example.org/b/foo.txt"))
+    QTest::newRow("remote diverge") << (QList<DummyDocument *>()
+                                        << new DummyDocument("http://example.org/a/foo.txt") << new DummyDocument("http://example.org/b/foo.txt"))
                                     << (ResultNode() << ResultNode("[example.org]foo.txt") << ResultNode("[example.org]foo.txt"));
 }
 
@@ -425,25 +460,39 @@ void FileTreeModelTest::deleteDocument_data()
 
     QTest::newRow("empty") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt")) << (QList<int>() << 0) << (ResultNode());
 
-    QTest::newRow("two") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt")) << (QList<int>() << 0) << (ResultNode() << (ResultNode("a", true) << ResultNode("bar.txt")));
+    QTest::newRow("two") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt"))
+                         << (QList<int>() << 0) << (ResultNode() << (ResultNode("a", true) << ResultNode("bar.txt")));
 
-    QTest::newRow("multiple") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo0.txt") << new DummyDocument("file:///a/foo1.txt") << new DummyDocument("file:///a/foo2.txt") << new DummyDocument("file:///a/foo3.txt")
-                                                           << new DummyDocument("file:///a/foo4.txt") << new DummyDocument("file:///a/foo5.txt") << new DummyDocument("file:///a/foo6.txt") << new DummyDocument("file:///a/foo7.txt"))
-                              << (QList<int>() << 1 << 2 << 4 << 6) << (ResultNode() << (ResultNode("a", true) << ResultNode("foo0.txt") << ResultNode("foo3.txt") << ResultNode("foo5.txt") << ResultNode("foo7.txt")));
+    QTest::newRow("multiple") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo0.txt") << new DummyDocument("file:///a/foo1.txt")
+                                                           << new DummyDocument("file:///a/foo2.txt") << new DummyDocument("file:///a/foo3.txt")
+                                                           << new DummyDocument("file:///a/foo4.txt") << new DummyDocument("file:///a/foo5.txt")
+                                                           << new DummyDocument("file:///a/foo6.txt") << new DummyDocument("file:///a/foo7.txt"))
+                              << (QList<int>() << 1 << 2 << 4 << 6)
+                              << (ResultNode() << (ResultNode("a", true)
+                                                   << ResultNode("foo0.txt") << ResultNode("foo3.txt") << ResultNode("foo5.txt") << ResultNode("foo7.txt")));
 
-    QTest::newRow("strangers") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///b/bar.txt")) << (QList<int>() << 1) << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")));
+    QTest::newRow("strangers") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///b/bar.txt"))
+                               << (QList<int>() << 1) << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")));
 
-    QTest::newRow("branches") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt") << new DummyDocument("file:///d/a/foo.txt")) << (QList<int>() << 1)
-                              << (ResultNode() << (ResultNode("c", true) << (ResultNode("a", true) << ResultNode("foo.txt"))) << (ResultNode("d", true) << (ResultNode("a", true) << ResultNode("foo.txt"))));
+    QTest::newRow("branches") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt")
+                                                           << new DummyDocument("file:///d/a/foo.txt"))
+                              << (QList<int>() << 1)
+                              << (ResultNode() << (ResultNode("c", true) << (ResultNode("a", true) << ResultNode("foo.txt")))
+                                               << (ResultNode("d", true) << (ResultNode("a", true) << ResultNode("foo.txt"))));
 
-    QTest::newRow("levels") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt") << new DummyDocument("file:///d/foo.txt")) << (QList<int>() << 0)
+    QTest::newRow("levels") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt")
+                                                         << new DummyDocument("file:///d/foo.txt"))
+                            << (QList<int>() << 0)
                             << (ResultNode() << (ResultNode("b", true) << ResultNode("bar.txt")) << (ResultNode("d", true) << ResultNode("foo.txt")));
 
-    QTest::newRow("levels extra") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt") << new DummyDocument("file:///d/foo.txt")) << (QList<int>() << 2)
+    QTest::newRow("levels extra") << (QList<DummyDocument *>() << new DummyDocument("file:///c/a/foo.txt") << new DummyDocument("file:///c/b/bar.txt")
+                                                               << new DummyDocument("file:///d/foo.txt"))
+                                  << (QList<int>() << 2)
                                   << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")) << (ResultNode("b", true) << ResultNode("bar.txt")));
 
-    QTest::newRow("remote diverge") << (QList<DummyDocument *>() << new DummyDocument("http://example.org/a/foo.txt") << new DummyDocument("http://example.org/b/foo.txt")) << (QList<int>() << 1)
-                                    << (ResultNode() << (ResultNode("[example.org]a", true) << ResultNode("foo.txt")));
+    QTest::newRow("remote diverge") << (QList<DummyDocument *>()
+                                        << new DummyDocument("http://example.org/a/foo.txt") << new DummyDocument("http://example.org/b/foo.txt"))
+                                    << (QList<int>() << 1) << (ResultNode() << (ResultNode("[example.org]a", true) << ResultNode("foo.txt")));
 }
 
 void FileTreeModelTest::deleteDocument()
@@ -475,10 +524,13 @@ void FileTreeModelTest::deleteDocumentBatch_data()
     QTest::addColumn<QList<int>>("fail");
     QTest::addColumn<ResultNode>("nodes");
 
-    QTest::newRow("neo") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo0.txt") << new DummyDocument("file:///a/foo1.txt") << new DummyDocument("file:///a/foo2.txt") << new DummyDocument("file:///a/foo3.txt")
-                                                      << new DummyDocument("file:///a/foo4.txt") << new DummyDocument("file:///a/foo5.txt") << new DummyDocument("file:///a/foo6.txt") << new DummyDocument("file:///a/foo7.txt"))
+    QTest::newRow("neo") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo0.txt") << new DummyDocument("file:///a/foo1.txt")
+                                                      << new DummyDocument("file:///a/foo2.txt") << new DummyDocument("file:///a/foo3.txt")
+                                                      << new DummyDocument("file:///a/foo4.txt") << new DummyDocument("file:///a/foo5.txt")
+                                                      << new DummyDocument("file:///a/foo6.txt") << new DummyDocument("file:///a/foo7.txt"))
                          << (QList<int>() << 1 << 2 << 4 << 6) << (QList<int>() << 2 << 4)
-                         << (ResultNode() << (ResultNode("a", true) << ResultNode("foo0.txt") << ResultNode("foo2.txt") << ResultNode("foo3.txt") << ResultNode("foo4.txt") << ResultNode("foo5.txt") << ResultNode("foo7.txt")));
+                         << (ResultNode() << (ResultNode("a", true) << ResultNode("foo0.txt") << ResultNode("foo2.txt") << ResultNode("foo3.txt")
+                                                                    << ResultNode("foo4.txt") << ResultNode("foo5.txt") << ResultNode("foo7.txt")));
 }
 
 void FileTreeModelTest::deleteDocumentBatch()
@@ -527,11 +579,14 @@ void FileTreeModelTest::rename_data()
     QTest::addColumn<QString>("rename_url");
     QTest::addColumn<ResultNode>("nodes");
 
-    QTest::newRow("empty") << (QList<DummyDocument *>() << new DummyDocument()) << 0 << QStringLiteral("file:///a/foo.txt") << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")));
+    QTest::newRow("empty") << (QList<DummyDocument *>() << new DummyDocument()) << 0 << QStringLiteral("file:///a/foo.txt")
+                           << (ResultNode() << (ResultNode("a", true) << ResultNode("foo.txt")));
 
-    QTest::newRow("moving") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt")) << 0 << QStringLiteral("file:///b/foo.txt") << (ResultNode() << (ResultNode("b", true) << ResultNode("foo.txt")));
+    QTest::newRow("moving") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt")) << 0 << QStringLiteral("file:///b/foo.txt")
+                            << (ResultNode() << (ResultNode("b", true) << ResultNode("foo.txt")));
 
-    QTest::newRow("splitting") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt")) << 0 << QStringLiteral("file:///b/foo.txt")
+    QTest::newRow("splitting") << (QList<DummyDocument *>() << new DummyDocument("file:///a/foo.txt") << new DummyDocument("file:///a/bar.txt")) << 0
+                               << QStringLiteral("file:///b/foo.txt")
                                << (ResultNode() << (ResultNode("a", true) << ResultNode("bar.txt")) << (ResultNode("b", true) << ResultNode("foo.txt")));
 }
 

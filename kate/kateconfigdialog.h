@@ -74,7 +74,7 @@ private:
     void addEditorPages();
 
 private:
-    KateMainWindow * const m_mainWindow;
+    KateMainWindow *const m_mainWindow;
 
     bool m_dataChanged = false;
 

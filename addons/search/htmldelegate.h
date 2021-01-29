@@ -8,8 +8,8 @@
 #ifndef HTML_DELEGATE_H
 #define HTML_DELEGATE_H
 
-#include <QStyledItemDelegate>
 #include <QFont>
+#include <QStyledItemDelegate>
 
 class SPHtmlDelegate : public QStyledItemDelegate
 {
@@ -21,7 +21,7 @@ public:
 
     void paint(QPainter *, const QStyleOptionViewItem &, const QModelIndex &) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-    void setDisplayFont(const QFont& font)
+    void setDisplayFont(const QFont &font)
     {
         m_font = font;
     }

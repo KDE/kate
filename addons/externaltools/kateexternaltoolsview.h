@@ -42,7 +42,10 @@ class KateExternalToolsMenuAction : public KActionMenu
 {
     Q_OBJECT
 public:
-    KateExternalToolsMenuAction(const QString &text, KActionCollection *collection, KateExternalToolsPlugin *plugin, class KTextEditor::MainWindow *mw = nullptr);
+    KateExternalToolsMenuAction(const QString &text,
+                                KActionCollection *collection,
+                                KateExternalToolsPlugin *plugin,
+                                class KTextEditor::MainWindow *mw = nullptr);
     virtual ~KateExternalToolsMenuAction();
 
     /**

@@ -21,9 +21,9 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-#include <kwidgetsaddons_version.h>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <kwidgetsaddons_version.h>
 
 #ifdef WIN32
 static const QLatin1Char pathSeparator(';');
@@ -277,10 +277,8 @@ bool ConfigView::showIOTab() const
 void ConfigView::slotTargetEdited(const QString &newText)
 {
     QString newComboText(newText);
-    for (int i=0; i<m_targetCombo->count(); ++i) {
-        if (i != m_targetCombo->currentIndex() &&
-            m_targetCombo->itemText(i) == newComboText)
-        {
+    for (int i = 0; i < m_targetCombo->count(); ++i) {
+        if (i != m_targetCombo->currentIndex() && m_targetCombo->itemText(i) == newComboText) {
             newComboText = newComboText + QStringLiteral(" 2");
         }
     }

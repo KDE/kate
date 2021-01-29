@@ -7,8 +7,8 @@
 #ifndef KATE_FILEBROWSEROPENWITHMENU_H
 #define KATE_FILEBROWSEROPENWITHMENU_H
 
-#include <QMenu>
 #include <KFileItem>
+#include <QMenu>
 
 /*
     The KateFileBrowserOpenWithMenu extends a QMenu with a KFileItem property, used to
@@ -39,7 +39,6 @@ public Q_SLOTS:
 private Q_SLOTS:
 
 protected:
-
 private:
     KFileItem m_item;
 };

@@ -83,7 +83,7 @@ QVariantMap KateProject::readProjectFile() const
      * parse the whole file, bail out again on error!
      */
     const QByteArray jsonData = file.readAll();
-    QJsonParseError parseError {};
+    QJsonParseError parseError{};
     QJsonDocument project(QJsonDocument::fromJson(jsonData, &parseError));
 
     if (parseError.error != QJsonParseError::NoError) {
@@ -109,7 +109,7 @@ QVariantMap KateProject::readProjectFile() const
             // but it will be sorted out upon loading anyway
             QJsonArray afiles;
             for (const auto &t : {QStringLiteral("git"), QStringLiteral("hg"), QStringLiteral("svn"), QStringLiteral("darcs")}) {
-                afiles.push_back(QJsonObject {{t, true}});
+                afiles.push_back(QJsonObject{{t, true}});
             }
             files = afiles;
         }
@@ -345,7 +345,8 @@ void KateProject::registerDocument(KTextEditor::Document *document)
                    SLOT(slotModifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
         item->slotModifiedChanged(document);
 
-        /*FIXME    item->slotModifiedOnDisk(document,document->isModified(),qobject_cast<KTextEditor::ModificationInterface*>(document)->modifiedOnDisk()); FIXME*/
+        /*FIXME    item->slotModifiedOnDisk(document,document->isModified(),qobject_cast<KTextEditor::ModificationInterface*>(document)->modifiedOnDisk());
+         * FIXME*/
 
         connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
         connect(document,

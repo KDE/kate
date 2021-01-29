@@ -134,7 +134,10 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
 
     mainWin->guiFactory()->addClient(this);
 
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentDeleted, &m_model, &PluginKateXMLToolsCompletionModel::slotDocumentDeleted);
+    connect(KTextEditor::Editor::instance()->application(),
+            &KTextEditor::Application::documentDeleted,
+            &m_model,
+            &PluginKateXMLToolsCompletionModel::slotDocumentDeleted);
 }
 
 PluginKateXMLToolsView::~PluginKateXMLToolsView()
@@ -243,9 +246,10 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
         if (!currentElement.isEmpty() && !currentAttribute.isEmpty()) {
             qDebug() << "*inside attribute -> get attribute values";
             m_allowed = m_docDtds[doc]->attributeValues(currentElement, currentAttribute);
-            if (m_allowed.count() == 1 &&
-                (m_allowed[0] == QLatin1String("CDATA") || m_allowed[0] == QLatin1String("ID") || m_allowed[0] == QLatin1String("IDREF") || m_allowed[0] == QLatin1String("IDREFS") || m_allowed[0] == QLatin1String("ENTITY") ||
-                 m_allowed[0] == QLatin1String("ENTITIES") || m_allowed[0] == QLatin1String("NMTOKEN") || m_allowed[0] == QLatin1String("NMTOKENS") || m_allowed[0] == QLatin1String("NAME"))) {
+            if (m_allowed.count() == 1
+                && (m_allowed[0] == QLatin1String("CDATA") || m_allowed[0] == QLatin1String("ID") || m_allowed[0] == QLatin1String("IDREF")
+                    || m_allowed[0] == QLatin1String("IDREFS") || m_allowed[0] == QLatin1String("ENTITY") || m_allowed[0] == QLatin1String("ENTITIES")
+                    || m_allowed[0] == QLatin1String("NMTOKEN") || m_allowed[0] == QLatin1String("NMTOKENS") || m_allowed[0] == QLatin1String("NAME"))) {
                 // these must not be taken literally, e.g. don't insert the string "CDATA"
                 m_allowed.clear();
             } else {
@@ -275,7 +279,7 @@ int PluginKateXMLToolsCompletionModel::columnCount(const QModelIndex &) const
 
 int PluginKateXMLToolsCompletionModel::rowCount(const QModelIndex &parent) const
 {
-    if (!m_allowed.isEmpty()) {  // Is there smth to complete?
+    if (!m_allowed.isEmpty()) { // Is there smth to complete?
         if (!parent.isValid()) { // Return the only one group node for root
             return 1;
         }
@@ -288,7 +292,7 @@ int PluginKateXMLToolsCompletionModel::rowCount(const QModelIndex &parent) const
 
 QModelIndex PluginKateXMLToolsCompletionModel::parent(const QModelIndex &index) const
 {
-    if (!index.isValid()) {   // Is root/invalid index?
+    if (!index.isValid()) { // Is root/invalid index?
         return QModelIndex(); // Nothing to return...
     }
     if (index.internalId() == groupNode) { // Return a root node for group
@@ -304,8 +308,8 @@ QModelIndex PluginKateXMLToolsCompletionModel::index(const int row, const int co
         // At 'top' level only 'header' present, so nothing else than row 0 can be here...
         return row == 0 ? createIndex(row, column, groupNode) : QModelIndex();
     }
-    if (parent.internalId() == groupNode) {           // Is this a group node?
-        if (0 <= row && row < m_allowed.size()) {     // Make sure to return only valid indices
+    if (parent.internalId() == groupNode) { // Is this a group node?
+        if (0 <= row && row < m_allowed.size()) { // Make sure to return only valid indices
             return createIndex(row, column, nullptr); // Just return a leaf-level index
         }
     }
@@ -344,7 +348,10 @@ QVariant PluginKateXMLToolsCompletionModel::data(const QModelIndex &index, int r
     return QVariant();
 }
 
-bool PluginKateXMLToolsCompletionModel::shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position)
+bool PluginKateXMLToolsCompletionModel::shouldStartCompletion(KTextEditor::View *view,
+                                                              const QString &insertedText,
+                                                              bool userInsertion,
+                                                              const KTextEditor::Cursor &position)
 {
     Q_UNUSED(view)
     Q_UNUSED(userInsertion)
@@ -414,7 +421,8 @@ void PluginKateXMLToolsCompletionModel::getDTD()
         else if (doctype == QLatin1String("-//KDE//DTD DocBook XML V4.1.2-Based Variant V1.1//EN")) {
             filename = QStringLiteral("kde-docbook.dtd.xml");
         }
-    } else if (documentStart.indexOf(QLatin1String("<xsl:stylesheet")) != -1 && documentStart.indexOf(QLatin1String("xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"")) != -1) {
+    } else if (documentStart.indexOf(QLatin1String("<xsl:stylesheet")) != -1
+               && documentStart.indexOf(QLatin1String("xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"")) != -1) {
         /* XSLT doesn't have a doctype/DTD. We look for an xsl:stylesheet tag instead.
           Example:
           <xsl:stylesheet version="1.0"
@@ -430,7 +438,10 @@ void PluginKateXMLToolsCompletionModel::getDTD()
     QUrl url;
     if (filename.isEmpty()) {
         // no meta dtd found for this file
-        url = QFileDialog::getOpenFileUrl(KTextEditor::Editor::instance()->application()->activeMainWindow()->window(), i18n("Assign Meta DTD in XML Format"), QUrl::fromLocalFile(m_urlString), QStringLiteral("*.xml"));
+        url = QFileDialog::getOpenFileUrl(KTextEditor::Editor::instance()->application()->activeMainWindow()->window(),
+                                          i18n("Assign Meta DTD in XML Format"),
+                                          QUrl::fromLocalFile(m_urlString),
+                                          QStringLiteral("*.xml"));
     } else {
         url.setUrl(defaultDir + filename);
         KMessageBox::information(nullptr,

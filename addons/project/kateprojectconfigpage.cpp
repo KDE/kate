@@ -102,7 +102,9 @@ void KateProjectConfigPage::apply()
 
     m_changed = false;
 
-    m_plugin->setAutoRepository(m_cbAutoGit->checkState() == Qt::Checked, m_cbAutoSubversion->checkState() == Qt::Checked, m_cbAutoMercurial->checkState() == Qt::Checked);
+    m_plugin->setAutoRepository(m_cbAutoGit->checkState() == Qt::Checked,
+                                m_cbAutoSubversion->checkState() == Qt::Checked,
+                                m_cbAutoMercurial->checkState() == Qt::Checked);
     m_plugin->setIndex(m_cbIndexEnabled->checkState() == Qt::Checked, m_indexPath->url());
     m_plugin->setMultiProject(m_cbMultiProjectCompletion->checkState() == Qt::Checked, m_cbMultiProjectGoto->checkState() == Qt::Checked);
 }

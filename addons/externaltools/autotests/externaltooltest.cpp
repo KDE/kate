@@ -38,7 +38,7 @@ void ExternalToolTest::testLoadSave()
     tool.arguments = QStringLiteral("none");
     tool.input = QStringLiteral("in");
     tool.workingDir = QStringLiteral("/usr/bin");
-    tool.mimetypes = QStringList {QStringLiteral("everything")};
+    tool.mimetypes = QStringList{QStringLiteral("everything")};
     tool.hasexec = true;
     tool.actionName = QStringLiteral("asdf");
     tool.cmdname = QStringLiteral("git-cola");
@@ -65,7 +65,7 @@ void ExternalToolTest::testRunListDirectory()
     tool->executable = QStringLiteral("ls");
     tool->arguments = QStringLiteral("/usr");
     tool->workingDir = QStringLiteral("/tmp");
-    tool->mimetypes = QStringList {};
+    tool->mimetypes = QStringList{};
     tool->hasexec = true;
     tool->actionName = QStringLiteral("ls");
     tool->cmdname = QStringLiteral("ls");

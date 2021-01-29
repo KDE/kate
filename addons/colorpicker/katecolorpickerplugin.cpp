@@ -12,15 +12,15 @@
 
 #include <algorithm>
 
-#include <KTextEditor/Document>
-#include <KTextEditor/InlineNoteProvider>
-#include <KTextEditor/InlineNoteInterface>
-#include <KTextEditor/MainWindow>
-#include <KTextEditor/View>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
+#include <KTextEditor/Document>
+#include <KTextEditor/InlineNoteInterface>
+#include <KTextEditor/InlineNoteProvider>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 
 #include <QColor>
 #include <QColorDialog>
@@ -41,17 +41,17 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
     s_colorRegEx.setPatternOptions(QRegularExpression::DontCaptureOption);
 
     for (auto view : m_doc->views()) {
-        qobject_cast<KTextEditor::InlineNoteInterface*>(view)->registerInlineNoteProvider(this);
+        qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
     }
 
-    connect(m_doc, &KTextEditor::Document::viewCreated, this, [this](KTextEditor::Document *,  KTextEditor::View *view) {
-        qobject_cast<KTextEditor::InlineNoteInterface*>(view)->registerInlineNoteProvider(this);
+    connect(m_doc, &KTextEditor::Document::viewCreated, this, [this](KTextEditor::Document *, KTextEditor::View *view) {
+        qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
     });
 
     // textInserted and textRemoved are emitted per line, then the last line is followed by a textChanged signal
     connect(m_doc, &KTextEditor::Document::textInserted, this, [this](KTextEditor::Document *, const KTextEditor::Cursor &cur, const QString &) {
         int line = cur.line();
-        if (m_startChangedLines == -1 || m_startChangedLines > line)  {
+        if (m_startChangedLines == -1 || m_startChangedLines > line) {
             m_startChangedLines = line;
         }
     });
@@ -71,7 +71,7 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
             updateNotes();
         } else {
             // if the change involves the insertion/deletion of lines, all lines after it get shifted, so we need to update all of them
-            int endLine =  m_previousNumLines != newNumLines ? newNumLines-1 : -1;
+            int endLine = m_previousNumLines != newNumLines ? newNumLines - 1 : -1;
             updateNotes(m_startChangedLines, endLine);
         }
 
@@ -85,7 +85,7 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
 ColorPickerInlineNoteProvider::~ColorPickerInlineNoteProvider()
 {
     for (auto view : m_doc->views()) {
-        qobject_cast<KTextEditor::InlineNoteInterface*>(view)->unregisterInlineNoteProvider(this);
+        qobject_cast<KTextEditor::InlineNoteInterface *>(view)->unregisterInlineNoteProvider(this);
     }
 }
 
@@ -94,7 +94,7 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
     QString colorRegex;
     KConfigGroup config(KSharedConfig::openConfig(), "ColorPicker");
 
-    QList <int> matchHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 8, 6, 3});
+    QList<int> matchHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 8, 6, 3});
     // sort by decreasing number of digits to maximize matched hex
     std::sort(matchHexLengths.rbegin(), matchHexLengths.rend());
     if (matchHexLengths.size() > 0) {
@@ -111,7 +111,7 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
             colorRegex = QStringLiteral("(%1)|").arg(colorRegex);
         }
 
-        QHash <int, QStringList> colorsByLength;
+        QHash<int, QStringList> colorsByLength;
         int numColors = 0;
         for (const QString &color : QColor::colorNames()) {
             const int colorLength = color.length();
@@ -143,10 +143,11 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
     s_putPreviewAfterColor = config.readEntry("PreviewAfterColor", true);
 }
 
-void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine) {
+void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine)
+{
     int maxLine = m_doc->lines() - 1;
     startLine = startLine < -1 ? -1 : startLine;
-    endLine = endLine > maxLine ? maxLine  : endLine;
+    endLine = endLine > maxLine ? maxLine : endLine;
 
     if (startLine == -1) {
         startLine = 0;
@@ -161,7 +162,6 @@ void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine) {
         m_colorNoteIndices.remove(line);
         emit inlineNotesChanged(line);
     }
-
 }
 
 QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
@@ -191,7 +191,7 @@ QSize ColorPickerInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNot
     return QSize(note.lineHeight(), note.lineHeight());
 }
 
-void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter& painter) const
+void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
 {
     const auto line = note.position().line();
     auto colorEnd = note.position().column();
@@ -205,7 +205,7 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
     auto penColor = color;
     penColor.setAlpha(255);
     // ensure that the border color is always visible
-    painter.setPen( (penColor.value() < 128 ? penColor.lighter(150) : penColor.darker(150)) );
+    painter.setPen((penColor.value() < 128 ? penColor.lighter(150) : penColor.darker(150)));
     painter.setBrush(color);
     painter.setRenderHint(QPainter::Antialiasing, false);
     const QFontMetricsF fm(note.font());
@@ -233,13 +233,13 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
         dialogOptions |= QColorDialog::NoButtons;
         title = i18n("View Color [Read only]");
     }
-    const auto newColor = QColorDialog::getColor(oldColor, const_cast<KTextEditor::View*>(note.view()), title, dialogOptions);
+    const auto newColor = QColorDialog::getColor(oldColor, const_cast<KTextEditor::View *>(note.view()), title, dialogOptions);
     if (!newColor.isValid()) {
         return;
     }
 
     // include alpha channel if the new color has transparency or the old color included transparency (#AARRGGBB, 9 hex digits)
-    auto colorNameFormat = (newColor.alpha() != 255 || colorEnd-colorStart == 9) ? QColor::HexArgb : QColor::HexRgb;
+    auto colorNameFormat = (newColor.alpha() != 255 || colorEnd - colorStart == 9) ? QColor::HexArgb : QColor::HexRgb;
     m_doc->replaceText({line, colorStart, line, colorEnd}, newColor.name(colorNameFormat));
 }
 
@@ -269,7 +269,8 @@ QObject *KateColorPickerPlugin::createView(KTextEditor::MainWindow *mainWindow)
     return nullptr;
 }
 
-void KateColorPickerPlugin::addDocument(KTextEditor::Document *doc) {
+void KateColorPickerPlugin::addDocument(KTextEditor::Document *doc)
+{
     if (!m_inlineColorNoteProviders.contains(doc)) {
         m_inlineColorNoteProviders.insert(doc, new ColorPickerInlineNoteProvider(doc));
     }
@@ -279,7 +280,8 @@ void KateColorPickerPlugin::addDocument(KTextEditor::Document *doc) {
     });
 }
 
-void KateColorPickerPlugin::readConfig() {
+void KateColorPickerPlugin::readConfig()
+{
     ColorPickerInlineNoteProvider::updateColorMatchingCriteria();
     for (auto colorNoteProvider : m_inlineColorNoteProviders.values()) {
         colorNoteProvider->updateNotes();

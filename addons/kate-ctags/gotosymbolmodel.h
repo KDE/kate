@@ -6,13 +6,12 @@
 #ifndef GOTOSYMBOLMODEL_H
 #define GOTOSYMBOLMODEL_H
 
-#include <QString>
-#include <QVector>
 #include <QAbstractTableModel>
 #include <QIcon>
+#include <QString>
+#include <QVector>
 
-struct SymbolItem
-{
+struct SymbolItem {
     QString name;
     int line;
     QIcon icon;
@@ -23,13 +22,14 @@ class GotoSymbolModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    explicit GotoSymbolModel(QObject* parent = nullptr);
+    explicit GotoSymbolModel(QObject *parent = nullptr);
 
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
     void refresh(const QString &filePath);
+
 private:
     QVector<SymbolItem> m_rows;
 };

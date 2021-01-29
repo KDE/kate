@@ -3,8 +3,8 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#include <QMenu>
 #include <QList>
+#include <QMenu>
 
 class QTreeView;
 class QLineEdit;
@@ -17,9 +17,9 @@ class KateCommandBar : public QMenu
 {
     Q_OBJECT
 public:
-    KateCommandBar(QWidget* parent = nullptr);
+    KateCommandBar(QWidget *parent = nullptr);
 
-    void updateBar(const QList<KActionCollection*>& actions, int totalActions);
+    void updateBar(const QList<KActionCollection *> &actions, int totalActions);
 
     void updateViewGeometry();
 
@@ -31,8 +31,8 @@ private Q_SLOTS:
     void reselectFirst();
 
 private:
-    QTreeView* m_treeView;
-    QLineEdit* m_lineEdit;
-    CommandModel* m_model;
-    CommandBarFilterModel* m_proxyModel;
+    QTreeView *m_treeView;
+    QLineEdit *m_lineEdit;
+    CommandModel *m_model;
+    CommandBarFilterModel *m_proxyModel;
 };

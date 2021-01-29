@@ -113,8 +113,13 @@ void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document 
         return;
     }
 
-    bool go = (KMessageBox::warningContinueCancel(
-                   parent, i18n("Do you really want to delete file \"%1\"?", url.toDisplayString()), i18n("Delete file"), KStandardGuiItem::yes(), KStandardGuiItem::no(), QStringLiteral("filetreedeletefile")) == KMessageBox::Continue);
+    bool go = (KMessageBox::warningContinueCancel(parent,
+                                                  i18n("Do you really want to delete file \"%1\"?", url.toDisplayString()),
+                                                  i18n("Delete file"),
+                                                  KStandardGuiItem::yes(),
+                                                  KStandardGuiItem::no(),
+                                                  QStringLiteral("filetreedeletefile"))
+               == KMessageBox::Continue);
 
     if (!go) {
         return;

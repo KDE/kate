@@ -75,16 +75,10 @@ void SearchDiskFiles::run()
 QVector<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
 {
     QTextStream stream(&file);
-    int i = 0;
-    int column;
-    QRegularExpressionMatch match;
     QVector<KateSearchMatch> matches;
     QString line;
+    int currentLineNumber = 0;
     while (stream.readLineInto(&line)) {
-        if (m_worklist.isCanceled()) {
-            break;
-        }
-
         // check if not binary data....
         // bad, but stuff better than asking QMimeDatabase which is a performance & threading disaster...
         if (!m_includeBinaryFiles && line.contains(QLatin1Char('\0'))) {
@@ -93,25 +87,41 @@ QVector<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
             return matches;
         }
 
-        match = m_regExp.match(line);
-        column = match.capturedStart();
-        while (column != -1 && !match.captured().isEmpty()) {
+        // match all occurrences in the current line
+        int columnToStartMatch = 0;
+        bool canceled = false;
+        while (true) {
+            // handle canceling
             if (m_worklist.isCanceled()) {
+                canceled = true;
                 break;
             }
 
-            int endColumn = column + match.capturedLength();
-            int preContextStart = qMax(0, column - MatchModel::PreContextLen);
-            QString preContext = line.mid(preContextStart, column - preContextStart);
-            QString postContext = line.mid(endColumn, MatchModel::PostContextLen);
+            // try match at the current interesting column, abort search loop if nothing found!
+            const QRegularExpressionMatch match = m_regExp.match(line, columnToStartMatch);
+            const int column = match.capturedStart();
+            if (column == -1 || match.capturedLength() == 0)
+                break;
 
+            // remember match
+            const int endColumn = column + match.capturedLength();
+            const int preContextStart = qMax(0, column - MatchModel::PreContextLen);
+            const QString preContext = line.mid(preContextStart, column - preContextStart);
+            const QString postContext = line.mid(endColumn, MatchModel::PostContextLen);
             matches.push_back(
-                KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{i, column, i, column + match.capturedLength()}, true});
+                KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{currentLineNumber, column, currentLineNumber, column + match.capturedLength()}, true});
 
-            match = m_regExp.match(line, column + match.capturedLength());
-            column = match.capturedStart();
+            // advance match column
+            columnToStartMatch = column + match.capturedLength();
         }
-        i++;
+
+        // handle canceling => above we only did break out of the matching loop!
+        if (canceled) {
+            break;
+        }
+
+        // advance to next line
+        ++currentLineNumber;
     }
     return matches;
 }

@@ -18,6 +18,7 @@
 #ifndef SearchDiskFiles_h
 #define SearchDiskFiles_h
 
+// Qt
 #include <QMutex>
 #include <QMutexLocker>
 #include <QObject>
@@ -25,6 +26,10 @@
 #include <QRunnable>
 #include <QStringList>
 
+// std
+#include <atomic>
+
+// locals
 #include "MatchModel.h"
 
 class QString;
@@ -58,8 +63,6 @@ public:
      */
     bool isCanceled()
     {
-        // we don't lock here, doesn't matter if we see the value a bit later
-        // we call this "OFTEN"
         return m_canceled;
     }
 
@@ -149,23 +152,23 @@ private:
     /**
      * current number of still active runnables, if == 0 => nothing running
      */
-    int m_currentRunningRunnables = 0;
+    int m_currentRunningRunnables{0}; // guarded by m_mutex
 
     /**
      * worklist => files to search in on the disk
      */
-    QStringList m_filesToSearch;
+    QStringList m_filesToSearch; // guarded by m_mutex
 
     /**
      * current index into the worklist => next file to search
      * we don't do modify the stringlist, we just move the index
      */
-    int m_filesToSearchIndex = 0;
+    int m_filesToSearchIndex{0}; // guarded by m_mutex
 
     /**
      * was the search canceled?
      */
-    bool m_canceled = false;
+    std::atomic_bool m_canceled{false};
 };
 
 class SearchDiskFiles : public QObject, public QRunnable

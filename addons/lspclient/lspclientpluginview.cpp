@@ -2221,8 +2221,7 @@ public:
 
                 const auto columnStart = static_cast<int>(token.character);
                 const auto columnEnd = columnStart + static_cast<int>(token.length);
-                constexpr auto expand = KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight;
-                auto *range = miface->newMovingRange({line.line, columnStart, line.line, columnEnd}, expand, KTextEditor::MovingRange::InvalidateIfEmpty);
+                auto *range = miface->newMovingRange({line.line, columnStart, line.line, columnEnd});
                 range->setAttribute(attribute);
                 lineRanges.append(range);
             }

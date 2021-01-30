@@ -17,12 +17,15 @@ QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
     : QLineEdit(parent)
 {
     setPlaceholderText(i18n("Quick Open Search (configure via context menu)"));
-    menu.reset(createStandardContextMenu());
-    setupMenu();
 }
 
 void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)
 {
+    // on demand construction
+    if (!menu) {
+        menu.reset(createStandardContextMenu());
+        setupMenu();
+    }
     menu->exec(event->globalPos());
 }
 

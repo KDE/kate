@@ -75,12 +75,12 @@ void SearchDiskFiles::run()
 QVector<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
 {
     QTextStream stream(&file);
-    QString line;
     int i = 0;
     int column;
     QRegularExpressionMatch match;
     QVector<KateSearchMatch> matches;
-    while (!(line = stream.readLine()).isNull()) {
+    QString line;
+    while (stream.readLineInto(&line)) {
         if (m_worklist.isCanceled()) {
             break;
         }

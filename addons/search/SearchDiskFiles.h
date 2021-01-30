@@ -181,8 +181,8 @@ Q_SIGNALS:
     void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
 
 private:
-    void searchSingleLineRegExp(QFile &file);
-    void searchMultiLineRegExp(QFile &file);
+    QVector<KateSearchMatch> searchSingleLineRegExp(QFile &file);
+    QVector<KateSearchMatch> searchMultiLineRegExp(QFile &file);
 
 private:
     SearchDiskFilesWorkList &m_worklist;

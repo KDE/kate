@@ -18,6 +18,7 @@
 #include "SearchDiskFiles.h"
 
 #include <QDir>
+#include <QElapsedTimer>
 #include <QTextStream>
 #include <QUrl>
 
@@ -32,6 +33,15 @@ SearchDiskFiles::SearchDiskFiles(SearchDiskFilesWorkList &worklist, const QRegul
 
 void SearchDiskFiles::run()
 {
+    // do we need to search multiple lines?
+    const bool multiLineSearch = m_regExp.pattern().contains(QLatin1String("\\n"));
+
+    // timer to emit matchesFound once in a time even for files without matches
+    // this triggers process in the UI
+    QElapsedTimer emitTimer;
+    emitTimer.start();
+
+    // search, pulls work from the shared work list for all workers
     while (true) {
         // get next file, we get empty string if all done or search canceled!
         const auto fileName = m_worklist.nextFileToSearch();
@@ -45,17 +55,25 @@ void SearchDiskFiles::run()
             continue;
         }
 
-        if (m_regExp.pattern().contains(QLatin1String("\\n"))) {
-            searchMultiLineRegExp(file);
+        // let the right search algorithm compute the matches for this file
+        QVector<KateSearchMatch> matches;
+        if (multiLineSearch) {
+            matches = searchMultiLineRegExp(file);
         } else {
-            searchSingleLineRegExp(file);
+            matches = searchSingleLineRegExp(file);
+        }
+
+        // if we have matches or didn't emit something long enough, do so
+        // we don't emit for all file to not stall get GUI and lock us a lot ;)
+        if (!matches.isEmpty() || emitTimer.hasExpired(100)) {
+            Q_EMIT matchesFound(QUrl::fromLocalFile(file.fileName()), matches);
+            emitTimer.restart();
         }
     }
 }
 
-void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
+QVector<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
 {
-    const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
     QTextStream stream(&file);
     QString line;
     int i = 0;
@@ -72,8 +90,7 @@ void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
         if (!m_includeBinaryFiles && line.contains(QLatin1Char('\0'))) {
             // kill all seen matches and be done
             matches.clear();
-            Q_EMIT matchesFound(fileUrl, matches);
-            return;
+            return matches;
         }
 
         match = m_regExp.match(line);
@@ -96,12 +113,10 @@ void SearchDiskFiles::searchSingleLineRegExp(QFile &file)
         }
         i++;
     }
-
-    // Q_EMIT all matches batched
-    Q_EMIT matchesFound(fileUrl, matches);
+    return matches;
 }
 
-void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
+QVector<KateSearchMatch> SearchDiskFiles::searchMultiLineRegExp(QFile &file)
 {
     int column = 0;
     int line = 0;
@@ -109,7 +124,6 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
     static QVector<int> lineStart;
     QRegularExpression tmpRegExp = m_regExp;
 
-    const QUrl fileUrl = QUrl::fromUserInput(file.fileName());
     QVector<KateSearchMatch> matches;
     QTextStream stream(&file);
     fullDoc = stream.readAll();
@@ -119,8 +133,7 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
     if (!m_includeBinaryFiles && fullDoc.contains(QLatin1Char('\0'))) {
         // kill all seen matches and be done
         matches.clear();
-        Q_EMIT matchesFound(fileUrl, matches);
-        return;
+        return matches;
     }
 
     fullDoc.remove(QLatin1Char('\r'));
@@ -173,7 +186,5 @@ void SearchDiskFiles::searchMultiLineRegExp(QFile &file)
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();
     }
-
-    // Q_EMIT all matches batched
-    Q_EMIT matchesFound(fileUrl, matches);
+    return matches;
 }

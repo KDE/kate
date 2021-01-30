@@ -38,6 +38,7 @@ void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
         fixedAttrs[0] = new KTextEditor::Attribute();
     }
     fixedAttrs[0]->setForeground(f);
+    fixedAttrs[0]->setSelectedForeground(f);
     fixedAttrs[0]->setFontBold(theme.isBold(Style::Function));
     fixedAttrs[0]->setFontItalic(theme.isItalic(Style::Function));
 
@@ -71,6 +72,7 @@ void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
         }
 
         fixedAttrs[1]->setForeground(v);
+        fixedAttrs[1]->setSelectedForeground(v);
         fixedAttrs[1]->setFontBold(theme.isBold(Style::Variable));
         fixedAttrs[1]->setFontItalic(italic);
     }
@@ -80,6 +82,7 @@ void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
         fixedAttrs[2] = new KTextEditor::Attribute();
     }
     fixedAttrs[2]->setForeground(c);
+    fixedAttrs[2]->setSelectedForeground(c);
     fixedAttrs[2]->setFontBold(theme.isBold(Style::Constant));
     fixedAttrs[2]->setFontItalic(theme.isItalic(Style::Constant));
 
@@ -88,6 +91,7 @@ void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
         fixedAttrs[3] = new KTextEditor::Attribute();
     }
     fixedAttrs[3]->setForeground(k);
+    fixedAttrs[3]->setSelectedForeground(k);
     fixedAttrs[3]->setFontBold(theme.isBold(Style::Keyword));
     fixedAttrs[3]->setFontItalic(theme.isItalic(Style::Keyword));
 
@@ -96,6 +100,7 @@ void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
         fixedAttrs[4] = new KTextEditor::Attribute();
     }
     fixedAttrs[4]->setForeground(cm);
+    fixedAttrs[4]->setSelectedForeground(cm);
     fixedAttrs[4]->setFontBold(theme.isBold(Style::Comment));
     fixedAttrs[4]->setFontItalic(theme.isItalic(Style::Comment));
 
@@ -104,6 +109,7 @@ void SemanticHighlighting::themeChange(KTextEditor::Editor *e)
         fixedAttrs[5] = new KTextEditor::Attribute();
     }
     fixedAttrs[5]->setForeground(p);
+    fixedAttrs[5]->setSelectedForeground(p);
     fixedAttrs[5]->setFontBold(theme.isBold(Style::Preprocessor));
     fixedAttrs[5]->setFontItalic(theme.isItalic(Style::Preprocessor));
 }

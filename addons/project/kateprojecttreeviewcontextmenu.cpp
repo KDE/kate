@@ -28,6 +28,8 @@
 #include <QProcess>
 #include <QStandardPaths>
 
+#include "kateprojectviewtree.h"
+
 KateProjectTreeViewContextMenu::KateProjectTreeViewContextMenu()
 {
 }
@@ -61,7 +63,7 @@ static bool isGit(const QString &filename)
     return isGit;
 }
 
-void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint &pos, QWidget *parent)
+void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelIndex &index, const QPoint &pos, QWidget *parent)
 {
     /**
      * Create context menu
@@ -124,6 +126,8 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
         job->start();
     };
 
+    auto rename = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("&Rename"));
+
     /**
      * run menu and handle the triggered action
      */
@@ -141,6 +145,8 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
             QDialog *dlg = new KPropertiesDialog(fileItem);
             dlg->setAttribute(Qt::WA_DeleteOnClose);
             dlg->show();
+        } else if (action == rename) {
+            static_cast<KateProjectViewTree *>(parent)->edit(index);
         } else {
             // One of the git actions was triggered
         }

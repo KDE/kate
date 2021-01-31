@@ -53,6 +53,7 @@ public:
      * @return data for role
      */
     QVariant data(int role = Qt::UserRole + 1) const override;
+    void setData(const QVariant &value, int role) override;
 
     /**
      * We want case-insensitive sorting and directories first!

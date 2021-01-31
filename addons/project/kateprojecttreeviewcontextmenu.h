@@ -12,6 +12,7 @@
 #include <QString>
 
 class QWidget;
+class QModelIndex;
 
 class KateProjectTreeViewContextMenu
 {
@@ -32,7 +33,7 @@ public:
      * our project.
      * @return project
      */
-    void exec(const QString &filename, const QPoint &pos, QWidget *parent);
+    void exec(const QString &filename, const QModelIndex &index, const QPoint &pos, QWidget *parent);
 
 protected:
 };

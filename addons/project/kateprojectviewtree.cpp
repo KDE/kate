@@ -159,7 +159,7 @@ void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)
     }
 
     KateProjectTreeViewContextMenu menu;
-    menu.exec(filePath, viewport()->mapToGlobal(event->pos()), this);
+    menu.exec(filePath, index, viewport()->mapToGlobal(event->pos()), this);
 
     event->accept();
 }

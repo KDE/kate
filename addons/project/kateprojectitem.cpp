@@ -12,10 +12,12 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QIcon>
+#include <QMessageBox>
 #include <QMimeDatabase>
 #include <QThread>
 
 #include <KIconUtils>
+#include <KLocalizedString>
 
 #include <KTextEditor/Document>
 
@@ -130,4 +132,29 @@ QIcon *KateProjectItem::icon() const
     }
 
     return m_icon;
+}
+
+void KateProjectItem::setData(const QVariant &value, int role)
+{
+    if (role == Qt::EditRole) {
+        auto newFileName = value.toString();
+        if (newFileName.isEmpty())
+            return;
+
+        auto oldFileName = data(Qt::DisplayRole).toString();
+        auto oldName = data(Qt::UserRole).toString();
+        QString newName = oldName;
+        newName.replace(oldFileName, newFileName);
+
+        if (!QFile::rename(oldName, newName)) {
+            QMessageBox::critical(nullptr, i18n("Error"), i18n("File name already exists"));
+            return;
+        }
+
+        // change internal path
+        setData(oldName, Qt::UserRole);
+        setData(oldName, Qt::ToolTipRole);
+    }
+
+    QStandardItem::setData(value, role);
 }

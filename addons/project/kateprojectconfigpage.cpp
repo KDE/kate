@@ -48,6 +48,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     label->setText(i18n("Directory for index files"));
     vbox->addWidget(label);
     m_indexPath = new KUrlRequester(this);
+    m_indexPath->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     m_indexPath->setToolTip(i18n("The system temporary directory is used if not specified, which may overflow for very large repositories"));
     vbox->addWidget(m_indexPath);
     vbox->addStretch(1);

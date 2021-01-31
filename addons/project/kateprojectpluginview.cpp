@@ -27,6 +27,7 @@
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QMenu>
+#include <QTimer>
 #include <QVBoxLayout>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateProjectPluginFactory, "kateprojectplugin.json", registerPlugin<KateProjectPlugin>();)
@@ -87,6 +88,13 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     const auto projectList = m_plugin->projects();
     for (KateProject *project : projectList) {
         viewForProject(project);
+    }
+    // If the list of projects is empty we do not want to restore the tool view from the last session, BUG: 432296
+    if (projectList.isEmpty()) {
+        // We have to call this in the next iteration of the event loop, after the session is restored
+        QTimer::singleShot(0, [this]() {
+            m_mainWindow->hideToolView(m_toolView);
+        });
     }
 
     /**

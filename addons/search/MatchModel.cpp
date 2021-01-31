@@ -1,9 +1,8 @@
-/***************************************************************************
- *   This file is part of Kate build plugin
- *   SPDX-FileCopyrightText: 2021 Kåre Särs <kare.sars@iki.fi>
- *
- *   SPDX-License-Identifier: LGPL-2.0-or-later
- ***************************************************************************/
+/*
+    SPDX-FileCopyrightText: 2021 Kåre Särs <kare.sars@iki.fi>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 
 #include "MatchModel.h"
 #include <KLocalizedString>

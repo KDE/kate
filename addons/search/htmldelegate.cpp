@@ -1,9 +1,8 @@
-/***************************************************************************
- *   This file is part of Kate search plugin                               *
- *   SPDX-FileCopyrightText: 2011 Kåre Särs <kare.sars@iki.fi>                           *
- *                                                                         *
- *   SPDX-License-Identifier: LGPL-2.0-or-later
- ***************************************************************************/
+/*
+    SPDX-FileCopyrightText: 2011 Kåre Särs <kare.sars@iki.fi>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 
 #include "htmldelegate.h"
 

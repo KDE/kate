@@ -256,7 +256,9 @@ QTextDocument *KateProject::notesDocument()
     QFile inFile(notesFileName);
     if (inFile.open(QIODevice::ReadOnly)) {
         QTextStream inStream(&inFile);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         inStream.setCodec("UTF-8");
+#endif
         m_notesDocument->setPlainText(inStream.readAll());
     }
 
@@ -300,7 +302,9 @@ void KateProject::saveNotesDocument()
     QFile outFile(projectLocalFileName(QStringLiteral("notes")));
     if (outFile.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         QTextStream outStream(&outFile);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         outStream.setCodec("UTF-8");
+#endif
         outStream << content;
     }
 }

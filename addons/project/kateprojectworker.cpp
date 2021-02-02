@@ -18,6 +18,8 @@
 #include <QThread>
 #include <QTime>
 
+#include <algorithm>
+
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
     : m_baseDir(baseDir)
     , m_indexDir(indexDir)
@@ -165,29 +167,22 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     QList<QPair<QStandardItem *, QStandardItem *>> item2ParentPath;
     for (const QString &filePath : files) {
         /**
-         * skip dupes
+         * cheap file name computation
+         * we do this A LOT, QFileInfo is very expensive just for this operation
          */
-        if (file2Item->contains(filePath)) {
-            continue;
-        }
-
-        /**
-         * get file info and skip NON-files
-         */
-        QFileInfo fileInfo(filePath);
-        if (!fileInfo.isFile()) {
-            continue;
-        }
+        const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
+        const QString fileName = (slashIndex < 0) ? filePath : filePath.mid(slashIndex + 1);
+        const QString filePathName = (slashIndex < 0) ? QString() : filePath.left(slashIndex);
 
         /**
          * construct the item with right directory prefix
          * already hang in directories in tree
          */
-        KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileInfo.fileName());
+        KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileName);
         fileItem->setData(filePath, Qt::ToolTipRole);
 
         // get the directory's relative path to the base directory
-        QString dirRelPath = dir.relativeFilePath(fileInfo.absolutePath());
+        QString dirRelPath = dir.relativeFilePath(filePathName);
         // if the relative path is ".", clean it up
         if (dirRelPath == QLatin1Char('.')) {
             dirRelPath = QString();
@@ -208,28 +203,71 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     }
 }
 
+/**
+ * Filter all non-files from the given list.
+ * e.g. needed for version control system unlike git that version directories, too, or user given lists
+ * @param listOfStuff list with files/directories/...
+ * @return only the elements that are files
+ */
+static QStringList removeNonFiles(QStringList listOfStuff)
+{
+    listOfStuff.erase(std::remove_if(listOfStuff.begin(),
+                                     listOfStuff.end(),
+                                     [](const QString &item) {
+                                         return !QFileInfo(item).isFile();
+                                     }),
+                      listOfStuff.end());
+    return listOfStuff;
+}
+
 QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry)
 {
+    /**
+     * shall we collect files recursively or not?
+     */
     const bool recursive = !filesEntry.contains(QLatin1String("recursive")) || filesEntry[QStringLiteral("recursive")].toBool();
+
+    /**
+     * try the different version control systems first
+     */
 
     if (filesEntry[QStringLiteral("git")].toBool()) {
         return filesFromGit(dir, recursive);
-    } else if (filesEntry[QStringLiteral("hg")].toBool()) {
-        return filesFromMercurial(dir, recursive);
-    } else if (filesEntry[QStringLiteral("svn")].toBool()) {
-        return filesFromSubversion(dir, recursive);
-    } else if (filesEntry[QStringLiteral("darcs")].toBool()) {
-        return filesFromDarcs(dir, recursive);
-    } else {
-        QStringList files = filesEntry[QStringLiteral("list")].toStringList();
-
-        if (files.empty()) {
-            QStringList filters = filesEntry[QStringLiteral("filters")].toStringList();
-            files = filesFromDirectory(dir, recursive, filters);
-        }
-
-        return files;
     }
+
+    if (filesEntry[QStringLiteral("svn")].toBool()) {
+        return removeNonFiles(filesFromSubversion(dir, recursive));
+    }
+
+    if (filesEntry[QStringLiteral("hg")].toBool()) {
+        return removeNonFiles(filesFromMercurial(dir, recursive));
+    }
+
+    if (filesEntry[QStringLiteral("darcs")].toBool()) {
+        return removeNonFiles(filesFromDarcs(dir, recursive));
+    }
+
+    /**
+     * if we arrive here, we have some manual specification of files, no VCS
+     */
+
+    /**
+     * try explicit list of stuff, we need to kill the non-files here ourself
+     */
+    QStringList userGivenFilesList = removeNonFiles(filesEntry[QStringLiteral("list")].toStringList());
+    if (!userGivenFilesList.empty()) {
+        /**
+         * users might have specified duplicates, this can't happen for the other ways
+         */
+        userGivenFilesList.removeDuplicates();
+        return userGivenFilesList;
+    }
+
+    /**
+     * if nothing found for that, try to use filters to scan the directory
+     * here we only get files
+     */
+    return filesFromDirectory(dir, recursive, filesEntry[QStringLiteral("filters")].toStringList());
 }
 
 QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
@@ -271,7 +309,10 @@ QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
 
     const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
     for (const QByteArray &byteArray : byteArrayList) {
-        files << QString::fromUtf8(byteArray);
+        const QString fileName = QString::fromUtf8(byteArray);
+        if (!fileName.isEmpty()) {
+            files << fileName;
+        }
     }
 
     return files;
@@ -438,11 +479,11 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
 
 QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursive, const QStringList &filters)
 {
-    QStringList files;
-
+    /**
+     * setup our filters, we only want files!
+     */
     QDir dir(_dir);
     dir.setFilter(QDir::Files);
-
     if (!filters.isEmpty()) {
         dir.setNameFilters(filters);
     }
@@ -458,12 +499,12 @@ QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursi
     /**
      * create iterator and collect all files
      */
+    QStringList files;
     QDirIterator dirIterator(dir, flags);
     while (dirIterator.hasNext()) {
         dirIterator.next();
         files.append(dirIterator.filePath());
     }
-
     return files;
 }
 

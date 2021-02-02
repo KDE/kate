@@ -180,7 +180,7 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
     return true;
 }
 
-void KateProject::loadProjectDone(const KateProjectSharedQStandardItem &topLevel, KateProjectSharedQMapStringItem file2Item)
+void KateProject::loadProjectDone(const KateProjectSharedQStandardItem &topLevel, KateProjectSharedQHashStringItem file2Item)
 {
     m_model.clear();
     m_model.invisibleRootItem()->appendColumn(topLevel->takeColumn(0));
@@ -404,7 +404,7 @@ void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
     fileItem->setData(QVariant(true), Qt::UserRole + 3);
 
     if (!m_file2Item) {
-        m_file2Item = KateProjectSharedQMapStringItem(new QMap<QString, KateProjectItem *>());
+        m_file2Item = KateProjectSharedQHashStringItem(new QHash<QString, KateProjectItem *>());
     }
     (*m_file2Item)[document->url().toLocalFile()] = fileItem;
 }

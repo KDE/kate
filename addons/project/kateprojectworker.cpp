@@ -34,21 +34,20 @@ void KateProjectWorker::run()
      * then load the project recursively
      */
     KateProjectSharedQStandardItem topLevel(new QStandardItem());
-    KateProjectSharedQMapStringItem file2Item(new QMap<QString, KateProjectItem *>());
+    KateProjectSharedQHashStringItem file2Item(new QHash<QString, KateProjectItem *>());
     loadProject(topLevel.data(), m_projectMap, file2Item.data());
 
     /**
      * create some local backup of some data we need for further processing!
      */
-    QStringList files = file2Item->keys();
-
-    emit loadDone(topLevel, file2Item);
+    const QStringList files = file2Item->keys();
+    Q_EMIT loadDone(topLevel, file2Item);
 
     // trigger index loading, will internally handle enable/disabled
     loadIndex(files, m_force);
 }
 
-void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &project, QMap<QString, KateProjectItem *> *file2Item)
+void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item)
 {
     /**
      * recurse to sub-projects FIRST
@@ -88,7 +87,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
  * @param path current path we need item for
  * @return correct parent item for given path, will reuse existing ones
  */
-static QStandardItem *directoryParent(QMap<QString, QStandardItem *> &dir2Item, QString path)
+static QStandardItem *directoryParent(QHash<QString, QStandardItem *> &dir2Item, QString path)
 {
     /**
      * throw away simple /
@@ -100,23 +99,25 @@ static QStandardItem *directoryParent(QMap<QString, QStandardItem *> &dir2Item, 
     /**
      * quick check: dir already seen?
      */
-    if (dir2Item.contains(path)) {
-        return dir2Item[path];
+    const auto existingIt = dir2Item.find(path);
+    if (existingIt != dir2Item.end()) {
+        return existingIt.value();
     }
 
     /**
      * else: construct recursively
      */
-    int slashIndex = path.lastIndexOf(QLatin1Char('/'));
+    const int slashIndex = path.lastIndexOf(QLatin1Char('/'));
 
     /**
      * no slash?
      * simple, no recursion, append new item toplevel
      */
     if (slashIndex < 0) {
-        dir2Item[path] = new KateProjectItem(KateProjectItem::Directory, path);
-        dir2Item[QString()]->appendRow(dir2Item[path]);
-        return dir2Item[path];
+        const auto item = new KateProjectItem(KateProjectItem::Directory, path);
+        dir2Item[path] = item;
+        dir2Item[QString()]->appendRow(item);
+        return item;
     }
 
     /**
@@ -135,12 +136,13 @@ static QStandardItem *directoryParent(QMap<QString, QStandardItem *> &dir2Item, 
     /**
      * else: recurse on left side
      */
-    dir2Item[path] = new KateProjectItem(KateProjectItem::Directory, rightPart);
-    directoryParent(dir2Item, leftPart)->appendRow(dir2Item[path]);
-    return dir2Item[path];
+    const auto item = new KateProjectItem(KateProjectItem::Directory, rightPart);
+    dir2Item[path] = item;
+    directoryParent(dir2Item, leftPart)->appendRow(item);
+    return item;
 }
 
-void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, KateProjectItem *> *file2Item)
+void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item)
 {
     QDir dir(m_baseDir);
     if (!dir.cd(filesEntry[QStringLiteral("directory")].toString())) {
@@ -158,7 +160,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     /**
      * construct paths first in tree and items in a map
      */
-    QMap<QString, QStandardItem *> dir2Item;
+    QHash<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
     QList<QPair<QStandardItem *, QStandardItem *>> item2ParentPath;
     for (const QString &filePath : files) {

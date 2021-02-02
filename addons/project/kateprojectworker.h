@@ -11,7 +11,7 @@
 #include "kateproject.h"
 #include "kateprojectitem.h"
 
-#include <QMap>
+#include <QHash>
 #include <QRunnable>
 #include <QStandardItemModel>
 
@@ -29,14 +29,14 @@ public:
     /**
      * Type for QueuedConnection
      */
-    typedef QMap<QString, KateProjectItem *> MapString2Item;
+    typedef QHash<QString, KateProjectItem *> MapString2Item;
 
     explicit KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force);
 
     void run() override;
 
 Q_SIGNALS:
-    void loadDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);
+    void loadDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQHashStringItem file2Item);
     void loadIndexDone(KateProjectSharedProjectIndex index);
 
 private:
@@ -47,7 +47,7 @@ private:
      * @param project variant map for this group
      * @param file2Item mapping file => item, will be filled
      */
-    void loadProject(QStandardItem *parent, const QVariantMap &project, QMap<QString, KateProjectItem *> *file2Item);
+    void loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item);
 
     /**
      * Load one files entry in the current parent item.
@@ -55,7 +55,7 @@ private:
      * @param filesEntry one files entry specification to load
      * @param file2Item mapping file => item, will be filled
      */
-    void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, KateProjectItem *> *file2Item);
+    void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item);
 
     /**
      * Load index for whole project.

@@ -12,7 +12,7 @@
 #include "kateprojectitem.h"
 #include <KTextEditor/ModificationInterface>
 #include <QDateTime>
-#include <QMap>
+#include <QHash>
 #include <QSharedPointer>
 #include <QTextDocument>
 
@@ -23,8 +23,8 @@
 typedef QSharedPointer<QStandardItem> KateProjectSharedQStandardItem;
 Q_DECLARE_METATYPE(KateProjectSharedQStandardItem)
 
-typedef QSharedPointer<QMap<QString, KateProjectItem *>> KateProjectSharedQMapStringItem;
-Q_DECLARE_METATYPE(KateProjectSharedQMapStringItem)
+typedef QSharedPointer<QHash<QString, KateProjectItem *>> KateProjectSharedQHashStringItem;
+Q_DECLARE_METATYPE(KateProjectSharedQHashStringItem)
 
 typedef QSharedPointer<KateProjectIndex> KateProjectSharedProjectIndex;
 Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
@@ -194,7 +194,7 @@ private Q_SLOTS:
      * @param topLevel new toplevel element for model
      * @param file2Item new file => item mapping
      */
-    void loadProjectDone(const KateProjectSharedQStandardItem &topLevel, KateProjectSharedQMapStringItem file2Item);
+    void loadProjectDone(const KateProjectSharedQStandardItem &topLevel, KateProjectSharedQHashStringItem file2Item);
 
     /**
      * Used for worker to send back the results of index loading
@@ -264,7 +264,7 @@ private:
     /**
      * mapping files => items
      */
-    KateProjectSharedQMapStringItem m_file2Item;
+    KateProjectSharedQHashStringItem m_file2Item;
 
     /**
      * project index, if any
@@ -279,7 +279,7 @@ private:
     /**
      * Set of existing documents for this project.
      */
-    QMap<KTextEditor::Document *, QString> m_documents;
+    QHash<KTextEditor::Document *, QString> m_documents;
 
     /**
      * Parent item for existing documents that are not in the project tree

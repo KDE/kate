@@ -56,7 +56,7 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     , m_multiProjectGoto(false)
 {
     qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
-    qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");
+    qRegisterMetaType<KateProjectSharedQHashStringItem>("KateProjectSharedQHashStringItem");
     qRegisterMetaType<KateProjectSharedProjectIndex>("KateProjectSharedProjectIndex");
 
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KateProjectPlugin::slotDocumentCreated);

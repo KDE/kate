@@ -40,6 +40,12 @@ void KateProjectWorker::run()
     loadProject(topLevel.data(), m_projectMap, file2Item.data());
 
     /**
+     * sort the stuff once recursively, this is a LOT faster than once sorting the list
+     * as we have normally not all stuff in on level of directory
+     */
+    topLevel->sortChildren(0);
+
+    /**
      * create some local backup of some data we need for further processing!
      */
     const QStringList files = file2Item->keys();
@@ -214,12 +220,6 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     for (const auto &item : qAsConst(item2ParentPath)) {
         item.second->appendRow(item.first);
     }
-
-    /**
-     * sort the stuff once recursively, this is a LOT faster than once sorting the list
-     * as we have normally not all stuff in on level of directory
-     */
-    parent->sortChildren(0);
 }
 
 QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry)

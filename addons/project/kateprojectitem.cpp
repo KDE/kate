@@ -110,12 +110,15 @@ QIcon *KateProjectItem::icon() const
         break;
 
     case File: {
-        QString iconName = QMimeDatabase().mimeTypeForUrl(QUrl::fromLocalFile(data(Qt::UserRole).toString())).iconName();
-        QStringList emblems;
+        // ensure we have no empty icons, that breaks layout in tree views
+        QIcon icon = QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(QUrl::fromLocalFile(data(Qt::UserRole).toString())).iconName());
+        if (icon.isNull()) {
+            icon = QIcon::fromTheme(QStringLiteral("unknown"));
+        }
         if (!m_emblem.isEmpty()) {
-            m_icon = new QIcon(KIconUtils::addOverlay(QIcon::fromTheme(iconName), QIcon(m_emblem), Qt::TopLeftCorner));
+            m_icon = new QIcon(KIconUtils::addOverlay(icon, QIcon(m_emblem), Qt::TopLeftCorner));
         } else {
-            m_icon = new QIcon(QIcon::fromTheme(iconName));
+            m_icon = new QIcon(icon);
         }
         break;
     }

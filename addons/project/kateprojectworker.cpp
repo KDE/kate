@@ -164,7 +164,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
      */
     QHash<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
-    QList<QPair<QStandardItem *, QStandardItem *>> item2ParentPath;
+    QVector<QPair<QStandardItem *, QStandardItem *>> item2ParentPath;
     for (const QString &filePath : files) {
         /**
          * cheap file name computation
@@ -196,10 +196,8 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     /**
      * plug in the file items to the tree
      */
-    auto i = item2ParentPath.constBegin();
-    while (i != item2ParentPath.constEnd()) {
-        i->second->appendRow(i->first);
-        ++i;
+    for (const auto &item : qAsConst(item2ParentPath)) {
+        item.second->appendRow(item.first);
     }
 }
 

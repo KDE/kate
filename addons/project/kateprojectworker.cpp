@@ -151,7 +151,21 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         return;
     }
 
+    /**
+     * get list of files for this directory, might query the VCS
+     */
     QStringList files = findFiles(dir, filesEntry);
+
+    /**
+     * sort out non-files
+     * even for git, that just reports non-directories, we need to filter out e.g. sym-links to directories
+     */
+    files.erase(std::remove_if(files.begin(),
+                               files.end(),
+                               [](const QString &item) {
+                                   return !QFileInfo(item).isFile();
+                               }),
+                files.end());
 
     if (files.isEmpty()) {
         return;
@@ -201,23 +215,6 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     }
 }
 
-/**
- * Filter all non-files from the given list.
- * e.g. needed for version control system unlike git that version directories, too, or user given lists
- * @param listOfStuff list with files/directories/...
- * @return only the elements that are files
- */
-static QStringList removeNonFiles(QStringList listOfStuff)
-{
-    listOfStuff.erase(std::remove_if(listOfStuff.begin(),
-                                     listOfStuff.end(),
-                                     [](const QString &item) {
-                                         return !QFileInfo(item).isFile();
-                                     }),
-                      listOfStuff.end());
-    return listOfStuff;
-}
-
 QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry)
 {
     /**
@@ -234,15 +231,15 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &fil
     }
 
     if (filesEntry[QStringLiteral("svn")].toBool()) {
-        return removeNonFiles(filesFromSubversion(dir, recursive));
+        return filesFromSubversion(dir, recursive);
     }
 
     if (filesEntry[QStringLiteral("hg")].toBool()) {
-        return removeNonFiles(filesFromMercurial(dir, recursive));
+        return filesFromMercurial(dir, recursive);
     }
 
     if (filesEntry[QStringLiteral("darcs")].toBool()) {
-        return removeNonFiles(filesFromDarcs(dir, recursive));
+        return filesFromDarcs(dir, recursive);
     }
 
     /**
@@ -250,9 +247,9 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &fil
      */
 
     /**
-     * try explicit list of stuff, we need to kill the non-files here ourself
+     * try explicit list of stuff
      */
-    QStringList userGivenFilesList = removeNonFiles(filesEntry[QStringLiteral("list")].toStringList());
+    QStringList userGivenFilesList = filesEntry[QStringLiteral("list")].toStringList();
     if (!userGivenFilesList.empty()) {
         /**
          * users might have specified duplicates, this can't happen for the other ways

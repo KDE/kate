@@ -57,12 +57,6 @@ private:
      */
     void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item);
 
-    /**
-     * Load index for whole project.
-     * @param files list of all project files to index
-     */
-    void loadIndex(const QStringList &files, bool force);
-
     QStringList findFiles(const QDir &dir, const QVariantMap &filesEntry);
 
     QStringList filesFromGit(const QDir &dir, bool recursive);

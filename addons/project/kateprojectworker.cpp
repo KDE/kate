@@ -46,13 +46,47 @@ void KateProjectWorker::run()
     topLevel->sortChildren(0);
 
     /**
-     * create some local backup of some data we need for further processing!
+     * decide if we need to create an index
+     * if we need to do so, we will need to create a copy of the file list for later use
+     * before this was default on, which is dangerous for large repositories, e.g. out-of-memory or out-of-disk
+     * if specified in project map; use that setting, otherwise fall back to global setting
      */
-    const QStringList files = file2Item->keys();
+    bool indexEnabled = !m_indexDir.isEmpty();
+    const QVariantMap ctagsMap = m_projectMap[QStringLiteral("ctags")].toMap();
+    auto indexValue = ctagsMap[QStringLiteral("enable")];
+    if (!indexValue.isNull()) {
+        indexEnabled = indexValue.toBool();
+    }
+
+    /**
+     * create some local backup of some data we need for further processing!
+     * this is expensive, therefore only really do this if required!
+     */
+    QStringList files;
+    if (indexEnabled) {
+        files = file2Item->keys();
+    }
+
+    /**
+     * hand out our model item & mapping to the main thread
+     * that will let Kate already show the project, even before index processing starts
+     */
     Q_EMIT loadDone(topLevel, file2Item);
 
-    // trigger index loading, will internally handle enable/disabled
-    loadIndex(files, m_force);
+    /**
+     * without indexing, we are even done with all stuff here
+     */
+    if (!indexEnabled) {
+        Q_EMIT loadIndexDone(KateProjectSharedProjectIndex());
+        return;
+    }
+
+    /**
+     * create new index, this will do the loading in the constructor
+     * wrap it into shared pointer for transfer to main thread
+     */
+    KateProjectSharedProjectIndex index(new KateProjectIndex(m_baseDir, m_indexDir, files, ctagsMap, m_force));
+    Q_EMIT loadIndexDone(index);
 }
 
 void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item)
@@ -508,32 +542,4 @@ QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursi
         files.append(dirIterator.filePath());
     }
     return files;
-}
-
-void KateProjectWorker::loadIndex(const QStringList &files, bool force)
-{
-    const QString keyCtags = QStringLiteral("ctags");
-    const QVariantMap ctagsMap = m_projectMap[keyCtags].toMap();
-    /**
-     * load index, if enabled
-     * before this was default on, which is dangerous for large repositories, e.g. out-of-memory or out-of-disk
-     * if specified in project map; use that setting, otherwise fall back to global setting
-     */
-    bool indexEnabled = !m_indexDir.isEmpty();
-    auto indexValue = ctagsMap[QStringLiteral("enable")];
-    if (!indexValue.isNull()) {
-        indexEnabled = indexValue.toBool();
-    }
-    if (!indexEnabled) {
-        emit loadIndexDone(KateProjectSharedProjectIndex());
-        return;
-    }
-
-    /**
-     * create new index, this will do the loading in the constructor
-     * wrap it into shared pointer for transfer to main thread
-     */
-    KateProjectSharedProjectIndex index(new KateProjectIndex(m_baseDir, m_indexDir, files, ctagsMap, force));
-
-    emit loadIndexDone(index);
 }

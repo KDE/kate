@@ -81,6 +81,19 @@ QVariant KateProjectItem::data(int role) const
     return QStandardItem::data(role);
 }
 
+bool KateProjectItem::operator<(const QStandardItem &other) const
+{
+    // let directories stay first
+    const bool isDirectory = data(Qt::ToolTipRole).isNull();
+    const bool otherIsDirectory = other.data(Qt::ToolTipRole).isNull();
+    if (isDirectory != otherIsDirectory) {
+        return isDirectory > otherIsDirectory;
+    }
+
+    // case-insensitive compare of the filename
+    return data(Qt::DisplayRole).toString().compare(other.data(Qt::DisplayRole).toString(), Qt::CaseInsensitive) < 0;
+}
+
 QIcon *KateProjectItem::icon() const
 {
     if (m_icon) {

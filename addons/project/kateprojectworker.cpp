@@ -167,11 +167,12 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
                                }),
                 files.end());
 
+    /**
+     * we might end up with nothing to add at all
+     */
     if (files.isEmpty()) {
         return;
     }
-
-    files.sort(Qt::CaseInsensitive);
 
     /**
      * construct paths first in tree and items in a map
@@ -213,6 +214,12 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     for (const auto &item : qAsConst(item2ParentPath)) {
         item.second->appendRow(item.first);
     }
+
+    /**
+     * sort the stuff once recursively, this is a LOT faster than once sorting the list
+     * as we have normally not all stuff in on level of directory
+     */
+    parent->sortChildren(0);
 }
 
 QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry)

@@ -48,6 +48,13 @@ public:
      */
     QVariant data(int role = Qt::UserRole + 1) const override;
 
+    /**
+     * We want case-insensitive sorting and directories first!
+     * @param other other element to compare with
+     * @return is this element less than?
+     */
+    bool operator<(const QStandardItem &other) const override;
+
 public:
     void slotModifiedChanged(KTextEditor::Document *);
     void slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);

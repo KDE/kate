@@ -234,9 +234,8 @@ bool KateApp::startupKate()
 
                 setCursor(line, column);
             }
-        } else {
-            KMessageBox::sorry(activeKateMainWindow(),
-                               i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
+        } else if (!KateApp::self()->pluginManager()->plugin(QStringLiteral("kateprojectplugin"))) {
+            KMessageBox::sorry(activeKateMainWindow(), i18n("Folders can only be opened when the projects plugin is enabled"));
         }
     }
 

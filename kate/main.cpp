@@ -19,6 +19,7 @@
 #include <KSharedConfig>
 #include <KStartupInfo>
 #include <KWindowSystem>
+#include <algorithm>
 
 #include <QApplication>
 #include <QByteArray>
@@ -287,6 +288,10 @@ int main(int argc, char **argv)
               || parser.isSet(gotoLineOption) || parser.isSet(gotoColumnOption) || parser.isSet(readStdInOption))
             && (urls.isEmpty())) {
             force_new = true;
+        } else {
+            force_new = std::any_of(urls.begin(), urls.end(), [](const QString &url) {
+                return QFileInfo(url).isDir();
+            });
         }
     }
 

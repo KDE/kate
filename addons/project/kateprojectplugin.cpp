@@ -18,6 +18,7 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 
+#include <QCoreApplication>
 #include <QFileInfo>
 #include <QTime>
 
@@ -64,6 +65,16 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
 
     // read configuration prior to cwd project setup below
     readConfig();
+    QStringList args = qApp->arguments();
+    bool projectSpecified = false;
+    args.removeFirst(); // The first argument is the executable name
+    for (const QString &arg : qAsConst(args)) {
+        QFileInfo info(arg);
+        if (info.isDir()) {
+            projectForDir(info.absoluteFilePath());
+            projectSpecified = true;
+        }
+    }
 
 #ifdef HAVE_CTERMID
     /**
@@ -75,7 +86,9 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     int fd = ::open(tty, O_RDONLY);
 
     if (fd >= 0) {
-        projectForDir(QDir::current());
+        if (!projectSpecified) {
+            projectForDir(QDir::current());
+        }
         ::close(fd);
     }
 #endif

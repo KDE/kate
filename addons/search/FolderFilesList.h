@@ -7,9 +7,7 @@
 #ifndef FolderFilesList_h
 #define FolderFilesList_h
 
-#include <QElapsedTimer>
-#include <QFileInfo>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStringList>
 #include <QThread>
 #include <QVector>
@@ -38,7 +36,13 @@ Q_SIGNALS:
     void fileListReady();
 
 private:
-    void checkNextItem(const QFileInfo &item);
+    struct DirectoryWithResults {
+        QString directory;
+        QStringList newDirectories;
+        QStringList newFiles;
+    };
+
+    void checkNextItem(DirectoryWithResults &handleOnFolder) const;
 
 private:
     QString m_folder;
@@ -49,8 +53,7 @@ private:
     bool m_hidden = false;
     bool m_symlinks = false;
     QStringList m_types;
-    QVector<QRegExp> m_excludeList;
-    QElapsedTimer m_time;
+    QVector<QRegularExpression> m_excludes;
 };
 
 #endif

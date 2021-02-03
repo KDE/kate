@@ -94,12 +94,12 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
     /**
      * recurse to sub-projects FIRST
      */
-    QVariantList subGroups = project[QStringLiteral("projects")].toList();
+    const QVariantList subGroups = project[QStringLiteral("projects")].toList();
     for (const QVariant &subGroupVariant : subGroups) {
         /**
          * convert to map and get name, else skip
          */
-        QVariantMap subProject = subGroupVariant.toMap();
+        const QVariantMap subProject = subGroupVariant.toMap();
         const QString keyName = QStringLiteral("name");
         if (subProject[keyName].toString().isEmpty()) {
             continue;
@@ -117,7 +117,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
      * load all specified files
      */
     const QString keyFiles = QStringLiteral("files");
-    QVariantList files = project[keyFiles].toList();
+    const QVariantList files = project[keyFiles].toList();
     for (const QVariant &fileVariant : files) {
         loadFilesEntry(parent, fileVariant.toMap(), file2Item);
     }
@@ -188,6 +188,51 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
 {
     QDir dir(m_baseDir);
     if (!dir.cd(filesEntry[QStringLiteral("directory")].toString())) {
+        return;
+    }
+
+    /**
+     * handle linked projects, if any
+     * one can reference other projects by specifying the path to them
+     */
+    QStringList linkedProjects = filesEntry[QStringLiteral("projects")].toStringList();
+    if (!linkedProjects.empty()) {
+        /**
+         * ensure project files are made absolute in respect to correct base dir
+         */
+        for (auto &project : linkedProjects) {
+            project = dir.absoluteFilePath(project);
+        }
+
+        /**
+         * users might have specified duplicates, this can't happen for the other ways
+         */
+        linkedProjects.removeDuplicates();
+
+        /**
+         * filter out all directories that have no .kateproject inside!
+         */
+        linkedProjects.erase(std::remove_if(linkedProjects.begin(),
+                                            linkedProjects.end(),
+                                            [](const QString &item) {
+                                                const QFileInfo projectFile(item + QLatin1String("/.kateproject"));
+                                                return !projectFile.exists() || !projectFile.isFile();
+                                            }),
+                             linkedProjects.end());
+
+        /**
+         * now add our projects to the current item parent
+         * later the tree view will e.g. allow to jump to the sub-projects
+         */
+        for (const auto &project : linkedProjects) {
+            QStandardItem *subProjectItem = new KateProjectItem(KateProjectItem::LinkedProject, dir.relativeFilePath(project));
+            subProjectItem->setData(project, Qt::UserRole);
+            parent->appendRow(subProjectItem);
+        }
+
+        /**
+         * files with linked projects will ignore all other stuff inside
+         */
         return;
     }
 

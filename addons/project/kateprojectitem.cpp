@@ -78,16 +78,20 @@ QVariant KateProjectItem::data(int role) const
         return QVariant(*icon());
     }
 
+    if (role == TypeRole) {
+        return QVariant(m_type);
+    }
+
     return QStandardItem::data(role);
 }
 
 bool KateProjectItem::operator<(const QStandardItem &other) const
 {
     // let directories stay first
-    const bool isDirectory = data(Qt::ToolTipRole).isNull();
-    const bool otherIsDirectory = other.data(Qt::ToolTipRole).isNull();
-    if (isDirectory != otherIsDirectory) {
-        return isDirectory > otherIsDirectory;
+    const auto thisType = data(TypeRole).toInt();
+    const bool otherType = other.data(TypeRole).toInt();
+    if (thisType != otherType) {
+        return thisType < otherType;
     }
 
     // case-insensitive compare of the filename
@@ -101,6 +105,7 @@ QIcon *KateProjectItem::icon() const
     }
 
     switch (m_type) {
+    case LinkedProject:
     case Project:
         m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("folder-documents")));
         break;

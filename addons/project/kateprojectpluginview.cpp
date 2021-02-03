@@ -405,6 +405,29 @@ void KateProjectPluginView::slotDocumentUrlChanged(KTextEditor::Document *docume
     }
 }
 
+void KateProjectPluginView::switchToProject(const QDir &dir)
+{
+    /**
+     * search matching project
+     */
+    KateProject *project = m_plugin->projectForDir(dir);
+    if (!project) {
+        return;
+    }
+
+    /**
+     * get active project view and switch it, if it is for a different project
+     * do this AFTER file selection
+     */
+    KateProjectView *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
+    if (active != m_project2View.value(project).first) {
+        int index = m_projectsCombo->findData(project->fileName());
+        if (index >= 0) {
+            m_projectsCombo->setCurrentIndex(index);
+        }
+    }
+}
+
 void KateProjectPluginView::slotViewCreated(KTextEditor::View *view)
 {
     /**

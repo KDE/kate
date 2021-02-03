@@ -107,6 +107,12 @@ public Q_SLOTS:
      */
     QPair<KateProjectView *, KateProjectInfoView *> viewForProject(KateProject *project);
 
+    /**
+     * Switch to project for given dir, if any there!
+     * @param dir dir with the project
+     */
+    void switchToProject(const QDir &dir);
+
 private Q_SLOTS:
     /**
      * Plugin config updated

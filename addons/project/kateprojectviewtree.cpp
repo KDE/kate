@@ -93,6 +93,13 @@ void KateProjectViewTree::openSelectedDocument()
     }
 
     /**
+     * we only handle files here!
+     */
+    if (selecteStuff[0].data(KateProjectItem::TypeRole).toInt() != KateProjectItem::File) {
+        return;
+    }
+
+    /**
      * open document for first element, if possible
      */
     QString filePath = selecteStuff[0].data(Qt::UserRole).toString();
@@ -106,10 +113,23 @@ void KateProjectViewTree::slotClicked(const QModelIndex &index)
     /**
      * open document, if any usable user data
      */
-    QString filePath = index.data(Qt::UserRole).toString();
+    const QString filePath = index.data(Qt::UserRole).toString();
     if (!filePath.isEmpty()) {
-        m_pluginView->mainWindow()->openUrl(QUrl::fromLocalFile(filePath));
-        selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+        /**
+         * normal file?
+         */
+        if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File) {
+            m_pluginView->mainWindow()->openUrl(QUrl::fromLocalFile(filePath));
+            selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+        }
+
+        /**
+         * we might be a linked project => trigger that we switch to the selected one!
+         */
+        if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::LinkedProject) {
+            m_pluginView->switchToProject(QDir(filePath));
+            return;
+        }
     }
 }
 

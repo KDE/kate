@@ -448,13 +448,19 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_diskSearchDoneTimer.setInterval(10);
     connect(&m_diskSearchDoneTimer, &QTimer::timeout, this, &KatePluginSearchView::searchDone);
 
-    connect(&m_folderFilesList, &FolderFilesList::fileListReady, this, &KatePluginSearchView::folderFileListChanged);
-    connect(&m_folderFilesList, &FolderFilesList::searching, this, [this](const QString &path) {
-        Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-        if (res) {
-            res->matchModel.setFileListUpdate(path);
-        }
-    });
+    // queued connect to signals emitted outside of background thread
+    connect(&m_folderFilesList, &FolderFilesList::fileListReady, this, &KatePluginSearchView::folderFileListChanged, Qt::QueuedConnection);
+    connect(
+        &m_folderFilesList,
+        &FolderFilesList::searching,
+        this,
+        [this](const QString &path) {
+            Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+            if (res) {
+                res->matchModel.setFileListUpdate(path);
+            }
+        },
+        Qt::QueuedConnection);
 
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, &KatePluginSearchView::clearDocMarksAndRanges);
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, &m_searchOpenFiles, &SearchOpenFiles::cancelSearch);

@@ -116,15 +116,16 @@ void KateProjectViewTree::slotClicked(const QModelIndex &index)
     const QString filePath = index.data(Qt::UserRole).toString();
     if (!filePath.isEmpty()) {
         /**
-         * normal file?
+         * normal file? => just trigger open of it
          */
         if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File) {
             m_pluginView->mainWindow()->openUrl(QUrl::fromLocalFile(filePath));
             selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+            return;
         }
 
         /**
-         * we might be a linked project => trigger that we switch to the selected one!
+         * linked project? => switch the current active project
          */
         if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::LinkedProject) {
             m_pluginView->switchToProject(QDir(filePath));

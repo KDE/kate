@@ -1154,7 +1154,12 @@ void KatePluginSearchView::startSearchWhileTyping()
     int cursorPosition = m_ui.searchCombo->lineEdit()->cursorPosition();
     bool hasSelected = m_ui.searchCombo->lineEdit()->hasSelectedText();
     m_ui.searchCombo->blockSignals(true);
-    m_ui.searchCombo->setItemText(0, currentSearchText);
+    if (m_ui.searchCombo->count() == 0) {
+        m_ui.searchCombo->insertItem(0, currentSearchText);
+    }
+    else {
+        m_ui.searchCombo->setItemText(0, currentSearchText);
+    }
     m_ui.searchCombo->setCurrentIndex(0);
     m_ui.searchCombo->lineEdit()->setCursorPosition(cursorPosition);
     if (hasSelected) {

@@ -387,12 +387,12 @@ void GotoSymbolWidget::updateViewGeometry()
 
     move(xPos, yPos);
 
-    QPointer<QPropertyAnimation> animation = new QPropertyAnimation(this, "size");
+    QPropertyAnimation *animation = new QPropertyAnimation(this, "size");
     animation->setDuration(150);
     animation->setStartValue(this->size());
     animation->setEndValue(viewSize);
 
-    animation->start();
+    animation->start(QPropertyAnimation::DeleteWhenStopped);
 }
 
 void GotoSymbolWidget::reselectFirst()

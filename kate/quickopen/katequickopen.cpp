@@ -384,10 +384,10 @@ void KateQuickOpen::updateViewGeometry()
     const QPoint p(xPos, yPos);
     move(p + m_mainWindow->pos());
 
-    QPointer<QPropertyAnimation> animation = new QPropertyAnimation(this, "size");
+    QPropertyAnimation *animation = new QPropertyAnimation(this, "size");
     animation->setDuration(150);
     animation->setStartValue(this->size());
     animation->setEndValue(viewSize);
 
-    animation->start();
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
 }

@@ -43,7 +43,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
         return {};
     }
 
-    auto entry = m_modelEntries.at(idx.row());
+    const ModelEntry &entry = m_modelEntries.at(idx.row());
     if (role == Qt::DisplayRole) {
         switch (idx.column()) {
         case Columns::FileName:

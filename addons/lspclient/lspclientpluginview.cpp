@@ -621,7 +621,7 @@ public:
             int end = lineText.indexOf(c, startPos);
             if (end > -1) {
                 auto startC = range.start();
-                startC.setColumn(startPos + 1);
+                startC.setColumn(startPos);
                 auto endC = range.end();
                 endC.setColumn(end);
                 range.setStart(startC);
@@ -631,11 +631,11 @@ public:
 
         int angleBracketPos = lineText.indexOf(QLatin1Char('<'), 7);
         if (angleBracketPos > -1) {
-            expandRangeTo(QLatin1Char('>'), angleBracketPos);
+            expandRangeTo(QLatin1Char('>'), angleBracketPos + 1);
         } else {
             int startPos = lineText.indexOf(QLatin1Char('"'), 7);
             if (startPos > -1) {
-                expandRangeTo(QLatin1Char('"'), startPos);
+                expandRangeTo(QLatin1Char('"'), startPos + 1);
             }
         }
     }

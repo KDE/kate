@@ -55,7 +55,8 @@ protected:
 
         int score = 0;
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        const auto actionName = idx.data().toString().splitRef(QLatin1Char(':')).at(1);
+        const QString string = idx.data().toString();
+        const QStringView actionName = string.splitRef(QLatin1Char(':')).at(1);
         const bool res = kfts::fuzzy_match_sequential(m_pattern, actionName, score);
         sourceModel()->setData(idx, score, CommandModel::Score);
         return res;

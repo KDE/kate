@@ -144,9 +144,10 @@ public:
         const QString nameColor = option.palette.color(QPalette::Link).name();
 
         if (mode == FilterMode::FilterByName) {
-            kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+            kfts::to_scored_fuzzy_matched_display_string(
+                m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
         } else if (mode == FilterMode::FilterByPath) {
-            kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
+            kfts::to_scored_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
         } else {
             // check if there's a / separtion in filter string
             // if there is, we use the last part to highlight the
@@ -155,11 +156,12 @@ public:
             if (pos > -1) {
                 ++pos;
                 auto pattern = m_filterString.midRef(pos);
-                kfts::to_fuzzy_matched_display_string(pattern, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+                kfts::to_scored_fuzzy_matched_display_string(pattern, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
             } else {
-                kfts::to_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+                kfts::to_scored_fuzzy_matched_display_string(
+                    m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
             }
-            kfts::to_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
+            kfts::to_scored_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
         }
 
         const auto pathFontsize = option.font.pointSize();

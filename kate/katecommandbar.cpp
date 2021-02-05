@@ -57,7 +57,7 @@ protected:
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
         const QString string = idx.data().toString();
         const QStringView actionName = string.splitRef(QLatin1Char(':')).at(1);
-        const bool res = kfts::fuzzy_match_sequential(m_pattern, actionName, score);
+        const bool res = kfts::fuzzy_match(m_pattern, actionName.trimmed(), score);
         sourceModel()->setData(idx, score, CommandModel::Score);
         return res;
     }
@@ -86,7 +86,7 @@ public:
         const auto strs = index.data().toString().split(QLatin1Char(':'));
         QString str = strs.at(1);
         const QString nameColor = option.palette.color(QPalette::Link).name();
-        kfts::to_fuzzy_matched_display_string(m_filterString, str, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+        kfts::to_scored_fuzzy_matched_display_string(m_filterString, str, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
 
         const QString component = QStringLiteral("<span style=\"color: gray;\">") + strs.at(0) + QStringLiteral(": </span>");
 

@@ -6,6 +6,8 @@
  */
 
 #include "kateprojectview.h"
+#include "branchesdialog.h"
+#include "gitutils.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectpluginview.h"
 
@@ -15,15 +17,17 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 
+#include <QPushButton>
 #include <QSortFilterProxyModel>
 #include <QTimer>
 #include <QVBoxLayout>
 
-KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject *project)
+KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject *project, KTextEditor::MainWindow *mainWindow)
     : m_pluginView(pluginView)
     , m_project(project)
     , m_treeView(new KateProjectViewTree(pluginView, project))
     , m_filter(new KLineEdit())
+    , m_branchBtn(new QPushButton)
 {
     /**
      * layout tree view and co.
@@ -32,11 +36,17 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_treeView);
+    layout->addWidget(m_branchBtn);
     layout->addWidget(m_filter);
     setLayout(layout);
 
+    m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
+    m_branchBtn->setIcon(QIcon(QStringLiteral(":/kxmlgui5/kateproject/sc-apps-git.svg")));
+
     // let tree get focus for keyboard selection of file to open
     setFocusProxy(m_treeView);
+
+    m_branchesDialog = new BranchesDialog(this, mainWindow, m_project->baseDir());
 
     /**
      * setup filter line edit
@@ -44,6 +54,12 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     m_filter->setPlaceholderText(i18n("Filter..."));
     m_filter->setClearButtonEnabled(true);
     connect(m_filter, &KLineEdit::textChanged, this, &KateProjectView::filterTextChanged);
+    connect(m_branchBtn, &QPushButton::clicked, this, [this] {
+        m_branchesDialog->openDialog();
+    });
+    connect(m_branchesDialog, &BranchesDialog::branchChanged, this, [this](const QString &branch) {
+        m_branchBtn->setText(branch);
+    });
 }
 
 KateProjectView::~KateProjectView()

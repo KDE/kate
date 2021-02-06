@@ -2,5 +2,6 @@
 <RCC version="1.0">
     <qresource prefix="/kxmlgui5/kateproject">
         <file>ui.rc</file>
+        <file>sc-apps-git.svg</file>
     </qresource>
 </RCC>

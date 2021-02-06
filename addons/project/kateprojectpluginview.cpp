@@ -215,7 +215,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
     /**
      * create new views
      */
-    KateProjectView *view = new KateProjectView(this, project);
+    KateProjectView *view = new KateProjectView(this, project, m_mainWindow);
     KateProjectInfoView *infoView = new KateProjectInfoView(this, project);
 
     /**

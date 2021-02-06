@@ -12,7 +12,9 @@
 #include "kateprojectviewtree.h"
 
 class KLineEdit;
+class QPushButton;
 class KateProjectPluginView;
+class BranchesDialog;
 
 /**
  * Class representing a view of a project.
@@ -28,7 +30,7 @@ public:
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectView(KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectView(KateProjectPluginView *pluginView, KateProject *project, KTextEditor::MainWindow *mainWindow);
 
     /**
      * deconstruct project
@@ -82,6 +84,13 @@ private:
      * filter
      */
     KLineEdit *m_filter;
+
+    /**
+      checkout branch button
+     */
+    QPushButton *m_branchBtn;
+
+    BranchesDialog *m_branchesDialog;
 };
 
 #endif

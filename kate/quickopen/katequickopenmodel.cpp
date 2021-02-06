@@ -9,7 +9,6 @@
 
 #include "kateapp.h"
 #include "katemainwindow.h"
-#include "kateviewmanager.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>

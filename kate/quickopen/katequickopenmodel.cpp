@@ -44,26 +44,27 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     }
 
     const ModelEntry &entry = m_modelEntries.at(idx.row());
-    if (role == Role::FileName) {
+    switch (role) {
+    case Role::FileName:
         return entry.fileName;
-    } else if (role == Role::FilePath) {
+    case Role::FilePath:
         return entry.filePath;
-    } else if (role == Qt::DisplayRole) {
-        // Shouldn't ask for displayrole
-        Q_ASSERT(false);
-        return {};
-    } else if (role == Qt::FontRole) {
+    case Qt::FontRole: {
         if (entry.bold) {
             QFont font;
             font.setBold(true);
             return font;
         }
-    } else if (role == Qt::DecorationRole) {
+        return {};
+    }
+    case Qt::DecorationRole:
         return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(entry.fileName, QMimeDatabase::MatchExtension).iconName());
-    } else if (role == Qt::UserRole) {
+    case Qt::UserRole:
         return entry.url;
-    } else if (role == Role::Score) {
+    case Role::Score:
         return entry.score;
+    default:
+        return {};
     }
 
     return {};

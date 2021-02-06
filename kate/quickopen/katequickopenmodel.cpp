@@ -73,7 +73,6 @@ void KateQuickOpenModel::refresh()
 {
     QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
     const QList<KTextEditor::View *> sortedViews = m_mainWindow->viewManager()->sortedViews();
-    const QList<KTextEditor::Document *> openDocs = KateApp::self()->documentManager()->documentList();
     const QStringList projectDocs = projectView
         ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList()
         : QStringList();
@@ -94,55 +93,30 @@ void KateQuickOpenModel::refresh()
     }();
 
     QVector<ModelEntry> allDocuments;
-    allDocuments.reserve(sortedViews.size() + openDocs.size() + projectDocs.size());
+    allDocuments.reserve(sortedViews.size() + projectDocs.size());
+
+    QVector<QUrl> openedDocUrls;
+    openedDocUrls.reserve(sortedViews.size());
 
     size_t sort_id = static_cast<size_t>(-1);
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
-        allDocuments.push_back({doc->url(),
-                                doc->documentName(),
-                                doc->url().toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase),
-                                true,
-                                sort_id--,
-                                -1});
-    }
-
-    for (auto *doc : qAsConst(openDocs)) {
-        const auto normalizedUrl = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase);
-        allDocuments.push_back({doc->url(), doc->documentName(), normalizedUrl, true, 0, -1});
+        const auto url = doc->url();
+        allDocuments.push_back(
+            {url, doc->documentName(), url.toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase), true, sort_id--, -1});
+        openedDocUrls.push_back(url);
     }
 
     for (const auto &file : qAsConst(projectDocs)) {
         QFileInfo fi(file);
         const auto localFile = QUrl::fromLocalFile(fi.absoluteFilePath());
+        if (openedDocUrls.contains(localFile)) {
+            continue;
+        }
         allDocuments.push_back({localFile, fi.fileName(), fi.filePath().remove(projectBase), false, 0, -1});
     }
 
-    /** Sort the arrays by filePath. */
-    std::stable_sort(std::begin(allDocuments), std::end(allDocuments), [](const ModelEntry &a, const ModelEntry &b) {
-        return a.filePath < b.filePath;
-    });
-
-    /** remove Duplicates.
-     * Note that the stable_sort above guarantees that the items that the
-     * bold/sort_id fields of the items added first are correctly preserved.
-     */
-    allDocuments.erase(std::unique(allDocuments.begin(),
-                                   allDocuments.end(),
-                                   [](const ModelEntry &a, const ModelEntry &b) {
-                                       return a.url == b.url;
-                                   }),
-                       std::end(allDocuments));
-
-    /** sort the arrays via boldness (open or not */
-    std::stable_sort(std::begin(allDocuments), std::end(allDocuments), [](const ModelEntry &a, const ModelEntry &b) {
-        if (a.bold == b.bold) {
-            return a.sort_id > b.sort_id;
-        }
-        return a.bold > b.bold;
-    });
-
     beginResetModel();
-    m_modelEntries = allDocuments;
+    m_modelEntries = std::move(allDocuments);
     endResetModel();
 }

@@ -74,6 +74,7 @@ void KateQuickOpenModel::refresh()
 {
     QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
     const QList<KTextEditor::View *> sortedViews = m_mainWindow->viewManager()->sortedViews();
+    const QList<KTextEditor::Document *> openDocs = KateApp::self()->documentManager()->documentList();
     const QStringList projectDocs = projectView
         ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList()
         : QStringList();
@@ -96,15 +97,28 @@ void KateQuickOpenModel::refresh()
     QVector<ModelEntry> allDocuments;
     allDocuments.reserve(sortedViews.size() + projectDocs.size());
 
-    QVector<QUrl> openedDocUrls;
+    QSet<QUrl> openedDocUrls;
     openedDocUrls.reserve(sortedViews.size());
 
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
         const auto url = doc->url();
+        if (openedDocUrls.contains(url)) {
+            continue;
+        }
+        openedDocUrls.insert(url);
         allDocuments.push_back(
             {url, doc->documentName(), url.toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase), true, -1});
-        openedDocUrls.push_back(url);
+    }
+
+    for (auto *doc : qAsConst(openDocs)) {
+        auto url = doc->url();
+        if (openedDocUrls.contains(url)) {
+            continue;
+        }
+        openedDocUrls.insert(url);
+        const auto normalizedUrl = url.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase);
+        allDocuments.push_back({doc->url(), doc->documentName(), normalizedUrl, true, -1});
     }
 
     for (const auto &file : qAsConst(projectDocs)) {

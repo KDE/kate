@@ -44,11 +44,14 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     }
 
     const ModelEntry &entry = m_modelEntries.at(idx.row());
-    if (role == Qt::DisplayRole) {
-        switch (idx.column()) {
-        case Columns::FileName:
-            return QString(entry.fileName + QStringLiteral("{[split]}") + entry.filePath);
-        }
+    if (role == Role::FileName) {
+        return entry.fileName;
+    } else if (role == Role::FilePath) {
+        return entry.filePath;
+    } else if (role == Qt::DisplayRole) {
+        // Shouldn't ask for displayrole
+        Q_ASSERT(false);
+        return {};
     } else if (role == Qt::FontRole) {
         if (entry.bold) {
             QFont font;

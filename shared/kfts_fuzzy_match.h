@@ -292,7 +292,6 @@ static QString to_scored_fuzzy_matched_display_string(const QStringView pattern,
     }
 
     uint8_t matches[256];
-    bool matched = false;
     int totalMatches = 0;
     {
         int score = 0;
@@ -303,7 +302,7 @@ static QString to_scored_fuzzy_matched_display_string(const QStringView pattern,
         const auto patternEnd = pattern.cend();
         const auto strEnd = str.cend();
 
-        matched = fuzzy_internal::fuzzy_match_recursive(patternIt, strIt, score, strIt, strEnd, patternEnd, nullptr, matches, 0, totalMatches, recursionCount);
+        fuzzy_internal::fuzzy_match_recursive(patternIt, strIt, score, strIt, strEnd, patternEnd, nullptr, matches, 0, totalMatches, recursionCount);
     }
 
     int offset = 0;

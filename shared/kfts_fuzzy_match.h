@@ -236,13 +236,13 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
                 // This prevents double bonuses
                 const bool neighborSeparator = neighbor == QLatin1Char('_') || neighbor == QLatin1Char(' ');
                 if (!neighborSeparator && neighbor.isLower() && curr.isUpper()) {
-                    outScore += camelBonus - currIdx;
+                    outScore += camelBonus;
                     continue;
                 }
 
                 // Separator
                 if (neighborSeparator) {
-                    outScore += separatorBonus - currIdx;
+                    outScore += separatorBonus;
                 }
             } else {
                 // First letter match has the highest score

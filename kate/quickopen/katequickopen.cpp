@@ -78,8 +78,13 @@ protected:
             res = filterByPath(path, score);
         } else {
             int scorep = 0, scoren = 0;
-            bool resp = filterByPath(path, scorep);
             bool resn = filterByName(name, scoren);
+
+            // only match file path if filename got a match
+            bool resp = false;
+            if (resn || pattern.contains(QLatin1Char('/'))) {
+                resp = filterByPath(path, scorep);
+            }
 
             // store the score for sorting later
             score = scoren + scorep;

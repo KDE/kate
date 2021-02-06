@@ -98,12 +98,11 @@ void KateQuickOpenModel::refresh()
     QVector<QUrl> openedDocUrls;
     openedDocUrls.reserve(sortedViews.size());
 
-    size_t sort_id = static_cast<size_t>(-1);
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
         const auto url = doc->url();
         allDocuments.push_back(
-            {url, doc->documentName(), url.toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase), true, sort_id--, -1});
+            {url, doc->documentName(), url.toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase), true, -1});
         openedDocUrls.push_back(url);
     }
 
@@ -113,7 +112,7 @@ void KateQuickOpenModel::refresh()
         if (openedDocUrls.contains(localFile)) {
             continue;
         }
-        allDocuments.push_back({localFile, fi.fileName(), fi.filePath().remove(projectBase), false, 0, -1});
+        allDocuments.push_back({localFile, fi.fileName(), fi.filePath().remove(projectBase), false, -1});
     }
 
     beginResetModel();

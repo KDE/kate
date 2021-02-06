@@ -21,7 +21,6 @@ struct ModelEntry {
     QString fileName; // display string for left column
     QString filePath; // display string for right column
     bool bold; // format line in bold text or not
-    size_t sort_id;
     int score;
 };
 

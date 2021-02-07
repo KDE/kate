@@ -65,8 +65,20 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     });
     connect(m_branchesDialog, &BranchesDialog::branchChanged, this, [this](const QString &branch) {
         m_branchBtn->setText(branch);
-        m_project->reload();
+        m_project->reload(true);
     });
+    connect(m_project, &KateProject::modelChanged, this, [this] {
+        if (GitUtils::isGitRepo(m_project->baseDir())) {
+            m_branchBtn->setHidden(false);
+            m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
+        } else {
+            m_branchBtn->setHidden(true);
+        }
+    });
+
+    if (!GitUtils::isGitRepo(m_project->baseDir())) {
+        m_branchBtn->setHidden(true);
+    }
 }
 
 KateProjectView::~KateProjectView()

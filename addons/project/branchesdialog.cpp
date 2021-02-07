@@ -103,7 +103,7 @@ public:
             name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">tag at %2</span>").arg(fontSz));
         } */
         else {
-            Q_ASSERT(false);
+            Q_UNREACHABLE();
         }
 
         doc.setHtml(name);

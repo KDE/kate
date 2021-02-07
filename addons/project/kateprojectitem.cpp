@@ -89,7 +89,7 @@ bool KateProjectItem::operator<(const QStandardItem &other) const
 {
     // let directories stay first
     const auto thisType = data(TypeRole).toInt();
-    const bool otherType = other.data(TypeRole).toInt();
+    const auto otherType = other.data(TypeRole).toInt();
     if (thisType != otherType) {
         return thisType < otherType;
     }

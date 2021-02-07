@@ -264,7 +264,6 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
      */
     QHash<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
-    QVector<QPair<QStandardItem *, QStandardItem *>> item2ParentPath;
     for (const QString &filePath : files) {
         /**
          * cheap file name computation
@@ -279,7 +278,8 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
          * already hang in directories in tree
          */
         KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileName);
-        fileItem->setData(filePath, Qt::ToolTipRole);
+        fileItem->setData(filePath, Qt::UserRole);
+        (*file2Item)[filePath] = fileItem;
 
         // get the directory's relative path to the base directory
         QString dirRelPath = dir.relativeFilePath(filePathName);
@@ -288,16 +288,8 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
             dirRelPath = QString();
         }
 
-        item2ParentPath.append(QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dirRelPath)));
-        fileItem->setData(filePath, Qt::UserRole);
-        (*file2Item)[filePath] = fileItem;
-    }
-
-    /**
-     * plug in the file items to the tree
-     */
-    for (const auto &item : qAsConst(item2ParentPath)) {
-        item.second->appendRow(item.first);
+        // put in our item to the right directory parent
+        directoryParent(dir2Item, dirRelPath)->appendRow(fileItem);
     }
 }
 

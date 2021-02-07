@@ -16,6 +16,7 @@
 #include <QTextDocument>
 #include <QTreeView>
 #include <QVBoxLayout>
+#include <QWidget>
 #include <QtConcurrentRun>
 
 #include <KTextEditor/MainWindow>
@@ -287,14 +288,16 @@ void BranchesDialog::updateViewGeometry()
     m_treeView->resizeColumnToContents(0);
     m_treeView->resizeColumnToContents(1);
 
-    const QSize centralSize = m_mainWindow->window()->size();
+    QWidget *window = m_mainWindow->window();
+    const QSize centralSize = window->size();
 
     // width: 2.4 of editor, height: 1/2 of editor
     const QSize viewMaxSize(centralSize.width() / 2.4, centralSize.height() / 2);
 
     // Position should be central over window
-    const int xPos = std::max(0, (centralSize.width() - viewMaxSize.width()) / 2);
-    const int yPos = std::max(0, (centralSize.height() - viewMaxSize.height()) * 1 / 4);
+    const QPoint centralWidgetPos = window->parentWidget() ? window->mapToGlobal(window->pos()) : window->pos();
+    const int xPos = std::max(0, centralWidgetPos.x() + (centralSize.width() - viewMaxSize.width()) / 2);
+    const int yPos = std::max(0, centralWidgetPos.y() + (centralSize.height() - viewMaxSize.height()) * 1 / 4);
 
     move(QPoint(xPos, yPos));
 

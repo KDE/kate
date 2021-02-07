@@ -59,6 +59,7 @@ target_sources(
     kateprojectconfigpage.cpp
     kateprojectcodeanalysistool.cpp
     branchesdialog.cpp
+    branchesdialogmodel.cpp
 
     tools/kateprojectcodeanalysistoolcppcheck.cpp
     tools/kateprojectcodeanalysistoolflake8.cpp

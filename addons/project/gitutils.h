@@ -23,6 +23,7 @@ struct Branch {
     QString remote;
     QString commit;
     RefType type;
+    int score; // used for scoring when filtering
 };
 
 bool isGitRepo(const QString &repo);

@@ -4,6 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "branchesdialog.h"
+#include "branchesdialogmodel.h"
 #include "gitutils.h"
 
 #include <QAction>
@@ -59,7 +60,7 @@ protected:
 
         int score = 0;
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        const QString string = idx.data().toString();
+        const QString string = idx.data(BranchesDialogModel::DisplayName).toString();
         const bool res = kfts::fuzzy_match(m_pattern, string, score);
         sourceModel()->setData(idx, score, WeightRole);
         return res;
@@ -85,12 +86,26 @@ public:
 
         QTextDocument doc;
 
-        auto str = index.data().toString();
+        auto name = index.data(BranchesDialogModel::DisplayName).toString();
 
         const QString nameColor = option.palette.color(QPalette::Link).name();
-        kfts::to_scored_fuzzy_matched_display_string(m_filterString, str, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+        kfts::to_scored_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
 
-        doc.setHtml(str);
+        auto type = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
+        auto commit = index.data(BranchesDialogModel::Commit).toString();
+        using RefType = GitUtils::RefType;
+        const auto fontSz = option.font.pointSize();
+        if (type == RefType::Head) {
+            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">at %2</span>").arg(fontSz).arg(commit));
+        } else if (type == RefType::Remote) {
+            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">remote at %2</span>").arg(fontSz).arg(commit));
+        } else if (type == RefType::Tag) {
+            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">tag at %2</span>").arg(fontSz).arg(commit));
+        } else {
+            Q_ASSERT(false);
+        }
+
+        doc.setHtml(name);
         doc.setDocumentMargin(2);
 
         painter->save();
@@ -146,7 +161,7 @@ BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWin
     m_treeView->setTextElideMode(Qt::ElideLeft);
     m_treeView->setUniformRowHeights(true);
 
-    m_model = new QStandardItemModel(this);
+    m_model = new BranchesDialogModel(this);
 
     StyleDelegate *delegate = new StyleDelegate(this);
     m_treeView->setItemDelegateForColumn(0, delegate);
@@ -182,16 +197,9 @@ BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWin
 void BranchesDialog::openDialog()
 {
     const QVector<GitUtils::Branch> branches = GitUtils::getAllBranches(m_projectPath);
-    m_model->clear();
-
-    static const QIcon branchIcon = QIcon(QStringLiteral(":/kxmlgui5/kateproject/sc-apps-git.svg"));
-
-    for (const auto &branch : branches) {
-        m_model->appendRow(new QStandardItem(branchIcon, branch.name));
-    }
+    m_model->refresh(branches);
 
     reselectFirst();
-
     updateViewGeometry();
     show();
     setFocus();
@@ -238,7 +246,7 @@ bool BranchesDialog::eventFilter(QObject *obj, QEvent *event)
 
 void BranchesDialog::slotReturnPressed()
 {
-    const auto branch = m_proxyModel->data(m_treeView->currentIndex()).toString();
+    const auto branch = m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::CheckoutName).toString();
     int res = GitUtils::checkoutBranch(m_projectPath, branch);
 
     auto msgType = KTextEditor::Message::Positive;

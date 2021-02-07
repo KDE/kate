@@ -60,17 +60,20 @@ QVector<GitUtils::Branch> GitUtils::getAllBranches(const QString &repo, RefType 
                 branches.append({m.captured(1),
                                  QString(), // no remote
                                  m.captured(2),
-                                 RefType::Head});
+                                 RefType::Head,
+                                -1});
             } else if (ref & Remote && (m = remoteRe.match(o)).hasMatch()) {
                 branches.append({m.captured(1).append(QLatin1Char('/') + m.captured(2)),
-                                 m.captured(2),
+                                 m.captured(1),
                                  m.captured(3),
-                                 RefType::Remote});
+                                 RefType::Remote,
+                                -1});
             } else if (ref & Tag && (m = tagRe.match(o)).hasMatch()) {
                 branches.append({m.captured(1),
                                  QString(), // no remote
                                  m.captured(3).isEmpty() ? QString() : m.captured(2),
-                                 RefType::Tag});
+                                 RefType::Tag,
+                                -1});
             }
         }
         // clang-format on

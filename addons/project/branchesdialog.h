@@ -8,7 +8,7 @@
 
 class QTreeView;
 class QLineEdit;
-class QStandardItemModel;
+class BranchesDialogModel;
 class QAction;
 class BranchFilterModel;
 class KActionCollection;
@@ -40,7 +40,7 @@ private Q_SLOTS:
 private:
     QTreeView *m_treeView;
     QLineEdit *m_lineEdit;
-    QStandardItemModel *m_model;
+    BranchesDialogModel *m_model;
     BranchFilterModel *m_proxyModel;
     KTextEditor::MainWindow *m_mainWindow;
     QString m_projectPath;

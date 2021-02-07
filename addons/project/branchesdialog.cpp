@@ -19,13 +19,11 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
 
 #include <KLocalizedString>
-#include <QDebug>
-
-#include <KTextEditor/MainWindow>
 
 #include <kfts_fuzzy_match.h>
 

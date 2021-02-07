@@ -16,6 +16,7 @@
 
 #include <KLineEdit>
 #include <KLocalizedString>
+#include <KActionCollection>
 
 #include <QPushButton>
 #include <QSortFilterProxyModel>
@@ -45,6 +46,12 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
 
     // let tree get focus for keyboard selection of file to open
     setFocusProxy(m_treeView);
+
+    // add to actionCollection so that this is available in Kate Command bar
+    auto chckbr = pluginView->actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [this]{
+        m_branchBtn->click();
+    });
+    chckbr->setText(QStringLiteral("Checkout Branch"));
 
     m_branchesDialog = new BranchesDialog(this, mainWindow, m_project->baseDir());
 

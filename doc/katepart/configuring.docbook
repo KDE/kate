@@ -672,6 +672,16 @@ bottom of the visible text as a new page of text is displayed.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
+<term><guilabel>Enable camel case cursor movement</guilabel></term>
+<listitem>
+<para>This option changes the behavior of the cursor when the user presses
+the <keycombo>&Ctrl;<keycap>Left arrow</keycap></keycombo> or
+<keycombo>&Ctrl;<keycap>Right arrow</keycap></keycombo> shortcut. If unselected
+the text cursor jumps over the full words. With this option
+selected, the cursor jumps break at camel case humps.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
 <term><guilabel>Autocenter cursor:</guilabel></term>
 <listitem>
 <para>Sets the number of lines to maintain visible above and below the cursor

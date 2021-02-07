@@ -221,13 +221,51 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
                              linkedProjects.end());
 
         /**
+         * we sort the projects, below we require that we walk them in order:
+         * lala
+         * lala/test
+         * mow
+         * mow/test2
+         */
+        std::sort(linkedProjects.begin(), linkedProjects.end());
+
+        /**
          * now add our projects to the current item parent
          * later the tree view will e.g. allow to jump to the sub-projects
          */
-        for (const auto &project : linkedProjects) {
-            QStandardItem *subProjectItem = new KateProjectItem(KateProjectItem::LinkedProject, dir.relativeFilePath(project));
-            subProjectItem->setData(project, Qt::UserRole);
-            parent->appendRow(subProjectItem);
+        QHash<QString, QStandardItem *> dir2Item;
+        dir2Item[QString()] = parent;
+        for (const auto &filePath : linkedProjects) {
+            /**
+             * cheap file name computation
+             * we do this A LOT, QFileInfo is very expensive just for this operation
+             */
+            const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
+            const QString fileName = (slashIndex < 0) ? filePath : filePath.mid(slashIndex + 1);
+            const QString filePathName = (slashIndex < 0) ? QString() : filePath.left(slashIndex);
+
+            /**
+             * construct the item with right directory prefix
+             * already hang in directories in tree
+             */
+            KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::LinkedProject, fileName);
+            fileItem->setData(filePath, Qt::UserRole);
+
+            /**
+             * projects are directories, register them, we walk in order over the projects
+             * even if the nest, toplevel ones would have been done before!
+             */
+            dir2Item[dir.relativeFilePath(filePath)] = fileItem;
+
+            // get the directory's relative path to the base directory
+            QString dirRelPath = dir.relativeFilePath(filePathName);
+            // if the relative path is ".", clean it up
+            if (dirRelPath == QLatin1Char('.')) {
+                dirRelPath = QString();
+            }
+
+            // put in our item to the right directory parent
+            directoryParent(dir2Item, dirRelPath)->appendRow(fileItem);
         }
 
         /**

@@ -65,6 +65,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     });
     connect(m_branchesDialog, &BranchesDialog::branchChanged, this, [this](const QString &branch) {
         m_branchBtn->setText(branch);
+        m_project->reload();
     });
 }
 

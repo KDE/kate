@@ -25,6 +25,7 @@
 #include "katesavemodifieddialog.h"
 #include "katesessionmanager.h"
 #include "katesessionsaction.h"
+#include "katestashmanager.h"
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
 
@@ -157,6 +158,9 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     setAcceptDrops(true);
 
     connect(KateApp::self()->sessionManager(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
+
+    // unstash
+    KateStashManager().popStash(m_viewManager);
 
     connect(this, &KateMDI::MainWindow::sigShowPluginConfigPage, this, &KateMainWindow::showPluginConfigPage);
 
@@ -538,6 +542,9 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
     modifiedDocuments.removeAll(doc);
     bool shutdown = (modifiedDocuments.count() == 0);
 
+    if (!shutdown) {
+        shutdown = KateStashManager().stash(modifiedDocuments);
+    }
     if (!shutdown) {
         shutdown = KateSaveModifiedDialog::queryClose(this, modifiedDocuments);
     }

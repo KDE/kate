@@ -95,6 +95,7 @@ target_sources(
     commandmodel.cpp
 
     kateoutputview.cpp
+    katestashmanager.cpp
 )
 
 # Executable only adds the main definition.

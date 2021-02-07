@@ -59,10 +59,14 @@ target_sources(
     kateprojectconfigpage.cpp
     kateprojectcodeanalysistool.cpp
     branchesdialog.cpp
+
     tools/kateprojectcodeanalysistoolcppcheck.cpp
     tools/kateprojectcodeanalysistoolflake8.cpp
     tools/kateprojectcodeanalysistoolshellcheck.cpp
     tools/kateprojectcodeanalysisselector.cpp
+
+    gitutils.cpp
+
     plugin.qrc
 )
 

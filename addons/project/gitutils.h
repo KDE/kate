@@ -4,66 +4,34 @@
 #include <QDebug>
 #include <QDir>
 #include <QProcess>
+#include <QRegularExpression>
 #include <QString>
 
 namespace GitUtils
 {
-static bool isGitRepo(const QString &repo)
-{
-    QProcess git;
-    git.setWorkingDirectory(repo);
-    QStringList args{QStringLiteral("rev-parse"), QStringLiteral("--is-inside-work-tree")};
-    git.start(QStringLiteral("git"), args);
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        return git.readAll().trimmed() == "true";
-    }
-    return false;
-}
+// clang-format off
+enum RefType {
+    Head   = 0x1,
+    Remote = 0x2,
+    Tag    = 0x4,
+    All    = 0x7
+};
+// clang-format on
 
-static QString getCurrentBranchName(const QString &repo)
-{
-    QProcess git;
-    git.setWorkingDirectory(repo);
-    QStringList args{QStringLiteral("rev-parse"), QStringLiteral("--abbrev-ref"), QStringLiteral("HEAD")};
-    git.start(QStringLiteral("git"), args);
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        return QString::fromUtf8(git.readAllStandardOutput().trimmed());
-    }
-    return QString();
-}
+struct Branch {
+    QString name;
+    QString remote;
+    QString commit;
+    RefType type;
+};
 
-static int checkoutBranch(const QString &repo, const QString &branch)
-{
-    QProcess git;
-    git.setWorkingDirectory(repo);
-    QStringList args{QStringLiteral("checkout"), branch};
-    git.start(QStringLiteral("git"), args);
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        return git.exitCode();
-    }
-    return -1;
-}
+bool isGitRepo(const QString &repo);
 
-static QStringList getAllBranches(const QString &repo)
-{
-    QProcess git;
-    QStringList args{QStringLiteral("branch"), QStringLiteral("--all")};
-    git.setWorkingDirectory(repo);
+QString getCurrentBranchName(const QString &repo);
 
-    git.start(QStringLiteral("git"), args);
-    QStringList branches;
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        QList<QByteArray> out = git.readAllStandardOutput().split('\n');
-        for (const QByteArray &br : out) {
-            auto branch = br.trimmed();
-            if (!branch.isEmpty() && !branch.startsWith("* ")) {
-                branches.append(QString::fromUtf8(branch.trimmed()));
-            }
-        }
-    }
-    return branches;
-}
+int checkoutBranch(const QString &repo, const QString &branch);
 
+QVector<Branch> getAllBranches(const QString &repo, RefType ref = RefType::All);
 }
 
 #endif // GITUTILS_H

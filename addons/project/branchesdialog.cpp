@@ -181,13 +181,13 @@ BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWin
 
 void BranchesDialog::openDialog()
 {
-    const auto branches = GitUtils::getAllBranches(m_projectPath);
+    const QVector<GitUtils::Branch> branches = GitUtils::getAllBranches(m_projectPath);
     m_model->clear();
 
     static const QIcon branchIcon = QIcon(QStringLiteral(":/kxmlgui5/kateproject/sc-apps-git.svg"));
 
     for (const auto &branch : branches) {
-        m_model->appendRow(new QStandardItem(branchIcon, branch));
+        m_model->appendRow(new QStandardItem(branchIcon, branch.name));
     }
 
     reselectFirst();

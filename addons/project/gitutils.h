@@ -1,10 +1,11 @@
+/*
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 #ifndef GITUTILS_H
 #define GITUTILS_H
 
-#include <QDebug>
-#include <QDir>
-#include <QProcess>
-#include <QRegularExpression>
 #include <QString>
 
 namespace GitUtils

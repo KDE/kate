@@ -1,10 +1,9 @@
 /*  SPDX-License-Identifier: LGPL-2.0-or-later
 
-    SPDX-FileCopyrightText: 2018 Tomaz Canabrava <tcanabrava@kde.org>
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-
 #ifndef KATEQUICKOPENMODEL_H
 #define KATEQUICKOPENMODEL_H
 

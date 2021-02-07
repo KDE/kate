@@ -7,13 +7,11 @@
 #include "branchesdialogmodel.h"
 #include "gitutils.h"
 
-#include <QAction>
 #include <QCoreApplication>
 #include <QKeyEvent>
 #include <QLineEdit>
 #include <QPainter>
 #include <QSortFilterProxyModel>
-#include <QStandardItemModel>
 #include <QStyledItemDelegate>
 #include <QTextDocument>
 #include <QTreeView>

@@ -1,4 +1,14 @@
+/*
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 #include "gitutils.h"
+
+#include <QDebug>
+#include <QDir>
+#include <QProcess>
+#include <QRegularExpression>
 
 bool GitUtils::isGitRepo(const QString &repo)
 {

@@ -8,7 +8,7 @@ If you need pointers, please visit the following pages:
 
 * Central hub for information around Kate development: Just head to our website [kate-editor.org](https://kate-editor.org/).
 
-* How to compile Kate on your machine? Read our [Built it!][https://kate-editor.org/build-it/] tutorial.
+* How to compile Kate on your machine? Read our [Built it!](https://kate-editor.org/build-it/) tutorial.
 
 * How to help out with the project? See our [Join Us!](https://kate-editor.org/join-us/) page.
 

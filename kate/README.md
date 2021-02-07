@@ -33,13 +33,3 @@ kate/app/kateviewspace.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateviewmanager.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/katedocmanager.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateapp.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-
-## Building
-
-With kdesrc-build with minimal set of (transitive) dependencies:
-
-    kdesrc-build extra-cmake-modules syntax-highlighting karchive kconfig kguiaddons ki18n kcoreaddons kwidgetsaddons kjobwidgets kdbusaddons kauth kcodecs kdoctools kconfigwidgets kitemviews kwindowsystem kcrash kservice solid kiconthemes kcompletion sonnet ktextwidgets attica kglobalaccel breeze-icons kxmlgui kbookmarks knotifications kwallet kio kparts ktexteditor kactivities kitemmodels knewstuff threadweaver kate
-
-For the list which definitively works but might contain also unneeded modules, run
-
-    kdesrc-build --pretend --include-dependencies syntax-highlighting ktexteditor kate

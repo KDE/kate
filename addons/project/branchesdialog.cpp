@@ -295,11 +295,10 @@ void BranchesDialog::updateViewGeometry()
     const QSize viewMaxSize(centralSize.width() / 2.4, centralSize.height() / 2);
 
     // Position should be central over window
-    const QPoint centralWidgetPos = window->parentWidget() ? window->mapToGlobal(window->pos()) : window->pos();
-    const int xPos = std::max(0, centralWidgetPos.x() + (centralSize.width() - viewMaxSize.width()) / 2);
-    const int yPos = std::max(0, centralWidgetPos.y() + (centralSize.height() - viewMaxSize.height()) * 1 / 4);
-
-    move(QPoint(xPos, yPos));
+    const int xPos = std::max(0, (centralSize.width() - viewMaxSize.width()) / 2);
+    const int yPos = std::max(0, (centralSize.height() - viewMaxSize.height()) * 1 / 4);
+    const QPoint p(xPos, yPos);
+    move(p + window->pos());
 
     this->setFixedSize(viewMaxSize);
 }

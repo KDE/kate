@@ -51,7 +51,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     auto chckbr = pluginView->actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [this] {
         m_branchBtn->click();
     });
-    chckbr->setText(QStringLiteral("Checkout Branch"));
+    chckbr->setText(QStringLiteral("Checkout Git Branch"));
 
     m_branchesDialog = new BranchesDialog(this, mainWindow, m_project->baseDir());
     /**

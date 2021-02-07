@@ -34,16 +34,19 @@ QString GitUtils::getCurrentBranchName(const QString &repo)
     return QString();
 }
 
-int GitUtils::checkoutBranch(const QString &repo, const QString &branch)
+GitUtils::CheckoutResult GitUtils::checkoutBranch(const QString &repo, const QString &branch)
 {
     QProcess git;
     git.setWorkingDirectory(repo);
     QStringList args{QStringLiteral("checkout"), branch};
     git.start(QStringLiteral("git"), args);
+    CheckoutResult res;
+    res.branch = branch;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
-        return git.exitCode();
+        res.returnCode = git.exitCode();
+        res.error = QString::fromUtf8(git.readAllStandardError());
     }
-    return -1;
+    return res;
 }
 
 QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, RefType ref)

@@ -24,11 +24,17 @@ struct Branch {
     int score; // used for scoring when filtering
 };
 
+struct CheckoutResult {
+    QString branch;
+    QString error;
+    int returnCode;
+};
+
 bool isGitRepo(const QString &repo);
 
 QString getCurrentBranchName(const QString &repo);
 
-int checkoutBranch(const QString &repo, const QString &branch);
+CheckoutResult checkoutBranch(const QString &repo, const QString &branch);
 
 /**
  * @brief get all local and remote branches

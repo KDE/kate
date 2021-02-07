@@ -11,10 +11,16 @@ class BranchesDialogModel;
 class QAction;
 class BranchFilterModel;
 class KActionCollection;
+template<typename T> class QFutureWatcher;
 
 namespace KTextEditor
 {
 class MainWindow;
+}
+
+namespace GitUtils
+{
+struct CheckoutResult;
 }
 
 class BranchesDialog : public QMenu
@@ -28,6 +34,8 @@ public:
     void updateViewGeometry();
 
     Q_SIGNAL void branchChanged(const QString &branch);
+
+    Q_SLOT void onCheckoutDone();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
@@ -43,4 +51,5 @@ private:
     BranchFilterModel *m_proxyModel;
     KTextEditor::MainWindow *m_mainWindow;
     QString m_projectPath;
+    QFutureWatcher<GitUtils::CheckoutResult> *checkoutWatcher;
 };

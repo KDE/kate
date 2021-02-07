@@ -8,6 +8,7 @@
 #include "gitutils.h"
 
 #include <QCoreApplication>
+#include <QFutureWatcher>
 #include <QKeyEvent>
 #include <QLineEdit>
 #include <QPainter>
@@ -16,6 +17,7 @@
 #include <QTextDocument>
 #include <QTreeView>
 #include <QVBoxLayout>
+#include <QtConcurrentRun>
 
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
@@ -191,6 +193,9 @@ BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWin
     m_treeView->setSelectionMode(QTreeView::SingleSelection);
 
     setHidden(true);
+
+    checkoutWatcher = new QFutureWatcher<GitUtils::CheckoutResult>();
+    connect(checkoutWatcher, &QFutureWatcher<GitUtils::CheckoutResult>::finished, this, &BranchesDialog::onCheckoutDone);
 }
 
 void BranchesDialog::openDialog()
@@ -243,18 +248,16 @@ bool BranchesDialog::eventFilter(QObject *obj, QEvent *event)
     return QWidget::eventFilter(obj, event);
 }
 
-void BranchesDialog::slotReturnPressed()
+void BranchesDialog::onCheckoutDone()
 {
-    const auto branch = m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::CheckoutName).toString();
-    int res = GitUtils::checkoutBranch(m_projectPath, branch);
-
+    const GitUtils::CheckoutResult res = checkoutWatcher->result();
     auto msgType = KTextEditor::Message::Positive;
-    QString msgStr = i18n("Branch %1 checked out", branch);
-    if (res > 0) {
+    QString msgStr = i18n("Branch %1 checked out", res.branch);
+    if (res.returnCode > 0) {
         msgType = KTextEditor::Message::Warning;
-        msgStr = i18n("Failed to checkout branch: %1", branch);
+        msgStr = i18n("Failed to checkout branch: %1", res.branch);
     } else {
-        Q_EMIT branchChanged(branch);
+        Q_EMIT branchChanged(res.branch);
     }
 
     KTextEditor::Message *msg = new KTextEditor::Message(msgStr, msgType);
@@ -263,6 +266,13 @@ void BranchesDialog::slotReturnPressed()
     msg->setAutoHideMode(KTextEditor::Message::Immediate);
     msg->setView(m_mainWindow->activeView());
     m_mainWindow->activeView()->document()->postMessage(msg);
+}
+
+void BranchesDialog::slotReturnPressed()
+{
+    const auto branch = m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::CheckoutName).toString();
+    QFuture<GitUtils::CheckoutResult> future = QtConcurrent::run(&GitUtils::checkoutBranch, m_projectPath, branch);
+    checkoutWatcher->setFuture(future);
 
     m_lineEdit->clear();
     hide();

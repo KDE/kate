@@ -41,7 +41,7 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
     // git for-each-ref --format '%(refname) %(objectname) %(*objectname)'
     QProcess git;
     git.setWorkingDirectory(repo);
-    QStringList args{QStringLiteral("for-each-ref"), QStringLiteral("--format"), QStringLiteral("%(refname)")};
+    QStringList args{QStringLiteral("for-each-ref"), QStringLiteral("--format"), QStringLiteral("%(refname)"), QStringLiteral("--sort=-committerdate")};
 
     git.start(QStringLiteral("git"), args);
     QVector<Branch> branches;

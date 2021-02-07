@@ -90,16 +90,16 @@ public:
         kfts::to_scored_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
 
         auto type = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
-        auto commit = index.data(BranchesDialogModel::Commit).toString();
         using RefType = GitUtils::RefType;
         const auto fontSz = option.font.pointSize();
         if (type == RefType::Head) {
-            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">at %2</span>").arg(fontSz).arg(commit));
+            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">local</span>").arg(fontSz));
         } else if (type == RefType::Remote) {
-            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">remote at %2</span>").arg(fontSz).arg(commit));
-        } else if (type == RefType::Tag) {
-            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">tag at %2</span>").arg(fontSz).arg(commit));
-        } else {
+            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">remote</span>").arg(fontSz));
+        } /*else if (type == RefType::Tag) {
+            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">tag at %2</span>").arg(fontSz));
+        } */
+        else {
             Q_ASSERT(false);
         }
 

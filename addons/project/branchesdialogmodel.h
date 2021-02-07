@@ -18,7 +18,7 @@ class BranchesDialogModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    enum Role { Score = Qt::UserRole + 1, DisplayName, Commit, CheckoutName, RefType };
+    enum Role { Score = Qt::UserRole + 1, DisplayName, CheckoutName, RefType };
     explicit BranchesDialogModel(QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;

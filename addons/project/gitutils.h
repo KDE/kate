@@ -9,19 +9,16 @@
 
 namespace GitUtils
 {
-// clang-format off
 enum RefType {
-    Head   = 0x1,
+    Head = 0x1,
     Remote = 0x2,
-    Tag    = 0x4,
-    All    = 0x7
+    Tag = 0x4,
+    All = 0x7,
 };
-// clang-format on
 
 struct Branch {
     QString name;
     QString remote;
-    QString commit;
     RefType type;
     int score; // used for scoring when filtering
 };
@@ -32,7 +29,14 @@ QString getCurrentBranchName(const QString &repo);
 
 int checkoutBranch(const QString &repo, const QString &branch);
 
-QVector<Branch> getAllBranches(const QString &repo, RefType ref = RefType::All);
+/**
+ * @brief get all local and remote branches
+ */
+QVector<Branch> getAllBranches(const QString &repo);
+/**
+ * @brief get all local and remote branches + tags
+ */
+QVector<Branch> getAllBranchesAndTags(const QString &repo, RefType ref = RefType::All);
 }
 
 #endif // GITUTILS_H

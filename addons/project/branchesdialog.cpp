@@ -8,7 +8,6 @@
 #include "gitutils.h"
 
 #include <QCoreApplication>
-#include <QFutureWatcher>
 #include <QKeyEvent>
 #include <QLineEdit>
 #include <QPainter>
@@ -194,8 +193,7 @@ BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWin
 
     setHidden(true);
 
-    checkoutWatcher = new QFutureWatcher<GitUtils::CheckoutResult>();
-    connect(checkoutWatcher, &QFutureWatcher<GitUtils::CheckoutResult>::finished, this, &BranchesDialog::onCheckoutDone);
+    connect(&m_checkoutWatcher, &QFutureWatcher<GitUtils::CheckoutResult>::finished, this, &BranchesDialog::onCheckoutDone);
 }
 
 void BranchesDialog::openDialog()
@@ -250,7 +248,7 @@ bool BranchesDialog::eventFilter(QObject *obj, QEvent *event)
 
 void BranchesDialog::onCheckoutDone()
 {
-    const GitUtils::CheckoutResult res = checkoutWatcher->result();
+    const GitUtils::CheckoutResult res = m_checkoutWatcher.result();
     auto msgType = KTextEditor::Message::Positive;
     QString msgStr = i18n("Branch %1 checked out", res.branch);
     if (res.returnCode > 0) {
@@ -272,7 +270,7 @@ void BranchesDialog::slotReturnPressed()
 {
     const auto branch = m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::CheckoutName).toString();
     QFuture<GitUtils::CheckoutResult> future = QtConcurrent::run(&GitUtils::checkoutBranch, m_projectPath, branch);
-    checkoutWatcher->setFuture(future);
+    m_checkoutWatcher.setFuture(future);
 
     m_lineEdit->clear();
     hide();

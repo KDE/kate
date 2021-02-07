@@ -3,6 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+#include <QFutureWatcher>
 #include <QMenu>
 
 class QTreeView;
@@ -11,7 +12,6 @@ class BranchesDialogModel;
 class QAction;
 class BranchFilterModel;
 class KActionCollection;
-template<typename T> class QFutureWatcher;
 
 namespace KTextEditor
 {
@@ -51,5 +51,5 @@ private:
     BranchFilterModel *m_proxyModel;
     KTextEditor::MainWindow *m_mainWindow;
     QString m_projectPath;
-    QFutureWatcher<GitUtils::CheckoutResult> *checkoutWatcher;
+    QFutureWatcher<GitUtils::CheckoutResult> m_checkoutWatcher;
 };

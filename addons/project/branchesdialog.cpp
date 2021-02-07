@@ -281,8 +281,7 @@ void BranchesDialog::updateViewGeometry()
     const int xPos = std::max(0, (centralSize.width() - viewMaxSize.width()) / 2);
     const int yPos = std::max(0, (centralSize.height() - viewMaxSize.height()) * 1 / 4);
 
-    const QPoint p(xPos, yPos);
-    move(p + parentWidget()->pos());
+    move(QPoint(xPos, yPos));
 
     this->setFixedSize(viewMaxSize);
 }

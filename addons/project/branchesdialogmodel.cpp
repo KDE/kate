@@ -6,8 +6,8 @@
 */
 #include "branchesdialogmodel.h"
 
-#include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
+#include <KTextEditor/Document>
+#include <KTextEditor/View>
 
 #include <QIcon>
 

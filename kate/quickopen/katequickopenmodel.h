@@ -21,7 +21,6 @@ struct ModelEntry {
     QString fileName; // display string for left column
     QString filePath; // display string for right column
     bool bold; // format line in bold text or not
-    size_t sort_id;
     int score;
 };
 
@@ -32,8 +31,7 @@ class KateQuickOpenModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    enum Columns : int { FileName, FilePath, Bold };
-    enum Role { Score = Qt::UserRole + 1 };
+    enum Role { FileName = Qt::UserRole + 1, FilePath, Score };
     explicit KateQuickOpenModel(KateMainWindow *mainWindow, QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;

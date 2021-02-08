@@ -378,7 +378,6 @@ void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
     // create document item
     QFileInfo fileInfo(document->url().toLocalFile());
     KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileInfo.fileName());
-    fileItem->setData(document->url().toLocalFile(), Qt::ToolTipRole);
     fileItem->slotModifiedChanged(document);
     connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
     // clang-format off

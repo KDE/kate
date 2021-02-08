@@ -67,13 +67,10 @@ protected:
             return true;
         }
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        const QString fileName = idx.data().toString();
-        const auto nameAndPath = fileName.splitRef(QStringLiteral("{[split]}"));
+        const QString name = idx.data(KateQuickOpenModel::FileName).toString();
+        const QString path = idx.data(KateQuickOpenModel::FilePath).toString();
 
-        const auto &name = nameAndPath.at(0);
-        const auto &path = nameAndPath.at(1);
         int score = 0;
-
         bool res = false;
         if (mode == FilterMode::FilterByName) {
             res = filterByName(name, score);
@@ -81,8 +78,13 @@ protected:
             res = filterByPath(path, score);
         } else {
             int scorep = 0, scoren = 0;
-            bool resp = filterByPath(path, scorep);
             bool resn = filterByName(name, scoren);
+
+            // only match file path if filename got a match
+            bool resp = false;
+            if (resn || pattern.contains(QLatin1Char('/'))) {
+                resp = filterByPath(path, scorep);
+            }
 
             // store the score for sorting later
             score = scoren + scorep;
@@ -103,12 +105,12 @@ public Q_SLOTS:
     }
 
 private:
-    inline bool filterByPath(const QStringRef &path, int &score) const
+    inline bool filterByPath(const QString &path, int &score) const
     {
         return kfts::fuzzy_match(pattern, path, score);
     }
 
-    inline bool filterByName(const QStringRef &name, int &score) const
+    inline bool filterByName(const QString &name, int &score) const
     {
         return kfts::fuzzy_match(pattern, name, score);
     }
@@ -133,11 +135,8 @@ public:
 
         QTextDocument doc;
 
-        QString str = index.data().toString();
-
-        auto namePath = str.split(QStringLiteral("{[split]}"));
-        QString name = namePath.at(0);
-        QString path = namePath.at(1);
+        QString name = index.data(KateQuickOpenModel::FileName).toString();
+        QString path = index.data(KateQuickOpenModel::FilePath).toString();
 
         path.remove(QStringLiteral("/") + name);
 

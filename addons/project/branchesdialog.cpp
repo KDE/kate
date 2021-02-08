@@ -95,10 +95,11 @@ public:
         auto type = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
         using RefType = GitUtils::RefType;
         const auto fontSz = option.font.pointSize();
+        name = QStringLiteral("<span style=\"font-size:%1pt;\">").arg(fontSz) + name + QStringLiteral("</span>");
         if (type == RefType::Head) {
-            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">local</span>").arg(fontSz));
+            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">local</span>").arg(fontSz - 1));
         } else if (type == RefType::Remote) {
-            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">remote</span>").arg(fontSz));
+            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">remote</span>").arg(fontSz - 1));
         } /*else if (type == RefType::Tag) {
             name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">tag at %2</span>").arg(fontSz));
         } */

@@ -44,6 +44,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
 
     const ModelEntry &entry = m_modelEntries.at(idx.row());
     switch (role) {
+    case Qt::DisplayRole:
     case Role::FileName:
         return entry.fileName;
     case Role::FilePath:

@@ -37,7 +37,7 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
     }
 
     const GitUtils::Branch &branch = m_modelEntries.at(idx.row());
-    if (role == Role::DisplayName) {
+    if (role == Role::DisplayName || role == Qt::DisplayRole) {
         return branch.name;
     } else if (role == Role::Score) {
         return branch.score;

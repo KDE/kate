@@ -41,7 +41,6 @@ class KRecentFilesAction;
 
 class KateViewManager;
 class KateMwModOnHdDialog;
-class KateCommandBar;
 
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
@@ -539,11 +538,6 @@ private:
      * stacked widget containing the central area, aka view manager, quickopen, ...
      */
     QStackedWidget *m_mainStackedWidget = nullptr;
-
-    /**
-     * quick command bar to quickly trigger any action
-     */
-    KateCommandBar *m_commandBar = nullptr;
 
     /**
      * keeps track of views

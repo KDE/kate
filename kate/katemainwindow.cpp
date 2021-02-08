@@ -268,8 +268,6 @@ void KateMainWindow::setupMainWindow()
     centralWidget()->layout()->addWidget(m_mainStackedWidget);
     (static_cast<QBoxLayout *>(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget, 100);
 
-    m_commandBar = new KateCommandBar(this);
-
     m_viewManager = new KateViewManager(m_mainStackedWidget, this);
     m_mainStackedWidget->addWidget(m_viewManager);
 
@@ -1234,8 +1232,10 @@ void KateMainWindow::slotCommandBarOpen()
         }
     }
 
-    m_commandBar->updateBar(actionCollections, actionsCount);
-    centralWidget()->setFocusProxy(m_commandBar);
+    KateCommandBar commandBar(this);
+    commandBar.updateBar(actionCollections, actionsCount);
+    centralWidget()->setFocusProxy(&commandBar);
+    commandBar.exec();
 }
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin,

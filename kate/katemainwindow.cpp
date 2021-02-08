@@ -195,10 +195,6 @@ KateMainWindow::~KateMainWindow()
     // disable all plugin guis, delete all pluginViews
     KateApp::self()->pluginManager()->disableAllPluginsGUI(this);
 
-    // manually delete quick open, it's event filters will cause crash otherwise later
-    delete m_quickOpen;
-    m_quickOpen = nullptr;
-
     // delete the view manager, before KateMainWindow's wrapper is dead
     delete m_viewManager;
     m_viewManager = nullptr;
@@ -271,8 +267,6 @@ void KateMainWindow::setupMainWindow()
     m_mainStackedWidget = new QStackedWidget(centralWidget());
     centralWidget()->layout()->addWidget(m_mainStackedWidget);
     (static_cast<QBoxLayout *>(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget, 100);
-
-    m_quickOpen = new KateQuickOpen(this);
 
     m_commandBar = new KateCommandBar(this);
 
@@ -1200,14 +1194,6 @@ void KateMainWindow::mousePressEvent(QMouseEvent *e)
     }
 }
 
-void KateMainWindow::resizeEvent(QResizeEvent *event)
-{
-    if (event && !m_quickOpen->isHidden()) {
-        m_quickOpen->updateViewGeometry();
-        event->accept();
-    }
-}
-
 void KateMainWindow::slotFocusPrevTab()
 {
     if (m_viewManager->activeViewSpace()) {
@@ -1227,8 +1213,9 @@ void KateMainWindow::slotQuickOpen()
     /**
      * show quick open and pass focus to it
      */
-    m_quickOpen->update();
-    centralWidget()->setFocusProxy(m_quickOpen);
+    KateQuickOpen quickOpen(this);
+    centralWidget()->setFocusProxy(&quickOpen);
+    quickOpen.exec();
 }
 
 void KateMainWindow::slotCommandBarOpen()

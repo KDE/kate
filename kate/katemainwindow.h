@@ -41,8 +41,6 @@ class KRecentFilesAction;
 
 class KateViewManager;
 class KateMwModOnHdDialog;
-class KateQuickOpen;
-enum KateQuickOpenModelList : int;
 class KateCommandBar;
 
 // Helper layout class to always provide minimum size
@@ -543,11 +541,6 @@ private:
     QStackedWidget *m_mainStackedWidget = nullptr;
 
     /**
-     * quick open to fast switch documents
-     */
-    KateQuickOpen *m_quickOpen = nullptr;
-
-    /**
      * quick command bar to quickly trigger any action
      */
     KateCommandBar *m_commandBar = nullptr;
@@ -632,7 +625,6 @@ public Q_SLOTS:
 protected:
     bool event(QEvent *e) override;
     void mousePressEvent(QMouseEvent *e) override;
-    void resizeEvent(QResizeEvent *event) override;
 };
 
 #endif

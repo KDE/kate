@@ -268,6 +268,9 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     // restore settings
     slotfilterModeChanged(m_inputLine->filterMode());
     slotListModeChanged(m_inputLine->listMode());
+
+    // fill stuff
+    update();
 }
 
 KateQuickOpen::~KateQuickOpen()
@@ -366,29 +369,17 @@ void KateQuickOpen::slotListModeChanged(KateQuickOpenModel::List mode)
 
 void KateQuickOpen::updateViewGeometry()
 {
-    const QSize centralSize = m_mainWindow->size();
+    const QSize centralSize = parentWidget()->size();
 
     // width: 2.4 of editor, height: 1/2 of editor
     const QSize viewMaxSize(centralSize.width() / 2.4, centralSize.height() / 2);
 
-    const int rowHeight = m_listView->sizeHintForRow(0) == -1 ? 0 : m_listView->sizeHintForRow(0);
-
-    const int width = viewMaxSize.width();
-
-    const QSize viewSize(std::max(300, width), // never go below this
-                         std::min(std::max(rowHeight * m_base_model->rowCount() + 2, rowHeight * 6), viewMaxSize.height()));
-
     // Position should be central over window
-    const int xPos = std::max(0, (centralSize.width() - viewSize.width()) / 2);
-    const int yPos = std::max(0, (centralSize.height() - viewSize.height()) * 1 / 4);
+    const int xPos = std::max(0, (centralSize.width() - viewMaxSize.width()) / 2);
+    const int yPos = std::max(0, (centralSize.height() - viewMaxSize.height()) * 1 / 4);
 
+    // fix position and size
     const QPoint p(xPos, yPos);
-    move(p + m_mainWindow->pos());
-
-    QPropertyAnimation *animation = new QPropertyAnimation(this, "size");
-    animation->setDuration(150);
-    animation->setStartValue(this->size());
-    animation->setEndValue(viewSize);
-
-    animation->start(QAbstractAnimation::DeleteWhenStopped);
+    move(p + parentWidget()->pos());
+    setFixedSize(viewMaxSize);
 }

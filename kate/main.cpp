@@ -75,9 +75,14 @@ int main(int argc, char **argv)
      * we only activate this on Windows, it seems to creates problems on unices
      * (and there the fractional scaling with the QT_... env vars as set by KScreen works)
      * see bug 416078
+     *
+     * we switched to Qt::HighDpiScaleFactorRoundingPolicy::RoundPreferFloor because of font rendering issues
+     * we follow what Krita does here, see https://invent.kde.org/graphics/krita/-/blob/master/krita/main.cc
+     * we raise the Qt requirement to  5.15 as it seems some patches went in after 5.14 that are needed
+     * see Krita comments, too
      */
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0) && defined(Q_OS_WIN)
-    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0) && defined(Q_OS_WIN)
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::RoundPreferFloor);
 #endif
 
     /**

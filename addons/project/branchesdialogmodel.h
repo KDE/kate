@@ -26,8 +26,7 @@ public:
     QVariant data(const QModelIndex &idx, int role) const override;
     void refresh(QVector<GitUtils::Branch> branches);
     void clear();
-    void saveForCheckout();
-    void restoreForCheckout();
+    void clearBranchCreationItems();
 
     bool setData(const QModelIndex &index, const QVariant &value, int role) override
     {
@@ -52,7 +51,6 @@ private:
     };
 
     QVector<BranchesDialogModel::Branch> m_modelEntries;
-    QVector<BranchesDialogModel::Branch> m_savedDuringCheckout;
 };
 
 #endif

@@ -206,10 +206,11 @@ void BranchesDialog::resetValues()
 
 void BranchesDialog::openDialog()
 {
+    resetValues();
     GitUtils::Branch newBranch;
-    newBranch.name = QStringLiteral("Create New Branch");
+    newBranch.name = i18n("Create New Branch");
     GitUtils::Branch newBranchFrom;
-    newBranchFrom.name = QStringLiteral("Create New Branch From...");
+    newBranchFrom.name = i18n("Create New Branch From...");
     QVector<GitUtils::Branch> branches{newBranch, newBranchFrom};
     /*QVector<GitUtils::Branch> */ branches << GitUtils::getAllBranches(m_projectPath);
     m_model->refresh(branches);
@@ -278,17 +279,7 @@ void BranchesDialog::slotReturnPressed()
 {
     // we cleared the model to checkout new branch
     if (m_model->rowCount() == 0) {
-        // we are checking out from a branch
-        // restore model and return for branch selection
-        if (m_checkingOutFromBranch) {
-            qWarning() << "Got name: " << m_lineEdit->text();
-            m_checkoutBranchName = m_lineEdit->text();
-            m_lineEdit->clear();
-            m_model->restoreForCheckout();
-            m_lineEdit->setPlaceholderText(i18n("Select branch to checkout from. Press 'Esc' to cancel."));
-            return;
-        }
-        createNewBranch(m_lineEdit->text());
+        createNewBranch(m_lineEdit->text(), m_checkoutBranchName);
         return;
     }
 
@@ -296,8 +287,11 @@ void BranchesDialog::slotReturnPressed()
     if (m_checkingOutFromBranch) {
         m_checkingOutFromBranch = false;
         const auto fromBranch = m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::CheckoutName).toString();
-        qWarning() << "Checking out from branch: " << fromBranch;
-        return createNewBranch(m_checkoutBranchName, fromBranch);
+        m_checkoutBranchName = fromBranch;
+        m_model->clear();
+        m_lineEdit->clear();
+        m_lineEdit->setPlaceholderText(i18n("Enter new branch name. Press 'Esc' to cancel."));
+        return;
     }
 
     const auto branch = m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::CheckoutName).toString();
@@ -311,8 +305,9 @@ void BranchesDialog::slotReturnPressed()
         m_lineEdit->setPlaceholderText(i18n("Enter new branch name. Press 'Esc' to cancel."));
         return;
     } else if (itemType == BranchesDialogModel::CreateBranchFrom) {
-        m_model->saveForCheckout();
-        m_lineEdit->setPlaceholderText(i18n("Enter new branch name. Press 'Esc' to cancel."));
+        m_model->clearBranchCreationItems();
+        m_lineEdit->clear();
+        m_lineEdit->setPlaceholderText(i18n("Select branch to checkout from. Press 'Esc' to cancel."));
         m_checkingOutFromBranch = true;
         return;
     }

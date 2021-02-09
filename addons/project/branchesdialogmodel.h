@@ -18,8 +18,8 @@ class BranchesDialogModel : public QAbstractTableModel
     Q_OBJECT
 public:
     enum Role {
-        Score = Qt::UserRole + 1,
-        DisplayName,
+        FuzzyScore = Qt::UserRole + 1,
+        OriginalSorting,
         CheckoutName,
         RefType,
     };
@@ -34,7 +34,7 @@ public:
         if (!index.isValid()) {
             return false;
         }
-        if (role == Role::Score) {
+        if (role == Role::FuzzyScore) {
             auto row = index.row();
             m_modelEntries[row].score = value.toInt();
         }

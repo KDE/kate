@@ -46,10 +46,12 @@ protected:
     bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
     {
         if (m_pattern.isEmpty()) {
-            return QSortFilterProxyModel::lessThan(sourceLeft, sourceRight);
+            const int l = sourceLeft.data(BranchesDialogModel::OriginalSorting).toInt();
+            const int r = sourceRight.data(BranchesDialogModel::OriginalSorting).toInt();
+            return l > r;
         }
-        const int l = sourceLeft.data(WeightRole).toInt();
-        const int r = sourceRight.data(WeightRole).toInt();
+        const int l = sourceLeft.data(BranchesDialogModel::FuzzyScore).toInt();
+        const int r = sourceRight.data(BranchesDialogModel::FuzzyScore).toInt();
         return l < r;
     }
 
@@ -61,15 +63,14 @@ protected:
 
         int score = 0;
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        const QString string = idx.data(BranchesDialogModel::DisplayName).toString();
+        const QString string = idx.data().toString();
         const bool res = kfts::fuzzy_match(m_pattern, string, score);
-        sourceModel()->setData(idx, score, WeightRole);
+        sourceModel()->setData(idx, score, BranchesDialogModel::FuzzyScore);
         return res;
     }
 
 private:
     QString m_pattern;
-    static constexpr int WeightRole = Qt::UserRole + 1;
 };
 
 class StyleDelegate : public QStyledItemDelegate
@@ -87,25 +88,23 @@ public:
 
         QTextDocument doc;
 
-        auto name = index.data(BranchesDialogModel::DisplayName).toString();
+        auto name = index.data().toString();
 
         const QString nameColor = option.palette.color(QPalette::Link).name();
         kfts::to_scored_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
 
-        auto type = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
+        auto refType = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
+        auto itemType = (BranchesDialogModel::ItemType)index.data(BranchesDialogModel::ItemTypeRole).toInt();
         using RefType = GitUtils::RefType;
         const auto fontSz = option.font.pointSize();
         name = QStringLiteral("<span style=\"font-size:%1pt;\">").arg(fontSz) + name + QStringLiteral("</span>");
-        if (type == RefType::Head) {
+        if (itemType == BranchesDialogModel::BranchItem && refType == RefType::Head) {
             name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">local</span>").arg(fontSz - 1));
-        } else if (type == RefType::Remote) {
+        } else if (itemType == BranchesDialogModel::BranchItem && refType == RefType::Remote) {
             name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">remote</span>").arg(fontSz - 1));
         } /*else if (type == RefType::Tag) {
             name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">tag at %2</span>").arg(fontSz));
         } */
-        else {
-            Q_UNREACHABLE();
-        }
 
         doc.setHtml(name);
         doc.setDocumentMargin(2);

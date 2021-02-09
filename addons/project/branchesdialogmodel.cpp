@@ -36,12 +36,13 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
         return {};
     }
 
-    const GitUtils::Branch &branch = m_modelEntries.at(idx.row());
-    if (role == Role::DisplayName || role == Qt::DisplayRole) {
+    const Branch &branch = m_modelEntries.at(idx.row());
+    if (role == Qt::DisplayRole) {
         return branch.name;
-    } else if (role == Role::Score) {
+    } else if (role == Role::FuzzyScore) {
         return branch.score;
-    } else if (role == Qt::DecorationRole) {
+    } else if (role == Role::OriginalSorting) {
+        return branch.dateSort;
         static const auto branchIcon = QIcon(QStringLiteral(":/kxmlgui5/kateproject/sc-apps-git.svg"));
         return branchIcon;
     } else if (role == Role::CheckoutName) {

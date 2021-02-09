@@ -35,7 +35,6 @@ public:
 
     Q_SIGNAL void branchChanged(const QString &branch);
 
-    Q_SLOT void onCheckoutDone();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
@@ -43,6 +42,11 @@ protected:
 private Q_SLOTS:
     void slotReturnPressed();
     void reselectFirst();
+    void onCheckoutDone();
+
+private:
+    void sendMessage(const QString& message, bool warn);
+    void createNewBranch(const QString& branch);
 
 private:
     QTreeView *m_treeView;

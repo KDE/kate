@@ -21,7 +21,6 @@ struct Branch {
     QString name;
     QString remote;
     RefType type;
-    int score; // used for scoring when filtering
 };
 
 struct CheckoutResult {

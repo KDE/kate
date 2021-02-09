@@ -59,6 +59,9 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
 
 void BranchesDialogModel::refresh(QVector<GitUtils::Branch> branches)
 {
+    // clear
+    QVector<Branch>().swap(m_savedDuringCheckout);
+
     Branch create{branches.at(0).name, {}, {}, 0, 0, ItemType::CreateBranch};
     Branch createFrom{branches.at(1).name, {}, {}, 0, 1, ItemType::CreateBranchFrom};
 
@@ -70,6 +73,29 @@ void BranchesDialogModel::refresh(QVector<GitUtils::Branch> branches)
 
     beginResetModel();
     m_modelEntries = std::move(temp);
-    //    m_modelEntries = std::move(branches);
+    endResetModel();
+}
+
+void BranchesDialogModel::clear()
+{
+    beginResetModel();
+    QVector<Branch>().swap(m_modelEntries);
+    endResetModel();
+}
+
+void BranchesDialogModel::saveForCheckout()
+{
+    beginResetModel();
+    // get rid of "create branch ..." items
+    m_modelEntries.removeFirst();
+    m_modelEntries.removeFirst();
+    m_savedDuringCheckout.swap(m_modelEntries);
+    endResetModel();
+}
+
+void BranchesDialogModel::restoreForCheckout()
+{
+    beginResetModel();
+    m_modelEntries.swap(m_savedDuringCheckout);
     endResetModel();
 }

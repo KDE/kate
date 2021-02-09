@@ -45,8 +45,9 @@ private Q_SLOTS:
     void onCheckoutDone();
 
 private:
+    void resetValues();
     void sendMessage(const QString &message, bool warn);
-    void createNewBranch(const QString &branch);
+    void createNewBranch(const QString &branch, const QString &fromBranch = QString());
 
 private:
     QTreeView *m_treeView;
@@ -56,4 +57,6 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     QString m_projectPath;
     QFutureWatcher<GitUtils::CheckoutResult> m_checkoutWatcher;
+    QString m_checkoutBranchName;
+    bool m_checkingOutFromBranch = false;
 };

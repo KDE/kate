@@ -197,6 +197,13 @@ BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWin
     connect(&m_checkoutWatcher, &QFutureWatcher<GitUtils::CheckoutResult>::finished, this, &BranchesDialog::onCheckoutDone);
 }
 
+void BranchesDialog::resetValues()
+{
+    m_checkoutBranchName.clear();
+    m_checkingOutFromBranch = false;
+    m_lineEdit->setPlaceholderText(i18n("Select branch to checkout. Press 'Esc' to cancel."));
+}
+
 void BranchesDialog::openDialog()
 {
     GitUtils::Branch newBranch;
@@ -269,10 +276,28 @@ void BranchesDialog::onCheckoutDone()
 
 void BranchesDialog::slotReturnPressed()
 {
+    // we cleared the model to checkout new branch
     if (m_model->rowCount() == 0) {
+        // we are checking out from a branch
+        // restore model and return for branch selection
+        if (m_checkingOutFromBranch) {
+            qWarning() << "Got name: " << m_lineEdit->text();
+            m_checkoutBranchName = m_lineEdit->text();
+            m_lineEdit->clear();
+            m_model->restoreForCheckout();
+            m_lineEdit->setPlaceholderText(i18n("Select branch to checkout from. Press 'Esc' to cancel."));
+            return;
+        }
         createNewBranch(m_lineEdit->text());
-        ;
         return;
+    }
+
+    // branch is selected, do actual checkout
+    if (m_checkingOutFromBranch) {
+        m_checkingOutFromBranch = false;
+        const auto fromBranch = m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::CheckoutName).toString();
+        qWarning() << "Checking out from branch: " << fromBranch;
+        return createNewBranch(m_checkoutBranchName, fromBranch);
     }
 
     const auto branch = m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::CheckoutName).toString();
@@ -286,6 +311,10 @@ void BranchesDialog::slotReturnPressed()
         m_lineEdit->setPlaceholderText(i18n("Enter new branch name. Press 'Esc' to cancel."));
         return;
     } else if (itemType == BranchesDialogModel::CreateBranchFrom) {
+        m_model->saveForCheckout();
+        m_lineEdit->setPlaceholderText(i18n("Enter new branch name. Press 'Esc' to cancel."));
+        m_checkingOutFromBranch = true;
+        return;
     }
 
     m_lineEdit->clear();
@@ -308,15 +337,16 @@ void BranchesDialog::sendMessage(const QString &message, bool warn)
     m_mainWindow->activeView()->document()->postMessage(msg);
 }
 
-void BranchesDialog::createNewBranch(const QString &branch)
+void BranchesDialog::createNewBranch(const QString &branch, const QString &fromBranch)
 {
     if (branch.isEmpty()) {
         m_lineEdit->clear();
         hide();
         return;
     }
+
     // the branch name might be invalid, let git handle it
-    const GitUtils::CheckoutResult r = GitUtils::checkoutNewBranch(m_projectPath, branch);
+    const GitUtils::CheckoutResult r = GitUtils::checkoutNewBranch(m_projectPath, branch, fromBranch);
     const bool warn = true;
     if (r.returnCode == 0) {
         sendMessage(i18n("Checked out to new branch: %1", r.branch), !warn);

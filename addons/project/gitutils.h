@@ -35,12 +35,26 @@ struct CheckoutResult {
     int returnCode;
 };
 
+/**
+ * @brief check if @p repo is a git repo
+ * @param repo is path to the repo
+ * @return
+ */
 bool isGitRepo(const QString &repo);
 
+/**
+ * @brief get name of current branch in @p repo
+ */
 QString getCurrentBranchName(const QString &repo);
 
+/**
+ * @brief checkout to @p branch in @p repo
+ */
 CheckoutResult checkoutBranch(const QString &repo, const QString &branch);
 
+/**
+ * @brief checkout to new @p branch in @p repo from @p fromBranch
+ */
 CheckoutResult checkoutNewBranch(const QString &repo, const QString &newBranch, const QString &fromBranch = QString());
 
 /**
@@ -52,5 +66,7 @@ QVector<Branch> getAllBranches(const QString &repo);
  */
 QVector<Branch> getAllBranchesAndTags(const QString &repo, RefType ref = RefType::All);
 }
+
+Q_DECLARE_TYPEINFO(GitUtils::Branch, Q_MOVABLE_TYPE);
 
 #endif // GITUTILS_H

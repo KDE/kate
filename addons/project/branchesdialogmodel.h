@@ -25,12 +25,9 @@ public:
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &idx, int role) const override;
     void refresh(QVector<GitUtils::Branch> branches);
-    void clear()
-    {
-        beginResetModel();
-        QVector<Branch>().swap(m_modelEntries);
-        endResetModel();
-    }
+    void clear();
+    void saveForCheckout();
+    void restoreForCheckout();
 
     bool setData(const QModelIndex &index, const QVariant &value, int role) override
     {
@@ -53,8 +50,9 @@ private:
         int dateSort;
         ItemType itemType;
     };
+
     QVector<BranchesDialogModel::Branch> m_modelEntries;
-    //    QVector<GitUtils::Branch> m_modelEntries;
+    QVector<BranchesDialogModel::Branch> m_savedDuringCheckout;
 };
 
 #endif

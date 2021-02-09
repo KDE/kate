@@ -474,9 +474,15 @@ void KateConsole::handleEsc(QEvent *e)
         return;
     }
 
+    auto notInBlockEscApps = [](QStringView app) {
+        static const QLatin1String blockEscApps[] = {QLatin1String("vi"), QLatin1String("vim"), QLatin1String("nvim")};
+        return std::find(std::begin(blockEscApps), std::end(blockEscApps), app) == std::end(blockEscApps);
+    };
+
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
-        if (m_toolView->isVisible()) {
+        auto name = qobject_cast<TerminalInterface *>(m_part)->foregroundProcessName();
+        if (m_toolView->isVisible() && notInBlockEscApps(name)) {
             m_mw->hideToolView(m_toolView);
         }
     }

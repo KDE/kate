@@ -11,6 +11,8 @@
 #include "kateproject.h"
 #include "kateprojectviewtree.h"
 
+#include <QFileSystemWatcher>
+
 class KLineEdit;
 class QPushButton;
 class KateProjectPluginView;
@@ -90,7 +92,15 @@ private:
      */
     QPushButton *m_branchBtn;
 
+    /**
+     * The dialog which displays git branches
+     */
     BranchesDialog *m_branchesDialog;
+
+    /**
+     * watches for changes to .git/HEAD
+     */
+    QFileSystemWatcher m_branchChangedWatcher;
 };
 
 #endif

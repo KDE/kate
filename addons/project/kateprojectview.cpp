@@ -53,13 +53,18 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     });
     chckbr->setText(QStringLiteral("Checkout Git Branch"));
 
-    m_branchesDialog = new BranchesDialog(this, mainWindow, m_project->baseDir());
     /**
      * setup filter line edit
      */
     m_filter->setPlaceholderText(i18n("Filter..."));
     m_filter->setClearButtonEnabled(true);
     connect(m_filter, &KLineEdit::textChanged, this, &KateProjectView::filterTextChanged);
+
+    /**
+     * Setup git checkout stuff
+     */
+    m_branchBtn->setHidden(true);
+    m_branchesDialog = new BranchesDialog(this, mainWindow, m_project->baseDir());
     connect(m_branchBtn, &QPushButton::clicked, this, [this] {
         m_branchesDialog->openDialog();
     });
@@ -71,14 +76,19 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
         if (GitUtils::isGitRepo(m_project->baseDir())) {
             m_branchBtn->setHidden(false);
             m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
+            if (m_branchChangedWatcher.files().isEmpty()) {
+                m_branchChangedWatcher.addPath(m_project->baseDir() + QStringLiteral("/.git/HEAD"));
+            }
         } else {
+            if (!m_branchChangedWatcher.files().isEmpty()) {
+                m_branchChangedWatcher.removePaths(m_branchChangedWatcher.files());
+            }
             m_branchBtn->setHidden(true);
         }
     });
-
-    if (!GitUtils::isGitRepo(m_project->baseDir())) {
-        m_branchBtn->setHidden(true);
-    }
+    connect(&m_branchChangedWatcher, &QFileSystemWatcher::fileChanged, this, [this] {
+        m_project->reload(true);
+    });
 }
 
 KateProjectView::~KateProjectView()

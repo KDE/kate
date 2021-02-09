@@ -175,6 +175,11 @@ private Q_SLOTS:
      */
     void overrideShortcut(QKeyEvent *event, bool &override);
 
+    /**
+     * hide terminal on Esc key press
+     */
+    void handleEsc(QEvent *e);
+
 protected:
     /**
      * the konsole get shown

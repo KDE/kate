@@ -160,6 +160,8 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F4));
     connect(a, &QAction::triggered, this, &KateConsole::slotToggleFocus);
 
+    connect(m_mw, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateConsole::handleEsc);
+
     m_mw->guiFactory()->addClient(this);
 
     readConfig();
@@ -463,6 +465,20 @@ void KateConsole::readConfig()
         qputenv("EDITOR", "kate -b");
     } else {
         setEditorEnv(m_plugin->previousEditorEnv());
+    }
+}
+
+void KateConsole::handleEsc(QEvent *e)
+{
+    if (!m_mw) {
+        return;
+    }
+
+    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
+        if (m_toolView->isVisible()) {
+            m_mw->hideToolView(m_toolView);
+        }
     }
 }
 

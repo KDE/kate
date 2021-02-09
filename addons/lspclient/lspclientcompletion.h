@@ -14,6 +14,8 @@
 #include <KTextEditor/CodeCompletionModel>
 #include <KTextEditor/CodeCompletionModelControllerInterface>
 
+class LSPClientPlugin;
+
 class LSPClientCompletion : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface
 {
     Q_OBJECT
@@ -22,7 +24,7 @@ class LSPClientCompletion : public KTextEditor::CodeCompletionModel, public KTex
 
 public:
     // implementation factory method
-    static LSPClientCompletion *new_(QSharedPointer<LSPClientServerManager> manager);
+    static LSPClientCompletion *new_(QSharedPointer<LSPClientServerManager> manager, LSPClientPlugin *plugin);
 
     LSPClientCompletion(QObject *parent)
         : KTextEditor::CodeCompletionModel(parent)

@@ -140,6 +140,7 @@ class LSPClientCompletionImpl : public LSPClientCompletion
 
     QSharedPointer<LSPClientServerManager> m_manager;
     QSharedPointer<LSPClientServer> m_server;
+    LSPClientPlugin *m_plugin;
     bool m_selectedDocumentation = false;
 
     QVector<QChar> m_triggersCompletion;
@@ -150,10 +151,11 @@ class LSPClientCompletionImpl : public LSPClientCompletion
     LSPClientServer::RequestHandle m_handle, m_handleSig;
 
 public:
-    LSPClientCompletionImpl(QSharedPointer<LSPClientServerManager> manager)
+    LSPClientCompletionImpl(QSharedPointer<LSPClientServerManager> manager, LSPClientPlugin *plugin)
         : LSPClientCompletion(nullptr)
         , m_manager(std::move(manager))
         , m_server(nullptr)
+        , m_plugin(plugin)
     {
     }
 
@@ -301,7 +303,9 @@ public:
             if (!m_triggerSignature) {
                 m_handle = m_server->documentCompletion(document->url(), {cursor.line(), cursor.column()}, this, handler);
             }
-            m_handleSig = m_server->signatureHelp(document->url(), {cursor.line(), cursor.column()}, this, sigHandler);
+            if (m_plugin->m_signatureHelp) {
+                m_handleSig = m_server->signatureHelp(document->url(), {cursor.line(), cursor.column()}, this, sigHandler);
+            }
         }
         setRowCount(m_matches.size());
         endResetModel();
@@ -340,9 +344,9 @@ public:
     }
 };
 
-LSPClientCompletion *LSPClientCompletion::new_(QSharedPointer<LSPClientServerManager> manager)
+LSPClientCompletion *LSPClientCompletion::new_(QSharedPointer<LSPClientServerManager> manager, LSPClientPlugin *plugin)
 {
-    return new LSPClientCompletionImpl(std::move(manager));
+    return new LSPClientCompletionImpl(std::move(manager), plugin);
 }
 
 #include "lspclientcompletion.moc"

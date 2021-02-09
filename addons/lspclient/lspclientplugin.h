@@ -55,6 +55,7 @@ public:
     bool m_incrementalSync = false;
     QUrl m_configPath;
     bool m_semanticHighlighting = false;
+    bool m_signatureHelp = true;
 
     // debug mode?
     bool m_debugMode = false;

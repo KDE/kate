@@ -71,7 +71,8 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkOnTypeFormatting,
                            ui->chkIncrementalSync,
                            ui->chkSemanticHighlighting,
-                           ui->chkAutoHover}) {
+                           ui->chkAutoHover,
+                           ui->chkSignatureHelp}) {
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     }
     auto ch = [this](int) {
@@ -146,6 +147,7 @@ void LSPClientConfigPage::apply()
     m_plugin->m_onTypeFormatting = ui->chkOnTypeFormatting->isChecked();
     m_plugin->m_incrementalSync = ui->chkIncrementalSync->isChecked();
     m_plugin->m_semanticHighlighting = ui->chkSemanticHighlighting->isChecked();
+    m_plugin->m_signatureHelp = ui->chkSignatureHelp->isChecked();
 
     m_plugin->m_messages = ui->chkMessages->isChecked();
     m_plugin->m_messagesAutoSwitch = ui->comboMessagesSwitch->currentIndex();
@@ -184,6 +186,7 @@ void LSPClientConfigPage::reset()
     ui->chkOnTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
     ui->chkIncrementalSync->setChecked(m_plugin->m_incrementalSync);
     ui->chkSemanticHighlighting->setChecked(m_plugin->m_semanticHighlighting);
+    ui->chkSignatureHelp->setChecked(m_plugin->m_signatureHelp);
 
     ui->chkMessages->setChecked(m_plugin->m_messages);
     ui->comboMessagesSwitch->setCurrentIndex(m_plugin->m_messagesAutoSwitch);

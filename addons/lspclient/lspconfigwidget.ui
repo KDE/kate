@@ -84,6 +84,13 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="chkSignatureHelp">
+              <property name="text">
+               <string>Enable signature help with autocomplete</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
                <widget class="QCheckBox" name="chkDiagnostics">

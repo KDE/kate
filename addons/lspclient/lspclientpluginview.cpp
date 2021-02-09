@@ -417,7 +417,7 @@ public:
         , m_mainWindow(mainWin)
         , m_client(client)
         , m_serverManager(std::move(serverManager))
-        , m_completion(LSPClientCompletion::new_(m_serverManager))
+        , m_completion(LSPClientCompletion::new_(m_serverManager, plugin))
         , m_hover(LSPClientHover::new_(m_serverManager))
         , m_forwardHover(new ForwardingTextHintProvider(this))
         , m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))

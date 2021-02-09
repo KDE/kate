@@ -43,12 +43,15 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
         return branch.score;
     } else if (role == Role::OriginalSorting) {
         return branch.dateSort;
+    } else if (role == Qt::DecorationRole) {
         static const auto branchIcon = QIcon(QStringLiteral(":/kxmlgui5/kateproject/sc-apps-git.svg"));
         return branchIcon;
     } else if (role == Role::CheckoutName) {
-        return branch.type == GitUtils::RefType::Remote ? branch.name.mid(branch.remote.size() + 1) : branch.name;
+        return branch.refType == GitUtils::RefType::Remote ? branch.name.mid(branch.remote.size() + 1) : branch.name;
     } else if (role == Role::RefType) {
-        return branch.type;
+        return branch.refType;
+    } else if (role == Role::ItemTypeRole) {
+        return branch.itemType;
     }
 
     return {};
@@ -56,7 +59,17 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
 
 void BranchesDialogModel::refresh(QVector<GitUtils::Branch> branches)
 {
+    Branch create{branches.at(0).name, {}, {}, 0, 0, ItemType::CreateBranch};
+    Branch createFrom{branches.at(1).name, {}, {}, 0, 1, ItemType::CreateBranchFrom};
+
+    QVector<Branch> temp{create, createFrom};
+
+    for (int i = 2; i < branches.size(); ++i) {
+        temp.append({branches.at(i).name, branches.at(i).remote, branches.at(i).type, -1, i, ItemType::BranchItem});
+    }
+
     beginResetModel();
-    m_modelEntries = std::move(branches);
+    m_modelEntries = std::move(temp);
+    //    m_modelEntries = std::move(branches);
     endResetModel();
 }

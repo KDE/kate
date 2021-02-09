@@ -45,8 +45,8 @@ private Q_SLOTS:
     void onCheckoutDone();
 
 private:
-    void sendMessage(const QString& message, bool warn);
-    void createNewBranch(const QString& branch);
+    void sendMessage(const QString &message, bool warn);
+    void createNewBranch(const QString &branch);
 
 private:
     QTreeView *m_treeView;

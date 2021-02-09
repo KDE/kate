@@ -199,7 +199,12 @@ BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWin
 
 void BranchesDialog::openDialog()
 {
-    const QVector<GitUtils::Branch> branches = GitUtils::getAllBranches(m_projectPath);
+    GitUtils::Branch newBranch;
+    newBranch.name = QStringLiteral("Create New Branch");
+    GitUtils::Branch newBranchFrom;
+    newBranchFrom.name = QStringLiteral("Create New Branch From...");
+    QVector<GitUtils::Branch> branches{newBranch, newBranchFrom};
+    /*QVector<GitUtils::Branch> */ branches << GitUtils::getAllBranches(m_projectPath);
     m_model->refresh(branches);
 
     reselectFirst();
@@ -259,19 +264,29 @@ void BranchesDialog::onCheckoutDone()
         Q_EMIT branchChanged(res.branch);
     }
 
-    KTextEditor::Message *msg = new KTextEditor::Message(msgStr, msgType);
-    msg->setPosition(KTextEditor::Message::TopInView);
-    msg->setAutoHide(3000);
-    msg->setAutoHideMode(KTextEditor::Message::Immediate);
-    msg->setView(m_mainWindow->activeView());
-    m_mainWindow->activeView()->document()->postMessage(msg);
+    sendMessage(msgStr, msgType == KTextEditor::Message::Warning);
 }
 
 void BranchesDialog::slotReturnPressed()
 {
+    if (m_model->rowCount() == 0) {
+        createNewBranch(m_lineEdit->text());
+        ;
+        return;
+    }
+
     const auto branch = m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::CheckoutName).toString();
-    QFuture<GitUtils::CheckoutResult> future = QtConcurrent::run(&GitUtils::checkoutBranch, m_projectPath, branch);
-    m_checkoutWatcher.setFuture(future);
+    const auto itemType = (BranchesDialogModel::ItemType)m_proxyModel->data(m_treeView->currentIndex(), BranchesDialogModel::ItemTypeRole).toInt();
+
+    if (itemType == BranchesDialogModel::BranchItem) {
+        QFuture<GitUtils::CheckoutResult> future = QtConcurrent::run(&GitUtils::checkoutBranch, m_projectPath, branch);
+        m_checkoutWatcher.setFuture(future);
+    } else if (itemType == BranchesDialogModel::CreateBranch) {
+        m_model->clear();
+        m_lineEdit->setPlaceholderText(i18n("Enter new branch name. Press 'Esc' to cancel."));
+        return;
+    } else if (itemType == BranchesDialogModel::CreateBranchFrom) {
+    }
 
     m_lineEdit->clear();
     hide();
@@ -281,6 +296,36 @@ void BranchesDialog::reselectFirst()
 {
     QModelIndex index = m_proxyModel->index(0, 0);
     m_treeView->setCurrentIndex(index);
+}
+
+void BranchesDialog::sendMessage(const QString &message, bool warn)
+{
+    KTextEditor::Message *msg = new KTextEditor::Message(message, warn ? KTextEditor::Message::Warning : KTextEditor::Message::Positive);
+    msg->setPosition(KTextEditor::Message::TopInView);
+    msg->setAutoHide(3000);
+    msg->setAutoHideMode(KTextEditor::Message::Immediate);
+    msg->setView(m_mainWindow->activeView());
+    m_mainWindow->activeView()->document()->postMessage(msg);
+}
+
+void BranchesDialog::createNewBranch(const QString &branch)
+{
+    if (branch.isEmpty()) {
+        m_lineEdit->clear();
+        hide();
+        return;
+    }
+    // the branch name might be invalid, let git handle it
+    const GitUtils::CheckoutResult r = GitUtils::checkoutNewBranch(m_projectPath, branch);
+    const bool warn = true;
+    if (r.returnCode == 0) {
+        sendMessage(i18n("Checked out to new branch: %1", r.branch), !warn);
+    } else {
+        sendMessage(i18n("Failed to create new branch. Error \"%1\"", r.error), warn);
+    }
+
+    m_lineEdit->clear();
+    hide();
 }
 
 void BranchesDialog::updateViewGeometry()

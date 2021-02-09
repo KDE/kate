@@ -17,17 +17,20 @@ class BranchesDialogModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    enum Role {
-        FuzzyScore = Qt::UserRole + 1,
-        OriginalSorting,
-        CheckoutName,
-        RefType,
-    };
+    enum Role { FuzzyScore = Qt::UserRole + 1, OriginalSorting, CheckoutName, RefType, Creator, ItemTypeRole };
+    enum ItemType { BranchItem, CreateBranch, CreateBranchFrom };
+
     explicit BranchesDialogModel(QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &idx, int role) const override;
     void refresh(QVector<GitUtils::Branch> branches);
+    void clear()
+    {
+        beginResetModel();
+        QVector<Branch>().swap(m_modelEntries);
+        endResetModel();
+    }
 
     bool setData(const QModelIndex &index, const QVariant &value, int role) override
     {
@@ -42,7 +45,16 @@ public:
     }
 
 private:
-    QVector<GitUtils::Branch> m_modelEntries;
+    struct Branch {
+        QString name;
+        QString remote;
+        GitUtils::RefType refType;
+        int score;
+        int dateSort;
+        ItemType itemType;
+    };
+    QVector<BranchesDialogModel::Branch> m_modelEntries;
+    //    QVector<GitUtils::Branch> m_modelEntries;
 };
 
 #endif

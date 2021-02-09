@@ -17,9 +17,15 @@ enum RefType {
     All = 0x7,
 };
 
+/**
+ * @brief Represents a branch
+ */
 struct Branch {
+    /** Branch name */
     QString name;
+    /** remote name, will be empty for local branches */
     QString remote;
+    /** Ref type @see RefType */
     RefType type;
 };
 
@@ -34,6 +40,8 @@ bool isGitRepo(const QString &repo);
 QString getCurrentBranchName(const QString &repo);
 
 CheckoutResult checkoutBranch(const QString &repo, const QString &branch);
+
+CheckoutResult checkoutNewBranch(const QString &repo, const QString &newBranch, const QString &fromBranch = QString());
 
 /**
  * @brief get all local and remote branches

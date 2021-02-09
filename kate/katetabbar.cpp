@@ -131,7 +131,7 @@ void KateTabBar::mouseDoubleClickEvent(QMouseEvent *event)
 {
     event->accept();
 
-    if (m_doubleClickNewDocument) {
+    if (m_doubleClickNewDocument && event->button() == Qt::LeftButton) {
         emit newTabRequested();
     }
 }

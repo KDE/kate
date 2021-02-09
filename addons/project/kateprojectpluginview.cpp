@@ -26,6 +26,7 @@
 #include <QAction>
 #include <QDialog>
 #include <QHBoxLayout>
+#include <QKeyEvent>
 #include <QMenu>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -138,6 +139,8 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_gotoSymbolAction = popup->menu()->addAction(i18n("Goto: %1", QString()), this, &KateProjectPluginView::slotGotoSymbol);
 
     connect(popup->menu(), &QMenu::aboutToShow, this, &KateProjectPluginView::slotContextMenuAboutToShow);
+
+    connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateProjectPluginView::handleEsc);
 
     /**
      * add us to gui
@@ -548,6 +551,20 @@ void KateProjectPluginView::slotContextMenuAboutToShow()
     const QString squeezed = KStringHandler::csqueeze(word, 30);
     m_lookupAction->setText(i18n("Lookup: %1", squeezed));
     m_gotoSymbolAction->setText(i18n("Goto: %1", squeezed));
+}
+
+void KateProjectPluginView::handleEsc(QEvent *e)
+{
+    if (!m_mainWindow) {
+        return;
+    }
+
+    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
+        if (m_toolInfoView->isVisible()) {
+            m_mainWindow->hideToolView(m_toolInfoView);
+        }
+    }
 }
 
 #include "kateprojectpluginview.moc"

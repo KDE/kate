@@ -202,6 +202,11 @@ private Q_SLOTS:
      */
     void slotContextMenuAboutToShow();
 
+    /**
+     * Handle esc key and hide the toolview
+     */
+    void handleEsc(QEvent *e);
+
 private:
     /**
      * find current selected or under cursor word

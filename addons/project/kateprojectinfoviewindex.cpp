@@ -10,6 +10,7 @@
 
 #include <KLocalizedString>
 #include <KMessageWidget>
+#include <QAction>
 #include <QVBoxLayout>
 
 KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *pluginView, KateProject *project, QWidget *parent)
@@ -166,16 +167,25 @@ void KateProjectInfoViewIndex::enableWidgets(bool valid)
         m_messageWidget->setCloseButtonVisible(true);
         m_messageWidget->setMessageType(KMessageWidget::Warning);
         m_messageWidget->setWordWrap(false);
-
-        // disabled or failed to create?
-        if (m_project->projectIndex()) {
-            m_messageWidget->setText(i18n("The index could not be created. Please install 'ctags'."));
-        } else {
-            m_messageWidget->setText(i18n("The index is not enabled. Please add '\"index\": true' to your .kateproject file."));
-        }
-
         static_cast<QVBoxLayout *>(layout())->insertWidget(0, m_messageWidget);
-    } else {
         m_messageWidget->animatedShow();
+    }
+
+    // disabled or failed to create?
+    if (!valid && m_project->projectIndex()) {
+        m_messageWidget->setText(i18n("The index could not be created. Please install 'ctags'."));
+        // Make sure we remove the action
+        const QList<QAction *> actions = m_messageWidget->actions();
+        if (actions.size() == 1) {
+            m_messageWidget->removeAction(actions.first());
+        }
+    } else if (!valid) {
+        m_messageWidget->setText(i18n("Indexing is not enabled"));
+        auto enableIndexing = new QAction(i18n("Enable indexing"), m_messageWidget);
+        connect(enableIndexing, &QAction::triggered, m_messageWidget, [this]() {
+            m_project->plugin()->setIndex(true, QUrl());
+            m_project->reload(true);
+        });
+        m_messageWidget->addAction(enableIndexing);
     }
 }

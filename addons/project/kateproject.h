@@ -153,6 +153,11 @@ public:
         return m_projectIndex.data();
     }
 
+    KateProjectPlugin *plugin()
+    {
+        return m_plugin;
+    }
+
     /**
      * Computes a suitable file name for the given suffix.
      * If you e.g. want to store a "notes" file, you could pass "notes" and get

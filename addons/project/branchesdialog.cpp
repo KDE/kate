@@ -98,13 +98,16 @@ public:
         using RefType = GitUtils::RefType;
         const auto fontSz = option.font.pointSize();
         name = QStringLiteral("<span style=\"font-size:%1pt;\">").arg(fontSz) + name + QStringLiteral("</span>");
-        if (itemType == BranchesDialogModel::BranchItem && refType == RefType::Head) {
-            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">local</span>").arg(fontSz - 1));
-        } else if (itemType == BranchesDialogModel::BranchItem && refType == RefType::Remote) {
-            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">remote</span>").arg(fontSz - 1));
-        } /*else if (type == RefType::Tag) {
-            name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">tag at %2</span>").arg(fontSz));
-        } */
+
+        if (itemType == BranchesDialogModel::CreateBranch || itemType == BranchesDialogModel::CreateBranchFrom) {
+            name.prepend(QStringLiteral("+ <b>")).append(QStringLiteral("</b>"));
+        } else {
+            if (refType == RefType::Head) {
+                name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">local</span>").arg(fontSz - 1));
+            } else if (refType == RefType::Remote) {
+                name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">remote</span>").arg(fontSz - 1));
+            }
+        }
 
         doc.setHtml(name);
         doc.setDocumentMargin(2);

@@ -68,20 +68,20 @@ GitUtils::CheckoutResult GitUtils::checkoutNewBranch(const QString &repo, const 
 
 static GitUtils::Branch parseLocalBranch(const QString &raw)
 {
-    // refs/heads/ = 11
-    return GitUtils::Branch{raw.mid(11), QString(), GitUtils::Head};
+    static const int len = QStringLiteral("refs/heads/").length();
+    return GitUtils::Branch{raw.mid(len), QString(), GitUtils::Head};
 }
 
 static GitUtils::Branch parseRemoteBranch(const QString &raw)
 {
-    // refs/remotes/origin/asdasdasd = 13
-    int indexofRemote = raw.indexOf(QLatin1Char('/'), 13);
-    return GitUtils::Branch{raw.mid(13), raw.mid(13, indexofRemote - 13), GitUtils::Remote};
+    static const int len = QStringLiteral("refs/remotes/").length();
+    int indexofRemote = raw.indexOf(QLatin1Char('/'), len);
+    return GitUtils::Branch{raw.mid(len), raw.mid(len, indexofRemote - len), GitUtils::Remote};
 }
 
 QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, RefType ref)
 {
-    // git for-each-ref --format '%(refname) %(objectname) %(*objectname)'
+    // git for-each-ref --format '%(refname)' --sort=-committerdate ...
     QProcess git;
     git.setWorkingDirectory(repo);
 
@@ -111,8 +111,8 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
             } else if (ref & Remote && o.startsWith(QLatin1String("refs/remotes"))) {
                 branches.append(parseRemoteBranch(o));
             } else if (ref & Tag && o.startsWith(QLatin1String("refs/tags/"))) {
-                // refs/tags/ = 10
-                branches.append({o.mid(10), {}, RefType::Tag});
+                static const int len = QStringLiteral("refs/tags/").length();
+                branches.append({o.mid(len), {}, RefType::Tag});
             }
         }
         // clang-format on

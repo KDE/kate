@@ -42,6 +42,7 @@ target_sources(
     lspclientservermanager.cpp
     lspclientsymbolview.cpp
     lspsemantichighlighting.cpp
+    lsptooltip.cpp
     plugin.qrc
     ${UI_SOURCES}
 )

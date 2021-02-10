@@ -12,6 +12,7 @@
 #include "lspclientserver.h"
 #include "lspclientservermanager.h"
 
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/TextHintInterface>
 
 class LSPClientHover : public QObject, public KTextEditor::TextHintProvider

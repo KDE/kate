@@ -8,6 +8,7 @@
 
 #include "lspclienthover.h"
 #include "lspclientplugin.h"
+#include "lsptooltip.h"
 
 #include "lspclient_debug.h"
 
@@ -26,6 +27,7 @@ class LSPClientHoverImpl : public LSPClientHover
 
     QSharedPointer<LSPClientServerManager> m_manager;
     QSharedPointer<LSPClientServer> m_server;
+    LspTooltip m_tooltip;
 
     LSPClientServer::RequestHandle m_handle;
 
@@ -73,15 +75,14 @@ public:
                     finalTooltip.append(element.value);
                 }
 
-                // we need to cut this a bit if too long until we have
-                // something more sophisticated than a tool tip for it
-                if (finalTooltip.size() > 512) {
-                    finalTooltip.resize(512);
-                    finalTooltip.append(QStringLiteral("..."));
-                }
+                //                // we need to cut this a bit if too long until we have
+                //                // something more sophisticated than a tool tip for it
+                //                if (finalTooltip.size() > 512) {
+                //                    finalTooltip.resize(512);
+                //                    finalTooltip.append(QStringLiteral("..."));
+                //                }
 
-                // show tool tip: think about a better way for "large" stuff
-                QToolTip::showText(v->mapToGlobal(v->cursorToCoordinate(position)), finalTooltip);
+                m_tooltip.show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v);
             };
 
             m_handle.cancel() = m_server->documentHover(view->document()->url(), position, this, h);

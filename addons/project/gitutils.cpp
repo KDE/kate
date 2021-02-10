@@ -66,23 +66,17 @@ GitUtils::CheckoutResult GitUtils::checkoutNewBranch(const QString &repo, const 
     return res;
 }
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
-#else
-constexpr auto SkipEmptyParts = Qt::SkipEmptyParts;
-#endif
-
 static GitUtils::Branch parseLocalBranch(const QString &raw)
 {
-    auto data = raw.split(QStringLiteral("{sp}"), SkipEmptyParts);
-    return GitUtils::Branch{data.first().remove(QLatin1String("refs/heads/")), QString(), GitUtils::Head};
+    // refs/heads/ = 11
+    return GitUtils::Branch{raw.mid(11), QString(), GitUtils::Head};
 }
 
 static GitUtils::Branch parseRemoteBranch(const QString &raw)
 {
-    auto data = raw.split(QStringLiteral("{sp}"), SkipEmptyParts);
-    int indexofRemote = data.at(0).indexOf(QLatin1Char('/'), 13);
-    return GitUtils::Branch{data.first().remove(QLatin1String("refs/remotes/")), data.at(0).mid(13, indexofRemote - 13), GitUtils::Remote};
+    // refs/remotes/origin/asdasdasd = 13
+    int indexofRemote = raw.indexOf(QLatin1Char('/'), 13);
+    return GitUtils::Branch{raw.mid(13), raw.mid(13, indexofRemote - 13), GitUtils::Remote};
 }
 
 QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, RefType ref)
@@ -91,7 +85,7 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
     QProcess git;
     git.setWorkingDirectory(repo);
 
-    QStringList args{QStringLiteral("for-each-ref"), QStringLiteral("--format"), QStringLiteral("%(refname){sp}"), QStringLiteral("--sort=-committerdate")};
+    QStringList args{QStringLiteral("for-each-ref"), QStringLiteral("--format"), QStringLiteral("%(refname)"), QStringLiteral("--sort=-committerdate")};
     if (ref & RefType::Head) {
         args.append(QStringLiteral("refs/heads"));
     }
@@ -117,8 +111,8 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
             } else if (ref & Remote && o.startsWith(QLatin1String("refs/remotes"))) {
                 branches.append(parseRemoteBranch(o));
             } else if (ref & Tag && o.startsWith(QLatin1String("refs/tags/"))) {
-                int indexofSp = o.indexOf(QLatin1String("{sp}"));
-                branches.append({o.mid(10, indexofSp), {}, RefType::Tag});
+                // refs/tags/ = 10
+                branches.append({o.mid(10), {}, RefType::Tag});
             }
         }
         // clang-format on

@@ -1,8 +1,6 @@
 {
       "name": "Kate"
 
-    , "index": true
-
     , "files": [ { "git": 1 } ]
 
     , "build": {

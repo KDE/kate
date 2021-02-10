@@ -94,6 +94,8 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
     int argumentHintDepth = 0;
     QString prefix;
     QString postfix;
+    int start = 0;
+    int len = 0;
 
     LSPClientCompletionItem(const LSPCompletionItem &item)
         : LSPCompletionItem(item)
@@ -110,10 +112,13 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
         documentation = sig.documentation;
         label = sig.label;
         sortText = _sortText;
+
         // transform into prefix, name, suffix if active
         if (activeParameter >= 0 && activeParameter < sig.parameters.length()) {
             const auto &param = sig.parameters.at(activeParameter);
             if (param.start >= 0 && param.start < label.length() && param.end >= 0 && param.end < label.length() && param.start < param.end) {
+                start = param.start;
+                len = param.end - param.start;
                 prefix = label.mid(0, param.start);
                 postfix = label.mid(param.end);
                 label = label.mid(param.start, param.end - param.start);
@@ -204,6 +209,19 @@ public:
         } else if (role == KTextEditor::CodeCompletionModel::ItemSelected && !match.argumentHintDepth && !match.documentation.value.isEmpty()
                    && m_selectedDocumentation) {
             return match.documentation.value;
+        } else if (role == KTextEditor::CodeCompletionModel::CustomHighlight && match.argumentHintDepth > 0) {
+            if (index.column() != Name || match.len == 0)
+                return {};
+            QTextCharFormat boldFormat;
+            boldFormat.setFontWeight(QFont::Bold);
+            const QList<QVariant> highlighting{
+                QVariant(0),
+                QVariant(match.len),
+                boldFormat,
+            };
+            return highlighting;
+        } else if (role == CodeCompletionModel::HighlightingMethod && match.argumentHintDepth > 0) {
+            return QVariant(HighlightMethod::CustomHighlighting);
         }
 
         return QVariant();

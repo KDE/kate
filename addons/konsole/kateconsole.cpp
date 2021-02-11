@@ -45,6 +45,8 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 
+static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral("vim"), QStringLiteral("nvim")};
+
 KateKonsolePlugin::KateKonsolePlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
@@ -474,12 +476,7 @@ void KateConsole::handleEsc(QEvent *e)
         return;
     }
 
-    QString exceptString = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", QStringLiteral("vi,vim,nvim"));
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-    const auto exceptList = exceptString.split(QLatin1Char(','), Qt::SkipEmptyParts);
-#else
-    const auto exceptList = exceptString.split(QLatin1Char(','), QString::SkipEmptyParts);
-#endif
+    QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
 
     if (!m_mw || !m_part || !m_toolView || !e) {
         return;
@@ -589,7 +586,7 @@ void KateKonsoleConfigPage::apply()
     config.writeEntry("RunPrefix", lePrefix->text());
     config.writeEntry("SetEditor", cbSetEditor->isChecked());
     config.writeEntry("KonsoleEscKeyBehaviour", cbSetEscHideKonsole->isChecked());
-    config.writeEntry("KonsoleEscKeyExceptions", leEscExceptions->text());
+    config.writeEntry("KonsoleEscKeyExceptions", leEscExceptions->text().split(QLatin1Char(',')));
     config.sync();
     mPlugin->readConfig();
 }
@@ -602,7 +599,7 @@ void KateKonsoleConfigPage::reset()
     lePrefix->setText(config.readEntry("RunPrefix", ""));
     cbSetEditor->setChecked(config.readEntry("SetEditor", false));
     cbSetEscHideKonsole->setChecked(config.readEntry("KonsoleEscKeyBehaviour", true));
-    leEscExceptions->setText(config.readEntry("KonsoleEscKeyExceptions", "vi,vim,nvim"));
+    leEscExceptions->setText(config.readEntry("KonsoleEscKeyExceptions", s_escapeExceptions).join(QLatin1Char(',')));
 }
 
 #include "kateconsole.moc"

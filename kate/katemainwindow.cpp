@@ -151,6 +151,9 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
         m_viewManager->restoreViewConfiguration(KConfigGroup(sconfig, sgroup));
     }
 
+    // unstash
+    // KateStashManager().popStash(m_viewManager);
+
     finishRestore();
 
     m_fileOpenRecent->loadEntries(KConfigGroup(sconfig, "Recent Files"));
@@ -158,9 +161,6 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     setAcceptDrops(true);
 
     connect(KateApp::self()->sessionManager(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
-
-    // unstash
-    KateStashManager().popStash(m_viewManager);
 
     connect(this, &KateMDI::MainWindow::sigShowPluginConfigPage, this, &KateMainWindow::showPluginConfigPage);
 
@@ -540,11 +540,17 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
 
     QList<KTextEditor::Document *> modifiedDocuments = KateApp::self()->documentManager()->modifiedDocumentList();
     modifiedDocuments.removeAll(doc);
-    bool shutdown = (modifiedDocuments.count() == 0);
+    bool shutdown = (modifiedDocuments.count() == 0) || KateApp::self()->sessionManager()->activeSession();
 
-    if (!shutdown) {
-        shutdown = KateStashManager().stash(modifiedDocuments);
+    /*
+    if (!KateApp::self()->sessionManager()->activeSession()) {
+        shutdown = KateApp::self()->stashManager()->stash(modifiedDocuments);
+    } else {
+        KConfigGroup cfg(KSharedConfig::openConfig(), "MainWindow");
+        KateApp::self()->documentManager()->saveDocumentList(cfg);
+        shutdown = true;
     }
+    */
     if (!shutdown) {
         shutdown = KateSaveModifiedDialog::queryClose(this, modifiedDocuments);
     }

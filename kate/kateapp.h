@@ -20,6 +20,7 @@
 #include "katemainwindow.h"
 #include "katepluginmanager.h"
 #include "katesessionmanager.h"
+#include "katestashmanager.h"
 #include "katetests_export.h"
 
 #include <KConfig>
@@ -133,6 +134,11 @@ public:
      * @return session manager instance
      */
     KateSessionManager *sessionManager();
+
+    /**
+     *
+     */
+    KateStashManager *stashManager();
 
     /**
      * window management
@@ -390,6 +396,8 @@ private:
      * session manager
      */
     KateSessionManager m_sessionManager;
+
+    KateStashManager m_stashManager;
 
 #ifdef WITH_KUSERFEEDBACK
     /**

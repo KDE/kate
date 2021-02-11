@@ -53,6 +53,7 @@ KateApp::KateApp(const QCommandLineParser &args)
     , m_adaptor(this)
     , m_pluginManager(this)
     , m_sessionManager(this)
+    , m_stashManager(this)
 {
     /**
      * re-route some signals to application wrapper
@@ -306,6 +307,11 @@ KateDocManager *KateApp::documentManager()
 KateSessionManager *KateApp::sessionManager()
 {
     return &m_sessionManager;
+}
+
+KateStashManager *KateApp::stashManager()
+{
+    return &m_stashManager;
 }
 
 bool KateApp::openUrl(const QUrl &url, const QString &encoding, bool isTempFile)

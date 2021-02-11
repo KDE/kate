@@ -16,15 +16,16 @@ class Document;
 
 class KateViewManager;
 
-class KateStashManager
+class KateStashManager : QObject
 {
+    Q_OBJECT
 public:
-    KateStashManager();
+    KateStashManager(QObject *parent = nullptr);
     bool stash(const QList<KTextEditor::Document *> &modifieddocuments);
     void popStash(KateViewManager *viewManager);
 
-private:
-    KConfigGroup m_stashGroup;
+    bool stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path);
+    bool popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig);
 };
 
 #endif // KATESTASHMANAGER_H

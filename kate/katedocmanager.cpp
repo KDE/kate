@@ -416,8 +416,19 @@ void KateDocManager::saveDocumentList(KConfig *config)
 
     int i = 0;
     for (KTextEditor::Document *doc : qAsConst(m_docList)) {
-        KConfigGroup cg(config, QStringLiteral("Document %1").arg(i));
+        const QString entryName = QStringLiteral("Document %1").arg(i);
+        KConfigGroup cg(config, entryName);
         doc->writeSessionConfig(cg);
+
+        // stash the file content
+        if (doc->isModified()) {
+            const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+            QDir dir(appDataPath);
+            dir.mkdir(QStringLiteral("stash"));
+
+            KateApp::self()->stashManager()->stashDocument(doc, entryName, cg, appDataPath + QStringLiteral("/stash/"));
+        }
+
         i++;
     }
 }
@@ -452,6 +463,8 @@ void KateDocManager::restoreDocumentList(KConfig *config)
         connect(doc, &KParts::ReadOnlyPart::canceled, this, &KateDocManager::documentOpened);
 
         doc->readSessionConfig(cg);
+
+        KateApp::self()->stashManager()->popDocument(doc, cg);
 
         progress.setValue(i);
     }

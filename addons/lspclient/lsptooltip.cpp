@@ -62,14 +62,21 @@ public:
         out.reset();
         outputString.clear();
 
+        bool inCodeBlock = false;
+
         KSyntaxHighlighting::State state;
         bool li = false;
+        // World's smallest markdown parser :)
         while (!in.atEnd()) {
             currentLine = in.readLine();
-            if (currentLine.isEmpty()) {
+
+            // allow empty lines in code blocks, no ruler here
+            if (!inCodeBlock && currentLine.isEmpty()) {
                 out << "<hr>";
                 continue;
             }
+
+            // list
             if (!li && currentLine.startsWith(QLatin1String("- "))) {
                 currentLine.remove(0, 2);
                 out << "<ul><li>";
@@ -81,6 +88,24 @@ public:
                 out << "</li></ul>";
                 li = false;
             }
+
+            // code block
+            if (!inCodeBlock && currentLine.startsWith(QLatin1String("```"))) {
+                inCodeBlock = true;
+                continue;
+            } else if (inCodeBlock && currentLine.startsWith(QLatin1String("```"))) {
+                inCodeBlock = false;
+                continue;
+            }
+
+            // ATX heading
+            if (currentLine.startsWith(QStringLiteral("# "))) {
+                currentLine.remove(0, 2);
+                currentLine = QStringLiteral("<h3>") + currentLine + QStringLiteral("</h3>");
+                out << currentLine;
+                continue;
+            }
+
             state = highlightLine(currentLine, state);
             if (li) {
                 out << "</li>";

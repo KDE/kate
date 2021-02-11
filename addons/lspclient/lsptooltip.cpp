@@ -154,9 +154,15 @@ public:
         // => update definition
         // => update font
         if (view != m_view) {
+            if (m_view) {
+                m_view->focusProxy()->removeEventFilter(this);
+            }
+
             m_view = view;
             hl.setDefinition(r.definitionForFileName(view->document()->url().toString()));
             updateFont();
+
+            m_view->focusProxy()->installEventFilter(this);
         }
     }
 
@@ -183,6 +189,28 @@ public:
         };
         updateColors(KTextEditor::Editor::instance());
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
+    }
+
+    bool eventFilter(QObject *o, QEvent *e) override
+    {
+        switch (e->type()) {
+        case QEvent::KeyPress:
+        case QEvent::KeyRelease:
+            hideTooltip();
+            break;
+        case QEvent::WindowActivate:
+        case QEvent::WindowDeactivate:
+        case QEvent::MouseButtonPress:
+        case QEvent::MouseButtonRelease:
+        case QEvent::MouseButtonDblClick:
+        case QEvent::Wheel:
+            if (!rect().contains(static_cast<QMouseEvent *>(e)->pos())) {
+                hideTooltip();
+            }
+        default:
+            break;
+        }
+        return false;
     }
 
     void updateFont()
@@ -229,7 +257,7 @@ public:
 protected:
     void showEvent(QShowEvent *event) override
     {
-        m_hideTimer.start(3000);
+        m_hideTimer.start(1000);
         return QTextBrowser::showEvent(event);
     }
 

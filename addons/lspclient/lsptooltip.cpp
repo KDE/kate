@@ -140,6 +140,9 @@ public:
 
     void setTooltipText(const QString &text)
     {
+        if (text.isEmpty())
+            return;
+
         hl.setText(text);
         resizeTip(text);
         setHtml(hl.html());
@@ -164,6 +167,9 @@ public:
         document()->setDocumentMargin(2);
         setFrameStyle(QFrame::Box);
         connect(&m_hideTimer, &QTimer::timeout, this, &Tooltip::hideTooltip);
+
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
         auto updateColors = [this](KTextEditor::Editor *e) {
             auto theme = e->theme();
@@ -191,15 +197,33 @@ public:
     Q_SLOT void hideTooltip()
     {
         close();
+        setText(QString());
     }
 
     void resizeTip(const QString &text)
     {
         QFontMetrics fm(font());
         QSize size = fm.size(0, text);
-        size.setHeight(std::min(size.height(), m_view->window()->height() / 3));
-        size.setWidth(std::min(size.width(), m_view->window()->width() / 2));
+        size.setHeight(std::min(size.height(), m_view->height() / 3));
+        size.setWidth(std::min(size.width(), m_view->width() / 2));
         resize(size);
+    }
+
+    void place(QPoint p)
+    {
+        if (p.x() + width() > m_view->x() + m_view->width())
+            p.rx() -= 4 + width();
+        if (p.y() + this->height() > m_view->y() + m_view->height())
+            p.ry() -= 24 + this->height();
+        if (p.y() < m_view->y())
+            p.setY(m_view->y());
+        if (p.x() + this->width() > m_view->x() + m_view->width())
+            p.setX(m_view->x() + m_view->width() - this->width());
+        if (p.x() < m_view->x())
+            p.setX(m_view->x());
+        if (p.y() + this->height() > m_view->y() + m_view->height())
+            p.setY(m_view->y() + m_view->height() - this->height());
+        this->move(p);
     }
 
 protected:
@@ -245,9 +269,12 @@ LspTooltip::LspTooltip()
 
 void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v)
 {
+    if (text.isEmpty())
+        return;
+
     Tooltip::self()->setView(v);
     Tooltip::self()->setTooltipText(text);
-    Tooltip::self()->move(pos);
+    Tooltip::self()->place(pos);
     Tooltip::self()->show();
 }
 

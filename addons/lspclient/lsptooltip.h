@@ -1,3 +1,9 @@
+/*  SPDX-License-Identifier: MIT
+
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+
+    SPDX-License-Identifier: MIT
+*/
 #ifndef LSPTOOLTIP_H
 #define LSPTOOLTIP_H
 

@@ -233,6 +233,7 @@ private:
     class QLineEdit *lePrefix;
     class QCheckBox *cbSetEditor;
     class QCheckBox *cbSetEscHideKonsole;
+    class QLineEdit *leEscExceptions;
     KateKonsolePlugin *mPlugin;
 
 private Q_SLOTS:

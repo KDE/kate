@@ -474,19 +474,21 @@ void KateConsole::handleEsc(QEvent *e)
         return;
     }
 
+    QString exceptString = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", QStringLiteral("vi,vim,nvim"));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    const auto exceptList = exceptString.split(QLatin1Char(','), Qt::SkipEmptyParts);
+#else
+    const auto exceptList = exceptString.split(QLatin1Char(','), QString::SkipEmptyParts);
+#endif
+
     if (!m_mw || !m_part || !m_toolView || !e) {
         return;
     }
 
-    auto notInBlockEscApps = [](QStringView app) {
-        static const QLatin1String blockEscApps[] = {QLatin1String("vi"), QLatin1String("vim"), QLatin1String("nvim")};
-        return std::find(std::begin(blockEscApps), std::end(blockEscApps), app) == std::end(blockEscApps);
-    };
-
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
-        auto name = qobject_cast<TerminalInterface *>(m_part)->foregroundProcessName();
-        if (m_toolView && m_toolView->isVisible() && notInBlockEscApps(name)) {
+        const auto app = qobject_cast<TerminalInterface *>(m_part)->foregroundProcessName();
+        if (m_toolView && m_toolView->isVisible() && !exceptList.contains(app)) {
             m_mw->hideToolView(m_toolView);
         }
     }
@@ -540,8 +542,13 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
 
     cbSetEscHideKonsole = new QCheckBox(i18n("Hide Konsole on pressing 'Esc'"));
     lo->addWidget(cbSetEscHideKonsole);
-    QLabel *hideKonsoleLabel = new QLabel(i18n("This may cause issues with terminal apps that use Esc key, for e.g., vim"), this);
+    QLabel *hideKonsoleLabel =
+        new QLabel(i18n("This may cause issues with terminal apps that use Esc key, for e.g., vim. Add these apps in the input below (Comma separated list)"),
+                   this);
     lo->addWidget(hideKonsoleLabel);
+
+    leEscExceptions = new QLineEdit(this);
+    lo->addWidget(leEscExceptions);
 
     reset();
     lo->addStretch();
@@ -551,6 +558,7 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
     connect(lePrefix, &QLineEdit::textChanged, this, &KateKonsoleConfigPage::changed);
     connect(cbSetEditor, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
     connect(cbSetEscHideKonsole, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
+    connect(leEscExceptions, &QLineEdit::textChanged, this, &KateKonsoleConfigPage::changed);
 }
 
 void KateKonsoleConfigPage::slotEnableRunWarning()
@@ -581,6 +589,7 @@ void KateKonsoleConfigPage::apply()
     config.writeEntry("RunPrefix", lePrefix->text());
     config.writeEntry("SetEditor", cbSetEditor->isChecked());
     config.writeEntry("KonsoleEscKeyBehaviour", cbSetEscHideKonsole->isChecked());
+    config.writeEntry("KonsoleEscKeyExceptions", leEscExceptions->text());
     config.sync();
     mPlugin->readConfig();
 }
@@ -593,6 +602,7 @@ void KateKonsoleConfigPage::reset()
     lePrefix->setText(config.readEntry("RunPrefix", ""));
     cbSetEditor->setChecked(config.readEntry("SetEditor", false));
     cbSetEscHideKonsole->setChecked(config.readEntry("KonsoleEscKeyBehaviour", true));
+    leEscExceptions->setText(config.readEntry("KonsoleEscKeyExceptions", "vi,vim,nvim"));
 }
 
 #include "kateconsole.moc"

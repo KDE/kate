@@ -61,8 +61,6 @@ KateApp::KateApp(const QCommandLineParser &args)
     connect(&m_docManager, &KateDocManager::documentCreated, &m_wrapper, &KTextEditor::Application::documentCreated);
     connect(&m_docManager, &KateDocManager::documentWillBeDeleted, &m_wrapper, &KTextEditor::Application::documentWillBeDeleted);
     connect(&m_docManager, &KateDocManager::documentDeleted, &m_wrapper, &KTextEditor::Application::documentDeleted);
-    connect(&m_docManager, &KateDocManager::aboutToCreateDocuments, &m_wrapper, &KTextEditor::Application::aboutToCreateDocuments);
-    connect(&m_docManager, &KateDocManager::documentsCreated, &m_wrapper, &KTextEditor::Application::documentsCreated);
 
     /**
      * handle mac os x like file open request via event filter

@@ -819,28 +819,6 @@ void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
     updateBackgrounds();
 }
 
-void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &docs)
-{
-    for (const KTextEditor::Document *doc : docs) {
-        disconnect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
-        disconnect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
-        disconnect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
-        // clang-format off
-        disconnect(doc,
-                   SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-                   this,
-                   SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
-        // clang-format on
-    }
-}
-
-void KateFileTreeModel::slotDocumentsDeleted(const QList<KTextEditor::Document *> &docs)
-{
-    for (const KTextEditor::Document *doc : docs) {
-        connectDocument(doc);
-    }
-}
-
 class EditViewCount
 {
 public:
@@ -941,6 +919,16 @@ void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
 
 void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
 {
+    disconnect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
+    disconnect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);
+    disconnect(doc, &KTextEditor::Document::modifiedChanged, this, &KateFileTreeModel::documentModifiedChanged);
+    // clang-format off
+    disconnect(doc,
+                SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+                this,
+                SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+    // clang-format on
+
     if (!m_docmap.contains(doc)) {
         return;
     }

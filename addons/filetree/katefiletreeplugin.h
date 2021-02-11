@@ -8,6 +8,7 @@
 #define KATE_FILETREE_PLUGIN_H
 
 #include <QIcon>
+#include <QTimer>
 
 #include <KTextEditor/Command>
 #include <KTextEditor/Plugin>
@@ -108,9 +109,10 @@ private:
     QLineEdit *m_filter;
     KateFileTreeModel *m_documentModel;
     bool m_hasLocalPrefs = false;
-    bool m_loadingDocuments;
     KateFileTreePlugin *m_plug;
     KTextEditor::MainWindow *m_mainWindow;
+    QTimer m_documentsCreatedTimer;
+    QList<KTextEditor::Document *> m_documentsCreated;
 
 private Q_SLOTS:
     void showToolView();
@@ -122,8 +124,7 @@ private Q_SLOTS:
     void documentClosed(KTextEditor::Document *);
     void viewModeChanged(bool);
     void sortRoleChanged(int);
-    void slotAboutToCreateDocuments();
-    void slotDocumentsCreated(const QList<KTextEditor::Document *> &);
+    void slotDocumentsCreated();
     void slotDocumentSave() const;
     void slotDocumentSaveAs() const;
 };

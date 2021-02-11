@@ -545,25 +545,11 @@ void FileTreeModelTest::deleteDocumentBatch()
         m.documentOpened(doc);
     }
 
-    QList<KTextEditor::Document *> removing;
-    for (const int &index : remove) {
-        removing << documents[index];
-    }
-
-    m.slotAboutToDeleteDocuments(removing);
-
     for (const int &index : remove) {
         if (!fail.contains(index)) {
             m.documentClosed(documents[index]);
         }
     }
-
-    removing.clear();
-    for (const int &index : fail) {
-        removing << documents[index];
-    }
-
-    m.slotDocumentsDeleted(removing);
 
     ResultNode root;
     walkTree(m, QModelIndex(), root);

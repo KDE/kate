@@ -113,7 +113,6 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor &viewShad
 // BEGIN KateFileTreePluginView
 KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWindow, KateFileTreePlugin *plug)
     : QObject(mainWindow)
-    , m_loadingDocuments(false)
     , m_plug(plug)
     , m_mainWindow(mainWindow)
 {
@@ -172,21 +171,11 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
             &KateFileTreeModel::documentClosed);
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KateFileTreePluginView::documentOpened);
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentWillBeDeleted, this, &KateFileTreePluginView::documentClosed);
-    connect(KTextEditor::Editor::instance()->application(),
-            &KTextEditor::Application::aboutToCreateDocuments,
-            this,
-            &KateFileTreePluginView::slotAboutToCreateDocuments);
 
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentsCreated, this, &KateFileTreePluginView::slotDocumentsCreated);
-
-    connect(KTextEditor::Editor::instance()->application(),
-            &KTextEditor::Application::aboutToDeleteDocuments,
-            m_documentModel,
-            &KateFileTreeModel::slotAboutToDeleteDocuments);
-    connect(KTextEditor::Editor::instance()->application(),
-            &KTextEditor::Application::documentsDeleted,
-            m_documentModel,
-            &KateFileTreeModel::slotDocumentsDeleted);
+    // delayed update for new documents to be more efficient if multiple ones are created at once
+    m_documentsCreatedTimer.setSingleShot(true);
+    m_documentsCreatedTimer.setInterval(0);
+    connect(&m_documentsCreatedTimer, &QTimer::timeout, this, &KateFileTreePluginView::slotDocumentsCreated);
 
     connect(m_documentModel, &KateFileTreeModel::triggerViewChangeAfterNameChange, [=] {
         KateFileTreePluginView::viewChanged();
@@ -302,17 +291,14 @@ KateFileTree *KateFileTreePluginView::tree() const
 
 void KateFileTreePluginView::documentOpened(KTextEditor::Document *doc)
 {
-    if (m_loadingDocuments) {
-        return;
-    }
-
-    m_documentModel->documentOpened(doc);
-    m_proxyModel->invalidate();
+    // enqueue and start update timer to collapse updates
+    m_documentsCreatedTimer.start();
+    m_documentsCreated.append(doc);
 }
 
 void KateFileTreePluginView::documentClosed(KTextEditor::Document *doc)
 {
-    Q_UNUSED(doc);
+    m_documentsCreated.removeAll(doc);
     m_proxyModel->invalidate();
 }
 
@@ -433,15 +419,11 @@ void KateFileTreePluginView::writeSessionConfig(KConfigGroup &g)
     g.sync();
 }
 
-void KateFileTreePluginView::slotAboutToCreateDocuments()
+void KateFileTreePluginView::slotDocumentsCreated()
 {
-    m_loadingDocuments = true;
-}
-
-void KateFileTreePluginView::slotDocumentsCreated(const QList<KTextEditor::Document *> &docs)
-{
-    m_documentModel->documentsOpened(docs);
-    m_loadingDocuments = false;
+    // handle potential multiple new documents
+    m_documentModel->documentsOpened(m_documentsCreated);
+    m_documentsCreated.clear();
     viewChanged();
 }
 

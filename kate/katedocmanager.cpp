@@ -133,15 +133,9 @@ KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
 QList<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
 {
     QList<KTextEditor::Document *> docs;
-
-    emit aboutToCreateDocuments();
-
     for (const QUrl &url : urls) {
         docs << openUrl(url, encoding, isTempFile, docInfo);
     }
-
-    emit documentsCreated(docs);
-
     return docs;
 }
 

@@ -9,10 +9,9 @@
 #ifndef LSPCLIENTHOVER_H
 #define LSPCLIENTHOVER_H
 
-#include "lspclientserver.h"
-#include "lspclientservermanager.h"
+class LSPClientServerManager;
+class LSPClientServer;
 
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/TextHintInterface>
 
 class LSPClientHover : public QObject, public KTextEditor::TextHintProvider

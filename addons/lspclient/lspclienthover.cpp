@@ -7,17 +7,14 @@
 */
 
 #include "lspclienthover.h"
-#include "lspclientplugin.h"
 #include "lsptooltip.h"
-
-#include "lspclient_debug.h"
 
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-#include <QToolTip>
-#include <utility>
+#include "lspclientserver.h"
+#include "lspclientservermanager.h"
 
 class LSPClientHoverImpl : public LSPClientHover
 {

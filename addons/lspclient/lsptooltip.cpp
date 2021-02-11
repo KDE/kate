@@ -171,8 +171,8 @@ public:
             return;
 
         hl.setText(text);
-        resizeTip(text);
         setHtml(hl.html());
+        resizeTip(text);
     }
 
     void setView(KTextEditor::View *view)
@@ -197,7 +197,7 @@ public:
         : QTextBrowser(parent)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
-        document()->setDocumentMargin(2);
+        document()->setDocumentMargin(5);
         setFrameStyle(QFrame::Box);
         connect(&m_hideTimer, &QTimer::timeout, this, &Tooltip::hideTooltip);
 
@@ -259,7 +259,17 @@ public:
     {
         QFontMetrics fm(font());
         QSize size = fm.size(0, text);
-        size.setHeight(std::min(size.height(), m_view->height() / 3));
+
+        // make sure we have the correct height
+        // size above gives us correct width but not
+        // correct height
+        qreal totalHeight = document()->size().height();
+        // add +1 line height to prevent scrollbar from appearing with small
+        // tooltips
+        int lineHeight = totalHeight / document()->lineCount();
+        const int height = totalHeight + lineHeight;
+
+        size.setHeight(std::min(height, m_view->height() / 3));
         size.setWidth(std::min(size.width(), m_view->width() / 2));
         resize(size);
     }

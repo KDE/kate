@@ -58,6 +58,10 @@ public:
      */
     QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
     {
+        if (!position.isValid()) {
+            return {};
+        }
+
         // hack: delayed handling of tooltip on our own, the API is too dumb for a-sync feedback ;=)
         if (m_server) {
             QPointer<KTextEditor::View> v(view);
@@ -75,17 +79,16 @@ public:
                     finalTooltip.append(element.value);
                 }
 
-                //                // we need to cut this a bit if too long until we have
-                //                // something more sophisticated than a tool tip for it
-                //                if (finalTooltip.size() > 512) {
-                //                    finalTooltip.resize(512);
-                //                    finalTooltip.append(QStringLiteral("..."));
-                //                }
-
                 m_tooltip.show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v);
             };
 
-            m_handle.cancel() = m_server->documentHover(view->document()->url(), position, this, h);
+            if (view && view->document()) {
+                auto doc = view->document();
+                if (doc->wordAt(position).isEmpty()) {
+                    return {};
+                }
+                m_handle.cancel() = m_server->documentHover(view->document()->url(), position, this, h);
+            }
         }
 
         return QString();

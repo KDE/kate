@@ -27,7 +27,6 @@ class LSPClientHoverImpl : public LSPClientHover
 
     QSharedPointer<LSPClientServerManager> m_manager;
     QSharedPointer<LSPClientServer> m_server;
-    LspTooltip m_tooltip;
 
     LSPClientServer::RequestHandle m_handle;
 
@@ -65,7 +64,7 @@ public:
         // hack: delayed handling of tooltip on our own, the API is too dumb for a-sync feedback ;=)
         if (m_server) {
             QPointer<KTextEditor::View> v(view);
-            auto h = [this, v, position](const LSPHover &info) {
+            auto h = [v, position](const LSPHover &info) {
                 if (!v || info.contents.isEmpty()) {
                     return;
                 }
@@ -79,7 +78,7 @@ public:
                     finalTooltip.append(element.value);
                 }
 
-                m_tooltip.show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v);
+                LspTooltip::show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v);
             };
 
             if (view && view->document()) {

@@ -15,11 +15,7 @@ class View;
 class LspTooltip
 {
 public:
-    LspTooltip();
-    void show(const QString &text, QPoint pos, KTextEditor::View *v);
-
-private:
-    Tooltip *m_tooltip;
+    static void show(const QString &text, QPoint pos, KTextEditor::View *v);
 };
 
 #endif // LSPTOOLTIP_H

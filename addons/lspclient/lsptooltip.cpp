@@ -4,17 +4,13 @@
 #include <QEvent>
 #include <QFontMetrics>
 #include <QLabel>
-#include <QLayout>
 #include <QMouseEvent>
 #include <QString>
-#include <QStyle>
 #include <QTextBrowser>
 #include <QTimer>
-#include <QWidget>
 
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
 #include <KSyntaxHighlighting/AbstractHighlighter>
@@ -48,7 +44,7 @@ class HtmlHl : public AbstractHighlighter
 {
 public:
     HtmlHl()
-        : out(&strout)
+        : out(&outputString)
     {
     }
 
@@ -56,9 +52,11 @@ public:
     {
         text = txt;
         QTextStream in(&text);
-        KSyntaxHighlighting::State state;
+
         out.reset();
-        strout.clear();
+        outputString.clear();
+
+        KSyntaxHighlighting::State state;
         bool li = false;
         while (!in.atEnd()) {
             currentLine = in.readLine();
@@ -86,11 +84,11 @@ public:
         }
     }
 
-    QString html()
+    QString html() const
     {
         //        while (!out.atEnd())
         //            qWarning() << out.readLine();
-        return strout;
+        return outputString;
     }
 
 protected:
@@ -99,18 +97,14 @@ protected:
         if (!length)
             return;
 
-        QVarLengthArray<QString, 1> formatOutput;
+        QString formatOutput;
 
         if (format.hasTextColor(theme())) {
-            formatOutput << toHtmlRgbaString(format.textColor(theme())) << QStringLiteral(";");
+            formatOutput = toHtmlRgbaString(format.textColor(theme()));
         }
 
         if (!formatOutput.isEmpty()) {
-            out << "<span style=\"color:";
-            for (const auto &o : qAsConst(formatOutput)) {
-                out << o;
-            }
-            out << "\">";
+            out << "<span style=\"color:" << formatOutput << "\">";
         }
 
         out << currentLine.mid(offset, length).toHtmlEscaped();
@@ -123,7 +117,7 @@ protected:
 private:
     QString text;
     QString currentLine;
-    QString strout;
+    QString outputString;
     QTextStream out;
 };
 
@@ -262,10 +256,6 @@ private:
     HtmlHl hl;
     KSyntaxHighlighting::Repository r;
 };
-
-LspTooltip::LspTooltip()
-{
-}
 
 void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v)
 {

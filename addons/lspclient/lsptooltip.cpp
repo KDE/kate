@@ -6,11 +6,13 @@
 */
 #include "lsptooltip.h"
 
+#include <QApplication>
 #include <QDebug>
 #include <QEvent>
 #include <QFontMetrics>
 #include <QLabel>
 #include <QMouseEvent>
+#include <QScreen>
 #include <QString>
 #include <QTextBrowser>
 #include <QTimer>
@@ -264,18 +266,21 @@ public:
 
     void place(QPoint p)
     {
-        if (p.x() + width() > m_view->x() + m_view->width())
+        QRect screen = QApplication::screenAt(p)->availableGeometry();
+
+        if (p.x() + width() > screen.x() + screen.width())
             p.rx() -= 4 + width();
-        if (p.y() + this->height() > m_view->y() + m_view->height())
+        if (p.y() + this->height() > screen.y() + screen.height())
             p.ry() -= 24 + this->height();
-        if (p.y() < m_view->y())
-            p.setY(m_view->y());
-        if (p.x() + this->width() > m_view->x() + m_view->width())
-            p.setX(m_view->x() + m_view->width() - this->width());
-        if (p.x() < m_view->x())
-            p.setX(m_view->x());
-        if (p.y() + this->height() > m_view->y() + m_view->height())
-            p.setY(m_view->y() + m_view->height() - this->height());
+        if (p.y() < screen.y())
+            p.setY(screen.y());
+        if (p.x() + this->width() > screen.x() + screen.width())
+            p.setX(screen.x() + screen.width() - this->width());
+        if (p.x() < screen.x())
+            p.setX(screen.x());
+        if (p.y() + this->height() > screen.y() + screen.height())
+            p.setY(screen.y() + screen.height() - this->height());
+
         this->move(p);
     }
 

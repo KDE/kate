@@ -470,7 +470,11 @@ void KateConsole::readConfig()
 
 void KateConsole::handleEsc(QEvent *e)
 {
-    if (!m_mw) {
+    if (!KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyBehaviour", true)) {
+        return;
+    }
+
+    if (!m_mw || !m_part || !m_toolView || !e) {
         return;
     }
 
@@ -482,7 +486,7 @@ void KateConsole::handleEsc(QEvent *e)
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         auto name = qobject_cast<TerminalInterface *>(m_part)->foregroundProcessName();
-        if (m_toolView->isVisible() && notInBlockEscApps(name)) {
+        if (m_toolView && m_toolView->isVisible() && notInBlockEscApps(name)) {
             m_mw->hideToolView(m_toolView);
         }
     }
@@ -533,12 +537,20 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
     QLabel *tmp = new QLabel(this);
     tmp->setText(i18n("Important: The document has to be closed to make the console application continue"));
     lo->addWidget(tmp);
+
+    cbSetEscHideKonsole = new QCheckBox(i18n("Hide Konsole on pressing 'Esc'"));
+    lo->addWidget(cbSetEscHideKonsole);
+    QLabel *hideKonsoleLabel = new QLabel(i18n("This may cause issues with terminal apps that use Esc key, for e.g., vim"), this);
+    lo->addWidget(hideKonsoleLabel);
+
     reset();
     lo->addStretch();
+
     connect(cbAutoSyncronize, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
     connect(cbRemoveExtension, &QCheckBox::stateChanged, this, &KTextEditor::ConfigPage::changed);
     connect(lePrefix, &QLineEdit::textChanged, this, &KateKonsoleConfigPage::changed);
     connect(cbSetEditor, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
+    connect(cbSetEscHideKonsole, &QCheckBox::stateChanged, this, &KateKonsoleConfigPage::changed);
 }
 
 void KateKonsoleConfigPage::slotEnableRunWarning()
@@ -568,6 +580,7 @@ void KateKonsoleConfigPage::apply()
     config.writeEntry("RemoveExtension", cbRemoveExtension->isChecked());
     config.writeEntry("RunPrefix", lePrefix->text());
     config.writeEntry("SetEditor", cbSetEditor->isChecked());
+    config.writeEntry("KonsoleEscKeyBehaviour", cbSetEscHideKonsole->isChecked());
     config.sync();
     mPlugin->readConfig();
 }
@@ -579,8 +592,9 @@ void KateKonsoleConfigPage::reset()
     cbRemoveExtension->setChecked(config.readEntry("RemoveExtension", false));
     lePrefix->setText(config.readEntry("RunPrefix", ""));
     cbSetEditor->setChecked(config.readEntry("SetEditor", false));
+    cbSetEscHideKonsole->setChecked(config.readEntry("KonsoleEscKeyBehaviour", true));
 }
 
 #include "kateconsole.moc"
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+// kate: space-indent on; indent-width 4; replace-tabs on;

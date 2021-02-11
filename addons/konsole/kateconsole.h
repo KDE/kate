@@ -232,6 +232,7 @@ private:
     class QCheckBox *cbRemoveExtension;
     class QLineEdit *lePrefix;
     class QCheckBox *cbSetEditor;
+    class QCheckBox *cbSetEscHideKonsole;
     KateKonsolePlugin *mPlugin;
 
 private Q_SLOTS:

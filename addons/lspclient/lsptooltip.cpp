@@ -224,7 +224,7 @@ public:
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
     }
 
-    bool eventFilter(QObject *o, QEvent *e) override
+    bool eventFilter(QObject *, QEvent *e) override
     {
         switch (e->type()) {
         case QEvent::KeyPress:

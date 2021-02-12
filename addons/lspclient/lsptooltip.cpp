@@ -201,7 +201,7 @@ public:
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         document()->setDocumentMargin(5);
-        setFrameStyle(QFrame::Box);
+        setFrameStyle(QFrame::Box | QFrame::Raised);
         connect(&m_hideTimer, &QTimer::timeout, this, &Tooltip::hideTooltip);
 
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -217,13 +217,6 @@ public:
             const QColor normal = theme.textColor(KSyntaxHighlighting::Theme::Normal);
             pal.setColor(QPalette::Text, normal);
             setPalette(pal);
-
-            this->setStyleSheet(QStringLiteral("Tooltip{"
-                                               "border-left: 1px solid %1;"
-                                               "border-top: 1px solid %1;"
-                                               "border-bottom: 1px solid %1;"
-                                               "}")
-                                    .arg(normal.name()));
 
             updateFont();
         };

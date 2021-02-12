@@ -3629,6 +3629,13 @@ not be able to continue using the terminal until you have closed the file in &ka
 so the calling program is aware you have finished editing the file.</para></listitem>
 </varlistentry>
 
+<varlistentry>
+<term><guilabel>Hide &konsole; on pressing 'Esc'</guilabel></term>
+<listitem><para>This allows the built-in terminal by pressing the &Esc; key. May cause issues with terminal apps
+that use &Esc; key, &eg; <application>vim</application>. Add such applications in the text input box below.
+The items in the list should be separated with comma.</para></listitem>
+</varlistentry>
+
 </variablelist>
 </sect2>
 

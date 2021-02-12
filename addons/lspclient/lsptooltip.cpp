@@ -227,6 +227,11 @@ public:
             break;
         case QEvent::WindowActivate:
         case QEvent::WindowDeactivate:
+        case QEvent::FocusOut:
+        case QEvent::FocusIn:
+            if (!inContextMenu)
+                hideTooltip();
+            break;
         case QEvent::MouseButtonPress:
         case QEvent::MouseButtonRelease:
         case QEvent::MouseButtonDblClick:
@@ -234,6 +239,7 @@ public:
             if (!rect().contains(static_cast<QMouseEvent *>(e)->pos())) {
                 hideTooltip();
             }
+            break;
         default:
             break;
         }
@@ -303,13 +309,14 @@ protected:
 
     void enterEvent(QEvent *event) override
     {
+        inContextMenu = false;
         m_hideTimer.stop();
         return QTextBrowser::enterEvent(event);
     }
 
     void leaveEvent(QEvent *event) override
     {
-        if (!m_hideTimer.isActive()) {
+        if (!m_hideTimer.isActive() && !inContextMenu) {
             hideTooltip();
         }
         return QTextBrowser::leaveEvent(event);
@@ -324,7 +331,14 @@ protected:
         hideTooltip();
     }
 
+    void contextMenuEvent(QContextMenuEvent *e) override
+    {
+        inContextMenu = true;
+        return QTextBrowser::contextMenuEvent(e);
+    }
+
 private:
+    bool inContextMenu = false;
     KTextEditor::View *m_view;
     QTimer m_hideTimer;
     HtmlHl hl;

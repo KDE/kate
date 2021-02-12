@@ -181,15 +181,18 @@ public:
         // => update definition
         // => update font
         if (view != m_view) {
-            if (m_view) {
+            if (m_view && m_view->focusProxy()) {
                 m_view->focusProxy()->removeEventFilter(this);
             }
 
             m_view = view;
+
             hl.setDefinition(r.definitionForFileName(view->document()->url().toString()));
             updateFont();
 
-            m_view->focusProxy()->installEventFilter(this);
+            if (m_view && m_view->focusProxy()) {
+                m_view->focusProxy()->installEventFilter(this);
+            }
         }
     }
 
@@ -209,8 +212,18 @@ public:
             hl.setTheme(theme);
 
             auto pal = palette();
-            pal.setColor(QPalette::Base, theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+            const QColor bg = theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
+            pal.setColor(QPalette::Base, bg);
+            const QColor normal = theme.textColor(KSyntaxHighlighting::Theme::Normal);
+            pal.setColor(QPalette::Text, normal);
             setPalette(pal);
+
+            this->setStyleSheet(QStringLiteral("Tooltip{"
+                                               "border-left: 1px solid %1;"
+                                               "border-top: 1px solid %1;"
+                                               "border-bottom: 1px solid %1;"
+                                               "}")
+                                    .arg(normal.name()));
 
             updateFont();
         };
@@ -349,6 +362,10 @@ void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v)
 {
     if (text.isEmpty())
         return;
+
+    if (!v || !v->document()) {
+        return;
+    }
 
     Tooltip::self()->setView(v);
     Tooltip::self()->setTooltipText(text);

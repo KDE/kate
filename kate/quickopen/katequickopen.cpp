@@ -47,11 +47,6 @@ public:
     {
     }
 
-    void changeMode(FilterModes m)
-    {
-        mode = m;
-    }
-
 protected:
     bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
     {
@@ -71,11 +66,7 @@ protected:
 
         int score = 0;
         bool res = false;
-        if (mode == FilterMode::FilterByName) {
-            res = filterByName(name, score);
-        } else if (mode == FilterMode::FilterByPath) {
-            res = filterByPath(path, score);
-        } else {
+        {
             int scorep = 0, scoren = 0;
             bool resn = filterByName(name, scoren);
 
@@ -116,7 +107,6 @@ private:
 
 private:
     QString pattern;
-    FilterModes mode;
 };
 
 class QuickOpenStyleDelegate : public QStyledItemDelegate
@@ -141,26 +131,21 @@ public:
 
         const QString nameColor = option.palette.color(QPalette::Link).name();
 
-        if (mode == FilterMode::FilterByName) {
-            kfts::to_scored_fuzzy_matched_display_string(
-                m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
-        } else if (mode == FilterMode::FilterByPath) {
-            kfts::to_scored_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
+        // check if there's a / separtion in filter string
+        // if there is, we use the last part to highlight the
+        // filename
+        int pos = m_filterString.lastIndexOf(QLatin1Char('/'));
+        if (pos > -1) {
+            ++pos;
+            auto pattern = m_filterString.midRef(pos);
+            kfts::to_scored_fuzzy_matched_display_string(pattern, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
         } else {
-            // check if there's a / separtion in filter string
-            // if there is, we use the last part to highlight the
-            // filename
-            int pos = m_filterString.lastIndexOf(QLatin1Char('/'));
-            if (pos > -1) {
-                ++pos;
-                auto pattern = m_filterString.midRef(pos);
-                kfts::to_scored_fuzzy_matched_display_string(pattern, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
-            } else {
-                kfts::to_scored_fuzzy_matched_display_string(
-                    m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
-            }
-            kfts::to_scored_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
+            kfts::to_scored_fuzzy_matched_display_string(m_filterString,
+                                                         name,
+                                                         QStringLiteral("<b style=\"color:%1;\">").arg(nameColor),
+                                                         QStringLiteral("</b>"));
         }
+        kfts::to_scored_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
 
         const auto pathFontsize = option.font.pointSize();
         doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize) + name + QStringLiteral("</span>") + QStringLiteral(" &nbsp;")
@@ -189,11 +174,6 @@ public:
         painter->restore();
     }
 
-    void changeMode(FilterModes m)
-    {
-        mode = m;
-    }
-
 public Q_SLOTS:
     void setFilterString(const QString &text)
     {
@@ -202,7 +182,6 @@ public Q_SLOTS:
 
 private:
     QString m_filterString;
-    FilterModes mode;
 };
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
@@ -246,7 +225,6 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
         reselectFirst(); // hacky way
     });
     connect(m_inputLine, &QuickOpenLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
-    connect(m_inputLine, &QuickOpenLineEdit::filterModeChanged, this, &KateQuickOpen::slotfilterModeChanged);
     connect(m_inputLine, &QuickOpenLineEdit::listModeChanged, this, &KateQuickOpen::slotListModeChanged);
 
     connect(m_listView, &QTreeView::activated, this, &KateQuickOpen::slotReturnPressed);
@@ -264,8 +242,6 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
 
     setHidden(true);
 
-    // restore settings
-    slotfilterModeChanged(m_inputLine->filterMode());
     slotListModeChanged(m_inputLine->listMode());
 
     // fill stuff
@@ -277,7 +253,6 @@ KateQuickOpen::~KateQuickOpen()
     KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
     KConfigGroup cg(cfg, "General");
 
-    cg.writeEntry("Quickopen Filter Mode", static_cast<int>(m_filterMode));
     cg.writeEntry("Quickopen List Mode", m_base_model->listMode() == KateQuickOpenModelList::CurrentProject);
 }
 
@@ -351,14 +326,6 @@ void KateQuickOpen::slotReturnPressed()
     hide();
     m_mainWindow->slotWindowActivated();
     m_inputLine->clear();
-}
-
-void KateQuickOpen::slotfilterModeChanged(FilterModes mode)
-{
-    m_filterMode = mode;
-    m_model->changeMode(mode);
-    m_styleDelegate->changeMode(mode);
-    m_model->invalidate();
 }
 
 void KateQuickOpen::slotListModeChanged(KateQuickOpenModel::List mode)

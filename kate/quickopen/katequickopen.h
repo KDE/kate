@@ -50,8 +50,6 @@ private Q_SLOTS:
      */
     void slotReturnPressed();
 
-    void slotfilterModeChanged(FilterModes mode);
-
     void slotListModeChanged(KateQuickOpenModelList mode);
 
 private:
@@ -59,7 +57,6 @@ private:
     QTreeView *m_listView;
     QuickOpenLineEdit *m_inputLine;
     QuickOpenStyleDelegate *m_styleDelegate;
-    FilterModes m_filterMode;
 
     /**
      * our model we search in

@@ -12,23 +12,11 @@
 
 #include "katequickopenmodel.h"
 
-enum FilterMode : uint8_t {
-    FilterByName = 0x01, /* By File Name */
-    FilterByPath = 0x02 /* By File Path */
-};
-Q_DECLARE_FLAGS(FilterModes, FilterMode)
-Q_FLAGS(FilterModes)
-
 class QuickOpenLineEdit : public QLineEdit
 {
     Q_OBJECT
 public:
     explicit QuickOpenLineEdit(QWidget *parent);
-
-    FilterModes filterMode() const
-    {
-        return m_mode;
-    }
 
     KateQuickOpenModelList listMode() const
     {
@@ -43,11 +31,9 @@ private:
 
 private:
     std::unique_ptr<QMenu> menu;
-    FilterModes m_mode;
     KateQuickOpenModelList m_listMode;
 
 Q_SIGNALS:
-    void filterModeChanged(FilterModes mode);
     void listModeChanged(KateQuickOpenModelList mode);
 };
 

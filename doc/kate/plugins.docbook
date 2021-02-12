@@ -3631,7 +3631,7 @@ so the calling program is aware you have finished editing the file.</para></list
 
 <varlistentry>
 <term><guilabel>Hide &konsole; on pressing 'Esc'</guilabel></term>
-<listitem><para>This allows the built-in terminal by pressing the &Esc; key. May cause issues with terminal apps
+<listitem><para>This allows closing the built-in terminal by pressing the &Esc; key. May cause issues with terminal applications
 that use &Esc; key, &eg; <application>vim</application>. Add such applications in the text input box below.
 The items in the list should be separated with comma.</para></listitem>
 </varlistentry>

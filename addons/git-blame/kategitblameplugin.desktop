@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KTextEditor/Plugin
+X-KDE-Library=kategitblameplugin
+Name=Git Blame
+Name[x-test]=xxGit Blamexx
+Comment=Adds an inline git-blame preview at the end of the line
+Comment[x-test]=xxAdds an inline git-blame preview at the end of the linexx

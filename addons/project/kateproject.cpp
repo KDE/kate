@@ -13,6 +13,8 @@
 
 #include <ktexteditor/document.h>
 
+#include <json_utils.h>
+
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -71,12 +73,17 @@ bool KateProject::reload(bool force)
     return load(m_globalProject, force);
 }
 
-QVariantMap KateProject::readProjectFile() const
+/**
+ * Read a JSON document from file.
+ *
+ * In case of an error, the returned object verifies isNull() is true.
+ */
+QJsonDocument KateProject::readJSONFile(const QString &fileName)
 {
-    QFile file(m_fileName);
+    QFile file(fileName);
 
-    if (!file.open(QFile::ReadOnly)) {
-        return QVariantMap();
+    if (!file.exists() || !file.open(QFile::ReadOnly)) {
+        return QJsonDocument();
     }
 
     /**
@@ -84,9 +91,20 @@ QVariantMap KateProject::readProjectFile() const
      */
     const QByteArray jsonData = file.readAll();
     QJsonParseError parseError{};
-    QJsonDocument project(QJsonDocument::fromJson(jsonData, &parseError));
+    QJsonDocument document(QJsonDocument::fromJson(jsonData, &parseError));
 
     if (parseError.error != QJsonParseError::NoError) {
+        return QJsonDocument();
+    }
+
+    return document;
+}
+
+QVariantMap KateProject::readProjectFile() const
+{
+    QJsonDocument project(readJSONFile(m_fileName));
+    // bail out on error
+    if (project.isNull()) {
         return QVariantMap();
     }
 
@@ -99,6 +117,15 @@ QVariantMap KateProject::readProjectFile() const
     if (project.isObject()) {
         auto dir = QFileInfo(m_fileName).dir();
         auto object = project.object();
+
+        // if there are local settings (.kateproject.local), override values
+        {
+            const auto localSettings = readJSONFile(projectLocalFileName(QStringLiteral("local")));
+            if (!localSettings.isNull() && localSettings.isObject()) {
+                object = json::merge(object, localSettings.object());
+            }
+        }
+
         auto name = object[QStringLiteral("name")];
         if (name.isUndefined() || name.isNull()) {
             name = dir.dirName();

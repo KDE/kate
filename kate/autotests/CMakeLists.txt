@@ -23,4 +23,5 @@ kate_executable_tests(
   session_manager_test
   sessions_action_test
   urlinfo_test
+  json_utils_test
 )

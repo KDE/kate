@@ -30,6 +30,8 @@
 #include <QTime>
 #include <QTimer>
 
+#include <json_utils.h>
+
 // helper to find a proper root dir for the given document & file name that indicate the root dir
 static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *document, const QString &rootIndicationFileName)
 {
@@ -62,27 +64,6 @@ static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *d
 
 #include <memory>
 
-// local helper;
-// recursively merge top json top onto bottom json
-static QJsonObject merge(const QJsonObject &bottom, const QJsonObject &top)
-{
-    QJsonObject result;
-    for (auto item = top.begin(); item != top.end(); item++) {
-        const auto &key = item.key();
-        if (item.value().isObject()) {
-            result.insert(key, merge(bottom.value(key).toObject(), item.value().toObject()));
-        } else {
-            result.insert(key, item.value());
-        }
-    }
-    // parts only in bottom
-    for (auto item = bottom.begin(); item != bottom.end(); item++) {
-        if (!result.contains(item.key())) {
-            result.insert(item.key(), item.value());
-        }
-    }
-    return result;
-}
 
 // helper guard to handle revision (un)lock
 struct RevisionGuard {
@@ -518,7 +499,7 @@ private:
 
         // merge with project specific
         auto projectConfig = QJsonDocument::fromVariant(projectMap).object().value(QStringLiteral("lspclient")).toObject();
-        auto serverConfig = merge(m_serverConfig, projectConfig);
+        auto serverConfig = json::merge(m_serverConfig, projectConfig);
 
         // locate server config
         QJsonValue config;
@@ -545,7 +526,7 @@ private:
         }
 
         // merge global settings
-        serverConfig = merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
+        serverConfig = json::merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
 
         QString rootpath;
         auto rootv = serverConfig.value(QStringLiteral("root"));
@@ -641,7 +622,7 @@ private:
                     auto json = QJsonDocument::fromJson(data, &error);
                     if (error.error == QJsonParseError::NoError) {
                         if (json.isObject()) {
-                            m_serverConfig = merge(m_serverConfig, json.object());
+                            m_serverConfig = json::merge(m_serverConfig, json.object());
                         } else {
                             showMessage(i18n("Failed to parse server configuration '%1': no JSON object", configPath), KTextEditor::Message::Error);
                         }

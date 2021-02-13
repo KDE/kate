@@ -113,7 +113,7 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
         editor = e;
     }
     editor->setAutoFillBackground(true);
-    emit sendEditStart();
+    Q_EMIT sendEditStart();
     connect(editor, &QWidget::destroyed, this, &TargetHtmlDelegate::editEnded);
     return editor;
 }

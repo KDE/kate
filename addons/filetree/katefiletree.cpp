@@ -16,18 +16,11 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
-#include <kio_version.h>
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-#include <KOpenWithDialog>
-#include <KRun>
-#else
-#include <KIO/ApplicationLauncherJob>
-#include <KIO/JobUiDelegate>
-#endif
-
 #include <KApplicationTrader>
+#include <KIO/ApplicationLauncherJob>
 #include <KIO/CopyJob>
 #include <KIO/DeleteJob>
+#include <KIO/JobUiDelegate>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -166,27 +159,27 @@ QAction *KateFileTree::setupOption(QActionGroup *group, const QIcon &icon, const
 
 void KateFileTree::slotListMode()
 {
-    emit viewModeChanged(true);
+    Q_EMIT viewModeChanged(true);
 }
 
 void KateFileTree::slotTreeMode()
 {
-    emit viewModeChanged(false);
+    Q_EMIT viewModeChanged(false);
 }
 
 void KateFileTree::slotSortName()
 {
-    emit sortRoleChanged(Qt::DisplayRole);
+    Q_EMIT sortRoleChanged(Qt::DisplayRole);
 }
 
 void KateFileTree::slotSortPath()
 {
-    emit sortRoleChanged(KateFileTreeModel::PathRole);
+    Q_EMIT sortRoleChanged(KateFileTreeModel::PathRole);
 }
 
 void KateFileTree::slotSortOpeningOrder()
 {
-    emit sortRoleChanged(KateFileTreeModel::OpeningOrderRole);
+    Q_EMIT sortRoleChanged(KateFileTreeModel::OpeningOrderRole);
 }
 
 void KateFileTree::slotCurrentChanged(const QModelIndex &current, const QModelIndex &previous)
@@ -205,7 +198,7 @@ void KateFileTree::slotCurrentChanged(const QModelIndex &current, const QModelIn
 void KateFileTree::mouseClicked(const QModelIndex &index)
 {
     if (auto doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>()) {
-        emit activateDocument(doc);
+        Q_EMIT activateDocument(doc);
     }
 }
 
@@ -315,31 +308,12 @@ void KateFileTree::slotOpenWithMenuAction(QAction *a)
 
     const QList<QUrl> list({doc->url()});
 
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-    const QString openWith = a->data().toString();
-    if (openWith.isEmpty()) {
-        // display "open with" dialog
-        KOpenWithDialog dlg(list);
-        if (dlg.exec()) {
-            KRun::runService(*dlg.service(), list, this);
-        }
-        return;
-    }
-
-    KService::Ptr app = KService::serviceByDesktopPath(openWith);
-    if (app) {
-        KRun::runService(*app, list, this);
-    } else {
-        KMessageBox::error(this, i18n("Application '%1' not found.", openWith), i18n("Application not found"));
-    }
-#else
     KService::Ptr app = KService::serviceByDesktopPath(a->data().toString());
     // If app is null, ApplicationLauncherJob will invoke the open-with dialog
     auto *job = new KIO::ApplicationLauncherJob(app);
     job->setUrls(list);
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
     job->start();
-#endif
 }
 
 Q_DECLARE_METATYPE(QList<KTextEditor::Document *>)
@@ -503,7 +477,7 @@ void KateFileTree::slotDocumentFirst()
 {
     KTextEditor::Document *doc = model()->data(model()->index(0, 0), KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
     if (doc) {
-        emit activateDocument(doc);
+        Q_EMIT activateDocument(doc);
     }
 }
 
@@ -512,7 +486,7 @@ void KateFileTree::slotDocumentLast()
     int count = model()->rowCount(model()->parent(currentIndex()));
     KTextEditor::Document *doc = model()->data(model()->index(count - 1, 0), KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
     if (doc) {
-        emit activateDocument(doc);
+        Q_EMIT activateDocument(doc);
     }
 }
 
@@ -586,7 +560,7 @@ void KateFileTree::slotDocumentPrev()
 
     if (prev.isValid()) {
         KTextEditor::Document *doc = model()->data(prev, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-        emit activateDocument(doc);
+        Q_EMIT activateDocument(doc);
     }
 }
 
@@ -660,7 +634,7 @@ void KateFileTree::slotDocumentNext()
 
     if (next.isValid()) {
         KTextEditor::Document *doc = model()->data(next, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-        emit activateDocument(doc);
+        Q_EMIT activateDocument(doc);
     }
 }
 

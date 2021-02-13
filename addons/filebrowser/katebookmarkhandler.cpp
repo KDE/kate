@@ -53,7 +53,7 @@ QString KateBookmarkHandler::currentTitle() const
 
 void KateBookmarkHandler::openBookmark(const KBookmark &bm, Qt::MouseButtons, Qt::KeyboardModifiers)
 {
-    emit openUrl(bm.url().url());
+    Q_EMIT openUrl(bm.url().url());
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

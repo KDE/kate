@@ -20,8 +20,6 @@
 #include <KDBusService>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kcoreaddons_version.h> // for KAboutData::setDesktopFileName()
-#include <kcrash_version.h>
 
 #include <QApplication>
 #include <QCommandLineParser>

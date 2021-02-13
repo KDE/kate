@@ -174,5 +174,5 @@ void KateFileTreeConfigPage::defaults()
 void KateFileTreeConfigPage::slotMyChanged()
 {
     m_changed = true;
-    emit changed();
+    Q_EMIT changed();
 }

@@ -104,7 +104,7 @@ bool TargetsUi::eventFilter(QObject *obj, QEvent *event)
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == targetsView) {
             if (((keyEvent->key() == Qt::Key_Return) || (keyEvent->key() == Qt::Key_Enter)) && m_delegate && !m_delegate->isEditing()) {
-                emit enterPressed();
+                Q_EMIT enterPressed();
                 return true;
             }
         }

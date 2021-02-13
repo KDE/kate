@@ -52,7 +52,6 @@
 
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>
-#include <ktexteditor_version.h>
 
 #include "SelectTargetView.h"
 
@@ -558,11 +557,7 @@ void KateBuildView::clearMarks()
 
 void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
 {
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
     KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
-#else
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
-#endif
     KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
     if (!iface || m_markedDocs.contains(doc)) {
         return;
@@ -600,12 +595,7 @@ void KateBuildView::addMarks(KTextEditor::Document *doc, bool mark)
             }
 
             if (markType) {
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
                 iface->setMarkIcon(markType, messageIcon(category));
-#else
-                const int ps = 32;
-                iface->setMarkPixmap(markType, messageIcon(category).pixmap(ps, ps));
-#endif
                 iface->addMark(line - 1, markType);
             }
             m_markedDocs.insert(doc, doc);

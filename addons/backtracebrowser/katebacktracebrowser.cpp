@@ -88,7 +88,7 @@ void KateBtBrowserPlugin::startIndexer()
     indexer.setSearchPaths(cg.readEntry("search-folders", QStringList()));
     indexer.setFilter(cg.readEntry("file-extensions", fileExtensions));
     indexer.start();
-    emit newStatus(i18n("Indexing files..."));
+    Q_EMIT newStatus(i18n("Indexing files..."));
 }
 
 int KateBtBrowserPlugin::configPages() const
@@ -335,7 +335,7 @@ void KateBtConfigWidget::add()
     if (url.exists()) {
         if (lstFolders->findItems(url.absolutePath(), Qt::MatchExactly).empty()) {
             lstFolders->addItem(url.absolutePath());
-            emit changed();
+            Q_EMIT changed();
             m_changed = true;
         }
     }
@@ -346,14 +346,14 @@ void KateBtConfigWidget::remove()
     QListWidgetItem *item = lstFolders->currentItem();
     if (item) {
         delete item;
-        emit changed();
+        Q_EMIT changed();
         m_changed = true;
     }
 }
 
 void KateBtConfigWidget::textChanged()
 {
-    emit changed();
+    Q_EMIT changed();
     m_changed = true;
 }
 

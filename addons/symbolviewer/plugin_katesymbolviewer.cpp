@@ -477,7 +477,7 @@ QIcon KatePluginSymbolViewerConfigPage::icon() const
 
 void KatePluginSymbolViewerConfigPage::apply()
 {
-    emit configPageApplyRequest(this);
+    Q_EMIT configPageApplyRequest(this);
 }
 // END KatePluginSymbolViewerConfigPage
 

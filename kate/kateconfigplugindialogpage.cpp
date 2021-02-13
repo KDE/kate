@@ -48,7 +48,7 @@ KatePluginListView::KatePluginListView(QWidget *parent)
 
 void KatePluginListView::stateChanged(QTreeWidgetItem *item)
 {
-    emit stateChange(static_cast<KatePluginListItem *>(item), item->checkState(0) == Qt::Checked);
+    Q_EMIT stateChange(static_cast<KatePluginListItem *>(item), item->checkState(0) == Qt::Checked);
 }
 
 KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *dialog)
@@ -89,7 +89,7 @@ void KateConfigPluginPage::stateChange(KatePluginListItem *item, bool b)
         unloadPlugin(item);
     }
 
-    emit changed();
+    Q_EMIT changed();
 }
 
 void KateConfigPluginPage::loadPlugin(KatePluginListItem *item)

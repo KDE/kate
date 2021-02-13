@@ -146,7 +146,7 @@ void IOView::readOutput()
     } while (res == 255);
 
     if (data.size() > 0) {
-        emit stdOutText(QString::fromLocal8Bit(data));
+        Q_EMIT stdOutText(QString::fromLocal8Bit(data));
     }
     m_stdoutNotifier->setEnabled(true);
 }
@@ -168,7 +168,7 @@ void IOView::readErrors()
     } while (res == 255);
 
     if (data.size() > 0) {
-        emit stdErrText(QString::fromLocal8Bit(data));
+        Q_EMIT stdErrText(QString::fromLocal8Bit(data));
     }
     m_stderrNotifier->setEnabled(true);
 }

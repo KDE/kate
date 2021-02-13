@@ -48,15 +48,8 @@
 #include <KWindowConfig>
 #include <KWindowSystem>
 #include <KXMLGUIFactory>
-
-#include <kio_version.h>
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-#include <KRun>
-#else
 #include <KIO/ApplicationLauncherJob>
 #include <KIO/JobUiDelegate>
-#endif
-
 #include <KFileItem>
 #include <KIO/Job>
 
@@ -674,7 +667,7 @@ void KateMainWindow::removeMenuBarActionFromContextMenu()
 
 void KateMainWindow::toggleShowStatusBar()
 {
-    emit statusBarToggled();
+    Q_EMIT statusBarToggled();
 }
 
 bool KateMainWindow::showStatusBar()
@@ -684,7 +677,7 @@ bool KateMainWindow::showStatusBar()
 
 void KateMainWindow::toggleShowTabBar()
 {
-    emit tabBarToggled();
+    Q_EMIT tabBarToggled();
 }
 
 bool KateMainWindow::showTabBar()
@@ -912,32 +905,12 @@ void KateMainWindow::mSlotFixOpenWithMenu()
 void KateMainWindow::slotOpenWithMenuAction(QAction *a)
 {
     const QList<QUrl> list({m_viewManager->activeView()->document()->url()});
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-
-    const QString openWith = a->data().toString();
-    if (openWith.isEmpty()) {
-        // display "open with" dialog
-        KOpenWithDialog dlg(list);
-        if (dlg.exec()) {
-            KRun::runService(*dlg.service(), list, this);
-        }
-        return;
-    }
-
-    KService::Ptr app = KService::serviceByDesktopPath(openWith);
-    if (app) {
-        KRun::runService(*app, list, this);
-    } else {
-        KMessageBox::error(this, i18n("Application '%1' not found.", openWith), i18n("Application not found"));
-    }
-#else
     KService::Ptr app = KService::serviceByDesktopPath(a->data().toString());
     // If app is null, ApplicationLauncherJob will invoke the open-with dialog
     auto *job = new KIO::ApplicationLauncherJob(app);
     job->setUrls(list);
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
     job->start();
-#endif
 }
 
 void KateMainWindow::pluginHelp()
@@ -1164,7 +1137,7 @@ bool KateMainWindow::event(QEvent *e)
 {
     if (e->type() == QEvent::ShortcutOverride) {
         QKeyEvent *k = static_cast<QKeyEvent *>(e);
-        emit unhandledShortcutOverride(k);
+        Q_EMIT unhandledShortcutOverride(k);
     }
     return KateMDI::MainWindow::event(e);
 }

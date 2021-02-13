@@ -45,7 +45,7 @@ void SQLManager::createConnection(const Connection &conn)
     QSqlDatabase db = QSqlDatabase::addDatabase(conn.driver, conn.name);
 
     if (!db.isValid()) {
-        emit error(db.lastError().text());
+        Q_EMIT error(db.lastError().text());
         QSqlDatabase::removeDatabase(conn.name);
         return;
     }
@@ -68,11 +68,11 @@ void SQLManager::createConnection(const Connection &conn)
     } else {
         if (conn.status != Connection::REQUIRE_PASSWORD) {
             m_model->setStatus(conn.name, Connection::OFFLINE);
-            emit error(db.lastError().text());
+            Q_EMIT error(db.lastError().text());
         }
     }
 
-    emit connectionCreated(conn.name);
+    Q_EMIT connectionCreated(conn.name);
 }
 
 bool SQLManager::testConnection(const Connection &conn, QSqlError &error)
@@ -113,7 +113,7 @@ bool SQLManager::isValidAndOpen(const QString &connection)
 
     if (!db.isValid()) {
         m_model->setStatus(connection, Connection::OFFLINE);
-        emit error(db.lastError().text());
+        Q_EMIT error(db.lastError().text());
         return false;
     }
 
@@ -134,7 +134,7 @@ bool SQLManager::isValidAndOpen(const QString &connection)
 
         if (!db.open()) {
             m_model->setStatus(connection, Connection::OFFLINE);
-            emit error(db.lastError().text());
+            Q_EMIT error(db.lastError().text());
             return false;
         }
     }
@@ -146,7 +146,7 @@ bool SQLManager::isValidAndOpen(const QString &connection)
 
 void SQLManager::reopenConnection(const QString &name)
 {
-    emit connectionAboutToBeClosed(name);
+    Q_EMIT connectionAboutToBeClosed(name);
 
     QSqlDatabase db = QSqlDatabase::database(name);
 
@@ -231,13 +231,13 @@ ConnectionModel *SQLManager::connectionModel()
 
 void SQLManager::removeConnection(const QString &name)
 {
-    emit connectionAboutToBeClosed(name);
+    Q_EMIT connectionAboutToBeClosed(name);
 
     m_model->removeConnection(name);
 
     QSqlDatabase::removeDatabase(name);
 
-    emit connectionRemoved(name);
+    Q_EMIT connectionRemoved(name);
 }
 
 /// TODO: read KUrl instead of QString for sqlite paths
@@ -323,7 +323,7 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
             m_model->setStatus(connection, Connection::OFFLINE);
         }
 
-        emit error(err.text());
+        Q_EMIT error(err.text());
         return;
     }
 
@@ -334,7 +334,7 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
             m_model->setStatus(connection, Connection::OFFLINE);
         }
 
-        emit error(err.text());
+        Q_EMIT error(err.text());
         return;
     }
 
@@ -353,6 +353,6 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
         message = i18ncp("@info", "%1 row affected", "%1 rows affected", nRowsAffected);
     }
 
-    emit success(message);
-    emit queryActivated(query, connection);
+    Q_EMIT success(message);
+    Q_EMIT queryActivated(query, connection);
 }

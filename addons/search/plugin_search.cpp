@@ -15,7 +15,6 @@
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/view.h>
-#include <ktexteditor_version.h>
 
 #include "kacceleratormanager.h"
 #include <KAboutData>
@@ -172,7 +171,6 @@ Results::Results(QWidget *parent)
     treeView->setItemDelegate(new SPHtmlDelegate(treeView));
     treeView->setModel(&matchModel);
 
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
     auto updateColors = [this](KTextEditor::Editor *e) {
         if (!e) {
             return;
@@ -198,7 +196,6 @@ Results::Results(QWidget *parent)
     auto e = KTextEditor::Editor::instance();
     connect(e, &KTextEditor::Editor::configChanged, this, updateColors);
     updateColors(e);
-#endif
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginSearchFactory, "katesearch.json", registerPlugin<KatePluginSearch>();)
@@ -905,17 +902,6 @@ void KatePluginSearchView::updateViewColors()
             if (delegate) {
                 delegate->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
             }
-#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 79, 0)
-            m_curResults->matchModel.setMatchColors(fg.name(QColor::HexArgb), search.name(QColor::HexArgb), m_replaceHighlightColor.name(QColor::HexArgb));
-
-            QColor selection = ciface->configValue(QStringLiteral("selection-color")).value<QColor>();
-            QColor bg = ciface->configValue(QStringLiteral("background-color")).value<QColor>();
-            auto pal = m_curResults->treeView->palette();
-            pal.setColor(QPalette::Base, bg);
-            pal.setColor(QPalette::Highlight, selection);
-            pal.setColor(QPalette::Text, fg);
-            m_curResults->treeView->setPalette(pal);
-#endif
         }
     }
 }
@@ -1499,22 +1485,14 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
     mr->setAttributeOnlyForViews(true);
     m_matchRanges.append(mr);
 
-// Add a match mark
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
+    // Add a match mark
     KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
-#else
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(doc);
-#endif
     if (!iface) {
         return;
     }
     static const auto description = i18n("Search Match");
     iface->setMarkDescription(KTextEditor::MarkInterface::markType32, description);
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 69, 0)
     iface->setMarkIcon(KTextEditor::MarkInterface::markType32, QIcon());
-#else
-    iface->setMarkPixmap(KTextEditor::MarkInterface::markType32, QIcon().pixmap(0, 0));
-#endif
     iface->addMark(match.range.start().line(), KTextEditor::MarkInterface::markType32);
 }
 
@@ -1879,11 +1857,9 @@ void KatePluginSearchView::addTab()
 
     Results *res = new Results();
 
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
     connect(res, &Results::colorsChanged, this, [this]() {
         updateViewColors();
     });
-#endif
 
     res->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     res->treeView->setRootIsDecorated(false);

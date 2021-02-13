@@ -195,7 +195,7 @@ bool KatePluginManager::loadPlugin(KatePluginInfo *item)
      * tell the world about the success
      */
     if (item->plugin) {
-        emit KateApp::self()->wrapper()->pluginCreated(item->saveName(), item->plugin);
+        Q_EMIT KateApp::self()->wrapper()->pluginCreated(item->saveName(), item->plugin);
     }
 
     return item->plugin != nullptr;
@@ -208,7 +208,7 @@ void KatePluginManager::unloadPlugin(KatePluginInfo *item)
     KTextEditor::Plugin *plugin = item->plugin;
     item->plugin = nullptr;
     item->load = false;
-    emit KateApp::self()->wrapper()->pluginDeleted(item->saveName(), plugin);
+    Q_EMIT KateApp::self()->wrapper()->pluginDeleted(item->saveName(), plugin);
 }
 
 void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, KConfigBase *config)
@@ -237,7 +237,7 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
     }
 
     if (createdView) {
-        emit win->wrapper()->pluginViewCreated(item->saveName(), createdView);
+        Q_EMIT win->wrapper()->pluginViewCreated(item->saveName(), createdView);
     }
 }
 
@@ -270,7 +270,7 @@ void KatePluginManager::disablePluginGUI(KatePluginInfo *item, KateMainWindow *w
     QObject *deletedView = win->pluginViews().value(item->plugin);
     delete deletedView;
     win->pluginViews().remove(item->plugin);
-    emit win->wrapper()->pluginViewDeleted(item->saveName(), deletedView);
+    Q_EMIT win->wrapper()->pluginViewDeleted(item->saveName(), deletedView);
 }
 
 void KatePluginManager::disablePluginGUI(KatePluginInfo *item)

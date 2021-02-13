@@ -629,7 +629,7 @@ void KateViewManager::activateView(KTextEditor::View *view)
         // remember age of this view
         m_views[view].lruAge = m_minAge--;
 
-        emit viewChanged(view);
+        Q_EMIT viewChanged(view);
 
 #ifdef KF5Activities_FOUND
         // inform activity manager
@@ -733,7 +733,7 @@ void KateViewManager::closeView(KTextEditor::View *view)
             }
         }
 
-        emit viewChanged(newActiveView);
+        Q_EMIT viewChanged(newActiveView);
     }
 }
 
@@ -943,7 +943,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
 
     updateViewSpaceActions();
 
-    emit viewChanged(v);
+    Q_EMIT viewChanged(v);
 }
 
 void KateViewManager::slotCloseOtherViews()

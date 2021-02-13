@@ -97,7 +97,7 @@ void KateSessionManager::updateSessionList()
     }
 
     if (changed) {
-        emit sessionListChanged();
+        Q_EMIT sessionListChanged();
     }
 }
 
@@ -156,7 +156,7 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
         loadSession(session);
     }
 
-    emit sessionChanged();
+    Q_EMIT sessionChanged();
     return true;
 }
 
@@ -253,7 +253,7 @@ KateSession::Ptr KateSessionManager::giveSession(const QString &name)
     // Due to this add to m_sessions will updateSessionList() no signal emit,
     // but it's important to add. Otherwise could it be happen that m_activeSession
     // is not part of m_sessions but a double
-    emit sessionListChanged();
+    Q_EMIT sessionListChanged();
 
     return s;
 }
@@ -268,7 +268,7 @@ bool KateSessionManager::deleteSession(KateSession::Ptr session)
     m_sessions.remove(session->name());
     // Due to this remove from m_sessions will updateSessionList() no signal emit,
     // but this way is there no delay between deletion and information
-    emit sessionListChanged();
+    Q_EMIT sessionListChanged();
 
     return true;
 }
@@ -317,10 +317,10 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
     session->setFile(newFile);
     session->config()->sync();
     // updateSessionList() will this edit not notice, so force signal
-    emit sessionListChanged();
+    Q_EMIT sessionListChanged();
 
     if (session == activeSession()) {
-        emit sessionChanged();
+        Q_EMIT sessionChanged();
     }
 
     return name;
@@ -438,7 +438,7 @@ void KateSessionManager::sessionSaveAs()
     m_activeSession = ns;
     saveActiveSession();
 
-    emit sessionChanged();
+    Q_EMIT sessionChanged();
 }
 
 QString KateSessionManager::askForNewSessionName(KateSession::Ptr session, const QString &newName)

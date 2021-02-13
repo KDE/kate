@@ -157,7 +157,7 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
     m_projectMap = globalProject;
 
     // emit that we changed stuff
-    emit projectMapChanged();
+    Q_EMIT projectMapChanged();
 
     // trigger loading of project in background thread
     QString indexDir;
@@ -195,7 +195,7 @@ void KateProject::loadProjectDone(const KateProjectSharedQStandardItem &topLevel
         registerDocument(i.key());
     }
 
-    emit modelChanged();
+    Q_EMIT modelChanged();
 }
 
 void KateProject::loadIndexDone(KateProjectSharedProjectIndex projectIndex)
@@ -208,7 +208,7 @@ void KateProject::loadIndexDone(KateProjectSharedProjectIndex projectIndex)
     /**
      * notify external world that data is available
      */
-    emit indexChanged();
+    Q_EMIT indexChanged();
 }
 
 QString KateProject::projectLocalFileName(const QString &suffix) const

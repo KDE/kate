@@ -18,16 +18,18 @@
 
 #include <KActionCollection>
 #include <KActionMenu>
+#include <KApplicationTrader>
 #include <KConfigGroup>
 #include <KDirOperator>
 #include <KFilePlacesModel>
 #include <KHistoryComboBox>
+#include <KIO/ApplicationLauncherJob>
+#include <KIO/JobUiDelegate>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>
 #include <KToolBar>
 #include <KUrlNavigator>
-#include <kwidgetsaddons_version.h>
 
 #include <QAbstractItemView>
 #include <QAction>
@@ -35,16 +37,6 @@
 #include <QLineEdit>
 #include <QStyle>
 #include <QVBoxLayout>
-
-#include <kio_version.h>
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-#include <KOpenWithDialog>
-#include <KRun>
-#else
-#include <KIO/ApplicationLauncherJob>
-#include <KIO/JobUiDelegate>
-#endif
-#include <KApplicationTrader>
 
 // END Includes
 
@@ -277,30 +269,12 @@ void KateFileBrowser::openWithMenuAction(QAction *a)
     const QString fileName = a->data().toStringList().last();
     const QList<QUrl> list({QUrl(fileName)});
 
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-    if (application.isEmpty()) {
-        // display "open with" dialog
-        KOpenWithDialog dlg(list);
-        if (dlg.exec()) {
-            KRun::runService(*dlg.service(), list, this);
-        }
-        return;
-    }
-
-    KService::Ptr app = KService::serviceByDesktopPath(application);
-    if (app) {
-        KRun::runService(*app, list, this);
-    } else {
-        KMessageBox::error(this, i18n("Application '%1' not found.", application), i18n("Application not found"));
-    }
-#else
     KService::Ptr app = KService::serviceByDesktopPath(application);
     // If app is null, ApplicationLauncherJob will invoke the open-with dialog
     auto *job = new KIO::ApplicationLauncherJob(app);
     job->setUrls(list);
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
     job->start();
-#endif
 }
 // END Public Slots
 
@@ -377,11 +351,7 @@ void KateFileBrowser::setupActions()
 {
     // bookmarks action!
     KActionMenu *acmBookmarks = new KActionMenu(QIcon::fromTheme(QStringLiteral("bookmarks")), i18n("Bookmarks"), this);
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
     acmBookmarks->setPopupMode(QToolButton::InstantPopup);
-#else
-    acmBookmarks->setDelayed(false);
-#endif
     m_bookmarkHandler = new KateBookmarkHandler(this, acmBookmarks->menu());
     acmBookmarks->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
@@ -397,11 +367,7 @@ void KateFileBrowser::setupActions()
 
     // section for settings menu
     KActionMenu *optionsMenu = new KActionMenu(QIcon::fromTheme(QStringLiteral("configure")), i18n("Options"), this);
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
     optionsMenu->setPopupMode(QToolButton::InstantPopup);
-#else
-    optionsMenu->setDelayed(false);
-#endif
     optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("short view")));
     optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("detailed view")));
     optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("tree view")));

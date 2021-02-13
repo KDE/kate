@@ -369,8 +369,8 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     }
 
     // project file name might have changed
-    emit projectFileNameChanged();
-    emit projectMapChanged();
+    Q_EMIT projectFileNameChanged();
+    Q_EMIT projectMapChanged();
 }
 
 void KateProjectPluginView::slotDocumentUrlChanged(KTextEditor::Document *document)
@@ -521,7 +521,7 @@ void KateProjectPluginView::slotProjectIndex()
             }
         }
         m_mainWindow->showToolView(m_toolInfoView);
-        emit projectLookupWord(word);
+        Q_EMIT projectLookupWord(word);
     }
 }
 
@@ -534,7 +534,7 @@ void KateProjectPluginView::slotGotoSymbol()
     const QString word = currentWord();
     if (!word.isEmpty()) {
         int results = 0;
-        emit gotoSymbol(word, results);
+        Q_EMIT gotoSymbol(word, results);
         if (results > 1) {
             m_mainWindow->showToolView(m_toolMultiView);
         }

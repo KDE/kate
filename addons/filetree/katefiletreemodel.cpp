@@ -751,7 +751,7 @@ void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
     setupIcon(item);
 
     const QModelIndex idx = createIndex(item->row(), 0, item);
-    emit dataChanged(idx, idx);
+    Q_EMIT dataChanged(idx, idx);
 }
 
 void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool modified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
@@ -783,7 +783,7 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
     setupIcon(item);
 
     const QModelIndex idx = createIndex(item->row(), 0, item);
-    emit dataChanged(idx, idx);
+    Q_EMIT dataChanged(idx, idx);
 }
 
 void KateFileTreeModel::documentActivated(const KTextEditor::Document *doc)
@@ -994,7 +994,7 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
     }
 
     handleNameChange(item);
-    emit triggerViewChangeAfterNameChange(); // FIXME: heh, non-standard signal?
+    Q_EMIT triggerViewChangeAfterNameChange(); // FIXME: heh, non-standard signal?
 }
 
 ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) const
@@ -1240,7 +1240,7 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item)
     if (m_listMode) {
         const QModelIndex idx = createIndex(item->row(), 0, item);
         setupIcon(item);
-        emit dataChanged(idx, idx);
+        Q_EMIT dataChanged(idx, idx);
         return;
     }
 

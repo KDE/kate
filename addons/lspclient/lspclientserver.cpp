@@ -282,13 +282,8 @@ static void from_json(LSPSemanticHighlightingOptions &options, const QJsonValue 
         for (const auto &inner_json_entry : json_entries) {
             entries.push_back(inner_json_entry.toString());
         }
-#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 79, 0)
-        options.scopes.push_back(entries);
-#endif
     }
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
     options.scopes.scopesToAttrVector(entries);
-#endif
 }
 
 static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
@@ -855,7 +850,7 @@ private:
     {
         if (m_state != s) {
             m_state = s;
-            emit q->stateChanged(q);
+            Q_EMIT q->stateChanged(q);
         }
     }
 
@@ -1260,13 +1255,13 @@ public:
     {
         auto method = msg[MEMBER_METHOD].toString();
         if (method == QLatin1String("textDocument/publishDiagnostics")) {
-            emit q->publishDiagnostics(parseDiagnostics(msg[MEMBER_PARAMS].toObject()));
+            Q_EMIT q->publishDiagnostics(parseDiagnostics(msg[MEMBER_PARAMS].toObject()));
         } else if (method == QLatin1String("textDocument/semanticHighlighting")) {
-            emit q->semanticHighlighting(parseSemanticHighlighting(msg[MEMBER_PARAMS].toObject()));
+            Q_EMIT q->semanticHighlighting(parseSemanticHighlighting(msg[MEMBER_PARAMS].toObject()));
         } else if (method == QLatin1String("window/showMessage")) {
-            emit q->showMessage(parseMessage(msg[MEMBER_PARAMS].toObject()));
+            Q_EMIT q->showMessage(parseMessage(msg[MEMBER_PARAMS].toObject()));
         } else if (method == QLatin1String("window/logMessage")) {
-            emit q->logMessage(parseMessage(msg[MEMBER_PARAMS].toObject()));
+            Q_EMIT q->logMessage(parseMessage(msg[MEMBER_PARAMS].toObject()));
         } else {
             qCWarning(LSPCLIENT) << "discarding notification" << method;
         }
@@ -1313,7 +1308,7 @@ public:
         bool handled = false;
         if (method == QLatin1String("workspace/applyEdit")) {
             auto h = responseHandler<LSPApplyWorkspaceEditResponse>(prepareResponse(msgid), applyWorkspaceEditResponse);
-            emit q->applyEdit(parseApplyWorkspaceEditParams(params.toObject()), h, handled);
+            Q_EMIT q->applyEdit(parseApplyWorkspaceEditParams(params.toObject()), h, handled);
         } else {
             write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, nullptr, &msgid);
             qCWarning(LSPCLIENT) << "discarding request" << method;

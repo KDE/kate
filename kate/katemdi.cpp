@@ -251,7 +251,7 @@ void ToolView::setToolVisible(bool vis)
     }
 
     m_toolVisible = vis;
-    emit toolVisibleChanged(m_toolVisible);
+    Q_EMIT toolVisibleChanged(m_toolVisible);
 }
 
 bool ToolView::toolVisible() const
@@ -601,7 +601,7 @@ void Sidebar::buttonPopupActivate(QAction *a)
     if (id == 20) {
         if (!w->plugin.isNull()) {
             if (w->plugin.data()->configPages() > 0) {
-                emit sigShowPluginConfigPage(w->plugin.data(), 0);
+                Q_EMIT sigShowPluginConfigPage(w->plugin.data(), 0);
             }
         }
     }

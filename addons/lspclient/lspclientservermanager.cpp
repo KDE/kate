@@ -403,7 +403,7 @@ private:
     void showMessage(const QString &msg, KTextEditor::Message::MessageType level)
     {
         // inform interested view(er) which will decide how/where to show
-        emit LSPClientServerManager::showMessage(level, msg);
+        Q_EMIT LSPClientServerManager::showMessage(level, msg);
     }
 
     // caller ensures that servers are no longer present in m_servers
@@ -450,7 +450,7 @@ private:
         // trigger interested parties, which will again request a server as needed
         // let's delay this; less chance for server instances to trip over each other
         QTimer::singleShot(6 * TIMEOUT_SHUTDOWN, this, [this]() {
-            emit serverChanged();
+            Q_EMIT serverChanged();
         });
     }
 
@@ -466,7 +466,7 @@ private:
                 }
             }
             // clear for normal operation
-            emit serverChanged();
+            Q_EMIT serverChanged();
         } else if (server->state() == LSPClientServer::State::None) {
             // went down
             // find server info to see how bad this is
@@ -676,7 +676,7 @@ private:
         // we could (but do not) perform restartAll here;
         // for now let's leave that up to user
         // but maybe we do have a server now where not before, so let's signal
-        emit serverChanged();
+        Q_EMIT serverChanged();
     }
 
     void trackDocument(KTextEditor::Document *doc, const QSharedPointer<LSPClientServer> &server)
@@ -728,7 +728,7 @@ private:
     void untrack(QObject *doc)
     {
         _close(qobject_cast<KTextEditor::Document *>(doc), true);
-        emit serverChanged();
+        Q_EMIT serverChanged();
     }
 
     void close(KTextEditor::Document *doc)

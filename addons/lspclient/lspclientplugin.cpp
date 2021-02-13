@@ -109,7 +109,7 @@ void LSPClientPlugin::readConfig()
     m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, false);
     m_signatureHelp = config.readEntry(CONFIG_SIGNATURE_HELP, true);
 
-    emit update();
+    Q_EMIT update();
 }
 
 void LSPClientPlugin::writeConfig() const
@@ -135,7 +135,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_SEMANTIC_HIGHLIGHTING, m_semanticHighlighting);
     config.writeEntry(CONFIG_SIGNATURE_HELP, m_signatureHelp);
 
-    emit update();
+    Q_EMIT update();
 }
 
 #include "lspclientplugin.moc"

@@ -52,13 +52,13 @@ public:
         // get updated
         m_changeTimer.setSingleShot(true);
         auto ch = [this]() {
-            emit newState(m_mainWindow->activeView(), TextChanged);
+            Q_EMIT newState(m_mainWindow->activeView(), TextChanged);
         };
         connect(&m_changeTimer, &QTimer::timeout, this, ch);
 
         m_motionTimer.setSingleShot(true);
         auto mh = [this]() {
-            emit newState(m_mainWindow->activeView(), LineChanged);
+            Q_EMIT newState(m_mainWindow->activeView(), LineChanged);
         };
         connect(&m_motionTimer, &QTimer::timeout, this, mh);
 
@@ -78,7 +78,7 @@ public:
             if (m_change > 0 && view->document()) {
                 connect(view->document(), &KTextEditor::Document::textChanged, this, &self_type::textChanged, Qt::UniqueConnection);
             }
-            emit newState(view, ViewChanged);
+            Q_EMIT newState(view, ViewChanged);
             m_oldCursorLine = view->cursorPosition().line();
         }
     }

@@ -177,7 +177,7 @@ void KateFileBrowserConfigPage::init()
 void KateFileBrowserConfigPage::slotMyChanged()
 {
     m_changed = true;
-    emit changed();
+    Q_EMIT changed();
 }
 // END KateFileBrowserConfigPage
 

@@ -93,8 +93,8 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
     // clang-format on
 
     // we have a new document, show it the world
-    emit documentCreated(doc);
-    emit documentCreatedViewManager(doc);
+    Q_EMIT documentCreated(doc);
+    Q_EMIT documentCreatedViewManager(doc);
 
     // return our new document
     return doc;
@@ -202,7 +202,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
 
     saveMetaInfos(documents);
 
-    emit aboutToDeleteDocuments(documents);
+    Q_EMIT aboutToDeleteDocuments(documents);
 
     int last = 0;
     bool success = true;
@@ -234,14 +234,14 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
         KateApp::self()->emitDocumentClosed(QString::number(reinterpret_cast<qptrdiff>(doc)));
 
         // document will be deleted, soon
-        emit documentWillBeDeleted(doc);
+        Q_EMIT documentWillBeDeleted(doc);
 
         // really delete the document and its infos
         delete m_docInfos.take(doc);
         delete m_docList.takeAt(m_docList.indexOf(doc));
 
         // document is gone, emit our signals
-        emit documentDeleted(doc);
+        Q_EMIT documentDeleted(doc);
 
         last++;
     }
@@ -254,7 +254,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
         createDoc();
     }
 
-    emit documentsDeleted(documents.mid(last));
+    Q_EMIT documentsDeleted(documents.mid(last));
 
     return success;
 }

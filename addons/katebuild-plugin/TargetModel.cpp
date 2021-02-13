@@ -398,7 +398,7 @@ bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int r
         if (role == Qt::CheckStateRole) {
             if (index.column() == 0) {
                 m_targets[rootIndex].defaultCmd = m_targets[rootIndex].commands[row].first;
-                emit dataChanged(createIndex(0, 0, rootIndex), createIndex(m_targets[rootIndex].commands.size() - 1, 0, rootIndex));
+                Q_EMIT dataChanged(createIndex(0, 0, rootIndex), createIndex(m_targets[rootIndex].commands.size() - 1, 0, rootIndex));
             }
         } else {
             switch (index.column()) {

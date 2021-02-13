@@ -11,13 +11,8 @@
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 
-#include <kio_version.h>
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-#include <KRun>
-#else
 #include <KIO/JobUiDelegate>
 #include <KIO/OpenUrlJob>
-#endif
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -349,16 +344,11 @@ void KateMwModOnHdDialog::slotPDone()
     delete m_diffFile;
     m_diffFile = nullptr;
 
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-    // KRun::runUrl should delete the file, once the client exits
-    KRun::runUrl(url, QStringLiteral("text/x-patch"), this, KRun::RunFlags(KRun::DeleteTemporaryFiles));
-#else
     // OpenUrlJob will delete the temp. file
     auto *job = new KIO::OpenUrlJob(url, QStringLiteral("text/x-patch"));
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
     job->setDeleteTemporaryFile(true);
     job->start();
-#endif
 }
 
 void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)

@@ -12,7 +12,6 @@
 
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
-#include <ktexteditor_version.h> // delete, when we depend on KF 5.63
 
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -139,7 +138,7 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
 
     m_projects.append(project);
     m_fileWatcher.addPath(QFileInfo(fileName).canonicalPath());
-    emit projectCreated(project);
+    Q_EMIT projectCreated(project);
     return project;
 }
 
@@ -295,7 +294,7 @@ KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, 
 
     m_projects.append(project);
 
-    emit projectCreated(project);
+    Q_EMIT projectCreated(project);
     return project;
 }
 
@@ -381,7 +380,7 @@ void KateProjectPlugin::readConfig()
     m_multiProjectCompletion = config.readEntry("multiProjectCompletion", false);
     m_multiProjectGoto = config.readEntry("multiProjectCompletion", false);
 
-    emit configUpdated();
+    Q_EMIT configUpdated();
 }
 
 void KateProjectPlugin::writeConfig()
@@ -409,20 +408,17 @@ void KateProjectPlugin::writeConfig()
     config.writeEntry("multiProjectCompletion", m_multiProjectCompletion);
     config.writeEntry("multiProjectGoto", m_multiProjectGoto);
 
-    emit configUpdated();
+    Q_EMIT configUpdated();
 }
 
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 63, 0)
 static KateProjectPlugin *findProjectPlugin()
 {
     auto plugin = KTextEditor::Editor::instance()->application()->plugin(QStringLiteral("kateprojectplugin"));
     return qobject_cast<KateProjectPlugin *>(plugin);
 }
-#endif
 
 void KateProjectPlugin::registerVariables()
 {
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 63, 0)
     auto editor = KTextEditor::Editor::instance();
     editor->registerVariableMatch(QStringLiteral("Project:Path"),
                                   i18n("Full path to current project excluding the file name."),
@@ -457,14 +453,11 @@ void KateProjectPlugin::registerVariables()
                                       }
                                       return QDir::toNativeSeparators(QDir(kateProject->baseDir()).absolutePath());
                                   });
-#endif
 }
 
 void KateProjectPlugin::unregisterVariables()
 {
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 63, 0)
     auto editor = KTextEditor::Editor::instance();
     editor->unregisterVariableMatch(QStringLiteral("Project:Path"));
     editor->unregisterVariableMatch(QStringLiteral("Project:NativePath"));
-#endif
 }

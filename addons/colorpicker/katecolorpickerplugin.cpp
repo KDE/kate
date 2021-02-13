@@ -144,7 +144,7 @@ void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine) {
 
     for (int line = startLine; line < endLine; ++line) {
         m_colorNoteIndices.remove(line);
-        emit inlineNotesChanged(line);
+        Q_EMIT inlineNotesChanged(line);
     }
 }
 

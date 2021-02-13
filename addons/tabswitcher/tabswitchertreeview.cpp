@@ -38,7 +38,7 @@ void TabSwitcherTreeView::resizeColumnsToContents()
 void TabSwitcherTreeView::keyReleaseEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Control) {
-        emit itemActivated(selectionModel()->currentIndex());
+        Q_EMIT itemActivated(selectionModel()->currentIndex());
         event->accept();
         hide();
     } else {

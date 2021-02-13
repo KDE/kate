@@ -118,7 +118,7 @@ void ConnectionModel::setStatus(const QString &name, const Connection::Status st
 
     const int i = indexOf(name);
 
-    emit dataChanged(index(i), index(i));
+    Q_EMIT dataChanged(index(i), index(i));
 }
 
 void ConnectionModel::setPassword(const QString &name, const QString &password)
@@ -131,5 +131,5 @@ void ConnectionModel::setPassword(const QString &name, const QString &password)
 
     const int i = indexOf(name);
 
-    emit dataChanged(index(i), index(i));
+    Q_EMIT dataChanged(index(i), index(i));
 }

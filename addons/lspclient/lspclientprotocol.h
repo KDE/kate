@@ -67,11 +67,7 @@ struct LSPDocumentOnTypeFormattingOptions : public LSPSignatureHelpOptions {
 
 struct LSPSemanticHighlightingOptions {
     // cf. https://manual.macromates.com/en/language_grammars
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 79, 0)
     SemanticHighlighting scopes;
-#else
-    QVector<QVector<QString>> scopes;
-#endif
 };
 
 struct LSPServerCapabilities {

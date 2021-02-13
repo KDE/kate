@@ -44,7 +44,7 @@ void QuickOpenLineEdit::setupMenu()
     act->setCheckable(true);
     connect(act, &QAction::toggled, this, [this](bool checked) {
         if (checked) {
-            emit listModeChanged(KateQuickOpenModelList::AllProjects);
+            Q_EMIT listModeChanged(KateQuickOpenModelList::AllProjects);
         }
     });
     act->setChecked(!cfgListMode);
@@ -55,7 +55,7 @@ void QuickOpenLineEdit::setupMenu()
     act->setCheckable(true);
     connect(act, &QAction::toggled, this, [this](bool checked) {
         if (checked) {
-            emit listModeChanged(KateQuickOpenModelList::CurrentProject);
+            Q_EMIT listModeChanged(KateQuickOpenModelList::CurrentProject);
         }
     });
     act->setChecked(cfgListMode);

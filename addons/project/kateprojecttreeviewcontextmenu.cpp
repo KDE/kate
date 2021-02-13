@@ -7,15 +7,9 @@
 
 #include "kateprojecttreeviewcontextmenu.h"
 
-#include <kio_version.h>
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-#include <KRun>
-#else
+#include <KApplicationTrader>
 #include <KIO/ApplicationLauncherJob>
 #include <KIO/JobUiDelegate>
-#endif
-
-#include <KApplicationTrader>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KNS3/KMoreTools>
@@ -122,19 +116,12 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QPoint 
     }
 
     auto handleOpenWith = [parent](QAction *action, const QString &filename) {
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-        const QString openWith = action->data().toString();
-        if (KService::Ptr app = KService::serviceByDesktopPath(openWith)) {
-            KRun::runService(*app, {QUrl::fromLocalFile(filename)}, parent);
-        }
-#else
         KService::Ptr app = KService::serviceByDesktopPath(action->data().toString());
         // If app is null, ApplicationLauncherJob will invoke the open-with dialog
         auto *job = new KIO::ApplicationLauncherJob(app);
         job->setUrls({QUrl::fromLocalFile(filename)});
         job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
         job->start();
-#endif
     };
 
     /**

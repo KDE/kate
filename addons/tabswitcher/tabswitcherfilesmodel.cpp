@@ -186,7 +186,7 @@ KTextEditor::Document *detail::TabswitcherFilesModel::item(int row) const
 void detail::TabswitcherFilesModel::updateItems()
 {
     post_process(data_);
-    emit dataChanged(createIndex(0, 0), createIndex(data_.size() - 1, 1), {});
+    Q_EMIT dataChanged(createIndex(0, 0), createIndex(data_.size() - 1, 1), {});
 }
 
 int detail::TabswitcherFilesModel::columnCount(const QModelIndex &parent) const

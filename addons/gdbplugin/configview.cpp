@@ -23,7 +23,6 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kwidgetsaddons_version.h>
 
 #ifdef WIN32
 static const QLatin1Char pathSeparator(';');
@@ -125,11 +124,7 @@ void ConfigView::registerActions(KActionCollection *actionCollection)
 {
     m_targetSelectAction = actionCollection->add<KSelectAction>(QStringLiteral("targets"));
     m_targetSelectAction->setText(i18n("Targets"));
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 78, 0)
     connect(m_targetSelectAction, &KSelectAction::indexTriggered, this, &ConfigView::slotTargetSelected);
-#else
-    connect(m_targetSelectAction, static_cast<void (KSelectAction::*)(int)>(&KSelectAction::triggered), this, &ConfigView::slotTargetSelected);
-#endif
 }
 
 void ConfigView::readConfig(const KConfigGroup &group)
@@ -468,7 +463,7 @@ void ConfigView::slotAdvancedClicked()
         // save the new values
         newList << m_advanced->configs();
         m_targetCombo->setItemData(m_targetCombo->currentIndex(), newList);
-        emit configChanged();
+        Q_EMIT configChanged();
     }
 }
 

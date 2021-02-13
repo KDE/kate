@@ -162,7 +162,7 @@ void QtLocalPeer::receiveConnection()
     QString message = QString::fromUtf8(uMsg.constData(), uMsg.size());
     socket->write(ack, qstrlen(ack));
     socket->waitForBytesWritten(1000);
-    emit messageReceived(message, socket); // ##(might take a long time to return)
+    Q_EMIT messageReceived(message, socket); // ##(might take a long time to return)
 }
 
 } // namespace SharedTools

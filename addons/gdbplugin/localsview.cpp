@@ -26,12 +26,12 @@ LocalsView::~LocalsView()
 
 void LocalsView::showEvent(QShowEvent *)
 {
-    emit localsVisible(true);
+    Q_EMIT localsVisible(true);
 }
 
 void LocalsView::hideEvent(QHideEvent *)
 {
-    emit localsVisible(false);
+    Q_EMIT localsVisible(false);
 }
 
 void LocalsView::createWrappedItem(QTreeWidgetItem *parent, const QString &name, const QString &value)

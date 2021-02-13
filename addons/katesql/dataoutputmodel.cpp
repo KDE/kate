@@ -77,7 +77,7 @@ void DataOutputModel::readConfig()
         s->background.setColor(g.readEntry("backgroundColor", s->background.color()));
     }
 
-    emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
+    Q_EMIT dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
 bool DataOutputModel::useSystemLocale() const
@@ -89,7 +89,7 @@ void DataOutputModel::setUseSystemLocale(bool useSystemLocale)
 {
     m_useSystemLocale = useSystemLocale;
 
-    emit dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
+    Q_EMIT dataChanged(index(0, 0), index(rowCount() - 1, columnCount() - 1));
 }
 
 QVariant DataOutputModel::data(const QModelIndex &index, int role) const

@@ -194,5 +194,5 @@ void OutputStyleWidget::slotChanged()
 {
     updatePreviews();
 
-    emit changed();
+    Q_EMIT changed();
 }

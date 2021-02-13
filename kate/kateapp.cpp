@@ -16,7 +16,6 @@
 #include <KSharedConfig>
 #include <KStartupInfo>
 #include <KWindowInfo>
-#include <kwindowsystem_version.h>
 
 #ifdef WITH_KUSERFEEDBACK
 #include <KUserFeedback/ApplicationVersionSource>
@@ -189,12 +188,8 @@ bool KateApp::startupKate()
 
     // notify about start
     QWidget *win = activeKateMainWindow();
-#if KWINDOWSYSTEM_VERSION >= QT_VERSION_CHECK(5, 62, 0)
     win->setAttribute(Qt::WA_NativeWindow, true);
     KStartupInfo::setNewStartupId(win->windowHandle(), KStartupInfo::startupId());
-#else
-    KStartupInfo::setNewStartupId(win, KStartupInfo::startupId());
-#endif
 
     QTextCodec *codec = m_args.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(m_args.value(QStringLiteral("encoding")).toUtf8()) : nullptr;
     bool tempfileSet = m_args.isSet(QStringLiteral("tempfile"));

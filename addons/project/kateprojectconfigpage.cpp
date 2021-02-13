@@ -130,5 +130,5 @@ void KateProjectConfigPage::defaults()
 void KateProjectConfigPage::slotMyChanged()
 {
     m_changed = true;
-    emit changed();
+    Q_EMIT changed();
 }

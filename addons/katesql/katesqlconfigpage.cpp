@@ -69,7 +69,7 @@ void KateSQLConfigPage::apply()
 
     config.sync();
 
-    emit settingsChanged();
+    Q_EMIT settingsChanged();
 }
 
 void KateSQLConfigPage::reset()

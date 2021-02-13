@@ -132,14 +132,14 @@ void KateTabBar::mouseDoubleClickEvent(QMouseEvent *event)
     event->accept();
 
     if (m_doubleClickNewDocument && event->button() == Qt::LeftButton) {
-        emit newTabRequested();
+        Q_EMIT newTabRequested();
     }
 }
 
 void KateTabBar::mousePressEvent(QMouseEvent *event)
 {
     if (!isActive()) {
-        emit activateViewSpaceRequested();
+        Q_EMIT activateViewSpaceRequested();
     }
     QTabBar::mousePressEvent(event);
 
@@ -147,7 +147,7 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
     if (m_middleClickCloseDocument && event->button() == Qt::MiddleButton) {
         int id = tabAt(event->pos());
         if (id >= 0) {
-            emit tabCloseRequested(id);
+            Q_EMIT tabCloseRequested(id);
         }
     }
 }
@@ -156,7 +156,7 @@ void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
 {
     int id = tabAt(ev->pos());
     if (id >= 0) {
-        emit contextMenuRequest(id, ev->globalPos());
+        Q_EMIT contextMenuRequest(id, ev->globalPos());
     }
 }
 
@@ -273,7 +273,7 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
             // replace info for the tab
             setTabDocument(idx, docToReplace);
             setCurrentIndex(idx);
-            emit currentChanged(idx);
+            Q_EMIT currentChanged(idx);
             return;
         }
     }

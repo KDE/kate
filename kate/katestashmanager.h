@@ -21,11 +21,36 @@ class KateStashManager : QObject
     Q_OBJECT
 public:
     KateStashManager(QObject *parent = nullptr);
-    bool stash(const QList<KTextEditor::Document *> &modifieddocuments);
-    void popStash(KateViewManager *viewManager);
 
-    bool stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path);
+    int stashUnsaveChanges()
+    {
+        return m_stashUnsaveChanges;
+    }
+
+    void setStashUnsaveChanges(int stashUnsaveChanges)
+    {
+        m_stashUnsaveChanges = stashUnsaveChanges;
+    }
+
+    bool willStashDoc(KTextEditor::Document *doc);
+
+    bool stash(const QList<KTextEditor::Document *> &modifieddocuments);
+    void popStash();
+
+    void stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path);
     bool popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig);
+
+private:
+    /**
+     * Stash unsave changes setting
+     *
+     * stash unsaved file by default
+     *
+     * 0 => Never
+     * 1 => for unsaved files
+     * 2 => for all files
+     */
+    int m_stashUnsaveChanges = 1;
 };
 
 #endif // KATESTASHMANAGER_H

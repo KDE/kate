@@ -540,17 +540,19 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
 
     QList<KTextEditor::Document *> modifiedDocuments = KateApp::self()->documentManager()->modifiedDocumentList();
     modifiedDocuments.removeAll(doc);
-    bool shutdown = (modifiedDocuments.count() == 0) || KateApp::self()->sessionManager()->activeSession();
 
-    /*
-    if (!KateApp::self()->sessionManager()->activeSession()) {
-        shutdown = KateApp::self()->stashManager()->stash(modifiedDocuments);
-    } else {
-        KConfigGroup cfg(KSharedConfig::openConfig(), "MainWindow");
-        KateApp::self()->documentManager()->saveDocumentList(cfg);
-        shutdown = true;
+    // filter out what the stashManager will itself stash
+    auto m = modifiedDocuments.begin();
+    while (m != modifiedDocuments.end()) {
+        if (KateApp::self()->stashManager()->willStashDoc(*m)) {
+            m = modifiedDocuments.erase(m);
+        } else {
+            ++m;
+        }
     }
-    */
+
+    bool shutdown = modifiedDocuments.count() == 0;
+
     if (!shutdown) {
         shutdown = KateSaveModifiedDialog::queryClose(this, modifiedDocuments);
     }
@@ -649,6 +651,7 @@ void KateMainWindow::readOptions()
     m_modCloseAfterLast = generalGroup.readEntry("Close After Last", false);
     KateApp::self()->documentManager()->setSaveMetaInfos(generalGroup.readEntry("Save Meta Infos", true));
     KateApp::self()->documentManager()->setDaysMetaInfos(generalGroup.readEntry("Days Meta Infos", 30));
+    KateApp::self()->stashManager()->setStashUnsaveChanges(generalGroup.readEntry("Stash unsaved changes", 1));
 
     m_paShowPath->setChecked(generalGroup.readEntry("Show Full Path in Title", false));
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));

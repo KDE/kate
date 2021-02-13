@@ -199,6 +199,12 @@ void KateConfigDialog::addSessionPage()
     // Closing last file closes Kate
     sessionConfigUi.modCloseAfterLast->setChecked(m_mainWindow->modCloseAfterLast());
     connect(sessionConfigUi.modCloseAfterLast, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+
+    // stash unsave changes
+    sessionConfigUi.stashChangesCombo->setCurrentIndex(KateApp::self()->stashManager()->stashUnsaveChanges());
+    connect(sessionConfigUi.stashChangesCombo, QOverload<const int>::of(&QComboBox::currentIndexChanged), this, [this](int /*index*/) {
+        this->slotChanged();
+    });
 }
 
 void KateConfigDialog::addPluginsPage()
@@ -342,6 +348,9 @@ void KateConfigDialog::slotApply()
         m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
 
         cg.readEntry("Show output view for message type", m_messageTypes->currentIndex());
+
+        cg.writeEntry("Stash unsaved changes", sessionConfigUi.stashChangesCombo->currentIndex());
+        KateApp::self()->stashManager()->setStashUnsaveChanges(sessionConfigUi.stashChangesCombo->currentIndex());
 
         cg.writeEntry("Tabbar Tab Limit", m_tabLimit->value());
 

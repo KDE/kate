@@ -48,6 +48,36 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Save and Restore unsaved changes</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="stashChangesCombo">
+          <item>
+           <property name="text">
+            <string>Never</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>For unsaved Files</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>For all files</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <widget class="QCheckBox" name="modCloseAfterLast">
         <property name="whatsThis">
          <string>If enabled, Kate will shutdown when the last file being edited is closed, otherwise a blank page will open so that you can start a new file.</string>

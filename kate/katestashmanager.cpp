@@ -68,13 +68,34 @@ void KateStashManager::popStash(KateViewManager *viewManager)
     stashGroup.sync();
 }
 
-bool KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path)
+bool KateStashManager::willStashDoc(KTextEditor::Document *doc)
 {
-    if (doc->text().isEmpty() || !kconfig.hasKey("URL")) {
-        // No need to stash empty documents or /tmp files
+    if (m_stashUnsaveChanges == 0) {
+        return false;
+    }
+    if (!KateApp::self()->sessionManager()->activeSession()) {
+        return false;
+    }
+    if (doc->text().isEmpty()) {
+        return false;
+    }
+    if (doc->url().isEmpty()) {
         return true;
     }
-    qCDebug(LOG_KATE) << "stashing document" << stashfileName << doc->url();
+    if (doc->url().isLocalFile()) {
+        const QString path = doc->url().toLocalFile();
+        if (path.startsWith(QDir::tempPath())) {
+            return false; // inside tmp resource, do not stash
+        }
+    }
+    return m_stashUnsaveChanges == 2;
+}
+
+void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path)
+{
+    if (!willStashDoc(doc)) {
+        return;
+    }
     // Stash changes
     QString stashedFile = path + QStringLiteral("/") + stashfileName;
 
@@ -84,7 +105,7 @@ bool KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     saveFile.write(doc->text().toUtf8());
     if (!saveFile.commit()) {
         qCWarning(LOG_KATE()) << "Could not write to stash file" << stashedFile;
-        return false;
+        return;
     }
 
     // write stash metadata to config
@@ -95,8 +116,6 @@ bool KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     }
 
     kconfig.sync();
-
-    return true;
 }
 
 bool KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig)

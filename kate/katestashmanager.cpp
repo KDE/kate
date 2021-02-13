@@ -90,6 +90,7 @@ bool KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     // write stash metadata to config
     kconfig.writeEntry("stashedFile", stashedFile);
     if (doc->url().isValid()) {
+        // save checksum for already-saved documents
         kconfig.writeEntry("checksum", doc->checksum());
     }
 

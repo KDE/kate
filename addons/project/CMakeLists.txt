@@ -60,13 +60,15 @@ target_sources(
     kateprojectcodeanalysistool.cpp
     branchesdialog.cpp
     branchesdialogmodel.cpp
+    gitwidget.cpp
+    gitstatusmodel.cpp
 
     tools/kateprojectcodeanalysistoolcppcheck.cpp
     tools/kateprojectcodeanalysistoolflake8.cpp
     tools/kateprojectcodeanalysistoolshellcheck.cpp
     tools/kateprojectcodeanalysisselector.cpp
 
-    gitutils.cpp
+    git/gitutils.cpp
 
     plugin.qrc
 )

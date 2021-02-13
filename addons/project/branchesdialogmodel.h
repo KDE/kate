@@ -11,7 +11,7 @@
 #include <QVariant>
 #include <QVector>
 
-#include "gitutils.h"
+#include "git/gitutils.h"
 
 class BranchesDialogModel : public QAbstractTableModel
 {

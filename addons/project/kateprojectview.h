@@ -17,6 +17,8 @@ class KLineEdit;
 class QPushButton;
 class KateProjectPluginView;
 class BranchesDialog;
+class QStackedWidget;
+class GitWidget;
 
 /**
  * Class representing a view of a project.
@@ -93,6 +95,11 @@ private:
     QPushButton *m_branchBtn;
 
     /**
+      checkout branch button
+     */
+    QPushButton *m_gitBtn;
+
+    /**
      * The dialog which displays git branches
      */
     BranchesDialog *m_branchesDialog;
@@ -101,6 +108,10 @@ private:
      * watches for changes to .git/HEAD
      */
     QFileSystemWatcher m_branchChangedWatcher;
+
+    QStackedWidget *m_stackWidget;
+
+    GitWidget *m_gitWidget;
 };
 
 #endif

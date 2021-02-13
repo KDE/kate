@@ -8,6 +8,8 @@
 
 #include <QString>
 
+#include <functional>
+
 namespace GitUtils
 {
 enum RefType {
@@ -33,6 +35,12 @@ struct CheckoutResult {
     QString branch;
     QString error;
     int returnCode;
+};
+
+struct StatusEntry {
+    QString file;
+    char x;
+    char y;
 };
 
 /**
@@ -61,6 +69,7 @@ CheckoutResult checkoutNewBranch(const QString &repo, const QString &newBranch, 
  * @brief get all local and remote branches
  */
 QVector<Branch> getAllBranches(const QString &repo);
+
 /**
  * @brief get all local and remote branches + tags
  */

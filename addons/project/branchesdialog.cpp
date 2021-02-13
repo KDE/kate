@@ -5,7 +5,7 @@
 */
 #include "branchesdialog.h"
 #include "branchesdialogmodel.h"
-#include "gitutils.h"
+#include "git/gitutils.h"
 
 #include <QCoreApplication>
 #include <QKeyEvent>

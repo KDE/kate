@@ -100,6 +100,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     twDocuments->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
     connect(twDocuments, &QTreeWidget::currentItemChanged, this, &KateMwModOnHdDialog::slotSelectionChanged);
+    connect(twDocuments, &QTreeWidget::itemChanged, this, &KateMwModOnHdDialog::slotCheckedFilesChanged);
 
     // Diff line
     hb = new QHBoxLayout;
@@ -114,25 +115,29 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
     connect(btnDiff, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotDiff);
 
     // Dialog buttons
-    QDialogButtonBox *buttons = new QDialogButtonBox(this);
-    mainLayout->addWidget(buttons);
+    dlgButtons = new QDialogButtonBox(this);
+    mainLayout->addWidget(dlgButtons);
 
     QPushButton *ignoreButton = new QPushButton(QIcon::fromTheme(QStringLiteral("dialog-warning")), i18n("&Ignore Changes"));
     ignoreButton->setToolTip(i18n("Remove modified flag from selected documents"));
-    buttons->addButton(ignoreButton, QDialogButtonBox::RejectRole);
+    dlgButtons->addButton(ignoreButton, QDialogButtonBox::RejectRole);
     connect(ignoreButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotIgnore);
 
     QPushButton *overwriteButton = new QPushButton;
     KGuiItem::assign(overwriteButton, KStandardGuiItem::overwrite());
     overwriteButton->setToolTip(i18n("Overwrite selected documents, discarding disk changes"));
-    buttons->addButton(overwriteButton, QDialogButtonBox::DestructiveRole);
+    dlgButtons->addButton(overwriteButton, QDialogButtonBox::DestructiveRole);
     connect(overwriteButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotOverwrite);
 
     QPushButton *reloadButton = new QPushButton(QIcon::fromTheme(QStringLiteral("view-refresh")), i18n("&Reload"));
     reloadButton->setDefault(true);
     reloadButton->setToolTip(i18n("Reload selected documents from disk"));
-    buttons->addButton(reloadButton, QDialogButtonBox::DestructiveRole);
+    dlgButtons->addButton(reloadButton, QDialogButtonBox::DestructiveRole);
     connect(reloadButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotReload);
+
+    // butons will only be enabled when items are checked. see slotCheckedFilesChanged()
+    dlgButtons->setEnabled(false);
+    slotCheckedFilesChanged(nullptr, 0);
 
     slotSelectionChanged(nullptr, nullptr);
 }
@@ -224,6 +229,9 @@ void KateMwModOnHdDialog::handleSelected(int action)
         accept();
     }
 
+    // update the dialog buttons
+    slotCheckedFilesChanged(nullptr, 0);
+
     // allow addDocument again
     m_blockAddDocument = false;
 }
@@ -235,6 +243,26 @@ void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWi
     btnDiff->setEnabled(currentDocItem
                         && KateApp::self()->documentManager()->documentInfo(currentDocItem->document)->modifiedOnDiscReason
                             != KTextEditor::ModificationInterface::OnDiskDeleted);
+}
+
+void KateMwModOnHdDialog::slotCheckedFilesChanged(QTreeWidgetItem *, int column)
+{
+    if (column != 0) {
+        // we only need to react when the checkbox (in column 0) changes
+        return;
+    }
+
+    for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
+        KateDocItem *item = static_cast<KateDocItem *>(*it);
+        if (item->checkState(0) == Qt::Checked) {
+            // at least 1 item is checked so we enable the buttons
+            dlgButtons->setEnabled(true);
+            return;
+        }
+    }
+
+    // no itmes checked, disable all buttons
+    dlgButtons->setEnabled(false);
 }
 
 // ### the code below is slightly modified from kdelibs/kate/part/katedialogs,

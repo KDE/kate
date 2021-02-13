@@ -38,6 +38,7 @@ private Q_SLOTS:
     void slotReload();
     void slotDiff();
     void slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *);
+    void slotCheckedFilesChanged(QTreeWidgetItem *, int column);
     void slotDataAvailable();
     void slotPDone();
 
@@ -45,6 +46,7 @@ private:
     enum Action { Ignore, Overwrite, Reload };
     void handleSelected(int action);
     class QTreeWidget *twDocuments;
+    class QDialogButtonBox *dlgButtons;
     class QPushButton *btnDiff;
     KProcess *m_proc;
     QTemporaryFile *m_diffFile;

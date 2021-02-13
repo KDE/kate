@@ -11,8 +11,11 @@
 #include <KLocalizedString>
 
 #include <KSyntaxHighlighting/Definition>
+#include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
 #include <KSyntaxHighlighting/Theme>
+
+#include <KTextEditor/Editor>
 
 #include <QJsonDocument>
 #include <QJsonParseError>
@@ -26,25 +29,11 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     ui->setupUi(this);
 
     // fix-up our two text edits to be proper JSON file editors
-    for (auto textEdit : {ui->userConfig, static_cast<QTextEdit *>(ui->defaultConfig)}) {
-        // setup JSON highlighter for the default json stuff
-        auto highlighter = new KSyntaxHighlighting::SyntaxHighlighter(textEdit->document());
-        highlighter->setDefinition(m_repository.definitionForFileName(QStringLiteral("settings.json")));
+    updateHighlighters();
 
-        // we want mono-spaced font
-        textEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-
-        // we want to have the proper theme for the current palette
-        const auto theme = (palette().color(QPalette::Base).lightness() < 128) ? m_repository.defaultTheme(KSyntaxHighlighting::Repository::DarkTheme)
-                                                                               : m_repository.defaultTheme(KSyntaxHighlighting::Repository::LightTheme);
-        auto pal = qApp->palette();
-        if (theme.isValid()) {
-            pal.setColor(QPalette::Base, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor)));
-            pal.setColor(QPalette::Highlight, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::TextSelection)));
-        }
-        textEdit->setPalette(pal);
-        highlighter->setTheme(theme);
-    }
+    // ensure we update the highlighters if the repository is updated or theme is changed
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::repositoryReloaded, this, &LSPClientConfigPage::updateHighlighters);
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &LSPClientConfigPage::updateHighlighters);
 
     // setup default json settings
     QFile defaultConfigFile(QStringLiteral(":/lspclient/settings.json"));
@@ -251,4 +240,25 @@ void LSPClientConfigPage::configUrlChanged()
 
     // remember changed
     changed();
+}
+
+void LSPClientConfigPage::updateHighlighters()
+{
+    for (auto textEdit : {ui->userConfig, static_cast<QTextEdit *>(ui->defaultConfig)}) {
+        // setup JSON highlighter for the default json stuff
+        auto highlighter = new KSyntaxHighlighting::SyntaxHighlighter(textEdit->document());
+        highlighter->setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(QStringLiteral("settings.json")));
+
+        // we want mono-spaced font
+        textEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+
+        // we want to have the proper theme for the current palette
+        const auto theme = KTextEditor::Editor::instance()->theme();
+        auto pal = qApp->palette();
+        pal.setColor(QPalette::Base, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor)));
+        pal.setColor(QPalette::Highlight, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::TextSelection)));
+        textEdit->setPalette(pal);
+        highlighter->setTheme(theme);
+        highlighter->rehighlight();
+    }
 }

@@ -69,14 +69,20 @@ void GitWidget::getStatus(const QString &repo, bool untracked, bool submodules)
     git.start();
 }
 
-void GitWidget::stageAll(bool untracked)
+void GitWidget::stage(const QString &file, bool untracked)
 {
     auto args = QStringList{QStringLiteral("add"), QStringLiteral("-A"), QStringLiteral("--")};
 
-    const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
-    args.reserve(args.size() + files.size());
-    for (const auto &file : files) {
-        args.append(file.file);
+    // all
+    if (file.isEmpty()) {
+        const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
+        args.reserve(args.size() + files.size());
+        for (const auto &file : files) {
+            args.append(file.file);
+        }
+    } else {
+        // one file
+        args.append(file);
     }
 
     git.setWorkingDirectory(m_project->baseDir());
@@ -226,18 +232,18 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 
     if (type == GitStatusModel::NodeChanges || type == GitStatusModel::NodeUntrack) {
         QMenu menu;
-        auto stage = menu.addAction(i18n("Stage All"));
+        auto stageAct = menu.addAction(i18n("Stage All"));
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
-        if (act == stage) {
-            stageAll(type == GitStatusModel::NodeUntrack);
+        if (act == stageAct) {
+            stage(QString(), type == GitStatusModel::NodeUntrack);
         }
     } else if (type == GitStatusModel::NodeFile) {
         QMenu menu;
-        auto stage = menu.addAction(i18n("Stage file"));
+        auto stageAct = menu.addAction(i18n("Stage file"));
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
 
-        if (act == stage) {
-            hideEmptyTreeNodes();
+        if (act == stageAct) {
+            stage(QString(m_project->baseDir() + QStringLiteral("/") + idx.data().toString()));
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;

@@ -38,7 +38,7 @@ private:
     QFutureWatcher<GitParsedStatus> m_gitStatusWatcher;
 
     void getStatus(const QString &repo, bool untracked = true, bool submodules = false);
-    void stageAll(bool untracked = false);
+    void stage(const QString &file, bool untracked = false);
 
     GitParsedStatus parseStatus(const QByteArray &raw);
     void hideEmptyTreeNodes();

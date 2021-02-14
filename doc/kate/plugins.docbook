@@ -9,11 +9,7 @@
 
 <title>Working with Plugins</title>
 
-<para>&kate; offers several plugins. There are two types of these plugins:
-some are written in native C++, while others are written in the Python programming
-language. There are subtle differences in these, described below.</para>
-
-<para>You can enable any type of plugin in the <link
+<para>You can enable the individual plugins in the <link
 linkend="configuring-kate-configdialog">configuration dialog</link>, which also
 provides access to additional configuration options for plugins that require
 it.</para>
@@ -820,7 +816,7 @@ which match the path or file extension selected from the submenu.</para>
 <sect2 id="colorpicker-intro">
 <title>Introduction</title>
 
-<para>This plugin adds an inline color preview/picker to colors in the text (&eg;, <literal>#FFFFFF</literal>, 
+<para>This plugin adds an inline color preview/picker to colors in the text (&eg;, <literal>#FFFFFF</literal>,
 <literal>white</literal>).</para>
 
 <para>To load this plugin open &kate;'s configuration dialog under <menuchoice><guimenu>Settings</guimenu>

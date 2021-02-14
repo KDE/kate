@@ -31,6 +31,11 @@ public:
         return m_nodes[3];
     }
 
+    const QVector<GitUtils::StatusItem> &stagedFiles() const
+    {
+        return m_nodes[0];
+    }
+
     const QVector<GitUtils::StatusItem> &changedFiles() const
     {
         return m_nodes[1];

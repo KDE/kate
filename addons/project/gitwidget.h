@@ -39,6 +39,7 @@ private:
 
     void getStatus(const QString &repo, bool untracked = true, bool submodules = false);
     void stage(const QString &file, bool untracked = false);
+    void unstage(const QString &file);
 
     GitParsedStatus parseStatus(const QByteArray &raw);
     void hideEmptyTreeNodes();

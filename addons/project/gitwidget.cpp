@@ -95,6 +95,33 @@ void GitWidget::stage(const QString &file, bool untracked)
     }
 }
 
+void GitWidget::unstage(const QString &file)
+{
+    // git reset -q HEAD --
+    auto args = QStringList{QStringLiteral("reset"), QStringLiteral("-q"), QStringLiteral("HEAD"), QStringLiteral("--")};
+
+    // all
+    if (file.isEmpty()) {
+        const QVector<GitUtils::StatusItem> &files = m_model->stagedFiles();
+        args.reserve(args.size() + files.size());
+        for (const auto &file : files) {
+            args.append(file.file);
+        }
+    } else {
+        // one file
+        args.append(file);
+    }
+
+    git.setWorkingDirectory(m_project->baseDir());
+    git.setProgram(QStringLiteral("git"));
+    git.setArguments(args);
+    git.start();
+
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        getStatus(m_project->baseDir());
+    }
+}
+
 void GitWidget::gitStatusReady()
 {
     disconnect(&git, &QProcess::readyRead, this, &GitWidget::gitStatusReady);
@@ -239,19 +266,25 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         }
     } else if (type == GitStatusModel::NodeFile) {
         QMenu menu;
-        auto stageAct = menu.addAction(i18n("Stage file"));
+        bool unstaging = idx.internalId() == GitStatusModel::NodeStage;
+        auto stageAct = unstaging ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
 
+        const QString file = QString(m_project->baseDir() + QStringLiteral("/") + idx.data().toString());
         if (act == stageAct) {
-            stage(QString(m_project->baseDir() + QStringLiteral("/") + idx.data().toString()));
+            if (unstaging) {
+                return unstage(file);
+            }
+            return stage(file);
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;
         auto stage = menu.addAction(i18n("Unstage All"));
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
 
+        // git reset -q HEAD --
         if (act == stage) {
-            hideEmptyTreeNodes();
+            unstage(QString());
         }
     }
 }

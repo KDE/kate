@@ -27,7 +27,6 @@ QModelIndex GitStatusModel::index(int row, int column, const QModelIndex &parent
         }
     }
     return createIndex(row, column, rootIndex);
-    ;
 }
 
 QModelIndex GitStatusModel::parent(const QModelIndex &child) const
@@ -46,15 +45,11 @@ int GitStatusModel::rowCount(const QModelIndex &parent) const
     }
 
     if (parent.internalId() == Root) {
-        if (parent.row() == Staged) {
-            return m_staged.size();
-        } else if (parent.row() == Changed) {
-            return m_changed.size();
-        } else if (parent.row() == Untrack) {
-            return m_untracked.size();
-        } else if (parent.row() == Conflict) {
-            return m_unmerge.size();
+        if (parent.row() < 0 || parent.row() > 3) {
+            return 0;
         }
+
+        return m_nodes[parent.row()].size();
     }
     return 0;
 }
@@ -92,7 +87,7 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             return branchIcon;
         }
     } else {
-        if (role != Qt::DisplayRole) {
+        if (role != Qt::DisplayRole && role != Qt::DecorationRole) {
             return {};
         }
         int rootIndex = index.internalId();
@@ -100,14 +95,9 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
 
-        if (rootIndex == Staged)
-            return m_staged.at(row).file;
-        if (rootIndex == Changed)
-            return m_changed.at(row).file;
-        if (rootIndex == Conflict)
-            return m_unmerge.at(row).file;
-        if (rootIndex == Untrack)
-            return m_untracked.at(row).file;
+        if (role == Qt::DisplayRole) {
+            return m_nodes[rootIndex].at(row).file;
+        }
     }
 
     return {};
@@ -118,27 +108,20 @@ void GitStatusModel::addItems(const QVector<GitUtils::StatusItem> &staged,
                               const QVector<GitUtils::StatusItem> &untracked)
 {
     beginResetModel();
-    m_staged = staged;
-    m_changed = changed;
-    m_unmerge = unmerge;
-    m_untracked = untracked;
+    m_nodes[Staged] = staged;
+    m_nodes[Changed] = changed;
+    m_nodes[Conflict] = unmerge;
+    m_nodes[Untrack] = untracked;
     endResetModel();
 }
 
 QVector<int> GitStatusModel::emptyRows()
 {
     QVector<int> empty;
-    if (m_staged.isEmpty()) {
-        empty.append(Staged);
-    }
-    if (m_untracked.isEmpty()) {
-        empty.append(Untrack);
-    }
-    if (m_unmerge.isEmpty()) {
-        empty.append(Conflict);
-    }
-    if (m_changed.isEmpty()) {
-        empty.append(Changed);
+    for (int i = 0; i < 4; ++i) {
+        if (m_nodes[i].isEmpty()) {
+            empty.append(i);
+        }
     }
     return empty;
 }

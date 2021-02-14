@@ -10,13 +10,6 @@ class GitStatusModel : public QAbstractItemModel
 public:
     explicit GitStatusModel(QObject *parent);
 
-    //    enum Status { M, A, U };
-    //    struct Item {
-    //        QString file;
-    //        Status status;
-    //    };
-
-    // QAbstractItemModel interface
 public:
     QModelIndex index(int row, int column, const QModelIndex &parent) const override;
     QModelIndex parent(const QModelIndex &child) const override;
@@ -31,10 +24,7 @@ public:
     QVector<int> emptyRows();
 
 private:
-    QVector<GitUtils::StatusItem> m_staged;
-    QVector<GitUtils::StatusItem> m_changed;
-    QVector<GitUtils::StatusItem> m_unmerge;
-    QVector<GitUtils::StatusItem> m_untracked;
+    QVector<GitUtils::StatusItem> m_nodes[4];
 };
 
 #endif // GITSTATUSMODEL_H

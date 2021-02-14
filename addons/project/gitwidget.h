@@ -37,6 +37,7 @@ private:
 
     void getStatus(const QString &repo, bool submodules = false);
     GitParsedStatus parseStatus(const QByteArray &raw);
+    void hideEmptyTreeNodes();
 
     Q_SLOT void gitStatusReady();
     Q_SLOT void parseStatusReady();

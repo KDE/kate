@@ -28,6 +28,7 @@ public:
                   const QVector<GitUtils::StatusItem> &changed,
                   const QVector<GitUtils::StatusItem> &unmerge,
                   const QVector<GitUtils::StatusItem> &untracked);
+    QVector<int> emptyRows();
 
 private:
     QVector<GitUtils::StatusItem> m_staged;

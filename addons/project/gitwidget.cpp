@@ -150,8 +150,18 @@ GitWidget::GitParsedStatus GitWidget::parseStatus(const QByteArray &raw)
     return {untracked, unmerge, staged, changed};
 }
 
+void GitWidget::hideEmptyTreeNodes()
+{
+    const auto emptyRows = m_model->emptyRows();
+    for (const int row : emptyRows) {
+        m_treeView->setRowHidden(row, QModelIndex(), true);
+    }
+}
+
 void GitWidget::parseStatusReady()
 {
     GitParsedStatus s = m_gitStatusWatcher.result();
     m_model->addItems(s.staged, s.changed, s.unmerge, s.untracked);
+
+    hideEmptyTreeNodes();
 }

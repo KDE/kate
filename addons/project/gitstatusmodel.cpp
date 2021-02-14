@@ -124,3 +124,21 @@ void GitStatusModel::addItems(const QVector<GitUtils::StatusItem> &staged,
     m_untracked = untracked;
     endResetModel();
 }
+
+QVector<int> GitStatusModel::emptyRows()
+{
+    QVector<int> empty;
+    if (m_staged.isEmpty()) {
+        empty.append(Staged);
+    }
+    if (m_untracked.isEmpty()) {
+        empty.append(Untrack);
+    }
+    if (m_unmerge.isEmpty()) {
+        empty.append(Conflict);
+    }
+    if (m_changed.isEmpty()) {
+        empty.append(Changed);
+    }
+    return empty;
+}

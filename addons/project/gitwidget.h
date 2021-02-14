@@ -37,7 +37,9 @@ private:
     QProcess git;
     QFutureWatcher<GitParsedStatus> m_gitStatusWatcher;
 
-    void getStatus(const QString &repo, bool submodules = false);
+    void getStatus(const QString &repo, bool untracked = true, bool submodules = false);
+    void stageAll(bool untracked = false);
+
     GitParsedStatus parseStatus(const QByteArray &raw);
     void hideEmptyTreeNodes();
     void treeViewContextMenuEvent(QContextMenuEvent *e);

@@ -49,11 +49,17 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent)
     getStatus(m_project->baseDir());
 }
 
-void GitWidget::getStatus(const QString &repo, bool submodules)
+void GitWidget::getStatus(const QString &repo, bool untracked, bool submodules)
 {
+    disconnect(&git, SIGNAL(readyRead()), nullptr, nullptr);
     connect(&git, &QProcess::readyRead, this, &GitWidget::gitStatusReady);
 
-    auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z"), QStringLiteral("-u")};
+    auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z")};
+    if (!untracked) {
+        args.append(QStringLiteral("-uno"));
+    } else {
+        args.append(QStringLiteral("-u"));
+    }
     if (!submodules) {
         args.append(QStringLiteral("--ignore-submodules"));
     }
@@ -61,6 +67,26 @@ void GitWidget::getStatus(const QString &repo, bool submodules)
     git.setProgram(QStringLiteral("git"));
     git.setWorkingDirectory(repo);
     git.start();
+}
+
+void GitWidget::stageAll(bool untracked)
+{
+    auto args = QStringList{QStringLiteral("add"), QStringLiteral("-A"), QStringLiteral("--")};
+
+    const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
+    args.reserve(args.size() + files.size());
+    for (const auto &file : files) {
+        args.append(file.file);
+    }
+
+    git.setWorkingDirectory(m_project->baseDir());
+    git.setProgram(QStringLiteral("git"));
+    git.setArguments(args);
+    git.start();
+
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        getStatus(m_project->baseDir());
+    }
 }
 
 void GitWidget::gitStatusReady()
@@ -167,6 +193,9 @@ void GitWidget::hideEmptyTreeNodes()
             m_treeView->setRowHidden(i, QModelIndex(), true);
         } else {
             m_treeView->setRowHidden(i, QModelIndex(), false);
+            if (i != GitStatusModel::NodeUntrack) {
+                m_treeView->expand(m_model->getModelIndex((GitStatusModel::ItemType)i));
+            }
         }
     }
 }
@@ -195,22 +224,27 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
     auto idx = m_model->index(m_treeView->currentIndex().row(), 0, m_treeView->currentIndex().parent());
     auto type = idx.data(GitStatusModel::TreeItemType);
 
-    if (type == GitStatusModel::Node) {
+    if (type == GitStatusModel::NodeChanges || type == GitStatusModel::NodeUntrack) {
         QMenu menu;
         auto stage = menu.addAction(i18n("Stage All"));
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (act == stage) {
-            m_model->stageAll(m_treeView->currentIndex());
-            hideEmptyTreeNodes();
+            stageAll(type == GitStatusModel::NodeUntrack);
         }
-
-    } else if (type == GitStatusModel::File) {
+    } else if (type == GitStatusModel::NodeFile) {
         QMenu menu;
         auto stage = menu.addAction(i18n("Stage file"));
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
 
         if (act == stage) {
-            m_model->stageFile(m_treeView->currentIndex());
+            hideEmptyTreeNodes();
+        }
+    } else if (type == GitStatusModel::NodeStage) {
+        QMenu menu;
+        auto stage = menu.addAction(i18n("Unstage All"));
+        auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+
+        if (act == stage) {
             hideEmptyTreeNodes();
         }
     }

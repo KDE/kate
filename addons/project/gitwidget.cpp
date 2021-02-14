@@ -89,60 +89,63 @@ GitWidget::GitParsedStatus GitWidget::parseStatus(const QByteArray &raw)
         uint16_t xy = (((uint16_t)x) << 8) | y;
         using namespace GitUtils;
 
+        const char *file = r.data() + 3;
+        const int size = r.size() - 3;
+
         switch (xy) {
         case StatusXY::QQ:
-            untracked.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Untracked});
+            untracked.append({QString::fromUtf8(file, size), GitStatus::Untracked});
             break;
         case StatusXY::II:
-            untracked.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Ignored});
+            untracked.append({QString::fromUtf8(file, size), GitStatus::Ignored});
             break;
 
         case StatusXY::DD:
-            unmerge.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Unmerge_BothDeleted});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothDeleted});
             break;
         case StatusXY::AU:
-            unmerge.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Unmerge_AddedByUs});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByUs});
             break;
         case StatusXY::UD:
-            unmerge.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Unmerge_DeletedByThem});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByThem});
             break;
         case StatusXY::UA:
-            unmerge.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Unmerge_AddedByThem});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByThem});
             break;
         case StatusXY::DU:
-            unmerge.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Unmerge_DeletedByUs});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByUs});
             break;
         case StatusXY::AA:
-            unmerge.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Unmerge_BothAdded});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothAdded});
             break;
         case StatusXY::UU:
-            unmerge.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Unmerge_BothModified});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothModified});
             break;
 
         case StatusXY::M_:
-            staged.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Index_Modified});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Modified});
             break;
         case StatusXY::A_:
-            staged.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Index_Added});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Added});
             break;
         case StatusXY::D_:
-            staged.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Index_Deleted});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Deleted});
             break;
         case StatusXY::R_:
-            staged.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Index_Renamed});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Renamed});
             break;
         case StatusXY::C_:
-            staged.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::Index_Copied});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Copied});
             break;
 
         case StatusXY::_M:
-            changed.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::WorkingTree_Modified});
+            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Modified});
             break;
         case StatusXY::_D:
-            changed.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::WorkingTree_Deleted});
+            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Deleted});
             break;
         case StatusXY::_A:
-            changed.append({QString::fromUtf8(r.data() + 3, r.size()), GitStatus::WorkingTree_IntentToAdd});
+            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_IntentToAdd});
             break;
         }
     }

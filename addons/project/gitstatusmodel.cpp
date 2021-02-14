@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QFont>
 #include <QIcon>
+#include <QMimeDatabase>
 
 static constexpr int Staged = 0;
 static constexpr int Changed = 1;
@@ -97,6 +98,8 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
 
         if (role == Qt::DisplayRole) {
             return m_nodes[rootIndex].at(row).file;
+        } else if (role == Qt::DecorationRole) {
+            return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(m_nodes[rootIndex].at(row).file, QMimeDatabase::MatchExtension).iconName());
         }
     }
 

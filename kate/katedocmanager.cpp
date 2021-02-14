@@ -416,12 +416,16 @@ void KateDocManager::saveDocumentList(KConfig *config)
 
     // prepare stash directory
     const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    const QString sessionName = KateApp::self()->sessionManager()->activeSession()->name();
     QDir dir(appDataPath);
     dir.mkdir(QStringLiteral("stash"));
     dir.cd(QStringLiteral("stash"));
-    dir.mkdir(sessionName);
-    dir.cd(sessionName);
+
+    const auto session = KateApp::self()->sessionManager()->activeSession();
+    if (session) {
+        const QString sessionName = session->name();
+        dir.mkdir(sessionName);
+        dir.cd(sessionName);
+    }
 
     int i = 0;
     for (KTextEditor::Document *doc : qAsConst(m_docList)) {

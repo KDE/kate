@@ -71,13 +71,13 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
     if (index.internalId() == Root) {
         if (role == Qt::DisplayRole) {
             if (row == Staged) {
-                return QStringLiteral("Staged");
+                return QStringLiteral("Staged (%1)").arg(m_nodes[Staged].count());
             } else if (row == Untrack) {
-                return QStringLiteral("Untracked");
+                return QStringLiteral("Untracked (%1)").arg(m_nodes[Untrack].count());
             } else if (row == Conflict) {
-                return QStringLiteral("Conflict");
+                return QStringLiteral("Conflict (%1)").arg(m_nodes[Conflict].count());
             } else if (row == Changed) {
-                return QStringLiteral("Modified");
+                return QStringLiteral("Modified (%1)").arg(m_nodes[Changed].count());
             }
         } else if (role == Qt::FontRole) {
             QFont bold;
@@ -86,11 +86,10 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
         } else if (role == Qt::DecorationRole) {
             static const auto branchIcon = QIcon(QStringLiteral(":/kxmlgui5/kateproject/sc-apps-git.svg"));
             return branchIcon;
+        } else if (role == Role::TreeItemType) {
+            return ItemType::Node;
         }
     } else {
-        if (role != Qt::DisplayRole && role != Qt::DecorationRole) {
-            return {};
-        }
         int rootIndex = index.internalId();
         if (rootIndex < 0 || rootIndex > 3) {
             return QVariant();
@@ -100,6 +99,8 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             return m_nodes[rootIndex].at(row).file;
         } else if (role == Qt::DecorationRole) {
             return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(m_nodes[rootIndex].at(row).file, QMimeDatabase::MatchExtension).iconName());
+        } else if (role == Role::TreeItemType) {
+            return ItemType::File;
         }
     }
 
@@ -127,4 +128,48 @@ QVector<int> GitStatusModel::emptyRows()
         }
     }
     return empty;
+}
+
+bool GitStatusModel::stageAll(const QModelIndex &idx)
+{
+    if (!idx.isValid()) {
+        return false;
+    }
+
+    if (idx.internalId() != Root) {
+        return false;
+    }
+
+    // do actual staging, check for return code
+
+    // model update
+    const auto node = idx.row();
+    const auto srcSize = m_nodes[node].size();
+    const auto destSize = m_nodes[Staged].size();
+    beginMoveRows(createIndex(node, 0, Root), 0, srcSize, createIndex(Staged, 0, Root), destSize);
+
+    m_nodes[Staged].append(m_nodes[node]);
+    m_nodes[node].clear();
+
+    endMoveRows();
+    return true;
+}
+
+bool GitStatusModel::stageFile(const QModelIndex &idx)
+{
+    if (!idx.isValid()) {
+        return false;
+    }
+
+    // do actual staging, check for return code
+    const auto parent = idx.internalId();
+    const auto destSize = m_nodes[Staged].size();
+    beginMoveRows(createIndex(parent, 0, Root), idx.row(), idx.row(), createIndex(Staged, 0, Root), destSize);
+
+    auto item = m_nodes[parent].at(idx.row());
+    m_nodes[Staged].append(item);
+    m_nodes[parent].remove(idx.row());
+
+    endMoveRows();
+    return true;
 }

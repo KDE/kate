@@ -10,6 +10,9 @@ class GitStatusModel : public QAbstractItemModel
 public:
     explicit GitStatusModel(QObject *parent);
 
+    enum ItemType { Node, File };
+    enum Role { TreeItemType = Qt::UserRole };
+
 public:
     QModelIndex index(int row, int column, const QModelIndex &parent) const override;
     QModelIndex parent(const QModelIndex &child) const override;
@@ -22,6 +25,9 @@ public:
                   const QVector<GitUtils::StatusItem> &unmerge,
                   const QVector<GitUtils::StatusItem> &untracked);
     QVector<int> emptyRows();
+
+    bool stageFile(const QModelIndex &idx);
+    bool stageAll(const QModelIndex &idx);
 
 private:
     QVector<GitUtils::StatusItem> m_nodes[4];

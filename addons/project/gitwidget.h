@@ -19,6 +19,8 @@ class GitWidget : public QWidget
 public:
     explicit GitWidget(KateProject *project, QWidget *parent = nullptr);
 
+    bool eventFilter(QObject *o, QEvent *e) override;
+
 private:
     struct GitParsedStatus {
         QVector<GitUtils::StatusItem> untracked;
@@ -38,6 +40,7 @@ private:
     void getStatus(const QString &repo, bool submodules = false);
     GitParsedStatus parseStatus(const QByteArray &raw);
     void hideEmptyTreeNodes();
+    void treeViewContextMenuEvent(QContextMenuEvent *e);
 
     Q_SLOT void gitStatusReady();
     Q_SLOT void parseStatusReady();

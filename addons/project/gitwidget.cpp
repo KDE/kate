@@ -2,13 +2,18 @@
 #include "gitstatusmodel.h"
 #include "kateproject.h"
 
+#include <QContextMenuEvent>
 #include <QDebug>
+#include <QEvent>
+#include <QMenu>
 #include <QProcess>
 #include <QPushButton>
 #include <QStringListModel>
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QtConcurrentRun>
+
+#include <KLocalizedString>
 
 GitWidget::GitWidget(KateProject *project, QWidget *parent)
     : QWidget(parent)
@@ -30,11 +35,12 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent)
     layout->addLayout(btnsLayout);
     layout->addWidget(m_treeView);
 
-    m_treeView->setHeaderHidden(true);
-    m_treeView->setRootIsDecorated(false);
-
     m_model = new GitStatusModel(this);
+
+    m_treeView->setHeaderHidden(true);
+    //    m_treeView->setRootIsDecorated(false);
     m_treeView->setModel(m_model);
+    m_treeView->installEventFilter(this);
 
     setLayout(layout);
 
@@ -156,8 +162,12 @@ GitWidget::GitParsedStatus GitWidget::parseStatus(const QByteArray &raw)
 void GitWidget::hideEmptyTreeNodes()
 {
     const auto emptyRows = m_model->emptyRows();
-    for (const int row : emptyRows) {
-        m_treeView->setRowHidden(row, QModelIndex(), true);
+    for (int i = 0; i < 4; ++i) {
+        if (emptyRows.contains(i)) {
+            m_treeView->setRowHidden(i, QModelIndex(), true);
+        } else {
+            m_treeView->setRowHidden(i, QModelIndex(), false);
+        }
     }
 }
 
@@ -167,4 +177,41 @@ void GitWidget::parseStatusReady()
     m_model->addItems(s.staged, s.changed, s.unmerge, s.untracked);
 
     hideEmptyTreeNodes();
+}
+
+bool GitWidget::eventFilter(QObject *o, QEvent *e)
+{
+    if (e->type() == QEvent::ContextMenu) {
+        if (o != m_treeView)
+            return QWidget::eventFilter(o, e);
+        QContextMenuEvent *cme = static_cast<QContextMenuEvent *>(e);
+        treeViewContextMenuEvent(cme);
+    }
+    return QWidget::eventFilter(o, e);
+}
+
+void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
+{
+    auto idx = m_model->index(m_treeView->currentIndex().row(), 0, m_treeView->currentIndex().parent());
+    auto type = idx.data(GitStatusModel::TreeItemType);
+
+    if (type == GitStatusModel::Node) {
+        QMenu menu;
+        auto stage = menu.addAction(i18n("Stage All"));
+        auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+        if (act == stage) {
+            m_model->stageAll(m_treeView->currentIndex());
+            hideEmptyTreeNodes();
+        }
+
+    } else if (type == GitStatusModel::File) {
+        QMenu menu;
+        auto stage = menu.addAction(i18n("Stage file"));
+        auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+
+        if (act == stage) {
+            m_model->stageFile(m_treeView->currentIndex());
+            hideEmptyTreeNodes();
+        }
+    }
 }

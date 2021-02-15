@@ -394,6 +394,7 @@ void GitWidget::gitStatusReady(int exit, QProcess::ExitStatus)
 void GitWidget::hideEmptyTreeNodes()
 {
     const auto emptyRows = m_model->emptyRows();
+    m_treeView->expand(m_model->getModelIndex((GitStatusModel::NodeStage)));
     // 1 because "Staged" will always be visible
     for (int i = 1; i < 4; ++i) {
         if (emptyRows.contains(i)) {

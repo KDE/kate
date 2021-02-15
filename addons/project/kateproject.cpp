@@ -224,7 +224,7 @@ QString KateProject::projectLocalFileName(const QString &suffix) const
     /**
      * compute full file name
      */
-    return m_baseDir + QStringLiteral(".kateproject.") + suffix;
+    return QDir(m_baseDir).filePath(QStringLiteral(".kateproject.") + suffix);
 }
 
 QTextDocument *KateProject::notesDocument()

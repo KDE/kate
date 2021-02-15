@@ -113,6 +113,9 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     connect(&m_branchChangedWatcher, &QFileSystemWatcher::fileChanged, this, [this] {
         m_project->reload(true);
     });
+    connect(m_gitWidget, &GitWidget::checkoutBranch, this, [this] {
+        m_branchesDialog->openDialog();
+    });
 }
 
 KateProjectView::~KateProjectView()

@@ -14,6 +14,7 @@
 #include <QProcess>
 #include <QPushButton>
 #include <QStringListModel>
+#include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QtConcurrentRun>
@@ -30,9 +31,15 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWin
     , m_project(project)
     , m_mainWin(mainWindow)
 {
-    m_menuBtn = new QPushButton(this);
+    m_menuBtn = new QToolButton(this);
     m_commitBtn = new QPushButton(this);
     m_treeView = new QTreeView(this);
+
+    buildMenu();
+    m_menuBtn->setMenu(m_gitMenu);
+    connect(m_menuBtn, &QToolButton::clicked, this, [this](bool) {
+        m_menuBtn->showMenu();
+    });
 
     m_menuBtn->setIcon(QIcon::fromTheme(QStringLiteral("application-menu")));
     m_commitBtn->setIcon(QIcon(QStringLiteral(":/kxmlgui5/kateproject/git-commit-dark.svg")));
@@ -263,6 +270,17 @@ bool GitWidget::eventFilter(QObject *o, QEvent *e)
         treeViewContextMenuEvent(cme);
     }
     return QWidget::eventFilter(o, e);
+}
+
+void GitWidget::buildMenu()
+{
+    m_gitMenu = new QMenu(this);
+    m_gitMenu->addAction(i18n("Refresh"), this, [this] {
+        if (m_project) {
+            getStatus(m_project->baseDir());
+        }
+    });
+    m_gitMenu->addAction(i18n("Checkout Branch"), this, &GitWidget::checkoutBranch);
 }
 
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)

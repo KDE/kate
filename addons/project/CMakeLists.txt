@@ -69,6 +69,7 @@ target_sources(
     tools/kateprojectcodeanalysisselector.cpp
 
     git/gitutils.cpp
+    git/gitstatus.cpp
 
     plugin.qrc
 )

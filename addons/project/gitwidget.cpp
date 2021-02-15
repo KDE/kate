@@ -4,8 +4,11 @@
 
 #include <QContextMenuEvent>
 #include <QDebug>
+#include <QDialog>
 #include <QEvent>
+#include <QLineEdit>
 #include <QMenu>
+#include <QPlainTextEdit>
 #include <QProcess>
 #include <QPushButton>
 #include <QStringListModel>
@@ -15,9 +18,15 @@
 
 #include <KLocalizedString>
 
-GitWidget::GitWidget(KateProject *project, QWidget *parent)
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
+#include <KTextEditor/ConfigInterface>
+#include <KTextEditor/Message>
+
+GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWindow *mainWindow)
     : QWidget(parent)
     , m_project(project)
+    , m_mainWin(mainWindow)
 {
     m_menuBtn = new QPushButton(this);
     m_commitBtn = new QPushButton(this);
@@ -25,6 +34,7 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent)
 
     m_menuBtn->setIcon(QIcon::fromTheme(QStringLiteral("application-menu")));
     m_commitBtn->setIcon(QIcon(QStringLiteral(":/kxmlgui5/kateproject/git-commit-dark.svg")));
+    m_commitBtn->setText(i18n("Commit"));
 
     QVBoxLayout *layout = new QVBoxLayout;
     QHBoxLayout *btnsLayout = new QHBoxLayout;
@@ -45,14 +55,25 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent)
     setLayout(layout);
 
     connect(&m_gitStatusWatcher, &QFutureWatcher<GitWidget::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
+    connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::opencommitChangesDialog);
 
     getStatus(m_project->baseDir());
 }
 
+void GitWidget::sendMessage(const QString &message, bool warn)
+{
+    KTextEditor::Message *msg = new KTextEditor::Message(message, warn ? KTextEditor::Message::Warning : KTextEditor::Message::Positive);
+    msg->setPosition(KTextEditor::Message::TopInView);
+    msg->setAutoHide(3000);
+    msg->setAutoHideMode(KTextEditor::Message::Immediate);
+    msg->setView(m_mainWin->activeView());
+    m_mainWin->activeView()->document()->postMessage(msg);
+}
+
 void GitWidget::getStatus(const QString &repo, bool untracked, bool submodules)
 {
-    disconnect(&git, SIGNAL(readyRead()), nullptr, nullptr);
-    connect(&git, &QProcess::readyRead, this, &GitWidget::gitStatusReady);
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
+    connect(&git, &QProcess::finished, this, &GitWidget::gitStatusReady);
 
     auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z")};
     if (!untracked) {
@@ -122,18 +143,107 @@ void GitWidget::unstage(const QString &file)
     }
 }
 
-void GitWidget::gitStatusReady()
+void GitWidget::commitChanges(const QString &msg, const QString &desc)
 {
-    disconnect(&git, &QProcess::readyRead, this, &GitWidget::gitStatusReady);
+    auto args = QStringList{QStringLiteral("commit"), QStringLiteral("-m"), msg};
+    if (!desc.isEmpty()) {
+        args.append(QStringLiteral("-m"));
+        args.append(desc);
+    }
+
+    git.setWorkingDirectory(m_project->baseDir());
+    git.setProgram(QStringLiteral("git"));
+    git.setArguments(args);
+    git.start();
+
+    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus){
+        if (exitCode > 0) {
+            sendMessage(i18n("Failed to commit. \n %1", QString::fromUtf8(git.readAllStandardError())), true);
+        } else {
+            sendMessage(i18n("Changes commited successfully."), false);
+            // refresh
+            getStatus(m_project->baseDir());
+        }
+    });
+}
+
+void GitWidget::opencommitChangesDialog()
+{
+    if (m_model->stagedFiles().isEmpty()) {
+        return sendMessage(i18n("Nothing to commit. Please stage your changes first.", QString::fromUtf8(git.readAllStandardError())), true);
+    }
+
+    auto ciface = qobject_cast<KTextEditor::ConfigInterface*>(m_mainWin->activeView());
+    QFont font;
+    if (ciface) {
+        font = ciface->configValue(QStringLiteral("font")).value<QFont>();
+    } else {
+        font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    }
+
+    QDialog dialog;
+    dialog.setWindowFlags(Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
+    dialog.setWindowTitle(i18n("Commit Changes"));
+
+    QVBoxLayout vlayout;
+    QHBoxLayout hLayout;
+    dialog.setLayout(&vlayout);
+
+    QLineEdit le;
+    le.setPlaceholderText(i18n("Write commit message..."));
+    le.setFont(font);
+
+    QPlainTextEdit pe;
+    pe.setPlaceholderText(i18n("Extended commit description..."));
+    pe.setFont(font);
+
+    // restore last message ?
+    if (!m_commitMessage.isEmpty()) {
+        auto msgs = m_commitMessage.split(QStringLiteral("\n\n"));
+        if (!msgs.isEmpty()) {
+            le.setText(msgs.at(0));
+            if (msgs.length() > 1)  {
+                pe.setPlainText(msgs.at(1));
+            }
+        }
+    }
+
+    vlayout.addWidget(&le);
+    vlayout.addWidget(&pe);
+
+    QPushButton ok(i18n("Ok"));
+    QPushButton cancel(i18n("Cancel"));
+    hLayout.addStretch();
+    hLayout.addWidget(&ok);
+    hLayout.addWidget(&cancel);
+
+    connect(&ok, &QPushButton::clicked, &dialog, &QDialog::accept);
+    connect(&cancel, &QPushButton::clicked, &dialog, &QDialog::reject);
+
+    vlayout.addLayout(&hLayout);
+
+    int res = dialog.exec();
+    if (res == QDialog::Accepted) {
+        if (le.text().isEmpty()) {
+            return sendMessage(i18n("Commit message cannot be empty."), true);
+        }
+        commitChanges(le.text(), pe.toPlainText());
+    } else {
+        m_commitMessage = le.text() + QStringLiteral("\n\n") + pe.toPlainText();
+    }
+}
+
+void GitWidget::gitStatusReady(int exit, QProcess::ExitStatus)
+{
+    if (exit > 0) {
+        sendMessage(i18n("Failed to get git-status. Error: %1", QString::fromUtf8(git.readAllStandardError())), true);
+        return;
+    }
+
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
     QByteArray s = git.readAllStandardOutput();
     auto future = QtConcurrent::run(this, &GitWidget::parseStatus, s);
     m_gitStatusWatcher.setFuture(future);
-
-    auto l = s.split(0x00);
-    QStringList out;
-    for (const auto &m : l) {
-        out.append(QString::fromLocal8Bit(m));
-    }
 }
 
 GitWidget::GitParsedStatus GitWidget::parseStatus(const QByteArray &raw)
@@ -254,12 +364,15 @@ bool GitWidget::eventFilter(QObject *o, QEvent *e)
 
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 {
+    // discard=>git checkout -q -- /home/waqar/Projects/syntest/App.js
     auto idx = m_model->index(m_treeView->currentIndex().row(), 0, m_treeView->currentIndex().parent());
     auto type = idx.data(GitStatusModel::TreeItemType);
 
     if (type == GitStatusModel::NodeChanges || type == GitStatusModel::NodeUntrack) {
         QMenu menu;
         auto stageAct = menu.addAction(i18n("Stage All"));
+//        auto discardAct = type == GitStatusModel::NodeChanges ? menu.addAction(i18n("Discard All")) : nullptr;
+
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (act == stageAct) {
             stage(QString(), type == GitStatusModel::NodeUntrack);

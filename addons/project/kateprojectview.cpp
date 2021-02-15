@@ -32,7 +32,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     , m_branchBtn(new QPushButton)
     , m_gitBtn(new QPushButton)
     , m_stackWidget(new QStackedWidget)
-    , m_gitWidget(new GitWidget(project, this))
+    , m_gitWidget(new GitWidget(project, this, mainWindow))
 {
     /**
      * layout tree view and co.

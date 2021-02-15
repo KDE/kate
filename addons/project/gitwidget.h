@@ -13,11 +13,15 @@ class QStringListModel;
 class GitStatusModel;
 class KateProject;
 
+namespace KTextEditor {
+class MainWindow;
+}
+
 class GitWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GitWidget(KateProject *project, QWidget *parent = nullptr);
+    explicit GitWidget(KateProject *project, QWidget *parent = nullptr, KTextEditor::MainWindow *mainWindow = nullptr);
 
     bool eventFilter(QObject *o, QEvent *e) override;
 
@@ -36,17 +40,22 @@ private:
     KateProject *m_project;
     QProcess git;
     QFutureWatcher<GitParsedStatus> m_gitStatusWatcher;
+    QString m_commitMessage;
+    KTextEditor::MainWindow *m_mainWin;
 
     void getStatus(const QString &repo, bool untracked = true, bool submodules = false);
     void stage(const QString &file, bool untracked = false);
     void unstage(const QString &file);
+    void commitChanges(const QString& msg, const QString& desc);
+    void sendMessage(const QString &message, bool warn);
 
     GitParsedStatus parseStatus(const QByteArray &raw);
     void hideEmptyTreeNodes();
     void treeViewContextMenuEvent(QContextMenuEvent *e);
 
-    Q_SLOT void gitStatusReady();
+    Q_SLOT void gitStatusReady(int exit, QProcess::ExitStatus);
     Q_SLOT void parseStatusReady();
+    Q_SLOT void opencommitChangesDialog();
 };
 
 #endif // GITWIDGET_H

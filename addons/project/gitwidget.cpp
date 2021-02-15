@@ -199,7 +199,52 @@ void GitWidget::openAtHEAD(const QString &file)
                         KTextEditor::Editor::instance();
                         for (auto i = m_filesOpenAtHEAD.begin(); i != m_filesOpenAtHEAD.end(); ++i) {
                             if (i->second->document() == document) {
-                                qWarning() << "CLOSING FILE";
+                                m_filesOpenAtHEAD.erase(i);
+                                break;
+                            }
+                        }
+                    };
+                    connect(v->document(), &KTextEditor::Document::aboutToClose, this, clearTemp);
+                }
+            }
+        }
+    });
+}
+
+void GitWidget::showDiff(const QString &file)
+{
+    if (file.isEmpty()) {
+        return;
+    }
+
+    auto args = QStringList{QStringLiteral("diff"), file};
+
+    git.setWorkingDirectory(m_project->baseDir());
+    git.setProgram(QStringLiteral("git"));
+    git.setArguments(args);
+    git.start();
+
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
+    connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus) {
+        if (exitCode > 0) {
+            sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+        } else {
+            std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
+            f->setFileTemplate(QString(QStringLiteral("XXXXXX %1.diff").arg(file)));
+            if (f->open()) {
+                f->write(git.readAll());
+                f->flush();
+                const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
+                auto v = m_mainWin->openUrl(tempFileUrl);
+                if (v && v->document()) {
+                    TempFileViewPair tfvp = std::make_pair(std::move(f), v);
+                    m_filesOpenAtHEAD.push_back(std::move(tfvp));
+
+                    // close temp on document close
+                    auto clearTemp = [this](KTextEditor::Document *document) {
+                        KTextEditor::Editor::instance();
+                        for (auto i = m_filesOpenAtHEAD.begin(); i != m_filesOpenAtHEAD.end(); ++i) {
+                            if (i->second->document() == document) {
                                 m_filesOpenAtHEAD.erase(i);
                                 break;
                             }
@@ -401,9 +446,10 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         bool unstaging = idx.internalId() == GitStatusModel::NodeStage;
         bool untracked = idx.internalId() == GitStatusModel::NodeUntrack;
 
+        auto showDiffAct = untracked ? nullptr : menu.addAction(i18n("Show Diff"));
+        auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = unstaging ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
         auto discardAct = untracked ? nullptr : menu.addAction(i18n("Discard"));
-        auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         const QString file = QString(m_project->baseDir() + QStringLiteral("/") + idx.data().toString());
@@ -416,6 +462,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             discard({file});
         } else if (act == openAtHead && !untracked) {
             openAtHEAD(idx.data().toString());
+        } else if (act == showDiffAct && !untracked) {
+            showDiff(idx.data().toString());
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;

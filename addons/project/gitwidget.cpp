@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QDialog>
 #include <QEvent>
+#include <QFileInfo>
 #include <QInputMethodEvent>
 #include <QLineEdit>
 #include <QMenu>
@@ -229,6 +230,7 @@ void GitWidget::showDiff(const QString &file, bool staged)
     if (staged) {
         args.append(QStringLiteral("--staged"));
     }
+
     args.append(file);
 
     git.setWorkingDirectory(m_project->baseDir());
@@ -242,9 +244,10 @@ void GitWidget::showDiff(const QString &file, bool staged)
             sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
-            f->setFileTemplate(QString(QStringLiteral("XXXXXX %1.diff").arg(file)));
+            QFileInfo fi(file);
+            f->setFileTemplate(QString(QStringLiteral("XXXXXX %1.diff").arg(fi.fileName())));
             if (f->open()) {
-                f->write(git.readAll());
+                f->write(git.readAllStandardOutput());
                 f->flush();
                 const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
                 auto v = m_mainWin->openUrl(tempFileUrl);
@@ -495,7 +498,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         } else if (act == openAtHead && !untracked) {
             openAtHEAD(idx.data().toString());
         } else if (act == showDiffAct && !untracked) {
-            showDiff(idx.data().toString(), staged);
+            showDiff(file, staged);
         } else if (act == launchDifftoolAct) {
             launchExternalDiffTool(idx.data().toString(), staged);
         }

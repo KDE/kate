@@ -104,8 +104,11 @@ void GitWidget::getStatus(const QString &repo, bool untracked, bool submodules)
 
 void GitWidget::stage(const QStringList &files, bool)
 {
-    auto args = QStringList{QStringLiteral("add"), QStringLiteral("-A"), QStringLiteral("--")};
+    if (files.isEmpty()) {
+        return;
+    }
 
+    auto args = QStringList{QStringLiteral("add"), QStringLiteral("-A"), QStringLiteral("--")};
     args.append(files);
 
     git.setWorkingDirectory(m_project->baseDir());
@@ -120,9 +123,12 @@ void GitWidget::stage(const QStringList &files, bool)
 
 void GitWidget::unstage(const QStringList &files)
 {
+    if (files.isEmpty()) {
+        return;
+    }
+
     // git reset -q HEAD --
     auto args = QStringList{QStringLiteral("reset"), QStringLiteral("-q"), QStringLiteral("HEAD"), QStringLiteral("--")};
-
     args.append(files);
 
     git.setWorkingDirectory(m_project->baseDir());
@@ -133,6 +139,30 @@ void GitWidget::unstage(const QStringList &files)
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         getStatus(m_project->baseDir());
     }
+}
+
+void GitWidget::discard(const QStringList &files)
+{
+    if (files.isEmpty()) {
+        return;
+    }
+    // discard=>git checkout -q -- xx.cpp
+    auto args = QStringList{QStringLiteral("checkout"), QStringLiteral("-q"), QStringLiteral("--")};
+    args.append(files);
+
+    git.setWorkingDirectory(m_project->baseDir());
+    git.setProgram(QStringLiteral("git"));
+    git.setArguments(args);
+    git.start();
+
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
+    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus) {
+        if (exitCode > 0) {
+            sendMessage(i18n("Failed to discard changes. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+        } else {
+            getStatus(m_project->baseDir());
+        }
+    });
 }
 
 void GitWidget::commitChanges(const QString &msg, const QString &desc)
@@ -287,7 +317,6 @@ void GitWidget::buildMenu()
 
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 {
-    // discard=>git checkout -q -- /home/waqar/Projects/syntest/App.js
     if (auto selModel = m_treeView->selectionModel()) {
         if (selModel->selectedIndexes().count() > 1) {
             return selectedContextMenu(e);
@@ -300,31 +329,41 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
     if (type == GitStatusModel::NodeChanges || type == GitStatusModel::NodeUntrack) {
         QMenu menu;
         auto stageAct = menu.addAction(i18n("Stage All"));
-        //        auto discardAct = type == GitStatusModel::NodeChanges ? menu.addAction(i18n("Discard All")) : nullptr;
+        bool untracked = type == GitStatusModel::NodeUntrack;
+        auto discardAct = untracked ? nullptr : menu.addAction(i18n("Discard All"));
 
+        // get files
+        const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
+        QStringList filesList;
+        filesList.reserve(files.size());
+        for (const auto &file : files) {
+            filesList.append(file.file);
+        }
+
+        // execute action
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (act == stageAct) {
-            bool untracked = type == GitStatusModel::NodeUntrack;
-            const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
-            QStringList filesList;
-            filesList.reserve(files.size());
-            for (const auto &file : files) {
-                filesList.append(file.file);
-            }
             stage(filesList, type == GitStatusModel::NodeUntrack);
+        } else if (act == discardAct && !untracked) {
+            discard(filesList);
         }
     } else if (type == GitStatusModel::NodeFile) {
         QMenu menu;
         bool unstaging = idx.internalId() == GitStatusModel::NodeStage;
-        auto stageAct = unstaging ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
-        auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+        bool untracked = idx.internalId() == GitStatusModel::NodeUntrack;
 
+        auto stageAct = unstaging ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
+        auto discardAct = untracked ? nullptr : menu.addAction(i18n("Discard"));
+
+        auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         const QString file = QString(m_project->baseDir() + QStringLiteral("/") + idx.data().toString());
         if (act == stageAct) {
             if (unstaging) {
                 return unstage({file});
             }
             return stage({file});
+        } else if (act == discardAct) {
+            discard({file});
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;

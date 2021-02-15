@@ -45,6 +45,7 @@ private:
     void getStatus(const QString &repo, bool untracked = true, bool submodules = false);
     void stage(const QStringList &files, bool = false);
     void unstage(const QStringList &files);
+    void discard(const QStringList &files);
     void commitChanges(const QString &msg, const QString &desc);
     void sendMessage(const QString &message, bool warn);
 

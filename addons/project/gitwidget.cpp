@@ -31,12 +31,14 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWin
     , m_project(project)
     , m_mainWin(mainWindow)
 {
-    m_menuBtn = new QToolButton(this);
     m_commitBtn = new QPushButton(this);
     m_treeView = new QTreeView(this);
 
     buildMenu();
+    m_menuBtn = new QToolButton(this);
     m_menuBtn->setMenu(m_gitMenu);
+    m_menuBtn->setArrowType(Qt::NoArrow);
+    m_menuBtn->setStyleSheet(QStringLiteral("QToolButton::menu-indicator{ image: none; }"));
     connect(m_menuBtn, &QToolButton::clicked, this, [this](bool) {
         m_menuBtn->showMenu();
     });

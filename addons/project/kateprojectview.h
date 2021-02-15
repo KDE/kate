@@ -19,6 +19,7 @@ class KateProjectPluginView;
 class BranchesDialog;
 class QStackedWidget;
 class GitWidget;
+class QToolButton;
 
 /**
  * Class representing a view of a project.

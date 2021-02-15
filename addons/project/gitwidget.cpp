@@ -335,7 +335,8 @@ GitWidget::GitParsedStatus GitWidget::parseStatus(const QByteArray &raw)
 void GitWidget::hideEmptyTreeNodes()
 {
     const auto emptyRows = m_model->emptyRows();
-    for (int i = 0; i < 4; ++i) {
+    // 1 because "Staged" will always be visible
+    for (int i = 1; i < 4; ++i) {
         if (emptyRows.contains(i)) {
             m_treeView->setRowHidden(i, QModelIndex(), true);
         } else {

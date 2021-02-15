@@ -261,6 +261,24 @@ void GitWidget::showDiff(const QString &file, bool staged)
     });
 }
 
+void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
+{
+    if (file.isEmpty()) {
+        return;
+    }
+
+    auto args = QStringList{QStringLiteral("difftool"), QStringLiteral("-y")};
+    if (staged) {
+        args.append(QStringLiteral("--staged"));
+    }
+    args.append(file);
+
+    git.setWorkingDirectory(m_project->baseDir());
+    git.setProgram(QStringLiteral("git"));
+    git.setArguments(args);
+    git.start();
+}
+
 void GitWidget::commitChanges(const QString &msg, const QString &desc)
 {
     auto args = QStringList{QStringLiteral("commit"), QStringLiteral("-m"), msg};
@@ -450,7 +468,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         bool staged = idx.internalId() == GitStatusModel::NodeStage;
         bool untracked = idx.internalId() == GitStatusModel::NodeUntrack;
 
-        auto showDiffAct = untracked ? nullptr : menu.addAction(i18n("Show Diff"));
+        auto showDiffAct = untracked ? nullptr : menu.addAction(i18n("Show raw diff"));
+        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external diff tool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
         auto discardAct = untracked ? nullptr : menu.addAction(i18n("Discard"));
@@ -468,6 +487,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             openAtHEAD(idx.data().toString());
         } else if (act == showDiffAct && !untracked) {
             showDiff(idx.data().toString(), staged);
+        } else if (act == launchDifftoolAct) {
+            launchExternalDiffTool(idx.data().toString(), staged);
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;

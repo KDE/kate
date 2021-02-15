@@ -44,7 +44,7 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
     } else if (role == Role::OriginalSorting) {
         return branch.dateSort;
     } else if (role == Qt::DecorationRole) {
-        static const auto branchIcon = QIcon(QStringLiteral(":/kxmlgui5/kateproject/sc-apps-git.svg"));
+        static const auto branchIcon = QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg"));
         return branchIcon;
     } else if (role == Role::CheckoutName) {
         return branch.refType == GitUtils::RefType::Remote ? branch.name.mid(branch.remote.size() + 1) : branch.name;

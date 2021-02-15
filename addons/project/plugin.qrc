@@ -1,7 +1,9 @@
 <RCC>
     <qresource prefix="/kxmlgui5/kateproject">
         <file>ui.rc</file>
-        <file>sc-apps-git.svg</file>
-        <file>git-commit-dark.svg</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>icons/git-commit-dark.svg</file>
+        <file>icons/sc-apps-git.svg</file>
     </qresource>
 </RCC>

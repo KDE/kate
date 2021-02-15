@@ -53,6 +53,7 @@ private:
     void discard(const QStringList &files);
     void openAtHEAD(const QString &file);
     void showDiff(const QString &file, bool staged);
+    void launchExternalDiffTool(const QString &file, bool staged);
     void commitChanges(const QString &msg, const QString &desc);
     void sendMessage(const QString &message, bool warn);
 

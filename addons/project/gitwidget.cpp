@@ -45,11 +45,14 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWin
     });
 
     m_menuBtn->setIcon(QIcon::fromTheme(QStringLiteral("application-menu")));
-    m_commitBtn->setIcon(QIcon(QStringLiteral(":/kxmlgui5/kateproject/git-commit-dark.svg")));
+    //    m_commitBtn->setIcon(QIcon(QStringLiteral(":/kxmlgui5/kateproject/git-commit-dark.svg")));
     m_commitBtn->setText(i18n("Commit"));
 
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     QHBoxLayout *btnsLayout = new QHBoxLayout;
+    btnsLayout->setContentsMargins(0, 0, 0, 0);
 
     btnsLayout->addWidget(m_commitBtn);
     btnsLayout->addWidget(m_menuBtn);

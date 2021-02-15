@@ -57,6 +57,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     m_stackWidget->addWidget(m_gitWidget);
 
     connect(m_gitBtn, &QPushButton::clicked, this, [this] {
+        m_gitWidget->getStatus();
         m_stackWidget->setCurrentWidget(m_gitWidget);
     });
 
@@ -103,6 +104,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
             if (m_branchChangedWatcher.files().isEmpty()) {
                 m_branchChangedWatcher.addPath(m_project->baseDir() + QStringLiteral("/.git/HEAD"));
             }
+            m_gitWidget->getStatus();
         } else {
             if (!m_branchChangedWatcher.files().isEmpty()) {
                 m_branchChangedWatcher.removePaths(m_branchChangedWatcher.files());

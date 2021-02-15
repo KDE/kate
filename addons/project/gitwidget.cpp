@@ -68,8 +68,6 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWin
 
     connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
     connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::opencommitChangesDialog);
-
-    getStatus(m_project->baseDir());
 }
 
 void GitWidget::sendMessage(const QString &message, bool warn)
@@ -82,7 +80,7 @@ void GitWidget::sendMessage(const QString &message, bool warn)
     m_mainWin->activeView()->document()->postMessage(msg);
 }
 
-void GitWidget::getStatus(const QString &repo, bool untracked, bool submodules)
+void GitWidget::getStatus(bool untracked, bool submodules)
 {
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, &GitWidget::gitStatusReady);
@@ -98,7 +96,7 @@ void GitWidget::getStatus(const QString &repo, bool untracked, bool submodules)
     }
     git.setArguments(args);
     git.setProgram(QStringLiteral("git"));
-    git.setWorkingDirectory(repo);
+    git.setWorkingDirectory(m_project->baseDir());
     git.start();
 }
 
@@ -117,7 +115,7 @@ void GitWidget::stage(const QStringList &files, bool)
     git.start();
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {
-        getStatus(m_project->baseDir());
+        getStatus();
     }
 }
 
@@ -137,7 +135,7 @@ void GitWidget::unstage(const QStringList &files)
     git.start();
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {
-        getStatus(m_project->baseDir());
+        getStatus();
     }
 }
 
@@ -160,7 +158,7 @@ void GitWidget::discard(const QStringList &files)
         if (exitCode > 0) {
             sendMessage(i18n("Failed to discard changes. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
-            getStatus(m_project->baseDir());
+            getStatus();
         }
     });
 }
@@ -184,7 +182,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc)
         } else {
             sendMessage(i18n("Changes commited successfully."), false);
             // refresh
-            getStatus(m_project->baseDir());
+            getStatus();
         }
     });
 }
@@ -309,7 +307,7 @@ void GitWidget::buildMenu()
     m_gitMenu = new QMenu(this);
     m_gitMenu->addAction(i18n("Refresh"), this, [this] {
         if (m_project) {
-            getStatus(m_project->baseDir());
+            getStatus();
         }
     });
     m_gitMenu->addAction(i18n("Checkout Branch"), this, &GitWidget::checkoutBranch);

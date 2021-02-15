@@ -28,6 +28,7 @@ public:
     explicit GitWidget(KateProject *project, QWidget *parent = nullptr, KTextEditor::MainWindow *mainWindow = nullptr);
 
     bool eventFilter(QObject *o, QEvent *e) override;
+    void getStatus(bool untracked = true, bool submodules = false);
 
 private:
     QToolButton *m_menuBtn;
@@ -42,7 +43,6 @@ private:
     QMenu *m_gitMenu;
 
     void buildMenu();
-    void getStatus(const QString &repo, bool untracked = true, bool submodules = false);
     void stage(const QStringList &files, bool = false);
     void unstage(const QStringList &files);
     void discard(const QStringList &files);

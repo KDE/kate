@@ -211,13 +211,17 @@ void GitWidget::openAtHEAD(const QString &file)
     });
 }
 
-void GitWidget::showDiff(const QString &file)
+void GitWidget::showDiff(const QString &file, bool staged)
 {
     if (file.isEmpty()) {
         return;
     }
 
-    auto args = QStringList{QStringLiteral("diff"), file};
+    auto args = QStringList{QStringLiteral("diff")};
+    if (staged) {
+        args.append(QStringLiteral("--staged"));
+    }
+    args.append(file);
 
     git.setWorkingDirectory(m_project->baseDir());
     git.setProgram(QStringLiteral("git"));
@@ -443,18 +447,18 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         }
     } else if (type == GitStatusModel::NodeFile) {
         QMenu menu;
-        bool unstaging = idx.internalId() == GitStatusModel::NodeStage;
+        bool staged = idx.internalId() == GitStatusModel::NodeStage;
         bool untracked = idx.internalId() == GitStatusModel::NodeUntrack;
 
         auto showDiffAct = untracked ? nullptr : menu.addAction(i18n("Show Diff"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
-        auto stageAct = unstaging ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
+        auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
         auto discardAct = untracked ? nullptr : menu.addAction(i18n("Discard"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         const QString file = QString(m_project->baseDir() + QStringLiteral("/") + idx.data().toString());
         if (act == stageAct) {
-            if (unstaging) {
+            if (staged) {
                 return unstage({file});
             }
             return stage({file});
@@ -463,7 +467,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         } else if (act == openAtHead && !untracked) {
             openAtHEAD(idx.data().toString());
         } else if (act == showDiffAct && !untracked) {
-            showDiff(idx.data().toString());
+            showDiff(idx.data().toString(), staged);
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;

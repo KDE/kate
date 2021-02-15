@@ -13,7 +13,8 @@ class QStringListModel;
 class GitStatusModel;
 class KateProject;
 
-namespace KTextEditor {
+namespace KTextEditor
+{
 class MainWindow;
 }
 
@@ -46,7 +47,7 @@ private:
     void getStatus(const QString &repo, bool untracked = true, bool submodules = false);
     void stage(const QString &file, bool untracked = false);
     void unstage(const QString &file);
-    void commitChanges(const QString& msg, const QString& desc);
+    void commitChanges(const QString &msg, const QString &desc);
     void sendMessage(const QString &message, bool warn);
 
     GitParsedStatus parseStatus(const QByteArray &raw);

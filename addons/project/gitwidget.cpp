@@ -18,10 +18,10 @@
 
 #include <KLocalizedString>
 
-#include <KTextEditor/MainWindow>
-#include <KTextEditor/View>
 #include <KTextEditor/ConfigInterface>
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
+#include <KTextEditor/View>
 
 GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWindow *mainWindow)
     : QWidget(parent)
@@ -156,7 +156,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc)
     git.setArguments(args);
     git.start();
 
-    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus){
+    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus) {
         if (exitCode > 0) {
             sendMessage(i18n("Failed to commit. \n %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
@@ -173,7 +173,7 @@ void GitWidget::opencommitChangesDialog()
         return sendMessage(i18n("Nothing to commit. Please stage your changes first.", QString::fromUtf8(git.readAllStandardError())), true);
     }
 
-    auto ciface = qobject_cast<KTextEditor::ConfigInterface*>(m_mainWin->activeView());
+    auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWin->activeView());
     QFont font;
     if (ciface) {
         font = ciface->configValue(QStringLiteral("font")).value<QFont>();
@@ -202,7 +202,7 @@ void GitWidget::opencommitChangesDialog()
         auto msgs = m_commitMessage.split(QStringLiteral("\n\n"));
         if (!msgs.isEmpty()) {
             le.setText(msgs.at(0));
-            if (msgs.length() > 1)  {
+            if (msgs.length() > 1) {
                 pe.setPlainText(msgs.at(1));
             }
         }
@@ -296,30 +296,34 @@ GitWidget::GitParsedStatus GitWidget::parseStatus(const QByteArray &raw)
         case StatusXY::UU:
             unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothModified});
             break;
+        }
 
-        case StatusXY::M_:
+        switch (x) {
+        case 'M':
             staged.append({QString::fromUtf8(file, size), GitStatus::Index_Modified});
             break;
-        case StatusXY::A_:
+        case 'A':
             staged.append({QString::fromUtf8(file, size), GitStatus::Index_Added});
             break;
-        case StatusXY::D_:
+        case 'D':
             staged.append({QString::fromUtf8(file, size), GitStatus::Index_Deleted});
             break;
-        case StatusXY::R_:
+        case 'R':
             staged.append({QString::fromUtf8(file, size), GitStatus::Index_Renamed});
             break;
-        case StatusXY::C_:
+        case 'C':
             staged.append({QString::fromUtf8(file, size), GitStatus::Index_Copied});
             break;
+        }
 
-        case StatusXY::_M:
+        switch (y) {
+        case 'M':
             changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Modified});
             break;
-        case StatusXY::_D:
+        case 'D':
             changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Deleted});
             break;
-        case StatusXY::_A:
+        case 'A':
             changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_IntentToAdd});
             break;
         }
@@ -371,7 +375,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
     if (type == GitStatusModel::NodeChanges || type == GitStatusModel::NodeUntrack) {
         QMenu menu;
         auto stageAct = menu.addAction(i18n("Stage All"));
-//        auto discardAct = type == GitStatusModel::NodeChanges ? menu.addAction(i18n("Discard All")) : nullptr;
+        //        auto discardAct = type == GitStatusModel::NodeChanges ? menu.addAction(i18n("Discard All")) : nullptr;
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (act == stageAct) {

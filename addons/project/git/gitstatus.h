@@ -24,6 +24,8 @@ enum GitStatus {
     WorkingTree_Deleted,
     WorkingTree_IntentToAdd,
 
+    IndexWorkingTree_Modified,
+
     Untracked,
     Ignored
 };
@@ -38,15 +40,15 @@ enum StatusXY {
     UU = 0x5555,
 
     /* underscore represents space */
-    M_ = 0x4d20,
-    A_ = 0x4120,
-    D_ = 0x4420,
-    R_ = 0x5220,
-    C_ = 0x4320,
+    //    M_ = 0x4d20,
+    //    A_ = 0x4120,
+    //    D_ = 0x4420,
+    //    R_ = 0x5220,
+    //    C_ = 0x4320,
 
-    _M = 0x204d,
-    _D = 0x2044,
-    _A = 0x2041,
+    //    _M = 0x204d,
+    //    _D = 0x2044,
+    //    _A = 0x2041,
 
     //??
     QQ = 0x3f3f,

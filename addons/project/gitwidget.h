@@ -12,6 +12,7 @@ class QPushButton;
 class QStringListModel;
 class GitStatusModel;
 class KateProject;
+class QItemSelection;
 
 namespace KTextEditor
 {
@@ -45,14 +46,15 @@ private:
     KTextEditor::MainWindow *m_mainWin;
 
     void getStatus(const QString &repo, bool untracked = true, bool submodules = false);
-    void stage(const QString &file, bool untracked = false);
-    void unstage(const QString &file);
+    void stage(const QStringList &files, bool untracked = false);
+    void unstage(const QStringList &files);
     void commitChanges(const QString &msg, const QString &desc);
     void sendMessage(const QString &message, bool warn);
 
     GitParsedStatus parseStatus(const QByteArray &raw);
     void hideEmptyTreeNodes();
     void treeViewContextMenuEvent(QContextMenuEvent *e);
+    void selectedContextMenu(QContextMenuEvent *e);
 
     Q_SLOT void gitStatusReady(int exit, QProcess::ExitStatus);
     Q_SLOT void parseStatusReady();

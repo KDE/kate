@@ -3,9 +3,11 @@
 #include "kateproject.h"
 
 #include <QContextMenuEvent>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QDialog>
 #include <QEvent>
+#include <QInputMethodEvent>
 #include <QLineEdit>
 #include <QMenu>
 #include <QPlainTextEdit>
@@ -47,8 +49,9 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWin
 
     m_model = new GitStatusModel(this);
 
+    m_treeView->setUniformRowHeights(true);
     m_treeView->setHeaderHidden(true);
-    //    m_treeView->setRootIsDecorated(false);
+    m_treeView->setSelectionMode(QTreeView::ExtendedSelection);
     m_treeView->setModel(m_model);
     m_treeView->installEventFilter(this);
 
@@ -90,21 +93,11 @@ void GitWidget::getStatus(const QString &repo, bool untracked, bool submodules)
     git.start();
 }
 
-void GitWidget::stage(const QString &file, bool untracked)
+void GitWidget::stage(const QStringList &files, bool untracked)
 {
     auto args = QStringList{QStringLiteral("add"), QStringLiteral("-A"), QStringLiteral("--")};
 
-    // all
-    if (file.isEmpty()) {
-        const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
-        args.reserve(args.size() + files.size());
-        for (const auto &file : files) {
-            args.append(file.file);
-        }
-    } else {
-        // one file
-        args.append(file);
-    }
+    args.append(files);
 
     git.setWorkingDirectory(m_project->baseDir());
     git.setProgram(QStringLiteral("git"));
@@ -116,22 +109,12 @@ void GitWidget::stage(const QString &file, bool untracked)
     }
 }
 
-void GitWidget::unstage(const QString &file)
+void GitWidget::unstage(const QStringList &files)
 {
     // git reset -q HEAD --
     auto args = QStringList{QStringLiteral("reset"), QStringLiteral("-q"), QStringLiteral("HEAD"), QStringLiteral("--")};
 
-    // all
-    if (file.isEmpty()) {
-        const QVector<GitUtils::StatusItem> &files = m_model->stagedFiles();
-        args.reserve(args.size() + files.size());
-        for (const auto &file : files) {
-            args.append(file.file);
-        }
-    } else {
-        // one file
-        args.append(file);
-    }
+    args.append(files);
 
     git.setWorkingDirectory(m_project->baseDir());
     git.setProgram(QStringLiteral("git"));
@@ -221,6 +204,7 @@ void GitWidget::opencommitChangesDialog()
     connect(&cancel, &QPushButton::clicked, &dialog, &QDialog::reject);
 
     vlayout.addLayout(&hLayout);
+    dialog.open();
 
     int res = dialog.exec();
     if (res == QDialog::Accepted) {
@@ -370,6 +354,12 @@ bool GitWidget::eventFilter(QObject *o, QEvent *e)
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 {
     // discard=>git checkout -q -- /home/waqar/Projects/syntest/App.js
+    if (auto selModel = m_treeView->selectionModel()) {
+        if (selModel->selectedIndexes().count() > 1) {
+            return selectedContextMenu(e);
+        }
+    }
+
     auto idx = m_model->index(m_treeView->currentIndex().row(), 0, m_treeView->currentIndex().parent());
     auto type = idx.data(GitStatusModel::TreeItemType);
 
@@ -380,7 +370,14 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (act == stageAct) {
-            stage(QString(), type == GitStatusModel::NodeUntrack);
+            bool untracked = type == GitStatusModel::NodeUntrack;
+            const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
+            QStringList filesList;
+            filesList.reserve(files.size());
+            for (const auto &file : files) {
+                filesList.append(file.file);
+            }
+            stage(filesList, type == GitStatusModel::NodeUntrack);
         }
     } else if (type == GitStatusModel::NodeFile) {
         QMenu menu;
@@ -391,9 +388,9 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         const QString file = QString(m_project->baseDir() + QStringLiteral("/") + idx.data().toString());
         if (act == stageAct) {
             if (unstaging) {
-                return unstage(file);
+                return unstage({file});
             }
-            return stage(file);
+            return stage({file});
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;
@@ -402,7 +399,51 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 
         // git reset -q HEAD --
         if (act == stage) {
-            unstage(QString());
+            const QVector<GitUtils::StatusItem> &files = m_model->stagedFiles();
+            QStringList filesList;
+            filesList.reserve(filesList.size() + files.size());
+            for (const auto &file : files) {
+                filesList.append(file.file);
+            }
+            unstage(filesList);
+        }
+    }
+}
+
+void GitWidget::selectedContextMenu(QContextMenuEvent *e)
+{
+    QStringList files;
+
+    bool selectionHasStageItems = false;
+    bool selectionHasChangedItems = false;
+
+    if (auto selModel = m_treeView->selectionModel()) {
+        const auto idxList = selModel->selectedIndexes();
+        for (const auto &idx : idxList) {
+            if (idx.internalId() == GitStatusModel::NodeStage)
+                selectionHasStageItems = true;
+            // can't allow main nodes to be selected
+            else if (!idx.parent().isValid())
+                return;
+            else
+                selectionHasChangedItems = true;
+            files.append(idx.data().toString());
+        }
+    }
+
+    // cant allow both
+    if (selectionHasChangedItems && selectionHasStageItems)
+        return;
+
+    QMenu menu;
+    auto stageAct = selectionHasStageItems ? menu.addAction(i18n("Unstage Selected Files")) : menu.addAction(i18n("Stage Selected Files"));
+    auto execAct = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+
+    if (execAct == stageAct) {
+        if (selectionHasChangedItems) {
+            stage(files);
+        } else {
+            unstage(files);
         }
     }
 }

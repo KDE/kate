@@ -108,16 +108,13 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
 
     return {};
 }
-void GitStatusModel::addItems(const QVector<GitUtils::StatusItem> &staged,
-                              const QVector<GitUtils::StatusItem> &changed,
-                              const QVector<GitUtils::StatusItem> &unmerge,
-                              const QVector<GitUtils::StatusItem> &untracked)
+void GitStatusModel::addItems(GitUtils::GitParsedStatus status)
 {
     beginResetModel();
-    m_nodes[Staged] = staged;
-    m_nodes[Changed] = changed;
-    m_nodes[Conflict] = unmerge;
-    m_nodes[Untrack] = untracked;
+    m_nodes[Staged] = std::move(status.staged);
+    m_nodes[Changed] = std::move(status.changed);
+    m_nodes[Conflict] = std::move(status.unmerge);
+    m_nodes[Untrack] = std::move(status.untracked);
     endResetModel();
 }
 

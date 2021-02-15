@@ -28,12 +28,6 @@ public:
     bool eventFilter(QObject *o, QEvent *e) override;
 
 private:
-    struct GitParsedStatus {
-        QVector<GitUtils::StatusItem> untracked;
-        QVector<GitUtils::StatusItem> unmerge;
-        QVector<GitUtils::StatusItem> staged;
-        QVector<GitUtils::StatusItem> changed;
-    };
 
     QPushButton *m_menuBtn;
     QPushButton *m_commitBtn;
@@ -41,17 +35,16 @@ private:
     GitStatusModel *m_model;
     KateProject *m_project;
     QProcess git;
-    QFutureWatcher<GitParsedStatus> m_gitStatusWatcher;
+    QFutureWatcher<GitUtils::GitParsedStatus> m_gitStatusWatcher;
     QString m_commitMessage;
     KTextEditor::MainWindow *m_mainWin;
 
     void getStatus(const QString &repo, bool untracked = true, bool submodules = false);
-    void stage(const QStringList &files, bool untracked = false);
+    void stage(const QStringList &files, bool = false);
     void unstage(const QStringList &files);
     void commitChanges(const QString &msg, const QString &desc);
     void sendMessage(const QString &message, bool warn);
 
-    GitParsedStatus parseStatus(const QByteArray &raw);
     void hideEmptyTreeNodes();
     void treeViewContextMenuEvent(QContextMenuEvent *e);
     void selectedContextMenu(QContextMenuEvent *e);

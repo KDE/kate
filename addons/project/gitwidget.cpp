@@ -57,7 +57,7 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWin
 
     setLayout(layout);
 
-    connect(&m_gitStatusWatcher, &QFutureWatcher<GitWidget::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
+    connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
     connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::opencommitChangesDialog);
 
     getStatus(m_project->baseDir());
@@ -93,7 +93,7 @@ void GitWidget::getStatus(const QString &repo, bool untracked, bool submodules)
     git.start();
 }
 
-void GitWidget::stage(const QStringList &files, bool untracked)
+void GitWidget::stage(const QStringList &files, bool)
 {
     auto args = QStringList{QStringLiteral("add"), QStringLiteral("-A"), QStringLiteral("--")};
 
@@ -226,94 +226,8 @@ void GitWidget::gitStatusReady(int exit, QProcess::ExitStatus)
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     QByteArray s = git.readAllStandardOutput();
-    auto future = QtConcurrent::run(this, &GitWidget::parseStatus, s);
+    auto future = QtConcurrent::run(&GitUtils::parseStatus, s);
     m_gitStatusWatcher.setFuture(future);
-}
-
-GitWidget::GitParsedStatus GitWidget::parseStatus(const QByteArray &raw)
-{
-    QVector<GitUtils::StatusItem> untracked;
-    QVector<GitUtils::StatusItem> unmerge;
-    QVector<GitUtils::StatusItem> staged;
-    QVector<GitUtils::StatusItem> changed;
-
-    QList<QByteArray> rawList = raw.split(0x00);
-    for (const auto &r : rawList) {
-        if (r.isEmpty() || r.length() < 3) {
-            continue;
-        }
-
-        char x = r.at(0);
-        char y = r.at(1);
-        uint16_t xy = (((uint16_t)x) << 8) | y;
-        using namespace GitUtils;
-
-        const char *file = r.data() + 3;
-        const int size = r.size() - 3;
-
-        switch (xy) {
-        case StatusXY::QQ:
-            untracked.append({QString::fromUtf8(file, size), GitStatus::Untracked});
-            break;
-        case StatusXY::II:
-            untracked.append({QString::fromUtf8(file, size), GitStatus::Ignored});
-            break;
-
-        case StatusXY::DD:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothDeleted});
-            break;
-        case StatusXY::AU:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByUs});
-            break;
-        case StatusXY::UD:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByThem});
-            break;
-        case StatusXY::UA:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByThem});
-            break;
-        case StatusXY::DU:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByUs});
-            break;
-        case StatusXY::AA:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothAdded});
-            break;
-        case StatusXY::UU:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothModified});
-            break;
-        }
-
-        switch (x) {
-        case 'M':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Modified});
-            break;
-        case 'A':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Added});
-            break;
-        case 'D':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Deleted});
-            break;
-        case 'R':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Renamed});
-            break;
-        case 'C':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Copied});
-            break;
-        }
-
-        switch (y) {
-        case 'M':
-            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Modified});
-            break;
-        case 'D':
-            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Deleted});
-            break;
-        case 'A':
-            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_IntentToAdd});
-            break;
-        }
-    }
-
-    return {untracked, unmerge, staged, changed};
 }
 
 void GitWidget::hideEmptyTreeNodes()
@@ -334,8 +248,8 @@ void GitWidget::hideEmptyTreeNodes()
 
 void GitWidget::parseStatusReady()
 {
-    GitParsedStatus s = m_gitStatusWatcher.result();
-    m_model->addItems(s.staged, s.changed, s.unmerge, s.untracked);
+    GitUtils::GitParsedStatus s = m_gitStatusWatcher.result();
+    m_model->addItems(std::move(s));
 
     hideEmptyTreeNodes();
 }
@@ -420,13 +334,14 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
     if (auto selModel = m_treeView->selectionModel()) {
         const auto idxList = selModel->selectedIndexes();
         for (const auto &idx : idxList) {
-            if (idx.internalId() == GitStatusModel::NodeStage)
+            if (idx.internalId() == GitStatusModel::NodeStage) {
                 selectionHasStageItems = true;
-            // can't allow main nodes to be selected
-            else if (!idx.parent().isValid())
+            } else if (!idx.parent().isValid()) {
+                // can't allow main nodes to be selected
                 return;
-            else
+            } else {
                 selectionHasChangedItems = true;
+            }
             files.append(idx.data().toString());
         }
     }

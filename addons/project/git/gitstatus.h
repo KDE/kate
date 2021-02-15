@@ -2,6 +2,7 @@
 #define GITSTATUS_H
 
 #include <QString>
+#include <QVector>
 
 namespace GitUtils
 {
@@ -61,6 +62,14 @@ struct StatusItem {
     GitStatus status;
 };
 
+struct GitParsedStatus {
+    QVector<StatusItem> untracked;
+    QVector<StatusItem> unmerge;
+    QVector<StatusItem> staged;
+    QVector<StatusItem> changed;
+};
+
+GitParsedStatus parseStatus(const QByteArray &raw);
 }
 
 #endif // GITSTATUS_H

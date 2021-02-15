@@ -20,10 +20,7 @@ public:
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
-    void addItems(const QVector<GitUtils::StatusItem> &staged,
-                  const QVector<GitUtils::StatusItem> &changed,
-                  const QVector<GitUtils::StatusItem> &unmerge,
-                  const QVector<GitUtils::StatusItem> &untracked);
+    void addItems(GitUtils::GitParsedStatus status);
     QVector<int> emptyRows();
 
     const QVector<GitUtils::StatusItem> &untrackedFiles() const

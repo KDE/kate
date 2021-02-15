@@ -22,6 +22,7 @@
 #include <KLocalizedString>
 
 #include <KTextEditor/ConfigInterface>
+#include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
@@ -159,6 +160,54 @@ void GitWidget::discard(const QStringList &files)
             sendMessage(i18n("Failed to discard changes. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             getStatus();
+        }
+    });
+}
+
+void GitWidget::openAtHEAD(const QString &file)
+{
+    if (file.isEmpty()) {
+        return;
+    }
+
+    auto args = QStringList{QStringLiteral("show"), QStringLiteral("--textconv")};
+    args.append(QStringLiteral(":") + file);
+
+    git.setWorkingDirectory(m_project->baseDir());
+    git.setProgram(QStringLiteral("git"));
+    git.setArguments(args);
+    git.start();
+
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
+    connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus) {
+        if (exitCode > 0) {
+            sendMessage(i18n("Failed to open file at HEAD. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+        } else {
+            std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
+            f->setFileTemplate(QString(QStringLiteral("XXXXXX (HEAD)") + file));
+            if (f->open()) {
+                f->write(git.readAll());
+                f->flush();
+                const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
+                auto v = m_mainWin->openUrl(tempFileUrl);
+                if (v && v->document()) {
+                    TempFileViewPair tfvp = std::make_pair(std::move(f), v);
+                    m_filesOpenAtHEAD.push_back(std::move(tfvp));
+
+                    // close temp on document close
+                    auto clearTemp = [this](KTextEditor::Document *document) {
+                        KTextEditor::Editor::instance();
+                        for (auto i = m_filesOpenAtHEAD.begin(); i != m_filesOpenAtHEAD.end(); ++i) {
+                            if (i->second->document() == document) {
+                                qWarning() << "CLOSING FILE";
+                                m_filesOpenAtHEAD.erase(i);
+                                break;
+                            }
+                        }
+                    };
+                    connect(v->document(), &KTextEditor::Document::aboutToClose, this, clearTemp);
+                }
+            }
         }
     });
 }
@@ -315,6 +364,8 @@ void GitWidget::buildMenu()
 
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 {
+    //    git show --textconv :App.js
+    // current diff => git show --textconv HEAD:App.js
     if (auto selModel = m_treeView->selectionModel()) {
         if (selModel->selectedIndexes().count() > 1) {
             return selectedContextMenu(e);
@@ -352,6 +403,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 
         auto stageAct = unstaging ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
         auto discardAct = untracked ? nullptr : menu.addAction(i18n("Discard"));
+        auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         const QString file = QString(m_project->baseDir() + QStringLiteral("/") + idx.data().toString());
@@ -360,8 +412,10 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
                 return unstage({file});
             }
             return stage({file});
-        } else if (act == discardAct) {
+        } else if (act == discardAct && !untracked) {
             discard({file});
+        } else if (act == openAtHead && !untracked) {
+            openAtHEAD(idx.data().toString());
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;

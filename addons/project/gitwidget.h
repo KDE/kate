@@ -4,6 +4,7 @@
 #include <QFutureWatcher>
 #include <QProcess>
 #include <QWidget>
+#include <memory>
 
 #include "git/gitstatus.h"
 
@@ -15,10 +16,12 @@ class KateProject;
 class QItemSelection;
 class QMenu;
 class QToolButton;
+class QTemporaryFile;
 
 namespace KTextEditor
 {
 class MainWindow;
+class View;
 }
 
 class GitWidget : public QWidget
@@ -41,11 +44,14 @@ private:
     QString m_commitMessage;
     KTextEditor::MainWindow *m_mainWin;
     QMenu *m_gitMenu;
+    using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, KTextEditor::View *>;
+    std::vector<TempFileViewPair> m_filesOpenAtHEAD;
 
     void buildMenu();
     void stage(const QStringList &files, bool = false);
     void unstage(const QStringList &files);
     void discard(const QStringList &files);
+    void openAtHEAD(const QString &file);
     void commitChanges(const QString &msg, const QString &desc);
     void sendMessage(const QString &message, bool warn);
 

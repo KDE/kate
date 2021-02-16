@@ -307,7 +307,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc)
         if (exitCode > 0) {
             sendMessage(i18n("Failed to commit. \n %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
-            sendMessage(i18n("Changes commited successfully."), false);
+            sendMessage(i18n("Changes committed successfully."), false);
             // refresh
             getStatus();
         }

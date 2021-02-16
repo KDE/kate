@@ -2074,6 +2074,14 @@ You can also mix version control and files based on filters.
 }
 </screen>
 
+<para>
+In case you have a <filename>.kateproject</filename> file tracked by a control
+version system, but you need to tweak the configuration for a particular
+workspace, you can save those changes to a separated file named
+<filename>.kateproject.local</filename>. The content of this file will take
+precedence over <filename>.kateproject</filename>.
+</para>
+
 </sect3>
 
 </sect2>
@@ -2133,7 +2141,7 @@ using <command>cppcheck</command> and to generate a report showing filename, lin
 </term>
 <listitem>
 <para>Text entered in this tab will be saved in the file
-<filename><replaceable>projectname</replaceable>.kateproject.notes</filename>.</para>
+<filename>.kateproject.notes</filename>.</para>
 </listitem>
 </varlistentry>
 

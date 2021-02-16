@@ -89,7 +89,7 @@ void GitWidget::initGitExe()
     // we initially use project base dir
     // and then calculate the exit .git path
     git.setWorkingDirectory(m_project->baseDir());
-    git.setArguments({QStringLiteral("rev-parse"), QStringLiteral("--git-dir")});
+    git.setArguments({QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")});
     git.start();
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

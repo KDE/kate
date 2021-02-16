@@ -108,6 +108,11 @@ void GitWidget::initGitExe()
 
 void GitWidget::sendMessage(const QString &message, bool warn)
 {
+    // quickfix crash on startup
+    if (!m_mainWin->activeView()) {
+        return;
+    }
+
     KTextEditor::Message *msg = new KTextEditor::Message(message, warn ? KTextEditor::Message::Warning : KTextEditor::Message::Positive);
     msg->setPosition(KTextEditor::Message::TopInView);
     msg->setAutoHide(warn ? 5000 : 3000);

@@ -65,3 +65,14 @@ void KateProjectInfoView::showEvent(QShowEvent *)
 {
     setFocusProxy(currentWidget());
 }
+
+bool KateProjectInfoView::ignoreEsc() const
+{
+    // we want to ignore stuff for some kinds of running shell processes like vim
+    if (const auto terminal = qobject_cast<const KateProjectInfoViewTerminal *>(currentWidget())) {
+        return terminal->ignoreEsc();
+    }
+
+    // else: always hide toolview, nothing to ignore
+    return false;
+}

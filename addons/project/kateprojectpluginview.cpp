@@ -561,7 +561,8 @@ void KateProjectPluginView::handleEsc(QEvent *e)
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
-        if (m_toolInfoView->isVisible()) {
+        const auto infoView = qobject_cast<const KateProjectInfoView *>(m_stackedProjectInfoViews->currentWidget());
+        if (m_toolInfoView->isVisible() && (!infoView || !infoView->ignoreEsc())) {
             m_mainWindow->hideToolView(m_toolInfoView);
         }
     }

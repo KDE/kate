@@ -46,6 +46,13 @@ public:
      */
     static KPluginFactory *pluginFactory();
 
+    /**
+     * Shall the ESC key press be ignored?
+     * If not, the toolview will be hidden.
+     * @return ignore ESC shortcut?
+     */
+    bool ignoreEsc() const;
+
 private Q_SLOTS:
     /**
      * Construct a new terminal for this view

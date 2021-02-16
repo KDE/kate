@@ -46,6 +46,13 @@ public:
 
     void showEvent(QShowEvent *) override;
 
+    /**
+     * Shall the ESC key press be ignored?
+     * If not, the toolview will be hidden.
+     * @return ignore ESC shortcut?
+     */
+    bool ignoreEsc() const;
+
 private:
     /**
      * our plugin view

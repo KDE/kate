@@ -8,8 +8,10 @@
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectpluginview.h"
 
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KPluginLoader>
+#include <KSharedConfig>
 #include <kde_terminal_interface.h>
 
 KPluginFactory *KateProjectInfoViewTerminal::s_pluginFactory = nullptr;
@@ -107,4 +109,18 @@ void KateProjectInfoViewTerminal::overrideShortcut(QKeyEvent *, bool &override)
      * let konsole handle all shortcuts
      */
     override = true;
+}
+
+// share with konsole plugin
+static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral("vim"), QStringLiteral("nvim")};
+
+bool KateProjectInfoViewTerminal::ignoreEsc() const
+{
+    if (!m_konsolePart || !KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyBehaviour", true)) {
+        return false;
+    }
+
+    const QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
+    const auto app = qobject_cast<TerminalInterface *>(m_konsolePart)->foregroundProcessName();
+    return exceptList.contains(app);
 }

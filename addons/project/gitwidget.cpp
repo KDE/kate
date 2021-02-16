@@ -327,11 +327,11 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc)
     git.setArguments(args);
     git.start();
 
-    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus) {
+    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus es) {
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
 
-        if (exitCode > 0) {
+        if (exitCode > 0 || es != QProcess::NormalExit) {
             sendMessage(i18n("Failed to commit. \n %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             sendMessage(i18n("Changes committed successfully."), false);

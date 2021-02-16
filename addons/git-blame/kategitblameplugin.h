@@ -63,10 +63,13 @@ public:
 
     void readConfig();
 
+    void showCommitInfo(const QString &hash, const QPoint &point);
+
 private Q_SLOTS:
     void viewChanged(KTextEditor::View *view);
 
-    void finished(int exitCode, QProcess::ExitStatus exitStatus);
+    void blameFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void showFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
     void addDocument(KTextEditor::Document *doc);
@@ -74,9 +77,11 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     QHash<KTextEditor::Document *, GitBlameInlineNoteProvider *> m_inlineNoteProviders;
 
+    KProcess m_showProc;
+    QPoint m_showPos;
     KProcess m_blameInfoProc;
     QVector<KateGitBlameInfo> m_blameInfo;
-    KTextEditor::View *m_blameInfoView;
+    KTextEditor::View *m_blameInfoView = nullptr;
     int m_lineOffset{0};
 };
 

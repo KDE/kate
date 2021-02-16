@@ -5,6 +5,7 @@
 */
 
 #include "kategitblameplugin.h"
+#include "gitblametooltip.h"
 
 #include <algorithm>
 
@@ -68,7 +69,7 @@ QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
     int lineLen = m_doc->line(line).size();
     for (const auto view: m_doc->views()) {
         if (view->cursorPosition().line() == line) {
-            return QVector<int>{lineLen + 2};
+            return QVector<int>{qMax(lineLen + 2, 75)};
         }
     }
     return QVector<int>();
@@ -76,15 +77,11 @@ QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
 
 QSize GitBlameInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note) const
 {
-    return QSize(note.lineHeight() * 10, note.lineHeight());
+    return QSize(note.lineHeight() * 50, note.lineHeight());
 }
 
 void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
 {
-    auto penColor = QColor("black");
-    penColor.setAlpha(note.underMouse() ? 130 : 90);
-    painter.setPen(penColor);
-    painter.setBrush(penColor);
     QFont font = note.font();
     painter.setFont(font);
     const QFontMetrics fm(note.font());
@@ -92,16 +89,31 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     int lineNr = note.position().line();
     const KateGitBlameInfo &info = m_plugin->blameInfo(lineNr, m_doc->line(lineNr));
 
-    QString text = QStringLiteral("%1: %2").arg(info.name, info.date);
+    QString text = QStringLiteral("  %1: %2").arg(info.name, info.date);
     QRect rectangle = fm.boundingRect(text);
 
     rectangle.moveTo(0,0);
+
+    auto penColor = QColor("black");
+    penColor.setAlpha(20);
+    painter.setPen(penColor);
+    painter.setBrush(penColor);
+    painter.drawRect(0,0, rectangle.width(), note.lineHeight());
+
+    penColor.setAlpha(note.underMouse() ? 130 : 90);
+    painter.setPen(penColor);
+    painter.setBrush(penColor);
+    painter.drawRect(0,0, 1, note.lineHeight());
     painter.drawText(rectangle, text);
 }
 
 void GitBlameInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNote &note, Qt::MouseButtons buttons, const QPoint &point)
 {
-    qDebug() << "pos:" << note.position() << buttons << point;
+    if ((buttons & Qt::LeftButton) != 0) {
+        int lineNr = note.position().line();
+        const KateGitBlameInfo &info = m_plugin->blameInfo(lineNr, m_doc->line(lineNr));
+        m_plugin->showCommitInfo(info.commitHash, point);
+    }
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(KateGitBlamePluginFactory, "kategitblameplugin.json", registerPlugin<KateGitBlamePlugin>();)
@@ -112,7 +124,10 @@ KateGitBlamePlugin::KateGitBlamePlugin(QObject *parent, const QList<QVariant> &)
 {
 
     m_blameInfoProc.setOutputChannelMode(KProcess::SeparateChannels);
-    connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePlugin::finished);
+    connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePlugin::blameFinished);
+
+    m_showProc.setOutputChannelMode(KProcess::SeparateChannels);
+    connect(&m_showProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePlugin::showFinished);
 }
 
 KateGitBlamePlugin::~KateGitBlamePlugin()
@@ -175,7 +190,26 @@ void KateGitBlamePlugin::viewChanged(KTextEditor::View *view)
     m_blameInfoProc.start();
 }
 
-void KateGitBlamePlugin::finished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
+void KateGitBlamePlugin::showCommitInfo(const QString &hash, const QPoint &point)
+{
+    if (!m_mainWindow || !m_mainWindow->activeView() || !m_mainWindow->activeView()->document()) {
+        return;
+    }
+
+    QUrl url = m_mainWindow->activeView()->document()->url();
+    QDir dir{url.toLocalFile()};
+    dir.cdUp();
+
+    QString shellCmd = QStringLiteral("git show %1").arg(hash);
+
+    m_showProc.setWorkingDirectory(dir.absolutePath());
+    m_showProc.setShellCommand(shellCmd);
+    m_showProc.start();
+    m_showPos = point;
+}
+
+
+void KateGitBlamePlugin::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
     QString stdErr = QString::fromUtf8(m_blameInfoProc.readAllStandardError());
     const QStringList stdOut = QString::fromUtf8(m_blameInfoProc.readAllStandardOutput()).split(QLatin1Char('\n'));
@@ -197,6 +231,18 @@ void KateGitBlamePlugin::finished(int /*exitCode*/, QProcess::ExitStatus /*exitS
             m_blameInfo.append({ match.captured(1), match.captured(2).trimmed(), match.captured(3), match.captured(4) });
         }
     }
+}
+
+void KateGitBlamePlugin::showFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+    QString stdErr = QString::fromUtf8(m_showProc.readAllStandardError());
+    const QString stdOut = QString::fromUtf8(m_showProc.readAllStandardOutput());
+
+    if (exitCode != 0 || exitStatus != QProcess::NormalExit) {
+        return;
+    }
+
+    GitBlameTooltip::show(stdOut, m_mainWindow->activeView());
 }
 
 bool KateGitBlamePlugin::hasBlameInfo() const

@@ -6,6 +6,7 @@ target_sources(
   kategitblameplugin
   PRIVATE
     kategitblameplugin.cpp
+    gitblametooltip.cpp
 )
 
 kcoreaddons_desktop_to_json(kategitblameplugin kategitblameplugin.desktop)

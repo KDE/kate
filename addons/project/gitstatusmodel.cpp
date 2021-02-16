@@ -10,6 +10,8 @@
 #include <QIcon>
 #include <QMimeDatabase>
 
+#include <KLocalizedString>
+
 static constexpr int Staged = 0;
 static constexpr int Changed = 1;
 static constexpr int Conflict = 2;
@@ -76,13 +78,13 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
     if (index.internalId() == Root) {
         if (role == Qt::DisplayRole) {
             if (row == Staged) {
-                return QStringLiteral("Staged (%1)").arg(m_nodes[Staged].count());
+                return i18n("Staged (%1)").arg(m_nodes[Staged].count());
             } else if (row == Untrack) {
-                return QStringLiteral("Untracked (%1)").arg(m_nodes[Untrack].count());
+                return i18n("Untracked (%1)").arg(m_nodes[Untrack].count());
             } else if (row == Conflict) {
-                return QStringLiteral("Conflict (%1)").arg(m_nodes[Conflict].count());
+                return i18n("Conflict (%1)").arg(m_nodes[Conflict].count());
             } else if (row == Changed) {
-                return QStringLiteral("Modified (%1)").arg(m_nodes[Changed].count());
+                return i18n("Modified (%1)").arg(m_nodes[Changed].count());
             } else {
                 Q_UNREACHABLE();
             }

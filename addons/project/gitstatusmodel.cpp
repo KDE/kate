@@ -78,13 +78,13 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
     if (index.internalId() == Root) {
         if (role == Qt::DisplayRole) {
             if (row == Staged) {
-                return i18n("Staged (%1)").arg(m_nodes[Staged].count());
+                return i18n("Staged (%1)", m_nodes[Staged].count());
             } else if (row == Untrack) {
-                return i18n("Untracked (%1)").arg(m_nodes[Untrack].count());
+                return i18n("Untracked (%1)", m_nodes[Untrack].count());
             } else if (row == Conflict) {
-                return i18n("Conflict (%1)").arg(m_nodes[Conflict].count());
+                return i18n("Conflict (%1)", m_nodes[Conflict].count());
             } else if (row == Changed) {
-                return i18n("Modified (%1)").arg(m_nodes[Changed].count());
+                return i18n("Modified (%1)", m_nodes[Changed].count());
             } else {
                 Q_UNREACHABLE();
             }

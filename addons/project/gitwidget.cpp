@@ -92,8 +92,10 @@ void GitWidget::initGitExe()
     git.setArguments({QStringLiteral("rev-parse"), QStringLiteral("--git-dir")});
     git.start();
     if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitCode() > 0) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             sendMessage(i18n("Failed to find .git directory. Things may not work correctly. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+            m_gitPath = m_project->baseDir();
+            return;
         }
         m_gitPath = QString::fromUtf8(git.readAllStandardOutput());
         if (m_gitPath.endsWith(QLatin1String("\n"))) {
@@ -153,6 +155,9 @@ void GitWidget::stage(const QStringList &files, bool)
     git.start();
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
+            sendMessage(i18n("Failed to stage file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+        }
         getStatus();
     }
 }
@@ -171,6 +176,9 @@ void GitWidget::unstage(const QStringList &files)
     git.start();
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
+            sendMessage(i18n("Failed to stage file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+        }
         getStatus();
     }
 }
@@ -188,11 +196,10 @@ void GitWidget::discard(const QStringList &files)
     git.start();
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
-    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus) {
+    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus es) {
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
-
-        if (exitCode > 0) {
+        if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to discard changes. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             getStatus();
@@ -215,11 +222,10 @@ void GitWidget::openAtHEAD(const QString &file)
     git.start();
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
-    connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus) {
+    connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus es) {
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
-
-        if (exitCode > 0) {
+        if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to open file at HEAD. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
@@ -270,11 +276,10 @@ void GitWidget::showDiff(const QString &file, bool staged)
     git.start();
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
-    connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus) {
+    connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus es) {
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
-
-        if (exitCode > 0) {
+        if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
@@ -336,8 +341,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc)
     connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus es) {
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
-
-        if (exitCode > 0 || es != QProcess::NormalExit) {
+        if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to commit. \n %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             sendMessage(i18n("Changes committed successfully."), false);
@@ -439,8 +443,6 @@ void GitWidget::buildMenu()
 
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 {
-    //    git show --textconv :App.js
-    // current diff => git show --textconv HEAD:App.js
     if (auto selModel = m_treeView->selectionModel()) {
         if (selModel->selectedIndexes().count() > 1) {
             return selectedContextMenu(e);
@@ -539,8 +541,9 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
     }
 
     // cant allow both
-    if (selectionHasChangedItems && selectionHasStageItems)
+    if (selectionHasChangedItems && selectionHasStageItems) {
         return;
+    }
 
     QMenu menu;
     auto stageAct = selectionHasStageItems ? menu.addAction(i18n("Unstage Selected Files")) : menu.addAction(i18n("Stage Selected Files"));

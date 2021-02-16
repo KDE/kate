@@ -44,6 +44,8 @@ private:
     QTreeView *m_treeView;
     GitStatusModel *m_model;
     KateProject *m_project;
+    /** This ends with "/", always remember this */
+    QString m_gitPath;
     QProcess git;
     QFutureWatcher<GitUtils::GitParsedStatus> m_gitStatusWatcher;
     QString m_commitMessage;
@@ -53,6 +55,7 @@ private:
     std::vector<TempFileViewPair> m_filesOpenAtHEAD;
 
     void buildMenu();
+    void initGitExe();
     void stage(const QStringList &files, bool = false);
     void unstage(const QStringList &files);
     void discard(const QStringList &files);

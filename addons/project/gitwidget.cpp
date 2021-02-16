@@ -41,6 +41,8 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWin
     m_commitBtn = new QPushButton(this);
     m_treeView = new QTreeView(this);
 
+    initGitExe();
+
     buildMenu();
     m_menuBtn = new QToolButton(this);
     m_menuBtn->setMenu(m_gitMenu);
@@ -80,11 +82,35 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWin
     connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::opencommitChangesDialog);
 }
 
+void GitWidget::initGitExe()
+{
+    git.setProgram(QStringLiteral("git"));
+    // we initially use project base dir
+    // and then calculate the exit .git path
+    git.setWorkingDirectory(m_project->baseDir());
+    git.setArguments({QStringLiteral("rev-parse"), QStringLiteral("--git-dir")});
+    git.start();
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitCode() > 0) {
+            sendMessage(i18n("Failed to find .git directory. Things may not work correctly. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+        }
+        m_gitPath = QString::fromUtf8(git.readAllStandardOutput());
+        if (m_gitPath.endsWith(QLatin1String("\n"))) {
+            m_gitPath.remove(QLatin1String(".git\n"));
+        } else {
+            m_gitPath.remove(QLatin1String(".git"));
+        }
+        // set once, use everywhere
+        // This is per project
+        git.setWorkingDirectory(m_gitPath);
+    }
+}
+
 void GitWidget::sendMessage(const QString &message, bool warn)
 {
     KTextEditor::Message *msg = new KTextEditor::Message(message, warn ? KTextEditor::Message::Warning : KTextEditor::Message::Positive);
     msg->setPosition(KTextEditor::Message::TopInView);
-    msg->setAutoHide(3000);
+    msg->setAutoHide(warn ? 5000 : 3000);
     msg->setAutoHideMode(KTextEditor::Message::Immediate);
     msg->setView(m_mainWin->activeView());
     m_mainWin->activeView()->document()->postMessage(msg);
@@ -105,8 +131,6 @@ void GitWidget::getStatus(bool untracked, bool submodules)
         args.append(QStringLiteral("--ignore-submodules"));
     }
     git.setArguments(args);
-    git.setProgram(QStringLiteral("git"));
-    git.setWorkingDirectory(m_project->baseDir());
     git.start();
 }
 
@@ -119,8 +143,6 @@ void GitWidget::stage(const QStringList &files, bool)
     auto args = QStringList{QStringLiteral("add"), QStringLiteral("-A"), QStringLiteral("--")};
     args.append(files);
 
-    git.setWorkingDirectory(m_project->baseDir());
-    git.setProgram(QStringLiteral("git"));
     git.setArguments(args);
     git.start();
 
@@ -139,8 +161,6 @@ void GitWidget::unstage(const QStringList &files)
     auto args = QStringList{QStringLiteral("reset"), QStringLiteral("-q"), QStringLiteral("HEAD"), QStringLiteral("--")};
     args.append(files);
 
-    git.setWorkingDirectory(m_project->baseDir());
-    git.setProgram(QStringLiteral("git"));
     git.setArguments(args);
     git.start();
 
@@ -158,13 +178,14 @@ void GitWidget::discard(const QStringList &files)
     auto args = QStringList{QStringLiteral("checkout"), QStringLiteral("-q"), QStringLiteral("--")};
     args.append(files);
 
-    git.setWorkingDirectory(m_project->baseDir());
-    git.setProgram(QStringLiteral("git"));
     git.setArguments(args);
     git.start();
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus) {
+        // sever connection
+        disconnect(&git, &QProcess::finished, nullptr, nullptr);
+
         if (exitCode > 0) {
             sendMessage(i18n("Failed to discard changes. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
@@ -189,6 +210,9 @@ void GitWidget::openAtHEAD(const QString &file)
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus) {
+        // sever connection
+        disconnect(&git, &QProcess::finished, nullptr, nullptr);
+
         if (exitCode > 0) {
             sendMessage(i18n("Failed to open file at HEAD. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
@@ -231,6 +255,7 @@ void GitWidget::showDiff(const QString &file, bool staged)
         args.append(QStringLiteral("--staged"));
     }
 
+    args.append(QStringLiteral("--"));
     args.append(file);
 
     git.setWorkingDirectory(m_project->baseDir());
@@ -240,6 +265,9 @@ void GitWidget::showDiff(const QString &file, bool staged)
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus) {
+        // sever connection
+        disconnect(&git, &QProcess::finished, nullptr, nullptr);
+
         if (exitCode > 0) {
             sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
@@ -284,8 +312,6 @@ void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
     }
     args.append(file);
 
-    git.setWorkingDirectory(m_project->baseDir());
-    git.setProgram(QStringLiteral("git"));
     git.setArguments(args);
     git.start();
 }
@@ -298,12 +324,13 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc)
         args.append(desc);
     }
 
-    git.setWorkingDirectory(m_project->baseDir());
-    git.setProgram(QStringLiteral("git"));
     git.setArguments(args);
     git.start();
 
     connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus) {
+        // sever connection
+        disconnect(&git, &QProcess::finished, nullptr, nullptr);
+
         if (exitCode > 0) {
             sendMessage(i18n("Failed to commit. \n %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
@@ -383,12 +410,14 @@ void GitWidget::opencommitChangesDialog()
 
 void GitWidget::gitStatusReady(int exit, QProcess::ExitStatus)
 {
+    // sever connection
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
+
     if (exit > 0) {
         sendMessage(i18n("Failed to get git-status. Error: %1", QString::fromUtf8(git.readAllStandardError())), true);
         return;
     }
 
-    disconnect(&git, &QProcess::finished, nullptr, nullptr);
     QByteArray s = git.readAllStandardOutput();
     auto future = QtConcurrent::run(&GitUtils::parseStatus, s);
     m_gitStatusWatcher.setFuture(future);
@@ -487,7 +516,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         auto discardAct = untracked ? nullptr : menu.addAction(i18n("Discard"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
-        const QString file = QString(m_project->baseDir() + QStringLiteral("/") + idx.data().toString());
+        const QString file = m_gitPath + idx.data().toString();
         if (act == stageAct) {
             if (staged) {
                 return unstage({file});

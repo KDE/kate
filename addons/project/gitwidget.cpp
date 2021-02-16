@@ -4,6 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "gitwidget.h"
+#include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
 #include "kateproject.h"
 
@@ -360,56 +361,17 @@ void GitWidget::opencommitChangesDialog()
         font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     }
 
-    QDialog dialog;
+    GitCommitDialog dialog(m_commitMessage, font);
     dialog.setWindowFlags(Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
-    dialog.setWindowTitle(i18n("Commit Changes"));
-
-    QVBoxLayout vlayout;
-    QHBoxLayout hLayout;
-    dialog.setLayout(&vlayout);
-
-    QLineEdit le;
-    le.setPlaceholderText(i18n("Write commit message..."));
-    le.setFont(font);
-
-    QPlainTextEdit pe;
-    pe.setPlaceholderText(i18n("Extended commit description..."));
-    pe.setFont(font);
-
-    // restore last message ?
-    if (!m_commitMessage.isEmpty()) {
-        auto msgs = m_commitMessage.split(QStringLiteral("\n\n"));
-        if (!msgs.isEmpty()) {
-            le.setText(msgs.at(0));
-            if (msgs.length() > 1) {
-                pe.setPlainText(msgs.at(1));
-            }
-        }
-    }
-
-    vlayout.addWidget(&le);
-    vlayout.addWidget(&pe);
-
-    QPushButton ok(i18n("Ok"));
-    QPushButton cancel(i18n("Cancel"));
-    hLayout.addStretch();
-    hLayout.addWidget(&ok);
-    hLayout.addWidget(&cancel);
-
-    connect(&ok, &QPushButton::clicked, &dialog, &QDialog::accept);
-    connect(&cancel, &QPushButton::clicked, &dialog, &QDialog::reject);
-
-    vlayout.addLayout(&hLayout);
-    dialog.open();
 
     int res = dialog.exec();
     if (res == QDialog::Accepted) {
-        if (le.text().isEmpty()) {
+        if (dialog.subject().isEmpty()) {
             return sendMessage(i18n("Commit message cannot be empty."), true);
         }
-        commitChanges(le.text(), pe.toPlainText());
+        commitChanges(dialog.subject(), dialog.description());
     } else {
-        m_commitMessage = le.text() + QStringLiteral("\n\n") + pe.toPlainText();
+        m_commitMessage = dialog.subject() + QStringLiteral("[[\n\n]]") + dialog.description();
     }
 }
 

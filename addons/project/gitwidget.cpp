@@ -354,7 +354,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc)
 void GitWidget::opencommitChangesDialog()
 {
     if (m_model->stagedFiles().isEmpty()) {
-        return sendMessage(i18n("Nothing to commit. Please stage your changes first.", QString::fromUtf8(git.readAllStandardError())), true);
+        return sendMessage(i18n("Nothing to commit. Please stage your changes first."), true);
     }
 
     auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWin->activeView());

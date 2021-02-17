@@ -2133,7 +2133,7 @@ in C/C++; or math constants like <emphasis>PI</emphasis>.</para>
 Text style for single characters such as <userinput>'x'</userinput>.</para>
 
 <para><userinput>SpecialChar</userinput> (<guilabel>Special Character</guilabel>):
-Text style for for escaped characters in strings, e.g. <quote><userinput>hello\n</userinput></quote>,
+Text style for escaped characters in strings, e.g. <quote><userinput>hello\n</userinput></quote>,
 and other characters with special meaning in strings, such as substitutions or regex operators.</para>
 
 <para><userinput>String</userinput>:
@@ -2271,7 +2271,7 @@ these attributes can be modified in the
 <userinput><guilabel>Highlighting Text Styles</guilabel></userinput> tab.
 By default, the editor preselects the highlighting of the current document. You will notice that
 many highlights contain other highlights represented by groups in the style list. For example
-most highlights import the <quote>Alert</quote> highlight, and many source code formats imports
+most highlights import the <quote>Alert</quote> highlight, and many source code formats import
 the <quote>Doxygen</quote> highlight.
 </para>
 

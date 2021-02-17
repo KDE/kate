@@ -134,6 +134,7 @@ public:
 
         using FormatRange = QTextLayout::FormatRange;
         QTextCharFormat fmt;
+        fmt.setFontWeight(QFont::Bold);
         fmt.setForeground(options.palette.link());
         QVector<FormatRange> formats;
         QTextCharFormat gray;
@@ -155,11 +156,14 @@ public:
             j = matchPos;
         }
 
-        QTextLayout textLayout(original, option.font);
+        QTextLayout textLayout(original, options.font);
+        auto fmts = textLayout.formats();
+        formats.append(fmts);
+        textLayout.setFormats(formats);
         textLayout.setTextOption(textOption);
         layoutViewItemText(textLayout, options.rect.width());
         const auto pos = QPointF(options.rect.x(), options.rect.y());
-        textLayout.draw(painter, pos, formats);
+        textLayout.draw(painter, pos);
 
         painter->restore();
     }

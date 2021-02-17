@@ -63,6 +63,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
     m_branchBtn->setIcon(QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
     m_gitBtn->setIcon(QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    m_gitBtn->setToolTip(i18n("Stage and commit"));
 
     // let tree get focus for keyboard selection of file to open
     setFocusProxy(m_treeView);

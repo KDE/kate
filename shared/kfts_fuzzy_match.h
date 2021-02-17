@@ -9,6 +9,8 @@
 #define KFTS_FUZZY_MATCH_H
 
 #include <QString>
+#include <QStyleOptionViewItem>
+#include <QTextLayout>
 
 /**
  * This is based on https://github.com/forrestthewoods/lib_fts/blob/master/code/fts_fuzzy_match.h
@@ -316,10 +318,12 @@ static QString to_scored_fuzzy_matched_display_string(const QStringView pattern,
     return str;
 }
 
-Q_DECL_UNUSED static int get_fuzzy_match_positions(const QStringView pattern, const QStringView str, uint8_t *matches)
+Q_DECL_UNUSED static QVector<QTextLayout::FormatRange>
+get_fuzzy_match_formats(const QStringView pattern, const QStringView str, int offset, const QTextCharFormat &fmt)
 {
-    if (!matches) {
-        return 0;
+    QVector<QTextLayout::FormatRange> ranges;
+    if (pattern.isEmpty()) {
+        return ranges;
     }
 
     int totalMatches = 0;
@@ -331,8 +335,57 @@ Q_DECL_UNUSED static int get_fuzzy_match_positions(const QStringView pattern, co
     const auto patternEnd = pattern.cend();
     const auto strEnd = str.cend();
 
+    uint8_t matches[256];
     fuzzy_internal::fuzzy_match_recursive(patternIt, strIt, score, strIt, strEnd, patternEnd, nullptr, matches, 0, totalMatches, recursionCount);
-    return totalMatches;
+
+    //    QTextCharFormat fmt;
+    //    fmt.setFontWeight(QFont::Bold);
+    //    fmt.setForeground(c);
+
+    int j = 0;
+    for (int i = 0; i < totalMatches; ++i) {
+        auto matchPos = matches[i];
+        if (matchPos == j + 1) {
+            ranges.last().length++;
+        } else {
+            ranges.append({matchPos + offset, 1, fmt});
+        }
+        j = matchPos;
+    }
+
+    return ranges;
+}
+
+Q_DECL_UNUSED static void paintItemViewText(QPainter *p, const QString &text, const QStyleOptionViewItem &options, QVector<QTextLayout::FormatRange> formats)
+{
+    // set formats
+    QTextLayout textLayout(text, options.font);
+    auto fmts = textLayout.formats();
+    formats.append(fmts);
+    textLayout.setFormats(formats);
+
+    // set alignment, rtls etc
+    QTextOption textOption;
+    textOption.setTextDirection(options.direction);
+    textOption.setAlignment(QStyle::visualAlignment(options.direction, options.displayAlignment));
+    textLayout.setTextOption(textOption);
+
+    // layout the text
+    textLayout.beginLayout();
+
+    QTextLine line = textLayout.createLine();
+    if (!line.isValid())
+        return;
+
+    const int lineWidth = options.rect.width();
+    line.setLineWidth(lineWidth);
+    line.setPosition(QPointF(0, 0));
+
+    textLayout.endLayout();
+
+    // draw the text
+    const auto pos = QPointF(options.rect.x(), options.rect.y());
+    textLayout.draw(p, pos);
 }
 
 } // namespace kfts

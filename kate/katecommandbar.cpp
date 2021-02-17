@@ -67,20 +67,6 @@ private:
     QString m_pattern;
 };
 
-static void layoutViewItemText(QTextLayout &textLayout, int lineWidth)
-{
-    textLayout.beginLayout();
-
-    QTextLine line = textLayout.createLine();
-    if (!line.isValid())
-        return;
-    line.setLineWidth(lineWidth);
-    line.setPosition(QPointF(0, 0));
-
-    textLayout.endLayout();
-    return;
-}
-
 class CommandBarStyleDelegate : public QStyledItemDelegate
 {
 public:
@@ -114,11 +100,6 @@ public:
             painter->translate(20, 0);
         }
 
-        QTextOption textOption;
-        textOption.setTextDirection(options.direction);
-        textOption.setAlignment(QStyle::visualAlignment(options.direction, options.displayAlignment));
-
-        uint8_t matches[256];
         // must use QString here otherwise fuzzy matching wont
         // work very well
         QString str = original;
@@ -130,40 +111,21 @@ public:
             str = str.mid(actionNameStart);
         }
 
-        const int total = kfts::get_fuzzy_match_positions(m_filterString, str, matches);
-
-        using FormatRange = QTextLayout::FormatRange;
-        QTextCharFormat fmt;
-        fmt.setFontWeight(QFont::Bold);
-        fmt.setForeground(options.palette.link());
-        QVector<FormatRange> formats;
-        QTextCharFormat gray;
-        gray.setForeground(Qt::gray);
+        QVector<QTextLayout::FormatRange> formats;
         if (componentIdx > 0) {
+            QTextCharFormat gray;
+            gray.setForeground(Qt::gray);
             formats.append({0, componentIdx, gray});
         }
 
-        // QTextLayout fails if there are consecutive ranges
-        // of length = 1 so we have to improvise a little bit
-        int j = 0;
-        for (int i = 0; i < total; ++i) {
-            auto matchPos = actionNameStart + matches[i];
-            if (matchPos == j + 1) {
-                formats.last().length++;
-            } else {
-                formats.append({matchPos, 1, fmt});
-            }
-            j = matchPos;
-        }
+        QTextCharFormat fmt;
+        fmt.setForeground(options.palette.link().color());
+        fmt.setFontWeight(QFont::Bold);
 
-        QTextLayout textLayout(original, options.font);
-        auto fmts = textLayout.formats();
-        formats.append(fmts);
-        textLayout.setFormats(formats);
-        textLayout.setTextOption(textOption);
-        layoutViewItemText(textLayout, options.rect.width());
-        const auto pos = QPointF(options.rect.x(), options.rect.y());
-        textLayout.draw(painter, pos);
+        const auto f = kfts::get_fuzzy_match_formats(m_filterString, str, componentIdx + 2, fmt);
+        formats.append(f);
+
+        kfts::paintItemViewText(painter, original, options, std::move(formats));
 
         painter->restore();
     }

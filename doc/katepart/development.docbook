@@ -1956,7 +1956,7 @@ the same style in almost all of the text formats that KSyntaxHighlighting can hi
 
 <note>
 <para>
-This text styles can be referenced from the <userinput>default styles</userinput> used
+These text styles can be referenced from the <userinput>default styles</userinput> used
 in <link linkend="highlight">syntax highlighting</link> definition &XML; files, for example,
 the <quote>Normal</quote> attribute is equivalent to <quote>dsNormal</quote> in the &XML; files,
 and <quote>DataType</quote> is equivalent to <quote>dsDataType</quote>.
@@ -2217,7 +2217,7 @@ to the <userinput>custom-styles</userinput> key, whose value is an <emphasis>obj
 where each subschema key corresponds to the <userinput>name of a syntax highlighting definition</userinput>.
 Its value is an <emphasis>object</emphasis> where each key refers to the <userinput>style attributes
 name</userinput> defined in <link linkend="kate-highlight-sections">the <userinput>itemData</userinput>
-elemets</link> of the syntax highlighting &XML; file, and the respective value is a sub-object with the keys
+elements</link> of the syntax highlighting &XML; file, and the respective value is a sub-object with the keys
 <emphasis>text-color</emphasis>, <emphasis>selected-text-color</emphasis>, <emphasis>bold</emphasis>,
 <emphasis>italic</emphasis>, <emphasis>underline</emphasis>, <emphasis>strike-through</emphasis>,
 <emphasis>background-color</emphasis> and <emphasis>selected-background-color</emphasis>, defined in
@@ -2453,7 +2453,7 @@ that makes it easier to read, especially in combination with the background.</pa
 you that the text color and background color combinations are readable and accessible, so
 this is an excellent tool to help you create color themes.</para>
 
-<para>You can download <userinput>Konstrast</userinput> from
+<para>You can download <userinput>Kontrast</userinput> from
 <ulink url="https://apps.kde.org/en/kontrast">the &kde; Applications website</ulink>
 or from <ulink url="https://flathub.org/apps/details/org.kde.kontrast">the Flatpak
 package on Flathub</ulink> (only in GNU/Linux).</para>
@@ -2486,7 +2486,7 @@ and <quote>RegionMarker</quote>.</para></listitem>
 
 <para>Most of the syntax highlighters are intended to look good on the default themes
 <quote>Breeze Light</quote> and <quote>Breeze Dark</quote>, therefore, another way to
-maintain consistency is to use similars colors in the
+maintain consistency is to use similar colors in the
 <link linkend="color-themes-text-styles">text styles</link>, like <emphasis>green</emphasis>
 for <quote>Preprocessor</quote> and <quote>Others</quote>, <emphasis>blue</emphasis> for
 <quote>DataType</quote> and <quote>Attribute</quote>, or <emphasis>purple</emphasis> for

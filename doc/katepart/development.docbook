@@ -3,7 +3,6 @@
 <chapterinfo>
 <authorgroup>
 <author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
-<author>Nibaldo González S. &lt;nibgonz@gmail.com&gt;</author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 </chapterinfo>
@@ -1956,17 +1955,21 @@ the same style in almost all of the text formats that KSyntaxHighlighting can hi
 </para>
 
 <note>
+<para>
 This text styles can be referenced from the <userinput>default styles</userinput> used
 in <link linkend="highlight">syntax highlighting</link> definition &XML; files, for example,
 the <quote>Normal</quote> attribute is equivalent to <quote>dsNormal</quote> in the &XML; files,
 and <quote>DataType</quote> is equivalent to <quote>dsDataType</quote>.
 See <xref linkend="kate-highlight-default-styles"/> in the syntax highlighting documentation.
+</para>
 </note>
 
 <tip>
+<para>
 Make sure to choose readable colors with good contrast especially in combination with
 the <userinput><link linkend="color-themes-editor-colors">Editor Colors</link></userinput>.
 See <xref linkend="color-themes-contrast"/>.
+</para>
 </tip>
 
 <para>In the <link linkend="color-themes-json">&JSON; file</link>, the respective key
@@ -1999,13 +2002,14 @@ text style keys are mandatory</userinput>, these are listed below.
 }
 </programlisting>
 
-<para>Each key of <emphasis>default text style</emphasis> has a &JSON; object as
-its value, where values such as <emphasis>color</emphasis>, <emphasis>bold</emphasis>,
-<emphasis>italic</emphasis>, etc. are specified. These keys are as follows:
-</para>
-
 <variablelist>
 <varlistentry>
+
+<term>Each key of <emphasis>default text style</emphasis> has a &JSON; object as
+its value, where values such as <emphasis>color</emphasis>, <emphasis>bold</emphasis>,
+<emphasis>italic</emphasis>, etc. are specified. These keys are as follows:
+</term>
+
 <listitem>
 
 <para><userinput>text-color</userinput>: It is a <emphasis>string</emphasis> with the
@@ -2098,7 +2102,6 @@ Text style for annotations or attributes of functions or objects, e.g.
 <userinput>__attribute__((...))</userinput> in C++.</para>
 </listitem>
 </varlistentry>
-</variablelist>
 
 <varlistentry>
 <term><guilabel>Numbers, Types &amp; Constants</guilabel></term>
@@ -2130,11 +2133,11 @@ in C/C++; or math constants like <emphasis>PI</emphasis>.</para>
 Text style for single characters such as <userinput>'x'</userinput>.</para>
 
 <para><userinput>SpecialChar</userinput> (<guilabel>Special Character</guilabel>):
-Text style for for escaped characters in strings, e.g. <userinput><quote>hello\n</quote></userinput>,
+Text style for for escaped characters in strings, e.g. <quote><userinput>hello\n</userinput></quote>,
 and other characters with special meaning in strings, such as substitutions or regex operators.</para>
 
 <para><userinput>String</userinput>:
-Text style for strings like <userinput><quote>hello world</quote></userinput>.</para>
+Text style for strings like <quote><userinput>hello world</userinput></quote>.</para>
 
 <para><userinput>VerbatimString</userinput> (<guilabel>Verbatim String</guilabel>):
 Text style for verbatim or raw strings like <userinput>'raw \backlash'</userinput> in
@@ -2196,6 +2199,7 @@ Text style indicating error highlighting and wrong syntax.</para>
 Text style for attributes that do not match any of the other default styles.</para>
 </listitem>
 </varlistentry>
+</variablelist>
 
 </sect3>
 
@@ -2316,10 +2320,12 @@ if the scheme is light or dark, respectively.
 </para>
 
 <tip>
+<para>
 You can adjust the &kde; global color scheme in the
 <ulink url="help:/kcontrol/colors/"><quote>Colors</quote> module in &systemsettings;</ulink>.
 You can also change it in some applications individually such as &kate; or &kdevelop;, from the menu
 <menuchoice><guimenu>Settings</guimenu><guisubmenu>Color Scheme</guisubmenu></menuchoice>.
+</para>
 </tip>
 
 <sect3 id="color-themes-gui-new-theme">

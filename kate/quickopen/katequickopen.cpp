@@ -122,8 +122,6 @@ public:
         QStyleOptionViewItem options = option;
         initStyleOption(&options, index);
 
-        QTextDocument doc;
-
         QString name = index.data(KateQuickOpenModel::FileName).toString();
         QString path = index.data(KateQuickOpenModel::FilePath).toString();
 
@@ -131,26 +129,35 @@ public:
 
         const QString nameColor = option.palette.color(QPalette::Link).name();
 
-        // check if there's a / separtion in filter string
-        // if there is, we use the last part to highlight the
-        // filename
+        QTextCharFormat fmt;
+        fmt.setForeground(options.palette.link().color());
+        fmt.setFontWeight(QFont::Bold);
+
+        const int nameLen = name.length();
+        // space between name and path
+        constexpr int space = 1;
+        QVector<QTextLayout::FormatRange> formats;
+
+        // collect formats
         int pos = m_filterString.lastIndexOf(QLatin1Char('/'));
         if (pos > -1) {
             ++pos;
             auto pattern = m_filterString.midRef(pos);
-            kfts::to_scored_fuzzy_matched_display_string(pattern, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+            auto nameFormats = kfts::get_fuzzy_match_formats(pattern, name, 0, fmt);
+            formats.append(nameFormats);
         } else {
-            kfts::to_scored_fuzzy_matched_display_string(m_filterString,
-                                                         name,
-                                                         QStringLiteral("<b style=\"color:%1;\">").arg(nameColor),
-                                                         QStringLiteral("</b>"));
+            auto nameFormats = kfts::get_fuzzy_match_formats(m_filterString, name, 0, fmt);
+            formats.append(nameFormats);
         }
-        kfts::to_scored_fuzzy_matched_display_string(m_filterString, path, QStringLiteral("<b>"), QStringLiteral("</b>"));
-
-        const auto pathFontsize = option.font.pointSize();
-        doc.setHtml(QStringLiteral("<span style=\"font-size: %1pt;\">").arg(pathFontsize) + name + QStringLiteral("</span>") + QStringLiteral(" &nbsp;")
-                    + QStringLiteral("<span style=\"color:gray; font-size:%1pt;\">").arg(pathFontsize - 1) + path + QStringLiteral("</span>"));
-        doc.setDocumentMargin(2);
+        QTextCharFormat boldFmt;
+        boldFmt.setFontWeight(QFont::Bold);
+        boldFmt.setFontPointSize(options.font.pointSize() - 1);
+        auto pathFormats = kfts::get_fuzzy_match_formats(m_filterString, name, nameLen + space, boldFmt);
+        QTextCharFormat gray;
+        gray.setForeground(Qt::gray);
+        gray.setFontPointSize(options.font.pointSize() - 1);
+        formats.append({nameLen + space, path.length(), gray});
+        formats.append(pathFormats);
 
         painter->save();
 
@@ -164,12 +171,11 @@ public:
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
+        // space for icon
+        painter->translate(25, 0);
+
         // draw text
-        painter->translate(option.rect.x(), option.rect.y());
-        if (index.column() == 0) {
-            painter->translate(25, 0);
-        }
-        doc.drawContents(painter);
+        kfts::paintItemViewText(painter, QString(name + QStringLiteral(" ") + path), options, formats);
 
         painter->restore();
     }

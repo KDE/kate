@@ -3,6 +3,7 @@
 <chapterinfo>
 <authorgroup>
 <author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<author>Nibaldo González S. <email>nibgonz@gmail.com</email></author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 </chapterinfo>
@@ -1197,6 +1198,1297 @@ Highlighting repository</ulink>.
 expression.</para>
 </listitem>
 </itemizedlist>
+</sect3>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="color-themes">
+<title>Working with Color Themes</title>
+
+<sect2 id="color-themes-overview">
+
+<title>Overview</title>
+
+<para>Color themes define the colors of the
+<link linkend="kate-part">text editing area</link> and the
+<link linkend="highlight">syntax highlighting</link>. A color
+theme encompasses the following:
+<itemizedlist>
+<listitem><para>The text style, used for syntax highlighting through the
+<emphasis>default styles attributes</emphasis>. For example, the text
+color and the selected text color.</para></listitem>
+<listitem><para>The background of the text editing area, including the text
+selection and the current line.</para></listitem>
+<listitem><para>The icon border of the text area: their background, the separator line,
+the line numbers, the line word wrap markers, the modified line marks and
+the code folding.</para></listitem>
+<listitem><para>Text decorators such as the search markers, the indentation and tab/space
+line marks, the bracket matching and the spell checking.</para></listitem>
+<listitem><para>Bookmarks and snippets.</para></listitem>
+</itemizedlist>
+</para>
+
+<para>To avoid confusion, the following is out of scope:
+<itemizedlist>
+<listitem><para>The font type and the font size.</para></listitem>
+<listitem><para>The colors of the text editing application, such as the scroll bar map, the menus,
+the tab bar, the window color, etc. In &kde; applications, like &kate; or &kdevelop;, these colors
+are defined by the <userinput>&kde; &plasma; global color scheme</userinput>, which are set in
+the <ulink url="help:/kcontrol/colors/"><quote>Colors</quote> module in &systemsettings;</ulink>
+or from the application itself in the menu
+<menuchoice><guimenu>Settings</guimenu><guisubmenu>Color Scheme</guisubmenu></menuchoice>.
+</para></listitem>
+</itemizedlist>
+</para>
+
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/breeze-color-theme-preview.png"/></imageobject>
+<textobject><phrase><quote>Breeze Light</quote> and <quote>Breeze Dark</quote> color themes
+with the <quote>C++</quote> syntax highlighting.</phrase>
+</textobject>
+<caption><para><quote>Breeze Light</quote> and <quote>Breeze Dark</quote> color themes
+with the <quote>C++</quote> syntax highlighting.</para>
+</caption>
+</mediaobject>
+
+</sect2>
+
+<sect2 id="color-themes-ksyntaxhighlighting">
+
+<title>The KSyntaxHighlighting Color Themes</title>
+
+<para>The <ulink url="https://api.kde.org/frameworks/syntax-highlighting/html/">KSyntaxHighlighting</ulink>
+framework, which is the <link linkend="highlight">syntax highlighting</link> engine,
+is the library that <userinput>provides and manages the color themes</userinput>.
+This is part of &kde; &frameworks; and is used in &kde; text editors such as
+<ulink url="https://apps.kde.org/en/kate">&kate;</ulink>,
+<ulink url="https://apps.kde.org/en/kwrite">&kwrite;</ulink>,
+<ulink url="https://apps.kde.org/en/kile">&kile;</ulink> and
+<ulink url="https://apps.kde.org/en/kdevelop">&kdevelop;</ulink>.
+This dependency looks like the following:</para>
+
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/kf5-ksyntaxhighlighting.png"/></imageobject>
+<textobject><phrase>Dependence of &kde; &frameworks; 5 libraries on text editors.</phrase></textobject>
+<caption><para>Dependence of &kde; &frameworks; libraries on text editors.</para>
+</caption>
+</mediaobject>
+
+<para>KSyntaxHighlighting includes a variety of built-in themes which are displayed on
+the <ulink url="https://kate-editor.org/themes/"><quote>Color Themes</quote> page of
+the Kate editor website</ulink>.</para>
+
+<para>The <ulink url="https://api.kde.org/frameworks/ktexteditor/html/">KTextEditor</ulink>
+framework, which is the text editing engine, provides a user interface for creating and editing
+color themes, including a tool for importing and exporting themes. This is the simplest way to
+create and edit them, you can access it from the
+<link linkend="config-dialog"><quote>Configure</quote> dialog</link> of the text editor.
+More details in <xref linkend="color-themes-gui"/>.</para>
+
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/color-themes-gui-breeze-dark-default-text-styles.png"/></imageobject>
+<textobject><phrase>The &GUI; to manage color themes in &kate;'s settings.</phrase></textobject>
+<caption><para>The &GUI; to manage color themes in &kate;'s settings.</para>
+</caption>
+</mediaobject>
+
+<para>It is important to mention that, in the &kde; text editors like &kate; or &kdevelop;,
+the KSyntaxHighlighting color themes are used
+<ulink url="https://kate-editor.org/post/2020/2020-09-13-kate-color-themes-5.75/">since
+&kde; &frameworks; 5.75</ulink>, released on October 10, 2020. Previously, &kate;'s color
+schemes (KConfig based schema config) were used and are now deprecated. However, it is
+possible to convert the old &kate; schemes to the KSyntaxHighlighting color themes.
+The <ulink url="https://invent.kde.org/frameworks/syntax-highlighting">KSyntaxHighlighting
+repository</ulink> includes the <userinput>utils/kateschema_to_theme_converter.py</userinput>
+script and the <userinput>utils/schema-converter/</userinput> utility for that purpose.
+</para>
+
+</sect2>
+
+<sect2 id="color-themes-json">
+
+<title>The Color Themes &JSON; Format</title>
+
+<sect3 id="color-themes-json-overview">
+
+<title>Overview</title>
+
+<para>Color themes are stored in &JSON; format files, with the
+<userinput>.theme</userinput> extension.</para>
+
+<para>In the <ulink url="https://invent.kde.org/frameworks/syntax-highlighting">
+KSyntaxHighlighting source code</ulink>, the &JSON; files of built-in themes
+are located in the <userinput>data/themes/</userinput> directory.
+Note that in text editors, the built-in themes are compiled into the
+KSyntaxHighlighting library, therefore, the way to access them is through the
+source code or by <link linkend="color-themes-gui-import-export">exporting them
+from the &GUI; to manage themes of KTextEditor</link>.</para>
+
+<para>It is also possible to easily add additional or custom themes, which are
+loaded from the file system. User-customized theme files are located in the
+<filename class="directory">org.kde.syntax-highlighting/themes/</filename>
+directory in your user folder, which you can find with the command
+<userinput><command>qtpaths</command><option> --paths GenericDataLocation</option></userinput>
+and are commonly <filename class="directory"><envar>$HOME</envar>/.local/share/</filename>
+and <filename class="directory">/usr/share/</filename>.
+</para>
+
+<para>In Flatpak and Snap packages, the above theme directory will not work
+as the data location is different for each application.
+In a Flatpak application, usually is
+<filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>flatpak-package-name</replaceable>/data/</filename>
+and in a Snap application is
+<filename class="directory"><envar>$HOME</envar>/snap/<replaceable>snap-package-name</replaceable>/current/.local/share/</filename>.
+For example, for <ulink url="https://flathub.org/apps/details/org.kde.kate">&kate;'s Flatpak package</ulink>,
+the custom color theme files are located in
+<filename class="directory"><envar>$HOME</envar>/.var/app/org.kde.kate/data/org.kde.syntax-highlighting/themes/</filename>
+and for <ulink url="https://snapcraft.io/kate">&kate;'s Snap package</ulink>, it is
+<filename class="directory"><envar>$HOME</envar>/snap/kate/current/.local/share/org.kde.syntax-highlighting/themes/</filename>.
+</para>
+
+<para>On &Windows; these files are located
+<filename>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename>.
+<replaceable>%USERPROFILE%</replaceable> usually expands to
+<filename>C:&#92;Users&#92;<replaceable>user-name</replaceable></filename>.</para>
+
+<para>In summary, for most configurations the custom themes directory is as follows:</para>
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+<row>
+<entry>For local user</entry>
+<entry><filename class="directory"><envar>$HOME</envar>/.local/share/org.kde.syntax-highlighting/themes/</filename></entry>
+</row>
+<row>
+<entry>For all users</entry>
+<entry><filename class="directory">/usr/share/org.kde.syntax-highlighting/themes/</filename></entry>
+</row>
+<row>
+<entry>For Flatpak packages</entry>
+<entry><filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>flatpak-package-name</replaceable>/data/org.kde.syntax-highlighting/themes/</filename></entry>
+</row>
+<row>
+<entry>For Snap packages</entry>
+<entry><filename class="directory"><envar>$HOME</envar>/snap/<replaceable>snap-package-name</replaceable>/current/.local/share/org.kde.syntax-highlighting/themes/</filename></entry>
+</row>
+<row>
+<entry>On &Windows;</entry>
+<entry><filename>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para>If multiple theme files exist with the same name, the file with the highest <userinput>revision</userinput> will be loaded.
+</para>
+
+</sect3>
+
+<sect3 id="color-themes-json-basic">
+
+<title>The &JSON; Structure</title>
+
+<para>The structure of a &JSON; file is explained on
+<ulink url="https://www.json.org">their website</ulink>.
+Basically, a &JSON; format file consists of:
+<itemizedlist>
+<listitem><para>Collections of key/value pairs, separated by commas and grouped in
+<userinput>{ }</userinput> which we will call <quote>objects</quote>.</para></listitem>
+<listitem><para>Ordered lists of values, separated by commas and grouped in
+<userinput>[ ]</userinput> which we will call <quote>array</quote>.</para></listitem></itemizedlist>
+</para>
+
+<para>The nomenclature <quote>key</quote>, <quote>value</quote>, <quote>object</quote>
+and <quote>array</quote> will be used in this article. If this is your first time working
+with &JSON; files, understanding them is as simple as looking at the examples below.
+</para>
+
+</sect3>
+
+<sect3 id="color-themes-json-root">
+
+<title>Main Sections of the &JSON; Color Theme Files</title>
+
+<para>The root object of the color theme &JSON; file contains the following
+schema keys:</para>
+
+<itemizedlist>
+<listitem><para><userinput>metadata</userinput>: It is mandatory. The value
+is an object with the theme's metadata, such as name, revision and license.</para>
+<para>This is detailed in <xref linkend="color-themes-json-metadata"/>.</para>
+</listitem>
+
+<listitem><para><userinput>editor-colors</userinput>: It is mandatory. The
+value is an object with the colors of the text editing area, such as the
+background, the icon border and the text decoration.</para>
+<para>This is detailed in <xref linkend="color-themes-editor-colors"/>.</para>
+</listitem>
+
+<listitem><para><userinput>text-styles</userinput>: It is mandatory. The value
+is an object with the <emphasis>default text style</emphasis> attributes of
+the syntax highlighting. Each attribute defines its <emphasis>text color</emphasis>,
+its <emphasis>selected text color</emphasis>, or whether it <emphasis>bold</emphasis>
+or <emphasis>italic</emphasis>, for example. The text styles can be referenced
+from <link linkend="kate-highlight-default-styles">the attributes of the syntax
+definition &XML; files</link>.</para>
+<para>This is detailed in <xref linkend="color-themes-text-styles"/>.</para>
+</listitem>
+
+<listitem><para><userinput>custom-styles</userinput>: It is optional. Defines
+text styles for the attributes of specific syntax highlighting definitions.
+For example, in a highlighting definition such as <userinput>Python</userinput>
+or <userinput>Markdown</userinput> you can specify a different text style that
+overrides the default defined in <userinput>text-styles</userinput>.</para>
+<para>This is detailed in <xref linkend="color-themes-custom-styles"/>.</para>
+</listitem>
+</itemizedlist>
+
+<para>The &JSON; language does not support comments. However, you can use the
+optional key <userinput>_comments</userinput> in the root object to write comments,
+for example, if you are adapting an existing theme you can put the URL of the
+original repository. The most practical way is to use an array of strings.
+</para>
+
+<para>Below is an example file for the <quote>Breeze Light</quote> theme.
+You can notice that, to avoid the example being too large, the
+<userinput>editor-colors</userinput> and <userinput>text-styles</userinput>
+objects do not contain all the required keys. You can see the full archive of
+<ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/data/themes/breeze-light.theme">
+the <quote>Breeze Light</quote> theme in the KSyntaxHighlighting repository</ulink>.
+</para>
+
+<programlisting>
+{
+    "_comments": [
+        "This is a comment.",
+        "If this theme is an adaptation of another, put the link to the original repository."
+    ],
+    "metadata": {
+        "name" : "Breeze Light",
+        "revision" : 5,
+        "copyright": [
+            "SPDX-FileCopyrightText: 2016 Volker Krause &lt;vkrause@kde.org&gt;",
+            "SPDX-FileCopyrightText: 2016 Dominik Haumann &lt;dhaumann@kde.org&gt;"
+        ],
+        "license": "SPDX-License-Identifier: MIT"
+    },
+    "editor-colors": {
+        "BackgroundColor" : "#ffffff",
+        "CodeFolding" : "#94caef",
+        "BracketMatching" : "#ffff00",
+        "CurrentLine" : "#f8f7f6",
+        "IconBorder" : "#f0f0f0",
+        "IndentationLine" : "#d2d2d2",
+        "LineNumbers" : "#a0a0a0",
+        "CurrentLineNumber" : "#1e1e1e",
+        <replaceable>The other editor color keys...</replaceable>
+
+    },
+    "text-styles": {
+        "Normal" : {
+            "text-color" : "#1f1c1b",
+            "selected-text-color" : "#ffffff",
+            "bold" : false,
+            "italic" : false,
+            "underline" : false,
+            "strike-through" : false
+        },
+        "Keyword" : {
+            "text-color" : "#1f1c1b",
+            "selected-text-color" : "#ffffff",
+            "bold" : true
+        },
+        "Function" : {
+            "text-color" : "#644a9b",
+            "selected-text-color" : "#452886"
+        },
+        "Variable" : {
+            "text-color" : "#0057ae",
+            "selected-text-color" : "#00316e"
+        },
+        <replaceable>The other text style keys...</replaceable>
+
+    },
+    "custom-styles": {
+        "ISO C++": {
+            "Data Type": {
+                "bold": true,
+                "selected-text-color": "#009183",
+                "text-color": "#00b5cf"
+            },
+            "Keyword": {
+                "text-color": "#6431b3"
+            }
+        },
+        "YAML": {
+            "Attribute": {
+                "selected-text-color": "#00b5cf",
+                "text-color": "#00b5cf"
+            }
+        }
+    }
+}
+</programlisting>
+
+</sect3>
+
+<sect3 id="color-themes-json-metadata">
+
+<title>Metadata</title>
+
+<para>The &JSON; object of the <userinput>metadata</userinput> key contains
+relevant information on the theme. This object has the following keys:
+
+<itemizedlist>
+<listitem><para><userinput>name</userinput>: It is a <emphasis>string</emphasis>
+sets the name of the language. It appears in the menus and dialogs afterwards.
+It is mandatory.</para></listitem>
+
+<listitem><para><userinput>revision</userinput>: It is an
+<emphasis>integer</emphasis> number that specifies the current revision of the
+theme file. Whenever you update a color theme file, make sure to increase this
+number. It is mandatory.</para></listitem>
+
+<listitem><para><userinput>license</userinput>: It is a
+<emphasis>string</emphasis> that defines the license of the theme, using the
+identifier <userinput>SPDX-License-Identifier</userinput> from the standard
+<ulink url="https://spdx.dev/">SPDX license communication format</ulink>.
+It is optional.</para>
+<para>You can see the full list of SPDX license identifiers
+<ulink url="https://spdx.org/licenses/">here</ulink>.</para></listitem>
+
+<listitem><para><userinput>copyright</userinput>: It is an <emphasis>array</emphasis>
+of <emphasis>strings</emphasis> that specifies the authors of the theme, using
+the identifier <userinput>SPDX-FileCopyrightText</userinput> from the standard
+<ulink url="https://spdx.dev/">SPDX license communication format</ulink>.
+It is optional.</para></listitem>
+</itemizedlist>
+</para>
+
+<programlisting>
+"metadata": {
+    "name" : "Breeze Light",
+    "revision" : 5,
+    "copyright": [
+        "SPDX-FileCopyrightText: 2016 Volker Krause &lt;vkrause@kde.org&gt;",
+        "SPDX-FileCopyrightText: 2016 Dominik Haumann &lt;dhaumann@kde.org&gt;"
+    ],
+    "license": "SPDX-License-Identifier: MIT"
+}
+</programlisting>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="color-themes-editing">
+
+<title>Colors in Detail</title>
+
+<para>This section details all the available color attributes and available
+color settings.</para>
+
+<sect3 id="color-themes-editor-colors">
+
+<title>Editor Colors</title>
+
+<para>Corresponds to the colors of the <link linkend="kate-part">text editing area</link>.</para>
+
+<para>In the <link linkend="color-themes-json">&JSON; theme file</link>, the respective key
+<userinput>editor-colors</userinput> has as value an <emphasis>object</emphasis> where each
+key references an attribute color of the text editor. Here, <userinput>all available keys
+are mandatory</userinput>, their values are <userinput>strings</userinput> with hexadecimal
+color codes, like <quote>#00B5CF</quote>.
+</para>
+
+<para>In <link linkend="color-themes-gui">the &GUI; to manage themes of KTextEditor</link>,
+these attributes can be modified in the <userinput><guilabel>Colors</guilabel></userinput> tab.
+</para>
+
+<para>The available keys are the following; the keys used in the
+<link linkend="color-themes-json">&JSON; file</link> are listed in <emphasis>bold</emphasis>,
+the names used in the <link linkend="color-themes-gui">&GUI;</link> are shown in parentheses.
+</para>
+
+<variablelist>
+
+<varlistentry id="variable-prefcolors-colors-text-background">
+<term><guilabel>Editor Background Colors</guilabel></term>
+<listitem>
+
+<variablelist>
+
+<varlistentry id="variable-pref-colors-normal-text">
+<term><userinput>BackgroundColor</userinput> (<guilabel>Text Area</guilabel>)</term>
+<listitem><para>This is the default background for the editor area, it will be
+the dominant color on the editor area.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-BackgroundColor.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-selected-text">
+<term><userinput>TextSelection</userinput> (<guilabel>Selected Text</guilabel>)</term>
+<listitem><para>This is the background for selected text.
+</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-TextSelection.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-current-line">
+<term><userinput>CurrentLine</userinput> (<guilabel>Current Line</guilabel>)</term>
+<listitem><para>Set the color for the current line. Setting this a bit different
+from the Normal text background helps to keep focus on the current line.
+</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-CurrentLine.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-search-highlight">
+<term><userinput>SearchHighlight</userinput> (<guilabel>Search Highlight</guilabel>)</term>
+<listitem><para>Set the color for the text that matches your last search.
+</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-SearchHighlight.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-replace-highlight">
+<term><userinput>ReplaceHighlight</userinput> (<guilabel>Replace Highlight</guilabel>)</term>
+<listitem><para>Set the color for the text that matches your last replace
+operation.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-ReplaceHighlight.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-icon-border">
+<term><guilabel>Icon Border</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><userinput>IconBorder</userinput> (<guilabel>Background Area</guilabel>)</term>
+<listitem><para>This color is used for the marks, line numbers and folding
+marker borders in the left side of the editor view when they are displayed.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>LineNumbers</userinput> (<guilabel>Line Numbers</guilabel>)</term>
+<listitem><para>This color is used to draw the line numbers on the left side of
+the view when displayed.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>CurrentLineNumber</userinput> (<guilabel>Current Line Number</guilabel>)</term>
+<listitem><para>This color is used to draw the line number of the current line,
+on the left side of the view when displayed. Setting this a bit different from
+<quote>LineNumbers</quote> helps to keep focus on the current line.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>Separator</userinput> (<guilabel>Separator</guilabel>)</term>
+<listitem><para>This color is used to draw the vertical line that separates the
+icon border from the background of the text area.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-IconBorder.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>WordWrapMarker</userinput> (<guilabel>Word Wrap Marker</guilabel>)</term>
+<listitem><para>This color is used to draw a pattern to the left of dynamically
+wrapped lines when those are aligned vertically, as well as for the static word
+wrap marker.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-WordWrapMarker.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>CodeFolding</userinput> (<guilabel>Code Folding</guilabel>)</term>
+<listitem><para>This color is used to highlight the section of code that would
+be folded when you click on the code folding arrow to the left of a document.
+For more information, see
+<link linkend="advanced-editing-tools-code-folding">the code
+folding documentation</link>.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-CodeFolding.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>ModifiedLines</userinput> (<guilabel>Modified Lines</guilabel>)</term>
+<listitem><para>This color is used to highlight to the left of a document lines
+that have been modified but not yet saved.  For more information, see
+<xref linkend="kate-part-line-modification"/>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>SavedLines</userinput> (<guilabel>Saved Lines</guilabel>)</term>
+<listitem><para>This color is used to highlight to the left of a document lines
+that have been modified this session and saved.  For more information, see
+<xref linkend="kate-part-line-modification"/>.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-ModifiedLines.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-text-decorations">
+<term><guilabel>Text Decorations</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><userinput>SpellChecking</userinput> (<guilabel>Spelling Mistake Line</guilabel>)</term>
+<listitem><para>This color is used to indicate spelling mistakes.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-SpellChecking.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>TabMarker</userinput> (<guilabel>Tab and Space Markers</guilabel>)</term>
+<listitem><para>This color is used to draw white space indicators, when they are
+enabled.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-TabMarker.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>IndentationLine</userinput> (<guilabel>Indentation Line</guilabel>)</term>
+<listitem><para>This color is used to draw a line to the left of indented blocks,
+if <link linkend="appearance-general">that feature is enabled</link>.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-IndentationLine.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>BracketMatching</userinput> (<guilabel>Bracket Highlight</guilabel>)</term>
+<listitem><para>This color is used to draw the background of matching brackets.
+</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-BracketMatching.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-marker-colors">
+<term><guilabel>Marker Colors</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><userinput>MarkBookmark</userinput> (<guilabel>Bookmark</guilabel>)</term>
+<listitem><para>This color is used to indicate bookmarks. Note that this color
+has an opacity of 22% (and 33% for the current line) with respect to the background.
+For more information, see <xref linkend="kate-part-bookmarks"/>.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-MarkBookmark.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>MarkBreakpointActive</userinput> (<guilabel>Active Breakpoint</guilabel>)</term>
+<listitem><para>This color is used by the GDB plugin to indicate an active
+breakpoint. Notice that this color has an opacity to the background.
+For more information, see <ulink url="help:/kate/kate-application-plugin-gdb.html">the
+GDB Plugin documentation</ulink>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>MarkBreakpointReached</userinput> (<guilabel>Reached Breakpoint</guilabel>)</term>
+<listitem><para>This color is used by the GDB plugin to indicate a breakpoint
+you have reached while debugging. Notice that this color has an opacity
+to the background.
+For more information, see <ulink url="help:/kate/kate-application-plugin-gdb.html">the
+GDB Plugin documentation</ulink>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>MarkBreakpointDisabled</userinput> (<guilabel>Disabled Breakpoint</guilabel>)</term>
+<listitem><para>This color is used by the GDB plugin to indicate an inactive
+breakpoint. Notice that this color has an opacity to the background.
+For more information, see <ulink url="help:/kate/kate-application-plugin-gdb.html">the
+GDB Plugin documentation</ulink>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>MarkExecution</userinput> (<guilabel>Execution</guilabel>)</term>
+<listitem><para>This color is used by the GDB plugin the line presently being
+executed. Notice that this color has an opacity to the background.
+For more information, see <ulink url="help:/kate/kate-application-plugin-gdb.html">the
+GDB Plugin documentation</ulink>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>MarkWarning</userinput> (<guilabel>Warning</guilabel>)</term>
+<listitem><para>This color is used by the build plugin to indicate a line that
+has caused a compiler warning. Notice that this color has an opacity to the background.
+For more information, see <ulink url="help:/kate/kate-application-plugin-build.html">the
+Build Plugin documentation</ulink>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>MarkError</userinput> (<guilabel>Error</guilabel>)</term>
+<listitem><para>This color is used by the build plugin to indicate a line that
+has caused a compiler error. Notice that this color has an opacity to the background.
+For more information, see <ulink url="help:/kate/kate-application-plugin-build.html">the
+Build Plugin documentation</ulink>.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-text-templates-snippets">
+<term><guilabel>Text Templates &amp; Snippets</guilabel></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term><userinput>TemplateBackground</userinput> (<guilabel>Background</guilabel>)</term>
+<listitem><para>This color is used by the &kate; Snippets plugin to mark the
+background of a snippet.  For more information, see
+<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
+documentation</ulink>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>TemplatePlaceholder</userinput> (<guilabel>Editable Placeholder</guilabel>)</term>
+<listitem><para>This color is used by the &kate; Snippets plugin to mark a
+placeholder that you can click in to edit manually.  For more information, see
+<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
+documentation</ulink>.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>TemplateFocusedPlaceholder</userinput> (<guilabel>Focused Editable Placeholder</guilabel>)</term>
+<listitem><para>This color is used by the &kate; Snippets plugin to mark the
+placeholder that you are presently editing.  For more information, see
+<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
+documentation</ulink>.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-Template.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>TemplateReadOnlyPlaceholder</userinput> (<guilabel>Not Editable Placeholder</guilabel>)</term>
+<listitem><para>This color is used by the &kate; Snippets plugin to mark a
+placeholder that cannot be edited manually, such as one that is automatically
+populated.  For more information, see
+<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
+documentation</ulink>.</para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-TemplateReadOnlyPlaceholder.png"/></imageobject>
+<caption><para></para></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="color-themes-text-styles">
+
+<title>Default Text Styles</title>
+
+<para>The default text styles are inherited by the highlight text styles, allowing
+the editor to present text in a very consistent way, for example comment text is using
+the same style in almost all of the text formats that KSyntaxHighlighting can highlight.
+</para>
+
+<note>
+This text styles can be referenced from the <userinput>default styles</userinput> used
+in <link linkend="highlight">syntax highlighting</link> definition &XML; files, for example,
+the <quote>Normal</quote> attribute is equivalent to <quote>dsNormal</quote> in the &XML; files,
+and <quote>DataType</quote> is equivalent to <quote>dsDataType</quote>.
+See <xref linkend="kate-highlight-default-styles"/> in the syntax highlighting documentation.
+</note>
+
+<tip>
+Make sure to choose readable colors with good contrast especially in combination with
+the <userinput><link linkend="color-themes-editor-colors">Editor Colors</link></userinput>.
+See <xref linkend="color-themes-contrast"/>.
+</tip>
+
+<para>In the <link linkend="color-themes-json">&JSON; file</link>, the respective key
+<userinput>text-styles</userinput> has as value an <emphasis>object</emphasis> where
+each key corresponds to the name of a <emphasis>default text style</emphasis>, which are
+equivalent to those used in the syntax highlighting definitions. Here, <userinput>all available
+text style keys are mandatory</userinput>, these are listed below.
+</para>
+
+<programlisting>
+"text-styles": {
+    "Normal" : {
+        "text-color" : "#1f1c1b",
+        "selected-text-color" : "#ffffff",
+        "bold" : false,
+        "italic" : false,
+        "underline" : false,
+        "strike-through" : false
+    },
+    "Keyword" : {
+        "text-color" : "#1f1c1b",
+        "selected-text-color" : "#ffffff",
+        "bold" : true
+    },
+    "Function" : {
+        "text-color" : "#644a9b",
+        "selected-text-color" : "#452886"
+    },
+    <replaceable>The other text style keys...</replaceable>
+}
+</programlisting>
+
+<para>Each key of <emphasis>default text style</emphasis> has a &JSON; object as
+its value, where values such as <emphasis>color</emphasis>, <emphasis>bold</emphasis>,
+<emphasis>italic</emphasis>, etc. are specified. These keys are as follows:
+</para>
+
+<variablelist>
+<varlistentry>
+<listitem>
+
+<para><userinput>text-color</userinput>: It is a <emphasis>string</emphasis> with the
+text color in hexadecimal color code. This key/value is required.</para>
+
+<para><userinput>selected-text-color</userinput>: The text color when it is selected
+is generally the same value as <quote>text-color</quote>. When the text is selected,
+the background is defined by the value of
+<link linkend="variable-pref-colors-selected-text">TextSelection</link> in the
+<link linkend="color-themes-editor-colors">Editor Colors</link>, so you must ensure that
+the text has good contrast and is readable with this background. The value is a
+<emphasis>string</emphasis> with a hexadecimal color code. This key/value is required.</para>
+
+<para><userinput>bold</userinput>: It is a <emphasis>boolean</emphasis> that determines
+if the text is in bold. This key is optional, the default value is <userinput>false</userinput>.</para>
+
+<para><userinput>italic</userinput>: It is a <emphasis>boolean</emphasis> that determines
+if the text is curved. This key is optional, the default value is <userinput>false</userinput>.</para>
+
+<para><userinput>underline</userinput>: It is a <emphasis>boolean</emphasis> that determines
+if the text is underlined. This key is optional, the default value is <userinput>false</userinput>.</para>
+
+<para><userinput>strike-through</userinput>: It is a <emphasis>boolean</emphasis> that
+determines if the text is strike through. This key is optional, the default value is <userinput>false</userinput>.</para>
+
+<para><userinput>background-color</userinput>: Determines the background of the text,
+used for example in alerts in comments. The value is a <emphasis>string</emphasis> with
+a hexadecimal color code. This key is optional, by default there is no background.</para>
+
+<para><userinput>selected-background-color</userinput>: Determines the background of the
+text when it is selected. The value is a <emphasis>string</emphasis> with a hexadecimal
+color code. This key is optional, by default there is no background.</para>
+
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>In <link linkend="color-themes-gui">the &GUI; to manage color themes of KTextEditor</link>,
+these attributes can be modified in the <userinput><guilabel>Default Text Styles</guilabel></userinput>
+tab. The name in the list of styles is using the style configured for the item, providing you
+with an immediate preview when configuring a style. Each style lets you select common attributes
+as well as foreground and background colors. To unset a background color, right-click to
+use the context menu.</para>
+
+<para>The available text style keys are the following; the keys used in the
+<link linkend="color-themes-json">&JSON; file</link> are listed in <emphasis>bold</emphasis>,
+the names used in the <link linkend="color-themes-gui">&GUI;</link> are shown in parentheses
+if they are different.</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Normal Text &amp; Source Code</guilabel></term>
+<listitem>
+<para><userinput>Normal</userinput>:
+Default text style for normal text and source code without special highlighting.</para>
+
+<para><userinput>Keyword</userinput>:
+Text style for built-in language keywords.</para>
+
+<para><userinput>Function</userinput>:
+Text style for function definitions and function calls.</para>
+
+<para><userinput>Variable</userinput>:
+Text style for variables, if applicable. For instance, variables in PHP/Perl typically
+start with a <userinput>$</userinput>, so all identifiers following the pattern
+<userinput>$foo</userinput> are highlighted as variable.</para>
+
+<para><userinput>ControlFlow</userinput> (<guilabel>Control Flow</guilabel>):
+Text style for control flow keywords, such as <emphasis>if</emphasis>, <emphasis>then</emphasis>,
+<emphasis>else</emphasis>, <emphasis>return</emphasis>, <emphasis>switch</emphasis>,
+<emphasis>break</emphasis>, <emphasis>yield</emphasis>, <emphasis>continue</emphasis>, etc.</para>
+
+<para><userinput>Operator</userinput>:
+Text style for operators, such as <userinput>+</userinput>, <userinput>-</userinput>,
+<userinput>*</userinput>, <userinput>/</userinput>, <userinput>%</userinput>, etc.</para>
+
+<para><userinput>BuiltIn</userinput> (<guilabel>Built-in</guilabel>):
+Text style for built-in language classes, functions and objects.</para>
+
+<para><userinput>Extension</userinput>:
+Text style for well-known extensions, such as &Qt; classes, functions/macros in C++ and
+Python or boost.</para>
+
+<para><userinput>Preprocessor</userinput>:
+Text style for preprocessor statements or macro definitions.</para>
+
+<para><userinput>Attribute</userinput>:
+Text style for annotations or attributes of functions or objects, e.g.
+<userinput>@override</userinput> in Java, or <userinput>__declspec(...)</userinput> and
+<userinput>__attribute__((...))</userinput> in C++.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<varlistentry>
+<term><guilabel>Numbers, Types &amp; Constants</guilabel></term>
+<listitem>
+<para><userinput>DataType</userinput> (<guilabel>Data Type</guilabel>):
+Text style for built-in data types such as <emphasis>int</emphasis>, <emphasis>char</emphasis>,
+<emphasis>float</emphasis>, <emphasis>void</emphasis>, <emphasis>u64</emphasis>, etc.</para>
+
+<para><userinput>DecVal</userinput> (<guilabel>Decimal/Value</guilabel>):
+Text style for decimal values.</para>
+
+<para><userinput>BaseN</userinput> (<guilabel>Base-N Integer</guilabel>):
+Text style for numbers with base other than 10.</para>
+
+<para><userinput>Float</userinput> (<guilabel>Floating Point</guilabel>):
+Text style for floating point numbers.</para>
+
+<para><userinput>Constant</userinput>:
+Text style for language constants and user defined constants, e.g. <emphasis>True</emphasis>,
+<emphasis>False</emphasis>, <emphasis>None</emphasis> in Python or <emphasis>nullptr</emphasis>
+in C/C++; or math constants like <emphasis>PI</emphasis>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Strings &amp; Characters</guilabel></term>
+<listitem>
+<para><userinput>Char</userinput> (<guilabel>Character</guilabel>):
+Text style for single characters such as <userinput>'x'</userinput>.</para>
+
+<para><userinput>SpecialChar</userinput> (<guilabel>Special Character</guilabel>):
+Text style for for escaped characters in strings, e.g. <userinput><quote>hello\n</quote></userinput>,
+and other characters with special meaning in strings, such as substitutions or regex operators.</para>
+
+<para><userinput>String</userinput>:
+Text style for strings like <userinput><quote>hello world</quote></userinput>.</para>
+
+<para><userinput>VerbatimString</userinput> (<guilabel>Verbatim String</guilabel>):
+Text style for verbatim or raw strings like <userinput>'raw \backlash'</userinput> in
+Perl, CoffeeScript, and shells, as well as <userinput>r'\raw'</userinput> in Python,
+or such as HERE docs.</para>
+
+<para><userinput>SpecialString</userinput> (<guilabel>Special String</guilabel>):
+Text style for special strings, such as regular expressions in ECMAScript, the &latex; math
+mode, SQL, etc.</para>
+
+<para><userinput>Import</userinput> (<guilabel>Imports, Modules, Includes</guilabel>):
+Text style for includes, imports, modules or &latex; packages.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Comments &amp; Documentation</guilabel></term>
+<listitem>
+<para><userinput>Comment</userinput>:
+Text style for normal comments.</para>
+
+<para><userinput>Documentation</userinput>:
+Text style for comments that reflect API documentation, such as
+<userinput>/** doxygen comments */</userinput> or <userinput>"""docstrings"""</userinput>.</para>
+
+<para><userinput>Annotation</userinput>:
+Text style for annotations in comments or documentation commands, such as
+<userinput>@param</userinput> in Doxygen or JavaDoc.</para>
+
+<para><userinput>CommentVar</userinput> (<guilabel>Comment Variable</guilabel>):
+Text style that refers to variables names used in above commands in a comment, such as
+<userinput>foobar</userinput> in <quote><userinput>@param foobar</userinput></quote>,
+in Doxygen or JavaDoc.</para>
+
+<para><userinput>RegionMarker</userinput> (<guilabel>Region Marker</guilabel>):
+Text style for region markers, typically defined by <userinput>//BEGIN</userinput>
+and <userinput>//END</userinput> in comments.</para>
+
+<para><userinput>Information</userinput>:
+Text style for information, notes and tips, such as the keyword
+<userinput>@note</userinput> in Doxygen.</para>
+
+<para><userinput>Warning</userinput>:
+Text style for warnings, such as the keyword <userinput>@warning</userinput> in Doxygen.</para>
+
+<para><userinput>Alert</userinput>:
+Text style for special words in comments, such as <userinput>TODO</userinput>,
+<userinput>FIXME</userinput>, <userinput>XXXX</userinput> and <userinput>WARNING</userinput>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Miscellaneous</guilabel></term>
+<listitem>
+<para><userinput>Error</userinput>:
+Text style indicating error highlighting and wrong syntax.</para>
+
+<para><userinput>Others</userinput>:
+Text style for attributes that do not match any of the other default styles.</para>
+</listitem>
+</varlistentry>
+
+</sect3>
+
+<sect3 id="color-themes-custom-styles">
+
+<title>Custom Highlighting Text Styles</title>
+
+<para>Here you can establish text styles for a specific syntax highlighting definition,
+overriding the <userinput>default text style</userinput> described in
+<link linkend="color-themes-text-styles">the previous section</link>.
+</para>
+
+<para>In the <link linkend="color-themes-json">&JSON; theme file</link>, this corresponds
+to the <userinput>custom-styles</userinput> key, whose value is an <emphasis>object</emphasis>
+where each subschema key corresponds to the <userinput>name of a syntax highlighting definition</userinput>.
+Its value is an <emphasis>object</emphasis> where each key refers to the <userinput>style attributes
+name</userinput> defined in <link linkend="kate-highlight-sections">the <userinput>itemData</userinput>
+elemets</link> of the syntax highlighting &XML; file, and the respective value is a sub-object with the keys
+<emphasis>text-color</emphasis>, <emphasis>selected-text-color</emphasis>, <emphasis>bold</emphasis>,
+<emphasis>italic</emphasis>, <emphasis>underline</emphasis>, <emphasis>strike-through</emphasis>,
+<emphasis>background-color</emphasis> and <emphasis>selected-background-color</emphasis>, defined in
+<link linkend="color-themes-text-styles">the previous section</link>. Each of these values are optional,
+since if they are not present, the style set in <userinput>text-styles</userinput> is considered.
+</para>
+
+<para>For example, in this piece of code, the <quote>ISO C++</quote> syntax highlighting definition
+has a special text style for the <quote>Type Modifiers</quote> and <quote>Standard Classes</quote>
+attributes. In the corresponding &XML; file <quote>isocpp.xml</quote>, the defined attribute
+<quote>Standard Classes</quote> uses the default style <userinput>BuiltIn</userinput> (or dsBuiltIn).
+In this attribute, only the value of <userinput>text-color</userinput> is overwritten by the new
+color <quote>#6431b3</quote>.
+</para>
+
+<programlisting>
+"custom-styles": {
+    "ISO C++": {
+        "Standard Classes": {
+            "text-color": "#6431b3"
+        },
+        "Type Modifiers": {
+            "bold": true,
+            "selected-text-color": "#009183",
+            "text-color": "#00b5cf"
+        }
+    }
+}
+</programlisting>
+
+<note>
+<itemizedlist>
+
+<listitem>
+<para>You should consider that these text styles are associated with the attribute names defined
+in the syntax highlighting &XML; files. If an XML file is updated and some attributes are renamed
+or removed, the custom style defined in the theme will no longer apply.</para>
+</listitem>
+
+<listitem>
+<para>Syntax highlighting definitions often include other definitions. For example, the
+<quote>QML</quote> highlighter includes the <quote>JavaScript</quote> highlighter,
+since they share functionality in highlighting.</para>
+</listitem>
+
+</itemizedlist>
+</note>
+
+<para>In <link linkend="color-themes-gui">the &GUI; to manage themes of KTextEditor</link>,
+these attributes can be modified in the
+<userinput><guilabel>Highlighting Text Styles</guilabel></userinput> tab.
+By default, the editor preselects the highlighting of the current document. You will notice that
+many highlights contain other highlights represented by groups in the style list. For example
+most highlights import the <quote>Alert</quote> highlight, and many source code formats imports
+the <quote>Doxygen</quote> highlight.
+</para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="color-themes-gui">
+
+<title>The Color Themes &GUI;</title>
+
+<para>The simplest way to create and edit color themes is through the &GUI; within
+the <link linkend="config-dialog"><quote>Configure</quote> dialog</link> provided
+by <ulink url="https://api.kde.org/frameworks/ktexteditor/html/">KTextEditor</ulink>.
+To access it, select <menuchoice><guimenu>Settings</guimenu>
+<guimenuitem>Configure <replaceable>Application</replaceable>...</guimenuitem></menuchoice>
+from the menubar in your text editor. This brings up the <guilabel>Configure</guilabel>
+dialog box, there select <guilabel>Color Themes</guilabel> in the side panel.
+</para>
+
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="color-themes/color-themes-gui-default-text-styles.png"/></imageobject>
+<textobject><phrase>&kate;'s settings dialog box with the color theme management.</phrase></textobject>
+<caption><para>&kate;'s settings dialog box with the color theme management.</para>
+</caption>
+</mediaobject>
+
+<para>In this <link linkend="config-dialog">dialog</link> you can configure all the colors
+in any theme you have, as well as create/copy new themes, delete them, export them to a
+<userinput>.theme</userinput> file with <link linkend="color-themes-json">&JSON; format</link>
+or import them from external <userinput>.theme</userinput> files. Each theme has settings
+for text colors and styles.
+</para>
+
+<para>The built-in themes cannot be modified by default. To do this, you need to copy
+them and give them a new name.</para>
+
+<para>To use a theme permanently in your text editor, you must select it in the combobox
+labeled <guilabel>Default theme for <replaceable>Application</replaceable></guilabel> at
+the bottom of the dialog and press <guibutton>Apply</guibutton> or <guibutton>OK</guibutton>.
+By default, the <userinput><guilabel>Automatic Selection</guilabel></userinput> option is
+active, which chooses a more appropriate color theme according to the
+<emphasis>&kde; &plasma; color scheme</emphasis> used in the text editing application;
+it usually chooses between <quote>Breeze Light</quote> and <quote>Breeze Dark</quote>
+if the scheme is light or dark, respectively.
+</para>
+
+<tip>
+You can adjust the &kde; global color scheme in the
+<ulink url="help:/kcontrol/colors/"><quote>Colors</quote> module in &systemsettings;</ulink>.
+You can also change it in some applications individually such as &kate; or &kdevelop;, from the menu
+<menuchoice><guimenu>Settings</guimenu><guisubmenu>Color Scheme</guisubmenu></menuchoice>.
+</tip>
+
+<sect3 id="color-themes-gui-new-theme">
+
+<title>Create a new theme</title>
+
+<para>To create a new theme, it is first necessary to copy an existing one. Select an existing
+theme which you want to use as a base, such as <quote>Breeze Light</quote> or <quote>Breeze Dark</quote>,
+and click <guibutton>Copy</guibutton>. Then write a name for the new theme.
+</para>
+
+<para>If you want to modify a built-in or read-only theme, you must first copy it under a different name.</para>
+
+</sect3>
+
+<sect3 id="color-themes-gui-import-export">
+
+<title>Import or export &JSON; theme files</title>
+
+<para>You can export a selected theme (including built-in ones) to a
+<link linkend="color-themes-json">&JSON; file</link> with <userinput>.theme</userinput>
+extension, with the <guibutton>Export</guibutton> button. This will open a dialog
+to save the file. To add a color theme from an external
+<link linkend="color-themes-json">&JSON; file</link>, just press the
+<guibutton>Import</guibutton> button and select the
+<userinput>.theme</userinput> file from the dialog.
+</para>
+
+<tip>
+<itemizedlist>
+
+<listitem>
+<para>As <link linkend="color-themes-json-overview">mentioned above</link>, user-customized theme
+files are stored in the <filename class="directory">org.kde.syntax-highlighting/themes/</filename>
+directory. When you copy or create a theme, it will automatically appear there. Also, importing
+or adding a theme is equivalent to copying an external <userinput>.theme</userinput> file into this
+directory. KSyntaxHighlighting automatically picks up color theme files from this directory.</para>
+</listitem>
+
+<listitem>
+<para>If you want to publish a theme created by you, it is essential to check the
+<link linkend="color-themes-json-metadata">metadata</link> object of the
+<link linkend="color-themes-json">&JSON; file</link>, adding the respective license and
+checking the revision number.</para>
+</listitem>
+
+</itemizedlist>
+</tip>
+
+</sect3>
+
+<sect3 id="color-themes-gui-editing">
+
+<title>Editing color themes</title>
+
+<sect4 id="prefcolors-colors">
+
+<title>Colors</title>
+
+<para>Here the colors of the text editing area are adjusted. These are detailed in
+<xref linkend="color-themes-editor-colors"/>.</para>
+
+</sect4>
+
+<sect4 id="prefcolors-normal-text-styles">
+
+<title>Default Text Styles</title>
+
+<para>The default text styles are inherited by the highlight text styles,
+allowing the editor to present text in a very consistent way, for example comment
+text is using the same style in almost all of the text formats that
+KSyntaxHighlighting can highlight.</para>
+<para>The name in the list of styles is using the style configured for
+the item, providing you with an immediate preview when configuring a style.
+</para>
+<para>Each style lets you select common attributes as well as foreground
+and background colors. To unset a background color, right-click to use the
+context menu.</para>
+<para>The attributes of this area are detailed in
+<xref linkend="color-themes-text-styles"/>.</para>
+
+</sect4>
+
+<sect4 id="prefcolors-highlighting-text-styles">
+
+<title>Highlighting Text Styles</title>
+
+<para>Here you can edit the text styles used by a specific highlight definition.
+The editor preselects the highlight used by your current document. To work on a
+different highlight, select one in the <guilabel>Highlight</guilabel> combobox
+above the style list.
+</para>
+<para>The name in the list of styles is using the style configured for
+the item, providing you with an immediate preview when configuring a style.
+</para>
+<para>Each style lets you select common attributes as well as foreground
+and background colors. To unset a background color, right-click to use the
+context menu. In addition you can see if a style is equal to the default style
+used for the item, and set it to that if not.</para>
+<para>You will notice that many highlights contain other highlights represented
+by groups in the style list. For example most highlights import the Alert
+highlight, and many source code formats imports the Doxygen highlight. Editing
+colors in those groups only affects the styles when used in the edited highlight
+format.
+</para>
+
+</sect4>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="color-themes-tips-and-tricks">
+
+<title>Tips &amp; Tricks</title>
+
+<sect3 id="color-themes-contrast">
+
+<title>Contrast of Text Colors</title>
+
+<para>An important aspect when working with color themes is to choose a text contrast
+that makes it easier to read, especially in combination with the background.</para>
+
+<para>The <userinput>Kontrast</userinput> application is a color contrast checker. It tells
+you that the text color and background color combinations are readable and accessible, so
+this is an excellent tool to help you create color themes.</para>
+
+<para>You can download <userinput>Konstrast</userinput> from
+<ulink url="https://apps.kde.org/en/kontrast">the &kde; Applications website</ulink>
+or from <ulink url="https://flathub.org/apps/details/org.kde.kontrast">the Flatpak
+package on Flathub</ulink> (only in GNU/Linux).</para>
+
+<para>The GNOME <userinput>Contrast</userinput> application is similar. You can download
+<ulink url="https://flathub.org/apps/details/org.gnome.design.Contrast">the Flatpak
+package on Flathub</ulink> (only in GNU/Linux).</para>
+
+</sect3>
+
+<sect3 id="color-themes-tips-and-tricks-consistency">
+
+<title>Suggestions of Consistency with Syntax Highlighting</title>
+
+<para>KSyntaxHighlighting includes <ulink url="https://kate-editor.org/syntax/">more
+than 300 syntax highlighting definitions</ulink>, therefore it is ideal that you
+make sure your new theme looks good in all syntax highlighting definitions.
+The built-in color themes have the following similarities that it is
+recommended (but not required) to follow to achieve a correct display of all syntax
+highlighting definitions:</para>
+
+<itemizedlist>
+<listitem><para>Use bold for the <quote>Keyword</quote> and <quote>ControlFlow</quote>
+<link linkend="color-themes-text-styles">text styles</link>.</para></listitem>
+
+<listitem><para>Do not use background color in any
+<link linkend="color-themes-text-styles">text style</link>, except <quote>Alert</quote>
+and <quote>RegionMarker</quote>.</para></listitem>
+</itemizedlist>
+
+<para>Most of the syntax highlighters are intended to look good on the default themes
+<quote>Breeze Light</quote> and <quote>Breeze Dark</quote>, therefore, another way to
+maintain consistency is to use similars colors in the
+<link linkend="color-themes-text-styles">text styles</link>, like <emphasis>green</emphasis>
+for <quote>Preprocessor</quote> and <quote>Others</quote>, <emphasis>blue</emphasis> for
+<quote>DataType</quote> and <quote>Attribute</quote>, or <emphasis>purple</emphasis> for
+<quote>Function</quote>.</para>
+
+<para>Note that these recommendations are not mandatory when creating and publishing
+a theme.</para>
+
 </sect3>
 
 </sect2>

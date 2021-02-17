@@ -52,8 +52,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2018-08-20</date>
-<releaseinfo>&frameworks; 5.50</releaseinfo>
+<date>2020-10-10</date>
+<releaseinfo>&frameworks; 5.75</releaseinfo>
 
 <abstract>
 <para>&katepart; is a fully featured editor component by &kde;.</para>
@@ -104,7 +104,7 @@ file at the time per window.  Since &kwrite; is a very simple implementation of
 <chapter id="credits">
 <title>Credits and License</title>
 
-<para>&katepart; and &kwrite; Copyright 2001-2014 by the &kate; team.</para>
+<para>&katepart; and &kwrite; Copyright 2001-2021 by the &kate; team.</para>
 
 <para>
 Based on the original &kwrite;, which was Copyright 2000 by Jochen Wilhelmy
@@ -164,6 +164,10 @@ Based on the original &kwrite;, which was Copyright 2000 by Jochen Wilhelmy
 
 <listitem>
 <para>&John.Firebaugh; &John.Firebaugh.mail;</para>
+</listitem>
+
+<listitem>
+<para>Nibaldo González <email>nibgonz@gmail.com</email></para>
 </listitem>
 </itemizedlist>
 

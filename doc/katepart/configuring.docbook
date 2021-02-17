@@ -30,6 +30,18 @@ by changing them per document during an editing session.</para>
 <sect2 id="appearance">
 <title>Appearance</title>
 
+<sect3 id="prefcolors-fonts">
+<title>Font</title>
+<para>
+Here you can choose the font of the editor text.  You can choose from
+any font available on your system, and set a default size. A sample text
+is displayed at the bottom of the dialog, so you can see the effect of your choices.
+</para>
+<para>For more information about selecting a font, see the
+<ulink url="help:/fundamentals/fonts.html"><emphasis>Choosing Fonts</emphasis>
+section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</para>
+</sect3>
+
 <sect3 id="appearance-general">
 <title>General</title>
 
@@ -235,332 +247,23 @@ numbers they are placed at.</para></listitem>
 </sect3>
 </sect2>
 
-<sect2 id="prefcolors"><!-- checked for 4.7 + synced with kwrite -->
-<title>Fonts &amp; Colors</title>
+<sect2 id="prefcolors">
+<title>Color Themes</title>
 
-<para>This section of the dialog lets you configure all fonts and colors in
-any color scheme you have, as well creating new schemes or deleting existing
-ones. Each scheme has settings for colors, fonts and normal and highlight text
+<para>This section of the dialog lets you configure all colors in
+any color theme you have, as well creating new themes or deleting existing
+ones. Each scheme has settings for colors and normal and highlight text
 styles.
 </para>
 
-<para>&kappname; will preselect the currently active scheme for you, if you want to
-work on a different scheme start by selecting that from the
-<guilabel>Schema</guilabel> combobox. With the <guibutton>New</guibutton> and <guibutton>Delete</guibutton>
- button you can create a new scheme or delete existing ones.</para>
-<para>At the bottom of the page you can select the <guilabel>Default schema for &kappname;</guilabel>.</para>
+<para>&kappname; will preselect the currently active theme for you, if you want to
+work on a different theme start by selecting that from the
+<guilabel>Theme</guilabel> combobox. With the <guibutton>Copy</guibutton> and <guibutton>Delete</guibutton>
+ button you can create a new theme (copying an existing one) or delete existing ones.</para>
+<para>At the bottom of the page you can select the
+<guilabel>Default theme for <replaceable>Application</replaceable></guilabel>.</para>
 
-<para>By default, &kappname; will base its color scheme on the current &kde;
-color scheme.  You can reset an individual color back to default by clicking the
-reset arrow to the right of the entry in the color editor, or you can reset all
-colors back to default by clicking the
-<guibutton>Use &kde; Color Scheme</guibutton> at the bottom of the panel.</para>
-
-<tip>
-<para>You can adjust the &kde; color scheme in the
-<ulink url="help:/kcontrol/colors/"><guilabel>Colors</guilabel> module in
-&systemsettings;</ulink>.</para>
-</tip>
-
-<sect3 id="prefcolors-colors">
-<title>Colors</title>
-
-<variablelist>
-<varlistentry id="variable-prefcolors-colors-text-background">
-<term><guilabel>Editor Background Colors</guilabel></term>
-<listitem>
-
-<variablelist>
-
-<varlistentry id="variable-pref-colors-normal-text">
-<term><guilabel>Text Area</guilabel></term>
-<listitem><para>This is the default background for the editor area, it will be
-the dominant color on the editor area.</para></listitem>
-</varlistentry>
-
-<varlistentry id="variable-pref-colors-selected-text">
-<term><guilabel>Selected Text</guilabel></term>
-<listitem><para>This is the background for selected text. The default is
-the global selection color, as set in your &kde; color preferences.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="variable-pref-colors-current-line">
-<term><guilabel>Current Line</guilabel></term>
-<listitem><para>Set the color for the current line. Setting this a bit different
-from the Normal text background helps to keep focus on the current line.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="variable-pref-colors-search-highlight">
-<term><guilabel>Search Highlight</guilabel></term>
-<listitem><para>Set the color for the text that matches your last search.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="variable-pref-colors-replace-highlight">
-<term><guilabel>Replace Highlight</guilabel></term>
-<listitem><para>Set the color for the text that matches your last replace
-operation.</para></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="variable-prefcolors-colors-icon-border">
-<term><guilabel>Icon Border</guilabel></term>
-<listitem>
-<variablelist>
-
-<varlistentry>
-<term><guilabel>Background Area</guilabel></term>
-<listitem><para>This color is used for the marks, line numbers and folding
-marker borders in the left side of the editor view when they are displayed.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Line Numbers</guilabel></term>
-<listitem><para>This color is used to draw the line numbers on the left side of
-the view when displayed.</para></listitem>
-</varlistentry>
-
-<!--FIXME: Missing Separator - not sure what that is-->
-
-<varlistentry>
-<term><guilabel>Word Wrap Marker</guilabel></term>
-<listitem><para>This color is used to draw a pattern to the left of dynamically
-wrapped lines when those are aligned vertically, as well as for the static word
-wrap marker.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Code Folding</guilabel></term>
-<listitem><para>This color is used to highlight the section of code that would
-be folded when you click on the code folding arrow to the left of a document.
-For more information, see
-<link linkend="advanced-editing-tools-code-folding">the code
-folding documentation</link>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Modified Lines</guilabel></term>
-<listitem><para>This color is used to highlight to the left of a document lines
-that have been modified but not yet saved.  For more information, see
-<xref linkend="kate-part-line-modification"/>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Saved Lines</guilabel></term>
-<listitem><para>This color is used to highlight to the left of a document lines
-that have been modified this session and saved.  For more information, see
-<xref linkend="kate-part-line-modification"/>.</para></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="variable-prefcolors-colors-text-decorations">
-<term><guilabel>Text Decorations</guilabel></term>
-<listitem>
-<variablelist>
-
-<varlistentry>
-<term><guilabel>Spelling Mistake Line</guilabel></term>
-<listitem><para>This color is used to indicate spelling mistakes.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Tab and Space Markers</guilabel></term>
-<listitem><para>This color is used to draw white space indicators, when they are
-enabled.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Indentation Line</guilabel></term>
-<listitem><para>This color is used to draw a line to the left of indented blocks,
-if <link linkend="appearance-general">that feature is enabled</link>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Bracket Highlight</guilabel></term>
-<listitem><para>This color is used to draw the background of matching brackets.
-</para></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="variable-prefcolors-colors-marker-colors">
-<term><guilabel>Marker Colors</guilabel></term>
-<listitem>
-<variablelist>
-
-<varlistentry>
-<term><guilabel>Bookmark</guilabel></term>
-<listitem><para>This color is used to indicate bookmarks.  For more information,
-see <xref linkend="kate-part-bookmarks"/>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Active Breakpoint</guilabel></term>
-<listitem><para>This color is used by the GDB plugin to indicate an active
-breakpoint.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-gdb.html">the GDB Plugin
-documentation</ulink>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Reached Breakpoint</guilabel></term>
-<listitem><para>This color is used by the GDB plugin to indicate a breakpoint
-you have reached while debugging.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-gdb.html">the GDB Plugin
-documentation</ulink>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Disabled Breakpoint</guilabel></term>
-<listitem><para>This color is used by the GDB plugin to indicate an inactive
-breakpoint.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-gdb.html">the GDB Plugin
-documentation</ulink>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Execution</guilabel></term>
-<listitem><para>This color is used by the GDB plugin the line presently being
-executed.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-gdb.html">the GDB Plugin
-documentation</ulink>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Warning</guilabel></term>
-<listitem><para>This color is used by the build plugin to indicate a line that
-has caused a compiler warning.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-build.html">the Build Plugin
-documentation</ulink>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Error</guilabel></term>
-<listitem><para>This color is used by the build plugin to indicate a line that
-has caused a compiler error.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-build.html">the Build Plugin
-documentation</ulink>.</para></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="variable-prefcolors-colors-text-templates-snippets">
-<term><guilabel>Text Templates &amp; Snippets</guilabel></term>
-<listitem>
-<variablelist>
-
-<varlistentry>
-<term><guilabel>Background</guilabel></term>
-<listitem><para>This color is used by the &kate; Snippets plugin to mark the
-background of a snippet.  <!--For more information, see
-<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
-documentation</ulink>.--></para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Editable Placeholder</guilabel></term>
-<listitem><para>This color is used by the &kate; Snippets plugin to mark a
-placeholder that you can click in to edit manually.  <!--For more information, see
-<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
-documentation</ulink>.--></para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Focused Editable Placeholder</guilabel></term>
-<listitem><para>This color is used by the &kate; Snippets plugin to mark the
-placeholder that you are presently editing.  <!--For more information, see
-<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
-documentation</ulink>.--></para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Not Editable Placeholder</guilabel></term>
-<listitem><para>This color is used by the &kate; Snippets plugin to mark a
-placeholder that cannot be edited manually, such as one that is automatically
-populated.  For more information, see
-<ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
-documentation</ulink>.</para></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="prefcolors-colors-use-kde-color-scheme">
-<term><guibutton>Use &kde; Color Scheme</guibutton></term>
-<listitem>
-<para>Clicking this button will set all the above defined colors to match the 
-current color scheme defined in &kde;'s &systemsettings;.  For more information,
-see <ulink url="help:/kcontrol/colors/">the documentation for the Colors &kde; 
-Control Module</ulink>.</para>
-<para>If you do not use the &kde; &plasma; Workspaces, this button will have no
-effect, and may not be present.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-</sect3>
-
-<sect3 id="prefcolors-fonts">
-<title>Font</title>
-<para>
-Here you can choose the font for the schema.  You can choose from
-any font available on your system, and set a default size. A sample text
-displays at the bottom of the dialog, so you can see the effect of your choices.
-</para>
-<para>For more information about selecting a font, see the 
-<ulink url="help:/fundamentals/fonts.html"><emphasis>Choosing Fonts</emphasis>
-section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</para>
-</sect3>
-
-<sect3 id="prefcolors-normal-text-styles">
-<title>Default Text Styles</title>
-<para>The default text styles are inherited by the highlight text styles,
-allowing the editor to present text in a very consistent way, for example comment
-text is using the same style in almost all of the text formats that &kappname; can
-highlight.</para>
-<para>The name in the list of styles is using the style configured for
-the item, providing you with an immediate preview when configuring a style.
-</para>
-<para>Each style lets you select common attributes as well as foreground
-and background colors. To unset a background color, right-click to use the
-context menu.</para>
-</sect3>
-
-<sect3 id="prefcolors-highlighting-text-styles">
-<title>Highlighting Text Styles</title>
-<para>Here you can edit the text styles used by a specific highlight definition.
-The editor preselects the highlight used by your current document. To work on a
-different highlight, select one in the <guilabel>Highlight</guilabel> combobox
-above the style list.
-</para>
-<para>The name in the list of styles is using the style configured for
-the item, providing you with an immediate preview when configuring a style.
-</para>
-<para>Each style lets you select common attributes as well as foreground
-and background colors. To unset a background color, right-click to use the
-context menu. In addition you can see if a style is equal to the default style
-used for the item, and set it to that if not.</para>
-<para>You will notice that many highlights contain other highlights represented
-by groups in the style list. For example most highlights import the Alert
-highlight, and many source code formats imports the Doxygen highlight. Editing
-colors in those groups only affects the styles when used in the edited highlight
-format.
-</para>
-</sect3>
+<para>This is described in detail in <xref linkend="color-themes-gui"/>.</para>
 
 </sect2>
 

@@ -316,6 +316,25 @@ static QString to_scored_fuzzy_matched_display_string(const QStringView pattern,
     return str;
 }
 
+Q_DECL_UNUSED static int get_fuzzy_match_positions(const QStringView pattern, const QStringView str, uint8_t *matches)
+{
+    if (!matches) {
+        return 0;
+    }
+
+    int totalMatches = 0;
+    int score = 0;
+    int recursionCount = 0;
+
+    auto strIt = str.cbegin();
+    auto patternIt = pattern.cbegin();
+    const auto patternEnd = pattern.cend();
+    const auto strEnd = str.cend();
+
+    fuzzy_internal::fuzzy_match_recursive(patternIt, strIt, score, strIt, strEnd, patternEnd, nullptr, matches, 0, totalMatches, recursionCount);
+    return totalMatches;
+}
+
 } // namespace kfts
 
 #endif // KFTS_FUZZY_MATCH_H

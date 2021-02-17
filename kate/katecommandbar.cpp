@@ -16,6 +16,7 @@
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QTextDocument>
+#include <QTextLayout>
 #include <QTreeView>
 #include <QVBoxLayout>
 
@@ -66,6 +67,20 @@ private:
     QString m_pattern;
 };
 
+static void layoutViewItemText(QTextLayout &textLayout, int lineWidth)
+{
+    textLayout.beginLayout();
+
+    QTextLine line = textLayout.createLine();
+    if (!line.isValid())
+        return;
+    line.setLineWidth(lineWidth);
+    line.setPosition(QPointF(0, 0));
+
+    textLayout.endLayout();
+    return;
+}
+
 class CommandBarStyleDelegate : public QStyledItemDelegate
 {
 public:
@@ -79,20 +94,6 @@ public:
         QStyleOptionViewItem options = option;
         initStyleOption(&options, index);
 
-        QTextDocument doc;
-
-        const auto original = index.data().toString();
-
-        const auto strs = index.data().toString().split(QLatin1Char(':'));
-        QString str = strs.at(1);
-        const QString nameColor = option.palette.color(QPalette::Link).name();
-        kfts::to_scored_fuzzy_matched_display_string(m_filterString, str, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
-
-        const QString component = QStringLiteral("<span style=\"color: gray;\">") + strs.at(0) + QStringLiteral(": </span>");
-
-        doc.setHtml(component + str);
-        doc.setDocumentMargin(2);
-
         painter->save();
 
         // paint background
@@ -105,30 +106,60 @@ public:
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-        // fix stuff for rtl
-        // QTextDocument doesn't work with RTL text out of the box so we give it a hand here by increasing
-        // the text width to our rect size. Icon displacement is also calculated here because 'translate()'
-        // later will not work.
+        const auto original = index.data().toString();
         const bool rtl = original.isRightToLeft();
         if (rtl) {
-            auto r = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
-            auto hasIcon = index.data(Qt::DecorationRole).value<QIcon>().isNull();
-            if (hasIcon) {
-                doc.setTextWidth(r.width() - 25);
+            painter->translate(-20, 0);
+        } else {
+            painter->translate(20, 0);
+        }
+
+        QTextOption textOption;
+        textOption.setTextDirection(options.direction);
+        textOption.setAlignment(QStyle::visualAlignment(options.direction, options.displayAlignment));
+
+        uint8_t matches[256];
+        // must use QString here otherwise fuzzy matching wont
+        // work very well
+        QString str = original;
+        int componentIdx = original.indexOf(QLatin1Char(':'));
+        int actionNameStart = 0;
+        if (componentIdx > 0) {
+            actionNameStart = componentIdx + 2;
+            // + 2 because there is a space after colon
+            str = str.mid(actionNameStart);
+        }
+
+        const int total = kfts::get_fuzzy_match_positions(m_filterString, str, matches);
+
+        using FormatRange = QTextLayout::FormatRange;
+        QTextCharFormat fmt;
+        fmt.setForeground(options.palette.link());
+        QVector<FormatRange> formats;
+        QTextCharFormat gray;
+        gray.setForeground(Qt::gray);
+        if (componentIdx > 0) {
+            formats.append({0, componentIdx, gray});
+        }
+
+        // QTextLayout fails if there are consecutive ranges
+        // of length = 1 so we have to improvise a little bit
+        int j = 0;
+        for (int i = 0; i < total; ++i) {
+            auto matchPos = actionNameStart + matches[i];
+            if (matchPos == j + 1) {
+                formats.last().length++;
             } else {
-                doc.setTextWidth(r.width());
+                formats.append({matchPos, 1, fmt});
             }
+            j = matchPos;
         }
 
-        // draw text
-        painter->translate(option.rect.x(), option.rect.y());
-        // leave space for icon
-
-        if (!rtl) {
-            painter->translate(25, 0);
-        }
-
-        doc.drawContents(painter);
+        QTextLayout textLayout(original, option.font);
+        textLayout.setTextOption(textOption);
+        layoutViewItemText(textLayout, options.rect.width());
+        const auto pos = QPointF(options.rect.x(), options.rect.y());
+        textLayout.draw(painter, pos, formats);
 
         painter->restore();
     }

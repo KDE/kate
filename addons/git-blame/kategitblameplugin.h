@@ -13,7 +13,7 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 
-#include <KProcess>
+#include <QProcess>
 
 #include <QHash>
 #include <QList>
@@ -63,7 +63,7 @@ public:
 
     void readConfig();
 
-    void showCommitInfo(const QString &hash, const QPoint &point);
+    void showCommitInfo(const QString &hash);
 
 private Q_SLOTS:
     void viewChanged(KTextEditor::View *view);
@@ -77,9 +77,8 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     QHash<KTextEditor::Document *, GitBlameInlineNoteProvider *> m_inlineNoteProviders;
 
-    KProcess m_showProc;
-    QPoint m_showPos;
-    KProcess m_blameInfoProc;
+    QProcess m_showProc;
+    QProcess m_blameInfoProc;
     QVector<KateGitBlameInfo> m_blameInfo;
     KTextEditor::View *m_blameInfoView = nullptr;
     int m_lineOffset{0};

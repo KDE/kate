@@ -107,12 +107,12 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     painter.drawText(rectangle, text);
 }
 
-void GitBlameInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNote &note, Qt::MouseButtons buttons, const QPoint &point)
+void GitBlameInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNote &note, Qt::MouseButtons buttons, const QPoint &)
 {
     if ((buttons & Qt::LeftButton) != 0) {
         int lineNr = note.position().line();
         const KateGitBlameInfo &info = m_plugin->blameInfo(lineNr, m_doc->line(lineNr));
-        m_plugin->showCommitInfo(info.commitHash, point);
+        m_plugin->showCommitInfo(info.commitHash);
     }
 }
 
@@ -123,10 +123,8 @@ KateGitBlamePlugin::KateGitBlamePlugin(QObject *parent, const QList<QVariant> &)
     , m_blameInfoProc(this)
 {
 
-    m_blameInfoProc.setOutputChannelMode(KProcess::SeparateChannels);
     connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePlugin::blameFinished);
 
-    m_showProc.setOutputChannelMode(KProcess::SeparateChannels);
     connect(&m_showProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePlugin::showFinished);
 }
 
@@ -183,14 +181,13 @@ void KateGitBlamePlugin::viewChanged(KTextEditor::View *view)
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    QString shellCmd = QStringLiteral("git blame ./%1").arg(fileName);
+    QStringList args{QStringLiteral("blame"),  QStringLiteral("./%1").arg(fileName)};
 
     m_blameInfoProc.setWorkingDirectory(dir.absolutePath());
-    m_blameInfoProc.setShellCommand(shellCmd);
-    m_blameInfoProc.start();
+    m_blameInfoProc.start(QStringLiteral("git"), args);
 }
 
-void KateGitBlamePlugin::showCommitInfo(const QString &hash, const QPoint &point)
+void KateGitBlamePlugin::showCommitInfo(const QString &hash)
 {
     if (!m_mainWindow || !m_mainWindow->activeView() || !m_mainWindow->activeView()->document()) {
         return;
@@ -200,12 +197,10 @@ void KateGitBlamePlugin::showCommitInfo(const QString &hash, const QPoint &point
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    QString shellCmd = QStringLiteral("git show %1").arg(hash);
+    QStringList args{QStringLiteral("show"),  hash};
 
     m_showProc.setWorkingDirectory(dir.absolutePath());
-    m_showProc.setShellCommand(shellCmd);
-    m_showProc.start();
-    m_showPos = point;
+    m_showProc.start(QStringLiteral("git"), args);
 }
 
 
@@ -254,6 +249,9 @@ const KateGitBlameInfo &KateGitBlamePlugin::blameInfo(int lineNr, const QStringV
 {
     static const KateGitBlameInfo dummy{QStringLiteral("hash"), QStringLiteral("Not Committed Yet"), QStringLiteral(""), QStringLiteral("")};
 
+    if (m_blameInfo.isEmpty()) {
+        return dummy;
+    }
 
     int adjustedLineNr = lineNr + m_lineOffset;
 
@@ -266,7 +264,10 @@ const KateGitBlameInfo &KateGitBlamePlugin::blameInfo(int lineNr, const QStringV
     // FIXME search for the matching line
     // search for the line 100 lines before and after until it matches
     m_lineOffset = 0;
-    while (m_lineOffset < 100  && lineNr+m_lineOffset < m_blameInfo.size()) {
+    while (m_lineOffset < 100  &&
+        lineNr+m_lineOffset >= 0 &&
+        lineNr+m_lineOffset < m_blameInfo.size())
+    {
         if (m_blameInfo[lineNr+m_lineOffset].line == lineText) {
             return m_blameInfo.at(lineNr+m_lineOffset);
         }
@@ -274,7 +275,10 @@ const KateGitBlameInfo &KateGitBlamePlugin::blameInfo(int lineNr, const QStringV
     }
 
     m_lineOffset = 0;
-    while (m_lineOffset > -100  && lineNr+m_lineOffset >= 0) {
+    while (m_lineOffset > -100  &&
+        lineNr+m_lineOffset >= 0 &&
+        (lineNr+m_lineOffset) < m_blameInfo.size())
+    {
         if (m_blameInfo[lineNr+m_lineOffset].line == lineText) {
             return m_blameInfo.at(lineNr+m_lineOffset);
         }

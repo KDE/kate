@@ -68,7 +68,7 @@ public:
         bool inDiff = false;
 
         KSyntaxHighlighting::State state;
-
+        out << "<pre>";
         while (!in.atEnd()) {
             currentLine = in.readLine();
 
@@ -81,12 +81,12 @@ public:
             // diff block
             if (!inDiff && currentLine.startsWith(QLatin1String("diff"))) {
                 inDiff = true;
-                continue;
             }
 
             state = highlightLine(currentLine, state);
-            out << "\n<br>";
+            out << "\n";
         }
+        out << "</pre>";
     }
 
     QString html() const

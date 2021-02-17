@@ -435,6 +435,26 @@ QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
         }
     }
 
+    // untracked files
+    {
+        args.clear();
+        args << QStringLiteral("ls-files") << QStringLiteral("-z") << QStringLiteral("--others") << QStringLiteral("--exclude-standard") << QStringLiteral(".");
+        git.setArguments(args);
+        git.start();
+
+        if (!git.waitForStarted() || !git.waitForFinished(-1)) {
+            return files;
+        }
+
+        const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
+        for (const QByteArray &byteArray : byteArrayList) {
+            const QString fileName = QString::fromUtf8(byteArray);
+            if (!fileName.isEmpty()) {
+                files << fileName;
+            }
+        }
+    }
+
     return files;
 }
 

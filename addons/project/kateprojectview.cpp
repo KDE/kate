@@ -29,8 +29,8 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     , m_project(project)
     , m_treeView(new KateProjectViewTree(pluginView, project))
     , m_filter(new KLineEdit())
-    , m_branchBtn(new QPushButton)
-    , m_gitBtn(new QPushButton)
+    , m_branchBtn(new QToolButton)
+    , m_gitBtn(new QToolButton)
     , m_stackWidget(new QStackedWidget)
     , m_gitWidget(new GitWidget(project, this, mainWindow))
 {
@@ -49,21 +49,28 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     setLayout(layout);
 
     btnLayout->addWidget(m_branchBtn);
-    btnLayout->setStretch(0, 2);
     btnLayout->addWidget(m_gitBtn);
 
     m_stackWidget->addWidget(m_treeView);
     m_stackWidget->addWidget(m_gitWidget);
 
-    connect(m_gitBtn, &QPushButton::clicked, this, [this] {
-        m_gitWidget->getStatus();
-        m_stackWidget->setCurrentWidget(m_gitWidget);
+    connect(m_gitBtn, &QToolButton::toggled, this, [this](bool checked) {
+        if (checked) {
+            m_gitWidget->getStatus();
+            m_stackWidget->setCurrentWidget(m_gitWidget);
+        } else {
+            m_stackWidget->setCurrentWidget(m_treeView);
+        }
     });
 
+    m_branchBtn->setSizePolicy(QSizePolicy::Minimum, m_branchBtn->sizePolicy().verticalPolicy());
+    m_branchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
     m_branchBtn->setIcon(QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
     m_gitBtn->setIcon(QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
     m_gitBtn->setToolTip(i18n("Stage and commit"));
+    m_gitBtn->setAutoRaise(true);
+    m_gitBtn->setCheckable(true);
 
     // let tree get focus for keyboard selection of file to open
     setFocusProxy(m_treeView);
@@ -72,7 +79,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     auto chckbr = pluginView->actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [this] {
         m_branchBtn->click();
     });
-    chckbr->setText(QStringLiteral("Checkout Git Branch"));
+    chckbr->setText(i18n("Checkout Git Branch"));
 
     /**
      * setup filter line edit
@@ -86,9 +93,9 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
      */
     m_branchBtn->setHidden(true);
     m_branchesDialog = new BranchesDialog(this, mainWindow, m_project->baseDir());
-    connect(m_branchBtn, &QPushButton::clicked, this, [this] {
+    connect(m_branchBtn, &QToolButton::clicked, this, [this] {
         if (m_stackWidget->currentWidget() != m_treeView) {
-            m_stackWidget->setCurrentWidget(m_treeView);
+            m_gitBtn->setChecked(false);
             return;
         }
         m_branchesDialog->openDialog();

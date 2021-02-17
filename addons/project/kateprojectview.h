@@ -93,12 +93,12 @@ private:
     /**
       checkout branch button
      */
-    QPushButton *m_branchBtn;
+    QToolButton *m_branchBtn;
 
     /**
       checkout branch button
      */
-    QPushButton *m_gitBtn;
+    QToolButton *m_gitBtn;
 
     /**
      * The dialog which displays git branches

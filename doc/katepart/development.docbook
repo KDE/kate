@@ -1244,7 +1244,7 @@ or from the application itself in the menu
 </para>
 
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/breeze-color-theme-preview.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="breeze-color-theme-preview.png"/></imageobject>
 <textobject><phrase><quote>Breeze Light</quote> and <quote>Breeze Dark</quote> color themes
 with the <quote>C++</quote> syntax highlighting.</phrase>
 </textobject>
@@ -1270,7 +1270,7 @@ This is part of &kde; &frameworks; and is used in &kde; text editors such as
 This dependency looks like the following:</para>
 
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/kf5-ksyntaxhighlighting.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="kf5-ksyntaxhighlighting.png"/></imageobject>
 <textobject><phrase>Dependence of &kde; &frameworks; 5 libraries on text editors.</phrase></textobject>
 <caption><para>Dependence of &kde; &frameworks; libraries on text editors.</para>
 </caption>
@@ -1288,7 +1288,7 @@ create and edit them, you can access it from the
 More details in <xref linkend="color-themes-gui"/>.</para>
 
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/color-themes-gui-breeze-dark-default-text-styles.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="color-themes-gui-breeze-dark-default-text-styles.png"/></imageobject>
 <textobject><phrase>The &GUI; to manage color themes in &kate;'s settings.</phrase></textobject>
 <caption><para>The &GUI; to manage color themes in &kate;'s settings.</para>
 </caption>
@@ -1626,7 +1626,7 @@ the names used in the <link linkend="color-themes-gui">&GUI;</link> are shown in
 <listitem><para>This is the default background for the editor area, it will be
 the dominant color on the editor area.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-BackgroundColor.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-BackgroundColor.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1637,7 +1637,7 @@ the dominant color on the editor area.</para>
 <listitem><para>This is the background for selected text.
 </para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-TextSelection.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-TextSelection.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1649,7 +1649,7 @@ the dominant color on the editor area.</para>
 from the Normal text background helps to keep focus on the current line.
 </para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-CurrentLine.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-CurrentLine.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1660,7 +1660,7 @@ from the Normal text background helps to keep focus on the current line.
 <listitem><para>Set the color for the text that matches your last search.
 </para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-SearchHighlight.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-SearchHighlight.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1671,7 +1671,7 @@ from the Normal text background helps to keep focus on the current line.
 <listitem><para>Set the color for the text that matches your last replace
 operation.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-ReplaceHighlight.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-ReplaceHighlight.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1712,7 +1712,7 @@ on the left side of the view when displayed. Setting this a bit different from
 <listitem><para>This color is used to draw the vertical line that separates the
 icon border from the background of the text area.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-IconBorder.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-IconBorder.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1724,7 +1724,7 @@ icon border from the background of the text area.</para>
 wrapped lines when those are aligned vertically, as well as for the static word
 wrap marker.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-WordWrapMarker.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-WordWrapMarker.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1738,7 +1738,7 @@ For more information, see
 <link linkend="advanced-editing-tools-code-folding">the code
 folding documentation</link>.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-CodeFolding.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-CodeFolding.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1757,7 +1757,7 @@ that have been modified but not yet saved.  For more information, see
 that have been modified this session and saved.  For more information, see
 <xref linkend="kate-part-line-modification"/>.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-ModifiedLines.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-ModifiedLines.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1776,7 +1776,7 @@ that have been modified this session and saved.  For more information, see
 <term><userinput>SpellChecking</userinput> (<guilabel>Spelling Mistake Line</guilabel>)</term>
 <listitem><para>This color is used to indicate spelling mistakes.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-SpellChecking.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-SpellChecking.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1787,7 +1787,7 @@ that have been modified this session and saved.  For more information, see
 <listitem><para>This color is used to draw white space indicators, when they are
 enabled.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-TabMarker.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-TabMarker.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1798,7 +1798,7 @@ enabled.</para>
 <listitem><para>This color is used to draw a line to the left of indented blocks,
 if <link linkend="appearance-general">that feature is enabled</link>.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-IndentationLine.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-IndentationLine.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1809,7 +1809,7 @@ if <link linkend="appearance-general">that feature is enabled</link>.</para>
 <listitem><para>This color is used to draw the background of matching brackets.
 </para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-BracketMatching.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-BracketMatching.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1830,7 +1830,7 @@ if <link linkend="appearance-general">that feature is enabled</link>.</para>
 has an opacity of 22% (and 33% for the current line) with respect to the background.
 For more information, see <xref linkend="kate-part-bookmarks"/>.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-MarkBookmark.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-MarkBookmark.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1917,7 +1917,7 @@ placeholder that you are presently editing.  For more information, see
 <ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
 documentation</ulink>.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-Template.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-Template.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -1931,7 +1931,7 @@ populated.  For more information, see
 <ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
 documentation</ulink>.</para>
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/editor-colors-TemplateReadOnlyPlaceholder.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="editor-colors-TemplateReadOnlyPlaceholder.png"/></imageobject>
 <caption><para></para></caption>
 </mediaobject>
 </listitem>
@@ -2293,7 +2293,7 @@ dialog box, there select <guilabel>Color Themes</guilabel> in the side panel.
 </para>
 
 <mediaobject>
-<imageobject><imagedata format="PNG" fileref="color-themes/color-themes-gui-default-text-styles.png"/></imageobject>
+<imageobject><imagedata format="PNG" fileref="color-themes-gui-default-text-styles.png"/></imageobject>
 <textobject><phrase>&kate;'s settings dialog box with the color theme management.</phrase></textobject>
 <caption><para>&kate;'s settings dialog box with the color theme management.</para>
 </caption>

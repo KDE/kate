@@ -12,6 +12,7 @@
 #include <QFontMetrics>
 #include <QLabel>
 #include <QMouseEvent>
+#include <QPointer>
 #include <QScreen>
 #include <QString>
 #include <QTextBrowser>
@@ -187,7 +188,7 @@ public:
 
             m_view = view;
 
-            hl.setDefinition(r.definitionForFileName(view->document()->url().toString()));
+            hl.setDefinition(r.definitionForFileName(m_view->document()->url().toString()));
             updateFont();
 
             if (m_view && m_view->focusProxy()) {
@@ -345,7 +346,7 @@ protected:
 
 private:
     bool inContextMenu = false;
-    KTextEditor::View *m_view;
+    QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
     HtmlHl hl;
     KSyntaxHighlighting::Repository r;

@@ -26,37 +26,26 @@ QString GitUtils::getCurrentBranchName(const QString &repo)
     QProcess git;
     git.setWorkingDirectory(repo);
 
-    // try: symbolic-ref --short HEAD
-    QStringList args{QStringLiteral("symbolic-ref"), QStringLiteral("--short"), QStringLiteral("HEAD")};
-    git.start(QStringLiteral("git"), args);
+    // clang-format off
+    QStringList argsList[3] =
+    {
+        {QStringLiteral("symbolic-ref"), QStringLiteral("--short"), QStringLiteral("HEAD")},
+        {QStringLiteral("describe"), QStringLiteral("--exact-match"), QStringLiteral("HEAD")},
+        {QStringLiteral("rev-parse"), QStringLiteral("--short"), QStringLiteral("HEAD")}
+    };
+    // clang-format on
 
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
-            return QString::fromUtf8(git.readAllStandardOutput().trimmed());
-        }
-
-        // failed
-        // maybe we are in a tag?
-        // try: git describe --exact-match HEAD
-        args = QStringList{QStringLiteral("describe"), QStringLiteral("--exact-match"), QStringLiteral("HEAD")};
+    for (int i = 0; i < 3; ++i) {
+        auto args = argsList[i];
         git.start(QStringLiteral("git"), args);
         if (git.waitForStarted() && git.waitForFinished(-1)) {
             if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
                 return QString::fromUtf8(git.readAllStandardOutput().trimmed());
             }
         }
-
-        // failed, just return short commit
-        // git rev-parse --short HEAD
-        args = QStringList{QStringLiteral("rev-parse"), QStringLiteral("--short"), QStringLiteral("HEAD")};
-        git.start(QStringLiteral("git"), args);
-        if (git.waitForStarted() && git.waitForFinished(-1)) {
-            if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
-                return QString::fromUtf8(git.readAllStandardOutput().trimmed());
-            }
-        }
-        // give up
     }
+
+    // give up
     return QString();
 }
 

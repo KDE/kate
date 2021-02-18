@@ -181,8 +181,17 @@ public:
                 return list;
             }();
             btns.reserve(list.size());
+            const int height = options.rect.height();
             for (const QString &text : list) {
+                if (text.isEmpty()) {
+                    continue;
+                }
                 QRect r = option.fontMetrics.boundingRect(text);
+                // this happens on gnome so we manually decrease the
+                // height a bit
+                if (r.height() == height) {
+                    r.setHeight(r.height() - 4);
+                }
                 r.setWidth(r.width() + 8);
                 btns.append({r, text});
             }

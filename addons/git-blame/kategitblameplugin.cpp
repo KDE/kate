@@ -13,6 +13,7 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
+#include <KTextEditor/Editor>
 #include <KTextEditor/Document>
 #include <KTextEditor/InlineNoteInterface>
 #include <KTextEditor/InlineNoteProvider>
@@ -69,7 +70,7 @@ QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
     int lineLen = m_doc->line(line).size();
     for (const auto view: m_doc->views()) {
         if (view->cursorPosition().line() == line) {
-            return QVector<int>{qMax(lineLen + 2, 75)};
+            return QVector<int>{lineLen + 4};
         }
     }
     return QVector<int>();
@@ -91,19 +92,23 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
 
     QString text = QStringLiteral("  %1: %2").arg(info.name, info.date);
     QRect rectangle = fm.boundingRect(text);
-
+    rectangle.setWidth(rectangle.width() * 1.1);
     rectangle.moveTo(0,0);
 
-    auto penColor = QColor("black");
-    penColor.setAlpha(20);
-    painter.setPen(penColor);
-    painter.setBrush(penColor);
+    auto editor = KTextEditor::Editor::instance();
+    auto color = QColor::fromRgba(editor->theme().textColor(KSyntaxHighlighting::Theme::Normal));
+    color.setAlpha(0);
+    painter.setPen(color);
+    color.setAlpha(15);
+    painter.setBrush(color);
     painter.drawRect(0,0, rectangle.width(), note.lineHeight());
+    color.setAlpha(50);
+    painter.setBrush(color);
+    painter.drawRect(0, 0, 3, note.lineHeight());
 
-    penColor.setAlpha(note.underMouse() ? 130 : 90);
-    painter.setPen(penColor);
-    painter.setBrush(penColor);
-    painter.drawRect(0,0, 1, note.lineHeight());
+    color.setAlpha(note.underMouse() ? 130 : 90);
+    painter.setPen(color);
+    painter.setBrush(color);
     painter.drawText(rectangle, text);
 }
 
@@ -247,7 +252,7 @@ bool KateGitBlamePlugin::hasBlameInfo() const
 
 const KateGitBlameInfo &KateGitBlamePlugin::blameInfo(int lineNr, const QStringView &lineText)
 {
-    static const KateGitBlameInfo dummy{QStringLiteral("hash"), QStringLiteral("Not Committed Yet"), QStringLiteral(""), QStringLiteral("")};
+    static const KateGitBlameInfo dummy{QStringLiteral("hash"), i18n("Not Committed Yet"), QStringLiteral(""), QStringLiteral("")};
 
     if (m_blameInfo.isEmpty()) {
         return dummy;

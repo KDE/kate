@@ -4,6 +4,6 @@
         <file>kateui.rc</file>
     </qresource>
     <qresource prefix="/kate">
-        <file alias="kate.svg">../icons/sc-apps-kate.svg</file>
+        <file alias="kate.svg">../icons/unix/sc-apps-kate.svg</file>
     </qresource>
 </RCC>

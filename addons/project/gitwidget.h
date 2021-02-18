@@ -56,6 +56,7 @@ private:
 
     void buildMenu();
     void initGitExe();
+    void runGitCmd(const QStringList &args, const char *error);
     void stage(const QStringList &files, bool = false);
     void unstage(const QStringList &files);
     void discard(const QStringList &files);

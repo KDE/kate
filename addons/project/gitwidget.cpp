@@ -142,6 +142,23 @@ void GitWidget::getStatus(bool untracked, bool submodules)
     git.start();
 }
 
+void GitWidget::runGitCmd(const QStringList &args, const char* error)
+{
+    git.setArguments(args);
+    git.start();
+
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
+    connect(&git, &QProcess::finished, this, [this, error](int exitCode, QProcess::ExitStatus es) {
+        // sever connection
+        disconnect(&git, &QProcess::finished, nullptr, nullptr);
+        if (es != QProcess::NormalExit || exitCode != 0) {
+            sendMessage(i18n(error, QString::fromUtf8(git.readAllStandardError())), true);
+        } else {
+            getStatus();
+        }
+    });
+}
+
 void GitWidget::stage(const QStringList &files, bool)
 {
     if (files.isEmpty()) {
@@ -151,15 +168,7 @@ void GitWidget::stage(const QStringList &files, bool)
     auto args = QStringList{QStringLiteral("add"), QStringLiteral("-A"), QStringLiteral("--")};
     args.append(files);
 
-    git.setArguments(args);
-    git.start();
-
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            sendMessage(i18n("Failed to stage file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
-        }
-        getStatus();
-    }
+    runGitCmd(args, "Failed to stage file. Error:\n%1");
 }
 
 void GitWidget::unstage(const QStringList &files)
@@ -172,15 +181,7 @@ void GitWidget::unstage(const QStringList &files)
     auto args = QStringList{QStringLiteral("reset"), QStringLiteral("-q"), QStringLiteral("HEAD"), QStringLiteral("--")};
     args.append(files);
 
-    git.setArguments(args);
-    git.start();
-
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            sendMessage(i18n("Failed to stage file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
-        }
-        getStatus();
-    }
+    runGitCmd(args, "Failed to unstage file. Error:\n%1");
 }
 
 void GitWidget::discard(const QStringList &files)

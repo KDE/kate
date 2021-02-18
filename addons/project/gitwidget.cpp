@@ -142,7 +142,7 @@ void GitWidget::getStatus(bool untracked, bool submodules)
     git.start();
 }
 
-void GitWidget::runGitCmd(const QStringList &args, const char* error)
+void GitWidget::runGitCmd(const QStringList &args, const char *error)
 {
     git.setArguments(args);
     git.start();
@@ -458,7 +458,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         QMenu menu;
         auto stageAct = menu.addAction(i18n("Stage All"));
         bool untracked = type == GitStatusModel::NodeUntrack;
-        auto discardAct = untracked ? nullptr : menu.addAction(i18n("Discard All"));
+        auto discardAct = untracked ? menu.addAction(i18n("Remove All")) : menu.addAction(i18n("Discard All"));
+        auto ignoreAct = untracked ? menu.addAction(i18n("Open .gitignore")) : nullptr;
 
         // get files
         const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
@@ -476,6 +477,17 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             discard(filesList);
         } else if (act == discardAct && untracked) {
             clean(filesList);
+        } else if (untracked && act == ignoreAct) {
+            const auto files = m_project->files();
+            const auto it = std::find_if(files.cbegin(), files.cend(), [](const QString &s) {
+                if (s.contains(QStringLiteral(".gitignore"))) {
+                    return true;
+                }
+                return false;
+            });
+            if (it != files.cend()) {
+                m_mainWin->openUrl(QUrl::fromLocalFile(*it));
+            }
         }
     } else if (type == GitStatusModel::NodeFile) {
         QMenu menu;
@@ -486,7 +498,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external diff tool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
-        auto discardAct = untracked ? nullptr : menu.addAction(i18n("Discard"));
+        auto discardAct = untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         const QString file = m_gitPath + idx.data().toString();

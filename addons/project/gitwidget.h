@@ -64,7 +64,7 @@ private:
     void openAtHEAD(const QString &file);
     void showDiff(const QString &file, bool staged);
     void launchExternalDiffTool(const QString &file, bool staged);
-    void commitChanges(const QString &msg, const QString &desc);
+    void commitChanges(const QString &msg, const QString &desc, bool signOff);
     void sendMessage(const QString &message, bool warn);
 
     void hideEmptyTreeNodes();

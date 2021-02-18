@@ -111,6 +111,10 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
         }
     }
 
+    m_cbSignOff.setChecked(false);
+    m_cbSignOff.setText(i18n("Sign off"));
+    vlayout->addWidget(&m_cbSignOff);
+
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addStretch();
     hLayout->addWidget(&ok);
@@ -121,9 +125,6 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     connect(m_le, &QPlainTextEdit::textChanged, this, &GitCommitDialog::updateLineSizeLabel);
 
     updateLineSizeLabel();
-    //    m_cbSeventyTwoLimit.setText(i18n("Automatically break description into 72 or less character lines"));
-    //    m_cbSeventyTwoLimit.setChecked(true);
-    //    vlayout->addWidget(&m_cbSeventyTwoLimit);
 
     vlayout->addLayout(hLayout);
 }
@@ -136,6 +137,11 @@ QString GitCommitDialog::subject() const
 QString GitCommitDialog::description() const
 {
     return m_pe.toPlainText();
+}
+
+bool GitCommitDialog::signoff() const
+{
+    return m_cbSignOff.isChecked();
 }
 
 void GitCommitDialog::updateLineSizeLabel()

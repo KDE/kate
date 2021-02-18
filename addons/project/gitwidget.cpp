@@ -328,9 +328,14 @@ void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
     git.start();
 }
 
-void GitWidget::commitChanges(const QString &msg, const QString &desc)
+void GitWidget::commitChanges(const QString &msg, const QString &desc, bool signOff)
 {
-    auto args = QStringList{QStringLiteral("commit"), QStringLiteral("-m"), msg};
+    auto args = QStringList{QStringLiteral("commit")};
+    if (signOff) {
+        args.append(QStringLiteral("-s"));
+    }
+    args.append(QStringLiteral("-m"));
+    args.append(msg);
     if (!desc.isEmpty()) {
         args.append(QStringLiteral("-m"));
         args.append(desc);
@@ -347,6 +352,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc)
             sendMessage(i18n("Failed to commit. \n %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             sendMessage(i18n("Changes committed successfully."), false);
+            m_commitMessage.clear();
             // refresh
             getStatus();
         }
@@ -375,9 +381,8 @@ void GitWidget::opencommitChangesDialog()
         if (dialog.subject().isEmpty()) {
             return sendMessage(i18n("Commit message cannot be empty."), true);
         }
-        commitChanges(dialog.subject(), dialog.description());
-    } else {
         m_commitMessage = dialog.subject() + QStringLiteral("[[\n\n]]") + dialog.description();
+        commitChanges(dialog.subject(), dialog.description(), dialog.signoff());
     }
 }
 

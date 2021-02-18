@@ -160,12 +160,6 @@ class Tooltip : public QTextBrowser
     Q_OBJECT
 
 public:
-    static Tooltip *self()
-    {
-        static Tooltip instance;
-        return &instance;
-    }
-
     void setTooltipText(const QString &text)
     {
         if (text.isEmpty())
@@ -188,7 +182,7 @@ public:
 
             m_view = view;
 
-            hl.setDefinition(r.definitionForFileName(m_view->document()->url().toString()));
+            hl.setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(m_view->document()->url().toString()));
             updateFont();
 
             if (m_view && m_view->focusProxy()) {
@@ -197,10 +191,11 @@ public:
         }
     }
 
-    Tooltip(QWidget *parent = nullptr)
+    Tooltip(QWidget *parent)
         : QTextBrowser(parent)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
+        setAttribute(Qt::WA_DeleteOnClose, true);
         document()->setDocumentMargin(5);
         setFrameStyle(QFrame::Box | QFrame::Raised);
         connect(&m_hideTimer, &QTimer::timeout, this, &Tooltip::hideTooltip);
@@ -264,8 +259,7 @@ public:
 
     Q_SLOT void hideTooltip()
     {
-        close();
-        setText(QString());
+        deleteLater();
     }
 
     void resizeTip(const QString &text)
@@ -311,14 +305,14 @@ protected:
     void showEvent(QShowEvent *event) override
     {
         m_hideTimer.start(1000);
-        return QTextBrowser::showEvent(event);
+        QTextBrowser::showEvent(event);
     }
 
     void enterEvent(QEvent *event) override
     {
         inContextMenu = false;
         m_hideTimer.stop();
-        return QTextBrowser::enterEvent(event);
+        QTextBrowser::enterEvent(event);
     }
 
     void leaveEvent(QEvent *event) override
@@ -326,7 +320,7 @@ protected:
         if (!m_hideTimer.isActive() && !inContextMenu) {
             hideTooltip();
         }
-        return QTextBrowser::leaveEvent(event);
+        QTextBrowser::leaveEvent(event);
     }
 
     void mouseMoveEvent(QMouseEvent *event) override
@@ -341,7 +335,7 @@ protected:
     void contextMenuEvent(QContextMenuEvent *e) override
     {
         inContextMenu = true;
-        return QTextBrowser::contextMenuEvent(e);
+        QTextBrowser::contextMenuEvent(e);
     }
 
 private:
@@ -349,7 +343,6 @@ private:
     QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
     HtmlHl hl;
-    KSyntaxHighlighting::Repository r;
 };
 
 void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v)
@@ -361,10 +354,11 @@ void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v)
         return;
     }
 
-    Tooltip::self()->setView(v);
-    Tooltip::self()->setTooltipText(text);
-    Tooltip::self()->place(pos);
-    Tooltip::self()->show();
+    auto tooltip = new Tooltip(v);
+    tooltip->show();
+    tooltip->setView(v);
+    tooltip->setTooltipText(text);
+    tooltip->place(pos);
 }
 
 #include "lsptooltip.moc"

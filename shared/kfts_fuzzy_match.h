@@ -338,14 +338,10 @@ get_fuzzy_match_formats(const QStringView pattern, const QStringView str, int of
     uint8_t matches[256];
     fuzzy_internal::fuzzy_match_recursive(patternIt, strIt, score, strIt, strEnd, patternEnd, nullptr, matches, 0, totalMatches, recursionCount);
 
-    //    QTextCharFormat fmt;
-    //    fmt.setFontWeight(QFont::Bold);
-    //    fmt.setForeground(c);
-
     int j = 0;
     for (int i = 0; i < totalMatches; ++i) {
         auto matchPos = matches[i];
-        if (matchPos == j + 1) {
+        if (!ranges.isEmpty() && matchPos == j + 1) {
             ranges.last().length++;
         } else {
             ranges.append({matchPos + offset, 1, fmt});

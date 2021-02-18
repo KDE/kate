@@ -142,17 +142,17 @@ void GitWidget::getStatus(bool untracked, bool submodules)
     git.start();
 }
 
-void GitWidget::runGitCmd(const QStringList &args, const char *error)
+void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
 {
     git.setArguments(args);
     git.start();
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
-    connect(&git, &QProcess::finished, this, [this, error](int exitCode, QProcess::ExitStatus es) {
+    connect(&git, &QProcess::finished, this, [this, i18error](int exitCode, QProcess::ExitStatus es) {
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n(error, QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18error + QStringLiteral("\n") + QString::fromUtf8(git.readAllStandardError()), true);
         } else {
             getStatus();
         }
@@ -168,7 +168,7 @@ void GitWidget::stage(const QStringList &files, bool)
     auto args = QStringList{QStringLiteral("add"), QStringLiteral("-A"), QStringLiteral("--")};
     args.append(files);
 
-    runGitCmd(args, "Failed to stage file. Error:\n%1");
+    runGitCmd(args, i18n("Failed to stage file. Error:"));
 }
 
 void GitWidget::unstage(const QStringList &files)
@@ -181,7 +181,7 @@ void GitWidget::unstage(const QStringList &files)
     auto args = QStringList{QStringLiteral("reset"), QStringLiteral("-q"), QStringLiteral("HEAD"), QStringLiteral("--")};
     args.append(files);
 
-    runGitCmd(args, "Failed to unstage file. Error:\n%1");
+    runGitCmd(args, i18n("Failed to unstage file. Error:"));
 }
 
 void GitWidget::discard(const QStringList &files)
@@ -193,7 +193,7 @@ void GitWidget::discard(const QStringList &files)
     auto args = QStringList{QStringLiteral("checkout"), QStringLiteral("-q"), QStringLiteral("--")};
     args.append(files);
 
-    runGitCmd(args, "Failed to discard changes. Error:\n%1");
+    runGitCmd(args, i18n("Failed to discard changes. Error:"));
 }
 
 void GitWidget::clean(const QStringList &files)
@@ -205,7 +205,7 @@ void GitWidget::clean(const QStringList &files)
     auto args = QStringList{QStringLiteral("clean"), QStringLiteral("-q"), QStringLiteral("-f"), QStringLiteral("--")};
     args.append(files);
 
-    runGitCmd(args, "Failed to remove. Error:\n%1");
+    runGitCmd(args, i18n("Failed to remove. Error:"));
 }
 
 void GitWidget::openAtHEAD(const QString &file)

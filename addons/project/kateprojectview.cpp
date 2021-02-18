@@ -42,7 +42,6 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addLayout(btnLayout);
-    layout->addWidget(m_gitBtn);
     layout->addWidget(m_stackWidget);
     //    layout->addWidget(m_treeView);
     layout->addWidget(m_filter);

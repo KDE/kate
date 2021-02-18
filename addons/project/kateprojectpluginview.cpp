@@ -93,8 +93,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     // If the list of projects is empty we do not want to restore the tool view from the last session, BUG: 432296
     if (projectList.isEmpty()) {
         // We have to call this in the next iteration of the event loop, after the session is restored
-        QTimer::singleShot(0, [this]() {
+        QTimer::singleShot(0, this, [this]() {
             m_mainWindow->hideToolView(m_toolView);
+            m_mainWindow->hideToolView(m_toolInfoView);
         });
     }
 

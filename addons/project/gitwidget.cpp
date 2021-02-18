@@ -193,19 +193,19 @@ void GitWidget::discard(const QStringList &files)
     auto args = QStringList{QStringLiteral("checkout"), QStringLiteral("-q"), QStringLiteral("--")};
     args.append(files);
 
-    git.setArguments(args);
-    git.start();
+    runGitCmd(args, "Failed to discard changes. Error:\n%1");
+}
 
-    disconnect(&git, &QProcess::finished, nullptr, nullptr);
-    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus es) {
-        // sever connection
-        disconnect(&git, &QProcess::finished, nullptr, nullptr);
-        if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to discard changes. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
-        } else {
-            getStatus();
-        }
-    });
+void GitWidget::clean(const QStringList &files)
+{
+    if (files.isEmpty()) {
+        return;
+    }
+    // discard=>git clean -q -f -- xx.cpp
+    auto args = QStringList{QStringLiteral("clean"), QStringLiteral("-q"), QStringLiteral("-f"), QStringLiteral("--")};
+    args.append(files);
+
+    runGitCmd(args, "Failed to remove. Error:\n%1");
 }
 
 void GitWidget::openAtHEAD(const QString &file)
@@ -339,6 +339,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc)
     git.setArguments(args);
     git.start();
 
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus es) {
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
@@ -473,6 +474,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             stage(filesList, type == GitStatusModel::NodeUntrack);
         } else if (act == discardAct && !untracked) {
             discard(filesList);
+        } else if (act == discardAct && untracked) {
+            clean(filesList);
         }
     } else if (type == GitStatusModel::NodeFile) {
         QMenu menu;
@@ -498,6 +501,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             openAtHEAD(idx.data().toString());
         } else if (act == showDiffAct && !untracked) {
             showDiff(file, staged);
+        } else if (act == discardAct && untracked) {
+            clean({file});
         } else if (act == launchDifftoolAct) {
             launchExternalDiffTool(idx.data().toString(), staged);
         }

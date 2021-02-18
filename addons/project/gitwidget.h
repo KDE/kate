@@ -60,6 +60,7 @@ private:
     void stage(const QStringList &files, bool = false);
     void unstage(const QStringList &files);
     void discard(const QStringList &files);
+    void clean(const QStringList &files);
     void openAtHEAD(const QString &file);
     void showDiff(const QString &file, bool staged);
     void launchExternalDiffTool(const QString &file, bool staged);

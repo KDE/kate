@@ -86,31 +86,39 @@ public:
         QStyleOptionViewItem options = option;
         initStyleOption(&options, index);
 
-        QTextDocument doc;
-
         auto name = index.data().toString();
 
-        const QString nameColor = option.palette.color(QPalette::Link).name();
-        kfts::to_scored_fuzzy_matched_display_string(m_filterString, name, QStringLiteral("<b style=\"color:%1;\">").arg(nameColor), QStringLiteral("</b>"));
+        QVector<QTextLayout::FormatRange> formats;
+        QTextCharFormat fmt;
+        fmt.setForeground(options.palette.link());
+        fmt.setFontWeight(QFont::Bold);
 
-        auto refType = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
-        auto itemType = (BranchesDialogModel::ItemType)index.data(BranchesDialogModel::ItemTypeRole).toInt();
-        using RefType = GitUtils::RefType;
-        const auto fontSz = option.font.pointSize();
-        name = QStringLiteral("<span style=\"font-size:%1pt;\">").arg(fontSz) + name + QStringLiteral("</span>");
+        const auto itemType = (BranchesDialogModel::ItemType)index.data(BranchesDialogModel::ItemTypeRole).toInt();
+        const bool branchItem = itemType == BranchesDialogModel::BranchItem;
+        const int offset = branchItem ? 0 : 2;
 
-        if (itemType == BranchesDialogModel::CreateBranch || itemType == BranchesDialogModel::CreateBranchFrom) {
-            name.prepend(QStringLiteral("+ <b>")).append(QStringLiteral("</b>"));
-        } else {
-            if (refType == RefType::Head) {
-                name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">local</span>").arg(fontSz - 1));
-            } else if (refType == RefType::Remote) {
-                name.append(QStringLiteral(" &nbsp;<span style=\"color:gray; font-size:%1pt;\">remote</span>").arg(fontSz - 1));
-            }
+        formats = kfts::get_fuzzy_match_formats(m_filterString, name, offset, fmt);
+
+        if (!branchItem) {
+            name = QStringLiteral("+ ") + name;
         }
 
-        doc.setHtml(name);
-        doc.setDocumentMargin(2);
+        const int nameLen = name.length();
+        int len = 6;
+        if (branchItem) {
+            const auto refType = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
+            using RefType = GitUtils::RefType;
+            if (refType == RefType::Head) {
+                name.append(QStringLiteral(" local"));
+            } else if (refType == RefType::Remote) {
+                name.append(QStringLiteral(" remote"));
+                len = 7;
+            }
+        }
+        QTextCharFormat lf;
+        lf.setFontItalic(true);
+        lf.setForeground(Qt::gray);
+        formats.append({nameLen, len, lf});
 
         painter->save();
 
@@ -124,13 +132,11 @@ public:
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-        // draw text
-        painter->translate(option.rect.x(), option.rect.y());
         // leave space for icon
-
-        painter->translate(25, 0);
-
-        doc.drawContents(painter);
+        if (itemType == BranchesDialogModel::BranchItem) {
+            painter->translate(25, 0);
+        }
+        kfts::paintItemViewText(painter, name, options, formats);
 
         painter->restore();
     }

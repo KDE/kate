@@ -8,6 +8,7 @@
 
 #include <QDir>
 #include <QFileInfo>
+#include <QGuiApplication>
 #include <QIcon>
 #include <QList>
 #include <QMimeData>
@@ -369,6 +370,11 @@ KateFileTreeModel::KateFileTreeModel(QObject *p)
     m_listMode = false;
 
     initModel();
+
+    // ensure palette change updates the colors properly
+    connect(qGuiApp, &QGuiApplication::paletteChanged, this, [this]() {
+        updateBackgrounds(true);
+    });
 }
 
 KateFileTreeModel::~KateFileTreeModel()

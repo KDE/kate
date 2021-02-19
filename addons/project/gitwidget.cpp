@@ -160,9 +160,6 @@ void GitWidget::getStatus(bool untracked, bool submodules)
 
 void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
 {
-    git.setArguments(args);
-    git.start();
-
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, [this, i18error](int exitCode, QProcess::ExitStatus es) {
         // sever connection
@@ -173,6 +170,8 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
             getStatus();
         }
     });
+    git.setArguments(args);
+    git.start();
 }
 
 void GitWidget::stage(const QStringList &files, bool)
@@ -232,9 +231,6 @@ void GitWidget::openAtHEAD(const QString &file)
 
     auto args = QStringList{QStringLiteral("show"), QStringLiteral("--textconv")};
     args.append(QStringLiteral(":") + file);
-
-    git.setWorkingDirectory(m_project->baseDir());
-    git.setProgram(QStringLiteral("git"));
     git.setArguments(args);
     git.start();
 
@@ -246,9 +242,11 @@ void GitWidget::openAtHEAD(const QString &file)
             sendMessage(i18n("Failed to open file at HEAD. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
-            f->setFileTemplate(QString(QStringLiteral("XXXXXX (HEAD)") + file));
+            QFileInfo fi(file);
+            f->setFileTemplate(QString(QStringLiteral("XXXXXX - (HEAD) - %1").arg(fi.fileName())));
             if (f->open()) {
-                f->write(git.readAll());
+                auto xx = git.readAllStandardOutput();
+                f->write(xx);
                 f->flush();
                 const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
                 auto v = m_mainWin->openUrl(tempFileUrl);
@@ -271,6 +269,9 @@ void GitWidget::openAtHEAD(const QString &file)
             }
         }
     });
+
+    git.setArguments(args);
+    git.start();
 }
 
 void GitWidget::showDiff(const QString &file, bool staged)
@@ -286,11 +287,6 @@ void GitWidget::showDiff(const QString &file, bool staged)
 
     args.append(QStringLiteral("--"));
     args.append(file);
-
-    git.setWorkingDirectory(m_project->baseDir());
-    git.setProgram(QStringLiteral("git"));
-    git.setArguments(args);
-    git.start();
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus es) {
@@ -326,6 +322,9 @@ void GitWidget::showDiff(const QString &file, bool staged)
             }
         }
     });
+
+    git.setArguments(args);
+    git.start();
 }
 
 void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
@@ -365,12 +364,11 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to commit. \n %1", QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18n("Failed to commit.\n %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
-            sendMessage(i18n("Changes committed successfully."), false);
             m_commitMessage.clear();
-            // refresh
             getStatus();
+            sendMessage(i18n("Changes committed successfully."), false);
         }
     });
 }

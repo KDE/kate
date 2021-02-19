@@ -234,7 +234,7 @@ void KateBtBrowserWidget::itemActivated(QTreeWidgetItem *item, int column)
         }
 
         if (!path.isEmpty() && QFile::exists(path)) {
-            KTextEditor::View *kv = mw->openUrl(QUrl(path));
+            KTextEditor::View *kv = mw->openUrl(QUrl::fromLocalFile(path));
             kv->setCursorPosition(KTextEditor::Cursor(line - 1, 0));
             kv->setFocus();
             setStatus(i18n("Opened file: %1", file));

@@ -7,6 +7,7 @@
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
 #include "kateproject.h"
+#include "stashdialog.h"
 
 #include <QContextMenuEvent>
 #include <QCoreApplication>
@@ -122,6 +123,11 @@ void GitWidget::sendMessage(const QString &message, bool warn)
     msg->setAutoHideMode(KTextEditor::Message::Immediate);
     msg->setView(m_mainWin->activeView());
     m_mainWin->activeView()->document()->postMessage(msg);
+}
+
+QProcess *GitWidget::gitprocess()
+{
+    return &git;
 }
 
 void GitWidget::getStatus(bool untracked, bool submodules)
@@ -446,6 +452,56 @@ void GitWidget::buildMenu()
         }
     });
     m_gitMenu->addAction(i18n("Checkout Branch"), this, &GitWidget::checkoutBranch);
+
+    m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());
+}
+
+QMenu *GitWidget::stashMenu()
+{
+    QMenu *menu = new QMenu(this);
+    auto stashAct = menu->addAction(i18n("Stash"));
+    auto popLastAct = menu->addAction(i18n("Pop Last Stash"));
+    auto popAct = menu->addAction(i18n("Pop Stash"));
+    auto applyLastAct = menu->addAction(i18n("Apply Last Stash"));
+    auto stashKeepStagedAct = menu->addAction(i18n("Stash (Keep Staged)"));
+    auto stashUAct = menu->addAction(i18n("Stash (Include Untracked)"));
+    auto applyStashAct = menu->addAction(i18n("Apply Stash"));
+    auto dropAct = menu->addAction(i18n("Drop Stash"));
+
+    connect(stashAct, &QAction::triggered, this, [this] {
+        StashDialog stashDialog(this, m_mainWin);
+        stashDialog.openDialog(StashDialog::Stash);
+    });
+    connect(stashUAct, &QAction::triggered, this, [this] {
+        StashDialog stashDialog(this, m_mainWin);
+        stashDialog.openDialog(StashDialog::StashUntrackIncluded);
+    });
+    connect(stashKeepStagedAct, &QAction::triggered, this, [this] {
+        StashDialog stashDialog(this, m_mainWin);
+        stashDialog.openDialog(StashDialog::StashKeepIndex);
+    });
+    connect(popAct, &QAction::triggered, this, [this] {
+        StashDialog stashDialog(this, m_mainWin);
+        stashDialog.openDialog(StashDialog::StashPop);
+    });
+    connect(applyStashAct, &QAction::triggered, this, [this] {
+        StashDialog stashDialog(this, m_mainWin);
+        stashDialog.openDialog(StashDialog::StashApply);
+    });
+    connect(dropAct, &QAction::triggered, this, [this] {
+        StashDialog stashDialog(this, m_mainWin);
+        stashDialog.openDialog(StashDialog::StashDrop);
+    });
+    connect(popLastAct, &QAction::triggered, this, [this] {
+        StashDialog stashDialog(this, m_mainWin);
+        stashDialog.openDialog(StashDialog::StashPopLast);
+    });
+    connect(applyLastAct, &QAction::triggered, this, [this] {
+        StashDialog stashDialog(this, m_mainWin);
+        stashDialog.openDialog(StashDialog::StashApplyLast);
+    });
+
+    return menu;
 }
 
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)

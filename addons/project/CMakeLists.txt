@@ -63,6 +63,7 @@ target_sources(
     gitwidget.cpp
     gitstatusmodel.cpp
     gitcommitdialog.cpp
+    stashdialog.cpp
 
     tools/kateprojectcodeanalysistoolcppcheck.cpp
     tools/kateprojectcodeanalysistoolflake8.cpp

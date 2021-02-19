@@ -9,7 +9,6 @@
 #include <QFutureWatcher>
 #include <QProcess>
 #include <QWidget>
-#include <memory>
 
 #include "git/gitstatus.h"
 
@@ -37,6 +36,8 @@ public:
 
     bool eventFilter(QObject *o, QEvent *e) override;
     void getStatus(bool untracked = true, bool submodules = false);
+    void sendMessage(const QString &message, bool warn);
+    QProcess *gitprocess();
 
 private:
     QToolButton *m_menuBtn;
@@ -63,9 +64,10 @@ private:
     void clean(const QStringList &files);
     void openAtHEAD(const QString &file);
     void showDiff(const QString &file, bool staged);
+    void stash();
     void launchExternalDiffTool(const QString &file, bool staged);
     void commitChanges(const QString &msg, const QString &desc, bool signOff);
-    void sendMessage(const QString &message, bool warn);
+    QMenu *stashMenu();
 
     void hideEmptyTreeNodes();
     void treeViewContextMenuEvent(QContextMenuEvent *e);

@@ -244,29 +244,32 @@ void GitWidget::openAtHEAD(const QString &file)
             std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
             QFileInfo fi(file);
             f->setFileTemplate(QString(QStringLiteral("XXXXXX - (HEAD) - %1").arg(fi.fileName())));
-            if (f->open()) {
-                auto xx = git.readAllStandardOutput();
-                f->write(xx);
-                f->flush();
-                const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
-                auto v = m_mainWin->openUrl(tempFileUrl);
-                if (v && v->document()) {
-                    TempFileViewPair tfvp = std::make_pair(std::move(f), v);
-                    m_filesOpenAtHEAD.push_back(std::move(tfvp));
-
-                    // close temp on document close
-                    auto clearTemp = [this](KTextEditor::Document *document) {
-                        KTextEditor::Editor::instance();
-                        for (auto i = m_filesOpenAtHEAD.begin(); i != m_filesOpenAtHEAD.end(); ++i) {
-                            if (i->second->document() == document) {
-                                m_filesOpenAtHEAD.erase(i);
-                                break;
-                            }
-                        }
-                    };
-                    connect(v->document(), &KTextEditor::Document::aboutToClose, this, clearTemp);
-                }
+            if (!f->open()) {
+                return;
             }
+
+            auto xx = git.readAllStandardOutput();
+            f->write(xx);
+            f->flush();
+            const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
+            auto v = m_mainWin->openUrl(tempFileUrl);
+            if (!v || !v->document()) {
+                return;
+            }
+
+            TempFileViewPair tfvp = std::make_pair(std::move(f), v);
+            m_filesOpenAtHEAD.push_back(std::move(tfvp));
+
+            // close temp on document close
+            auto clearTemp = [this](KTextEditor::Document *document) {
+                std::remove_if(m_filesOpenAtHEAD.begin(), m_filesOpenAtHEAD.end(), [document](const GitWidget::TempFileViewPair &tf) {
+                    if (tf.second->document() == document) {
+                        return true;
+                    }
+                    return false;
+                });
+            };
+            connect(v->document(), &KTextEditor::Document::aboutToClose, this, clearTemp);
         }
     });
 
@@ -298,28 +301,31 @@ void GitWidget::showDiff(const QString &file, bool staged)
             std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
             QFileInfo fi(file);
             f->setFileTemplate(QString(QStringLiteral("XXXXXX %1.diff").arg(fi.fileName())));
-            if (f->open()) {
-                f->write(git.readAllStandardOutput());
-                f->flush();
-                const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
-                auto v = m_mainWin->openUrl(tempFileUrl);
-                if (v && v->document()) {
-                    TempFileViewPair tfvp = std::make_pair(std::move(f), v);
-                    m_filesOpenAtHEAD.push_back(std::move(tfvp));
-
-                    // close temp on document close
-                    auto clearTemp = [this](KTextEditor::Document *document) {
-                        KTextEditor::Editor::instance();
-                        for (auto i = m_filesOpenAtHEAD.begin(); i != m_filesOpenAtHEAD.end(); ++i) {
-                            if (i->second->document() == document) {
-                                m_filesOpenAtHEAD.erase(i);
-                                break;
-                            }
-                        }
-                    };
-                    connect(v->document(), &KTextEditor::Document::aboutToClose, this, clearTemp);
-                }
+            if (!f->open()) {
+                return;
             }
+            f->write(git.readAllStandardOutput());
+            f->flush();
+            const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
+            auto v = m_mainWin->openUrl(tempFileUrl);
+
+            if (!v || !v->document()) {
+                return;
+            }
+
+            TempFileViewPair tfvp = std::make_pair(std::move(f), v);
+            m_filesOpenAtHEAD.push_back(std::move(tfvp));
+
+            // close temp on document close
+            auto clearTemp = [this](KTextEditor::Document *document) {
+                std::remove_if(m_filesOpenAtHEAD.begin(), m_filesOpenAtHEAD.end(), [document](const GitWidget::TempFileViewPair &tf) {
+                    if (tf.second->document() == document) {
+                        return true;
+                    }
+                    return false;
+                });
+            };
+            connect(v->document(), &KTextEditor::Document::aboutToClose, this, clearTemp);
         }
     });
 
@@ -356,9 +362,6 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
         args.append(desc);
     }
 
-    git.setArguments(args);
-    git.start();
-
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus es) {
         // sever connection
@@ -371,6 +374,8 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
             sendMessage(i18n("Changes committed successfully."), false);
         }
     });
+    git.setArguments(args);
+    git.start();
 }
 
 void GitWidget::opencommitChangesDialog()

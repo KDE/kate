@@ -97,8 +97,8 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     vlayout->addWidget(&m_pe);
 
     // set 72 chars wide plain text edit
-    m_pe.setFixedWidth(width);
-    this->setFixedHeight(fm.averageCharWidth() * 52);
+    m_pe.resize(width, m_pe.height());
+    resize(width, fm.averageCharWidth() * 52);
 
     // restore last message ?
     if (!lastCommit.isEmpty()) {

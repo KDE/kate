@@ -332,7 +332,7 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
             gitWidget->sendMessage(i18n("Failed to stash changes"), true);
         } else {
             gitWidget->getStatus();
-            gitWidget->sendMessage(i18n("Changes stashed successfully."), true);
+            gitWidget->sendMessage(i18n("Changes stashed successfully."), false);
         }
     });
     git->setArguments(args);
@@ -405,11 +405,11 @@ void StashDialog::popStash(const QByteArray &index, const QString &command)
         } else {
             gitWidget->getStatus();
             if (command == QLatin1String("apply")) {
-                gitWidget->sendMessage(i18n("Stash applied successfully."), true);
+                gitWidget->sendMessage(i18n("Stash applied successfully."), false);
             } else if (command == QLatin1String("drop")) {
-                gitWidget->sendMessage(i18n("Stash dropped successfully."), true);
+                gitWidget->sendMessage(i18n("Stash dropped successfully."), false);
             } else {
-                gitWidget->sendMessage(i18n("Stash popped successfully."), true);
+                gitWidget->sendMessage(i18n("Stash popped successfully."), false);
             }
         }
     });

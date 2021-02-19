@@ -10,6 +10,8 @@
 #include <QProcess>
 #include <QWidget>
 
+#include <memory>
+
 #include "git/gitstatus.h"
 
 class QTreeView;
@@ -38,6 +40,10 @@ public:
     void getStatus(bool untracked = true, bool submodules = false);
     void sendMessage(const QString &message, bool warn);
     QProcess *gitprocess();
+    KTextEditor::MainWindow *mainWindow();
+
+    using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, KTextEditor::View *>;
+    std::vector<TempFileViewPair> *tempFilesVector();
 
 private:
     QToolButton *m_menuBtn;
@@ -52,7 +58,6 @@ private:
     QString m_commitMessage;
     KTextEditor::MainWindow *m_mainWin;
     QMenu *m_gitMenu;
-    using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, KTextEditor::View *>;
     std::vector<TempFileViewPair> m_filesOpenAtHEAD;
 
     void buildMenu();
@@ -64,7 +69,6 @@ private:
     void clean(const QStringList &files);
     void openAtHEAD(const QString &file);
     void showDiff(const QString &file, bool staged);
-    void stash();
     void launchExternalDiffTool(const QString &file, bool staged);
     void commitChanges(const QString &msg, const QString &desc, bool signOff);
     QMenu *stashMenu();

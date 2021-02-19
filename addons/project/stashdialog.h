@@ -29,7 +29,18 @@ class StashDialog : public QMenu
 {
     Q_OBJECT
 public:
-    enum Mode { None, Stash, StashKeepIndex, StashUntrackIncluded, StashPopLast, StashPop, StashDrop, StashApply, StashApplyLast };
+    enum Mode {
+        None,
+        Stash,
+        StashKeepIndex,
+        StashUntrackIncluded,
+        StashPopLast,
+        StashPop,
+        StashDrop,
+        StashApply,
+        StashApplyLast,
+        ShowStashContent,
+    };
 
     StashDialog(QWidget *parent, KTextEditor::MainWindow *mainWindow);
 
@@ -53,6 +64,7 @@ private:
     void popStash(const QByteArray &index, const QString &command = QStringLiteral("pop"));
     void applyStash(const QByteArray &index);
     void dropStash(const QByteArray &index);
+    void showStash(const QByteArray &index);
 
     QTreeView *m_treeView;
     QLineEdit *m_lineEdit;

@@ -130,6 +130,16 @@ QProcess *GitWidget::gitprocess()
     return &git;
 }
 
+KTextEditor::MainWindow *GitWidget::mainWindow()
+{
+    return m_mainWin;
+}
+
+std::vector<GitWidget::TempFileViewPair> *GitWidget::tempFilesVector()
+{
+    return &m_filesOpenAtHEAD;
+}
+
 void GitWidget::getStatus(bool untracked, bool submodules)
 {
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
@@ -467,6 +477,7 @@ QMenu *GitWidget::stashMenu()
     auto stashUAct = menu->addAction(i18n("Stash (Include Untracked)"));
     auto applyStashAct = menu->addAction(i18n("Apply Stash"));
     auto dropAct = menu->addAction(i18n("Drop Stash"));
+    auto showStashAct = menu->addAction(i18n("Show Stash Content"));
 
     connect(stashAct, &QAction::triggered, this, [this] {
         StashDialog stashDialog(this, m_mainWin);
@@ -499,6 +510,10 @@ QMenu *GitWidget::stashMenu()
     connect(applyLastAct, &QAction::triggered, this, [this] {
         StashDialog stashDialog(this, m_mainWin);
         stashDialog.openDialog(StashDialog::StashApplyLast);
+    });
+    connect(showStashAct, &QAction::triggered, this, [this] {
+        StashDialog stashDialog(this, m_mainWin);
+        stashDialog.openDialog(StashDialog::ShowStashContent);
     });
 
     return menu;

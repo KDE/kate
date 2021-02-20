@@ -34,9 +34,6 @@ public:
 
     bool willStashDoc(KTextEditor::Document *doc);
 
-    bool stash(const QList<KTextEditor::Document *> &modifieddocuments);
-    void popStash();
-
     void stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path);
     bool popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig);
 

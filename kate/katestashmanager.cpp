@@ -25,49 +25,6 @@ KateStashManager::KateStashManager(QObject *parent)
 {
 }
 
-bool KateStashManager::stash(const QList<KTextEditor::Document *> &modifiedDocuments)
-{
-    qCDebug(LOG_KATE) << "stashing" << modifiedDocuments.length() << "files";
-    const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-
-    KConfigGroup stashGroup = KSharedConfig::openConfig()->group("stash");
-    int nFile = 0;
-    bool success = true;
-
-    QDir dir(appDataPath);
-    dir.mkdir(QStringLiteral("stash"));
-
-    for (auto &docu : modifiedDocuments) {
-        // Stash changes
-        QString stashfileName;
-        if (docu->url().isValid()) {
-            stashfileName = docu->url().fileName() + QStringLiteral("-") + QString::number(nFile++);
-        } else {
-            stashfileName = QStringLiteral("Unsaved-") + QString::number(nFile++);
-        }
-        stashDocument(docu, stashfileName, stashGroup, appDataPath);
-    }
-
-    stashGroup.sync();
-
-    return success;
-}
-
-void KateStashManager::popStash(KateViewManager *viewManager)
-{
-    qCDebug(LOG_KATE) << "popping stash";
-    KConfigGroup stashGroup = KSharedConfig::openConfig()->group("stash");
-
-    for (auto &stashedFileName : stashGroup.groupList()) {
-        // read metadata
-        auto doc = KateApp::self()->documentManager()->createDoc();
-        popDocument(doc, stashGroup.group(stashedFileName));
-    }
-    // clean metadata
-    stashGroup.deleteGroup();
-    stashGroup.sync();
-}
-
 bool KateStashManager::willStashDoc(KTextEditor::Document *doc)
 {
     if (m_stashUnsaveChanges == 0) {
@@ -100,10 +57,7 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     QString stashedFile = path + QStringLiteral("/") + stashfileName;
 
     // save the current document changes to stash
-    QSaveFile saveFile(stashedFile);
-    saveFile.open(QIODevice::WriteOnly);
-    saveFile.write(doc->text().toUtf8());
-    if (!saveFile.commit()) {
+    if (!doc->saveAs(QUrl::fromLocalFile(stashedFile))) {
         qCWarning(LOG_KATE()) << "Could not write to stash file" << stashedFile;
         return;
     }

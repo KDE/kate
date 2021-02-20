@@ -146,6 +146,10 @@ void KateProjectItem::setData(const QVariant &value, int role)
         QString newName = oldName;
         newName.replace(oldFileName, newFileName);
 
+        if (oldName == newName) {
+            return;
+        }
+
         if (!QFile::rename(oldName, newName)) {
             QMessageBox::critical(nullptr, i18n("Error"), i18n("File name already exists"));
             return;

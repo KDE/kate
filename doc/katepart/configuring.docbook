@@ -590,6 +590,14 @@ showing a list of text entries to complete the current text under the
 cursor.</para>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Auto select first completion entry</guilabel></term>
+<listitem>
+<para>If enabled, the first auto completion item is always preselected so you can insert it with
+&Enter;. If you do not want such behavior, &eg; you want pressing &Enter; always inserts a newline,
+then disable this item.</para>
+</listitem>
+</varlistentry>
 </variablelist>
 </listitem>
 </varlistentry>

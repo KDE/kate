@@ -201,8 +201,6 @@ BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWin
     m_treeView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_treeView->setSelectionMode(QTreeView::SingleSelection);
 
-    setHidden(true);
-
     connect(&m_checkoutWatcher, &QFutureWatcher<GitUtils::CheckoutResult>::finished, this, &BranchesDialog::onCheckoutDone);
 }
 
@@ -226,8 +224,8 @@ void BranchesDialog::openDialog()
 
     reselectFirst();
     updateViewGeometry();
-    show();
     setFocus();
+    exec();
 }
 
 bool BranchesDialog::eventFilter(QObject *obj, QEvent *event)

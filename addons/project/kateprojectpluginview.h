@@ -20,6 +20,8 @@
 
 #include <KXMLGUIClient>
 
+#include <memory>
+
 class QAction;
 
 class KateProjectPluginView : public QObject, public KXMLGUIClient
@@ -235,6 +237,11 @@ private:
     QWidget *m_toolInfoView;
 
     /**
+     * our projects info toolview
+     */
+    std::unique_ptr<QWidget> m_gitToolView;
+
+    /**
      * our cross-projects toolview
      */
     QWidget *m_toolMultiView;
@@ -243,6 +250,11 @@ private:
      * combo box with all loaded projects inside
      */
     QComboBox *m_projectsCombo;
+
+    /**
+     * combo box with all loaded projects inside
+     */
+    QComboBox *m_projectsComboGit;
 
     /**
      * Reload button
@@ -258,6 +270,11 @@ private:
      * stacked widget will all currently created project info views
      */
     QStackedWidget *m_stackedProjectInfoViews;
+
+    /**
+     * stacked widget will all currently created git views
+     */
+    QStackedWidget *m_stackedgitViews;
 
     /**
      * project => view

@@ -4,6 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "gitwidget.h"
+#include "branchesdialog.h"
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
 #include "kateproject.h"
@@ -35,10 +36,10 @@
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
 
-GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWindow *mainWindow)
-    : QWidget(parent)
-    , m_project(project)
+GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView)
+    : m_project(project)
     , m_mainWin(mainWindow)
+    , m_pluginView(pluginView)
 {
     m_commitBtn = new QPushButton(this);
     m_treeView = new QTreeView(this);
@@ -47,6 +48,7 @@ GitWidget::GitWidget(KateProject *project, QWidget *parent, KTextEditor::MainWin
 
     buildMenu();
     m_menuBtn = new QToolButton(this);
+    m_menuBtn->setAutoRaise(true);
     m_menuBtn->setMenu(m_gitMenu);
     m_menuBtn->setArrowType(Qt::NoArrow);
     m_menuBtn->setStyleSheet(QStringLiteral("QToolButton::menu-indicator{ image: none; }"));
@@ -464,7 +466,10 @@ void GitWidget::buildMenu()
             getStatus();
         }
     });
-    m_gitMenu->addAction(i18n("Checkout Branch"), this, &GitWidget::checkoutBranch);
+    m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
+        BranchesDialog bd(this, m_mainWin, m_project->baseDir());
+        bd.openDialog();
+    });
 
     m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());
 }

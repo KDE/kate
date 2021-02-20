@@ -6,6 +6,8 @@
 #include <QFutureWatcher>
 #include <QMenu>
 
+#include "git/gitutils.h"
+
 class QTreeView;
 class QLineEdit;
 class BranchesDialogModel;
@@ -16,11 +18,6 @@ class KActionCollection;
 namespace KTextEditor
 {
 class MainWindow;
-}
-
-namespace GitUtils
-{
-struct CheckoutResult;
 }
 
 class BranchesDialog : public QMenu

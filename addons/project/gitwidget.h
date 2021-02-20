@@ -23,6 +23,7 @@ class QItemSelection;
 class QMenu;
 class QToolButton;
 class QTemporaryFile;
+class KateProjectPluginView;
 
 namespace KTextEditor
 {
@@ -34,7 +35,7 @@ class GitWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GitWidget(KateProject *project, QWidget *parent = nullptr, KTextEditor::MainWindow *mainWindow = nullptr);
+    explicit GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow = nullptr, KateProjectPluginView *pluginView = nullptr);
 
     bool eventFilter(QObject *o, QEvent *e) override;
     void getStatus(bool untracked = true, bool submodules = false);
@@ -59,6 +60,7 @@ private:
     KTextEditor::MainWindow *m_mainWin;
     QMenu *m_gitMenu;
     std::vector<TempFileViewPair> m_filesOpenAtHEAD;
+    KateProjectPluginView *m_pluginView;
 
     void buildMenu();
     void initGitExe();

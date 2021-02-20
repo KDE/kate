@@ -391,6 +391,18 @@ private:
      */
     KateSessionManager m_sessionManager;
 
+    /**
+     * Checks if --line and/or --column args were provided and attempts
+     * to set cursor position in the active document accordingly.
+     */
+    void setCursorFromArgs();
+
+private Q_SLOTS:
+    /**
+     * Executed when a document from a remote URL has finished loading.
+     */
+    void remoteDocumentLoaded();
+
 #ifdef WITH_KUSERFEEDBACK
     /**
      * user feedback provider

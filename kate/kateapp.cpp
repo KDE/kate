@@ -254,25 +254,7 @@ bool KateApp::startupKate()
         activeKateMainWindow()->viewManager()->activateView(doc);
     }
 
-    int line = 0;
-    int column = 0;
-    bool nav = false;
-
-    if (m_args.isSet(QStringLiteral("line"))) {
-        line = m_args.value(QStringLiteral("line")).toInt() - 1;
-        nav = true;
-    }
-
-    if (m_args.isSet(QStringLiteral("column"))) {
-        column = m_args.value(QStringLiteral("column")).toInt() - 1;
-        nav = true;
-    }
-
-    if (nav && activeKateMainWindow()->viewManager()->activeView()) {
-        activeKateMainWindow()->viewManager()->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
-    }
-
-    activeKateMainWindow()->setAutoSaveSettings();
+    setCursorFromArgs();
 
     return true;
 }
@@ -353,7 +335,41 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
         KMessageBox::sorry(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
     }
 
+    // When opening from remote url, 'completed' is emitted
+    // once loading has finished. Set requested --line/--column
+    // cursor position after this signal as doing so in startupKate()
+    // only has an affect on synchronously loaded local files.
+    connect(doc, SIGNAL(completed()), this, SLOT(remoteDocumentLoaded() ));
+
     return doc;
+}
+
+void KateApp::remoteDocumentLoaded()
+{
+    setCursorFromArgs();
+}
+
+void KateApp::setCursorFromArgs()
+{
+    int line = 0;
+    int column = 0;
+    bool nav = false;
+
+    if (m_args.isSet(QStringLiteral("line"))) {
+        line = m_args.value(QStringLiteral("line")).toInt() - 1;
+        nav = true;
+    }
+
+    if (m_args.isSet(QStringLiteral("column"))) {
+        column = m_args.value(QStringLiteral("column")).toInt() - 1;
+        nav = true;
+    }
+
+    if (nav && activeKateMainWindow()->viewManager()->activeView()) {
+        activeKateMainWindow()->viewManager()->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
+    }
+
+    activeKateMainWindow()->setAutoSaveSettings();
 }
 
 bool KateApp::setCursor(int line, int column)

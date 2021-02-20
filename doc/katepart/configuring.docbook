@@ -251,15 +251,15 @@ numbers they are placed at.</para></listitem>
 <title>Color Themes</title>
 
 <para>This section of the dialog lets you configure all colors in
-any color theme you have, as well creating new themes or deleting existing
-ones. Each scheme has settings for colors and normal and highlight text
+any color theme you have, and create new themes or delete existing
+ones. Each scheme has settings for colors and normal and highlighted text
 styles.
 </para>
 
 <para>&kappname; will preselect the currently active theme for you, if you want to
 work on a different theme start by selecting that from the
 <guilabel>Theme</guilabel> combobox. With the <guibutton>Copy</guibutton> and <guibutton>Delete</guibutton>
- button you can create a new theme (copying an existing one) or delete existing ones.</para>
+ buttons you can create a new theme (copying an existing one) or delete existing ones.</para>
 <para>At the bottom of the page you can select the
 <guilabel>Default theme for <replaceable>Application</replaceable></guilabel>.</para>
 

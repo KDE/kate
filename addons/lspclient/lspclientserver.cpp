@@ -616,6 +616,11 @@ static LSPSignatureHelp parseSignatureHelp(const QJsonValue &result)
     return ret;
 }
 
+static QString parseClangdSwitchSourceHeader(const QJsonValue &result)
+{
+    return result.toString();
+}
+
 static QList<LSPTextEdit> parseTextEdit(const QJsonValue &result)
 {
     QList<LSPTextEdit> ret;
@@ -1180,6 +1185,12 @@ public:
         return send(init_request(QStringLiteral("textDocument/signatureHelp"), params), h);
     }
 
+    RequestHandle clangdSwitchSourceHeader(const QUrl &document, const GenericReplyHandler &h)
+    {
+        auto params = QJsonObject{{MEMBER_URI, document.toString()}};
+        return send(init_request(QStringLiteral("textDocument/switchSourceHeader"), params), h);
+    }
+
     RequestHandle documentFormatting(const QUrl &document, const LSPFormattingOptions &options, const GenericReplyHandler &h)
     {
         auto params = documentRangeFormattingParams(document, nullptr, options);
@@ -1439,6 +1450,11 @@ LSPClientServer::RequestHandle
 LSPClientServer::signatureHelp(const QUrl &document, const LSPPosition &pos, const QObject *context, const SignatureHelpReplyHandler &h)
 {
     return d->signatureHelp(document, pos, make_handler(h, context, parseSignatureHelp));
+}
+
+LSPClientServer::RequestHandle LSPClientServer::clangdSwitchSourceHeader(const QUrl &document, const QObject *context, const SwitchSourceHeaderHandler &h)
+{
+    return d->clangdSwitchSourceHeader(document, make_handler(h, context, parseClangdSwitchSourceHeader));
 }
 
 LSPClientServer::RequestHandle

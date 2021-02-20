@@ -59,6 +59,7 @@ using FormattingReplyHandler = ReplyHandler<QList<LSPTextEdit>>;
 using CodeActionReplyHandler = ReplyHandler<QList<LSPCodeAction>>;
 using WorkspaceEditReplyHandler = ReplyHandler<LSPWorkspaceEdit>;
 using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
+using SwitchSourceHeaderHandler = ReplyHandler<QString>;
 
 class LSPClientPlugin;
 
@@ -116,6 +117,9 @@ public:
     RequestHandle documentReferences(const QUrl &document, const LSPPosition &pos, bool decl, const QObject *context, const DocumentDefinitionReplyHandler &h);
     RequestHandle documentCompletion(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentCompletionReplyHandler &h);
     RequestHandle signatureHelp(const QUrl &document, const LSPPosition &pos, const QObject *context, const SignatureHelpReplyHandler &h);
+
+    // clangd specific
+    RequestHandle clangdSwitchSourceHeader(const QUrl &document, const QObject *context, const SwitchSourceHeaderHandler &h);
 
     RequestHandle documentFormatting(const QUrl &document, const LSPFormattingOptions &options, const QObject *context, const FormattingReplyHandler &h);
     RequestHandle documentRangeFormatting(const QUrl &document,

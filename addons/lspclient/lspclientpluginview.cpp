@@ -329,6 +329,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_closeDynamic;
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
+    QPointer<QAction> m_switchSourceHeader;
 
     // toolview
     QScopedPointer<QWidget> m_toolView;
@@ -441,6 +442,8 @@ public:
         m_triggerFormat->setText(i18n("Format"));
         m_triggerRename = actionCollection()->addAction(QStringLiteral("lspclient_rename"), this, &self_type::rename);
         m_triggerRename->setText(i18n("Rename"));
+        m_switchSourceHeader = actionCollection()->addAction(QStringLiteral("lspclient_clangd_switchheader"), this, &self_type::clangdSwitchSourceHeader);
+        m_switchSourceHeader->setText(i18n("Switch Source Header"));
 
         // general options
         m_complDocOn = actionCollection()->addAction(QStringLiteral("lspclient_completion_doc"), this, &self_type::displayOptionChanged);
@@ -505,6 +508,7 @@ public:
         menu->addAction(m_findDecl);
         menu->addAction(m_findRef);
         menu->addAction(m_findImpl);
+        menu->addAction(m_switchSourceHeader);
         menu->addAction(m_triggerHighlight);
         menu->addAction(m_triggerSymbolInfo);
         menu->addAction(m_triggerFormat);
@@ -1766,6 +1770,21 @@ public:
         delayCancelRequest(std::move(handle));
     }
 
+    void clangdSwitchSourceHeader()
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        KTextEditor::Document *document = activeView->document();
+        auto server = m_serverManager->findServer(activeView);
+        if (!server || !document) {
+            return;
+        }
+
+        auto h = [this](const QString &reply) {
+            m_mainWindow->openUrl(QUrl(reply));
+        };
+        server->clangdSwitchSourceHeader(document->url(), this, h);
+    }
+
     static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)
     {
         auto l = model.findItems(url.toLocalFile());
@@ -2256,6 +2275,7 @@ public:
         bool hoverEnabled = false, highlightEnabled = false;
         bool formatEnabled = false;
         bool renameEnabled = false;
+        bool isClangd = false;
 
         if (server) {
             const auto &caps = server->capabilities();
@@ -2287,6 +2307,8 @@ public:
                 connect(doc, &KTextEditor::Document::textChanged, this, &self_type::onTextChanged, Qt::UniqueConnection);
                 connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::onDocumentUrlChanged, Qt::UniqueConnection);
             }
+
+            isClangd = server->cmdline().front() == QStringLiteral("clangd");
         }
 
         if (m_findDef) {
@@ -2319,6 +2341,8 @@ public:
         if (m_restartServer) {
             m_restartServer->setEnabled(server);
         }
+        m_switchSourceHeader->setEnabled(isClangd);
+        m_switchSourceHeader->setVisible(isClangd);
 
         // update completion with relevant server
         m_completion->setServer(server);

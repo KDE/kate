@@ -113,7 +113,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
         // We have to call this in the next iteration of the event loop, after the session is restored
         QTimer::singleShot(0, this, [this]() {
             m_mainWindow->hideToolView(m_toolView);
-            m_mainWindow->hideToolView(m_gitToolView);
+            m_mainWindow->hideToolView(m_gitToolView.get());
             m_mainWindow->hideToolView(m_toolInfoView);
             if (m_toolMultiView) {
                 m_mainWindow->hideToolView(m_toolMultiView);

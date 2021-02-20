@@ -594,7 +594,7 @@ cursor.</para>
 <term><guilabel>Auto select first completion entry</guilabel></term>
 <listitem>
 <para>If enabled, the first auto completion item is always preselected so you can insert it with
-&Enter;. If you do not want such behavior, &eg; you want pressing &Enter; always inserts a newline,
+&Enter;. If you do not want such behavior, &eg; if you want pressing &Enter; to only insert a newline,
 then disable this item.</para>
 </listitem>
 </varlistentry>

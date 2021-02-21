@@ -29,7 +29,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     , m_project(project)
     , m_treeView(new KateProjectViewTree(pluginView, project))
     , m_filter(new KLineEdit())
-    , m_branchBtn(new QPushButton)
+    , m_branchBtn(new QToolButton)
 {
     /**
      * layout tree view and co.
@@ -42,6 +42,9 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     layout->addWidget(m_filter);
     setLayout(layout);
 
+    m_branchBtn->setAutoRaise(true);
+    m_branchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_branchBtn->setSizePolicy(QSizePolicy::Minimum, m_branchBtn->sizePolicy().verticalPolicy());
     m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
     m_branchBtn->setIcon(QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
 

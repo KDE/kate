@@ -15,7 +15,6 @@
 #include "git/gitstatus.h"
 
 class QTreeView;
-class QPushButton;
 class QStringListModel;
 class GitStatusModel;
 class KateProject;
@@ -48,7 +47,7 @@ public:
 
 private:
     QToolButton *m_menuBtn;
-    QPushButton *m_commitBtn;
+    QToolButton *m_commitBtn;
     QTreeView *m_treeView;
     GitStatusModel *m_model;
     KateProject *m_project;

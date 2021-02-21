@@ -41,7 +41,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     , m_mainWin(mainWindow)
     , m_pluginView(pluginView)
 {
-    m_commitBtn = new QPushButton(this);
+    m_commitBtn = new QToolButton(this);
     m_treeView = new QTreeView(this);
 
     initGitExe();
@@ -57,8 +57,11 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     });
 
     m_menuBtn->setIcon(QIcon::fromTheme(QStringLiteral("application-menu")));
-    //    m_commitBtn->setIcon(QIcon(QStringLiteral(":/kxmlgui5/kateproject/git-commit-dark.svg")));
     m_commitBtn->setText(i18n("Commit"));
+    m_commitBtn->setIcon(QIcon::fromTheme(QStringLiteral("svn-commit"))); // ":/kxmlgui5/kateproject/git-commit-dark.svg"
+    m_commitBtn->setAutoRaise(true);
+    m_commitBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_commitBtn->setSizePolicy(QSizePolicy::Minimum, m_commitBtn->sizePolicy().verticalPolicy());
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(0);

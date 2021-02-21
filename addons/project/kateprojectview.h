@@ -14,7 +14,6 @@
 #include <QFileSystemWatcher>
 
 class KLineEdit;
-class QPushButton;
 class KateProjectPluginView;
 class BranchesDialog;
 class QToolButton;
@@ -91,7 +90,7 @@ private:
     /**
       checkout branch button
      */
-    QPushButton *m_branchBtn;
+    QToolButton *m_branchBtn;
 
     /**
      * The dialog which displays git branches

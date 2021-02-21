@@ -393,9 +393,20 @@ private:
 
     /**
      * Checks if --line and/or --column args were provided and attempts
-     * to set cursor position in the active document accordingly.
+     * to set cursor position in the provided or active view accordingly.
+     *
+     * @param view Optional view to apply changes on.
      */
-    void setCursorFromArgs();
+    void setCursorFromArgs(KTextEditor::View *view = nullptr);
+
+    /**
+     * Checks if line or column were provided in query string
+     * (e.g. file:///file1?line=3&column=4) and attempts to set cursor
+     * position in the provided or active view accordingly.
+     *
+     * @param view Optional view to apply changes on.
+     */
+    void setCursorFromQueryString(KTextEditor::View *view = nullptr);
 
 private Q_SLOTS:
     /**

@@ -198,8 +198,10 @@ bool KateApp::startupKate()
     const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
 
     //  Bug 397913: Reverse the order here so the new tabs are opened in same order as the files were passed in on the command line
+    // NOTE: apparently the effect of the fix for above bug has "disappeared" since it was resolved in 2018.
+    // Docs opened in reverse order (compared to how they passed on command line), so the for() below was modified to increasing count.
     QString positionalArgument;
-    for (int i = m_args.positionalArguments().count() - 1; i >= 0; --i) {
+    for (int i = 0; i < m_args.positionalArguments().count(); ++i) {
         positionalArgument = m_args.positionalArguments().at(i);
         UrlInfo info(positionalArgument);
 
@@ -208,24 +210,15 @@ bool KateApp::startupKate()
 
         if (noDir) {
             doc = openDocUrl(info.url, codec_name, tempfileSet);
-            if (info.cursor.isValid()) {
+
+            // when setting cursor position on startup, the order should be
+            // queryString, cmdArgs, session (i.e. query overrides both, args override session)
+            if (info.url.hasQuery()) {
+                setCursorFromQueryString(doc->views().at(0));
+            } else if (m_args.isSet(QStringLiteral("line")) || m_args.isSet(QStringLiteral("column"))) {
+                setCursorFromArgs(doc->views().at(0));
+            } else if (info.cursor.isValid()) {
                 setCursor(info.cursor.line(), info.cursor.column());
-            } else if (info.url.hasQuery()) {
-                QUrlQuery q(info.url);
-                QString lineStr = q.queryItemValue(QStringLiteral("line"));
-                QString columnStr = q.queryItemValue(QStringLiteral("column"));
-
-                int line = lineStr.toInt();
-                if (line > 0) {
-                    line--;
-                }
-
-                int column = columnStr.toInt();
-                if (column > 0) {
-                    column--;
-                }
-
-                setCursor(line, column);
             }
         } else if (!KateApp::self()->pluginManager()->plugin(QStringLiteral("kateprojectplugin"))) {
             KMessageBox::sorry(activeKateMainWindow(), i18n("Folders can only be opened when the projects plugin is enabled"));
@@ -253,8 +246,6 @@ bool KateApp::startupKate()
     } else if (doc) {
         activeKateMainWindow()->viewManager()->activateView(doc);
     }
-
-    setCursorFromArgs();
 
     return true;
 }
@@ -336,24 +327,38 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
     }
 
     // When opening from remote url, 'completed' is emitted
-    // once loading has finished. Set requested --line/--column
-    // cursor position after this signal as doing so in startupKate()
-    // only has an affect on synchronously loaded local files.
-    connect(doc, SIGNAL(completed()), this, SLOT(remoteDocumentLoaded() ));
+    // once loading has finished. Connect to each remote document's
+    // completed signal for post-load operations.
+    if (doc && !doc->url().isLocalFile()) {
+        connect(doc, SIGNAL(completed()), this, SLOT(remoteDocumentLoaded()));
+    }
 
     return doc;
 }
 
 void KateApp::remoteDocumentLoaded()
 {
-    setCursorFromArgs();
+    // disconnect sender doc
+    auto doc = dynamic_cast<KTextEditor::Document *>(QObject::sender());
+    disconnect(doc, SIGNAL(completed()), this, SLOT(remoteDocumentLoaded()));
+
+    // respect order (query then args)
+    if (doc->url().hasQuery()) {
+        setCursorFromQueryString(doc->views().at(0));
+    } else {
+        setCursorFromArgs(doc->views().at(0));
+    }
 }
 
-void KateApp::setCursorFromArgs()
+void KateApp::setCursorFromArgs(KTextEditor::View *view)
 {
     int line = 0;
     int column = 0;
     bool nav = false;
+
+    if (!view && !(view = activeKateMainWindow()->activeView())) {
+        return;
+    }
 
     if (m_args.isSet(QStringLiteral("line"))) {
         line = m_args.value(QStringLiteral("line")).toInt() - 1;
@@ -365,8 +370,50 @@ void KateApp::setCursorFromArgs()
         nav = true;
     }
 
-    if (nav && activeKateMainWindow()->viewManager()->activeView()) {
-        activeKateMainWindow()->viewManager()->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
+    if (nav) {
+        view->setCursorPosition(KTextEditor::Cursor(line, column));
+    }
+
+    activeKateMainWindow()->setAutoSaveSettings();
+}
+
+void KateApp::setCursorFromQueryString(KTextEditor::View *view)
+{
+    int line = 0;
+    int column = 0;
+    bool nav = false;
+    int pos = -1;
+
+    if (!view && !(view = activeKateMainWindow()->activeView())) {
+        return;
+    }
+
+    // by the time remote file opens, query string is stripped from url, so find it in m_args
+    QRegExp fileNameRe = QRegExp(QLatin1String(view->document()->url().toDisplayString().toUtf8().append(".*") ));
+    if ((pos = m_args.positionalArguments().indexOf(fileNameRe)) < 0 ) {
+        return;
+    }
+
+    QString positionalArgument = m_args.positionalArguments().at(pos);
+    UrlInfo info(positionalArgument);
+    QUrlQuery urlQuery = QUrlQuery(info.url);
+    QString lineStr = urlQuery.queryItemValue(QStringLiteral("line"));
+    QString columnStr = urlQuery.queryItemValue(QStringLiteral("column"));
+
+    if (!lineStr.isEmpty()) {
+        line = lineStr.toInt();
+        line > 0 && line--;
+        nav = true;
+    }
+
+    if (!columnStr.isEmpty()) {
+        column = columnStr.toInt();
+        column > 0 && column--;
+        nav = true;
+    }
+
+    if (nav) {
+        view->setCursorPosition(KTextEditor::Cursor(line, column));
     }
 
     activeKateMainWindow()->setAutoSaveSettings();

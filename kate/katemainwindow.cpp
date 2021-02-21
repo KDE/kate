@@ -966,7 +966,8 @@ void KateMainWindow::slotDocumentCreated(KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::readWriteChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
     connect(doc, &KTextEditor::Document::documentNameChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
-    connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateMainWindow::slotUpdateOpenWith);
+    connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateMainWindow::slotUpdateOpenWith);
+    connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateMainWindow::slotUpdateActionsNeedingUrl);
 
     updateCaption(doc);
 }

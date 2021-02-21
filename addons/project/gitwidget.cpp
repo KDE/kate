@@ -407,13 +407,14 @@ void GitWidget::opencommitChangesDialog()
     }
 }
 
-void GitWidget::gitStatusReady(int exit, QProcess::ExitStatus)
+void GitWidget::gitStatusReady(int exit, QProcess::ExitStatus status)
 {
     // sever connection
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
 
-    if (exit > 0) {
-        sendMessage(i18n("Failed to get git-status. Error: %1", QString::fromUtf8(git.readAllStandardError())), true);
+    if (status != QProcess::NormalExit || exit != 0) {
+        // we don't want to disturb non-git users
+        // sendMessage(i18n("Failed to get git-status. Error: %1", QString::fromUtf8(git.readAllStandardError())), true);
         return;
     }
 

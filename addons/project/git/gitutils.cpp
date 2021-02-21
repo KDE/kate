@@ -14,7 +14,7 @@ bool GitUtils::isGitRepo(const QString &repo)
     QProcess git;
     git.setWorkingDirectory(repo);
     QStringList args{QStringLiteral("rev-parse"), QStringLiteral("--is-inside-work-tree")};
-    git.start(QStringLiteral("git"), args);
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         return git.readAll().trimmed() == "true";
     }
@@ -37,7 +37,7 @@ QString GitUtils::getCurrentBranchName(const QString &repo)
 
     for (int i = 0; i < 3; ++i) {
         auto args = argsList[i];
-        git.start(QStringLiteral("git"), args);
+        git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
         if (git.waitForStarted() && git.waitForFinished(-1)) {
             if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
                 return QString::fromUtf8(git.readAllStandardOutput().trimmed());
@@ -54,7 +54,7 @@ GitUtils::CheckoutResult GitUtils::checkoutBranch(const QString &repo, const QSt
     QProcess git;
     git.setWorkingDirectory(repo);
     QStringList args{QStringLiteral("checkout"), branch};
-    git.start(QStringLiteral("git"), args);
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     CheckoutResult res;
     res.branch = branch;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
@@ -72,7 +72,7 @@ GitUtils::CheckoutResult GitUtils::checkoutNewBranch(const QString &repo, const 
     if (!fromBranch.isEmpty()) {
         args.append(fromBranch);
     }
-    git.start(QStringLiteral("git"), args);
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     CheckoutResult res;
     res.branch = newBranch;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
@@ -113,7 +113,7 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
         args.append(QStringLiteral("--sort=-taggerdate"));
     }
 
-    git.start(QStringLiteral("git"), args);
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     QVector<Branch> branches;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         QString gitout = QString::fromUtf8(git.readAllStandardOutput());

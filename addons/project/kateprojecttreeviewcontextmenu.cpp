@@ -48,7 +48,7 @@ static bool isGit(const QString &filename)
     // git ls-files -z results a bytearray where each entry is \0-terminated.
     // NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415, #402213)
     args << QStringLiteral("ls-files") << QStringLiteral("-z") << fi.fileName();
-    git.start(QStringLiteral("git"), args);
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     bool isGit = false;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');

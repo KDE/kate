@@ -93,7 +93,7 @@ void GitWidget::initGitExe()
     // and then calculate the exit .git path
     git.setWorkingDirectory(m_project->baseDir());
     git.setArguments({QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")});
-    git.start();
+    git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             sendMessage(i18n("Failed to find .git directory. Things may not work correctly. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
@@ -157,7 +157,7 @@ void GitWidget::getStatus(bool untracked, bool submodules)
         args.append(QStringLiteral("--ignore-submodules"));
     }
     git.setArguments(args);
-    git.start();
+    git.start(QProcess::ReadOnly);
 }
 
 void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
@@ -173,7 +173,7 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
         }
     });
     git.setArguments(args);
-    git.start();
+    git.start(QProcess::ReadOnly);
 }
 
 void GitWidget::stage(const QStringList &files, bool)
@@ -234,7 +234,7 @@ void GitWidget::openAtHEAD(const QString &file)
     auto args = QStringList{QStringLiteral("show"), QStringLiteral("--textconv")};
     args.append(QStringLiteral(":") + file);
     git.setArguments(args);
-    git.start();
+    git.start(QProcess::ReadOnly);
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus es) {
@@ -276,7 +276,7 @@ void GitWidget::openAtHEAD(const QString &file)
     });
 
     git.setArguments(args);
-    git.start();
+    git.start(QProcess::ReadOnly);
 }
 
 void GitWidget::showDiff(const QString &file, bool staged)
@@ -332,7 +332,7 @@ void GitWidget::showDiff(const QString &file, bool staged)
     });
 
     git.setArguments(args);
-    git.start();
+    git.start(QProcess::ReadOnly);
 }
 
 void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
@@ -348,7 +348,7 @@ void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
     args.append(file);
 
     git.setArguments(args);
-    git.start();
+    git.start(QProcess::ReadOnly);
 }
 
 void GitWidget::commitChanges(const QString &msg, const QString &desc, bool signOff)
@@ -377,7 +377,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
         }
     });
     git.setArguments(args);
-    git.start();
+    git.start(QProcess::ReadOnly);
 }
 
 void GitWidget::opencommitChangesDialog()

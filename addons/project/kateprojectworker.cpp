@@ -421,7 +421,7 @@ QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
 
     QProcess git;
     git.setWorkingDirectory(dir.absolutePath());
-    git.start(QStringLiteral("git"), args);
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     QStringList files;
     if (!git.waitForStarted() || !git.waitForFinished(-1)) {
         return files;
@@ -440,7 +440,7 @@ QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
         args.clear();
         args << QStringLiteral("ls-files") << QStringLiteral("-z") << QStringLiteral("--others") << QStringLiteral("--exclude-standard") << QStringLiteral(".");
         git.setArguments(args);
-        git.start();
+        git.start(QProcess::ReadOnly);
 
         if (!git.waitForStarted() || !git.waitForFinished(-1)) {
             return files;
@@ -466,7 +466,7 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursiv
     hg.setWorkingDirectory(dir.absolutePath());
     QStringList args;
     args << QStringLiteral("manifest") << QStringLiteral(".");
-    hg.start(QStringLiteral("hg"), args);
+    hg.start(QStringLiteral("hg"), args, QProcess::ReadOnly);
     if (!hg.waitForStarted() || !hg.waitForFinished(-1)) {
         return files;
     }
@@ -502,7 +502,7 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursi
     } else {
         args << QStringLiteral("--depth=files");
     }
-    svn.start(QStringLiteral("svn"), args);
+    svn.start(QStringLiteral("svn"), args, QProcess::ReadOnly);
     if (!svn.waitForStarted() || !svn.waitForFinished(-1)) {
         return files;
     }
@@ -567,7 +567,7 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
         QStringList args;
         args << QStringLiteral("list") << QStringLiteral("repo");
 
-        darcs.start(cmd, args);
+        darcs.start(cmd, args, QProcess::ReadOnly);
 
         if (!darcs.waitForStarted() || !darcs.waitForFinished(-1)) {
             return files;
@@ -591,7 +591,7 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
         darcs.setWorkingDirectory(dir.absolutePath());
         args << QStringLiteral("list") << QStringLiteral("files") << QStringLiteral("--no-directories") << QStringLiteral("--pending");
 
-        darcs.start(cmd, args);
+        darcs.start(cmd, args, QProcess::ReadOnly);
 
         if (!darcs.waitForStarted() || !darcs.waitForFinished(-1)) {
             return files;

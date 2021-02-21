@@ -212,8 +212,10 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
         }
         case KateExternalTool::OutputMode::ReplaceCurrentDocument: {
             KTextEditor::Document::EditingTransaction transaction(view->document());
+            auto cursor = view->cursorPosition();
             view->document()->clear();
             view->insertText(runner->outputData());
+            view->setCursorPosition(cursor);
             break;
         }
         case KateExternalTool::OutputMode::AppendToCurrentDocument: {

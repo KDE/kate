@@ -1,6 +1,6 @@
 [Global]
 tools=14
-version=2
+version=1
 
 [Tool 0]
 actionName=externaltool_gitcola

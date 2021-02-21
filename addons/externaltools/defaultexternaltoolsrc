@@ -1,6 +1,6 @@
 [Global]
-tools=11
-version=1
+tools=14
+version=2
 
 [Tool 0]
 actionName=externaltool_gitcola
@@ -162,6 +162,51 @@ icon=application-xml
 input=
 mimetypes=
 name=XML Format Full File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 11]
+actionName=externaltool_GoFmt
+arguments=%{Document:FileName}
+category=Tools
+cmdname=gofmt-full-file
+executable=gofmt
+icon=text-x-go
+input=
+mimetypes=text/x-go
+name=Go Fmt Full File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 12]
+actionName=externaltool_RustFmt
+arguments=--emit stdout %{Document:FileName}
+category=Tools
+cmdname=rustfmt-full-file
+executable=rustfmt
+icon=text-x-rust
+input=
+mimetypes=text/x-rust
+name=Rust Fmt Full File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 13]
+actionName=externaltool_Prettier
+arguments=%{Document:FileName}
+category=Tools
+cmdname=prettier-format-full-file
+executable=prettier
+icon=
+input=
+mimetypes=
+name=Prettier Format Current File
 output=ReplaceCurrentDocument
 reload=false
 save=CurrentDocument

@@ -70,7 +70,7 @@ public:
     }
 
 private:
-    bool m_closeBtn;
+    bool m_closeBtn = false;
 };
 
 // BEGIN KateFileTree

@@ -142,6 +142,8 @@ public:
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
+        m_htmlHl.setDefinition(m_syntaxHlRepo.definitionForName(QStringLiteral("Diff")));
+
         auto updateColors = [this](KTextEditor::Editor *e) {
             auto theme = e->theme();
             m_htmlHl.setTheme(theme);
@@ -163,7 +165,32 @@ public:
     {
         switch (event->type()) {
         case QEvent::KeyPress:
+        case QEvent::ShortcutOverride:
+        {
+            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            if (ke->matches(QKeySequence::Copy)) {
+                copy();
+            }
+            else if (ke->matches(QKeySequence::SelectAll)) {
+                selectAll();
+            }
+            event->accept();
+            return true;
+        }
         case QEvent::KeyRelease:
+        {
+            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            if (ke->matches(QKeySequence::Copy) ||
+                ke->matches(QKeySequence::SelectAll) ||
+                ke->key() == Qt::Key_Control ||
+                ke->key() == Qt::Key_Alt ||
+                ke->key() == Qt::Key_Shift ||
+                ke->key() == Qt::Key_AltGr ||
+                ke->key() == Qt::Key_Meta) {
+                event->accept();
+                return true;
+            }
+        } // fall through
         case QEvent::WindowActivate:
         case QEvent::WindowDeactivate:
             hideTooltip();
@@ -183,7 +210,7 @@ public:
         setHtml(m_htmlHl.html());
     }
 
-    void setView(KTextEditor::View *view)
+    void setView(QPointer<KTextEditor::View> view)
     {
         // view changed?
         // => update definition
@@ -195,12 +222,11 @@ public:
 
             m_view = view;
 
-            m_htmlHl.setDefinition(m_syntaxHlRepo.definitionForName(QStringLiteral("Diff")));
             updateFont();
+        }
 
-            if (m_view && m_view->focusProxy()) {
-                m_view->focusProxy()->installEventFilter(this);
-            }
+        if (m_view && m_view->focusProxy()) {
+            m_view->focusProxy()->installEventFilter(this);
         }
     }
 
@@ -216,6 +242,9 @@ public:
 
     Q_SLOT void hideTooltip()
     {
+        if (m_view && m_view->focusProxy()) {
+            m_view->focusProxy()->removeEventFilter(this);
+        }
         close();
         setText(QString());
     }

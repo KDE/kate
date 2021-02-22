@@ -536,15 +536,19 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
 
     case Qt::DisplayRole:
         // in list mode we want to use kate's fancy names.
-        if (m_listMode) {
-            return item->documentName();
-        } else {
-            return item->display();
+        if (index.column() == 0) {
+            if (m_listMode) {
+                return item->documentName();
+            } else {
+                return item->display();
+            }
         }
-
+        break;
     case Qt::DecorationRole:
-        return item->icon();
-
+        if (index.column() == 0) {
+            return item->icon();
+        }
+        break;
     case Qt::ToolTipRole: {
         QString tooltip = item->path();
         if (item->flag(ProxyItem::DeletedExternally) || item->flag(ProxyItem::ModifiedExternally)) {
@@ -623,7 +627,7 @@ int KateFileTreeModel::rowCount(const QModelIndex &parent) const
 int KateFileTreeModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return 1;
+    return 2;
 }
 
 QModelIndex KateFileTreeModel::parent(const QModelIndex &index) const
@@ -651,7 +655,7 @@ QModelIndex KateFileTreeModel::parent(const QModelIndex &index) const
 QModelIndex KateFileTreeModel::index(int row, int column, const QModelIndex &parent) const
 {
     const ProxyItem *p = nullptr;
-    if (column != 0) {
+    if (column != 0 && column != 1) {
         return QModelIndex();
     }
 
@@ -669,7 +673,7 @@ QModelIndex KateFileTreeModel::index(int row, int column, const QModelIndex &par
         return QModelIndex();
     }
 
-    return createIndex(row, 0, p->child(row));
+    return createIndex(row, column, p->child(row));
 }
 
 bool KateFileTreeModel::hasChildren(const QModelIndex &parent) const

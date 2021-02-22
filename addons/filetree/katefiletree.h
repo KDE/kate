@@ -27,6 +27,7 @@ public:
     ~KateFileTree() override;
 
     void setModel(QAbstractItemModel *model) override;
+    void setShowCloseButton(bool show);
 
 public Q_SLOTS:
     void slotDocumentClose();
@@ -98,6 +99,8 @@ private:
 
     QPersistentModelIndex m_previouslySelected;
     QPersistentModelIndex m_indexContextMenu;
+
+    bool m_hasCloseButton;
 };
 
 #endif // KATE_FILETREE_H

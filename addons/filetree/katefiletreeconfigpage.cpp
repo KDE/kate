@@ -89,6 +89,10 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     cbShowFullPath = new QCheckBox(i18n("&Show Full Path"), this);
     lo4->addWidget(cbShowFullPath);
 
+    cbShowClose = new QCheckBox(i18n("Show Close Button"), this);
+    layout->addWidget(cbShowClose);
+    layout->addWidget(new QLabel(i18n("When enabled, this will show a close button for opened documents on hover.")));
+
     layout->insertStretch(-1, 10);
 
     gbEnableShading->setWhatsThis(
@@ -116,6 +120,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     connect(cmbSort, QOverload<int>::of(&QComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
     connect(cmbMode, QOverload<int>::of(&QComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
     connect(cbShowFullPath, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(cbShowClose, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
 }
 
 QString KateFileTreeConfigPage::name() const
@@ -147,7 +152,8 @@ void KateFileTreeConfigPage::apply()
                         kcbEditShade->color(),
                         cmbMode->itemData(cmbMode->currentIndex()).toBool(),
                         cmbSort->itemData(cmbSort->currentIndex()).toInt(),
-                        cbShowFullPath->checkState() == Qt::Checked);
+                        cbShowFullPath->checkState() == Qt::Checked,
+                        cbShowClose->isChecked());
 }
 
 void KateFileTreeConfigPage::reset()
@@ -160,6 +166,7 @@ void KateFileTreeConfigPage::reset()
     cmbSort->setCurrentIndex(cmbSort->findData(settings.sortRole()));
     cmbMode->setCurrentIndex(settings.listMode());
     cbShowFullPath->setCheckState(settings.showFullPathOnRoots() ? Qt::Checked : Qt::Unchecked);
+    cbShowClose->setChecked(settings.showCloseButton());
 
     m_changed = false;
 }

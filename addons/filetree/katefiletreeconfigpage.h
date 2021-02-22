@@ -47,6 +47,7 @@ private:
     class QLabel *lEditShade, *lViewShade, *lSort, *lMode;
     QComboBox *cmbSort, *cmbMode;
     class QCheckBox *cbShowFullPath;
+    class QCheckBox *cbShowClose;
     KateFileTreePlugin *m_plug;
 
     bool m_changed = false;

@@ -36,6 +36,9 @@ public:
     bool showFullPathOnRoots() const;
     void setShowFullPathOnRoots(bool);
 
+    bool showCloseButton() const;
+    void setShowCloseButton(bool);
+
 private:
     KConfigGroup m_group;
 
@@ -47,6 +50,7 @@ private:
     int m_sortRole;
 
     bool m_showFullPathOnRoots;
+    bool m_showCloseButton;
 };
 
 #endif // KATE_FILETREE_PLUGIN_H

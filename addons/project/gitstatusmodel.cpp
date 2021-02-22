@@ -74,7 +74,7 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
-    auto row = index.row();
+    const int row = index.row();
 
     if (index.internalId() == Root) {
         if (role == Qt::DisplayRole) {
@@ -136,6 +136,12 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
                 return Qt::AlignLeft;
             } else {
                 return Qt::AlignRight;
+            }
+        } else if (role == Qt::ForegroundRole) {
+            if (index.column() == 1 && rootIndex > 0) {
+                return QColor(Qt::red);
+            } else if (index.column() == 1 && rootIndex == 0) {
+                return QColor(Qt::green);
             }
         }
     }

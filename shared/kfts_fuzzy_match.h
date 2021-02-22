@@ -379,8 +379,10 @@ Q_DECL_UNUSED static void paintItemViewText(QPainter *p, const QString &text, co
 
     textLayout.endLayout();
 
+    int y = QStyle::alignedRect(Qt::LayoutDirectionAuto, Qt::AlignVCenter, textLayout.boundingRect().size().toSize(), options.rect).y();
+
     // draw the text
-    const auto pos = QPointF(options.rect.x(), options.rect.y());
+    const auto pos = QPointF(options.rect.x(), y);
     textLayout.draw(p, pos);
 }
 
